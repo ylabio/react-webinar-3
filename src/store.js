@@ -5,6 +5,12 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.lastIndex = initState.list.reduce((acc, el) => {
+      el.code > acc 
+        ? acc = el.code 
+        : acc;
+      return acc;
+    }, 0); // Максимальный код существовавших записей
   }
 
   /**
@@ -44,7 +50,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: ++this.lastIndex, title: 'Новая запись'}]
     })
   };
 
