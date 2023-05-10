@@ -39,12 +39,25 @@ class Store {
   }
 
   /**
+   * Генератор числовых ключей в диапазоне от 1 до 999 включительно с учетом уже имеющихся ключей
+   */
+
+  getKey() {
+    const itemsCodes = this.state.list.map(item => item.code);
+    let newKey = Math.floor(Math.random() * (1000 - 1)) + 1;
+    while (itemsCodes.includes(newKey) && itemsCodes.length < 1000) {
+      newKey = Math.floor(Math.random() * (1000 - 1)) + 1;
+    }
+    return newKey;
+  }
+
+  /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.getKey(), title: 'Новая запись', selectionsCount: 0}]
     })
   };
 
@@ -67,8 +80,9 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        item.selected = item.code === code ? !item.selected : false;
+        if (item.selected) {
+          item.selectionsCount++
         }
         return item;
       })
