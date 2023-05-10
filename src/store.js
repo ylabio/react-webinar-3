@@ -69,6 +69,8 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected)
+            item.count = item.count ? ++item.count : 1; // свойство для кол-ва выделений
         } else
           item.selected = false;
         return item;
