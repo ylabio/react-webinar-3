@@ -1,11 +1,10 @@
 import React from 'react';
-import {createElement} from './utils.js';
+import {getDeclination} from './utils.js';
 import './styles.css';
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
- * @returns {React.ReactElement}
  */
 function App({store}) {
 
@@ -26,9 +25,17 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-info'>
+                  <div className="Item-title">
+                    {item.title}
+                  </div>
+                  {item.clickCount > 0 && <div className="Item-clicked"> | Выделяли {getDeclination(item.clickCount, "раз", "раза", "раз")}</div>}
+                </div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => {
+                      e.stopPropagation();
+                      store.deleteItem(item.code)
+                  }}>
                     Удалить
                   </button>
                 </div>

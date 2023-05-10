@@ -1,18 +1,18 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
-import {createElement} from './utils.js';
 import App from './app.js';
 import Store from './store.js';
+import {generateUniqueId} from "./utils";
 
 const store = new Store({
   list: [
-    {code: 1, title: 'Название элемента'},
-    {code: 2, title: 'Некий объект'},
-    {code: 3, title: 'Заголовок'},
-    {code: 4, title: 'Очень длинное название элемента из семи слов'},
-    {code: 5, title: 'Запись'},
-    {code: 6, title: 'Шестая запись'},
-    {code: 7, title: 'Седьмая запись'},
+    {code: generateUniqueId(), title: 'Название элемента', clickCount: 0},
+    {code: generateUniqueId(), title: 'Некий объект', clickCount: 0},
+    {code: generateUniqueId(), title: 'Заголовок', clickCount: 0},
+    {code: generateUniqueId(), title: 'Очень длинное название элемента из семи слов', clickCount: 0},
+    {code: generateUniqueId(), title: 'Запись', clickCount: 0},
+    {code: generateUniqueId(), title: 'Шестая запись', clickCount: 0},
+    {code: generateUniqueId(), title: 'Седьмая запись', clickCount: 0},
   ]
 });
 
