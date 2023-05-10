@@ -10,6 +10,8 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
+  const selectedItemCode = store.getState().selectedItemCode;
+  const counter = store.getState().counter;
 
   return (
     <div className='App'>
@@ -21,12 +23,16 @@ function App({store}) {
       </div>
       <div className='App-center'>
         <div className='List'>{
-          list.map(item =>
+          list.map((item, index) =>
             <div key={item.code} className='List-item'>
-              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
+              <div className={'Item' + (selectedItemCode === item.code ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-num'>№{index + 1}</div>
+                <div className='Item-code'>code={item.code}</div>
+                <div
+                  className='Item-title'>{
+                  item.title}{counter[item.code] && <>{` | Выделяли ${counter[item.code]} раз`}</>
+                }</div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
