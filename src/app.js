@@ -21,7 +21,7 @@ function App({store}) {
       <div className='App-center'>
         <div className='List'>{
           list.map(item => (
-            <div key={generateId()} className='List-item'>
+            <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
