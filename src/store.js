@@ -42,9 +42,13 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    let key = this.state.list[this.state.list.length - 1].code + 1
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      // как по мне так генерация ключа по Date.now() дело надежное, но можно причислить к огромным числам. так что второй вариант присутствует
+      // list: [...this.state.list, {code: Date.now(), title: 'Новая запись'}]
+
+      list: [...this.state.list, {code: key, title: 'Новая запись'}]
     })
   };
 
