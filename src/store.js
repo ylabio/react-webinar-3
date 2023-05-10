@@ -42,11 +42,13 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newCode = this.state.list.length > 0 ? Math.max(...this.state.list.map(item => item.code)) + 1 : 1;
+  
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+      list: [...this.state.list, { code: newCode, title: 'Новая запись ' }]
+    });
+  }
 
   /**
    * Удаление записи по коду
@@ -64,16 +66,25 @@ class Store {
    * @param code
    */
   selectItem(code) {
+    const newList = this.state.list.map(item => {
+      if (item.code === code) {
+        item.selected = !item.selected;
+      } else {
+        item.selected = false; // сброс выделения у других записей
+      }
+      return item;
+    });
+  
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      })
-    })
+      list: newList
+    });
   }
+  
+  
+  
+  
+  
 }
 
 export default Store;
