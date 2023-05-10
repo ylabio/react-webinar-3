@@ -29,9 +29,13 @@ body {
   justify-content: flex-end;
   padding: 20px;
 }
+.App-controls > button {
+  cursor: pointer;
+}
 
 .List-item {
   border-bottom: 1px dashed #ccc;
+  cursor: pointer;
 }
 
 .Item {
@@ -58,4 +62,7 @@ body {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+.Item-actions > button {
+  cursor: pointer;
 }
