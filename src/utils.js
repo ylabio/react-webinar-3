@@ -26,3 +26,13 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function generateNumber(list) {
+  let codeArray = []
+  list.forEach(item => codeArray.push(item.code))
+  for (let i = 0; i <= codeArray.length + 1; i++) {
+    if (!codeArray.includes(i)) {
+      return i
+    }
+  }
+}

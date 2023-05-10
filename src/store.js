@@ -1,3 +1,5 @@
+import {generateNumber} from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -6,7 +8,7 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
   }
-
+  
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
@@ -19,7 +21,7 @@ class Store {
       this.listeners = this.listeners.filter(item => item !== listener);
     }
   }
-
+  
   /**
    * Выбор состояния
    * @returns {Object}
@@ -27,7 +29,7 @@ class Store {
   getState() {
     return this.state;
   }
-
+  
   /**
    * Установка состояния
    * @param newState {Object}
@@ -35,19 +37,21 @@ class Store {
   setState(newState) {
     this.state = newState;
     // Вызываем всех слушателей
-    for (const listener of this.listeners) listener();
+    for (const listener of this.listeners) {
+      listener();
+    }
   }
-
+  
   /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: generateNumber(this.state.list), title: 'Новая запись'}]
     })
   };
-
+  
   /**
    * Удаление записи по коду
    * @param code
@@ -58,21 +62,30 @@ class Store {
       list: this.state.list.filter(item => item.code !== code)
     })
   };
-
+  
   /**
    * Выделение записи по коду
    * @param code
    */
   selectItem(code) {
     this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      })
-    })
+        ...this.state,
+        list: this.state.list.map(item => {
+          if (item.code === code) {
+            item.selected = !item.selected;
+            if (item.selectCount && item.selected) {
+              item.selectCount++
+            }
+            if (!item.selectCount) {
+              item.selectCount = 1
+            }
+          } else {
+            item.selected = false
+          }
+          return item;
+        })
+      }
+    )
   }
 }
 
