@@ -32,7 +32,7 @@ export function createElement(name, props = {}, ...children) {
  * @returns {Number}
  */
 export const generateId = () => {
-  const symbols = ['a','b','c','d','e','f','g'];
+  const symbols = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t'];
   
   return symbols[randomNum(symbols.length-1)] + 
         symbols[randomNum(symbols.length-1)] + 
