@@ -38,6 +38,7 @@ body {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  transition: color 1s;
 }
 
 .Item_selected {
