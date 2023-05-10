@@ -26,3 +26,10 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+const getSimpleId = () => {
+  let count = 0;
+  return () => count++
+}
+
+export const getId = getSimpleId();
