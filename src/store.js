@@ -1,6 +1,8 @@
 /**
  * Хранилище состояния приложения
  */
+import {getRandomCode} from "./utils";
+
 class Store {
   constructor(initState = {}) {
     this.state = initState;
@@ -44,7 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: getRandomCode(), title: 'Новая запись', clickCount: 0}]
     })
   };
 
@@ -64,11 +66,29 @@ class Store {
    * @param code
    */
   selectItem(code) {
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+        }else if(item.hasOwnProperty('selected')){
+           delete item.selected;
+        }
+        return item;
+      })
+    })
+  }
+  /**
+   * Количество кликов по записи
+   * @param code
+   */
+  clickCount(code){
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          item.clickCount ++;
         }
         return item;
       })
