@@ -89,6 +89,14 @@ class Store {
           item.selected = !item.selected;
         }
 
+        if (item.click && item.selected) {
+          item.click += 1;
+        }
+
+        if (!item.click && item.code === code) {
+          item.click = 1;
+        }
+
         return item;
       })
     })
