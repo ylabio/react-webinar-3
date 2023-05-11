@@ -40,6 +40,10 @@ body {
   transition: background-color 1s;
 }
 
+.Item-title-text {
+  margin-right: 5px;
+}
+
 .Item_selected {
   background: #75aaf1;
   color: #fff;
@@ -52,6 +56,7 @@ body {
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  display: flex;
 }
 
 .Item-actions {
