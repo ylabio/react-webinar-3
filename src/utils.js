@@ -26,3 +26,13 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getPlural(counter) {
+  return counter > 0
+    ? counter % 10 > 1 && counter % 10 < 5
+      ? counter > 11 && counter < 15
+        ? `| Выделяли ${counter} раз`
+        : `| Выделяли ${counter} раза`
+      : `| Выделяли ${counter} раз`
+    : '';
+}
