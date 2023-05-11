@@ -40,7 +40,7 @@ let config = {
       template: './index.html',
       filename: './index.html',
       title: 'Simple SPA',
-      base: '/',
+      base: './',
     }),
   ],
 }

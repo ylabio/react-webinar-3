@@ -24,11 +24,14 @@ function App({store}) {
           list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
+                  onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>{item.title + (item.selection ? ` -- Выделено ${item.selection} ${RazaRaz(item.selection)}` : '')}</div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => {
+                    e.stopPropagation()
+                    store.deleteItem(item.code)
+                  }}>
                     Удалить
                   </button>
                 </div>
@@ -42,3 +45,17 @@ function App({store}) {
 }
 
 export default App;
+
+
+function RazaRaz(a) {
+  const raz = [0, 1, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+  if (raz.includes(a)) return 'раз'
+  else {
+    if (a >= 20) {
+      a = a % 10
+      return RazaRaz(a)
+    } else {
+      return 'раза'
+    }
+  }
+}
