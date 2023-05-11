@@ -1,3 +1,13 @@
+/**
+ * String generation with declensed word 'раз'
+ * @param count number of times current item was selected
+ * @returns string
+ */
+export function generateCountText(count) {
+  const times = count.toString().match(/\d*(?<!1)[2-4]$/) ? 'раза' : 'раз';
+  return ` | Выделяли ${count} ${times}`;
+}
+
 const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
 
 /**
