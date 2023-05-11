@@ -1,3 +1,5 @@
+import { store } from ".";
+
 const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
 
 /**
@@ -25,4 +27,8 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
+}
+
+export function generateCode() {
+  return (Math.max(...store.state.list.map(item => item.code)) + 1);
 }
