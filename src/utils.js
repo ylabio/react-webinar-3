@@ -26,3 +26,12 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+//Склонение числительных
+export function num_word(value, words){
+	value = Math.abs(value) % 100;
+  var num = value % 10;
+  if(value > 10 && value < 20) return words[0]; 
+  if( num === 2 || num === 3 || num === 4) return words[1]
+  return words[0];
+}
