@@ -26,3 +26,15 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function generateUniqueId(list) {
+
+  const generatedCodes = new Set(list.map(item => item.code));
+  let nextCode = Math.max(...list.map(item => item.code)) + 1;
+
+  if (!generatedCodes.has(nextCode)) {
+    generatedCodes.add(nextCode);
+    return nextCode;
+  }
+  nextCode++;
+}
