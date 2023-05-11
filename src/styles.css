@@ -30,6 +30,12 @@ body {
   padding: 20px;
 }
 
+.Item,
+.Item_selected,
+.App-buttons {
+  cursor: pointer;
+}
+
 .List-item {
   border-bottom: 1px dashed #ccc;
 }
