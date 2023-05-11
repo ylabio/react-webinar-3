@@ -1,3 +1,7 @@
+import { generateUniqueNumber } from './utils';
+
+export const generateCode = generateUniqueNumber();
+
 /**
  * Хранилище состояния приложения
  */
@@ -46,7 +50,7 @@ class Store {
       ...this.state,
       list: [
         ...this.state.list,
-        { code: this.state.list.length + 1, title: 'Новая запись' },
+        { code: generateCode(), title: 'Новая запись' },
       ],
     });
   }

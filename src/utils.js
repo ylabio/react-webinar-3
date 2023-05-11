@@ -26,3 +26,19 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function generateUniqueNumber() {
+  const generatedNumbers = new Set();
+
+  return function () {
+    let num;
+
+    do {
+      num = Math.floor(Math.random() * 10000) + 1;
+    } while (generatedNumbers.has(num));
+
+    generatedNumbers.add(num);
+
+    return num;
+  };
+}
