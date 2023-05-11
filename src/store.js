@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.uniqueCodeCounter = initState.list ? Math.max(...initState.list.map(item => item.code)) : 0; // Текущее максимальное значение кода записи
   }
 
   /**
@@ -42,9 +43,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newCode = this.generateUniqueCode();
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, { code: newCode, title: 'Новая запись', selectionCounter: 0 }]
     })
   };
 
@@ -66,13 +68,25 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      })
-    })
+      list: this.state.list.map(item => ({
+        ...item,
+        selected: item.code === code ? !item.selected : false,
+        selectionCounter: item.code === code && !item.selected ? item.selectionCounter + 1: item.selectionCounter
+      }))
+    });
+  }
+
+  /**
+   * Генерация уникального числа
+   * @returns {number}
+   */
+  generateUniqueCode() {
+    let newCode;
+    do {
+      newCode = Math.floor(Math.random() * 100);
+    } while (this.state.list.some(item => item.code === newCode));
+    this.uniqueCodeCounter = Math.max(this.uniqueCodeCounter, newCode);
+    return ++this.uniqueCodeCounter;
   }
 }
 
