@@ -28,8 +28,6 @@ function App({ store }) {
 								onClick={() => {
 									store.selectItem(item.code);
 									store.clickCount(item.selectCount, item.id);
-
-									console.log(sklonenie(item.selectCount, ['раз', 'раза']))
 								}
 								}>
 								<div className='Item-code'>{item.code}</div>
