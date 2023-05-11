@@ -1,4 +1,5 @@
 const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
+let nextId = 1;
 
 /**
  * Создание элемента со свойствами и вложенными элементами
@@ -26,3 +27,26 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Склоение слов в зависимости от числа
+ @param {number} n - число, по которому определяется форма слова
+ @param {string[]} titles - массив форм слова, например: ['яблоко', 'яблока', 'яблок']
+ @returns {string}
+ */
+export const declOfNum = (n, titles) => {
+  return titles[
+      n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2
+      ]
+}
+
+/**
+ * Генерация уникального id
+ * @returns {function} Функция для генерации уникальных идентификаторов.
+ */
+export function getUniqId() {
+  const id = nextId;
+  nextId += 1;
+  return id;
+}
+
