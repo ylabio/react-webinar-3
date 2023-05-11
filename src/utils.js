@@ -26,9 +26,6 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
-export function getRandomCode(){
-  return Math.floor(Math.random() * (1000 - 100 + 1)) + 100;
-}
 
 export function getTitle(item){
   if(item.clickCount === 0) return item.title

@@ -1,12 +1,12 @@
 /**
  * Хранилище состояния приложения
  */
-import {getRandomCode} from "./utils";
 
 class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.unicCode = this.state.list.length + 1;
   }
 
   /**
@@ -46,7 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: getRandomCode(), title: 'Новая запись', clickCount: 0}]
+      list: [...this.state.list, {code: this.unicCode++, title: 'Новая запись', clickCount: 0}]
     })
   };
 
@@ -88,7 +88,7 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.clickCount ++;
+          !!item.selected && item.clickCount++;
         }
         return item;
       })
