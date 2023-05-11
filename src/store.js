@@ -1,3 +1,5 @@
+import {getCurrentIndex} from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -44,7 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: getCurrentIndex(), title: 'Новая запись', clicked: 0}]
     })
   };
 
@@ -67,13 +69,17 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        if (item.code === code && !item.selected) {
+          item.selected = true;
+          item.clicked++;
+        } else {
+          item.selected = false;
         }
         return item;
       })
     })
   }
+
 }
 
 export default Store;
