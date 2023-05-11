@@ -1,5 +1,5 @@
 import React from "react";
-import { createElement } from "./utils.js";
+import { createElement, wordDeclination } from "./utils.js";
 import "./styles.css";
 
 /**
@@ -33,7 +33,11 @@ function App({ store }) {
                                 <div className="Item-title">
                                     {item.title}{" "}
                                     {item.selectedCount > 0
-                                        ? `| Выделяли ${item.selectedCount} раз`
+                                        ? `| Выделяли ${
+                                              item.selectedCount
+                                          } ${wordDeclination(
+                                              item.selectedCount
+                                          )}`
                                         : null}
                                 </div>
                                 <div className="Item-actions">

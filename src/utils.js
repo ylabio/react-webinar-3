@@ -35,3 +35,13 @@ export function createElement(name, props = {}, ...children) {
 export function findMaxId(arr) {
     return arr.map((item) => item.code).sort((a, b) => b - a)[0];
 }
+
+export function wordDeclination(num) {
+    const lastDigit = num % 10,
+        lastTwoDigit = num % 100;
+
+    if (lastTwoDigit > 11 && lastTwoDigit < 15) return "раз";
+    if (lastDigit > 1 && lastDigit < 5) return "раза";
+
+    return "раз";
+}
