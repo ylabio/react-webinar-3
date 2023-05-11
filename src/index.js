@@ -13,6 +13,8 @@ const store = new Store({
     {code: getCurrentIndex(), title: 'Запись', clicked: 0},
     {code: getCurrentIndex(), title: 'Шестая запись', clicked: 0},
     {code: getCurrentIndex(), title: 'Седьмая запись', clicked: 0},
+    {code: getCurrentIndex(), title: 'Восьмая запись', clicked: 0},
+    {code: getCurrentIndex(), title: 'Девятая запись', clicked: 0},
   ],
 });
 
