@@ -25,7 +25,7 @@ function App({store}) {
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{i}</div>
+                <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title}  {item.highlights && `| Выделяли ${item.highlights} раз`}</div>
                 <div className='Item-actions'>
                   <button onClick={(e) => {
