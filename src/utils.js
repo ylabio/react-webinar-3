@@ -26,3 +26,20 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getTitle(item){
+  if(item.clickCount === 0) return item.title
+
+  const value = Math.abs(item.clickCount) % 100;
+  const num = value % 10;
+
+  if(value === 12 || value === 13 || value ===14){
+    return`${item.title} | Выделяли ${item.clickCount} раз`;
+  }
+
+  if(num > 1 && num < 5) {
+    return `${item.title} | Выделяли ${item.clickCount} раза`;
+  }else {
+    return`${item.title} | Выделяли ${item.clickCount} раз`;
+  }
+}

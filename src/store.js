@@ -1,10 +1,12 @@
 /**
  * Хранилище состояния приложения
  */
+
 class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.unicCode = this.state.list.length + 1;
   }
 
   /**
@@ -44,7 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.unicCode++, title: 'Новая запись', clickCount: 0}]
     })
   };
 
@@ -64,11 +66,29 @@ class Store {
    * @param code
    */
   selectItem(code) {
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+        }else if(item.hasOwnProperty('selected')){
+           delete item.selected;
+        }
+        return item;
+      })
+    })
+  }
+  /**
+   * Количество кликов по записи
+   * @param code
+   */
+  clickCount(code){
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          !!item.selected && item.clickCount++;
         }
         return item;
       })
