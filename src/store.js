@@ -66,10 +66,15 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
+        if (item.code !== code && item.selected) {
+          delete item.selected;
+        }
+
         if (item.code === code) {
           item.selected = !item.selected;
         }
+
         return item;
       })
     })
