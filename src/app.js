@@ -10,6 +10,9 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
+    function declOfNum(counter, words) {
+        return words[(counter % 100 > 4 && counter % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][(counter % 10 < 5) ? Math.abs(counter) % 10 : 5]];
+    }
 
   return (
     <div className='App'>
@@ -26,7 +29,7 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>{item.title}{item.counter === 0 ? '': ` | Выделяли ${item.counter} ${declOfNum(item.counter, ['раз','раза','раз'])}`}</div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
