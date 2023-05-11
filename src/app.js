@@ -10,7 +10,6 @@ import "./styles.css";
 function App({ store }) {
   const list = store.getState().list;
   console.log(list);
-  const id = () => new Date().getTime() + Math.random();
   return (
     <div className="App">
       <div className="App-head">
@@ -22,8 +21,8 @@ function App({ store }) {
       <div className="App-center">
         <div className="List">
           {list.map((item) => (
-            <div key={id()} className="List-item">
-              {console.log(id())}
+            <div key={item.id} className="List-item">
+              {console.log(item.id)}
               <div
                 className={"Item" + (item.selected ? " Item_selected" : "")}
                 onClick={() => store.selectItem(item.code)}

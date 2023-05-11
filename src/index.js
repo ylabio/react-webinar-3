@@ -6,17 +6,48 @@ import Store from "./store.js";
 
 const store = new Store({
   list: [
-    { code: 1, title: "Название элемента", counter: 0 },
-    { code: 2, title: "Некий объект", counter: 0 },
-    { code: 3, title: "Заголовок", counter: 0 },
+    {
+      code: 1,
+      title: "Название элемента",
+      counter: 0,
+      id: new Date().getTime() + Math.random(),
+    },
+    {
+      code: 2,
+      title: "Некий объект",
+      counter: 0,
+      id: new Date().getTime() + Math.random(),
+    },
+    {
+      code: 3,
+      title: "Заголовок",
+      counter: 0,
+      id: new Date().getTime() + Math.random(),
+    },
     {
       code: 4,
       title: "Очень длинное название элемента из семи слов",
       counter: 0,
+      id: new Date().getTime() + Math.random(),
     },
-    { code: 5, title: "Запись", counter: 0 },
-    { code: 6, title: "Шестая запись", counter: 0 },
-    { code: 7, title: "Седьмая запись", counter: 0 },
+    {
+      code: 5,
+      title: "Запись",
+      counter: 0,
+      id: new Date().getTime() + Math.random(),
+    },
+    {
+      code: 6,
+      title: "Шестая запись",
+      counter: 0,
+      id: new Date().getTime() + Math.random(),
+    },
+    {
+      code: 7,
+      title: "Седьмая запись",
+      counter: 0,
+      id: new Date().getTime() + Math.random(),
+    },
   ],
 });
 

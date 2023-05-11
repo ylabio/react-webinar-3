@@ -50,7 +50,7 @@ class Store {
           code: this.state.list.length + 1,
           title: "Новая запись",
           counter: 0,
-          id: new Date(),
+          id: new Date().getTime() + Math.random(),
         },
       ],
     });
