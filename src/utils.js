@@ -32,9 +32,16 @@ export function createElement(name, props = {}, ...children) {
  * @returns {number}
  */
 
-export function findMaxId(arr) {
+export function findMaxId(arr = []) {
+    if (arr.length == 0) return 0;
+
     return arr.map((item) => item.code).sort((a, b) => b - a)[0];
 }
+
+/**
+ * @param num {number} Список элементов
+ * @returns {string}
+ */
 
 export function wordDeclination(num) {
     const lastDigit = num % 10,
