@@ -10,6 +10,7 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
+  const uniqueId = store.getState().uniqueId;
 
   return (
     <div className='App'>
@@ -22,11 +23,12 @@ function App({store}) {
       <div className='App-center'>
         <div className='List'>{
           list.map(item =>
-            <div key={item.code} className='List-item'>
+            <div key={(uniqueId.add(item.code), item.code)} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title}</div>
+                {item.counter > 0?  <div className='Item-counter'> Выделяли {item.counter} раз </div> : ''}
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить

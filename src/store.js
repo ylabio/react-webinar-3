@@ -1,6 +1,9 @@
 /**
  * Хранилище состояния приложения
  */
+
+
+
 class Store {
   constructor(initState = {}) {
     this.state = initState;
@@ -44,7 +47,8 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      // list: [...this.state.list, {code: this.state.list[this.state.list.length - 1].code + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.getId(), title: 'Новая запись'}]
     })
   };
 
@@ -59,6 +63,24 @@ class Store {
     })
   };
 
+   getId  () {
+    let max = 1000;
+    let min = 1;
+    let randomID = Math.floor(Math.random() * (max - min + 1)) + min;
+
+    console.log(randomID);
+     
+    
+    if (this.state.uniqueId.has(randomID)) {
+      return this.getId();
+    } else {
+     
+      return randomID;
+    }
+  
+    
+  };
+
   /**
    * Выделение записи по коду
    * @param code
@@ -68,7 +90,11 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          item.counter = item.counter ? item.counter + 1 : 1
+          console.log(item.counter);
           item.selected = !item.selected;
+        } else if (item.code !== code && item.selected ) {
+          item.selected = false
         }
         return item;
       })
