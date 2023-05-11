@@ -2,9 +2,15 @@
  * Хранилище состояния приложения
  */
 class Store {
+  id = 0;
+
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+
+    if (initState.list.length){
+      this.id = initState.list.at(-1).code || initState.list.length
+    }
   }
 
   /**
@@ -16,8 +22,23 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
+  }
+
+  /**
+   * Счетчик кол-ва кликов
+   */
+  countClick(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map((item) => {
+        if (item.code === code) {
+          item.count ? (item.count += 1) : (item.count = 1);
+        }
+        return item;
+      }),
+    });
   }
 
   /**
@@ -44,9 +65,12 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+      list: [
+        ...this.state.list,
+        { code: ++this.id, title: "Новая запись" },
+      ],
+    });
+  }
 
   /**
    * Удаление записи по коду
@@ -55,24 +79,20 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      list: this.state.list.filter((item) => item.code !== code),
+    });
+  }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
         if (item.code === code) {
           item.selected = !item.selected;
         }
         return item;
-      })
-    })
+      }),
+    });
   }
 }
 
