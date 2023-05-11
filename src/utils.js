@@ -31,5 +31,5 @@ let currentIndex = -1;
 
 export function getCurrentIndex (){
   console.log(currentIndex)
-  return currentIndex += 1;
+  return ++currentIndex;
 }
