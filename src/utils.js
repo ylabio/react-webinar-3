@@ -26,3 +26,26 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+
+function codeGenerator() {
+  let value = 0;
+
+  return () => {
+    return value += 1;
+  }
+}
+
+export const generator = codeGenerator();
+
+/**
+ * Склонение слов
+ * @param num {Number} Количество
+ * @param forms {[string, string, string]} Формы слов [один, несколько, много]
+ * @returns {string}
+ */
+export function pluralize(num, forms) {
+  const pr = new Intl.PluralRules("ru");
+  const currentForm = new Map([['one', forms[0]], ['few', forms[1]], ['many', forms[2]]]);
+  return currentForm.get(pr.select(num));
+}

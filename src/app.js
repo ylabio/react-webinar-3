@@ -1,5 +1,5 @@
 import React from 'react';
-import {createElement} from './utils.js';
+import {pluralize} from './utils.js';
 import './styles.css';
 
 /**
@@ -8,7 +8,6 @@ import './styles.css';
  * @returns {React.ReactElement}
  */
 function App({store}) {
-
   const list = store.getState().list;
 
   return (
@@ -24,9 +23,18 @@ function App({store}) {
           list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
+                   onClick={({target}) => {
+                    // Делаем проверку, чтобы выделение не сбрасывалось,
+                    // когда мы кликаем по кнопке "удалить"
+                    if (!target.matches('button')) {
+                      store.selectItem(item.code)}
+                    }
+                  }>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>{item.title}
+                  {item.selectedCount > 0 &&
+                    <span> | Выделяли {item.selectedCount} {pluralize(item.selectedCount, ['раз', 'раза', 'раз'])} </span>}
+                </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
