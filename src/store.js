@@ -81,9 +81,11 @@ class Store {
       list: this.state.list.map((item) => {
         if (item.id === code) {
           item.selected = !item.selected;
-          item.counter = item.counter + 1;
         } else {
           item.selected = false;
+        }
+        if (item.selected) {
+          item.counter = item.counter + 1;
         }
         return item;
       }),
