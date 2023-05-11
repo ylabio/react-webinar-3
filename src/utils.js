@@ -26,3 +26,16 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getWordForm(number, word = 'раз') { // Функция, которая определяет окончание
+  const lastDigit = number % 10;
+  const lastTwoDigit = number % 100;
+
+  if (lastTwoDigit >= 12 && lastTwoDigit <= 14) {
+    return word;
+  }
+  if (lastDigit >= 2 && lastDigit <= 4) {
+    return word + 'а';
+  }
+  return word;
+}

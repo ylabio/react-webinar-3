@@ -16,8 +16,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -41,12 +41,12 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
+  addItem(code) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+      list: [...this.state.list, { code: code, title: 'Новая запись', count: 0 }],
+    });
+  }
 
   /**
    * Удаление записи по коду
@@ -55,24 +55,36 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      list: this.state.list.filter((item) => item.code !== code),
+    });
+  }
 
   /**
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, event) {
+    const target = event.target;
+    const updatedList = this.state.list.map((item) => {
+      // Сохранение выделения при удалении
+      if (target.tagName === 'BUTTON') {
+        return item;
+      } // Подсчёт количества выделений
+      if (item.code === code) {
+        if (!item.selected) {
+          item.count += 1;
+        }
+        item.selected = !item.selected;
+      } // Сброс старого выделения
+      if (item.selected && item.code !== code) {
+        item.selected = !item.selected;
+      }
+      return item;
+    });
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      })
-    })
+      list: updatedList,
+    });
   }
 }
 
