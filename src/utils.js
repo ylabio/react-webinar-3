@@ -30,6 +30,5 @@ export function createElement(name, props = {}, ...children) {
 let currentIndex = -1;
 
 export function getCurrentIndex (){
-  console.log(currentIndex)
   return currentIndex += 1;
 }
