@@ -11,6 +11,15 @@ function App({store}) {
 
   const list = store.getState().list;
 
+  const handleDelete = (e, item) => {
+    e.stopPropagation();
+    store.deleteItem(item);
+  }
+
+  const getCount = (count) => {
+    return count ? ` | Выделяли ${count} раз` : '';
+  }
+
   return (
     <div className='App'>
       <div className='App-head'>
@@ -26,9 +35,12 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>
+                  {item.title}
+                  {getCount(item.count)}
+                </div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => handleDelete(e, item.code)}>
                     Удалить
                   </button>
                 </div>
