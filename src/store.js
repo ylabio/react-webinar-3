@@ -2,9 +2,10 @@
  * Хранилище состояния приложения
  */
 class Store {
-  constructor(initState = {}) {
+  constructor(initState = {}, getUniqueID = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.getUniqueID = getUniqueID;
   }
 
   /**
@@ -17,7 +18,7 @@ class Store {
     // Возвращается функция для удаления добавленного слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);
-    }
+    };
   }
 
   /**
@@ -44,8 +45,13 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
+      list: [...this.state.list, {
+        code: this.getUniqueID(),
+        title: 'Новая запись',
+        selected: false,
+        selectCount: 0,
+      }],
+    });
   };
 
   /**
@@ -55,8 +61,8 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
+      list: this.state.list.filter(item => item.code !== code),
+    });
   };
 
   /**
@@ -68,12 +74,16 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          if (!item.selected) {
+            item.selectCount += 1;
+          }
           item.selected = !item.selected;
+        } else {
+          item.selected = false;
         }
         return item;
-      })
-    })
+      }),
+    });
   }
 }
-
 export default Store;
