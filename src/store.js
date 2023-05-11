@@ -3,8 +3,14 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    const { list = [] } = initState;
+    const codeCounter = Math.max(...list.map(({ code }) => code), 0);
+
+    this.state = {
+      ...initState,
+      codeCounter,
+    };
+    this.listeners = [];
   }
 
   /**
@@ -42,9 +48,16 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const { list, codeCounter } = this.state;
+    const newItem = {
+      code: codeCounter + 1,
+      title: 'Новая запись',
+      counter: 0,
+    };
+
     this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...list, newItem],
+      codeCounter: codeCounter + 1,
     })
   };
 
@@ -69,6 +82,11 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.counter = item.counter + 1;
+          }
+        } else {
+          item.selected = false;
         }
         return item;
       })
