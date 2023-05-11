@@ -5,8 +5,9 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.codes = this.state.list.map(item => item.code); //массив кодов элементов списка
   }
-
+  
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
@@ -39,12 +40,28 @@ class Store {
   }
 
   /**
+   * Генерируем новый уникальный код
+   * @param arr
+  */
+  generateNewCode(arr) {
+    let newCode;
+    do {
+      //newCode = Math.floor((Math.random() * Math.max(...this.codes)) + Math.max(...this.codes) + 1);      
+      newCode = Math.max(...this.codes) + 1;      
+    } while (arr.includes(newCode));
+    return newCode;
+  }
+
+  /**
    * Добавление новой записи
    */
   addItem() {
+    let newCode = this.generateNewCode(this.codes);
+    this.codes.push(newCode);
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: newCode, title: 'Новая запись', counter: 0}]
     })
   };
 
@@ -69,6 +86,10 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected === true) ++item.counter; // увеличиваем счетчик выделений
+        }
+        else {
+          item.selected = false; // скрываем выделение у остальных элементов
         }
         return item;
       })
