@@ -1,5 +1,5 @@
 import React from 'react';
-import {createElement} from './utils.js';
+import {createElement, editTime} from './utils.js';
 import './styles.css';
 
 /**
@@ -10,7 +10,7 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
-
+console.log(list);
   return (
     <div className='App'>
       <div className='App-head'>
@@ -21,12 +21,15 @@ function App({store}) {
       </div>
       <div className='App-center'>
         <div className='List'>{
-          list.map(item =>
+          list.map((item, i) =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-code'>{i + 1}</div>
+                <div className='Item-title'>
+                  {item.title}
+                  {item.selectCount && ` | Выделяли ${editTime(item.selectCount)}`}
+                  </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
