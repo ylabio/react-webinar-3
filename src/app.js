@@ -24,20 +24,24 @@ function App({store}) {
           list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
+                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title}</div>
+                {item.selectionCounter > 0 && <span className='Item-title'>Выделяли {item.selectionCounter} раз</span>}
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
-                    Удалить
-                  </button>
-                </div>
+                  <button onClick={
+                    (e) => {
+                      e.stopPropagation()
+                      store.deleteItem(item.code)}}>
+                  Удалить
+                </button>
               </div>
             </div>
+            </div>
           )}
-        </div>
       </div>
     </div>
+    </div >
   );
 }
 
