@@ -26,3 +26,19 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+  //Количество выделений с правильным склонением слова "раз"
+export function getClicksString(clicks) {
+  const clickWordForms = ['раз', 'раза', 'раз'];
+  let clickWordFormIndex = 2;
+
+  if (clicks >= 11 && clicks <= 19) {
+    clickWordFormIndex = 0;
+  } else if (clicks % 10 === 1) {
+    clickWordFormIndex = 0;
+  } else if (clicks % 10 >= 2 && clicks % 10 <= 4) {
+    clickWordFormIndex = 1;
+  }
+
+  return `| Выделяли ${clicks} ${clickWordForms[clickWordFormIndex]}`;
+}

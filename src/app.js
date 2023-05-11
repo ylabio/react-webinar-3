@@ -1,7 +1,6 @@
 import React from 'react';
-import {createElement} from './utils.js';
 import './styles.css';
-
+import {getClicksString} from "./utils";
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -10,6 +9,11 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
+
+  const itemHandler = (item) => {
+      store.selectItem(item)
+      store.countClicks(item)
+  }
 
   return (
     <div className='App'>
@@ -24,9 +28,11 @@ function App({store}) {
           list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                   onClick={() => itemHandler(item.code)}>
+                <div className='Item-code'>{item.code} </div>
+                <div className='Item-title'>{item.title} {item.clicks !== 0 &&
+                    <span className='Item-clicks'>  {getClicksString(item.clicks)}  </span>}
+                </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
