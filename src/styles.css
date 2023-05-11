@@ -50,8 +50,29 @@ body {
 }
 
 .Item-title {
-  width: 100%;
   padding: 20px 10px;
+}
+
+.Element {
+  border: 1px solid gray;
+  height: 15px;
+  margin-top: 20px;
+}
+
+.No-element {
+  border: 1px solid white;
+  height: 15px;
+  margin-top: 20px;
+}
+
+.Item-quantity-selected {
+  flex-grow: 1;
+  padding: 20px 10px;
+}
+
+.No-item-quantity-selected {
+  flex-grow: 1;
+  color: white;
 }
 
 .Item-actions {
