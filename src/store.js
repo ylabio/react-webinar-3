@@ -42,7 +42,7 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    const genId = Math.floor(Math.random() * 1000)
+    const genId = Math.random().toString(26).slice(2);
     this.setState({
       ...this.state,
       list: [...this.state.list, {code: genId, title: 'Новая запись'}]
