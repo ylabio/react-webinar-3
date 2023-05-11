@@ -27,8 +27,7 @@ function App({store}) {
             <div key={item.code} className='List-item'>
               <div className={'Item' + (selectedItemCode === item.code ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
-                <div className='Item-num'>№{index + 1}</div>
-                <div className='Item-code'>code={item.code}</div>
+                <div className='Item-code'>{item.code}</div>
                 <div
                   className='Item-title'>{
                   item.title}{counter[item.code] && <>{` | Выделяли ${counter[item.code]} раз`}</>
