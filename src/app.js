@@ -2,11 +2,6 @@ import React from 'react';
 import { createElement } from './utils.js';
 import './styles.css';
 
-/**
- * Приложение
- * @param store {Store} Хранилище состояния приложения
- * @returns {React.ReactElement}
- */
 function App({ store }) {
   const list = store.getState().list;
 
@@ -70,5 +65,4 @@ function App({ store }) {
     </div>
   );
 }
-
 export default App;
