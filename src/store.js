@@ -1,9 +1,14 @@
+import {generateUniqueNumber} from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      list: initState.list.map(item => ({...item, selectCount: 0})) // добавляем свойство selectedCount в каждый объект списка
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -42,9 +47,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newGeneratedCode = generateUniqueNumber(this.state.list);
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: newGeneratedCode, title: 'Новая запись', selectCount: 0}]
     })
   };
 
@@ -69,6 +75,11 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.selectCount++;
+          }
+        } else {
+          item.selected = false;
         }
         return item;
       })

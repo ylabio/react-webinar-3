@@ -1,4 +1,5 @@
 const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
+const codesSet = new Set(); // Создаем пустое множество для уникальности кодов
 
 /**
  * Создание элемента со свойствами и вложенными элементами
@@ -25,4 +26,28 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
+}
+
+export function generateUniqueNumber(list) {
+
+  //Функция для генерации уникальных чисел в рамках сессии
+  list.map(item => codesSet.add(item.code)) // Добавляем все значения кодов из исходного листа
+  const randomNumber = Math.floor(Math.random() * (codesSet.size + 1)); // Генерируем случайное число
+
+  if (codesSet.has(randomNumber)) {
+    return generateUniqueNumber(list); // если сгенерированный код содержится в сете, то генерируем новый код
+  } else {
+    codesSet.add(randomNumber);
+    return randomNumber; // если такого кода нет, то возвращаем это число
+  }
+}
+
+export function getPlural(number) {
+  if (number % 10 === 1 && number % 100 !== 11) {
+    return 'раз';
+  } else if ([2, 3, 4].includes(number % 10) && ![12, 13, 14].includes(number % 100)) {
+    return 'раза';
+  } else {
+    return 'раз';
+  }
 }
