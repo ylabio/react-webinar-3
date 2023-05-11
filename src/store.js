@@ -1,4 +1,4 @@
-import {generateNumber} from './utils';
+import {declineNumber, generateNumber} from './utils';
 
 /**
  * Хранилище состояния приложения
@@ -72,12 +72,15 @@ class Store {
         ...this.state,
         list: this.state.list.map(item => {
           if (item.code === code) {
+            
             item.selected = !item.selected;
-            if (item.selectCount && item.selected) {
-              item.selectCount++
-            }
+            
             if (!item.selectCount) {
-              item.selectCount = 1
+              item.selectCount = 0
+            }
+            if (item.selected) {
+              item.selectText = ` | Выделяли ${++item.selectCount}
+              ${declineNumber(item.selectCount, ['раз', 'раза', 'раз'])}`
             }
           } else {
             item.selected = false
