@@ -26,3 +26,12 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Создание элемента со свойствами и вложенными элементами
+ * @returns {number}
+ */
+
+export function generateId() {
+  return Math.floor(Math.random() * 10000000000);  ;
+}
