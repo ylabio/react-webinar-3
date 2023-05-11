@@ -21,13 +21,13 @@ function App({ store }) {
       </div>
       <div className="App-center">
         <div className="List">
-          {list.map((item) => (
+          {list.map((item, i) => (
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
                 onClick={() => store.selectItem(item.code)}
               >
-                <div className="Item-code">{item.code}</div>
+                <div className="Item-code">{++i}</div>
                 <div className="Item-title">
                   {item.title}{' '}
                   {item.selectedCounter > 0 &&
