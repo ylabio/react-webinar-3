@@ -26,3 +26,24 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+
+/**
+ Функция на правильное написание "раз" или "раза" в зависимости от числа,
+ в пределах 999 =)
+ */
+export function getCountText(count) {
+  let num = count % 100;
+  if (num >= 11 && num <= 19) {
+    return count + ' раз';
+  } else {
+    num = count % 10;
+    if (num === 1) {
+      return count + ' раз';
+    } else if (num >= 2 && num <= 4) {
+      return count + ' раза';
+    } else {
+      return count + ' раз';
+    }
+  }
+}
