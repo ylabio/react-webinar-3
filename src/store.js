@@ -37,14 +37,18 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
+  getLastId() {
+    return this.state.lastId || this.state.list.length;
+  }
   /**
    * Добавление новой записи
    */
   addItem() {
+    let lastId = this.getLastId() + 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, { code: lastId, title: "Новая запись" }],
+      lastId: lastId,
     })
   };
 
@@ -55,7 +59,8 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
+      list: this.state.list.filter((item) => item.code !== code),
+      lastId: this.getLastId(),
     })
   };
 
@@ -68,6 +73,9 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          item.selected = !item.selected;
+          if (item.selected) item.count = !item.count ? 1 : item.count + 1;
+        } else if (item.selected) {
           item.selected = !item.selected;
         }
         return item;

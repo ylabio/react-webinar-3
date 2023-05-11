@@ -26,3 +26,17 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Создание строки Выделили n раз, с учетом склонения
+ * @param count {Number} Число выделений
+ * @returns {String}
+ */
+export function getCountString(count) {
+  const lastDigit = count % 10;
+  const countString =
+    (count < 10 || count > 20) && [2, 3, 4].includes(lastDigit)
+      ? 'раза'
+      : 'раз';
+  return `Выделили ${count} ${countString}`;
+}
