@@ -3,7 +3,7 @@ import {createElement} from './utils.js';
 import './styles.css';
 
 /**
- * Приложение
+ * Приложение1
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
