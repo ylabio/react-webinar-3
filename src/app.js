@@ -1,6 +1,8 @@
 import React from 'react';
 import './styles.css';
 
+import { normalizeQuantity } from './utils';
+
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -26,7 +28,14 @@ function App({ store }) {
                 onClick={() => store.selectItem(item.code)}
               >
                 <div className='Item-code'>{index + 1}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>
+                  {item.title}
+                  {item.timesSelected
+                    ? ` | Выделяли ${item.timesSelected} ${normalizeQuantity(
+                        item.timesSelected
+                      )}`
+                    : null}
+                </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить

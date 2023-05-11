@@ -6,16 +6,17 @@ import { generateCode } from './store.js';
 
 const store = new Store({
   list: [
-    { code: generateCode(), title: 'Название элемента' },
-    { code: generateCode(), title: 'Некий объект' },
-    { code: generateCode(), title: 'Заголовок' },
+    { code: generateCode(), title: 'Название элемента', timesSelected: 0 },
+    { code: generateCode(), title: 'Некий объект', timesSelected: 0 },
+    { code: generateCode(), title: 'Заголовок', timesSelected: 0 },
     {
       code: generateCode(),
       title: 'Очень длинное название элемента из семи слов',
+      timesSelected: 0,
     },
-    { code: generateCode(), title: 'Запись' },
-    { code: generateCode(), title: 'Шестая запись' },
-    { code: generateCode(), title: 'Седьмая запись' },
+    { code: generateCode(), title: 'Запись', timesSelected: 0 },
+    { code: generateCode(), title: 'Шестая запись', timesSelected: 0 },
+    { code: generateCode(), title: 'Седьмая запись', timesSelected: 0 },
   ],
 });
 

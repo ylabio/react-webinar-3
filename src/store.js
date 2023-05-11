@@ -50,7 +50,7 @@ class Store {
       ...this.state,
       list: [
         ...this.state.list,
-        { code: generateCode(), title: 'Новая запись' },
+        { code: generateCode(), title: 'Новая запись', timesSelected: 0 },
       ],
     });
   }
@@ -77,6 +77,7 @@ class Store {
         if (item.code !== code) {
           item.selected = false;
         } else {
+          item.timesSelected += !item.selected ? 1 : 0;
           item.selected = !item.selected;
         }
 
