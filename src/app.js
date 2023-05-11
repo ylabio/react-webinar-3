@@ -37,16 +37,18 @@ function App({ store }) {
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
                 onClick={() => {
+                  if (!item.selected) {
+                    store.setState({
+                      ...store.getState(),
+                      list: store.getState().list.map((i) => {
+                        if (i.code === item.code) {
+                          i.selectedCount = i.selectedCount ? i.selectedCount + 1 : 1;
+                        }
+                        return i;
+                      }),
+                    });
+                  }
                   store.selectItem(item.code);
-                  store.setState({
-                    ...store.getState(),
-                    list: store.getState().list.map((i) => {
-                      if (i.code === item.code) {
-                        i.selectedCount = i.selectedCount ? i.selectedCount + 1 : 1;
-                      }
-                      return i;
-                    }),
-                  });
                 }}>
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
