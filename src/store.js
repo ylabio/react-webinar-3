@@ -45,7 +45,7 @@ class Store {
     let key = this.state.list[this.state.list.length - 1].code + 1
     this.setState({
       ...this.state,
-      // как по мне так генерация ключа по Date.now() дело надежное, но можно причислить к огромным числам. так что второй вариант присутствует
+      // Как по мне так генерация ключа по Date.now() дело надежное, но можно причислить к огромным числам. Так что второй вариант присутствует
       // list: [...this.state.list, {code: Date.now(), title: 'Новая запись'}]
       list: [...this.state.list, {code: key, title: 'Новая запись'}]
     })
@@ -72,6 +72,11 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          // Применение двойного тернарника плохо, но быстро...
+          (item.counter && item.selected)
+              ? item.counter++
+              : !item.counter
+              ? item.counter = 1 : '';
         }else{
           item.selected = null;
         }
