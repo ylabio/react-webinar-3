@@ -2,10 +2,12 @@
  * Хранилище состояния приложения
  */
 class Store {
-  constructor(initState = {}) {
-    this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
-  }
+    static number = 0;
+
+    constructor(initState = {}) {
+        this.state = initState;
+        this.listeners = []; // Слушатели изменений состояния
+    }
 
   /**
    * Подписка слушателя на изменения состояния
@@ -38,15 +40,15 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+    /**
+     * Добавление новой записи
+     */
+    addItem() {
+        this.setState({
+            ...this.state,
+            list: [...this.state.list, {code: this.getNumber(), title: 'Новая запись', countClick: 0}]
+        })
+    };
 
   /**
    * Удаление записи по коду
@@ -59,21 +61,36 @@ class Store {
     })
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+    /**
+     * Выделение записи по коду
+     * @param code
+     */
+    selectItem(code) {
+        this.setState({
+            ...this.state,
+            list: this.state.list.map(item => {
+                if (item.code === code) {
+                    item.selected = !item.selected;
+                } else {
+                    item.selected = false
+                }
+                if (item.selected) {
+                    item.countClick++
+                }
+                return item;
+            })
+        })
+    }
+
+    getNumber() {
+        if (Store.number === 0) {
+            Store.number = 8;// при удалении записи (перед первым добавлением новой позиции) номера задваиваются-> захардкодила
+            // Store.number=this.state.list.length+1;
+        } else {
+            Store.number++;
         }
-        return item;
-      })
-    })
-  }
+        return Store.number;
+    }
 }
 
 export default Store;
