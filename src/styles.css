@@ -54,6 +54,11 @@ body {
   padding: 20px 10px;
 }
 
+.Item-selections {
+  width: 30%;
+  padding: 20px 10px;
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;

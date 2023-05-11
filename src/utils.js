@@ -26,3 +26,23 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+const createCodeGenerator = (start = 0) => {
+  return () => {
+    return ++start;
+  };
+};
+
+export const globalCodeGenerator = createCodeGenerator();
+
+export const showSelectionTimes = (timesSelected) => {
+  if (timesSelected) {
+    return `Выделяли ${timesSelected} ${
+      [1, 5, 6, 7, 8, 9, 0].includes(timesSelected % 10) ||
+      [12, 13, 14].includes(timesSelected % 100)
+        ? 'раз'
+        : 'раза'
+    }`;
+  }
+  return '';
+};
