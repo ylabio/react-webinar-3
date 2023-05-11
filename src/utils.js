@@ -1,4 +1,4 @@
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
+const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
 /**
  * Создание элемента со свойствами и вложенными элементами
@@ -25,4 +25,23 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
+}
+
+/**
+ * Получение корректной строки в зависимости от количества выделений
+ * @param selectCount {Number}
+ * @return {String}
+ */
+export function getCorrectCountText(selectCount) {
+  const lastDigit = selectCount.toString().slice(-1);
+  const lastTwoDigits = selectCount.toString().slice(-2);
+
+  return ` | Выделяли ${selectCount} раз${
+    (lastDigit === "2" || lastDigit === "3" || lastDigit === "4") &&
+    lastTwoDigits !== "12" &&
+    lastTwoDigits !== "13" &&
+    lastTwoDigits !== "14"
+      ? "a"
+      : ""
+  }`;
 }
