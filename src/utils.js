@@ -1,5 +1,5 @@
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
-
+const propNames = new Set(["id", "className", "textContent", "onclick"]);
+import { store } from ".";
 /**
  * Создание элемента со свойствами и вложенными элементами
  * @param name {String} Название HTML тега
@@ -23,6 +23,10 @@ export function createElement(name, props = {}, ...children) {
   for (const child of children) {
     element.append(child);
   }
-
   return element;
+}
+// генератор Id
+export function getID() {
+  const obj = store;
+  return obj.state.list.sort((a, b) => b.code - a.code)[0].code + 1;
 }
