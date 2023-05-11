@@ -26,14 +26,3 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
-
-export const generateId = () => {
-
-  let num = '';
-
-  for (let i = 0; i < 6; i++) {
-    num += Math.floor(Math.random() * (9 - 0) + 0);
-  } 
-
-  return +num;
-}

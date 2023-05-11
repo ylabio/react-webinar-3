@@ -1,4 +1,3 @@
-import { generateId } from "./utils";
 /**
  * Хранилище состояния приложения
  */
@@ -6,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.counter = this.state.list.length;
   }
 
   /**
@@ -43,9 +43,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.counter += 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateId(), title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.counter, title: 'Новая запись'}],
+      // counter: this.state.counter + 1,
     })
   };
 
@@ -53,7 +55,8 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(e, code) {
+    e.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
