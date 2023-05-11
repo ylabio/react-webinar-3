@@ -11,6 +11,19 @@ function App({store}) {
 
   const list = store.getState().list;
 
+  const checkPickCount = (pickCount) => {
+    const arrCount = (pickCount.toString().split(''))
+    const twoCountNumber = Number(arrCount[arrCount.length - 2])
+    const lastCountNumber = Number(arrCount[arrCount.length - 1])
+    if (twoCountNumber === 1 && lastCountNumber > 1 && lastCountNumber < 5) {
+      return ` | Выделяли ${pickCount} раз`
+    } else if ( lastCountNumber > 1 && lastCountNumber < 5) {
+      return ` | Выделяли ${pickCount} раза`
+    } else {
+      return ` | Выделяли ${pickCount} раз`
+    }
+  }
+
   return (
     <div className='App'>
       <div className='App-head'>
@@ -26,7 +39,7 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>{item.title}<span>{item.pickCount > 0 && checkPickCount(item.pickCount)}</span></div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
