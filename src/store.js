@@ -38,15 +38,29 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+  codeItem() {
+    let total = 0;
+    this.state.list.forEach((element) => {
+      if (element.code > total) {
+        total = element.code;
+      }
+    });
+
+    return (total += 1);
+  }
+
   /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+      list: [
+        ...this.state.list,
+        { code: this.codeItem(), title: "Новая запись" },
+      ],
+    });
+  }
 
   /**
    * Удаление записи по коду
@@ -66,10 +80,23 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
+        if (item.code !== code && item.selected) {
+          delete item.selected;
+        }
+
         if (item.code === code) {
           item.selected = !item.selected;
         }
+
+        if (item.click && item.selected) {
+          item.click += 1;
+        }
+
+        if (!item.click && item.code === code) {
+          item.click = 1;
+        }
+
         return item;
       })
     })
