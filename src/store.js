@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.uniqCode = initState.list.length
   }
 
   /**
@@ -39,12 +40,21 @@ class Store {
   }
 
   /**
+   * Генератор уникального кода на основании длинны изначального State
+   * @returns Number
+   */
+  genCode() {
+    this.uniqCode += 1
+    return this.uniqCode
+  }
+
+  /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, { code: this.genCode(), title: 'Новая запись' }]
     })
   };
 
@@ -68,7 +78,11 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          if (!item.selected) item.selectedCount = item.selectedCount + 1 || 1
           item.selected = !item.selected;
+        }
+        if (item.code !== code && item.selected) {
+          item.selected = false;
         }
         return item;
       })
