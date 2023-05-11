@@ -13,7 +13,7 @@ const store = new Store({
     {code: 5, title: 'Запись'},
     {code: 6, title: 'Шестая запись'},
     {code: 7, title: 'Седьмая запись'},
-  ]
+  ].map(item => ({...item, selectedCount: 0})) //Для реализации моего подхода понадобилось модифицировать исходные данные, не ругайте пожалуйста сильно
 });
 
 const root = createRoot(document.getElementById('root'));
