@@ -44,7 +44,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.state.list.length + Math.random(), title: 'Новая запись'}]
     })
   };
 
@@ -67,8 +67,10 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        if ((item.code === code) || (item.code !== code && item.selected)) {
+          item.selected = !item.selected;}
+        if ((item.code === code) && item.selected) {
+          item.count ? item.count += 1 : item.count = 1
         }
         return item;
       })
