@@ -1,9 +1,12 @@
+
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.codes = [];
+    this.initialNumberElements = this.state.list.length + 1;
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -37,14 +40,37 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
+  
   /**
    * Добавление новой записи
    */
   addItem() {
+    let codes = this.codes;
+    let initialNumberElements = this.initialNumberElements;
+    let uniCode;
+    const list = this.state.list;
+    function addUniquenessCode(){
+      function addCodesArr() {
+        list.forEach(obj => {
+          codes.push(obj.code);
+        });
+      }
+      if (codes.length == 0){addCodesArr()};
+      if (!uniCode){uniCode = initialNumberElements;}
+      function uniquenessCheck(){  
+        if(codes.includes(uniCode)){
+          uniCode = Math.max.apply(null, codes) + 1
+        }
+        codes.push(uniCode);
+        return uniCode;
+      }   
+      return uniquenessCheck();
+    }
+    uniCode = addUniquenessCode();
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: uniCode, title: 'Новая запись'}],
     })
   };
 
@@ -69,7 +95,12 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
-        }
+          if (item.selected == true){
+            item.count++;
+          }
+        } else {
+          item.selected = false
+        }   
         return item;
       })
     })
