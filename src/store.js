@@ -53,7 +53,7 @@ class Store {
     this.updateCounter(); // обновляем счетчик
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.lastCode, title: 'Новая запись'}],
+      list: [...this.state.list, {code: this.lastCode, title: 'Новая запись', selectCount: 0}],
     })
   };
 
@@ -78,6 +78,7 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          item.selectCount = item.selected ? item.selectCount + 1 : item.selectCount; // Увеличивает счетчик выделений
         }
         return item;
       })
