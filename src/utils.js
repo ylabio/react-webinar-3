@@ -26,3 +26,20 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+const pr = new Intl.PluralRules("en-US", { type: "ordinal" });
+
+const suffixes = new Map([
+  ["one", "раз"],
+  ["two", "раза"],
+  ["few", "раза"],
+  ["other", "раз"],
+]);
+export const formatOrdinals = (n) => {
+  const rule = pr.select(n);
+  let suffix = suffixes.get(rule);
+  if (String(n).at(-1) === '4' && String(n).at(-2) !== '1') {
+    suffix = 'раза';
+  }
+  return `${n} ${suffix}`;
+};
