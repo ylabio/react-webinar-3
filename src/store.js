@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state.number = Math.max(...this.state.list.map(item => item.code));
   }
 
   /**
@@ -44,7 +45,8 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      number: this.state.number += 1,
+      list: [...this.state.list, {code: this.state.number, title: 'Новая запись'}]
     })
   };
 
@@ -69,7 +71,31 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.amount ? item.amount++ : item.amount = 1
+          }
+        } else if (item.code !== code) {
+          item.selected = false;
         }
+
+        if (item.amount) {
+          let bignum = item.amount % 100;
+          
+          if (bignum > 19) {
+            bignum = bignum % 10;
+          }
+
+          switch (bignum) {
+            case 2:
+            case 3:
+            case 4:
+              item.word = 'раза'
+              break;
+            default:
+              item.word = 'раз'
+          }
+        }
+
         return item;
       })
     })
