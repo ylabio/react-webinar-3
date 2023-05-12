@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+	this.counter = this.state.list.length; // Счетчик уникальных значений
   }
 
   /**
@@ -42,9 +43,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+	this.counter ++;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.counter, title: `Новая запись №${this.counter}`, clickCount: 0}]
     })
   };
 
@@ -69,7 +71,11 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
-        }
+          if (!item.clickCount) item.clickCount = 0;
+          if (item.selected) item.clickCount++;
+        } else {
+          item.selected = false;
+		}
         return item;
       })
     })
