@@ -44,9 +44,18 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list,
+        {
+          code: this.addRandomNumbers(), // Вызываем метод класса при добавлении новой записи
+          selectedCount: 0, // Счётчик выбранного по умолчанию 0
+          title: 'Новая запись'
+        }]
     })
   };
+
+  addRandomNumbers() { // Генерируем случайное число от 0 до 100 (не включая)
+    return Math.floor(Math.random() * 100);
+  }
 
   /**
    * Удаление записи по коду
@@ -67,8 +76,11 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
+        if (item.code === code && !item.selected) {
+          item.selectedCount += 1;
           item.selected = !item.selected;
+        } else {
+          item.selected = false;
         }
         return item;
       })
