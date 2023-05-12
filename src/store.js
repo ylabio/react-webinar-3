@@ -1,3 +1,5 @@
+import { newCode } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,6 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.code = 1;
   }
 
   /**
@@ -16,8 +19,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -44,9 +47,16 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+      list: [
+        ...this.state.list,
+        {
+          code: newCode(),
+          counter: 0,
+          title: "Новая запись",
+        },
+      ],
+    });
+  }
 
   /**
    * Удаление записи по коду
@@ -55,9 +65,9 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      list: this.state.list.filter((item) => item.code !== code),
+    });
+  }
 
   /**
    * Выделение записи по коду
@@ -66,13 +76,14 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
+      list: this.state.list.map((item) => {
+        item.code === code
+          ? ((item.selected = !item.selected), item.selected && item.counter++)
+          : (item.selected = false);
+
         return item;
-      })
-    })
+      }),
+    });
   }
 }
 
