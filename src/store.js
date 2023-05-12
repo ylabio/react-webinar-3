@@ -5,6 +5,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+
+    this.initNumSelected()
   }
 
   /**
@@ -18,6 +20,16 @@ class Store {
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);
     }
+  }
+
+  initNumSelected() {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        item.numSelected = 0;
+        return item;
+      })
+    })
   }
 
   /**
@@ -42,9 +54,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const lastItem = this.state.list[this.state.list.length - 1];
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: lastItem.code + 1, title: 'Новая запись', numSelected: 0}]
     })
   };
 
@@ -69,7 +83,15 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+
+          if (item.selected) {
+            item.numSelected++
+          }
         }
+        else if (item.selected) {
+            item.selected = false;
+        }
+
         return item;
       })
     })
