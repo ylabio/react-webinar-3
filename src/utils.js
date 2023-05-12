@@ -26,3 +26,33 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function generateUniqueNumber() {
+  const generatedNumbers = new Set();
+
+  return function () {
+    let num;
+
+    do {
+      num = generatedNumbers.size + 1;
+    } while (generatedNumbers.has(num));
+
+    generatedNumbers.add(num);
+
+    return num;
+  };
+}
+
+function normalize(number, words) {
+  const options = [2, 0, 1, 1, 1, 2];
+
+  return words[
+    number % 100 > 4 && number % 100 < 20
+      ? 2
+      : options[number % 10 < 5 ? number % 10 : 5]
+  ];
+}
+
+export function normalizeQuantity(quantity) {
+  return normalize(quantity, ['раз', 'раза', 'раз']);
+}
