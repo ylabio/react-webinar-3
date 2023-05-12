@@ -1,6 +1,9 @@
 /**
  * Хранилище состояния приложения
  */
+
+import { v4 as uuidv4 } from 'uuid';
+
 class Store {
   constructor(initState = {}) {
     this.state = initState;
@@ -44,7 +47,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: uuidv4(), title: 'Новая запись', clicks: 0}]
     })
   };
 
@@ -68,12 +71,16 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          !item.clicks? item.clicks = 0 : '';
           item.selected = !item.selected;
+          item.selected? item.clicks++ : ''; 
+        } else {
+          item.selected = false;
         }
         return item;
       })
     })
   }
-}
+} 
 
 export default Store;
