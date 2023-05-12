@@ -42,8 +42,12 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    const codeForNewListItem = this.state.list[this.state.list.length - 1].code + 1
-    
+    let codeForNewListItem;
+    if (this.state.list.length === 0) {
+      codeForNewListItem = 1;
+    } else {
+      codeForNewListItem = this.state.list[this.state.list.length - 1].code + 1;
+    }
     this.setState({
       ...this.state,
       list: [...this.state.list, {code: codeForNewListItem, title: 'Новая запись'}]
