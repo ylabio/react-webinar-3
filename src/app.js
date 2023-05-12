@@ -25,8 +25,22 @@ function App({store}) {
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-code'>
+                    {item.code}
+                </div>
+                <div className='Item-title'>
+                    <span>
+                        {item.title}
+                    </span>
+                    <span>
+                        {item.selectCounter ?
+                            <span>
+                            | Выделяли {item.selectCounter} {item.selectCounter > 1 && item.selectCounter < 5 ? 'раза' : 'раз'}
+                        </span>
+                            : null
+                        }
+                    </span>
+                </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
