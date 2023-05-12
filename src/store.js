@@ -69,7 +69,8 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
-        }else if(item.code !== code){
+          item.countClick += 1;
+        } else if (item.code !== code){
           item.selected = false;
         }
 
