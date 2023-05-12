@@ -42,10 +42,14 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const { list } = this.state;
+    let maxCode = 0;
+    if (list.length > 0) maxCode = Math.max(...list.map((item) => item.code));
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
+      list: [...list, { code: maxCode + 1, title: 'Новая запись' }],
+    });
   };
 
   /**
@@ -69,6 +73,9 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          item.selected ? item.count === undefined || NaN ? item.count = 1 : item.count++ : item.count;
+        }else{
+          item.selected = false;
         }
         return item;
       })
