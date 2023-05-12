@@ -1,5 +1,18 @@
 const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
 
+// Функция для склонения слова "раз" в заголовке
+export const getCounterTitle = ({selectedCount}) => {
+  const title = ` | Выделяли ${selectedCount} `
+  const times = ['раз', 'раза', 'раз']
+  const cases = [2, 0, 1, 1, 1, 2];
+  const end = times[(selectedCount % 100 > 4 && selectedCount % 100 < 20) ? 2
+    : cases[(selectedCount % 10 < 5) ? selectedCount % 10 : 5]];
+
+  if(selectedCount) return title + end
+
+  return ''
+}
+
 /**
  * Создание элемента со свойствами и вложенными элементами
  * @param name {String} Название HTML тега
@@ -18,7 +31,6 @@ export function createElement(name, props = {}, ...children) {
       element.setAttribute(name, props[name]);
     }
   }
-
   // Вставка вложенных элементов
   for (const child of children) {
     element.append(child);
