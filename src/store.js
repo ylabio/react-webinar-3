@@ -42,9 +42,14 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const lastElement = this.state.list[this.state.list.length - 1];
+    let code = 1;
+    if (lastElement) {
+      code = lastElement.code + 1;
+    }
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code, title: 'Новая запись', clicks: 0}]
     })
   };
 
@@ -69,6 +74,9 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) item.clicks += 1;
+        } else {
+          item.selected = false;
         }
         return item;
       })
