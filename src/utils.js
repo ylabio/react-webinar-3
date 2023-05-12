@@ -27,8 +27,8 @@ export function createElement(name, props = {}, ...children) {
   return element;
 }
 
-let currentIndex = -1;
+let currentIndex = 0;
 
 export function getCurrentIndex (){
-  return ++currentIndex;
+  return currentIndex++;
 }
