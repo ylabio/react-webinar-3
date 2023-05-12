@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles.css";
+import { getWordVariant } from "./utils";
 
 /**
  * Приложение
@@ -30,9 +31,14 @@ function App({ store }) {
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
                   {item.title}{" "}
-                  {!item.selectionCount
-                    ? null
-                    : `| Выделяли ${item.selectionCount} раз`}
+                  <b style={{ opacity: 0.5 }}>
+                    {item.selectionCount
+                      ? `| Выделяли ${item.selectionCount} ${getWordVariant(
+                          item.selectionCount,
+                          ["раз", "раза"]
+                        )}`
+                      : null}
+                  </b>
                 </div>
                 <div className="Item-actions">
                   <button
