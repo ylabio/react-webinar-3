@@ -1,3 +1,5 @@
+import { generateId } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -42,9 +44,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    let a = this.state?.list?.at(-1)?.code || 0;
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: ++a, title: 'Новая запись'}]
     })
   };
 
@@ -69,7 +73,10 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+        } else {
+          item.selected = false;
         }
+
         return item;
       })
     })

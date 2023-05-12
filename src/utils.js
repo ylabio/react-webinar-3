@@ -26,3 +26,26 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Генерация рандомного значения id
+ * @returns {Number}
+ */
+export const generateId = () => {
+  const symbols = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t'];
+
+  return symbols[randomNum(symbols.length-1)] +
+      symbols[randomNum(symbols.length-1)] +
+      randomNum(100) +
+      symbols[randomNum(symbols.length-1)] +
+      symbols[randomNum(symbols.length-1)];
+}
+
+/**
+ * Генерация рандомного числа от 0 до заданного
+ * @param max {Number} Больший предел
+ * @returns {Number}
+ */
+export function randomNum(max) {
+  return Math.ceil(Math.random()*max);
+}
