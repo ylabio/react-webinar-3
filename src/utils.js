@@ -26,3 +26,18 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Склонение счетчика выделений
+ * @param counter {Number} Значение счетчика
+ * @returns {String}
+ */
+export function counterWord(counter){  
+  if ([12, 13, 14].includes(counter)) {
+    return `${counter} раз`;
+  }
+  else if ([2, 3, 4].includes(counter % 10)) {
+    return `${counter} раза`;
+  }
+  return `${counter} раз`;
+}

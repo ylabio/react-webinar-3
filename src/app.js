@@ -1,5 +1,5 @@
 import React from 'react';
-import {createElement} from './utils.js';
+import {createElement, counterWord} from './utils.js';
 import './styles.css';
 
 /**
@@ -10,7 +10,7 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
-
+  
   return (
     <div className='App'>
       <div className='App-head'>
@@ -21,12 +21,12 @@ function App({store}) {
       </div>
       <div className='App-center'>
         <div className='List'>{
-          list.map(item =>
+          list.map(item => 
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>{item.title} {item.counter ? ` | Выделяли ${counterWord(item.counter)}` : ''}</div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
@@ -34,7 +34,7 @@ function App({store}) {
                 </div>
               </div>
             </div>
-          )}
+            )}
         </div>
       </div>
     </div>
