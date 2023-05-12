@@ -10,7 +10,7 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
-
+  console.log('list', list)
   return (
     <div className='App'>
       <div className='App-head'>
@@ -25,8 +25,9 @@ function App({store}) {
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
+                <div className='Item-code'>{list.findIndex(i => i.code === item.code) + 1}</div>
                 <div className='Item-title'>{item.title}</div>
+                <div className={item.count > 0 ? 'Item-count' : 'Item-count_none'}>Выделено кол-во раз:&nbsp;{item.count}</div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить

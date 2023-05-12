@@ -53,7 +53,15 @@ body {
   width: 100%;
   padding: 20px 10px;
 }
-
+.Item-count_none {
+  display: none;
+}
+.Item-count {
+  font-size: 13px;
+  padding: 20px 10px;
+  width: 100%;
+  text-align: right;
+}
 .Item-actions {
   display: flex;
   justify-content: flex-end;
