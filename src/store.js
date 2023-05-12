@@ -1,3 +1,4 @@
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,8 +6,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.usedCodes = new Set();
-
+    this.code = -1;
   }
 
   /**
@@ -44,13 +44,28 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.checkCode(Math.max(...this.state.list.map(item => {
+      return item.code
+    })))
+
     this.setState({
       ...this.state,
       list: [
         ...this.state.list,
-        { code: this.state.list.length + 1, title: "Новая запись" },
+        {
+          code: this.code + 1,
+          title: "Новая запись",
+        },
       ],
     });
+    this.checkCode(Math.max(...this.state.list.map(item => {
+      return item.code
+    })))
+  }
+  checkCode(code){
+    if (code > this.code){
+      this.code = code;
+    }
   }
 
   /**
@@ -72,7 +87,7 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map((item) => {
-        item.selected = false
+        item.selected = false;
         if (item.code === code) {
           item.selected = !item.selected;
         }
@@ -80,6 +95,7 @@ class Store {
       }),
     });
   }
+
 }
 
 export default Store;
