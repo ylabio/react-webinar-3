@@ -47,7 +47,6 @@ class Store {
     this.setState({
       ...this.state,
       list: [...this.state.list, {code: this.counter, title: 'Новая запись'}],
-      // counter: this.state.counter + 1,
     })
   };
 
