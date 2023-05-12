@@ -26,8 +26,11 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
-                <div className='Item-actions'>
+                  <div className='Item-title'>
+                      {item.title}
+                      {(item.counterSelectionsRecord ? ` | Выделяли ${item.counterSelectionsRecord } раз` : '')}
+                  </div>
+                  <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
                   </button>
@@ -40,5 +43,7 @@ function App({store}) {
     </div>
   );
 }
+
+
 
 export default App;
