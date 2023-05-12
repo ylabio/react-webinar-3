@@ -1,4 +1,4 @@
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
+const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
 /**
  * Создание элемента со свойствами и вложенными элементами
@@ -25,4 +25,22 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
+}
+
+/**
+ * Выбор правильного склонения существительного
+ * @param count {Number} Количество
+ * @param wordVariants {Array} Массив словоформ
+ * @returns {String}
+ */
+
+export function getWordVariant(count, wordVariants) {
+  if (count % 100 > 10 && count % 100 < 20) {
+    return wordVariants[0];
+  }
+  if (count % 10 > 1 && count % 10 < 5) {
+    return wordVariants[1];
+  }
+
+  return wordVariants[0];
 }
