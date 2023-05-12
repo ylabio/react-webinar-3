@@ -44,9 +44,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    let a = this.state?.list?.at(-1)?.code || 0;
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateId(), title: 'Новая запись'}]
+      list: [...this.state.list, {code: ++a, title: 'Новая запись'}]
     })
   };
 
