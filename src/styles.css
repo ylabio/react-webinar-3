@@ -53,6 +53,10 @@ body {
   width: 100%;
   padding: 20px 10px;
 }
+.Item-counter {
+  width: 100%;
+  padding: 20px 10px;
+}
 
 .Item-actions {
   display: flex;
