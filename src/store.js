@@ -42,9 +42,15 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const num = Math.max(...this.state.list.map((n) => n.code )) + 1;
+    const serialNumber = this.state.list.length !== 0 ? num : Math.floor(Math.random()*10) + 1;
+   // console.log(...this.state.list.code);
+    //this.state.list.length + 1
+     
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: serialNumber, title: 'Новая запись'}]
     })
   };
 
@@ -69,11 +75,15 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          item.selected ? item.count === undefined || NaN ? item.count = 1 : item.count++ : item.count;
+        }else{
+          item.selected = false;
         }
         return item;
       })
     })
   }
+
 }
 
 export default Store;
