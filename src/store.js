@@ -1,10 +1,12 @@
 /**
  * Хранилище состояния приложения
  */
+
 class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.lastItemCode = initState.list.length
   }
 
   /**
@@ -42,9 +44,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.lastItemCode += 1
+    console.log(this.lastItemCode)
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.lastItemCode, title: 'Новая запись'}]
     })
   };
 
@@ -67,13 +71,22 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        if(!item.selectedCount) { // Создаем счетчик в объекте
+          item.selectedCount = 0
+        }
+
         if (item.code === code) {
           item.selected = !item.selected;
-        }
+          if(item.selected) { // Если выбираем конкретную запись, то увеличиваем значение счетчика
+            item.selectedCount = item.selectedCount + 1
+          }
+        } else item.selected = false
+
         return item;
       })
     })
   }
+
 }
 
 export default Store;
