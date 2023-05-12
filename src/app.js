@@ -31,7 +31,7 @@ function App({ store }) {
                 <div className="Item-title">{item.title}</div>
                 {item.counter > 0 && (
                   <div className="Item-counter">
-                    Было выделено {item.counter} раз
+                    Выделяли {item.counter} раз
                   </div>
                 )}
                 <div className="Item-actions">
