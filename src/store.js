@@ -60,6 +60,22 @@ class Store {
       ...this.state,
       list: this.state.list.filter((item) => item.code !== code),
     });
+    this.updateIndexes(code);
+  }
+
+  updateIndexes(startIndex) {
+    const firstSubArr = this.state.list.slice(0, startIndex - 1);
+    const secondSubArr = this.state.list.slice(startIndex - 1);
+
+    const correctSecondArr = secondSubArr.map((item, index) => ({
+      ...item,
+      code: index + startIndex,
+    }));
+
+    this.setState({
+      ...this.state,
+      list: firstSubArr.concat(correctSecondArr),
+    });
   }
 
   /**
