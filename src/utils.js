@@ -34,7 +34,7 @@ export function generateUniqueNumber() {
     let num;
 
     do {
-      num = Math.floor(Math.random() * 10000) + 1;
+      num = generatedNumbers.size + 1;
     } while (generatedNumbers.has(num));
 
     generatedNumbers.add(num);
