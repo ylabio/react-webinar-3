@@ -40,13 +40,16 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
+  
+
+  addItem(id) {
+    
     this.setState({
       ...this.state,
       list: [
         ...this.state.list,
         {
-          code: new Date().getTime() /* this.state.list.length+1 */, // число великовато, но, для ручного добавления, ошибок быть не должно
+          code: id+1, // переделал 
           title: 'Новая запись',
         }, 
       ],

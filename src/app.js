@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {createElement} from './utils.js';
 import './styles.css';
 
@@ -10,14 +10,15 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
-
+  const [id, setId] = useState(list.length)
+  
   return (
     <div className='App'>
       <div className='App-head'>
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className='App-controls'>
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button onClick={() => {store.addItem(id); setId(id+1);}}>Добавить</button>
       </div>
       <div className='App-center'>
         <div className='List'>{
