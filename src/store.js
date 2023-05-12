@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.addItem = this.addItem.bind(this);
   }
 
   /**
@@ -16,8 +17,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -42,11 +43,14 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const { list } = this.state;
+    let maxCode = 0;
+    if (list.length > 0) maxCode = Math.max(...list.map((item) => item.code)); // находим максимальный код
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+      list: [...list, { code: maxCode + 1, title: 'Я новая запись' }],
+    });
+  }
 
   /**
    * Удаление записи по коду
@@ -55,24 +59,37 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      list: this.state.list.filter((item) => item.code !== code),
+    });
+  }
 
   /**
    * Выделение записи по коду
    * @param code
    */
   selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
+    const { list } = this.state;
+
+    // Ищем выделенную ранее запись, если она есть
+    const prevSelected = list.find((item) => item.selected);
+
+    const newList = list.map((item) => {
+      if (item.code === code) {
+        // Находим количество выделений для этой записи и инкрементируем его
+        const count = item.count ? item.count + 1 : 1;
+        // Обновляем запись, добавляя количество выделений
+        return { ...item, selected: true, count: count };
+      } else if (prevSelected && prevSelected.code === item.code) {
+        // Если нажали на выделенную запись, то снимаем с нее выделение и пересчитываем количество выделений
+        const count = item.count ;
+        return { ...item, selected: false, count: count };
+      } else {
+        // Если нажали на другую запись, то оставляем все без изменений
         return item;
-      })
-    })
+      }
+    });
+
+    this.setState({ ...this.state, list: newList });
   }
 }
 
