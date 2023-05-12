@@ -5,8 +5,11 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-  }
 
+  }
+  getMaxCode() {
+    return this.state.list.reduce((maxCode, item) => Math.max(maxCode, item.code), 0);
+  }
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
@@ -43,9 +46,10 @@ class Store {
    */
 
   addItem() {
+    const code = this.getMaxCode() + 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: Math.floor(Math.random() * 1000), title: 'Новая запись', selectedValue: 0, isSelected: false}]
+      list: [...this.state.list, {code, title: 'Новая запись', selectedValue: 0, isSelected: false}]
     })
   };
 
@@ -54,11 +58,18 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const list = this.state.list.filter(item => item.code !== code);
+    const newList = list.map(item => {
+      if (item.code > code) {
+        item.code--;
+      }
+      return item;
+    });
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      list: newList
+    });
+  }
 
   /**
    * Выделение записи по коду
