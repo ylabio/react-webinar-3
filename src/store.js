@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.codeCounter = this.state.list.length;  // Начальное значение для счетчика кодов
   }
 
   /**
@@ -44,7 +45,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: ++this.codeCounter, title: 'Новая запись'}]
     })
   };
 
@@ -69,6 +70,14 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.itemClicks == null) {  // Проверка на наличие выделений в прошлом
+            item.itemClicks = 0; // если их не было - устанавливаем в 0
+          }
+          if (item.selected == true) { // проверка для срабатывания счетчика - только при выделении, а не при каждом клике
+            ++item.itemClicks;
+          }
+        } else {
+          item.selected = false;    // отмена выделения всех записи, кроме текущей
         }
         return item;
       })
