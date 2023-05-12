@@ -36,7 +36,7 @@ export function getCorrectCountText(selectCount) {
   const lastDigit = selectCount.toString().slice(-1);
   const lastTwoDigits = selectCount.toString().slice(-2);
 
-  return ` | Выделяли ${selectCount} раз${
+  return `раз${
     (lastDigit === "2" || lastDigit === "3" || lastDigit === "4") &&
     lastTwoDigits !== "12" &&
     lastTwoDigits !== "13" &&

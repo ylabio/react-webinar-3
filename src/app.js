@@ -29,7 +29,10 @@ function App({ store }) {
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
                   {item.title}
-                  {item.selectCount && getCorrectCountText(item.selectCount)}
+                  {item.selectCount &&
+                    ` | Выделяли ${item.selectCount} ${getCorrectCountText(
+                      item.selectCount
+                    )}`}
                 </div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>
