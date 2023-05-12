@@ -1,3 +1,5 @@
+import { generateUniqueCode } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,7 +7,9 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.codes = new Set(this.state.list.map((elem) => elem.code));
   }
+
 
   /**
    * Подписка слушателя на изменения состояния
@@ -44,7 +48,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: generateUniqueCode(this.codes), title: 'Новая запись', selectedCount: 0}]
     })
   };
 
@@ -67,9 +71,20 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        if(!item.hasOwnProperty("selectedCount")) {
+          item.selectedCount = 0
+        }
+
         if (item.code === code) {
           item.selected = !item.selected;
+        } else {
+          item.selected = false
         }
+
+        if (item.selected) {
+          item.selectedCount++
+        }
+
         return item;
       })
     })

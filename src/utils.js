@@ -26,3 +26,20 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Создание уникальных номеров
+ * @param codes {Set} Уникальные имеющиеся номера
+ * @returns {number}
+ */
+export function generateUniqueCode(codes) {
+  let code = codes.size
+
+  while(true) {
+    if (!codes.has(code)) {
+      codes.add(code)
+      return code
+    }
+    code++
+  } 
+}
