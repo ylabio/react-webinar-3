@@ -44,7 +44,8 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.state.list[this.state.list.length - 1].code + 1, title: 'Новая запись',
+                                  id: new Date().getTime().toString(), selectedCount: 0}]
     })
   };
 
@@ -52,10 +53,10 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(id) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
+      list: this.state.list.filter(item => item.id !== id)
     })
   };
 
@@ -63,12 +64,15 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(id) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
+        if (item.id === id) {
           item.selected = !item.selected;
+          item.selected && (item.selectedCount = item.selectedCount + 1)
+        }else{
+          item.selected = false
         }
         return item;
       })
