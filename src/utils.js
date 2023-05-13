@@ -26,3 +26,22 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+const pluralize = (num) => {
+  if (num % 10 === 1 && num % 100 !== 11) {
+    return 'раз';
+  } else if (num % 10 >= 2 && num % 10 <= 4 && (num % 100 < 10 || num % 100 >= 20)) {
+    return 'раза';
+  } else {
+    return 'раз';
+  }
+}
+
+export const showCount = (count, selected) => {
+
+  if (!count && !selected) {
+    return '';
+  }
+
+  return ` | Выделяли ${count} ${pluralize(count)}`;
+}
