@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.codeCounter = this.state.list.length;// измеряет длину массива записей
   }
 
   /**
@@ -42,9 +43,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.codeCounter++; //добавляет 1
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.codeCounter, title: 'Новая запись'}]
     })
   };
 
@@ -63,12 +65,20 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code) { //исправление для задачи 1:
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+      list: this.state.list.map(item => { //перебор элементов и возврат массива обновленных элементов
+        if (item.code === code) {//если code совпадает
+          item.selected = !item.selected; // то изменяется класс
+          if (item.selectCount && item.selected) {
+            item.selectCount++; //следующий элемент
+          }
+          if (!item.selectCount) { // если выделяется впервые
+            item.selectCount = +1; 
+          }
+        } else {
+          item.selected = false; //если code не соответствует коду элемента => сброс выделения
         }
         return item;
       })

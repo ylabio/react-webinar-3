@@ -26,3 +26,11 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function declOfNum(selectCount, titles) { //склонение окончания
+  return (selectCount % 10 === 1 && selectCount % 100 !== 11)
+    ? titles[0]
+    : (selectCount % 10 >= 2 && selectCount % 10 <= 4 && (selectCount % 100 < 12 || selectCount % 100 > 14))
+    ? titles[1]
+    : titles[0];
+}
