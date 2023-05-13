@@ -27,8 +27,7 @@ export function createElement(name, props = {}, ...children) {
   return element;
 }
 
-export const getDeclension = (value) => {
-  const words = ["раза", "раз"];
+export const getDeclension = (value, words) => {
   const num = Math.abs(value) % 100 % 10; 
   if(value > 10 && value < 20) return words[1]; 
 	if(num > 1 && num < 5) return words[0];

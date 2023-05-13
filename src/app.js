@@ -12,9 +12,16 @@ function App({store}) {
   const list = store.getState().list;
 
   const highlightHandler = (code, e) => {
-    if (e.target.nodeName !== 'BUTTON') {
-      store.selectItem(code);
-    }
+    store.selectItem(code);
+  }
+
+  const deleteHandler = (code, e) => {
+    e.stopPropagation();
+    store.deleteItem(code);
+  }
+
+  const addHandler = () => {
+    store.addItem();
   }
 
   return (
@@ -23,7 +30,7 @@ function App({store}) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className='App-controls'>
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button onClick={addHandler}>Добавить</button>
       </div>
       <div className='App-center'>
         <div className='List'>{
@@ -34,10 +41,10 @@ function App({store}) {
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>
                   {item.title}
-                  {item.highlightCounter > 0 && ` | Выделяли ${item.highlightCounter} ${getDeclension(item.highlightCounter)}`}
+                  {item.highlightCounter > 0 && ` | Выделяли ${item.highlightCounter} ${getDeclension(item.highlightCounter, ["раза", "раз"])}`}
                 </div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => deleteHandler(item.code, e)}>
                     Удалить
                   </button>
                 </div>
