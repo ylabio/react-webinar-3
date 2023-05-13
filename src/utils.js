@@ -26,3 +26,14 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * генератор чисел по порядку (1, 2, 3, ...) через иффе с замыканием
+ * @returns {number}
+ */
+export const nextId = (function () {
+  let current = 1;
+	return () => {
+    return current++;
+  }
+}());
