@@ -2,8 +2,11 @@
  * Хранилище состояния приложения
  */
 class Store {
+  itemId;
+
   constructor(initState = {}) {
     this.state = initState;
+    this.itemId = this.state.list.length;
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -16,8 +19,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -42,22 +45,24 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.itemId += 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+      list: [...this.state.list, { code: this.itemId, title: 'Новая запись' }],
+    });
+  }
 
   /**
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(code, event) {
+    event.stopPropagation();
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      list: this.state.list.filter((item) => item.code !== code),
+    });
+  }
 
   /**
    * Выделение записи по коду
@@ -66,13 +71,19 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
         if (item.code === code) {
+          if (!item.selected)
+            item.numberOfSelected = item.numberOfSelected
+              ? item.numberOfSelected + 1
+              : 1;
           item.selected = !item.selected;
+        } else {
+          item.selected = false;
         }
         return item;
-      })
-    })
+      }),
+    });
   }
 }
 

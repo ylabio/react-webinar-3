@@ -26,3 +26,11 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+// Функция для плюрализации
+export function pluralization(number, [firstForm, secondForm]) {
+  const prelastChars = Number(number.toString().slice(-2));
+  if (prelastChars > 10 && prelastChars < 20) return firstForm;
+  const lastChar = Number(number.toString().slice(-1));
+  return [2, 3, 4].includes(lastChar) ? secondForm : firstForm;
+}
