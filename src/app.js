@@ -31,7 +31,7 @@ function App({store}) {
                 <div className="Item-title">{item.title}</div>
                 <div className="Item-title">
                   {" "}
-                  {item.count > 0 && item.selected
+                  {item.count > 0
                     ? `Выделяли ${item.count} раз(а)`
                     : null}
                 </div>
