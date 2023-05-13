@@ -44,7 +44,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: new Date(), title: 'Новая запись'}]
     })
   };
 
@@ -69,11 +69,16 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          item.countClick += 1;
+        } else if (item.code !== code){
+          item.selected = false;
         }
+
         return item;
       })
     })
   }
+  
 }
 
 export default Store;
