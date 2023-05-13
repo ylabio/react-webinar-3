@@ -1,6 +1,8 @@
 /**
  * Хранилище состояния приложения
  */
+import * as utils from './utils.js';
+
 class Store {
   constructor(initState = {}) {
     this.state = initState;
@@ -44,7 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: utils.getNewCode(this.state.list), title: 'Новая запись', count: 0}]
     })
   };
 
@@ -69,6 +71,15 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          // Проверяет выделен ли объект чтобы вести счет и отменить выделение предыдущего объекта
+          if(item.selected){
+            this.state.list.map(i => {
+              if(i.code !== code && i.selected){
+                i.selected = false
+              }
+            })
+            item.count++;
+          }
         }
         return item;
       })

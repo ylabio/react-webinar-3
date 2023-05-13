@@ -26,3 +26,26 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+// Для уникальности кода
+export function getNewCode(list){
+  let max = 0
+  for(let item of list){
+      if(item.code > max){
+          max = item.code
+      }
+  }
+  return max + 1
+}
+
+// Для правильного написания раз или раза
+export function getRazOrRaza(num){
+  if (num % 10 === 1 && num % 100 !== 11) {
+    return num + ' раз';
+  } else if ((num % 10 === 2 || num % 10 === 3 || num % 10 === 4) && 
+            !(num % 100 >= 12 && num % 100 <= 14)) {
+    return num + ' раза';
+  } else {
+    return num + ' раз';
+  }
+}
