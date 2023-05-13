@@ -3,8 +3,8 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.state = initState
+    this.listeners = [] // Слушатели изменений состояния
   }
 
   /**
@@ -13,10 +13,10 @@ class Store {
    * @returns {Function} Функция отписки
    */
   subscribe(listener) {
-    this.listeners.push(listener);
+    this.listeners.push(listener)
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
+      this.listeners = this.listeners.filter((item) => item !== listener)
     }
   }
 
@@ -25,7 +25,7 @@ class Store {
    * @returns {Object}
    */
   getState() {
-    return this.state;
+    return this.state
   }
 
   /**
@@ -33,20 +33,26 @@ class Store {
    * @param newState {Object}
    */
   setState(newState) {
-    this.state = newState;
+    this.state = newState
     // Вызываем всех слушателей
-    for (const listener of this.listeners) listener();
+    for (const listener of this.listeners) listener()
   }
 
   /**
    * Добавление новой записи
    */
   addItem() {
+    // Создание уникального id
+    let id = 0
+    do {
+      id = Math.round(Math.random() * 100)
+    } while (this.state.list.some((item) => item.code === id)) // Проверка на наличие id в имеющемся списке, если есть то генерируем заново
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, { code: id, title: 'Новая запись', call: 0 }],
     })
-  };
+  }
 
   /**
    * Удаление записи по коду
@@ -55,9 +61,9 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
+      list: this.state.list.filter((item) => item.code !== code),
     })
-  };
+  }
 
   /**
    * Выделение записи по коду
@@ -66,14 +72,17 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      })
+      list: this.state.list.map((item) => {
+        if (item.code === code && !item.selected) {
+          // Проверяем id и выделен ли элемент
+          item.selected = true
+          item.call += 1 // увеличиваем счетчик
+        } else item.selected = false
+
+        return item
+      }),
     })
   }
 }
 
-export default Store;
+export default Store
