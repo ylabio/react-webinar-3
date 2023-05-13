@@ -5,6 +5,9 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    const codeList = this.state.list.map(item=>item.code);
+    console.log('codeList', codeList);
+    this.state.currentCode =  Math.max(...this.state.list.map(item=>item.code));
   }
 
   /**
@@ -25,6 +28,7 @@ class Store {
    * @returns {Object}
    */
   getState() {
+    console.log(this.state);
     return this.state;
   }
 
@@ -42,9 +46,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const actualCurrentCode = this.state.currentCode + 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: actualCurrentCode, title: `Новая запись ${actualCurrentCode}`}],
+      currentCode: actualCurrentCode,
     })
   };
 
@@ -64,14 +70,21 @@ class Store {
    * @param code
    */
   selectItem(code) {
+    let actualCode = null;
+    let actualCounter = {...this.state.counter};
+    if (code !== this.state.selectedItemCode) {
+      actualCode = code;
+      if (actualCounter[code]) {
+        actualCounter[code] = actualCounter[code] + 1;
+      } else {
+        actualCounter[code] = 1;
+      }
+    }
+
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      })
+      selectedItemCode: actualCode,
+      counter: actualCounter
     })
   }
 }

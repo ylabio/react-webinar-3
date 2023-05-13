@@ -26,3 +26,21 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+const makePlural = (dictionary) => (count) => {
+  if (count >= 11 && count <= 20) {
+    return dictionary['11-20'];
+  }
+
+  const ord = count % 10;
+
+  if (ord === 2 || ord === 3 || ord === 4) {
+    return dictionary['2-3-4'];
+  }
+
+  return dictionary['default'];
+}
+
+const DICTIONARY = {'2-3-4': 'раза', '11-20': 'раз', 'default': 'раз'};
+
+export const plural = makePlural(DICTIONARY);
