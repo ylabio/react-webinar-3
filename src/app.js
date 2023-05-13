@@ -31,7 +31,7 @@ function App({store}) {
                   item.title + (item.count ? ' | Выделяли ' + item.count + ' ' + plural(item.count, 'раз', 'раза', 'раз') : '')
                 }</div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => {e.stopPropagation(); store.deleteItem(item.code)}}>
                     Удалить
                   </button>
                 </div>
