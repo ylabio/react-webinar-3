@@ -3,7 +3,8 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.initialIndexId = 0;
+    this.state = this.fillWithRandomKey(initState);
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -44,7 +45,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: ++this.initialIndexId, title: 'Новая запись'}]
     })
   };
 
@@ -69,10 +70,32 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            if ('selectCount' in item) {
+              item.selectCount += 1;
+            } else {
+              item.selectCount = 1;
+            }
+          }
+        } else {
+          item.selected = false;
         }
         return item;
       })
     })
+  }
+
+    /**
+   * Установка рандомного code
+   * @param storeObj {Object}
+   * @returns {Object}
+   */
+
+  fillWithRandomKey(storeObj) {
+    if ('list' in storeObj && storeObj.list.length) {
+      storeObj.list.map(itemObj => Object.assign(itemObj, {code: ++this.initialIndexId}));
+    }
+    return storeObj;
   }
 }
 
