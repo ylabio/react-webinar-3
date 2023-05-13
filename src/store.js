@@ -5,6 +5,9 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    const codeList = this.state.list.map(item=>item.code);
+    console.log('codeList', codeList);
+    this.state.currentCode =  Math.max(...this.state.list.map(item=>item.code));
   }
 
   /**

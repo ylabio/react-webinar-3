@@ -14,7 +14,7 @@ const store = new Store({
     {code: 6, title: 'Шестая запись'},
     {code: 7, title: 'Седьмая запись'},
   ],
-  currentCode: 7,
+  currentCode: null,
   selectedItemCode: null,
   counter: {}
 });
