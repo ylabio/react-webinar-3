@@ -46,7 +46,7 @@ class Store {
     addItem() {
         this.setState({
             ...this.state,
-            list: [...this.state.list, {code: this.createRandom(), title: prompt('Введите название', 'Новая запись'), count: 0}]
+            list: [...this.state.list, {code: this.createRandom(), title: 'Новая запись', count: 0}]
         })
     };
 

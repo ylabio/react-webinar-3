@@ -26,3 +26,12 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function checkForm(count, form1 = 'раз', form2 = 'раза') {
+  if (count % 10 > 1 &&
+    count % 10 < 5 &&
+    count % 100 !== 12 &&
+    count % 100 !== 13 &&
+    count % 100 !== 14) return form2;
+  else return form1;
+}

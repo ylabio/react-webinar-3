@@ -60,9 +60,3 @@ body {
   padding: 20px 20px 20px 10px;
 }
 
-.Item-count {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
-}
