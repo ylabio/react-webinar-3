@@ -28,7 +28,7 @@ function App({ store }) {
               >
                 <div className="Item-title">{item.title}</div>
                 <div className="Item-title">
-                  Количество выделений: {item.scorecard}
+                  {item.scorecard === 0 ? "" : `Выделяли ${item.scorecard} раз`}
                 </div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>
