@@ -3,7 +3,11 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      list: initState.list.map(item => ({...item, selectedCount: 0, selected: false})), // Добавляем свойство selectedCount и selected в каждый объект списка
+      totalCounter: 7 // Количество элементов при инициализации списка (необходимо для получение нового кода элемента)
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -42,9 +46,17 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const { totalCounter, list } = this.state;
+    const newItem = {
+      code: totalCounter + 1,
+      title: 'Новая запись',
+      selectedCount: 0
+    };
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      totalCounter: totalCounter + 1,
+      list: [...list, newItem]
     })
   };
 
@@ -64,15 +76,23 @@ class Store {
    * @param code
    */
   selectItem(code) {
+    const {list} = this.state;
+    const updatingList = list.map(item => {
+      if (item.code === code) {
+        return {
+          ...item,
+          selected: !item.selected,
+          selectedCount: item.selected ? item.selectedCount : item.selectedCount + 1
+        }
+      } else {
+        return {...item, selected: false}
+      }
+    });
+
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      })
-    })
+      list: updatingList
+    });
   }
 }
 
