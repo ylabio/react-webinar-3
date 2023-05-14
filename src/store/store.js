@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 /**
  * Хранилище состояния приложения
  */
@@ -42,12 +43,15 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newItem = {
+      code: uuidv4(),
+      title: "Новая запись",
+      selected: false,
+    };
+
     this.setState({
       ...this.state,
-      list: [
-        ...this.state.list,
-        { code: this.state.list.length + 1, title: "Новая запись" },
-      ],
+      list: [...this.state.list, newItem],
     });
   }
 
