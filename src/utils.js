@@ -1,5 +1,5 @@
 const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
-
+const codesSet = new Set();
 /**
  * Создание элемента со свойствами и вложенными элементами
  * @param name {String} Название HTML тега
@@ -26,9 +26,6 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
-
-
-export const generateId  = () =>  Date.now()
 
 
 export function editTime(number) {

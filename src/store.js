@@ -1,4 +1,3 @@
-import { generateId } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -7,6 +6,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.code = this.state.list.length;
   }
 
   /**
@@ -44,9 +44,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+  
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateId(), title: 'Новая запись'}]
+      list: [...this.state.list, {code: ++this.code, title: 'Новая запись'}]
     })
   };
 

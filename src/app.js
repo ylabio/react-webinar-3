@@ -25,7 +25,7 @@ console.log(list);
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{i + 1}</div>
+                <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>
                   {item.title}
                   {item.selectCount && ` | Выделяли ${editTime(item.selectCount)}`}
