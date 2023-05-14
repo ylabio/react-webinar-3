@@ -1,5 +1,5 @@
 const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
-
+const codesSet = new Set();
 /**
  * Создание элемента со свойствами и вложенными элементами
  * @param name {String} Название HTML тега
@@ -25,4 +25,13 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
+}
+
+
+export function editTime(number) {
+  if (number > 10 && [11, 12, 13, 14].includes(number%100)) return `${number} раз`;
+  let last_num = number%10;
+  if (last_num == 1) return `${number} раз`;
+  if ([2,3,4].includes(last_num)) return `${number} раза`;
+  if ([5,6,7,8,9, 0].includes(last_num)) return `${number} раз`;
 }

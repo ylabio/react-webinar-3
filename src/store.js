@@ -1,3 +1,4 @@
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,6 +6,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.code = this.state.list.length;
   }
 
   /**
@@ -42,9 +44,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+  
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: ++this.code, title: 'Новая запись'}]
     })
   };
 
@@ -69,6 +72,12 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if(item.selectCount && item.selected) {
+            item.selectCount++
+          }
+          if(!item.selectCount) item.selectCount = 1
+        } else{
+          item.selected = false
         }
         return item;
       })
