@@ -26,3 +26,18 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Функция возвращает правильное слокнение слова "раз" в зависимости от числа
+ * @param number
+ * @return {string}
+ */
+export function getNumberEnding(number) {
+  if (number % 10 === 1 && number % 100 !== 11) {
+    return 'раз';
+  } else if ([2, 3, 4].includes(number % 10) && ![12, 13, 14].includes(number % 100)) {
+    return 'раза';
+  }
+
+  return 'раз';
+}
