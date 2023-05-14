@@ -26,3 +26,8 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export const GenerateId = (() => {
+  let idState = 0;
+  return () => ++idState;
+})();

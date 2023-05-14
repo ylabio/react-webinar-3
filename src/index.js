@@ -1,18 +1,18 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
-import {createElement} from './utils.js';
+import {createElement, GenerateId} from './utils.js';
 import App from './app.js';
 import Store from './store.js';
 
 const store = new Store({
   list: [
-    {code: 1, title: 'Название элемента'},
-    {code: 2, title: 'Некий объект'},
-    {code: 3, title: 'Заголовок'},
-    {code: 4, title: 'Очень длинное название элемента из семи слов'},
-    {code: 5, title: 'Запись'},
-    {code: 6, title: 'Шестая запись'},
-    {code: 7, title: 'Седьмая запись'},
+    {code: GenerateId(), title: 'Название элемента', selectionTotal: 0},
+    {code: GenerateId(), title: 'Некий объект', selectionTotal: 0},
+    {code: GenerateId(), title: 'Заголовок', selectionTotal: 0},
+    {code: GenerateId(), title: 'Очень длинное название элемента из семи слов', selectionTotal: 0},
+    {code: GenerateId(), title: 'Запись', selectionTotal: 0},
+    {code: GenerateId(), title: 'Шестая запись', selectionTotal: 0},
+    {code: GenerateId(), title: 'Седьмая запись', selectionTotal: 0},
   ]
 });
 
