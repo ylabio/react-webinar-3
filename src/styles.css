@@ -35,10 +35,15 @@ body {
 }
 
 .Item {
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
   align-items: center;
+}
+
+.Item-clicks::before {
+  content:"| ";
 }
 
 .Item_selected {
@@ -51,11 +56,19 @@ body {
 }
 
 .Item-title {
-  width: 100%;
+  
   padding: 20px 10px;
 }
 
+.Item-clicks {
+  margin-right: auto;
+  justify-content: flex-start;
+  justify-self: flex-start;
+}
+
 .Item-actions {
+  margin-left:auto;
+  justify-self: flex-end;
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
