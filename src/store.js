@@ -3,8 +3,10 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.state = initState
+    this.listeners = [] // Слушатели изменений состояния
+    // Уникальный код для списка
+    this.uniqCode = initState?.list ? initState.list.length : 0
   }
 
   /**
@@ -13,10 +15,10 @@ class Store {
    * @returns {Function} Функция отписки
    */
   subscribe(listener) {
-    this.listeners.push(listener);
+    this.listeners.push(listener)
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
+      this.listeners = this.listeners.filter((item) => item !== listener)
     }
   }
 
@@ -25,7 +27,7 @@ class Store {
    * @returns {Object}
    */
   getState() {
-    return this.state;
+    return this.state
   }
 
   /**
@@ -33,20 +35,24 @@ class Store {
    * @param newState {Object}
    */
   setState(newState) {
-    this.state = newState;
+    this.state = newState
     // Вызываем всех слушателей
-    for (const listener of this.listeners) listener();
+    for (const listener of this.listeners) listener()
   }
 
   /**
    * Добавление новой записи
    */
   addItem() {
+    this.uniqCode += 1
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [
+        ...this.state.list,
+        { code: this.uniqCode, title: 'Новая запись' },
+      ],
     })
-  };
+  }
 
   /**
    * Удаление записи по коду
@@ -55,9 +61,9 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
+      list: this.state.list.filter((elem) => elem.code !== code),
     })
-  };
+  }
 
   /**
    * Выделение записи по коду
@@ -66,14 +72,21 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          item.selected = !item.selected
+          if (item.selected) {
+            if (item.countSelected) item.countSelected += 1
+            else item.countSelected = 1
+          } else item.countSelected += 0
+        } else {
+          item.selected = false
         }
-        return item;
-      })
+
+        return item
+      }),
     })
   }
 }
 
-export default Store;
+export default Store
