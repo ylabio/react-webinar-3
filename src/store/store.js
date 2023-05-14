@@ -74,7 +74,8 @@ class Store {
     const updatedList = this.state.list.map((item) => {
       if (item.code === code) {
         const selected = !item.selected;
-        return { ...item, selected };
+        const scorecard = selected ? item.scorecard + 1 : item.scorecard;
+        return { ...item, selected, scorecard };
       } else {
         return { ...item, selected: false };
       }
