@@ -35,9 +35,8 @@ function App({store}) {
             <div key={item.code} className='List-item'>
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
-              >
-                <div className='Item-code'>{i + 1}</div>
+                onClick={() => store.selectItem(item.code)}>
+                <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title}</div>
                 {item.clicks > 0 && (
                   <div className='Item-clicks'>Выделяли {item.clicks} {countWord(item.clicks)}</div>

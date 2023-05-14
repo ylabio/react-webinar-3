@@ -7,6 +7,10 @@ import { v4 as uuidv4 } from 'uuid';
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.state.list = this.state.list.map(item => {
+      return {...item, selectionCounter: 0};
+    });
+    this.state.uniqueCode = this.state.list.length;
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -47,7 +51,8 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: uuidv4(), title: 'Новая запись', clicks: 0}]
+      uniqueCode: this.state.uniqueCode += 1,
+      list: [...this.state.list, {code: this.state.uniqueCode, title: 'Новая запись'}],
     })
   };
 
