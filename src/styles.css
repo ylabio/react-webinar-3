@@ -36,7 +36,7 @@ body {
 
 .Item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   transition: background-color 1s;
 }
 
@@ -49,13 +49,29 @@ body {
   padding: 20px 10px 20px 20px;
 }
 
+.Item-count {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: max-content;
+  padding: 20px 10px 20px 0;
+}
+
 .Item-title {
-  width: 100%;
-  padding: 20px 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: max-content;
+  padding: 20px 5px 20px 20px;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-group {
+  display: flex;
+  min-width: 100px;
 }
