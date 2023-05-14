@@ -26,8 +26,3 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
-
-
-export function generateId() {
-  return performance.now().toFixed(2)
-}
