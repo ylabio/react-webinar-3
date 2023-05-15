@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.count = 1;
   }
 
   /**
@@ -44,9 +45,19 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.setCount(), title: 'Новая запись'}]
     })
-  };
+  }
+
+  /**
+   * Установка счетчика количества записей
+   * @returns {number}
+   */
+  setCount() {
+    const code = (this.count !== 1) ? this.count + 1 : this.state.list.length + 1;
+    this.count = code;
+    return code;
+  }
 
   /**
    * Удаление записи по коду
@@ -57,22 +68,27 @@ class Store {
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
     })
-  };
+  }
 
   /**
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
+  selectItem(e, code) {
+    if (e.target.tagName.toLowerCase() !== 'button') {
+      this.setState({
+        ...this.state,
+        list: this.state.list.map(item => {
+          item.selected = (item.code === code) ? !item.selected : false;
+          if (item.code === code && item.selectedCount && item.selected) {
+            item.selectedCount = item.selectedCount + 1;
+          } else if (item.code === code && !item.selectedCount && item.selected) {
+            item.selectedCount = 1;
+          }
+          return item;
+        })
       })
-    })
+    }
   }
 }
 
