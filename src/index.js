@@ -1,19 +1,21 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
-import {createElement} from './utils.js';
 import App from './app.js';
 import Store from './store.js';
+import {getCurrentIndex} from './utils.js';
 
 const store = new Store({
   list: [
-    {code: 1, title: 'Название элемента'},
-    {code: 2, title: 'Некий объект'},
-    {code: 3, title: 'Заголовок'},
-    {code: 4, title: 'Очень длинное название элемента из семи слов'},
-    {code: 5, title: 'Запись'},
-    {code: 6, title: 'Шестая запись'},
-    {code: 7, title: 'Седьмая запись'},
-  ]
+    {code: getCurrentIndex(), title: 'Название элемента', clicked: 0},
+    {code: getCurrentIndex(), title: 'Некий объект', clicked: 0},
+    {code: getCurrentIndex(), title: 'Заголовок', clicked: 0},
+    {code: getCurrentIndex(), title: 'Очень длинное название элемента из семи слов', clicked: 0},
+    {code: getCurrentIndex(), title: 'Запись', clicked: 0},
+    {code: getCurrentIndex(), title: 'Шестая запись', clicked: 0},
+    {code: getCurrentIndex(), title: 'Седьмая запись', clicked: 0},
+    {code: getCurrentIndex(), title: 'Восьмая запись', clicked: 0},
+    {code: getCurrentIndex(), title: 'Девятая запись', clicked: 0},
+  ],
 });
 
 const root = createRoot(document.getElementById('root'));

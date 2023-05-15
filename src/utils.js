@@ -26,3 +26,9 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+let currentIndex = 0;
+
+export function getCurrentIndex (){
+  return currentIndex++;
+}
