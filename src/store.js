@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.nextCode = Math.max.apply(null, this.state.list.map(item => item.code)); // поиск изначального максимального кода
   }
 
   /**
@@ -44,15 +45,17 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: ++this.nextCode, title: 'Новая запись'}]
     })
   };
 
   /**
-   * Удаление записи по коду
+   * Удаление записи по коду 
+   * @param event
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(event, code) {
+    event.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
@@ -60,7 +63,7 @@ class Store {
   };
 
   /**
-   * Выделение записи по коду
+   * Выделение записи по коду и подсчет числа нажатий
    * @param code
    */
   selectItem(code) {
@@ -69,6 +72,11 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) { 
+            item.count > 0 ? item.count++ : item.count = 1;
+          }
+        } else {
+          item.selected = false;
         }
         return item;
       })
