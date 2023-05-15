@@ -7,22 +7,24 @@ const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
  * @param children {...Node} Вложенные элементы
  * @returns {HTMLElement}
  */
-export function createElement(name, props = {}, ...children) {
-  const element = document.createElement(name);
 
-  // Назначение свойств и атрибутов
-  for (const name of Object.keys(props)) {
-    if (propNames.has(name)) {
-      element[name] = props[name];
-    } else {
-      element.setAttribute(name, props[name]);
-    }
+export const enumLinkWord = (number, word1, word2) => {
+  let n = Math.abs(number);
+  n %= 100;
+  if (n >= 5 && n <= 20) {
+    return word1;
   }
-
-  // Вставка вложенных элементов
-  for (const child of children) {
-    element.append(child);
+  n %= 10;
+  if (n === 1) {
+    return word1;
   }
-
-  return element;
+  if (n >= 2 && n <= 4) {
+    return word2;
+  }
+  return word1;
 }
+
+/**
+ * Создание элемента со свойствами и вложенными элементами
+ * @returns {number}
+ */

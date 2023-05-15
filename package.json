@@ -1,7 +1,7 @@
 {
   "name": "react-webinar-3",
   "version": "1.0.0",
-  "description": "Example project for webinar",
+  "description": "first homework for React",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve",
