@@ -20,12 +20,11 @@ function App({store}) {
         <button onClick={() => store.addItem()}>Добавить</button>
       </div>
       <div className='App-center'>
-        <div className='List'>{
+        <ol className='List'>{
           list.map(item =>
-            <div key={item.code} className='List-item'>
+            <li key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{list.findIndex(i => i.code === item.code) + 1}</div>
                 <div className='Item-title'>{item.title}</div>
                 <div className={item.count > 0 ? 'Item-count' : 'Item-count_none'}>Выделено кол-во раз:&nbsp;{item.count}</div>
                 <div className='Item-actions'>
@@ -34,9 +33,9 @@ function App({store}) {
                   </button>
                 </div>
               </div>
-            </div>
+            </li>
           )}
-        </div>
+        </ol>
       </div>
     </div>
   );
