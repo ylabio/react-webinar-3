@@ -26,3 +26,21 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/*Склонение слов. Конкретно тут именно под слово раз.
+Потому что оно уникалньо, как и шаурма. у него лишь 2 формы (раз и раза) */
+export const declOfNum = (number) => {
+  const cases = [2, 0, 1, 1, 1, 2];
+  const titles = ['раз', 'раза', 'раз'];
+  let wordForm;
+
+  if (number === 0) {
+    wordForm = titles[2];
+  } else if (number % 100 > 4 && number % 100 < 20) {
+    wordForm = titles[2];
+  } else {
+    wordForm = titles[cases[Math.min(number % 10, 5)]];
+  }
+
+  return wordForm;
+}

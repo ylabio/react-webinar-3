@@ -41,10 +41,14 @@ class Store {
   /**
    * Добавление новой записи
    */
+
+  /*сделал просто вот так. номер каждой следующей записи 
+  всегда будет просто следующий от последней, значит повторяться не будут.*/
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list,
+      { code: this.state.list[this.state.list.length - 1].code + 1, title: 'Новая запись' }]
     })
   };
 
@@ -63,12 +67,24 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
+
+  /*добавил чуть больше проверок на кликнутый пункт
+  снимаем флаг выделенного со всех, кроме кликнутого.
+  + логика для подсчёта кликов*/
   selectItem(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected && item.selectCount) {
+            item.selectCount++
+          }
+          if (!item.selectCount) {
+            item.selectCount = 1
+          }
+        } else {
+          item.selected = false
         }
         return item;
       })
