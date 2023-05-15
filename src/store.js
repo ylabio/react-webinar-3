@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.idCounter = this.state.list[this.state.list.length - 1].code;
   }
 
   /**
@@ -42,9 +43,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.idCounter++;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.idCounter, title: 'Новая запись', highlightCounter: 0}]
     })
   };
 
@@ -69,6 +71,11 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected){
+            item.highlightCounter++;
+          }
+        } else {
+          item.selected = false;
         }
         return item;
       })
