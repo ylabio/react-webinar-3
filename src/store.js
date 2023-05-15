@@ -53,6 +53,7 @@ class Store {
 					code: uniq(1, this.state.list),
 					id: generateRandomString(),
 					title: 'Новая запись',
+					selectCount: 0,
 				}
 			]
 		})
