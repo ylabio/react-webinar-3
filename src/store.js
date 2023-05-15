@@ -41,10 +41,10 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
+  addItem(id) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: id, title: 'Новая запись', selectCounter: 0}]
     })
   };
 
@@ -68,7 +68,15 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          if (!item.selectCounter)
+            item.selectCounter = 0;
+
+          if (!item.selected)
+            item.selectCounter++;
+
           item.selected = !item.selected;
+        } else {
+          item.selected = false;
         }
         return item;
       })
