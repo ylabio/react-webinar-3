@@ -35,8 +35,10 @@ body {
 }
 
 .Item {
+  width: 100%;
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   transition: background-color 1s;
 }
 
@@ -55,6 +57,7 @@ body {
 }
 
 .Item-actions {
+  justify-self: flex-end;
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;

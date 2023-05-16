@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ylabio/react-webinar-3.git"
+    "url": "git+https://github.com/StVokhmyanin/react-webinar-3.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ylabio/react-webinar-3/issues"
+    "url": "https://github.com/StVokhmyanin/react-webinar-3/issues"
   },
-  "homepage": "https://github.com/ylabio/react-webinar-3#readme",
+  "homepage": "https://github.com/StVokhmyanin/react-webinar-3#readme",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
