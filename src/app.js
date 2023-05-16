@@ -29,7 +29,7 @@ function App({store}) {
                 <div className='Item-title'>
                   {item.title}
                   <span className={item.count > 0 ? '' : 'Item-count_none'}>
-                    &nbsp;|&nbsp;Выделено кол-во раз:&nbsp;{item.count}
+                    &nbsp;|&nbsp;Выделяли {item.count} раз
                   </span>
                 </div>
                 <div className='Item-actions'>
