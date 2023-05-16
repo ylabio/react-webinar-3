@@ -53,7 +53,9 @@ body {
   width: 100%;
   padding: 20px 10px;
 }
-
+.Item-count_none {
+  display: none;
+}
 .Item-actions {
   display: flex;
   justify-content: flex-end;
