@@ -20,26 +20,27 @@ function App({store}) {
         <button onClick={() => store.addItem()}>Добавить</button>
       </div>
       <div className='App-center'>
-        <ol className='List'>{
+        <div className='List'>{
           list.map(item =>
-            <li key={item.code} className='List-item'>
+            <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
+                <span className='Item-code'>{ item.code }</span>
                 <div className='Item-title'>
                   {item.title}
                   <span className={item.count > 0 ? '' : 'Item-count_none'}>
                     &nbsp;|&nbsp;Выделено кол-во раз:&nbsp;{item.count}
                   </span>
-                  </div>
+                </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
                   </button>
                 </div>
               </div>
-            </li>
+            </div>
           )}
-        </ol>
+        </div>
       </div>
     </div>
   );
