@@ -1,3 +1,4 @@
+import plural from 'plural-ru';
 const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
 
 /**
@@ -26,3 +27,14 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * @returns {string} возвращает уникальный id
+ */
+export const getUniqId = () => 'id_' + Math.floor(Math.random() * Date.now());
+/**
+ * для избежания хардкода в приложении
+ * @param cnt {number} число для количественной формы слова
+ * @returns {string} возвращает нужную форму слова "раз"
+ */
+export const pluralTimes = (cnt) => `${plural(cnt, 'раз', 'раза', 'раз')}`;
