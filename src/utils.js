@@ -26,3 +26,14 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+// Склонение окончаний
+
+export function endingValue(count) {   
+  if(count === 0) {
+    return ('');      
+  } else if (count % 10 > 1 && count % 10 < 5 && count != 12 && count != 13 && count != 14 && count % 100 != 12 && count % 100 != 13 && count % 100 != 14) {
+    return (`${count} разa`);
+  }
+  return (`${count} раз`);
+}
