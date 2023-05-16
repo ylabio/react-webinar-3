@@ -1,3 +1,7 @@
+ // Импортируем нашу функцию
+import GenerateUniqueId from "./helpers/generateUniqueld";
+
+
 /**
  * Хранилище состояния приложения
  */
@@ -42,9 +46,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    //В экшене будем формировать массив из всех айди 
+    const currentIdsArray = this.state.list.map((item) => item.code);
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: GenerateUniqueId(currentIdsArray), title: 'Новая запись'}] // И на добавление нового элемента будем вставлять эту функцию в поле кода
     })
   };
 
@@ -66,10 +72,21 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
+      list: this.state.list.map(item => { 
+        if (item.code === code) { 
+        // Если item на который мы нажали не выбран
+        // Он создаёт в нем поле selectedCount
+        // Если его нет - записывает туда один
+        // Если есть - прибавляет 1 к текущему значению
+        // Теперь во всех нажатых элементах у нас будет поле, где будет цифра с кликами по нему
+          if (!item.selected) {                                                    
+            item.selectedCount = item.selectedCount ? item.selectedCount + 1 : 1;  
+          }                                                                              
           item.selected = !item.selected;
-        }
+        } else {                 
+          item.selected = false;  
+        }                        
+
         return item;
       })
     })
