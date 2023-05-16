@@ -1,3 +1,10 @@
+function* generateUniqueNumber() {
+  let counter = 1;
+  while (true) {
+    yield counter++;
+  }
+}
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,6 +12,12 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.generator = generateUniqueNumber();
+    this.setCount();
+  }
+
+  setCount() {
+    this.state.list.forEach(el => this.generator.next())
   }
 
   /**
@@ -44,7 +57,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.generator.next().value, title: 'Новая запись'}]
     })
   };
 
@@ -68,8 +81,9 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          if (!item.selected) item.count ? item.count++ : item.count = 1;
           item.selected = !item.selected;
-        }
+        } else item.selected = false;
         return item;
       })
     })

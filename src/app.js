@@ -1,5 +1,4 @@
 import React from 'react';
-import {createElement} from './utils.js';
 import './styles.css';
 
 /**
@@ -10,6 +9,11 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
+
+  const titleTransformer = (title, count) => {
+    if (!count) return title;
+    return `${ title } | Выделяли ${ count } раз`;
+  }
 
   return (
     <div className='App'>
@@ -25,10 +29,13 @@ function App({store}) {
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-code'>{ item.code }</div>
+                <div className='Item-title'>{ titleTransformer(item.title, item.count) }</div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={ event => {
+                    event.stopPropagation();
+                    store.deleteItem(item.code);
+                  }}>
                     Удалить
                   </button>
                 </div>
