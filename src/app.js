@@ -10,15 +10,6 @@ import { pluralTimes } from './utils';
 function App({ store }) {
   const list = store.getState().list;
 
-  const deleteItem = (e) => {
-    e.stopPropagation();
-    store.deleteItem(e.target.dataset.id);
-  };
-
-  const selectItem = (id) => {
-    store.selectItem(id);
-  };
-
   return (
     <div className="App">
       <div className="App-head">
@@ -39,12 +30,17 @@ function App({ store }) {
                 <div className="Item-title">
                   {item.title}
                   {item.selectedCount &&
-                    ` | выделено ${item.selectedCount} ${pluralTimes(
+                    ` | Выделяли ${item.selectedCount} ${pluralTimes(
                       item.selectedCount
                     )}`}
                 </div>
                 <div className="Item-actions">
-                  <button data-id={item.code} onClick={deleteItem}>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      store.deleteItem(item.code);
+                    }}
+                  >
                     Удалить
                   </button>
                 </div>
