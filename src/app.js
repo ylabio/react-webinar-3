@@ -25,7 +25,12 @@ function App({store}) {
             <li key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
-                <div className='Item-title'>{item.title}<span className={item.count > 0 ? '' : 'Item-count_none'}>&nbsp;|&nbsp;Выделено кол-во раз:&nbsp;{item.count}</span></div>
+                <div className='Item-title'>
+                  {item.title}
+                  <span className={item.count > 0 ? '' : 'Item-count_none'}>
+                    &nbsp;|&nbsp;Выделено кол-во раз:&nbsp;{item.count}
+                  </span>
+                  </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
