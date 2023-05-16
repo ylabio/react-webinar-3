@@ -47,11 +47,8 @@ class Store {
       list: [
         ...this.state.list,
         {
-          code:
-            this.state.list.reduce((acc, curr) =>
-              acc.code > curr.code ? acc : curr
-            ).code + 2,
-          title: "Новая запись",
+          code: this.state.list.reduce((acc, curr) => (acc.code > curr.code ? acc : curr)).code + 2,
+          title: 'Новая запись',
           id: Math.random(),
           counter: 0,
         },
