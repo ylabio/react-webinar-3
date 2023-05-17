@@ -1,26 +1,24 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
 import './style.css';
 
 function Item(props){
 
   const callbacks = {
-    onDelete: (e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code);
+    onAdd: (code) => {
+      props.onAdd(code);
     }
   }
 
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}>
+    <div className='Item'>
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>
         {props.item.title}
       </div>
       <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button onClick={() => callbacks.onAdd(props.item.code)}>
+          Добавить
         </button>
       </div>
     </div>
@@ -34,11 +32,11 @@ Item.propTypes = {
     selected: PropTypes.bool,
     count: PropTypes.number
   }).isRequired,
-  onDelete: PropTypes.func,
+  onAdd: PropTypes.func,
 };
 
 Item.defaultProps = {
-  onDelete: () => {},
+  onAdd: () => {},
 }
 
 export default React.memo(Item);

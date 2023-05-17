@@ -61,6 +61,24 @@ class Store {
       list: this.state.list.filter(item => item.code !== code)
     })
   };
+
+  /**
+   * Добавление товара в корзину
+   */
+  addToCart(code) {
+    this.setState({
+      ...this.state,
+      cart: [ ...this.state.cart, ...this.state.list.filter((item) => item.code === code)]
+    })
+  };
+
+  getCartPrice(){
+    let totalPrice = 0;
+    for (let item of this.state.cart) {
+      totalPrice += item.price;
+    }
+    return totalPrice;
+  }
 }
 
 export default Store;
