@@ -1,3 +1,5 @@
+import {generateCode} from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -49,7 +51,7 @@ class Store {
     const code = this.getMaxCode() + 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code, title: 'Новая запись', selectedValue: 0, isSelected: false}]
+      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
     })
   };
 
@@ -67,9 +69,10 @@ class Store {
     });
     this.setState({
       ...this.state,
-      list: newList
-    });
-  }
+      // Новый список, в котором не будет удаляемой записи
+      list: this.state.list.filter(item => item.code !== code)
+    })
+  };
 
   /**
    * Выделение записи по коду
@@ -80,9 +83,15 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          // Смена выделения и подсчёт
+          return {
+            ...item,
+            selected: !item.selected,
+            count: item.selected ? item.count : item.count + 1 || 1,
+          };
         }
-        return item;
+        // Сброс выделения если выделена
+        return item.selected ? {...item, selected: false} : item;
       })
     })
   }
