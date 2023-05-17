@@ -1,9 +1,10 @@
+import { generateCode } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
-		this.lastCode = initState.list.length
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
   }
@@ -47,11 +48,30 @@ class Store {
       ...this.state,
       list: [
         ...this.state.list,
-        {
-          code: ++this.lastCode,
-          title: "Новая запись",
-        },
+        { code: generateCode(), title: "Новая запись" },
       ],
+    });
+  }
+
+  addCartItem(code) {
+    const cartList = [...this.state.cartList];
+    const existingItem = cartList.find((el) => el.code == code);
+    if (existingItem) {
+      ++existingItem.count;
+    } else {
+      const item = this.state.list.find((el) => el.code == code);
+      cartList.push({ ...item, count: 1 });
+    }
+    this.setState({
+      ...this.state,
+      cartList,
+    });
+  }
+
+  deleteCartItem(code) {
+    this.setState({
+      ...this.state,
+      cartList: this.state.cartList.filter((el) => el.code !== code),
     });
   }
 
@@ -62,6 +82,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
+      // Новый список, в котором не будет удаляемой записи
       list: this.state.list.filter((item) => item.code !== code),
     });
   }
@@ -75,16 +96,15 @@ class Store {
       ...this.state,
       list: this.state.list.map((item) => {
         if (item.code === code) {
-          item.selected = !item.selected;
-					if (item.selected) {
-						item.selectedCount
-							? (item.selectedCount += 1)
-							: (item.selectedCount = 1);
-					}
-        } else {
-          item.selected = false;
+          // Смена выделения и подсчёт
+          return {
+            ...item,
+            selected: !item.selected,
+            count: item.selected ? item.count : item.count + 1 || 1,
+          };
         }
-        return item;
+        // Сброс выделения если выделена
+        return item.selected ? { ...item, selected: false } : item;
       }),
     });
   }
