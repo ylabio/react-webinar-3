@@ -2,6 +2,11 @@
   
 }
 
+/* хз зачем, но в дизайне есть пустота между хеадом и списком */
+.BasketWindow-empty {
+  height: 63px;
+}
+
 .BasketWindow-info {
   display: flex;
   align-items: center;

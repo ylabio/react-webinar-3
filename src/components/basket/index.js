@@ -16,6 +16,7 @@ function BasketWindow({ list, info, onDelete, setOpen }) {
     <Popup setActive={setOpen}>
       <PageLayout>
         <Head title='Корзина' />
+        <div className={cn('empty')} />
         <List list={list} buttonsAction={onDelete} buttonsLabel="Удалить" />
         
         <div className={cn('info')}>
