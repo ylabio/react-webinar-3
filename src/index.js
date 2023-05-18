@@ -15,7 +15,7 @@ const store = new Store({
     {code: generateCode(), title: 'Товар сюрприз', price: 0},
   ],
   basket: [
-
+    {code: 1, title: 'Название товара', price: 100.0, quantity: 1},
   ]
 });
 

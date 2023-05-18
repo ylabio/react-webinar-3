@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -30,6 +28,17 @@ class Store {
     return this.state;
   }
 
+  // получить конечную сумму корзины
+  getCalculatePrice(){
+    if(this.state.basket === undefined) {
+      return 0 ;
+    }else if (this.state.basket === 0) {
+      return 0;
+    }else {
+      return this.state.basket.reduce((acc, curr) => {return acc + (curr.price * curr.quantity)}, 0);
+    }
+  }
+
   /**
    * Установка состояния
    * @param newState {Object}
@@ -39,16 +48,6 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
 
   /**
    * Удаление записи по коду
@@ -62,27 +61,25 @@ class Store {
     })
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  // добавление товара
+  addItemToBasket(code, title, price ) {
+    console.log(code, title, price)
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+      basket: this.state.basket.map(item => {
+      if (item.code === code){
+        return {
+          ...item,
+          quantity: item.quantity + 1
         }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
+        } else {
+        return {
+          basket: [...this.state.basket, {code, title, price, quantity: 1}]
+        }
+      }
     })
-  }
+    })
+  };
 }
 
 export default Store;

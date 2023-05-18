@@ -6,8 +6,7 @@
 }
 
 .Item-basket {
-  width: 100%;
-  padding: 0 20px;
+  padding: 0 10px 0 0;
   display: flex;
   justify-content: flex-end;
 }
@@ -15,4 +14,7 @@
 .Basket-actions{
   min-width: 75px;
   padding-left: 10px;
+}
+.textBold{
+  font-weight: bold;
 }
