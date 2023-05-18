@@ -1,0 +1,27 @@
+.CartItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  width: 100%;
+  border-bottom: 1px dashed #CCCCCC;
+}
+
+.CartItem:first-child {
+  border-top: 1px dashed #CCCCCC;
+}
+
+.CartItem>div {
+  display: flex;
+}
+
+.CartItem-code {
+  margin-right: 20px;
+}
+
+.CartItem-price {
+  margin-right: 60px;
+}
+
+.CartItem-count {
+  margin-right: 24px;
+}

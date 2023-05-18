@@ -29,7 +29,6 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
     count: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
@@ -37,6 +36,7 @@ Item.propTypes = {
 
 Item.defaultProps = {
   onAdd: () => {},
+  onRemove: () => {},
 }
 
 export default React.memo(Item);

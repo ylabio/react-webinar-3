@@ -8,7 +8,7 @@ function List({list, onAdd}){
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onAdd={onAdd}/>
+          <Item item={item} onAdd={onAdd} />
         </div>
       )}
     </div>

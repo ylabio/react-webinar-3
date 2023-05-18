@@ -65,17 +65,44 @@ class Store {
   /**
    * Добавление товара в корзину
    */
-  addToCart(code) {
+  addToCart(code){
+    const cart = this.state.cart;
+    // проверяем есть ли в корзине товар с таким же кодом
+    // присваиваем переменной i индекс товара в корзине, если товара нет то i = -1
+    const i = cart.findIndex((item) => item.code === code);
+
+    if (i > -1) {
+      // // если товар в корзине есть увеличиваем у него count
+      this.state.cart[i].count++;
+      // обновляем стейт
+      this.setState({
+        ...this.state,
+        cart: [ ...this.state.cart]
+      })
+      
+
+    } else if (i === -1) {
+      // если товара в корзине нет, добавляем его в корзину
+      this.setState({
+        ...this.state,
+        cart: [ ...this.state.cart, ...this.state.list.filter((item) => item.code === code)]
+      });
+    } 
+    // console.log(cart)
+  }  
+
+  removeFromCart(code){
     this.setState({
       ...this.state,
-      cart: [ ...this.state.cart, ...this.state.list.filter((item) => item.code === code)]
+      // Новая корзина, в которой не будет удаляемого товара
+      cart: this.state.cart.filter((item) => item.code !== code)
     })
-  };
+  }
 
   getCartPrice(){
     let totalPrice = 0;
     for (let item of this.state.cart) {
-      totalPrice += item.price;
+      totalPrice += item.price * item.count;
     }
     return totalPrice;
   }
