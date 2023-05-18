@@ -9,9 +9,6 @@ class Store {
     this.listeners = []; // Слушатели изменений состояния
 
   }
-  getMaxCode() {
-    return this.state.list.reduce((maxCode, item) => Math.max(maxCode, item.code), 0);
-  }
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
@@ -48,7 +45,6 @@ class Store {
    */
 
   addItem() {
-    const code = this.getMaxCode() + 1;
     this.setState({
       ...this.state,
       list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
@@ -74,27 +70,6 @@ class Store {
     })
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
-  }
 }
 
 export default Store;
