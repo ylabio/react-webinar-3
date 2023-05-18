@@ -6,7 +6,7 @@ function Item(props){
 
   const callbacks = {
     onAdd: (code) => {
-      props.onAdd(code);
+      props.onClick(code);
     }
   }
 
@@ -17,8 +17,10 @@ function Item(props){
         {props.item.title}
       </div>
       <div className='Item-actions'>
+        {props.isCartItem && <div className='Item-price'>{`${props.item.price} ₽`}</div>}
+        {props.isCartItem && <div className='Item-count'>{`${props.item.count !== undefined ? props.item.count : '1'} шт`}</div>}
         <button onClick={() => callbacks.onAdd(props.item.code)}>
-          Добавить
+          {props.isCartItem ? 'Удалить' : 'Добавить'}
         </button>
       </div>
     </div>
