@@ -1,0 +1,58 @@
+.Popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  
+  background-color: rgba(0, 0, 0, .7);
+
+  width: 100vw;
+  height: 100vh;
+  
+  pointer-events: all;
+}
+
+.Popup-content {
+  border-radius: 10px;
+  width: 960px;
+  min-width: 407px;
+  margin: 10px;
+}
+
+.Popup-overfilled {
+  align-items: flex-start;
+  overflow-y: scroll;
+}
+
+/* чтоб скрол не смещал модалку */
+.Popup-content-overfilled {
+  position: relative;
+  left: 9px;
+}
+
+.Popup-close {
+  position: relative;
+  top: 50px;
+  left: calc(100% - 102px);
+  width: 76px;
+  height: 21px;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.Popup-content .PageLayout {
+  border-radius: 10px;
+  min-height: 407px;
+}
+
+.Popup-content .Head {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.Popup-content .Item-count {
+  width: 120px;
+}

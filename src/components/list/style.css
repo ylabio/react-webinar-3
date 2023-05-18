@@ -1,7 +1,10 @@
-.List{
-
-}
+.List {}
 
 .List-item {
   border-bottom: 1px dashed #ccc;
+}
+
+/* Первому элементу добавим верхний бордер, чтоб как в дизайне */
+.List-item:first-child {
+  border-top: 1px dashed #ccc;
 }

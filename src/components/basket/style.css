@@ -1,0 +1,27 @@
+.BasketWindow {
+  
+}
+
+.BasketWindow-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  white-space: pre;
+  text-align: end;
+  font-size: 18;
+  font-weight: 700;
+}
+
+.BasketWindow-info-text {
+  padding: 20px 0;
+}
+
+.BasketWindow-info-text-empty {
+  padding: 100px 0;
+  margin: auto;
+}
+
+.BasketWindow-info-value {
+  min-width: 95px;
+  padding: 20px 105px 20px 10px;
+}

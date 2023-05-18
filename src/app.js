@@ -1,7 +1,8 @@
-import React, {useCallback} from 'react';
-import List from "./components/list";
+import React, { useCallback, useState } from 'react';
+import BasketWindow from "./components/basket";
 import Controls from "./components/controls";
 import Head from "./components/head";
+import List from "./components/list";
 import PageLayout from "./components/page-layout";
 
 /**
@@ -9,32 +10,51 @@ import PageLayout from "./components/page-layout";
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
 
-  const list = store.getState().list;
+  const state = store.getState();
+  const list = state.list;
+  const basketList = state.basket;
+  const basketInfo = state.info; // {goods:n, price:n}
+
+  const [basket, setBasket] = useState(false);
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    onBasketShow: useCallback(() => {
+      setBasket(true);
+    }, [basket]),
+
+    onAddItemToBasket: useCallback((code) => {
+      store.addItemToBasket(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
+    onDeleteItemFromBasket: useCallback((code) => {
+      store.deleteItemFromBasket(code);
     }, [store])
-  }
+  };
 
   return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-    </PageLayout>
+    <>
+
+      <PageLayout>
+        <Head title='Магазин' />
+        <Controls
+          onBasketClick={callbacks.onBasketShow}
+          basketInfo={basketInfo}
+        />
+        <List list={list}
+          buttonsAction={callbacks.onAddItemToBasket}
+          buttonsLabel="Добавить"
+        />
+      </PageLayout>
+
+      {
+        basket ?
+          <BasketWindow list={basketList} info={basketInfo} onDelete={callbacks.onDeleteItemFromBasket} setOpen={setBasket} />
+          : null
+      }
+
+    </>
   );
 }
 

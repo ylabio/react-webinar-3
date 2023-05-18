@@ -49,3 +49,15 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+
+/**
+ * Счет суммы всех товаров в корзине. Пока тут, чтоб у стора не пытались дергать
+ * @param goods {Array<Object>} массив товаров в корзине
+ * @return number
+ */
+export function calculateBasketPrice(goods) {
+  let price = 0;
+  goods.forEach(item => price += item.price * item.count);
+  return price;
+}

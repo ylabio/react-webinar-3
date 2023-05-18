@@ -1,20 +1,17 @@
 .Item {
   display: flex;
   justify-content: flex-start;
-  transition: background-color 1s;
-}
-
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  font-family: Arial, sans-serif;
 }
 
 .Item-code {
+  font-size: 16px;
   padding: 20px 10px 20px 20px;
 }
 
 .Item-title {
-  width: 100%;
+  font-size: 16px;
+  width: 70%;
   padding: 20px 10px;
 }
 
@@ -22,4 +19,30 @@
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-price {
+  font-size: 18px;
+  font-weight: 400;
+  text-align: right;
+  white-space: nowrap;
+  width: 20%;
+  padding: 20px 10px 20px 20px;
+}
+
+.Item-count {
+  font-size: 18px;
+  font-weight: 400;
+  text-align: right;
+  white-space: nowrap;
+  padding: 20px 0 20px 0;
+}
+
+/* Обычно у кнопки есть 'pointer'. Ну и для фирефокс поправится */
+.Item-button {
+  border: 1px solid #767676;
+  border-radius: 2px;
+  width: 76px;
+  height: 21px;
+  cursor: pointer;
 }
