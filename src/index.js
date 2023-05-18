@@ -7,15 +7,16 @@ import "index.css";
 
 const store = new Store({
   list: [
-    {code: generateCode(), title: 'Название товара', price: 100.0, count: 1},
-    {code: generateCode(), title: 'Книга про React', price: 770, count: 1},
-    {code: generateCode(), title: 'Конфета', price: 33, count: 1},
-    {code: generateCode(), title: 'Трактор', price: 7955320, count: 1},
-    {code: generateCode(), title: 'Телефон iPhone XIXV', price: 120000, count: 1},
-    {code: generateCode(), title: 'Карандаши цветные', price: 111, count: 1},
-    {code: generateCode(), title: 'Товар сюрприз', price: 0, count: 1},
+    {code: generateCode(), title: 'Название товара', price: 100},
+    {code: generateCode(), title: 'Книга про React', price: 770},
+    {code: generateCode(), title: 'Конфета', price: 33},
+    {code: generateCode(), title: 'Трактор', price: 7955320},
+    {code: generateCode(), title: 'Телефон iPhone XIXV', price: 120000},
+    {code: generateCode(), title: 'Карандаши цветные', price: 111},
+    {code: generateCode(), title: 'Товар сюрприз', price: 0},
   ],
-  cart: []
+  cart: [],
+  total: 0,
 });
 
 const root = createRoot(document.getElementById('root'));

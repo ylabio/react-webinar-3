@@ -66,36 +66,48 @@ class Store {
    * Добавление товара в корзину
    */
   addToCart(code){
-    const cart = this.state.cart;
     // проверяем есть ли в корзине товар с таким же кодом
     // присваиваем переменной i индекс товара в корзине, если товара нет то i = -1
-    const i = cart.findIndex((item) => item.code === code);
+    const i = this.state.cart.findIndex((item) => item.code === code);
 
     if (i > -1) {
-      // // если товар в корзине есть увеличиваем у него count
-      this.state.cart[i].count++;
+      // если товар в корзине есть увеличиваем у него count
+      const newCart = this.state.cart;
+      newCart[i].count++;
+
       // обновляем стейт
       this.setState({
         ...this.state,
-        cart: [ ...this.state.cart]
+        cart: newCart,
+        total: this.getCartPrice(),
       })
-      
-
     } else if (i === -1) {
       // если товара в корзине нет, добавляем его в корзину
       this.setState({
         ...this.state,
-        cart: [ ...this.state.cart, ...this.state.list.filter((item) => item.code === code)]
+        cart: [ ...this.state.cart, {...this.state.list.filter((item) => item.code === code)[0], count: 1}],
+        total: this.getCartPrice(),
       });
-    } 
-    // console.log(cart)
+
+      // считаем новую цену товаров в корзине
+      this.setState({
+        ...this.state,
+        total: this.getCartPrice(),
+      });
+    }  
   }  
 
   removeFromCart(code){
     this.setState({
       ...this.state,
       // Новая корзина, в которой не будет удаляемого товара
-      cart: this.state.cart.filter((item) => item.code !== code)
+      cart: [...this.state.cart.filter((item) => item.code !== code)],
+    })
+
+    // считаем новую цену товаров в корзине
+    this.setState({
+      ...this.state,
+      total: this.getCartPrice(),
     })
   }
 

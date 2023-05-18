@@ -12,13 +12,11 @@ import Cart from './components/cart';
  * @returns {React.ReactElement}
  */
 function App({store}) {
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const list = store.getState().list;
   const cart = store.getState().cart;
-
-  const totalPrice = store.getCartPrice();
+  const total = store.getState().total;
 
   const callbacks = {
     onAddItem: useCallback((code) => {
@@ -41,10 +39,10 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Приложение на чистом JS'/>
-      <Controls goToCart={callbacks.onGoToCart} itemCount={cart.length} totalPrice={totalPrice}/>
+      <Controls goToCart={callbacks.onGoToCart} itemCount={cart.length} totalPrice={total}/>
       <List list={list} onClick={callbacks.onAddItem}/>
       <Modal isOpen={isModalOpen} onClose={callbacks.onCloseCart} title="Корзина"> 
-        <Cart cart={cart} onDelete={callbacks.onDeleteItem} total={totalPrice}></Cart>
+        <Cart cart={cart} onDelete={callbacks.onDeleteItem} total={total}></Cart>
       </Modal>
     </PageLayout>
   );
