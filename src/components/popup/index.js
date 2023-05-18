@@ -5,7 +5,7 @@ import './style.css';
 
 /** Пустое окно с названием и кнопкой. Можно использовать не только для корзины */
 
-function Popup(props) {
+function Popup({children, setActive}) {
   const cn = bem('Popup');
 
   // Костыль для ситуаций с мелкими экранами или ресайзами.
@@ -22,6 +22,10 @@ function Popup(props) {
   }
 
   useEffect(() => {
+    fixPopupSize(); // fix: забыл отловить изменения чилдов, если там чтото поменялось
+  }, [children]);
+
+  useEffect(() => {
     fixPopupSize();
     window.addEventListener('resize', fixPopupSize);
     document.body.style.overflowY = "hidden";
@@ -32,10 +36,10 @@ function Popup(props) {
   }, []);
 
   return (
-    <div className={cn()} onClick={() => props.setActive(false)}>
+    <div className={cn()} onClick={() => setActive(false)}>
       <div className={cn('content')} onClick={e => e.stopPropagation()}>
-        <button className={cn('close')} onClick={() => props.setActive(false)}>Закрыть</button>
-        {props.children}
+        <button className={cn('close')} onClick={() => setActive(false)}>Закрыть</button>
+        {children}
       </div>
     </div>
   );
