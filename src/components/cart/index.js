@@ -3,24 +3,30 @@ import PropTypes from 'prop-types';
 import Head from '../head';
 import List from '../list';
 import './style.css';
+import { formatPrice } from '../../utils';
 
-function Cart({cart, priceAll, onToggleModal, onDeleteFromCart}) {
+function Cart({cart, onToggleModal, onDeleteFromCart}) {
   return (
     <div className='Cart'>
+      <div className='Cart-content'>
         <Head title='Корзина' onToggleModal={onToggleModal} />
-        {cart.length ? <List list={cart} isCart={true} onDeleteFromCart={onDeleteFromCart}/> : <span className='Cart-empty'>Корзина пуста</span>}
-        {cart.length ? <span className='Cart-total'><span>Итого</span><span>{priceAll}</span></span> : null}
+        {cart.cartQuantity? <List list={cart.cartList} isCart={true} onDeleteFromCart={onDeleteFromCart}/> : <span className='Cart-empty'>Корзина пуста</span>}
+        {cart.cartQuantity ? <span className='Cart-total'><span>Итого</span><span>{formatPrice(cart.cartSum)}</span></span> : null}
+      </div>
     </div>
   )
 }
 
 Cart.propTypes = {
-    cart: PropTypes.arrayOf(PropTypes.shape({
+    cart: PropTypes.shape({
+      cartList: PropTypes.arrayOf(PropTypes.shape({
         code: PropTypes.number,
         title: PropTypes.string,
         price: PropTypes.number
-    })).isRequired,
-    priceAll: PropTypes.string
+      })),
+      cartSum: PropTypes.number,
+      cartQuantity: PropTypes.number
+    }).isRequired,
 };
 
 export default React.memo(Cart)
