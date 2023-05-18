@@ -1,7 +1,8 @@
 import { cn as bem } from "@bem-react/classname";
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useCallback } from 'react';
 import Head from '../head';
+import Item from '../item';
 import List from '../list';
 import PageLayout from '../page-layout';
 import Popup from '../popup';
@@ -12,12 +13,19 @@ import './style.css';
 function BasketWindow({ list, info, onDelete, setOpen }) {
   const cn = bem('BasketWindow');
 
+  // Специфичный итем для корзины
+  const basketItem = useCallback(item => <Item
+    item={item}
+    onAction={onDelete}
+    actionName="Удалить"
+  />, []);
+
   return (
     <Popup setActive={setOpen}>
       <PageLayout>
         <Head title='Корзина' />
         <div className={cn('empty')} />
-        <List list={list} buttonsAction={onDelete} buttonsLabel="Удалить" />
+        <List list={list} render={basketItem} />
         
         <div className={cn('info')}>
           {info.goods ?

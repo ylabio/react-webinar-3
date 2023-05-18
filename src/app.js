@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import BasketWindow from "./components/basket";
 import Controls from "./components/controls";
 import Head from "./components/head";
+import Item from "./components/item";
 import List from "./components/list";
 import PageLayout from "./components/page-layout";
 
@@ -30,6 +31,13 @@ function App({ store }) {
     }, [store])
   };
 
+  // Специфичный итем для каталога
+  const catalogItem = useCallback(item => <Item
+    item={item}
+    onAction={callbacks.onAddItemToBasket}
+    actionName="Добавить"
+  />, []);
+
   return (
     <>
       <PageLayout>
@@ -38,10 +46,7 @@ function App({ store }) {
           onBasketClick={callbacks.onBasketShow}
           basketInfo={state.info}
         />
-        <List list={state.list}
-          buttonsAction={callbacks.onAddItemToBasket}
-          buttonsLabel="Добавить"
-        />
+        <List list={state.list} render={catalogItem} />
       </PageLayout>
 
       {
