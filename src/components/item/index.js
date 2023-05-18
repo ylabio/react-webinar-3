@@ -9,29 +9,58 @@ function Item(props){
   const [count, setCount] = useState(0);
 
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
+    // onClick: () => {
+    //   props.onSelect(props.item.code);
+    //   if (!props.item.selected) {
+    //     setCount(count + 1);
+    //   }
+    // },
     onDelete: (e) => {
       e.stopPropagation();
       props.onDelete(props.item.code);
+      props.onGetCartInfo();
+    },
+    onClickAddToCart: (e) =>{
+      e.stopPropagation();
+      props.onAddToCart(props.item);
+      props.onGetCartInfo();
     }
   }
 
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-         onClick={callbacks.onClick}>
+    <div className='Item'>
+          {/*onClick={callbacks.onClick}>*/}
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {one: 'раз', few: 'раза', many: 'раз'})}` : ''}
+        {/*{props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {one: 'раз', few: 'раза', many: 'раз'})}` : ''}*/}
+        {props.item.title}
       </div>
+      <div className='Item-price'>
+          {`${new Intl.NumberFormat('ru-RU').format(props.item.price)}`}&nbsp;&#8381;
+      </div>
+      {
+        props.item.count &&
+          (
+              <div className='Item-count'>
+                {`${props.item.count} шт`}
+              </div>
+          )
+      }
       <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
+        {/*<button onClick={callbacks.onDelete}>*/}
+        {
+            props.item.count
+            ? (
+            <button onClick={callbacks.onDelete}>
+              Удалить
+            </button>
+            )
+            : (
+            <button onClick={callbacks.onClickAddToCart}>
+              Добавить
+            </button>
+            )
+        }
       </div>
     </div>
   );

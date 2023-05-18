@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import {generateCode, plural} from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -58,7 +58,7 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code)
     })
   };
 
@@ -82,6 +82,41 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     })
+  }
+  /**
+   * Добавление новой записи в корзину
+   */
+  addToCart(item) {
+
+    if(this.state.cart.filter(el => el.code === item.code).length){
+      return this.setState({
+        ...this.state,
+        cart: this.state.cart.map(el => {
+          if (el.code === item.code) {
+            return {
+              ...el,
+              count: el.count + 1,
+            };
+          }
+          return el;
+        })
+      })
+    }
+
+    this.setState({
+      ...this.state,
+      cart: [...this.state.cart, {...item, count: 1}]
+    })
+  };
+
+  getCartInfo(){
+    const count = this.state.cart.reduce((sum, item) => item.count + sum, 0)
+    const totalPrice = this.state.cart.reduce((sum, item) => (item.price * item.count) + sum, 0)
+    return {count, totalPrice}
+  }
+
+  openModal(){
+
   }
 }
 
