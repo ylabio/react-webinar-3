@@ -27,7 +27,7 @@ function App({store}) {
   }
 
   return (<PageLayout>
-    <Head title='Приложение на чистом JS'/>
+    <Head title='Магазин'/>
     <Controls onModalOpen={() => setModalOpened(true)}/>
     <List list={list}
           onAddItem={callbacks.onAddItem} />
