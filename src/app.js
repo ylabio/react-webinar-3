@@ -13,9 +13,6 @@ import PageLayout from "./components/page-layout";
 function App({ store }) {
 
   const state = store.getState();
-  const list = state.list;
-  const basketList = state.basket;
-  const basketInfo = state.info; // {goods:n, price:n}
 
   const [basket, setBasket] = useState(false);
 
@@ -35,14 +32,13 @@ function App({ store }) {
 
   return (
     <>
-
       <PageLayout>
         <Head title='Магазин' />
         <Controls
           onBasketClick={callbacks.onBasketShow}
-          basketInfo={basketInfo}
+          basketInfo={state.info}
         />
-        <List list={list}
+        <List list={state.list}
           buttonsAction={callbacks.onAddItemToBasket}
           buttonsLabel="Добавить"
         />
@@ -50,10 +46,13 @@ function App({ store }) {
 
       {
         basket ?
-          <BasketWindow list={basketList} info={basketInfo} onDelete={callbacks.onDeleteItemFromBasket} setOpen={setBasket} />
+          <BasketWindow list={state.basket}
+            info={state.info}
+            onDelete={callbacks.onDeleteItemFromBasket}
+            setOpen={setBasket}
+          />
           : null
       }
-
     </>
   );
 }
