@@ -83,10 +83,9 @@ class Store {
       ...this.state,
       list: this.state.list.map((item) => {
         const selected = item.code === code && !item.selected;
-        const selectСounter = selected
-          ? (item.selectСounter += 1)
-          : item.selectСounter;
-        return { ...item, selected, selectСounter };
+        item.selected = selected;
+        selected ? (item.selectСounter += 1) : item.selectСounter;
+        return item;
       }),
     });
   }
