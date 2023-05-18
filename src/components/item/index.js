@@ -1,56 +1,55 @@
-import React, {useState} from "react";
-import PropTypes from "prop-types";
-import {plural} from "../../utils";
-import './style.css';
+import React from 'react';
+import PropTypes from 'prop-types';
+import styles from './Item.module.scss';
 
-function Item(props){
+const Item = (props) => {
+  const { code, title, price, countValue } = props.item;
+  const { modal, addProduct, removeProduct, products } = props;
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
-  const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
-    onDelete: (e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code);
-    }
-  }
+  // Форматирование прайса с пробелами между каждыми тремя цифрами
+  const formattedPrice = price.toLocaleString(undefined, {
+    maximumFractionDigits: 0,
+    minimumFractionDigits: 0,
+  });
 
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-         onClick={callbacks.onClick}>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {one: 'раз', few: 'раза', many: 'раз'})}` : ''}
+    <div className={styles.item}>
+      <div className={styles.itemCodeAndTitle}>
+        <div className={styles.itemCode}>{code}</div>
+        <div className={styles.itemTitle}>{title}</div>
       </div>
-      <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
+      <div className={styles.itemActions}>
+        <div className={styles.itemActionsText}>
+          <p>{formattedPrice + ' ₽'}</p>
+          {modal && products.length > 0 && <p>{countValue + ' шт'}</p>}
+        </div>
+        {!modal ? (
+          <button onClick={() => addProduct(props.item)}>Добавить</button>
+        ) : (
+          <button onClick={() => removeProduct(props.item)}>Удалить</button>
+        )}
       </div>
+      {modal && products.length === 0 && <p>Корзина пуста</p>}
     </div>
   );
-}
+};
 
 Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     selected: PropTypes.bool,
-    count: PropTypes.number
+    count: PropTypes.number,
   }).isRequired,
   onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+  onSelect: PropTypes.func,
+  modal: PropTypes.bool,
 };
 
 Item.defaultProps = {
   onDelete: () => {},
   onSelect: () => {},
-}
+  modal: false,
+};
 
 export default React.memo(Item);
