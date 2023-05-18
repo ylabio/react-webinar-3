@@ -3,6 +3,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from "./components/modal";
 
 /**
  * Приложение
@@ -34,6 +35,7 @@ function App({store}) {
       <List list={list}
             onAddItem={callbacks.onAddItem}
             />
+        <Modal basket={basket}/>
     </PageLayout>
   );
 }
