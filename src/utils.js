@@ -26,3 +26,16 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getPlural(counter, textForms, addPhrase) {
+  const counterPhrase = `${addPhrase} ${counter}`;
+  return counter > 0
+    ? counter > 1
+      ? counter % 10 > 1 && counter % 10 < 5
+        ? counter > 11 && counter < 15
+          ? `${counterPhrase} ${textForms[2]}`
+          : `${counterPhrase} ${textForms[1]}`
+        : `${counterPhrase} ${textForms[2]}`
+      : `${counterPhrase} ${textForms[0]}`
+    : '';
+}
