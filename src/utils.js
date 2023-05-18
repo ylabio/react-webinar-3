@@ -49,3 +49,11 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Функция по форматированию цены
+ * @returns {String}
+ */
+export function formatPrice(value, locale = 'ru-RU', currency = 'RUB') {
+  return Number(value).toLocaleString(locale, {style: 'currency', currency, minimumFractionDigits: 0})
+}

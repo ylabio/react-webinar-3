@@ -1,0 +1,22 @@
+.HeaderCart {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.HeaderCart-total {
+  font-weight: 700;
+  font-size: 18px;
+  margin-left: 15px;
+}
+
+.HeaderCart-button {
+  min-width: 80px;
+  font-size: 13px;
+  background: #EFEFEF;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  padding: 3px 8px 2px 9px;
+  margin-left: 20px;
+  cursor: pointer;
+}

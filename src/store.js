@@ -41,48 +41,36 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товаров в корзину
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+  addToCart(code) {
+    const itemExist = this.state.cart.find(item => item.code === code);
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+    if (itemExist) {
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart.filter(item => item.code !== code), {...itemExist, count: itemExist.count ? itemExist.count + 1 : 1 }]
       })
+    } else {
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, {...this.state.list.filter(item => item.code === code)[0], count: 1}]
+      })
+    }
+  };
+
+  /**
+   * Удаление товаров из корзины
+   */
+  deleteFromCart(code) {
+    const newElems = this.state.cart.filter(item => item.code !== code);
+
+    this.setState({
+      ...this.state,
+      cart: [...newElems]
     })
-  }
+  };
+
 }
 
 export default Store;

@@ -1,0 +1,39 @@
+.Cart {
+    max-width: 960px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.Cart .Head {
+    border-radius: 10px 10px 0 0;
+}
+
+.Cart .List {
+    margin-top: 71px;
+}
+
+.Cart-total {
+    display: flex;
+    gap: 60px;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 20px 0 89px;
+}
+
+.Cart-total span:first-child {
+    flex: 1;
+    text-align: right;
+}
+
+.Cart-total span:last-child {
+    min-width: 150px;
+}
+
+.Cart-empty {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 60px 0;
+}
