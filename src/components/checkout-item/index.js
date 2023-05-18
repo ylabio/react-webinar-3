@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {formatAmount} from '../../utils';
 import './style.css';
 
 const CheckoutItem = (props) => {
@@ -10,7 +11,7 @@ const CheckoutItem = (props) => {
         <span className='Checkout-elem__title'>{props[0].title}</span>
       </div>
       <div className='Checkout-elem'>
-        <span className='Checkout-elem__price'>{props[0].price} ₽</span>
+        <span className='Checkout-elem__price'>{formatAmount(props[0].price)} ₽</span>
         <span className='Checkout-elem__quantity'>{props.quantity} шт</span>
 
         <button onClick={() => props.removeItem(props.code)}>Удалить</button>

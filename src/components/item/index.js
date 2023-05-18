@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import {formatAmount} from '../../utils';
 
 function Item(props) {
   const callbacks = {
@@ -15,7 +16,7 @@ function Item(props) {
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>
         {props.item.title}
-        <span className='Item-price'>{`${props.item.price} ₽`}</span>
+        <span className='Item-price'>{`${formatAmount(props.item.price)} ₽`}</span>
       </div>
       <div className='Item-actions'>
         <button onClick={callbacks.addToOrder}>Добавить</button>

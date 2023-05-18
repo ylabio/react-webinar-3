@@ -3,7 +3,7 @@ import CheckoutItem from '../checkout-item';
 import PropTypes from 'prop-types';
 import './style.css';
 
-const Modal = ({closeModel, cartItems, removeItem, sumCart}) => {
+const Modal = ({closeModel, title, children}) => {
   const handleCloseModelOverly = (event) => {
     if (event.currentTarget === event.target) {
       closeModel();
@@ -20,39 +20,24 @@ const Modal = ({closeModel, cartItems, removeItem, sumCart}) => {
     >
       <div className='Modal-wrapper'>
         <div className='Modal__header'>
-          <h2 className='Modal__title'>Корзина</h2>
+          <h2 className='Modal__title'>{title}</h2>
           <div className='Modal__button'>
             <button onClick={closeModel}>Закрыть</button>
           </div>
         </div>
-        <div className='Modal__margin'></div>
-        {cartItems.map((value) => (
-          <CheckoutItem key={value.code} {...value} removeItem={removeItem} />
-        ))}
-        <div className='Modal__total'>
-          Итого <span>{sumCart} ₽</span>
-        </div>
-        <div className='Modal__margin-bottom'></div>
+        {children}
       </div>
     </div>
   );
 };
+
 Modal.propTypes = {
-  cartItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number,
-      title: PropTypes.string,
-      price: PropTypes.number,
-    })
-  ).isRequired,
-  sumCart: PropTypes.string,
+  children: PropTypes.node,
   closeModel: PropTypes.func,
-  removeItem: PropTypes.func,
 };
 
 Modal.defaultProps = {
   closeModel: () => {},
-  removeItem: () => {},
 };
 
 export default React.memo(Modal);
