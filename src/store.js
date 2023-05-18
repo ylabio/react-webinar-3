@@ -62,6 +62,14 @@ class Store {
     })
   };
 
+  calculateCartTotalPrice(){
+    let totalPrice = 0;
+    for (let item of this.state.cart) {
+      totalPrice += item.price * item.count;
+    }
+    return totalPrice;
+  }
+
   /**
    * Добавление товара в корзину
    */
@@ -79,22 +87,21 @@ class Store {
       this.setState({
         ...this.state,
         cart: newCart,
-        total: this.getCartPrice(),
       })
+
     } else if (i === -1) {
       // если товара в корзине нет, добавляем его в корзину
       this.setState({
         ...this.state,
         cart: [ ...this.state.cart, {...this.state.list.filter((item) => item.code === code)[0], count: 1}],
-        total: this.getCartPrice(),
-      });
-
-      // считаем новую цену товаров в корзине
-      this.setState({
-        ...this.state,
-        total: this.getCartPrice(),
       });
     }  
+
+    // считаем новую цену товаров в корзине
+    this.setState({
+      ...this.state,
+      total: this.calculateCartTotalPrice(),
+    });
   }  
 
   removeFromCart(code){
@@ -107,16 +114,8 @@ class Store {
     // считаем новую цену товаров в корзине
     this.setState({
       ...this.state,
-      total: this.getCartPrice(),
+      total: this.calculateCartTotalPrice(),
     })
-  }
-
-  getCartPrice(){
-    let totalPrice = 0;
-    for (let item of this.state.cart) {
-      totalPrice += item.price * item.count;
-    }
-    return totalPrice;
   }
 }
 
