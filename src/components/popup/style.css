@@ -15,6 +15,7 @@
 }
 
 .Popup-content {
+  position: relative;
   border-radius: 10px;
   width: 960px;
   min-width: 407px;
@@ -23,19 +24,19 @@
 
 .Popup-overfilled {
   align-items: flex-start;
+  overflow-x: hidden;
   overflow-y: scroll;
 }
 
 /* чтоб скрол не смещал модалку */
 .Popup-content-overfilled {
-  position: relative;
   left: 9px;
 }
 
 .Popup-close {
-  position: relative;
-  top: 50px;
-  left: calc(100% - 102px);
+  position: absolute;
+  top: 32px;
+  right: 32px;
   width: 76px;
   height: 21px;
   border: 1px solid #767676;
