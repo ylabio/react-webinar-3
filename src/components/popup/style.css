@@ -30,7 +30,7 @@
 
 /* чтоб скрол не смещал модалку */
 .Popup-content-overfilled {
-  left: 9px;
+  left: 8px;
 }
 
 .Popup-close {

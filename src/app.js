@@ -1,10 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import BasketWindow from "./components/basket";
-import Controls from "./components/controls";
-import Head from "./components/head";
-import Item from "./components/item";
-import List from "./components/list";
-import PageLayout from "./components/page-layout";
+import Catalog from './components/catalog';
 
 /**
  * Приложение
@@ -14,7 +10,7 @@ import PageLayout from "./components/page-layout";
 function App({ store }) {
 
   const state = store.getState();
-
+  
   const [basket, setBasket] = useState(false);
 
   const callbacks = {
@@ -31,28 +27,16 @@ function App({ store }) {
     }, [store])
   };
 
-  // Специфичный итем для каталога
-  const catalogItem = useCallback(item => <Item
-    item={item}
-    onAction={callbacks.onAddItemToBasket}
-    actionName="Добавить"
-  />, []);
-
   return (
     <>
-      <PageLayout>
-        <Head title='Магазин' />
-        <Controls
-          onBasketClick={callbacks.onBasketShow}
-          basketInfo={state.info}
-        />
-        <List list={state.list} render={catalogItem} />
-      </PageLayout>
+      <Catalog list={state.list} info={state.info}
+        onAddToBasket={callbacks.onAddItemToBasket}
+        onBasketShow={callbacks.onBasketShow}
+      />
 
       {
         basket ?
-          <BasketWindow list={state.basket}
-            info={state.info}
+          <BasketWindow list={state.basket} info={state.info}
             onDelete={callbacks.onDeleteItemFromBasket}
             setOpen={setBasket}
           />
