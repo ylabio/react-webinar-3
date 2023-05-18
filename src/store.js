@@ -41,7 +41,7 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление новой записи пока что оставим, вдруг пригодится, хотя всегда можно достать из гитхаба
    */
   addItem() {
     this.setState({
@@ -51,35 +51,37 @@ class Store {
   };
 
   /**
-   * Удаление записи по коду
+   * Удаление записи из корзины по коду
    * @param code
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      // Новый список, в котором количество удаленного товара зануляется
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          return {...item, count: 0}
+        }
+        return item
+      })
     })
   };
 
   /**
-   * Выделение записи по коду
-   * @param code
+   * Добавление и увеличение товара в корзине
    */
-  selectItem(code) {
+  addItemToBasket(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          // Смена выделения и подсчёт
+          // Подсчёт количества товара
           return {
             ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
+            count: item.count ? item.count + 1 : 1,
           };
         }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+        return item
       })
     })
   }
