@@ -1,16 +1,11 @@
+import {generateCode} from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
-
-import { v4 as uuidv4 } from 'uuid';
-
 class Store {
   constructor(initState = {}) {
     this.state = initState;
-    this.state.list = this.state.list.map(item => {
-      return {...item, selectionCounter: 0};
-    });
-    this.state.uniqueCode = this.state.list.length;
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -51,8 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      uniqueCode: this.state.uniqueCode += 1,
-      list: [...this.state.list, {code: this.state.uniqueCode, title: 'Новая запись'}],
+      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
     })
   };
 
@@ -63,6 +57,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
+      // Новый список, в котором не будет удаляемой записи
       list: this.state.list.filter(item => item.code !== code)
     })
   };
@@ -76,16 +71,18 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          !item.clicks? item.clicks = 0 : '';
-          item.selected = !item.selected;
-          item.selected? item.clicks++ : ''; 
-        } else {
-          item.selected = false;
+          // Смена выделения и подсчёт
+          return {
+            ...item,
+            selected: !item.selected,
+            count: item.selected ? item.count : item.count + 1 || 1,
+          };
         }
-        return item;
+        // Сброс выделения если выделена
+        return item.selected ? {...item, selected: false} : item;
       })
     })
   }
-} 
+}
 
 export default Store;
