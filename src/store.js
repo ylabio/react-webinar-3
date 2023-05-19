@@ -40,10 +40,6 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-
   addItemToCart(code) {
     const cart = this.state.cartItems;
     const foundIndex = cart.findIndex((item) => item.code === code); // ищем товар с указанным кодом в корзине
