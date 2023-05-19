@@ -1,0 +1,7 @@
+.Cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 960px;
+  height: fit-content;
+}
