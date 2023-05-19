@@ -1,39 +1,77 @@
-import React, {useCallback} from 'react';
-import List from "./components/list";
-import Controls from "./components/controls";
-import Head from "./components/head";
-import PageLayout from "./components/page-layout";
+import React, { useCallback, useState } from 'react';
+import List from './components/list';
+import Controls from './components/controls';
+import Head from './components/head';
+import PageLayout from './components/page-layout';
+import ModalWindow from './components/modal-window';
+import Spacer from './components/spacer';
+import CartInfo from './components/cart-info';
+import CartFooter from './components/cart-footer';
+import CatalogItem from './components/catalog-item';
+import CartItem from './components/cart-item';
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
-
+function App({ store }) {
+  const [isCartOpen, setCartOpen] = useState(false);
+  const cartSum = store.getState().cartSum;
+  const cart = store.getState().cart;
   const list = store.getState().list;
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+    onDeleteItemFromCart: useCallback(
+      (code) => {
+        store.deleteItemFromCart(code);
+      },
+      [store],
+    ),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+    onAddItemToCart: useCallback(
+      (code) => {
+        store.addItemToCart(code);
+      },
+      [store],
+    ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
+    onOpenCart: () => {
+      setCartOpen(true);
+    },
+
+    onCloseCart: () => {
+      setCartOpen(false);
+    },
+  };
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин' />
+      <Controls>
+        <CartInfo count={cart.length} sum={cartSum} />
+        <button onClick={callbacks.onOpenCart}>Перейти</button>
+      </Controls>
+      <List list={list}>
+        <CatalogItem onItemAction={callbacks.onAddItemToCart} />
+      </List>
+      <ModalWindow isOpen={isCartOpen} cart={cart} closable onClose={callbacks.onCloseCart}>
+        <Head title='Корзина'>
+          <button onClick={callbacks.onCloseCart}>Закрыть</button>
+        </Head>
+        {cart.length > 0 ? (
+          <Controls>
+            <Spacer height={28} />
+          </Controls>
+        ) : (
+          false
+        )}
+        <List list={cart}>
+          <CartItem onItemAction={callbacks.onDeleteItemFromCart} />
+        </List>
+        {cart.length > 0 ? <CartFooter sum={cartSum} /> : false}
+        <Spacer height={89} />
+      </ModalWindow>
     </PageLayout>
   );
 }
