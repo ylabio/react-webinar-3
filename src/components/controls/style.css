@@ -2,4 +2,22 @@
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+  border-bottom: 1px dashed #cccccc;
+}
+
+.Controls-cart {
+  display: flex;
+  gap: 15px;
+  margin-right: 20px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20.7px;
+}
+
+.Controls-actions {
+  padding: 2.5px 9px;
+}
+
+.Controls-data {
+  font-weight: 700;
 }

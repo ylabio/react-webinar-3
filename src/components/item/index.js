@@ -1,37 +1,27 @@
-import React, {useState} from "react";
-import PropTypes from "prop-types";
-import {plural} from "../../utils";
+import React from 'react';
+import PropTypes from 'prop-types';
 import './style.css';
+import { cn as bem } from '@bem-react/classname';
 
-function Item(props){
-
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
+function Item({ item, buttonTitle, onClick }) {
+  const cn = bem('Item');
+  const { code, title, price, count } = item;
 
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
-    onDelete: (e) => {
+    onClick: (e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
-    }
-  }
+      onClick(code);
+    },
+  };
 
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-         onClick={callbacks.onClick}>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {one: 'раз', few: 'раза', many: 'раз'})}` : ''}
-      </div>
-      <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
+    <div className={cn()}>
+      <div className={cn('code')}>{code}</div>
+      <div className={cn('title')}>{title}</div>
+      <div className={cn('price')}>{price} ₽</div>
+      {count && <div className={cn('count')}>{count} шт</div>}
+      <div className={cn('actions')}>
+        <button onClick={callbacks.onClick}>{buttonTitle}</button>
       </div>
     </div>
   );
@@ -41,16 +31,11 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
-    count: PropTypes.number
-  }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+    price: PropTypes.number,
+    count: PropTypes.number,
+  }),
+  onClick: PropTypes.func,
+  buttonTitle: PropTypes.string,
 };
-
-Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
-}
 
 export default React.memo(Item);
