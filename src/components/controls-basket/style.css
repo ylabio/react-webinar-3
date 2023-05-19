@@ -1,0 +1,21 @@
+.Controls-Basket {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 21px 22px 0;
+}
+
+.Controls-Basket-price {
+  width: 24%;
+  display: flex;
+  margin-bottom: 89px;
+}
+
+.Controls-Basket-price b:first-child {
+    margin-right: 53px;
+  }
+ 
+  @media screen and (max-width: 1100px) {
+    .Controls-Basket-price {
+      width: auto;
+    }
+  }  
