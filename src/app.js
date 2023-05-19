@@ -1,39 +1,60 @@
-import React, {useCallback} from 'react';
+import React, { useCallback, useState } from "react";
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Cart from "./components/cart";
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
-
+function App({ store }) {
+  const [isCartOpened, setIsCartOpened] = useState(false);
   const list = store.getState().list;
+  const cart = store.getState().cart;
+  const totalCartPrice = cart.reduce(
+    (acc, item) => acc + item.price * item.count,
+    0
+  );
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+    onAddItem: useCallback(
+      (item) => {
+        store.addCartItem(item);
+      },
+      [store]
+    ),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+    onDelete: (code) => {
+      store.deleteCartEl(code);
+    },
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
+    showCart: () => {
+      isCartOpened ? setIsCartOpened(false) : setIsCartOpened(true);
+    },
+  };
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title="Приложение на чистом JS" />
+      <Controls
+        totalCartPrice={totalCartPrice}
+        onShowCart={callbacks.showCart}
+        cart={cart}
+      />
+      <List list={list} onAddItem={callbacks.onAddItem} />
+      {isCartOpened ? (
+        <div className="cart-wrapper">
+          <Cart
+            onDelete={callbacks.onDelete}
+            totalCartPrice={totalCartPrice}
+            cart={cart}
+            showCart={callbacks.showCart}
+          />
+        </div>
+      ) : null}
     </PageLayout>
   );
 }

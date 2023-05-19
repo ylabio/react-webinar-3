@@ -1,0 +1,15 @@
+.CartItem {
+  display: grid;
+  grid-template-columns: 1fr 8fr 2fr 1fr 1fr;
+  padding: 20px;
+  border-bottom: 1px dashed #cccccc;
+  white-space: nowrap;
+}
+
+.CartItem:first-child {
+  border-top: 1px dashed #cccccc;
+}
+
+.CartItem-code {
+  margin-right: 20px;
+}

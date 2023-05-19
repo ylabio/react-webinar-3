@@ -13,7 +13,8 @@ const store = new Store({
     {code: generateCode(), title: 'Телефон iPhone XIXV', price: 120000},
     {code: generateCode(), title: 'Карандаши цветные', price: 111},
     {code: generateCode(), title: 'Товар сюрприз', price: 0},
-  ]
+  ],
+  
 });
 
 const root = createRoot(document.getElementById('root'));
@@ -24,3 +25,4 @@ store.subscribe(() => {
 
 // Первый рендер приложения
 root.render(<App store={store}/>);
+
