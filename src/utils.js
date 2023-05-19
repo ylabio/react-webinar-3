@@ -49,3 +49,10 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+export function editTime(number) {
+  if (number > 10 && [11, 12, 13, 14].includes(number%100)) return `${number} товаров`;
+  let last_num = number%10;
+  if (last_num == 1) return `${number} товар`;
+  if ([2,3,4].includes(last_num)) return `${number} товара`;
+  if ([5,6,7,8,9, 0].includes(last_num)) return `${number} товаров`;
+}
