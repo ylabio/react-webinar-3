@@ -1,3 +1,5 @@
+import { generateCode } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -16,8 +18,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -44,9 +46,49 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+      list: [
+        ...this.state.list,
+        { code: generateCode(), title: "Новая запись" },
+      ],
+    });
+  }
+
+  addCartItem(code) {
+    const cartList = [...this.state.cartList];
+		let isNew;
+    let item = cartList.find((el) => el.code == code);
+    if (item) {
+      ++item.count;
+    } else {
+      item = this.state.list.find((el) => el.code == code);
+      cartList.push({ ...item, count: 1 });
+			isNew = true;
+    }
+    this.setState({
+      ...this.state,
+      cartTotalCount: isNew
+        ? this.state.cartTotalCount + 1
+        : this.state.cartTotalCount,
+      cartTotalPrice: this.state.cartTotalPrice + item.price,
+      cartList,
+    });
+  }
+
+  deleteCartItem(code) {
+		const cartList = [...this.state.cartList]
+		const itemToDeleteIdx = this.state.cartList.findIndex((el) => el.code == code)
+		const [delItem] = cartList.splice(itemToDeleteIdx, 1);
+		const cartTotalPrice =
+      this.state.cartTotalPrice - delItem.count * delItem.price;
+		const cartTotalCount = this.state.cartTotalCount - 1;
+		
+    this.setState({
+      ...this.state,
+      cartList,
+      cartTotalPrice,
+      cartTotalCount,
+    });
+  }
 
   /**
    * Удаление записи по коду
@@ -55,9 +97,10 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      // Новый список, в котором не будет удаляемой записи
+      list: this.state.list.filter((item) => item.code !== code),
+    });
+  }
 
   /**
    * Выделение записи по коду
@@ -66,13 +109,19 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          // Смена выделения и подсчёт
+          return {
+            ...item,
+            selected: !item.selected,
+            count: item.selected ? item.count : item.count + 1 || 1,
+          };
         }
-        return item;
-      })
-    })
+        // Сброс выделения если выделена
+        return item.selected ? { ...item, selected: false } : item;
+      }),
+    });
   }
 }
 
