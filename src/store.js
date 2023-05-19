@@ -33,7 +33,6 @@ class Store {
     if(this.state.basket === undefined) {
       return 0 ;
     }
-    console.log(this.state.basket)
       return this.state.basket.reduce((acc, curr) => {return acc + (curr.price * curr.quantity)}, 0);
   }
 
@@ -54,20 +53,8 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      basket: this.state.basket.map(item => {
-        if(item.code === code && item.quantity > 1){
-          return{
-            ...item,
-            quantity: item.quantity - 1
-          }
-          }else {
-          return {
-            ...this.state,
-            basket: this.state.basket.filter(item => item.code !== code)
-          }
-        }
+      basket: this.state.basket.filter(item => item.code !== code)
       })
-    })
   };
 
   // добавление товара
@@ -82,7 +69,7 @@ class Store {
           quantity: item.quantity + 1
         }
       }else{
-return {...item}
+        return {...item}
       }
     })
     })

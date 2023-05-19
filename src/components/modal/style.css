@@ -8,16 +8,34 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
 }
 .Modal.active{
-    transform: scale(1);
+    opacity: 1;
+    pointer-events: all;
 }
 
 
 .Modal-basket{
     background-color: white;
-    min-height: 100px;
+    min-height: 407px;
     width: 960px;
     border-radius: 10px;
+    transition: 0.4s all;
+    transform: scale(0.5);
+}
+
+.Modal-basket.active{
+    transform: scale(1);
+}
+
+.Modal-prise{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-weight: bold;
+    padding: 20px 120px 89px;
+    text-align: end;
 }
