@@ -5,11 +5,6 @@ import {plural} from "../../utils";
 
 function Controls({onModalOpen, cart}) {
 
-  /** Получает кол-во единиц товаров в массиве
-   * @returns {number}
-   */
-  const cartCount = () => cart.reduce((sum, current) => parseInt(sum, 10) + parseInt(current.count, 10), 0)
-
   /** Получает итоговую сумму в корзине с учетом кол-ва товара
    * @returns {number}
    */
@@ -18,7 +13,7 @@ function Controls({onModalOpen, cart}) {
   return (
     <div className='Controls'>
       <p className='controls-title'>В корзине:<span
-        className='controls-counter'>{cart.length > 0 ? `${cartCount()} ${plural(cartCount(), {
+        className='controls-counter'>{cart.length > 0 ? `${cart.length} ${plural(cart.length, {
         one: 'товар',
         few: 'товара',
         many: 'товаров'
