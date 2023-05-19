@@ -1,10 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import List from './components/list';
-import Controls from './components/controls';
-import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Modal from './components/modal';
-import Products from './components/products';
+import ProductsPage from './components/products-page';
 
 /**
  * Приложение
@@ -12,8 +9,6 @@ import Products from './components/products';
  * @returns {React.ReactElement}
  */
 
-// TODO propTypes
-// TODO bem
 function App({ state: { store, cart } }) {
   const list = store.getState().list;
   const cartItems = cart.getState();
@@ -60,7 +55,7 @@ function App({ state: { store, cart } }) {
           sum={cart.getCartSum()}
         />
       )}
-      <Products
+      <ProductsPage
         showModal={callbacks.showModal}
         cnt={cart.getItemsCnt()}
         sum={cart.getCartSum()}

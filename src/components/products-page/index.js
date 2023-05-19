@@ -4,7 +4,7 @@ import List from '../list';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Products({ showModal, cnt, sum, list, action }) {
+function ProductsPage({ showModal, cnt, sum, list, action }) {
   return (
     <>
       <Head title="Магазин" />
@@ -14,7 +14,7 @@ function Products({ showModal, cnt, sum, list, action }) {
   );
 }
 
-Products.propTypes = {
+ProductsPage.propTypes = {
   showModal: PropTypes.func,
   cnt: PropTypes.number,
   sum: PropTypes.number,
@@ -22,9 +22,9 @@ Products.propTypes = {
   action: PropTypes.func,
 };
 
-Products.defaultProps = {
+ProductsPage.defaultProps = {
   showModal: () => {},
   action: () => {},
 };
 
-export default React.memo(Products);
+export default React.memo(ProductsPage);
