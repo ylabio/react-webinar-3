@@ -1,19 +1,24 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
-import {createElement} from './utils.js';
+import {generateCode} from './utils.js';
 import App from './app.js';
 import Store from './store.js';
 
 const store = new Store({
   list: [
-    {code: 1, title: 'Название элемента', count: 0},
-    {code: 2, title: 'Некий объект', count: 0},
-    {code: 3, title: 'Заголовок', count: 0},
-    {code: 4, title: 'Очень длинное название элемента из семи слов', count: 0},
-    {code: 5, title: 'Запись', count: 0},
-    {code: 6, title: 'Шестая запись', count: 0},
-    {code: 7, title: 'Седьмая запись', count: 0},
-  ]
+    {code: generateCode(), title: 'Название товара', price: 100.0},
+    {code: generateCode(), title: 'Книга про React', price: 770},
+    {code: generateCode(), title: 'Конфета', price: 33},
+    {code: generateCode(), title: 'Трактор', price: 7955320},
+    {code: generateCode(), title: 'Телефон iPhone XIXV', price: 120000},
+    {code: generateCode(), title: 'Карандаши цветные', price: 111},
+    {code: generateCode(), title: 'Товар сюрприз', price: 0},
+  ],
+  // Добавление массива данных для корзины
+  cartItems: [],
+  // Добавление суммы и количества товаров в корзине
+  totalPrice: 0,
+  totalCount: 0,
 });
 
 const root = createRoot(document.getElementById('root'));

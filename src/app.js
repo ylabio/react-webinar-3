@@ -1,7 +1,10 @@
-import React from 'react';
-import {createElement} from './utils.js';
-import './styles.css';
-import plural from 'plural-ru';
+import React, {useCallback, useState} from 'react';
+import List from "./components/list";
+import Controls from "./components/controls";
+import Head from "./components/head";
+import PageLayout from "./components/page-layout";
+import Cart from "./components/cart";
+import Modal from "./components/modal";
 
 /**
  * Приложение
@@ -9,41 +12,47 @@ import plural from 'plural-ru';
  * @returns {React.ReactElement}
  */
 function App({store}) {
-
-  const list = store.getState().list;
-
-  return (
-    <div className='App'>
-      <div className='App-head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='App-controls' data-code={list.length}>
-        <button onClick={() => store.addItem()}>Добавить</button>
-      </div>
-      <div className='App-center'>
-        <div className='List'>{
-          list.map(item =>
-              <div key={item.code} className='List-item'>
-                <div className={'Item' + (item.selected  ? ' Item_selected' : '')}
-                     onClick={() => store.selectItem(item.code)}>
-                  <div className='Item-code'>{item.code}</div>
-                  <div className='Item-title'>{item.title}</div>
-                  <div className='Item-text'>
-                      {item.count === 0 ? '' :
-                          `Выделяли  ${plural(item.count, '%d раз', '%d раза', '%d раз' )} `}
-                  </div>
-                  <div className='Item-actions'>
-                    <button onClick={() => store.deleteItem(item.code)}>
-                      Удалить
-                    </button>
-                  </div>
-                </div>
-              </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+	
+	const list = store.getState().list;
+	const cartItems = store.getState().cartItems;
+	const totalPrice = store.getState().totalPrice;
+	const totalCount = store.getState().totalCount;
+	
+    // Состояния для модального окна
+    const [showCart, setShowCart] = useState(false);
+    const openCart = () => setShowCart(true);
+    const closeCart = () => setShowCart(false);
+    
+	const callbacks = {
+		onDeleteCartItem: useCallback((code) => {
+			store.deleteCartItem(code);
+			store.setTotalPrice();
+			store.setTotalCount();
+		}, [store]),
+		
+		onAddCartItem: useCallback((code) => {
+			store.addCartItem(code);
+			store.setTotalPrice();
+			store.setTotalCount();
+		}, [store]),
+	}
+	
+	return (
+		<PageLayout>
+			<Head title='Магазин'/>
+			<Controls openCart={openCart}
+			          totalPrice={totalPrice}
+			          totalCount={totalCount}
+			/>
+			<List list={list}
+			      onAddCartItem={callbacks.onAddCartItem}/>
+            {showCart && <Modal closeCart={closeCart}>
+                <Cart totalPrice={totalPrice}
+                      onDeleteCartItem={callbacks.onDeleteCartItem}
+                      cartItems={cartItems}/>
+            </Modal>}
+		</PageLayout>
+	);
 }
 
 export default App;

@@ -1,0 +1,33 @@
+.Controls {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.Controls-text {
+  height: 21px;
+  margin: 0 15px 0 0;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+
+.Controls-total {
+  height: 21px;
+  margin: 0 20px 0 0;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+
+.Controls-button {
+  width: 80px;
+  height: 21px;
+}
