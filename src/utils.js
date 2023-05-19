@@ -49,3 +49,19 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Вспомогательная функция форматирования цены
+ * @returns {String}
+ */
+export const priceFormatCreator = (price) => {
+  return new Intl.NumberFormat('ru-RU').format(price);
+}
+
+/**
+ * Функция для подсчета общей стоимости товаров в корзине, вынесена в папку утилит для чистоты кода
+ * @param listForBasket {Array}
+ */
+export const countTotalPrice = (listForBasket) => {
+  return listForBasket.reduce((total, listItem) => total + (listItem.price * listItem.count), 0);
+}

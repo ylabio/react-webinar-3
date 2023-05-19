@@ -1,29 +1,26 @@
 import './style.css';
 import React from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
 
-function List({list, onBtnClick, basketMode, buttonText}) {
+function List({list, onBtnClick, buttonText, ListItem}) {
   return (
-    <div className='List'>{
-      list.map(item =>
+    <div className='List'>
+      {list.map(item => (
         <div key={item.code} className='List-item'>
-          <Item item={item}
-                onBtnClickAction={onBtnClick}
-                basketMode={basketMode}
-                buttonText={buttonText}
-                count={item.count}/>
+          <ListItem item={item} onBtnClickAction={onBtnClick} buttonText={buttonText}/>
         </div>
-      )}
+        // в этом случае мы получаем достаточно грязные элементы списка
+        // но это дает нам гибкость и простоту использования списков с разными Item
+      ))}
     </div>
-  )
+  );
 }
 
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  basketMode: PropTypes.bool,
+  ListItem: PropTypes.elementType.isRequired,
   buttonText: PropTypes.string,
   onBtnClick: PropTypes.func,
 };

@@ -1,0 +1,26 @@
+.market-head__info {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    border-bottom: 1px dashed #ccc;
+}
+
+.market-head__info span {
+    margin-left: 12px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+}
+
+.market-head__btn {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.market-head__btn button {
+    width: 80px;
+    height: 20px;
+}

@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import {countTotalPrice, generateCode} from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -54,35 +54,46 @@ class Store {
    * Удаление записи из корзины по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItemFromBasket(code) {
+    const newListForBasket = this.state.listForBasket.filter(item => item.code !== code);
     this.setState({
       ...this.state,
-      // Новый список, в котором количество удаленного товара зануляется
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          return {...item, count: 0}
-        }
-        return item
-      })
+      listForBasket: newListForBasket,
+      totalPrice: countTotalPrice(newListForBasket),
     })
-  };
+  }
 
   /**
-   * Добавление и увеличение товара в корзине
+   * Добавление и увеличение товара в корзину
+   * @param code
    */
   addItemToBasket(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
+    let newListForBasket;
+    // такая большая проверка была нужна для того, чтоб не изменять изначальный массив данных товаров
+    if (this.state.listForBasket.some(item => item.code === code)) {
+      newListForBasket = this.state.listForBasket.map(item => {
         if (item.code === code) {
-          // Подсчёт количества товара
           return {
             ...item,
-            count: item.count ? item.count + 1 : 1,
-          };
+            count: item.count + 1,
+          }
         }
         return item
       })
+    } else {
+      newListForBasket = [
+        ...this.state.listForBasket,
+        {
+          ...this.state.list.find(item => item.code === code),
+          count : 1
+        }
+      ]
+    }
+
+    this.setState({
+      ...this.state,
+      listForBasket: [...newListForBasket],
+      totalPrice: countTotalPrice(newListForBasket),
     })
   }
 }

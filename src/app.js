@@ -1,6 +1,12 @@
 import React, {useCallback, useState} from 'react';
-import Basket from "./components/basket";
-import Market from "./components/market";
+import ModalLayout from "./components/modal-layout";
+import List from "./components/list";
+import ItemBasket from "./components/item-basket";
+import BasketHead from "./components/basket-head";
+import BasketTotal from "./components/basket-total";
+import ItemMarket from "./components/item-market";
+import PageLayout from "./components/page-layout";
+import MarketHead from "./components/market-head";
 
 /**
  * Приложение
@@ -8,24 +14,22 @@ import Market from "./components/market";
  * @returns {React.ReactElement}
  */
 function App({store}) {
-  const [basketMode, setBasketMode] = useState(false);
+  const [modalMode, setModalMode] = useState(false);
 
-  const onOpenBasket = () => {
-    setBasketMode(true);
+  const onOpenModal = () => {
+    setModalMode(true);
   };
-  const onCloseBasket = () => {
-    setBasketMode(false);
+  const onCloseModal = () => {
+    setModalMode(false);
   };
 
   const list = store.getState().list;
-  const listForBasket = list.filter(item => {
-    if (item.count) return item
-  });
-  const totalPrice = listForBasket.reduce((total, listItem) => total + (listItem.price * listItem.count), 0);
+  const listForBasket = store.getState().listForBasket;
+  const totalPrice = store.getState().totalPrice
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+      store.deleteItemFromBasket(code);
     }, [store]),
 
     onAddItem: useCallback(() => {
@@ -39,19 +43,26 @@ function App({store}) {
 
   return (
     <div>
-      <Market list={list}
-              totalItems={listForBasket.length}
-              headTitle={'Магазин'}
-              onOpenBasket={onOpenBasket}
-              onAddItemToBasket={callbacks.onAddItemToBasket}
-              listBtnText={'Добавить'}
-              totalPrice={totalPrice}/>
+      <PageLayout>
+        <MarketHead
+          onOpenModal={onOpenModal}
+          totalItems={listForBasket.length}
+          totalPrice={totalPrice}/>
+        <List list={list}
+              onBtnClick={callbacks.onAddItemToBasket}
+              buttonText={'Добавить'}
+              ListItem={ItemMarket}/>
+      </PageLayout>
       {
-        basketMode &&
-        <Basket list={listForBasket}
-                totalPrice={totalPrice}
-                onControlsBtnClick={onCloseBasket}
-                onListItemBtnClick={callbacks.onDeleteItem}/>
+        modalMode &&
+        <ModalLayout>
+          <BasketHead onCloseBasket={onCloseModal}/>
+          <List list={listForBasket}
+                onBtnClick={callbacks.onDeleteItem}
+                buttonText={'Удалить'}
+                ListItem={ItemBasket}/>
+          <BasketTotal totalPrice={totalPrice}/>
+        </ModalLayout>
       }
     </div>
   );
