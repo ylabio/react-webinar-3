@@ -11,23 +11,23 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
-  const list = store.getState().list;
+  const {list, cart} = store.getState();
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
+    onAddItem: useCallback((code) => {
+      store.addItem(code);
     }, [store])
   }
 
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls />
-      <List list={list} buttonText='Добавить'/>
+      <Controls cart={cart}/>
+      <List list={list} action={callbacks.onAddItem} buttonText='Добавить'/>
     </PageLayout>
   );
 }

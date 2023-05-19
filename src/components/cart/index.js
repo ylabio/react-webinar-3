@@ -1,8 +1,10 @@
 import React from "react";
 import Head from "../head";
+import List from "../list";
+import {numberFormat} from "../../utils";
 import "./style.css";
 
-function Cart({openWindow}) {
+function Cart({openWindow, cart, total}) {
   return (
     <div className='Cart'>
       <div className='Cart__dialog'>
@@ -11,6 +13,19 @@ function Cart({openWindow}) {
             <button onClick={openWindow}>Закрыть</button>
           </div>
         </Head>
+        <main className="Cart__body">
+          {!!cart.length ? (
+            <List list={cart} buttonText="Удалить"/>
+          ) : (
+            <h1 className="Cart__body-title">В корзине пусто!</h1>
+          )}
+        </main>
+        {!!cart.length && (
+          <footer className="Cart__footer">
+            <div className="Cart__footer-total">Итого</div>
+            <div className="Cart__footer-number">{numberFormat(total)}</div>
+          </footer>
+        )}
       </div>
     </div>
   );

@@ -43,11 +43,24 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
+  addItem(cartItem) {
+    const cartList = [...this.state.cart]
+    let result = this.state.cart.find(item => item.code === cartItem.code);
+
+    if (result) {
+      result = {
+        ...result,
+        total: result.total += 1
+      }
+    } else {
+      cartList.push(cartItem);
+    }
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      cart: cartList
     })
+    console.log(this.state.cart);
   };
 
   /**

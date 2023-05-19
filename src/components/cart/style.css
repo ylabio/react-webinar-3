@@ -26,3 +26,26 @@
 .Cart__header-close {
   padding: 0 20px;
 }
+
+.Cart__body {
+  margin-top: 70px;
+}
+
+.Cart__body-title {
+  text-align: center;
+}
+
+.Cart__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 25px;
+  gap: 20px;
+}
+
+.Cart__footer-total {
+  font-weight: 700;
+}
+.Cart__footer-number {
+  margin-right: 80px;
+  font-weight: 700;
+}

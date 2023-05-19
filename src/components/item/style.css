@@ -1,6 +1,5 @@
 .Item {
   display: flex;
-  justify-content: flex-start;
   transition: background-color 1s;
 }
 
@@ -14,7 +13,7 @@
 }
 
 .Item-title {
-  width: 100%;
+  flex-grow: 2;
   padding: 20px 10px;
 }
 
@@ -26,4 +25,8 @@
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-count {
+  padding: 20px 10px;
 }
