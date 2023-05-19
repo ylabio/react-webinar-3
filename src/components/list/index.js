@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, onDeleteItem, onSelectItem, onAddToCart, onGetCartInfo}){
+function List({list, onDeleteItem, onAddToCart, onGetCartInfo}){
 
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem} onAddToCart={onAddToCart} onGetCartInfo={onGetCartInfo}/>
+          <Item item={item} onDelete={onDeleteItem} onAddToCart={onAddToCart} onGetCartInfo={onGetCartInfo}/>
         </div>
       )}
     </div>
@@ -21,13 +21,11 @@ List.propTypes = {
     code: PropTypes.number
   })).isRequired,
   onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func,
   onAddToCart: PropTypes.func
 };
 
 List.defaultProps = {
   onDeleteItem: () => {},
-  onSelectItem: () => {},
   onAddToCart: () => {},
 }
 

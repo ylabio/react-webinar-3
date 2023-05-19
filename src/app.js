@@ -22,45 +22,37 @@ function App({store}) {
       store.deleteItem(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
-    onAddToCart: (item) => {
+    onAddToCart: useCallback((item) => {
       store.addToCart(item)
-    },
-    onGetCartInfo: () => {
+    }, [store]),
+
+    onGetCartInfo:  useCallback(() => {
       store.getCartInfo()
-    },
+    },[store]),
+
     onOpenModal: () => {
-
       setIsOpenModal(!isOpenModal);
-
     },
   }
-  console.log(isOpenModal)
+
   return (
     <PageLayout>
       {
       isOpenModal &&
-          (
-              <Modal cart={cart}
-                     isOpenModal
-                     cartInfo={store.getCartInfo()}
-                     onGetCartInfo = {callbacks.onGetCartInfo}
-                     onDeleteItem={callbacks.onDeleteItem}
-                     onOpenModal={callbacks.onOpenModal}
-              />
-          )
-    }
+        (
+          <Modal cart={cart}
+          isOpenModal
+          cartInfo={store.getCartInfo()}
+          onGetCartInfo = {callbacks.onGetCartInfo}
+          onDeleteItem={callbacks.onDeleteItem}
+          onOpenModal={callbacks.onOpenModal}
+          />
+        )
+      }
       <Head title='Магазин'/>
       <Controls cartInfo={store.getCartInfo()} onOpenModal={callbacks.onOpenModal}/>
       <List list={products}
             onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}
             onAddToCart ={callbacks.onAddToCart}
             onGetCartInfo = {callbacks.onGetCartInfo}
       />

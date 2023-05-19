@@ -108,16 +108,16 @@ class Store {
       cart: [...this.state.cart, {...item, count: 1}]
     })
   };
-
+  /**
+   * Расчитывает общее количество и итоговую сумму
+   * @returns {Object}
+   */
   getCartInfo(){
     const count = this.state.cart.reduce((sum, item) => item.count + sum, 0)
     const totalPrice = this.state.cart.reduce((sum, item) => (item.price * item.count) + sum, 0)
     return {count, totalPrice}
   }
 
-  openModal(){
-
-  }
 }
 
 export default Store;

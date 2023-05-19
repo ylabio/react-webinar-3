@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
-import {plural} from "../../utils";
+import {getNumberFormat, plural} from "../../utils";
 
 function Controls({onOpenModal, cartInfo}){
     return (
     <div className='Controls'>
       <div className='Controls-cart-info'>
-        <p>В корзине: <strong>{cartInfo.count ? `${cartInfo.count} ${plural(cartInfo.count, {one: 'товар', few: 'товара', many: 'товаров'})} / ${new Intl.NumberFormat('ru-RU').format(cartInfo.totalPrice)} ₽  `  : 'пусто'}</strong></p>
+        <p>В корзине: <strong>{cartInfo.count ? `${cartInfo.count} ${plural(cartInfo.count, {one: 'товар', few: 'товара', many: 'товаров'})} / ${getNumberFormat(cartInfo.totalPrice)} ₽  ` : 'пусто'}</strong></p>
       </div>
       <button onClick={() => onOpenModal()}>Перейти</button>
     </div>
@@ -15,11 +15,12 @@ function Controls({onOpenModal, cartInfo}){
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+    onOpenModal: PropTypes.func,
+    cartInfo: PropTypes.object
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+    onOpenModal: () => {}
 }
 
 export default React.memo(Controls);

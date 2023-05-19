@@ -49,3 +49,12 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Приводит цену товара к новому формату
+ * в качестве разделителя целой и дробной части используется запятая, а в качестве разделителя разрядов - пробел
+ * @returns {Number}
+ */
+export function getNumberFormat(price){
+  return new Intl.NumberFormat('ru-RU').format(price)
+}
