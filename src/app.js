@@ -12,7 +12,9 @@ import { Popup } from './components/popup';
  */
 function App({store}) {
   const [active, setActive] = useState(false)
+  const [basket, setBasket] = useState([])
 
+  console.log('basket', basket)
   const list = store.getState().list;
 
   const callbacks = {
@@ -20,9 +22,9 @@ function App({store}) {
       store.deleteItem(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
+    /* onSelectItem: useCallback((code) => {
       store.selectItem(code);
-    }, [store]),
+    }, [store]), */
 
     onAddItem: useCallback(() => {
       store.addItem();
@@ -33,10 +35,9 @@ function App({store}) {
     <PageLayout>
       <Head title='Приложение на чистом JS'/>
       <Controls setActive={setActive}/>
-      {active && <Popup active={active} setActive={setActive}/>}
+      {active && <Popup active={active} setActive={setActive} basket={basket}/>}
       <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+            setBasket={setBasket}/>
     </PageLayout>
   );
 }

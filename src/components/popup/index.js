@@ -1,7 +1,8 @@
 import React from 'react'
 import './style.css'
+import List from '../list'
 
-export const Popup = ({active, setActive}) => {
+export const Popup = ({active, setActive, basket}) => {
   return (
     <div className={'popup' && active ? 'active' : '' } onClick={() => setActive(false)}>
         <div className='popup__content' onClick={(e) => e.stopPropagation()}>
@@ -11,6 +12,7 @@ export const Popup = ({active, setActive}) => {
                     Закрыть
                 </button>
             </div>
+            <List list={basket}/>
         </div>
     </div>
   )
