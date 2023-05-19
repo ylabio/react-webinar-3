@@ -17,6 +17,20 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
 }
 
 /**
+ * Форматирование числа (в т.ч. валюту, проценты)
+ * Возвращает строку из отформатированного числа, с учетом переданных опций.
+ * @param value {Number} Форматируемое число.
+ * @param options {Object<String | Number | Boolean>} Опции форматирования числа.
+ * @example formatNumber(123456789, { style: 'currency', currency: 'RUB', minimumFractionDigits: 2 }) 
+ * @param [locale] {String} Локаль (код языка)
+ * @returns {string}
+ */
+export function formatNumber(value, options = {}, locale = 'ru-RU') {
+  const formatter = new Intl.NumberFormat(locale, options);
+  return formatter.format(value);
+}
+
+/**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.
  * @returns {Number}

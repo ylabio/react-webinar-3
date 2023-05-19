@@ -2,4 +2,11 @@
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+  gap: 20px;
+}
+
+.Controls__title {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
 }
