@@ -7,6 +7,9 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state.cart = [];
+    this.state.totalAmount = 0;
+    this.state.totalCount = 0;
   }
 
   /**
@@ -43,22 +46,55 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+  //addItem() {
+    //this.setState({
+      //...this.state,
+      //list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+    //})
+ // };
 
   /**
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  addItem(code) {
+   // this.setState({
+     // ...this.state,
+      // Новый список, в котором не будет удаляемой записи
+      //list: this.state.list.filter(item => item.code !== code)
+    //})
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cart: this.state.cart.some((item) => item.code === code) 
+      ? this.state.cart.map((item) => {
+          if(item.code === code){
+            return {...item, count: item.count + 1}
+          }else{ return {...item}} 
+        })
+      :
+        [...this.state.cart, {...this.state.list.find((item) => item.code === code), count: 1}],
+        totalAmount: this.state.totalAmount + this.state.list.find((item) => item.code === code).price,
+        totalCount: this.state.totalCount + 1
+    })
+  };
+
+  deleteItem(code){
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter(item => item.code !== code),
+      totalAmount: this.state.cart.reduce((previous, item) => {
+        if(item.code !== code){ 
+          return (previous + item.count * item.price)
+         }else{
+          return previous
+        }
+      }, 0),
+      totalCount: this.state.cart.reduce((previous, item) => {
+        if(item.code !== code) {
+          return (previous + item.count)
+          }else{ return previous
+        }
+      }, 0)
     })
   };
 
@@ -66,7 +102,7 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  /*selectItem(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
@@ -82,7 +118,7 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     })
-  }
+  }*/
 }
 
 export default Store;
