@@ -108,6 +108,18 @@ class Store {
     this.calcCartQuantity();
   };
 
+  /**
+   * Удаление товаров из корзины
+   */
+  toggleCartModal() {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        isCartOpen: !this.state.cart.isCartOpen
+      }
+    })
+  }
 
 }
 

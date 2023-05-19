@@ -1,0 +1,25 @@
+.Modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.Modal-content {
+    max-width: 960px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.Modal .Head {
+    border-radius: 10px 10px 0 0;
+}

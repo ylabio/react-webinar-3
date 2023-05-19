@@ -4,20 +4,20 @@ import {cn as bem} from '@bem-react/classname';
 import { formatPrice } from "../../utils";
 import './style.css';
 
-function Item(props){
+function Item({item, onAddToCart, onDeleteFromCart, isCart}){
   const cn = bem('Item');
 
   return (
     <div className={cn()}>
-      <div className={cn('code')}>{props.item.code}</div>
+      <div className={cn('code')}>{item.code}</div>
       <div className={cn('title')}>
-        {props.item.title}
+        {item.title}
       </div>
-      <div className={cn('price')}>{formatPrice(props.item.price)}</div>
-      {props.isCart && <div className={cn('count')}>{`${props.item.count} шт.`}</div>}
+      <div className={cn('price')}>{formatPrice(item.price)}</div>
+      {isCart && <div className={cn('count')}>{`${item.count} шт.`}</div>}
       <div className={cn('actions')}>
-        {props.isCart ? <button onClick={() => props.onDeleteFromCart(props.item.code)}>Удалить</button>
-        : <button onClick={() => props.onAddToCart(props.item.code)}>Добавить</button>}
+        {isCart ? <button onClick={() => onDeleteFromCart(item.code)}>Удалить</button>
+        : <button onClick={() => onAddToCart(item.code)}>Добавить</button>}
       </div>
     </div>
   );
@@ -30,11 +30,13 @@ Item.propTypes = {
     selected: PropTypes.bool
   }).isRequired,
   isCart: PropTypes.bool,
-  onAddToCart: PropTypes.func
+  onAddToCart: PropTypes.func,
+  onDeleteFromCart: PropTypes.func
 };
 
 Item.defaultProps = {
-  onAddToCart: () => {}
+  onAddToCart: () => {},
+  onDeleteFromCart: () => {}
 }
 
 export default React.memo(Item);

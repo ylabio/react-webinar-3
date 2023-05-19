@@ -2,6 +2,14 @@
   border-bottom: 1px dashed #ccc;
 }
 
+.List-empty {
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 20px 0;
+}
+
 .List-item:first-child {
   border-top: 1px dashed #ccc;
 }

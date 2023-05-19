@@ -1,9 +1,10 @@
-import React, {useCallback, useState} from 'react';
-import PageLayout from "./components/page-layout";
-import Head from "./components/head";
+import React, {useCallback} from 'react';
+import PageLayout from './components/page-layout';
+import Head from './components/head';
 import HeaderCart from './components/header-cart';
-import List from "./components/list";
-import Cart from "./components/cart";
+import List from './components/list';
+import Cart from './components/cart';
+import ModalLayout from './components/modal-layout';
 
 /**
  * Приложение
@@ -11,8 +12,6 @@ import Cart from "./components/cart";
  * @returns {React.ReactElement}
  */
 function App({store}) {
-  const [isCartOpen, setCartOpen] = useState(false);
-
   const list = store.getState().list,
         cart = store.getState().cart;
 
@@ -24,8 +23,8 @@ function App({store}) {
       store.deleteFromCart(code)
     }, [store]),
     onToggleCart: useCallback(() => {
-      setCartOpen(isCartOpen => !isCartOpen);
-    }, [isCartOpen])
+      store.toggleCartModal()
+    }, [store])
   }
 
   return (
@@ -33,7 +32,7 @@ function App({store}) {
       <Head title='Магазин'/>
       <HeaderCart cart={cart} onToggleCart={callbacks.onToggleCart}/>
       <List list={list} onAddToCart={callbacks.onAddToCart}/>
-      {isCartOpen && <Cart onToggleModal={callbacks.onToggleCart} cart={cart} onDeleteFromCart={callbacks.onDeleteFromCart} />} 
+      {cart.isCartOpen && <ModalLayout title='Корзина' onToggleModal={callbacks.onToggleCart}><Cart cart={cart} onDeleteFromCart={callbacks.onDeleteFromCart} /></ModalLayout>}
     </PageLayout>
   );
 }
