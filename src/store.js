@@ -40,39 +40,53 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
+  calculateTotalPrice(cartItems) {
+    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  }
 
   addItemToCart(code) {
-    const cart = this.state.cartItems;
-    const foundIndex = cart.findIndex((item) => item.code === code); // ищем товар с указанным кодом в корзине
-
+    const { cartItems, list, totalPrice } = this.state;    
+    const foundIndex = cartItems.findIndex((item) => item.code === code); 
+    // ищем товар с указанным кодом в корзине
     if (foundIndex !== -1) {
       // если товар найден в корзине
       const updatedItem = {
-        ...cart[foundIndex],
-        quantity: cart[foundIndex].quantity + 1,
+        ...cartItems[foundIndex],
+        quantity: cartItems[foundIndex].quantity + 1,
       };
       const newCart = [
-        ...cart.slice(0, foundIndex), // копируем все элементы до найденного товара
+        ...cartItems.slice(0, foundIndex), // копируем все элементы до найденного товара
         updatedItem,
-        ...cart.slice(foundIndex + 1), // копируем все элементы после найденного товара
+        ...cartItems.slice(foundIndex + 1), // копируем все элементы после найденного товара
       ];
-      this.setState({ ...this.state, cartItems: newCart });
-    } else { // если товара еще не было в корзине
-      const item = this.state.list.find((item) => item.code === code);
+      const newTotalPrice = this.calculateTotalPrice(newCart)
+
       this.setState({
         ...this.state,
-        cartItems: [...this.state.cartItems, { ...item, quantity: 1 }],
+        cartItems: newCart,
+        totalPrice: newTotalPrice,
+      });
+    } else {
+      // если товара еще не было в корзине
+      const item = list.find((item) => item.code === code);
+      const newTotalPrice = totalPrice + item.price;
+      
+      this.setState({
+        ...this.state,
+        cartItems: [...cartItems, { ...item, quantity: 1 }],
+        totalPrice: newTotalPrice,
       });
     }
   }
 
   removeItemFromCart(code) {
+    const newCartItems = this.state.cartItems.filter(el => el.code !== code);
+    const newTotalPrice = this.calculateTotalPrice(newCartItems);
+
     this.setState({
       ...this.state,
-      cartItems: this.state.cartItems.filter((el) => el.code !== code),
+      cartItems: newCartItems,
+      totalPrice: newTotalPrice,
     });
   }
 

@@ -1,29 +1,22 @@
-import React, {useState} from "react";
-import PropTypes from "prop-types";
-import {plural} from "../../utils";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { plural } from '../../utils';
 import './style.css';
 
-function Item(props){
-
+function Item({ item, onAddItem }) {
   const callbacks = {
     addItem: () => {
-      props.action(props.item.code)
-    }
-  }
-
+      onAddItem(item.code);
+    },
+  };
 
   return (
     <div className={'Item'}>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>{props.item.title}</div>
-      <p className="Item-price">{props.item.price} ₽</p>
-      <div className='Item-actions'>
-      {props.item.quantity && (
-        <div className="Item-count">{props.item.quantity} шт</div>
-      )}
-        <button onClick={callbacks.addItem}>
-          {props.title}
-        </button>
+      <div className="Item-code">{item.code}</div>
+      <div className="Item-title">{item.title}</div>
+      <p className="Item-price">{item.price} ₽</p>
+      <div className="Item-actions">
+        <button onClick={callbacks.addItem}>Добавить</button>
       </div>
     </div>
   );
@@ -33,14 +26,13 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    count: PropTypes.number,
-    price: PropTypes.number
+    price: PropTypes.number,
   }).isRequired,
-  onAdd: PropTypes.func
+  onAddItem: PropTypes.func,
 };
 
 Item.defaultProps = {
-  onAdd: () => {},
-}
+  onAddItem: () => {},
+};
 
 export default React.memo(Item);

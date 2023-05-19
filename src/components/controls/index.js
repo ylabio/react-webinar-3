@@ -6,12 +6,7 @@ import { plural } from '../../utils';
 import { useState } from 'react';
 import './style.css';
 
-function Controls({ onDeleteItem, items }) {
-  const [cartOpen, setCartOpen] = useState(false);
-  const fullPrice = items.reduce(
-    (acc, el) => (acc += el.price * el.quantity),
-    0
-  );
+function Controls({ totalPrice, items, setCartOpen }) {
 
   return (
     <>
@@ -23,20 +18,11 @@ function Controls({ onDeleteItem, items }) {
                 one: 'товар',
                 few: 'товара',
                 many: 'товаров',
-              })} / ${fullPrice} ₽`
+              })} / ${totalPrice} ₽`
             : 'пусто'}
         </span>
         <button onClick={() => setCartOpen((prev) => !prev)}>Перейти</button>
       </div>
-
-      {cartOpen && (
-        <CartModal
-          cartOpen={setCartOpen}
-          fullPrice={fullPrice}
-          onDeleteItem={onDeleteItem}
-          items={items}
-        />
-      )}
     </>
   );
 }

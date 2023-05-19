@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import CartModal from './components/cart-modal';
 
 /**
  * Приложение
@@ -10,7 +11,8 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const { list, cartItems } = store.getState();
+  const { list, cartItems, totalPrice } = store.getState();
+  const [cartOpen, setCartOpen] = useState(false);
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -29,11 +31,23 @@ function App({ store }) {
   };
 
   return (
-    <PageLayout>
-      <Head title="Магазин" />
-      <Controls onDeleteItem={callbacks.onDeleteItem} items={cartItems} />
-      <List title="Добавить" list={list} action={callbacks.onAddItem} />
-    </PageLayout>
+      <PageLayout>
+        <Head title="Магазин" />
+        <Controls
+          items={cartItems}
+          setCartOpen={setCartOpen}
+          totalPrice={totalPrice}
+        />
+        {cartOpen && (
+          <CartModal
+            cartOpen={setCartOpen}
+            totalPrice={totalPrice}
+            onDeleteItem={callbacks.onDeleteItem}
+            cartItems={cartItems}
+          />
+      )}
+        <List list={list} onAddItem={callbacks.onAddItem} />
+      </PageLayout>
   );
 }
 

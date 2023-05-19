@@ -1,29 +1,48 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-import Item from "../item";
+import Item from '../item';
 import './style.css';
+import CartItem from '../cart-item';
 
-function List({list, title, action}){
+function List(props) {
   return (
-    <div className='List'>{
-      list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item item={item} action={action} title={title} />
-        </div>
-      )}
+    <div className="List">
+      {props?.list &&
+        props.list.map((item) => (
+          <div key={item.code} className="List-item">
+            <Item item={item} onAddItem={props.onAddItem}/>
+          </div>
+        ))}
+
+      {props?.cartItems &&
+        props.cartItems.map((item) => (
+          <div key={item.code} className="List-item">
+            <CartItem item={item} onDeleteItem={props.onDeleteItem} />
+          </div>
+        ))}
     </div>
-  )
+  );
 }
 
 List.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number
-  })).isRequired,
-  onAdd: PropTypes.func,
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.number,
+    })
+  ),
+  onAddItem: PropTypes.func,
+  cartItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.number,
+    })
+  ),
+  onDeleteItem: PropTypes.func,
 };
 
+
 List.defaultProps = {
-  onAdd: () => {},
-}
+  cartItems: [],
+  onDeleteItem: () => {},
+};
 
 export default React.memo(List);
