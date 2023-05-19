@@ -1,0 +1,28 @@
+.Modal-item {
+  display: flex;
+  justify-content: flex-start;
+  transition: background-color 1s;
+  border-bottom: 1px dashed #ccc;
+}
+
+.Modal-item-code {
+  padding: 20px 10px 20px 20px;
+}
+
+.Modal-item-title,
+.Modal-item-count,
+.Modal-item-price {
+  width: 100%;
+  padding: 20px 10px;
+}
+
+.Modal-item-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+}
+
+.Modal-item-price,
+.Modal-item-count {
+  text-align: right;
+}

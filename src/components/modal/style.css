@@ -1,0 +1,14 @@
+.Modal-item-empty {
+  text-align: center;
+  padding: 50px;
+}
+
+.Modal-item-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5rem;
+  font-weight: bold;
+  padding: 50px;
+}
