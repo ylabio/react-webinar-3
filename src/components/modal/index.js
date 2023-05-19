@@ -11,10 +11,10 @@ function Modal({children, isOpen, onClose}) {
 
   useEffect(() => {
     if (isOpen) {
-      document.body.classList.add(cn('hideOverflow'));
+      document.body.classList.add(cn('hide-overflow'));
       return;
     }
-    document.body.classList.remove(cn('hideOverflow'));
+    document.body.classList.remove(cn('hide-overflow'));
 
   }, [isOpen]);
 
@@ -26,10 +26,8 @@ function Modal({children, isOpen, onClose}) {
     }
 
     document.addEventListener('keydown', close);
-    console.log('open');
 
     return () => {
-      console.log('close');
       document.removeEventListener('keydown', close);
     }
 
@@ -46,9 +44,9 @@ function Modal({children, isOpen, onClose}) {
           unmountOnExit
           classNames={{
             enter: cn('enter'),
-            enterActive: cn('enterActive'),
+            enterActive: cn('enter-active'),
             exit: cn('exit'),
-            exitActive: cn('exitActive'),
+            exitActive: cn('exit-active'),
           }}
         >
           <div className={cn()} onClick={onClose} ref={ref}>

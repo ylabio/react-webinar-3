@@ -27,8 +27,6 @@ class Store {
    * @returns {Object}
    */
   getState() {
-    console.log('cart', this.state.cart);
-    console.log('getTotal', this.getTotal());
     return this.state;
   }
 
@@ -53,7 +51,6 @@ class Store {
   }
 
   onDeleteFromCart(code) {
-    console.log('onDeleteFromCart', code);
     const cart = {...this.state.cart};
     delete cart[code];
     this.setState({
@@ -81,7 +78,7 @@ class Store {
 
   }
 
-  getCardList() {
+  getCartList() {
     const result = [];
     const cart = this.state.cart;
 

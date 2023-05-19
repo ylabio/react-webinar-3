@@ -6,7 +6,7 @@ function Head({title, onCloseButtonClick}) {
   return (
     <div className='Head'>
       <h1>{title}</h1>
-      {onCloseButtonClick && <button onClick={() => onCloseButtonClick && onCloseButtonClick()}>Закрыть</button>}
+      {onCloseButtonClick && <button onClick={onCloseButtonClick}>Закрыть</button>}
     </div>
   )
 }

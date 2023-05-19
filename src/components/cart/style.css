@@ -1,9 +1,9 @@
 .Cart {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: auto;
 
-  min-height: 407px;
+  /*min-height: 407px;*/
   max-width: 960px;
   width: 100%;
   margin: auto;
@@ -23,5 +23,13 @@
   padding: 20px 105px 20px 10px;
   display: flex;
   justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: 40px;
+}
+
+.Cart-total-price-str {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
   gap: 40px;
 }

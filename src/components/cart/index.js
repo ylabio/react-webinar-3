@@ -16,9 +16,12 @@ function Cart({list, onDeleteFromCart, onCloseButtonClick, totalPrice}) {
         <List list={list} itemButtonCaption={'Удалить'} onItemButtonClick={onDeleteFromCart}/>
       </div>
       <div className={cn('total-price')}>{
-        totalPrice
-          ? <span>Итого {priceFormat(totalPrice)}&nbsp;&#8381;</span>
-          : <span>Корзина покупок пуста</span>
+        totalPrice ?
+          <div className={cn('total-price-str')}>
+            <div>Итого</div>
+            <div>{priceFormat(totalPrice)}&nbsp;&#8381;</div>
+          </div>
+          : <div>Корзина покупок пуста</div>
       }</div>
     </div>
   )

@@ -9,14 +9,16 @@ function CartStatus({totalCount, totalPrice}) {
 
   return (
     <div className={cn()}>
-      <div>В корзине:&nbsp;&nbsp;
-        <span className={cn('data')}>{
+      <div>В&nbsp;корзине:</div>
+      <div className={cn('data')}>
+        {
           totalCount > 0 ? <>{totalCount}&nbsp;{plural(totalCount, {
             one: 'товар',
             few: 'товара',
             many: 'товаров'
           })}&nbsp;/&nbsp;{priceFormat(totalPrice)}&nbsp;&#8381;</> : <>пусто</>
-        }</span>
+        }
+
       </div>
     </div>
   )

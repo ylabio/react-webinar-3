@@ -16,7 +16,7 @@
   opacity: 0;
 }
 
-.Modal-enterActive {
+.Modal-enter-active {
   opacity: 1;
   transition: opacity 300ms;
 }
@@ -25,11 +25,11 @@
   opacity: 1;
 }
 
-.Modal-exitActive {
+.Modal-exit-active {
   opacity: 0;
   transition: opacity 300ms;
 }
 
-.Modal-hideOverflow {
+.Modal-hide-overflow {
   overflow: hidden;
 }

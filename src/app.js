@@ -17,7 +17,7 @@ function App({store}) {
 
   const list = store.getState().list;
   const total = useMemo(() => store.getTotal(), [store.state.cart, store.state.list]);
-  const cardList = useMemo(() => store.getCardList(), [store.state.cart, store.state.list]);
+  const cardList = useMemo(() => store.getCartList(), [store.state.cart, store.state.list]);
 
   const [isShowModal, setIsShowModal] = useState(false);
 
