@@ -1,21 +1,54 @@
-import React from "react";
-import PropTypes from 'prop-types';
-import './style.css';
+import React from 'react'
+import PropTypes, { number } from 'prop-types'
+import { plural } from '../../utils'
+import { cn as bem } from '@bem-react/classname'
+import './style.css'
 
-function Controls({onAdd}){
+function Controls(props) {
+  const cn = bem('Controls')
+
+  const callbacks = {
+    onToggleModal: props.onToggleModal,
+  }
+
   return (
-    <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+    <div className={cn()}>
+      <div>В корзине: </div>
+      <div className={cn('cart')}>
+        {props.resultCart.quantity > 0 ? (
+          <>
+            <span>{`${props.resultCart.quantity} ${plural(
+              props.resultCart.quantity,
+              {
+                one: 'товар',
+                few: 'товара',
+                many: 'товаров',
+              }
+            )}`}</span>
+            <span>/</span>
+            <span className={cn('amount')}>{`${props.resultCart.amount}`}</span>
+          </>
+        ) : (
+          <span className={cn('empty')}>пусто</span>
+        )}
+      </div>
+      <button className={cn('btn')} onClick={callbacks.onToggleModal}>
+        Перейти
+      </button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
-};
-
-Controls.defaultProps = {
-  onAdd: () => {}
+  resultCart: PropTypes.shape({
+    amount: PropTypes.number,
+    quantity: PropTypes.number,
+  }),
+  onToggleModal: PropTypes.func,
 }
 
-export default React.memo(Controls);
+Controls.defaultProps = {
+  onToggleModal: () => {},
+}
+
+export default React.memo(Controls)

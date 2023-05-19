@@ -1,31 +1,51 @@
-import React from "react";
-import PropTypes from 'prop-types';
-import Item from "../item";
-import './style.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Item from '../item'
+import { cn as bem } from '@bem-react/classname'
+import './style.css'
 
-function List({list, onDeleteItem, onSelectItem}){
+function List(props) {
+  const cn = bem('List')
+
+  const callbacks = {
+    onAddItemCart: props.onAddItemCart,
+    onDeleteItemCart: props.onDeleteItemCart,
+  }
+
   return (
-    <div className='List'>{
-      list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
-        </div>
-      )}
+    <div className={cn()}>
+      {props.list.length > 0 &&
+        props.list.map((item) => (
+          <div key={item.code} className={cn('item')}>
+            <Item
+              item={item}
+              isModalActive={props.isModalActive}
+              onAddItemCart={callbacks.onAddItemCart}
+              onDeleteItemCart={callbacks.onDeleteItemCart}
+            />
+          </div>
+        ))}
     </div>
   )
 }
 
 List.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number
-  })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
-};
-
-List.defaultProps = {
-  onDeleteItem: () => {},
-  onSelectItem: () => {},
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.number,
+      title: PropTypes.string,
+      price: PropTypes.number,
+      quantity: PropTypes.number,
+    })
+  ).isRequired,
+  isModalActive: PropTypes.bool,
+  onAddItemCart: PropTypes.func,
+  onDeleteItemCart: PropTypes.func,
 }
 
-export default React.memo(List);
+List.defaultProps = {
+  onAddItemCart: () => {},
+  onDeleteItemCart: () => {},
+}
+
+export default React.memo(List)

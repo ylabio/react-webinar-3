@@ -11,9 +11,9 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
   // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
   // В английском 2 формы: 'one', 'other'
-  const key = new Intl.PluralRules(locale).select(value);
+  const key = new Intl.PluralRules(locale).select(value)
   // Возвращаем вариант по ключу, если он есть
-  return variants[key] || '';
+  return variants[key] || ''
 }
 
 /**
@@ -22,8 +22,8 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
  * @returns {Number}
  */
 export const generateCode = (function (start = 0) {
-  return () => ++start;
-}());
+  return () => ++start
+})()
 
 /**
  * Генератор чисел с шагом 1
@@ -34,12 +34,12 @@ export const generateCode = (function (start = 0) {
 export const generateCode1 = (function (start = 0) {
   function* realGenerator(start) {
     while (true) {
-      yield ++start;
+      yield ++start
     }
   }
-  const gen = realGenerator(start);
-  return () => gen.next().value;
-}());
+  const gen = realGenerator(start)
+  return () => gen.next().value
+})()
 
 /**
  * Генератор чисел с шагом 1
@@ -47,5 +47,22 @@ export const generateCode1 = (function (start = 0) {
  * @returns {Number}
  */
 export function generateCode2() {
-  return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
+  return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1)
+}
+
+/**
+ * Пересчет корзины проходом по элементам массива
+ * @param list {Array}
+ * @returns {Object}
+ */
+export function recalculationResults(list) {
+  let amount = 0
+  let quantity = 0
+
+  list.forEach((item) => {
+    amount += item.price * item.quantity
+    quantity += item.quantity
+  })
+
+  return { amount, quantity }
 }

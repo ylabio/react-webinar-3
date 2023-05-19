@@ -1,5 +1,21 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   padding: 20px;
+}
+
+.Controls-cart {
+  display: flex;
+  gap: 5px;
+  margin-left: 15px;
+  font-weight: 700;
+}
+
+.Controls-amount::after{
+  content: ' \20BD';
+}
+
+.Controls-btn {
+margin-left: 30px;
 }
