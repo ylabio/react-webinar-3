@@ -1,47 +1,39 @@
-import React from 'react';
-import {createElement, declOfNum} from './utils.js';
-import './styles.css';
+import React, { useCallback } from 'react';
+import List from './components/list';
+import Controls from './components/controls';
+import Head from './components/head';
+import PageLayout from './components/page-layout';
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
+  const { list, cartItems } = store.getState();
 
-  const list = store.getState().list;
+  const callbacks = {
+    onDeleteItem: useCallback(
+      (code) => {
+        store.removeItemFromCart(code);
+      },
+      [store]
+    ),
+
+    onAddItem: useCallback(
+      (code) => {
+        store.addItemToCart(code);
+      },
+      [store]
+    ),
+  };
 
   return (
-    <div className='App'>
-      <div className='App-head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='App-controls'>
-        <button onClick={() => store.addItem()}>Добавить запись</button>
-      </div>
-      <div className='App-center'>
-        <div className='List'>{
-          list.map(item =>
-            <div key={item.code} className='List-item'>
-              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>
-                  {item.title} 
-                  {item.selectedCount 
-                  && (` | Выделяли ${item.selectedCount} ${declOfNum(item.selectedCount, ['раз', 'раза', 'раз'])}`)} 
-                </div> 
-                <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
-                    Удалить
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+    <PageLayout>
+      <Head title="Магазин" />
+      <Controls onDeleteItem={callbacks.onDeleteItem} items={cartItems} />
+      <List title="Добавить" list={list} action={callbacks.onAddItem} />
+    </PageLayout>
   );
 }
 

@@ -1,0 +1,14 @@
+.Controls {
+  padding: 20px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 0 20px
+}
+
+.Cart-items {
+  /* padding-left: 15px; */
+  /* padding-right: 20px; */
+  font-weight: 700;
+  line-height: 21px;
+}

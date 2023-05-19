@@ -1,3 +1,5 @@
+import { generateCode } from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,12 +7,6 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.lastIndex = initState.list.reduce((acc, el) => {
-      el.code > acc 
-        ? acc = el.code 
-        : acc;
-      return acc;
-    }, 0); // Максимальный код существовавших записей
   }
 
   /**
@@ -22,8 +18,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -50,9 +46,12 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: ++this.lastIndex, title: 'Новая запись'}]
-    })
-  };
+      list: [
+        ...this.state.list,
+        { code: generateCode(), title: 'Новая запись' },
+      ],
+    });
+  }
 
   /**
    * Удаление записи по коду
@@ -61,9 +60,42 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      // Новый список, в котором не будет удаляемой записи
+      cartItems: this.state.cartItems.filter((item) => item.code !== code),
+    });
+  }
+
+  addItemToCart(code) {
+    const cart = this.state.cartItems;
+    const foundIndex = cart.findIndex((item) => item.code === code); // ищем товар с указанным кодом в корзине
+
+    if (foundIndex !== -1) {
+      // если товар найден в корзине
+      const updatedItem = {
+        ...cart[foundIndex],
+        quantity: cart[foundIndex].quantity + 1,
+      };
+      const newCart = [
+        ...cart.slice(0, foundIndex), // копируем все элементы до найденного товара
+        updatedItem,
+        ...cart.slice(foundIndex + 1), // копируем все элементы после найденного товара
+      ];
+      this.setState({ ...this.state, cartItems: newCart });
+    } else { // если товара еще не было в корзине
+      const item = this.state.list.find((item) => item.code === code);
+      this.setState({
+        ...this.state,
+        cartItems: [...this.state.cartItems, { ...item, quantity: 1 }],
+      });
+    }
+  }
+
+  removeItemFromCart(code) {
+    this.setState({
+      ...this.state,
+      cartItems: this.state.cartItems.filter((el) => el.code !== code),
+    });
+  }
 
   /**
    * Выделение записи по коду
@@ -72,21 +104,12 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
         if (item.code === code) {
-          item.selected = !item.selected; // toggle смена выделения
-
-          if (item.selected) {
-            item.selectedCount // если элемент уже выделялся
-              ? item.selectedCount++ // увеличить счетчик
-              : item.selectedCount = 1; // иначе инициализируем счетчик выделения
-          }
-        } else {
-          item.selected = false;
+          return item.selected ? { ...item, selected: false } : item;
         }
-        return item;
-      })
-    })
+      }),
+    });
   }
 }
 
