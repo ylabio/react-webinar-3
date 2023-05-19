@@ -1,4 +1,5 @@
 import {generateCode} from "./utils";
+import {bool} from "prop-types";
 
 /**
  * Хранилище состояния приложения
@@ -62,6 +63,19 @@ class Store {
     })
   };
 
+  /**
+   * УДобавление товараы по коду
+   * @param code
+   */
+  addItemInCart(code) {
+    this.setState({
+      ...this.state,
+      cartList: this.state.cartList.find(item => item.code === code)
+        ? this.state.cartList.map((item) => { if(item.code === code) {item.count++}})
+        : [...this.state.cartList, {...this.state.list.find(item => item.code === code), count: 1}]
+    })
+    console.log(this.state.cartList)
+  };
   /**
    * Выделение записи по коду
    * @param code

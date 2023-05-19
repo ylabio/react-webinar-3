@@ -15,9 +15,8 @@ function Item(props){
         setCount(count + 1);
       }
     },
-    onDelete: (e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code);
+    onAddItemInCart: (e) => {
+      props.onAddItemInCart(props.item.code);
     }
   }
 
@@ -28,9 +27,10 @@ function Item(props){
       <div className='Item-title'>
         {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {one: 'раз', few: 'раза', many: 'раз'})}` : ''}
       </div>
+      <div className='Item-price'>{props.item.price} &#8381;</div>
       <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button onClick={callbacks.onAddItemInCart}>
+          Добавить
         </button>
       </div>
     </div>
@@ -42,15 +42,18 @@ Item.propTypes = {
     code: PropTypes.number,
     title: PropTypes.string,
     selected: PropTypes.bool,
-    count: PropTypes.number
+    count: PropTypes.number,
+    price: PropTypes.number,
   }).isRequired,
   onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+  onSelect: PropTypes.func,
+  onAddItemInCart: PropTypes.func,
 };
 
 Item.defaultProps = {
   onDelete: () => {},
   onSelect: () => {},
+  onAddItemInCart: () => {},
 }
 
 export default React.memo(Item);

@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 function Controls({onAdd}){
+
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <div className='Cart-amount'>В корзине:</div>
+      <button onClick={() => onAdd()}>Перейти</button>
     </div>
   )
 }
