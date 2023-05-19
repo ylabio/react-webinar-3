@@ -1,39 +1,43 @@
 import React from 'react';
-import CheckoutItem from '../checkout-item';
+import List from '../list';
 import PropTypes from 'prop-types';
+import ModalLayout from '../modal-layout';
 import './style.css';
 
-const Modal = ({closeModel, title, children}) => {
-  const handleCloseModelOverly = (event) => {
-    if (event.currentTarget === event.target) {
-      closeModel();
-    }
-  };
-
+const Modal = ({closeModel, cartItems, removeItem, sumCart}) => {
   return (
-    <div
-      role='button'
-      tabIndex={0}
-      className='Modal'
-      onClick={handleCloseModelOverly}
-      aria-label='закрыть модальное окно'
-    >
+    <ModalLayout closeModel={closeModel}>
       <div className='Modal-wrapper'>
         <div className='Modal__header'>
-          <h2 className='Modal__title'>{title}</h2>
+          <h2 className='Modal__title'>Корзина</h2>
           <div className='Modal__button'>
             <button onClick={closeModel}>Закрыть</button>
           </div>
         </div>
-        {children}
+        <div className='Modal__basket'>
+          <div className='Modal__margin'></div>
+          <List list={cartItems} actionButton={removeItem} buttonName='Удалить' />
+          <div className='Modal__total'>
+            Итого <span>{sumCart} ₽</span>
+          </div>
+          <div className='Modal__margin-bottom'></div>
+        </div>
       </div>
-    </div>
+    </ModalLayout>
   );
 };
 
 Modal.propTypes = {
-  children: PropTypes.node,
+  cartItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.number,
+      title: PropTypes.string,
+      price: PropTypes.number,
+    })
+  ).isRequired,
   closeModel: PropTypes.func,
+  removeItem: PropTypes.func,
+  sumCart: PropTypes.string,
 };
 
 Modal.defaultProps = {

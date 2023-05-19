@@ -5,7 +5,6 @@ import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Modal from './components/modal';
 import {formatAmount} from './utils';
-import CheckoutItem from './components/checkout-item';
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -14,7 +13,7 @@ import CheckoutItem from './components/checkout-item';
 function App({store}) {
   const list = store.getState().list;
   const cartItems = store.getState().cartItems;
-  const [sumCart, setSumCart] = useState(0);
+
   const [isModalChange, setModalChange] = useState(false);
 
   const openModelFormChange = (e) => {
@@ -39,38 +38,22 @@ function App({store}) {
   };
 
   const quantityOfProduct = cartItems.reduce((sum, item) => sum + item.quantityUnique, 0);
-
-  const sumItem = (cart) => {
-    const sum = cart.reduce((accumulatedQuantity, cartItem) => {
-      return accumulatedQuantity + cartItem.quantity * cartItem[0].price;
-    }, 0);
-    const formatSum = formatAmount(sum);
-    setSumCart(formatSum);
-  };
-
-  useEffect(() => {
-    sumItem(cartItems);
-  }, [cartItems]);
+  const totalPrice = store.getSumItem();
+  const sumCart = formatAmount(totalPrice);
 
   return (
     <PageLayout>
       <Head title='Магазин' />
       <Controls quantityOfProduct={quantityOfProduct} sumCart={sumCart} openModelFormChange={openModelFormChange} />
       {isModalChange && (
-        <Modal closeModel={closeModel} title='Корзина'>
-          <div className='Modal__basket'>
-            <div className='Modal__margin'></div>
-            {cartItems.map((value) => (
-              <CheckoutItem key={value.code} {...value} removeItem={callbacks.onRemoveItem} />
-            ))}
-            <div className='Modal__total'>
-              Итого <span>{sumCart} ₽</span>
-            </div>
-            <div className='Modal__margin-bottom'></div>
-          </div>
-        </Modal>
+        <Modal
+          closeModel={closeModel}
+          cartItems={cartItems}
+          removeItem={callbacks.onRemoveItem}
+          sumCart={sumCart}
+        ></Modal>
       )}
-      <List list={list} addToOrder={callbacks.onAddItem} />
+      <List list={list} actionButton={callbacks.onAddItem} buttonName='Добавить' />
     </PageLayout>
   );
 }

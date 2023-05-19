@@ -27,6 +27,8 @@ function Controls({quantityOfProduct, sumCart, openModelFormChange}) {
 
 Controls.propTypes = {
   openModelFormChange: PropTypes.func,
+  sumCart: PropTypes.string,
+  quantityOfProduct: PropTypes.number,
 };
 
 Controls.defaultProps = {

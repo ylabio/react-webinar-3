@@ -48,12 +48,11 @@ class Store {
     if (itemIndex < 0) {
       const cardsFilter = list.filter((value) => value.code === item);
       const newItem = {
-        ...cardsFilter,
+        ...cardsFilter[0],
         code: item,
         quantity: quantity,
         quantityUnique: quantity,
       };
-
       this.setState({
         ...this.state,
         cartItems: [...cartItems, newItem],
@@ -78,6 +77,13 @@ class Store {
       ...this.state,
       cartItems: cartFilterItem,
     });
+  }
+
+  getSumItem() {
+    const sum = this.state.cartItems.reduce((accumulatedQuantity, cartItem) => {
+      return accumulatedQuantity + cartItem.quantity * cartItem.price;
+    }, 0);
+    return sum;
   }
 }
 

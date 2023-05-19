@@ -5,9 +5,9 @@ import {formatAmount} from '../../utils';
 
 function Item(props) {
   const callbacks = {
-    addToOrder: (e) => {
+    actionButton: (e) => {
       e.stopPropagation();
-      props.addToOrder(props.item.code);
+      props.actionButton(props.item.code);
     },
   };
 
@@ -18,8 +18,9 @@ function Item(props) {
         {props.item.title}
         <span className='Item-price'>{`${formatAmount(props.item.price)} ₽`}</span>
       </div>
+      {props.item.quantity && <span className='Item-quantity'>{props.item.quantity}&nbsp;шт</span>}
       <div className='Item-actions'>
-        <button onClick={callbacks.addToOrder}>Добавить</button>
+        <button onClick={callbacks.actionButton}>{props.buttonName}</button>
       </div>
     </div>
   );
@@ -31,11 +32,11 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
-  addToOrder: PropTypes.func,
+  actionButton: PropTypes.func,
 };
 
 Item.defaultProps = {
-  addToOrder: () => {},
+  actionButton: () => {},
 };
 
 export default React.memo(Item);
