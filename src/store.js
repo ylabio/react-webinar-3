@@ -1,3 +1,5 @@
+import {generateCode} from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,8 +7,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-  }
 
+  }
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
@@ -41,10 +43,11 @@ class Store {
   /**
    * Добавление новой записи
    */
+
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
     })
   };
 
@@ -53,27 +56,20 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const list = this.state.list.filter(item => item.code !== code);
+    const newList = list.map(item => {
+      if (item.code > code) {
+        item.code--;
+      }
+      return item;
+    });
     this.setState({
       ...this.state,
+      // Новый список, в котором не будет удаляемой записи
       list: this.state.list.filter(item => item.code !== code)
     })
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      })
-    })
-  }
 }
 
 export default Store;
