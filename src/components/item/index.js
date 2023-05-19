@@ -38,17 +38,17 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
+    price: PropTypes.any,
     count: PropTypes.number
   }).isRequired,
   onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+  onAdd: PropTypes.func
 };
 
 Item.defaultProps = {
   onDelete: () => {
   },
-  onSelect: () => {
+  onAdd: () => {
   },
 }
 
