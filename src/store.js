@@ -43,11 +43,26 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+  addItem(code) {
+    const item = this.state.list.find(item => item.code === code)
+    console.log(item)
+    
+    if (!this.state.cart.find(item => item.code === code)) {
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, {code: item.code, title: item.title, price:  item.price, quantity: 1}]
+      })
+    } else {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map(cartItem => {
+          if (cartItem.code === code) {
+            return {code: cartItem.code, title: cartItem.title, price: cartItem.price, quantity: cartItem.quantity + 1}
+          }
+          return cartItem
+        })
+      })
+    }
   };
 
   /**
@@ -58,7 +73,7 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code)
     })
   };
 

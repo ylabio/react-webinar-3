@@ -2,10 +2,11 @@ import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({onAdd}){
+function Controls({onToggleModal}){
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <p>В корзине: <b>2 товара / 223 ₽</b></p>
+      <button onClick={onToggleModal}>Перейти</button>
     </div>
   )
 }
