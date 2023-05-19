@@ -1,14 +1,17 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
 import './style.css';
+import itemCatalog from "../itemCatalog/itemCatalog";
+import itemCart from "../itemCart/itemCart";
 
-function List({list, onDeleteItem, onSelectItem}){
+function List({ list, onAction, buttonText }) {
+  const ItemComponent = buttonText === 'Добавить' ? itemCatalog : itemCart;
+
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
+          <ItemComponent item={item} onAction={onAction} buttonText={buttonText} />
         </div>
       )}
     </div>
@@ -19,13 +22,6 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
 };
-
-List.defaultProps = {
-  onDeleteItem: () => {},
-  onSelectItem: () => {},
-}
 
 export default React.memo(List);

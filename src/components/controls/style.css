@@ -3,3 +3,14 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls-cart {
+  font-size: 18px;
+  margin: 0;
+  margin-right: 20px;
+}
+
+.Controls-price {
+  font-weight: 700;
+  margin-left: 10px;
+}
