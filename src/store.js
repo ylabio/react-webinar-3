@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -60,18 +58,17 @@ class Store {
       ...this.state,
       cart: cartList
     })
-    console.log(this.state.cart);
   };
 
   /**
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(cartItem) {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cart: this.state.cart.filter((item) => item.code !== cartItem.code)
     })
   };
 

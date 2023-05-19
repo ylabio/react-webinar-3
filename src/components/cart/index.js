@@ -4,7 +4,7 @@ import List from "../list";
 import {numberFormat} from "../../utils";
 import "./style.css";
 
-function Cart({openWindow, cart, total}) {
+function Cart({openWindow, cart, total, action}) {
   return (
     <div className='Cart'>
       <div className='Cart__dialog'>
@@ -15,7 +15,7 @@ function Cart({openWindow, cart, total}) {
         </Head>
         <main className="Cart__body">
           {!!cart.length ? (
-            <List list={cart} buttonText="Удалить"/>
+            <List list={cart} buttonText="Удалить" action={action}/>
           ) : (
             <h1 className="Cart__body-title">В корзине пусто!</h1>
           )}

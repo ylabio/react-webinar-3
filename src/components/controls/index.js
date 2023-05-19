@@ -4,7 +4,7 @@ import { plural, numberFormat } from "../../utils";
 import Cart from "../cart";
 import "./style.css";
 
-function Controls({cart}){
+function Controls({cart, action}){
   const [open, setOpen] = useState(false);
 
   const total = cart.reduce((x, y) => {
@@ -34,6 +34,7 @@ function Controls({cart}){
           openWindow={openWindow}
           cart={cart}
           total={total}
+          action={action}
         />
       )}
     </div>

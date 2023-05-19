@@ -26,7 +26,7 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls cart={cart}/>
+      <Controls cart={cart} action={callbacks.onDeleteItem}/>
       <List list={list} action={callbacks.onAddItem} buttonText='Добавить'/>
     </PageLayout>
   );
