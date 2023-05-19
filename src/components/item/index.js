@@ -7,9 +7,6 @@ function Item(props) {
     onAddBasket: () => {
       props.onAddBasket(props.item);
     },
-    onDeleteBasket: () => {
-      props.onDeleteBasket(props.item);
-    },
   };
 
   return (
@@ -20,14 +17,7 @@ function Item(props) {
         <span className="Item-price">{`${props.item.price.toLocaleString(
           "ru-RU"
         )} ₽`}</span>
-        {props.count ? (
-          <>
-            <span className="Item-count">{`${props.count} шт`}</span>
-            <button onClick={callbacks.onDeleteBasket}>Удалить</button>
-          </>
-        ) : (
-          <button onClick={callbacks.onAddBasket}>Добавить</button>
-        )}
+        <button onClick={callbacks.onAddBasket}>Добавить</button>
       </div>
     </div>
   );
@@ -37,16 +27,13 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
-    count: PropTypes.number,
+    price:PropTypes.number,
   }).isRequired,
   onAddBasket: PropTypes.func,
-  onDeleteBasket: PropTypes.func,
 };
 
 Item.defaultProps = {
   onAddBasket: () => {},
-  onDeleteBasket: () => {},
 };
 
 export default React.memo(Item);

@@ -41,7 +41,7 @@ class Store {
   }
 
   addBasket(item) {
-    if (this.state.basket.filter((el) => el.code === item.code)[0]) {
+    if (this.state.basket.find((el) => el.code === item.code)) {
       this.setState({
         ...this.state,
         basket: this.state.basket.map((el) => {
@@ -50,12 +50,19 @@ class Store {
           }
           return el;
         }),
+        resultSum:this.state.resultSum + this.state.basket.find((el)=>
+        el.code===item.code
+      ).price,
+        counter:this.state.counter,
       });
     } else {
       this.setState({
         ...this.state,
         basket: [...this.state.basket, { ...item, count: 1 }],
+        resultSum:this.state.resultSum + item.price,
+        counter:this.state.counter + 1,
       });
+      
     }
   }
 
@@ -63,6 +70,8 @@ class Store {
     this.setState({
       ...this.state,
       basket: this.state.basket.filter((el) => el.code !== item.code),
+      resultSum:this.state.resultSum - item.count*item.price,
+      counter:this.state.counter - 1
     });
   }
 }

@@ -4,26 +4,18 @@ import "./style.css";
 import { plural } from "../../utils";
 
 function Controls(props) {
-  const counter = props.basket.length;
-  let price = 0;
-
-  if (props.basket.length > 0) {
-    price = props.basket.reduce(
-      (sum, { price, count }) => sum + price * count,
-      0
-    );
-  }
+ 
 
   return (
     <div className="Controls">
       <span>{props.title}</span>
       <span className="Controls-basket">
-        {counter > 0
-          ? `${counter} ${plural(counter, {
+        {props.counter > 0
+          ? `${props.counter} ${plural(props.counter, {
               one: "товар",
               few: "товара",
               many: "товаров",
-            })} / ${price} ₽`
+            })} / ${props.resultSum} ₽`
           : "пусто"}
       </span>
       <button onClick={() => props.setIsOpen(true)}>{props.caption}</button>
@@ -33,6 +25,8 @@ function Controls(props) {
 
 Controls.propTypes = {
   title: PropTypes.string,
+  counter:PropTypes.number,
+  resultSum:PropTypes.number,
   setIsOpen: PropTypes.func,
 };
 

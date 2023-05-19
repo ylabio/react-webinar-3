@@ -1,33 +1,19 @@
 import React from "react";
 import "./style.css";
-import Head from "../head";
-import List from "../list";
+import PropTypes from "prop-types";
 
-const Modal = (props) => {
-  let price = 0;
-  if (props.basket.length > 0) {
-    price = props.basket.reduce(
-      (sum, { price, count }) => sum + price * count,
-      0
-    );
-  }
+const Modal = ({children}) => {
+  
   return (
     <div className="Modal">
       <div className="Modal-container">
-        <Head titleBasket={"Корзина"} setIsOpen={props.setIsOpen} />
-        <List
-          list={props.basket.sort((a, b) => a.code - b.code)}
-          onDeleteBasket={props.onDeleteBasket}
-        />
-        <div className="Modal-box">
-          <div className="Modal-sum">
-            <span>Итого</span>
-            <span className="Modal-total">{`${price} ₽`}</span>
-          </div>
-        </div>
+       {children}
       </div>
     </div>
   );
 };
 
+Modal.PropTypes={
+  children:PropTypes.node
+}
 export default React.memo(Modal);

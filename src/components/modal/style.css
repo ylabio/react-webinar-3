@@ -13,7 +13,8 @@
 }
 
 .Modal-container {
-  width: 66%;
+  width: 67%;
+  max-width: 960px;
   height: auto;
   background-color: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -21,21 +22,4 @@
   overflow: hidden;
 }
 
-.Modal-box {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-}
-.Modal-sum {
-  display: flex;
-  width: fit-content;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 21px;
-  padding-top: 20px;
-  padding-bottom: 90px;
-}
-.Modal-total {
-  margin-right: 110px;
-  margin-left: 50px;
-}
+

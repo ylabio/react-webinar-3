@@ -4,6 +4,8 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal";
+import Basket from "./components/basket";
+import Item from "./components/item";
 
 /**
  * Приложение
@@ -13,6 +15,8 @@ import Modal from "./components/modal";
 function App({ store }) {
   const list = store.getState().list;
   const basket = store.getState().basket;
+  const resultSum = store.getState().resultSum;
+  const counter = store.getState().counter;
   const [isOpen, setIsOpen] = useState(false);
 
   const callbacks = {
@@ -38,13 +42,26 @@ function App({ store }) {
         basket={basket}
         title={"В корзине:"}
         setIsOpen={setIsOpen}
+        counter={counter}
+        resultSum={resultSum}
       />
-      <List list={list} onAddBasket={callbacks.addBasket} />
+      <List
+        children={list.map((item) => (
+          <div key={item.code} className="List-item">
+            <Item item={item} onAddBasket={callbacks.addBasket} />
+          </div>
+        ))}
+      />
       {isOpen && (
         <Modal
-          basket={basket}
-          setIsOpen={setIsOpen}
-          onDeleteBasket={callbacks.deleteBasket}
+          children={
+            <Basket
+              basket={basket}
+              setIsOpen={setIsOpen}
+              resultSum={resultSum}
+              onDeleteBasket={callbacks.deleteBasket}
+            />
+          }
         />
       )}
     </PageLayout>
