@@ -43,46 +43,71 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
+  renderBasket() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      render: this.state.shoppingСart.render = this.state.shoppingСart.render ? false : true
     })
   };
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Добавления запись в корзину
+   * @param elArr
    */
-  deleteItem(code) {
+  addToBasket(elArr) {
+    let newObj = elArr;
+ 
+
+    /** 
+     * Проверяет наличия обьекта в массиви и если находит добавляет единицу в
+     * @param cound
+     * Иначе добавляет новый объект с 
+     * @param cound
+    */
+
+    let add = (elArr) => {
+      if(this.state.shoppingСart.shoppingList.indexOf(elArr) != -1 && elArr.cound >= 1) {
+        for(let arr = 0; arr <= this.state.shoppingСart.shoppingList.length; arr++) {
+          if(elArr.code == this.state.shoppingСart.shoppingList[arr].code) {
+            return this.state.shoppingСart.shoppingList[arr].cound += 1;
+          }
+        }  
+      } else {
+        newObj.cound = 1;
+        this.state.shoppingСart.shoppingList.push(newObj)
+      }
+    }
+    
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      price: this.state.shoppingСart.price += elArr.price,
+      shoppingList: add(elArr)
     })
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  deleteItem(code) {
+    let del = (el) => {
+
+      if(el.cound == 1) {
+        this.state.shoppingСart.shoppingList = [...this.state.shoppingСart.shoppingList].filter(item => item.code != code.code)
+      } else {
+        this.state.shoppingСart.shoppingList.filter(item => {
+          if(el.code == item.code && el.cound > 1) {
+            item.cound -= 1
+          }
+        })
+      }
+      
+    }
+
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
+      price: this.state.shoppingСart.price -= code.price,
+      shoppingList: del(code)
     })
-  }
+  };
+
 }
 
 export default Store;
