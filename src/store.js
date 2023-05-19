@@ -32,11 +32,9 @@ class Store {
   getCalculatePrice(){
     if(this.state.basket === undefined) {
       return 0 ;
-    }else if (this.state.basket === 0) {
-      return 0;
-    }else {
-      return this.state.basket.reduce((acc, curr) => {return acc + (curr.price * curr.quantity)}, 0);
     }
+    console.log(this.state.basket)
+      return this.state.basket.reduce((acc, curr) => {return acc + (curr.price * curr.quantity)}, 0);
   }
 
   /**
@@ -81,9 +79,10 @@ class Store {
       if (item.code === code){
         return {
           ...item,
-          price: price + item.price,
           quantity: item.quantity + 1
         }
+      }else{
+return {...item}
       }
     })
     })
