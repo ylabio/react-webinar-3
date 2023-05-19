@@ -5,6 +5,7 @@ import HeaderCart from './components/header-cart';
 import List from './components/list';
 import Cart from './components/cart';
 import ModalLayout from './components/modal-layout';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -31,7 +32,10 @@ function App({store}) {
     <PageLayout>
       <Head title='Магазин'/>
       <HeaderCart cart={cart} onToggleCart={callbacks.onToggleCart}/>
-      <List list={list} onAddToCart={callbacks.onAddToCart}/>
+      {/* <List list={list} onAddToCart={callbacks.onAddToCart}/> */}
+      <List list={list} onAddToCart={callbacks.onAddToCart}>
+        <Item />
+      </List>
       {cart.isCartOpen && <ModalLayout title='Корзина' onToggleModal={callbacks.onToggleCart}><Cart cart={cart} onDeleteFromCart={callbacks.onDeleteFromCart} /></ModalLayout>}
     </PageLayout>
   );
