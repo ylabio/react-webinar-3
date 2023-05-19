@@ -55,23 +55,38 @@ class Store {
 
   addCartItem(code) {
     const cartList = [...this.state.cartList];
-    const existingItem = cartList.find((el) => el.code == code);
-    if (existingItem) {
-      ++existingItem.count;
+		let isNew;
+    let item = cartList.find((el) => el.code == code);
+    if (item) {
+      ++item.count;
     } else {
-      const item = this.state.list.find((el) => el.code == code);
+      item = this.state.list.find((el) => el.code == code);
       cartList.push({ ...item, count: 1 });
+			isNew = true;
     }
     this.setState({
       ...this.state,
+      cartTotalCount: isNew
+        ? this.state.cartTotalCount + 1
+        : this.state.cartTotalCount,
+      cartTotalPrice: this.state.cartTotalPrice + item.price,
       cartList,
     });
   }
 
   deleteCartItem(code) {
+		const cartList = [...this.state.cartList]
+		const itemToDeleteIdx = this.state.cartList.findIndex((el) => el.code == code)
+		const [delItem] = cartList.splice(itemToDeleteIdx, 1);
+		const cartTotalPrice =
+      this.state.cartTotalPrice - delItem.count * delItem.price;
+		const cartTotalCount = this.state.cartTotalCount - 1;
+		
     this.setState({
       ...this.state,
-      cartList: this.state.cartList.filter((el) => el.code !== code),
+      cartList,
+      cartTotalPrice,
+      cartTotalCount,
     });
   }
 

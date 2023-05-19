@@ -1,24 +1,8 @@
 
-.CartModal {
-	position: absolute;
-	margin: auto;
-	left: 0;
-	right: 0;
-	width: 70%;
-	height: 70%;
-	background: #fff;
-	box-sizing: border-box;
-	box-shadow: 0 0 15px 5px #0000003b;
-}
-
-.CartModal-close {
-	margin-left: auto;
-}
-
 
 .CartModal-total {
 	display: flex;
-	gap: 20px;
+	gap: 40px;
 	justify-content: end;
-	padding: 20px 40px;
+	padding: 20px 120px;
 }

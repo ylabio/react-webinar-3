@@ -2,22 +2,22 @@ import React from "react";
 import Head from "../head";
 import List from "../list";
 import "./style.css";
+import Modal from "../modal";
+import { formatPrice } from "../../utils";
+import CartItem from "../cart-item";
 
-const CartModal = ({ list, onDeleteItem, onClose, total }) => {
+const CartModal = ({ list, onDeleteItem, onClose, totalPrice }) => {
   return (
-    <div className="CartModal">
-      <Head title={"Корзина"}>
-        <button className="CartModal-close" onClick={onClose}>
-          Закрыть
-        </button>
-      </Head>
-      <List list={list} onAction={onDeleteItem} actionTitle={"Удалить"} />
-      <div className="CartModal-total">
-        <strong>Итого</strong>
-        <strong>{total} ₽</strong>
-      </div>
-    </div>
+    <Modal onClose={onClose} title={"Корзина"}>
+      <>
+        <List list={list} onAction={onDeleteItem} Item={CartItem} />
+        <div className="CartModal-total">
+          <strong>Итого</strong>
+          <strong>{formatPrice(totalPrice)}</strong>
+        </div>
+      </>
+    </Modal>
   );
 };
 
-export default CartModal;
+export default React.memo(CartModal);

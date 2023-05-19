@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import "./style.css";
+import {formatPrice} from '../../utils'
 
 function Item(props) {
   const callbacks = {
@@ -14,12 +15,9 @@ function Item(props) {
     <div className={"Item"}>
       <div className="Item-code">{props.item.code}</div>
       <div className="Item-title">{props.item.title}</div>
-      <div className="Item-price">{props.item.price} ₽</div>
-      {props.item.count && (
-        <div className="Item-count">{props.item.count} шт</div>
-      )}
+      <div className="Item-price">{formatPrice(props.item.price)}</div>
       <div className="Item-actions">
-        <button onClick={callbacks.onAction}>{props.actionTitle}</button>
+        <button onClick={callbacks.onAction}>Добавить</button>
       </div>
     </div>
   );
@@ -30,13 +28,12 @@ Item.propTypes = {
     code: PropTypes.number,
     title: PropTypes.string,
     selected: PropTypes.bool,
-    count: PropTypes.number,
   }).isRequired,
-  onAdd: PropTypes.func,
+  onAction: PropTypes.func,
 };
 
 Item.defaultProps = {
-  onAdd: () => {},
+  onAction: () => {},
 };
 
 export default React.memo(Item);

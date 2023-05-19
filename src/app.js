@@ -1,9 +1,9 @@
-import React, { useCallback, useMemo, useState } from "react";
-import Controls from "./components/controls";
+import React, { useMemo } from "react";
+import Cart from "./components/cart";
 import Head from "./components/head";
+import Item from "./components/item";
 import List from "./components/list";
 import PageLayout from "./components/page-layout";
-import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -11,8 +11,7 @@ import Cart from "./components/cart";
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-
-  const {list, cartList} = store.getState();
+  const { list, cartList, cartTotalPrice, cartTotalCount } = store.getState();
 
   const callbacks = useMemo(
     () => ({
@@ -29,12 +28,13 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Приложение на чистом JS" />
-      <Cart onDeleteItem={callbacks.onDeleteItem} list={cartList} />
-      <List
-        list={list}
-        onAction={callbacks.onAddItem}
-        actionTitle={"Добавить"}
+      <Cart
+        totalCount={cartTotalCount}
+        totalPrice={cartTotalPrice}
+        onDeleteItem={callbacks.onDeleteItem}
+        list={cartList}
       />
+      <List list={list} Item={Item} onAction={callbacks.onAddItem} />
     </PageLayout>
   );
 }
