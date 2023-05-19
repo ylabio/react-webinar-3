@@ -1,0 +1,22 @@
+.Cart-item {
+    border-top: 1px dashed #ccc;
+}
+
+.Cart-total{
+    display: flex;
+    justify-content: flex-end;
+    padding: 26px 110px;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    color: #000000;
+    line-height: 21px;
+    text-align: right;
+    border-top: 1px dashed #ccc;
+}
+
+.Cart-total span{
+    min-width: 45px;
+    padding-left: 40px;
+}
