@@ -1,13 +1,14 @@
+import {generateCode} from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
     this.state = initState;
-    this.listeners = [];
-    this.lastCode = initState.list ? Math.max(...initState.list.map((item) => item.code)) : 0;
-  }
+    this.listeners = []; // Слушатели изменений состояния
 
+  }
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
@@ -42,13 +43,12 @@ class Store {
   /**
    * Добавление новой записи
    */
+
   addItem() {
-    const newCode = this.lastCode + 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: newCode, title: 'Новая запись', selectedCount: 0 }]
-    });
-    this.lastCode = newCode;
+      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+    })
   };
 
   /**
@@ -56,30 +56,20 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const list = this.state.list.filter(item => item.code !== code);
+    const newList = list.map(item => {
+      if (item.code > code) {
+        item.code--;
+      }
+      return item;
+    });
     this.setState({
       ...this.state,
+      // Новый список, в котором не будет удаляемой записи
       list: this.state.list.filter(item => item.code !== code)
     })
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-          item.selectedCount = (item.selected) ? (item.selectedCount || 0) + 1 : (item.selectedCount || 0);
-        } else if (item.selected) {
-          item.selected = false;
-        }
-        return item;
-      })
-    })
-  }
 }
 
 export default Store;

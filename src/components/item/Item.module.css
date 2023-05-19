@@ -1,0 +1,31 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  transition: background-color 1s;
+  align-items: center;
+}
+.item.item_selected {
+  background: #75aaf1;
+  color: #fff;
+}
+.itemCodeAndTitle {
+  display: flex;
+}
+.itemCode {
+  padding: 20px 10px 20px 20px;
+}
+.itemTitle {
+  padding: 20px 10px;
+}
+.itemActions {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 35px;
+  padding: 20px 10px;
+  align-items: center;
+}
+.itemActions .itemActionsText {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 81px;
+}

@@ -1,52 +1,81 @@
-import React from 'react';
-import {createElement} from './utils.js';
-import './styles.css';
+import React, { useCallback, useState } from 'react';
+import List from './components/list';
+import Controls from './components/controls';
+import Head from './components/head';
+import PageLayout from './components/page-layout';
 
-/**
- * Приложение
- * @param store {Store} Хранилище состояния приложения
- * @returns {React.ReactElement}
- */
-function App({store}) {
+function App({ store }) {
+  const list = store.getState().list;
+  const [modal, setModal] = useState(false);
+  const [countPrice, setCountPrice] = useState(0);
+  const [products, setProducts] = useState([]);
 
-    const list = store.getState().list;
+  function addProductToCart(product) {
+    const isProductInCart = products.some((item) => item.title === product.title);
 
-    return (
-        <div className='App'>
-            <div className='App-head'>
-                <h1>Приложение на чистом JS</h1>
-            </div>
-            <div className='App-controls'>
-                <button onClick={() => store.addItem()}>Добавить</button>
-            </div>
-            <div className='App-center'>
-                <div className='List'>{
-                    list.map(item =>
-                        <div key={item.code} className='List-item'>
-                            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                                 onClick={() => store.selectItem(item.code)}>
-                                <div className='Item-code'>{item.code}</div>
-                                <div className='Item-title'>
-                                    {item.title}
-                                    {
-                                        item.selectedCount > 0
-                                        &&
-                                        <span className='Item-selected'> | Выделяли {item.selectedCount} раз</span>
-                                    }
-                                </div>
-                                <div className='Item-actions'>
-                                    <button onClick={() => store.deleteItem(item.code)}>
-                                        Удалить
-                                    </button>
-                                </div>
-                            </div>
+    if (!isProductInCart) {
+      setProducts([...products, { ...product, countValue: 1 }]);
+      setCountPrice(countPrice + product.price);
+    } else {
+      const updatedProducts = products.map((item) => {
+        if (item.title === product.title) {
+          return { ...item, countValue: item.countValue + 1 };
+        }
+        return item;
+      });
 
-                        </div>
-                    )}
-                </div>
-            </div>
-        </div>
-    );
+      setProducts(updatedProducts);
+      setCountPrice(countPrice + product.price);
+    }
+  }
+
+  function removeProductFromCart(product) {
+    setProducts(products.filter((item) => item.code !== product.code));
+    products.forEach((item) => {
+      if (item.title === product.title) {
+        setCountPrice(countPrice - product.price * item.countValue);
+      }
+    });
+  }
+
+  const handleDeleteItem = useCallback(
+    (code) => {
+      store.deleteItem(code);
+    },
+    [store],
+  );
+
+  const handleSelectItem = useCallback(
+    (code) => {
+      store.selectItem(code);
+    },
+    [store],
+  );
+
+  const handleAddItem = useCallback(() => {
+    store.addItem();
+  }, [store]);
+
+  return (
+    <PageLayout>
+      <Head title="Магазин" />
+      <Controls
+        modal={modal}
+        setModal={setModal}
+        onAdd={handleAddItem}
+        countPrice={countPrice}
+        setCountPrice={setCountPrice}
+        products={products}
+        removeProduct={removeProductFromCart}
+      />
+      <List
+        list={list}
+        addProduct={addProductToCart}
+        onDeleteItem={handleDeleteItem}
+        onSelectItem={handleSelectItem}
+      />
+    </PageLayout>
+  );
 }
 
 export default App;

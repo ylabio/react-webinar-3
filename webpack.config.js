@@ -24,6 +24,14 @@ let config = {
         exclude: /node_modules/,
         use: [{loader: 'babel-loader'}],
       },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader', // Adds CSS to the DOM by injecting a <style> tag
+          'css-loader', // Translates CSS into CommonJS modules
+          'sass-loader' // Compiles Sass to CSS
+        ]
+      },
       // Правила обработки подключаемых файлов
       {
         test: /\.css$/,
