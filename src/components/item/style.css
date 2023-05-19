@@ -1,7 +1,6 @@
 .Item {
   display: flex;
   justify-content: flex-start;
-  transition: background-color 1s;
 }
 
 .Item_selected {
@@ -16,6 +15,27 @@
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+}
+
+.Item-price {
+  width: fit-content;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 20px 10px;
+}
+
+.Item-count {
+  width: fit-content;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 20px 10px;
+  margin-left: 40px;
+}
+
+@media (max-width: 500px) {
+  .Item-count {
+    margin-left: 0;
+  }
 }
 
 .Item-actions {

@@ -1,0 +1,10 @@
+.Block {
+  display: flex;
+
+}
+
+.Block-isColumn {
+  flex-direction: column;
+}
+
+

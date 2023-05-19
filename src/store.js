@@ -27,6 +27,8 @@ class Store {
    * @returns {Object}
    */
   getState() {
+    console.log('cart', this.state.cart);
+    console.log('getTotal', this.getTotal());
     return this.state;
   }
 
@@ -40,49 +42,60 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
+  onAddToCart(code) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cart: {
+        ...this.state.cart,
+        [code]: this.state.cart[code] ? this.state.cart[code] + 1 : 1
+      }
     })
   }
+
+  onDeleteFromCart(code) {
+    console.log('onDeleteFromCart', code);
+    const cart = {...this.state.cart};
+    delete cart[code];
+    this.setState({
+      ...this.state,
+      cart
+    });
+  }
+
+  getTotal() {
+    const cart = this.state.cart;
+    const list = this.state.list;
+    let price = 0;
+    let count = 0;
+
+    const codeList = Object.keys(cart);
+    codeList.forEach(code => {
+      const item = list.find(item => item.code === Number.parseInt(code));
+      if (item) {
+        price += item.price * cart[code];
+        count += cart[code];
+      }
+    });
+
+    return {price, count};
+
+  }
+
+  getCardList() {
+    const result = [];
+    const cart = this.state.cart;
+
+    [...this.state.list].forEach(item => {
+      if (cart[item.code]) {
+        const resultItem = {...item, count: cart[item.code]}
+        result.push(resultItem);
+      }
+    });
+
+    return result;
+  }
+
+
 }
 
 export default Store;
