@@ -1,0 +1,11 @@
+.cart-product-item {
+  display: flex;
+  align-items: center;
+  padding: 19px 17px;
+  border: 1px dashed #CCCCCC;
+  gap: 24px;
+}
+
+.cart-product-item span:nth-child(3) {
+  margin-left: auto;
+}

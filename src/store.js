@@ -7,6 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.cartProducts = []
   }
 
   /**
@@ -28,6 +29,10 @@ class Store {
    */
   getState() {
     return this.state;
+  }
+
+  getCartProducts() {
+    return this.cartProducts
   }
 
   /**
@@ -82,6 +87,51 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     })
+  }
+
+  addToCart(product) {
+    const find = this.state.cartProducts.find(el => el.code === product.code)
+    if(find) {
+      this.setState({
+        ...this.state,
+        cartProducts: this.state.cartProducts.map(item => {
+          if (item.code === product.code) {
+            return {
+              ...item,
+              count: item.count + 1
+            }
+          }else {
+            return item
+          }
+        })
+      })
+    }else {
+      this.setState({
+        ...this.state,
+        cartProducts: [...this.state.cartProducts, {...product, count: 1}]
+      })
+    }
+  }
+
+  removeFromCart(code) {
+    const product = this.state.cartProducts.find(el => el.code === code)
+    if (product?.count > 1) {
+      this.setState({
+        ...this.state,
+        cartProducts: this.state.cartProducts.map(item => {
+          if (item.code === code) {
+            return {...item, count: item.count - 1}
+          }else {
+            return item
+          }
+        })
+      })
+    }else {
+      this.setState({
+        ...this.state,
+        cartProducts: this.state.cartProducts.filter(i => i.code !== code)
+      })
+    }
   }
 }
 

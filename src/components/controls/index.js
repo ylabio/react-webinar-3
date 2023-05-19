@@ -1,21 +1,36 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from 'prop-types';
+import { plural } from "../../utils";
 import './style.css';
 
-function Controls({onAdd}){
+function Controls({setShowModal, products}){
+  const productsCount = useMemo(() => {
+    return products.length 
+      ? `${products.length} ${plural(products.length, {one: 'товар', few: 'товара', many: 'товаров'})}`
+      : 'пусто'
+  },[products])
+  const totalPrice = useMemo(() => {
+    return products.reduce((acc, item) => acc += item.price * item.count, 0).toLocaleString('ru')
+  }, [products])
+
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <div>В корзине <b>{productsCount} / {totalPrice}</b></div>
+      <button onClick={() => setShowModal(true)}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  setShowModal: PropTypes.func,
+  products: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.number
+  })).isRequired,
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  setShowModal: () => {},
+  products: []
 }
 
 export default React.memo(Controls);
