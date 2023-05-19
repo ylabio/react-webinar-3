@@ -1,19 +1,19 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const path = require("path");
+const path = require('path');
 
 let config = {
   context: path.join(__dirname, '/src'), // Директория с исходным кодом приложения
   entry: 'index.js', // Главный файл приложения
   output: {
-    path: path.join(__dirname, 'dist'), // Куда делать оброку
+    path: path.join(__dirname, 'dist'), // Куда делать сборку
     filename: '[name].js', // Шаблон для названия файлов
     clean: true, // Очистить ./dist перед сборкой
   },
   mode: process.env.NODE_ENV,
   resolve: {
-    extensions: ['.js', 'jsx'], // расширения по умолчанию если не указаны в import
+    extensions: ['.js', 'jsx'], // Расширения по умолчанию если не указаны в import
     modules: ['./', 'node_modules'], // Где искать файлы подключаемых модулей (пакетов)
   },
   module: {
@@ -37,10 +37,11 @@ let config = {
   plugins: [
     new MiniCssExtractPlugin(), // Плагин для вытаскивания собранных стилей в отдельный файл
     new HtmlWebPackPlugin({
-      template: './index.html',
+      template: '../public/index.html',
       filename: './index.html',
       title: 'Simple SPA',
       base: '/',
+      favicon: "../public/favicon.ico"
     }),
   ],
 }

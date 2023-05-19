@@ -1,0 +1,9 @@
+.Controls {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.Controls-button {
+  cursor: pointer;
+}
