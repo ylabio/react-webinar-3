@@ -1,0 +1,49 @@
+.Cart {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .3);
+}
+
+.Cart-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, .5);
+}
+
+.Cart-head {
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 70px;
+}
+
+.Cart-head .Head  {
+  padding: 20px;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+.Cart-head .Head h1  {
+  padding: 0;
+}
+
+.Cart-content {
+  margin-bottom: 20px;
+}
+
+.Cart-total {
+  margin-right: 100px;
+  text-align: right;
+  margin-bottom: 90px;
+}
+
+.Cart-total b:first-of-type {
+  margin-right: 53px;
+}
+

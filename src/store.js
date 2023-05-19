@@ -83,6 +83,29 @@ class Store {
       })
     })
   }
+
+  addCartItem(cartItem) {
+    const cartList = [...this.state.cartList]
+    const findItem = cartList.find(item => item.code === cartItem.code)
+
+    if(findItem) {
+      findItem.count++
+    } else {
+      cartList.push({...cartItem, count: 1})
+    }
+    this.setState({
+      ...this.state, cartList
+    })
+  }
+
+  deleteCartItem(cartItem) {
+    const cartList = [...this.state.cartList].filter(item => item.code !== cartItem.code)
+
+    this.setState({
+      ...this.state, cartList
+    })
+  }
+
 }
 
 export default Store;
