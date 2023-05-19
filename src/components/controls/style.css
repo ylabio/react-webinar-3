@@ -1,11 +1,11 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 35px 20px;
+  padding: 20px 21px 20px;
   border-bottom: 1px dashed #ccc;
 }
 
-.Item {
+.Item-control {
   padding-right: 15px;
 }
 
@@ -13,6 +13,10 @@
   font-weight: 700;
 }
 
-.Item.bold {
-  padding-right: 25px;
+.Item-control.bold {
+  padding-right: 20px;
+}
+
+button {
+  min-width: 76px;
 }

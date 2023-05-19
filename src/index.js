@@ -18,7 +18,7 @@ const state = {
     ],
   }),
 
-  cart: new CartStore([]),
+  cart: new CartStore({ cart: [], sum: 0, cnt: 0 }),
 };
 
 const root = createRoot(document.getElementById('root'));

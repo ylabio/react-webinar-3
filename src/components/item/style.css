@@ -1,35 +1,25 @@
-.Item {
+.Item-list {
   display: flex;
   justify-content: flex-start;
+  border-bottom: 1px dashed #ccc;
 }
 
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
-}
-
-.Item-code {
+.Item-list-code {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+.Item-list-title {
   width: 100%;
   padding: 20px 10px;
 }
 
-.Item-price {
+.Item-list-price {
   display: flex;
   align-items: center;
   padding-right: 12px;
 }
 
-.Item-cnt {
-  display: flex;
-  align-items: center;
-  padding: 0 12px 0 62px;
-}
-
-.Item-actions {
+.Item-list-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;

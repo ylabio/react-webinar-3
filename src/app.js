@@ -11,21 +11,9 @@ import ProductsPage from './components/products-page';
 
 function App({ state: { store, cart } }) {
   const list = store.getState().list;
-  const cartItems = cart.getState();
+  const cartItems = cart.getState().cart;
 
   const [showModal, setShowModal] = useState(false);
-
-  function closeModal(e) {
-    if (showModal && e.target.id === 'root') {
-      callbacks.showModal();
-    }
-  }
-
-  document.body.addEventListener('click', closeModal);
-
-  useEffect(() => {
-    return () => document.body.removeEventListener('click', closeModal);
-  });
 
   const callbacks = {
     showModal: useCallback(() => {
@@ -46,21 +34,21 @@ function App({ state: { store, cart } }) {
   };
 
   return (
-    <PageLayout>
+    <PageLayout onShowModal={callbacks.showModal} showModal={showModal}>
       {showModal && (
         <Modal
           showModal={callbacks.showModal}
-          items={cartItems}
+          cart={cartItems}
           deleteItem={callbacks.onDeleteFromCart}
-          sum={cart.getCartSum()}
+          sum={cart.getState().sum}
         />
       )}
       <ProductsPage
         showModal={callbacks.showModal}
-        cnt={cart.getItemsCnt()}
-        sum={cart.getCartSum()}
+        cnt={cart.getState().cnt}
+        sum={cart.getState().sum}
         list={list}
-        action={callbacks.onAddItem}
+        addItem={callbacks.onAddItem}
       />
     </PageLayout>
   );

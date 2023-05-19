@@ -3,39 +3,34 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { cn as bem } from '@bem-react/classname';
 
-function Item(props) {
-  const cn = bem('Item');
+function ItemProducts({ code, price, title, addItem }) {
+  const cn = bem('Item-list');
 
   const onClickHandler = () => {
-    props.action(props.item);
+    addItem({ code, title, price });
   };
 
   return (
     <div className={cn()}>
-      <div className={cn('code')}>{props.item.code}</div>
-      <div className={cn('title')}>{props.item.title}</div>
-      <div className={cn('price')}>{props.item.price}&nbsp;₽</div>
-      {props.item.cnt && (
-        <div className={cn('cnt')}>{props.item.cnt}&nbsp;шт.</div>
-      )}
+      <div className={cn('code')}>{code}</div>
+      <div className={cn('title')}>{title}</div>
+      <div className={cn('price')}>{price}&nbsp;&#8381;</div>
       <div className={cn('actions')}>
-        <button onClick={onClickHandler}>{props.actionTitle}</button>
+        <button onClick={onClickHandler}>Добавить</button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
-  item: PropTypes.shape({
-    code: PropTypes.number,
-    title: PropTypes.string,
-  }).isRequired,
-  action: PropTypes.func,
-  actionTitle: PropTypes.string,
+ItemProducts.propTypes = {
+  code: PropTypes.number,
+  price: PropTypes.number,
+  title: PropTypes.string,
+  addItem: PropTypes.func,
 };
 
-Item.defaultProps = {
-  action: () => {},
+ItemProducts.defaultProps = {
+  addItem: () => {},
 };
 
-export default React.memo(Item);
+export default React.memo(ItemProducts);

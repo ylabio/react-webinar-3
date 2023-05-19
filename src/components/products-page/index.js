@@ -3,28 +3,40 @@ import Controls from '../controls';
 import List from '../list';
 import React from 'react';
 import PropTypes from 'prop-types';
+import ItemProduct from '../item-product';
 
-function ProductsPage({ showModal, cnt, sum, list, action }) {
+function ProductsPage({ showModal, cnt, sum, list, addItem }) {
   return (
     <>
       <Head title="Магазин" />
       <Controls showModal={showModal} cnt={cnt} sum={sum} />
-      <List list={list} action={action} actionTitle="Добавить" />
+      <List
+        render={(item) => (
+          <ItemProduct
+            key={item.code}
+            code={item.code}
+            title={item.title}
+            price={item.price}
+            addItem={addItem}
+          />
+        )}
+        list={list}
+      />
     </>
   );
 }
 
 ProductsPage.propTypes = {
-  showModal: PropTypes.func,
   cnt: PropTypes.number,
   sum: PropTypes.number,
   list: PropTypes.array,
-  action: PropTypes.func,
+  showModal: PropTypes.func,
+  addItem: PropTypes.func,
 };
 
 ProductsPage.defaultProps = {
   showModal: () => {},
-  action: () => {},
+  addItem: () => {},
 };
 
 export default React.memo(ProductsPage);

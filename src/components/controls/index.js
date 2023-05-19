@@ -5,7 +5,7 @@ import { plural } from '../../utils';
 import { cn } from '@bem-react/classname';
 
 function Controls({ showModal, cnt, sum }) {
-  const item = cn('Item');
+  const item = cn('Item-control');
 
   return (
     <div className="Controls">
@@ -13,13 +13,14 @@ function Controls({ showModal, cnt, sum }) {
       {!!cnt ? (
         <div className={item(null, ['bold'])}>
           {cnt} {plural(cnt, { one: 'товар', few: 'товара', many: 'товаров' })}{' '}
-          / {sum} ₽
+          / {sum} &#8381;
         </div>
       ) : (
         <div className={item(null, ['bold'])}>пусто</div>
       )}
-      <div className={item('action')}></div>
-      <button onClick={() => showModal()}>Перейти</button>
+      <div className={item('action')}>
+        <button onClick={() => showModal()}>Перейти</button>
+      </div>
     </div>
   );
 }
