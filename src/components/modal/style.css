@@ -8,11 +8,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transform: scale(0);
 }
+.Modal.active{
+    transform: scale(1);
+}
+
 
 .Modal-basket{
     background-color: white;
     height: 100px;
     width: 960px;
-    border-radius: 5px;;
+    border-radius: 10px;
 }

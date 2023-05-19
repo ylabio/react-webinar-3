@@ -56,14 +56,24 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      basket: this.state.basket.map(item => {
+        if(item.code === code && item.quantity > 1){
+          return{
+            ...item,
+            quantity: item.quantity - 1
+          }
+          }else {
+          return {
+            ...this.state,
+            basket: this.state.basket.filter(item => item.code !== code)
+          }
+        }
+      })
     })
   };
 
   // добавление товара
   addItemToBasket(code, title, price ) {
-    console.log(code, title, price)
     const foundItem = this.state.basket.find(e => e.code === code)
     foundItem ?
     this.setState({...this.state,

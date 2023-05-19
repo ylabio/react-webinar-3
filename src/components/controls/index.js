@@ -23,7 +23,7 @@ function Controls(props){
 
 
       <button
-          // onClick={() => onAdd()}
+          onClick={() => props.setActive(true)}
           className='Basket-actions'>
           Перейти</button>
     </div>
@@ -33,11 +33,11 @@ function Controls(props){
 Controls.propTypes = {
   calculatePrice: PropTypes.number,
   basket: PropTypes.array,
-    // onAdd: PropTypes.func,
+  setActive: PropTypes.func,
 };
 
 Controls.defaultProps = {
-  // onAdd: () => {},
+  setActive: () => {},
 }
 
 export default React.memo(Controls);

@@ -11,19 +11,18 @@ import Modal from "./components/modal";
  * @returns {React.ReactElement}
  */
 function App({store}) {
-  const [modalActive, setModalActive] = useState(true)
+  const [modalActive, setModalActive] = useState(false)
   const list = store.getState().list;
   const basket = store.getState().basket;
   let calculatePrice = store.getCalculatePrice()
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    onDeleteItem: useCallback((code, quantity) => {
+      store.deleteItem(code,quantity);
     }, [store]),
     onAddItem: useCallback((code, title, price) => {
       store.addItemToBasket(code, title, price);
     }, [store]),
-
   }
 
   return (
@@ -31,11 +30,17 @@ function App({store}) {
           <Head title='Приложение на чистом JS'/>
           <Controls basket={basket}
                     calculatePrice={calculatePrice}
+                    setActive={setModalActive}
           />
           <List list={list}
                 onAddItem={callbacks.onAddItem}
           />
-          <Modal active={modalActive} setActive={setModalActive}/>
+          <Modal basket={basket}
+              calculatePrice={calculatePrice}
+              active={modalActive}
+              setActive={setModalActive}
+              onDeleteItem={callbacks.onDeleteItem}
+          />
       </PageLayout>
   );
 }
