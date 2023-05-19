@@ -4,7 +4,7 @@ import './style.css'
 import List from "../list";
 import {numberFormat} from "../../utils";
 
-function Cart({cartList, onDeleteCartItem, setCartState}) {
+function Cart({cartList, setCartState}) {
 
   const cartPrice = useMemo(() => {
     return cartList.reduce((sum, item) => sum + item.price*item.count, 0)
@@ -22,7 +22,6 @@ function Cart({cartList, onDeleteCartItem, setCartState}) {
           <List
             list={cartList}
             actionItem='delete'
-            deleteCartItem={onDeleteCartItem}
           />
         </div>
         <div className='Cart-total'>
