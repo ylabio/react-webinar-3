@@ -13,7 +13,7 @@ function MarketHead({totalPrice, totalItems, onOpenModal}) {
           В корзине:
           <span>
               {
-                totalPrice
+                totalItems
                   ? `${totalItems} ${plural(totalItems, {
                     one: 'товар',
                     few: 'товара',
