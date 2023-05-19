@@ -38,6 +38,7 @@ body {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  cursor: pointer;
 }
 
 .Item_selected {
@@ -52,6 +53,10 @@ body {
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+}
+
+.Item-title-clicked {
+  padding-left: 5px;
 }
 
 .Item-actions {
