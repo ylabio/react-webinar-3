@@ -8,7 +8,6 @@ import './styles.css';
  * @returns {React.ReactElement}
  */
 function App({store}) {
-
   const list = store.getState().list;
 
   return (
@@ -17,16 +16,18 @@ function App({store}) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className='App-controls'>
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button onClick={() => store.addItem(list.length)}>Добавить</button>
       </div>
       <div className='App-center'>
         <div className='List'>{
-          list.map(item =>
+          list.map((item, i) =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
+                   onClick={event => {
+                    store.selectItem(item.code, event.target.closest('.Item_selected'))
+                   }}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>{item.title} {item.counter === 0 ? '' : `| Выделяли ${item.counter} раз`}</div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить

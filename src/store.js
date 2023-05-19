@@ -25,6 +25,9 @@ class Store {
    * @returns {Object}
    */
   getState() {
+    /* this.state = this.state.list.map((elem, i) => {
+      
+    }); */
     return this.state;
   }
 
@@ -35,16 +38,17 @@ class Store {
   setState(newState) {
     this.state = newState;
     // Вызываем всех слушателей
+    console.log(this.listeners);
     for (const listener of this.listeners) listener();
   }
 
   /**
    * Добавление новой записи
    */
-  addItem() {
+  addItem(num) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: num ? this.state.list[this.state.list.length-1].code + 1 : 1, title: 'Новая запись', counter: 0}]
     })
   };
 
@@ -63,17 +67,32 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
+  selectItem(code, bool) {
+    if (!bool) {
+      let obj = this.state.list.map(elem => {
+        if (elem.selected) delete elem.selected;
+        return elem;
+      });
+  
+      this.setState({
+        ...this.state,
+        list: obj.map(item => {
+          if (item.code === code) {
+            item.selected = !item.selected;
+            item.counter++;
+          }
+          return item;
+        })
       })
-    })
-  }
+    } else {
+      const obj = this.state.list.map(elem => {
+        if (elem.selected) delete elem.selected;
+        return elem;
+      })
+
+      this.setState({list: obj});
+    }
+  };
 }
 
 export default Store;
