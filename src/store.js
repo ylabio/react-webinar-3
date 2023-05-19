@@ -43,27 +43,6 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [
-        ...this.state.list,
-        { code: generateCode(), title: 'Новая запись' },
-      ],
-    });
-  }
-
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      cartItems: this.state.cartItems.filter((item) => item.code !== code),
-    });
-  }
 
   addItemToCart(code) {
     const cart = this.state.cartItems;
