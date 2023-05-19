@@ -1,5 +1,6 @@
 .Item {
   display: flex;
+  align-items: center;
   justify-content: flex-start;
   transition: background-color 1s;
 }
@@ -14,12 +15,26 @@
 }
 
 .Item-title {
-  width: 100%;
+  width: 80%;
   padding: 20px 10px;
+}
+.Item-count {
+  width: 50px;
+  white-space: nowrap;
+  margin-left: 40px;
+}
+.Item-price {
+  width: 15%;
+  text-align: right;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+.Item-actions > button {
+  margin-left: 1rem;
+  width: 76px;
+  cursor: pointer;
 }
