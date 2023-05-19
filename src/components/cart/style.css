@@ -1,0 +1,12 @@
+.Cart {
+  display: none;
+  max-width: 960px;
+  min-height: 407px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+
+.Cart--visible {
+  display: block;
+}
