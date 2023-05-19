@@ -7,8 +7,8 @@ function Head({title, active, setActive}){
     <div className={active?'Head active': 'Head' }>
       <h1>{title}</h1>
         {active?
-            <button onClick={()=>setActive(false)}>Закрыть</button>
-            : <></>}
+          <button onClick={()=>setActive(false)}>Закрыть</button>
+          : <></>}
     </div>
   )
 }

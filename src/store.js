@@ -68,9 +68,7 @@ class Store {
           ...item,
           quantity: item.quantity + 1
         }
-      }else{
-        return {...item}
-      }
+      }else return {...item}
     })
     })
     : this.setState({...this.state,

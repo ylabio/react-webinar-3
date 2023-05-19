@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import './style.css';
 
 function Item(props){
-    const onAddItem = () => {
-      props.onAddItem(props.item.code, props.item.title, props.item.price);
-    }
-    const onDeleteItem = ()=>{
-        props.onDeleteItem(props.item.code, props.item.quantity )
-    }
+  const onAddItem = () => {
+    props.onAddItem(props.item.code, props.item.title, props.item.price);
+  }
+  const onDeleteItem = ()=>{
+    props.onDeleteItem(props.item.code, props.item.quantity )
+  }
 
   return (
     <div className='Item'>
@@ -22,9 +22,9 @@ function Item(props){
         {props.item.price} ₽
       </div>
         {props.item.quantity ?
-            <div className='Item-price'>
-                {props.item.quantity} шт
-            </div>: <></>
+          <div className='Item-price'>
+            {props.item.quantity} шт
+          </div>: <></>
         }
       <div className='Item-actions'>
           {
@@ -34,7 +34,7 @@ function Item(props){
               </button>
               :<button onClick={onAddItem}>
                  Добавить
-               </button>
+              </button>
           }
       </div>
     </div>
@@ -54,8 +54,8 @@ Item.propTypes = {
 };
 
 Item.defaultProps = {
-    onAddItem: () => {},
-    onDeleteItem: () => {},
+ onAddItem: () => {},
+ onDeleteItem: () => {},
 }
 
 export default React.memo(Item);

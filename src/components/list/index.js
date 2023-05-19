@@ -17,7 +17,7 @@ function List({list, onAddItem}){
 
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number
+  code: PropTypes.number
   })).isRequired,
   onAddItem: PropTypes.func,
 };
