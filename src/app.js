@@ -1,4 +1,6 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
+import Item from "src/components/item";
+import ModalCart from "src/components/modal-cart";
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
@@ -12,29 +14,54 @@ import PageLayout from "./components/page-layout";
 function App({store}) {
 
   const list = store.getState().list;
+  const basket = store.getState().basket;
+
+  const [modal, setModal] = useState(false)
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
 
     onAddItem: useCallback(() => {
       store.addItem();
-    }, [store])
-  }
+    }, [store]),
+
+    onAddToBasket: useCallback((code) => {
+      store.addToBasket(code);
+    }, [store]),
+
+    onCloseModal: useCallback(() => {
+      document.body.style.overflow = "scroll"
+      setModal(false);
+    }, [modal]),
+
+    onOpenModal: useCallback(() => {
+      document.body.style.overflow = "hidden"
+      setModal(true);
+    }, [modal]),
+
+    onRemoveFromBasket: useCallback((code) => {
+      store.deleteToBasket(code);
+    }, [store]),
+  };
+
+
+  const renders = {
+    item: useCallback(item => {
+      return <Item item={item} onButton={callbacks.onAddToBasket}/>
+    }, []),
+  };
 
   return (
+    <>
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
+      <Head title='Магазин'/>
+      <Controls amount={basket.amount} sum={basket.sum} onOpenModal={callbacks.onOpenModal}/>
       <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+            renderItem={renders.item}/>
     </PageLayout>
+
+      {modal && <ModalCart totalSum={basket.sum} cart={basket.items} onCloseModal={(callbacks.onCloseModal)} onRemoveFromBasket={callbacks.onRemoveFromBasket}/>}
+
+    </>
   );
 }
 
