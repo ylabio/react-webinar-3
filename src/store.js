@@ -41,48 +41,86 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Подсчёт суммы товаров в корзине
    */
-  addItem() {
+  calcCartSum() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cart: {...this.state.cart, cartSum: this.state.cart.cartList.reduce((accum, current) => accum += current.price * current.count, 0)}
     })
   }
+
+  /**
+   * Подсчёт количества товаров в корзине (может можно объединить с методом подсчётом суммы)
+   */
+  calcCartQuantity() {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        cartQuantity: this.state.cart.cartList.length
+      }
+    })
+  }
+  /**
+   * Добавление товаров в корзину
+   */
+  addToCart(code) {
+    const itemExist = this.state.cart.cartList.find(item => item.code === code);
+
+    if (itemExist) {
+      this.setState({
+        ...this.state,
+        cart: {
+          ...this.state.cart,
+          cartList: [...this.state.cart.cartList.filter(item => item.code !== code), {...itemExist, count: itemExist.count ? itemExist.count + 1 : 1 }]
+        }
+      })
+    } else {
+      this.setState({
+        ...this.state,
+        cart: {
+          ...this.state.cart,
+          cartList: [...this.state.cart.cartList, {...this.state.list.filter(item => item.code === code)[0], count: 1}]
+        }
+      })
+    }
+
+    this.calcCartSum();
+    this.calcCartQuantity();
+  };
+
+  /**
+   * Удаление товаров из корзины
+   */
+  deleteFromCart(code) {
+    const newElems = this.state.cart.cartList.filter(item => item.code !== code);
+
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        cartList: [...newElems]
+      } 
+    })
+
+    this.calcCartSum();
+    this.calcCartQuantity();
+  };
+
+  /**
+   * Удаление товаров из корзины
+   */
+  toggleCartModal() {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        isCartOpen: !this.state.cart.isCartOpen
+      }
+    })
+  }
+
 }
 
 export default Store;

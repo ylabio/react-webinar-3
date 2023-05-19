@@ -1,31 +1,29 @@
-import React from "react";
+import React, {Children, cloneElement} from 'react';
 import PropTypes from 'prop-types';
-import Item from "../item";
+import Item from '../item';
 import './style.css';
 
-function List({list, onDeleteItem, onSelectItem}){
+function List(props){
+  // console.log(props.children);
   return (
     <div className='List'>{
-      list.map(item =>
+      props.list.length ? props.list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
+          {/* <Item item={item} {...props} /> */}
+            {React.cloneElement(props.children, {
+            ...props,
+            item,
+          })}
         </div>
-      )}
+      ) : <span className='List-empty'>Элементы отсутствуют</span>}
     </div>
   )
 }
 
 List.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number
-  })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
+  props: PropTypes.shape({
+    list: PropTypes.array.isRequired
+  })
 };
-
-List.defaultProps = {
-  onDeleteItem: () => {},
-  onSelectItem: () => {},
-}
 
 export default React.memo(List);

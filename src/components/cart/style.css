@@ -1,0 +1,28 @@
+.Cart {
+    margin: 71px 0 89px 0;
+}
+
+.Cart-total {
+    display: flex;
+    gap: 60px;
+    font-weight: 700;
+    font-size: 18px;
+    padding-top: 20px;
+}
+
+.Cart-total span:first-child {
+    flex: 1;
+    text-align: right;
+}
+
+.Cart-total span:last-child {
+    min-width: 150px;
+}
+
+.Cart-empty {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 60px 0;
+}
