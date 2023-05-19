@@ -1,11 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from 'prop-types';
-import './style.css';
+import Cart from "../cart";
+import "./style.css";
 
 function Controls(){
+  const [open, setOpen] = useState(false);
+
+  const openWindow = () => {
+    setOpen(!open);
+  };
+
   return (
     <div className='Controls'>
-      <button>Добавить</button>
+      <button onClick={openWindow}>Перейти</button>
+      {open && (
+        <Cart openWindow={openWindow}/>
+      )}
     </div>
   )
 }
