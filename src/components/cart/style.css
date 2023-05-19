@@ -1,0 +1,43 @@
+.Cart-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.Cart {
+  position: absolute;
+  width: 66.67%;
+  left: calc(50% - 66.67% / 2);
+  top: 14.65vw;
+  background-color: #FFFFFF;
+  padding-bottom: 90px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.Cart-total {
+  padding: 20px 120px 0 0;
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
+  font-size: 1.125rem;
+}
+
+.Cart-price {
+  margin-left: 52px;
+}
+
+.Cart-empty {
+  padding: 0 20px;
+  font-size: 1.125rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .Cart {
+    width: 90%;
+    left: calc(50% - 90% / 2);
+  }
+}

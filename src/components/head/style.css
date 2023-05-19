@@ -7,3 +7,14 @@
   margin: 0;
   padding: 20px 20px 10px;
 }
+
+.Head-button {
+  align-self: center;
+  margin-right: 40px;
+  min-width: 76px;
+}
+
+.Head_modal {
+  display: flex;
+  justify-content: space-between;
+}
