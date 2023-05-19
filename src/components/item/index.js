@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {numberFormat} from "../../utils";
 import './style.css';
 
 function Item(props){
@@ -7,10 +8,9 @@ function Item(props){
     <div className='Item'>
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>{props.item.title}</div>
+      <div className="Item-price">{numberFormat(props.item.price)}</div>
       <div className='Item-actions'>
-        <button>
-          Удалить
-        </button>
+        <button>{props.buttonText}</button>
       </div>
     </div>
   );

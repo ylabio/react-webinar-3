@@ -25,9 +25,9 @@ function App({store}) {
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
+      <Head title='Магазин'/>
       <Controls />
-      <List list={list}/>
+      <List list={list} buttonText='Добавить'/>
     </PageLayout>
   );
 }
