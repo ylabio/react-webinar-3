@@ -1,7 +1,18 @@
-.List{
-
+.Modal {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(0,0,0,0.4) ;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.List-item {
-  border-bottom: 1px dashed #ccc;
+.Modal-basket{
+    background-color: white;
+    height: 100px;
+    width: 960px;
+    border-radius: 5px;;
 }

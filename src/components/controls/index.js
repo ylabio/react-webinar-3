@@ -4,7 +4,11 @@ import './style.css';
 import {plural} from "../../utils";
 
 function Controls(props){
-    let totalGoods = props.basket.length
+
+    let  totalGoods = props.basket.length ?
+        props.basket.reduce((acc, curr)=>{return acc + curr.quantity},0)
+    : 0
+
 
   return (
     <div className='Controls'>

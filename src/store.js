@@ -64,22 +64,24 @@ class Store {
   // добавление товара
   addItemToBasket(code, title, price ) {
     console.log(code, title, price)
-    this.setState({
-      ...this.state,
+    const foundItem = this.state.basket.find(e => e.code === code)
+    foundItem ?
+    this.setState({...this.state,
       basket: this.state.basket.map(item => {
       if (item.code === code){
         return {
           ...item,
+          price: price + item.price,
           quantity: item.quantity + 1
-        }
-        } else {
-        return {
-          basket: [...this.state.basket, {code, title, price, quantity: 1}]
         }
       }
     })
     })
+    : this.setState({...this.state,
+      basket: [...this.state.basket, {code, title, price, quantity: 1}]
+    })
   };
 }
+
 
 export default Store;

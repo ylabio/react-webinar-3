@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
@@ -11,7 +11,7 @@ import Modal from "./components/modal";
  * @returns {React.ReactElement}
  */
 function App({store}) {
-
+  const [modalActive, setModalActive] = useState(true)
   const list = store.getState().list;
   const basket = store.getState().basket;
   let calculatePrice = store.getCalculatePrice()
@@ -27,16 +27,16 @@ function App({store}) {
   }
 
   return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls basket={basket}
-            calculatePrice={calculatePrice}
-      />
-      <List list={list}
-            onAddItem={callbacks.onAddItem}
-            />
-        <Modal basket={basket}/>
-    </PageLayout>
+      <PageLayout>
+          <Head title='Приложение на чистом JS'/>
+          <Controls basket={basket}
+                    calculatePrice={calculatePrice}
+          />
+          <List list={list}
+                onAddItem={callbacks.onAddItem}
+          />
+          <Modal active={modalActive} setActive={setModalActive}/>
+      </PageLayout>
   );
 }
 
