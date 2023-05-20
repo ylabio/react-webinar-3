@@ -10,7 +10,7 @@
 export function plural(value, variants = {}, locale = 'ru-RU') {
   // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
   // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
-  // В английском 2 формы: 'one', 'other'
+
   const key = new Intl.PluralRules(locale).select(value);
   // Возвращаем вариант по ключу, если он есть
   return variants[key] || '';
@@ -48,4 +48,13 @@ export const generateCode1 = (function (start = 0) {
  */
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
+}
+
+/**
+ * Приводит цену товара к новому формату
+ * в качестве разделителя целой и дробной части используется запятая, а в качестве разделителя разрядов - пробел
+ * @returns {Number}
+ */
+export function getNumberFormat(price){
+  return new Intl.NumberFormat('ru-RU').format(price)
 }

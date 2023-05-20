@@ -58,7 +58,12 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code)
+    })
+    this.setState({
+      ...this.state,
+      countItemCart: this.getCountItemCart(),
+      totalPriceCart: this.getTotalPriceCart()
     })
   };
 
@@ -83,6 +88,58 @@ class Store {
       })
     })
   }
+  /**
+   * Добавление новой записи в корзину
+   */
+  addToCart(item) {
+
+    if(this.state.cart.filter(el => el.code === item.code).length){
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map(el => {
+          if (el.code === item.code) {
+            return {
+              ...el,
+              count: el.count + 1,
+            };
+          }
+          return el;
+        }),
+      })
+
+      return this.setState({
+        ...this.state,
+        totalPriceCart: this.getTotalPriceCart()
+      })
+    }
+
+    this.setState({
+      ...this.state,
+      cart: [...this.state.cart, {...item, count: 1}],
+    })
+    this.setState({
+      ...this.state,
+      countItemCart: this.getCountItemCart(),
+      totalPriceCart: this.getTotalPriceCart()
+    })
+  };
+
+  /**
+   * Считает количество уникального товара
+   * @returns {number}
+   */
+  getCountItemCart(){
+    return this.state.cart.length
+  }
+
+  /**
+   * Считает итоговую сумму товаров в корзине
+   * @returns {number}
+   */
+  getTotalPriceCart(){
+    return this.state.cart.reduce((sum, item) => (item.price * item.count) + sum, 0)
+  }
+
 }
 
 export default Store;

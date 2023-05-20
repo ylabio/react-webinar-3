@@ -1,0 +1,40 @@
+.Modal-overlay {
+  opacity: 1;
+  z-index: 1000;
+  background:  rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  transition: background .2s ease-in;
+}
+.Modal-window {
+  opacity: 1;
+  z-index: 1000;
+  max-width: 960px;
+  min-height: 300px;
+  background: #fff;
+  margin: 211px auto;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.Modal-space{
+  min-height: 71px;
+}
+.Modal-btn-close{
+  height: 21px;
+  margin: auto 32px;
+}
+.Modal-footer{
+  padding-bottom: 89px;
+}
+.Modal-footer p{
+  display: flex;
+  justify-content: end;
+  padding: 20px 120px 0 0;
+}
+.Modal-footer p span{
+  margin-left: 53px;
+}
