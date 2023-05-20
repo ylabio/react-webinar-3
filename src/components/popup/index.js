@@ -1,11 +1,13 @@
 import { cn as bem } from "@bem-react/classname";
 import PropTypes from "prop-types";
 import React, { useEffect } from 'react';
+import Head from "../head";
+import ModalLayout from "../layouts/modal-layout";
 import './style.css';
 
 /** Пустое окно с названием и кнопкой. Можно использовать не только для корзины */
 
-function Popup({children, setActive}) {
+function Popup({ title, children, setActive }) {
   const cn = bem('Popup');
 
   // Костыль для ситуаций с мелкими экранами или ресайзами.
@@ -38,19 +40,26 @@ function Popup({children, setActive}) {
   return (
     <div className={cn()} onClick={() => setActive(false)}>
       <div className={cn('content')} onClick={e => e.stopPropagation()}>
-        <button className={cn('close')} onClick={() => setActive(false)}>Закрыть</button>
-        {children}
+        <ModalLayout>
+          <Head title={title} />
+          <button className={cn('close')} onClick={() => setActive(false)}>Закрыть</button>
+          <div className={cn('inner_content')}>
+            {children}
+          </div>
+        </ModalLayout>
       </div>
     </div>
   );
 };
 
 Popup.propTypes = {
-  setActive: PropTypes.func.isRequired,
+  title: PropTypes.string,
   children: PropTypes.node,
+  setActive: PropTypes.func.isRequired,
 }
 
 Popup.defaultProps = {
+  title: "ModalWindow",
   setActive: () => { }
 }
 

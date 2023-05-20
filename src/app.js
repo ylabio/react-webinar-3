@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import BasketWindow from "./components/basket";
+import BasketWindow from "./components/basket/window";
 import Catalog from './components/catalog';
 
 /**

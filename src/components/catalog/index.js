@@ -3,8 +3,8 @@ import React, { useCallback } from 'react';
 import Controls from '../controls';
 import Head from '../head';
 import Item from '../item';
+import PageLayout from '../layouts/page-layout';
 import List from '../list';
-import PageLayout from '../page-layout';
 
 /**
  * Каталог (главная страница с товарами), чтоб малость разгрузить app.js

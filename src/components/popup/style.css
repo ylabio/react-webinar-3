@@ -44,16 +44,13 @@
   cursor: pointer;
 }
 
-.Popup-content .PageLayout {
-  border-radius: 10px;
-  min-height: 407px;
+/* Пока не ясно, относятся ли эти отступы только к корзине или ко всем модалкам */
+.Popup-inner_content {
+  padding: 63px 0 10px 0;
 }
 
+/* Модификация хеадера */
 .Popup-content .Head {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-}
-
-.Popup-content .Item-count {
-  width: 120px;
 }
