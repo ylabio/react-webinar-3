@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
-import CartProduct from '../cartProduct'
 import "./styles.css";
+import List from "../list";
 
 const Modal = ({ products, setShowModal, remove }) => {
 
@@ -18,14 +18,11 @@ const Modal = ({ products, setShowModal, remove }) => {
         </div>
         {
           products.length
-          ? <ul className="cart-content">
-              {products.map(product => (
-                <CartProduct {...product} key={product.code} remove={remove}/>
-              ))}
+          ? <>
+              <List list={products} remove={remove} isCart={true}/>
               <div className="total">Итого: <span>{totalPrice} &#8381;</span></div>
-            </ul>
-          :
-          <h2 className="empty-cart">Корзина пуста</h2>
+            </>
+          : <h2 className="empty-cart">Корзина пуста</h2>
         }
       </div>
     </div>

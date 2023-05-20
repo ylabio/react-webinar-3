@@ -8,6 +8,9 @@ function Item(props){
     onAddToCart: (e) => {
       e.stopPropagation();
       props.onAddToCart(props.item);
+    },
+    onRemoveFromCart: () => {
+      props.remove(props.item.code)
     }
   }
 
@@ -17,10 +20,24 @@ function Item(props){
       <div className='Item-title'>
         {props.item.title}
       </div>
+      <div className='Item-price'>
+        {props.item.price} <span>&#8381;</span>
+      </div>
+      {
+        props.isCart 
+          ? <div className='Item-count'>
+              {props.item.count} <span>шт</span>
+            </div>
+          : ''
+      }
       <div className='Item-actions'>
-        <button onClick={callbacks.onAddToCart}>
-          Добавить
-        </button>
+        {
+          props.isCart
+            ? <button onClick={callbacks.onRemoveFromCart}>Удалить</button>
+            : <button onClick={callbacks.onAddToCart}>
+                Добавить
+              </button>
+        }
       </div>
     </div>
   );
@@ -34,10 +51,14 @@ Item.propTypes = {
     count: PropTypes.number
   }).isRequired,
   onAddToCart: PropTypes.func,
+  remove: PropTypes.func,
+  isCart: PropTypes.bool,
 };
 
 Item.defaultProps = {
   onAddToCart: () => {},
+  remove: () => {},
+  isCart: false
 }
 
 export default React.memo(Item);
