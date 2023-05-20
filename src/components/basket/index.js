@@ -11,9 +11,7 @@ const Basket = (props) => {
       <Head titleBasket={"Корзина"} setIsOpen={props.setIsOpen} />
       <List
         children={props.basket.map((item) => (
-          <div key={item.code} className="List-item">
-            <BasketItem item={item} onDeleteBasket={props.onDeleteBasket} />
-          </div>
+          <BasketItem item={item} onDeleteBasket={props.onDeleteBasket} />
         ))}
       />
       <div className="Basket-box">

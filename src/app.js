@@ -47,9 +47,7 @@ function App({ store }) {
       />
       <List
         children={list.map((item) => (
-          <div key={item.code} className="List-item">
-            <Item item={item} onAddBasket={callbacks.addBasket} />
-          </div>
+          <Item item={item} onAddBasket={callbacks.addBasket} />
         ))}
       />
       {isOpen && (

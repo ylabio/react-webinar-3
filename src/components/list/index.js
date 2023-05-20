@@ -1,9 +1,15 @@
-import React from "react";
+import React, { Children } from "react";
 import PropTypes from "prop-types";
 import "./style.css";
 
 function List(props) {
-  return <div className="List">{props.children}</div>;
+  return (
+    <div className="List">
+      {Children.map(props.children, (child) => (
+        <div className="List-item">{child}</div>
+      ))}
+    </div>
+  );
 }
 
 List.propTypes = {
