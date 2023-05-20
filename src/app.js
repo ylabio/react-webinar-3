@@ -1,8 +1,12 @@
-import React, {useCallback} from 'react';
-import List from "./components/list";
+import React, {useCallback, useState} from "react";
 import Controls from "./components/controls";
 import Head from "./components/head";
+import List from "./components/list";
 import PageLayout from "./components/page-layout";
+import Cart from "./components/cart";
+import ModalLayout from "./components/modal-layout";
+import Item from "./components/item";
+
 
 /**
  * Приложение
@@ -11,31 +15,54 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
-  const list = store.getState().list;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const {list, cartList, cartInfo} = store.getState();
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+    addToCart: useCallback(
+      (code) => {
+        store.addToCart(code);
+      },
+      [store]
+    ),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+    deleteCartItem: useCallback(
+      (code) => {
+        store.deleteCartItem(code);
+      },
+      [store]
+    ),
+    renderProductItem: useCallback(
+      (item) => (
+        <Item
+          item={item}
+          onClick={callbacks.addToCart}
+          buttonText="Добавить"
+        />
+      ),
+      []
+    ),
+  };
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
 
   return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-    </PageLayout>
-  );
+    <>
+      <PageLayout>
+        <Head title="Магазин"/>
+        <Controls cartInfo={cartInfo} setIsModalOpen={setIsModalOpen}/>
+        <List list={list} element={callbacks.renderProductItem}/>
+      </PageLayout>
+      <ModalLayout isModalOpen={isModalOpen}>
+        <Cart
+          cartInfo={cartInfo}
+          cartList={cartList}
+          setIsModalOpen={setIsModalOpen}
+          DeleteCartItem={callbacks.deleteCartItem}
+        />
+      </ModalLayout>
+    </>
+  )
 }
 
 export default App;

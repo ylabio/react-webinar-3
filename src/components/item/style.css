@@ -4,9 +4,8 @@
   transition: background-color 1s;
 }
 
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
+.Item:first-child {
+  border-top: 1px dashed #ccc;
 }
 
 .Item-code {
@@ -14,12 +13,32 @@
 }
 
 .Item-title {
-  width: 100%;
   padding: 20px 10px;
+}
+
+.Item-price {
+  display: flex;
+  align-self: center;
+  margin-left: auto;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  margin-right: 14px;
+}
+
+.Item-count {
+  align-self: center;
+  margin: 0 24px 0 62px;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-button {
+  cursor: pointer;
+  width: 80px;
+  height: 21px;
 }

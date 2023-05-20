@@ -1,0 +1,20 @@
+
+.Cart-info {
+    margin-top: 71px;
+}
+
+.Cart-totalPrice {
+    display: flex;
+    justify-content: flex-end;
+    gap: 53px;
+    padding: 20px 100px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.Cart-button {
+    cursor: pointer;
+    width: 76px;
+    height: 21px;
+}
