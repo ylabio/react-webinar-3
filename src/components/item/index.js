@@ -24,7 +24,7 @@ function Item(props){
     <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}>
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>
-        {props.item.title}
+        {props.item.title}{props.item.count}
       </div>
       <div className='Item-actions'>
         <button onClick={() => props.handleClick(props.item.code)}>
