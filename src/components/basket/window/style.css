@@ -1,0 +1,4 @@
+/* Патчим итемы для корзины */
+.Popup-content .Item-count {
+  width: 120px;
+}

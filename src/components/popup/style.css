@@ -1,0 +1,56 @@
+.Popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  
+  background-color: rgba(0, 0, 0, .7);
+
+  width: 100vw;
+  height: 100vh;
+  
+  pointer-events: all;
+}
+
+.Popup-content {
+  position: relative;
+  border-radius: 10px;
+  width: 960px;
+  min-width: 407px;
+  margin: 10px;
+}
+
+.Popup-overfilled {
+  align-items: flex-start;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+/* чтоб скрол не смещал модалку */
+.Popup-content-overfilled {
+  left: 8px;
+}
+
+.Popup-close {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  width: 76px;
+  height: 21px;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* Пока не ясно, относятся ли эти отступы только к корзине или ко всем модалкам */
+.Popup-inner_content {
+  padding: 63px 0 10px 0;
+}
+
+/* Модификация хеадера */
+.Popup-content .Head {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}

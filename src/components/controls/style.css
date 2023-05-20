@@ -1,5 +1,22 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  font-family: Arial, sans-serif;
   padding: 20px;
+}
+
+.Controls-label {
+  font-size: 18px;
+  font-weight: 400;
+  white-space: pre;
+  padding: 0 10px;
+}
+
+/* Без стилизации кнопка сильно отличается от дизайна */
+.Controls-button {
+  border: 1px solid #767676;
+  border-radius: 2px;
+  width: 80px;
+  height: 21px;
+  cursor: pointer;
 }
