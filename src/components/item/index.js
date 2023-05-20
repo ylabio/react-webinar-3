@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
 import './style.css';
 
 function Item(props){
@@ -18,19 +17,22 @@ function Item(props){
     onDelete: (e) => {
       e.stopPropagation();
       props.onDelete(props.item.code);
-    }
+    },
+    onAdd: (e) => {
+      e.stopPropagation();
+      props.onAdd(props.item.code);
+    },
   }
 
   return (
     <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
          onClick={callbacks.onClick}>
       <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {one: 'раз', few: 'раза', many: 'раз'})}` : ''}
-      </div>
+      <div className='Item-title'>{props.item.title}</div>
+      <div className='Item-price'>{props.item.price + ' ₽'}</div>
       <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button onClick={callbacks.onAdd}>
+          Добавить
         </button>
       </div>
     </div>
@@ -45,12 +47,14 @@ Item.propTypes = {
     count: PropTypes.number
   }).isRequired,
   onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+  onSelect: PropTypes.func,
+  onAdd: PropTypes.func
 };
 
 Item.defaultProps = {
   onDelete: () => {},
   onSelect: () => {},
+  onAdd: () => {},
 }
 
 export default React.memo(Item);

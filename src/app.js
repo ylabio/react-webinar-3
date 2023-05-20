@@ -3,6 +3,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -12,6 +13,7 @@ import PageLayout from "./components/page-layout";
 function App({store}) {
 
   const list = store.getState().list;
+  const cartList = store.getState().cartList;
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -22,18 +24,24 @@ function App({store}) {
       store.selectItem(code);
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    onGoToCart: useCallback(() => {
+      store.goToCart();
+    }, [store]),
+
+    onAddItemToCart: useCallback((code) => {
+      store.addItemToCart(code);
+    }, [store]),
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
+      <Head title='Магазин'/>
+      <Controls onGo={callbacks.onGoToCart}/>
       <List list={list}
             onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+            onSelectItem={callbacks.onSelectItem}
+            onAddItemToCart={callbacks.onAddItemToCart}/>
+      <Cart title='Корзина' cartList={cartList} />
     </PageLayout>
   );
 }

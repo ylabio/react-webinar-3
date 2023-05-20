@@ -83,6 +83,28 @@ class Store {
       })
     })
   }
+
+    /**
+   * Переход к корзине
+   */
+    goToCart() {
+      this.setState({
+        ...this.state,
+        list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      })
+    };
+
+  /**
+   * Добавление элемента в корзину
+   * @param code
+   */
+  addItemToCart(code) {
+    this.setState({
+      ...this.state,
+      // Новый список, в котором не будет удаляемой записи
+      list: this.state.list.filter(item => item.code !== code)
+    })
+  };
 }
 
 export default Store;

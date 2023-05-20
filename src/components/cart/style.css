@@ -1,0 +1,23 @@
+.Cart {
+    position: absolute;
+    width: 960px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: calc(50% - 407px/2 + 0.5px);
+    background-color: #ffffff;
+}
+
+.Cart-head {
+    display: flex;
+    justify-content: space-between;
+    background-color: #F5F5F5;
+    padding: 0 20px;
+    border-radius: 5px 5px 0 0;
+}
+
+.Cart-close {
+    padding: 30px 10px;
+}
