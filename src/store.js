@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -7,6 +5,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.amount = 0;
+    this.quantity = 0;
   }
 
   /**
@@ -31,6 +31,36 @@ class Store {
   }
 
   /**
+   * Выбор состояния корзины
+   * @returns {Array}
+   */
+  getItem() {
+    return this.state.list.filter(item => item.count > 0) || [];
+  }
+
+  /**
+   * Получение количества
+   * @returns {Number}
+   */
+  getQuantity() {
+    this.quantity = 0
+    this.state.list.forEach(item => {
+      if (item.selected !== undefined && item.selected) {
+        this.quantity++
+      }
+    })
+    return this.quantity
+  }
+
+  /**
+   * Получение суммы
+   * @returns {Number}
+   */
+  getAmount() {
+    return this.getItem().reduce((acc, item) => acc + item.price * item.count, 0);
+  }
+
+  /**
    * Установка состояния
    * @param newState {Object}
    */
@@ -41,48 +71,45 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
-   * Удаление записи по коду
+   * Добавление товара по коду
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  addItem(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          // Смена выделения и подсчёт
           return {
             ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
+            selected: true,
+            count: item.count + 1 || 1,
           };
         }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+        return item
       })
     })
-  }
+  };
+
+  /**
+   * Удаление товара по коду
+   * @param code
+   */
+  deleteItem(code) {
+
+    this.setState({
+        ...this.state,
+      list: this.state.list.map(item => {
+          if (item.code === code) {
+            return {
+              ...item,
+              selected: !item.selected,
+              count: 0,
+            };
+          }
+          return item
+        })
+      })
+  };
 }
 
 export default Store;

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function PageLayout({children}) {
+function ModalLayout({children}) {
 
-  const cn = bem('PageLayout');
+  const cn = bem('ModalLayout');
 
   return (
     <div className={cn()}>
@@ -16,8 +16,8 @@ function PageLayout({children}) {
   );
 }
 
-PageLayout.propTypes = {
+ModalLayout.propTypes = {
   children: PropTypes.node
 }
 
-export default React.memo(PageLayout);
+export default React.memo(ModalLayout);
