@@ -1,4 +1,4 @@
-import {generateCode, plural} from "./utils";
+import {generateCode} from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -60,6 +60,11 @@ class Store {
       // Новый список, в котором не будет удаляемой записи
       cart: this.state.cart.filter(item => item.code !== code)
     })
+    this.setState({
+      ...this.state,
+      countItemCart: this.getCountItemCart(),
+      totalPriceCart: this.getTotalPriceCart()
+    })
   };
 
   /**
@@ -89,7 +94,7 @@ class Store {
   addToCart(item) {
 
     if(this.state.cart.filter(el => el.code === item.code).length){
-      return this.setState({
+      this.setState({
         ...this.state,
         cart: this.state.cart.map(el => {
           if (el.code === item.code) {
@@ -99,23 +104,40 @@ class Store {
             };
           }
           return el;
-        })
+        }),
+      })
+
+      return this.setState({
+        ...this.state,
+        totalPriceCart: this.getTotalPriceCart()
       })
     }
 
     this.setState({
       ...this.state,
-      cart: [...this.state.cart, {...item, count: 1}]
+      cart: [...this.state.cart, {...item, count: 1}],
+    })
+    this.setState({
+      ...this.state,
+      countItemCart: this.getCountItemCart(),
+      totalPriceCart: this.getTotalPriceCart()
     })
   };
+
   /**
-   * Расчитывает общее количество и итоговую сумму
-   * @returns {Object}
+   * Считает количество уникального товара
+   * @returns {number}
    */
-  getCartInfo(){
-    const count = this.state.cart.reduce((sum, item) => item.count + sum, 0)
-    const totalPrice = this.state.cart.reduce((sum, item) => (item.price * item.count) + sum, 0)
-    return {count, totalPrice}
+  getCountItemCart(){
+    return this.state.cart.length
+  }
+
+  /**
+   * Считает итоговую сумму товаров в корзине
+   * @returns {number}
+   */
+  getTotalPriceCart(){
+    return this.state.cart.reduce((sum, item) => (item.price * item.count) + sum, 0)
   }
 
 }

@@ -14,16 +14,18 @@
   z-index: 1000;
   max-width: 960px;
   min-height: 300px;
-  border-radius: 5px;
   background: #fff;
-  margin: 15% auto;
+  margin: 211px auto;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  overflow: hidden;
 }
 .Modal-space{
   min-height: 71px;
 }
 .Modal-btn-close{
-  height: 20px;
-  margin: auto 10px;
+  height: 21px;
+  margin: auto 32px;
 }
 .Modal-footer{
   padding-bottom: 89px;

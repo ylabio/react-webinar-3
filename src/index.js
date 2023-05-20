@@ -15,6 +15,8 @@ const store = new Store({
     {code: generateCode(), title: 'Товар сюрприз', price: 0},
   ],
   cart:[],
+  countItemCart: 0,
+  totalPriceCart: 0,
 });
 
 const root = createRoot(document.getElementById('root'));
