@@ -7,6 +7,10 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state = {
+      ...initState,
+      basket:[]
+    }
   }
 
   /**
@@ -49,7 +53,16 @@ class Store {
       list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
     })
   };
+  //Добавление товаров в корзину
+  addBasketItem(code) {
+    const selectItem = this.state.list.find(item => item.code === code)
+    this.setState({
+      ...this.state,
+      basket: [...this.state.basket, selectItem]
+    })
+  }
 
+  
   /**
    * Удаление записи по коду
    * @param code
@@ -59,6 +72,13 @@ class Store {
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
       list: this.state.list.filter(item => item.code !== code)
+    })
+  };
+  handleClickDelete(code) {
+    this.setState({
+      ...this.state,
+      // Новый список корзины, в котором не будет удаляемой записи
+      basket: this.state.basket.filter(item => item.code !== code)
     })
   };
 

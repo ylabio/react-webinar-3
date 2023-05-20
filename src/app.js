@@ -12,22 +12,25 @@ import { Popup } from './components/popup';
  */
 function App({store}) {
   const [active, setActive] = useState(false)
-  const [basket, setBasket] = useState([])
-
-  console.log('basket', basket)
-  const list = store.getState().list;
+  const {list, basket} = store.getState();
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
+    /* onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
     }, [store]),
 
-    /* onSelectItem: useCallback((code) => {
+    onSelectItem: useCallback((code) => {
       store.selectItem(code);
-    }, [store]), */
-
+    }, [store]),
+    
     onAddItem: useCallback(() => {
       store.addItem();
+    }, [store]), */
+    addBasketItem: useCallback((code) => {
+      store.addBasketItem(code)
+    },[store]),
+    handleClickDelete: useCallback((code) => {
+      store.handleClickDelete(code)
     }, [store])
   }
 
@@ -35,9 +38,10 @@ function App({store}) {
     <PageLayout>
       <Head title='Приложение на чистом JS'/>
       <Controls setActive={setActive}/>
-      {active && <Popup active={active} setActive={setActive} basket={basket}/>}
+      {active && <Popup active={active} setActive={setActive} basket={basket} handleClick={callbacks.handleClickDelete}/> }
       <List list={list}
-            setBasket={setBasket}/>
+            buttonName='Добавить'
+            handleClick={callbacks.addBasketItem}/>
     </PageLayout>
   );
 }

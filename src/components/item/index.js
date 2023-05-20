@@ -8,8 +8,8 @@ function Item(props){
   // Счётчик выделений
   const [count, setCount] = useState(0);
 
-  const callbacks = {
-   /*  onClick: () => {
+  /* const callbacks = {
+    onClick: () => {
       props.onSelect(props.item.code);
       if (!props.item.selected) {
         setCount(count + 1);
@@ -18,12 +18,8 @@ function Item(props){
     onDelete: (e) => {
       e.stopPropagation();
       props.onDelete(props.item.code);
-    }, */
-    onClick: () => {
-      props.onClick(prev => [...prev, props.item])
-    }
-  }
-  console.log(props.item)
+    },
+  } */
   return (
     <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}>
       <div className='Item-code'>{props.item.code}</div>
@@ -31,8 +27,8 @@ function Item(props){
         {props.item.title}
       </div>
       <div className='Item-actions'>
-        <button onClick={callbacks.onClick}>
-          Добавить
+        <button onClick={() => props.handleClick(props.item.code)}>
+          {props.buttonName}
         </button>
       </div>
     </div>
