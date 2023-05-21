@@ -23,3 +23,16 @@
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }
+
+.Item-price {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: right;
+  padding: 20px 24px;
+  color: #404040;
+}
+
+.Item-price-symbol {
+  padding-left: 10px;
+}

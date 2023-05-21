@@ -1,0 +1,14 @@
+.ModalList{
+  width: 100%;
+}
+
+.ModalList-result-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 96px;
+}
+
+.ModalList-result {
+  padding: 20px 24px;
+}

@@ -1,0 +1,86 @@
+.Modal {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100vw;
+ 	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	z-index: 5;
+	pointer-events: none;
+	transition: all 0.5s ease-out;
+}
+
+.Modal-active {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100vw;
+  height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	opacity: 1;
+	pointer-events: all;
+	z-index: 5;
+	transition: all 0.5s ease-out;
+}
+
+.Modal-content {
+  margin: 15px;
+	border-radius: 10px;
+	background-color: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	max-width: 960px;
+	transform: scale(0.5);
+	transition: all 0.4s ease-out;
+}
+
+.Modal-content_active {
+  width: 960px;
+	display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+	position: relative;
+  margin: 15px;
+	border-radius: 10px;
+	background-color: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	max-width: 960px;
+	transform: scale(1);
+	transition: all 0.4s ease-out;
+}
+
+.Modal-head {
+  width: 100%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Modal-close {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 32px;
+  padding: 2px 8px;
+}
+
+@media screen and (max-width: 460px){ 
+  .Modal-content {
+    margin: 2px;
+    padding: 5px;
+    max-width: 300px;
+  }
+
+  .Modal-content_active {
+    margin: 2px;
+    padding: 5px;
+    max-width: 300px;
+  }
+}

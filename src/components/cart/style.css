@@ -1,0 +1,15 @@
+.Cart {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.Cart-content {
+  text-align: center;
+}
+
+.Cart-text {
+  padding-left: 12px;
+}
+
