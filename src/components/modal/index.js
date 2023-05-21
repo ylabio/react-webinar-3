@@ -6,22 +6,14 @@ import './style.css';
 
 const Modal = ({closeModel, cartItems, removeItem, sumCart}) => {
   return (
-    <ModalLayout closeModel={closeModel}>
-      <div className='Modal-wrapper'>
-        <div className='Modal__header'>
-          <h2 className='Modal__title'>Корзина</h2>
-          <div className='Modal__button'>
-            <button onClick={closeModel}>Закрыть</button>
-          </div>
+    <ModalLayout closeModel={closeModel} title='Корзина'>
+      <div className='Modal__basket'>
+        <div className='Modal__margin'></div>
+        <List list={cartItems} actionButton={removeItem} buttonName='Удалить' />
+        <div className='Modal__total'>
+          Итого <span>{sumCart} ₽</span>
         </div>
-        <div className='Modal__basket'>
-          <div className='Modal__margin'></div>
-          <List list={cartItems} actionButton={removeItem} buttonName='Удалить' />
-          <div className='Modal__total'>
-            Итого <span>{sumCart} ₽</span>
-          </div>
-          <div className='Modal__margin-bottom'></div>
-        </div>
+        <div className='Modal__margin-bottom'></div>
       </div>
     </ModalLayout>
   );
