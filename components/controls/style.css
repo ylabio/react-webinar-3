@@ -1,0 +1,23 @@
+/*Styles for Controls*/
+.Controls {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 21px;
+  align-items: center;
+  column-gap: 15px;
+  border-bottom: 1px dashed #CCCCCC;
+  height: 62px;
+}
+.controls__title{
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+.controls__count{
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+

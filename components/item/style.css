@@ -1,0 +1,38 @@
+.Item {
+  display: flex;
+  justify-content: space-between;
+  transition: background-color 1s;
+  align-items: center;
+  height: 61px;
+}
+
+.Item_selected {
+  background: #75aaf1;
+  color: #fff;
+}
+.ItemCode_And_ItemTitle{
+  display: flex;
+}
+.Item-code {
+  padding: 20px 10px 20px 20px;
+}
+
+.Item-title {
+
+  padding: 20px 10px;
+}
+
+.Item-actions {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 35px;
+  padding: 20px 20px 20px 10px;
+  align-items: center;
+}
+.Item-actions-text{
+  display: flex;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #404040;
+}
