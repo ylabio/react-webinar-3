@@ -4,7 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal";
-import Item from "./components/item";
+import Basket from "./components/basket";
 
 /**
  * Приложение
@@ -15,8 +15,8 @@ function App({store}) {
   const [modalActive, setModalActive] = useState(false)
   const list = store.getState().list;
   const basket = store.getState().basket;
-  let calculatePrice = store.getState().calculatePrice;
-  let totalGoods = store.getState().totalGoods;
+  const calculatePrice = store.getState().calculatePrice;
+  const totalGoods = store.getState().totalGoods;
 
   const callbacks = {
     onDeleteItem: useCallback((code, quantity) => {
@@ -30,27 +30,25 @@ function App({store}) {
   return (<>
       <PageLayout>
         <Head title='Магазин'/>
-        <Controls basket={basket}
-                  calculatePrice={calculatePrice}
+        <Controls calculatePrice={calculatePrice}
                   setActive={setModalActive}
                   totalGoods={totalGoods}
         />
         <List list={list}
-            onAddItem={callbacks.onAddItem}
+              onAddItem={callbacks.onAddItem}
         />
 
       </PageLayout>
       <Modal active={modalActive}
              setActive={setModalActive}>
-        <Head title='Корзина' active={modalActive} setActive={setModalActive}/>
-        <div> {basket.length
-              ?basket.map(item =>
-                <div key={item.code} className='List-item'>
-                  <Item item={item} onDeleteItem={callbacks.onDeleteItem} active={modalActive}/>
-                </div>)
-            :<div className='List-empty'>пусто</div>}
-        </div>
-        <div className={'Modal-prise'}>{basket.length? <>Итого <span className={'Item-price'}>{calculatePrice} ₽</span></> :<></> }</div>
+        <Head title='Корзина'
+              active={modalActive}
+              setActive={setModalActive}/>
+        <Basket basket={basket}
+                onDeleteItem={callbacks.onDeleteItem}
+                active={modalActive}
+                calculatePrice={calculatePrice}
+        />
       </Modal>
   </>
 

@@ -46,7 +46,7 @@ Item.propTypes = {
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number,
-    quantity: PropTypes.number,
+    quantity: PropTypes.any,
   }).isRequired,
     onAddItem: PropTypes.func,
     onDeleteItem: PropTypes.func,

@@ -23,7 +23,6 @@ function Controls(props){
 
 Controls.propTypes = {
   calculatePrice: PropTypes.number,
-  basket: PropTypes.array,
   setActive: PropTypes.func,
   totalGoods:PropTypes.number
 };
