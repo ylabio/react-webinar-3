@@ -4,34 +4,23 @@ import { cn as bem } from "@bem-react/classname";
 import { formatNumbers } from "../../utils";
 import "./style.css";
 
-function Item({ item, onAddToBasket, isInModal, onDeleteItemFromBasket }) {
+function Item({ item, handler }) {
   const cn = bem("Item");
-
-  const content = isInModal ? (
-    <>
-      <div className={cn("count")}>
-        {item.count ? <p>{item.count} шт</p> : null}
-      </div>
-      <div className={cn("actions")}>
-        <button onClick={() => onDeleteItemFromBasket(item.code)}>
-          Удалить
-        </button>
-      </div>
-    </>
-  ) : (
-    <div className={cn("actions")}>
-      <button onClick={() => onAddToBasket(item)}>Добавить</button>
-    </div>
-  );
 
   return (
     <div className={cn()}>
       <div className={cn("code")}>{item.code}</div>
       <div className={cn("title")}>{item.title}</div>
       <div className={cn("price")}>
-        {formatNumbers(item.price, { style: "currency", currency: "RUB" })}
+        {formatNumbers(item.price, {
+          style: "currency",
+          currency: "RUB",
+          minimumFractionDigits: 0,
+        })}
       </div>
-      {content}
+      <div className={cn("actions")}>
+        <button onClick={() => handler(item.code)}>Добавить</button>
+      </div>
     </div>
   );
 }
@@ -43,16 +32,11 @@ Item.propTypes = {
     selected: PropTypes.bool,
     count: PropTypes.number,
   }).isRequired,
-  isInModal: PropTypes.bool,
-  onAddToBasket: PropTypes.func,
-  onDeleteItemFromBasket: PropTypes.func,
+  handler: PropTypes.func,
 };
 
 Item.defaultProps = {
-  item: {},
-  isInModal: false,
-  onAddToBasket: () => {},
-  onDeleteItemFromBasket: () => {},
+  handler: () => {},
 };
 
 export default React.memo(Item);

@@ -1,4 +1,4 @@
-import { generateCode } from "./utils";
+import { formatNumbers, generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -89,6 +89,30 @@ class Store {
   }
 
   /**
+   * Сумма всех цен товаров в корзине
+   */
+  countAllPrices() {
+    const res = this.state.basket.reduce((acc, currentItem) => {
+      if (currentItem.count > 1) {
+        return acc + currentItem.price * currentItem.count;
+      }
+
+      return acc + currentItem.price;
+    }, 0);
+
+    const basketAmount = formatNumbers(res, {
+      style: "currency",
+      currency: "RUB",
+      minimumFractionDigits: 0,
+    });
+
+    this.setState({
+      ...this.state,
+      basketAmount,
+    });
+  }
+
+  /**
    * Переключение видимости модального окна
    * @param {Boolean} status
    */
@@ -101,38 +125,34 @@ class Store {
 
   /**
    * Добавление товара в корзину
+   * @param {Number} code
    */
-  addItemToBasket(item) {
-    const { title, price, code } = item;
-    const index = this.state.basket.findIndex((a) => a.code === item.code);
-    const basket = this.state.basket;
+  addItemToBasket(code) {
+    // не смог додумать способ без изменения item, а также не смог придумать,
+    // как уменьшить сложность алгоритма.
+    const item = this.state.list.filter((a) => a.code === code)[0];
+    item.count = ++item.count || 1;
 
-    if (index >= 0) {
-      const newArr = basket.slice();
-
-      newArr[index].count += 1;
+    if (item.count > 1) {
+      const newIndex = this.state.basket.findIndex((a) => a.code === code);
+      const newArr = this.state.basket.slice();
+      newArr[newIndex].count = item.count;
 
       this.setState({
         ...this.state,
         basket: newArr,
       });
 
+      this.countAllPrices();
+
       return;
     }
 
     this.setState({
       ...this.state,
-      basket: [
-        ...basket,
-        {
-          code: generateCode(),
-          title,
-          price,
-          code,
-          count: 1,
-        },
-      ],
+      basket: [...this.state.basket, { ...item }],
     });
+    this.countAllPrices();
   }
 
   /**
@@ -146,6 +166,8 @@ class Store {
       ...this.state,
       basket: newBasket,
     });
+
+    this.countAllPrices();
   }
 }
 

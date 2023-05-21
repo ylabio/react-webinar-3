@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./style.css";
 
-function Head({ title, children }) {
+function Head({ title, children, className }) {
   return (
-    <div className="Head">
+    <div className={`Head ${className}`}>
       <h1>{title}</h1>
       {children}
     </div>
@@ -12,10 +12,12 @@ function Head({ title, children }) {
 }
 
 Head.propTypes = {
+  className: PropTypes.string,
   title: PropTypes.node,
   children: PropTypes.element,
 };
 Head.defaultProps = {
+  className: "",
   title: "",
   children: null,
 };

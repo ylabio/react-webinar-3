@@ -6,66 +6,31 @@ import { countAllPrices, formatNumbers } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-function Modal({ onToggle, openStatus, basket, onDeleteItemFromBasket }) {
+function Modal({ openStatus, head, children }) {
   const cn = bem("Modal");
 
   if (!openStatus) return null;
+
   return (
     <div className="wrapper">
       <div className={cn()}>
-        <Head title="Корзина">
-          <button onClick={() => onToggle(false)}>Закрыть</button>
-        </Head>
-        <div className={cn("body")}>
-          {basket.length > 0 || (
-            <div className={cn("item") + " empty"}>
-              Добавьте товары в корзину
-            </div>
-          )}
-          {basket.map((o) => (
-            <div key={o.code} className={cn("item")}>
-              <Item
-                onDeleteItemFromBasket={onDeleteItemFromBasket}
-                isInModal={true}
-                item={o}
-              />
-            </div>
-          ))}
-
-          <div className={cn("results")}>
-            <p>Итого</p>
-            <p>
-              {formatNumbers(countAllPrices(basket), {
-                style: "currency",
-                currency: "RUB",
-              })}
-            </p>
-          </div>
-        </div>
+        <div className={cn("head")}>{head}</div>
+        <div className={cn("body")}>{children}</div>
       </div>
     </div>
   );
 }
 
 Modal.propTypes = {
-  onToggle: PropTypes.func,
-  onDeleteItemFromBasket: PropTypes.func,
+  children: PropTypes.arrayOf(PropTypes.element),
+  head: PropTypes.element,
   openStatus: PropTypes.bool,
-  basket: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number,
-      title: PropTypes.string,
-      selected: PropTypes.bool,
-      count: PropTypes.number,
-    })
-  ),
 };
 
 Modal.defaultProps = {
-  onToggle: () => {},
-  onDeleteItemFromBasket: () => {},
+  children: null,
+  head: null,
   openStatus: false,
-  basket: [],
 };
 
 export default React.memo(Modal);

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { countAllPrices, formatNumbers, plural } from "../../utils";
 import "./style.css";
 
-function Controls({ onToggle, basket }) {
+function Controls({ basketAmount, onToggle, basket }) {
   const product = plural(basket.length, {
     one: "товар",
     few: "товара",
@@ -16,11 +16,7 @@ function Controls({ onToggle, basket }) {
       <p className="Controls-count">
         {basket.length > 0 ? (
           <>
-            {basket.length} {product} /{" "}
-            {formatNumbers(countAllPrices(basket), {
-              style: "currency",
-              currency: "RUB",
-            })}
+            {basket.length} {product} / {basketAmount}
           </>
         ) : (
           "Пусто"
@@ -34,6 +30,7 @@ function Controls({ onToggle, basket }) {
 }
 
 Controls.propTypes = {
+  basketAmount: PropTypes.string,
   onToggle: PropTypes.func,
   basket: PropTypes.arrayOf(
     PropTypes.shape({
@@ -46,8 +43,8 @@ Controls.propTypes = {
 };
 
 Controls.defaultProps = {
+  basketAmount: "0",
   onToggle: () => {},
-  basket: [],
 };
 
 export default React.memo(Controls);

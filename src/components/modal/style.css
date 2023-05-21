@@ -3,14 +3,16 @@
   min-width: 100vw;
 
   position: absolute;
-  top: 0;
-  left: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 
   background: rgba(0, 0, 0, 0.5);
 }
 
 .Modal {
   width: 960px;
+  max-height: 500px;
 
   position: absolute;
   top: 20%;
@@ -18,6 +20,14 @@
   transform: translate(-50%, 0);
 
   background: #fff;
+  border-radius: 10px;
+
+  overflow-y: auto;
+}
+
+.Modal-head {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
 }
 
 .Modal-body {

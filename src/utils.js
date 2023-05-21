@@ -84,12 +84,3 @@ export function generateCode2() {
  * => 690
  * @returns {Number}
  */
-export function countAllPrices(basket) {
-  return basket.reduce((acc, currentItem) => {
-    if (currentItem.count > 1) {
-      return acc + currentItem.price * currentItem.count;
-    }
-
-    return acc + currentItem.price;
-  }, 0);
-}

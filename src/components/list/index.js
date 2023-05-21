@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import Item from "../item";
 import "./style.css";
 
-function List({ list, onItemAddToBasket }) {
+function List({ list, handler, Component }) {
   return (
     <div className="List">
       {list.map((item) => (
         <div key={item.code} className="List-item">
-          <Item item={item} onAddToBasket={onItemAddToBasket} />
+          <Component item={item} handler={handler} />
         </div>
       ))}
     </div>
@@ -21,12 +21,13 @@ List.propTypes = {
       code: PropTypes.number,
     })
   ).isRequired,
-  onItemAddToBasket: PropTypes.func,
+  handler: PropTypes.func,
+  Component: PropTypes.elementType,
 };
 
 List.defaultProps = {
-  list: [],
-  onSelectItem: () => {},
+  handler: () => {},
+  Component: null,
 };
 
 export default React.memo(List);
