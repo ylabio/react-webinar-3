@@ -1,0 +1,11 @@
+.Controls {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  gap: 15px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.Controls-price {
+  font-weight: 700;
+}

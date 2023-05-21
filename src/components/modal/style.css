@@ -1,0 +1,51 @@
+.Modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #F5F5F5;
+  padding: 0 20px;
+  margin-bottom: 71px;
+}
+
+.Modal-list {
+  border-top: 1px dashed #ccc;
+}
+
+.Modal-title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 37px;
+}
+
+.Modal-btn {
+  margin-top: 32px;
+}
+
+.Modal-empty {
+  text-align: center;
+  font-size: 18px;
+  line-height: 21px;
+  padding: 15px 0;
+}
+
+.Modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 53px;
+  align-items: center;
+}
+
+.modal-footer_title {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: right;
+}
+
+.Modal-count {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: right;
+  margin-right: 90px;
+}

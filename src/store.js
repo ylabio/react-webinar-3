@@ -1,3 +1,5 @@
+import { generateCode } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -44,7 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }]
     })
   };
 
@@ -55,24 +57,56 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
+      // Новый список, в котором не будет удаляемой записи
       list: this.state.list.filter(item => item.code !== code)
     })
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+
+  //Добавление товара в корзину
+  addToCart(item) {
+    if (this.state.cartList.find(cartItem => cartItem.code === item.code)) {
+      this.setState({
+        ...this.state,
+        cartList: this.state.cartList.map(cartItem => {
+          if (item.code === cartItem.code) {
+            return {
+              ...cartItem,
+              count: cartItem.count + 1
+            }
+          }
+          return cartItem
+        })
+      })
+    } else {
+      this.setState({
+        ...this.state,
+        cartList: [...this.state.cartList, {
+          code: item.code,
+          title: item.title,
+          price: item.price,
+          count: 1,
+        }]
+      })
+    }
+  };
+
+  //Удаление товара из корзины
+  deleteCartItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      })
+      cartList: this.state.cartList.filter(item => item.code !== code)
     })
+  };
+
+  //Подсчёт суммы товаров
+  setTotalSum() {
+    this.setState({
+      ...this.state,
+      totalSum: this.state.cartList.reduce((sum, item) => {
+        return item.price * item.count + sum;
+      }, 0),
+    });
   }
 }
 
