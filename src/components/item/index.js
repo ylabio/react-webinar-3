@@ -1,40 +1,44 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
+import {numberToPrice, plural} from "../../utils";
 import './style.css';
 
 function Item(props){
-
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
+  const {onAddToCart, onDeleteFromCart} = props
 
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
+    onAddToCart: (e) => {
+      e.stopPropagation()
+      onAddToCart(props.item.code)
     },
-    onDelete: (e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code);
-    }
+    onDeleteFromCart: (e) => {
+      e.stopPropagation()
+      onDeleteFromCart(props.item.code)
+    },
+  }
+
+  let button
+  let count
+  if (onDeleteFromCart) {
+    if (!props.item.cartCount) return null
+    button = <button onClick={callbacks.onDeleteFromCart}>Удалить</button>
+    count = props.item.cartCount + ' шт'
+  } else {
+    button = <button onClick={callbacks.onAddToCart}>Добавить</button>
+    count = null
   }
 
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-         onClick={callbacks.onClick}>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {one: 'раз', few: 'раза', many: 'раз'})}` : ''}
-      </div>
-      <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
+    <div className="List-item">
+      <div className="Item">
+        <div className="Item-code">{props.item.code}</div>
+        <div className="Item-title">{props.item.title}</div>
+        <div className="Item-price">{numberToPrice(props.item.price)}</div>
+        {count && <div className="Item-count">{count}</div>}
+        <div className="Item-actions">{button}</div>
       </div>
     </div>
-  );
+  )
 }
 
 Item.propTypes = {
@@ -44,13 +48,8 @@ Item.propTypes = {
     selected: PropTypes.bool,
     count: PropTypes.number
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+  onAddToCart: PropTypes.func,
+  onDeleteFromCart: PropTypes.func
 };
-
-Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
-}
 
 export default React.memo(Item);

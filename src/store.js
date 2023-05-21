@@ -62,6 +62,36 @@ class Store {
     })
   };
 
+  addToCart(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          return {
+            ...item,
+            cartCount: item.cartCount + 1 || 1,
+          };
+        }
+        return item;
+      })
+    })
+  }
+  
+  deleteFromCart(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          return {
+            ...item,
+            cartCount: 0,
+          };
+        }
+        return item;
+      })
+    })
+  }
+
   /**
    * Выделение записи по коду
    * @param code

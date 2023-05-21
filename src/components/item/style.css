@@ -1,7 +1,11 @@
 .Item {
   display: flex;
   justify-content: flex-start;
-  transition: background-color 1s;
+  transition: background-color 0.2s;
+}
+
+.Item:hover {
+  background: #f6faff;
 }
 
 .Item_selected {
@@ -14,12 +18,24 @@
 }
 
 .Item-title {
-  width: 100%;
+  flex: 1;
   padding: 20px 10px;
+}
+
+.Item-price {
+  align-self: center;
+}
+
+.Item-count {
+  align-self: center;
+  margin-left: 2rem;
+  min-width: 60px;
+  text-align: right;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+  padding-left: 2rem;
 }

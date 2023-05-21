@@ -1,21 +1,25 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import CartCount from "../cart-count";
 import './style.css';
 
-function Controls({onAdd}){
+function Controls({list, setModal}){
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <CartCount list={list}/>
+      <button onClick={() => setModal(true)}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
-};
+  list: PropTypes.array,
+  setModal: PropTypes.func
+}
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  list: [],
+  setModal: () => {}
 }
 
 export default React.memo(Controls);

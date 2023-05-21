@@ -1,8 +1,10 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from './components/modal';
+import './style.css';
 
 /**
  * Приложение
@@ -10,6 +12,8 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
+
+  const [modal, setModal] = useState(false)
 
   const list = store.getState().list;
 
@@ -24,16 +28,31 @@ function App({store}) {
 
     onAddItem: useCallback(() => {
       store.addItem();
-    }, [store])
+    }, [store]),
+
+    onAddToCart: useCallback((code) => {
+      store.addToCart(code);
+    }, [store]),
+
+    onDeleteFromCart: useCallback((code) => {
+      store.deleteFromCart(code);
+    }, [store]),
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      
+      {modal && (
+        <Modal setModal={setModal}>
+          <Head title="Корзина" setModal={setModal} />
+          <List list={list} onDeleteFromCart={callbacks.onDeleteFromCart} />
+        </Modal>
+      )}
+
+      <Head title="Магазин" />
+      <Controls onAdd={callbacks.onAddItem} list={list} setModal={setModal} />
+      <List list={list} onAddToCart={callbacks.onAddToCart} />
+
     </PageLayout>
   );
 }

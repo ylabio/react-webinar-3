@@ -49,3 +49,13 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Перевод числа в цену с рублем
+ * @param {Number} number цена в виде обычного числа 7955320
+ * @param {String} suffix символ валюты, по умолчанию '₽'
+ * @returns {String} Строка вида '7 955 320 ₽'
+ */
+export function numberToPrice(number, suffix = '₽') {
+  return `${number.toLocaleString()} ${suffix}`;
+}
