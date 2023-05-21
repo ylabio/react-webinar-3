@@ -35,10 +35,11 @@ function App({store}) {
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
+      <Head title='Магазин'/>
       <Controls setActive={setActive} sumPrice={sumPrice} sumCount={sumCount}/>
-      {active && <Popup active={active} setActive={setActive} basket={basket} handleClick={callbacks.handleClickDelete}/> }
+      {active && <Popup active={active} setActive={setActive} basket={basket} handleClick={callbacks.handleClickDelete} sumPrice={sumPrice}/> }
       <List list={list}
+            active={active}
             buttonName='Добавить'
             handleClick={callbacks.addBasketItem}/>
     </PageLayout>
