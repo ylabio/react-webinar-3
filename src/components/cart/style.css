@@ -1,0 +1,12 @@
+.Cart-totalPrice {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    margin: 20px 120px 89px 0;
+}
+
+.Cart-totalPrice-label {
+    margin-right: 53px;
+}

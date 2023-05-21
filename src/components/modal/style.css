@@ -1,0 +1,25 @@
+.Modal {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.Modal-block {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 960px;
+  min-height: 25vh;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}

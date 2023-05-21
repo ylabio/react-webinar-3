@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode} from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -82,6 +82,51 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     })
+  };
+
+  addItemToCart(code) {
+    // Переделал функцию для добавления item теперь добавляется по коду
+    // Теперь функция должна роботать быстрее потому что
+    // в цикле происходит обход не всего массива, а только до нужного code
+    const { cartList, list } = this.state;
+    let updatedCartList = [...cartList];
+    let itemUpdated = false; // Для отслеживания обновления элемента
+
+    for (let i = 0; i < updatedCartList.length; i++) {
+      if (updatedCartList[i].code === code) {
+        updatedCartList[i].count++;
+        itemUpdated = true;
+        break;
+      }
+    }
+
+    if (!itemUpdated) {
+      const addedItem = list.find((obj) => obj.code === code);
+      updatedCartList.push({ ...addedItem, count: 1 });
+    }
+
+    this.setState({
+      ...this.state,
+      cartList: updatedCartList,
+      totalPrice: this.culcTotalPrice(updatedCartList),
+      cartListLength: updatedCartList.length
+    });
+  };
+
+
+  deleteItemFromCart(item) {
+    this.setState({
+      ...this.state,
+      // Новый список, в котором не будет удаляемой записи
+      cartList: this.state.cartList.filter(obj => obj.code !== item.code)
+    })
+    this.state.totalPrice = this.culcTotalPrice(this.state.cartList);
+    this.state.cartListLength = this.state.cartList.length;
+  };
+  // перенёс функцию culcTotalPrice внутрь store
+
+  culcTotalPrice = (items) => {
+    return   items.reduce((sum, obj) => (obj.price * obj.count) + sum, 0);
   }
 }
 
