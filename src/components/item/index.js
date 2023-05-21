@@ -19,7 +19,7 @@ function Item(props){
         {props.item.title}
       </div>
       <div className='Item-price'>
-        {props.item.price} ₽
+        {props.item.price.toLocaleString('ru-RU')} ₽
       </div>
         {props.item.quantity ?
           <div className='Item-price'>

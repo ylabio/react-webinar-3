@@ -6,11 +6,12 @@ import {plural} from "../../utils";
 function Controls(props){
   return (
     <div className='Controls'>
-      <div className='Item-basket'>{'В корзине: '}</div>
+      <div className='Item-basket'>В корзине:
+      </div>
         <div className='Item-basket'>
           {props.calculatePrice > 0 ?
-            <span className={'textBold'}> {props.totalGoods} {plural(props.totalGoods, {one: 'товар', few: 'товара', many:'товаров'})} / {props.calculatePrice} ₽ </span>
-            : <span className={'textBold'}> пусто </span>}
+            <div className={'textBold'}> {props.totalGoods} {plural(props.totalGoods, {one: 'товар', few: 'товара', many:'товаров'})} / {props.calculatePrice.toLocaleString('ru-RU')} ₽ </div>
+            : <div className={'textBold'}> пусто </div>}
         </div>
       <button
           onClick={() => props.setActive(true)}
