@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -7,6 +7,9 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state.totalCount=0;
+    this.state.totalPrice=0;
+    this.state.listCart = [];
   }
 
   /**
@@ -18,8 +21,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -39,28 +42,38 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
+  getLastId() {
+    return this.state.lastId || this.state.list.length;
+  }
   /**
-   * Добавление новой записи
+   * Добавление новой записи в корзину
    */
-  addItem() {
+  addToCart(code) {
+    const itemInCart = this.state.listCart.find((item) => item.code === code);
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+      listCart: [
+        ...this.state.listCart.filter((item) => item.code !== code),
+        itemInCart
+          ? { ...itemInCart, count: itemInCart.count + 1 }
+          : { ...this.state.list.find((item) => item.code === code), count: 1 },
+      ],
+    });
+    this.getTotal();
+  }
 
   /**
-   * Удаление записи по коду
+   * Удаление записи из корзины по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteFromCart(code) {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      listCart: this.state.listCart.filter((item) => item.code !== code),
+    });
+    this.getTotal();
+  }
 
   /**
    * Выделение записи по коду
@@ -69,7 +82,7 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
         if (item.code === code) {
           // Смена выделения и подсчёт
           return {
@@ -79,9 +92,19 @@ class Store {
           };
         }
         // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+        return item.selected ? { ...item, selected: false } : item;
+      }),
+    });
+  }
+
+  getTotal() {
+    this.totalCount= this.state.listCart.length;
+    this.totalPrice= this.state.listCart.length
+      ? this.state.listCart.reduce(
+          (sum, item) => sum + item.count * item.price,
+          0
+        )
+      : 0;
   }
 }
 
