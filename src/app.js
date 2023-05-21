@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from "./components/modal";
 
 /**
  * Приложение
@@ -10,32 +11,63 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
+    const list = store.getState().list;
+    // Проверка открыта модалка или нет
+    const [ modal, setModal ] = React.useState(false)
 
-  const list = store.getState().list;
+    function closeModal() {
+        setModal(false)
+    }
 
-  const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+    function showModal() {
+        setModal(true)
+    }
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+    const callbacks = {
+        onDeleteItem: useCallback((code) => {
+            store.deleteItem(code);
+        }, [ store ]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
+        onSelectItem: useCallback((code) => {
+            store.selectItem(code);
+        }, [ store ]),
 
-  return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-    </PageLayout>
-  );
+        onAddItem: useCallback(() => {
+            store.addItem();
+        }, [ store ]),
+
+        onAddProducts: useCallback((product) => {
+            store.addProduct(product);
+        }, [ store ]),
+
+        onRemoveProducts: useCallback((product) => {
+            store.removeProduct(product);
+        }, [ store ])
+    }
+
+    return (
+        <PageLayout>
+            <Head title='Магазин'/>
+            <Controls
+                showModal={showModal}
+                countPrice={store.countPrice}
+                products={store.products}
+            />
+            {modal && (
+                <Modal
+                    countPrice={store.countPrice}
+                    closeModal={closeModal}
+                    modal={modal}
+                    products={store.products}
+                    removeProduct={callbacks.onRemoveProducts}
+                />
+            )}
+            <List
+                list={list}
+                addProduct={callbacks.onAddProducts}
+            />
+        </PageLayout>
+    );
 }
 
 export default App;
