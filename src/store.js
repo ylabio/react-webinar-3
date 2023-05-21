@@ -1,4 +1,3 @@
-import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -31,6 +30,22 @@ class Store {
 	}
 
 	/**
+	 * Выбор состояния
+	 * @returns {boolean}
+	 */
+	toggleModal() {
+		let newCartOpen;
+		if (this.state.cartOpen) {
+			newCartOpen = false
+		} else { newCartOpen = true }
+
+		this.setState({
+			...this.state,
+			cartOpen: newCartOpen
+		});
+	}
+
+	/**
 	 * Установка состояния
 	 * @param newState {Object}
 	 */
@@ -43,23 +58,19 @@ class Store {
 	/**
 	 * Добавление в карзину
 	 */
-	addToCart(item) {
-		const code = item.code;
-		console.log(item)
-		const itemInCart = this.state.cartList.find(item => item.code === code);
-		console.log(itemInCart)
+	addToCart(newItem) {
+		const newCartList = [...this.state.cartList];
+		const index = newCartList.findIndex(item => item.code === newItem.code)
+		if (index > -1) {
+			newCartList.splice(index, 1, { ...newCartList[index], quant: newCartList[index].quant + 1 })
+		} else {
+			newCartList.push({ ...newItem, quant: 1 })
+		}
 		this.setState({
 			...this.state,
-			cartList: this.state.cartList.map(item => {
-				if (itemInCart === undefined) {
-					return { ...item, quantity: 1 }
-				} else if (itemInCart) {
-					return { ...item, quantity: item.quantity + 1 }
-				}
-
-			})
+			cartList: newCartList
 		})
-		console.log(this.state.cartList);
+		console.log(this.state.cartList)
 	};
 
 	/**

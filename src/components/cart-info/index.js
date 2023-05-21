@@ -1,25 +1,35 @@
-import React from "react";
-// import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import './style.css';
-import { plural } from "../../utils";
+import { plural } from '../../utils';
+import { Context } from './../../context';
 
-function CartInfo({ cart }) {
+function CartInfo({ cartOpen }) {
+
+	const callbacks = {
+		cartOpen: (e) => {
+			e.stopPropagation();
+			cartOpen();
+		},
+	}
+
+	const { summary, quantityItems } = useContext(Context);
 	return (
 		<div className='CartInfo'>
 			<p className='CartContains'>В корзине:
-				<b> &nbsp;{cart.allItems ? `${cart.allItems} ${plural(cart.allItems, { one: 'товар', few: 'товара', many: 'товаров' })} / ${cart.sum} ₽` : 'пусто'}&nbsp;&nbsp;</b>
+				<b> &nbsp;{quantityItems ? `${quantityItems} ${plural(quantityItems, { one: 'товар', few: 'товара', many: 'товаров' })} / ${summary} ₽` : 'пусто'}&nbsp;&nbsp;</b>
 			</p>
-			<button onClick={() => goToCart()}>&nbsp;Перейти&nbsp;</button>
+			<button onClick={callbacks.cartOpen}>&nbsp;&nbsp;Перейти&nbsp;</button>
 		</div>
 	)
 }
 
-// CartInfo.propTypes = {
-// 	onAdd: PropTypes.func
-// };
+CartInfo.propTypes = {
+	cartOpen: PropTypes.func
+};
 
-// CartInfo.defaultProps = {
-// 	onAdd: () => { }
-// }
+CartInfo.defaultProps = {
+	cartOpen: () => { }
+}
 
 export default React.memo(CartInfo);

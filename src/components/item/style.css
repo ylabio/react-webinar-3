@@ -15,7 +15,10 @@
 
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
+  padding: 20px 9px;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 18px;
 }
 
 .Item-actions {
@@ -24,5 +27,21 @@
   padding: 20px 20px 20px 10px;
 }
 .Item-value {
-	margin-right: 15px;
+	margin-right: 60px;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 21px;
+}
+.Item-value-small {
+	margin-right: 26px;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 21px;
+}
+
+.Item-quant {
+	margin-right: 24px;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 21px;
 }
