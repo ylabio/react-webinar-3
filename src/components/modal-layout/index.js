@@ -33,6 +33,7 @@ function ModalLayout({children, closeModel, title}) {
 ModalLayout.propTypes = {
   children: PropTypes.node,
   closeModel: PropTypes.func,
+  title: PropTypes.string,
 };
 
 ModalLayout.defaultProps = {
