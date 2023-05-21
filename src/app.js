@@ -11,7 +11,7 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
-  const {list, cart} = store.getState();
+  const {list, cart, totalCart} = store.getState();
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -26,7 +26,7 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls cart={cart} action={callbacks.onDeleteItem}/>
+      <Controls cart={cart} totalCart={totalCart} action={callbacks.onDeleteItem}/>
       <List list={list} action={callbacks.onAddItem} buttonText='Добавить'/>
     </PageLayout>
   );

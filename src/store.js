@@ -38,6 +38,12 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+  totalAmount(cartList) {
+    return cartList.reduce((x, y) => {
+      return x + y.price * y.total;
+    }, 0);
+  }
+
   /**
    * Добавление новой записи
    */
@@ -56,7 +62,8 @@ class Store {
 
     this.setState({
       ...this.state,
-      cart: cartList
+      cart: cartList,
+      totalCart: this.totalAmount(cartList),
     })
   };
 

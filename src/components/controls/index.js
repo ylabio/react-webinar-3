@@ -4,12 +4,8 @@ import { plural, numberFormat } from "../../utils";
 import Cart from "../cart";
 import "./style.css";
 
-function Controls({cart, action}){
+function Controls({cart, action, totalCart}){
   const [open, setOpen] = useState(false);
-
-  const total = cart.reduce((x, y) => {
-    return x + y.price * y.total;
-  }, 0);
 
   const openWindow = () => {
     setOpen(!open);
@@ -24,7 +20,7 @@ function Controls({cart, action}){
                     one: "товар",
                     few: "товара",
                     many: "товаров",
-                  })} / ${numberFormat(total)}`
+                  })} / ${numberFormat(totalCart)}`
                 : "пусто"}
         </b>
       </div>
@@ -33,7 +29,7 @@ function Controls({cart, action}){
         <Cart 
           openWindow={openWindow}
           cart={cart}
-          total={total}
+          totalCart={totalCart}
           action={action}
         />
       )}

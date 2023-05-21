@@ -4,7 +4,7 @@ import List from "../list";
 import {numberFormat} from "../../utils";
 import "./style.css";
 
-function Cart({openWindow, cart, total, action}) {
+function Cart({openWindow, cart, totalCart, action}) {
   return (
     <div className='Cart'>
       <div className='Cart__dialog'>
@@ -23,7 +23,7 @@ function Cart({openWindow, cart, total, action}) {
         {!!cart.length && (
           <footer className="Cart__footer">
             <div className="Cart__footer-total">Итого</div>
-            <div className="Cart__footer-number">{numberFormat(total)}</div>
+            <div className="Cart__footer-number">{numberFormat(totalCart)}</div>
           </footer>
         )}
       </div>
