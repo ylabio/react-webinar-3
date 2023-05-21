@@ -1,8 +1,11 @@
-import React, {useCallback} from 'react';
+import React, {useCallback} from "react";
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from "./components/modal";
+import ShoppingCart from "./components/shopping-cart";
+import Item from "./components/item";
 
 /**
  * Приложение
@@ -10,31 +13,54 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   const list = store.getState().list;
+  const cart = store.getState().cart;
+  const {cartTotalInfo} = store.getState();
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+    onAddProductToCart: useCallback(
+      (code) => {
+        store.addProductToCart(code);
+      },
+      [store]
+    ),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
+    onDeleteProductFromCart: useCallback(
+      (code) => {
+        store.removeProductFromCart(code);
+      },
+      [store]
+    ),
+  };
 
   return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-    </PageLayout>
+    <>
+      <PageLayout>
+        <Head title="Магазин" />
+        <Controls cartTotalInfo={cartTotalInfo} onOpenModal={() => setModalVisible(true)} />
+        <List
+          items={list}
+          renderItem={(item) => (
+            <Item
+              key={item.code}
+              item={item}
+              buttonName="Добавить"
+              onHandleClick={callbacks.onAddProductToCart}
+            />
+          )}
+        />
+      </PageLayout>
+      <Modal visible={modalVisible} setVisible={() => setModalVisible(false)}>
+        <ShoppingCart
+          onDeleteProductFromCart={callbacks.onDeleteProductFromCart}
+          cart={cart}
+          totalPrice={cartTotalInfo?.totalPrice}
+          setVisible={() => setModalVisible(false)}
+        />
+      </Modal>
+    </>
   );
 }
 

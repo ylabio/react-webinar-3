@@ -83,6 +83,84 @@ class Store {
       })
     })
   }
+
+  /**
+   * Добавление товара в корзину
+   * @param code
+   */
+  addProductToCart(code) {
+    // Проверяем, есть ли товар уже в корзине
+    const cartItemIndex = this.state.cart.findIndex(
+      (item) => item.code === code
+    );
+    if (cartItemIndex !== -1) {
+      // Если есть - увеличиваем кол-во на единицу
+      const updatedCart = this.state.cart.map(item =>
+        item.code === code ? { ...item, count: item.count + 1 } : item
+      );
+      this.setState({
+        ...this.state,
+        cart: updatedCart,
+      });
+      this.setState({
+        ...this.state,
+        cartTotalInfo: {
+          goodsCount: this.state.cart.length,
+          totalPrice: this.state.cart.reduce(
+            (sum, item) => sum + item.count * item.price,
+            0
+          ),
+        },
+      });
+    } else {
+      // Если нет - добавляем новый элемент в корзину
+      const productToAdd = this.state.list.find((item) => item.code === code);
+      if (!productToAdd) {
+        console.error(`Товар с идентификатором ${code} не найден!`);
+        return;
+      }
+      const newCartItem = {
+        ...productToAdd,
+        count: 1,
+      };
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, newCartItem],
+      });
+
+      this.setState({
+        ...this.state,
+        cartTotalInfo: {
+          goodsCount: this.state.cart.length,
+          totalPrice: this.state.cart.reduce(
+            (sum, item) => sum + item.count * item.price,
+            0
+          ),
+        },
+      });
+    }
+  }
+
+  /**
+   * Удаление товара из корзины
+   * @param code 
+   */
+  removeProductFromCart(code) {
+    const updatedCart = this.state.cart.filter((item) => item.code !== code);
+    this.setState({
+      ...this.state,
+      cart: updatedCart,
+    });
+    this.setState({
+      ...this.state,
+      cartTotalInfo: {
+        goodsCount: this.state.cart.length,
+        totalPrice: this.state.cart.reduce(
+          (sum, item) => sum + item.price * item.count, 0
+        ),
+      },
+    });
+  }
 }
 
 export default Store;
