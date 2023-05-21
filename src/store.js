@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from './utils';
 
 /**
  * Хранилище состояния приложения
@@ -18,8 +18,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -46,9 +46,12 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+      list: [
+        ...this.state.list,
+        { code: generateCode(), title: 'Новая запись' },
+      ],
+    });
+  }
 
   /**
    * Удаление записи по коду
@@ -58,9 +61,9 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      list: this.state.list.filter((item) => item.code !== code),
+    });
+  }
 
   /**
    * Выделение записи по коду
@@ -69,7 +72,7 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
         if (item.code === code) {
           // Смена выделения и подсчёт
           return {
@@ -79,9 +82,57 @@ class Store {
           };
         }
         // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+        return item.selected ? { ...item, selected: false } : item;
+      }),
+    });
+  }
+
+  /**
+   * Добавление товара в корзину
+   * @param code
+   */
+  addItemToCart(code) {
+    const price = this.state.list.find((item) => item.code === code).price;
+    const isInCart = !!this.state.cart.cartList.find(
+      (item) => item.code === code
+    );
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.cart,
+        cartList: isInCart
+          ? this.state.cart.cartList.map((item) => {
+              if (item.code === code) {
+                return {
+                  ...item,
+                  count: item.count + 1,
+                  sum: item.sum + price,
+                };
+              }
+              return item;
+            })
+          : [...this.state.cart.cartList, { code: code, count: 1, sum: price }],
+        totalSum: this.state.cart.totalSum + price,
+      },
+    });
+  }
+
+  /**
+   * Удаление товара из корзины
+   * @param code
+   */
+  deleteItemFromCart(code) {
+    const itemToDelete = this.state.cart.cartList.find(
+      (item) => item.code === code
+    );
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.cart,
+        cartList: this.state.cart.cartList.filter((item) => item.code !== code),
+        totalSum: this.state.cart.totalSum - itemToDelete.sum,
+      },
+    });
   }
 }
 

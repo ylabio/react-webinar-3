@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Head({ title }) {
-  const cn = bem('Head');
-  
+function Modal({ children }) {
+  const cn = bem('Modal');
+
   return (
     <div className={cn()}>
-      <h1>{title}</h1>
+      <div className={cn('window')}>{children}</div>
     </div>
   );
 }
 
-Head.propTypes = {
-  title: PropTypes.node,
+Modal.propTypes = {
+  children: PropTypes.node,
 };
 
-export default React.memo(Head);
+export default React.memo(Modal);
