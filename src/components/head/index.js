@@ -2,10 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
 
-function Head({title}){
+function Head(props){
   return (
-    <div className='Head'>
-      <h1>{title}</h1>
+    <div className={props.modalMargin ? 'Head-margin' : 'Head'}>
+      <h1 className="Head-title">{props.title}</h1>
+      {props.children}
     </div>
   )
 }
