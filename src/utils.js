@@ -49,3 +49,21 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+
+/**
+ * Форматирование цены
+ * Возвращает цену либо в формате intager либо float с 2 знаками после точки
+ * @param price {Number} Ценв.
+ * @returns {Number}
+ */
+export function formatPrice(price) {
+  let res;
+  try {
+    res = (parseInt(price * 100)) / 100;
+  }
+  catch (err) {
+    res = 0
+  }
+  return new Intl.NumberFormat('ru-RU').format(res);
+}

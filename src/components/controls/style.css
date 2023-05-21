@@ -1,5 +1,12 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  box-sizing: border-box;
   padding: 20px;
+  min-height: 70px;
+}
+
+.Controls-content {
+  display: flex;
+  justify-content: flex-end;
 }
