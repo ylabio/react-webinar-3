@@ -5,6 +5,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state.calculatePrice = 0;
+    this.state.totalGoods = 0;
   }
 
   /**
@@ -28,15 +30,7 @@ class Store {
     return this.state;
   }
 
-  // получить конечную сумму корзины
-  getCalculatePrice(){
-    if(this.state.basket === undefined) {
-      return 0 ;
-    }
-      return this.state.basket.reduce((acc, curr) => {return acc + (curr.price * curr.quantity)}, 0);
-  }
-
-  /**
+   /**
    * Установка состояния
    * @param newState {Object}
    */
@@ -51,8 +45,11 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const foundItem = this.state.basket.find(e => e.code === code)
     this.setState({
       ...this.state,
+      calculatePrice: this.state.calculatePrice - (foundItem.price * foundItem.quantity),
+      totalGoods: (this.state.totalGoods - 1),
       basket: this.state.basket.filter(item => item.code !== code)
       })
   };
@@ -62,6 +59,7 @@ class Store {
     const foundItem = this.state.basket.find(e => e.code === code)
     foundItem ?
     this.setState({...this.state,
+      calculatePrice: (this.state.calculatePrice + price),
       basket: this.state.basket.map(item => {
       if (item.code === code){
         return {
@@ -72,6 +70,8 @@ class Store {
     })
     })
     : this.setState({...this.state,
+      calculatePrice:(this.state.calculatePrice + price),
+      totalGoods: (this.state.totalGoods + 1),
       basket: [...this.state.basket, {code, title, price, quantity: 1}]
     })
   };

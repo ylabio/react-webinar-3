@@ -15,7 +15,8 @@ function App({store}) {
   const [modalActive, setModalActive] = useState(false)
   const list = store.getState().list;
   const basket = store.getState().basket;
-  let calculatePrice = store.getCalculatePrice()
+  let calculatePrice = store.getState().calculatePrice;
+  let totalGoods = store.getState().totalGoods;
 
   const callbacks = {
     onDeleteItem: useCallback((code, quantity) => {
@@ -32,6 +33,7 @@ function App({store}) {
         <Controls basket={basket}
                   calculatePrice={calculatePrice}
                   setActive={setModalActive}
+                  totalGoods={totalGoods}
         />
         <List list={list}
             onAddItem={callbacks.onAddItem}

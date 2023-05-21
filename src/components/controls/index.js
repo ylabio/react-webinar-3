@@ -4,16 +4,12 @@ import './style.css';
 import {plural} from "../../utils";
 
 function Controls(props){
-    let  totalGoods = props.basket.length?
-      props.basket.reduce((acc, curr)=>{return acc + curr.quantity},0)
-    : 0
-
   return (
     <div className='Controls'>
       <div className='Item-basket'>{'В корзине: '}</div>
         <div className='Item-basket'>
           {props.calculatePrice > 0 ?
-            <span className={'textBold'}> {totalGoods} {plural(totalGoods, {one: 'товар', few: 'товара', many:'товаров'})} / {props.calculatePrice} ₽ </span>
+            <span className={'textBold'}> {props.totalGoods} {plural(props.totalGoods, {one: 'товар', few: 'товара', many:'товаров'})} / {props.calculatePrice} ₽ </span>
             : <span className={'textBold'}> пусто </span>}
         </div>
       <button
@@ -29,6 +25,7 @@ Controls.propTypes = {
   calculatePrice: PropTypes.number,
   basket: PropTypes.array,
   setActive: PropTypes.func,
+  totalGoods:PropTypes.number
 };
 
 Controls.defaultProps = {
