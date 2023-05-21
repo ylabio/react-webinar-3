@@ -3,6 +3,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from "./components/modal";
 
 /**
  * Приложение
@@ -13,59 +14,15 @@ function App({store}) {
     const list = store.getState().list;
     // Проверка открыта модалка или нет
     const [ modal, setModal ] = React.useState(false)
-    // Итоговая цена
-    const [ countPrice, setCountPrice ] = React.useState(0)
-    //Массив с продуктами
-    const [ products, setProducts ] = React.useState([])
 
-    //Функция, которая добавляет продукты
-    function addProduct(product) {
-        const isProduct = products.some((prod) => prod.title === product.title);
-
-        if (!isProduct) {
-            setProducts([ ...products, {...product, countValue: 1} ]);
-            setCountPrice(countPrice + product.price);
-        }else {
-            const updatedProducts = products.map((prod) => {
-                if (prod.title === product.title) {
-                    return {...prod, countValue: prod.countValue + 1};
-                }
-                return prod;
-            });
-
-            setProducts(updatedProducts);
-            setCountPrice(countPrice + product.price);
-        }
+    function closeModal() {
+        setModal(false)
     }
 
-    //Функция, которая удаляет полностью товар даже если товара больше 1 штуки
-    function removeProduct(product) {
-        setProducts(products.filter(e => e.code !== product.code))
-        products.map(prod => {
-            if (prod.title === product.title) {
-                setCountPrice(countPrice - product.price * prod.countValue)
-            }
-        })
+    function showModal() {
+        setModal(true)
     }
 
-    //Функция, которая удаляет товар по одной штуке если товара больше 1
-    // function removeProduct(product) {
-    //     const updatedProducts = products.map((prod) => {
-    //         if (prod.title === product.title) {
-    //             if (prod.countValue > 1) {
-    //                 return { ...prod, countValue: prod.countValue - 1 };
-    //             } else {
-    //                 return null;
-    //             }
-    //         }
-    //         return prod;
-    //     });
-    //
-    //     setProducts(updatedProducts.filter((prod) => prod !== null));
-    //     setCountPrice(countPrice - product.price);
-    // }
-
-    console.log(products)
     const callbacks = {
         onDeleteItem: useCallback((code) => {
             store.deleteItem(code);
@@ -77,6 +34,14 @@ function App({store}) {
 
         onAddItem: useCallback(() => {
             store.addItem();
+        }, [ store ]),
+
+        onAddProducts: useCallback((product) => {
+            store.addProduct(product);
+        }, [ store ]),
+
+        onRemoveProducts: useCallback((product) => {
+            store.removeProduct(product);
         }, [ store ])
     }
 
@@ -84,18 +49,23 @@ function App({store}) {
         <PageLayout>
             <Head title='Магазин'/>
             <Controls
-                modal={modal}
-                setModal={setModal}
-                onAdd={callbacks.onAddItem}
-                countPrice={countPrice}
-                setCountPrice={setCountPrice}
-                products={products}
-                removeProduct={removeProduct}
+                showModal={showModal}
+                countPrice={store.countPrice}
+                products={store.products}
             />
-            <List list={list}
-                  addProduct={addProduct}
-                  onDeleteItem={callbacks.onDeleteItem}
-                  onSelectItem={callbacks.onSelectItem}/>
+            {modal && (
+                <Modal
+                    countPrice={store.countPrice}
+                    closeModal={closeModal}
+                    modal={modal}
+                    products={store.products}
+                    removeProduct={callbacks.onRemoveProducts}
+                />
+            )}
+            <List
+                list={list}
+                addProduct={callbacks.onAddProducts}
+            />
         </PageLayout>
     );
 }

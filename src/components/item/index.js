@@ -12,8 +12,8 @@ function Item(props) {
                 </div>
             </div>
             <div className='Item-actions'>
-                <div className={'Item-actions-text'}>
-                    <p>{props.item.price + ' ₽'}</p>
+                <div style={props.modal ? {columnGap: '62px'}: {columnGap: '0px'}} className={'Item-actions-text'}>
+                    <p>{props.item.price.toLocaleString() + ' ₽'}</p>
                     <p>{props.modal ? props.item.countValue + ' шт' : ''}</p>
                 </div>
                 {!props.modal ? (

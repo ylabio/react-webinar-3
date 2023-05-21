@@ -3,6 +3,7 @@
   justify-content: space-between;
   transition: background-color 1s;
   align-items: center;
+  height: 61px;
 }
 
 .Item_selected {
@@ -30,5 +31,8 @@
 }
 .Item-actions-text{
   display: flex;
-  column-gap: 62px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #404040;
 }
