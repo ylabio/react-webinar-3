@@ -1,8 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Controls from './components/controls';
+import Cart from './components/cart';
+import { getTotalCost } from './utils';
 
 /**
  * Приложение
@@ -10,7 +12,8 @@ import Controls from './components/controls';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const { list, cart } = store.getState();
+  const { list, cart, count, sum } = store.getState();
+  const [isOpenCart, setIsOpenCart] = useState(false);
 
   const callbacks = {
     onAddCartItem: useCallback(
@@ -25,17 +28,26 @@ function App({ store }) {
       },
       [store]
     ),
+    openModal: useCallback(() => setIsOpenCart(true), []),
   };
 
   return (
     <PageLayout>
       <Head title='Магазин' />
-      <Controls onDeleteCartItem={callbacks.onDeleteCartItem} cart={cart} />
+      <Controls openModal={callbacks.openModal} count={count} sum={sum} />
       <List
         list={list}
         onClick={callbacks.onAddCartItem}
         buttonTitle={'Добавить'}
       />
+      {isOpenCart && (
+        <Cart
+          cart={cart}
+          onCloseCart={() => setIsOpenCart(false)}
+          onDeleteCartItem={callbacks.onDeleteCartItem}
+          totalCost={sum}
+        />
+      )}
     </PageLayout>
   );
 }

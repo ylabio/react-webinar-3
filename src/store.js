@@ -1,3 +1,5 @@
+import { getTotalCost } from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -46,12 +48,20 @@ class Store {
     const itemCodeCb = (item) => item.code === code;
     const listItem = this.state.list.find(itemCodeCb);
     const cartItem = this.state.cart.find(itemCodeCb);
-    cartItem
-      ? (cartItem.count += 1)
-      : this.state.cart.push({ ...listItem, count: 1 });
+
+    const cart = cartItem
+      ? this.state.cart.map((item) =>
+          item.code === cartItem.code
+            ? { ...cartItem, count: cartItem.count + 1 }
+            : item
+        )
+      : [...this.state.cart, { ...listItem, count: 1 }];
+
     this.setState({
       ...this.state,
-      ...this.state.cart,
+      cart,
+      count: cart.length,
+      sum: getTotalCost(cart),
     });
   }
 
@@ -60,9 +70,13 @@ class Store {
    * @param code
    */
   deleteCartItem(code) {
+    const cart = this.state.cart.filter((item) => item.code !== code);
+
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter((item) => item.code !== code),
+      cart,
+      count: cart.length,
+      sum: getTotalCost(cart),
     });
   }
 }

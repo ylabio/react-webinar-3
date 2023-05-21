@@ -55,3 +55,7 @@ export function generateCode2() {
 export function getTotalCost(list) {
   return list.reduce((acc, { price, count }) => acc + price * count, 0);
 }
+
+export function priceFormat(price) {
+  return `${price.toLocaleString()} ₽`;
+}

@@ -1,43 +1,33 @@
-import React, { useState } from 'react';
-import Cart from '../cart';
-import { plural, getTotalCost } from '../../utils';
+import React from 'react';
+import { plural, priceFormat } from '../../utils';
 import './style.css';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 
-const Controls = ({ cart, onDeleteCartItem }) => {
+function Controls({ openModal, count, sum }) {
   const cn = bem('Controls');
-  const [isOpenCart, setIsOpenCart] = useState(false);
 
   return (
     <div className={cn()}>
       <div className={cn('cart')}>
         В корзине:
         <span className={cn('data')}>
-          {cart.length
-            ? ` ${cart.length} ${plural(cart.length, {
+          {count > 0
+            ? ` ${count} ${plural(count, {
                 one: 'товар',
                 few: 'товара',
                 many: 'товаров',
               })} 
-         / ${getTotalCost(cart)} ₽`
+         / ${priceFormat(sum)}`
             : 'пусто'}
         </span>
       </div>
-      <button className={cn('actions')} onClick={() => setIsOpenCart(true)}>
+      <button className={cn('actions')} onClick={openModal}>
         Перейти
       </button>
-      {isOpenCart && (
-        <Cart
-          cart={cart}
-          onCloseCart={() => setIsOpenCart(false)}
-          onDeleteCartItem={onDeleteCartItem}
-          totalCost={getTotalCost(cart)}
-        />
-      )}
     </div>
   );
-};
+}
 
 Controls.propTypes = {
   cart: PropTypes.arrayOf(
@@ -46,9 +36,9 @@ Controls.propTypes = {
       title: PropTypes.string,
       price: PropTypes.number,
       count: PropTypes.number,
-    })
+    }).isRequired
   ),
   onDeleteCartItem: PropTypes.func,
 };
 
-export default Controls;
+export default React.memo(Controls);

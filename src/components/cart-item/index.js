@@ -4,9 +4,9 @@ import './style.css';
 import { cn as bem } from '@bem-react/classname';
 import { priceFormat } from '../../utils';
 
-function Item({ item, buttonTitle, onClick }) {
-  const cn = bem('Item');
-  const { code, title, price } = item;
+function CartItem({ item, buttonTitle, onClick }) {
+  const cn = bem('CartItem');
+  const { code, title, price, count } = item;
 
   const callbacks = {
     onClick: (e) => {
@@ -20,6 +20,7 @@ function Item({ item, buttonTitle, onClick }) {
       <div className={cn('code')}>{code}</div>
       <div className={cn('title')}>{title}</div>
       <div className={cn('price')}>{priceFormat(price)}</div>
+      <div className={cn('count')}>{count} шт</div>
       <div className={cn('actions')}>
         <button onClick={callbacks.onClick}>{buttonTitle}</button>
       </div>
@@ -27,7 +28,7 @@ function Item({ item, buttonTitle, onClick }) {
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
@@ -38,4 +39,4 @@ Item.propTypes = {
   buttonTitle: PropTypes.string,
 };
 
-export default React.memo(Item);
+export default React.memo(CartItem);
