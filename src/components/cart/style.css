@@ -1,7 +1,6 @@
 .Cart {
   display: flex;
   flex-direction: column;
-  overflow: auto;
 
   /*min-height: 407px;*/
   max-width: 960px;
@@ -10,10 +9,16 @@
   background-color: #FFFFFF;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
+  padding-bottom: 60px;
 }
 
 .Cart-list-wrap {
   margin-top: 71px;
+}
+
+.Cart-head-wrap {
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
 }
 
 .Cart-total-price {

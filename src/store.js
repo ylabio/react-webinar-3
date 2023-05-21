@@ -40,57 +40,53 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  onAddToCart(code) {
-    this.setState({
-      ...this.state,
-      cart: {
-        ...this.state.cart,
-        [code]: this.state.cart[code] ? this.state.cart[code] + 1 : 1
-      }
-    })
-  }
+  addToCart(code) {
+    const cart = {
+      ...this.state.cart,
+      [code]: this.state.cart[code] ? this.state.cart[code] + 1 : 1
+    }
 
-  onDeleteFromCart(code) {
-    const cart = {...this.state.cart};
-    delete cart[code];
-    this.setState({
-      ...this.state,
-      cart
-    });
-  }
-
-  getTotal() {
-    const cart = this.state.cart;
-    const list = this.state.list;
-    let price = 0;
-    let count = 0;
-
-    const codeList = Object.keys(cart);
-    codeList.forEach(code => {
-      const item = list.find(item => item.code === Number.parseInt(code));
-      if (item) {
-        price += item.price * cart[code];
-        count += cart[code];
-      }
-    });
-
-    return {price, count};
-
-  }
-
-  getCartList() {
-    const result = [];
-    const cart = this.state.cart;
+    let price = this.state.price;
+    const cartList = [];
 
     [...this.state.list].forEach(item => {
       if (cart[item.code]) {
         const resultItem = {...item, count: cart[item.code]}
-        result.push(resultItem);
+        cartList.push(resultItem);
+        if (item.code === code) {
+          price += item.price;
+        }
       }
     });
 
-    return result;
+    this.setState({
+      ...this.state,
+      cart,
+      price,
+      cartList
+    })
   }
+
+  deleteFromCart(code) {
+    const cart = {...this.state.cart};
+    const cartList = this.state.cartList.filter(item => item.code !== code);
+    const count = cart[code];
+    delete cart[code];
+    const item = this.state.list.find(item => item.code === code);
+    let price = this.state.price;
+    if (item) {
+      price -= item.price * count;
+    }
+
+
+    this.setState({
+      ...this.state,
+      cart,
+      cartList,
+      price
+    });
+  }
+
 
 
 }

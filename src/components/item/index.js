@@ -42,7 +42,7 @@ Item.propTypes = {
     count: PropTypes.number,
   }).isRequired,
   onItemButtonClick: PropTypes.func,
-  itemButtonCaption: PropTypes.string
+  itemButtonCaption: PropTypes.string.isRequired
 
 };
 

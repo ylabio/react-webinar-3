@@ -26,8 +26,8 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onItemButtonClick: PropTypes.func,
-  itemButtonCaption: PropTypes.string
+  onItemButtonClick: PropTypes.func.isRequired,
+  itemButtonCaption: PropTypes.string.isRequired
 };
 
 export default React.memo(List);

@@ -25,10 +25,10 @@ function CartStatus({totalCount, totalPrice}) {
 }
 
 CartStatus.propTypes = {
-  totalPrice: PropTypes.number,
-  totalCount: PropTypes.number,
+  totalPrice: PropTypes.number.isRequired,
+  totalCount: PropTypes.number.isRequired,
 
 };
 
 
-export default CartStatus;
+export default React.memo(CartStatus);

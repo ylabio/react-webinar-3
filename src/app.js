@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
@@ -15,19 +15,17 @@ import CartStatus from "./components/cart-status";
  */
 function App({store}) {
 
-  const list = store.getState().list;
-  const total = useMemo(() => store.getTotal(), [store.state.cart, store.state.list]);
-  const cardList = useMemo(() => store.getCartList(), [store.state.cart, store.state.list]);
+  const {list, price, cartList} = store.getState();
 
   const [isShowModal, setIsShowModal] = useState(false);
 
   const callbacks = {
     onAddToCart: useCallback((code) => {
-      store.onAddToCart(code);
+      store.addToCart(code);
     }, [store]),
 
     onDeleteFromCart: useCallback((code) => {
-      store.onDeleteFromCart(code);
+      store.deleteFromCart(code);
     }, [store]),
 
     onShowCart: useCallback(() => {
@@ -43,16 +41,16 @@ function App({store}) {
     <>
       <Modal isOpen={isShowModal} onClose={callbacks.onHideCart}>
         <Cart
-          list={cardList}
+          list={cartList}
           onDeleteFromCart={callbacks.onDeleteFromCart}
           onCloseButtonClick={callbacks.onHideCart}
-          totalPrice={total.price}
+          totalPrice={price}
         />
       </Modal>
       <PageLayout>
         <Head title='Магазин'/>
         <Block>
-          <CartStatus totalCount={total.count} totalPrice={total.price}/>
+          <CartStatus totalCount={cartList.length} totalPrice={price}/>
           <Controls onShowCart={callbacks.onShowCart}/>
         </Block>
         <List

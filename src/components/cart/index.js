@@ -11,17 +11,19 @@ function Cart({list, onDeleteFromCart, onCloseButtonClick, totalPrice}) {
 
   return (
     <div className={cn()} onClick={e => e.stopPropagation()}>
-      <Head title={'Корзина'} onCloseButtonClick={onCloseButtonClick}/>
+      <div className={cn('head-wrap')}>
+        <Head title={'Корзина'} onCloseButtonClick={onCloseButtonClick}/>
+      </div>
       <div className={cn('list-wrap')}>
         <List list={list} itemButtonCaption={'Удалить'} onItemButtonClick={onDeleteFromCart}/>
       </div>
       <div className={cn('total-price')}>{
-        totalPrice ?
+        list.length === 0
+          ? <div>Корзина покупок пуста</div> :
           <div className={cn('total-price-str')}>
             <div>Итого</div>
             <div>{priceFormat(totalPrice)}&nbsp;&#8381;</div>
           </div>
-          : <div>Корзина покупок пуста</div>
       }</div>
     </div>
   )
@@ -31,12 +33,12 @@ Cart.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onDeleteFromCart: PropTypes.func,
-  onCloseButtonClick: PropTypes.func,
-  totalPrice: PropTypes.number
+  onDeleteFromCart: PropTypes.func.isRequired,
+  onCloseButtonClick: PropTypes.func.isRequired,
+  totalPrice: PropTypes.number.isRequired,
 };
 
-export default Cart;
+export default React.memo(Cart);
 
 
 

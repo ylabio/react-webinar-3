@@ -11,7 +11,7 @@ function Controls({onShowCart}){
 }
 
 Controls.propTypes = {
-  onShowCart: PropTypes.func
+  onShowCart: PropTypes.func.isRequired
 };
 
 export default React.memo(Controls);
