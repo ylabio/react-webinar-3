@@ -17,6 +17,8 @@ const store = new Store({
   cart: {
     isOpen: false,
     items: [],
+    totalCount: 0,
+    totalPrice: 0,
   }
 });
 

@@ -5,25 +5,23 @@ import Head from "../head";
 import List from "../list";
 import './style.css';
 
-function Cart({list, onToggleCartView, onDeleteCartItem, totalPrice}) {
+function Cart({list, onDeleteCartItem, totalPrice}) {
 
   const cn = bem('Cart');
 
   return (
-    <div className={cn('overlay')}>
-      <div className={cn()}>
-          <Head title='Корзина' onToggleCartView={onToggleCartView} isCart={true}/>
-          {list.length ? 
-            <>
-              <List list={list} onDeleteCartItem={onDeleteCartItem} isCart={true}/>
-              <div className={cn('total')}>
-                <span>Итого</span>
-                <span className={cn('price')}>{`${totalPrice.toLocaleString()} ₽`}</span>
-              </div>
-            </>
-            : <p className={cn('empty')}>Корзина пуста.</p>}
-      </div>
-    </div>
+    <>
+      
+      {list.length ? 
+        <>
+          <List list={list} onDeleteCartItem={onDeleteCartItem} isCart={true}/>
+          <div className={cn('total')}>
+            <span>Итого</span>
+            <span className={cn('price')}>{`${totalPrice.toLocaleString()} ₽`}</span>
+          </div>
+        </>
+        : <p className={cn('empty')}>Корзина пуста.</p>}
+    </>
   );
 }
 

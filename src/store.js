@@ -100,27 +100,39 @@ class Store {
   /**
    * Добавление в корзину
   */
-  addToCart(item) {
+  addToCart(code) {
     const cart = this.state.cart;
+    const addedProduct = cart.items.find((product) => code == product.code);
+    const product = this.state.list.find((product) => code == product.code);
 
-    this.setState({
-      ...this.state, 
-      cart: {
-        ...cart,
-        items: 
-          cart.items.find((product) => item.code == product.code) ? 
-            cart.items.map((product) => {
-              if (product.code === item.code) {
-                return {
-                  ...product,
-                  count: product.count + 1,
-                };
-              }
-              return product;
-            }) 
-            : [...this.state.cart.items, {...item, count: 1}]
-      }
-    });
+    if (addedProduct) {
+      this.setState({
+        ...this.state, 
+        cart: {
+          ...cart,
+          items:  cart.items.map((product) => {
+            if (product.code === code) {
+              return {
+                ...product,
+                count: product.count + 1,
+              };
+            }
+            return product;
+          }),
+          totalPrice: cart.totalPrice + product.price
+        }
+      })
+    }
+    else {
+      this.setState({
+        ...this.state, 
+        cart: {
+          ...cart,
+          items: [...this.state.cart.items, {...product, count: 1}],
+          totalCount: cart.totalCount + 1,
+          totalPrice: cart.totalPrice + product.price}
+        })
+    }
   };
 
   /**
@@ -128,13 +140,16 @@ class Store {
   */
   deleteCartItem(code) {
     const cart = this.state.cart;
+    const product = cart.items.find((product) => code == product.code);
 
     this.setState({
       ...this.state, 
       cart: {
         ...cart,
         items: 
-          cart.items.filter((product) => product.code !== code)
+          cart.items.filter((product) => product.code !== code),
+        totalCount: cart.totalCount - 1,
+        totalPrice: cart.totalPrice - product.price * product.count
       }
     });
   };

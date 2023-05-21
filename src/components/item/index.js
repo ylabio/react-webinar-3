@@ -14,7 +14,7 @@ function Item(props){
     },
     onAddToCart: (e) => {
       e.stopPropagation();
-      props.onAddToCart(props.item);
+      props.onAddToCart(props.item.code);
     }
   }
 
