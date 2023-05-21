@@ -1,0 +1,20 @@
+.CartItem {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 20px;
+  margin: 0;
+}
+
+.CartItem-code {
+  margin-right: 20px;
+}
+
+.CartItem-price {
+  margin-left: auto;
+  margin-right: 62px;
+}
+
+.CartItem-amount {
+  margin-right: 24px;
+}
