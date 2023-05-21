@@ -1,0 +1,9 @@
+.Label-span {
+  font-weight: 700;
+}
+.Label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-bottom: 1px dashed #ccc;
+}

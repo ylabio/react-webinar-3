@@ -1,0 +1,25 @@
+.empty {
+  border-bottom: 1px dashed #ccc;
+  padding: 35px 0;
+}
+.Cart {
+  padding: 0 0 89px;
+}
+.Cart-item {
+  border-bottom: 1px dashed #ccc;
+}
+.Cart-result {
+  gap: 62px;
+  margin: 0 120px 0 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 0 0;
+  font-weight: 700;
+}
+h3 {
+  text-align: center;
+  font-size: 24px;
+}
+.Cart-none {
+  padding: 20px 0;
+}
