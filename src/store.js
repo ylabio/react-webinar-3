@@ -58,9 +58,8 @@ class Store {
   }
   //Добавление товаров в корзину
   addBasketItem(code) {
-    console.log(this.state.basket);
-    console.log("code", code);
     const selectItem = this.state.list.find((item) => item.code === code);
+    //Если товар уже есть в корзине
     if (this.state.basket.find((item) => item.code === code)) {
       this.setState({
         ...this.state,
@@ -74,7 +73,9 @@ class Store {
           return item;
         }),
       });
+      this.updatedPrice();
     } else {
+      //Если товара нет в корзине добавляем свойство count
       const itemBasket = {
         ...selectItem,
         count: 1,
@@ -83,9 +84,35 @@ class Store {
         ...this.state,
         basket: [...this.state.basket, itemBasket],
       });
+      this.updatedPrice();
     }
   }
-
+  // Подсчет суммы товаров
+  sumPriceItem() {
+    let sumPrice = 0;
+    this.state.basket;
+    for (let i = 0; i < this.state.basket.length; i++) {
+      sumPrice += this.state.basket[i].price * this.state.basket[i].count;
+    }
+    return sumPrice;
+  }
+  // Подсчет кол-ва товаров
+  sumCountItem() {
+    let sumCount = 0;
+    this.state.basket;
+    for (let i = 0; i < this.state.basket.length; i++) {
+      sumCount += this.state.basket[i].count;
+    }
+    return sumCount;
+  }
+  // Обновление значения сумм
+  updatedPrice() {
+    this.setState({
+      ...this.state,
+      sumPrice: this.sumPriceItem(),
+      sumCount: this.sumCountItem(),
+    });
+  }
   /**
    * Удаление записи по коду
    * @param code
@@ -103,6 +130,7 @@ class Store {
       // Новый список корзины, в котором не будет удаляемой записи
       basket: this.state.basket.filter((item) => item.code !== code),
     });
+    this.updatedPrice();
   }
 
   /**

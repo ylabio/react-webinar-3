@@ -26,6 +26,10 @@ function Item(props){
       <div className='Item-title'>
         {props.item.title}{props.item.count}
       </div>
+      <div className="Item-price">
+        {props.item.price}&nbsp;&#8381;
+      </div>
+      {}
       <div className='Item-actions'>
         <button onClick={() => props.handleClick(props.item.code)}>
           {props.buttonName}

@@ -12,7 +12,10 @@
 .Item-code {
   padding: 20px 10px 20px 20px;
 }
-
+.Item-price {
+  display: flex;
+  padding: 20px 24px;
+}
 .Item-title {
   width: 100%;
   padding: 20px 10px;

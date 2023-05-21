@@ -12,8 +12,7 @@ import { Popup } from './components/popup';
  */
 function App({store}) {
   const [active, setActive] = useState(false)
-  const {list, basket} = store.getState();
-
+  const {list, basket, sumPrice, sumCount} = store.getState();
   const callbacks = {
     /* onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
@@ -37,7 +36,7 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Приложение на чистом JS'/>
-      <Controls setActive={setActive}/>
+      <Controls setActive={setActive} sumPrice={sumPrice} sumCount={sumCount}/>
       {active && <Popup active={active} setActive={setActive} basket={basket} handleClick={callbacks.handleClickDelete}/> }
       <List list={list}
             buttonName='Добавить'
