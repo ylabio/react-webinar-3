@@ -1,11 +1,13 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      cart: {},
+      cartTotalPrice: 0,
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -41,46 +43,44 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
+   * @param productFromList
    */
-  addItem() {
+  addToCart(productFromList) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      cart: {
+        ...this.state.cart,
+        [productFromList.code]:
+          this.state.cart[productFromList.code]?.length > 0 ?
+            [...this.state.cart[productFromList.code], productFromList] :
+            [productFromList]
+      },
+      cartTotalPrice: this.state.cartTotalPrice + productFromList.price
     })
-  };
+  }
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Удаление товара из корзины
+   * @param productFromCart
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  deleteFromCart(productFromCart) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+      cart: Object.keys(this.state.cart).reduce((acc, cur) => {
+        if (Number(cur) === productFromCart.code) {
+          return acc;
         }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
+
+        if (Number(cur) !== productFromCart.code) {
+          return {
+            ...acc,
+            [cur]: [...this.state.cart[Number(cur)]],
+          }
+        }
+      }, {}),
+      cartTotalPrice: this.state.cartTotalPrice - this.state.cart[productFromCart.code].reduce((acc, cur) => (acc + Number(cur.price)), 0)
     })
   }
 }
