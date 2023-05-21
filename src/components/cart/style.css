@@ -1,0 +1,27 @@
+.Head {
+  border-radius: 10px;
+}
+
+.Cart-closeButton {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  width: 76px;
+  height: 21px;
+}
+
+.Cart-emptySpace {
+  width: 100%;
+  height: 71px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.Cart-totalCost {
+  display: flex;
+  justify-content: flex-end;
+  gap: 53px;
+  padding: 20px 120px 89px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 20.7px;
+}
