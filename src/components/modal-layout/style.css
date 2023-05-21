@@ -1,0 +1,23 @@
+.Modal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 70%;
+	min-height: 40%;
+	background: #FFFFFF;
+	box-sizing: border-box;
+	box-shadow: 0 0 15px 5px #0000003b;
+	border-radius: 10px;
+	overflow: hidden;
+	font-family: Arial;
+}
+
+.Modal-button {
+	margin-left: auto;
+	position: absolute;
+	top: 32px;
+	right: 32px;
+	width: 76px;
+	height: 21px;
+}
