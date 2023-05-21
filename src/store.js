@@ -85,6 +85,11 @@ class Store {
     }, 0);
     return sum;
   }
+
+  getQuantityOfProduct() {
+    const quantityOfProduct = this.state.cartItems.reduce((sum, item) => sum + item.quantityUnique, 0);
+    return quantityOfProduct;
+  }
 }
 
 export default Store;

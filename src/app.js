@@ -37,7 +37,7 @@ function App({store}) {
     ),
   };
 
-  const quantityOfProduct = cartItems.reduce((sum, item) => sum + item.quantityUnique, 0);
+  const quantityOfProduct = store.getQuantityOfProduct();
   const totalPrice = store.getSumItem();
   const sumCart = formatAmount(totalPrice);
 
