@@ -1,0 +1,29 @@
+.CartLayout {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.CartLayout-hidden {
+  display: none;
+}
+
+.CartLayout-window {
+  width: 900px;
+  min-height: 200px;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.CartLayout-window__list {
+  padding: 40px 0;
+}

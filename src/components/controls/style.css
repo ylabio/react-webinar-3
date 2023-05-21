@@ -1,5 +1,16 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   padding: 20px;
+}
+
+.Controls-cart-amount {
+  display: flex;
+  margin-right: 20px;
+  gap: 10px;
+}
+
+.Controls-cart-amount :nth-child(2) {
+  font-weight: 700;
 }

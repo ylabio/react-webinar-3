@@ -1,7 +1,11 @@
-.List{
-
+.List {
+  color: black;
 }
 
 .List-item {
   border-bottom: 1px dashed #ccc;
+}
+
+.List-item-empty {
+  text-align: center;
 }

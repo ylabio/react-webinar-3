@@ -1,0 +1,11 @@
+.Footer {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 40px;
+  padding-right: 120px;
+}
+
+.Footer p {
+  font-weight: 700;
+}
