@@ -1,0 +1,24 @@
+.Basket {
+  display: flex;
+  flex-direction: column;
+  
+  width: 960px
+}
+
+.Basket-header {
+  margin-bottom: 70px;
+}
+
+.Basket-totalPrice {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 53px;
+
+  padding-top: 20px;
+  padding-right: 100px;
+}
+
+.Basket-empty {
+  font-size: 30px;
+  text-align: center;
+}

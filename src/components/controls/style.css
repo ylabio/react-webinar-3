@@ -1,5 +1,7 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  column-gap: 15px;
   padding: 20px;
 }

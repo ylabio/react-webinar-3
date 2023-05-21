@@ -14,12 +14,29 @@
 }
 
 .Item-title {
-  width: 100%;
   padding: 20px 10px;
+  margin-right: auto;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-price {
+  align-self: center;
+
+  width: auto;
+  padding-right: 14px;
+  text-align: right;
+}
+
+.Item-count {
+  align-self: center;
+
+  margin-left: 38px;
+  margin-right: 14px;
+
+  width: auto;
 }
