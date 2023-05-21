@@ -7,6 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.cartItem = { total: 0, list: [] };
   }
 
   /**
@@ -29,6 +30,13 @@ class Store {
   getState() {
     return this.state;
   }
+  getCart() {
+    return this.cartItem;
+  }
+  getCartItem(code) {
+    let filteredItem = this.findItem(code);
+    return filteredItem;
+  }
 
   /**
    * Установка состояния
@@ -36,6 +44,12 @@ class Store {
    */
   setState(newState) {
     this.state = newState;
+    // Вызываем всех слушателей
+    for (const listener of this.listeners) listener();
+  }
+  setCart(newCartItem) {
+    this.cartItem = newCartItem;
+    
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
@@ -50,6 +64,42 @@ class Store {
     })
   };
 
+  addItemToCart(item) {
+  const foundItem = this.cartItem.list.find((cartItem) => cartItem.code === item.code);
+
+  if (foundItem) {
+    const updatedList = this.cartItem.list.map((cartItem) => {
+    if (cartItem.code === item.code) {
+      const updatedCount = cartItem.count ? cartItem.count + 1 : 1;
+      return {
+        ...cartItem,
+        count: updatedCount,
+        price: item.price,
+      };
+    }
+    return cartItem;
+  });
+
+  const updatedTotal = updatedList.reduce(
+    (total, cartItem) => total + (cartItem.price * (cartItem.count || 0)),0
+  );
+
+  const newCartItem = {
+    total: updatedTotal,
+    list: updatedList,
+  };
+
+  this.setCart(newCartItem);
+  } else {
+    const newCartItem = {
+      total: this.cartItem.total + item.price,
+      list: [...this.cartItem.list, { ...item, count: 1 }],
+    };
+
+    this.setCart(newCartItem);
+  }
+  }
+
   /**
    * Удаление записи по коду
    * @param code
@@ -57,10 +107,12 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
+      list: this.state.list.filter(item => item.code !== code),
+    });
   };
+  findItem(code) {
+    return this.state.list.filter((item) => item.code === code);
+  }
 
   /**
    * Выделение записи по коду
