@@ -1,39 +1,80 @@
-import React, {useCallback} from 'react';
-import List from "./components/list";
-import Controls from "./components/controls";
-import Head from "./components/head";
-import PageLayout from "./components/page-layout";
+import React, { useCallback } from 'react';
+import List from './components/list';
+import Controls from './components/controls';
+import Head from './components/head';
+import PageLayout from './components/page-layout';
+import Popup from './components/popup';
+import CatalogItem from './components/catalogItem';
+import CartItem from './components/cartItem';
+import CartTotal from './components/cartTotal';
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
+  const { list, cart, isPopupOpen } =
+    store.getState();
 
-  const list = store.getState().list;
+  const cartSum = cart
+    .reduce(
+      (accumulator, current) =>
+        accumulator +
+        current.price * current.count,
+      0
+    )
+    .toLocaleString('ru-RU');
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+    onDeleteItem: useCallback(
+      (code) => {
+        store.deleteItem(code);
+      },
+      [store]
+    ),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+    onAddItem: useCallback(
+      (code) => {
+        store.addItem(code);
+      },
+      [store]
+    ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
+    onTogglePopup: useCallback(
+      (bool) => {
+        store.togglePopup(bool);
+      },
+      [store]
+    ),
+  };
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин' />
+      <Controls
+        cart={cart}
+        cartSum={cartSum}
+        openCartPopup={callbacks.onTogglePopup}
+      />
+      <List
+        list={list}
+        item={CatalogItem}
+        onAdd={callbacks.onAddItem}
+      />
+      <Popup
+        isOpen={isPopupOpen}
+        title='Корзина'
+        content={
+          <List
+            list={cart}
+            item={CartItem}
+            onDelete={callbacks.onDeleteItem}
+          />
+        }
+        footer={<CartTotal sum={cartSum} />}
+        closePopup={callbacks.onTogglePopup}
+      />
     </PageLayout>
   );
 }
