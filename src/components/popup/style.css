@@ -1,0 +1,57 @@
+.Popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .7);
+  width: 100vw;
+  height: 100vh;
+}
+
+.Popup-content {
+  position: relative;
+  border-radius: 10px;
+  width: 960px;
+}
+
+.Popup-overfilled {
+  align-items: flex-start;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+
+.Popup-content-overfilled {
+  left: 9px;
+}
+
+.Popup-close {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  width: 76px;
+  height: 21px;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.Popup-content .PageLayout {
+  border-radius: 10px;
+  min-height: 407px;
+}
+
+.Popup-content .Head {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.Popup-content .Goods-count  {
+  min-width: 95px;
+  padding-left:5px;
+}
+
+
+

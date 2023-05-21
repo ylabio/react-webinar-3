@@ -1,0 +1,47 @@
+.Goods {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  height:61px;
+}
+
+.Goods-block{
+  display:flex;
+  align-items: center;
+}
+
+.Goods-code {
+  font-size: 16px;
+  padding-left:19px;
+}
+
+.Goods-title {
+  font-size: 16px;
+  min-width: 162px;
+  padding-left: 20px;
+}
+
+.Goods-actions {
+  padding: 0px 20px 0px 24px;
+}
+
+.Goods-price {
+  font-size: 18px;
+  text-align: right;
+}
+
+.Goods-count {
+  font-size: 18px;
+  font-weight: 400;
+  text-align: right;
+  padding-right:14px 20px 0px;
+}
+
+.Goods-button {
+  padding:0;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  width: 76px;
+  height: 21px;
+}

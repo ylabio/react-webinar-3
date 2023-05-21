@@ -1,0 +1,28 @@
+.CartModal-cart {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: end;
+  font-size: 18px;
+  font-weight: 700;
+  line-height:21px;
+  padding-bottom:89px;
+}
+
+.CartModal-cart-text {
+  padding: 20px 0px ;
+}
+
+.CartModal-empty{
+  padding-bottom:71px;
+}
+
+.CartModal-cart-text-empty {
+  padding: 29px 0;
+  margin: auto;
+}
+
+.CartModal-cart-value {
+  min-width:95px;
+  padding: 20px 120px 20px 5px;
+}

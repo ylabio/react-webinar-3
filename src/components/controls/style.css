@@ -1,5 +1,23 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  height:63px;
+  padding-right: 21px;
+}
+
+.Controls-label {
+  font-size: 18px;
+  font-weight: 400;
+  padding: 0 20px;
+}
+
+.Controls-button {
+  padding:0;
+  width: 80px;
+  height: 21px;
+  font-size: 13px;
+  line-height: 15px;
+  text-align: center;
 }

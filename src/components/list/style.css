@@ -1,7 +1,8 @@
-.List{
-
+.List-Goods {
+  border-bottom: 1px dashed #ccc;
+  
 }
 
-.List-item {
-  border-bottom: 1px dashed #ccc;
+.List-Goods:first-child {
+  border-top: 1px dashed #ccc;
 }

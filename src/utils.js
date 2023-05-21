@@ -49,3 +49,14 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+
+/**
+ * @param goods 
+ * @return number
+ */
+export function calculateCartPrice(goods) {
+  let price = 0;
+  goods.forEach(goods => price += goods.price * goods.count);
+  return price;
+}
