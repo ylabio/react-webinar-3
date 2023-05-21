@@ -75,7 +75,12 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      cart: this.state.cart.filter((item) => item.code !== cartItem.code)
+      cart: this.state.cart.filter((item) => item.code !== cartItem.code),
+    })
+
+    this.setState({
+      ...this.state,
+      totalCart: this.totalAmount(this.state.cart),
     })
   };
 
