@@ -42,8 +42,8 @@ class Store {
    * Добавление новой записи
    */
   addItem(cartItem) {
-    const cartList = [...this.state.cart]
-    let result = this.state.cart.find(item => item.code === cartItem.code);
+    const cartList = [...this.state.cart];
+    let result = cartList.find(item => item.code === cartItem.code);
 
     if (result) {
       result = {
