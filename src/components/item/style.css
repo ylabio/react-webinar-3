@@ -14,8 +14,15 @@
 }
 
 .Item-title {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   padding: 20px 10px;
+}
+
+.Item-price {
+  font-size: 18px;
+  font-family: Regular;
 }
 
 .Item-actions {
