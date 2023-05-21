@@ -83,6 +83,76 @@ class Store {
       })
     })
   }
+
+  /**
+   * Переключение видимости корзины
+  */
+  toggleCartView() {
+    this.setState({
+      ...this.state, 
+      cart: {
+        ...this.state.cart,
+        isOpen: !this.state.cart.isOpen
+      }
+    });
+  }
+
+  /**
+   * Добавление в корзину
+  */
+  addToCart(code) {
+    const cart = this.state.cart;
+    const addedProduct = cart.items.find((product) => code == product.code);
+    const product = this.state.list.find((product) => code == product.code);
+
+    if (addedProduct) {
+      this.setState({
+        ...this.state, 
+        cart: {
+          ...cart,
+          items:  cart.items.map((product) => {
+            if (product.code === code) {
+              return {
+                ...product,
+                count: product.count + 1,
+              };
+            }
+            return product;
+          }),
+          totalPrice: cart.totalPrice + product.price
+        }
+      })
+    }
+    else {
+      this.setState({
+        ...this.state, 
+        cart: {
+          ...cart,
+          items: [...this.state.cart.items, {...product, count: 1}],
+          totalCount: cart.totalCount + 1,
+          totalPrice: cart.totalPrice + product.price}
+        })
+    }
+  };
+
+  /**
+   * Удаление из корзины
+  */
+  deleteCartItem(code) {
+    const cart = this.state.cart;
+    const product = cart.items.find((product) => code == product.code);
+
+    this.setState({
+      ...this.state, 
+      cart: {
+        ...cart,
+        items: 
+          cart.items.filter((product) => product.code !== code),
+        totalCount: cart.totalCount - 1,
+        totalPrice: cart.totalPrice - product.price * product.count
+      }
+    });
+  };
 }
 
 export default Store;

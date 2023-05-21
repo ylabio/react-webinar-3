@@ -1,0 +1,23 @@
+.Cart-total {
+  padding: 20px 120px 0 0;
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
+  font-size: 1.125rem;
+}
+
+.Cart-price {
+  margin-left: 52px;
+}
+
+.Cart-empty {
+  padding: 0 20px;
+  font-size: 1.125rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .Cart {
+    width: 90%;
+    left: calc(50% - 90% / 2);
+  }
+}
