@@ -83,6 +83,46 @@ class Store {
       })
     })
   }
+
+  openModal() {
+    this.setState({
+      ...this.state,
+      isModalVisible: true
+    })
+  };
+
+  closeModal() {
+    this.setState({
+      ...this.state,
+      isModalVisible: false 
+    })
+  };
+
+  addCartItem(code) {
+    const copyCartList = [...this.state.cartList];
+    const cartItemElement = copyCartList.find(item => item.code === code);
+    
+    if(cartItemElement) {
+      const cartItemElementIndex = copyCartList.findIndex(item => item.code === code);
+      copyCartList.splice(cartItemElementIndex, 1, {...cartItemElement, count: cartItemElement.count + 1});
+    }
+    else {
+      const listItemElement = this.state.list.find(item => item.code === code);
+      copyCartList.unshift({...listItemElement, count: 1})
+    };
+    
+    this.setState({
+      ...this.state,
+      cartList: copyCartList
+    });
+  };
+
+  deleteCartItem(code) {
+    this.setState({
+      ...this.state,
+      cartList: this.state.cartList.filter(el => el.code !== code)
+    })
+  };
 }
 
 export default Store;
