@@ -40,49 +40,55 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+  addToCart(code) {
+    const cart = {
+      ...this.state.cart,
+      [code]: this.state.cart[code] ? this.state.cart[code] + 1 : 1
+    }
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+    let price = this.state.price;
+    const cartList = [];
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
+    [...this.state.list].forEach(item => {
+      if (cart[item.code]) {
+        const resultItem = {...item, count: cart[item.code]}
+        cartList.push(resultItem);
         if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+          price += item.price;
         }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
+      }
+    });
+
+    this.setState({
+      ...this.state,
+      cart,
+      price,
+      cartList
     })
   }
+
+  deleteFromCart(code) {
+    const cart = {...this.state.cart};
+    const cartList = this.state.cartList.filter(item => item.code !== code);
+    const count = cart[code];
+    delete cart[code];
+    const item = this.state.list.find(item => item.code === code);
+    let price = this.state.price;
+    if (item) {
+      price -= item.price * count;
+    }
+
+
+    this.setState({
+      ...this.state,
+      cart,
+      cartList,
+      price
+    });
+  }
+
+
+
 }
 
 export default Store;
