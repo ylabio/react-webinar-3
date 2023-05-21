@@ -1,0 +1,24 @@
+.Cart-item {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.Item-code,
+.Item-price,
+.Item-quantity {
+  padding: 20px 10px 20px 20px;
+}
+
+.Item-title {
+  padding: 20px 10px;
+}
+
+.Item-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+}
+
+.Item-price {
+  margin-left: auto;
+}
