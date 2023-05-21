@@ -1,0 +1,9 @@
+.Results {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 2rem;
+
+  font-weight: 700;
+  margin-right: 13%;
+}
