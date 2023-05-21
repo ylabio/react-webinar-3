@@ -1,5 +1,16 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  gap: 28px;
   padding: 20px;
+}
+
+.Controls-btn {
+  width: 80px;
+  height: 21px;
+}
+
+.Controls-count {
+  display: flex;
+  gap: 15px;
 }

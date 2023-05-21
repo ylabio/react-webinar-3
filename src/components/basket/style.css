@@ -1,0 +1,12 @@
+h3 {
+	width: fit-content;
+	margin: auto;
+}
+
+.Basket-result {
+	margin: 20px 120px 0 auto;
+	position: relative;
+	width: fit-content;
+	display: flex;
+	gap: 73px;
+}

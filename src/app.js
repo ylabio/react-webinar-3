@@ -1,41 +1,56 @@
-import React, {useCallback} from 'react';
-import List from "./components/list";
-import Controls from "./components/controls";
-import Head from "./components/head";
-import PageLayout from "./components/page-layout";
+import React, { useCallback, useState } from "react"
+import List from "./components/list"
+import Controls from "./components/controls"
+import Head from "./components/head"
+import PageLayout from "./components/page-layout"
+import Item from "./components/item"
+import Modal from "./components/modal"
+import Basket from "./components/basket"
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
+	const [modalShow, setModalShow] = useState(false);
 
-  const list = store.getState().list;
+	const list = store.getState().list
+	const basket = store.getState().basket
+	const totalPrice = store.getTotalPrice()
 
-  const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+	const callbacks = {
+		addToBasket: useCallback(
+			code => {
+				store.addToBasket(code)
+			},
+			[store]
+		),
+		deleteOnBasket: useCallback(
+			code => {
+				store.deleteOnBasket(code)
+			},
+			[store]
+		),
+	}
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+	return (
+		<PageLayout>
+			<Head title="Магазин" />
+			<Controls basket={basket} totalPrice={totalPrice} setModalShow={setModalShow} />
+			<List>
+				{list.map(item => 
+					<Item key={item.code} item={item} onAdd={callbacks.addToBasket} />
+				)}
+			</List>
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
-
-  return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-    </PageLayout>
-  );
+			{modalShow ? 
+				<Modal title="Корзина" setModalShow={setModalShow}>
+					<Basket basket={basket} deleteOnBasket={callbacks.deleteOnBasket} totalPrice={totalPrice}  />
+				</Modal> 
+			: null}
+		</PageLayout>
+	)
 }
 
-export default App;
+export default App
