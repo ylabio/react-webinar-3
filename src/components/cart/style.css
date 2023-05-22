@@ -1,0 +1,16 @@
+.cart {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart__info-block {
+  padding: 25px 120px 85px 0;
+  align-self: flex-end;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.cart__info-block-sum {
+  padding-left: 53px;
+}

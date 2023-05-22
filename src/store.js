@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -41,47 +41,47 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+  addItem(item) {
+    let itemAlreadyInCart = false
+    const arr = this.state.cart.map(el => {
+      if (el.code === item.code) {
+        el.value++
+        itemAlreadyInCart = true
+        return el
+      } else {
+        return el
+      }
     })
-  };
+    if (itemAlreadyInCart) {
+      this.setState({ ...this.state, cart: [...arr] })
+    } else {
+      this.setState({ ...this.state, cart: [...this.state.cart, { code: item.code, title: item.title, price: item.price, value: 1 }] })
+    }
+  }
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+  // /**
+  //  * Удаление товара из корзины
+  //  */
+  deleteItem(item) {
+    this.setState({ ...this.state, cart: [...this.state.cart.filter(el => el.code !== item.code)] })
+  }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+  // /**
+  //  * Возвращает сумму стоимости всех товаров в корзине
+  // @returns number
+  //  */
+  calculateSumInCart() {
+    return this.state.cart.reduce((sum, item) => sum + (item.price * item.value), 0)
+  }
+
+  // /**
+  //  * Возвращает количество уникальных товаров в корзине
+  // @returns number
+  //  */
+  calculateQuantityItemsInCart() {
+    return this.state.cart.length
   }
 }
 

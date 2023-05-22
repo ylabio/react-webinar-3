@@ -16,6 +16,14 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   return variants[key] || '';
 }
 
+export function pluralPrice(value, locale = 'ru-RU') {
+  return value.toLocaleString(locale, {
+    style: 'currency',
+    currency: 'RUB',
+    minimumFractionDigits: 0
+  })
+}
+
 /**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.

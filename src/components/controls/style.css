@@ -1,5 +1,19 @@
-.Controls {
+.controls {
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+}
+
+.controls__info-block {
+  padding-right: 22px;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.controls__cart-info {
+  padding-left: 16px;
+  font-weight: 700;
 }
