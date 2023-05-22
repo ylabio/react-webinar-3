@@ -7,12 +7,7 @@ function Item(props){
   const callbacks = {
     action: (e) => {
       e.stopPropagation();
-      props.action({
-        code: props.item.code,
-        title: props.item.title,
-        total: 1,
-        price: props.item.price,
-      });
+      props.action(props.item.code);
     },
   };
 

@@ -47,9 +47,9 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem(cartItem) {
+  addItem(code) {
     const cartList = [...this.state.cart];
-    let result = cartList.find(item => item.code === cartItem.code);
+    let result = cartList.find(item => item.code === code);
 
     if (result) {
       result = {
@@ -57,7 +57,8 @@ class Store {
         total: result.total += 1
       }
     } else {
-      cartList.push(cartItem);
+      const listItem = this.state.list.find(item => item.code === code);
+      cartList.push({...listItem, total: 1});
     }
 
     this.setState({
@@ -71,11 +72,11 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(cartItem) {
+  deleteItem(code) {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      cart: this.state.cart.filter((item) => item.code !== cartItem.code),
+      cart: this.state.cart.filter((item) => item.code !== code),
     })
 
     this.setState({
