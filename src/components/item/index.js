@@ -1,26 +1,28 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
 import './style.css';
+import {cn as bem} from '@bem-react/classname';
 
 function Item(props){
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
+  const cn = bem('Item');
 
   const callbacks = {
-    onAdd: () => {
-      props.onAdd(props.item.code);
+    functionResolver: () => {
+      props.functionResolver(props.item.code);
     }
   }
-
+  
   return (
-    <div className='Item'>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>{props.item.title}</div>
-      <div className='Item-price'><span>{props.item.price} &#8381;</span></div>
-      <div className='Item-actions'>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+    <div className={cn()}>
+      <div className={cn('code')}>{props.item.code}</div>
+      <div className={cn('title')}>{props.item.title}</div>
+      <div className={cn('price')}>{props.item.price} ₽ </div>
+      {props.item.count && (<div className={cn('count')}>{props.item.count} шт</div>)}
+      <div className={cn('actions')}>
+        <button onClick={callbacks.functionResolver}>
+          {props.buttonTitle}
+        </button>
       </div>
     </div>
   );
@@ -33,11 +35,11 @@ Item.propTypes = {
     price: PropTypes.number,
     count: PropTypes.number
   }).isRequired,
-  onAdd: PropTypes.func,
+  functionResolver: PropTypes.func,
 };
 
 Item.defaultProps = {
-  onAdd: () => {},
+  functionResolver: () => {},
 }
 
 export default React.memo(Item);

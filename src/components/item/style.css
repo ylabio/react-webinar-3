@@ -20,8 +20,14 @@
 
 .Item-price {
   display: flex;
-  padding-right: 14px;
   align-items: center;
+  margin-right: 14px;
+}
+
+.Item-count {
+  padding: 20px 10px;
+  margin-left: 42px;
+  margin-right: 2px;
 }
 
 .Item-actions {

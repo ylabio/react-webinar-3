@@ -58,8 +58,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code)
     })
   };
 
@@ -81,6 +80,36 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     })
+  }
+
+  addItemToCart(code){
+    let currentCart = [...this.state.cart];
+    let currentIndex = currentCart.findIndex((item) => item.code === code);
+    if (currentIndex !== -1) {
+      let newCart = currentCart.map((item, index) => {
+        if (index === currentIndex) {
+          return {
+            ...item,
+            count: item.count + 1,
+          };
+        }
+        return item;
+      });
+      this.setState({
+        ...this.state,
+        cart: newCart,
+      });
+    } else {
+      let item = this.state.list.find((item) => item.code === code);
+      let newItem = {
+        ...item,
+        count: 1,
+      };
+      this.setState({
+        ...this.state,
+        cart: [...currentCart, newItem],
+      });
+    }
   }
 }
 
