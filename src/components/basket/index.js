@@ -9,7 +9,7 @@ function Basket(props){
       <>
         {props.basket.length?
             props.basket.map(item =>
-                <div key={item.code} className='List-item'>
+                <div key={item.code} className='Basket-item'>
                   <Item item={item}
                         onDeleteItem={props.onDeleteItem}
                         active={props.active}/>
