@@ -16,6 +16,7 @@ const store = new Store({
   ],
   listForBasket: [],
   totalPrice: 0,
+  totalNumberOfAddedItems: 0,
 });
 
 const root = createRoot(document.getElementById('root'));
