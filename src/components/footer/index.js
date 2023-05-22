@@ -8,7 +8,7 @@ function Footer(props) {
 	return (
 		<div className={cn()}>
 			<p className={cn('summery')}>
-				<b className={cn('text')}>Итого&nbsp;&nbsp;&nbsp;<span className={cn('digital')}>{props.summary}</span>&nbsp;&#8381;</b>
+				<b className={cn('text')}>Итого&nbsp;&nbsp;&nbsp;<span className={cn('digital')}>{props.summary.toLocaleString('ru-RU')}</span>&nbsp;&#8381;</b>
 			</p>
 		</div>
 	)

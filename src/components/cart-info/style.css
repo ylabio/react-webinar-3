@@ -6,8 +6,16 @@
 .CartContains {
 	padding: 0;
 	margin: 0;
-	padding-right: 10px;
+	padding-right: 8px;
 	font-weight: 400;
 	font-size: 18px;
 	line-height: 21px;
+}
+
+.CartQuantity {
+	padding-right: 17px;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 21px;
+	padding-right: 13px;
 }

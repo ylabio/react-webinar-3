@@ -19,7 +19,7 @@ function Item(props) {
 					{props.item.title}
 				</div>
 				<div className='Item-actions'>
-					<span className='Item-value-small'>{props.item.price}&nbsp;&#8381;</span>
+					<span className='Item-value-small'>{props.item.price.toLocaleString('ru-RU')}&nbsp;&#8381;</span>
 					<button onClick={callbacks.onAdd}>Добавить</button>
 				</div>
 			</div>

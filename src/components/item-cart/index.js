@@ -19,7 +19,7 @@ function ItemCart(props) {
 					{props.item.title}
 				</div>
 				<div className='Item-actions'>
-					<span className='Item-value'>{props.item.price}&nbsp;&#8381;</span>
+					<span className='Item-value'>{props.item.price.toLocaleString('ru-RU')}&nbsp;&#8381;</span>
 					<span className='Item-quant'>{props.item.quant}&nbsp;шт</span>
 					<button onClick={callbacks.onRemove}>&nbsp;&nbsp;Удалить&nbsp;</button>
 				</div>
