@@ -7,7 +7,7 @@ function List({list, onClick, isCartItem}) {
     <div className="List">
       {list.map((item) => (
         <div key={item.code} className="List-item">
-          <Item item={item} onClick={onClick} isCartItem />
+          <Item item={item} onClick={onClick} isCartItem={isCartItem} />
         </div>
       ))}
     </div>
