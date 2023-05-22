@@ -1,4 +1,5 @@
-import {generateCode} from "./utils";
+import {generateCode, getProductsPrice} from "./utils";
+import {cartInfo} from "./data";
 
 /**
  * Хранилище состояния приложения
@@ -41,48 +42,57 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление элемента в корзину
+   * @param product{Object} // Товар, добавляемый в корзину
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+  addItem(product) {
+    let include = false;  // Boolean флаг для определения добавляется уникальный товар, или уже выбранный
+    let products = Object.assign(this.state.cart.products);
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+    products.map((item) => {
+      if(product.code === item.code){
+        item.quantity++;
+        include = true;
+      }
+      return item;
+    });
+    if(!include){
+      product.quantity = 1;
+      products = [...products, product];
+    }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+      cart: {
+        ...this.state.cart,
+        products:products,
+        info:{
+          total:getProductsPrice(products),
+          quantity:products.length
         }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
-  }
-}
+      },
+    });
+  };
+
+  /**
+   * Удаление элемента из корзины
+   * @param product{Object} // Элемент, удаляемый из корзины
+   */
+  deleteItem(product) {
+    const products = Object.assign(this.state.cart.products).filter(item => item.code !== product.code);
+    this.setState({
+      ...this.state,
+      // Новый массив элементов в корзине, в котором не будет удаляемого элемента
+      cart: {
+        ...this.state.cart,
+        products:products,
+        info:{
+          total:getProductsPrice(products),
+          quantity:products.length
+        }
+      }
+    });
+  };
+};
 
 export default Store;

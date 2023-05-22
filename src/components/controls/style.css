@@ -1,5 +1,11 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   padding: 20px;
+  font-size: 18px;
+}
+.Controls-price{
+  padding: 0 20px 0 12px;
+  font-weight: 700;
 }
