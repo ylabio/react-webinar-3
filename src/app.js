@@ -4,7 +4,7 @@ import CartInfo from './components/cart-info';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Modal from './components/modal';
-import { Context } from './context';
+import Item from './components/item';
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -15,10 +15,11 @@ function App({ store }) {
 	const list = store.getState().list;
 	const cartList = store.getState().cartList;
 	const quantityItems = cartList.length;
-	const summary = cartList.reduce((summ, item) => summ += item.price * item.quant, 0);
+	const summary = store.getState().cartSummary;
 
-
+	console.log('App', summary)
 	const callbacks = {
+
 		onDeleteFromCart: useCallback((code) => {
 			store.deleteFromCart(code);
 		}, [store]),
@@ -27,20 +28,22 @@ function App({ store }) {
 			store.addToCart(item);
 		}, [store]),
 
-		toggleModal: useCallback(() => {
-			store.toggleModal();
-		}, [store])
+		toggleCart: useCallback(() => {
+			store.toggleCart();
+		}, [store]),
 	}
 
 	return (
-		<Context.Provider value={{ cartOpened, summary, quantityItems }}>
-			<PageLayout>
-				<Head title='Магазин' cartClose={callbacks.toggleModal} />
-				<CartInfo cartList={cartList} cartOpen={callbacks.toggleModal} />
-				<List list={list} onAdd={callbacks.onAddToCart} />
-				<Modal modalActive={cartOpened} onRemove={callbacks.onDeleteFromCart} cartClose={callbacks.toggleModal} list={cartList} />
-			</PageLayout>
-		</Context.Provider>
+		<PageLayout>
+			<Head title='Магазин' toggleCartOpen={callbacks.toggleCart} />
+			<CartInfo cartList={cartList} toggleCartOpen={callbacks.toggleCart} summary={summary} quantityItems={quantityItems} />
+			<List modalActive={cartOpened} >
+				{list.map(item =>
+					<Item key={item.code} item={item} onAdd={callbacks.onAddToCart} />
+				)}
+			</List>
+			<Modal modalActive={cartOpened} onRemove={callbacks.onDeleteFromCart} toggleCartOpen={callbacks.toggleCart} list={cartList} summary={summary} />
+		</PageLayout>
 	);
 }
 

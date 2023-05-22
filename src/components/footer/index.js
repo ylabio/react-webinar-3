@@ -1,12 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './style.css';
 import { cn as bem } from '@bem-react/classname';
-import { Context } from './../../context';
 
-function Footer() {
+function Footer({ summary }) {
 	const cn = bem('Footer');
 
-	const { summary } = useContext(Context);
 	return (
 		<div className={cn()}>
 			<p className={cn('summery')}>

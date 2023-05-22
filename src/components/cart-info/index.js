@@ -1,35 +1,33 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import { plural } from '../../utils';
-import { Context } from './../../context';
 
-function CartInfo({ cartOpen }) {
+function CartInfo({ toggleCartOpen, summary, quantityItems }) {
 
 	const callbacks = {
-		cartOpen: (e) => {
+		toggleCartOpen: (e) => {
 			e.stopPropagation();
-			cartOpen();
+			toggleCartOpen();
 		},
 	}
 
-	const { summary, quantityItems } = useContext(Context);
 	return (
 		<div className='CartInfo'>
 			<p className='CartContains'>В корзине:
 				<b> &nbsp;{quantityItems ? `${quantityItems} ${plural(quantityItems, { one: 'товар', few: 'товара', many: 'товаров' })} / ${summary} ₽` : 'пусто'}&nbsp;&nbsp;</b>
 			</p>
-			<button onClick={callbacks.cartOpen}>&nbsp;&nbsp;Перейти&nbsp;</button>
+			<button onClick={callbacks.toggleCartOpen}>&nbsp;&nbsp;Перейти&nbsp;</button>
 		</div>
 	)
 }
 
 CartInfo.propTypes = {
-	cartOpen: PropTypes.func
+	toggleCartOpen: PropTypes.func
 };
 
 CartInfo.defaultProps = {
-	cartOpen: () => { }
+	toggleCartOpen: () => { }
 }
 
 export default React.memo(CartInfo);

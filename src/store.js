@@ -1,4 +1,5 @@
 
+
 /**
  * Хранилище состояния приложения
  */
@@ -33,7 +34,11 @@ class Store {
 	 * Выбор состояния
 	 * @returns {boolean}
 	 */
-	toggleModal() {
+
+	/**
+	* Открыть/Закрыть карзину
+	*/
+	toggleCart() {
 		let newCartOpen;
 		if (this.state.cartOpen) {
 			newCartOpen = false
@@ -50,27 +55,32 @@ class Store {
 	 * @param newState {Object}
 	 */
 	setState(newState) {
+
 		this.state = newState;
 		// Вызываем всех слушателей
 		for (const listener of this.listeners) listener();
+
 	}
 
 	/**
 	 * Добавление в карзину
 	 */
-	addToCart(newItem) {
+	addToCart(code) {
 		const newCartList = [...this.state.cartList];
-		const index = newCartList.findIndex(item => item.code === newItem.code)
+		const newList = [...this.state.list];
+		const index = newCartList.findIndex(item => item.code === code);
+		const indexHad = newList.findIndex(item => item.code === code);
 		if (index > -1) {
 			newCartList.splice(index, 1, { ...newCartList[index], quant: newCartList[index].quant + 1 })
 		} else {
-			newCartList.push({ ...newItem, quant: 1 })
+			newCartList.push({ ...newList[indexHad], quant: 1 })
 		}
+		const summary = newCartList.reduce((summ, item) => summ += item.price * item.quant, 0);
 		this.setState({
 			...this.state,
-			cartList: newCartList
+			cartSummary: summary,
+			cartList: newCartList,
 		})
-		console.log(this.state.cartList)
 	};
 
 	/**
@@ -82,7 +92,12 @@ class Store {
 			...this.state,
 			// Новый список, в котором не будет удаляемой записи
 			cartList: this.state.cartList.filter(item => item.code !== code)
-		})
+		});
+		const summary = this.state.cartList.reduce((summ, item) => summ += item.price * item.quant, 0);
+		this.setState({
+			...this.state,
+			cartSummary: summary,
+		});
 	};
 
 	/**
