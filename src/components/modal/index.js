@@ -12,6 +12,7 @@ function Modal({ showModal, cart, deleteItem, sum }) {
     <ModalLayout showModal={showModal}>
       <div className="ModalContainer">
         <Head title="Корзина" action={showModal} actionTitle="Закрыть" />
+
         <div className="border"></div>
         <List
           render={(item) => (

@@ -3,7 +3,7 @@ import Controls from '../controls';
 import List from '../list';
 import React from 'react';
 import PropTypes from 'prop-types';
-import ItemProduct from '../item-product';
+import ItemProduct from '../item';
 
 function ProductsPage({ showModal, cnt, sum, list, addItem }) {
   return (

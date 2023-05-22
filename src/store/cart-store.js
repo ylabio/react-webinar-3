@@ -10,7 +10,7 @@ class CartStore extends Store {
         ...this.state.cart.map((item) => {
           if (item.code === itemToAdd.code) {
             isNew = false;
-            return { ...item, cnt: ++item.cnt };
+            return { ...item, cnt: item.cnt + 1 };
           } else {
             return item;
           }
@@ -18,7 +18,7 @@ class CartStore extends Store {
       ],
 
       sum: this.state.sum + itemToAdd.price,
-      cnt: isNew ? ++this.state.cnt : this.state.cnt,
+      cnt: isNew ? this.state.cnt + 1 : this.state.cnt,
     });
 
     if (isNew) {
