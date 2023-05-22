@@ -1,21 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./style.css";
+import Cart from "../cart";
 
-function Modal({ active }) {
+function Modal({ active, setActive }) {
   return (
     <div className={active ? "modal active" : "modal"}>
-      <div className="modal__content"></div>
+      <div className="modal__content">
+        <Cart setActive={setActive} />
+      </div>
     </div>
   );
 }
 
 Modal.propTypes = {
-  onAdd: PropTypes.func,
+  active: PropTypes.bool,
+  setActive: PropTypes.func,
 };
 
 Modal.defaultProps = {
-  onAdd: () => {},
+  setActive: () => {},
 };
 
 export default React.memo(Modal);

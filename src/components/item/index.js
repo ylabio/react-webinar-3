@@ -8,15 +8,9 @@ function Item(props) {
   const [count, setCount] = useState(0);
 
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
-    onDelete: (e) => {
+    onAdd: (e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
+      props.addGoods(props.item.code);
     },
   };
 
@@ -26,7 +20,7 @@ function Item(props) {
       <div className="Item-title">{props.item.title}</div>
       <div className="Item-price">{props.item.price} ₽</div>
       <div className="Item-actions">
-        <button>Добавить</button>
+        <button onClick={callbacks.onAdd}>Добавить</button>
       </div>
     </div>
   );

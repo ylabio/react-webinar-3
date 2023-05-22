@@ -19,6 +19,6 @@
   padding: 20px;
 
   background-color: white;
-  height: 200px;
-  width: 400px;
+  min-height: 400px;
+  width: 960px;
 }

@@ -12,6 +12,7 @@ import Modal from "./components/modal";
  */
 function App({ store }) {
   const list = store.getState().list;
+  const cart = store.getState().cart;
   const [modalActive, setModalActive] = useState(false);
 
   const callbacks = {
@@ -36,10 +37,11 @@ function App({ store }) {
 
   return (
     <PageLayout>
-      <Head title="Приложение не на чистом JS" />
+      <Head title="Магазин" />
       <Controls setActive={setModalActive} />
       <List
         list={list}
+        cart={cart}
         onDeleteItem={callbacks.onDeleteItem}
         onSelectItem={callbacks.onSelectItem}
       />
