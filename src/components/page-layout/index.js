@@ -1,23 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname';
-import './style.css';
+import { cn as bem } from "@bem-react/classname";
+import "./style.css";
 
-function PageLayout({children}) {
-
-  const cn = bem('PageLayout');
+function PageLayout({ children, isModal }) {
+  const cn = bem("PageLayout");
 
   return (
-    <div className={cn()}>
-      <div className={cn('center')}>
-        {children}
-      </div>
+    <div className={isModal ? `${cn() + " PageLayout-shopping-cart"}` : cn()}>
+      <div className={cn("center")}>{children}</div>
     </div>
   );
 }
 
 PageLayout.propTypes = {
-  children: PropTypes.node
-}
+  children: PropTypes.node,
+  isModal: PropTypes.bool,
+};
 
 export default React.memo(PageLayout);

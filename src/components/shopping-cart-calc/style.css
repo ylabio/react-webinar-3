@@ -1,0 +1,13 @@
+.shoppingCartCalc {
+  position: relative;
+  bottom: 40px;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  text-align: end;
+  right: 120px;
+}
+.shoppingCartCalc-bold {
+  font-weight: 700;
+}

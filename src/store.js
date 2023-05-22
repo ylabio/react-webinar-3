@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -7,6 +7,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    // this.sum = 0;
+    // this.shoppingCartCount = 0;
   }
 
   /**
@@ -18,8 +20,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -41,26 +43,64 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
    */
-  addItem() {
+
+  addItemShoppingCart(code) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+      shoppingCartArr: !this.state.shoppingCartArr.some(
+        (el) => el.code === code
+      )
+        ? [
+            ...this.state.shoppingCartArr,
+            {
+              ...this.state.list.filter((el) => el.code === code)[0],
+              count: 1,
+            },
+          ]
+        : [
+            ...this.state.shoppingCartArr.map((el) => {
+              if (el.code === code) {
+                return { ...el, count: el.count + 1 };
+              } else {
+                return el;
+              }
+            }),
+          ],
+    });
+    this.state.sumShoppingCart = this.state.shoppingCartArr.reduce(
+      (accumulator, currentValue, index, array) => {
+        return accumulator + currentValue.price * currentValue.count;
+      },
+      0
+    );
+    this.state.shoppingCartCount = this.state.shoppingCartArr.length;
+    console.log(this.state);
+  }
 
   /**
    * Удаление записи по коду
    * @param code
    */
+
   deleteItem(code) {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      shoppingCartArr: this.state.shoppingCartArr.filter(
+        (item) => item.code !== code
+      ),
+    });
+    this.state.sumShoppingCart = this.state.shoppingCartArr.reduce(
+      (accumulator, currentValue, index, array) => {
+        return accumulator + currentValue.price * currentValue.count;
+      },
+      0
+    );
+    this.state.shoppingCartCount = this.state.shoppingCartArr.length;
+    console.log(this.state);
+  }
 
   /**
    * Выделение записи по коду
@@ -69,7 +109,7 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
         if (item.code === code) {
           // Смена выделения и подсчёт
           return {
@@ -79,9 +119,9 @@ class Store {
           };
         }
         // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+        return item.selected ? { ...item, selected: false } : item;
+      }),
+    });
   }
 }
 

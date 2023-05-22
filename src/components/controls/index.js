@@ -1,21 +1,33 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import './style.css';
+import PropTypes from "prop-types";
+import "./style.css";
 
-function Controls({onAdd}){
+function Controls({ onAdd, title, setIsOpen, isOpen }) {
   return (
-    <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+    <div
+      className={
+        title === "Закрыть" ? "Controls Controls-btnClose" : "Controls"
+      }
+    >
+      {setIsOpen ? (
+        <button onClick={() => setIsOpen(!isOpen)}>{title}</button>
+      ) : (
+        <button onClick={() => onAdd()}>{title}</button>
+      )}
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  onAdd: PropTypes.func,
+  onForward: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
-}
+  onAdd: () => {},
+  onForward: () => {},
+  onClose: () => {},
+};
 
 export default React.memo(Controls);
