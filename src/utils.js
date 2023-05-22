@@ -49,3 +49,13 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+//Считает общую цену товаров
+export function countTotalPrice(list){
+  let total = 0
+  for(let i = 0; i < list.length; i++){
+    total += list[i].price * list[i].count
+  }
+
+  return total
+}

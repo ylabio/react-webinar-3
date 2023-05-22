@@ -2,4 +2,21 @@
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+  border-bottom: 1px dashed #aaa;
+}
+
+.Controls-totalPrice {
+  font-size: 18px;
+  margin-right: 15px;
+}
+
+.Controls-totalPrice span {
+  display: inline-block;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.Controls-totalPrice span:after {
+  content: '\20BD';
+  margin: 0 5px;
 }
