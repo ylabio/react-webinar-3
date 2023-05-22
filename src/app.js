@@ -1,39 +1,38 @@
-import React, {useCallback} from 'react';
-import List from "./components/list";
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Basket from "./components/basket";
+import ProductList from "./components/product-list";
 
-/**
- * Приложение
- * @param store {Store} Хранилище состояния приложения
- * @returns {React.ReactElement}
- */
 function App({store}) {
+  const {list, basket, totalCount, totalPrice} = store.getState();
 
-  const list = store.getState().list;
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
     }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
+    onToggleModal: useCallback(() => {
+      setIsModalVisible(prevState => !prevState)
+    }, []),
+    onAddItem: useCallback((item) => {
+      store.addItem(item);
     }, [store])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин'/>
+      <Controls totalCount={totalCount} totalPrice={totalPrice} onClick={callbacks.onToggleModal}/>
+      <ProductList list={list} onAdd={callbacks.onAddItem}/>
+      {isModalVisible &&
+        <Basket data={basket}
+                totalPrice={totalPrice}
+                onClose={callbacks.onToggleModal}
+                onDeleteItem={callbacks.onDeleteItem}/>
+      }
     </PageLayout>
   );
 }

@@ -1,0 +1,10 @@
+.Counter {
+  margin-right: 20px;
+  display: flex;
+  flex-direction: row;
+  white-space: pre-wrap;
+}
+
+.Counter-text_weight_bold {
+  font-weight: bold;
+}

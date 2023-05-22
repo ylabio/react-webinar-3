@@ -4,7 +4,6 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 function PageLayout({children}) {
-
   const cn = bem('PageLayout');
 
   return (

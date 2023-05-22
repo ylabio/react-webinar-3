@@ -1,0 +1,13 @@
+.Summary {
+    box-sizing: border-box;
+    padding: 20px 105px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    font-weight: bold;
+}
+
+.Summary-text {
+    margin-right: 60px;
+}

@@ -1,0 +1,27 @@
+.Basket {
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  max-width: 960px;
+  min-height: 407px;
+  height: fit-content;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.Basket-content {
+  position: relative;
+  width: 100%;
+  min-height: 327px;
+}
+
+.Basket-empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
