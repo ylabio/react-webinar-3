@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -7,6 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    
   }
 
   /**
@@ -18,8 +19,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -46,21 +47,92 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+      list: [...this.state.list, { code: generateCode(), title: "Новая запись" }],
+    });
+  }
 
   /**
-   * Удаление записи по коду
+   * Добавление новой записи в корзину
    * @param code
    */
-  deleteItem(code) {
+  displayTotalShoppingList(code) {
+    const shoppingList = [...this.state.shoppingList];
+    const currentItem = shoppingList.find((unit) => unit.code === code);
+    if (currentItem) {
+      currentItem.count = currentItem.count + 1;
+    } else {
+      const itemToAdd = this.state.list.find((unit) => unit.code === code);
+      shoppingList.push({ ...itemToAdd, count: 1, selectedItem: 1 });
+    }
+
+    /**
+     * Установка состояния корзины 
+     */
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      shoppingList,
+    });
+
+    this.updateTotalPrice()
+    this.updateSelectedItems()
+  }
+
+  /**
+   *Расчет итоговой суммы корзины
+   * @returns {Number} sum сумма корзины
+   */
+  calculateTotalPrice() {
+    let sum = 0;
+    this.state.shoppingList.forEach((item) => {
+      sum = sum + item.price * item.count;
+    });
+    return sum;
+  }
+
+   /**
+   *Расчет количества товаров в корзине
+   * @returns {Number} sum сумма корзины
+   */
+  calculateSelectedItems() {
+    let selectedItems =  this.state.shoppingList.length
+    return selectedItems
+  }
+
+  /**
+   * Удаление записи из корзины
+   * @param code
+   */
+  deleteFromShoppingList(code) {
+    this.setState({
+      ...this.state,
+      shoppingList: this.state.shoppingList.filter((item) => item.code !== code),
+    });
+    
+    this.updateTotalPrice()
+    this.updateSelectedItems()
+  }
+
+  /**
+   * Обновление состояния суммы всех товаров в корзине
+   */
+  updateTotalPrice(){
+
+    this.setState({
+      ...this.state,
+     total: this.calculateTotalPrice()
+    });
+  }
+
+  /**
+   * Обновление состояния количества товаров в корзине
+   */
+  updateSelectedItems(){
+
+    this.setState({
+      ...this.state,
+     selectedItems: this.calculateSelectedItems()
+    });
+  }
 
   /**
    * Выделение записи по коду
@@ -69,7 +141,7 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
         if (item.code === code) {
           // Смена выделения и подсчёт
           return {
@@ -79,9 +151,9 @@ class Store {
           };
         }
         // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+        return item.selected ? { ...item, selected: false } : item;
+      }),
+    });
   }
 }
 
