@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode} from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -81,6 +81,40 @@ class Store {
         // Сброс выделения если выделена
         return item.selected ? {...item, selected: false} : item;
       })
+    })
+  }
+
+  addToCart(item) {
+    const findItemIndex = this.state.cart.findIndex(cartItem => item.code === cartItem.code);
+    if (findItemIndex !== -1) {
+      const updatedCart = [...this.state.cart];
+      const findItem = updatedCart[findItemIndex];
+      updatedCart[findItemIndex] = {...findItem, quantity: findItem.quantity + 1};
+
+      this.setState({
+        ...this.state,
+        cart: updatedCart,
+        totalPrice: updatedCart.reduce((acc, item) => acc + item.price * item.quantity, 0),
+      })
+
+    } else {
+      const updatedCart = [...this.state.cart, { ...item, quantity: 1 }]
+      this.setState({
+        ...this.state,
+        cart: updatedCart,
+        totalPrice: updatedCart.reduce((acc, item) => acc + item.price * item.quantity, 0),
+        cartCount: this.state.cartCount + 1
+      })
+    }
+  }
+
+  removeFromCart(code) {
+    const updatedCart = this.state.cart.filter(item => item.code !== code);
+    this.setState({
+      ...this.state,
+      cart: updatedCart,
+      totalPrice: updatedCart.reduce((acc, item) => acc + item.price * item.quantity, 0),
+      cartCount: this.state.cartCount - 1
     })
   }
 }

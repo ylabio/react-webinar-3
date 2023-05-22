@@ -1,0 +1,19 @@
+.CartList {}
+
+.CartList-item:first-child {
+    border-top: 1px dashed #ccc;
+}
+
+.CartList-item {
+    border-bottom: 1px dashed #ccc;
+}
+
+.CartList-item-quantity {
+    width: 40px;
+}
+
+.CartList-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}

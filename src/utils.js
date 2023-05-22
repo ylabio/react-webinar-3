@@ -49,3 +49,17 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * функция, которая преобразует число в цену с учетом региона и убирает символы после запятой для конечной строки
+ * Можно расширить добавив на вход locale и currency
+ * @param price
+ * @returns {string}
+ */
+export function formatPrice(price) {
+  return new Intl.NumberFormat('ru-RU', {
+    style: "currency",
+    currency: "RUB",
+    maximumFractionDigits: 0
+  }).format(price);
+}

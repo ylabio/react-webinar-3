@@ -1,0 +1,5 @@
+.ProductList {}
+
+.ProductList-item {
+  border-bottom: 1px dashed #ccc;
+}

@@ -1,0 +1,52 @@
+.Modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Modal_opened {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.Modal-content {
+    z-index: 1000;
+    background-color: white;
+    min-width: 250px;
+    max-width: 60%;
+    border-radius: 10px;
+}
+
+.Modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px 10px 0 0;
+    background-color: #F5F5F5;
+    padding: 20px;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 70px;
+}
+
+.Modal-body {
+  padding: 15px;
+}
+
+.Modal-close-btn {
+    margin-right: 15px;
+}
+
+@media(min-width: 967px) {
+  .Modal-content {
+      min-width: 960px;
+      min-height: 150px;
+  }
+}
