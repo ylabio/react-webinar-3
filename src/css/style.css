@@ -1,0 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.margin-inline-20 {
+  margin-inline: 20px;
+}

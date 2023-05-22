@@ -41,6 +41,71 @@ class Store {
   }
 
   /**
+   * Add item to the cart
+   * stores only unique entires in the state
+   * and adds new prop count
+   * 
+   * @param code
+   */  
+  addToCart(code) {
+    // find added item in the list
+    let unique = true;
+    // if cart is empty, returns empty array. If new item is already in the store,
+    // increment count prop
+    const newCart = this.state.cart.map(item => {
+      if (item.code === code) {
+        item = {...item, count: item.count + 1};
+        unique = false;
+      }
+      return item;
+    });
+
+    // 
+    const newCartItem = this.state.list.find(product => product.code === code);
+    if (newCartItem && unique) {
+      newCartItem.count = 1;
+      newCart.push(newCartItem);
+    }    
+
+    this.setState({
+      ...this.state,
+      cart: [...newCart]
+    });
+
+    this.caclCartSummary();
+  };
+
+  /**
+   * Calculate cart total sum and item count
+   */
+  caclCartSummary() {
+    const cart = this.state.cart;
+
+    this.setState({
+      ...this.state,
+      cartSummary: {
+        cartCount: cart.reduce((sum, cur) => sum + cur.count, 0),
+        cartUniqueCount: cart.length,
+        cartSum: cart.reduce((sum, cur) => sum + (cur.price * cur.count), 0)
+      }
+    });
+  }
+
+  /**
+   * Delete item from the cart by code
+   * @param code
+   */
+  deleteFromCart(code) {
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter(item => item.code !== code)
+    });
+
+    this.caclCartSummary();
+  };
+  
+
+  /**
    * Добавление новой записи
    */
   addItem() {

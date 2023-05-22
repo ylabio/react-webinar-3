@@ -49,3 +49,45 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Thousand separator
+ * @param num {number} number
+ * @returns {string} initial number as string with space separated thousands
+ */
+export function thousSeparator(num) {
+  const strArr = (num.toString()).split('.'); // keep decimal part
+  const separations = Math.floor((strArr[0].length - 1) / 3); // calculating amount of separations needed
+  if (strArr[0] && separations > 0 ) {
+    for (let i = 1; i <= separations; i++) {
+      const pos = -(i*4 - 1); // position to slice on each iteration
+      strArr[0] = strArr[0].slice(0, pos) + ' ' + strArr[0].slice(pos); // inserting space at desired position
+    }
+    return strArr.join('.');
+  }
+  return num.toString();
+}
+
+/**
+ * Total value of all items in the cart
+ * 
+ * @param list {array} of items in the cart
+ * @returns {number}
+ */
+export function calcCartSum(list) {
+  if (list.length < 1) return 0;
+
+  return list.reduce((sum, cur) => sum + (cur.price * cur.count), 0);
+}
+
+/**
+ * Total count of items in the cart
+ * 
+ * @param list {array} of items in the cart
+ * @returns {number}
+ */
+export function calcCartTotalCount(list) {
+  if (list.length < 1) return 0;
+
+  return list.reduce((sum, cur) => sum + cur.count, 0);
+}

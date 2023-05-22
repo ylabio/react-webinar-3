@@ -16,6 +16,12 @@
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.Item-price {
+  margin-left: auto;
 }
 
 .Item-actions {

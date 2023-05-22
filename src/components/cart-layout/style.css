@@ -1,0 +1,13 @@
+.CartLayout {
+  width: min(93.75%, 960px);
+  background: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0;
+  box-shadow: 0 0 15px 5px #0000003b;
+}
+
+
+.CartLayout::backdrop {
+  background: rgba(0, 0, 0, 0.66);
+}

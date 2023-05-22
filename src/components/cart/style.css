@@ -1,0 +1,21 @@
+.Cart-spacer {
+  height: 60px;
+  border-bottom: 1px dashed #ccc;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Cart-summary {
+  margin-bottom: 60px;
+  padding-inline-end: 102px;
+  padding-block: 20px;
+  font-weight: bold;
+  
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 60px;
+}
