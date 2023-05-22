@@ -1,0 +1,9 @@
+.Total {
+  display: flex;
+  justify-content: flex-end;
+  gap: 50px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  margin-right: 105px;
+}

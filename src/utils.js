@@ -49,3 +49,29 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Получение форматированной строки о текущем статусе Корзины
+ * @param {Object} options - Объект, содержащий следующие свойства:
+ * @param {number} options.length - Длина
+ * @param {number} options.total - Общая стоимость товаров
+ * @returns {string} Строка, описывающая статус корзины. Если корзина пуста, возвращает "пусто".
+ */
+export function formatCart({length, total}) {
+  if (!length) {
+    return "пусто"
+  }
+
+  return `${length} ${plural(length, { one: 'товар', few: 'товара', many: 'товаров' })} / ${toLocaleCurrency(total)}`
+}
+
+/**
+ * Форматирует числовое значение в валюту с использованием метода toLocaleString().
+ * @param {number} value - Числовое значение для форматирования.
+ * @param {string} [locale='ru-RU'] - Языковой код для форматирования. По умолчанию: 'ru-RU'.
+ * @param {string} [currency='RUB'] - Код валюты для форматирования. По умолчанию: 'RUB'.
+ * @returns {string} - Отформатированная строка с валютой.
+ */
+export function toLocaleCurrency(value, locale = 'ru-RU', currency = 'RUB') {
+  return value.toLocaleString(locale, { style: 'currency', currency, minimumFractionDigits: 0 })
+}

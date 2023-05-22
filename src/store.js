@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -7,6 +5,10 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state.cart = {
+      list: [],
+      total: 0
+    } // Корзина
   }
 
   /**
@@ -41,47 +43,56 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление предмета по коду в корзину
+   * @param code {number}
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+  addItem(code) {
+    const itemInCart = this.state.cart.list.find((item) => item.code === code)
+    const item = this.state.list.find((item) => item.code === code)
+
+    if (itemInCart) {
+      this.setState({
+        ...this.state,
+        cart: {
+          ...this.state.cart,
+          list: this.state.cart.list.map((item) => {
+            if (item.code === code) item.amount++
+            return item
+          }),
+        }
+      })
+    } else {
+      this.setState({
+        ...this.state, cart: {
+          ...this.state.cart,
+          list: [...this.state.cart.list, { ...item, amount: 1 }],
+        }
+      })
+    }
+    this.#updateCartTotal()
   };
 
   /**
-   * Удаление записи по коду
+   * Удаление предмета по коду
    * @param code
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cart: {
+        ...this.state.cart,
+        list: this.state.cart.list.filter(item => item.code !== code),
+      }
     })
+    this.#updateCartTotal()
   };
 
   /**
-   * Выделение записи по коду
-   * @param code
+   * Обновление общей стоимости товара
+   * @returns {void}
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+  #updateCartTotal() {
+    this.state.cart.total = this.state.cart.list.reduce((acc, curr) => acc + curr.price * curr.amount, 0)
   }
 }
 
