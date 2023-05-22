@@ -99,11 +99,11 @@ class Store {
   // Подсчет кол-ва товаров
   sumCountItem() {
     let sumCount = 0;
-    this.state.basket;
+    /* this.state.basket;
     for (let i = 0; i < this.state.basket.length; i++) {
       sumCount += this.state.basket[i].count;
-    }
-    return sumCount;
+    } */
+    return sumCount = this.state.basket.length;
   }
   // Обновление значения сумм
   updatedPrice() {

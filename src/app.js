@@ -12,6 +12,7 @@ import { Popup } from './components/popup';
  */
 function App({store}) {
   const [active, setActive] = useState(false)
+  const [count, setCount] = useState(0)
   const {list, basket, sumPrice, sumCount} = store.getState();
   const callbacks = {
     /* onDeleteItem: useCallback((code) => {
@@ -30,7 +31,7 @@ function App({store}) {
     },[store]),
     handleClickDelete: useCallback((code) => {
       store.handleClickDelete(code)
-    }, [store])
+    }, [store]),
   }
 
   return (

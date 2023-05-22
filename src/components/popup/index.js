@@ -8,7 +8,7 @@ export const Popup = ({active, setActive, basket, handleClick, sumPrice }) => {
     <div className={'popup' && active ? 'active' : '' } onClick={() => setActive(false)}>
       <div className='popup__content' onClick={(e) => e.stopPropagation()}>
         <div className='popup__header'>
-          <h2>Корзина</h2>
+          <h2 className='popup__title'>Корзина</h2>
           <button onClick={() => setActive(false)}>
             Закрыть
           </button>

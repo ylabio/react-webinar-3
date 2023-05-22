@@ -7,9 +7,9 @@ function Controls({ setActive, sumPrice, sumCount }) {
     <div className="Controls">
       <div className="Controls-info">
         <div className="Controls-basket">
-          В корзине:&nbsp;<span className="Controls-count">{sumCount > 0 ? sumCount : 'пусто'}&nbsp;</span>
+          В корзине:&nbsp;<span className="Controls-count">{sumCount > 0 ? `${sumCount}` : 'пусто'}&nbsp;</span>
         </div>
-        {sumCount > 0 ? <div className="Controls-price">товара&nbsp;/&nbsp;{sumPrice}  &#8381;</div>: '' }
+        {sumCount > 0 ? <div className="Controls-price">товара&nbsp;/&nbsp;{sumPrice.toLocaleString('ru-RU')}  &#8381;</div>: '' }
       </div>
       <div className="Controls-action">
         <button className="Controls-button" onClick={() => setActive(true)}>Перейти</button>
@@ -20,6 +20,8 @@ function Controls({ setActive, sumPrice, sumCount }) {
 
 Controls.propTypes = {
   onAdd: PropTypes.func,
+  sumCount: PropTypes.number,
+  sumPrice: PropTypes.number
 };
 
 Controls.defaultProps = {

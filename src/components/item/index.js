@@ -26,7 +26,7 @@ function Item(props){
         {props.item.title}
       </div>
       <div className="Item-price">
-        {props.item.price}&nbsp;&#8381;
+        {props.item.price.toLocaleString('ru-RU')}&nbsp;&#8381;
       </div>
       {props.buttonName === 'Удалить' ? <div className="Item-count">
           {props.item.count}&nbsp;шт.

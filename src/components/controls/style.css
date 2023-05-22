@@ -1,6 +1,7 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  border-bottom: 1px dashed #ccc;
 }
 .Controls-info {
   display: flex;
