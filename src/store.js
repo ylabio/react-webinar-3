@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -7,6 +5,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state.calculatePrice = 0;
+    this.state.totalGoods = 0;
   }
 
   /**
@@ -30,7 +30,7 @@ class Store {
     return this.state;
   }
 
-  /**
+   /**
    * Установка состояния
    * @param newState {Object}
    */
@@ -41,48 +41,41 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
    * Удаление записи по коду
    * @param code
    */
   deleteItem(code) {
+    const foundItem = this.state.basket.find(e => e.code === code)
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
+      calculatePrice: this.state.calculatePrice - (foundItem.price * foundItem.quantity),
+      totalGoods: (this.state.totalGoods - 1),
+      basket: this.state.basket.filter(item => item.code !== code)
+      })
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+  // добавление товара
+  addItemToBasket(code, title, price ) {
+    const foundItem = this.state.basket.find(e => e.code === code)
+    foundItem ?
+    this.setState({...this.state,
+      calculatePrice: (this.state.calculatePrice + price),
+      basket: this.state.basket.map(item => {
+      if (item.code === code){
+        return {
+          ...item,
+          quantity: item.quantity + 1
         }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
+      }else return {...item}
     })
-  }
+    })
+    : this.setState({...this.state,
+      calculatePrice:(this.state.calculatePrice + price),
+      totalGoods: (this.state.totalGoods + 1),
+      basket: [...this.state.basket, {code, title, price, quantity: 1}]
+    })
+  };
 }
+
 
 export default Store;

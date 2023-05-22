@@ -1,0 +1,15 @@
+.Basket{
+  margin-top: 65px;
+}
+
+.Basket-empty{
+  text-align: center;
+}
+
+.Basket-item {
+  border-bottom: 1px dashed #ccc;
+  border-top: 1px dashed #ccc;
+}
+.Basket-item {
+  border-bottom: 1px dashed #ccc;
+}

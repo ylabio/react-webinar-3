@@ -1,0 +1,51 @@
+.Modal {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(0,0,0,0.4) ;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
+}
+.Modal.active{
+  opacity: 1;
+  pointer-events: all;
+}
+
+
+.Modal-basket{
+  background-color: white;
+  min-height: 407px;
+  width: 960px;
+  border-radius: 10px;
+  transition: 0.4s all;
+  transform: scale(0.5);
+}
+
+.Modal-basket.active{
+  transform: scale(1);
+}
+
+.Modal-prise{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  /*font-weight: bold;*/
+  padding: 10px 120px 89px;
+  text-align: end;
+  font-family: Arial, serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  /* identical to box height */
+
+  /*text-align: right;*/
+
+  color: #000000;
+}

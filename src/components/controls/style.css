@@ -2,4 +2,21 @@
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+  border-bottom: 1px dashed #ccc;
 }
+
+.Item-basket {
+  padding: 0 25px 0 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Basket-actions{
+  min-width: 75px;
+  padding-left: 10px;
+}
+.textBold{
+  font-weight: bold;
+  padding-right: 15px;
+}
+
