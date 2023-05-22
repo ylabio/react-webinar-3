@@ -96,6 +96,9 @@ class Store {
     this.setState({
       ...this.state, cartList
     })
+
+    this.state.cartPrice = this.state.cartList.reduce((sum, item) => sum + item.price*item.count, 0)
+    this.state.cartCount = this.state.cartList.reduce((sum, item) => sum + item.count, 0)
   }
 
   deleteCartItem(cartItem) {
@@ -104,8 +107,10 @@ class Store {
     this.setState({
       ...this.state, cartList
     })
-  }
 
+    this.state.cartPrice = this.state.cartList.reduce((sum, item) => sum + item.price*item.count, 0)
+    this.state.cartCount = this.state.cartList.reduce((sum, item) => sum + item.count, 0)
+  }
 }
 
 export default Store;

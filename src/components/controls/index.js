@@ -1,14 +1,12 @@
-import React, {useMemo} from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 import {numberFormat, plural} from "../../utils";
+import {store} from "../../index";
 
 function Controls({cartList, setCartState}){
 
-  const cartPrice = useMemo(() => {
-    return cartList.reduce((sum, item) => sum + item.price*item.count, 0)
-  }, [cartList])
-
+  const cartPrice = store.state.cartPrice
   const cartCount = cartList.length
 
   return (

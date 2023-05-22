@@ -26,9 +26,4 @@ List.propTypes = {
   actionItem: string.isRequired,
 };
 
-List.defaultProps = {
-  list: [],
-  actionItem: null
-}
-
 export default React.memo(List);

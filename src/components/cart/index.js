@@ -1,14 +1,13 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import Head from "../head";
 import './style.css'
 import List from "../list";
 import {numberFormat} from "../../utils";
+import {store} from "../../index";
 
 function Cart({cartList, setCartState}) {
 
-  const cartPrice = useMemo(() => {
-    return cartList.reduce((sum, item) => sum + item.price*item.count, 0)
-  }, [cartList])
+  const cartPrice = store.state.cartPrice
 
   return (
     <div className='Cart'>
