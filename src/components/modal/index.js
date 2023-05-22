@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import Head from "../head";
 import ModalLayout from "../modal-layout";
 import ModalItem from "../modal-item";
+import ModalTotal from "../modal-total";
 import "./style.css";
-import { addSpaceToNumber } from "../../utils";
 
 function Modal({ toggleModal, cart, handleDelete, totalPrice }) {
   const hasItems = cart.length !== 0;
@@ -14,6 +14,7 @@ function Modal({ toggleModal, cart, handleDelete, totalPrice }) {
       <div className="ModalBackdrop"></div>
       <ModalLayout>
         <Head title="Корзина" showButton={true} toggleModal={toggleModal} />
+        <div className="ModalWhitespace"></div>
         <div>
           {hasItems ? (
             cart.map((item, index) => (
@@ -27,14 +28,7 @@ function Modal({ toggleModal, cart, handleDelete, totalPrice }) {
             <div className="Modal-item-empty">Ваша корзина пуста🤷‍♂️</div>
           )}
         </div>
-        {hasItems && (
-          <div>
-            <div className="Modal-item-info">
-              <div>Итого</div>
-              <div>{addSpaceToNumber(totalPrice)} ₽</div>
-            </div>
-          </div>
-        )}
+        {hasItems && <ModalTotal totalPrice={totalPrice} />}
       </ModalLayout>
     </div>
   );
@@ -43,7 +37,7 @@ function Modal({ toggleModal, cart, handleDelete, totalPrice }) {
 Modal.propTypes = {
   cart: PropTypes.arrayOf(
     PropTypes.shape({
-      code: PropTypes.string.isRequired,
+      code: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
       count: PropTypes.number.isRequired,

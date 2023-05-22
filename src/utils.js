@@ -63,6 +63,39 @@ export function addSpaceToNumber(number) {
   } else if (str.length === 7) {
     formattedNumber =
       str.slice(0, 1) + " " + str.slice(1, 4) + " " + str.slice(4);
+  } else if (str.length === 8) {
+    formattedNumber =
+      str.slice(0, 2) + " " + str.slice(2, 5) + " " + str.slice(5);
+  } else if (str.length === 9) {
+    formattedNumber =
+      str.slice(0, 3) + " " + str.slice(3, 6) + " " + str.slice(6);
+  } else if (str.length === 10) {
+    formattedNumber =
+      str.slice(0, 1) +
+      " " +
+      str.slice(1, 4) +
+      " " +
+      str.slice(4, 7) +
+      " " +
+      str.slice(7);
+  } else if (str.length === 11) {
+    formattedNumber =
+      str.slice(0, 2) +
+      " " +
+      str.slice(2, 5) +
+      " " +
+      str.slice(5, 8) +
+      " " +
+      str.slice(8);
+  } else if (str.length === 12) {
+    formattedNumber =
+      str.slice(0, 3) +
+      " " +
+      str.slice(3, 6) +
+      " " +
+      str.slice(6, 9) +
+      " " +
+      str.slice(9);
   }
 
   return formattedNumber;

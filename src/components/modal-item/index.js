@@ -8,12 +8,16 @@ function ModalItem({ item, handleDelete }) {
 
   return (
     <div className="Modal-item">
-      <div className="Modal-item-code">{code}</div>
-      <div className="Modal-item-title">{title}</div>
-      <div className="Modal-item-price">{addSpaceToNumber(price)} ₽</div>
-      <div className="Modal-item-count">{count} шт</div>
-      <div className="Modal-item-actions">
-        <button onClick={() => handleDelete(code)}>Удалить</button>
+      <div className="Modal-item-one">
+        <div className="Modal-item-code">{code}</div>
+        <div className="Modal-item-title">{title}</div>
+      </div>
+      <div className="Modal-item-two">
+        <div className="Modal-item-price">{addSpaceToNumber(price)} ₽</div>
+        <div className="Modal-item-count">{count} шт</div>
+        <div className="Modal-item-actions">
+          <button onClick={() => handleDelete(code)}>Удалить</button>
+        </div>
       </div>
     </div>
   );
@@ -21,7 +25,7 @@ function ModalItem({ item, handleDelete }) {
 
 ModalItem.propTypes = {
   item: PropTypes.shape({
-    code: PropTypes.string.isRequired,
+    code: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     count: PropTypes.number.isRequired,
