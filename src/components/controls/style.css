@@ -1,5 +1,14 @@
 .Controls {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px;
+	display: flex;
+	justify-content: flex-end;
+	padding: 20px;
+	align-items: center;
+}
+
+.Controls-count {
+	margin-right: 25px;
+}
+
+.Controls button {
+	padding: 3px 9px;
 }

@@ -1,41 +1,39 @@
-import React, {useCallback} from 'react';
-import List from "./components/list";
-import Controls from "./components/controls";
-import Head from "./components/head";
-import PageLayout from "./components/page-layout";
+import React, { useCallback, useState } from 'react';
+import List from './components/list';
+import Controls from './components/controls';
+import Head from './components/head';
+import PageLayout from './components/page-layout';
+import Modal from './components/modal/index.js';
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
 
-  const list = store.getState().list;
+function App({ store }) {
+	const [activeModal, setActiveModal] = useState(false);
 
-  const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+	const list = store.getState().list;
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+	const callbacks = {
+		onAddItem: useCallback((code) => {
+			store.addItemInBucket(code);
+		}),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
+		onOpenModal: useCallback(() => {
+			setActiveModal(!activeModal);
+		}),
+	};
 
-  return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-    </PageLayout>
-  );
+	return (
+		<PageLayout>
+			<Head title="Магазин" />
+			<Controls onOpenModal={callbacks.onOpenModal} store={store} />
+			<List list={list} onAddItem={callbacks.onAddItem}  store={store}/>
+			<Modal title="Корзина" active={activeModal} onOpenModal={callbacks.onOpenModal} store={store} />
+		</PageLayout>
+	);
 }
 
 export default App;
