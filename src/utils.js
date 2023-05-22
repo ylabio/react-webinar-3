@@ -37,6 +37,7 @@ export const generateCode1 = (function (start = 0) {
       yield ++start;
     }
   }
+
   const gen = realGenerator(start);
   return () => gen.next().value;
 }());
@@ -49,3 +50,8 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+export const formattedPrice = (price) =>
+  new Intl.NumberFormat("ru-RU", {
+    style: "currency", currency: "RUB", maximumFractionDigits: 0
+  }).format(price);

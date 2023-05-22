@@ -1,0 +1,10 @@
+.ModalCart {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  gap: 0 15px;
+}
+
+.ModalCart-info {
+  font-weight: bold;
+}

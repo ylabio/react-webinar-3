@@ -40,6 +40,52 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+  addItemToCart = (code) => {
+    const { cartList, list, cartCountTotal, cartPriceTotal } = this.state;
+    const itemIndex = cartList.findIndex((item) => item.code === code);
+
+    if (itemIndex !== -1) {
+      const updatedCartList = cartList.map((item, index) => {
+        if (index === itemIndex) {
+          return { ...item, count: item.count + 1 };
+        }
+        return item;
+      });
+
+      this.setState({
+        ...this.state,
+        cartList: updatedCartList,
+        cartCountTotal: cartCountTotal,
+        cartPriceTotal: cartPriceTotal + updatedCartList[itemIndex].price,
+      });
+    } else {
+      const itemToAdd = list.find((item) => item.code === code);
+
+      if (itemToAdd) {
+        const newItem = { ...itemToAdd, count: 1 };
+
+        this.setState({
+          ...this.state,
+          cartList: [...cartList, newItem],
+          cartCountTotal: cartCountTotal + 1,
+          cartPriceTotal: cartPriceTotal + newItem.price,
+        });
+      }
+    }
+  };
+
+  deleteItemToCart(code) {
+    const cartList = [...this.state.cartList]
+    const itemToDeleteIndex = this.state.cartList.findIndex((index) => index.code === code)
+    const [removedItem] = cartList.splice(itemToDeleteIndex, 1);
+    const cartPriceTotal = this.state.cartPriceTotal - removedItem.count * removedItem.price;
+    const cartCountTotal = this.state.cartCountTotal - 1;
+
+    this.setState({
+      ...this.state, cartList, cartPriceTotal, cartCountTotal,
+    });
+  }
+
   /**
    * Добавление новой записи
    */
