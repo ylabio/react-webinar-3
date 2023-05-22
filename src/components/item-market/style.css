@@ -1,0 +1,34 @@
+.Item-market {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.Item-market__code {
+  padding: 20px 10px 20px 20px;
+}
+
+.Item-market__title {
+  width: 100%;
+  padding: 20px 10px;
+}
+
+.IItem-market__actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+}
+
+.Item-market__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Item-market__price {
+  white-space: nowrap;
+  margin-right: 14px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #404040;
+}

@@ -1,0 +1,17 @@
+.basket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f5f5f5;
+    border-radius: 10px;
+}
+
+.basket-close {
+    margin-right: 32px;
+    height: 100%;
+}
+
+.basket-section__empty {
+    height: 61px;
+    border-bottom: 1px dashed #ccc;
+}

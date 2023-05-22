@@ -1,0 +1,21 @@
+.modal {
+    top: 0;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    position: absolute;
+    top: calc(50% - 407px / 2 - 97px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 960px;
+    min-height: 0;
+    border-radius: 10px;
+    background: #fff;
+}
+.modal-content .Head {
+    border-top-left-radius: 10px;
+}

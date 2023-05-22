@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import {countTotalPrice, generateCode} from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -41,7 +41,7 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление новой записи пока что оставим, вдруг пригодится, хотя всегда можно достать из гитхаба
    */
   addItem() {
     this.setState({
@@ -51,36 +51,51 @@ class Store {
   };
 
   /**
-   * Удаление записи по коду
+   * Удаление записи из корзины по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItemFromBasket(code) {
+    const newListForBasket = this.state.listForBasket.filter(item => item.code !== code);
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      listForBasket: newListForBasket,
+      totalPrice: countTotalPrice(newListForBasket),
+      totalNumberOfAddedItems: newListForBasket.length,
     })
-  };
+  }
 
   /**
-   * Выделение записи по коду
+   * Добавление и увеличение товара в корзину
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
+  addItemToBasket(code) {
+    let newListForBasket;
+    // такая большая проверка была нужна для того, чтоб не изменять изначальный массив данных товаров
+    if (this.state.listForBasket.some(item => item.code === code)) {
+      newListForBasket = this.state.listForBasket.map(item => {
         if (item.code === code) {
-          // Смена выделения и подсчёт
           return {
             ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+            count: item.count + 1,
+          }
         }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+        return item
       })
+    } else {
+      newListForBasket = [
+        ...this.state.listForBasket,
+        {
+          ...this.state.list.find(item => item.code === code),
+          count : 1
+        }
+      ]
+    }
+
+    this.setState({
+      ...this.state,
+      listForBasket: [...newListForBasket],
+      totalPrice: countTotalPrice(newListForBasket),
+      totalNumberOfAddedItems: newListForBasket.length,
     })
   }
 }

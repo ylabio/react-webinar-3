@@ -1,0 +1,43 @@
+.Item-basket {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.Item-basket__code {
+    padding: 20px 10px 20px 20px;
+}
+
+.Item-basket__title {
+    width: 100%;
+    padding: 20px 10px;
+}
+
+.Item-basket__actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 20px 20px 10px;
+}
+
+.Item-basket__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Item-basket__price {
+    white-space: nowrap;
+    margin-right: 62px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #404040;
+}
+
+.Item-basket__count {
+    white-space: nowrap;
+    margin-right: 24px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #404040;
+}

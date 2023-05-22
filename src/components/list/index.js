@@ -1,31 +1,28 @@
+import './style.css';
 import React from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
-import './style.css';
 
-function List({list, onDeleteItem, onSelectItem}){
+function List({list, onBtnClick, buttonText, ListItem}) {
   return (
-    <div className='List'>{
-      list.map(item =>
+    <div className='List'>
+      {list.map(item => (
         <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
+          <ListItem item={item} onBtnClickAction={onBtnClick} buttonText={buttonText}/>
         </div>
-      )}
+        // в этом случае мы получаем достаточно грязные элементы списка
+        // но это дает нам гибкость и простоту использования списков с разными Item
+      ))}
     </div>
-  )
+  );
 }
 
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
+  ListItem: PropTypes.elementType.isRequired,
+  buttonText: PropTypes.string,
+  onBtnClick: PropTypes.func,
 };
-
-List.defaultProps = {
-  onDeleteItem: () => {},
-  onSelectItem: () => {},
-}
 
 export default React.memo(List);
