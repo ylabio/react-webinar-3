@@ -1,8 +1,11 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
-import Controls from "./components/controls";
+import Information from "./components/information";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Cart from "./components/cart";
+import Item from "./components/item";
+import Popup from "./components/popup";
 
 /**
  * Приложение
@@ -11,29 +14,49 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
-  const list = store.getState().list;
+  const [isOpenedCart, setIsOpenedCart] = useState(false)
+
+  const data = {
+    list: store.getState().list,
+    cart: store.getState().cart.items,
+    totalPriceCart: store.getState().cart.totalPrice || 0,
+    countCartItems: store.getState().cart.itemsCount || 0,
+  }
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+    onAddItemToCart: useCallback((code) => {
+        store.addItemToCart(code)
+      },[store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+    onDeleteItemFromCart: useCallback((code) => {
+        store.deleteItemFromCart(code)
+      },[store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    onCloseCart: useCallback(() => {
+      setIsOpenedCart(false)
+    }, []),
+
+    onOpenCart: useCallback(() => {
+      setIsOpenedCart(true)
+    }, [])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин'/>
+      <Information countCartItems={data.countCartItems}
+                   totalPriceCart={data.totalPriceCart}
+                   onOpenCart={callbacks.onOpenCart}/>
+      <List list={data.list}
+            onAddItemToCart={callbacks.onAddItemToCart}>
+        <Item/>
+      </List>
+      <Popup isOpened={isOpenedCart} onClose={callbacks.onCloseCart}>
+        <Cart cart={data.cart}
+              totalPrice={data.totalPriceCart}
+              onDeleteItemFromCart={callbacks.onDeleteItemFromCart}
+              isEmptyCart={!data.countCartItems > 0}/>
+      </Popup>
     </PageLayout>
   );
 }

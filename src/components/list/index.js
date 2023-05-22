@@ -1,16 +1,21 @@
-import React from "react";
+import React, {cloneElement} from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
 import './style.css';
+import {cn as bem} from "@bem-react/classname";
 
-function List({list, onDeleteItem, onSelectItem}){
+function List({list, children, ...props}){
+
+  const cn = bem('List')
+
   return (
-    <div className='List'>{
-      list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
-        </div>
-      )}
+    <div className={cn()}>{
+      list.length > 0 ?
+        list.map(item =>
+          <div key={item.code} className={cn('item')}>
+            {cloneElement(children, {item, ...props})}
+          </div>
+        ) :
+        <div className={cn('empty')}>Товаров нет :(</div>}
     </div>
   )
 }
@@ -19,13 +24,7 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
+  children: PropTypes.node.isRequired
 };
-
-List.defaultProps = {
-  onDeleteItem: () => {},
-  onSelectItem: () => {},
-}
 
 export default React.memo(List);

@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,48 +39,60 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Подсчет продуктов в корзине
+   * @param operation
    */
-  addItem() {
+  changeItemsCartCount(operation) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cart: {
+        ...this.state.cart,
+        itemsCount: operation === 'add' ? this.state.cart.itemsCount + 1 || 1 : this.state.cart.itemsCount - 1
+      }
     })
   }
+
+  /**
+   * Добавление товара в корзину
+   * @param code
+   */
+  addItemToCart(code) {
+    const product = this.state.list.find(item => item.code === code)
+    const cart = this.state.cart
+    const sameItem = cart.items.findIndex(item => item.code === code) >= 0
+
+    this.setState({
+      ...this.state,
+      cart: {
+        ...cart,
+        items: sameItem
+          ? cart.items.map(item => item.code === code ? {...item, count: item.count + 1} : item)
+          : [...cart.items, {code: code, title: product.title, count: 1, price: product.price}],
+        totalPrice: cart.totalPrice + product.price || product.price,
+      }
+    })
+    !sameItem && this.changeItemsCartCount('add')
+  }
+
+  /**
+   * Удаление товара из корзины по коду
+   * @param code
+   */
+  deleteItemFromCart(code) {
+    const product = this.state.cart.items.find(item => item.code === code)
+    const cart = this.state.cart
+
+    this.setState({
+      ...this.state,
+      // Новая корзина, в котором не будет удаляемой позиции
+      cart: {
+        ...cart,
+        items: cart.items.filter(item => item.code !== code),
+        totalPrice: cart.totalPrice - product.price * product.count,
+      }
+    })
+    this.changeItemsCartCount('delete')
+  };
 }
 
 export default Store;
