@@ -9,6 +9,13 @@
   color: #fff;
 }
 
+.Item-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
 .Item-code {
   padding: 20px 10px 20px 20px;
 }
@@ -20,6 +27,32 @@
 
 .Item-actions {
   display: flex;
+  width: 100%;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+  align-items: center;
+  padding: 20px 21px 21px 10px;
+}
+
+.Item-price {
+  margin: 0;
+  margin-right: 24px;
+  font-size: 18px;
+}
+
+.Item-quantity {
+  margin: 0;
+  margin-right: 24px;
+  margin-left: 38px;
+}
+
+.Item-button {
+  width: 76px;
+  height: 21px;
+  font-weight: 400;
+  font-size: 13px;
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
 }

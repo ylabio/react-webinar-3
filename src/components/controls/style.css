@@ -1,5 +1,30 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
   padding: 20px;
+}
+
+.Controls-info {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.Controls-info span {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  color: #000000;
+  margin-left: 15px;
+}
+
+.Controls-button {
+  width: 76px;
+  height: 21px;
+  font-weight: 400;
+  font-size: 13px;
+  text-align: center;
 }

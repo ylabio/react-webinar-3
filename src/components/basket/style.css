@@ -1,0 +1,41 @@
+.Basket-popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.Basket-content {
+  position: relative;
+  border-radius: 8px;
+  margin: 10px;
+  width: 960px;
+  background-color: #fff;
+}
+
+.Basket-close {
+  width: 76px;
+  height: 21px;
+  align-self: center;
+  margin-right: 32px;
+}
+
+.Basket-priceInfo {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: 700;
+  margin-right: 110px;
+  font-size: 18px;
+  margin-bottom: 89px;
+  gap: 32px;
+}
+
+.Basket-head {
+  border-right: 10px;
+}
