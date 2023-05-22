@@ -20,12 +20,10 @@ List.propTypes = {
     code: PropTypes.number
   })).isRequired,
   onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
 };
 
 List.defaultProps = {
   onDeleteItem: () => {},
-  onSelectItem: () => {},
 }
 
 export default React.memo(List);

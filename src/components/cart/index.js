@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes, { number } from 'prop-types';
 import List from "../list";
 import {numberFormat} from "../../utils";
 import "./style.css";
@@ -21,6 +22,12 @@ function Cart({cart, totalCart, action}) {
         )}
       </>
   );
+}
+
+Cart.propTypes = {
+  cart: PropTypes.array,
+  totalCart: PropTypes.number,
+  action: PropTypes.func,
 }
 
 export default Cart;
