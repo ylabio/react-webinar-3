@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback} from "react";
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Basket from "./components/basket";
 
 /**
  * Приложение
@@ -12,28 +13,34 @@ import PageLayout from "./components/page-layout";
 function App({store}) {
 
   const list = store.getState().list;
+  const basket = store.getState().basket;
+  const basketIsOpened = store.getState().basketIsOpened
+
+  const amount = basket.reduce((acc, item) => acc + item.price * item.quantity, 0)
 
   const callbacks = {
+    // открываем карзину
+    onTaggleBasket: useCallback(() => {
+      store.taggleBasket();
+    }, [store]),
+
+    // добавляем в карзину
+    onAddItem: useCallback((item) => {
+      store.addItem(item);
+    }, [store]),
+
+    // удаляем из корзины
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
-    }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
     }, [store])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин'/>
+      <Controls onTaggle={callbacks.onTaggleBasket} basket={basket} />
+      <List list={list} onAdd={callbacks.onAddItem}/>
+      <Basket basket={basket} onDelete={callbacks.onDeleteItem} basketIsOpened={basketIsOpened} onTaggle={callbacks.onTaggleBasket}/>
     </PageLayout>
   );
 }

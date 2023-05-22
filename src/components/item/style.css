@@ -1,6 +1,7 @@
 .Item {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   transition: background-color 1s;
 }
 
@@ -14,12 +15,12 @@
 }
 
 .Item-title {
-  width: 100%;
   padding: 20px 10px;
+  flex: auto;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+  padding: 20px 20px 20px 20px;
 }

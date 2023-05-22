@@ -1,0 +1,12 @@
+.BasketTotal {
+  display: flex;
+  justify-content: end;
+  font-weight: 700;
+  padding: 20px;
+  margin-bottom: 60px;
+}
+
+.BasketTotal-amount {
+  margin-left: 20px;
+  margin-right: 100px;;
+}

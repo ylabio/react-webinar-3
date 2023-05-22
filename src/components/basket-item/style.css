@@ -1,0 +1,25 @@
+.BasketItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-weight: 400;
+}
+
+.BasketItem-code {
+  padding: 20px 10px 20px 20px;
+}
+
+.BasketItem-title {
+  padding: 20px 10px;
+  flex: auto;
+}
+
+.BasketItem-quantity {
+  padding-left: 20px;
+}
+
+.BasketItem-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 20px;
+}
