@@ -14,7 +14,15 @@
 }
 
 .Item-title {
-  width: 100%;
+  padding: 20px 10px;
+}
+
+.Item-price {
+  margin-left: auto;
+  padding: 20px 10px;
+}
+
+.Item-count {
   padding: 20px 10px;
 }
 

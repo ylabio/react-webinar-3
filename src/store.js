@@ -6,6 +6,7 @@ import {generateCode} from "./utils";
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.totalPrice = 0;
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -22,6 +23,12 @@ class Store {
     }
   }
 
+  updateTotalPrice(list) {
+      this.totalPrice = list.length &&
+      list.reduce((total, item) => total + item.price * item.count, 0);
+      return this.totalPrice;
+    };
+    
   /**
    * Выбор состояния
    * @returns {Object}
@@ -49,6 +56,30 @@ class Store {
       list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
     })
   };
+
+  addCartItem(code) {
+    const cartList = [...this.state.cartList];
+    const existingItem = cartList.find((el) => el.code == code);
+    if (existingItem) {
+      ++existingItem.count;
+    } else {
+      const item = this.state.list.find((el) => el.code == code);
+      cartList.push({ ...item, count: 1 });
+    }
+    this.setState({
+      ...this.state,
+      cartList,
+    });
+    this.updateTotalPrice(this.state.cartList);
+  }
+
+  deleteCartItem(code) {
+    this.setState({
+      ...this.state,
+      cartList: this.state.cartList.filter((el) => el.code !== code),
+    });
+    this.updateTotalPrice(this.state.cartList);
+  }
 
   /**
    * Удаление записи по коду

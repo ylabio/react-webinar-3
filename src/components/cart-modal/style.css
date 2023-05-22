@@ -1,0 +1,49 @@
+.Cart-modal {
+	position: absolute;
+   float: left;
+   left: 50%;
+   top: 50%;
+   width: 90vw;
+   max-width: 960px;
+	background: #fff;
+	box-sizing: border-box;
+	box-shadow: 0 0 15px 5px #0000003b;
+   transform: translate(-50%, -50%);
+   border-radius: 12px;
+}
+
+.Cart-modal-overlay {
+   position: fixed;
+   overflow-y: scroll;
+   z-index: 10;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.5);
+   padding-right: 15px; /* Avoid width reflow */
+   overscroll-behavior: contain;
+}
+
+.Cart-modal-close {
+   position: absolute;
+   right: 32px;
+   top: 32px;
+   width: 76px;
+   height: 21px;
+}
+
+
+.Cart-modal-total {
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+	gap: 20px;
+	padding: 20px 100px;
+   margin: 0 0 64px 0;
+}
+
+.Cart-modal .Head {
+   margin: 0 0 64px 0;
+   border-radius: 12px 12px 0 0;
+}

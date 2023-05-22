@@ -16,6 +16,11 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   return variants[key] || '';
 }
 
+ 
+export function formatMoney(amount) {
+  return amount.toLocaleString('ru-RU') + ' ₽';
+}
+
 /**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.
