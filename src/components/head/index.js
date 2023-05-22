@@ -1,17 +1,18 @@
-import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
+import {memo} from "react";
 
-function Head({title}){
+function Head({title, style}){
   return (
-    <div className='Head'>
+    <div className='Head' style={style}>
       <h1>{title}</h1>
     </div>
   )
 }
 
 Head.propTypes = {
-  title: PropTypes.node,
+  title: PropTypes.string,
+  style: PropTypes.object,
 };
 
-export default React.memo(Head);
+export default memo(Head);

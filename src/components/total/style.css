@@ -1,0 +1,12 @@
+.Total-sum {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    margin-right: 108px;
+    margin-bottom: 80px;
+    text-align: right;
+    font-weight: bold;
+}
+.Total-sum-num {
+    width: 110px;
+}

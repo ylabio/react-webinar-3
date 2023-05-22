@@ -1,8 +1,12 @@
-import React, {useCallback} from 'react';
+import {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import item from "./components/item";
+import Modal from "./components/modal";
+import ItemCart from "./components/item-cart";
+import Total from "./components/total";
 
 /**
  * Приложение
@@ -10,30 +14,43 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
+  const list = store.getState().list
+  const cartList = store.getState().cart
+  const cartSum = store.getState().totalPrice
+  const uniqTotal = store.getState().uniqTotal
 
-  const list = store.getState().list;
+  const [showCart, setShowCart] = useState(false)
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    onDeleteFromCart: useCallback((title) => {
+      store.deleteItem(title);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    onAddToCart: useCallback((title) => {
+      store.addToCart(title)
     }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
   }
-
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
+      <Head title='Магазин'/>
+      <Controls uniqTotal={uniqTotal} cartSum={cartSum} setShowCart={setShowCart}/>
       <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+            onAction={callbacks.onAddToCart}
+            buttonTitle='Добавить'
+            itemComponent={item}
+      />
+      {showCart &&
+        <Modal setShowModal={setShowCart}>
+          <Head title='Корзина' style={{marginBottom: '70px'}}/>
+          <List
+            list={cartList}
+            onAction={callbacks.onDeleteFromCart}
+            buttonTitle='Удалить'
+            itemComponent={ItemCart}
+          />
+          <Total cartSum={cartSum}/>
+        </Modal>
+      }
     </PageLayout>
   );
 }

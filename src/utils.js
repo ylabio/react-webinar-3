@@ -25,6 +25,7 @@ export const generateCode = (function (start = 0) {
   return () => ++start;
 }());
 
+
 /**
  * Генератор чисел с шагом 1
  * Вариант с генератором.
