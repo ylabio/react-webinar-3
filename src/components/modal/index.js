@@ -7,25 +7,25 @@ import Footer from '../footer';
 import ItemCart from '../item-cart';
 import './style.css';
 
-function Modal({ list, modalActive, toggleCartOpen, onRemove, summary }) {
+function Modal(props) {
 
 	const callbacks = {
 		toggleCartOpen: (e) => {
 			e.stopPropagation();
-			toggleCartOpen();
+			props.toggleCartOpen();
 		}
 	}
 	const cn = bem('Modal');
 	return (
-		<div className={!modalActive ? cn() : cn() + ' ' + cn('active')} onClick={callbacks.toggleCartOpen}>
+		<div className={!props.modalActive ? cn() : cn() + ' ' + cn('active')} onClick={callbacks.toggleCartOpen}>
 			<div className={cn('content')} onClick={(e) => e.stopPropagation()}>
-				<Head title='Корзина' modalActive={modalActive} toggleCartOpen={toggleCartOpen} />
+				<Head title='Корзина' modalActive={props.modalActive} toggleCartOpen={props.toggleCartOpen} />
 				<List >
-					{list.map(item =>
-						<ItemCart key={item.code} item={item} onRemove={onRemove} />
+					{props.list.map(item =>
+						<ItemCart key={item.code} item={item} onRemove={props.onRemove} />
 					)}
 				</List>
-				<Footer summary={summary} />
+				<Footer summary={props.summary} />
 			</div>
 		</div>
 	)

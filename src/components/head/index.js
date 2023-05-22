@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Head({ title, modalActive, toggleCartOpen }) {
+function Head(props) {
 
 	const cn = bem('Head');
 	const callbacks = {
 		toggleCartOpen: (e) => {
 			e.stopPropagation();
-			toggleCartOpen();
+			props.toggleCartOpen();
 		},
 	}
 	return (
-		<div className={!modalActive ? cn() : cn('modal')}>
-			{modalActive ?
-				<><h1>{title}</h1><button className='closeBtn' onClick={callbacks.toggleCartOpen}>&nbsp;Закрыть&nbsp;</button></> :
-				<h1>{title}</h1>
+		<div className={!props.modalActive ? cn() : cn('modal')}>
+			{props.modalActive ?
+				<><h1>{props.title}</h1><button className='closeBtn' onClick={callbacks.toggleCartOpen}>&nbsp;Закрыть&nbsp;</button></> :
+				<h1>{props.title}</h1>
 			}
 		</div>
 	)

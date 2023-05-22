@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { plural } from '../../utils';
 
-function CartInfo({ toggleCartOpen, summary, quantityItems }) {
+function CartInfo(props) {
 
 	const callbacks = {
 		toggleCartOpen: (e) => {
 			e.stopPropagation();
-			toggleCartOpen();
+			props.toggleCartOpen();
 		},
 	}
 
 	return (
 		<div className='CartInfo'>
 			<p className='CartContains'>В корзине:
-				<b> &nbsp;{quantityItems ? `${quantityItems} ${plural(quantityItems, { one: 'товар', few: 'товара', many: 'товаров' })} / ${summary} ₽` : 'пусто'}&nbsp;&nbsp;</b>
+				<b> &nbsp;{props.quantityItems ? `${props.quantityItems} ${plural(props.quantityItems, { one: 'товар', few: 'товара', many: 'товаров' })} / ${props.summary} ₽` : 'пусто'}&nbsp;&nbsp;</b>
 			</p>
 			<button onClick={callbacks.toggleCartOpen}>&nbsp;&nbsp;Перейти&nbsp;</button>
 		</div>

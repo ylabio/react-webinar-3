@@ -2,24 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Item({ item, onAdd }) {
+function Item(props) {
 
 	const callbacks = {
 		onAdd: (e) => {
 			e.stopPropagation();
-			onAdd(item.code);
+			props.onAdd(props.item.code);
 		}
 	}
 
 	return (
 		<li className='List-item'>
 			<div className={'Item'}>
-				<div className='Item-code'>{item.code}</div>
+				<div className='Item-code'>{props.item.code}</div>
 				<div className='Item-title'>
-					{item.title}
+					{props.item.title}
 				</div>
 				<div className='Item-actions'>
-					<span className='Item-value-small'>{item.price}&nbsp;&#8381;</span>
+					<span className='Item-value-small'>{props.item.price}&nbsp;&#8381;</span>
 					<button onClick={callbacks.onAdd}>Добавить</button>
 				</div>
 			</div>

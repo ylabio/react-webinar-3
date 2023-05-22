@@ -2,25 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function ItemCart({ item, onRemove }) {
+function ItemCart(props) {
 
 	const callbacks = {
 		onRemove: (e) => {
 			e.stopPropagation();
-			onRemove(item.code);
+			props.onRemove(props.item.code);
 		}
 	}
 
 	return (
 		<li className='List-item'>
 			<div className={'Item'}>
-				<div className='Item-code'>{item.code}</div>
+				<div className='Item-code'>{props.item.code}</div>
 				<div className='Item-title'>
-					{item.title}
+					{props.item.title}
 				</div>
 				<div className='Item-actions'>
-					<span className='Item-value'>{item.price}&nbsp;&#8381;</span>
-					<span className='Item-quant'>{item.quant}&nbsp;шт</span>
+					<span className='Item-value'>{props.item.price}&nbsp;&#8381;</span>
+					<span className='Item-quant'>{props.item.quant}&nbsp;шт</span>
 					<button onClick={callbacks.onRemove}>&nbsp;&nbsp;Удалить&nbsp;</button>
 				</div>
 			</div>
