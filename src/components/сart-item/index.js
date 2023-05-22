@@ -4,8 +4,8 @@ import { priceFormatter } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Item(props) {
-  const cn = bem('Item');
+function CartItem(props) {
+  const cn = bem('CartItem');
   const callbacks = {
     onClick: props.onClick,
   };
@@ -15,16 +15,17 @@ function Item(props) {
       <div className={cn('code')}>{props.item.code}</div>
       <div className={cn('title')}>{props.item.title}</div>
       <div className={cn('price')}>{priceFormatter(props.item.price)}</div>
+      <div className={cn('quantity')}>{`${props.item.quantity} шт`}</div>
       <div className={cn('actions')}>
         <button onClick={() => callbacks.onClick(props.item.code)}>
-          Добавить
+          Удалить
         </button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
@@ -34,8 +35,4 @@ Item.propTypes = {
   onClick: PropTypes.func,
 };
 
-Item.defaultProps = {
-  actionText: 'Нажать',
-};
-
-export default React.memo(Item);
+export default React.memo(CartItem);

@@ -17,35 +17,26 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
 }
 
 /**
+ * Форматирование цены товара
+ * возвращает цену товара с разделением на разряды и обозначением валюты
+ * @param value {Number} Цена товара
+ * @param currency {String} Код валюты
+ * @param [locale] {String} Локаль (код языка)
+ * @returns {string}
+ */
+export function priceFormatter(value, currency = 'RUB', locale = 'ru-RU') {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+    minimumFractionDigits: 0,
+  }).format(value);
+}
+
+/**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.
  * @returns {Number}
  */
 export const generateCode = (function (start = 0) {
   return () => ++start;
-}());
-
-/**
- * Генератор чисел с шагом 1
- * Вариант с генератором.
- * Сразу создаётся генератор и возвращается функция для получения следующего значения генератора
- * @returns {Number}
- */
-export const generateCode1 = (function (start = 0) {
-  function* realGenerator(start) {
-    while (true) {
-      yield ++start;
-    }
-  }
-  const gen = realGenerator(start);
-  return () => gen.next().value;
-}());
-
-/**
- * Генератор чисел с шагом 1
- * Вариант с использованием функции как объекта для хранения значения value
- * @returns {Number}
- */
-export function generateCode2() {
-  return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
-}
+})();

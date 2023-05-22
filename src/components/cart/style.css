@@ -1,0 +1,34 @@
+.Cart {
+  background-color: #fff;
+  padding-bottom: 70px;
+}
+
+.Cart-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px 32px 20px 10px;
+}
+
+.Cart-head {
+  margin-bottom: 70px;
+}
+
+.Cart-total {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 105px 20px 10px;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.Cart-total-price {
+  margin-left: 50px;
+}
+
+.Cart-empty {
+  padding: 20px 10px;
+  color: #404040;
+  font-size: 18px;
+  text-align: center;
+}

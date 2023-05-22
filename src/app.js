@@ -1,41 +1,66 @@
-import React, {useCallback} from 'react';
-import List from "./components/list";
-import Controls from "./components/controls";
-import Head from "./components/head";
-import PageLayout from "./components/page-layout";
+import React, { useCallback, useState } from 'react';
+import List from './components/list';
+import CartReview from './components/cart-review';
+import Head from './components/head';
+import PageLayout from './components/page-layout';
+import Cart from './components/cart';
+import PropTypes from 'prop-types';
+import Item from './components/item';
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
-
+function App({ store }) {
+  const [isCartShown, setCartShown] = useState(false);
   const list = store.getState().list;
+  const cart = store.getState().cart;
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+    onAddToCart: useCallback(
+      (code) => {
+        store.addToCart(code);
+      },
+      [store]
+    ),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+    onItemDelete: useCallback(
+      (code) => {
+        store.removeFromCart(code);
+      },
+      [store]
+    ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
+    onCartOpen: useCallback(() => {
+      setCartShown(true);
+    }, []),
+
+    onCartClose: useCallback(() => {
+      setCartShown(false);
+    }, []),
+  };
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title="Магазин" />
+      <CartReview
+        itemsQuantity={cart.itemsQuantity}
+        totalPrice={cart.totalPrice}
+        onCartOpen={callbacks.onCartOpen}
+      />
+      <List list={list} onItemAction={callbacks.onAddToCart} ListItem={Item} />
+      {isCartShown ? (
+        <Cart
+          cart={cart}
+          onCartClose={callbacks.onCartClose}
+          onItemDelete={callbacks.onItemDelete}
+        />
+      ) : null}
     </PageLayout>
   );
 }
-
+App.propTypes = {
+  store: PropTypes.object,
+};
 export default App;

@@ -1,0 +1,14 @@
+.CartReview {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.CartReview-text {
+  padding: 20px 10px;
+}
+
+.CartReview-actions {
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px 20px 20px 16px;
+}
