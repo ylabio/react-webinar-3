@@ -17,7 +17,6 @@ function App({ store }) {
 	const quantityItems = cartList.length;
 	const summary = store.getState().cartSummary;
 
-	console.log('App', summary)
 	const callbacks = {
 
 		onDeleteFromCart: useCallback((code) => {
