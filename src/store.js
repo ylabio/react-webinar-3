@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -7,6 +5,10 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state.isOpenBasket = false;
+    this.state.basket = [];
+    this.state.totalCost = 0;
+    this.state.totalCount = 0;
   }
 
   /**
@@ -41,48 +43,56 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Установка состояния модального окна корзины
    */
-  addItem() {
+  toggleOpeningBasket(payload) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      isOpenBasket: payload
     })
   };
 
   /**
-   * Удаление записи по коду
+   * Добавление записи по объекту
    * @param code
    */
-  deleteItem(code) {
+  addItemToBasket(item) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+      basket: this.state.basket.some(i => i.code === item.code) ? this.state.basket.reduce((acc, cur) => {
+        if (cur.code === item.code) {
+          return [...acc, {...cur, count: cur.count + 1}]
         }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
+        return [...acc, cur];
+      }, []) : [...this.state.basket, {...item, count: 1}],
+      totalCost: this.state.totalCost + item.price,
+      totalCount: this.state.basket.some(i => i.code === item.code) ? this.state.totalCount : this.state.totalCount + 1
     })
-  }
+  };
+
+  /**
+ * Удаление записи по коду
+ * @param code
+ */
+  deleteItemsFromBasket(code) {
+    this.setState({
+      ...this.state,
+      basket: this.state.basket.filter(item => item.code !== code),
+      totalCost: this.state.basket.reduce((acc, item) => {
+        if (item.code !== code) {
+          return acc + item.count * item.price;
+        }
+        return acc;
+      }, 0),
+      totalCount: this.state.basket.reduce((acc, cur) => {
+        if (cur.code !== code) {
+          return acc + 1;
+        }
+        return acc;
+      }, 0)
+    })
+  };
+
 }
 
 export default Store;
