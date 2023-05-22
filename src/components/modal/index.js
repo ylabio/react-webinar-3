@@ -2,6 +2,7 @@ import React from 'react';
 import './style.css'
 import Head from '../head';
 import List from '../list';
+import PropTypes from "prop-types";
 
 const Modal = ({ setActive, list, onDeleteItem, total }) => {
     return (
@@ -25,5 +26,16 @@ const Modal = ({ setActive, list, onDeleteItem, total }) => {
         </div>
     );
 };
+
+Modal.propTypes = {
+    setActive: PropTypes.func,
+    onDeleteItem: PropTypes.func,
+    total: PropTypes.number,
+    list: PropTypes.array
+}
+Modal.defaultProps ={
+    setActive: () => { },
+    onDeleteItem: () => {}
+}
 
 export default Modal;

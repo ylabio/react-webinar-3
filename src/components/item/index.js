@@ -31,7 +31,7 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
+    price: PropTypes.number,
     count: PropTypes.number
   }).isRequired,
   onAction: PropTypes.func

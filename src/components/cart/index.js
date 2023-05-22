@@ -1,27 +1,31 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
-import { editTime } from "../../utils";
+import { plural } from "../../utils";
 
-function Controls({ setActive, count, total}){
+function Cart({ setActive, count, total }) {
   return (
-    <div className='Controls'>
+    <div className='cart'>
       <div className='cart-row' >
-        {`В корзине: ${editTime(count)} / ${total} ₽`}
+        В корзине:
+        {count ?
+          <span>{` ${count} ${plural(count, {one: 'товар', few: 'товара', many: 'товаров'})} / ${total} ₽`}</span>
+          :
+          <span> пусто</span>
+        }
       </div>
       <button onClick={() => setActive(true)}>Перейти</button>
     </div>
   )
 }
 
-Controls.propTypes = {
+Cart.propTypes = {
   setActive: PropTypes.func,
   count: PropTypes.number,
   total: PropTypes.number
 };
-
-Controls.defaultProps = {
-  setActive: () => {}
+Cart.defaultProps = {
+  setActive: () => { }
 }
 
-export default React.memo(Controls);
+export default React.memo(Cart);
