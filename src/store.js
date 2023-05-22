@@ -83,6 +83,44 @@ class Store {
       })
     })
   }
+
+  addToCart(code) {
+    let items = [...this.state.cart.items];
+    let itemIdx = this.state.cart.items.findIndex(item => item.code === code);
+    if (itemIdx !== -1) {
+      items = items.map((item, i) => (
+        i === itemIdx ? {...item, amount: item.amount + 1} : item
+      ));
+    } else {
+      const item = this.state.list.find(item => item.code === code);
+      items.push({...item, amount: 1});
+    }
+
+    const totalPrice = items.reduce((acc, cur) => cur.amount * cur.price + acc, 0);
+
+    this.setState({
+      ...this.state,
+      cart: {
+        items: [...items],
+        totalPrice,
+        length: items.length
+      }
+    });
+  }
+
+  removeFromCart(code) {
+    const items = this.state.cart.items.filter(item => item.code !== code);
+    const totalPrice = items.reduce((acc, cur) => cur.amount * cur.price + acc, 0);
+
+    this.setState({
+      ...this.state,
+      cart: {
+        items: [...items],
+        totalPrice,
+        length: items.length
+      },
+    });
+  }
 }
 
 export default Store;

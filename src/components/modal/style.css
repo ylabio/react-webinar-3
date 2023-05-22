@@ -1,0 +1,27 @@
+.Modal {
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  max-width: 960px;
+  width: 100%;
+}
+
+.Modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 20px;
+  margin-bottom: 70px;
+}
+
+.Modal-title {
+  margin: 0;
+  font-style: Bold;
+  font-size: 32px;
+  line-height: 37px;
+}
+
+.Modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+}

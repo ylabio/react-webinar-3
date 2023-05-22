@@ -1,0 +1,22 @@
+.Modal-Cart {
+  display: flex;
+  justify-items: center;
+  flex-direction: column;
+  margin-bottom: 90px;
+  gap: 20px;
+}
+
+.Modal-Empty {
+  text-align: center;
+  margin-bottom: 90px;
+}
+
+.Modal-Total {
+  font-weight: bold;
+  align-self: flex-end;
+  margin-right: 120px;
+}
+
+.Modal-Price {
+  margin-left: 70px;
+}
