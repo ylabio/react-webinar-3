@@ -60,6 +60,7 @@ class Store {
       ...this.state,
       listForBasket: newListForBasket,
       totalPrice: countTotalPrice(newListForBasket),
+      totalNumberOfAddedItems: newListForBasket.length,
     })
   }
 
@@ -94,6 +95,7 @@ class Store {
       ...this.state,
       listForBasket: [...newListForBasket],
       totalPrice: countTotalPrice(newListForBasket),
+      totalNumberOfAddedItems: newListForBasket.length,
     })
   }
 }
