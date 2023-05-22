@@ -21,7 +21,7 @@ function Item(props){
         {props.item.title}
       </div>
       <div className='Item-price'>
-        {props.item.price} <span>&#8381;</span>
+        {props.item.price.toLocaleString('ru')} <span>&#8381;</span>
       </div>
       {
         props.isCart 

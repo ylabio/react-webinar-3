@@ -4,6 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from './components/modal'
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -40,10 +41,14 @@ function App({store}) {
       {
         showModal 
           ? <Modal
-              products={cartProducts}
-              setShowModal={setShowModal}
-              remove={callbacks.onRemoveFromCart}
-            />
+              closeCb={() => setShowModal(false)}
+              title="Корзина"
+            >
+              <Cart
+                products={cartProducts}
+                remove={callbacks.onRemoveFromCart}
+              />
+            </Modal>
           : ''
       }
     </PageLayout>

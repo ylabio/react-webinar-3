@@ -6,9 +6,7 @@ import './style.css';
 function Controls({setShowModal, products}){
 
   const productsCount = useMemo(() => {
-    return products.length 
-      ? `${products.length} ${plural(products.length, {one: 'товар', few: 'товара', many: 'товаров'})}`
-      : 'пусто'
+    return `${products.length} ${plural(products.length, {one: 'товар', few: 'товара', many: 'товаров'})}`
   },[products])
 
   const totalPrice = useMemo(() => {
@@ -17,7 +15,7 @@ function Controls({setShowModal, products}){
 
   return (
     <div className='Controls'>
-      <div>В корзине <b>{productsCount} / {totalPrice} &#8381;</b></div>
+      <div>В корзине {products.length ? <b>{productsCount} / {totalPrice} &#8381;</b> : 'пусто'} </div>
       <button onClick={() => setShowModal(true)}>Перейти</button>
     </div>
   )

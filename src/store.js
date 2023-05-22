@@ -114,24 +114,10 @@ class Store {
   }
 
   removeFromCart(code) {
-    const product = this.state.cartProducts.find(el => el.code === code)
-    if (product?.count > 1) {
-      this.setState({
-        ...this.state,
-        cartProducts: this.state.cartProducts.map(item => {
-          if (item.code === code) {
-            return {...item, count: item.count - 1}
-          }else {
-            return item
-          }
-        })
-      })
-    }else {
-      this.setState({
+    this.setState({
         ...this.state,
         cartProducts: this.state.cartProducts.filter(i => i.code !== code)
       })
-    }
   }
 }
 

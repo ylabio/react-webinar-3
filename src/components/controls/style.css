@@ -3,6 +3,9 @@
   justify-content: flex-end;
   padding: 20px;
 }
-b {
-  margin: 0 20px 0 15px;
+.Controls > div {
+  padding: 0 20px 0 15px;
+}
+button {
+  width: 75px;
 }
