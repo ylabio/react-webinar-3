@@ -7,14 +7,23 @@
  * @param [locale] {String} Локаль (код языка)
  * @returns {*|string}
  */
-export function plural(value, variants = {}, locale = 'ru-RU') {
-  // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
-  // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
-  // В английском 2 формы: 'one', 'other'
-  const key = new Intl.PluralRules(locale).select(value);
-  // Возвращаем вариант по ключу, если он есть
-  return variants[key] || '';
-}
+export function constructIntl(...params) {
+  const { method, value, variants } = params[0];
+
+  if (method === 'PluralRules') {
+    const key = new Intl.PluralRules('ru-RU').select(value);
+
+    return variants[key] || '';
+  } else if (method === 'NumberFormat') {
+    const key = new Intl.NumberFormat("ru", {
+      maximumFractionDigits: 0,
+      style: 'currency',
+      currency: 'RUB',
+    });
+
+    return key.format(value);
+  };
+};
 
 /**
  * Генератор чисел с шагом 1
