@@ -1,8 +1,11 @@
-import React, {useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
+import Modal from "./components/modal";
 import PageLayout from "./components/page-layout";
+import Footer from './components/modal/footer';
+import Header from './components/modal/header';
 
 /**
  * Приложение
@@ -10,8 +13,10 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
+  const [isActive, setIsActive] = useState(false);
 
   const list = store.getState().list;
+  const cart = store.getState().cart;
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -22,18 +27,28 @@ function App({store}) {
       store.selectItem(code);
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    onAddItem: useCallback((item) => {
+      store.addItem(item);
+    }, [store]),
+
+    onSetIsActive: useCallback(() => {
+      setIsActive(true);
+    })
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин'/>
+      <Controls cart={cart} setIsActive={setIsActive}/>
+      <List list={list} func={callbacks.onAddItem} btnTitle='Добавить'/>
+    <Modal
+      isActive={isActive}
+      setIsActive={setIsActive}
+    >
+      <Header setIsActive={setIsActive}/>
+      <List list={cart.list} func={callbacks.onDeleteItem} btnTitle='Удалить'/>
+      <Footer sum={cart.totalSum}/>
+    </Modal>
     </PageLayout>
   );
 }

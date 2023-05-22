@@ -41,48 +41,84 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+  addItem(item) {
+    if(!this.state.cart.goodsCount) {
+      this.setState({
+        ...this.state,
+        cart: {
+          ...this.state.cart,
+          list: [...this.state.cart.list, {code: item.code, title: item.title, price: item.price, count: 1}],        
+          goodsCount: 1,
+          totalSum: this.state.cart.totalSum + item.price,
+        },
       })
-    })
-  }
+    } else {
+      let product = this.state.cart.list.filter(prod => prod.code === item.code)[0];
+      if (product) {
+        this.setState({
+          ...this.state,
+          cart: {
+            ...this.state.cart,
+            list: this.state.cart.list.map(prod => {
+              if (prod.code === product.code) {
+                return {...prod, count: prod.count + 1};
+              }
+              return prod;
+            }),
+            totalSum: this.state.cart.totalSum + item.price,          
+        }})
+      } else {
+        this.setState({
+          ...this.state,
+          cart: {
+            ...this.state.cart,
+            list: [...this.state.cart.list, {code: item.code, title: item.title, price: item.price, count: 1}],        
+            goodsCount: this.state.cart.goodsCount + 1,
+            totalSum: this.state.cart.totalSum + item.price,
+          },
+        })
+      }
+    }
+  };
+
+  /**
+   * Удаление товара по коду
+   * @param code
+   */
+  deleteItem(item) {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        list: this.state.cart.list.filter(elem => elem.code !== item.code),
+        goodsCount: this.state.cart.goodsCount - 1,
+        totalSum: this.state.cart.totalSum - item.count * item.price
+    }})
+  };
+
+  // /**
+  //  * Выделение записи по коду
+  //  * @param code
+  //  */
+  // selectItem(code) {
+  //   this.setState({
+  //     ...this.state,
+  //     list: this.state.list.map(item => {
+  //       if (item.code === code) {
+  //         // Смена выделения и подсчёт
+  //         return {
+  //           ...item,
+  //           selected: !item.selected,
+  //           count: item.selected ? item.count : item.count + 1 || 1,
+  //         };
+  //       }
+  //       // Сброс выделения если выделена
+  //       return item.selected ? {...item, selected: false} : item;
+  //     })
+  //   })
+  // }
 }
 
 export default Store;
