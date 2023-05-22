@@ -1,16 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import { plural, numberFormat } from "../../utils";
-import Cart from "../cart";
 import "./style.css";
 
-function Controls({cart, action, totalCart}){
-  const [open, setOpen] = useState(false);
-
-  const openWindow = () => {
-    setOpen(!open);
-  };
-
+function Controls({cart, totalCart, openWindow}){
   return (
     <div className='Controls'>
       <div className="Details">
@@ -25,14 +18,6 @@ function Controls({cart, action, totalCart}){
         </b>
       </div>
       <button onClick={openWindow}>Перейти</button>
-      {open && (
-        <Cart 
-          openWindow={openWindow}
-          cart={cart}
-          totalCart={totalCart}
-          action={action}
-        />
-      )}
     </div>
   )
 }

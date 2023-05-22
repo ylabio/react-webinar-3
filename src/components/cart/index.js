@@ -1,33 +1,25 @@
 import React from "react";
-import Head from "../head";
 import List from "../list";
 import {numberFormat} from "../../utils";
 import "./style.css";
 
-function Cart({openWindow, cart, totalCart, action}) {
+function Cart({cart, totalCart, action}) {
   return (
-    <div className='Cart'>
-      <div className='Cart__dialog'>
-        <Head className='Cart__header' title='Корзина'>
-          <div className='Cart__header-close'>
-            <button onClick={openWindow}>Закрыть</button>
+      <>
+        {!!cart.length ? (
+          <div className="Cart__body">
+            <List list={cart} buttonText="Удалить" action={action} />
+            <div className="Cart-bottom">
+              <div className="Cart-price">Итого</div>
+              <div className="Cart-summ">{numberFormat(totalCart)}</div>
+            </div>
           </div>
-        </Head>
-        <main className="Cart__body">
-          {!!cart.length ? (
-            <List list={cart} buttonText="Удалить" action={action}/>
-          ) : (
+        ) : (
+          <div className="Cart__body">
             <h1 className="Cart__body-title">В корзине пусто!</h1>
-          )}
-        </main>
-        {!!cart.length && (
-          <footer className="Cart__footer">
-            <div className="Cart__footer-total">Итого</div>
-            <div className="Cart__footer-number">{numberFormat(totalCart)}</div>
-          </footer>
+          </div>
         )}
-      </div>
-    </div>
+      </>
   );
 }
 
