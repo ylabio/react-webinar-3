@@ -13,7 +13,7 @@ function CartItem({ item, onDeleteItem }) {
     <div className={'CartItem'}>
       <div className="CartItem-code">{item.code}</div>
       <div className="CartItem-title">{item.title}</div>
-      <p className="CartItem-price">{item.price} ₽</p>
+      <p className="CartItem-price">{item.price.toLocaleString()} ₽</p>
       <div className="CartItem-actions">
         <div className="CartItem-count">{item.quantity} шт</div>
         <button onClick={callbacks.deleteItem}>Удалить</button>

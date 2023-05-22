@@ -14,7 +14,7 @@ function Item({ item, onAddItem }) {
     <div className={'Item'}>
       <div className="Item-code">{item.code}</div>
       <div className="Item-title">{item.title}</div>
-      <p className="Item-price">{item.price} ₽</p>
+      <p className="Item-price">{item.price.toLocaleString()} ₽</p>
       <div className="Item-actions">
         <button onClick={callbacks.addItem}>Добавить</button>
       </div>

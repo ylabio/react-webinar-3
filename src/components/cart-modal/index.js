@@ -20,7 +20,7 @@ function CartModal ({ cartOpen, totalPrice, onDeleteItem, cartItems }) {
         ) : (
           <div className="CartModal-total">
             <span>Итого</span>
-            <span>{totalPrice} ₽</span>
+            <span>{totalPrice.toLocaleString()} ₽</span>
           </div>
         )}
       </div>

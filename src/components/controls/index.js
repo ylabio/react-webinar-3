@@ -18,7 +18,7 @@ function Controls({ totalPrice, items, setCartOpen }) {
                 one: 'товар',
                 few: 'товара',
                 many: 'товаров',
-              })} / ${totalPrice} ₽`
+              })} / ${totalPrice.toLocaleString()} ₽`
             : 'пусто'}
         </span>
         <button onClick={() => setCartOpen((prev) => !prev)}>Перейти</button>
