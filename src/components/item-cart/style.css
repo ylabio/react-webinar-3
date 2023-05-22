@@ -1,0 +1,41 @@
+.Item {
+  display: flex;
+  justify-content: space-between;
+  transition: background-color 1s;
+}
+
+.Item-code {
+  padding: 20px 10px 20px 20px;
+}
+
+.Item-title {
+  flex-grow: 3;
+  padding: 20px 10px;
+}
+
+.Item-price {
+  padding: 20px 10px;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.Item-price_cart {
+  padding: 20px 50px;
+}
+
+.Item-count {
+  padding: 20px 10px;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.Item-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+}
+
+.Item-btn {
+  width: 76px;
+  height: 21px;
+}

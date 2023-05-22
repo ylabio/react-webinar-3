@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -41,47 +41,64 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Удаление товаров из корзины
+   * @param code
    */
-  addItem() {
+  deleteCartItem(code) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      cart: this.state.cart.filter(item => item.code !== code)
     })
   };
 
   /**
-   * Удаление записи по коду
+   * Добавление товаров в корзину
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+  addCartItem(code) {
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+    const isCartItem = this.state.cart.find(item => item.code === code);
+
+    if (isCartItem) {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map(item => {
+          if (item.code === code) {
+            return {
+              ...item,
+              count: item.count + 1,
+            }
+          }
+          return item;
+        }),
       })
-    })
+    } else {
+      const item = this.state.list.find(el => el.code === code);
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, { ...item, count: 1 }]
+      })
+    }
+  }
+
+  /**
+ * Расчет общей суммы товаров в корзине
+ */
+  getTotalPrice() {
+    this.setState({
+      ...this.state,
+      totalPrice: this.state.cart.reduce((accum, current) => accum + current.price * current.count, 0)
+    });
+  }
+
+  /**
+   * Расчет количества уникальных товаров в корзине
+   */
+  getTotalCount() {
+    this.setState({
+      ...this.state,
+      totalCount: this.state.cart.length
+    });
   }
 }
 

@@ -1,5 +1,23 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  align-items: baseline;
   padding: 20px;
+}
+
+.Controls-btn {
+  width: 76px;
+  height: 21px;
+}
+
+.Controls-title {
+  padding: 0 20px;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.Controls-title_weight_bold {
+  padding: 0;
+  padding-left: 15px;
+  font-weight: 700;
 }
