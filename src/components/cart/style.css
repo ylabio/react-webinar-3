@@ -1,0 +1,20 @@
+.Cart {
+}
+
+.Cart-total {
+  display: grid;
+  justify-content: flex-start;
+  justify-items: end;
+  align-items: center;
+  grid-template-columns: 50px 1fr 100px 100px 100px;
+  gap: 10px;
+  font-weight: 700;
+}
+
+.Cart-total > *:first-child {
+  grid-column: 3/4;
+}
+
+.Cart-total > *:last-child {
+  grid-column: 4/5;
+}

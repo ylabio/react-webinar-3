@@ -1,0 +1,16 @@
+.CartPreview {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+  padding: 0 20px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.CartPreview-text {
+  font-size: 18px;
+}
+
+.CartPreview-bold {
+  font-weight: 700;
+}

@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -18,8 +16,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -40,48 +38,40 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
+  setCartItems(items) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+      cart: {
+        items,
+        total: items.length,
+        sum: items.reduce((sum, item) => sum + item.price * item.count, 0),
+      },
+    });
+  }
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+  addItemToCart(code) {
+    const index = this.state.cart.items.findIndex((item) => item.code === code);
+    let items;
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+    if (index === -1) {
+      items = [
+        ...this.state.cart.items,
+        { ...this.state.list.find((item) => item.code === code), count: 1 },
+      ];
+    } else {
+      items = [...this.state.cart.items];
+      items[index] = { ...items[index], count: items[index].count + 1 };
+    }
+
+    this.setCartItems(items);
+  }
+
+  removeItemFromCart(code) {
+    const index = this.state.cart.items.findIndex((item) => item.code === code);
+    const items = [...this.state.cart.items];
+    items.splice(index, 1);
+
+    this.setCartItems(items);
   }
 }
 

@@ -1,0 +1,35 @@
+.CartItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  display: grid;
+  grid-template-areas: "code title price count actions";
+  grid-template-columns: 50px 1fr 100px 100px 100px;
+  gap: 10px;
+}
+
+.CartItem-code {
+  justify-self: center;
+  grid-area: code;
+}
+
+.CartItem-title {
+  grid-area: title;
+}
+
+.CartItem-price {
+  grid-area: price;
+  justify-self: end;
+}
+
+.CartItem-count {
+  grid-area: count;
+  justify-self: end;
+}
+
+.CartItem-actions {
+  grid-area: actions;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+}
