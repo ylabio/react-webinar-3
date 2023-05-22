@@ -9,7 +9,7 @@ function Controls(props){
       <div className='Item-basket'>В корзине:
       </div>
         <div className='Item-basket'>
-          {props.calculatePrice > 0 ?
+          { props.totalGoods > 0 ?
             <div className={'textBold'}> {props.totalGoods} {plural(props.totalGoods, {one: 'товар', few: 'товара', many:'товаров'})} / {props.calculatePrice.toLocaleString('ru-RU')} ₽ </div>
             : <div className={'textBold'}> пусто </div>}
         </div>
