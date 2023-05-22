@@ -1,9 +1,28 @@
 .Head {
   height: 80px;
   background: #f5f5f5;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 10px;
 }
 
-.Head h1 {
+.Head h1,
+.Head-modal h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  padding-left: 20px;
+	padding-right: 20px;
+}
+.closeBtn {
+	margin-right: 32px;
+}
+
+.Head-modal {
+	height: 80px;
+  background: #f5f5f5;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 10px;
+	margin-bottom: 71px;
 }

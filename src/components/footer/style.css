@@ -1,0 +1,18 @@
+.Footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 72px;
+}
+.Footer-summery {
+	margin-top: 21px;
+	width: 28%;
+}
+
+.Footer-text {
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 21px;
+}
+.Footer-digital {
+	padding-left: 37px;
+}

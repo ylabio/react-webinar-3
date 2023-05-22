@@ -1,41 +1,49 @@
-import React, {useCallback} from 'react';
-import List from "./components/list";
-import Controls from "./components/controls";
-import Head from "./components/head";
-import PageLayout from "./components/page-layout";
-
+import React, { useCallback } from 'react';
+import List from './components/list';
+import CartInfo from './components/cart-info';
+import Head from './components/head';
+import PageLayout from './components/page-layout';
+import Modal from './components/modal';
+import Item from './components/item';
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
+	const cartOpened = store.getState().cartOpen;
+	const list = store.getState().list;
+	const cartList = store.getState().cartList;
+	const quantityItems = cartList.length;
+	const summary = store.getState().cartSummary;
 
-  const list = store.getState().list;
+	const callbacks = {
 
-  const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+		onDeleteFromCart: useCallback((code) => {
+			store.deleteFromCart(code);
+		}, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+		onAddToCart: useCallback((item) => {
+			store.addToCart(item);
+		}, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
+		toggleCart: useCallback(() => {
+			store.toggleCart();
+		}, [store]),
+	}
 
-  return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-    </PageLayout>
-  );
+	return (
+		<PageLayout>
+			<Head title='Магазин' toggleCartOpen={callbacks.toggleCart} />
+			<CartInfo cartList={cartList} toggleCartOpen={callbacks.toggleCart} summary={summary} quantityItems={quantityItems} />
+			<List modalActive={cartOpened} >
+				{list.map(item =>
+					<Item key={item.code} item={item} onAdd={callbacks.onAddToCart} />
+				)}
+			</List>
+			<Modal modalActive={cartOpened} onRemove={callbacks.onDeleteFromCart} toggleCartOpen={callbacks.toggleCart} list={cartList} summary={summary} />
+		</PageLayout>
+	);
 }
 
 export default App;

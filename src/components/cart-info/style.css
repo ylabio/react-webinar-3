@@ -1,0 +1,13 @@
+.CartInfo {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+.CartContains {
+	padding: 0;
+	margin: 0;
+	padding-right: 10px;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 21px;
+}
