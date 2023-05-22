@@ -9,7 +9,7 @@ function ControlsBasket(props) {
     <div className={cn()}>
         <div className={cn('price')}>
           <b>Итого</b>
-          <b>{props.totalPrice} ₽</b>
+          <b>{props.totalPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 })}</b>
         </div>
     </div>
   )

@@ -12,9 +12,8 @@ import Basket from "./components/basket";
  * @returns {React.ReactElement}
  */
 function App({store}) {
-  const list = store.getState().list;
+  const listItems = store.getState().list;
   const basketItems = store.getState().basket;
-  const totalQuantity = store.getState().total[0]?.total || 0;
   const totalPrice = store.getState().total[1]?.totalPrice || 0;
   const [active, setActive] = useState(false);
 
@@ -42,13 +41,13 @@ function App({store}) {
       <PageLayout>
         <Head title="Maгазин" />
         <Controls 
+          basket={basketItems}
           setActive={setActive} 
           active={active}
-          totalQuantity={totalQuantity}
           totalPrice={totalPrice} />
         <List
           active={active}
-          list={list}
+          list={listItems}
           title="Добавить"
           onclick={callbacks.onAddProductInBasket}
         />

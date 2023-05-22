@@ -12,7 +12,7 @@ function Item(props) {
       props.onclick(props.item.code)
     },
   }
-
+  const price = props.item.price.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 })
   return (
     <div className={cn()}>
       <div className={cn('wrap-title')}>
@@ -20,7 +20,7 @@ function Item(props) {
         <div className={cn('title')}>{props.item.title}</div>
       </div>
       <div className={cn('actions')}>
-        <span className={cn('price', {'active': props.active})}>{`${props.item.price} ₽`}</span>
+        <span className={cn('price', {'active': props.active})}>{`${price}`}</span>
         {props.active && <span className={cn('count')}>{`${props.item.count} шт`}</span>}
         <div>
           <button onClick={callbacks.clickButton}>{props.titleButton}</button>

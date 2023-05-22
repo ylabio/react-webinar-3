@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
-const plural = require('plural-ru');
+import {plural} from "../../utils";
 
 function Controls(props) {
   const cn = bem('Controls')
@@ -10,10 +10,10 @@ function Controls(props) {
     <div className={cn()}>
       <div className={cn('wrap-text')}>
         <span className={cn('text')}>В корзине:</span>
-        {props.totalQuantity > 0 ? (
-          <b>{props.totalQuantity}{' '}
-            {plural(props.totalQuantity, 'товар', 'товара', 'товаров')} /{' '}
-            {props.totalPrice} ₽</b>
+        {props.basket.length > 0 ? (
+          <b>{props.basket.length}{' '}
+            {plural(props.basket.length, { one: 'товар', few: 'товара', many: 'товаров' })} /{' '}
+            {props.totalPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 })}</b>
         ) : (
           <b>пусто</b>
         )}
@@ -24,9 +24,9 @@ function Controls(props) {
 }
 
 Controls.propTypes = {
+  basket: PropTypes.array,
   setActive: PropTypes.func,
   active: PropTypes.bool,
-  totalQuantity: PropTypes.number,
   totalPrice: PropTypes.number,
 }
 
