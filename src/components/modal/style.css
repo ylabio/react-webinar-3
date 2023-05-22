@@ -1,0 +1,55 @@
+.Modal {
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.4s;
+}
+
+.Modal.active {
+    opacity: 1;
+    pointer-events: all;
+    overscroll-behavior-y: contain;
+    overflow-y: auto;
+}
+
+.Modal-content {
+    min-width: 960px;
+    margin: 20px 0;
+    padding-bottom: 90px;
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    position: absolute;
+    top: 25%;
+    overflow: auto;
+}
+
+.Modal-total {
+    margin: 20px 120px 0 0;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.Modal-total span {
+    margin-left: 53px;
+}
+
+.Modal .List {
+    margin-top: 71px;
+}
+
+.Modal .Item-price {
+    padding-right: 62px;
+}
