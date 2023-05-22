@@ -1,21 +1,32 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import {convertPrice} from "../../utils";
+import PrimaryButton from "../primary-button";
+import PropTypes from "prop-types";
 import './style.css';
 
-function Controls({onAdd}){
+function Controls({totalPrice, productsCount, withButton, withDescription, onClick}){
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      {withDescription &&
+        <span>В корзине: <b>{productsCount ? `${productsCount} / ${convertPrice(totalPrice)}` : 'пусто'}</b></span>
+      }
+      {withButton &&
+        <PrimaryButton description={'Перейти'} onClick={onClick}/>
+      }
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  totalPrice: PropTypes.number,
+  productsCount: PropTypes.number,
+  withButton: PropTypes.bool,
+  withDescription: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  onClick: () => {}
 }
 
 export default React.memo(Controls);

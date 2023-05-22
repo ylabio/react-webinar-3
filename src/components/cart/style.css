@@ -1,0 +1,6 @@
+.Cart-total-price {
+    display: flex;
+    justify-content: flex-end;
+    gap: 60px;
+    margin: 20px 110px 0 0;
+}

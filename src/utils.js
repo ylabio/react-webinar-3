@@ -1,4 +1,49 @@
 /**
+ * Вычисление содержимого корзины
+ * Возвращает строку типа "1 товар / 111 ₽"
+ * @param cart {Array} Корзина.
+ * @example calcCartAmount([{code: generateCode(), title: 'Карандаши цветные', price: 111, count: 1}])
+ * @returns {string}
+ */
+
+// export function calcCartAmount(cart) {
+//   const totalPrice = calcTotalPrice(cart);
+//   const productsAmount = `${cart.length} ${plural(cart.length, {one: 'товар', few: 'товара', many: 'товаров'})}`;
+//
+//   return cart.length ? `${productsAmount} / ${totalPrice}` : 'пусто';
+// }
+
+/**
+ * Вычисление окончательной цены всех товаров
+ * Возвращает строку типа "111 ₽"
+ * @param cart {Array} Корзина.
+ * @example calcTotalPrice([{code: generateCode(), title: 'Карандаши цветные', price: 111, count: 1}])
+ * @returns {string}
+ */
+
+// export function calcTotalPrice(cart) {
+//   const totalPrice = cart.reduce((accumulator, item) => accumulator += item.price * item.count, 0);
+//
+//   return totalPrice;
+// }
+
+/**
+ * Конвертация стоимости продукта
+ * Возвращает строку с разделённым по разрядам числом и валютой
+ * @param price {Number} Стоимость продукта.
+ * @example convertPrice(14334)
+ * @returns {string}
+ */
+
+export function convertPrice(price) {
+  return new Intl.NumberFormat("ru", {
+    style: "currency",
+    maximumFractionDigits: 0,
+    currency: "RUB"
+  }).format(price)
+}
+
+/**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
  * @param value {Number} Число, под которое выбирается вариант формы.
