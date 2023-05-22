@@ -1,17 +1,17 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = { ...initState, cart: { list: [], totalPrice: 0, isOpen: false } };
     this.listeners = []; // Слушатели изменений состояния
   }
 
   /**
    * Подписка слушателя на изменения состояния
-   * @param listener {Function}
+   * @param {Function} listener
    * @returns {Function} Функция отписки
    */
   subscribe(listener) {
@@ -32,7 +32,7 @@ class Store {
 
   /**
    * Установка состояния
-   * @param newState {Object}
+   * @param {Object} newState
    */
   setState(newState) {
     this.state = newState;
@@ -41,18 +41,69 @@ class Store {
   }
 
   /**
+   * Добавление товара в корзину по коду
+   * @param {Number} code
+   */
+  addItemToCart(code) {
+    const cart = this.state.cart;
+    const item = this.state.list.find(item => item.code === code);
+    const cartItem = cart.list.find(item => item.code === code);
+    const newCartState = {};
+
+    newCartState.list = cartItem
+      ? [...cart.list.filter(item => item.code !== code),
+      { ...item, quantity: cartItem.quantity + 1 }]
+      : [...cart.list, { ...item, quantity: 1 }];
+
+    newCartState.totalPrice = cart.totalPrice + item.price;
+    newCartState.isOpen = cart.isOpen;
+
+    this.setState({ ...this.state, cart: newCartState });
+  }
+
+  /**
+   * Удаление товара из корзины по коду
+   * @param {Number} code
+   */
+  removeItemFromCart(code) {
+    const cart = this.state.cart;
+    const cartItem = cart.list.find(item => item.code === code);
+    const newCartState = {};
+
+    newCartState.list = [...cart.list.filter(item => item.code !== code)];
+    newCartState.totalPrice = cart.totalPrice - cartItem.price * cartItem.quantity;
+    newCartState.isOpen = cart.isOpen;
+
+    this.setState({ ...this.state, cart: newCartState });
+  }
+
+  /**
+   * Открытие корзины
+   */
+  openCartModal() {
+    this.setState({ ...this.state, cart: { ...this.state.cart, isOpen: true } });
+  }
+
+  /**
+   * Закрытие корзины
+   */
+  closeCartModal() {
+    this.setState({ ...this.state, cart: { ...this.state.cart, isOpen: false } });
+  }
+
+  /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }]
     })
   };
 
   /**
    * Удаление записи по коду
-   * @param code
+   * @param {Number} code
    */
   deleteItem(code) {
     this.setState({
@@ -64,7 +115,7 @@ class Store {
 
   /**
    * Выделение записи по коду
-   * @param code
+   * @param {Number} code
    */
   selectItem(code) {
     this.setState({
@@ -79,7 +130,7 @@ class Store {
           };
         }
         // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+        return item.selected ? { ...item, selected: false } : item;
       })
     })
   }
