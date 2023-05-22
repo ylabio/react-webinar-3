@@ -82,6 +82,90 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     })
+  };
+
+  /**
+   * Добавление товара в корзину
+   * @param code
+   */
+  addItemToCart(code) {
+    // Поиск элемента в списке list по коду.
+    const item = this.state.list.find(i => i.code === code);
+    // Фильтр повторяющихся в корзине элементов
+    const includedItem = this.state.cart.items.filter(i => i.code === code);
+
+    let filteredItems;
+    let uniqueItemsCount;
+    
+    if(includedItem.length === 0) {
+      filteredItems = [...this.state.cart.items, {...item, count: 1}];
+      uniqueItemsCount = this.state.cart.uniqueItemsCount + 1;
+    } else {
+      filteredItems = this.state.cart.items.map(i => {
+        if (i.code === code) {
+          return {...i, count: i.count + 1};
+        }
+
+        return i;
+      });
+      uniqueItemsCount = this.state.cart.uniqueItemsCount;
+    }
+
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        total: this.state.cart.total + item.price,
+        items: filteredItems,
+        uniqueItemsCount: uniqueItemsCount
+      }
+    })
+  }
+
+  /**
+   * Удаление товара из корзины
+   * @param code
+   */
+    deleteItemFromCart(code) {
+      // Поиск элемента в списке cards.item по коду.
+      const item = this.state.cart.items.find(i => i.code === code);
+
+      this.setState({
+        ...this.state,
+        cart: {
+          ...this.state.cart,
+          total: this.state.cart.total - item.price * item.count,
+          // Новый список, в котором не будет удаляемой записи
+          items: this.state.cart.items.filter(item => item.code !== code),
+          uniqueItemsCount: this.state.cart.uniqueItemsCount - 1,
+        }
+      })
+    }
+
+  /**
+   * Открытие корзины
+   */
+  openCart() {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        isOpen: true
+      }
+    })
+  }
+
+  /**
+   * Закрытие корзины
+   */
+  closeCart() {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        isOpen: false
+      }
+    })
   }
 }
 
