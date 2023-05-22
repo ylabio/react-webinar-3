@@ -3,6 +3,7 @@ body {
   padding: 0;
   background: #535353;
   font-family: sans-serif;
+  position: relative;
 }
 
 .PageLayout {
@@ -12,4 +13,8 @@ body {
   background: #fff;
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
+}
+
+button {
+  border-radius: 3px;
 }
