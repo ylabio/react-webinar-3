@@ -1,5 +1,5 @@
-import {generateCode} from "./utils";
-
+import { generateCode } from "./utils";
+import { CalcTotalPrice } from "./utils";
 /**
  * Хранилище состояния приложения
  */
@@ -18,8 +18,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -39,49 +39,54 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
   /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
-   * Удаление записи по коду
+   * Удаление товара из корзины по коду
    * @param code
    */
   deleteItem(code) {
+    const newBasket = this.state.basket.list.filter((element) => element.code !== code);
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      // Новая корзина, в которой не будет удаляемой записи
+      basket: {
+        list: newBasket,
+        totalPrice: CalcTotalPrice(newBasket),
+        totalCount: this.state.basket.totalCount-1,
+      },
+    });
+  }
 
   /**
-   * Выделение записи по коду
-   * @param code
+   * Добавление товара в корзину
+   * @param newState {Object}
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+  addBasket(item) {
+    const findItem = this.state.basket.list.find((_) => _.code === item.code);
+    if (!!findItem) {
+      const newBasket = this.state.basket.list.map((element) => {
+        if (element.code === item.code) {
+          element.count = element.count+1;
         }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+        return element;
+      });
+      this.setState({
+        ...this.state,
+        basket: {
+          list: newBasket,
+          totalPrice: CalcTotalPrice(newBasket),
+          totalCount: newBasket.length,
+        },
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        basket: {
+          list: [...this.state.basket.list, item],
+          totalPrice: CalcTotalPrice([...this.state.basket.list, item]),
+          totalCount: this.state.basket.totalCount + 1,
+        },
+      });
+    }
   }
 }
 

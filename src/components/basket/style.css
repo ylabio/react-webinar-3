@@ -1,0 +1,13 @@
+.BasketHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 22px;
+}
+
+.BasketHeader-title{
+    color: #000;
+}
+
+.Basket-empty {
+    padding: 20px;
+}

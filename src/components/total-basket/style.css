@@ -1,0 +1,11 @@
+.TotalBasket-foooter {
+    display: flex;
+    justify-content: right;
+    gap: 30px;
+    font-weight: bold;
+    padding: 20px 14% 10px 10px;
+}
+
+.TotalBasket-foooter-text {
+    font-weight: bold;
+}
