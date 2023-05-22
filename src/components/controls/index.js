@@ -1,21 +1,18 @@
-import React from "react";
-import PropTypes from 'prop-types';
+import React, { useCallback } from 'react';
+import { store } from '../..';
 import './style.css';
 
-function Controls({onAdd}){
+function Controls() {
+  const callbacks = {
+    onModalOpen: useCallback(() => store.modalOpen(), [store]),
+  };
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <button className='Controls-btn' onClick={callbacks.onModalOpen}>
+        Перейти
+      </button>
     </div>
-  )
-}
-
-Controls.propTypes = {
-  onAdd: PropTypes.func
-};
-
-Controls.defaultProps = {
-  onAdd: () => {}
+  );
 }
 
 export default React.memo(Controls);

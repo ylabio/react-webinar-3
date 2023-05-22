@@ -1,0 +1,50 @@
+.Modal {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 960px;
+  min-height: 407px;
+  padding-bottom: 89px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  background: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.Modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f5f5f5;
+  height: 80px;
+  margin-bottom: 71px;
+  padding: 0 32px 0 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.Modal-title {
+  font-size: 32px;
+  line-height: 37px;
+  margin: 0;
+}
+
+.Modal-btn {
+  width: 76px;
+  height: 21px;
+  cursor: pointer;
+}
+
+.Modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}

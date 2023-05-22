@@ -1,0 +1,20 @@
+.Cart {
+  display: flex;
+  flex-direction: column;
+}
+
+.Cart-content {
+  align-self: center;
+  font-size: 2rem;
+}
+
+.Cart-summary {
+  align-self: flex-end;
+  display: flex;
+  margin-top: 20px;
+  padding-right: 120px;
+  column-gap: 53px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+}
