@@ -1,6 +1,8 @@
 .Item {
+  padding: 20px;
   display: flex;
-  justify-content: flex-start;
+  column-gap: 20px ;
+  align-items: center;
   transition: background-color 1s;
 }
 
@@ -9,17 +11,14 @@
   color: #fff;
 }
 
-.Item-code {
-  padding: 20px 10px 20px 20px;
-}
-
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
 }
 
 .Item-actions {
-  display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+ }
+
+.Item-quantity {
+  padding-left: 40px;
 }

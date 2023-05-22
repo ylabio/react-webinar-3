@@ -1,0 +1,7 @@
+.Total {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 53px;
+  padding: 20px 120px 0 20px;
+  text-align: right;
+}
