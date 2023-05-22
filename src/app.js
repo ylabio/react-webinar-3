@@ -25,7 +25,8 @@ function App({store}) {
 
   const list = store.getState().list;
   const listForBasket = store.getState().listForBasket;
-  const totalPrice = store.getState().totalPrice
+  const totalPrice = store.getState().totalPrice;
+  const totalNumberOfAddedItems = store.getState().totalNumberOfAddedItems;
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -46,7 +47,7 @@ function App({store}) {
       <PageLayout>
         <MarketHead
           onOpenModal={onOpenModal}
-          totalItems={listForBasket.length}
+          totalItems={totalNumberOfAddedItems}
           totalPrice={totalPrice}/>
         <List list={list}
               onBtnClick={callbacks.onAddItemToBasket}
