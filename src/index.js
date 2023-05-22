@@ -15,7 +15,10 @@ const store = new Store({
     {code: generateCode(), title: 'Товар сюрприз', price: 0},
   ],
   // состояние массива корзины
-  cart: []
+  cart: [],
+  // общее кол-во в корзине и общая цена
+  totalCount: 0,
+  totalPrice: 0
 });
 
 const root = createRoot(document.getElementById('root'));

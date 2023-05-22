@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, onAddItem, onDeleteItem, cartMode}) {
-
-  const cartTotal = () => list.reduce((sum, current) => parseInt(sum, 10) + (parseInt(current.count, 10) * parseInt(current.price, 10)), 0)
+function List({list, onAddItem, onDeleteItem, cartMode, totalPrice}) {
 
   return (
     <>
@@ -22,7 +20,7 @@ function List({list, onAddItem, onDeleteItem, cartMode}) {
       {cartMode ?
         <div className='List-total'>
           <span>Итого</span>
-          <span>{`${list.length > 0 ? cartTotal().toLocaleString() : '0'} ₽`}</span>
+          <span>{`${list.length > 0 ? totalPrice.toLocaleString() : '0'} ₽`}</span>
         </div>
         : null}
     </>
@@ -35,7 +33,8 @@ List.propTypes = {
   })).isRequired,
   onAddItem: PropTypes.func,
   onDeleteItem: PropTypes.func,
-  cartMode: PropTypes.bool
+  cartMode: PropTypes.bool,
+  totalPrice: PropTypes.number
 };
 
 List.defaultProps = {
@@ -43,7 +42,8 @@ List.defaultProps = {
   },
   onDeleteItem: () => {
   },
-  cartMode: false
+  cartMode: false,
+  totalPrice: 0
 }
 
 export default React.memo(List);

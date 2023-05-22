@@ -1,4 +1,4 @@
-import React, {useCallback, useState, createContext} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
@@ -12,12 +12,8 @@ import Modal from "./components/modal";
  */
 function App({store}) {
 
-  const list = store.getState().list;
-  const cart = store.getState().cart;
+  const {list, cart, totalCount, totalPrice} = store.getState();
   const [modalOpened, setModalOpened] = useState(false);
-
-  /** Контекст для передачи в дочерние компоненты */
-  const ContextContainer = createContext(null);
 
   const callbacks = {
     onAddItem: useCallback((code) => {
@@ -31,15 +27,13 @@ function App({store}) {
 
   return (<PageLayout>
     <Head title='Магазин'/>
-    <Controls onModalOpen={() => setModalOpened(true)} cart={cart}/>
+    <Controls onModalOpen={() => setModalOpened(true)} totalPrice={totalPrice} totalCount={totalCount}/>
     <List list={list}
           onAddItem={callbacks.onAddItem} onDeleteItem={callbacks.onDeleteItem}/>
     <Modal modalOpened={modalOpened} setModalOpened={() => setModalOpened(false)}>
       {/* Контекст для передачи в дочерние элементы */}
-      <ContextContainer.Provider value={{cart}}>
         <List list={cart}
-              onAddItem={callbacks.onAddItem} onDeleteItem={callbacks.onDeleteItem} cartMode/>
-      </ContextContainer.Provider>
+              onAddItem={callbacks.onAddItem} onDeleteItem={callbacks.onDeleteItem} totalPrice={totalPrice} cartMode/>
     </Modal>
   </PageLayout>);
 }

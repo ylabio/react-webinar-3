@@ -60,26 +60,11 @@ class Store {
   addItem(code) {
     this.setState({
       ...this.state,
-      cart: this.addToCartHandler(this.state.list.find((listItem) => listItem.code === code), this.state.cart)
+      cart: this.addToCartHandler(this.state.list.find((listItem) => listItem.code === code), this.state.cart),
+      totalCount: ++ this.state.totalCount,
+      totalPrice: this.state.totalPrice + parseInt(this.state.list.find((item) => item.code === code).price, 10)
     })
   };
-
-  /** Ф-я удаления товара из корзины по коду товара
-   * @param item {Object}
-   * @param cart {Array}
-   * @returns {Array}
-   */
-  deleteFromCartHandler(item, cart) {
-    const index = cart.findIndex((cartItem) => cartItem.code === item.code)
-    // кол-во товара > 1
-    if (cart[index].count > 1) {
-      cart[index].count = cart[index].count - 1
-      return cart
-    }
-    // если последний
-    cart.splice(index, 1);
-    return cart
-  }
 
   /** Удаление записи по коду
    * @param code {number}
@@ -87,7 +72,9 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      cart: this.deleteFromCartHandler(this.state.list.find((listItem) => listItem.code === code), this.state.cart)
+      cart: this.state.cart.filter(item => item.code !== code),
+      totalCount: this.state.totalCount - this.state.cart.find((item) => item.code === code).count,
+      totalPrice: this.state.totalPrice - (this.state.cart.find((item) => item.code === code).price * this.state.cart.find((item) => item.code === code).count)
     })
   };
 
