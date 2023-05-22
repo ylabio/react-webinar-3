@@ -1,39 +1,45 @@
-import React, {useCallback} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import List from "./components/list";
-import Controls from "./components/controls";
+import Cart from "./components/cart";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from './components/modal';
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
-
-  const list = store.getState().list;
+function App({ store }) {
+  const [active, setActive] = useState(false)
+  const { list, cartList, totalPrice, countCartList } = store.getState();
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
     }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    onAddItem: useCallback((code) => {
+      store.addItem(code);
     }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
+    onGetTotalPrice: useCallback(() => {
+      store.getTotalPrice();
+    }, [store]),
+    onCountItem: useCallback(() => {
+      store.countItem();
     }, [store])
   }
 
+  useEffect(() => {
+    callbacks.onGetTotalPrice()
+    callbacks.onCountItem()
+  }, [cartList])
+
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин' />
+      <Cart total={totalPrice} count={countCartList} setActive={setActive} />
+      <List list={list} onAction={callbacks.onAddItem} onGetTotalPrice={callbacks.onGetTotalPrice} title='Добавить' />
+      {active && <Modal list={cartList} setActive={setActive} onDeleteItem={callbacks.onDeleteItem} total={totalPrice} />}
     </PageLayout>
   );
 }

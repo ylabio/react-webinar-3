@@ -43,11 +43,19 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
+  addItem(code) {
+    const cartList = [...this.state.cartList];
+    const currentItem = cartList.find((item) => item.code === code);
+    if (currentItem) {
+      ++currentItem.count;
+    } else {
+      const item = this.state.list.find((item) => item.code === code);
+      cartList.push({...item, count: 1});
+    }
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+      cartList,
+    });
   };
 
   /**
@@ -57,30 +65,22 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cartList: this.state.cartList.filter(item => item.code !== code)
     })
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  getTotalPrice() {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
+      totalPrice: this.state.cartList.reduce((prev, next) => prev + next.price * next.count, 0),
+    })
+
+  }
+
+  countItem(){
+    this.setState({
+      ...this.state,
+      countCartList: this.state.cartList.length
     })
   }
 }

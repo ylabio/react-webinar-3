@@ -1,0 +1,11 @@
+.cart {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+.cart-row{
+  font-weight: 700;
+font-size: 18px;
+line-height: 21px;
+margin-right: 20px;
+}
