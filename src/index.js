@@ -1,7 +1,7 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {generateCode} from './utils.js';
-import App from './app.js';
+import App from './app.jsx';
 import Store from './store.js';
 
 const store = new Store({

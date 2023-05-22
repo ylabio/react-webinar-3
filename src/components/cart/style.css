@@ -1,0 +1,31 @@
+.Cart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 960px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.Cart-Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #F5F5F5;
+    padding-left: 20px;
+    padding-right: 32px;
+    border-radius: 10px;
+}
+
+.Cart-Total {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 20px 90px 89px 670px;
+}
+
+.Total-Sum {
+    margin-left: 50px;
+}
