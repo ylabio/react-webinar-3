@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -8,7 +6,7 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
   }
-
+  
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
@@ -21,7 +19,7 @@ class Store {
       this.listeners = this.listeners.filter(item => item !== listener);
     }
   }
-
+  
   /**
    * Выбор состояния
    * @returns {Object}
@@ -29,7 +27,7 @@ class Store {
   getState() {
     return this.state;
   }
-
+  
   /**
    * Установка состояния
    * @param newState {Object}
@@ -37,19 +35,11 @@ class Store {
   setState(newState) {
     this.state = newState;
     // Вызываем всех слушателей
-    for (const listener of this.listeners) listener();
+    for (const listener of this.listeners) {
+      listener();
+    }
   }
-
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
+  
   /**
    * Удаление записи по коду
    * @param code
@@ -61,7 +51,20 @@ class Store {
       list: this.state.list.filter(item => item.code !== code)
     })
   };
-
+  
+  
+  /**
+   * Удаление товара из корзины по коду
+   * @param code
+   */
+  deleteItemFromCart(code) {
+    this.setState({
+      ...this.state,
+      // Новый список, в котором не будет удаляемой записи
+      cart: this.state.cart.filter(item => item.code !== code)
+    })
+  };
+  
   /**
    * Выделение записи по коду
    * @param code
@@ -81,6 +84,32 @@ class Store {
         // Сброс выделения если выделена
         return item.selected ? {...item, selected: false} : item;
       })
+    })
+  }
+  
+  /**
+   * Добавление в корзину по коду
+   * @param code
+   */
+  addToCart(code) {
+    const currentItemIndex = this.state.cart.findIndex(item => item.code === code)
+    // Копируем старую корзину
+    const newCart = [...this.state.cart]
+    
+    // Если в корзине есть итем с входным кодом, то итерируем его количество
+    currentItemIndex >= 0 ?
+      newCart[currentItemIndex].count++
+      :
+      //Если в корзине такого итема нет, то добавляем его в новую корзину и модифицируем
+      newCart.push({
+        ...this.state.list.find(item => item.code === code),
+        count: 1,
+        canDelete: true
+      })
+    // Меняем старую корзину на новую
+    this.setState({
+      ...this.state,
+      cart: newCart
     })
   }
 }
