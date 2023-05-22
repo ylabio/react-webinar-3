@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -43,23 +43,49 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+  addItem({ code }) {
+    const item = this.state.cart.find(item => item.code === code);
+    if (item) {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map(el => {
+          if (el.code === item.code) {
+            return {
+              ...el,
+              amount: el.amount + 1
+            }
+          }
+          return el;
+        }),
+        cartPrice: this.state.cartPrice + item.price
+      })
+    }
+    else {
+      const item = this.state.list.find(item => item.code === code);
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, { ...item, amount: 1 }],
+        cartPrice: this.state.cartPrice + item.price,
+        cartLength: this.state.cartLength + 1
+      })
+    }
   };
 
   /**
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
+  deleteItem({ code }) {
+    const item = this.state.cart.find(el => el.code === code);
+    if (item) {
+      this.setState({
+        ...this.state,
+        // Новый список, в котором не будет удаляемой записи
+        cart: this.state.cart.filter(el => el.code !== code),
+        cartPrice: this.state.cartPrice - (item.price * item.amount),
+        cartLength: this.state.cartLength - 1
+      })
+    }
   };
 
   /**
@@ -79,7 +105,7 @@ class Store {
           };
         }
         // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+        return item.selected ? { ...item, selected: false } : item;
       })
     })
   }

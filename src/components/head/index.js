@@ -12,6 +12,13 @@ function Head({title}){
 
 Head.propTypes = {
   title: PropTypes.node,
+  active: PropTypes.bool,
+  setModalActive: PropTypes.func
 };
+
+Head.defaultProps ={
+  active: false,
+  setModalActive: () => {}
+}
 
 export default React.memo(Head);

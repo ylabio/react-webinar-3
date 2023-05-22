@@ -1,0 +1,11 @@
+.ResultPrice {
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
+    height: 100px;
+    padding-top: 20px;
+}
+
+.ResultPrice-content b{
+    margin-left: 50px;
+}
