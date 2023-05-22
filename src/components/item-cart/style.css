@@ -1,0 +1,50 @@
+.Item {
+  display: flex;
+  justify-content: flex-start;
+  transition: background-color 1s;
+  max-height: 61px;
+  align-items: center;
+  border-bottom: 1px dashed #ccc;
+}
+
+.Item-count {
+  white-space: nowrap;
+  min-width: 70px;
+  text-align: end;
+  padding-right: 15px;
+  font-size: 18px;
+}
+
+.Item:first-child {
+  border-top: 1px dashed #ccc;
+}
+
+.Item_selected {
+  background: #75aaf1;
+  color: #fff;
+}
+
+.Item-code {
+  padding: 20px 10px 20px 20px;
+}
+
+.Item-title {
+  width: 100%;
+  padding: 20px 10px;
+}
+
+.Item-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+  gap: 24px;
+  align-items: center;
+}
+
+.Item-price {
+  white-space: nowrap;
+  font-family: 'Arial';
+  font-style: normal;
+  font-size: 18px;
+  line-height: 21px;
+}

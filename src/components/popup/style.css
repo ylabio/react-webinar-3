@@ -1,0 +1,23 @@
+.Popup {
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    overflow: auto;
+}
+
+.Popup-container {
+    width: 960px;
+    min-height: 407px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: auto;
+    margin-bottom: auto;
+}

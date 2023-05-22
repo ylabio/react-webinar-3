@@ -1,4 +1,3 @@
-import {generateCode} from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -7,6 +6,11 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.shopCart = { // корзина покупок
+      itemsList: [],
+      itemsCount: 0,
+      itemsPrice: 0
+    }
   }
 
   /**
@@ -30,6 +34,10 @@ class Store {
     return this.state;
   }
 
+  getShopCart() {
+    return this.shopCart
+  }
+
   /**
    * Установка состояния
    * @param newState {Object}
@@ -40,15 +48,11 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+  setShopCart(newShopCart) {
+    this.shopCart = newShopCart;
+    // Вызываем всех слушателей
+    for (const listener of this.listeners) listener();
+  }
 
   /**
    * Удаление записи по коду
@@ -57,7 +61,6 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
       list: this.state.list.filter(item => item.code !== code)
     })
   };
@@ -71,17 +74,48 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+          item.selected = !item.selected;
         }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+        return item;
       })
     })
+  }
+
+  /**
+   * Добавление в корзину
+   */
+  addItem(code) {
+    let item = this.state.list.find(itm => itm.code === code);
+
+    let currItem = this.shopCart.itemsList
+      .filter(itm => itm.code === item.code)
+      .map(itm => ({code: itm.code, title: itm.title, price: item.price * (itm.count + 1), count: itm.count + 1}))[0];
+
+    if (!currItem) {
+      currItem = {code: item.code, title: item.title, price: item.price, count: 1};
+    }
+
+    let itemsList = [...this.shopCart.itemsList.filter(itm => itm.code !== currItem?.code), currItem];
+
+    this.setShopCart({
+      ...this.shopCart,
+      itemsList,
+      itemsCount: itemsList.length,
+      itemsPrice: this.shopCart.itemsPrice + item.price
+    });
+  };
+
+  removeItem(code) {
+    let currItem = this.shopCart.itemsList.find(itm => itm.code === code);
+
+    let itemsList = [...this.shopCart.itemsList.filter(itm => itm.code !== code)];
+
+    this.setShopCart({
+      ...this.shopCart,
+      itemsList,
+      itemsCount: itemsList.length,
+      itemsPrice: this.shopCart.itemsPrice - currItem.price
+    });
   }
 }
 
