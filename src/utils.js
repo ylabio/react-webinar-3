@@ -16,6 +16,11 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   return variants[key] || '';
 }
 
+// Функция для отображения числа с пробелами между сотнями, тысячами и т.д.
+export function numberFormat(number) {
+  return new Intl.NumberFormat('ru-RU').format(number);
+}
+
 /**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.

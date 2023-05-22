@@ -83,6 +83,37 @@ class Store {
       })
     })
   }
+
+  addCartItem(cartItem) {
+    const cartList = [...this.state.cartList]
+    const findItem = cartList.find(item => item.code === cartItem.code)
+
+    if(findItem) {
+      findItem.count++
+    } else {
+      cartList.push({...cartItem, count: 1})
+    }
+    this.setState({
+      ...this.state, cartList
+    })
+
+    this.updatePriceAndCount()
+  }
+
+  deleteCartItem(cartItem) {
+    const cartList = [...this.state.cartList].filter(item => item.code !== cartItem.code)
+
+    this.setState({
+      ...this.state, cartList
+    })
+
+    this.updatePriceAndCount()
+  }
+
+  updatePriceAndCount() {
+    this.state.cartPrice = this.state.cartList.reduce((sum, item) => sum + item.price*item.count, 0)
+    this.state.cartCount = this.state.cartList.reduce((sum, item) => sum + item.count, 0)
+  }
 }
 
 export default Store;
