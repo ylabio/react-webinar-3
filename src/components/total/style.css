@@ -1,0 +1,11 @@
+.Total {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 53px;
+    padding-right: 120px;
+    margin-top: 20px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+}

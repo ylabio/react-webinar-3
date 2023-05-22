@@ -1,21 +1,41 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({onAdd}){
-  return (
-    <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
-    </div>
-  )
+import { plural } from '../../utils';
+
+function Controls(props) {
+    const callbacks = {
+        onToggleModal: () => {
+            props.toggleModal();
+        },
+    };
+
+    return (
+        <div className="Controls">
+            <p className="Controls-text">В корзине:</p>
+            <div className="Controls-data">
+                {props.fullCount
+                    ? `${props.fullCount} ${plural(props.fullCount, {
+                          one: 'товар',
+                          few: 'товара',
+                          many: 'товаров',
+                      })} / ${props.fullPrice.toLocaleString('ru-RU')} ₽`
+                    : 'пусто'}
+            </div>
+            <button onClick={callbacks.onToggleModal}>Перейти</button>
+        </div>
+    );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+    toggleModal: PropTypes.func,
+    fullCount: PropTypes.number,
+    fullPrice: PropTypes.number,
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
-}
+    toggleModal: () => {},
+};
 
 export default React.memo(Controls);
