@@ -1,0 +1,9 @@
+.Cart-block {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.Cart-block-text {
+  font-weight: 700;
+}

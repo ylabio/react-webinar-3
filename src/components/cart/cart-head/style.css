@@ -1,0 +1,13 @@
+.Cart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  background: #f5f5f5;
+  margin-bottom: 70px;
+  padding-left: 20px;
+}
+
+.Cart-head h1 {
+  margin: 0;
+}
