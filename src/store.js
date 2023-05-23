@@ -1,11 +1,12 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
 class Store {
-  constructor(initState = {}) {
+  constructor(initState = { list: [], cart: { list: [], totalQuantity: 0, sum: 0 } }) {
     this.state = initState;
+    if (!Object.hasOwn(initState, 'cart')) {
+      this.state.cart = { list: [], totalQuantity: 0, sum: 0 };
+    }
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -34,54 +35,63 @@ class Store {
    * Установка состояния
    * @param newState {Object}
    */
-  setState(newState) {
+  #setState(newState) {
     this.state = newState;
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
+  removeItemFromCart(code) {
+    const removedItem = this.state.cart.list.find((item) => item.code === code);
+    this.#setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+      cart: {
+        list: [...this.state.cart.list.filter((item) => item.code !== code)],
+        totalQuantity: this.state.cart.totalQuantity - 1,
+        sum: this.state.cart.sum - removedItem.price * removedItem.quantity
+      }
+    });
+  }
 
   /**
-   * Удаление записи по коду
+   * Добавление товара в корзину
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+  addToCart(code) {
+    const newItem = this.state.list.find(item => item.code === code);
+    const foundItem = this.state.cart.list.find((item) => item.code === newItem.code);
+    console.log(this.state.cart);
+    if(foundItem) {
+      this.#setState({
+        ...this.state,
+        cart: {
+          list: [
+            ...this.state.cart.list.filter((item) => item.code !== newItem.code),
+            {...foundItem, quantity: foundItem.quantity + 1}
+          ],
+          totalQuantity: this.state.cart.totalQuantity,
+          sum: this.state.cart.sum + foundItem.price
         }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+      });
+    } else {
+      this.#setState({
+        ...this.state,
+        cart: {
+          list: [...this.state.cart.list, {...newItem, quantity: 1}],
+          totalQuantity: this.state.cart.totalQuantity + 1 ,
+          sum: this.state.cart.sum + newItem.price
+          }
+        }
+      );
+    }
+    console.log(this.state.cart);
+  }
+
+  getTotalQuantity() {
+    return this.state.cart.totalQuantity;
+  }
+  getCartSum() {
+    return this.state.cart.sum;
   }
 }
 
