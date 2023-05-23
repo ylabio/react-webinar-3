@@ -15,11 +15,9 @@ function Item(props) {
       <div className="Item-code">{props.item.code}</div>
       <div className="Item-title">{props.item.title}</div>
       <div className="Item-actions">
-        {props.isCartItem && (
-          <div className="Item-price">
-            <Price price={props.item.price} />
-          </div>
-        )}
+        <div className="Item-price">
+          <Price price={props.item.price} />
+        </div>
         {props.isCartItem && (
           <div className="Item-count">{`${
             props.item.count !== undefined ? props.item.count : "1"

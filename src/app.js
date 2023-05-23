@@ -1,10 +1,10 @@
-import React, {useCallback , useState} from 'react';
+import React, {useCallback, useState} from "react";
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import Modal from './components/modal';
-import Cart from './components/cart';
+import Modal from "./components/modal";
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -19,13 +19,19 @@ function App({store}) {
   const total = store.getState().total;
 
   const callbacks = {
-    onAddItem: useCallback((code) => {
-      store.addToCart(code);
-    }, [store]),
+    onAddItem: useCallback(
+      (code) => {
+        store.addToCart(code);
+      },
+      [store]
+    ),
 
-    onDeleteItem: useCallback((code) => {
-      store.removeFromCart(code);
-    }, [store]),
+    onDeleteItem: useCallback(
+      (code) => {
+        store.removeFromCart(code);
+      },
+      [store]
+    ),
 
     onGoToCart: useCallback(() => {
       setIsModalOpen(true);
@@ -34,15 +40,27 @@ function App({store}) {
     onCloseCart: useCallback(() => {
       setIsModalOpen(false);
     }, [store]),
-  }
+  };
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls goToCart={callbacks.onGoToCart} itemCount={cart.length} totalPrice={total}/>
-      <List list={list} onClick={callbacks.onAddItem}/>
-      <Modal isOpen={isModalOpen} onClose={callbacks.onCloseCart} title="Корзина"> 
-        <Cart cart={cart} onDelete={callbacks.onDeleteItem} total={total}></Cart>
+      <Head title="Приложение на чистом JS" />
+      <Controls
+        goToCart={callbacks.onGoToCart}
+        itemCount={cart.length}
+        totalPrice={total}
+      />
+      <List list={list} onClick={callbacks.onAddItem} />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={callbacks.onCloseCart}
+        title="Корзина"
+      >
+        <Cart
+          cart={cart}
+          onDelete={callbacks.onDeleteItem}
+          total={total}
+        ></Cart>
       </Modal>
     </PageLayout>
   );
