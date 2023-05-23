@@ -3,14 +3,19 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, onDeleteItem, onSelectItem}){
+function List({list, buttonClickAction, buttonName,isCartItem = false, totalPrice = 0}){
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
+          <Item item={item} 
+		    buttonClickAction={buttonClickAction} 
+		    buttonName={buttonName}
+			isCartItem={isCartItem}
+		  />
         </div>
       )}
+	  {isCartItem && <div className='List-total'><span className='mr-70'>Итого</span> {`${totalPrice.toLocaleString()}  ₽`}</div>}
     </div>
   )
 }
@@ -19,13 +24,12 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
+  buttonClickAction: PropTypes.func,
+  buttonName:PropTypes.string
 };
 
 List.defaultProps = {
-  onDeleteItem: () => {},
-  onSelectItem: () => {},
+	buttonClickAction: () => {},
 }
 
 export default React.memo(List);

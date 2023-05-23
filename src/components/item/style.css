@@ -16,7 +16,21 @@
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  text-align: left;
 }
+
+.Item-price {
+	width: 20%;
+	padding: 20px;
+	text-align: right;
+}
+
+.Item-count {
+  margin-right: 24px;
+  margin-left: 42px;
+  padding: 20px;
+  white-space: nowrap;
+} 
 
 .Item-actions {
   display: flex;
