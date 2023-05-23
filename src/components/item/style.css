@@ -23,3 +23,22 @@
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }
+.Item-btn {
+  margin-left: 20px;
+}
+
+.Item-price {
+  white-space: nowrap;
+  font-family: 'Arial';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 21px;
+}
+
+.Item-counts {
+  white-space: nowrap;
+  margin-right: 24px;
+  margin-left: 62px;
+
+}

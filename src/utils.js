@@ -49,3 +49,23 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Создание элемента со свойствами и вложенными элементами
+ * @returns {number}
+ */
+
+export function generateId() {
+  return Math.floor(Math.random() * 10000000000);  ;
+}
+
+
+
+export function declOfNum(n, text_forms) {  
+  n = Math.abs(n) % 100; 
+  var n1 = n % 10;
+  if (n > 10 && n < 20) { return text_forms[2]; }
+  if (n1 > 1 && n1 < 5) { return text_forms[1]; }
+  if (n1 == 1) { return text_forms[0]; }
+  return text_forms[2];
+}
