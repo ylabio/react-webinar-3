@@ -16,7 +16,7 @@ function PageLayout({children}) {
   );
 }
 
-PageLayout.propTypes = {
+PageLayout.propTypes = {  
   children: PropTypes.node
 }
 

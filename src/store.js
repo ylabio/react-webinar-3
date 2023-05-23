@@ -6,7 +6,8 @@ import {generateCode} from "./utils";
 class Store {
   constructor(initState = {}) {
     this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.listeners = []; // Слушатели изменений состояния   
+    this.totalSumCart = 0; //
   }
 
   /**
@@ -58,7 +59,12 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      orders: this.state.orders.filter(item => {
+        if (item.code !== code) {          
+          return item
+        }  
+        this.totalSumCart -=  item.price * item.total;     
+      })
     })
   };
 
@@ -81,6 +87,34 @@ class Store {
         // Сброс выделения если выделена
         return item.selected ? {...item, selected: false} : item;
       })
+    })
+  }
+
+  addToOrder(code) {       
+    this.state.list.map(item => {
+      if (item.code === code) {  
+        if (!this.state.orders.some(el => el.code === item.code))
+        {
+          this.setState({
+            ...this.state,
+            orders: [...this.state.orders, {code: item.code, title: item.title, price: item.price, total: 1}]      
+          })  
+          this.totalSumCart +=  item.price;      
+        }       
+        else  
+        {
+          this.setState({
+            ...this.state,
+            orders: this.state.orders.filter(value => {
+              if (value.code === item.code) {       
+                this.totalSumCart +=  value.price;                
+                return {...value, total: value.total++}          
+              }     
+              return value 
+            })                   
+          })      
+        }  
+      }
     })
   }
 }

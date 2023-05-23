@@ -1,5 +1,16 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  align-items: center;
+}
+
+.Controls-cart {
+  white-space: nowrap;
+  padding: 0 24px;
+}
+
+.Controls-button {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
 }

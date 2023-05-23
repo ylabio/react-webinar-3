@@ -1,16 +1,32 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import Item from "../item";
+import ItemCart from "../cart/item-cart";
 import './style.css';
+import {cn as bem} from '@bem-react/classname';
 
-function List({list, onDeleteItem, onSelectItem}){
+function List({list, orders, onAddToOrder, onDeleteItem}){
+
+  const cn = bem('List');
+
   return (
-    <div className='List'>{
-      list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
-        </div>
-      )}
+    <div className={cn()}>
+      {
+        list &&
+        list.map(item =>
+          <div key={item.code} className={cn('item')}>
+            <Item item={item} onAddToOrder={onAddToOrder}/>         
+          </div>
+        )
+      }
+      {
+        orders &&
+        orders.map(item =>
+          <div key={item.code} className={cn('item')}>
+            <ItemCart item={item} onDeleteItem={onDeleteItem}/>         
+          </div>
+        )       
+      }
     </div>
   )
 }
@@ -18,14 +34,17 @@ function List({list, onDeleteItem, onSelectItem}){
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
-  })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
+  })),
+  orders: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.number
+  })),
+  onAddToOrder: PropTypes.func,
+  onDeleteItem: PropTypes.func
 };
 
 List.defaultProps = {
-  onDeleteItem: () => {},
-  onSelectItem: () => {},
+  onAddToOrder: () => {},
+  onDeleteItem: () => {}
 }
 
 export default React.memo(List);

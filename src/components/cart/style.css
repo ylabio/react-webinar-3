@@ -1,0 +1,32 @@
+.Cart {
+    width: 960px;
+    min-height: 200px;
+    margin: 0 auto;  
+    box-sizing: border-box;
+    box-shadow: 0 0 15px 5px #0000003b;
+}
+
+.Cart-close {
+  padding: 20px 20px 20px 10px;
+}
+
+.Cart-list {
+  margin-top: 70px;
+}
+  
+.Cart-total {
+  display: flex; 
+  justify-content: end;
+  padding: 20px 120px 90px 10px;
+}
+
+.Cart-total span {
+  margin-right: 40px;
+}
+
+.Cart-empty {
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  font-size: 20px;
+}
