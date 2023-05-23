@@ -1,0 +1,35 @@
+.Cart-header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  background-color: #f5f5f5;
+  justify-content: space-between;
+}
+
+.Cart-Item {
+  display: flex;
+  justify-content: flex-start;
+  transition: background-color 1s;
+}
+
+.Item-code {
+  padding: 20px 10px 20px 20px;
+}
+
+.Cart-item-title {
+  width: 100%;
+  padding: 20px 10px;
+}
+
+.Cart-item-price {
+  width: 100%;
+  padding: 20px 10px;
+  text-align: right;
+}
+
+.Cart-item-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+}
