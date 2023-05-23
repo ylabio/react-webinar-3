@@ -56,9 +56,11 @@ class Store {
   addCartItem(code) {
     const cartList = [...this.state.cartList];
 		let isNew;
-    let item = cartList.find((el) => el.code == code);
-    if (item) {
-      ++item.count;
+		let item;
+    const itemIdx = cartList.findIndex((el) => el.code == code);
+    if (itemIdx !== -1) {
+			item = cartList[itemIdx]
+			cartList[itemIdx] = {...item, count: item.count + 1}
     } else {
       item = this.state.list.find((el) => el.code == code);
       cartList.push({ ...item, count: 1 });
@@ -75,9 +77,9 @@ class Store {
   }
 
   deleteCartItem(code) {
-		const cartList = [...this.state.cartList]
-		const itemToDeleteIdx = this.state.cartList.findIndex((el) => el.code == code)
-		const [delItem] = cartList.splice(itemToDeleteIdx, 1);
+		const delItemIdx = this.state.cartList.findIndex((el) => el.code == code);
+		const delItem = this.state.cartList[delItemIdx]
+		const cartList = [...this.state.cartList.slice(0, delItemIdx), ...this.state.cartList.slice(delItemIdx + 1)]
 		const cartTotalPrice =
       this.state.cartTotalPrice - delItem.count * delItem.price;
 		const cartTotalCount = this.state.cartTotalCount - 1;

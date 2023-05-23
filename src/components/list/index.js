@@ -3,9 +3,9 @@ import React from "react";
 import Item from "../item";
 import "./style.css";
 
-function List({ list, Item, onAction }) {
+function List({ list, Item, onAction, className }) {
   return (
-    <div className="List">
+    <div className={`List ${className ?? ''}`}>
       {list.map((el) => (
         <div key={el.code} className="List-item">
           <Item item={el} onAction={onAction} />

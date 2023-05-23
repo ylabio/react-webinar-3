@@ -5,4 +5,9 @@
 	gap: 40px;
 	justify-content: end;
 	padding: 20px 120px;
+	margin-bottom: 69px;
+}
+
+.CartModal-list {
+	margin-top: 71px;
 }

@@ -10,7 +10,12 @@ const CartModal = ({ list, onDeleteItem, onClose, totalPrice }) => {
   return (
     <Modal onClose={onClose} title={"Корзина"}>
       <>
-        <List list={list} onAction={onDeleteItem} Item={CartItem} />
+        <List
+          className="CartModal-list"
+          list={list}
+          onAction={onDeleteItem}
+          Item={CartItem}
+        />
         <div className="CartModal-total">
           <strong>Итого</strong>
           <strong>{formatPrice(totalPrice)}</strong>
