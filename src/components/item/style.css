@@ -1,25 +1,42 @@
 .Item {
-  display: flex;
-  justify-content: flex-start;
-  transition: background-color 1s;
-}
-
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition: background-color 1s;
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+    padding: 20px 10px 20px 20px;
 }
 
 .Item-title {
-  width: 100%;
-  padding: 20px 10px;
+    width: 60%;
+    padding: 20px 10px;
+    font-size: 16px;
+    line-height: 18px;
+    text-align: left;
 }
 
 .Item-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 20px 20px 10px;
+}
+.Item-price {
+    white-space: nowrap;
+    width: 30%;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: right;
+    color: #404040;
+}
+.Item-count {
+  width: 10%;
+}
+.Item-button {
+    border: 1px solid #767676;
+    border-radius: 2px;
+    width: 76px;
+    height: 21px;
+    cursor: pointer;
 }
