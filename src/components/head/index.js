@@ -1,17 +1,33 @@
 import React from "react";
 import PropTypes from "prop-types";
-import './style.css';
+import { cn as bem } from "@bem-react/classname";
+import "./style.css";
 
-function Head({title}){
+function Head(props) {
+  const cn = bem('Head')
   return (
-    <div className='Head'>
-      <h1>{title}</h1>
+    <div className={cn({'active': props.active})}>
+      <h1 className={cn('title')}>{props.title}</h1>
+      {props.active && (
+        <button
+          type="button"
+          className={cn('button')}
+          onClick={() => props.onclick(!props.active)}>
+          Закрыть
+        </button>
+      )}
     </div>
   )
 }
 
 Head.propTypes = {
   title: PropTypes.node,
-};
+  active: PropTypes.bool,
+  onclick: PropTypes.func,
+}
 
-export default React.memo(Head);
+Head.defaultProps = {
+  onclick: () => {},
+}
+
+export default React.memo(Head)

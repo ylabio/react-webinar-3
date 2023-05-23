@@ -1,5 +1,33 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 20px 21px 22px 0;
+  border-bottom: 1px dashed #cccccc;
+}
+
+.Controls-wrap-text {
+  margin-right: 20px;
+}
+
+.Controls-wrap-text button {
+  width: 80px;
+}
+
+.Controls-wrap-text b {
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+
+.Controls-text {
+  margin-right: 15px;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
 }

@@ -1,40 +1,35 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
-import './style.css';
+import { cn as bem } from "@bem-react/classname";
+import "./style.css";
 
-function Item(props){
-
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
+function Item(props) {
+  const cn = bem('Item')
 
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
+    clickButton: (e) => {
+      e.stopPropagation()
+      props.onclick(props.item.code)
     },
-    onDelete: (e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code);
-    }
   }
-
+  const price = props.item.price.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 })
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-         onClick={callbacks.onClick}>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {one: 'раз', few: 'раза', many: 'раз'})}` : ''}
+    <div className={cn()}>
+      <div className={cn('wrap-title')}>
+        <div className={cn('code')}>{props.item.code}</div>
+        <div className={cn('title')}>{props.item.title}</div>
       </div>
-      <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
+      <div className={cn('actions')}>
+        {props.pageName ===  'basket' && <>
+         <span className={cn('price', {'active': props.active})}>{`${price}`}</span>
+         <span className={cn('count')}>{`${props.item.count} шт`}</span></>}  
+        {props.pageName ===  'home' && <span className={cn('price', {'active': props.active})}>{`${price}`}</span>}
+        <div>
+          <button onClick={callbacks.clickButton}>{props.titleButton}</button>
+        </div>
       </div>
     </div>
-  );
+  )
 }
 
 Item.propTypes = {
@@ -42,15 +37,16 @@ Item.propTypes = {
     code: PropTypes.number,
     title: PropTypes.string,
     selected: PropTypes.bool,
-    count: PropTypes.number
+    count: PropTypes.number,
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func
-};
-
-Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
+  titleButton: PropTypes.string,
+  onclick: PropTypes.func,
+  active: PropTypes.bool,
+  pageName: PropTypes.string
 }
 
-export default React.memo(Item);
+Item.defaultProps = {
+  onclick: () => {},
+}
+
+export default React.memo(Item)

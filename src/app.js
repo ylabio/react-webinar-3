@@ -1,8 +1,10 @@
-import React, {useCallback} from 'react';
+import React, { useCallback, useState } from "react";
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from "./components/modal";
+import Basket from "./components/basket";
 
 /**
  * Приложение
@@ -10,32 +12,58 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
-
-  const list = store.getState().list;
+  const listItems = store.getState().list;
+  const basketItems = store.getState().basket;
+  const totalPrice = store.getState().total[1]?.totalPrice || 0;
+  const [active, setActive] = useState(false);
 
   const callbacks = {
+
+    onAddProductInBasket: useCallback((code) => {
+      const currentBasketItems = store.getState().basket;
+      const hasItem = currentBasketItems.some(item => item.code === code);
+      if(hasItem) {
+        store.changeCount(code)
+      }else{
+        store.addProductInBasket(code)
+      }
+      store.totalCount();
+      }, [store]),
+
     onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
+        store.deleteItem(code);
+        store.totalCount();
     }, [store])
   }
 
   return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-    </PageLayout>
-  );
+    <>
+      <PageLayout>
+        <Head title="Maгазин" />
+        <Controls 
+          basket={basketItems}
+          setActive={setActive} 
+          active={active}
+          totalPrice={totalPrice} />
+        <List
+          active={active}
+          list={listItems}
+          title="Добавить"
+          onclick={callbacks.onAddProductInBasket}
+          pageName="home"
+        />
+      </PageLayout>
+      <Modal active={active}>
+        <Basket 
+          setActive={setActive} 
+          active={active} 
+          basket={basketItems}
+          onDeleteItem={callbacks.onDeleteItem}
+          totalPrice={totalPrice}
+          pageName="basket" />
+      </Modal>
+    </>
+  )
 }
 
-export default App;
+export default App
