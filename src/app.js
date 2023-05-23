@@ -1,39 +1,55 @@
-import React, {useCallback} from 'react';
-import List from "./components/list";
-import Controls from "./components/controls";
-import Head from "./components/head";
-import PageLayout from "./components/page-layout";
+import React, { useCallback, useEffect, useState } from 'react';
+import PageLayout from './components/page-layout';
+import Modal from './components/modal';
+import ProductsPage from './components/products-page';
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
 
+function App({ state: { store, cart } }) {
   const list = store.getState().list;
+  const cartItems = cart.getState().cart;
+
+  const [showModal, setShowModal] = useState(false);
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    showModal: useCallback(() => {
+      setShowModal((prev) => !prev);
     }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
+    onAddItem: useCallback(
+      (item) => {
+        cart.addItem(item);
+      },
+      [store]
+    ),
+    onDeleteFromCart: useCallback(
+      (item) => {
+        cart.deleteItem(item);
+      },
+      [store]
+    ),
+  };
 
   return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+    <PageLayout onShowModal={callbacks.showModal} showModal={showModal}>
+      {showModal && (
+        <Modal
+          showModal={callbacks.showModal}
+          cart={cartItems}
+          deleteItem={callbacks.onDeleteFromCart}
+          sum={cart.getState().sum.toLocaleString()}
+        />
+      )}
+      <ProductsPage
+        showModal={callbacks.showModal}
+        cnt={cart.getState().cnt}
+        sum={cart.getState().sum.toLocaleString()}
+        list={list}
+        addItem={callbacks.onAddItem}
+      />
     </PageLayout>
   );
 }

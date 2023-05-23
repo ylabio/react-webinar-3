@@ -1,56 +1,36 @@
-import React, {useState} from "react";
-import PropTypes from "prop-types";
-import {plural} from "../../utils";
+import React from 'react';
+import PropTypes from 'prop-types';
 import './style.css';
+import { cn as bem } from '@bem-react/classname';
 
-function Item(props){
+function ItemProducts({ code, price, title, addItem }) {
+  const cn = bem('Item-list');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
-  const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
-    onDelete: (e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code);
-    }
-  }
+  const onClickHandler = () => {
+    addItem({ code, title, price });
+  };
 
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-         onClick={callbacks.onClick}>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {one: 'раз', few: 'раза', many: 'раз'})}` : ''}
-      </div>
-      <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
+    <div className={cn()}>
+      <div className={cn('code')}>{code}</div>
+      <div className={cn('title')}>{title}</div>
+      <div className={cn('price')}>{price.toLocaleString()}&nbsp;&#8381;</div>
+      <div className={cn('actions')}>
+        <button onClick={onClickHandler}>Добавить</button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
-  item: PropTypes.shape({
-    code: PropTypes.number,
-    title: PropTypes.string,
-    selected: PropTypes.bool,
-    count: PropTypes.number
-  }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+ItemProducts.propTypes = {
+  code: PropTypes.number,
+  price: PropTypes.number,
+  title: PropTypes.string,
+  addItem: PropTypes.func,
 };
 
-Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
-}
+ItemProducts.defaultProps = {
+  addItem: () => {},
+};
 
-export default React.memo(Item);
+export default React.memo(ItemProducts);

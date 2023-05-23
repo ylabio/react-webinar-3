@@ -1,0 +1,15 @@
+.ModalContainer {
+  position: relative;
+  min-width: 906px;
+  min-height: 407px;
+  margin: auto;
+  z-index: 20;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.border {
+  height: 71px;
+  border-bottom: 1px dashed #ccc;
+}
