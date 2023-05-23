@@ -1,5 +1,20 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   padding: 20px;
+  gap: 20px;
+}
+
+.controls-title {
+  color: #000000;
+  font-size: 18px;
+  font-family: Arial, serif;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.controls-counter {
+  font-weight: 700;
 }

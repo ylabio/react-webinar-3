@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from "./components/modal";
 
 /**
  * Приложение
@@ -11,31 +12,29 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
-  const list = store.getState().list;
+  const {list, cart, totalCount, totalPrice} = store.getState();
+  const [modalOpened, setModalOpened] = useState(false);
 
   const callbacks = {
+    onAddItem: useCallback((code) => {
+      store.addItem(code);
+    }, [store]),
+
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
     }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
   }
 
-  return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-    </PageLayout>
-  );
+  return (<PageLayout>
+    <Head title='Магазин'/>
+    <Controls onModalOpen={() => setModalOpened(true)} totalPrice={totalPrice} totalCount={totalCount} cart={cart}/>
+    <List list={list}
+          onAddItem={callbacks.onAddItem} onDeleteItem={callbacks.onDeleteItem}/>
+    <Modal modalOpened={modalOpened} setModalOpened={() => setModalOpened(false)}>
+        <List list={cart}
+              onAddItem={callbacks.onAddItem} onDeleteItem={callbacks.onDeleteItem} totalPrice={totalPrice} cartMode/>
+    </Modal>
+  </PageLayout>);
 }
 
 export default App;
