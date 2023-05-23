@@ -3,11 +3,16 @@ import PropTypes from "prop-types";
 import "./style.css";
 import Cart from "../cart";
 
-function Modal({ active, cart, setActive, onDeleteItem }) {
+function Modal({ sum, active, cart, setActive, onDeleteItem }) {
   return (
     <div className={active ? "modal active" : "modal"}>
       <div className="modal__content">
-        <Cart cart={cart} onDeleteItem={onDeleteItem} setActive={setActive} />
+        <Cart
+          sum={sum}
+          cart={cart}
+          onDeleteItem={onDeleteItem}
+          setActive={setActive}
+        />
       </div>
     </div>
   );

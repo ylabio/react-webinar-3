@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./style.css";
-import { calculateSum } from "../../utils";
 
-function Cart({ cart, setActive, onDeleteItem }) {
+function Cart({ cart, sum, setActive, onDeleteItem }) {
   return (
     <div>
       <div className="Cart-header">
@@ -14,23 +13,18 @@ function Cart({ cart, setActive, onDeleteItem }) {
         {cart.map((item) => (
           <div key={item.code} className="List-item">
             <div className="Item">
-              <div className="Item-code">{item.code}</div>
-              <div className="Item-title">{item.title}</div>
-              <div className="Item-price">{`${item.price} ₽`}</div>
-              <div className="Item-price">{item.amount}шт</div>
-              <div className="Item-actions">
+              <div className="Cart-item-code">{item.code}</div>
+              <div className="Cart-item-title">{item.title}</div>
+              <div className="Cart-item-price">{`${item.price} ₽`}</div>
+              <div className="Cart-item-price">{item.amount}шт</div>
+              <div className="Cart-item-actions">
                 <button onClick={() => onDeleteItem(item.code)}>Удалить</button>
               </div>
             </div>
           </div>
         ))}
       </div>
-      <div>
-        Итого{" "}
-        {cart.length > 0
-          ? calculateSum(cart.map((item) => item.price * item.amount))
-          : 0}
-      </div>
+      <div>Итого {sum}</div>
     </div>
   );
 }

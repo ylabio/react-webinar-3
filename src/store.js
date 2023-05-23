@@ -103,21 +103,22 @@ class Store {
           },
         ],
       });
+    } else {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map((cartGoods) => {
+          if (cartGoods.code === code) {
+            return {
+              code: cartGoods.code,
+              title: cartGoods.title,
+              price: cartGoods.price,
+              amount: cartGoods.amount + 1,
+            };
+          }
+          return cartGoods;
+        }),
+      });
     }
-    this.setState({
-      ...this.state,
-      cart: this.state.cart.map((cartGoods) => {
-        if (cartGoods.code === code) {
-          return {
-            code: cartGoods.code,
-            title: cartGoods.title,
-            price: cartGoods.price,
-            amount: cartGoods.amount + 1,
-          };
-        }
-        return cartGoods;
-      }),
-    });
   }
 }
 

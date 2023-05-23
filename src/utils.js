@@ -53,7 +53,7 @@ export function generateCode2() {
 }
 
 export const calculateSum = (arr) => {
-  arr.reduce((acc, current) => {
+  return arr.reduce((acc, current) => {
     return acc + current;
   });
 };
