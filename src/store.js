@@ -62,25 +62,59 @@ class Store {
     })
   };
 
+  calculateCartTotalPrice(){
+    let totalPrice = 0;
+    for (let item of this.state.cart) {
+      totalPrice += item.price * item.count;
+    }
+    return totalPrice;
+  }
+
   /**
-   * Выделение записи по коду
-   * @param code
+   * Добавление товара в корзину
    */
-  selectItem(code) {
+  addToCart(code){
+    // проверяем есть ли в корзине товар с таким же кодом
+    // присваиваем переменной i индекс товара в корзине, если товара нет то i = -1
+    const i = this.state.cart.findIndex((item) => item.code === code);
+
+    if (i > -1) {
+      // если товар в корзине есть увеличиваем у него count
+      const newCart = this.state.cart;
+      newCart[i].count++;
+
+      // обновляем стейт
+      this.setState({
+        ...this.state,
+        cart: newCart,
+      })
+
+    } else if (i === -1) {
+      // если товара в корзине нет, добавляем его в корзину
+      this.setState({
+        ...this.state,
+        cart: [ ...this.state.cart, {...this.state.list.filter((item) => item.code === code)[0], count: 1}],
+      });
+    }  
+
+    // считаем новую цену товаров в корзине
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
+      total: this.calculateCartTotalPrice(),
+    });
+  }  
+
+  removeFromCart(code){
+    this.setState({
+      ...this.state,
+      // Новая корзина, в которой не будет удаляемого товара
+      cart: [...this.state.cart.filter((item) => item.code !== code)],
+    })
+
+    // считаем новую цену товаров в корзине
+    this.setState({
+      ...this.state,
+      total: this.calculateCartTotalPrice(),
     })
   }
 }

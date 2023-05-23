@@ -1,0 +1,23 @@
+.Cart-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Cart-footer {
+  padding-bottom: 70px;
+}
+
+.Cart-total {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  margin-right: 90px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.Cart-total span {
+  margin-right: 50px;
+}

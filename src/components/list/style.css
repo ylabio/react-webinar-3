@@ -1,7 +1,11 @@
-.List{
-
+.List {
+  width: 100%;
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px dashed #CCCCCC;
+}
+
+.List-item:first-child {
+  border-top: 1px dashed #CCCCCC;
 }
