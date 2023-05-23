@@ -15,6 +15,7 @@ function List(props) {
             titleButton={props.title}
             onclick={props.onclick}
             active={props.active}
+            pageName={props.pageName}
           />
         </div>
       ))}
@@ -31,6 +32,7 @@ List.propTypes = {
   title: PropTypes.string,
   onclick: PropTypes.func,
   active: PropTypes.bool,
+  pageName: PropTypes.string
 }
 
 List.defaultProps = {

@@ -20,8 +20,10 @@ function Item(props) {
         <div className={cn('title')}>{props.item.title}</div>
       </div>
       <div className={cn('actions')}>
-        <span className={cn('price', {'active': props.active})}>{`${price}`}</span>
-        {props.active && <span className={cn('count')}>{`${props.item.count} шт`}</span>}
+        {props.pageName ===  'basket' && <>
+         <span className={cn('price', {'active': props.active})}>{`${price}`}</span>
+         <span className={cn('count')}>{`${props.item.count} шт`}</span></>}  
+        {props.pageName ===  'home' && <span className={cn('price', {'active': props.active})}>{`${price}`}</span>}
         <div>
           <button onClick={callbacks.clickButton}>{props.titleButton}</button>
         </div>
@@ -39,7 +41,8 @@ Item.propTypes = {
   }).isRequired,
   titleButton: PropTypes.string,
   onclick: PropTypes.func,
-  active: PropTypes.bool
+  active: PropTypes.bool,
+  pageName: PropTypes.string
 }
 
 Item.defaultProps = {

@@ -50,6 +50,7 @@ function App({store}) {
           list={listItems}
           title="Добавить"
           onclick={callbacks.onAddProductInBasket}
+          pageName="home"
         />
       </PageLayout>
       <Modal active={active}>
@@ -58,7 +59,8 @@ function App({store}) {
           active={active} 
           basket={basketItems}
           onDeleteItem={callbacks.onDeleteItem}
-          totalPrice={totalPrice} />
+          totalPrice={totalPrice}
+          pageName="basket" />
       </Modal>
     </>
   )

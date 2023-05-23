@@ -16,6 +16,7 @@ const Basket = (props) => {
         list={props.basket}
         title="Удалить"
         onclick={props.onDeleteItem}
+        pageName={props.pageName}
       />
       <ControlsBasket totalPrice={props.totalPrice} />
     </div>
@@ -28,6 +29,7 @@ Basket.propTypes = {
   basket: PropTypes.array,
   onDeleteItem: PropTypes.func,
   totalPrice: PropTypes.number,
+  pageName: PropTypes.string
 }
 
 Basket.defaultProps = {
