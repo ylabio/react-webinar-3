@@ -4,13 +4,11 @@ import { plural } from "../../utils";
 import "./style.css";
 
 function Item(props) {
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
+  console.log(props);
   const callbacks = {
     onAdd: (e) => {
       e.stopPropagation();
-      props.addGoods(props.item.code);
+      props.onAddItem(props.item.code);
     },
   };
 

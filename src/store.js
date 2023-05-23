@@ -57,11 +57,11 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteCartGoods(code) {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter((item) => item.code !== code),
+      cart: this.state.cart.filter((item) => item.code !== code),
     });
   }
 
@@ -88,9 +88,35 @@ class Store {
   }
 
   addGoods(code) {
+    const item = this.state.list.find((item) => item.code === code);
+
+    if (!this.state.cart.find((item) => item.code === code)) {
+      this.setState({
+        ...this.state,
+        cart: [
+          ...this.state.cart,
+          {
+            code: item.code,
+            title: item.title,
+            price: item.price,
+            amount: 1,
+          },
+        ],
+      });
+    }
     this.setState({
-      ...this.state.cart,
-      cart: [...this.state.cart, {}],
+      ...this.state,
+      cart: this.state.cart.map((cartGoods) => {
+        if (cartGoods.code === code) {
+          return {
+            code: cartGoods.code,
+            title: cartGoods.title,
+            price: cartGoods.price,
+            amount: cartGoods.amount + 1,
+          };
+        }
+        return cartGoods;
+      }),
     });
   }
 }

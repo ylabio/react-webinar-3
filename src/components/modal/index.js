@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import "./style.css";
 import Cart from "../cart";
 
-function Modal({ active, setActive }) {
+function Modal({ active, cart, setActive, onDeleteItem }) {
   return (
     <div className={active ? "modal active" : "modal"}>
       <div className="modal__content">
-        <Cart setActive={setActive} />
+        <Cart cart={cart} onDeleteItem={onDeleteItem} setActive={setActive} />
       </div>
     </div>
   );

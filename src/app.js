@@ -18,7 +18,7 @@ function App({ store }) {
   const callbacks = {
     onDeleteItem: useCallback(
       (code) => {
-        store.deleteItem(code);
+        store.deleteCartGoods(code);
       },
       [store]
     ),
@@ -30,9 +30,12 @@ function App({ store }) {
       [store]
     ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onAddItem: useCallback(
+      (code) => {
+        store.addGoods(code);
+      },
+      [store]
+    ),
   };
 
   return (
@@ -43,9 +46,14 @@ function App({ store }) {
         list={list}
         cart={cart}
         onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        onAddItem={callbacks.onAddItem}
       />
-      <Modal active={modalActive} setActive={setModalActive} />
+      <Modal
+        cart={cart}
+        onDeleteItem={callbacks.onDeleteItem}
+        active={modalActive}
+        setActive={setModalActive}
+      />
     </PageLayout>
   );
 }
