@@ -1,0 +1,24 @@
+.Cart__body {
+  margin: 70px 0;
+}
+
+.Cart__body-title {
+  text-align: center;
+  font-weight: 500;
+}
+
+.Cart-bottom {
+  display: flex;
+  justify-content: flex-end;
+  padding: 25px;
+  gap: 20px;
+}
+
+.Cart-price {
+  font-weight: 700;
+}
+
+.Cart-summ {
+  margin-right: 95px;
+  font-weight: 700;
+}

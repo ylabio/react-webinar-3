@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -40,13 +38,33 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+  totalAmount(cartList) {
+    return cartList.reduce((x, y) => {
+      return x + y.price * y.total;
+    }, 0);
+  }
+
   /**
    * Добавление новой записи
    */
-  addItem() {
+  addItem(code) {
+    const cartList = [...this.state.cart];
+    let result = cartList.find(item => item.code === code);
+
+    if (result) {
+      result = {
+        ...result,
+        total: result.total += 1
+      }
+    } else {
+      const listItem = this.state.list.find(item => item.code === code);
+      cartList.push({...listItem, total: 1});
+    }
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      cart: cartList,
+      totalCart: this.totalAmount(cartList),
     })
   };
 
@@ -58,7 +76,12 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cart: this.state.cart.filter((item) => item.code !== code),
+    })
+
+    this.setState({
+      ...this.state,
+      totalCart: this.totalAmount(this.state.cart),
     })
   };
 
