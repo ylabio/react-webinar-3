@@ -1,0 +1,13 @@
+.Cart-info__total {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.Cart-info {
+  display: flex;
+  gap: 15px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+}
