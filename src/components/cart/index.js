@@ -29,7 +29,7 @@ const Cart = ({list, isOpened, setOpened, onDeleteItem}) => {
                 <div className={cn('footer')}>
                     <div className={cn('result')}>
                         <div>Итого</div>
-                        <div>{totalCost} ₽</div>
+                        <div>{Intl.NumberFormat('ru-RU').format(totalCost)} ₽</div>
                     </div>
                 </div>
                 </div>)}

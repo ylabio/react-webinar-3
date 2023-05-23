@@ -17,7 +17,7 @@ function Item(props){
     <div className={cn()}>
       <div className={cn('code')}>{props.item.code}</div>
       <div className={cn('title')}>{props.item.title}</div>
-      <div className={cn('price')}>{props.item.price} ₽ </div>
+      <div className={cn('price')}>{Intl.NumberFormat('ru-RU').format(props.item.price)} ₽ </div>
       {props.item.count && (<div className={cn('count')}>{props.item.count} шт</div>)}
       <div className={cn('actions')}>
         <button onClick={callbacks.functionResolver}>
