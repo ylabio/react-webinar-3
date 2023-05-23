@@ -27,7 +27,7 @@ function App({store}) {
 
   return (<PageLayout>
     <Head title='Магазин'/>
-    <Controls onModalOpen={() => setModalOpened(true)} totalPrice={totalPrice} totalCount={totalCount}/>
+    <Controls onModalOpen={() => setModalOpened(true)} totalPrice={totalPrice} totalCount={totalCount} cart={cart}/>
     <List list={list}
           onAddItem={callbacks.onAddItem} onDeleteItem={callbacks.onDeleteItem}/>
     <Modal modalOpened={modalOpened} setModalOpened={() => setModalOpened(false)}>

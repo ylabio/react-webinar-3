@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import './style.css';
 import {plural} from "../../utils";
 
-function Controls({onModalOpen, totalPrice, totalCount}) {
+function Controls({onModalOpen, totalPrice, cart}) {
 
   return (
     <div className='Controls'>
       <p className='controls-title'>В корзине:<span
-        className='controls-counter'>{totalCount > 0 ? `${totalCount} ${plural(totalCount, {
+        className='controls-counter'>{cart.length > 0 ? `${cart.length} ${plural(cart.length, {
         one: 'товар',
         few: 'товара',
         many: 'товаров'
@@ -21,14 +21,14 @@ function Controls({onModalOpen, totalPrice, totalCount}) {
 Controls.propTypes = {
   onModalOpen: PropTypes.func,
   totalPrice: PropTypes.number,
-  totalCount: PropTypes.number
+  cart: PropTypes.array
 };
 
 Controls.defaultProps = {
   onModalOpen: () => {
   },
   totalPrice: 0,
-  totalCount: 0
+  cart: []
 }
 
 export default React.memo(Controls);
