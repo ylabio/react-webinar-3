@@ -1,6 +1,9 @@
-import React from 'react';
-import {createElement} from './utils.js';
-import './styles.css';
+import React, { useCallback, useState } from 'react';
+import List from "./components/list";
+import Controls from "./components/controls";
+import Head from "./components/head";
+import Cart from "./components/cart";
+import PageLayout from "./components/page-layout";
 
 /**
  * Приложение
@@ -8,36 +11,57 @@ import './styles.css';
  * @returns {React.ReactElement}
  */
 function App({store}) {
-
   const list = store.getState().list;
+  const isOpen = store.getState().isCartVisible;
+  const [ cart, setCart ] = useState(new Map());
+  const [ total, setTotal ] = useState(0);
+
+  const callbacks = {
+    openCart: useCallback(() => {
+      store.setIsOpen(true)
+    }, [store]),
+
+    closeCart: useCallback(() => {
+      store.setIsOpen(false);
+    }, [store]),
+
+    onAddItem: item => {
+      const newMap = new Map(cart);
+      newMap.set(item, newMap.has(item) ? newMap.get(item) + 1 : 1);
+      setCart(newMap);
+      setTotal(prevState => prevState + item.price);
+    },
+
+    onRemoveItem: item => {
+      const newMap = new Map(cart);
+      const value = item.price * newMap.get(item)
+      newMap.delete(item);
+      setCart(newMap);
+      setTotal(prevState => prevState - value);
+    },
+
+    transformCart: cart => {
+      return Array.from(cart.keys()).map(item => {
+        item.count = cart.get(item);
+        return item;
+      });
+    }
+  }
 
   return (
-    <div className='App'>
-      <div className='App-head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='App-controls'>
-        <button onClick={() => store.addItem()}>Добавить</button>
-      </div>
-      <div className='App-center'>
-        <div className='List'>{
-          list.map(item =>
-            <div key={item.code} className='List-item'>
-              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
-                <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
-                    Удалить
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+    <PageLayout>
+      <Head title='Магазин'/>
+      <Controls openCart={ callbacks.openCart }
+                cart={ cart }
+      />
+      <List list={list} onClick={ callbacks.onAddItem }/>
+      { isOpen && <Cart onCloseCart={ callbacks.closeCart }
+                        onRemoveItem={ callbacks.onRemoveItem }
+                        cart={ callbacks.transformCart(cart) }
+                        total={ total }
+                        title='Корзина'
+      /> }
+    </PageLayout>
   );
 }
 

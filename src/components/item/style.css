@@ -1,0 +1,39 @@
+.Item {
+  display: grid;
+  grid-template-areas: 'code title price button';
+  grid-template-columns: 30px 1fr 100px 100px;
+  grid-column-gap: 15px;
+}
+
+.Item-code {
+  grid-area: code;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.Item-title {
+  width: 100%;
+  padding: 20px 10px;
+  grid-area: title;
+  flex-grow: 2;
+}
+
+.Item-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+  grid-area: button;
+}
+
+.Item-price {
+  display: flex;
+  align-items: center;
+  justify-self: flex-end;
+  grid-area: price;
+}
+
+.Item-price::after {
+  content: '₽';
+  padding: 0 0 0 5px;
+}
