@@ -1,7 +1,10 @@
 .Item {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   transition: background-color 1s;
+  padding: 0px 10px 0 20px;
+  gap :5px;
 }
 
 .Item_selected {
@@ -9,8 +12,10 @@
   color: #fff;
 }
 
-.Item-code {
-  padding: 20px 10px 20px 20px;
+.Item-description {
+  width: 10%;
+  padding: 0 15px;
+  text-align: right;
 }
 
 .Item-title {
@@ -22,4 +27,16 @@
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+  gap: 24px;
 }
+.Item-total {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 95px;
+  gap: 25px;
+  padding-block: 21px;
+  font-size: 18px;
+}
+
+
