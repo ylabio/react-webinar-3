@@ -31,7 +31,6 @@ function App({store}) {
     <List list={list}
           onAddItem={callbacks.onAddItem} onDeleteItem={callbacks.onDeleteItem}/>
     <Modal modalOpened={modalOpened} setModalOpened={() => setModalOpened(false)}>
-      {/* Контекст для передачи в дочерние элементы */}
         <List list={cart}
               onAddItem={callbacks.onAddItem} onDeleteItem={callbacks.onDeleteItem} totalPrice={totalPrice} cartMode/>
     </Modal>
