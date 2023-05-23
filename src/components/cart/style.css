@@ -1,0 +1,46 @@
+.background {
+    position: absolute;
+    z-index: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.Cart {
+    position: absolute;
+    z-index: 1;
+    width: 960px;
+    background: #FFFFFF;
+    min-height: 407px;
+    left: calc(50% - 960px/2);
+    top: calc(50% - 407px/2 + 1px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.info-empty {
+    text-align: center;
+    font-weight: bold;
+}
+
+.total-block {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    padding: 20px 110px 20px 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.total-value {
+    margin-left: 10px;
+    min-width: 85px;
+    text-align: right;
+}
+
+@media (max-width: 961px) {
+    .Cart {
+        width: 100vw;
+    }
+}
