@@ -28,7 +28,7 @@ function Controls({ showModal, cnt, sum }) {
 Controls.propTypes = {
   showModal: PropTypes.func,
   cnt: PropTypes.number,
-  sum: PropTypes.number,
+  sum: PropTypes.string,
 };
 
 Controls.defaultProps = {

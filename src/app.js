@@ -40,13 +40,13 @@ function App({ state: { store, cart } }) {
           showModal={callbacks.showModal}
           cart={cartItems}
           deleteItem={callbacks.onDeleteFromCart}
-          sum={cart.getState().sum}
+          sum={cart.getState().sum.toLocaleString()}
         />
       )}
       <ProductsPage
         showModal={callbacks.showModal}
         cnt={cart.getState().cnt}
-        sum={cart.getState().sum}
+        sum={cart.getState().sum.toLocaleString()}
         list={list}
         addItem={callbacks.onAddItem}
       />

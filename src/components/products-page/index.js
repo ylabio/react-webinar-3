@@ -28,7 +28,7 @@ function ProductsPage({ showModal, cnt, sum, list, addItem }) {
 
 ProductsPage.propTypes = {
   cnt: PropTypes.number,
-  sum: PropTypes.number,
+  sum: PropTypes.string,
   list: PropTypes.array,
   showModal: PropTypes.func,
   addItem: PropTypes.func,

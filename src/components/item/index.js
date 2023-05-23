@@ -14,7 +14,7 @@ function ItemProducts({ code, price, title, addItem }) {
     <div className={cn()}>
       <div className={cn('code')}>{code}</div>
       <div className={cn('title')}>{title}</div>
-      <div className={cn('price')}>{price}&nbsp;&#8381;</div>
+      <div className={cn('price')}>{price.toLocaleString()}&nbsp;&#8381;</div>
       <div className={cn('actions')}>
         <button onClick={onClickHandler}>Добавить</button>
       </div>

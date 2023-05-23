@@ -37,7 +37,7 @@ Modal.propTypes = {
   showModal: PropTypes.func,
   cart: PropTypes.array,
   deleteItem: PropTypes.func,
-  sum: PropTypes.number,
+  sum: PropTypes.string,
 };
 
 Modal.defaultProps = {
