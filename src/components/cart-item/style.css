@@ -1,0 +1,50 @@
+.CartItem {
+  display: grid;
+  grid-template-areas: 'code title price count button';
+  grid-template-columns: 50px 1fr 100px 50px 100px;
+}
+
+.CartItem-code {
+  grid-area: code;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.CartItem-title {
+  width: 100%;
+  padding: 20px 10px;
+  grid-area: title;
+  flex-grow: 2;
+}
+
+.CartItem-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+  grid-area: button;
+}
+
+.CartItem-price {
+  display: flex;
+  align-items: center;
+  justify-self: flex-end;
+  grid-area: price;
+  margin: 0 60px 0 0;
+}
+
+.CartItem-price::after {
+  content: '₽';
+  padding: 0 0 0 5px;
+}
+
+.CartItem-count {
+  display: flex;
+  align-items: center;
+  grid-area: count;
+}
+
+.CartItem-count::after {
+  content: 'шт';
+  padding: 0 0 0 5px;
+}

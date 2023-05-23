@@ -83,6 +83,13 @@ class Store {
       })
     })
   }
+
+  setIsOpen(bool) {
+    this.setState({
+      ...this.state,
+      isCartVisible: bool
+    })
+  }
 }
 
 export default Store;
