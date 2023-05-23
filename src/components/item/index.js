@@ -1,37 +1,24 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
 import './style.css';
+import Controls from "../controls";
 
 function Item(props){
-
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
-  const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
-    onDelete: (e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code);
-    }
-  }
-
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-         onClick={callbacks.onClick}>
+    <div className='Item'>
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {one: 'раз', few: 'раза', many: 'раз'})}` : ''}
+        {props.item.title}
       </div>
+      <div className='Item-price'>
+        {(props.item.price+'').replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')}&nbsp;₽
+      </div>
+      { props.item.amount && <div className='Item-amount'>
+        {props.item.amount}&nbsp;шт
+      </div>}
       <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
+        { !props.onDeleteItem ? <Controls onAdd={props.onAdd} btnName={'Добавить'} item={props.item}/> :
+          <Controls onDeleteItem={props.onDeleteItem} btnName={'Удалить'} item={props.item}/>}
       </div>
     </div>
   );
@@ -42,15 +29,16 @@ Item.propTypes = {
     code: PropTypes.number,
     title: PropTypes.string,
     selected: PropTypes.bool,
-    count: PropTypes.number
+    count: PropTypes.number,
+    price: PropTypes.number,
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+  onAdd: PropTypes.func,
+  onDeleteItem: PropTypes.func
 };
 
 Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
+  onAdd: () => {},
+  // onDeleteItem: () => {}
 }
 
 export default React.memo(Item);
