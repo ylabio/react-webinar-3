@@ -1,5 +1,21 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   padding: 20px;
+}
+
+.Controls-info {
+  margin: 0;
+  margin-right: 20px;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+
+.Controls-span {
+  font-weight: 700;
 }

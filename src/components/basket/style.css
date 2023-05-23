@@ -1,0 +1,52 @@
+.Basket {
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+    padding-bottom: 90px;
+    width: 960px;
+    margin: auto;
+    position: absolute;
+    z-index: 10;
+    font-family: 'Arial';
+    font-style: normal;
+    left: 0;
+    right: 0;
+    height: fit-content;
+    top: 0;
+    bottom: 0;
+}
+
+.Basket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: #F5F5F5;
+    margin-bottom: 70px;
+}
+
+.Basket-title {
+    margin: 0;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 37px;
+    color: #000000;
+}
+
+.Basket-items {
+    border-top: 1px dashed #ccc;
+}
+
+.Basket-summa {
+    display: grid;
+    grid-template-columns: 60px 124px;
+    align-items: center;
+    justify-content: right;
+    padding-right: 100px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: right;
+    color: #000000;
+}
