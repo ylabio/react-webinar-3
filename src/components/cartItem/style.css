@@ -1,0 +1,6 @@
+.CartItem td{
+    border-bottom: 1px dashed #CCCCCC
+}
+.CartItem{
+    height: 63px;
+}
