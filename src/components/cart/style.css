@@ -1,0 +1,17 @@
+.Cart {
+  display: flex;
+  flex-direction: column;
+
+  padding-bottom: 89px;
+}
+
+.Cart-price {
+  display: flex;
+  justify-content: flex-end;
+  gap: 48px;
+  margin-right: 120px;
+
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+}
