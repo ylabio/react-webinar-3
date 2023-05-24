@@ -2,16 +2,21 @@
     display: flex;
     justify-content: end;
     padding: 20px 20px 20px 10px;
-
 }
-
-.activePage{
-    background-color:#0087E9;
-}
-
 .page{
     min-width: 20px;
     min-height: 20px;
     cursor: url("../../../public/cursor/Pointer.svg"), pointer;
     text-align: center;
+    color: #000000;
+}
+.page:hover{
+    background: #E1E1E1;
+}
+.activePage{
+    background-color:#0087E9;
+    color: #FFFFFF;
+}
+.activePage:hover{
+    background-color:#0087E9;
 }
