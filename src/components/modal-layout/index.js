@@ -1,6 +1,6 @@
-import {memo, useEffect, useRef} from "react";
+import { cn as bem } from '@bem-react/classname';
 import PropTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname';
+import { memo, useEffect, useRef } from "react";
 import './style.css';
 
 function ModalLayout(props) {
@@ -10,7 +10,11 @@ function ModalLayout(props) {
   // Корректировка центра, если модалка больше окна браузера.
   const layout = useRef();
   const frame = useRef();
+  
   useEffect(() => {
+    // костыль для фирефокс
+    document.body.style.overflowY = "hidden";
+
     const resizeObserver = new ResizeObserver(() => {
       // Центрирование frame или его прижатие к краю, если размеры больше чем у layout
       layout.current.style.alignItems = (layout.current.clientHeight < frame.current.clientHeight)
@@ -23,6 +27,7 @@ function ModalLayout(props) {
     // Следим за изменениями размеров layout
     resizeObserver.observe(layout.current);
     return () => {
+      document.body.style.overflowY = 'auto';
       resizeObserver.disconnect();
     }
   }, []);
