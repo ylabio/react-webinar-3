@@ -1,0 +1,17 @@
+.Pagination{
+    display: flex;
+    justify-content: end;
+    padding: 20px 20px 20px 10px;
+
+}
+
+.activePage{
+    background-color:#0087E9;
+}
+
+.page{
+    min-width: 20px;
+    min-height: 20px;
+    cursor: url("../../../public/cursor/Pointer.svg"), pointer;
+    text-align: center;
+}
