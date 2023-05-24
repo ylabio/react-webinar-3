@@ -1,0 +1,8 @@
+.ContentHeader {
+	display: flex;
+}
+.ContentHeader a {
+	color: #0087E9;
+	margin-right: auto;
+	padding: 20px;
+}
