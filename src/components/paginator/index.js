@@ -41,14 +41,9 @@ function Paginator({ total, current, onClick }) {
     <div className={cn()}>
       {
         array.map((value, index) => {
-
-          const style = getButtonStyle(value);
-          
-          return <div
-            className={cn(style)}
-            key={index}
+          return <div key={index} className={cn(getButtonStyle(value))}
             onClick={
-              [current, "..."].includes(value) ? null : (e) => { onClick(value) }
+              [current, "..."].includes(value) ? null : e => { onClick(value) }
             }
           >{value}</div>
         })
