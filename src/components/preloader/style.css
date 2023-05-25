@@ -6,7 +6,7 @@
   z-index: 999;
   position: absolute;
   background-color: #eeffff77;
-  pointer-events: none;
+  pointer-events: all;
   box-sizing: border-box;
   width: 100%;
   height: 100%;

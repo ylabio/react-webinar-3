@@ -39,12 +39,8 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    // Переключаем страничку
-    switchPage: useCallback(selected => {
-      if (select.loading)
-        return;
-      store.actions.catalog.setCurrentPage(selected);
-    }, [select.loading]),
+    // Переключаем страничку, теперь прелоадер защищает от закликивания
+    switchPage: useCallback(selected => store.actions.catalog.setCurrentPage(selected), [store]),
     // Переключение языка
     switchLanguage: useCallback(ln => store.actions.localization.setLanguage(ln), [store])
   }
