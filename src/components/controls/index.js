@@ -1,11 +1,15 @@
-import {memo} from "react";
 import PropTypes from 'prop-types';
+import { memo } from "react";
+import useLanguage from "../../localization/use-language";
 import './style.css';
 
 function Controls({onAdd}){
+
+  const ln = useLanguage();
+
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <button onClick={() => onAdd()}>{ln('buttonAdd')}</button>
     </div>
   )
 }
