@@ -44,6 +44,28 @@
       "category": "Category:",
       "year": "Year:",
       "price": "Price:"
+    },
+    "ch": {
+      "mainLabel": "分数",
+      "topStatsLabel": "在篮子里：",
+      "topStatsGoods": [
+        "商品",
+        "商品",
+        "商品"
+      ],
+      "empty": "空的",
+      "topToBasket": "跳",
+      "basketLabel": "篮子",
+      "basketStatsLabel": "全部的",
+      "things": "件",
+      "buttonClose": "关",
+      "buttonAdd": "添加",
+      "buttonRemove": "删除",
+      "toMain": "家",
+      "country": "生产国：",
+      "category": "类别：",
+      "year": "发行年份：",
+      "price": "价格："
     }
   }
 }
