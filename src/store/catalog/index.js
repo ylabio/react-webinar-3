@@ -1,6 +1,8 @@
 import {codeGenerator} from "../../utils";
 import StoreModule from "../module";
 
+const NUMBER_OF_PRODUCT_PER_PAGE = 10;
+
 class Catalog extends StoreModule {
 
   constructor(store, name) {
@@ -10,16 +12,27 @@ class Catalog extends StoreModule {
 
   initState() {
     return {
-      list: []
+      list: [],
+      page: 0,
+      lastPage: 0
     }
   }
 
-  async load() {
-    const response = await fetch('/api/v1/articles');
+  async load(page = 0) {
+    const limit = NUMBER_OF_PRODUCT_PER_PAGE;
+    const skip = page * NUMBER_OF_PRODUCT_PER_PAGE;
+    const url = `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id, title, price),count`;
+
+    const response = await fetch(url);
     const json = await response.json();
+    const list = json.result.items;
+    const lastPage = Math.ceil(json.result.count / NUMBER_OF_PRODUCT_PER_PAGE) - 1;
+
     this.setState({
-       ...this.getState(),
-       list: json.result.items
+      ...this.getState(),
+      list,
+      page,
+      lastPage
     }, 'Загружены товары из АПИ');
   }
 }
