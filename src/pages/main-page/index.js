@@ -1,6 +1,6 @@
 import useSelector from "../../store/use-selector";
 import List from "../../components/list";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/pagination";
 import {getRoutePath} from "../../router/config";
 import Item from "../../components/item";
 import {useCallback, useEffect} from "react";

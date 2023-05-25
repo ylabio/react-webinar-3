@@ -1,10 +1,10 @@
 import React from 'react';
-import Portal from "../../components/Portal";
+import Portal from "../../components/portal";
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import useSelector from "../../store/use-selector";
 
-export const Spinner = () => {
+export const Index = () => {
   const cn = bem('Spinner');
 
 

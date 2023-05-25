@@ -2,7 +2,7 @@ import {cn as bem} from "@bem-react/classname";
 import {memo} from 'react';
 import './style.css';
 import PropTypes from "prop-types";
-import PaginationItem from "../PaginationItem";
+import PaginationItem from "../pagination-item";
 
 const LABEL_SEEK = 1;
 

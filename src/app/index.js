@@ -1,7 +1,7 @@
 import Main from "./main";
 import Basket from "./basket";
 import useSelector from "../store/use-selector";
-import {Spinner} from "./Spinner/Spinner";
+import {Index} from "./spinner";
 
 /**
  * Приложение
@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <Spinner />
+      <Index />
       <Main/>
       {activeModal === 'basket' && <Basket/>}
     </>
