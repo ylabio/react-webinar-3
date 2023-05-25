@@ -6,19 +6,7 @@
   font-size: 18px;
 }
 
-.BasketTool-label {}
-
 .BasketTool-total {
   font-weight: bold;
   margin: 0 20px;
-}
-
-.BasketTool-link-back {
-  font-family: 'Arial';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 21px;
-  text-decoration-line: underline;
-  color: #0087E9;
 }

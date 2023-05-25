@@ -7,18 +7,20 @@ function Pagination(props) {
   const cn = bem('Pagination');
   const pages = [];
 
-  const [pageNow, serPageNow] = useState(0);
-  const pagesCount = Math.ceil(props.listCount / 10);
+  const [pageNow, serPageNow] = useState(1);
+  const numberOfProducts = 10;
+  const pagesCount = Math.ceil(props.listCount / numberOfProducts);
 
   const setPagination = (page) => {
     let skipPage = 0;
     if (page === 1) {
       skipPage = 0;
-    } else if (page > 1 && page < 10) {
-      skipPage = page * 10 - 10;
+    } else if (page > 1 && page < numberOfProducts) {
+      skipPage = page * numberOfProducts - numberOfProducts;
     } else {
-      let str = String(page * 10);
-      skipPage = str.substring(0, str.length - 1) * 10 - 10;
+      let str = String(page * numberOfProducts);
+      skipPage =
+        str.substring(0, str.length - 1) * numberOfProducts - numberOfProducts;
     }
 
     serPageNow(page);

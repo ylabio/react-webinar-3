@@ -2,7 +2,6 @@ import {memo, useCallback, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
-import './style.css';
 import useSelector from '../../store/use-selector';
 import useStore from '../../store/use-store';
 import ItemProduct from '../../components/item-product';
@@ -13,8 +12,12 @@ function ProductDetails() {
 
   const store = useStore();
   useEffect(() => {
-    store.actions.product.loadProduct(params.id);
+    store.actions.catalog.load(0);
   }, []);
+
+  useEffect(() => {
+    store.actions.product.loadProduct(params.id);
+  }, [params.id]);
 
   const select = useSelector((state) => ({
     productList: state.product.productList,
@@ -23,12 +26,10 @@ function ProductDetails() {
   }));
 
   const callbacks = {
-    // Добавление в корзину
     addToBasket: useCallback(
       (_id) => store.actions.basket.addToBasket(_id),
       [store]
     ),
-    // Открытие модалки корзины
     openModalBasket: useCallback(
       () => store.actions.modals.open('basket'),
       [store]
@@ -37,7 +38,7 @@ function ProductDetails() {
 
   return (
     <PageLayout>
-      <Head title='Название товара' />
+      <Head title={select.productList.title} />
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
