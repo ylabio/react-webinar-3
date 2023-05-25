@@ -7,6 +7,7 @@ const LangSwitcher = () => {
   return (
     <div>
       <button
+			className="LangSwitcher-item"
         onClick={() => {
           set("ru");
         }}
@@ -14,6 +15,7 @@ const LangSwitcher = () => {
         ru
       </button>
       <button
+			className="LangSwitcher-item"
         onClick={() => {
           set("en");
         }}

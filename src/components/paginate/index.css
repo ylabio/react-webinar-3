@@ -16,7 +16,7 @@
 	line-height: 18px;
 }
 
-.Pagination-item:not(.active):hover {
+.Pagination-item:not(.active):not(div):hover {
 	background-color: #E1E1E1;
 }
 

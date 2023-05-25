@@ -1,3 +1,18 @@
 {
-	"shop": "Shop"
+	"shop": "Shop",
+	"home": "Home",
+	"addBtn": "Add",
+	"delBtn": "Delete",
+	"closeBtn": "Close",
+	"toCartBtn": "Open",
+	"inCart": "In Basket",
+	"inCartGoods": {"one":"goods", "few":"goods","many":"goods"},
+	"empty": "Empty",
+	"basket": "My Basket",
+	"basketTotal": "Total",
+	"piece": "pieces",
+	"productMadeIn": "Made in",
+	"productCategory": "Category",
+	"productReleaseYear": "Release Year",
+	"price": "Price"
 }

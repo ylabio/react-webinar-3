@@ -6,8 +6,7 @@ import Head from "../../components/head";
 import PageLayout from "../../components/page-layout";
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
-import { formatPrice } from "../../utils";
-import "./index.css";
+import ProductDetails from '../../components/product-details'
 
 const Product = () => {
   const [isLoad, setIsLoad] = useState(true);
@@ -60,27 +59,7 @@ const Product = () => {
           sum={select.sum}
         />
       </ContentHeader>
-      <div className="Product-content">
-        <p>{product.description}</p>
-        <p>
-          Страна производитель:{" "}
-          <strong>{`${product.madeIn.title} (${product.madeIn.code})`}</strong>
-        </p>
-        <p>
-          Категория: <strong>{product.category.title}</strong>
-        </p>
-        <p>
-          Год выпуска: <strong>{product.edition}</strong>
-        </p>
-        <h2>Цена: {formatPrice(product.price)}</h2>
-        <button
-          onClick={() => {
-            callbacks.addToBasket(product._id);
-          }}
-        >
-          Добавить
-        </button>
-      </div>
+      <ProductDetails product={product} onAddToBasket={callbacks.addToBasket} />
     </PageLayout>
   );
 };

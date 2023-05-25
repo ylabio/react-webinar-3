@@ -1,13 +1,16 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import ru from '../../languages/ru.json';
+
+const storageLang = window.localStorage.getItem('lang')
 
 const TranslationContext = createContext()
 
 export const TranslataionProvider = ({children}) => {
 	const [transl, setTransl] = useState(ru)
-	const [currentLang, setCurrentLang] = useState('ru')
+	const [currentLang, setCurrentLang] = useState(storageLang ?? 'ru')
 
 	useEffect(() => {
+		window.localStorage.setItem('lang', currentLang)
 		import(`../../languages/${currentLang}.json`).then((t) => setTransl(t))
 	}, [currentLang])
 

@@ -10,6 +10,7 @@ import Pagination from "../../components/paginate";
 import { useTranslation } from "../../store/translation";
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
+import browserRoutes from "../lib/browserRoutes";
 
 function Main() {
   const store = useStore();
@@ -49,7 +50,7 @@ function Main() {
   const renders = {
     item: useCallback(
       (item) => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return <Item item={item} titleLink={browserRoutes.product(item._id)} onAdd={callbacks.addToBasket} />;
       },
       [callbacks.addToBasket]
     ),
