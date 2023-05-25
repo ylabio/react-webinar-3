@@ -14,7 +14,7 @@ function PaginationItem({isActive, onPageLoad, label}) {
 
 
 PaginationItem.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.number.isRequired,
   onPageLoad: PropTypes.func.isRequired,
   isActive: PropTypes.bool,
 };

@@ -11,10 +11,13 @@ class Store {
     /** @type {{
      * basket: Basket,
      * catalog: Catalog,
-     * modals: Modals
+     * modals: Modals,
+     * application: Application,
+     * product: Product
      * }} */
     this.actions = {};
     for (const name of Object.keys(modules)) {
+      console.log(name);
       this.actions[name] = new modules[name](this, name);
       this.state[name] = this.actions[name].initState();
     }
@@ -35,7 +38,7 @@ class Store {
 
   /**
    * Выбор состояния
-   * @returns {{basket: Object, catalog: Object, modals: Object}}
+   * @returns {{basket: Object, catalog: Object, modals: Object, application: Object, product: Object}}
    */
   getState() {
     return this.state;

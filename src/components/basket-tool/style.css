@@ -1,16 +1,39 @@
 /* Контрол с общими действиями */
-.BasketTool{
+.BasketTool {
   display: flex;
   justify-content: flex-end;
   padding: 20px;
   font-size: 18px;
+  gap: 20px;
 }
 
-.BasketTool-label{
-
+.BasketTool button {
+  width: fit-content;
 }
 
-.BasketTool-total{
+@media (max-width: 600px) {
+  .BasketTool {
+    flex-direction: column;
+  }
+}
+
+.BasketTool-label {
+  padding-left: 20px;
+}
+
+.BasketTool-total {
   font-weight: bold;
   margin: 0 20px;
+}
+
+
+.BasketTool-main-link {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  /* identical to box height */
+  margin: 0 auto 0 0;
+  text-decoration-line: underline;
+
+  color: #0087E9;
 }
