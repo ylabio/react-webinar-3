@@ -1,0 +1,25 @@
+.CartItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 63px;
+    padding: 0 20px 0;
+}
+
+.CartItem-code {
+
+}
+
+.CartItem-left {
+    display: flex;
+    gap: 22px
+}
+
+.CartItem-right {
+    display: flex;
+    gap: 24px;
+}
+
+.CartItem-count {
+    padding-left: 38px;
+}
