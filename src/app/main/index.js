@@ -1,23 +1,32 @@
 import { memo, useCallback, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import BasketTool from "../../components/basket-tool";
+import HorizontalContainer from "../../components/container/horizontal";
 import Head from "../../components/head";
 import Item from "../../components/item";
+import Language from "../../components/lang-selector";
 import List from "../../components/list";
+import Menu from "../../components/menu";
 import PageLayout from "../../components/page-layout";
 import Paginator from '../../components/paginator';
+import useLanguage from '../../localization/use-language';
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
 
 function Main() {
 
+  const navigate = useNavigate();
   const store = useStore();
   const select = useSelector(state => ({
     list: state.catalog.list,
     page: state.catalog.page,
     loading: state.catalog.loading,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    lang: state.localization.lang
   }));
+
+  const ln = useLanguage();
 
   useEffect(() => {
     //store.actions.catalog.load();
@@ -35,22 +44,29 @@ function Main() {
         return;
       store.actions.catalog.setCurrentPage(selected);
     }, [select.loading]),
+    // Подробности о товаре
+    showArticle: useCallback(id => navigate(`article/${id}`), []),
+    // Переключение языка
+    switchLanguage: useCallback(ln => store.actions.localization.setLanguage(ln), [])
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} />
+      return <Item item={item} onAdd={callbacks.addToBasket} onTitleClick={callbacks.showArticle}/>
     }, [callbacks.addToBasket]),
   };
 
   return (
     <PageLayout>
-      <Head title='Магазин' />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <Language id={select.lang} onSelect={callbacks.switchLanguage}/>
+      <Head title={ln('mainLabel')} />
+      <HorizontalContainer justifyContent='space-between'>
+        <Menu/>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      </HorizontalContainer>
       <List list={select.list} renderItem={renders.item} />
       <Paginator total={select.page.total} current={select.page.current} onClick={callbacks.switchPage} />
     </PageLayout>
-
   );
 }
 

@@ -1,0 +1,25 @@
+.Language {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 14px;
+  margin: -15px 10px;
+  top: 10px;
+}
+
+.Language-normal {
+  text-decoration: none;
+  text-align: center;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.Language-normal:hover {
+  text-decoration: underline;
+}
+
+.Language-selected {
+  padding: 5px;
+  text-align: center;
+  color: #0087E9;
+}

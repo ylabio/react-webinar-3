@@ -14,7 +14,7 @@ class Basket extends StoreModule {
    * Добавление товара в корзину
    * @param _id Код товара
    */
-  addToBasket(_id) {
+  async addToBasket(_id) {
     let sum = 0;
     // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
@@ -31,7 +31,14 @@ class Basket extends StoreModule {
     if (!exist) {
       // Поиск товара в каталоге, чтобы его добавить в корзину.
       // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      const item = this.store.getState().catalog.list.find(item => item._id === _id);
+      let item = this.store.getState().catalog.list.find(item => item._id === _id);
+      // после обновления итем не находит, хотя ид есть. лист пустой, надо тянуть весь массив или выбранный итем.
+      if (!item) {
+        //http://example.front.ylab.io/api/v1/articles/646b6e1fe1626c0bd8518064
+        const response = await fetch(`/api/v1/articles/${_id}`);
+        const json = await response.json();
+        item = json.result;
+      }
       list.push({...item, amount: 1}); // list уже новый, в него можно пушить.
       // Добавляем к сумме.
       sum += item.price;
