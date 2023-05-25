@@ -1,5 +1,6 @@
 import {codeGenerator} from "../../utils";
 import StoreModule from "../module";
+import store from "../index";
 
 class Catalog extends StoreModule {
 
@@ -11,16 +12,43 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
-      count: 0
+      count: 0,
+      limit: 10,
+      skip: 20
     }
   }
 
-  async load() {
-    const response = await fetch('/api/v1/articles', {
-      limit: 10,
-      skip: 20,
-      fields: 'items(_id, title, price),count'
-    });
+// следующая страница
+  nextPage() {
+    this.setState({
+      ...this.getState(),
+      skip : (this.getState().skip + 10)
+    })
+  }
+//предыдущая страница
+  prevPage(){
+    this.setState({
+      ...this.getState(),
+      skip : (this.getState().skip - 10)
+    })
+  }
+  // первая страница
+  goToFirstPage(){
+    this.setState({
+      ...this.getState(),
+      skip : 0
+    })
+  }
+  // последняя страница
+  goToLastPage(){
+    this.setState({
+      ...this.getState(),
+      skip : (Math.floor(this.getState().count/this.getState().limit) * this.getState().limit)
+    })
+  }
+
+  async load(limit, skip) {
+    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id, title, price),count`)
     const json = await response.json();
     this.setState({
       ...this.getState(),

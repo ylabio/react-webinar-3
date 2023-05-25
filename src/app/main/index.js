@@ -13,13 +13,16 @@ function Main() {
   const store = useStore();
 
   useEffect(() => {
-    store.actions.catalog.load();
+    store.actions.catalog.load(select.limit, select.skip);
   }, []);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    countMax: state.catalog.count,
+    limit: state.catalog.limit,
+    skip: state.catalog.skip
   }));
 
   const callbacks = {
@@ -27,6 +30,11 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+
+    nextPage: useCallback(() => store.actions.catalog.nextPage(), [store]),
+    prevPage: useCallback(()=> store.actions.catalog.prevPage(), [store]),
+    goToFirstPage: useCallback(()=> store.actions.catalog.goToFirstPage(), [store]),
+    goToLastPage: useCallback(()=> store.actions.catalog.goToLastPage(), [store]),
   }
 
   const renders = {
@@ -38,10 +46,18 @@ function Main() {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+      <BasketTool onOpen={callbacks.openModalBasket}
+                  amount={select.amount}
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
-      <Pagination/>
+      <Pagination countMax={select.countMax}
+                  limit={select.limit}
+                  skip={select.skip}
+                  nextPage={callbacks.nextPage}
+                  prevPage={callbacks.prevPage}
+                  goToFirstPage={callbacks.goToFirstPage}
+                  goToLastPage={callbacks.goToLastPage}
+      />
     </PageLayout>
 
   );

@@ -41,6 +41,7 @@ class Store {
     return this.state;
   }
 
+
   /**
    * Установка состояния
    * @param newState {Object}
