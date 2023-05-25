@@ -1,12 +1,11 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import BasketTool from "../../components/basket-tool";
 import ContentHeader from "../../components/content-header";
 import Head from "../../components/head";
 import PageLayout from "../../components/page-layout";
+import ProductDetails from "../../components/product-details";
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
-import ProductDetails from '../../components/product-details'
 
 const Product = () => {
   const [isLoad, setIsLoad] = useState(true);
@@ -52,13 +51,11 @@ const Product = () => {
   return (
     <PageLayout>
       <Head title={product.title} />
-      <ContentHeader>
-        <BasketTool
-          onOpen={callbacks.openModalBasket}
-          amount={select.amount}
-          sum={select.sum}
-        />
-      </ContentHeader>
+      <ContentHeader
+        onBasketOpen={callbacks.openModalBasket}
+        basketAmount={select.amount}
+        basketSum={select.sum}
+      />
       <ProductDetails product={product} onAddToBasket={callbacks.addToBasket} />
     </PageLayout>
   );

@@ -3,15 +3,16 @@ import { Link } from "react-router-dom";
 import browserRoutes from "../../app/lib/browserRoutes";
 import "./index.css";
 import { useTranslation } from "../../store/translation";
+import BasketTool from '../basket-tool'
 
-const ContentHeader = ({ children }) => {
+const ContentHeader = ({ onBasketOpen, basketAmount, basketSum }) => {
 
 	const {t} = useTranslation()
 
   return (
     <div className="ContentHeader">
-      <Link to={browserRoutes.home}>{t('home')}</Link>
-      {children}
+      <Link to={browserRoutes.home}>{t("home")}</Link>
+      <BasketTool onOpen={onBasketOpen} amount={basketAmount} sum={basketSum} />
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import { memo, useCallback, useEffect } from "react";
-import BasketTool from "../../components/basket-tool";
 import ContentHeader from "../../components/content-header";
 import Head from "../../components/head";
 import Item from "../../components/item";
@@ -50,7 +49,13 @@ function Main() {
   const renders = {
     item: useCallback(
       (item) => {
-        return <Item item={item} titleLink={browserRoutes.product(item._id)} onAdd={callbacks.addToBasket} />;
+        return (
+          <Item
+            item={item}
+            titleLink={browserRoutes.product(item._id)}
+            onAdd={callbacks.addToBasket}
+          />
+        );
       },
       [callbacks.addToBasket]
     ),
@@ -61,13 +66,11 @@ function Main() {
       <Head title={t("shop")}>
         <LangSwitcher />
       </Head>
-      <ContentHeader>
-        <BasketTool
-          onOpen={callbacks.openModalBasket}
-          amount={select.amount}
-          sum={select.sum}
-        />
-      </ContentHeader>
+      <ContentHeader
+        onBasketOpen={callbacks.openModalBasket}
+        basketAmount={select.amount}
+        basketSum={select.sum}
+      />
       <List list={select.list} renderItem={renders.item} />
       <Pagination
         currentPage={currentPage}
