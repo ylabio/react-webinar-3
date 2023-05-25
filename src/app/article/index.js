@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-import BasketTool from "../../components/basket-tool";
+import BasketTool from "../../components/basket/basket-tool";
 import HorizontalContainer from "../../components/container/horizontal";
 import Head from "../../components/head";
-import ItemArticle from "../../components/item-article";
+import ItemArticle from "../../components/items/item-article";
 import Language from "../../components/lang-selector";
+import PageLayout from "../../components/layouts/page-layout";
 import Menu from "../../components/menu";
-import PageLayout from "../../components/page-layout";
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
 

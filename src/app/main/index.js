@@ -1,13 +1,13 @@
 import { memo, useCallback, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import BasketTool from "../../components/basket-tool";
+import BasketTool from "../../components/basket/basket-tool";
 import HorizontalContainer from "../../components/container/horizontal";
 import Head from "../../components/head";
-import Item from "../../components/item";
+import Item from "../../components/items/item";
 import Language from "../../components/lang-selector";
+import PageLayout from "../../components/layouts/page-layout";
 import List from "../../components/list";
 import Menu from "../../components/menu";
-import PageLayout from "../../components/page-layout";
 import Paginator from '../../components/paginator';
 import useLanguage from '../../localization/use-language';
 import useSelector from "../../store/use-selector";
@@ -47,7 +47,7 @@ function Main() {
     // Подробности о товаре
     showArticle: useCallback(id => navigate(`article/${id}`), []),
     // Переключение языка
-    switchLanguage: useCallback(ln => store.actions.localization.setLanguage(ln), [])
+    switchLanguage: useCallback(ln => store.actions.localization.setLanguage(ln), [store])
   }
 
   const renders = {

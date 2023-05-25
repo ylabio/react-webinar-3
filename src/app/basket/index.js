@@ -1,9 +1,9 @@
 import { memo, useCallback } from 'react';
 import { useNavigate } from "react-router-dom";
-import BasketTotal from "../../components/basket-total";
-import ItemBasket from "../../components/item-basket";
+import BasketTotal from "../../components/basket/basket-total";
+import ItemBasket from "../../components/items/item-basket";
+import ModalLayout from "../../components/layouts/modal-layout";
 import List from "../../components/list";
-import ModalLayout from "../../components/modal-layout";
 import useLanguage from '../../localization/use-language';
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
@@ -29,7 +29,7 @@ function Basket() {
     showArticle: useCallback(id => {
       store.actions.modals.close();
       navigate(`article/${id}`);
-    }, [])
+    }, [store])
   }
 
   const renders = {

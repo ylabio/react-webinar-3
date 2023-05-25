@@ -1,8 +1,8 @@
 import { cn as bem } from "@bem-react/classname";
 import PropTypes from 'prop-types';
 import React, { useCallback } from 'react';
-import useLanguage from "../../localization/use-language";
-import { numberFormat } from "../../utils";
+import useLanguage from "../../../localization/use-language";
+import { numberFormat } from "../../../utils";
 import './style.css';
 
 function ItemArticle({ info, onAdd }) {
