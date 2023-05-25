@@ -9,6 +9,7 @@ import PageLayout from "../../components/layouts/page-layout";
 import List from "../../components/list";
 import Menu from "../../components/menu";
 import Paginator from '../../components/paginator';
+import Preloader from '../../components/preloader';
 import useLanguage from '../../localization/use-language';
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
@@ -62,8 +63,10 @@ function Main() {
         <Menu />
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       </HorizontalContainer>
-      <List list={select.list} renderItem={renders.item} />
-      <Paginator total={select.page.total} current={select.page.current} onClick={callbacks.switchPage} />
+      <Preloader isLoading={select.loading}>
+        <List list={select.list} renderItem={renders.item} />
+        <Paginator total={select.page.total} current={select.page.current} onClick={callbacks.switchPage} />
+      </Preloader>
     </PageLayout>
   );
 }

@@ -7,6 +7,7 @@ import ItemArticle from "../../components/items/item-article";
 import Language from "../../components/lang-selector";
 import PageLayout from "../../components/layouts/page-layout";
 import Menu from "../../components/menu";
+import Preloader from "../../components/preloader";
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
 
@@ -19,9 +20,9 @@ function Article() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     fields: state.article.fields,
+    loading: state.article.loading,
     lang: state.localization.lang
   }));
-  //console.log('select.fields:', select.fields);
 
   const callbacks = {
     // Добавление в корзину
@@ -41,10 +42,12 @@ function Article() {
       <Language id={select.lang} onSelect={callbacks.switchLanguage} />
       <Head title={select.fields?.title} />
       <HorizontalContainer justifyContent='space-between'>
-        <Menu/>
+        <Menu />
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       </HorizontalContainer>
-      {select.fields?.title ? <ItemArticle onAdd={callbacks.addToBasket} info={select.fields} /> : null}
+      <Preloader isLoading={select.loading}>
+        {select.fields?.title ? <ItemArticle onAdd={callbacks.addToBasket} info={select.fields} /> : null}
+      </Preloader>
     </PageLayout>
   );
 };
