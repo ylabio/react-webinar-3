@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
 import {createPages} from '../../utils';
+import {cn as bem} from '@bem-react/classname';
 import './style.css';
+
 function Pagination(props) {
+  const cn = bem('Pagination');
   const pages = [];
 
   const [pageNow, serPageNow] = useState(0);
@@ -24,13 +27,13 @@ function Pagination(props) {
 
   createPages(pages, pagesCount, pageNow);
   return (
-    <div className='pagination-wrap'>
-      <ul className='pagination'>
+    <div className={cn()}>
+      <ul className={cn('wrap')}>
         {pages.map((item) => (
-          <li className='page-item' key={item.id}>
+          <li className={cn('item')} key={item.id}>
             <button
               disabled={item.disabled}
-              className={pageNow === item.id ? 'active' : 'page-link'}
+              className={pageNow === item.id ? cn('active') : cn('page-link')}
               onClick={() => setPagination(item.number)}
             >
               {item.number}

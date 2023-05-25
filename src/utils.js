@@ -47,18 +47,21 @@ export function createPages(pages, pagesCount, currentPage) {
           break;
         }
       }
-      pages.push({id: Math.random(), disabled: true, number: '…'});
+      if (i !== pagesCount) {
+        pages.push({id: Math.random(), disabled: true, number: '…'});
 
-      pages.push({
-        id: Math.random(),
-        number: pagesCount,
-      });
+        pages.push({
+          id: Math.random(),
+          number: pagesCount,
+        });
+      }
     } else if (currentPage < 3) {
       let i;
       for (i = 1; i <= 3; i++) {
         pages.push({id: i, number: i});
         if (i == pagesCount) break;
       }
+
       pages.push({id: Math.random(), disabled: true, number: '…'});
 
       pages.push({id: pagesCount, number: pagesCount});
@@ -70,7 +73,7 @@ export function createPages(pages, pagesCount, currentPage) {
       }
       pages.push({id: Math.random(), disabled: true, number: '…'});
 
-      pages.push({id: pagesCount, number: pagesCount});
+      pages.push({id: Math.random(), number: pagesCount});
     }
   } else {
     for (let i = 1; i <= pagesCount; i++) {

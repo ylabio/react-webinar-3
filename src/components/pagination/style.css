@@ -1,9 +1,9 @@
-.pagination-wrap {
+.Pagination {
   padding-bottom: 20px;
   margin-right: 21px;
 }
 
-.pagination {
+.Pagination-wrap {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -12,7 +12,7 @@
   list-style: none;
 }
 
-.page-link {
+.Pagination-page-link {
   min-width: 20px;
   cursor: pointer;
   text-decoration: none;
@@ -27,16 +27,16 @@
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-.page-link button:disabled,
+.Pagination-page-link button:disabled,
 button[disabled] {
   color: #CCCCCC;
 }
 
-.page-link:hover {
+.Pagination-page-link:hover {
   background-color: #E1E1E1;
 }
 
-.active {
+.Pagination-active {
   min-width: 20px;
   background-color: #0087E9;
   font-family: 'Arial';
