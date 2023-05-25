@@ -7,6 +7,7 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
+import {Route, Routes} from "react-router-dom";
 
 function Main() {
 
@@ -51,6 +52,10 @@ function Main() {
       <BasketTool onOpen={callbacks.openModalBasket}
                   amount={select.amount}
                   sum={select.sum}/>
+<Routes>
+  <Route path={'/List'} element={'list'}/>
+  <Route path={'/List'} element={'info'}/>
+</Routes>
       <List list={select.list} renderItem={renders.item}/>
       <Pagination countMax={select.countMax}
                   limit={select.limit}
@@ -62,8 +67,8 @@ function Main() {
                   prevTwoPage={callbacks.prevTwoPage}
                   nextTwoPage={callbacks.nextTwoPage}
       />
-    </PageLayout>
 
+    </PageLayout>
   );
 }
 
