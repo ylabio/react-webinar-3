@@ -19,9 +19,13 @@
   padding: 20px 10px;
 }
 
-.Item-title:hover {
+.Item-title a {
+  text-decoration: none;
+  color: #000000;
+}
+
+.Item-title a:hover {
   text-decoration: underline;
-  cursor: pointer;
 }
 
 .Item-actions {

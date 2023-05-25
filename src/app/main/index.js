@@ -44,24 +44,22 @@ function Main() {
         return;
       store.actions.catalog.setCurrentPage(selected);
     }, [select.loading]),
-    // Подробности о товаре
-    showArticle: useCallback(id => navigate(`article/${id}`), []),
     // Переключение языка
     switchLanguage: useCallback(ln => store.actions.localization.setLanguage(ln), [store])
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} onTitleClick={callbacks.showArticle}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} url={`article/${item._id}`} />
     }, [callbacks.addToBasket]),
   };
 
   return (
     <PageLayout>
-      <Language id={select.lang} onSelect={callbacks.switchLanguage}/>
+      <Language id={select.lang} onSelect={callbacks.switchLanguage} />
       <Head title={ln('mainLabel')} />
       <HorizontalContainer justifyContent='space-between'>
-        <Menu/>
+        <Menu />
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       </HorizontalContainer>
       <List list={select.list} renderItem={renders.item} />

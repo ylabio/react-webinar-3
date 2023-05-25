@@ -24,24 +24,23 @@ function Basket() {
     // Удаление из корзины
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
     // Закрытие любой модалки
-    closeModal: useCallback(() => store.actions.modals.close(), [store]),
-    // Подробности о товаре
-    showArticle: useCallback(id => {
-      store.actions.modals.close();
-      navigate(`article/${id}`);
-    }, [store])
+    closeModal: useCallback(() => store.actions.modals.close(), [store])
   }
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} onTitleClick={callbacks.showArticle}/>
+      return <ItemBasket item={item}
+        onRemove={callbacks.removeFromBasket}
+        url={`article/${item._id}`}
+        onLinkClick={callbacks.closeModal}
+      />
     }, [callbacks.removeFromBasket]),
   };
 
   return (
     <ModalLayout title={ln('basketLabel')} onClose={callbacks.closeModal}>
-      <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <List list={select.list} renderItem={renders.itemBasket} />
+      <BasketTotal sum={select.sum} />
     </ModalLayout>
   );
 }

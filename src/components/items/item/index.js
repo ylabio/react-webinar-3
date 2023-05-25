@@ -1,26 +1,25 @@
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from "prop-types";
 import { memo } from "react";
+import { Link } from "react-router-dom";
 import useLanguage from '../../../localization/use-language';
 import { numberFormat } from "../../../utils";
 import './style.css';
 
-function Item(props){
+function Item(props) {
 
   const cn = bem('Item');
+  const ln = useLanguage();
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(props.item._id),
-    onTitleClick: (e) => props.onTitleClick(props.item._id)
+    onAdd: (e) => props.onAdd(props.item._id)
   }
-
-  const ln = useLanguage();
 
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')} onClick={callbacks.onTitleClick}>
-        {props.item.title}
+      <div className={cn('title')}>
+        {props.url ? <Link to={props.url}>{props.item.title}</Link> : props.item.title}
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
@@ -36,13 +35,12 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
-  onAdd: PropTypes.func,
-  onTitleClick: PropTypes.func
+  url: PropTypes.string,
+  onAdd: PropTypes.func
 };
 
 Item.defaultProps = {
-  onAdd: () => {},
-  onTitleClick: () => {}
+  onAdd: () => { }
 }
 
 export default memo(Item);
