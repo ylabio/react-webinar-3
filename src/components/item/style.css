@@ -1,6 +1,6 @@
 .Item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   transition: background-color 1s;
   padding-left: 10px
 }
@@ -15,8 +15,15 @@
 }
 
 .Item-title {
-  width: 100%;
-  padding: 20px 10px;
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  margin: 20px 10px;
+  transition: border .2s linear;
+}
+
+.Item-title:hover {
+  border-bottom-color: #000;
 }
 
 .Item-actions {
