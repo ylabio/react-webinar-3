@@ -46,7 +46,6 @@ export function createPages(pages, pagesCount, currentPage) {
         break;
       }
     }
-    console.log(',jkmit', i);
     if (i !== pagesCount) {
       pages.push({id: Math.random(), disabled: true, number: '…'});
 
