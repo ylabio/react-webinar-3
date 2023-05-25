@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  word-wrap: normal;
+
+  max-width: 943px;
+  margin: 41px auto;
+}
+
+.description {
+}
+
+.category {
+  margin-top: 20px;
+}
+
+.category span {
+  font-weight: 700;
+}
+
+.price {
+  margin: 20px 0;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.add {
+  max-width: 76px;
+}

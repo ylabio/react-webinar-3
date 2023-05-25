@@ -3,7 +3,7 @@
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
-  padding-left: 10px
+  padding-left: 10px;
 }
 
 .ItemBasket-code {
@@ -27,4 +27,13 @@
   text-align: right;
   font-size: 18px;
   white-space: nowrap;
+}
+
+.Item-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.Item-title a:hover {
+  text-decoration: underline;
 }
