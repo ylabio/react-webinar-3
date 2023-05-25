@@ -3,7 +3,7 @@ import './style.css';
 import useSelector from "../../store/use-selector";
 import PropTypes from "prop-types";
 
-const Pagination = ({countMax, limit, skip, nextPage, prevPage, goToFirstPage, goToLastPage}) => {
+const Pagination = ({countMax, limit, skip, nextPage, prevPage, goToFirstPage, goToLastPage, prevTwoPage, nextTwoPage}) => {
 
   //страниц максимум общее количество товара/ 10 округлить в большую сторону
   let pageCount = Math.ceil(countMax / limit)
@@ -18,12 +18,13 @@ const Pagination = ({countMax, limit, skip, nextPage, prevPage, goToFirstPage, g
     <div className='Pagination'>
       {activePage > 2 && <div className='page' onClick={goToFirstPage}>{firstPage}</div>}
       {activePage > 3 && <div className='dotBlock'>...</div>}
+      {activePage === pageCount && <div className='page' onClick={prevTwoPage}>{pageCount - 2}</div>}
       {activePage > 1 && <div className='page' onClick={prevPage}>{beforePage}</div>}
       <div className='activePage page'>{activePage}</div>
-      {activePage < (pageCount-1) && <div className='page' onClick={nextPage}>{afterPage}</div>}
-      {activePage < (pageCount-2) && <div className='dotBlock'>...</div>}
+      {activePage < (pageCount - 1) && <div className='page' onClick={nextPage}>{afterPage}</div>}
+      {activePage === 1 && <div className='page' onClick={nextTwoPage}>{activePage + 2}</div>}
+      {activePage < (pageCount - 2) && <div className='dotBlock'>...</div>}
       {activePage < pageCount && <div className='page' onClick={goToLastPage}> {lastPage}</div>}
-
     </div>
   );
 };
@@ -38,15 +39,15 @@ Pagination.propTypes = {
   prevPage: PropTypes.func,
   goToFirstPage: PropTypes.func,
   goToLastPage: PropTypes.func,
+  prevTwoPage: PropTypes.func,
+  nextTwoPage: PropTypes.func,
 }
 
 Pagination.defaultProps = {
-  nextPage: () => {
-  },
-  prevPage: () => {
-  },
-  goToFirstPage: () => {
-  },
-  goToLastPage: () => {
-  },
+  nextPage: () => {},
+  prevPage: () => {},
+  goToFirstPage: () => {},
+  goToLastPage: () => {},
+  prevTwoPage: () => {},
+  nextTwoPage: () => {},
 }

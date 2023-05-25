@@ -35,6 +35,8 @@ function Main() {
     prevPage: useCallback(()=> store.actions.catalog.prevPage(), [store]),
     goToFirstPage: useCallback(()=> store.actions.catalog.goToFirstPage(), [store]),
     goToLastPage: useCallback(()=> store.actions.catalog.goToLastPage(), [store]),
+    prevTwoPage: useCallback(()=> store.actions.catalog.prevTwoPage(), [store]),
+    nextTwoPage: useCallback(()=> store.actions.catalog.nextTwoPage(), [store]),
   }
 
   const renders = {
@@ -57,6 +59,8 @@ function Main() {
                   prevPage={callbacks.prevPage}
                   goToFirstPage={callbacks.goToFirstPage}
                   goToLastPage={callbacks.goToLastPage}
+                  prevTwoPage={callbacks.prevTwoPage}
+                  nextTwoPage={callbacks.nextTwoPage}
       />
     </PageLayout>
 
