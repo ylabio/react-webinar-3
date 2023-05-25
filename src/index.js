@@ -1,9 +1,9 @@
-import React from 'react';
 import {createRoot} from 'react-dom/client';
-import {generateCode} from './utils.js';
-import App from './app.js';
-import Store from './store.js';
+import App from './app';
+import Store from "./store";
+import {StoreContext} from "./store/context";
 
+<<<<<<< HEAD
 const store = new Store({
   list: [
     {code: generateCode(), title: 'Название товара', price: 100.0},
@@ -16,12 +16,15 @@ const store = new Store({
   ],
   cart : []
 });
+=======
+const store = new Store();
+>>>>>>> 0d7275a5b9abf52bfdf66805aac7ed9247c620c1
 
 const root = createRoot(document.getElementById('root'));
 
-store.subscribe(() => {
-  root.render(<App store={store}/>);
-});
-
 // Первый рендер приложения
-root.render(<App store={store}/>);
+root.render(
+  <StoreContext.Provider value={store}>
+    <App/>
+  </StoreContext.Provider>
+);

@@ -4,4 +4,12 @@
 
 .List-item {
   border-bottom: 1px dashed #ccc;
+<<<<<<< HEAD
 }
+=======
+}
+
+.List-item:first-child{
+  border-top: 1px dashed #ccc;
+}
+>>>>>>> 0d7275a5b9abf52bfdf66805aac7ed9247c620c1

@@ -2,6 +2,7 @@
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  padding-left: 10px
 }
 
 .Item_selected {
@@ -31,7 +32,15 @@
 }
 
 .Item-actions {
+  padding: 20px 20px 20px 10px;
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+  align-items: center;
+  gap: 20px
+}
+
+.Item-price {
+  padding: 0 0 0 10px;
+  white-space: nowrap;
+  font-size: 18px;
 }

@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import React from "react";
 import {plural} from "../../utils";
+=======
+import {memo} from "react";
+import PropTypes from 'prop-types';
+>>>>>>> 0d7275a5b9abf52bfdf66805aac7ed9247c620c1
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
 
@@ -30,4 +35,4 @@ Controls.defaultProps = {
   setOpened: () => {}
 }
 
-export default React.memo(Controls);
+export default memo(Controls);
