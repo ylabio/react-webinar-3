@@ -14,7 +14,7 @@ function Main() {
 
   useEffect(() => {
     store.actions.catalog.load(select.limit, select.skip);
-  }, []);
+  }, [store.state.catalog.skip]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,

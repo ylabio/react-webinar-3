@@ -16,13 +16,14 @@ const Pagination = ({countMax, limit, skip, nextPage, prevPage, goToFirstPage, g
 
   return (
     <div className='Pagination'>
-      <div className='page' onClick={goToFirstPage}>{firstPage}</div>
-      <div className='page'>...</div>
-      <div className='page' onClick={prevPage}>{beforePage}</div>
+      {activePage > 2 && <div className='page' onClick={goToFirstPage}>{firstPage}</div>}
+      {activePage > 3 && <div className='dotBlock'>...</div>}
+      {activePage > 1 && <div className='page' onClick={prevPage}>{beforePage}</div>}
       <div className='activePage page'>{activePage}</div>
-      <div className='page' onClick={nextPage}>{afterPage}</div>
-      <div className='page'>...</div>
-      <div className='page' onClick={goToLastPage}> {lastPage}</div>
+      {activePage < (pageCount-1) && <div className='page' onClick={nextPage}>{afterPage}</div>}
+      {activePage < (pageCount-2) && <div className='dotBlock'>...</div>}
+      {activePage < pageCount && <div className='page' onClick={goToLastPage}> {lastPage}</div>}
+
     </div>
   );
 };
@@ -40,8 +41,12 @@ Pagination.propTypes = {
 }
 
 Pagination.defaultProps = {
-  nextPage: () => {},
-  prevPage: () => {},
-  goToFirstPage: () => {},
-  goToLastPage: () => {},
+  nextPage: () => {
+  },
+  prevPage: () => {
+  },
+  goToFirstPage: () => {
+  },
+  goToLastPage: () => {
+  },
 }

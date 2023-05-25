@@ -13,6 +13,13 @@
 .page:hover{
     background: #E1E1E1;
 }
+.dotBlock{
+    min-width: 20px;
+    min-height: 20px;
+    text-align: center;
+    color: #000000;
+    cursor: default;
+}
 .activePage{
     background-color:#0087E9;
     color: #FFFFFF;
