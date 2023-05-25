@@ -8,8 +8,6 @@ import './style.css';
 function Item(props) {
   const cn = bem('Item');
 
-  console.log(props.item._id);
-
   const callbacks = {
     onAdd: (e) => props.onAdd(props.item._id),
   };

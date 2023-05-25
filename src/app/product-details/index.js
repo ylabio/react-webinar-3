@@ -1,9 +1,5 @@
 import {memo, useCallback, useEffect} from 'react';
-import PropTypes from 'prop-types';
-import Item from '../../components/item';
-import {cn as bem} from '@bem-react/classname';
-
-import {useParams, useNavigate} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import './style.css';
@@ -13,17 +9,7 @@ import ItemProduct from '../../components/item-product';
 import BasketTool from '../../components/basket-tool';
 
 function ProductDetails() {
-  const cn = bem('Product');
-
   const params = useParams();
-  console.log(params);
-  const history = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    history('/');
-  };
 
   const store = useStore();
   useEffect(() => {
