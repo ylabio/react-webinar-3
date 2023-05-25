@@ -6,8 +6,8 @@ const Pagination = () => {
   //страниц максимум общее количество товара/ 10 округлить в большую сторону
   let pageCount = Math.ceil(101 / 10)
   let pages = []
-  let beforePage = activePage - 1; //4
-  let afterPage = activePage + 1; //5
+  // let beforePage = activePage - 1; //4
+  // let afterPage = activePage + 1; //5
 
 
   for (let i = 0; i <= pageCount; i++) {
