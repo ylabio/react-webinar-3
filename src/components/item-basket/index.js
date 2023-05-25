@@ -24,7 +24,7 @@ function ItemBasket(props) {
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{props.removeButtonTitle}</button>
         </div>
       </div>
     </div>
@@ -41,6 +41,7 @@ ItemBasket.propTypes = {
   onRemove: propTypes.func,
   closeModal: propTypes.func,
   getRoutePath: PropTypes.func,
+  removeButtonTitle: PropTypes.string,
 }
 
 ItemBasket.defaultProps = {

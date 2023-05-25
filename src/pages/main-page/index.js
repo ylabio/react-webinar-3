@@ -5,10 +5,12 @@ import {getRoutePath} from "../../router/config";
 import Item from "../../components/item";
 import {useCallback, useEffect} from "react";
 import useStore from "../../store/use-store";
+import {useTranslate} from "../../i18n";
 
 
 function MainPage() {
   const store = useStore();
+  const t = useTranslate();
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -16,6 +18,7 @@ function MainPage() {
     sum: state.basket.sum,
     page: state.catalog.page,
     lastPage: state.catalog.lastPage,
+    lang: state.application.lang
 
   }));
 
@@ -30,12 +33,20 @@ function MainPage() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} getRoutePath={callbacks.getRoutePath}/>
-    }, [callbacks.addToBasket]),
+      return (
+        <Item
+          item={item}
+          onAdd={callbacks.addToBasket}
+          getRoutePath={callbacks.getRoutePath}
+          addButtonTitle={t('item-add-button-title')}
+        />
+      )
+
+    }, [callbacks.addToBasket, select.lang]),
   };
 
-  useEffect(()=>{
-    store.actions.application.setHeadTitle('Магазин');
+  useEffect(() => {
+    store.actions.application.setHeadTitle('main-head-title');
   }, [])
 
 

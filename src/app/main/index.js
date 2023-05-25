@@ -6,11 +6,12 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import {getRoutePath} from "../../router/config";
 import {AppRouter} from "../../router";
-import {useLocation} from "react-router-dom";
+import {useTranslate} from "../../i18n";
 
 function Main() {
 
   const store = useStore();
+  const t = useTranslate();
 
   useEffect(() => {
     store.actions.catalog.load();
@@ -20,6 +21,7 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     headTitle: state.application.headTitle,
+    lang: state.application.lang
   }));
 
   const callbacks = {
@@ -28,14 +30,24 @@ function Main() {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     loadCatalogPage: useCallback((page) => store.actions.catalog.load(page), [store]),
-    getRoutePath: useCallback((...args) => getRoutePath(...args), [])
+    getRoutePath: useCallback((...args) => getRoutePath(...args), []),
+    changeLang: useCallback(() => store.actions.application.changeLang(), [store])
   }
 
   return (
     <PageLayout>
-      <Head title={select.headTitle}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum} getRoutePath={callbacks.getRoutePath}/>
+      <Head title={t(select.headTitle) === null ? select.headTitle : t(select.headTitle)}
+            onChangeLang={callbacks.changeLang} lang={select.lang}/>
+      <BasketTool
+        onOpen={callbacks.openModalBasket}
+        amount={select.amount}
+        sum={select.sum}
+        getRoutePath={callbacks.getRoutePath}
+        mainLinkTitle={t('basket-tool-main-link-title')}
+        inBasketTitle={t('basket-tool-in-basket-title')}
+        goToBasketTitle={t('basket-tool-go-to-basket-title')}
+        emptyBasketTitle={t('basket-tool-empty-basket-title')}
+      />
       <AppRouter/>
     </PageLayout>
   );

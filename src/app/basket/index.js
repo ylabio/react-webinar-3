@@ -6,10 +6,12 @@ import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import {getRoutePath} from "../../router/config";
+import {useTranslate} from "../../i18n";
 
 function Basket() {
 
   const store = useStore();
+  const t = useTranslate();
 
   const select = useSelector(state => ({
     list: state.basket.list,
@@ -27,15 +29,26 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} getRoutePath={callbacks.getRoutePath}
-                         closeModal={callbacks.closeModal}/>
+      return (
+        <ItemBasket
+          item={item}
+          onRemove={callbacks.removeFromBasket}
+          getRoutePath={callbacks.getRoutePath}
+          closeModal={callbacks.closeModal}
+          removeButtonTitle={t('item-basket-remove-button-title')}
+        />
+      )
     }, [callbacks.removeFromBasket]),
   };
 
   return (
-    <ModalLayout title='Корзина' onClose={callbacks.closeModal}>
+    <ModalLayout
+      title={t('basket-title')}
+      onClose={callbacks.closeModal}
+      closeButtonTitle={t('basket-close-button-title')}
+    >
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} totalTitle={t('basket-total-title')}/>
     </ModalLayout>
   );
 }

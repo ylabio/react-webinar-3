@@ -5,11 +5,13 @@ import useSelector from "../../store/use-selector";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import {numberFormat} from "../../utils";
+import {useTranslate} from "../../i18n";
 
 function ProductPage() {
   const {id} = useParams();
   const store = useStore();
   const cn = bem('ProductPage');
+  const t = useTranslate();
 
 
   useEffect(() => {
@@ -44,18 +46,18 @@ function ProductPage() {
       {select.product && (
         <div className={cn('card')}>
           <div>{select.product?.description}</div>
-          <div>Страна производитель: <span
+          <div>{t('product-page-manufacturer-country-title')}: <span
             className={cn('bold')}>{select.product?.madeIn?.title}&nbsp;({select.product?.madeIn?.code})</span>
           </div>
-          <div>Категория:&nbsp;
+          <div>{t('product-page-category-title')}:&nbsp;
             <span className={cn('bold')}>{select.product?.category?.title}</span>
           </div>
-          <div>Год выпуска:&nbsp;
+          <div>{t('product-page-year-of-issue-title')}:&nbsp;
             <span className={cn('bold')}>{select.product?.edition}</span>
           </div>
-          <div className={cn('price')}>Цена:&nbsp;{numberFormat(select.product?.price)}</div>
+          <div className={cn('price')}>{t('product-page-price-title')}:&nbsp;{numberFormat(select.product?.price)}</div>
           <div>
-            <button onClick={callbacks.addToBasket}>добавить</button>
+            <button onClick={callbacks.addToBasket}>{t('product-page-add-button-title')}</button>
           </div>
         </div>
       )}

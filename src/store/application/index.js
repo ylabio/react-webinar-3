@@ -2,7 +2,7 @@ import StoreModule from "../module";
 
 class Application extends StoreModule {
   initState() {
-    return {headTitle: ''};
+    return {headTitle: '', lang: 'ru'};
   }
 
 
@@ -10,6 +10,13 @@ class Application extends StoreModule {
     this.setState({
       ...this.getState(),
       headTitle: val
+    })
+  }
+
+  changeLang() {
+    this.setState({
+      ...this.getState(),
+      lang: this.getState().lang === 'en' ? 'ru' : 'en'
     })
   }
 }
