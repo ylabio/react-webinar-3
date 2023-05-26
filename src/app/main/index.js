@@ -6,6 +6,7 @@ import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import {apiRequests} from "../../api";
 
 function Main() {
 
@@ -41,7 +42,6 @@ function Main() {
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
     </PageLayout>
-
   );
 }
 
