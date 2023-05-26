@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import useStore from "../../store/use-store";
@@ -18,11 +18,9 @@ const Article = () => {
     sum: state.basket.sum,
   }));
 
-  const item=select.article;
   useEffect(() => {
     store.actions.article.load(id);
   }, []);
-
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(
@@ -38,15 +36,17 @@ const Article = () => {
 
   return (
     <PageLayout>
-      <Head title={item.title} />
+      <Head
+        title={Object.keys(select.article).length && select.article.title}
+      />
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
       />
-      <ItemArticle item={item} onAdd={callbacks.addToBasket} />
+      <ItemArticle item={select.article} onAdd={callbacks.addToBasket} />
     </PageLayout>
   );
 };
 
-export default memo(Article);
+export default Article;
