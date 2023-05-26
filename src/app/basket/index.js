@@ -26,7 +26,7 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} localize={callbacks.localize}/>
+      return <ItemBasket item={item} closeModal={callbacks.closeModal} onRemove={callbacks.removeFromBasket} localize={callbacks.localize}/>
     }, [callbacks.removeFromBasket]),
   };
 

@@ -46,11 +46,6 @@ function Good() {
     store.actions.good.load(id);
   }, [id]);
 
-  // useEffect(() => {
-  //   if (select.modal === 'basket') store.actions.modals.close();
-  // }, [])
-
-
   return (
     <PageLayout>
         <Head title={select.title} onChangeLanguage={callbacks.onChangeLanguage} languages={select.languages} currentLanguage={select.currentLanguage}/>

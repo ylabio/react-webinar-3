@@ -11,13 +11,14 @@ function ItemBasket(props) {
 
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id),
-    localize: (text) => props.localize(text)
+    localize: (text) => props.localize(text),
+    closeModal: () => props.closeModal(),
   };
 
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <NavLink to={`/good/${props.item._id}`} className={cn('title')}>{props.item.title}</NavLink>
+      <NavLink to={`/good/${props.item._id}`} onClick={callbacks.closeModal} className={cn('title')}>{props.item.title}</NavLink>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {callbacks.localize('things')}</div>
