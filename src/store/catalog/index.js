@@ -11,24 +11,47 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
-      itemsAmount: null,
-      currentPage: 1,
-      pagesAmount: null,
-      limitPosts: 10
+      pagination: {
+        itemsAmount: null,
+        currentPage: 1,
+        pagesAmount: 1,
+        limitPosts: 10
+      }
     }
   }
 
   async load() {
-    const response = await fetch(`/api/v1/articles?limit=${this.getState().limitPosts}&skip=${this.getState().currentPage * this.getState().limitPosts - 10}&fields=items(_id, title, price),count`);
+    const response = await fetch(`/api/v1/articles?limit=${this.getState().pagination.limitPosts}&skip=${this.getState().pagination.currentPage * this.getState().pagination.limitPosts - 10}&fields=items(_id, title, price),count`);
     const json = await response.json();
  
     this.setState({
        ...this.getState(),
        list: json.result.items,
-       itemsAmount: json.result.count,
-       pagesAmount: Math.ceil(json.result.count / this.getState().limitPosts)
+       pagination: {
+        ...this.getState().pagination,
+        itemsAmount: json.result.count,
+        pagesAmount: Math.ceil(json.result.count / this.getState().pagination.limitPosts)
+       }
     }, 'Загружены товары из АПИ');
+
   }
+
+  onChangePage(num) {
+    if (num <= 0) {
+      num = 1;
+    }
+
+    this.setState({
+      ...this.getState(),
+      pagination: {
+        ...this.getState().pagination,
+        currentPage: num
+      }
+    })
+    
+    this.load();
+  }
+
 }
 
 export default Catalog;

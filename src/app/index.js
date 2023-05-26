@@ -11,14 +11,15 @@ import Good from './good';
  * @returns {React.ReactElement}
  */
 function App() {
-
   const activeModal = useSelector(state => state.modals.name);
 
   return (
     <>
       <Routes>
         <Route path='/' element={<Main />} /> 
+        <Route path='/page/:num' element={<Main />} /> 
         <Route path='/good/:id' element={<Good />} /> 
+        <Route path='*' element={<Main />} /> 
       </Routes>
       
       {activeModal === 'basket' && <Basket/>}

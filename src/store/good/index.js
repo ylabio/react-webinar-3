@@ -1,39 +1,77 @@
-import { codeGenerator } from "../../utils";
 import StoreModule from "../module";
 
 class Good extends StoreModule {
-    constructor(store, name) {
-        super(store, name);
-        this.generateCode = codeGenerator(0)
-    }
 
-    initState() {
-        return {
-            title: null,
-            description: null,
-            madeInTitle: null,
-            madeInCode: null,
-            category: null, 
-            edition: null,
-            price: null,
-        }
+  initState() {
+    return {
+      details:  {
+        title: null,
+        description: null,
+        madeInTitle: null,
+        madeInCode: null,
+        category: null, 
+        edition: null,
+        price: null,
+      },
+      isLoading: true,
+      isError: false
     }
+  }
 
-    async load(id) {
-        const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`)
-        const json = await response.json();
+  async load(id) {
+    try {
+      this.setState({
+        ...this.getState(),
+        details:  {
+          title: 'Загрузка',
+        },
+        isLoading: true
+      })
+  
+      const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`)
+      const {result} = await response.json();
+  
+      this.setState({
+        ...this.getState(),
+        details: {
+          title: result.title,
+          description: result.description,
+          madeInTitle: result.madeIn.title,
+          madeInCode: result.madeIn.code,
+          category: result.category.title,
+          edition: result.edition,
+          price: result.price 
+        },
+        isLoading: false,
+        isError: false,
+      })
 
-        this.setState({
-            ...this.getState(),
-            title: json.result.title,
-            description: json.result.description,
-            madeInTitle: json.result.madeIn.title,
-            madeInCode: json.result.madeIn.code,
-            category: json.result.category.title,
-            edition: json.result.edition,
-            price: json.result.price 
-        })
+    } catch (e) {
+
+      this.setState({
+        ...this.getState(),
+        isLoading: false,
+        isError: true
+      })
+
+      throw new Error('Bro....', e)
     }
+  }
+
+  reset() {
+    this.setState({
+      ...this.getState(),
+      details: {
+        description: null,
+        madeInTitle: null,
+        madeInCode: null,
+        category: null, 
+        edition: null,
+        price: null,
+      }
+    })
+  }
+
 }
 
 export default Good;
