@@ -1,0 +1,29 @@
+.Pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2px;
+    margin: 23px 22px 0 0;
+}
+.Pagination-number {
+    text-align: center;
+    cursor: pointer;
+    min-width: 18px;
+    font-weight: 400;
+    font-size: 16px;    
+}
+.Pagination-number:hover {
+    background-color: #cccccc;
+}
+.Pagination-text {
+    color: #cccccc;
+}
+.Pagination-active {
+    text-align: center;
+    cursor: pointer;
+    min-width: 18px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #FFFFFF;
+    background-color:  #0087E9;
+}
