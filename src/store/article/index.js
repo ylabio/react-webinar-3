@@ -1,15 +1,12 @@
 import StoreModule from "../module";
-import Catalog from "../catalog";
 
 
 class Article extends StoreModule {
-  constructor(store) {
-    super(store);
-  }
+
 
   initState() {
     return {
-      _id: 0,
+      _id: '646b6e1fe1626c0bd8518064',
       title: '',
       description: '',
       price: 0,
@@ -25,11 +22,10 @@ class Article extends StoreModule {
   }
 
   async load(id) {
-    const response = await fetch(`http://example.front.ylab.io/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`)
+    const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`)
     const json = await response.json();
     this.setState({
       ...this.getState(),
-      _id: id,
       title: json.result.title,
       description: json.result.description,
       price: json.result.price,

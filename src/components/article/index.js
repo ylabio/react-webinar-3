@@ -4,6 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
 import useStore from "../../store/use-store";
+import useSelector from "../../store/use-selector";
 
 function Article(props){
 
@@ -12,9 +13,20 @@ function Article(props){
 
 
   useEffect(() => {
-    store.actions.article.load(id);
-  }, [store.state.article.id]);
+    store.actions.articles.load('646b6e1fe1626c0bd8518064');
 
+  }, [store.state.articles._id]);
+
+
+  const select = useSelector(state => ({
+    id: state.articles._id,
+    description: state.articles.description,
+    madeIn: state.articles.madeIn.title,
+    codeCountry: state.articles.madeIn.code,
+    category: state.articles.category.title,
+    edition: state.articles.edition,
+    price: state.articles.price,
+  }));
 
   // const callbacks = {
   //   onAdd: (e) => props.onAdd(props.item._id)
@@ -23,20 +35,20 @@ function Article(props){
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-        Описание товара из множества букв. Описание товара из букв. В АПИ может быть меньше букв. Описание товара из множества букв.
+        {select.description}
       </div>
       <div className={cn('title')}>
-        Страна производитель: <span className={cn('info')}>Россия (RU)</span>
+        Страна производитель: <span className={cn('info')}>{select.madeIn} ({select.codeCountry})</span>
       </div>
       <div className={cn('title')}>
-        Категория: <span className={cn('info')}>Электронника123a</span>
+        Категория: <span className={cn('info')}>{select.category}</span>
       </div>
       <div className={cn('title')}>
-        Год выпуска: <span className={cn('info')}>2015</span>
+        Год выпуска: <span className={cn('info')}>{select.edition}</span>
       </div>
       <div className={cn('price')}>
         {/*{numberFormat(props.item.price)} ₽*/}
-        Цена: <span className={cn('info')}>12,57 ₽</span>
+        Цена: <span className={cn('info')}>{numberFormat(select.price)} ₽</span>
       </div>
 
       <div className={cn('actions')}>
