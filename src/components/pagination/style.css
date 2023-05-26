@@ -1,0 +1,22 @@
+.Pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 22px;
+    margin-right: 20px;
+}
+
+.Pagination button {
+    min-width: 20px;
+    min-height: 20px;
+    border: 0;
+}
+
+.Pagination span {
+    padding: 0px 5px;
+    color: #CCCCCC;
+}
+
+.active {
+    color: #FFFFFF;
+    background: #0087E9;
+}
