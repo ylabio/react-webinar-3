@@ -1,47 +1,84 @@
-import {memo, useCallback, useEffect} from 'react';
-import Item from "../../components/item";
-import PageLayout from "../../components/page-layout";
-import Head from "../../components/head";
-import BasketTool from "../../components/basket-tool";
-import List from "../../components/list";
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
+import {memo, useCallback, useEffect, useState} from 'react';
+import Item from '../../components/item';
+import PageLayout from '../../components/page-layout';
+import Head from '../../components/head';
+import BasketTool from '../../components/basket-tool';
+import List from '../../components/list';
+import useStore from '../../store/use-store';
+import useSelector from '../../store/use-selector';
+import Pagination from '../../components/pagination';
 
 function Main() {
-
   const store = useStore();
-
   useEffect(() => {
-    store.actions.catalog.load();
+    store.actions.catalog.load(0);
+    store.actions.catalog.loadCount(0);
   }, []);
 
-  const select = useSelector(state => ({
+  const select = useSelector((state) => ({
     list: state.catalog.list,
+    listCount: state.catalog.listCount,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    pageNow: state.pagination.pageNow,
   }));
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    addToBasket: useCallback(
+      (_id) => store.actions.basket.addToBasket(_id),
+      [store]
+    ),
     // Открытие модалки корзины
-    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-  }
+    openModalBasket: useCallback(
+      () => store.actions.modals.open('basket'),
+      [store]
+    ),
 
-  const renders = {
-    item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
+    setPageNow: useCallback(
+      (page) => store.actions.pagination.setPageNow(page),
+      [store]
+    ),
   };
+  const pageNameArticles = '/articles/';
+  const renders = {
+    item: useCallback(
+      (item) => {
+        return (
+          <Item
+            pageNameArticles={pageNameArticles}
+            item={item}
+            onAdd={callbacks.addToBasket}
+          />
+        );
+      },
+      [callbacks.addToBasket]
+    ),
+  };
+
+  const addPageItem = (page) => {
+    store.actions.catalog.load(page);
+  };
+  const numberOfProducts = 10;
+  const pagesCount = Math.ceil(select.listCount / numberOfProducts);
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
-      <List list={select.list} renderItem={renders.item}/>
+      <Head title='Магазин' />
+      <BasketTool
+        onOpen={callbacks.openModalBasket}
+        amount={select.amount}
+        sum={select.sum}
+      />
+      <List list={select.list} renderItem={renders.item} />
+      <Pagination
+        numberOfProducts={numberOfProducts}
+        pagesCount={pagesCount}
+        pageNow={select.pageNow}
+        setPageNow={callbacks.setPageNow}
+        addPageItem={addPageItem}
+      />
     </PageLayout>
-
   );
 }
 
