@@ -7,6 +7,8 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
+import LocaleSwitcher from "../../components/locale-switcher";
+import useLocale from "../../store/use-locale";
 
 function Main() {
   const store = useStore();
@@ -17,6 +19,7 @@ function Main() {
     sum: state.basket.sum,
     currentPage: state.catalog.currentPage,
     pageCount: state.catalog.pageCount,
+    lang: state.locale.lang,
   }));
 
   useEffect(() => {
@@ -38,6 +41,10 @@ function Main() {
       (pageNumber) => store.actions.catalog.switchPage(pageNumber),
       [store]
     ),
+    changeLang: useCallback(
+      (e) => store.actions.locale.changeLang(e),
+      [select.lang]
+    ),
   };
 
   const renders = {
@@ -48,10 +55,13 @@ function Main() {
       [callbacks.addToBasket]
     ),
   };
+  const translation = useLocale();
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
+      <Head title={translation("storeTitle")}>
+        <LocaleSwitcher changeLang={callbacks.changeLang} lang={select.lang} />
+      </Head>
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}

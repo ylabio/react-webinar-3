@@ -4,9 +4,11 @@ import { numberFormat } from "../../utils";
 import "./style.css";
 import { propTypes } from "prop-types";
 import PropTypes from "prop-types";
+import useLocale from "../../store/use-locale";
 
 const ItemArticle = (props) => {
   const cn = bem("ItemArticle");
+  const translation = useLocale();
   const callbacks = {
     onAdd: () => props.onAdd(props.item._id),
   };
@@ -16,27 +18,27 @@ const ItemArticle = (props) => {
         <>
           <p className={cn("text")}>{` ${props.item.description}`}</p>
           <p className={cn("text")}>
-            Страна производитель:
+            {translation("country")}
             <span
               className={cn("subText")}
             >{` ${props.item.madeIn.title}`}</span>
           </p>
           <p className={cn("text")}>
-            Категория:
+            {translation("category")}
             <span
               className={cn("subText")}
             >{` ${props.item.category.title}`}</span>
           </p>
           <p className={cn("text")}>
-            Год выпуска:
+            {translation("dateCreate")}
             <span className={cn("subText")}>
               {` ${new Date(props.item.dateCreate).getFullYear()}`}
             </span>
           </p>
           <p className={cn("price")}>
-            {`Цена: ${numberFormat(props.item.price)} ₽`}{" "}
+            {`${translation("price")} ${numberFormat(props.item.price)} ₽`}{" "}
           </p>
-          <button onClick={callbacks.onAdd}>Добавить</button>
+          <button onClick={callbacks.onAdd}>{translation("addTo")}</button>
         </>
       )}
     </div>

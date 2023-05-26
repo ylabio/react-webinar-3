@@ -6,6 +6,7 @@ import useSelector from "../../store/use-selector";
 import BasketTool from "../../components/basket-tool";
 import ItemArticle from "../../components/item-article";
 import { useLocation } from "react-router-dom";
+import LocaleSwitcher from "../../components/locale-switcher";
 
 const Article = () => {
   const store = useStore();
@@ -16,6 +17,7 @@ const Article = () => {
     article: state.article.item,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    lang: state.locale.lang,
   }));
 
   useEffect(() => {
@@ -32,13 +34,17 @@ const Article = () => {
       () => store.actions.modals.open("basket"),
       [store]
     ),
+    changeLang: useCallback(
+      (e) => store.actions.locale.changeLang(e),
+      [select.lang]
+    ),
   };
 
   return (
     <PageLayout>
-      <Head
-        title={Object.keys(select.article).length && select.article.title}
-      />
+      <Head title={Object.keys(select.article).length && select.article.title}>
+        <LocaleSwitcher changeLang={callbacks.changeLang} lang={select.lang} />
+      </Head>
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
