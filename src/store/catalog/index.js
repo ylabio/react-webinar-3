@@ -32,7 +32,6 @@ class Catalog extends StoreModule {
       skip : (this.getState().skip - 10)
     })
   }
-
   //минус 2 страницы
   prevTwoPage(){
     this.setState({
@@ -40,8 +39,6 @@ class Catalog extends StoreModule {
       skip : (this.getState().skip - 20)
     })
   }
-
-
   //плюс 2 страницы
   nextTwoPage(){
     this.setState({
@@ -49,7 +46,6 @@ class Catalog extends StoreModule {
       skip : (this.getState().skip + 20)
     })
   }
-
   // первая страница
   goToFirstPage(){
     this.setState({

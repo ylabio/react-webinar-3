@@ -8,6 +8,7 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
 import {Route, Routes} from "react-router-dom";
+import Article from "../../components/article";
 
 function Main() {
 
@@ -67,7 +68,7 @@ function Main() {
                         nextTwoPage={callbacks.nextTwoPage}/>
           </>}/>
         <Route path={'*'} element={<p>Path not resolved</p>}/>
-        <Route path={'/article'} element={<p>описание товара</p>}/>
+        <Route path={'/article'} element={<Article/>}/>
       </Routes>
     </PageLayout>
   );
