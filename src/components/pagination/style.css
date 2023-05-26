@@ -1,0 +1,28 @@
+.Pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  list-style-type: none;
+}
+
+.Pagintion-item {
+  padding: 5px 7px;
+  cursor: pointer;
+}
+
+.Pagintion-item:hover:not(.Selected) {
+  background-color: #9e9e9c;
+}
+
+.Pagintion-link {
+  text-decoration: none;
+  color: #000;
+}
+
+.Selected {
+  background-color: #4188eb;
+}
+
+.Selected .Pagintion-link {
+  color: #fff;
+}
