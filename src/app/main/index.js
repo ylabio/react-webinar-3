@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useCallback, useEffect, useState} from 'react';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -47,7 +47,27 @@ function Main() {
   const addPageItem = (page) => {
     store.actions.catalog.load(page);
   };
+  const numberOfProducts = 10;
+  const pagesCount = Math.ceil(select.listCount / numberOfProducts);
+  const pages = [];
 
+  const [pageNow, serPageNow] = useState(1);
+
+  const setPagination = (page) => {
+    let skipPage = 0;
+    if (page === 1) {
+      skipPage = 0;
+    } else if (page > 1 && page < numberOfProducts) {
+      skipPage = page * numberOfProducts - numberOfProducts;
+    } else {
+      let str = String(page * numberOfProducts);
+      skipPage =
+        str.substring(0, str.length - 1) * numberOfProducts - numberOfProducts;
+    }
+
+    serPageNow(page);
+    addPageItem(skipPage);
+  };
   return (
     <PageLayout>
       <Head title='Магазин' />
@@ -57,7 +77,12 @@ function Main() {
         sum={select.sum}
       />
       <List list={select.list} renderItem={renders.item} />
-      <Pagination listCount={select.listCount} paginatePage={addPageItem} />
+      <Pagination
+        pagesCount={pagesCount}
+        pageNow={pageNow}
+        setPagination={setPagination}
+        pages={pages}
+      />
     </PageLayout>
   );
 }

@@ -11,9 +11,6 @@ function ProductDetails() {
   const params = useParams();
 
   const store = useStore();
-  useEffect(() => {
-    store.actions.catalog.load(0);
-  }, []);
 
   useEffect(() => {
     store.actions.product.loadProduct(params.id);
