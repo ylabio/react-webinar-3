@@ -1,26 +1,33 @@
-import {memo, useState} from "react";
+import { cn as bem } from "@bem-react/classname";
 import PropTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname';
-import {numberFormat} from "../../utils";
-import './style.css';
+import { memo, useTransition } from "react";
+import { Link } from "react-router-dom";
+import browserRoutes from "../../app/lib/browserRoutes";
+import { numberFormat } from "../../utils";
+import "./style.css";
+import { useTranslation } from "../../store/translation";
 
-function Item(props){
-
-  const cn = bem('Item');
+function Item(props) {
+  const cn = bem("Item");
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(props.item._id)
-  }
+    onAdd: (e) => props.onAdd(props.item._id),
+  };
+
+	const {t} = useTranslation()
 
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>
+      <Link
+        to={props.titleLink ?? browserRoutes.product(props.item._id)}
+        className={cn("title")}
+      >
         {props.item.title}
-      </div>
-      <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+      </Link>
+      <div className={cn("actions")}>
+        <div className={cn("price")}>{numberFormat(props.item.price)} ₽</div>
+        <button onClick={callbacks.onAdd}>{t('addBtn')}</button>
       </div>
     </div>
   );
@@ -30,13 +37,13 @@ Item.propTypes = {
   item: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
-    price: PropTypes.number
+    price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
 };
 
 Item.defaultProps = {
   onAdd: () => {},
-}
+};
 
 export default memo(Item);
