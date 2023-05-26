@@ -1,7 +1,6 @@
 
 .Nav {
   display: flex;
-  justify-content: flex-end;
   padding: 20px;
   font-size: 18px;
   gap: 20px;
@@ -15,7 +14,6 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 21px;
-  margin: 0 auto 0 0;
   text-decoration-line: underline;
   color: #0087E9;
 }

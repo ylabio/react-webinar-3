@@ -18,6 +18,7 @@ export const i18nData = {
     'product-page-year-of-issue-title': 'Year of issue',
     'product-page-price-title': 'Price',
     'product-page-add-button-title': 'Add',
+    'test-link': 'test',
   },
 
   ru: {
@@ -36,6 +37,7 @@ export const i18nData = {
     'product-page-year-of-issue-title': 'Год выпуска',
     'product-page-price-title': 'Цена',
     'product-page-add-button-title': 'Добавить',
+    'test-link': 'тест',
   }
 }
 

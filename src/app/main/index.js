@@ -53,6 +53,12 @@ function Main(props) {
         many: 'товаров'
       });
 
+  const navConfig = [
+    {id: 1, title: t('basket-tool-main-link-title'), path: callbacks.getRoutePath('main')},
+    //это тестовый пункт меню для демонстрации
+    {id: 2, title: t('test-link'), path: '/testLink'}
+  ]
+
   return (
     <PageLayout>
       <Head title={t(select.headTitle) === null ? select.headTitle : t(select.headTitle)}
@@ -61,6 +67,7 @@ function Main(props) {
         <Nav
           getRoutePath={callbacks.getRoutePath}
           mainLinkTitle={t('basket-tool-main-link-title')}
+          navConfig={navConfig}
         />
         <BasketTool
           onOpen={callbacks.openModalBasket}
