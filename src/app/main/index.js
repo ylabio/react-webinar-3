@@ -49,8 +49,8 @@ function Main() {
       <List list={select.list} renderItem={renders.item} count={select.count}/>
       <Pagination count={select.count} currentPage={currentPage} itemsPerPage={10} pageSelectHandler={(evt, page) => {
         setCurrentPage(page);
-        pageSelectHandler(page-1)
-      }}  />
+        pageSelectHandler(page - 1)
+      }}/>
     </PageLayout>
 
   );
