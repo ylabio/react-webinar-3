@@ -33,11 +33,11 @@ function Main() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
 
     nextPage: useCallback(() => store.actions.catalog.nextPage(), [store]),
-    prevPage: useCallback(()=> store.actions.catalog.prevPage(), [store]),
-    goToFirstPage: useCallback(()=> store.actions.catalog.goToFirstPage(), [store]),
-    goToLastPage: useCallback(()=> store.actions.catalog.goToLastPage(), [store]),
-    prevTwoPage: useCallback(()=> store.actions.catalog.prevTwoPage(), [store]),
-    nextTwoPage: useCallback(()=> store.actions.catalog.nextTwoPage(), [store]),
+    prevPage: useCallback(() => store.actions.catalog.prevPage(), [store]),
+    goToFirstPage: useCallback(() => store.actions.catalog.goToFirstPage(), [store]),
+    goToLastPage: useCallback(() => store.actions.catalog.goToLastPage(), [store]),
+    prevTwoPage: useCallback(() => store.actions.catalog.prevTwoPage(), [store]),
+    nextTwoPage: useCallback(() => store.actions.catalog.nextTwoPage(), [store]),
   }
 
   const renders = {
@@ -52,22 +52,23 @@ function Main() {
       <BasketTool onOpen={callbacks.openModalBasket}
                   amount={select.amount}
                   sum={select.sum}/>
-<Routes>
-  <Route path={'/List'} element={'list'}/>
-  <Route path={'/List'} element={'info'}/>
-</Routes>
-      <List list={select.list} renderItem={renders.item}/>
-      <Pagination countMax={select.countMax}
-                  limit={select.limit}
-                  skip={select.skip}
-                  nextPage={callbacks.nextPage}
-                  prevPage={callbacks.prevPage}
-                  goToFirstPage={callbacks.goToFirstPage}
-                  goToLastPage={callbacks.goToLastPage}
-                  prevTwoPage={callbacks.prevTwoPage}
-                  nextTwoPage={callbacks.nextTwoPage}
-      />
-
+      <Routes>
+        <Route path={'/'} element={
+          <>
+            <List list={select.list} renderItem={renders.item}/>
+            <Pagination countMax={select.countMax}
+                        limit={select.limit}
+                        skip={select.skip}
+                        nextPage={callbacks.nextPage}
+                        prevPage={callbacks.prevPage}
+                        goToFirstPage={callbacks.goToFirstPage}
+                        goToLastPage={callbacks.goToLastPage}
+                        prevTwoPage={callbacks.prevTwoPage}
+                        nextTwoPage={callbacks.nextTwoPage}/>
+          </>}/>
+        <Route path={'*'} element={<p>Path not resolved</p>}/>
+        <Route path={'/article'} element={<p>описание товара</p>}/>
+      </Routes>
     </PageLayout>
   );
 }

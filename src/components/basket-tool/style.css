@@ -14,3 +14,10 @@
   font-weight: bold;
   margin: 0 20px;
 }
+
+.homeLink{
+  color: #0087E9;
+  text-decoration: underline;
+  cursor: url("../../../public/cursor/Pointer.svg"), pointer;
+  margin: 0 auto 0 0;
+}
