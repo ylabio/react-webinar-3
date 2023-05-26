@@ -20,6 +20,7 @@ function Main() {
     listCount: state.catalog.listCount,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    pageNow: state.pagination.pageNow,
   }));
 
   const callbacks = {
@@ -33,12 +34,23 @@ function Main() {
       () => store.actions.modals.open('basket'),
       [store]
     ),
-  };
 
+    setPageNow: useCallback(
+      (page) => store.actions.pagination.setPageNow(page),
+      [store]
+    ),
+  };
+  const pageNameArticles = '/articles/';
   const renders = {
     item: useCallback(
       (item) => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return (
+          <Item
+            pageNameArticles={pageNameArticles}
+            item={item}
+            onAdd={callbacks.addToBasket}
+          />
+        );
       },
       [callbacks.addToBasket]
     ),
@@ -49,25 +61,7 @@ function Main() {
   };
   const numberOfProducts = 10;
   const pagesCount = Math.ceil(select.listCount / numberOfProducts);
-  const pages = [];
 
-  const [pageNow, serPageNow] = useState(1);
-
-  const setPagination = (page) => {
-    let skipPage = 0;
-    if (page === 1) {
-      skipPage = 0;
-    } else if (page > 1 && page < numberOfProducts) {
-      skipPage = page * numberOfProducts - numberOfProducts;
-    } else {
-      let str = String(page * numberOfProducts);
-      skipPage =
-        str.substring(0, str.length - 1) * numberOfProducts - numberOfProducts;
-    }
-
-    serPageNow(page);
-    addPageItem(skipPage);
-  };
   return (
     <PageLayout>
       <Head title='Магазин' />
@@ -78,10 +72,11 @@ function Main() {
       />
       <List list={select.list} renderItem={renders.item} />
       <Pagination
+        numberOfProducts={numberOfProducts}
         pagesCount={pagesCount}
-        pageNow={pageNow}
-        setPagination={setPagination}
-        pages={pages}
+        pageNow={select.pageNow}
+        setPageNow={callbacks.setPageNow}
+        addPageItem={addPageItem}
       />
     </PageLayout>
   );

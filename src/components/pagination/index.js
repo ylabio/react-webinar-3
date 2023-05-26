@@ -4,9 +4,31 @@ import {cn as bem} from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Pagination({pagesCount, setPagination, pages, pageNow}) {
+function Pagination({
+  pagesCount,
+  pageNow,
+  numberOfProducts,
+  setPageNow,
+  addPageItem,
+}) {
   const cn = bem('Pagination');
+  const pages = [];
 
+  const setPagination = (page) => {
+    let skipPage = 0;
+    if (page === 1) {
+      skipPage = 0;
+    } else if (page > 1 && page < numberOfProducts) {
+      skipPage = page * numberOfProducts - numberOfProducts;
+    } else {
+      let str = String(page * numberOfProducts);
+      skipPage =
+        str.substring(0, str.length - 1) * numberOfProducts - numberOfProducts;
+    }
+
+    setPageNow(page);
+    addPageItem(skipPage);
+  };
   createPages(pages, pagesCount, pageNow);
   return (
     <div className={cn()}>
@@ -27,13 +49,15 @@ function Pagination({pagesCount, setPagination, pages, pageNow}) {
   );
 }
 Pagination.propTypes = {
-  pages: PropTypes.array,
   pageNow: PropTypes.number,
   pagesCount: PropTypes.number,
-  setPagination: PropTypes.func,
+  numberOfProducts: PropTypes.number,
+  setPageNow: PropTypes.func,
+  addPageItem: PropTypes.func,
 };
 
 Pagination.defaultProps = {
-  setPagination: () => {},
+  setPageNow: () => {},
+  addPageItem: () => {},
 };
 export default Pagination;

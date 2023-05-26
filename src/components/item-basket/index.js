@@ -17,7 +17,7 @@ function ItemBasket(props) {
     <div className={cn()}>
       <Link
         className={cn('title')}
-        to={`/${props.item._id}`}
+        to={`${props.pageNameArticles}${props.item._id}`}
         onClick={props.onClose}
       >
         {props.item.title}

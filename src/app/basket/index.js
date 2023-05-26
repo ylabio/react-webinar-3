@@ -24,7 +24,7 @@ function Basket() {
     // Закрытие любой модалки
     closeModal: useCallback(() => store.actions.modals.close(), [store]),
   };
-
+  const pageNameArticles = '/articles/';
   const renders = {
     itemBasket: useCallback(
       (item) => {
@@ -33,6 +33,7 @@ function Basket() {
             item={item}
             onRemove={callbacks.removeFromBasket}
             onClose={callbacks.closeModal}
+            pageNameArticles={pageNameArticles}
           />
         );
       },
