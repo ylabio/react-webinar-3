@@ -6,6 +6,7 @@ import PageLayout from "../../components/page-layout";
 import ProductDetails from "../../components/product-details";
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
+import { menuLinks } from "../lib/const";
 
 const Product = () => {
   const [isLoad, setIsLoad] = useState(true);
@@ -55,6 +56,7 @@ const Product = () => {
         onBasketOpen={callbacks.openModalBasket}
         basketAmount={select.amount}
         basketSum={select.sum}
+        menuLinks={menuLinks}
       />
       <ProductDetails product={product} onAddToBasket={callbacks.addToBasket} />
     </PageLayout>

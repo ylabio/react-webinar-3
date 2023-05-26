@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 import { generatePages } from "../../utils";
-import "./index.css";
+import "./style.css";
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const [displayPages, setDisplayPages] = useState([]);

@@ -10,6 +10,8 @@ import { useTranslation } from "../../store/translation";
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
 import browserRoutes from "../lib/browserRoutes";
+import { menuLinks } from "../lib/const";
+
 
 function Main() {
   const store = useStore();
@@ -70,6 +72,7 @@ function Main() {
         onBasketOpen={callbacks.openModalBasket}
         basketAmount={select.amount}
         basketSum={select.sum}
+				menuLinks={menuLinks}
       />
       <List list={select.list} renderItem={renders.item} />
       <Pagination

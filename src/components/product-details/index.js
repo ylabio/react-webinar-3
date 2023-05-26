@@ -1,7 +1,7 @@
 
 import React from 'react'
 import {formatPrice} from '../../utils'
-import './index.css'
+import "./style.css";
 import { useTranslation } from '../../store/translation'
 
 const ProductDetails = ({product, onAddToBasket}) => {

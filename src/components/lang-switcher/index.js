@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "../../store/translation";
-import './index.css'
+import "./style.css";
 
 const LangSwitcher = () => {
   const { set } = useTranslation();
