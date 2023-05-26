@@ -7,6 +7,8 @@ import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
+import ChangeLang from '../../components/changeLang';
+import {ObjectWords} from '../../language-store';
 
 function Main() {
   const store = useStore();
@@ -21,6 +23,7 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     pageNow: state.pagination.pageNow,
+    lang: state.language.lang,
   }));
 
   const callbacks = {
@@ -39,7 +42,12 @@ function Main() {
       (page) => store.actions.pagination.setPageNow(page),
       [store]
     ),
+    handlerChangeLang: useCallback(
+      (lang) => store.actions.language.changeLang(lang),
+      [store]
+    ),
   };
+
   const pageNameArticles = '/articles/';
   const renders = {
     item: useCallback(
@@ -64,7 +72,15 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title='Магазин' />
+      <ChangeLang handlerChangeLang={callbacks.handlerChangeLang} />
+      <Head
+        title={
+          select.lang === 'en'
+            ? ObjectWords[select.lang].shop
+            : ObjectWords[select.lang].shop
+        }
+      />
+
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
