@@ -1,9 +1,16 @@
 .Head {
-  height: 80px;
+  height: 90px;
   background: #f5f5f5;
 }
 
 .Head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  padding: 20px 20px 0px;
+}
+
+.language-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
 }
