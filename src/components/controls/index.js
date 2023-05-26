@@ -1,33 +1,21 @@
 import {memo} from "react";
 import PropTypes from 'prop-types';
 import './style.css';
-import {cn as bem} from '@bem-react/classname';
 
-function Controls({list, setOpened}){
-    const cn = bem('Controls');
-    const totalCount = list.length;
-    const totalCost = list.reduce((sum, item) => sum + item.price * item.count, 0);
-
+function Controls({onAdd}){
   return (
-    <div className={cn()}>
-      <div className={cn('info')}>В корзине:
-        <span className={cn('important')}>{(totalCount) ? (`${totalCount} ${plural(totalCount, {one: 'товар', few: 'товара', many: 'товаров'})} 
-        / ${Intl.NumberFormat('ru-RU').format(totalCost)} ₽`) : ("пусто")}
-        </span>
-      </div>
-      <div className={cn('actions')}>
-          <button onClick={() => setOpened(true)}>Перейти</button>
-      </div>
+    <div className='Controls'>
+      <button onClick={() => onAdd()}>Добавить</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  setOpened: () => {}
+  onAdd: PropTypes.func
 };
 
 Controls.defaultProps = {
-  setOpened: () => {}
+  onAdd: () => {}
 }
 
 export default memo(Controls);
