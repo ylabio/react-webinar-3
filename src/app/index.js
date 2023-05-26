@@ -1,8 +1,6 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
-import Main from "./main";
-import Basket from "./basket";
-import useStore from "../store/use-store";
-import useSelector from "../store/use-selector";
+import Main from './main';
+import Basket from './basket';
+import useSelector from '../store/use-selector';
 
 /**
  * Приложение
@@ -18,6 +16,6 @@ function App() {
       {activeModal === 'basket' && <Basket/>}
     </>
   );
-}
+  }
 
 export default App;

@@ -13,6 +13,16 @@
 .ItemBasket-title {
   width: 100%;
   padding: 20px 10px;
+  
+}
+
+.ItemBasket-link {
+  text-decoration: none;
+  color: #000000;
+}
+
+.ItemBasket-link:hover {
+  text-decoration-line: underline;
 }
 
 .ItemBasket-right {
