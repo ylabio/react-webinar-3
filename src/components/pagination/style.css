@@ -1,0 +1,8 @@
+.Pagination {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    max-width: fit-content;
+    margin-left: auto;
+    padding: 22px;
+}
