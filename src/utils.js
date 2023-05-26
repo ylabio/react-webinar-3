@@ -7,13 +7,13 @@
  * @param [locale] {String} Локаль (код языка)
  * @returns {String}
  */
-export function plural(value, variants = {}, locale = 'ru-RU') {
-  // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
-  // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
-  // В английском 2 формы: 'one', 'other'
-  const key = new Intl.PluralRules(locale).select(value);
-  // Возвращаем вариант по ключу, если он есть
-  return variants[key] || '';
+export function plural(value, variants = {}, locale = "ru-RU") {
+	// Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
+	// В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
+	// В английском 2 формы: 'one', 'other'
+	const key = new Intl.PluralRules(locale).select(value)
+	// Возвращаем вариант по ключу, если он есть
+	return variants[key] || ""
 }
 
 /**
@@ -21,7 +21,7 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
  * @returns {Function}
  */
 export function codeGenerator(start = 0) {
-  return () => ++start;
+	return () => ++start
 }
 
 /**
@@ -30,6 +30,32 @@ export function codeGenerator(start = 0) {
  * @param options {Object}
  * @returns {String}
  */
-export function numberFormat(value, locale = 'ru-RU', options = {}) {
-  return new Intl.NumberFormat(locale, options).format(value);
+export function numberFormat(value, locale = "ru-RU", options = {}) {
+	return new Intl.NumberFormat(locale, options).format(value)
+}
+
+/**
+ * Форматирование массива страниц
+ * @param pages {Array}
+ * @param pagesCount {Number}
+ * @param currentPage {Number}
+ */
+export function createPages(pages, pagesCount, currentPage) {
+	if (pagesCount > 3) {
+		if (currentPage > 2) {
+			for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+				pages.push(i)
+				if (i == pagesCount) break
+			}
+		} else {
+			for (let i = 1; i <= 3; i++) {
+				pages.push(i)
+				if (i == pagesCount) break
+			}
+		}
+	} else {
+		for (let i = 1; i <= pagesCount; i++) {
+			pages.push(i)
+		}
+	}
 }
