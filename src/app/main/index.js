@@ -65,8 +65,6 @@ function Main(props) {
             onChangeLang={callbacks.changeLang} lang={select.lang}/>
       <FlexContainer>
         <Nav
-          getRoutePath={callbacks.getRoutePath}
-          mainLinkTitle={t('basket-tool-main-link-title')}
           navConfig={navConfig}
         />
         <BasketTool
