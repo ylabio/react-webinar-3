@@ -17,6 +17,7 @@ class Catalog extends StoreModule {
   async load() {
     const response = await fetch('/api/v1/articles');
     const json = await response.json();
+    console.log(response)
     this.setState({
        ...this.getState(),
        list: json.result.items
