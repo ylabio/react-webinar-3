@@ -9,7 +9,7 @@ import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import ChangeLang from '../../components/changeLang';
 import {ObjectWords} from '../../language-store';
-
+import {useTranslate} from '../../language-store';
 function Main() {
   const store = useStore();
   useEffect(() => {
@@ -70,15 +70,18 @@ function Main() {
   const numberOfProducts = 10;
   const pagesCount = Math.ceil(select.listCount / numberOfProducts);
 
+  const t = useTranslate();
+
   return (
     <PageLayout>
       <ChangeLang handlerChangeLang={callbacks.handlerChangeLang} />
       <Head
-        title={
-          select.lang === 'en'
-            ? ObjectWords[select.lang].shop
-            : ObjectWords[select.lang].shop
-        }
+        // title={
+        //   select.lang === 'en'
+        //     ? ObjectWords[select.lang].shop
+        //     : ObjectWords[select.lang].shop
+        // }
+        title={t('shop')}
       />
 
       <BasketTool
