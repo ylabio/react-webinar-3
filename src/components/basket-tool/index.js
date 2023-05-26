@@ -5,7 +5,7 @@ import {numberFormat, plural} from "../../utils";
 import './style.css';
 import {Link} from "react-router-dom";
 
-function BasketTool({sum, amount, onOpen, getRoutePath, mainLinkTitle, inBasketTitle, goToBasketTitle, emptyBasketTitle}) {
+function BasketTool({sum, amount, onOpen, getRoutePath, mainLinkTitle, inBasketTitle, goToBasketTitle, emptyBasketTitle, amountPlural}) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
@@ -13,7 +13,7 @@ function BasketTool({sum, amount, onOpen, getRoutePath, mainLinkTitle, inBasketT
       <span className={cn('label')}>{inBasketTitle}:</span>
       <span className={cn('total')}>
         {amount
-          ? `${amount} ${plural(amount, {one: 'товар', few: 'товара', many: 'товаров'})} / ${numberFormat(sum)} ₽`
+          ? `${amount} ${amountPlural} / ${numberFormat(sum)} ₽`
           : emptyBasketTitle
         }
       </span>
@@ -31,6 +31,7 @@ BasketTool.propTypes = {
   inBasketTitle: PropTypes.string.isRequired,
   goToBasketTitle: PropTypes.string.isRequired,
   emptyBasketTitle: PropTypes.string.isRequired,
+  amountPlural: PropTypes.string.isRequired
 };
 
 BasketTool.defaultProps = {

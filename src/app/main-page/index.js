@@ -1,11 +1,11 @@
 import useSelector from "../../store/use-selector";
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
-import {getRoutePath} from "../../router/config";
 import Item from "../../components/item";
 import {useCallback, useEffect} from "react";
 import useStore from "../../store/use-store";
 import {useTranslate} from "../../i18n";
+import {getRoutePath} from "../index";
 
 
 function MainPage() {
@@ -37,7 +37,7 @@ function MainPage() {
         <Item
           item={item}
           onAdd={callbacks.addToBasket}
-          getRoutePath={callbacks.getRoutePath}
+          productLink={callbacks.getRoutePath('product', item._id)}
           addButtonTitle={t('item-add-button-title')}
         />
       )

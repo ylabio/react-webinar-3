@@ -5,8 +5,9 @@ import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import {getRoutePath} from "../../router/config";
 import {useTranslate} from "../../i18n";
+import {getRoutePath} from "../index";
+
 
 function Basket() {
 
@@ -33,7 +34,7 @@ function Basket() {
         <ItemBasket
           item={item}
           onRemove={callbacks.removeFromBasket}
-          getRoutePath={callbacks.getRoutePath}
+          productLink={callbacks.getRoutePath('product', item._id)}
           closeModal={callbacks.closeModal}
           removeButtonTitle={t('item-basket-remove-button-title')}
         />

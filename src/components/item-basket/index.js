@@ -17,7 +17,7 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}><Link to={props.getRoutePath('product', props.item._id)}
+      <div className={cn('title')}><Link to={props.productLink}
                                          className={cn('product-link')}
       ><span onClick={props.closeModal}>{props.item.title}</span></Link></div>
       <div className={cn('right')}>
@@ -40,7 +40,7 @@ ItemBasket.propTypes = {
   }).isRequired,
   onRemove: propTypes.func,
   closeModal: propTypes.func,
-  getRoutePath: PropTypes.func,
+  productLink: PropTypes.string,
   removeButtonTitle: PropTypes.string,
 }
 

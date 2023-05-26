@@ -2,7 +2,6 @@ export async function getProductList(limit, skip) {
   const url = `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id, title, price),count`;
   const response = await fetch(url);
   const json = await response.json();
-  console.log(json.result);
   return json.result;
 }
 

@@ -1,10 +1,9 @@
-import {memo, useState} from "react";
+import {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
 import {Link} from "react-router-dom";
-import {getRoutePath} from "../../router/config";
 
 function Item(props) {
 
@@ -18,7 +17,7 @@ function Item(props) {
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <Link to={props.getRoutePath('product', props.item._id)}
+        <Link to={props.productLink}
               className={cn('product-link')}>{props.item.title}</Link>
       </div>
       <div className={cn('actions')}>
@@ -36,7 +35,7 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
-  getRoutePath: PropTypes.func,
+  productLink: PropTypes.string,
   addButtonTitle: PropTypes.string.isRequired,
 
 };

@@ -4,11 +4,13 @@ import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import {getRoutePath} from "../../router/config";
-import {AppRouter} from "../../router";
 import {useTranslate} from "../../i18n";
+import {getRoutePath} from "../index";
+import PropTypes from "prop-types";
+import {plural} from "../../utils";
 
-function Main() {
+
+function Main(props) {
 
   const store = useStore();
   const t = useTranslate();
@@ -34,6 +36,21 @@ function Main() {
     changeLang: useCallback(() => store.actions.application.changeLang(), [store])
   }
 
+  const basketToolAmountPlural =
+    select.lang === 'en'
+      ? plural(
+        select.amount,
+        {
+          one: 'product',
+          other: 'products',
+        },
+        'en-US',
+      ) : plural(select.amount, {
+        one: 'товар',
+        few: 'товара',
+        many: 'товаров'
+      });
+
   return (
     <PageLayout>
       <Head title={t(select.headTitle) === null ? select.headTitle : t(select.headTitle)}
@@ -47,10 +64,15 @@ function Main() {
         inBasketTitle={t('basket-tool-in-basket-title')}
         goToBasketTitle={t('basket-tool-go-to-basket-title')}
         emptyBasketTitle={t('basket-tool-empty-basket-title')}
+        amountPlural={basketToolAmountPlural}
       />
-      <AppRouter/>
+      {props.renderRouter()}
     </PageLayout>
   );
 }
+
+Main.propTypes = {
+  renderRouter: PropTypes.func
+};
 
 export default memo(Main);
