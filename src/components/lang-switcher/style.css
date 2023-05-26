@@ -1,0 +1,6 @@
+.LangSwitcher {
+    position: absolute;
+    right: 0;
+    margin: 12px;
+    cursor: pointer;
+}

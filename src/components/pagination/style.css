@@ -1,0 +1,27 @@
+.pagination {
+    padding: 20px;
+}
+
+.pagination-wrap {
+    display: flex;
+    list-style: none;
+    justify-content: end;
+}
+
+.pagination-item {
+    min-width: 18px;
+    height: 18px;
+    text-align: center;
+    margin: 3px;
+    
+}
+
+.pagination-item:hover {
+    background-color: #E1E1E1;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.selected {
+    background-color: #0087E9;
+}
