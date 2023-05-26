@@ -8,6 +8,8 @@ import {useTranslate} from "../../i18n";
 import {getRoutePath} from "../index";
 import PropTypes from "prop-types";
 import {plural} from "../../utils";
+import Nav from "../../components/nav";
+import FlexContainer from "../../components/flex-container";
 
 
 function Main(props) {
@@ -55,17 +57,21 @@ function Main(props) {
     <PageLayout>
       <Head title={t(select.headTitle) === null ? select.headTitle : t(select.headTitle)}
             onChangeLang={callbacks.changeLang} lang={select.lang}/>
-      <BasketTool
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-        getRoutePath={callbacks.getRoutePath}
-        mainLinkTitle={t('basket-tool-main-link-title')}
-        inBasketTitle={t('basket-tool-in-basket-title')}
-        goToBasketTitle={t('basket-tool-go-to-basket-title')}
-        emptyBasketTitle={t('basket-tool-empty-basket-title')}
-        amountPlural={basketToolAmountPlural}
-      />
+      <FlexContainer>
+        <Nav
+          getRoutePath={callbacks.getRoutePath}
+          mainLinkTitle={t('basket-tool-main-link-title')}
+        />
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+          inBasketTitle={t('basket-tool-in-basket-title')}
+          goToBasketTitle={t('basket-tool-go-to-basket-title')}
+          emptyBasketTitle={t('basket-tool-empty-basket-title')}
+          amountPlural={basketToolAmountPlural}
+        />
+      </FlexContainer>
       {props.renderRouter()}
     </PageLayout>
   );
