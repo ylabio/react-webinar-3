@@ -1,0 +1,50 @@
+.productInfo {
+    padding: 0 40px;
+}
+.description {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+.madeIn {
+    margin-top: 20px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+.madeIn span {
+    font-weight: bold;
+}
+.category {
+    margin-top: 20px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+.category span {
+    font-weight: bold;
+}
+.edition {
+    margin-top: 20px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+.edition span {
+    font-weight: bold;
+}
+.price {
+    margin-top: 20px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+}
+.addButton {
+    margin-top: 23px;
+    width: 76px;
+}

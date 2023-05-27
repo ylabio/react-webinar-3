@@ -1,5 +1,6 @@
 import {codeGenerator} from "../../utils";
 import StoreModule from "../module";
+import {apiRequests} from "../../api";
 
 class Catalog extends StoreModule {
 
@@ -14,12 +15,12 @@ class Catalog extends StoreModule {
     }
   }
 
-  async load() {
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  async load(page) {
+    const response = await apiRequests.getAllProductsWithPaginationAndProperties(10, (page - 1) * 10);
     this.setState({
-       ...this.getState(),
-       list: json.result.items
+      ...this.getState(),
+      list: response.result.items,
+      count: response.result.count
     }, 'Загружены товары из АПИ');
   }
 }

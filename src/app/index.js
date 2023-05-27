@@ -1,8 +1,10 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import Main from "./main";
 import Basket from "./basket";
 import useStore from "../store/use-store";
 import useSelector from "../store/use-selector";
+import { Routes, Route, Navigate, Link } from "react-router-dom";
+import ProductPage from "../components/product";
 
 /**
  * Приложение
@@ -14,8 +16,11 @@ function App() {
 
   return (
     <>
-      <Main/>
-      {activeModal === 'basket' && <Basket/>}
+      <Routes>
+        <Route path={'/'} element={<Main/>} />
+        <Route path={'/item/:itemId'} element={<ProductPage/>} />
+      </Routes>
+        {activeModal === 'basket' && <Basket/>}
     </>
   );
 }
