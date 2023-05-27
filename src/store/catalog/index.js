@@ -15,11 +15,12 @@ class Catalog extends StoreModule {
     }
   }
 
-  async load() {
-    const response = await apiRequests.getAllProducts()
+  async load(page) {
+    const response = await apiRequests.getAllProductsWithPaginationAndProperties(10, (page - 1) * 10);
     this.setState({
-       ...this.getState(),
-       list: response.result.items
+      ...this.getState(),
+      list: response.result.items,
+      count: response.result.count
     }, 'Загружены товары из АПИ');
   }
 }

@@ -41,6 +41,7 @@ const ProductPage = () => {
   }
 
   useEffect(() => {
+    store.actions.catalog.load();
     getItemInfo(itemId)
   }, [])
 

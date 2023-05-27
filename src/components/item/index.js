@@ -6,7 +6,6 @@ import './style.css';
 import {Link} from "react-router-dom";
 
 function Item(props){
-  console.log(props)
 
   const cn = bem('Item');
 

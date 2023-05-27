@@ -7,14 +7,19 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import {apiRequests} from "../../api";
+import Paginator from "../../components/paginator";
+import {useSearchParams} from "react-router-dom";
 
 function Main() {
+
+  const [searchParams] = useSearchParams();
+  let page = searchParams.get('page');
 
   const store = useStore();
 
   useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
+    store.actions.catalog.load(page);
+  }, [page]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -41,6 +46,7 @@ function Main() {
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
+      <Paginator />
     </PageLayout>
   );
 }

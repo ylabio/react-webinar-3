@@ -5,8 +5,12 @@ export const itemsRequests = {
     const res = await fetch(`${baseUrl}`);
     return await res.json()
   },
-  getAllProductsWithPagination: async (limit, skip = 0) => {
+  getProductsWithPagination: async (limit, skip = 0) => {
     const res = await fetch(`${baseUrl}?limit=${limit}&skip=${skip}`);
+    return await res.json()
+  },
+  getAllProductsWithPaginationAndProperties: async (limit, skip = 0) => {
+    const res = await fetch(`${baseUrl}?limit=${limit}&skip=${skip}&fields=items(_id, title, price),count`);
     return await res.json()
   },
   getProductById: async (id) => {
