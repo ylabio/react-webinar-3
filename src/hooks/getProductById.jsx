@@ -17,7 +17,7 @@ export const useProductById = () => {
     }
 
     fetchData();
-  }, []);
+  }, [id]);
 
   return product;
 };

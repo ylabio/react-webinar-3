@@ -7,6 +7,7 @@ import useStore from "../../store/use-store";
 import BasketTool from "../../components/basket-tool";
 import ProductDescription from "../../components/product-description";
 import Basket from "../basket";
+import { NavigationMenu } from "../../components/navigation-menu";
 
 function ProductPage() {
   const store = useStore();
@@ -35,12 +36,13 @@ function ProductPage() {
   useEffect(() => {
     if (product) store.actions.catalog.loadOne(product._id);
   }, [product]);
+  // TODO loader
   return product ? (
     <>
       <PageLayout>
         <Head title={product.title} />
 
-        <BasketTool
+        <NavigationMenu
           onOpen={callbacks.openModalBasket}
           amount={select.amount}
           sum={select.sum}

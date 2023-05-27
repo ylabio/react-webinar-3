@@ -6,16 +6,6 @@
   font-size: 18px;
 }
 
-.BasketTool-mainLink {
-  margin-right: auto;
-}
-
-.BasketTool-mainLink a,
-.BasketTool-mainLink a:hover {
-  color: #0087e9;
-  text-decoration: underline;
-}
-
 .BasketTool-label {
 }
 

@@ -1,0 +1,12 @@
+.navigation {
+  display: flex;
+  justify-content: end;
+  margin-left: 20px;
+}
+
+.mainLink {
+  margin-right: auto;
+  align-self: center;
+  color: #0087e9;
+  text-decoration: underline;
+}

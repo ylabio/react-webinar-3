@@ -1,7 +1,7 @@
 import Basket from "./basket";
 import useSelector from "../store/use-selector";
+import AppRouter from "../routing";
 import Main from "./main";
-
 /**
  * Приложение
  * @returns {React.ReactElement}
@@ -9,7 +9,11 @@ import Main from "./main";
 function App() {
   const activeModal = useSelector((state) => state.modals.name);
 
-  return <>{activeModal === "basket" && <Basket />}</>;
+  return (
+    <>
+      <AppRouter />
+    </>
+  );
 }
 
 export default App;

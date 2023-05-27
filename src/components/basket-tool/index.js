@@ -9,9 +9,6 @@ function BasketTool({ sum, amount, onOpen }) {
   const cn = bem("BasketTool");
   return (
     <div className={cn()}>
-      <div className={cn("mainLink")}>
-        <Link to={"/?page=1"}>Главная</Link>
-      </div>
       <span className={cn("label")}>В корзине:</span>
       <span className={cn("total")}>
         {amount
