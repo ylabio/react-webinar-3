@@ -10,7 +10,7 @@
   cursor: pointer;
 }
 
-.Pagintion-item:hover:not(.Selected) {
+.Pagintion-item:hover:not(.Selected):not(.Disable) {
   background-color: #9e9e9c;
 }
 
@@ -25,4 +25,8 @@
 
 .Selected .Pagintion-link {
   color: #fff;
+}
+
+.Color-link {
+  color: #CCCCCC;
 }

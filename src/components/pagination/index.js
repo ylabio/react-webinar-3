@@ -4,6 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 function Pagination({totalNumber, currentPage, setCurrentPage, limit}) {
+  const [arrOfCurrButtons, setArrOfCurrButtons] = useState([]);
   let count = totalNumber ? Math.ceil((totalNumber += 1) / limit) : 0;
   let pages = [];
 
@@ -11,12 +12,14 @@ function Pagination({totalNumber, currentPage, setCurrentPage, limit}) {
     pages.push(i);
   }
 
-  const [arrOfCurrButtons, setArrOfCurrButtons] = useState([]);
-
   useEffect(() => {
     let tempNumberOfPage = [...pages];
 
-    if (currentPage >= 1 && currentPage <= 3) {
+    if (tempNumberOfPage.length === 1) {
+      tempNumberOfPage = [1];
+    }
+
+    else if (currentPage >= 1 && currentPage <= 3) {
       tempNumberOfPage = [1, 2, 3, 4, "...", pages.length];
     } 
     
@@ -46,6 +49,22 @@ function Pagination({totalNumber, currentPage, setCurrentPage, limit}) {
       }
       return setCurrentPage(e.target.textContent)
     },
+    setColor: (elem) => {
+      if (elem === "...") {
+        return " Color-link";
+      } else {
+        return "";
+      }
+    },
+    setHover: (elem) => {
+      if (currentPage === elem) {
+        return " Selected";
+      } else if (elem === "...") {
+        return " Disable";
+      } else {
+        return "";
+      }
+    }
   }
 
   const cn = bem('Pagination');
@@ -55,10 +74,10 @@ function Pagination({totalNumber, currentPage, setCurrentPage, limit}) {
       {arrOfCurrButtons.map((elem, index) => (
         <li 
           key={index} 
-          className={"Pagintion-item" + (currentPage === elem ? " Selected" : "")} 
+          className={"Pagintion-item" + callbacks.setHover(elem)} 
           onClick={callbacks.onSet}
           >
-          <a className="Pagintion-link">{elem}</a>
+          <a className={"Pagintion-link" + callbacks.setColor(elem)}>{elem}</a>
         </li>
       ))}
     </ul>
