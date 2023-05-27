@@ -1,0 +1,21 @@
+.Pagination-button {
+    all: unset;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+.Pagination-button:hover {
+    background-color: #e1e1e1;
+}
+
+.Pagination-button_active {
+    color: #fff;
+    background-color: #0087e9;
+}
+
+.Pagination-button_active:hover {
+    background-color: #0087e9;
+}
+
+.Pagination-button:disabled {
+    cursor: text;
+}

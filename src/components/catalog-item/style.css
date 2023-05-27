@@ -1,0 +1,12 @@
+.Catalog-item {
+    margin-inline: 40px;
+}
+
+.Catalog-data {
+    font-size: 18px;
+}
+
+.Catalog-price {
+    font-size: 24px;
+    font-weight: 700;
+}

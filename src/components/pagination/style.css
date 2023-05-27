@@ -1,0 +1,11 @@
+.Pagination {
+    margin: 22px ;
+    padding-bottom: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.Pagination-dots {
+    color: #ccc;
+}

@@ -10,6 +10,11 @@
 
 }
 
+.BasketTool-link {
+  margin-right: auto;
+  color: #0087E9
+}
+
 .BasketTool-total{
   font-weight: bold;
   margin: 0 20px;

@@ -6,6 +6,7 @@ import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import {Pagination} from "../../components/pagination";
 
 function Main() {
 
@@ -17,6 +18,7 @@ function Main() {
 
   const select = useSelector(state => ({
     list: state.catalog.list,
+    totalItems: state.catalog.totalItems,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -40,6 +42,7 @@ function Main() {
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
+      <Pagination perPage={10}/>
     </PageLayout>
 
   );
