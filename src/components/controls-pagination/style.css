@@ -1,0 +1,26 @@
+.ControlsPagination {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.ControlsPagination-item_selected {
+  background-color: #0087E9;
+  color: #ffffff;
+}
+
+.ControlsPagination-item {
+  min-width: 20px;
+  height: 20px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  border: none;
+}
+
+.ControlsPagination-points {
+  width: 20px;
+  height: 20px;
+  color: #CCCCCC;
+}

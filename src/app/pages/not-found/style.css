@@ -1,0 +1,12 @@
+.NotFound-text{
+  padding: 20px;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+}
+.NotFound-link{
+  padding-left: 5px;
+  color: #0087E9;
+}
