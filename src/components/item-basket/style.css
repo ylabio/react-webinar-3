@@ -13,6 +13,11 @@
 .ItemBasket-title {
   width: 100%;
   padding: 20px 10px;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
 }
 
 .ItemBasket-right {
@@ -25,6 +30,24 @@
 .ItemBasket-cell {
   min-width: 95px;
   text-align: right;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
   font-size: 18px;
+  line-height: 21px;
   white-space: nowrap;
+}
+
+.ItemBasket-nav {
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  color: #000000;
+  text-decoration: none
+}
+
+.ItemBasket-nav:hover {
+  text-decoration: underline;
 }

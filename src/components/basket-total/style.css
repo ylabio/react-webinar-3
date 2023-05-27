@@ -8,8 +8,11 @@
 .BasketTotal-cell {
   min-width: 85px;
   text-align: right;
-  font-weight: bold;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 700;
   font-size: 18px;
+  line-height: 21px;
   padding-left: 10px;
   white-space: nowrap;
 }

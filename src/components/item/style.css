@@ -32,3 +32,18 @@
   white-space: nowrap;
   font-size: 18px;
 }
+
+.Item-nav {
+  text-decoration: none;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  color: #000000;
+}
+
+.Item-nav:hover {
+  text-decoration: underline;
+}
+

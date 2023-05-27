@@ -1,9 +1,28 @@
 /* Контрол с общими действиями */
 .BasketTool{
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 20px;
   font-size: 18px;
+}
+
+.BasketTool-link {
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #0087E9;
+}
+
+.BasketTool-nav {
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  text-decoration-line: underline;
+  color: #0087E9;
 }
 
 .BasketTool-label{
@@ -14,3 +33,5 @@
   font-weight: bold;
   margin: 0 20px;
 }
+
+
