@@ -41,11 +41,10 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
-      <List list={select.list} renderItem={renders.item}/>
-      <Pagination page={select.page} lastPage={select.lastPage} handleClickPage={callbacks.handleClickPage}/>
+        <Head title='Магазин'/>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+        <List list={select.list} renderItem={renders.item}/>
+        <Pagination page={select.page} lastPage={select.lastPage} handleClickPage={callbacks.handleClickPage}/>
     </PageLayout>
   );
 }

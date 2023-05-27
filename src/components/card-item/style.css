@@ -1,0 +1,30 @@
+ul,
+ol,
+li {
+    list-style: none;
+}
+
+.CardItem {
+}
+
+.CardItem-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0 40px;
+    padding: 0;
+    gap: 20px;
+}
+.CardItem-string {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+.CardItem-info {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}
+.CardItem-btn {
+    margin: 20px 0 0 40px;
+}
