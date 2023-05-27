@@ -31,7 +31,7 @@ function Basket() {
   };
 
   return (
-    <ModalLayout title={callbacks.localize('cart')} onClose={callbacks.closeModal}>
+    <ModalLayout title={callbacks.localize('cart')} localize={callbacks.localize} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket}/>
       <BasketTotal sum={select.sum} localize={callbacks.localize}/>
     </ModalLayout>

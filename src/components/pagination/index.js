@@ -4,7 +4,7 @@ import PaginationLink from '../pagination-link';
 import './style.css';
 
 function Pagination({currentPage, pages, onChangePage}) {
-  const leftDots = currentPage > 3;
+  const leftDots = currentPage > 3 && pages > 4;
   const leftDotsView = <><PaginationLink index={1} onChangePage={onChangePage} /><span className='Pagination-dots'>...</span></>
 
   const rightDots = pages - currentPage > 2;
@@ -21,23 +21,27 @@ function Pagination({currentPage, pages, onChangePage}) {
   }
 
   const generateElems = useCallback((i) => {
-    if (!rightDots && i == pages) {
-      return fillArr(i-3, i)
+    if (pages <= 4) {
+      return fillArr(1, pages)
     }
 
-    if ((!rightDots && i == pages - 1) || (!leftDots && i == 2) || leftDots) {
-      return fillArr(i-1, i+1)
+    if (!rightDots && i == pages) {
+      return fillArr(i-2, i)
     }
 
     if (!rightDots && i == pages - 2) {
       return fillArr(i-1, i+2)
     }
 
+    if (!rightDots && i == pages - 1 || !leftDots && i == 2 || leftDots) {
+      return fillArr(i-1, i+1)
+    }
+
     if (!leftDots && i == 1) {
       return fillArr(i, i+2)
     }
 
-    if (!leftDots && (i > 2 && i<= 3) ) {
+    if (!leftDots && (i > 2 && i<= 3)) {
       return fillArr(i-2, i+1)
     }
 
@@ -55,6 +59,11 @@ function Pagination({currentPage, pages, onChangePage}) {
 Pagination.propTypes = {
   currentPage: PropTypes.number.isRequired,
   pages: PropTypes.number.isRequired,
+  loading: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string
+  ]),
+  error: PropTypes.bool
 }
 
 export default React.memo(Pagination)

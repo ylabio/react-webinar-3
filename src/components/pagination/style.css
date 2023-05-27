@@ -10,3 +10,7 @@
     color: #CCCCCC;
     margin: 0 2px;
 }
+
+.Pagination-hidden {
+    display: none;
+}

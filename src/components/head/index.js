@@ -14,7 +14,7 @@ function Head({title, onChangeLanguage, languages, currentLanguage}){
 }
 
 Head.propTypes = {
-  title: PropTypes.node,
+  title: PropTypes.string,
 };
 
 export default memo(Head);

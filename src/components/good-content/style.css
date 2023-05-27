@@ -9,11 +9,6 @@
     padding: 0 41px 0 40px;
 }
 
-.Good-home {
-    font-size: 18px;
-    color: #0087E9;
-}
-
 .Good-property {
     font-size: 18px;
     line-height: 21px;
@@ -38,11 +33,4 @@
 
 .Good-button:hover {
     background: #dadada;
-}
-
-.Good-loading {
-    display: block;
-    text-align: center;
-    font-weight: 700;
-    margin: 40px 0;
 }

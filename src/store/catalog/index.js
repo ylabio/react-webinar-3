@@ -16,24 +16,37 @@ class Catalog extends StoreModule {
         currentPage: 1,
         pagesAmount: 1,
         limitPosts: 10
-      }
+      },
+      isLoading: true,
+      isError: false
     }
   }
 
   async load() {
-    const response = await fetch(`/api/v1/articles?limit=${this.getState().pagination.limitPosts}&skip=${this.getState().pagination.currentPage * this.getState().pagination.limitPosts - 10}&fields=items(_id, title, price),count`);
-    const json = await response.json();
- 
-    this.setState({
-       ...this.getState(),
-       list: json.result.items,
-       pagination: {
-        ...this.getState().pagination,
-        itemsAmount: json.result.count,
-        pagesAmount: Math.ceil(json.result.count / this.getState().pagination.limitPosts)
-       }
-    }, 'Загружены товары из АПИ');
+    try {
+      const response = await fetch(`/api/v1/articles?limit=${this.getState().pagination.limitPosts}&skip=${this.getState().pagination.currentPage * this.getState().pagination.limitPosts - 10}&fields=items(_id, title, price),count`);
+      const json = await response.json();
+   
+      this.setState({
+         ...this.getState(),
+         list: json.result.items,
+         pagination: {
+          ...this.getState().pagination,
+          itemsAmount: json.result.count,
+          pagesAmount: Math.ceil(json.result.count / this.getState().pagination.limitPosts)
+         },
+         isLoading: false
+      }, 'Загружены товары из АПИ');
+    } catch (e) {
 
+      this.setState({
+        ...this.getState(),
+        isError: true,
+        isLoading: false
+      })
+
+      throw new Error('Error. See details:', e)
+    }
   }
 
   onChangePage(num) {
@@ -46,7 +59,8 @@ class Catalog extends StoreModule {
       pagination: {
         ...this.getState().pagination,
         currentPage: num
-      }
+      },
+      isLoading: true
     })
     
     this.load();

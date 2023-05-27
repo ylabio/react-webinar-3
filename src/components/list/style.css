@@ -1,11 +1,18 @@
-.List{
-
-}
-
 .List-item {
   border-bottom: 1px dashed #ccc;
 }
 
 .List-item:first-child{
   border-top: 1px dashed #ccc;
+}
+
+.List-loading {
+  opacity: .5;
+}
+
+.List-error {
+  display: block;
+  text-align: center;
+  font-weight: 700;
+  margin-top: 40px;
 }

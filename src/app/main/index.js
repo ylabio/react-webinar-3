@@ -7,17 +7,23 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom'
+import Navigation from '../../components/navigation';
+import HeaderContent from '../../components/header-content';
+import LoaderLayout from '../../components/loader-layout';
 
 function Main() {
   const store = useStore();
 
-  const {num} = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const pageNum = searchParams.get('page');
 
   const select = useSelector(state => ({
     list: state.catalog.list,
-    currentPage: state.catalog.pagination.currentPage,
-    pagesAmount: state.catalog.pagination.pagesAmount,
+    pagination: state.catalog.pagination,
+    isLoading: state.catalog.isLoading,
+    isError: state.catalog.isError,
 
     amount: state.basket.amount,
     sum: state.basket.sum,
@@ -25,11 +31,6 @@ function Main() {
     languages: state.localization.list,
     currentLanguage: state.localization.currentLanguage
   }));
-
-  useEffect(() => {
-    if (num && num === 'number') store.actions.catalog.onChangePage(Number(num))
-    store.actions.catalog.load();
-  }, []);
 
   const callbacks = {
     // Добавление в корзину
@@ -41,19 +42,32 @@ function Main() {
     localize: useCallback((text) => store.actions.localization.toLocalization(text), [select.currentLanguage])
   }
 
+  useEffect(() => {
+    if (pageNum || pageNum === 'number') store.actions.catalog.onChangePage(Number(pageNum))
+    if (!pageNum) store.actions.catalog.onChangePage(1);
+  }, [pageNum]);
+
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} localize={callbacks.localize} />
+      return <Item item={item} onAdd={callbacks.addToBasket} localize={callbacks.localize} url={`/good/${item._id}`} />
     }, [callbacks.addToBasket, select.currentLanguage]),
   };
 
   return (
     <PageLayout>
       <Head title={callbacks.localize('shop')} onChangeLanguage={callbacks.onChangeLanguage} languages={select.languages} currentLanguage={select.currentLanguage}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+      <HeaderContent>
+        <Navigation localize={callbacks.localize} />
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum} localize={callbacks.localize}/>
-      <List list={select.list} renderItem={renders.item} />
-      <Pagination currentPage={select.currentPage} pages={select.pagesAmount} onChangePage={callbacks.onChangePage}/>
+      </HeaderContent>
+
+      <LoaderLayout isLoading={select.isLoading} isError={select.isError} localize={callbacks.localize}>
+        <>
+          <List list={select.list} renderItem={renders.item} />
+          <Pagination currentPage={select.pagination.currentPage} pages={select.pagination.pagesAmount} onChangePage={callbacks.onChangePage}/>
+        </> 
+      </LoaderLayout>
     </PageLayout>
   );
 }

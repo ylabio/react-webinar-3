@@ -54,22 +54,8 @@ class Good extends StoreModule {
         isError: true
       })
 
-      throw new Error('Bro....', e)
+      throw new Error('Error. See details:', e)
     }
-  }
-
-  reset() {
-    this.setState({
-      ...this.getState(),
-      details: {
-        description: null,
-        madeInTitle: null,
-        madeInCode: null,
-        category: null, 
-        edition: null,
-        price: null,
-      }
-    })
   }
 
 }
