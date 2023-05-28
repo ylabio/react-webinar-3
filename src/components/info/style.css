@@ -1,0 +1,19 @@
+.Info{
+    padding: 40px;
+}
+
+.Item-link{
+    position: absolute;
+    top: 98px;
+    left: 20px;
+    color: #0087e9
+}
+
+.Info div{
+    margin-bottom: 20px; 
+}
+
+.Info-price{
+    font-weight: 700;
+    font-size: 24px;
+}

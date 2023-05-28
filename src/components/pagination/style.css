@@ -1,0 +1,26 @@
+.Pagination{
+    position: absolute;
+    top: 776px;
+    right: 22px;
+    display: flex;
+}
+
+.Pagination-btn{
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Pagination-btn:hover{
+    background-color: #E1E1E1;
+}
+
+.Pagination-btn.active{
+    background-color: #0087E9;
+    color: #fff;
+}
