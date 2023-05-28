@@ -1,0 +1,20 @@
+.Article {
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.Article p,
+.Article h2{
+  margin: 0;
+}
+
+.Article p {
+  font-size: 18px;
+}
+
+.Article button {
+  width: max-content;
+  cursor: pointer;
+}

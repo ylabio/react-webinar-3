@@ -1,12 +1,15 @@
-import {memo, useState} from "react";
+import {memo, useContext} from "react";
 import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
-import {numberFormat} from "../../utils";
+import {numberFormat, translate} from "../../utils";
+import {NavLink} from "react-router-dom";
+import {LanguageContext} from "../../store/context";
 import './style.css';
 
 function Item(props){
-
   const cn = bem('Item');
+  const activeLanguage = useContext(LanguageContext)
 
   const callbacks = {
     onAdd: (e) => props.onAdd(props.item._id)
@@ -16,11 +19,18 @@ function Item(props){
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        {props.item.title}
+        <NavLink
+          to={props.link}
+          className={({ isActive }) =>
+            isActive ? cn('link_active') : cn('link')
+          }
+        >
+          {props.item.title}
+        </NavLink>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{translate('add', activeLanguage)}</button>
       </div>
     </div>
   );
@@ -32,6 +42,7 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
+  link: propTypes.string,
   onAdd: PropTypes.func,
 };
 

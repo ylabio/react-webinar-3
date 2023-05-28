@@ -1,3 +1,5 @@
+import locales from "./locales";
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -32,4 +34,46 @@ export function codeGenerator(start = 0) {
  */
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
+}
+
+export function createPages(pagesCount, currentPage) {
+  const pages = [];
+
+  for(let i = 1; i <= pagesCount; i++) {
+    if(i === 1 || i === pagesCount) {
+      pages.push(i)
+      continue
+    }
+
+    if(i === currentPage) {
+      pages.push(i)
+      continue
+    }
+
+    if(currentPage === 1 && i === 3 || currentPage === pagesCount && i === pagesCount - 2) {
+      pages.push(i)
+      continue
+    }
+
+    if(currentPage === 1 && i === 4 || currentPage === pagesCount && i === pagesCount - 3) {
+      pages.push('...')
+      continue
+    }
+
+    if(i === currentPage - 1 || i === currentPage + 1) {
+      pages.push(i)
+      continue
+    }
+
+    if(i === currentPage - 2 || i === currentPage + 2) {
+      pages.push('...')
+      continue
+    }
+  }
+
+  return pages;
+}
+
+export function translate(code, lang) {
+  return locales[code][lang]
 }
