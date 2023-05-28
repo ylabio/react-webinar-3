@@ -8,7 +8,7 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
 import {Navigate, Route, Routes} from "react-router-dom";
-import Article from "../../components/article";
+import Article from "../article";
 
 function Main() {
 
@@ -69,7 +69,7 @@ function Main() {
                   goToFirstPage={callbacks.goToFirstPage}
       />
       <Routes>
-        <Route path={'/:page'} element={
+        <Route path={'/page/:page'} element={
           <>
             <List list={select.list} renderItem={renders.item}/>
             <Pagination countMax={select.countMax}
@@ -82,7 +82,7 @@ function Main() {
                         prevTwoPage={callbacks.prevTwoPage}
                         nextTwoPage={callbacks.nextTwoPage}/>
           </>}/>
-        <Route path={'*'} element={<Navigate to={'/1'}/>}/>
+        <Route path={'*'} element={<Navigate to={'/page/1'}/>}/>
         <Route path={'/article/:id'} element={<Article onAdd={callbacks.addToBasket}/>}/>
       </Routes>
     </PageLayout>
