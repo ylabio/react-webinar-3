@@ -5,6 +5,7 @@ import {numberFormat} from "../../utils";
 import "./style.css";
 import useSelector from "../../store/use-selector";
 import { languageConfig } from "../../languages";
+import { Link } from "react-router-dom";
 
 function Item(props) {
   const language = useSelector(state => state.language.language);
@@ -19,9 +20,9 @@ function Item(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <a href={`product/${props.item._id}`} className={cn("title")}>
+      <Link to={`product/${props.item._id}`} className={cn("title")}>
         {props.item.title}
-      </a>
+      </Link>
       <div className={cn("actions")}>
         <div className={cn("price")}>{numberFormat(props.item.price)} ₽</div>
         <button onClick={callbacks.onAdd}>{label}</button>

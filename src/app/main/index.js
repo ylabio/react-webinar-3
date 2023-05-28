@@ -13,11 +13,9 @@ import { languageConfig } from '../../languages';
 
 function Main() {
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState({});
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [totalCount, setTotalCount] = useState(0);
+  const [itemsPerPage] = useState(10);
 
   const onPageChange = (page) => {
     setCurrentPage(page);
@@ -27,6 +25,7 @@ function Main() {
 
   const select = useSelector(state => ({
     list: state.catalog.list,
+    totalCount: state.catalog.totalCount,
     amount: state.basket.amount,
     sum: state.basket.sum,
     lang: state.language,
@@ -46,29 +45,25 @@ function Main() {
   };
 
   useEffect(() => {
-    store.actions.catalog.load();
-    
-    (async () => {
-      const result = await fetchData(`/api/v1/articles?limit=${itemsPerPage}&skip=${(currentPage - 1) * itemsPerPage}&fields=items(_id, title, price),count`);
-      setTotalCount(result.count)
-      setData(result.items);
-      setIsLoading(false);
-    })()   
-    
+    store.actions.catalog.load(itemsPerPage, (currentPage - 1) * itemsPerPage);
+    setIsLoading(false); 
   }, [currentPage]);
 
   return (
     <PageLayout>
       <Head title={select.lang.language === 'RU' ? languageConfig.title.rus : languageConfig.title.eng}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+      <BasketTool 
+        onOpen={callbacks.openModalBasket} 
+        amount={select.amount}
+        sum={select.sum}
+      />
       {isLoading && <div className='Loader-wrapper'><Loader/></div>}
       {isLoading == false && 
-        <List list={data} renderItem={renders.item}/>
+        <List list={select.list} renderItem={renders.item}/>
       }
       <Pagination
         currentPage={currentPage}
-        totalCount={totalCount}
+        totalCount={select.totalCount}
         itemsPerPage={itemsPerPage}
         onPageChange={(page) => onPageChange(page)}
       />

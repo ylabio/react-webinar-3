@@ -8,5 +8,10 @@ export const languageConfig = {
   total: {rus: 'Итого', eng: 'Total'},
   pcs: {rus: 'шт', eng: 'pcs'},
   go: {rus: 'Перейти', eng: 'Go'},
+  country: {rus: 'Страна производитель', eng: 'Made in'},
+  category: {rus: 'Категория', eng: 'Category'},
+  year: {rus: 'Год выпуска', eng: 'Year'},  
+  price: {rus: 'Цена', eng: 'Price'},  
+  main: {rus: 'Главная', eng: 'Main page'},  
   pieces: {rus: {one: 'товар', few: 'товара', many: 'товаров'}, eng: {one: 'piece', few: 'pieces', many: 'pieces'}},
 }

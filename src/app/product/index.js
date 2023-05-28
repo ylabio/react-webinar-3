@@ -15,8 +15,7 @@ import BasketTool from '../../components/basket-tool';
 import Basket from '../basket';
 import { fetchData } from '../../api';
 import { languageConfig } from '../../languages';
-
-const cn = bem("Product");
+import ProductInfo from '../../components/productInfo';
 
 function Product() {
   const [productData, setProductData] = useState({});
@@ -26,9 +25,6 @@ function Product() {
 
   const store = useStore();
   const activeModal = useSelector((state) => state.modals.name);
-
-  const language = useSelector(state => state.language.language);
-  const label = language === 'RU' ? languageConfig.add.rus : languageConfig.add.eng;
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -53,31 +49,22 @@ function Product() {
 
   return (
     <div>
+      {isLoading && <div className='Loader-wrapper'><Loader /></div>}
       <PageLayout>
-        {isLoading && <div className='Loader-wrapper'><Loader /></div>}
-        {isLoading == false 
-        && 
-        <>
-          <Head title={productData.title}/>
-          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-          <div className={cn()}>
-            <div className={cn("item")}>{productData.description}</div>
-            <div className={cn("item")}>
-              <span className={cn("item-title")}>Страна производитель:</span>
-              <span className={cn("item-description")}>{`${productData?.madeIn?.title}`}</span>
-            </div>
-            <div className={cn("item")}>
-              <span className={cn("item-title")}>Категория:</span> 
-              <span className={cn("item-description")}>{productData?.category?.title}</span>
-            </div>
-            <div className={cn("item")}>
-              <span className={cn("item-title")}>Год выпуска: </span>
-              <span className={cn("item-description")}>{productData?.edition}</span>
-            </div>
-            <div className={cn("item")}>{`Цена: ${productData?.price}`}</div>
-            <button type='button' onClick={() => callbacks.addToBasket('64725404fe34660a6541fcaa')}>{label}</button>
-          </div>
-        </>
+        {isLoading == false && 
+          <>
+            <Head title={productData.title}/>
+            <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+            <ProductInfo 
+              addToBasket={callbacks.addToBasket} 
+              description={productData.description} 
+              country={productData?.madeIn?.title} 
+              category={productData?.category?.title}
+              price={productData?.price}
+              year={productData?.edition}
+              id={productData?._id}
+            />
+          </>
         }
       </PageLayout>
     </div>

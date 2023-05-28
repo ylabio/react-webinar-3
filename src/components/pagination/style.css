@@ -4,18 +4,44 @@
   padding: 20px;
 }
 
-
 .Pagination-button {
-  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5px;
   border: none;
+  background: transparent;
   cursor: pointer;
+  height: 18px;
+  font-size: 16px;
+  line-height: 18px;
 }
 
 .Pagination-button:hover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  height: 18px;
+  font-size: 16px;
+  line-height: 18px;
   background: #E1E1E1;
 }
 
 .Pagination-button--active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  height: 18px;
+  font-size: 16px;
+  line-height: 18px;
   background: #0087E9;
   color: #ffffff;
   border: none;

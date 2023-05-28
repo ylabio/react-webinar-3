@@ -6,6 +6,7 @@ import './style.css';
 import { NavLink, useLocation } from "react-router-dom";
 import { languageConfig } from "../../languages";
 import useSelector from '../../store/use-selector';
+import Navigation from "../navigation";
 
 function BasketTool({sum, amount, onOpen}) {
   const language = useSelector(state => state.language.language);
@@ -18,7 +19,7 @@ function BasketTool({sum, amount, onOpen}) {
   const cn = bem('BasketTool');
   return (
     <div className={location.pathname ==='/' ? cn('main') : cn()}>
-      {location.pathname!=='/' && <NavLink to="/">Главная</NavLink>}
+      <Navigation />
       <div>
         <span className={cn('label')}>{`${label}:`}</span>
         <span className={cn('total')}>
