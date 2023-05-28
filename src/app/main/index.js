@@ -56,7 +56,7 @@ function Main() {
   return (
     <PageLayout>
       <Routes>
-        <Route path={'/:page'} element={
+        <Route path={'/page/:page'} element={
           <Head title='Магазин'/>
         }/>
         <Route path={'/article/:id'} element={

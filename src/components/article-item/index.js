@@ -8,46 +8,50 @@ function ArticleItem(props) {
   const cn = bem('Article');
 
   const callbacks = {
-    onAdd: () => props.onAdd(props.id)
+    onAdd: () => props.onAdd(props.item._id)
   }
 
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-        {props.description}
+        {props.item.description}
       </div>
       <div className={cn('title')}>
-        Страна производитель: <span className={cn('info')}>{props.madeIn} ({props.codeCountry})</span>
+        Страна производитель: <span className={cn('info')}>{props.item.madeIn.title} ({props.item.madeIn.code})</span>
       </div>
       <div className={cn('title')}>
-        Категория: <span className={cn('info')}>{props.category}</span>
+        Категория: <span className={cn('info')}>{props.item.category.title}</span>
       </div>
       <div className={cn('title')}>
-        Год выпуска: <span className={cn('info')}>{props.edition}</span>
+        Год выпуска: <span className={cn('info')}>{props.item.edition}</span>
       </div>
       <div className={cn('price')}>
-        Цена: <span className={cn('info')}>{numberFormat(props.price)} ₽</span>
+        Цена: <span className={cn('info')}>{numberFormat(props.item.price)} ₽</span>
       </div>
-
       <div className={cn('actions')}>
         <button
           onClick={callbacks.onAdd}
         >Добавить
         </button>
-
       </div>
     </div>
   );
 }
 
 ArticleItem.propTypes = {
-  id: PropTypes.string,
-  description: PropTypes.string,
-  madeIn: PropTypes.string,
-  codeCountry: PropTypes.string,
-  category: PropTypes.string,
-  edition: PropTypes.string,
-  price: PropTypes.number,
+  item: PropTypes.shape({
+    _id: PropTypes.string,
+    description: PropTypes.string,
+    madeIn : PropTypes.shape({
+      title: PropTypes.string,
+      code: PropTypes.string,
+    }),
+    category: PropTypes.shape({
+      title: PropTypes.string
+    }),
+    edition: PropTypes.number,
+    price: PropTypes.number,
+  }).isRequired,
   onAdd: PropTypes.func,
 };
 

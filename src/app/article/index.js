@@ -14,22 +14,11 @@ function Article(props) {
 
 
   const select = useSelector(state => ({
-    id: state.articles._id,
-    description: state.articles.description,
-    madeIn: state.articles.madeIn.title,
-    codeCountry: state.articles.madeIn.code,
-    category: state.articles.category.title,
-    edition: state.articles.edition,
-    price: state.articles.price,
+    item: state.articles,
   }));
 
   return (
-    <ArticleItem id={select.id}
-                 madeIn={select.madeIn}
-                 codeCountry={select.codeCountry}
-                 category={select.category}
-                 edition={select.edition}
-                 price={select.price}
+    <ArticleItem item={select.item}
                  onAdd={props.onAdd}
     />
   );
