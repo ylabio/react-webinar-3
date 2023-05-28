@@ -5,6 +5,15 @@
   padding-left: 10px
 }
 
+.Item a {
+  text-decoration: none;
+  color: #000;
+}
+
+.Item a:hover {
+  text-decoration: underline;
+}
+
 .Item_selected {
   background: #75aaf1;
   color: #fff;

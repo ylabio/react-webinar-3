@@ -1,6 +1,12 @@
+import { 
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from 'react-router-dom';
 import {useCallback, useContext, useEffect, useState} from 'react';
 import Main from "./main";
 import Basket from "./basket";
+import Product from "./product";
 import useStore from "../store/use-store";
 import useSelector from "../store/use-selector";
 
@@ -13,10 +19,21 @@ function App() {
   const activeModal = useSelector(state => state.modals.name);
 
   return (
-    <>
-      <Main/>
-      {activeModal === 'basket' && <Basket/>}
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={
+          <>
+            <Main/>
+            {activeModal === 'basket' && <Basket/>}
+          </>
+        }/>
+        <Route path="product/:id" element={
+          <>
+            <Product/>
+            {activeModal === 'basket' && <Basket/>}
+          </>} />
+      </Routes>
+    </Router>
   );
 }
 

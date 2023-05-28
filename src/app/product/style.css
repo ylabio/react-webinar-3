@@ -1,0 +1,13 @@
+.Product_content {
+    font-size: 18px;
+    line-height: 21px;
+    font-weight: 400;
+}
+
+.Product_content__bold {
+    font-weight: 700;
+}
+
+.Product_content__high {
+    font-weight: 24px;
+}
