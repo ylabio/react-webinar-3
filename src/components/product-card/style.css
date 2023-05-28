@@ -1,0 +1,20 @@
+.Product {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  row-gap: 20px;
+
+  padding: 20px 40px 0;
+}
+
+.Product-field {
+  margin: 0;
+}
+
+.Product-cell {
+  font-weight: bold;
+}
+
+.Product-field_price {
+  font-size: 24px;
+}

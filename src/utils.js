@@ -33,3 +33,23 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function getPages(currentPage, pagesCount) {
+  switch(currentPage) {
+    case 0: {
+      return [currentPage + 1, currentPage + 2]
+    }
+    case 1: {
+      return [currentPage, currentPage + 1, currentPage + 2]
+    }
+    case pagesCount - 1: {
+      return [currentPage - 2, currentPage - 1]
+    }
+    case pagesCount - 2: {
+      return [currentPage - 1, currentPage]
+    }
+    default: {
+      return [currentPage - 1, currentPage, currentPage + 1]
+    }
+  }
+}

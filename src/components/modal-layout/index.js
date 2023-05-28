@@ -2,10 +2,13 @@ import {memo, useEffect, useRef} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
+import { useNavigate } from 'react-router-dom';
 
 function ModalLayout(props) {
 
   const cn = bem('ModalLayout');
+
+  const navigate = useNavigate();
 
   // Корректировка центра, если модалка больше окна браузера.
   const layout = useRef();
@@ -32,7 +35,7 @@ function ModalLayout(props) {
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
           <h1 className={cn('title')}>{props.title}</h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <button className={cn('close')} onClick={() => navigate(-1)}>Закрыть</button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -50,8 +53,6 @@ ModalLayout.propTypes = {
 
 ModalLayout.defaultProps = {
   title: 'Модалка',
-  onClose: () => {
-  }
 };
 
 export default memo(ModalLayout);
