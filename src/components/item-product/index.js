@@ -1,17 +1,49 @@
-import React from 'react';
+import React, { memo } from 'react';
+import propTypes from 'prop-types';
+import PropTypes from "prop-types";
 import './style.css';
+import { numberFormat } from '../../utils';
+import {cn as bem} from "@bem-react/classname";
 
-const ItemProduct = () => {
+const ItemProduct = ({ onAdd, item, madeIn, category, }) => {
+    const cn = bem('ItemProduct');
+    const callbacks = {
+        onAdd: (e) => onAdd(item._id)
+    };
     return (
-        <div className='wrapper'>
-            <div className='item-desc'>Описание товара из множества букв. Описание товара из букв. В АПИ может быть меньше букв. Описание товара из множества букв.</div>
-            <div className='item-block' >Страна производитель: <span>Россия</span></div>
-            <div className='item-block' >Категория: <span> Электронника123a</span></div>
-            <div className='item-block' >Год выпуска: <span>2015</span></div>
-            <div className='item-price'>Цена:  12,57 ₽</div>
-            <button className='item-btn' >Добавить</button>
+        <div className={cn('wrapper')}>
+            <div className={cn('desc')}>{item.description}</div>
+            <div className={cn('block')}>Страна производитель: <span>{madeIn.title}</span></div>
+            <div className={cn('block')} >Категория: <span> {category.title}</span></div>
+            <div className={cn('block')} >Год выпуска: <span>{item.edition}</span></div>
+            <div className={cn('price')}>Цена:  {numberFormat(item.price)} ₽</div>
+            <button className={cn('btn')}onClick={callbacks.onAdd} >Добавить</button>
         </div>
     );
 };
 
-export default ItemProduct;
+ItemProduct.propTypes = {
+    item: PropTypes.shape({
+      _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      description: PropTypes.string,
+      price: PropTypes.number,
+      edition: PropTypes.number,
+    }).isRequired,
+    category: PropTypes.shape({
+      _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      title: PropTypes.string,
+    }).isRequired,
+    madeIn: PropTypes.shape({
+      _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      code: PropTypes.string,
+      title: PropTypes.string,
+    }).isRequired,
+    onAdd: propTypes.func,
+  }
+  
+  ItemProduct.defaultProps = {
+    onAdd: () => {},
+  }
+
+  
+export default memo(ItemProduct);

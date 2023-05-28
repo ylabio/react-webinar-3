@@ -9,7 +9,6 @@ import useSelector from "../../store/use-selector";
 function Basket() {
 
   const store = useStore();
-
   const select = useSelector(state => ({
     list: state.basket.list,
     amount: state.basket.amount,
@@ -25,7 +24,7 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
+      return <ItemBasket item={item} onClose={callbacks.closeModal} onRemove={callbacks.removeFromBasket}/>
     }, [callbacks.removeFromBasket]),
   };
 

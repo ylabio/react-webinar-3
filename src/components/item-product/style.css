@@ -1,25 +1,27 @@
-.wrapper{
+.ItemProduct-wrapper{
     max-width: 943px;
     margin: 0 auto;
     margin-top: 21px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    position: relative;
 }
 
-.item-block{
+.ItemProduct-block{
     font-size: 18px;
 }
 
-.item-block span{
+.ItemProduct-block span{
     font-weight: bold;
     line-height: 28px;
 }
-.item-price{
+.ItemProduct-price{
     font-weight: 700;
     font-size: 24px;
 }
 
-.item-btn{
+.ItemProduct-btn{
     width: 76px;
 }
+
