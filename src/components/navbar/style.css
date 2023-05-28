@@ -1,0 +1,12 @@
+.Navbar {
+    display: flex;
+    padding: 20px;
+}
+
+.Navbar-mainLink {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    text-decoration-line: underline;
+    color: #0087e9;
+}
