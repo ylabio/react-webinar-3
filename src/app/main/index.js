@@ -58,9 +58,11 @@ function Main() {
       <Head title='Магазин'/>
       <BasketTool onOpen={callbacks.openModalBasket}
                   amount={select.amount}
-                  sum={select.sum}/>
+                  sum={select.sum}
+                  goToFirstPage={callbacks.goToFirstPage}
+      />
       <Routes>
-        <Route path={'/'} element={
+        <Route path={'/:page'} element={
           <>
             <List list={select.list} renderItem={renders.item}/>
             <Pagination countMax={select.countMax}

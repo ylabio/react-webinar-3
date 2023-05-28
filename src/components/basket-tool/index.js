@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
-import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
-function BasketTool({sum, amount, onOpen}) {
+function BasketTool({sum, amount, onOpen, goToFirstPage}) {
   const cn = bem('BasketTool');
-  const navigate = useNavigate();
 
   return (
     <div className={cn()}>
-      <span onClick={() => navigate("/")} className={'homeLink'}>Главная</span>
+      <Link className={'homeLink'} to={`/1`} onClick={goToFirstPage}>Главная</Link>
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
         {amount
@@ -27,7 +26,8 @@ function BasketTool({sum, amount, onOpen}) {
 BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
-  amount: PropTypes.number
+  amount: PropTypes.number,
+  goToFirstPage: PropTypes.func,
 };
 
 BasketTool.defaultProps = {

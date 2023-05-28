@@ -14,7 +14,7 @@ class Catalog extends StoreModule {
       list: [],
       count: 0,
       limit: 10,
-      skip: 20
+      skip: 0
     }
   }
 

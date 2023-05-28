@@ -1,9 +1,19 @@
 import React from 'react';
 import './style.css';
-import useSelector from "../../store/use-selector";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
-const Pagination = ({countMax, limit, skip, nextPage, prevPage, goToFirstPage, goToLastPage, prevTwoPage, nextTwoPage}) => {
+const Pagination = ({
+                      countMax,
+                      limit,
+                      skip,
+                      nextPage,
+                      prevPage,
+                      goToFirstPage,
+                      goToLastPage,
+                      prevTwoPage,
+                      nextTwoPage
+                    }) => {
 
   //страниц максимум общее количество товара/ 10 округлить в большую сторону
   let pageCount = Math.ceil(countMax / limit)
@@ -13,18 +23,17 @@ const Pagination = ({countMax, limit, skip, nextPage, prevPage, goToFirstPage, g
   let beforePage = activePage - 1;
   let afterPage = activePage + 1;
 
-
   return (
     <div className='Pagination'>
-      {activePage > 2 && <div className='page' onClick={goToFirstPage}>{firstPage}</div>}
+      {activePage > 2 && <Link className='page' onClick={goToFirstPage} to={`/${firstPage}`}>{firstPage}</Link>}
       {activePage > 3 && <div className='dotBlock'>...</div>}
-      {activePage === pageCount && <div className='page' onClick={prevTwoPage}>{pageCount - 2}</div>}
-      {activePage > 1 && <div className='page' onClick={prevPage}>{beforePage}</div>}
-      <div className='activePage page'>{activePage}</div>
-      {activePage < (pageCount - 1) && <div className='page' onClick={nextPage}>{afterPage}</div>}
-      {activePage === 1 && <div className='page' onClick={nextTwoPage}>{activePage + 2}</div>}
+      {activePage === pageCount && <Link className='page' onClick={prevTwoPage} to={`/${pageCount - 2}`}>{pageCount - 2}</Link>}
+      {activePage > 1 && <Link className='page' onClick={prevPage} to={`/${beforePage}`}>{beforePage}</Link>}
+      <Link className='activePage page' to={`/${activePage}`}>{activePage}</Link>
+      {activePage < (pageCount - 1) && <Link className='page' onClick={nextPage} to={`/${afterPage}`}>{afterPage}</Link>}
+      {activePage === 1 && <Link className='page' onClick={nextTwoPage}  to={`/${activePage + 2}`}>{activePage + 2}</Link>}
       {activePage < (pageCount - 2) && <div className='dotBlock'>...</div>}
-      {activePage < pageCount && <div className='page' onClick={goToLastPage}> {lastPage}</div>}
+      {activePage < pageCount && <Link className='page' onClick={goToLastPage} to={`/${lastPage}`}> {lastPage}</Link>}
     </div>
   );
 };
@@ -44,10 +53,16 @@ Pagination.propTypes = {
 }
 
 Pagination.defaultProps = {
-  nextPage: () => {},
-  prevPage: () => {},
-  goToFirstPage: () => {},
-  goToLastPage: () => {},
-  prevTwoPage: () => {},
-  nextTwoPage: () => {},
+  nextPage: () => {
+  },
+  prevPage: () => {
+  },
+  goToFirstPage: () => {
+  },
+  goToLastPage: () => {
+  },
+  prevTwoPage: () => {
+  },
+  nextTwoPage: () => {
+  },
 }

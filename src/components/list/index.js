@@ -1,10 +1,8 @@
 import {memo} from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
 import './style.css';
 
-function List({list, renderItem}){
-
+function List({list, renderItem}) {
 
 
   return (
@@ -26,7 +24,8 @@ List.propTypes = {
 };
 
 List.defaultProps = {
-  renderItem: (item) => {},
+  renderItem: (item) => {
+  },
 }
 
 export default memo(List);
