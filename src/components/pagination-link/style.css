@@ -1,0 +1,21 @@
+.Pagination-link {
+    display: grid;
+    place-items: center;
+    min-width: 20px;
+    height: 20px;
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+    transition: background .2s linear;
+    padding: 1px 2px;
+}
+
+.Pagination-link:hover {
+    background-color: #E1E1E1;
+}
+
+.Pagination-link-active {
+    background-color: #0087E9;
+    color: #fff;
+    pointer-events: none;
+}

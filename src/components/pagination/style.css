@@ -1,0 +1,16 @@
+.Pagination {
+    display: flex;
+    justify-content: end;
+    margin: 20px 20px 0 0;
+}
+
+.Pagination-dots {
+    width: 18px;
+    height: 18px;
+    color: #CCCCCC;
+    margin: 0 2px;
+}
+
+.Pagination-hidden {
+    display: none;
+}

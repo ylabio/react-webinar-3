@@ -1,0 +1,36 @@
+.Good-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 21px 0 20px;
+}
+
+.Good-content {
+    padding: 0 41px 0 40px;
+}
+
+.Good-property {
+    font-size: 18px;
+    line-height: 21px;
+    margin-top: 20px;
+}
+
+.Good-total {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.Good-button {
+    min-width: 76px;
+    font-size: 13px;
+    background: #EFEFEF;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    padding: 3px 8px 2px 9px;
+    cursor: pointer;
+    transition: .2s linear;
+}
+
+.Good-button:hover {
+    background: #dadada;
+}
