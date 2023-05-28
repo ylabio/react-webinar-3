@@ -1,16 +1,20 @@
-import {memo, useEffect, useRef} from "react";
-import PropTypes from "prop-types";
+import {memo, useEffect, useRef} from 'react';
+import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
+import useTranslate from '../../hooks/useTranslate';
 import './style.css';
 
 function ModalLayout(props) {
-
+  const _ = useTranslate();
   const cn = bem('ModalLayout');
 
   // Корректировка центра, если модалка больше окна браузера.
   const layout = useRef();
   const frame = useRef();
   useEffect(() => {
+    if (!layout.current.style.alignItems || layout.current.style.justifyContent) {
+      return;
+    }
     const resizeObserver = new ResizeObserver(() => {
       // Центрирование frame или его прижатие к краю, если размеры больше чем у layout
       layout.current.style.alignItems = (layout.current.clientHeight < frame.current.clientHeight)
@@ -32,7 +36,7 @@ function ModalLayout(props) {
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
           <h1 className={cn('title')}>{props.title}</h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <button className={cn('close')} onClick={props.onClose}>{_('closeAction')}</button>
         </div>
         <div className={cn('content')}>
           {props.children}

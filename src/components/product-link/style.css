@@ -1,0 +1,16 @@
+.ProductLink {
+  font-family: Arial;
+  font-size: 16px;
+  color: #000000;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  text-decoration: none;
+}
+
+@media(min-width: 768px) {
+  .ProductLink:hover {
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,32 @@
+.LangSwitch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.LangSwitch {
+  margin: 0;
+  padding: 0;
+}
+
+.LangSwitch button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+
+.LangSwitch li .LangSwitch-active {
+  color: #0087E9;
+}

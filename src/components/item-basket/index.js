@@ -3,10 +3,12 @@ import propTypes from 'prop-types';
 import {numberFormat} from "../../utils";
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
+import ProductLink from '../product-link';
+import useTranslate from '../../hooks/useTranslate';
 import './style.css';
 
 function ItemBasket(props) {
-
+  const _ = useTranslate();
   const cn = bem('ItemBasket');
 
   const callbacks = {
@@ -16,11 +18,13 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>{props.item.title}</div>
+      <div className={cn('title')}>
+        <ProductLink id={props.item._id} title={props.item.title}/>
+      </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>Удалить</button></div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {_('things')}</div>
+        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{_('removeAction')}</button></div>
       </div>
     </div>
   )

@@ -1,0 +1,48 @@
+{
+  "langs": {
+    "ru": {
+      "mainTitle": "Магазин",
+      "basketIn": "В корзине",
+      "pluralGoods": [
+        "товар",
+        "товара",
+        "товаров"
+      ],
+      "empty": "пусто",
+      "toBasketAction": "Перейти",
+      "basketLabel": "Корзина",
+      "total": "Итого",
+      "things": "шт",
+      "closeAction": "Закрыть",
+      "addAction": "Добавить",
+      "removeAction": "Удалить",
+      "toMainLink": "Главная",
+      "countryName": "Страна производитель",
+      "category": "Категория",
+      "year": "Год выпуска",
+      "price": "Цена"
+    },
+    "en": {
+      "mainTitle": "Market",
+      "basketIn": "In cart",
+      "pluralGoods": [
+        "good",
+        "goods",
+        "goods"
+      ],
+      "empty": "empty",
+      "toBasketAction": "View",
+      "basketLabel": "Cart",
+      "total": "Total",
+      "things": "pcs",
+      "closeAction": "Close",
+      "addAction": "Add",
+      "removeAction": "Remove",
+      "toMainLink": "Home",
+      "countryName": "Manufacturer country",
+      "category": "Category",
+      "year": "Year",
+      "price": "Price"
+    }
+  }
+}
