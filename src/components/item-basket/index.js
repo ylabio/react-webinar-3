@@ -1,26 +1,43 @@
-import {memo, useCallback} from 'react';
-import propTypes from 'prop-types';
-import {numberFormat} from "../../utils";
+import {memo} from 'react';
+import {Link} from 'react-router-dom';
+import {numberFormat, translator, plural} from "../../utils";
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import './style.css';
 
 function ItemBasket(props) {
-
+  
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: (e) => props.onRemove(props.item._id)
+    onRemove: (e) => props.onRemove(props.item._id),
+    onCloseModal: () => props.onCloseModal()
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>{props.item.title}</div>
+      <div className={cn('title')}>
+        <Link 
+          to={props.link} 
+          className={cn('link')} 
+          onClick={callbacks.onCloseModal}
+        >
+          {props.item.title}
+        </Link>
+      </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>Удалить</button></div>
+        <div className={cn('cell')}>
+          {`
+            ${numberFormat(props.item.amount || 0)} 
+            ${
+              props.language === 'RUS'
+              ? 'шт'
+              : plural(props.item.amount, {one:'pc', other:'pcs'}, 'en-EN')
+            }
+          `}
+        </div>
+        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{translator('DeleteButton', props.language)}</button></div>
       </div>
     </div>
   )
@@ -31,9 +48,11 @@ ItemBasket.propTypes = {
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
     price: PropTypes.number,
-    amount: PropTypes.number
+    amount: PropTypes.number,
   }).isRequired,
-  onRemove: propTypes.func,
+  link: PropTypes.string,
+  onRemove: PropTypes.func,
+  language: PropTypes.string
 }
 
 ItemBasket.defaultProps = {
