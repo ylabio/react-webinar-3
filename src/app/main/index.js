@@ -17,9 +17,7 @@ function Main(props) {
   const store = useStore();
   const t = useTranslate();
 
-  useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
+
 
   const select = useSelector(state => ({
     amount: state.basket.amount,

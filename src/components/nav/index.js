@@ -10,7 +10,7 @@ function Nav({navConfig}) {
   return (
     <nav className={cn()}>
       {navConfig.map(item => (
-        <Link key={item.key} to={item.path} className={cn('main-link')}>{item.title}</Link>
+        <Link key={item.id} to={item.path} className={cn('main-link')}>{item.title}</Link>
       ))}
     </nav>);
 }
