@@ -59,7 +59,7 @@ function Main() {
         <Route path={'/page/:page'} element={
           <Head title='Магазин'/>
         }/>
-        <Route path={'/article/:id'} element={
+        <Route path={'/articles/:id'} element={
           <Head title={select.title}/>
         }/>
       </Routes>
@@ -83,7 +83,7 @@ function Main() {
                         nextTwoPage={callbacks.nextTwoPage}/>
           </>}/>
         <Route path={'*'} element={<Navigate to={'/page/1'}/>}/>
-        <Route path={'/article/:id'} element={<Article onAdd={callbacks.addToBasket}/>}/>
+        <Route path={'/articles/:id'} element={<Article onAdd={callbacks.addToBasket}/>}/>
       </Routes>
     </PageLayout>
   );
