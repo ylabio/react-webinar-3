@@ -13,13 +13,17 @@ function Main() {
   const store = useStore();
   const [currentPage, setCurrentPage] = useState(1);
 
+  function changePage(currentPage) {
+    setCurrentPage(currentPage);
+    store.actions.catalog.load(currentPage);
+  }
+  
   useEffect(() => {
-    store.actions.catalog.load();
+    store.actions.catalog.load(currentPage);
   }, []);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
-    currentPage: state.catalog.currentPage,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -43,7 +47,7 @@ function Main() {
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
-      <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={25}/>
+      <Pagination currentPage={currentPage} setCurrentPage={changePage} totalPages={25}/>
     </PageLayout>
   );
 }
