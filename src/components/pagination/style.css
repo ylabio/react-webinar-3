@@ -1,0 +1,22 @@
+.Pagination {
+    display: flex;
+    justify-content: flex-end;
+    padding: 22px 20px 96px 0;    
+}
+
+.Pagination-item {
+    padding: 1px 6px;   
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    cursor: pointer;
+}
+
+.Pagination-item:not(.selected, .dots):hover {
+    background-color: #E1E1E1; 
+}
+
+.selected {
+    background-color: #0087E9;
+    color: #FFFFFF; 
+}
