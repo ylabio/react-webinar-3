@@ -7,9 +7,8 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import Article from "../../components/article";
-import {logPlugin} from "@babel/preset-env/lib/debug";
 
 function Main() {
 
@@ -83,7 +82,7 @@ function Main() {
                         prevTwoPage={callbacks.prevTwoPage}
                         nextTwoPage={callbacks.nextTwoPage}/>
           </>}/>
-        <Route path={'*'} element={<p>Path not resolved</p>}/>
+        <Route path={'*'} element={<Navigate to={'/1'}/>}/>
         <Route path={'/article/:id'} element={<Article onAdd={callbacks.addToBasket}/>}/>
       </Routes>
     </PageLayout>

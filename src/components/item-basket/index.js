@@ -12,14 +12,14 @@ function ItemBasket(props) {
   const cn = bem('ItemBasket');
   const closeModal = useCallback(() => store.actions.modals.close(), [store])
   const callbacks = {
-    onRemove: (e) => props.onRemove(props.item._id)
+    onRemove: () => props.onRemove(props.item._id)
   };
 
   return (
     <div className={cn()}>
-      <Link className={cn('title')} to={`/article/${props.item._id}`} onClick={closeModal}>
-        <span className={cn('titleLink')}>{props.item.title}</span>
-      </Link>
+      <div className={cn('title')} >
+        <Link className={cn('titleLink')} onClick={closeModal} to={`/article/${props.item._id}`}>{props.item.title}</Link>
+      </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
