@@ -9,6 +9,7 @@ import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
 import LocaleSwitcher from "../../components/locale-switcher";
 import useLocale from "../../store/use-locale";
+import NavBar from "../../components/nav-bar";
 
 function Main() {
   const store = useStore();
@@ -50,7 +51,7 @@ function Main() {
   const renders = {
     item: useCallback(
       (item) => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return <Item item={item} id={item._id} url={'/article/'} onAdd={callbacks.addToBasket} />;
       },
       [callbacks.addToBasket]
     ),
@@ -62,10 +63,11 @@ function Main() {
       <Head title={translation("storeTitle")}>
         <LocaleSwitcher changeLang={callbacks.changeLang} lang={select.lang} />
       </Head>
-      <BasketTool
+      <NavBar
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
+        switchPage={callbacks.switchPage}
       />
       <List list={select.list} renderItem={renders.item} />
       <Pagination

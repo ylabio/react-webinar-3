@@ -4,7 +4,7 @@ import { numberFormat } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 import PropTypes from "prop-types";
 import "./style.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useLocale from "../../store/use-locale";
 
 function ItemBasket(props) {
@@ -17,10 +17,9 @@ function ItemBasket(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn("title")}>
         <Link
-          to={`article/${props.item._id}`}
+          to={props.id ? `${props.url}${props.id}`: props.url}
           className={cn("link")}
           onClick={props.onClose}
         >

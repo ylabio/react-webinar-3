@@ -33,6 +33,8 @@ function Basket() {
         return (
           <ItemBasket
             item={item}
+            id={item._id}
+            url={'/article/'}
             onRemove={callbacks.removeFromBasket}
             onClose={callbacks.closeModal}
           />

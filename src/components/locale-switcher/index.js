@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const LocaleSwitcher = ({ changeLang, lang }) => {
   const cn = bem("LocaleSwitcher");
-  console.log(lang);
+
   return (
     <div className={cn()}>
       <span

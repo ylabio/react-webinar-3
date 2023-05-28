@@ -32,7 +32,7 @@ const Pagination = ({ currentPage, pageCount, switchPage }) => {
   return (
     <div className={cn()}>
       {pages.map((item, i) =>
-        item !== "..." ? (
+     item !== "..." ? (
           <button
             className={`${cn("btn")} ${
               item === currentPage ? cn("btn_active") : ""
@@ -47,7 +47,7 @@ const Pagination = ({ currentPage, pageCount, switchPage }) => {
           <span className={cn("dots")} key={i}>
             {item}
           </span>
-        )
+        ) 
       )}
     </div>
   );

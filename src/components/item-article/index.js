@@ -2,7 +2,6 @@ import React, { memo } from "react";
 import { cn as bem } from "@bem-react/classname";
 import { numberFormat } from "../../utils";
 import "./style.css";
-import { propTypes } from "prop-types";
 import PropTypes from "prop-types";
 import useLocale from "../../store/use-locale";
 
