@@ -4,8 +4,13 @@ import {numberFormat} from "../../utils";
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import './style.css';
+import useSelector from '../../store/use-selector';
+import { languageConfig } from '../../languages';
 
 function ItemBasket(props) {
+  const language = useSelector(state => state.language.language);
+  const removeLabel = language === 'RU' ? languageConfig.delete.rus : languageConfig.delete.eng;
+  const pcsLabel = language === 'RU' ? languageConfig.pcs.rus : languageConfig.pcs.eng;
 
   const cn = bem('ItemBasket');
 
@@ -21,8 +26,8 @@ function ItemBasket(props) {
       </a>
         <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>Удалить</button></div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)}{` ${pcsLabel}`}</div>
+        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{removeLabel}</button></div>
       </div>
     </div>
   )

@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 function Controls({onAdd}){
+  const language = useSelector(state => state.language.language);
+  const label = language === 'RU' ? languageConfig.add.rus : languageConfig.add.eng;
+
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <button onClick={() => onAdd()}>{label}</button>
     </div>
   )
 }

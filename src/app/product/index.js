@@ -14,6 +14,7 @@ import Loader from '../../components/loader';
 import BasketTool from '../../components/basket-tool';
 import Basket from '../basket';
 import { fetchData } from '../../api';
+import { languageConfig } from '../../languages';
 
 const cn = bem("Product");
 
@@ -25,6 +26,9 @@ function Product() {
 
   const store = useStore();
   const activeModal = useSelector((state) => state.modals.name);
+
+  const language = useSelector(state => state.language.language);
+  const label = language === 'RU' ? languageConfig.add.rus : languageConfig.add.eng;
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -71,7 +75,7 @@ function Product() {
               <span className={cn("item-description")}>{productData?.edition}</span>
             </div>
             <div className={cn("item")}>{`Цена: ${productData?.price}`}</div>
-            <button type='button' onClick={() => callbacks.addToBasket('64725404fe34660a6541fcaa')}>Добавить</button>
+            <button type='button' onClick={() => callbacks.addToBasket('64725404fe34660a6541fcaa')}>{label}</button>
           </div>
         </>
         }

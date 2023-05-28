@@ -9,6 +9,7 @@ import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
 import Loader from '../../components/loader';
 import { fetchData } from '../../api';
+import { languageConfig } from '../../languages';
 
 function Main() {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +28,8 @@ function Main() {
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    lang: state.language,
   }));
 
   const callbacks = {
@@ -57,13 +59,12 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
+      <Head title={select.lang.language === 'RU' ? languageConfig.title.rus : languageConfig.title.eng}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
       {isLoading && <div className='Loader-wrapper'><Loader/></div>}
       {isLoading == false && 
         <List list={data} renderItem={renders.item}/>
-      
       }
       <Pagination
         currentPage={currentPage}
