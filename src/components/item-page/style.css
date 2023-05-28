@@ -1,0 +1,15 @@
+.bold {
+  font-weight: 700;
+}
+
+.PageItem {
+  padding: 10px 40px;
+}
+
+.PageItem > * {
+  margin-bottom: 15px;
+}
+
+.PageItem-price {
+  font-size: 24px;
+}

@@ -1,13 +1,14 @@
-import {memo} from "react";
-import PropTypes from "prop-types";
+import {memo} from 'react';
+import PropTypes from 'prop-types';
 import './style.css';
 
-function Head({title}){
+function Head({title}) {
+  console.log(title);
   return (
-    <div className='Head'>
+    <div className="Head">
       <h1>{title}</h1>
     </div>
-  )
+  );
 }
 
 Head.propTypes = {
