@@ -1,0 +1,42 @@
+.Pagination {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 16px;
+  line-height: 18px;
+  padding: 22px 20px 11px 0;
+  user-select: none;
+}
+
+.Pagination-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  padding: 0 1px;
+  min-width: 20px;
+  text-decoration: none;
+  color: #000000;
+  cursor: pointer;
+}
+
+.Pagination-link:hover {
+  background-color: #e1e1e1;
+}
+
+.Pagination-link_active {
+  color: #ffffff;
+  background-color: #0087e9;
+}
+
+.Pagination-link_active:hover {
+  background-color: #0087e9;
+  cursor: default;
+}
+
+.Pagination-points {
+  color: #cccccc;
+  cursor: default;
+  width: 20px;
+}

@@ -1,0 +1,21 @@
+.ArticleInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 20px;
+  padding: 19px 40px 0;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.ArticleInfo-price {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  margin-top: -3px;
+}
+
+.ArticleInfo-price b {
+  display: inline-block;
+  margin-left: 8px;
+}
