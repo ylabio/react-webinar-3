@@ -1,5 +1,6 @@
 import {codeGenerator} from "../../utils";
 import StoreModule from "../module";
+import { getStartData ,getPadinationData} from "../../api";
 
 class Catalog extends StoreModule {
 
@@ -10,18 +11,37 @@ class Catalog extends StoreModule {
 
   initState() {
     return {
-      list: []
+      list: [],
+      size: 0,
+      currentPage:1,
+      range:10
     }
   }
 
-  async load() {
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  async load(limit, scip) {
+    const {items , count} = await getStartData(limit, scip);;
     this.setState({
        ...this.getState(),
-       list: json.result.items
+       list: items,
+       size: count,
     }, 'Загружены товары из АПИ');
   }
+
+  async changePageByPagination(limit,scip){
+    const list = await getPadinationData(limit, scip);
+    this.setState({
+      ...this.getState(),
+      list: list
+    })
+  }
+
+  changeCurrentPage(pageNumber){
+    this.setState({
+      ...this.getState(),
+      currentPage: pageNumber
+    })
+  }
+
 }
 
 export default Catalog;

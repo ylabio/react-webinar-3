@@ -3,19 +3,23 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
+import { multiLanguges } from "../../languages";
 
-function BasketTool({sum, amount, onOpen}) {
+function BasketTool({sum, amount, onOpen,language}) {
   const cn = bem('BasketTool');
+  const amountMultiLanguageText = language === "en" ? plural(amount, {one:'good', other:'goods'},"en-En") : plural(amount, {one:'товар', few:'товара', many:'товаров'});
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
-      <span className={cn('total')}>
-        {amount
-          ? `${amount} ${plural(amount, {one:'товар', few:'товара', many:'товаров'})} / ${numberFormat(sum)} ₽`
-          : `пусто`
-        }
-      </span>
-      <button onClick={onOpen}>Перейти</button>
+        <div>
+          <span className={cn('label')}>{multiLanguges[language].inBasket}:</span>
+          <span className={cn('total')}>
+            {amount
+              ? `${amount} ${amountMultiLanguageText} / ${numberFormat(sum)} ₽`
+              : multiLanguges[language].empty
+            }
+          </span>
+          <button onClick={onOpen}>{multiLanguges[language].link}</button>
+      </div>
     </div>
   );
 }
@@ -23,7 +27,8 @@ function BasketTool({sum, amount, onOpen}) {
 BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
-  amount: PropTypes.number
+  amount: PropTypes.number,
+  language: PropTypes.string
 };
 
 BasketTool.defaultProps = {

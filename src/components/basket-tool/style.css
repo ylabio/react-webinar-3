@@ -1,16 +1,16 @@
 /* Контрол с общими действиями */
 .BasketTool{
   display: flex;
-  justify-content: flex-end;
-  padding: 20px;
+  justify-content: space-between;
   font-size: 18px;
-}
-
-.BasketTool-label{
-
 }
 
 .BasketTool-total{
   font-weight: bold;
   margin: 0 20px;
+}
+
+.BasketTool-link a {
+  color: #0087E9;
+  text-decoration-color: #0087E9;
 }
