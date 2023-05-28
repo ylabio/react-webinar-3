@@ -3,10 +3,9 @@ import StoreModule from "../module";
 
 class Article extends StoreModule {
 
-
   initState() {
     return {
-      _id: '646b6e1fe1626c0bd8518064',
+      _id: '64725401fe34660a6541faa2',
       title: '',
       description: '',
       price: 0,
@@ -19,13 +18,15 @@ class Article extends StoreModule {
         title:'',
       },
     }
+
   }
 
-  async load(id) {
-    const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`)
+  async load(_id) {
+    const response = await fetch(`/api/v1/articles/${_id}?fields=*,madeIn(title,code),category(title)`)
     const json = await response.json();
     this.setState({
       ...this.getState(),
+      _id: _id,
       title: json.result.title,
       description: json.result.description,
       price: json.result.price,

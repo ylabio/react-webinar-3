@@ -10,14 +10,19 @@ function Item(props){
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(props.item._id)
+    onAdd: (e) => props.onAdd(props.item._id),
+    loadArticle: (e)=>props.loadArticle(props.item._id),
+
   }
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')} onClick={()=>navigate('/article')}>
-        <span className={cn('titleLink')}>{props.item.title}</span>
+      <div className={cn('title')}
+           onClick={()=>navigate('/article')}
+      >
+        <span className={cn('titleLink')}
+              onClick={callbacks.loadArticle}
+        >{props.item.title}</span>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
@@ -29,15 +34,17 @@ function Item(props){
 
 Item.propTypes = {
   item: PropTypes.shape({
-    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    _id: PropTypes.string,
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  loadArticle: PropTypes.func,
 };
 
 Item.defaultProps = {
   onAdd: () => {},
+  loadArticle: ()=>{},
 }
 
 export default memo(Item);

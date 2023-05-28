@@ -9,6 +9,7 @@ import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
 import {Route, Routes} from "react-router-dom";
 import Article from "../../components/article";
+import {logPlugin} from "@babel/preset-env/lib/debug";
 
 function Main() {
 
@@ -32,18 +33,23 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-
+    // кнопки пагинации
     nextPage: useCallback(() => store.actions.catalog.nextPage(), [store]),
     prevPage: useCallback(() => store.actions.catalog.prevPage(), [store]),
     goToFirstPage: useCallback(() => store.actions.catalog.goToFirstPage(), [store]),
     goToLastPage: useCallback(() => store.actions.catalog.goToLastPage(), [store]),
     prevTwoPage: useCallback(() => store.actions.catalog.prevTwoPage(), [store]),
     nextTwoPage: useCallback(() => store.actions.catalog.nextTwoPage(), [store]),
+    // загрузка данных о товаре
+    loadArticle: useCallback((_id)=> store.actions.articles.load(_id), [store]),
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
+      return <Item item={item}
+                   onAdd={callbacks.addToBasket}
+                   loadArticle={callbacks.loadArticle}
+      />
     }, [callbacks.addToBasket]),
   };
 
@@ -68,7 +74,7 @@ function Main() {
                         nextTwoPage={callbacks.nextTwoPage}/>
           </>}/>
         <Route path={'*'} element={<p>Path not resolved</p>}/>
-        <Route path={'/article'} element={<Article/>}/>
+        <Route path={'/article'} element={<Article onAdd={callbacks.addToBasket} />}/>
       </Routes>
     </PageLayout>
   );

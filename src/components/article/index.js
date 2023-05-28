@@ -13,7 +13,7 @@ function Article(props){
 
 
   useEffect(() => {
-    store.actions.articles.load('646b6e1fe1626c0bd8518064');
+    store.actions.articles.load(store.state.articles._id);
 
   }, [store.state.articles._id]);
 
@@ -28,9 +28,9 @@ function Article(props){
     price: state.articles.price,
   }));
 
-  // const callbacks = {
-  //   onAdd: (e) => props.onAdd(props.item._id)
-  // }
+  const callbacks = {
+    onAdd: (e) => props.onAdd(select.id)
+  }
 
   return (
     <div className={cn()}>
@@ -47,13 +47,12 @@ function Article(props){
         Год выпуска: <span className={cn('info')}>{select.edition}</span>
       </div>
       <div className={cn('price')}>
-        {/*{numberFormat(props.item.price)} ₽*/}
         Цена: <span className={cn('info')}>{numberFormat(select.price)} ₽</span>
       </div>
 
       <div className={cn('actions')}>
         <button
-          // onClick={callbacks.onAdd}
+          onClick={callbacks.onAdd}
         >Добавить</button>
 
       </div>
@@ -64,8 +63,6 @@ function Article(props){
 Article.propTypes = {
   // item: PropTypes.shape({
   //   _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  //   title: PropTypes.string,
-  //   price: PropTypes.number
   // }).isRequired,
   // onAdd: PropTypes.func,
 };
