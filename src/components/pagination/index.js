@@ -4,7 +4,7 @@ import PaginationLink from '../pagination-link';
 import './style.css';
 
 function Pagination({currentPage, pages, onChangePage}) {
-  pages = 6;
+  // pages = 5;
   const leftDots = currentPage > 3 && pages > 5;
   const leftDotsView = <><PaginationLink index={1} onChangePage={onChangePage} /><span className='Pagination-dots'>...</span></>
 
@@ -22,10 +22,6 @@ function Pagination({currentPage, pages, onChangePage}) {
   }
 
   const generateElems = useCallback((i) => {
-    // if (pages == 5) {
-    //   return fillArr(1, pages)
-    // }
-
     if (pages <= 5) {
       return fillArr(1, pages)
     }
