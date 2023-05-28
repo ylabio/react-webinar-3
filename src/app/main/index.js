@@ -8,6 +8,7 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
 import Loader from '../../components/loader';
+import { fetchData } from '../../api';
 
 function Main() {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,11 +45,11 @@ function Main() {
 
   useEffect(() => {
     store.actions.catalog.load();
+    
     (async () => {
-      const response = await fetch(`/api/v1/articles?limit=${itemsPerPage}&skip=${(currentPage - 1) * itemsPerPage}&fields=items(_id, title, price),count`);
-      const json = await response.json();
-      setTotalCount(json.result.count)
-      setData(json.result.items);
+      const result = await fetchData(`/api/v1/articles?limit=${itemsPerPage}&skip=${(currentPage - 1) * itemsPerPage}&fields=items(_id, title, price),count`);
+      setTotalCount(result.count)
+      setData(result.items);
       setIsLoading(false);
     })()   
     

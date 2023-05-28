@@ -13,6 +13,7 @@ import {cn as bem} from "@bem-react/classname";
 import Loader from '../../components/loader';
 import BasketTool from '../../components/basket-tool';
 import Basket from '../basket';
+import { fetchData } from '../../api';
 
 const cn = bem("Product");
 
@@ -33,20 +34,19 @@ function Product() {
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    addToBasket: useCallback((_id) => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   }
 
   useEffect(() => {
    (async () => {
-      const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
-      const json = await response.json();
-      setProductData(json.result);
+      const result = await fetchData(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
+      setProductData(result);
       setIsLoading(false);
     })()     
   }, [])
-console.log(productData.price)
+
   return (
     <div>
       <PageLayout>
@@ -55,7 +55,7 @@ console.log(productData.price)
         && 
         <>
           <Head title={productData.title}/>
-          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} />
+          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
           <div className={cn()}>
             <div className={cn("item")}>{productData.description}</div>
             <div className={cn("item")}>
@@ -71,7 +71,7 @@ console.log(productData.price)
               <span className={cn("item-description")}>{productData?.edition}</span>
             </div>
             <div className={cn("item")}>{`Цена: ${productData?.price}`}</div>
-            <button type='button' onClick={() => callbacks.addToBasket(productData._id)}>Добавить</button>
+            <button type='button' onClick={() => callbacks.addToBasket('64725404fe34660a6541fcaa')}>Добавить</button>
           </div>
         </>
         }

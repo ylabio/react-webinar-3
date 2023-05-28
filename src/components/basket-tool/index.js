@@ -7,7 +7,6 @@ import { NavLink, useLocation } from "react-router-dom";
 
 function BasketTool({sum, amount, onOpen}) {
   const location = useLocation();
-  console.log(location.pathname)
   const cn = bem('BasketTool');
   return (
     <div className={location.pathname ==='/' ? cn('main') : cn()}>

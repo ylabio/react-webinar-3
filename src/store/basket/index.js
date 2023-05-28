@@ -1,3 +1,4 @@
+import { fetchData } from "../../api";
 import StoreModule from "../module";
 
 class Basket extends StoreModule {
@@ -15,8 +16,6 @@ class Basket extends StoreModule {
    * @param _id Код товара
    */
   async addToBasket(_id) {
-    console.log('list', list);
-
     let sum = 0;
     // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
@@ -32,9 +31,7 @@ class Basket extends StoreModule {
 
     if (!exist) {
         // запрос к АПИ 
-        const response = await fetch(`/api/v1/articles/${_id}`);
-        const json = await response.json();
-        const item = json.result;        
+        const item = await fetchData(`/api/v1/articles/${_id}`);
         // list уже новый, в него можно пушить.
         list.push({...item, amount: 1});
         // Добавляем к сумме.
