@@ -5,10 +5,14 @@ import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import {useTranslate} from "../../i18n";
+import {getRoutePath} from "../index";
+
 
 function Basket() {
 
   const store = useStore();
+  const t = useTranslate();
 
   const select = useSelector(state => ({
     list: state.basket.list,
@@ -21,18 +25,31 @@ function Basket() {
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
     // Закрытие любой модалки
     closeModal: useCallback(() => store.actions.modals.close(), [store]),
+    getRoutePath: useCallback((...args) => getRoutePath(...args), [])
   }
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
+      return (
+        <ItemBasket
+          item={item}
+          onRemove={callbacks.removeFromBasket}
+          productLink={callbacks.getRoutePath('product', item._id)}
+          closeModal={callbacks.closeModal}
+          removeButtonTitle={t('item-basket-remove-button-title')}
+        />
+      )
     }, [callbacks.removeFromBasket]),
   };
 
   return (
-    <ModalLayout title='Корзина' onClose={callbacks.closeModal}>
+    <ModalLayout
+      title={t('basket-title')}
+      onClose={callbacks.closeModal}
+      closeButtonTitle={t('basket-close-button-title')}
+    >
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} totalTitle={t('basket-total-title')}/>
     </ModalLayout>
   );
 }

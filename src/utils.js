@@ -1,3 +1,6 @@
+import {generatePath} from "react-router-dom";
+import {appRouterConfig} from "./app";
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -32,4 +35,20 @@ export function codeGenerator(start = 0) {
  */
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
+}
+
+export function makeGetRoutePath(appRouterConfig) {
+
+  return (name, id = null) => {
+    const route = appRouterConfig.find(item => item.name === name);
+    if (!route) {
+      return null;
+    }
+
+    if (id) {
+      return generatePath(route.path, {id})
+    }
+    return route.path;
+
+  }
 }

@@ -1,0 +1,7 @@
+.Error404Page {
+  background-color: #fff !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}

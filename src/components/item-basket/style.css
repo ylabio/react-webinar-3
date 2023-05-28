@@ -28,3 +28,16 @@
   font-size: 18px;
   white-space: nowrap;
 }
+
+.ItemBasket-product-link {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  text-decoration: none;
+  color: #000;
+}
+
+.ItemBasket-product-link:hover {
+  text-decoration-line: underline;
+}

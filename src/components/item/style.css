@@ -32,3 +32,16 @@
   white-space: nowrap;
   font-size: 18px;
 }
+
+.Item-product-link {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  text-decoration: none;
+  color: #000;
+}
+
+.Item-product-link:hover {
+  text-decoration-line: underline;
+}
