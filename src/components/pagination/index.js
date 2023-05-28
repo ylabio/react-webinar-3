@@ -1,77 +1,64 @@
 import React from "react";
 import "./style.css";
 
-function Pagination({ currentPage, totalPages, onPageChange }) {
-  const handlePageClick = (page) => {
+function Pagination({ currentPage, onPageChange }) {
+  const totalPages = currentPage <= 17 ? 25 : 120;
+  const pageNumbers = generatePageNumbers(totalPages);
+
+  const handlePageChange = (page) => {
+    if (page === "...") return;
     onPageChange(page);
   };
 
-  const renderPageNumbers = () => {
-    const pageNumbers = [];
-    const maxPageNumbers = 5;
-    const ellipsisThreshold = 2;
-    const ellipsis = (
-      <li key="ellipsis" className="ellipsis">
-        ...
-      </li>
-    );
-
-    if (totalPages <= maxPageNumbers) {
-      for (let page = 1; page <= totalPages; page++) {
-        pageNumbers.push(renderPageNumber(page));
-      }
+  function generatePageNumbers(totalPages) {
+    if (totalPages <= 5) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
     } else {
-      let leftEllipsis = false;
-      let rightEllipsis = false;
-      let startPage = currentPage - 1;
-      let endPage = currentPage + 1;
+      const pageNumbers = [1];
 
-      if (currentPage - 1 > ellipsisThreshold) {
-        leftEllipsis = true;
-        startPage = currentPage - ellipsisThreshold;
-      }
-
-      if (currentPage + 1 + ellipsisThreshold < totalPages) {
-        rightEllipsis = true;
-        endPage = currentPage + 1 + ellipsisThreshold;
-      }
-
-      for (let page = startPage; page <= endPage; page++) {
-        if (page >= 1) {
-          pageNumbers.push(renderPageNumber(page));
+      if (currentPage <= 2) {
+        pageNumbers.push(2, 3);
+        if (totalPages > 3) {
+          pageNumbers.push("...");
         }
+        pageNumbers.push(totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        if (totalPages > 4) {
+          pageNumbers.push("...");
+        }
+        for (let i = totalPages - 2; i <= totalPages; i++) {
+          pageNumbers.push(i);
+        }
+      } else {
+        if (currentPage > 3) {
+          pageNumbers.push("...");
+        }
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+          pageNumbers.push(i);
+        }
+        if (totalPages - currentPage > 2) {
+          pageNumbers.push("...");
+        }
+        pageNumbers.push(totalPages);
       }
 
-      if (leftEllipsis) {
-        pageNumbers.unshift(ellipsis);
-        pageNumbers.unshift(renderPageNumber(1));
-      }
-
-      if (rightEllipsis) {
-        pageNumbers.push(renderPageNumber(totalPages));
-        pageNumbers.push(ellipsis);
-      }
+      return pageNumbers;
     }
-
-    return pageNumbers;
-  };
-
-  const renderPageNumber = (page) => {
-    const isActive = currentPage === page;
-    return (
-      <li
-        key={page}
-        className={`page-number ${isActive ? "active" : ""}`}
-        onClick={() => handlePageClick(page)}
-      >
-        {page}
-      </li>
-    );
-  };
+  }
 
   return (
     <div className="pagination">
-      <ul className="page-numbers">{renderPageNumbers()}</ul>
+      {pageNumbers.map((pageNumber, index) => (
+        <div
+          key={index}
+          className={
+            pageNumber === currentPage ? "page-number active" : "page-number"
+          }
+          onClick={() => handlePageChange(pageNumber)}
+        >
+          {pageNumber}
+        </div>
+      ))}
     </div>
   );
 }

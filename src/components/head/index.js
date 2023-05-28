@@ -10,7 +10,6 @@ function Head({ title }) {
     store.setLanguage(language);
   };
 
-  console.log();
   return (
     <div className="Head">
       <h1>{title}</h1>
@@ -22,6 +21,7 @@ function Head({ title }) {
     </div>
   );
 }
+
 Head.propTypes = {
   title: PropTypes.node,
 };

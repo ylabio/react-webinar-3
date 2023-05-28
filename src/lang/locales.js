@@ -1,6 +1,6 @@
 const locales = {
   en: {
-    store: "Store",
+    shop: "Store",
     main: "Main",
     onBasket: "In the basket:",
     empty: "empty",
@@ -20,7 +20,7 @@ const locales = {
     basket: "Basket",
   },
   ru: {
-    store: "Магазин",
+    shop: "Магазин",
     main: "Главная",
     onBasket: "В корзине:",
     empty: "пусто",
@@ -40,7 +40,7 @@ const locales = {
     basket: "Корзина",
   },
   tm: {
-    store: "Dükan",
+    shop: "Dükan",
     main: "Baş sahypa",
     onBasket: "Sebetde:",
     empty: "boş",
