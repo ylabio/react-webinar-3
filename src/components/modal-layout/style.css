@@ -53,3 +53,20 @@ body:has(.ModalLayout){
   min-height: 100px;
   padding: 70px 0;
 }
+
+.ModalLayout-button {
+  display: flex;
+  width: 80px;
+  height: 20px;
+  background: #EFEFEF;
+  border: 1px solid #767676;
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 2px;
+  font-size: 13px;
+  line-height: 15px;
+  align-items: center;
+  justify-content: center;
+  margin: auto 0;
+}

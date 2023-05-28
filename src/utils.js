@@ -33,3 +33,13 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function filterNumber(current, last) {
+  const base = current > 1 ? [current - 1, current, current + 1] : [current, current + 1];
+  if (current < 4) base.push(3);
+  if (last === 1) return [ 1 ];
+  if (last < 3) return [ 1, 2 ];
+  if (last === 3) return [...new Set([...base, 1])];
+  if (last - current < 2) return [1, last - 2, last - 1, last]
+  return [...new Set([1, ...base, last])];
+}

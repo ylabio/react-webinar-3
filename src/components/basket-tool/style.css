@@ -6,11 +6,27 @@
   font-size: 18px;
 }
 
-.BasketTool-label{
-
+.BasketTool-button {
+  display: flex;
+  width: 80px;
+  height: 20px;
+  background: #EFEFEF;
+  border: 1px solid #767676;
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 2px;
+  font-size: 13px;
+  line-height: 15px;
+  align-items: center;
+  justify-content: center;
 }
 
 .BasketTool-total{
   font-weight: bold;
   margin: 0 20px;
+}
+
+.BasketTool-main {
+  margin: 0 auto 0 0;
 }

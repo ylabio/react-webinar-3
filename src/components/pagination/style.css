@@ -1,0 +1,5 @@
+.Pagination {
+    display: flex;
+    align-self: flex-end;
+    margin: 0 25px 0 0;
+}

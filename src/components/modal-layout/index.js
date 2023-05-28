@@ -2,6 +2,7 @@ import {memo, useEffect, useRef} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
+import {Link} from "react-router-dom";
 
 function ModalLayout(props) {
 
@@ -32,7 +33,8 @@ function ModalLayout(props) {
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
           <h1 className={cn('title')}>{props.title}</h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          {/*<button className={cn('close')} onClick={props.onClose}>Закрыть</button>*/}
+          <Link to={`/`} className={cn('button')}>Закрыть</Link>
         </div>
         <div className={cn('content')}>
           {props.children}

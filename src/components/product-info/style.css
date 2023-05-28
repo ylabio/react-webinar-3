@@ -1,0 +1,23 @@
+.ProductInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.ProductInfo-price {
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: bold;
+}
+
+.ProductInfo-button {
+    width: 75px;
+}
+
+.ProductInfo-bold {
+    display: inline;
+    font-weight: bold;
+}
