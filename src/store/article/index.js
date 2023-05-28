@@ -5,7 +5,7 @@ class Article extends StoreModule {
 
   initState() {
     return {
-      _id: '64725401fe34660a6541faa2',
+      _id: '',
       title: '',
       description: '',
       price: 0,

@@ -1,29 +1,28 @@
-import {memo, useState} from "react";
+import {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
-function Item(props){
-  const navigate = useNavigate();
+function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
     onAdd: (e) => props.onAdd(props.item._id),
-    loadArticle: (e)=>props.loadArticle(props.item._id),
+    loadArticle: (e) => props.loadArticle(props.item._id),
 
   }
 
   return (
     <div className={cn()}>
-      <div className={cn('title')}
-           onClick={()=>navigate('/article')}
+      <Link className={cn('title')}
+            to={`/article/${props.item._id}`}
       >
         <span className={cn('titleLink')}
               onClick={callbacks.loadArticle}
         >{props.item.title}</span>
-      </div>
+      </Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
         <button onClick={callbacks.onAdd}>Добавить</button>
@@ -43,8 +42,10 @@ Item.propTypes = {
 };
 
 Item.defaultProps = {
-  onAdd: () => {},
-  loadArticle: ()=>{},
+  onAdd: () => {
+  },
+  loadArticle: () => {
+  },
 }
 
 export default memo(Item);

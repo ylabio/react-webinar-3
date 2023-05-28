@@ -25,7 +25,8 @@ function Main() {
     sum: state.basket.sum,
     countMax: state.catalog.count,
     limit: state.catalog.limit,
-    skip: state.catalog.skip
+    skip: state.catalog.skip,
+    title: state.articles.title,
   }));
 
   const callbacks = {
@@ -41,7 +42,7 @@ function Main() {
     prevTwoPage: useCallback(() => store.actions.catalog.prevTwoPage(), [store]),
     nextTwoPage: useCallback(() => store.actions.catalog.nextTwoPage(), [store]),
     // загрузка данных о товаре
-    loadArticle: useCallback((_id)=> store.actions.articles.load(_id), [store]),
+    loadArticle: useCallback((_id) => store.actions.articles.load(_id), [store]),
   }
 
   const renders = {
@@ -55,7 +56,14 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
+      <Routes>
+        <Route path={'/:page'} element={
+          <Head title='Магазин'/>
+        }/>
+        <Route path={'/article/:id'} element={
+          <Head title={select.title}/>
+        }/>
+      </Routes>
       <BasketTool onOpen={callbacks.openModalBasket}
                   amount={select.amount}
                   sum={select.sum}
@@ -76,7 +84,7 @@ function Main() {
                         nextTwoPage={callbacks.nextTwoPage}/>
           </>}/>
         <Route path={'*'} element={<p>Path not resolved</p>}/>
-        <Route path={'/article'} element={<Article onAdd={callbacks.addToBasket} />}/>
+        <Route path={'/article/:id'} element={<Article onAdd={callbacks.addToBasket}/>}/>
       </Routes>
     </PageLayout>
   );

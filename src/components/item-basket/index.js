@@ -1,25 +1,25 @@
 import {memo, useCallback} from 'react';
 import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {numberFormat} from "../../utils";
 import {cn as bem} from "@bem-react/classname";
-import PropTypes from "prop-types";
 import './style.css';
-import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
+import useStore from "../../store/use-store";
 
 function ItemBasket(props) {
-  const navigate = useNavigate();
+  const store = useStore();
   const cn = bem('ItemBasket');
-
+  const closeModal = useCallback(() => store.actions.modals.close(), [store])
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id)
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')} onClick={() => navigate('/article')}>
+      <Link className={cn('title')} to={`/article/${props.item._id}`} onClick={closeModal}>
         <span className={cn('titleLink')}>{props.item.title}</span>
-      </div>
+      </Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
@@ -39,6 +39,7 @@ ItemBasket.propTypes = {
     amount: PropTypes.number
   }).isRequired,
   onRemove: propTypes.func,
+  onClose: PropTypes.func,
 }
 
 ItemBasket.defaultProps = {
