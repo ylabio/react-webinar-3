@@ -1,0 +1,17 @@
+export const languageConfig = {
+  title: {rus: 'Магазин', eng: 'Store'},
+  cart: {rus: 'В корзине', eng: 'Cart'},
+  empty: {rus: 'пусто', eng: 'empty'},
+  add: {rus: 'Добавить', eng: 'Add'},
+  delete: {rus: 'Удалить', eng: 'Delete'},
+  close: {rus: 'Закрыть', eng: 'Close'},
+  total: {rus: 'Итого', eng: 'Total'},
+  pcs: {rus: 'шт', eng: 'pcs'},
+  go: {rus: 'Перейти', eng: 'Go'},
+  country: {rus: 'Страна производитель', eng: 'Made in'},
+  category: {rus: 'Категория', eng: 'Category'},
+  year: {rus: 'Год выпуска', eng: 'Year'},  
+  price: {rus: 'Цена', eng: 'Price'},  
+  main: {rus: 'Главная', eng: 'Main page'},  
+  pieces: {rus: {one: 'товар', few: 'товара', many: 'товаров'}, eng: {one: 'piece', few: 'pieces', many: 'pieces'}},
+}

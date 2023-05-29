@@ -1,0 +1,13 @@
+.Language-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.Language-button--active {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: orange;
+  font-weight: bold;
+}
