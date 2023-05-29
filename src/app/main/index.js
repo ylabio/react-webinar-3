@@ -26,6 +26,7 @@ function Main() {
     limit: state.catalog.limit,
     skip: state.catalog.skip,
     title: state.articles.title,
+    order: state.articles.order,
   }));
 
   const callbacks = {
@@ -52,7 +53,6 @@ function Main() {
       />
     }, [callbacks.addToBasket]),
   };
-
   return (
     <PageLayout>
       <Routes>
@@ -83,7 +83,7 @@ function Main() {
                         nextTwoPage={callbacks.nextTwoPage}/>
           </>}/>
         <Route path={'*'} element={<Navigate to={'/page/1'}/>}/>
-        <Route path={'/articles/:id'} element={<Article onAdd={callbacks.addToBasket}/>}/>
+        <Route path={'/articles/:id'} element={<Article onAdd={callbacks.addToBasket} order={select.order}/>}/>
       </Routes>
     </PageLayout>
   );

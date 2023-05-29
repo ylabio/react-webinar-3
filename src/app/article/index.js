@@ -1,4 +1,4 @@
-import {memo, useEffect} from "react";
+import {memo, useEffect, useLayoutEffect} from "react";
 import PropTypes from "prop-types";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
@@ -11,12 +11,24 @@ function Article(props) {
   const params = useParams()
   const prodId = params.id
 
-  useEffect(() => {
+  const preloadSkip = props.order - 1
+  // console.log(preloadSkip)
+  useLayoutEffect(()=>{
     store.actions.articles.load(`${prodId}`);
-  }, []);
+
+
+  },[])
+
+  useEffect(() => {
+    setTimeout(()=>{
+      store.actions.catalog.load(select.limit, preloadSkip);
+    },2000)
+  }, [prodId]);
+
 
   const select = useSelector(state => ({
     item: state.articles,
+    limit: state.catalog.limit,
   }));
 
   return (
@@ -28,6 +40,7 @@ function Article(props) {
 
 Article.propTypes = {
   onAdd: PropTypes.func,
+  order: PropTypes.number,
 };
 
 Article.defaultProps = {

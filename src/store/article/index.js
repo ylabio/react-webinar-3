@@ -6,6 +6,7 @@ class Article extends StoreModule {
   initState() {
     return {
       _id: '',
+      order: 0,
       title: '',
       description: '',
       price: 0,
@@ -27,6 +28,7 @@ class Article extends StoreModule {
     this.setState({
       ...this.getState(),
       _id: _id,
+      order: json.result.order,
       title: json.result.title,
       description: json.result.description,
       price: json.result.price,

@@ -7,13 +7,11 @@ import {Link} from "react-router-dom";
 
 function Item(props) {
   const cn = bem('Item');
-
   const callbacks = {
     onAdd: () => props.onAdd(props.item._id),
     loadArticle: () => props.loadArticle(props.item._id),
 
   }
-
   return (
     <div className={cn()}>
       <Link className={cn('title')}

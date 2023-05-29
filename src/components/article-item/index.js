@@ -7,6 +7,7 @@ import './style.css';
 function ArticleItem(props) {
   const cn = bem('Article');
 
+
   const callbacks = {
     onAdd: () => props.onAdd(props.item._id)
   }
@@ -51,6 +52,7 @@ ArticleItem.propTypes = {
     }),
     edition: PropTypes.number,
     price: PropTypes.number,
+    order: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
 };

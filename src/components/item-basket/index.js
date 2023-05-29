@@ -14,11 +14,11 @@ function ItemBasket(props) {
   const callbacks = {
     onRemove: () => props.onRemove(props.item._id)
   };
-
+  const id = props.address
   return (
     <div className={cn()}>
-      <div className={cn('title')} >
-        <Link className={cn('titleLink')} onClick={closeModal} to={`/articles/${props.item._id}`}>{props.item.title}</Link>
+      <div className={cn('title')}>
+        <Link className={cn('titleLink')} onClick={closeModal} to={`/articles/${id}`}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
@@ -40,6 +40,7 @@ ItemBasket.propTypes = {
   }).isRequired,
   onRemove: propTypes.func,
   onClose: PropTypes.func,
+  address: PropTypes.string,
 }
 
 ItemBasket.defaultProps = {
