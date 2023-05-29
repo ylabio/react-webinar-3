@@ -18,6 +18,7 @@ class Store {
       this.actions[name] = new modules[name](this, name);
       this.state[name] = this.actions[name].initState();
     }
+    console.log('this.actions',this.actions)
   }
 
   /**

@@ -5,6 +5,8 @@ import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import {Link} from "react-router-dom";
+import Item from "../../components/item";
 
 function Basket() {
 
@@ -24,14 +26,24 @@ function Basket() {
   }
 
   const renders = {
-    itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
-    }, [callbacks.removeFromBasket]),
-  };
+    renderItemBasket: useCallback((item) => {
+    const detailUrl = `/detail/${item._id}`;
+    return (
+      <div className="ItemBasket">
+        <Link to={detailUrl} className="ItemBasket-title" onClick={callbacks.closeModal}>
+          {item.title}
+        </Link>
+        <ItemBasket
+            item={item}
+            onRemove={callbacks.removeFromBasket}
+          />
+      </div>
+    )},[callbacks])
+  }
 
   return (
     <ModalLayout title='Корзина' onClose={callbacks.closeModal}>
-      <List list={select.list} renderItem={renders.itemBasket}/>
+      <List list={select.list} renderItem={renders.renderItemBasket}/>
       <BasketTotal sum={select.sum}/>
     </ModalLayout>
   );
