@@ -1,0 +1,9 @@
+.NavigationBar {
+  list-style-type: none;
+  margin: 0;
+  padding: 1.25rem;
+}
+
+.NavigationBar>li>a {
+  color: #0087E9;
+}
