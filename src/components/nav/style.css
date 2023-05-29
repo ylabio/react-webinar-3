@@ -1,0 +1,12 @@
+.Nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.Nav a {
+    color: #0087E9;
+    font-size: 18px;
+}

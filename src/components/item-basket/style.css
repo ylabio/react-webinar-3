@@ -1,4 +1,13 @@
 /* Пункт списка */
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 .ItemBasket {
   display: flex;
   justify-content: flex-start;
@@ -13,6 +22,10 @@
 .ItemBasket-title {
   width: 100%;
   padding: 20px 10px;
+}
+
+.ItemBasket-title a {
+  color: black;
 }
 
 .ItemBasket-right {
