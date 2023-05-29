@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #535353;
+  font-family: sans-serif;
+}
+
+.ProductInfo {
+  margin: 20px 40px;
+}
+
+.ProductInfo-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+}
+
+.ProductInfo-details p {
+  font-weight: 700;
+}
+
+.ProductInfo-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -13,6 +13,7 @@
 .ItemBasket-title {
   width: 100%;
   padding: 20px 10px;
+  cursor: pointer;
 }
 
 .ItemBasket-right {
@@ -27,4 +28,13 @@
   text-align: right;
   font-size: 18px;
   white-space: nowrap;
+}
+
+.ItemBasket-title:hover {
+  text-decoration: underline;
+}
+
+.ItemBasket-title a {
+  text-decoration: none;
+  color: black;
 }

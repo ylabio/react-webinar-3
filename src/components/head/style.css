@@ -1,9 +1,22 @@
 .Head {
   height: 80px;
   background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .Head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+}
+
+.Head-languages {
+  display: flex;
+  gap: 15px;
+  margin-right: 20px;
+}
+
+.Head-languages p {
+  cursor: pointer;
 }

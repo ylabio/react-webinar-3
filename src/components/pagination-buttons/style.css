@@ -1,0 +1,36 @@
+/* Кнопки пагинации */
+.PaginationButtons {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.PaginationButtons-button {
+  height: 20px;
+  width: 26px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.PaginationButtons-button-selected {
+  height: 20px;
+  width: 26px;
+  cursor: pointer;
+  background-color: #0087E9;
+  color: white;
+  text-align: center;
+}
+
+.PaginationButtons-dots {
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  cursor: default;
+  color: #CCCCCC;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.PaginationButtons-button:hover {
+  background-color: #CCCCCC;
+}
