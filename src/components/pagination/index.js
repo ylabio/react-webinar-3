@@ -12,7 +12,7 @@ import './style.css'
  */
 function Pagination({currentPage, count, pageSelectHandler, itemsPerPage}) {
 
-  const totalPages = Math.round(count / itemsPerPage)
+  const totalPages = Math.ceil(count / itemsPerPage)
 
 
   const PaginationItem = ({pageNumber}) => {

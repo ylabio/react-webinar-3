@@ -4,13 +4,14 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
-import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
+import NavMenu from "../../components/navigation-menu";
+import Navigation from "../../components/navigation";
 
-function Main() {
+function Main({store}) {
 
-  const store = useStore();
+
   const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
@@ -44,8 +45,13 @@ function Main() {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+
+      <NavMenu>
+        <Navigation/>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+                    sum={select.sum}/>
+      </NavMenu>
+
       <List list={select.list} renderItem={renders.item} count={select.count}/>
       <Pagination count={select.count} currentPage={currentPage} itemsPerPage={10} pageSelectHandler={(evt, page) => {
         setCurrentPage(page);

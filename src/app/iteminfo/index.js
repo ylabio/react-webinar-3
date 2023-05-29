@@ -4,14 +4,13 @@ import PageLayout from "../../components/page-layout";
 import {memo, useCallback, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import useSelector from "../../store/use-selector";
-import useStore from "../../store/use-store";
 import CatalogItemInfo from "../../components/item-info";
-import ItemSection from "../../components/item-info/itemInfoSection";
+import Navigation from "../../components/navigation";
+import NavMenu from "../../components/navigation-menu";
 
-function ItemInfo() {
+function ItemInfo({store}) {
+
   const { id = '' } = useParams();
-  const store = useStore();
-
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
@@ -30,18 +29,15 @@ function ItemInfo() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   }
 
-  const renders = {
-    item: useCallback((item) => {
-      return <CatalogItemInfo item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
-  };
-
   return (
     <PageLayout>
       <Head title={select.item?.title}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
-      <ItemSection item={select.item} renderItem={renders.item} />
+      <NavMenu>
+        <Navigation/>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+                    sum={select.sum}/>
+      </NavMenu>
+      <CatalogItemInfo item={select.item} onAdd={callbacks.addToBasket}/>
 
     </PageLayout>
   )
