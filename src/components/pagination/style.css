@@ -1,0 +1,38 @@
+.Pagination {
+    margin: 22px 22px 0 0;
+    display: flex;
+    justify-content: end;
+}
+
+.Pagination-nav {
+    list-style-type: none;
+    display: flex;
+    gap: 2px;
+}
+
+.Pagination-item {
+    padding: 1px;
+    min-width: 20px;
+    min-height: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Pagination-item:hover {
+    background: #E1E1E1;
+}
+
+.Pagination-item.dots {
+    cursor: default;
+}
+
+.Pagination-item.dots:hover {
+    background: none;
+}
+
+.Pagination-item.active {
+    color: #FFFFFF;
+    background: #0087E9;
+}

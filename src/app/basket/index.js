@@ -21,11 +21,18 @@ function Basket() {
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
     // Закрытие любой модалки
     closeModal: useCallback(() => store.actions.modals.close(), [store]),
+    // Получение ссылки для товара
+    getRoute: useCallback((uniqueAddress) => `/product/${uniqueAddress}`, [])
   }
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
+      return <ItemBasket
+          item={item}
+          onRemove={callbacks.removeFromBasket}
+          onClose={callbacks.closeModal}
+          route={callbacks.getRoute(item._id)}
+      />
     }, [callbacks.removeFromBasket]),
   };
 
