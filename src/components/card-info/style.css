@@ -1,0 +1,28 @@
+.Card-info {
+    padding: 21px 40px 0;
+    display: grid;
+    gap: 20px;
+}
+
+.card-info-text {
+    margin: 0;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+}
+
+.card-info-bold {
+    font-weight: 700;
+}
+
+.card-info-price {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+}
+
+.card-indo-button {
+    width: fit-content;
+    cursor: pointer;
+}

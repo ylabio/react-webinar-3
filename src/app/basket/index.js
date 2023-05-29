@@ -17,6 +17,10 @@ function Basket() {
   }));
 
   const callbacks = {
+    openCard: useCallback(_id => {
+      store.actions.modals.close()
+      store.actions.catalog.openPage(_id),[store]
+    }),
     // Удаление из корзины
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
     // Закрытие любой модалки
@@ -25,7 +29,7 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
+      return <ItemBasket item={item} onOpen={callbacks.openCard} onRemove={callbacks.removeFromBasket}/>
     }, [callbacks.removeFromBasket]),
   };
 
