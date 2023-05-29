@@ -1,0 +1,17 @@
+{
+  "title": "Shop",
+  "cart": "Cart",
+  "language": "English",
+  "mainLink": "Main",
+  "total": "Total",
+  "productPlural": {
+    "one": "goods",
+    "few": "goods",
+    "many": "goods"
+  },
+  "empty": "empty",
+  "itemsCart": "Items in cart:",
+  "close": "Close",
+  "add": "Add",
+  "next": "Go to cart"
+}

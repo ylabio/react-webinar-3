@@ -1,0 +1,27 @@
+.Pagination {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.Pagination-page {
+    cursor: pointer;
+    display: inline-block;
+    padding: 2px;
+    text-align: center;
+}
+
+.Pagination-page_active {
+    background-color: #0087E9;
+    color: white;
+}
+
+.Pagination-page:not(.Pagination-page_active):hover {
+    background-color: #E1E1E1;
+}
+
+.Pagination-dots {
+    display: inline-block;
+    color: #CCCCCC;
+    margin: 0 5px;
+}
