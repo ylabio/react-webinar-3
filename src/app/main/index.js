@@ -18,12 +18,11 @@ function Main() {
   const navigate = useNavigate();
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const page = searchParams.get("page");
+  let page = searchParams.get("page");
 
   useEffect(() => {
-    store.actions.catalog.load(page);
-
     if (!page) navigate("/?page=1");
+    store.actions.catalog.load(page);
   }, []);
 
   useEffect(() => {
