@@ -32,8 +32,18 @@ class Catalog extends StoreModule {
     this.setState({
        ...this.getState(),
        product: json.result
+    }, 'Загружен товар с категорией из АПИ');
+  }
+
+  async getItemById(id) {
+    const response = await fetch(`api/v1/articles/${id}`);
+    const json = await response.json();
+    this.setState({
+       ...this.getState(),
+       productById: json.result
     }, 'Загружен товар из АПИ');
   }
 }
+
 
 export default Catalog;

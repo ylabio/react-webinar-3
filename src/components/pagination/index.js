@@ -1,5 +1,5 @@
 import  { memo, useState } from 'react';
-import Button from '../../components/button';
+import Button from '../button';
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => { 
   
@@ -65,4 +65,4 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     );
 };
 
-export default memo(Pagination);
+export default Pagination;

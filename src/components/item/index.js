@@ -12,7 +12,7 @@ function Item(props){
   const callbacks = {
     onAdd: (e) => props.onAdd(props.item._id)
   }
-
+console.log('props.buttonAdd', props.buttonAdd)
   return (
     <div className={cn()}>
       <div className={cn('title')}>
@@ -20,7 +20,7 @@ function Item(props){
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{props.buttonAdd}</button>
       </div>
     </div>
   );
@@ -33,6 +33,7 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  buttonAdd: PropTypes.string
 };
 
 Item.defaultProps = {

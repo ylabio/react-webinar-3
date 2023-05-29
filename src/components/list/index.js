@@ -18,7 +18,7 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   })).isRequired,
-  renderItem: PropTypes.func,
+  renderItem: PropTypes.func
 };
 
 List.defaultProps = {
