@@ -19,7 +19,6 @@ class Catalog extends StoreModule {
 
   async load(page) {
     page = page ? page : 1;
-    console.log(page);
     const response = await fetch(
       `/api/v1/articles?limit=${this.getState().productPerPage}&skip=${
         (page - 1) * this.getState().productPerPage
