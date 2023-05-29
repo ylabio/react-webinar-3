@@ -7,44 +7,40 @@ import {useParams} from "react-router-dom";
 
 function Article(props) {
 
-  const store = useStore();
-  const params = useParams()
-  const prodId = params.id
+    const store = useStore();
+    const params = useParams()
+    const prodId = params.id
+    console.log(props.order)
+    useLayoutEffect(() => {
+        store.actions.articles.load(`${prodId}`);
+    }, [])
 
-  const preloadSkip = props.order - 1
-  // console.log(preloadSkip)
-  useLayoutEffect(()=>{
-    store.actions.articles.load(`${prodId}`);
+    const actualSkip = props.order - 5
 
-
-  },[])
-
-  useEffect(() => {
-    setTimeout(()=>{
-      store.actions.catalog.load(select.limit, preloadSkip);
-    },2000)
-  }, [prodId]);
+    useEffect(() => {
+        store.actions.catalog.preloadSkip(actualSkip);
+    }, [props.order]);
 
 
-  const select = useSelector(state => ({
-    item: state.articles,
-    limit: state.catalog.limit,
-  }));
+    const select = useSelector(state => ({
+        item: state.articles,
+        limit: state.catalog.limit,
+    }));
 
-  return (
-    <ArticleItem item={select.item}
-                 onAdd={props.onAdd}
-    />
-  );
+    return (
+        <ArticleItem item={select.item}
+                     onAdd={props.onAdd}
+        />
+    );
 }
 
 Article.propTypes = {
-  onAdd: PropTypes.func,
-  order: PropTypes.number,
+    onAdd: PropTypes.func,
+    order: PropTypes.number,
 };
 
 Article.defaultProps = {
-  // onAdd: () => {},
+    // onAdd: () => {},
 }
 
 export default memo(Article);
