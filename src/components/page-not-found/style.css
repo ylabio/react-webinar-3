@@ -1,0 +1,16 @@
+.PageNotFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100vh;
+  background-color: #ccc;
+  color: #444444;
+}
+
+.PageNotFound-link {
+  font-size: 18px;
+  text-decoration: none;
+  color: #001fe9;
+}

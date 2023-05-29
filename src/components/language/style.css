@@ -1,0 +1,11 @@
+.Language {
+  padding: 20px;
+}
+
+.Language-label {
+  margin: 10px;
+}
+
+.Language-label:hover {
+  opacity: 0.6;
+}

@@ -33,3 +33,39 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Принимает номер текущей и последней страницы
+ * Возвращает массив из чисел (номера страниц) для пагинации
+ * Положительные числа - номера страниц, отрицательные числа - знак '...'
+ * @param currentPage {Number}
+ * @param lastPage {Number}
+ * @returns {array}
+ */
+export function getPaginationPages(currentPage, lastPage) {
+  let pages = [];
+
+  if (lastPage <= 5) {
+    for (let i = 0; i < lastPage; i++) {
+      pages[i] = i + 1;
+    }
+    return pages;
+  } else if (currentPage === 1) {
+    pages = [1, 2, 3, -1, lastPage];
+    return pages;
+  } else if (currentPage === 2 || currentPage === 3) {
+    pages = new Set([1, 2, 3, currentPage + 1, -1, lastPage]);
+    return Array.from(pages);
+  } else if (currentPage === lastPage) {
+    pages = [1, -1, currentPage - 2, currentPage - 1, currentPage];
+    return pages;
+  }
+
+  pages = [1, -1, currentPage - 1, currentPage, currentPage + 1];
+  if (lastPage > currentPage + 2) {
+    pages.push(-2);
+  }
+  pages.push(lastPage);
+  pages = new Set(pages);
+  return Array.from(pages);
+}

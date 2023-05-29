@@ -1,0 +1,18 @@
+.Container {
+  display: flex;
+  align-items: center;
+
+  padding: 20px;
+}
+
+.Container_spacebetween {
+  justify-content: space-between;
+}
+
+.Container_flexstart {
+  justify-content: flex-start;
+}
+
+.Container_flexend {
+  justify-content: flex-end;
+}
