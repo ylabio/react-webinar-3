@@ -29,7 +29,6 @@ function Pagination({totalNumber, currentPage, setCurrentPage, limit}) {
     }
 
     else if (currentPage === 4) {
-      console.log(4)
       const sliced = pages.slice(2, 5)
       tempNumberOfPage = [1, "...", ...sliced, "...", pages.length];
     }
