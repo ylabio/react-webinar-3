@@ -1,13 +1,10 @@
 import {memo, useCallback, useEffect} from 'react';
-import { Routes, Route } from "react-router-dom";
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
-import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import Details from '../../components/details';
 import HomePage from '../../components/home-page';
 
 function Main() {
@@ -22,9 +19,11 @@ function Main() {
     currentPage: state.catalog.currentPage,
   }));
 
+  console.log(select.currentPage);
+
   useEffect(() => {
     store.actions.catalog.load();
-  }, [select.currentPage]);
+  }, [select.currentPage, store]);
 
   const callbacks = {
     // Добавление в корзину
@@ -42,12 +41,8 @@ function Main() {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
-      <Routes>
-        <Route path='/' element={<HomePage list={select.list} renderItem={renders.item} />} />
-        <Route path='/details' element={<Details  onAdd={callbacks.addToBasket}/>} />
-      </Routes>
+      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <HomePage list={select.list} renderItem={renders.item} />
     </PageLayout>
 
   );

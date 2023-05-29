@@ -1,13 +1,13 @@
-.Details {
+.DetailsPage {
   margin: 0 20px;
   padding: 20px;
 }
 
-.Details-span {
+.DetailsPage-span {
   font-weight: 600;
 }
 
-.Details-price {
+.DetailsPage-price {
   font-size: 24px;
   font-weight: 700;
 }

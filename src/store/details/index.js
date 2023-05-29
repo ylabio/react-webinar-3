@@ -11,7 +11,6 @@ class Details extends StoreModule {
   async loadItem(itemId) {
     const response = await fetch(`api/v1/articles/${itemId}?fields=*,madeIn(title,code),category(title)`);
     const json = await response.json();
-    // console.log(json.result)
     this.setState({
        ...this.getState(),
        list: json.result,
