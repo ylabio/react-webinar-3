@@ -11,7 +11,8 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
-      currentPage: 0
+      currentPage: 1,
+      totalItems: 0
     }
   }
 
@@ -24,8 +25,16 @@ class Catalog extends StoreModule {
     this.setState({
        ...this.getState(),
        list: json.result.items,
+       totalItems: json.result.count,
        currentPage: currentPage
     }, 'Загружены товары из АПИ');
+  }
+
+  changePage(page) {
+    this.setState({
+      ...this.getState(),
+      currentPage: page
+   }, `Страница сменилась на ${page}`);
   }
 }
 
