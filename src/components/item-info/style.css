@@ -1,0 +1,22 @@
+.item-info-wrapper {
+  padding: 23px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: start;
+}
+
+.item-info-caption {
+  margin: 0;
+  font-size: 18px;
+}
+
+.item-info-value {
+  font-weight: 700;
+}
+
+.item-info-price {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
