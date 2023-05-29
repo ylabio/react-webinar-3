@@ -8,6 +8,7 @@ import BasketTool from "../../components/basket-tool";
 import ProductDescription from "../../components/product-description";
 import Basket from "../basket";
 import { NavigationMenu } from "../../components/navigation-menu";
+import FlexContainer from "../../components/flex-container";
 
 function ProductPage() {
   const store = useStore();
@@ -41,13 +42,14 @@ function ProductPage() {
     <>
       <PageLayout>
         <Head title={product.title} />
-
-        <NavigationMenu
-          onOpen={callbacks.openModalBasket}
-          amount={select.amount}
-          sum={select.sum}
-        />
-
+        <FlexContainer>
+          <NavigationMenu />
+          <BasketTool
+            sum={select.sum}
+            amount={select.amount}
+            onOpen={callbacks.openModalBasket}
+          />
+        </FlexContainer>
         <ProductDescription
           product={product}
           onAddToBasket={callbacks.addToBasket}

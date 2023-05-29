@@ -11,7 +11,7 @@ class Catalog extends StoreModule {
     return {
       list: [],
       currentPage: 1,
-      totalPages: null,
+      totalPages: 1,
       productPerPage: 10,
     };
   }
@@ -23,14 +23,14 @@ class Catalog extends StoreModule {
       }&fields=items(_id, title, price),count`
     );
     const {
-      result: { items: list, count },
+      result: { items: list = [], count },
     } = await response.json();
 
     this.setState(
       {
         ...this.getState(),
         list,
-        totalPages: Math.round(count / this.getState().productPerPage),
+        totalPages: Math.ceil(count / this.getState().productPerPage),
         currentPage: page,
       },
       "Загружены товары из АПИ"

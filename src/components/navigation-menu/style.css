@@ -1,7 +1,8 @@
 .navigation {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   margin-left: 20px;
+  max-width: 100px;
 }
 
 .mainLink {

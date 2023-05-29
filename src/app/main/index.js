@@ -7,18 +7,22 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Basket from "../basket";
 import { NavigationMenu } from "../../components/navigation-menu";
+import FlexContainer from "../../components/flex-container";
 
 function Main() {
   const store = useStore();
+  const navigate = useNavigate();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get("page");
 
   useEffect(() => {
     store.actions.catalog.load(page);
+
+    if (!page) navigate("/?page=1");
   }, []);
 
   useEffect(() => {
@@ -67,11 +71,14 @@ function Main() {
       {select.modal === "basket" && <Basket />}
       <PageLayout>
         <Head title="Магазин" />
-        <NavigationMenu
-          onOpen={callbacks.openModalBasket}
-          amount={select.amount}
-          sum={select.sum}
-        />
+        <FlexContainer>
+          <NavigationMenu />
+          <BasketTool
+            sum={select.sum}
+            amount={select.amount}
+            onOpen={callbacks.openModalBasket}
+          />
+        </FlexContainer>
         <List list={select.list} renderItem={renders.item} />
         {select.totalPages && (
           <Pagination currentPage={page} totalPages={select.totalPages} />
