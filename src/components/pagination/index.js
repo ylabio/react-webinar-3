@@ -19,13 +19,19 @@ function Pagination({totalNumber, currentPage, setCurrentPage, limit}) {
       tempNumberOfPage = [1];
     }
 
-    else if (currentPage >= 1 && currentPage <= 3) {
-      tempNumberOfPage = [1, 2, 3, 4, "...", pages.length];
+    else if (currentPage >= 1 && currentPage <= 2) {
+      tempNumberOfPage = [1, 2, 3, "...", pages.length];
     } 
     
-    else if (currentPage === 4) {
-      const sliced = pages.slice(0, 5)
+    else if (currentPage === 3) {
+      const sliced = pages.slice(0, 4)
       tempNumberOfPage = [...sliced, "...", pages.length]
+    }
+
+    else if (currentPage === 4) {
+      console.log(4)
+      const sliced = pages.slice(2, 5)
+      tempNumberOfPage = [1, "...", ...sliced, "...", pages.length];
     }
 
     else if (currentPage > 4 && currentPage < pages.length - 2) {
