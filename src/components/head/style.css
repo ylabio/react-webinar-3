@@ -1,9 +1,37 @@
 .Head {
   height: 80px;
   background: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
 }
 
 .Head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+}
+
+.Head-buttons {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  width: 70px;
+  justify-content: space-between;
+}
+
+.Head-button {
+  background: transparent;
+  border: 1px solid #797979;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 20px;
+}
+
+.Head-button:hover {
+  background: #E1E1E1;
+}
+
+.Head-button.active {
+  background: #0087E9;
+  color: #fff;
+  border: 0;
 }

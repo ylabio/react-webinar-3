@@ -1,0 +1,23 @@
+{
+    "main": "Магазин",
+    "buttonClose": "Закрыть",
+    "buttonAdd": "Добавить",
+    "buttonFollow": "Перейти",
+    "buttonDelete": "Удалить",
+    "empty": "пусто",
+    "basket": "Корзина",
+    "inBasket": "В корзине",
+    "mainLink": "Главная",
+    "total": "Итого",
+    "pieces": "шт",
+    "product": {
+        "one": "товар",
+        "few": "товара",
+        "many": "товаров"
+    },
+    "loading": "Загрузка",
+    "madeIn": "Страна производитель",
+    "category": "Категория",
+    "dateCreate": "Год выпуска",
+    "price": "Цена"
+}

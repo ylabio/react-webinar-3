@@ -1,0 +1,13 @@
+.Product {
+    font-size: 18px;
+    margin: 40px;
+}
+
+.Product span {
+    font-weight: 600;
+}
+
+.Product-price {
+    font-weight: 600;
+    font-size: 24px;
+}

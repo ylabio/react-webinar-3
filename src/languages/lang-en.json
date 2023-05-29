@@ -1,0 +1,23 @@
+{
+    "main": "Store",
+    "buttonClose": "Close",
+    "buttonAdd": "Add",
+    "buttonFollow": "Follow",
+    "buttonDelete": "Delete",
+    "empty": "empty",
+    "basket": "Basket",
+    "inBasket": "In the basket",
+    "mainLink": "Home",
+    "total": "Total",
+    "pieces": "ps",
+    "product": {
+        "one": "product",
+        "few": "products",
+        "many": "products"
+    },
+    "loading": "Loading",
+    "madeIn": "Made in",
+    "category": "Category",
+    "dateCreate": "Release year",
+    "price": "Price"
+}
