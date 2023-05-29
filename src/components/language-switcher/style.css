@@ -1,0 +1,9 @@
+.select {
+    border: none;
+    width: 70px;
+    height: 21px;
+    border-radius: 2px;
+    border: 1px solid #767676;
+    background-color: #EFEFEF;
+    outline: none;
+}

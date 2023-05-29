@@ -4,6 +4,7 @@
   justify-content: flex-end;
   padding: 20px;
   font-size: 18px;
+  position: relative;
 }
 
 .BasketTool-label{
@@ -13,4 +14,17 @@
 .BasketTool-total{
   font-weight: bold;
   margin: 0 20px;
+}
+
+.BasketTool-link {
+  position: absolute;
+  left: 20px;
+  color: #0087E9;
+  text-decoration: underline;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.BasketTool-follow {
+  width: 70px;
 }

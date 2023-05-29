@@ -1,0 +1,28 @@
+{
+    "ru": {
+        "market": "Магазин",
+        "mainLink": "Главная",
+        "basket": "В корзине:",
+        "follow": "Перейти",
+        "empty": "пусто",
+        "addBtn": "Добавить",
+        "rmBtn": "Удалить",
+        "pcs": "шт",
+        "total": "Итого",
+        "close": "Закрыть",
+        "basketTitle": "Корзина"
+    },
+    "en": {
+        "market": "Online Store",
+        "mainLink": "MainPage",
+        "basket": "Basket:",
+        "follow": "Follow",
+        "empty": "empty",
+        "addBtn": "Add",
+        "rmBtn": "Remove",
+        "pcs": "pcs",
+        "total": "Total",
+        "close": "Сlose",
+        "basketTitle": "Basket"
+    }
+}

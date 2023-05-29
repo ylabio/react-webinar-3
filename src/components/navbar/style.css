@@ -1,0 +1,10 @@
+.Navbar-link {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    color: #0087E9;
+    text-decoration: underline;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
+  }
