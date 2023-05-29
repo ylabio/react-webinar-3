@@ -1,68 +1,89 @@
 import StoreModule from "../module";
 
 class Basket extends StoreModule {
-
   initState() {
     return {
       list: [],
       sum: 0,
-      amount: 0
+      amount: 0,
+    };
+  }
+
+  async fetchItemData(_id) {
+    try {
+      const response = await fetch(`/api/v1/articles/${_id}`);
+      const json = await response.json();
+      return json.result;
+    } catch (error) {
+      console.error("Error fetching item data:", error);
+      throw error;
     }
   }
 
-  /**
-   * Добавление товара в корзину
-   * @param _id Код товара
-   */
-  addToBasket(_id) {
-    let sum = 0;
-    // Ищем товар в корзине, чтобы увеличить его количество
-    let exist = false;
-    const list = this.getState().list.map(item => {
-      let result = item;
-      if (item._id === _id) {
-        exist = true; // Запомним, что был найден в корзине
-        result = {...item, amount: item.amount + 1};
+  async addToBasket(_id) {
+    try {
+      const item = await this.fetchItemData(_id);
+      const { list, sum } = this.getState();
+      const existingItem = list.find((item) => item._id === _id);
+
+      if (existingItem) {
+        const updatedList = list.map((item) => {
+          if (item._id === _id) {
+            return { ...item, amount: item.amount + 1 };
+          }
+          return item;
+        });
+
+        const updatedSum = sum + item.price;
+        const updatedAmount = updatedList.length;
+
+        this.setState(
+          {
+            ...this.getState(),
+            list: updatedList,
+            sum: updatedSum,
+            amount: updatedAmount,
+          },
+          "Добавление в корзину"
+        );
+      } else {
+        const updatedList = [...list, { ...item, amount: 1 }];
+        const updatedSum = sum + item.price;
+        const updatedAmount = updatedList.length;
+
+        this.setState(
+          {
+            ...this.getState(),
+            list: updatedList,
+            sum: updatedSum,
+            amount: updatedAmount,
+          },
+          "Добавление в корзину"
+        );
       }
-      sum += result.price * result.amount;
-      return result;
-    });
-
-    if (!exist) {
-      // Поиск товара в каталоге, чтобы его добавить в корзину.
-      // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      const item = this.store.getState().catalog.list.find(item => item._id === _id);
-      list.push({...item, amount: 1}); // list уже новый, в него можно пушить.
-      // Добавляем к сумме.
-      sum += item.price;
+    } catch (error) {
+      console.error("Error adding item to basket:", error);
     }
-
-    this.setState({
-      ...this.getState(),
-      list,
-      sum,
-      amount: list.length
-    }, 'Добавление в корзину');
   }
 
-  /**
-   * Удаление товара из корзины
-   * @param _id Код товара
-   */
   removeFromBasket(_id) {
-    let sum = 0;
-    const list = this.getState().list.filter(item => {
-      if (item._id === _id) return false;
-      sum += item.price * item.amount;
-      return true;
-    });
+    const { list, sum } = this.getState();
+    const updatedList = list.filter((item) => item._id !== _id);
+    const updatedSum = updatedList.reduce(
+      (acc, item) => acc + item.price * item.amount,
+      0
+    );
+    const updatedAmount = updatedList.length;
 
-    this.setState({
-      ...this.getState(),
-      list,
-      sum,
-      amount: list.length
-    }, 'Удаление из корзины');
+    this.setState(
+      {
+        ...this.getState(),
+        list: updatedList,
+        sum: updatedSum,
+        amount: updatedAmount,
+      },
+      "Удаление из корзины"
+    );
   }
 }
 

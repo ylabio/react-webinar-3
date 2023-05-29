@@ -1,21 +1,34 @@
-import {memo} from "react";
-import PropTypes from 'prop-types';
-import {cn as bem} from '@bem-react/classname';
-import {numberFormat, plural} from "../../utils";
-import './style.css';
+import { memo } from "react";
+import PropTypes from "prop-types";
+import { cn as bem } from "@bem-react/classname";
+import { getTranslation, numberFormat, plural } from "../../utils";
+import Nav from "../nav";
+import useSelector from "../../store/use-selector";
+import "./style.css";
 
-function BasketTool({sum, amount, onOpen}) {
-  const cn = bem('BasketTool');
+function BasketTool({ sum, amount, onOpen }) {
+  const cn = bem("BasketTool");
+
+  const select = useSelector((state) => ({
+    languages: state.language,
+  }));
+
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
-      <span className={cn('total')}>
-        {amount
-          ? `${amount} ${plural(amount, {one:'товар', few:'товара', many:'товаров'})} / ${numberFormat(sum)} ₽`
-          : `пусто`
-        }
-      </span>
-      <button onClick={onOpen}>Перейти</button>
+      <Nav />
+      <div>
+        <span className={cn("label")}>{getTranslation("onBasket")}</span>
+        <span className={cn("total")}>
+          {amount
+            ? `${amount} ${plural(amount, {
+                one: getTranslation("product"),
+                few: getTranslation("productFew"),
+                many: getTranslation("productMany"),
+              })} / ${numberFormat(sum)} ₽`
+            : getTranslation("empty")}
+        </span>
+        <button onClick={onOpen}>{getTranslation("go")}</button>
+      </div>
     </div>
   );
 }
@@ -23,13 +36,13 @@ function BasketTool({sum, amount, onOpen}) {
 BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
-  amount: PropTypes.number
+  amount: PropTypes.number,
 };
 
 BasketTool.defaultProps = {
   onOpen: () => {},
   sum: 0,
-  amount: 0
-}
+  amount: 0,
+};
 
 export default memo(BasketTool);
