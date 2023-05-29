@@ -33,3 +33,44 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Пагинация
+ * @param totalPages {Number}
+ * @param currentPage {Number}
+ * @returns {Array} массив ссылок на страницы
+ */
+export function getPageLinks(totalPages, currentPage = 1) {
+  const pages = [...Array(totalPages)].map((_, i) => i + 1);
+  const links = [];
+  
+  if (totalPages <= 5) {
+    links.push(...pages);
+  } else if (currentPage <= 2) {
+    links.push(...pages.slice(0, 3));
+    links.push('...');
+    links.push(totalPages);
+  } else if (currentPage >= totalPages - 1) {
+    links.push(1);
+    links.push('...');
+    links.push(...pages.slice(totalPages - 3));
+  } else if (currentPage === 3) {
+    links.push(...pages.slice(0, 4));
+    links.push('...');
+    links.push(totalPages);
+  } else if (currentPage === totalPages - 2) {
+    links.push(1);
+    links.push('...');
+    links.push(...pages.slice(totalPages - 4));
+  } else {
+    links.push(1);
+    links.push('...');
+    links.push(currentPage - 1);
+    links.push(currentPage);
+    links.push(currentPage + 1);
+    links.push('...');
+    links.push(totalPages);
+  }
+  
+  return links;
+};

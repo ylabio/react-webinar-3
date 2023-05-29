@@ -10,18 +10,54 @@ class Catalog extends StoreModule {
 
   initState() {
     return {
-      list: []
+      list: [],
+      pagesCount: null,
+      productsLimit: 10,
+      currentPage: 1,
+      skip: 10
     }
   }
 
-  async load() {
-    const response = await fetch('/api/v1/articles');
+  getCurrentPage(pageId = 1) {
+    const currentPage = Number(pageId);
+    this.setState({
+      ...this.getState(),
+      currentPage
+    }, 'Получена текущая страница')
+  }
+  
+  setSkip(pageId = 1) {
+    const currentPage = Number(pageId);
+    const productsLimit = this.getState().productsLimit;
+    const skip = currentPage * productsLimit - productsLimit;
+    this.setState({
+      ...this.getState(),
+      skip
+    }, `Пропуск установлен на ${skip}`)
+  }
+
+  async loadRequiredQuantityProduct() {
+    const limit = this.getState().productsLimit;
+    const skip = this.getState().skip;
+    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}`)
     const json = await response.json();
     this.setState({
        ...this.getState(),
        list: json.result.items
     }, 'Загружены товары из АПИ');
   }
+
+  async getPagesCount() {
+    const response = await fetch('/api/v1/articles?limit=10&skip=10&fields=items(_id, title, price),count')
+    const json = await response.json();
+    const productsLimit = this.getState().productsLimit;
+    const pagesCount = Math.ceil(Number(json.result.count) / productsLimit);
+    this.setState({
+      ...this.getState(),
+      pagesCount
+    }, 'Загружено общее количество товаров');
+  }
+
 }
 
 export default Catalog;
