@@ -23,7 +23,6 @@ class Catalog extends StoreModule {
             ...this.getState(),
             skip
         })
-        console.log(skip)
     }
 
 

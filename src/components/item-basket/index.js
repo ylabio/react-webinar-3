@@ -12,12 +12,13 @@ function ItemBasket(props) {
   const cn = bem('ItemBasket');
   const closeModal = useCallback(() => store.actions.modals.close(), [store])
   const callbacks = {
-    onRemove: () => props.onRemove(props.item._id)
+    onRemove: () => props.onRemove(props.item._id),
+    loadArticle: () => props.loadArticle(props.item._id),
   };
-  const id = props.address
+  const id = props.item._id
   return (
     <div className={cn()}>
-      <div className={cn('title')}>
+      <div className={cn('title')} onClick={callbacks.loadArticle}>
         <Link className={cn('titleLink')} onClick={closeModal} to={`/articles/${id}`}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
@@ -41,6 +42,7 @@ ItemBasket.propTypes = {
   onRemove: propTypes.func,
   onClose: PropTypes.func,
   address: PropTypes.string,
+  loadArticle: PropTypes.func,
 }
 
 ItemBasket.defaultProps = {
