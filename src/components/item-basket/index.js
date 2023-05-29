@@ -10,6 +10,8 @@ import './style.css';
 function ItemBasket(props) {
   const store = useStore();
 
+  console.log(props)
+
   const cn = bem('ItemBasket');
 
   const callbacks = {
@@ -21,7 +23,11 @@ function ItemBasket(props) {
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <Link className={cn('link')} onClick={callbacks.closeModal} to="/details" state={{ itemId:  props.item._id}}>
+        <Link 
+          className={cn('link')} 
+          onClick={callbacks.closeModal} 
+          to={`/details/${props.item._id}/${props.currentPage}`} 
+        >
           {props.item.title}
         </Link>
       </div>

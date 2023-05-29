@@ -19,8 +19,6 @@ function Main() {
     currentPage: state.catalog.currentPage,
   }));
 
-  console.log(select.currentPage);
-
   useEffect(() => {
     store.actions.catalog.load();
   }, [select.currentPage, store]);
@@ -30,18 +28,22 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    setCurrentPage: useCallback(page => store.actions.catalog.setCurrentPage(page), [store]),
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
+      return <Item item={item} onAdd={callbacks.addToBasket} currentPage={select.currentPage}/>
+    }, [callbacks.addToBasket, select.currentPage]),
   };
 
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <BasketTool 
+        onOpen={callbacks.openModalBasket}
+        amount={select.amount} 
+        sum={select.sum}/>
       <HomePage list={select.list} renderItem={renders.item} />
     </PageLayout>
 

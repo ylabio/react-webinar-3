@@ -1,5 +1,5 @@
 import {useEffect, useCallback, memo} from 'react';
-import {useLocation} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import PageLayout from '../../components/page-layout';
@@ -9,27 +9,29 @@ import DetailsPage from '../../components/details-page';
 import ContentLayout from "../../components/content-layout";
 
 function Details() {
-  const location = useLocation();
-  const {itemId} = location.state;
-  
+  const {id, currentPage} = useParams();
+
   const store = useStore();
 
   const select = useSelector(state => ({
     list: state.details.list,
     sum: state.basket.sum,
     amount: state.basket.amount,
+    currentPage: state.catalog.currentPage,
   }));
   
   useEffect(() => {
-    store.actions.details.loadItem(itemId);
+    callbacks.setCurrentPage(currentPage);
+    store.actions.details.loadItem(id);
     store.actions.catalog.load();
-  }, [itemId])
+  }, [id, select.currentPage, store])
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    setCurrentPage: useCallback(page => store.actions.catalog.setCurrentPage(page), [store]),
   }
 
   return (

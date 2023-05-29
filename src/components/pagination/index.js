@@ -47,7 +47,7 @@ function Pagination({totalNumber, currentPage, setCurrentPage, limit}) {
       if (e.target.textContent === "...") {
         return;
       }
-      return setCurrentPage(e.target.textContent)
+      return setCurrentPage(e.target.textContent);
     },
     setColor: (elem) => {
       if (elem === "...") {

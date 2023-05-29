@@ -18,8 +18,7 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<Main />} />
-        <Route path='/details' element={<Details />} />
-      {/* <Route path='/details' element={<Details  onAdd={callbacks.addToBasket}/>} /> */}
+        <Route path='details/:id/:currentPage' element={<Details />} />
       </Routes>
       {activeModal === 'basket' && <Basket/>}
     </>
