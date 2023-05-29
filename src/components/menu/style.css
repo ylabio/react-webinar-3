@@ -1,0 +1,8 @@
+.Menu a {
+    text-decoration: none;
+}
+
+.Menu a:hover {
+    text-decoration: underline;
+    text-decoration-color: black;
+}

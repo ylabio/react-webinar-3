@@ -1,0 +1,12 @@
+.ItemInfo {
+    margin: 40px;
+}
+
+.ItemInfo-extra span {
+    font-weight: bold;
+}
+
+.ItemInfo-price {
+    font-weight: bold;
+    font-size: 24px;
+}

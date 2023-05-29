@@ -1,0 +1,32 @@
+.Pagination {
+    margin: 22px 21px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Pagination a:hover {
+    background: #E1E1E1;
+}
+
+.Pagination a.active {
+    background: #0087E9;
+}
+
+.page-number {
+    cursor: pointer;
+    padding: 3px 6px 0 6px;
+    background-color: transparent;
+    transition: background-color 0.2s;
+}
+
+.Pagination span {
+    padding: 3px 6px 0 6px;
+}
+
+.page-number.active {
+    background-color: #0087e9;
+    color: white;
+}
+
+
+
