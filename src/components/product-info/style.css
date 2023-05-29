@@ -1,0 +1,30 @@
+.ProductInfo {
+    padding: 40px;
+}
+
+.ProductInfo-descr {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.ProductInfo-type {
+    margin-top: 20px;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.ProductInfo-bold {
+    font-weight: 700;
+}
+
+.ProductInfo-price {
+    margin: 20px 0;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+}

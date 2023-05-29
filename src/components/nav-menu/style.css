@@ -1,0 +1,12 @@
+.NavMenu {
+    padding-left: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    list-style-type: none;
+}
+
+.NavMenu-main {
+    color: #0087E9;
+}
