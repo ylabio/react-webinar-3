@@ -11,6 +11,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import Basket from "../basket";
 import { NavigationMenu } from "../../components/navigation-menu";
 import FlexContainer from "../../components/flex-container";
+import list from "../../components/list";
 
 function Main() {
   const store = useStore();
@@ -32,6 +33,7 @@ function Main() {
   const select = useSelector((state) => ({
     list: state.catalog.list,
     currentPage: state.catalog.currentPage,
+    isLoaded: state.catalog.isLoaded,
     totalPages: state.catalog.totalPages,
     amount: state.basket.amount,
     sum: state.basket.sum,
@@ -79,8 +81,12 @@ function Main() {
             onOpen={callbacks.openModalBasket}
           />
         </FlexContainer>
-        <List list={select.list} renderItem={renders.item} />
-        {select.totalPages && (
+        {select.isLoaded ? (
+          <List list={select.list} renderItem={renders.item} />
+        ) : (
+          <>Loading</>
+        )}
+        {select.isLoaded && (
           <Pagination currentPage={page} totalPages={select.totalPages} />
         )}
       </PageLayout>
