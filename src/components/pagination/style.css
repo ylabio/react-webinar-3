@@ -1,0 +1,39 @@
+.Pagination {
+  display: flex;
+  justify-content: flex-end;
+  transition: background-color 1s;
+  padding-right: 21px;
+}
+
+.Pagination-item {
+  padding: 1px 2px;
+  min-width: 18px;
+  list-style: none;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.Pagination-item a{
+  color: #000000;
+  text-decoration: none;
+}
+
+.Pagination-item_dots {
+  color: #CCCCCC;
+}
+
+.Pagination-item:hover {
+  background: #E1E1E1;
+}
+
+.Pagination-item_active {
+  background: #0087E9;
+}
+
+.Pagination-item_active a{
+  color: #FFFFFF;
+}
