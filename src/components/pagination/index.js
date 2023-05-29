@@ -1,8 +1,8 @@
 import React from "react";
 import "./style.css";
 
-function Pagination({ currentPage, onPageChange }) {
-  const totalPages = currentPage <= 17 ? 25 : 120;
+function Pagination({ currentPage, onPageChange, totalPages }) {
+  // const totalPages = 55;
   const pageNumbers = generatePageNumbers(totalPages);
 
   const handlePageChange = (page) => {

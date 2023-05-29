@@ -11,7 +11,6 @@ import useSelector from "../../store/use-selector";
 
 function Main() {
   const store = useStore();
-
   useEffect(() => {
     store.actions.catalog.load();
   }, []);
@@ -25,7 +24,6 @@ function Main() {
   }));
 
   const [currentPage, setCurrentPage] = useState(select.currentPage);
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
     store.actions.catalog.load(page);

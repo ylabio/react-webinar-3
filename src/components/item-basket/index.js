@@ -5,19 +5,26 @@ import { cn as bem } from "@bem-react/classname";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import "./style.css";
+import useStore from "../../store/use-store";
 
 function ItemBasket(props) {
   const cn = bem("ItemBasket");
+  const store = useStore();
 
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id),
+    closeModal: useCallback(() => store.actions.modals.close(), [store]),
   };
 
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn("title")}>
-        <Link to={`/item/${props.item._id}`} className={cn("title")}>
+        <Link
+          to={`/item/${props.item._id}`}
+          className={cn("title")}
+          onClick={callbacks.closeModal}
+        >
           {props.item.title}
         </Link>
       </div>

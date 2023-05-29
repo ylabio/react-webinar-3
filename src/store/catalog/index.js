@@ -11,17 +11,16 @@ class Catalog extends StoreModule {
     return {
       list: [],
       currentPage: 1,
-      totalPages: 0,
     };
   }
 
   async load(page = 1, limit = 10) {
     const skip = (page - 1) * limit;
     const response = await fetch(
-      `/api/v1/articles?limit=${limit}&skip=${skip}`
+      `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id, title, price),count`
     );
     const json = await response.json();
-    const totalPages = Math.ceil(json.result.totalCount / limit);
+    const totalPages = Math.ceil(json.result.count / limit);
     this.setState(
       {
         ...this.getState(),
