@@ -11,7 +11,8 @@ class Store {
     /** @type {{
      * basket: Basket,
      * catalog: Catalog,
-     * modals: Modals
+     * modals: Modals,
+     * article-item: Article
      * }} */
     this.actions = {};
     for (const name of Object.keys(modules)) {
@@ -40,6 +41,7 @@ class Store {
   getState() {
     return this.state;
   }
+
 
   /**
    * Установка состояния

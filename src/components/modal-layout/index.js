@@ -37,6 +37,7 @@ function ModalLayout(props) {
         <div className={cn('content')}>
           {props.children}
         </div>
+
       </div>
     </div>
   );
