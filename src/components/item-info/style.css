@@ -1,0 +1,15 @@
+.ItemInfo {
+  padding: 20px 40px;
+}
+
+.ItemInfo-paragraph {
+  margin: 0 0 20px;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.ItemInfo-paragraph_type_price {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+}

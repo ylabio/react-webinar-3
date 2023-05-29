@@ -1,16 +1,15 @@
 /**
  * Базовый класс для модулей хранилища
- * Для гурппировки действий над внешним состоянием
+ * Для группировки действий над внешним состоянием
  */
 class StoreModule {
-
   constructor(store, name) {
     this.store = store;
     this.name = name;
   }
 
   initState() {
-    return {}
+    return {};
   }
 
   getState() {
@@ -18,12 +17,14 @@ class StoreModule {
   }
 
   setState(newState, description = 'setState') {
-    this.store.setState({
-      ...this.store.getState(),
-      [this.name]: newState
-    }, description)
+    this.store.setState(
+      {
+        ...this.store.getState(),
+        [this.name]: newState,
+      },
+      description
+    );
   }
-
 }
 
 export default StoreModule;

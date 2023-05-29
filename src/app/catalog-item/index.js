@@ -1,37 +1,32 @@
-import { memo, useCallback, useEffect } from 'react';
-import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
-import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
-import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
-import Pagination from '../../components/pagination';
+import Head from '../../components/head';
+import { useCallback, useEffect } from 'react';
+import ItemInfo from '../../components/item-info';
+
 import LangSwitcher from '../../components/LangSwitcher';
 import Navbar from '../../components/Navbar';
 import Menu from '../../components/Menu';
+import { useParams } from 'react-router-dom';
 import Spinner from '../../components/spinner';
 import useTranslation from '../../hooks/use-translation';
 
-function Main() {
+function CatalogItem() {
   const store = useStore();
-  const { currentLanguage, languages, t, changeLanguage } = useTranslation();
+
+  const params = useParams();
+  const { currentLanguage, languages, changeLanguage } = useTranslation();
 
   const select = useSelector((state) => ({
-    list: state.catalog.list,
-    loading: state.catalog.loading,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    totalPages: state.catalog.totalPages,
-    currentPage: state.catalog.currentPage,
+    item: state.catalogItem.item,
+    loading: state.catalogItem.loading,
   }));
 
   const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(
-      (_id) => store.actions.basket.addToBasket(_id),
-      [store]
-    ),
     // Открытие модалки корзины
     openModalBasket: useCallback(
       () => store.actions.modals.open('basket'),
@@ -42,23 +37,13 @@ function Main() {
       (lang) => store.actions.language.setTranslation(lang),
       [store]
     ),
-    changePage: useCallback(
-      (page) => store.actions.catalog.load(page),
+    addToBasket: useCallback(
+      (_id) => store.actions.basket.addToBasket(_id),
       [store]
     ),
   };
 
-  useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
-
   const renders = {
-    item: useCallback(
-      (item) => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
-      },
-      [callbacks.addToBasket]
-    ),
     langSwitch: useCallback(() => {
       return (
         <LangSwitcher
@@ -71,12 +56,13 @@ function Main() {
   };
 
   useEffect(() => {
-    store.actions.catalog.load();
+    store.actions.modals.close();
+    store.actions.catalogItem.load(params.itemId);
   }, []);
 
   return (
     <PageLayout>
-      <Head title={t('shop')} render={renders.langSwitch} />
+      <Head title={select.item?.title} render={renders.langSwitch} />
       <Navbar>
         <Menu />
         <BasketTool
@@ -85,15 +71,10 @@ function Main() {
           sum={select.sum}
         />
       </Navbar>
-      <List list={select.list} renderItem={renders.item} />
-      <Pagination
-        totalPages={select.totalPages}
-        currentPage={select.currentPage}
-        onPageChange={callbacks.changePage}
-      />
+      <ItemInfo onAddToCart={callbacks.addToBasket} item={select.item} />
       {select.loading === 'loading' && <Spinner />}
     </PageLayout>
   );
 }
 
-export default memo(Main);
+export default CatalogItem;
