@@ -2,6 +2,7 @@ import {memo, useState} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
+import {useTranslate} from '../../language-store';
 
 function ItemProduct(props) {
   const cn = bem('ItemProduct');
@@ -9,7 +10,7 @@ function ItemProduct(props) {
   const callbacks = {
     onAdd: (e) => props.onAdd(props.productList._id),
   };
-
+  const t = useTranslate();
   return (
     <div className={cn()}>
       <div className={cn('wrap')}>
@@ -30,7 +31,7 @@ function ItemProduct(props) {
         <p className={cn('price')}>Цена: {props.productList.price}</p>
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{t('add')}</button>
       </div>
     </div>
   );
