@@ -19,7 +19,7 @@ function Main() {
 
   const location = useLocation();
 
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(Number(localStorage.getItem('page')) || 1)
   const listPerPage = 10
 
   useEffect(() => {
@@ -49,11 +49,6 @@ function Main() {
     selectLang.lang === 'ru'
       ? selectLang.homePageRu.home_page_title
       : selectLang.homePageEn.home_page_title
-
-  const titleProduct = 
-    selectLang.lang === 'ru'
-      ? selectLang.productPageRu.product_page_title
-      : selectLang.productPageEn.product_page_title
 
   const linkHome = 
     selectLang.lang === 'ru'

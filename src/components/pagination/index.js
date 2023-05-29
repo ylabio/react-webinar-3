@@ -25,6 +25,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const handlePageClick = (page) => {
     onPageChange(page);
     updateVisiblePages(page);
+    localStorage.setItem('page', page)
   };
   
   // Генерация кнопок пагинации
