@@ -1,21 +1,49 @@
-import {memo} from "react";
-import PropTypes from 'prop-types';
-import {cn as bem} from '@bem-react/classname';
-import {numberFormat, plural} from "../../utils";
-import './style.css';
+import React from "react";
+import { memo } from "react";
+import HomeLink from "../home-link";
+import PropTypes from "prop-types";
+import { cn as bem } from "@bem-react/classname";
+import { useNavigate } from "react-router-dom";
+import { numberFormat, plural } from "../../utils";
+import "./style.css";
 
-function BasketTool({sum, amount, onOpen}) {
-  const cn = bem('BasketTool');
+function BasketTool({ sum, amount, onOpen, lang }) {
+  const cn = bem("BasketTool");
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/");
+  };
+  // console.log(lang);
+
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
-      <span className={cn('total')}>
-        {amount
-          ? `${amount} ${plural(amount, {one:'товар', few:'товара', many:'товаров'})} / ${numberFormat(sum)} ₽`
-          : `пусто`
-        }
-      </span>
-      <button onClick={onOpen}>Перейти</button>
+      <HomeLink lang={lang} />
+      <div className="BasketTool-container">
+        <span className={cn("label")}>
+          {lang === "Русский" ? "В корзине" : "In the basket"}:
+        </span>
+        <span className={cn("total")}>
+          {amount && lang === "Русский"
+            ? `${amount} ${plural(amount, {
+                one: "товар",
+                few: "товара",
+                many: "товаров",
+              })} / ${numberFormat(sum)} ₽`
+            : ""}
+          {amount && lang === "English"
+            ? `${amount} ${plural(amount, {
+                one: "product",
+                few: "products",
+                many: "products",
+              })} / ${numberFormat(sum)} ₽`
+            : ""}
+          {amount === 0 && lang === "Русский" ? "пусто" : ""}
+          {amount === 0 && lang === "English" ? "empty" : ""}
+        </span>
+        <button onClick={onOpen}>
+          {lang === "Русский" ? "Перейти" : "Go"}
+        </button>
+      </div>
     </div>
   );
 }
@@ -23,13 +51,13 @@ function BasketTool({sum, amount, onOpen}) {
 BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
-  amount: PropTypes.number
+  amount: PropTypes.number,
 };
 
 BasketTool.defaultProps = {
   onOpen: () => {},
   sum: 0,
-  amount: 0
-}
+  amount: 0,
+};
 
 export default memo(BasketTool);
