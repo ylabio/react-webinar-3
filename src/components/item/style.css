@@ -19,6 +19,17 @@
   padding: 20px 10px;
 }
 
+.Item-link {
+  text-decoration: none;
+  color: #000000;
+}
+
+.Item-link:hover {
+  text-decoration: underline;
+  color: #000000;
+  cursor: pointer;
+}
+
 .Item-price {
   display: flex;
   align-items: center;

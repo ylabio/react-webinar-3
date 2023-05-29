@@ -26,9 +26,9 @@ function Pagination({currentPage, setCurrentPage, totalPages}) {
 
     const listItems = pages.map((page) => 
     (page === currentPage) ?
-    (<li key={page}><a className='Pagination-current' href='!#'  onClick={() => setCurrentPage(page)}>{page}</a></li>) :
+    (<li key={page}><a className='Pagination-current' href='#'  onClick={() => setCurrentPage(page)}>{page}</a></li>) :
     (page !== '...') ? 
-        (<li key={page}><a className='Pagination-simple' href='!#'  onClick={() => setCurrentPage(page)}>{page}</a></li>) :
+        (<li key={page}><a className='Pagination-simple' href='#'  onClick={() => setCurrentPage(page)}>{page}</a></li>) :
         (<li key={uniqMaker(page)}><div className='Pagination-simple'>{page}</div></li>)
     );
 

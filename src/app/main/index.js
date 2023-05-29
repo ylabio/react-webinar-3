@@ -20,7 +20,7 @@ function Main() {
   
   useEffect(() => {
     store.actions.catalog.load(currentPage);
-  }, []);
+  }, currentPage);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -47,7 +47,7 @@ function Main() {
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
-      <Pagination currentPage={currentPage} setCurrentPage={changePage} totalPages={25}/>
+      <Pagination currentPage={currentPage} setCurrentPage={changePage} totalPages={55}/>
     </PageLayout>
   );
 }
