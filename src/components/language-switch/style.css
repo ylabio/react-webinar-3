@@ -1,0 +1,12 @@
+.LanguageSwitch {
+    padding-right: 20px;
+}
+
+.LanguageSwitch-button {
+    cursor: pointer;
+}
+
+.LanguageSwitch-button_active {
+    color: #FFFFFF;
+    background-color: #0087E9;
+}

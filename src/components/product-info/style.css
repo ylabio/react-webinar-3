@@ -1,0 +1,35 @@
+.ProductInfo {
+    box-sizing: border-box;
+    padding: 20px 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ProductInfo-text {
+    margin: 0;
+    height: auto;
+    width: 100%;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.ProductInfo-text_weight_bold {
+    font-weight: 700;
+}
+
+.ProductInfo-price {
+    margin: 0;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+}
+
+.ProductInfo-button {
+    width: fit-content;
+    cursor: pointer;
+}

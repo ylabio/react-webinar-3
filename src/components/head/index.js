@@ -1,11 +1,16 @@
 import {memo} from "react";
 import PropTypes from "prop-types";
 import './style.css';
+import LanguageSwitch from "../language-switch";
+import {cn as bem} from "@bem-react/classname";
 
-function Head({title}){
+function Head({title}) {
+  const cn = bem('Head');
+
   return (
-    <div className='Head'>
+    <div className={cn()}>
       <h1>{title}</h1>
+      <LanguageSwitch/>
     </div>
   )
 }
