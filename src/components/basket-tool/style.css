@@ -1,5 +1,6 @@
 /* Контрол с общими действиями */
 .BasketTool{
+  position: relative;
   display: flex;
   justify-content: flex-end;
   padding: 20px;
@@ -13,4 +14,10 @@
 .BasketTool-total{
   font-weight: bold;
   margin: 0 20px;
+}
+
+.BasketTool-link{
+  position: absolute;
+  left: 20px;
+  color: #0087E9;
 }

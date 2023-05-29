@@ -1,0 +1,8 @@
+.NavMenu{
+    display: flex;
+    padding-left: 20px;
+}
+
+.NavMenu-link{
+    color: #0087E9;
+}

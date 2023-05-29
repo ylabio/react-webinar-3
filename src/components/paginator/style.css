@@ -1,0 +1,35 @@
+.Paginator {
+    display: flex;
+    justify-content: flex-end;
+    padding: 22px;
+}
+
+.Paginator-button {
+    max-height: 20px;
+    padding: 2px 4px 0 4px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.Paginator-button:hover {
+    background-color: #E1E1E1;
+}
+
+.Paginator-button-active {
+    max-height: 20px;
+    padding: 2px 4px 0 4px;
+    text-align: center;
+    cursor: pointer;
+    color: #FFFFFF;
+    background-color: #0087E9;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.Paginator-dots {
+    color: #CCCCCC;
+}
