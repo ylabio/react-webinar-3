@@ -15,8 +15,31 @@
 }
 
 .Item-title {
-  width: 100%;
+  margin-right: auto;
   padding: 20px 10px;
+}
+
+.Item-link {
+  text-decoration: none;
+  color: #000000;
+}
+
+.Item-link:hover {
+  text-decoration: underline;
+  color: #000000;
+  cursor: pointer;
+}
+
+.Item-price {
+  display: flex;
+  align-items: center;
+  margin-right: 14px;
+}
+
+.Item-count {
+  padding: 20px 10px;
+  margin-left: 42px;
+  margin-right: 2px;
 }
 
 .Item-actions {

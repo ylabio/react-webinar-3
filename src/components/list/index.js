@@ -15,6 +15,7 @@ function List({list, renderItem}){
   )
 }
 
+
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
