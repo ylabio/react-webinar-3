@@ -3,6 +3,7 @@ body {
   padding: 0;
   background: #535353;
   font-family: sans-serif;
+  box-sizing: border-box;
 }
 
 .PageLayout {
@@ -12,4 +13,13 @@ body {
   background: #fff;
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
+}
+
+.PageLayout-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 0 20px;
+  background: #f5f5f5;
 }

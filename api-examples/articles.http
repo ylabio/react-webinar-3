@@ -9,7 +9,7 @@ GET http://example.front.ylab.io/api/v1/articles
 GET http://example.front.ylab.io/api/v1/articles?limit=10&skip=20
 
 ###
-# Список с пагинацией и возвратом общего количества и толкьо нужных свойств
+# Список с пагинацией и возвратом общего количества и только нужных свойств
 
 GET http://example.front.ylab.io/api/v1/articles?limit=10&skip=10&fields=items(_id, title, price),count
 
@@ -21,4 +21,4 @@ GET http://example.front.ylab.io/api/v1/articles/646b6e1fe1626c0bd8518064
 ###
 # Товар по id с подробностями о стране и категории
 
-GET http://example.front.ylab.io/api/v1/articles/646b6e1fe1626c0bd8518064?fields=*,madeIn(title,code),category(title)
+GET http://example.front.ylab.io/api/v1/articles/64725401fe34660a6541fa8e?fields=*,madeIn(title,code),category(title)

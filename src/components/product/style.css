@@ -1,0 +1,19 @@
+.Product {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 40px;
+}
+
+.Product-value, .Product-price {
+  font-weight: 700;
+}
+
+.Product-price {
+  font-size: 24px;
+}
+
+.Product-btn {
+  width: 76px;
+  height: 21px;
+}

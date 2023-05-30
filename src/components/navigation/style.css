@@ -1,0 +1,13 @@
+.Navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Navigation-links {  
+  margin-left: 20px;
+}
+
+.Navigation-links a {
+  color: #0087E9;
+}

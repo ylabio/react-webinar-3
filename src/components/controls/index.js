@@ -1,21 +1,28 @@
-import {memo} from "react";
-import PropTypes from 'prop-types';
-import './style.css';
+import { memo } from 'react'
+import PropTypes from 'prop-types'
+import useSelector from '../../store/use-selector'
+import './style.css'
 
-function Controls({onAdd}){
+function Controls({ onAdd }) {
+  const select = useSelector((state) => ({
+    lang: state.language.lang,
+  }))
+
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <button onClick={() => onAdd()}>
+        {select.lang === 'ru' ? 'Добавить' : 'Add'}
+      </button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
-};
-
-Controls.defaultProps = {
-  onAdd: () => {}
+  onAdd: PropTypes.func,
 }
 
-export default memo(Controls);
+Controls.defaultProps = {
+  onAdd: () => {},
+}
+
+export default memo(Controls)
