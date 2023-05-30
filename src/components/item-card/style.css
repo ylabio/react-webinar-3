@@ -1,0 +1,18 @@
+.Card {
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.Card-item {
+  margin: 0;
+  text-align: justify;
+}
+
+.Card-item_weight_bold {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+}

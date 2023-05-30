@@ -33,3 +33,34 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * получение массива страниц для пагинации
+ * @param totalArticlesCount {Number}
+ * @param limit {Number}
+ * @param currentPage {Number}
+ * @returns {Array}
+ */
+export function getArrPages(totalArticlesCount, limit, currentPage) {
+  let pagesCount = Math.ceil(totalArticlesCount / limit)
+
+  switch (currentPage) {
+    case 1:
+    case 2:
+      return [1, 2, 3, '...', pagesCount]
+
+    case 3:
+      return [1, 2, 3, 4, '...', pagesCount]
+
+    case pagesCount - 2:
+      return [1, '...', pagesCount - 3, pagesCount - 2, pagesCount - 1, pagesCount]
+
+    case pagesCount:
+    case pagesCount - 1:
+      return [1, '...', pagesCount - 2, pagesCount - 1, pagesCount]
+
+    default:
+      return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', pagesCount]
+  }
+
+}

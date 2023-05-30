@@ -1,0 +1,22 @@
+/* Контрол с общими действиями */
+.Menu {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  font-size: 18px;
+}
+
+.Menu-list {
+  display: flex;
+  padding: 0;
+}
+
+.Menu-item {
+  list-style: none;
+}
+
+.Menu-link {
+  text-decoration-line: underline;
+  color: #0087E9;
+  cursor: pointer;
+}
