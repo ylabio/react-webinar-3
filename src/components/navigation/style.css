@@ -1,0 +1,16 @@
+.Navigation {
+  position: absolute;
+  left: 20px;
+}
+
+.Navigation ul {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.Navigation-home {
+  color: #0087e9;
+}
