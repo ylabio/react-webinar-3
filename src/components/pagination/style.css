@@ -1,0 +1,24 @@
+.Pagination{
+  display: flex;
+  justify-content: flex-end;
+  padding: 22px 20px 0px 0px;
+}
+.Pagination-btn,
+.Pagination-ellipsis {
+	background-color: inherit;
+	border: none;
+	padding: 5px;
+	cursor: pointer;
+
+  font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 18px;
+}
+.Pagination-btn:hover {
+	background-color: lightgrey;
+}
+.Pagination-btn.active {
+	background: #0087e9;
+	color: #fff;
+}

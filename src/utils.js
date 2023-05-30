@@ -33,3 +33,20 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+
+export const getPageCount = (totalCount, limit) => {
+  return Math.ceil(totalCount / limit) 
+}
+
+export const getPagesArray = (totalPages, currentPage ) => {
+  let result = []
+  for(let i = 1; i <= totalPages; i++){
+    if (i === 1 || i === totalPages  || (i >= currentPage - 1 && i <= currentPage + 1)) {
+      result.push(i);
+    } else if (result[result.length - 1] !== "...") {
+      result.push("...");
+    }
+  }
+  return result
+}

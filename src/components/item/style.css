@@ -1,34 +1,44 @@
 .Item {
-  display: flex;
-  justify-content: flex-start;
-  transition: background-color 1s;
-  padding-left: 10px
+	display: flex;
+	justify-content: flex-start;
+	transition: background-color 1s;
+	padding-left: 10px;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+	background: #75aaf1;
+	color: #fff;
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+	padding: 20px 10px 20px 20px;
 }
 
 .Item-title {
-  width: 100%;
-  padding: 20px 10px;
+	width: 100%;
+	padding: 20px 10px;
+	text-decoration: none;
+	color: black;
+}
+
+.Item-title a {
+	text-decoration: none;
+	color: black;
+}
+.Item-title:hover a {
+	border-bottom: 1px solid black;
 }
 
 .Item-actions {
-  padding: 20px 20px 20px 10px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 20px
+	padding: 20px 20px 20px 10px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 20px;
 }
 
 .Item-price {
-  padding: 0 0 0 10px;
-  white-space: nowrap;
-  font-size: 18px;
+	padding: 0 0 0 10px;
+	white-space: nowrap;
+	font-size: 18px;
 }
