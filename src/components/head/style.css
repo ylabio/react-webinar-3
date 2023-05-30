@@ -1,6 +1,13 @@
 .Head {
+  display: flex;
+  justify-content: space-between;
   height: 80px;
   background: #f5f5f5;
+}
+
+.Head-switcher {
+  align-self: center;
+  padding: 20px;
 }
 
 .Head h1 {

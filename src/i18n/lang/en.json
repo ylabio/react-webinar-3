@@ -1,0 +1,23 @@
+{
+  "in-cart": "In cart",
+  "cart": "Cart",
+  "empty": "empty",
+  "go-to": "Go",
+  "store": "Store",
+  "close": "Close",
+  "product": {
+    "one": "product",
+    "few": "products",
+    "many": "products",
+    "other": "products"
+  },
+  "pc": "pc",
+  "add": "Add",
+  "delete": "Remove",
+  "main-page": "Main",
+  "manufacture": "Country of manufacturer:",
+  "category": "Category:",
+  "edition": "Edition:",
+  "price": "Price",
+  "total": "Total"
+}

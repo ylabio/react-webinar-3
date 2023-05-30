@@ -1,0 +1,15 @@
+.Product-Info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+  font-size: 18px;
+  line-height: 21px;
+  padding: 20px 40px;
+}
+
+.Product-Info-price {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+}

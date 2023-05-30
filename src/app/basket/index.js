@@ -5,10 +5,12 @@ import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import useLang from '../../i18n/use-lang';
 
 function Basket() {
 
   const store = useStore();
+  const {t} = useLang();
 
   const select = useSelector(state => ({
     list: state.basket.list,
@@ -25,14 +27,14 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
-    }, [callbacks.removeFromBasket]),
+      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} translate={t} onLinkClick={callbacks.closeModal}/>
+    }, [callbacks.removeFromBasket, callbacks.closeModal]),
   };
 
   return (
-    <ModalLayout title='Корзина' onClose={callbacks.closeModal}>
+    <ModalLayout title={t('cart')} onClose={callbacks.closeModal} closeText={t('close')}>
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} translate={t}/>
     </ModalLayout>
   );
 }
