@@ -3,22 +3,23 @@ import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
-import { Link } from "react-router-dom";
+
 
 function Item(props){
 
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(props.item._id)
+    onAdd: (e) => props.onAdd(props.item._id),
+    navToPage: (e) => props.navToPage(props.item._id)
   }
 
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <Link className={cn('title')} to={`/detail/${props.item._id}`} >
+      <div className={cn('title')} onClick={callbacks.navToPage} >
         {props.item.title}
-      </Link>
+      </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
         <button onClick={callbacks.onAdd}>Добавить</button>
@@ -34,10 +35,12 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  navToPage: PropTypes.func,
 };
 
 Item.defaultProps = {
   onAdd: () => {},
+  navToPage: () => {}
 }
 
 export default memo(Item);

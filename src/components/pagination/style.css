@@ -2,24 +2,24 @@
     display: flex;
     justify-content: flex-end;
     padding: 24px;
+    gap: 2px;
   }
-  
- 
-  
+   
   .Pagination-btn {
     min-width: 20px;
     height: 20px;
-    text-align: center;
     font-weight: 400;
     font-size: 16px;
     line-height: 18px;
     cursor: pointer;
     border: none;
     background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-   .Pagination-btn_selected {
-    background-color: #0087E9;
-    color: #ffffff;
+  .Pagination-btn:hover{
+    background: #CCCCCC;
   }
   .Pagination-dots {
     width: 20px;

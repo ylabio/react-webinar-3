@@ -1,57 +1,61 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css'
 import { cn as bem } from '@bem-react/classname';
 
+const Pagination = ({ onClick, id, limit }) => {
 
-const Pagination = ({ onSelect, currentPage }) => {
-    
     const cn = bem('Pagination');
-    
-    const numPages = {
-        1: [1, 2, 3, '...', 55],
-        2: [1, 2, 3, '...', 55],
-        3: [1, 2, 3, 4, '...', 55],
-        'page': [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', 55],
-        53: [1, '...', 52, 53, 54],
-        54: [1, '...', 53, 54, 55],
-        55: [1, '...', 53, 54, 55],
-    }
 
-    const getNumPages = (page) => {
-        if (page < 3) return numPages[1];
-        if (page == 3) return numPages[3];
-        if (page == 53) return numPages[53];
-        if (page == 55) return numPages[55];
-        if (page == 54) return numPages[54];
-        if (page > 3 && page < 53) return numPages['page'];
-    }
-    
-    let pages = getNumPages(currentPage);
-    const handleClick = (e) => onSelect(e.target.value)
+    const chagePage = (el) => onClick(+el.dataset.id * 10 - 10);
+
+    let count = id + 10;
+
+    const pages = useMemo(() => {
+        let array = [1];
+
+        if (count <= 20) {
+            array.push(2, 3);
+            if (count < 20) {
+                array.push('...');
+            } else {
+                array.push(4, '...');
+            }
+        } else if (limit - count / 10 < 3) {
+            array.push('...', limit - 2, limit - 1);
+        } else {
+            array.push('...', count / 10 - 1, count / 10, count / 10 + 1, '...');
+        }
+
+        array.push(limit);
+        return array;
+    }, [limit, id])
 
     return (
         <div className={cn('row')}>
-            {pages && pages.map((btn, index) =>
-                <div key={index} >
-                    {btn == '...' ?
-                        <span className={cn('dots')}>...</span>
-                        :
-                        <button className={currentPage == btn ? cn('btn', { selected: true }) : cn('btn')} onClick={handleClick} value={btn}>{btn}</button>
+            {
+                pages.map((item, i) => {
+                    if (item !== '...') {
+                        return (<div key={i} className={cn('btn')} data-id={item} onClick={(event) => chagePage(event.target)} style={{ background: item * 10 === count && '#0087E9', color: item * 10 === count && '#fff' }}>
+                            {item}
+                        </div>)
+                    } else {
+                        return <div key={i} className={cn('dots')}>{item}</div>
                     }
-                </div>
-            )}
+                })
+            }
         </div>
     );
 };
 
 Pagination.propTypes = {
-    currentPage: PropTypes.number,
-    onSelect: PropTypes.func,
+    id: PropTypes.number,
+    limit: PropTypes.number,
+    onClick: PropTypes.func,
 };
 
 Pagination.defaultProps = {
-    onSelect: () => { }
+    onClick: () => { }
 }
 
 export default memo(Pagination);
