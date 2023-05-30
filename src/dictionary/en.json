@@ -1,0 +1,15 @@
+{
+  "shop": "Shop",
+  "home": "Home",
+  "inBasket": "In the basket:",
+  "inBasketItem": {"one":"product", "few":"products","many":"products"},
+  "empty": "empty",
+  "goTo": "Go to",
+  "add": "Add",
+  "close": "Сlose",
+  "basket": "Basket",
+  "total": "Total",
+  "delete": "Delete",
+  "piece": "pc.",
+  "pieces": "pcs."
+}
