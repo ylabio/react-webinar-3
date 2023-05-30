@@ -1,0 +1,18 @@
+.Pagination {
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  padding: 0 22px 97px 0;
+  align-self: flex-end;
+  list-style-type: none;
+  display: flex;
+}
+
+.Pagination__item {
+  display: flex;
+  width: 25px;
+  height: 25px;
+}
+
+.Pagination__item:hover {
+  background: #E1E1E1;
+}

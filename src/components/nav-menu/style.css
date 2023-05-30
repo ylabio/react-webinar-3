@@ -1,0 +1,13 @@
+.nav-menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  column-gap: 20px;
+}
+
+.nav-menu__link {
+  color: #0087E9;
+  font-size: 18px;
+  line-height: 20.7px;
+}

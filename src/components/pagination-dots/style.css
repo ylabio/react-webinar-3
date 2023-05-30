@@ -1,0 +1,16 @@
+.Pagination__dots {
+  color: #CCCCCC;
+}
+
+.Pagination__dots:hover {
+  cursor: not-allowed;
+}
+
+.Pagination__item_dots:hover {
+  background: none;
+}
+
+
+.Pagination__dots:hover {
+  cursor: not-allowed;
+}

@@ -1,0 +1,20 @@
+.Item-info {
+  margin: 0;
+  padding: 20px 40px;
+  box-sizing: border-box;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.Item-info__item {
+  margin: 0;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.Item-info__item_size_large {
+  font-size: 24px;
+  line-height: 27.6px;
+}
