@@ -1,0 +1,14 @@
+.Product {
+    padding: 0px 41px 0px 40px;
+    align-self: start;
+}
+
+.Product-button {
+    Font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+    color: #000000;
+}

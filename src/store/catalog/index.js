@@ -10,18 +10,40 @@ class Catalog extends StoreModule {
 
   initState() {
     return {
-      list: []
+      list: [],
+      count: ''
     }
   }
 
-  async load() {
-    const response = await fetch('/api/v1/articles');
+  async load(page, limit) {
+    const skip = (page - 1) * limit;
+    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id,title,price),count`);
     const json = await response.json();
     this.setState({
        ...this.getState(),
-       list: json.result.items
+       list: json.result.items,
+       count: json.result.count
     }, 'Загружены товары из АПИ');
   }
+
+  async getProduct(id) {
+    const response = await fetch(`api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
+    const json = await response.json();
+    this.setState({
+       ...this.getState(),
+       product: json.result
+    }, 'Загружен товар с категорией из АПИ');
+  }
+
+  async getItemById(id) {
+    const response = await fetch(`api/v1/articles/${id}`);
+    const json = await response.json();
+    this.setState({
+       ...this.getState(),
+       productById: json.result
+    }, 'Загружен товар из АПИ');
+  }
 }
+
 
 export default Catalog;
