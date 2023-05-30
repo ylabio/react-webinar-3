@@ -13,6 +13,7 @@ class Store {
      * catalog: Catalog,
      * modals: Modals
      * }} */
+    console.log(this.state);
     this.actions = {};
     for (const name of Object.keys(modules)) {
       this.actions[name] = new modules[name](this, name);
