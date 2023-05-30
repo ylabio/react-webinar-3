@@ -1,47 +1,41 @@
-import {memo, useCallback, useEffect} from 'react';
-import Item from "../../components/item";
+import {memo, useCallback, useState} from 'react';
 import PageLayout from "../../components/page-layout";
+import {Route, Routes} from "react-router-dom";
+import PageError from "../../components/page-error";
 import Head from "../../components/head";
-import BasketTool from "../../components/basket-tool";
-import List from "../../components/list";
+import PageList from "../page-list";
+import PageItem from "../page-item";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import Menu from "../../components/menu";
+import {translation} from "../../translation";
 
 function Main() {
-
   const store = useStore();
-
-  useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
-
+  const [headTitle, setHeadTitle] = useState('....');
   const select = useSelector(state => ({
-    list: state.catalog.list,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    currentLang: state.translation.currentLang
   }));
-
   const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
-    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store.actions.modals]),
+    changeTranslation: useCallback((lang) => store.actions.translation.setTranslation(lang), [store.actions.translation]),
+    changeHeadTitle: useCallback((title) => { setHeadTitle(title); }, [headTitle])
   }
-
-  const renders = {
-    item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
-  };
-
   return (
     <PageLayout>
-      <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
-      <List list={select.list} renderItem={renders.item}/>
+      <Head translation={headTitle} currentLang={select.currentLang} onChangeLang={callbacks.changeTranslation}/>
+      <Menu translation={translation.menu[select.currentLang]} onOpen={callbacks.openModalBasket}
+            amount={select.amount} sum={select.sum}/>
+      <Routes>
+        <Route path="/" element={<PageList currentLang={select.currentLang} onChangeHeadTitle={callbacks.changeHeadTitle}/>}/>
+        <Route path="/:currentPage" element={<PageList currentLang={select.currentLang} onChangeHeadTitle={callbacks.changeHeadTitle}/>}/>
+        <Route path="/item/:currentItemId" element={<PageItem currentLang={select.currentLang} onChangeHeadTitle={callbacks.changeHeadTitle}/>}/>
+        <Route path="/*" element={<PageError translation={translation.notFound[select.currentLang]}/>}/>
+      </Routes>
     </PageLayout>
-
   );
 }
 

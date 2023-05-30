@@ -1,0 +1,12 @@
+.PageError {
+  top: calc(50% - 150px);
+  left: calc(50% - 150px);
+  height: 150px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  background-color: white;
+}

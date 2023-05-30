@@ -1,0 +1,35 @@
+.Pagination {
+  padding: 2%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Pagination-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.item {
+  padding: 4px 5px;
+  margin: 0 3px;
+}
+
+.active {
+  color: white;
+  background-color: #0087E9;
+  padding: 4px 7px;
+  cursor: default;
+  text-align: center;
+}
+
+.dots {
+  color: #CCCCCC;
+  padding: 5px;
+}
+
+.link {
+  text-decoration: none;
+}

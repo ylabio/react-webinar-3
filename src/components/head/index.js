@@ -1,17 +1,24 @@
-import {memo} from "react";
+import {memo, useCallback} from "react";
 import PropTypes from "prop-types";
 import './style.css';
+import Translation from "../translation";
 
-function Head({title}){
+function Head({translation, currentLang, onChangeLang}) {
+  const handleOnChangeLang = useCallback((lang) => {
+    onChangeLang(lang);
+  }, []);
   return (
     <div className='Head'>
-      <h1>{title}</h1>
+      <h1>{translation}</h1>
+      <Translation currentLang={currentLang} onChangeLang={handleOnChangeLang}/>
     </div>
   )
 }
 
 Head.propTypes = {
-  title: PropTypes.node,
+  translation: PropTypes.string.isRequired,
+  currentLang: PropTypes.string.isRequired,
+  onChangeLang: PropTypes.func.isRequired
 };
 
 export default memo(Head);

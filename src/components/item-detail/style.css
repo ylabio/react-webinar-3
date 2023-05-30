@@ -1,0 +1,13 @@
+.ItemDetail {
+  padding: 0 4%;
+  font-size: 18px;
+}
+
+.ItemDetail-bold {
+  font-weight: 700;
+}
+
+.ItemDetail-price {
+  font-weight: 700;
+  font-size: 24px;
+}

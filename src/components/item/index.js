@@ -1,4 +1,5 @@
-import {memo, useState} from "react";
+import {memo} from "react";
+import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
@@ -9,18 +10,17 @@ function Item(props){
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(props.item._id)
+    onAdd: () => { props.onAdd(props.item._id); }
   }
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        {props.item.title}
+        <Link to={props.link}>{props.item.title}</Link>
       </div>
       <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <div className={cn('price')}>{numberFormat(props.item.price, props.translation.pluralKey)} ₽</div>
+        <button onClick={callbacks.onAdd}>{props.translation.add}</button>
       </div>
     </div>
   );
@@ -32,7 +32,12 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
-  onAdd: PropTypes.func,
+  onAdd: PropTypes.func.isRequired,
+  link: PropTypes.string.isRequired,
+  translation: PropTypes.shape({
+    pluralKey: PropTypes.string.isRequired,
+    add: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 Item.defaultProps = {
