@@ -1,0 +1,29 @@
+.Pagination{
+   display: flex;
+   margin:auto;
+   justify-content: flex-end;
+   padding: 20px;
+   
+  
+}
+.Pagination-item{
+  min-width: 20px;
+  height: 20px;
+  padding: 2px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.Pagination-item.active{  color:white;
+  background-color:#0087E9 ;
+}
+.Pagination-item:hover:enabled{
+  background-color: #E1E1E1;
+  
+}
+.Pagination-item:disabled, .Pagination-item[disabled] {
+  color:#ccc;
+  cursor: initial;
+  
+}

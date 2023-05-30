@@ -1,0 +1,13 @@
+.Total {
+  display: flex;
+  justify-content: flex-end;
+  gap:30px;
+  padding: 20px 120px 20px 20px;
+}
+.Total strong {
+  text-align: right;
+  min-width: 3rem;
+}
+.Cart-empty {
+  text-align: center;
+}

@@ -1,3 +1,4 @@
+import lang from 'lang.json';
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -32,4 +33,50 @@ export function codeGenerator(start = 0) {
  */
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
+}
+
+/**
+ * Получение списка пагинации
+ * @param currPage {Number}
+ * @param totalPages {Number}
+ * @returns {Array}
+ */
+export function paginationList(currPage, totalPages, step=1,space="..."){
+  const first = 1;
+
+  const pagination = [first];
+  if (totalPages > first) {
+    let prev = currPage - step;
+    let next = currPage + step;
+
+    if (prev < first) {
+      prev += step;
+      next += step;
+    }
+    if (next > totalPages) {
+      prev -= step;
+      next -= step;
+    }
+    if (prev > first + 1) pagination.push(space);
+    const start = Math.max(first, prev);
+    const end = Math.min(totalPages, next);
+
+    for (let p = start; p <= end; p++) {
+      if (!pagination.includes(p)) pagination.push(p);
+    }
+    if (next < totalPages - 1) pagination.push(space);
+    if (!pagination.includes(totalPages)) pagination.push(totalPages);
+  }
+  return pagination;
+}
+
+export function translate(path, curr="en"){
+  const paths=path.split(".");
+  let obj=lang[curr];
+  
+  for (let i=0 ; i<paths.length;i++){
+    if (obj[paths[i]]) obj=obj[paths[i]]
+  }
+
+  return obj
 }

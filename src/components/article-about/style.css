@@ -1,0 +1,8 @@
+.Article {
+  padding: 0px 40px;
+}
+.Article-price {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+}
