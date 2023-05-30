@@ -12,10 +12,10 @@ function Product() {
 
     const store = useStore();
     const {id} = useParams();
-
+    
     useEffect(() => {
         store.actions.product.load(id);
-    }),[id];
+    },[id]);
 
     const select = useSelector(state => ({
         item: state.product.item,

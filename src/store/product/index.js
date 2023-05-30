@@ -18,7 +18,7 @@ class Product extends StoreModule {
         this.setState({
             ...this.getState(),
             item: json.result
-        }, 'Загружен товар с id ' + id);
+        }, 'Загружена информация о товаре с id ' + id);
     }
 }
 
