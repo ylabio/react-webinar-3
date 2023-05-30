@@ -3,38 +3,55 @@ import ItemBasket from "../../components/item-basket";
 import List from "../../components/list";
 import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
+import useSelector from "../../store/hooks/use-selector";
+import {capitalizeFirstLetter} from "../../utils";
+import useLanguage from "../../store/hooks/use-language";
+import useModal from "../../store/hooks/use-modal";
+import useBasket from "../../store/hooks/use-basket";
+import useProduct from "../../store/hooks/use-product";
 
 function Basket() {
-
-  const store = useStore();
+  const [words,language] = useLanguage()
+  const {closeModal} = useModal('basket')
+  const [basket, callBasket] = useBasket()
+  const [product, callProduct] = useProduct()
 
   const select = useSelector(state => ({
     list: state.basket.list,
-    amount: state.basket.amount,
     sum: state.basket.sum
   }));
 
+
   const callbacks = {
     // Удаление из корзины
-    removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
-    // Закрытие любой модалки
-    closeModal: useCallback(() => store.actions.modals.close(), [store]),
+    removeFromBasket: callBasket.removeFromBasket,
+    // Закрытие модального окна
+    closeModal: closeModal,
+    // Установка продукта без подгрузки с сервера
+    setItem: callProduct.setItem
   }
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
+      return <ItemBasket
+        item={item}
+        onRemove={callbacks.removeFromBasket}
+        onClose={callbacks.closeModal}
+        onSetItem={callbacks.setItem}
+        words={words}
+        language={language}
+        toItem={`/main/${item._id}`}
+      />
     }, [callbacks.removeFromBasket]),
   };
 
   return (
-    <ModalLayout title='Корзина' onClose={callbacks.closeModal}>
+    <ModalLayout title={capitalizeFirstLetter(words.basket.title)} onClose={callbacks.closeModal} words={words}>
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} words={words}/>
     </ModalLayout>
   );
 }
 
 export default memo(Basket);
+

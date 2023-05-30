@@ -1,26 +1,27 @@
-import {memo, useState} from "react";
+import {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
-import {numberFormat} from "../../utils";
+import {capitalizeFirstLetter, numberFormat} from "../../utils";
+import {Link} from "react-router-dom";
 import './style.css';
 
 function Item(props){
-
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(props.item._id)
+    onAdd: () => props.onAdd(props.item._id),
+    // Действие при нажатии на товар
+    onGoItem: () => props.onSetItem(props.item)
   }
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        {props.item.title}
+        <Link to={props.toItem}  onClick={callbacks.onGoItem}>{props.item.title}</Link>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{capitalizeFirstLetter(props.words.buttons.add)}</button>
       </div>
     </div>
   );
@@ -33,10 +34,14 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  onSetItem: PropTypes.func,
+  toItem:PropTypes.string.isRequired,
+  words:PropTypes.object.isRequired
 };
 
 Item.defaultProps = {
   onAdd: () => {},
+  onSetItem: () => {}
 }
 
 export default memo(Item);
