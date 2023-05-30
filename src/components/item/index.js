@@ -4,18 +4,20 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
 
+
 function Item(props){
 
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(props.item._id)
+    onAdd: (e) => props.onAdd(props.item._id),
+    navToPage: (e) => props.navToPage(props.item._id)
   }
 
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>
+      <div className={cn('title')} onClick={callbacks.navToPage} >
         {props.item.title}
       </div>
       <div className={cn('actions')}>
@@ -33,10 +35,12 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  navToPage: PropTypes.func,
 };
 
 Item.defaultProps = {
   onAdd: () => {},
+  navToPage: () => {}
 }
 
 export default memo(Item);

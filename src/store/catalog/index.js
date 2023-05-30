@@ -10,12 +10,31 @@ class Catalog extends StoreModule {
 
   initState() {
     return {
-      list: []
+      list: [],
+      limit: 0
     }
   }
 
-  async load() {
-    const response = await fetch('/api/v1/articles');
+  async getPage(id) {
+    const response = await fetch(`/api/v1/articles/${id}`);
+    const json = await response.json();
+    let elem = json.result;
+    this.setState({
+      ...this.getState(),
+      product: elem,
+   }, );
+  }
+  async getLimit() {
+    const res = await fetch(`/api/v1/articles?limit=1000&skip=1&fields=items(_id),count`);
+    const data = await res.json();
+    this.setState({
+      ...this.getState(),
+      limit: Math.ceil(data.result.items.length / 10)
+   }, );
+  }
+
+  async load(num) {
+    const response = await fetch(`/api/v1/articles?limit=10&skip=${num}&fields=items(_id, title, price)`);
     const json = await response.json();
     this.setState({
        ...this.getState(),
