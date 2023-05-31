@@ -1,10 +1,10 @@
-import {memo, useCallback, useMemo} from "react";
-import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
-import useTranslate from "../../hooks/use-translate";
+import { memo, useCallback, useMemo } from "react";
+import BasketTool from "../../components/basket/basket-tool";
+import SideLayout from "../../components/layouts/side-layout";
 import Menu from "../../components/menu";
-import BasketTool from "../../components/basket-tool";
-import SideLayout from "../../components/side-layout";
+import useSelector from "../../hooks/use-selector";
+import useStore from "../../hooks/use-store";
+import useTranslate from "../../hooks/use-translate";
 
 function Navigation() {
   const store = useStore();
