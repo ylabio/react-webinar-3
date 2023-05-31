@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import {numberFormat} from "../../utils";
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 import './style.css';
 import { Link } from "react-router-dom";
 
@@ -18,12 +19,14 @@ function ItemBasket(props) {
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <Link className={cn('link')} to={`/product/${props.item._id}`}>{props.item.title}</Link>
+        {props.link
+          ? <Link to={props.link} onClick={props.onLink}>{props.item.title}</Link>
+          : props.item.title}
       </div>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>Удалить</button></div>
+        <div className={cn('cell')}>{numberFormat(props.item.price)} {props.labelCurr}</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {props.labelUnit}</div>
+        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{props.labelDelete}</button></div>
       </div>
     </div>
   )
@@ -36,11 +39,19 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number
   }).isRequired,
-  onRemove: propTypes.func,
+  link: PropTypes.string,
+  onLink: PropTypes.func,
+  onRemove: PropTypes.func,
+  labelCurr: PropTypes.string,
+  labelDelete: PropTypes.string,
+  labelUnit: PropTypes.string,
 }
 
 ItemBasket.defaultProps = {
   onRemove: () => {},
+  labelCurr: '₽',
+  labelUnit: 'шт',
+  labelDelete: 'Удалить',
 }
 
 export default memo(ItemBasket);

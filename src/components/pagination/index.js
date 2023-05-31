@@ -1,53 +1,73 @@
-import React, {memo, setState} from 'react';
+import {memo} from 'react';
+import PropTypes from "prop-types";
+import {cn as bem} from '@bem-react/classname'
 import './style.css';
-import PropTypes from 'prop-types';
 
+function Pagination(props) {
 
-function Pagination({currentPage, setCurrentPage, totalPages}) {
-    const pages = [];
-    let counter = 0;
+  // Количество страниц
+  const length = Math.ceil(props.count / Math.max(props.limit, 1));
 
-    if (currentPage === 1 || currentPage === 2) {
-        pages.push(1, 2, 3, '...', totalPages);
-    } else if (currentPage === 3) {
-        pages.push(1, 2, 3, 4, '...', totalPages);
-    } else if (currentPage === totalPages || currentPage === totalPages - 1) {
-        pages.push(1, '...', totalPages - 2, totalPages - 1, totalPages);
-    } else if (currentPage === totalPages - 2) {
-        pages.push(1, '...', totalPages - 3, totalPages - 2, totalPages - 1, totalPages)
-    } else {
-        pages.push(1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages);
-    } 
+  // Номера слева и справа относительно активного номера, которые остаются видимыми
+  let left = Math.max(props.page - props.indent, 1);
+  let right = Math.min(left + props.indent * 2, length);
+  // Корректировка когда страница в конце
+  left = Math.max(right - props.indent * 2, 1);
 
-    function uniqMaker(page) {
-        counter++;
-        return counter + page;
+  // Массив номеров, чтобы удобней рендерить
+  let items = [];
+  // Первая страница всегда нужна
+  if (left > 1) items.push(1);
+  // Пропуск
+  if (left > 2) items.push(null);
+  // Последовательность страниц
+  for (let page = left; page <= right; page++) items.push(page);
+  // Пропуск
+  if (right < length - 1) items.push(null);
+  // Последняя страница
+  if (right < length) items.push(length);
+
+  const onClickHandler = (number) => (e) => {
+    if (props.onChange) {
+      e.preventDefault();
+      props.onChange(number);
     }
+  }
 
-    const listItems = pages.map((page) => 
-    (page === currentPage) ?
-    (<li key={page}><a className='Pagination-current' href='#'  onClick={() => setCurrentPage(page)}>{page}</a></li>) :
-    (page !== '...') ? 
-        (<li key={page}><a className='Pagination-simple' href='#'  onClick={() => setCurrentPage(page)}>{page}</a></li>) :
-        (<li key={uniqMaker(page)}><div className='Pagination-simple'>{page}</div></li>)
-    );
-
-    return (
-        <div className='Pagination'>
-            <ul className='Pagination-list'>{listItems}</ul>
-        </div>
-    );
-    
+  const cn = bem('Pagination');
+  return (
+    <ul className={cn()}>
+      {items.map((number, index) => (
+        <li key={index}
+            className={cn('item', {active: number === props.page, split: !number})}
+            onClick={onClickHandler(number)}>
+          {number
+            ? (props.makeLink
+                ? <a href={props.makeLink(number)}>{number}</a>
+                : number
+            )
+            : '...'
+          }
+        </li>
+      ))}
+    </ul>
+  )
 }
 
 Pagination.propTypes = {
-    currentPage: PropTypes.number,
-    setCurrentPage: () => {},
-    // totalPages: PropTypes.number
+  page: PropTypes.number,
+  limit: PropTypes.number,
+  count: PropTypes.number,
+  indent: PropTypes.number,
+  onChange: PropTypes.func,
+  makeLink: PropTypes.func,
 }
 
 Pagination.defaultProps = {
-	setCurrentPage: () => {},
+  page: 1,
+  limit: 10,
+  count: 1000,
+  indent: 1,
 }
 
 export default memo(Pagination);

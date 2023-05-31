@@ -15,14 +15,14 @@
   padding: 20px 10px;
 }
 
-.ItemBasket-link {
+.ItemBasket-title a{
+  color: #000;
   text-decoration: none;
-  color: #000000;
 }
 
-.ItemBasket-link:hover {
+.ItemBasket-title a:hover{
+  color: #000;
   text-decoration: underline;
-  cursor: pointer;
 }
 
 .ItemBasket-right {
