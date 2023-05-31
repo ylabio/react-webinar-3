@@ -33,3 +33,59 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Вывод массива страниц пагинации
+ * @param page {Number}
+ * @param lastPage {Number}
+ * @returns {Array}
+ */
+export function pageResultNumber(page, lastPage) {
+  const pagesList = [];
+  if (page === 1) {
+    pagesList.push(page + 1)
+    pagesList.push(page + 2)
+    pagesList.push('...')
+    return pagesList
+  }
+  if (page === 2) {
+    pagesList.push(page)
+    pagesList.push(page + 1)
+    pagesList.push('...')
+    return pagesList
+  }
+  if (page === 3) {
+    pagesList.push(page - 1)
+    pagesList.push(page)
+    pagesList.push(page + 1)
+    pagesList.push('...')
+    return pagesList
+  }
+  if (page > 3 && page < lastPage && page < lastPage - 1  && page < lastPage - 2) {
+    pagesList.push('...')
+    pagesList.push(page - 1)
+    pagesList.push(page)
+    pagesList.push(page + 1)
+    pagesList.push('...')
+    return pagesList
+  }
+  if (page === lastPage) {
+    pagesList.push('...')
+    pagesList.push(page - 2)
+    pagesList.push(page - 1)
+    return pagesList
+  }
+  if (page === lastPage - 1) {
+    pagesList.push('...')
+    pagesList.push(page - 1)
+    pagesList.push(page)
+    return pagesList
+  }
+  if (page === lastPage - 2) {
+    pagesList.push('...')
+    pagesList.push(page - 1)
+    pagesList.push(page)
+    pagesList.push(page + 1)
+    return pagesList
+  }
+}

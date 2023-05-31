@@ -6,6 +6,7 @@ import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import Pagination from '../../components/pagination';
 
 function Main() {
 
@@ -17,6 +18,8 @@ function Main() {
 
   const select = useSelector(state => ({
     list: state.catalog.list,
+    page: state.catalog.page,
+    lastPage: state.catalog.lastPage,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -26,6 +29,8 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Переключение страницы
+    handleClickPage: useCallback((numberPage) => store.actions.catalog.handleClickPage(numberPage), [store])
   }
 
   const renders = {
@@ -36,12 +41,11 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
-      <List list={select.list} renderItem={renders.item}/>
+        <Head title='Магазин'/>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+        <List list={select.list} renderItem={renders.item}/>
+        <Pagination page={select.page} lastPage={select.lastPage} handleClickPage={callbacks.handleClickPage}/>
     </PageLayout>
-
   );
 }
 
