@@ -18,7 +18,12 @@ const InfoCard = () => {
   }));
 
   useEffect(() => {
-    store.actions.card.loadingCard(id);
+    if (id) {
+      store.actions.catalog.load();
+      store.actions.card.loadingCard(id);
+    } else {
+      store.actions.card.loadingCard(id);
+    }
   }, []);
 
   const callbacks = {

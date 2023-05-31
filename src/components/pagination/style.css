@@ -1,15 +1,20 @@
 .Pagination {
     display: flex;
     justify-content: flex-end;
-    align-items: center;
-    gap: 2px;
+    align-items: flex-end;
+    text-align: end;
     margin: 23px 22px 0 0;
+    padding-bottom: 12px;
 }
 .Pagination-number {
-    text-align: center;
+    display: flex;
+    align-items:flex-end;
+    justify-content: center;
     cursor: pointer;
+    padding: 1px 2px;
     min-width: 18px;
     font-weight: 400;
+    line-height: 18px;
     font-size: 16px;    
 }
 .Pagination-number:hover {
@@ -17,11 +22,18 @@
 }
 .Pagination-text {
     color: #cccccc;
+    text-align: center;
+    width: 20px;
+    padding: 0 px 0 0px;
 }
 .Pagination-active {
-    text-align: center;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
     cursor: pointer;
+    padding: 1px 2px;
     min-width: 18px;
+    line-height: 18px;
     font-weight: 400;
     font-size: 16px;
     color: #FFFFFF;

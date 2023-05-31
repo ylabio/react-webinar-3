@@ -16,7 +16,7 @@ function Pagination({page, lastPage, handleClickPage}) {
         <div className={1 === page ? cn('active') : cn('number')} onClick={() => handleClickPage(1)}>1</div>
       ) : ''}
       {pageNumbersList.map((item, index) => (
-        item === '...' ? <div className={cn('text')} key={index}>...</div> : <div className={item === page ? cn('active') : cn('number')} key={index} onClick={() => handleClickPage(item)}>{item}</div>
+        item === '...' ? <div className={cn('text')} key={index}>... </div> : <div className={item === page ? cn('active') : cn('number')} key={index} onClick={() => handleClickPage(item)}>{item}</div>
       ))}
       <div className={lastPage === page ? cn('active') : cn('number')} onClick={() => handleClickPage(lastPage)}>{lastPage}</div>
     </div>
