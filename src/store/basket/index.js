@@ -11,10 +11,23 @@ class Basket extends StoreModule {
   }
 
   /**
+   * Async
+   * fetch product by ID
+   * @param _id product ID
+   * @returns {Object} product 
+   */
+  async loadById(_id) {
+    const endpoint = `/api/v1/articles/${_id}`;
+    // do we need some error handling here?
+    const json = await fetch(endpoint).then(res => res.json());
+    return json.result;
+  }
+
+  /**
    * Добавление товара в корзину
    * @param _id Код товара
    */
-  addToBasket(_id) {
+  async addToBasket(_id) {
     let sum = 0;
     // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
@@ -30,9 +43,14 @@ class Basket extends StoreModule {
 
     if (!exist) {
       // Поиск товара в каталоге, чтобы его добавить в корзину.
+      // API call to get fetch product by ID
+      const item = await this.loadById(_id);
+
       // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      const item = this.store.getState().catalog.list.find(item => item._id === _id);
+      // const item = this.store.getState().catalog.list.find(item => item._id === _id);
+
       list.push({...item, amount: 1}); // list уже новый, в него можно пушить.
+      
       // Добавляем к сумме.
       sum += item.price;
     }

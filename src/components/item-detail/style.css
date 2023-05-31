@@ -1,0 +1,10 @@
+.Detail {
+  padding-inline: 40px;
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+.Detail-price {
+  font-size: 1.5rem;
+  font-weight: 700;
+}

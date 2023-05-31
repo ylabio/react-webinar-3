@@ -1,10 +1,12 @@
-import {memo, useState} from "react";
+import {memo} from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
 
-function Item(props){
+function Item(props) {
+  const gp = props.getPhrase;
 
   const cn = bem('Item');
 
@@ -16,17 +18,20 @@ function Item(props){
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        {props.item.title}
+        <Link to={ `/product/${props.item._id}` } className={cn('link')}>
+          {props.item.title}
+        </Link>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{ gp('general', 'addButton', 'Add') }</button>
       </div>
     </div>
   );
 }
 
 Item.propTypes = {
+  getPhrase: PropTypes.func.isRequired,
   item: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,

@@ -1,0 +1,74 @@
+{
+  "en": {
+    "general": {
+      "shopTitle": "Shop",
+      "addButton": "Add",
+      "mainPage": "Main Page",
+      "showCart": "Show Cart"
+    },
+    "cart": {
+      "title": "Cart",
+      "empty": "empty",
+      "close": "Close Cart",
+      "remove": "Remove",
+      "total": "Total",
+      "pcs": "pcs",
+      "item": ["product", "products", "products"]
+    },    
+    "detail": {
+      "desc": "Description",
+      "origin": "Country of origin",
+      "category": "Category",
+      "issue": "Year of issue",
+      "price": "Price"
+    }
+  },
+  "ge": {
+    "general": {
+      "shopTitle": "მაგაზინი",
+      "addButton": "დამატება",
+      "mainPage": "მთავალი",
+      "showCart": "კალათი"
+    },
+    "cart": {
+      "title": "კალათი",
+      "empty": "ცარიელი",
+      "close": "დახურვა",
+      "remove": "ამოღება",
+      "total": "სულ",
+      "pcs": "ცალი",
+      "item": ["პროდუქტი", "პროდუქტები", "პროდუქტები"]
+    },    
+    "detail": {
+      "desc": "აღწერილობა",
+      "origin": "წარმოშობის ქვეყანა",
+      "category": "კატეგორია",
+      "issue": "წელი",
+      "price": "ფასი"
+    }
+  },
+  "ru": {
+    "general": {
+      "shopTitle": "Магазин",
+      "addButton": "Добавить",
+      "mainPage": "Главная",
+      "showCart": "Показать"
+    },
+    "cart": {
+      "title": "Корзина",
+      "empty": "пусто",
+      "close": "Закрыть",
+      "remove": "Удалить",
+      "total": "Итого",
+      "pcs": "шт",
+      "item": ["товар", "товара", "товаров"]
+    },    
+    "detail": {
+      "desc": "Описание",
+      "origin": "Страна происхождения",
+      "category": "Категория",
+      "issue": "Год выпуска",
+      "price": "Цена"
+    }
+  }
+}

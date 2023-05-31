@@ -1,0 +1,36 @@
+.Pagination {
+  padding: 20px 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Pagination-selector {
+  text-align: center;
+  font-size: 1rem;
+  padding: 1px 5px;
+  color: black;
+  text-decoration: none;
+}
+
+.Pagination-selector:is(:focus, :active, :visited) {
+  color: inherit !important;
+  text-decoration: inherit !important;
+}
+
+
+.Pagination-selector:hover {
+  background-color: #E1E1E1;
+}
+
+.Pagination-selector--selected {
+  text-align: center;
+  font-size: 1rem;
+  padding: 1px 5px;
+  color: white;
+  background-color: #0087E9;
+}
+
+.Pagination-spacer {  
+  margin-inline: 2px;
+  color: #ccc;
+}

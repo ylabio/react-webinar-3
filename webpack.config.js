@@ -18,6 +18,9 @@ let config = {
   },
   module: {
     rules: [
+      { test: /\.(svg|ico|png|webp|jpg|gif|jpeg)$/, 
+        type: "asset/resource"
+      },
       // Транспиляция JS/JSX
       {
         test: /\.jsx?$/,

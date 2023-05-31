@@ -5,6 +5,11 @@
   padding-left: 10px
 }
 
+.Item button {
+  min-width: 70px;
+  text-align: center;
+}
+
 .Item_selected {
   background: #75aaf1;
   color: #fff;
@@ -15,8 +20,24 @@
 }
 
 .Item-title {
+  
   width: 100%;
   padding: 20px 10px;
+  
+}
+
+.Item-link {
+  color: black;
+  text-decoration: none;
+}
+
+.Item-link:hover {
+  text-decoration: underline;
+}
+
+.Item-link:is(:focus, :active, :visited) {
+  color: inherit !important;
+  text-decoration: none;
 }
 
 .Item-actions {
