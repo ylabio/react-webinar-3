@@ -1,10 +1,11 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback } from 'react';
 import { useParams } from "react-router-dom";
 import ArticleCard from "../../components/article-card";
 import Head from "../../components/head";
 import PageLayout from "../../components/layouts/page-layout";
 import Spinner from "../../components/spinner";
 import LocaleSelect from "../../containers/locale-select";
+import LoginBar from '../../containers/login-bar';
 import Navigation from "../../containers/navigation";
 import useInit from "../../hooks/use-init";
 import useSelector from "../../hooks/use-selector";
@@ -35,6 +36,7 @@ function Article() {
 
   return (
     <PageLayout>
+      <LoginBar />
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>

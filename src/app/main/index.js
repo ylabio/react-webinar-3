@@ -4,6 +4,7 @@ import PageLayout from "../../components/layouts/page-layout";
 import CatalogFilter from "../../containers/catalog/catalog-filter";
 import CatalogList from "../../containers/catalog/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import LoginBar from '../../containers/login-bar';
 import Navigation from "../../containers/navigation";
 import useInit from "../../hooks/use-init";
 import useStore from "../../hooks/use-store";
@@ -17,16 +18,17 @@ function Main() {
     store.actions.catalog.initParams();
   }, [], true);
 
-  const {t} = useTranslate();
+  const { t } = useTranslate();
 
   return (
     <PageLayout>
+      <LoginBar />
       <Head title={t('title')}>
-        <LocaleSelect/>
+        <LocaleSelect />
       </Head>
       <Navigation />
-      <CatalogFilter/>
-      <CatalogList/>
+      <CatalogFilter />
+      <CatalogList />
     </PageLayout>
   );
 }
