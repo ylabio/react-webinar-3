@@ -1,0 +1,11 @@
+.AuthStub {
+    display: flex;
+    gap: 20px;
+    /*width: 100%;*/
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    min-height: 41px;
+    font-size: 28px;
+    font-weight: 700;
+}

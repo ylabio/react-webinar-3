@@ -33,3 +33,13 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+const AUTH_TOKEN_LS_KEY = 'AUTH_TOKEN_LS_KEY';
+
+export function saveAuthToken(token) {
+  localStorage.setItem(AUTH_TOKEN_LS_KEY, token);
+}
+
+export function getAuthToken() {
+  return localStorage.getItem(AUTH_TOKEN_LS_KEY);
+}

@@ -50,8 +50,6 @@ function CatalogFilter() {
     ]), [select.categoryList])
   };
 
-  console.log(categoryOptions);
-
   const {t} = useTranslate();
 
   return (
