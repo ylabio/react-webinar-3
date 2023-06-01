@@ -14,7 +14,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     categories: state.catalog.categories,
-    category: state.catalog.category,
+    category: state.catalog.params.category,
   }));
 
   const callbacks = {
@@ -47,7 +47,7 @@ function CatalogFilter() {
       []
     ),
     categories: useMemo(() => {
-      const categ = [{ title: "Все", value: "all" }];
+      const categ = [{ title: "Все", value: "" }];
       return categ.concat(
         ...createCategoryTree(select.categories).map((el) => ({
           title: el.prefix + el.title,

@@ -96,7 +96,7 @@ class CatalogState extends StoreModule {
     };
 
     if (params.category) {
-      apiParams.category = params.category;
+      apiParams["search[category]"] = params.category;
     }
 
     const response = await fetch(

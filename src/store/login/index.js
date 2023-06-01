@@ -59,7 +59,9 @@ class LoginState extends StoreModule {
       this.setUser({ token, user });
     }
   }
-  signOut() {
+  async signOut() {
+		const token = localStorage.getItem('token')
+		await this.fetch("sign", {method: 'DELETE', headers: {'X-Token': token}});
     window.localStorage.removeItem("token");
     location.replace("/");
   }
