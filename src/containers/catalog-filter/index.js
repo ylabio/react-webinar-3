@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect, useMemo} from "react";
+import {memo, useCallback, useMemo} from "react";
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -39,9 +39,10 @@ function CatalogFilter() {
       {value: 'edition', title: 'Древние'},
     ]), []),
     categories: useMemo(() => ([
-      {title: t('filter.all')},
+      {value: '', title: t('filter.all')},
       ...stackParents(select.categoriesList).map(category => ({
-        title: category.prefix ?  category.prefix + category.title : category.title
+        title: category.prefix ?  category.prefix + category.title : category.title,
+        value: category._id
       }))
     ]), [select.categoriesList, t])
   };

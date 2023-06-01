@@ -11,7 +11,7 @@ function Select(props) {
   return (
     <select className="Select" value={props.value} onChange={onSelect}>
       {props.options.map(item => (
-        <option key={item.value ? item.value : `key-${item.title}`} value={item.value}>{item.title}</option>
+        <option key={item.value} value={item.value}>{item.title}</option>
       ))}
     </select>
   )
@@ -20,7 +20,8 @@ function Select(props) {
 Select.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    title: PropTypes.string
+    title: PropTypes.string,
+    id: PropTypes.string
   })).isRequired,
   value: PropTypes.any,
   onChange: PropTypes.func
