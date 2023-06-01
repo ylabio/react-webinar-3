@@ -5,6 +5,7 @@ import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
+import Spinner from "../../components/spinner";
 
 function CatalogFilter() {
 
@@ -15,7 +16,7 @@ function CatalogFilter() {
     query: state.catalog.params.query,
     category: state.catalog.params.category,
     categoryList: state.catalog.categoryList,
-
+    categoryListWaiting: state.catalog.categoryListWaiting,
   }));
 
   const callbacks = {
@@ -43,7 +44,7 @@ function CatalogFilter() {
       {title: 'Все', value: ''},
       ...select.categoryList.map(
         category => ({
-          title: `${Array(category.level).fill('-').join('')} ${category.title}`, value: category._id
+          title: `${Array(category.level).fill('-').join(' ')} ${category.title}`, value: category._id
         })
       )
     ]), [select.categoryList])
@@ -55,7 +56,9 @@ function CatalogFilter() {
 
   return (
     <SideLayout padding='medium'>
-      <Select options={categoryOptions.option} value={select.category} onChange={callbacks.onChangeCategory}/>
+      <Spinner active={select.categoryListWaiting}>
+        <Select options={categoryOptions.option} value={select.category} onChange={callbacks.onChangeCategory}/>
+      </Spinner>
       <Select options={sortOptions.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>
