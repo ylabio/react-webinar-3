@@ -15,6 +15,8 @@ function Main() {
 
   useInit(() => {
     store.actions.catalog.initParams();
+    //категории грузим при инициализации, и без ожидания разрешения промиса
+    store.actions.catalog.categoryListLoad();
   }, [], true);
 
   const {t} = useTranslate();

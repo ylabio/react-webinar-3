@@ -1,4 +1,5 @@
 import StoreModule from "../module";
+import {categoryListDataTransform} from "./dataTransform";
 
 /**
  * Состояние каталога - параметры фильтра исписок товара
@@ -16,11 +17,32 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category: '',
       },
       count: 0,
-      waiting: false
+      waiting: false,
+      //для фильтра по категориям
+      categoryList: [],
+      categoryListWaiting: false,
     }
+  }
+
+  async categoryListLoad() {
+    this.setState({
+      ...this.getState(),
+      categoryListWaiting: true,
+    });
+    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
+    const json = await response.json();
+
+    const categoryList = categoryListDataTransform(json.result.items);
+
+    this.setState({
+      ...this.getState(),
+      categoryListWaiting: false,
+      categoryList
+    }, 'Загрузили категории из АПИ');
   }
 
   /**
@@ -30,13 +52,18 @@ class CatalogState extends StoreModule {
    * @return {Promise<void>}
    */
   async initParams(newParams = {}) {
+
+
     const urlParams = new URLSearchParams(window.location.search);
     let validParams = {};
     if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
+
+
   }
 
   /**
@@ -76,12 +103,16 @@ class CatalogState extends StoreModule {
       window.history.pushState({}, '', url);
     }
 
+    //это в общем потому, что если я отправляю пустую категорию, то мне пустой каталог высылает
+    const categoryParam = params.category === '' ? {} : {'search[category]': params.category};
+
     const apiParams = {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
-      'search[query]': params.query
+      'search[query]': params.query,
+      ...categoryParam
     };
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
