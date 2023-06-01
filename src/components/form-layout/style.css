@@ -1,0 +1,17 @@
+
+.FormLayout {
+	padding: 20px;
+	width: 200px;
+	align-items: flex-start;
+}
+
+.FormLayout > * {
+	margin-top: 20px;
+}
+
+label {
+	display: block;
+}
+input {
+	padding: 2px;
+}

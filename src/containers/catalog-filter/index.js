@@ -31,7 +31,7 @@ function CatalogFilter() {
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
     onCategory: useCallback(
-      (category) => store.actions.catalog.setParams({ category }),
+      (category) => store.actions.catalog.setParams({ category, page: 1 }),
       [store]
     ),
   };
@@ -46,14 +46,15 @@ function CatalogFilter() {
       ],
       []
     ),
-    categories: useMemo(
-      () =>
-        createCategoryTree(select.categories).map((el) => ({
+    categories: useMemo(() => {
+      const categ = [{ title: "Все", value: "all" }];
+      return categ.concat(
+        ...createCategoryTree(select.categories).map((el) => ({
           title: el.prefix + el.title,
-          value: el.name,
-        })),
-      [select.categories]
-    ),
+          value: el._id,
+        }))
+      );
+    }, [select.categories]),
   };
 
   const { t } = useTranslate();

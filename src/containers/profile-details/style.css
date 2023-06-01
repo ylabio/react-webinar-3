@@ -1,0 +1,16 @@
+
+.ProfileDetails {
+	padding: 0 20px;
+}
+
+.ProfileDetails h3 {
+	margin-bottom: 30px;
+}
+
+.ProfileDetails > * {
+	margin-top: 20px;
+}
+
+.ProfileDetails > p > span::after {
+	content: ': ';
+}

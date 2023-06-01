@@ -8,6 +8,10 @@
   align-items: center;
 }
 
+.SideLayout_gap_medium {
+	gap: 0 20px;
+}
+
 .SideLayout_side_start {
   justify-content: flex-start;
 }

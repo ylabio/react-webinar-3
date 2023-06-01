@@ -46,7 +46,6 @@ export const createCategoryTree = (items = []) => {
     } else {
       firstLineKeys.push(el._key);
     }
-
     cache.set(el._key, { ...el, children: [] });
   }
 
@@ -54,49 +53,14 @@ export const createCategoryTree = (items = []) => {
   const createLineTree = (key, combinedKey, deep) => {
     const item = cache.get(key);
     res.push({ ...item, combinedKey, prefix: "-".repeat(deep) });
-    const children = item.children.map((childKey) =>
-      createLineTree(childKey, String(combinedKey) + String(childKey), deep + 1)
-    );
-    // return { ...item, children };
+    for (let childKey of item.children) {
+      createLineTree(childKey, `${combinedKey}${childKey}`, deep + 1);
+    }
   };
-  // const createLineTree = (key, deep = 0) => {
-  //   const item = cache.get(key);
-  //   const children = item.children.map((childKey) =>
-  //     createLineTree(childKey, deep + 1)
-  //   );
-  //   return { ...item, children, prefix: "-".repeat(deep) };
-  // };
-
-  // const revertItems = (item) => {
-  //   if (item.children?.length) {
-  //     for (let i of item.children) {
-  //       revertItems(i);
-  //     }
-  //   }
-  //   res.push(item);
-  // };
-  // const result = Array.from(firstLineKeys).map((key) => {
-  //   createLineTree(key, key, 0);
-  // });
 
   Array.from(firstLineKeys).map((key) => {
     createLineTree(key, key, 0);
   });
 
-  const resSorted = res.sort((a, b) =>
-    a.combinedKey.localeCompare(b.combinedKey)
-  );
-
-  console.log("resSorted", resSorted);
-
-  return resSorted;
+  return res.sort((a, b) => a.combinedKey.localeCompare(b.combinedKey));
 };
-
-// const formatTree = (tree) => {
-
-// 	const res = []
-// 	let prevItem = tree[0]
-// 	while (true) {
-// 		const item =
-// 	}
-// }
