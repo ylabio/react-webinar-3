@@ -35,92 +35,51 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
 }
 
 export function filterCategory(data) {
-  const childMap = data.reduce((map, child) => {
-    return {
-      ...map,
-      [child._id]: {
-        ...child,
-      },
-    };
-  }, {});
+  const arrayCategories = data.map((item) => {
+    if (item.parent) {
+      return {...item, children: []};
+    } else {
+      return {...item, children: []};
+    }
+  });
 
-  let arr = [
-    {
-      _id: '6477698510d1060c910cbb59',
-      title: 'Электроника',
-      dash: '',
-      parent: null,
-    },
-    {
-      _id: '6477698510d1060c910cbb5a',
-      title: 'Телефоны',
-      dash: '-',
-      parent: {
-        _id: '6477698510d1060c910cbb59',
-      },
-    },
-    {
-      _id: '6477698510d1060c910cbb61',
-      title: 'Смартфоны',
-      dash: '- -',
-      parent: {
-        _id: '6477698510d1060c910cbb5a',
-      },
-    },
-    {
-      _id: '6477698510d1060c910cbb62',
-      title: 'Аксессуары',
-      dash: '- -',
-      parent: {
-        _id: '6477698510d1060c910cbb5a',
-      },
-    },
-    {
-      _id: '6477698510d1060c910cbb5b',
-      title: 'Ноутбуки',
-      dash: '-',
-      parent: {
-        _id: '6477698510d1060c910cbb59',
-      },
-    },
-    {
-      _id: '6477698510d1060c910cbb5c',
-      title: 'Телевизоры',
-      dash: '-',
-      parent: {
-        _id: '6477698510d1060c910cbb59',
-      },
-    },
-    {
-      _id: '6477698510d1060c910cbb5d',
-      title: 'Книги',
-      dash: '',
-      parent: null,
-    },
-    {
-      _id: '6477698510d1060c910cbb5e',
-      title: 'Учебники',
-      dash: '-',
-      parent: {
-        _id: '6477698510d1060c910cbb5d',
-      },
-    },
-    {
-      _id: '6477698510d1060c910cbb5f',
-      title: 'Художественная',
-      dash: '-',
-      parent: {
-        _id: '6477698510d1060c910cbb5d',
-      },
-    },
-    {
-      _id: '6477698510d1060c910cbb60',
-      title: 'Комиксы',
-      dash: '-',
-      parent: {
-        _id: '6477698510d1060c910cbb5d',
-      },
-    },
-  ];
-  return arr;
+  for (let i = 0; i < arrayCategories.length; i++) {
+    let uniqueId = arrayCategories[i]._id;
+    for (let x = 0; x < arrayCategories.length; x++) {
+      if (arrayCategories[x].parent) {
+        let nameId = arrayCategories[x].parent._id;
+        if (uniqueId == nameId) {
+          arrayCategories[i].children.push(arrayCategories[x]);
+        }
+      }
+    }
+  }
+
+  const arrClear = (items) => {
+    let result = [];
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].parent === null) {
+        result.push(items[i]);
+      }
+    }
+
+    return result;
+  };
+  let arrFilterCategory = arrClear(arrayCategories);
+
+  const flattenTree = (arr, result, dash) => {
+    for (let i = 0; i < arr.length; i++) {
+      result.push({...arr[i], dash});
+
+      if (arr[i].children.length) {
+        flattenTree(arr[i].children, result, dash + '-');
+      }
+    }
+  };
+
+  let result = [];
+
+  flattenTree(arrFilterCategory, result, '');
+
+  return result;
 }
