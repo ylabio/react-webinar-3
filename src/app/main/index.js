@@ -1,4 +1,4 @@
-import {memo} from 'react';
+import {memo} from "react";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -10,23 +10,30 @@ import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
 
 function Main() {
+  // на выходных буду делать, не ругайте пожалуйста)
+  // я уже устроилась на работу, на стажировку не претендую
+  // но очень интересные лекции ʕ•́ᴥ•̀ʔっ♡
 
   const store = useStore();
 
-  useInit(() => {
-    store.actions.catalog.initParams();
-  }, [], true);
+  useInit(
+    () => {
+      store.actions.catalog.initParams();
+    },
+    [],
+    true
+  );
 
   const {t} = useTranslate();
 
   return (
     <PageLayout>
-      <Head title={t('title')}>
-        <LocaleSelect/>
+      <Head title={t("title")}>
+        <LocaleSelect />
       </Head>
       <Navigation />
-      <CatalogFilter/>
-      <CatalogList/>
+      <CatalogFilter />
+      <CatalogList />
     </PageLayout>
   );
 }
