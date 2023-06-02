@@ -5,7 +5,6 @@ import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
-import {getCategories} from "../../utils";
 
 function CatalogFilter() {
 
@@ -14,15 +13,11 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    categories: state.catalog.categories,
-    category: state.catalog.params.category
   }));
 
   const callbacks = {
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
-    // По категориям
-    onCategories: useCallback(categories => store.actions.catalog.setParams({categories}), [store]), 
     // Поиск
     onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
     // Сброс
@@ -38,18 +33,10 @@ function CatalogFilter() {
     ]), [])
   };
 
-  // const newArray = JSON.parse(JSON.stringify(select.categories));
-  const categories = JSON.parse(JSON.stringify(select.categories));;
-  let arr = getCategories(categories);
-  console.log(arr);
-
-
-
   const {t} = useTranslate();
 
   return (
     <SideLayout padding='medium'>
-      {/* <Select options={newArray} value={select.categories} onChange={callbacks.onCategories}/> */}
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>
