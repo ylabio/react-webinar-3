@@ -66,7 +66,8 @@ class LoginState extends StoreModule {
     }
 
     // костыль, чтоб както передать параметры в модель юзера
-    this.store.actions.user.setUserData(json.result.fields, json.result.token);
+    this.store.actions.profile.setUserData(json.result.user);
+    this.store.actions.user.setToken(json.result.token);
 
     this.setState({
       login: '',

@@ -5,4 +5,5 @@ export { default as categories } from './categories';
 export { default as locale } from './locale';
 export { default as login } from './login';
 export { default as modals } from './modals';
+export { default as profile } from './profile';
 export { default as user } from './user';

@@ -7,29 +7,10 @@ class UserState extends StoreModule {
 
   initState() {
     return {
-      misc: {}, // заглушка для всякой статистической ерунды (клики, просмотры, лайки)
-      fields: null, // поля юзера от апи
       token: localStorage.getItem('token'),
       error: null,
       waiting: false
     };
-  }
-
-  setUserData(fields, token) {
-    //console.log('setUserData: fields:', fields);
-    localStorage.setItem('token', token);
-    this.setState({
-      ...this.getState(),
-      fields,
-      token
-    }, 'Поля и токен пользователя установлены.');
-  }
-
-  setMiscData(misc) {
-    this.setState({
-      ...this.getState(),
-      misc,
-    }, 'Прочие данные пользователя обновлены.');
   }
 
   async load() {
@@ -60,10 +41,11 @@ class UserState extends StoreModule {
       return;
     }
 
+    this.store.actions.profile.setUserData(json.result);
+
     this.setState({
       ...this.getState(),
       waiting: false,
-      fields: json.result
     }, 'Данные пользователя загружены.');
   }
 
@@ -76,11 +58,20 @@ class UserState extends StoreModule {
 
     localStorage.removeItem('token');
 
+    this.store.actions.profile.setUserData(null);
+
     this.setState({
       ...this.getState(),
-      fields: null,
       token: null
     }, 'Выход выполнен.');
+  }
+
+  setToken(token) {
+    localStorage.setItem('token', token);
+    this.setState({
+      ...this.getState(),
+      token
+    }, 'Сохранение новного токена.');
   }
 
   resetError() {

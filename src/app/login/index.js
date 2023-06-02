@@ -24,7 +24,7 @@ function Login() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    fields: state.user.fields,
+    fields: state.profile.fields,
     waiting: state.login.waiting,
     error: state.login.error
   }));

@@ -13,11 +13,11 @@ export default function useUser(options = { orRedirectTo: '/login' }) {
   const location = useLocation();
 
   const select = useSelector(state => ({
-    fields: state.user.fields,
     token: state.user.token,
     waiting: state.user.waiting,
     error: state.user.error,
-    misc: state.user.misc
+    fields: state.profile.fields,
+    misc: state.profile.misc
   }));
 
   useEffect(() => {
