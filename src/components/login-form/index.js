@@ -8,8 +8,8 @@ import Spinner from "../spinner";
 function LoginForm(props) {
   const cn = bem('LoginForm');
 
-  const [login, setLogin] = useState('test_1');
-  const [password, setPassword] = useState('123456');
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
 
   const callback = {
     setLogin: useCallback(value => setLogin(value), []),
