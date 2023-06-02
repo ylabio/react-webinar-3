@@ -33,3 +33,48 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function getCategories(categories) {
+  let first = new Map();
+  let temp = [];
+  let result = [];
+  for (let i = 0; i < categories.length; i++) {
+    let element = categories[i];
+      if (element.parent === null) {
+        first.set(element._id);
+      } 
+  }
+  console.log(first.keys());
+  // for (let i = 0; i < categories.length; i++) {
+  //   let element = categories[i];
+  //   if (element.parent !== null) {
+  //     if (main.indexOf(element.parent._id) !== -1) {
+  //       second.set(element._id,[]);
+  //     } else {
+  //       temp.push[element];
+  //     }
+  //   }
+  // }
+  // return result;
+}
+
+// export function categoryFormatMaker(categories) {
+//   const categoriesNames = [];
+//   const mainParents = [];
+//   const secondParents = [];
+//   for (let category in categories) {
+//     if (category.parent === null) {
+//         categoriesNames.push(category.title);
+//         mainParents.push(category._id);
+//     } else {
+//         if (mainParents.find((i) => i === category.parents._id) != -1) {
+//           categoriesNames.push(category.title);
+//         }
+//     }
+    
+//     if (parents.find((i) => i === elem) != -1;)
+
+//   }
+
+
+// }
