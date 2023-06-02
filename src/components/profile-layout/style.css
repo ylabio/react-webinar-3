@@ -1,0 +1,23 @@
+.Profile {
+    margin-top: 20px;
+}
+
+.Profile-title {
+    font-size: 24px;
+    font-weight: 700;
+    padding: 0;
+    margin: 0;
+}
+
+.Profile p:nth-child(2) {
+    margin-top: 30px;
+}
+
+.Profile-elem {
+    font-size: 18px;
+    margin: 20px 0 0 0;
+}
+
+.Profile-bold {
+    font-weight: 700;
+}
