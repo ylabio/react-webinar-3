@@ -25,6 +25,9 @@ function App() {
       store.actions.getAuthorization.getAuthorization(token);
     }
   }, [token, select.data]);
+  useEffect(() => {
+    store.actions.catalog.setAllCategories();
+  }, []);
   return (
     <>
       <Routes>

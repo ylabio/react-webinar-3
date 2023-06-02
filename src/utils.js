@@ -33,3 +33,94 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function filterCategory(data) {
+  const childMap = data.reduce((map, child) => {
+    return {
+      ...map,
+      [child._id]: {
+        ...child,
+      },
+    };
+  }, {});
+
+  let arr = [
+    {
+      _id: '6477698510d1060c910cbb59',
+      title: 'Электроника',
+      dash: '',
+      parent: null,
+    },
+    {
+      _id: '6477698510d1060c910cbb5a',
+      title: 'Телефоны',
+      dash: '-',
+      parent: {
+        _id: '6477698510d1060c910cbb59',
+      },
+    },
+    {
+      _id: '6477698510d1060c910cbb61',
+      title: 'Смартфоны',
+      dash: '- -',
+      parent: {
+        _id: '6477698510d1060c910cbb5a',
+      },
+    },
+    {
+      _id: '6477698510d1060c910cbb62',
+      title: 'Аксессуары',
+      dash: '- -',
+      parent: {
+        _id: '6477698510d1060c910cbb5a',
+      },
+    },
+    {
+      _id: '6477698510d1060c910cbb5b',
+      title: 'Ноутбуки',
+      dash: '-',
+      parent: {
+        _id: '6477698510d1060c910cbb59',
+      },
+    },
+    {
+      _id: '6477698510d1060c910cbb5c',
+      title: 'Телевизоры',
+      dash: '-',
+      parent: {
+        _id: '6477698510d1060c910cbb59',
+      },
+    },
+    {
+      _id: '6477698510d1060c910cbb5d',
+      title: 'Книги',
+      dash: '',
+      parent: null,
+    },
+    {
+      _id: '6477698510d1060c910cbb5e',
+      title: 'Учебники',
+      dash: '-',
+      parent: {
+        _id: '6477698510d1060c910cbb5d',
+      },
+    },
+    {
+      _id: '6477698510d1060c910cbb5f',
+      title: 'Художественная',
+      dash: '-',
+      parent: {
+        _id: '6477698510d1060c910cbb5d',
+      },
+    },
+    {
+      _id: '6477698510d1060c910cbb60',
+      title: 'Комиксы',
+      dash: '-',
+      parent: {
+        _id: '6477698510d1060c910cbb5d',
+      },
+    },
+  ];
+  return arr;
+}
