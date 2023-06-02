@@ -9,14 +9,14 @@ const LoginMenu = () => {
   const { t } = useTranslate();
   const store = useStore();
 
-  const user = useSelector((state) => state.login.user);
+  const user = useSelector((state) => state.profile.user);
 
   const handleLogout = () => {
     store.actions.login.signOut();
   };
 
   return (
-    <SideLayout side="end" gap="medium" padding="medium">
+    <SideLayout paddingX="medium" paddingY="small" side="end" gap="medium">
       {user && <Link to={"/profile"}>{user.profile.name}</Link>}
       {user ? (
         <button onClick={handleLogout}>{t("login.exit")}</button>

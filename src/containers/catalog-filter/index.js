@@ -5,7 +5,6 @@ import SideLayout from "../../components/side-layout";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import { createCategoryTree } from "../../utils";
 
 function CatalogFilter() {
   const store = useStore();
@@ -13,7 +12,7 @@ function CatalogFilter() {
   const select = useSelector((state) => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    categories: state.catalog.categories,
+    categories: state.categories.categories,
     category: state.catalog.params.category,
   }));
 
@@ -46,15 +45,6 @@ function CatalogFilter() {
       ],
       []
     ),
-    categories: useMemo(() => {
-      const categ = [{ title: "Все", value: "" }];
-      return categ.concat(
-        ...createCategoryTree(select.categories).map((el) => ({
-          title: el.prefix + el.title,
-          value: el._id,
-        }))
-      );
-    }, [select.categories]),
   };
 
   const { t } = useTranslate();
@@ -62,7 +52,7 @@ function CatalogFilter() {
   return (
     <SideLayout padding="medium">
       <Select
-        options={options.categories}
+        options={select.categories}
         value={select.category}
         onChange={callbacks.onCategory}
       />
@@ -72,6 +62,7 @@ function CatalogFilter() {
         onChange={callbacks.onSort}
       />
       <Input
+        theme={"big"}
         value={select.query}
         onChange={callbacks.onSearch}
         placeholder={"Поиск"}

@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import ProtectedComponent from "../components/protected-component";
 import useInit from "../hooks/use-init";
 import useSelector from "../hooks/use-selector";
 import useStore from "../hooks/use-store";
@@ -8,6 +7,7 @@ import Basket from "./basket";
 import Login from "./login";
 import Main from "./main";
 import Profile from "./profile";
+import ProtectedComponent from "../containers/protected-component";
 
 /**
  * Приложение
@@ -17,15 +17,13 @@ function App() {
   const store = useStore();
   const activeModal = useSelector((state) => state.modals.name);
   const { user, isUserLoading } = useSelector((state) => ({
-    user: state.login.user,
-    isUserLoading: state.login.isUserLoading,
+    user: state.profile.user,
+    isUserLoading: state.profile.isLoading,
   }));
 
   useInit(
     () => {
-      store.actions.catalog.loadCategories();
-      store.actions.catalog.initParams();
-      store.actions.login.getUser();
+      store.actions.profile.getUser();
     },
     [],
     true

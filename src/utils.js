@@ -52,7 +52,7 @@ export const createCategoryTree = (items = []) => {
   const res = [];
   const createLineTree = (key, combinedKey, deep) => {
     const item = cache.get(key);
-    res.push({ ...item, combinedKey, prefix: "-".repeat(deep) });
+    res.push({ ...item, combinedKey, prefix: "- ".repeat(deep) });
     for (let childKey of item.children) {
       createLineTree(childKey, `${combinedKey}${childKey}`, deep + 1);
     }

@@ -7,9 +7,21 @@ import LocaleSelect from "../../containers/locale-select";
 import LoginMenu from "../../containers/login-menu";
 import Navigation from "../../containers/navigation";
 import useTranslate from "../../hooks/use-translate";
+import useInit from "../../hooks/use-init";
+import useStore from "../../hooks/use-store";
 
 function Main() {
   const { t } = useTranslate();
+	const store = useStore();
+
+	useInit(
+		() => {
+			store.actions.categories.loadCategories();
+			store.actions.catalog.initParams();
+		},
+		[],
+		true
+	);
 
   return (
     <PageLayout>

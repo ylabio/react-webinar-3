@@ -6,7 +6,6 @@ class LoginState extends StoreModule {
   initState() {
     return {
       errorMessage: "",
-      isUserLoading: true,
     };
   }
 
@@ -17,8 +16,9 @@ class LoginState extends StoreModule {
       ...params,
     });
     const resJson = await res.json();
-    if (resJson.error?.message) {
-      this.setError(resJson.error.message);
+		const errMess = resJson.error?.data.issues[0].message;
+    if (errMess) {
+      this.setError(errMess);
     }
     return resJson;
   }
@@ -29,24 +29,8 @@ class LoginState extends StoreModule {
 
   setUser({ token, user }) {
     window.localStorage.setItem("token", token);
-    this.setState({ ...this.getState(), user });
+    this.store.actions.profile.setState({ ...this.getState(), user });
     location.reload();
-  }
-  async getUser() {
-    const token = window.localStorage.getItem("token");
-    let state;
-    if (token) {
-      this.setState({ ...this.getState(), isUserLoading: true });
-      const userRes = await this.fetch("self", {
-        headers: { "X-Token": token },
-      });
-      state = { user: userRes.result };
-    }
-    return this.setState({
-      ...this.getState(),
-      ...state,
-      isUserLoading: false,
-    });
   }
 
   async signIn(fields) {
@@ -63,7 +47,7 @@ class LoginState extends StoreModule {
 		const token = localStorage.getItem('token')
 		await this.fetch("sign", {method: 'DELETE', headers: {'X-Token': token}});
     window.localStorage.removeItem("token");
-    location.replace("/");
+		this.store.actions.profile.setState({...this.getState(), user: undefined})
   }
 }
 

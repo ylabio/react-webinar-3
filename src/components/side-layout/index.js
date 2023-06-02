@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import React, { memo } from "react";
 import "./style.css";
 
-function SideLayout({ children, side, padding, gap }) {
+function SideLayout({ children, side, padding, paddingX, paddingY, gap }) {
   const cn = bem("SideLayout");
   return (
-    <div className={cn({ side, padding, gap })}>
+    <div className={cn({ side, padding, paddingX, paddingY, gap })}>
       {React.Children.map(children, (child) => (
         <div className={cn("item")}>{child}</div>
       ))}

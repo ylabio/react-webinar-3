@@ -17,6 +17,7 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: "order",
         query: "",
+				category: ""
       },
       count: 0,
       waiting: false,
@@ -115,17 +116,17 @@ class CatalogState extends StoreModule {
     );
   }
 
-  async loadCategories() {
-    const categRes = await fetch(`/api/v1/categories?fields=*&limit=*`);
-    const { result } = await categRes.json();
-    this.setState(
-      {
-        ...this.getState(),
-        categories: result.items,
-      },
-      "Загружены категории"
-    );
-  }
+  // async loadCategories() {
+  //   const categRes = await fetch(`/api/v1/categories?fields=*&limit=*`);
+  //   const { result } = await categRes.json();
+  //   this.setState(
+  //     {
+  //       ...this.getState(),
+  //       categories: result.items,
+  //     },
+  //     "Загружены категории"
+  //   );
+  // }
 }
 
 export default CatalogState;
