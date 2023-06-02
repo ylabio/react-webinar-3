@@ -13,7 +13,6 @@ class ProfileState extends StoreModule {
   }
 
   setUserData(fields) {
-    console.log('fields', fields);
     this.setState({
       ...this.getState(),
       fields

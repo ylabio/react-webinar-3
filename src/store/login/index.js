@@ -81,7 +81,7 @@ class LoginState extends StoreModule {
     this.setState({
       ...this.getState(),
       error: null
-    }, 'Сброс ошибки загрузки.');
+    }, 'Сброс ошибки логина.');
   }
 }
 

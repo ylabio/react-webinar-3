@@ -1,4 +1,5 @@
 import StoreModule from "../module";
+import { validateTokenSymbols } from "../../utils";
 
 /**
  * Данные юзера
@@ -18,6 +19,9 @@ class UserState extends StoreModule {
       ...this.getState(),
       waiting: true
     }, 'Загрузка данных пользователя...');
+
+    if (!validateTokenSymbols(localStorage.getItem('token')))
+      localStorage.setItem('token', 'invalid token');
 
     //GET {{baseUrl}}/users/self
     const json = await (
@@ -78,7 +82,7 @@ class UserState extends StoreModule {
     this.setState({
       ...this.getState(),
       error: null
-    }, 'Сброс ошибки загрузки.');
+    }, 'Сброс ошибки загрузки профиля.');
   }
 }
 

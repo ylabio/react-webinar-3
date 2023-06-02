@@ -67,3 +67,9 @@ export function formatCategories(items) {
 
   return list;
 }
+
+// Метод проверяет символы токена на корректность, иначе может упасть код
+// типичный токен от апи - a30782107598434d7d4e54f1007eb527f8146c5c8cf3e6b3dfd313a693e3f712
+export function validateTokenSymbols(token) {
+  return /^[a-zA-Z0-9]+$/.test(token); // Прописные не используются, но пусть пока будет
+}
