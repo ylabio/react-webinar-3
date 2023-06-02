@@ -36,11 +36,7 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
 
 export function filterCategory(data) {
   const arrayCategories = data.map((item) => {
-    if (item.parent) {
-      return {...item, children: []};
-    } else {
-      return {...item, children: []};
-    }
+    return {...item, children: []};
   });
 
   for (let i = 0; i < arrayCategories.length; i++) {
