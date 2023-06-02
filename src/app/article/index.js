@@ -10,6 +10,7 @@ import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
+import HeadPage from "../../components/head-page";
 
 function Article() {
   const store = useStore();
@@ -34,7 +35,7 @@ function Article() {
   }
 
   return (
-    <PageLayout>
+    <PageLayout head={<HeadPage/>}>
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>

@@ -8,10 +8,13 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import HeadPage from "../../components/head-page";
 
 function Main() {
 
   const store = useStore();
+
+  const tokenUser = localStorage.getItem('token')
 
   useInit(() => {
     store.actions.catalog.initParams();
@@ -20,7 +23,7 @@ function Main() {
   const {t} = useTranslate();
 
   return (
-    <PageLayout>
+    <PageLayout head={<HeadPage token={tokenUser}/>}>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

@@ -1,0 +1,15 @@
+.LoginForm {
+  display: flex;
+  margin-left: 20px;
+  flex-direction: column;
+}
+
+.LoginForm-form {
+  width: 203px;
+  display: flex;
+  flex-direction: column;
+}
+
+.LoginForm-button {
+  width: 53px;
+}

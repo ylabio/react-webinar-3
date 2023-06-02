@@ -1,0 +1,19 @@
+.HeadPage-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.HeadPage-link {
+    margin: 10px 20px 10px 0;
+    color: #0087E9;
+}
+
+.HeadPage-button {
+    margin: 10px 20px 10px 0;
+}
+
+.HeadPage-link-button {
+    text-decoration-line: none;
+    color: #000000;
+}

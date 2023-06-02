@@ -1,4 +1,4 @@
-import {memo} from "react";
+import React, {memo} from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
@@ -6,12 +6,13 @@ function Select(props) {
 
   const onSelect = (e) => {
     props.onChange(e.target.value);
+    props.value === 'Все' && props.resetPage(1)
   };
-
+  
   return (
     <select className="Select" value={props.value} onChange={onSelect}>
-      {props.options.map(item => (
-        <option key={item.value} value={item.value}>{item.title}</option>
+      {props.options.map((item, index) => (
+        <option key={index} value={item.value}>{"-".repeat(item.indent) + item.title}</option>
       ))}
     </select>
   )
@@ -23,11 +24,13 @@ Select.propTypes = {
     title: PropTypes.string
   })).isRequired,
   value: PropTypes.any,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  resetPage: PropTypes.func
 };
 
 Select.defaultProps = {
-  onChange: () => {}
+  onChange: () => {},
+  resetPage: () => {}
 }
 
 export default memo(Select);
