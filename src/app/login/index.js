@@ -34,9 +34,9 @@ function Login() {
       store.actions.login.resetError(); // сброс ошибки при открытии формы, если осталась
     if (select.fields) { // тут баг был, переход туда, откуда пришли теперь работает
       const nonLoginPrevPageExists = location.state?.from && location.state?.from.pathname != location.pathname;
-      nonLoginPrevPageExists ? navigate(location.state.from.pathname) : navigate('/');
+      nonLoginPrevPageExists ? navigate(location.state.from.pathname, { replace: true }) : navigate('/', { replace: true });
     }
-  }, [select.fields]);
+  }, [select.fields], true);
 
   const callbacks = {
     onLoginChange: useCallback(login => store.actions.login.setLogin(login), [store]),
