@@ -20,8 +20,16 @@ class UserState extends StoreModule {
       waiting: true
     }, 'Загрузка данных пользователя...');
 
-    if (!validateTokenSymbols(localStorage.getItem('token')))
-      localStorage.setItem('token', 'invalid token');
+    if (!validateTokenSymbols(localStorage.getItem('token'))) {
+      localStorage.removeItem('token');
+      this.setState({
+        ...this.getState(),
+        error: 'Incorrect token!',
+        token: null,
+        waiting: false
+      }, 'Некорректный токен.');
+      return;
+    }
 
     //GET {{baseUrl}}/users/self
     const json = await (
