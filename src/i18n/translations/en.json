@@ -1,5 +1,8 @@
 {
   "title": "Shop",
+  "login": "Login",
+  "logout": "Logout",
+  "login.button": "Login",
   "menu.main": "Main",
   "basket.title": "Cart",
   "basket.open": "Open",
@@ -14,5 +17,10 @@
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "input.login": "Login",
+  "input.password": "Password",
+  "profile": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone"
 }

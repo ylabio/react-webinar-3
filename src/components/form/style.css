@@ -1,0 +1,36 @@
+.Form {
+  padding: 36px 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.Form-title {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  text-transform: capitalize;
+}
+
+.Form-input-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: flex-start;
+}
+
+.Form-input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.Form-input-label {
+  font-size: 16px;
+  line-height: 18px;
+  text-align: left;
+  color: #000000;
+}
+
+.Form-input-error {
+}

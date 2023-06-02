@@ -1,5 +1,8 @@
 {
   "title": "Магазин",
+  "login": "Вход",
+  "logout": "Выход",
+  "login.button": "Войти",
   "menu.main": "Главная",
   "basket.title": "Корзина",
   "basket.open": "Перейти",
@@ -16,5 +19,10 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "input.login": "Логин",
+  "input.password": "Пароль",
+  "profile": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон"
 }

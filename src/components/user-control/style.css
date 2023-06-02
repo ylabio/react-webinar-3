@@ -1,0 +1,30 @@
+.User-container {
+  padding: 10px 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.User-container-link {
+  display: block;
+  height: fit-content;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  background: #efefef;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 15px;
+  text-align: center;
+  color: #000;
+}
+
+.User-container-user-link {
+  font-size: 13px;
+  line-height: 15px;
+  text-align: center;
+  text-decoration-line: underline;
+  color: #0087e9;
+}
