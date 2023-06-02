@@ -11,7 +11,7 @@ import useSelector from './use-selector';
 export default function useUser(options = { orRedirectTo: '/login' }) {
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const select = useSelector(state => ({
     fields: state.user.fields,
     token: state.user.token,

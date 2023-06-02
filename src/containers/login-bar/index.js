@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import LoginTool from '../../components/login/login-tool';
 import useInit from '../../hooks/use-init';
@@ -16,12 +16,21 @@ function LoginBar() {
   const navigate = useNavigate();
   const location = useLocation();
   const store = useStore();
-  const { fields, token } = useUser({ orRedirectTo: null });
+  const { fields, token, error, waiting } = useUser({ orRedirectTo: null });
 
   useInit(() => {
     if (token && !fields)
       store.actions.user.load();
   }, [fields, token]);
+
+  useEffect(() => {
+    if (waiting)
+      return;
+    if (token && error) { // если загрузка с имеющимся токеном провалилась, то идем логиниться
+      store.actions.user.resetError();
+      navigate('/login', { state: { from: location }});
+    }
+  }, [waiting, error]);
 
   const callbacks = {
     // Открыть страницу входа

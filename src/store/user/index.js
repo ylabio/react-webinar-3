@@ -47,9 +47,14 @@ class UserState extends StoreModule {
     //console.log('load: json:', json);
 
     if (json.error) {
+      if (json.error.code == 'Forbidden') {
+        localStorage.removeItem('token');
+        console.error('Обнуление битого токена');
+      }
       this.setState({
         ...this.getState(),
         error: json.error,
+        token: localStorage.getItem('token'),
         waiting: false
       }, 'Ошибка Загрузки данных пользователя:' + json.error);
       return;

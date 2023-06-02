@@ -19,7 +19,7 @@ import useTranslate from '../../hooks/use-translate';
 function Login() {
 
   const navigate = useNavigate();
-  const { location } = useLocation();
+  const location = useLocation();
   const { t } = useTranslate();
   const store = useStore();
 
@@ -32,8 +32,10 @@ function Login() {
   useInit(() => {
     if (select.error)
       store.actions.login.resetError(); // сброс ошибки при открытии формы, если осталась
-    if (select.fields)
-      location ? navigate(-1) : navigate('/'); // если получили поля, то пытаемся идти туда, откуда пришли. или на главную
+    if (select.fields) { // тут баг был, переход туда, откуда пришли теперь работает
+      const nonLoginPrevPageExists = location.state?.from && location.state?.from.pathname != location.pathname;
+      nonLoginPrevPageExists ? navigate(location.state.from.pathname) : navigate('/');
+    }
   }, [select.fields]);
 
   const callbacks = {
