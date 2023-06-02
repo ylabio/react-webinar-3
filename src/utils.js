@@ -7,13 +7,13 @@
  * @param [locale] {String} Локаль (код языка)
  * @returns {String}
  */
-export function plural(value, variants = {}, locale = 'ru-RU') {
+export function plural(value, variants = {}, locale = "ru-RU") {
   // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
   // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
   // В английском 2 формы: 'one', 'other'
   const key = new Intl.PluralRules(locale).select(value);
   // Возвращаем вариант по ключу, если он есть
-  return variants[key] || '';
+  return variants[key] || "";
 }
 
 /**
@@ -30,6 +30,37 @@ export function codeGenerator(start = 0) {
  * @param options {Object}
  * @returns {String}
  */
-export function numberFormat(value, locale = 'ru-RU', options = {}) {
+export function numberFormat(value, locale = "ru-RU", options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export const createCategoryTree = (items = []) => {
+  const cache = new Map();
+  const firstLineKeys = [];
+
+  for (let el of items) {
+    const itemParent = cache.get(el.parent?._key);
+
+    if (itemParent) {
+      itemParent.children.push(el._key);
+    } else {
+      firstLineKeys.push(el._key);
+    }
+    cache.set(el._key, { ...el, children: [] });
+  }
+
+  const res = [];
+  const createLineTree = (key, combinedKey, deep) => {
+    const item = cache.get(key);
+    res.push({ ...item, combinedKey, prefix: "- ".repeat(deep) });
+    for (let childKey of item.children) {
+      createLineTree(childKey, `${combinedKey}${childKey}`, deep + 1);
+    }
+  };
+
+  Array.from(firstLineKeys).map((key) => {
+    createLineTree(key, key, 0);
+  });
+
+  return res.sort((a, b) => a.combinedKey.localeCompare(b.combinedKey));
+};
