@@ -8,6 +8,7 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import Auth from "../../containers/auth";
 
 function Main() {
 
@@ -15,12 +16,15 @@ function Main() {
 
   useInit(() => {
     store.actions.catalog.initParams();
+    //категории грузим при инициализации, и без ожидания разрешения промиса
+    store.actions.category.categoryListLoad();
   }, [], true);
 
   const {t} = useTranslate();
 
   return (
     <PageLayout>
+      <Auth/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
