@@ -11,7 +11,7 @@ function Auth() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    user: state.auth.user,
+    userName: state.auth.userName,
     isAuth: state.auth.isAuth,
   }))
 
@@ -27,7 +27,7 @@ function Auth() {
   return (
     <AuthTool
       isAuth={select.isAuth}
-      userName={select.user?.profile?.name}
+      userName={select.userName}
       profilePath={'/profile'}
       onLogin={callbacks.onLogin}
       onLogout={callbacks.onLogout}

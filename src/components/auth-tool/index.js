@@ -9,7 +9,7 @@ function AuthTool(props) {
 
   return (
     <div className={cn()}>
-      {props.userName && <div><Link to={props.profilePath}>{props.userName}</Link></div>}
+      {props.userName && <div><Link to={props.profilePath} className={cn('link')}>{props.userName}</Link></div>}
       {props.isAuth && <div>
         <button onClick={props.onLogout}>{props.logoutTitle}</button>
       </div>}

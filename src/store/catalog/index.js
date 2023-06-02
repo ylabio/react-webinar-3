@@ -1,5 +1,4 @@
 import StoreModule from "../module";
-import {categoryListDataTransform} from "./dataTransform";
 
 /**
  * Состояние каталога - параметры фильтра исписок товара
@@ -22,28 +21,10 @@ class CatalogState extends StoreModule {
       },
       count: 0,
       waiting: false,
-      //для фильтра по категориям
-      categoryList: [],
-      categoryListWaiting: false,
     }
   }
 
-  async categoryListLoad() {
-    this.setState({
-      ...this.getState(),
-      categoryListWaiting: true,
-    });
-    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
-    const json = await response.json();
 
-    const categoryList = categoryListDataTransform(json.result.items);
-
-    this.setState({
-      ...this.getState(),
-      categoryListWaiting: false,
-      categoryList
-    }, 'Загрузили категории из АПИ');
-  }
 
   /**
    * Инициализация параметров.

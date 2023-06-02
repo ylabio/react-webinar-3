@@ -3,7 +3,7 @@ import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
 import Navigation from "../../containers/navigation";
 import LoginForm from "../../components/login-form";
-import {useCallback} from "react";
+import {useCallback, useEffect} from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import Auth from "../../containers/auth";
@@ -12,6 +12,10 @@ import Auth from "../../containers/auth";
 function Login() {
 
   const store = useStore();
+
+  useEffect(() => () => {
+    store.actions.auth.reset();
+  }, [])
 
   const select = useSelector(state => ({
     loginWaiting: state.auth.loginWaiting,

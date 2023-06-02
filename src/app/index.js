@@ -5,11 +5,9 @@ import Basket from "./basket";
 import Article from "./article";
 import Login from "./login";
 import Profile from "./profile";
-import Auth from "../containers/auth";
-import {useEffect} from "react";
 import useStore from "../hooks/use-store";
-import PageLayout from "../components/page-layout";
 import {AuthStub} from "../components/auth-stub";
+import useInit from "../hooks/use-init";
 
 /**
  * Приложение
@@ -18,7 +16,7 @@ import {AuthStub} from "../components/auth-stub";
 function App() {
   const store = useStore();
 
-  useEffect(() => {
+  useInit(() => {
     store.actions.auth.isAuthCheck();
   }, [])
 

@@ -8,11 +8,18 @@ class AuthState extends StoreModule {
       loginWaiting: false,
       isAuth: false,
       loginError: null,
-      user: null,
+      userName: null,
       logoutWaiting: false,
 
       isAuthCheckWaiting: true,
     };
+  }
+
+  async reset() {
+    this.setState({
+      ...this.getState(),
+      loginError: null,
+    })
   }
 
   async isAuthCheck() {
@@ -29,21 +36,18 @@ class AuthState extends StoreModule {
 
     const json = await response.json();
 
-    let user = null;
+    let userName = null;
     let isAuth = false;
 
     if (response.status === 200) {
-      user = json.result;
+      userName = json.result?.profile?.name;
       isAuth = true;
     }
-
-    console.log(json);
-
 
     this.setState({
       ...this.getState(),
       isAuthCheckWaiting: false,
-      user,
+      userName,
       isAuth
     })
   }
@@ -66,16 +70,14 @@ class AuthState extends StoreModule {
 
     let loginError = null;
     let isAuth = false;
-    let user = null;
+    let userName = null;
 
     if (response.status === 200) {
-      // console.log('success', json);
       saveAuthToken(json.result.token);
       isAuth = true;
-      user = json.result.user;
+      userName = json?.result?.user?.profile?.name;
     } else {
       if (json?.error?.message) {
-        console.log(json, json?.error?.data?.issues);
         loginError = `${json?.error?.message}! ${json?.error?.data?.issues?.map(error => error.message).join(', ')}`;
       } else {
         loginError = 'unknown or network error';
@@ -88,7 +90,7 @@ class AuthState extends StoreModule {
       loginWaiting: false,
       loginError,
       isAuth,
-      user
+      userName
     })
   }
 
@@ -111,18 +113,18 @@ class AuthState extends StoreModule {
     const json = await response.json();
 
     let isAuth = this.getState().isAuth;
-    let user = this.getState().isAuth;
+    let userName = this.getState().userName;
 
     if (response.status === 200) {
       isAuth = false;
-      user = null
+      userName = null
     }
 
     this.setState({
       ...this.getState(),
       logoutWaiting: false,
       isAuth,
-      user
+      userName
     })
   }
 

@@ -2,22 +2,27 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
 import Navigation from "../../containers/navigation";
-import {useCallback} from "react";
+import {useEffect} from "react";
 import Auth from "../../containers/auth";
 import ProfileCard from "../../components/profile-card";
 import useSelector from "../../hooks/use-selector";
+import useStore from "../../hooks/use-store";
 
 
 function Profile() {
 
-  // const callback = {
-  //   onSubmit: useCallback((values)=>{
-  //     console.log('Login onSubmit', values);
-  //   }, [])
-  // }
+  const store = useStore();
+
+  useEffect(()=>{
+    store.actions.profile.load();
+
+    return () => {
+      store.actions.profile.clear();
+    }
+  }, [])
 
   const select = useSelector(state=> ({
-    user: state.auth.user
+    userData: state.profile.userData
   }))
 
   return (
@@ -27,7 +32,7 @@ function Profile() {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      {select.user && <ProfileCard user={select.user}/>}
+      {select.userData && <ProfileCard user={select.userData}/>}
     </PageLayout>
   );
 }
