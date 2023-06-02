@@ -1,0 +1,9 @@
+.HeadAuthContainer{
+  display: flex;
+  justify-content: end;
+  padding: 10px 20px;
+}
+
+.HeadAuthContainer > a {
+  margin-right: 20px;
+}

@@ -39,8 +39,6 @@ function CatalogFilter() {
     categories: useMemo(() => categoriesToDisplay(select.categories), [select.categories])
   };
 
-  console.log(select.category)
-
   const {t} = useTranslate();
 
   return (

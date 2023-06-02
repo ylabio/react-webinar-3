@@ -1,0 +1,13 @@
+.LoginForm{
+  display: flex;
+  flex-direction: column;
+}
+
+.LoginForm-button{
+  width: 53px;
+}
+
+.LoginForm-error{
+  color: red;
+  margin-bottom: 20px;
+}

@@ -57,9 +57,6 @@ function categoriesSort(arr){
   return tempArr
 }
 
-
-
-
 export function categoriesToDisplay(arr){
   if(!arr?.length) return [];
 
@@ -81,10 +78,14 @@ export function categoriesToDisplay(arr){
   return view
 } 
 
-function setToLocalStorage(key){
-  window.localStorage.getItem(key)
+export function setToLocalStorage(key, value){
+  window.localStorage.setItem(key, value)
 }
 
-function getFromLocalStorage(){
-  window.localStorage.setItem(key)
+export function getFromLocalStorage(key){
+  return window.localStorage.getItem(key)
+}
+
+export function deleteFromLocalStorage(key){
+  window.localStorage.removeItem(key)
 }

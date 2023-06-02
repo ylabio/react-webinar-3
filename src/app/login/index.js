@@ -1,26 +1,28 @@
-import { memo, useState } from "react"
+import Head from "../../components/head";
+import PageLayout from "../../components/page-layout";
+import LocaleSelect from "../../containers/locale-select";
+import Navigation from "../../containers/navigation";
+import {memo} from 'react'
+import useTranslate from "../../hooks/use-translate";
+import AuthForm from "../../containers/auth-form";
+import HeadAuth from "../../components/head-auth";
+
 
 function Login(){
-  // Внутренний стейт для быстрого отображения ввода
-  const [value, setValue] = useState();
+  
 
-  // Обработчик изменений в поле
-  const onChange = (event) => {
-    setValue(event.target.value);
-  };
+  const {t} = useTranslate();
 
 
-  return (<>
-    <input
-      value={value}
-      type={props.type}
-      onChange={onChange}
-    />
-    <input
-      className={cn({theme: props.theme})}
-      onChange={onChange}
-    />
-    </>
+  return (
+    <PageLayout>
+    <HeadAuth />
+      <Head title={t('title')}>
+        <LocaleSelect/>
+      </Head>
+      <Navigation />
+      <AuthForm />
+    </PageLayout>
   )
 }
 

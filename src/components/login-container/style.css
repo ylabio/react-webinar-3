@@ -1,0 +1,10 @@
+.LoginContainer{
+  display: flex;
+  flex-direction: column;
+  margin: 62px 0 0 20px;
+}
+
+.LoginContainer > button{
+  width: 47px;
+  text-align: center;
+}

@@ -1,0 +1,9 @@
+.Input-auth{
+  width: 203px;
+}
+
+.Input-label{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
