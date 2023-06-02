@@ -10,10 +10,6 @@ import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
 
 function Main() {
-  // на выходных буду делать, не ругайте пожалуйста)
-  // я уже устроилась на работу, на стажировку не претендую
-  // но очень интересные лекции ʕ•́ᴥ•̀ʔっ♡
-
   const store = useStore();
 
   useInit(
