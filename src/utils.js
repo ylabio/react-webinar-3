@@ -33,3 +33,102 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Рекурисивно создает дерево категорий
+ * @param {Array} data 
+ * @param {?Number} parent 
+ * @returns {Array}
+ */
+const getCategoryTreeFromData = (data, parent = null) => {
+  const categoryTree = [];
+
+  data.forEach(item => {
+    const hasParent = item.parent?._id === parent || item.parent === parent
+
+    if (hasParent) {
+      const nested = getCategoryTreeFromData(data, item._id);
+      
+      if (nested) {
+        item.nested = nested
+      }
+
+      categoryTree.push(item)
+    }
+  })
+ 
+  return categoryTree
+}
+
+/**
+ * Нормализует данные в необходимый формат из дерева категорий
+ * @param {Array} data 
+ * @param {?Number} position 
+ * @returns {Array}
+ */
+const transformDataFromTree = (data, position = 0) => {
+  const transformedData = [];
+
+  data.forEach((item) => {
+    const eachCategory = {value: item._id, title: `${'- '.repeat(position)}${item.title}`}
+    transformedData.push(eachCategory)
+
+    if (item.nested) {
+      transformedData.push(...transformDataFromTree(item.nested, position + 1))
+    }
+  })
+
+  return transformedData;
+}
+
+/**
+ * Возвращает данные для категорий
+ * @param {Array} data 
+ * @returns {Array}
+ */
+export const getCorrectCategoryData = (data) => {
+  return transformDataFromTree(getCategoryTreeFromData(data))
+}
+
+/**
+ * Обрабатывет ошибку от сервера
+ * @param {Object} error 
+ * @returns {String}
+ */
+export const getErrorMessage = (error) => {   
+  if (error.data) {
+    return error.data.issues[0].message
+  }
+  if (error.code && error.message) {
+    return error.message
+  }
+  return 'Uncaught error. Try again'
+}
+
+/**
+ * Возвращает необходимо поле из localstorage
+ * @param {String} key 
+ * @param {String|Array|Object} defaulValue 
+ * @returns {String|Array|Object}
+ */
+export const getFieldFromLS = (key, defaulValue) => {
+  const field = localStorage.getItem(key);
+  return field ? JSON.parse(field) : defaulValue;
+}
+
+/**
+ * Записывает поле в localstorage
+ * @param {String} key 
+ * @param {String|Array|Object} value
+ */
+export const addFieldToLS = (key, value) => {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+/**
+ * Удаляет поле из localstorage
+ * @param {String} key 
+ */
+export const removeFieldFromLS = (key) => {
+  localStorage.removeItem(key)
+}
