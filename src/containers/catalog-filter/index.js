@@ -94,9 +94,34 @@ function CatalogFilter() {
           readyArr.push(...parentChild);
         }
       });
+      const customSortOrder = [
+        "6477698510d1060c910cbb59",
+        "6477698510d1060c910cbb5a",
+        "6477698510d1060c910cbb61",
+        "6477698510d1060c910cbb62",
+        "6477698510d1060c910cbb5b",
+        "6477698510d1060c910cbb5c",
+        "6477698510d1060c910cbb5d",
+        "6477698510d1060c910cbb5e",
+        "6477698510d1060c910cbb5f",
+        "6477698510d1060c910cbb60",
+      ];
 
-      readyArr.splice(4, 1);
-      setCategoryOptions([{ value: "", title: "Все" }, ...readyArr]);
+      const sortedArray = readyArr.sort((a, b) => {
+        const indexA = customSortOrder.indexOf(a.value);
+        const indexB = customSortOrder.indexOf(b.value);
+
+        if (indexA < indexB) {
+          return -1;
+        } else if (indexA > indexB) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      sortedArray.splice(1, 1);
+      setCategoryOptions([{ value: "", title: "Все" }, ...sortedArray]);
     }
   }, [select.categories]);
 

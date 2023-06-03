@@ -1,0 +1,15 @@
+.login-title {
+  margin-left: 20px;
+}
+
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-left: 20px;
+}
+
+.login-error {
+  color: red;
+  margin-bottom: 20px;
+}
