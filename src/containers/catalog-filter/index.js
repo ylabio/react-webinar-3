@@ -13,6 +13,8 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    categories: state.catalog.categories,
   }));
 
   const callbacks = {
@@ -34,7 +36,16 @@ function CatalogFilter() {
   };
 
   const {t} = useTranslate();
+  let res= [{_id:'', title: t('categoryAll'), parent:null}]
 
+  /* let caption1 = select.categories.map((el) => {
+    if(!el.parent){
+    res.push(el)
+  }else if(res.find()){
+
+  }}) */
+
+  console.log(res);
   return (
     <SideLayout padding='medium'>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>

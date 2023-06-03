@@ -6,19 +6,22 @@ import Header from "../../containers/header";
 import Authorization from "../../components/authorization";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
+import { Navigate } from "react-router-dom";
 
 const Login = () => {
   const store = useStore();
   const { t } = useTranslate();
   const select = useSelector((state) => ({
-    error: state.login.err,
+    error: state.login.error,
     token: state.login.token,
   }));
+  
   const callbacks = {
     signIn: useCallback((login, password) =>
       store.actions.login.sign(login, password)
     ),
   };
+
   return (
     <PageLayout>
       <Header />
@@ -30,6 +33,7 @@ const Login = () => {
         signIn={callbacks.signIn}
         error={select.error}
       />
+      {select.token&&(<Navigate to={'/profile'}/>)}
     </PageLayout>
   );
 };

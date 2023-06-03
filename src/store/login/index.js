@@ -6,10 +6,8 @@ import StoreModule from "../module";
 class LoginState extends StoreModule {
   initState() {
     return {
-      token: "",
-      user: "",
-      userProfile: {},
-      err: "",
+      token: localStorage.getItem("token") || "",
+      error: "",
       waiting: false, // признак ожидания загрузки
     };
   }
@@ -26,30 +24,33 @@ class LoginState extends StoreModule {
           password: password,
         }),
       });
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      } else {
+      if (response.ok) {
         const { result } = await response.json();
         localStorage.setItem("token", result.token);
-        localStorage.setItem("user", result.user.profile.name);
         this.setState(
           {
             token: result.token,
-            user: result.user.profile.name,
             waiting: false,
+            error: "",
           },
           "Авторизация прошла успешно"
         );
+      } else {
+        this.setState(
+          {
+            waiting: false,
+            error: "Ошибка: " + response.statusText,
+          },
+          "Авторизация не удалась"
+        );
       }
     } catch (error) {
-      this.setState({
-        err: error.message,
-        waiting: false,
-      });
+      console.log(error);
     }
   }
 
-  async logOut(token) {
+  async logOut() {
+    const token = localStorage.getItem("token");
     try {
       const response = await fetch(`/api/v1/users/sign`, {
         method: "DELETE",
@@ -58,58 +59,29 @@ class LoginState extends StoreModule {
           "X-Token": token,
         },
       });
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      } else {
-        const { result } = await response.json();
+      if (response.ok) {
         localStorage.removeItem("token");
-        localStorage.removeItem("user");
+        localStorage.removeItem("userName");
         this.setState(
           {
             token: "",
             waiting: false,
+            error: "",
           },
+
           "Деавторизация прошла успешно"
         );
-      }
-    } catch (error) {
-      this.setState({
-        err: error.message,
-        waiting: false,
-      });
-    }
-  }
-
-  async getProfile(token) {
-    try {
-      const response = await fetch(`/api/v1/users/self`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Token": token,
-        },
-      });
-      if (!response.ok) {
-        throw new Error(response.statusText);
       } else {
-        const { result } = await response.json();
         this.setState(
           {
-            userProfile: {
-              userName: result.profile.name,
-              userPhone: result.profile.phone,
-              userMail: result.email,
-            },
             waiting: false,
+            error: "Ошибка: " + response.statusText,
           },
-          "Загружена информация о пользователе"
+          "Деавторизация не удалась"
         );
       }
     } catch (error) {
-      this.setState({
-        err: error.message,
-        waiting: false,
-      });
+      console.log(error);
     }
   }
 }
