@@ -1,0 +1,39 @@
+.LoginForm {
+  padding: 40px 20px 20px;
+}
+
+.LoginForm-title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.LoginForm-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 17px;
+}
+
+.LoginForm-label {
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.LoginForm-input {
+  font-size: 16px;
+  line-height: 18px;
+  padding: 3px;
+  margin-bottom: 20px;
+}
+
+.LoginForm-serverErr {
+  color: #ff0000;
+  margin-bottom: 20px;
+  display: none;
+}
+
+.LoginForm-serverErr_visible {
+  display: inline;
+}
