@@ -12,18 +12,19 @@ import Spinner from "../../components/spinner";
 
 const Profile = () => {
   const store = useStore();
-  const token = localStorage.getItem("token");
+  
   const { t } = useTranslate();
   const select = useSelector((state) => ({
     userName: state.profile.userName,
     userPhone: state.profile.userPhone,
     userMail: state.profile.userMail,
     waiting: state.profile.waiting,
+    token:state.login.token,
   }));
 
   useInit(
     () => {
-      store.actions.profile.getProfile(token);
+      store.actions.profile.getProfile(select.token);
     },
     [],
     true
@@ -44,7 +45,7 @@ const Profile = () => {
           userMail={select.userMail}
         />
       </Spinner>
-      {!token && <Navigate to={"/"} />}
+      {!select.token && <Navigate to={"/"} />}
     </PageLayout>
   );
 };

@@ -23,6 +23,5 @@
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  },
-  "categoryAll":"All"
+  }
 }

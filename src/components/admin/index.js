@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import "style.css";
 import Spinner from "../spinner";
+import PropTypes from "prop-types";
 
 const Admin = (props) => {
   return (
@@ -25,6 +26,21 @@ const Admin = (props) => {
       )}
     </div>
   );
+};
+
+Admin.propTypes = {
+  userName: PropTypes.string,
+  waiting: PropTypes.bool,
+  url: PropTypes.string,
+  urlExit: PropTypes.string,
+  exit: PropTypes.string,
+  urlLogin: PropTypes.string,
+  login: PropTypes.string,
+  logOut: PropTypes.func,
+};
+
+Admin.defaultProps = {
+  logOut: () => {},
 };
 
 export default memo(Admin);
