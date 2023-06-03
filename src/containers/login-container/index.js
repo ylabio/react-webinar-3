@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import FormLayout from '../../components/form-layout';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
@@ -10,18 +10,33 @@ import ErrorHandler from '../../components/error-handler';
 function LoginContainer() {
   const store = useStore();
 
+  const [formData, setFormData] = useState({
+    login: 'test_1',
+    password: '123456'
+  })
+
+  useEffect(() => {
+    store.actions.auth.resetError();
+  }, [])
+
   const select = useSelector(state => ({
-    authForm: state.auth.authFormData,
     error: state.auth.isError
   }))
 
   const callbacks = {
-    onChangeLogin: useCallback((login) => store.actions.auth.setLogin(login), [store]),
-    onChangePassword: useCallback((password) => store.actions.auth.setPassword(password), [store]),
+    onChangeLogin: useCallback((login) => {
+      setFormData(formData => ({...formData, login}))
+    }, [formData]),
+
+    onChangePassword: useCallback((password) => {
+      setFormData(formData => ({...formData, password}))
+    }, [formData]),
+
     handleSubmit: useCallback((e) => {
       e.preventDefault();
-      store.actions.auth.onLogin();
-    }, [store])
+      
+      store.actions.auth.onLogin(formData);
+    }, [formData])
   }
 
   const {t} = useTranslate();
@@ -32,10 +47,10 @@ function LoginContainer() {
         <h3>{t('loginForm.title')}</h3>
 
         <label htmlFor={'auth-form-login'}>{t('loginForm.labelLogin')}</label>
-        <Input labelId={'auth-form-login'} type='text' value={select.authForm.login} onChange={callbacks.onChangeLogin} delay={250} />
+        <Input labelId={'auth-form-login'} type='text' value={formData.login} onChange={callbacks.onChangeLogin} delay={250} />
           
         <label htmlFor={'auth-form-login'}>{t('loginForm.labelPassword')}</label>
-        <Input labelId={'auth-form-password'} type='password' value={select.authForm.password} onChange={callbacks.onChangePassword} delay={250} />
+        <Input labelId={'auth-form-password'} type='password' value={formData.password} onChange={callbacks.onChangePassword} delay={250} />
 
         <ErrorHandler error={select.error} />
       </FormLayout>

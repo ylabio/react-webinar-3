@@ -12,7 +12,6 @@ class CatalogState extends StoreModule {
   initState() {
     return {
       list: [],
-      categoriesList: [],
       params: {
         page: 1,
         limit: 10,
@@ -91,22 +90,12 @@ class CatalogState extends StoreModule {
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
 
-    const categoriesResponse = await this.getCategories();
-
     this.setState({
       ...this.getState(),
       list: json.result.items,
       count: json.result.count,
-      categoriesList: categoriesResponse.items,
       waiting: false
     }, 'Загружен список товаров из АПИ');
-  }
-
-  async getCategories() {
-    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
-    const json = await response.json();
-
-    return json.result;
   }
 }
 

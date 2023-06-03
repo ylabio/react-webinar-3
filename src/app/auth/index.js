@@ -6,17 +6,9 @@ import Navigation from '../../containers/navigation'
 import useTranslate from '../../hooks/use-translate'
 import LocaleSelect from '../../containers/locale-select'
 import LoginContainer from '../../containers/login-container'
-import useInit from '../../hooks/use-init'
-import useStore from '../../hooks/use-store'
 
 function Auth() {
   const {t} = useTranslate();
-
-  const store = useStore();
-
-  useInit(() => {
-    store.actions.auth.getUser();
-  }, [], true);
 
   return (
     <PageLayout>

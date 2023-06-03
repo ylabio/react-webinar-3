@@ -5,7 +5,6 @@ import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
-import { stackParents } from "../../utils";
 
 function CatalogFilter() {
 
@@ -14,7 +13,7 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     category: state.catalog.params.category,
-    categoriesList: state.catalog.categoriesList,
+    categoriesList: state.categories.categoriesList,
     query: state.catalog.params.query,
   }));
 
@@ -39,10 +38,9 @@ function CatalogFilter() {
       {value: 'edition', title: 'Древние'},
     ]), []),
     categories: useMemo(() => ([
-      {value: '', title: t('filter.all')},
-      ...stackParents(select.categoriesList).map(category => ({
-        title: category.prefix ?  category.prefix + category.title : category.title,
-        value: category._id
+      ...select.categoriesList.map(category => ({
+          title: category.prefix ?  category.prefix + t(category.title) : t(category.title),
+          value: category._id ? category._id : ''
       }))
     ]), [select.categoriesList, t])
   };
@@ -53,7 +51,7 @@ function CatalogFilter() {
       <Select options={options.categories} value={select.category} onChange={callbacks.onCategory}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
-             delay={1000}/>
+             delay={1000} theme={'big'}/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>
   )

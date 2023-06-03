@@ -5,7 +5,6 @@ import Head from '../../components/head'
 import LocaleSelect from '../../containers/locale-select'
 import useTranslate from '../../hooks/use-translate'
 import Navigation from '../../containers/navigation'
-import Spinner from '../../components/spinner'
 import ProfileContainer from '../../containers/profile-container'
 
 function Profile() {

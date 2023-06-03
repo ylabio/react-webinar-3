@@ -42,7 +42,7 @@ export function stackParents(arr) {
     arr[i].parent ? childrens.push(arr[i]) : parents.push(arr[i])
   }
 
-  const sorting = (parents, childrens, depth = 1, prefix = '-') => {
+  const sorting = (parents, childrens, depth = 1, prefix = '- ') => {
     let rest = [];
 
     for (let child of childrens) {

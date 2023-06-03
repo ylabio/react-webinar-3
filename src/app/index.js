@@ -6,15 +6,24 @@ import Article from "./article";
 import Auth from './auth';
 import ProtectedComponent from '../containers/protected-component';
 import Profile from './profile';
+import useInit from '../hooks/use-init';
+import useStore from '../hooks/use-store';
 
 /**
  * Приложение
  * @returns {React.ReactElement}
  */
 function App() {
-  const activeModal = useSelector(state => state.modals.name);
+  const store = useStore();
 
-  const isAuth = useSelector(state => state.auth.isAuth);
+  const isAuth = useSelector(state => state.profile.isAuth);
+
+  useInit(() => {
+    store.actions.profile.getUser();
+    store.actions.categories.getCategories();
+  }, [], true);
+
+  const activeModal = useSelector(state => state.modals.name);
 
   return (
     <>

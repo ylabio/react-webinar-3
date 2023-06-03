@@ -3,39 +3,14 @@ import StoreModule from "../module";
 class AuthState extends StoreModule {
   initState() {
     return {
-      authFormData: {
-        login: '',
-        password: ''
-      },
-      isLoading: false,
       isError: false,
-      isAuth: false
+      isLoading: false
     }
   }
 
-  setLogin(login) {
-    this.setState({
-      ...this.getState(),
-      authFormData: {
-        ...this.getState().authFormData,
-        login,
-      }
-    })
-  }
-
-  setPassword(password) {
-    this.setState({
-      ...this.getState(),
-      authFormData: {
-        ...this.getState().authFormData,
-        password,
-      }
-    })
-  }
-
-  async onLogin() {
-    const login = this.getState().authFormData.login.trim(),
-          password = this.getState().authFormData.password.trim();
+  async onLogin(data) {
+    const login = data.login,
+          password = data.password;
 
     const params = {
       method: 'POST',
@@ -43,69 +18,46 @@ class AuthState extends StoreModule {
       headers: { 'Content-Type': 'application/json' }
     }
 
+    this.setState({
+      ...this.getState(),
+      isLoading: true
+    })
+
     await fetch('/api/v1/users/sign', params)
     .then(response => response.json())
     .then(data => {
       if (data.error) {
         this.setState({
-          ...this.getState(),
-          authFormData: {
-            login: '',
-            password: ''
-          },
           isError: data.error.data.issues[0].message,
         })
 
         return;
       }
 
-      localStorage.setItem('token', data.result.token)
+      localStorage.setItem('token', data.result.token);
 
-      this.getUser();
+      this.setState({
+        isError: false,
+        isLoading: false
+      })
+
+      location.reload(); // костыль, не могу понять, как правильно заставить работать....
     })
     .catch(err => {
+      this.setState({
+        ...this.getState(),
+        isLoading: false
+      })
+
       throw new Error(err)
     })
   }
 
-  onLogout() {
-    localStorage.removeItem("token");
-
+  resetError() {
     this.setState({
-      ...this.initState()
+      ...this.getState(),
+      isError: false
     })
-  }
-
-  async getUser() {
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      this.setState({
-        ...this.getState(),
-        isLoading: true,
-      }, 'Загрузка пользователя')
-
-      await fetch('/api/v1/users/self', {
-        headers: { "X-Token": token },
-      })
-      .then(response => response.json())
-      .then(data => {
-        const name = data.result.profile.name ? data.result.profile.name : 'Не указано',
-              phone = data.result.profile.phone ? data.result.profile.phone : 'Не указан',
-              email = data.result.email ? data.result.email : 'Не указан';
-
-        this.setState({
-          userData: {
-            name,
-            phone,
-            email
-          },
-          isLoading: false,
-          isError: false,
-          isAuth: true
-        }, 'Данные пользователя загружены')
-      })
-    }
   }
 }
 

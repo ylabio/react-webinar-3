@@ -9,8 +9,8 @@ function ProfileContainer() {
   const {t} = useTranslate();
   
   const select = useSelector(state => ({
-    isLoading: state.auth.isLoading,
-    userData: state.auth.userData,
+    isLoading: state.profile.isLoading,
+    userData: state.profile.userData,
   }));
 
   return (

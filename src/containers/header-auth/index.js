@@ -4,18 +4,17 @@ import SideLayout from '../../components/side-layout'
 import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
-import { Link } from 'react-router-dom';
 
 function HeaderAuth() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    isAuth: state.auth.isAuth,
-    username: state.auth.userData?.name
+    isAuth: state.profile.isAuth,
+    username: state.profile.userData?.name
   }));
 
   const handleLogout = () => {
-    store.actions.auth.onLogout()
+    store.actions.profile.onLogout()
   }
 
   const {t} = useTranslate();
