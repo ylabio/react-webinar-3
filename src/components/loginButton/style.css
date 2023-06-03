@@ -1,0 +1,14 @@
+.LoginButton-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 20px;
+}
+
+.LoginButton-button a {
+  text-decoration: none;
+  color: black;
+}
+
+.LoginButton-user {
+  margin-right: 20px;
+}

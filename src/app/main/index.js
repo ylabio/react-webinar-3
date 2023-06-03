@@ -8,6 +8,9 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import { Link } from "react-router-dom";
+import LoginButton from "../../components/LoginButton";
+import useSelector from "../../hooks/use-selector";
 
 function Main() {
   const store = useStore();
@@ -24,6 +27,7 @@ function Main() {
 
   return (
     <PageLayout>
+      <LoginButton />
       <Head title={t("title")}>
         <LocaleSelect />
       </Head>
