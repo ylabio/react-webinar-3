@@ -2,7 +2,7 @@ import { memo } from "react"
 import './style.css'
 import PropTypes from "prop-types";
 
-function InputLogin({name, onChange, value, type, placeholder, t}){
+function InputLogin({name, onChange, value, type, placeholder="", t}){
 
   const onChangeHandler = e =>{
     const target = e.target;

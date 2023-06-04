@@ -7,10 +7,12 @@ import StoreModule from "../module";
 class AuthState extends StoreModule {
 
   initState() {
-    return {
+    this.setState({...this.getState(), 
+      isAuth: false,
       error: null,
-      waiting: false
-    }
+      userData: {},
+      waiting: false}
+    )
   }
   
   async login(body) {

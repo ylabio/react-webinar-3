@@ -1,4 +1,4 @@
-import { memo, useState } from "react"
+import { memo, useEffect, useState } from "react"
 import InputLogin from "../../components/input-login"
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
@@ -7,7 +7,7 @@ import './style.css'
 function LoginForm({error, login, t}){
   const cn = bem('LoginForm');
   
-  const [form, setForm] = useState({login: "", password: ""});
+  const [form, setForm] = useState({login: '', password: ''});
   
   const onSubmitHandler = async (e) =>{
     e.preventDefault();
@@ -16,8 +16,8 @@ function LoginForm({error, login, t}){
 
   return (
   <form onSubmit={onSubmitHandler} className={cn()}>
-    <InputLogin name='login' value={form} onChange={setForm} type='text' t={t} placeholder="логин"/>
-    <InputLogin name='password' onChange={setForm} value={form} type='password' t={t} placeholder="пароль"/>
+    <InputLogin name='login' value={form} onChange={setForm} type='text' t={t} />
+    <InputLogin name='password' onChange={setForm} value={form} type='password' t={t} />
     {error && <div className={cn('error')}>{error}</div>}
     <button type="submit" className={cn('button')}>{t('enter')}</button>
   </form>)  

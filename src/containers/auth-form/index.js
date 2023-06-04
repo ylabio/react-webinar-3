@@ -1,11 +1,9 @@
-import { memo, useCallback, useEffect, useState } from "react"
+import { memo, useCallback, useEffect } from "react"
 import useTranslate from "../../hooks/use-translate"
-import InputLogin from "../../components/input-login"
 import LoginContainer from "../../components/login-Container"
 import useStore from "../../hooks/use-store"
 import Spinner from "../../components/spinner"
 import useSelector from "../../hooks/use-selector"
-import { useNavigate } from "react-router-dom"
 import LoginForm from "../../components/login-form"
 
 function AuthForm(){
@@ -17,6 +15,11 @@ function AuthForm(){
     waiting: state.auth.waiting,
     isAuth: state.auth.isAuth,
   }));
+
+  useEffect(()=>{
+    console.log('init')
+    store.actions.auth.initState()
+  }, [])
   
   const callbacks = {
     login: useCallback((body) => {
