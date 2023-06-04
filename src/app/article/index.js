@@ -10,6 +10,8 @@ import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
+import TopHead from '../../components/top-head';
+import AuthLink from '../../components/auth-link';
 
 function Article() {
   const store = useStore();
@@ -24,6 +26,7 @@ function Article() {
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
+    user: state.auth.user,
   }));
 
   const {t} = useTranslate();
@@ -35,6 +38,9 @@ function Article() {
 
   return (
     <PageLayout>
+      <TopHead>
+        <AuthLink user={select.user}/>
+      </TopHead>
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>
