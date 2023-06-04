@@ -25,8 +25,9 @@ class AuthorizationState extends StoreModule {
       });
 
       const json = await response.json();
+
       if (!response.ok) {
-        throw new Error(response.statusText);
+        throw new Error(json.error.message);
       }
 
       this.setState({

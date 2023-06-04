@@ -68,7 +68,7 @@ export function filterCategory(data) {
       result.push({...arr[i], dash});
 
       if (arr[i].children.length) {
-        flattenTree(arr[i].children, result, dash + '-');
+        flattenTree(arr[i].children, result, dash + '- ');
       }
     }
   };

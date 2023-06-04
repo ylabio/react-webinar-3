@@ -16,7 +16,7 @@ function ButtonEnter({t, linkLogin, linkProfile, dataAuthorization, onExit}) {
           <Link className={cn('link')} to={linkProfile}>
             {dataAuthorization.profile?.name}
           </Link>
-          <Link to={'/'}>
+          <Link to={'/login'}>
             <button onClick={onExit}>{t('basket.exit')}</button>
           </Link>
         </div>
