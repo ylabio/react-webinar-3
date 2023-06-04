@@ -1,0 +1,34 @@
+.ServicePageLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.ServicePageLayout_padding_small {
+  padding: 10px;
+}
+
+.ServicePageLayout_padding_medium {
+  padding: 20px;
+}
+.ServicePageLayout_padding_none {
+  padding: 0;
+}
+
+.ServicePageLayout_gap_small {
+  gap: 10px;
+}
+
+.ServicePageLayout_gap_medium {
+  gap: 20px;
+}
+
+.ServicePageLayout_gap_none {
+  gap: 0;
+}
+
+.ServicePageLayout-head {
+  margin: 0;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+}

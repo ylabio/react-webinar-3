@@ -5,7 +5,7 @@ POST {{baseUrl}}/users/sign
 Content-Type: application/json
 
 {
-  "login": "test_1",
+  "login": "test_15",
   "password": "123456"
 }
 
@@ -13,12 +13,19 @@ Content-Type: application/json
 # Выход - отмена авториазции для удаления токена
 
 DELETE {{baseUrl}}/users/sign
-X-Token: {{token}}
+X-Token: dc4bc9c2e5578ff8d0528e237b80e5a9191a9d9958277c01fcf64f99fd8a3ec2
 Content-Type: application/json
 
 ###
 # Свой профиль
 
 GET {{baseUrl}}/users/self
-X-Token: {{token}}
+X-Token: dc4bc9c2e5578ff8d0528e237b80e5a9191a9d9958277c01fcf64f99fd8a3ec2
 Content-Type: application/json
+
+###
+
+GET {{baseUrl}}/users/647cc306d5a9a90d33c016d9
+X-Token: 884fca65e59ae520cb2724382e5aa15e3862fb21a455954adcf4f75036646abe
+Content-Type: application/json
+

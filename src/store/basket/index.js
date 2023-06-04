@@ -1,16 +1,15 @@
-import StoreModule from "../module";
+import StoreModule from '../module';
 
 /**
  * Покупательская корзина
  */
 class BasketState extends StoreModule {
-
   initState() {
     return {
       list: [],
       sum: 0,
-      amount: 0
-    }
+      amount: 0,
+    };
   }
 
   /**
@@ -21,11 +20,11 @@ class BasketState extends StoreModule {
     let sum = 0;
     // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
-    const list = this.getState().list.map(item => {
+    const list = this.getState().list.map((item) => {
       let result = item;
       if (item._id === _id) {
         exist = true; // Запомним, что был найден в корзине
-        result = {...item, amount: item.amount + 1};
+        result = { ...item, amount: item.amount + 1 };
       }
       sum += result.price * result.amount;
       return result;
@@ -37,17 +36,20 @@ class BasketState extends StoreModule {
       const json = await response.json();
       const item = json.result;
 
-      list.push({...item, amount: 1}); // list уже новый, в него можно пушить.
+      list.push({ ...item, amount: 1 }); // list уже новый, в него можно пушить.
       // Добавляем к сумме.
       sum += item.price;
     }
 
-    this.setState({
-      ...this.getState(),
-      list,
-      sum,
-      amount: list.length
-    }, 'Добавление в корзину');
+    this.setState(
+      {
+        ...this.getState(),
+        list,
+        sum,
+        amount: list.length,
+      },
+      'Добавление в корзину'
+    );
   }
 
   /**
@@ -56,18 +58,21 @@ class BasketState extends StoreModule {
    */
   removeFromBasket(_id) {
     let sum = 0;
-    const list = this.getState().list.filter(item => {
+    const list = this.getState().list.filter((item) => {
       if (item._id === _id) return false;
       sum += item.price * item.amount;
       return true;
     });
 
-    this.setState({
-      ...this.getState(),
-      list,
-      sum,
-      amount: list.length
-    }, 'Удаление из корзины');
+    this.setState(
+      {
+        ...this.getState(),
+        list,
+        sum,
+        amount: list.length,
+      },
+      'Удаление из корзины'
+    );
   }
 }
 

@@ -1,17 +1,16 @@
-import {memo, useCallback, useLayoutEffect, useState} from 'react';
-import PropTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname';
+import { memo, useCallback, useLayoutEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { cn as bem } from '@bem-react/classname';
 import debounce from 'lodash.debounce';
 
 import './style.css';
 
 function Input(props) {
-
   // Внутренний стейт для быстрого отображения ввода
   const [value, setValue] = useState(props.value);
 
   const onChangeDebounce = useCallback(
-    debounce(value => props.onChange(value, props.name), 600),
+    debounce((value) => props.onChange(value, props.name), props.delay),
     [props.onChange, props.name]
   );
 
@@ -27,13 +26,14 @@ function Input(props) {
   const cn = bem('Input');
   return (
     <input
-      className={cn({theme: props.theme})}
+      className={cn({ theme: props.theme })}
       value={value}
       type={props.type}
       placeholder={props.placeholder}
       onChange={onChange}
+      id={props.id}
     />
-  )
+  );
 }
 
 Input.propTypes = {
@@ -43,12 +43,14 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   theme: PropTypes.string,
-}
+  id: PropTypes.string,
+  delay: PropTypes.number,
+};
 
 Input.defaultProps = {
   onChange: () => {},
   type: 'text',
-  theme: ''
-}
+  theme: '',
+};
 
 export default memo(Input);

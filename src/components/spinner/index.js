@@ -1,10 +1,11 @@
-import {memo} from "react";
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Spinner({active, children}) {
+function Spinner({ active, children }) {
+  console.log(name, active);
   if (active) {
-    return <div className="Spinner">{children}</div>
+    return <div className="Spinner">{children}</div>;
   } else {
     return children;
   }
@@ -15,8 +16,6 @@ Spinner.propTypes = {
   children: PropTypes.node,
 };
 
-Spinner.defaultProps = {
-
-}
+Spinner.defaultProps = {};
 
 export default memo(Spinner);
