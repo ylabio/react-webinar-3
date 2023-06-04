@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from "react"
+import { memo, useCallback, useEffect, useState } from "react"
 import useTranslate from "../../hooks/use-translate"
 import InputLogin from "../../components/input-login"
 import LoginContainer from "../../components/login-Container"
@@ -15,13 +15,14 @@ function AuthForm(){
   const select = useSelector(state => ({
     error: state.auth.error,
     waiting: state.auth.waiting,
-    error: state.auth.error,
     isAuth: state.auth.isAuth,
   }));
   
   const callbacks = {
-    login: useCallback((body) => store.actions.auth.login(body))
-  }
+    login: useCallback((body) => {
+      store.actions.auth.login(body);
+    })
+  };
 
   return (
   <LoginContainer>

@@ -66,7 +66,7 @@ export function categoriesToDisplay(arr){
 
   function categoryView(arr, cnt = 0){
     for (let i = 0; i < arr.length; i++){
-      view.push({title: '-'.repeat(cnt) + arr[i].title, value: arr[i]._id})
+      view.push({title: ' -'.repeat(cnt) + " " + arr[i].title, value: arr[i]._id})
       if(arr[i]?.children){
         const newCnt = cnt + 1
         categoryView(arr[i].children, newCnt);

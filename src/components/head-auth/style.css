@@ -6,4 +6,10 @@
 
 .HeadAuthContainer > a {
   margin-right: 20px;
+  color: #0087E9;
+
+}
+
+.HeadAuthContainer > a:visited {
+  color: #0087E9;
 }

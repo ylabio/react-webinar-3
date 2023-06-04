@@ -1,4 +1,4 @@
-import {memo, useEffect} from 'react';
+import {memo, useCallback, useEffect} from 'react';
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -9,9 +9,11 @@ import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
 import HeadAuth from '../../components/head-auth';
+import useSelector from "../../hooks/use-selector";
+  
+
 
 function Main() {
-
   const store = useStore();
 
   useInit(() => {
@@ -19,8 +21,8 @@ function Main() {
   }, [], true);
 
   useEffect(()=>{
-    store.actions.catalog.fetchCategories()
-  },[])
+    store.actions.categories.fetchCategories()
+  }, []);
 
   const {t} = useTranslate();
 

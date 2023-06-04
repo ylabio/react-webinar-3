@@ -1,10 +1,11 @@
 import { memo } from "react"
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import './style.css'
-import useAuthInfo from "../../hooks/use-auth-info"
+import useAuthInfo from "../../hooks/use-auth-info";
 
 function HeadAuth(){
-  const {isAuth, onClickHandler, name} = useAuthInfo();
+
+  const {isAuth, name, onClickHandler} = useAuthInfo();
 
   return (
     <div className="HeadAuthContainer">

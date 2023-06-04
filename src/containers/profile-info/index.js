@@ -7,9 +7,9 @@ import Spinner from "../../components/spinner";
 
 function ProfileInfo(){
   const select = useSelector(state => ({
-    userData: state.auth.userData,
-    waiting: state.auth.waiting
-  }))
+    userData: state.profile.userData,
+    waiting: state.profile.waiting
+  }));
 
   const {t} = useTranslate();
 

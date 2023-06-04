@@ -5,7 +5,6 @@ import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
-import { categoriesToDisplay } from "../../utils";
 
 function CatalogFilter() {
 
@@ -15,7 +14,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories
+    categories: state.categories.list
   }));
 
   const callbacks = {
@@ -36,7 +35,7 @@ function CatalogFilter() {
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
     ]), []),
-    categories: useMemo(() => categoriesToDisplay(select.categories), [select.categories])
+    categories: useMemo(() => select.categories, [select.categories])
   };
 
   const {t} = useTranslate();

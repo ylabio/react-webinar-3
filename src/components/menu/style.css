@@ -11,12 +11,21 @@
   display: block;
   padding: 2px 4px 3px 2px;
   margin: 0 2px;
+  color: #0087E9;
 }
 
 .Menu-item:first-child {
   margin-left: 0;
   padding-left: 0;
+  color: inherit;
 }
+
+.Menu-item > a:visited {
+  margin-left: 0;
+  padding-left: 0;
+  color: #0087E9;
+}
+
 
 .Menu-item:last-child {
   margin-right: 0;

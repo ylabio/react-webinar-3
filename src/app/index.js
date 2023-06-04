@@ -1,12 +1,12 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
 import {Routes, Route, Navigate } from 'react-router-dom';
 import useSelector from "../hooks/use-selector";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
+import useInitProfile from '../hooks/use-init-profile';
+import AuthGuard from '../containers/auth-guard';
 import Login from './login';
 import Profile from './profile';
-import useStore from '../hooks/use-store';
 
 /**
  * Приложение
@@ -15,20 +15,16 @@ import useStore from '../hooks/use-store';
 function App() {
 
   const activeModal = useSelector(state => state.modals.name);
-  const isAuth = useSelector(state => state.auth.isAuth)
-  const store = useStore()
-
-  useEffect(()=>{
-    store.actions.auth.initAuth()
-  }, [])
+  
+  useInitProfile()
 
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
-        <Route path={'/login'} element={isAuth ? <Navigate to='/profile'/>: <Login/> }/>
-        <Route path={'/profile'} element={isAuth? <Profile/> : <Navigate to='/login'/>}/>
+        <Route path={'/login'} element={<AuthGuard fallback={<Login />}><Navigate to={'/profile'}/></AuthGuard>} />
+        <Route path={'/profile'} element={<AuthGuard fallback={<Navigate to={'/login'}/>}><Profile /></AuthGuard>}/>
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}

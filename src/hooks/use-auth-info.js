@@ -8,8 +8,8 @@ export default function useAuthInfo(){
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    isAuth: state.auth.isAuth,
-    name: state.auth.userData?.name
+    isAuth: state.profile.isAuth,
+    name: state.profile.userData?.name
   }))
 
   const logout = useCallback(()=>{
@@ -18,15 +18,12 @@ export default function useAuthInfo(){
 
   const onClickHandler = () => {
     
-    if(isAuth) {
+    if(select.isAuth) {
       logout()
     } else {
       navigate('/login')
     };
   }
 
-  const isAuth = select.isAuth;
-  const name = select.name
-
-  return {isAuth, name, onClickHandler};
+  return {isAuth: select.isAuth, name: select.name, onClickHandler};
 }

@@ -8,15 +8,14 @@ import AuthForm from "../../containers/auth-form";
 import HeadAuth from "../../components/head-auth";
 
 
+
 function Login(){
   
-
   const {t} = useTranslate();
-
 
   return (
     <PageLayout>
-    <HeadAuth />
+    <HeadAuth/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
