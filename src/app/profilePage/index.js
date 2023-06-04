@@ -1,13 +1,21 @@
-import {memo} from 'react';
+import {memo, useEffect} from 'react';
 import UserPage from '../../containers/user-page'
+import useStore from "../../hooks/use-store";
 
 function ProfilePage() {
-    // Здесь нужно выполнить отправку GET-запроса на сервер, чтобы получить данные своего профиля
-    // и отобразить информацию о пользователе
+    const store = useStore();
+    const token = localStorage.getItem('token')
+    
+    useEffect(() => {
+      token && store.actions.user.getUserProfile()
+    }, [])
+
+    if(token) {
+      return <UserPage/>
+    } else {
+      return window.history.pushState(null, null, '/');
+    }
   
-    return (
-      <UserPage/>
-    );
   }
 
   export default memo(ProfilePage);

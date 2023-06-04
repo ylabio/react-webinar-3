@@ -1,5 +1,6 @@
-import {memo} from 'react';
+import {memo, useCallback} from 'react';
 import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
 import Navigation from "../../containers/navigation";
@@ -14,7 +15,16 @@ function Main() {
 
   const store = useStore();
 
-  const tokenUser = localStorage.getItem('token')
+  const select = useSelector(state => ({
+    authorization: state.user.authorization
+  }));
+
+  const userName = localStorage.getItem('userName')
+
+  const callbacks = {
+    // Выход
+    deleteUser: useCallback(() => store.actions.user.deleteUser(), [store])
+  }
 
   useInit(() => {
     store.actions.catalog.initParams();
@@ -23,7 +33,7 @@ function Main() {
   const {t} = useTranslate();
 
   return (
-    <PageLayout head={<HeadPage token={tokenUser}/>}>
+    <PageLayout head={<HeadPage authorization={select.authorization} exit={callbacks.deleteUser} userName={userName}/>}>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

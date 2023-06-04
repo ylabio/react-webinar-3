@@ -1,8 +1,6 @@
-import { memo, useState } from 'react'
+import { memo, useCallback } from 'react'
 import useStore from '../../hooks/use-store'
 import useSelector from '../../hooks/use-selector'
-import useTranslate from '../../hooks/use-translate'
-import useInit from '../../hooks/use-init'
 import PageLayout from '../../components/page-layout'
 import Head from '../../components/head'
 import Navigation from '../../containers/navigation'
@@ -11,34 +9,32 @@ import HeadPage from '../../components/head-page'
 import LoginForm from '../../components/loginForm'
 
 function LoginPage() {
-  const [error, setError] = useState('')
+  const store = useStore()
 
-  const tokenUser = localStorage.getItem('token')
+  const select = useSelector((state) => ({
+    authorization: state.user.authorization,
+    nameUser: state.user?.user?.user?.profile?.name,
+    error: state.user?.error,
+  }))
+
+  const userName = localStorage.getItem('userName')
+
+  const callbacks = {
+    // Авторизация
+    getAuthorization: useCallback(
+      (login, password) => store.actions.user.getAuthorization(login, password),
+      [store]
+    ),
+    // Выход
+    deleteUser: useCallback(() => store.actions.user.deleteUser(), [store]),
+  }
 
   const handleLogin = () => {
-    const login = localStorage.getItem('login')
-    const password = localStorage.getItem('password')
-    async function getAuthorization() {
-      try {
-        const response = await fetch('/api/v1/users/sign', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            login: login,
-            password: password,
-          }),
-        })
-
-        const json = await response.json()
-        localStorage.setItem('token', json.result.token);
-        setError('')
-      } catch (e) {
-        setError('Неверный логин или пароль')
-      }
-    }
-    getAuthorization()
+    const loginUser = localStorage.getItem('login')
+    const passwordUser = localStorage.getItem('password')
+    loginUser &&
+      passwordUser &&
+      callbacks.getAuthorization(loginUser, passwordUser)
   }
 
   const onChangeInput = (props) => {
@@ -47,12 +43,24 @@ function LoginPage() {
   }
 
   return (
-    <PageLayout head={<HeadPage token={tokenUser}/>}>
+    <PageLayout
+      head={
+        <HeadPage
+          authorization={select.authorization}
+          exit={callbacks.deleteUser}
+          userName={userName}
+        />
+      }
+    >
       <Head title="Магазин">
         <LocaleSelect />
       </Head>
       <Navigation />
-      <LoginForm onLogin={handleLogin} error={error} onChange={onChangeInput} />
+      <LoginForm
+        onLogin={handleLogin}
+        onChange={onChangeInput}
+        error={select.error}
+      />
     </PageLayout>
   )
 }

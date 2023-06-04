@@ -3,7 +3,7 @@ import { cn as bem } from '@bem-react/classname'
 import Input from '../input'
 import './style.css'
 
-function LoginForm({ onLogin, onChange, error }) {
+function LoginForm({ onLogin, onChange, error}) {
   const cn = bem('LoginForm')
 
   const handleSubmit = (e) => {
@@ -18,17 +18,16 @@ function LoginForm({ onLogin, onChange, error }) {
         <label>
           Логин
           <Input theme={'form'} onChange={onChange} name={'login'}/>
-          {error && <span>{error}</span>}
         </label>
         <label>
           Пароль
           <Input theme={'form'} onChange={onChange} name={'password'}/>
-          {error && <span>{error}</span>}
         </label>
         <button type="submit" className={cn('button')}>
           Войти
         </button>
       </form>
+      {error && <p>{error}</p>}
     </div>
   )
 }

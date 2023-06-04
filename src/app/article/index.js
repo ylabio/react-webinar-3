@@ -1,5 +1,5 @@
-import {memo, useCallback, useMemo} from 'react';
-import {useParams} from "react-router-dom";
+import { memo, useCallback, useMemo } from "react";
+import { useParams } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -25,17 +25,34 @@ function Article() {
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
+    authorization: state.user.authorization,
+    nameUser: state.user?.user?.user?.profile?.name,
   }));
 
-  const {t} = useTranslate();
+  const userName = localStorage.getItem('userName')
+
+  const { t } = useTranslate()
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    addToBasket: useCallback(
+      (_id) => store.actions.basket.addToBasket(_id),
+      [store]
+    ),
+    // Выход
+    deleteUser: useCallback(() => store.actions.user.deleteUser(), [store]),
   }
 
   return (
-    <PageLayout head={<HeadPage/>}>
+    <PageLayout
+      head={
+        <HeadPage
+          authorization={select.authorization}
+          exit={callbacks.deleteUser}
+          userName={userName}
+        />
+      }
+    >
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>

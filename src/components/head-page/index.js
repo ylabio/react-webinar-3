@@ -3,19 +3,21 @@ import { cn as bem } from '@bem-react/classname'
 import './style.css'
 import { Link } from 'react-router-dom'
 
-function HeadPage({ token, userName = 'user' }) {
+function HeadPage({ authorization, exit, userName }) {
   const cn = bem('HeadPage')
-
+  const onDelete = () => {
+    authorization && exit()
+  }
   return (
     <div className={cn('wrap')}>
-      {token !== null && (
+      {authorization && (
         <Link to="/user/123" className={cn('link')}>
           {userName}
         </Link>
       )}
-      <button className={cn('button')}>
-        <Link to="/login" className={cn('link-button')}>
-          {token ? 'Выход' : 'Вход' }
+      <button className={cn('button')} onClick={onDelete}>
+        <Link to={authorization ? '#' : '/login'} className={cn('link-button')}>
+          {authorization ? 'Выход' : 'Вход'}
         </Link>
       </button>
     </div>
