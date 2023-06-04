@@ -16,15 +16,16 @@ function LoginButton() {
   }));
 
   const callbacks = {
-		logOut: useCallback(() => store.actions.user.logOut(), [store]),
+		logOut: useCallback(() => {
+      store.actions.user.logOut(), [store]
+      localStorage.removeItem('token');
+    }),
 	};
 
   const onLogOut = () => {
     callbacks.logOut();
-    navigate('/')
+    navigate('/');
   }
-
-  console.log(select.user)
   
   return (
     <div className="LoginButton-wrapper">

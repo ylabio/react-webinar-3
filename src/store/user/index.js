@@ -32,6 +32,7 @@ class User extends StoreModule {
 
       if (json?.result) {
         localStorage.setItem('token', json?.result?.token);
+        localStorage.setItem('user', json?.result?.user?.username);
         this.setState({
           user: json?.result?.user,
         }, 'Авторизация прошла успешно');
@@ -73,7 +74,8 @@ class User extends StoreModule {
 				},
 			});
 			const json = await responce.json();
-			localStorage.removeItem('token')
+			localStorage.removeItem('token');
+      localStorage.removeItem('user');
 
 			this.setState({
 				...this.getState(),

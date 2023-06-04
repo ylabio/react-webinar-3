@@ -23,25 +23,19 @@ function Login() {
 
   const callbacks = {
     login: useCallback(
-      (data) => store.actions.user.login(data),
+      async (data) => store.actions.user.login(data),
       [store]
     ),
   };
-  
-  const onSubmit = (e) => {
+   
+  const onSubmit = async (e) => {
     e.preventDefault();
     const loginData = {
       password:  e.target[0].value,
       login:  e.target[1].value,
     }
-    callbacks.login(loginData);
+    await callbacks.login(loginData);
   }
-
-  useEffect(() => {
-    if (select.user) {
-      navigate('/user')
-    }
-  }, [select])
 
   return (
     <PageLayout>
@@ -53,7 +47,7 @@ function Login() {
       <Spinner active={select.waiting}>
        <div className="Login-wrapper">
           <h2>Вход</h2>
-          <LoginForm onSubmit={onSubmit}></LoginForm>
+          <LoginForm onSubmit={onSubmit} />
           <div>{select?.error?.message}</div>
        </div>
       </Spinner>
