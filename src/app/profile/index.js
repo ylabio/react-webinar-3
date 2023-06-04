@@ -10,12 +10,12 @@ import useTranslate from "../../hooks/use-translate";
 import useUser from "../../hooks/use-user";
 
 /**
- * Страница профиля. через хук делаем проверку и тянем поля, как если бы был юсе-селектор с пачкой ифов
+ * Страница профиля. через хук делаем проверку и тянем поля. Иначе перенаправляем на страницу логина
  */
 
 function Profile() {
   const { t } = useTranslate();
-  const { waiting, fields, misc } = useUser({ orRedirectTo: '/login' }); // misc пока не используется
+  const { waiting, fields } = useUser({ orRedirectTo: '/login' });
 
   return (
     <PageLayout>

@@ -1,6 +1,8 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import useInit from '../hooks/use-init';
 import useSelector from "../hooks/use-selector";
+import useStore from '../hooks/use-store';
 import Article from "./article";
 import Basket from "./basket";
 import Login from './login';
@@ -14,6 +16,11 @@ import Profile from './profile';
 function App() {
 
   const activeModal = useSelector(state => state.modals.name);
+  const store = useStore();
+
+  useInit(() => {
+    store.actions.user.load(); // проверяем, авторизован ли юзер
+  }, []);
 
   return (
     <>
