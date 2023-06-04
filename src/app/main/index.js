@@ -1,4 +1,5 @@
 import {memo} from 'react';
+import TopContainer from "src/containers/top";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -13,14 +14,16 @@ function Main() {
 
   const store = useStore();
 
-  useInit(() => {
-    store.actions.catalog.initParams();
+  useInit(async () => {
+    await store.actions.catalog.initParams();
+    await store.actions.categories.setCategories();
   }, [], true);
 
   const {t} = useTranslate();
 
   return (
     <PageLayout>
+      <TopContainer/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
