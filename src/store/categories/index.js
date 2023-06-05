@@ -4,13 +4,13 @@ import StoreModule from "../module";
 class CategoriesState extends StoreModule {
   initState() {
     return {
-      categoriesList: [{ _id: '', title: 'filter.all' }]
+      categoriesList: []
     }
   }
 
   setCategories(list) {
     this.setState({
-        categoriesList: [...this.getState().categoriesList, ...stackParents(list)]
+        categoriesList: [{ _id: '', title: 'filter.all' }, ...this.getState().categoriesList, ...stackParents(list)]
     }, 'Категории установлены')
   }
 

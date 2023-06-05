@@ -28,7 +28,7 @@ class AuthState extends StoreModule {
     .then(data => {
       if (data.error) {
         this.setState({
-          isError: data.error.data.issues[0].message,
+          isError: {...data.error.data.issues.map(error => error.message)}
         })
 
         return;

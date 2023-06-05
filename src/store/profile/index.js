@@ -40,6 +40,8 @@ class ProfileState extends StoreModule {
         }, 'Данные пользователя загружены')
       })
       .catch((err) => {
+        localStorage.removeItem("token");
+
         this.setState({
             isLoading: false,
             isError: true,
@@ -51,7 +53,14 @@ class ProfileState extends StoreModule {
     }
   }
 
-  onLogout() {
+  async onLogout() {
+    const params = {
+      method: 'DELETE',
+      headers: { "X-Token": localStorage.getItem('token') }
+    }
+
+    await fetch('/api/v1/users/sign', params);
+
     localStorage.removeItem("token");
 
     this.setState({

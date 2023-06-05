@@ -34,6 +34,39 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
+// export function stackParents(arr) {
+//   let parents = [],
+//       childrens = [];
+      
+//   for (let i = 0; i < arr.length; i++) {
+//     arr[i].parent ? childrens.push(arr[i]) : parents.push(arr[i]);
+//   }
+
+//   let result = new Set();
+
+//   const sorting = (parent, childrens, depth = 0, prefix = '- ') => {
+//     if (parent == undefined) return;
+
+//     let rest = new Set();
+
+//     result.add({_id: parent._id, value: prefix.repeat(depth) + parent.title})
+
+//     childrens.forEach(child => {
+//       if (child.parent._id == parent._id) {
+//         result.add({_id: child._id, value: prefix.repeat(depth + 1) + child.title})
+//       } else {
+//         rest.add(child)
+//       }
+//     })
+//   }
+
+//   parents.forEach(parent => sorting(parent, childrens))
+
+//   console.log(Array.from(result));
+
+//   return result;
+// }
+
 export function stackParents(arr) {
   let parents = [],
       childrens = [];
@@ -47,7 +80,7 @@ export function stackParents(arr) {
 
     for (let child of childrens) {
       let indexParent = parents.findIndex(parent => parent._id === child.parent._id);
-  
+
       if (parents[indexParent] == undefined) {
         rest.push(child);
 
@@ -55,7 +88,7 @@ export function stackParents(arr) {
       }
 
       child.prefix = prefix.repeat(depth);
-  
+
       parents[indexParent].hasOwnProperty("childrens") ? 
         parents[indexParent].childrens.push(child) 
       : parents[indexParent].childrens = [child]
@@ -70,6 +103,8 @@ export function stackParents(arr) {
   sorting(parents, childrens)
 
   let result = enumerationObject(parents);
+
+  console.log(result);
 
   return result;
 }
