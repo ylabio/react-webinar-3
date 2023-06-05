@@ -15,7 +15,6 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   // Возвращаем вариант по ключу, если он есть
   return variants[key] || '';
 }
-
 /**
  * Генератор чисел с шагом 1
  * @returns {Function}
@@ -23,7 +22,6 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
 export function codeGenerator(start = 0) {
   return () => ++start;
 }
-
 /**
  * Форматирование разрядов числа
  * @param value {Number}
@@ -32,4 +30,50 @@ export function codeGenerator(start = 0) {
  */
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
+}
+/**
+ * Форматирование категорий товаров
+ * @param categories {Array}
+ * @returns {Array}
+ */
+export function formatCategories(categories) {
+  const formattedCategories = [];
+  let childrens = [];
+  let parentId;
+  let parentIndex;
+  for (let i = 0; i < categories.length; i += 1) {
+    const category = categories[i];
+
+    if (category.parent === null) {
+      formattedCategories.push({
+        value: category._id,
+        title: category.title,
+        lvl: 0,
+      });
+
+      continue;
+    }
+
+    if (category.parent._id !== parentId) {
+      formattedCategories.splice(parentIndex + 1, 0, ...childrens);
+      childrens = [];
+      parentId = category.parent._id;
+      parentIndex = formattedCategories.findIndex(cat => cat.value === parentId);
+    }
+
+    const parent = formattedCategories.find(cat => cat.value === category.parent._id);
+    const formattedChild = {
+      value: category._id,
+      title: `${('- ').repeat(parent.lvl + 1)}${category.title}`,
+      lvl: parent.lvl + 1,
+    };
+
+    childrens.push(formattedChild);
+  }
+
+  if (childrens.length > 0) {
+    formattedCategories.splice(parentIndex + 1, 0, ...childrens);
+  }
+
+  return formattedCategories;
 }
