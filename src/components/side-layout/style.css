@@ -20,14 +20,31 @@
   justify-content: space-between;
 }
 
-.SideLayout_padding_small{
+.SideLayout_padding_small {
   padding: 10px;
 }
 
-.SideLayout_padding_medium{
+.SideLayout_padding_login {
+  padding: 10px 20px;
+}
+
+.SideLayout_padding_medium {
   padding: 20px;
 }
 
 .SideLayout-item {
-  margin: 0 5px;
+  display: flex;
+  gap: 0 5px;
+}
+
+.SideLayout-item_gap_medium {
+  gap: 0 20px;
+}
+
+.SideLayout_gap_small {
+  gap: 0 10px;
+}
+
+.SideLayout_border_bottom {
+  border-bottom: 1px solid #CCCCCC;
 }

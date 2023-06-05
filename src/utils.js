@@ -33,3 +33,45 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Cоздание дерева
+ * @param array {Array}
+ * @returns {Array}
+ */
+export function buildTree(array) {
+  const map = new Map(array.map(item => [item.id, item]));
+  for (let item of map.values()) {
+    if (!map.has(item.parent)) {
+      continue;
+    }
+    const parent = map.get(item.parent);
+    parent.children = [...parent.children || [], item];
+  }
+  return [...map.values()].filter(item => !item.parent);
+}
+
+/**
+ * Обход дерева
+ * @param array {Array}
+ * @param dept {Number}
+ * @returns {Array}
+ */
+
+export function traversalTree(array, depth) {
+  let result = [];
+  result.push({value: '', title: 'Все'});
+
+  function traversal(arr, depth) {
+    arr.map(el => {
+      result.push({ value: el.id, title: (' - ').repeat(depth) + el.title, depth });
+
+      if (el.children) {
+        traversal(el.children, depth + 1);
+      }
+    })
+  }
+
+  traversal(array, depth);
+  return result;
+};
