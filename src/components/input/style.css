@@ -1,6 +1,8 @@
 .Input{
   font-size: 16px;
   padding: 2px;
+  border: 1px solid #767676;
+  border-radius: 1px;
 }
 
 .Input_theme_big{

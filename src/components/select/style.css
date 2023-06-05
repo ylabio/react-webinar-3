@@ -2,4 +2,10 @@
   font-size: 16px;
   padding: 3px 2px 2px;
   outline: none;
+  border: 1px solid #767676;
+  border-radius: 1px;
+}
+
+.Select:first-child {
+  width: 161px;
 }

@@ -62,7 +62,6 @@ class CatalogState extends StoreModule {
    */
   async setParams(newParams = {}, replaceHistory = false) {
     const params = {...this.getState().params, ...newParams};
-
     // Установка новых параметров и признака загрузки
     this.setState({
       ...this.getState(),
@@ -85,27 +84,40 @@ class CatalogState extends StoreModule {
       fields: 'items(*),count',
       sort: params.sort,
       'search[query]': params.query,
+      'search[parent]': params.category,
     };
-    if (params.category) {
-      console.log("категория перед добавлением", params.category)
-      apiParams['search[parent]'] = params.category;
-    };
-
-    
-
+    if(newParams.hasOwnProperty('category') && newParams.category !== '') {
+      const responseCategories = await fetch(`/api/v1/categories?${new URLSearchParams(apiParams)}`);
+        const jsonCategories = await responseCategories.json();
+        this.setState({
+          ...this.getState(),
+          list: jsonCategories.result.items,
+          count: jsonCategories.result.count,
+          waiting: false,
+          categories: jsonCategories.result.items
+        }, 'Загружен список товаров из категории');
+    } else {
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
-    const responseFromCategories = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`)
+    // const responseFromCategories = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`)
     const json = await response.json();
-    const jsonCategories = await responseFromCategories.json();
+    // const jsonCategories = await responseFromCategories.json();
     this.setState({
       ...this.getState(),
       list: json.result.items,
       count: json.result.count,
       waiting: false,
-      categories: jsonCategories.result.items
-    }, 'Загружен список товаров и категорий из АПИ');
+      // categories: jsonCategories.result.items
+    }, 'Загружен список товаров из АПИ');
 
   }
+  const responseFromCategories = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`)
+  const jsonCategories = await responseFromCategories.json();
+  this.setState({
+    ...this.getState(),
+    waiting: false,
+    categories: jsonCategories.result.items
+  }, 'Загружен список категорий из АПИ');
+}
 }
 
 export default CatalogState;
