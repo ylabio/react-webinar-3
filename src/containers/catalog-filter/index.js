@@ -1,22 +1,20 @@
-import { memo, useCallback, useMemo, useState } from "react";
+import { memo, useCallback, useMemo } from "react";
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
-import useInit from "../../hooks/use-init";
 
 function CatalogFilter() {
   const store = useStore();
   const { t } = useTranslate();
-  const [categories, setCategories] = useState([]);
 
   const select = useSelector((state) => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories,
+    categories: state.category.categories,
   }));
 
   const callbacks = {
@@ -51,59 +49,16 @@ function CatalogFilter() {
       []
     ),
   };
+  
 
-  useInit(() => {
-    let result = [{ _id: "", value: "", title: "Все", parent: null }];
-
-    function sortCategory(arr) {
-      let child = [];
-
-      for (let item of arr) {
-        if (!item.parent) {
-          item.value = item._id;
-          result.push(item);
-        } else {
-          child.push(item);
-        }
-      }
-
-      for (let item of child) {
-        if (
-          result.find((el) => el._id === item.parent._id && el.parent === null)
-        ) {
-          item.title = "- " + item.title;
-          item.value = item._id;
-          let it = result.indexOf(
-            result.find(
-              (el) => el._id === item.parent._id && el.parent === null
-            )
-          );
-          result.splice(it + 1, 0, item);
-        } else if (
-          result.find((el) => el._id === item.parent._id && el.parent !== null)
-        ) {
-          item.title = "- - " + item.title;
-          item.value = item._id;
-          let it = result.indexOf(
-            result.find(
-              (el) => el._id === item.parent._id && el.parent !== null
-            )
-          );
-          result.splice(it + 1, 0, item);
-        }
-      }
-    }
-    sortCategory(select.categories);
-    setCategories(result);
-  }, [select.categories]);
 
   return (
     <SideLayout padding="medium">
-      <Select
-        options={categories}
+     <Select
+        options={select.categories}
         value={select.category}
         onChange={callbacks.onCategory}
-      />
+      /> 
       <Select
         options={options.sort}
         value={select.sort}
