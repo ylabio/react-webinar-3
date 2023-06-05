@@ -1,26 +1,30 @@
 import { memo } from 'react';
-import useStore from '../../hooks/use-store';
+import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
-import useInit from '../../hooks/use-init';
-import Navigation from '../../containers/navigation';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
-import CatalogFilter from '../../containers/catalog-filter';
-import CatalogList from '../../containers/catalog-list';
+import Navigation from '../../containers/navigation';
 import LocaleSelect from '../../containers/locale-select';
 import ProfilePanel from '../../containers/profile-panel';
+import ProfileCard from '../../components/profile-card';
+import useInit from '../../hooks/use-init';
+import useStore from '../../hooks/use-store';
 
-function Main() {
+function Profile() {
   const store = useStore();
-
+  
   useInit(
     () => {
-      store.actions.categories.getCategories();
-      store.actions.catalog.initParams();
+      store.actions.profile.getProfileData();
     },
     [],
     true
   );
+
+  const select = useSelector((state) => ({
+    isAuth: state.article.data,
+    userProfile: state.profile.userProfile,
+  }));
 
   const { t } = useTranslate();
 
@@ -31,10 +35,9 @@ function Main() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <CatalogFilter />
-      <CatalogList />
+      <ProfileCard profile={select.userProfile} t={t} />
     </PageLayout>
   );
 }
 
-export default memo(Main);
+export default memo(Profile);
