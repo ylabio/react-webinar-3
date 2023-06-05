@@ -14,11 +14,12 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    categories: state.catalog.categories,
+    categories: state.categories.categories,
     category: state.catalog.params.category
   }));
 
   let categoriesList = getCategoryList(select.categories);
+  console.log(select.categories);
 
   const callbacks = {
     // Сортировка
