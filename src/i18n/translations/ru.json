@@ -16,5 +16,15 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "filter.all": "Все",
+  "authHeader.login": "Вход",
+  "authHeader.logout": "Выход",
+  "loginForm.title": "Вход",
+  "loginForm.labelLogin": "Логин",
+  "loginForm.labelPassword": "Пароль",
+  "loginForm.submit": "Войти",
+  "profile.title": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон"
 }

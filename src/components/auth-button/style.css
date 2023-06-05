@@ -1,0 +1,22 @@
+.Auth-button {
+    display: inline-block;
+    min-width: 47px;
+    text-decoration: none;
+    font-size: 13px;
+    text-align: center;
+    color: #000;
+    background-color: #EFEFEF;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    padding: 3px 3px 2px 3px;
+    transition: .2s linear;
+}
+
+.Auth-button-link {
+    font-size: 13px;
+    color: #0087E9;
+}
+
+.Auth-button:hover {
+    background-color: #dddddd;
+}
