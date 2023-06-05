@@ -13,16 +13,63 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    filter: state.catalog.params.filter,
+    categoriesList: state.categories.list
   }));
 
   const callbacks = {
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
+    // Фильтр по категориям
+    onFilter: useCallback(filter => store.actions.catalog.setParams({filter, page: 1}), [store]),
     // Поиск
     onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
+
+  let filter = [
+    {value: 'all', title: "Все"}
+  ];
+
+  function createFilter() {
+
+    function addCategoryToFilter(data, prefix) {
+      filter.push({value: data._id, title: prefix + data.title});
+    }
+    let categories = [];
+    // копируем массив объектов, чтобы не менялся исходный
+    select.categoriesList.forEach(item => {
+      let newObj = {};
+      Object.assign(newObj, item);
+      categories.push(newObj);
+    });
+
+    categories.forEach(item => {
+      item.children = categories.filter(elem => elem.parent?._id === item._id);
+    });
+    
+    let list = categories.filter(item => item.parent === null);
+
+    let emptyPrefix = '';
+    let firstLevelPrefix = '- ';
+    let prefixArr = [];
+
+    function handleCategory(category, prefix) {
+      addCategoryToFilter(category, prefix);
+      if (category.children.length > 0) {
+        prefixArr.push(firstLevelPrefix)
+        prefix = prefixArr.join("");
+        category.children.forEach(i => handleCategory(i, prefix))
+        prefixArr.pop();
+        prefix = prefixArr.join("");
+      }
+    }
+
+    list.forEach(item => handleCategory(item, emptyPrefix));
+  }
+
+  createFilter();
 
   const options = {
     sort: useMemo(() => ([
@@ -30,16 +77,18 @@ function CatalogFilter() {
       {value: 'title.ru', title: 'По именованию'},
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
-    ]), [])
+    ]), []),
+    filter: filter
   };
 
   const {t} = useTranslate();
 
   return (
     <SideLayout padding='medium'>
+      <Select options={options.filter} value={select.filter} onChange={callbacks.onFilter}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
-             delay={1000}/>
+             delay={1000} theme='big'/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>
   )

@@ -8,6 +8,7 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import Login from '../../containers/login-nav';
 
 function Main() {
 
@@ -15,12 +16,14 @@ function Main() {
 
   useInit(() => {
     store.actions.catalog.initParams();
+    store.actions.categories.getCategories();
   }, [], true);
 
   const {t} = useTranslate();
 
   return (
     <PageLayout>
+      <Login/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

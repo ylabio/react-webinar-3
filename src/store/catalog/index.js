@@ -16,6 +16,7 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
+        filter: 'all',
         query: ''
       },
       count: 0,
@@ -36,6 +37,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('filter')) validParams.filter = urlParams.get('filter');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
 
@@ -83,6 +85,10 @@ class CatalogState extends StoreModule {
       sort: params.sort,
       'search[query]': params.query
     };
+
+    if(params.filter !== 'all') {
+      apiParams['search[category]'] = params.filter;
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();

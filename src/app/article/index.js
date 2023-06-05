@@ -10,6 +10,7 @@ import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
+import Login from '../../containers/login-nav';
 
 function Article() {
   const store = useStore();
@@ -30,11 +31,12 @@ function Article() {
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store])
   }
 
   return (
     <PageLayout>
+      <Login/>
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>
