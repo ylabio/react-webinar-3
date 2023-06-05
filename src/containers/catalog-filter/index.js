@@ -5,6 +5,7 @@ import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
+import OptionTree from "../../components/option-tree";
 
 function CatalogFilter() {
 
@@ -13,6 +14,9 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    waiting: state.categories.waiting,
+    categories: state.categories.items
   }));
 
   const callbacks = {
@@ -22,6 +26,7 @@ function CatalogFilter() {
     onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
+    onCategory: useCallback(category => store.actions.catalog.setParams({category, page: 1}), [store])
   };
 
   const options = {
@@ -37,8 +42,12 @@ function CatalogFilter() {
 
   return (
     <SideLayout padding='medium'>
+      <Select value={select.category} onChange={callbacks.onCategory} size='m' disabled={select.waiting}>
+        <option value='all'>Все</option>
+        <OptionTree prefix={'- '} array={select.categories} renderItem={item => item.title} />
+      </Select>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
-      <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
+      <Input size='large' value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>

@@ -1,0 +1,8 @@
+.UserPanel {
+    display: flex;
+    gap: 20px;
+}
+
+.UserPanel-link {
+    color: #0087E9;
+}

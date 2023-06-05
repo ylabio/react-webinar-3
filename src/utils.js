@@ -33,3 +33,31 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Преобразование массива в дерево
+ * @param array Массив
+ * @param id Айди элемента массива
+ * @param parentKey Ключ объекта в элементе, в котором лежит айди родителя
+ */
+export default function arrayToTree(array, id , parentKey) {
+  const tree = {};
+
+  for (const item of array) {
+    const itemId = item[id];
+    const node = { ...item, children: [] };
+    tree[itemId] = node;
+
+    const parentItem = item[parentKey];
+    if (parentItem && parentItem[id]) {
+      const parentId = parentItem[id];
+      if (!tree[parentId]) {
+        tree[parentId] = { children: [] };
+      }
+      tree[parentId].children.push(node);
+    }
+  }
+
+  // Оставляем только  те деревья у которых parent: null
+  return Object.values(tree).filter(node => !node[parentKey]);
+}

@@ -1,16 +1,18 @@
 import {memo} from "react";
 import PropTypes from 'prop-types';
 import './style.css';
+import {cn as bem} from '@bem-react/classname';
 
-function Select(props) {
+function Select({onChange, size = 's', options, children, value, disabled}) {
 
+  const cn = bem('Select');
   const onSelect = (e) => {
-    props.onChange(e.target.value);
+    onChange(e.target.value);
   };
 
   return (
-    <select className="Select" value={props.value} onChange={onSelect}>
-      {props.options.map(item => (
+    <select disabled={disabled} className={cn({size})} value={value} onChange={onSelect}>
+      {children || options.map(item => (
         <option key={item.value} value={item.value}>{item.title}</option>
       ))}
     </select>
@@ -21,9 +23,12 @@ Select.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string
-  })).isRequired,
+  })),
   value: PropTypes.any,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  children: PropTypes.node,
+  disabled: PropTypes.bool,
+  size: PropTypes.oneOf(['s', 'm'])
 };
 
 Select.defaultProps = {

@@ -1,0 +1,24 @@
+.ProfileDetails {
+    padding: 10px 20px;
+}
+
+.ProfileDetails-title {
+    font-size: 24px;
+    line-height: 112%;
+    margin-bottom: 30px;
+}
+
+.ProfileDetails-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ProfileDetails-item {
+    font-size: 18px;
+    line-height: 111%;
+}
+
+.ProfileDetails-item span {
+    font-weight: 700;
+}

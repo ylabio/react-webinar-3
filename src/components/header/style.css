@@ -1,0 +1,14 @@
+.Header {
+    border-bottom: 1px solid #DCDCDC;
+}
+
+.Header-container {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Header-left {}
+.Header-center {}
+.Header-right {}

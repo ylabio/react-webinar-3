@@ -8,12 +8,14 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import HeaderMain from "../../containers/header-main";
 
 function Main() {
 
   const store = useStore();
 
   useInit(() => {
+    store.actions.categories.load();
     store.actions.catalog.initParams();
   }, [], true);
 
@@ -21,6 +23,7 @@ function Main() {
 
   return (
     <PageLayout>
+      <HeaderMain />
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
