@@ -22,7 +22,7 @@ function CatalogList() {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Пагинация
-    onPaginate: useCallback(page => store.actions.catalog.setParams({page}), [store]),
+    onPaginate: useCallback(page => store.actions.catalog.setParams({page}, true), [store]),
     // генератор ссылки для пагинатора
     makePaginatorLink: useCallback((page) => {
       return `?${new URLSearchParams({page, limit: select.limit, sort: select.sort, query: select.query})}`;

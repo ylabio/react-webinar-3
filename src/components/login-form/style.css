@@ -1,0 +1,25 @@
+.Login-form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.Login-form-Title {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.Login-form-Label {
+  display: flex;
+  flex-direction: column;
+  /* font-size: 18px; */
+}
+
+.Login-form-Error {
+  font-size: 16px;
+  line-height: 18px;
+  color: #ff0000;
+}

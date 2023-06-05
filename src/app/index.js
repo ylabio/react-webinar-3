@@ -4,20 +4,32 @@ import useSelector from "../hooks/use-selector";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
+import LoginPage from './login';
+import Profile from './profile';
+import useInit from '../hooks/use-init';
+import useStore from '../hooks/use-store';
+import PrivateRoute from '../containers/private-route';
 
 /**
  * Приложение
  * @returns {React.ReactElement}
  */
 function App() {
+  const store = useStore();
 
   const activeModal = useSelector(state => state.modals.name);
+
+  useInit(() => {
+    store.actions.authorization.initSession();
+  }, []);
 
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
+        <Route path={'/login'} element={<LoginPage/>}/>
+        <Route path={'/profile'} element={<PrivateRoute><Profile/></PrivateRoute>}/>
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}
