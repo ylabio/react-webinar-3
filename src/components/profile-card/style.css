@@ -1,0 +1,17 @@
+.Profile-card-wrapper{
+    padding: 20px;
+}
+
+.Profile-card-title{
+    margin: 20px 0;
+    padding-bottom: 6px;
+}
+
+.Profile-card-text{
+    margin: 20px 0;
+    font-size: 18px;
+}
+
+span{
+    font-weight: 700;
+}

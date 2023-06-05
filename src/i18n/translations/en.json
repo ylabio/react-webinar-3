@@ -14,5 +14,14 @@
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "login-form.enter": "Log in",
+  "login-form.login": "Login",
+  "login-form.password": "Password",
+  "login-form.button": "Submit",
+  "user.profile": "Profile",
+  "user.name": "Name",
+  "user.phone": "Phone",
+  "log-out.button": "Log out",
+  "log-in.button": "Log in"
 }
