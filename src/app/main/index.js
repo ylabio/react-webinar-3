@@ -8,19 +8,23 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import AuthPanel from '../../containers/auth-panel';
 
 function Main() {
 
   const store = useStore();
 
-  useInit(() => {
+  useInit(async () => {
+    store.actions.auth.setLoggedIn(store.actions.profile.tokenChecking());
     store.actions.catalog.initParams();
+    store.actions.categories.setCategories();
   }, [], true);
 
   const {t} = useTranslate();
 
   return (
     <PageLayout>
+      <AuthPanel/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

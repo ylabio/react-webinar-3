@@ -33,3 +33,34 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+
+export function categoriesFormat(items, initCategories = []) {
+  let result = initCategories;
+  let level = {};
+  let map = {};
+
+  items.forEach(item => {
+      level[item._id] = item.parent ? level[item.parent._id] + 1 : 0;
+      let prefix = '- '.repeat(level[item._id]);
+
+      let obj = {
+          value: item._id,
+          title: prefix + item.title,
+          childCount: 0
+      };
+
+      //Вставляем после непосредственного предка
+      map[item._id] = obj;
+      if (item.parent) {
+          let index = result.indexOf(map[item.parent._id]) + map[item.parent._id].childCount;
+          map[item.parent._id].childCount++
+          result.splice(index + 1, 0, obj);
+      } else {
+          result.push(obj);
+      }
+  });
+
+  return result;
+}
+

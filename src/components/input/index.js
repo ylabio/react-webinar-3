@@ -11,14 +11,16 @@ function Input(props) {
   const [value, setValue] = useState(props.value);
 
   const onChangeDebounce = useCallback(
-    debounce(value => props.onChange(value, props.name), 600),
+    debounce(value => props.onChange(value, props.name), props.delay),
     [props.onChange, props.name]
   );
 
   // Обработчик изменений в поле
   const onChange = (event) => {
     setValue(event.target.value);
-    onChangeDebounce(event.target.value);
+    props.delay ? 
+      onChangeDebounce(event.target.value) : 
+      props.onChange(event.target.value);
   };
 
   // Обновление стейта, если передан новый value
@@ -26,13 +28,16 @@ function Input(props) {
 
   const cn = bem('Input');
   return (
-    <input
-      className={cn({theme: props.theme})}
-      value={value}
-      type={props.type}
-      placeholder={props.placeholder}
-      onChange={onChange}
-    />
+    <div className={cn()}>
+      {props.label && (<label>{props.label}</label>)}
+      <input
+        className={cn({theme: props.theme})}
+        value={value}
+        type={props.type}
+        placeholder={props.placeholder}
+        onChange={onChange}
+      />
+    </div>
   )
 }
 

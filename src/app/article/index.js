@@ -10,6 +10,7 @@ import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
+import AuthPanel from '../../containers/auth-panel';
 
 function Article() {
   const store = useStore();
@@ -18,6 +19,7 @@ function Article() {
   const params = useParams();
 
   useInit(() => {
+    store.actions.auth.setLoggedIn(store.actions.profile.tokenChecking());
     store.actions.article.load(params.id);
   }, [params.id]);
 
@@ -35,6 +37,7 @@ function Article() {
 
   return (
     <PageLayout>
+      <AuthPanel/>
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>

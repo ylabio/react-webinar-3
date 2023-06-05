@@ -1,0 +1,31 @@
+.ProfileInfo {
+    padding: 42px 20px;
+}
+
+.ProfileInfo-title {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.ProfileInfo-prop {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 18px
+}
+
+.ProfileInfo-prop_size_big {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.ProfileInfo-label {
+    padding-right: 10px;
+}
+
+.ProfileInfo-value {
+    font-weight: bold;
+}
