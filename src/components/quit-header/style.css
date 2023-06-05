@@ -1,0 +1,15 @@
+.quit-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 13px 20px 12px;
+  height: 16px;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+.quit-header button {
+  font-size: 13px;
+  line-height: 15px;
+  text-align: center;
+  margin-left: 23px;
+}

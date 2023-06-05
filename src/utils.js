@@ -33,3 +33,48 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function createCategories(categoryArrayFromServer) {
+  const makeSubcategories = (categoryArray) => {
+    const result = [];
+    for (const category1 of categoryArray) {
+      category1.subscategories = [];
+      if (category1.parent === null) result.push(category1);
+      else {
+        for (const category2 of categoryArray) {
+          if (category1.parent._id === category2._id) {
+            category2.subscategories.push(category1);
+            result.push(category2);
+            break;
+          }
+        }
+      }
+    }
+
+    const resultObject = {};
+    const finalResult = [];
+    for (const element of result) {
+      if (element.parent === null && !resultObject[element.title]) {
+        resultObject[element.title] = element;
+        finalResult.push(element);
+      }
+    }
+    return finalResult;
+  };
+
+  const createInterface = (array, res = [], levelOfDepth = 0) => {
+    if (!array.length) return res;
+
+    res.push({
+      title: `${'- '.repeat(levelOfDepth)}${array[0].title}`,
+      value: array[0]._id,
+    });
+
+    if (array[0].subscategories) {
+      createInterface(array[0].subscategories, res, levelOfDepth + 1);
+    }
+    return createInterface(array.slice(1), res, levelOfDepth);
+  };
+
+  return createInterface(makeSubcategories(categoryArrayFromServer));
+}

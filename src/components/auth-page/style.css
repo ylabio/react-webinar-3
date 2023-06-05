@@ -1,0 +1,50 @@
+.AuthPage {
+  padding: 42px 20px 0px 20px;
+}
+
+.AuthPage-bold {
+  font-weight: 700;
+  margin-top: 0;
+}
+
+.title {
+  margin-bottom: 17px;
+}
+
+.AuthPage-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.AuthPage-form > *:not(:last-child) {
+  margin-bottom: 19px;
+}
+
+.AuthPage-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.AuthPage-input {
+  width: 195px;
+  height: 20px;
+}
+
+.AuthPage-label {
+  font-size: 16px;
+}
+
+.AuthPage-error {
+  font-size: 16px;
+  font-weight: 400;
+  color: #ff0000;
+}
+
+.AuthPage-button {
+  margin-top: 4px;
+  font-size: 13px;
+}

@@ -1,0 +1,16 @@
+.ProfilePage {
+  padding: 42px 20px 0px 20px;
+}
+
+.ProfilePage-title {
+  font-weight: 700;
+  margin-top: 0;
+}
+
+.ProfilePage-bold {
+  font-weight: 700;
+}
+
+.ProfilePage-item:not(:last-child) {
+  margin-bottom: 20px;
+}
