@@ -1,7 +1,7 @@
 import StoreModule from "../module";
 
 /**
- * Модуль страницы логина. Чтоб UserState не перегружать
+ * Модуль страницы логина.
  */
 class LoginState extends StoreModule {
 
@@ -43,12 +43,10 @@ class LoginState extends StoreModule {
         headers: { 'Content-Type': 'application/json' }
       })
     ).json();
-    //console.log('login: json:', json);
 
     if (json.error) {
-      //console.log('login: json.error:', json.error);
       let error = '';
-      const issues = json.error.data?.issues; // там еще какието ошибки в массиве, надо собирать?
+      const issues = json.error.data?.issues;
       if (issues && issues.length) {
         issues.forEach(issue => {
           error += issue.message + '\n';
@@ -57,7 +55,7 @@ class LoginState extends StoreModule {
         error = json.error.code + ': ' + json.error.message;
 
       this.setState({
-        login: '', // не надо это хранить, все потрем
+        login: '',
         password: '',
         error,
         waiting: false
@@ -65,9 +63,11 @@ class LoginState extends StoreModule {
       return;
     }
 
-    // костыль, чтоб както передать параметры в модель юзера
-    this.store.actions.profile.setUserData(json.result.user);
-    this.store.actions.user.setToken(json.result.token);
+    // полученый токен кладем в стор сесии, и там далее работаем с ним
+    this.store.actions.session.setToken(json.result.token);
+
+    // и поля юзера, чтоб сразу пометить сессию, как начатую
+    this.store.actions.session.setUser(json.result.user);
 
     this.setState({
       login: '',

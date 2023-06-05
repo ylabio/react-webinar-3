@@ -23,23 +23,23 @@ function Login() {
   const { t } = useTranslate();
   const store = useStore();
 
-  const select = useSelector(state => ({
-    fields: state.profile.fields,
+  const { user, waiting, error } = useSelector(state => ({
+    user: state.session.user,
     waiting: state.login.waiting,
     error: state.login.error
   }));
 
   useInit(() => {
-    if (select.error)
+    if (error)
       store.actions.login.resetError(); // сброс ошибки при открытии формы, если осталась
   }, [], true);
 
   useEffect(() => {
-    if (!select.waiting && select.fields) { // Переход туда, откуда пришли
+    if (user) { // Переход туда, откуда пришли
       const nonLoginPrevPageExists = location.state?.from && location.state?.from.pathname != location.pathname;
       nonLoginPrevPageExists ? navigate(location.state.from.pathname, { replace: true }) : navigate('/', { replace: true });
     }
-  }, [select.waiting, select.fields]);
+  }, [user]);
 
   const callbacks = {
     onLoginChange: useCallback(login => store.actions.login.setLogin(login), [store]),
@@ -54,12 +54,12 @@ function Login() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <Spinner active={select.waiting}>
+      <Spinner active={waiting}>
         <LoginForm
           onLoginChange={callbacks.onLoginChange}
           onPasswordChange={callbacks.onPasswordChange}
           onEnter={callbacks.onEnter}
-          error={select.error}
+          error={error}
           t={t}
         />
       </Spinner>

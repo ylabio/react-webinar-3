@@ -6,16 +6,27 @@ import Spinner from "../../components/spinner";
 import LocaleSelect from "../../containers/locale-select";
 import LoginBar from "../../containers/login-bar";
 import Navigation from "../../containers/navigation";
+import useInit from "../../hooks/use-init";
+import useSelector from "../../hooks/use-selector";
+import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import useUser from "../../hooks/use-user";
 
 /**
- * Страница профиля. через хук делаем проверку и тянем поля. Иначе перенаправляем на страницу логина
+ * Страница профиля.
  */
 
 function Profile() {
   const { t } = useTranslate();
-  const { waiting, fields } = useUser({ orRedirectTo: '/login' });
+  const store = useStore();
+
+  useInit(async () => {
+    await store.actions.profile.load();
+  }, []);
+
+  const { fields, waiting } = useSelector(state => ({
+    fields: state.profile.fields,
+    waiting: state.profile.waiting,
+  }));
 
   return (
     <PageLayout>

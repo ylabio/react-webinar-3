@@ -7,25 +7,55 @@ class ProfileState extends StoreModule {
 
   initState() {
     return {
-      misc: {}, // заглушка для всякой статистической ерунды (клики, просмотры, лайки)
-      fields: null, // поля юзера от апи
+      fields: null,
+      waiting: false,
+      error: null,
+      token: null
     };
   }
 
-  setUserData(fields) {
+  async load() {
     this.setState({
       ...this.getState(),
-      fields
-    }, 'Поля пользователя установлены.');
-  }
+      waiting: true
+    }, 'Загрузка профиля...');
 
-  setMiscData(misc) {
+    const json = await (
+      await fetch('/api/v1/users/self', {
+        headers: { "X-Token": this.getState().token }
+      })
+    ).json();
+
+    if (json.error) {
+      this.setState({
+        ...this.getState(),
+        error: json.error,
+        waiting: false
+      }, 'Ошибка загрузки профиля:' + json.error);
+      return;
+    }
+
     this.setState({
       ...this.getState(),
-      misc,
-    }, 'Прочие данные пользователя обновлены.');
+      fields: json.result,
+      waiting: false,
+    }, 'Данные профиля загружены.');
   }
 
+  resetError() {
+    this.setState({
+      ...this.getState(),
+      error: null
+    }, 'Сброс ошибки загрузки профиля.');
+  }
+
+  // копия токена из сессии
+  setToken(token) {
+    this.setState({
+      ...this.getState(),
+      token
+    }, 'Обновление токена в модуле профиля.');
+  }
 }
 
 export default ProfileState;
