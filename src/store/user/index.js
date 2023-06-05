@@ -8,8 +8,23 @@ class User extends StoreModule {
   initState() {
     return {
       user: null,
-      error: ''
+      error: null,
     }
+  }
+
+   /**
+   * Сброс ошибки
+   * @param [newParams] {Object} Новые параметры
+   * @return {Promise<void>}
+   */
+   resetError() {
+   
+    this.setState({
+      ...this.getState(),
+      error: null,
+    }, '');
+    console.log('this.getState()', this.getState())
+
   }
 
   /**
@@ -18,7 +33,7 @@ class User extends StoreModule {
    * @return {Promise<void>}
    */
   async login(data) {
-
+ 
     try {
       const response = await fetch(`api/v1/users/sign`, {
         method: 'POST',
@@ -32,18 +47,26 @@ class User extends StoreModule {
 
       if (json?.result) {
         localStorage.setItem('token', json?.result?.token);
-        localStorage.setItem('user', json?.result?.user?.username);
+
         this.setState({
           user: json?.result?.user,
         }, 'Авторизация прошла успешно');
+
+        
+
+        // setTimeout(() => {
+        //   window.location.href="/user";
+        // }, 0)
       }
+
       
-
+      if (json?.error) {
+        this.setState({
+          error: json?.error,
+        }, 'При авторизации произошла ошибка');
+      }
     } catch (error) { 
-
-      this.setState({
-        error: error,
-      }, 'Произошла ошибка.');
+     console.log(error)
     }
   }
 
@@ -74,8 +97,8 @@ class User extends StoreModule {
 				},
 			});
 			const json = await responce.json();
-			localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      console.log(json);
+			localStorage.removeItem('token')
 
 			this.setState({
 				...this.getState(),

@@ -14,8 +14,6 @@ import LoginButton from "../../components/LoginButton";
 function Login() {
   const store = useStore();
 
-  const navigate = useNavigate();
-
   const select = useSelector((state) => ({
     error: state.user.error,
     user: state.user.user,
@@ -26,16 +24,24 @@ function Login() {
       async (data) => store.actions.user.login(data),
       [store]
     ),
+    resetError: useCallback(
+      async (data) => store.actions.user.resetError(),
+      [store]
+    ),
   };
    
   const onSubmit = async (e) => {
     e.preventDefault();
     const loginData = {
-      password:  e.target[0].value,
-      login:  e.target[1].value,
+      login:  e.target[0].value,
+      password:  e.target[1].value,
     }
     await callbacks.login(loginData);
   }
+
+  useEffect(() => {
+    return () => {callbacks.resetError()}
+  }, [])
 
   return (
     <PageLayout>
@@ -47,8 +53,7 @@ function Login() {
       <Spinner active={select.waiting}>
        <div className="Login-wrapper">
           <h2>Вход</h2>
-          <LoginForm onSubmit={onSubmit} />
-          <div>{select?.error?.message}</div>
+          <LoginForm onSubmit={onSubmit} isSuccess={!!select.user} error={(select.error?.data && select.error?.data.issues[0].message) || (select.error && select.error.message)} />
        </div>
       </Spinner>
     </PageLayout>

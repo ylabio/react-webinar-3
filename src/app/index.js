@@ -22,11 +22,11 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article />}/>
-        <Route path={'/login'} element={<Login />}/>
+        <Route path={'/login'} element={<Login />} onEnter={() => console.log('enter')}/>
         <Route path={'/user'} element={
           <ProtectedRoute user={!!user}>
               <User />
-            </ProtectedRoute>
+          </ProtectedRoute>
         }/>
           
       </Routes>
