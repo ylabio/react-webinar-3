@@ -1,0 +1,19 @@
+.LoginForm {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+
+  margin-left: 20px;
+}
+
+.LoginForm-label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.LoginForm-error {
+  margin: 0;
+  margin-bottom: 20px;
+  color: #ff0000;
+}
