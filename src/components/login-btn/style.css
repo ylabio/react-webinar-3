@@ -1,0 +1,20 @@
+.LoginBtn {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 47px;
+  height: 21px;
+  background: #efefef;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  font-size: 13px;
+  line-height: 15px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.LoginBtn:hover {
+  background: #0000ff;
+  color: #ffffff;
+}

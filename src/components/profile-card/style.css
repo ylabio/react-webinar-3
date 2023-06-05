@@ -1,0 +1,24 @@
+.ProfileCard {
+  margin-top: 18px;
+  padding: 20px;
+}
+
+.ProfileCard-prop {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 18px;
+}
+
+.ProfileCard-title {
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.ProfileCard-label {
+  padding-right: 5px;
+}
+
+.ProfileCard-value {
+  font-weight: bold;
+}

@@ -1,0 +1,32 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  width: 100%;
+  max-width: 203px;
+  row-gap: 19px;
+}
+
+.Form-input {
+  width: 196px;
+  height: 20px;
+}
+
+.Form-title {
+  margin: 37px 0 18px;
+  padding-left: 20px;
+}
+
+.Form-btn {
+  width: 53px;
+  height: 21px;
+}
+
+.Form-error {
+  align-self: flex-start;
+  margin: 0;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: center;
+  color: #ff0000;
+}

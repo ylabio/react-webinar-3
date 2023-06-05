@@ -1,0 +1,17 @@
+.HeaderNav {
+  display: flex;
+  column-gap: 20px;
+  align-items: center;
+  font-size: 13px;
+  line-height: 15px;
+}
+
+.HeaderNav-btn {
+  min-width: 59px;
+  cursor: pointer;
+}
+
+.HeaderNav-btn:hover {
+  background: #0000ff;
+  color: #ffffff;
+}
