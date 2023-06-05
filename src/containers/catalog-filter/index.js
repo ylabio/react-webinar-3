@@ -5,6 +5,7 @@ import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
+import SelectCategories from '../../components/select-categories';
 
 function CatalogFilter() {
 
@@ -13,6 +14,8 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    categoryItems: state.category.categoryItems,
+    category: state.catalog.params.category
   }));
 
   const callbacks = {
@@ -22,6 +25,8 @@ function CatalogFilter() {
     onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
+    // Выбор категории
+    onSelect: useCallback(category => store.actions.catalog.setParams({category, page: 1}), [store])
   };
 
   const options = {
@@ -37,9 +42,10 @@ function CatalogFilter() {
 
   return (
     <SideLayout padding='medium'>
-      <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
-      <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
-             delay={1000}/>
+      <SelectCategories options={select.categoryItems} value={select.category} onSelect={callbacks.onSelect} />
+      <Select options={options.sort} value={select.sort} onChange={callbacks.onSort} />
+      <Input value={select.query} theme={'big'} onChange={callbacks.onSearch} placeholder={'Поиск'}
+        delay={1000} />
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>
   )
