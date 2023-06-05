@@ -1,0 +1,8 @@
+p {
+  padding: 0;
+  margin: 0;
+}
+
+.Text.error {
+  color: red;
+}

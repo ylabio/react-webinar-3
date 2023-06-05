@@ -6,10 +6,10 @@ import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
-import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
+import LoginMenu from '../../containers/login-menu'
 
 function Article() {
   const store = useStore();
@@ -35,10 +35,10 @@ function Article() {
 
   return (
     <PageLayout>
+			<LoginMenu />
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>
-      <Navigation/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>

@@ -22,21 +22,15 @@ function Basket() {
     // Удаление из корзины
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
     // Закрытие любой модалки
-    closeModal: useCallback(() => store.actions.modals.close(), [store]),
+    closeModal: useCallback(() => store.actions.modals.close(), [store])
   }
 
   const {t} = useTranslate();
 
   const renders = {
-    itemBasket: useCallback((item) => (
-      <ItemBasket item={item}
-                  link={`/articles/${item._id}`}
-                  onRemove={callbacks.removeFromBasket}
-                  onLink={callbacks.closeModal}
-                  labelUnit={t('basket.unit')}
-                  labelDelete={t('basket.delete')}
-      />
-    ), [callbacks.removeFromBasket, t]),
+    itemBasket: useCallback((item) => {
+      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
+    }, [callbacks.removeFromBasket]),
   };
 
   return (

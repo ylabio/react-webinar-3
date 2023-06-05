@@ -1,0 +1,16 @@
+.Column {
+  display: flex;
+  flex-direction: column;
+}
+
+.Column_p_md {
+  padding: 20px;
+}
+
+.Column_gap_md {
+  gap: 20px;
+}
+
+h3 {
+  margin: 10px 0;
+}
