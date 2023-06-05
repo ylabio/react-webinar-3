@@ -5,6 +5,7 @@ import useStore from "../../hooks/use-store"
 import Spinner from "../../components/spinner"
 import useSelector from "../../hooks/use-selector"
 import LoginForm from "../../components/login-form"
+import LoginHeader from "../../components/login-header"
 
 function AuthForm(){
   const store = useStore();
@@ -29,7 +30,7 @@ function AuthForm(){
 
   return (
   <LoginContainer>
-    <h1>{t('entrance')}</h1>
+    <LoginHeader title={t('entrance')}/>
     <Spinner active={select.waiting}>
     <LoginForm error={select.error} login={callbacks.login} t={t} isAuth={select.isAuth}/>
     </Spinner>

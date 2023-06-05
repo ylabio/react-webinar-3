@@ -4,21 +4,30 @@ import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
-import HeadAuth from '../../components/head-auth';
-import ProfileInfo from '../../containers/profile-info';
+import useSelector from "../../hooks/use-selector";
+import Spinner from '../../components/spinner'
+import UserInfo from '../../components/user-info'
+import HeadAuthContainer from '../../containers/head-auth-container';
+
 
 function Profile(){
+  const select = useSelector(state => ({
+    userData: state.profile.userData,
+    waiting: state.profile.waiting
+  }));
 
   const {t} = useTranslate();
 
   return (
   <PageLayout>
-    <HeadAuth />
+    <HeadAuthContainer />
     <Head title={t('title')}>
       <LocaleSelect/>
     </Head>
     <Navigation />
-    <ProfileInfo />
+    <Spinner active={select.waiting}>
+      {!select.waiting && <UserInfo user={select.userData} t={t}/>}
+    </Spinner>
   </PageLayout>)
 }
 

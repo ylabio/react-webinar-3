@@ -40,8 +40,8 @@ class ProfileState extends StoreModule {
               error: null})
           }
         } catch(e){
-          console.log(e)
-          this.setState({...this.getState(), error: e.message, waiting: false})
+          deleteFromLocalStorage('token')
+          this.setState({...this.getState(), error: e.message, waiting: false, isAuth: false});
         }
       } else {
         this.setState({...this.getState(), waiting: false, isAuth: false, error: null})

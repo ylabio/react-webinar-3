@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useEffect} from 'react';
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -8,8 +8,7 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
-import HeadAuth from '../../components/head-auth';
-import useSelector from "../../hooks/use-selector";
+import HeadAuthContainer from '../../containers/head-auth-container';
   
 
 
@@ -28,7 +27,7 @@ function Main() {
 
   return (
     <PageLayout>
-    <HeadAuth />
+    <HeadAuthContainer />
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
