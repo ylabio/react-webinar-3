@@ -10,7 +10,7 @@ class CategoriesState extends StoreModule {
 
   setCategories(list) {
     this.setState({
-        categoriesList: [{ _id: '', value: 'filter.all' }, ...this.getState().categoriesList, ...stackParents(list)]
+        categoriesList: [{ _id: '', value: 'filter.all' }, ...stackParents(list)]
     }, 'Категории установлены')
 
     stackParents(list)
