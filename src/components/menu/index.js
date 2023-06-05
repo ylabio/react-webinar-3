@@ -6,6 +6,7 @@ import './style.css';
 
 function Menu({items, onNavigate}) {
   const cn = bem('Menu');
+
   return (
     <ul className={cn()}>
       {items.map(item => (
@@ -28,7 +29,8 @@ Menu.propTypes = {
 
 Menu.defaultProps = {
   items: [],
-  onNavigate: () => {}
+  onNavigate: () => {
+  }
 }
 
 export default memo(Menu);

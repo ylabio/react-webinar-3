@@ -1,0 +1,28 @@
+.ProfileInfo {
+    box-sizing: border-box;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.ProfileInfo-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ProfileInfo-text {
+    margin: 0;
+    height: 21px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.ProfileInfo-text_weight_bold {
+    font-weight: 600;
+}

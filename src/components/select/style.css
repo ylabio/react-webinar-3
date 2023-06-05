@@ -1,4 +1,7 @@
-.Select{
-  font-size: 16px;
-  padding: 3px 2px 2px;
+.Select {
+    box-sizing: border-box;
+    font-size: 16px;
+    height: 26px;
+    border: 1px solid #767676;
+    border-radius: 1px;
 }

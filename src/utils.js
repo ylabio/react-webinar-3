@@ -33,3 +33,51 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function getCategoriesTree(categories) {
+  const mainCategories = categories.filter(category => !category.parent);
+
+  function createTree(categoryId) {
+    const currentCategory = categories.find(category => category._id === categoryId);
+
+    const children = categories.filter(category => category.parent && (category.parent._id === categoryId));
+
+    const isChildrenExist = children.length;
+
+    if (!isChildrenExist) {
+      return {...currentCategory}
+    }
+
+    const subCategories = children.map(children => createTree(children._id));
+
+    return {
+      ...currentCategory,
+      children: subCategories
+    };
+  }
+
+  function formatTree(tree) {
+    const categories = [];
+
+    tree.forEach((item) => {
+      addLevel(item);
+    });
+
+    function addLevel(item, depth = '') {
+      categories.push({value: item._id ? item._id : item.value, title: `${depth}${item.title}`});
+
+      if (item.children) {
+        item.children.forEach((child) => addLevel(child, `- ${depth}`));
+      }
+    }
+
+    return categories;
+  }
+
+  const categoriesTree = mainCategories.map(mainCategory => createTree(mainCategory._id));
+
+  const categoriesTreeWithLevels = formatTree(categoriesTree)
+
+  return categoriesTreeWithLevels;
+}
+
