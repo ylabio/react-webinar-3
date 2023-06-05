@@ -1,4 +1,4 @@
-import { stackParents } from "../../utils";
+import {stackParents} from "../../utils";
 import StoreModule from "../module";
 
 class CategoriesState extends StoreModule {
@@ -10,8 +10,10 @@ class CategoriesState extends StoreModule {
 
   setCategories(list) {
     this.setState({
-        categoriesList: [{ _id: '', title: 'filter.all' }, ...this.getState().categoriesList, ...stackParents(list)]
+        categoriesList: [{ _id: '', value: 'filter.all' }, ...this.getState().categoriesList, ...stackParents(list)]
     }, 'Категории установлены')
+
+    stackParents(list)
   }
 
   async getCategories() {

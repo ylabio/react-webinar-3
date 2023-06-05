@@ -34,97 +34,93 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
-// export function stackParents(arr) {
+export function stackParents(arr) {
+  let parents = [],
+      childrens = [];
+      
+  for (let i = 0; i < arr.length; i++) {
+    arr[i].parent ? childrens.push(arr[i]) : parents.push(arr[i]);
+  }
+
+  let result = new Set();
+
+  const sorting = (elem, depth = 0, prefix = '- ') => {
+    if (parent == undefined) return;
+
+    result.add({_id: elem._id, value: prefix.repeat(depth) + elem.title})
+
+    childrens.forEach(child => {
+      if (child.parent._id == elem._id) {
+        sorting(child, depth + 1)
+      }
+    })
+  }
+
+  parents.forEach(parent => sorting(parent))
+
+  console.log(Array.from(result));
+
+  return Array.from(result);
+}
+
+// export default function stackParents(arr) {
 //   let parents = [],
 //       childrens = [];
-      
+
 //   for (let i = 0; i < arr.length; i++) {
-//     arr[i].parent ? childrens.push(arr[i]) : parents.push(arr[i]);
+//     arr[i].parent ? childrens.push(arr[i]) : parents.push(arr[i])
 //   }
 
-//   let result = new Set();
+//   const sorting = (parents, childrens, depth = 1, prefix = '- ') => {
+//     let rest = [];
 
-//   const sorting = (parent, childrens, depth = 0, prefix = '- ') => {
-//     if (parent == undefined) return;
+//     for (let child of childrens) {
+//       let indexParent = parents.findIndex(parent => parent._id === child.parent._id);
 
-//     let rest = new Set();
+//       if (parents[indexParent] == undefined) {
+//         rest.push(child);
 
-//     result.add({_id: parent._id, value: prefix.repeat(depth) + parent.title})
-
-//     childrens.forEach(child => {
-//       if (child.parent._id == parent._id) {
-//         result.add({_id: child._id, value: prefix.repeat(depth + 1) + child.title})
-//       } else {
-//         rest.add(child)
+//         continue;
 //       }
-//     })
+
+//       child.prefix = prefix.repeat(depth);
+
+//       parents[indexParent].hasOwnProperty("childrens") ? 
+//         parents[indexParent].childrens.push(child) 
+//       : parents[indexParent].childrens = [child]
+//     }
+
+//     if (rest.length > 0) {
+//       sorting(childrens, rest, depth + 1);
+//       return;
+//     }
 //   }
 
-//   parents.forEach(parent => sorting(parent, childrens))
+//   sorting(parents, childrens)
 
-//   console.log(Array.from(result));
+//   let result = enumerationObject(parents);
+
+//   console.log(result);
 
 //   return result;
 // }
 
-export function stackParents(arr) {
-  let parents = [],
-      childrens = [];
+// export function enumerationObject(obj) {
+//   let set = new Set();
 
-  for (let i = 0; i < arr.length; i++) {
-    arr[i].parent ? childrens.push(arr[i]) : parents.push(arr[i])
-  }
+//   const innerEnum = (obj) => {
+//     for (let elem of obj) {
+//       if (elem.hasOwnProperty('childrens')) {
+//         set.add(elem)
 
-  const sorting = (parents, childrens, depth = 1, prefix = '- ') => {
-    let rest = [];
+//         innerEnum(elem.childrens)
+//       } else {
+//         set.add(elem)
+//       }
+//     }
+//   }
 
-    for (let child of childrens) {
-      let indexParent = parents.findIndex(parent => parent._id === child.parent._id);
+//   innerEnum(obj);
 
-      if (parents[indexParent] == undefined) {
-        rest.push(child);
-
-        continue;
-      }
-
-      child.prefix = prefix.repeat(depth);
-
-      parents[indexParent].hasOwnProperty("childrens") ? 
-        parents[indexParent].childrens.push(child) 
-      : parents[indexParent].childrens = [child]
-    }
-
-    if (rest.length > 0) {
-      sorting(childrens, rest, depth + 1);
-      return;
-    }
-  }
-
-  sorting(parents, childrens)
-
-  let result = enumerationObject(parents);
-
-  console.log(result);
-
-  return result;
-}
-
-export function enumerationObject(obj) {
-  let set = new Set();
-
-  const innerEnum = (obj) => {
-    for (let elem of obj) {
-      if (elem.hasOwnProperty('childrens')) {
-        set.add(elem)
-
-        innerEnum(elem.childrens)
-      } else {
-        set.add(elem)
-      }
-    }
-  }
-
-  innerEnum(obj);
-
-  return Array.from(set);
-}
+//   return Array.from(set);
+// }

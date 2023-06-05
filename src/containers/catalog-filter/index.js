@@ -39,7 +39,7 @@ function CatalogFilter() {
     ]), []),
     categories: useMemo(() => ([
       ...select.categoriesList.map(category => ({
-          title: category.prefix ?  category.prefix + t(category.title) : t(category.title),
+          title: t(category.value),
           value: category._id ? category._id : ''
       }))
     ]), [select.categoriesList, t])
