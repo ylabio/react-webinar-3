@@ -94,18 +94,7 @@ function CatalogFilter() {
           readyArr.push(...parentChild);
         }
       });
-      const customSortOrder = [
-        "6477698510d1060c910cbb59",
-        "6477698510d1060c910cbb5a",
-        "6477698510d1060c910cbb61",
-        "6477698510d1060c910cbb62",
-        "6477698510d1060c910cbb5b",
-        "6477698510d1060c910cbb5c",
-        "6477698510d1060c910cbb5d",
-        "6477698510d1060c910cbb5e",
-        "6477698510d1060c910cbb5f",
-        "6477698510d1060c910cbb60",
-      ];
+      const customSortOrder = ["1"];
 
       const sortedArray = readyArr.sort((a, b) => {
         const indexA = customSortOrder.indexOf(a.value);
@@ -139,6 +128,7 @@ function CatalogFilter() {
         onChange={callbacks.onSort}
       />
       <Input
+        theme="big"
         value={select.query}
         onChange={callbacks.onSearch}
         placeholder={"Поиск"}

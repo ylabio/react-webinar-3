@@ -14,40 +14,30 @@ import ProfileCard from "../../components/profile-card";
 function Profile() {
   const store = useStore();
   const { t } = useTranslate();
-
-  const token = JSON.parse(localStorage.getItem("token"));
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const userState = useSelector((state) => state.user);
+  const token = userState.token;
 
   // Инициализация данных профиля при авторизации
   useInit(() => {
-    if (isAuthenticated && token) {
-      store.actions.user.loadData(token);
+    if (token) {
+      store.actions.profile.loadData(token);
     }
-  }, [isAuthenticated, token, store.actions.user]);
+  }, [token, store.actions.profile]);
 
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.profile.user);
   const profile = { ...user.profile };
 
   const exitProfile = useCallback(() => {
-    store.actions.user.exit();
-    localStorage.clear();
+    store.actions.user.signOut();
   }, [store]);
 
   // Перенаправление на страницу авторизации, если пользователь не авторизован
-  if (!isAuthenticated) {
+  if (!token) {
     return <Navigate replace to="/login" />;
   }
 
   return (
-    <PageLayout
-      head={
-        <LoginButton
-          isAuthenticated={isAuthenticated}
-          text={profile.name}
-          onExit={exitProfile}
-        />
-      }
-    >
+    <PageLayout head={<LoginButton text={profile.name} onExit={exitProfile} />}>
       <Head title={t("title")}>
         <LocaleSelect />
       </Head>

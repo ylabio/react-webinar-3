@@ -13,40 +13,25 @@ import LoginButton from "../../components/login-button";
 
 function Main() {
   const store = useStore();
+  const userState = useSelector((state) => state.user);
+  const token = userState.token;
+  useInit(() => {
+    store.actions.catalog.initParams();
+    if (token) {
+      store.actions.profile.loadData(token);
+    }
+  }, [store, token]);
 
-  const token = JSON.parse(localStorage.getItem("token"));
-
-  useInit(
-    () => {
-      store.actions.catalog.initParams();
-      if (token) {
-        store.actions.user.loadData(token);
-      }
-    },
-    [store, token],
-    true
-  );
-
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const userName = useSelector((state) => ({ ...state.user.user.profile }));
-
+  const user = useSelector((state) => state.profile.user);
+  const profile = { ...user.profile };
   const { t } = useTranslate();
 
   const exitProfile = useCallback(() => {
-    store.actions.user.exit();
-    localStorage.clear();
+    store.actions.user.signOut();
   }, [store]);
 
   return (
-    <PageLayout
-      head={
-        <LoginButton
-          isAuthenticated={isAuthenticated}
-          text={userName.name}
-          onExit={exitProfile}
-        />
-      }
-    >
+    <PageLayout head={<LoginButton text={profile.name} onExit={exitProfile} />}>
       <Head title={t("title")}>
         <LocaleSelect />
       </Head>

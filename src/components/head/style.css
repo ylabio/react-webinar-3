@@ -6,9 +6,10 @@
   padding: 0 15px;
   align-items: center;
   justify-content: space-between;
+  border-top: 1px solid #dcdcdc;
 }
 
-.Head-place{
+.Head-place {
   margin: 0 5px;
 }
 

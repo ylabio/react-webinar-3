@@ -8,7 +8,7 @@ function LoginCard({
   login,
   password,
   onPasswordChange,
-  isAuthenticated,
+  token,
   error,
 }) {
   const { t } = useTranslate();
@@ -43,7 +43,7 @@ function LoginCard({
           />
         </div>
         <div>
-          {!isAuthenticated && <div className="login-error">{error}</div>}
+          {!token && <div className="login-error">{error}</div>}
           <button type="submit">{t("user.signIn")}</button>
         </div>
       </div>

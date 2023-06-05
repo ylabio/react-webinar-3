@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from "react";
+import { memo, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -15,26 +15,25 @@ import LoginButton from "../../components/login-button";
 function Article() {
   const store = useStore();
 
-  const token = JSON.parse(localStorage.getItem("token"));
-
+  const userState = useSelector((state) => state.user);
+  const token = userState.token;
   // Параметры из пути /articles/:id
   const params = useParams();
 
   useInit(() => {
-    store.actions.article.loadData(params.id);
+    store.actions.article.load(params.id);
     if (token) {
-      store.actions.user.loadData(token);
+      store.actions.profile.loadData(token);
     }
-  }, [params.id, token]);
+  }, [params.id, token, store.actions.profile]);
 
   const select = useSelector((state) => ({
     article: state.article.data,
     waiting: state.article.waiting,
   }));
 
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const userName = useSelector((state) => ({ ...state.user.user.profile }));
-
+  const user = useSelector((state) => state.profile.user);
+  const profile = { ...user.profile };
   const { t } = useTranslate();
 
   const callbacks = {
@@ -45,20 +44,14 @@ function Article() {
     ),
     // Выход из профиля
     exit: useCallback(() => {
-      store.actions.user.exit(), [store];
+      store.actions.user.signOut();
       localStorage.clear();
-    }),
+    }, [store]),
   };
 
   return (
     <PageLayout
-      head={
-        <LoginButton
-          isAuthenticated={isAuthenticated}
-          text={userName.name}
-          onExit={callbacks.exit}
-        />
-      }
+      head={<LoginButton text={profile.name} onExit={callbacks.exit} />}
     >
       <Head title={select.article.title}>
         <LocaleSelect />

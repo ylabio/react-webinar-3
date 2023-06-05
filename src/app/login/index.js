@@ -23,13 +23,9 @@ function Login() {
   }
 
   const userState = useSelector((state) => state.user);
-  const { isAuthenticated, token, error } = userState;
-
-  // Если авторизация прошла успешно, сохраняем токен в localStorage и перенаправляем на страницу профиля
-  if (isAuthenticated) {
-    localStorage.clear();
-    localStorage.setItem("token", JSON.stringify(token));
-
+  const { token, error } = userState;
+  // Если авторизация прошла успешно, перенаправляем на страницу профиля
+  if (token) {
     // перенаправление на страницу пользователя
     return <Navigate replace to="/profile" />;
   }
@@ -50,7 +46,7 @@ function Login() {
         onSubmitForm={onSubmitForm}
         login={login}
         password={password}
-        isAuthenticated={isAuthenticated}
+        token={token}
         error={error}
       />
     </PageLayout>

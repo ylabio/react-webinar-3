@@ -8,10 +8,20 @@ class UserState extends StoreModule {
     return {
       user: {},
       userName: "",
-      isAuthenticated: false,
       token: "",
       error: "",
     };
+  }
+
+  setToken(token) {
+    const currentState = this.getState();
+    this.setState(
+      {
+        ...currentState,
+        token: token,
+      },
+      "Сохранить токен в стейте"
+    );
   }
 
   /**
@@ -38,17 +48,17 @@ class UserState extends StoreModule {
           ...currentState,
           token: result.token,
           userName: result.user.username,
-          isAuthenticated: true,
         },
         "Пользователь авторизован"
       );
+      localStorage.setItem("token", JSON.stringify(result.token));
     } catch (e) {
       // Ошибка авторизации
       const currentState = this.getState();
       this.setState(
         {
           ...currentState,
-          error: e.error.message,
+          error: e.message,
         },
         "Пользователь не авторизован"
       );
@@ -56,47 +66,27 @@ class UserState extends StoreModule {
   }
 
   /**
-   * Загрузка данных о пользователе
+   * Удаление данных о пользователе
    * @param token {String} токен пользователя
    */
 
-  async loadData(token) {
-    const currentState = this.getState();
-    this.setState({
-      ...currentState,
-      user: {},
-      isAuthenticated: true,
+  async signOut() {
+    const res = await fetch("/api/v1/users/sign", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Token": this.getState().token,
+      },
     });
-
-    try {
-      const response = await fetch("/api/v1/users/self", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Token": token,
-        },
-      });
-
-      const { result } = await response.json();
-
-      // Пользователь авторизован
+    if (res.ok) {
       this.setState(
         {
-          ...currentState,
-          user: { ...result },
+          ...this.initState(),
         },
-        "Данные пользователя загружены"
+        "Ошибка логина"
       );
-    } catch (e) {
-      // Ошибка загрузки
-
-      this.setState(
-        {
-          ...currentState,
-          error: e.error.message,
-        },
-        "Данные пользователя не загружены"
-      );
+      localStorage.removeItem("token");
+      const data = await res.json();
     }
   }
 
@@ -106,6 +96,7 @@ class UserState extends StoreModule {
 
   exit() {
     this.setState(this.initState(), "Пользователь разлогинился");
+    localStorage.clear();
   }
 }
 
