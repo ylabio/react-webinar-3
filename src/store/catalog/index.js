@@ -16,7 +16,8 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category: '',
       },
       count: 0,
       waiting: false
@@ -36,6 +37,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
 
@@ -76,16 +78,49 @@ class CatalogState extends StoreModule {
       window.history.pushState({}, '', url);
     }
 
-    const apiParams = {
+    let apiParams = {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
-      'search[query]': params.query
+      'search[query]': params.query,
     };
+
+    if(params.category){
+      apiParams = { ...apiParams,  'search[category]': params.category }
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
+   
+    function checkIsParent(child, parent, arr){
+      if(!child.parent){
+        return false
+      } else if(parent._id === child.parent._id){
+        return true
+      } else if(child.parent && parent._id !== child.parent._id){
+        const indexOfElement = linearSearch(child.parent._id , arr);
+        return checkIsParent(arr[indexOfElement], parent, arr);
+      } else{
+        return false
+      }
+    }
+
+    function linearSearch(id, list) {
+      let found = false;
+      let position = -1;
+      let index = 0;
+      while(!found && index < list.length) {
+          if(list[index]._id == id) {
+              found = true;
+              position = index;
+          } else {
+              index += 1;
+          }
+      }
+      return position;
+  }
+
     this.setState({
       ...this.getState(),
       list: json.result.items,
