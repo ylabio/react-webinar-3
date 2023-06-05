@@ -9,6 +9,7 @@ import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
+import HeadLogin from '../../components/head-login';
 import LocaleSelect from "../../containers/locale-select";
 
 function Article() {
@@ -24,6 +25,8 @@ function Article() {
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
+    user: state.login.user,
+    token: state.login.token
   }));
 
   const {t} = useTranslate();
@@ -31,10 +34,15 @@ function Article() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    // Выход
+    exit: useCallback((token) => {
+      store.actions.login.exit(token);
+    }, [store]),
   }
 
   return (
     <PageLayout>
+      <HeadLogin t={t} user={select.user} exit={callbacks.exit} token={select.token}/>
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>
