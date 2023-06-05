@@ -8,12 +8,14 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import User from "../../containers/user";
 
 function Main() {
 
   const store = useStore();
 
-  useInit(() => {
+  useInit(async() => {
+    await store.actions.categories.getCategories()
     store.actions.catalog.initParams();
   }, [], true);
 
@@ -21,6 +23,7 @@ function Main() {
 
   return (
     <PageLayout>
+      <User/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
