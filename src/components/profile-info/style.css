@@ -1,0 +1,17 @@
+.Profile {
+    padding: 20px;
+}
+
+.Profile-title {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.Profile-subtitle {
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.Profile-subtitle span {
+    font-weight: 600;
+}

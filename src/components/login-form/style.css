@@ -1,0 +1,43 @@
+.Login {
+    padding: 20px;
+}
+
+.Login-title {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.Login-input-title {
+    font-weight: 400;
+    font-size: 16px;
+    margin: 0;
+}
+
+.Login-input {
+    width: 203px;
+    height: 26px;
+    background: #FFFFFF;
+    border: 1px solid #767676;
+    border-radius: 1px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.Login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.Login-button {
+    max-width: 80px;
+    min-height: 21px;
+    cursor: pointer;
+}
+
+.Login-error {
+    color: #FF0000;
+    font-weight: 400;
+    font-size: 16px;
+    margin: 0;
+    margin-bottom: 20px;
+}

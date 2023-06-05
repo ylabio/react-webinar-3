@@ -1,0 +1,20 @@
+.Login-menu {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-bottom: 1px solid #DCDCDC;
+}
+
+.Login-menu-button {
+    height: 21px;
+}
+
+.Login-menu-title {
+    margin: 0;
+    font-weight: 400;
+    font-size: 13px;
+    color: #0087E9;
+    text-decoration: underline;
+    margin-right: 23px;
+}

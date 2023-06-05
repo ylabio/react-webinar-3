@@ -33,3 +33,41 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function sortCategories(categories) {
+  const result = [];
+  const parentChildMap = {};
+  for (const category of categories) {
+    const parentId = category.parent?._key || '';
+    if (!parentChildMap[parentId]) {
+      parentChildMap[parentId] = [];
+    }
+    parentChildMap[parentId].push(category._key);
+  }
+
+  function buildSortCategories(category, prefix) {
+    const transformedCategory = {
+      ...category,
+      children: parentChildMap[category._key] || [],
+      combinedKey: prefix + category._key,
+      prefix
+    };
+
+    result.push(transformedCategory);
+
+    const childPrefix = prefix + '- ';
+
+    for (const childKey of parentChildMap[category._key] || []) {
+      const childCategory = categories.find((c) => c._key === childKey);
+      buildSortCategories(childCategory, childPrefix);
+    }
+  }
+
+  for (const category of categories) {
+    if (!category.parent) {
+      buildSortCategories(category, '');
+    }
+  }
+
+  return result;
+}
