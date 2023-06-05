@@ -86,10 +86,9 @@ class CatalogState extends StoreModule {
       sort: params.sort,
       'search[query]': params.query,
     };
-
     if (params.category) {
       console.log("категория перед добавлением", params.category)
-      apiParams['search[category]'] = params.category;
+      apiParams['search[parent]'] = params.category;
     };
 
     

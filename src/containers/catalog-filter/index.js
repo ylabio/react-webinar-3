@@ -28,8 +28,10 @@ function CatalogFilter() {
     // Сброс страницы
     onPaginate: useCallback(page => store.actions.catalog.setParams({page}), [store]),
     // Поиск по категории
-    onCategories: useCallback(category => {store.actions.catalog.setParams({category})
-    }, [store]),
+    onCategories: useCallback(category => {
+      const id = select.categories.find((i) => i.title === category)
+      id !== undefined && store.actions.catalog.setParams({category: id.parent._id})
+    }, [store, select.categories]),
   };
 
   const options = {
