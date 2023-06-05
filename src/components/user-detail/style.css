@@ -1,0 +1,16 @@
+.UserDetail {
+  padding: 20px;
+}
+
+.UserDetail_item {
+  margin: 20px 0 20px;
+  font-size: 18px;
+}
+
+.userInfo {
+  font-weight: bold;
+}
+
+.title {
+  padding-bottom: 15px;
+}
