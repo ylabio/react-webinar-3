@@ -1,0 +1,22 @@
+.ProfileCard {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+.ProfileCard-title {
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.ProfileCard-section {
+  font-size: 18px;
+}
+
+.ProfileCard-section:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.ProfileCard-bold {
+  font-weight: bold;
+}

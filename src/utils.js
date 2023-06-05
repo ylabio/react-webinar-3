@@ -33,3 +33,57 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+
+
+export const createTreeLists = (items, parentId = null) => {
+  let list = [];
+  for (let i = 0; i < items.length; i++) {
+    if (!parentId && !items[i].parent) {
+      list.push(items[i]);
+    } else if (items[i].parent && items[i].parent._id === parentId) {
+      list.push(items[i]);
+    }
+  }
+
+  for (let j = 0; j < list.length; j++) {
+    list[j] = {
+      ...list[j],
+      children: createTreeLists(items, list[j]._id)
+    }
+  }
+
+  return list;
+}
+
+export const parseTree = (items, level = 0) => {
+  let list = [];
+  for (let i = 0; i < items.length; i++) {
+    const currentItem = {
+      title: `${'- '.repeat(level)}${items[i].title}`,
+      value: items[i]._id ? items[i]._id : items[i].value
+    };
+    list.push(currentItem);
+    const nextLevel = level + 1;
+    if (items[i].children) {
+      list = [...list, ...parseTree(items[i].children, nextLevel)];
+    }
+  }
+  return list;
+}
+
+
+
+
+
+
+
+  // items.filter(((item) => {
+  //   if (!item.parent || item.parent._id === parentId) {
+  //     console.log('hello');
+  //     return item;
+  //   }
+  // })).map((item) => ({
+  //   ...item,
+  //   children: createLinkedLists(items, item._id)
+  // }))
