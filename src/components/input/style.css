@@ -1,6 +1,7 @@
 .Input{
   font-size: 16px;
   padding: 2px;
+  min-width: 400px;
 }
 
 .Input_theme_big{

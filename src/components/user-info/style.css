@@ -1,0 +1,19 @@
+.UserInfo{
+  margin: 60px 0 0 20px;
+}
+
+.UserInfo-header{
+  margin-bottom: 30px;
+}
+
+.UserInfo-item{
+  margin-bottom: 20px;
+}
+
+.UserInfo-item__title{
+  
+}
+
+.UserInfo-item__value{
+  font-weight: 700;
+}

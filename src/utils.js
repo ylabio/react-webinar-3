@@ -33,3 +33,59 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+function categoriesSort(arr){
+  const tempArr = [...arr]
+
+  for (let i = 0; i < tempArr.length; i++){
+    if(tempArr[i].parent?._id){
+      for (let j= 0; j < tempArr.length; j++){
+        if(tempArr[i].parent._id === tempArr[j]?._id){
+          if(tempArr[j].children)  {
+            tempArr[j].children.push(tempArr[i]);
+          } else {
+            tempArr[j].children = [tempArr[i]];
+          }
+        } else {
+          if (tempArr[j]?.children) {
+            categoriesSort(tempArr[j].children);
+          };
+        };
+      }
+    }
+  }
+  return tempArr
+}
+
+export function categoriesToDisplay(arr){
+  if(!arr?.length) return [];
+
+  const categoriesSortedArr = categoriesSort(arr).filter(item => !item.parent?._id)
+
+  let view = [{title: 'Все', value: ''}];
+
+  function categoryView(arr, cnt = 0){
+    for (let i = 0; i < arr.length; i++){
+      view.push({title: ' -'.repeat(cnt) + " " + arr[i].title, value: arr[i]._id})
+      if(arr[i]?.children){
+        const newCnt = cnt + 1
+        categoryView(arr[i].children, newCnt);
+      };
+    }
+  }
+  categoryView(categoriesSortedArr);
+  
+  return view
+} 
+
+export function setToLocalStorage(key, value){
+  window.localStorage.setItem(key, value)
+}
+
+export function getFromLocalStorage(key){
+  return window.localStorage.getItem(key)
+}
+
+export function deleteFromLocalStorage(key){
+  window.localStorage.removeItem(key)
+}
