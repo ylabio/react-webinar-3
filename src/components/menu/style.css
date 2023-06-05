@@ -16,6 +16,10 @@
 .Menu-item:first-child {
   margin-left: 0;
   padding-left: 0;
+  
+}
+a{
+  color: #0087E9;
 }
 
 .Menu-item:last-child {

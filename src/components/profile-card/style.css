@@ -1,0 +1,22 @@
+.Profile-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+.Profile-title {
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.Profile-block {
+  font-size: 18px;
+}
+
+.Profile-block:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.Profile-bold {
+  font-weight: bold;
+}
