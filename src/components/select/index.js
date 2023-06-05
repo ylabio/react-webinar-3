@@ -5,10 +5,14 @@ import './style.css';
 function Select(props) {
 
   const onSelect = (e) => {
-    props.onChange(e.target.value);
-    props.value === 'Все' && props.resetPage(1)
+    if(props.value === 'Все') {
+      const valueSelect = e.target.value.replace(/-/g, "")
+      props.onChange(valueSelect);
+    } else {
+      props.onChange(e.target.value);
+    }
+    // props.value === 'Все' && props.resetPage(1)
   };
-  
   return (
     <select className="Select" value={props.value} onChange={onSelect}>
       {props.options.map((item, index) => (

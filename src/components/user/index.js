@@ -7,9 +7,9 @@ function User(props) {
   const cn = bem('User')
   return <div className={cn()}>
     <h2>Профиль</h2>
-    <p>Имя: {props.name}</p>
-    <p>Телефон: {props.phone}</p>
-    <p>email: {props.email}</p>
+    <p>Имя: <b>{props.name}</b></p>
+    <p>Телефон: <b>{props.phone}</b></p>
+    <p>email: <b>{props.email}</b></p>
   </div>
 }
 

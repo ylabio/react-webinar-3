@@ -16,15 +16,20 @@ function CatalogFilter() {
     categories: state.catalog.categories
   }));
 
+  const categories = select.categories;
+
   const callbacks = {
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
     // Поиск
-    onSearch: useCallback((props) => store.actions.catalog.setParams({query: props.value, page: 1}), [store]),
+    onSearch: useCallback((query) => store.actions.catalog.setParams({query, page: 1}), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
     // Сброс страницы
     onPaginate: useCallback(page => store.actions.catalog.setParams({page}), [store]),
+    // Поиск по категории
+    onCategories: useCallback(category => {store.actions.catalog.setParams({category})
+    }, [store]),
   };
 
   const options = {
@@ -37,7 +42,6 @@ function CatalogFilter() {
   };
 
   const {t} = useTranslate();
-  const categories = select.categories;
 
 function sortCategories(categories, parent = null, indent = 0) {
   const sortedCategories = [];
@@ -58,12 +62,9 @@ function sortCategories(categories, parent = null, indent = 0) {
 const sortedCategories = sortCategories(categories, null);
 sortedCategories.unshift({title: "Все"})
 
-function resetPage() {
-
-}
   return (
     <SideLayout padding='medium'>
-      <Select options={sortedCategories} value='Все' onChange={callbacks.onSort} resetPage={callbacks.onPaginate}/>
+      <Select options={sortedCategories} value='Все' onChange={callbacks.onCategories} resetPage={callbacks.onPaginate}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>

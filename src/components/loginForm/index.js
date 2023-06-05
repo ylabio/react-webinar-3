@@ -23,11 +23,11 @@ function LoginForm({ onLogin, onChange, error}) {
           Пароль
           <Input theme={'form'} onChange={onChange} name={'password'}/>
         </label>
+        {error && <p className={cn('error')}>{error}</p>}
         <button type="submit" className={cn('button')}>
           Войти
         </button>
       </form>
-      {error && <p>{error}</p>}
     </div>
   )
 }

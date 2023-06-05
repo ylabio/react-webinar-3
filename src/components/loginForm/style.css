@@ -10,6 +10,11 @@
   flex-direction: column;
 }
 
+.LoginForm-error {
+  margin-top: 0;
+  color: red;
+}
+
 .LoginForm-button {
   width: 53px;
 }
