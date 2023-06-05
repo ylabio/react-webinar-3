@@ -33,14 +33,14 @@ function Pagination(props) {
       props.onChange(number);
     }
   }
-
+  // Убрал возможность перехода на многоточие(...)
   const cn = bem('Pagination');
   return (
     <ul className={cn()}>
       {items.map((number, index) => (
         <li key={index}
             className={cn('item', {active: number === props.page, split: !number})}
-            onClick={onClickHandler(number)}>
+            onClick={number ? onClickHandler(number) : null}>
           {number
             ? (props.makeLink
                 ? <a href={props.makeLink(number)}>{number}</a>

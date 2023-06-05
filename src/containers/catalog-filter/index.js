@@ -1,4 +1,5 @@
 import {memo, useCallback, useMemo} from "react";
+import {formatNestedList} from "../../utils"
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -13,9 +14,13 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    categories: state.categories.list
   }));
 
   const callbacks = {
+    // Категория
+    onSetCategory: useCallback((category) => store.actions.catalog.setParams({ category, page: 1 }), [store]),
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
     // Поиск
@@ -30,16 +35,20 @@ function CatalogFilter() {
       {value: 'title.ru', title: 'По именованию'},
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
-    ]), [])
+    ]), []),
+    categories: useMemo(() =>
+      formatNestedList(select.categories, {value: '', title: 'Все'}, '-'),
+      [select.categories])
   };
 
   const {t} = useTranslate();
 
   return (
     <SideLayout padding='medium'>
+      <Select options={options.categories} value={select.category} onChange={callbacks.onSetCategory}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
-             delay={1000}/>
+             delay={1000} theme='big'/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>
   )

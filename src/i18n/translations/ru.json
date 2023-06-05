@@ -16,5 +16,15 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "login.enter": "Вход",
+  "login.loginBtn": "Войти",
+  "login.loginLabel": "Логин",
+  "login.passwordLabel": "Пароль",
+  "login.error.emptyFields": "Поля не заполнены",
+  "login.exit": "Выход",
+  "profile.header": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "profile.email": "email"
 }

@@ -33,3 +33,31 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Форматирование списка категорий
+ * @param arr {Array}
+ * @param firstItem {{value: String, title: String}}
+ * @param prefix {String}
+ * @return {Array}
+ */
+export function formatNestedList(arr, firstItem = { value: '', title: 'Все' }, prefix = '-') {
+  const output = [firstItem];
+
+  function traverse(item, level = 0) {
+    output.push({ value: item._id, title: `${prefix} `.repeat(level) + item.title });
+
+    const children = arr.filter((el) => el.parent && el.parent._id === item._id);
+    for (const child of children) {
+      traverse(child, level + 1);
+    }
+  }
+
+  for (const item of arr) {
+    if (!item.parent) {
+      traverse(item);
+    }
+  }
+
+  return output;
+}

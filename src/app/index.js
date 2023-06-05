@@ -1,9 +1,13 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
 import {Routes, Route} from 'react-router-dom';
 import useSelector from "../hooks/use-selector";
+import useStore from "../hooks/use-store";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
+import AuthProtection from "../components/auth-protection";
+import Login from "./login";
+import Profile from "./profile";
+import useInit from "../hooks/use-init";
 
 /**
  * Приложение
@@ -11,13 +15,42 @@ import Article from "./article";
  */
 function App() {
 
+  const store = useStore();
+
   const activeModal = useSelector(state => state.modals.name);
+  const {loggedIn} = useSelector((state) => ({
+    loggedIn: state.profile.loggedIn
+  }));
+
+  useInit(
+    () => {
+      store.actions.profile.getUser();
+    },
+    [],
+    true
+  );
 
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
+        <Route
+          path={'/login'}
+          element={
+            <AuthProtection isAuth={!loggedIn} url='/profile'>
+              <Login />
+            </AuthProtection>
+          }
+        />
+        <Route
+          path={'/profile'}
+          element={
+            <AuthProtection isAuth={loggedIn} url='/login'>
+              <Profile />
+            </AuthProtection>
+          }
+        />
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}
