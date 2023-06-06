@@ -1,8 +1,13 @@
-.Input{
+.Input {
   font-size: 16px;
   padding: 2px;
 }
 
-.Input_theme_big{
-  width: 300px;
+.Input_theme_big {
+  width: 308px;
+}
+
+.Input_theme_small {
+  margin-bottom: 20px;
+  width: 203px;
 }

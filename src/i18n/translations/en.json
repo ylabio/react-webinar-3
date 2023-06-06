@@ -4,7 +4,7 @@
   "basket.title": "Cart",
   "basket.open": "Open",
   "basket.close": "Close",
-  "basket.inBasket": "In cart",
+  "basket.inBasket": "In cart:",
   "basket.empty": "empty",
   "basket.total": "Total",
   "basket.unit": "pcs",
@@ -14,5 +14,14 @@
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "login": "Login",
+  "logout": "Logout",
+  "signIn": "Sign in",
+  "userLogin": "Login",
+  "password": "Password",
+  "profile": "Profile",
+  "name": "Name:",
+  "phone": "Phone:",
+  "email": "email:"
 }
