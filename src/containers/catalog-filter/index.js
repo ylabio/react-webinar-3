@@ -26,6 +26,7 @@ function CatalogFilter() {
     ...select.categories,
   ]
 
+  console.log('select.categories', select.categories)
   const getTranformedArray = (initialArray) => {
     const result = []
     const arr = [...initialArray];
@@ -55,8 +56,19 @@ function CatalogFilter() {
                 // преобразовываем и пушим детей
                 result.push({
                   value: child.value,
-                  title: `--  ${child.title}`
+                  title: `- -  ${child.title}`
                 })
+
+                // находим детей третьего уровня
+                const thirdChildren = arr.filter((thirdChild) => child.value === thirdChild.parent?._id)
+                if (thirdChildren) {
+                  thirdChildren.forEach((child) => {
+                    result.push({
+                      value: child.value, 
+                      title: `- - - ${child.title}`
+                    })
+                  })
+                }
               })
             }
           })
