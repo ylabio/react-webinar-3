@@ -1,0 +1,29 @@
+.AuthorizationForm {
+    padding-left: 20px;
+}
+
+.AuthorizationForm-field{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.AuthorizationForm-field > input{
+    height: 20.5px;
+}
+
+.AuthorizationForm-field > [for='password']{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    padding-top: 23px;
+}
+
+.AuthorizationForm-error{
+    font-size: 16px;
+    color: red;
+}
+
+.AuthorizationForm-btn{
+    margin-top: 5px;
+}

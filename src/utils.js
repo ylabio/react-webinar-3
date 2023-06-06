@@ -7,13 +7,13 @@
  * @param [locale] {String} Локаль (код языка)
  * @returns {String}
  */
-export function plural(value, variants = {}, locale = 'ru-RU') {
+export function plural(value, variants = {}, locale = "ru-RU") {
   // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
   // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
   // В английском 2 формы: 'one', 'other'
   const key = new Intl.PluralRules(locale).select(value);
   // Возвращаем вариант по ключу, если он есть
-  return variants[key] || '';
+  return variants[key] || "";
 }
 
 /**
@@ -30,6 +30,49 @@ export function codeGenerator(start = 0) {
  * @param options {Object}
  * @returns {String}
  */
-export function numberFormat(value, locale = 'ru-RU', options = {}) {
+export function numberFormat(value, locale = "ru-RU", options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
+}
+
+export function getTreeStructure(categoryList) {
+  let root = [];
+  const idMapping = categoryList.reduce((acc, el, i) => {
+    acc[el._id] = i;
+    return acc;
+  }, {});
+
+  categoryList.forEach((item) => {
+    if (item.parent === null) {
+      root.push(item);
+      return;
+    }
+    const parent = categoryList[idMapping[item.parent?._id]];
+    parent.children = [...(parent.children || []), item];
+  });
+  return root;
+}
+
+export function generate(categoryList) {
+  const tree = getTreeStructure(categoryList);
+  const optionsList = [
+    {
+      value: '',
+      title: 'Все',
+    },
+  ];
+  let level = 1;
+
+  treeForeach(tree, level, optionsList);
+  return optionsList;
+}
+
+function treeForeach(tree, level, optionsList) {
+  tree.forEach((data) => {
+    const strGenerate = level === 1 ? data.title : `${" - ".repeat(level-1)}${data.title}`;
+    optionsList.push({
+    value: data._id,
+    title: strGenerate,
+  });
+    data.children && treeForeach(data.children, level + 1, optionsList);
+  });
 }
