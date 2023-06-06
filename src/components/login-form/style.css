@@ -1,0 +1,30 @@
+.LoginForm {
+  margin: 2.19rem 0;
+  padding: 0 1.25rem;
+}
+
+.LoginForm-title {
+  margin-bottom: 1.06rem;
+  line-height: 1.75rem;
+}
+
+.LoginForm-input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+  width: 12.687rem;
+}
+
+.LoginForm-input>input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1rem white inset !important;
+  -webkit-text-fill-color: black !important;
+  border: 1px solid #767676;
+  border-radius: 1px;
+  padding: 2px 3px;
+}
+
+.LoginForm-mistake {
+  margin-bottom: 1.19rem;
+  line-height: 1.125rem;
+  color: red;
+}

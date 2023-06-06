@@ -13,7 +13,10 @@ class Store {
      * catalog: CatalogState,
      * modals: ModalsState,
      * article: ArticleState,
-     * locale: LocaleState
+     * locale: LocaleState,
+     * auth: AuthState,
+     * profile: AccauntState,
+     * categories: CategoriesState,
      * }} */
     this.actions = {};
     for (const name of Object.keys(modules)) {
