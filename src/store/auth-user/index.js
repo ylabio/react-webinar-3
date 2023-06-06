@@ -27,16 +27,23 @@ class AuthUser extends storeModule {
         },
       });
       const json = await response.json();
-      console.log("signIn", json.result.user);
-      this.setState(
-        {
-          ...this.getState(),
-          user: json.result.user,
+      if (json.error) {
+        this.setState({
+          user: null,
           wait: false,
-        },
-        "Пользователь загружен"
-      );
-      localStorage.setItem("userToken", json.result.token);
+          err: json.error.code,
+        });
+      } else {
+        this.setState(
+          {
+            ...this.getState(),
+            user: json.result.user,
+            wait: false,
+          },
+          "Пользователь загружен"
+        );
+        localStorage.setItem("userToken", json.result.token);
+      }
     } catch (e) {
       this.setState({
         user: null,

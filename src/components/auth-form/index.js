@@ -48,7 +48,7 @@ const AuthForm = ({signIn, user, err}) => {
           onChange={(e) => setValuePass(e.target.value)}
         ></input>
       </div>
-      {err !== null && (<div className={cn("err")}>Ошибка 404</div> )}
+      {err !== null && (<div className={cn("err")}>Ошибка: {err}</div> )}
       <button className={cn("btn")} type='submit'>Войти</button>
     </form>
   );

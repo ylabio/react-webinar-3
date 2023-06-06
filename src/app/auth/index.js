@@ -9,9 +9,12 @@ import LocaleSelect from "../../containers/locale-select";
 import AuthForm from '../../components/auth-form';
 import TopHead from '../../components/top-head';
 import AuthLink from '../../components/auth-link';
+import useTranslate from "../../hooks/use-translate";
+
 
 function Auth() {
   const store = useStore();
+  const {t} = useTranslate();
 
   const select = useSelector(state => ({
     article: state.article.data,
@@ -30,7 +33,7 @@ function Auth() {
       <TopHead>
         <AuthLink user={select.user}/>
       </TopHead>
-      <Head title={select.article.title}>
+      <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>

@@ -4,8 +4,8 @@ import './style.css';
 
 function TopHead({children}){
   return (
-    <div className='Head'>
-      <div className='Head-place'>{children}</div>
+    <div className='TopHead'>
+      <div className='TopHead-place'>{children}</div>
     </div>
   )
 }

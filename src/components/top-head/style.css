@@ -1,6 +1,11 @@
-.Head {
+.TopHead {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     height: 41px;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #CCCCCC;
+}
+.TopHead-place {
+    margin: 0 20px;
 }

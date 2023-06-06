@@ -10,11 +10,15 @@ import AuthLink from "../../components/auth-link";
 import { useNavigate, useParams } from "react-router-dom";
 import UserInfo from "../../components/user-info";
 import useInit from "../../hooks/use-init";
+import useTranslate from "../../hooks/use-translate";
+
 
 function User() {
   const store = useStore();
   const navigate = useNavigate();
   const params = useParams();
+  const {t} = useTranslate();
+
   const select = useSelector((state) => ({
     article: state.article.data,
     wait: state.auth.wait,
@@ -22,18 +26,18 @@ function User() {
   }));
 
   useInit(() => {
-    if (select.user === null) {
-      store.actions.auth.getUserToken();
+    const token = localStorage.getItem("userToken");
+    if (select.user === null || undefined && !token) {
       navigate("/auth");
     }
-  }, [params.name]);
+  }, [select.user], true);
 
   return (
     <PageLayout>
       <TopHead>
         <AuthLink user={select.user} />
       </TopHead>
-      <Head title={select.article.title}>
+      <Head title={t('title')}>
         <LocaleSelect />
       </Head>
       <Navigation />
