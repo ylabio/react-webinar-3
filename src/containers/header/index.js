@@ -32,7 +32,6 @@ const Header = (props) => {
         exit={t("exit")}
         urlLogin={"/login"}
         url={"/profile"}
-        urlExit={"/"}
         logOut={callbacks.logOut}
         userName={select.userName}
         token={select.token}

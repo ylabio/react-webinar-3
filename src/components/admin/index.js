@@ -13,11 +13,9 @@ const Admin = (props) => {
           <Link to={props.url} className="Head-user">
             {props.userName}
           </Link>
-          <Link to={props.urlExit}>
-            <button onClick={() => props.logOut(props.token)}>
-              {props.exit}
-            </button>
-          </Link>
+          <button onClick={() => props.logOut(props.token)}>
+            {props.exit}
+          </button>
         </Spinner>
       ) : (
         <Link to={props.urlLogin}>
@@ -32,7 +30,6 @@ Admin.propTypes = {
   userName: PropTypes.string,
   waiting: PropTypes.bool,
   url: PropTypes.string,
-  urlExit: PropTypes.string,
   exit: PropTypes.string,
   urlLogin: PropTypes.string,
   login: PropTypes.string,

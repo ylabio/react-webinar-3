@@ -14,7 +14,9 @@ class ProfileState extends StoreModule {
     };
   }
 
-  async getProfile(token) {
+  async getProfile() {
+    const token = localStorage.getItem('token')
+    if(token){
     try {
       const response = await fetch(`/api/v1/users/self`, {
         method: "GET",
@@ -39,6 +41,7 @@ class ProfileState extends StoreModule {
     } catch (error) {
       console.log(error);
     }
+  }
   }
 
   async logOut() {

@@ -14,6 +14,7 @@ class LoginState extends StoreModule {
 
   async sign(login, password) {
     try {
+
       const response = await fetch(`/api/v1/users/sign`, {
         method: "POST",
         headers: {
@@ -24,6 +25,7 @@ class LoginState extends StoreModule {
           password: password,
         }),
       });
+
       if (response.ok) {
         const { result } = await response.json();
         localStorage.setItem("token", result.token);
@@ -36,10 +38,11 @@ class LoginState extends StoreModule {
           "Авторизация прошла успешно"
         );
       } else {
+        const { error } = await response.json();
         this.setState(
           {
             waiting: false,
-            error: "Ошибка: " + response.statusText,
+            error: error.data.issues.map(error => error.message),
           },
           "Авторизация не удалась"
         );
@@ -72,10 +75,11 @@ class LoginState extends StoreModule {
           "Деавторизация прошла успешно"
         );
       } else {
+        const { error } = await response.json();
         this.setState(
           {
             waiting: false,
-            error: "Ошибка: " + response.statusText,
+            error: error.data.issues[0].message,
           },
           "Деавторизация не удалась"
         );
@@ -84,6 +88,16 @@ class LoginState extends StoreModule {
       console.log(error);
     }
   }
+  clearError(){
+    this.setState(
+      {...this.getState(),
+        waiting: false,
+        error: '',
+      }
+    );
+  }
 }
+
+
 
 export default LoginState;

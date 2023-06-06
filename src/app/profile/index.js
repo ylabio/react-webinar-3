@@ -7,7 +7,6 @@ import useStore from "../../hooks/use-store";
 import User from "../../components/user";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
-import { Navigate } from "react-router-dom";
 import Spinner from "../../components/spinner";
 
 const Profile = () => {
@@ -21,14 +20,6 @@ const Profile = () => {
     waiting: state.profile.waiting,
     token:state.login.token,
   }));
-
-  useInit(
-    () => {
-      store.actions.profile.getProfile(select.token);
-    },
-    [],
-    true
-  );
 
   return (
     <PageLayout>
@@ -45,7 +36,7 @@ const Profile = () => {
           userMail={select.userMail}
         />
       </Spinner>
-      {!select.token && <Navigate to={"/"} />}
+      
     </PageLayout>
   );
 };

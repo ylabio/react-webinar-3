@@ -13,13 +13,15 @@ const Login = () => {
   const { t } = useTranslate();
   const select = useSelector((state) => ({
     error: state.login.error,
-    token: state.login.token,
   }));
-  
+
   const callbacks = {
-    signIn: useCallback((login, password) =>
-      store.actions.login.sign(login, password)
-    ),
+    signIn: useCallback((login, password) => {
+      store.actions.login.sign(login, password);
+      setTimeout(() => {
+        store.actions.login.clearError();
+      }, 5000);
+    }),
   };
 
   return (
@@ -33,7 +35,6 @@ const Login = () => {
         signIn={callbacks.signIn}
         error={select.error}
       />
-      {select.token&&(<Navigate to={'/profile'}/>)}
     </PageLayout>
   );
 };
