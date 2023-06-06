@@ -2,6 +2,7 @@
     width: 100%;
     display: flex;
     justify-content: end;
+    border-bottom: 1px solid #DCDCDC;
 }
 
 .HeadPage-link {

@@ -15,6 +15,25 @@
   color: red;
 }
 
+.LoginForm-input {
+  width: 203px;
+  height: 26px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  margin-bottom: 20px;
+  background: #ffffff;
+  border: 1px solid #767676;
+  border-radius: 1px;
+}
+
+.LoginForm-input::placeholder {
+  color: white;
+  background-image: url('../../image/imgInput.png');
+  background-repeat: no-repeat;
+  background-position: 0 6px;
+}
+
 .LoginForm-button {
   width: 53px;
 }

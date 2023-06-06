@@ -1,9 +1,8 @@
 import { memo } from 'react'
 import { cn as bem } from '@bem-react/classname'
-import Input from '../input'
 import './style.css'
 
-function LoginForm({ onLogin, onChange, error}) {
+function LoginForm({ onLogin, onChange, error }) {
   const cn = bem('LoginForm')
 
   const handleSubmit = (e) => {
@@ -17,11 +16,19 @@ function LoginForm({ onLogin, onChange, error}) {
       <form onSubmit={handleSubmit} className={cn('form')}>
         <label>
           Логин
-          <Input theme={'form'} onChange={onChange} name={'login'}/>
+          <input
+            onChange={(e) => onChange(e, (name = 'login'))}
+            className={cn('input')}
+          />
         </label>
         <label>
           Пароль
-          <Input theme={'form'} onChange={onChange} name={'password'}/>
+          <input
+            type='password'
+            onChange={(e) => onChange(e, (name = 'password'))}
+            className={cn('input')}
+            placeholder='.'
+          />
         </label>
         {error && <p className={cn('error')}>{error}</p>}
         <button type="submit" className={cn('button')}>

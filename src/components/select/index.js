@@ -11,7 +11,7 @@ function Select(props) {
     } else {
       props.onChange(e.target.value);
     }
-    // props.value === 'Все' && props.resetPage(1)
+    
   };
   return (
     <select className="Select" value={props.value} onChange={onSelect}>

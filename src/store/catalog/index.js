@@ -98,15 +98,12 @@ class CatalogState extends StoreModule {
         }, 'Загружен список товаров из категории');
     } else {
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
-    // const responseFromCategories = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`)
     const json = await response.json();
-    // const jsonCategories = await responseFromCategories.json();
     this.setState({
       ...this.getState(),
       list: json.result.items,
       count: json.result.count,
       waiting: false,
-      // categories: jsonCategories.result.items
     }, 'Загружен список товаров из АПИ');
 
   }

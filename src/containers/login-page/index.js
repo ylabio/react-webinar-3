@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react'
+import { memo, useCallback, useState } from 'react'
 import useStore from '../../hooks/use-store'
 import useSelector from '../../hooks/use-selector'
 import PageLayout from '../../components/page-layout'
@@ -7,9 +7,14 @@ import Navigation from '../../containers/navigation'
 import LocaleSelect from '../../containers/locale-select'
 import HeadPage from '../../components/head-page'
 import LoginForm from '../../components/loginForm'
+import debounce from 'lodash.debounce';
 
 function LoginPage() {
   const store = useStore()
+  const [loginUser, setLoginUser] = useState()
+  const [passwordUser, setPasswordUser]= useState()
+  const [valueLogin, setValueLogin] = useState()
+  const [valuePassword, setValuePassword] = useState()
 
   const select = useSelector((state) => ({
     authorization: state.user.authorization,
@@ -30,17 +35,15 @@ function LoginPage() {
   }
 
   const handleLogin = () => {
-    const loginUser = localStorage.getItem('login')
-    const passwordUser = localStorage.getItem('password')
-    loginUser &&
-      passwordUser &&
-      callbacks.getAuthorization(loginUser, passwordUser)
+    valueLogin && valuePassword && callbacks.getAuthorization(valueLogin, valuePassword)
+    select.authorization && (window.location.href = '/')
   }
 
-  const onChangeInput = (props) => {
-    props.name === 'login' && localStorage.setItem('login', props.value)
-    props.name === 'password' && localStorage.setItem('password', props.value)
-  }
+  // Обработчик изменений в поле
+  const onChange = (e, name) => {
+    name === 'login' && setValueLogin(e.target.value)
+    name === "password" && setValuePassword(e.target.value)
+  };
 
   return (
     <PageLayout
@@ -58,7 +61,7 @@ function LoginPage() {
       <Navigation />
       <LoginForm
         onLogin={handleLogin}
-        onChange={onChangeInput}
+        onChange={onChange}
         error={select.error}
       />
     </PageLayout>

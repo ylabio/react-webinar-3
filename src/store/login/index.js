@@ -7,7 +7,7 @@ class LoginState extends StoreModule {
   initState() {
     return {
       user: {},
-      profile: {},
+      login: '',
       authorization: localStorage.getItem('token') ? true : false,
       waiting: false,
       error: '',

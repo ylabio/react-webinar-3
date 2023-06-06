@@ -30,7 +30,11 @@ function CatalogFilter() {
     // Поиск по категории
     onCategories: useCallback(category => {
       const id = select.categories.find((i) => i.title === category)
-      id !== undefined && store.actions.catalog.setParams({category: id?.parent?._id})
+      if(id.parent === null) {
+        store.actions.catalog.setParams({category: id._id})
+      } else {
+        store.actions.catalog.setParams({category: id.parent._id})
+      }
     }, [store, select.categories]),
   };
 
