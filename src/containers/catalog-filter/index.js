@@ -5,6 +5,7 @@ import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
 import useInit from "../../hooks/use-init";
+import { getTranformedArray } from "../../utils";
 
 function CatalogFilter() {
 
@@ -25,59 +26,6 @@ function CatalogFilter() {
     {value: 0, title: 'Все', parent: null},
     ...select.categories,
   ]
-
-  console.log('select.categories', select.categories)
-  const getTranformedArray = (initialArray) => {
-    const result = []
-    const arr = [...initialArray];
-
-    arr.forEach((category) => {
-     
-      // для всех категорий у которых нет родительской категории
-      if(!category.parent) {
-        // находим детей
-        const children = arr.filter((el) => el?.parent?._id === category.value )
-        // сначала пушим сами категории
-        result.push({title: category.title, value: category.value})
-  
-        // преобразовываем и пушим детей
-        if(children) {
-          children.forEach((child) => {
-            result.push({
-              value: child.value,
-              title: `- ${child.title}`
-            })
-  
-            // находим детей второго уровня
-            const secondChildren = arr.filter((secondChild) => child.value === secondChild.parent?._id)
-  
-            if(secondChildren) {
-              secondChildren.forEach((child) => {
-                // преобразовываем и пушим детей
-                result.push({
-                  value: child.value,
-                  title: `- -  ${child.title}`
-                })
-
-                // находим детей третьего уровня
-                const thirdChildren = arr.filter((thirdChild) => child.value === thirdChild.parent?._id)
-                if (thirdChildren) {
-                  thirdChildren.forEach((child) => {
-                    result.push({
-                      value: child.value, 
-                      title: `- - - ${child.title}`
-                    })
-                  })
-                }
-              })
-            }
-          })
-        }
-      }
-    })
-  
-    return result;
-  }
 
   const callbacks = {
     // Сортировка

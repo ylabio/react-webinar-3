@@ -33,3 +33,55 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export const getTranformedArray = (initialArray) => {
+  const result = []
+  const arr = [...initialArray];
+
+  arr.forEach((category) => {
+   
+    // для всех категорий у которых нет родительской категории
+    if(!category.parent) {
+      // находим детей
+      const children = arr.filter((el) => el?.parent?._id === category.value )
+      // сначала пушим сами категории
+      result.push({title: category.title, value: category.value})
+
+      // преобразовываем и пушим детей
+      if(children) {
+        children.forEach((child) => {
+          result.push({
+            value: child.value,
+            title: `- ${child.title}`
+          })
+
+          // находим детей второго уровня
+          const secondChildren = arr.filter((secondChild) => child.value === secondChild.parent?._id)
+
+          if(secondChildren) {
+            secondChildren.forEach((child) => {
+              // преобразовываем и пушим детей
+              result.push({
+                value: child.value,
+                title: `- -  ${child.title}`
+              })
+
+              // находим детей третьего уровня
+              const thirdChildren = arr.filter((thirdChild) => child.value === thirdChild.parent?._id)
+              if (thirdChildren) {
+                thirdChildren.forEach((child) => {
+                  result.push({
+                    value: child.value, 
+                    title: `- - - ${child.title}`
+                  })
+                })
+              }
+            })
+          }
+        })
+      }
+    }
+  })
+
+  return result;
+}
