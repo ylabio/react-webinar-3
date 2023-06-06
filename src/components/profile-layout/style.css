@@ -1,0 +1,12 @@
+.PropfileLayout {
+  padding: 0 0 0 20px;
+}
+
+.PropfileLayout-title {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.PropfileLayout-info:not(:first-child) {
+  margin: 20px 0 0 0;
+}

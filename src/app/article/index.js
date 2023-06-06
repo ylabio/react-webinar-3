@@ -10,6 +10,10 @@ import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
+import SideLayout from "../../components/side-layout";
+import AuthPanelControl from "../../containers/auth-panel-control";
+
+
 
 function Article() {
   const store = useStore();
@@ -35,6 +39,9 @@ function Article() {
 
   return (
     <PageLayout>
+      <SideLayout side="end" padding="medium">
+        <AuthPanelControl />
+      </SideLayout>
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>

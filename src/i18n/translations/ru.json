@@ -11,6 +11,17 @@
   "basket.delete": "Удалить",
   "article.add": "Добавить",
   "filter.reset": "Сбросить",
+  "auth.login": "Вход",
+  "auth.logout": "Выйти",
+  "auth.title": "Вход",
+  "auth.label.login": "Логин",
+  "auth.label.password": "Пароль",
+  "auth.submit": "Войти",
+  "profile.title": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "profile.email": "email",
+
   "basket.articles": {
     "one": "товар",
     "few": "товара",
