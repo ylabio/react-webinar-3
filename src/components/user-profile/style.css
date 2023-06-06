@@ -1,0 +1,9 @@
+.UserProfile{
+    padding: 20px;
+  }
+  
+  .UserProfile-name,
+  .UserProfile-phone,
+  .UserProfile-email{
+    margin-bottom: 20px;
+  }

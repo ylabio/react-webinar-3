@@ -1,0 +1,16 @@
+.Auth-header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Auth-header-username {
+    color: #0087e9;
+    text-decoration: underline;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.Auth-header-logged {
+    display: flex;
+    align-items: center;
+}
