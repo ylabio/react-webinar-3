@@ -1,0 +1,15 @@
+.User-wrapper {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.User-item {
+  display: flex;
+  gap: 5px;
+}
+
+.User-subitem {
+  font-weight: bold;
+}
