@@ -1,12 +1,12 @@
-import {memo, useCallback} from 'react';
-import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
-import useInit from "../../hooks/use-init";
-import useTranslate from "../../hooks/use-translate";
-import ItemBasket from "../../components/item-basket";
+import { memo, useCallback } from 'react';
+import BasketTotal from "../../components/basket/basket-total";
+import ItemBasket from "../../components/basket/item-basket";
+import ModalLayout from "../../components/layouts/modal-layout";
 import List from "../../components/list";
-import ModalLayout from "../../components/modal-layout";
-import BasketTotal from "../../components/basket-total";
+import useInit from "../../hooks/use-init";
+import useSelector from "../../hooks/use-selector";
+import useStore from "../../hooks/use-store";
+import useTranslate from "../../hooks/use-translate";
 
 function Basket() {
 

@@ -1,13 +1,14 @@
-import {memo} from 'react';
+import { memo } from 'react';
+import Head from "../../components/head";
+import PageLayout from "../../components/layouts/page-layout";
+import CatalogFilter from "../../containers/catalog/catalog-filter";
+import CatalogList from "../../containers/catalog/catalog-list";
+import LocaleSelect from "../../containers/locale-select";
+import LoginBar from '../../containers/login-bar';
+import Navigation from "../../containers/navigation";
+import useInit from "../../hooks/use-init";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import useInit from "../../hooks/use-init";
-import Navigation from "../../containers/navigation";
-import PageLayout from "../../components/page-layout";
-import Head from "../../components/head";
-import CatalogFilter from "../../containers/catalog-filter";
-import CatalogList from "../../containers/catalog-list";
-import LocaleSelect from "../../containers/locale-select";
 
 function Main() {
 
@@ -15,18 +16,20 @@ function Main() {
 
   useInit(() => {
     store.actions.catalog.initParams();
+    store.actions.categories.load();
   }, [], true);
 
-  const {t} = useTranslate();
+  const { t } = useTranslate();
 
   return (
     <PageLayout>
+      <LoginBar />
       <Head title={t('title')}>
-        <LocaleSelect/>
+        <LocaleSelect />
       </Head>
       <Navigation />
-      <CatalogFilter/>
-      <CatalogList/>
+      <CatalogFilter />
+      <CatalogList />
     </PageLayout>
   );
 }
