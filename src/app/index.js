@@ -15,16 +15,23 @@ import ProtectedRoute from '../components/protected-route'
 function App() {
 
   const activeModal = useSelector(state => state.modals.name);
-  const user = localStorage.getItem('user');
+  
+  const select = useSelector((state) => ({
+    user: state.user.user,
+  }));
 
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article />}/>
-        <Route path={'/login'} element={<Login />} onEnter={() => console.log('enter')}/>
+        <Route path={'/login'} element={
+          <ProtectedRoute to="user" isAuth={!select.user}>
+            <Login />
+          </ProtectedRoute>
+        }/>
         <Route path={'/user'} element={
-          <ProtectedRoute user={!!user}>
+          <ProtectedRoute to="login" isAuth={select.user}>
               <User />
           </ProtectedRoute>
         }/>

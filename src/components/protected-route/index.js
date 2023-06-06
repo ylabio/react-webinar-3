@@ -1,14 +1,10 @@
 import { Navigate } from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 
-function ProtectedRoute({user, children}) {
-  
-  const select = useSelector((state) => ({
-    user: state.user.user,
-  }));
+function ProtectedRoute({children, to, isAuth}) {
 
-  if (!select.user) {
-    return <Navigate to="/login" replace />;
+  if (!isAuth) {
+    return <Navigate to={`/${to}`} replace />;
   }
 
   return children;

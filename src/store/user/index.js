@@ -1,5 +1,4 @@
 import StoreModule from "../module";
-
 /**
  * Детальная ифнормация о товаре для страницы товара
  */
@@ -23,8 +22,6 @@ class User extends StoreModule {
       ...this.getState(),
       error: null,
     }, '');
-    console.log('this.getState()', this.getState())
-
   }
 
   /**
@@ -50,16 +47,12 @@ class User extends StoreModule {
 
         this.setState({
           user: json?.result?.user,
-        }, 'Авторизация прошла успешно');
+        }, 'Авторизация прошла успешно'); 
 
         
+      }     
 
-        // setTimeout(() => {
-        //   window.location.href="/user";
-        // }, 0)
-      }
-
-      
+      console.log('this.user', this.getState().user)
       if (json?.error) {
         this.setState({
           error: json?.error,
