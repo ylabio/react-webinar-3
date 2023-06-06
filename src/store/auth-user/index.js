@@ -48,7 +48,7 @@ class AuthUser extends storeModule {
       this.setState({
         user: null,
         wait: false,
-        err: e,
+        err: e.message,
       });
     }
   }
@@ -77,17 +77,37 @@ class AuthUser extends storeModule {
       this.setState({
         user: null,
         wait: false,
-        err: e,
+        err: e.message,
       });
     }
   }
   // Сброс Пользователя
-  signOut() {
-    localStorage.removeItem("userToken");
+  async signOut() {
     this.setState({
       ...this.getState(),
-      user: null,
+      wait: true,
     });
+    try {
+      await fetch("/api/v1/users/sign", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "X-token": userToken,
+        },
+      });
+      localStorage.removeItem("userToken");
+      this.setState({
+        ...this.getState(),
+        user: null,
+        wait: false,
+      });
+    } catch (e) {
+      console.log('e', e.massage)
+      this.setState({
+        wait: false,
+        err: e.massage,
+      });
+    }
   }
 }
 
