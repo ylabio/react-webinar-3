@@ -1,0 +1,15 @@
+.UserPage {
+  padding: 20px;
+}
+
+.UserPage-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.UserPage-info p {
+  font-weight: 700;
+  margin: 10px 0;
+}
+

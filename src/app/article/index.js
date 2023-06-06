@@ -4,12 +4,11 @@ import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
-import PageLayout from "../../components/page-layout";
-import Head from "../../components/head";
+import PageLayout from "../../layouts/page-layout";
 import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
-import LocaleSelect from "../../containers/locale-select";
+import Header from '../../containers/header';
 
 function Article() {
   const store = useStore();
@@ -35,9 +34,7 @@ function Article() {
 
   return (
     <PageLayout>
-      <Head title={select.article.title}>
-        <LocaleSelect/>
-      </Head>
+      <Header title={select.article.title} />
       <Navigation/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>

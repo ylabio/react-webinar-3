@@ -16,5 +16,15 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "header.enter": "Вход",
+  "header.exit": "Выход",
+  "login": "Логин",
+  "password": "Пароль",
+  "login.enter": "Войти",
+  "profile": "Профиль",
+  "name": "Имя",
+  "phone": "Телефон",
+  "search": "Поиск",
+  "all": "Все"
 }
