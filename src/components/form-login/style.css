@@ -1,0 +1,28 @@
+.FormLogin {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 50px 0 0 20px;
+}
+
+.FormLogin-title {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.FormLogin-label {
+    font-size: 16px;
+    padding-top: 20px;
+    padding-bottom: 2px;
+}
+
+.FormLogin-error {
+    font-size: 16px;
+    color: red;
+    padding-top: 20px;
+}
+
+.FormLogin-submit {
+    margin-top: 22px;
+    cursor: pointer;
+}

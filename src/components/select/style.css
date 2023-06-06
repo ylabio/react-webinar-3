@@ -2,3 +2,12 @@
   font-size: 16px;
   padding: 3px 2px 2px;
 }
+.Select_theme_medium{
+  min-width: 161px;
+}
+.Select_theme_semi-medium{
+  min-width: 157px;
+}
+.Select_theme_large{
+  min-width: 320px;
+}

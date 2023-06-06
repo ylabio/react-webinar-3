@@ -1,6 +1,7 @@
 {
   "title": "Магазин",
   "menu.main": "Главная",
+
   "basket.title": "Корзина",
   "basket.open": "Перейти",
   "basket.close": "Закрыть",
@@ -9,6 +10,7 @@
   "basket.total": "Итого",
   "basket.unit": "шт",
   "basket.delete": "Удалить",
+
   "article.add": "Добавить",
   "filter.reset": "Сбросить",
   "basket.articles": {
@@ -16,5 +18,13 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+
+  "login.title": "Вход",
+  "login.login": "Логин",
+  "login.password": "Пароль",
+  "login.enter": "Войти",
+
+  "profileBar.in": "Вход",
+  "profileBar.out": "Выход"
 }

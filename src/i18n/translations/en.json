@@ -1,6 +1,7 @@
 {
   "title": "Shop",
   "menu.main": "Main",
+
   "basket.title": "Cart",
   "basket.open": "Open",
   "basket.close": "Close",
@@ -9,10 +10,19 @@
   "basket.total": "Total",
   "basket.unit": "pcs",
   "basket.delete": "Delete",
+
   "article.add": "Add",
   "filter.reset": "Reset",
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+
+  "login.title": "SignIn",
+  "login.login": "Login",
+  "login.password": "Password",
+  "login.enter": "Enter",
+
+  "profileBar.in": "sign In",
+  "profileBar.out": "sign Out"
 }
