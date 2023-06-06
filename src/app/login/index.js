@@ -23,8 +23,8 @@ function Login() {
   const { t } = useTranslate();
   const store = useStore();
 
-  const { user, waiting, error } = useSelector(state => ({
-    user: state.session.user,
+  const { status, waiting, error } = useSelector(state => ({
+    status: state.session.status,
     waiting: state.login.waiting,
     error: state.login.error
   }));
@@ -35,11 +35,11 @@ function Login() {
   }, [], true);
 
   useEffect(() => {
-    if (user) { // Переход туда, откуда пришли
+    if (status == 'success') { // Переход туда, откуда пришли
       const nonLoginPrevPageExists = location.state?.from && location.state?.from.pathname != location.pathname;
       nonLoginPrevPageExists ? navigate(location.state.from.pathname, { replace: true }) : navigate('/', { replace: true });
     }
-  }, [user]);
+  }, [status]);
 
   const callbacks = {
     onLoginChange: useCallback(login => store.actions.login.setLogin(login), [store]),

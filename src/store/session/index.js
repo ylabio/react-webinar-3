@@ -2,12 +2,13 @@ import { validateTokenSymbols } from "../../utils";
 import StoreModule from "../module";
 
 /**
- * Модуль сессии
+ * Модуль сессии.
  */
 class SessionState extends StoreModule {
 
   initState() {
     return {
+      status: 'none', // none | loading | success | failed | terminated - ситуаций много, нужно спец поле с текущим статусом
       user: null, // флаг сессии и данные юзера одновременно
       token: localStorage.getItem('token'),
       error: null,
@@ -18,6 +19,7 @@ class SessionState extends StoreModule {
   async load() {
     this.setState({
       ...this.getState(),
+      status: 'loading',
       waiting: true
     }, 'Проверка авторизации пользователя...');
 
@@ -25,6 +27,7 @@ class SessionState extends StoreModule {
       this.setToken(null);
       this.setState({
         ...this.getState(),
+        status: 'failed',
         error: 'Incorrect token!',
         user: null,
         waiting: false
@@ -44,6 +47,7 @@ class SessionState extends StoreModule {
 
       this.setState({
         ...this.getState(),
+        status: 'failed',
         error: json.error,
         user: null,
         waiting: false
@@ -55,6 +59,7 @@ class SessionState extends StoreModule {
 
     this.setState({
       ...this.getState(),
+      status: 'success',
       user: json.result,
       waiting: false,
     }, 'Проверка авторизации выполнена.');
@@ -70,11 +75,12 @@ class SessionState extends StoreModule {
 
     this.setState({
       ...this.getState(),
+      status: 'terminated',
       user: null,
     }, 'Выход выполнен.');
   }
 
-  // метод дергается из LoginState, от туда приходит токен и далее используется тут
+  // метод так же дергается из LoginState, валидный токен приходит от туда.
   setToken(token) {
     if (token)
       localStorage.setItem('token', token);
@@ -93,6 +99,7 @@ class SessionState extends StoreModule {
   setUser(user) {
     this.setState({
       ...this.getState(),
+      status: user ? 'success' : 'failed', // если передали поля, то считаем что сессия есть
       user
     }, 'Обновление данных юзера.');
   }

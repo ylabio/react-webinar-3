@@ -12,20 +12,23 @@ function AuthChecker({ children, altPage }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { user, waiting } = useSelector(state => ({
-    user: state.session.user,
-    waiting: state.session.waiting
+  const { status } = useSelector(state => ({
+    status: state.session.status
   }));
 
   useEffect(() => {
-    if (!user && !waiting) // если нет юзера, и ничего не грузится, то перенаправляем
+    if (status == 'failed' || status == 'terminated') // если не смогли авторизоваться то переходим
       navigate(altPage, { state: { from: location } });
-  }, [user, waiting]);
+  }, [status]);
 
+  // для текста загрузки пока простая заглушка
   return (
-    <Spinner active={waiting}>
-      {user ? children : null}
-    </Spinner>
+    <> { status == 'none' || status == 'loading' ?
+      <div style={{textAlign: 'center', color: '#FFFFFF', fontSize: '18px', padding: '50px'}}>
+        Подожите, идет проверка пользователя...
+      </div>
+      : children
+    }</>
   );
 }
 
