@@ -7,7 +7,13 @@ function Select(props) {
     props.onChange(e.target.value)
   }
   return (
-    <select className="Select" value={props.value} onChange={onSelect}>
+    <select
+      className={
+        props.value === 'en' || props.value === 'ru' ? 'Select-lang' : 'Select'
+      }
+      value={props.value}
+      onChange={onSelect}
+    >
       {props.options.map((item, index) => (
         <option key={index} value={item.value}>
           {item.value === props.value
