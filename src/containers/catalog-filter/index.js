@@ -31,13 +31,10 @@ function CatalogFilter() {
     // Поиск по категории
     onCategories: useCallback(category => {
       const id = select.categories.find((i) => i.title === category.replace(/-/g, ""))
-      console.log('category', category.replace(/-/g, ""))
-      console.log('id', id)
       if(id === undefined) {
         callbacks.onReset()
       } else {
-        id.parent === null && store.actions.catalog.setParams({category: id._id})
-        id.parent !== null && store.actions.catalog.setParams({category: id.parent._id})
+        store.actions.catalog.setParams({category: category.replace(/-/g, "")})
       }
     }, [store, select.categories]),
   };

@@ -41,7 +41,6 @@ class CatalogState extends StoreModule {
     if (urlParams.has('category')) validParams.category= urlParams.get('category');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
-
   /**
    * Сброс параметров к начальным
    * @param [newParams] {Object} Новые параметры
@@ -77,7 +76,16 @@ class CatalogState extends StoreModule {
     } else {
       window.history.pushState({}, '', url);
     }
+    console.log('newParams.category', newParams.category)
 
+   const allCategory = this.getState().categories
+   let idCategory = ''
+   if(allCategory.length > 0) {
+    const selectedCategory = allCategory.find((i) => i.title === newParams.category)
+    selectedCategory?.parent === null && selectedCategory?._id
+    selectedCategory?.parent !== null && selectedCategory?.parent._id
+    idCategory = selectedCategory?._id
+   }
     const apiParams = {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
@@ -86,10 +94,11 @@ class CatalogState extends StoreModule {
       'search[query]': params.query,
       'search[parent]': params.category,
     };
-    if(newParams.hasOwnProperty('category') && newParams.category !== '') {
+    if(newParams.hasOwnProperty('category') && newParams.category !== '' && newParams.category !== "Все") {
       const newApi = {
         ...apiParams,
         'search[query]': '',
+        'search[parent]': idCategory
       }
       const responseCategories = await fetch(`/api/v1/categories?${new URLSearchParams(newApi)}`);
         const jsonCategories = await responseCategories.json();
@@ -114,6 +123,9 @@ class CatalogState extends StoreModule {
   const responseFromCategories = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`)
   const jsonCategories = await responseFromCategories.json();
   jsonCategories.result.items.unshift({_id: 0, title: "Все", parent: null})
+  jsonCategories.result.items.forEach(element => {
+     element.value = element.title
+  });
   this.setState({
     ...this.getState(),
     waiting: false,
