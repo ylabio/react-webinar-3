@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import { Navigate } from "react-router-dom";
+import React, { useCallback, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
 import useSelector from "../../hooks/use-selector";
@@ -13,26 +13,22 @@ import ProfileCard from "../../components/profile-card";
 
 function Profile() {
   const store = useStore();
-  const userState = useSelector((state) => state.user);
-  const token = userState.token;
   const user = useSelector((state) => state.profile.user);
   const profile = { ...user.profile };
   const { t } = useTranslate();
+  let navigate = useNavigate();
 
-  useInit(() => {
-    if (token) {
-      store.actions.profile.loadData(token);
-    }
-  }, [store, token]);
+  const select = useSelector((state) => ({
+    user: state.profile.user,
+  }));
+
+  useEffect(() => {
+    if (!select.user) navigate("/login");
+  }, [select.user]);
 
   const exitProfile = useCallback(() => {
     store.actions.user.signOut();
   }, [store]);
-
-  // Перенаправление на страницу авторизации, если пользователь не авторизован
-  if (!token) {
-    return <Navigate replace to="/login" />;
-  }
 
   return (
     <PageLayout head={<LoginButton text={profile.name} onExit={exitProfile} />}>
