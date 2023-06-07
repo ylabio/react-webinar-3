@@ -82,8 +82,6 @@ class CatalogState extends StoreModule {
    let idCategory = ''
    if(allCategory.length > 0) {
     const selectedCategory = allCategory.find((i) => i.title === newParams.category)
-    selectedCategory?.parent === null && selectedCategory?._id
-    selectedCategory?.parent !== null && selectedCategory?.parent._id
     idCategory = selectedCategory?._id
    }
     const apiParams = {
@@ -92,22 +90,19 @@ class CatalogState extends StoreModule {
       fields: 'items(*),count',
       sort: params.sort,
       'search[query]': params.query,
-      'search[parent]': params.category,
     };
     if(newParams.hasOwnProperty('category') && newParams.category !== '' && newParams.category !== "Все") {
       const newApi = {
         ...apiParams,
-        'search[query]': '',
-        'search[parent]': idCategory
+        'search[category]': idCategory
       }
-      const responseCategories = await fetch(`/api/v1/categories?${new URLSearchParams(newApi)}`);
+      const responseCategories = await fetch(`/api/v1/articles?${new URLSearchParams(newApi)}`);
         const jsonCategories = await responseCategories.json();
         this.setState({
           ...this.getState(),
           list: jsonCategories.result.items,
           count: jsonCategories.result.count,
           waiting: false,
-          categories: jsonCategories.result.items
         }, 'Загружен список товаров из категории');
     } else {
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
