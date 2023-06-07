@@ -7,13 +7,13 @@
  * @param [locale] {String} Локаль (код языка)
  * @returns {String}
  */
-export function plural(value, variants = {}, locale = 'ru-RU') {
+export function plural(value, variants = {}, locale = "ru-RU") {
   // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
   // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
   // В английском 2 формы: 'one', 'other'
   const key = new Intl.PluralRules(locale).select(value);
   // Возвращаем вариант по ключу, если он есть
-  return variants[key] || '';
+  return variants[key] || "";
 }
 
 /**
@@ -30,6 +30,44 @@ export function codeGenerator(start = 0) {
  * @param options {Object}
  * @returns {String}
  */
-export function numberFormat(value, locale = 'ru-RU', options = {}) {
+export function numberFormat(value, locale = "ru-RU", options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
+}
+
+export function createCategoryList(categoryStore, parent = null) {
+  let list = [];
+  categoryStore.forEach((item) => {
+    if (!parent && !item.parent) {
+      list.push(item);
+    } else if (item.parent && item.parent._id === parent) {
+        list.push(item);
+    }
+  })
+  console.log('list', list)
+
+
+  for (let i = 0; i < list.length; i++) {
+    list[i] = {
+      ...list[i],
+      children: createCategoryList(categoryStore, list[i]._id)
+    }
+  }
+  return list;
+};
+
+export function updateCategoryList(items, depth = 0) {
+  let list = [];
+  let str = "- ";
+  items.forEach((item) => {
+    const updateItem = {
+      title: `${str.repeat(depth)}` + item.title,
+      value: item._id ? item._id : item.value,
+    };
+    list.push(updateItem);
+    const nextDepth = depth + 1;
+    if (item.children) {
+      list = [...list, ...updateCategoryList(item.children, nextDepth)];
+    }
+  });
+  return list;
 }

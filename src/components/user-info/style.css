@@ -1,0 +1,16 @@
+.UserInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-left: 20px;
+}
+.UserInfo-string {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.UserInfo-info {
+    font-weight: 700;
+}
