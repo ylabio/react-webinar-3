@@ -1,4 +1,4 @@
-import {memo} from 'react';
+import {memo, useEffect, useState} from 'react';
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -8,19 +8,23 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import UserNav from '../../components/user-nav';
+import navigation from '../../containers/navigation';
 
 function Main() {
-
   const store = useStore();
+
+  const {t} = useTranslate();
 
   useInit(() => {
     store.actions.catalog.initParams();
   }, [], true);
 
-  const {t} = useTranslate();
-
   return (
     <PageLayout>
+      {/* <LoginHeader /> */}
+      {/* <UserNav uName={store.getState().profile.uName}/> */}
+      <UserNav/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

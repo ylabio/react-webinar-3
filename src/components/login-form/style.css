@@ -1,0 +1,49 @@
+.LoginForm {
+    padding: 42px 40px;
+}
+
+.LoginForm-formwrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.LoginForm-title {
+    font-size: 24px;
+    line-height: 28px;
+    margin: 0;
+    margin-bottom: 17px;
+}
+
+.LoginForm-inputlabel,
+.LoginForm-inputwrapper input{
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.LoginForm-inputwrapper input {
+    padding: 3px 3px;
+    width: 195px;
+    border: 1px solid #767676;
+    border-radius: 1px;
+}
+
+.LoginForm-inputlabel {
+    margin-bottom: 4px;
+}
+
+.LoginForm-inputwrapper {
+    margin-bottom: 20px;
+    width: 205px;
+}
+
+.LoginForm-error {
+    color: #FF0000;
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.LoginForm-submit {
+    margin-bottom: 20px;
+    align-self: baseline;
+}
