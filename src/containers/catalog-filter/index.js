@@ -12,14 +12,15 @@ function CatalogFilter() {
   const select = useSelector((state) => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    categories: state.categories.categories,
+    categoryArr: state.categories.categoryArr,
+    category: state.catalog.params.category,
   }));
 
-  useEffect(() => {
-    store.actions.categories.getCategories();
-  }, [store]);
-
   const callbacks = {
+    onFilterByCategory: useCallback(
+      (category) => store.actions.catalog.setParams({ category, page: 1 }),
+      [store]
+    ),
     // Сортировка
     onSort: useCallback(
       (sort) => store.actions.catalog.setParams({ sort }),
@@ -57,9 +58,9 @@ function CatalogFilter() {
   return (
     <SideLayout padding="medium">
       <Select
-        options={select.categories}
+        options={select.categoryArr}
         value={select.category}
-        onChange={callbacks.onCategory}
+        onChange={callbacks.onFilterByCategory}
       />
       <Select
         options={options.sort}

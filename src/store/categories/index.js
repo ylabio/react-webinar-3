@@ -1,41 +1,41 @@
 import StoreModule from "../module";
-import { getCategoriesUtils } from "../../utils";
+import { parseCategories } from "../../utils";
 
-class Categories extends StoreModule {
+// Класс для управления состоянием категорий
+class CategoriesState extends StoreModule {
+  // Инициализация начального состояния
   initState() {
     return {
-      categories: [],
+      categoryArr: [],
     };
   }
 
+  // Получение списка категорий
   async getCategories() {
     try {
-      const response = await fetch(
-        `/api/v1/categories?fields=_id,title,parent(_id)&limit=*`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+      const res = await fetch(
+        "/api/v1/categories?fields=_id,title,parent(_id)&limit=*"
       );
-
-      const data = await response.json();
-
-      if (data.result && data.result.items) {
-        const categories = getCategoriesUtils(data);
-        this.setState(
-          {
-            ...this.getState(),
-            categories: categories,
-          },
-          "Категории загружены и установлены в нужном порядке"
-        );
-      }
-    } catch (error) {
-      console.error("Failed to fetch categories:", error);
+      const json = await res.json();
+      this.setCategories(json.result.items);
+    } catch (err) {
+      this.setCategories([]);
     }
+  }
+
+  // Установка списка категорий
+  setCategories(categoryArr = []) {
+    this.setState(
+      {
+        ...this.getState(),
+        categoryArr: [
+          { value: "", title: "Все" },
+          ...parseCategories(categoryArr),
+        ],
+      },
+      "Добавление категорий каталога"
+    );
   }
 }
 
-export default Categories;
+export default CategoriesState;

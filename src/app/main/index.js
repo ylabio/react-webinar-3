@@ -13,17 +13,14 @@ import LoginButton from "../../components/login-button";
 
 function Main() {
   const store = useStore();
-  const userState = useSelector((state) => state.user);
-  const token = userState.token;
-  useInit(() => {
-    store.actions.catalog.initParams();
-    if (token) {
-      store.actions.profile.loadData(token);
-    }
-  }, [store, token]);
   const user = useSelector((state) => state.profile.user);
   const profile = { ...user.profile };
   const { t } = useTranslate();
+
+  useInit(() => {
+    store.actions.catalog.initParams();
+    store.actions.categories.getCategories();
+  }, [store]);
 
   const exitProfile = useCallback(() => {
     store.actions.user.signOut();
