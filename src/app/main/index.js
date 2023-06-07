@@ -21,6 +21,7 @@ function Main() {
   }));
 
   useInit(() => {
+    store.actions.category.getCategoryList()
     store.actions.catalog.initParams();
     store.actions.auth.getUserToken();
   }, [], true);
