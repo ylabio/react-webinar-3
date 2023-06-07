@@ -87,7 +87,11 @@ class CatalogState extends StoreModule {
       'search[parent]': params.category,
     };
     if(newParams.hasOwnProperty('category') && newParams.category !== '') {
-      const responseCategories = await fetch(`/api/v1/categories?${new URLSearchParams(apiParams)}`);
+      const newApi = {
+        ...apiParams,
+        'search[query]': '',
+      }
+      const responseCategories = await fetch(`/api/v1/categories?${new URLSearchParams(newApi)}`);
         const jsonCategories = await responseCategories.json();
         this.setState({
           ...this.getState(),
@@ -109,6 +113,7 @@ class CatalogState extends StoreModule {
   }
   const responseFromCategories = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`)
   const jsonCategories = await responseFromCategories.json();
+  jsonCategories.result.items.unshift({_id: 0, title: "Все", parent: null})
   this.setState({
     ...this.getState(),
     waiting: false,

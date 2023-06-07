@@ -13,7 +13,8 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    categories: state.catalog.categories
+    categories: state.catalog.categories,
+    categoryOne: state.catalog.params.category,
   }));
 
   const categories = select.categories;
@@ -29,15 +30,17 @@ function CatalogFilter() {
     onPaginate: useCallback(page => store.actions.catalog.setParams({page}), [store]),
     // Поиск по категории
     onCategories: useCallback(category => {
-      const id = select.categories.find((i) => i.title === category)
-      if(id.parent === null) {
-        store.actions.catalog.setParams({category: id._id})
+      const id = select.categories.find((i) => i.title === category.replace(/-/g, ""))
+      console.log('category', category.replace(/-/g, ""))
+      console.log('id', id)
+      if(id === undefined) {
+        callbacks.onReset()
       } else {
-        store.actions.catalog.setParams({category: id.parent._id})
+        id.parent === null && store.actions.catalog.setParams({category: id._id})
+        id.parent !== null && store.actions.catalog.setParams({category: id.parent._id})
       }
     }, [store, select.categories]),
   };
-
   const options = {
     sort: useMemo(() => ([
       {value: 'order', title: 'По порядку'},
@@ -63,15 +66,13 @@ function sortCategories(categories, parent = null, indent = 0) {
       sortedCategories.push(...childCategories);
     }
   });
-  return sortedCategories;
+  return sortedCategories
 }
 const sortedCategories = sortCategories(categories, null);
-sortedCategories.unshift({title: "Все"})
-
   return (
     <SideLayout padding='medium'>
-      <Select options={sortedCategories} value='Все' onChange={callbacks.onCategories} resetPage={callbacks.onPaginate}/>
-      <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
+      <Select options={sortedCategories} value={select.categoryOne} onChange={callbacks.onCategories} resetPage={callbacks.onReset}/>
+      <Select options={options.sort} value={select.sort} onChange={callbacks.onSort} />
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
