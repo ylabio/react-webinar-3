@@ -11,7 +11,7 @@ import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
 
-function Article() {
+function Article({children}) {
   const store = useStore();
 
   // Параметры из пути /articles/:id
@@ -35,6 +35,7 @@ function Article() {
 
   return (
     <PageLayout>
+      {children}
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>

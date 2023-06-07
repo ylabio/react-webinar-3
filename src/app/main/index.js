@@ -1,4 +1,4 @@
-import {memo} from 'react';
+import {memo, useCallback} from 'react';
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -8,9 +8,12 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import SideLayout from "../../components/side-layout";
+import {useNavigate} from "react-router-dom";
+import ProfileTool from "../../components/profile-tool";
+import useSelector from "../../hooks/use-selector";
 
-function Main() {
-
+function Main({children}) {
   const store = useStore();
 
   useInit(() => {
@@ -21,6 +24,7 @@ function Main() {
 
   return (
     <PageLayout>
+      {children}
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
