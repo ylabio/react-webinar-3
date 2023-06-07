@@ -6,7 +6,7 @@ import StoreModule from "../module";
 class LoginState extends StoreModule {
   initState() {
     return {
-      token: localStorage.getItem("token") || "",
+      token: "",
       error: "",
       waiting: false, // признак ожидания загрузки
     };

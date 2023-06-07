@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 const Admin = (props) => {
   return (
     <div className="Head-login">
-      {props.userName ? (
+      {props.token ? (
         <Spinner active={props.waiting}>
           <Link to={props.url} className="Head-user">
             {props.userName}
