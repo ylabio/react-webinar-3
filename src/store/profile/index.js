@@ -54,25 +54,6 @@ class ProfileState extends StoreModule {
       );
     }
   }
-
-  /**
-   * Выход из системы
-   */
-
-  exit() {
-    this.setState(this.initState(), "Пользователь разлогинился");
-  }
-
-  setToken(token) {
-    const currentState = this.getState();
-    this.setState(
-      {
-        ...currentState,
-        token: token,
-      },
-      "Сохранить токен в стейте"
-    );
-  }
 }
 
 export default ProfileState;

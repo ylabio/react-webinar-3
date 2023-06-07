@@ -33,3 +33,55 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = "ru-RU", options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function getCategoriesUtils(res) {
+  let result = [{ value: "", title: "Все" }];
+
+  if (res.result) {
+    res.result.items.map((item) => {
+      if (!item.parent) {
+        result[result.length] = {
+          value: item._id,
+          title: item.title,
+        };
+      } else {
+        const index = result.findIndex((el) => el.value === item.parent._id);
+
+        if (index !== -1 && !result[index].title.startsWith("-")) {
+          result = [
+            ...result.slice(0, index + 1),
+            {
+              value: item._id,
+              title: `- ${item.title}`,
+            },
+            ...result.slice(index + 1),
+          ];
+        } else if (
+          index !== -1 &&
+          result[index].title.startsWith("-") &&
+          !result[index].title.startsWith("- -")
+        ) {
+          result = [
+            ...result.slice(0, index + 1),
+            {
+              value: item._id,
+              title: `- - ${item.title}`,
+            },
+            ...result.slice(index + 1),
+          ];
+        } else if (index !== -1 && result[index].title.startsWith("- -")) {
+          result = [
+            ...result.slice(0, index + 1),
+            {
+              value: item._id,
+              title: `- - - ${item.title}`,
+            },
+            ...result.slice(index + 1),
+          ];
+        }
+      }
+    });
+  }
+
+  return result;
+}

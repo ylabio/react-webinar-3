@@ -20,7 +20,6 @@ class CatalogState extends StoreModule {
       },
       count: 0,
       waiting: false,
-      categories: [],
     };
   }
 
@@ -39,6 +38,8 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get("limit")) || 10, 50);
     if (urlParams.has("sort")) validParams.sort = urlParams.get("sort");
     if (urlParams.has("query")) validParams.query = urlParams.get("query");
+    if (urlParams.has("category"))
+      validParams.category = urlParams.get("category");
     await this.setParams(
       { ...this.initState().params, ...validParams, ...newParams },
       true
@@ -64,8 +65,8 @@ class CatalogState extends StoreModule {
    * @returns {Promise<void>}
    */
   async setParams(newParams = {}, replaceHistory = false) {
+    // console.log(newParams);
     const params = { ...this.getState().params, ...newParams };
-
     // Установка новых параметров и признака загрузки
     this.setState(
       {
@@ -75,7 +76,6 @@ class CatalogState extends StoreModule {
       },
       "Установлены параметры каталога"
     );
-
     // Сохранить параметры в адрес страницы
     let urlSearch = new URLSearchParams(params).toString();
     const url =
@@ -85,7 +85,7 @@ class CatalogState extends StoreModule {
     } else {
       window.history.pushState({}, "", url);
     }
-
+    // console.log(params.sort);
     const apiParams = {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
@@ -93,30 +93,22 @@ class CatalogState extends StoreModule {
       sort: params.sort,
       "search[query]": params.query,
     };
-    // Если выбранная категория "Все" то не вписываем ее в URL, т.к АПИ не выдает все значение
     if (params.category !== "") {
       apiParams["search[category]"] = params.category;
     }
-
     const response = await fetch(
       `/api/v1/articles?${new URLSearchParams(apiParams)}`
     );
-    const categoryResponse = await fetch(
-      `/api/v1/categories?fields=_id,title,parent(_id)&limit=*`
-    );
     const json = await response.json();
-    const categoryJson = await categoryResponse.json();
     this.setState(
       {
         ...this.getState(),
         list: json.result.items,
         count: json.result.count,
         waiting: false,
-        categories: categoryJson.result.items,
       },
       "Загружен список товаров из АПИ"
     );
   }
 }
-
 export default CatalogState;

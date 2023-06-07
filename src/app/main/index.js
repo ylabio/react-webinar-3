@@ -21,7 +21,6 @@ function Main() {
       store.actions.profile.loadData(token);
     }
   }, [store, token]);
-
   const user = useSelector((state) => state.profile.user);
   const profile = { ...user.profile };
   const { t } = useTranslate();

@@ -10,6 +10,7 @@ class UserState extends StoreModule {
       userName: "",
       token: "",
       error: "",
+      isAuth: false,
     };
   }
 
@@ -19,6 +20,7 @@ class UserState extends StoreModule {
       {
         ...currentState,
         token: token,
+        isAuth: true,
       },
       "Сохранить токен в стейте"
     );
@@ -48,6 +50,7 @@ class UserState extends StoreModule {
           ...currentState,
           token: result.token,
           userName: result.user.username,
+          isAuth: true,
         },
         "Пользователь авторизован"
       );
@@ -59,6 +62,7 @@ class UserState extends StoreModule {
         {
           ...currentState,
           error: e.message,
+          isAuth: false,
         },
         "Пользователь не авторизован"
       );
@@ -82,21 +86,13 @@ class UserState extends StoreModule {
       this.setState(
         {
           ...this.initState(),
+          isAuth: false,
         },
         "Ошибка логина"
       );
       localStorage.removeItem("token");
       const data = await res.json();
     }
-  }
-
-  /**
-   * Выход из системы
-   */
-
-  exit() {
-    this.setState(this.initState(), "Пользователь разлогинился");
-    localStorage.clear();
   }
 }
 

@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -12,11 +12,12 @@ function CatalogFilter() {
   const select = useSelector((state) => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    categories: state.catalog.categories,
-    category: state.catalog.params.category,
+    categories: state.categories.categories,
   }));
-  // Стейт для Select
-  const [categoryOptions, setCategoryOptions] = useState([]);
+
+  useEffect(() => {
+    store.actions.categories.getCategories();
+  }, [store]);
 
   const callbacks = {
     // Сортировка
@@ -52,73 +53,11 @@ function CatalogFilter() {
     ),
   };
 
-  useEffect(() => {
-    // Превращение категорий из АПИ в форматированный вид с дефисами
-    if (select.categories) {
-      const children = select.categories.filter((item) => {
-        if (item.parent) return item;
-      });
-      const readyArr = [];
-      select.categories.map((parent) => {
-        const arr = [];
-        children.forEach((child) => {
-          if (parent._id === child.parent._id) arr.push(parent, child);
-        });
-        const set = new Set(arr);
-        const uniqueArr = Array.from(set);
-
-        const parentChild = uniqueArr.map((item, index) => {
-          if (index === 0 && item.parent === null) {
-            return {
-              value: item._id,
-              title: item.title,
-            };
-          } else if (index === 0 && item.parent) {
-            return {
-              value: item._id,
-              title: `- ${item.title}`,
-            };
-          } else if (uniqueArr[0].parent === null && index !== 0) {
-            return {
-              value: item._id,
-              title: `- ${item.title}`,
-            };
-          } else {
-            return {
-              value: item._id,
-              title: `- - ${item.title}`,
-            };
-          }
-        });
-        if (parentChild.length !== 0) {
-          readyArr.push(...parentChild);
-        }
-      });
-      const customSortOrder = ["1"];
-
-      const sortedArray = readyArr.sort((a, b) => {
-        const indexA = customSortOrder.indexOf(a.value);
-        const indexB = customSortOrder.indexOf(b.value);
-
-        if (indexA < indexB) {
-          return -1;
-        } else if (indexA > indexB) {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-
-      sortedArray.splice(1, 1);
-      setCategoryOptions([{ value: "", title: "Все" }, ...sortedArray]);
-    }
-  }, [select.categories]);
-
   const { t } = useTranslate();
   return (
     <SideLayout padding="medium">
       <Select
-        options={categoryOptions}
+        options={select.categories}
         value={select.category}
         onChange={callbacks.onCategory}
       />
@@ -128,7 +67,6 @@ function CatalogFilter() {
         onChange={callbacks.onSort}
       />
       <Input
-        theme="big"
         value={select.query}
         onChange={callbacks.onSearch}
         placeholder={"Поиск"}

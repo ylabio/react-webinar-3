@@ -13,19 +13,11 @@ import ProfileCard from "../../components/profile-card";
 
 function Profile() {
   const store = useStore();
+  const user = useSelector((state) => state.profile.user);
+  const profile = { ...user.profile };
   const { t } = useTranslate();
   const userState = useSelector((state) => state.user);
   const token = userState.token;
-
-  // Инициализация данных профиля при авторизации
-  useInit(() => {
-    if (token) {
-      store.actions.profile.loadData(token);
-    }
-  }, [token, store.actions.profile]);
-
-  const user = useSelector((state) => state.profile.user);
-  const profile = { ...user.profile };
 
   const exitProfile = useCallback(() => {
     store.actions.user.signOut();

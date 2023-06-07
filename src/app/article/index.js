@@ -14,18 +14,12 @@ import LoginButton from "../../components/login-button";
 
 function Article() {
   const store = useStore();
-
-  const userState = useSelector((state) => state.user);
-  const token = userState.token;
   // Параметры из пути /articles/:id
   const params = useParams();
 
   useInit(() => {
     store.actions.article.load(params.id);
-    if (token) {
-      store.actions.profile.loadData(token);
-    }
-  }, [params.id, token, store.actions.profile]);
+  }, [params.id]);
 
   const select = useSelector((state) => ({
     article: state.article.data,
