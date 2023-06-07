@@ -1,0 +1,13 @@
+.Head-login {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.Head-login__user {
+	text-decoration-line: underline;
+	color: #0087e9;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 15px;
+}

@@ -8,12 +8,12 @@
  * @returns {String}
  */
 export function plural(value, variants = {}, locale = 'ru-RU') {
-  // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
-  // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
-  // В английском 2 формы: 'one', 'other'
-  const key = new Intl.PluralRules(locale).select(value);
-  // Возвращаем вариант по ключу, если он есть
-  return variants[key] || '';
+	// Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
+	// В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
+	// В английском 2 формы: 'one', 'other'
+	const key = new Intl.PluralRules(locale).select(value);
+	// Возвращаем вариант по ключу, если он есть
+	return variants[key] || '';
 }
 
 /**
@@ -21,7 +21,7 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
  * @returns {Function}
  */
 export function codeGenerator(start = 0) {
-  return () => ++start;
+	return () => ++start;
 }
 
 /**
@@ -31,5 +31,27 @@ export function codeGenerator(start = 0) {
  * @returns {String}
  */
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
-  return new Intl.NumberFormat(locale, options).format(value);
+	return new Intl.NumberFormat(locale, options).format(value);
+}
+
+export function createCategorySelect(props) {
+	let category = [{ value: '', title: 'Все' }];
+
+	function addCategoryFilter(data, prefix) {
+		category.push({ value: data._id, title: prefix + data.title });
+	}
+
+	function processCategory(elem, prefix) {
+		addCategoryFilter(elem, prefix);
+		elem.children = props.filter((item) => item.parent?._id === elem._id);
+		elem.children.forEach((child) => {
+			processCategory(child, prefix + '- ');
+		});
+	}
+
+	props.filter((item) => item.parent === null).forEach((elem) => {
+			processCategory(elem, '');
+		});
+
+	return category;
 }

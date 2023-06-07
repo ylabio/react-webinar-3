@@ -1,0 +1,23 @@
+.Log-out {
+	display: flex;
+	justify-content: flex-end;
+	padding: 10px 20px;
+}
+
+.Log-out a {
+	cursor: pointer;
+	background: #efefef;
+	border: 1px solid #767676;
+	border-radius: 2px;
+	padding: 1px 7px;
+	color: #000;
+	text-decoration: none;
+
+	font-style: normal;
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 15px;
+	text-align: center;
+
+	color: #000000;
+}

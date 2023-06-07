@@ -6,7 +6,7 @@ import Menu from "../../components/menu";
 import BasketTool from "../../components/basket-tool";
 import SideLayout from "../../components/side-layout";
 
-function Navigation() {
+function Navigation(clearStateError) {
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -35,7 +35,7 @@ function Navigation() {
 
   return (
     <SideLayout side='between'>
-      <Menu items={options.menu} onNavigate={callbacks.onNavigate}/>
+      <Menu items={options.menu} onNavigate={callbacks.onNavigate} clearError={clearStateError}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} t={t}/>
     </SideLayout>
   );
