@@ -11,17 +11,18 @@ class CatalogState extends StoreModule {
    */
   initState() {
     return {
-      list: [],
+      list: [],      
       params: {
         page: 1,
         limit: 10,
+        category: '',
         sort: 'order',
         query: ''
       },
       count: 0,
       waiting: false
     }
-  }
+  }  
 
   /**
    * Инициализация параметров.
@@ -34,11 +35,12 @@ class CatalogState extends StoreModule {
     let validParams = {};
     if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
-
+  
   /**
    * Сброс параметров к начальным
    * @param [newParams] {Object} Новые параметры
@@ -57,7 +59,8 @@ class CatalogState extends StoreModule {
    * @param [replaceHistory] {Boolean} Заменить адрес (true) или новая запись в истории браузера (false)
    * @returns {Promise<void>}
    */
-  async setParams(newParams = {}, replaceHistory = false) {
+  async setParams(newParams = {}, replaceHistory = false) {    
+
     const params = {...this.getState().params, ...newParams};
 
     // Установка новых параметров и признака загрузки
@@ -79,19 +82,21 @@ class CatalogState extends StoreModule {
     const apiParams = {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
-      fields: 'items(*),count',
+      fields: 'items(*),count',    
       sort: params.sort,
-      'search[query]': params.query
-    };
+      'search[query]': params.query,    
+    }; 
 
-    const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
+    params.category && (apiParams['search[category]'] = params.category) 
+   
+    const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);    
     const json = await response.json();
     this.setState({
       ...this.getState(),
       list: json.result.items,
       count: json.result.count,
       waiting: false
-    }, 'Загружен список товаров из АПИ');
+    }, 'Загружен список товаров из АПИ');    
   }
 }
 

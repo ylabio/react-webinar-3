@@ -1,0 +1,31 @@
+.AuthForm {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 20px;
+}
+
+.AuthForm-title {
+    margin: 0;
+}
+
+.AuthForm-label {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.AuthForm-input {
+    box-sizing: border-box;
+    height: 26px;    
+    min-width: 203px;
+}
+
+.AuthForm-button {
+    width: fit-content;
+}
+
+.AuthForm-error {   
+    color: #FF0000;
+}
+

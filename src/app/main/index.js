@@ -7,20 +7,23 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
-import LocaleSelect from "../../containers/locale-select";
+import LocaleSelect from "../../containers/locale-select";;
+import AuthControl from '../../containers/auth-control';
 
 function Main() {
 
   const store = useStore();
 
-  useInit(() => {
-    store.actions.catalog.initParams();
-  }, [], true);
+  useInit(() => {   
+    store.actions.catalog.initParams();  
+    store.actions.category.fetchCategory()  
+  }, [], true);  
 
   const {t} = useTranslate();
 
   return (
     <PageLayout>
+      <AuthControl />
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

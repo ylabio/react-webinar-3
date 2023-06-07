@@ -1,0 +1,12 @@
+.AuthTool {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 18px;
+}
+
+.AuthTool-username {
+  font-size: 13px;
+  margin-right: 20px;
+}
