@@ -1,0 +1,21 @@
+.LogButton {
+    border-bottom: 1px solid #DCDCDC;
+}
+.LogButton-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.LogButton-info {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    text-decoration-line: underline;
+    cursor: pointer;
+    color: #0087E9;
+}
+
+.LogButton-button {
+    margin: 10px 20px;
+}

@@ -1,0 +1,35 @@
+.ProfileForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.ProfileForm-title {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.ProfileForm-flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.ProfileForm-details {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    margin-bottom: 20px;
+    margin-right: 5px;
+}
+
+.ProfileForm-bold {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
