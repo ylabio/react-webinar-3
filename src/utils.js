@@ -34,7 +34,7 @@ export function numberFormat(value, locale = "ru-RU", options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
-export function categoryFormat(categories) {
+/* export function categoryFormat(categories) {
   let result = [];
 
   function sortCategory(arr) {
@@ -99,5 +99,32 @@ export function categoryFormat(categories) {
   }
 
   sortCategory(categories);
+  return result;
+} */
+
+export function categoryFormat(arr) {
+  let result = [];
+  let parent = [];
+  let child = [];
+
+  for (let item of arr) {
+    item.parent ? child.push(item) : parent.push(item);
+  }
+
+  const sortArr = (el, repeat = 0, prefix = "- ") => {
+    if (parent === undefined) return;
+    el.value = el._id;
+    el.title = prefix.repeat(repeat) + el.title;
+    result.push(el);
+
+    child.forEach((child) => {
+      if (child.parent._id === el._id) {
+        sortArr(child, repeat + 1);
+      }
+    });
+  };
+
+  parent.forEach((item) => sortArr(item));
+
   return result;
 }

@@ -7,6 +7,7 @@ import Authorization from "../../components/authorization";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import { Navigate } from "react-router-dom";
+import useInit from "../../hooks/use-init";
 
 const Login = () => {
   const store = useStore();
@@ -18,11 +19,16 @@ const Login = () => {
   const callbacks = {
     signIn: useCallback((login, password) => {
       store.actions.login.sign(login, password);
-      setTimeout(() => {
-        store.actions.login.clearError();
-      }, 5000);
     }),
   };
+
+  useInit(
+    () => {
+      store.actions.login.clearError();
+    },
+    [],
+    true
+  );
 
   return (
     <PageLayout>

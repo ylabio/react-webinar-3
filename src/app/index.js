@@ -37,7 +37,7 @@ function App() {
           element={
             <ProfileRoot url={"/profile"} root={!token}>
               <Login />
-              </ProfileRoot>
+            </ProfileRoot>
           }
         />
         <Route
