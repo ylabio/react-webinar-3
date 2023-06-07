@@ -1,0 +1,36 @@
+POST http://example.front.ylab.io/api/v1/comments
+Content-Type: application/json
+X-Token: f9c712eb17d65a5272b9d7f3c6b971bb25da2a598182810525cd2ae109ecfd40
+
+{
+  "text": "Это коммент для комента, который коммент для комента, который для корня товара, в доме блин который построил RAIN_345 ",
+  "parent": {
+    "_id": "6480dbb618774a64354b2741",
+    "_type": "comment"
+  }
+}
+
+
+###
+GET http://example.front.ylab.io/api/v1/comments?search[parent]=648047135240ea36e3698a65
+
+###
+GET http://example.front.ylab.io/api/v1/comments
+
+###
+PUT http://example.front.ylab.io/api/v1/comments/6480db3c18774a64354b2737
+Content-Type: application/json
+X-Token: f9c712eb17d65a5272b9d7f3c6b971bb25da2a598182810525cd2ae109ecfd40
+
+{
+  "text": "комент который для корня товара, в доме блин который построил RAIN_345",
+  "parent": {
+    "_id": "648047135240ea36e3698a65",
+    "_type": "article"
+  }
+}
+
+###
+DELETE http://example.front.ylab.io/api/v1/comments/6480da9b18774a64354b272d
+Content-Type: application/json
+X-Token: f9c712eb17d65a5272b9d7f3c6b971bb25da2a598182810525cd2ae109ecfd40
