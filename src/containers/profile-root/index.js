@@ -1,10 +1,9 @@
 import React from "react";
-import { Navigate} from "react-router-dom";
-import useSelector from "../../hooks/use-selector";
-import Profile from "../../app/profile";
+import { Navigate } from "react-router-dom";
 
-const ProfileRoot = ({children, url, keys}) => {
-  return <>{keys ?  <Navigate to={url} /> : children }</>;
+
+const ProfileRoot = ({ children, url, root }) => {
+  return <>{root ? children : <Navigate to={url} />}</>;
 };
 
 export default ProfileRoot;

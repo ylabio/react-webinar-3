@@ -35,15 +35,15 @@ function App() {
         <Route
           path={"/login"}
           element={
-            <ProfileRoot url={"/profile"} keys={token}>
+            <ProfileRoot url={"/profile"} root={!token}>
               <Login />
-            </ProfileRoot>
+              </ProfileRoot>
           }
         />
         <Route
           path={"/profile"}
           element={
-            <ProfileRoot url={"/login"} keys={!token}>
+            <ProfileRoot url={"/login"} root={token}>
               <Profile />
             </ProfileRoot>
           }
