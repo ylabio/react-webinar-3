@@ -1,33 +1,45 @@
-import {memo} from "react";
-import PropTypes from 'prop-types';
-import './style.css';
+import React, { memo } from 'react'
+import PropTypes from 'prop-types'
+import './style.css'
 
 function Select(props) {
-
   const onSelect = (e) => {
-    props.onChange(e.target.value);
-  };
-
+    props.onChange(e.target.value)
+  }
   return (
-    <select className="Select" value={props.value} onChange={onSelect}>
-      {props.options.map(item => (
-        <option key={item.value} value={item.value}>{item.title}</option>
+    <select
+      className={
+        props.value === 'en' || props.value === 'ru' ? 'Select-lang' : 'Select'
+      }
+      value={props.value}
+      onChange={onSelect}
+    >
+      {props.options.map((item, index) => (
+        <option key={index} value={item.value}>
+          {item.value === props.value
+            ? item.title
+            : '-'.repeat(item.indent) + item.title}
+        </option>
       ))}
     </select>
   )
 }
 
 Select.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    title: PropTypes.string
-  })).isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      title: PropTypes.string,
+    })
+  ).isRequired,
   value: PropTypes.any,
-  onChange: PropTypes.func
-};
-
-Select.defaultProps = {
-  onChange: () => {}
+  onChange: PropTypes.func,
+  resetPage: PropTypes.func,
 }
 
-export default memo(Select);
+Select.defaultProps = {
+  onChange: () => {},
+  resetPage: () => {},
+}
+
+export default memo(Select)

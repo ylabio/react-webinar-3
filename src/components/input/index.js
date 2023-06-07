@@ -9,9 +9,9 @@ function Input(props) {
 
   // Внутренний стейт для быстрого отображения ввода
   const [value, setValue] = useState(props.value);
-
+ 
   const onChangeDebounce = useCallback(
-    debounce(value => props.onChange(value, props.name), 600),
+    debounce(value => props.onChange(value), 600),
     [props.onChange, props.name]
   );
 
@@ -25,6 +25,7 @@ function Input(props) {
   useLayoutEffect(() => setValue(props.value), [props.value]);
 
   const cn = bem('Input');
+
   return (
     <input
       className={cn({theme: props.theme})}
