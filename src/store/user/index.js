@@ -7,8 +7,7 @@ class UserState extends StoreModule {
        isLogin: false,
        waiting: false,
        isInitialize: true,
-       username: null,
-       errorMessage: null,
+       username: null
      };
    }
  
@@ -31,12 +30,12 @@ class UserState extends StoreModule {
             },
             body: JSON.stringify(authRequest)
          });
+         const json = await response.json();
 
          if (!response.ok){
-            throw new Error(`${response.status === 400 ? 'Неверный логин/пароль' : 'Внутренняя ошибка сервера'}`) 
+            throw new Error(json?.error?.data?.issues[0]?.message);
          };
 
-         const json = await response.json()
          this.setState({
             ...this.getState(),
             userData: json.result.user,
@@ -158,6 +157,13 @@ class UserState extends StoreModule {
       this.setState({
          ...this.initState(),
       }, `Завершение сеанса пользователя`);
+   }
+
+   clearError() {
+      this.setState({
+         ...this.getState(),
+         signInError: ''
+      }, 'Ошибка сервера устранена')
    }
  }
  

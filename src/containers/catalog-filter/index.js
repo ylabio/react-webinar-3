@@ -19,7 +19,6 @@ function CatalogFilter() {
   }));
 
   let categoriesList = getCategoryList(select.categories);
-  console.log(select.categories);
 
   const callbacks = {
     // Сортировка

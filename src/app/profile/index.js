@@ -9,21 +9,9 @@ import LocaleSelect from "../../containers/locale-select"
 import Navigation from "../../containers/navigation"
 import ProfileCard from "../../components/profile-card"
 import Spinner from "../../components/spinner"
+import UserCard from "../../containers/user-card"
 
   function Profile() {
-    const navigate = useNavigate()
-
-    const select = useSelector(state => ({
-      userData: state.user.userData,
-      waiting: state.user.waiting,
-    }))
-
-    useEffect(() => {
-      if(!select.userData){
-        navigate('/auth', {replace: true})
-      }
-    }, [select.userData])
-
     const {t} = useTranslate();
 
     return (
@@ -33,9 +21,7 @@ import Spinner from "../../components/spinner"
           <LocaleSelect/>
         </Head>
         <Navigation />
-        <Spinner active={select.waiting}>
-          <ProfileCard user={select.userData}/>
-        </Spinner>
+        <UserCard/>
       </PageLayout>
     );
   }
