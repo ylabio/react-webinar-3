@@ -1,0 +1,34 @@
+.Login-form {
+    padding: 40px 20px;
+  }
+  
+  .Login-form-title {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+  }
+  
+  .Login-form-error{
+    color: red;
+    display: block;
+    margin-top: 20px;
+  }
+  
+  .Login-form-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  .Login-form-bold {
+    padding: 6px;
+  }
+  
+  input {
+    width: 200px;
+  }
+  
+  .Login-form-button {
+    display: block;
+    margin-top: 20px;
+  }
