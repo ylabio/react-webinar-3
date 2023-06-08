@@ -41,7 +41,7 @@ const Comment = ({
     }
   };
   const handleReplySubmit = (text) => {
-    onReplySubmit(text);
+    onReplySubmit(text, id);
     onReplyChange(undefined);
   };
 

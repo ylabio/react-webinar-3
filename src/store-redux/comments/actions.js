@@ -1,4 +1,4 @@
-import createCommentTree from "../../utils/createCommentTree";
+import createCommentTree from "../../utils/create-comment-tree";
 
 export const commentsActions = {
   load: (articleId) => async (dispatch, getState, services) => {

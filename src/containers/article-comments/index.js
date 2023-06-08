@@ -8,7 +8,7 @@ import TextareaBlock from "../../components/textarea-block";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import { commentsActions } from "../../store-redux/comments/actions";
-import renderComponentTree from "../../utils/renderComponentTree";
+import renderComponentTree from "../../utils/render-comment-tree";
 
 const loginButtonStyles = {
   theme: "underline",
@@ -44,12 +44,9 @@ const ArticleComments = () => {
   const handleCommentSubmit = useCallback((text) => {
     dispatch(commentsActions.sendComment(text, "article", params.id));
   }, []);
-  const handleReplySubmit = useCallback(
-    (commentId) => (text) => {
-      dispatch(commentsActions.sendComment(text, "comment", commentId));
-    },
-    []
-  );
+  const handleReplySubmit = useCallback((text, commentId) => {
+    dispatch(commentsActions.sendComment(text, "comment", commentId));
+  }, []);
   const handleReplyChange = useCallback((commentId) => {
     setOpenedReplyId(commentId);
   }, []);
@@ -58,7 +55,7 @@ const ArticleComments = () => {
     () =>
       renderComponentTree(comments, Comment, (el) => ({
         id: el._id,
-        onReplySubmit: handleReplySubmit(el._id),
+        onReplySubmit: handleReplySubmit,
         isAuth: session.exists,
         author: el.author.name,
         date: el.dateCreate,
