@@ -1,5 +1,6 @@
 import StoreModule from "../module";
 
+
 /**
  * Авторизация
  */
@@ -10,12 +11,15 @@ class ProfileState extends StoreModule {
       userPhone: "",
       userMail: "",
       error: "",
+      root:false,
       waiting: true, // признак ожидания загрузки
     };
   }
 
+
+
   async getProfile() {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
     if(token){
     try {
       const response = await fetch(`/api/v1/users/self`, {
@@ -33,6 +37,7 @@ class ProfileState extends StoreModule {
             userPhone: result.profile.phone,
             userMail: result.email,
             waiting: false,
+            root:true,
           },
           "Загружена информация о пользователе"
         );
@@ -51,6 +56,7 @@ class ProfileState extends StoreModule {
       userMail: "",
       error: "",
       waiting: true,
+      root:false,
     });
     localStorage.removeItem("userName");
   }

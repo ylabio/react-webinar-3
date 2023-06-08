@@ -12,9 +12,10 @@ const Header = (props) => {
   const store = useStore();
 
   const select = useSelector((state) => ({
-    token: state.login.token,
+    root: state.login.root,
     userName: state.profile.userName,
     waiting: state.profile.waiting,
+    root:state.profile.root,
   }));
 
 
@@ -34,7 +35,7 @@ const Header = (props) => {
         url={"/profile"}
         logOut={callbacks.logOut}
         userName={select.userName}
-        token={select.token}
+        root={select.root}
         waiting={select.waiting}
       />
       <Head title={t("title")}>

@@ -19,6 +19,7 @@ function App() {
 
   const activeModal = useSelector((state) => state.modals.name);
   const token = useSelector((state) => state.login.token);
+  const root = useSelector((state)=>state.profile.root)
 
   useInit(
     () => {
@@ -35,7 +36,7 @@ function App() {
         <Route
           path={"/login"}
           element={
-            <ProfileRoot url={"/profile"} root={!token}>
+            <ProfileRoot url={"/profile"} root={!root}>
               <Login />
             </ProfileRoot>
           }
@@ -43,7 +44,7 @@ function App() {
         <Route
           path={"/profile"}
           element={
-            <ProfileRoot url={"/login"} root={token}>
+            <ProfileRoot url={"/login"} root={root}>
               <Profile />
             </ProfileRoot>
           }

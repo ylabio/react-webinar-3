@@ -6,11 +6,14 @@ import StoreModule from "../module";
 class LoginState extends StoreModule {
   initState() {
     return {
-      token: "",
+      token: localStorage.getItem('token') || "",
       error: "",
       waiting: false, // признак ожидания загрузки
     };
   }
+
+
+
 
   async sign(login, password) {
     try {
@@ -31,7 +34,7 @@ class LoginState extends StoreModule {
         localStorage.setItem("token", result.token);
         this.setState(
           {
-            token: result.token,
+            token:  result.token,
             waiting: false,
             error: "",
           },
