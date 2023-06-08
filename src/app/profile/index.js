@@ -12,6 +12,7 @@ import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
 import TopHead from "../../containers/top-head";
 import ProfileCard from "../../components/profile-card";
+import CommentList from "../../containers/comment-list";
 
 function Profile() {
   const store = useStore();

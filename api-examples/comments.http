@@ -3,19 +3,19 @@ Content-Type: application/json
 X-Token: f9c712eb17d65a5272b9d7f3c6b971bb25da2a598182810525cd2ae109ecfd40
 
 {
-  "text": "Это коммент для комента, который коммент для комента, который для корня товара, в доме блин который построил RAIN_345 ",
+  "text": "level_1 RAIN_345",
   "parent": {
-    "_id": "6480dbb618774a64354b2741",
+    "_id": "6481c9536930b8730dbd57b4",
     "_type": "comment"
   }
 }
 
 
 ###
-GET http://example.front.ylab.io/api/v1/comments?search[parent]=648047135240ea36e3698a65
+GET http://example.front.ylab.io/api/v1/comments?search[parent]=648047135240ea36e3698a65&limit=*&fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type)),count
 
 ###
-GET http://example.front.ylab.io/api/v1/comments
+GET http://example.front.ylab.io/api/v1/comments?limit=1000
 
 ###
 PUT http://example.front.ylab.io/api/v1/comments/6480db3c18774a64354b2737

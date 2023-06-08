@@ -1,0 +1,28 @@
+.CommentSessionNotExists {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.CommentSessionNotExists-btn {
+  border: none;
+  padding: 0;
+  background-color: #fff;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  cursor: pointer;
+}
+
+.CommentSessionNotExists-singInBtn {
+  color: #0087E9;
+  border-bottom: 1px solid #0087E9;
+}
+
+.CommentSessionNotExists-cancelBtn {
+  color: #666666;
+  border-bottom: 1px solid #666666;
+}
