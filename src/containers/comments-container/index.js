@@ -19,7 +19,7 @@ function Comments() {
 
   const [replyForm, setReplyForm] = useState({
     isOpen: false,
-    commentId: null
+    commentKey: null
   }); 
 
   useInit(() => {
@@ -36,17 +36,17 @@ function Comments() {
   }), shallowequal);
 
   const callbacks = {
-    onReplyClick: useCallback((commentId) => {
+    onReplyClick: useCallback((commentKey) => {
       setReplyForm({
         isOpen: true,
-        commentId
+        commentKey
       })
     }, [replyForm]),
 
     onCancel: useCallback(() => {
       setReplyForm({
         isOpen: false,
-        commentId: null
+        commentKey: null
       })
     }, [replyForm]),
 
@@ -54,11 +54,12 @@ function Comments() {
       if (select.commentsData?.items) {
         return treeToList(listToTree(select.commentsData.items), (item, level) => {
           const isMyComment = selector.currentUserId == item.author._id;
-
+          // console.log(item);
           // много пропсов конечно.....
           return <Comment 
             replyForm={replyForm} 
-            commentId={`${item._id}${level}`} 
+            id={item._id}
+            commentKey={`${item._id}${level}`} 
             key={`${item._id}${level}`} 
             text={item.text} 
             author={item.author} 

@@ -1,5 +1,5 @@
-import {memo, useCallback, useState} from 'react'
-import { Link, useParams } from 'react-router-dom'
+import {memo, useCallback, useEffect, useState} from 'react'
+import { useParams } from 'react-router-dom'
 import useSelector from '../../hooks/use-selector';
 import CommentsForm from '../../components/comments-form';
 import { useDispatch } from 'react-redux';
@@ -20,7 +20,6 @@ function CommentsFormContainer({isReply = false, id = false, onCancel}) {
   const callbacks = {
     onChange: useCallback((value, name) => {
       setFormData(prevData => ({...prevData, [name]: value}));
-      console.log(formData);
     }, [formData]),
 
     onCancel: useCallback((e) => {
@@ -34,10 +33,12 @@ function CommentsFormContainer({isReply = false, id = false, onCancel}) {
       e.preventDefault();
 
       isReply 
-      ? dispatch(commentsActions.postComment(formData.id, formData.value, 'comment')) 
-      : dispatch(commentsActions.postComment(formData.id, formData.value));
+      ? dispatch(commentsActions.postComment(formData.id, formData.value, "comment")) 
+      : dispatch(commentsActions.postComment(formData.id, formData.value, "article"));
 
       setFormData(prevData => ({...prevData, value: ''}))
+
+      callbacks.onCancel(e);
 
       dispatch(commentsActions.load(params.id));
     }, [formData]),

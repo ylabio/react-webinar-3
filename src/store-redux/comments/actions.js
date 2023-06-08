@@ -20,14 +20,17 @@ export default {
       }
     }
   },
-
-  postComment: (id, text, type = 'article') => {
+  
+  postComment: (id, text, type) => {
     return async (dispatch, getState, services) => {
       try {
         dispatch({type: 'comments/post-start'});
 
         const parentObj = {
-          parent: { _id: id, _type: type },
+          parent: {
+            _id: id,
+           _type: type
+          },
           text,
         }
 
@@ -37,12 +40,11 @@ export default {
           body: JSON.stringify(parentObj)
         });
 
-        dispatch({type: 'comments/post-success'});
+        dispatch({type: 'comments/post-success', payload: response.data.result});
     
       } catch (e) {
         dispatch({type: 'comments/post-error'});
       }
       }
-    }
+    },
 }
-  

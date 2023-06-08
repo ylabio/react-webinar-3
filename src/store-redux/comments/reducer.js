@@ -20,7 +20,9 @@ function reducer(state = initialState, action) {
       return { ...state, waiting: true}
 
     case "comments/post-success":
-      return { ...state, waiting: false}
+      console.log('payload', ...action.payload);
+
+      return {data: {...state.data, ...action.payload}, waiting: false}
   
     case "comments/post-error":
       return { ...state, waiting: false}

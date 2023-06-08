@@ -5,7 +5,7 @@ import './style.css';
 import { normalizeDate } from '../../utils/normalizeDate';
 import CommentsFormContainer from '../../containers/comments-form-container';
 
-function Comment({commentId, text, date, author, level, isMyComment, onReplyClick, onCancel, replyForm, t}) {
+function Comment({id, commentKey, text, date, author, level, isMyComment, onReplyClick, onCancel, replyForm, t}) {
   const cn = bem('Comment');
   // не совсем понимаю, можно ли так сделать)
   const {day, month, year, time} = normalizeDate(date, t('locale'));
@@ -20,9 +20,9 @@ function Comment({commentId, text, date, author, level, isMyComment, onReplyClic
 
       <p className={cn('message')}>{text}</p>
 
-      <button onClick={() => onReplyClick(commentId)} className={cn('reply-button')}>{t('comments.reply')}</button>
+      <button onClick={() => onReplyClick(commentKey)} className={cn('reply-button')}>{t('comments.reply')}</button>
 
-      {replyForm.isOpen && replyForm.commentId == commentId && <CommentsFormContainer onCancel={onCancel} isReply={true} id={author._id}/>}
+      {replyForm.isOpen && replyForm.commentKey == commentKey && <CommentsFormContainer onCancel={onCancel} isReply={true} id={id}/>}
     </div>
   )
 }
@@ -36,7 +36,7 @@ Comment.propTypes = {
     profile: PropTypes.object
   }),
   isMyComment: PropTypes.bool,
-  commentId: PropTypes.string,
+  commentKey: PropTypes.string,
   t: PropTypes.func
 }
 
