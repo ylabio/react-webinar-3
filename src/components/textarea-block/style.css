@@ -1,0 +1,19 @@
+
+.Textarea {
+	display: flex;
+	flex-direction: column;
+	align-items: start;;
+	gap: 10px 0;
+	width: 100%;
+	margin-top: 30px;
+}
+
+.Textarea-buttonArea {
+	display: flex;
+	gap: 0 10px;
+}
+
+.Textarea textarea {
+	width: 100%;
+	resize: none;
+}

@@ -16,7 +16,7 @@ export default {
         // Товар загружен успешно
         dispatch({type: 'article/load-success', payload: {data: res.data.result}});
 
-      } catch (e) {
+      } catch (e) {w
         //Ошибка загрузки
         dispatch({type: 'article/load-error'});
       }

@@ -1,0 +1,14 @@
+
+.Layout_padding_small {
+	padding: 10px;
+}
+.Layout_padding_big {
+	padding: 40px;
+}
+
+.Layout .pt-md {
+	padding-top: 30px;
+}
+.Layout .pb-md {
+	padding-bottom: 30px;
+}
