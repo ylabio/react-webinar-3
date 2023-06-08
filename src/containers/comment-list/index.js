@@ -30,7 +30,8 @@ function CommentList({articleId}) {
 
   const selectFromRedux = useSelectorRedux(state => ({
     commentList: state.comments.data,
-    commentsListLoadError: state.comments.error
+    commentsListLoadError: state.comments.error,
+    commentAddIsWaiting: state.commentAdd.waiting
   }))
 
   const selectFromStore = useSelector(state => ({
@@ -115,6 +116,7 @@ function CommentList({articleId}) {
             onCancel={callbacks.onCancel}
             onSubmit={callbacks.onAddSubCommitSubmit}
             key={formResetKey}
+            isWaiting={selectFromRedux.commentAddIsWaiting}
           />
         )
       }
@@ -125,7 +127,7 @@ function CommentList({articleId}) {
       }>ответить</CommentAnswerButton>
 
 
-    }, [commentParent, setCommentParent, formResetKey, selectFromStore.sessionExists]),
+    }, [commentParent, setCommentParent, formResetKey, selectFromStore.sessionExists, selectFromRedux.commentAddIsWaiting]),
 
     commentArticleRender: useCallback(() => {
       if (commentParent === null && !selectFromStore.sessionExists) {
@@ -143,21 +145,22 @@ function CommentList({articleId}) {
           isShowCancelBtn={false}
           onSubmit={callbacks.onAddCommitSubmit}
           key={formResetKey}
+          isWaiting={selectFromRedux.commentAddIsWaiting}
         />
       ) : null
-    }, [commentParent, formResetKey, selectFromStore.sessionExists])
+    }, [commentParent, formResetKey, selectFromStore.sessionExists, selectFromRedux.commentAddIsWaiting])
   };
 
 
   return (
-    <SideLayout>
+    <>
       {commentViewList &&
         <CommentListCard
           commentList={commentViewList}
           commentChildRender={renders.commentChildRender}
           commentArticleRender={renders.commentArticleRender}
         />}
-    </SideLayout>
+    </>
   )
 }
 

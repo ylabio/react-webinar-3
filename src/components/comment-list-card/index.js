@@ -1,13 +1,11 @@
-import {memo, useCallback} from "react";
+import {memo} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import CommentItem from "../comment-item";
-import Item from "../item";
 
 function CommentListCard({commentList, commentChildRender, commentArticleRender}) {
   const cn = bem('CommentListCard');
-
 
   return (
     <>
@@ -17,7 +15,6 @@ function CommentListCard({commentList, commentChildRender, commentArticleRender}
           <CommentItem comment={comment} key={comment._id} childRender={commentChildRender}/>))}
         <>{commentArticleRender()}</>
       </div>
-
     </>
   );
 }
@@ -25,21 +22,12 @@ function CommentListCard({commentList, commentChildRender, commentArticleRender}
 CommentListCard.propTypes = {
   commentList: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    // description: PropTypes.string,
-    // madeIn: PropTypes.object,
-    // category: PropTypes.object,
-    // edition: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    // price: PropTypes.number
+
   })).isRequired,
-  // onAdd: PropTypes.func,
-  // t: PropTypes.func
+
   commentChildRender: PropTypes.func.isRequired,
   commentArticleRender: PropTypes.func.isRequired,
 };
 
-// CommentListCard.defaultProps = {
-//   onAdd: () => {},
-//   t: (text) => text
-// }
 
 export default memo(CommentListCard);
