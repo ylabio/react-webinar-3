@@ -5,16 +5,20 @@ import './style.css';
 import CommentItem from "../comment-item";
 import Item from "../item";
 
-function CommentListCard({commentList, childRender}) {
+function CommentListCard({commentList, commentChildRender, commentArticleRender}) {
   const cn = bem('CommentListCard');
 
 
-
   return (
-    <div className={cn()}>
-      <div className={cn('title')}>Комментарии ({commentList.length})</div>
-      {commentList.map((comment) => (<CommentItem comment={comment} key={comment._id} childRender={childRender}/>))}
-    </div>
+    <>
+      <div className={cn()}>
+        <div className={cn('title')}>Комментарии ({commentList.length})</div>
+        {commentList.map((comment) => (
+          <CommentItem comment={comment} key={comment._id} childRender={commentChildRender}/>))}
+        <>{commentArticleRender()}</>
+      </div>
+
+    </>
   );
 }
 
@@ -29,7 +33,8 @@ CommentListCard.propTypes = {
   })).isRequired,
   // onAdd: PropTypes.func,
   // t: PropTypes.func
-  childRender: PropTypes.func.isRequired,
+  commentChildRender: PropTypes.func.isRequired,
+  commentArticleRender: PropTypes.func.isRequired,
 };
 
 // CommentListCard.defaultProps = {

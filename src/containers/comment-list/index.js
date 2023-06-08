@@ -14,6 +14,7 @@ import {useNavigate} from "react-router-dom";
 import commentSessionNotExists from "../../components/comment-session-not-exists";
 import CommentSessionNotExists from "../../components/comment-session-not-exists";
 import CommentAnswerButton from "../../components/comment-answer-button";
+import CommentForm from "../../components/comment-form";
 
 
 function CommentList({articleId}) {
@@ -71,6 +72,14 @@ function CommentList({articleId}) {
     onCancel: useCallback(() => {
       setCommentParent(null);
     }, []),
+
+    onAddCommitSubmit: useCallback((text) => {
+      console.log('onAddCommitSubmit', text);
+    }, []),
+
+    onAddSubCommitSubmit: useCallback((text) => {
+      console.log('onAddSubCommitSubmit', commentParent, text);
+    }, [commentParent])
   }
 
 
@@ -79,10 +88,23 @@ function CommentList({articleId}) {
     commentChildRender: useCallback(commentId => {
 
       if (commentId === commentParent && !selectFromStore.sessionExists) {
-        return <CommentSessionNotExists onSignIn={callbacks.onSignIn} onCancel={callbacks.onCancel}/>
+        return (
+          <CommentSessionNotExists
+            onSignIn={callbacks.onSignIn}
+            onCancel={callbacks.onCancel}
+          />
+        )
       }
+
       if (commentId === commentParent && selectFromStore.sessionExists) {
-        return <>в системе</>
+        return (
+          <CommentForm
+            title={'Новый ответ '}
+            isShowCancelBtn={true}
+            onCancel={callbacks.onCancel}
+            onSubmit={callbacks.onAddSubCommitSubmit}
+          />
+        )
       }
 
       return <CommentAnswerButton onClick={() => {
@@ -92,6 +114,16 @@ function CommentList({articleId}) {
 
 
     }, [commentParent, setCommentParent]),
+
+    commentArticleRender: useCallback(() => {
+      return commentParent === null ? (
+        <CommentForm
+          title={'Новый комментарий'}
+          isShowCancelBtn={false}
+          onSubmit={callbacks.onAddCommitSubmit}
+        />
+      ) : null
+    }, [commentParent])
   };
 
 
@@ -101,7 +133,11 @@ function CommentList({articleId}) {
       {/*<pre>{JSON.stringify(select.commentsListLoadError, null, 2)}</pre>*/}
       {/*<pre>{JSON.stringify(currentCommentList, null, 2)}</pre>*/}
       {commentViewList &&
-        <CommentListCard commentList={commentViewList} childRender={renders.commentChildRender}/>}
+        <CommentListCard
+          commentList={commentViewList}
+          commentChildRender={renders.commentChildRender}
+          commentArticleRender={renders.commentArticleRender}
+        />}
     </SideLayout>
   )
 }
