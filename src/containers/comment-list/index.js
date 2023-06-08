@@ -4,14 +4,13 @@ import PropTypes from "prop-types";
 import useInit from "../../hooks/use-init";
 import {useDispatch} from "react-redux";
 import commentsActions from '../../store-redux/comments/actions'
+import commentsActionAdd from '../../store-redux/commentAdd/actions'
 import {useSelector as useSelectorRedux} from "react-redux/es/hooks/useSelector";
 import listToTree from "../../utils/list-to-tree";
 import treeToList from "../../utils/tree-to-list";
-import List from "../../components/list";
 import CommentListCard from "../../components/comment-list-card";
 import useSelector from "../../hooks/use-selector";
 import {useNavigate} from "react-router-dom";
-import commentSessionNotExists from "../../components/comment-session-not-exists";
 import CommentSessionNotExists from "../../components/comment-session-not-exists";
 import CommentAnswerButton from "../../components/comment-answer-button";
 import CommentForm from "../../components/comment-form";
@@ -21,6 +20,7 @@ function CommentList({articleId}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [commentParent, setCommentParent] = useState(null);
+  const [formResetKey, setFormResetKey] = useState(0);
 
   useInit(() => {
     console.log(articleId);
@@ -73,13 +73,24 @@ function CommentList({articleId}) {
       setCommentParent(null);
     }, []),
 
-    onAddCommitSubmit: useCallback((text) => {
-      console.log('onAddCommitSubmit', text);
-    }, []),
-
     onAddSubCommitSubmit: useCallback((text) => {
-      console.log('onAddSubCommitSubmit', commentParent, text);
-    }, [commentParent])
+      // console.log('onAddCommitSubmit', text);
+      dispatch(commentsActionAdd.commentAdd(commentParent, 'comment', text, () => {
+        dispatch(commentsActions.loadCommentList(articleId));
+        setCommentParent(null);
+        setFormResetKey(prev => prev + 1);
+      }))
+    }, [commentParent, dispatch]),
+
+    onAddCommitSubmit: useCallback((text) => {
+      // console.log('onAddSubCommitSubmit', commentParent, text);
+
+      dispatch(commentsActionAdd.commentAdd(articleId, 'article', text, () => {
+        dispatch(commentsActions.loadCommentList(articleId));
+        setCommentParent(null);
+        setFormResetKey(prev => prev + 1);
+      }))
+    }, [commentParent, dispatch])
   }
 
 
@@ -103,6 +114,7 @@ function CommentList({articleId}) {
             isShowCancelBtn={true}
             onCancel={callbacks.onCancel}
             onSubmit={callbacks.onAddSubCommitSubmit}
+            key={formResetKey}
           />
         )
       }
@@ -113,25 +125,32 @@ function CommentList({articleId}) {
       }>ответить</CommentAnswerButton>
 
 
-    }, [commentParent, setCommentParent]),
+    }, [commentParent, setCommentParent, formResetKey, selectFromStore.sessionExists]),
 
     commentArticleRender: useCallback(() => {
+      if (commentParent === null && !selectFromStore.sessionExists) {
+        return (
+          <CommentSessionNotExists
+            onSignIn={callbacks.onSignIn}
+            onCancel={callbacks.onCancel}
+          />
+        )
+      }
+
       return commentParent === null ? (
         <CommentForm
           title={'Новый комментарий'}
           isShowCancelBtn={false}
           onSubmit={callbacks.onAddCommitSubmit}
+          key={formResetKey}
         />
       ) : null
-    }, [commentParent])
+    }, [commentParent, formResetKey, selectFromStore.sessionExists])
   };
 
 
   return (
     <SideLayout>
-
-      {/*<pre>{JSON.stringify(select.commentsListLoadError, null, 2)}</pre>*/}
-      {/*<pre>{JSON.stringify(currentCommentList, null, 2)}</pre>*/}
       {commentViewList &&
         <CommentListCard
           commentList={commentViewList}
