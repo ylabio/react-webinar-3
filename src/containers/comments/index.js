@@ -55,7 +55,7 @@ function Comments({ id, comments, send, remove }) {
       setNewComment(comment => ({ ...comment, text: '' }));
     }, [newComment]),
     onChange: useCallback(text => setNewComment(comment => ({ ...comment, text })), []),
-    onSignin: useCallback(() => navigate('/login', { state: { back: location.pathname } }), [navigate]),
+    onSignin: useCallback(() => navigate('/login', { state: { back: location.pathname } }), []),
     onRemove: useCallback(id => remove(id), []),
   };
 
@@ -83,7 +83,7 @@ function Comments({ id, comments, send, remove }) {
         t={t}
         onRemove={remove != null ? callbacks.onRemove : null} // парам для теста
       />
-    ), [t, user, newComment]),
+    ), [t, user]),
 
     // форма для ввода
     editor: useCallback(editor => (
