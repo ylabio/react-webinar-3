@@ -49,10 +49,11 @@ function Article() {
   }
 
   // могут постоянно чтото писать и надо забирать изменения после публикации
-  useEffect(() => {
+  // временно отключу, т.к. разрешили по ф5 обновляться
+  /* useEffect(() => {
     if (select.needReload)
       dispatch(actionsComments.load(params.id));
-  }, [params.id, select.needReload]);
+  }, [params.id, select.needReload]); */
 
   return (
     <PageLayout>
