@@ -104,6 +104,7 @@ function CommentList({articleId}) {
           <CommentSessionNotExists
             onSignIn={callbacks.onSignIn}
             onCancel={callbacks.onCancel}
+            isShowCancelBtn={true}
           />
         )
       }
@@ -135,6 +136,8 @@ function CommentList({articleId}) {
           <CommentSessionNotExists
             onSignIn={callbacks.onSignIn}
             onCancel={callbacks.onCancel}
+            isShowCancelBtn={false}
+
           />
         )
       }
