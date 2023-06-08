@@ -1,4 +1,5 @@
 {
+  "locale": "en-US",
   "title": "Shop",
   "menu.main": "Main",
   "basket.title": "Cart",
@@ -20,5 +21,19 @@
   "auth.password": "Password",
   "auth.signIn": "Sign in",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "comments.reply": "Reply",
+  "date.in": "In",
+  "months.January": "January",
+  "months.February": "February",
+  "months.March": "March",
+  "months.April": "April",
+  "months.May": "May",
+  "months.June": "June",
+  "months.July": "July",
+  "months.August": "August",
+  "months.September": "September",
+  "months.October": "October",
+  "months.November": "November",
+  "months.December": "December"
 }

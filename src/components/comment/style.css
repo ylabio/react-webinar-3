@@ -1,14 +1,17 @@
-.Comment {}
-
 .Comment-header {
     display: flex;
     gap: 10px;
 }
 
-.Comment-user-name {
+.Comment-user-name,
+.Comment-my-user-name {
     font-size: 12px;
     font-weight: 700;
     color: #000;
+}
+
+.Comment-my-user-name {
+    color: #666;
 }
 
 .Comment-date {
@@ -30,4 +33,5 @@
     border: none;
     margin-top: 10px;
     padding: 0;
+    cursor: pointer;
 }

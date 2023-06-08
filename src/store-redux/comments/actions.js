@@ -4,26 +4,45 @@ export default {
      * @param id
      * @return {Function}
      */
-    load: (id) => {
-      return async (dispatch, getState, services) => {
-        dispatch({type: 'comments/load-start'});
+  load: (id) => {
+    return async (dispatch, getState, services) => {
+      dispatch({type: 'comments/load-start'});
   
-        try {
-          const res = await services.api.request({
-            url: `/api/v1/comments?search[parent]=${id}`
-          });
+      try {
+        const res = await services.api.request({
+          url: `/api/v1/comments?search[parent]=${id}&limit=*&fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type)),count`
+        });
 
-          const data = {
-            comments: res.data.result,
-            length: res.data.result.items.length
-          }
-
-          dispatch({type: 'comments/load-success', payload: data});
+        dispatch({type: 'comments/load-success', payload: res.data.result});
   
-        } catch (e) {
-          dispatch({type: 'comments/load-error'});
-        }
+      } catch (e) {
+        dispatch({type: 'comments/load-error'});
       }
-    },
-  }
+    }
+  },
+
+  postComment: (id, text, type = 'article') => {
+    return async (dispatch, getState, services) => {
+      try {
+        dispatch({type: 'comments/post-start'});
+
+        const parentObj = {
+          parent: { _id: id, _type: type },
+          text,
+        }
+
+        const response = await services.api.request({
+          url: '/api/v1/comments',
+          method: 'POST',
+          body: JSON.stringify(parentObj)
+        });
+
+        dispatch({type: 'comments/post-success'});
+    
+      } catch (e) {
+        dispatch({type: 'comments/post-error'});
+      }
+      }
+    }
+}
   
