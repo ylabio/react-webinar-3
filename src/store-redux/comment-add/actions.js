@@ -1,4 +1,5 @@
 import {REDUX_COMMENT_ADD_ACTION_TYPE} from "./types";
+import {REDUX_COMMENTS_ACTION_TYPE} from "../comments/types";
 
 export default {
   /**
@@ -13,7 +14,7 @@ export default {
 
       try {
         const res = await services.api.request({
-            url: `api/v1/comments`,
+            url: `api/v1/comments?lang=ru&fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted`,
             method: 'post',
             body: JSON.stringify({
               text,
@@ -24,6 +25,8 @@ export default {
             })
           }
         );
+
+        dispatch({type: REDUX_COMMENTS_ACTION_TYPE.commentsAddLocale, payload: res.data.result})
 
         successCallback();
 

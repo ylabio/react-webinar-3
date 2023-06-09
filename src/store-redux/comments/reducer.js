@@ -20,6 +20,9 @@ function reducer(state = initialState, action) {
     case REDUX_COMMENTS_ACTION_TYPE.commentsLoadError:
       return {...state, data: null, waiting: false, error: action.payload};
 
+    case REDUX_COMMENTS_ACTION_TYPE.commentsAddLocale:
+      return {...state, data: {items: [...state.data.items, action.payload]}}
+
     default:
       return state;
   }

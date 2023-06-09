@@ -97,7 +97,6 @@ function CommentList({articleId}) {
 
     onAddSubCommitSubmit: useCallback((text) => {
       dispatch(commentsActionAdd.commentAdd(commentParent, 'comment', text, () => {
-        dispatch(commentsActions.loadCommentList(articleId));
         setCommentParent(null);
         setFormResetKey(prev => prev + 1);
       }))
@@ -106,7 +105,6 @@ function CommentList({articleId}) {
     onAddCommitSubmit: useCallback((text) => {
 
       dispatch(commentsActionAdd.commentAdd(articleId, 'article', text, () => {
-        dispatch(commentsActions.loadCommentList(articleId));
         setCommentParent(null);
         setFormResetKey(prev => prev + 1);
       }))
