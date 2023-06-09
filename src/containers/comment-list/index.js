@@ -10,7 +10,7 @@ import listToTree from "../../utils/list-to-tree";
 import treeToList from "../../utils/tree-to-list";
 import CommentListCard from "../../components/comment-list-card";
 import useSelector from "../../hooks/use-selector";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import CommentSessionNotExists from "../../components/comment-session-not-exists";
 import CommentAnswerButton from "../../components/comment-answer-button";
 import CommentForm from "../../components/comment-form";
@@ -19,6 +19,7 @@ import CommentForm from "../../components/comment-form";
 function CommentList({articleId}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [commentParent, setCommentParent] = useState(null);
   const [formResetKey, setFormResetKey] = useState(0);
 
@@ -59,7 +60,7 @@ function CommentList({articleId}) {
     }
 
     return null;
-  }, [selectFromRedux.commentList])
+  }, [selectFromRedux.commentList, commentParent])
 
   const callbacks = {
     onSignIn: useCallback(() => {
