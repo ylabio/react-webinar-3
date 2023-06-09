@@ -12,6 +12,10 @@ function CommentForm({onSubmit, title, onCancel, isShowCancelBtn, isWaiting, scr
 
   const onFormSubmit = (e) => {
     e.preventDefault();
+    if (commentText.trim().length === 0) {
+      alert('Текст комментария пуст или содержит одни пробелы!');
+      return;
+    }
     onSubmit(commentText);
   }
 
