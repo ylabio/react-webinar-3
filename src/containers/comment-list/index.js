@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import useInit from "../../hooks/use-init";
 import {useDispatch} from "react-redux";
 import commentsActions from '../../store-redux/comments/actions'
-import commentsActionAdd from '../../store-redux/commentAdd/actions'
+import commentsActionAdd from '../../store-redux/comment-add/actions'
 import {useSelector as useSelectorRedux} from "react-redux/es/hooks/useSelector";
 import listToTree from "../../utils/list-to-tree";
 import treeToList from "../../utils/tree-to-list";
