@@ -25,8 +25,6 @@ export default {
           }
         );
 
-        console.log('commentAdd', _id, _type, text);
-
         successCallback();
 
         dispatch({type: REDUX_COMMENT_ADD_ACTION_TYPE.commentAddSuccess, payload: {data: res.data.result}});

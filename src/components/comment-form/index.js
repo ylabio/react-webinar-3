@@ -1,10 +1,10 @@
-import {memo, useState} from "react";
+import {memo, useEffect, useRef, useState} from "react";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import PropTypes from "prop-types";
 import Spinner from "../spinner";
 
-function CommentForm({onSubmit, title, onCancel, isShowCancelBtn, isWaiting}) {
+function CommentForm({onSubmit, title, onCancel, isShowCancelBtn, isWaiting, scrollIntoView}) {
 
   const cn = bem('CommentForm');
 
@@ -15,10 +15,19 @@ function CommentForm({onSubmit, title, onCancel, isShowCancelBtn, isWaiting}) {
     onSubmit(commentText);
   }
 
+  const formRef = useRef(null);
+
+  useEffect(() => {
+
+    if (formRef.current && scrollIntoView) {
+      formRef.current.scrollIntoView({behavior: 'smooth', block: "center", inline: "nearest"});
+    }
+  }, [scrollIntoView]);
+
 
   return (
     <Spinner active={isWaiting}>
-      <form className={cn()} onSubmit={onFormSubmit}>
+      <form ref={formRef} className={cn()} onSubmit={onFormSubmit}>
         <div className={cn('title')}>{title}</div>
         <textarea className={cn('text')} value={commentText} onChange={(e) => {
           setCommentText(e.target.value)
@@ -37,7 +46,8 @@ CommentForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func,
   isShowCancelBtn: PropTypes.bool.isRequired,
-  isWaiting: PropTypes.bool.isRequired
+  isWaiting: PropTypes.bool.isRequired,
+  scrollIntoView: PropTypes.bool.isRequired
 };
 
 

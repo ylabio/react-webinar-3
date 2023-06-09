@@ -24,7 +24,6 @@ function CommentList({articleId}) {
   const [formResetKey, setFormResetKey] = useState(0);
 
   useInit(() => {
-    console.log(articleId);
     dispatch(commentsActions.loadCommentList(articleId));
 
   }, [articleId])
@@ -48,15 +47,31 @@ function CommentList({articleId}) {
         return item;
       })
 
+      if (commentParent !== null) {
+        prepareData.push({
+          _id: 'form',
+          parent: {_type: 'commentForm', _id: commentParent}
+        })
+      }
+
       const tree = listToTree(prepareData);
 
-      return treeToList(tree, (item, level) => ({
-        _id: item._id,
-        level,
-        dateCreate: item.dateCreate,
-        authorName: item.author.profile.name,
-        text: item.text
-      }));
+
+      const list = treeToList(tree, (item, level) => {
+        if (item._id === 'form') {
+          return {...item, level};
+        }
+
+        return ({
+          _id: item._id,
+          level,
+          dateCreate: item.dateCreate,
+          authorName: item.author.profile.name,
+          text: item.text
+        })
+      });
+
+      return list;
     }
 
     return null;
@@ -69,14 +84,16 @@ function CommentList({articleId}) {
 
     onSetCommentParent: useCallback((commentId) => {
       setCommentParent(commentId);
+      setFormResetKey(prev => prev + 1);
+
     }, []),
 
     onCancel: useCallback(() => {
       setCommentParent(null);
+      setFormResetKey(prev => prev + 1);
     }, []),
 
     onAddSubCommitSubmit: useCallback((text) => {
-      // console.log('onAddCommitSubmit', text);
       dispatch(commentsActionAdd.commentAdd(commentParent, 'comment', text, () => {
         dispatch(commentsActions.loadCommentList(articleId));
         setCommentParent(null);
@@ -85,7 +102,6 @@ function CommentList({articleId}) {
     }, [commentParent, dispatch]),
 
     onAddCommitSubmit: useCallback((text) => {
-      // console.log('onAddSubCommitSubmit', commentParent, text);
 
       dispatch(commentsActionAdd.commentAdd(articleId, 'article', text, () => {
         dispatch(commentsActions.loadCommentList(articleId));
@@ -98,19 +114,22 @@ function CommentList({articleId}) {
 
   const renders = {
 
-    commentChildRender: useCallback(commentId => {
+    commentChildRender: useCallback((commentId, formHide = false) => {
 
-      if (commentId === commentParent && !selectFromStore.sessionExists) {
+      if (commentId === commentParent && !selectFromStore.sessionExists && !formHide) {
         return (
           <CommentSessionNotExists
             onSignIn={callbacks.onSignIn}
             onCancel={callbacks.onCancel}
             isShowCancelBtn={true}
+            scrollIntoView={true}
+            key={formResetKey}
+
           />
         )
       }
 
-      if (commentId === commentParent && selectFromStore.sessionExists) {
+      if (commentId === commentParent && selectFromStore.sessionExists && !formHide) {
         return (
           <CommentForm
             title={'Новый ответ '}
@@ -119,6 +138,7 @@ function CommentList({articleId}) {
             onSubmit={callbacks.onAddSubCommitSubmit}
             key={formResetKey}
             isWaiting={selectFromRedux.commentAddIsWaiting}
+            scrollIntoView={true}
           />
         )
       }
@@ -126,7 +146,7 @@ function CommentList({articleId}) {
       return <CommentAnswerButton onClick={() => {
         callbacks.onSetCommentParent(commentId)
       }
-      }>ответить</CommentAnswerButton>
+      }/>
 
 
     }, [commentParent, setCommentParent, formResetKey, selectFromStore.sessionExists, selectFromRedux.commentAddIsWaiting]),
@@ -138,6 +158,8 @@ function CommentList({articleId}) {
             onSignIn={callbacks.onSignIn}
             onCancel={callbacks.onCancel}
             isShowCancelBtn={false}
+            scrollIntoView={false}
+            key={formResetKey}
 
           />
         )
@@ -150,6 +172,7 @@ function CommentList({articleId}) {
           onSubmit={callbacks.onAddCommitSubmit}
           key={formResetKey}
           isWaiting={selectFromRedux.commentAddIsWaiting}
+          scrollIntoView={false}
         />
       ) : null
     }, [commentParent, formResetKey, selectFromStore.sessionExists, selectFromRedux.commentAddIsWaiting])

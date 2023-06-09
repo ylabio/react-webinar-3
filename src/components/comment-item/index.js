@@ -15,6 +15,10 @@ function CommentItem({comment, childRender}) {
   // const dateCreate = new Date(comment.dateCreate).toLocaleString();
   const dateCreate = dateFormat(comment.dateCreate);
 
+  if (comment._id === 'form') {
+    return <div style={{paddingLeft}}>{childRender(comment.parent._id)}</div>
+  }
+
   return (
     <div className={cn()} style={{paddingLeft}}>
       <div className={cn('top')}>
@@ -22,7 +26,7 @@ function CommentItem({comment, childRender}) {
         <div className={cn('dateCreate')}>{dateCreate}</div>
       </div>
       <div className={cn('text')}>{comment.text}</div>
-      <div>{childRender(comment._id)}</div>
+      <div>{childRender(comment._id, true)}</div>
     </div>
   );
 }
