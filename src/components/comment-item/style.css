@@ -18,6 +18,11 @@
   color: #000;
 }
 
+.CommentItem-authorName-itsMe {
+
+  color: #666;
+}
+
 .CommentItem-dateCreate {
   font-weight: 400;
   font-size: 12px;

@@ -1,5 +1,4 @@
 import {memo, useCallback, useMemo, useState} from "react";
-import SideLayout from "../../components/side-layout";
 import PropTypes from "prop-types";
 import useInit from "../../hooks/use-init";
 import {useDispatch} from "react-redux";
@@ -35,8 +34,10 @@ function CommentList({articleId}) {
   }))
 
   const selectFromStore = useSelector(state => ({
-    sessionExists: state.session.exists
+    sessionExists: state.session.exists,
+    currentUserId: state.session.user._id
   }))
+
 
   const commentViewList = useMemo(() => {
     if (selectFromRedux.commentList) {
@@ -67,7 +68,8 @@ function CommentList({articleId}) {
           level,
           dateCreate: item.dateCreate,
           authorName: item.author.profile.name,
-          text: item.text
+          text: item.text,
+          itsMe: selectFromStore.currentUserId === item.author._id,
         })
       });
 
@@ -75,7 +77,7 @@ function CommentList({articleId}) {
     }
 
     return null;
-  }, [selectFromRedux.commentList, commentParent])
+  }, [selectFromRedux.commentList, commentParent, selectFromStore.currentUserId])
 
   const callbacks = {
     onSignIn: useCallback(() => {

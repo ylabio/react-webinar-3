@@ -22,7 +22,7 @@ function CommentItem({comment, childRender}) {
   return (
     <div className={cn()} style={{paddingLeft}}>
       <div className={cn('top')}>
-        <div className={cn('authorName')}>{comment.authorName}</div>
+        <div className={`${cn('authorName')} ${comment.itsMe ? cn('authorName-itsMe') : ''}`}>{comment.authorName}</div>
         <div className={cn('dateCreate')}>{dateCreate}</div>
       </div>
       <div className={cn('text')}>{comment.text}</div>
@@ -35,7 +35,7 @@ CommentItem.propTypes = {
   comment: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   }).isRequired,
-    childRender: PropTypes.func.isRequired,
+  childRender: PropTypes.func.isRequired,
 };
 
 
