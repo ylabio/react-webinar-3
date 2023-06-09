@@ -24,7 +24,7 @@ function Comments({ id, comments, send, remove }) {
   //console.log('comments:', comments);
 
   // базовый коммент - заготовка
-  const baseComment = { id, parentId: null, text: 'Текст' };
+  const baseComment = { id, parentId: null, text: '' };
 
   // новый коммент на основе шаблона, тут накапливаем изменения
   const [newComment, setNewComment] = useState({ ...baseComment });
@@ -48,7 +48,7 @@ function Comments({ id, comments, send, remove }) {
 
   const callbacks = {
     onReply: useCallback(
-      (parentId, name) => setNewComment(() => ({ ...baseComment, parentId, text: 'Мой ответ для ' + name })), []),
+      (parentId, name) => setNewComment(() => ({ ...baseComment, parentId, text: '' /* 'Мой ответ для ' + name */ })), []),
     onCancel: useCallback(() => setNewComment(baseComment), [baseComment]),
     onSubmit: useCallback(() => {
       send(newComment);

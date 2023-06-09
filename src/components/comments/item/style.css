@@ -25,6 +25,7 @@
 }
 
 .CommentItem-text {
+  font-size: 14px;
   padding-top: 10px;
   width: 100%;
   word-wrap: break-word;
@@ -33,11 +34,9 @@
 .CommentItem-controls {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
 }
 
 .CommentItem-controls>* {
-  /* background-color: aqua; */
   width: min-content;
   cursor: pointer;
   padding: 10px 20px 30px 0;

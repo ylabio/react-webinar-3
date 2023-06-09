@@ -10,23 +10,27 @@ import './style.css';
 function CommentEditor({ isAuth, isReply, text, onChange, onSubmit, onCancel, onSignin, shift, reff, t }) {
   const cn = bem('CommentEditor');
 
+  const isTextValid = !/^\s*$/.test(text); // пустой коммент и одни пробелы теперь постить нельзя
+
   return (
     <div className={cn()} style={{ paddingLeft: 30 * shift + 'px' }} ref={reff}>{
       isAuth ?
-      <>
-        <div className={cn('title')}>{isReply ? t("comments.newReplay") : t("comments.newComment")}</div>
-        <textarea className={cn('textarea')} onChange={e => onChange(e.target.value)} value={text} />
-        <div className={cn('actions')}>
-          <button className={cn('button')} onClick={onSubmit} disabled={!text.length}>{t("comments.submit")}</button>
-          {isReply ? <button className={cn('button')} onClick={onCancel}>{t("comments.cancel")}</button> : null}
+        <>
+          <div className={cn('title')}>{isReply ? t("comments.newReplay") : t("comments.newComment")}</div>
+          <textarea className={cn('textarea')} onChange={e => onChange(e.target.value)} value={text}
+          /* placeholder={t("comments.writeHere")} */
+          />
+          <div className={cn('actions')}>
+            <button className={cn('button')} onClick={onSubmit} disabled={!isTextValid}>{t("comments.submit")}</button>
+            {isReply ? <button className={cn('button')} onClick={onCancel}>{t("comments.cancel")}</button> : null}
+          </div>
+        </>
+        :
+        <div className={cn('actions')} >
+          <div className={cn('loglink')} onClick={onSignin}>{t("comments.signin")}</div>
+          <div className={cn('logmessage')}>{isReply ? t("comments.forReply") : t("comments.forComment")}.</div>
+          {isReply ? <div className={cn('logcancel')} onClick={onCancel}>{t("comments.cancel")}</div> : null}
         </div>
-      </>
-      :
-      <div className={cn('actions')} >
-        <div className={cn('loglink')} onClick={onSignin}>{t("comments.signin")}</div>
-        <div className={cn('logmessage')}>{isReply ? t("comments.forReply") : t("comments.forComment")}.</div>
-        {isReply ? <div className={cn('logcancel')} onClick={onCancel}>{t("comments.cancel")}</div> : null}
-      </div>
     }</div>
   );
 }
@@ -53,7 +57,7 @@ CommentEditor.defaultProps = {
   onCancel: () => { },
   onSignin: () => { },
   shift: 0,
-  reff: { },
+  reff: {},
   t: () => { }
 }
 
