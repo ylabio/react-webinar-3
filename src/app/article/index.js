@@ -10,6 +10,7 @@ import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
+import Header from '../../components/header';
 
 function Article() {
   const store = useStore();
@@ -26,15 +27,23 @@ function Article() {
     waiting: state.article.waiting,
   }));
 
+  const token = useSelector(state => state.authorization.token);
+  const authorization = useSelector(state => state.authorization.authorization);
+  const userName = useSelector(state => state.authorization.userName);
+
   const {t} = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    // Выход из профиля
+    exit: useCallback((token) => {store.actions.authorization.exit(token); localStorage.clear();}, [store]),
   }
 
   return (
-    <PageLayout>
+    <PageLayout head={<Header isAuthorization={authorization} text={userName}
+                              onExit={callbacks.exit} token={token}
+                              labelEntry={t('header.entry')} labelExit={t('header.exit')} />}>
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>

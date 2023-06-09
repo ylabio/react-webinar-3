@@ -1,0 +1,44 @@
+.Form {
+  padding: 40px 20px 20px;
+  display: grid;
+  gap: 15px;
+}
+
+.Form-title {
+  margin: 0;
+}
+
+.Form-wrapper {
+  max-width: 193px;
+  display: grid;
+  gap: 2px;
+}
+
+.Form-wrapper_side_start {
+  justify-items: start;
+}
+
+.Form-wrapper_side_end {
+  justify-items: end;
+}
+
+.Form-wrapper_padding_small input {
+  padding: 3px;
+}
+
+.Form-wrapper_padding_medium input {
+  padding: 10px;
+  font-size: 20px;
+}
+
+.Form-wrapper input {
+  width: 100%;
+}
+
+.Form-error {
+  color:#a52a2a;
+}
+
+.Form-button {
+  justify-self: start;
+}
