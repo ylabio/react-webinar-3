@@ -16,9 +16,11 @@ const cancelReplyButtonStyles = {
   color: "dark",
 };
 
+
 const Comment = ({
   id,
   isAuth,
+	isAuthor,
   author,
   date,
   text,
@@ -48,16 +50,22 @@ const Comment = ({
   return (
     <div className={cn({ nested: isNested })}>
       <div className={cn("head")}>
-        <div className={cn("author")}>{author}</div>
+        <div className={cn("author", isAuthor && "current")}>{author}</div>
         <div className={cn("date")}>{formatDate(date, locale)}</div>
       </div>
       <div className={cn("text")}>{text}</div>
       <Button onClick={handleReplyClick} styles={replyButtonStyles}>
         {t("comments.reply")}
       </Button>
+      {children}
       {unauthMess && (
-        <p className="mt-md">
-          <Button type="link" to="/login" styles={replyButtonStyles}>
+        <p className={cn("mess")}>
+          <Button
+            type="link"
+            to="/login"
+            state={{ back: location.pathname }}
+            styles={replyButtonStyles}
+          >
             {t("comments.login")}
           </Button>
           {", "}
@@ -71,8 +79,9 @@ const Comment = ({
           </Button>
         </p>
       )}
-      {isReplyOpened && (
+      {isAuth && isReplyOpened && (
         <TextareaBlock
+          className={cn("textarea")}
           title={t("comments.textareaHeader")}
           buttonText={t("comments.sendComment")}
           onSubmin={handleReplySubmit}
@@ -82,7 +91,6 @@ const Comment = ({
           </Button>
         </TextareaBlock>
       )}
-      {children}
     </div>
   );
 };

@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import useTranslate from "../../hooks/use-translate";
 import "./style.css";
 
-const TextareaBlock = ({ title, buttonText, onSubmin, disabled, children }) => {
+const TextareaBlock = ({ title, buttonText, onSubmin, disabled, children, styles, className }) => {
   const ref = useRef();
   const cn = bem("Textarea");
   const { t } = useTranslate();
@@ -15,10 +15,10 @@ const TextareaBlock = ({ title, buttonText, onSubmin, disabled, children }) => {
   };
 
   return (
-    <div className={cn()}>
+    <div className={cn(styles, className)}>
       {title && <b>{title}</b>}
       <textarea
-        placeholder={t("comments.textareaPlaceholder")}
+        // placeholder={t("comments.textareaPlaceholder")}
         disabled={disabled}
         ref={ref}
         rows={4}

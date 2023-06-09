@@ -1,7 +1,6 @@
 export default (list) => {
   const cache = new Map();
   const rootIds = [];
-
   for (const item of list) {
     if (item.parent._type === "article") {
       rootIds.push(item._id);

@@ -8,6 +8,7 @@ import TextareaBlock from "../../components/textarea-block";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import { commentsActions } from "../../store-redux/comments/actions";
+import createCommentTree from "../../utils/create-comment-tree";
 import renderComponentTree from "../../utils/render-comment-tree";
 
 const loginButtonStyles = {
@@ -33,11 +34,12 @@ const ArticleComments = () => {
   const session = useSelector((state) => ({
     exists: state.session.exists,
     waitin: state.session.waiting,
+    userId: state.session.user._id,
   }));
 
   useEffect(() => {
-    if (!sendCommentWaiting) dispatch(commentsActions.load(params.id));
-  }, [sendCommentWaiting]);
+    dispatch(commentsActions.load(params.id));
+  }, []);
 
   if (!session.exists && session.waiting) return null;
 
@@ -51,21 +53,21 @@ const ArticleComments = () => {
     setOpenedReplyId(commentId);
   }, []);
 
-  const commentsMemo = useMemo(
-    () =>
-      renderComponentTree(comments, Comment, (el) => ({
-        id: el._id,
-        onReplySubmit: handleReplySubmit,
-        isAuth: session.exists,
-        author: el.author.name,
-        date: el.dateCreate,
-        text: el.text,
-        locale: locale,
-        onReplyChange: handleReplyChange,
-        isReplyOpened: openedReplyId === el._id,
-      })),
-    [comments, locale, openedReplyId]
-  );
+  const commentsMemo = useMemo(() => {
+    const tree = createCommentTree(comments);
+    return renderComponentTree(tree, Comment, (el) => ({
+      id: el._id,
+      onReplySubmit: handleReplySubmit,
+      isAuth: session.exists,
+      isAuthor: el.author._id === session.userId,
+      author: el.author.profile.name,
+      date: el.dateCreate,
+      text: el.text,
+      locale: locale,
+      onReplyChange: handleReplyChange,
+      isReplyOpened: openedReplyId === el._id,
+    }));
+  }, [comments, locale, openedReplyId, session]);
 
   return (
     <Layout styles={CommentsLayoutStyles}>
@@ -75,7 +77,12 @@ const ArticleComments = () => {
       {commentsMemo}
       {!session.exists ? (
         <div className="pt-md pb-md">
-          <Button styles={loginButtonStyles} type="link" to="/login">
+          <Button
+            styles={loginButtonStyles}
+            type="link"
+            to="/login"
+            state={{ back: location.pathname }}
+          >
             {t("comments.login")}
           </Button>
           {", "}
