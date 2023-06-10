@@ -22,12 +22,13 @@ function Article() {
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
   const params = useParams();
+  const {lang, t} = useTranslate();
 
   useInit(() => {
     //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
     dispatch(actionsComments.load(params.id));
-  }, [params.id]);
+  }, [params.id, lang]); // теперь надо загружать переводы
 
   const select = useSelectorRedux(state => ({
     article: state.article.data,
@@ -36,8 +37,6 @@ function Article() {
     waitingComments: state.comments.waiting,
     needReload: state.comments.needReload
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
-  
-  const {t} = useTranslate();
 
   const callbacks = {
     // Добавление в корзину

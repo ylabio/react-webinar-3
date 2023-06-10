@@ -17,6 +17,9 @@ const config = {
   },
   api: {
     baseUrl: ''
+  },
+  i18n: {
+    defaultLanguage: navigator.language.split('-')[0] || 'en' // по умолчанию - язык системы
   }
 }
 

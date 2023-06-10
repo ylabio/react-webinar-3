@@ -1,4 +1,5 @@
 import APIService from "./api";
+import LanguageService from "./i18n";
 import Store from "./store";
 import createStoreRedux from "./store-redux";
 
@@ -38,6 +39,15 @@ class Services {
       this._redux = createStoreRedux(this, this.config.redux);
     }
     return this._redux;
+  }
+
+  /**
+   * Сервис локализации
+   */
+  get i18n() {
+    if (!this._i18n)
+      this._i18n = new LanguageService(this, this.config.i18n);
+    return this._i18n;
   }
 }
 
