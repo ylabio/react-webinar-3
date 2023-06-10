@@ -8,8 +8,16 @@ class APIService {
     this.services = services;
     this.config = config
     this.defaultHeaders = {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     }
+
+    // тест изменения языка из другого сервиса
+    //setTimeout(()=>this.services.i18n.setDefaultLanguage('en'), 5000); // ok
+
+    // Думается, лучше будет задавать заголовок из сервиса языка, чтобы в одном месте решения принимались, а не лазить по всем сервисам...
+    /* this.services.i18n.subscribe(() => {
+      this.setHeader('X-Lang', this.services.i18n.defaultLanguage); // ok
+    }); */
   }
 
   /**

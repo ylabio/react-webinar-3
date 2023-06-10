@@ -1,17 +1,17 @@
-import {memo, useCallback, useState} from "react";
-import useTranslate from "../../hooks/use-translate";
+import { memo, useCallback, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import Field from "../../components/field";
 import Head from "../../components/head";
+import Input from "../../components/input";
+import PageLayout from "../../components/page-layout";
+import SideLayout from "../../components/side-layout";
 import LocaleSelect from "../../containers/locale-select";
 import Navigation from "../../containers/navigation";
-import PageLayout from "../../components/page-layout";
-import Input from "../../components/input";
-import Field from "../../components/field";
-import SideLayout from "../../components/side-layout";
 import TopHead from "../../containers/top-head";
-import {useLocation, useNavigate} from "react-router-dom";
-import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
+import useSelector from "../../hooks/use-selector";
+import useStore from "../../hooks/use-store";
+import useTranslate from "../../hooks/use-translate";
 
 
 function Login() {
@@ -49,7 +49,7 @@ function Login() {
         const back = location.state?.back && location.state?.back !== location.pathname
           ? location.state?.back
           : '/';
-        navigate(back);
+        navigate(back, { replace: true }); // скорее всего тут баг был, могли вернуться сюда после редиректа, и получали сброс сессии.
       });
 
     }, [data, location.state])
