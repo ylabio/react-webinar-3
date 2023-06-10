@@ -1,15 +1,14 @@
-import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector as useSelectorRedux } from "react-redux";
 import { useParams } from "react-router-dom";
 import Button from "../../components/button";
-import Comment from "../../components/comment";
+import CommentList from "../../components/comment-list";
 import Layout from "../../components/layout";
 import TextareaBlock from "../../components/textarea-block";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import { commentsActions } from "../../store-redux/comments/actions";
 import createCommentTree from "../../utils/create-comment-tree";
-import renderComponentTree from "../../utils/render-comment-tree";
 
 const loginButtonStyles = {
   theme: "underline",
@@ -22,7 +21,6 @@ const CommentsLayoutStyles = {
 
 const ArticleComments = () => {
   const { t } = useTranslate();
-  const [openedReplyId, setOpenedReplyId] = useState();
   const params = useParams();
   const dispatch = useDispatch();
   const locale = useSelector((state) => state.locale.lang);
@@ -43,38 +41,37 @@ const ArticleComments = () => {
 
   if (!session.exists && session.waiting) return null;
 
+	const handleCloseOpenedReply = useRef()
+
   const handleCommentSubmit = useCallback((text) => {
     dispatch(commentsActions.sendComment(text, "article", params.id));
   }, []);
   const handleReplySubmit = useCallback((text, commentId) => {
     dispatch(commentsActions.sendComment(text, "comment", commentId));
   }, []);
-  const handleReplyChange = useCallback((commentId) => {
-    setOpenedReplyId(commentId);
+  const handleOpenReply = useCallback((closeCallback) => {
+		handleCloseOpenedReply.current && handleCloseOpenedReply.current()
+		handleCloseOpenedReply.current = closeCallback;
   }, []);
 
-  const commentsMemo = useMemo(() => {
-    const tree = createCommentTree(comments);
-    return renderComponentTree(tree, Comment, (el) => ({
-      id: el._id,
-      onReplySubmit: handleReplySubmit,
-      isAuth: session.exists,
-      isAuthor: el.author._id === session.userId,
-      author: el.author.profile.name,
-      date: el.dateCreate,
-      text: el.text,
-      locale: locale,
-      onReplyChange: handleReplyChange,
-      isReplyOpened: openedReplyId === el._id,
-    }));
-  }, [comments, locale, openedReplyId, session]);
+  const commentsMemo = useMemo(() => createCommentTree(comments), [comments]);
 
   return (
     <Layout styles={CommentsLayoutStyles}>
       <h3>
         {t("comments.head")} ({commentsLen})
       </h3>
-      {commentsMemo}
+      {commentsMemo.map((el) => (
+        <CommentList
+          key={el.id}
+          item={el}
+          onReplySubmit={handleReplySubmit}
+          userId={session.userId}
+          locale={locale}
+          onReplyOpen={handleOpenReply}
+        />
+      ))}
+
       {!session.exists ? (
         <div className="pt-md pb-md">
           <Button

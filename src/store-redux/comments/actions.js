@@ -4,13 +4,13 @@ export const commentsActions = {
 
     try {
       const res = await services.api.request({
-        url: `/api/v1/comments/?search[parent]=${articleId}&fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type)&limit=*`,
+        url: `/api/v1/comments/?search[parent]=${articleId}&fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type,_tree)&limit=*`,
       });
       const comments = res.data.result.items;
       console.log("comments :>> ", comments);
       dispatch({
         type: "comments/set",
-        payload: { comments },
+        payload: { comments, commentsLen: comments.length },
       });
     } catch (error) {
       console.log(error);

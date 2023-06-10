@@ -16,44 +16,42 @@ const cancelReplyButtonStyles = {
   color: "dark",
 };
 
-
 const Comment = ({
-  id,
-  isAuth,
-	isAuthor,
-  author,
-  date,
-  text,
+	item,
+	userId,
   children,
   locale,
   isNested,
   onReplySubmit,
-  onReplyChange,
-  isReplyOpened,
+  onReplyOpen,
 }) => {
   const [unauthMess, setUnauthMess] = useState(false);
+	const [replyBlock, setReplyBlock] = useState(false)
   const cn = bem("Comment");
   const { t } = useTranslate();
 
   const handleReplyClick = () => {
-    if (isAuth) {
-      onReplyChange(id);
+    if (userId) {
+			onReplyOpen(() => setReplyBlock(false))
+			setReplyBlock(true)
     } else {
       setUnauthMess(true);
     }
   };
   const handleReplySubmit = (text) => {
-    onReplySubmit(text, id);
-    onReplyChange(undefined);
+    onReplySubmit(text, item.id);
+    onReplyOpen(undefined);
   };
 
   return (
     <div className={cn({ nested: isNested })}>
       <div className={cn("head")}>
-        <div className={cn("author", isAuthor && "current")}>{author}</div>
-        <div className={cn("date")}>{formatDate(date, locale)}</div>
+        <div className={cn("author", userId === item.authorId && "current")}>
+          {item.authorName}
+        </div>
+        <div className={cn("date")}>{formatDate(item.date, locale)}</div>
       </div>
-      <div className={cn("text")}>{text}</div>
+      <div className={cn("text")}>{item.text}</div>
       <Button onClick={handleReplyClick} styles={replyButtonStyles}>
         {t("comments.reply")}
       </Button>
@@ -79,14 +77,14 @@ const Comment = ({
           </Button>
         </p>
       )}
-      {isAuth && isReplyOpened && (
+      {userId && replyBlock && (
         <TextareaBlock
           className={cn("textarea")}
           title={t("comments.textareaHeader")}
           buttonText={t("comments.sendComment")}
           onSubmin={handleReplySubmit}
         >
-          <Button onClick={() => onReplyChange(undefined)}>
+          <Button onClick={() => onReplyOpen(undefined)}>
             {t("comments.cancelReply")}
           </Button>
         </TextareaBlock>
