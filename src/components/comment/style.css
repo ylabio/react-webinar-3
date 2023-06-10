@@ -1,0 +1,102 @@
+.Comment-wrapper {
+  padding: 10px 40px;
+}
+
+.Comment-title {
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+.Comment-title h4 {
+  font-size: 1em;
+
+  margin: 0;
+}
+.Comment-input {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 40px 152px 40px;
+}
+.Comment-input h2 {
+  font-size: 0.8em;
+  padding-top: 30px;
+}
+
+.Comment-input input {
+  height: 76px;
+  display: flex;
+  border: 1px solid #666666;
+  border-radius: 4px;
+}
+.Comment-input input::placeholder {
+  position: absolute;
+  top: 0;
+  padding: 5px;
+  text-align: top;
+}
+
+.Comment-login span {
+  color: #0087e9;
+  text-decoration-line: underline;
+  cursor: pointer;
+}
+.Comment-title p {
+  color: #666666;
+  padding-left: 10px;
+  font-size: 1em;
+}
+
+.Comment-text {
+  margin: 0;
+  padding-bottom: 5px;
+  font-size: 0.8em;
+  word-wrap: break-word;
+}
+.Comment-response-btn {
+  color: #0087e9;
+  text-decoration: none;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+
+.Comment-heading {
+  display: flex;
+  align-items: center;
+
+  font-size: 0.7em;
+
+  padding: 0px 40px;
+  padding-top: 10px;
+}
+.Comment-write {
+  color: #0087e9;
+  text-decoration-line: underline;
+  cursor: pointer;
+}
+.Comment-cancel {
+  color: #666666;
+  text-decoration-line: underline;
+  cursor: pointer;
+  padding-left: 10px;
+}
+.Comment-wrapper-login {
+  padding: 10px 40px 92px 40px;
+}
+
+.Comment-wrapper-login p {
+  font-size: 1.1em;
+}
+.Comment-send-btn {
+  width: 90px;
+  margin-right: 10px;
+  height: 21px;
+}
+.Comment-cancel-btn {
+  height: 21px;
+  width: 67px;
+}
+
+.Comment-input div {
+  margin-top: 10px;
+}
