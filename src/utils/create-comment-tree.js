@@ -1,12 +1,13 @@
 
-const DEEP_LIMIT = 5;
+export const DEEP_LIMIT = 5;
 
 const format = (el) => ({
   authorName: el.author.profile.name,
-	authorId: el.author.profile._id,
+	authorId: el.author._id,
   date: el.dateCreate,
   text: el.text,
-	id: el._id
+	id: el._id,
+	isLast: el.isLast
 });
 
 export default (list, itemFormat = format) => {

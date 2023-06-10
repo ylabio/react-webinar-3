@@ -2,9 +2,9 @@ import { cn as bem } from "@bem-react/classname";
 import React, { memo, useState } from "react";
 import useTranslate from "../../hooks/use-translate";
 import formatDate from "../../utils/format-date";
-import Button from "../button";
-import TextareaBlock from "../textarea-block";
 import "./style.css";
+import TextareaBlock from "../textarea-block";
+import Button from "../button";
 
 const replyButtonStyles = {
   theme: "none",
@@ -17,8 +17,8 @@ const cancelReplyButtonStyles = {
 };
 
 const Comment = ({
-	item,
-	userId,
+  item,
+  userId,
   children,
   locale,
   isNested,
@@ -26,21 +26,22 @@ const Comment = ({
   onReplyOpen,
 }) => {
   const [unauthMess, setUnauthMess] = useState(false);
-	const [replyBlock, setReplyBlock] = useState(false)
+  const [replyBlock, setReplyBlock] = useState(false)
   const cn = bem("Comment");
   const { t } = useTranslate();
 
-  const handleReplyClick = () => {
-    if (userId) {
-			onReplyOpen(() => setReplyBlock(false))
-			setReplyBlock(true)
-    } else {
-      setUnauthMess(true);
-    }
-  };
   const handleReplySubmit = (text) => {
     onReplySubmit(text, item.id);
     onReplyOpen(undefined);
+  };
+
+  const handleReplyClick = () => {
+    if (userId) {
+      onReplyOpen(() => setReplyBlock(false));
+      setReplyBlock(true);
+    } else {
+      setUnauthMess(true);
+    }
   };
 
   return (

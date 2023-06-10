@@ -63,6 +63,7 @@ const ArticleComments = () => {
       </h3>
       {commentsMemo.map((el) => (
         <CommentList
+					deep={0}
           key={el.id}
           item={el}
           onReplySubmit={handleReplySubmit}
