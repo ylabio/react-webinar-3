@@ -20,7 +20,6 @@ class Store {
      * catalog: CatalogState,
      * modals: ModalsState,
      * article: ArticleState,
-     * locale: LocaleState,
      * categories: CategoriesState,
      * session: SessionState,
      * profile: ProfileState
