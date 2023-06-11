@@ -1,5 +1,5 @@
 import {memo, useCallback, useEffect, useState} from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import useSelector from '../../hooks/use-selector';
 import CommentsForm from '../../components/comments-form';
 import { useDispatch } from 'react-redux';
@@ -8,7 +8,7 @@ import Cancel from '../../components/cancel-button';
 import PropTypes from 'prop-types';
 
 function CommentsFormContainer({isReply = false, id = false, onCancel}) {
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
 
@@ -22,15 +22,24 @@ function CommentsFormContainer({isReply = false, id = false, onCancel}) {
       setFormData(prevData => ({...prevData, [name]: value}));
     }, [formData]),
 
-    onCancel: useCallback((e) => {
+    onCancelReply: useCallback((e) => {
       e.preventDefault();
 
       setFormData(prevData => ({...prevData, value: ''}))
-      onCancel()
+
+      onCancel(e);
     }, []),
+
+    onLoginPage: useCallback(() => {
+      navigate('/login', {state: {back: location.pathname}});
+    }, [navigate]),
 
     onSubmit: useCallback((e) => {
       e.preventDefault();
+
+      // Не получается удалить u3164, попробовал разные способы
+      // Такая же проверка есть в comments-form
+      if (formData.value.trim().replace(/\s/g,'').length == 0) return;
 
       isReply 
       ? dispatch(commentsActions.postComment(formData.id, formData.value, "comment")) 
@@ -38,9 +47,8 @@ function CommentsFormContainer({isReply = false, id = false, onCancel}) {
 
       setFormData(prevData => ({...prevData, value: ''}))
 
-      callbacks.onCancel(e);
-
-      dispatch(commentsActions.load(params.id));
+      if (isReply) onCancel(e);
+    
     }, [formData]),
   }
 
@@ -51,8 +59,8 @@ function CommentsFormContainer({isReply = false, id = false, onCancel}) {
   return (
     <>
       {selector.isAuth
-      ? <CommentsForm onCancel={callbacks.onCancel} isReply={isReply} value={formData.value} onChange={callbacks.onChange} onSubmit={callbacks.onSubmit}/>
-      : <Cancel url={'/login'} onCancel={callbacks.onCancel} isReply={isReply} />}
+      ? <CommentsForm onCancel={callbacks.onCancelReply} isReply={isReply} value={formData.value} onChange={callbacks.onChange} onSubmit={callbacks.onSubmit}/>
+      : <Cancel onLogin={callbacks.onLoginPage} onCancel={callbacks.onCancelReply} isReply={isReply} />}
     </>
   )
 }

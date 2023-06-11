@@ -24,6 +24,7 @@ export default {
   postComment: (id, text, type) => {
     return async (dispatch, getState, services) => {
       try {
+        console.log('start');
         dispatch({type: 'comments/post-start'});
 
         const parentObj = {
@@ -40,8 +41,8 @@ export default {
           body: JSON.stringify(parentObj)
         });
 
-        dispatch({type: 'comments/post-success', payload: response.data.result});
-    
+        dispatch({type: 'comments/post-success', payload: response.data});
+
       } catch (e) {
         dispatch({type: 'comments/post-error'});
       }

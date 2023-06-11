@@ -7,14 +7,18 @@ import CommentsFormContainer from '../../containers/comments-form-container';
 
 function Comment({id, commentKey, text, date, author, level, isMyComment, onReplyClick, onCancel, replyForm, t}) {
   const cn = bem('Comment');
-  // не совсем понимаю, можно ли так сделать)
+
   const {day, month, year, time} = normalizeDate(date, t('locale'));
 
+  const paddings = level >= 8 ? 8 : level;
+
+  const authorName = isMyComment ? t('comments.you') : author.profile.name;
+
   return (
-    <div className={cn()} style={{paddingLeft: `${30 * level}px` }} >
+    <div className={cn()} style={{paddingLeft: `${30 * paddings}px` }} >
 
       <div className={cn('header')}>
-        <span className={isMyComment ? cn('my-user-name') : cn('user-name')}>{author.profile.name}</span>
+        <span className={isMyComment ? cn('my-user-name') : cn('user-name')}>{authorName}</span>
         <span className={cn('date')}>{`${day} ${t(month)} ${year} ${t('date.in')} ${time}`}</span>
       </div>
 
