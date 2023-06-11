@@ -13,11 +13,13 @@ class I18n {
     const id = this._lastSubcriberId + 1;
     this._subcribers[id] = rerenderCallback;
     this._lastSubcriberId = id;
+    console.log('добавление текущего подписанта на i18n c id =', id);
     return id;
   }
 
   deleteSubscriber(subscriberId) {
     delete this._subcribers[subscriberId];
+    console.log('удаление текущего подписанта на i18n c id =', subscriberId);
   }
 
   subscribersRerender() {
