@@ -1,0 +1,36 @@
+.NewComment{
+    margin-top: 10px;
+}
+.NewComment-title{
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.NewComment-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.NewComment-textarea{
+    padding: 2px 5px;
+    resize: none;
+
+    font-family: 'Arial',sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+.NewComment-buttonsBlock{
+    display: flex;
+    gap: 10px;
+}
+.NewComment-button{
+    padding: 2px 8px;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+}

@@ -1,0 +1,19 @@
+.NeedSign{
+
+}
+.NeedSign-link{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    text-decoration-line: underline;
+    cursor: pointer;
+    color: #0087E9;
+}
+.NeedSign-cancel{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    text-decoration-line: underline;
+    cursor: pointer;
+    color: #666666;
+}

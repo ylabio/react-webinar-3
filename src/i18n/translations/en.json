@@ -20,5 +20,15 @@
   "auth.password": "Password",
   "auth.signIn": "Sign in",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+
+  "comment.answer": "Reply",
+  "comment.cancel": "Cancel",
+  "comment.title": "Comments",
+  "comment.newComment": "New comment",
+  "comment.newReplay": "New replay",
+  "comment.submit": "Submit",
+  "comment.myAnswer": "My answer for",
+
+  "date.locale": "en-EN"
 }

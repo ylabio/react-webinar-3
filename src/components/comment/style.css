@@ -1,0 +1,51 @@
+.Comment{
+    padding: 15px 40px;
+}
+.Comment-author{
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+}
+.Comment-user{
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    color: #666666;
+}
+
+.Comment-date{
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #666666;
+}
+
+.Comment-text{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    margin: 10px 0;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+.Comment-answer{
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #0087E9;
+    cursor: pointer;
+}
+.Comment-options{
+    padding-top: 30px;
+    display: flex;
+    align-items: center;
+}
+.Comment-cancel{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    text-decoration-line: underline;
+    cursor: pointer;
+    color: #666666;
+}
