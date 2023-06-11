@@ -3,15 +3,18 @@ import {cn as bem} from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function CommentsForm({value, isReply, onChange, onSubmit, onCancel}) {
+function CommentsForm({value, level, isReply, onChange, onSubmit, onCancel}) {
   const cn = bem('CommentForm');
+
+
+  const paddings = level >= 8 ? 8 : level;
 
   // Не получается удалить u3164, попробовал разные способы
   // Такая же проверка есть в comments-form-container
   const isButtonDisabled = value.trim().replace(/\s/g,'').length == 0 ? true : false;
 
   return (
-    <form className={cn()} onSubmit={(e) => onSubmit(e)}>
+    <form style={{paddingLeft: `${30 * paddings}px` }} className={cn()} onSubmit={(e) => onSubmit(e)}>
       <h3 className={cn('title')}>{isReply ? 'Новый ответ' : "Новый комментарий"}</h3>
 
       <textarea className={cn('textarea')} value={value} onChange={(e) => onChange(e.target.value, 'value')}></textarea>

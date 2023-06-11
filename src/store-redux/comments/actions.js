@@ -24,7 +24,7 @@ export default {
   postComment: (id, text, type) => {
     return async (dispatch, getState, services) => {
       try {
-        console.log('start');
+        // console.log('start');
         dispatch({type: 'comments/post-start'});
 
         const parentObj = {

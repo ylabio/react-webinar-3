@@ -30,5 +30,7 @@ export default function listToTree(list, key = '_id', rootType = '') {
     }
   }
 
+  // console.log('list ot tree roots', Object.values(roots));
+  
   return Object.values(roots);
 }

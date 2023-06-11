@@ -22,6 +22,7 @@ function Comments() {
     isOpen: false,
     commentKey: null,
     isReply: true,
+    replyObj: null
   }); 
 
   useInit(() => {
@@ -38,12 +39,19 @@ function Comments() {
   }), shallowequal);
 
   const callbacks = {
-    onReplyClick: useCallback((commentKey) => {
-      // console.log(commentTree);
+    onReplyClick: useCallback((treeId, commentId, commentKey) => {
       setReplyForm({
         isOpen: true,
         commentKey,
-        isReply: true
+        isReply: true,
+        replyObj: {
+          _id: 'reply-form',
+          commentId,
+          parent: {
+            _id: treeId, 
+            _type: 'comment'
+          }
+        }
       })
     }, [replyForm]),
 
@@ -52,33 +60,39 @@ function Comments() {
         isOpen: false,
         commentKey: null,
         isReply: true,
+        replyObj: null
       })
     }, [replyForm]),
 
     renderComments: useCallback(() => {
       if (select.commentsData?.items) {
-        return treeToList(listToTree(select.commentsData.items, '_id', 'article'), (item, level) => {
+        const newList = replyForm.replyObj ? [...select.commentsData.items, replyForm.replyObj] : select.commentsData.items;
+
+        return treeToList(listToTree(newList, '_id', 'article'), (item, level) => {
+
           const isMyComment = selector.currentUserId == item.author?._id;
           
-          // console.log(item);
           // много пропсов конечно.....
-             
-            return (
-                <Comment 
-                  replyForm={replyForm} 
-                  id={item._id}
-                  commentKey={`${item._id}${level}`} 
-                  key={`${item._id}${level}`} 
-                  text={item.text} 
-                  author={item.author} 
-                  date={item.dateCreate} 
-                  level={level} 
-                  isMyComment={isMyComment} 
-                  t={t} 
-                  onReplyClick={callbacks.onReplyClick}
-                  onCancel={callbacks.onCancel} 
-                />
-            )
+
+            if (item._id == 'reply-form') {
+              return <CommentsFormContainer key={`${item._id}${level}`} level={level} onCancel={callbacks.onCancel} isReply={replyForm.isReply} id={replyForm.replyObj.parent._id}/>
+            }
+
+            return <Comment 
+              replyForm={replyForm} 
+              id={item._id}
+              commentKey={`${item._id}${level}`} 
+              key={`${item._id}${level}`} 
+              text={item.text} 
+              author={item.author} 
+              date={item.dateCreate} 
+              level={level} 
+              isMyComment={isMyComment} 
+              t={t} 
+              onReplyClick={callbacks.onReplyClick}
+              onCancel={callbacks.onCancel} 
+          />
+          
           }
         )
       }

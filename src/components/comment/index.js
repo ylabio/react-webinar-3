@@ -5,14 +5,13 @@ import './style.css';
 import { normalizeDate } from '../../utils/normalizeDate';
 import CommentsFormContainer from '../../containers/comments-form-container';
 
-function Comment({id, commentKey, text, date, author, level, isMyComment, onReplyClick, onCancel, replyForm, t}) {
+function Comment({id, commentKey, text, date, author, level, isMyComment, onReplyClick, t}) {
   const cn = bem('Comment');
 
   const {day, month, year, time} = normalizeDate(date, t('locale'));
 
   const paddings = level >= 8 ? 8 : level;
-
-  const authorName = isMyComment ? t('comments.you') : author.profile.name;
+  const authorName = isMyComment ? t('comments.you') : author.profile?.name;
 
   return (
     <div className={cn()} style={{paddingLeft: `${30 * paddings}px` }} >
@@ -24,9 +23,7 @@ function Comment({id, commentKey, text, date, author, level, isMyComment, onRepl
 
       <p className={cn('message')}>{text}</p>
 
-      <button onClick={() => onReplyClick(commentKey)} className={cn('reply-button')}>{t('comments.reply')}</button>
-
-      {replyForm.isOpen && replyForm.commentKey == commentKey && <CommentsFormContainer onCancel={onCancel} isReply={true} id={id}/>}
+      <button onClick={() => onReplyClick(id, author._id, commentKey)} className={cn('reply-button')}>{t('comments.reply')}</button>
     </div>
   )
 }
