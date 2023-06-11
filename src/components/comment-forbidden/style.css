@@ -1,0 +1,22 @@
+.CommentForbidden {
+    box-sizing: border-box;
+    margin: 0;
+    width: 100%;
+    height: 18px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.CommentForbidden-signInButton {
+    color: #0087E9;
+    text-decoration-line: underline;
+    cursor: pointer;
+}
+
+.CommentForbidden-cancelButton {
+    color: #666666;
+    text-decoration-line: underline;
+    cursor: pointer;
+}

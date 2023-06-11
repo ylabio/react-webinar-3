@@ -1,0 +1,27 @@
+.CommentsList {
+    box-sizing: border-box;
+    padding: 30px 40px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.CommentsList-title {
+    margin-top: 0;
+    margin-bottom: 30px;
+    height: 28px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+}
+
+.CommentsList-list {
+    display: flex;
+    flex-direction: column;
+    min-height: 18px;
+    gap: 30px;
+}
+
+

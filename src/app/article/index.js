@@ -1,7 +1,6 @@
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback} from 'react';
 import {useParams} from "react-router-dom";
 import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
 import PageLayout from "../../components/page-layout";
@@ -14,23 +13,28 @@ import TopHead from "../../containers/top-head";
 import {useDispatch, useSelector as useSelectorRedux} from 'react-redux';
 import shallowequal from "shallowequal";
 import articleActions from '../../store-redux/article/actions';
+import commentsActions from '../../store-redux/comments/actions';
+import Comments from "../../containers/comments";
 
 function Article() {
+  const {t} = useTranslate();
+
   const store = useStore();
   const dispatch = useDispatch();
-  // Параметры из пути /articles/:id
   const params = useParams();
+
   useInit(() => {
-    //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
+    dispatch(commentsActions.load(params.id));
   }, [params.id]);
+
   const select = useSelectorRedux(state => ({
     article: state.article.data,
-    waiting: state.article.waiting,
-  }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
-  const {t} = useTranslate();
+    articleWaiting: state.article.waiting,
+    commentsWaiting: state.comments.waiting,
+  }), shallowequal);
+
   const callbacks = {
-    // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   }
 
@@ -41,8 +45,11 @@ function Article() {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <Spinner active={select.waiting}>
+      <Spinner active={select.articleWaiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+      </Spinner>
+      <Spinner active={select.commentsWaiting}>
+        <Comments/>
       </Spinner>
     </PageLayout>
   );
