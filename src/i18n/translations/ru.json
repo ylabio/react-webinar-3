@@ -1,4 +1,5 @@
 {
+	"locale": "ru-RU",
   "title": "Магазин",
   "menu.main": "Главная",
   "basket.title": "Корзина",
@@ -22,5 +23,15 @@
   "auth.password": "Пароль",
   "auth.signIn": "Войти",
   "session.signIn": "Вход",
-  "session.signOut": "Выход"
+  "session.signOut": "Выход",
+	"comments.head": "Комментарии",
+	"comments.login": "Войдите",
+	"comments.loginToComment": "чтобы иметь возможность комментировать",
+	"comments.loginToReply": "чтобы иметь возможность ответить",
+	"comments.newComment": "Новый комментарий",
+	"comments.sendComment": "Отправить",
+	"comments.reply": "Ответить",
+	"comments.textareaPlaceholder": "Текст",
+	"comments.cancelReply": "Отмена",
+	"comments.textareaHeader": "Новый ответ"
 }

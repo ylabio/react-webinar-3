@@ -1,0 +1,33 @@
+
+.Button {
+	cursor: pointer;
+	display: inline-block;
+	width: fit-content;
+}
+
+.Button_size_small {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.Button_theme_none {
+  border: none;
+  background: none;
+	padding: 0;
+}
+
+.Button_theme_underline {
+	text-decoration: underline;
+	border: none;
+	background: none;
+	padding: 0;
+}
+
+.Button_color_primary {
+	color: #0087e9;
+}
+
+.Button_color_dark {
+	color: #666666;
+}

@@ -1,19 +1,19 @@
-import {memo, useCallback, useMemo} from 'react';
-import {useParams} from "react-router-dom";
-import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
-import useTranslate from "../../hooks/use-translate";
-import useInit from "../../hooks/use-init";
-import PageLayout from "../../components/page-layout";
-import Head from "../../components/head";
-import Navigation from "../../containers/navigation";
-import Spinner from "../../components/spinner";
-import ArticleCard from "../../components/article-card";
-import LocaleSelect from "../../containers/locale-select";
-import TopHead from "../../containers/top-head";
-import {useDispatch, useSelector as useSelectorRedux} from 'react-redux';
+import { memo, useCallback } from "react";
+import { useDispatch, useSelector as useSelectorRedux } from "react-redux";
+import { useParams } from "react-router-dom";
 import shallowequal from "shallowequal";
-import articleActions from '../../store-redux/article/actions';
+import ArticleCard from "../../components/article-card";
+import Head from "../../components/head";
+import PageLayout from "../../components/page-layout";
+import Spinner from "../../components/spinner";
+import ArticleComments from "../../containers/article-comments";
+import LocaleSelect from "../../containers/locale-select";
+import Navigation from "../../containers/navigation";
+import TopHead from "../../containers/top-head";
+import useInit from "../../hooks/use-init";
+import useStore from "../../hooks/use-store";
+import useTranslate from "../../hooks/use-translate";
+import articleActions from "../../store-redux/article/actions";
 
 function Article() {
   const store = useStore();
@@ -24,26 +24,38 @@ function Article() {
     //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
   }, [params.id]);
-  const select = useSelectorRedux(state => ({
-    article: state.article.data,
-    waiting: state.article.waiting,
-  }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
-  const {t} = useTranslate();
+  const select = useSelectorRedux(
+    (state) => ({
+      article: state.article.data,
+      articleWaiting: state.article.waiting,
+      commentsWaiting: state.comments.waiting,
+    }),
+    shallowequal
+  ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
+  const { t } = useTranslate();
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-  }
+    addToBasket: useCallback(
+      (_id) => store.actions.basket.addToBasket(_id),
+      [store]
+    ),
+  };
 
   return (
     <PageLayout>
-      <TopHead/>
+      <TopHead />
       <Head title={select.article.title}>
-        <LocaleSelect/>
+        <LocaleSelect />
       </Head>
-      <Navigation/>
-      <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+      <Navigation />
+      <Spinner active={select.articleWaiting}>
+        <ArticleCard
+          article={select.article}
+          onAdd={callbacks.addToBasket}
+          t={t}
+        />
       </Spinner>
+      <ArticleComments />
     </PageLayout>
   );
 }

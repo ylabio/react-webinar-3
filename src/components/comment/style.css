@@ -1,0 +1,43 @@
+.Comment {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px 0;
+  /* align-items: start; */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.Comment_nested {
+  padding-left: 30px;
+}
+
+.Comment_nested > .Comment-replyBlock {
+	margin-left: 30px;
+}
+
+.Comment-head {
+  display: flex;
+  gap: 0 10px;
+}
+
+.Comment-text {
+  word-break: break-word;
+}
+
+.Comment-author {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.Comment-author.current {
+  color: #666666;
+}
+
+.Comment-date {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: #666666;
+}
