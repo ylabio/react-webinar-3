@@ -7,7 +7,7 @@ import commentsActions from '../../store-redux/comments/actions';
 import Cancel from '../../components/cancel-button';
 import PropTypes from 'prop-types';
 
-function CommentsFormContainer({isReply = false, id = false, level, onCancel}) {
+function CommentsFormContainer({isReply = false, id = false, level, formRefer, onCancel}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
@@ -59,7 +59,7 @@ function CommentsFormContainer({isReply = false, id = false, level, onCancel}) {
   return (
     <>
       {selector.isAuth
-      ? <CommentsForm level={level} onCancel={callbacks.onCancelReply} isReply={isReply} value={formData.value} onChange={callbacks.onChange} onSubmit={callbacks.onSubmit}/>
+      ? <CommentsForm formRefer={formRefer} level={level} onCancel={callbacks.onCancelReply} isReply={isReply} value={formData.value} onChange={callbacks.onChange} onSubmit={callbacks.onSubmit}/>
       : <Cancel level={level} onLogin={callbacks.onLoginPage} onCancel={callbacks.onCancelReply} isReply={isReply} />}
     </>
   )

@@ -1,4 +1,4 @@
-import React, { useCallback, memo, useEffect, useState } from 'react'
+import React, { useCallback, memo, useLayoutEffect, useState, useRef } from 'react'
 import Comment from '../../components/comment'
 import CommentsLayout from '../../components/comments-layout'
 import { useDispatch, useSelector as useSelectorRedux } from 'react-redux';
@@ -17,6 +17,8 @@ function Comments() {
   const dispatch = useDispatch();
   const params = useParams();
   const {t} = useTranslate();
+
+  const formRef = useRef();
 
   const [replyForm, setReplyForm] = useState({
     isOpen: false,
@@ -75,7 +77,7 @@ function Comments() {
           // много пропсов конечно.....
 
             if (item._id == 'reply-form') {
-              return <CommentsFormContainer key={`${item._id}${level}`} level={level} onCancel={callbacks.onCancel} isReply={replyForm.isReply} id={replyForm.replyObj.parent._id}/>
+              return <CommentsFormContainer formRefer={formRef} key={`${item._id}${level}`} level={level} onCancel={callbacks.onCancel} isReply={replyForm.isReply} id={replyForm.replyObj.parent._id}/>
             }
 
             return <Comment 
@@ -98,6 +100,10 @@ function Comments() {
       }
     }, [select, t, replyForm]),
   }
+
+  useLayoutEffect(() => {
+    formRef.current?.focus();
+  }, [replyForm])
 
   return (
     <>
