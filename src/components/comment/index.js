@@ -1,5 +1,5 @@
 import { cn as bem } from "@bem-react/classname";
-import React, { memo, useState } from "react";
+import React, { memo, useRef, useState } from "react";
 import useTranslate from "../../hooks/use-translate";
 import formatDate from "../../utils/format-date";
 import "./style.css";
@@ -30,6 +30,8 @@ const Comment = ({
   const cn = bem("Comment");
   const { t } = useTranslate();
 
+	const replyBlockRef = useRef()
+
   const handleReplySubmit = (text) => {
     onReplySubmit(text, item.id);
     onReplyOpen(undefined);
@@ -42,8 +44,8 @@ const Comment = ({
     } else {
       setUnauthMess(true);
     }
+		replyBlockRef.current.scrollIntoView({block: 'center'})
   };
-
   return (
     <div className={cn({ nested: isNested })}>
       <div className={cn("head")}>
@@ -57,41 +59,43 @@ const Comment = ({
         {t("comments.reply")}
       </Button>
       {children}
-      {unauthMess && (
-        <p className={cn("mess")}>
-          <Button
-            type="link"
-            to="/login"
-            state={{ back: location.pathname }}
-            styles={replyButtonStyles}
+      <div className={cn("replyBlock")} ref={replyBlockRef}>
+        {unauthMess && (
+          <p className={cn("mess")}>
+            <Button
+              type="link"
+              to="/login"
+              state={{ back: location.pathname }}
+              styles={replyButtonStyles}
+            >
+              {t("comments.login")}
+            </Button>
+            {", "}
+            <span>{t("comments.loginToReply")}</span>
+            {". "}
+            <Button
+              styles={cancelReplyButtonStyles}
+              onClick={() => setUnauthMess(false)}
+            >
+              {t("comments.cancelReply")}
+            </Button>
+          </p>
+        )}
+        {userId && replyBlock && (
+          <TextareaBlock
+            className={cn("textarea")}
+            title={t("comments.textareaHeader")}
+            buttonText={t("comments.sendComment")}
+            onSubmin={handleReplySubmit}
           >
-            {t("comments.login")}
-          </Button>
-          {", "}
-          <span>{t("comments.loginToReply")}</span>
-          {". "}
-          <Button
-            styles={cancelReplyButtonStyles}
-            onClick={() => setUnauthMess(false)}
-          >
-            {t("comments.cancelReply")}
-          </Button>
-        </p>
-      )}
-      {userId && replyBlock && (
-        <TextareaBlock
-          className={cn("textarea")}
-          title={t("comments.textareaHeader")}
-          buttonText={t("comments.sendComment")}
-          onSubmin={handleReplySubmit}
-        >
-          <Button onClick={() => onReplyOpen(undefined)}>
-            {t("comments.cancelReply")}
-          </Button>
-        </TextareaBlock>
-      )}
+            <Button onClick={() => onReplyOpen(undefined)}>
+              {t("comments.cancelReply")}
+            </Button>
+          </TextareaBlock>
+        )}
+      </div>
     </div>
   );
 };
 
-export default memo(Comment);
+export default Comment;

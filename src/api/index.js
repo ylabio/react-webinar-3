@@ -10,6 +10,8 @@ class APIService {
     this.defaultHeaders = {
       'Content-Type': 'application/json',
     }
+		this.init()
+		this.sevicesSubscribe()
   }
 E
   /**
@@ -42,6 +44,16 @@ E
       delete this.defaultHeaders[name];
     }
   }
+
+	init() {
+		this.setHeader("Accept-Language", this.services.I18n.lang);
+	}
+
+	sevicesSubscribe() {
+		this.services.I18n.subscribe((lang) =>
+      this.setHeader("Accept-Language", lang)
+    );
+	}
 }
 
 export default APIService;
