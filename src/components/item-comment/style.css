@@ -1,0 +1,55 @@
+.ItemComment {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ItemComment-title {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+
+.ItemComment-user {
+  margin: 0;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.ItemComment-user-self {
+  color: #666666;
+}
+
+.ItemComment-date {
+  margin: 0;
+  font-size: 12px;
+  line-height: 14px;
+  color: #666666;
+}
+
+.ItemComment-body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 16px;
+  word-break: break-all;
+}
+
+.ItemComment-button {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  line-height: 14px;
+  color: #0087E9;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.ItemComment-deleted {
+  margin: 0;
+  font-size: 14px;
+  line-height: 16px;
+  font-style: italic;
+}
