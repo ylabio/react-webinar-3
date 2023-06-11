@@ -1,0 +1,13 @@
+.CommentList {
+    box-sizing: border-box;
+}
+
+.CommentList-item {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.CommentList-item:last-child {
+    margin: 0;
+}

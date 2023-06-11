@@ -1,0 +1,30 @@
+.CommentsLogin {
+    margin-top: 30px;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.CommentsLogin_padding_reply {
+    padding-left: 30px;
+}
+
+.CommentsLogin-link {
+    padding: 0;
+    font-size: 16px;
+    line-height: 18px;
+    color: #0087E9;
+    background: transparent;
+    border: none;
+    text-decoration-line: underline;
+    cursor: pointer;
+}
+
+.CommentsLogin-cancel {
+    color: #666666;
+    font-size: 16px;
+    line-height: 18px;
+    background: transparent;
+    border: none;
+    text-decoration-line: underline;
+    cursor: pointer;
+}
