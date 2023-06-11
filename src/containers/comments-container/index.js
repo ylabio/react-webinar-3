@@ -102,6 +102,7 @@ function Comments() {
   }
 
   useLayoutEffect(() => {
+    formRef.current?.scrollIntoView({ block: "center", behavior: 'smooth' })
     formRef.current?.focus();
   }, [replyForm])
 
