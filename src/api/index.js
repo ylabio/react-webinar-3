@@ -10,6 +10,20 @@ class APIService {
     this.defaultHeaders = {
       'Content-Type': 'application/json',
     }
+
+    this.setLangHeader();
+
+    //вообще подписываясь здесь мы по идее должны делать когда нибудь отписку
+    //но однако же так как синглтон данного сервиса существует до конца сессии
+    // то наверно делать отписку не нужно
+    this.services.i18n.addSubscriber(() => {
+      this.setLangHeader();
+    })
+  }
+
+  setLangHeader() {
+    this.setHeader('Accept-Language', this.services.i18n.lang);
+    this.setHeader('X-Lang', this.services.i18n.lang);
   }
 
   /**
