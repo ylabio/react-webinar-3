@@ -1,0 +1,27 @@
+.RedirectText {
+  display: flex;
+  gap: 5px;
+  padding-bottom: 30px;
+}
+
+.RedirectText-text{
+  margin: 0;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.RedirectText-link{
+  cursor: pointer;
+  text-decoration-line: underline;
+  color: #0087E9;
+}
+
+.RedirectText-cancel {
+  cursor: pointer;
+  text-decoration-line: underline;
+  color: #666666;
+}
+

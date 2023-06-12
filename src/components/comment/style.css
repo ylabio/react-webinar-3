@@ -1,0 +1,58 @@
+.Comment {
+  font-family: 'Arial';
+  font-style: normal;
+  margin-bottom: 30px;
+}
+
+.Comment-head {
+  display: flex;
+  gap: 10px;
+}
+
+.Comment-user-name {
+  margin: 0;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.Comment-user-name_login {
+  margin: 0;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  color: #666666;
+}
+
+.Comment-date {
+  margin: 0;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: #666666;
+}
+
+.Comment-content p{
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  word-wrap: break-word;
+  margin: 10px 0;
+}
+
+.Comment-button {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: #0087e9;
+  cursor: pointer;
+}
+
+.Item-price {
+  padding: 0 0 0 10px;
+  white-space: nowrap;
+  font-size: 18px;
+}
