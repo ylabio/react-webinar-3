@@ -1,7 +1,6 @@
 import {memo, useCallback, useMemo} from 'react';
 import {useParams} from "react-router-dom";
 import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
 import PageLayout from "../../components/page-layout";
@@ -14,6 +13,8 @@ import TopHead from "../../containers/top-head";
 import {useDispatch, useSelector as useSelectorRedux} from 'react-redux';
 import shallowequal from "shallowequal";
 import articleActions from '../../store-redux/article/actions';
+import commentsActions from '../../store-redux/comments/actions';
+import Comments from '../../components/comments';
 
 function Article() {
   const store = useStore();
@@ -23,6 +24,7 @@ function Article() {
   useInit(() => {
     //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
+    dispatch(commentsActions.getComments(params.id));
   }, [params.id]);
   const select = useSelectorRedux(state => ({
     article: state.article.data,
@@ -44,6 +46,7 @@ function Article() {
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
+      <Comments paramsId={params.id}/>
     </PageLayout>
   );
 }

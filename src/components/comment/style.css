@@ -1,0 +1,56 @@
+.Comment {
+	margin-bottom: 30px;
+}
+.Comment-header {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+.Comment-user {
+	font-family: 'Arial';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 12px;
+	line-height: 14px;
+	margin-right: 10px;
+}
+.Comment-date {
+	font-family: 'Arial';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 14px;
+	color: #666666;
+}
+
+.Comment-text {
+	font-family: 'Arial';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 16px;
+  overflow-wrap: break-word;
+}
+.Comment-reply {
+	font-family: 'Arial';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 14px;
+	color: #0087e9;
+	padding: 0;
+	background-color: inherit;
+	border: none;
+	cursor: pointer;
+}
+
+
+.lvl-1 {
+	padding-left: 70px;
+}
+.lvl-2{
+  padding-left: 100px;
+}
+.lvl-3{
+  padding-left: 130px;
+}

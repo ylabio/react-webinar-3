@@ -1,0 +1,18 @@
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+label{
+  display: flex;
+  flex-direction: column;
+}
+textarea{
+  width: 934px;
+  height: 80px;
+  margin: 15px 0px 20px;
+}
+
+.btn-block .submit{
+  margin-right: 10px;
+}

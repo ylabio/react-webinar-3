@@ -1,0 +1,22 @@
+.Comments {
+	padding: 0px 40px;
+}
+.Comments-all {
+	font-family: 'Arial';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 24px;
+	line-height: 28px;
+}
+.Comments a {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 18px;
+	text-decoration-line: underline;
+	color: #0087e9;
+}
+
+.Comments-alert {
+	padding-bottom: 92px;
+}
