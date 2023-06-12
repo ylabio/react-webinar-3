@@ -1,0 +1,62 @@
+.ReplyForm {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding-left: 30px;
+    width: 100%;
+    gap: 10px;
+}
+
+.ReplyForm-label {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.ReplyForm-textarea {
+    font-size: 14px;
+    border: 1px solid #666666;
+    height: 76px;
+    resize: none;
+}
+
+.ReplyForm-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.ReplyForm-button {
+    max-width: 90px;
+}
+
+.ReplyForm_level_2 {
+    padding-left: 60px;
+}
+
+.ReplyForm_level_3 {
+    padding-left: 90px;
+}
+
+.ReplyForm_level_4 {
+    padding-left: 120px;
+}
+
+.ReplyForm_level_5 {
+    padding-left: 150px;
+}
+
+.ReplyForm_level_6 {
+    padding-left: 180px;
+}
+
+.ReplyForm_level_7 {
+    padding-left: 210px;
+}
+
+.ReplyForm_level_8 {
+    padding-left: 240px;
+}
+
+.ReplyForm_level_9 {
+    padding-left: 270px;
+}
+

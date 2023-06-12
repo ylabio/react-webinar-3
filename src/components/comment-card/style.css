@@ -1,0 +1,83 @@
+.CommentCard {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.CommentCard-header {
+    display: flex;
+    gap: 10px;
+}
+
+.CommentCard-author {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.CommentCard-author_my {
+    color: #666666;
+}
+
+.CommentCard-date {
+    color: #666666;
+    font-size: 12px;
+}
+
+.CommentCard-body {
+    max-width: 100%;
+}
+
+.CommentCard-text {
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    word-break: break-all;
+}
+
+.CommentCard-actions {}
+
+.CommentCard-reply {
+    cursor: pointer;
+    color: #0087E9;
+    font-size: 12px;
+    outline: none;
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+.CommentCard_level_1 {
+    padding: 0 0;
+}
+.CommentCard_level_2 {
+   margin-left: 30px;
+}
+.CommentCard_level_3 {
+    margin-left: 60px;
+}
+.CommentCard_level_4 {
+   margin-left: 90px;
+}
+.CommentCard_level_5 {
+    margin-left: 120px;
+}
+.CommentCard_level_6 {
+    margin-left: 150px;
+}
+.CommentCard_level_7 {
+    margin-left: 180px;
+}
+.CommentCard_level_8 {
+    margin-left: 210px;
+}
+.CommentCard_level_9 {
+    margin-left: 240px;
+}
+
+.CommentCard_deleted {
+    opacity: 0.5;
+}

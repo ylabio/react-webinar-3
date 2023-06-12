@@ -1,0 +1,23 @@
+.CommentForm {
+    padding: 0 40px 40px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.CommentForm-label {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.CommentForm-textarea {
+    font-size: 14px;
+    border: 1px solid #666666;
+    max-width: 945px;
+    height: 76px;
+    resize: none;
+}
+
+.CommentForm-button {
+    max-width: 90px;
+}

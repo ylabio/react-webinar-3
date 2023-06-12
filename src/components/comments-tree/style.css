@@ -1,0 +1,10 @@
+.CommentsTree {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 30px 40px;
+}
+
+.CommentsTree-title {
+    font-size: 24px;
+}

@@ -1,0 +1,19 @@
+.AuthReplyMessage {
+    font-size: 16px;
+}
+
+.AuthReplyMessage-link {
+    color: #0087E9;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.AuthReplyMessage-back {
+    cursor: pointer;
+    color: #666666;
+    font-size: 16px;
+    text-decoration: underline;
+    outline: none;
+    background: none;
+    border: none;
+}

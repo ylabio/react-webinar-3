@@ -1,0 +1,10 @@
+.AuthMessage {
+    font-size: 16px;
+    padding: 0 40px;
+}
+
+.AuthMessage-link {
+    cursor: pointer;
+    color: #0087E9;
+    text-decoration: underline;
+}
