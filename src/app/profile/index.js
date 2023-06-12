@@ -15,10 +15,11 @@ import ProfileCard from "../../components/profile-card";
 
 function Profile() {
   const store = useStore();
+  const {lang} = useTranslate();
 
   useInit(() => {
     store.actions.profile.load();
-  }, []);
+  }, [lang]);
 
   const select = useSelector(state => ({
     profile: state.profile.data,

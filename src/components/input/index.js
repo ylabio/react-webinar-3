@@ -30,6 +30,7 @@ function Input(props) {
       className={cn({theme: props.theme})}
       value={value}
       type={props.type}
+      name={props.name}
       placeholder={props.placeholder}
       onChange={onChange}
     />

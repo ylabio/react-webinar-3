@@ -1,20 +1,20 @@
-import StoreModule from "../module";
+// import StoreModule from "../module";
 
-class LocaleState extends StoreModule {
+// class LocaleState extends StoreModule {
 
-  initState() {
-    return {
-      lang: 'ru'
-    };
-  }
+//   initState() {
+//     return {
+//       lang: 'ru'
+//     };
+//   }
 
-  /**
-   * Установка кода языка (локали)
-   * @param lang
-   */
-  setLang(lang) {
-    this.setState({lang}, 'Установлена локаль');
-  }
-}
+//   /**
+//    * Установка кода языка (локали)
+//    * @param lang
+//    */
+//   setLang(lang) {
+//     this.setState({lang}, 'Установлена локаль');
+//   }
+// }
 
-export default LocaleState;
+// export default LocaleState;
