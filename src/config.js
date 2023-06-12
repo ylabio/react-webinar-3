@@ -10,13 +10,18 @@ const config = {
     // Настройки модулей состояния
     modules: {
       session: {
-        // Названия токена в АПИ
+        // Названия токена авторизации в АПИ
         tokenHeader: 'X-Token'
       }
     }
   },
   api: {
     baseUrl: ''
+  },
+  i18n: {
+    defaultLanguage: 'ru',
+    // Названия токена локали в АПИ
+    tokenHeader: 'X-Lang'
   }
 }
 

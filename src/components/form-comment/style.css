@@ -1,0 +1,26 @@
+.FormComment {
+    padding: 15px 40px;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px 0;
+}
+
+.FormComment_reply {
+    padding-left: 30px;
+}
+
+.FormComment-title {
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.FormComment textarea {
+    border-color: #666666;
+    font-size: 14px;
+}
+
+.FormComment-actions {
+    display: flex;
+    gap: 0 10px;
+}

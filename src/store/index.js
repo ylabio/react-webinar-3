@@ -27,7 +27,7 @@ class Store {
      * }} */
     this.actions = {};
     for (const name of Object.keys(modules)) {
-      this.actions[name] = new modules[name](this, name, this.config?.modules[name] || {});
+      this.actions[name] = new modules[name](this, name, this.config?.modules[name] || {}); // здесь создание каждого модуля стора
       this.state[name] = this.actions[name].initState();
     }
   }
@@ -65,6 +65,7 @@ class Store {
   /**
    * Установка состояния
    * @param newState {Object}
+   * @param description - Описание для логирования изменения стейта
    */
   setState(newState, description = 'setState') {
     if (this.config.log) {
