@@ -1,6 +1,7 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 const path = require("path");
 
 let config = {
@@ -13,7 +14,7 @@ let config = {
   },
   mode: process.env.NODE_ENV,
   resolve: {
-    extensions: ['.js', 'jsx'], // расширения по умолчанию если не указаны в import
+    extensions: ['.js', '.jsx'], // расширения по умолчанию если не указаны в import
     modules: ['./', 'node_modules'], // Где искать файлы подключаемых модулей (пакетов)
   },
   module: {
@@ -42,6 +43,11 @@ let config = {
       title: 'Simple SPA',
       base: '/',
     }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      },
+    }),
   ],
 }
 
@@ -51,6 +57,13 @@ if (process.env.NODE_ENV === 'development') {
     static: path.join(__dirname, 'dist'),
     port: 8010,
     historyApiFallback: true,
+    proxy: {
+      '/api/**': {
+        target: 'http://example.front.ylab.io',
+        secure: false,
+        changeOrigin: true,
+      }
+    }
   };
 }
 
