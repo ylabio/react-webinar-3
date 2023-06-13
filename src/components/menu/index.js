@@ -21,7 +21,7 @@ Menu.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.number,
     link: PropTypes.string,
-    title: PropTypes.string,
+    title: PropTypes.string
   })),
   onNavigate: PropTypes.func
 }
