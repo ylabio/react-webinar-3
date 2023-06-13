@@ -25,4 +25,5 @@ BasketTotal.defaultProps = {
   t: (text) => text
 }
 
+
 export default memo(BasketTotal);

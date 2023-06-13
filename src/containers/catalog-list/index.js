@@ -46,4 +46,5 @@ function CatalogList() {
   );
 }
 
+
 export default memo(CatalogList);

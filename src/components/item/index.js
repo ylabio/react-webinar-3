@@ -45,4 +45,5 @@ Item.defaultProps = {
   labelAdd: 'Добавить'
 }
 
+
 export default memo(Item);

@@ -53,4 +53,5 @@ ItemBasket.defaultProps = {
   labelDelete: 'Удалить',
 }
 
+
 export default memo(ItemBasket);

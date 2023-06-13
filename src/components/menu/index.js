@@ -31,4 +31,5 @@ Menu.defaultProps = {
   onNavigate: () => {}
 }
 
+
 export default memo(Menu);

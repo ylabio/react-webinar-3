@@ -33,4 +33,5 @@ class ProfileState extends StoreModule {
   }
 }
 
+
 export default ProfileState;

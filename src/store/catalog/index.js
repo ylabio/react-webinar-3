@@ -102,4 +102,5 @@ class CatalogState extends StoreModule {
   }
 }
 
+
 export default CatalogState;

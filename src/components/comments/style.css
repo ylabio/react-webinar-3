@@ -1,0 +1,50 @@
+.Comments {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Comments-title {
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.Comments-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.Comments-subtitle {
+    margin: 0;
+    margin-top: 30px;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.Comments-input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    resize: none;
+    height: 76px;
+    font-size: 14px;
+    font-family: sans-serif;
+    width: 100%;
+}
+
+.Comments-button {
+    width: 90px;
+    height: 21px;
+    margin-right: 10px;
+}
+
+.Comments-login {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.Comments-login span {
+    color: #0087E9;
+    text-decoration: underline;
+    cursor: pointer;
+}

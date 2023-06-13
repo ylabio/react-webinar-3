@@ -1,22 +1,19 @@
-import {useCallback, useContext} from "react";
-// import useStore from "../store/use-store";
-// import useSelector from "../store/use-selector";
-// import translate from "../i18n/translate";
-import {I18nContext} from "../i18n/context";
+import { useEffect, useMemo, useState } from "react";
+import useServices from "./use-services";
 
-/**
- * Хук возвращает функцию для локализации текстов, код языка и функцию его смены
- */
 export default function useTranslate() {
-  // const store = useStore();
-  // // Текущая локаль
-  // const lang = useSelector(state => state.locale.lang);
-  // // Функция для смены локали
-  // const setLang = useCallback(lang => store.actions.locale.setLang(lang), []);
-  // // Функция для локализации текстов
-  // const t = useCallback((text, number) => translate(lang, text, number), [lang]);
-  //
-  // return {lang, setLang, t};
+  const service = useServices();
+  const [lang, setLang] = useState(service.I18n.lang);
 
-  return useContext(I18nContext);
+  useEffect(() => {
+    service.I18n.subscribe((lang) => setLang(lang));;
+  }, []);
+
+  const i18n = useMemo(() => ({
+    lang,
+    setLang: (lang) => service.I18n.setLang(lang),
+    t: (text, number) => service.I18n.translate({ text, plural: number }),
+  }), [lang]);
+
+  return i18n;
 }

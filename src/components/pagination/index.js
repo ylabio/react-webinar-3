@@ -70,4 +70,5 @@ Pagination.defaultProps = {
   indent: 1,
 }
 
+
 export default memo(Pagination);

@@ -70,4 +70,5 @@ class BasketState extends StoreModule {
   }
 }
 
+
 export default BasketState;

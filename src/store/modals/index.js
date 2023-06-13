@@ -17,4 +17,5 @@ class ModalsState extends StoreModule {
   }
 }
 
+
 export default ModalsState;

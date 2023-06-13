@@ -1,6 +1,7 @@
 import APIService from "./api";
 import Store from "./store";
 import createStoreRedux from "./store-redux";
+import I18nService from "./i18n";
 
 class Services {
 
@@ -39,6 +40,14 @@ class Services {
     }
     return this._redux;
   }
+
+  get I18n(){
+		if (!this._I18n) {
+			this._I18n = new I18nService(this, this.config.I18n)
+		}
+		return this._I18n
+	}
+
 }
 
 export default Services;

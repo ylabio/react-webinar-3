@@ -46,4 +46,5 @@ class ArticleState extends StoreModule {
   }
 }
 
+
 export default ArticleState;

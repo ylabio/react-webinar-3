@@ -19,4 +19,5 @@ Spinner.defaultProps = {
 
 }
 
+
 export default memo(Spinner);

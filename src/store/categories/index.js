@@ -37,4 +37,5 @@ class CategoriesState extends StoreModule {
 
 }
 
+
 export default CategoriesState;

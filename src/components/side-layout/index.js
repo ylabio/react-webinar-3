@@ -22,4 +22,5 @@ SideLayout.propTypes = {
 
 SideLayout.defaultProps = {};
 
+
 export default memo(SideLayout);

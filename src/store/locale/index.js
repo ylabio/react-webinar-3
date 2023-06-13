@@ -17,4 +17,5 @@ class LocaleState extends StoreModule {
   }
 }
 
+
 export default LocaleState;

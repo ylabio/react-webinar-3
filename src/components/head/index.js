@@ -18,4 +18,5 @@ Head.propTypes = {
   children: PropTypes.node,
 };
 
+
 export default memo(Head);
