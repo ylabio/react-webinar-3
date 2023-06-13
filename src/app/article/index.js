@@ -1,7 +1,10 @@
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback} from 'react';
 import {useParams} from "react-router-dom";
+import Comments from "src/components/comments";
+import Comment from "src/components/comments/coment";
+import ProtectedComments from "src/containers/protected-comments";
+import useSelector from "src/hooks/use-selector";
 import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
 import PageLayout from "../../components/page-layout";
@@ -14,35 +17,78 @@ import TopHead from "../../containers/top-head";
 import {useDispatch, useSelector as useSelectorRedux} from 'react-redux';
 import shallowequal from "shallowequal";
 import articleActions from '../../store-redux/article/actions';
+import commentsActions from '../../store-redux/comments/actions';
 
 function Article() {
   const store = useStore();
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
   const params = useParams();
+  const {t, lang} = useTranslate();
+
   useInit(() => {
-    //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
-  }, [params.id]);
+  }, [params.id, lang]);
+
+  const selectState = useSelector(state => ({
+    userId: state.session.user._id
+  }));
+
   const select = useSelectorRedux(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
+    comments: state.comments.data,
+    textEditorId: state.comments.textEditorId,
+    textEditorLevel: state.comments.textEditorLevel,
+    rerender: state.comments.rerender,
+    waitingComments: state.comments.waiting,
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
-  const {t} = useTranslate();
+
+  useInit(async () => {
+    dispatch(commentsActions.loadComments(params.id));
+    dispatch(commentsActions.setEditor(params.id, 0, params.id));
+  }, [params.id, select.rerender, lang]);
+
+
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    setEditor: useCallback((textEditorId, level, commentId) => {
+      dispatch(commentsActions.setEditor(textEditorId, level, commentId))
+    }, []),
   }
+
+  const renders = {
+    comment: useCallback(item => (
+      <>
+        <Comment textEditor={select.textEditorId} setEditor={callbacks.setEditor}
+                 comment={item} key={item.id}
+                 isActiveAuthor={selectState.userId === item.authorId}>
+        </Comment>
+
+        <ProtectedComments id={item.id} redirect={'/login'} />
+      </>
+      ), [select.textEditorId, selectState.userId]),
+  };
 
   return (
     <PageLayout>
       <TopHead/>
+
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>
+
       <Navigation/>
+
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+      </Spinner>
+
+      <Spinner active={select.waitingComments}>
+        <Comments comments={select.comments} renderComment={renders.comment}>
+          <ProtectedComments id={params.id} redirect={'/login'}/>
+        </Comments>
       </Spinner>
     </PageLayout>
   );
