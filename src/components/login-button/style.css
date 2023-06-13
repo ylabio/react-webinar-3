@@ -1,0 +1,15 @@
+.buttons-wrapper {
+  height: 41px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 20px;
+  gap: 20px;
+}
+
+.logout-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}

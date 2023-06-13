@@ -7,13 +7,13 @@
  * @param [locale] {String} Локаль (код языка)
  * @returns {String}
  */
-export function plural(value, variants = {}, locale = 'ru-RU') {
+export function plural(value, variants = {}, locale = "ru-RU") {
   // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
   // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
   // В английском 2 формы: 'one', 'other'
   const key = new Intl.PluralRules(locale).select(value);
   // Возвращаем вариант по ключу, если он есть
-  return variants[key] || '';
+  return variants[key] || "";
 }
 
 /**
@@ -30,6 +30,99 @@ export function codeGenerator(start = 0) {
  * @param options {Object}
  * @returns {String}
  */
-export function numberFormat(value, locale = 'ru-RU', options = {}) {
+export function numberFormat(value, locale = "ru-RU", options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
+}
+
+export function parseCategories(categoryArr) {
+  // Функция для парсинга уровней категорий
+  function levelParsing(children = [], parsed = [], level = 1) {
+    if (children.length === 0) {
+      return parsed;
+    }
+    const newParsed = structuredClone(parsed); // Создание глубокой копии массива
+    let newChildren = structuredClone(children); // Создание глубокой копии массива
+    const newParents = [];
+
+    // Парсинг родительских категорий
+    parsed.at(-1).forEach((parent) => {
+      newChildren = newChildren.filter((category) => {
+        if (category.parent._id === parent._id) {
+          newParents.push({ ...category, level });
+          return false;
+        }
+        return true;
+      });
+    });
+
+    if (newParents.length === 0) {
+      return newParsed;
+    }
+
+    // Добавление уровня в заголовок категории
+    newParents.forEach((category) => {
+      category.title = `${"- ".repeat(category.level)}${category.title}`;
+    });
+
+    newParsed.push(newParents);
+    return levelParsing(newChildren, newParsed, level + 1);
+  }
+
+  const parents = [];
+  const filteredChildList = categoryArr.filter((category) => {
+    if (category.parent === null) {
+      parents.push({ ...category, level: 0 });
+      return false;
+    }
+    return true;
+  });
+
+  const parsedLevelCat = levelParsing(filteredChildList, [parents]);
+
+  const catListFinal = parsedLevelCat.reduce((acc, val) => acc.concat(val), []);
+
+  // Функция для сортировки категорий
+  function sortCatList(parsedLevelCat, draftArr, finalArr = []) {
+    if (parsedLevelCat.length === 0) {
+      return finalArr;
+    }
+    const newParsedLevelCat = structuredClone(parsedLevelCat); // Создание глубокой копии массива
+    let newFinalArr = structuredClone(finalArr); // Создание глубокой копии массива
+
+    newParsedLevelCat[0].forEach((category) => {
+      const catIndex = newFinalArr.findIndex(
+        (item) => category._id === item._id
+      );
+      if (catIndex < 0) {
+        newFinalArr = [...newFinalArr, category];
+      }
+
+      const children = draftArr.filter(
+        (child) => child.parent !== null && child.parent._id === category._id
+      );
+
+      if (children.length > 0) {
+        if (catIndex < 0) {
+          newFinalArr = [...newFinalArr, ...children];
+        } else {
+          newFinalArr.splice(catIndex + 1, 0, ...children);
+        }
+      }
+    });
+
+    return sortCatList(
+      parsedLevelCat.filter((_, idx) => idx !== 0),
+      draftArr,
+      newFinalArr
+    );
+  }
+
+  const sortedCategories = sortCatList(parsedLevelCat, catListFinal);
+
+  const toFilterCategories = sortedCategories.map(({ _id, title }) => ({
+    value: _id,
+    title,
+  }));
+
+  return toFilterCategories;
 }
