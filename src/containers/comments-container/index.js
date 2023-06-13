@@ -73,7 +73,7 @@ function Comments() {
         return treeToList(listToTree(newList, '_id', 'article'), (item, level) => {
 
           const isMyComment = selector.currentUserId == item.author?._id;
-          
+
           // много пропсов конечно.....
 
             if (item._id == 'reply-form') {

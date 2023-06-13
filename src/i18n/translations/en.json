@@ -36,5 +36,10 @@
   "months.October": "October",
   "months.November": "November",
   "months.December": "December",
-  "comments.you": "You"
+  "comments.you": "You",
+  "article.country": "Country",
+  "article.category": "Category",
+  "article.year": "Year",
+  "article.price": "Price",
+  "article.comments": "Comments"
 }

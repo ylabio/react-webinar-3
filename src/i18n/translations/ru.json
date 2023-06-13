@@ -38,5 +38,10 @@
   "months.October": "Октября",
   "months.November": "Ноября",
   "months.December": "Декабря",
-  "comments.you": "Вы"
+  "comments.you": "Вы",
+  "article.country": "Страна производитель",
+  "article.category": "Категория",
+  "article.year": "Год выпуска",
+  "article.price": "Цена",
+  "article.comments": "Комментарии"
 }

@@ -60,7 +60,7 @@ function CommentsFormContainer({isReply = false, id = false, level, formRefer, o
     <>
       {selector.isAuth
       ? <CommentsForm formRefer={formRefer} level={level} onCancel={callbacks.onCancelReply} isReply={isReply} value={formData.value} onChange={callbacks.onChange} onSubmit={callbacks.onSubmit}/>
-      : <Cancel level={level} onLogin={callbacks.onLoginPage} onCancel={callbacks.onCancelReply} isReply={isReply} />}
+      : <Cancel formRefer={formRefer} level={level} onLogin={callbacks.onLoginPage} onCancel={callbacks.onCancelReply} isReply={isReply} />}
     </>
   )
 }
