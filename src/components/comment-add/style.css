@@ -1,0 +1,43 @@
+.CommentAdd {
+    display: flex;
+    flex-direction: column;
+}
+
+.CommentAdd-header {
+    font-size: 12px;
+    font-weight: 700;
+    font-style: normal;
+    line-height: 14px;
+    margin-bottom: 10px;
+}
+
+.CommentAdd-btn {
+    margin-top: 10px;
+    width: 90px;
+    height: 20px;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    background-color: #EFEFEF;
+}
+
+
+.CommentAdd-need {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.CommentAdd-need-link {
+    color: #0087E9;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.CommentAdd-area {
+    width: 100%;
+    min-height: 76px;
+    border: 1px solid #666666;
+    resize: none;
+    box-shadow: inset 0px 1px 4px rgba(102, 102, 102, 0.1);
+}

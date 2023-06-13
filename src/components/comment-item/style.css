@@ -1,0 +1,49 @@
+  
+  .CommentItem-author{
+    display: inline;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 14px;
+  }
+
+  .CommentItem-authorlog{
+    display: inline;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 14px;
+
+    color: #666666;
+  }
+
+  
+  .CommentItem-date{
+    display: inline;
+    margin-left: 10px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #666666;
+  }
+
+  .CommentItem-text {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 400;
+
+    word-wrap: break-word;
+  }
+
+  .CommentItem-btn {
+    box-sizing: border-box;
+    padding: 0;
+    margin-top: 10px;
+    display: inline;
+    border: none;
+    background-color: white;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #0087E9;
+    cursor: pointer;
+  }
