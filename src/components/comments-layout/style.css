@@ -1,0 +1,15 @@
+.CommentLayout {
+    padding: 22px 40px;
+}
+
+.CommentLayout-title {
+    font-size: 24px;
+    color: #000;
+    margin: 0;
+}
+
+.CommentLayout-comments {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+}

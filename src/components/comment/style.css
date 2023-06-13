@@ -1,0 +1,43 @@
+.Comment {
+    overflow-X: hidden;
+    margin-top: 30px;
+}
+
+.Comment-header {
+    display: flex;
+    gap: 10px;
+}
+
+.Comment-user-name,
+.Comment-my-user-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #000;
+}
+
+.Comment-my-user-name {
+    color: #666;
+}
+
+.Comment-date {
+    font-size: 12px;
+    color: #666666;
+}
+
+.Comment-message {
+    font-size: 14px;
+    color: #000;
+    word-wrap: break-word;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+.Comment-reply-button {
+    font-size: 12px;
+    color: #0087E9;
+    background: none;
+    border: none;
+    margin-top: 10px;
+    padding: 0;
+    cursor: pointer;
+}
