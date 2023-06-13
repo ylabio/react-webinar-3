@@ -1,0 +1,52 @@
+.CommentArticle {
+  --left: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: var(--left);
+  font-size: 14px;
+  line-height: 16px;
+  word-break: break-word;
+}
+
+.CommentArticle-head {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.CommentArticle-name {
+  font-weight: 700;
+}
+
+.CommentArticle-name_auth {
+  color: #666;
+}
+
+.CommentArticle-datetime {
+  color: #666666;
+}
+
+.CommentArticle-deleted {
+  margin: 0;
+  color: #555555;
+}
+
+.CommentArticle-text_empty {
+  color: #555;
+}
+
+.CommentArticle-answer {
+  margin: 0;
+  border: none;
+  background: none;
+  padding: 0;
+  color: #0087e9;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.CommentArticle-answer:hover {
+  cursor: pointer;
+}

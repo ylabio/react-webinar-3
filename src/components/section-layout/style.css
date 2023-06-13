@@ -1,0 +1,26 @@
+.SectionLayout {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 25px;
+  padding: 0;
+}
+
+.SectionLayout_padding_small {
+  padding: 10px 20px;
+}
+
+.SectionLayout_padding_medium {
+  padding: 20px;
+}
+.SectionLayout_padding_large {
+  padding: 30px 40px;
+}
+
+.SectionLayout-title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+}

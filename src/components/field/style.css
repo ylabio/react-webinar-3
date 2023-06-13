@@ -2,12 +2,14 @@
   margin: 20px 0;
 }
 
-.Field-label {
+.Field_margin_small {
+  margin: 10px 0;
+}
 
+.Field-label {
 }
 
 .Field_input {
-
 }
 
 .Field-error {
