@@ -1,0 +1,24 @@
+.CommentsCard {
+    padding: 20px 40px;
+}
+
+.CommentsCard-title {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.CommentsCard-entrance {
+    display: flex;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.CommentsCard-enter {
+    color: #0087E9;
+    text-decoration-line: underline;
+}

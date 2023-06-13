@@ -14,6 +14,7 @@
     "other": "articles"
   },
   "article.add": "Add",
+  "comments.title": "Comments",
   "filter.reset": "Reset",
   "auth.title": "Sign In",
   "auth.login": "Login",

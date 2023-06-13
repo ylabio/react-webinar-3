@@ -1,0 +1,14 @@
+.EnterToComment {
+    display: flex;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.EnterToComment-enter {
+    color: #0087E9;
+    text-decoration-line: underline;
+    margin-bottom: 30px;
+    margin-left: 40px;
+}
