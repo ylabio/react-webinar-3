@@ -22,5 +22,17 @@
   "auth.password": "Пароль",
   "auth.signIn": "Войти",
   "session.signIn": "Вход",
-  "session.signOut": "Выход"
+  "session.signOut": "Выход",
+  "comments": "Комментарии",
+  "comments.linkText": "Войдите",
+  "comments.text": "чтобы иметь возможность комментировать",
+  "reply.text": "чтобы иметь возможность ответить",
+  "reply.titleNewComment": "Новый комментарий",
+  "reply.titleNewReply": "Новый ответ",
+  "reply.labelSend": "Отправить",
+  "reply": "Ответить",
+  "reply.labelCancel": "Отмена",
+  "Jun": "Июня",
+  "Jul": "Июля",
+  "at": "в"
 }

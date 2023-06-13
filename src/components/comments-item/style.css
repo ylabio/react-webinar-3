@@ -1,0 +1,38 @@
+.CommentsItem {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.CommentsItem-text {
+  width: 100%;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 0;
+  padding-right: 10px;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+.CommentsItem-name {
+  font-weight: 700;
+}
+
+.CommentsItem-link {
+  text-decoration: none;
+  color: #0087e9;
+  cursor: pointer;
+  width: 100%;
+}
+
+.CommentsItem-date {
+  color: #666666;
+}
+
+.CommentsItem-list {
+  width: 100%;
+  margin-top: 20px;
+}

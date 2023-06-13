@@ -1,0 +1,25 @@
+.CommentsList {
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: 30px;
+}
+.CommentsList_depth {
+  padding-left: 0px;
+}
+
+.CommentsList-item {
+  width: 100%;
+  margin-bottom: 30px;
+}
+.CommentsList-item:last-child {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.CommentsList-form {
+  margin-bottom: 30px;
+}
+
+.CommentsList-title + :not(.CommentsList-title) {
+  padding-left: 0;
+}

@@ -1,0 +1,18 @@
+.CommentsRedirect {
+  font-size: 16px;
+  line-height: 18px;
+  padding-left: 30px;
+  margin-top: 30px;
+}
+
+.CommentsRedirect-link {
+  color: #0087e9;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.CommentsRedirect-cancel {
+  color: #666666;
+  text-decoration: underline;
+  cursor: pointer;
+}
