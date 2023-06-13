@@ -14,11 +14,31 @@
     "other": "articles"
   },
   "article.add": "Add",
+  "article.producer": "Manufacturer country: ",
+  "article.category": "Category:",
+  "article.year": "Year of issue:",
+  "article.price": "Price:",
   "filter.reset": "Reset",
   "auth.title": "Sign In",
   "auth.login": "Login",
   "auth.password": "Password",
   "auth.signIn": "Sign in",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+
+  "comments.total": "Comments",
+  "comments.reply": "Reply",
+  "comments.replyArtirle": "New comment",
+  "comments.replyTitle": "New reply",
+  "comments.send": "Send",
+  "comments.cancel": "Cancel",
+  "comments.message": "to be able to reply.",
+  "comments.signIn": "Sign In",
+  "comments.date": "en-EN",
+  "filter.order": "By order",
+  "filter.title": "By name",
+  "filter.price.desc": "Dear ones first",
+  "filter.edition": "Ancient",
+  "filter.all": "All",
+  "filter.placeholder": "Search"
 }
