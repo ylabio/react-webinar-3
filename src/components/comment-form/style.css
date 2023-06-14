@@ -1,0 +1,76 @@
+.CommentForm {
+    margin-top: 30px;
+    padding: 0 40px;
+}
+
+.CommentForm-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.CommentForm-label {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.CommentForm-text {
+    height: 80px;
+    padding: 4px 5px;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    border: 1px solid #666666;
+    resize: none;
+}
+
+.CommentForm-buttons {
+    display: flex;
+    gap: 10px
+}
+
+.CommentForm-send {
+    width: 90px;
+}
+
+.CommentForm-btn-cancel {
+    width: 70px;
+}
+
+.CommentForm-link-cancel {
+    padding: 0;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #666666;
+    cursor: pointer;
+    text-decoration: underline;
+    border: 0;
+    background-color: white;
+}
+
+.CommentForm-log {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.CommentForm-enter {
+    padding: 0;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #0087E9;
+    cursor: pointer;
+    text-decoration: underline;
+    border: 0;
+    background-color: white;
+
+}

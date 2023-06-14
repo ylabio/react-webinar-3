@@ -1,11 +1,12 @@
-import {memo} from "react";
+import { memo } from "react";
 import PropTypes from 'prop-types';
-import {cn as bem} from '@bem-react/classname';
+import { cn as bem } from '@bem-react/classname';
 import numberFormat from "../../utils/number-format";
 import './style.css';
 
-function BasketTool({sum, amount, onOpen, t}) {
+function BasketTool({ sum, amount, onOpen, multilang }) {
   const cn = bem('BasketTool');
+  const { t } = multilang;
   return (
     <div className={cn()}>
       <span className={cn('label')}>{t('basket.inBasket')}</span>
@@ -28,10 +29,10 @@ BasketTool.propTypes = {
 };
 
 BasketTool.defaultProps = {
-  onOpen: () => {},
+  onOpen: () => { },
   sum: 0,
   amount: 0,
-  t: (text) => text
+  multilang: PropTypes.object
 }
 
 export default memo(BasketTool);

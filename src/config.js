@@ -15,8 +15,13 @@ const config = {
       }
     }
   },
+
   api: {
     baseUrl: ''
+  },
+
+  multilang: {
+    supportServerMultilang: true
   }
 }
 

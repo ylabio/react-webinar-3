@@ -1,8 +1,9 @@
-import {useCallback, useContext} from "react";
+import { useCallback, useContext, useState, useMemo, useLayoutEffect } from "react";
 // import useStore from "../store/use-store";
 // import useSelector from "../store/use-selector";
 // import translate from "../i18n/translate";
-import {I18nContext} from "../i18n/context";
+
+import useServices from "./use-services";
 
 /**
  * Хук возвращает функцию для локализации текстов, код языка и функцию его смены
@@ -16,7 +17,31 @@ export default function useTranslate() {
   // // Функция для локализации текстов
   // const t = useCallback((text, number) => translate(lang, text, number), [lang]);
   //
-  // return {lang, setLang, t};
 
-  return useContext(I18nContext);
+  const { multilang } = useServices();
+
+
+  const [state, setState] = useState({
+    lang: multilang.lang,
+    t: multilang.t,
+    setLang: multilang.setLang
+  });
+
+  const unsubscribe = useMemo(() => {
+    // Подписка. Возврат функции для отписки
+    return multilang.subscribe(() => {
+      const newState = {
+        lang: multilang.lang,
+        t: multilang.t,
+        setLang: multilang.setLang
+      }
+      setState(prevState => newState);
+    });
+  }, []); // Нет зависимостей - исполнится один раз
+
+  // Отписка от store при демонтировании компонента
+  useLayoutEffect(() => unsubscribe, [unsubscribe]);
+
+  return state
 }
+

@@ -1,11 +1,14 @@
-import {memo} from "react";
+import { memo } from "react";
 import PropTypes from 'prop-types';
-import {cn as bem} from '@bem-react/classname';
+import { cn as bem } from '@bem-react/classname';
 import numberFormat from "../../utils/number-format";
 import './style.css';
 
-function ArticleCard({article, onAdd, t}) {
+function ArticleCard({ article, onAdd, multilang }) {
   const cn = bem('ArticleCard');
+
+  const { t } = multilang;
+
   return (
     <div className={cn()}>
       <div className={cn('description')}>{article.description}</div>
@@ -21,7 +24,7 @@ function ArticleCard({article, onAdd, t}) {
         <div className={cn('label')}>Год выпуска:</div>
         <div className={cn('value')}>{article.edition}</div>
       </div>
-      <div className={cn('prop', {size: 'big'})}>
+      <div className={cn('prop', { size: 'big' })}>
         <div className={cn('label')}>Цена:</div>
         <div className={cn('value')}>{numberFormat(article.price)} ₽</div>
       </div>
@@ -40,12 +43,12 @@ ArticleCard.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
-  t: PropTypes.func
+  multilang: PropTypes.object
 };
 
 ArticleCard.defaultProps = {
-  onAdd: () => {},
-  t: (text) => text
+  onAdd: () => { },
+  multilang: { t: (text) => text }
 }
 
 export default memo(ArticleCard);
