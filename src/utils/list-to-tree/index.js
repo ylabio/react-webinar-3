@@ -18,7 +18,6 @@ export default function listToTree(list, key = '_id') {
     } else {
       trees[item[key]] = Object.assign(trees[item[key]], item);
     }
-
     // Если элемент имеет родителя, то добавляем его в подчиненные родителя
     if (item.parent?._id) {
       // Если родителя ещё нет в индексе, то индекс создаётся, ведь _id родителя известен

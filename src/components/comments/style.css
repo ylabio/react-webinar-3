@@ -1,0 +1,12 @@
+.Comments{
+  padding: 10px 40px;
+}
+.Comments_nested{
+  padding: 10px 0 0 30px;
+}
+.Comments_paddingOff{
+  padding: 10px 0 0;
+}
+
+.Comments-item {
+}

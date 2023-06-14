@@ -1,14 +1,13 @@
 import {memo, useCallback} from 'react';
-import {useDispatch, useStore as useStoreRedux} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import ItemBasket from "../../components/item-basket";
 import List from "../../components/list";
 import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
-import modalsActions from '../../store-redux/modals/actions';
+import modalsActions from '../../services/store-redux/modals/actions';
 
 function Basket() {
 
@@ -39,15 +38,13 @@ function Basket() {
                   link={`/articles/${item._id}`}
                   onRemove={callbacks.removeFromBasket}
                   onLink={callbacks.closeModal}
-                  labelUnit={t('basket.unit')}
-                  labelDelete={t('basket.delete')}
+                  t={t}
       />
-    ), [callbacks.removeFromBasket, t]),
+    ), [callbacks.removeFromBasket]),
   };
 
   return (
-    <ModalLayout title={t('basket.title')} labelClose={t('basket.close')}
-                 onClose={callbacks.closeModal}>
+    <ModalLayout title={t('basket.title')} onClose={callbacks.closeModal} t={t}>
       <List list={select.list} renderItem={renders.itemBasket}/>
       <BasketTotal sum={select.sum} t={t}/>
     </ModalLayout>

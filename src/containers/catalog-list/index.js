@@ -33,7 +33,7 @@ function CatalogList() {
 
   const renders = {
     item: useCallback(item => (
-      <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`} labelAdd={t('article.add')}/>
+      <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`} t={t}/>
     ), [callbacks.addToBasket, t]),
   };
 

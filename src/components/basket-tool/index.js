@@ -6,6 +6,7 @@ import './style.css';
 
 function BasketTool({sum, amount, onOpen, t}) {
   const cn = bem('BasketTool');
+
   return (
     <div className={cn()}>
       <span className={cn('label')}>{t('basket.inBasket')}</span>
@@ -24,7 +25,7 @@ BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
-  t: PropTypes.func
+  t:PropTypes.func
 };
 
 BasketTool.defaultProps = {

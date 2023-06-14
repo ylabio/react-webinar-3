@@ -1,5 +1,4 @@
-import {memo, useCallback} from 'react';
-import propTypes from 'prop-types';
+import {memo} from 'react';
 import numberFormat from "../../utils/number-format";
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
@@ -16,7 +15,6 @@ function ItemBasket(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
         {props.link
           ? <Link to={props.link} onClick={props.onLink}>{props.item.title}</Link>
@@ -24,8 +22,8 @@ function ItemBasket(props) {
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} {props.labelCurr}</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {props.labelUnit}</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{props.labelDelete}</button></div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {props.t('basket.unit')}</div>
+        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{props.t('basket.delete')}</button></div>
       </div>
     </div>
   )
@@ -42,8 +40,7 @@ ItemBasket.propTypes = {
   onLink: PropTypes.func,
   onRemove: PropTypes.func,
   labelCurr: PropTypes.string,
-  labelDelete: PropTypes.string,
-  labelUnit: PropTypes.string,
+  t:PropTypes.func
 }
 
 ItemBasket.defaultProps = {
@@ -51,6 +48,7 @@ ItemBasket.defaultProps = {
   labelCurr: '₽',
   labelUnit: 'шт',
   labelDelete: 'Удалить',
+  t:(text) => text
 }
 
 export default memo(ItemBasket);

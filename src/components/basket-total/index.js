@@ -4,8 +4,9 @@ import {cn as bem} from '@bem-react/classname';
 import numberFormat from "../../utils/number-format";
 import './style.css';
 
-function BasketTotal({sum, t}) {
+function BasketTotal({sum,t}) {
   const cn = bem('BasketTotal');
+
   return (
     <div className={cn()}>
       <span className={cn('cell')}>{t('basket.total')}</span>
@@ -17,7 +18,7 @@ function BasketTotal({sum, t}) {
 
 BasketTotal.propTypes = {
   sum: PropTypes.number,
-  t: PropTypes.func
+  t:PropTypes.func
 };
 
 BasketTotal.defaultProps = {
