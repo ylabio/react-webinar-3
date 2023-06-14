@@ -1,0 +1,96 @@
+.OneComment {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.OneComment-wrapper {
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.OneComment-name {
+  font-weight: 700;
+}
+
+.OneComment-name_grey {
+  color: #666666;
+}
+
+.OneComment-date {
+  color: #666666;
+}
+
+.OneComment-text {
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 16px;
+
+  overflow-wrap: break-word;
+}
+
+.OneComment-button,
+.OneComment-button-cancel,
+.OneComment-button-singin {
+  border: none;
+  background-color: #ffffff;
+  padding: 0;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.OneComment-button {
+  align-self: flex-start;
+  color: #0087E9;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.OneComment-button-cancel {
+  color: #666666;
+  text-decoration-line: underline;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.OneComment-button-singin {
+  text-decoration-line: underline;
+  font-size: 16px;
+  line-height: 18px;
+  color: #0087E9;
+}
+
+.OneComment-button:hover,
+.OneComment-link:hover,
+.OneComment-button-cancel:hover,
+.OneComment-button-singin:hover {
+  opacity: 0.7;
+}
+
+.OneComment-form {
+  margin-top: 20px;
+  width: 100%;
+  display: grid;
+}
+
+.OneComment-form h3 {
+  margin: 0 0 10px;
+
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.OneComment-form-submit {
+  padding: 1px 10px;
+}
+
+.OneComment-form-reset {
+  padding: 1px 7px;
+}
