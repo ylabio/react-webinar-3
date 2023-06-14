@@ -1,0 +1,48 @@
+.Comment{
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   word-break: break-all;
+}
+
+.Comment-container{
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+}
+
+.Comment-date{
+   color: #666666;
+   font-size: 12px;
+   line-height: 14px;
+}
+
+.Comment-userName{
+   font-size: 12px;
+   line-height: 14px;
+   font-weight: 700;
+}
+
+.Comment-btn{
+   background-color: inherit;
+   border: none;
+   color: #0087E9;
+   font-size: 12px;
+   line-height: 14px;
+}
+
+.Comment-infoContainer{
+   display: flex;
+   gap: 10px;
+   align-items: center;
+}
+
+.Comment-text{
+   word-break: break-all;
+   font-size: 14px;
+   line-height: 16px;
+}
+
+.currentUserComment{
+   color: #666666;
+}
