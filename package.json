@@ -20,6 +20,8 @@
   "homepage": "https://github.com/ylabio/react-webinar-3#readme",
   "dependencies": {
     "@bem-react/classname": "^1.6.0",
+    "@redux-devtools/core": "^3.13.1",
+    "@redux-devtools/extension": "^3.2.5",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "prop-types": "^15.8.1",
@@ -28,6 +30,7 @@
     "react-redux": "^8.0.7",
     "react-router-dom": "^6.11.2",
     "redux": "^4.2.1",
+    "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.2",
     "shallowequal": "^1.1.0"
   },

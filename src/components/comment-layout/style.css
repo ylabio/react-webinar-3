@@ -1,0 +1,39 @@
+.Comment {
+    margin-bottom: 30px;
+}
+.Comment-info {
+    display: flex;
+    font-size: 12px;
+    line-height: 14px;
+    gap: 12px;
+}
+
+.Comment-createdAt {
+    font-weight: 400;
+    color: #666666;
+}
+
+.Comment-text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    margin: 0;
+    word-break: break-word;
+}
+
+.Comment-reply{
+    margin-top: 10px;
+    color: #0087E9;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.authorIsMe {
+    color: #666666;
+}
+
+.authorName {
+    font-weight: 700;
+}
