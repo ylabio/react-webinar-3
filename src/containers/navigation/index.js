@@ -15,13 +15,11 @@ function Navigation() {
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
-    lang: state.locale.lang
   }));
 
   const callbacks = {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => {
-      //store.actions.modals.open('basket')
       dispatch(modalsActions.open('basket'));
     }, [store]),
 

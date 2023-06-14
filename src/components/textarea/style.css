@@ -1,0 +1,14 @@
+.Textarea {
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border: 1px solid #666666;
+  box-shadow: inset 0px 1px 4px rgba(102, 102, 102, 0.1);
+  resize: none;
+  width: 100%;
+  padding: 4px 5px;
+  min-height: 80px;
+}
+
+.Textarea:focus {
+  outline: none
+}

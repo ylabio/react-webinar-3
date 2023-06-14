@@ -1,0 +1,15 @@
+.CommentsLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.CommentsLayout_side_start {
+  justify-content: flex-start;
+}
+.CommentsLayout_padding_medium {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 40px 92px 40px;
+}
