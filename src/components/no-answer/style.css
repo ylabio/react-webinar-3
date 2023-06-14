@@ -1,0 +1,15 @@
+.NoAnswer {
+  padding: 15px 0;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.NoAnswer-btn {
+  font: inherit;
+  color: #666666;
+  text-decoration: underline;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}

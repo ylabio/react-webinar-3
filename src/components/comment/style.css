@@ -1,0 +1,71 @@
+.Comment {
+  width: 100%;
+}
+
+.Comment-info {
+  padding: 15px 0;
+  display: grid;
+  width: 100%;
+  gap: 10px;
+  grid-template-columns: max-content 1fr;
+  grid-template-areas:
+    "username date"
+    "text text"
+    "button button";
+}
+
+.Comment-username {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  grid-area: username;
+}
+
+.Comment-username_active {
+  color: #666666;
+}
+
+.Comment-date {
+  font-size: 12px;
+  line-height: 14px;
+  color: #666666;
+  grid-area: date;
+}
+
+.Comment-text {
+  font-size: 14px;
+  line-height: 16px;
+  color: #000000;
+  grid-area: text;
+  word-wrap: break-word;
+}
+
+.Comment-answer {
+  justify-self: start;
+  padding: 0;
+  font-size: 12px;
+  line-height: 14px;
+  color: #0087e9;
+  border: 0;
+  background-color: transparent;
+  grid-area: button;
+  cursor: pointer;
+}
+
+.Comment-branches {
+  display: flex;
+}
+
+.Comment-branch {
+  height: 100%;
+  width: 20px;
+}
+
+.Comment-wrapper {
+  width: 100%;
+}
+
+.Comment-answers {
+  width: 100%;
+  display: flex;
+}

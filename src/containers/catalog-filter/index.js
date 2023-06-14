@@ -45,6 +45,8 @@ function CatalogFilter() {
     ]), [select.categories]),
   };
 
+  // console.log(listToTree(select.categories))
+
   const {t} = useTranslate();
 
   return (

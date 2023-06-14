@@ -31,7 +31,7 @@ class ArticleState extends StoreModule {
 
       // Товар загружен успешно
       this.setState({
-        data: res.data.result,
+        // data: res.data.result,
         waiting: false
       }, 'Загружен товар из АПИ');
 

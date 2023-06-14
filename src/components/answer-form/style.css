@@ -1,0 +1,22 @@
+.AnswerForm {
+  display: grid;
+  gap: 10px;
+  padding: 15px 0px;
+}
+
+.AnswerForm-label {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.AnswerForm-textarea {
+  padding: 5px;
+  resize: none;
+  min-height: 76px;
+}
+
+.AnswerForm-controls {
+  display: flex;
+  gap: 10px;
+}
