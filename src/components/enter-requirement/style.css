@@ -1,0 +1,27 @@
+.EnterRequirement {
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  padding-bottom: 30px;
+  font-size: 16px;
+}
+
+.EnterRequirement-hidden {
+  display: none;
+}
+
+.EnterRequirement-cancel {
+  color: #666666;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.EnterRequirement p {
+  margin: 0;
+}
+
+.EnterRequirement-link {
+  color: #0087E9;
+  text-decoration: underline;
+  cursor: pointer;
+}

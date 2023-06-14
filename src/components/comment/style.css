@@ -1,0 +1,50 @@
+.Comment-info {
+  display: flex;
+  gap: 10px;
+}
+
+.Comment {
+  padding: 0 40px;
+  padding-bottom: 20px;
+}
+
+.Comment-answer {
+  color: #0087e9;
+  cursor: pointer;
+  padding: 10px 0;
+  margin: 0;
+  width: 70px;
+  margin-bottom: 30px;
+  font-size: 12px;
+}
+
+.Comment-date {
+  color: #666666;
+  font-size: 12px;
+}
+
+.Comment-user {
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.Comment-deleted {
+  color: #666666;
+  margin: 0;
+}
+
+.Comment-text {
+  word-break: break-all;
+  font-size: 14px;
+}
+
+.Comment-chosen-user {
+  color: #666666;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.Comment p {
+  margin: 0;
+  padding-bottom: 10px;
+}
