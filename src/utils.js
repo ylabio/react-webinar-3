@@ -33,3 +33,33 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function buildTree(categories, parent = null, visited = new Set()) {
+  let node = {};
+  categories
+    .filter(category => category.parent?._id === parent?._id)
+    .forEach(category => {
+      if (!visited.has(category._id)) {
+        visited.add(category._id);
+        node[category.title] = {
+          id: category._id,
+          ...buildTree(categories, category, visited)
+        };
+      }
+    });
+  return node;
+}
+
+export function isValidToken(token) {
+  if (typeof token !== "string") { // проверяем, что token является строкой
+      return false;
+  }
+  if (token.length !== 64) { // проверяем длину token
+      return false;
+  }
+  const regex = /^[0-9a-fA-F]+$/; // регулярное выражение для проверки наличия только шестнадцатеричных символов
+  if (!regex.test(token)) { // проверяем соответствие token регулярному выражению
+      return false;
+  }
+  return true; // если все проверки пройдены, возвращаем true
+}
