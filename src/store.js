@@ -5,7 +5,6 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    console.log(this.state);
   }
   /**
    * Подписка слушателя на изменения состояния
