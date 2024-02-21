@@ -64,14 +64,10 @@ class Store {
    * @param code
    */
   selectItem(code) {
+    const prev = this.state.selectedItemCode;
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      })
+      selectedItemCode: code !== prev ? code : undefined
     })
   }
 }
