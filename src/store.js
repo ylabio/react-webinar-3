@@ -49,7 +49,11 @@ class Store {
       ...this.state,
       list: [
         ...this.state.list,
-        { code: this.codeCreator.createNewCode(), title: "Новая запись" },
+        {
+          code: this.codeCreator.createNewCode(),
+          title: "Новая запись",
+          highlighted: 0,
+        },
       ],
     });
   }
