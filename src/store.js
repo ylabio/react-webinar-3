@@ -47,7 +47,10 @@ class Store {
 
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.itemCode, title: "Новая запись" }],
+      list: [
+        ...this.state.list,
+        { code: this.itemCode, title: "Новая запись", countOfSelecting: 0 },
+      ],
     });
   }
 
@@ -72,6 +75,7 @@ class Store {
       list: this.state.list.map((item) => {
         if (item.code === code) {
           item.selected = !item.selected;
+          item.countOfSelecting++;
         } else {
           // удаляем выделение со всех записей, кроме выбранной
           item.selected = false;
