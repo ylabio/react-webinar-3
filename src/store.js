@@ -46,7 +46,7 @@ class Store {
       ...this.state,
       list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
     })
-  };
+  }
 
   /**
    * Удаление записи по коду
@@ -57,7 +57,7 @@ class Store {
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
     })
-  };
+  }
 
   /**
    * Выделение записи по коду
@@ -69,6 +69,8 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+        } else {
+          item.selected = false;
         }
         return item;
       })
