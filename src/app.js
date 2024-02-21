@@ -35,8 +35,10 @@ function App({ store }) {
 
 function ListItem({ item, store }) {
 	const handleToggleSelection = () => {
+		if (!item.selected) {
+			store.incrementSelections(item.code);
+		}
 		store.selectItem(item.code);
-		store.incrementSelections(item.code);
 	};
 
 	return (
