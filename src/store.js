@@ -41,10 +41,13 @@ class Store {
   /**
    * Добавление новой записи
    */
+   generateUniqueCode() {
+    return Date.now() + Math.floor(Math.random() * 10);
+  }
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.generateUniqueCode(), title: 'Новая запись',count:0}]
     })
   };
 
@@ -58,17 +61,28 @@ class Store {
       list: this.state.list.filter(item => item.code !== code)
     })
   };
-
+	
   /**
    * Выделение записи по коду
    * @param code
-   */
+   */  
   selectItem(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.count++;
+            item.title=`Выделяли ${item.count} раз`;
+            
+          } else { 
+            item.title = `Выделяли ${item.count} раз`;
+          }
+        }
+        else {
+          item.selected = false; 
+          
         }
         return item;
       })
