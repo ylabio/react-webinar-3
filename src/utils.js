@@ -26,3 +26,24 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function endingOfWord(num, forms) {
+  // Падеж необходимо определять в зависимости от последней (последних двух) цифры пришедшего к нам числа, поэтому необходимо её найти
+  let numToString = num.toString();
+  let lastNumber = numToString.slice(-1);
+  let twoLastNumber = numToString.slice(-2);
+
+  if (
+    numToString.length >= 2 &&
+    ['11', '12', '13', '14'].includes(twoLastNumber)
+  ) {
+    return `${num} ${forms[2]}`;
+  }
+  if (lastNumber === '1') {
+    return `${num} ${forms[0]}`;
+  }
+  if (lastNumber >= '2' && lastNumber <= '4') {
+    return `${num} ${forms[1]}`;
+  }
+  return `${num} ${forms[2]}`;
+}
