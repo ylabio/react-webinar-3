@@ -27,6 +27,17 @@ export function createElement(name, props = {}, ...children) {
   return element;
 }
 
+export function generateClickedCountText (clickedCount) {
+  switch (clickedCount) {
+    case 2:
+    case 3:
+    case 4:
+      return `Выделяли ${clickedCount} раза`;
+    default:
+      return `Выделяли ${clickedCount} раз`;
+  }
+}
+
 export function* generateCode (start) {
   let i = start;
   while (true) {
