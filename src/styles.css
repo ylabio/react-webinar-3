@@ -50,8 +50,17 @@ body {
 }
 
 .Item-title {
-  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  width: fit-content;
   padding: 20px 10px;
+  padding-right: 5px;
+}
+
+.Item-clicks {
+  display: flex;
+  padding: 20px 10px 20px 5px;
+  /* width: 80%; */
 }
 
 .Item-actions {
