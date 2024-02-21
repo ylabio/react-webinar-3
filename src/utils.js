@@ -26,3 +26,11 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+
+export function* generateCode (start) {
+  let i = start;
+  while (true) {
+    yield i += 1;
+  }
+}
