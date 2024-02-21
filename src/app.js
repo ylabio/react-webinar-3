@@ -13,7 +13,6 @@ function App({ store }) {
 
   function declension(count) {
     const lastDigit = count % 10;
-    console.log(lastDigit);
     if (lastDigit >= 2 && lastDigit <= 4 && (count < 10 || count > 20)) {
       return 'раза';
     }
