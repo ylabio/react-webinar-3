@@ -75,7 +75,7 @@ class Store {
       list: this.state.list.map((item) => {
         if (item.code === code) {
           item.selected = !item.selected;
-          item.countOfSelecting++;
+          if (item.selected) item.countOfSelecting++;
         } else {
           // удаляем выделение со всех записей, кроме выбранной
           item.selected = false;

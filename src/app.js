@@ -1,5 +1,5 @@
 import React from "react";
-import { createElement } from "./utils.js";
+import { isNeedLetterA } from "./utils.js";
 import "./styles.css";
 
 /**
@@ -7,6 +7,7 @@ import "./styles.css";
  * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
+
 function App({ store }) {
   const list = store.getState().list;
 
@@ -29,6 +30,7 @@ function App({ store }) {
                 <div className="Item-title">
                   {item.title}
                   {item.countOfSelecting > 0 && ` | Выделяли ${item.countOfSelecting} раз`}
+                  {isNeedLetterA(item.countOfSelecting) && "a"}
                 </div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>

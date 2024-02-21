@@ -26,3 +26,10 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+// Проверить нужно ли окончание 'а'
+export function isNeedLetterA(count) {
+  const arr = [2, 3, 4];
+  const lastNumber = count % 10;
+  return arr.includes(lastNumber) ? true : false;
+}
