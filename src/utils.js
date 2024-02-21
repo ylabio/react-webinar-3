@@ -26,3 +26,13 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export const codeItems = (() => {
+    let counter = 0;
+    return () => ++counter;
+})();
+
+export function changeNumberName(counter, nameOptions = {}, language = 'ru-RU') {
+    const name = new Intl.PluralRules(language).select(counter);
+    return nameOptions[name] || '';
+}

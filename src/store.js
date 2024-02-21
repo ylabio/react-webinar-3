@@ -1,3 +1,5 @@
+import { codeItems } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -44,7 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: codeItems(), title: 'Новая запись', count: 0}]
     })
   };
 
@@ -64,15 +66,18 @@ class Store {
    * @param code
    */
   selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
+      this.setState({
+          ...this.state,
+          list: this.state.list.map(item => {
+              if (item.code === code) {
+                  !item.selected ? item.count += 1 : item.count
+                  item.selected = !item.selected;
+              } else {
+                  item.selected = false;
+              }
+              return item;
+          })
       })
-    })
   }
 }
 
