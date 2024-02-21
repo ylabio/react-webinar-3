@@ -50,7 +50,7 @@ class Store {
       this.codes.push(newCode);
     this.setState({
       ...this.state,
-        list: [...this.state.list, { code: newCode, title: 'Новая запись'}]
+        list: [...this.state.list, { code: newCode, title: 'Новая запись',count:0}]
     })
   };
 
@@ -73,11 +73,16 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        console.log(item);
         if (item.code === code) {
           item.selected = !item.selected;
+            if (item.selected === true) {
+                item.count++
+            }
         } else {
           item.selected = false 
         }
+      
         return item;
       })
     })
