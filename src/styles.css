@@ -50,7 +50,7 @@ body {
 }
 
 .Item-title {
-  width: 100%;
+  flex: auto;
   padding: 20px 10px;
 }
 
@@ -58,4 +58,8 @@ body {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-count {
+  padding: 20px 10px;
 }

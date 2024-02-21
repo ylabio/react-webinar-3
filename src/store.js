@@ -1,3 +1,9 @@
+
+function getLastCode(obj) {
+  const codes = obj.list.map(item => item.code)
+  return Math.max(...codes)
+}
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,6 +11,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.lastCode = getLastCode(initState)
   }
 
   /**
@@ -44,8 +51,14 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list,
+        {
+          code: this.lastCode + 1,
+          title: 'Новая запись',
+          count: 0,
+        }]
     })
+    this.lastCode++
   };
 
   /**
@@ -68,7 +81,10 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          item.count  += 1;
           item.selected = !item.selected;
+        } else {
+          item.selected = false
         }
         return item;
       })
