@@ -20,13 +20,15 @@ function App({store}) {
         <button onClick={() => store.addItem()}>Добавить</button>
       </div>
       <div className='App-center'>
-        <div className='List'>{
-          list.map(item =>
+        <div className='List'>
+       
+        
+         { list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>{item.title}{item.count>0?` | Выделяли ${item.count} раз`:''}</div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить

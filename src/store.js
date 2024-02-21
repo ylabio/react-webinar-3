@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+   
   }
 
   /**
@@ -13,7 +14,7 @@ class Store {
    * @returns {Function} Функция отписки
    */
   subscribe(listener) {
-    this.listeners.push(listener);
+    this.listeners.push(listener); 
     // Возвращается функция для удаления добавленного слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);
@@ -42,21 +43,29 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+  
     this.setState({
-      ...this.state,
       list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
     })
   };
-
+sortList(lists){
+  //Не совсем понимаю зачем так делать. Если говорить об уникальности то я бы использовал nanoid()
+  //Или бы время в милисекундах, но так как отображается список, решил сортировать
+  //Вывод списка в файле app сделал бы по индексу
+  const updateSortLists=lists.map((elem,i)=>{return{code: i+1, title: elem.title}})
+  return  updateSortLists
+}
   /**
    * Удаление записи по коду
    * @param code
    */
   deleteItem(code) {
+    const deleteList=this.state.list.filter(item => item.code !== code);
     this.setState({
-      ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
+      list: this.sortList(deleteList)
     })
+
+
   };
 
   /**
@@ -64,14 +73,35 @@ class Store {
    * @param code
    */
   selectItem(code) {
+   
     this.setState({
-      ...this.state,
+      
       list: this.state.list.map(item => {
+        let count=0;
+
+
         if (item.code === code) {
-          item.selected = !item.selected;
+          item.selected = !item.selected; 
+   
+          if(item.count===0 || item.count==undefined){
+            count++;
+          } 
+           if(item.count>0){
+            count=item.count+1;
+          }
+      
         }
-        return item;
+        else{
+          if(item.count!=undefined && item.count>0){
+            count=item.count;
+          }
+          item.selected=false;
+        }
+ 
+        return {code:item.code, title:item.title,selected:item.selected, count:count};
       })
+      ,
+ 
     })
   }
 }
