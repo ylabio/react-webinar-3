@@ -42,11 +42,20 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    console.log(this.getMax());
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.getMax()+1, title: 'Новая запись', count: 0}]
     })
   };
+
+  /**
+   * Определение максимального кода
+   * @returns maxNumber
+   */
+  getMax(){
+    return Math.max(...this.state.list.map(item => item.code), 0);
+  }
 
   /**
    * Удаление записи по коду
@@ -69,6 +78,11 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          item.count += item.selected == true ? 1 : 0;
+        }
+        
+        if(item.code !== code){
+          item.selected = false;
         }
         return item;
       })
