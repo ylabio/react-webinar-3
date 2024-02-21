@@ -8,7 +8,18 @@ import './styles.css';
  * @returns {React.ReactElement}
  */
 function App({store}) {
+    function getPluralForm(n) {
+        let remainder10 = n % 10;
+        let remainder100 = n % 100;
 
+        if (remainder10 === 1 && remainder100 !== 11) {
+            return 'Раз';
+        } else if (remainder10 >= 2 && remainder10 <= 4 && (remainder100 < 10 || remainder100 >= 20)) {
+            return 'Раза';
+        } else {
+            return 'Раз';
+        }
+    }
   const list = store.getState().list;
 
   return (
@@ -27,7 +38,7 @@ function App({store}) {
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title}</div>
-               {item.count > 0 && <div className='Item-title'>{item.count}</div>}
+               {item.count > 0 && <div className='Item-title'>Выделяли {item.count} {getPluralForm(item.count)}</div>}
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
