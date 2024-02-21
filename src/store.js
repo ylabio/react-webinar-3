@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.generateNumber = 7; 
   }
 
   /**
@@ -37,15 +38,16 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
   /**
    * Добавление новой записи
    */
   addItem() {
+    const code = 0
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: ++this.generateNumber, title: 'Новая запись'}] //Задание №2
     })
+      console.log(code); 
   };
 
   /**
@@ -69,6 +71,10 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected === true)
+            item.count = item.count ? ++item.count: 1;
+        } else { 
+          item.selected = false; //Задание №1
         }
         return item;
       })
