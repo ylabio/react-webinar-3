@@ -49,14 +49,15 @@ class Store {
    */
   addItem() {
     // Генерируем уникальный код для новой записи
-    let newItemCode = 1;
-    const uniqueCodes = this.state.list.map(item => item.code);
-    while (uniqueCodes.includes(newItemCode)) {
-      newItemCode++;
-    }
+    let newItemCode;
+    do {
+      // Генерируем случайное число от 1 до 1000000
+      newItemCode = Math.floor(Math.random() * 100) + 1;
+    } while (this.state.list.some(item => item.code === newItemCode)); // Проверяем уникальность кода
+  
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: newItemCode, title: 'Новая запись', selectionCount: 0}]
+      list: [...this.state.list, { code: newItemCode, title: 'Новая запись', selectionCount: 0 }]
     });
   }
 
