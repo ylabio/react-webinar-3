@@ -46,7 +46,7 @@ class Store {
     this.count++; // Увеличение счётчика записей на единицу при добавлении новой записи
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.count, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.count, title: 'Новая запись', selectedCount: 0}]
     });
   };
 
@@ -70,10 +70,21 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          // item.selected = !item.selected;
-          item.selected ? item.selected = false : item.selected = true;
+          if (item.selected) {
+            item.selected = false;
+            item.subtitle = '';
+          }
+          else {
+            item.selected = true;
+            item.selectedCount++;
+            item.subtitle = ` | Выделяли ${item.selectedCount} ${/[^1][234]$|^[234]$/.test(item.selectedCount) ? 'раза' : 'раз'}`;
+            
+          }
         }
-        else item.selected = false;
+        else {
+          item.selected = false;
+          item.subtitle = '';
+        }
         return item;
       })
     })
