@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
 /**
@@ -26,14 +26,4 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
-}
-
-export function counter() {
-  const [counter, setCounter] = useState(0);
-
-  function handleClick() {
-    setCounter(counter + 1);
-  }
-
-  if (counter > 0) return <div>{counter}</div>;
 }

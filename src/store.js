@@ -12,9 +12,10 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-  }
 
-  generator = codeGenerator(8);
+    const total = initState?.list?.length ?? 0;
+    this.generator = codeGenerator(total + 1);
+  }
 
   /**
    * Подписка слушателя на изменения состояния
@@ -60,7 +61,6 @@ class Store {
           // code: codeGenerator(this.state.list.length + 1).next().value,
           code: this.generator.next().value,
           title: "Новая запись",
-          clicks: 1,
         },
       ],
     });
@@ -87,7 +87,9 @@ class Store {
       list: this.state.list.map((item) => {
         if (item.code === code) {
           item.selected = !item.selected;
-          item.clicks += 1;
+          item.counter = (item?.counter ?? 0) + (item.selected ? 1 : 0);
+        } else {
+          item.selected = false;
         }
         return item;
       }),

@@ -5,17 +5,16 @@ import Store from "./store.js";
 
 const store = new Store({
   list: [
-    { code: 1, title: "Название элемента", clicks: 1 },
-    { code: 2, title: "Некий объект", clicks: 1 },
-    { code: 3, title: "Заголовок", clicks: 1 },
+    { code: 1, title: "Название элемента" },
+    { code: 2, title: "Некий объект" },
+    { code: 3, title: "Заголовок" },
     {
       code: 4,
       title: "Очень длинное название элемента из семи слов",
-      clicks: 1,
     },
-    { code: 5, title: "Запись", clicks: 1 },
-    { code: 6, title: "Шестая запись", clicks: 1 },
-    { code: 7, title: "Седьмая запись", clicks: 1 },
+    { code: 5, title: "Запись" },
+    { code: 6, title: "Шестая запись" },
+    { code: 7, title: "Седьмая запись" },
   ],
 });
 

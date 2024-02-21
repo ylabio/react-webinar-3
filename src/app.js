@@ -26,12 +26,10 @@ function App({ store }) {
                 onClick={() => store.selectItem(item.code)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                {item.clicks > 1 && (
-                  <div className="Item-clicks">
-                    | Выделяли раз: {Math.floor(item.clicks / 2)}
-                  </div>
-                )}
+                <div className="Item-title">
+                  {item.title}
+                  {item?.counter && ` | Выделяли раз: ${item.counter}`}
+                </div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
