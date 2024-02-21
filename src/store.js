@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.count = initState.list.length; // Начальное значение счётчика записей
   }
 
   /**
@@ -42,10 +43,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.count++; // Увеличение счётчика записей на единицу при добавлении новой записи
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
+      list: [...this.state.list, {code: this.count, title: 'Новая запись'}]
+    });
   };
 
   /**
