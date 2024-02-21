@@ -4,7 +4,7 @@ import {createElement} from './utils.js';
 import App from './app.js';
 import Store from './store.js';
 
-const store = new Store({
+const payload = {
   list: [
     {code: 1, title: 'Название элемента'},
     {code: 2, title: 'Некий объект'},
@@ -14,7 +14,11 @@ const store = new Store({
     {code: 6, title: 'Шестая запись'},
     {code: 7, title: 'Седьмая запись'},
   ]
-});
+}
+
+payload.list = payload.list.map(item => ({...item, selectedCount: 0}))
+
+const store = new Store(payload);
 
 const root = createRoot(document.getElementById('root'));
 

@@ -7,7 +7,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.lastCode = getLastCode(initState);
+    this.lastSelectedItemCode = null;
+    this.lastCode = getLastCode(initState) + 1;
   }
 
   /**
@@ -47,7 +48,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.lastCode + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.lastCode, title: 'Новая запись', selectedCount: 0}]
     })
     this.lastCode++
   };
@@ -73,12 +74,18 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (this.lastSelectedItemCode !== code) item.selectedCount++;
         } else {
           item.selected = false;
         }
         return item;
       })
     })
+    if (this.lastSelectedItemCode === code) {
+      this.lastSelectedItemCode = null
+    } else {
+      this.lastSelectedItemCode = code
+    }
   }
 }
 
