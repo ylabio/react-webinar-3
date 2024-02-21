@@ -29,7 +29,7 @@ function ListItem(props) {
                 <div className='Item-code'>{props.item.code}</div>
                 <div className='Item-title'>{props.item.title} {count > 0 ? ` | Выделяли ${count} раз` : ''}</div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(props.item.code)}>
+                  <button onClick={() => props.store.deleteItem(props.item.code)}>
                     Удалить
                   </button>
                 </div>

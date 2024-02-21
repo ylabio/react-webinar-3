@@ -42,9 +42,15 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+	const setUniqueKey = (list) => {
+		let random = Math.floor(Math.random() * (100 + list.length))
+		while(list.find(prop=>prop.code === random))
+			random = Math.floor(Math.random() * (100 + list.length))
+		return (random);
+	}
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: setUniqueKey(this.state.list), title: 'Новая запись'}]
     })
   };
 
