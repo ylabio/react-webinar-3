@@ -1,5 +1,10 @@
 const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
 
+//Генерация уникального ID
+export function generateUniqueId() {
+  let id = 100;
+  return () => id++
+ }
 /**
  * Создание элемента со свойствами и вложенными элементами
  * @param name {String} Название HTML тега
@@ -9,6 +14,8 @@ const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
  */
 export function createElement(name, props = {}, ...children) {
   const element = document.createElement(name);
+
+  
 
   // Назначение свойств и атрибутов
   for (const name of Object.keys(props)) {

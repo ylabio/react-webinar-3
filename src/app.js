@@ -1,5 +1,5 @@
 import React from 'react';
-import {createElement} from './utils.js';
+import {createElement, generateUniqueId} from './utils.js';
 import './styles.css';
 
 /**
@@ -10,7 +10,8 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
-
+  const uniqueId = generateUniqueId();
+  
   return (
     <div className='App'>
       <div className='App-head'>
@@ -22,12 +23,15 @@ function App({store}) {
       <div className='App-center'>
         <div className='List'>{
           list.map(item =>
-            <div key={item.code} className='List-item'>
+            <div key={item.code} className='List-item' id={uniqueId}>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title}</div>
                 <div className='Item-actions'>
+                {
+                  item.count !== 0 && <span className='Count-item'>Выделяли {item.count}  раз</span>
+                }
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
                   </button>
