@@ -43,9 +43,14 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newItem = {
+      code: this.generateCode(),
+      title: 'Новая запись',
+      selectedTimes: 0,
+    }
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.generateCode(), title: 'Новая запись'}]
+      list: [...this.state.list, newItem]
     })
   };
 
@@ -65,10 +70,16 @@ class Store {
    * @param code
    */
   selectItem(code) {
-    const prev = this.state.selectedItemCode;
+    const isChanged = code !== this.state.selectedItemCode;
+    const newList = !isChanged
+      ? this.state.list
+      : this.state.list.map(item => code !== item.code ? item :
+      {...item, selectedTimes: item.selectedTimes + 1}
+      )
     this.setState({
       ...this.state,
-      selectedItemCode: code !== prev ? code : undefined
+      list: newList,
+      selectedItemCode: isChanged ? code : undefined
     })
   }
 

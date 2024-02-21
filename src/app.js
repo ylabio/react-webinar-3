@@ -10,6 +10,10 @@ import './styles.css';
 function App({store}) {
 
   const {list, selectedItemCode} = store.getState();
+  const createItemText = (item) => {
+    return item.selectedTimes === 0 ? item.title :
+    `${item.title} | Выделяли ${item.selectedTimes} раз(а)`
+   }
 
 
   return (
@@ -27,7 +31,7 @@ function App({store}) {
               <div className={'Item' + (item.code === selectedItemCode ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>{createItemText(item)}</div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
