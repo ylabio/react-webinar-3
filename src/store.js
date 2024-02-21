@@ -77,6 +77,9 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          item.completedSelectionNumber
+            ? item.completedSelectionNumber += 1
+            : item.completedSelectionNumber = 1;
         }
         return item;
       })

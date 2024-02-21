@@ -14,13 +14,13 @@ function App({ store }) {
   const handlingSelectItem = (code) => {
     if (code === selectedItem) {
       store.clearSelectedItems();
+      setSelectedItem(null);
     } else {
       store.clearSelectedItems();
       store.selectItem(code);
       setSelectedItem(code);
     }
   };
-
 
   return (
     <div className='App'>
@@ -37,7 +37,9 @@ function App({ store }) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                 onClick={() => handlingSelectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>
+                  {`${item.title} ${item.completedSelectionNumber > 0 ? `| Выделяли ${item.completedSelectionNumber} раз` : ''}`}
+                </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
