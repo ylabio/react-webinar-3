@@ -1,10 +1,8 @@
-/**
- * Хранилище состояния приложения
- */
 class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.initSelectionCount();
   }
 
   /**
@@ -18,6 +16,14 @@ class Store {
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);
     }
+  }
+
+  initSelectionCount() {
+    this.state.list.forEach(item => {
+      if (!item.selectionCount) {
+        item.selectionCount = 0;
+      }
+    });
   }
 
   /**
@@ -42,11 +48,17 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    // Генерируем уникальный код для новой записи
+    let newItemCode = 1;
+    const uniqueCodes = this.state.list.map(item => item.code);
+    while (uniqueCodes.includes(newItemCode)) {
+      newItemCode++;
+    }
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+      list: [...this.state.list, {code: newItemCode, title: 'Новая запись', selectionCount: 0}]
+    });
+  }
 
   /**
    * Удаление записи по коду
@@ -68,11 +80,25 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          // Увеличиваем счетчик выделений
+          item.selectionCount += 1;
+          // Отменяем выделение для уже выделенных элементов
+          if (item.selected) {
+            item.selected = false;
+          } else {
+            // Сбрасываем выделение у других записей
+            this.state.list.forEach(otherItem => {
+              if (otherItem.code !== code && otherItem.selected) {
+                otherItem.selected = false;
+              }
+            });
+            // Выделяем текущий элемент
+            item.selected = true;
+          }
         }
         return item;
       })
-    })
+    });
   }
 }
 
