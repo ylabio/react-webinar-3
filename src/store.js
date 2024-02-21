@@ -64,16 +64,24 @@ class Store {
    * @param code
    */
   selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
+    if (!this.state || !this.state.list || !Array.isArray(this.state.list)) {
+        return; // Проверка на наличие списка и его массивового типа
+    }
+
+    const updatedList = this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+            item.selected = !item.selected;
+        } else {
+            item.selected = false;
         }
         return item;
-      })
-    })
-  }
+    });
+
+    this.setState({
+        list: updatedList
+    });
+}
+
 }
 
 export default Store;
