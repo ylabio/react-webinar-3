@@ -44,7 +44,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.__generateRandomCode(), title: 'Новая запись', amount: 0}]
     })
   };
 
@@ -67,12 +67,34 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        if(item.code !== code) item.selected = false;
         if (item.code === code) {
+          if(!item.selected) item.amount++
           item.selected = !item.selected;
         }
         return item;
       })
     })
+  }
+
+  /**
+   * Генератор рандомного кода
+   */
+  __generateRandomCode(){
+    let isUnique = false;
+    let code
+    while(!isUnique){
+      code = Math.floor((Math.random() * 1000 + 1))
+      isUnique = true;
+      for (let item of this.state.list) {
+        if(code == item.code){
+          console.log(code == item.code);
+          isUnique = false;
+          break;
+        }
+      }
+    }
+    return code
   }
 }
 
