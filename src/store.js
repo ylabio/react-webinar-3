@@ -42,37 +42,41 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newId = this.state.lastId + 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      lastId: newId,
+      list: [...this.state.list, {id: newId, code: this.state.list.length + 1, selectedCount: 0, title: 'Новая запись'}]
     })
   };
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Удаление записи по id
+   * @param id
    */
-  deleteItem(code) {
+  deleteItem(id) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
+      list: this.state.list.filter(item => item.id !== id)
     })
   };
 
   /**
-   * Выделение записи по коду
-   * @param code
+   * Выделение записи по id
+   * @param id
    */
-  selectItem(code) {
+  selectItem(id) {
+    const isSelected = this.state.selectedId === id ? false : true;
     this.setState({
       ...this.state,
+      selectedId: isSelected ? id : -1,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        if (item.id === id && isSelected) {
+          item.selectedCount++;
         }
         return item;
-      })
-    })
+      }),
+    });
   }
 }
 
