@@ -38,13 +38,35 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+  generateId() {
+    const limit = 100;
+    let attempts = 0;
+    let id = false;
+    while (!id && attempts < limit) {
+      // Максимум 1 000 уникальных комбинаций
+      id = new Date().valueOf().toString().slice(-3);
+
+      let match = this.state.list.find(item => {
+        return item.code.toString() === id;
+      });
+
+      if (match) {
+        id = false; 
+        attempts++;
+      }
+    }
+    return id;
+  };
+
   /**
    * Добавление новой записи
    */
   addItem() {
+    const code = this.generateId();
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, { code, title: 'Новая запись' }]
     })
   };
 
@@ -68,7 +90,13 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          if (!item.selectionCount) item.selectionCount = 100;
+
+          if (!item.selected) item.selectionCount++;
+
           item.selected = !item.selected;
+        } else {
+          item.selected = false;
         }
         return item;
       })
