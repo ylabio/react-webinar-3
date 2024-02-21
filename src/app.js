@@ -7,20 +7,39 @@ import './styles.css';
  * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
+function ListItem(props) {
+
+	const list = props.store.getState().list;
+	const [count, setCount] = React.useState(0);
+	const selectAction = (item) => {
+		if (!item.selected)
+		{
+			list.map(prop=>{
+				prop.selected = false;
+				return prop;
+			})
+			setCount(count + 1);
+		}
+		props.store.selectItem(item.code);
+	}
+	return (
+		<div key={props.item.code} className='List-item'>
+              <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
+                   onClick={() => selectAction(props.item)}>
+                <div className='Item-code'>{props.item.code}</div>
+                <div className='Item-title'>{props.item.title} {count > 0 ? ` | Выделяли ${count} раз` : ''}</div>
+                <div className='Item-actions'>
+                  <button onClick={() => store.deleteItem(props.item.code)}>
+                    Удалить
+                  </button>
+                </div>
+              </div>
+            </div>
+	)
+}
 function App({store}) {
 
   const list = store.getState().list;
-
-  const selectAction = (item) => {
-	if (!item.selected)
-	{
-		list.map(prop=>{
-			prop.selected = false;
-			return prop;
-		})
-	}
-	store.selectItem(item.code);
-  }
   return (
     <div className='App'>
       <div className='App-head'>
@@ -32,18 +51,7 @@ function App({store}) {
       <div className='App-center'>
         <div className='List'>{
           list.map(item =>
-            <div key={item.code} className='List-item'>
-              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => selectAction(item)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
-                <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
-                    Удалить
-                  </button>
-                </div>
-              </div>
-            </div>
+            <ListItem item={item} store={store}/>
           )}
         </div>
       </div>
