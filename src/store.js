@@ -70,7 +70,8 @@ class Store {
         if (item.code === code) {
           item.selected = !item.selected;
            item.count = item.count + 1;
-          
+          } else {
+            item.selected = false; // Сброс выделения у других записей
         }
         return item;
       })
