@@ -45,9 +45,11 @@ class Store {
   addItem() {
   
     this.setState({
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: Date.now(), title: 'Новая запись'}]
     })
   };
+
+  //Если дать уникальный код именно в выводе можно сделвть сортировку
 sortList(lists){
   //Не совсем понимаю зачем так делать. Если говорить об уникальности то я бы использовал nanoid()
   //Или бы время в милисекундах, но так как отображается список, решил сортировать
@@ -60,13 +62,16 @@ sortList(lists){
    * @param code
    */
   deleteItem(code) {
-    const deleteList=this.state.list.filter(item => item.code !== code);
     this.setState({
-      list: this.sortList(deleteList)
+      list: this.state.list.filter(item => item.code !== code)
     })
-
-
   };
+  // deleteItem(code) {
+  //   const deleteList=this.state.list.filter(item => item.code !== code);
+  //   this.setState({
+  //     list: this.sortList(deleteList)
+  //   })
+  // };
 
   /**
    * Выделение записи по коду
