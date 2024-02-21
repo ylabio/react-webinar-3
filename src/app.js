@@ -1,5 +1,4 @@
-import React from 'react';
-import {createElement} from './utils.js';
+import React, { useState } from 'react';
 import './styles.css';
 
 /**
@@ -7,9 +6,21 @@ import './styles.css';
  * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const list = store.getState().list;
+
+  const handlingSelectItem = (code) => {
+    if (code === selectedItem) {
+      store.clearSelectedItems();
+      setSelectedItem(null);
+    } else {
+      store.clearSelectedItems();
+      store.selectItem(code);
+      setSelectedItem(code);
+    }
+  };
 
   return (
     <div className='App'>
@@ -24,9 +35,11 @@ function App({store}) {
           list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
+                onClick={() => handlingSelectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>
+                  {`${item.title} ${item.completedSelectionNumber > 0 ? `| Выделяли ${item.completedSelectionNumber} раз` : ''}`}
+                </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
