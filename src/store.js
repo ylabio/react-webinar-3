@@ -11,10 +11,10 @@ class Store {
 			item.selections = 0;
 		});
 
-		this.lastCode =
-			initState.list.length > 0
-				? Math.max(...initState.list.map((item) => item.code))
-				: 0; // Последний использованный код
+		this.lastCode = initState.list.reduce(
+			(max, item) => Math.max(max, item.code),
+			0
+		);
 	}
 
 	/**
