@@ -39,6 +39,19 @@ class Store {
   }
 
   /**
+   * Генерация рандомного кода записи
+   *  @returns {String}
+   */
+  generateCode() {
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const randomIndexLetter = Math.floor(Math.random() * letters.length);
+    const randomCode =
+      letters[randomIndexLetter] + Math.floor(Math.random() * 1000);
+
+    return randomCode;
+  }
+
+  /**
    * Добавление новой записи
    */
   addItem() {
@@ -46,7 +59,7 @@ class Store {
       ...this.state,
       list: [
         ...this.state.list,
-        { code: this.state.list.length + 1, title: 'Новая запись' },
+        { code: this.generateCode(), title: 'Новая запись' },
       ],
     });
   }
