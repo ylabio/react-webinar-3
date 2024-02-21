@@ -1,3 +1,5 @@
+import { getLastCode } from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,6 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.lastCode = getLastCode(initState);
   }
 
   /**
@@ -44,8 +47,9 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.lastCode + 1, title: 'Новая запись'}]
     })
+    this.lastCode++
   };
 
   /**
