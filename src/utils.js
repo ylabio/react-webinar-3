@@ -26,3 +26,14 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+// Функция изменяющая окончание слов в зависимости от падежа
+export function transformWords(num, words) {  
+	let n = num % 10;
+    
+	if (num > 10 && num < 20) return `${num} ${words[2]}`;
+	if (n > 1 && n < 5) return `${num} ${words[1]}`;
+	if (n === 1) return `${num} ${words[0]}`;
+    
+	return `${num} ${words[2]}`;
+}
