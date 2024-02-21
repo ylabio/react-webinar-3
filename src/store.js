@@ -42,9 +42,18 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const uniqueNumber = Math.floor(Math.random() * (99 - 10 + 1)) + 10; // Генерация случайного двухзначного числа
+    const isUnique = !this.state.list.some(item => item.code === uniqueNumber); // Проверка на уникальность
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [
+          ...this.state.list,
+          {
+            code: isUnique ? uniqueNumber : null, // Добавление записи с уникальным кодом
+            title: 'Новая запись',
+            selectCount: 0
+          }
+      ]
     })
   };
 
@@ -68,7 +77,10 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          item.selectCount = !item.selected ? item.selectCount + 1 : item.selectCount // при выделенной записи его количество не изменится
           item.selected = !item.selected;
+        } else {
+          item.selected = item.selected && false // у всех других записей выделение отключится
         }
         return item;
       })
