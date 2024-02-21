@@ -26,3 +26,24 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Возвращает строку с правильным окончанием для фразы "Выделяли N раз".
+ * @param {number} count - Число выделений.
+ * @returns {string} Строка с правильным окончанием.
+ */
+export function countSelections(count = 0) {
+  const suffixes = new Map([
+    ['one', ' '],
+    ['two', 'а'],
+    ['few', 'а'],
+    ['many', ' '],
+    ['other', ' '],
+  ]);
+
+  const pluralRules = new Intl.PluralRules('ru');
+  const rule = pluralRules.select(count);
+  const suffix = suffixes.get(rule);
+
+  return `Выделяли ${count} раз${suffix}`;
+}
