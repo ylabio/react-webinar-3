@@ -63,12 +63,25 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
+  // selectItem(code) {
+  //   this.setState({
+  //     ...this.state,
+  //     list: this.state.list.map(item => {
+  //       if (item.code === code) {
+  //         item.selected = !item.selected;
+  //       }
+  //       return item;
+  //     })
+  //   })
+  // }
   selectItem(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+        }else if( item.code !== code) { // теперь всё гаснет кроме выделенного.
+          item.selected = false
         }
         return item;
       })
