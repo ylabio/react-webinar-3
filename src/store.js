@@ -52,7 +52,7 @@ class Store {
 	 * Добавление новой записи
 	 */
 	addItem() {
-		const newCode = ++this.lastCode; // Увеличиваем  значение на 1, а затем присваивать полученное значение переменной
+		const newCode = ++this.lastCode; // Увеличиваем  значение на 1, а затем присваиваем полученное значение переменной
 		const newItem = { code: newCode, title: 'Новая запись', selections: 0 }; // Создаем новую запись и устанавливаем selections в 0
 		this.setState({
 			...this.state,
