@@ -48,7 +48,6 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    // Генерируем уникальный код для новой записи
     let newItemCode;
     do {
       // Генерируем случайное число от 1 до 1000000
@@ -76,31 +75,40 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
+  User
+  
   selectItem(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          // Увеличиваем счетчик выделений
-          item.selectionCount += 1;
-          // Отменяем выделение для уже выделенных элементов
-          if (item.selected) {
-            item.selected = false;
-          } else {
-            // Сбрасываем выделение у других записей
-            this.state.list.forEach(otherItem => {
-              if (otherItem.code !== code && otherItem.selected) {
-                otherItem.selected = false;
-              }
-            });
-            // Выделяем текущий элемент
-            item.selected = true;
+          // Проверяем, выделен ли уже элемент
+          if (!item.selected) {
+            // Увеличиваем счетчик выделений только если элемент только что выделен
+            item.selectionCount += 1;
           }
+          // Выделяем текущий элемент или снимаем выделение
+          item.selected = !item.selected;
+        } else if (item.selected) {
+          // Снимаем выделение у других записей, если они были выделены ранее
+          item.selected = false;
         }
         return item;
       })
     });
   }
+  
+  
 }
 
 export default Store;
+
+/*
+
+// Генерируем уникальный код для новой записи
+    let newItemCode;
+    do {
+      // Генерируем случайное число от 1 до 1000000
+      newItemCode = Math.floor(Math.random() * 100) + 1;
+    } while (this.state.list.some(item => item.code === newItemCode)); // Проверяем уникальность кода
+*/
