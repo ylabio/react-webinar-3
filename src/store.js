@@ -88,8 +88,7 @@ class Store {
         if (item.code === code) {
           item.selected = !item.selected;
             if (item.selected) {
-              item.selectedCount++
-              item.title = `Новая запись | Выделяли ${item.selectedCount} раз`
+                item.selectedCount++
             }
         } else {
           item.selected = false
