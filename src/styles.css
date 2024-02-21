@@ -37,6 +37,7 @@ body {
 .Item {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   transition: background-color 1s;
 }
 
@@ -49,13 +50,36 @@ body {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+/* .Item-title {
   width: 100%;
   padding: 20px 10px;
+  
+} */
+.Item-block{
+  display: flex;
+  width: 100%;
+  padding: 20px 10px;
+  gap: 0 10px;
+  align-items: center;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-count{
+  display: none;
+}
+
+.Item-count::before{
+  content: ' Выделяли | ';
+}
+.Item-count::after{
+  content: ' раз';
+}
+
+.visible{
+  display: block;
 }
