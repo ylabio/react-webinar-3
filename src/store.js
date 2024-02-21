@@ -2,9 +2,12 @@
  * Хранилище состояния приложения
  */
 class Store {
+  #length=0;
+
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.#length = this.state.list.length;
   }
 
   /**
@@ -42,11 +45,12 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.#length++
     this.setState({
       ...this.state,
       list: [
         ...this.state.list, 
-        {code: this.state.list.length + 1, title: 'Новая запись', count: 0},
+        {code: this.#length, title: 'Новая запись', count: 0},
       ],
     })
   };
