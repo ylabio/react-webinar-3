@@ -26,3 +26,11 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function declension(count) {
+  const lastDigit = count % 10;
+  if (lastDigit >= 2 && lastDigit <= 4 && (count < 10 || count > 20)) {
+    return 'раза';
+  }
+  return 'раз';
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { createElement } from './utils.js';
 import './styles.css';
+import { declension } from './utils.js';
 
 /**
  * Приложение
@@ -10,14 +11,6 @@ import './styles.css';
 function App({ store }) {
 
   const list = store.getState().list;
-
-  function declension(count) {
-    const lastDigit = count % 10;
-    if (lastDigit >= 2 && lastDigit <= 4 && (count < 10 || count > 20)) {
-      return 'раза';
-    }
-    return 'раз';
-  }
 
   return (
     <div className='App'>
