@@ -13,7 +13,10 @@ const store = new Store({
     {code: 5, title: 'Запись'},
     {code: 6, title: 'Шестая запись'},
     {code: 7, title: 'Седьмая запись'},
-  ]
+  ].map(item => {
+    item.selectedCount = 0; 
+    return item;
+  })
 });
 
 const root = createRoot(document.getElementById('root'));
