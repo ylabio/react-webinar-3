@@ -3,15 +3,19 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState
+    };
+    this.lastId = this.state.list[this.state.list.length - 1].code;
     this.listeners = []; // Слушатели изменений состояния
   }
 
-  /**
-   * Подписка слушателя на изменения состояния
-   * @param listener {Function}
-   * @returns {Function} Функция отписки
-   */
+  // Генерация уникального идентификатора
+  generateId() {
+    this.lastId += 1;
+    return this.lastId;
+  }
+
   subscribe(listener) {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
@@ -42,37 +46,47 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newItem = {
+      code: this.generateId(),
+      title: 'Новая запись',
+      selectedCount: 0
+    };
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+      list: [...this.state.list, newItem],
+    });
+  }
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
+  // Удаление записи по коду
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      list: this.state.list.filter(item => item.code !== code),
+    });
+  }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
+  getSelectedCount(code) {
+    return this.state.list.find(item => item.code === code).selectedCount
+
+  }
+
+  // Выделение записи по коду
   selectItem(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.selectedCount += 1;
+          }
+        } else {
+          item.selected = false;
         }
         return item;
-      })
-    })
+      }),
+    });
   }
 }
 
