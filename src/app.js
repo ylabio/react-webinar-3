@@ -51,7 +51,7 @@ function App({store}) {
       <div className='App-center'>
         <div className='List'>{
           list.map(item =>
-            <ListItem item={item} store={store}/>
+            <ListItem key={item.code} item={item} store={store}/>
           )}
         </div>
       </div>
