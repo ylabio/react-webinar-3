@@ -1,3 +1,5 @@
+import { generateCode } from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -39,19 +41,6 @@ class Store {
   }
 
   /**
-   * Генерация рандомного кода записи
-   *  @returns {String}
-   */
-  generateCode() {
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const randomIndexLetter = Math.floor(Math.random() * letters.length);
-    const randomCode =
-      letters[randomIndexLetter] + Math.floor(Math.random() * 1000);
-
-    return randomCode;
-  }
-
-  /**
    * Добавление новой записи
    */
   addItem() {
@@ -59,7 +48,7 @@ class Store {
       ...this.state,
       list: [
         ...this.state.list,
-        { code: this.generateCode(), title: 'Новая запись' },
+        { code: generateCode(), title: 'Новая запись' },
       ],
     });
   }
@@ -85,6 +74,9 @@ class Store {
       list: this.state.list.map((item) => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.times = !item.times ? 1 : (item.times += 1);
+          }
         } else {
           item.selected = false;
         }

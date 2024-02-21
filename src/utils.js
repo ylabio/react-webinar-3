@@ -26,3 +26,16 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Генерация рандомного кода записи
+ *  @returns {String}
+ */
+export function generateCode() {
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const randomIndexLetter = Math.floor(Math.random() * letters.length);
+  const randomCode =
+    letters[randomIndexLetter] + Math.floor(Math.random() * 1000);
+
+  return randomCode;
+}
