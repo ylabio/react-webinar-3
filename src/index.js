@@ -5,7 +5,7 @@ import App from './app.js';
 import Store from './store.js';
 
 const store = new Store({
-  list: [
+   list: [
     {code: 1, title: 'Название элемента'},
     {code: 2, title: 'Некий объект'},
     {code: 3, title: 'Заголовок'},
@@ -13,7 +13,7 @@ const store = new Store({
     {code: 5, title: 'Запись'},
     {code: 6, title: 'Шестая запись'},
     {code: 7, title: 'Седьмая запись'},
-  ]
+  ] 
 });
 
 const root = createRoot(document.getElementById('root'));

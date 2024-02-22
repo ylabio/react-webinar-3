@@ -21,6 +21,8 @@ function App({store}) {
       </div>
       <div className='App-center'>
         <div className='List'>{
+          //надо ли учитывать вариант, что изначально не будет передано записей(в store.js 8ая строка учитывает такой случай)
+          /* list?.length ?  */
           list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
@@ -34,7 +36,7 @@ function App({store}) {
                 </div>
               </div>
             </div>
-          )}
+          )/*  : <div>Пусто</div> */}
         </div>
       </div>
     </div>
