@@ -26,3 +26,17 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export const generateId = (function () {
+  let count = 0;
+
+  function* generator(count) {
+    while (true) {
+      yield ++count;
+    }
+  }
+
+  const id = generator(count);
+  
+  return () => id.next().value;
+}());
