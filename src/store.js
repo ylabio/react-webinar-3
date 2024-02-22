@@ -67,9 +67,9 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
+        // Если код элемента совпадает с кодом кликнутого элемента,
+        // меняем его состояние на противоположное. Иначе - сбрасываем выделение.
+        item.selected = item.code === code ? !item.selected : false;
         return item;
       }),
     });
