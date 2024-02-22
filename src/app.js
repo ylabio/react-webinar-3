@@ -1,6 +1,6 @@
 import React from 'react';
-import {createElement} from './utils.js';
 import './styles.css';
+
 
 /**
  * Приложение
@@ -24,9 +24,13 @@ function App({store}) {
           list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
+                  onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>{item.title} 
+                  <div className='NumberOfSelects'>
+                    {item.numberOfSelects === 0 ? '' : ` Выделялось ${item.numberOfSelects} раз(a)`}
+                  </div>
+                </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
@@ -39,6 +43,9 @@ function App({store}) {
       </div>
     </div>
   );
+}
+
+export default App;
 }
 
 export default App;
