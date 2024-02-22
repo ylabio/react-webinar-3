@@ -72,6 +72,10 @@ class Store {
         // Если код элемента совпадает с кодом кликнутого элемента,
         // меняем его состояние на противоположное. Иначе - сбрасываем выделение.
         item.selected = item.code === code ? !item.selected : false;
+        // Если элемент выделен, увеличиваем счетчик выделений
+        if (item.selected) {
+          item.selectedCount = (item.selectedCount || 0) + 1;
+        }
         return item;
       }),
     });
