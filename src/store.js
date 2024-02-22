@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.listUsedCodes = initState.list.length; //Использованые code
   }
 
   /**
@@ -42,9 +43,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.listUsedCodes++ //Увеличение использованного code на единицу с каждым добавленым пунктом
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.listUsedCodes, title: 'Новая запись'}] //добавление нового элемента с не использованным code
     })
   };
 
@@ -64,11 +66,19 @@ class Store {
    * @param code
    */
   selectItem(code) {
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          item.selectedTimes = 1
+          item.title = item.title + '| Выделяли' + item.selectedTimes + 'раз'
+          if(item.selected){
+            item.selectedTimes++ //Не успела доработать чтобы менялось только число раз
+          }
+        } else {
+            item.selected = ""; //выделение снимается
         }
         return item;
       })
