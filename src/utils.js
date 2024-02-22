@@ -26,3 +26,11 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+// Генератор уникальных чисел элементов
+export const codeId = (() => {
+  let id = 1;
+  return () => {
+      return id ++;
+  };
+})();
