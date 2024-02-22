@@ -52,20 +52,9 @@ body {
 .Item-title {
   display: flex;
   flex: 1;
-  justify-content: flex-start;
-  width: fit-content;
   padding: 20px 10px;
-  padding-right: 5px;
-}
-
-.Item-clicks {
-  display: flex;
-  flex: 1;
-  padding: 20px 10px 20px 5px;
 }
 
 .Item-actions {
-  display: flex;
-  justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }
