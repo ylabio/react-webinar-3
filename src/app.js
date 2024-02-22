@@ -12,6 +12,7 @@ function App({store}) {
   const list = store.getState().list;
 
   return (
+    // test
     <div className='App'>
       <div className='App-head'>
         <h1>Приложение на чистом JS</h1>
