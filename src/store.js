@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.lastCode = initState.list[initState.list.length - 1]?.code ?? 0; // Последний использованный код
   }
 
   /**
@@ -42,9 +43,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.lastCode += 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.lastCode, title: 'Новая запись' }],
     });
   }
 
