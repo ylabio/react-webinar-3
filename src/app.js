@@ -27,7 +27,8 @@ function App({store}) {
                                      store.countItem(item.code)
                                  }}>
                                 <div className='Item-code'>{index + 1}</div>
-                                <div className='Item-title'>{item.title}|Выделено {item.count} раз</div>
+                                <div className='Item-title'>{item.title}
+                                    {item.count !== 0 && `|Выделено ${item.count} раз`}</div>
                                 <div className='Item-actions'>
                                     <button onClick={() => store.deleteItem(item.code)}>
                                         Удалить
