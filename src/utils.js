@@ -26,3 +26,22 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Генерация уникального числа
+ * @param min {Number} Минимальное значение
+ * @param max {Number} Максимальное значение
+ * @returns {Number}
+ */
+
+const uniqueNumbers = [];
+export function generateUniqueRandomNumber(min, max) {
+  let uniqueNumber;
+
+  do {
+    uniqueNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+  } while (uniqueNumbers.includes(uniqueNumber));
+
+  uniqueNumbers.push(uniqueNumber);
+  return uniqueNumber;
+}
