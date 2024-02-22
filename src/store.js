@@ -68,17 +68,31 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        
         if (item.code === code && !item.selected) {
-          item.selected = true;
-        } else if (item.code === code && !!item.selected) {
-          item.selected = false;
+          item.selected = !item.selected;
+          item.counter = this.counter(item);
         } else {
           item.selected = false;
         }
         return item;
       })
     })
+  }
+
+  /**
+   * Выведение количества совершенных выделений для каждого пункта
+   * @param selectedItem {Object}
+   */
+  counter(selectedItem) {
+    const specialNums = [2, 3, 4];
+    if (selectedItem.counter) {
+      const n = parseInt(selectedItem.counter) + 1;
+      const lastWord = specialNums.filter(el => el === n).length ? 'раза' : 'раз';
+      return `${n} ${lastWord}`
+    } else {
+      selectedItem.counter = 1;
+      return `1 раз`
+    }
   }
 }
 

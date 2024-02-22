@@ -59,3 +59,14 @@ body {
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }
+
+.Item-counter {
+  display: none;
+  padding: 0 20px;
+  margin-left: 20px;
+  border-left: 1px solid #ffffff;
+}
+
+.Item-counter_visible {
+  display: inline-block;
+}
