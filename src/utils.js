@@ -1,4 +1,4 @@
-const propNames = new Set(["id", "className", "textContent", "onclick"]);
+const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
 
 /**
  * Создание элемента со свойствами и вложенными элементами
@@ -27,10 +27,10 @@ export function createElement(name, props = {}, ...children) {
   return element;
 }
 
-export function pluralize(value, options, locale = "ru-RU") {
+export function pluralize(value, options, locale = 'ru-RU') {
   const option = new Intl.PluralRules(locale).select(value);
 
-  if (option === "few") {
+  if (option === 'few') {
     return options[1];
   } else {
     return options[0];

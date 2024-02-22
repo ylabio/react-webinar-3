@@ -1,6 +1,6 @@
-import React from "react";
-import "./styles.css";
-import { pluralize } from "./utils";
+import React from 'react';
+import './styles.css';
+import { pluralize } from './utils';
 
 /**
  * Приложение
@@ -16,31 +16,31 @@ function App({ store }) {
   };
 
   return (
-    <div className="App">
-      <div className="App-head">
+    <div className='App'>
+      <div className='App-head'>
         <h1>Приложение на React</h1>
       </div>
-      <div className="App-controls">
+      <div className='App-controls'>
         <button onClick={() => store.addItem()}>Добавить</button>
       </div>
-      <div className="App-center">
-        <div className="List">
+      <div className='App-center'>
+        <div className='List'>
           {list.map(item => (
-            <div key={item.code} className="List-item">
+            <div key={item.code} className='List-item'>
               <div
-                className={"Item" + (item.selected ? " Item_selected" : "")}
+                className={'Item' + (item.selected ? ' Item_selected' : '')}
                 onClick={() => store.selectItem(item.code)}
               >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">
+                <div className='Item-code'>{item.code}</div>
+                <div className='Item-title'>
                   {item.title}
                   {item.timesSelected &&
                     ` | Выделяли ${item.timesSelected} ${pluralize(
                       item.timesSelected,
-                      ["раз", "раза"]
+                      ['раз', 'раза']
                     )}`}
                 </div>
-                <div className="Item-actions">
+                <div className='Item-actions'>
                   <button onClick={e => onDeleteButtonClick(e, item.code)}>
                     Удалить
                   </button>
