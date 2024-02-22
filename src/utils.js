@@ -37,7 +37,6 @@ export function createElement(name, props = {}, ...children) {
 const uniqueNumbers = [];
 export function generateUniqueRandomNumber(min, max) {
 	let uniqueNumber;
-	console.log(min);
 	if (uniqueNumbers.length >= max - min + 1) {
 		max = 1000;
 	}
