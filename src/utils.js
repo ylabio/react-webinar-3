@@ -1,3 +1,5 @@
+import Store from "./store";
+
 const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
 
 /**
@@ -23,6 +25,16 @@ export function createElement(name, props = {}, ...children) {
   for (const child of children) {
     element.append(child);
   }
-
   return element;
+}
+
+export const getEnd = (value, wordsArr = ['РАЗ', 'РАЗА']) => {
+  let num = value;
+  for (let i = 0; i < String(value).length - 1; i++) {
+    num %= 10;
+  }
+  if ([2, 3, 4].indexOf(num) === -1 || (10 < value && value < 20)) {
+    return wordsArr[0];
+  }
+  return wordsArr[1];
 }
