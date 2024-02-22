@@ -1,4 +1,3 @@
-import React from "react";
 const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
 /**

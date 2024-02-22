@@ -2,8 +2,6 @@
  * Хранилище состояния приложения
  */
 
-var _ = require("lodash");
-
 function* codeGenerator(start) {
   while (true) yield start++;
 }
@@ -57,8 +55,6 @@ class Store {
       list: [
         ...this.state.list,
         {
-          // code: _.random(8, 10000),
-          // code: codeGenerator(this.state.list.length + 1).next().value,
           code: this.generator.next().value,
           title: "Новая запись",
         },
