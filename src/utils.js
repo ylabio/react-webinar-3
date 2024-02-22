@@ -40,3 +40,15 @@ export const generateId = (function () {
   
   return () => id.next().value;
 }());
+
+export function plural(value) {
+  const variants = {
+    one: 'раз', 
+    few: 'раза', 
+    many: 'раз'
+  };
+  
+  const key = new Intl.PluralRules('ru-RU').select(value);
+
+  return variants[key] || '';
+}
