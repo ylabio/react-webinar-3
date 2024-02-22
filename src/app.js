@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles.css";
+import { pluralize } from "./utils";
 
 /**
  * Приложение
@@ -33,7 +34,11 @@ function App({ store }) {
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
                   {item.title}
-                  {item.timesSelected && item.infSelected}
+                  {item.timesSelected &&
+                    ` | Выделяли ${item.timesSelected} ${pluralize(
+                      item.timesSelected,
+                      ["раз", "раза"]
+                    )}`}
                 </div>
                 <div className="Item-actions">
                   <button onClick={e => onDeleteButtonClick(e, item.code)}>
