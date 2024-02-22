@@ -4,10 +4,22 @@
 class Store {
     #arrNumbers; // создал отдельное поле, в котором храню массив кодов
 
+
+    // constructor(initState = {}) {
+    //
+    //     this.#arrNumbers = initState.list.map(el => el.code)// поместил все коды в массив
+    //     this.state = initState;
+    //     this.listeners = []; // Слушатели изменений состояния
+    // }
     constructor(initState = {}) {
+        initState = {
+            ...initState,
+            list: initState.list.map(item => ({...item, touchCount: 0})) // к каждому объекту массива добавляем поле touchCount со значением 0
+        }
         this.#arrNumbers = initState.list.map(el => el.code)// поместил все коды в массив
         this.state = initState;
         this.listeners = []; // Слушатели изменений состояния
+        console.log(initState)
     }
 
     /**
@@ -52,17 +64,16 @@ class Store {
     // };
 
     codeGenerator() {
-        let maxNumber = Math.max(...this.#arrNumbers) // вычисляю максимальное значение кода в массиве
+        let maxNumber = Math.max(...this.#arrNumbers) // вычисляю максимальное значение кода в массиве.
         const randomCode = maxNumber + 1; // просто прибавляю единицу к максимальному числу
         this.#arrNumbers.push(randomCode);// и пушу в массив
         return randomCode; // возвращаю число, которое всегда будет больше на единицу самого большого значения имеющихся кодов.
     }
 
-
     addItem() {
         this.setState({
             ...this.state,
-            list: [...this.state.list, {code: this.codeGenerator(), title: 'Новая запись'}]
+            list: [...this.state.list, {code: this.codeGenerator(), title: 'Новая запись', touchCount: 0}]//при создании новой записи добавил touchCount со значением 0
         })
     };
 
@@ -98,6 +109,9 @@ class Store {
             list: this.state.list.map(item => {
                 if (item.code === code) {
                     item.selected = !item.selected;
+                    if (item.selected) { // если итем выделен
+                        item.touchCount = item.touchCount + 1 // увеличиваю  touchCount на 1
+                    }
                 } else if (item.code !== code) { // теперь всё гаснет кроме выделенного.
                     item.selected = false
                 }
