@@ -39,12 +39,25 @@ class Store {
   }
 
   /**
+   * Генерация числа и проверка на уникальность
+   */
+  generateUniqueCode() {
+    let uniqueCode;
+    do {
+      uniqueCode = Math.floor(Math.random() * 1000);
+    } while (this.state.list.some(item => item.code === uniqueCode));
+
+    return uniqueCode;
+  }
+  /**
    * Добавление новой записи
    */
   addItem() {
+    let uniqueCode = this.generateUniqueCode();
+
     this.setState({
         ...this.state,
-        list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+        list: [...this.state.list, {code: uniqueCode, title: 'Новая запись'}]
       })
     };
 
@@ -69,6 +82,9 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.choiceCount = (item.choiceCount || 0) + 1; // Счетчик кликов
+          }
         } else {
           item.selected = false; // Сбросить выделение с других записей
         }
