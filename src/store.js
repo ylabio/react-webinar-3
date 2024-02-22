@@ -44,7 +44,11 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: (Math.random() * 100).toPrecision(3), title: 'Новая запись'}]
+      list: [...this.state.list, {
+        code: (Math.random() * 100).toPrecision(3),
+        title: 'Новая запись',
+        selectionCount: 0
+      }]
     })
   };
 
@@ -69,6 +73,9 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.selectionCount = (item.selectionCount || 0) + 1; // Увеличиваем счетчик выделений
+          }
         } else {
           item.selected = false;
         }
