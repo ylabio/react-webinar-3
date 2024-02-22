@@ -44,7 +44,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.randoomNumber(), title: 'Новая запись',count:0}]
     })
   };
 
@@ -59,16 +59,46 @@ class Store {
     })
   };
 
+
+randoomNumber(){
+  var numReserve = []
+  while (numReserve.length < 1) {
+    var randomNumber = Math.ceil(Math.random() * 1000);
+    var found = false;
+    for (var i = 0; i < numReserve.length; i++) {
+    if (numReserve[i] === randomNumber){
+     found = true;
+     break;
+    }
+    }
+    if (!found) { numReserve[numReserve.length]=randomNumber; }
+  }
+
+  return numReserve[0];
+  
+}
+
+
+
   /**
    * Выделение записи по коду
-   * @param code
    */
-  selectItem(code) {
+  selectItem(selected,code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+    
+      //  return item;
+      //  return item;
         if (item.code === code) {
-          item.selected = !item.selected;
+          item.selected = true;
+          item.count=item.count+1
+        }else{
+          item.selected = false;
+        }
+        if(item.code === code&&true ==selected){
+          item.selected = false;
+          item.count=item.count-1
         }
         return item;
       })
