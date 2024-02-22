@@ -17,7 +17,7 @@ class Store {
     // Возвращается функция для удаления добавленного слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);
-    }
+    };
   }
 
   /**
@@ -39,13 +39,28 @@ class Store {
   }
 
   /**
+   * Поиск Максимального значения this.state.list.code
+   */
+  getCountCodeMax() {
+    let codeMax = 0;
+
+    this.state.list.forEach(item => {
+      if (item.code > codeMax) {
+        codeMax = item.code;
+      }
+    });
+
+    return codeMax;
+  }
+
+  /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
+      list: [...this.state.list, {code: this.getCountCodeMax() + 1, title: "Новая запись"}],
+    });
   };
 
   /**
@@ -55,8 +70,8 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
+      list: this.state.list.filter(item => item.code !== code),
+    });
   };
 
   /**
@@ -67,12 +82,24 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        if (!item.hasOwnProperty("selectCount")) {
+          item.selectCount = 0;
         }
+
+        if (item.code === code) {
+          if (!item.selected) {
+            item.selectCount += 1;
+          }
+
+          item.selected = !item.selected;
+        } else {
+          item.selected = false;
+        }
+
         return item;
-      })
-    })
+      }),
+    });
+    // console.log(this.state.list);
   }
 }
 
