@@ -36,7 +36,10 @@ function App() {
 
   const addItem = () => {
     const codeUpd = getRandomInt(select.length, select.length * 10);
-    setSelected([...select, { code: codeUpd, title: "Новая запись" }]);
+    setSelected([
+      ...select,
+      { code: codeUpd, title: "Новая запись", selected: false },
+    ]);
   };
 
   const allValues = (obj) => {
@@ -56,9 +59,22 @@ function App() {
 
   const findByCode = (code) => {
     const newSelect = select;
+    if (newSelect.find((item) => item.code === code).selected === true) {
+      newSelect.find((item) => item.code === code).selected = false;
+      setSelected([...newSelect]);
+      console.log(newSelect);
+    } else if (
+      newSelect.find((item) => item.code === code).selected === false
+    ) {
+      newSelect.find((item) => item.code === code).selected = true;
+      setSelected([...newSelect]);
+      console.log(newSelect);
+    }
+
+    /*const newSelect = select;
     newSelect.map((item) => (item.selected = false));
     newSelect.find((item) => item.code === code).selected = true;
-    setSelected([...select]);
+    setSelected([...select]);*/
   };
 
   useEffect(() => showSelect(), []);
@@ -98,7 +114,9 @@ function Item({ code, title, selected, findByCode, setSelected, select }) {
       <div
         onClick={() => {
           findByCode(code);
-          setCount(count + 1);
+          if (selected === true) {
+            setCount(count + 1);
+          }
         }}
         className={!selected ? "Item" : "Item Item_selected"}
       >
