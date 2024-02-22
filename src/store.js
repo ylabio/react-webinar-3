@@ -69,6 +69,9 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          // fix: selecting of item is below !!
+        } else {
+          item.selected = false;
         }
         return item;
       })
