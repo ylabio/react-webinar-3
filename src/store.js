@@ -80,6 +80,23 @@ class Store {
       })
     })
   }
+
+  /**
+   * Feat: Counting of selecting
+   */
+  countSelect() {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.selected && item.count) {
+          item.count += 1;
+        } else if (item.selected && !item.count) {
+          item.count = 1;
+        }
+        return item;
+      })
+    })
+  }
 }
 
 export default Store;
