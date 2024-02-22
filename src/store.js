@@ -17,7 +17,7 @@ class Store {
     // Возвращается функция для удаления добавленного слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);
-    }
+    };
   }
 
   /**
@@ -44,9 +44,9 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+    });
+  }
 
   /**
    * Удаление записи по коду
@@ -55,9 +55,9 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      list: this.state.list.filter(item => item.code !== code),
+    });
+  }
 
   /**
    * Выделение записи по коду
@@ -71,8 +71,8 @@ class Store {
           item.selected = !item.selected;
         }
         return item;
-      })
-    })
+      }),
+    });
   }
 }
 
