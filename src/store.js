@@ -1,10 +1,17 @@
+import {createIdGenerator} from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
+const MAX_ID_CODE = 50;
+
+const randomId = createIdGenerator(MAX_ID_CODE);
+
 class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.usedCodes = new Set();
   }
 
   /**
@@ -42,9 +49,15 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    let newCode;
+    do {
+      newCode = Math.max(...this.state.list.map(item => item.code), randomId()) + 1;
+    } while (this.usedCodes.has(newCode));
+    this.usedCodes.add(newCode);
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: newCode, title: 'Новая запись'}]
     })
   };
 
@@ -69,8 +82,27 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+        } else {
+          item.selected = false;
         }
+
         return item;
+      })
+    })
+  }
+
+  incrementCountClicks(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          if (!item.count) {
+            item.count = 0;
+          }
+          return {...item, count: item.count + 1};
+        } else {
+          return item;
+        }
       })
     })
   }
