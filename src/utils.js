@@ -1,4 +1,4 @@
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
+const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
 /**
  * Создание элемента со свойствами и вложенными элементами
@@ -25,4 +25,9 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
+}
+
+export function createCode(inputCode) {
+  const uniqueCode = Math.random(inputCode);
+  return uniqueCode;
 }
