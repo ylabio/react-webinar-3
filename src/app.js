@@ -41,6 +41,22 @@ function ListItem({ item, store }) {
 		store.selectItem(item.code);
 	};
 
+	function getNounForm(number, one, two, five) {
+		let num = Math.abs(number);
+		num %= 100;
+		if (num >= 5 && num <= 20) {
+			return five;
+		}
+		num %= 10;
+		if (num === 1) {
+			return one;
+		}
+		if (num >= 2 && num <= 4) {
+			return two;
+		}
+		return five;
+	}
+
 	return (
 		<div className="List-item">
 			<div
@@ -59,7 +75,8 @@ function ListItem({ item, store }) {
 			</div>
 			{item.selections > 0 && (
 				<div className="Item-selections">
-					Выделяли {item.selections} раз
+					Выделяли {item.selections}{' '}
+					{getNounForm(item.selections, 'раз', 'раза', 'раз')}
 				</div>
 			)}
 		</div>
