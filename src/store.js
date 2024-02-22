@@ -1,3 +1,5 @@
+import { useId } from "react";
+
 /**
  * Хранилище состояния приложения
  */
@@ -39,12 +41,19 @@ class Store {
   }
 
   /**
+   * Генерируем уникальный code
+   */
+  keyGen(){
+    return Math.max(...this.state.list.map(el => el.code)) + 1
+  }
+  
+  /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code:this.keyGen(), title: 'Новая запись'}]
     })
   };
 
