@@ -8,21 +8,32 @@ const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
  * @returns {HTMLElement}
  */
 export function createElement(name, props = {}, ...children) {
-  const element = document.createElement(name);
+    const element = document.createElement(name);
 
-  // Назначение свойств и атрибутов
-  for (const name of Object.keys(props)) {
-    if (propNames.has(name)) {
-      element[name] = props[name];
-    } else {
-      element.setAttribute(name, props[name]);
+    // Назначение свойств и атрибутов
+    for (const name of Object.keys(props)) {
+        if (propNames.has(name)) {
+            element[name] = props[name];
+        } else {
+            element.setAttribute(name, props[name]);
+        }
     }
-  }
 
-  // Вставка вложенных элементов
-  for (const child of children) {
-    element.append(child);
-  }
+    // Вставка вложенных элементов
+    for (const child of children) {
+        element.append(child);
+    }
 
-  return element;
+    return element;
+}
+
+export function pluralizeCounter(count) {
+    const lastDigit = count % 10;
+    return count >= 11 && count <= 19
+        ? `${count} раз`
+        : lastDigit === 1
+        ? `${count} раз`
+        : lastDigit >= 2 && lastDigit <= 4
+        ? `${count} раза`
+        : `${count} раз`;
 }
