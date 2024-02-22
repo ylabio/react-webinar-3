@@ -47,5 +47,3 @@ function App({store}) {
 
 export default App;
 }
-
-export default App;
