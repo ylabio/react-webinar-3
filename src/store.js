@@ -6,12 +6,9 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.ids = []; // Массив для хранения всех id
-
-    this.state.list.map((item) => {
-      // Добавляем в массив ids, коды начального массива, чтоб исключить повторение
-      this.ids.push(item.code);
-      // Добаляем каждому элементу счетчик для подсчета выделения элемента
-      item.counter = 0;
+    this.state.list.map((item) => { // Мапим массив состояния и возвращаем новый массив
+      this.ids.push(item.code); // Добавляем все имеющиеся id в массив, чтоб исключить повторения при генерации новых id
+      item.counter = 0; // каждому элементу добавляем счетчик для подсчета выделения
     });
   }
 
@@ -50,10 +47,13 @@ class Store {
    * Генерация уникального id
    */
   genUniqueId() {
-    // Создаем переменную id, которая равна длинне массива в котором хранятся все id + 1
-    const id = this.ids.length + 1;
-    // После создания id добавляем ее в массив, где хранятся все id
-    this.ids = [...this.ids, id];
+    let id = Math.floor(Math.random() * (this.ids.length + 5));
+
+    while (this.ids.includes(id)) {
+      id = Math.floor(Math.random() * (this.ids.length + 5));
+    }
+
+    this.ids.push(id);
     return id;
   }
 
