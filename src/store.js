@@ -42,11 +42,21 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const num = this.generateNum();
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+      list: [...this.state.list, { code: num, title: 'Новая запись' }]
+    });
+  }
+
+  generateNum() {
+    const usedNums = new Set(this.state.list.map(item => item.code));
+    let newNum = this.state.list.length + 1;
+    while (usedNums.has(newNum)) {
+      newNum++;
+    }
+    return newNum;
+  }
 
   /**
    * Удаление записи по коду
@@ -69,10 +79,16 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          item.clickCount = (item.clickCount || 0) + 1;
+          if (item.clickCount % 2 !== 0) {
+            console.log(`Выделяли ${Math.ceil(item.clickCount / 2)} раз`);
+          }
+        } else {
+          item.selected = false;
         }
         return item;
       })
-    })
+    });
   }
 }
 
