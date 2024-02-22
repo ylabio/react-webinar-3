@@ -73,10 +73,6 @@ class Store {
           if (item.selected){
             item.numberOfClicks= item.numberOfClicks +1;
           }
-          if (item.numberOfClicks>= 1){
-
-          }
-
         }
         else {
           item.selected = null;
