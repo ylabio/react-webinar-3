@@ -28,7 +28,7 @@ function App({store}) {
                   <div className='Item-info'>
                       <div className='Item-title'>{item.title}</div>
                       {
-                          (item.selectionCounter !== 0) && <div className='Item-counter'>| Выделили {item.selectionCounter} раз</div>
+                          (item.selectionCounter) && <div className='Item-counter'>| Выделили {item.selectionCounter} раз</div>
                       }
                   </div>
                 <div className='Item-actions'>
