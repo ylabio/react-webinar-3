@@ -26,3 +26,9 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function* genCode(startVal) {
+  for (let i = startVal + 1; ; i++) {
+    yield i;
+  }
+}
