@@ -48,7 +48,10 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.codeGenerator.generateNextCode(), title: 'Новая запись'}]
+      list: [...this.state.list, {
+        code: this.codeGenerator.generateNextCode(),
+        title: 'Новая запись'
+      }]
     })
   };
 
@@ -75,6 +78,7 @@ class Store {
           item.selected = false;
         } else if (item.code === code) {
           item.selected = true;
+          item.selected_count = item.selected_count ? item.selected_count + 1 : 1;
         }
         return item;
       })
