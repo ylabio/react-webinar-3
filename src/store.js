@@ -45,7 +45,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.key + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.key + 1, title: 'Новая запись', clickedCount: 0}]
     })
     this.key += 1;
   };
@@ -74,7 +74,9 @@ class Store {
         } else if (item.code === code) {
           item.selected = !item.selected;
         }
-        
+        if (item.selected) {
+          item.clickedCount += 1;
+        }
         return item;
       })
     })
