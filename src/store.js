@@ -2,7 +2,7 @@
  * Хранилище состояния приложения
  */
 class Store {
-  constructor(initState = {numb: 7}) {
+  constructor(initState = { numb: 7 }) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
   }
@@ -16,8 +16,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -42,12 +42,15 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    const numb = this.state.list.slice(-1)[0] != undefined ? this.state.list.slice(-1)[0].code + 1 : 1;
+    const numb =
+      this.state.list.slice(-1)[0] != undefined
+        ? this.state.list.slice(-1)[0].code + 1
+        : 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: numb, title: 'Новая запись'}]
-    })
-  };
+      list: [...this.state.list, { code: numb, title: "Новая запись" }],
+    });
+  }
 
   /**
    * Удаление записи по коду
@@ -56,9 +59,9 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      list: this.state.list.filter((item) => item.code !== code),
+    });
+  }
 
   /**
    * Выделение записи по коду
@@ -67,16 +70,28 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
         if (item.code === code) {
+          if (!item.selected) {
+            if (item.title.includes(" | Выделяли ")) {
+              var checked = Number(item.title.substring(item.title.lastIndexOf(" | Выделяли ") + 12,  item.title.lastIndexOf(" раз"))) + 1;
+              if([2,3,4].indexOf(checked) != -1) {
+                item.title = item.title.substring(0, item.title.lastIndexOf(" |")) + ` | Выделяли ${checked} раза`
+              }
+              else {
+                item.title = item.title.substring(0, item.title.lastIndexOf(" |")) + ` | Выделяли ${checked} раз`
+              }
+            } else {
+              item.title = item.title + " | Выделяли 1 раз";
+            }
+          }
           item.selected = !item.selected;
-        }
-        else {
+        } else {
           item.selected = false;
         }
         return item;
-      })
-    })
+      }),
+    });
   }
 }
 
