@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.selected_code = -1; //Код выделенной записи
   }
 
   /**
@@ -67,12 +68,16 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        if (item.code === this.selected_code) {
+          item.selected = false;
+        } else if (item.code === code) {
+          item.selected = true;
         }
         return item;
       })
-    })
+    });
+
+    this.selected_code = code === this.selected_code ? -1 : code;
   }
 }
 
