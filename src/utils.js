@@ -25,4 +25,15 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
-}
+};
+
+export function formatted( number, word='раз' ) {
+  if ( number % 10 === 0 || number % 10 === 1 ) {
+    return word;
+  } else if ( (number % 100 >= 5 && number % 100 <= 20)
+    || (number % 10 >= 5 && number % 10 <= 9) ) {
+        return word;
+      } else {
+        return word + 'а';
+      }
+};
