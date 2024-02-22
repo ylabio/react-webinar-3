@@ -9,7 +9,7 @@ const list = [
     {code: 3, title: 'Заголовок'},
     {code: 4, title: 'Очень длинное название элемента из семи слов'},
     {code: 5, title: 'Запись'},
-    {code: 6, title: 'Шестая запись', selectionCount: 2},
+    {code: 6, title: 'Шестая запись'},
     {code: 7, title: 'Седьмая запись'},
   ];
 
