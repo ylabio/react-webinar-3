@@ -75,7 +75,8 @@ class Store {
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
     })
-  };
+  }
+  
 
   /**
    * Выделение записи по коду
@@ -88,10 +89,10 @@ class Store {
         if (item.code === code) {
           item.selected = !item.selected;
             if (item.selected) {
-                item.selectedCount++
-            }
+              item.selectedCount++
+            } 
         } else {
-          item.selected = false
+          item.selected = false;
         }
         return item;
       })

@@ -26,3 +26,31 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function pluralize(count) {
+
+  let str = count.toString()
+
+  const lastTwoDigits = str.slice(-2)
+
+  if (str.length >= 2 && lastTwoDigits[0] == 1) {
+    return 'раз'
+  } else {
+    const lastDigit = str.slice(-1)
+
+    switch (lastDigit) {
+      case '0':
+      case '1':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+        return 'раз'
+      case '2':
+      case '3':
+      case '4':
+        return 'раза'
+    }
+  }
+}

@@ -13,7 +13,8 @@ const store = new Store({
     {code: 5, title: 'Запись', selectedCount: 0},
     {code: 6, title: 'Шестая запись', selectedCount: 0},
     {code: 7, title: 'Седьмая запись', selectedCount: 0},
-  ]
+  ], 
+  selectedItem: null
 });
 
 const root = createRoot(document.getElementById('root'));
