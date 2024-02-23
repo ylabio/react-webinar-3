@@ -35,13 +35,14 @@ export function createElement(name, props = {}, ...children) {
  */
 export function getRightForm(number, ...forms) {
   if (forms.length === 0) return '';
-  
-  const decReminder = number % 100;
+
+  const decRemainder = number % 100;
   const remainder = number % 10;
 
-  if (![12,13,14].includes(decReminder) && remainder === 1) return forms[0];
+  if (![12, 13, 14].includes(decRemainder)) {
+    if ([2, 3, 4].includes(remainder)) return forms[1] ? forms[1] : forms[0];
+    if (remainder === 1) return forms[0]
+  }
 
-  if (![12,13,14].includes(decReminder) && [2,3,4].includes(remainder)) return forms[1] ? forms[1] : forms[0];
-  
   return forms[2] ? forms[2] : forms[0];
 }
