@@ -30,7 +30,7 @@ function App({store}) {
                   item.count ? `| ${countSelections(item.count)}` : ''
                   }`}</div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClickCapture={() => store.deleteItem(item.code)}>
                     Удалить
                   </button>
                 </div>
