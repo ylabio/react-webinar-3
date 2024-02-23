@@ -26,3 +26,13 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getEnding(num) {
+  const exceptions = [12, 13, 14];
+  const lastNum = num % 10;
+  const lastTwoNum = num % 100;
+  if (exceptions.includes(num) || exceptions.includes(lastTwoNum)) {
+    return '';
+  }
+  return (1 < lastNum && lastNum < 5) ? 'a' : '';
+}
