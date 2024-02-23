@@ -9,12 +9,15 @@ import './styles.css';
  */
 function App({store}) {
 
-  const list = store.getState().list;
+  const list = store.getState().list;  
 
   return (
     <div className='App'>
       <div className='App-head'>
         <h1>Приложение на чистом JS</h1>
+      </div>
+      <div className='App-count_selected'>
+        {(store.counter != 0 ? 'Выделяли ' + store.counter + ' раз' : '')}
       </div>
       <div className='App-controls'>
         <button onClick={() => store.addItem()}>Добавить</button>

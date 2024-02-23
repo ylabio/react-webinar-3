@@ -6,6 +6,13 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
   }
+  counter = 0;  // переменная счётчика (0 начальное значение)
+  numId = 8;  // Id записи (8 начальное значение)
+
+  // функция для прибавления счётчика
+  increment () {
+    return this.counter += 1;
+  }
 
   /**
    * Подписка слушателя на изменения состояния
@@ -44,8 +51,9 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.numId, title: 'Новая запись'}]// вывожу Id записи
     })
+    this.numId += 1;//прибавляю Id для следующий записи
   };
 
   /**
@@ -67,8 +75,15 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        
+        if (item.code === code) {// Если итем равняется
+          item.selected = !item.selected;//то меняем истуну на лож или наоборот у выделения итема
+        }
+        else {// если итем не равняется
+          item.selected = false;//то выделение лож
+        }
+        if (item.selected == true) {//если выделение истина
+          this.increment();// то прибавляем единицу к счётчику выделений
         }
         return item;
       })
