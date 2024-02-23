@@ -3,77 +3,78 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      list: initState.list ? initState.list.map(item => ({...item, selectedCount: 0})) : []
+    };
     this.listeners = []; // Слушатели изменений состояния
+    this.lastCode = this.getLastCode(); // Последний использованный код
   }
 
-  /**
-   * Подписка слушателя на изменения состояния
-   * @param listener {Function}
-   * @returns {Function} Функция отписки
-   */
+  getLastCode() {
+    if (!this.state || !this.state.list || !Array.isArray(this.state.list) || this.state.list.length === 0) {
+      return 0; // Возвращаем 0, если список пуст
+    }
+    // Ищем максимальный код в текущем списке
+    return Math.max(...this.state.list.map(item => item.code));
+  }
+
   subscribe(listener) {
     this.listeners.push(listener);
-    // Возвращается функция для удаления добавленного слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);
     }
   }
-
-  /**
-   * Выбор состояния
-   * @returns {Object}
-   */
   getState() {
     return this.state;
   }
 
-  /**
-   * Установка состояния
-   * @param newState {Object}
-   */
   setState(newState) {
     this.state = newState;
-    // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
+  generateUniqueCode() {
+    return ++this.lastCode;
+  }
+
   addItem() {
+    const newCode = this.generateUniqueCode();
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, { code: newCode, title: 'Новая запись', selectedCount: 0 }]
     })
   };
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
+  deleteItem(codeToDelete) {
+    const updatedList = this.state.list.filter(item => item.code !== codeToDelete);
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
+      list: updatedList
+    });
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
   selectItem(code) {
+    if (!this.state || !this.state.list || !Array.isArray(this.state.list)) {
+      return;
+    }
+
+    const updatedList = this.state.list.map(item => {
+      if (item.code === code) {
+        item.selected = !item.selected;
+        item.selectedCount++; // Увеличиваем счетчик выделений
+      } else {
+        item.selected = false;
+      }
+      return item;
+    });
+
     this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      })
-    })
+      list: updatedList
+    });
   }
 }
 
 export default Store;
+
+
