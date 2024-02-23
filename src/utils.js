@@ -1,4 +1,4 @@
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
+const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
 /**
  * Создание элемента со свойствами и вложенными элементами
@@ -25,4 +25,22 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
+}
+
+// Функция для возврата правильного окончания для слова "раз" по переданному числу
+export function formatCounterWord(counter) {
+  let rem = counter % 100;
+
+  if (rem >= 5 && rem <= 20) {
+    return "раз";
+  }
+
+  rem = counter % 10;
+
+  console.log(rem);
+  if (rem >= 2 && rem <= 4) {
+    return "раза";
+  } else {
+    return "раз";
+  }
 }
