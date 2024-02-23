@@ -1,3 +1,5 @@
+import {getGreaterRecordCode, generateNewUniqueCode} from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -9,9 +11,9 @@ class Store {
     // Добавить счётчик выделений элемента с нулём по умолчанию 
     this.state.list.forEach((item) => item.selectCount = 0)
     
-    // Генерация уникального кода для новых записей
-    // В последствии он будет увеличиваться на 1
-    this.initalCode = this.generateInitialCode();
+    // Получить самое большое значения кода в начальных записях
+    // Впоследствии он будет использоваться для генерации кодов новых записей
+    this.initalCode = getGreaterRecordCode(this.state.list);
   }
 
   /**
@@ -49,10 +51,16 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    // Генерируем код для новой записи
+    const newCode = generateNewUniqueCode(this.initalCode)
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.generateNewUniqueCode(), title: 'Новая запись', selectCount: 0},]
+      list: [...this.state.list, {code: newCode, title: 'Новая запись', selectCount: 0},]
     })
+
+    // Сохраняем код новой записи
+    this.initalCode = newCode;
   };
 
   /**
@@ -98,24 +106,6 @@ class Store {
     })
   }
 
-  // Проанализирует коды начальных значений и вернёт код с самым большим значением 
-  // на основе него буду генерироваться новые коды для новых записей 
-  generateInitialCode() {
-    let initalCode = 0;
-
-    this.state.list.map((item) => {
-      if (item.code > initalCode) {
-        initalCode = item.code;
-      }
-    })
-
-    return initalCode;
-  }
-  
-  // Генерирует новый уникальный код путём инкремента прошлого кода на 1
-  generateNewUniqueCode() {
-    return this.initalCode += 1;
-  }
 }
 
 export default Store;
