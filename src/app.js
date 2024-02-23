@@ -11,8 +11,15 @@ function App({store}) {
 
   const {list, selectedItemCode} = store.getState();
   const createItemText = (item) => {
+    const takeLastDigits = (amt, number) => parseInt(number.toString().slice(-amt));
+    const lastOne = takeLastDigits(1, item.selectedTimes);
+    const lastTwo = takeLastDigits(2, item.selectedTimes);
+    const ending = [2, 3, 4].includes(lastOne)
+      && ![12, 13, 14].includes(lastTwo)
+      ? 'a'
+      : '';
     return item.selectedTimes === 0 ? item.title :
-    `${item.title} | Выделяли ${item.selectedTimes} раз(а)`
+    `${item.title} | Выделяли ${item.selectedTimes} раз${ending}`
    }
 
    const handleDelete = (code) => (e) => {
