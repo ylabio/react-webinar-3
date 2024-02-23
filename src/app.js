@@ -1,5 +1,6 @@
 import React from 'react';
 import { createElement } from './utils.js';
+import { getNounForm } from './utils.js';
 import './styles.css';
 
 /**
@@ -41,22 +42,6 @@ function ListItem({ item, store }) {
 		store.selectItem(item.code);
 	};
 
-	function getNounForm(number, one, two, five) {
-		let num = Math.abs(number);
-		num %= 100;
-		if (num >= 5 && num <= 20) {
-			return five;
-		}
-		num %= 10;
-		if (num === 1) {
-			return one;
-		}
-		if (num >= 2 && num <= 4) {
-			return two;
-		}
-		return five;
-	}
-
 	return (
 		<div className="List-item">
 			<div
@@ -64,7 +49,15 @@ function ListItem({ item, store }) {
 				onClick={handleToggleSelection}
 			>
 				<div className="Item-code">{item.code}</div>
-				<div className="Item-title">{item.title}</div>
+				<div className="Item-title">
+					{item.title}{' '}
+					{item.selections > 0 && (
+						<span>
+							| Выделяли {item.selections}{' '}
+							{getNounForm(item.selections, 'раз', 'раза', 'раз')}
+						</span>
+					)}
+				</div>
 				<div className="Item-actions">
 					<button
 						onClick={(event) => store.deleteItem(item.code, event)}
@@ -73,12 +66,6 @@ function ListItem({ item, store }) {
 					</button>
 				</div>
 			</div>
-			{item.selections > 0 && (
-				<div className="Item-selections">
-					Выделяли {item.selections}{' '}
-					{getNounForm(item.selections, 'раз', 'раза', 'раз')}
-				</div>
-			)}
 		</div>
 	);
 }
