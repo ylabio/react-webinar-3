@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.lastCount = initState.list[initState.list.length - 1]?.code ?? 0; // Запоминаем код последней строчки 
   }
 
   /**
@@ -38,13 +39,18 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+  setCount(newCount){
+    this.lastCount = newCount + 1; // К коду, который мы запомнили, добавляем +1
+    return this.lastCount // Возвращаем результат
+  }
+
   /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.setCount(this.lastCount), title: 'Новая запись', countSelect:0}]
     })
   };
 
@@ -67,8 +73,17 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        if (item.code != code) {
+          item.selected = false;
+        } /* <-- Если мы вызываем при помощи map весь список, 
+         то можно просто изначально убирать выделения со всех остальных записей */
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected === true){ 
+            item.countSelect = item.countSelect + 1;
+            /* Создал доп. проверку, ведь нам нужно прибавлять число выделений только тогда, когда мы выделяем строку 
+            (Без проверки число бы увеличивалось даже если мы выделяем другую строку) */
+          }
         }
         return item;
       })
