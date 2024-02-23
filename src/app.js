@@ -1,5 +1,4 @@
 import React from 'react';
-import {createElement} from './utils.js';
 import './styles.css';
 
 /**
@@ -10,6 +9,22 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
+
+  // Получить префикс с плюрализацией
+  // Если число выделений = 0, то вернёт пустую строку
+  const getPrefix = (selectCount) => {
+    const pluralizeNums = ['2', '3', '4'] 
+    
+    let ending = ''
+
+    if (selectCount < 10 || selectCount > 20) {
+      ending = pluralizeNums.includes(selectCount.toString().at(-1)) ? 'а' : '' 
+    } 
+
+    const prefix = selectCount ? ` | Выделяли ${selectCount} раз${ending}` : '';
+    
+    return prefix;
+  }
 
   return (
     <div className='App'>
@@ -22,18 +37,12 @@ function App({store}) {
       <div className='App-center'>
         <div className='List'>{
           list.map(item => {
-
-            const selectCount = item.selectCount
-
-            // Если есть значение и оно не нулевое -> префикс будет не пустым
-            const titlePrefix = selectCount ? ` | Выделяли ${selectCount} раз` : ''
-            
             return (
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                   onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title + titlePrefix}</div>
+                <div className='Item-title'>{item.title + getPrefix(item.selectCount)}</div>
                 <div className='Item-actions'>
                   <button onClick={(e) => {
                     e.stopPropagation();
