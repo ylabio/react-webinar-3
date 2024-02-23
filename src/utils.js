@@ -27,7 +27,6 @@ export function createElement(name, props = {}, ...children) {
   return element;
 }
 
-export function getLastCode(obj) {
-  const codes = obj.list.map(item => item.code)
-  return Math.max(...codes)
+export function getLastCode(list) {
+  return list[list.length - 1].code
 }

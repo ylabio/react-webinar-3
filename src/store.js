@@ -8,7 +8,7 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.lastSelectedItemCode = null;
-    this.lastCode = getLastCode(initState) + 1;
+    this.lastCode = getLastCode(initState.list) + 1;
   }
 
   /**
@@ -68,7 +68,9 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(e, code) {
+    if (e.target.tagName === 'BUTTON') return
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
@@ -81,6 +83,7 @@ class Store {
         return item;
       })
     })
+
     if (this.lastSelectedItemCode === code) {
       this.lastSelectedItemCode = null
     } else {

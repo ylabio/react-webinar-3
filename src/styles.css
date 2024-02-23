@@ -37,8 +37,13 @@ body {
 
 .Item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
   transition: background-color 1s;
+}
+
+.Item-info {
+  display: flex;
 }
 
 .Item_selected {
@@ -46,18 +51,26 @@ body {
   color: #fff;
 }
 
-.Item-code {
+.Item-info__code {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
-  width: 100%;
+.Item-info__title {
+  width: auto;
   padding: 20px 10px;
+  padding-right: 5px;
 }
 
-.Item-selected-counter {
-  padding: 20px 10px;
-  width: 200px;
+.Item-info__selected-counter {
+  padding: 20px 0;
+  padding-right: 10px;
+  flex-basis: auto;
+  flex-shrink: 0;
+}
+
+.Item-info__selected-counter::before {
+  content: "|";
+  margin-right: 5px;
 }
 
 .Item-actions {

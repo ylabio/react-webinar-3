@@ -24,12 +24,16 @@ function App({store}) {
           list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
-                {item.selectedCount > 0 && (
-                  <div className="Item-selected-counter">Выделяли {item.selectedCount} раз</div>
-                )}
+                   onClick={(e) => store.selectItem(e, item.code)}>
+                <div className="Item-info">
+                  <div className="Item-info__code">{item.code}</div>
+                  <div className="Item-info__title">{item.title}</div>
+                  {item.selectedCount > 0 && (
+                    <div className="Item-info__selected-counter">
+                      Выделяли {item.selectedCount} {(item.selectedCount >= 2 && item.selectedCount <= 4) ? "раза" : "раз"}
+                    </div>
+                  )}
+                </div>
                 <div className="Item-actions">
                 <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
