@@ -9,7 +9,11 @@ const store = new Store({
     { code: 1, title: "Название элемента", highlighted: 0 },
     { code: 2, title: "Некий объект", highlighted: 0 },
     { code: 3, title: "Заголовок", highlighted: 0 },
-    { code: 4, title: "Очень длинное название элемента из семи слов" },
+    {
+      code: 4,
+      title: "Очень длинное название элемента из семи слов",
+      highlighted: 0,
+    },
     { code: 5, title: "Запись", highlighted: 0 },
     { code: 6, title: "Шестая запись", highlighted: 0 },
     { code: 7, title: "Седьмая запись", highlighted: 0 },
