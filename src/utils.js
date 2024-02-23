@@ -31,5 +31,6 @@ export function createElement(name, props = {}, ...children) {
 export function isNeedLetterA(count) {
   const arr = [2, 3, 4];
   const lastNumber = count % 10;
-  return arr.includes(lastNumber) ? true : false;
+  const isExceptions = count % 100 > 11 && count % 100 <= 14;
+  return arr.includes(lastNumber) && !isExceptions ? true : false;
 }
