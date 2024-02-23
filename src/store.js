@@ -63,7 +63,7 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(ev, code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
@@ -72,7 +72,7 @@ class Store {
           if (item.selected) {
             item.numberSelections = item.numberSelections ? item.numberSelections + 1 : 1;
           }
-        } else {
+        } else if(ev.target.tagName !== "BUTTON"){
           item.selected = false;
         }
         return item;
