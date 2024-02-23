@@ -1,4 +1,4 @@
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
+const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
 /**
  * Создание элемента со свойствами и вложенными элементами
@@ -25,4 +25,19 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
+}
+
+export function selectWordDeclension(N, wordForms) {
+  N = Math.abs(N) % 100;
+  const lastNumberOfN = N % 10;
+  if (N > 10 && N < 20) {
+    return wordForms[2];
+  }
+  if (lastNumberOfN > 1 && lastNumberOfN < 5) {
+    return wordForms[1];
+  }
+  if (lastNumberOfN === 1) {
+    return wordForms[0];
+  }
+  return wordForms[2];
 }
