@@ -10,6 +10,17 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
+    const pluralize = (count) => {
+        if (count === 1) {
+            return 'раз';
+        } else if (count >= 2 && count <= 4) {
+            return 'раза';
+        } else if (!count) {
+            return '';
+        } else {
+            return 'раз'
+        }
+    }
 
   return (
     <div className='App'>
@@ -24,11 +35,16 @@ function App({store}) {
           list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
+                   onClick={(e) => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title} {item.selectCount ? `| выделяли ${item.selectCount} раз` : ''}</div>
+                  <div className='Item-title'>
+                      {item.title} {item.selectCount ? `| выделяли ${item.selectCount} ${pluralize(item.selectCount)}` : ''}
+                  </div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => {
+                      e.stopPropagation()
+                      store.deleteItem(item.code)
+                  }}>
                     Удалить
                   </button>
                 </div>
