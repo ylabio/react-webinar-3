@@ -16,7 +16,7 @@ function App({store}) {
       return 'раза';
     }
 
-    else if (String(count).length >= 4){
+    else if (String(count).length >= 3){
       const numbers = Number(String(count).slice(-2));
       if (/22|23|24|32|33|34|42|43|44|52|53|54|62|63|64|72|73|74|82|83|84|92|93|94/.test(numbers) || numbers == 2 || numbers == 3 || numbers == 4){
         return 'раза';
