@@ -30,7 +30,7 @@ function App({store}) {
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title} {item.selectCount === 0 ? '' : ` | Выделяли ${item.selectCount} ${getNumWord(item.selectCount)}`}</div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(evt) => store.deleteItem(evt, item.code)}>
                     Удалить
                   </button>
                 </div>
