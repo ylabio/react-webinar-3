@@ -1,7 +1,7 @@
 import React from 'react';
 import {createElement} from './utils.js';
 import './styles.css';
-import { pluralize } from './utils.js'
+import {pluralize } from './utils.js'
 
 /**
  * Приложение

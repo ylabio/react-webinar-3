@@ -5,18 +5,6 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.uniqueValues = new Set()
-  }
-
-  generateValue() {
-    const num = Math.floor(Math.random() * (100 - 8 + 1)) + 8
-
-    if (this.uniqueValues.has(num)) {
-      return this.generateValue()
-    } else {
-      this.uniqueValues.add(num)
-      return num
-    }
   }
 
   /**
@@ -55,7 +43,6 @@ class Store {
    */
   addItem() {
     this.setState({
-      ...this.state,
       list: 
         [...this.state.list, 
         {
@@ -88,14 +75,14 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          item.selected = !item.selected
             if (item.selected) {
               item.selectedCount++
             } 
         } else {
           item.selected = false;
         }
-        return item;
+        return item
       })
     })
   }
