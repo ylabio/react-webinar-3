@@ -43,15 +43,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    const num = this.generateNum();
+    const newCode = ++this.lastGeneratedNum;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: num, title: 'Новая запись' }]
+      list: [...this.state.list, { code: newCode, title: 'Новая запись' }]
     });
-  }
-
-  generateNum() {
-    return ++this.lastGeneratedNum;
   }
 
   /**
