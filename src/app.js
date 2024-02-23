@@ -15,9 +15,11 @@ function App({store}) {
   const getPrefix = (selectCount) => {
     const pluralizeNums = ['2', '3', '4'] 
     
+    const lastTwoNums = Number.parseInt(selectCount.toString().slice(-2))
+
     let ending = ''
 
-    if (selectCount < 10 || selectCount > 20) {
+    if (lastTwoNums < 10 || lastTwoNums > 20) {
       ending = pluralizeNums.includes(selectCount.toString().at(-1)) ? 'а' : '' 
     } 
 
