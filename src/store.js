@@ -51,7 +51,7 @@ class Store {
 
   generateNum() {
     const usedNums = new Set(this.state.list.map(item => item.code));
-    let newNum = this.state.list.length + 1;
+    let newNum = 1;
     while (usedNums.has(newNum)) {
       newNum++;
     }
@@ -80,11 +80,9 @@ class Store {
         if (item.code === code) {
           item.selected = !item.selected;
           item.clickCount = (item.clickCount || 0) + 1;
-          if (item.clickCount % 2 !== 0) {
-            console.log(`Выделяли ${Math.ceil(item.clickCount / 2)} раз`);
-          }
         } else {
           item.selected = false;
+          item.label = '';
         }
         return item;
       })
