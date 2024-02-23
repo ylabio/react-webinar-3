@@ -5,7 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.codes = [1,2,3,4,5,6,7]
+    this.lastCode = 7; //число элементов в начале
   }
 
   /**
@@ -42,17 +42,13 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
-      let newCode;
-      do {
-          newCode = Math.floor(Math.random() * 10000); 
-      } while (this.codes.includes(newCode));
-      this.codes.push(newCode);
-    this.setState({
-      ...this.state,
-        list: [...this.state.list, { code: newCode, title: 'Новая запись',count:0}]
-    })
-  };
+    addItem() {
+        this.lastCode += 1; // Сделал обычное прибавление
+        this.setState({
+            ...this.state,
+            list: [...this.state.list, { code: this.lastCode, title: 'Новая запись', count: 0 }]
+        })
+    };
 
   /**
    * Удаление записи по коду
