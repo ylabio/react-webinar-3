@@ -22,14 +22,25 @@ function ListItem(props) {
 		}
 		props.store.selectItem(item.code);
 	}
+	const deleteAction = (event) => {
+		event.stopPropagation();
+		props.store.deleteItem(props.item.code);
+	}
+	const pluralization = (number) => {
+		const radix = number % 10;
+		if (radix > 1 && radix < 5 && !(number < 15 && number > 11))
+			return (` | Выделяли ${count} разa`)
+		else
+			return (` | Выделяли ${count} раз`)
+	}
 	return (
 		<div key={props.item.code} className='List-item'>
               <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
                    onClick={() => selectAction(props.item)}>
                 <div className='Item-code'>{props.item.code}</div>
-                <div className='Item-title'>{props.item.title} {count > 0 ? ` | Выделяли ${count} раз` : ''}</div>
+                <div className='Item-title'>{props.item.title} {count > 0 ? pluralization(count) : ''}</div>
                 <div className='Item-actions'>
-                  <button onClick={() => props.store.deleteItem(props.item.code)}>
+                  <button onClick={(event) => deleteAction(event)}>
                     Удалить
                   </button>
                 </div>
@@ -40,6 +51,7 @@ function ListItem(props) {
 function App({store}) {
 
   const list = store.getState().list;
+
   return (
     <div className='App'>
       <div className='App-head'>
