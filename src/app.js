@@ -29,7 +29,7 @@ function App({store}) {
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title} {item.selectedCount > 0 ? `| Выделяли ${item.selectedCount} ${pluralize(item.selectedCount)}` : ''}</div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => store.deleteItem(e, item.code)}>
                     Удалить
                   </button>
                 </div>
