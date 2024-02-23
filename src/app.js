@@ -15,6 +15,11 @@ function App({store}) {
     `${item.title} | Выделяли ${item.selectedTimes} раз(а)`
    }
 
+   const handleDelete = (code) => (e) => {
+    e.stopPropagation();
+    store.deleteItem(code)
+   }
+
 
   return (
     <div className='App'>
@@ -33,7 +38,7 @@ function App({store}) {
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{createItemText(item)}</div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={handleDelete(item.code)}>
                     Удалить
                   </button>
                 </div>
