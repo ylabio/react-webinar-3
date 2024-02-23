@@ -4,6 +4,7 @@
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.state.codeCounter = this.state.list.length ?? 0;
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -53,7 +54,8 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(e, code) {
+    e.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter((item) => item.code !== code),

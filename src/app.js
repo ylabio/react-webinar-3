@@ -1,5 +1,5 @@
 import React from "react";
-import { createElement } from "./utils.js";
+import { createElement, formatCounterWord } from "./utils.js";
 import "./styles.css";
 
 /**
@@ -29,10 +29,11 @@ function App({ store }) {
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
                   {item.title}
-                  {item.counter && ` | Выделяли ${item.counter} раз`}
+                  {item.counter &&
+                    ` | Выделяли ${item.counter} ${formatCounterWord(item.counter)}`}
                 </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button onClick={(e) => store.deleteItem(e, item.code)}>Удалить</button>
                 </div>
               </div>
             </div>
