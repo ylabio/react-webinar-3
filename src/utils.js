@@ -26,3 +26,15 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+// Плюрализация слова раз
+export function Pluralize(count) {
+  const lastNumber = count.toString().split('').pop()
+  if (count === 2 || count === 3 || count === 4) {
+    return 'раза'
+  } else if (count > 20 && lastNumber === '2' || count > 20 && lastNumber === '3' || count > 20 && lastNumber === '4') {
+    return 'раза'
+  } else {
+    return 'раз'
+  }
+}

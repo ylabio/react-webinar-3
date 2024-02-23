@@ -36,7 +36,6 @@ body {
 
 .Item {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   transition: background-color 1s;
 }
@@ -51,8 +50,8 @@ body {
 }
 
 .Item-title {
-  width: 100%;
   padding: 20px 10px;
+  position: relative;
 }
 
 .Item-count {
@@ -61,6 +60,6 @@ body {
 
 .Item-actions {
   display: flex;
-  justify-content: flex-end;
+  margin-left: auto;
   padding: 20px 20px 20px 10px;
 }

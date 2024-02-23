@@ -43,7 +43,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: Math.random() * this.state.list.length, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.state.list[0] ? this.state.list.at(-1).code + 1 : 1, title: 'Новая запись'}]
     })
   };
 

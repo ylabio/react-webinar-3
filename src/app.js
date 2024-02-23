@@ -1,4 +1,5 @@
 import React from 'react';
+import { Pluralize } from './utils';
 import './styles.css';
 
 /**
@@ -24,10 +25,11 @@ function App({store}) {
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{list.indexOf(item) + 1}</div>
+                <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title}</div>
+                <div className='divider'>{item.count > 0 ? '|' : ''}</div>
                 <div className='Item-count'>
-                  {item.count ? `Выделяли ${item.count} раз` : ''}
+                  {item.count ? `Выделяли ${item.count} ${Pluralize(item.count)}` : ''}
                 </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
