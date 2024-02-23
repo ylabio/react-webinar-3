@@ -32,6 +32,7 @@ body {
 
 .List-item {
   border-bottom: 1px dashed #ccc;
+  
 }
 
 .Item {
@@ -40,6 +41,8 @@ body {
   align-items: center;
   transition: background-color 1s;
 }
+
+
 
 .Item_selected {
   background: #75aaf1;
@@ -59,7 +62,7 @@ body {
   display: flex;
   width: 100%;
   padding: 20px 10px;
-  gap: 0 10px;
+  gap: 0 5px;
   align-items: center;
 }
 
@@ -73,12 +76,6 @@ body {
   display: none;
 }
 
-.Item-count::before{
-  content: ' Выделяли | ';
-}
-.Item-count::after{
-  content: ' раз';
-}
 
 .visible{
   display: block;
