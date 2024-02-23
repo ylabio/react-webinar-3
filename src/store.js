@@ -77,15 +77,16 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selectCount = !item.selected ? item.selectCount + 1 : item.selectCount // при выделенной записи его количество не изменится
+          item.selectCount = !item.selected ? item.selectCount + 1 : item.selectCount;
           item.selected = !item.selected;
         } else {
-          item.selected = item.selected && false // у всех других записей выделение отключится
+          item.selected = false;
         }
         return item;
       })
-    })
+    });
   }
+
 }
 
 export default Store;
