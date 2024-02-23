@@ -28,7 +28,7 @@ function App({store}) {
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title + (item.selections > 0 ? ` | Выделяли ${item.selections} раз` : '')}</div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={event => { event.stopPropagation(); store.deleteItem(item.code); return false; }}>
                     Удалить
                   </button>
                 </div>
