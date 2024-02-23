@@ -5,7 +5,6 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-   
   }
 
   /**
@@ -14,11 +13,11 @@ class Store {
    * @returns {Function} Функция отписки
    */
   subscribe(listener) {
-    this.listeners.push(listener); 
+    this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -43,71 +42,83 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-  
     this.setState({
-      list: [...this.state.list, {code: Date.now(), title: 'Новая запись'}]
-    })
-  };
-
-  //Если дать уникальный код именно в выводе можно сделвть сортировку
-sortList(lists){
-  //Не совсем понимаю зачем так делать. Если говорить об уникальности то я бы использовал nanoid()
-  //Или бы время в милисекундах, но так как отображается список, решил сортировать
-  //Вывод списка в файле app сделал бы по индексу
-  const updateSortLists=lists.map((elem,i)=>{return{code: i+1, title: elem.title}})
-  return  updateSortLists
-}
+      list: [
+        ...this.state.list,
+        { code: this.examination(Date.now()), title: "Новая запись" },
+      ],
+    });
+  }
+  examination(code) {
+    if (this.state.list.some((elem) => elem.code === code)) {
+      return this.examination(Math.floor(Math.random() * Date.now()));
+    } else {
+      return code;
+    }
+  }
   /**
    * Удаление записи по коду
    * @param code
    */
   deleteItem(code) {
     this.setState({
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-  // deleteItem(code) {
-  //   const deleteList=this.state.list.filter(item => item.code !== code);
-  //   this.setState({
-  //     list: this.sortList(deleteList)
-  //   })
-  // };
+      list: this.state.list.filter((item) => item.code !== code),
+    });
+  }
 
+  pluralize(number) {
+    let str = {
+      1: "раз",
+      2: "раза",
+    };
+
+    if (number > 20) {
+      number = number % 10;
+    }
+
+    if (number > 1 && number < 5) {
+      return str[2];
+    } else {
+      return str[1];
+    }
+  }
   /**
    * Выделение записи по коду
    * @param code
    */
   selectItem(code) {
-   
     this.setState({
-      
-      list: this.state.list.map(item => {
-        let count=0;
-
+      list: this.state.list.map((item) => {
+        let count = 0;
 
         if (item.code === code) {
-          item.selected = !item.selected; 
-   
-          if(item.count===0 || item.count==undefined){
-            count++;
-          } 
-           if(item.count>0){
-            count=item.count+1;
+          item.selected = !item.selected;
+          if (item.selected) {
+            if (item.count > 0) {
+              count = item.count + 1;
+            } else if (item.count === 0 || item.count == undefined) {
+              count++;
+            }
+          } else {
+            if (item.count != undefined) {
+              count = item.count;
+            }
           }
-      
-        }
-        else{
-          if(item.count!=undefined && item.count>0){
-            count=item.count;
+        } else {
+          if (item.count != undefined) {
+            count = item.count;
           }
-          item.selected=false;
+          item.selected = false;
         }
- 
-        return {code:item.code, title:item.title,selected:item.selected, count:count};
-      })
-      ,
- 
-    })
+
+        return {
+          code: item.code,
+          title: item.title,
+          selected: item.selected,
+          count: count,
+        };
+      }),
+    });
   }
 }
 
