@@ -29,8 +29,12 @@ export function createElement(name, props = {}, ...children) {
 
 export function declension(count) {
   const lastDigit = count % 10;
-  if (lastDigit >= 2 && lastDigit <= 4 && (count < 10 || count > 20)) {
+  const lastTwoDigits = count % 100;
+  if (lastDigit === 1 && lastTwoDigits !== 11) {
+    return 'раз';
+  } else if (lastDigit >= 2 && lastDigit <= 4 && (lastTwoDigits < 10 || lastTwoDigits > 20)) {
     return 'раза';
+  } else {
+    return 'раз';
   }
-  return 'раз';
 }
