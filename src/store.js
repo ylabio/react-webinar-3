@@ -59,10 +59,11 @@ class Store {
       list: 
         [...this.state.list, 
         {
-          code: this.generateValue(),
+          code: this.state.count + 1,
           title: 'Новая запись',
           selectedCount: 0
-        }]
+        }],
+      count: this.state.count + 1
     })
   };
 
