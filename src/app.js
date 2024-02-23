@@ -11,8 +11,13 @@ function App({store}) {
 
   const {list, selectedItemCode} = store.getState();
   const createItemText = (item) => {
+    const lastOne = item.selectedTimes % 10;
+    const lastTwo = item.selectedTimes % 100;
+    const ending = [2, 3, 4].includes(lastOne) && ![12, 13, 14].includes(lastTwo)
+      ? 'a' : '';
+
     return item.selectedTimes === 0 ? item.title :
-    `${item.title} | Выделяли ${item.selectedTimes} раз(а)`
+    `${item.title} | Выделяли ${item.selectedTimes} раз${ending}`
    }
 
    const handleDelete = (code) => (e) => {
