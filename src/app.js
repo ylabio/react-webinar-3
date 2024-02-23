@@ -22,6 +22,29 @@ function App({ store }) {
     }
   };
 
+  const renderTittle = (item) => {
+    const { completedSelectionNumber, title } = item;
+    const isTensNotOne = String(completedSelectionNumber)[0] != 1;
+    const ones = String(completedSelectionNumber)[1];
+
+    switch (true) {
+      case !completedSelectionNumber:
+        return `${title}`;
+
+      case completedSelectionNumber === 2:
+      case completedSelectionNumber === 3:
+      case completedSelectionNumber === 4:
+      case ones == 2 && isTensNotOne:
+      case ones == 3 && isTensNotOne:
+      case ones == 4 && isTensNotOne:
+        return `${title} ${`| Выделяли ${completedSelectionNumber} разa`}`;
+
+      default:
+        return `${title} ${`| Выделяли ${completedSelectionNumber} раз`}`;
+    }
+
+  };
+
   return (
     <div className='App'>
       <div className='App-head'>
@@ -38,7 +61,7 @@ function App({ store }) {
                 onClick={() => handlingSelectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>
-                  {`${item.title} ${item.completedSelectionNumber > 0 ? `| Выделяли ${item.completedSelectionNumber} раз` : ''}`}
+                  {renderTittle(item)}
                 </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
