@@ -28,10 +28,10 @@ function ListItem(props) {
 	}
 	const pluralization = (number) => {
 		const radix = number % 10;
-		if (radix > 1 && radix < 5 && !(number < 15 && number > 11))
-			return (` | Выделяли ${count} разa`)
+		if (radix > 1 && radix < 5 && !((number % 100) < 15 && (number % 100) > 11))
+			return (` | Выделяли ${number} разa`)
 		else
-			return (` | Выделяли ${count} раз`)
+			return (` | Выделяли ${number} раз`)
 	}
 	return (
 		<div key={props.item.code} className='List-item'>

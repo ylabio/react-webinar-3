@@ -43,10 +43,14 @@ class Store {
    */
   addItem() {
 	const setUniqueKey = (list) => {
-		let random = Math.floor(Math.random() * (100 + list.length))
-		while(list.find(prop=>prop.code === random))
-			random = Math.floor(Math.random() * (100 + list.length))
-		return (random);
+		let maximum = 0;
+		if (list.length > 0)
+		{
+			maximum = list[list.length - 1].code + 1;
+			while(list.find(item=>item.code === maximum))
+				maximum++;
+		}
+		return (maximum);
 	}
     this.setState({
       ...this.state,
