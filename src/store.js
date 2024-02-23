@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.lastGeneratedNum = 7;
   }
 
   /**
@@ -50,12 +51,7 @@ class Store {
   }
 
   generateNum() {
-    const usedNums = new Set(this.state.list.map(item => item.code));
-    let newNum = 1;
-    while (usedNums.has(newNum)) {
-      newNum++;
-    }
-    return newNum;
+    return ++this.lastGeneratedNum;
   }
 
   /**
