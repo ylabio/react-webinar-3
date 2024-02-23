@@ -42,8 +42,8 @@ function App({ store }) {
       default:
         return `${title} ${`| Выделяли ${completedSelectionNumber} раз`}`;
     }
-
   };
+
 
   return (
     <div className='App'>
@@ -64,7 +64,7 @@ function App({ store }) {
                   {renderTittle(item)}
                 </div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => { e.stopPropagation(); store.deleteItem(item.code); }}>
                     Удалить
                   </button>
                 </div>
