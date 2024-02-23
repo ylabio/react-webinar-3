@@ -6,13 +6,8 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
   }
-  counter = 0;  // переменная счётчика (0 начальное значение)
   numId = 8;  // Id записи (8 начальное значение)
-
-  // функция для прибавления счётчика
-  increment () {
-    return this.counter += 1;
-  }
+  numSelected = 0;
 
   /**
    * Подписка слушателя на изменения состояния
@@ -51,10 +46,15 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.numId, title: 'Новая запись'}]// вывожу Id записи
+      list: [...this.state.list, {code: this.numId, title: 'Новая запись', q_selected: 0}]// вывожу Id записи
     })
     this.numId += 1;//прибавляю Id для следующий записи
   };
+
+   // функция для прибавления счётчика элемента
+   increment_q_selected_element (selected_item) {
+    selected_item.q_selected += 1;
+  }
 
   /**
    * Удаление записи по коду
@@ -65,6 +65,12 @@ class Store {
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
     })
+  };
+
+  // Функция для изменения числа выделенного элемента
+  fNumSelected(newCode)
+  {
+    this.numSelected = newCode;
   };
 
   /**
@@ -78,12 +84,16 @@ class Store {
         
         if (item.code === code) {// Если итем равняется
           item.selected = !item.selected;//то меняем истуну на лож или наоборот у выделения итема
+          if (item.selected == false) {
+            this.fNumSelected(0);//изменяем число выделенного элемента на 0
+          }
         }
         else {// если итем не равняется
           item.selected = false;//то выделение лож
         }
         if (item.selected == true) {//если выделение истина
-          this.increment();// то прибавляем единицу к счётчику выделений
+          this.fNumSelected(item.code);//изменяем число выделенного элемента на число Id элемента в списке элементов
+          this.increment_q_selected_element(item);// то прибавляем единицу к счётчику выделений элемента
         }
         return item;
       })

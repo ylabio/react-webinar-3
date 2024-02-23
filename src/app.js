@@ -16,9 +16,6 @@ function App({store}) {
       <div className='App-head'>
         <h1>Приложение на чистом JS</h1>
       </div>
-      <div className='App-count_selected'>
-        {(store.counter != 0 ? 'Выделяли ' + store.counter + ' раз' : '')}
-      </div>
       <div className='App-controls'>
         <button onClick={() => store.addItem()}>Добавить</button>
       </div>
@@ -26,10 +23,14 @@ function App({store}) {
         <div className='List'>{
           list.map(item =>
             <div key={item.code} className='List-item'>
-              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
+              <div className={'Item' + (item.code == store.numSelected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title}</div>
+                <div className='App-count_selected'>
+                  {(item.q_selected != 0 ? 'Выделяли ' + item.q_selected + ' раз' : '')}
+                  {(item.q_selected >= 2 && item.q_selected <= 4 ? 'a' : '')}
+                </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
