@@ -33,7 +33,13 @@ function App({ store }) {
                   {isNeedLetterA(item.countOfSelecting) && "a"}
                 </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      store.deleteItem(item.code);
+                    }}>
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>
