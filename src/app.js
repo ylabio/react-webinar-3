@@ -1,5 +1,5 @@
 import React from 'react';
-import {createElement} from './utils.js';
+import {createElement, declensionOfNumber} from './utils.js';
 import './styles.css';
 
 /**
@@ -13,7 +13,7 @@ function App({store}) {
 
   const renderTitleAndCount = (title, count) => {
     if (count) {
-      return title + ' | ' + count;
+      return title + ' | Выделяли ' + count + ' ' + declensionOfNumber(count, ['раз', 'раза']);
     }
 
     return title;
@@ -36,7 +36,7 @@ function App({store}) {
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{renderTitleAndCount(item.title, item.selectionCount)}</div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => store.deleteItem(e, item.code)}>
                     Удалить
                   </button>
                 </div>

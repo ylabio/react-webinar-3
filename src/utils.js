@@ -26,3 +26,25 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Склонение числа
+ * @param number {Number} количество выделений записи
+ * @param words {String[]} Массив вариантов склонения из 2 элементов
+ * @returns {String} Один из вариантов склонения
+ */
+
+export function declensionOfNumber(number, words) {
+  if (number % 100 > 10 && number % 100 < 20) {
+    return words[0];
+  } else {
+    switch (number % 10) {
+        case 2:
+        case 3:
+        case 4:
+            return words[1];
+        default:
+            return words[0];
+    }
+  }
+}
