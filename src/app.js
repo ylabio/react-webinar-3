@@ -2,6 +2,8 @@ import React from 'react';
 import {createElement} from './utils.js';
 import './styles.css';
 
+import { getNumWord } from './utils.js';
+
 /**
  * Приложение
  * @param store {Store} Состояние приложения
@@ -26,9 +28,9 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>{item.title} {item.selectCount === 0 ? '' : ` | Выделяли ${item.selectCount} ${getNumWord(item.selectCount)}`}</div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(evt) => store.deleteItem(evt, item.code)}>
                     Удалить
                   </button>
                 </div>

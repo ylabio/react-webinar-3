@@ -4,15 +4,17 @@ import {createElement} from './utils.js';
 import App from './app.js';
 import Store from './store.js';
 
+import { getElementCode } from './utils.js';
+
 const store = new Store({
   list: [
-    {code: 1, title: 'Название элемента'},
-    {code: 2, title: 'Некий объект'},
-    {code: 3, title: 'Заголовок'},
-    {code: 4, title: 'Очень длинное название элемента из семи слов'},
-    {code: 5, title: 'Запись'},
-    {code: 6, title: 'Шестая запись'},
-    {code: 7, title: 'Седьмая запись'},
+    {code: getElementCode(), title: 'Название элемента', selectCount: 0},
+    {code: getElementCode(), title: 'Некий объект', selectCount: 0},
+    {code: getElementCode(), title: 'Заголовок', selectCount: 0},
+    {code: getElementCode(), title: 'Очень длинное название элемента из семи слов', selectCount: 0},
+    {code: getElementCode(), title: 'Запись', selectCount: 0},
+    {code: getElementCode(), title: 'Шестая запись', selectCount: 0},
+    {code: getElementCode(), title: 'Седьмая запись', selectCount: 0},
   ]
 });
 

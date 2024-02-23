@@ -26,3 +26,28 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+// Функция счетчик для получения номера в листе элементов
+export const getElementCode = (() => {
+  let code = 1;
+  return () => {
+      return code++;
+  };
+})();
+
+// Функция, возвращающая склонение 'раз / раза'
+export const getNumWord = (value) => {
+  value = Math.abs(value) % 100;
+  const num = value % 10;
+  
+  if (value > 10 && value < 20) {
+    return 'раз';
+  }
+  if (num > 1 && num < 5) {
+    return 'раза';
+  }
+  if (num === 1) {
+    return 'раз';
+  }
+  return 'раз'; 
+};
