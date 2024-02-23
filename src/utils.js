@@ -1,4 +1,4 @@
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
+const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
 /**
  * Создание элемента со свойствами и вложенными элементами
@@ -25,4 +25,12 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
+}
+
+// Проверить нужно ли окончание 'а'
+export function isNeedLetterA(count) {
+  const arr = [2, 3, 4];
+  const lastNumber = count % 10;
+  const isExceptions = count % 100 > 11 && count % 100 <= 14;
+  return arr.includes(lastNumber) && !isExceptions ? true : false;
 }
