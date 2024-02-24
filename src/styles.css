@@ -37,6 +37,7 @@ body {
 .Item {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   transition: background-color 1s;
 }
 
@@ -58,4 +59,9 @@ body {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-selectionCount {
+  text-align: center;
+  margin-right: 2rem;
 }

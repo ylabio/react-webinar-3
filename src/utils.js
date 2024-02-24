@@ -26,3 +26,14 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getPluralForm(number) {
+  const lastDigit = number % 10;
+  const lastTwoDigits = number % 100;
+
+  if ([2, 3, 4].includes(lastDigit) && ![12, 13, 14].includes(lastTwoDigits)) {
+    return "раза";
+  } else {
+    return "раз";
+  }
+}

@@ -5,6 +5,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.usedCodes = new Set(this.state.list.map(item => item.code)); // Храним использованные коды
+    this.nextCode = 1; // Следующий уникальный код
   }
 
   /**
@@ -42,9 +44,16 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    // Находим следующий уникальный код
+    while (this.usedCodes.has(this.nextCode)) {
+      this.nextCode++;
+    }
+    // Добавляем код в использованные
+    this.usedCodes.add(this.nextCode);
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, { code: this.nextCode, title: 'Новая запись', selectionCount: 0, selected: false }]
     })
   };
 
@@ -56,7 +65,7 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
-    })
+    });
   };
 
   /**
@@ -69,6 +78,9 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          item.selectionCount = (item.selectionCount || 0) + (item.selected ? 1 : 0);
+        } else {
+          item.selected = false;
         }
         return item;
       })
