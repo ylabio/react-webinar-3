@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.codeCounter; // Задача 2. Добавление уникального кода для новой записи.
   }
 
   /**
@@ -42,9 +43,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.codeCounter = !this.codeCounter ? this.state.list.length + 1 : this.codeCounter + 1; // Задача 2. Добавление уникального кода для новой записи.
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.codeCounter, title: 'Новая запись'}]
     })
   };
 
@@ -53,6 +55,7 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    if (!this.codeCounter) this.codeCounter = this.state.list.length; // Задача 2. Добавление уникального кода для новой записи.
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
@@ -67,8 +70,11 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
+        if (item.code !== code || item.selected) {  // Задача 1. Изменение состояния выделения элемента
+          item.selected = false;
+        } else {
           item.selected = !item.selected;
+          item.value = !item.value ? 1 : item.value + 1; // Задача 3. Подсчет количества кликов по элементу
         }
         return item;
       })
