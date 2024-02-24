@@ -5,7 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.lastCode = this.state.list ? Number(Math.max(...this.state.list.map(i => i.code))) + 1 : 1; 
+    this.lastCode = this.state.list ? Number(Math.max(...this.state.list.map(i => i.code))) : 1; 
   }
 
   /**
@@ -45,7 +45,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.lastCode++, title: 'Новая запись'}]
+      list: [...this.state.list, {code: ++this.lastCode, title: 'Новая запись'}]
     })
   };
 
@@ -84,11 +84,19 @@ class Store {
    * @param selectedItem {Object}
    */
   counter(selectedItem) {
-    const specialNums = [2, 3, 4];
     if (selectedItem.counter) {
       const n = parseInt(selectedItem.counter) + 1;
-      const lastWord = specialNums.filter(el => el === n).length ? 'раза' : 'раз';
-      return `${n} ${lastWord}`
+      let lastWord = 'раз';
+      if (n > 1 && n < 5) {
+        lastWord = 'раза';
+      } 
+      if (n > 21) {
+        const arr = n.toString().split('').slice(-2);
+        if (+arr[0] != 1 && +arr[1] > 1 && +arr[1] < 5) {
+          lastWord = 'раза'
+        }   
+      }
+      return `${n} ${lastWord}` 
     } else {
       selectedItem.counter = 1;
       return `1 раз`
