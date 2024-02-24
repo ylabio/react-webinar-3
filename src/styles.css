@@ -40,9 +40,21 @@ body {
   transition: background-color 1s;
 }
 
+.Item-selected-counter {
+  justify-self: center;
+  align-self: center;
+}
+
 .Item_selected {
   background: #75aaf1;
   color: #fff;
+}
+
+.left-part {
+  display: flex;
+  width: 100%;
+  justify-content: start;
+  align-items: center;
 }
 
 .Item-code {
@@ -50,7 +62,6 @@ body {
 }
 
 .Item-title {
-  width: 100%;
   padding: 20px 10px;
 }
 
