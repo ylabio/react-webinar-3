@@ -1,5 +1,5 @@
 import React from "react";
-import { createElement } from "./utils.js";
+import { createElement, declOfNum } from "./utils.js";
 import "./styles.css";
 
 /**
@@ -9,6 +9,11 @@ import "./styles.css";
  */
 function App({ store }) {
   const list = store.getState().list;
+
+const delItem = (event, item)=>{
+  event.stopPropagation()
+  store.deleteItem(item.code)
+ }
 
   return (
     <div className="App">
@@ -27,15 +32,18 @@ function App({ store }) {
                 onClick={() => store.selectItem(item.code)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                {item.countSelect > 0 && (
-                  <div className="Item-title">
-                    Выделяли {item.countSelect} раз
-                  </div>
-                )}
+                <div className="Item-title-parent">
+                  <div className="Item-title">{item.title}</div>
+                  {item.countSelect > 0 && (
+                    <div className="Item-selected-pipe">
+                      <span>|</span>
+                      {`Выделяли ${item.countSelect} раз` + `${ declOfNum(item.countSelect , 'раз') === 'а'? 'a':''}`}
+                    </div>
+                  )}
+                </div>
 
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e)=>delItem(e, item)}>
                     Удалить
                   </button>
                 </div>
