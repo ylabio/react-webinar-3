@@ -8,9 +8,12 @@ class Store {
 
     //Генератор уникальных кодов
     this.generatorUniqCode = (() => {
-      let startCode = 10; // начальное значение выбрал 10
-      const generatedCode = new Set();
+      //Определяет значение динамически, на основе последнего содержимого массива
+      let startCode = this.state.list.length
+        ? Math.max(...this.state.list.map((item) => item.code)) + 1
+        : 1;
 
+      const generatedCode = new Set();
       return () => {
         let newCode;
         do {
@@ -20,6 +23,22 @@ class Store {
         return newCode;
       };
     })();
+
+    // функция правильного окончания (раз или раза)
+    this.getRightEnding = (value) => {
+      let strValue = value.toString();
+      let lastTwoNum = Number(strValue.slice(-2));
+
+      if (lastTwoNum >= 12 && lastTwoNum <= 14) {
+        return "";
+      } else {
+        if (lastTwoNum % 10 >= 2 && lastTwoNum % 10 <= 4) {
+          return "а";
+        } else {
+          return "";
+        }
+      }
+    };
   }
 
   /**
@@ -70,7 +89,7 @@ class Store {
    */
   deleteItem(code) {
     this.setState({
-      ...this.state,
+      ...this.state.list,
       list: this.state.list.filter((item) => item.code !== code),
     });
   }
@@ -79,21 +98,34 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(event, code) {
+    //если клик происходит по кнопке "удалить ", то Item не выбирается (прерывает всплытие).
+    if (event.target.closest(".button-delete")) return;
+
     this.setState({
       ...this.state,
       list: this.state.list.map((item) => {
         if (item.code === code) {
-          if (!item.valueChecked) {
-            item.valueChecked = 0;
+          if (item.selected) {
+            item.selected = false;
+          } else {
+            // Записывает количество кликов
+            item.selected = true;
+            !item.valueChecked
+              ? (item.valueChecked = 1)
+              : (item.valueChecked += 1);
           }
-          item.selected = !item.selected;
-          item.valueChecked += 1;
-          item.textValueChecked = ` | Выделяли ${item.valueChecked} раз`;
+          // Текст о количестве кликов
+          item.textValueChecked =
+            item.valueChecked > 0
+              ? ` | Выделили ${item.valueChecked} раз${this.getRightEnding(
+                  item.valueChecked
+                )}`
+              : "";
         } else {
-          // Отменяет выбор других элементов
           item.selected = false;
         }
+
         return item;
       }),
     });
