@@ -42,9 +42,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    let newCode = Math.max(...this.getState().list.map(item => item.code), 0) + 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: newCode, title: 'Новая запись'}]
     })
   };
 
@@ -63,17 +64,20 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      })
+selectItem(code) {
+  this.setState({
+    ...this.state,
+    list: this.state.list.map(item => {
+      if (item.code === code) {
+        item.selected = !item.selected;
+        item.selectedCount = item.selected ? (item.selectedCount || 0) + 1 : (item.selectedCount || 0);
+      } else {
+        item.selected = false;
+      }
+      return item;
     })
-  }
+  })
+}
 }
 
 export default Store;
