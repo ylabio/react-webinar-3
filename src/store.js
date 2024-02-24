@@ -70,6 +70,25 @@ class Store {
   };
 
   /**
+   * Выбор формы слова "раз"
+   */
+
+  getCountWordForm(count) {
+    count %= 100;
+    if (count >= 10 && count < 20) {
+      return 'раз';
+    }
+    count %=10
+    if ( count === 1) {
+      return 'раз';
+    } else if (count === 0 || count > 4) {
+      return 'раз';
+    } else {
+      return 'раза';
+    }
+  }
+
+  /**
    * Выделение записи по коду
    * @param code
    */
@@ -81,6 +100,7 @@ class Store {
           item.selected = !item.selected;
           if (item.selected) {
             item.count ++;
+            item.countWordForm = this.getCountWordForm(item.count);
           }
         } else 
           if (item.selected) {
