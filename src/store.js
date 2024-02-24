@@ -3,8 +3,16 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+	this.state = {
+		...initState,
+		list: initState.list.map(item => ({ ...item, selectionCount: 0 })) // Добавляем свойство selectionCount для подсчёта выделений
+	  };
     this.listeners = []; // Слушатели изменений состояния
+
+	// Инициализируем lastCode на основе существующих элементов в initState.list, если они есть
+	this.lastCode = initState.list && initState.list.length > 0 
+	? Math.max(...initState.list.map(item => item.code)) 
+	: 0;
   }
 
   /**
@@ -42,9 +50,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+	// Увеличиваем lastCode на 1 для генерации уникального кода для новой записи
+	const newCode = ++this.lastCode;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: newCode, title: 'Новая запись'}]
     })
   };
 
@@ -52,7 +62,8 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(e, code) {
+    e.stopPropagation() // предотвращаем всплытие, чтобы не снималось выделение
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
@@ -69,6 +80,12 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+		  
+		  if (item.selected) { // Если пункт был выделен, увеличиваем счётчик
+            item.selectionCount = (item.selectionCount || 0) + 1;
+          }
+        } else {
+          item.selected = false
         }
         return item;
       })
