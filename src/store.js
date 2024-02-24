@@ -5,6 +5,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    //Счетчик для генерации уникальных номеров записей в рамках сессии
+    this.recordNumber = this.state.list[this.state.list.length - 1].code; //установлено значение максимального занятого на момент инициации состояния
   }
 
   /**
@@ -42,9 +44,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.recordNumber ++; //для каждой записи номер увеличивается на +1, таким образом, повторение code записей невозможно
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.recordNumber, title: 'Новая запись'}]
     })
   };
 
@@ -69,6 +72,9 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          (item.selected && (item.selectionQuantity ? item.selectionQuantity ++ : item.selectionQuantity = 1));
+        } else {
+          item.selected = false
         }
         return item;
       })
