@@ -3,8 +3,12 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      list: initState.list.map((item) => ({ ...item, selectionCounter: 0 })) // task3. Добавим selectionCounter
+    };
     this.listeners = []; // Слушатели изменений состояния
+    this.lastId = this.state.list.length + 1; // task2. Запишем последний id из initData
   }
 
   /**
@@ -44,7 +48,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.lastId++, title: 'Новая запись', selectionCounter: 0}] // task2. получаем uid в рамках сессии
     })
   };
 
@@ -67,8 +71,15 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        // task1. Просто добавим в else, чтобы для всех ненужных нам item.selected было false
+        // task3. Прибавляем в selectionCounter при выборе item (если он изначально не выбран)
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.selectionCounter++;
+          }
+        } else {
+          item.selected = false;
         }
         return item;
       })
