@@ -71,6 +71,7 @@ class Store {
           item.selected = !item.selected;
           if (item.selected) {
             item.numberSelections = item.numberSelections ? item.numberSelections + 1 : 1;
+            item.textNumberSelections = this.changeEndingWord(item.numberSelections, ["раз", "раза"]);
           }
         } else if(ev.target.tagName !== "BUTTON"){
           item.selected = false;
@@ -79,6 +80,18 @@ class Store {
       })
     })
   }
+
+  /**
+   * Склонение слова в зависимости от числа
+   */
+  changeEndingWord(num, textForms) {
+    num = num % 100; 
+    const num1 = num % 10;
+    if (num > 10 && num < 20 || num1 == 1) { return textForms[0]; }
+    if (num1 > 1 && num1 < 5) { return textForms[1]; }
+    return textForms[0];
+  }
+
 }
 
 export default Store;

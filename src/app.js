@@ -28,7 +28,9 @@ function App({store}) {
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>
                   {
-                    item.title + (item.numberSelections ? ' | Выделяли ' + item.numberSelections + ' раз' : '')
+                    item.title + (
+                      item.numberSelections ? ' | Выделяли ' + item.numberSelections + ' ' + item.textNumberSelections : ''
+                    )
                   }
                 </div>
                 <div className='Item-actions'>
