@@ -53,7 +53,7 @@ class Store {
 
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.nextCode, title: 'Новая запись', selectionCount : 0 }]
+      list: [...this.state.list, { code: this.nextCode, title: 'Новая запись', selectionCount: 0, selected: false }]
     })
   };
 
@@ -66,9 +66,6 @@ class Store {
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
     });
-    if (code === this.lastCode) {
-      this.lastCode--;
-    }
   };
 
   /**
