@@ -63,10 +63,14 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    console.log('before', {...this.state})
+
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
     })
+
+    console.log(this.state)
   };
 
   /**
@@ -79,10 +83,11 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         const { selected, selectedCount, code } = item
+        const count = selectedCount || 0
 
         if (code === currentCode) {
           item.selected = !selected;
-          item.selectedCount = (selectedCount || 0) + 1 
+          item.selectedCount = item.selected ? count + 1 : count
         } else {
           item.selected = false;
         }

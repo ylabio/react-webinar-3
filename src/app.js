@@ -45,7 +45,10 @@ function App({store}) {
                       </div>
 
                       <div className='Item-actions'>
-                          <button onClick={() => store.deleteItem(code)}>
+                          <button onClick={(event) => {
+                            event.stopPropagation()
+                            store.deleteItem(code)
+                          }}>
                             Удалить
                           </button>
                       </div>
@@ -69,9 +72,23 @@ function App({store}) {
  */
 
 function getTitle({ title, selectedCount }) {
-  const countText = selectedCount ? ` | Выделяли ${selectedCount} раз` : ''
+  const countText = selectedCount ? ` | Выделяли ${selectedCount} ${getLastWord(selectedCount)}` : ''
 
   return title + countText
+}
+
+/**
+ * Возвращает последнее слово, соответствующее числу.
+ * @param count {number}  - Число, для которого нужно определить последнее слово.
+ * @returns {string} Последнее слово, "раз" или "раза".
+ */
+
+function getLastWord(count) {
+  const lastWord = ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100))
+    ? "раза"
+    : "раз"
+  
+  return lastWord;
 }
 
 /**
