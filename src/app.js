@@ -1,6 +1,7 @@
 import React from 'react';
-import {countSelections, createElement} from './utils.js';
+import {getWordEnding} from './utils.js';
 import './styles.css';
+import { ruleEndings } from './constants.js';
 
 /**
  * Приложение
@@ -26,9 +27,14 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{`${item.title} ${
-                  item.count ? `| ${countSelections(item.count)}` : ''
-                  }`}</div>
+                <div className="Item-title">{`${item.title} ${
+                  item.count
+                    ? `| Выделяли ${item.count} раз${getWordEnding(
+                        ruleEndings,
+                        item.count
+                      )}`
+                    : ''
+                }`}</div>
                 <div className='Item-actions'>
                   <button onClickCapture={() => store.deleteItem(item.code)}>
                     Удалить
