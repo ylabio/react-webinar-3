@@ -24,11 +24,12 @@ function App({store}) {
         <div className='List'>{
           list.map(item =>
             <div key={item.code} className='List-item'>
-              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>
-                  {item.title} {(item.counter > 0) && `| Выделяли ${transformWords(item.counter, words)}`}
+              <div className={'Item' + (item.selected ? ' Item_selected' : '')}>
+                <div className='Item-content' onClick={() => store.selectItem(item.code)}>
+                  <div className='Item-code'>{item.code}</div>
+                  <div className='Item-title'>
+                    {item.title} {(item.counter > 0) && `| Выделяли ${transformWords(item.counter, words)}`}
+                  </div>
                 </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>

@@ -1,3 +1,5 @@
+import { genUniqueId } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -44,27 +46,13 @@ class Store {
   }
 
   /**
-   * Генерация уникального id
-   */
-  genUniqueId() {
-    let id = Math.floor(Math.random() * (this.ids.length + 5));
-
-    while (this.ids.includes(id)) {
-      id = Math.floor(Math.random() * (this.ids.length + 5));
-    }
-
-    this.ids.push(id);
-    return id;
-  }
-
-  /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
       list: [...this.state.list, { 
-          code: this.genUniqueId(), 
+          code: genUniqueId(this.ids), 
           title: 'Новая запись',
           counter: 0,
         }
@@ -100,7 +88,6 @@ class Store {
         } else {
           item.selected = false;
         }
-        
         return item;
       })
     })

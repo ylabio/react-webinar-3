@@ -29,11 +29,26 @@ export function createElement(name, props = {}, ...children) {
 
 // Функция изменяющая окончание слов в зависимости от падежа
 export function transformWords(num, words) {  
-	let n = num % 10;
-    
-	if (num > 10 && num < 20) return `${num} ${words[2]}`;
-	if (n > 1 && n < 5) return `${num} ${words[1]}`;
-	if (n === 1) return `${num} ${words[0]}`;
+	let n = Math.abs(num);
+  
+  n %= 100;
+  if (n >= 5 && n <= 20) return `${num} ${words[2]}`;
+
+  n %= 10;
+  if (n === 1) return `${num} ${words[0]}`;
+  if (n >= 2 && n <= 4) return `${num} ${words[1]}`
     
 	return `${num} ${words[2]}`;
+}
+
+// Генерация уникального id
+export function genUniqueId(arr) {
+  let id = Math.floor(Math.random() * (arr.length + 5));
+
+  while (arr.includes(id)) {
+    id = Math.floor(Math.random() * (arr.length + 5));
+  }
+
+  arr.push(id);
+  return id;
 }
