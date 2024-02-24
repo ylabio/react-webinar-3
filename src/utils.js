@@ -26,3 +26,26 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export const getUniqueCode = (() => {
+  let code = 1;
+  return () => {
+    return code++;
+  };
+})();
+
+export const getWordNumbers = (val) => {
+  val = Math.abs(val) % 100;
+  const number = val % 10;
+
+  if (val > 10 && val < 20) {
+    return 'раз';
+  }
+  if (number > 1 && number < 5) {
+    return 'раза';
+  }
+  if (number === 1) {
+    return 'раз';
+  }
+  return 'раз';
+};

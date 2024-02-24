@@ -1,3 +1,5 @@
+import { getUniqueCode } from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,8 +7,6 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.selectionCount = {}; // Количество выделений для каждой записи
-    this.selectionMessages = {};
   }
 
   /**
@@ -27,15 +27,7 @@ class Store {
    * @returns {Object}
    */
   getState() {
-    return {
-      ...this.state,
-      selectionCount: this.selectionCount,
-    };
-  }
-
-  // Состояние вывода сообщения
-  getSelectionMessages() {
-    return this.selectionMessages[code] || '';
+    return this.state;
   }
 
   /**
@@ -52,14 +44,16 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    let uniqueCode = Math.floor(Math.random() * 1000);
-    while (this.state.list.some((item) => item.code === uniqueCode)) {
-      uniqueCode = Math.floor(Math.random() * 1000);
-    }
-
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        {
+          code: getUniqueCode(),
+          title: 'Новая запись',
+          count: 0,
+        },
+      ],
     });
   }
 
@@ -67,7 +61,8 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(event, code) {
+    event.preventDefault();
     this.setState({
       ...this.state,
       list: this.state.list.filter((item) => item.code !== code),
@@ -84,22 +79,14 @@ class Store {
       list: this.state.list.map((item) => {
         if (item.code === code) {
           item.selected = !item.selected;
+          item.selected ? (item.count += 1) : item.count;
+          console.log(item.count);
         } else {
           item.selected = false;
         }
         return item;
       }),
     });
-
-    if (this.state.list.some((item) => item.selected)) {
-      this.selectionCount[code] = (this.selectionCount[code] || 0) + 1;
-    } else {
-      delete this.selectionCount[code];
-      delete this.selectionMessages[code];
-    }
-    this.selectionMessages[code] = `Выделяли ${this.selectionCount[code]} раз`;
-    let message = this.selectionMessages[code];
-    console.log(message);
   }
 }
 
