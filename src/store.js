@@ -1,3 +1,5 @@
+import { genUniqueId } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,6 +7,11 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.ids = []; // Массив для хранения всех id
+    this.state.list.map((item) => { // Мапим массив состояния и возвращаем новый массив
+      this.ids.push(item.code); // Добавляем все имеющиеся id в массив, чтоб исключить повторения при генерации новых id
+      item.counter = 0; // каждому элементу добавляем счетчик для подсчета выделения
+    });
   }
 
   /**
@@ -44,7 +51,12 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, { 
+          code: genUniqueId(this.ids), 
+          title: 'Новая запись',
+          counter: 0,
+        }
+      ]
     })
   };
 
@@ -69,6 +81,12 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+
+          if (item.selected) {
+            item.counter++;
+          }
+        } else {
+          item.selected = false;
         }
         return item;
       })

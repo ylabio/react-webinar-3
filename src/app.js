@@ -1,5 +1,5 @@
 import React from 'react';
-import {createElement} from './utils.js';
+import {transformWords} from './utils.js';
 import './styles.css';
 
 /**
@@ -10,6 +10,7 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
+  const words = ['раз', 'раза', 'раз'];
 
   return (
     <div className='App'>
@@ -23,10 +24,13 @@ function App({store}) {
         <div className='List'>{
           list.map(item =>
             <div key={item.code} className='List-item'>
-              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+              <div className={'Item' + (item.selected ? ' Item_selected' : '')}>
+                <div className='Item-content' onClick={() => store.selectItem(item.code)}>
+                  <div className='Item-code'>{item.code}</div>
+                  <div className='Item-title'>
+                    {item.title} {(item.counter > 0) && `| Выделяли ${transformWords(item.counter, words)}`}
+                  </div>
+                </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
