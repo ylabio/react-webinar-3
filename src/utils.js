@@ -26,3 +26,10 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getCase(count) {
+	const arr = ['2', '3', '4']
+	const exceptions = [12, 13, 14]
+	if (arr.includes(String(count).slice(-1)) && !exceptions.includes(count % 100))	return ' раза'
+	return ' раз'
+}

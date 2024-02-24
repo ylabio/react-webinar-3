@@ -5,8 +5,7 @@ class Store {
 	constructor(initState = {}) {
 		this.state = initState
 		this.listeners = [] // Слушатели изменений состояния
-		this.newMaxCode = 0
-		this.defaultMaxCode = 0
+		this.newCode = initState.list.length	// Генерация нового кода для записей
 	}
 
 	/**
@@ -41,24 +40,14 @@ class Store {
 	}
 
 	/**
-	 * Генератор уникального номера записи
-	 */
-	generateCode() {
-		this.defaultMaxCode = Math.max(...this.state.list.map(i => i.code))
-		if (this.newMaxCode > this.defaultMaxCode) return this.newMaxCode + 1
-		return this.defaultMaxCode + 1
-	}
-
-	/**
 	 * Добавление новой записи
 	 */
 	addItem() {
-		let newCode = this.generateCode()
-		if (newCode > this.newMaxCode) this.newMaxCode = newCode
-			this.setState({
-				...this.state,
-				list: [...this.state.list, { code: newCode, title: 'Новая запись' }],
-			})
+		this.setState({
+			...this.state,
+			list: [...this.state.list, { code: this.newCode + 1, title: 'Новая запись' }],
+		})
+		this.newCode += 1
 	}
 
 	/**
@@ -75,8 +64,6 @@ class Store {
 	/**
 	 * Выделение записи по коду
 	 * @param code
-	 * В app.js перенес onClick для выделения в др div,
-	 * так как был баг (при удалении снималось выделение с записи)
 	 */
 	selectItem(code) {
 		this.setState({
