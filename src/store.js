@@ -72,13 +72,17 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
-          if (item.selected) {
-            item.count++;
-            item.title=`Выделяли ${item.count} раз`;
-            
-          } else { 
-            item.title = `Выделяли ${item.count} раз`;
-          }
+          if (item.selected) {            
+            item.count++;            
+             if(item.count==12||item.count==13||item.count==14){
+              item.title=`Выделяли ${item.count} раз`
+            }
+            else if(item.count % 10 ==2||item.count % 10 ==3||item.count % 10 ==4)
+            {item.title=`Выделяли ${item.count} раза`}
+            else{
+              item.title=`Выделяли ${item.count} раз`
+            }            
+          }     
         }
         else {
           item.selected = false; 
