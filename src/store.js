@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.lastUsedCode = this.state.list.length;
   }
 
   /**
@@ -39,12 +40,21 @@ class Store {
   }
 
   /**
+   * Генератор значений Code
+   */
+
+  generateCode() {
+    this.lastUsedCode += 1;
+    return this.lastUsedCode;
+  }
+
+  /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.generateCode(), title: 'Новая запись', count: 0}]
     })
   };
 
@@ -60,6 +70,25 @@ class Store {
   };
 
   /**
+   * Выбор формы слова "раз"
+   */
+
+  getCountWordForm(count) {
+    count %= 100;
+    if (count >= 10 && count < 20) {
+      return 'раз';
+    }
+    count %=10
+    if ( count === 1) {
+      return 'раз';
+    } else if (count === 0 || count > 4) {
+      return 'раз';
+    } else {
+      return 'раза';
+    }
+  }
+
+  /**
    * Выделение записи по коду
    * @param code
    */
@@ -69,6 +98,13 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.count ++;
+            item.countWordForm = this.getCountWordForm(item.count);
+          }
+        } else 
+          if (item.selected) {
+            item.selected = false;
         }
         return item;
       })
