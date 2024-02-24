@@ -49,9 +49,17 @@ body {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+.Item-title-parent{
+  display: flex;
+  align-items: center;
+  gap: 5px;
   width: 100%;
   padding: 20px 10px;
+}
+
+.Item-selected-pipe{
+  display: flex;
+  gap: 5px;
 }
 
 .Item-actions {
