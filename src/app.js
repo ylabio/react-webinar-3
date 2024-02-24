@@ -1,5 +1,5 @@
 import React from "react";
-import { createElement } from "./utils.js";
+import { createElement, pluralize } from "./utils.js";
 import "./styles.css";
 
 /**
@@ -23,15 +23,20 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={"Item" + (item.selected ? " Item_selected" : "")}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(e) => {
+                  if (e.target.id !== "delete") store.selectItem(item.code);
+                }}
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
                   {item.title}
-                  {Boolean(item.counter) && ` | Выделяли ${item.counter} раз`}
+                  {Boolean(item.counter) && pluralize(item.counter)}
                 </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button
+                    onClick={(e) => store.deleteItem(item.code)}
+                    id="delete"
+                  >
                     Удалить
                   </button>
                 </div>
