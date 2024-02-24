@@ -26,3 +26,24 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Возвращает окончание в соответствии с правилами множественного числа
+ * @param {Map<string, string>} rule - Коллекция, правило для выбора суффикса, окончания или слова.
+ * @param {number} count - Число, для которого нужно определить окончание.
+ * @returns {string} Строка с правильным суффиксом, окончанием или целым словом.
+ * @example 
+ * const rule = new Map([
+    ['one', 'о'],
+    ['two', 'а'],
+    ['other', ''],
+  ]);
+ * countSelections(rule, 1); // 'о'
+ */
+  export function getWordEnding(rule, count = 0) {
+   
+   const pluralRules = new Intl.PluralRules('ru').select(count);
+   const wordEnding  = rule.get(pluralRules);
+ 
+   return `${wordEnding}` ;
+ }
