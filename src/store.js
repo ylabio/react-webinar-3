@@ -42,12 +42,14 @@ class Store {
    * Добавление новой записи
    */
 
-  addItem() {
-    const id = this.state.list.length === 0 ? 0 : this.state.list[this.state.list.length - 1].code;
+  addItem(id, setId) {
+    // const id = this.state.list.length === 0 ? 0 : this.state.list[this.state.list.length - 1].code;
+    // const id = new Date().valueOf();
+    setId(++id);
     this.setState({
       ...this.state,
       // list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
-      list: [...this.state.list, { code: id + 1, title: 'Новая запись', select: 0 }],
+      list: [...this.state.list, { code: id, title: 'Новая запись', select: 0 }],
     });
   }
 
@@ -77,7 +79,6 @@ class Store {
         if (item.code === code) {
           item.selected = !item.selected;
           item.select = ++item.select;
-          console.log(item.select);
         }
         return item;
       }),
