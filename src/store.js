@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -44,12 +42,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.id = !this.id ? this.state.list.length + 1 : this.id + 1;
     this.setState({
       ...this.state,
-      list: [
-        ...this.state.list,
-        { code: generateCode(), title: 'Новая запись' },
-      ],
+      list: [...this.state.list, { code: this.id, title: 'Новая запись' }],
     });
   }
 
@@ -75,7 +71,7 @@ class Store {
         if (item.code === code) {
           item.selected = !item.selected;
           if (item.selected) {
-            item.times = !item.times ? 1 : (item.times += 1);
+            item.times = !item.times ? 1 : item.times + 1;
           }
         } else {
           item.selected = false;

@@ -1,0 +1,5 @@
+{
+  "key_one": "{{count}} раз",
+  "key_few": "{{count}} раза",
+  "key_many": "{{count}} раз"
+}
