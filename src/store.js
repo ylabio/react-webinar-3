@@ -44,7 +44,8 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.state.amount, title: 'Новая запись', highlightCounts: 0}],
+      amount: this.state.amount + 1
     })
   };
 
@@ -53,9 +54,13 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    console.log('inDelete; before delete', this.state.list)
+    const list = this.state.list.filter(item => item.code !== code)
+    console.log('inDelete; after', list)
+
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
+      list
     })
   };
 
@@ -69,6 +74,11 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.highlightCounts += 1
+          }
+        } else {
+          item.selected = false
         }
         return item;
       })
