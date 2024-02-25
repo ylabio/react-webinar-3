@@ -58,11 +58,6 @@ class Store {
    */
   deleteItem(e, code) {
     e.stopPropagation();
-    // console.log(this.state.list.map((item) =>{
-    //   if(item.code !== code && item.selected === true) {
-    //     item.selected === true;
-    //   }
-    // }));
     this.setState({
       ...this.state,
       list: this.state.list.map((item) =>{
