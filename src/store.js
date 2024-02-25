@@ -42,10 +42,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const id = this.state.list.length === 0 ? 0 : this.state.list[this.state.list.length - 1].code;
     this.setState({
       ...this.state,
       list: [...this.state.list, {
-        code: (Math.random() * 100).toPrecision(3),
+        code: id + 1,
         title: 'Новая запись',
         selectionCount: 0
       }]
