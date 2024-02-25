@@ -89,11 +89,41 @@ class Store {
       list: this.state.list.map((item) => {
         if (item.code === code) {
           item.selected = !item.selected;
-          item.count++;// задание 3
+          item.selected ? item.count++ : item.count; // задание 3
         } else item.selected = 0; //задание 1
         return item;
       }),
     });
+  }
+
+  /**
+   * Вывести количество совершенных выделений / task 3
+   * @param count
+   */
+
+  countContent(count) {
+    let strCount = count.toString();
+    let lastNum = +strCount[strCount.length - 1];
+    let result = "";
+    if (count > 10 && count < 20) {
+      result = ` | Выделяли ${count} раз`;
+      return result;
+    } else if (
+      strCount.length > 2 &&
+      Number(strCount.slice(-2)) > 10 &&
+      Number(strCount.slice(-2)) < 20
+    ) {
+      result = ` | Выделяли ${count} раз`;
+      return result;
+    } else if (lastNum >= 2 && lastNum < 5) {
+      result = ` | Выделяли ${count} раза`;
+    } else if (lastNum === 1 || lastNum >= 5) {
+      result = ` | Выделяли ${count} раз`;
+    } else if (lastNum === 0 && strCount.length > 1) {
+      result = ` | Выделяли ${count} раз`;
+    } else result = "";
+
+    return result;
   }
 }
 
