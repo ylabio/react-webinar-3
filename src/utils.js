@@ -26,3 +26,16 @@ export function createElement(name, props = {}, ...children) {
 
 	return element;
 }
+
+/**
+ * Функция для выбора правильной формы слова в зависимости от числа
+ * @param {number} count - кол-во элементов
+ * @param {string[]} words - массив форм слова для 1, 2 и 5
+ * @returns {string} - подходящая форма слова
+ */
+export function pluralize(count, words) {
+	const cases = [2, 0, 1, 1, 1, 2];
+	return words[
+		count % 100 > 4 && count % 100 < 20 ? 2 : cases[Math.min(count % 10, 5)]
+	];
+}
