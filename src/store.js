@@ -54,9 +54,13 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    console.log('inDelete; before delete', this.state.list)
+    const list = this.state.list.filter(item => item.code !== code)
+    console.log('inDelete; after', list)
+
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
+      list
     })
   };
 
