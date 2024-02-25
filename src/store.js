@@ -53,8 +53,6 @@ class Store {
 				},
 			],
 		});
-
-		console.log(this.state.newCode);
 	}
 
 	/**
@@ -72,14 +70,17 @@ class Store {
 	 * Выделение записи по коду
 	 * @param code
 	 */
-	selectItem(code) {
+	selectItem(e, code) {
+		if (e.target.closest('.Item-actions')) return;
+
 		this.setState({
 			...this.state,
 			list: this.state.list.map((item) => {
-				item.selected = false;
-				if (item.code === code) {
+				if (item.code === code && !item.selected) {
 					item.selected = !item.selected;
 					item.selectedCount = item.selectedCount ? item.selectedCount + 1 : 1;
+				} else {
+					item.selected = false;
 				}
 				return item;
 			}),
