@@ -42,9 +42,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const code = this.getState().nextCode
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.__generateRandomCode(), title: 'Новая запись', amount: 0}]
+      list: [...this.state.list, {code: code, title: 'Новая запись', amount: 0}],
+      nextCode: code + 1
     })
   };
 
@@ -52,11 +54,12 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(event, code) {
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
-    })
+      })
+    event.stopPropagation()
   };
 
   /**
@@ -77,25 +80,6 @@ class Store {
     })
   }
 
-  /**
-   * Генератор рандомного кода
-   */
-  __generateRandomCode(){
-    let isUnique = false;
-    let code
-    while(!isUnique){
-      code = Math.floor((Math.random() * 1000 + 1))
-      isUnique = true;
-      for (let item of this.state.list) {
-        if(code == item.code){
-          console.log(code == item.code);
-          isUnique = false;
-          break;
-        }
-      }
-    }
-    return code
-  }
 }
 
 export default Store;
