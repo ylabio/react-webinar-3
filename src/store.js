@@ -56,9 +56,20 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(e, code) {
+    e.stopPropagation();
+    // console.log(this.state.list.map((item) =>{
+    //   if(item.code !== code && item.selected === true) {
+    //     item.selected === true;
+    //   }
+    // }));
     this.setState({
       ...this.state,
+      list: this.state.list.map((item) =>{
+        if(item.code !== code && item.selected === true) {
+          item.selected = true;
+        }
+      }),
       list: this.state.list.filter(item => item.code !== code)
     })
   };
@@ -73,8 +84,10 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
-          item.counter += 1;//Обновляем счетчик при клике
-        } else if (item.code !== code) {//Снимаем выделение с других записей при клике
+          if(item.selected) {
+            item.counter += 1;//Обновляем счетчик при клике
+          }
+        } else if(item.code !== code) {//Снимаем выделение с других записей при клике
           item.selected = false;
         }
         return item;
