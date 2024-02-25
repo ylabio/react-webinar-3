@@ -4,7 +4,6 @@
 class Store {
     #arrNumbers; // создал отдельное поле, в котором храню массив кодов
 
-
     // constructor(initState = {}) {
     //
     //     this.#arrNumbers = initState.list.map(el => el.code)// поместил все коды в массив
@@ -81,7 +80,8 @@ class Store {
      * Удаление записи по коду
      * @param code
      */
-    deleteItem(code) {
+    deleteItem(code, e) {
+        e.stopPropagation() // Останавливаю всплытие на кнопке "удалить". Теперь выделение другого элемента сохраняется.
         this.setState({
             ...this.state,
             list: this.state.list.filter(item => item.code !== code)
