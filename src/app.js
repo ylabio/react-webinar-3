@@ -1,5 +1,6 @@
 import React from 'react';
-import {createElement} from './utils.js';
+import { createElement } from './utils.js';
+import { plural } from './helpers/plural.js';
 import './styles.css';
 
 /**
@@ -7,7 +8,7 @@ import './styles.css';
  * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
 
   const list = store.getState().list;
 
@@ -24,11 +25,14 @@ function App({store}) {
           list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
+                onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>{item.title} <span>{(item.count > 0) && ` | Выделяли ${item.count} ${plural(item.count)}`}</span></div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => {
+                    e.stopPropagation();
+                    store.deleteItem(item.code)
+                  }}>
                     Удалить
                   </button>
                 </div>
