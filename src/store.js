@@ -1,5 +1,3 @@
-import { generateUniqueRandomNumber } from './utils.js';
-
 /**
  * Хранилище состояния приложения
  */
@@ -46,14 +44,17 @@ class Store {
 	addItem() {
 		this.setState({
 			...this.state,
+			newCode: this.state.newCode + 1,
 			list: [
 				...this.state.list,
 				{
-					code: generateUniqueRandomNumber(8, 100),
+					code: this.state.newCode,
 					title: 'Новая запись',
 				},
 			],
 		});
+
+		console.log(this.state.newCode);
 	}
 
 	/**
