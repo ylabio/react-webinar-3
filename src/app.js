@@ -11,6 +11,15 @@ function App({ store }) {
 
     const list = store.getState().list;
 
+    function makePlur(n) {
+        let titles = ["раз", "раза", "раз"]
+        return titles[(n % 10 === 1 && n % 100 !== 11) ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2]
+    }
+
+    function removeItem(e, code) {
+        e.stopPropagation()
+        store.deleteItem(code)
+    }
     return (
         <div className='App'>
             <div className='App-head'>
@@ -28,12 +37,10 @@ function App({ store }) {
                                 <div className='Item-code'>{item.code}</div>
                                 <div className='Item-title'>
                                     <span>{item.title}</span>
-                                    <span>{item.count > 0 && ` | Выделяли ${item.count} раз`}</span>
+                                    <span>{item.count > 0 && ` | Выделяли ${item.count} ${makePlur(item.count)} `}</span>
                                 </div>
                                 <div className='Item-actions'>
-                                    <button onClick={() => store.deleteItem(item.code)}>
-                                        Удалить
-                                    </button>
+                                    <button onClick={(e) => removeItem(e, item.code)}>Удалить</button>
                                 </div>
                             </div>
                         </div>
