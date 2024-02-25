@@ -1,6 +1,6 @@
 import React from 'react';
-import {createElement} from './utils.js';
 import './styles.css';
+import {isPlural} from './utils';
 
 /**
  * Приложение
@@ -21,14 +21,24 @@ function App({store}) {
       </div>
       <div className='App-center'>
         <div className='List'>{
-          list.map(item =>
+          list.map((item, index) =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
+                onClick={() => {
+                  store.selectItem(item.code);
+                  item.selected && store.incrementItemCount(index);
+                }}
+              >
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>
+                  {item.title}
+                  {item.count > 0 && ` | Выделяли ${item.count} раз${isPlural(item.count) ? 'а' : ''}`}
+                </div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => {
+                    e.stopPropagation();
+                    store.deleteItem(item.code);
+                  }}>
                     Удалить
                   </button>
                 </div>

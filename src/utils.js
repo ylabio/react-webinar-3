@@ -26,3 +26,20 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * 
+ * @param count {number} // Счетчик выделений элемента списка
+ * @return {bool}
+ */
+export function isPlural(count) {
+  const unit = count % 10;
+  const ten = count % 100;
+
+  // Проверка, что число в нужном диапазоне
+  if ((unit >= 2 && unit <= 4) && (ten < 12 || ten > 14)) {
+     return true;
+  }
+
+  return false;
+};
