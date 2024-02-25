@@ -44,7 +44,7 @@ class Store {
 	addItem(id) {
 		this.setState({
 			...this.state,
-			list: [...this.state.list, { code: id, title: 'Новая запись', count: 0 }]
+			list: [...this.state.list, { code: id, title: 'Новая запись' }]
 		})
 	};
 
@@ -63,13 +63,15 @@ class Store {
 	 * Выделение записи по коду
 	 * @param code
 	 */
-	selectItem(code, count) {
+	selectItem(code, count = 0) {
 		this.setState({
 			...this.state,
 			list: this.state.list.map(item => {
 				if (item.code === code) {
+					if (!item.selected) {
+						item.count = count + 1;
+					}
 					item.selected = !item.selected;
-					item.count = count + 1;
 				} else {
 					item.selected = false;
 				}

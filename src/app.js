@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement } from './utils.js';
+import { createElement, getNoun } from './utils.js';
 import './styles.css';
 
 /**
@@ -11,10 +11,9 @@ function App({ store }) {
 
 	const list = store.getState().list;
 
-
 	const handleAddItem = () => {
-		const id = Math.floor(Math.random() * 100);
-		store.addItem(id);
+		const id = Date.now();
+		store.addItem(id % 1e3); // Добавляю только 3 последних цифры
 	}
 	return (
 		<div className='App'>
@@ -26,27 +25,39 @@ function App({ store }) {
 			</div>
 			<div className='App-center'>
 				<div className='List'>{
-					list.map(item =>
-						<div key={item.code} className='List-item'>
-							<div className={'Item' + (item.selected ? ' Item_selected' : '')}
-								onClick={() => store.selectItem(item.code, item.count)}>
-								<div className='Item-code'>{item.code}</div>
-								<div className='Item-title'>
-									{
-										item.title
-									}
-									{
-										!!item.count && ` | Выделяли ${item.count} раз`
-									}
-								</div>
-								<div className='Item-actions'>
-									<button onClick={() => store.deleteItem(item.code)}>
-										Удалить
-									</button>
+					list.map(item => {
+						const handleSelectItem = () => {
+							store.selectItem(item.code, item.count);
+						}
+
+						const handleDeleteItem = (event) => {
+							event.stopPropagation();
+							store.deleteItem(item.code);
+						}
+
+						return (
+							<div key={item.code} className='List-item'>
+								<div className={'Item' + (item.selected ? ' Item_selected' : '')}
+									onClick={handleSelectItem}>
+									<div className='Item-code'>{item.code}</div>
+									<div className='Item-title'>
+										{
+											item.title
+										}
+										{
+											!!item.count &&
+											` | Выделяли ${item.count} ` + getNoun(item.count)
+										}
+									</div>
+									<div className='Item-actions'>
+										<button onClick={handleDeleteItem}>
+											Удалить
+										</button>
+									</div>
 								</div>
 							</div>
-						</div>
-					)
+						)
+					})
 				}
 				</div>
 			</div>
