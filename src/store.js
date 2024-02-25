@@ -4,7 +4,8 @@
 class Store {
   constructor(initState = {}) {
     this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.listeners = [];
+    this.id = 8; // Слушатели изменений состояния
   }
 
   /**
@@ -41,24 +42,27 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
-    let newCode = Math.max(...this.getState().list.map(item => item.code), 0) + 1;
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: newCode, title: 'Новая запись'}]
-    })
-  };
+
+addItem() {
+  const newCode = this.id++;
+  this.setState({
+    ...this.state,
+    list: [...this.state.list, { code: newCode, title: 'Новая запись' }]
+  });
+}
 
   /**
    * Удаление записи по коду
    * @param code
-   */
+  //  */
+
   deleteItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+  const updatedList = this.state.list.filter(item => item.code !== code);
+  this.setState({
+    list: updatedList
+  });
+  }
+
 
   /**
    * Выделение записи по коду
