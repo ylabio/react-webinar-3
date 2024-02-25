@@ -38,9 +38,7 @@ function App({store}) {
                 <div className='Item-title'>
                   {item.title}
                   {item.selectedCount > 0 && (
-                      <span>
-                        | Выделяли {item.selectedCount} {getPluralForm(item.selectedCount, 'раз', 'раза')}
-                      </span>
+                      <span> | Выделяли {item.selectedCount} {getPluralForm(item.selectedCount, 'раз', 'раза')}</span>
                   )}
                 </div>
                 <div className='Item-actions'>
