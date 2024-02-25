@@ -75,10 +75,14 @@ class Store {
           return {
             ...item,
             selected: !item.selected,
-            selectedCount: !item.selected ? (item.selectedCount || 0) + 1 : item.selectedCount
-          };
+            selectedCount: item.selected ? (item.selectedCount || 0) - 1 : (item.selectedCount || 0) + 1
+          }
+        } else {
+          return {
+            ...item,
+            selected: false
+          }
         }
-        return item;
       })
     });
   }
