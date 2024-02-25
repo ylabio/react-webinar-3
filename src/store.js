@@ -42,9 +42,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const chemists = this.state.list.length - 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.state.list [chemists].code +1, title: 'Новая запись', numberOfClicks: 0}]
     })
   };
 
@@ -69,6 +70,12 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected){
+            item.numberOfClicks= item.numberOfClicks +1;
+          }
+        }
+        else {
+          item.selected = null;
         }
         return item;
       })
