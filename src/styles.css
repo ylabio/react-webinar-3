@@ -50,6 +50,10 @@ body {
 }
 
 .Item-title {
+  padding: 20px 10px;
+  width: 100%;
+}
+.Item-counter{
   width: 100%;
   padding: 20px 10px;
 }
