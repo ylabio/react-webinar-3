@@ -4,12 +4,6 @@
 class Store {
     #arrNumbers; // создал отдельное поле, в котором храню массив кодов
 
-    // constructor(initState = {}) {
-    //
-    //     this.#arrNumbers = initState.list.map(el => el.code)// поместил все коды в массив
-    //     this.state = initState;
-    //     this.listeners = []; // Слушатели изменений состояния
-    // }
     constructor(initState = {}) {
         initState = {
             ...initState,
@@ -18,7 +12,6 @@ class Store {
         this.#arrNumbers = initState.list.map(el => el.code)// поместил все коды в массив
         this.state = initState;
         this.listeners = []; // Слушатели изменений состояния
-        console.log(initState)
     }
 
     /**
@@ -55,12 +48,6 @@ class Store {
     /**
      * Добавление новой записи
      */
-    // addItem() {
-    //   this.setState({
-    //     ...this.state,
-    //     list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    //   })
-    // };
 
     codeGenerator() {
         let maxNumber = Math.max(...this.#arrNumbers) // вычисляю максимальное значение кода в массиве.
@@ -69,10 +56,19 @@ class Store {
         return randomCode; // возвращаю число, которое всегда будет больше на единицу самого большого значения имеющихся кодов.
     }
 
+    pluralization(item) {
+        if (item.touchCount % 100 === 12 || item.touchCount % 100 === 13 || item.touchCount % 100 === 14) { // проверка на 12 13 14
+            return true
+        } else if (item.touchCount % 10 === 2 || item.touchCount % 10 === 3 || item.touchCount % 10 === 4) { // проверка на 2 3 4
+            return false
+        }
+        return true
+    }
+
     addItem() {
         this.setState({
             ...this.state,
-            list: [...this.state.list, {code: this.codeGenerator(), title: 'Новая запись', touchCount: 0}]//при создании новой записи добавил touchCount со значением 0
+            list: [...this.state.list, {code: this.codeGenerator(), title: 'Новая запись', touchCount: 0}]// при создании новой записи добавил touchCount со значением 0
         })
     };
 
@@ -92,17 +88,7 @@ class Store {
      * Выделение записи по коду
      * @param code
      */
-    // selectItem(code) {
-    //   this.setState({
-    //     ...this.state,
-    //     list: this.state.list.map(item => {
-    //       if (item.code === code) {
-    //         item.selected = !item.selected;
-    //       }
-    //       return item;
-    //     })
-    //   })
-    // }
+
     selectItem(code) {
         this.setState({
             ...this.state,

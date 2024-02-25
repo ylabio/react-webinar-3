@@ -28,7 +28,7 @@ function App({store}) {
                                 <div className='Item-code'>{item.code}</div>
                                 <div className='Item-title'>{item.title}
                                     {item.touchCount > 0 &&
-                                        <span>{` | Выделяли ${item.touchCount} раз`}</span>}{/*условно рендерю спан если touchCount > 0*/}{/*добавил "|" */}
+                                        <span>{` | Выделяли ${item.touchCount} ${store.pluralization(item) ? 'раз' : 'раза'}`}</span>}{/*условно рендерю спан если touchCount > 0*/}{/*добавил "|" */}{/*добавил плюрализацию */}
                                 </div>
                                 <div className='Item-actions'>
                                     <button onClick={(e) => store.deleteItem(item.code, e)}>
