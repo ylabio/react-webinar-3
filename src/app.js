@@ -11,6 +11,15 @@ function App({store}) {
 
   const list = store.getState().list;
 
+  function getPluralForm(count, form1, form2) {
+    const mod10 = count % 10;
+    if (mod10 >= 2 && mod10 <= 4) {
+      return form2;
+    } else {
+      return form1;
+    }
+  }
+
   return (
     <div className='App'>
       <div className='App-head'>
@@ -28,7 +37,11 @@ function App({store}) {
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>
                   {item.title}
-                  {item.selectedCount > 0 && <span> | Выделяли {item.selectedCount} раз</span>}
+                  {item.selectedCount > 0 && (
+                      <span>
+                        | Выделяли {item.selectedCount} {getPluralForm(item.selectedCount, 'раз', 'раза')}
+                      </span>
+                  )}
                 </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
