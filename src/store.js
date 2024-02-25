@@ -1,3 +1,5 @@
+import {Generator} from "./generator";
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,6 +7,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.selected_code = -1; //Код выделенной записи
+    this.codeGenerator = new Generator(initState.list.length + 1);
   }
 
   /**
@@ -44,7 +48,10 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {
+        code: this.codeGenerator.generateNextCode(),
+        title: 'Новая запись'
+      }]
     })
   };
 
@@ -67,12 +74,17 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        if (item.code === this.selected_code) {
+          item.selected = false;
+        } else if (item.code === code) {
+          item.selected = true;
+          item.selected_count = item.selected_count ? item.selected_count + 1 : 1;
         }
         return item;
       })
-    })
+    });
+
+    this.selected_code = code === this.selected_code ? -1 : code;
   }
 }
 
