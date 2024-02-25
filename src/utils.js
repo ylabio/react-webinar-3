@@ -1,3 +1,5 @@
+import plural from 'plural-ru';
+
 const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
 
 /**
@@ -28,12 +30,5 @@ export function createElement(name, props = {}, ...children) {
 }
 
 export function pluralizeCounter(count) {
-    const lastDigit = count % 10;
-    return count >= 11 && count <= 19
-        ? `${count} раз`
-        : lastDigit === 1
-        ? `${count} раз`
-        : lastDigit >= 2 && lastDigit <= 4
-        ? `${count} раза`
-        : `${count} раз`;
+    return `${count} ${plural(count, 'раз', 'раза', 'раз')}`;
 }

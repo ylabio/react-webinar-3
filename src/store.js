@@ -38,20 +38,17 @@ class Store {
         for (const listener of this.listeners) listener();
     }
 
-    generateUniqueCode() {
-        let newCode;
-        do {
-            newCode = Math.floor(Math.random() * 100) + 1;
-        } while (this.state.list.some((item) => item.code === newCode));
-
-        return newCode;
+    generateNextCode() {
+        const itemCodes = this.state.list.map((item) => item.code);
+        if (!itemCodes.length) return 1;
+        return Math.max(...itemCodes) + 1;
     }
 
     /**
      * Добавление новой записи
      */
     addItem() {
-        const newCode = this.generateUniqueCode();
+        const newCode = this.generateNextCode();
         this.setState({
             ...this.state,
             list: [

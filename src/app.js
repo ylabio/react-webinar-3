@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement, pluralizeCounter } from './utils.js';
+import { pluralizeCounter } from './utils.js';
 import './styles.css';
 
 /**
@@ -10,13 +10,26 @@ import './styles.css';
 function App({ store }) {
     const list = store.getState().list;
 
+    const handleAddItem = () => {
+        store.addItem();
+    };
+
+    const handleSelectItem = (itemCode) => {
+        store.selectItem(itemCode);
+    };
+
+    const handleDeleteItem = (e, itemCode) => {
+        e.stopPropagation();
+        store.deleteItem(itemCode);
+    };
+
     return (
         <div className='App'>
             <div className='App-head'>
                 <h1>Приложение на чистом JS</h1>
             </div>
             <div className='App-controls'>
-                <button onClick={() => store.addItem()}>Добавить</button>
+                <button onClick={() => handleAddItem()}>Добавить</button>
             </div>
             <div className='App-center'>
                 <div className='List'>
@@ -27,7 +40,7 @@ function App({ store }) {
                                     'Item' +
                                     (item.selected ? ' Item_selected' : '')
                                 }
-                                onClick={() => store.selectItem(item.code)}
+                                onClick={() => handleSelectItem(item.code)}
                             >
                                 <div className='Item-code'>{item.code}</div>
                                 <div className='Item-title'>
@@ -41,8 +54,8 @@ function App({ store }) {
 
                                 <div className='Item-actions'>
                                     <button
-                                        onClick={() =>
-                                            store.deleteItem(item.code)
+                                        onClick={(e) =>
+                                            handleDeleteItem(e, item.code)
                                         }
                                     >
                                         Удалить
