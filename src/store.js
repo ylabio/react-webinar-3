@@ -74,7 +74,7 @@ class Store {
           item.selected = !item.selected;
           if (item.selected) {            
             item.count++;            
-             if(item.count==12||item.count==13||item.count==14){
+             if(item.count%100==12||item.count%100==13||item.count%100==14){
               item.title=`Выделяли ${item.count} раз`
             }
             else if(item.count % 10 ==2||item.count % 10 ==3||item.count % 10 ==4)
