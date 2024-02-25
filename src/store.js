@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.codeCount = this.state.list.length;
   }
 
   /**
@@ -39,28 +40,14 @@ class Store {
   }
 
   /**
-   * Поиск Максимального значения this.state.list.code
-   */
-  getCountCodeMax() {
-    let codeMax = 0;
-
-    this.state.list.forEach(item => {
-      if (item.code > codeMax) {
-        codeMax = item.code;
-      }
-    });
-
-    return codeMax;
-  }
-
-  /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.getCountCodeMax() + 1, title: "Новая запись"}],
+      list: [...this.state.list, {code: this.codeCount += 1, title: "Новая запись"}],
     });
+    console.log(this.codeCount);
   };
 
   /**
