@@ -26,3 +26,13 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getPluralForm(count) {
+  if (count === 1) {
+      return count + " раз";
+  } else if (count >= 2 && count <= 4) {
+      return count + " раза";
+  } else {
+      return count + " раз";
+  }
+}

@@ -5,9 +5,11 @@ import { useId } from "react";
  */
 class Store {
   constructor(initState = {}) {
-    initState.list = initState.list.map(el => {return {...el,clickCount : 0}}) //Всем поступившим элементам добавляем clickCount = 0
+    
+    initState.list = initState.list.map(el => {return {...el,clickCount : 0}});  //Всем поступившим элементам добавляем clickCount = 0
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.currId = Math.max(...this.state.list.map(el => el.code),0) + 1; //,0 для предотвращения -inf при пустом массиве list
   }
 
   /**
@@ -41,12 +43,6 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Генерируем уникальный code
-   */
-  keyGen(){
-      return Math.max(...this.state.list.map(el => el.code),0) + 1 //,0 для предотвращения -inf при пустом массиве list
-  }
 
   /**
    * Добавление новой записи
@@ -54,7 +50,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code:this.keyGen(), title: 'Новая запись',clickCount:0}]
+      list: [...this.state.list, {code:this.currId++, title: 'Новая запись',clickCount:0}]
     })
   };
 
@@ -62,7 +58,8 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(e,code) {
+    e.stopPropagation()
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
