@@ -88,17 +88,14 @@ class Store {
 
   /**
    * Инкремент счетчика по коду
-   * @param code 
+   * @param index 
    */
-  incrementItemCount(code) {
+  incrementItemCount(index) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.count++;
-        }
-
-        return item;
+      list: this.state.list.toSpliced(index, 1, {
+        ...this.state.list[index],
+        count: this.state.list[index].count + 1
       })
     })
   }
