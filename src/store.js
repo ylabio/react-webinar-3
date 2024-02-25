@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.code = this.state.list.length;
   }
 
   /**
@@ -47,7 +48,7 @@ class Store {
       list: [
         ...this.state.list,
         {
-          code: Math.round(Math.random() * 1000),
+          code: (this.code += 1),
           title: "Новая запись",
           qtySelected: 0,
         },
