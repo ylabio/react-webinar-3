@@ -3,6 +3,7 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.initSelectionCount();
+    this.id = 8;
   }
 
   /**
@@ -48,15 +49,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    let newItemCode;
-    do {
-      // Генерируем случайное число от 1 до 1000000
-      newItemCode = Math.floor(Math.random() * 100) + 1;
-    } while (this.state.list.some(item => item.code === newItemCode)); // Проверяем уникальность кода
-  
+    const newItemCode = this.id++;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: newItemCode, title: 'Новая запись', selectionCount: 0 }]
+      list: [...this.state.list, { code: newItemCode, title: 'Новая запись',selectionCount: 0 }]
     });
   }
 
@@ -65,11 +61,11 @@ class Store {
    * @param code
    */
   deleteItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+    const updatedList = this.state.list.filter(item => item.code !== code);
+  this.setState({
+    list: updatedList
+  });
+  }
 
   /**
    * Выделение записи по коду
@@ -82,15 +78,12 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          // Проверяем, выделен ли уже элемент
           if (!item.selected) {
-            // Увеличиваем счетчик выделений только если элемент только что выделен
             item.selectionCount += 1;
           }
-          // Выделяем текущий элемент или снимаем выделение
           item.selected = !item.selected;
-        } else if (item.selected) {
-          // Снимаем выделение у других записей, если они были выделены ранее
+        } else {
+          // Снимаем выделение со всех остальных элементов
           item.selected = false;
         }
         return item;
@@ -98,17 +91,6 @@ class Store {
     });
   }
   
-  
 }
 
 export default Store;
-
-/*
-
-// Генерируем уникальный код для новой записи
-    let newItemCode;
-    do {
-      // Генерируем случайное число от 1 до 1000000
-      newItemCode = Math.floor(Math.random() * 100) + 1;
-    } while (this.state.list.some(item => item.code === newItemCode)); // Проверяем уникальность кода
-*/
