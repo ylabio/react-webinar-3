@@ -1,5 +1,4 @@
 import React from "react";
-import { generateUniqueId } from "./utils.js";
 import "./styles.css";
 
 /**
@@ -7,9 +6,20 @@ import "./styles.css";
  * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
+function getPluralCount(count) {
+  let lastTwoDigits = count % 100;
+  let lastDigit = count % 10;
 
-function App({store }) {
+  if ((lastTwoDigits >= 11 && lastTwoDigits <= 14) || lastDigit === 0 || (lastDigit >= 5 && lastDigit <= 9)) {
+    return ` | Выделяли ${count} раз`;
+  } else if (lastDigit === 1) {
+    return ` | Выделяли ${count} раз`;
+  } else {
+    return ` | Выделяли ${count} раза`;
+  }
+}
 
+function App({ store }) {
   const list = store.getState().list;
   return (
     <div className="App">
@@ -28,13 +38,12 @@ function App({store }) {
                 onClick={() => store.selectItem(item.code)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+
+                <div className="Item-title">
+                  {item.title}{item.count !== 0 && getPluralCount(item.count)}
+                </div>
+
                 <div className="Item-actions">
-                  {item.count !== 0 && (
-                    <span className="Count-item">
-                      Выделяли {item.count} раз
-                    </span>
-                  )}
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
                   </button>

@@ -1,8 +1,3 @@
-import { generateUniqueId } from "./utils";
-
-
-const uniqueId = generateUniqueId();
-
 /**
  * Хранилище состояния приложения
  */
@@ -11,6 +6,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.uniqueCode = (this.state?.list?.length ?? 0) + 1;
+ 
   }
 
   /**
@@ -47,13 +44,13 @@ class Store {
   /**
    * Добавление новой записи
    */
- 
+
   addItem() {
     this.setState({
       ...this.state,
       list: [
         ...this.state.list,
-        { code: uniqueId(), title: "Новая запись", count: 0 },
+        { code: this.uniqueCode++, title: "Новая запись", count: 0, },
       ],
     });
   }
@@ -68,6 +65,18 @@ class Store {
       list: this.state.list.filter((item) => item.code !== code),
     });
   }
+  
+  setCount(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map((item) => {
+        if (item.code === code) {
+          item.count = item.count + 1;
+        }
+        return item;
+      }),
+    });
+  }
 
   /**
    * Выделение записи по коду
@@ -79,14 +88,13 @@ class Store {
       list: this.state.list.map((item) => {
         if (item.code === code) {
           item.selected = !item.selected;
-          item.count = item.count + 1;
-        } else {
-          item.selected = false; // Сброс выделения у других записей
+          if (item.selected) {
+            this.setCount(code); // Вызов метода для увеличения счетчика
+          }
         }
         return item;
       }),
     });
-  }
 }
-
+}
 export default Store;
