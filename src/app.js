@@ -1,5 +1,5 @@
 import React from 'react';
-import {createElement} from './utils.js';
+import {createElement, getEndingByNum} from './utils.js';
 import './styles.css';
 
 /**
@@ -28,7 +28,7 @@ function App({store}) {
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>
-                    {item.highlightCounts > 0 ? `${item.title} | Выделяли ${item.highlightCounts} раз(а)` : item.title}
+                    {item.highlightCounts > 0 ? `${item.title} | Выделяли ${item.highlightCounts} ${getEndingByNum(item.highlightCounts)}` : item.title}
                 </div>
                 <div className='Item-actions'>
                   <button onClick={(e) => {

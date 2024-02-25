@@ -26,3 +26,14 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getEndingByNum(num) {
+  if (num % 10 === 1) {
+    return 'раз';
+  } else if (num % 10 >= 2 && num % 10 <= 4 && (num % 100 < 10 || num % 100 >= 20)) {
+    return 'раза';
+  } else {
+    return 'раз';
+  }
+}
+
