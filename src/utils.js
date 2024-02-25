@@ -26,3 +26,13 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function pluralize(value, options, locale = 'ru-RU') {
+  const option = new Intl.PluralRules(locale).select(value);
+
+  if (option === 'few') {
+    return options[1];
+  } else {
+    return options[0];
+  }
+}
