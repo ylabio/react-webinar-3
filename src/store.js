@@ -4,6 +4,7 @@
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.count = this.state.list.length;
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -44,15 +45,17 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.count + 1, title: 'Новая запись', highlight: 0}]
     })
+    this.count = this.count + 1;
   };
 
   /**
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(code, event) {
+    event.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
@@ -68,7 +71,26 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          if (!item.selected) {
+            if (item.highlight === 0) {
+              item.highlight++;
+              item.title = item.title + ` | Выделяли ${item.highlight} раз`;
+            }
+            else {
+              var now = item.highlight.toString();
+              item.highlight++;
+              var next = item.highlight.toString();
+              item.title = item.title.replace(now, next);
+              if ((item.highlight % 10 === 2) && (item.highlight % 100 !== 12)) {
+                item.title = item.title.replace("раз", "раза");
+              } else if (item.highlight % 10 === 5) {
+                item.title = item.title.replace("раза", "раз");
+              }
+            }
+          }
           item.selected = !item.selected;
+        } else if (item.selected) {
+          item.selected = false;
         }
         return item;
       })
