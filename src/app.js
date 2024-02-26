@@ -10,6 +10,10 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
+//
+  const timesByCount = times => {
+    return times + " " + ((times < 12 || times > 14) && ["2", "3", "4"].includes(times.toString().substring(times.toString().length - 1)) ? "раза" : "раз");
+  }
 
   return (
     <div className='App'>
@@ -26,7 +30,7 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title + ' | ' + (item.selections > 0 ? `Выделяли ${item.selections} раз` : 'Не выделяли')}</div>
+                <div className='Item-title'>{item.title + ' | ' + (item.selections > 0 ? `Выделяли ${timesByCount(item.selections)}` : 'Не выделяли')}</div>
                 <div className='Item-actions'>
                   <button onClick={event => { event.stopPropagation(); store.deleteItem(item.code); return false; }}>
                     Удалить
