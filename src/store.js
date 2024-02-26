@@ -80,7 +80,6 @@ class Store {
           }
           item.selected = !item.selected;
         }
-
         return item;
       }),
     });

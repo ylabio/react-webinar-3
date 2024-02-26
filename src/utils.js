@@ -31,3 +31,15 @@ export function createCode(inputCode) {
   const uniqueCode = Math.random(inputCode);
   return uniqueCode;
 }
+
+export function getInflection(number, str1, str2) {
+  let n = Math.abs(number);
+  if (n >= 5 && n <= 21) {
+    return str1;
+  } else {
+    n %= 10;
+    if (n >= 2 && n <= 4) {
+      return str2;
+    } else return str1;
+  }
+}
