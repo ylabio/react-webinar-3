@@ -1,4 +1,5 @@
 import React from 'react';
+import { ENDINGS } from './endings.js';
 import {createElement} from './utils.js';
 import './styles.css';
 
@@ -31,7 +32,7 @@ function App({store}) {
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>
                   {item.title}
-                  {item.count && ` | Выделяли ${item.count} раз`}
+                  {item.count && ` | Выделяли ${ENDINGS(item.count)}`}
                 </div>
                 <div className='Item-actions'>
                   <button onClick={(event) => {
