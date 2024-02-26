@@ -48,7 +48,7 @@ class Store {
         ...this.state.list,
         {
           code: Math.floor((Date.now() / 100000000) * Math.random()),
-          title: 'Новая запись',
+          title: "Новая запись",
           selectCount: 0,
         },
       ],
@@ -65,6 +65,21 @@ class Store {
       list: this.state.list.filter((item) => item.code !== code),
     });
   }
+
+  getLastLetter = (number) => {
+    let strValue = number.toString();
+    let lastTwoNum = Number(strValue.slice(-2));
+
+    if (lastTwoNum >= 12 && lastTwoNum <= 14) {
+      return "";
+    } else {
+      if (lastTwoNum % 10 >= 2 && lastTwoNum % 10 <= 4) {
+        return "а";
+      } else {
+        return "";
+      }
+    }
+  };
 
   /**
    * Выделение записи по коду
@@ -89,4 +104,3 @@ class Store {
 }
 
 export default Store;
-
