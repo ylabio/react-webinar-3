@@ -11,6 +11,11 @@ import { pluralizeTimes } from './utils.js';
 function App({ store }) {
   const list = store.getState().list;
 
+  const handleDelete = (event, code) => {
+    event.stopPropagation();
+    store.deleteItem(code);
+  };
+
   return (
     <div className="App">
       <div className="App-head">
@@ -34,7 +39,7 @@ function App({ store }) {
                     `| Выделяли ${item.selectedCount} ${pluralizeTimes(item.selectedCount)}`}
                 </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button onClick={event => handleDelete(event, item.code)}>Удалить</button>
                 </div>
               </div>
             </div>
