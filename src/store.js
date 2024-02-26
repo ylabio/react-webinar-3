@@ -7,7 +7,6 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.uniqueCode = (this.state?.list?.length ?? 0) + 1;
- 
   }
 
   /**
@@ -50,7 +49,7 @@ class Store {
       ...this.state,
       list: [
         ...this.state.list,
-        { code: this.uniqueCode++, title: "Новая запись", count: 0, },
+        { code: this.uniqueCode++, title: "Новая запись", count: 0 },
       ],
     });
   }
@@ -65,7 +64,7 @@ class Store {
       list: this.state.list.filter((item) => item.code !== code),
     });
   }
-  
+
   setCount(code) {
     this.setState({
       ...this.state,
@@ -87,14 +86,13 @@ class Store {
       ...this.state,
       list: this.state.list.map((item) => {
         if (item.code === code) {
-          item.selected = !item.selected;
-          if (item.selected) {
-            this.setCount(code); // Вызов метода для увеличения счетчика
-          }
+          item.selected = true;
+        } else {
+          item.selected = false;
         }
         return item;
       }),
     });
-}
+  }
 }
 export default Store;

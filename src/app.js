@@ -1,26 +1,19 @@
 import React from "react";
 import "./styles.css";
+import {plural} from './utils'
+
+
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
-function getPluralCount(count) {
-  let lastTwoDigits = count % 100;
-  let lastDigit = count % 10;
 
-  if ((lastTwoDigits >= 11 && lastTwoDigits <= 14) || lastDigit === 0 || (lastDigit >= 5 && lastDigit <= 9)) {
-    return ` | Выделяли ${count} раз`;
-  } else if (lastDigit === 1) {
-    return ` | Выделяли ${count} раз`;
-  } else {
-    return ` | Выделяли ${count} раза`;
-  }
-}
 
 function App({ store }) {
   const list = store.getState().list;
+  const forms = ['раз', 'раза', 'раз'];
   return (
     <div className="App">
       <div className="App-head">
@@ -35,12 +28,16 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={"Item" + (item.selected ? " Item_selected" : "")}
-                onClick={() => store.selectItem(item.code)}
+                onClick={() => {
+                  store.selectItem(item.code);
+                  store.setCount(item.code);
+                }}
               >
                 <div className="Item-code">{item.code}</div>
 
                 <div className="Item-title">
-                  {item.title}{item.count !== 0 && getPluralCount(item.count)}
+                  {item.title}
+                  {item.count > 0 && ` | Выделяли ${item.count} ${plural(forms, item.count)}`}
                 </div>
 
                 <div className="Item-actions">
