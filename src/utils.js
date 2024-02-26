@@ -30,8 +30,7 @@ export function createElement(name, props = {}, ...children) {
 export function pluralise(n) {
   const list = [2, 3, 4];
   let times;
-  let k = n % 100;
-  if (k >= 10 && k <= 20) {
+  if (n % 100 > 11 && n % 100 < 15) {
     times = "раз";
   } else {
     times = list.includes(n % 10) ? "раза" : "раз";
