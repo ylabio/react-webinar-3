@@ -71,25 +71,34 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          
           item.selected = !item.selected;
-          if (item.selected) {            
-            item.count++;            
-             if(item.count%100==12||item.count%100==13||item.count%100==14){
-              item.title=`Выделяли ${item.count} раз`
+
+          if (item.selected) {    
+            item.title = item.title.replace(/\| Выделяли \d+ раз\D*/, '');  
+
+            item.count++;  
+
+            let lastTwoDigits = item.count % 100;
+            let lastDigit = item.count % 10; 
+
+            if(lastTwoDigits===12||lastTwoDigits===13||lastTwoDigits===14){
+              item.title=`${item.title} | Выделяли ${item.count} раз`
             }
-            else if(item.count % 10 ==2||item.count % 10 ==3||item.count % 10 ==4)
-            {item.title=`Выделяли ${item.count} раза`}
+            else if(lastDigit===2||lastDigit===3||lastDigit===4){
+              item.title=`${item.title} | Выделяли ${item.count} раза`
+            }
             else{
-              item.title=`Выделяли ${item.count} раз`
+              item.title=`${item.title} | Выделяли ${item.count} раз`
             }            
           }     
-        }
+        } 
         else {
-          item.selected = false; 
-          
+          item.selected = false;           
         }
         return item;
       })
+      
     })
   }
 }
