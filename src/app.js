@@ -30,7 +30,7 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title + ' | ' + (item.selections > 0 ? `Выделяли ${timesByCount(item.selections)}` : 'Не выделяли')}</div>
+                <div className='Item-title'>{item.title + (item.selections > 0 ? ` | Выделяли ${timesByCount(item.selections)}` : '')}</div>
                 <div className='Item-actions'>
                   <button onClick={event => { event.stopPropagation(); store.deleteItem(item.code); return false; }}>
                     Удалить

@@ -45,7 +45,7 @@ class Store {
     const code = this.state.lastCode + 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code, title: 'Новая запись'}],
+      list: [...this.state.list, {code, title: 'Новая запись', selections: 0}],
       lastCode: code
     })
   };
