@@ -44,3 +44,23 @@ export function pluralizeTimes(count) {
     return 'раз';
   }
 }
+
+/**
+ * Генерирует уникальный код, который не входит в предоставленный список кодов.
+ * @param {Array} existingCodes - Список текущих кодов, которые следует исключить. По умолчанию пуст.
+ * @param {number} maxPossibleValue - Максимальное значение, которое может быть сгенерировано. По умолчанию 1000.
+ * @returns {number} Сгенерированный уникальный код.
+ */
+export function generateUniqueCode(existingCodes = [], maxPossibleValue = 100) {
+  if (existingCodes.length >= maxPossibleValue) {
+    throw new Error('Cannot generate a unique code: all codes are already used.');
+  }
+  const uniqueCodesSet = new Set(existingCodes);
+
+  let uniqueCode;
+  do {
+    uniqueCode = Math.floor(Math.random() * maxPossibleValue);
+  } while (uniqueCodesSet.has(uniqueCode));
+
+  return uniqueCode;
+}
