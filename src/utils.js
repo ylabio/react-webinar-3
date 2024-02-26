@@ -29,6 +29,12 @@ export function createElement(name, props = {}, ...children) {
 
 export function pluralise(n) {
   const list = [2, 3, 4];
-  let times = list.includes(n % 10) ? "раза" : "раз";
+  let times;
+  let k = n % 100;
+  if (k >= 10 && k <= 20) {
+    times = "раз";
+  } else {
+    times = list.includes(n % 10) ? "раза" : "раз";
+  }
   return ` | Выделяли ${n} ${times}`;
 }
