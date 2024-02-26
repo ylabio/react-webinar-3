@@ -72,13 +72,21 @@ class Store {
         if (item.code === code) {
           item.selected = !item.selected;
           item.clickCount = (item.clickCount || 0) + 1;
-        } else {
-          item.selected = false;
-          item.label = '';
+          item.selectCount = Math.ceil(item.clickCount / 2);
+          item.wordForm = this.chooseWordForm(item.selectCount);
         }
         return item;
       })
     });
+  }
+
+  chooseWordForm(number) {
+    if (number % 10 === 1 && number % 100 !== 11)
+      return 'раз'
+    else if ((number % 100 < 10 || number % 100 > 20) && (number % 10 === 2 || number % 10 === 3 || number % 10 === 4))
+      return 'раза'
+    else
+      return 'раз'
   }
 }
 
