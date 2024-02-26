@@ -37,3 +37,8 @@ export function formatted( number, word='раз' ) {
         return word + 'а';
       }
 };
+
+export const generatorCode = (function (code = 7) {
+  return () =>  ++code;
+})();
+

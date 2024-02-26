@@ -1,3 +1,5 @@
+import { generatorCode } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -42,9 +44,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: Date.now().toString(32).slice(6), title: 'Новая запись'}],
+      list: [...this.state.list, {code: generatorCode(), title: 'Новая запись'}],
     })
   };
 
@@ -52,11 +55,13 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(code, e) {
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
+
     })
+    e.stopPropagation();
   };
 
   /**
@@ -68,10 +73,15 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
-          item.count = item.count ? ++item.count : 1;
-          item.isSelected = true;
-        } else delete item.selected;
+          const isSelected = !item.selected;
+          item.selected = isSelected;
+          item.isSelected = isSelected;
+          if (isSelected) {
+            item.count = item.count ? ++item.count : 1;
+          }
+        } else {
+          delete item.selected;
+        }
         return item;
       })
     })
