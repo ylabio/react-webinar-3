@@ -64,7 +64,8 @@ body {
   width: 100%;
   align-self: center;
   border-left: 1px solid;
-  padding: 0 0 0 16px;
+  padding: 0 0 0 6px;
+  margin: 0 0 0 6px;
 }
 
 .Item-count_invisible {
