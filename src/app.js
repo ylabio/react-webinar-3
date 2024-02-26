@@ -30,7 +30,7 @@ function App({store}) {
                   <span className={'Item-counter' + (!item.counter ? ' Item-counter_hidden' : '')}>| Выделяли {item.counter}</span>
                 </div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => store.deleteItem(e, item.code)}>
                     Удалить
                   </button>
                 </div>
