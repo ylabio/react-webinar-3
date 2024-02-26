@@ -4,7 +4,8 @@
 class Store {
   constructor(initState = {}) {
     this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.listeners = [];
+    this.id = 8; // Слушатели изменений состояния
   }
 
   /**
@@ -41,39 +42,46 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+
+addItem() {
+  const newCode = this.id++;
+  this.setState({
+    ...this.state,
+    list: [...this.state.list, { code: newCode, title: 'Новая запись' }]
+  });
+}
 
   /**
    * Удаление записи по коду
    * @param code
-   */
+  //  */
+
   deleteItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+  const updatedList = this.state.list.filter(item => item.code !== code);
+  this.setState({
+    list: updatedList
+  });
+  }
+
 
   /**
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      })
+selectItem(code) {
+  this.setState({
+    ...this.state,
+    list: this.state.list.map(item => {
+      if (item.code === code) {
+        item.selected = !item.selected;
+        item.selectedCount = item.selected ? (item.selectedCount || 0) + 1 : (item.selectedCount || 0);
+      } else {
+        item.selected = false;
+      }
+      return item;
     })
-  }
+  })
+}
 }
 
 export default Store;
