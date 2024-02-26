@@ -1,4 +1,4 @@
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
+const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
 /**
  * Создание элемента со свойствами и вложенными элементами
@@ -25,4 +25,28 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
+}
+
+export function setTotalSelectedItems(a) {
+  let total = a ? a : 0;
+
+  function increment() {
+    return total++;
+  }
+
+  increment();
+  return total;
+}
+
+export function printWord(number) {
+  let lastNumber = number % 10;
+  let preLastNumberString = String(number);
+  let preLastNumber = Number(
+    preLastNumberString[preLastNumberString.length - 2]
+  );
+
+  if (lastNumber > 1 && lastNumber < 5 && preLastNumber !== 1) {
+    return `${number} раза`;
+  }
+  return `${number} раз`;
 }

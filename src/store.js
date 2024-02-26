@@ -1,3 +1,5 @@
+import { setTotalSelectedItems } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -75,15 +77,7 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  setTotalSelectedItems() {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map((item) => {
-        item.totalSelected = 0;
-        return item;
-      }),
-    });
-  }
+
   selectItem(code) {
     this.setState({
       ...this.state,
@@ -91,7 +85,7 @@ class Store {
         if (item.code === code) {
           item.selected = !item.selected;
           if (item.selected === true) {
-            item.totalSelected++;
+            item.totalSelected = setTotalSelectedItems(item.totalSelected);
           }
         } else {
           item.selected = false;

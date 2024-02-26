@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { createElement } from "./utils.js";
+import { printWord } from "./utils.js";
 import "./styles.css";
 
 /**
@@ -9,11 +9,10 @@ import "./styles.css";
  */
 function App({ store }) {
   const list = store.getState().list;
+  console.log(list);
   useEffect(() => {
     store.updateSessionTotalItems();
-    store.setTotalSelectedItems();
   }, []);
-
   return (
     <div className="App">
       <div className="App-head">
@@ -34,12 +33,17 @@ function App({ store }) {
                 <div className="Item-title">
                   {item.title}{" "}
                   {item.totalSelected
-                    ? `| Выделяли ${item.totalSelected} раз`
+                    ? `| Выделяли ${printWord(item.totalSelected)}`
                     : ""}
                 </div>
 
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      store.deleteItem(item.code);
+                    }}
+                  >
                     Удалить
                   </button>
                 </div>
