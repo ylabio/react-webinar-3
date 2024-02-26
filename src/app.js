@@ -11,6 +11,17 @@ function App({ store }) {
 
   const list = store.getState().list;
 
+  function checkWord(count) {
+    count = Math.abs(count) % 100;
+    let num = count % 10;
+
+    if ((count > 20 && (num > 1 && num < 5)) || (count > 1 && count < 5)) {
+      return ' раза';
+    }
+
+    else return ' раз';
+  };
+
   return (
     <div className='App' >
       <div className='App-head'>
@@ -26,9 +37,9 @@ function App({ store }) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                 onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}<span className={'Item-count' + (item.count <= 0 ? ' Item-count_invisible' : '')}>
-                  {'Выделяли ' + item.count + ' раз'}
-                </span></div>
+                <div className='Item-title'>{item.title}{item.count <= 0 ? (<></>) : (<span className={'Item-count'}>
+                  {'Выделяли ' + item.count + checkWord(item.count)}
+                </span>)}</div>
                 <div className='Item-actions'>
                   <button onClickCapture={() => store.deleteItem(item.code)}>
                     Удалить
@@ -39,7 +50,7 @@ function App({ store }) {
           )}
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

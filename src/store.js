@@ -78,6 +78,7 @@ class Store {
         if (item.code === code && item.selected === undefined) {
           item.selected = true;
           ++item.count;
+          console.log(item.count);
         } else if (item.selected === true) {
           item.selected = undefined;
         }
