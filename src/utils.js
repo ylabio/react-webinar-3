@@ -38,3 +38,7 @@ export function pluralise(n) {
   }
   return ` | Выделяли ${n} ${times}`;
 }
+
+export function* codeGenerator(start) {
+  while (true) yield start++;
+}

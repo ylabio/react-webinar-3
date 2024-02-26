@@ -1,11 +1,8 @@
+import { codeGenerator } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
-
-function* codeGenerator(start) {
-  while (true) yield start++;
-}
-
 class Store {
   constructor(initState = {}) {
     this.state = initState;
