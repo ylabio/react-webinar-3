@@ -1,5 +1,6 @@
 import React from 'react';
 import { createElement } from './utils.js';
+import { pluralize } from './utils';
 import './styles.css';
 
 /**
@@ -9,7 +10,7 @@ import './styles.css';
  */
 function App({ store }) {
   const list = store.getState().list;
-  console.log(list);
+
   return (
     <div className="App">
       <div className="App-head">
@@ -27,12 +28,17 @@ function App({ store }) {
                 onClick={() => store.selectItem(item.code)}>
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
-                  {item.selected
-                    ? item.title + ' | ' + 'Выделяли: ' + item.count + ' раз'
-                    : item.title}
+                  {item.title}
+                  {item.count > 0 && pluralize(item.count)}
                 </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      store.deleteItem(item.code);
+                    }}>
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>
