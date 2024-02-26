@@ -27,7 +27,7 @@ function App({store}) {
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title}
-                {item.countSelect != 0 ? (<div className='Item-count-selected'>Выделяли {item.countSelect} раз!</div>) : ("")}
+                {item.countSelect != 0 ? (` | Выделяли ${item.countSelect} раз!`) : ("")}
                 </div>
                 
                 <div className='Item-actions'>
