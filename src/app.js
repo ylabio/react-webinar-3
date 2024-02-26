@@ -1,5 +1,5 @@
 import React from 'react';
-import {createElement} from './utils.js';
+import {createElement, formatCountSelected} from './utils.js';
 import './styles.css';
 
 /**
@@ -11,6 +11,10 @@ function App({store}) {
 
   const list = store.getState().list;
 
+  function handleClick(e, item) {
+    e.stopPropagation(); 
+    store.deleteItem(item.code)
+  }
   return (
     <div className='App'>
       <div className='App-head'>
@@ -26,9 +30,12 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>
+                  {item.title}
+                  {item.countSelected > 0 && ` | Выделяли ${formatCountSelected(item.countSelected)}`}
+                </div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => handleClick(e, item)}>
                     Удалить
                   </button>
                 </div>
