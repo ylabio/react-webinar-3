@@ -54,7 +54,8 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(code, event) {
+    event.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
@@ -80,6 +81,11 @@ class Store {
               item.highlight++;
               var next = item.highlight.toString();
               item.title = item.title.replace(now, next);
+              if ((item.highlight % 10 === 2) && (item.highlight % 100 !== 12)) {
+                item.title = item.title.replace("раз", "раза");
+              } else if (item.highlight % 10 === 5) {
+                item.title = item.title.replace("раза", "раз");
+              }
             }
           }
           item.selected = !item.selected;
