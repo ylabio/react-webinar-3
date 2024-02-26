@@ -26,3 +26,11 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Плюрализация слова 'раз' для его согласования с предшествующим числительным
+ * @param number {Number} Количество выделений записи
+ */
+export function pluralize(number) {
+  return /[^1][234]$|^[234]$/.test(number) ? 'раза' : 'раз';
+}

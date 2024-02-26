@@ -1,3 +1,5 @@
+import {pluralize} from './utils.js';
+
 /**
  * Хранилище состояния приложения
  */
@@ -77,8 +79,7 @@ class Store {
           else {
             item.selected = true;
             item.selectedCount++;
-            item.subtitle = ` | Выделяли ${item.selectedCount} ${/[^1][234]$|^[234]$/.test(item.selectedCount) ? 'раза' : 'раз'}`;
-            
+            item.subtitle = ` | Выделяли ${item.selectedCount} ${pluralize(item.selectedCount)}`;
           }
         }
         else {
