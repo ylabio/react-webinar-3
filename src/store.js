@@ -1,12 +1,13 @@
 /**
  * Хранилище состояния приложения
  */
-import {generateId} from "./utils";
+import {generate} from "./utils";
 
 class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.generateId;
   }
 
   /**
@@ -43,10 +44,24 @@ class Store {
   /**
    * Добавление новой записи
    */
+  maxCode() {
+    const code = this.state.list.reduce((acc, item) => {
+      if (item.code > acc) {
+        return acc = item.code;
+      }
+    }, 0);
+
+    this.generateId = generate(code);
+  }
+  
   addItem() {
+    if (!this.generateId) {
+      this.maxCode();
+    }
+    
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateId(), title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.generateId(), title: 'Новая запись'}]
     })
   };
 

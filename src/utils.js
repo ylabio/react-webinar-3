@@ -27,9 +27,7 @@ export function createElement(name, props = {}, ...children) {
   return element;
 }
 
-export const generateId = (function () {
-  let count = 0;
-
+export const generate = (function(count = 0) {
   function* generator(count) {
     while (true) {
       yield ++count;
@@ -39,7 +37,7 @@ export const generateId = (function () {
   const id = generator(count);
   
   return () => id.next().value;
-}());
+});
 
 export function plural(value) {
   const variants = {
