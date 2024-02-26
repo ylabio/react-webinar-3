@@ -52,7 +52,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.setCodeNumber(), title: 'Новая запись', count: 0}]
+      list: [...this.state.list, { code: this.setCodeNumber(), title: 'Новая запись', count: 0 }]
     })
   };
 
@@ -81,6 +81,7 @@ class Store {
         } else if (item.selected === true) {
           item.selected = undefined;
         }
+
         return item;
       })
     })
