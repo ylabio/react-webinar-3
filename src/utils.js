@@ -34,7 +34,7 @@ export function createElement(name, props = {}, ...children) {
  */
 export function parseSelectCount(count) {
   let countString;
-  if ((count % 10 >= 2 && count % 10 <= 4) && (count <= 5 || count >= 22)) {
+  if ((count % 10 >= 2 && count % 10 <= 4) && (count % 100 <= 5 || count % 100 >= 22)) {
     countString = 'раза';
   } else {
     countString = 'раз';

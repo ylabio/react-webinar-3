@@ -42,36 +42,36 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    const newId = this.state.lastId + 1;
+    const newCode = this.state.lastCode + 1;
     this.setState({
       ...this.state,
-      lastId: newId,
-      list: [...this.state.list, {id: newId, code: this.state.list.length + 1, selectedCount: 0, title: 'Новая запись'}]
+      lastCode: newCode,
+      list: [...this.state.list, {code: newCode, title: 'Новая запись', selectedCount: 0}]
     })
   };
 
   /**
-   * Удаление записи по id
-   * @param id
+   * Удаление записи по code
+   * @param code
    */
-  deleteItem(id) {
+  deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.id !== id)
+      list: this.state.list.filter(item => item.code !== code)
     })
   };
 
   /**
-   * Выделение записи по id
-   * @param id
+   * Выделение записи по code
+   * @param code
    */
-  selectItem(id) {
-    const isSelected = this.state.selectedId === id ? false : true;
+  selectItem(code) {
+    const isSelected = this.state.selectedCode === code ? false : true;
     this.setState({
       ...this.state,
-      selectedId: isSelected ? id : -1,
+      selectedCode: isSelected ? code : -1,
       list: this.state.list.map(item => {
-        if (item.id === id && isSelected) {
+        if (item.code === code && isSelected) {
           item.selectedCount++;
         }
         return item;

@@ -11,7 +11,7 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
-  const selectedId = store.getState().selectedId;
+  const selectedCode = store.getState().selectedCode;
 
   return (
     <div className='App'>
@@ -24,13 +24,16 @@ function App({store}) {
       <div className='App-center'>
         <div className='List'>{
           list.map(item =>
-            <div key={item.id} className='List-item'>
-              <div className={'Item' + (selectedId === item.id ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.id)}>
+            <div key={item.code} className='List-item'>
+              <div className={'Item' + (selectedCode === item.code ? ' Item_selected' : '')}
+                   onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title + (item.selectedCount > 0 ? parseSelectCount(item.selectedCount) : "")}</div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.id)}>
+                  <button onClick={(e) => {
+                      e.stopPropagation();
+                      store.deleteItem(item.code)
+                    }}>
                     Удалить
                   </button>
                 </div>
