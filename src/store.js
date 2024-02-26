@@ -1,3 +1,5 @@
+import {pluralize} from './utils.js';
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,6 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.count = initState.list.length; // Начальное значение счётчика записей
   }
 
   /**
@@ -42,10 +45,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.count++; // Увеличение счётчика записей на единицу при добавлении новой записи
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
+      list: [...this.state.list, {code: this.count, title: 'Новая запись', selectedCount: 0}]
+    });
   };
 
   /**
@@ -68,7 +72,19 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          if (item.selected) {
+            item.selected = false;
+            item.subtitle = '';
+          }
+          else {
+            item.selected = true;
+            item.selectedCount++;
+            item.subtitle = ` | Выделяли ${item.selectedCount} ${pluralize(item.selectedCount)}`;
+          }
+        }
+        else {
+          item.selected = false;
+          item.subtitle = '';
         }
         return item;
       })
