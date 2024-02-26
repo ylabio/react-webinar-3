@@ -26,3 +26,27 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export const generate = (function(count = 0) {
+  function* generator(count) {
+    while (true) {
+      yield ++count;
+    }
+  }
+
+  const id = generator(count);
+  
+  return () => id.next().value;
+});
+
+export function plural(value) {
+  const variants = {
+    one: 'раз', 
+    few: 'раза', 
+    many: 'раз'
+  };
+  
+  const key = new Intl.PluralRules('ru-RU').select(value);
+
+  return variants[key] || '';
+}
