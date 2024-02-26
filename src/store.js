@@ -1,3 +1,5 @@
+import { setTotalSelectedItems } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -16,8 +18,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -37,16 +39,28 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
+  updateSessionTotalItems() {
+    this.setState({
+      ...this.state,
+      sessionTotalItems: this.state.list.length,
+    });
+  }
   /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+      sessionTotalItems: this.state.sessionTotalItems + 1,
+    });
+    this.setState({
+      ...this.state,
+      list: [
+        ...this.state.list,
+        { code: this.state.sessionTotalItems, title: "Новая запись" },
+      ],
+    });
+  }
 
   /**
    * Удаление записи по коду
@@ -55,24 +69,30 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      list: this.state.list.filter((item) => item.code !== code),
+    });
+  }
 
   /**
    * Выделение записи по коду
    * @param code
    */
+
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected === true) {
+            item.totalSelected = setTotalSelectedItems(item.totalSelected);
+          }
+        } else {
+          item.selected = false;
         }
         return item;
-      })
-    })
+      }),
+    });
   }
 }
 
