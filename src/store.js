@@ -1,3 +1,5 @@
+import { generateUniqueCode } from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -17,7 +19,7 @@ class Store {
     // Возвращается функция для удаления добавленного слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);
-    }
+    };
   }
 
   /**
@@ -44,9 +46,15 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+      list: [
+        ...this.state.list,
+        {
+          code: generateUniqueCode(),
+          title: 'Новая запись',
+        },
+      ],
+    });
+  }
 
   /**
    * Удаление записи по коду
@@ -55,9 +63,9 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      list: this.state.list.filter(item => item.code !== code),
+    });
+  }
 
   /**
    * Выделение записи по коду
@@ -67,12 +75,16 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        // Если код элемента совпадает с кодом кликнутого элемента,
+        // меняем его состояние на противоположное. Иначе - сбрасываем выделение.
+        item.selected = item.code === code ? !item.selected : false;
+        // Если элемент выделен, увеличиваем счетчик выделений
+        if (item.selected) {
+          item.selectedCount = (item.selectedCount || 0) + 1;
         }
         return item;
-      })
-    })
+      }),
+    });
   }
 }
 
