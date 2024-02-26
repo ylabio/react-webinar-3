@@ -30,7 +30,7 @@ function App({store}) {
 							<div className={'Item' + (item.selected ? ' Item_selected' : '')}
 							onClick={() => {
 									store.selectItem(item.code)
-									setClick(item.code)}}>
+									if (!item.selected) setClick(item.code)}}>
 								<div className='Item-code'>
 									{item.code}
 								</div>
