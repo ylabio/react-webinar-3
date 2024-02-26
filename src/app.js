@@ -11,6 +11,10 @@ function App({store}) {
 
   const list = store.getState().list;
 
+  function handleClick(e, item) {
+    e.stopPropagation(); 
+    store.deleteItem(item.code)
+  }
   return (
     <div className='App'>
       <div className='App-head'>
@@ -31,7 +35,7 @@ function App({store}) {
                   {item.countSelected > 0 && ` | Выделяли ${formatCountSelected(item.countSelected)}`}
                 </div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => handleClick(e, item)}>
                     Удалить
                   </button>
                 </div>
