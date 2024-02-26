@@ -1,3 +1,5 @@
+import { genCode } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,6 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.generator = genCode(this.state.list.length);
   }
 
   /**
@@ -44,7 +47,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.generator.next().value, title: 'Новая запись'}]
     })
   };
 
@@ -67,7 +70,11 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
+        if (item.code !== code) {
+          item.selected = false;
+        }
+        else {
+          !item.selected && (item.counter = item.counter ? item.counter + 1 : 1);
           item.selected = !item.selected;
         }
         return item;
