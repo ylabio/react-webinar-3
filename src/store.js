@@ -49,7 +49,7 @@ class Store {
       list: [
         ...this.state.list,
         {
-          code: generateUniqueCode(this.state.list.map(item => item.code)),
+          code: generateUniqueCode(),
           title: 'Новая запись',
         },
       ],
