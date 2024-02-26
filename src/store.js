@@ -54,6 +54,7 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    this.id = !this.id ? this.state.list.length : this.id;
     this.setState({
       ...this.state,
       list: this.state.list.filter((item) => item.code !== code),
