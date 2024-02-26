@@ -34,7 +34,10 @@ function App({store}) {
                   {item.count && ` | Выделяли ${item.count} раз`}
                 </div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(event) => {
+                    store.deleteItem(item.code);
+                    event.stopPropagation();
+                  }}>
                     Удалить
                   </button>
                 </div>
