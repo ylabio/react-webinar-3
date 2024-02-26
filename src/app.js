@@ -1,7 +1,7 @@
 import './styles.css';
 
 import React from 'react';
-import { createElement } from './utils.js';
+import { pluralizeTimes } from './utils.js';
 
 /**
  * Приложение
@@ -29,7 +29,9 @@ function App({ store }) {
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
-                  {item.title} {item.selectedCount ? `Выделяли ${item.selectedCount} раз` : ''}
+                  {item.title}{' '}
+                  {item.selectedCount &&
+                    `| Выделяли ${item.selectedCount} ${pluralizeTimes(item.selectedCount)}`}
                 </div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>

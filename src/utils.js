@@ -26,3 +26,21 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Функция для плюрализации слова "раз" по числу
+ * @param {number} count - число, определяющее форму слова
+ * @returns {string} - плюрализованное слово "раз" с числом
+ */
+export function pluralizeTimes(count) {
+  const lastTwoDigits = count % 100;
+  const lastDigit = lastTwoDigits % 10;
+
+  if (lastDigit === 1) {
+    return 'раз';
+  } else if ([2, 3, 4].includes(lastDigit) && ![12, 13, 14].includes(lastTwoDigits)) {
+    return 'раза';
+  } else {
+    return 'раз';
+  }
+}
