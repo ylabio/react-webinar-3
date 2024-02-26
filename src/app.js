@@ -24,11 +24,12 @@ function App() {
   const usedArr = select.map((item) => item.code);
 
   const getRandomInt = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    const newCode = Math.floor(Math.random() * (max - min + 1)) + min;
+    let minS = Math.ceil(min);
+    let maxS = Math.floor(max);
+    let newCode = Math.floor(Math.random() * (maxS - minS + 1)) + minS;
     if (usedArr.includes(newCode)) {
-      newCode = Math.floor(Math.random() * (max - min + 1)) + min;
+      let codeUpd = Math.floor(Math.random() * (max - min * 2)) + min;
+      return codeUpd;
     } else {
       return newCode;
     }
@@ -40,6 +41,7 @@ function App() {
       ...select,
       { code: codeUpd, title: "Новая запись", selected: false },
     ]);
+    usedArr.push(codeUpd);
   };
 
   const allValues = (obj) => {
@@ -58,21 +60,21 @@ function App() {
   };
 
   const findByCode = (code) => {
-    const newSelect = select;
-    if (newSelect.find((item) => item.code === code).selected === true) {
-      newSelect.find((item) => item.code === code).selected = false;
-      setSelected([...newSelect]);
-      console.log(newSelect);
-    } else if (
-      newSelect.find((item) => item.code === code).selected === false
-    ) {
-      newSelect.find((item) => item.code === code).selected = true;
-      setSelected([...newSelect]);
-      console.log(newSelect);
+    let newSelect = select;
+    const chosenItem = newSelect.find((item) => item.code === code);
+    console.log(chosenItem);
+    if (chosenItem.selected === true) {
+      const s = newSelect.map((item) => allValues(item));
+      setSelected(s);
+      console.log(s);
+    } else {
+      const u = newSelect.map((item) => allValues(item));
+      u.find((item) => item.code === code).selected = true;
+      setSelected(u);
+      console.log(u);
     }
 
-    /*const newSelect = select;
-    newSelect.map((item) => (item.selected = false));
+    /*newSelect.map((item) => (item.selected = false));
     newSelect.find((item) => item.code === code).selected = true;
     setSelected([...select]);*/
   };
@@ -109,20 +111,36 @@ function App() {
 
 function Item({ code, title, selected, findByCode, setSelected, select }) {
   const [count, setCount] = useState(0);
+  const counter = () => {
+    if (count > 0) {
+      if (
+        count.toString().endsWith("2") ||
+        count.toString().endsWith("3") ||
+        count.toString().endsWith("4")
+      ) {
+        return ` | Выделяли ${count} разa`;
+      } else {
+        return ` | Выделяли ${count} раз`;
+      }
+    }
+  };
   return (
     <div key={code} className="List-item">
       <div
         onClick={() => {
           findByCode(code);
-          if (selected === true) {
-            setCount(count + 1);
-          }
+          if (selected === false) setCount(count + 1);
         }}
         className={!selected ? "Item" : "Item Item_selected"}
       >
         <div className="Item-code">{code}</div>
-        <div className="Item-title">{title}</div>
-        {count > 0 ? <p> Выделяли {count} раз</p> : " "}
+        <div className="Item-title">
+          {title}
+          {counter()}
+
+          {/*  {count > 0 ? <p> | Выделяли {count} раз</p> : " "}*/}
+        </div>
+
         <DeleteButton setSelected={setSelected} code={code} select={select} />
       </div>
     </div>
