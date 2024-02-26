@@ -1,6 +1,7 @@
 import React from 'react';
 import {createElement} from './utils.js';
 import './styles.css';
+import { editRasForm } from './utils.js';
 
 /**
  * Приложение
@@ -26,7 +27,7 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title + (item.counter ? ` | Выделяли ${item.counter} раз` : '')}</div>
+                <div className='Item-title'>{item.title + (item.counter ? editRasForm(item.counter) : '')}</div>
                 <div className='Item-actions'>
                   <button onClick={(e) => { e.stopPropagation(); store.deleteItem(item.code) }}>
                     Удалить

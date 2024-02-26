@@ -32,3 +32,12 @@ export function* genCode(startVal) {
     yield i;
   }
 }
+
+export function editRasForm(num) {
+  if ([2,3,4].includes(num % 10) && ((num - num % 10) / 10 - 1) % 10 !== 0) {
+    return ` | Выделяли ${num} раза`;
+  }
+  else {
+    return ` | Выделяли ${num} раз`;
+  }
+}
