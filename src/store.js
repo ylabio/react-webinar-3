@@ -3,14 +3,7 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = {
-      list: initState.list.map((item) => {
-        return {
-          id: crypto.randomUUID(),
-          ...item,
-        };
-      }),
-    };
+    this.state = { list: initState.list };
     this.code = this.state.list.length;
     this.listeners = []; // Слушатели изменений состояния
   }
@@ -55,7 +48,6 @@ class Store {
       list: [
         ...this.state.list,
         {
-          id: crypto.randomUUID(),
           code: this.code + 1,
           title: "Новая запись",
         },

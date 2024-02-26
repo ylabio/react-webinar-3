@@ -3,6 +3,12 @@ import React, { useState } from "react";
 export default function Item({ store, item }) {
   const [selectedTimes, setSelectedTimes] = useState(0);
 
+  function pluralization(times) {
+    if ([2, 3, 4].includes(times % 10) && ![12, 13, 14].includes(times % 100))
+      return "a";
+    return "";
+  }
+
   return (
     <div className="List-item">
       <div
@@ -15,11 +21,19 @@ export default function Item({ store, item }) {
         <div className="Item-code">{item.code}</div>
         <div className="Item-title">
           {item.title}
-          {Boolean(selectedTimes) && ` | Выделяли ${selectedTimes} раз`}
+          {Boolean(selectedTimes) &&
+            ` | Выделяли ${selectedTimes} раз` + pluralization(selectedTimes)}
         </div>
 
         <div className="Item-actions">
-          <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+          <button
+            onClick={(event) => {
+              event.stopPropagation();
+              store.deleteItem(item.code);
+            }}
+          >
+            Удалить
+          </button>
         </div>
       </div>
     </div>
