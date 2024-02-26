@@ -74,13 +74,8 @@ class Store {
           item.selected = false;
         }
         else {
-          if (item.selected) {
-            item.selected = false;
-          }
-          else {
-            item.selected = true;
-            item.counter = item.counter ? item.counter + 1 : 1;
-          }
+          !item.selected && (item.counter = item.counter ? item.counter + 1 : 1);
+          item.selected = !item.selected;
         }
         return item;
       })
