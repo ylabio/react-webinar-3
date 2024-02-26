@@ -44,7 +44,7 @@ class Store {
   generateUniqueCode() {
     let uniqueCode;
     do {
-      uniqueCode = Math.floor(Math.random() * 1000);
+      uniqueCode = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
     } while (this.state.list.some(item => item.code === uniqueCode));
 
     return uniqueCode;
@@ -90,7 +90,7 @@ class Store {
         }
         return item;
       })
-    })
+    });
   }
 }
 
