@@ -5,6 +5,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.numReserve = [];
+
   }
 
   /**
@@ -44,7 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.randoomNumber(), title: 'Новая запись',count:0}]
+      list: [...this.state.list, { code: this.randoomNumber(), title: 'Новая запись', count: 0 }]
     })
   };
 
@@ -53,6 +55,16 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          item.selected = true;
+        }
+        return item;
+      })
+    })
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
@@ -60,45 +72,48 @@ class Store {
   };
 
 
-randoomNumber(){
-  var numReserve = []
-  while (numReserve.length < 1) {
-    var randomNumber = Math.ceil(Math.random() * 1000);
-    var found = false;
-    for (var i = 0; i < numReserve.length; i++) {
-    if (numReserve[i] === randomNumber){
-     found = true;
-     break;
-    }
-    }
-    if (!found) { numReserve[numReserve.length]=randomNumber; }
-  }
+  randoomNumber() {
+    let k = 0;
 
-  return numReserve[0];
-  
-}
+    while (k < 1) {
+      var randomNumber = Math.ceil(Math.random() * this.numReserve.length + 1 + 7);
+      var found = false;
+      for (var i = 0; i < this.numReserve.length; i++) {
+
+        if (this.numReserve[i] === randomNumber) {
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) { this.numReserve[this.numReserve.length] = randomNumber; k++ }
+    }
+    this.numReserve = Array.from(new Set(this.numReserve));
+
+    return this.numReserve.at(-1);
+
+  }
 
 
 
   /**
    * Выделение записи по коду
    */
-  selectItem(selected,code) {
+  selectItem(selected, code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-    
-      //  return item;
-      //  return item;
+
+
         if (item.code === code) {
           item.selected = true;
-          item.count=item.count+1
-        }else{
+          item.count = item.count + 1
+        } else {
           item.selected = false;
         }
-        if(item.code === code&&true ==selected){
+        if (item.code === code && true == selected) {
           item.selected = false;
-          item.count=item.count-1
+          item.count = item.count - 1
         }
         return item;
       })
