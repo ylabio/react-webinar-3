@@ -61,11 +61,11 @@ class Store {
    * @param code
    */
   deleteItem(code) {
-    const updatedList = this.state.list.filter(item => item.code !== code);
-  this.setState({
-    list: updatedList
-  });
-  }
+    this.setState({
+      ...this.state,
+      list: this.state.list.filter((item) => item.code !== code),
+    })
+  };
 
   /**
    * Выделение записи по коду
@@ -73,7 +73,11 @@ class Store {
    */
   User
   
+ 
   selectItem(code) {
+    const selectedItem = this.state.list.find(item => item.code === code);
+    if (!selectedItem) return; // Если элемент не найден, просто выходим
+  
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
@@ -90,6 +94,7 @@ class Store {
       })
     });
   }
+
   
 }
 
