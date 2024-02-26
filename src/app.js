@@ -9,7 +9,19 @@ import "./styles.css";
  */
 function App({ store }) {
   const list = store.getState().list;
+  function getEnding(count) {
+    let remainder10 = count % 10;
+    let remainder100 = count % 100;
 
+    if (
+      [2, 3, 4].includes(remainder10) &&
+      ![12, 13, 14].includes(remainder100)
+    ) {
+      return "а";
+    } else {
+      return "";
+    }
+  }
   return (
     <div className="App">
       <div className="App-head">
@@ -30,7 +42,9 @@ function App({ store }) {
                 <div className="Item-title">
                   {item.title}
                   {item.selectionCount > 0 &&
-                    ` | Выделено ${item.selectionCount} раз`}
+                    ` | Выделено ${item.selectionCount} раз${getEnding(
+                      item.selectionCount
+                    )}`}
                 </div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>
