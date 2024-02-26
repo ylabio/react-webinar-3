@@ -1,5 +1,10 @@
 const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
+/**
+ * @param {Array<String>} forms
+ * @param {Number} n
+ * @returns {String}
+ */
 export function plural(forms, n) {
   let idx;
  
