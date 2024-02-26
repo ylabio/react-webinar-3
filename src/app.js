@@ -26,16 +26,18 @@ function App({store}) {
                 onClick={() => store.selectItem(item.code)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                {item.count > 0 && (
-                  <div className="Item-count">
-                    Выделяли {item.count}
-                    {[2, 3, 4].includes(Number(String(item.count).slice(-1))) &&
-                    ![12, 13, 14].includes(item.count)
-                      ? " раза"
-                      : " раз"}
-                  </div>
-                )}
+                <div className="Item-title">
+                  {item.title}{" "}
+                  {item.count > 0 && (
+                    <span className="Item-count">
+                      | Выделяли {item.count}
+                      {[2, 3, 4].includes(item.count % 10) &&
+                      ![12, 13, 14].includes(item.count % 100)
+                        ? " раза"
+                        : " раз"}
+                    </span>
+                  )}
+                </div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
