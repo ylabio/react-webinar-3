@@ -42,14 +42,16 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newCode = this.state.lastCode + 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      lastCode: newCode,
+      list: [...this.state.list, {code: newCode, title: 'Новая запись', selectedCount: 0}]
     })
   };
 
   /**
-   * Удаление записи по коду
+   * Удаление записи по code
    * @param code
    */
   deleteItem(code) {
@@ -60,19 +62,21 @@ class Store {
   };
 
   /**
-   * Выделение записи по коду
+   * Выделение записи по code
    * @param code
    */
   selectItem(code) {
+    const isSelected = this.state.selectedCode === code ? false : true;
     this.setState({
       ...this.state,
+      selectedCode: isSelected ? code : -1,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        if (item.code === code && isSelected) {
+          item.selectedCount++;
         }
         return item;
-      })
-    })
+      }),
+    });
   }
 }
 
