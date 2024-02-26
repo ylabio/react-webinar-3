@@ -1,4 +1,4 @@
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
+const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
 /**
  * Создание элемента со свойствами и вложенными элементами
@@ -25,4 +25,13 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
+}
+
+// Для красоты определяем, нужно ли окончание "а" в слове "раз"
+export function isNeedLastLetter(counter) {
+  const condition = counter % 100 > 11 && counter % 100 <= 14;
+  const exceptions = [2, 3, 4];
+  const arrOfletters = counter.toString().split("");
+  const lastNum = +arrOfletters[arrOfletters.length - 1];
+  return exceptions.includes(lastNum) && !condition ? true : false;
 }
