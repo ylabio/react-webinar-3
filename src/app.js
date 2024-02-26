@@ -3,7 +3,7 @@ import "./styles.css";
 import {plural} from './utils'
 
 
-
+const forms = ['раз', 'раза', 'раз'];
 /**
  * Приложение
  * @param store {Store} Состояние приложения
@@ -13,7 +13,7 @@ import {plural} from './utils'
 
 function App({ store }) {
   const list = store.getState().list;
-  const forms = ['раз', 'раза', 'раз'];
+  
   return (
     <div className="App">
       <div className="App-head">
