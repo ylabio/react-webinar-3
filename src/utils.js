@@ -26,3 +26,23 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Возвращает строку c плюрализацией вида "${pref}1 раз", "${pref}3 раза"
+ * @param num {Number}
+ * @param pref {String}
+ * @returns {String}
+ */
+export function numberOfSelectionPhrase(num, pref = ' | Выделяли ') {
+  if (num === undefined || num === 0) {
+    return ''
+  }
+  if (num > 9 && num.toString().slice(-2).charAt(0) === '1') { // case for 12, 112, etc
+    return `${pref}${num} раз`
+  }
+  const lastChar = num.toString().slice(-1)
+  if (lastChar === '2' || lastChar === '3' || lastChar === '4') {
+    return `${pref}${num} раза`
+  }
+  return `${pref}${num} раз`
+}

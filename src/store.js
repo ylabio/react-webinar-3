@@ -2,9 +2,14 @@
  * Хранилище состояния приложения
  */
 class Store {
+  #currentItemCode = 0; // приватное поле, счётчик для генерации кода записи
+  #itemsCodes; // приватное поле, множество значений актуальных кодов записей
   constructor(initState = {}) {
-    this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.setState(initState);
+    if (this.state.list) { // инициализируем счётчик максимальным значением кода записи в списке
+      this.#currentItemCode = this.state.list.reduce((acc, item) => item.code > acc ? item.code : acc, 0);
+    }
   }
 
   /**
@@ -34,8 +39,24 @@ class Store {
    */
   setState(newState) {
     this.state = newState;
+    this.#itemsCodes = new Set(this.state.list.map(item => item.code)); // актулизируем при изменениях состояния
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
+  }
+
+  /**
+  * Генерация нового кода записи, приватный метод
+  * @returns {Number}
+  */
+  #getNewItemCode() {
+    if (this.#currentItemCode >= Number.MAX_SAFE_INTEGER) {
+      this.#currentItemCode = 0; // перестраховка на случай "переполнения"
+    }
+    this.#currentItemCode += 1;
+    while (this.#itemsCodes.has(this.#currentItemCode)) { // удостоверимся, что совпадений точно нет
+      this.#currentItemCode += 1;
+    }
+    return this.#currentItemCode
   }
 
   /**
@@ -44,7 +65,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, { code: this.#getNewItemCode(), title: 'Новая запись' }]
     })
   };
 
@@ -69,6 +90,11 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.counter = item.counter ? item.counter += 1 : item.counter = 1;
+          }
+        } else { // снимаем выделение с остальных
+          item.selected = false;
         }
         return item;
       })
