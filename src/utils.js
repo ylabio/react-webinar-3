@@ -1,4 +1,4 @@
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
+const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
 /**
  * Создание элемента со свойствами и вложенными элементами
@@ -25,4 +25,12 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
+}
+
+// Функция определения рандомного уникального кода
+export function randomNum(list) {
+  const num = Math.floor(Math.random() * 20 + 1);
+  if (list.some((item) => item.code === num)) {
+    return randomNum(list);
+  } else return num;
 }

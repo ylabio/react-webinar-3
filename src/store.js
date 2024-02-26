@@ -1,6 +1,8 @@
 /**
  * Хранилище состояния приложения
  */
+import { randomNum } from "./utils";
+
 class Store {
   constructor(initState = {}) {
     this.state = initState;
@@ -16,8 +18,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -38,15 +40,27 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
+  /**;
    * Добавление новой записи
    */
   addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+    // Добавление записей с лимитом 20
+    // Добавил лимит так, как рандомный уникальный код формируется в интервале, в данном случае от 0 до 20
+    if (this.state.list.length < 20) {
+      this.setState({
+        ...this.state,
+        list: [
+          ...this.state.list,
+          {
+            // Опрделение рандомного уникального кода на основе списка list
+            code: randomNum(this.state.list),
+            title: "Новая запись",
+            countSelected: 0,
+          },
+        ],
+      });
+    } else alert("Превышен лимит добавления записей");
+  }
 
   /**
    * Удаление записи по коду
@@ -55,9 +69,9 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      list: this.state.list.filter((item) => item.code !== code),
+    });
+  }
 
   /**
    * Выделение записи по коду
@@ -66,13 +80,26 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
         if (item.code === code) {
           item.selected = !item.selected;
-        }
+        } else item.selected = false;
         return item;
-      })
-    })
+      }),
+    });
+  }
+
+  // Изменение счетчика выделений
+  setCountSelected(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map((item) => {
+        if (item.code === code) {
+          ++item.countSelected;
+          return item;
+        } else return item;
+      }),
+    });
   }
 }
 
