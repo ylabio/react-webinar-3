@@ -29,9 +29,9 @@ export function createElement(name, props = {}, ...children) {
 
 // Для красоты определяем, нужно ли окончание "а" в слове "раз"
 export function isNeedLastLetter(counter) {
-  const condition = counter !== 12 && counter !== 13 && counter !== 14;
+  const condition = counter % 100 > 11 && counter % 100 <= 14;
   const exceptions = [2, 3, 4];
   const arrOfletters = counter.toString().split("");
   const lastNum = +arrOfletters[arrOfletters.length - 1];
-  return exceptions.includes(lastNum) && condition ? true : false;
+  return exceptions.includes(lastNum) && !condition ? true : false;
 }
