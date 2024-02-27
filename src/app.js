@@ -27,9 +27,9 @@ function App({store}) {
                   onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title} 
-                  <div className='NumberOfSelects'>
-                    {item.numberOfSelects === 0 ? '' : `Выделялось ${item.numberOfSelects} ${morph(item.numberOfSelects)}`}
-                  </div>
+                  <span className='NumberOfSelects'>
+                    {item.numberOfSelects === 0 ? '' : ` | выделялось ${item.numberOfSelects} ${morph(item.numberOfSelects)}`}
+                  </span>
                 </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
