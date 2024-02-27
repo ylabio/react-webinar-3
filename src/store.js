@@ -2,8 +2,10 @@
  * Хранилище состояния приложения
  */
 class Store {
-  constructor(initState = { numb: 7 }) {
+  constructor(initState = {}) {
     this.state = initState;
+    this.numb = this.state.list.length;
+    this.selected = {};
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -42,13 +44,14 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    const numb =
-      this.state.list.slice(-1)[0] != undefined
-        ? this.state.list.slice(-1)[0].code + 1
-        : 1;
+    this.numb += 1;
+    var title = "Новая запись";
+    if (this.selected[this.numb]) {
+      title += ` | Выделено ${this.selected[this.numb]} раз`
+    }
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: numb, title: "Новая запись" }],
+      list: [...this.state.list, { code: this.numb, title: title }],
     });
   }
 
@@ -73,17 +76,15 @@ class Store {
       list: this.state.list.map((item) => {
         if (item.code === code) {
           if (!item.selected) {
-            if (item.title.includes(" | Выделяли ")) {
-              var checked = Number(item.title.substring(item.title.lastIndexOf(" | Выделяли ") + 12,  item.title.lastIndexOf(" раз"))) + 1;
-              if([2,3,4].indexOf(checked) != -1) {
-                item.title = item.title.substring(0, item.title.lastIndexOf(" |")) + ` | Выделяли ${checked} раза`
-              }
-              else {
-                item.title = item.title.substring(0, item.title.lastIndexOf(" |")) + ` | Выделяли ${checked} раз`
-              }
-            } else {
-              item.title = item.title + " | Выделяли 1 раз";
+            if (this.selected[item.code]) {
+              this.selected[item.code] += 1;
             }
+            else {
+            this.selected[item.code] = 1;
+            item.title += ' |';
+          }
+            item.title = item.title.substring(0, item.title.lastIndexOf(" |")) + ` | Выделяли ${this.selected[code]} раз`
+            if ([2,3,4].indexOf(this.selected[item.code] % 10) > -1 && Math.floor(this.selected[item.code]/10) != 1) item.title+='а';
           }
           item.selected = !item.selected;
         } else {
