@@ -10,9 +10,9 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
-//
+
   const timesByCount = times => {
-    return times + " " + ((times < 12 || times > 14) && ["2", "3", "4"].includes(times.toString().substring(times.toString().length - 1)) ? "раза" : "раз");
+    return times + " " + ((times < 12 || times.toString().substring(times.toString().length - 2, times.toString().length - 1) !== "1") && ["2", "3", "4"].includes(times.toString().substring(times.toString().length - 1)) ? "раза" : "раз");
   }
 
   return (
