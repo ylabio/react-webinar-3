@@ -28,11 +28,10 @@ export function createElement(name, props = {}, ...children) {
 }
 
 // Плюрализация слова раз
-export function Pluralize(count) {
-  const lastNumber = count.toString().split('').pop()
-  if (count === 2 || count === 3 || count === 4) {
-    return 'раза'
-  } else if (count > 20 && lastNumber === '2' || count > 20 && lastNumber === '3' || count > 20 && lastNumber === '4') {
+export function PluralizeNoun(count) {
+  if (count % 10 === 1 && count % 100 !== 11) {
+    return 'раз'
+  } else if (count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 10 || count % 100 >= 20)) {
     return 'раза'
   } else {
     return 'раз'

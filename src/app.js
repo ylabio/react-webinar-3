@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pluralize } from './utils';
+import { PluralizeNoun } from './utils';
 import './styles.css';
 
 /**
@@ -30,7 +30,7 @@ function App({store}) {
                 <div className='Item-title'>{item.title}</div>
                 <div className='divider'>{item.count > 0 ? '|' : ''}</div>
                 <div className='Item-count'>
-                  {item.count ? `Выделяли ${item.count} ${Pluralize(item.count)}` : ''}
+                  {item.count ? `Выделяли ${item.count} ${PluralizeNoun(item.count)}` : ''}
                 </div>
                 <div className='Item-actions'>
                   <button onClick={(e) => {
