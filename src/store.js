@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.listUsedCodes = initState.list.length; //Использованые code
   }
 
   /**
@@ -42,9 +43,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.listUsedCodes++ //Увеличение использованного code на единицу с каждым добавленым пунктом
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.listUsedCodes, title: 'Новая запись', select: 0}] //добавление нового элемента с не использованным code
     })
   };
 
@@ -52,7 +54,8 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(event, code) {
+    event.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
@@ -69,6 +72,11 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if(item.selected){
+            item.select = ++item.select; //счетчик прибавляется при выделении
+          }
+        } else {
+            item.selected = ""; //выделение снимается
         }
         return item;
       })
