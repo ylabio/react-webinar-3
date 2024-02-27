@@ -52,6 +52,13 @@ body {
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.Item-selected {
+  display: flex;
+  align-items: center;
 }
 
 .Item-actions {

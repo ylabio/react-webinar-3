@@ -1,4 +1,4 @@
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
+const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
 /**
  * Создание элемента со свойствами и вложенными элементами
@@ -25,4 +25,26 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
+}
+
+// Функция определения слова после countdSelected
+export function setWordAfterСounter(count, prefix, one, two, many) {
+  const snumber = count.toString();
+  const digit = parseInt(snumber[snumber.length - 1], 10);
+  if (isNaN(digit)) {
+    return "";
+  }
+
+  if (snumber.length > 1 && snumber[snumber.length - 2] == "1") {
+    return " " + prefix + many;
+  }
+  if (digit == 1) {
+    return " " + prefix + one;
+  } else if (digit > 1 && digit <= 4) {
+    return " " + prefix + two;
+  } else if (digit == 0 || digit >= 5) {
+    return " " + prefix + many;
+  } else {
+    return "";
+  }
 }
