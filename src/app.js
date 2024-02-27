@@ -1,5 +1,5 @@
 import React from 'react';
-import {createElement} from './utils.js';
+import { createElement, getNoun } from './utils.js';
 import './styles.css';
 
 /**
@@ -30,7 +30,7 @@ function App({store}) {
                   <div className="Item-info__title">{item.title}</div>
                   {item.selectedCount > 0 && (
                     <div className="Item-info__selected-counter">
-                      Выделяли {item.selectedCount} {(item.selectedCount >= 2 && item.selectedCount <= 4) ? "раза" : "раз"}
+                      Выделяли {item.selectedCount} {getNoun(item.selectedCount, 'раз', 'раза', 'раз')}
                     </div>
                   )}
                 </div>
