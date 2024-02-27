@@ -36,7 +36,7 @@ export function randomNum(list) {
 }
 
 // Функция определения слова после countdSelected
-export function findWordAfterCount(count, prefix, one, two, many) {
+export function setWordAfterСounter(count, prefix, one, two, many) {
   const snumber = count.toString();
   const digit = parseInt(snumber[snumber.length - 1], 10);
   if (isNaN(digit)) {

@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles.css";
-import { findWordAfterCount } from "./utils";
+import { setWordAfterСounter } from "./utils";
 
 /**
  * Приложение
@@ -37,7 +37,7 @@ function App({ store }) {
                     {item.countSelected ? (
                       <>
                         | Выделяли {item.countSelected}
-                        {findWordAfterCount(
+                        {setWordAfterСounter(
                           item.countSelected,
                           "раз",
                           "",

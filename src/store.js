@@ -1,7 +1,6 @@
 /**
  * Хранилище состояния приложения
  */
-import { randomNum } from "./utils";
 
 class Store {
   constructor(initState = {}) {
