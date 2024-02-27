@@ -1,5 +1,24 @@
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
+const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
+/**
+ * Выбор формы слова в зависимости от числа.
+ *
+ * @param {Array<String>} forms - Массив форм слова для различных чисел
+ * @param {Number} n - Число, от которого зависит форма слова
+ * @returns {String} - Возвращает правильную форму слова
+ */
+export function plural(forms, n) {
+  let idx;
+ 
+  if (n % 10 === 1 && n % 100 !== 11) {
+      idx = 0; 
+  } else if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) {
+      idx = 1; 
+  } else {
+      idx = 2; 
+  }
+  return forms[idx] || '';
+}
 /**
  * Создание элемента со свойствами и вложенными элементами
  * @param name {String} Название HTML тега
