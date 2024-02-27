@@ -26,3 +26,11 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+
+export function generateUniqueId(start)  {
+  let startId = start
+  return function() {
+    return ++startId
+  }
+}
