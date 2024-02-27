@@ -66,22 +66,6 @@ class Store {
     });
   }
 
-  pluralize(number) {
-    let str = {
-      1: "раз",
-      2: "раза",
-    };
-
-    if (number > 20) {
-      number = number % 10;
-    }
-
-    if (number > 1 && number < 5) {
-      return str[2];
-    } else {
-      return str[1];
-    }
-  }
   /**
    * Выделение записи по коду
    * @param code

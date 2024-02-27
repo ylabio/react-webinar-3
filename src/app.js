@@ -1,5 +1,5 @@
 import React from "react";
-import { createElement } from "./utils.js";
+import { createElement, pluralize } from "./utils.js";
 import "./styles.css";
 
 /**
@@ -9,8 +9,6 @@ import "./styles.css";
  */
 function App({ store }) {
   const list = store.getState().list;
-  const pluralize = store.pluralize;
-
   return (
     <div className="App">
       <div className="App-head">
