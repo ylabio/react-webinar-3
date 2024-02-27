@@ -11,6 +11,17 @@ function App({store}) {
 
   const list = store.getState().list;
 
+  function getPluralForm(count, form1, form2) {
+    const lastDigit = count % 10;
+    const lastTwoDigits = count % 100;
+  
+    if ((lastDigit >= 2 && lastDigit <= 4) && !(lastTwoDigits >= 12 && lastTwoDigits <= 14)) {
+      return form2;
+    } else {
+      return form1;
+    }
+  }
+
   return (
     <div className='App'>
       <div className='App-head'>
@@ -26,9 +37,17 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>
+                  {item.title}
+                  {item.selectedCount > 0 && (
+                      <span> | Выделяли {item.selectedCount} {getPluralForm(item.selectedCount, 'раз', 'раза')}</span>
+                  )}
+                </div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(event) => {
+                    event.stopPropagation();
+                    store.deleteItem(item.code)
+                    }}>
                     Удалить
                   </button>
                 </div>
