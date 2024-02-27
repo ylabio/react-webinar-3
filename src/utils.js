@@ -34,6 +34,7 @@ export function createCode(inputCode) {
 
 export function getInflection(number, str1, str2) {
   let n = Math.abs(number);
+  n %= 100;
   if (n >= 5 && n <= 21) {
     return str1;
   } else {
