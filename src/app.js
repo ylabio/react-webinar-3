@@ -10,6 +10,16 @@ import "./styles.css";
 function App({ store }) {
   const list = store.getState().list;
 
+  function sklonenie(n, titles) {
+    return titles[
+      n % 10 == 1 && n % 100 != 11
+        ? 0
+        : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)
+        ? 1
+        : 2
+    ];
+  }
+
   return (
     <div className="App">
       <div className="App-head">
@@ -30,11 +40,19 @@ function App({ store }) {
                 <div className="Item-title">
                   {item.title}{" "}
                   {item.selectCount > 0
-                    ? `| Выделяли ${item.selectCount} раз`
+                    ? `| Выделяли ${item.selectCount} ${sklonenie(
+                        item.selectCount,
+                        [`раз`, `раза`, `раз`]
+                      )}`
                     : null}
                 </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      store.deleteItem(item.code);
+                    }}
+                  >
                     Удалить
                   </button>
                 </div>

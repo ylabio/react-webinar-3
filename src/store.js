@@ -43,27 +43,22 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
-    const generateCode = () => {
-      let code = Math.floor(Math.random() * 100);
-      while (this.state.list.some((item) => item.code === code)) {
-        code = Math.floor(Math.random() * 100);
-      }
-      return code;
-    };
-    let generatedCode = generateCode();
 
+  newId = 8;
+
+  addItem() {
     this.setState({
       ...this.state,
       list: [
         ...this.state.list,
         {
-          code: generatedCode,
+          code: this.newId,
           title: "Новая запись",
           selectCount: 0,
         },
       ],
     });
+    this.newId += 1;
   }
 
   /**
@@ -86,9 +81,12 @@ class Store {
       ...this.state,
       list: this.state.list.map((item) => {
         if (item.code === code) {
-          item.selected = !item.selected;
-          item.selectCount = item.selectCount + 1;
-          // item.title = `${item.title} | Выделяли ${item.selectCount} раз`;
+          if (!item.selected) {
+            item.selected = !item.selected;
+            item.selectCount = item.selectCount + 1;
+          } else {
+            item.selected = false;
+          }
         } else {
           item.selected = false;
         }
