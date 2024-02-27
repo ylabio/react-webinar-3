@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.lastNum = 8;
   }
 
   /**
@@ -42,11 +43,12 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const uniqueCode = this.lastNum++;
     this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+        ...this.state,
+        list: [...this.state.list, {code: uniqueCode, title: 'Новая запись'}]
+      })
+    };
 
   /**
    * Удаление записи по коду
@@ -69,10 +71,15 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.choiceCount = (item.choiceCount || 0) + 1; // Счетчик кликов
+          }
+        } else {
+          item.selected = false; // Сбросить выделение с других записей
         }
         return item;
       })
-    })
+    });
   }
 }
 
