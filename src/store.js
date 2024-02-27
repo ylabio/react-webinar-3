@@ -46,7 +46,7 @@ class Store {
     this.listUsedCodes++ //Увеличение использованного code на единицу с каждым добавленым пунктом
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.listUsedCodes, title: 'Новая запись'}] //добавление нового элемента с не использованным code
+      list: [...this.state.list, {code: this.listUsedCodes, title: 'Новая запись', select: 0}] //добавление нового элемента с не использованным code
     })
   };
 
@@ -54,7 +54,8 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(event, code) {
+    event.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
@@ -66,16 +67,13 @@ class Store {
    * @param code
    */
   selectItem(code) {
-
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
-          item.selectedTimes = 1
-          item.title = item.title + '| Выделяли' + item.selectedTimes + 'раз'
           if(item.selected){
-            item.selectedTimes++ //Не успела доработать чтобы менялось только число раз
+            item.select = ++item.select; //счетчик прибавляется при выделении
           }
         } else {
             item.selected = ""; //выделение снимается
