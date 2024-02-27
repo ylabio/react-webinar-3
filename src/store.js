@@ -59,9 +59,11 @@ class Store {
    */
   deleteItem(code) {
     this.setState({
-      ...this.state,
+      // ...this.state,
       list: this.state.list.filter(item => item.code !== code)
     })
+    // item=item-1;
+    // item.selected=!item.selected
   };
 
   /**
@@ -70,13 +72,15 @@ class Store {
    */
   selectItem(code) {
     this.setState({
-      ...this.state,
+      // ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          
           if (item.selected) { 
             item.clikCount = (item.clikCount || 0) + 1;
-          }
+                }
+          
         } 
         else {
           item.selected = false
