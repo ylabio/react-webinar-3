@@ -34,6 +34,7 @@ class Store {
      */
     setState(newState) {
         this.state = newState;
+        console.log(this.state)
         // Вызываем всех слушателей
         for (const listener of this.listeners) listener();
     }
@@ -55,9 +56,21 @@ class Store {
      * @param code
      */
     deleteItem(code) {
+        //ищем индекс удаляемого элемента
+        const findedIndexDeleteItem = this.state.list.findIndex(item => item.code === code)
+        // удаляем элемент
+        const filtredList = this.state.list.filter(item => item.code !== code)
+        //устанвавливаем свойство selected, если отфильтрованный массив не пустой массив
+        if (filtredList.length > 0) {
+            // меняем свойство selected на true у элемента массива, который встал на его место или перед ним
+            filtredList.length > findedIndexDeleteItem
+                ? filtredList[findedIndexDeleteItem].selected = true
+                : filtredList[findedIndexDeleteItem - 1].selected = true
+        }
+
         this.setState({
             ...this.state,
-            list: this.state.list.filter(item => item.code !== code)
+            list: filtredList
         })
     };
 
