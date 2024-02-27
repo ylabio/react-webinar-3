@@ -10,16 +10,19 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
-    const pluralize = (count) => {
-        if (count === 1) {
+    const pluralize = (number) => {
+        let num = Math.abs(number) % 100;
+        const num1 = num % 10;
+        if (num > 10 && num < 20) {
             return 'раз';
-        } else if (count >= 2 && count <= 4) {
-            return 'раза';
-        } else if (!count) {
-            return '';
-        } else {
-            return 'раз'
         }
+        if (num1 > 1 && num1 < 5) {
+            return 'раза';
+        }
+        if (num1 === 1) {
+            return 'раз';
+        }
+        return 'раз';
     }
 
   return (
