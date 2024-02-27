@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles.css";
+import { findWordAfterCount } from "./utils";
 
 /**
  * Приложение
@@ -24,7 +25,9 @@ function App({ store }) {
                 className={"Item" + (item.selected ? " Item_selected" : "")}
                 onClick={() => {
                   store.selectItem(item.code);
-                  store.setCountSelected(item.code);
+                  if (item.selected) {
+                    store.setCountSelected(item.code);
+                  }
                 }}
               >
                 <div className="Item-code">{item.code}</div>
@@ -32,14 +35,28 @@ function App({ store }) {
                   {item.title}
                   <div className="Item-selected">
                     {item.countSelected ? (
-                      <>| Выделяли {item.countSelected} раз</>
+                      <>
+                        | Выделяли {item.countSelected}
+                        {findWordAfterCount(
+                          item.countSelected,
+                          "раз",
+                          "",
+                          "а",
+                          ""
+                        )}
+                      </>
                     ) : (
                       ""
                     )}
                   </div>
                 </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      store.deleteItem(item.code);
+                    }}
+                  >
                     Удалить
                   </button>
                 </div>

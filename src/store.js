@@ -6,6 +6,7 @@ import { randomNum } from "./utils";
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.allList = this.state.list; // Весь список list с учетом всех добавлений, удаления не фиксируются
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -34,6 +35,13 @@ class Store {
    * Установка состояния
    * @param newState {Object}
    */
+
+  setAllList(newState) {
+    this.allList = newState;
+    // Вызываем всех слушателей
+    for (const listener of this.listeners) listener();
+  }
+
   setState(newState) {
     this.state = newState;
     // Вызываем всех слушателей
@@ -44,22 +52,26 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    // Добавление записей с лимитом 20
-    // Добавил лимит так, как рандомный уникальный код формируется в интервале, в данном случае от 0 до 20
-    if (this.state.list.length < 20) {
-      this.setState({
-        ...this.state,
-        list: [
-          ...this.state.list,
-          {
-            // Опрделение рандомного уникального кода на основе списка list
-            code: randomNum(this.state.list),
-            title: "Новая запись",
-            countSelected: 0,
-          },
-        ],
-      });
-    } else alert("Превышен лимит добавления записей");
+    // Добавление в список allList и формирование кода объекта на основе длины этого независимого списка, который не уменьшается, а фиксирует все добавления
+    this.setAllList([
+      ...this.allList,
+      {
+        code: this.allList.length,
+        title: "Новая запись",
+        countSelected: 0,
+      },
+    ]);
+    this.setState({
+      ...this.state,
+      list: [
+        ...this.state.list,
+        {
+          code: this.allList.length, // Уставнока кода в соответствии с независимым списком
+          title: "Новая запись",
+          countSelected: 0,
+        },
+      ],
+    });
   }
 
   /**
@@ -69,7 +81,9 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter((item) => item.code !== code),
+      list: this.state.list.filter((item) => {
+        return item.code !== code;
+      }),
     });
   }
 
