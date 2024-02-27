@@ -1,10 +1,15 @@
+import {createIdGenerator} from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
+
 class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.usedCodes = new Set(this.state.list.map(item => item.code));
+    this.idGenerator = createIdGenerator(Math.max(...this.state.list.map(item => item.code)));
   }
 
   /**
@@ -42,9 +47,13 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newCode = this.idGenerator();
+
+    this.usedCodes.add(newCode);
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: newCode, title: 'Новая запись'}]
     })
   };
 
@@ -69,8 +78,27 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+        } else {
+          item.selected = false;
         }
+
         return item;
+      })
+    })
+  }
+
+  incrementCountClicks(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          if (!item.count) {
+            item.count = 0;
+          }
+          return {...item, count: item.count + 1};
+        } else {
+          return item;
+        }
       })
     })
   }

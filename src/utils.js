@@ -26,3 +26,10 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export const createIdGenerator = (max) => {
+  let lastGenerateId = max + 1;
+  return () => {
+    return lastGenerateId++;
+  }
+}
