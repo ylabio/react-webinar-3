@@ -27,7 +27,7 @@ function App({ store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title} {item.count ? `| Выделяли ${item.count} ${getEnd(item.count)}` : <></>}</div>
+                <div className='Item-title'>{item.title} {item.count ? `Выделяли ${item.count} ${getEnd(item.count)}` : <></>}</div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
