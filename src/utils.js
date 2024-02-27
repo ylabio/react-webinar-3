@@ -26,3 +26,21 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Функция выводящая склонение раз(а) в зависимости от числа
+ * @param count
+ * @returns {string}
+ */
+export function getSelectionCountWord(count) {
+  const lastDigit = count % 10;
+  const lastTwoDigits = count % 100;
+
+  if (lastDigit === 1 && lastTwoDigits !== 11) {
+      return count + ' раз';
+  } else if ([2, 3, 4].includes(lastDigit) && ![12, 13, 14].includes(lastTwoDigits)) {
+      return count + ' раза';
+  } else {
+      return count + ' раз';
+  }
+}

@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.maxId = this.state.list.length;
   }
 
   /**
@@ -42,9 +43,14 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.maxId += 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {
+        code: this.maxId,
+        title: 'Новая запись',
+        selectionCount: 0
+      }]
     })
   };
 
@@ -69,10 +75,15 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.selectionCount = (item.selectionCount || 0) + 1; // Увеличиваем счетчик выделений
+          }
+        } else {
+          item.selected = false;
         }
         return item;
       })
-    })
+    });
   }
 }
 
