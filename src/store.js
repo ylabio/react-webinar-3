@@ -74,7 +74,9 @@ class Store {
           item.clickCount = (item.clickCount || 0) + 1;
           item.selectCount = Math.ceil(item.clickCount / 2);
           item.wordForm = this.chooseWordForm(item.selectCount);
-        }
+          }
+        else {
+          item.selected = false; }
         return item;
       })
     });
