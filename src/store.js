@@ -3,8 +3,12 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      list: initState.list.map((item) => ({ ...item, selectionCounter: 0 })) // Task 3
+    };
     this.listeners = []; // Слушатели изменений состояния
+    this.lastId = this.state.list.length + 1; // Task 2
   }
 
   /**
@@ -44,7 +48,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.lastId++, title: 'Новая запись', selectionCounter: 0}] // Task 2
     })
   };
 
@@ -69,7 +73,11 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
-        }
+          if (item.selected) {
+            item.selectionCounter++;
+          }
+        } else item.selected = false; // Task 1
+
         return item;
       })
     })
