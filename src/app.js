@@ -1,19 +1,17 @@
 import React from "react";
 import "./styles.css";
-import {plural} from './utils'
+import { plural } from "./utils";
 
-
-const forms = ['раз', 'раза', 'раз'];
+const forms = ["раз", "раза", "раз"];
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
 
-
 function App({ store }) {
   const list = store.getState().list;
-  
+
   return (
     <div className="App">
       <div className="App-head">
@@ -37,11 +35,12 @@ function App({ store }) {
 
                 <div className="Item-title">
                   {item.title}
-                  {item.count > 0 && ` | Выделяли ${item.count} ${plural(forms, item.count)}`}
+                  {item.count > 0 &&
+                    ` | Выделяли ${item.count} ${plural(forms, item.count)}`}
                 </div>
 
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => {e.stopPropagation();store.deleteItem(item.code)}}>
                     Удалить
                   </button>
                 </div>

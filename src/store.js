@@ -61,15 +61,18 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter((item) => item.code !== code),
-    });
-  }
-
+      list: this.state.list.filter(item => item.code !== code)
+    })
+  };
+  /**
+   * Установка счетчика записи
+   * @param code {number} Код записи, для которой нужно увеличить счетчик
+   */
   setCount(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map((item) => {
-        if (item.code === code) {
+        if (item.selected && item.code === code) {
           item.count = item.count + 1;
         }
         return item;
@@ -86,7 +89,7 @@ class Store {
       ...this.state,
       list: this.state.list.map((item) => {
         if (item.code === code) {
-          item.selected = true;
+          item.selected = !item.selected;
         } else {
           item.selected = false;
         }

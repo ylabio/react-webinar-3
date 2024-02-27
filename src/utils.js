@@ -1,9 +1,11 @@
 const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
 /**
- * @param {Array<String>} forms
- * @param {Number} n
- * @returns {String}
+ * Выбор формы слова в зависимости от числа.
+ *
+ * @param {Array<String>} forms - Массив форм слова для различных чисел
+ * @param {Number} n - Число, от которого зависит форма слова
+ * @returns {String} - Возвращает правильную форму слова
  */
 export function plural(forms, n) {
   let idx;
