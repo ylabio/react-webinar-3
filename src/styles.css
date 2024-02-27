@@ -54,6 +54,14 @@ body {
   padding: 20px 10px;
 }
 
+.Item-selection{
+  display: none;
+}
+
+.Item-selection_active{
+  display: inline;
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;
