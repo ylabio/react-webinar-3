@@ -42,7 +42,6 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    console.log(this.getMax());
     this.setState({
       ...this.state,
       list: [...this.state.list, {code: this.getMax()+1, title: 'Новая запись', count: 0}]

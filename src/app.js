@@ -26,7 +26,7 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title} {item.count > 0 ? `| Выделяли ${item.count} раз` : ''}</div>
+                <div className='Item-title'>{item.title} {item.count > 0 ? Pluralization(item.count) : ''}</div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
@@ -39,6 +39,22 @@ function App({store}) {
       </div>
     </div>
   );
+}
+
+function Pluralization(count){
+
+  const countStr = (count/100+'').split(".")[1];
+
+  if (
+    countStr.substring(1,2) > 1 && 
+    countStr.substring(1,2) < 5 &&
+    countStr.substring(0,1) != '1'
+  ) {
+    return `| Выделяли ${count} раза`;
+  } else {
+    return `| Выделяли ${count} раз`;
+  }
+
 }
 
 export default App;
