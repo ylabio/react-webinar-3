@@ -1,5 +1,6 @@
 import React from 'react';
 import {createElement} from './utils.js';
+import {fPluralization} from './utils.js';
 import './styles.css';
 
 /**
@@ -29,7 +30,7 @@ function App({store}) {
                 <div className='Item-title'>{item.title}</div>
                 <div className='App-count_selected'>
                   {(item.q_selected != 0 ? 'Выделяли ' + item.q_selected + ' раз' : '')}
-                  {(item.q_selected >= 2 && item.q_selected <= 4 ? 'a' : '')}
+                  {(fPluralization(item.q_selected) ? 'a' : '')}
                 </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
