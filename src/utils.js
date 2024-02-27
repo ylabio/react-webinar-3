@@ -31,13 +31,24 @@ export function createElement(name, props = {}, ...children) {
  * Генерация рандомного кода записи
  *  @returns {String}
  */
-export function generateCode() {
+export function generateRandomCode() {
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const randomIndexLetter = Math.floor(Math.random() * letters.length);
   const randomCode =
     letters[randomIndexLetter] + Math.floor(Math.random() * 1000);
 
   return randomCode;
+}
+
+/**
+ * Генерация уникального кода записи на основе кода последнего элемента в массиве
+ * @param list {Array}
+ * @returns {Number}
+ */
+
+export function generateCode(list) {
+  const currentListLenght = list.length;
+  return currentListLenght ? list[currentListLenght - 1].code + 1 : 1;
 }
 
 /**

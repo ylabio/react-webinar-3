@@ -1,3 +1,5 @@
+import { generateCode } from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -42,10 +44,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    this.id = !this.id ? this.state.list.length + 1 : this.id + 1;
+    const id = generateCode(this.state.list);
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.id, title: 'Новая запись' }],
+      list: [...this.state.list, { code: id, title: 'Новая запись' }],
     });
   }
 
@@ -54,7 +56,6 @@ class Store {
    * @param code
    */
   deleteItem(code) {
-    this.id = !this.id ? this.state.list.length : this.id;
     this.setState({
       ...this.state,
       list: this.state.list.filter((item) => item.code !== code),
