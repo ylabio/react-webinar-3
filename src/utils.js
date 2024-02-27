@@ -27,14 +27,6 @@ export function createElement(name, props = {}, ...children) {
   return element;
 }
 
-// Функция определения рандомного уникального кода
-export function randomNum(list) {
-  const num = Math.floor(Math.random() * 20 + 1);
-  if (list.some((item) => item.code === num)) {
-    return randomNum(list);
-  } else return num;
-}
-
 // Функция определения слова после countdSelected
 export function setWordAfterСounter(count, prefix, one, two, many) {
   const snumber = count.toString();
