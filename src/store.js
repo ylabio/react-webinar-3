@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.listCount = this.state.list.length
   }
 
   /**
@@ -47,7 +48,7 @@ class Store {
       list: [
         ...this.state.list, 
         {
-          code: this.state.list.slice(-1)[0].code + 1, 
+          code: ++this.listCount, 
           title: 'Новая запись',
           selection: 0
         }
@@ -65,7 +66,16 @@ class Store {
       list: this.state.list.filter(item => item.code !== code)
     })
   };
-
+  /**
+   * Вывод числа с учётом множественной формы
+   */
+  createSelection(selection){
+    if ((selection % 10 >= 2 && selection % 10 <= 4) && (selection.toString().slice(-2) < 5 || selection.toString().slice(-2) > 21)) {
+      return `Выделяли ${selection} раза`;
+    } else {
+      return `Выделяли ${selection} раз`;
+    }
+  }
   /**
    * Выделение записи по коду
    * @param code
