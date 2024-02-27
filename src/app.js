@@ -28,7 +28,14 @@ function App({store}) {
                   <div className='Item-info'>
                       <div className='Item-title'>{item.title}</div>
                       {
-                          (item.selectionCounter) && <div className='Item-counter'>| Выделили {item.selectionCounter} раз</div>
+                          (item.selectionCounter !== 0) &&
+                          <div className='Item-counter'>
+                              | Выделяли
+                              {
+                                  ` ${item.selectionCounter} ${item.selectionCounter >= 2 && item.selectionCounter <= 4 ? ' раза' : ' раз'}`
+                              }
+
+                          </div>
                       }
                   </div>
                 <div className='Item-actions'>
