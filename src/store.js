@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.maxId = 7;
   }
 
   /**
@@ -42,11 +43,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    const id = this.state.list.length === 0 ? 0 : this.state.list[this.state.list.length - 1].code;
+    this.maxId += 1;
     this.setState({
       ...this.state,
       list: [...this.state.list, {
-        code: id + 1,
+        code: this.maxId,
         title: 'Новая запись',
         selectionCount: 0
       }]
