@@ -3,15 +3,13 @@ import {createIdGenerator} from "./utils";
 /**
  * Хранилище состояния приложения
  */
-const MAX_ID_CODE = 50;
-
-const randomId = createIdGenerator(MAX_ID_CODE);
 
 class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.usedCodes = new Set();
+    this.usedCodes = new Set(this.state.list.map(item => item.code));
+    this.idGenerator = createIdGenerator(Math.max(...this.state.list.map(item => item.code)));
   }
 
   /**
@@ -49,10 +47,8 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    let newCode;
-    do {
-      newCode = Math.max(...this.state.list.map(item => item.code), randomId()) + 1;
-    } while (this.usedCodes.has(newCode));
+    const newCode = this.idGenerator();
+
     this.usedCodes.add(newCode);
 
     this.setState({

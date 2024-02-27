@@ -28,11 +28,8 @@ export function createElement(name, props = {}, ...children) {
 }
 
 export const createIdGenerator = (max) => {
-  let lastGenerateId = 1;
+  let lastGenerateId = max + 1;
   return () => {
-    if (max < lastGenerateId) {
-      lastGenerateId = 1;
-    }
     return lastGenerateId++;
   }
 }
