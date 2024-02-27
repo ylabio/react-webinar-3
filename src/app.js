@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles.css';
-
+import {morph} from './utils.js';
 
 /**
  * Приложение
@@ -28,7 +28,7 @@ function App({store}) {
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title} 
                   <div className='NumberOfSelects'>
-                    {item.numberOfSelects === 0 ? '' : ` Выделялось ${item.numberOfSelects} раз(a)`}
+                    {item.numberOfSelects === 0 ? '' : `Выделялось ${item.numberOfSelects} ${morph(item.numberOfSelects)}`}
                   </div>
                 </div>
                 <div className='Item-actions'>
