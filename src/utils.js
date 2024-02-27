@@ -28,7 +28,7 @@ export function createElement(name, props = {}, ...children) {
   return element;
 }
 
-export const getEnd = (value, wordsArr = ['РАЗ', 'РАЗА']) => {
+export const getEnd = (value, wordsArr = ['раз', 'раза']) => {
   let num = value;
   for (let i = 0; i < String(value).length - 1; i++) {
     num %= 10;
