@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.css';
+import { getPluralEnding } from './utils.js';
 
 /**
  * Приложение
@@ -8,7 +9,12 @@ import './styles.css';
  */
 function App({store}) {
 
-  const list = store.getState().list;
+  const {list} = store.getState();
+
+  const handleDelete = (code, e) => {
+    store.deleteItem(code);
+    e.stopPropagation();
+  }
 
   return (
     <div className='App'>
@@ -25,9 +31,9 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.selectionCount ? `${item.title} | Выделяли ${item.selectionCount} раз` : item.title}</div>
+                <div className='Item-title'>{item.selectionCount ? `${item.title} | Выделяли ${item.selectionCount} ${getPluralEnding(item.selectionCount)}` : item.title}</div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => handleDelete(item.code, e)}>
                     Удалить
                   </button>
                 </div>

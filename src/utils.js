@@ -26,3 +26,29 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+
+/**
+ * Возвращает правильное окончание для заданного числа.
+ * @param {number} number - Число, для которого определяется окончание
+ * @return {string} Правильное окончание для заданного числа
+ */
+export function getPluralEnding(number) {
+    let num = number % 100;
+    if (num > 19) {
+        num = num % 10;
+    }
+    switch (num) {
+        case 1: {
+            return 'раз';
+        }
+        case 2:
+        case 3:
+        case 4: {
+            return 'раза';
+        }
+        default: {
+            return 'раз';
+        }
+    }
+}
