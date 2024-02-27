@@ -1,6 +1,6 @@
 import React from 'react';
-import {createElement} from './utils.js';
 import './styles.css';
+import {morph} from './utils.js';
 
 /**
  * Приложение
@@ -24,11 +24,15 @@ function App({store}) {
           list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
+                  onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>{item.title} 
+                  <span className='NumberOfSelects'>
+                    {item.numberOfSelects === 0 ? '' : ` | выделялось ${item.numberOfSelects} ${morph(item.numberOfSelects)}`}
+                  </span>
+                </div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(event) => store.deleteItem(event, item.code)}>
                     Удалить
                   </button>
                 </div>

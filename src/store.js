@@ -1,3 +1,5 @@
+import { codeId } from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -44,7 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: codeId(), numberOfSelects: 0, title: 'Новая запись'}]
     })
   };
 
@@ -52,10 +54,13 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(event, code) {
+    //предотвращения распространения событий при их возникновении на элементе:
+    event.stopPropagation()
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code)
+      
     })
   };
 
@@ -69,6 +74,9 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          item.selected ? item.numberOfSelects += 1 : item.numberOfSelects;
+        } else {
+          item.selected = false;
         }
         return item;
       })

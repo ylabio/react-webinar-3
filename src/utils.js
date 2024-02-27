@@ -26,3 +26,24 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+// Генератор уникальных чисел элементов
+export const codeId = (() => {
+  let id = 1;
+  return () => {
+      return id ++;
+  };
+})();
+
+
+// plurals для слова раз/раза
+export function morph(numberOfSelects) {
+  if (numberOfSelects % 10 === 1 && numberOfSelects % 100 !== 11) {
+    return 'раз'
+  } else if (numberOfSelects % 10 >= 2 && numberOfSelects % 10 <= 4 && (numberOfSelects % 100 < 10 || numberOfSelects % 100 >= 20)) {
+    return 'раза'
+  } else {
+    return 'раз'
+  }
+}
+console.log(morph(1055))
