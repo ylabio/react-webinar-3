@@ -43,15 +43,14 @@ let config = {
       base: '/',
     }),
   ],
-}
-
+};
 if (process.env.NODE_ENV === 'development') {
   config.devtool = 'inline-source-map';
   config.devServer = {
     static: path.join(__dirname, 'dist'),
     port: 8010,
     historyApiFallback: true,
-  };
+  }
 }
 
 module.exports = config;

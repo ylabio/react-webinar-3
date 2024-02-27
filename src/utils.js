@@ -9,7 +9,7 @@ const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
  */
 export function createElement(name, props = {}, ...children) {
   const element = document.createElement(name);
-
+  
   // Назначение свойств и атрибутов
   for (const name of Object.keys(props)) {
     if (propNames.has(name)) {
@@ -18,11 +18,11 @@ export function createElement(name, props = {}, ...children) {
       element.setAttribute(name, props[name]);
     }
   }
-
+  
   // Вставка вложенных элементов
   for (const child of children) {
     element.append(child);
   }
-
+  
   return element;
 }
