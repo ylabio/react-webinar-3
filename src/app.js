@@ -1,5 +1,5 @@
 import React from 'react';
-import {createElement} from './utils.js';
+import { createElement, getNoun } from './utils.js';
 import './styles.css';
 
 /**
@@ -24,11 +24,18 @@ function App({store}) {
           list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
-                <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                   onClick={(e) => store.selectItem(e, item.code)}>
+                <div className="Item-info">
+                  <div className="Item-info__code">{item.code}</div>
+                  <div className="Item-info__title">{item.title}</div>
+                  {item.selectedCount > 0 && (
+                    <div className="Item-info__selected-counter">
+                      Выделяли {item.selectedCount} {getNoun(item.selectedCount, 'раз', 'раза', 'раз')}
+                    </div>
+                  )}
+                </div>
+                <div className="Item-actions">
+                <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
                   </button>
                 </div>

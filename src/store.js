@@ -1,3 +1,5 @@
+import { getLastCode } from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,6 +7,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.lastSelectedItemCode = null;
+    this.lastCode = getLastCode(initState.list) + 1;
   }
 
   /**
@@ -44,8 +48,9 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.lastCode, title: 'Новая запись', selectedCount: 0}]
     })
+    this.lastCode++
   };
 
   /**
@@ -63,16 +68,27 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(e, code) {
+    if (e.target.tagName === 'BUTTON') return
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (this.lastSelectedItemCode !== code) item.selectedCount++;
+        } else {
+          item.selected = false;
         }
         return item;
       })
     })
+
+    if (this.lastSelectedItemCode === code) {
+      this.lastSelectedItemCode = null
+    } else {
+      this.lastSelectedItemCode = code
+    }
   }
 }
 
