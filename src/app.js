@@ -28,7 +28,7 @@ function App({store}) {
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title} {item.count > 0 ? Pluralization(item.count) : ''}</div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => handleDeleteClick(e, () => store.deleteItem(item.code))}>
                     Удалить
                   </button>
                 </div>
@@ -55,6 +55,11 @@ function Pluralization(count){
     return `| Выделяли ${count} раз`;
   }
 
+}
+
+function handleDeleteClick(event, deleteItem){
+  event.stopPropagation();
+  deleteItem();
 }
 
 export default App;
