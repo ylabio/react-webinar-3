@@ -39,3 +39,26 @@ export function generateCode() {
 
   return randomCode;
 }
+
+/**
+ * Возвращение корректного окончания
+ * @param number {Number} параметр от которого зависит окончание
+ * @returns {String}
+ */
+
+export function getCorrectEnding(number) {
+  if (number % 100 >= 11 && number % 100 <= 20) {
+    return number + ' раз';
+  } else {
+    switch (number % 10) {
+      case 1:
+        return number + ' раз';
+      case 2:
+      case 3:
+      case 4:
+        return number + ' раза';
+      default:
+        return number + ' раз';
+    }
+  }
+}
