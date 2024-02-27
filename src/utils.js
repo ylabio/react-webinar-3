@@ -1,4 +1,4 @@
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
+const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
 /**
  * Создание элемента со свойствами и вложенными элементами
@@ -25,4 +25,22 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
+}
+
+export function createCode(inputCode) {
+  const uniqueCode = Math.random(inputCode);
+  return uniqueCode;
+}
+
+export function getInflection(number, str1, str2) {
+  let n = Math.abs(number);
+  n %= 100;
+  if (n >= 5 && n <= 21) {
+    return str1;
+  } else {
+    n %= 10;
+    if (n >= 2 && n <= 4) {
+      return str2;
+    } else return str1;
+  }
 }
