@@ -1,3 +1,5 @@
+import Store from "./store";
+
 const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
 
 /**
@@ -23,6 +25,29 @@ export function createElement(name, props = {}, ...children) {
   for (const child of children) {
     element.append(child);
   }
-
   return element;
+}
+
+export const getEnd = (value, wordsArr = ['раз', 'раза']) => {
+  let num = value;
+  for (let i = 0; i < String(value).length - 1; i++) {
+    num %= 10;
+  }
+  if (
+    [2, 3, 4].indexOf(num) === -1
+    || (10 < value && value < 20)
+    || (111 < value && value < 115)
+    || (211 < value && value < 215)
+    || (311 < value && value < 315)
+    || (411 < value && value < 415)
+    || (511 < value && value < 515)
+    || (611 < value && value < 615)
+    || (711 < value && value < 715)
+    || (811 < value && value < 815)
+    || (911 < value && value < 915)
+    || (1011 < value && value < 1015)
+  ) {
+    return wordsArr[0];
+  }
+  return wordsArr[1];
 }
