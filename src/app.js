@@ -1,5 +1,5 @@
 import React from 'react';
-import {createElement} from './utils.js';
+import {createElement, timesClicked} from './utils.js';
 import './styles.css';
 
 /**
@@ -28,10 +28,9 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
-                {item.selectionsCount && <div className='Item-selectionsCount'>Выделяли {item.selectionsCount} раз</div>} 
+                <div className='Item-title'>{item.selectionsCount !== undefined ? item.title + timesClicked(item.selectionsCount) : item.title}</div> 
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => { e.stopPropagation(); store.deleteItem(item.code)}}>
                     Удалить
                   </button>
                 </div>
