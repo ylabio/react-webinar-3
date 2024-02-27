@@ -12,8 +12,10 @@ function App({store}) {
   const list = store.getState().list;
 
   function getPluralForm(count, form1, form2) {
-    const mod10 = count % 10;
-    if (mod10 >= 2 && mod10 <= 4) {
+    const lastDigit = count % 10;
+    const lastTwoDigits = count % 100;
+  
+    if ((lastDigit >= 2 && lastDigit <= 4) && !(lastTwoDigits >= 12 && lastTwoDigits <= 14)) {
       return form2;
     } else {
       return form1;
