@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles.css';
-import { plural } from 'react-plural'
+// import { plural } from 'react-plural'
+const plural = require('plural-ru');
 
 /**
  * Приложение
