@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.lastNum = 8;
   }
 
   /**
@@ -39,22 +40,10 @@ class Store {
   }
 
   /**
-   * Генерация числа и проверка на уникальность
-   */
-  generateUniqueCode() {
-    let uniqueCode;
-    do {
-      uniqueCode = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
-    } while (this.state.list.some(item => item.code === uniqueCode));
-
-    return uniqueCode;
-  }
-  /**
    * Добавление новой записи
    */
   addItem() {
-    let uniqueCode = this.generateUniqueCode();
-
+    const uniqueCode = this.lastNum++;
     this.setState({
         ...this.state,
         list: [...this.state.list, {code: uniqueCode, title: 'Новая запись'}]
