@@ -26,3 +26,21 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Получение формы существительного в зависимости от числа
+ * @param number {Number} Число
+ * @returns {String}
+ */
+export function getRightForm(number) {
+  if (number === 12 || number === 13 || number === 14) {
+    return "раз";
+  }
+  const numUnits = number % 10;
+  
+  if (numUnits === 2 || numUnits === 3 || numUnits === 4) {
+    return "раза";
+  } else {
+    return "раз";
+  }
+}
