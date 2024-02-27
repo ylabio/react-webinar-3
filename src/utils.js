@@ -28,10 +28,8 @@ export function createElement(name, props = {}, ...children) {
 }
 
 export function getNoun(number) {
-
-	if (number >= 2 && number <= 4) {
-		return 'раза';
+	if (number % 10 >= 2 && number % 10 <= 4) {
+		return number % 100 > 11 && number % 100 <= 14 ? 'раз' : 'раза'
 	}
-
 	return 'раз';
 }

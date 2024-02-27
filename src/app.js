@@ -11,17 +11,13 @@ function App({ store }) {
 
 	const list = store.getState().list;
 
-	const handleAddItem = () => {
-		const id = Date.now();
-		store.addItem(id % 1e3); // Добавляю только 3 последних цифры
-	}
 	return (
 		<div className='App'>
 			<div className='App-head'>
 				<h1>Приложение на чистом JS</h1>
 			</div>
 			<div className='App-controls'>
-				<button onClick={handleAddItem}>Добавить</button>
+				<button onClick={() => store.addItem()}>Добавить</button>
 			</div>
 			<div className='App-center'>
 				<div className='List'>{
