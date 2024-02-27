@@ -33,7 +33,12 @@ function App({ store }) {
                     : ` | Выделяли ${item.count} ${getWordNumbers(item.count)}`}
                 </div>
                 <div className="Item-actions">
-                  <button onClick={(event) => store.deleteItem(event, item.code)}>Удалить</button>
+                  <button
+                    onClick={(e) => {
+                      store.deleteItem(e, item.code);
+                    }}>
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>

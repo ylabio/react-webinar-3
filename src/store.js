@@ -1,12 +1,17 @@
-import { getUniqueCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
+    initState.list = initState.list.map((item) => {
+      return {
+        ...item,
+        count: 0,
+      };
+    });
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.uniqueCode = Math.max(...initState.list.map((item) => item.code), 0) + 1;
   }
 
   /**
@@ -49,7 +54,7 @@ class Store {
       list: [
         ...this.state.list,
         {
-          code: getUniqueCode(),
+          code: this.uniqueCode++,
           title: 'Новая запись',
           count: 0,
         },
@@ -61,8 +66,8 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(event, code) {
-    event.preventDefault();
+  deleteItem(e, code) {
+    e.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter((item) => item.code !== code),
@@ -78,9 +83,10 @@ class Store {
       ...this.state,
       list: this.state.list.map((item) => {
         if (item.code === code) {
+          if (!item.selected) {
+            item.count += 1;
+          }
           item.selected = !item.selected;
-          item.selected ? (item.count += 1) : item.count;
-          console.log(item.count);
         } else {
           item.selected = false;
         }

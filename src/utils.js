@@ -27,13 +27,6 @@ export function createElement(name, props = {}, ...children) {
   return element;
 }
 
-export const getUniqueCode = (() => {
-  let code = 1;
-  return () => {
-    return code++;
-  };
-})();
-
 export const getWordNumbers = (val) => {
   val = Math.abs(val) % 100;
   const number = val % 10;
