@@ -12,7 +12,7 @@ function App({store}) {
   const list = store.getState().list;
 
   const changeFormatCountWord = (count) => {
-      return (count % 100 < 10 || count % 100 > 20) && count % 10 === 1 && count !== 11
+      return (count % 100 < 10 || count % 100 > 20) && count % 10 === 1
           ? 'раз'
           : count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 10 || count % 100 > 20)
               ? 'раза'
