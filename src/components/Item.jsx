@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Item({ store, item }) {
+export default function Item({ item, onSelectItem, onDeleteItem }) {
   const [selectedTimes, setSelectedTimes] = useState(0);
 
   function pluralization(times) {
@@ -15,7 +15,7 @@ export default function Item({ store, item }) {
         className={"Item" + (item.selected ? " Item_selected" : "")}
         onClick={() => {
           if (!item.selected) setSelectedTimes(selectedTimes + 1);
-          store.selectItem(item.code);
+          onSelectItem(item.code);
         }}
       >
         <div className="Item-code">{item.code}</div>
@@ -29,7 +29,7 @@ export default function Item({ store, item }) {
           <button
             onClick={(event) => {
               event.stopPropagation();
-              store.deleteItem(item.code);
+              onDeleteItem(item.code);
             }}
           >
             Удалить
