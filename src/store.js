@@ -19,7 +19,7 @@ class Store {
     // Возвращается функция для удаления добавленного слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);
-    };
+    }
   }
   
   /**
@@ -61,7 +61,7 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
-    });
+    })
   }
   
   /**
@@ -81,8 +81,8 @@ class Store {
           item.selected = !item.selected;
         }
         return item;
-      }),
-    });
+      })
+    })
   }
   
   generateCode(number) {

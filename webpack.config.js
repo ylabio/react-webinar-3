@@ -30,9 +30,9 @@ let config = {
         use: [
           {loader: MiniCssExtractPlugin.loader, options: {}},
           {loader: 'css-loader', options: {url: true, import: true}},
-        ],
+        ]
       },
-    ],
+    ]
   },
   plugins: [
     new MiniCssExtractPlugin(), // Плагин для вытаскивания собранных стилей в отдельный файл
@@ -50,7 +50,7 @@ if (process.env.NODE_ENV === 'development') {
     static: path.join(__dirname, 'dist'),
     port: 8010,
     historyApiFallback: true,
-  };
+  }
 }
 
 module.exports = config;

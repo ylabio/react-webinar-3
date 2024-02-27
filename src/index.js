@@ -18,7 +18,7 @@ const store = new Store({
     {code: 5, title: 'Запись', selectCount: 0, countForm: 'раз'},
     {code: 6, title: 'Шестая запись', selectCount: 0, countForm: 'раз'},
     {code: 7, title: 'Седьмая запись', selectCount: 0, countForm: 'раз'},
-  ],
+  ]
 });
 
 const root = createRoot(document.getElementById('root'));
