@@ -1,5 +1,5 @@
 import React from 'react';
-import {createElement} from './utils.js';
+import {createElement, timesClicked} from './utils.js';
 import './styles.css';
 
 /**
@@ -21,20 +21,22 @@ function App({store}) {
       </div>
       <div className='App-center'>
         <div className='List'>{
+          //надо ли учитывать вариант, что изначально не будет передано записей(в store.js 8ая строка учитывает такой случай)
+          /* list?.length ?  */
           list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>{item.selectionsCount !== undefined ? item.title + timesClicked(item.selectionsCount) : item.title}</div> 
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => { e.stopPropagation(); store.deleteItem(item.code)}}>
                     Удалить
                   </button>
                 </div>
               </div>
             </div>
-          )}
+          )/*  : <div>Пусто</div> */}
         </div>
       </div>
     </div>
