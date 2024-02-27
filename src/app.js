@@ -1,8 +1,6 @@
 import React from "react";
-
 import { useState, useEffect } from "react";
 import Store from "./store.js";
-
 import "./styles.css";
 
 /**
@@ -11,6 +9,7 @@ import "./styles.css";
  * @returns {React.ReactElement}
  */
 function App() {
+  const [usedCodeBase, setUsedCodeBase] = useState([1, 2, 3, 4, 5, 6, 7]);
   const [select, setSelected] = useState([
     { code: 1, title: "Название элемента" },
     { code: 2, title: "Некий объект" },
@@ -21,14 +20,12 @@ function App() {
     { code: 7, title: "Седьмая запись" },
   ]);
 
-  const usedArr = select.map((item) => item.code);
-
   const getRandomInt = (min, max) => {
     let minS = Math.ceil(min);
     let maxS = Math.floor(max);
     let newCode = Math.floor(Math.random() * (maxS - minS + 1)) + minS;
-    if (usedArr.includes(newCode)) {
-      let codeUpd = Math.floor(Math.random() * (max - min * 2)) + min;
+    if (usedCodeBase.includes(newCode)) {
+      let codeUpd = Math.floor(Math.random() * (maxS - minS * 2)) + minS;
       return codeUpd;
     } else {
       return newCode;
@@ -37,11 +34,20 @@ function App() {
 
   const addItem = () => {
     const codeUpd = getRandomInt(select.length, select.length * 10);
-    setSelected([
-      ...select,
-      { code: codeUpd, title: "Новая запись", selected: false },
-    ]);
-    usedArr.push(codeUpd);
+    if (!usedCodeBase.includes(codeUpd)) {
+      setSelected([
+        ...select,
+        { code: codeUpd, title: "Новая запись", selected: false },
+      ]);
+      setUsedCodeBase([...usedCodeBase, codeUpd]);
+    } else {
+      const codeNew = getRandomInt(select.length / 2, select.length * 100);
+      setSelected([
+        ...select,
+        { code: codeNew, title: "Новая запись", selected: false },
+      ]);
+      setUsedCodeBase([...usedCodeBase, codeNew]);
+    }
   };
 
   const allValues = (obj) => {
@@ -73,10 +79,6 @@ function App() {
       setSelected(u);
       console.log(u);
     }
-
-    /*newSelect.map((item) => (item.selected = false));
-    newSelect.find((item) => item.code === code).selected = true;
-    setSelected([...select]);*/
   };
 
   useEffect(() => showSelect(), []);
@@ -114,13 +116,27 @@ function Item({ code, title, selected, findByCode, setSelected, select }) {
   const counter = () => {
     if (count > 0) {
       if (
-        count.toString().endsWith("2") ||
-        count.toString().endsWith("3") ||
-        count.toString().endsWith("4")
+        count.toString().endsWith("12") ||
+        count.toString().endsWith("13") ||
+        count.toString().endsWith("14") ||
+        count.toString().endsWith("5") ||
+        count.toString().endsWith("6") ||
+        count.toString().endsWith("7") ||
+        count.toString().endsWith("8") ||
+        count.toString().endsWith("9") ||
+        count.toString().endsWith("10") ||
+        count.toString().endsWith("1") ||
+        count.toString().endsWith("0")
       ) {
-        return ` | Выделяли ${count} разa`;
-      } else {
         return ` | Выделяли ${count} раз`;
+      } else if (count === 2 || count === 3 || count === 4) {
+        return ` | Выделяли ${count} разa`;
+      } else if (
+        (count >= 19 && count.toString().endsWith("2")) ||
+        (count >= 19 && count.toString().endsWith("3")) ||
+        (count >= 19 && count.toString().endsWith("4"))
+      ) {
+        return ` | Выделяли ${count} раза`;
       }
     }
   };
