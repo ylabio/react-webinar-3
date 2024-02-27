@@ -6,9 +6,9 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.codes = new Set();
-    this.state.list.map((item) => this.codes.add(item.code));
+    this.state.list.map(item => this.codes.add(item.code));
   }
-
+  
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
@@ -18,10 +18,10 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter((item) => item !== listener);
+      this.listeners = this.listeners.filter(item => item !== listener);
     };
   }
-
+  
   /**
    * Выбор состояния
    * @returns {Object}
@@ -29,7 +29,7 @@ class Store {
   getState() {
     return this.state;
   }
-
+  
   /**
    * Установка состояния
    * @param newState {Object}
@@ -39,7 +39,7 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
+  
   /**
    * Добавление новой записи
    */
@@ -48,11 +48,11 @@ class Store {
       ...this.state,
       list: [
         ...this.state.list,
-        {code: this.setCode(), title: "Новая запись", selectCount: 0},
+        {code: this.setCode(), title: 'Новая запись', selectCount: 0},
       ],
     });
   }
-
+  
   /**
    * Удаление записи по коду
    * @param code
@@ -60,10 +60,10 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter((item) => item.code !== code),
+      list: this.state.list.filter(item => item.code !== code),
     });
   }
-
+  
   /**
    * Выделение записи по коду
    * @param code
@@ -71,7 +71,7 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map((item) => {
+      list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
           item.selectCount += item.selected ? 1 : 0;
@@ -84,7 +84,7 @@ class Store {
       }),
     });
   }
-
+  
   generateCode(number) {
     const setSizeBefore = this.codes.size;
     const setAfter = this.codes.add(number);
@@ -93,17 +93,17 @@ class Store {
       this.generateCode(number);
     }
   }
-
+  
   setCode() {
     let number = this.codes.size + 1;
     this.generateCode(number);
     return Array.from(this.codes).pop();
   }
-
+  
   generateCountForm(number) {
-    const forms = ["раз", "раза"];
-    const pr = new Intl.PluralRules("ru");
-    if (pr.select(number) === "one" || pr.select(number) === "many") {
+    const forms = ['раз', 'раза'];
+    const pr = new Intl.PluralRules('ru');
+    if (pr.select(number) === 'one' || pr.select(number) === 'many') {
       return forms[0];
     }
     return forms[1];
