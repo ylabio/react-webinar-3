@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.lastNumber= Math.max(...this.state.list.map(({code}) => code)) || 0;
   }
 
   /**
@@ -42,9 +43,13 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    // Генерируем уникальной код
+	  const сodeNew = ++this.lastNumber;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      // list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+
+      list: [...this.state.list, {code: сodeNew, title: 'Новая запись'}]
     })
   };
 
@@ -54,9 +59,11 @@ class Store {
    */
   deleteItem(code) {
     this.setState({
-      ...this.state,
+      // ...this.state,
       list: this.state.list.filter(item => item.code !== code)
     })
+    // item=item-1;
+    // item.selected=!item.selected
   };
 
   /**
@@ -65,10 +72,18 @@ class Store {
    */
   selectItem(code) {
     this.setState({
-      ...this.state,
+      // ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          
+          if (item.selected) { 
+            item.clikCount = (item.clikCount || 0) + 1;
+                }
+          
+        } 
+        else {
+          item.selected = false
         }
         return item;
       })
