@@ -33,7 +33,8 @@ export function createElement(name, props = {}, ...children) {
  * @returns {String}
  */
 export function getRightForm(number) {
-  if (number === 12 || number === 13 || number === 14) {
+  const numTens = number % 100;
+  if (numTens === 12 || numTens === 13 || numTens === 14) {
     return "раз";
   }
   const numUnits = number % 10;
