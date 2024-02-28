@@ -1,5 +1,6 @@
 import React from 'react';
 import {createElement} from './utils.js';
+import {fPluralization} from './utils.js';
 import './styles.css';
 
 /**
@@ -9,7 +10,7 @@ import './styles.css';
  */
 function App({store}) {
 
-  const list = store.getState().list;
+  const list = store.getState().list;  
 
   return (
     <div className='App'>
@@ -23,10 +24,14 @@ function App({store}) {
         <div className='List'>{
           list.map(item =>
             <div key={item.code} className='List-item'>
-              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
+              <div className={'Item' + (item.code == store.numSelected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>
+                  {item.title} 
+                  {(item.q_selected != 0 ? ' | Выделяли ' + item.q_selected + ' раз' : '')}
+                  {(fPluralization(item.q_selected) ? 'a' : '')}
+                </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить

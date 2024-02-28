@@ -26,3 +26,18 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+// Функция плюрализации раз, раза
+export function fPluralization(num)
+{
+  var vPlur = false;
+  var v10 = 0;
+  var v100 = 0;
+  v10 = num % 10; // остаток от деления на 10
+  v100 = (num % 100) / 10; // формула для десятков
+  if (v10 >= 2 && v10 <= 4 && // если не 2,3,4 единицы и
+      (v100 < 1 || v100 > 2) ) {// если десяток не 1, то истина
+        vPlur = true;
+  }
+  return vPlur;
+}
