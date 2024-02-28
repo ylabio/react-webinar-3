@@ -24,19 +24,17 @@ function App({ store }) {
 
   const renderTittle = (item) => {
     const { completedSelectionNumber, title } = item;
-    const isTensNotOne = String(completedSelectionNumber)[0] != 1;
-    const ones = String(completedSelectionNumber)[1];
+    const stringCompletedSelection = String(completedSelectionNumber);
+    const isFirstNumberNonOne = stringCompletedSelection[stringCompletedSelection.length - 2] != 1;
+    const lastNumber = Number(stringCompletedSelection[stringCompletedSelection.length - 1]);
 
     switch (true) {
       case !completedSelectionNumber:
         return `${title}`;
 
-      case completedSelectionNumber === 2:
-      case completedSelectionNumber === 3:
-      case completedSelectionNumber === 4:
-      case ones == 2 && isTensNotOne:
-      case ones == 3 && isTensNotOne:
-      case ones == 4 && isTensNotOne:
+      case lastNumber === 2 && isFirstNumberNonOne:
+      case lastNumber === 3 && isFirstNumberNonOne:
+      case lastNumber === 4 && isFirstNumberNonOne:
         return `${title} ${`| Выделяли ${completedSelectionNumber} разa`}`;
 
       default:
