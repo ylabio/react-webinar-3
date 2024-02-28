@@ -29,7 +29,7 @@ function App({store}) {
                 <div className='Item-title'>{item.title}
                   <p className='Item-number'>
                     { item.selectionElement ? ` (Выделяли ${item.selectionElement} раз${
-                        (item.selectionElement < 10 || item.selectionElement > 20) && 
+                        (item.selectionElement % 100 < 10 || item.selectionElement % 100 > 20) && 
                         ([2,3,4].findIndex(e => e === item.selectionElement % 10) !== -1) ? 'а' : ''
                       })` : ''
                     }
