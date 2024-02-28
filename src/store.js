@@ -59,7 +59,8 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(event, code) {
+    event.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter((item) => item.code !== code),
@@ -84,7 +85,7 @@ class Store {
             item.title += ' |';
           }
             item.title = item.title.substring(0, item.title.lastIndexOf(" |")) + ` | Выделяли ${this.selected[code]} раз`
-            if ([2,3,4].indexOf(this.selected[item.code] % 10) > -1 && Math.floor(this.selected[item.code]/10) != 1) item.title+='а';
+            if ([2,3,4].indexOf(this.selected[item.code] % 100 % 10) > -1 && Math.floor(this.selected[item.code] % 100 / 10) != 1) item.title+='а';
           }
           item.selected = !item.selected;
         } else {
