@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement, pluralize } from './utils.js';
+import {createElement, pluralize} from './utils.js';
 import './styles.css';
 
 /**
@@ -7,7 +7,7 @@ import './styles.css';
  * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
-function App({ store }) {
+function App({store}) {
 	const list = store.getState().list;
 
 	return (
