@@ -26,3 +26,21 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function generateUniqueId(start) {
+  let startId = start;
+  return function () {
+    return ++startId;
+  };
+}
+
+export function makePlural(count) {
+  if (
+    count % 10 >= 2 &&
+    count % 10 <= 4 &&
+    (count % 100 < 10 || count % 100 >= 20)
+  ) {
+    return 'раза';
+  }
+  return 'раз';
+}
