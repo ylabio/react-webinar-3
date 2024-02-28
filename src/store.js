@@ -75,6 +75,8 @@ class Store {
           if (item.selected) {
             item.selectionCount++
           }
+        } else {
+          item.selected = false;
         }
         return item;
       })
