@@ -50,7 +50,7 @@ body {
 }
 
 .Item-title {
-  width: 50%;
+  width: 100%;
   padding: 20px 10px;
 }
 
@@ -58,9 +58,4 @@ body {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
-}
-
-.App-count_selected {
-  width: 50%;
-  padding: 20px 10px;
 }
