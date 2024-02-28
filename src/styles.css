@@ -52,10 +52,19 @@ body {
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  box-sizing: border-box;
+  height: 61.2px;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-number{
+  margin-top: 2px;
+  margin-bottom: 0;
+  font-size: 10px;
+  line-height: 10px;
 }
