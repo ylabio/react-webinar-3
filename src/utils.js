@@ -34,3 +34,11 @@ export function generateUniqueId(start)  {
     return ++startId
   }
 }
+
+export function makePlural(count) {
+   if (count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 10 || count % 100 >= 20)) {
+    return 'раза';
+  } else {
+    return 'раз';
+  }
+}
