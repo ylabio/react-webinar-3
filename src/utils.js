@@ -26,3 +26,29 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function generateClickedCountText(clickedCount) {
+  const stringified = clickedCount.toString();
+  const lastTwoDigits = parseInt(stringified.slice(-2));
+  const lastDigit = parseInt(stringified.charAt(stringified.length - 1));
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+    return `Выделяли ${clickedCount} раз`;
+  }
+
+  switch (lastDigit) {
+    case 2:
+    case 3:
+    case 4:
+      return `Выделяли ${clickedCount} раза`;
+    default:
+      return `Выделяли ${clickedCount} раз`;
+  }
+}
+
+export function* generateCode (start) {
+  let i = start;
+  while (true) {
+    yield i += 1;
+  }
+}
