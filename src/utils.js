@@ -28,17 +28,22 @@ export function createElement(name, props = {}, ...children) {
 }
 
 export function generateClickedCountText(clickedCount) {
-  const exclusions = [12, 13, 14];
-  const isFirstExclusion = !(exclusions.includes(clickedCount));
-
   const stringified = clickedCount.toString();
-  const lastDigit = stringified.charAt(stringified.length - 1);
-  const isSecondExclusion = (lastDigit === '2' || lastDigit === '3' || lastDigit === '4');
+  const lastTwoDigits = parseInt(stringified.slice(-2));
+  const lastDigit = parseInt(stringified.charAt(stringified.length - 1));
 
-  if (isFirstExclusion && isSecondExclusion) {
-    return `Выделяли ${clickedCount} раза`;
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+    return `Выделяли ${clickedCount} раз`;
   }
-  return `Выделяли ${clickedCount} раз`;
+
+  switch (lastDigit) {
+    case 2:
+    case 3:
+    case 4:
+      return `Выделяли ${clickedCount} раза`;
+    default:
+      return `Выделяли ${clickedCount} раз`;
+  }
 }
 
 export function* generateCode (start) {
