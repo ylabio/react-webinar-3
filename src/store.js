@@ -71,7 +71,7 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => ({
         ...item,
-        selected: item.code === code ?? !item.selected,
+        selected: item.code === code ? !item.selected : false,
         clickedCount: item.code === code && !item.selected ? item.clickedCount + 1 : item.clickedCount
       }))
     });
