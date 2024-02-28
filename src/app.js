@@ -13,11 +13,11 @@ function pluralWord(n) {
     let rest100 = n % 100;
 
     if (rest10 === 1 && rest100 !== 11) {
-        return 'Раз';
+        return 'раз';
     } else if (rest10 >= 2 && rest10 <= 4 && (rest100 < 10 || rest100 >= 20)) {
-        return 'Раза';
+        return 'раза';
     } else {
-        return 'Раз';
+        return 'раз';
     }
 }
 
