@@ -5,7 +5,7 @@ class Store {
 	constructor(initState = {}) {
 		this.state = initState;
 		this.listeners = [];
-		this.newCode = initState.list.length; // Слушатели изменений состояния
+		this.newCode = initState.list.length;
 	}
 
 	/**
