@@ -1,23 +1,14 @@
-export const ENDINGS = (NUMBER) => {
-  const END1 = 'раз';
-  const END2 = 'раза';
-  const GETEND = (NUM, IND) => {
-    const STR = NUM.toString();
-    return +STR.slice(IND);
-  };
-  const TEENS = GETEND(NUMBER, -2);
-  if (TEENS >= 10 && TEENS <= 20 ) {
-    return `${NUMBER} ${END1}`;
+export const endings = (numb) => {
+  const end1 = +(('' + numb).slice(-1));
+  const end2 = +(('' + numb).slice(-2));
+
+  if (end2 >= 10 && end2 <= 20 ) {
+	  return `${numb} раз`;
   }
-  const HASEND = (NUM) => {
-    const HAS = [2, 3, 4];
-    return HAS.some((ITM) => {
-      return ITM === GETEND(NUM, -1);
-    });
-  };
-  if (HASEND(NUMBER)) {
-    return `${NUMBER} ${END2}`;
+
+  if (end1 >= 2 && end1 <= 4) {
+	  return `${numb} раза`;
   } else {
-    return `${NUMBER} ${END1}`;
+	  return `${numb} раз`;
   }
 };
