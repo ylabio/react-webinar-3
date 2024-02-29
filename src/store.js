@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.nextcode = initState.list.length + 1; // Initial next code for new item !!
   }
 
   /**
@@ -44,8 +45,10 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
+      // fix: coding of item is below !!
+      list: [...this.state.list, {code: this.nextcode, title: 'Новая запись'}]
+    });
+    this.nextcode += 1;
   };
 
   /**
@@ -69,6 +72,26 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          // fix: selecting of item is below !!
+        } else {
+          item.selected = false;
+        }
+        return item;
+      })
+    })
+  }
+
+  /**
+   * Feat: Counting of selecting
+   */
+  countSelect() {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.selected && item.count) {
+          item.count += 1;
+        } else if (item.selected && !item.count) {
+          item.count = 1;
         }
         return item;
       })

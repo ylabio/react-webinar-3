@@ -1,4 +1,5 @@
 import React from 'react';
+import { endings } from './endings.js';
 import {createElement} from './utils.js';
 import './styles.css';
 
@@ -24,11 +25,20 @@ function App({store}) {
           list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
+                   onClick={() => {
+                    store.selectItem(item.code);
+                    store.countSelect();
+                    }}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>
+                  {item.title}
+                  {item.count && ` | Выделяли ${endings(item.count)}`}
+                </div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(event) => {
+                    store.deleteItem(item.code);
+                    event.stopPropagation();
+                  }}>
                     Удалить
                   </button>
                 </div>
