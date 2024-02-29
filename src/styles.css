@@ -32,13 +32,17 @@ body {
 
 .List-item {
   border-bottom: 1px dashed #ccc;
+  
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   transition: background-color 1s;
 }
+
+
 
 .Item_selected {
   background: #75aaf1;
@@ -49,13 +53,30 @@ body {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+/* .Item-title {
   width: 100%;
   padding: 20px 10px;
+  
+} */
+.Item-block{
+  display: flex;
+  width: 100%;
+  padding: 20px 10px;
+  gap: 0 5px;
+  align-items: center;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-count{
+  display: none;
+}
+
+
+.visible{
+  display: block;
 }
