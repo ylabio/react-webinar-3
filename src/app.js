@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Scoreboard from "./components/scoreboard";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Basket from './components/basket';
 
 /**
  * Приложение
@@ -11,22 +12,40 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
+  const [isModalActive, setIsModalActive] = useState(false)
+
   const list = store.getState().list;
   const basket = store.getState().basket;
 
   const callbacks = {
     onAddItem: useCallback((code) => {
       store.addItem(code);
+    }, [store]),
+    onDeleteItem: useCallback((code) => {
+      store.deleteItem(code);
     }, [store])
   }
 
+  const toggleBasket = () => setIsModalActive(!isModalActive)
+
   return (
-    <PageLayout>
-      <Head title='Магазин'/>
-      <Scoreboard count={basket.length} price={basket.reduce((sum, current) => sum + current.price * current.count, 0)}/>
-      <List list={list}
-            onAddItem={callbacks.onAddItem}/>
-    </PageLayout>
+    <>
+      <PageLayout>
+        <Head title='Магазин'/>
+        <Scoreboard
+              count={basket.length}
+              price={basket.reduce((sum, current) => sum + current.price * current.count, 0)}
+              showBasket={toggleBasket}/>
+        <List list={list}
+              onAddItem={callbacks.onAddItem}/>
+      </PageLayout>
+      { isModalActive &&
+          <Basket
+              basket={basket}
+              hideBasket={toggleBasket}
+              onDeleteItem={callbacks.onDeleteItem}/>
+      }
+    </>
   );
 }
 

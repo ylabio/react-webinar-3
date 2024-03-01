@@ -54,6 +54,16 @@ class Store {
       })
     }
   };
+
+  /**
+   * Удаление товара из корзины
+   */
+  deleteItem(code) {
+    this.setState({
+      ...this.state,
+      basket: this.state.basket.filter(item => item.code !== code)
+    })
+  };
 }
 
 export default Store;

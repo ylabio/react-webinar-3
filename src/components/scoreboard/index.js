@@ -21,7 +21,7 @@ function Scoreboard(props) {
         </div>
       </div>
       <div className='Scoreboard-controls'>
-        <button onClick={() => {}}>Перейти</button>
+        <button onClick={props.showBasket}>Перейти</button>
       </div>
     </div>
   )
@@ -29,12 +29,14 @@ function Scoreboard(props) {
 
 Scoreboard.propTypes = {
   count: PropTypes.number,
-  price: PropTypes.number
+  price: PropTypes.number,
+  showBasket: PropTypes.func
 };
 
 Scoreboard.defaultProps = {
   count: 0,
-  price: 0
+  price: 0,
+  showBasket: () => {}
 }
 
 export default React.memo(Scoreboard);
