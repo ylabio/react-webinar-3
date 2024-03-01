@@ -43,12 +43,36 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+  addItem(code) {
+		let item = this.state.list.find(el=>el.code===code)
+		let productItem=this.state.productsList.find(el=>el.code===code)
+		if(productItem){
+			productItem.count+=1
+			this.setState({
+				...this.state,
+				productsList: [...this.state.productsList]
+			})
+		}else{
+			item.count=1
+			this.setState({
+				...this.state,
+				productsList: [...this.state.productsList, item]
+			})
+		}
+		this.accumProducts()
   };
+	/**
+   * Подсчет покупок
+   */
+	accumProducts(){
+		let count = this.state.productsList.length
+		let price = this.state.productsList.reduce((accum,el)=>accum+el.price*el.count,0)
+		this.setState({
+			...this.state,
+			productCount:count,
+			totalProductPrice:price
+		})
+	}
 
   /**
    * Удаление записи по коду
@@ -58,31 +82,10 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      productsList: this.state.productsList.filter(item => item.code !== code)
     })
+		this.accumProducts()
   };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
-  }
 }
 
 export default Store;
