@@ -77,7 +77,7 @@ function App({store}) {
                       {countItems > 0 ? (
                           <strong className='counting'><span>{`${countPrice} ₽`} </span></strong>
                       ) : (
-                          <strong className='counting'>пусто</strong>
+                              <strong className='counting'>0 ₽</strong>
                       )}
                   </span>
               </div>
