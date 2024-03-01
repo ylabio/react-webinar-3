@@ -55,11 +55,12 @@ export function generateCode2() {
  * Форматирование стоимости
  * Возвращает стоимость разделяя пробелами группы разрядов
  * @param value {Number} Стоимость
+ * @param style {String} Стиль форматирования
  * @param [minimumFractionDigits] Минимальное количество знаков после запятой* 
  * @param [currency] {String} Валюта
  * @param [locale] {String} Локаль (код языка)
  * @returns {String}
  */
-export function formatCurrency(value, minimumFractionDigits = 0, currency = 'RUB', locale = 'ru-RU') {
-  return new Intl.NumberFormat(locale, {style: 'currency', currency, minimumFractionDigits}).format(value);
+export function numberFormat(value, style = 'currency', minimumFractionDigits = 0, locale = 'ru-RU', currency = 'RUB') {
+  return new Intl.NumberFormat(locale, {style, currency, minimumFractionDigits}).format(value);
 }

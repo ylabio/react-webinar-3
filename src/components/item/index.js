@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {formatCurrency} from "../../utils";
+import {numberFormat} from "../../utils";
 import './style.css';
 
 function Item(props) {
@@ -18,9 +18,9 @@ function Item(props) {
     <tr key={props.item.code} className='Item'>
       <td className='Item-code'>{props.item.code}</td>
       <td className='Item-title'>{props.item.title}</td>
-      <td className='Item-price'>{formatCurrency(props.item.price)}</td>
+      <td className='Item-price'>{numberFormat(props.item.price)}</td>
       { props.options.showCount && <td className='Item-count'>
-          {props.item.count + "\u00a0шт"}
+          {numberFormat(props.item.count, 'decimal', 0) + "\u00a0шт"}
         </td>
       }
       <td className='Item-actions'>

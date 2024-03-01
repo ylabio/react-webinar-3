@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { plural, formatCurrency } from "../../utils";
+import { plural, numberFormat } from "../../utils";
 import './style.css';
 
 function Scoreboard(props) {
@@ -15,7 +15,7 @@ function Scoreboard(props) {
                   one: 'товар',
                   few: 'товара',
                   many: 'товаров'
-                }) + ' / ' + formatCurrency(props.price)
+                }) + ' / ' + numberFormat(props.price)
               : 'пусто'
           }
         </div>

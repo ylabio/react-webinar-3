@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import Item from '../item';
-import { formatCurrency } from '../../utils';
+import { numberFormat } from '../../utils';
 import './style.css';
 
 function List(props) {
@@ -18,7 +18,7 @@ function List(props) {
           <tr className='List-footer'>
             <td className='List-totals' colSpan={3}>Итого</td>
             <td className='List-price'>{
-              formatCurrency(props.list.reduce((sum, current) => sum + current.price * current.count, 0)) }
+              numberFormat(props.list.reduce((sum, current) => sum + current.price * current.count, 0)) }
             </td>
             <td></td>
           </tr>
