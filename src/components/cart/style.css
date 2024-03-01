@@ -1,0 +1,15 @@
+.Cart {
+  margin-top: 70px;
+  transition: background-color 1s;
+  margin-bottom: 90px;
+}
+
+.Cart-sum {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  justify-items: flex-end;
+  font-weight: bold;
+  width: 30%;
+  margin-left: 600px;
+}

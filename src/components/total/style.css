@@ -1,0 +1,11 @@
+.Total {
+  display: flex;
+  margin-top: 20px;
+  /* width: 20%; */
+  justify-content: space-evenly;
+}
+
+.Total-info {
+  margin-left: 15px;
+  font-weight: bold;
+}
