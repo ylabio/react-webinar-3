@@ -11,6 +11,10 @@ function App({store}) {
 
   const list = store.getState().list;
 
+  const timesByCount = times => {
+    return times + " " + ((times < 12 || times.toString().substring(times.toString().length - 2, times.toString().length - 1) !== "1") && ["2", "3", "4"].includes(times.toString().substring(times.toString().length - 1)) ? "раза" : "раз");
+  }
+
   return (
     <div className='App'>
       <div className='App-head'>
@@ -26,9 +30,9 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>{item.title + (item.selections > 0 ? ` | Выделяли ${timesByCount(item.selections)}` : '')}</div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={event => { event.stopPropagation(); store.deleteItem(item.code); }}>
                     Удалить
                   </button>
                 </div>
