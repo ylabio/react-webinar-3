@@ -82,7 +82,27 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     })
+  };
+
+  /**
+   * Открытие модального окна
+   */
+  openModal() {
+    this.setState({
+      ...this.state,
+      modal: true
+    })
   }
+
+  /**
+   * Закрытие модального окна
+   */
+  closeModal() {
+    this.setState({
+      ...this.state,
+      modal: false
+    })
+  };
 }
 
 export default Store;
