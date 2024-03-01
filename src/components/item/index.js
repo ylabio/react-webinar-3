@@ -25,8 +25,13 @@ function Item(props) {
           <div className='Item-price'>
               {props.item.price} ₽
           </div>
+          {props.item.count && (
+              <div className='Item-count'>
+                  {props.item.count} шт
+              </div>
+          )}
       <div className='Item-actions'>
-              <button onClick={(e) => {
+              <button className="button" onClick={(e) => {
                   e.stopPropagation();
                   props.onСlickItem(props.item.code);
                   console.log(props);

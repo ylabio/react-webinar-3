@@ -5,7 +5,7 @@ import './style.css';
 function Controls({ onAction, title, children }) {
   return (
     <div className='Controls'>
-          <button onClick={() => onAction()}>{title}{children}</button>
+          {children} <button className="button" onClick={() => onAction()}>{title}</button>
     </div>
   )
 }

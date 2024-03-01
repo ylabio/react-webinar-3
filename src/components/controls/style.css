@@ -1,5 +1,13 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 21px;
+
+}
+
+.counting{
+    padding: 20px
+}
+.button{
+    font-size: 13px;
 }
