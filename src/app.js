@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import List from "./components/list";
-import Controls from "./components/controls";
+import Scoreboard from "./components/scoreboard";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 
@@ -30,7 +30,7 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls onAdd={callbacks.onAddItem}/>
+      <Scoreboard/>
       <List list={list}
             onDeleteItem={callbacks.onDeleteItem}
             onSelectItem={callbacks.onSelectItem}/>
