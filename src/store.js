@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+import {generateCode} from "./utils";
+
+>>>>>>> 6aee3f677bc8d67481675126f817a1d72e5b5cd2
 /**
  * Хранилище состояния приложения
  */
@@ -44,7 +49,11 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
+<<<<<<< HEAD
       list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+=======
+      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+>>>>>>> 6aee3f677bc8d67481675126f817a1d72e5b5cd2
     })
   };
 
@@ -55,6 +64,10 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
+<<<<<<< HEAD
+=======
+      // Новый список, в котором не будет удаляемой записи
+>>>>>>> 6aee3f677bc8d67481675126f817a1d72e5b5cd2
       list: this.state.list.filter(item => item.code !== code)
     })
   };
@@ -68,9 +81,21 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+<<<<<<< HEAD
           item.selected = !item.selected;
         }
         return item;
+=======
+          // Смена выделения и подсчёт
+          return {
+            ...item,
+            selected: !item.selected,
+            count: item.selected ? item.count : item.count + 1 || 1,
+          };
+        }
+        // Сброс выделения если выделена
+        return item.selected ? {...item, selected: false} : item;
+>>>>>>> 6aee3f677bc8d67481675126f817a1d72e5b5cd2
       })
     })
   }
