@@ -3,6 +3,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from "./components/modal";
 
 /**
  * Приложение
@@ -10,7 +11,7 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
-
+  const isModalOpen = store.getState().isModalOpen
   const list = store.getState().list;
 
   const callbacks = {
@@ -22,18 +23,33 @@ function App({store}) {
       store.selectItem(code);
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+      onAddItem: useCallback((code) => {
+          store.addItem(code);
+    }, [store]),
+
+    onToggleCart: useCallback(() => {
+        if (isModalOpen) {
+            store.closeModal();
+        } else {
+            store.openModal();
+        }
+    }, [isModalOpen, store])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин'/>
+      <Controls onAction={callbacks.onToggleCart} title='Перейти'/>
+          <List titleButton={'Добавить'} list={list}
+              onСlickItem={callbacks.onAddItem}/>
+          <Modal isOpen={isModalOpen} onClose={callbacks.onToggleCart}>
+              <Head title='Корзина' />
+              <List titleButton={'Удалить'} list={list.filter(item => item.hasOwnProperty('count'))}
+                  onСlickItem={callbacks.onDeleteItem}
+              />
+            
+          </Modal>
+   
     </PageLayout>
   );
 }

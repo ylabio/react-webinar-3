@@ -39,28 +39,55 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
+  openModal() {
+        this.setState({
+            ...this.state,
+            isModalOpen: true
+        });
+    }
+    closeModal() {
+        this.setState({
+            ...this.state,
+            isModalOpen: false
+        });
+    }
 
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+  addItem(code) {
+      const newList = this.state.list.map(item => {
+          if (item.code === code) {
+              return {
+                  ...item,
+                  count: item.hasOwnProperty('count') ? item.count + 1 : 1
+              };
+          }
+          return item; 
+      });
+
+      this.setState({
+          list: newList
+      });
   };
 
   /**
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+    deleteItem(code) {
+        const newList = this.state.list.map(item => {
+            if (item.code === code) {
+                const { count, ...newItem } = item;
+                return newItem;
+            }
+            return item;
+        });
+        this.setState({
+            ...this.state,
+            list: newList
+        });
+    };
 
   /**
    * Выделение записи по коду

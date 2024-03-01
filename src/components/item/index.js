@@ -4,16 +4,9 @@ import {plural} from "../../utils";
 import './style.css';
 
 function Item(props) {
-
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
+    onAdd: () => {
+      props.onAdd(props.item.code);
     },
     onDelete: (e) => {
       e.stopPropagation();
@@ -27,16 +20,16 @@ function Item(props) {
          onClick={callbacks.onClick}>
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {
-        one: 'раз',
-        few: 'раза',
-        many: 'раз'
-      })}` : ''}
+        {props.item.title} 
       </div>
       <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
+              <button onClick={(e) => {
+                  e.stopPropagation();
+                  props.onСlickItem(props.item.code);
+                  console.log(props);
+              }}>
+                  {props.title}
+              </button>
       </div>
     </div>
   );
@@ -49,15 +42,11 @@ Item.propTypes = {
     selected: PropTypes.bool,
     count: PropTypes.number
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+    onClickItem: PropTypes.func.isRequired
 };
 
 Item.defaultProps = {
-  onDelete: () => {
-  },
-  onSelect: () => {
-  },
+    onClickItem: () => { }
 }
 
 export default React.memo(Item);
