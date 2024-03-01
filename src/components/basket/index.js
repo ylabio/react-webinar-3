@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import List from '../list';
 import './style.css';
-import BasketItem from './basket-item';
 
 function Basket(props) {
   return (
@@ -15,11 +15,9 @@ function Basket(props) {
         </div>
         <div className='Basket-body'>{
           props.basket.length > 0 
-            ? props.basket.map(item =>
-                  <div key={item.code} className='Basket-item'>
-                    <BasketItem item={item} onDelete={props.onDeleteItem}/>
-                  </div>
-                )
+            ? <List list={props.basket}
+                  options={{showCount: true, isAppendable: false, isDeletable: true}}
+                  onDeleteItem={props.onDeleteItem}/>
             : <div className='Basket-empty'>В корзине пусто</div>}
         </div>
       </div>

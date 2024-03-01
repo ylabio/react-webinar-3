@@ -6,7 +6,7 @@
 .Item-part {
   display: flex;
   justify-content: flex-start;
-  gap: 20px;
+  align-items: center;
   padding: 20px;
 }
 
@@ -16,8 +16,12 @@
 }
 
 .Item-part-right {
-  gap: 24px;
+  gap: 20px;
   font-size: 18px;
+}
+
+.Item-count {
+  margin-left: 38px;
 }
 
 .Item-actions {

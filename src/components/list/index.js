@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, onAddItem}) {
+function List(props) {
   return (
     <div className='List'>{
-      list.map(item =>
+      props.list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onAdd={onAddItem}/>
+          <Item
+              item={item}
+              options={props.options}
+              onAdd={props.onAddItem}
+              onDelete={props.onDeleteItem}/>
         </div>
       )}
     </div>
@@ -17,13 +21,29 @@ function List({list, onAddItem}) {
 
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number
+    code: PropTypes.number,
+    title: PropTypes.string,
+    price: PropTypes.number,
+    count: PropTypes.number
   })).isRequired,
-  onAddItem: PropTypes.func
+  options: PropTypes.shape({
+    showCount: PropTypes.bool,
+    isAppendable: PropTypes.bool,
+    isDeletable: PropTypes.bool
+  }),
+  onAddItem: PropTypes.func,
+  onDeleteItem: PropTypes.func
 };
 
 List.defaultProps = {
+  options: {
+    showCount: false,
+    isAppendable: true,
+    isDeletable: false
+  },
   onAddItem: () => {
+  },
+  onDeleteItem: () => {
   },
 }
 

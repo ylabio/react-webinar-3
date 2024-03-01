@@ -6,12 +6,15 @@ import './style.css';
 function Item(props) {
 
   const callbacks = {
-    onAdd: (e) => {
-      e.stopPropagation();
+    onAdd: () => {
       props.onAdd(props.item.code);
-
+    },
+    onDelete: () => {
+      props.onDelete(props.item.code);
     }
   }
+
+  console.log(props.options.is)
 
   return (
     <div className={'Item'}
@@ -26,10 +29,19 @@ function Item(props) {
         <div className='Item-price'>
           {formatCurrency(props.item.price)}
         </div>
+        { props.options.showCount && <div className='Item-count'>
+            {props.item.count + " шт"}
+          </div>
+        }
         <div className='Item-actions'>
-          <button onClick={callbacks.onAdd}>
-            Добавить
-          </button>
+          { props.options.isAppendable && <button onClick={callbacks.onAdd}>
+              Добавить
+            </button>
+          }
+          { props.options.isDeletable && <button onClick={callbacks.onDelete}>
+              Удалить
+            </button>
+          }
         </div>
       </div>
     </div>
@@ -39,14 +51,27 @@ function Item(props) {
 Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
-    title: PropTypes.string
+    title: PropTypes.string,
+    price: PropTypes.number,
+    count: PropTypes.number
   }).isRequired,
-  onAdd: PropTypes.func
+  options: PropTypes.shape({
+    showCount: PropTypes.bool,
+    isAppendable: PropTypes.bool,
+    isDeletable: PropTypes.bool
+  }),
+  onAdd: PropTypes.func,
+  onDelete: PropTypes.func
 };
 
 Item.defaultProps = {
-  onAdd: () => {
+  options: {
+    showCount: false,
+    isAppendable: true,
+    isDeletable: false
   },
+  onAdd: () => {},
+  onDelete: () => {}
 }
 
 export default React.memo(Item);
