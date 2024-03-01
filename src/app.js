@@ -9,6 +9,19 @@ import './styles.css';
  */
 function App({store}) {
 
+    function getPluralForm(n) {
+        let remainder10 = n % 10;
+        let remainder100 = n % 100;
+
+        if (remainder10 === 1 && remainder100 !== 11) {
+            return 'раз';
+        } else if (remainder10 >= 2 && remainder10 <= 4 && (remainder100 < 10 || remainder100 >= 20)) {
+            return 'раза';
+        } else {
+            return 'раз';
+        }
+    }
+
   const list = store.getState().list;
 
   return (
@@ -26,9 +39,12 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                      <div className='Item-title'>{item.title} {item.count > 0 && ` | Выделяли ${item.count} ${getPluralForm(item.count)}`} </div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                          <button onClick={(e) => {
+                              e.stopPropagation();
+                              store.deleteItem(item.code);
+                          }}>
                     Удалить
                   </button>
                 </div>
