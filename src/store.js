@@ -41,13 +41,18 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+  addItem(code) {
+    const item = this.state.list.find(item => item.code === code);
+    if (item) {
+      this.setState({
+        ...this.state,
+        basket: this.state.basket.find(stored => stored.code === item.code)
+          ? this.state.basket.map(stored => stored.code === item.code ? {...stored, count: stored.count++} : stored)
+          : [...this.state.basket, {...item, count: 1}]
+      })
+    }
   };
 
   /**

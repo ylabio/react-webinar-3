@@ -6,9 +6,9 @@ import './style.css';
 function Item(props) {
 
   const callbacks = {
-    onDelete: (e) => {
+    onAdd: (e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
+      props.onAdd(props.item.code);
 
     }
   }
@@ -21,8 +21,8 @@ function Item(props) {
         {props.item.title}
       </div>
       <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button onClick={callbacks.onAdd}>
+          Добавить
         </button>
       </div>
     </div>
@@ -34,11 +34,11 @@ Item.propTypes = {
     code: PropTypes.number,
     title: PropTypes.string
   }).isRequired,
-  onDelete: PropTypes.func
+  onAdd: PropTypes.func
 };
 
 Item.defaultProps = {
-  onDelete: () => {
+  onAdd: () => {
   },
 }
 
