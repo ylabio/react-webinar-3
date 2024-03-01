@@ -4,9 +4,12 @@ import {generateCode} from "./utils";
  * Хранилище состояния приложения
  */
 class Store {
+  #basket;
   constructor(initState = {}) {
+    this.#basket = []
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+
   }
 
   /**
@@ -39,50 +42,58 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
+  setBasket(newBasket) {
+    this.#basket = newBasket;
+  }
+  addItemToBasket(item){
+    this.setBasket([
+      ...this.#basket, item])
+    console.log(this.#basket)
+  }
 
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+  // addItem() {
+  //   this.setState({
+  //     ...this.state,
+  //     list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+  //   })
+  // };
 
   /**
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+  // deleteItem(code) {
+  //   this.setState({
+  //     ...this.state,
+  //     // Новый список, в котором не будет удаляемой записи
+  //     list: this.state.list.filter(item => item.code !== code)
+  //   })
+  // };
 
   /**
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
-  }
+  // selectItem(code) {
+  //   this.setState({
+  //     ...this.state,
+  //     list: this.state.list.map(item => {
+  //       if (item.code === code) {
+  //         // Смена выделения и подсчёт
+  //         return {
+  //           ...item,
+  //           selected: !item.selected,
+  //           count: item.selected ? item.count : item.count + 1 || 1,
+  //         };
+  //       }
+  //       // Сброс выделения если выделена
+  //       return item.selected ? {...item, selected: false} : item;
+  //     })
+  //   })
+  // }
 }
 
 export default Store;

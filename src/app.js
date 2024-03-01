@@ -14,26 +14,20 @@ function App({store}) {
   const list = store.getState().list;
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    showModal: useCallback(() => {
+      alert('hello')
     }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    onAddItemToBasket: useCallback((item) => {
+      store.addItemToBasket(item)
+    }, [])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
+      <Head title='Магазин'/>
+      <Controls callback={callbacks.showModal} title={'Перейти'}/>
       <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+            onAddItemToBasket={callbacks.onAddItemToBasket}/>
     </PageLayout>
   );
 }
