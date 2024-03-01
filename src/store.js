@@ -92,7 +92,7 @@ class Store {
       ...this.state,
       modal: true
     })
-  }
+  };
 
   /**
    * Закрытие модального окна
@@ -102,6 +102,43 @@ class Store {
       ...this.state,
       modal: false
     })
+  };
+
+  /**
+   * Добавление товара в корзину
+   * @param code
+   */
+  addToCart(code) {
+    const newItem = this.state.list.find(item => item.code === code);
+    let uniqItem = true;
+
+    if (this.state.cartList) {
+      const newCartList = this.state.cartList.map(item => {
+        if (item.code === code) {
+          uniqItem = false;
+          return { ...item, quantity: item.quantity + 1 };
+        } else {
+          return item;
+        }
+      })
+
+      if (uniqItem) {
+        newCartList.push({ ...newItem, quantity: 1 });
+      }
+
+      this.setState({
+        ...this.state,
+        cartList: newCartList,
+        totalCartPrice: newCartList.reduce((a, b) => a + (b.price * b.quantity), 0),
+      })
+
+    } else {
+      this.setState({
+        ...this.state,
+        cartList: [{ ...newItem, quantity: 1 }],
+        totalCartPrice: newItem.price
+      })
+    }
   };
 }
 

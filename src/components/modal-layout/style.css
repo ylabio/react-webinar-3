@@ -48,11 +48,14 @@
 }
 
 .ModalLayout-button:hover {
-  background-color: #e5e2e2;
+  background-color: #E5E2E2;
+}
+
+.ModalLayout-button:active {
+  background-color: inherit;
 }
 
 .ModalLayout-list {
-  list-style: none;
   padding: 0;
   margin: 71px 0 0 0;
 }

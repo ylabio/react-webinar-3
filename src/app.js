@@ -11,9 +11,7 @@ import ModalLayout from './components/modal-layout';
  * @returns {React.ReactElement}
  */
 function App({store}) {
-
-  const list = store.getState().list;
-  const modal = store.getState().modal;
+  const state = store.getState();
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -35,6 +33,10 @@ function App({store}) {
     onCloseModal: useCallback(() => {
       store.closeModal();
     }, [store]),
+
+    onAddToCartItem: useCallback((code) => {
+      store.addToCart(code);
+    }, [store]),
   }
 
   return (
@@ -42,13 +44,18 @@ function App({store}) {
       <PageLayout>
         <Head title='Магазин'/>
         {/* <Controls onAdd={callbacks.onAddItem}/> */}
-        <Controls onAdd={callbacks.onOpenModal}/>
-        <List list={list}
+        <Controls
+          onCartOpen={callbacks.onOpenModal}
+          totalQuantity={state.cartList?.length}
+          totalPrice={state.totalCartPrice}
+        />
+        <List list={state.list}
               onDeleteItem={callbacks.onDeleteItem}
-              onSelectItem={callbacks.onSelectItem}/>
+              onSelectItem={callbacks.onSelectItem}
+              onAddToCartItem={callbacks.onAddToCartItem}/>
       </PageLayout>
       {
-        modal ?
+        state.modal ?
         <ModalLayout
           title='Корзина'
           closeModal={callbacks.onCloseModal}

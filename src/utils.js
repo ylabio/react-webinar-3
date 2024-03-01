@@ -49,4 +49,12 @@ export const generateCode1 = (function (start = 0) {
  */
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
-}
+};
+
+/**
+ * Формат цены, возвращается со знаком рубля и без дробной части (копеек), если передается целое число
+ * @param {Number}
+ */
+export function formatPrice(value) {
+  return new Intl.NumberFormat('ru-RU', {style: 'currency', currency: 'RUB', trailingZeroDisplay: 'stripIfInteger'}).format(value);
+};
