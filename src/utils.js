@@ -26,3 +26,23 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Получение формы числительного в зависимости от числа
+ * @param number {Number} Число
+ * @param forms {...String} Формы числительного (2 или 3 формы)
+ * @returns {String}
+ */
+export function getRightForm(number, ...forms) {
+  if (forms.length === 0) return '';
+
+  const decRemainder = number % 100;
+  const remainder = number % 10;
+
+  if (![12, 13, 14].includes(decRemainder)) {
+    if ([2, 3, 4].includes(remainder)) return forms[1] ? forms[1] : forms[0];
+    if (remainder === 1) return forms[0]
+  }
+
+  return forms[2] ? forms[2] : forms[0];
+}
