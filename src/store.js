@@ -52,6 +52,20 @@ class Store {
       }
     })
   };
+
+  /**
+  * Удаление товара из корзины
+  * @param code
+  */
+  removeFromCart(code) {
+    const newCart = {...this.state.cart};
+    delete newCart[code];
+    this.setState({
+      ...this.state,
+      cart: newCart
+    })
+  };
 }
+
 
 export default Store;
