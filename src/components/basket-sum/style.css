@@ -1,0 +1,31 @@
+.BasketSum {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.BasketSum-price {
+  min-width: 85px;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  font-weight: 700;
+  font-size: 18px;
+  white-space: nowrap;
+}
+
+.BasketSum-total {
+  min-width: 85px;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  font-weight: 700;
+  font-size: 18px;
+  white-space: nowrap;
+  margin: 0 0 0 20px;
+}
+
+.BasketSum-block {
+  min-width: 115px;
+}

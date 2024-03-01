@@ -3,3 +3,46 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls-sum {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.Controls-basket {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.Controls-count {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+  margin-left: 15px;
+}
+
+.Controls-button {
+  box-sizing: border-box;
+  border: 1px solid rgb(118, 118, 118);
+  border-radius: 2px;
+  background: rgb(239, 239, 239);
+  width: 80px;
+  height: 21px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 15px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.Controls-button:hover {
+  background-color: #e5e2e2;
+}
