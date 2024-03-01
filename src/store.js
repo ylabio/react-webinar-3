@@ -1,4 +1,5 @@
 import {generateCode} from "./utils";
+import item from "./components/item";
 
 /**
  * Хранилище состояния приложения
@@ -83,6 +84,61 @@ class Store {
       })
     })
   }
+
+  openModal(name) {
+    this.setState({...this.state, modal: name});
+  }
+
+  closeModal() {
+    this.setState({...this.state, modal: false});
+  }
+
+
+  addBasketItem(code) {
+    let finder = false;
+
+    const list = this.getState().basketItems.list.map(item => {
+      if (item.code === code) {
+        finder = true
+        return {...item, counter: item.counter + 1}
+      } else {
+        return item
+      }
+    })
+
+    if (!finder) {
+      const item = this.getState().list.find(item => item.code === code);
+      list.push({...item, counter: 1})
+    }
+
+    const sum = list.reduce((a, b) => a + (b.counter * b.price), 0);
+
+    this.setState({
+      ...this.state,
+      basketItems: {
+        ...this.state.basketItems,
+        list,
+        count: list.length,
+        sum
+      }
+    })
+  }
+
+  removeItemBasket(code) {
+    const list = this.getState().basketItems.list.filter(item => item.code !== code);
+    const sum = list.reduce((a, b) => a + (b.counter * b.price), 0);
+
+    this.setState({
+      ...this.state,
+      basketItems: {
+        ...this.state.basketItems,
+        list,
+        count: list.length,
+        sum
+      }
+    })
+  }
+
 }
 
 export default Store;

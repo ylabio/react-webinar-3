@@ -1,8 +1,12 @@
-import React, {useCallback} from 'react';
+import React, { useCallback, useState } from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import ModalLayout from "./components/modal-layout";
+import Item from "./components/item";
+import BasketItem from "./components/basket-item";
+import BasketSum from "./components/basket-sum";
 
 /**
  * Приложение
@@ -11,30 +15,49 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
-  const list = store.getState().list;
+  const state = store.getState();
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    addBasket: useCallback((code) => {
+      store.addBasketItem(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    removeBasket: useCallback((code) => {
+      store.removeItemBasket(code);
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
+    openBasketModal: useCallback(() => {
+      store.openModal('modalBasket');
+    }, [store]),
+
+    closeModal: useCallback(() => {
+      store.closeModal();
     }, [store])
   }
 
+  const rendersList = useCallback((item, isBasketItem) => {
+    if (isBasketItem) {
+      return <BasketItem item={item} onRemove={callbacks.removeBasket}/>;
+    } else {
+      return <Item item={item} onAdd={callbacks.addBasket}/>;
+    }
+  }, [callbacks.addBasket, callbacks.removeBasket]);
+
   return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-    </PageLayout>
+    <>
+      <PageLayout>
+        <Head title='Магазин'/>
+        <Controls onAdd={callbacks.openBasketModal} sum={state.basketItems.sum} count={state.basketItems.count}/>
+        <List list={state.list} viewItem={(item) => rendersList(item, false)}/>
+      </PageLayout>
+      {
+        state.modal === 'modalBasket' &&
+        <ModalLayout title={'Корзина'} closeModal={callbacks.closeModal}>
+          <List list={state.basketItems.list} viewItem={(item) => rendersList(item, true)}/>
+          <BasketSum total={state.basketItems.sum}/>
+        </ModalLayout>
+      }
+    </>
   );
 }
 
