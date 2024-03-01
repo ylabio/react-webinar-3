@@ -1,4 +1,4 @@
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
+const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
 /**
  * Создание элемента со свойствами и вложенными элементами
@@ -25,4 +25,23 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
+}
+
+export function pluralize(number) {
+  let str = {
+    1: "раз",
+    2: "раза",
+  };
+  if (number > 100) {
+    number = number % 100;
+  }
+  if (number > 20) {
+    number = number % 10;
+  }
+
+  if ([2, 3, 4].includes(number) && ![12, 13, 14].includes(number)) {
+    return str[2];
+  } else {
+    return str[1];
+  }
 }

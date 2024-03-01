@@ -16,8 +16,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -43,21 +43,28 @@ class Store {
    */
   addItem() {
     this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
-
+      list: [
+        ...this.state.list,
+        { code: this.examination(Date.now()), title: "Новая запись" },
+      ],
+    });
+  }
+  examination(code) {
+    if (this.state.list.some((elem) => elem.code === code)) {
+      return this.examination(Math.floor(Math.random() * Date.now()));
+    } else {
+      return code;
+    }
+  }
   /**
    * Удаление записи по коду
    * @param code
    */
   deleteItem(code) {
     this.setState({
-      ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      list: this.state.list.filter((item) => item.code !== code),
+    });
+  }
 
   /**
    * Выделение записи по коду
@@ -65,14 +72,37 @@ class Store {
    */
   selectItem(code) {
     this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
+        let count = 0;
+
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            if (item.count > 0) {
+              count = item.count + 1;
+            } else if (item.count === 0 || item.count == undefined) {
+              count++;
+            }
+          } else {
+            if (item.count != undefined) {
+              count = item.count;
+            }
+          }
+        } else {
+          if (item.count != undefined) {
+            count = item.count;
+          }
+          item.selected = false;
         }
-        return item;
-      })
-    })
+
+        return {
+          code: item.code,
+          title: item.title,
+          selected: item.selected,
+          count: count,
+        };
+      }),
+    });
   }
 }
 
