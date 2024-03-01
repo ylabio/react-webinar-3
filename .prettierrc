@@ -1,0 +1,15 @@
+{
+  "folders": [
+    {
+      "name": "WS-react-webinar",
+      "path": ".."
+    }
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.useTabStops": true,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": true
+  }
+}
