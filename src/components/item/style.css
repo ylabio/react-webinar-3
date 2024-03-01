@@ -14,8 +14,14 @@
 }
 
 .Item-title {
-  width: 100%;
+  /* width: 100%; */
+  margin-right: auto;
   padding: 20px 10px;
+}
+
+.Item-price {
+  padding: 20px 10px;
+  font-size: 18px;
 }
 
 .Item-actions {
