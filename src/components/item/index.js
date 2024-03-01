@@ -15,7 +15,7 @@ function Item(props) {
   }
 
   return (
-    <tr key={props.item.code} className='Item'>
+    <tr className='Item'>
       <td className='Item-code'>{props.item.code}</td>
       <td className='Item-title'>{props.item.title}</td>
       <td className='Item-price'>{numberFormat(props.item.price)}</td>

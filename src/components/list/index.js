@@ -6,23 +6,26 @@ import './style.css';
 
 function List(props) {
   return (
-    <table className='List'>{
-      props.list.map(item =>
-        <Item
-            item={item}
-            options={props.options}
-            onAdd={props.onAddItem}
-            onDelete={props.onDeleteItem}/>
-      )}
-      { props.options.showTotals &&
-          <tr className='List-footer'>
-            <td className='List-totals' colSpan={3}>Итого</td>
-            <td className='List-price'>{
-              numberFormat(props.list.reduce((sum, current) => sum + current.price * current.count, 0)) }
-            </td>
-            <td></td>
-          </tr>
-      }
+    <table className='List'>
+      <tbody>{
+        props.list.map(item =>
+          <Item
+              key={item.code}
+              item={item}
+              options={props.options}
+              onAdd={props.onAddItem}
+              onDelete={props.onDeleteItem}/>
+        )}
+        { props.options.showTotals &&
+            <tr key='list-footer' className='List-footer'>
+              <td className='List-totals' colSpan={3}>Итого</td>
+              <td className='List-price'>{
+                numberFormat(props.list.reduce((sum, current) => sum + current.price * current.count, 0)) }
+              </td>
+              <td></td>
+            </tr>
+        }
+      </tbody>
     </table>
   )
 }
