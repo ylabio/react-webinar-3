@@ -22,6 +22,9 @@ function Item(props) {
       <div className='Item-title'>
         {props.item.title} 
       </div>
+          <div className='Item-price'>
+              {props.item.price} ₽
+          </div>
       <div className='Item-actions'>
               <button onClick={(e) => {
                   e.stopPropagation();

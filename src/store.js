@@ -35,8 +35,8 @@ class Store {
    * @param newState {Object}
    */
   setState(newState) {
-    this.state = newState;
-    // Вызываем всех слушателей
+      this.state = { ...this.state, ...newState };
+    
     for (const listener of this.listeners) listener();
   }
   openModal() {
@@ -55,21 +55,26 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem(code) {
-      const newList = this.state.list.map(item => {
-          if (item.code === code) {
-              return {
-                  ...item,
-                  count: item.hasOwnProperty('count') ? item.count + 1 : 1
-              };
-          }
-          return item; 
-      });
-
-      this.setState({
-          list: newList
-      });
-  };
+    addItem(code) {
+        const item = this.state.selectedItems.find(i => i.code === code);
+        if (item) {
+            item.count = (item.count || 0) + 1;
+            this.setState({
+                selectedItems: this.state.selectedItems,
+                countItems: this.state.countItems + 1,
+                countPrice: this.state.countPrice + item.price
+            });
+        } else {
+            const newItem = this.state.list.find(i => i.code === code);
+            if (newItem) {
+                this.setState({
+                    selectedItems: [...this.state.selectedItems, { ...newItem, count: 1 }],
+                    countItems: this.state.countItems + 1,
+                    countPrice: this.state.countPrice + newItem.price
+                });
+            }
+        }
+    }
 
   /**
    * Удаление записи по коду

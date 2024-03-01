@@ -13,6 +13,9 @@ import Modal from "./components/modal";
 function App({store}) {
   const isModalOpen = store.getState().isModalOpen
   const list = store.getState().list;
+  const selectedItems = store.getState().selectedItems; 
+  const countItems = store.getState().countItems;
+  const countPrice = store.getState().countPrice;
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -39,12 +42,15 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls onAction={callbacks.onToggleCart} title='Перейти'/>
+      <Controls onAction={callbacks.onToggleCart} title='Перейти'>
+              В корзине:  {countItems} товара / {countPrice} ₽
+      </Controls>
+      
           <List titleButton={'Добавить'} list={list}
               onСlickItem={callbacks.onAddItem}/>
           <Modal isOpen={isModalOpen} onClose={callbacks.onToggleCart}>
               <Head title='Корзина' />
-              <List titleButton={'Удалить'} list={list.filter(item => item.hasOwnProperty('count'))}
+              <List titleButton={'Удалить'} list={selectedItems}
                   onСlickItem={callbacks.onDeleteItem}
               />
             
