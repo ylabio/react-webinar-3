@@ -81,16 +81,18 @@ class Store {
    * @param code
    */
     deleteItem(code) {
-        const newList = this.state.list.map(item => {
-            if (item.code === code) {
-                const { count, ...newItem } = item;
-                return newItem;
-            }
-            return item;
-        });
+        let itemToRemove = this.state.selectedItems.find(item => item.code === code);
+        let newCountItems = this.state.countItems;
+        let newCountPrice = this.state.countPrice;
+        if (itemToRemove) {
+            newCountItems -= itemToRemove.count; 
+            newCountPrice -= itemToRemove.count * itemToRemove.price; 
+        }
+        const newSelectedItems = this.state.selectedItems.filter(item => item.code !== code);
         this.setState({
-            ...this.state,
-            list: newList
+            selectedItems: newSelectedItems,
+            countItems: newCountItems,
+            countPrice: newCountPrice
         });
     };
 
