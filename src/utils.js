@@ -50,3 +50,16 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Форматирование стоимости
+ * Возвращает стоимость разделяя пробелами группы разрядов
+ * @param value {Number} Стоимость
+ * @param [minimumFractionDigits] Минимальное количество знаков после запятой* 
+ * @param [currency] {String} Валюта
+ * @param [locale] {String} Локаль (код языка)
+ * @returns {String}
+ */
+export function formatCurrency(value, minimumFractionDigits = 0, currency = 'RUB', locale = 'ru-RU') {
+  return new Intl.NumberFormat(locale, {style: 'currency', currency, minimumFractionDigits}).format(value);
+}

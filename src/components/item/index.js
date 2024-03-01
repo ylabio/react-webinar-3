@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
+import {formatCurrency} from "../../utils";
 import './style.css';
 
 function Item(props) {
@@ -24,7 +24,7 @@ function Item(props) {
       </div>
       <div className='Item-part Item-part-right'>
         <div className='Item-price'>
-          {props.item.price}&nbsp;₽
+          {formatCurrency(props.item.price)}
         </div>
         <div className='Item-actions'>
           <button onClick={callbacks.onAdd}>
