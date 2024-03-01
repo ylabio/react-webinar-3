@@ -1,0 +1,9 @@
+.Controls {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.Info {
+  margin-right: 20px;
+}
