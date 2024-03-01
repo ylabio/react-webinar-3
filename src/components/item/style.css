@@ -1,7 +1,6 @@
 .Item {
   display: flex;
   justify-content: space-between;
-  transition: background-color 1s;
 }
 
 .Item-part {

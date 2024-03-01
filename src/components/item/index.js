@@ -16,7 +16,7 @@ function Item(props) {
   return (
     <div className={'Item'}
          onClick={callbacks.onClick}>
-      <div className='Item-part'>
+      <div className='Item-part  Item-part-left'>
         <div className='Item-code'>{props.item.code}</div>
         <div className='Item-title'>
           {props.item.title}
