@@ -11,6 +11,16 @@ function App({store}) {
 
   const list = store.getState().list;
 
+  const pluralize = (counter) => {
+    if (counter % 10 === 1 && counter % 100 !== 11) {
+      return "раз";
+    } else if((counter % 10 >= 2 && counter % 10 <= 4 && (counter % 100 < 10 || counter % 100 >= 20))) {
+      return "раза";
+    } else {
+      return "раз";
+    }
+  }
+
   return (
     <div className='App'>
       <div className='App-head'>
@@ -26,9 +36,10 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                {/* Отрисовываем фразу, если счетчик больше 0 */}
+                <div className='Item-title'>{item.title}{item.counter > 0 ? ` | Выделяли ${item.counter} ${pluralize(item.counter)}` : ''}</div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => store.deleteItem(e, item.code)}>
                     Удалить
                   </button>
                 </div>

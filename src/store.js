@@ -3,8 +3,12 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    //this.state = initState;
+    this.state = {...initState, 
+    list: initState.list.map((item) => ({...item, counter: 0}))//Добавим счетчик для дальнейшего отображения при выделении записи
+    }
     this.listeners = []; // Слушатели изменений состояния
+    this.id = this.state.list.length + 1; //Добавим изначальное состояние id и будем его увеличивать на 1 при создании новой записи. Так и добъемся уникальности
   }
 
   /**
@@ -44,7 +48,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.id++, title: 'Новая запись', counter: 0}]//При добавлении записи устанавливаем для нее счетчик
     })
   };
 
@@ -52,9 +56,15 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(e, code) {
+    e.stopPropagation();
     this.setState({
       ...this.state,
+      list: this.state.list.map((item) =>{
+        if(item.code !== code && item.selected === true) {
+          item.selected = true;
+        }
+      }),
       list: this.state.list.filter(item => item.code !== code)
     })
   };
@@ -69,6 +79,11 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if(item.selected) {
+            item.counter += 1;//Обновляем счетчик при клике
+          }
+        } else if(item.code !== code) {//Снимаем выделение с других записей при клике
+          item.selected = false;
         }
         return item;
       })
