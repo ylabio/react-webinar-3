@@ -16,14 +16,21 @@ function Item(props) {
   return (
     <div className={'Item'}
          onClick={callbacks.onClick}>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>
-        {props.item.title}
+      <div className='Item-part'>
+        <div className='Item-code'>{props.item.code}</div>
+        <div className='Item-title'>
+          {props.item.title}
+        </div>
       </div>
-      <div className='Item-actions'>
-        <button onClick={callbacks.onAdd}>
-          Добавить
-        </button>
+      <div className='Item-part Item-part-right'>
+        <div className='Item-price'>
+          {props.item.price}&nbsp;₽
+        </div>
+        <div className='Item-actions'>
+          <button onClick={callbacks.onAdd}>
+            Добавить
+          </button>
+        </div>
       </div>
     </div>
   );
