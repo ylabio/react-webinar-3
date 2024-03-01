@@ -16,8 +16,8 @@ function Basket(props) {
         <div className='Basket-body'>{
           props.basket.length > 0 
             ? <List list={props.basket}
-                  options={{showCount: true, isAppendable: false, isDeletable: true}}
-                  onDeleteItem={props.onDeleteItem}/>
+                    options={{showCount: true, showTotals: true, isAppendable: false, isDeletable: true}}
+                    onDeleteItem={props.onDeleteItem}/>
             : <div className='Basket-empty'>В корзине пусто</div>}
         </div>
       </div>

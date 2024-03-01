@@ -1,21 +1,29 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
+import Item from '../item';
+import { formatCurrency } from '../../utils';
 import './style.css';
 
 function List(props) {
   return (
-    <div className='List'>{
+    <table className='List'>{
       props.list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item
-              item={item}
-              options={props.options}
-              onAdd={props.onAddItem}
-              onDelete={props.onDeleteItem}/>
-        </div>
+        <Item
+            item={item}
+            options={props.options}
+            onAdd={props.onAddItem}
+            onDelete={props.onDeleteItem}/>
       )}
-    </div>
+      { props.options.showTotals &&
+          <tr className='List-footer'>
+            <td className='List-totals' colSpan={3}>Итого</td>
+            <td className='List-price'>{
+              formatCurrency(props.list.reduce((sum, current) => sum + current.price * current.count, 0)) }
+            </td>
+            <td></td>
+          </tr>
+      }
+    </table>
   )
 }
 
@@ -28,6 +36,7 @@ List.propTypes = {
   })).isRequired,
   options: PropTypes.shape({
     showCount: PropTypes.bool,
+    showTotals: PropTypes.bool,
     isAppendable: PropTypes.bool,
     isDeletable: PropTypes.bool
   }),
@@ -38,6 +47,7 @@ List.propTypes = {
 List.defaultProps = {
   options: {
     showCount: false,
+    showTotals: false,
     isAppendable: true,
     isDeletable: false
   },

@@ -1,34 +1,34 @@
 .Item {
-  display: flex;
-  justify-content: space-between;
+  vertical-align: middle;
+  border-top: 1px dashed #ccc;
+}
+  
+.Item:last-child {
+  border-bottom: 1px dashed #ccc;
 }
 
-.Item-part {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 20px;
-}
-
-.Item-part-left {
-  gap: 24px;
+.Item-code {
+  padding: 20px 10px 20px 20px;
   font-size: 16px;
+  font-weight: 400;
 }
 
-.Item-part-right {
-  gap: 20px;
+.Item-title {
+  padding: 20px 10px;
+  font-size: 16px;
+  font-weight: 400;
+  width: 100%;
+}
+
+.Item-price, .Item-count {
+  padding: 20px 10px;
   font-size: 18px;
-}
-
-.Item-count {
-  margin-left: 38px;
+  font-weight: 400;
+  text-align: right;
 }
 
 .Item-actions {
+  padding: 20px 20px 20px 10px;
   display: flex;
   justify-content: flex-end;
-}
-
-.Item-actions button {
-  font-size: 13px;
 }

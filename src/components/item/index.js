@@ -14,37 +14,26 @@ function Item(props) {
     }
   }
 
-  console.log(props.options.is)
-
   return (
-    <div className={'Item'}
-         onClick={callbacks.onClick}>
-      <div className='Item-part  Item-part-left'>
-        <div className='Item-code'>{props.item.code}</div>
-        <div className='Item-title'>
-          {props.item.title}
-        </div>
-      </div>
-      <div className='Item-part Item-part-right'>
-        <div className='Item-price'>
-          {formatCurrency(props.item.price)}
-        </div>
-        { props.options.showCount && <div className='Item-count'>
-            {props.item.count + " шт"}
-          </div>
+    <tr key={props.item.code} className='Item'>
+      <td className='Item-code'>{props.item.code}</td>
+      <td className='Item-title'>{props.item.title}</td>
+      <td className='Item-price'>{formatCurrency(props.item.price)}</td>
+      { props.options.showCount && <td className='Item-count'>
+          {props.item.count + "\u00a0шт"}
+        </td>
+      }
+      <td className='Item-actions'>
+        { props.options.isAppendable && <button onClick={callbacks.onAdd}>
+            Добавить
+          </button>
         }
-        <div className='Item-actions'>
-          { props.options.isAppendable && <button onClick={callbacks.onAdd}>
-              Добавить
-            </button>
-          }
-          { props.options.isDeletable && <button onClick={callbacks.onDelete}>
-              Удалить
-            </button>
-          }
-        </div>
-      </div>
-    </div>
+        { props.options.isDeletable && <button onClick={callbacks.onDelete}>
+            Удалить
+          </button>
+        }
+      </td>
+    </tr>
   );
 }
 

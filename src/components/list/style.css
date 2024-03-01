@@ -1,7 +1,15 @@
-.List-item {
-  border-top: 1px dashed #ccc;
+.List {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.List-item:last-child {
-  border-bottom: 1px dashed #ccc;
+.List-footer {
+  border-top: 1px dashed #ccc;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.List-totals, .List-price {
+  padding: 20px 10px;
+  text-align: right;
 }
