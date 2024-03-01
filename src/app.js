@@ -23,7 +23,7 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Scoreboard count={basket.length}/>
+      <Scoreboard count={basket.length} price={basket.reduce((sum, current) => sum + current.price, 0)}/>
       <List list={list}
             onAddItem={callbacks.onAddItem}/>
     </PageLayout>
