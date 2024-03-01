@@ -6,7 +6,6 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
   }
-
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
@@ -44,7 +43,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.state.list[0] ? this.state.list.at(-1).code + 1 : 1, title: 'Новая запись'}]
     })
   };
 
@@ -69,7 +68,10 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
-        }
+          if (item.selected === true) {
+            item.count === undefined ? item.count = 1 : item.count += 1;
+          }
+        } else item.selected = false;
         return item;
       })
     })
