@@ -1,25 +1,32 @@
-.Item {
+.BasketItem {
   display: flex;
   justify-content: flex-start;
   font-size: 16px;
 }
 
-.Item-code {
+.BasketItem-code {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+.BasketItem-title {
   width: 100%;
   padding: 20px 10px;
 }
 
-.Item-actions {
+.BasketItem-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }
-.Item-price {
+.BasketItem-price {
   align-self: center;
   text-wrap: nowrap;
   font-size: 18px;
+  margin-right: 40px
+}
+.BasketItem-quantity {
+  align-self: center;
+  text-wrap: nowrap;
+  font-size: 18px;
+  margin-right: 10px
 }

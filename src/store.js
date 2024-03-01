@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,47 +39,51 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара  в корзину по коду
+   * @param product
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  addIntoBasket(product) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
+        if (item.code === product.code) {
           return {
             ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+            quantity: item.quantity ? item.quantity + 1 : 1,
+          } 
+        } else return {...item};
       })
     })
+    console.log(this.state)
+  };
+
+  /**
+   * Удаление товара из корзины по коду
+   * @param product
+   */
+  deleteFromBasket(product) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === product.code) {
+          return {
+            ...item,
+            quantity: 0,
+          }
+        } else return {...item};
+      })
+    })
+  };
+
+   /**
+   * Подсчет корзины
+   */
+  countBasket() {
+    const basket = {
+      productsQuantity: this.state.list.reduce((sum, item) => item.quantity > 0 ? sum += item.quantity : sum, 0),
+      productsCost: this.state.list.reduce((sum, item) => item.quantity > 0 ? sum += item.price * item.quantity : sum, 0)
+    }
+    return basket ;
   }
 }
 

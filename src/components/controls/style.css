@@ -1,5 +1,18 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 18px;
+  gap: 15px;
+  border-bottom: 1px dashed #CCCCCC;
+  height: 61px;
+}
+.Controls div:last-of-type {
+  font-weight: 700;
+}
+.Controls button {
+  align-self: center;
+  width: 80px;
 }
