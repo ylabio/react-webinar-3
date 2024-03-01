@@ -30,7 +30,14 @@
 }
 
 .Basket-body {
-  padding: 70px 0;
+  max-height: 70dvh;
+  overflow-y: auto;
+}
+
+@media screen and ( min-height: 800px ) {
+  .Basket-body {
+    padding-block: 70px;
+  }
 }
 
 .Basket-empty {
