@@ -5,10 +5,18 @@ body {
   font-family: sans-serif;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .PageLayout {
   max-width: 1024px;
   min-height: 100vh;
   margin: 0 auto;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+
   background: #fff;
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
