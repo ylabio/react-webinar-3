@@ -3,7 +3,8 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import CartInfo from './components/cart-info';
+import Modal from "./components/modal/index";
+import './app.style.css';
 
 /**
  * Приложение
@@ -12,19 +13,21 @@ import CartInfo from './components/cart-info';
  */
 function App({store}) {
 
+  const [cartIsOpen, setCartIsOpen] = React.useState(false);
+
   const list = store.getState().list;
   const cart = store.getState().cart;
 
 
   function getItemsInCart(){
-    const itemsInCart = list.filter(item => cart.includes(item));
+    const itemsInCart = list.filter(item => cart.items.includes(item));
     return itemsInCart;
   }
 
   function getTotalSumm(){
     let totalSumm = 0;
     if(cart) {
-      totalSumm = cart.reduce((summ, item) => +item.price + summ, 0);
+      totalSumm = cart.items.reduce((summ, item) => +item.price + summ, 0);
     }
 
     return totalSumm;
@@ -40,23 +43,32 @@ function App({store}) {
       store.addToCart(item);
     }, [store]),
 
+    onRemoveFromCart: useCallback((item) => {
+      store.removeFromCart(item);
+    }, [store]),
+
     onSelectItem: useCallback((code) => {
       store.selectItem(code);
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    // onAddItem: useCallback(() => {
+    //   store.addItem();
+    // }, [store])
+
+    goToCart: useCallback(() => {
+      setCartIsOpen(true);
+    })
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <CartInfo count={getItemsInCart().length} totalSumm={getTotalSumm()}/>
-      <Controls onAdd={callbacks.onAddItem}/>
+      <Head title='Магазин'/>
+      <Controls goToCart={callbacks.goToCart} count={getItemsInCart().length} totalSumm={getTotalSumm()}/>
       <List list={list}
-            onAddToCart={callbacks.onAddToCart}
-            onSelectItem={callbacks.onSelectItem}/>
+            callback={callbacks.onAddToCart}
+            onSelectItem={callbacks.onSelectItem}
+            buttonTitle={'Добавить'}/>
+        {cartIsOpen && <Modal list={cart.items} callback={callbacks.onRemoveFromCart} buttonTitle={'Удалить'}/>}
     </PageLayout>
   );
 }

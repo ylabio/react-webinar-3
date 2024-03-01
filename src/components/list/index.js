@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, onAddToCart, onSelectItem}) {
+function List({list, callback, onSelectItem, buttonTitle}) {
+  const uniqueList = new Set(list);
+
   return (
     <div className='List'>{
-      list.map(item =>
+      Array.from(uniqueList).map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onAddToCart={onAddToCart} onSelect={onSelectItem}/>
+          <Item item={item} callback={callback} onSelect={onSelectItem} buttonTitle={buttonTitle}/>
         </div>
       )}
     </div>

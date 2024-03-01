@@ -6,11 +6,11 @@ import './style.css';
 function CartInfo({count, totalSumm}) {
   return (
     <div className='cart-info'>
-      <h1>{`В корзине: ${count} ${plural(count, {
+      <p>{count > 0 && `В корзине: `}<b>{count ? `${count} ${plural(count, {
         one: 'товар',
         few: 'товара',
         many: 'товаров'
-      })} /${totalSumm}`}  &#8381;</h1>
+      })} / ${totalSumm} ₽` : 'Пусто'}</b></p>
     </div>
   )
 }

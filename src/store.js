@@ -62,13 +62,22 @@ class Store {
   //   })
   // };
 
-  addToCart(code) {
+  addToCart(item) {
     this.setState({
       ...this.state,
-      cart: [...this.state.cart, code]
+      // cart: [...this.state.cart, item]
+      cart: {items: [...this.state.cart.items, item]}
     })
-    console.log('cart', this.state.cart);
   };
+
+  removeFromCart(item) {
+    this.setState({
+      ...this.state,
+      cart: {
+        items: this.state.cart.items.filter(element => element.code !== item.code)
+      }
+    })
+  }
 
   /**
    * Выделение записи по коду
