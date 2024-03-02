@@ -1,5 +1,16 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  gap: 20px;
   padding: 20px;
+}
+
+.Controls-price:after {
+  font-weight: inherit;
+  white-space: nowrap;
+  content: " \20BD";
+}
+
+.Controls-btn {
+  min-width: 76px;
 }

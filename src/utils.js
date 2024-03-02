@@ -50,3 +50,8 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+export function numberFormat(number = 0, locale = 'ru-RU') {
+
+  return new Intl.NumberFormat(locale).format(number);
+}
