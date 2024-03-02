@@ -1,33 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {RUR} from '../../constants/currency-signs';
-import { formatPrice } from '../../utils';
+import { getPrice } from '../../utils';
 import './style.css';
 
-function Item(props) {
+function Item({item, buttonText, onClick}) {
 
-  const callbacks = {
-    onClick: (e) => {
-      e.stopPropagation();
-      props.onClick(props.item.code);
-    }
+  const handleClick = (event) => {
+    event.stopPropagation();
+    onClick(item.code);
   }
 
   return (
     <div className='Item'>
-      <div className='Item-code'>{props.item.code}</div>
+      <div className='Item-code'>{item.code}</div>
       <div className='Item-title'>
-        {props.item.title}
+        {item.title}
       </div>
       <div className='Item-price'>
-        {`${formatPrice(props.item.price)} ${RUR}`}
+        {getPrice(item.price)}
       </div>
-      {props.item.amount && <div className='Item-amount'>
-        {props.item.amount} шт
+      {item.amount && <div className='Item-amount'>
+        {item.amount} шт
       </div>}
       <div className='Item-actions'>
-        <button className='Item-actions-button' onClick={callbacks.onClick}>
-          {props.buttonText}
+        <button className='Item-actions-button' onClick={handleClick}>
+          {buttonText}
         </button>
       </div>
     </div>

@@ -12,36 +12,39 @@ import CartModal from './components/cart-modal';
  */
 function App({store}) {
 
-  const [isModalActive, setIsModalActive] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const data = {
-    list: store.getState().list,
-    cart: store.getState().cart,
-  }
+  const {list, cart} = store.getState();
+  
+  const onAddItem = useCallback((code) => {
+    store.addItem(code);
+  }, [store]);
 
-  const callbacks = {
-    onAddItem: useCallback((code) => {
-      store.addItem(code);
-    }, [store]),
+  const onDeleteItem = useCallback((code) => {
+    store.deleteItem(code);
+  }, [store]);
 
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store])
-  }
+  const onOpenModal = useCallback(() => {
+    setIsModalOpen(true);
+  }, [])
+
+  const onCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, [])
 
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls cart={data.cart}
-                onCartModalOpen={setIsModalActive}
+      <Controls cart={cart}
+                onPreview={onOpenModal}
                 />
-      <List list={data.list}
-            onClick={callbacks.onAddItem}
+      <List list={list}
+            onClick={onAddItem}
             buttonText='Добавить'/>
-      {isModalActive && <CartModal 
-        setIsModalActive={setIsModalActive} 
-        data={data.cart} 
-        onClick={callbacks.onDeleteItem}
+      {isModalOpen && <CartModal 
+        onClose={onCloseModal}
+        data={cart} 
+        onDelete={onDeleteItem}
       />}
     </PageLayout>
   );

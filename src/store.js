@@ -1,3 +1,5 @@
+import { getNewItem } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -40,50 +42,41 @@ class Store {
 
   /**
    * Добавление товара
+   * @param code {number} Идентификатор товара
    */
   addItem(code) {
-    if (!this.state.cart) {
-
+     if (!this.state.cart) {
       this.setState({
         ...this.state,
-        cart: [{
-          ...this.state.list.find(item => item.code === code),
-          amount: 1,
-        }]
+        cart: [getNewItem(this.state.list, code)]
       })
+      return;
+    }
 
+    const existingItem = this.state.cart.find(item => item.code === code);
+
+    if (existingItem) {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map(item => (item.code === code)
+          ? {...item, amount: item.amount + 1} 
+          : item
+        )
+      })
     } else {
-      const existingItem = this.state.cart.find(item => item.code === code);
-
-      if (existingItem) {
-
-        this.setState({
-          ...this.state,
-          cart: [...this.state.cart.map(item => (item.code === code)
-            ? {...item, amount: item.amount + 1} 
-            : item
-          )]
-        })
-
-      } else {
-
-        this.setState({
-          ...this.state,
-          cart: [
-            ...this.state.cart, 
-            {
-              ...this.state.list.find(item => item.code === code),
-              amount: 1,
-            }
-          ]
-        })
-
-      }
+      this.setState({
+        ...this.state,
+        cart: [
+          ...this.state.cart, 
+          getNewItem(this.state.list, code)
+        ]
+      })
     }
   };
 
   /**
    * Удаление товара
+   * @param code {number} Идентификатор товара
    */
   deleteItem(code) {
     this.setState({

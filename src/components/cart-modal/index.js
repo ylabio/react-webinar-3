@@ -2,22 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from '../head/index';
 import List from '../list/index';
-import CartSummary from '../cart-summary/index';
+import CartSum from '../cart-sum/index';
 import './style.css';
 
-function CartModal({data, setIsModalActive, onClick}) {
+function CartModal({data, onClose, onDelete}) {
+
+  const handleContentClick = (event) => {
+    event.stopPropagation();
+  }
+
   return (
-    <div className='Cart-modal' onClick={() => setIsModalActive(false)}>
-      <div className='Cart-modal-content' onClick={(e) => e.stopPropagation()}>
-        <button className='Cart-modal-close' onClick={() => setIsModalActive(false)}>Закрыть</button>
+    <div className='Cart-modal' onClick={onClose}> 
+      <div className='Cart-modal-content' onClick={handleContentClick}>
+        <button className='Cart-modal-close' onClick={onClose}>Закрыть</button>
         <Head title='Корзина' />
         <div className='Cart-modal-items'>
           {data.length > 0
           ? <>
               <List list={data}
-                onClick={onClick}
+                onClick={onDelete}
                 buttonText='Удалить'/>
-              <CartSummary data={data} />
+              <CartSum data={data} />
             </>
           : <p className='Cart-modal-empty'>Корзина пуста</p>}
         </div>
@@ -28,14 +33,14 @@ function CartModal({data, setIsModalActive, onClick}) {
 
 CartModal.propTypes = {
   data: PropTypes.array,
-  setIsModalActive: PropTypes.func,
-  onClick: PropTypes.func
+  onClose: PropTypes.func,
+  onDelete: PropTypes.func
 };
 
 CartModal.defaultProps = {
   data: [],
-  setIsModalActive: () => {},
-  onClick: () => {}
+  onClose: () => {},
+  onDelete: () => {}
 }
 
 export default React.memo(CartModal);

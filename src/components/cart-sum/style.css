@@ -1,4 +1,4 @@
-.Cart-summary {
+.Cart-sum {
   font-weight: bold;
   height: 61px;
   display: flex;
@@ -8,11 +8,11 @@
   align-items: center;
 }
 
-.Cart-summary > * {
+.Cart-sum > * {
   margin: 0;
 }
 
-.Cart-summary-price {
+.Cart-sum-price {
   min-width: 90px;
   display: flex;
   justify-content: flex-end;

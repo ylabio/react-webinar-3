@@ -1,3 +1,5 @@
+import { RUR } from "./constants/currency-signs";
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -53,6 +55,9 @@ export function generateCode2() {
 
 /**
  * Форматирование числа
+ * Возвращает вариант с учётом указанной локали.
+ * @param price {Number} Число, под которое выбирается вариант формы.
+ * @param locale {String} Локаль (код языка).
  * @returns {string}
  */
 export function formatPrice(price, locale = 'ru-RU') {
@@ -61,8 +66,47 @@ export function formatPrice(price, locale = 'ru-RU') {
 
 /**
  * Подсчёт стоимости товаров
+ * Возвращает общую стоимость всех товаров
+ * @param array {Object} Массив объектов с полями price и amount.
  * @returns {Number}
  */
-export function getSummary(array) {
+export function getSum(array) {
   return array.reduce((acc, curr) => acc + curr.price * curr.amount, 0);
+}
+
+/**
+ * Подсчёт количества товаров
+ * Возвращает строку с количеством всех товаров с учётом правил множественного числа.
+ * @param array {Object} Массив объектов с полями amount.
+ * @param variants {Object<String>} Варианты форм множественного числа.
+ * @returns {string}
+ */
+export function getAmount(array, variants) {
+  const amount = array.reduce((acc, curr) => acc + curr.amount, 0);
+
+  return `${amount} ${plural(amount, variants)}`;
+}
+
+/**
+ * Получение форматированной цены
+ * Возвращает строку цены с символом валюты.
+ * @param price {Number} Число, которое будет форматировано.
+ * @returns {string}
+ */
+export function getPrice(price) {
+  return `${formatPrice(price)} ${RUR}`
+}
+
+/**
+ * Получение нового объекта товара
+ * Возвращает объект из массива с полем amount
+ * @param list {Object} Массив товаров.
+ * @param code {Number} Идентификатор.
+ * @returns {Object}
+ */
+export function getNewItem(list, code) {
+  return {
+    ...list.find(item => item.code === code),
+    amount: 1,
+  }
 }

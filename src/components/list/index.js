@@ -5,13 +5,13 @@ import './style.css';
 
 function List({list, buttonText, onClick}) {
   return (
-    <div className='List'>{
+    <ul className='List'>{
       list.map(item =>
-        <div key={item.code} className='List-item'>
+        <li key={item.code} className='List-item'>
           <Item item={item} onClick={onClick} buttonText={buttonText} />
-        </div>
+        </li>
       )}
-    </div>
+    </ul>
   )
 }
 

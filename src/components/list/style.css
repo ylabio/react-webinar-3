@@ -1,7 +1,12 @@
 .List {
-  border-top: 1px dashed #ccc;
+  border-top: 1px dashed var(--border-color);
+  padding: 0;
+  margin: 0;
+
+  --border-color: #ccc;
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px dashed var(--border-color);
+  list-style: none;
 }
