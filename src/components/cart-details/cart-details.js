@@ -16,8 +16,16 @@ function CartDetails({isOpen, setIsOpen, items, cart, onRemove, cost}) {
     const onEscClose = (e) => {
       if(e.keyCode === 27) setIsOpen(false);
     }
+    const onClickClose = () => {
+      setIsOpen(false);
+      modalRef.current.close();
+    }
     window.addEventListener('keydown', onEscClose);
-    return () => window.removeEventListener('keydown', onEscClose);
+    window.addEventListener('click', onClickClose)
+    return () => {
+      window.removeEventListener('keydown', onEscClose);
+      window.removeEventListener('click', onClickClose);
+    }
   }, []);
 
   const onClose = () => {
@@ -27,19 +35,21 @@ function CartDetails({isOpen, setIsOpen, items, cart, onRemove, cost}) {
 
   return (
     <dialog className='Cart-details' ref={modalRef}>
-      <Head title='Корзина' withGap>
-      <button onClick={onClose}>
-        Закрыть
-      </button>
-      </Head>
-      <List list={items}
+      <div className='Cart-details-cage' onClick={(e) => e.stopPropagation()}>
+        <Head title='Корзина' withGap>
+        <button onClick={onClose}>
+          Закрыть
+        </button>
+        </Head>
+        <List list={items}
             amounts={cart}
-            onDelete={onRemove}
-      />
-      <p className='Cart-details-total'>
+              onDelete={onRemove}
+        />
+        <p className='Cart-details-total'>
         <span>Итого</span>
         <span className='Cart-details-total-sum'>{cost}&nbsp;₽</span>
-      </p>
+        </p>
+      </div>
     </dialog>
   )
 }

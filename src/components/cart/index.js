@@ -13,11 +13,16 @@ function Cart(props) {
     return prev + cur.price * props.cart[cur.code]
   }, 0);
 
+  const onOpen = (e) => {
+    e.stopPropagation();
+    setIsOpen(true);
+  }
+
   return (
     <div className='Cart'>
       <CartInfo amount={amount} cost={cost} />
       <button className='Cart-btn'
-              onClick={() => setIsOpen(true)}
+              onClick={onOpen}
       >
         Перейти
       </button>

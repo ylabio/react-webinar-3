@@ -13,6 +13,10 @@
   opacity: 70%;
 }
 
+.Cart-details-cage {
+  height: 100%;
+}
+
 .Cart-details-total {
   display: flex;
   align-items: center;
