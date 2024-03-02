@@ -55,12 +55,7 @@ function Basket(props) {
 }
 
 Basket.propTypes = {
-  basket: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number,
-    title: PropTypes.string,
-    price: PropTypes.number,
-    count: PropTypes.number,
-  })).isRequired,
+  basket: PropTypes.arrayOf(PropTypes.object).isRequired,
   hideBasket: PropTypes.func,
   onDeleteItem: PropTypes.func
 };
