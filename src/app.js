@@ -7,7 +7,6 @@ import CartList from "./components/cart-list";
 import CartFoot from "./components/cart-foot";
 import Modal from "./components/modal";
 
-
 function App ({store}) {
 
   const [isOpenCart, setIsOpenCart] = useState(false)
