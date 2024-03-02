@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,26 +39,47 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
+   * @param item
    */
-  addItem() {
+  addItem(item) {
+    // if (this.state.cart.find(cartItem => cartItem.code === item.code)) {
+    //   console.log(item, this.state.cart)
+    //   this.setState({
+    //     ...this.state,
+    //     cart: this.state.cart.filter(cartItem => {
+    //       if (cartItem.code === item.code) cartItem.count++
+    //     })
+    //   })
+    //   return;
+    // }
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      cart: [...this.state.cart, item]
     })
   };
 
   /**
-   * Удаление записи по коду
+   * Удаление товаро из коризны
    * @param code
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code)
     })
   };
+
+  /**
+   * Открытие/закртие корзины
+   */
+  changeCartIsOpen() {
+    this.setState({
+      ...this.state,
+      cartIsOpen: !this.state.cartIsOpen,
+    })
+  }
 
   /**
    * Выделение записи по коду
