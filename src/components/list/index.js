@@ -4,11 +4,14 @@ import Item from "../item";
 import './style.css';
 
 function List({list, onDeleteItem}) {
+
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem}/>
+          <Item item={item} onClick={onDeleteItem}>
+            Добавить
+          </Item>
         </div>
       )}
     </div>

@@ -8,10 +8,9 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onDelete: (e) => {
+    onClick: (e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
-
+      props.onClick(props.item.code);
     }
   }
 
@@ -21,9 +20,11 @@ function Item(props) {
       <div className={cn('title')}>
         {props.item.title}
       </div>
+      <div className={cn('price')}>{props.item.price}</div>
+      { !!props.item.count && <div className={cn('count')}>{props.item.count} шт</div> }
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button onClick={callbacks.onClick}>
+          {props.children}
         </button>
       </div>
     </div>
@@ -34,13 +35,14 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
+    price: PropTypes.number,
     count: PropTypes.number
   }).isRequired,
-  onDelete: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
 Item.defaultProps = {
-  onDelete: () => {
+  onClick: () => {
   },
 }
 
