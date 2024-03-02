@@ -1,0 +1,38 @@
+  .modal {
+    font-family: arial;
+    position: fixed;
+    width: 950px;
+    max-width: 950px;
+    min-height: 400px;
+    z-index: 1040;
+    top: 20%;
+    left: 20%;
+    margin: auto auto;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+  
+  .backdrop {
+    position: fixed;
+    z-index: 1040;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000;
+    opacity: 0.5;
+  }
+
+  .LayoutTop {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .Close {
+    width: 78%;
+    padding: 30px 1px;
+    display: flex;
+    justify-content: flex-end;
+  }
