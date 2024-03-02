@@ -4,12 +4,16 @@ import {generateCode} from "./utils";
  * Хранилище состояния приложения
  */
 class Store {
-  #basket;
-  constructor(initState = {}) {
-    this.#basket = []
-    this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+  basket;
 
+  constructor(initState = {}) {
+    initState = {
+      ...initState,
+      list: initState.list.map(item => ({...item, count: 1}))
+    }
+    this.basket = {items: [], totalPrice: 0, uniqItems: 0}
+    this.state = initState
+    this.listeners = []; // Слушатели изменений состояния
   }
 
   /**
@@ -42,14 +46,36 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
+
   setBasket(newBasket) {
-    this.#basket = newBasket;
+    this.basket = newBasket;
+    for (const listener of this.listeners) listener();
   }
-  addItemToBasket(item){
-    this.setBasket([
-      ...this.#basket, item])
-    console.log(this.#basket)
+  getBasket() {
+    return this.basket;
   }
+
+  addItemToBasket(item) {
+    let newArr;
+    const newItemIndex = this.basket.items.findIndex(el => el.code === item.code);
+    if (newItemIndex !== -1) {
+      newArr = this.basket.items.map((el, index) => {
+        if (index === newItemIndex) {
+          return { ...el, count: el.count + 1 };
+        }
+        return el;
+      });
+    } else {
+      newArr = [...this.basket.items, item];
+    }
+    this.setBasket({
+      ...this.basket,
+      items: newArr,
+      totalPrice: this.basket.totalPrice + item.price,
+      uniqItems: new Set(newArr.map(item => item.code)).size
+    });
+  }
+
 
   /**
    * Добавление новой записи

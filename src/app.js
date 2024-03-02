@@ -12,10 +12,13 @@ import PageLayout from "./components/page-layout";
 function App({store}) {
 
   const list = store.getState().list;
+  const basket = store.getBasket();
+  console.log(basket)
+
 
   const callbacks = {
     showModal: useCallback(() => {
-      alert('hello')
+      alert('modal open')
     }, [store]),
     onAddItemToBasket: useCallback((item) => {
       store.addItemToBasket(item)
@@ -25,7 +28,7 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls callback={callbacks.showModal} title={'Перейти'}/>
+      <Controls price={basket.totalPrice} number={basket.uniqItems} callback={callbacks.showModal} title={'Перейти'}/>
       <List list={list}
             onAddItemToBasket={callbacks.onAddItemToBasket}/>
     </PageLayout>
