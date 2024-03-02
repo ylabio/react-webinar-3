@@ -1,0 +1,37 @@
+.ModalLayout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ModalLayout-container {
+    margin: 0 auto;
+    width: 960px;
+    background: #fff;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding-bottom: 70px;
+    overflow: hidden;
+}
+
+.ModalLayout-bottom {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 120px 5px 0;
+    font-size: 18px;
+}
+
+.ModalLayout-total {
+    font-weight: 600;
+    margin-right: 50px;
+}
+
+.ModalLayout-totalPrice {
+    font-weight: 600;
+} 

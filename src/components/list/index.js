@@ -1,14 +1,22 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { cn as bem } from "@bem-react/classname";
 import Item from "../item";
 import './style.css';
 
-function List({list, onDeleteItem, onSelectItem}) {
+function List({list, actionBtnName ,onAction, showCount, style}) {
+  const cn = bem('List');
+
   return (
-    <div className='List'>{
+    <div className={cn()} style={style ? style : {}}>{
       list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
+        <div key={item.code} className={cn('item')}>
+          <Item 
+            item={item} 
+            actionBtnName={actionBtnName} 
+            onActionItem={onAction}
+            showCount={showCount}
+          />
         </div>
       )}
     </div>
@@ -16,17 +24,18 @@ function List({list, onDeleteItem, onSelectItem}) {
 }
 
 List.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.number
   })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
+  actionBtnName: PropTypes.string.isRequired,
+  onAction: PropTypes.func.isRequired,
+  showCount: PropTypes.bool,
+  style: PropTypes.object
 };
 
 List.defaultProps = {
-  onDeleteItem: () => {
-  },
-  onSelectItem: () => {
+  onAction: () => {
   },
 }
 
