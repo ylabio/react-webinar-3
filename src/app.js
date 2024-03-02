@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Basket from "./components/basket";
 
 /**
  * Приложение
@@ -10,27 +11,33 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
+  const [showModal, setShowModal] = useState(false)
 
   const list = store.getState().list;
   const basket = store.getBasket();
-  console.log(basket)
 
 
   const callbacks = {
     showModal: useCallback(() => {
-      alert('modal open')
+      setShowModal(true)
     }, [store]),
     onAddItemToBasket: useCallback((item) => {
       store.addItemToBasket(item)
+    }, []),
+    onDeleteItemFromBasket: useCallback((code) => {
+      store.deleteItemFromBasket(code)
+
     }, [])
   }
 
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls price={basket.totalPrice} number={basket.uniqItems} callback={callbacks.showModal} title={'Перейти'}/>
+      <Controls totalPrice={basket.totalPrice} uniqItems={basket.uniqItems} callback={callbacks.showModal}
+                title={'Перейти'}/>
       <List list={list}
             onAddItemToBasket={callbacks.onAddItemToBasket}/>
+      {showModal && <Basket setShowModal={setShowModal} showModal={showModal} basket={basket} onDeleteItemFromBasket={callbacks.onDeleteItemFromBasket}/>}
     </PageLayout>
   );
 }

@@ -1,14 +1,27 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
+import {plural} from "../../utils";
 
 
 function Controls(props) {
+  const goods = plural(props.uniqItems, {one:'товар',few:'товара',many:'товаров',other:'товаров'})
   return (
     <div className='Controls'>
-      <div>
-        <div>В корзине: {props.number ? <span>{props.number} / {props.price}</span> : <span>пусто</span>}</div>
-      </div>
+      {!props.showModal ?
+        <div>
+          {!props.price && props.price !== 0 &&
+            <div className='Controls-in-basket'><div>В корзине: </div> {props.uniqItems ? <span>{props.uniqItems} {goods} / {props.totalPrice} ₽</span> :
+              <span>пусто</span>}</div>}
+          {props.price && <div>
+            <div>{props.price} ₽</div>
+          </div>}
+        </div> :
+        <div className='Controls-item-basket'>
+         <div><div>{props.price} ₽</div></div>
+         <div><div>{props.count} шт.</div></div>
+        </div>
+      }
       <button onClick={props.callback}>{props.title}</button>
     </div>
   )
@@ -16,8 +29,11 @@ function Controls(props) {
 
 Controls.propTypes = {
   callback: PropTypes.func,
-  number: PropTypes.number,
+  uniqItems: PropTypes.number,
   price: PropTypes.number,
+  totalPrice: PropTypes.number,
+  showModal: PropTypes.bool,
+  count: PropTypes.number
 };
 
 Controls.defaultProps = {

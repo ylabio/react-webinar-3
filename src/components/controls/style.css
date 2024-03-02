@@ -1,5 +1,38 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  gap: 10px;
+}
+
+.Controls-in-basket {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 60px;
+}
+.Controls-in-basket > div {
+  margin-right: 10px;
+}
+
+.Controls-in-basket span {
+  text-align: center;
+  width: max-content;
+  font-weight: 700;
+}
+
+.Controls-item-basket{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 40px;
+  height: 60px;
+  margin-right: 20px;
+}
+
+.Controls button {
+  width: 80px;
+  height: 21px;
+  align-self: center;
+  margin-right: 20px;
 }

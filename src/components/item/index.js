@@ -6,67 +6,49 @@ import Controls from "../controls";
 
 function Item(props) {
 
-  // Счётчик выделений
-  // const [count, setCount] = useState(0);
-
   const callbacks = {
-    onClick: () => {
-      // props.onSelect(props.item.code);
-      // if (!props.item.selected) {
-      //   setCount(count + 1);
-      // }
+    onClick: (e) => {
+      if (props.showModal) {
+        e.stopPropagation()
+        props.onDeleteItemFromBasket(props.item.code)
+      } else {
+        props.onAddItemToBasket(props.item)
+      }
     },
-    onDelete: (e) => {
-      // e.stopPropagation();
-      // props.onDelete(props.item.code);
-    },
-    onAdd: () => {
-      props.onAddItemToBasket(props.item);
-    }
   }
 
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-         onClick={callbacks.onClick}>
+    <div className='Item'>
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>
         {props.item.title}
-      {/*  {count ? ` | Выделяли ${count} ${plural(count, {*/}
-      {/*  one: 'раз',*/}
-      {/*  few: 'раза',*/}
-      {/*  many: 'раз'*/}
-      {/*})}` : ''}*/}
       </div>
       <div className='Item-actions'>
-        <div>{props.item.price}</div> {/*отображение цены*/}
-        <button onClick={callbacks.onAdd}>
-          Добавить
-        </button>
+        <Controls showModal={props.showModal} count={props.item.count} price={props.item.price} callback={callbacks.onClick}
+                  title={props.showModal ? 'Удалить' : 'Добавить'}/>
       </div>
     </div>
   );
 }
 
 Item.propTypes = {
+  showModal: PropTypes.bool,
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
     count: PropTypes.number,
-    price: PropTypes.number // Добавил цену
+    price: PropTypes.number
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func,
   onAddItemToBasket: PropTypes.func,
+  onDeleteItemFromBasket: PropTypes.func,
 };
 
 Item.defaultProps = {
-  onDelete: () => {
+  onAddItemToBasket: () => {
   },
-  onSelect: () => {
+  onDeleteItemFromBasket: () => {
   },
-  onAdd: () => {
-  },
+
 }
 
 export default React.memo(Item);

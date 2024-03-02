@@ -8,8 +8,8 @@ class Store {
 
   constructor(initState = {}) {
     initState = {
-      ...initState,
-      list: initState.list.map(item => ({...item, count: 1}))
+        ...initState,
+        list: initState.list.map(item => ({...item, count: 1}))
     }
     this.basket = {items: [], totalPrice: 0, uniqItems: 0}
     this.state = initState
@@ -75,51 +75,17 @@ class Store {
       uniqItems: new Set(newArr.map(item => item.code)).size
     });
   }
+  deleteItemFromBasket(itemCode) {
+    const updatedItems = this.basket.items.filter(item => item.code !== itemCode);
+    this.setBasket({
+      ...this.basket,
+      items: updatedItems,
+      totalPrice: updatedItems.reduce((total, item) => total + item.price * item.count, 0),
+      uniqItems: new Set(updatedItems.map(item => item.code)).size
+    });
 
+  }
 
-  /**
-   * Добавление новой записи
-   */
-  // addItem() {
-  //   this.setState({
-  //     ...this.state,
-  //     list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-  //   })
-  // };
-
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  // deleteItem(code) {
-  //   this.setState({
-  //     ...this.state,
-  //     // Новый список, в котором не будет удаляемой записи
-  //     list: this.state.list.filter(item => item.code !== code)
-  //   })
-  // };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  // selectItem(code) {
-  //   this.setState({
-  //     ...this.state,
-  //     list: this.state.list.map(item => {
-  //       if (item.code === code) {
-  //         // Смена выделения и подсчёт
-  //         return {
-  //           ...item,
-  //           selected: !item.selected,
-  //           count: item.selected ? item.count : item.count + 1 || 1,
-  //         };
-  //       }
-  //       // Сброс выделения если выделена
-  //       return item.selected ? {...item, selected: false} : item;
-  //     })
-  //   })
-  // }
 }
 
 export default Store;
