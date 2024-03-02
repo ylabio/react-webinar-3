@@ -1,29 +1,37 @@
 import React, {useState} from "react";
-import Button from "../button/index"
+import Button from "../button/index";
+import ItemInfo from "../item-info/index";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
+// import {plural} from "../../utils";
 import './style.css';
 
 function Item(props) {
 
   // Счётчик выделений
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
 
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
+    // onClick: () => {
+    //   props.onSelect(props.item.code);
+    //   if (!props.item.selected) {
+    //     setCount(count + 1);
+    //   }
+    // },
     // onDelete: (e) => {
     //   e.stopPropagation();
     //   props.onDelete(props.item.code);
     // },
+
     onAddOrRemoveToCart: (e) => {
       e.stopPropagation();
       // props.onAddToCart(props.item);
       props.callback(props.item);
+      // if(props.type === 'Shop') {
+      //   setCount(count + 1);
+      //   console.log('count', count );
+      // }else{
+      //   setCount(0);
+      // }
     }
   }
 
@@ -32,17 +40,14 @@ function Item(props) {
          onClick={callbacks.onClick}>
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {
+        {props.item.title}
+        {/* {count ? ` | Выделяли ${count} ${plural(count, {
         one: 'раз',
         few: 'раза',
         many: 'раз'
-      })}` : ''}
+      })}` : ''} */}
       </div>
-      {/* <div className='Item-actions'>
-        <button onClick={callbacks.onAddOrRemoveToCart}>
-          {props.buttonTitle}
-        </button>
-      </div> */}
+      <ItemInfo type={props.type} price={props.item.price} count={props.item.countInCart}/>
       <Button callback={callbacks.onAddOrRemoveToCart}  title={props.buttonTitle}/>
     </div>
   );

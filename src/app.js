@@ -69,7 +69,7 @@ function App({store}) {
     <PageLayout>
       <Head title='Магазин'/>
       <Controls callbacks={callbacks} count={getItemsInCart().length} totalSumm={getTotalSumm()}/>
-      <List list={list}
+      <List type={'Shop'} list={list}
             callback={callbacks.onAddToCart}
             onSelectItem={callbacks.onSelectItem}
             buttonTitle={'Добавить'}/>

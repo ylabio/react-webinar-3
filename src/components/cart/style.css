@@ -13,3 +13,8 @@
   padding: 1rem 8rem 5rem 1rem;
   font-weight: 700;
 }
+
+.empty-row{
+  height: 60px;
+  border-bottom: 1px dashed #ccc;
+}

@@ -63,10 +63,11 @@ class Store {
   // };
 
   addToCart(item) {
+    item.countInCart ++;
+
     this.setState({
       ...this.state,
-      // cart: [...this.state.cart, item]
-      cart: {items: [...this.state.cart.items, item]}
+      cart: {items: [...this.state.cart.items, item]},
     })
   };
 

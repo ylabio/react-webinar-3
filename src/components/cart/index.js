@@ -11,8 +11,8 @@ function Cart({list, callbacks, buttonTitle, totalSumm}){
         <Head title='Корзина'/>
         <Button callback={callbacks.onCloseCart}  title={'Закрыть'}/>
       </div>
-
-      <List list={list}
+      <div className="empty-row"></div>
+      <List type={'Cart'} list={list}
             callback={callbacks.onRemoveFromCart}
             buttonTitle={buttonTitle}
             />
