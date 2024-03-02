@@ -1,0 +1,39 @@
+.Cart-modal {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Cart-modal-content {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 960px;
+  background-color: white;
+}
+
+.Cart-modal-close {
+  width: 76px;
+  position: absolute;
+  right: 32px;
+  top: 32px;
+}
+
+.Cart-modal-items {
+  padding: 70px 0;
+}
+
+.Cart-modal-empty {
+  margin: 0;
+  font-size: 1.2rem;
+  height: 61px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

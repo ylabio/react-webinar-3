@@ -50,3 +50,19 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Форматирование числа
+ * @returns {string}
+ */
+export function formatPrice(price, locale = 'ru-RU') {
+  return new Intl.NumberFormat(locale).format(price);
+}
+
+/**
+ * Подсчёт стоимости товаров
+ * @returns {Number}
+ */
+export function getSummary(array) {
+  return array.reduce((acc, curr) => acc + curr.price * curr.amount, 0);
+}

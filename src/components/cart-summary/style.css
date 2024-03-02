@@ -1,0 +1,20 @@
+.Cart-summary {
+  font-weight: bold;
+  height: 61px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-right: 119px;
+  align-items: center;
+}
+
+.Cart-summary > * {
+  margin: 0;
+}
+
+.Cart-summary-price {
+  min-width: 90px;
+  display: flex;
+  justify-content: flex-end;
+  box-sizing: border-box;
+}
