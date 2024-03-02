@@ -1,16 +1,47 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import List from '../list';
 import './style.css';
 
 function Basket(props) {
+
+  const overlayRef = useRef(null);
+  const timer = 0;
+
+  useEffect(
+    () => {
+      if (overlayRef.current) {
+        setTimeout(
+          () => overlayRef.current.classList.remove("modal-invisible"),
+          0
+        );
+      }
+      return () => clearTimeout(timer)
+    },
+    []
+  );
+
+  const onHideBasket = () => {
+    if (overlayRef.current) {
+      overlayRef.current.classList.add("modal-invisible");
+      setTimeout(
+        () => props.hideBasket(),
+        200
+      )
+    } else {
+      props.hideBasket();
+    }
+  }
+
+  console.log("Basket");
+
   return (
-    <div className='Basket'>
+    <div className='Basket modal modal-invisible' ref={overlayRef}>
       <div className='Basket-frame'>
         <div className='Basket-head'>
           <h1>Корзина</h1>
           <div className='Basket-controls'>
-            <button onClick={props.hideBasket}>Закрыть</button>
+            <button onClick={onHideBasket}>Закрыть</button>
           </div>
         </div>
         <div className='Basket-body'>{
@@ -41,4 +72,4 @@ Basket.defaultProps = {
   onDeleteItem: () => {}
 }
 
-export default Basket;
+export default React.memo(Basket);
