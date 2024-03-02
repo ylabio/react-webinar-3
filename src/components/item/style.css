@@ -22,4 +22,23 @@
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+  gap: 24px
+}
+
+.Item-price {
+  white-space: nowrap;
+  color: rgba(64, 64, 64, 1);
+  font-size: 18px;
+}
+
+.Item-amount {
+  white-space: nowrap;
+  color: rgba(64, 64, 64, 1);
+  font-size: 18px;
+  margin-left: 38px;
+}
+
+.Item-button {
+  width: 76px;
+  cursor: pointer;
 }
