@@ -1,0 +1,16 @@
+.Controls {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  font-size: 18px;
+}
+
+.Controls b {
+  margin-left: 12px;
+}
+
+.Controls button {
+  min-width: 81px;
+  margin-left: 22px;
+  cursor: pointer;
+}

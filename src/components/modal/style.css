@@ -1,0 +1,56 @@
+.Modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-out,
+    visibility 0.3s ease-out;
+  pointer-events: none;
+}
+
+.Modal_opened {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: initial;
+}
+
+.Modal-wrapper {
+  width: 100%;
+  max-width: 960px;
+  min-height: 407px;
+  max-height: 100vh;
+  padding-bottom: 74px;
+  background: #fff;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.Modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px 120px;
+}
+
+.Modal-footer b {
+  box-sizing: border-box;
+  min-width: 100px;
+  padding-left: 54px;
+  font-size: 18px;
+}
+
+.Modal button {
+  min-width: 77px;
+}

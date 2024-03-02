@@ -1,10 +1,11 @@
+import { generateCode } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
     this.state = initState;
-    this.increment = this.state.list.length;
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -40,49 +41,42 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление нового товара
+   * @param item
    */
-  addItem() {
-    this.increment++
+  addItem(item) {
+    let isDubl = false;
+    const newItem = { ...item };
+    let newList = [...this.state.cart];
+    newList.map(it => {
+      if (it.code === newItem.code) {
+        it.count++;
+        isDubl = true;
+      }
+    });
+
+    if (!isDubl) {
+      newItem.count = 1;
+      newList = [...newList, newItem];
+    }
 
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.increment, title: 'Новая запись' }]
-    })
+      cart: newList
+    });
   };
 
   /**
-   * Удаление записи по коду
+   * Удаление товара по коду
    * @param code
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
+      // Новый список, в котором не будет удаляемой записи
+      cart: this.state.cart.filter(item => item.code !== code)
     })
   };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          if (!item.selectionCount) item.selectionCount = 0;
-
-          if (!item.selected) item.selectionCount++;
-
-          item.selected = !item.selected;
-        } else {
-          item.selected = false;
-        }
-        return item;
-      })
-    })
-  }
 }
 
 export default Store;

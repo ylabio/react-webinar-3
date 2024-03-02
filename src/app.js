@@ -1,55 +1,51 @@
-import React from 'react';
-import {createElement} from './utils.js';
-import './styles.css';
+import React, { useState, useCallback } from 'react';
+import List from "./components/list";
+import Controls from "./components/controls";
+import Head from "./components/head";
+import PageLayout from "./components/page-layout";
+import Modal from "./components/modal";
 
 /**
  * Приложение
- * @param store {Store} Состояние приложения
+ * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
 
   const list = store.getState().list;
+  const cart = store.getState().cart;
 
-  const setEnding = (number) => {
-    return ((number % 10 == 2 || number % 10 == 3 || number % 10 == 4) && number % 100 !== 12 && number % 100 !== 13 && number % 100 !== 14) && 'а';
+  const [modal, setModalState] = useState(false);
+
+  const callbacks = {
+    onDeleteItem: useCallback((item) => {
+      store.deleteItem(item.code);
+    }, [store]),
+
+    onAddItem: useCallback((item) => {
+      store.addItem(item);
+    }, [store])
+  }
+
+  let cartCount = cart.length;
+  let cartSum = 0;
+
+  if (cart.length > 0) {
+    cart.forEach((item) => {
+      cartSum += item.price * item.count;
+    });
   }
 
   return (
-    <div className='App'>
-      <div className='App-head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='App-controls'>
-        <button onClick={() => store.addItem()}>Добавить</button>
-      </div>
-      <div className='App-center'>
-        <div className='List'>{
-          list.map(item =>
-            <div key={item.code} className='List-item'>
-              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>
-                  {item.title}
-                  {item.selectionCount > 0 &&
-                    <span> | Выделяли {item.selectionCount} раз{setEnding(item.selectionCount)}</span>
-                  }
-                </div>
-                <div className='Item-actions'>
-                  <button onClick={(evt) => {
-                    evt.stopPropagation()
-                    store.deleteItem(item.code);
-                  }}>
-                    Удалить
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+    <>
+      <PageLayout>
+        <Head title='Магазин' />
+        <Controls cartCount={cartCount} cartSum={cartSum} text={'Перейти'} setModalState={setModalState} />
+        <List list={list} text={'Добавить'}
+          onItemClick={callbacks.onAddItem} />
+      </PageLayout>
+      <Modal cart={cart} cartSum={cartSum} modal={modal} setModalState={setModalState} onItemClick={callbacks.onDeleteItem} />
+    </>
   );
 }
 
