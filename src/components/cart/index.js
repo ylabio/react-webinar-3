@@ -1,21 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import CartInfo from '../cart-info';
+import CartDetails from '../cart-details/cart-details';
 import './style.css';
 
-function Cart({items, cart}) {
+function Cart(props) {
 
-  const amount = Object.values(cart).length;
-  const cost = items.reduce((prev, cur) => {
-    return prev + cur.price * cart[cur.code]
+  const [isOpen, setIsOpen] = useState(false);
+
+  const amount = Object.values(props.cart).length;
+  const cost = props.items.reduce((prev, cur) => {
+    return prev + cur.price * props.cart[cur.code]
   }, 0);
 
   return (
     <div className='Cart'>
       <CartInfo amount={amount} cost={cost} />
-      <button className='Cart-btn'>
+      <button className='Cart-btn'
+              onClick={() => setIsOpen(true)}
+      >
         Перейти
       </button>
+      {isOpen && <CartDetails isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    cost={cost}
+                    {...props}
+      />}
     </div>
   )
 }
@@ -26,7 +36,8 @@ Cart.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number,
   })).isRequired,
-  cart: PropTypes.object
+  cart: PropTypes.objectOf(PropTypes.number).isRequired,
+  onRemove: PropTypes.func,
 };
 
 export default React.memo(Cart);

@@ -25,7 +25,6 @@ function App({store}) {
     }, [store]),
   }
 
-
   return (
     <PageLayout>
       <Head title='Магазин'/>
@@ -35,7 +34,7 @@ function App({store}) {
               onRemove={callbacks.onRemoveFromCart} />
       </Controls>
       <List list={list}
-            onAddToCart={callbacks.onAddToCart}/>
+            onAdd={callbacks.onAddToCart}/>
     </PageLayout>
   );
 }

@@ -1,0 +1,28 @@
+.Cart-details {
+  width: 960px;
+  height: 400px;
+  box-sizing: border-box;
+  padding: 0;
+  border: transparent;
+  background-color: #FFF;
+  border-radius: 10px;
+}
+
+.Cart-details::backdrop {
+  background-color: #000000;
+  opacity: 70%;
+}
+
+.Cart-details-total {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 5px 130px;
+  font-weight: 700;
+}
+
+.Cart-details-total-sum{
+  width: 100px;
+  margin-left: 10px;
+  text-align: end;
+}

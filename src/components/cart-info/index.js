@@ -5,18 +5,19 @@ import './style.css';
 
 function CartInfo({amount, cost}) {
 
-  const currency = '\u20BD';
   const forms = {
     one: 'товар',
     few: 'товара',
     many: 'товаров'
   }
 
-  const inCart = ` ${amount} ${plural(amount, forms)} / ${cost} ${currency}`
+  const inCart = amount > 0
+  ? `${amount} ${plural(amount, forms)} / ${cost} ₽`
+  : 'пусто';
 
   return (
     <div className='Cart-info'>
-      <span>В корзине:</span>
+      <span>В корзине:&nbsp;&nbsp;</span>
       <b>{inCart}</b>
     </div>
   )
