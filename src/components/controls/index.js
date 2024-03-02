@@ -14,11 +14,13 @@ function Controls({callbacks ,count , totalSumm}) {
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  callbacks: PropTypes.object,
+  count: PropTypes.number,
+  totalSumm: PropTypes.number,
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  callbacks: {}
 }
 
 export default React.memo(Controls);

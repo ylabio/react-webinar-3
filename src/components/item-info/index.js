@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import './style.css';
 
 function ItemInfo({type, price, count}) {
-  console.log('count', count)
   return (
     <div className='item-info'>
       <p>{`${price} ₽ `}{type === 'Cart' && `${count} шт.`}</p>
@@ -12,7 +11,9 @@ function ItemInfo({type, price, count}) {
 }
 
 ItemInfo.propTypes = {
-  info: PropTypes.node,
+  type: PropTypes.string,
+  price: PropTypes.number,
+  count: PropTypes.number,
 };
 
 export default React.memo(ItemInfo);

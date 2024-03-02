@@ -19,7 +19,6 @@ function App({store}) {
   const list = store.getState().list;
   const cart = store.getState().cart;
 
-
   function getItemsInCart(){
     const itemsInCart = list.filter(item => cart.items.includes(item));
     return itemsInCart;
@@ -36,10 +35,6 @@ function App({store}) {
 
 
   const callbacks = {
-    // onDeleteItem: useCallback((code) => {
-    //   store.deleteItem(code);
-    // }, [store]),
-
     onAddToCart: useCallback((item) => {
       store.addToCart(item);
     }, [store]),
@@ -47,14 +42,6 @@ function App({store}) {
     onRemoveFromCart: useCallback((item) => {
       store.removeFromCart(item);
     }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    // onAddItem: useCallback(() => {
-    //   store.addItem();
-    // }, [store])
 
     onOpenCart: useCallback(() => {
       setCartIsOpen(true);
@@ -71,9 +58,7 @@ function App({store}) {
       <Controls callbacks={callbacks} count={getItemsInCart().length} totalSumm={getTotalSumm()}/>
       <List type={'Shop'} list={list}
             callback={callbacks.onAddToCart}
-            onSelectItem={callbacks.onSelectItem}
             buttonTitle={'Добавить'}/>
-        {/* {cartIsOpen && <Modal list={cart.items} callback={callbacks.onRemoveFromCart} buttonTitle={'Удалить'}/>} */}
         {cartIsOpen && <Modal children={<Cart list={cart.items} callbacks={callbacks} buttonTitle={'Удалить'} totalSumm={getTotalSumm()} />}/>}
     </PageLayout>
   );

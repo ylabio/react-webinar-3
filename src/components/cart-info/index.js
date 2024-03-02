@@ -16,7 +16,8 @@ function CartInfo({count, totalSumm}) {
 }
 
 CartInfo.propTypes = {
-  info: PropTypes.node,
+  count: PropTypes.number,
+  totalSumm: PropTypes.number,
 };
 
 export default React.memo(CartInfo);
