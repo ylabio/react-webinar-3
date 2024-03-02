@@ -4,9 +4,12 @@
   align-items: center;
   padding-right: 25px;
   height: 80px;
-  margin-bottom: 80px;
   background: #f5f5f5;
 
+}
+
+.Head--gap {
+  margin-bottom: 80px;
 }
 
 .Head h1 {

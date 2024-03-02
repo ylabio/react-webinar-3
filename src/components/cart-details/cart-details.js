@@ -27,7 +27,7 @@ function CartDetails({isOpen, setIsOpen, items, cart, onRemove, cost}) {
 
   return (
     <dialog className='Cart-details' ref={modalRef}>
-      <Head title='Корзина'>
+      <Head title='Корзина' withGap>
       <button onClick={onClose}>
         Закрыть
       </button>
