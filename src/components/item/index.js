@@ -23,7 +23,7 @@ function Item(props) {
       <td className='Item-code'>{props.item.code}</td>
       <td className='Item-title'>{props.item.title}</td>
       <td className='Item-price'>{numberFormat(props.item.price)}</td>
-      { props.options.showCount && <td className='Item-count'>
+      { props.options.showCount && !isNaN(props.item.count) && <td className='Item-count'>
           {numberFormat(props.item.count, 'decimal', 0) + "\u00a0шт"}
         </td>
       }
