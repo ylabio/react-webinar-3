@@ -104,16 +104,7 @@ class ShopStore {
   };
 
   amountProduct() {
-    var vAmount = 0;
-    if (this.state.listBasket.length > 0) {
-    this.state.listBasket.map(item => {
-      if (item.qproduct > 0) {
-        vAmount += item.qproduct;
-      }
-    }
-    )
-    }
-    return vAmount;
+    return this.state.listBasket.length;
   }
 }
 
