@@ -23,10 +23,14 @@ function App({store}) {
     }, [store]),
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
-    }, [store])
+    }, [store]),
+    onShowBasket: useCallback(() => {
+      setIsModalActive(true);
+    }, []),
+    onHideBasket: useCallback(() => {
+      setIsModalActive(false);
+    }, [])
   }
-
-  const toggleBasket = () => setIsModalActive(!isModalActive)
 
   return (
     <>
@@ -35,14 +39,14 @@ function App({store}) {
         <Scoreboard
               count={basket.length}
               price={basket.reduce((sum, current) => sum + current.price * current.count, 0)}
-              showBasket={toggleBasket}/>
+              showBasket={callbacks.onShowBasket}/>
         <List list={list}
               onAddItem={callbacks.onAddItem}/>
       </PageLayout>
       { isModalActive &&
           <Basket
               basket={basket}
-              hideBasket={toggleBasket}
+              hideBasket={callbacks.onHideBasket}
               onDeleteItem={callbacks.onDeleteItem}/>
       }
     </>

@@ -33,8 +33,6 @@ function Basket(props) {
     }
   }
 
-  console.log("Basket");
-
   return (
     <div className='Basket modal modal-invisible' ref={overlayRef}>
       <div className='Basket-frame'>
