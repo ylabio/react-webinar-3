@@ -4,7 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal/index";
-import Cart from "./components/Cart/index";
+import Cart from "./components/cart/index";
 import './app.style.css';
 
 /**

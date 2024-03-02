@@ -1,4 +1,5 @@
 import React from "react";
+import {cn as bem} from '@bem-react/classname';
 import {formatNum} from "../../utils";
 import './style.css';
 import Head from "../head/index";
@@ -6,18 +7,20 @@ import Button from "../button/index"
 import List from "../list/index";
 
 function Cart({list, callbacks, buttonTitle, totalSumm}){
+  const cn = bem('Cart');
+
   return (
-    <div className="cart">
-      <div className="cart-title-row">
+    <div className={cn()}>
+      <div className={cn('titleRow')}>
         <Head title='Корзина'/>
         <Button callback={callbacks.onCloseCart}  title={'Закрыть'}/>
       </div>
-      <div className="empty-row"></div>
+      <div className={cn('emptyRow')}></div>
       <List type={'Cart'} list={list}
             callback={callbacks.onRemoveFromCart}
             buttonTitle={buttonTitle}
             />
-      <div className="cart-totalSumm">
+      <div className={cn('totalSumm')}>
         <div>
           <p>Итого</p>
         </div>

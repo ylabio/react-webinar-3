@@ -5,9 +5,3 @@
   gap: 10px;
   border-bottom: 1px dashed #ccc;
 }
-
-.controls-actions{
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
-}

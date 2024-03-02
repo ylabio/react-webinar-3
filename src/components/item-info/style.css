@@ -1,10 +1,10 @@
-.item-info{
+.ItemInfo{
   display: flex;
   justify-content: end;
   align-items: center;
   width: 100%;
 }
 
-.item-info-count{
+.ItemInfo-count{
   margin-left: 2rem;
 }

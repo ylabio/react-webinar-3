@@ -1,10 +1,13 @@
 import React from "react";
+import {cn as bem} from '@bem-react/classname';
 import Button from "../button/index";
 import ItemInfo from "../item-info/index";
 import PropTypes from "prop-types";
 import './style.css';
 
 function Item(props) {
+  const cn = bem('Item');
+
   const callbacks = {
     onAddOrRemoveToCart: (e) => {
       e.stopPropagation();
@@ -13,10 +16,10 @@ function Item(props) {
   }
 
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
+    <div className={cn() + (props.item.selected ? ' Item_selected' : '')}
          onClick={callbacks.onClick}>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>
+      <div className={cn('code')}>{props.item.code}</div>
+      <div className={cn('title')}>
         {props.item.title}
       </div>
       <ItemInfo type={props.type} price={props.item.price} count={props.item.countInCart}/>
