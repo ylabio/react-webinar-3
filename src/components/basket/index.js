@@ -8,9 +8,10 @@ import './style.css';
  */
 function Basket(props) {
 
-  const overlayRef = useRef(null);
-  const timer = 0;
+  const overlayRef = useRef(null);  //  Ссылка на корневой DOM-элемент компонента
+  const timer = 0;                  //  Таймер для эффекта fade-in
 
+  //  Эффект fade-in
   useEffect(
     () => {
       if (overlayRef.current) {
@@ -24,6 +25,7 @@ function Basket(props) {
     []
   );
 
+  // Скрытие модалки через эффект fade-out
   const onHideBasket = () => {
     if (overlayRef.current) {
       overlayRef.current.classList.add("modal-invisible");

@@ -12,6 +12,7 @@ import Basket from './components/basket';
  */
 function App({store}) {
 
+  //  Признак активности модельного окна с корзиной
   const [isModalActive, setIsModalActive] = useState(false)
 
   const list = store.getState().list;
