@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -7,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.cartList = {list: []}; // Корзина товаров
   }
 
   /**
@@ -31,6 +30,14 @@ class Store {
   }
 
   /**
+   * Выбор состояния корзины
+   * @returns {Object}
+   */
+  getCartItems() {
+    return this.cartList;
+  }
+
+  /**
    * Установка состояния
    * @param newState {Object}
    */
@@ -41,48 +48,50 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Установка состояния корзины
+   * @param newState 
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+  setCart(newState) {
+    this.cartList = newState;
+    for (const listener of this.listeners) listener();
   }
+
+  /**
+   * Добавление товара в корзину
+   * @param item
+   */
+  addInCart(item) {
+    // Проверка на наличие элемента в корзине
+    if (this.cartList.list.includes(item)) {
+      // Если элемент есть, увеличиваем счетчик и возвращаем список с новым значением
+      item.count++;
+      this.setCart({
+        ...this.cartList,
+        list: this.cartList.list,
+      })
+    } else {
+      // Если элемента нет, добавляем начальное значение счетчика
+      item.count = 1;
+      this.setCart({
+        ...this.cartList,
+        // Добавляем новый элемент в список
+        list: [...this.cartList.list, item],
+      })
+    }
+  };
+
+  /**
+   * Удаление товара из корзины
+   * @param item
+   */
+  deleteItem(item) {
+    this.setCart({
+      ...this.cartList,
+      // Новый список, в котором не будет удаляемой записи
+      list: this.cartList.list.filter(i => i !== item)
+    })
+  };
+
 }
 
 export default Store;
