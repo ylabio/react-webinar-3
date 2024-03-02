@@ -1,21 +1,27 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import {cn as bem} from "@bem-react/classname";
+import PropTypes from "prop-types";
 import './style.css';
 
-function Controls({onAdd}) {
+function Controls ({ openCart, sum , count}) {
+
+  const cn = bem('Controls');
+
   return (
-    <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+    <div className={cn()}>
+      {count ? (
+        <>
+          <div>В корзине: </div>
+          <h3>{count} товара / {sum} ₽ </h3>
+        </>
+      ) : ''}
+      <button onClick={openCart}>{count ? 'Перейти' : 'Корзина'}</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
-};
 
-Controls.defaultProps = {
-  onAdd: () => {}
-}
+};
 
 export default React.memo(Controls);

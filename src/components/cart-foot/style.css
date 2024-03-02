@@ -1,7 +1,7 @@
-.Controls {
-  padding: 20px;
+.CartFoot {
   display: flex;
   align-items: center;
-  justify-content: right;
   column-gap: 20px;
+  padding: 20px 90px;
+  justify-content: right;
 }
