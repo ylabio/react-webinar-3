@@ -51,6 +51,64 @@ class Store {
   };
 
   /**
+   * Добавление товара в корзину
+   * @param item
+   */
+  addItemBasket(item) {
+    if (this.state.BasketList.filter(i => item.code == i.code).length == 0){
+      this.setState({
+        ...this.state,
+        BasketList: [...this.state.BasketList, {code:item.code,title:item.title,count:1,price:item.price}]
+      })
+    }
+    else{
+      this.setState({
+        ...this.state,
+         BasketList:this.state.BasketList.map((i,index) => {
+          if (item.code == i.code){
+            return {...i,count: i.count + 1};
+          }
+          return this.state.BasketList[index];
+            
+        })
+      })
+    }
+  }
+
+  /**
+   * Удаление товара из карзины
+   * @param item
+   */
+  deleteItemBasket(item){
+    
+    if (item.count > 1){
+      this.setState({
+        ...this.state,
+         BasketList:this.state.BasketList.map((i,index) => {
+          if (item.code == i.code){
+            return {...i,count: i.count - 1};
+          }
+          return this.state.BasketList[index];
+            
+        })
+      })
+    }
+    else if(item.count == 1){
+      this.setState({
+        ...this.state,
+         BasketList:this.state.BasketList.filter((i,index) => {
+          if (item.code !== i.code){
+            return this.state.BasketList[index];
+          }
+        })
+      })
+    }
+    
+  }
+
+  
+
+  /**
    * Удаление записи по коду
    * @param code
    */
@@ -66,23 +124,23 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
-  }
+  // selectItem(code) {
+  //   this.setState({
+  //     ...this.state,
+  //     list: this.state.list.map(item => {
+  //       if (item.code === code) {
+  //         // Смена выделения и подсчёт
+  //         return {
+  //           ...item,
+  //           selected: !item.selected,
+  //           count: item.selected ? item.count : item.count + 1 || 1,
+  //         };
+  //       }
+  //       // Сброс выделения если выделена
+  //       return item.selected ? {...item, selected: false} : item;
+  //     })
+  //   })
+  // }
 }
 
 export default Store;
