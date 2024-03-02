@@ -1,4 +1,5 @@
 import React from "react";
+import {formatNum} from "../../utils";
 import './style.css';
 import Head from "../head/index";
 import Button from "../button/index"
@@ -20,7 +21,7 @@ function Cart({list, callbacks, buttonTitle, totalSumm}){
         <div>
           <p>Итого</p>
         </div>
-      <div>{`${totalSumm} ₽`}</div>
+      <div>{`${formatNum(totalSumm)} ₽`}</div>
     </div>
     </div>
   )

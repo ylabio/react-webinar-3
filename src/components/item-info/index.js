@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {formatNum} from "../../utils";
 import './style.css';
 
 function ItemInfo({type, price, count}) {
   return (
     <div className='item-info'>
-      <p>{`${price} ₽ `}{type === 'Cart' && `${count} шт.`}</p>
+      <div>{`${formatNum(price)} ₽ `}</div>
+      {(type === 'Cart') && <div className="item-info-count">{`${count} шт.`}</div>}
     </div>
   )
 }
