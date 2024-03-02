@@ -5,7 +5,7 @@ import CartItem from "../cart-item/index";
 import { formatSum } from "../../utils";
 import './style.css';
 
-function Modal({ closeModal, cartItems, totalPrice, removeItemFromCart }) {
+function Modal({ closeModal, title, children }) {
 
   const cn = bem('Modal');
 
@@ -13,14 +13,10 @@ function Modal({ closeModal, cartItems, totalPrice, removeItemFromCart }) {
     <div className={cn('background')}>
       <div className={cn()}>
         <div className={cn('head')}>
-          <div className={cn('title')}>Корзина</div>
+          <div className={cn('title')}>{title}</div>
           <button className={cn('button')} onClick={() => closeModal()}>Закрыть</button>
         </div>
-        {cartItems.map((item, index) => <CartItem item={item} removeItemFromCart={removeItemFromCart} key={index} />)}
-        <div className={cn('total')}>
-          <div className={cn('total-title')}>Итого</div>
-          <div className={cn('total-price')}>{formatSum(totalPrice, { style: 'currency', currency: 'RUB' })}</div>
-        </div>
+        {children}
       </div>
     </div>
   )
@@ -28,18 +24,14 @@ function Modal({ closeModal, cartItems, totalPrice, removeItemFromCart }) {
 
 Modal.propTypes = {
   closeModal: PropTypes.func,
-  cartItems: PropTypes.arrayOf(Object),
-  totalPrice: PropTypes.number,
-  removeItemFromCart: PropTypes.func
+  title: PropTypes.string,
+  children: PropTypes.node,
 };
 
 Modal.defaultProps = {
   closeModal: () => {
   },
-  cartItems: [],
-  totalPrice: 0,
-  removeItemFromCart: () => {
-  }
+  title: 'Заголовок'
 }
 
 export default React.memo(Modal);

@@ -1,0 +1,18 @@
+.Cart-total {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 120px 89px 0;
+  column-gap: 53px;
+}
+
+.Cart-total-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+}
+
+.Cart-total-price {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+}

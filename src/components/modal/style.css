@@ -41,22 +41,3 @@
   border-radius: 2px;
   background: rgb(239, 239, 239);
 }
-
-.Modal-total {
-  display: flex;
-  justify-content: flex-end;
-  margin: 20px 120px 89px 0;
-  column-gap: 53px;
-}
-
-.Modal-total-title {
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 21px;
-}
-
-.Modal-total-price {
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 21px;
-}

@@ -4,6 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from './components/modal/index';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -41,7 +42,11 @@ function App({ store }) {
       <List list={list}
         onAddItem={callbacks.onAddItem}
         openModal={callbacks.openModal} />
-      {modal && <Modal closeModal={callbacks.closeModal} cartItems={cartItems} totalPrice={totalPrice} removeItemFromCart={callbacks.removeItemFromCart} />}
+      {
+        modal && <Modal closeModal={callbacks.closeModal} title={'Корзина'} >
+          <Cart cartItems={cartItems} totalPrice={totalPrice} removeItemFromCart={callbacks.removeItemFromCart} />
+        </Modal>
+      }
     </PageLayout>
   );
 }
