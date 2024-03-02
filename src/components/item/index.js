@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import Button from "../button/index"
 import PropTypes from "prop-types";
 import {plural} from "../../utils";
 import './style.css';
@@ -37,11 +38,12 @@ function Item(props) {
         many: 'раз'
       })}` : ''}
       </div>
-      <div className='Item-actions'>
+      {/* <div className='Item-actions'>
         <button onClick={callbacks.onAddOrRemoveToCart}>
           {props.buttonTitle}
         </button>
-      </div>
+      </div> */}
+      <Button callback={callbacks.onAddOrRemoveToCart}  title={props.buttonTitle}/>
     </div>
   );
 }

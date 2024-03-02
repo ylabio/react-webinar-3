@@ -1,0 +1,15 @@
+.cart-title-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f5f5f5;
+}
+
+.cart-totalSumm{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem 8rem 5rem 1rem;
+  font-weight: 700;
+}

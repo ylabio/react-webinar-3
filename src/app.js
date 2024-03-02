@@ -4,6 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal/index";
+import Cart from "./components/Cart/index";
 import './app.style.css';
 
 /**
@@ -55,20 +56,25 @@ function App({store}) {
     //   store.addItem();
     // }, [store])
 
-    goToCart: useCallback(() => {
+    onOpenCart: useCallback(() => {
       setCartIsOpen(true);
+    }),
+
+    onCloseCart: useCallback(() => {
+      setCartIsOpen(false);
     })
   }
 
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls goToCart={callbacks.goToCart} count={getItemsInCart().length} totalSumm={getTotalSumm()}/>
+      <Controls callbacks={callbacks} count={getItemsInCart().length} totalSumm={getTotalSumm()}/>
       <List list={list}
             callback={callbacks.onAddToCart}
             onSelectItem={callbacks.onSelectItem}
             buttonTitle={'Добавить'}/>
-        {cartIsOpen && <Modal list={cart.items} callback={callbacks.onRemoveFromCart} buttonTitle={'Удалить'}/>}
+        {/* {cartIsOpen && <Modal list={cart.items} callback={callbacks.onRemoveFromCart} buttonTitle={'Удалить'}/>} */}
+        {cartIsOpen && <Modal children={<Cart list={cart.items} callbacks={callbacks} buttonTitle={'Удалить'} totalSumm={getTotalSumm()} />}/>}
     </PageLayout>
   );
 }

@@ -1,15 +1,14 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import CartInfo from '../cart-info/index'
+import Button from '../button/index'
 import './style.css';
 
-function Controls({goToCart ,count , totalSumm}) {
+function Controls({callbacks ,count , totalSumm}) {
   return (
     <div className='Controls'>
        <CartInfo count={count} totalSumm={totalSumm}/>
-       <div className='controls-actions'>
-        <button onClick={() => goToCart()}>Перейти</button>
-       </div>
+       <Button callback={callbacks.onOpenCart}  title={'Перейти'}/>
     </div>
   )
 }

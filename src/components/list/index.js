@@ -23,7 +23,7 @@ List.propTypes = {
   })).isRequired,
   // onDeleteItem: PropTypes.func,
   onSelectItem: PropTypes.func,
-  onAddToCart: PropTypes.func,
+  callback: PropTypes.func,
 };
 
 List.defaultProps = {
@@ -31,7 +31,7 @@ List.defaultProps = {
   // },
   onSelectItem: () => {
   },
-  onAddToCart: () => {
+  callback: () => {
   },
 }
 
