@@ -81,8 +81,8 @@ class Store {
    * Подсчет количества товаров в корзине
    * @returns {number}
    */
-  countItemsInCart() {
-    return this.state.cart.reduce((total, item) => total + item.quantity, 0);
+  countItemsInCart() {    
+    return this.state.cart.length;
   }
 
   /**
