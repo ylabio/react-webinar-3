@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import {numberFormat} from "../../utils";
 import './style.css';
 
+/**
+ * Товар - элемент списка товаров
+ * Через параметр options можно настраивать функциональность компонента
+ */
 function Item(props) {
 
   const callbacks = {
@@ -44,10 +48,11 @@ Item.propTypes = {
     price: PropTypes.number,
     count: PropTypes.number
   }).isRequired,
+  //  Настройки для отображения
   options: PropTypes.shape({
-    showCount: PropTypes.bool,
-    isAppendable: PropTypes.bool,
-    isDeletable: PropTypes.bool
+    showCount: PropTypes.bool,      // Отображать количество товара в корзине
+    isAppendable: PropTypes.bool,   // Отображать кнокпу для добавления товара в корзину
+    isDeletable: PropTypes.bool     // Отображать кнопку для удаления товара из корзины
   }),
   onAdd: PropTypes.func,
   onDelete: PropTypes.func

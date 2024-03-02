@@ -4,6 +4,10 @@ import Item from '../item';
 import { numberFormat } from '../../utils';
 import './style.css';
 
+/**
+ * Список товаров
+ * Через параметр options можно настраивать функциональность списка
+ */
 function List(props) {
   return (
     <table className='List'>
@@ -35,11 +39,12 @@ List.propTypes = {
     price: PropTypes.number,
     count: PropTypes.number
   })).isRequired,
+  //  Настройки для отображения списка
   options: PropTypes.shape({
-    showCount: PropTypes.bool,
-    showTotals: PropTypes.bool,
-    isAppendable: PropTypes.bool,
-    isDeletable: PropTypes.bool
+    showCount: PropTypes.bool,      // Отображать количество товара в корзине
+    showTotals: PropTypes.bool,     // Отображать итоговую строку с суммой корзины
+    isAppendable: PropTypes.bool,   // Отображать кнокпи для добавления товаров в корзину
+    isDeletable: PropTypes.bool     // Отображать кнопки для удаления товаров из корзины
   }),
   onAddItem: PropTypes.func,
   onDeleteItem: PropTypes.func

@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { plural, numberFormat } from "../../utils";
 import './style.css';
 
+/**
+ * Панель с количеством и стоимостью товаров в корзине
+ * и с кнопкой для открытия модального окна с корзиной
+ */
 function Scoreboard(props) {
   return (
     <div className='Scoreboard'>
@@ -28,9 +32,9 @@ function Scoreboard(props) {
 }
 
 Scoreboard.propTypes = {
-  count: PropTypes.number,
-  price: PropTypes.number,
-  showBasket: PropTypes.func
+  count: PropTypes.number,    //  Количество товаров в корзине
+  price: PropTypes.number,    //  Стоимость товаров в корзине
+  showBasket: PropTypes.func  //  Callback для открытия модального окна с корзиной
 };
 
 Scoreboard.defaultProps = {

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import List from '../list';
 import './style.css';
 
+/**
+ * Модальное окно с корзиной покупок
+ */
 function Basket(props) {
 
   const overlayRef = useRef(null);

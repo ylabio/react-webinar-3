@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
 
+/**
+ * Шапка приложения
+ */
 function Head({title}) {
   return (
     <div className='Head'>
