@@ -1,28 +1,35 @@
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
-
 /**
- * Создание элемента со свойствами и вложенными элементами
- * @param name {String} Название HTML тега
- * @param props {Object} Свойства и атрибуты элемента
- * @param children {...Node} Вложенные элементы
- * @returns {HTMLElement}
+ * Возвращает правильное окончание для заданного числа.
+ * @param value {Number} Число
+ * @param variants {Object} Варианты окончания
+ * @param locale {String} Язык
  */
-export function createElement(name, props = {}, ...children) {
-  const element = document.createElement(name);
+export function plural(value, variants = {}, locale = 'ru-RU') {
+	// Получаем форму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
+	// В русском языке 3 формы: 'one', 'few', 'many'
+	// 1 товар = one
+	// 2-4 товара = few
+	// 5 и больше товаров = many
+	// 9.98 товара = other
 
-  // Назначение свойств и атрибутов
-  for (const name of Object.keys(props)) {
-    if (propNames.has(name)) {
-      element[name] = props[name];
-    } else {
-      element.setAttribute(name, props[name]);
-    }
-  }
-
-  // Вставка вложенных элементов
-  for (const child of children) {
-    element.append(child);
-  }
-
-  return element;
+	const key = new Intl.PluralRules(locale).select(value);
+	console.log(key);
+	// Возвращаем вариант по ключу, если он есть\
+	return variants[key] || '';
 }
+
+export const generateCode = (function (start = 0) {
+	return () => {
+		return ++start;
+	};
+})();
+
+export const generateCode1 = (function (start = 0) {
+	function* realGenerator(start) {
+		while (true) {
+			yield ++start;
+		}
+	}
+	const gen = realGenerator(start);
+	return () => gen.next().value;
+})();
