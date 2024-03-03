@@ -1,0 +1,28 @@
+.MyModal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: none;
+  z-index: 1;
+}
+
+.MyModal-Active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Modal-Window-Cart {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+}

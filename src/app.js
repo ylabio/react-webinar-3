@@ -1,8 +1,10 @@
-import React, {useCallback} from 'react';
+import React, { useCallback, useState } from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import "./components/cart/style.css";
+import ModalCart from "./components/modalWindow/modalWindow";
 
 /**
  * Приложение
@@ -10,30 +12,46 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
-
   const list = store.getState().list;
+  const cartStore = store.getState().productsIntoCart;
+  const [isActiveModale, setIsActiveModale] = useState(false);
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+    onAddItemIntoCart: useCallback(
+      (item) => {
+        store.addItemIntoCart(item);
+      },
+      [store]
+    ),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
+    onDeleteItemIntoCart: useCallback(
+      (item) => {
+        store.deleteItemIntoCart(item);
+      },
+      [store]
+    ),
+  };
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин'/>
+      <Controls
+        setIsActiveModale={setIsActiveModale}
+        cartStore={cartStore}
+        btnText={'Добавить'}
+      />
+      <List
+        list={list}
+        setIsActiveModale={setIsActiveModale}
+        cartStore={cartStore}
+        onAddItemIntoCart={callbacks.onAddItemIntoCart}
+      />
+      <ModalCart
+        isActiveModal={isActiveModale}
+        setIsActiveModale={setIsActiveModale}
+        cartStore={cartStore}
+        onDeleteItemIntoCart={callbacks.onDeleteItemIntoCart}
+      />
     </PageLayout>
   );
 }

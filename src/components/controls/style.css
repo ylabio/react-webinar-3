@@ -1,5 +1,22 @@
 .Controls {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
+  font-size: 18px;
+}
+
+.Controls-action{
   padding: 20px;
 }
+
+.Contols-Info{
+  padding-left: 15px;
+}
+
+.Contols-Info,.Amount-into-cart,.Total-price{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 700;
+}
+
