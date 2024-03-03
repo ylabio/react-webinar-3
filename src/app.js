@@ -40,7 +40,7 @@ function App({ store }) {
         <Cart cart={cart}
           callback={callbacks.onDeleteFromCart} />
       </Modal>
-      <Head title='Приложение на чистом JS' />
+      <Head title='Магазин' />
       <CartRow cart={cart} onOpenModal={callbacks.onOpenModal} />
       <List list={list}
         callback={callbacks.onAddToCart} />
