@@ -1,18 +1,20 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import List from "../list";
+import { basketText, closeButtonText, emptyBasketText } from "../constants";
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Modal({ store, list, onAddItem, onDeleteItem, closeModal }) {
+function Modal(props) {
   const cn = bem('Modal');
+  const { store, list, onAddItem, onDeleteItem, closeModal } = props;
   const { basketList } = store.getState();
 
   return (
     <div className={cn()}>
       <div className={cn('header')}>
-        <h1>Корзина</h1>
-        <button onClick={closeModal}>Закрыть</button>
+        <h1>{basketText}</h1>
+        <button onClick={closeModal}>{closeButtonText}</button>
       </div>
       {basketList.length
         ? <List
@@ -21,18 +23,20 @@ function Modal({ store, list, onAddItem, onDeleteItem, closeModal }) {
           onDeleteItem={onDeleteItem}
           isBasket={true}
         />
-        : <p>В корзине пусто</p>
+        : <p>{emptyBasketText}</p>
       }
     </div>
   );
 }
 
-// Controls.propTypes = {
-//   onAdd: PropTypes.func
-// };
+Modal.propTypes = {
+  list: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.number
+  })).isRequired,
+  onAddItem: PropTypes.func,
+  onDeleteItem: PropTypes.func,
+  closeModal: PropTypes.func,
+};
 
-// Controls.defaultProps = {
-//   onAdd: () => {}
-// }
 
 export default React.memo(Modal);
