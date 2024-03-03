@@ -1,39 +1,49 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import List from "./components/list";
-import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import CartRow from './components/cartRow';
+import Modal from './components/modal';
+import Cart from './components/cart';
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
 
-  const list = store.getState().list;
+  const { list, cart, isOpenModal } = store.getState();
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    onAddToCart: useCallback((code) => {
+      store.addToCart(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    onDeleteFromCart: useCallback((code) => {
+      store.deleteFromCart(code);
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
+    onOpenModal: useCallback(() => {
+      store.setIsOpenModal(true);
+    }, [store]),
+
+    onCloseModal: useCallback(() => {
+      store.setIsOpenModal(false);
     }, [store])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
+      <Modal isOpenModal={isOpenModal}>
+        <Head title='Корзина' callback={callbacks.onCloseModal} />
+        <Cart cart={cart}
+          callback={callbacks.onDeleteFromCart} />
+      </Modal>
+      <Head title='Приложение на чистом JS' />
+      <CartRow cart={cart} onOpenModal={callbacks.onOpenModal} />
       <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+        callback={callbacks.onAddToCart} />
     </PageLayout>
   );
 }

@@ -1,0 +1,29 @@
+.Cart,
+.Cart-empty {
+	display: flex;
+	align-items: center;
+	height: 270px;
+	overflow: auto;
+}
+
+.Cart-empty {
+	height: 328px;
+	justify-content: center;
+	font-size: 64px;
+	color: #ccc;
+
+}
+
+.Cart-footer {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.Cart-footer div {
+	font-weight: 700;
+	padding: 20px 10px 20px 20px;
+}
+
+.Cart-footer div:last-child {
+	padding-right: 107px;
+}

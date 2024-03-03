@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -6,6 +6,8 @@ import {generateCode} from "./utils";
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.state.cart = []; // Содержимое корзины
+    this.state.isOpenModal = false; // Состояние модалки
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -41,46 +43,55 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
+   * @param code
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+  addToCart(code) {
+    const itemIndex = this.state.cart.findIndex(item => item.code === code);
+
+    if (itemIndex !== -1) {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map((item, index) => {
+          if (index === itemIndex) {
+            return { ...item, count: item.count + 1 };
+          }
+          return item;
+        })
+      });
+    } else {
+      const newItem = this.state.list.find(item => item.code === code);
+
+      if (newItem) {
+        newItem.count = 1;
+        this.setState({
+          ...this.state,
+          cart: [...this.state.cart, newItem]
+        });
+      }
+    }
   };
 
   /**
-   * Удаление записи по коду
+   * Удаление товара из корзины
    * @param code
    */
-  deleteItem(code) {
+  deleteFromCart(code) {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code)
     })
   };
 
   /**
-   * Выделение записи по коду
-   * @param code
+   * Открывает или закрывает модалку в зависимости от параметра
+   * @param isOpenModal 
    */
-  selectItem(code) {
+  setIsOpenModal(isOpenModal) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
+      isOpenModal
     })
   }
 }
