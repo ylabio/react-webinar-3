@@ -7,6 +7,7 @@ import './styles.css';
  * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
+
 function App({store}) {
 
   const list = store.getState().list;
@@ -27,6 +28,9 @@ function App({store}) {
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title}</div>
+                {(() => { if (item.count > 0) {
+                  return ( <div className='Item-count'>Выделяли {item.count} раз</div>)} })()
+                }
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
