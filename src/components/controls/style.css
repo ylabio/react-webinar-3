@@ -2,4 +2,19 @@
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+  border-bottom: 1px dashed #ccc;
+  font-size: 18px;
 }
+
+.Controls span {
+  padding-left: 15px;
+  font-weight: 700;
+}
+
+.Controls-actions {
+  padding-left: 24px;
+}
+
+  .Controls-button {
+    padding: 1px 9px;
+  }

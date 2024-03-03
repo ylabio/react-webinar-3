@@ -1,41 +1,33 @@
-import React, {useState} from "react";
-import PropTypes from "prop-types";
-import {plural} from "../../utils";
+import React from 'react';
+import PropTypes from 'prop-types';
+import {separatingNumberSpaces} from '../../utils';
+import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 function Item(props) {
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
+  const cn = bem('Item');
 
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
-    onDelete: (e) => {
+    onClick: (e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
-
+      props.onClick(props.item.code);
     }
   }
 
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-         onClick={callbacks.onClick}>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {
-        one: 'раз',
-        few: 'раза',
-        many: 'раз'
-      })}` : ''}
+    <div className={cn()} >
+      <div className={cn('code')}>{props.item.code}</div>
+      <div className={cn('title')}>{props.item.title}</div>
+      <div className={cn('price')}>
+        {separatingNumberSpaces(props.item.price)} &#8381;
       </div>
-      <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+      {props.item.countProduct && <div className={cn('countProduct')}>
+        {separatingNumberSpaces(props.item.countProduct)} шт
+        </div>}
+      <div className={cn('actions')}>
+        <button onClick={callbacks.onClick}>
+          {props.textButton}
         </button>
       </div>
     </div>
@@ -47,14 +39,16 @@ Item.propTypes = {
     code: PropTypes.number,
     title: PropTypes.string,
     selected: PropTypes.bool,
-    count: PropTypes.number
+    count: PropTypes.number,
+    countProduct: PropTypes.number
   }).isRequired,
-  onDelete: PropTypes.func,
+  textButton: PropTypes.node,
+  onClick: PropTypes.func,
   onSelect: PropTypes.func
 };
 
 Item.defaultProps = {
-  onDelete: () => {
+  onClick: () => {
   },
   onSelect: () => {
   },
