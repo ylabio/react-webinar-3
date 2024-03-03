@@ -13,12 +13,11 @@ function List(props) {
     <table className='List'>
       <tbody>{
         props.list.map(item =>
-          <Item
-              key={item.code}
-              item={item}
-              options={props.options}
-              onAdd={props.onAddItem}
-              onDelete={props.onDeleteItem}/>
+          <Item key={item.code}
+                item={item}
+                options={props.options}
+                onAdd={props.onAddItem}
+                onDelete={props.onDeleteItem}/>
         )}
         { props.options.showTotals &&
             <tr key='list-footer' className='List-footer'>

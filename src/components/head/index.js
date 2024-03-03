@@ -10,9 +10,9 @@ function Head(props) {
     <div className='Head'>
       <h1>{props.title}</h1>
       { props.children &&
-          <div className='Head-actions'>
-            {props.children}
-          </div>
+        <div className='Head-actions'>
+          {props.children}
+        </div>
       }
     </div>
   )

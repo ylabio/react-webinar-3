@@ -23,23 +23,20 @@ function Item(props) {
       <td className='Item-code'>{props.item.code}</td>
       <td className='Item-title'>{props.item.title}</td>
       <td className='Item-price'>{numberFormat(props.item.price)}</td>
-      { props.options.showCount && !isNaN(props.item.count) && <td className='Item-count'>
-          {numberFormat(props.item.count, 'decimal', 0) + "\u00a0шт"}
-        </td>
+      { props.options.showCount && !isNaN(props.item.count) &&
+          <td className='Item-count'>
+            {numberFormat(props.item.count, 'decimal', 0) + "\u00a0шт"}
+          </td>
       }
       <td className='Item-actions'>
         { props.options.isAppendable &&
-            <button
-              className='action'
-              onClick={callbacks.onAdd}>
-                Добавить
+            <button className='action' onClick={callbacks.onAdd}>
+              Добавить
             </button>
         }
         { props.options.isDeletable &&
-            <button
-              className='action'
-              onClick={callbacks.onDelete}>
-                Удалить
+            <button className='action' onClick={callbacks.onDelete}>
+              Удалить
             </button>
         }
       </td>

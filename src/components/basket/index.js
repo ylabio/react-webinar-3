@@ -43,10 +43,8 @@ function Basket(props) {
     <div className='Basket modal modal-invisible' ref={overlayRef}>
       <div className='Basket-frame'>
         <Head title='Корзина'>
-          <button
-            className='action'
-            onClick={onHideBasket}>
-              Закрыть
+          <button className='action' onClick={onHideBasket}>
+            Закрыть
           </button>
         </Head>
         <div className='Basket-body'>{
@@ -54,7 +52,8 @@ function Basket(props) {
             ? <List list={props.basket}
                     options={{showCount: true, showTotals: true, isAppendable: false, isDeletable: true}}
                     onDeleteItem={props.onDeleteItem}/>
-            : <div className='Basket-empty'>В корзине пусто</div>}
+            : <div className='Basket-empty'>В корзине пусто</div>
+          }
         </div>
       </div>
     </div>
