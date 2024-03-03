@@ -1,3 +1,13 @@
+div{
+  font-family: Arial;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+button{
+  font-size: 13px;
+}
+
 .Item {
   display: flex;
   justify-content: flex-start;

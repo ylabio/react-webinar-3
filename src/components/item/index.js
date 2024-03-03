@@ -15,11 +15,6 @@ function Item(props) {
         setCount(count + 1);
       }
     },
-    // onDelete: (e) => {
-    //   e.stopPropagation();
-    //   props.onDelete(props.item.code);
-
-    // }
     onAdd: (e) => {
       props.onAdd(props.item);
     }
@@ -51,14 +46,11 @@ Item.propTypes = {
     selected: PropTypes.bool,
     count: PropTypes.number
   }).isRequired,
-  //onDelete: PropTypes.func,
   onAdd: PropTypes.func,
   onSelect: PropTypes.func
 };
 
 Item.defaultProps = {
-  // onDelete: () => {
-  // },
   onAdd: () => {
   },
   onSelect: () => {

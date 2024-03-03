@@ -13,6 +13,7 @@ import item from './components/item';
 function App({store}) {
 
   const list = store.getState().list;
+  const cart = store.getState().cart;
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -31,11 +32,10 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls onAdd={callbacks.onAddItem}/>
+      <Controls onAdd={callbacks.onAddItem} cart={cart}/>
       <List list={list}
             // onDeleteItem={callbacks.onDeleteItem}
-            onAddItem={callbacks.onAddItem}
-            onSelectItem={callbacks.onSelectItem}/>
+            onAddItem={callbacks.onAddItem}/>
     </PageLayout>
   );
 }
