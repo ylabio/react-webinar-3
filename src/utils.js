@@ -54,18 +54,21 @@ export function generateCode2() {
 export function calculateCartTotal(cart) {
   return cart.reduce(
     (acc, item) => ({
-      totalQuantity: acc.totalQuantity + item.quantity,
+      totalQuantity: acc.totalQuantity + 1,
       totalPrice: acc.totalPrice + item.quantity * item.price,
     }),
     { totalQuantity: 0, totalPrice: 0 }
   );
 }
 
+
 export function getRubPriceInt(price) {
-  return new Intl.NumberFormat('ru-RU', {
-    style: 'currency',
-    currency: 'RUB',
-    minimumFractionDigits: 0
-  }
-  ).format(price)}
+  return new Intl.NumberFormat('ru-RU',
+    {
+      style: 'currency',
+      currency: 'RUB',
+      minimumFractionDigits: 0
+    }
+  ).format(price)
+}
 
