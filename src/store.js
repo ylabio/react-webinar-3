@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -18,8 +16,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -41,47 +39,89 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Переходим в корзину
    */
-  addItem() {
+  openCart() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+      isCart: true,
+    });
+  }
+  /**
+   * закрываем корзины
+   */
+  closeCart() {
+    this.setState({
+      ...this.state,
+      isCart: false,
+    });
+  }
+  /**
+   * добавление продукта в корзину
+   * @param product
+   */
+  addProduct(product) {
+    // ищем index продукта
+    const existingProductIndex = this.state.cart.products.findIndex(
+      (item) => item.code === product.code
+    );
+
+    // если товар есть в корзине
+    if (existingProductIndex !== -1) {
+      //  увеличим count на 1
+      const updatedProducts = [...this.state.cart.products];
+      updatedProducts[existingProductIndex].count += 1;
+
+      this.setState({
+        ...this.state,
+        cart: {
+          ...this.state.cart,
+          products: updatedProducts,
+          totalPrice: this.state.cart.totalPrice + product.price,
+        },
+      });
+    } else {
+      // Если товара нет в корзине, добавляем его с начальным количеством 1
+      this.setState({
+        ...this.state,
+        cart: {
+          ...this.state.cart,
+          products: [
+            ...this.state.cart.products,
+            {
+              ...product,
+              count: 1,
+            },
+          ],
+          totalPrice: this.state.cart.totalPrice + product.price,
+        },
+      });
+    }
+  }
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * удаление продукта в корзину
+   * @param product
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+  deleteProduct(product) {
+    const existingProductIndex = this.state.cart.products.findIndex(
+      (item) => item.code === product.code
+    );
+    if (existingProductIndex !== -1) {
+      const price = this.state.cart.products[existingProductIndex].price;
+      const count = this.state.cart.products[existingProductIndex].count;
+      const amountPrice = price * count;
+      this.setState({
+        ...this.state,
+        cart: {
+          ...this.state.cart,
+          products: this.state.cart.products.filter(
+            (item) => item.code !== product.code
+          ),
+          totalPrice: this.state.cart.totalPrice - amountPrice,
+        },
+      });
+    }
   }
 }
 
