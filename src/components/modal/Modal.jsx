@@ -33,12 +33,13 @@ function Modal({cart, cartSum, onRemoveItem, onShowModal}) {
 Modal.propTypes = {
   cart: PropTypes.arrayOf(PropTypes.object).isRequired,
   cartSum: PropTypes.number,
+  onRemoveItem: PropTypes.func,
   onShowModal: PropTypes.func
 };
 
 Modal.defaultProps = {
-  getCart: () => {},
+  onRemoveItem: () => {},
   onShowModal: () => {}
 }
 
-export default Modal
+export default React.memo(Modal)

@@ -31,7 +31,8 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    price: PropTypes.number
+    price: PropTypes.number,
+    count: PropTypes.number,
   }).isRequired,
   isCart: PropTypes.bool,
   onClick: PropTypes.func,
@@ -39,7 +40,7 @@ Item.propTypes = {
 
 Item.defaultProps = {
   isCart: false,
-  onAdd: () => {},
+  onClick: () => {},
 };
 
 export default React.memo(Item);
