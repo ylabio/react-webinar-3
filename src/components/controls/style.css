@@ -1,5 +1,15 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   padding: 20px;
+}
+
+.Controls-basket {
+  margin: 0 10px 0 0;
+}
+
+.Controls-cost {
+  margin-right: 10px;
+  font-weight: 600;
 }

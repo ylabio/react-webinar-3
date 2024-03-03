@@ -16,6 +16,8 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   return variants[key] || '';
 }
 
+export const variants = {one: "товар", few: "товара", many: "товаров"};
+
 /**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.

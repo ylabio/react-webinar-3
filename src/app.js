@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Popup from './components/popup';
 
 /**
  * Приложение
@@ -10,31 +11,51 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
+  const [isPopupopened, setIsPopupOpened] = useState(false);
 
   const list = store.getState().list;
+  const basket = store.getState().basketList;
+  const removeItemFromBasket = store.removeItemFromBasket;
+  console.log(basket)
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    onAddToBasket: useCallback((item) => {
+      store.addItemToBasket(item);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+    onClick: useCallback(() => {
+      setIsPopupOpened(true);
+    }, [isPopupopened]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    onClose: useCallback(() => {
+      setIsPopupOpened(false);
+    }, [isPopupopened]),
+
+    onRemoveItemFromBasket: useCallback(() => {
+      store.removeItemFromBasket(item);
+    },[store])
   }
 
+  const totalCost = () => {
+    return basket.reduce((acc, item) => acc + item.price * item.count, 0)
+  };
+
   return (
+    <>
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин'/>
+      <Controls totalCost={totalCost} basket={basket} list={list} onClick={callbacks.onClick}/>
+      <List list={list} onAddToBasket={callbacks.onAddToBasket}/>
     </PageLayout>
+    {isPopupopened === true &&
+      <Popup
+      totalCost={totalCost}
+      onRemoveItemFromBasket={callbacks.onRemoveItemFromBasket}
+      basket={basket}
+      isPopupopened={isPopupopened}
+      onClose={callbacks.onClose}/>
+    }
+    </>
   );
 }
 

@@ -1,20 +1,24 @@
 .Item {
   display: flex;
-  justify-content: flex-start;
-  transition: background-color 1s;
-}
-
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  justify-content: space-between;
 }
 
 .Item-code {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+.Item-group {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Item-title {
+  padding: 20px 10px;
+}
+
+.Item-price {
+  justify-self: end;
   padding: 20px 10px;
 }
 
