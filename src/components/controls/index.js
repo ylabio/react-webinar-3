@@ -1,5 +1,6 @@
 import React, {useMemo} from "react";
 import PropTypes from 'prop-types';
+import { plural } from "../../utils";
 import './style.css';
 
 function Controls(props) {
@@ -22,9 +23,16 @@ function Controls(props) {
         <div className='Controls-cart-info-title'>
           В корзине:
         </div>
-        <div className='Controls-cart-info-total'>
-          {`${totalAmount} товара / ${totalPrice} ₽`}
-        </div>
+        {
+          totalAmount ?
+            <div className='Controls-cart-info-total'>
+              {`${totalAmount} ${plural(totalAmount, {one: 'товар', few: 'товара', many: 'товаров'})} / ${totalPrice} ₽`}
+            </div>
+          :
+            <div className='Controls-cart-info-total'>
+              Пусто
+            </div>
+        }
       </div>
       <button className='Controls-button' onClick={props.onClick}>Перейти</button>
     </div>
