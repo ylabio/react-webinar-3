@@ -1,0 +1,25 @@
+.CartMenu {
+  padding: 18px 21px 23px;
+  text-align: right;
+}
+
+.CartMenu-value {
+  padding: 0 20px 0 15px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+}
+
+.CartMenu-text {
+  color: rgb(0, 0, 0);
+  font-family: Arial;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0%;
+  text-align: left;
+}
+
+.CartMenu-btn {
+  min-width: 80px;
+}
