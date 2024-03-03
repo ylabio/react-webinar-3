@@ -37,6 +37,7 @@
 .Basket-items > div {
   border-top: 1px dashed #ccc;
 }
+
 .Basket-items > div:last-child{
   border-bottom: 1px dashed #ccc;
 }

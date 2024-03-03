@@ -27,6 +27,6 @@ List.propTypes = {
 List.defaultProps = {
   onAddItemToBasket: () => {
   },
-}
+};
 
 export default React.memo(List);

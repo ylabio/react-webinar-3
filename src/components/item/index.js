@@ -1,6 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
 import './style.css';
 import Controls from "../controls";
 
@@ -15,7 +14,7 @@ function Item(props) {
         props.onAddItemToBasket(props.item)
       }
     },
-  }
+  };
 
   return (
     <div className='Item'>
@@ -49,6 +48,6 @@ Item.defaultProps = {
   onDeleteItemFromBasket: () => {
   },
 
-}
+};
 
 export default React.memo(Item);

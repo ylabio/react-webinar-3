@@ -6,7 +6,6 @@
   height: 61px;
   box-sizing: border-box;
   background: #FFFFFF;
-  /*border-top: 1px dashed #CCCCCC;*/
 }
 
 .Item-title {
@@ -14,7 +13,7 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 18px;
-  letter-spacing: 0em;
+  letter-spacing: 0;
   flex-grow: 1;
   margin-left: 10px;
 }
@@ -25,7 +24,7 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 18px;
-  letter-spacing: 0em;
+  letter-spacing: 0;
   text-align: left;
 }
 

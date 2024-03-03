@@ -6,6 +6,7 @@ import Item from "../item";
 
 
 function Basket(props) {
+
   return (
     <div className='Basket'>
       <div className='Basket-layout'>
@@ -19,7 +20,6 @@ function Basket(props) {
         </div>
         <div className='Basket-item-total-price'><div>Итого: </div><div>{props.basket.totalPrice} ₽</div></div>
       </div>
-
     </div>
   )
 }
@@ -28,7 +28,7 @@ Basket.propTypes = {
   basket: PropTypes.array,
   showModal: PropTypes.bool,
   onDeleteItemFromBasket: PropTypes.func,
-  setShowModal: PropTypes.func
+  setShowModal: PropTypes.func,
 };
 
 export default React.memo(Basket);
