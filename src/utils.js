@@ -26,3 +26,22 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+
+  // Проанализирует коды в списке записей и вернёт код с самым большим значением 
+  export function getGreaterRecordCode(list) {
+    let initalCode = 0;
+
+    list.map((item) => {
+      if (item.code > initalCode) {
+        initalCode = item.code;
+      }
+    })
+
+    return initalCode;
+  }
+  
+  // Генерирует новый уникальный код путём инкремента прошлого кода на 1
+  export function generateNewUniqueCode(previousCode) {
+    return previousCode += 1;
+  }
