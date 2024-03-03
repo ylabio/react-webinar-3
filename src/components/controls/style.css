@@ -3,3 +3,11 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls-text {
+  padding-right: 20px;
+}
+
+.Controls-text span {
+  padding-left: 15px;
+}
