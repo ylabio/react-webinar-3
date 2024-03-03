@@ -1,7 +1,6 @@
 .Cart,
 .Cart-empty {
 	display: flex;
-	align-items: center;
 	height: 270px;
 	overflow: auto;
 }
@@ -9,6 +8,7 @@
 .Cart-empty {
 	height: 328px;
 	justify-content: center;
+	align-items: center;
 	font-size: 64px;
 	color: #ccc;
 
