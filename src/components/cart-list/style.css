@@ -1,5 +1,6 @@
 .CartList {
   border-top: 1px dashed #ccc;
+  overflow-y: auto;
 }
 
 .CartList-item {
