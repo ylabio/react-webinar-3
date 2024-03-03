@@ -43,6 +43,9 @@ class Store {
   /**
    * Добавление новой записи
    */
+   generateUniqueCode() {
+    return Date.now() + Math.floor(Math.random() * 10);
+  }
   addItem() {
     this.setState({
       ...this.state,
@@ -61,11 +64,11 @@ class Store {
       list: this.state.list.filter(item => item.code !== code)
     })
   };
-
+	
   /**
    * Выделение записи по коду
    * @param code
-   */
+   */  
   selectItem(code) {
     this.setState({
       ...this.state,
@@ -81,6 +84,7 @@ class Store {
         // Сброс выделения если выделена
         return item.selected ? {...item, selected: false} : item;
       })
+      
     })
   }
 }
