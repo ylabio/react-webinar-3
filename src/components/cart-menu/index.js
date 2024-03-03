@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { monefy } from "../../utils";
+import { monefy, plural } from "../../utils";
 import "./style.css";
 
 function CartMenu({ cartList, onCartOpen }) {
@@ -10,7 +10,9 @@ function CartMenu({ cartList, onCartOpen }) {
     return (acc += (product.price * product.count));
   }, 0);
 
-  const value = cartList.length ? `${count} товара / ${monefy(sum)}` : 'пусто'
+  const pluralized = plural(count, {one: 'товар', few: 'товара', many: 'товаров'}) 
+
+  const value = cartList.length ? `${count} ${pluralized} / ${monefy(sum)}` : 'пусто'
 
   return (
     <div className="CartMenu">

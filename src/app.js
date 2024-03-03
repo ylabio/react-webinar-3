@@ -46,7 +46,7 @@ function App({ store }) {
         const newProduct = newCart[index];
 
         newProduct.count += 1;
-        newProduct.content = [monefy(newProduct.price), newProduct.count];
+        newProduct.content = [monefy(newProduct.price), newProduct.count + ' шт'];
 
         return newCart;
       });
@@ -55,7 +55,7 @@ function App({ store }) {
         const newProduct = {...product};
         
         newProduct.count = 1;
-        newProduct.content = [monefy(newProduct.price), newProduct.count];
+        newProduct.content = [monefy(newProduct.price), newProduct.count + ' шт'];
         
         return [...oldCart, newProduct];
       });
