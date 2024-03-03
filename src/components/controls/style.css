@@ -4,6 +4,12 @@
   padding: 20px;
 }
 
-.Info {
+.Controls-info {
+  display: flex;
   margin-right: 20px;
+}
+
+.Controls-info > :last-child {
+  margin-left: 12px;
+  font-weight: 700;
 }

@@ -1,34 +1,30 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import List from "../list";
-import { basketText, closeButtonText, emptyBasketText } from "../constants";
+import { basketText, closeButtonText } from "../constants";
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 function Modal(props) {
   const cn = bem('Modal');
-  const { store, list, onAddItem, onDeleteItem, closeModal } = props;
-  const { basketList } = store.getState();
-  const basketTitle = 'Корзина';
-  const closeButtonText = 'Закрыть';
-  const emptyBasketText = 'В корзине пусто';
+  const { list, onAddItem, onDeleteItem, closeModal } = props;
 
   return (
-    <div className={cn()}>
-      <div className={cn('header')}>
-        <h1>{basketText}</h1>
-        <button onClick={closeModal}>{closeButtonText}</button>
+    <>
+      <div className={cn()}>
+        <div className={cn('header')}>
+          <h1>{basketText}</h1>
+          <button onClick={closeModal}>{closeButtonText}</button>
+        </div>
+          <List
+            list={list}
+            onAddItem={onAddItem}
+            onDeleteItem={onDeleteItem}
+            isBasket={true}
+          />
       </div>
-      {basketList.length
-        ? <List
-          list={list}
-          onAddItem={onAddItem}
-          onDeleteItem={onDeleteItem}
-          isBasket={true}
-        />
-        : <p>{emptyBasketText}</p>
-      }
-    </div>
+      <div className={cn('layout')} />
+    </>
   );
 }
 

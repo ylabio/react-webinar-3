@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import './style.css';
 import Modal from "../modal";
+import {controlsInfoText, empty, goButtonText} from "../constants";
+import { cn as bem } from '@bem-react/classname';
+import './style.css';
 
 function Controls({ store, openModal, setOpenModal, list, onAddItem, onDeleteItem }) {
   const { basketList } = store.getState();
-  const empty = 'пусто';
+  const cn = bem('Controls');
 
   const renderSumBasket = () => {
     let sumItems = 0;
@@ -19,16 +21,17 @@ function Controls({ store, openModal, setOpenModal, list, onAddItem, onDeleteIte
   };
 
   const renderInfo = () => {
-    return `В корзине: ${basketList.length === 0 ? empty : renderSumBasket()}`;
+    return `${basketList.length === 0 ? empty : renderSumBasket()}`;
   };
 
   return (
     <>
-      <div className='Controls'>
-        <div className='Info'>
-          {renderInfo()}
+      <div className={cn()}>
+        <div className={cn('info')}>
+          <div>{controlsInfoText}</div>
+          <div>{renderInfo()}</div>
         </div>
-        <button onClick={setOpenModal}>Перейти</button>
+        <button onClick={setOpenModal}>{goButtonText}</button>
       </div>
       {openModal &&
         <Modal

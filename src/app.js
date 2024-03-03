@@ -3,7 +3,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-
+import './style.css';
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения

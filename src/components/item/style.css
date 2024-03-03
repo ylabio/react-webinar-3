@@ -23,6 +23,12 @@
   font-size: 18px;
 }
 
+.Item-quantity {
+  margin-right: 24px;
+  margin-left: 38px;
+  font-size: 18px;
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;

@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import { addButtonText, deleteButtonText } from "../constants";
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 function Item(props) {
   const { onDelete, onAdd, item, isBasket } = props;
+  const cn = bem('Item');
 
   const callbacks = {
     onDelete: (e) => {
@@ -17,45 +20,24 @@ function Item(props) {
   };
 
   return (
-    <>
-      {
-        isBasket
-          ? <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-            onClick={callbacks.onClick}>
-            <div className='Item-code'>{item.code}</div>
-            <div className='Item-title'>
-              {item.title}
-            </div>
-            <div className='Item-actions'>
-              <div className='Item-price'>
-                {`${item.price}₽`}
-              </div>
-              <div className='Item-price'>
-                {`${item.quantity}шт`}
-              </div>
-              <button onClick={callbacks.onDelete}>
-                Удалить
-              </button>
-            </div>
-          </div>
-          
-          : <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-            onClick={callbacks.onClick}>
-            <div className='Item-code'>{item.code}</div>
-            <div className='Item-title'>
-              {item.title}
-            </div>
-            <div className='Item-actions'>
-              <div className='Item-price'>
-                {`${item.price}₽`}
-              </div>
-              <button onClick={callbacks.onAdd}>
-                Добавить
-              </button>
-            </div>
-          </div>
-      }
-    </>
+    <div className={cn() + (item.selected ? ' Item_selected' : '')}
+      onClick={callbacks.onClick}>
+      <div className={cn('code')}>{item.code}</div>
+      <div className={cn('title')}>
+        {item.title}
+      </div>
+      <div className={cn('actions')}>
+        <div className={cn('price')}>
+          {`${item.price}₽`}
+        </div>
+        {isBasket && <div className={cn('quantity')}>
+          {`${item.quantity}шт`}
+        </div>}
+        <button onClick={isBasket ? callbacks.onDelete : callbacks.onAdd}>
+          {isBasket ? deleteButtonText : addButtonText}
+        </button>
+      </div>
+    </div>
   );
 }
 
