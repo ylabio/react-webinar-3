@@ -29,9 +29,9 @@ function App({store}) {
     onAddItem: useCallback(() => {
       store.addItem();
     }, [store]),
-    onModal: useCallback(() => {
+    onModal: () => {
       setIsModal(prev => !prev)
-    }, [isModal])
+    }
   }
 
   return (
@@ -41,7 +41,7 @@ function App({store}) {
       <List list={list}
             onClick={callbacks.onClick}
             isInBasket={false}/>
-      { isModal && <Modal basket={basket} onDelete={callbacks.onDeleteItem} onModal={callbacks.onModal}/>}
+      { isModal && <Modal basket={basket} onClick={callbacks.onDeleteItem} onModal={callbacks.onModal}/>}
     </PageLayout>
   );
 }

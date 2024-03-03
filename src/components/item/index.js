@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { plural } from "../../utils";
 import './style.css';
 
 function Item(props) {
-
-  // Счётчик выделений
 
   const callbacks = {
     onClick: () => {
@@ -37,14 +34,11 @@ Item.propTypes = {
     selected: PropTypes.bool,
     count: PropTypes.number
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 Item.defaultProps = {
-  onDelete: () => {
-  },
-  onSelect: () => {
+  onClick: () => {
   },
 }
 
