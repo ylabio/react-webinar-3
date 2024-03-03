@@ -16,6 +16,15 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   return variants[key] || '';
 }
 
+export function formatSum(value, options = {}, locale = 'ru-RU') {
+  if (value % 1 === 0) {
+    options.minimumFractionDigits = 0;
+  } else {
+    options.minimumFractionDigits = 2;
+  }
+  return new Intl.NumberFormat(locale, options).format(value);
+}
+
 /**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.

@@ -1,6 +1,7 @@
 import React, {useMemo} from "react";
 import PropTypes from 'prop-types';
 import CartList from '../cart-list';
+import { formatSum } from "../../utils";
 import './style.css';
 
 function Cart(props) {
@@ -20,7 +21,7 @@ function Cart(props) {
             Итого
           </div>
           <div>
-            {`${totalPrice} ₽`}
+            {formatSum(totalPrice, { style: 'currency', currency: 'RUB' })}
           </div>
         </div>
     </div>

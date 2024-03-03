@@ -1,6 +1,6 @@
 import React, {useMemo} from "react";
 import PropTypes from 'prop-types';
-import { plural } from "../../utils";
+import { plural, formatSum } from "../../utils";
 import './style.css';
 
 function Controls(props) {
@@ -26,7 +26,7 @@ function Controls(props) {
         {
           totalAmount ?
             <div className='Controls-cart-info-total'>
-              {`${totalAmount} ${plural(totalAmount, {one: 'товар', few: 'товара', many: 'товаров'})} / ${totalPrice} ₽`}
+              {`${totalAmount} ${plural(totalAmount, {one: 'товар', few: 'товара', many: 'товаров'})} / ${formatSum(totalPrice, { style: 'currency', currency: 'RUB' })}`}
             </div>
           :
             <div className='Controls-cart-info-total'>

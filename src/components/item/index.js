@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { formatSum } from "../../utils";
 import './style.css';
 
 function Item(props) {
@@ -18,7 +19,7 @@ function Item(props) {
         {props.item.title} 
       </div>
       <div className='Item-price'>
-        {`${props.item.price} ₽`}
+        {formatSum(props.item.price, { style: 'currency', currency: 'RUB' })}
       </div>
       {
         props.item.amount ? 
