@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -11,29 +12,36 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
-  const list = store.getState().list;
+  const [isModal, setIsModal] = useState(false)
 
+  const list = store.getState().list;
+  const basket = store.getState().basket
+  
   const callbacks = {
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
+    onClick: useCallback((code) => {
       store.selectItem(code);
     }, [store]),
 
     onAddItem: useCallback(() => {
       store.addItem();
-    }, [store])
+    }, [store]),
+    onModal: useCallback(() => {
+      setIsModal(prev => !prev)
+    }, [isModal])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
+      <Head title='Магазин'/>
+      <Controls basket={basket} onModal={callbacks.onModal}/>
       <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+            onClick={callbacks.onClick}
+            isInBasket={false}/>
+      { isModal && <Modal basket={basket} onDelete={callbacks.onDeleteItem} onModal={callbacks.onModal}/>}
     </PageLayout>
   );
 }

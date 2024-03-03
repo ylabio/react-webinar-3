@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, onDeleteItem, onSelectItem}) {
+function List({list, onClick, isInBasket}) {
   return (
-    <div className='List'>{
+    <div className={isInBasket ? "List mt-71" :"List"}>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
+          <Item isInBasket={isInBasket} item={item} onClick={onClick}/>
         </div>
       )}
     </div>
@@ -20,13 +20,13 @@ List.propTypes = {
     code: PropTypes.number
   })).isRequired,
   onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
+  onClick: PropTypes.func
 };
 
 List.defaultProps = {
   onDeleteItem: () => {
   },
-  onSelectItem: () => {
+  onClick: () => {
   },
 }
 
