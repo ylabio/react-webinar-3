@@ -3,3 +3,9 @@
   justify-content: flex-end;
   padding: 20px;
 }
+.Controls-total {
+  font-weight: 700;
+  size: 18px;
+  margin-right: 20px;
+  margin-left: 15px;
+}

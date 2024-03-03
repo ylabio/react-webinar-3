@@ -1,11 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import './style.css';
+import "../item/style.css";
 
-function Item({item, addToCart}) {
-
+function ItemInCart({item, removeFromCart}) {
   const formattedPrice = item.price.toLocaleString('ru-RU');
-
 
   return (
     <div className='Item'>
@@ -14,27 +12,27 @@ function Item({item, addToCart}) {
         {item.title}
       </div>
       <span className='Item-price'>{formattedPrice} ₽</span>
+      <span className='Item-count'>{item.quantity} шт</span>
       <div className='Item-actions'>
-        <button onClick={() => addToCart(item)}>
-          Добавить
+        <button onClick={() => removeFromCart(item.code)}>
+          Удалить
         </button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+ItemInCart.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
-  addToCart: PropTypes.func
+  remoteFromCart: PropTypes.func
 };
 
-Item.defaultProps = {
-  addToCart: () => {
-  }
+ItemInCart.defaultProps = {
+  remoteFromCart: () => {}
 }
 
-export default React.memo(Item);
+export default React.memo(ItemInCart);
