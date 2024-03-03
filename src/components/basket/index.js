@@ -44,7 +44,11 @@ function Basket(props) {
         <div className='Basket-head'>
           <h1>Корзина</h1>
           <div className='Basket-controls'>
-            <button onClick={onHideBasket}>Закрыть</button>
+            <button
+              className='action'
+              onClick={onHideBasket}>
+                Закрыть
+            </button>
           </div>
         </div>
         <div className='Basket-body'>{

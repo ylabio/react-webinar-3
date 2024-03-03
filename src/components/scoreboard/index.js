@@ -25,7 +25,11 @@ function Scoreboard(props) {
         </div>
       </div>
       <div className='Scoreboard-controls'>
-        <button onClick={props.showBasket}>Перейти</button>
+        <button
+          className='action'
+          onClick={props.showBasket}>
+            Перейти
+        </button>
       </div>
     </div>
   )

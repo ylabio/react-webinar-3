@@ -10,20 +10,16 @@
 .Item-code {
   padding: 20px 10px 20px 20px;
   font-size: 16px;
-  font-weight: 400;
 }
 
 .Item-title {
   padding: 20px 10px;
   font-size: 16px;
-  font-weight: 400;
   width: 100%;
 }
 
 .Item-price, .Item-count {
-  padding: 20px 10px;
-  font-size: 18px;
-  font-weight: 400;
+  padding: 20px;
   text-align: right;
 }
 

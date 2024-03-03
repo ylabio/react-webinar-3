@@ -27,13 +27,9 @@
   height: 80px;
   flex-shrink: 0;
   flex-grow: 0;
-  padding: 20px 32px 20px 20px;
+  padding: 20px;
   box-sizing: border-box;
   background-color: #f5f5f5;
-}
-
-.Basket-head h1 {
-  margin: 0;
 }
 
 .Basket-body {
@@ -41,15 +37,6 @@
   overflow-y: auto;
 }
 
-/*
-@media screen and ( min-height: 800px ) {
-  .Basket-body {
-    padding-block: 70px;
-  }
-}
-*/
-
 .Basket-empty {
   text-align: center;
-  font-size: 18px;
 }

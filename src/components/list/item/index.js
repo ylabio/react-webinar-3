@@ -28,13 +28,19 @@ function Item(props) {
         </td>
       }
       <td className='Item-actions'>
-        { props.options.isAppendable && <button onClick={callbacks.onAdd}>
-            Добавить
-          </button>
+        { props.options.isAppendable &&
+            <button
+              className='action'
+              onClick={callbacks.onAdd}>
+                Добавить
+            </button>
         }
-        { props.options.isDeletable && <button onClick={callbacks.onDelete}>
-            Удалить
-          </button>
+        { props.options.isDeletable &&
+            <button
+              className='action'
+              onClick={callbacks.onDelete}>
+                Удалить
+            </button>
         }
       </td>
     </tr>
