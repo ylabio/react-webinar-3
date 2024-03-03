@@ -2,6 +2,7 @@
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  align-items: center;
 }
 
 .Item_selected {
@@ -18,8 +19,26 @@
   padding: 20px 10px;
 }
 
+.Item-price {
+  white-space: nowrap;
+  color: #404040;
+  padding: 20px 15px 20px 20px;
+  font-size: 18px;
+}
+
+.Item-count {
+  white-space: nowrap;
+  color: #404040;
+  padding: 20px 20px 20px 45px;
+  font-size: 18px;
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item button {
+  width: 76px;
 }

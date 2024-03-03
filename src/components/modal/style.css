@@ -1,0 +1,44 @@
+.Modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+}
+
+.Modal-content {
+  width: 960px;
+  height: fit-content;
+  margin: 20px;
+  background-color: #ffff;
+  border-radius: 10px;
+}
+
+.Modal-content .Head {
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 71px;
+}
+
+/* .Modal-items {
+  max-height: 315px;
+  overflow-y: auto;
+} */
+
+.Cart-item {
+  border-top: 1px dashed #ccc;
+  border-bottom: 1px dashed #ccc;
+}
+
+.Modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 53px;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 20px 120px 90px 20px;
+}

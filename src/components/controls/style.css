@@ -2,4 +2,20 @@
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.Controls-title {
+  margin-right: 20px;
+  font-size: 18px;
+}
+
+.Controls-amount {
+  font-weight: bold;
+  margin-left: 15px;
+  font-size: 18px;
+}
+
+button {
+  width: 80px;
 }
