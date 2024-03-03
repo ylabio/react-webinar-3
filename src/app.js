@@ -1,7 +1,9 @@
-import React, {useCallback} from 'react';
-import List from "./components/list";
+import React, { useCallback } from "react";
+import Cart from "./components/cart";
 import Controls from "./components/controls";
 import Head from "./components/head";
+import List from "./components/list";
+import Modal from "./components/modal";
 import PageLayout from "./components/page-layout";
 
 /**
@@ -9,31 +11,49 @@ import PageLayout from "./components/page-layout";
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
+  const [isCartOpen, setIsCartOpen] = React.useState(false);
 
   const list = store.getState().list;
+  const cart = store.getState().cart;
+
+  const openCart = () => {
+    setIsCartOpen(true);
+  };
+
+  const closeCart = () => {
+    setIsCartOpen(false);
+  };
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
+    onAddToCart: useCallback(
+      (item) => {
+        store.addToCart(item);
+      },
+      [store]
+    ),
+    onRemoveFromCart: useCallback(
+      (item) => {
+        store.removeFromCart(item);
+      },
+      [store]
+    ),
+  };
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title="Магазин" />
+      <Controls cart={cart} onOpenCart={openCart} />
+      <List
+        items={list}
+        onButtonClick={callbacks.onAddToCart}
+        buttonText={"Добавить"}
+      />
+      {isCartOpen && (
+        <Modal title="Корзина" onClose={closeCart}>
+          <Cart cart={cart} onRemoveFromCart={callbacks.onRemoveFromCart} />
+        </Modal>
+      )}
     </PageLayout>
   );
 }

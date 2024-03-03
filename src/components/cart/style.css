@@ -1,0 +1,16 @@
+.Cart-empty {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.Cart-total {
+  font-size: 18px;
+  margin-top: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: end;
+  margin-right: 120px;
+}

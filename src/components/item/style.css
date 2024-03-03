@@ -1,12 +1,6 @@
 .Item {
-  display: flex;
-  justify-content: flex-start;
-  transition: background-color 1s;
-}
-
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto auto;
 }
 
 .Item-code {
@@ -18,8 +12,18 @@
   padding: 20px 10px;
 }
 
+.Item-price {
+  padding: 20px 10px;
+}
+
+.Item-count {
+  padding: 20px 10px;
+}
+
 .Item-actions {
-  display: flex;
-  justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-actions button {
+  width: 80px;
 }
