@@ -1,11 +1,13 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+		...initState,
+		cart: [],
+		isCartOpen: false
+	  };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -41,48 +43,48 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину 
+   * @param item {Object}
    */
-  addItem() {
+  addToCart(item) {
+	const cartItem = this.state.cart.find(el=>el.code === item.code)
+	
+	if (cartItem) {
+		// Если товар уже есть в корзине
+		cartItem.count+=1
+		this.setState({
+		  ...this.state,
+		  cart: [...this.state.cart]
+		})
+	} else {
+		// если товара нет в корзине
+		this.setState({
+		  ...this.state,
+		  cart: [...this.state.cart, {...item, count: 1}]
+		})
+	}
+  };
+
+  /**
+   * Удаление товара из корзины
+   * @param item {Object}
+   */
+  deleteFromCart(item) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      cart: this.state.cart.filter(el => el.code !== item.code)
     })
   };
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Открыть или закрыть модалку корзины
    */
-  deleteItem(code) {
+  toggleOpenCloseCart() {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      isCartOpen: !this.state.isCartOpen
     })
   };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
-  }
 }
 
 export default Store;
