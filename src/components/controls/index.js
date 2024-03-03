@@ -1,21 +1,39 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import {plural} from '../../utils';
+import {cn as bem} from '@bem-react/classname';
 import './style.css';
+import Button from "../button";
 
-function Controls({onAdd}) {
+function Controls({cartSum, onShowModal}) {
+  const cn = bem("Controls");
+
   return (
-    <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+    <div className={cn()}>
+      <div className={cn("cart")}>
+        {"В корзине: "}
+        <b>{cartSum.items === 0
+        ? "пусто"
+        : `${cartSum.items} ${plural(cartSum.items, {
+          one: "товар",
+          few: "товара",
+          many: "товаров"})} / ${cartSum.sum} ₽`}</b>
+      </div>
+      <Button title="Перейти" onClick={() => onShowModal(true)}/>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  cartSum: PropTypes.shape({
+    items: PropTypes.number,
+    sum: PropTypes.number,
+  }).isRequired,
+  onShowModal: PropTypes.func
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  onShowModal: () => {}
 }
 
 export default React.memo(Controls);
