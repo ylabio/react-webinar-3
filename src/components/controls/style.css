@@ -3,3 +3,15 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls-basket{
+  padding-right: 20px;
+}
+
+.Controls-button{
+  width: 80px;
+  height: 21px;
+  border-radius: 3px;
+  padding: 0;
+  border: 1px #000 solid;
+}
