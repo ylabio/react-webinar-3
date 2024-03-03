@@ -3,3 +3,14 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls-content  {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-right: 20px;
+}
+
+.Controls span {
+  font-weight: 700;
+}

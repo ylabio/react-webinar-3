@@ -1,0 +1,46 @@
+.CartLayout {
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+  background: rgba(128,128,128, .6);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility .5s ease, opacity .5s ease;
+}
+
+.CartLayout_active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.CartLayout h2{
+  padding: 20px 20px 10px;
+  text-align: center;
+  margin: 0;
+}
+.CartLayout-container {
+  background: white;
+  max-width: 960px;
+  width: 100%;
+  border-radius:10px;
+  overflow: hidden;
+  padding-bottom: 69px;
+}
+
+.CartLayout-footer {
+  padding: 20px 105px 10px 20px;
+  font-size: 18px;
+  line-height: 21px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 53px;
+  justify-content: flex-end;
+}
