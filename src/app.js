@@ -3,6 +3,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import item from './components/item';
 
 /**
  * Приложение
@@ -22,17 +23,18 @@ function App({store}) {
       store.selectItem(code);
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
+    onAddItem: useCallback((item) => {
+      store.addItem(item);
     }, [store])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
+      <Head title='Магазин'/>
       <Controls onAdd={callbacks.onAddItem}/>
       <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
+            // onDeleteItem={callbacks.onDeleteItem}
+            onAddItem={callbacks.onAddItem}
             onSelectItem={callbacks.onSelectItem}/>
     </PageLayout>
   );

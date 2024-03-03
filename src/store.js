@@ -42,13 +42,23 @@ class Store {
 
   /**
    * Добавление новой записи
+   * @param item
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+  addItem(item) {
+    //проверка есть ли предмет в корзине
+    if(this.state.cart.find(cartItem => cartItem.code === item.code) === undefined){
+      //добавление предмета в корзину и установка счетчика
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, {...item, count: 1}]
+      })
+    } else{
+      //инкрементирование счетчика
+      this.state.cart.find(cartItem => cartItem.code === item.code).count++;
+    }
+    console.log(this.state.cart);
   };
+
 
   /**
    * Удаление записи по коду

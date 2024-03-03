@@ -15,10 +15,13 @@ function Item(props) {
         setCount(count + 1);
       }
     },
-    onDelete: (e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code);
+    // onDelete: (e) => {
+    //   e.stopPropagation();
+    //   props.onDelete(props.item.code);
 
+    // }
+    onAdd: (e) => {
+      props.onAdd(props.item);
     }
   }
 
@@ -27,15 +30,14 @@ function Item(props) {
          onClick={callbacks.onClick}>
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {
-        one: 'раз',
-        few: 'раза',
-        many: 'раз'
-      })}` : ''}
+        {props.item.title}
+      </div>
+      <div className="Item-price">
+        {props.item.price} ₽
       </div>
       <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button onClick={callbacks.onAdd}>
+          Добавить
         </button>
       </div>
     </div>
@@ -49,12 +51,15 @@ Item.propTypes = {
     selected: PropTypes.bool,
     count: PropTypes.number
   }).isRequired,
-  onDelete: PropTypes.func,
+  //onDelete: PropTypes.func,
+  onAdd: PropTypes.func,
   onSelect: PropTypes.func
 };
 
 Item.defaultProps = {
-  onDelete: () => {
+  // onDelete: () => {
+  // },
+  onAdd: () => {
   },
   onSelect: () => {
   },
