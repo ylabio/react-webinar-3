@@ -10,10 +10,11 @@ function Controls({ store, openModal, setOpenModal, list, onAddItem, onDeleteIte
   const renderSumBasket = () => {
     let sumItems = 0;
     let sumPrice = 0;
-    basketList.forEach(item => {
-      sumItems += 1;
-      sumPrice += item.price;
-    });
+    const uniqueItems = new Set(basketList);
+
+    uniqueItems.forEach(item => sumItems += 1);
+    basketList.forEach(item => sumPrice += item.price);
+
     return `${sumItems} / ${sumPrice} ₽`;
   };
 
@@ -22,19 +23,22 @@ function Controls({ store, openModal, setOpenModal, list, onAddItem, onDeleteIte
   };
 
   return (
-    <div className='Controls'>
-      <div className='Info'>
-        {renderInfo()}
+    <>
+      <div className='Controls'>
+        <div className='Info'>
+          {renderInfo()}
+        </div>
+        <button onClick={setOpenModal}>Перейти</button>
       </div>
-      <button onClick={setOpenModal}>Перейти</button>
       {openModal &&
         <Modal
           store={store}
           list={list}
           onAddItem={onAddItem}
           onDeleteItem={onDeleteItem}
+          closeModal={setOpenModal}
         />}
-    </div>
+    </>
   );
 }
 

@@ -1,37 +1,60 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { plural } from "../../utils";
 import './style.css';
 
 function Item(props) {
+  const { onDelete, onAdd, item, isBasket } = props;
 
   const callbacks = {
     onDelete: (e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
+      onDelete(item.code);
     },
     onAdd: (e) => {
       e.stopPropagation();
-      props.onAdd(props.item);
+      onAdd(item);
     },
   };
 
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-      onClick={callbacks.onClick}>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>
-        {props.item.title}
-      </div>
-      <div className='Item-actions'>
-        <div className='Item-price'>
-          {`${props.item.price}₽`}
-        </div>
-        <button onClick={callbacks.onAdd}>
-          Добавить
-        </button>
-      </div>
-    </div>
+    <>
+      {
+        isBasket
+          ? <div className={'Item' + (item.selected ? ' Item_selected' : '')}
+            onClick={callbacks.onClick}>
+            <div className='Item-code'>{item.code}</div>
+            <div className='Item-title'>
+              {item.title}
+            </div>
+            <div className='Item-actions'>
+              <div className='Item-price'>
+                {`${item.price}₽`}
+              </div>
+              <div className='Item-price'>
+                {`${item.quantity}шт`}
+              </div>
+              <button onClick={callbacks.onDelete}>
+                Удалить
+              </button>
+            </div>
+          </div>
+          : <div className={'Item' + (item.selected ? ' Item_selected' : '')}
+            onClick={callbacks.onClick}>
+            <div className='Item-code'>{item.code}</div>
+            <div className='Item-title'>
+              {item.title}
+            </div>
+            <div className='Item-actions'>
+              <div className='Item-price'>
+                {`${item.price}₽`}
+              </div>
+              <button onClick={callbacks.onAdd}>
+                Добавить
+              </button>
+            </div>
+          </div>
+      }
+    </>
   );
 }
 
@@ -43,7 +66,8 @@ Item.propTypes = {
     count: PropTypes.number
   }).isRequired,
   onDelete: PropTypes.func,
-  onAdd: PropTypes.func
+  onAdd: PropTypes.func,
+  isBasket: PropTypes.bool,
 };
 
 Item.defaultProps = {
@@ -51,6 +75,7 @@ Item.defaultProps = {
   },
   onAdd: () => {
   },
+  isBasket: false,
 };
 
 export default React.memo(Item);
