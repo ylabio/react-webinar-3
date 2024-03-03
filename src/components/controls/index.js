@@ -1,21 +1,18 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import './style.css';
+import "./style.css";
+import Cart from "../cart";
+import { useState } from "react";
 
-function Controls({onAdd}) {
+function Controls() {
+  const [cartlActive, setCartlActive] = useState(false);
   return (
-    <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
-    </div>
-  )
+    <>
+      <Cart active={cartlActive} setActive={setCartlActive} />
+      <div className="Controls">
+        <button onClick={() => setCartlActive(true)}>Перейти</button>
+      </div>
+    </>
+  );
 }
 
-Controls.propTypes = {
-  onAdd: PropTypes.func
-};
-
-Controls.defaultProps = {
-  onAdd: () => {}
-}
-
-export default React.memo(Controls);
+export default Controls;

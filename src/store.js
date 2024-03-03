@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -7,6 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state.cart = {};
   }
 
   /**
@@ -18,8 +19,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -40,15 +41,31 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
+  /** Добавление в корзину
+   * @param code
    */
-  addItem() {
+  addToCart(code) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+      cart: {
+        ...this.state.cart,
+        [code]: this.state.cart[code],
+      },
+    });
+  }
+
+  /**
+   * Удаление из корзины
+   * @param code
+   */
+  deleteFromCart(code) {
+    const newCart = { ...this.state.cart };
+    delete newCart[code];
+    this.setState({
+      ...this.state,
+      cart: newCart,
+    });
+  }
 
   /**
    * Удаление записи по коду
@@ -58,9 +75,9 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      list: this.state.list.filter((item) => item.code !== code),
+    });
+  }
 
   /**
    * Выделение записи по коду
@@ -69,7 +86,7 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
         if (item.code === code) {
           // Смена выделения и подсчёт
           return {
@@ -79,9 +96,9 @@ class Store {
           };
         }
         // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+        return item.selected ? { ...item, selected: false } : item;
+      }),
+    });
   }
 }
 

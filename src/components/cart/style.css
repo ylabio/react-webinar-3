@@ -1,0 +1,42 @@
+.Cart {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0);
+}
+
+.Cart.active {
+  transform: scale(1);
+}
+
+.Cart-content {
+  position: relative;
+  width: 960px;
+  height: 407px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.Cart-header {
+  height: 80px;
+  background-color: rgba(245, 245, 245, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 700px;
+  border-radius: 5px 5px 0 0;
+}
+
+.Cart-button {
+  width: 76px;
+  height: 21px;
+  background-color: (245, 245, 245, 1);
+  border-radius: 3px;
+  border: 1px solid black;
+}
