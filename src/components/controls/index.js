@@ -1,21 +1,32 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import './style.css';
+import PropTypes from "prop-types";
+import "./style.css";
+import CartInfo from "../cart-info";
+import Button from "../button";
 
-function Controls({onAdd}) {
+function Controls({ handleModal, cart }) {
   return (
-    <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+    <div className="Controls">
+      <CartInfo cart={cart} />
+      <Button handleModal={handleModal} children="Перейти" />
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  handleModal: PropTypes.func,
+  cart: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.number,
+      title: PropTypes.string,
+      price: PropTypes.number,
+      count: PropTypes.number,
+    })
+  ).isRequired,
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
-}
+  handleModal: () => {},
+};
 
 export default React.memo(Controls);
