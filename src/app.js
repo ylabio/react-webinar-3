@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import List from "./components/list";
 import Head from "./components/head";
 import PageLayout from "./page-layout";
-import Cart from "./components/Cart";
+import Cart from "./components/cart";
 
 /**
  * Приложение
