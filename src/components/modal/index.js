@@ -9,6 +9,9 @@ function Modal(props) {
   const cn = bem('Modal');
   const { store, list, onAddItem, onDeleteItem, closeModal } = props;
   const { basketList } = store.getState();
+  const basketTitle = 'Корзина';
+  const closeButtonText = 'Закрыть';
+  const emptyBasketText = 'В корзине пусто';
 
   return (
     <div className={cn()}>
@@ -37,6 +40,5 @@ Modal.propTypes = {
   onDeleteItem: PropTypes.func,
   closeModal: PropTypes.func,
 };
-
 
 export default React.memo(Modal);

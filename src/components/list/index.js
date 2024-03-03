@@ -28,7 +28,6 @@ function List(props) {
           ...item,
           quantity: 1
         });
-
     });
     return { resultList, resultSum };
   };
@@ -62,7 +61,8 @@ List.propTypes = {
     code: PropTypes.number
   })).isRequired,
   onAddItem: PropTypes.func,
-  onDeleteItem: PropTypes.func
+  onDeleteItem: PropTypes.func,
+  isBasket: PropTypes.bool,
 };
 
 List.defaultProps = {

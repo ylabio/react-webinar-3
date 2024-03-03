@@ -38,6 +38,7 @@ function Item(props) {
               </button>
             </div>
           </div>
+          
           : <div className={'Item' + (item.selected ? ' Item_selected' : '')}
             onClick={callbacks.onClick}>
             <div className='Item-code'>{item.code}</div>
