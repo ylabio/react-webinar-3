@@ -7,12 +7,14 @@ function Controls({ onOpenModal, cartTotalPrice, cartItemCount }) {
   const handleClick = () => {
     onOpenModal();
   };
+
   return (
     <div className="Controls">
+      {cartItemCount > 0 && (
         <div className="Controls_content">
           <div>В корзине:</div>
           <p>
-          {cartItemCount ? (
+            {cartItemCount ? (
               `${cartItemCount} ${plural(cartItemCount, {
                 one: "товар ",
                 few: "товара ",
@@ -21,7 +23,7 @@ function Controls({ onOpenModal, cartTotalPrice, cartItemCount }) {
             ) : "Пусто"}
           </p>
         </div>
-      
+      )}
 
       <button onClick={handleClick}>Перейти</button>
     </div>

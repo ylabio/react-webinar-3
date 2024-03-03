@@ -4,7 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal/index";
-
+import { cn as bem } from "@bem-react/classname";
 import Cart from "./components/Cart";
 
 /**
@@ -16,6 +16,7 @@ function App({ store }) {
   const list = store.getState().list;
   const cartList = store.getState().cartList ?? [];
   const isCartModalOpen = store.getState().isCartModalOpen;
+
 
   const cartTotalPrice = cartList.reduce(
     (total, item) => total + item.price * item.count,

@@ -1,11 +1,11 @@
 .Cart_total {
-    max-width: 840px;
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px;
-  }
-  
-  .Cart_total span {
-    min-width: 50px;
-    padding: 0 20px;
-  }
+  max-width: 840px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.Cart_total span {
+  min-width: 50px;
+  padding: 0 20px;
+}

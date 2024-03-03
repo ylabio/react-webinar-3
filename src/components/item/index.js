@@ -6,9 +6,9 @@ import './style.css';
 function Item(props) {
 const { item,price,onAddToCart} = props;
 
-const handleAddToCart = () => {
-  onAddToCart(item);
-};
+// const handleAddToCart = () => {
+//   onAddToCart(item);
+// };
 const callbacks = {
   onDelete: (e) => {
     e.stopPropagation();
@@ -26,7 +26,7 @@ const callbacks = {
         {item.title} {props.price}
       </div>
       <div  className="Item-actions">
-        <button onClick={handleAddToCart}>Добавить</button>
+        <button >Добавить</button>
       </div>
     </div>
   )
@@ -39,7 +39,7 @@ Item.propTypes = {
     price: PropTypes.number,
     count: PropTypes.number
   }).isRequired,
-  onDelete: PropTypes.func,
+
   onAddToCart: PropTypes.func.isRequired
 };
 
