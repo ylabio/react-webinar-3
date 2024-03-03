@@ -3,7 +3,7 @@ import PropTypes, { bool, func } from "prop-types";
 import './style.css';
 import List from '../list'
 import Head from "../head";
-import usePopupClose from "../../hooks/usePopUpClose";
+import usePopupClose from '../../hooks/usePopupClose.js'
 import { calculateCartTotal, getRubPriceInt } from "../../utils";
 
 function Cart
