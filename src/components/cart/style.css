@@ -27,3 +27,10 @@
   min-width: 76px;
   margin-right: 32px;
 }
+
+.Cart-empty {
+  text-align: center;
+  padding-top: 89px;
+  font-size: 30px;
+  font-weight: 600;
+}

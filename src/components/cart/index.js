@@ -7,9 +7,8 @@ import { monefy } from "../../utils";
 import "./style.css";
 
 function Cart({ list, itemBtn, isShow, onClose }) {
-
   const sum = list.reduce((acc, product) => {
-    return acc + (product.price * product.count);
+    return acc + product.price * product.count;
   }, 0);
 
   return (
@@ -21,11 +20,17 @@ function Cart({ list, itemBtn, isShow, onClose }) {
               Закрыть
             </button>
           </Head>
-          <List list={list} itemsBtn={itemBtn} />
-          <div className="Cart-sum">
-            <span>{"Итого"}</span>
-            <span>{monefy(sum)}</span>
-          </div>
+          {list.length ? (
+            <>
+              <List list={list} itemsBtn={itemBtn} />
+              <div className="Cart-sum">
+                <span>{"Итого"}</span>
+                <span>{monefy(sum)}</span>
+              </div>
+            </>
+          ) : (
+            <div className="Cart-empty">Корзина пуста</div>
+          )}
         </div>
       </Modal>
     </div>
@@ -41,12 +46,12 @@ Cart.propTypes = {
       count: PropTypes.number.isRequired,
     })
   ),
-  
+
   itemBtn: PropTypes.shape({
     title: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
   }),
-  
+
   isShow: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
