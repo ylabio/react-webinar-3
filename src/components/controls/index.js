@@ -26,7 +26,9 @@ function Controls ({ openCart, sum , count}) {
 }
 
 Controls.propTypes = {
-
+  openCart: PropTypes.func,
+  sum: PropTypes.number,
+  count: PropTypes.number,
 };
 
 export default React.memo(Controls);

@@ -42,7 +42,7 @@ class Store {
 
 
   /**
-   * Удаление товара в корзине по коду
+   * Добавление товара в корзину по коду
    * @param code
    */
   onAddToCardItem(code) {
@@ -67,6 +67,11 @@ class Store {
       }
     }
   }
+
+  /**
+   * Удаление товара из корзины по коду
+   * @param code
+   */
 
   onDeleteToCardItem (code) {
     this.setState({

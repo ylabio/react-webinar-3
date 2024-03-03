@@ -22,6 +22,18 @@ function CartItem({item, onDelete}) {
   )
 }
 
-CartItem.PropTypes = {}
+CartItem.PropTypes = {
+  item: PropTypes.shape({
+    code: PropTypes.number,
+    title: PropTypes.string,
+    price: PropTypes.number,
+    basketCount: PropTypes.number
+  }).isRequired,
+  onDelete: PropTypes.func
+}
+
+CartItem.defaultProps = {
+  onDelete: () => {}
+}
 
 export default React.memo(CartItem);

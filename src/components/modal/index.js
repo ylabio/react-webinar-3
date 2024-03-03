@@ -21,6 +21,11 @@ function Modal({title, isOpen, close, children}) {
   )
 }
 
-Modal.PropTypes = {}
+Modal.PropTypes = {
+  title: PropTypes.string,
+  isOpen: PropTypes.bool,
+  close: PropTypes.func,
+  children: PropTypes.node,
+}
 
 export default React.memo(Modal);

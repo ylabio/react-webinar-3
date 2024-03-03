@@ -18,7 +18,14 @@ function ShopList ({ list, onAdd }) {
 }
 
 ShopList.PropTypes = {
+  list: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.number
+  })).isRequired,
+  onAdd: PropTypes.func,
+}
 
+ShopList.defaultProps = {
+  onAdd: () => {}
 }
 
 export default React.memo(ShopList);

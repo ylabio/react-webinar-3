@@ -21,6 +21,13 @@ function ShopItem({ item, onAdd }) {
   )
 }
 
-ShopItem.PropTypes = {}
+ShopItem.PropTypes = {
+  item: PropTypes.shape({
+    code: PropTypes.number,
+    title: PropTypes.string,
+    price: PropTypes.number,
+  }).isRequired,
+  onAdd: PropTypes.func
+}
 
 export default React.memo(ShopItem);

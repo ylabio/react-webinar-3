@@ -15,6 +15,8 @@ function CartFoot({sum}) {
   )
 }
 
-CartFoot.PropTypes = {}
+CartFoot.PropTypes = {
+  sum: PropTypes.number
+}
 
 export default React.memo(CartFoot);
