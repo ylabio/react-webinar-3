@@ -5,7 +5,6 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.cartList = {list: []}; // Корзина товаров
   }
 
   /**
@@ -30,14 +29,6 @@ class Store {
   }
 
   /**
-   * Выбор состояния корзины
-   * @returns {Object}
-   */
-  getCartItems() {
-    return this.cartList;
-  }
-
-  /**
    * Установка состояния
    * @param newState {Object}
    */
@@ -48,22 +39,13 @@ class Store {
   }
 
   /**
-   * Установка состояния корзины
-   * @param newState 
-   */
-  setCart(newState) {
-    this.cartList = newState;
-    for (const listener of this.listeners) listener();
-  }
-
-  /**
    * Добавление товара в корзину
    * @param item
    */
   addInCart(item) {
-    this.setCart({
-      ...this.cartList,
-      list: [...this.cartList.list, item],
+    this.setState({
+      ...this.state,
+      cart: [...this.state.cart, item],
     })
   };
 
@@ -71,11 +53,11 @@ class Store {
    * Переключатель функций
    * @param item 
    */
-  toggle(item) {
+  toggleAdd(item) {
     // Проверяем наличие элемента в списке
-    if (this.cartList.list.includes(item)) {
+    if (this.state.cart.includes(item)) {
       item.count++;
-      this.setCart(this.cartList);
+      this.setState(this.state);
     } else {
       item.count = 1;
       this.addInCart(item);
@@ -87,10 +69,10 @@ class Store {
    * @param item
    */
   deleteItem(item) {
-    this.setCart({
-      ...this.cartList,
+    this.setState({
+      ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.cartList.list.filter(i => i !== item)
+      cart: this.state.cart.filter(i => i !== item)
     })
   };
 

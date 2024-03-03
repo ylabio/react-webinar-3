@@ -14,26 +14,26 @@ import Cart from './components/cart';
 function App({store}) {
   const [openCart, setOpenCart] = useState(false);
   const list = store.getState().list;
-  const cartList = store.getCartItems().list;
-  const totalPrice = calculatePrice(cartList);
+  const cart = store.getState().cart;
+  const totalPrice = calculatePrice(cart);
 
   const callbacks = {
     onDeleteItem: useCallback((item) => {
       store.deleteItem(item);
     }, [store]),
 
-    onToggle: useCallback((item) => {
-      store.toggle(item);
+    onToggleAdd: useCallback((item) => {
+      store.toggleAdd(item);
     }, [store])
   }
 
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls cartList={cartList} totalPrice={totalPrice} setOpenCart={setOpenCart} />
-      <List list={list} onClick={callbacks.onToggle} textBtn='Добавить' />
+      <Controls list={cart} totalPrice={totalPrice} setOpenCart={setOpenCart} />
+      <List list={list} onClick={callbacks.onToggleAdd} textBtn='Добавить' />
       {openCart && 
-        <Cart cartList={cartList} totalPrice={totalPrice} setOpenCart={setOpenCart} onClick={callbacks.onDeleteItem} />
+        <Cart list={cart} totalPrice={totalPrice} setOpenCart={setOpenCart} onClick={callbacks.onDeleteItem} />
       }
     </PageLayout>
   );

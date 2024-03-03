@@ -6,7 +6,7 @@ import List from "../list";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function Cart({cartList, totalPrice, setOpenCart, onClick}) {
+function Cart({list, totalPrice, setOpenCart, onClick}) {
   const cn = bem('Cart');
 
   return (
@@ -20,12 +20,12 @@ function Cart({cartList, totalPrice, setOpenCart, onClick}) {
         </div>
         <div className={cn('main')}>
           <div className={cn('list')}>
-            {(cartList.length > 0)  
-              ? <List list={cartList} onClick={onClick} textBtn='Удалить' />
+            {(list.length > 0)  
+              ? <List list={list} onClick={onClick} textBtn='Удалить' />
               : <h1 className={cn('title')}>В корзине нет товаров</h1>
             }
           </div>
-          {cartList.length > 0 &&
+          {list.length > 0 &&
             <div className={cn('total')}>
               <div className={cn('total-text')}>Итого</div>
               <div className={cn('total-price')}>{formatPrice(totalPrice)}</div>
@@ -38,7 +38,7 @@ function Cart({cartList, totalPrice, setOpenCart, onClick}) {
 }
 
 Cart.propTypes = {
-  cartList: PropTypes.array,
+  list: PropTypes.array,
   totalPrice: PropTypes.number,
   setOpenCart: PropTypes.func,
   onClick: PropTypes.func,
