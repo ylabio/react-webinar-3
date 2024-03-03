@@ -80,7 +80,7 @@ class Store {
           return cartItem.code !== item.code;
         }),
         totalCount: this.state.cart.items.length - 1,
-        totalPrice: this.state.cart.totalPrice - item.price,
+        totalPrice: this.state.cart.totalPrice - item.price * item.count,
       },
     });
   }
