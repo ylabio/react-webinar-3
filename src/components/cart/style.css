@@ -1,0 +1,29 @@
+.Cart-content {
+  width: 960px;
+  max-height: 70dvh;
+  padding-bottom: 89px;
+}
+
+.Cart-content > .List {
+  padding-top: 71px;
+}
+
+.Cart-sum {
+  display: flex;
+  gap: 53px;
+  justify-content: flex-end;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+  text-align: right;
+  padding-top: 20px;
+  padding-right: 120px;
+}
+
+.Head-closeBtn {
+  box-sizing: border-box;
+  align-self: center;
+  height: 21px;
+  min-width: 76px;
+  margin-right: 32px;
+}
