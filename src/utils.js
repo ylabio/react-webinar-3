@@ -7,13 +7,30 @@
  * @param [locale] {String} Локаль (код языка)
  * @returns {*|string}
  */
-export function plural(value, variants = {}, locale = 'ru-RU') {
-  // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
-  // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
-  // В английском 2 формы: 'one', 'other'
-  const key = new Intl.PluralRules(locale).select(value);
-  // Возвращаем вариант по ключу, если он есть
-  return variants[key] || '';
+export function plural(number, variants) {
+  let n = Math.abs(number);
+  n %= 100;
+  if (n >= 5 && n <= 20) {
+    return variants[2];
+  }
+  n %= 10;
+  if (n === 1) {
+    return variants[0];
+  }
+  if (n >= 2 && n <= 4) {
+    return variants[1];
+  }
+  return variants[2];
+}
+
+export function priceFormat(price) {
+  const formatter =  new Intl.NumberFormat('ru-RU', {
+    style: 'currency',
+    currency: 'RUB',
+    minimumFractionDigits: 0,
+  })
+
+  return formatter.format(price)
 }
 
 /**

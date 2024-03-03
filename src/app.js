@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import ShoppingCartModal from './components/shoppingCart-modal';
 
 /**
  * Приложение
@@ -10,30 +11,44 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
   const list = store.getState().list;
+  const shoppingCartList = store.getState().shoppingCart.list;
+  const total = store.getState().shoppingCart.total; // totalAmount & totalCost included as obj
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    onAddItemToShoppingCart: useCallback((item) => {
+      store.addItemToShoppingCart(item);
     }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    onRemoveItemFromShoppingCart: useCallback((item) => {
+      store.removeItemFromShoppingCart(item);
     }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    handleClickOpenModal() {
+      setIsModalVisible(prev => !prev)
+    }
   }
 
   return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+    <PageLayout bemEntity='PageLayout'>
+      <Head title='Магазин'/>
+      <Controls
+        shoppingCartList={shoppingCartList}
+        handleClickOpenModal={callbacks.handleClickOpenModal}
+        total={total}
+      />
+      <List
+        list={list}
+        onAddItemToShoppingCart={callbacks.onAddItemToShoppingCart}
+      />
+      {isModalVisible &&
+        <ShoppingCartModal
+          shoppingCartList={shoppingCartList}
+          totalCost={total.totalCost}
+          handleClickOpenModal={callbacks.handleClickOpenModal}
+          onRemoveItemFromShoppingCart={callbacks.onRemoveItemFromShoppingCart}
+        />
+      }
     </PageLayout>
   );
 }
