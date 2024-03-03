@@ -54,6 +54,7 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
+  /*
   deleteItem(code) {
     this.setState({
       ...this.state,
@@ -61,7 +62,7 @@ class Store {
       list: this.state.list.filter(item => item.code !== code)
     })
   };
-
+*/
   /**
    * Выделение записи по коду
    * @param code

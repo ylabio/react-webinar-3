@@ -15,10 +15,13 @@ function Item(props) {
         setCount(count + 1);
       }
     },
-    onDelete: (e) => {
+    // onDelete: (e) => {
+    //   e.stopPropagation();
+    //   props.onDelete(props.item.code);
+    // },
+    onAddToCart: (e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
-
+      props.onAddToCart(props.item);
     }
   }
 
@@ -34,8 +37,8 @@ function Item(props) {
       })}` : ''}
       </div>
       <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button onClick={callbacks.onAddToCart}>
+        В корзину
         </button>
       </div>
     </div>
