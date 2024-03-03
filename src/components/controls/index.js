@@ -1,21 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import './style.css';
+import Modal from "../modal";
+import { plural } from "../../utils";
 
-function Controls({onAdd}) {
+function Controls({ list, children }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const totalPrice = list.reduce((acc, val) => {
+    return acc + (val.price * val.quantity);
+  }, 0);
+
+  const renderCartInfo = () => {
+    const itemCount = list.length;
+    const itemWord = plural(itemCount, { one: 'товар', few: "товара", many: 'товаров' });
+
+    return (
+      <p className="Contols-basket">В корзине: <b>{itemCount ? `${itemCount} ${itemWord} / ${totalPrice} ₽` : "Пусто"}</b></p>
+    );
+  };
+
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <div className="Controls-count">{renderCartInfo()}</div>
+      <button onClick={() => setIsMenuOpen(true)}>Перейти</button>
+      {isMenuOpen && <Modal title={"Корзина"} onClose={() => setIsMenuOpen(false)}>
+        {children}
+        {<b className="Controls-counter">Итого <span>{totalPrice} ₽</span></b>}
+      </Modal>}
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  list: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.number
+  })).isRequired,
+  children: PropTypes.node
 };
-
-Controls.defaultProps = {
-  onAdd: () => {}
-}
 
 export default React.memo(Controls);
