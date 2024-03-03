@@ -1,12 +1,15 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import Item from "../item";
-import {cn as bem} from '@bem-react/classname';
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 
-function List({ list, onAddItem, onDeleteItem, isBasket = false }) {
+function List({ props }) {
+  const { list, onAddItem, onDeleteItem, isBasket } = props;
   const cn = bem('List');
+  const resultText = 'Итого'
+
   const getItems = () => {
     const resultList = [];
     let resultSum = 0;
@@ -25,7 +28,6 @@ function List({ list, onAddItem, onDeleteItem, isBasket = false }) {
           ...item,
           quantity: 1
         });
-
     });
     return { resultList, resultSum };
   };
@@ -40,7 +42,7 @@ function List({ list, onAddItem, onDeleteItem, isBasket = false }) {
             </div>
           )}
           <div className={cn('footer')}>
-            <p>Итого</p>
+            <p>{resultText}</p>
             <p>{`${getItems().resultSum}₽`}</p>
           </div>
 
@@ -60,7 +62,8 @@ List.propTypes = {
     code: PropTypes.number
   })).isRequired,
   onAddItem: PropTypes.func,
-  onDeleteItem: PropTypes.func
+  onDeleteItem: PropTypes.func,
+  isBasket: PropTypes.bool,
 };
 
 List.defaultProps = {
@@ -68,6 +71,7 @@ List.defaultProps = {
   },
   onDeleteItem: () => {
   },
+  isBasket: false
 };
 
 export default React.memo(List);
