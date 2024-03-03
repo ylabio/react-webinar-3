@@ -1,21 +1,46 @@
+import { cn as bem } from "@bem-react/classname";
+import PropTypes from "prop-types";
 import React from "react";
-import PropTypes from 'prop-types';
-import './style.css';
+import { formatNumber, plural } from "../../utils";
+import "./style.css";
 
-function Controls({onAdd}) {
+function Controls({ cart, onOpenCart }) {
+  const cn = bem("Controls");
   return (
-    <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+    <div className={cn()}>
+      <p className={cn("info")}>
+        В корзине:{" "}
+        <span>
+          {cart.items.length
+            ? `${cart.items.length} ${plural(cart.items.length, {
+                one: "товар",
+                few: "товара",
+                many: "товаров",
+              })} / ${formatNumber(cart.totalPrice)} ₽`
+            : "пусто"}
+        </span>
+      </p>
+      <button className={cn("button")} onClick={onOpenCart}>
+        Перейти
+      </button>
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  cart: PropTypes.shape({
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        code: PropTypes.number,
+        title: PropTypes.string,
+        price: PropTypes.number,
+        count: PropTypes.number,
+      })
+    ),
+    totalPrice: PropTypes.number,
+  }).isRequired,
 };
 
-Controls.defaultProps = {
-  onAdd: () => {}
-}
+Controls.defaultProps = {};
 
 export default React.memo(Controls);
