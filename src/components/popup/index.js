@@ -5,7 +5,6 @@ import Head from '../head/index';
 import List from "../list";
 
 function Popup(props) {
-  console.log(props);
 
   return (
     <div className='Popup'>
