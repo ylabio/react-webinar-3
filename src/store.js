@@ -5,7 +5,7 @@ import {generateCode} from "./utils";
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {...initState, cartList: []};
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -39,49 +39,64 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
+  
   /**
-   * Добавление новой записи
+   * Открытие модального окна
    */
-  addItem() {
+  openModal() {
     this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+        ...this.state,
+        isModalOpen: true
+    });
+  }
 
   /**
-   * Удаление записи по коду
+   * Закрытие модального окна
+   */
+  closeModal() {
+      this.setState({
+          ...this.state,
+          isModalOpen: false
+      });
+  }
+
+   /**
+   * Добавление новой записи в корзину
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+   addCartItem(code) {
+    const selectedItem = this.state.list.find(item => item.code === code);
+    const existingCartItemIndex = this.state.cartList.findIndex(item => item.code === code);
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+    if (existingCartItemIndex !== -1) {
+      const updatedCartList = this.state.cartList.map((item, index) => {
+        if (index === existingCartItemIndex) {
+          return { ...item, quantity: item.quantity + 1 };
         }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+        return item;
+      });
+
+      this.setState({
+        ...this.state,
+        cartList: updatedCartList
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cartList: [...this.state.cartList, { ...selectedItem, quantity: 1 }]
+      });
+    }
+  };
+
+ /**
+ * Удаление записи из корзины
+ * @param code
+ */
+ deleteCartItem(code) {
+  this.setState({
+    ...this.state,
+    cartList: this.state.cartList.filter(item => item.code !== code)
+  })
   }
 }
 
