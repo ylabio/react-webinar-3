@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -18,8 +18,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -29,6 +29,18 @@ class Store {
   getState() {
     return this.state;
   }
+
+   /**
+   * Переключение состояния модального окна корзины
+   */
+   toggleCartModal() {
+    this.setState({
+      ...this.state,
+      isCartModalOpen: !this.state.isCartModalOpen,
+    });
+  }
+
+
 
   /**
    * Установка состояния
@@ -40,49 +52,43 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
+  addToCart(code) {
+    const cartList = [].concat(this.state.cartList ?? []);
+    const selectedProduct = this.state.list.find(
+      (product) => product.code === code
+    );
+    if (selectedProduct) {
+      const existingCartItem = cartList.find((item) => item.code === code);
+      if (existingCartItem) {
+        existingCartItem.count++;
+      } else {
+        cartList.push({ ...selectedProduct, count: 1 });
+      }
+    }
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
+      cartList,
+    });
+  }
   /**
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  onDeleteCartItem(code) {
+    const updatedCartList = this.state.cartList.map(item => {
+      if (item.code === code) {
+        return { ...item, count: item.count - 1 };
+      }
+      return item;
+    }).filter(item => item.count > 0);
+  
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+      cartList: updatedCartList,
+    });
   }
+
 }
 
 export default Store;
