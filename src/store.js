@@ -70,9 +70,9 @@ class Store {
     this.setState({
       ...this.state,
       cart: {
-        items: this.state.cart.items.filter((cartItem) => {
-          return cartItem.code !== item.code;
-        }),
+        items: this.state.cart.items.filter(
+          (cartItem) => cartItem.code !== item.code
+        ),
         totalPrice: this.state.cart.totalPrice - item.price * item.count,
       },
     });
