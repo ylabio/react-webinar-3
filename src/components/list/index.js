@@ -32,6 +32,7 @@ List.propTypes = {
 List.defaultProps = {
   onButtonClick: () => {},
   buttonText: "",
+  items: [],
 };
 
 export default React.memo(List);

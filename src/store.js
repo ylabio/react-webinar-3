@@ -39,34 +39,28 @@ class Store {
   }
 
   addToCart(item) {
-    const itemInCart = this.state.cart.items.find(
-      (cartItem) => cartItem.code === item.code
-    );
+    const { items, totalPrice } = this.state.cart;
+    const itemInCart = items.find((cartItem) => cartItem.code === item.code);
 
     if (itemInCart) {
+      const updatedItems = items.map((cartItem) =>
+        cartItem.code === item.code
+          ? { ...cartItem, count: cartItem.count + 1 }
+          : cartItem
+      );
       this.setState({
         ...this.state,
         cart: {
-          items: this.state.cart.items.map((cartItem) => {
-            if (cartItem.code === item.code) {
-              return {
-                ...cartItem,
-                count: cartItem.count + 1,
-              };
-            }
-            return cartItem;
-          }),
-          totalCount: this.state.cart.items.length + 1,
-          totalPrice: this.state.cart.totalPrice + item.price,
+          items: updatedItems,
+          totalPrice: totalPrice + item.price,
         },
       });
     } else {
       this.setState({
         ...this.state,
         cart: {
-          items: [...this.state.cart.items, { ...item, count: 1 }],
-          totalCount: this.state.cart.items.length + 1,
-          totalPrice: this.state.cart.totalPrice + item.price,
+          items: [...items, { ...item, count: 1 }],
+          totalPrice: totalPrice + item.price,
         },
       });
     }
@@ -79,7 +73,6 @@ class Store {
         items: this.state.cart.items.filter((cartItem) => {
           return cartItem.code !== item.code;
         }),
-        totalCount: this.state.cart.items.length - 1,
         totalPrice: this.state.cart.totalPrice - item.price * item.count,
       },
     });
