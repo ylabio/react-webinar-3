@@ -22,8 +22,8 @@ function App({store}) {
       store.deleteItem(item);
     }, [store]),
 
-    onAddInCart: useCallback((item) => {
-      store.addInCart(item);
+    onToggle: useCallback((item) => {
+      store.toggle(item);
     }, [store])
   }
 
@@ -31,9 +31,9 @@ function App({store}) {
     <PageLayout>
       <Head title='Магазин'/>
       <Controls cartList={cartList} totalPrice={totalPrice} setOpenCart={setOpenCart} />
-      <List list={list} onClick={callbacks.onAddInCart} textBtn='Добавить' />
+      <List list={list} onClick={callbacks.onToggle} textBtn='Добавить' />
       {openCart && 
-        <Cart cartList={cartList} totalPrice={totalPrice} setOpenCart={setOpenCart} onDeleteItem={callbacks.onDeleteItem} />
+        <Cart cartList={cartList} totalPrice={totalPrice} setOpenCart={setOpenCart} onClick={callbacks.onDeleteItem} />
       }
     </PageLayout>
   );

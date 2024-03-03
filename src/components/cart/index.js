@@ -6,7 +6,7 @@ import List from "../list";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function Cart({cartList, totalPrice, setOpenCart, onDeleteItem}) {
+function Cart({cartList, totalPrice, setOpenCart, onClick}) {
   const cn = bem('Cart');
 
   return (
@@ -21,7 +21,7 @@ function Cart({cartList, totalPrice, setOpenCart, onDeleteItem}) {
         <div className={cn('main')}>
           <div className={cn('list')}>
             {(cartList.length > 0)  
-              ? <List list={cartList} onClick={onDeleteItem} textBtn='Удалить' />
+              ? <List list={cartList} onClick={onClick} textBtn='Удалить' />
               : <h1 className={cn('title')}>В корзине нет товаров</h1>
             }
           </div>
@@ -41,12 +41,12 @@ Cart.propTypes = {
   cartList: PropTypes.array,
   totalPrice: PropTypes.number,
   setOpenCart: PropTypes.func,
-  onDeleteItem: PropTypes.func,
+  onClick: PropTypes.func,
 };
   
 Cart.defaultProps = {
   setOpenCart: () => {},
-  onDeleteItem: () => {},
+  onClick: () => {},
 }
 
 export default React.memo(Cart);

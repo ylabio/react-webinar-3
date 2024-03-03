@@ -61,24 +61,26 @@ class Store {
    * @param item
    */
   addInCart(item) {
-    // Проверка на наличие элемента в корзине
-    if (this.cartList.list.includes(item)) {
-      // Если элемент есть, увеличиваем счетчик и возвращаем список с новым значением
-      item.count++;
-      this.setCart({
-        ...this.cartList,
-        list: this.cartList.list,
-      })
-    } else {
-      // Если элемента нет, добавляем начальное значение счетчика
-      item.count = 1;
-      this.setCart({
-        ...this.cartList,
-        // Добавляем новый элемент в список
-        list: [...this.cartList.list, item],
-      })
-    }
+    this.setCart({
+      ...this.cartList,
+      list: [...this.cartList.list, item],
+    })
   };
+
+  /**
+   * Переключатель функций
+   * @param item 
+   */
+  toggle(item) {
+    // Проверяем наличие элемента в списке
+    if (this.cartList.list.includes(item)) {
+      item.count++;
+      this.setCart(this.cartList);
+    } else {
+      item.count = 1;
+      this.addInCart(item);
+    }
+  }
 
   /**
    * Удаление товара из корзины
