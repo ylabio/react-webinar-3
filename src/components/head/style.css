@@ -1,9 +1,29 @@
-.Head {
-  height: 80px;
-  background: #f5f5f5;
+.bold {
+  font-weight: 700;
 }
 
-.Head h1 {
+.Head {
+}
+
+.Head-title {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  height: 80px;
+  background: #f5f5f5;
   margin: 0;
-  padding: 20px 20px 10px;
+}
+
+.Head-info {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.Head-info-cart {
+  padding: 20px 10px 20px 20px;
+}
+
+.Head-info-actions {
+  padding: 20px 20px 20px 10px;
 }
