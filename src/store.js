@@ -64,11 +64,10 @@ class Store {
   }
 
   removeItemFromBasket(item) {
-    console.log(item);
-    // this.setState({
-    //   ...this.state,
-    //   basketList: this.state.basketList.filter((i) => i.code !== item.code)
-    // })
+    this.setState({
+      ...this.state,
+      basketList: this.state.basketList.filter((i) => i.code !== item.code)
+    })
   }
 }
 

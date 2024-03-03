@@ -11,12 +11,10 @@ import Popup from './components/popup';
  * @returns {React.ReactElement}
  */
 function App({store}) {
-  const [isPopupopened, setIsPopupOpened] = useState(false);
+  const [isPopupOpened, setIsPopupOpened] = useState(false);
 
   const list = store.getState().list;
   const basket = store.getState().basketList;
-  const removeItemFromBasket = store.removeItemFromBasket;
-  console.log(basket)
 
   const callbacks = {
     onAddToBasket: useCallback((item) => {
@@ -25,13 +23,13 @@ function App({store}) {
 
     onClick: useCallback(() => {
       setIsPopupOpened(true);
-    }, [isPopupopened]),
+    }, [isPopupOpened]),
 
     onClose: useCallback(() => {
       setIsPopupOpened(false);
-    }, [isPopupopened]),
+    }, [isPopupOpened]),
 
-    onRemoveItemFromBasket: useCallback(() => {
+    onRemoveFromBasket: useCallback((item) => {
       store.removeItemFromBasket(item);
     },[store])
   }
@@ -45,15 +43,16 @@ function App({store}) {
     <PageLayout>
       <Head title='Магазин'/>
       <Controls totalCost={totalCost} basket={basket} list={list} onClick={callbacks.onClick}/>
-      <List list={list} onAddToBasket={callbacks.onAddToBasket}/>
+      <List list={list} onClick={callbacks.onAddToBasket}/>
     </PageLayout>
-    {isPopupopened === true &&
+    {isPopupOpened === true &&
       <Popup
+      isPopupOpened={isPopupOpened}
       totalCost={totalCost}
-      onRemoveItemFromBasket={callbacks.onRemoveItemFromBasket}
+      onRemoveFromBasket={callbacks.onRemoveFromBasket}
       basket={basket}
-      isPopupopened={isPopupopened}
-      onClose={callbacks.onClose}/>
+      onClose={callbacks.onClose}
+      />
     }
     </>
   );

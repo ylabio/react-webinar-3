@@ -1,13 +1,18 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
 
 function Item(props) {
 
   const callbacks = {
-    onAddToBasket: (e) => {
+    onClick: (e) => {
       e.stopPropagation();
-      props.onAddToBasket(props.item);
+      props.onClick(props.item);
+    },
+
+    onRemoveFromBasket: (e) => {
+      e.stopPropagation();
+      props.onClick(props.item);
     }
   }
 
@@ -16,10 +21,19 @@ function Item(props) {
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-group'>
         <div className='Item-title'>{props.item.title}</div>
-        <div className='Item-price'>{props.item.price} &#8381;</div>
+        <div className='Item-container'>
+          {props.item.count &&
+          <div className='Item-count'>{props.item.count} шт</div>
+          }
+          <div className='Item-price'>{props.item.price} &#8381;</div>
+        </div>
       </div>
       <div className='Item-actions'>
-        <button onClick={callbacks.onAddToBasket}>Добавить</button>
+        {props.item.count ?
+        <button onClick={callbacks.onRemoveFromBasket}>Удалить</button>
+        :
+        <button onClick={callbacks.onClick}>Добавить</button>
+        }
       </div>
     </div>
   );
@@ -32,12 +46,15 @@ Item.propTypes = {
     price: PropTypes.number,
     count: PropTypes.number
   }).isRequired,
-  onAddToBasket: PropTypes.func,
+  onClick: PropTypes.func,
+  onRemoveFromBasket: PropTypes.func,
 };
 
 Item.defaultProps = {
-  onAddToBasket: () => {
+  onClick: () => {
   },
+  onRemoveFromBasket: () => {
+  }
 }
 
 export default React.memo(Item);

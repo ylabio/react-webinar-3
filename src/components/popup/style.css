@@ -34,51 +34,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 0 20px 0 10px;
   background-color: #F5F5F5;
   border-radius: 10px 10px 0 0;
 }
 
-.Popup-title {
-  margin: 0;
-  padding: 0;
-  font-size: 32px;
-  font-weight: 700;
-}
-
 .Popup-list {
-  padding: 70px 0 0;
-}
-
-.Popup-item {
-  color: #000;
-  list-style: none;
-  padding: 20px;
-  border: #ccc 1px dashed;
-  display: flex;
-  justify-content: space-between;
-}
-
-.Popup-item-container {
-  display: flex;
-  width: 25%;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.Popup-item-title {
+  margin: 70px 0 0;
   padding: 0;
-  margin: 0;
+  border-top: 1px #ccc dashed;
 }
 
-.Popup-item-code {
-  margin-right: 20px;
-}
-
-.Popup-item-wrapper {
-  display: flex;
-  width: 25%;
-  justify-content: space-between;
+.Popup-text {
+  margin: 20px 0;
+  padding-left: 40%;
 }
 
 .Popup-item-cost{
@@ -86,7 +55,7 @@
 }
 
 .Popup-cost {
-  margin: 0 110px 0 0;
+  margin: 0 70px 0 0;
   display: flex;
   justify-content: flex-end;
   padding: 20px;
@@ -97,4 +66,8 @@
 .Popup-cost-title {
   padding: 0;
   margin: 0 20px 0 0;
+}
+
+.Popup-cost-number {
+  width: 100px;
 }

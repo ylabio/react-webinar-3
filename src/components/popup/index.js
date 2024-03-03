@@ -1,45 +1,30 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
-import Item from "../item";
+import Head from '../head/index';
+import List from "../list";
 
-function Popup({totalCost, onRemoveItemFromBasket, basket, isPopupopened, onClose}) {
-  const callbacks = {
-    onRemoveItemFromBasket: (e,item) => {
-      console.log(item);
-      e.stopPropagination;
-      onRemoveItemFromBasket(item);
-    }
-  }
+function Popup(props) {
+  console.log(props);
 
   return (
     <div className='Popup'>
-      <div className={`Popup-overlay ${isPopupopened ? 'Popup-opened' : ''}`}>
+      <div className={`Popup-overlay ${props.isPopupOpened ? 'Popup-opened' : ''}`}>
         <div className='Popup-container'>
           <div className='Popup-header'>
-            <h2 className='Popup-title'>Корзина</h2>
-            <button onClick={onClose} className='Popup-btn' type="button">Закрыть</button>
+            <Head title='Корзина'/>
+            <button onClick={props.onClose} className='Popup-btn' type="button">Закрыть</button>
           </div>
-          <ul className='Popup-list'>
-            {basket && basket.map((item) => {
-              return (
-                <li key={item.code} className='Popup-item'>
-                  <div className='Popup-item-container'>
-                    <div className='Popup-item-code'>{item.code}</div>
-                    <p className='Popup-item-title'>{item.title}</p>
-                  </div>
-                  <div className='Popup-item-wrapper'>
-                    <div className='Popup-item-cost'>{item.price} ₽</div>
-                    <div className='Popup-item-count'>{item.count} шт</div>
-                    <button onClick={callbacks.onRemoveItemFromBasket}>Удалить</button>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
+          <div className='Popup-list'>
+            {props.basket.length === 0 ?
+            <div className='Popup-text'>Упс. В корзине пока пусто</div>
+            :
+            <List list={props.basket} onClick={props.onRemoveFromBasket}/>
+            }
+          </div>
           <div className='Popup-cost'>
             <p className='Popup-cost-title'>Итого: </p>
-            <div className='Popup-cost-number'>{totalCost()} ₽</div>
+            <div className='Popup-cost-number'>{props.totalCost()} ₽</div>
           </div>
         </div>
       </div>
@@ -48,11 +33,18 @@ function Popup({totalCost, onRemoveItemFromBasket, basket, isPopupopened, onClos
 }
 
 Popup.propTypes = {
+  isPopupOpened: PropTypes.bool,
+  basket: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.number
+  })).isRequired,
+  totalCost: PropTypes.func,
   onClose: PropTypes.func,
+  onRemoveFromBasket: PropTypes.func
 };
 
 Popup.defaultProps = {
-  onClose: () => {}
+  onClose: () => {},
+  onRemoveFromBasket: () => {}
 }
 
 export default React.memo(Popup);

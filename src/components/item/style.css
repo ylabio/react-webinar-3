@@ -13,13 +13,22 @@
   justify-content: space-between;
 }
 
+.Item-container {
+  display: flex;
+}
+
 .Item-title {
   padding: 20px 10px;
 }
 
 .Item-price {
+  width: 80px;
   justify-self: end;
   padding: 20px 10px;
+}
+
+.Item-count {
+  padding: 20px;
 }
 
 .Item-actions {

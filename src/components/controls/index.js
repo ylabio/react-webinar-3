@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { plural, variants } from "../../utils";
 
-function Controls({totalCost, basket, list, onClick}) {
+function Controls({totalCost, basket, onClick}) {
 
   return (
     <div className='Controls'>
@@ -15,14 +15,15 @@ function Controls({totalCost, basket, list, onClick}) {
 }
 
 Controls.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.shape({
+  basket: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onAdd: PropTypes.func
+  totalCost: PropTypes.func,
+  onClick: PropTypes.func
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  onClick: () => {}
 }
 
 export default React.memo(Controls);
