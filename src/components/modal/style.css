@@ -1,0 +1,34 @@
+.Modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.Modal-content {
+  width: 65%;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.Modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 120px 20px;
+  margin-bottom: 70px;
+}
+
+.Modal-footer:last-child {
+  border-top: 1px dashed #ccc;
+}
+
+.Modal-text_weight_700 {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 20.7px;
+}
