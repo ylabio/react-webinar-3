@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { monefy } from "../../utils";
 import "./style.css";
 
 function CartMenu({ cartList, onCartOpen }) {
@@ -9,7 +10,7 @@ function CartMenu({ cartList, onCartOpen }) {
     return (acc += (product.price * product.count));
   }, 0);
 
-  const value = cartList.length ? `${count} товара / ${sum}` : 'пусто'
+  const value = cartList.length ? `${count} товара / ${monefy(sum)}` : 'пусто'
 
   return (
     <div className="CartMenu">

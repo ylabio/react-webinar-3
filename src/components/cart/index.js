@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Modal from "../modal/";
 import Head from "../head/";
 import List from "../list";
+import { monefy } from "../../utils";
 import "./style.css";
 
 function Cart({ list, itemBtn, isShow, onClose }) {
@@ -23,7 +24,7 @@ function Cart({ list, itemBtn, isShow, onClose }) {
           <List list={list} itemsBtn={itemBtn} />
           <div className="Cart-sum">
             <span>{"Итого"}</span>
-            <span>{sum}</span>
+            <span>{monefy(sum)}</span>
           </div>
         </div>
       </Modal>

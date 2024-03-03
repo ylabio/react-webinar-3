@@ -4,6 +4,7 @@ import Head from "./components/head";
 import Cart from "./components/cart";
 import PageLayout from "./components/page-layout";
 import CartMenu from "./components/cart-menu";
+import { monefy } from './utils'
 
 /**
  * Приложение
@@ -18,7 +19,7 @@ function App({ store }) {
     return {
       ...product,
       count: 0,
-      content: [product.price],
+      content: [monefy(product.price)],
     };
   });
   
@@ -45,7 +46,7 @@ function App({ store }) {
         const newProduct = newCart[index];
 
         newProduct.count += 1;
-        newProduct.content = [newProduct.price, newProduct.count];
+        newProduct.content = [monefy(newProduct.price), newProduct.count];
 
         return newCart;
       });
@@ -54,7 +55,7 @@ function App({ store }) {
         const newProduct = {...product};
         
         newProduct.count = 1;
-        newProduct.content = [newProduct.price, newProduct.count];
+        newProduct.content = [monefy(newProduct.price), newProduct.count];
         
         return [...oldCart, newProduct];
       });
