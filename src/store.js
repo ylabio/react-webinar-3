@@ -5,7 +5,6 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.listCount = this.state.list.length
   }
 
   /**
@@ -40,60 +39,26 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление нового товара
    */
-  addItem() {
+  addCart(code) {
     this.setState({
       ...this.state,
-      list: [
-        ...this.state.list, 
-        {
-          code: ++this.listCount, 
-          title: 'Новая запись',
-          selection: 0
-        }
-      ]
+      cart: [...this.state.cart, code]
     })
   };
 
   /**
-   * Удаление записи по коду
+   * Удаление товара по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteCart(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
+      // Новый список, в котором не будет удаляемой записи
+      cart: this.state.cart.filter(item => item.code !== code)
     })
   };
-  /**
-   * Вывод числа с учётом множественной формы
-   */
-  createSelection(selection){
-    if ((selection % 10 >= 2 && selection % 10 <= 4) && (selection.toString().slice(-2) < 5 || selection.toString().slice(-2) > 21)) {
-      return `Выделяли ${selection} раза`;
-    } else {
-      return `Выделяли ${selection} раз`;
-    }
-  }
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if(item.code === code && !item.selected) {
-          item.selected = !item.selected;
-          item.selection++;
-        } else if (item.selected) {
-          item.selected = !item.selected;
-        } 
-        return item;
-      })
-    })
-  }
 }
 
 export default Store;
