@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -39,28 +37,6 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
 
   /**
    * Выделение записи по коду
@@ -139,6 +115,20 @@ class Store {
         totalCartPrice: newItem.price
       })
     }
+  };
+
+  /**
+   * Удаление товара из корзины
+   * @param code
+   */
+  removeFromCart(code) {
+    const newCartList = this.state.cartList.filter(item => item.code !== code);
+
+    this.setState({
+      ...this.state,
+      cartList: newCartList,
+      totalCartPrice: newCartList.reduce((a, b) => a + (b.price * b.quantity), 0),
+    })
   };
 }
 

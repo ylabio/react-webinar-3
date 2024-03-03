@@ -17,7 +17,7 @@ function ModalLayout(props) {
           </button>
         </div>
 
-        <div className={cn('list')}>{props.children}</div>
+        <div className={cn('content')}>{props.children}</div>
 
       </div>
     </div>
@@ -27,7 +27,7 @@ function ModalLayout(props) {
 ModalLayout.propTypes = {
   title: PropTypes.string,
   closeModal: PropTypes.func,
-  cheldren: PropTypes.node,
+  children: PropTypes.node,
 }
 
 export default React.memo(ModalLayout);
