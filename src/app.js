@@ -47,7 +47,7 @@ function App({store}) {
       { isModalActive &&
           <Basket
               basket={basket}
-              hideBasket={callbacks.onHideBasket}
+              onHideBasket={callbacks.onHideBasket}
               onDeleteItem={callbacks.onDeleteItem}/>
       }
     </>
