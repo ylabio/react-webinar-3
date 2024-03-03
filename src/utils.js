@@ -50,3 +50,34 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Преобразование числа в строку и форматирование с использованием регулярного выражения
+ * @param {number} price 
+ * @returns {string}
+ */
+export function formatPrice(price) {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+
+/**
+ * Создает новый массив с уникальными объектами и свойством "count", указывающим количество вхождений каждого объекта.
+ *
+ * @param {Array} originalArray - Исходный массив с объектами.
+ * @returns {Array} - Новый массив с уникальными объектами и свойством "count".
+ */
+export function countOccurrences(originalArray) {
+  return originalArray.reduce((accumulator, currentObject) => {
+    const existingObject = accumulator.find(obj => obj.code === currentObject.code);
+
+    if (existingObject) {
+      existingObject.count++;
+      existingObject.price += currentObject.price;
+    } else {
+      accumulator.push({ ...currentObject, count: 1 });
+    }
+
+    return accumulator;
+  }, []);
+}
