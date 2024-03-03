@@ -3,6 +3,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Card from "./components/card";
 
 /**
  * Приложение
@@ -29,11 +30,12 @@ function App({store}) {
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
+      <Head title='Магазин'/>
       <Controls onAdd={callbacks.onAddItem}/>
       <List list={list}
             onDeleteItem={callbacks.onDeleteItem}
             onSelectItem={callbacks.onSelectItem}/>
+      <Card items={list} />
     </PageLayout>
   );
 }
