@@ -19,11 +19,13 @@
 }
 
 .Item-price {
+  width: max-content;
   margin-right: 24px;
   font-size: 18px;
 }
 
 .Item-quantity {
+  width: max-content;
   margin-right: 24px;
   margin-left: 38px;
   font-size: 18px;

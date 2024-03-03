@@ -1,8 +1,11 @@
-export const basketText = 'Корзина';
-export const closeButtonText = 'Закрыть';
-export const deleteButtonText = 'Удалить';
-export const addButtonText = 'Добавить';
-export const goButtonText = 'Перейти';
-export const footerBasketText = 'Итого';
-export const empty = 'пусто';
-export const controlsInfoText = 'В корзине';
+export const TEXT = {
+    BASKET: 'Корзина',
+    BASKET: 'Корзина',
+    CLOSE: 'Закрыть',
+    DELETE: 'Удалить',
+    ADD: 'Добавить',
+    OPEN_BASKET: 'Перейти',
+    TOTAL: 'Итого',
+    EMPTY: 'пусто',
+    CONTROLS_INFO_TEXT: 'В корзине',
+};

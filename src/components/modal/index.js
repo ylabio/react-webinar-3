@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import List from "../list";
-import { basketText, closeButtonText } from "../constants";
+import { TEXT } from "../constants";
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
@@ -13,15 +13,15 @@ function Modal(props) {
     <>
       <div className={cn()}>
         <div className={cn('header')}>
-          <h1>{basketText}</h1>
-          <button onClick={closeModal}>{closeButtonText}</button>
+          <h1>{TEXT.BASKET}</h1>
+          <button onClick={closeModal}>{TEXT.CLOSE}</button>
         </div>
-          <List
-            list={list}
-            onAddItem={onAddItem}
-            onDeleteItem={onDeleteItem}
-            isBasket={true}
-          />
+        <List
+          list={list}
+          onAddItem={onAddItem}
+          onDeleteItem={onDeleteItem}
+          isBasket={true}
+        />
       </div>
       <div className={cn('layout')} />
     </>

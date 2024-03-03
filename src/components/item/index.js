@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { addButtonText, deleteButtonText } from "../constants";
+import { TEXT } from "../constants";
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 function Item(props) {
-  const { onDelete, onAdd, item, isBasket } = props;
+  const { onDelete, onAdd, item, isBasket = false } = props;
   const cn = bem('Item');
 
   const callbacks = {
@@ -28,13 +28,13 @@ function Item(props) {
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>
-          {`${item.price}₽`}
+          {`${item.price} ₽`}
         </div>
         {isBasket && <div className={cn('quantity')}>
-          {`${item.quantity}шт`}
+          {`${item.quantity} шт`}
         </div>}
         <button onClick={isBasket ? callbacks.onDelete : callbacks.onAdd}>
-          {isBasket ? deleteButtonText : addButtonText}
+          {isBasket ? TEXT.DELETE : TEXT.ADD}
         </button>
       </div>
     </div>

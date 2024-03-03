@@ -32,10 +32,13 @@ function App({ store }) {
         setOpenModal={() => setOpenModal(!openModal)}
         list={basketList}
         onAddItem={callbacks.onAddItem}
-        onDeleteItem={callbacks.onDeleteItem} />
-      <List list={list}
+        onDeleteItem={callbacks.onDeleteItem}
+      />
+      <List
+        list={list}
         onAddItem={callbacks.onAddItem}
-        onDeleteItem={callbacks.onDeleteItem} />
+        onDeleteItem={callbacks.onDeleteItem}
+      />
     </PageLayout>
   );
 }

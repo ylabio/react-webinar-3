@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Item from "../item";
 import { cn as bem } from '@bem-react/classname';
-import { footerBasketText } from "../constants";
+import { TEXT } from "../constants";
 import './style.css';
 
 
@@ -11,47 +11,40 @@ function List(props) {
   const cn = bem('List');
 
   const getItems = () => {
-    const resultList = [];
-    let resultSum = 0;
-
-    list.forEach(item => {
-      resultSum += item.price;
-      const foundItem = resultList.filter(i => i.code === item.code)[0];
-      const indexItem = resultList.indexOf(foundItem);
-
-      indexItem >= 0
-        ? resultList[indexItem] = {
-          ...item,
-          quantity: resultList[indexItem].quantity += 1
-        }
-        : resultList.push({
-          ...item,
-          quantity: 1
-        });
+    const uniqueItems = [...new Set(list)];
+    let totalPrice = 0;
+    const resultList = uniqueItems.map((uniqueItem) => {
+      const quantity = list.filter(el => el.code === uniqueItem.code).length;
+      totalPrice += quantity * uniqueItem.price;
+      return {
+        ...uniqueItem,
+        quantity,
+        price: quantity * uniqueItem.price,
+      };
     });
-    return { resultList, resultSum };
+    return { resultList, totalPrice };
   };
 
+  const items = getItems();
+
+  const renderFooter = () => {
+    if (!isBasket) return <></>;
+    return (
+      <div className={cn('footer')}>
+        <p>{TEXT.TOTAL}</p>
+        <p>{`${items.totalPrice} ₽`}</p>
+      </div>
+    );
+  };
+  const renderList = isBasket ? items.resultList : list;
   return (
     <div className={cn()}>
-      {isBasket
-        ? <>
-          {getItems().resultList.map(item =>
-            <div key={item.code} className={cn('item')}>
-              <Item item={item} onAdd={onAddItem} onDelete={onDeleteItem} isBasket />
-            </div>
-          )}
-          <div className={cn('footer')}>
-            <p>{footerBasketText}</p>
-            <p>{`${getItems().resultSum}₽`}</p>
-          </div>
-        </>
-        : list.map(item =>
-          <div key={item.code} className='List-item'>
-            <Item item={item} onAdd={onAddItem} onDelete={onDeleteItem} />
-          </div>
-        )
-      }
+      {renderList.map(item =>
+        <div key={item.code} className={cn('item')}>
+          <Item item={item} onAdd={onAddItem} onDelete={onDeleteItem} isBasket={isBasket} />
+        </div>
+      )}
+      {renderFooter()}
     </div>
   );
 }

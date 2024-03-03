@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import Modal from "../modal";
-import {controlsInfoText, empty, goButtonText} from "../constants";
+import { TEXT } from "../constants";
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
@@ -14,24 +14,24 @@ function Controls({ store, openModal, setOpenModal, list, onAddItem, onDeleteIte
     let sumPrice = 0;
     const uniqueItems = new Set(basketList);
 
-    uniqueItems.forEach(item => sumItems += 1);
+    uniqueItems.forEach(() => sumItems += 1);
     basketList.forEach(item => sumPrice += item.price);
 
     return `${sumItems} / ${sumPrice} ₽`;
   };
 
   const renderInfo = () => {
-    return `${basketList.length === 0 ? empty : renderSumBasket()}`;
+    return basketList.length ? renderSumBasket() : TEXT.EMPTY;
   };
 
   return (
     <>
       <div className={cn()}>
         <div className={cn('info')}>
-          <div>{controlsInfoText}</div>
+          <div>{TEXT.CONTROLS_INFO_TEXT}</div>
           <div>{renderInfo()}</div>
         </div>
-        <button onClick={setOpenModal}>{goButtonText}</button>
+        <button onClick={setOpenModal}>{TEXT.OPEN_BASKET}</button>
       </div>
       {openModal &&
         <Modal
