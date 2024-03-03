@@ -40,6 +40,18 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+  openCart() {
+    this.setState({
+      ...this.state
+    })
+  }
+
+  addCount(){
+    this.setState({
+      ...this.state
+    })
+  }
+
   /**
    * Добавление новой записи
    */
