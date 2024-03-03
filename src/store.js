@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+
 
 /**
  * Хранилище состояния приложения
@@ -7,6 +7,10 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.basket = [];
+    this.totalAmount=0;
+    this.totalCount=0;
+    this.basketList=[]
   }
 
   /**
@@ -18,8 +22,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -29,7 +33,16 @@ class Store {
   getState() {
     return this.state;
   }
-
+setLocalStorage(basket){
+  localStorage.setItem('basket',JSON.stringify(basket));
+}
+getLocalStorage(){
+  const newBasket=JSON.parse(localStorage.getItem('basket'))
+  if(newBasket!=null){
+    this.basket=newBasket;
+    this.updateBasketList()
+  }
+}
   /**
    * Установка состояния
    * @param newState {Object}
@@ -39,28 +52,77 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
+  setBasket(newBasket) {
+    this.basket = newBasket;
+    this.setLocalStorage(this.basket)
+    this.updateBasketList()
+    for (const listener of this.listeners) listener();
+  }
+  deleteBasketItem(code){
+    this.basket=this.basket.filter((elem)=>elem.code!=code)
+    this.setLocalStorage(this.basket)
+    this.updateBasketList()
+    for (const listener of this.listeners) listener();
+  }
+  getBasketList(){
+   return this.basketList
+  }
+ 
+  addItemBasket(code) {
+    if(this.basket.length===0){
+      this.setBasket([{code:code, count:1}]);
+    }else
+    {
+      let flag=false;
+       const newBasket=this.basket.map((item)=>{
+        if(item.code===code){
+          flag=true;
+          return{code:item.code, count:item.count+1}}
+        else{
+          return item;
+        }})
+       
+      if(flag){
+        this.setBasket(newBasket);
+      } else{
+        this.setBasket([...this.basket,{code:code, count:1}]);
+      }
+      
+    }
+    
+    
+}
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+updateBasketList(){
+  let count=0;
+  let totalAmount=0;
+  let basketList=[]
+  const newState=this.state.list;
+for(let state of newState){
+for(let basket of this.basket){
+if(state.code===basket.code){
+  count=count+basket.count;
+  totalAmount=totalAmount+state.price*basket.count;
+  basketList.push({...state,count:basket.count})
+ 
+}
+}
+}
+
+this.totalAmount=totalAmount;
+this.totalCount=count;
+this.basketList=basketList;
+
+}
+
+getTotalAmount(){
+  return this.totalAmount;
+}
+getTotalCount(){
+  return this.totalCount;
+}
+
 
   /**
    * Выделение записи по коду
@@ -69,7 +131,7 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
         if (item.code === code) {
           // Смена выделения и подсчёт
           return {
@@ -79,9 +141,9 @@ class Store {
           };
         }
         // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+        return item.selected ? { ...item, selected: false } : item;
+      }),
+    });
   }
 }
 
