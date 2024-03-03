@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import List from '../list';
 import './style.css';
+import Head from '../head';
 
 /**
  * Модальное окно с корзиной покупок
@@ -41,16 +42,13 @@ function Basket(props) {
   return (
     <div className='Basket modal modal-invisible' ref={overlayRef}>
       <div className='Basket-frame'>
-        <div className='Basket-head'>
-          <h1>Корзина</h1>
-          <div className='Basket-controls'>
-            <button
-              className='action'
-              onClick={onHideBasket}>
-                Закрыть
-            </button>
-          </div>
-        </div>
+        <Head title='Корзина'>
+          <button
+            className='action'
+            onClick={onHideBasket}>
+              Закрыть
+          </button>
+        </Head>
         <div className='Basket-body'>{
           props.basket.length > 0 
             ? <List list={props.basket}

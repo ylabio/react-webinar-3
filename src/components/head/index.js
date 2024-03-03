@@ -5,16 +5,27 @@ import './style.css';
 /**
  * Шапка приложения
  */
-function Head({title}) {
+function Head(props) {
   return (
     <div className='Head'>
-      <h1>{title}</h1>
+      <h1>{props.title}</h1>
+      { props.children &&
+          <div className='Head-actions'>
+            {props.children}
+          </div>
+      }
     </div>
   )
 }
 
 Head.propTypes = {
   title: PropTypes.node,
-};
+  children: PropTypes.node
+}
+
+Head.defaultProps = {
+  title: '',
+  children: null,
+}
 
 export default React.memo(Head);
