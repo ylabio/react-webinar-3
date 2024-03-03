@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import './style.css';
+import modal from "../modal/modal";
 
-function Controls({onAdd}) {
+
+function Controls({setModalActive}) {
+
+  const handleClick = () => {
+    // Вызываем колбэк при необходимости
+    callback('count');
+  };
+
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      
+      <button className='Controls_btn' onClick={() => setModalActive(true)}>Перейти</button>
     </div>
+    
   )
 }
 
 Controls.propTypes = {
   onAdd: PropTypes.func
+  
 };
 
 Controls.defaultProps = {
