@@ -12,28 +12,24 @@ import PageLayout from "./components/page-layout";
 function App({store}) {
 
   const list = store.getState().list;
+  const cardInfo = store.getState().cardInfo;
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    onAddItemToCard: useCallback((code) => {
+      store.addItemToCard(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+    removeItemFromCard : useCallback((code) => {
+      store.removeItemFromCard(code);
+    },[store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин'/>
+      <Controls onButtonClickInModalHandler={callbacks.removeItemFromCard} cardInfo ={cardInfo}/>
+      <List list={list} onButtonClickHandler={callbacks.onAddItemToCard} itemButtonContent = "Добавить"/>
     </PageLayout>
   );
 }
