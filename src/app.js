@@ -1,49 +1,49 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import Controls from './components/controls/index.js';
+import Head from './components/head/index.js';
+import List from './components/list/index.js';
+import PageLayout from './components/page-layout/index.js';
 import './styles.css';
-import { getPluralEnding } from './utils.js';
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
+	console.log('App');
 
-  const {list} = store.getState();
+	const list = store.getState().list;
 
-  const handleDelete = (code, e) => {
-    store.deleteItem(code);
-    e.stopPropagation();
-  }
+	const callbacks = {
+		onDeleteItem: useCallback(
+			(code) => {
+				store.deleteItem(code);
+			},
+			[store],
+		),
+		onSelectItem: useCallback(
+			(code) => {
+				store.selectItem(code);
+			},
+			[store],
+		),
+		onAddItem: useCallback(() => {
+			store.addItem();
+		}, [store]),
+	};
 
-  return (
-    <div className='App'>
-      <div className='App-head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='App-controls'>
-        <button onClick={() => store.addItem()}>Добавить</button>
-      </div>
-      <div className='App-center'>
-        <div className='List'>{
-          list.map(item =>
-            <div key={item.code} className='List-item'>
-              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.selectionCount ? `${item.title} | Выделяли ${item.selectionCount} ${getPluralEnding(item.selectionCount)}` : item.title}</div>
-                <div className='Item-actions'>
-                  <button onClick={(e) => handleDelete(item.code, e)}>
-                    Удалить
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+	return (
+		<PageLayout>
+			<Head title="Приложение на чистом JS" />
+			<Controls onAdd={callbacks.onAddItem} />
+			<List
+				list={list}
+				onDeleteItem={callbacks.onDeleteItem}
+				onSelectItem={callbacks.onSelectItem}
+			/>
+		</PageLayout>
+	);
 }
 
 export default App;
