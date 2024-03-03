@@ -2,20 +2,31 @@ import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({onAdd}) {
+function Controls({onOpenCart, children}) {
+
+  const callbacks = {
+    onOpenCart: () => {
+      onOpenCart()
+    }
+  }
+
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      {children}
+      <button onClick={callbacks.onOpenCart}>
+        Перейти
+      </button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  onOpenCart: PropTypes.func,
+  children: PropTypes.node
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  onOpenCart: () => {},
 }
 
 export default React.memo(Controls);
