@@ -1,0 +1,21 @@
+.Cart-body {
+  padding: 70px 0 10px;
+}
+
+.Cart-summary {
+  padding: 10px 0 50px;
+
+  font-weight: 700;
+  font-size: 18px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.Cart-warning {
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+}
+

@@ -1,7 +1,6 @@
 .Item {
   display: flex;
   justify-content: flex-start;
-  transition: background-color 1s;
 }
 
 .Item_selected {
@@ -11,6 +10,18 @@
 
 .Item-code {
   padding: 20px 10px 20px 20px;
+}
+
+.Item-price {
+  font-size: 18px;
+
+  padding: 20px 10px;
+}
+
+.Item-amount {
+  font-size: 18px;
+
+  padding: 20px 10px 20px 70px;
 }
 
 .Item-title {
