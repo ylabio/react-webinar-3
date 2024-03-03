@@ -10,7 +10,7 @@ function Cart
     ({itemsList, cartIsOpened, toggleCartVisibility, itemButtonsAction})
   {
 
-  usePopupClose(cartIsOpened, toggleCartVisibility, "Cart_opened");
+  usePopupClose(cartIsOpened, toggleCartVisibility, 'Cart_opened');
   const {totalPrice} = calculateCartTotal(itemsList)
 
   const callbacks = {

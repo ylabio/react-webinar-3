@@ -18,7 +18,7 @@ function Item({item, itemButtonsAction, itemButtonsName}) {
       <div className='Item-title'>{item.title}</div>
       <div className="Item-price">{getRubPriceInt(item.price)}</div>
       {item.quantity
-        ? <div className="Item-quantity">
+        ? <div className='Item-quantity'>
           {item.quantity} шт.
         </div>
         : ''
