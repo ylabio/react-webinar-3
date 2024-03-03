@@ -30,7 +30,7 @@ function Controls(props) {
             </div>
           :
             <div className='Controls-cart-info-total'>
-              Пусто
+              пусто
             </div>
         }
       </div>
