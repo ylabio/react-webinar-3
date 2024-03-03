@@ -1,21 +1,29 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import CartInfo from "../cart-info";
+
 import './style.css';
 
-function Controls({onAdd}) {
+function Controls({cartInfo, handleCartModalOpen}) {
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <CartInfo cartInfo={cartInfo}/>
+      <button className={'Controls-button'} onClick={handleCartModalOpen}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  onCartOpen: PropTypes.func,
+  cartInfo: PropTypes.shape({
+    count: PropTypes.number,
+    totalPrice: PropTypes.number,
+  }).isRequired,
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  onCartOpen: () => {},
+  cartInfo: {}
 }
 
 export default React.memo(Controls);

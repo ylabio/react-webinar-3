@@ -1,0 +1,9 @@
+.CartInfo {
+  display: flex;
+  gap: 15px;
+  padding: 0 20px;
+}
+
+.CartInfo-data {
+  font-weight: 700;
+}

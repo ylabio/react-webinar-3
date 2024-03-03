@@ -51,6 +51,25 @@ class Store {
   };
 
   /**
+   * Добавление товара в корзину
+   * @param item {Object}
+   */
+  addItemToCart(item) {
+    const isItemInCart = this.state.cart.some(cartItem => cartItem.code === item.code)
+    this.setState({
+      ...this.state,
+      cart: isItemInCart
+        ? this.state.cart.map(cartItem => {
+          if (cartItem.code === item.code) {
+            return {...cartItem, count: cartItem.count + 1}
+          }
+          return cartItem
+        })
+        : [...this.state.cart, {...item, count: 1}]
+    })
+  }
+
+  /**
    * Удаление записи по коду
    * @param code
    */
@@ -61,6 +80,18 @@ class Store {
       list: this.state.list.filter(item => item.code !== code)
     })
   };
+
+  /**
+   * Удаление товара из корзины
+   * @param code
+ */
+  deleteItemFromCart(code) {
+    this.setState({
+      ...this.state,
+      // Новый список, в котором не будет удаляемой записи
+      cart: this.state.cart.filter(item => item.code !== code)
+    })
+  }
 
   /**
    * Выделение записи по коду

@@ -1,0 +1,33 @@
+.Modal {
+  background-color: rgba(0, 0, 0, .7);
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility .2s linear, opacity .2s linear;
+  box-sizing: border-box;
+}
+
+.Modal--opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.Modal-container {
+  width: 100%;
+  max-width: 984px;
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  min-height: 50%;
+  display: flex;
+  flex-direction: column;
+}
