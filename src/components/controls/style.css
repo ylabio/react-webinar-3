@@ -1,5 +1,41 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  gap: 10px;
   padding: 20px;
+}
+
+.inv {
+  display: none;
+}
+
+.visible {
+  display: flex;
+  width: 960px;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid black;
+  border-radius: 15px;
+  position: absolute;
+  top: 30%;
+  right: 19%;
+  z-index: 1;
+}
+
+.cartHead {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #f5f5f5;
+  border-radius: 15px;
+}
+
+.itogo {
+  padding-top: 15px;
+  margin-left: 780px;
+  height: 50px;
+}
+
+.Item {
+  border-bottom: 1px solid #ccc;
 }
