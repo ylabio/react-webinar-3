@@ -1,5 +1,22 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+}
+
+.Controls-title {
+  padding: 20px 10px;
+}
+
+.Controls-title-cart {
+  padding-left: 10px;
+}
+
+.Controls-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 4px;
+}
+
+.Controls-button {
+  width: 80px;
 }
