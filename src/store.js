@@ -47,7 +47,7 @@ class Store {
     this.setState({
       ...this.state,
       list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+    });
   };
 
   /**
@@ -59,7 +59,7 @@ class Store {
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
       list: this.state.list.filter(item => item.code !== code)
-    })
+    });
   };
 
   /**
@@ -81,7 +81,53 @@ class Store {
         // Сброс выделения если выделена
         return item.selected ? {...item, selected: false} : item;
       })
-    })
+    });
+  }
+
+  /**
+   * Открытие и закрытие корзины
+   * @param {boolean} show 
+   */
+  setCartVisibility(show) {
+    this.setState({
+      ...this.state,
+      showCart: show
+    });
+  }
+
+  /**
+   * Удаление из корзины
+   * @param {Number} code 
+   */
+  removeFromCart(code) {
+    this.setState({
+      ...this.state,
+      cartList: this.state.cartList.filter(item => item.code !== code)
+    });
+  }
+
+  /**
+   * Добавление в корзину
+   * @param {Number} code 
+   */
+  addToCart(code) {
+    const itemToAddIndex = this.state.list.findIndex((item) => item.code === code);
+    if (itemToAddIndex === -1) {
+      return;
+    }
+
+    let newCartList = [...this.state.cartList];
+    const itemIndex = newCartList.findIndex((item) => item.code === code);
+    
+    if (itemIndex === -1) {
+      newCartList.push({...this.state.list[itemToAddIndex], amount: 1});
+    } else {
+      newCartList[itemIndex].amount++
+    }
+    this.setState({
+      ...this.state,
+      cartList: newCartList
+    });
   }
 }
 

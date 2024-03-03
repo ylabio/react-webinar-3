@@ -1,5 +1,32 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   padding: 20px;
+  height: 21px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.Controls-cart-info {
+  display: flex;
+  flex-direction: row;
+  column-gap: 15px;
+  height: 21px;
+
+}
+
+.Controls-cart-info-title {
+  text-align: center;
+  font-weight: normal;
+}
+
+
+.Controls-cart-info-total {
+  font-weight: bold;
+}
+
+.Controls-button {
+  margin-left: 20px;
+  width: 76px;
+  height: 21px;
 }
