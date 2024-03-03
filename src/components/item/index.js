@@ -6,20 +6,20 @@ function Item(props) {
   const callbacks = {
     onBtnClick: (e) => {
       e.stopPropagation();
-      props.btn.onClick(props.code);
+      props.btn.onClick({...props.itemData});
     },
   };
 
   return (
     <div className={"Item"}>
-      <div className="Item-code">{props.code}</div>
-      <div className="Item-title">{props.title}</div>
+      <div className="Item-code">{props.itemData.code}</div>
+      <div className="Item-title">{props.itemData.title}</div>
       <div className="Item-info">
-        {props.infoContent.map((info, index) => (
-          <div key={index}>{info}</div>
+        {props.content.map((item, index) => (
+          <div key={index}>{item}</div>
         ))}
       </div>
-      { props.btn ? (
+      {props.btn ? (
         <div className="Item-actions">
           <button onClick={callbacks.onBtnClick}>{props.btn.title}</button>
         </div>
@@ -29,17 +29,22 @@ function Item(props) {
 }
 
 Item.propTypes = {
-  code: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  infoContent: PropTypes.arrayOf(PropTypes.string),
+  itemData: PropTypes.shape({
+    code: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+  }),
+  content: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
+
   btn: PropTypes.shape({
     onClick: PropTypes.func.isRequired,
-    title: PropTypes.string.isRequired
-  })
+    title: PropTypes.string.isRequired,
+  }),
 };
 
 Item.defaultProps = {
-  infoContent: [""],
+  info: [""],
 };
 
 export default React.memo(Item);
