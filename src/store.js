@@ -45,22 +45,39 @@ class Store {
   addInCart(item) {
     this.setState({
       ...this.state,
-      cart: [...this.state.cart, item],
+      cart: [...this.state.cart, {...item, count: 1}],
     })
   };
 
   /**
-   * Переключатель функций
+   * Увеличение счетчика у выбранного элемента
+   * @param item 
+   */
+  increaseCount(item) {
+    this.state.cart.map(elem => {
+      if (elem.code === item.code) {
+        // Возвращаем выбранный элемент, увеличивая его счетчик
+        return {...elem, count: elem.count++}
+      }
+    })
+    // Обновляем состояние корзины
+    this.setState({
+      ...this.state,
+      cart: this.state.cart
+    })
+  }
+
+  /**
+   * Переключатель функций добавления товара
    * @param item 
    */
   toggleAdd(item) {
-    // Проверяем наличие элемента в списке
-    if (this.state.cart.includes(item)) {
-      item.count++;
-      this.setState(this.state);
-    } else {
-      item.count = 1;
+    const isInCart = this.state.cart.some(({code}) => code === item.code)
+
+    if (!isInCart) {
       this.addInCart(item);
+    } else {
+      this.increaseCount(item);
     }
   }
 
@@ -72,7 +89,7 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      cart: this.state.cart.filter(i => i !== item)
+      cart: this.state.cart.filter(({code}) => code !== item.code)
     })
   };
 
