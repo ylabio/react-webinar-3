@@ -1,0 +1,21 @@
+.Modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100dvh;
+  background-color: rgba(0, 0, 0, .7);
+}
+
+.Modal-frame {
+  display: flex;
+  flex-direction: column;
+  width: 960px;
+  max-height: calc(100dvh - 40px);
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+}

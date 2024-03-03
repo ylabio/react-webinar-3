@@ -27,11 +27,3 @@ button.action {
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
 }
-
-.modal {
-  transition: opacity 0.2s;
-}
-
-.modal-invisible {
-  opacity: 0;
-}
