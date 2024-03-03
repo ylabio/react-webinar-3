@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { plural } from "../../utils";
 import "./style.css";
 
 function Controls({ count, price, onAdd }) {
@@ -8,7 +9,13 @@ function Controls({ count, price, onAdd }) {
       <div className="Controls-title">
         В корзине:
         <b className="Controls-title-cart">
-          {count ? `${count} товара / ${price} ₽` : "пусто"}
+          {count
+            ? `${count} ${plural(count, {
+                one: "товар",
+                few: "товара",
+                many: "товаров",
+              })} / ${price} ₽`
+            : "пусто"}
         </b>
       </div>
       <div className="Controls-actions">

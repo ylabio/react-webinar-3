@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { plural } from "../../utils";
 import "./style.css";
 
 function Item(props) {
