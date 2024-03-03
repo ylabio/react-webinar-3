@@ -1,11 +1,10 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.cart = [];
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -18,8 +17,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -28,6 +27,9 @@ class Store {
    */
   getState() {
     return this.state;
+  }
+  getCart() {
+    return this.cart;
   }
 
   /**
@@ -39,49 +41,34 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
+  setCart(newState) {
+    this.cart = newState;
+    // Вызываем всех слушателей
+    for (const listener of this.listeners) listener();
+  }
 
   /**
-   * Добавление новой записи
+   * @param item
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+  addToCart(item) {
+    const newCart = [...this.cart];
+    const equalItem = newCart.find((elem) => elem.code === item.code); // Находим товар из State.list идентичный товару в корзине
+    if (equalItem) {
+      equalItem.count++; //Если идентичный товар есть, добавляем ему свойство count для подсчета колчиества одинаковых товаров
+    } else {
+      //Иначе просто добавляем в корзину
+      const newItem = { ...item, count: 1 };
+      newCart.push(newItem);
+    }
+    this.setCart(newCart);
+  }
+  deleteFromCart(item) {
+    const newCart = [...this.cart];
+    // Определяем индекс товара при нажатии
+    const index = newCart.indexOf((elem) => elem.code === item.code);
+    // И удаляем товар по индексу из массива
+    newCart.splice(index, 1);
+    this.setCart(newCart);
   }
 }
 

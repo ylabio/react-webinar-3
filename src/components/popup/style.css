@@ -1,0 +1,72 @@
+.modal {
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed; 
+}
+.content {
+  margin: 200px auto;
+  height: 407px;
+  width: 980px;
+  background-color: white;
+  border-radius: 10px;
+}
+.header {
+  box-sizing: border-box;
+  border-radius: 10px;
+  height: 80px;
+  background: rgb(245, 245, 245);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__h1 {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+}
+.header__button {
+  height: 21px;
+  cursor: pointer;
+  width: 76px;
+  font-size: 13px;
+  font-weight: 400;
+}
+.main {
+  height: 260px;
+  overflow: auto;
+}
+.list {
+  padding: 0;
+  padding-left: 25px;
+}
+.list__item span {
+  padding: 10px 0px;
+}
+.list__item{
+  display: flex;
+  align-items: center;
+}
+.item__index{
+  width: 40px;
+}
+.item__name{
+  width: 660px;
+}
+.item__price{
+  width: 110px;
+}
+.item__num{
+  width: 60px;
+}
+.item__delete {
+  height: 22px;
+}
+.footer{
+  text-align: right;
+  margin-right: 100px;
+}
