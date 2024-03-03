@@ -18,6 +18,10 @@ function Item(props) {
     onDelete: (e) => {
       e.stopPropagation();
       props.onDelete(props.item.code);
+    },
+    onAddToCart: (e) => {
+      e.stopPropagation();
+      props.onAdd(props.item.code);
 
     }
   }
@@ -33,9 +37,10 @@ function Item(props) {
         many: 'раз'
       })}` : ''}
       </div>
+      <span className='Item-price'>{props.item.price} ₽</span>
       <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button onClick={callbacks.onAddToCart}>
+          Добавить
         </button>
       </div>
     </div>

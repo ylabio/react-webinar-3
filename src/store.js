@@ -51,7 +51,19 @@ class Store {
   };
 
   /**
-   * Удаление записи по коду
+   * Добавление товара в корзину
+   * @param code
+   */
+  addToCart(code) {
+    this.setState({
+      ...this.state,
+      cartCount: this.state.cartCount + 1,
+      cartSum: this.state.cartSum + this.state.list.find(item => item.code === code).price
+    })
+  };
+
+  /**
+   * Удаление товара
    * @param code
    */
   deleteItem(code) {
