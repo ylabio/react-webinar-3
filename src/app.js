@@ -1,8 +1,11 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from './components/cart/modal';
+
+import {plural, numGoods, sumGoods} from "./utils";
 
 /**
  * Приложение
@@ -13,27 +16,36 @@ function App({store}) {
 
   const list = store.getState().list;
 
+  const [isShowModal, setIsShowModal] = useState(false);
+
   const callbacks = {
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    onAddItem: useCallback((code) => {
+      store.addItem(code);
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    onShowModal: useCallback((isOpen) => {
+      setIsShowModal(isOpen);
+    }, [store]),
   }
+  
+  const num = numGoods(list);
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин'/>
+      <Controls description={`В корзине: ${num ? num + ` ${plural(num, {
+            one: 'товар',
+            few: 'товара',
+            many: 'товаров'
+        })}/` +
+        sumGoods(list) +
+        ' ₽' : 'пусто'}`} actions={[{name: 'Перейти', action: () => callbacks.onShowModal(true)}]}/>
+      <List list={list} show={['code', 'title', 'price', 'add']} onAddItem={callbacks.onAddItem} onDeleteItem={callbacks.onDeleteItem}/>
+      <Modal list={list} isShowModal={isShowModal} onShowModal={callbacks.onShowModal} onAddItem={callbacks.onAddItem} onDeleteItem={callbacks.onDeleteItem}/>
     </PageLayout>
   );
 }

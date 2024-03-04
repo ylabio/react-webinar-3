@@ -1,0 +1,25 @@
+.Modal {
+    border: none;
+    width: 960px;
+}
+
+.Modal-sum {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.Cell {
+    padding: 20px 10px 20px 20px;
+}
+
+.Cell_main {
+    width: 100%;
+    padding: 20px 10px;
+}
+
+.Cell_end {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 20px 20px 10px;
+    width: 100px;
+}
