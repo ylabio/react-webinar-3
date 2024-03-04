@@ -15,11 +15,20 @@ function Controls({ cart, openModal }) {
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  cart: PropTypes.shape({
+    items: PropTypes.arrayOf(PropTypes.shape({
+      code: PropTypes.number,
+      title: PropTypes.string,
+      price: PropTypes.number,
+      count: PropTypes.number
+    })),
+    sum: PropTypes.number
+  }).isRequired,
+  openModal: PropTypes.func
 };
 
 Controls.defaultProps = {
-  onAdd: () => { }
+  openModal: () => { }
 }
 
 export default React.memo(Controls);

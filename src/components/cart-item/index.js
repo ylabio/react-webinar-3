@@ -36,17 +36,14 @@ CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
+    price: PropTypes.number,
     count: PropTypes.number
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+  deleteFromCart: PropTypes.func,
 };
 
 CartItem.defaultProps = {
-  onDelete: () => {
-  },
-  onSelect: () => {
+  deleteFromCart: () => {
   },
 }
 

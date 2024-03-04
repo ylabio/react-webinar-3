@@ -13,6 +13,7 @@ function Head({ title, children }) {
 
 Head.propTypes = {
   title: PropTypes.node,
+  children: PropTypes.node
 };
 
 export default React.memo(Head);

@@ -5,7 +5,6 @@ import './style.css';
 import CartItem from "../cart-item";
 
 function List({ list, action, type }) {
-  console.log(action)
   const renderList = (item) => {
     switch (type) {
       case 'cart':
@@ -31,11 +30,12 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  addToCart: PropTypes.func
+  type: 'cart' || 'articles',
+  action: PropTypes.func
 };
 
 List.defaultProps = {
-  addToCart: () => {
+  action: () => {
   },
 }
 

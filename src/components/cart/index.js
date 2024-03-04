@@ -22,4 +22,25 @@ const Cart = ({ cart, closeModal, deleteFromCart }) => {
             </PageLayout>
         </div>)
 }
+
+Cart.propTypes = {
+    cart: PropTypes.shape({
+        items: PropTypes.arrayOf(PropTypes.shape({
+            code: PropTypes.number,
+            title: PropTypes.string,
+            price: PropTypes.number,
+            count: PropTypes.number
+        })),
+        sum: PropTypes.number
+    }).isRequired,
+    closeModal: PropTypes.func,
+    deleteFromCart: PropTypes.func,
+};
+
+Cart.defaultProps = {
+    deleteFromCart: () => {
+    },
+    closeModal: () => {
+    },
+}
 export default React.memo(Cart)
