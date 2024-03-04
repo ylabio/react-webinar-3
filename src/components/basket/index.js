@@ -1,19 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Head from "../head";
+import Button from "../button";
 import './style.css';
 
 function Basket({forClose}) {
   return (
     <div className='Basket'>
       <Head tag='h2' title='Корзина'>
-        <button className='Basket-button' onClick={(event) => {
-          forClose();
-          event.stopPropagation();
-          }
-        }>
+        <Button style="Button_basket" callback={forClose}>
           Закрыть
-        </button>
+        </Button>
       </Head>
     </div>
   )
