@@ -66,23 +66,81 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  // selectItem(code) {
+  //   this.setState({
+  //     ...this.state,
+  //     list: this.state.list.map(item => {
+  //       if (item.code === code) {
+  //         // Смена выделения и подсчёт
+  //         return {
+  //           ...item,
+  //           selected: !item.selected,
+  //           count: item.selected ? item.count : item.count + 1 || 1,
+  //         };
+  //       }
+  //       // Сброс выделения если выделена
+  //       return item.selected ? {...item, selected: false} : item;
+  //     })
+  //   })
+  // }
+
+  /**
+ * Добавление в корзину
+ * @param code
+ */
+  addToCart(code) {
+    const updatedCart = this.state.cart.map(item => {
+      if (item.code === code) {
+        item.counter = item.counter ? item.counter + 1 : 1;
+        this.setState({
+          ...this.state,
+          cart: this.state.basketList
+        })
+      } else {
+        this.setState({
+          ...this.state,
+          cart: [...this.state.basketList, {...item, count: 1}]
+        })
+      }
+    });
+
+    if (!updatedCart.find(item => item.code === code)) {
+      updatedCart.push({code: code, counter: 1, price: price});
+    }
+
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+      cart: updatedCart
+    });
+
+    // Пересчитываем общую цену и обновляем состояние
+    const totalPrice = this.countPrice();
+    this.setState({
+      ...this.state,
+      totalPrice: totalPrice
+    });
   }
+
+
+  //подсчет количества товара в корзине
+  countCart() {
+    const {cart} = this.state;
+    if (!cart) return 0; // Если cart не определен, возвращаем 0
+    return [...new Set(cart)].length; // Уникальные товары в корзине
+  }
+
+  //подсчет цены каждого товара добавленного в корзину
+  countPrice() {
+    const {cart} = this.state;
+    if (!cart || !cart.length) return 0; // Если cart не определен или пуст, возвращаем 0
+    return cart.reduce((totalPrice, currentItem) => totalPrice + (currentItem.price), 0);
+  }
+  // countPrice() {
+  //   const { cart } = this.state;
+  //   if (!cart || !cart.length) return 0; // Если cart не определен или пуст, возвращаем 0
+  //   return cart.reduce((totalPrice, currentItem) => totalPrice + (currentItem.counter * currentItem.price), 0);
+  //   // Подсчитываем общую стоимость товаров, умножая цену каждого товара на его счетчик и складывая все значения
+  // }
 }
 
 export default Store;
