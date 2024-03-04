@@ -28,3 +28,25 @@
     -moz-transition: opacity .5s, visibility .6s ease;
         transition: opacity .5s, visibility .6s ease;
 }
+
+.Modal-control {
+  top: 0;
+  right: 0;
+  position: fixed;
+  opacity: 0.1;
+  visibility: visible;
+  pointer-events: auto;
+  font-size: 2rem;
+  padding: 10px;
+  -webkit-transition: opacity .4s ease;
+  -moz-transition:  opacity .4s ease;
+      transition:  opacity .4s ease;
+}
+
+.Modal-control:hover {
+  opacity: 0.2;
+  cursor: pointer;
+  -webkit-transition: opacity .4s ease;
+  -moz-transition:  opacity .4s ease;
+      transition:  opacity .4s ease;
+}

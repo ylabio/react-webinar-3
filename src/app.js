@@ -29,7 +29,7 @@ function App({store}) {
       <Head title='Магазин'/>
       <Controls forOpen={callbacks.forOpenModal}/>
       <List list={list}/>
-      <Modal state={modal} />
+      <Modal state={modal} forClose={callbacks.forCloseModal}/>
     </PageLayout>
   );
 }
