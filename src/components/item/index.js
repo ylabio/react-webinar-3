@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {plural} from "../../utils";
+import Button from "../button";
 import './style.css';
 
 /* COMPONENTS TODO:
@@ -24,9 +25,9 @@ function Item(props) {
       <div className='Item-price'>{`${props.item.price} ₽`}</div>
       <div className='Item-actions'>
         {/* callbacks.onDelete */}
-        <button className='Item-button' onClick={() => null}>
+        <Button style='Button_item' callback={() => null}>
           Добавить
-        </button>
+        </Button>
       </div>
     </div>
   );
