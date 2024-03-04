@@ -10,21 +10,18 @@ function Controls({ onOpenModal, cartTotalPrice, cartItemCount }) {
 
   return (
     <div className="Controls">
-      {cartItemCount > 0 && (
-        <div className="Controls-content">
-          <div>В корзине: </div>
-          <p>
-            {cartItemCount ? (
-              `${cartItemCount} ${plural(cartItemCount, {
-                one: "товар ",
-                few: "товара ",
-                many: "товаров ",
+      <div className="Controls-content">
+        <div>В корзине: </div>
+        <p>
+          {cartItemCount > 0
+            ? `${cartItemCount} ${plural(cartItemCount, {
+                one: "товар",
+                few: "товара",
+                many: "товаров",
               })} / ${cartTotalPrice} ₽`
-            ) : "Пусто"}
-          </p>
-        </div>
-      )}
-
+            : "Пусто"}
+        </p>
+      </div>
       <button onClick={handleClick}>Перейти</button>
     </div>
   );
@@ -36,10 +33,6 @@ Controls.propTypes = {
   cartItemCount: PropTypes.number.isRequired,
 };
 
-Controls.defaultProps = {
-  onOpenModal: () => {},
-  cartTotalPrice: 0,
-  cartItemCount: 0,
-};
+
 
 export default React.memo(Controls);

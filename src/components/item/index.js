@@ -4,7 +4,7 @@ import { plural } from "../../utils";
 import "./style.css";
 
 function Item(props) {
-  const { item, price, onAddToCart,count, } = props;
+  const { item, price, onAddToCart, } = props;
 
   const handleAddToCart = () => {
     onAddToCart(item.code);

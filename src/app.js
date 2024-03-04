@@ -4,7 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal/index";
-import { cn as bem } from "@bem-react/classname";
+
 import Cart from "./components/Cart";
 
 /**
@@ -41,7 +41,6 @@ function App({ store }) {
       [store]
     ),
   };
-  console.log({ cartList });
   return (
     <>
       <PageLayout>
@@ -54,7 +53,7 @@ function App({ store }) {
         <List
           list={list}
           onActionClick={callbacks.onAddToCart}
-          actionName="Добавить"
+          actionName="Удалить"
           onAddToCart={callbacks.onAddToCart}
         />
       </PageLayout>
@@ -66,7 +65,7 @@ function App({ store }) {
       >
         <Cart
           list={cartList}
-          cartTotalPrice={cartTotalPrice}
+          cartTotal={cartTotalPrice}
           cartItemCount={callbacks.cartItemCount}
           onDelete={callbacks.onDeleteCartItem}
         />

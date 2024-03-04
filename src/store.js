@@ -30,17 +30,15 @@ class Store {
     return this.state;
   }
 
-   /**
+  /**
    * Переключение состояния модального окна корзины
    */
-   toggleCartModal() {
+  toggleCartModal() {
     this.setState({
       ...this.state,
       isCartModalOpen: !this.state.isCartModalOpen,
     });
   }
-
-
 
   /**
    * Установка состояния
@@ -52,6 +50,12 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+
+
+  /**
+   * Установка состояния
+   * @param newState {Object}
+   */
   addToCart(code) {
     const cartList = [].concat(this.state.cartList ?? []);
     const selectedProduct = this.state.list.find(
@@ -76,19 +80,20 @@ class Store {
    * @param code
    */
   onDeleteCartItem(code) {
-    const updatedCartList = this.state.cartList.map(item => {
-      if (item.code === code) {
-        return { ...item, count: item.count - 1 };
-      }
-      return item;
-    }).filter(item => item.count > 0);
-  
+    const updatedCartList = this.state.cartList
+      .map((item) => {
+        if (item.code === code) {
+          return { ...item, count: item.count - 1 };
+        }
+        return item;
+      })
+      .filter((item) => item.count > 0);
+
     this.setState({
       ...this.state,
       cartList: updatedCartList,
     });
   }
-
 }
 
 export default Store;

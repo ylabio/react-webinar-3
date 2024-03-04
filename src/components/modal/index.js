@@ -20,6 +20,7 @@ const Modal = ({ isShowing, hide, title, ...props }) =>
                 закрыть
                   </button>
                 </div>
+                <div className="modal-none"></div>
                 <div className="modal-body">{props.children}</div>
               </div>
             </div>

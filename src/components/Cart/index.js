@@ -4,17 +4,18 @@ import List from "../list";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-function Cart({ list, onActionClick, cartTotalPrice, cartItemCount }) {
-  const handleDelete = (code) => {
-    onDelete(code);
-  };
-
+function Cart({ list, onActionClick, cartTotal, onDelete }) {
   return (
     <div>
-      <List onActionClick={handleDelete} list={list} actionName="Удалить" />
+      <List
+        onActionClick={onActionClick}
+        list={list}
+        actionName="Удалить"
+        onDelete={onDelete}
+      />
       <div className="Cart_total">
         <span>Итого </span>
-        <span>{cartTotalPrice}</span>
+        <span>{cartTotal}</span>
       </div>
     </div>
   );
@@ -29,8 +30,6 @@ Cart.propTypes = {
     })
   ).isRequired,
   onDelete: PropTypes.func.isRequired,
-  cartTotalPrice: PropTypes.number.isRequired,
-  cartItemCount: PropTypes.number.isRequired,
 };
 
 export default React.memo(Cart);

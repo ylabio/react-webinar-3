@@ -4,7 +4,7 @@ import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import Item from "./../item";
 
-function Order({ list, onDelete,  }) {
+function Order({ list, onDelete }) {
   const cn = bem("Order");
 
   return (
@@ -25,6 +25,6 @@ Order.PropTypes = {
       title: PropTypes.string.isRequired,
     })
   ).isRequired,
-  onAddToCard: PropTypes.func.isRequired,
+
 };
 export default React.memo(Order);
