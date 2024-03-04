@@ -1,4 +1,5 @@
 import React, {useCallback} from 'react';
+import Basket from "./components/basket";
 import Modal from "./components/modal";
 import List from "./components/list";
 import Controls from "./components/controls";
@@ -29,7 +30,9 @@ function App({store}) {
       <Head title='Магазин'/>
       <Controls forOpen={callbacks.forOpenModal}/>
       <List list={list}/>
-      <Modal state={modal} forClose={callbacks.forCloseModal}/>
+      <Modal state={modal} children forClose={callbacks.forCloseModal}>
+        <Basket forClose={callbacks.forCloseModal}/>
+      </Modal>
     </PageLayout>
   );
 }
