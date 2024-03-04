@@ -1,0 +1,18 @@
+.Modal {
+  width: 960px;
+  height: 400px;
+  box-sizing: border-box;
+  padding: 0;
+  border: transparent;
+  background-color: #FFF;
+  border-radius: 10px;
+}
+
+.Modal::backdrop {
+  background-color: #000000;
+  opacity: 70%;
+}
+
+.Modal-cage {
+  height: 100%;
+}

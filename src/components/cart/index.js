@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import PropTypes from 'prop-types';
 import CartInfo from '../cart-info';
-import CartDetails from '../cart-details/cart-details';
+import CartDetails from '../cart-details';
+import Modal from '../modal'
 import './style.css';
 
 function Cart(props) {
@@ -13,24 +14,28 @@ function Cart(props) {
     return prev + cur.price * props.cart[cur.code]
   }, 0);
 
-  const onOpen = (e) => {
-    e.stopPropagation();
-    setIsOpen(true);
+  const callbacks = {
+    onOpen: useCallback((e) => {
+       e.stopPropagation();
+       setIsOpen(true);
+     }),
+    onClose: useCallback(() => setIsOpen(false)),
   }
 
   return (
     <div className='Cart'>
       <CartInfo amount={amount} cost={cost} />
       <button className='Cart-btn'
-              onClick={onOpen}
+              onClick={callbacks.onOpen}
       >
         Перейти
       </button>
-      {isOpen && <CartDetails isOpen={isOpen}
-                    setIsOpen={setIsOpen}
-                    cost={cost}
-                    {...props}
-      />}
+      <Modal isOpen={isOpen} onClose={callbacks.onClose}>
+        <CartDetails onClose={callbacks.onClose}
+                     cost={cost}
+                     {...props}
+        />
+      </Modal>
     </div>
   )
 }
