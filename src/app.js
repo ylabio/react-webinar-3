@@ -44,7 +44,7 @@ function App({store}) {
       {isModalVisible &&
         <ShoppingCartModal
           shoppingCartList={shoppingCartList}
-          totalCost={total.totalCost}
+          total={total}
           handleClickOpenModal={callbacks.handleClickOpenModal}
           onRemoveItemFromShoppingCart={callbacks.onRemoveItemFromShoppingCart}
         />

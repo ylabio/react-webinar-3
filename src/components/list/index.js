@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, onAddItemToShoppingCart, onRemoveItemFromShoppingCart, modal
-}) {
+function List({list, onAddItemToShoppingCart, onRemoveItemFromShoppingCart, modal}) {
   return (
     <div className='List'>{
       list.map(item =>

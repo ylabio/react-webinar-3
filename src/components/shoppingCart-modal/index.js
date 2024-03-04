@@ -6,7 +6,7 @@ import Head from '../head';
 import List from '../list';
 import { priceFormat } from '../../utils';
 
-function ShoppingCartModal({shoppingCartList, totalCost, handleClickOpenModal, onRemoveItemFromShoppingCart}) {
+function ShoppingCartModal({shoppingCartList, total, handleClickOpenModal, onRemoveItemFromShoppingCart}) {
   return (
     <div className="darkBG">
       <PageLayout bemEntity="ModalPageLayout">
@@ -15,10 +15,10 @@ function ShoppingCartModal({shoppingCartList, totalCost, handleClickOpenModal, o
           list={shoppingCartList}
           onRemoveItemFromShoppingCart={onRemoveItemFromShoppingCart}
           modal />
-        {(totalCost > 0) && (
+        {(total.totalAmount > 0) && (
           <div className="ModalPageLayout-Total">
             <span>Итого</span>
-            <span>{priceFormat(totalCost)}</span>
+            <span>{priceFormat(total.totalCost)}</span>
           </div>
         )}
       </PageLayout>
@@ -27,6 +27,10 @@ function ShoppingCartModal({shoppingCartList, totalCost, handleClickOpenModal, o
 }
 
 ShoppingCartModal.propTypes = {
+  total: PropTypes.shape({
+    totalAmount: PropTypes.number,
+    totalCost: PropTypes.number,
+  }),
   shoppingCartList: PropTypes.array,
   handleClickOpenModal: PropTypes.func,
   onRemoveItemFromShoppingCart: PropTypes.func
