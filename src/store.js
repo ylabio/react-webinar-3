@@ -4,6 +4,8 @@
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.numb = this.state.list.length;
+    this.selected = {};
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -16,8 +18,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -42,22 +44,28 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.numb += 1;
+    var title = "Новая запись";
+    if (this.selected[this.numb]) {
+      title += ` | Выделено ${this.selected[this.numb]} раз`
+    }
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+      list: [...this.state.list, { code: this.numb, title: title }],
+    });
+  }
 
   /**
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(event, code) {
+    event.stopPropagation();
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      list: this.state.list.filter((item) => item.code !== code),
+    });
+  }
 
   /**
    * Выделение записи по коду
@@ -66,13 +74,26 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map((item) => {
         if (item.code === code) {
+          if (!item.selected) {
+            if (this.selected[item.code]) {
+              this.selected[item.code] += 1;
+            }
+            else {
+            this.selected[item.code] = 1;
+            item.title += ' |';
+          }
+            item.title = item.title.substring(0, item.title.lastIndexOf(" |")) + ` | Выделяли ${this.selected[code]} раз`
+            if ([2,3,4].indexOf(this.selected[item.code] % 100 % 10) > -1 && Math.floor(this.selected[item.code] % 100 / 10) != 1) item.title+='а';
+          }
           item.selected = !item.selected;
+        } else {
+          item.selected = false;
         }
         return item;
-      })
-    })
+      }),
+    });
   }
 }
 
