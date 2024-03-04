@@ -3,13 +3,11 @@ import PropTypes from "prop-types";
 import Modal from "../modal/";
 import Head from "../head/";
 import List from "../list";
-import { monefy } from "../../utils";
+import { monefy, sumPrices } from "../../utils";
 import "./style.css";
 
 function Cart({ list, itemBtn, isShow, onClose }) {
-  const sum = list.reduce((acc, product) => {
-    return acc + product.price * product.count;
-  }, 0);
+  const sum = sumPrices(list);
 
   return (
     <div className="Cart" style={{ display: isShow ? "block" : "none" }}>

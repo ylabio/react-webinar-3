@@ -54,15 +54,29 @@ export function generateCode2() {
 }
 
 /**
- * Форматирует число в рубли
+ * Форматирует число в строковое валютное значение
+ * @param {Number} value - число
+ * @param {String} [currency="RUB"] - валюта (RUB, USD, ...). По умолчанию "RUB"
+ * @param {String} [locale="ru-RU"] - локаль (ru-RU, en-EN). По умолчанию "ru-RU"
  * @returns {String}
  */
-export function monefy(value) {
-  const formatter = new Intl.NumberFormat("ru-RU", {
+export function monefy(value, currency = "RUB", locale = "ru-RU") {
+  const formatter = new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: "RUB",
+    currency,
     minimumFractionDigits: 0,
   });
 
-  return formatter.format(value)
+  return formatter.format(value);
+}
+
+/**
+ * Суммирует цены продуктов в списке
+ * @param {Array.<{price: Number, count: Number}>} productsList
+ * @returns {Number}
+ */
+export function sumPrices(productsList) {
+  return productsList.reduce((sum, product) => {
+    return sum + product.price * product.count;
+  }, 0);
 }
