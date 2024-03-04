@@ -50,11 +50,11 @@ class Store {
       //добавление предмета в корзину и установка счетчика
       this.setState({
         ...this.state,
-        cart: [...this.state.cart, {...item, count: 1}]
+        cart: [...this.state.cart, {...item, amount: 1}]
       })
     } else{
       //инкрементирование счетчика
-      this.state.cart.find(cartItem => cartItem.code === item.code).count++;
+      this.state.cart.find(cartItem => cartItem.code === item.code).amount++;
       this.setState({
         ...this.state,
         cart: [...this.state.cart]
@@ -62,7 +62,6 @@ class Store {
     }
     console.log(this.state.cart);
   };
-
 
   /**
    * Удаление записи по коду
@@ -72,7 +71,7 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code)
     })
   };
 }

@@ -1,6 +1,7 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  min-height: 50px;
 }
 
 .Controls-actions{

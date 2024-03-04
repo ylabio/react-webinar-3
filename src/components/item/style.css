@@ -40,3 +40,23 @@ button{
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }
+
+.Item-amount{
+  width: 25%;
+  font-size: 18px;
+  padding: 20px 10px;
+  text-align: end;
+}
+
+.hidden{
+  width: 0;
+  visibility: collapse;
+}
+
+.w25{
+  width: 25%;
+}
+
+.w50{
+  width: 50%;
+}
