@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
-import { plural } from "../../utils";
+import { plural, pluralNumber } from "../../utils";
 
 function Controls({ onClick, itemsCount, price }) {
   const cn = bem("Controls");
@@ -18,7 +18,7 @@ function Controls({ onClick, itemsCount, price }) {
                 one: "товар",
                 few: "товара",
                 many: "товаров",
-              })} / ${price} ₽`}
+              })} / ${pluralNumber(price)}`}
         </span>
       </p>
       <button onClick={onClick}>Перейти</button>

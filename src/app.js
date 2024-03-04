@@ -1,8 +1,9 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -10,38 +11,50 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const { list, cart } = store.getState();
+
+  const [cartIsOpen, setCartIsOpen] = useState(false);
+
+  const totalPrice = cart.reduce(
+    (totalPrice, item) => (totalPrice += item.price * item.count),
+    0
+  );
 
   const callbacks = {
-    onDeleteItem: useCallback(
-      (code) => {
-        store.deleteItem(code);
-      },
-      [store]
-    ),
-
-    onSelectItem: useCallback(
-      (code) => {
-        store.selectItem(code);
-      },
-      [store]
-    ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    toggleCart: () => {
+      setCartIsOpen((prevState) => !prevState);
+    },
+    addToCart: (item) => {
+      store.addItemToCart(item);
+    },
+    deleteFromCart: (item) => {
+      store.deleteItemFromCart(item);
+    },
   };
 
   return (
-    <PageLayout>
-      <Head title="Магазин" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+    <>
+      <PageLayout>
+        <Head title="Магазин" />
+        <Controls
+          onClick={callbacks.toggleCart}
+          itemsCount={cart.length}
+          price={totalPrice}
+        />
+        <List
+          list={list}
+          onActionClick={callbacks.addToCart}
+          actionsBtnText={"Добавить"}
+        />
+      </PageLayout>
+      <Cart
+        isOpen={cartIsOpen}
+        closeCart={callbacks.toggleCart}
+        cart={cart}
+        totalPrice={totalPrice}
+        removeItem={callbacks.deleteFromCart}
       />
-    </PageLayout>
+    </>
   );
 }
 
