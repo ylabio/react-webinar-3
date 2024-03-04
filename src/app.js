@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState, useRef, useEffect} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
@@ -6,6 +6,7 @@ import PageLayout from "./components/page-layout";
 import Modal from './components/cart/modal';
 
 import {plural, numGoods, sumGoods} from "./utils";
+import { initList, mainList } from './config';
 
 /**
  * Приложение
@@ -13,6 +14,8 @@ import {plural, numGoods, sumGoods} from "./utils";
  * @returns {React.ReactElement}
  */
 function App({store}) {
+
+  console.log("app")
 
   const list = store.getState().list;
 
@@ -33,6 +36,7 @@ function App({store}) {
   }
   
   const num = numGoods(list);
+  const controls = useRef([{name: 'Перейти', action: () => callbacks.onShowModal(true)}]);
 
   return (
     <PageLayout>
@@ -43,9 +47,9 @@ function App({store}) {
             many: 'товаров'
         })}/` +
         sumGoods(list) +
-        ' ₽' : 'пусто'}`} actions={[{name: 'Перейти', action: () => callbacks.onShowModal(true)}]}/>
-      <List list={list} show={['code', 'title', 'price', 'add']} onAddItem={callbacks.onAddItem} onDeleteItem={callbacks.onDeleteItem}/>
-      <Modal list={list} isShowModal={isShowModal} onShowModal={callbacks.onShowModal} onAddItem={callbacks.onAddItem} onDeleteItem={callbacks.onDeleteItem}/>
+        ' ₽' : 'пусто'}`} actions={controls}/>
+      <List list={initList} show={mainList} onAddItem={callbacks.onAddItem} onDeleteItem={callbacks.onDeleteItem}/>
+      {isShowModal ? <Modal list={list} isShowModal={isShowModal} onShowModal={callbacks.onShowModal} onAddItem={callbacks.onAddItem} onDeleteItem={callbacks.onDeleteItem}/> : null}
     </PageLayout>
   );
 }

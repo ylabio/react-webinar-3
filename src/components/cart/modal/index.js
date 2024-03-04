@@ -5,6 +5,7 @@ import Item from "../../item";
 import Head from "../../head";
 import List from "../../list";
 import { sumGoods } from "../../../utils";
+import { modalList } from "../../../config";
 
 function Modal(props) {
 
@@ -21,14 +22,12 @@ function Modal(props) {
         }
     }, [props.isShowModal])
 
+    const controls = useRef([{name: 'Закрыть', action: () => props.onShowModal(false)}]);
+
     return (
         <dialog ref={modal} className={'Modal' + (!props.isShowModal ? ' Modal_hidden' : '')}>
-            <Head title={'Корзина'}  controls={
-                <div className='Head-actions'>
-                    <button onClick={() => props.onShowModal(false)}>Закрыть</button>
-                </div>
-            }/>
-            <List list={props.list} show={['code', 'title', 'price', 'count', 'delete']} onAddItem={props.onAddItem} onDeleteItem={props.onDeleteItem}/>
+            <Head title={'Корзина'}  actions={controls}/>
+            <List list={props.list} show={modalList} onAddItem={props.onAddItem} onDeleteItem={props.onDeleteItem}/>
             <div className='Modal-sum'>
                 <div className='Cell'>&nbsp;</div>
                 <div className="Cell Cell_main">&nbsp;</div>

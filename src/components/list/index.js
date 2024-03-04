@@ -5,6 +5,8 @@ import './style.css';
 
 function List(props) {
 
+  console.log("list")
+
   return (
     <div className='List'>{
       props.list.map(item =>

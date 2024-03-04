@@ -5,6 +5,8 @@ import './style.css';
 
 function Item(props) {
 
+  console.log("item" + props.item.code + props.item.count)
+
   const callbacks = {
     onDelete: (e) => {
       e.stopPropagation();
