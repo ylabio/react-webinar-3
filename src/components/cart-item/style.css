@@ -2,11 +2,6 @@
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
-  border-top: 1px dashed rgb(204, 204, 204);
-}
-
-.Cart-item:last-of-type {
-  border-bottom: 1px dashed rgb(204, 204, 204);
 }
 
 .Cart-item-code {
