@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
@@ -13,6 +13,16 @@ import Card from "./components/card";
 function App({store}) {
 
   const list = store.getState().list;
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  }
+
+  const handleOpenCard = () => {
+    setIsModalOpen(true);
+  }
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -31,11 +41,11 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls onAdd={callbacks.onAddItem}/>
+      <Controls onAdd={callbacks.onAddItem} onOpen={handleOpenCard}/>
       <List list={list}
             onDeleteItem={callbacks.onDeleteItem}
             onSelectItem={callbacks.onSelectItem}/>
-      <Card items={list} />
+      {isModalOpen && <Card items={list} onCloseModal={handleCloseModal}/>}
     </PageLayout>
   );
 }

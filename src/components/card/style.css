@@ -23,7 +23,7 @@
 }
 
 .Card-results {
-  margin-bottom: 70px;
+  padding-bottom: 70px;
   display: flex;
   justify-content: end;
 }

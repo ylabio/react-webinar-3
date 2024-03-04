@@ -27,15 +27,13 @@ function Item(props) {
          onClick={callbacks.onClick}>
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {
-        one: 'раз',
-        few: 'раза',
-        many: 'раз'
-      })}` : ''}
+        {props.item.title}
       </div>
+      <div className='Item-price'>{props.item.price} &#8381;</div>
+      {props.isModal && <div className='Item-count'>1 шт</div>}
       <div className='Item-actions'>
         <button onClick={callbacks.onDelete}>
-          Удалить
+          Добавить
         </button>
       </div>
     </div>
