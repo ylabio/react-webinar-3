@@ -50,6 +50,13 @@ class Store {
     })
   };
 
+  addItemToCard(item) {
+    this.setState({
+      ...this.state,
+      list: [...this.state.list, item]
+    })
+  }
+
   /**
    * Удаление записи по коду
    * @param code

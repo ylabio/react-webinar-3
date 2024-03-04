@@ -19,6 +19,9 @@ function Item(props) {
       e.stopPropagation();
       props.onDelete(props.item.code);
 
+    },
+    onAddCard: () => {
+      props.onAddCard(props.item)
     }
   }
 
@@ -32,7 +35,7 @@ function Item(props) {
       <div className='Item-price'>{props.item.price} &#8381;</div>
       {props.isModal && <div className='Item-count'>1 шт</div>}
       <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
+        <button onClick={callbacks.onAddCard}>
           Добавить
         </button>
       </div>
@@ -48,7 +51,8 @@ Item.propTypes = {
     count: PropTypes.number
   }).isRequired,
   onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+  onSelect: PropTypes.func,
+  onAddCard: PropTypes.func,
 };
 
 Item.defaultProps = {
@@ -56,6 +60,9 @@ Item.defaultProps = {
   },
   onSelect: () => {
   },
+  onAddCard: () => {
+
+  }
 }
 
 export default React.memo(Item);
