@@ -4,7 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import CartLayout from './components/cart-layout';
-import Cart from './components/cart';
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -44,7 +44,7 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title={'Магазин'}/>
-      <Controls controls={true} itemsCount={itemsCount} sum={sum} onShowCart={callbacks.onShowCart}/>
+      <Controls controls={true} itemsCount={itemsCount} cartList={cartList} sum={sum} onShowCart={callbacks.onShowCart}/>
       <List list={list} showAmount={false} actionBtn={'Добавить'} isCartOpen={isCartOpen} addToCart={callbacks.onAddToCart}/>
       
       {isCartOpen &&

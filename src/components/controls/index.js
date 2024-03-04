@@ -7,12 +7,16 @@ import { currency } from "../../utils";
 
 const cn = bem('Controls');
 
-function Controls({onShowCart, controls, itemsCount, sum}) {
+function Controls({onShowCart, controls, cartList, itemsCount, sum}) {
+  
+  const uniqueItemsArr = cartList?.filter((item, index) => cartList.findIndex(e => e.code === item.code) === index)
+  const uniqueItemsCount = uniqueItemsArr?.length || 0
+
   return (
     <div className={cn()}>
       {controls && <span className={cn('cart-text')}>В корзине: </span>}
       {itemsCount > 0 && controls
-      ? <span className={cn('value')}>{itemsCount} {plural(itemsCount, {one: 'товар', few: 'товара', many: 'товаров'})} / {currency(sum)}</span> 
+      ? <span className={cn('value')}>{uniqueItemsCount} {plural(uniqueItemsCount, {one: 'товар', few: 'товара', many: 'товаров'})} / {currency(sum)}</span> 
       : controls
         ? <span className={cn('value')}>пусто</span> 
         : ''}
