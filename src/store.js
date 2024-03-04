@@ -40,10 +40,16 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+}
+export default Store;
+
+
+
+/*
+
   /**
    * Добавление новой записи
-   */
-  addItem() {
+     addItem() {
     this.setState({
       ...this.state,
       list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
@@ -66,7 +72,7 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
-   */
+
   selectItem(code) {
     this.setState({
       ...this.state,
@@ -86,4 +92,4 @@ class Store {
   }
 }
 
-export default Store;
+*/

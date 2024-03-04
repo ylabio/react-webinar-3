@@ -1,0 +1,79 @@
+.Basket {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  width: 960px;
+  height: 407px;
+  background-color: #FFF;
+  padding-bottom: 10px;
+  border-radius: 10px;
+}
+
+.Basket-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #cccccc;
+  height: 80px;
+  border-radius: 10px 10px 0 0;
+}
+
+.Basket-title b {
+  font-size: 32px;
+}
+
+.Basket-button {
+  cursor: pointer;
+  width: 76px;
+  height: 21px;
+  font-size: 13px;
+}
+
+.Basket-total {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  padding-right: 110px;
+}
+
+.Basket-total > b:first-child {
+  padding-right: 20px;
+}
+
+.Basket-bottom {
+    font-size: 32px;
+}
+
+.Basket-List {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: auto;
+  height: 327px;
+}
+
+.Basket-item {
+  border-bottom: 1px dashed #ccc;
+}
+
+.Basket-List > div:first-of-type {
+  border-top: 1px dashed #ccc;
+  margin-top: 10px;
+}
+
+.Basket-empty {
+  display: flex;
+  padding: 20px;
+  position: relative;
+  top: 35%;
+}
+
+.Basket-empty > span {
+  font-size: 20px;
+  margin-left: 75%;
+}
+
