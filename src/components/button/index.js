@@ -4,7 +4,11 @@ import './style.css';
 
 function Button({style, children, callback}) {
   return (
-    <button className={(`Button ${style ? style : ''}`).trim()} onClick={() => callback()}>
+    <button className={(`Button ${style ? style : ''}`).trim()} onClick={(event) => {
+      callback();
+      event.stopPropagation();
+      }
+    }>
       {children}
     </button>
   )
