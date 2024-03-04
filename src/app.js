@@ -50,7 +50,7 @@ function App({store}) {
         list={list}
         onAddItemToCart={callbacks.onAddItemToCart}
       />
-      <Modal isOpen={isCartModalOpen} list={cart}>
+      <Modal isOpen={isCartModalOpen}>
         <Cart
           list={cart}
           onDeleteItemFromCart={callbacks.onDeleteItemFromCart}

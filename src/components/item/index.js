@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
+import Button from "../button";
 
 function Item(props) {
   const callbacks = {
@@ -26,12 +27,8 @@ function Item(props) {
         {`${props.item.count} шт`}
       </div>}
       <div className='Item-actions'>
-        {props.onAddToCart && <button className={'Item-button'} onClick={callbacks.onAddToCart}>
-          Добавить
-        </button>}
-        {props.onDeleteFromCart && <button className={'Item-button'} onClick={callbacks.onDeleteFromCart}>
-          Удалить
-        </button>}
+        {props.onAddToCart && <Button onClick={callbacks.onAddToCart}>Добавить</Button>}
+        {props.onDeleteFromCart && <Button onClick={callbacks.onDeleteFromCart}>Удалить</Button>}
       </div>
     </div>
   );

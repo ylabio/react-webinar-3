@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import CartInfo from "../cart-info";
+import Button from "../button"
 
 import './style.css';
 
@@ -8,7 +9,7 @@ function Controls({cartInfo, handleCartModalOpen}) {
   return (
     <div className='Controls'>
       <CartInfo cartInfo={cartInfo}/>
-      <button className={'Controls-button'} onClick={handleCartModalOpen}>Перейти</button>
+      <Button onClick={handleCartModalOpen}>Перейти</Button>
     </div>
   )
 }

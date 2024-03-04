@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-right: 32px;
 }
 
 .Head h1 {
@@ -12,9 +13,3 @@
   flex-grow: 1;
 }
 
-.Head-button {
-  width: 76px;
-  height: 21px;
-  margin-right: 32px;
-  cursor: pointer;
-}
