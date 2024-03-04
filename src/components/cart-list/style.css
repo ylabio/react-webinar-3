@@ -1,0 +1,16 @@
+.CartList {
+  padding-top: 71px;
+  overflow-y: scroll;
+}
+
+.CartList-item {
+  border-bottom: 1px dashed #ccc;
+}
+
+.CartList-item:nth-child(1) {
+  border-top: 1px dashed #ccc;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}

@@ -50,6 +50,22 @@ class Store {
     })
   };
 
+  addItemToCart(code) {
+    const currentItem = this.state.list.find(item => item.code === code);
+    if (!this.state.cartList.find(item => item.code === currentItem.code)) {
+      currentItem.addCount = 1;
+      this.setState({
+        ...this.state,
+        cartList: [...this.state.cartList, currentItem]
+      });
+    } else {
+      const newState = structuredClone(this.state);
+      const currentItemIndex = newState.cartList.findIndex(item => item.code === code);
+      newState.cartList[currentItemIndex].addCount++;
+      this.setState(newState);
+    }
+  }
+
   /**
    * Удаление записи по коду
    * @param code
@@ -58,7 +74,7 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cartList: this.state.cartList.filter(item => item.code !== code)
     })
   };
 
@@ -75,7 +91,7 @@ class Store {
           return {
             ...item,
             selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
+          //  count: item.selected ? item.count : item.count + 1 || 1,
           };
         }
         // Сброс выделения если выделена

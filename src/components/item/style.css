@@ -18,6 +18,10 @@
   padding: 20px 10px;
 }
 
+.Item-price, .Item-add-count {
+  padding: 19px 24px 21px 0;
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;
