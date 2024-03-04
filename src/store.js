@@ -7,6 +7,9 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state.cart = [...this.state.list];
+    this.state.uniqueProductsCount = new Set();
+    this.state.price = 0;
   }
 
   /**
@@ -41,12 +44,25 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление нового товара в корзину
    */
-  addItem() {
+  addToCart(code) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      cart: this.state.cart.map(item => {
+        if (item.code === code) {
+          // Добавление количества товара
+          return {
+            ...item,
+            count: item.count ? ++item.count : 1,
+          };
+        }
+        return item
+      }),
+      //подсчёт количества уникальных товаров в корзине
+      uniqueProductsCount: this.state.uniqueProductsCount.add(code),
+      //подсёт цены товаров в корзине
+      price: this.state.price + this.state.list[code - 1].price
     })
   };
 
@@ -66,7 +82,7 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  /* selectItem(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
@@ -82,7 +98,7 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     })
-  }
+  } */
 }
 
 export default Store;
