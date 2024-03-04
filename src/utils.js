@@ -17,6 +17,15 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
 }
 
 /**
+ * Добавление валютного знака российского рубля
+ * @param value {Number}
+ * @returns {string}
+ */
+export function currency(value) {
+  return value.toLocaleString('ru-RU', {style: 'currency', currency: 'RUB', maximumFractionDigits: 0});
+}
+
+/**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.
  * @returns {Number}
