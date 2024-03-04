@@ -2,6 +2,11 @@ import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
+/* COMPONENTS TODO:
+component controls:
+ - component vidget
+ - component button */
+
 function Controls() {
   return (
     <div className='Controls'>
