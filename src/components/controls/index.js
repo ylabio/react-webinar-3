@@ -1,13 +1,11 @@
 import React from 'react';
 import {cn as bem} from '@bem-react/classname';
 import PropTypes from 'prop-types';
-import './style.css';
 import {plural} from '../../utils';
+import './style.css';
 
-function Controls({onAdd, cartProducts, cartSum}) {
+function Controls({cartProducts, cartSum, onShowCart}) {
 	const cn = bem('Controls');
-
-	console.log(cartProducts);
 	return (
 		<div className={cn()}>
 			<span className={cn('info')}>
@@ -23,17 +21,21 @@ function Controls({onAdd, cartProducts, cartSum}) {
 						: 'пусто'}
 				</b>
 			</span>
-			<button onClick={() => onAdd()}>Перейти</button>
+      <button onClick={() => onShowCart(true)}>Перейти</button>
 		</div>
 	);
 }
 
 Controls.propTypes = {
 	onAdd: PropTypes.func,
+	cartProducts: PropTypes.array,
+	cartSum: PropTypes.number,
 };
 
 Controls.defaultProps = {
 	onAdd: () => {},
+	cartProducts: [],
+	cartSum: 0,
 };
 
 export default React.memo(Controls);
