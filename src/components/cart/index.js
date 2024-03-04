@@ -16,7 +16,6 @@ function Cart({sum}) {
 }
 
 Cart.propTypes = {
-    children: PropTypes.node,
     sum: PropTypes.number
   }
 

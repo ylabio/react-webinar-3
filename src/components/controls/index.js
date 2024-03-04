@@ -29,7 +29,8 @@ Controls.propTypes = {
   onShowCart: PropTypes.func,
   controls: PropTypes.bool,
   itemsCount: PropTypes.number,
-  sum: PropTypes.number
+  sum: PropTypes.number,
+  cartList: PropTypes.array
 };
 
 Controls.defaultProps = {
