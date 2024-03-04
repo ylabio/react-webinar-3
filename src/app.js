@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Cart from './components/cart'
 
 /**
  * Приложение
@@ -12,28 +13,38 @@ import PageLayout from "./components/page-layout";
 function App({store}) {
 
   const list = store.getState().list;
+  const orders = store.getState().orders;
+
+  const [modalActive, setModalActive] = useState(false)
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
+    onDelete: useCallback((code) => {
       store.deleteItem(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
+    onSelect: useCallback((code) => {
       store.selectItem(code);
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    onAdd: useCallback((item) => {
+      store.addItem(item);
+    }, [store]),
+
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
+      <Head title='Магазин'/>
+      <Controls 
+      setActive={setModalActive}
+      orders={orders}/>
       <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+        onAdd={callbacks.onAdd} />
+      <Cart 
+        orders={orders}
+        active={modalActive}
+        setActive={setModalActive}
+        onDelete={callbacks.onDelete}/>    
     </PageLayout>
   );
 }
