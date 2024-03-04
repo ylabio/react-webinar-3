@@ -1,5 +1,25 @@
 .Controls {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
   padding: 20px;
+}
+
+.Controls-vidget {
+  min-width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 20px;
+  line-height: 24px;
+}
+
+.Controls-vidget-inform {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.Controls-button {
+  width: 80px;
 }
