@@ -1,0 +1,12 @@
+.info {
+  align-items: center;
+  border-bottom: 1px dashed #ccc;
+  display: flex;
+  font-size: 18px;
+  justify-content: flex-end;
+  line-height: 20.7px;
+}
+
+.info-cart_weight {
+  font-weight: 700;
+}

@@ -3,3 +3,10 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls-button {
+  font-size: 13px;
+  line-height: 14.95px;
+  height: 21px;
+  width: 80px;
+}

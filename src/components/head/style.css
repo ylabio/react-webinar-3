@@ -1,9 +1,22 @@
 .Head {
+  align-items: center;
+  display: flex;
   height: 80px;
   background: #f5f5f5;
+  padding: 0 32px 0 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .Head h1 {
+  font-size: 32px;
+  line-height: 36.8px;
   margin: 0;
-  padding: 20px 20px 10px;
+}
+
+.Head-block {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
