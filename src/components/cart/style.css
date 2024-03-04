@@ -1,6 +1,7 @@
 .Cart,
 .Cart-empty {
-	display: flex;
+	display: grid;
+	place-items: center;
 	height: 270px;
 	overflow: auto;
 }
@@ -12,6 +13,10 @@
 	font-size: 64px;
 	color: #ccc;
 
+}
+
+.Cart .List {
+	margin-top: calc(50%-30px);
 }
 
 .Cart-footer {
