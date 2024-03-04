@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import Button from "../button";
 import './style.css';
 
 /* COMPONENTS TODO:
@@ -13,20 +14,16 @@ function Controls({forOpen}) {
       <div className='Controls-vidget'>В корзине:
         <strong className='Controls-vidget-inform'>пусто</strong>
       </div>
-      <button className="Controls-button" onClick={(event) => {
-        forOpen();
-        event.stopPropagation();
-        }
-      }>
+      <Button style="Button_controls" callback={forOpen}>
         Перейти
-      </button>
+      </Button>
     </div>
   )
 }
 
 // Typechecking with PropTypes:
 Controls.propTypes = {
-  forOpen: PropTypes.func,
+  forOpen: PropTypes.func.isRequired,
 };
 
 // Default values for properties:
