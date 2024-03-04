@@ -13,7 +13,7 @@ function App({store}) {
 
   const list = store.getState().list;
 
-  const callbacks = {
+/*   const callbacks = {
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
     }, [store]),
@@ -25,7 +25,7 @@ function App({store}) {
     onAddItem: useCallback(() => {
       store.addItem();
     }, [store])
-  }
+  } */
 
   return (
     <PageLayout>
