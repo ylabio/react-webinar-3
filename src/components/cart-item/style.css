@@ -3,12 +3,6 @@
   display: flex;
   flex-direction: start;
   align-items: center;
-  border-top: 1px dashed #ccc;
-  border-bottom: 1px dashed #ccc;
-}
-
-.CartItem:not(CartItem:first-of-type) {
-  margin-top: -1px;
 }
 
 .CartItem-code {

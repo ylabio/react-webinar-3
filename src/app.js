@@ -6,6 +6,7 @@ import PageLayout from './components/page-layout';
 import ModalLayout from './components/modal-layout';
 import CartItem from './components/cart-item';
 import CartTotal from './components/cart-total';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -37,6 +38,14 @@ function App({store}) {
     }, [store]),
   }
 
+  const renderItemsList = useCallback((item) => {
+    return <Item item={item} onAddToCart={callbacks.onAddToCartItem} />;
+  }, [callbacks.onAddToCartItem]);
+
+  const renderCartList = useCallback((item) => {
+    return <CartItem item={item} onDelete={callbacks.onDeleteFromCartItem} />
+  }, [callbacks.onDeleteFromCartItem]);
+
   return (
     <>
       <PageLayout>
@@ -46,31 +55,26 @@ function App({store}) {
           totalQuantity={state.cartList?.length}
           totalPrice={state.totalCartPrice}
         />
-        <List list={state.list}
-              onDeleteItem={callbacks.onDeleteItem}
-              onSelectItem={callbacks.onSelectItem}
-              onAddToCartItem={callbacks.onAddToCartItem}/>
+        <List
+          list={state.list}
+          renderItem={(item) => renderItemsList(item)}
+        />
       </PageLayout>
       {
-        state.modal ?
+        state.modal &&
         <ModalLayout
           title='Корзина'
           closeModal={callbacks.onCloseModal}
         >{
           <>
-            {state.cartList ?
-              state.cartList.length !== 0 ?
-                state.cartList.map(item =>
-                  <div key={item.code}>
-                    <CartItem item={item} onDelete={callbacks.onDeleteFromCartItem} />
-                  </div>
-            ) :
-              <div>Нет товаров в корзине</div> :
-            <div>Нет товаров в корзине</div>}
+            { state.cartList ?
+                state.cartList.length !== 0 ?
+                <List list={state.cartList} renderItem={(item) => renderCartList(item)} /> :
+                <div>Нет товаров в корзине</div> :
+              <div>Нет товаров в корзине</div> }
             <CartTotal value={ state.totalCartPrice ? state.totalCartPrice : 0 } />
           </>
-          }</ModalLayout> :
-        ''
+        }</ModalLayout>
       }
     </>
   );

@@ -6,7 +6,7 @@ import { formatPrice } from '../../utils';
 
 function CartTotal(value) {
   const cn = bem('CartTotal');
-  console.log(value);
+
   return (
     <div className={cn()}>
       <p className={cn('text')}>Итого</p>
