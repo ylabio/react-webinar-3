@@ -4,16 +4,16 @@ import PropTypes from 'prop-types';
 import {plural} from '../../utils';
 import './style.css';
 
-function Controls({cartProducts, cartSum, onShowCart}) {
+function Controls({cart, cartSum, onShowCart}) {
 	const cn = bem('Controls');
 	return (
 		<div className={cn()}>
 			<span className={cn('info')}>
 				В корзине:{' '}
 				<b>
-					{cartProducts.length
-						? cartProducts.length +
-						  ` ${plural(cartProducts.length, {
+					{cart.length
+						? cart.length +
+						  ` ${plural(cart.length, {
 								one: 'товар',
 								few: 'товара',
 								many: 'товаров',
@@ -28,13 +28,13 @@ function Controls({cartProducts, cartSum, onShowCart}) {
 
 Controls.propTypes = {
 	onAdd: PropTypes.func,
-	cartProducts: PropTypes.array,
+	cart: PropTypes.array,
 	cartSum: PropTypes.number,
 };
 
 Controls.defaultProps = {
 	onAdd: () => {},
-	cartProducts: [],
+	cart: [],
 	cartSum: 0,
 };
 

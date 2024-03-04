@@ -11,74 +11,53 @@ import CartLayout from './components/cart-layout';
  * @returns {React.ReactElement}
  */
 function App({store}) {
-	const [cartProducts, setCartProducts] = useState([]);
-	const [cartSum, setCartSum] = useState(0);
 	const [showCart, setShowCart] = useState(false);
 
 	const list = store.getState().list;
-
+	const cart = store.getState().cart;
+	const cartSum = store.getState().cartSum;
 	const callbacks = {
 		onAddToCart: useCallback(
-			(code) => {
-				const product = store
-					.getState()
-					.list.find((item) => item.code === code);
-				setCartProducts((prev) => {
-					const existingProductIndex = prev.findIndex(
-						(item) => item.code === product.code
-					);
-
-					if (existingProductIndex !== -1) {
-						const updatedProducts = [...prev];
-						updatedProducts[existingProductIndex] = {
-							...updatedProducts[existingProductIndex],
-							count: updatedProducts[existingProductIndex].count + 1,
-						};
-						return updatedProducts;
-					}
-
-					return [...prev, {...product, count: 1}];
-				});
-				setCartSum((prev) => prev + product.price);
+			(item) => {
+				store.addToCart(item);
 			},
 			[store]
 		),
 
-		onSelectItem: useCallback(
-			(code) => {
-				store.selectItem(code);
-			},
-			[store]
-		),
-
-		onAddItem: useCallback(() => {
-			store.addItem();
-		}, [store]),
+		onDeleteItem: (code) => {
+			store.deleteItem(code);
+		},
 	};
 
 	return (
 		<>
 			<PageLayout>
 				<Head title="Магазин" />
-				<Controls
-					cartProducts={cartProducts}
-					cartSum={cartSum}
-					onShowCart={setShowCart}
-				/>
+				<Controls cart={cart} cartSum={cartSum} onShowCart={setShowCart} />
 				<List
 					list={list}
 					showCart={showCart}
 					onAddToCart={callbacks.onAddToCart}
-					onSelectItem={callbacks.onSelectItem}
+					onDeleteItem={callbacks.onDeleteItem}
 				/>
 			</PageLayout>
 
 			{showCart && (
 				<CartLayout>
-          <Head title={cartSum > 0 ? 'Корзина' : 'Корзина пуста'} showCart={showCart} onShowCart={setShowCart} />
-					<List list={cartProducts} showCart={showCart} />
+					<Head
+						title={cartSum > 0 ? 'Корзина' : 'Корзина пуста'}
+						showCart={showCart}
+						onShowCart={setShowCart}
+					/>
+					<List
+						list={cart}
+						showCart={showCart}
+						onDeleteItem={callbacks.onDeleteItem}
+					/>
 					{cartSum > 0 && (
-						<div className="CartLayout-total">Сумма: <span>{cartSum}</span> ₽</div>
+						<div className="CartLayout-total">
+							Сумма: <span>{cartSum}</span> ₽
+						</div>
 					)}
 				</CartLayout>
 			)}
