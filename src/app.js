@@ -48,7 +48,7 @@ function App({store}) {
       <List list={list} showAmount={false} actionBtn={'Добавить'} isCartOpen={isCartOpen} addToCart={callbacks.onAddToCart}/>
       
       {isCartOpen &&
-        <CartLayout onCloseCart={callbacks.onCloseCart} sum={sum}>
+        <CartLayout onCloseCart={callbacks.onCloseCart}>
           <Head title={'Корзина'} isCartOpen={isCartOpen} onCloseCart={callbacks.onCloseCart}/>
           <Controls controls={false} />
           <List list={cartList} showAmount={true} priceStyle={{marginRight: '3.875rem'}} style={{borderTop: '1px dashed #ccc'}} actionBtn={'Удалить'} isCartOpen={isCartOpen} deleteFromCart={callbacks.onDeleteFromCart}/>
