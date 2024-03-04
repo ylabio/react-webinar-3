@@ -1,0 +1,10 @@
+.Modal {
+  top: 309px;
+  border-radius: 8px;
+  position: absolute;
+  margin: 0 auto;
+  width: 920px;
+  height: 50vh;
+  background-color: white;
+  z-index: 12;
+}

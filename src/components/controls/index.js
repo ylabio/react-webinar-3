@@ -1,21 +1,29 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
+import Cart from "../cart";
 
-function Controls({onAdd}) {
+function Controls({title='Перейти', onEntryCart, calculateSum, calculateItems}) {
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      {/* вынести карт на апп уровень? */}
+      <Cart calculateItems={calculateItems} calculateSum={calculateSum} />
+      <button onClick={onEntryCart}>{title}</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  title: PropTypes.string,
+  onEntryCart: PropTypes.func,
+  calculateSum: PropTypes.func,
+  calculateItems: PropTypes.func,
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  onEntryCart: () => {},
+  calculateSum: () => {},
+  calculateItems: () => {},
 }
 
 export default React.memo(Controls);
