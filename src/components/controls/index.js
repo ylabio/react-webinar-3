@@ -1,39 +1,37 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
-import { plural } from "../../utils"
-
-function Controls({ totalCount, totalPrice }) {
+import { formatPrice, plural } from "../../utils"
+function Controls({ total, openCart }) {
   return (
     <div className="Controls">
       <p className="Controls-info">
         В корзине:<span className="Controls-total">
-          {!totalCount
+          {!total.count
             ? "пусто"
-            : `${totalCount} ${plural(totalCount, {
+            : `${total.count} ${plural(total.count, {
               one: "товар",
               few: "товара",
               many: "товаров",
-            })} / ${totalPrice.toLocaleString("ru-RU", { 
-              currency: "RUB",
-              style: "currency",
-              minimumFractionDigits: 0
-            })}`}
+            })} / ${formatPrice(total.price)}`}
         </span>
       </p>
-      <button>Перейти</button>
+      <button onClick={() => openCart(true)}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  totalCount: PropTypes.number,
-  totalPrice: PropTypes.number
+  total: PropTypes.shape({
+    price: PropTypes.number,
+    count: PropTypes.number
+  }),
+  openCart: PropTypes.func
 };
 
 Controls.defaultProps = {
-  totalCount: 0,
-  totalPrice: 0
+  total: { price: 0, count: 0 },
+  openCart: () => {}
 }
 
 export default React.memo(Controls);

@@ -1,8 +1,10 @@
 import React, {useCallback} from 'react';
-import List from "./components/list";
-import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Controls from "./components/controls";
+import List from "./components/list";
+import { ITEM_ACTIONS } from './constants/actions';
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -10,23 +12,35 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
-
-  const list = store.getState().list;
-  const total = store.getState().total;
+  const [isCartOpen, setIsCartOpen] = React.useState(false);
+  const { list, cart, total } = store.getState();
 
   const callbacks = {
     onAddToCart: useCallback((item) => {
       store.addToCart(item);
     }, [store]),
+    onRemoveFromCart: useCallback((item) => {
+      store.removeFromCart(item);
+    }, [store])
   }
 
   return (
-    <PageLayout>
-      <Head title='Магазин'/>
-      <Controls totalCount={total.count} 
-      totalPrice={total.price}/>
-      <List list={list} onAddToCart={callbacks.onAddToCart}/>
-    </PageLayout>
+    <div>
+      <PageLayout>
+        <Head title='Магазин'/>
+        <Controls total={total} openCart={setIsCartOpen} />
+        <List list={list} action={ITEM_ACTIONS.ADD_TO_CART} onItemButtonClick={callbacks.onAddToCart}  />
+      </PageLayout>
+        
+      {isCartOpen && 
+          <Cart 
+            isOpen={isCartOpen} 
+            setIsOpen={setIsCartOpen} 
+            cart={cart} 
+            list={list} 
+            onItemButtonClick={callbacks.onRemoveFromCart} 
+          />}
+    </div>
   );
 }
 

@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -50,7 +48,23 @@ class Store {
       },
       total: {
         price: this.state.total.price + price,
-        count: this.state.total.count + 1
+        count: !this.state.cart[code] ? this.state.total.count + 1 : this.state.total.count 
+      }
+    });
+  }
+
+  removeFromCart(item) {
+    const { code, price, quantity } = item
+
+    const spreadCart = {...this.state.cart}
+    delete spreadCart[code]
+
+    this.setState({
+      ...this.state,
+      cart: spreadCart,
+      total: {
+        count: !spreadCart[code] ? this.state.total.count - 1 : this.state.total.count,
+        price: !spreadCart[code] ? this.state.total.price - price * quantity : this.state.total.price
       }
     });
   }
