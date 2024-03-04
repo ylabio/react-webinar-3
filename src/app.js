@@ -15,6 +15,7 @@ function App({store}) {
   const list = store.getState().list;
   const uniqueProductsCount = store.getState().uniqueProductsCount;
   const totalPrice = store.getState().price;
+  const cart = store.getState().cart;
 
   const [modalActive, setActive] = useState(true);
 
@@ -26,16 +27,25 @@ function App({store}) {
     onSelectItem: useCallback((code) => {
       store.selectItem(code);
     }, [store]),
+
+    getPrice: useCallback(() => {
+      return store.getState().price;
+    }, [store])
   }
 
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls onOpenModal={setActive} uniqueProductsCount={uniqueProductsCount.size} totalPrice={totalPrice}/>
+      <Controls setActive={setActive} uniqueProductsCount={uniqueProductsCount.size} totalPrice={totalPrice}/>
       <List list={list}
-            onAddToCart={callbacks.onAddToCart}
-            onSelectItem={callbacks.onSelectItem}/>
-      <Modal active={modalActive} setActive={setActive}/>
+            action={callbacks.onAddToCart}
+            type='list'
+            onSelectItem={callbacks.onSelectItem}
+            totalPrice={totalPrice} />
+      <Modal active={modalActive} setActive={setActive}>
+        <Head title='Корзина' setActive={setActive}></Head>
+        <List list={cart} type='cart'></List>
+      </Modal>
     </PageLayout>
   );
 }

@@ -21,10 +21,22 @@
 .Modal-content {
   border-radius: 10px;
   background-color: #FFF;
-  height: 200px;
-  width: 200px;
   transform: scale(0.5);
   transition: 0.4s all;
+  max-width: 960px;
+  max-height: 400px;
+  width: 50%;
+  height: 70%;
+  overflow-y: scroll;
+}
+
+.Modal-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.Modal-content::-webkit-scrollbar-thumb {
+  background-color: #909090;    /* цвет бегунка */
+  border-radius: 20px;  /* отступ вокруг бегунка */
 }
 
 .Modal-content_active {

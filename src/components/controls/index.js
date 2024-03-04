@@ -4,7 +4,7 @@ import "./style.css";
 import { plural } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 //todo: сменить название фц-ии onadd
-function Controls({ onOpenModal, uniqueProductsCount, totalPrice }) {
+function Controls({ setActive, uniqueProductsCount, totalPrice }) {
   const cn = bem("Controls");
 
   return (
@@ -21,7 +21,7 @@ function Controls({ onOpenModal, uniqueProductsCount, totalPrice }) {
             : "пусто"}
         </span>
       </div>
-      <button onClick={() => onOpenModal(true)}>Перейти</button>
+      <button onClick={() => setActive(true)}>Перейти</button>
     </div>
   );
 }

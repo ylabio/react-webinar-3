@@ -9,7 +9,7 @@ function Item(props) {
   // Счётчик выделений
   const [count, setCount] = useState(0);
 
-   const callbacks = {
+  const callbacks = {
     /* onClick: () => {
       props.onSelect(props.item.code);
       if (!props.item.selected) {
@@ -18,7 +18,7 @@ function Item(props) {
     }, */
     onAdd: (e) => {
       //e.stopPropagation();
-      props.onAdd(props.item.code);
+      props.action(props.item.code);
     },
   };
 
@@ -26,9 +26,14 @@ function Item(props) {
     <div className={cn()} /* onClick={callbacks.onClick} */>
       <div className={cn("code")}>{props.item.code}</div>
       <div className={cn("title")}>{props.item.title}</div>
-      <div className={cn('price')}>{`${props.item.price} ₽`}</div>
+      <div className={cn("price")}>{`${props.item.price} ₽`}</div>
+      {props.item.count && (
+        <div className={cn("price")}>{`${props.item.count} шт`}</div>
+      )}
       <div className={cn("actions")}>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>
+          {props.item.count ? "Удалить" : "Добавить"}
+        </button>
       </div>
     </div>
   );
