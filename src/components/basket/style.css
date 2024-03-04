@@ -1,0 +1,8 @@
+.Basket,
+.Basket > div {
+  border-radius: 10px;
+}
+
+.Basket-button {
+  width: 76px;
+}
