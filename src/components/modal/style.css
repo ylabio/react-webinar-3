@@ -50,3 +50,28 @@
   -moz-transition:  opacity .4s ease;
       transition:  opacity .4s ease;
 }
+
+.Modal-content {
+  width: 960px;
+  height: 280px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.Modal-content-close {
+  -webkit-transform: scale(0.5);
+    -moz-transform: scale(0.5);
+      transform: scale(0.5);
+  -webkit-transition: -webkit-transform .6s, -moz-transform .6s, transform .6s ease;
+    -moz-transition: -webkit-transform .6s, -moz-transform .6s, transform .6s ease;
+      transition: -webkit-transform .6s, -moz-transform .6s, transform .6s ease;
+}
+
+.Modal-content-open {
+  -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+      transform: scale(1);
+  -webkit-transition: -webkit-transform .6s, -moz-transform .6s, transform .6s ease;
+    -moz-transition: -webkit-transform .6s, -moz-transform .6s, transform .6s ease;
+      transition: -webkit-transform .6s, -moz-transform .6s, transform .6s ease;
+}

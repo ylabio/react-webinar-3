@@ -12,7 +12,11 @@ function Modal({state = false, forClose}) {
       }>
         ❌
       </div>
-      <div className='Modal-content'></div>
+      <div className={
+        (`Modal-content ${
+          state ? 'Modal-content-open' : 'Modal-content-close'
+        }`)
+      }></div>
     </div>
   )
 }
