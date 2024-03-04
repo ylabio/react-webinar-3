@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,28 +39,6 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
    * Выделение записи по коду
    * @param code
    */
@@ -82,7 +58,78 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     })
-  }
+  };
+
+  /**
+   * Открытие модального окна
+   */
+  openModal() {
+    this.setState({
+      ...this.state,
+      modal: true
+    })
+  };
+
+  /**
+   * Закрытие модального окна
+   */
+  closeModal() {
+    this.setState({
+      ...this.state,
+      modal: false
+    })
+  };
+
+  /**
+   * Добавление товара в корзину
+   * @param code
+   */
+  addToCart(code) {
+    const newItem = this.state.list.find(item => item.code === code);
+    let uniqItem = true;
+
+    if (this.state.cartList) {
+      const newCartList = this.state.cartList.map(item => {
+        if (item.code === code) {
+          uniqItem = false;
+          return { ...item, quantity: item.quantity + 1 };
+        } else {
+          return item;
+        }
+      })
+
+      if (uniqItem) {
+        newCartList.push({ ...newItem, quantity: 1 });
+      }
+
+      this.setState({
+        ...this.state,
+        cartList: newCartList,
+        totalCartPrice: newCartList.reduce((a, b) => a + (b.price * b.quantity), 0),
+      })
+
+    } else {
+      this.setState({
+        ...this.state,
+        cartList: [{ ...newItem, quantity: 1 }],
+        totalCartPrice: newItem.price
+      })
+    }
+  };
+
+  /**
+   * Удаление товара из корзины
+   * @param code
+   */
+  removeFromCart(code) {
+    const newCartList = this.state.cartList.filter(item => item.code !== code);
+
+    this.setState({
+      ...this.state,
+      cartList: newCartList,
+      totalCartPrice: newCartList.reduce((a, b) => a + (b.price * b.quantity), 0),
+    })
+  };
 }
 
 export default Store;

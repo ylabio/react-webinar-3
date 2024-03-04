@@ -1,5 +1,45 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  gap: 20px;
   padding: 20px;
+}
+
+.Controls-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.Controls-data {
+  font-size: 18px;
+  line-height: 21px;
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+}
+
+.Controls-data_strong {
+  font-weight: 700;
+}
+
+.Controls-button {
+  box-sizing: border-box;
+  font-size: 13px;
+  line-height: 15px;
+  font-weight: 400;
+  border: solid 1px #767676;
+  border-radius: 2px;
+  min-width: 80px;
+  padding: 2px 8px 2px 9px;
+  cursor: pointer;
+}
+
+.Controls-button:hover {
+  background-color: #E5E2E2;
+}
+
+.Controls-button:active {
+  background-color: inherit;
 }

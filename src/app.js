@@ -1,8 +1,12 @@
 import React, {useCallback} from 'react';
-import List from "./components/list";
-import Controls from "./components/controls";
-import Head from "./components/head";
-import PageLayout from "./components/page-layout";
+import List from './components/list';
+import Controls from './components/controls';
+import Head from './components/head';
+import PageLayout from './components/page-layout';
+import ModalLayout from './components/modal-layout';
+import CartItem from './components/cart-item';
+import CartTotal from './components/cart-total';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -10,31 +14,69 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
-
-  const list = store.getState().list;
+  const state = store.getState();
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
     onAddItem: useCallback(() => {
       store.addItem();
-    }, [store])
+    }, [store]),
+
+    onOpenModal: useCallback(() => {
+      store.openModal();
+    }, [store]),
+
+    onCloseModal: useCallback(() => {
+      store.closeModal();
+    }, [store]),
+
+    onAddToCartItem: useCallback((code) => {
+      store.addToCart(code);
+    }, [store]),
+
+    onDeleteFromCartItem: useCallback((code) => {
+      store.removeFromCart(code);
+    }, [store]),
   }
 
+  const renderItemsList = useCallback((item) => {
+    return <Item item={item} onAddToCart={callbacks.onAddToCartItem} />;
+  }, [callbacks.onAddToCartItem]);
+
+  const renderCartList = useCallback((item) => {
+    return <CartItem item={item} onDelete={callbacks.onDeleteFromCartItem} />
+  }, [callbacks.onDeleteFromCartItem]);
+
   return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-    </PageLayout>
+    <>
+      <PageLayout>
+        <Head title='Магазин'/>
+        <Controls
+          onCartOpen={callbacks.onOpenModal}
+          totalQuantity={state.cartList?.length}
+          totalPrice={state.totalCartPrice}
+        />
+        <List
+          list={state.list}
+          renderItem={(item) => renderItemsList(item)}
+        />
+      </PageLayout>
+      {
+        state.modal &&
+        <ModalLayout
+          title='Корзина'
+          closeModal={callbacks.onCloseModal}
+        >{
+          <>
+            { state.cartList ?
+                state.cartList.length !== 0 ?
+                <List list={state.cartList} renderItem={(item) => renderCartList(item)} /> :
+                <div>Нет товаров в корзине</div> :
+              <div>Нет товаров в корзине</div> }
+            <CartTotal value={ state.totalCartPrice ? state.totalCartPrice : 0 } />
+          </>
+        }</ModalLayout>
+      }
+    </>
   );
 }
 
