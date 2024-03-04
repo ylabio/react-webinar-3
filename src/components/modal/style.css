@@ -1,0 +1,30 @@
+.Modal {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.6);
+
+}
+
+.Modal-close {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  -webkit-transition: opacity .5s, visibility .6s ease;
+    -moz-transition: opacity .5s, visibility .6s ease;
+        transition: opacity .5s, visibility .6s ease;
+}
+
+.Modal-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  -webkit-transition: opacity .5s, visibility .6s ease;
+    -moz-transition: opacity .5s, visibility .6s ease;
+        transition: opacity .5s, visibility .6s ease;
+}

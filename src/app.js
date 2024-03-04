@@ -1,4 +1,5 @@
 import React, {useCallback} from 'react';
+import Modal from "./components/modal";
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
@@ -32,6 +33,7 @@ function App({store}) {
       <Head title='Магазин'/>
       <Controls />
       <List list={list}/>
+      <Modal state={0} />
     </PageLayout>
   );
 }
