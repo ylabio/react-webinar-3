@@ -4,7 +4,7 @@ import Head from "./components/head";
 import Cart from "./components/cart";
 import PageLayout from "./components/page-layout";
 import CartMenu from "./components/cart-menu";
-import { monefy } from './utils'
+import { monefy } from "./utils";
 
 /**
  * Приложение
@@ -14,7 +14,7 @@ import { monefy } from './utils'
 function App({ store }) {
   const [cartIsShow, setCartIsShow] = useState(false);
   const [productsInCart, setProductsInCart] = useState([]);
-  
+
   const list = store.getState().list.map((product) => {
     return {
       ...product,
@@ -22,10 +22,16 @@ function App({ store }) {
       content: [monefy(product.price)],
     };
   });
-  
+
   const callbacks = {
-    onCartOpen: useCallback(() => setCartIsShow(true)),
-    onCartClose: useCallback(() => setCartIsShow(false)),
+    onCartOpen: useCallback(() => {
+      setCartIsShow(true);
+      document.body.style.overflow = "hidden";
+    }),
+    onCartClose: useCallback(() => {
+      setCartIsShow(false);
+      document.body.style.overflow = "scroll";
+    }),
     onAddToCart: useCallback((product) => addToCart(product)),
     onDeleteFromCart: useCallback((product) => deleteFromCart(product.code)),
   };
@@ -46,17 +52,23 @@ function App({ store }) {
         const newProduct = newCart[index];
 
         newProduct.count += 1;
-        newProduct.content = [monefy(newProduct.price), newProduct.count + ' шт'];
+        newProduct.content = [
+          monefy(newProduct.price),
+          newProduct.count + " шт",
+        ];
 
         return newCart;
       });
     } else {
       setProductsInCart((oldCart) => {
-        const newProduct = {...product};
-        
+        const newProduct = { ...product };
+
         newProduct.count = 1;
-        newProduct.content = [monefy(newProduct.price), newProduct.count + ' шт'];
-        
+        newProduct.content = [
+          monefy(newProduct.price),
+          newProduct.count + " шт",
+        ];
+
         return [...oldCart, newProduct];
       });
     }
@@ -70,9 +82,9 @@ function App({ store }) {
         }
 
         return true;
-      })
-    } )
-  }
+      });
+    });
+  };
 
   const addToCartBtn = {
     title: "Добавить",
@@ -82,7 +94,7 @@ function App({ store }) {
   const deleteFromCartBtn = {
     title: "Удалить",
     onClick: callbacks.onDeleteFromCart,
-  }
+  };
 
   return (
     <>
