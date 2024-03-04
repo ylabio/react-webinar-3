@@ -1,5 +1,6 @@
 import React from "react"
 import PageLayout from "../page-layout"
+import PropTypes from "prop-types";
 import Head from "../head"
 import List from "../list"
 import './style.css';
