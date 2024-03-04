@@ -50,3 +50,13 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+export function formatSum(value, options = {}, locale = 'ru-RU') {
+  // Проверяем, есть ли дробная часть (копейки)
+  const hasCents = value % 1 !== 0;
+
+  // Устанавливаем minimumFractionDigits в 0, если нет копеек
+  options.minimumFractionDigits = hasCents ? 2 : 0;
+
+  return new Intl.NumberFormat(locale, options).format(value);
+}

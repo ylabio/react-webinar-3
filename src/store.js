@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -40,49 +40,77 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
 
   /**
    * Удаление записи по коду
    * @param code
    */
   deleteItem(code) {
+    const cartItems = this.getState().cartItems.filter(item => item.code !== code);
+
+    const count = cartItems.length;
+
+    const totalPrice = cartItems.reduce((sum, item) => {
+      return sum + (item.price * item.counter)
+    }, 0);
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cartItems,
+      count,
+      totalPrice
     })
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  addItemToCart(code) {
+
+    let repeatProduct = false;
+
+    let data = this.getState().cartItems.map(item => {
+      if (item.code === code) {
+        repeatProduct = true;
+        return { ...item, counter: ++item.counter }
+      } else {
+        return item
+      }
+    });
+
+    if (!repeatProduct) {
+      const item = this.getState().list.find(item => item.code === code);
+      data.push({ ...item, counter: 1 })
+    }
+
+    const count = data.length;
+
+    const totalPrice = data.reduce((sum, item) => {
+      return sum + (item.price * item.counter)
+    }, 0);
+
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cartItems: data,
+      count,
+      totalPrice,
+    })
+
+  }
+
+  openModal() {
+    const modal = true;
+    this.setState({
+      ...this.state,
+      modal
     })
   }
+
+  closeModal() {
+    const modal = false;
+    this.setState({
+      ...this.state,
+      modal
+    })
+  }
+
 }
 
 export default Store;
