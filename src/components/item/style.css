@@ -4,6 +4,18 @@
   transition: background-color 1s;
 }
 
+.Item-info {
+  display: flex;
+}
+
+.Item-info-count {
+  padding-right: 7px;
+}
+
+.Item-info-price {
+  padding-right: 59px;
+}
+
 .Item_selected {
   background: #75aaf1;
   color: #fff;
@@ -16,10 +28,18 @@
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-info-price,
+.Item-price {
+  font-size: 18px;
+  line-height: 20.7px;
 }
