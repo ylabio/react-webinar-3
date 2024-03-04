@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -13,27 +14,27 @@ function App({store}) {
 
   const list = store.getState().list;
 
+  const [items, setItems] = useState([]);
+
+  const [isOpen, setIsOpen] = useState(false);
+
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+    onDeleteItem: useCallback((item) => {
+      setItems((prev) => prev.filter((p) => p.title !== item.title))
+    }, [items]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    onAddItem: useCallback((item) => {
+      setItems((prev) => [...prev, item]);
+    }, [items])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин'/>
+      <Controls items={items} onShowCart={setIsOpen}/>
+      <List list={list} onAddItem={callbacks.onAddItem}/>
+      {isOpen && <Cart items={items} onCloseCart={setIsOpen}
+       onDeleteItem={callbacks.onDeleteItem}/>}
     </PageLayout>
   );
 }

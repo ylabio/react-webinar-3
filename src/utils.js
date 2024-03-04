@@ -50,3 +50,27 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Возвращает уникальные значения массива
+ */
+export function getUniqeItems(items) {
+  const names = [];
+
+  const filterdItems = items.filter((p) => {
+    if (p.title && !names.includes(p.title)) {
+      names.push(p.title);
+      return true;
+    }
+    return false;
+  });
+  return filterdItems;
+}
+
+/**
+ * Возвращает сумму полей массива
+ * @returns {Number}
+ */
+export function getPrice(items) {
+  return items.reduce((sum, current) => sum + current.price, 0);
+}

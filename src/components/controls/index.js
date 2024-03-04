@@ -1,21 +1,48 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
+import {plural, getPrice, getUniqeItems} from "../../utils"
 
-function Controls({onAdd}) {
+function Controls(props) {
+
+  let total = 'пусто';
+
+  if(props.items.length) {
+    const pluralValue = plural(props.items, {one: 'товар', few: 'товара', many: 'товаров'});
+
+    const price = getPrice(props.items);
+
+    total = getUniqeItems(props.items).length + " " + pluralValue + " / " + price + " ₽";
+  }
+
+  const callbacks = {
+    onAdd: (value) => {
+      props.onShowCart(value);
+    }
+  }
+
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <span>В корзине:
+        <b>{total}</b>
+      </span>
+      <button onClick={() => callbacks.onAdd(true)}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  items: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.number,
+    title: PropTypes.string,
+    price: PropTypes.number
+  })),
+  onShowCart: PropTypes.func
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  items: [],
+  onShowCart: () => {}
 }
 
 export default React.memo(Controls);
