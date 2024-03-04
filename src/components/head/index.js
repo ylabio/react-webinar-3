@@ -4,7 +4,6 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 function Head({title, setActive}) {
-  //console.log('HEAD');
 
   const cn = bem('Head')
 
@@ -18,7 +17,8 @@ function Head({title, setActive}) {
 }
 
 Head.propTypes = {
-  title: PropTypes.node,
+  title: PropTypes.string,
+  setActive: PropTypes.func,
 };
 
 export default React.memo(Head);

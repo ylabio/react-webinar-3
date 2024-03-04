@@ -5,7 +5,6 @@ import { plural } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 function Controls({ setActive, uniqueProductsCount, totalPrice }) {
   const cn = bem("Controls");
-  //console.log('Controls');
 
   return (
     <div className={cn()}>
@@ -27,13 +26,13 @@ function Controls({ setActive, uniqueProductsCount, totalPrice }) {
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func,
+  setActive: PropTypes.func,
   uniqueProductsCount: PropTypes.number,
   totalPrice: PropTypes.number,
 };
 
 Controls.defaultProps = {
-  onOpenModal: () => {},
+  setActive: () => {},
 };
 
 export default React.memo(Controls);

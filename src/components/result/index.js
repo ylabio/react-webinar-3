@@ -4,7 +4,6 @@ import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
 function Result({ totalPrice }) {
-  //console.log('RESULT');
   const cn = bem('Result')
   return (
     <div className={cn()}>
@@ -12,6 +11,10 @@ function Result({ totalPrice }) {
       <span className={cn('bold')}>{` ${totalPrice} ₽`}</span>
     </div>
   )
+}
+
+Result.propTypes = {
+  totalPrice: PropTypes.number
 }
 
 export default React.memo(Result);

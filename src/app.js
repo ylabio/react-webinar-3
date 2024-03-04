@@ -11,7 +11,6 @@ import Modal from './components/modal';
  * @returns {React.ReactElement}
  */
 function App({store}) {
-  //console.log('aPP')
 
   const list = store.getState().list;
   const uniqueProductsCount = store.getState().uniqueProductsCount;
@@ -25,12 +24,8 @@ function App({store}) {
       store.addToCart(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    getPrice: useCallback(() => {
-      return store.getState().price;
+    onDeleteProduct: useCallback((code) => {
+      store.deleteItem(code);
     }, [store])
   }
 
@@ -41,11 +36,10 @@ function App({store}) {
       <List list={list}
             action={callbacks.onAddToCart}
             type='list'
-            onSelectItem={callbacks.onSelectItem}
-            totalPrice={totalPrice} />
+            onSelectItem={callbacks.onSelectItem} />
       <Modal active={modalActive} setActive={setActive}>
         <Head title='Корзина' setActive={setActive}></Head>
-        <List list={cart} type='cart'></List>
+        <List list={cart} type='cart' totalPrice={totalPrice} action={callbacks.onDeleteProduct}></List>
       </Modal>
     </PageLayout>
   );

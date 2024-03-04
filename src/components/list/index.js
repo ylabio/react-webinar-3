@@ -5,10 +5,8 @@ import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import Result from "../result";
 
-function List({ list, action, onSelectItem, type, totalPrice }) {
-  //console.log('List')
+function List({ list, action, type, totalPrice }) {
   const cn = bem("List");
-  //console.log(totalPrice);
   return (
     <div className={cn()}>
       {(type === "list" &&
@@ -26,7 +24,7 @@ function List({ list, action, onSelectItem, type, totalPrice }) {
             );
           }
         })}
-      {/* type !== 'list' && totalPrice && */ <Result totalPrice={totalPrice}/>}
+      {type !== 'list' && totalPrice && <Result totalPrice={totalPrice}/> || type !== 'list' && <div className={cn('emptyCart')}>Ваша корзина пуста!</div>}
     </div>
   );
 }
@@ -35,15 +33,15 @@ List.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.number,
+      price: PropTypes.number,
+      title: PropTypes.string,
     })
   ).isRequired,
-  onAddToCart: PropTypes.func,
-  onSelectItem: PropTypes.func,
+  action: PropTypes.func,
 };
 
 List.defaultProps = {
-  onAddToCart: () => {},
-  onSelectItem: () => {},
+  action: () => {},
 };
 
 export default React.memo(List);

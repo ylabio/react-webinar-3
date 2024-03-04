@@ -1,5 +1,6 @@
 .Result {
   width: 100%;
+  padding: 20px 0 30px 0;
 }
 
 .Result-bold {
@@ -8,5 +9,6 @@
 }
 
 .Result-bold:first-of-type {
-  padding-left: 75%;
+  padding-left: 71%;
+  padding-right: 35px;
 }

@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { countLeftUniqueProducts, generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -7,7 +7,9 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.state.cart = [...this.state.list];
+    this.state.cart = this.state.list.map((item) => {
+      return { ...item, count: 0 };
+    });
     this.state.uniqueProductsCount = new Set();
     this.state.price = 0;
   }
@@ -21,8 +23,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -49,7 +51,7 @@ class Store {
   addToCart(code) {
     this.setState({
       ...this.state,
-      cart: this.state.cart.map(item => {
+      cart: this.state.cart.map((item) => {
         if (item.code === code) {
           // Добавление количества товара
           return {
@@ -57,26 +59,41 @@ class Store {
             count: item.count ? ++item.count : 1,
           };
         }
-        return item
+        return item;
       }),
       //подсчёт количества уникальных товаров в корзине
       uniqueProductsCount: this.state.uniqueProductsCount.add(code),
       //подсёт цены товаров в корзине
-      price: this.state.price + this.state.list[code - 1].price
-    })
-  };
+      price: this.state.price + this.state.list[code - 1].price,
+    });
+  }
 
   /**
-   * Удаление записи по коду
+   * Удаление товара по коду
    * @param code
    */
   deleteItem(code) {
+    console.log(this.state);
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      // Новый список, в котором будет на один товар указанного кода меньше
+      cart: this.state.cart.map((item) => {
+        if (item.code === code) {
+          return {
+            ...item,
+            count: --item.count,
+          };
+        }
+        return item;
+      }),
+      uniqueProductsCount: this.state.cart.some(
+        (e) => e.count === 0 && e.code === code
+      )
+        ? new Set(countLeftUniqueProducts(this.state.cart, code))
+        : this.state.uniqueProductsCount.add(code),
+      price: this.state.price - this.state.list[code - 1].price,
+    });
+  }
 }
 
 export default Store;

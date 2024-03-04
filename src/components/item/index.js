@@ -5,10 +5,9 @@ import "./style.css";
 
 function Item(props) {
   const cn = bem("Item");
-  //console.log(`ITEM ${props.item.code}`);
 
   const callbacks = {
-    onAdd: (e) => {
+    action: (e) => {
       e.stopPropagation();
       props.action(props.item.code);
     },
@@ -23,7 +22,7 @@ function Item(props) {
         <div className={cn("price")}>{`${props.item.count} шт`}</div>
       )}
       <div className={cn("actions")}>
-        <button onClick={callbacks.onAdd}>
+        <button onClick={callbacks.action}>
           {props.item.count ? "Удалить" : "Добавить"}
         </button>
       </div>
@@ -32,17 +31,16 @@ function Item(props) {
 }
 
 Item.propTypes = {
-  item: PropTypes.shape({
+  props:PropTypes.shape({item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     selected: PropTypes.bool,
-    count: PropTypes.number,
   }).isRequired,
-  onDelete: PropTypes.func,
+  action: PropTypes.func,})
 };
 
 Item.defaultProps = {
-  onDelete: () => {},
+  action: () => {},
 };
 
 export default React.memo(Item);
