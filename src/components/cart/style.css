@@ -1,0 +1,9 @@
+.Cart-total {
+  font-weight: bold;
+  text-align: right;
+  padding: 0 120px 70px 0;
+}
+
+.Cart-total-label {
+  padding: 20px;
+}
