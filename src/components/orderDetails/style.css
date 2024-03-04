@@ -1,0 +1,40 @@
+.OrderDetails {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  background: #f5f5f5;
+}
+
+.OrderDetails-header {
+  margin: 0;
+  padding: 20px 20px 10px;
+}
+
+.OrderDetails-box {
+  margin: 0;
+  align-self: center;
+  padding: 20px 20px 10px;
+}
+
+.OrderDetails-btn {
+  min-width: 80px;
+}
+
+.OrderDetails-price {
+  display: flex;
+  justify-content: end;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 120px;
+}
+
+.OrderDetails-count {
+  min-width: 120px;
+  text-align: end;
+}
+
+.OrderDetails-count:after {
+  font-weight: inherit;
+  white-space: nowrap;
+  content: " \20BD";
+}

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
+import { numberFormat } from "../../utils";
 
 function Item(props) {
 
@@ -10,7 +11,7 @@ function Item(props) {
   const callbacks = {
     onClick: (e) => {
       e.stopPropagation();
-      props.onClick(props.item.code);
+      props.onClick(props.item);
     }
   }
 
@@ -20,10 +21,10 @@ function Item(props) {
       <div className={cn('title')}>
         {props.item.title}
       </div>
-      <div className={cn('price')}>{props.item.price}</div>
+      <div className={cn('price')}>{numberFormat(props.item.price)}</div>
       { !!props.item.count && <div className={cn('count')}>{props.item.count} шт</div> }
       <div className={cn('actions')}>
-        <button onClick={callbacks.onClick}>
+        <button className={cn('btn')} onClick={callbacks.onClick}>
           {props.children}
         </button>
       </div>
@@ -39,6 +40,7 @@ Item.propTypes = {
     count: PropTypes.number
   }).isRequired,
   onClick: PropTypes.func,
+  children: PropTypes.node
 };
 
 Item.defaultProps = {

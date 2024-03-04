@@ -1,11 +1,12 @@
 import React from "react";
+import Modal from "../Modal";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import { numberFormat, plural } from "../../utils";
 import { rule } from "../../constants";
 
-function Controls({ onAdd, totalPrice, itemsCount }) {
+function Controls({ onOpenPopUp, totalPrice, itemsCount }) {
 
   const cn = bem('Controls');
 
@@ -14,9 +15,9 @@ function Controls({ onAdd, totalPrice, itemsCount }) {
   return (
     <div className={cn()}>
       <div>
-        В корзине: {itemsCount ? (<b className={cn('price')}>{text}</b>) : (<b>пусто</b>)}
+        В корзине: {!!itemsCount ? (<b className={cn('price')}>{text}</b>) : (<b>пусто</b>)}
       </div>
-      <button className={cn('btn')} onClick={() => onAdd()}>Перейти</button>
+      <button className={cn('btn')} onClick={onOpenPopUp}>Перейти</button>
     </div>
   );
 }
