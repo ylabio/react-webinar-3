@@ -47,6 +47,9 @@ class Store {
    */
   deleteItem(code) {
     const cartItems = this.getState().cartItems.filter(item => item.code !== code);
+
+    const count = cartItems.length;
+
     const totalPrice = cartItems.reduce((sum, item) => {
       return sum + (item.price * item.counter)
     }, 0);
@@ -54,6 +57,7 @@ class Store {
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
       cartItems,
+      count,
       totalPrice
     })
   };
