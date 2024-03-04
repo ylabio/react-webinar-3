@@ -1,8 +1,10 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from "./components/modal";
+import Button from './components/button';
 
 /**
  * Приложение
@@ -10,31 +12,42 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
-
+  const [cartOpen, setCartOpen] = useState(false);
   const list = store.getState().list;
+  const cart = store.getState().cart;
+  const totalCount = store.getState().totalCount;
+  const totalPrice = store.getState().totalPrice;
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    addToCart: useCallback((code) => {
+      store.addToCart(code);
     }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
+    deleteFromCart: useCallback((code) => {
+      store.deleteFromCart(code);
     }, [store])
   }
 
   return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-    </PageLayout>
+      <PageLayout cartOpen={cartOpen}>
+        {cartOpen ? 
+          <Modal>
+          <Head title="Корзина">
+            <Button onClick={() => setCartOpen(false)} name='Закрыть'/>
+          </Head>
+          {cart.length > 0 
+          ? <List list={cart}
+                  deleteFromCart={callbacks.deleteFromCart}
+                  totalPrice={totalPrice}
+            />
+          : <p style={{padding:'0 20px'}}>Здесь пока пусто...</p>
+          }
+        </Modal> : null
+        }
+        <Head title='Магазин'/>
+        <Controls totalCount={totalCount} totalPrice={totalPrice} openCart={setCartOpen} />
+        <List list={list}
+              addToCart={callbacks.addToCart}/>
+      </PageLayout>
   );
 }
 

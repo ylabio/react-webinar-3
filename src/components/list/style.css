@@ -1,7 +1,14 @@
-.List {
-
-}
-
 .List-item {
   border-bottom: 1px dashed #ccc;
+}
+
+.List-summary {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px 90px 20px 0;
+}
+
+.List-summary__sum {
+  margin-left: 50px;
 }

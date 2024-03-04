@@ -1,0 +1,18 @@
+.Modal {
+  position: absolute;
+  max-width: 960px;
+  min-height: 200px;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 10px;
+  box-sizing: border-box;
+  z-index: 100;
+}
+
+.Modal .Head {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
