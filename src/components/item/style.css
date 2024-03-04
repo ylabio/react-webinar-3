@@ -2,6 +2,7 @@
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  font-size: 18px;
 }
 
 .Item_selected {
@@ -16,10 +17,20 @@
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  font-size: 16px;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-count, .Item-price {
+  text-wrap: nowrap;
+  padding: 20px 10px;
+}
+
+.Item-actions .Button {
+  width: 76px;
 }
