@@ -13,10 +13,16 @@ function Head({tag = 'h1', title, children}) {
   )
 }
 
+// Typechecking with PropTypes:
 Head.propTypes = {
   tag: PropTypes.string,
   title: PropTypes.node,
   children: PropTypes.node,
+};
+
+// Default values for properties:
+Head.defaultProps = {
+  tag: 'h1',
 };
 
 export default React.memo(Head);
