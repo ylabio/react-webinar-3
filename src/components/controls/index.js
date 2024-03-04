@@ -11,8 +11,8 @@ function Controls({ onOpenModal, cartTotalPrice, cartItemCount }) {
   return (
     <div className="Controls">
       {cartItemCount > 0 && (
-        <div className="Controls_content">
-          <div>В корзине:</div>
+        <div className="Controls-content">
+          <div>В корзине: </div>
           <p>
             {cartItemCount ? (
               `${cartItemCount} ${plural(cartItemCount, {

@@ -17,7 +17,6 @@ function App({ store }) {
   const cartList = store.getState().cartList ?? [];
   const isCartModalOpen = store.getState().isCartModalOpen;
 
-
   const cartTotalPrice = cartList.reduce(
     (total, item) => total + item.price * item.count,
     0
@@ -56,6 +55,7 @@ function App({ store }) {
           list={list}
           onActionClick={callbacks.onAddToCart}
           actionName="Добавить"
+          onAddToCart={callbacks.onAddToCart}
         />
       </PageLayout>
 
@@ -67,7 +67,7 @@ function App({ store }) {
         <Cart
           list={cartList}
           cartTotalPrice={cartTotalPrice}
-          cartItemCount={cartItemCount}
+          cartItemCount={callbacks.cartItemCount}
           onDelete={callbacks.onDeleteCartItem}
         />
       </Modal>

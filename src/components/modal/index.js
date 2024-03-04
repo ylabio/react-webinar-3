@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import {cn as bem} from "@bem-react/classname"
-import './style.css'
+import "./style.css";
 
 const Modal = ({ isShowing, hide, title, ...props }) =>
   isShowing
@@ -18,7 +17,7 @@ const Modal = ({ isShowing, hide, title, ...props }) =>
                     className="modal-close-button"
                     onClick={hide}
                   >
-                    <span>&times;</span>
+                закрыть
                   </button>
                 </div>
                 <div className="modal-body">{props.children}</div>
@@ -33,7 +32,7 @@ const Modal = ({ isShowing, hide, title, ...props }) =>
 Modal.propTypes = {
   isShowing: PropTypes.bool.isRequired,
   hide: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };
 
 export default Modal;

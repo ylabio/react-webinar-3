@@ -4,11 +4,6 @@
   transition: background-color 1s;
 }
 
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
-}
-
 .Item-code {
   padding: 20px 10px 20px 20px;
 }
@@ -19,6 +14,16 @@
 }
 
 .Item-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+}
+.Item-price {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+}
+.Item-total {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;

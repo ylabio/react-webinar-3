@@ -8,7 +8,7 @@ function List({ list, onAddToCart }) {
     <div className="List">
       {list.map((item) => (
         <div key={item.code} className="List-item">
-          <Item item={item} price={item.price} onAddToCart={onAddToCart} />
+          <Item item={item} price={item.price}  onAddToCart={onAddToCart} />
         </div>
       ))}
     </div>

@@ -1,5 +1,5 @@
 .Cart_total {
-  max-width: 840px;
+  max-width: 900px;
   display: flex;
   justify-content: flex-end;
   padding: 20px;
@@ -8,4 +8,10 @@
 .Cart_total span {
   min-width: 50px;
   padding: 0 20px;
+  font-family: Arial;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
 }
