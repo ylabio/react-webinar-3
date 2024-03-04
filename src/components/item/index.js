@@ -9,15 +9,15 @@ function Item(props) {
   const [count, setCount] = useState(0);
 
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
+    // onClick: () => {
+    //   props.onSelect(props.item.code);
+    //   if (!props.item.selected) {
+    //     setCount(count + 1);
+    //   }
+    // },
     onDelete: (e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
+      props.onClick(props.item.code);
 
     }
   }
@@ -35,7 +35,7 @@ function Item(props) {
       </div>
       <div className='Item-actions'>
         <button onClick={callbacks.onDelete}>
-          Удалить
+          {props.btnName}
         </button>
       </div>
     </div>
