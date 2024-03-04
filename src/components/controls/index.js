@@ -7,23 +7,31 @@ component controls:
  - component vidget
  - component button */
 
-function Controls() {
+function Controls({forOpen}) {
   return (
     <div className='Controls'>
       <div className='Controls-vidget'>В корзине:
         <strong className='Controls-vidget-inform'>пусто</strong>
       </div>
-      <button className="Controls-button">Перейти</button>
+      <button className="Controls-button" onClick={(event) => {
+        forOpen();
+        event.stopPropagation();
+        }
+      }>
+        Перейти
+      </button>
     </div>
   )
 }
 
-/* Controls.propTypes = {
-  onAdd: PropTypes.func
+// Typechecking with PropTypes:
+Controls.propTypes = {
+  forOpen: PropTypes.func,
 };
 
+// Default values for properties:
 Controls.defaultProps = {
-  onAdd: () => {}
-} */
+  forOpen: () => {},
+}
 
 export default React.memo(Controls);

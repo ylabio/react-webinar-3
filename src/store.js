@@ -1,3 +1,4 @@
+import modal from "./components/modal";
 import {generateCode} from "./utils";
 
 /**
@@ -6,6 +7,7 @@ import {generateCode} from "./utils";
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.state.modal = false;
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -82,7 +84,27 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     })
-  }
+  };
+
+  /**
+   * Open the modal
+   */
+  openModal() {
+    this.setState({
+      ...this.state,
+      modal: true
+    });
+  };
+
+  /**
+   * Close the modal
+   */
+  closeModal() {
+    this.setState({
+      ...this.state,
+      modal: false
+    });
+  };
 }
 
 export default Store;

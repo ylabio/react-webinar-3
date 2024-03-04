@@ -12,28 +12,24 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
-  const list = store.getState().list;
-
-/*   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+  const {list, modal} = store.getState();
+  
+  const callbacks = {
+    forOpenModal: useCallback(() => {
+      store.openModal();
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    forCloseModal: useCallback(() => {
+      store.closeModal();
     }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  } */
+  }
 
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls />
+      <Controls forOpen={callbacks.forOpenModal}/>
       <List list={list}/>
-      <Modal state={false} />
+      <Modal state={modal} />
     </PageLayout>
   );
 }
