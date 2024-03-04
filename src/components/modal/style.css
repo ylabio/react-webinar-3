@@ -15,18 +15,18 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  -webkit-transition: opacity .5s, visibility .6s ease;
-    -moz-transition: opacity .5s, visibility .6s ease;
-        transition: opacity .5s, visibility .6s ease;
+  -webkit-transition: opacity .6s, visibility .5s ease;
+    -moz-transition: opacity .6s, visibility .5s ease;
+        transition: opacity .6s, visibility .5s ease;
 }
 
 .Modal-open {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  -webkit-transition: opacity .5s, visibility .6s ease;
-    -moz-transition: opacity .5s, visibility .6s ease;
-        transition: opacity .5s, visibility .6s ease;
+  -webkit-transition: opacity .6s, visibility .5s ease;
+    -moz-transition: opacity .6s, visibility .5s ease;
+        transition: opacity .6s, visibility .5s ease;
 }
 
 .Modal-control {
