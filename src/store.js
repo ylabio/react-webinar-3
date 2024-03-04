@@ -40,10 +40,16 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+}
+export default Store;
+
+
+
+/*
+
   /**
    * Добавление новой записи
-   */
-  addItem() {
+     addItem() {
     this.setState({
       ...this.state,
       list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
@@ -54,6 +60,7 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
+  /*
   deleteItem(code) {
     this.setState({
       ...this.state,
@@ -61,11 +68,11 @@ class Store {
       list: this.state.list.filter(item => item.code !== code)
     })
   };
-
+*/
   /**
    * Выделение записи по коду
    * @param code
-   */
+
   selectItem(code) {
     this.setState({
       ...this.state,
@@ -85,4 +92,4 @@ class Store {
   }
 }
 
-export default Store;
+*/

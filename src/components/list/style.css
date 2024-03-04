@@ -3,5 +3,6 @@
 }
 
 .List-item {
+  width: 100%;
   border-bottom: 1px dashed #ccc;
 }
