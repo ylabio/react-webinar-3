@@ -2,20 +2,24 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Item from "../item";
 import {plural} from '../../utils';
+import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 function List(props) {
+
+  const cn = bem('List');
+
   const getPricesSum = () => {
     const pricesArray = props.cartList.map(item => item.price*item.addCount);
     return pricesArray.reduce((sum, current) => sum + current, 0);
   }
 
   return (
-    <div className='List'>
-      <div className='List-cart-info'>
+    <div className={cn()}>
+      <div className={cn('cart-info')}>
         В корзине:
-        <div className='List-cart-empty'>{props.cartList.length ? '' : '\u00A0пусто'}</div>
-        <div className='List-cart-data'>
+        <div className={cn('cart-empty')}>{props.cartList.length ? '' : '\u00A0пусто'}</div>
+        <div className={cn('cart-data')}>
             <div>{props.cartList.length ? `${props.cartList.length} ${plural(props.cartList.length, {
               one: 'товар',
               few: 'товара',
@@ -27,7 +31,7 @@ function List(props) {
         <button onClick={props.toggleCart}>Перейти</button>
       </div>
       {props.list.map(item =>
-        <div key={item.code} className='List-item'>
+        <div key={item.code} className={cn('item')}>
           <Item item={item} inList={true} inCartList={false} onAdd={props.onAddItemToCart}/>
         </div>
       )}

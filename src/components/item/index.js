@@ -1,8 +1,11 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 function Item(props) {
+
+  const cn = bem('Item');
 
   const callbacks = {
     onAddItem: () => {
@@ -15,12 +18,12 @@ function Item(props) {
   }
 
   return (
-    <div className='Item'>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>{props.item.title}</div>
-      <div className='Item-price'><span>{props.item.price + '\u00A0₽'}</span></div>
-      {props.item.addCount&&props.inCartList&&<div className='Item-add-count'>{props.item.addCount + '\u00A0шт.'}</div>}
-      <div className='Item-actions'>
+    <div className={cn()}>
+      <div className={cn('code')}>{props.item.code}</div>
+      <div className={cn('title')}>{props.item.title}</div>
+      <div className={cn('price')}><span>{props.item.price + '\u00A0₽'}</span></div>
+      {props.item.addCount&&props.inCartList&&<div className={cn('add-count')}>{props.item.addCount + '\u00A0шт.'}</div>}
+      <div className={cn('actions')}>
         {props.inCartList&&<button onClick={callbacks.onDelete}>
           Удалить
         </button>}
