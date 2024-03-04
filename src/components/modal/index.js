@@ -1,11 +1,13 @@
 import React from "react";
 import { createPortal } from "react-dom";
+import { cn as bem } from "@bem-react/classname"
 import PropTypes from 'prop-types';
 import "./style.css"
 
 const modalRoot = document.querySelector("#modal-root")
 
 function Modal({ onClose, children, title }) {
+  const cn = bem('Modal')
 
   React.useEffect(() => {
     const esc = ({ key }) => {
@@ -22,13 +24,13 @@ function Modal({ onClose, children, title }) {
   };
 
   return createPortal(
-    <div onClick={closeModalOnBackdropClick} className="Modal-overlay">
-      <div className="Modal-window">
-        <div className="Modal-controls">
-          <h2 className="Modal-title">{title}</h2>
+    <div onClick={closeModalOnBackdropClick} className={cn("overlay")}>
+      <div className={cn()}>
+        <div className={cn("controls")}>
+          <h2 className={cn("title")}>{title}</h2>
           <button type="button" onClick={onClose}>Закрыть</button>
         </div>
-        <div className="Modal-content">
+        <div className={cn("content")}>
           {children}
         </div>
       </div>

@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { cn as bem } from "@bem-react/classname"
 import Button from "./button";
 import './style.css';
 
 function Item(props) {
+  const cn = bem("Item");
   const { code, title, quantity, price } = props.item;
   const callbacks = {
     onClick: () => {
@@ -12,16 +14,16 @@ function Item(props) {
   }
 
   return (
-    <div className={'Item'}>
-      <div className='Item-code'>{code}</div>
-      <div className='Item-title'>
+    <div className={cn()}>
+      <div className={cn("code")}>{code}</div>
+      <div className={cn("title")}>
         {title}
       </div>
-      <div className="Item-info">
-        <p className="Item-price">{`${price} ₽`}</p>
-        {quantity && <p className="Item-quantity">{`${quantity} шт`}</p>}
+      <div className={cn("info")}>
+        <p className={cn("price")}>{`${price} ₽`}</p>
+        {quantity && <p className={cn("quantity")}>{`${quantity} шт`}</p>}
       </div>
-      <div className='Item-actions'>
+      <div className={cn("actions")}>
         <Button onClick={callbacks.onClick}>
           {props.action}
         </Button>
