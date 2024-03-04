@@ -5,6 +5,8 @@ import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from './components/modal/index';
 import Cart from './components/cart';
+import CartItem from './components/cart-item';
+import Item from './components/item/index'
 
 /**
  * Приложение
@@ -35,16 +37,23 @@ function App({ store }) {
     }, []),
   }
 
+  const addToList = useCallback((item, isCartItem) => {
+    if (!isCartItem) {
+      return <Item item={item} onAddItem={callbacks.onAddItem} />;
+    } else {
+      return <CartItem item={item} removeItemFromCart={callbacks.removeItemFromCart} />
+    }
+  }, [callbacks.onAddItem, callbacks.removeItemFromCart]);
+
   return (
     <PageLayout>
       <Head title='Магазин' />
       <Controls cartCount={cartCount} totalPrice={totalPrice} goToCart={callbacks.openModal} />
       <List list={list}
-        onAddItem={callbacks.onAddItem}
-        openModal={callbacks.openModal} />
+        itemType={(item) => addToList(item, false)} />
       {
         modal && <Modal closeModal={callbacks.closeModal} title={'Корзина'} >
-          <Cart cartItems={cartItems} totalPrice={totalPrice} removeItemFromCart={callbacks.removeItemFromCart} />
+          <Cart cartItems={cartItems} totalPrice={totalPrice} removeItemFromCart={callbacks.removeItemFromCart} addToList={addToList} />
         </Modal>
       }
     </PageLayout>
