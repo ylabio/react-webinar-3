@@ -4,6 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import CartLayout from './components/cart-layout';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -51,6 +52,7 @@ function App({store}) {
           <Head title={'Корзина'} isCartOpen={isCartOpen} onCloseCart={callbacks.onCloseCart}/>
           <Controls controls={false} />
           <List list={cartList} showAmount={true} priceStyle={{marginRight: '3.875rem'}} style={{borderTop: '1px dashed #ccc'}} actionBtn={'Удалить'} isCartOpen={isCartOpen} deleteFromCart={callbacks.onDeleteFromCart}/>
+          <Cart sum={sum}/>
         </CartLayout>
       }
     </PageLayout>
