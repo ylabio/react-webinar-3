@@ -26,7 +26,7 @@ function App({store}) {
   return (
       <PageLayout>
           <Head title='Приложение на чистом JS'/>
-          <Controls goToBasketItem={callbacks.goToBasketItem} addToBasketCount={store.getBasketItemCount}/>
+          <Controls goToBasket={() => store.goToBasketItem()} addToBasketCount={() => store.getBasketItemCount()}/>
           <List list={list} addToBasketItem={callbacks.addToBasketItem} addToBasketCount={store.getBasketItemCount} />
       </PageLayout>
   );

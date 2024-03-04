@@ -5,7 +5,7 @@ import './style.css';
 function Controls({goToBasket, addToBasketCount}) {
   return (
     <div className='Controls'>
-      <div>Basket: {addToBasketCount() === 0 ? 'Empty' : addToBasketCount()}</div>
+      <div>Basket: {addToBasketCount() === 0 ? 'Пусто' : addToBasketCount()}</div>
       <button onClick={() => goToBasket()}>Перейти</button>
     </div>
   )

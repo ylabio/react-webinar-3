@@ -47,23 +47,25 @@ class Store {
   goToBasketItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
       basket: [...this.basket]
     });
   };
 
   /**
    * Удаление записи по коду
-   * @param code
+   * @param {Object} item
    */
   addToBasketItem(item) {
     this.basket.push(item);
-    // Notify listeners about the change in the basket
     for (const listener of this.listeners) listener();
   }
 
   getBasketItemCount() {
-    return this.basket.length;
+    if (this.state && this.state.basket && Array.isArray(this.state.basket)) {
+      return this.state.basket.length;
+    } else {
+      return 0;
+    }
   }
 }
 
