@@ -36,8 +36,12 @@ body {
 
 .Item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   transition: background-color 1s;
+}
+
+.Item-left {
+  display: flex;
 }
 
 .Item_selected {
@@ -50,12 +54,16 @@ body {
 }
 
 .Item-title {
-  width: 100%;
-  padding: 20px 10px;
+  padding: 20px 6px 20px 10px;
+  display: inline-block;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-count {
+  padding: 20px 0;
 }
