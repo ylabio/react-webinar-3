@@ -5,6 +5,7 @@ import { plural } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 function Controls({ setActive, uniqueProductsCount, totalPrice }) {
   const cn = bem("Controls");
+  //console.log('Controls');
 
   return (
     <div className={cn()}>

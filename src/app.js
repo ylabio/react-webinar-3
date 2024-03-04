@@ -11,13 +11,14 @@ import Modal from './components/modal';
  * @returns {React.ReactElement}
  */
 function App({store}) {
+  //console.log('aPP')
 
   const list = store.getState().list;
   const uniqueProductsCount = store.getState().uniqueProductsCount;
   const totalPrice = store.getState().price;
   const cart = store.getState().cart;
 
-  const [modalActive, setActive] = useState(true);
+  const [modalActive, setActive] = useState(false);
 
   const callbacks = {
     onAddToCart: useCallback((code) => {

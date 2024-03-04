@@ -6,6 +6,7 @@ import './style.css';
 function PageLayout({children}) {
 
   const cn = bem('PageLayout');
+  //console.log('pageLayout');
 
   return (
     <div className={cn()}>

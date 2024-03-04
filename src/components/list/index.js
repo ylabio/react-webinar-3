@@ -6,8 +6,9 @@ import "./style.css";
 import Result from "../result";
 
 function List({ list, action, onSelectItem, type, totalPrice }) {
+  //console.log('List')
   const cn = bem("List");
-  console.log(totalPrice);
+  //console.log(totalPrice);
   return (
     <div className={cn()}>
       {(type === "list" &&
@@ -25,7 +26,7 @@ function List({ list, action, onSelectItem, type, totalPrice }) {
             );
           }
         })}
-      {type !== 'list' && totalPrice && <Result totalPrice={totalPrice}/>}
+      {/* type !== 'list' && totalPrice && */ <Result totalPrice={totalPrice}/>}
     </div>
   );
 }

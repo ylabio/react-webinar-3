@@ -5,6 +5,7 @@ import "./style.css";
 
 function Item(props) {
   const cn = bem("Item");
+  //console.log(`ITEM ${props.item.code}`);
 
   const callbacks = {
     onAdd: (e) => {

@@ -3,6 +3,7 @@ import "./style.css";
 import { cn as bem } from "@bem-react/classname";
 
 function Modal({active, setActive, children}) {
+  //console.log('modal')
   const cn = bem("Modal");
   return (
     <div className={active ? cn({active: true}) : cn() } onClick={() => {setActive(false)}}>

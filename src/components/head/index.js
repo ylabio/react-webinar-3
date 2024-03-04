@@ -4,6 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 function Head({title, setActive}) {
+  //console.log('HEAD');
 
   const cn = bem('Head')
 
