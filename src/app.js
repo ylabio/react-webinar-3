@@ -31,9 +31,7 @@ function App({store}) {
     <PageLayout>
       <Head title='Магазин'/>
       <Controls />
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <List list={list}/>
     </PageLayout>
   );
 }
