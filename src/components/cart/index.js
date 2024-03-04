@@ -5,14 +5,14 @@ import { formatSum } from "../../utils";
 import List from "../list/index";
 import './style.css';
 
-function Cart({ cartItems, totalPrice, addToList }) {
+function Cart({ cartItems, totalPrice, renderCartList }) {
 
   const cn = bem('Cart');
 
   return (
     <div>
       <List list={cartItems}
-        itemType={(item) => addToList(item, true)} />
+        renderItem={(item) => renderCartList(item)} />
       <div className={cn('total')}>
         <div className={cn('total-title')}>Итого</div>
         <div className={cn('total-price')}>{formatSum(totalPrice, { style: 'currency', currency: 'RUB' })}</div>
@@ -24,13 +24,13 @@ function Cart({ cartItems, totalPrice, addToList }) {
 Cart.propTypes = {
   cartItems: PropTypes.arrayOf(Object),
   totalPrice: PropTypes.number,
-  addToList: PropTypes.func
+  renderCartList: PropTypes.func
 };
 
 Cart.defaultProps = {
   cartItems: [],
   totalPrice: 0,
-  addToList: () => {
+  renderCartList: (item) => {
   }
 }
 

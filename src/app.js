@@ -37,23 +37,23 @@ function App({ store }) {
     }, []),
   }
 
-  const addToList = useCallback((item, isCartItem) => {
-    if (!isCartItem) {
-      return <Item item={item} onAddItem={callbacks.onAddItem} />;
-    } else {
-      return <CartItem item={item} removeItemFromCart={callbacks.removeItemFromCart} />
-    }
-  }, [callbacks.onAddItem, callbacks.removeItemFromCart]);
+  const renderItemsList = useCallback((item) => {
+    return <Item item={item} onAddItem={callbacks.onAddItem} />;
+  }, [callbacks.onAddItem]);
+
+  const renderCartList = useCallback((item) => {
+    return <CartItem item={item} removeItemFromCart={callbacks.removeItemFromCart} />
+  }, [callbacks.removeItemFromCart]);
 
   return (
     <PageLayout>
       <Head title='Магазин' />
       <Controls cartCount={cartCount} totalPrice={totalPrice} goToCart={callbacks.openModal} />
       <List list={list}
-        itemType={(item) => addToList(item, false)} />
+        renderItem={(item) => renderItemsList(item)} />
       {
         modal && <Modal closeModal={callbacks.closeModal} title={'Корзина'} >
-          <Cart cartItems={cartItems} totalPrice={totalPrice} removeItemFromCart={callbacks.removeItemFromCart} addToList={addToList} />
+          <Cart cartItems={cartItems} totalPrice={totalPrice} removeItemFromCart={callbacks.removeItemFromCart} renderCartList={renderCartList} />
         </Modal>
       }
     </PageLayout>
