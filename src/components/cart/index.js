@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import CartInfo from '../cart-info';
 import CartDetails from '../cart-details';
 import Modal from '../modal'
+import Button from '../button';
 import './style.css';
 
 function Cart(props) {
@@ -25,11 +26,9 @@ function Cart(props) {
   return (
     <div className='Cart'>
       <CartInfo amount={amount} cost={cost} />
-      <button className='Cart-btn'
-              onClick={callbacks.onOpen}
-      >
-        Перейти
-      </button>
+      <Button className='Cart-btn'
+              onOpen={callbacks.onOpen}
+              title='Перейти'/>
       <Modal isOpen={isOpen} onClose={callbacks.onClose}>
         <CartDetails onClose={callbacks.onClose}
                      cost={cost}

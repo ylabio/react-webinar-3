@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
+import Button from "../button";
 
 function Item(props) {
   return (
@@ -11,14 +12,8 @@ function Item(props) {
       {props.amount &&
       <span className='Item-amount'>{`${props.amount} шт`}</span>}
       <div className='Item-actions'>
-        {props.onAdd &&
-        <button onClick={() => props.onAdd(props.item.code)}>
-          Добавить
-        </button>}
-        {props.onDelete &&
-        <button onClick={() => props.onDelete(props.item.code)}>
-          Удалить
-        </button>}
+        {props.onAdd && <Button onAdd={() => props.onAdd(props.item.code)} />}
+        {props.onDelete && <Button onDel={() => props.onDelete(props.item.code)}/>}
       </div>
     </div>
   );

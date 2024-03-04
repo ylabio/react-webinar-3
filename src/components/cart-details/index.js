@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from '../head';
 import List from '../list';
+import Button from '../button';
 import './style.css';
 
 function CartDetails({onClose, items, cart, onRemove, cost}) {
@@ -9,9 +10,7 @@ function CartDetails({onClose, items, cart, onRemove, cost}) {
   return (
       <div className='Cart-details'>
         <Head title='Корзина' withGap>
-          <button onClick={onClose}>
-            Закрыть
-          </button>
+          <Button onClose={onClose}/>
         </Head>
         <List list={items}
             amounts={cart}
