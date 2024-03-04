@@ -36,14 +36,32 @@ function App({ store }) {
   return (
     <PageLayout>
       <Modal isOpenModal={isOpenModal}>
-        <Head title='Корзина' callback={callbacks.onCloseModal} />
+        <Head title='Корзина'
+          btn={{
+            title: 'Закрыть',
+            callback: callbacks.onCloseModal
+          }}
+        />
         <Cart cart={cart}
-          callback={callbacks.onDeleteFromCart} />
+          btn={{
+            title: 'Удалить',
+            callback: callbacks.onDeleteFromCart
+          }}
+        />
       </Modal>
       <Head title='Магазин' />
-      <CartRow cart={cart} onOpenModal={callbacks.onOpenModal} />
+      <CartRow cart={cart}
+        btn={{
+          title: 'Перейти',
+          callback: callbacks.onOpenModal
+        }}
+      />
       <List list={list}
-        callback={callbacks.onAddToCart} />
+        btn={{
+          title: 'Добавить',
+          callback: callbacks.onAddToCart
+        }}
+      />
     </PageLayout>
   );
 }

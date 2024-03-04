@@ -14,11 +14,9 @@ function Item(props) {
       {props.item.count !== undefined &&
         <div className={cn('count')}>{props.item.count}&nbsp;шт</div>
       }
-      {props.item.code &&
-        <div className={cn('actions')}>
-          <Button title={props.item.count !== undefined ? 'Удалить' : 'Добавить'} callback={() => props.callback(props.item.code)} />
-        </div>
-      }
+      <div className={cn('actions')}>
+        <Button title={props.btn.title} callback={() => props.btn.callback(props.item.code)} />
+      </div>
     </div>
   );
 }
@@ -30,12 +28,7 @@ Item.propTypes = {
     price: PropTypes.number,
     count: PropTypes.number
   }).isRequired,
-  callback: PropTypes.func,
+  btn: PropTypes.object,
 };
-
-Item.defaultProps = {
-  callback: () => {
-  },
-}
 
 export default React.memo(Item);

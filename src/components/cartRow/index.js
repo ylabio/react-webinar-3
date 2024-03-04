@@ -4,7 +4,7 @@ import { plural } from "../../utils";
 import Button from "../button";
 import './style.css';
 
-function CartRow({ cart, onOpenModal }) {
+function CartRow({ cart, btn }) {
 
   return (
     <div className='Cart-row'>
@@ -20,7 +20,7 @@ function CartRow({ cart, onOpenModal }) {
       </strong>
       </div>
       <div className="Cart-open">
-        <Button title='Перейти' callback={onOpenModal} />
+        <Button title={btn.title} callback={btn.callback} />
       </div>
     </div>
   )
@@ -28,11 +28,7 @@ function CartRow({ cart, onOpenModal }) {
 
 CartRow.propTypes = {
   cart: PropTypes.array,
-  onOpenModal: PropTypes.func
+  btn: PropTypes.object
 };
-
-CartRow.defaultProps = {
-  onOpenModal: () => { }
-}
 
 export default React.memo(CartRow);

@@ -4,13 +4,13 @@ import List from '../list';
 import { cn as bem } from '@bem-react/classname';
 import './style.css'
 
-function Cart({ cart, callback }) {
+function Cart({ cart, btn }) {
 	const cn = bem('Cart');
 	return (
 		<>
 			{cart.length !== 0 ? <>
 				<div className={cn()}>
-					<List list={cart} callback={callback} />
+					<List list={cart} btn={btn} />
 				</div>
 				<div className={cn('footer')}>
 					<div>Итого:</div>
@@ -25,12 +25,7 @@ function Cart({ cart, callback }) {
 
 Cart.propTypes = {
 	cart: PropTypes.array,
-	callback: PropTypes.func
+	btn: PropTypes.object
 };
-
-Cart.defaultProps = {
-	callback: () => {
-	}
-}
 
 export default React.memo(Cart);

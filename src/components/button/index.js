@@ -15,7 +15,7 @@ function Button({ title, callback }) {
 
 Button.propTypes = {
 	title: PropTypes.string,
-	onAdd: PropTypes.func
+	callback: PropTypes.func
 };
 
 Button.defaultProps = {
