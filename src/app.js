@@ -33,7 +33,7 @@ function App({store}) {
       <Head title='Магазин'/>
       <Controls />
       <List list={list}/>
-      <Modal state={0} />
+      <Modal state={false} />
     </PageLayout>
   );
 }
