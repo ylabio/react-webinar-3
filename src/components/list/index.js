@@ -28,7 +28,7 @@ function List({ list, action, onSelectItem, type, totalPrice }) {
       {type !== 'list' && totalPrice && <Result totalPrice={totalPrice}/>}
     </div>
   );
-} //todo: заменить div выше на компонент итогов корзины
+}
 
 List.propTypes = {
   list: PropTypes.arrayOf(

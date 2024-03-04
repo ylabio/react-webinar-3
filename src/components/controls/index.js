@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import "./style.css";
 import { plural } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
-//todo: сменить название фц-ии onadd
 function Controls({ setActive, uniqueProductsCount, totalPrice }) {
   const cn = bem("Controls");
 
