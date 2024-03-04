@@ -1,6 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
+import { pluralCurrencies } from '../../utils'
 
 function Item(props) {
 
@@ -27,8 +28,8 @@ function Item(props) {
         {props.item.title}
       </div>
       <div className='Item-actions'>
-        <p className={'Item-actions__price'}>{props.item.price} ₽</p>
-        {props.buttonText === 'Удалить' && (<p className={'Item-actions__count'}>{2} шт</p>)}
+        <p className={'Item-actions__price'}>{pluralCurrencies(props.item.price)}</p>
+        {props.buttonText === 'Удалить' && (<p className={'Item-actions__count'}>{props.item.count} шт</p>)}
         <button onClick={props.buttonText === 'Удалить' ? callbacks.onDelete : callbacks.onAddItem}>
           {props.buttonText}
         </button>

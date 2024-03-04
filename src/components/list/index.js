@@ -20,15 +20,12 @@ List.propTypes = {
     code: PropTypes.number
   })).isRequired,
   onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func,
   onAddItem: PropTypes.func,
   buttonText: PropTypes.string
 };
 
 List.defaultProps = {
   onDeleteItem: () => {
-  },
-  onSelectItem: () => {
   },
   onAddItem: () => {
 

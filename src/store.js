@@ -43,20 +43,32 @@ class Store {
    * @param item
    */
   addItem(item) {
-    // if (this.state.cart.find(cartItem => cartItem.code === item.code)) {
-    //   console.log(item, this.state.cart)
-    //   this.setState({
-    //     ...this.state,
-    //     cart: this.state.cart.filter(cartItem => {
-    //       if (cartItem.code === item.code) cartItem.count++
-    //     })
-    //   })
-    //   return;
-    // }
-    this.setState({
-      ...this.state,
-      cart: [...this.state.cart, item]
-    })
+    const existingItem = this.state.cart.find(cartItem => cartItem.code === item.code);
+    if (existingItem) {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map(cartItem => {
+          if (cartItem.code === item.code) {
+            return {
+              ...cartItem,
+              count: cartItem.count + 1
+            };
+          } else {
+            return cartItem;
+          }
+        })
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, {
+          code: item.code,
+          title: item.title,
+          price: item.price,
+          count: 1
+        }]
+      });
+    }
   };
 
   /**
