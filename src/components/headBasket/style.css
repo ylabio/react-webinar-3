@@ -1,0 +1,21 @@
+.HeadBasket {
+  height: 80px;
+  background: #f5f5f5;
+  display: flex;
+}
+
+.HeadBasket h1 {
+  margin: 0;
+  width: 100%;
+  padding: 20px 20px 10px;
+}
+
+.HeadBasket-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 33px 32px 27px;
+}
+
+.HeadBasket button {
+  width: 76px;
+}

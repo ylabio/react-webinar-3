@@ -50,3 +50,12 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Разбиение цены по 3 символа
+ * Вариант с использованием регулярного выражения. Возвращаем цену в виде строки.
+ * @returns {String}
+ */
+export function addSpaceInPrice(number) {
+  return number.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ');
+}

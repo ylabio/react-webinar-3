@@ -1,21 +1,29 @@
 import React from "react";
+import {plural, addSpaceInPrice} from '../../utils';
+import {cn as bem} from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({onAdd}) {
+function Controls({openBasket, quantityProducts, summaryPrice}) {
+  const cn = bem('Controls');
+
   return (
-    <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+    <div className={cn()}> 
+      <div className={cn('text')}>В корзине:</div>
+      <div className={cn('result')}> {quantityProducts != 0 ? `${quantityProducts} ${plural(quantityProducts, {one: 'товар', few: 'товара', many: 'товаров'})} / ${addSpaceInPrice(summaryPrice)} ₽` : 'пусто'}</div>
+      <button onClick={() => openBasket(true)}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  onOpenBasket: PropTypes.func,
+  quantityProducts: PropTypes.number,
+  summaryPrice: PropTypes.number
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  onOpenBasket: () => {}
 }
 
 export default React.memo(Controls);

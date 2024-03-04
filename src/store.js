@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -39,48 +37,45 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
+  
   /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
-   * Удаление записи по коду
+   * Добавление товара в корзину.
    * @param code
    */
-  deleteItem(code) {
+  addToBasket(product) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
+      listInBasket: this.state.listInBasket.filter(item => item.code === product.code).length > 0 ? this.state.listInBasket.map(item => {
+        if (item.code === product.code) {
           return {
             ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
+            count: item.count + 1,
           };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
+        } 
+        return item }) : [...this.state.listInBasket, {...product, count: 1}]
+    })
+  }
+
+  /**
+   * Удаление товара из корзины.
+   * @param code
+   */
+  deleteFromBasket(product) {
+    this.setState({
+      ...this.state,
+      listInBasket: this.state.listInBasket.filter(item => item !== product)
+    })
+  }
+
+  /**
+   * Подсчет стоимости товара и его количества в корзине
+   * @param code
+   */
+  calculateSummary() {
+    this.setState({
+      ...this.state,
+      summaryPrice: this.state.listInBasket.length > 0 ? this.state.listInBasket.reduce((totalPrice, item) => totalPrice += item.price * item.count, 0) : 0,
+      quantityProducts: this.state.listInBasket.length > 0 ?  this.state.listInBasket.reduce((totalCount , item) => totalCount += item.count, 0) : 0,
     })
   }
 }

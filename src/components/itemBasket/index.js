@@ -5,12 +5,12 @@ import {addSpaceInPrice} from "../../utils";
 import './style.css';
 
 function Item(props) {
-  const cn = bem('Item');
+  const cn = bem('ItemBasket');
 
   const callbacks = {
-    onAdd: (e) => {
+    onDelete: (e) => {
       e.stopPropagation();
-      props.addToBasket(props.item);
+      props.onDelete(props.item);
     }
   }
 
@@ -21,9 +21,10 @@ function Item(props) {
         {props.item.title} 
       </div>
       <div className={cn('price')}>{addSpaceInPrice(props.item.price)} ₽</div>
+      <div className={cn('count')}>{props.item.count} шт</div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onAdd}>
-          Добавить
+        <button onClick={callbacks.onDelete}>
+          Удалить
         </button>
       </div>
     </div>
@@ -35,13 +36,14 @@ Item.propTypes = {
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number,
+    count: PropTypes.number
   }).isRequired,
-  addToBasket: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 Item.defaultProps = {
-  addToBasket: () => {
-  },
+  onDelete: () => {
+  }
 }
 
 export default React.memo(Item);
