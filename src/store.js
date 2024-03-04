@@ -76,27 +76,12 @@ class Store {
    * @param code
    */
   deleteItem(code) {
-    const idx = this.state.shoppingList.findIndex(item => item.code === code);
-    if (idx !== -1) {
-      // Если товар найден в списке покупок
-      const updatedShoppingList = [...this.state.shoppingList];
-      // Если количество товара больше 1, уменьшаем его на 1
-      if (updatedShoppingList[idx].quantity > 1) {
-        updatedShoppingList[idx] = {
-          ...updatedShoppingList[idx],
-          quantity: updatedShoppingList[idx].quantity - 1
-        };
-      } else {
-        // Если количество товара равно 1, удаляем его из списка
-        updatedShoppingList.splice(idx, 1);
-      }
-      // Обновляем состояние
-      this.setState({
-        ...this.state,
-        shoppingList: updatedShoppingList,
-      });
-    }
-  };
-}
+    this.setState({
+      ...this.state,
+      shoppingList: [...this.state.shoppingList.filter((item) => item.code !== code)],
+    });
+  }
+};
+
 
 export default Store;
