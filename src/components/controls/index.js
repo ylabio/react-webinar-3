@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import Vidget from "../vidget";
 import Button from "../button";
 import './style.css';
 
@@ -11,9 +12,7 @@ component controls:
 function Controls({forOpen}) {
   return (
     <div className='Controls'>
-      <div className='Controls-vidget'>В корзине:
-        <strong className='Controls-vidget-inform'>пусто</strong>
-      </div>
+      <Vidget cart={{goods: 0, costs: 0}} />
       <Button style="Button_controls" callback={forOpen}>
         Перейти
       </Button>
