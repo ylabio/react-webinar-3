@@ -15,7 +15,9 @@ const store = new Store({
     {code: generateCode(), title: 'Товар сюрприз', price: 0, countInCart: 0},
   ],
   cart: {
-    items:[]
+    items: [],
+    totalSumm: 0,
+    itemsCount: 0,
   }
 });
 

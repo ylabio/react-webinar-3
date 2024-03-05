@@ -41,20 +41,37 @@ class Store {
 
   addToCart(item) {
     item.countInCart ++;
+    const cartItems = [...this.state.cart.items, item]
 
     this.setState({
       ...this.state,
-      cart: {items: [...this.state.cart.items, item]},
+      cart: {
+        items: cartItems,
+        totalSumm: this.getTotalSumm(cartItems),
+        itemsCount: cartItems.length,
+      },
     })
   };
 
   removeFromCart(item) {
+    const cartItems = this.state.cart.items.filter(element => element.code !== item.code);
+
     this.setState({
       ...this.state,
       cart: {
-        items: this.state.cart.items.filter(element => element.code !== item.code)
+        items: cartItems,
+        totalSumm: this.getTotalSumm(cartItems),
+        itemsCount: cartItems.length,
       }
     })
+  }
+
+  getTotalSumm(cartItems){
+    let totalSumm = 0;
+    if(cartItems) {
+      totalSumm = cartItems.reduce((summ, item) => +item.price + summ, 0);
+    }
+    return totalSumm;
   }
 }
 

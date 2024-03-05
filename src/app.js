@@ -19,21 +19,6 @@ function App({store}) {
   const list = store.getState().list;
   const cart = store.getState().cart;
 
-  function getItemsInCart(){
-    const itemsInCart = list.filter(item => cart.items.includes(item));
-    return itemsInCart;
-  }
-
-  function getTotalSumm(){
-    let totalSumm = 0;
-    if(cart) {
-      totalSumm = cart.items.reduce((summ, item) => +item.price + summ, 0);
-    }
-
-    return totalSumm;
-  }
-
-
   const callbacks = {
     onAddToCart: useCallback((item) => {
       store.addToCart(item);
@@ -56,11 +41,11 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls callbacks={callbacks} count={getItemsInCart().length} totalSumm={getTotalSumm()}/>
+      <Controls callbacks={callbacks} count={cart.itemsCount} totalSumm={cart.totalSumm}/>
       <List type={'Shop'} list={list}
             callback={callbacks.onAddToCart}
             buttonTitle={'Добавить'}/>
-        {cartIsOpen && <Modal children={<Cart list={cart.items} callbacks={callbacks} buttonTitle={'Удалить'} totalSumm={getTotalSumm()} />}/>}
+        {cartIsOpen && <Modal children={<Cart list={cart.items} callbacks={callbacks} buttonTitle={'Удалить'} totalSumm={cart.totalSumm} />}/>}
     </PageLayout>
   );
 }
