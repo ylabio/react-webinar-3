@@ -4,6 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Cart from './components/cart';
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -36,9 +37,12 @@ function App({store}) {
 
   return (
     <PageLayout>
-      {showCart && <Cart cart={cart}
-        onClose={callbacks.onCloseCart}
-        onRemove={callbacks.onRemoveFromCart} />}
+      {showCart &&
+        <Modal>
+          <Cart cart={cart}
+            onClose={callbacks.onCloseCart}
+            onRemove={callbacks.onRemoveFromCart} />
+        </Modal>}
       <Head title='Магазин' />
       <Controls cart={cart}
         onClick={callbacks.onOpenCart} />

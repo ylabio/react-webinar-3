@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import Button from "../button";
+import { getTriads } from "../../utils";
 import './style.css';
 
 function Item(props) {
@@ -14,11 +15,13 @@ function Item(props) {
 
   const cn = bem('Item');
 
+  const price = getTriads(props.item.price);
+
   return (
     <div className={cn()}>
       <div className={cn('code')}>{props.item.code}</div>
       <div className={cn('title')}>{props.item.title}</div>
-      <div className={cn('price')}>{props.item.price + ' ₽'}</div>
+      <div className={cn('price')}>{price + ' ₽'}</div>
       {props.item.count && <div className={cn('count')}>{props.item.count + ' шт'}</div>}
       <div className={cn('actions')}>
         <Button title={props.buttonTitle} onClick={callbacks.onClick} />

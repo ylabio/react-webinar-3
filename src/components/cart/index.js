@@ -15,7 +15,6 @@ function Cart(props) {
   
   return (
     <div className={cn()}>
-      <div className={cn('dialog')}>
         <Head title='Корзина'>
           <Button title='Закрыть' onClick={props.onClose} />
         </Head>
@@ -26,7 +25,6 @@ function Cart(props) {
           <span>Итого</span>
           <span>{cost + ' ₽'}</span>
         </div>
-      </div>
     </div>
   );
 }
