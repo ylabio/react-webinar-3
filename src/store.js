@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,48 +39,50 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара
+   * @param code {number} Идентификатор товара
    */
-  addItem() {
+  addItem(code) {
+    const existingItem = this.state.cart?.some(item => item.code === code);
+    
+    const cart = existingItem ? this.state.cart.map(item => (item.code === code)
+      ? {...item, amount: item.amount + 1} 
+      : item
+    ) : [
+      ...(this.state.cart ?? []), 
+      {
+        ...this.state.list.find(item => item.code === code),
+        amount: 1,
+      }
+    ];
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+      cart,
+      totalAmount: cart.length,
+      totalSum: cart.reduce((acc, curr) => acc + curr.price * curr.amount, 0)
+    });
   };
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Удаление товара
+   * @param code {number} Идентификатор товара
    */
   deleteItem(code) {
+    const newCart = this.state.cart.reduce((acc, curr) => {
+      if (curr.code !== code) {
+        acc.cart.push(curr);
+        acc.totalSum += curr.price * curr.amount;
+      }
+      return acc;
+    }, {cart: [], totalSum: 0})
+
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      ...newCart,
+      totalAmount: this.state.totalAmount - 1,
     })
   };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
-  }
 }
 
 export default Store;

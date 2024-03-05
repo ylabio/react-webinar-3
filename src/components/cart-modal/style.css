@@ -1,0 +1,19 @@
+.Cart-modal-close {
+  width: 76px;
+  position: absolute;
+  right: 32px;
+  top: 32px;
+}
+
+.Cart-modal-items {
+  padding: 70px 0;
+}
+
+.Cart-modal-empty {
+  margin: 0;
+  font-size: 1.2rem;
+  height: 61px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

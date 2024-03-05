@@ -1,0 +1,40 @@
+.CartItem {
+  display: flex;
+}
+
+.CartItem-code {
+  padding: 20px 10px 20px 20px;
+  box-sizing: border-box;
+  width: 48px;
+}
+
+.CartItem-title {
+  flex: 1;
+  padding: 20px 10px;
+}
+
+.CartItem-price {
+  white-space: nowrap;
+  padding: 20px 14px;
+}
+
+.CartItem-amount {
+  white-space: nowrap;
+  width: 100px;
+  box-sizing: border-box;
+  padding: 20px 0;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 14px;
+  margin-left: -14px;
+}
+
+.CartItem-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+}
+
+.CartItem-actions-button {
+  width: 76px;
+}

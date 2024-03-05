@@ -1,3 +1,5 @@
+import { RUR } from "./constants/currency-signs";
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -49,4 +51,26 @@ export const generateCode1 = (function (start = 0) {
  */
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
+}
+
+/**
+ * Форматирование числа
+ * Возвращает вариант с учётом указанной локали.
+ * @param price {Number} Число, под которое выбирается вариант формы.
+ * @param locale {String} Локаль (код языка).
+ * @returns {string}
+ */
+export function formatPrice(price, locale = 'ru-RU') {
+  return `${new Intl.NumberFormat(locale).format(price)} ${RUR}`;
+}
+
+/**
+ * Форматирование количества товаров
+ * Возвращает строку с количеством всех товаров с учётом правил множественного числа.
+ * @param amount {Number} Количество товаров.
+ * @param variants {Object<String>} Варианты форм множественного числа.
+ * @returns {string}
+ */
+export function formatAmount(amount, variants) {
+  return `${amount} ${plural(amount, variants)}`;
 }

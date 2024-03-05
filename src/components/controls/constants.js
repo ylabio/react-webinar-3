@@ -1,0 +1,1 @@
+export const variants = {one: 'товар', few: 'товара', many: 'товаров'};

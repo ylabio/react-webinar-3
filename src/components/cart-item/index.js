@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { formatPrice } from '../../utils';
 import './style.css';
 
-function Item({item, onClick}) {
+function CartItem({item, onClick}) {
 
   const handleClick = (event) => {
     event.stopPropagation();
@@ -11,24 +11,27 @@ function Item({item, onClick}) {
   }
 
   return (
-    <div className='Item'>
-      <div className='Item-code'>{item.code}</div>
-      <div className='Item-title'>
+    <div className='CartItem'>
+      <div className='CartItem-code'>{item.code}</div>
+      <div className='CartItem-title'>
         {item.title}
       </div>
-      <div className='Item-price'>
+      <div className='CartItem-price'>
         {formatPrice(item.price)}
       </div>
-      <div className='Item-actions'>
-        <button className='Item-actions-button' onClick={handleClick}>
-          Добавить
+      <div className='CartItem-amount'>
+        {item.amount} шт
+      </div>
+      <div className='CartItem-actions'>
+        <button className='CartItem-actions-button' onClick={handleClick}>
+          Удалить
         </button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
@@ -37,9 +40,9 @@ Item.propTypes = {
   onClick: PropTypes.func
 };
 
-Item.defaultProps = {
+CartItem.defaultProps = {
   onClick: () => {
   }
 }
 
-export default React.memo(Item);
+export default React.memo(CartItem);
