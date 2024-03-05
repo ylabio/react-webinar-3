@@ -29,33 +29,21 @@
         transition: opacity .6s, visibility .5s ease;
 }
 
-.Modal-control {
-  top: 0;
-  right: 0;
-  position: fixed;
-  opacity: 0.1;
-  visibility: visible;
-  pointer-events: auto;
-  font-size: 2rem;
-  padding: 10px;
-  -webkit-transition: opacity .4s ease;
-  -moz-transition:  opacity .4s ease;
-      transition:  opacity .4s ease;
-}
-
-.Modal-control:hover {
-  opacity: 0.2;
-  cursor: pointer;
-  -webkit-transition: opacity .4s ease;
-  -moz-transition:  opacity .4s ease;
-      transition:  opacity .4s ease;
-}
-
 .Modal-content {
   width: 960px;
-  height: 280px;
   border-radius: 10px;
   background-color: white;
+}
+
+.Modal-content > div,
+.Basket:first-child {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.Modal-content:last-child {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .Modal-content-close {
