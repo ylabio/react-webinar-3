@@ -146,6 +146,26 @@ class Store {
     })
     this.cartCounter();
   };
+
+  /**
+   * Removing a goods from the cart by code
+   * @param code
+   */
+  delFromCart(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          return {
+            ...item,
+            tocart: 0,
+          };
+        }
+        return item;
+      })
+    })
+    this.cartCounter();
+  };
 }
 
 export default Store;
