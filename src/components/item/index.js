@@ -1,16 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
+import {format} from "../../utils";
 import Button from "../button";
 import './style.css';
 
 function Item({item, callback, target}) {
 
+  const numForm = format(item.price);
+
   return (
     <div className='Item'>
       <div className='Item-code'>{item.code}</div>
       <div className='Item-title'>{item.title}</div>
-      <div className='Item-price'>{`${item.price} ₽`}</div>
+      <div className='Item-price'>{`${numForm} ₽`}</div>
       {target.name === "basket" && <div className='Item-tocart'>
         {`${item.tocart} шт`}</div>}
       <div className='Item-actions'>

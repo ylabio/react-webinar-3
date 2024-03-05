@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Head from "../head";
 import Button from "../button";
 import List from "../list";
+import { format } from '../../utils';
 import './style.css';
 
 /* COMPONENTS TODO:
@@ -14,6 +15,7 @@ function Basket({list, forModal, forItem, summ}) {
   const cartList = list.filter((item) => Boolean(item.tocart));
   // The target for rendering elements of list items
   const lsTarget = { name: "basket", ctrl: "Удалить"};
+  const numForm = format(summ);
 
   return (
     <div className='Basket'>
@@ -27,7 +29,7 @@ function Basket({list, forModal, forItem, summ}) {
       </div>
       <div className="Basket-summary">
         <div className='Basket-summary-title'>Итого:
-          <strong className='Basket-summary-inform'>{`${summ} ₽`}</strong>
+          <strong className='Basket-summary-inform'>{`${numForm} ₽`}</strong>
         </div>
       </div>
     </div>
