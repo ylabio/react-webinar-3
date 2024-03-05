@@ -54,6 +54,7 @@ class Store {
   };
 
   removeFromCart(item) {
+    item.countInCart = 0;
     const cartItems = this.state.cart.items.filter(element => element.code !== item.code);
 
     this.setState({
