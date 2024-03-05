@@ -2,11 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import Controls from "../controls/";
 import './style.css';
+import Store from '../../store'
 
 function Item(props) {
 
   const handleAddToCart = () => {
     props.onAddToCart(props.item);
+  }
+  const handleDeleteToCart = () => {
+    props.deleteItemCart(props.item);
   }
 
 
@@ -14,9 +18,10 @@ function Item(props) {
     <div className="Item">
       <div className="Item-code">{props.item.code}</div>
       <div className="Item-title">{props.item.title}</div>
-      <div className="Item-price">{props.item.price} ₽</div>
+      <div className={props.cartVisible ? "Item-price" : "Item-price-cart"}>{props.item.price.toLocaleString('ru-RU')} ₽</div>
+      {!props.cartVisible && <div className="Item-quantity">{props.item.quantity} шт</div>}
       <div className="Item-actions">
-        <Controls action={handleAddToCart} textButton="Добавить"/>
+        <Controls action={props.cartVisible ? handleAddToCart: handleDeleteToCart} textButton={props.textButton}/>
       </div>
     </div>
   );

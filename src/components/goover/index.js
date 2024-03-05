@@ -11,7 +11,7 @@ function GoOver({ onOpen, totalItems, totalPrice }) {
             one: 'товар',
             few: 'товара',
             many: 'товаров'
-        })} / ${totalPrice} ₽`: "\u00A0 пусто"}</span>
+        })} / ${totalPrice.toLocaleString('ru-RU')} ₽`: "\u00A0 пусто"}</span>
       </div>
       <button onClick={() => onOpen()}>Перейти</button>
     </div>

@@ -46,10 +46,9 @@ function App({store}) {
           onClose={callbacks.onCloseCart}
           cartItems={store.getState().cartItems}
           totalPrice={callbacks.totalPriceCart}
-          deleteItemCart={callbacks.deleteItemCart}
-        />
+          deleteItemCart={callbacks.deleteItemCart} />
       )}
-      <List list={list} onAddToCart={callbacks.onAddToCart} />
+      <List list={list} onAddToCart={callbacks.onAddToCart} textButton="Добавить" cartVisible={callbacks.onOpenCart} />
     </PageLayout>
   );
 }

@@ -18,7 +18,15 @@
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }
-.Item-price{ 
+.Item-price, .Item-price-cart{ 
+  align-self: center;
+  white-space: nowrap;
+  margin-right: 8px;
+}
+.Item-price-cart{
+  padding-right: 62px;
+}
+.Item-quantity { 
   align-self: center;
   white-space: nowrap;
   margin-right: 8px;
