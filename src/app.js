@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState, useEffect} from 'react';
 import {calculatePrice} from './utils';
 import List from "./components/list";
 import Controls from "./components/controls";
@@ -28,6 +28,17 @@ function App({store}) {
     }, [store])
   }
 
+  /**
+   * Отключаем скролл при открытом модальном окне
+   */
+  useEffect(() => {
+    if (openModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [openModal])
+
   return (
     <PageLayout>
       <Head title='Магазин'/>
@@ -35,7 +46,7 @@ function App({store}) {
       <List list={list} onClick={callbacks.onToggleAdd} textBtn='Добавить' />
 
       {openModal && 
-        <Modal description='Корзина' setOpenModal={setOpenModal}>
+        <Modal title='Корзина' setOpenModal={setOpenModal}>
           <Cart list={cart} totalPrice={totalPrice} onClick={callbacks.onDeleteItem} />
         </Modal>
       }

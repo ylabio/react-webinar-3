@@ -4,7 +4,7 @@ import Head from "../head";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function Modal({description, setOpenModal, children}) {
+function Modal({title, setOpenModal, children}) {
   const cn = bem('Modal');
 
   const handleCloseModal = () => {
@@ -15,7 +15,7 @@ function Modal({description, setOpenModal, children}) {
     <div className={cn()}>
       <div className={cn('container')}>
         <div className={cn('header')}>
-            <Head title={description} />
+            <Head title={title} />
             <button onClick={handleCloseModal}>Закрыть</button>
         </div>
         <div className={cn('content')}>
@@ -27,7 +27,7 @@ function Modal({description, setOpenModal, children}) {
 }
 
 Modal.propTypes = {
-  description: PropTypes.string,
+  title: PropTypes.string,
   setOpenModal: PropTypes.func,
   children: PropTypes.node
 }
