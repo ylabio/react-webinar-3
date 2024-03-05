@@ -1,39 +1,71 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import List from "./components/list";
-import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import CartRow from './components/cartRow';
+import Modal from './components/modal';
+import Cart from './components/cart';
+import shopItem from './components/shopItem';
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
 
-  const list = store.getState().list;
+  const { list, cart, cartSum, isOpenModal } = store.getState();
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    onAddToCart: useCallback((code) => {
+      store.addToCart(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    onDeleteFromCart: useCallback((code) => {
+      store.deleteFromCart(code);
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
+    onOpenModal: useCallback(() => {
+      store.setIsOpenModal(true);
+    }, [store]),
+
+    onCloseModal: useCallback(() => {
+      store.setIsOpenModal(false);
     }, [store])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
+      <Modal isOpenModal={isOpenModal}>
+        <Head title='Корзина'
+          btn={{
+            title: 'Закрыть',
+            callback: callbacks.onCloseModal
+          }}
+        />
+        <Cart cart={cart}
+          cartSum={cartSum}
+          btn={{
+            title: 'Удалить',
+            callback: callbacks.onDeleteFromCart
+          }}
+        />
+      </Modal>
+      <Head title='Магазин' />
+      <CartRow cart={cart}
+        cartSum={cartSum}
+        btn={{
+          title: 'Перейти',
+          callback: callbacks.onOpenModal
+        }}
+      />
       <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+        Item={shopItem}
+        btn={{
+          title: 'Добавить',
+          callback: callbacks.onAddToCart
+        }}
+      />
     </PageLayout>
   );
 }
