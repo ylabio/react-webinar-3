@@ -13,7 +13,7 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
-  const {list, modal} = store.getState();
+  const {list, modal, cart} = store.getState();
   
   const callbacks = {
     forOpenModal: useCallback(() => {
@@ -32,7 +32,7 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls forOpen={callbacks.forOpenModal}/>
+      <Controls forOpen={callbacks.forOpenModal} cart={cart}/>
       <List list={list} forAdd={callbacks.forAddToCart}/>
       <Modal state={modal} children>
         <Basket forClose={callbacks.forCloseModal}/>

@@ -9,10 +9,10 @@ component controls:
  - component vidget
  - component button */
 
-function Controls({forOpen}) {
+function Controls({forOpen, cart}) {
   return (
     <div className='Controls'>
-      <Vidget cart={{goods: 0, costs: 0}} />
+      <Vidget cart={cart} />
       <Button style="Button_controls" callback={forOpen}>
         Перейти
       </Button>
@@ -23,6 +23,10 @@ function Controls({forOpen}) {
 // Typechecking with PropTypes:
 Controls.propTypes = {
   forOpen: PropTypes.func.isRequired,
+  cart: PropTypes.shape({
+    goods: PropTypes.number,
+    costs: PropTypes.number
+  }),
 };
 
 // Default values for properties:
