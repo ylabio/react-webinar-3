@@ -1,0 +1,23 @@
+.Vidget {
+  width: auto;
+  min-width: 160px;
+  height: auto;
+  min-height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 22px;
+}
+
+.Vidget-title {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.Vidget-inform {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  padding-left: 15px;
+}
