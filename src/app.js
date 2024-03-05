@@ -3,7 +3,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import Modal from "./components/modal";
+import Cart from './components/cart/cart';
 import formatPrice from './helpers/formatPrice';
 /**
  * Приложение
@@ -14,17 +14,9 @@ function App({store}) {
   const isModalOpen = store.getState().isModalOpen
   const list = store.getState().list;
   const selectedItems = store.getState().selectedItems; 
-  const countItems = store.getState().countItems;
   const countPrice = store.getState().countPrice;
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
 
       onAddItem: useCallback((code) => {
           store.addItem(code);
@@ -56,7 +48,7 @@ function App({store}) {
           <Controls onAction={callbacks.onToggleCart} title='Перейти'>
               <span>
                   В корзине: {selectedItems.length > 0 ? (
-                      <strong className='counting'>{selectedItems.length} {getItemsWord(selectedItems.length)} / {countPrice} ₽</strong>
+                      <strong className='counting'>{selectedItems.length} {getItemsWord(selectedItems.length)} / {formatPrice(countPrice)} ₽</strong>
                   ) : (
                       <strong className='counting'>пусто</strong>
                   )}
@@ -64,25 +56,7 @@ function App({store}) {
           </Controls>
           <List titleButton={'Добавить'} list={list}
               onСlickItem={callbacks.onAddItem}/>
-          <Modal isOpen={isModalOpen} onClose={callbacks.onToggleCart}>
-            <Head title='Корзина' >
-                  <Controls onAction={callbacks.onToggleCart} title='Закрыть' />
-            </Head>
-              <List titleButton={'Удалить'} list={selectedItems}
-                  onСlickItem={callbacks.onDeleteItem}
-              />
-              <div className='totalContainer'>
-                  <span className='totalLabel'>Итого:</span>
-                  <span className='amount'>
-                      {countItems > 0 ? (
-                          <strong className='counting'><span>{`${formatPrice(countPrice)} ₽`} </span></strong>
-                      ) : (
-                              <strong className='counting'>0 ₽</strong>
-                      )}
-                  </span>
-              </div>
-            
-          </Modal>
+          <Cart store={store} />
    
     </PageLayout>
   );
