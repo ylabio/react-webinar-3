@@ -14,6 +14,8 @@ import PageLayout from "./components/page-layout";
 function App({store}) {
 
   const {list, modal, cart} = store.getState();
+  // The target for rendering elements of list items
+  const lsTarget = "main";
   
   const callbacks = {
     forOpenModal: useCallback(() => {
@@ -37,7 +39,7 @@ function App({store}) {
     <PageLayout>
       <Head title='Магазин'/>
       <Controls cart={cart} callback={callbacks.forOpenModal}/>
-      <List list={list} callback={callbacks.forAddToCart}/>
+      <List list={list} callback={callbacks.forAddToCart} target={lsTarget}/>
       <Modal state={modal} children>
         <Basket list={list}
                 forModal={callbacks.forCloseModal}

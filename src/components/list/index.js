@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, callback}) {
+function List({list, callback, target}) {
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} callback={callback}/>
+          <Item item={item} callback={callback} target={target}/>
         </div>
       )}
     </div>
@@ -21,11 +21,13 @@ List.propTypes = {
     code: PropTypes.number
   })).isRequired,
   callback: PropTypes.func.isRequired,
+  target: PropTypes.string,
 };
 
 // Default values for properties:
 List.defaultProps = {
   callback: () => {},
+  target: "main",
 }
 
 export default React.memo(List);

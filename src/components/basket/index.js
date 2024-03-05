@@ -8,6 +8,8 @@ import './style.css';
 function Basket({list, forModal, forItem}) {
 
   const cartList = list.filter((item) => Boolean(item.tocart));
+  // The target for rendering elements of list items
+  const lsTarget = "basket";
 
   return (
     <div className='Basket'>
@@ -16,7 +18,7 @@ function Basket({list, forModal, forItem}) {
           Закрыть
         </Button>
       </Head>
-      <List list={cartList} callback={forItem}/>
+      <List list={cartList} callback={forItem} target={lsTarget}/>
       <div className="Basket-summary">
         <div className='Basket-summary-title'>Итого:
           <strong className='Basket-summary-inform'>0 ₽</strong>
