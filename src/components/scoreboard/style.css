@@ -1,0 +1,22 @@
+.Scoreboard {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  padding: 20px;
+}
+
+.Scoreboard-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.Scoreboard-value {
+  font-weight: 700;
+}
+
+.Scoreboard-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}

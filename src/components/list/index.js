@@ -1,32 +1,51 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
-import './style.css';
+import Item from './item';
 
-function List({list, onDeleteItem, onSelectItem}) {
+/**
+ * Список товаров
+ * Через параметр options можно настраивать функциональность списка
+ */
+function List(props) {
   return (
-    <div className='List'>{
-      list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
-        </div>
-      )}
+    <div>
+      {
+        props.list.map(item =>
+          <Item key={item.code}
+                item={item}
+                options={props.options}
+                onAdd={props.onAddItem}
+                onDelete={props.onDeleteItem}/>
+        )}
     </div>
   )
 }
 
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number
+    code: PropTypes.number,
+    title: PropTypes.string,
+    count: PropTypes.number
   })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
+  //  Настройки для отображения списка
+  options: PropTypes.shape({
+    showCount: PropTypes.bool,      // Отображать количество товара в корзине
+    isAppendable: PropTypes.bool,   // Отображать кнокпи для добавления товаров в корзину
+    isDeletable: PropTypes.bool     // Отображать кнопки для удаления товаров из корзины
+  }),
+  onAddItem: PropTypes.func,
+  onDeleteItem: PropTypes.func
 };
 
 List.defaultProps = {
-  onDeleteItem: () => {
+  options: {
+    showCount: false,
+    isAppendable: true,
+    isDeletable: false
   },
-  onSelectItem: () => {
+  onAddItem: () => {
+  },
+  onDeleteItem: () => {
   },
 }
 

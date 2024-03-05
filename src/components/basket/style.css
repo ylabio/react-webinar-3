@@ -1,0 +1,12 @@
+.Basket-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px 120px 20px 20px;
+  gap: 20px;
+  font-weight: 700;
+}
+
+.Basket-empty {
+  text-align: center;
+}

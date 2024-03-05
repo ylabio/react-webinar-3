@@ -41,48 +41,29 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+  addItem(code) {
+    const item = this.state.list.find(item => item.code === code);
+    if (item) {
+      this.setState({
+        ...this.state,
+        basket: this.state.basket.find(stored => stored.code === code)
+          ? this.state.basket.map(stored => stored.code === code ? {...stored, count: ++stored.count} : stored)
+          : [...this.state.basket, {...item, count: 1}]
+      })
+    }
   };
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Удаление товара из корзины
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      basket: this.state.basket.filter(item => item.code !== code)
     })
   };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
-  }
 }
 
 export default Store;
