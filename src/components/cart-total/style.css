@@ -1,0 +1,11 @@
+.CartTotal {
+  margin: 20px 113px 0 0;
+  text-align: right;
+
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.CartTotal-label {
+  margin-right: 53px;
+}

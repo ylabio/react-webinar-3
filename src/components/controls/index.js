@@ -1,21 +1,30 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import CartInfo from '../cart-info';
+import Button from '../ui/button';
+import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function Controls({onAdd}) {
+function Controls({totalAmount, totalSum, onOpenModal}) {
+
+  const cn = bem('Controls');
+
   return (
-    <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+    <div className={cn()}>
+      <CartInfo totalAmount={totalAmount} totalSum={totalSum}/>
+      <Button onClick={onOpenModal} inCart={true}>Перейти</Button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  totalAmount: PropTypes.number.isRequired,
+  totalSum: PropTypes.string.isRequired,
+  onOpenModal: PropTypes.func.isRequired
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  onOpenModal: () => {}
 }
 
 export default React.memo(Controls);

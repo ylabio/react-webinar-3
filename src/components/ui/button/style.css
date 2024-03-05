@@ -1,0 +1,20 @@
+.Button {
+  padding: 0.13em 0.638em;
+
+  font-size: 13px;
+
+  border: 1px solid #767676;
+  border-radius: 2px;
+  background-color: #EFEFEF;
+  cursor: pointer;
+  transition: background-color 0.2s ease-out;
+  user-select: none;
+}
+
+.Button:hover {
+  background-color: #d3d3d3;
+}
+
+.Button--cart{
+  padding: 0.13em 1.02em;
+}
