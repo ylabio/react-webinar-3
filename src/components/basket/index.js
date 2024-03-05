@@ -5,7 +5,7 @@ import Button from "../button";
 import List from "../list";
 import './style.css';
 
-function Basket({list, forModal, forItem}) {
+function Basket({list, forModal, forItem, summ}) {
 
   const cartList = list.filter((item) => Boolean(item.tocart));
   // The target for rendering elements of list items
@@ -21,7 +21,7 @@ function Basket({list, forModal, forItem}) {
       <List list={cartList} callback={forItem} target={lsTarget}/>
       <div className="Basket-summary">
         <div className='Basket-summary-title'>Итого:
-          <strong className='Basket-summary-inform'>0 ₽</strong>
+          <strong className='Basket-summary-inform'>{`${summ} ₽`}</strong>
         </div>
       </div>
     </div>
@@ -35,6 +35,7 @@ Basket.propTypes = {
   })).isRequired,
   forModal: PropTypes.func.isRequired,
   forItem: PropTypes.func.isRequired,
+  summ: PropTypes.number.isRequired,
 };
 
 // Default values for properties:

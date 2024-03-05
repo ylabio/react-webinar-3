@@ -44,6 +44,7 @@ function App({store}) {
         <Basket list={list}
                 forModal={callbacks.forCloseModal}
                 forItem={callbacks.forDelFromCart}
+                summ={cart.costs}
         />
       </Modal>
     </PageLayout>
