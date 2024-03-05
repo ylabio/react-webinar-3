@@ -14,7 +14,9 @@ function Item(props) {
 
     }
   }
-
+    function formatPrice(price) {
+        return new Intl.NumberFormat('ru-RU').format(price);
+    }
   return (
     <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
          onClick={callbacks.onClick}>
@@ -23,7 +25,7 @@ function Item(props) {
         {props.item.title} 
       </div>
           <div className='Item-price'>
-              {props.item.price} ₽
+              {formatPrice(props.item.price)} ₽
           </div>
           {props.item.count && (
               <div className='Item-count'>
