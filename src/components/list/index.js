@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, forAdd}) {
+function List({list, callback}) {
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} forAdd={forAdd}/>
+          <Item item={item} callback={callback}/>
         </div>
       )}
     </div>
@@ -20,12 +20,12 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  forAdd: PropTypes.func.isRequired,
+  callback: PropTypes.func.isRequired,
 };
 
 // Default values for properties:
 List.defaultProps = {
-  forAdd: () => {},
+  callback: () => {},
 }
 
 export default React.memo(List);

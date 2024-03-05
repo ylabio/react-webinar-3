@@ -4,11 +4,11 @@ import Head from "../head";
 import Button from "../button";
 import './style.css';
 
-function Basket({forClose}) {
+function Basket({callback}) {
   return (
     <div className='Basket'>
       <Head tag='h2' title='Корзина'>
-        <Button style="Button_basket" callback={forClose}>
+        <Button style="Button_basket" callback={callback}>
           Закрыть
         </Button>
       </Head>
@@ -18,12 +18,12 @@ function Basket({forClose}) {
 
 // Typechecking with PropTypes:
 Basket.propTypes = {
-  forClose: PropTypes.func.isRequired,
+  callback: PropTypes.func.isRequired,
 };
 
 // Default values for properties:
 Basket.defaultProps = {
-  forClose: () => {},
+  callback: () => {},
 };
 
 export default React.memo(Basket);

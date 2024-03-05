@@ -9,11 +9,11 @@ component controls:
  - component vidget
  - component button */
 
-function Controls({forOpen, cart}) {
+function Controls({cart, callback}) {
   return (
     <div className='Controls'>
       <Vidget cart={cart} />
-      <Button style="Button_controls" callback={forOpen}>
+      <Button style="Button_controls" callback={callback}>
         Перейти
       </Button>
     </div>
@@ -22,16 +22,16 @@ function Controls({forOpen, cart}) {
 
 // Typechecking with PropTypes:
 Controls.propTypes = {
-  forOpen: PropTypes.func.isRequired,
   cart: PropTypes.shape({
     goods: PropTypes.number,
     costs: PropTypes.number
   }),
+  callback: PropTypes.func.isRequired
 };
 
 // Default values for properties:
 Controls.defaultProps = {
-  forOpen: () => {},
+  callback: () => {},
 }
 
 export default React.memo(Controls);

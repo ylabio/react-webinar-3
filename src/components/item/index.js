@@ -4,7 +4,7 @@ import {plural} from "../../utils";
 import Button from "../button";
 import './style.css';
 
-function Item({item, forAdd}) {
+function Item({item, callback}) {
 
   return (
     <div className='Item'>
@@ -13,7 +13,7 @@ function Item({item, forAdd}) {
       <div className='Item-price'>{`${item.price} ₽`}</div>
       <div className='Item-actions'>
         {/* callbacks.onDelete */}
-        <Button style='Button_item' callback={forAdd} param={item.code}>
+        <Button style='Button_item' callback={callback} param={item.code}>
           Добавить
         </Button>
       </div>
@@ -28,12 +28,12 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
-  forAdd: PropTypes.func.isRequired,
+  callback: PropTypes.func.isRequired,
 };
 
 // Default values for properties:
 Item.defaultProps = {
-  forAdd: () => {},
+  callback: () => {},
 }
 
 export default React.memo(Item);

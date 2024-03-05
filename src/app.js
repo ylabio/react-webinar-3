@@ -32,10 +32,10 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls forOpen={callbacks.forOpenModal} cart={cart}/>
-      <List list={list} forAdd={callbacks.forAddToCart}/>
+      <Controls cart={cart} callback={callbacks.forOpenModal}/>
+      <List list={list} callback={callbacks.forAddToCart}/>
       <Modal state={modal} children>
-        <Basket forClose={callbacks.forCloseModal}/>
+        <Basket callback={callbacks.forCloseModal}/>
       </Modal>
     </PageLayout>
   );
