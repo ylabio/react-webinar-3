@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import List from '../list';
 import { cn as bem } from '@bem-react/classname';
+import cartItem from "../cartItem";
 import './style.css'
 
 function Cart({ cart, cartSum, btn }) {
@@ -10,7 +11,7 @@ function Cart({ cart, cartSum, btn }) {
 		<>
 			{cart.length !== 0 ? <>
 				<div className={cn()}>
-					<List list={cart} btn={btn} />
+					<List list={cart} Item={cartItem} btn={btn} />
 				</div>
 				<div className={cn('footer')}>
 					<div>Итого:</div>

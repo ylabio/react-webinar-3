@@ -5,6 +5,7 @@ import PageLayout from "./components/page-layout";
 import CartRow from './components/cartRow';
 import Modal from './components/modal';
 import Cart from './components/cart';
+import shopItem from './components/shopItem';
 
 /**
  * Приложение
@@ -59,6 +60,7 @@ function App({ store }) {
         }}
       />
       <List list={list}
+        Item={shopItem}
         btn={{
           title: 'Добавить',
           callback: callbacks.onAddToCart

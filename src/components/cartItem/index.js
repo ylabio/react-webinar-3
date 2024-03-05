@@ -4,16 +4,14 @@ import Button from "../button";
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Item(props) {
+function cartItem(props) {
   const cn = bem('Item');
   return (
     <div className={cn()}>
       <div className={cn('code')}>{props.item.code}</div>
       <div className={cn('title')}>{props.item.title}</div>
       <div className={cn('price')}>{props.item.price.toLocaleString()}&nbsp;₽</div>
-      {props.item.count !== undefined &&
-        <div className={cn('count')}>{props.item.count}&nbsp;шт</div>
-      }
+      <div className={cn('count')}>{props.item.count}&nbsp;шт</div>
       <div className={cn('actions')}>
         <Button title={props.btn.title} callback={() => props.btn.callback(props.item.code)} />
       </div>
@@ -21,7 +19,7 @@ function Item(props) {
   );
 }
 
-Item.propTypes = {
+cartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
@@ -31,4 +29,4 @@ Item.propTypes = {
   btn: PropTypes.object,
 };
 
-export default React.memo(Item);
+export default React.memo(cartItem);

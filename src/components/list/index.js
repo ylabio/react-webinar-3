@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
 import './style.css';
 
-function List({ list, btn }) {
+function List({ list, Item, btn }) {
   return (
     <div className='List'>{
       list.map(item =>
