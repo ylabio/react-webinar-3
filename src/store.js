@@ -60,8 +60,15 @@ class Store {
         cart: [...this.state.cart]
       });
     }
-    console.log(this.state.cart);
+    this.getTotalPrice();
   };
+
+  getTotalPrice(){
+    this.setState({
+      ...this.state,
+      totalPrice: this.state.cart.reduce((acc, item) => acc + item.price * item.amount, 0)
+    })
+  }
 
   /**
    * Удаление записи по коду
@@ -71,8 +78,9 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      cart: this.state.cart.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code),
     })
+    this.getTotalPrice();
   };
 }
 

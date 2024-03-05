@@ -15,6 +15,7 @@ function App({store}) {
   const [isModalVisible, setModalVisibility] = useState(false);
   const list = store.getState().list;
   const cart = store.getState().cart;
+  const totalPrice = store.getState().totalPrice;
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -34,14 +35,17 @@ function App({store}) {
     <>
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls onToggleModal={callbacks.onToggleModal} cart={cart}/>
+      <Controls onToggleModal={callbacks.onToggleModal}
+        totalPrice={totalPrice}
+        amount={cart.length}/>
       <List list={list}
             onAddItem={callbacks.onAddItem}/>
     </PageLayout>
     <Modal show={isModalVisible}
-     totalPrice={cart.reduce((acc, item) => acc + item.price * item.amount, 0)}>
-      <Head title='Корзина' isCart={true} closeModal={callbacks.onToggleModal}/>
-      <Controls onToggleModal={callbacks.onToggleModal} cart={cart} isCart={true}/>
+      totalPrice={totalPrice}>
+      <Head title='Корзина'
+        closeModal={callbacks.onToggleModal}/>
+      <Controls onToggleModal={callbacks.onToggleModal}/>
       <List list={cart}
             isCart={true}
             onDeleteItem={callbacks.onDeleteItem}/>

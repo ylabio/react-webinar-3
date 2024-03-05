@@ -5,17 +5,16 @@ import Modal from "../modal"
 import './style.css';
 
 function Controls(props) {
-  const totalPrice = props.cart.reduce((acc, item) => acc + item.price * item.amount, 0);
 
-  if(!props.isCart){
+  if(props.amount != undefined){
     return (
       <div className='Controls'>
         <div className="Cart">
-          В корзине: <b>{props.cart.length > 0 ? `${props.cart.length} ${plural(props.cart.length, {
+          В корзине: <b>{props.amount > 0 ? `${props.amount} ${plural(props.amount, {
             one: 'товар',
             few: 'товара',
             many: 'товаров'
-          })} / ${totalPrice} ₽` : "пусто"}</b>
+          })} / ${props.totalPrice} ₽` : "пусто"}</b>
         </div>
         <div className="Controls-actions">
           <button onClick={props.onToggleModal}>Перейти</button>

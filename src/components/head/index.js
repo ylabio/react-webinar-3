@@ -6,7 +6,7 @@ function Head(props) {
   return (
     <div className='Head'>
       <h1>{props.title}</h1>
-      <button className={props.isCart ? "" : "hidden"} onClick={props.closeModal}>Закрыть</button>
+      <button className={props.closeModal ? "" : "hidden"} onClick={props.closeModal}>Закрыть</button>
     </div>
   )
 }
