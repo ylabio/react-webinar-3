@@ -1,14 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import './style.css';
 import Button from "../button";
+import {formatNumber} from "../../utils";
+import './style.css';
 
 function Item(props) {
   return (
     <div className='Item'>
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>{props.item.title}</div>
-      <span className='Item-price'>{props.item.price}&nbsp;₽</span>
+      <span className='Item-price'>{formatNumber(props.item.price)}&nbsp;₽</span>
       {props.amount &&
       <span className='Item-amount'>{`${props.amount} шт`}</span>}
       <div className='Item-actions'>

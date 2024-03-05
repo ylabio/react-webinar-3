@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {plural} from '../../utils';
+import {formatNumber} from '../../utils';
 import './style.css';
 
 function CartInfo({amount, cost}) {
@@ -12,7 +13,7 @@ function CartInfo({amount, cost}) {
   }
 
   const inCart = amount > 0
-  ? `${amount} ${plural(amount, forms)} / ${cost} ₽`
+  ? `${amount} ${plural(amount, forms)} / ${formatNumber(cost)} ₽`
   : 'пусто';
 
   return (

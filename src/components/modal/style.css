@@ -1,6 +1,6 @@
 .Modal {
   width: 960px;
-  height: 400px;
+  min-height: 400px;
   box-sizing: border-box;
   padding: 0;
   border: transparent;
@@ -15,4 +15,9 @@
 
 .Modal-cage {
   height: 100%;
+}
+
+.Modal::-webkit-scrollbar,
+.Modal::-moz-scrollbar {
+   display: none;
 }
