@@ -1,0 +1,22 @@
+.Controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
+}
+.Controls-content {
+  display: flex;
+  align-items: center;
+  min-width: 200px;
+  height: 20px;
+  justify-content: space-between;
+}
+.Controls-content p {
+  padding: 20px 50px 20px 10px;
+  font-family: Arial;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+}

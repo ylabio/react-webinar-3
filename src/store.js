@@ -1,3 +1,5 @@
+import { generateCode } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -16,8 +18,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -26,6 +28,16 @@ class Store {
    */
   getState() {
     return this.state;
+  }
+
+  /**
+   * Переключение состояния модального окна корзины
+   */
+  toggleCartModal() {
+    this.setState({
+      ...this.state,
+      isCartModalOpen: !this.state.isCartModalOpen,
+    });
   }
 
   /**
@@ -38,41 +50,49 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+
+
   /**
-   * Добавление новой записи
+   * Установка состояния
+   * @param newState {Object}
    */
-  addItem() {
+  addToCart(code) {
+    const cartList = [].concat(this.state.cartList ?? []);
+    const selectedProduct = this.state.list.find(
+      (product) => product.code === code
+    );
+    if (selectedProduct) {
+      const existingCartItem = cartList.find((item) => item.code === code);
+      if (existingCartItem) {
+        existingCartItem.count++;
+      } else {
+        cartList.push({ ...selectedProduct, count: 1 });
+      }
+    }
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
-
+      cartList,
+    });
+  }
   /**
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
+  onDeleteCartItem(code) {
+    const updatedCartList = this.state.cartList
+      .map((item) => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          return { ...item, count: item.count - 1 };
         }
         return item;
       })
-    })
+      .filter((item) => item.count > 0);
+
+    this.setState({
+      ...this.state,
+      cartList: updatedCartList,
+    });
   }
 }
 
