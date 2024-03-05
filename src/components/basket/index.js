@@ -2,28 +2,43 @@ import React from "react";
 import PropTypes from "prop-types";
 import Head from "../head";
 import Button from "../button";
+import List from "../list";
 import './style.css';
 
-function Basket({callback}) {
+function Basket({list, forModal, forItem}) {
+
+  const cartList = list.filter((item) => Boolean(item.tocart));
+
   return (
     <div className='Basket'>
       <Head tag='h2' title='Корзина'>
-        <Button style="Button_basket" callback={callback}>
+        <Button style="Button_basket" callback={forModal}>
           Закрыть
         </Button>
       </Head>
+      <List list={cartList} callback={forItem}/>
+      <div className="Basket-summary">
+        <div className='Basket-summary-title'>Итого:
+          <strong className='Basket-summary-inform'>0 ₽</strong>
+        </div>
+      </div>
     </div>
   )
 }
 
 // Typechecking with PropTypes:
 Basket.propTypes = {
-  callback: PropTypes.func.isRequired,
+  list: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.number
+  })).isRequired,
+  forModal: PropTypes.func.isRequired,
+  forItem: PropTypes.func.isRequired,
 };
 
 // Default values for properties:
 Basket.defaultProps = {
-  callback: () => {},
+  forModal: () => {},
+  forItem: () => {},
 };
 
 export default React.memo(Basket);

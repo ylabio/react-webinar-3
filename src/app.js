@@ -27,6 +27,10 @@ function App({store}) {
     forAddToCart: useCallback((code) => {
       store.addToCart(code);
     }, [store]),
+
+    forDelFromCart: useCallback((code) => {
+      store.delFromCart(code);
+    }, [store]),
   }
 
   return (
@@ -35,7 +39,10 @@ function App({store}) {
       <Controls cart={cart} callback={callbacks.forOpenModal}/>
       <List list={list} callback={callbacks.forAddToCart}/>
       <Modal state={modal} children>
-        <Basket callback={callbacks.forCloseModal}/>
+        <Basket list={list}
+                forModal={callbacks.forCloseModal}
+                forItem={callbacks.forDelFromCart}
+        />
       </Modal>
     </PageLayout>
   );
