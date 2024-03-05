@@ -1,8 +1,9 @@
-.Cart-content {
+.CartInfo-content {
   font-weight: bold;
   display: flex;
 }
-.Cart {
+
+.CartInfo {
   display: flex;
   justify-content: end;
   margin-right: 20px;

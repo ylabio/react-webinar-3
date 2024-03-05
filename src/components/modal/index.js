@@ -3,19 +3,20 @@ import List from '../list';
 import Head from '../head';
 import PropTypes from 'prop-types';
 import Controls from '../controls';
+import CartInfo from '../cart-info';
 import './style.css';
 
 function Modal({cart, onDeleteItem, onEntryCart, calculateSum, calculateItems}) {
   return (
   <div className='Modal'>
-    <Head title='Корзина' />
-    <Controls
-    title='Закрыть'
-    onEntryCart={onEntryCart}
-    calculateSum={calculateSum}
-    calculateItems={calculateItems}
-    />
-    <List list={cart} onDeleteItem={onDeleteItem}/>
+    <Head title='Корзина' >
+      <Controls
+      title='Закрыть'
+      onEntryCart={onEntryCart}
+      />
+    </Head>
+    <List list={cart} buttonFunction={onDeleteItem} buttonTitle={'Удалить'} />
+    <CartInfo title={'Итого'} calculateSum={calculateSum}/>
   </div>
   )
 };

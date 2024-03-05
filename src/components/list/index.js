@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, onAddItem}) {
+function List({list, buttonTitle, buttonFunction}) {
   return (
-    <div className='List'>{
+    <ul className='List'>{
       list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item item={item} onAdd={onAddItem} />
-        </div>
+        <li key={item.code} className='List-item'>
+          <Item item={item} buttonFunction={buttonFunction} buttonTitle={buttonTitle} />
+        </li>
       )}
-    </div>
+    </ul>
   )
 }
 
@@ -19,12 +19,13 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onAddItem: PropTypes.func,
+  buttonFunction: PropTypes.func,
+  buttonTitle: PropTypes.string,
 };
 
 List.defaultProps = {
-  onAddItem: () => {
-  },
+  buttonFunction: () => {},
+  buttonTitle: 'Кнопка',
 }
 
 export default React.memo(List);

@@ -5,6 +5,7 @@ import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import ModalOverlay from "./components/modal-overlay";
 import Modal from "./components/modal";
+import CartInfo from "./components/cart-info";
 
 /**
  * Приложение
@@ -43,16 +44,13 @@ function App({ store }) {
       [store]
     ),
   };
-  
+
   return (
     <PageLayout>
-      <Head title="Приложение на чистом JS" />
-      <Controls
-        calculateSum={callbacks.calculateSum}
-        onEntryCart={callbacks.onEntryCart}
-        calculateItems={callbacks.calculateItems}
-      />
-      <List list={list} onAddItem={callbacks.onAddItem} />
+      <Head title="Магазин" />
+      <CartInfo title={'В Корзине:'}calculateItems={callbacks.calculateItems} calculateSum={callbacks.calculateSum}/>
+      <Controls title={'Перейти'} onEntryCart={callbacks.onEntryCart} />
+      <List list={list} buttonFunction={callbacks.onAddItem} buttonTitle={'Добавить'} />
       {isModal && (
         <>
           <Modal

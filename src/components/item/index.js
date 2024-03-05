@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import Button from "../button";
 import { cn as bem } from "@bem-react/classname";
 // import {plural} from "../../utils";
 import "./style.css";
@@ -10,9 +11,9 @@ function Item(props) {
   const cn = bem("Item");
 
   const callbacks = {
-    onAdd: (e) => {
+    onButtonClick: (e) => {
       e.stopPropagation();
-      props.onAdd(props.item);
+      props.buttonFunction(props.item);
     },
   };
 
@@ -25,7 +26,7 @@ function Item(props) {
         <div className={cn("count")}>{`${props.item.count} Шт`}</div>
       }
       <div className={cn("actions")}>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <Button title={props.buttonTitle} buttonFunction={callbacks.onButtonClick} />
       </div>
     </div>
   );
@@ -38,11 +39,13 @@ Item.propTypes = {
     selected: PropTypes.bool,
     count: PropTypes.number,
   }).isRequired,
-  onAdd: PropTypes.func,
+  buttonFunction: PropTypes.func,
+  buttonTitle: PropTypes.string,
 };
 
 Item.defaultProps = {
-  onAdd: () => {},
+  buttonFunction: () => {},
+  buttonTitle: 'Кнопка',
 };
 
 export default React.memo(Item);
