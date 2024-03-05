@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,47 +39,61 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара  в корзину по коду
+   * @param product
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+  addIntoBasket(code) {
+    const itemInBasket = this.state.basket.find(item => item.code === code);
+    const listItem = this.state.list.findIndex(item => item.code === code);
+    itemInBasket ? this.setState({
+                      ...this.state,
+                      basket: this.state.basket.map((item) => {
+                        if (item.code === code) {
+                          return {
+                            code: code,
+                            quantity: item.quantity + 1,
+                            title: this.state.list[listItem].title,
+                            totalPrice: this.state.list[listItem].price * (item.quantity + 1),
+                          }
+                        } else return {...item}
+                      })
+                    })
+                  : this.setState({
+                    ...this.state,
+                    basket: this.state.basket.concat({
+                      code: code,
+                      quantity: 1,
+                      title: this.state.list[listItem].title,
+                      totalPrice: this.state.list[listItem].price
+                    }),
+                  })
   };
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Удаление товара из корзины по коду
+   * @param product
    */
-  deleteItem(code) {
+  deleteFromBasket(code) {
+    const listItem = this.state.list.findIndex(item => item.code === code);
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+      basket: this.state.basket.filter(item => {
+        if (item.code !== code) {
+          return {...item}
+        } 
       })
     })
+  };
+
+   /**
+   * Подсчет корзины
+   */
+  countBasket() {
+    const basket = {
+      productsQuantity: this.state.basket.reduce((sum, item) => item.quantity > 0 ? sum += 1 : sum, 0),
+      productsCost: this.state.basket.reduce((sum, item) => item.quantity > 0 ? sum += item.totalPrice : sum, 0)
+    }
+    return basket ;
   }
 }
 

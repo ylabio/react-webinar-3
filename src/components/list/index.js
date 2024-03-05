@@ -1,14 +1,18 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes, { number } from 'prop-types';
+import {cn as bem} from '@bem-react/classname';
 import Item from "../item";
 import './style.css';
 
-function List({list, onDeleteItem, onSelectItem}) {
+function List({list, addItem, removeItems, basketCounter}) {
+
+  const cn = bem('List');
+
   return (
-    <div className='List'>{
-      list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
+    <div className={cn()}>
+      {list.map(item => 
+        <div key={item.code} className={cn('item')}>
+          <Item item={item} addItem={addItem} basketCounter={basketCounter} removeItems={removeItems} />
         </div>
       )}
     </div>
@@ -19,15 +23,15 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
+  addItem: PropTypes.func,
+  removeItems: PropTypes.func,
+  basketCounter: PropTypes.objectOf(number)
 };
 
 List.defaultProps = {
-  onDeleteItem: () => {
-  },
-  onSelectItem: () => {
-  },
+  list: [
+    {code: 1}
+  ]
 }
 
 export default React.memo(List);
