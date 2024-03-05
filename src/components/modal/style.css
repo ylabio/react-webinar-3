@@ -2,8 +2,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-
   background-color: rgba(41, 41, 41, 0.6);
 
   position: fixed;
@@ -15,7 +13,9 @@
 }
 
 .modal{
-  width:50%;
+  width: 90vw;
+  max-width: 950px;
+  height: 80vh;
   background-color: white;
   position: absolute;
   overflow: auto;

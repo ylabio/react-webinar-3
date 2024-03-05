@@ -45,6 +45,7 @@ function App({store}) {
 
     onOpenCart: useCallback(() => {
       setCartIsOpen(true);
+      document.body.style.overflow = "hidden";
     }),
 
     onCloseCart: useCallback(() => {
