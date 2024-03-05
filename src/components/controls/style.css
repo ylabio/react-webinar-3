@@ -5,3 +5,8 @@
   justify-content: right;
   column-gap: 20px;
 }
+
+.Controls-sum {
+  font-size: 18px;
+  font-weight: 700;
+}

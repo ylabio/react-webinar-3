@@ -12,15 +12,15 @@ function Controls ({ openCart, sum , count}) {
     <div className={cn()}>
       {count ? (
         <>
-          <div>В корзине: </div>
-          <h3>{count} {plural(count, {
+          <div className={cn('title')}>В корзине: </div>
+          <h3 className={cn('sum')}>{count} {plural(count, {
             one: 'товар',
             few: 'товара',
             many: 'товаров'
           })} / {sum} ₽ </h3>
         </>
       ) : ''}
-      <button onClick={openCart}>{count ? 'Перейти' : 'Корзина'}</button>
+      <button onClick={openCart} className={cn('btn')}>{count ? 'Перейти' : 'Корзина'}</button>
     </div>
   )
 }

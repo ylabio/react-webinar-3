@@ -9,6 +9,8 @@
   background: white;
   border-radius: 5px;
   transition: 0.3s;
+  max-height: 100vh;
+  overflow: auto;
 }
 
 .Modal.active {
@@ -28,6 +30,10 @@
 
 .Modal-overlay.active {
   display: block;
+}
+
+.Modal-overlay.active body {
+  overflow: hidden;
 }
 
 .Modal-head {
