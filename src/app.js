@@ -4,7 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from './components/Modal';
-import OrderDetails from './components/orderDetails';
+import OrderDetails from './components/order-Details';
 
 /**
  * Приложение
@@ -69,7 +69,7 @@ function App({store}) {
       <Controls onOpenPopUp={callbacks.onOpenPopUp} totalPrice={basket.totalPrice} itemsCount={basket.list.length}/>
       <List
         list={list}
-        onClick={callbacks.onAddItem}>добавить</List>
+        onClick={callbacks.onAddItem}></List>
     </PageLayout>
 
     {showModal && <Modal onClosePopUp={callbacks.onClosePopUp}>

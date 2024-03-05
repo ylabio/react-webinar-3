@@ -1,0 +1,46 @@
+.OrderItem {
+  display: flex;
+  justify-content: flex-start;
+  transition: background-color 1s;
+}
+
+.OrderItem_selected {
+  background: #75aaf1;
+  color: #fff;
+}
+
+.OrderItem-code {
+  padding: 20px 10px 20px 20px;
+}
+
+.OrderItem-title {
+  width: 100%;
+  padding: 20px 10px;
+}
+
+.OrderItem-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+}
+
+.OrderItem-price {
+  padding: 20px 10px;
+}
+
+.OrderItem-price:after {
+  font-weight: inherit;
+  white-space: nowrap;
+  content: " \20BD";
+}
+
+.OrderItem-count {
+  min-width: 100px;
+  padding: 20px 10px;
+  white-space: nowrap;
+  text-align: end;
+}
+
+.OrderItem-btn {
+  min-width: 80px
+}

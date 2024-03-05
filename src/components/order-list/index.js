@@ -1,22 +1,22 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
+import OrderItem from "../order-item";
 import './style.css';
 
-function List({list, onClick}) {
+function OrderList({list, onClick}) {
 
   return (
-    <div className='List'>{
+    <div className='OrderList'>{
       list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item item={item} onClick={onClick}/>
+        <div key={item.code} className='OrderList-item'>
+          <OrderItem item={item} onClick={onClick}/>
         </div>
       )}
     </div>
   )
 }
 
-List.propTypes = {
+OrderList.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
@@ -26,9 +26,9 @@ List.propTypes = {
   onClick: PropTypes.func,
 };
 
-List.defaultProps = {
+OrderList.defaultProps = {
   onClick: () => {
   },
 }
 
-export default React.memo(List);
+export default React.memo(OrderList);

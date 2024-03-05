@@ -1,10 +1,10 @@
 import React, { } from "react";
 import PropTypes from "prop-types";
-import List from '../list';
 import PageLayout from '../page-layout';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import { numberFormat } from "../../utils";
+import OrderList from "../order-list";
 
 function OrderDetails({ basket, onDeleteItem, onClosePopUp }) {
 
@@ -18,7 +18,7 @@ function OrderDetails({ basket, onDeleteItem, onClosePopUp }) {
           <button className={cn('btn')} onClick={onClosePopUp}>закрыть</button>
         </div>
       </div>
-      <List list={basket.list} onClick={onDeleteItem}>удалить</List>
+      <OrderList list={basket.list} onClick={onDeleteItem}/>
       <b>
         <div className={cn('price')}>
           <div>Итого</div>
