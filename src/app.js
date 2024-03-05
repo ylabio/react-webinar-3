@@ -23,13 +23,17 @@ function App({store}) {
     forCloseModal: useCallback(() => {
       store.closeModal();
     }, [store]),
+
+    forAddToCart: useCallback((code) => {
+      store.addToCart(code);
+    }, [store]),
   }
 
   return (
     <PageLayout>
       <Head title='Магазин'/>
       <Controls forOpen={callbacks.forOpenModal}/>
-      <List list={list}/>
+      <List list={list} forAdd={callbacks.forAddToCart}/>
       <Modal state={modal} children>
         <Basket forClose={callbacks.forCloseModal}/>
       </Modal>

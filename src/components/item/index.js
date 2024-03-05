@@ -4,28 +4,16 @@ import {plural} from "../../utils";
 import Button from "../button";
 import './style.css';
 
-/* COMPONENTS TODO:
-component item:
- - component button */
-
-function Item(props) {
-
-/*   const callbacks = {
-    onDelete: (e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code);
-
-    }
-  } */
+function Item({item, forAdd}) {
 
   return (
     <div className='Item'>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>{props.item.title}</div>
-      <div className='Item-price'>{`${props.item.price} ₽`}</div>
+      <div className='Item-code'>{item.code}</div>
+      <div className='Item-title'>{item.title}</div>
+      <div className='Item-price'>{`${item.price} ₽`}</div>
       <div className='Item-actions'>
         {/* callbacks.onDelete */}
-        <Button style='Button_item' callback={() => null}>
+        <Button style='Button_item' callback={forAdd} param={item.code}>
           Добавить
         </Button>
       </div>
@@ -33,19 +21,19 @@ function Item(props) {
   );
 }
 
+// Typechecking with PropTypes:
 Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
+  forAdd: PropTypes.func.isRequired,
 };
 
-/* Item.defaultProps = {
-  onDelete: () => {
-  },
-  onSelect: () => {
-  },
-} */
+// Default values for properties:
+Item.defaultProps = {
+  forAdd: () => {},
+}
 
 export default React.memo(Item);

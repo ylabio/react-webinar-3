@@ -8,6 +8,10 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.state.modal = false;
+    this.state.cart = {
+      goods: 0,
+      costs: 0
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -104,6 +108,43 @@ class Store {
       ...this.state,
       modal: false
     });
+  };
+
+  /**
+   * Counting of totals goods and costs
+   */
+  cartCounter() {
+    this.setState({
+      ...this.state,
+      cart: this.state.list.reduce((acc, elm) => {
+        if (elm.tocart && elm.tocart !== 0) {
+          const costs = elm.price * elm.tocart;
+          return { goods: acc.goods + 1, costs: acc.costs + costs}
+        }
+        return acc;
+      }, { goods: 0, costs: 0 }),
+    });
+    console.log(this.state.cart);
+  };
+
+  /**
+   * Adding a goods to the cart by code
+   * @param code
+   */
+  addToCart(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          return {
+            ...item,
+            tocart: item.tocart + 1 || 1,
+          };
+        }
+        return item;
+      })
+    })
+    this.cartCounter();
   };
 }
 

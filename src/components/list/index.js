@@ -3,29 +3,29 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list}) {
+function List({list, forAdd}) {
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item}/>
+          <Item item={item} forAdd={forAdd}/>
         </div>
       )}
     </div>
   )
 }
 
+// Typechecking with PropTypes:
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
-  })).isRequired
+  })).isRequired,
+  forAdd: PropTypes.func.isRequired,
 };
 
-/* List.defaultProps = {
-  onDeleteItem: () => {
-  },
-  onSelectItem: () => {
-  },
-} */
+// Default values for properties:
+List.defaultProps = {
+  forAdd: () => {},
+}
 
 export default React.memo(List);
