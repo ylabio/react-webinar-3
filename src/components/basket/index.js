@@ -9,7 +9,7 @@ function Basket({list, forModal, forItem}) {
 
   const cartList = list.filter((item) => Boolean(item.tocart));
   // The target for rendering elements of list items
-  const lsTarget = "basket";
+  const lsTarget = { name: "basket", ctrl: "Удалить"};
 
   return (
     <div className='Basket'>

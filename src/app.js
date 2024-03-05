@@ -15,7 +15,7 @@ function App({store}) {
 
   const {list, modal, cart} = store.getState();
   // The target for rendering elements of list items
-  const lsTarget = "main";
+  const lsTarget = { name: "main", ctrl: "Добавить"};
   
   const callbacks = {
     forOpenModal: useCallback(() => {

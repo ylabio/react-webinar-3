@@ -4,19 +4,19 @@ import {plural} from "../../utils";
 import Button from "../button";
 import './style.css';
 
-function Item({item, callback, target = "main"}) {
+function Item({item, callback, target}) {
 
   return (
     <div className='Item'>
       <div className='Item-code'>{item.code}</div>
       <div className='Item-title'>{item.title}</div>
       <div className='Item-price'>{`${item.price} ₽`}</div>
-      {target === "basket" && <div className='Item-tocart'>
+      {target.name === "basket" && <div className='Item-tocart'>
         {`${item.tocart} шт`}</div>}
       <div className='Item-actions'>
         {/* callbacks.onDelete */}
         <Button style='Button_item' callback={callback} param={item.code}>
-          Добавить
+          {target.ctrl}
         </Button>
       </div>
     </div>
@@ -31,13 +31,16 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   callback: PropTypes.func.isRequired,
-  target: PropTypes.string.isRequired,
+  target: PropTypes.shape({
+    name: PropTypes.string,
+    ctrl: PropTypes.string
+  }).isRequired,
 };
 
 // Default values for properties:
 Item.defaultProps = {
   callback: () => {},
-  target: "main",
+  target: { name: "main", ctrl: "Добавить"},
 }
 
 export default React.memo(Item);

@@ -21,13 +21,16 @@ List.propTypes = {
     code: PropTypes.number
   })).isRequired,
   callback: PropTypes.func.isRequired,
-  target: PropTypes.string,
+  target: PropTypes.shape({
+    name: PropTypes.string,
+    ctrl: PropTypes.string
+  }).isRequired,
 };
 
 // Default values for properties:
 List.defaultProps = {
   callback: () => {},
-  target: "main",
+  target: { name: "main", ctrl: "Добавить"},
 }
 
 export default React.memo(List);
