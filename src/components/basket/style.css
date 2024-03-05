@@ -20,11 +20,6 @@
   overflow: hidden;
 }
 
-.Basket-body {
-  padding-block: 70px;
-  overflow-y: auto;
-}
-
 .Basket-empty {
   text-align: center;
 }

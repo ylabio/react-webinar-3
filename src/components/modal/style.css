@@ -19,3 +19,8 @@
   border-radius: 10px;
   overflow: hidden;
 }
+
+.Modal-body {
+  padding-block: 70px;
+  overflow-y: auto;
+}
