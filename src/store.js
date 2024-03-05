@@ -1,5 +1,3 @@
-import { getNewItem } from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -45,33 +43,25 @@ class Store {
    * @param code {number} Идентификатор товара
    */
   addItem(code) {
-     if (!this.state.cart) {
-      this.setState({
-        ...this.state,
-        cart: [getNewItem(this.state.list, code)]
-      })
-      return;
-    }
+    const existingItem = this.state.cart?.some(item => item.code === code);
+    
+    const cart = existingItem ? this.state.cart.map(item => (item.code === code)
+      ? {...item, amount: item.amount + 1} 
+      : item
+    ) : [
+      ...(this.state.cart ?? []), 
+      {
+        ...this.state.list.find(item => item.code === code),
+        amount: 1,
+      }
+    ];
 
-    const existingItem = this.state.cart.find(item => item.code === code);
-
-    if (existingItem) {
-      this.setState({
-        ...this.state,
-        cart: this.state.cart.map(item => (item.code === code)
-          ? {...item, amount: item.amount + 1} 
-          : item
-        )
-      })
-    } else {
-      this.setState({
-        ...this.state,
-        cart: [
-          ...this.state.cart, 
-          getNewItem(this.state.list, code)
-        ]
-      })
-    }
+    this.setState({
+      ...this.state,
+      cart,
+      totalAmount: cart.length,
+      totalSum: cart.reduce((acc, curr) => acc + curr.price * curr.amount, 0)
+    });
   };
 
   /**
@@ -79,9 +69,18 @@ class Store {
    * @param code {number} Идентификатор товара
    */
   deleteItem(code) {
+    const newCart = this.state.cart.reduce((acc, curr) => {
+      if (curr.code !== code) {
+        acc.cart.push(curr);
+        acc.totalSum += curr.price * curr.amount;
+      }
+      return acc;
+    }, {cart: [], totalSum: 0})
+
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter(item => item.code !== code)
+      ...newCart,
+      totalAmount: this.state.totalAmount - 1,
     })
   };
 }

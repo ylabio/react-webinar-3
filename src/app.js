@@ -4,6 +4,8 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import CartModal from './components/cart-modal';
+import ModalLayout from './components/modal-layout';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -14,7 +16,7 @@ function App({store}) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const {list, cart} = store.getState();
+  const {list, cart, totalAmount, totalSum} = store.getState();
   
   const onAddItem = useCallback((code) => {
     store.addItem(code);
@@ -36,16 +38,22 @@ function App({store}) {
     <PageLayout>
       <Head title='Магазин'/>
       <Controls cart={cart}
+                totalAmount={totalAmount}
+                totalSum={totalSum}
                 onPreview={onOpenModal}
                 />
       <List list={list}
-            onClick={onAddItem}
-            buttonText='Добавить'/>
-      {isModalOpen && <CartModal 
-        onClose={onCloseModal}
-        data={cart} 
-        onDelete={onDeleteItem}
-      />}
+            item={Item}
+            onClick={onAddItem}/>
+      {isModalOpen && 
+      <ModalLayout>
+        <CartModal 
+          data={cart}
+          totalSum={totalSum}
+          onClose={onCloseModal}
+          onDelete={onDeleteItem}
+        />
+      </ModalLayout>}
     </PageLayout>
   );
 }

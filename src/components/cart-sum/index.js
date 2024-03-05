@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getPrice, getSum } from '../../utils';
+import { formatPrice } from '../../utils';
 import './style.css';
 
-function CartSum({data}) {
-  const price = getPrice(getSum(data));
+function CartSum({totalSum}) {
+  const price = formatPrice(totalSum);
 
   return (
     <div className='Cart-sum'>
@@ -15,11 +15,11 @@ function CartSum({data}) {
 }
 
 CartSum.propTypes = {
-  data: PropTypes.array
+  totalSum: PropTypes.number
 };
 
 CartSum.defaultProps = {
-  data: []
+  totalSum: 0
 }
 
 export default React.memo(CartSum);

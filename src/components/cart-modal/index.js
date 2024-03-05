@@ -3,42 +3,38 @@ import PropTypes from 'prop-types';
 import Head from '../head/index';
 import List from '../list/index';
 import CartSum from '../cart-sum/index';
+import CartItem from '../cart-item/index';
 import './style.css';
 
-function CartModal({data, onClose, onDelete}) {
-
-  const handleContentClick = (event) => {
-    event.stopPropagation();
-  }
-
+function CartModal({data, totalSum, onClose, onDelete}) {
   return (
-    <div className='Cart-modal' onClick={onClose}> 
-      <div className='Cart-modal-content' onClick={handleContentClick}>
-        <button className='Cart-modal-close' onClick={onClose}>Закрыть</button>
-        <Head title='Корзина' />
-        <div className='Cart-modal-items'>
-          {data.length > 0
+    <>
+      <button className='Cart-modal-close' onClick={onClose}>Закрыть</button>
+      <Head title='Корзина' />
+      <div className='Cart-modal-items'>
+        {data.length > 0
           ? <>
-              <List list={data}
-                onClick={onDelete}
-                buttonText='Удалить'/>
-              <CartSum data={data} />
-            </>
+            <List list={data}
+                  item={CartItem}
+                  onClick={onDelete}/>
+            <CartSum totalSum={totalSum} />
+          </>
           : <p className='Cart-modal-empty'>Корзина пуста</p>}
         </div>
-      </div>
-    </div>
+    </>
   )
 }
 
 CartModal.propTypes = {
   data: PropTypes.array,
+  totalSum: PropTypes.number,
   onClose: PropTypes.func,
   onDelete: PropTypes.func
 };
 
 CartModal.defaultProps = {
   data: [],
+  totalSum: 0,
   onClose: () => {},
   onDelete: () => {}
 }

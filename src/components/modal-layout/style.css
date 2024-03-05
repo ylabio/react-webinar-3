@@ -1,0 +1,22 @@
+.CartLayout {
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--transparent-bg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  --transparent-bg: rgba(0, 0, 0, 0.7);
+  --white: #ffffff;
+}
+
+.CartLayout-content {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 960px;
+  background-color: var(--white);
+}
