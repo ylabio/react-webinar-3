@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
+import {formatPrice} from "../../utils";
 
 function Item({item, onFuncForBtn, labelForBtn}) {
 
@@ -14,8 +15,8 @@ function Item({item, onFuncForBtn, labelForBtn}) {
         <div>{item.title}</div>
       </div>
       <div className={cn('right')}>
-        <div>{item.price} ₽</div>
-        <div>{item.basketCount} шт</div>
+        <div>{formatPrice(item.price)} ₽</div>
+        {item.basketCount && <div>{item.basketCount} шт</div>}
         <button onClick={() => onFuncForBtn(item.code)}>{labelForBtn}</button>
       </div>
     </div>

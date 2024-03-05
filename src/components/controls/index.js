@@ -2,7 +2,7 @@ import React from "react";
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import './style.css';
-import {plural} from "../../utils";
+import {formatPrice, plural} from "../../utils";
 
 function Controls ({ openCart, sum , count}) {
 
@@ -10,17 +10,17 @@ function Controls ({ openCart, sum , count}) {
 
   return (
     <div className={cn()}>
+      <div className={cn('title')}>В корзине: </div>
       {count ? (
-        <>
-          <div className={cn('title')}>В корзине: </div>
           <h3 className={cn('sum')}>{count} {plural(count, {
             one: 'товар',
             few: 'товара',
             many: 'товаров'
-          })} / {sum} ₽ </h3>
-        </>
-      ) : ''}
-      <button onClick={openCart} className={cn('btn')}>{count ? 'Перейти' : 'Корзина'}</button>
+          })} / {formatPrice(sum)} ₽ </h3>
+      ) : (
+        <h3 className={cn('sum')}>пусто</h3>
+      )}
+      <button onClick={openCart} className={cn('btn')}>Перейти</button>
     </div>
   )
 }
