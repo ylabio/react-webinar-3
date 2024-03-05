@@ -6,13 +6,11 @@ import CartItem from '../cart-item';
 
 function List({list, onClick, cart}) {
 
-
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
           {cart ?  <CartItem item={item} onDelete={onClick}  /> : <Item item={item} onAdd={onClick}/>}
-         
         </div>
       )}
     </div>
@@ -23,14 +21,14 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
+  onDelete: PropTypes.func,
+  onAdd: PropTypes.func,
 };
 
 List.defaultProps = {
-  onDeleteItem: () => {
+  onDelete: () => {
   },
-  onSelectItem: () => {
+  onAdd: () => {
   },
 }
 

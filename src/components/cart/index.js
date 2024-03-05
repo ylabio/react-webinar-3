@@ -1,5 +1,6 @@
 
 import React from "react";
+import PropTypes from 'prop-types';
 import './style.css';
 import Head from '../head';
 import List from '../list';
@@ -8,6 +9,7 @@ import Button from '../button';
 
 
 function Cart( props ) {
+
     return (
         <div className='Cart'>
             <Header>
@@ -21,5 +23,21 @@ function Cart( props ) {
         </div>
     )
 }
+
+Cart.propTypes = {
+    title: PropTypes.string,
+    goods: PropTypes.arrayOf.isRequired,
+    onDelete: PropTypes.func,
+    onSelect: PropTypes.func
+  };
+  
+Cart.defaultProps = {
+    onClose: () => {
+    },
+    onDelete: () => {
+    },
+}
+
+
 
 export default Cart;

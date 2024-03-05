@@ -15,13 +15,13 @@ function Button( props ) {
   )
 }
 
-// Controls.propTypes = {
-//   onClick: PropTypes.func,
-//   title: PropTypes.string
-// };
+Button.propTypes = {
+  onClick: PropTypes.func,
+  title: PropTypes.string
+};
 
-// Controls.defaultProps = {
-//   onClick: () => {}
-// }
+Button.defaultProps = {
+  onClick: () => {}
+}
 
 export default React.memo(Button);

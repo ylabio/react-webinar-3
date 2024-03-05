@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
 
-function Head({title, action}) {
+function Head({title}) {
   return (
     <div className='Head'>
       <h1>{title}</h1>
@@ -11,7 +11,7 @@ function Head({title, action}) {
 }
 
 Head.propTypes = {
-  title: PropTypes.node,
+  title: PropTypes.string,
 };
 
 export default React.memo(Head);

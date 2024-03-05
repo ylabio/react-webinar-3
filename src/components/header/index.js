@@ -10,8 +10,8 @@ function Header({ children }) {
   )
 }
 
-// Head.propTypes = {
-//   title: PropTypes.node,
-// };
+Header.propTypes = {
+  children: PropTypes.node,
+};
 
 export default React.memo(Header);
