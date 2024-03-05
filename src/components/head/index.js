@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
 
-function Head({title, isCart, closeModal}) {
+function Head(props) {
   return (
     <div className='Head'>
-      <h1>{title}</h1>
-      <button className={isCart ? "" : "hidden"} onClick={closeModal}>Закрыть</button>
+      <h1>{props.title}</h1>
+      <button className={props.isCart ? "" : "hidden"} onClick={props.closeModal}>Закрыть</button>
     </div>
   )
 }
