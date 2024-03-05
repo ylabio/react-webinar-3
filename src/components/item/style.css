@@ -9,13 +9,20 @@
 }
 
 .Item-title {
+  font-size: 16px;
+  font-weight: 400;
   padding: 20px 10px;
   margin-right: auto;
 }
 
-.Item-price {
+.Item-price,
+.Item-tocart {
   font-size: 18px;
-  padding: 20px 10px;
+  font-weight: 400;
+  padding: 20px 20px;
+  line-height: 21px;
+  color: #404040;
+  ;
 }
 
 .Item-actions {
