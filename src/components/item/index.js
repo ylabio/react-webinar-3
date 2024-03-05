@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes, { number, string } from "prop-types";
+import PropTypes, { number } from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
@@ -9,7 +9,10 @@ function Item(props) {
   
     const callbacks = {
       onAdd: () => {
-        props.addItem(props.item);
+        props.addItem(props.item.code);
+      },
+      onRemove: () => {
+        props.removeItems(props.item.code);
       }
     }
 
@@ -19,26 +22,38 @@ function Item(props) {
         <div className={cn('title')}>
           {props.item.title}
         </div>
-        <div className={cn('price')}>
-            {`${new Intl.NumberFormat("ru").format(props.item.price)} ₽`}
-        </div>
-        <div className={cn('actions')}>
-        <button onClick={callbacks.onAdd}>
-          Добавить
-        </button>
-        </div>
+        {props.item.price !== undefined ? <>
+                                            <div className={cn('price')}>
+                                              {`${new Intl.NumberFormat("ru").format(props.item.price)} ₽`}
+                                            </div>
+                                            <div className={cn('actions')}>
+                                              <button onClick={callbacks.onAdd}>
+                                                Добавить
+                                              </button>
+                                            </div>
+                                          </>
+                                        : <>
+                                            <div className={cn('total-price')}>
+                                                {`${new Intl.NumberFormat("ru").format(props.item.totalPrice/props.item.quantity)} ₽`}
+                                            </div>
+                                            <div className={cn('quantity')}>
+                                                {`${props.item.quantity} шт.`}
+                                            </div>
+                                            <div className={cn('actions')}>
+                                              <button onClick={callbacks.onRemove}>
+                                                Удалить
+                                              </button> 
+                                            </div>
+                                          </>} 
       </div>
     );
 }
 
 Item.propTypes = {
-  item: PropTypes.shape({
-    code: PropTypes.number,
-    title: PropTypes.string,
-    quantity: PropTypes.number
-  }).isRequired,
-  addItem: PropTypes.func.isRequired,
-  basketCounter: PropTypes.objectOf(number).isRequired
+  item: PropTypes.object.isRequired,
+  addItem: PropTypes.func,
+  removeItems: PropTypes.func,
+  basketCounter: PropTypes.objectOf(number)
 };
 
 Item.defaultProps = {
@@ -47,11 +62,11 @@ Item.defaultProps = {
     title: 'noname',
     quantity: 0
   },
-  addItem: () => {
-  },
+  addItem: () => {},
+  removeItems: () => {},
   basketCounter: {
     productsQuantity: 0,
-      productsQuantity: 0,
+    productsQuantity: 0,
   }
 }
 

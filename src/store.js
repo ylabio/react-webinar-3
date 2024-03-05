@@ -42,35 +42,45 @@ class Store {
    * Добавление товара  в корзину по коду
    * @param product
    */
-  addIntoBasket(product) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === product.code) {
-          return {
-            ...item,
-            quantity: item.quantity ? item.quantity + 1 : 1,
-          } 
-        } else return {...item};
-      })
-    })
-    console.log(this.state)
+  addIntoBasket(code) {
+    const itemInBasket = this.state.basket.find(item => item.code === code);
+    const listItem = this.state.list.findIndex(item => item.code === code);
+    itemInBasket ? this.setState({
+                      ...this.state,
+                      basket: this.state.basket.map((item) => {
+                        if (item.code === code) {
+                          return {
+                            code: code,
+                            quantity: item.quantity + 1,
+                            title: this.state.list[listItem].title,
+                            totalPrice: this.state.list[listItem].price * (item.quantity + 1),
+                          }
+                        } else return {...item}
+                      })
+                    })
+                  : this.setState({
+                    ...this.state,
+                    basket: this.state.basket.concat({
+                      code: code,
+                      quantity: 1,
+                      title: this.state.list[listItem].title,
+                      totalPrice: this.state.list[listItem].price
+                    }),
+                  })
   };
 
   /**
    * Удаление товара из корзины по коду
    * @param product
    */
-  deleteFromBasket(product) {
+  deleteFromBasket(code) {
+    const listItem = this.state.list.findIndex(item => item.code === code);
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === product.code) {
-          return {
-            ...item,
-            quantity: 0,
-          }
-        } else return {...item};
+      basket: this.state.basket.filter(item => {
+        if (item.code !== code) {
+          return {...item}
+        } 
       })
     })
   };
@@ -80,8 +90,8 @@ class Store {
    */
   countBasket() {
     const basket = {
-      productsQuantity: this.state.list.reduce((sum, item) => item.quantity > 0 ? sum += item.quantity : sum, 0),
-      productsCost: this.state.list.reduce((sum, item) => item.quantity > 0 ? sum += item.price * item.quantity : sum, 0)
+      productsQuantity: this.state.basket.reduce((sum, item) => item.quantity > 0 ? sum += 1 : sum, 0),
+      productsCost: this.state.basket.reduce((sum, item) => item.quantity > 0 ? sum += item.totalPrice : sum, 0)
     }
     return basket ;
   }

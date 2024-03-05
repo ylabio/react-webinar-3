@@ -15,14 +15,15 @@ function App({store}) {
 
   const [showBasket, setShowBasket] = useState(false);
   const list = store.getState().list;
+  const basket = store.getState().basket;
 
   const callbacks = {
-    onDeleteItem: useCallback((item) => {
-      store.deleteFromBasket(item);
+    onDeleteItem: useCallback((code) => {
+      store.deleteFromBasket(code);
     }, [store]),
 
-    onAddItem: useCallback((item) => {
-      store.addIntoBasket(item);
+    onAddItem: useCallback((code) => {
+      store.addIntoBasket(code);
     }, [store]),
 
     onShowBasket: useCallback(() => {
@@ -46,8 +47,7 @@ function App({store}) {
       {showBasket ? <BasketLayout>
                       <Head title='Корзина' isBasketHead={true} showBasket={callbacks.onShowBasket} />
                       <Controls isBasketControls={true}/>
-                      <List list={list}
-                            showBasket={showBasket}
+                      <List list={basket}
                             removeItems={callbacks.onDeleteItem}/>
                       <BasketFooter basketCounter={callbacks.onCountBasket()} />
                     </BasketLayout> 
