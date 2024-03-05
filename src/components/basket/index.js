@@ -39,7 +39,10 @@ function Basket({list, forModal, forItem, summ}) {
 // Typechecking with PropTypes:
 Basket.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number
+    code: PropTypes.number,
+    title: PropTypes.string,
+    price: PropTypes.number,
+    tocart: PropTypes.number,
   })).isRequired,
   forModal: PropTypes.func.isRequired,
   forItem: PropTypes.func.isRequired,

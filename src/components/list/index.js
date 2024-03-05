@@ -18,7 +18,10 @@ function List({list, callback, target}) {
 // Typechecking with PropTypes:
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number
+    code: PropTypes.number,
+    title: PropTypes.string,
+    price: PropTypes.number,
+    tocart: PropTypes.number,
   })).isRequired,
   callback: PropTypes.func.isRequired,
   target: PropTypes.shape({

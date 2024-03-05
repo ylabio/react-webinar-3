@@ -1,4 +1,5 @@
 import React, {useCallback} from 'react';
+import PropTypes from 'prop-types';
 import Basket from "./components/basket";
 import Modal from "./components/modal";
 import List from "./components/list";
@@ -40,7 +41,7 @@ function App({store}) {
       <Head title='Магазин'/>
       <Controls cart={cart} callback={callbacks.forOpenModal}/>
       <List list={list} callback={callbacks.forAddToCart} target={lsTarget}/>
-      <Modal state={modal} children>
+      <Modal modal={modal} children>
         <Basket list={list}
                 forModal={callbacks.forCloseModal}
                 forItem={callbacks.forDelFromCart}
@@ -49,6 +50,29 @@ function App({store}) {
       </Modal>
     </PageLayout>
   );
+}
+
+// Typechecking with PropTypes:
+App.propTypes = {
+  store: PropTypes.shape({
+    list: PropTypes.arrayOf(PropTypes.shape({
+      code: PropTypes.number,
+      title: PropTypes.string,
+      price: PropTypes.number,
+      tocart: PropTypes.number,
+    })),
+    modal: PropTypes.bool,
+    cart: PropTypes.shape({
+      goods: PropTypes.number,
+      costs: PropTypes.number
+    }),
+  }).isRequired,
+};
+
+// Default values for properties:
+App.defaultProps = {
+  modal: false,
+  cart: { goods: 0, costs: 0 },
 }
 
 export default App;

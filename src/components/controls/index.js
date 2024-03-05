@@ -26,6 +26,7 @@ Controls.propTypes = {
 
 // Default values for properties:
 Controls.defaultProps = {
+  cart: { goods: 0, costs: 0 },
   callback: () => {},
 }
 

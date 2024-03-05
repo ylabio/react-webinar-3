@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
 
-function Modal({state = false, children}) {
+function Modal({modal = false, children}) {
   return (
-    <div className={`Modal ${state ? 'Modal-open' : 'Modal-close'}`}>
+    <div className={`Modal ${modal ? 'Modal-open' : 'Modal-close'}`}>
       <div className={
         (`Modal-content ${
-          state ? 'Modal-content-open' : 'Modal-content-close'
+          modal ? 'Modal-content-open' : 'Modal-content-close'
         }`)
       }>
         {children ? children : null}
@@ -18,13 +18,13 @@ function Modal({state = false, children}) {
 
 // Typechecking with PropTypes:
 Modal.propTypes = {
-  title: PropTypes.bool.isRequired,
+  modal: PropTypes.bool.isRequired,
   children: PropTypes.node,
 };
 
 // Default values for properties:
 Modal.defaultProps = {
-  title: false,
+  modal: false,
 };
 
 export default React.memo(Modal);
