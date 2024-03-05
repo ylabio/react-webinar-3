@@ -7,7 +7,7 @@ function Vidget({cart}) {
     <div className='Vidget'>
       <div className='Vidget-title'>В корзине:
         <strong className='Vidget-inform'>
-          {cart ? `${cart.goods} товара / ${cart.costs} ₽` : 'пусто'}
+          {Boolean(cart.goods) ? `${cart.goods} товара / ${cart.costs} ₽` : 'пусто'}
         </strong>
       </div>
     </div>
