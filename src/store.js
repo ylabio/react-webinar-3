@@ -63,10 +63,9 @@ class Store {
       const newItem = this.state.list.find(item => item.code === code);
 
       if (newItem) {
-        newItem.count = 1;
         this.setState({
           ...this.state,
-          cart: [...this.state.cart, newItem]
+          cart: [...this.state.cart, { ...newItem, count: 1 }]
         });
       }
     }
