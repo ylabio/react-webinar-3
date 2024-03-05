@@ -60,17 +60,24 @@ class ShopStore {
   addItem(code) {
     var vChange = false;
     if (this.state.listBasket.length > 0) {
-    this.state.listBasket.map((item) => {
-      if (item.code === code) {
-        item.qproduct += 1;
-        vChange = true;
-      }
-    })}
+      this.state.listBasket.map((item) => {
+        if (item.code === code) {
+          vChange = true;
+        }
+      })
+    }
+
     if (vChange == true) {
       this.setState({
         ...this.state,
-        listBasket: this.state.listBasket.filter(item => true)
-      })
+        listBasket: this.state.listBasket.map((item) => {
+          if (item.code === code) {
+            return {...item,
+                    qproduct: item.qproduct + 1,
+            }
+          }
+          return item;
+      })})
       return;
     }
     this.setState({
