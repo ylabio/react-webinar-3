@@ -15,6 +15,10 @@ body.Modal-open {
   overflow: hidden;
 }
 
+button {
+  height: 21px;
+}
+
 .ShopLayout {
   max-width: 1024px;
   min-height: 100vh;

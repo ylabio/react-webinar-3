@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function CartFoot({sum}) {
+function Foot({sum}) {
 
-  const cn = bem('CartFoot')
+  const cn = bem('Foot')
 
   return (
     <div className={cn()}>
@@ -15,8 +15,8 @@ function CartFoot({sum}) {
   )
 }
 
-CartFoot.PropTypes = {
+Foot.PropTypes = {
   sum: PropTypes.number
 }
 
-export default React.memo(CartFoot);
+export default React.memo(Foot);

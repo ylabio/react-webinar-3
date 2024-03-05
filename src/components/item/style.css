@@ -1,4 +1,4 @@
-.CartItem {
+.Item {
   padding: 20px;
   display: flex;
   align-items: center;
@@ -6,8 +6,9 @@
   border-bottom: 1px dashed #ccc;
 }
 
-.CartItem-left, .CartItem-right {
+.Item-left, .Item-right {
   display: flex;
   align-items: center;
   column-gap: 20px;
 }
+

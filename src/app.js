@@ -1,11 +1,10 @@
 import React, {useCallback, useState} from "react";
-import PageLayout from "./components/shop-layout";
+import PageLayout from "./components/page-layout";
 import Head from "./components/head";
 import Controls from "./components/controls";
-import ShopList from "./components/shop-list";
-import CartList from "./components/cart-list";
-import CartFoot from "./components/cart-foot";
 import Modal from "./components/modal";
+import List from "./components/list";
+import Foot from "./components/foot";
 
 function App ({store}) {
 
@@ -43,10 +42,20 @@ function App ({store}) {
     <PageLayout>
       <Head title='Приложение на чистом JS'/>
       <Controls sum={totalSum()} count={cartsCount} carts={carts} openCart={OpenCart}/>
-      <ShopList list={list} onAdd={callbacks.onAddItem}/>
+      <List
+        list={list}
+        funcForBtn={callbacks.onAddItem}
+        labelForBtn='Добавить'
+        emptyText='Товаров пока нет.'
+      />
       <Modal title='Корзина' isOpen={isOpenCart} close={CloseCart}>
-        <CartList carts={carts} onDelete={callbacks.onDeleteItem}/>
-        {isEmptyCart && <CartFoot sum={totalSum()}/>}
+        <List
+          list={carts}
+          funcForBtn={callbacks.onDeleteItem}
+          labelForBtn='Удалить'
+          emptyText='Ваша корзина пуста.'
+        />
+        {isEmptyCart && <Foot sum={totalSum()}/>}
       </Modal>
     </PageLayout>
   )

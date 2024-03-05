@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function CartItem({item, onDelete}) {
+function Item({item, onFuncForBtn, labelForBtn}) {
 
-  const cn = bem('CartItem')
+  const cn = bem('Item')
 
   return (
     <div className={cn()}>
@@ -16,24 +16,24 @@ function CartItem({item, onDelete}) {
       <div className={cn('right')}>
         <div>{item.price} ₽</div>
         <div>{item.basketCount} шт</div>
-        <button onClick={() => onDelete(item.code)}>Удалить</button>
+        <button onClick={() => onFuncForBtn(item.code)}>{labelForBtn}</button>
       </div>
     </div>
   )
 }
 
-CartItem.PropTypes = {
+Item.PropTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number,
     basketCount: PropTypes.number
   }).isRequired,
-  onDelete: PropTypes.func
+  onFuncForBtn: PropTypes.func
 }
 
-CartItem.defaultProps = {
-  onDelete: () => {}
+Item.defaultProps = {
+  onFuncForBtn: () => {}
 }
 
-export default React.memo(CartItem);
+export default React.memo(Item);
