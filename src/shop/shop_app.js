@@ -43,8 +43,7 @@ function ShopApp({store}) {
   };
 
   const fModal = 
-    <ModalApp classNameModal='modal'
-              showModal={showModal}
+    <ModalApp showModal={showModal}
               handleClose={handleClose}
               list={list}
               listBasket={listBasket}

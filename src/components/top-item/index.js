@@ -11,15 +11,15 @@ function TopItem({onBasket,onAmountProduct,onAmountPrice}) {
     <div className='ItemTop'>
       <div className='ItemTop-title'>
         В корзине:
-      </div>
-      <div className='ItemTop-amount-price-product'> 
-        {vAmountProduct ? `${vAmountProduct} ${plural(vAmountProduct, {
+        <div className='ItemTop-amount-price-product'>
+          {vAmountProduct ? `${vAmountProduct} ${plural(vAmountProduct, {
           one: 'товар',
           few: 'товара',
           many: 'товаров'
         })}` : ''}
         {((vAmountProduct > 0 && vAmountPrice > 0) ? ' / ' : '')} 
         {(vAmountPrice != 0) ? <Currency currency="rub" value={vAmountPrice}/> : 'пусто'}
+        </div>
       </div>
       <div className='ItemTop-actions'>
         <button className='Button-shop' onClick={() => onBasket()}>Перейти</button>

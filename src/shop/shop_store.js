@@ -60,11 +60,12 @@ class ShopStore {
   addItem(code) {
     var vChange = false;
     if (this.state.listBasket.length > 0) {
-    this.state.listBasket.map(item => {
+    this.state.listBasket.map((item) => {
       if (item.code === code) {
         item.qproduct += 1;
         vChange = true;
-    }})}
+      }
+    })}
     if (vChange == true) {
       this.setState({
         ...this.state,
@@ -95,7 +96,7 @@ class ShopStore {
     if (this.state.listBasket.length > 0) {
     this.state.listBasket.map(item => {
       if (item.qproduct > 0) {
-        vAmount += item.qproduct * this.getPrice(item.code);
+        vAmount += (item.qproduct * this.getPrice(item.code));
       }
     }
     )

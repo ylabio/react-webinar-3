@@ -25,22 +25,3 @@
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }
-
-.Item-title-basket {
-  width: 180%;
-  padding: 20px 10px;
-}
-
-.Item-price-basket {
-  width: 20%;
-  padding: 20px 10px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.Item-q-product {
-  width: 20%;
-  padding: 20px 10px;
-  display: flex;
-  justify-content: flex-end;
-}

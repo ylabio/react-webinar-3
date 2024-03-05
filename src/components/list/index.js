@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
+import ItemShop from "../item-shop";
+import ItemBasket from "../item-basket";
 import './style.css';
 
 function List({list, listBasket, onFunc, action}) {
@@ -9,13 +10,13 @@ function List({list, listBasket, onFunc, action}) {
       (action == 0 ?
         list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} qproduct={0} onFunc={onFunc} action={action}/>
+          <ItemShop item={item} onFunc={onFunc}/>
         </div>
         ) :
         listBasket.map(itemBasket => (itemBasket.qproduct > 0 ?
           list.map(item =>  (itemBasket.code === item.code) ?
             <div key={item.code} className='List-item'>
-              <Item item={item} qproduct={itemBasket.qproduct} onFunc={onFunc} action={action}/>
+              <ItemBasket item={item} qproduct={itemBasket.qproduct} onFunc={onFunc}/>
             </div>
            : false)
            : false)

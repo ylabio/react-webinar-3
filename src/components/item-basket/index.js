@@ -3,24 +3,8 @@ import PropTypes from "prop-types";
 import './style.css';
 import Currency from "../../currencySymbol.js";
 
-function Item(props) {
+function ItemBasket(props) {
   return (
-    (props.action == 0 ? 
-      <div className='Item'>
-        <div className='Item-code'>{props.item.code}</div>
-        <div className='Item-title'>
-          {props.item.title} 
-        </div>
-        <div className='Item-price'>
-          <Currency currency="rub" value={props.item.price}/>
-        </div>
-        <div className='Item-actions'>
-          <button onClick={() => props.onFunc(props.item.code)}>
-            Добавить
-          </button>
-        </div>
-      </div>
-     : 
      <div className='Item'>
         <div className='Item-code'>{props.item.code}</div>
         <div className='Item-title-basket'>
@@ -38,24 +22,23 @@ function Item(props) {
             Удалить
           </button>
         </div>
-      </div>)
+      </div>
   )
 }
 
-Item.propTypes = {
+ItemBasket.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
   qproduct: PropTypes.number,
-  onFunc: PropTypes.func,
-  action: PropTypes.number
+  onFunc: PropTypes.func
 };
 
-Item.defaultProps = {
+ItemBasket.defaultProps = {
   onFunc: () => {
   },
 }
 
-export default React.memo(Item);
+export default React.memo(ItemBasket);
