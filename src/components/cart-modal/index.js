@@ -1,23 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from '../head/index';
-import List from '../list/index';
-import CartSum from '../cart-sum/index';
-import CartItem from '../cart-item/index';
 import './style.css';
 
-function CartModal({data, totalSum, onClose, onDelete}) {
+function CartModal({data, children, onClose}) {
   return (
     <>
       <button className='Cart-modal-close' onClick={onClose}>Закрыть</button>
       <Head title='Корзина' />
       <div className='Cart-modal-items'>
-        {data.length > 0
+        {data.length && children
           ? <>
-            <List list={data}
-                  item={CartItem}
-                  onClick={onDelete}/>
-            <CartSum totalSum={totalSum} />
+            {children}
           </>
           : <p className='Cart-modal-empty'>Корзина пуста</p>}
         </div>
@@ -27,16 +21,13 @@ function CartModal({data, totalSum, onClose, onDelete}) {
 
 CartModal.propTypes = {
   data: PropTypes.array,
-  totalSum: PropTypes.number,
-  onClose: PropTypes.func,
-  onDelete: PropTypes.func
+  children: PropTypes.node,
+  onClose: PropTypes.func
 };
 
 CartModal.defaultProps = {
   data: [],
-  totalSum: 0,
-  onClose: () => {},
-  onDelete: () => {}
+  onClose: () => {}
 }
 
 export default React.memo(CartModal);

@@ -6,6 +6,8 @@ import PageLayout from "./components/page-layout";
 import CartModal from './components/cart-modal';
 import ModalLayout from './components/modal-layout';
 import Item from './components/item';
+import CartItem from './components/cart-item';
+import CartSum from './components/cart-sum';
 
 /**
  * Приложение
@@ -43,16 +45,17 @@ function App({store}) {
                 onPreview={onOpenModal}
                 />
       <List list={list}
-            item={Item}
-            onClick={onAddItem}/>
+            render={(item) => <Item item={item} onClick={onAddItem} />}/>
       {isModalOpen && 
       <ModalLayout>
         <CartModal 
           data={cart}
-          totalSum={totalSum}
           onClose={onCloseModal}
-          onDelete={onDeleteItem}
-        />
+        >
+          <List list={cart}
+                render={(item) => <CartItem item={item} onClick={onDeleteItem} />}/>
+          <CartSum totalSum={totalSum} />
+        </CartModal>
       </ModalLayout>}
     </PageLayout>
   );
