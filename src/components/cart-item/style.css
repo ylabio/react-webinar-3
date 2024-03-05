@@ -1,0 +1,25 @@
+.CartItem {
+    /* width: 960px;
+    height: 407px;
+    background: #fff; */
+    display: flex;
+    padding: 20px 21px 21px 18px;
+    
+}
+
+.CartItem-code {
+  margin-right: 21px;
+}
+
+.CartItem-info {
+  margin-left: auto;
+  display: flex;
+}
+
+.CartItem-price {
+  margin-right: 62px;
+}
+
+.CartItem-count {
+  margin-right: 24px;
+}

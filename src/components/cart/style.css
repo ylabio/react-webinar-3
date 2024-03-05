@@ -1,0 +1,22 @@
+.Cart {
+    width: 960px;
+    height: 407px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.Cart-footer {
+  padding: 20px 120px 0 0;
+  text-align: end;
+  font-weight: bold;
+}
+
+.Cart-text {
+  margin-right: 53px;
+}
+
+.Cart-list {
+  max-height: 260px;
+  overflow-y: scroll;
+
+}

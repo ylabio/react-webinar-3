@@ -43,11 +43,40 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+  addItem(code) {
+    if (!this.getState().cart.list.find(el => el.code === code)) {
+     this.state.cart.list.push({...this.getState().list.find(el => el.code === code), count: 1})
+    } else {
+      this.setState({
+        ...this.state,
+        cart: {
+          ...this.state.cart,
+          list: this.state.cart.list.map(el => {
+            if (el.code === code) {
+              return {
+                ...el,
+                count: el.count + 1
+              }
+            }
+            return el;
+          })
+        },
+        
+      })
+    }
+
+    if(this.getState().cart.list.length) {
+      this.setState({
+        ...this.state,
+        cart: {
+          ...this.state.cart,
+          totalSum: this.state.cart.list.reduce((acc, el) => {
+            return acc += (el.price * el.count)
+          }, 0),
+          quantity: this.state.cart.list.length,
+        }
+      })
+    }
   };
 
   /**
@@ -58,9 +87,31 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cart: {
+        list: this.state.cart.list.filter(item => item.code !== code),
+        totalSum: this.state.cart.list.reduce((acc, el) => {
+          return acc += (el.price * el.count)
+        }, 0),
+        quantity: this.state.cart.list.length,
+      }
     })
-  };
+
+    this.getCartInfo();
+  }
+
+  getCartInfo() {
+    this.setState({
+      ...this.state,
+      // Новый список, в котором не будет удаляемой записи
+      cart: {
+        ...this.state.cart,
+        totalSum: this.state.cart.list.reduce((acc, el) => {
+          return acc += (el.price * el.count)
+        }, 0),
+        quantity: this.state.cart.list.length,
+      }
+    })
+  }
 
   /**
    * Выделение записи по коду
@@ -83,6 +134,26 @@ class Store {
       })
     })
   }
+
+  closeCart() {
+    console.log('close cart button clicked!');
+    this.setState({ 
+      ...this.state,
+      isOpenCart: false
+    })
+  }
+
+
+  openCart() {
+    this.setState({
+      ...this.state,
+      isOpenCart: true
+
+    })
+
+  }
 }
+
+
 
 export default Store;

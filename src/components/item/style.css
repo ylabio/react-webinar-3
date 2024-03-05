@@ -1,25 +1,21 @@
 .Item {
+  padding: 20px 20px 20px 10px;
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   transition: background-color 1s;
-}
-
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  box-sizing: border-box;
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  margin-right: 21px;
 }
 
-.Item-title {
-  width: 100%;
-  padding: 20px 10px;
-}
-
-.Item-actions {
+.Item-info {
   display: flex;
-  justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+  margin-left: auto;
+}
+
+.Item-price {
+  margin-right: 24px;
 }

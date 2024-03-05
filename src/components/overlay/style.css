@@ -1,4 +1,4 @@
-.Modal {
+.Overlay {
   position: absolute;
   top: 0;
   display: flex;
@@ -10,8 +10,3 @@
   z-index: 2;
 }
 
-.Cart {
-  width: 960px;
-  height: 407px;
-  background: #fff;
-}

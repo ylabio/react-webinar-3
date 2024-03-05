@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {plural} from "../../utils";
 import './style.css';
+import Button from '../button';
 
 function Item(props) {
 
@@ -10,10 +11,11 @@ function Item(props) {
 
   const callbacks = {
     onClick: () => {
-      props.onSelect(props.item.code);
+      props.onAdd(props.item.code);
       if (!props.item.selected) {
         setCount(count + 1);
       }
+      props.onClick
     },
     onDelete: (e) => {
       e.stopPropagation();
@@ -23,20 +25,14 @@ function Item(props) {
   }
 
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-         onClick={callbacks.onClick}>
+    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}>
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {
-        one: 'раз',
-        few: 'раза',
-        many: 'раз'
-      })}` : ''}
+        {props.item.title} 
       </div>
-      <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
+      <div className='Item-info'>
+        <div className='Item-price'>{props.item.price} ₽</div>
+        <Button onClick={callbacks.onClick} title={'Добавить'} />        
       </div>
     </div>
   );

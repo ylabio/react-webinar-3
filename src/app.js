@@ -3,7 +3,9 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import Modal from './components/modal';
+import Overlay from './components/overlay';
+import Cart from './components/cart';
+import Header from './components/header';
 
 /**
  * Приложение
@@ -13,30 +15,50 @@ import Modal from './components/modal';
 function App({store}) {
 
   const list = store.getState().list;
+  const isOpenCart = store.getState().isOpenCart;
+  const goods = store.getState().cart;
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
+
+    onAddItem: useCallback((code) => {
+      store.addItem(code);
+    }, [store]),
+
+    onClose: useCallback(() => {
+      store.closeCart();
+    }, [store]),
+
+    onOpen: useCallback(() => {
+      store.openCart();
+    }, [store]),
+
+    onDelete:  useCallback((code) => {
       store.deleteItem(code);
     }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      {/* <Controls onAdd={callbacks.onAddItem}/> */}
+      <Header>
+        <Head title='Магазин'/>
+      </Header>
+        <Controls onClick={callbacks.onOpen} title={'Перейти'} quantity={goods.quantity} totalSum={goods.totalSum}/>
       <List list={list}
-            // onDeleteItem={callbacks.onDeleteItem}
-            // onSelectItem={callbacks.onSelectItem}
-            onAddItem={callbacks.onAddItem}/>
-      <Modal></Modal>
+        onClick={callbacks.onAddItem}
+        cart={false}
+      />
+      {isOpenCart ? (
+        <Overlay>
+          <Cart 
+            onClose={callbacks.onClose} 
+            goods={goods.list} 
+            isOpenCart={isOpenCart} 
+            cart={true} 
+            onDelete={callbacks.onDelete} 
+            totalSum={goods.totalSum}
+          />
+        </Overlay>
+      )  : ''}
     </PageLayout>
   );
 }

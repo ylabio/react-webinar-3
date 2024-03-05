@@ -2,13 +2,17 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
+import CartItem from '../cart-item';
 
-function List({list, onDeleteItem, onSelectItem}) {
+function List({list, onClick, cart}) {
+
+
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
+          {cart ?  <CartItem item={item} onDelete={onClick}  /> : <Item item={item} onAdd={onClick}/>}
+         
         </div>
       )}
     </div>
