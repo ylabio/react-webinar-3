@@ -1,4 +1,4 @@
-.ModalCart {
+.Modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -7,43 +7,37 @@
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-.ModalCart-container {
-    position: fixed;
+.Modal-container {
+    position: absolute;
+    overflow: auto;
+    max-height: 407px;
+    max-width: 960px;
+    width: 100%;
     top: 50%;
     left: 50%;
-    max-width: 960px;
     transform: translate(-50%, -50%);
-    width: 100%;
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
     animation: slide-down 300ms ease-out forwards;
 }
 
-.ModalCart-header {
+.Modal-header {
     height: 80px;
     background: rgb(245, 245, 245);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0px 40px 0px 20px;
-    border-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
-.ModalCart-text {
+.Modal-text {
     font-size: 32px;
     font-weight: 700;
 }
 
-.ModalCart-content {
+.Modal-content {
     padding: 70px 0;
-}
-
-.ModalCart-amount {
-    font-size: 18px;
-    font-weight: 700;
-    display: flex;
-    justify-content: flex-end;
-    column-gap: 53px;
-    padding: 20px 120px;
 }

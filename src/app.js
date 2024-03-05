@@ -3,7 +3,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import ModalCart from './components/modal-cart';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -42,7 +42,7 @@ function App({store}) {
       buttonAction={callbacks.addToCart}
       buttonLabel={"Добавить"}/>
       {(isModalOpen) &&
-      <ModalCart
+      <Cart
       setIsModalOpen={setIsModalOpen}
       productsInCart={productsInCart}
       productsTotalAmount={productsTotalAmount}
