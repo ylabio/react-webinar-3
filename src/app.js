@@ -4,7 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Cart from './components/cart/cart';
-import formatPrice from './helpers/formatPrice';
+import CartSummary from './components/cart/cartSummary/cartSummary';
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -30,29 +30,12 @@ function App({store}) {
         }
     }, [isModalOpen, store])
   }
-    function getItemsWord(count) {
-        const lastDigit = count % 10;
-        const secondLastDigit = Math.floor((count % 100) / 10);
-
-        if (lastDigit === 1 && secondLastDigit !== 1) {
-            return 'товар';
-        } else if (lastDigit >= 2 && lastDigit <= 4 && secondLastDigit !== 1) {
-            return 'товара';
-        } else {
-            return 'товаров';
-        }
-    }
+    
   return (
     <PageLayout>
           <Head title='Магазин' />  
           <Controls onAction={callbacks.onToggleCart} title='Перейти'>
-              <span>
-                  В корзине: {selectedItems.length > 0 ? (
-                      <strong className='counting'>{selectedItems.length} {getItemsWord(selectedItems.length)} / {formatPrice(countPrice)} ₽</strong>
-                  ) : (
-                      <strong className='counting'>пусто</strong>
-                  )}
-              </span>
+              <CartSummary count={selectedItems.length} totalPrice={countPrice} />
           </Controls>
           <List titleButton={'Добавить'} list={list}
               onСlickItem={callbacks.onAddItem}/>
