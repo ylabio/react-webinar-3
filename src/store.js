@@ -124,7 +124,6 @@ class Store {
         return acc;
       }, { goods: 0, costs: 0 }),
     });
-    console.log(this.state.cart);
   };
 
   /**
