@@ -28,7 +28,7 @@ function Modal({description, setOpenModal, children}) {
 
 Modal.propTypes = {
   description: PropTypes.string,
-  onClose: PropTypes.func,
+  setOpenModal: PropTypes.func,
   children: PropTypes.node
 }
 

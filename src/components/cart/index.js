@@ -10,13 +10,13 @@ function Cart({list, totalPrice, onClick}) {
 
   return (
     <div className={cn()}>
-        {(list.length > 0)  
+        {list.length > 0
           ? <div className={cn('content')}>
               <div className={cn('list')}>
                 <List list={list} onClick={onClick} textBtn='Удалить' />
               </div>
-              <div className={cn('total')}>
-                <div className={cn('total-text')}>Итого</div>
+              <div className={cn('total')}> 
+                <div className={cn('total-text')}></div>
                 <div className={cn('total-price')}>{formatPrice(totalPrice)}</div>
               </div>
             </div>
