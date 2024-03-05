@@ -5,11 +5,11 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 function Item(props) {
+  const cn = bem('Item');
+  
   const handleClick = useCallback(() => {
     props.onClick(props.item);
   }, [])
-
-  const cn = bem('Item');
 
   return (
     <div className={cn()}>

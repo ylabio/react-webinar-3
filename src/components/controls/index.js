@@ -4,9 +4,13 @@ import {formatPrice, plural} from "../../utils";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function Controls({list, totalPrice, setOpenCart}) {
+function Controls({list, totalPrice, setOpenModal}) {
   const variants = {one: 'товар', few: 'товара', many: 'товаров'};
   const cn = bem('Controls');
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  }
 
   return (
     <div className={cn()}>
@@ -17,7 +21,7 @@ function Controls({list, totalPrice, setOpenCart}) {
           : 'пусто'
         }
       </div>
-      <button onClick={() => setOpenCart(true)}>Перейти</button>
+      <button onClick={handleOpenModal}>Перейти</button>
     </div>
   )
 }

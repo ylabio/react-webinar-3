@@ -70,11 +70,10 @@ export function formatPrice(price) {
  * @returns {Number}
  */
 export function calculatePrice(arr) {
-  if (arr.length === 0) {
-    return 0;
-  } else {
-   return arr.reduce((acc, item) => {
+  if (arr.length > 0) {
+    return arr.reduce((acc, item) => {
       return acc + (item.price * item.count);
     }, 0);
   }
+  return 0;
 }

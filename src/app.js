@@ -4,6 +4,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from './components/modal';
 import Cart from './components/cart';
 
 /**
@@ -12,7 +13,7 @@ import Cart from './components/cart';
  * @returns {React.ReactElement}
  */
 function App({store}) {
-  const [openCart, setOpenCart] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const list = store.getState().list;
   const cart = store.getState().cart;
   const totalPrice = calculatePrice(cart);
@@ -30,10 +31,13 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls list={cart} totalPrice={totalPrice} setOpenCart={setOpenCart} />
+      <Controls list={cart} totalPrice={totalPrice} setOpenModal={setOpenModal} />
       <List list={list} onClick={callbacks.onToggleAdd} textBtn='Добавить' />
-      {openCart && 
-        <Cart list={cart} totalPrice={totalPrice} setOpenCart={setOpenCart} onClick={callbacks.onDeleteItem} />
+
+      {openModal && 
+        <Modal description='Корзина' setOpenModal={setOpenModal}>
+          <Cart list={cart} totalPrice={totalPrice} onClick={callbacks.onDeleteItem} />
+        </Modal>
       }
     </PageLayout>
   );
