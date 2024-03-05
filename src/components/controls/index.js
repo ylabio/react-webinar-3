@@ -25,7 +25,7 @@ Controls.propTypes = {
   cart: PropTypes.shape({
     goods: PropTypes.number,
     costs: PropTypes.number
-  }),
+  }).isRequired,
   callback: PropTypes.func.isRequired
 };
 

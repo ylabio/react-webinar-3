@@ -19,7 +19,7 @@ Vidget.propTypes = {
   cart: PropTypes.shape({
     goods: PropTypes.number,
     costs: PropTypes.number
-  }),
+  }).isRequired,
 };
 
 export default React.memo(Vidget);
