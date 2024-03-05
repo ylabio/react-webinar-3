@@ -1,8 +1,8 @@
 .Cart {
-    width: 960px;
-    height: 407px;
-    background: #fff;
-    border-radius: 10px;
+  width: 960px;
+  height: 407px;
+  background: #fff;
+  border-radius: 10px;
 }
 
 .Cart-footer {
@@ -18,5 +18,4 @@
 .Cart-list {
   max-height: 260px;
   overflow-y: scroll;
-
 }

@@ -12,7 +12,12 @@ function Controls( props ) {
 
   return (
     <div className='Controls'>
-      <div className='Controls-info'><span className='Controls-info_text'>В корзине:</span> {props.quantity ? `${props.quantity} ${plural(props.quantity, {one: 'товар', few: 'товара', many: 'товаров'})} / ${props.totalSum} ₽` : 'пусто'} </div>
+      <div className='Controls-info'>
+        <span className='Controls-info_text'>В корзине:</span>
+        {
+          props.quantity ? `${props.quantity} 
+          ${plural(props.quantity, {one: 'товар', few: 'товара', many: 'товаров'})} / ${props.totalSum} ₽` : 'пусто'} 
+      </div>
       <Button onClick={onClick} title={props.title}></Button>
     </div>
   )

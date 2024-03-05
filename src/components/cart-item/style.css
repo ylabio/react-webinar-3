@@ -1,10 +1,6 @@
 .CartItem {
-    /* width: 960px;
-    height: 407px;
-    background: #fff; */
-    display: flex;
-    padding: 20px 21px 21px 18px;
-    
+  display: flex;
+  padding: 20px 21px 21px 18px; 
 }
 
 .CartItem-code {

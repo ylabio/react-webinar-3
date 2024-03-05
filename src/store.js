@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,7 +39,7 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
    */
   addItem(code) {
     if (!this.getState().cart.list.find(el => el.code === code)) {
@@ -61,7 +59,6 @@ class Store {
             return el;
           })
         },
-        
       })
     }
 
@@ -80,7 +77,7 @@ class Store {
   };
 
   /**
-   * Удаление записи по коду
+   * Удаление товара из корзины
    * @param code
    */
   deleteItem(code) {
@@ -99,6 +96,10 @@ class Store {
     this.getCartInfo();
   }
 
+  
+  /**
+   * Получение обновленной информации о товарах в корзине
+   */
   getCartInfo() {
     this.setState({
       ...this.state,
@@ -135,6 +136,9 @@ class Store {
     })
   }
 
+  /**
+   * Закрытие корзины
+   */
   closeCart() {
     console.log('close cart button clicked!');
     this.setState({ 
@@ -143,17 +147,16 @@ class Store {
     })
   }
 
-
+  /**
+   * Открытие корзины
+   */
   openCart() {
     this.setState({
       ...this.state,
       isOpenCart: true
-
     })
-
   }
 }
-
 
 
 export default Store;
