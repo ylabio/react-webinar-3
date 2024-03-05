@@ -24,7 +24,7 @@ function Item({item, onAddInCart, buttonTitle, active, onDeleteInCart}) {
     <div className='Item'>
       <div className='Item-code'>{item.code}</div>
       <div className='Item-title'>{item.title}</div>
-      <div className='Item-price'>{item.price} ₽</div>
+      <div className='Item-price'>{item.price.toLocaleString()} ₽</div>
       {active && <div className='Item-count'>{item.count} шт</div>}
       <div className='Item-actions'>
         <button onClick={active ? callbacks.onDeleteInCart : callbacks.onAddInCart}>

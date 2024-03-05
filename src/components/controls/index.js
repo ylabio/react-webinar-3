@@ -17,20 +17,23 @@ function Controls({totalCartAmount, sumPrices, setShowModal}) {
           }
         </span>
       </div>
-      <button onClick={() => setShowModal(true)}>Перейти</button>
+      <button onClick={() => {
+          setShowModal(true);
+          document.body.classList.add('Modal-open');
+        }}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
   totalCartAmount: PropTypes.number,
-  sumPrices: PropTypes.number,
+  sumPrices: PropTypes.string,
   setShowModal: PropTypes.func
 };
 
 Controls.defaultProps = {
   totalCartAmount: 0,
-  sumPrices: 0,
+  sumPrices: '0',
   setShowModal: () => {
   }
 }

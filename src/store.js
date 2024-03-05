@@ -6,6 +6,8 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.itemsInCart = new Set(); // Товары в корзине
+    this.amount = 0;
+    this.sum = 0;
   }
 
   /**
@@ -59,17 +61,20 @@ class Store {
     });
   }
 
-  initAmountItems(setAmount, setSum) {
-    let amount = 0;
-    let sum = 0;
+  calculateAmountItems() {
+    this.amount = 0;
+    this.sum = 0;
     this.state.list.map((item) => {
       if (item.count) {
-        amount ++;
-        sum += item.price * item.count ;
+        this.amount ++;
+        this.sum += item.price * item.count;
       }
     });
-    setAmount(amount);
-    setSum(sum);
+    this.setState({
+      ...this.state,
+      amount: this.amount,
+      sum: this.sum.toLocaleString()
+    });
   }
 }
 
