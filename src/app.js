@@ -30,11 +30,12 @@ function App({store}) {
 
     onOpenCart: useCallback(() => {
       setCartIsOpen(true);
-      document.body.style.overflow = "hidden";
+      document.body.classList.add('scroll');
     }),
 
     onCloseCart: useCallback(() => {
       setCartIsOpen(false);
+      document.body.classList.remove('scroll');
     })
   }
 
