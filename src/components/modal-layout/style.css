@@ -19,19 +19,3 @@
     padding-bottom: 70px;
     overflow: hidden;
 }
-
-.ModalLayout-bottom {
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px 120px 5px 0;
-    font-size: 18px;
-}
-
-.ModalLayout-total {
-    font-weight: 600;
-    margin-right: 50px;
-}
-
-.ModalLayout-totalPrice {
-    font-weight: 600;
-} 

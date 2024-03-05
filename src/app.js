@@ -4,6 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import ModalLayout from './components/modal-layout';
+import TotalBlock from './components/total-block'
 
 /**
  * Приложение
@@ -50,7 +51,7 @@ function App({store}) {
       />
 
       {isCartOpen && 
-        <ModalLayout onClose={callbacks.onCloseCart} totalPrice={totalPrice}>
+        <ModalLayout onClose={callbacks.onCloseCart}>
           <Head title={'Корзина'} isCartOpen={isCartOpen} onCloseCart={callbacks.onCloseCart}/>
           <List 
             style={{marginTop: '70px'}} 
@@ -59,6 +60,7 @@ function App({store}) {
             onAction={callbacks.onDeleteFromCart}
             showCount={true}
           />
+          <TotalBlock totalPrice={totalPrice}/>
         </ModalLayout>
       }
 

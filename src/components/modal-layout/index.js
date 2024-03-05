@@ -4,7 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import { formatPrice } from "../../utils";
 
-function ModalLayout({children, onClose, totalPrice}) {
+function ModalLayout({children, onClose}) {
 
     const cn = bem('ModalLayout')
   
@@ -12,10 +12,6 @@ function ModalLayout({children, onClose, totalPrice}) {
       <div className={cn()} onClick={onClose}>
         <div className={cn('container')} onClick={(e) => e.stopPropagation()}>
           {children}
-          <div className={cn('bottom')}>
-            <span className={cn('total')}>Итого</span>
-            <span className={cn('totalPrice')}>{formatPrice(totalPrice)}</span>
-          </div>
         </div>
       </div>
     );
@@ -23,8 +19,7 @@ function ModalLayout({children, onClose, totalPrice}) {
   
   ModalLayout.propTypes = {
     children: PropTypes.node,
-    onClose: PropTypes.func,
-    totalPrice: PropTypes.number
+    onClose: PropTypes.func.isRequired,
   }
   
   export default React.memo(ModalLayout);
