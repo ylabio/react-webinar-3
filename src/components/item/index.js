@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
 import './style.css';
-
+import formatPrice from "../../helpers/formatPrice";
 function Item(props) {
   const callbacks = {
     onAdd: () => {
@@ -14,9 +13,7 @@ function Item(props) {
 
     }
   }
-    function formatPrice(price) {
-        return new Intl.NumberFormat('ru-RU').format(price);
-    }
+  
   return (
     <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
          onClick={callbacks.onClick}>

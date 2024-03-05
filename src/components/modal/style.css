@@ -19,7 +19,8 @@
     width: 100%;
     max-width: 960px;
     min-height: 460px; 
-    max-height: 100%; 
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .close-button {
@@ -41,7 +42,7 @@
 .totalContainer {
     display: flex;
         align-items: center;
-        padding-left: 650px;
+        padding-left: 573px;
         justify-content: space-between;
         width: 200px;
         height: 130px;
@@ -68,5 +69,8 @@
     flex-direction: column;
     min-height: 200px;
     justify-content: end;
+}
+.counting{
+    white-space: nowrap;
 }
 

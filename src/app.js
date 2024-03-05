@@ -4,7 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal";
-
+import formatPrice from './helpers/formatPrice';
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -75,7 +75,7 @@ function App({store}) {
                   <span className='totalLabel'>Итого:</span>
                   <span className='amount'>
                       {countItems > 0 ? (
-                          <strong className='counting'><span>{`${countPrice} ₽`} </span></strong>
+                          <strong className='counting'><span>{`${formatPrice(countPrice)} ₽`} </span></strong>
                       ) : (
                               <strong className='counting'>0 ₽</strong>
                       )}
