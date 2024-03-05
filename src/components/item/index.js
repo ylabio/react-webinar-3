@@ -4,16 +4,16 @@ import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import {formatNumber} from "../../utils";
 
-function Item({item, onAddToCart, onDeleteItem, text, hideCart}) {
+function Item({item, onAddToCart, onDeleteItem, text, showModal}) {
 
   const cn = bem('Item')
 
   const callbacks = {
     onClickItem: (e) => {
-      if(hideCart) {
-        onAddToCart(item);
-      } else {
+      if(showModal) {
         onDeleteItem(item.code);
+      } else {
+        onAddToCart(item);
       }
     }
   }

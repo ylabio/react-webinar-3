@@ -4,38 +4,31 @@ import './style.css';
 import {cn as bem} from '@bem-react/classname';
 import {formatNumber, plural} from "../../utils";
 
-function Controls({onShow, sum, quantity, hideCart}) {
+function Controls({onShowModal, sum, quantity}) {
   const cn = bem('Controls');
   return (
     <div className={cn()}>
-      {
-        hideCart ?
-            <>
-              <div className={cn('content')}>
-                В корзине:
-                { quantity <= 0
-                  ? <span>пусто</span>
-                  : <span>{quantity} {plural(quantity, {one: 'товар', few: 'товара', many: 'товаров'})} / {formatNumber(sum)}  ₽</span>
-                }
-              </div>
-
-              <button onClick={() => onShow()}>Перейти</button>
-            </>
-          : <></>
-      }
+      <div className={cn('content')}>
+        В корзине:
+        { quantity <= 0
+          ? <span>пусто</span>
+          : <span>{quantity} {plural(quantity, {one: 'товар', few: 'товара', many: 'товаров'})} / {formatNumber(sum)}  ₽</span>
+        }
+      </div>
+      <button onClick={() => onShowModal()}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onShow: PropTypes.func,
+  onShowModal: PropTypes.func,
   sum: PropTypes.number,
   quantity: PropTypes.number,
-  hideCart: PropTypes.bool,
+  showModal: PropTypes.bool,
 };
 
 Controls.defaultProps = {
-  onShow: () => {}
+  onShowModal: () => {}
 }
 
 export default React.memo(Controls);

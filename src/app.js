@@ -3,7 +3,8 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import CartLayout from "./components/cart-layout";
+import Modal from "./components/modal";
+import {formatNumber} from "./utils";
 
 /**
  * Приложение
@@ -14,7 +15,7 @@ function App({store}) {
 
   const {list, cart, sum} = store.getState();
 
-  const [showCart, setShowCart] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const quantity = cart.length;
 
@@ -29,27 +30,30 @@ function App({store}) {
   }
 
 
-  const onHideCart = () => {
-    setShowCart(false);
+  const onHideModal = () => {
+    setShowModal(false);
   };
-  const onShowCart = () => {
-    setShowCart(true);
+  const onShowModal = () => {
+    setShowModal(true);
   };
-
 
   return (
-    <PageLayout>
-      <Head title='Магазин' hideCart={true}/>
-      <Controls hideCart={true} sum={sum} quantity={quantity} onShow={onShowCart}/>
-      <List list={list} hideCart={true}
+    <PageLayout showModal={showModal} >
+      <Head title='Магазин'/>
+      <Controls sum={sum} quantity={quantity} onShowModal={onShowModal}/>
+      <List list={list} showModal={showModal}
             onAddToCart={callbacks.onAddToCart}
       />
-      <CartLayout cart={cart} sum={sum} showCart={showCart}>
-        <Head title='Корзина'  hideCart={false} onHideCart={onHideCart}/>
-        <Controls hideCart={false}/>
-        <List list={cart} hideCart={false}
+      <Modal title='Корзина' showModal={showModal} onHideModal={onHideModal}>
+        <List list={cart} showModal={showModal}
               onDeleteItem={callbacks.onDeleteItem}/>
-      </CartLayout>
+        {cart.length > 0
+          ? <div className='Modal-footer'>
+            <span>Итого</span>  {formatNumber(sum)} ₽
+          </div>
+          : <h2>В вашей корзине пока пусто</h2>
+        }
+      </Modal>
     </PageLayout>
   );
 }
