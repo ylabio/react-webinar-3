@@ -10,11 +10,18 @@
   border-bottom-right-radius: 10px;
 }
 
+.Basket-list {
+  overflow-y: auto;
+  max-height: 50vh;
+  margin-top: 70px;
+  border-top: 1px dashed #ccc;
+}
+
 .Basket-summary {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 20px 120px 60px 0;
+  padding: 20px 120px 90px 0;
 }
 
 .Basket-summary-title {

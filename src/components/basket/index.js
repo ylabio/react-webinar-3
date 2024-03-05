@@ -22,7 +22,9 @@ function Basket({list, forModal, forItem, summ}) {
           Закрыть
         </Button>
       </Head>
-      <List list={cartList} callback={forItem} target={lsTarget}/>
+      <div className='Basket-list'>
+        <List list={cartList} callback={forItem} target={lsTarget}/>
+      </div>
       <div className="Basket-summary">
         <div className='Basket-summary-title'>Итого:
           <strong className='Basket-summary-inform'>{`${summ} ₽`}</strong>
