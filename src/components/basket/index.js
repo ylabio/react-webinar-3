@@ -1,34 +1,34 @@
 import React from "react";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import './style.css';
-import Head from "../head";
-import Item from "../item";
+import BasketItem from "../basket-item";
 
 
 function Basket(props) {
-
+  console.log('Basket:' ,props)
   return (
-    <div className='Basket'>
-      <div className='Basket-layout'>
-        <div className='Basket-head'>
-          <Head title={'Корзина'}/>
-          <button onClick={() => props.setShowModal(false)}>Закрыть</button>
+    <div className='Basket'>{
+      props.basket.items.map(item =>
+        <div key={item.code} className='Basket-layout'>
+          <BasketItem showModal item={item} onDeleteItemFromBasket={props.onDeleteItemFromBasket}/>
         </div>
-        <div className='Basket-items'>
-          {props.basket.items.map((el) => (
-            <Item onDeleteItemFromBasket={props.onDeleteItemFromBasket} showModal={props.showModal} item={el}/>))}
-        </div>
-        <div className='Basket-item-total-price'><div>Итого: </div><div>{props.basket.totalPrice} ₽</div></div>
-      </div>
+      )}
     </div>
   )
 }
 
 Basket.propTypes = {
-  basket: PropTypes.array,
-  showModal: PropTypes.bool,
+  showModal:PropTypes.bool,
+  basket: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.number,
+    count: PropTypes.number
+  })).isRequired,
   onDeleteItemFromBasket: PropTypes.func,
-  setShowModal: PropTypes.func,
+};
+
+Basket.defaultProps = {
+  onDeleteItemFromBasket: () => {
+  },
 };
 
 export default React.memo(Basket);

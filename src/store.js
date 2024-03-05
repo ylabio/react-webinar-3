@@ -7,7 +7,7 @@ class Store {
   constructor(initState = {}) {
     initState = {
       ...initState,
-      list: initState.list.map((item) => ({...item, count: 1})),
+      list: initState.list.map((item) => ({...item, count: 1})),// тут сразу форматирую входящие данные
     };
     this.basket = {items: [], totalPrice: 0, uniqItems: 0};
     this.state = initState;
@@ -64,35 +64,43 @@ class Store {
 
   /**
    * Добавление нового объекта в корзину
-   * @param item {Object}
+   * @param itemCode string
    */
-  addItemToBasket(item) {
-    let newArr;
-    const newItemIndex = this.basket.items.findIndex(
-      (el) => el.code === item.code
-    );
+
+  addItemToBasket(itemCode) {
+    const newItemIndex = this.basket.items.findIndex(el => el.code === itemCode);
+
     if (newItemIndex !== -1) {
-      newArr = this.basket.items.map((el, index) => {
+      const updatedItems = this.basket.items.map((el, index) => {
         if (index === newItemIndex) {
           return {...el, count: el.count + 1};
         }
         return el;
       });
+      this.setBasket({
+        ...this.basket,
+        items: updatedItems,
+        totalPrice: this.basket.totalPrice + updatedItems[newItemIndex].price,
+        uniqItems: updatedItems.length
+      });
     } else {
-      newArr = [...this.basket.items, item];
+      const item = this.state.list.find(el => el.code === itemCode);
+      if (item) {
+        this.setBasket({
+          ...this.basket,
+          items: [...this.basket.items, {...item, count: 1}],
+          totalPrice: this.basket.totalPrice + item.price,
+          uniqItems: this.basket.uniqItems + 1
+        });
+      }
     }
-    this.setBasket({
-      ...this.basket,
-      items: newArr,
-      totalPrice: this.basket.totalPrice + item.price,
-      uniqItems: new Set(newArr.map((item) => item.code)).size,
-    });
   }
 
   /**
    * Удаление объекта из корзины
    * @param itemCode string
    */
+
   deleteItemFromBasket(itemCode) {
     const updatedItems = this.basket.items.filter(
       (item) => item.code !== itemCode

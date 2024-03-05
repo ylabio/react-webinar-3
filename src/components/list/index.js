@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
 import './style.css';
+import ListItem from "../list-item";
 
 function List({list,  onAddItemToBasket}) {
 
@@ -9,7 +9,7 @@ function List({list,  onAddItemToBasket}) {
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onAddItemToBasket={onAddItemToBasket}/>
+          <ListItem item={item} onAddItemToBasket={onAddItemToBasket}/>
         </div>
       )}
     </div>
