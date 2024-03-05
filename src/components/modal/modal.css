@@ -1,11 +1,10 @@
 .modal{
-    height: 400px;
-    width: 400px;
+    height: 100%;
+    width: 100%;
     background-color: rgba(28,28,28,0);
     position: absolute;
-    top: 60px;
-    left: 40%;
-    transform: translateX(-100%);
+    top: 0px;
+    left: 0%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,7 +14,7 @@
 }
 .modal__content{
    position:absolute;
-   left:42%;
+   left:50%;
    top: 200px;
    transform: translateX(-50%);
     padding: 20px;
@@ -28,6 +27,7 @@
    -webkit-box-shadow: 0px 4px 73px 49px rgba(34, 60, 80, 0.65);
 -moz-box-shadow: 0px 4px 73px 49px rgba(34, 60, 80, 0.65);
 box-shadow: 0px 4px 73px 49px rgba(34, 60, 80, 0.65);
+overflow:auto;
 
 }
 .modal.active{
@@ -39,4 +39,59 @@ box-shadow: 0px 4px 73px 49px rgba(34, 60, 80, 0.65);
     position: absolute;
     right: 40px;
     top: 30px;
+}
+
+.Item_modal{
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+    border-bottom: 1px dashed #ccc;
+}
+
+.Item_selected_modal {
+    background: #75aaf1;
+    color: #fff;
+}
+  
+.Item-code_modal {
+    padding: 20px 10px 20px 20px;
+}
+
+.Item-title_modal {
+    width: 100%;
+    padding: 20px 10px;
+}
+  
+.Item-actions_modal {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 20px 20px 10px;
+}
+  
+.price-actions_modal{
+    min-width:400px;
+    padding: 20px 10px;
+    display:flex;
+    justify-content:flex-end;
+}
+
+.cnt-actions_modal{
+    min-width:80px;
+    padding: 20px 10px;
+    display:flex;
+    justify-content:flex-end;
+}
+.cart{
+    margin-top: 60px;
+    border-top: 1px dashed #ccc;
+}
+.result{
+    margin-top: 20px;
+    text-align: end;
+    margin-right: 80px;
+    
+}
+.p_modal{
+    font-weight:bold;
+    margin-right: 40px;
 }
