@@ -4,7 +4,7 @@ import List from '../list';
 import { cn as bem } from '@bem-react/classname';
 import './style.css'
 
-function Cart({ cart, btn }) {
+function Cart({ cart, cartSum, btn }) {
 	const cn = bem('Cart');
 	return (
 		<>
@@ -14,7 +14,7 @@ function Cart({ cart, btn }) {
 				</div>
 				<div className={cn('footer')}>
 					<div>Итого:</div>
-					<div>{cart.reduce((acc, item) => acc + item.price * item.count, 0).toLocaleString()}&nbsp;₽</div>
+					<div>{cartSum.toLocaleString()}&nbsp;₽</div>
 				</div>
 			</>
 				: <div className={cn('empty')}>В корзине пусто</div>

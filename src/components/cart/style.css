@@ -1,27 +1,23 @@
 .Cart,
 .Cart-empty {
 	display: grid;
-	place-items: center;
-	height: 270px;
+	min-height: 126px;
+	padding-top: 72px;
 	overflow: auto;
 }
 
 .Cart-empty {
-	height: 328px;
+	min-height: 256px;
 	justify-content: center;
-	align-items: center;
 	font-size: 64px;
 	color: #ccc;
 
 }
 
-.Cart .List {
-	margin-top: calc(50%-30px);
-}
-
 .Cart-footer {
 	display: flex;
 	justify-content: flex-end;
+	padding-bottom: 72px;
 }
 
 .Cart-footer div {

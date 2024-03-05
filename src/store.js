@@ -7,6 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.state.cart = []; // Содержимое корзины
+    this.state.cartSum = 0; // Стоимость всех товаров в корзине
     this.state.isOpenModal = false; // Состояние модалки
     this.listeners = []; // Слушатели изменений состояния
   }
@@ -69,6 +70,7 @@ class Store {
         });
       }
     }
+    this.updateCartSum()
   };
 
   /**
@@ -81,6 +83,14 @@ class Store {
       // Новый список, в котором не будет удаляемой записи
       cart: this.state.cart.filter(item => item.code !== code)
     })
+    this.updateCartSum()
+  };
+
+  /**
+   * Обновляем общую сумму стоимости всех товаров в корзине
+   */
+  updateCartSum() {
+    this.state.cartSum = this.state.cart.reduce((acc, item) => acc + item.price * item.count, 0)
   };
 
   /**

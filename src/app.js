@@ -13,7 +13,7 @@ import Cart from './components/cart';
  */
 function App({ store }) {
 
-  const { list, cart, isOpenModal } = store.getState();
+  const { list, cart, cartSum, isOpenModal } = store.getState();
 
   const callbacks = {
     onAddToCart: useCallback((code) => {
@@ -43,6 +43,7 @@ function App({ store }) {
           }}
         />
         <Cart cart={cart}
+          cartSum={cartSum}
           btn={{
             title: 'Удалить',
             callback: callbacks.onDeleteFromCart
@@ -51,6 +52,7 @@ function App({ store }) {
       </Modal>
       <Head title='Магазин' />
       <CartRow cart={cart}
+        cartSum={cartSum}
         btn={{
           title: 'Перейти',
           callback: callbacks.onOpenModal

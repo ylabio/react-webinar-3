@@ -4,7 +4,7 @@ import { plural } from "../../utils";
 import Button from "../button";
 import './style.css';
 
-function CartRow({ cart, btn }) {
+function CartRow({ cart, cartSum, btn }) {
 
   return (
     <div className='Cart-row'>
@@ -14,7 +14,7 @@ function CartRow({ cart, btn }) {
             one: 'товар',
             few: 'товара',
             many: 'товаров'
-          })} / ${cart.reduce((acc, item) => acc + item.price * item.count, 0).toLocaleString()} ₽`
+          })} / ${cartSum.toLocaleString()} ₽`
           : ' пусто'
         }
       </strong>
