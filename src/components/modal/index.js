@@ -7,7 +7,9 @@ function Modal({ isShown, onClose, children }) {
 
   return (
     <div className={"Modal"} onClick={onClose}>
-      <div className={"Modal-overlay"}>{children}</div>
+      <div className={"Modal-overlay"} onClick={(e) => e.stopPropagation()}>
+        {children}
+      </div>
     </div>
   );
 }

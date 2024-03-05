@@ -4,8 +4,8 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Total from "./components/total";
-import Cart from "./components/cart";
-import Modal from "./components/modal";
+import Item from "./components/item";
+import Basket from "./components/basket";
 
 /**
  * Приложение
@@ -44,6 +44,23 @@ function App({ store }) {
     onCloseModal: useCallback(() => setModalIsShown(false), [modalIsShown]),
   };
 
+  function renderItemButton(item) {
+    const itemCallbacks = {
+      onAddItem: () => {
+        callbacks.onAddItem(item);
+      },
+    };
+    return <button onClick={itemCallbacks.onAddItem}>Добавить</button>;
+  }
+
+  function renderList(list) {
+    return list.map((item) => (
+      <div key={item.code} className="List-item">
+        <Item item={item} renderButton={renderItemButton} />
+      </div>
+    ));
+  }
+
   return (
     <PageLayout>
       <Head title="Магазин" />
@@ -52,18 +69,14 @@ function App({ store }) {
         <Total pcs={uniqueItems} sum={totalSum} />
       </Controls>
 
-      <Modal onClose={callbacks.onCloseModal} isShown={modalIsShown}>
-        <Head title="Корзина">
-          <button onClick={callbacks.onCloseModal}>Закрыть</button>
-        </Head>
-        <Cart
-          cartItems={cart}
-          cartSum={totalSum}
-          onDelete={callbacks.onDeleteItem}
-        />
-      </Modal>
+      <Basket
+        cart={cart}
+        onClose={callbacks.onCloseModal}
+        isShown={modalIsShown}
+        onDeleteItem={callbacks.onDeleteItem}
+      />
 
-      <List list={list} onAction={callbacks.onAddItem} action="Добавить" />
+      <List list={list} renderList={renderList} />
     </PageLayout>
   );
 }

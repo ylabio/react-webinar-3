@@ -2,6 +2,8 @@
   margin-top: 70px;
   transition: background-color 1s;
   margin-bottom: 90px;
+  min-height: 10vh;
+  overflow: scroll;
 }
 
 .Cart-sum {

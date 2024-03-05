@@ -1,26 +1,16 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { formatPrice } from "../../utils";
 import "./style.css";
 
-function Item(props) {
-  const callbacks = {
-    onAction: (e) => {
-      e.stopPropagation();
-      props.onAction(props.item);
-    },
-  };
-
+function Item({ item, renderButton }) {
   return (
     <div className="Item">
-      <div className="Item-code">{props.item.code}</div>
-      <div className="Item-title">{props.item.title}</div>
-      <div className="Item-price">{props.item.price} ₽</div>
-      {props.item.quantity && (
-        <div className="Item-quantity">{props.item.quantity} шт</div>
-      )}
-      <div className="Item-actions">
-        <button onClick={callbacks.onAction}>{props.action}</button>
-      </div>
+      <div className="Item-code">{item.code}</div>
+      <div className="Item-title">{item.title}</div>
+      <div className="Item-price">{formatPrice(item.price)}</div>
+      {item.quantity && <div className="Item-quantity">{item.quantity} шт</div>}
+      <div className="Item-actions">{renderButton(item)}</div>
     </div>
   );
 }
@@ -31,11 +21,11 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
-  onAction: PropTypes.func,
+  renderButton: PropTypes.func,
 };
 
 Item.defaultProps = {
-  onAction: () => {},
+  renderButton: () => {},
 };
 
 export default React.memo(Item);

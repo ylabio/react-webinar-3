@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./style.css";
 import { plural } from "../../utils";
+import { formatPrice } from "../../utils";
 
 function Total({ pcs, sum }) {
   return (
@@ -14,7 +15,7 @@ function Total({ pcs, sum }) {
               one: "товар",
               few: "товара",
               many: "товаров",
-            })} / ${sum} ₽`
+            })} / ${formatPrice(sum)}`
           : "пусто"}
       </div>
     </div>

@@ -49,7 +49,6 @@ class Store {
     );
 
     if (itemExists) {
-      console.log(itemExists);
       this.setState({
         ...this.state,
         cart: this.state.cart.map((cartItem) =>
@@ -78,16 +77,16 @@ class Store {
    * Удаление товара из корзины
    * @param code
    */
-  deleteItem(item) {
+  deleteItem(deletedItem) {
     const itemExists = this.state.cart.find(
-      (cartItem) => cartItem.code === item.code
+      (cartItem) => cartItem.code === deletedItem.code
     );
-
-    console.log(itemExists);
 
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter((cartItem) => cartItem.code !== item.code),
+      cart: this.state.cart.filter(
+        (cartItem) => cartItem.code !== deletedItem.code
+      ),
     });
   }
 }
