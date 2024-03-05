@@ -18,7 +18,6 @@ function App({store}) {
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
-      console.log(store.state.cart);
       store.deleteItem(code);
     }, [store]),
 
@@ -28,7 +27,6 @@ function App({store}) {
 
     onToggleModal: useCallback(() => {
       setModalVisibility(!isModalVisible);
-      console.log(cart);
     }, [isModalVisible])
   }
 

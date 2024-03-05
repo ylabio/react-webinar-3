@@ -9,11 +9,8 @@ function Item(props) {
   const containerWidth = props.isCart === true ? "w25" : "w50";
 
   const callbacks = {
-    onAdd: (e) => {
-      props.onAdd(props.item);
-    },
-    onDelete: (e) => {
-      props.onDelete(props.item.code);
+    buttonClick: (e) => {
+      props.buttonClick(props.item);
     }
   }
 
@@ -27,10 +24,10 @@ function Item(props) {
         {props.item.price} ₽
       </div>
       <div className={amountVisibility}>
-        {props.amount} шт.
+        {props.item.amount} шт.
       </div>
       <div className='Item-actions'>
-        <button onClick={props.isCart ? callbacks.onDelete : callbacks.onAdd}>
+        <button onClick={callbacks.buttonClick}>
           {props.isCart ? "Удалить" : "Добавить"}
         </button>
       </div>
@@ -43,16 +40,12 @@ Item.propTypes = {
     code: PropTypes.number,
     title: PropTypes.string,
   }).isRequired,
-  amount: PropTypes.number,
-  onAdd: PropTypes.func,
-  onDelete: PropTypes.func
+  buttonClick: PropTypes.func
 };
 
 Item.defaultProps = {
-  onAdd: () => {
-  },
-  onDelete: () => {
-  },
+  buttonClick: () => {
+  }
 }
 
 export default React.memo(Item);
