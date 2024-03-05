@@ -15,11 +15,12 @@ const Cart = ({ cart, closeModal, deleteFromCart }) => {
                         <button onClick={closeModal}>Закрыть</button>
                     </div>
                 </Head>
-                <List action={deleteFromCart} list={cart.items} type='cart' />
-                <div className="Cart-total">
-                    <span>Итого</span>
-                    <span>{numberFormat(cart.sum)} ₽</span>
-                </div>
+                {cart.items.length ? <><List action={deleteFromCart} list={cart.items} type='cart' />
+                    <div className="Cart-total">
+                        <span>Итого</span>
+                        <span>{numberFormat(cart.sum)} ₽</span>
+                    </div></> : <div className="Cart-empty">Корзина пуста</div>
+                }
             </PageLayout>
         </div>)
 }
