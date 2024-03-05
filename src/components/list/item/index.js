@@ -19,16 +19,16 @@ function Item(props) {
   }
 
   return (
-    <tr className='Item'>
-      <td className='Item-code'>{props.item.code}</td>
-      <td className='Item-title'>{props.item.title}</td>
-      <td className='Item-price'>{numberFormat(props.item.price)}</td>
+    <div className='Item'>
+      <div className='Item-code'>{props.item.code}</div>
+      <div className='Item-title'>{props.item.title}</div>
+      <div className='Item-price'>{numberFormat(props.item.price)}</div>
       { props.options.showCount && !isNaN(props.item.count) &&
-          <td className='Item-count'>
+          <div className='Item-count'>
             {numberFormat(props.item.count, 'decimal', 0) + "\u00a0шт"}
-          </td>
+          </div>
       }
-      <td className='Item-actions'>
+      <div className='Item-actions'>
         { props.options.isAppendable &&
             <button className='action' onClick={callbacks.onAdd}>
               Добавить
@@ -39,8 +39,8 @@ function Item(props) {
               Удалить
             </button>
         }
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 }
 

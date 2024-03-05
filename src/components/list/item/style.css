@@ -1,5 +1,9 @@
 .Item {
-  vertical-align: middle;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
   border-top: 1px dashed #ccc;
 }
   
@@ -8,23 +12,25 @@
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
   font-size: 16px;
 }
 
 .Item-title {
-  padding: 20px 10px;
   font-size: 16px;
   width: 100%;
 }
 
-.Item-price, .Item-count {
-  padding: 20px;
+.Item-price {
+  text-align: right;
+}
+
+.Item-count {
+  min-width: 60px;
   text-align: right;
 }
 
 .Item-actions {
-  padding: 20px 20px 20px 10px;
   display: flex;
   justify-content: flex-end;
+  gap: 10px;
 }

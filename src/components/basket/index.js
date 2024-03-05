@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../modal';
 import List from '../list';
-import Head from '../head';
+import { numberFormat } from '../../utils';
 import './style.css';
 
 /**
@@ -12,12 +12,19 @@ function Basket(props) {
   return (
     <Modal
       title='Корзина'
-      onHide={props.onHideBasket}
-    >
-      {props.basket.length > 0 
-        ? <List list={props.basket}
-                options={{showCount: true, showTotals: true, isAppendable: false, isDeletable: true}}
-                onDeleteItem={props.onDeleteItem}/>
+      onHide={props.onHideBasket}>
+      {props.list.length > 0 
+        ? <>
+            <List list={props.list}
+                  options={{showCount: true, isAppendable: false, isDeletable: true}}
+                  onDeleteItem={props.onDeleteItem}/>
+            <div className='Basket-footer'>
+              <div>Итого</div>
+              <div>{
+                numberFormat(props.list.reduce((sum, current) => sum + current.price * current.count, 0)) }
+              </div>
+            </div>
+          </>
         : <div className='Basket-empty'>В корзине пусто</div>
       }
     </Modal>
@@ -25,7 +32,7 @@ function Basket(props) {
 }
 
 Basket.propTypes = {
-  basket: PropTypes.arrayOf(PropTypes.object).isRequired,
+  list: PropTypes.arrayOf(PropTypes.object).isRequired,
   hideBasket: PropTypes.func,
   onDeleteItem: PropTypes.func
 };

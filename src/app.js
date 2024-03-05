@@ -46,7 +46,7 @@ function App({store}) {
       </PageLayout>
       { isModalActive &&
           <Basket
-              basket={basket}
+              list={basket}
               onHideBasket={callbacks.onHideBasket}
               onDeleteItem={callbacks.onDeleteItem}/>
       }
