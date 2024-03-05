@@ -1,0 +1,11 @@
+.Basket{
+  padding: 70px 0;
+}
+
+.Basket__count{
+	display: flex;
+	justify-content: flex-end;
+	column-gap: 55px;
+	padding: 20px 120px;
+	font-weight: bold;
+}

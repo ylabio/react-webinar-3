@@ -1,16 +1,20 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
 import './style.css';
 
-function List({list, onButtonAction,buttonTitle}) {
+function List({list, onButtonAction,children}) {
   return (
     <div className='List'>{
-      list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item item={item} onButtonAction={onButtonAction} buttonTitle={buttonTitle}/>
-        </div>
-      )}
+      list.map(item => {
+        children = React.cloneElement(children, {
+          item: item,
+          onButtonAction:onButtonAction
+        })
+        return(
+          <div key={item.code} className='List-item'>
+            {children}
+          </div>
+        )})}
     </div>
   )
 }
@@ -19,14 +23,12 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-	buttonTitle:PropTypes.string,
   onButtonAction: PropTypes.func,
 };
 
 List.defaultProps = {
   onButtonAction: () => {
   },
-	buttonTitle:"Добавить"
 }
 
 export default React.memo(List);

@@ -47,16 +47,20 @@ class Store {
 		let item = this.state.list.find(el=>el.code===code)
 		let productItem=this.state.productsList.find(el=>el.code===code)
 		if(productItem){
-			productItem.count+=1
 			this.setState({
 				...this.state,
-				productsList: [...this.state.productsList]
+				productsList: this.state.productsList.map(el=>el.code===code?{...el,count:el.count+1}:el)
 			})
-		}else{
-			item.count=1
+		}
+    else{
 			this.setState({
 				...this.state,
-				productsList: [...this.state.productsList, item]
+				productsList: [...this.state.productsList, {
+          code:item.code,
+          title:item.title,
+          price:item.price,
+          count:1
+        }]
 			})
 		}
 		this.accumProducts()

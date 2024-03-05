@@ -4,4 +4,9 @@
   padding: 20px;
 	align-items: center;
 	column-gap: 11px;
+  font-size: 18px;
+}
+.Controls p{
+  display: flex;
+  column-gap: 7px;
 }

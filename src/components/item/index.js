@@ -16,10 +16,9 @@ function Item(props) {
       <div className='Item-title'>{props.item.title}</div>
 			<div className="Item-price">
 				<span>{props.item.price} ₽</span>
-				{props.item.count?<span>{props.item.count} шт</span>:""}
 			</div>
       <div className='Item-actions'>
-        <button onClick={callbacks.onAction}>{props.buttonTitle}</button>
+        <button onClick={callbacks.onAction}>Добавить</button>
       </div>
     </div>
   );
@@ -29,10 +28,8 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
-    count: PropTypes.number
+    price:PropTypes.number,
   }).isRequired,
-	buttonTitle: PropTypes.string,
   onButtonAction: PropTypes.func,
 };
 
