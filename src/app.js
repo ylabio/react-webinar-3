@@ -2,8 +2,11 @@ import React, {useCallback, useState, useMemo} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
-import Cart from './components/cart'
+import CartModal from './components/cart-modal'
 import PageLayout from "./components/page-layout";
+import ModalLayout from "./components/modal-layout";
+import ItemProduct from './components/item-product'
+import ItemCart from './components/item-cart'
 import {formatNumber} from './utils'
 
 /**
@@ -13,15 +16,13 @@ import {formatNumber} from './utils'
  */
 function App({store}) {
 
-  const [isVisible, setIsVisible] = useState(false);
+  const [isCartVisible, setIsCartVisible] = useState(false);
   const cartQuantity = store.countItemsInCart();
   const cartTotalPrice = store.totalPriceInCart();
   const list = store.getState().list;
   const cart = store.getState().cart; 
 
-  const pageTitle = 'Магазин';
-  const actionAddItemTitle = 'Добавить';
-  const actionRemoveItemTitle = 'Удалить';
+  const pageTitle = 'Магазин';  
 
   const formattedTotalPrice = useMemo(() => {
     return formatNumber(cartTotalPrice);
@@ -34,25 +35,27 @@ function App({store}) {
     removeItemFromCart: useCallback((code) => {
       store.removeItemFromCart(code);
     }, [store])    
-  }  
+  }    
  
   return (
     <PageLayout>
       <Head title={pageTitle}/>
-      <Controls setIsVisible={setIsVisible} 
+      <Controls setIsVisible={setIsCartVisible} 
                 cartQuantity={cartQuantity} 
                 cartTotalPrice={formattedTotalPrice}/>
-      <List list={list} 
-            onActionType={callbacks.addItemToCart} 
-            onActionTitle={actionAddItemTitle} />
-      <Cart isVisible={isVisible} 
-            cartTotalPrice={formattedTotalPrice} 
-            cartQuantity={cartQuantity} 
-            onClose={() => setIsVisible(false)}>
-        <List list={cart} 
-              onActionType={callbacks.removeItemFromCart} 
-              onActionTitle={actionRemoveItemTitle} />
-      </Cart>
+      <List list={list}
+            onActionType={callbacks.addItemToCart}            
+            renderItem={(props) => <ItemProduct {...props} />} />
+      <ModalLayout isVisible={isCartVisible} onClose={() => setIsCartVisible(false)}> 
+        <CartModal  
+              cartTotalPrice={formattedTotalPrice} 
+              cartQuantity={cartQuantity} 
+              onClose={() => setIsCartVisible(false)}>
+          <List list={cart}
+            onActionType={callbacks.removeItemFromCart}            
+            renderItem={(props) => <ItemCart {...props} />} />
+        </CartModal>
+      </ModalLayout>      
     </PageLayout>
   );
 }

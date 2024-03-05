@@ -1,0 +1,13 @@
+.ModalLayout-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .7);
+  z-index: 10;
+}
+
+.ModalLayout-position {
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  z-index: 11;
+}
