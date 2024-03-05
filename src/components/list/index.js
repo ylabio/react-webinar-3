@@ -1,33 +1,30 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
 import './style.css';
 
-function List({list, onDeleteItem, onSelectItem}) {
+function List({ list, renderItem, onActionType }) {
+  const sortedList = useMemo(() => {
+    const copiedList = [...list];
+    return copiedList.sort((a, b) => a.code - b.code);
+  }, [list]);
+
   return (
     <div className='List'>{
-      list.map(item =>
+      sortedList.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
+            {renderItem({ item, onActionType })}
         </div>
       )}
     </div>
-  )
+  );
 }
 
-List.propTypes = {
+List.propTypes = {   
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
+  onActionType: PropTypes.func,  
+  renderItem: PropTypes.func 
 };
-
-List.defaultProps = {
-  onDeleteItem: () => {
-  },
-  onSelectItem: () => {
-  },
-}
 
 export default React.memo(List);

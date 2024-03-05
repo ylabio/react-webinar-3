@@ -1,0 +1,28 @@
+.ItemProduct {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  transition: background-color 1s;
+}
+
+.ItemProduct-code {
+  padding: 20px 10px 20px 20px;
+}
+
+.ItemProduct-title {
+  width: 100%;
+  padding: 20px 10px;
+}
+
+.ItemProduct-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  column-gap: 24px;
+  padding: 20px 20px 20px 10px;
+}
+
+.ItemProduct-price {
+  width: max-content; 
+  text-align: right; 
+}

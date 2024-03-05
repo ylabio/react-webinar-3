@@ -50,3 +50,14 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Функция форматирования больших чисел, а точнее регулярное выражение 
+ * @returns {String}
+ */
+export function formatNumber(number) {
+
+  const positiveNumber = Math.abs(number); // На случай если в БД попадёт отрицательное число
+
+  return positiveNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
