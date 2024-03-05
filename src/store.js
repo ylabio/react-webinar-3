@@ -100,7 +100,7 @@ class Store {
   }
 
   /**
-   * удаление продукта в корзину
+   * удаление продукта из корзины
    * @param product
    */
   deleteProduct(product) {

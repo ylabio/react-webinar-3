@@ -4,7 +4,7 @@ import ProductCounter from "./components/product-counter";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Cart from "./components/cart";
-
+import Modal from "./components/modal";
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -12,7 +12,6 @@ import Cart from "./components/cart";
  */
 function App({ store }) {
   const { list, cart, isCart } = store.getState();
-
   const callbacks = {
     onAddProductToCart: useCallback(
       (product) => {
@@ -41,13 +40,22 @@ function App({ store }) {
     <PageLayout>
       <Head title="Магазин" />
       <ProductCounter cart={cart} onOpenCart={callbacks.onOpenCart} />
+
       {isCart && (
-        <Cart
-          cart={cart}
-          onCloseCart={callbacks.onCloseCart}
-          onDeleteProductToCart={callbacks.onDeleteProductToCart}
+        <Modal
+          title="Корзина"
+          closeElement="Закрыть"
+          isVisible={isCart}
+          setIsVisible={callbacks.onCloseCart}
+          children={
+            <Cart
+              cart={cart}
+              onDeleteProductToCart={callbacks.onDeleteProductToCart}
+            />
+          }
         />
       )}
+
       <List list={list} action={callbacks.onAddProductToCart} />
     </PageLayout>
   );

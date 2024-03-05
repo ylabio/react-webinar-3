@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./style.css";
-import { plural } from "../../utils";
+import { plural, formaterCurrency } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 import Button from "../button";
 
@@ -20,7 +20,7 @@ function ProductCounter({ cart, onOpenCart }) {
               few: "товара",
               many: "товаров",
             })}
-            {` / ${cart.totalPrice}`}
+            {` / ${formaterCurrency(cart.totalPrice)}`}
           </span>
         ) : (
           <span className={cn("details")}>пусто</span>
