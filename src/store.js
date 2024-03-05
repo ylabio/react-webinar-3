@@ -1,4 +1,5 @@
 import {generateCode} from "./utils";
+import {logPlugin} from "@babel/preset-env/lib/debug";
 
 /**
  * Хранилище состояния приложения
@@ -8,6 +9,7 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.basket = [];
+    this.isModalOpen = false;
   }
 
   /**
@@ -41,32 +43,47 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
+
   goToBasketItem() {
     this.setState({
       ...this.state,
-      basket: [...this.basket]
+      isModalOpen: true,
     });
-  };
+  }
 
-  /**
-   * Удаление записи по коду
-   * @param {Object} item
-   */
-  addToBasketItem(item) {
-    this.basket.push(item);
+  closeModal() {
+    this.setState({
+      ...this.state,
+      isModalOpen: false,
+    });
+  }
+
+
+  addToBasketItem(itemToAdd) {
+    const existingItemIndex = this.basket.findIndex(item => item.code === itemToAdd.code);
+    if (existingItemIndex !== -1) {
+      this.basket[existingItemIndex].quantity += 1;
+    } else {
+      const newItem = { ...itemToAdd, quantity: 1 };
+      this.basket.push(newItem);
+    }
     for (const listener of this.listeners) listener();
   }
 
-  getBasketItemCount() {
-    if (this.state && this.state.basket && Array.isArray(this.state.basket)) {
-      return this.state.basket.length;
+  getBasket() {
+    if (this.basket) {
+      let finalPrice = this.basket.reduce((acc, item) => {return acc + item.price * item.quantity}, 0)
+      return {basket: this.basket, itemsCount: this.basket.length, finalPrice};
     } else {
-      return 0;
+      return {basket: 0, itemsCount: 0, finalPrice: 0};
     }
   }
+
+  deleteItem(code) {
+    this.basket = this.basket.filter(item => item.code !== code);
+    for (const listener of this.listeners) listener();
+  }
 }
+
 
 export default Store;

@@ -3,3 +3,8 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Count {
+  font-weight: bold;
+  padding: 0 10px 0 5px;
+}

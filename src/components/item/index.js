@@ -6,12 +6,16 @@ import './style.css';
 function Item(props) {
 
   const callbacks = {
-    addToBasket: (e) => {
-      e.stopPropagation();
-      props.addToBasket(props.item.code);
-      props.addToBasketCount();
-    }
+    handleClick: (e) => {
+      if (props.place === 'catalog') {
+        props.addToBasket(props.item);
+      } else {
+        props.deleteItem(props.item.code);
+      }
+      props.getBasket();
+    },
   }
+  console.log(props.place)
 
   return (
     <div className={'Item'}>
@@ -20,9 +24,10 @@ function Item(props) {
         {props.item.title}
       </div>
       <div className='Item-price'>{props.item.price} ₽</div>
+      {props.place === 'basket' ? <div className={'Item-quantity'}>{props.item.quantity} шт.</div> : null}
       <div className='Item-actions'>
-        <button onClick={callbacks.addToBasket}>
-          Добавить
+        <button onClick={callbacks.handleClick}>
+          {props.place === 'catalog' ? 'Добавить' : 'Удалить'}
         </button>
       </div>
     </div>
@@ -35,13 +40,15 @@ Item.propTypes = {
     title: PropTypes.string,
   }).isRequired,
   addToBasket: PropTypes.func,
-  addToBasketCount: PropTypes.func,
+  getBasket: PropTypes.func,
+  deleteItem: PropTypes.func,
 };
 
 Item.defaultProps = {
   addToBasket: () => {
   },
-  addToBasketCount: () => {},
+  getBasket: () => {},
+  deleteItem: () => {}
 }
 
 export default React.memo(Item);
