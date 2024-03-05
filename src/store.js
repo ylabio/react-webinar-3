@@ -1,4 +1,5 @@
 import {generateCode} from "./utils";
+import item from "./components/item";
 
 /**
  * Хранилище состояния приложения
@@ -76,7 +77,7 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      storeList: this.state.storeList.filter(item => item.code !== code),
     });
   };
 
@@ -100,6 +101,24 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       }),
     });
+  }
+
+  getCartPrice() {
+    let sum = 0;
+    for (const item of this.state.storeList) {
+      sum += item.count * item.price;
+    }
+
+    return sum;
+  }
+
+  getCartCount() {
+    let count = 0;
+    for (const item of this.state.storeList) {
+      count += item.count;
+    }
+
+    return count;
   }
 }
 

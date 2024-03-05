@@ -5,7 +5,7 @@ import './style.css';
 import Head from "../head";
 import List from "../list";
 
-function ModalStore({closeModal, list, onClick}) {
+function ModalStore({closeModal, store, onClick}) {
 
   const cn = bem('ModalStore');
 
@@ -16,8 +16,13 @@ function ModalStore({closeModal, list, onClick}) {
           Закрыть
         </button>
       </Head>
-      <List list={list}
-            onClick={onClick} btnName={'Удалить'}/>
+      <div className={cn('space')}></div>
+      <List list={store.getState().storeList}
+            onClick={onClick} btnName={'Удалить'} cart={true}/>
+      <div className={cn("header")}>
+        <p className={cn("bold_span")}>Итого</p>
+        <p className={cn("bold_span", "price")}>{`${store.getCartPrice()} ₽`}</p>
+      </div>
     </div>
   );
 }

@@ -26,9 +26,6 @@ function App({store}) {
       store.addItem(code);
     }, [store]),
 
-    // onAddItem: useCallback(() => {
-    //   store.addItem();
-    // }, [store])
     onOpenModal: () => {
       setOpenModal(true);
     },
@@ -42,13 +39,13 @@ function App({store}) {
     <>
       <PageLayout>
         <Head title="Магазин" />
-        <Controls onAdd={callbacks.onOpenModal} />
+        <Controls onAdd={callbacks.onOpenModal} store={store} />
         <List list={list}
-              onClick={callbacks.onAddItem} btnName={'Добавить'}/>
+              onClick={callbacks.onAddItem} btnName={'Добавить'} cart={false}/>
       </PageLayout>
       {openModal && (
         <Modal closeModal={callbacks.onCloseModal}>
-           <ModalStore closeModal={callbacks.onCloseModal} list={storeList}
+           <ModalStore closeModal={callbacks.onCloseModal} store={store}
                        onClick={callbacks.onDeleteItem} />
         </Modal>
       )

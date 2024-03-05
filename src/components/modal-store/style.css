@@ -1,3 +1,28 @@
 .ModalStore {
 
 }
+
+.ModalStore-space {
+  padding: 35px 0;
+  border-bottom: 1px dashed #ccc;
+}
+
+.ModalStore-header {
+  padding: 20px 0 0 740px;
+  display: flex;
+  align-content: center;
+}
+
+.ModalStore-bold_span {
+  margin: 0;
+  padding: 0;
+  color: #000;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.ModalStore-bold_span.price {
+  margin-left: 25px;
+}
