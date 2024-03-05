@@ -4,11 +4,6 @@ import Vidget from "../vidget";
 import Button from "../button";
 import './style.css';
 
-/* COMPONENTS TODO:
-component controls:
- - component vidget
- - component button */
-
 function Controls({cart, callback}) {
   return (
     <div className='Controls'>
