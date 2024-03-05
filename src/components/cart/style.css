@@ -1,14 +1,3 @@
-.Cart .PageLayout {
-    padding-bottom: 89px;
-    min-height: auto;
-    border-radius: 10px;
-}
-
-.Cart .Head {
-    margin-bottom: 80px;
-    border-radius: 10px;
-}
-
 .Cart .List {
     max-height: 240px;
     overflow-y: auto;

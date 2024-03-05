@@ -18,10 +18,10 @@ function CartItem(props) {
         {props.item.title}
       </div>
       <div className='Item-price'>
-        {numberFormat(props.item.price)} ₽
+        {numberFormat(props.item.price)}&nbsp;₽
       </div>
       <div className="Item-count">
-        {props.item.count} шт
+        {props.item.count}&nbsp;шт
       </div>
       <div className='Item-actions'>
         <button onClick={callbacks.onClick}>

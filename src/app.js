@@ -35,8 +35,8 @@ function App({ store }) {
           action={callbacks.addToCart} />
       </PageLayout>
       {showModal &&
-        <ModalLayout>
-          <Cart deleteFromCart={callbacks.deleteFromCart} cart={cart} closeModal={() => setShowModal(false)} />
+        <ModalLayout title={'Корзина'} closeModal={() => setShowModal(false)}>
+          <Cart deleteFromCart={callbacks.deleteFromCart} cart={cart}/>
         </ModalLayout>
       }
     </>

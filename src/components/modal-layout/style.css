@@ -15,3 +15,14 @@
   left: 50%;
   transform: translate(-50%, -50%)
 }
+
+.ModalLayout .PageLayout {
+  padding-bottom: 89px;
+  min-height: auto;
+  border-radius: 10px;
+}
+
+.ModalLayout .Head {
+  margin-bottom: 80px;
+  border-radius: 10px;
+}

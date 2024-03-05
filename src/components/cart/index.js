@@ -6,22 +6,15 @@ import List from "../list"
 import './style.css';
 import { numberFormat } from "../../utils";
 
-const Cart = ({ cart, closeModal, deleteFromCart }) => {
+const Cart = ({ cart, deleteFromCart }) => {
     return (
         <div className="Cart">
-            <PageLayout>
-                <Head title={'Корзина'} >
-                    <div className="Head-btn">
-                        <button onClick={closeModal}>Закрыть</button>
-                    </div>
-                </Head>
-                {cart.items.length ? <><List action={deleteFromCart} list={cart.items} type='cart' />
-                    <div className="Cart-total">
-                        <span>Итого</span>
-                        <span>{numberFormat(cart.sum)} ₽</span>
-                    </div></> : <div className="Cart-empty">Корзина пуста</div>
-                }
-            </PageLayout>
+            {cart.items.length ? <><List action={deleteFromCart} list={cart.items} type='cart' />
+                <div className="Cart-total">
+                    <span>Итого</span>
+                    <span>{numberFormat(cart.sum)}&nbsp;₽</span>
+                </div></> : <div className="Cart-empty">Корзина пуста</div>
+            }
         </div>)
 }
 
