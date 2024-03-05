@@ -6,6 +6,7 @@ import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from './components/ui/modal';
 import Cart from './components/cart';
+import ProductItem from './components/product-item';
 
 /**
  * Приложение
@@ -22,8 +23,8 @@ function App({store}) {
     formatPrice(cartList.reduce((sum, item) => sum += item.amount * item.price, 0))
 
   const callbacks = {
-    onAddItemToCart: useCallback((item) => {
-      store.addItemToCart(item);
+    onAddItemToCart: useCallback((code) => {
+      store.addItemToCart(code);
     }, [store]),
 
     onDeleteItemFromCart: useCallback((code) => {
@@ -46,7 +47,7 @@ function App({store}) {
         <Controls totalAmount={totalAmount} totalSum={totalSum} onOpenModal={callbacks.onOpenModal}/>
         <List 
           list={list}
-          onAddItemToCart={callbacks.onAddItemToCart}
+          renderItem={(item) => <ProductItem item={item} onAddItemToCart={callbacks.onAddItemToCart} />}
         />
       </PageLayout>
       <Modal isModalOpen={isModalOpen} >

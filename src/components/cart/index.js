@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Head from '../head';
 import List from '../list';
+import CartItem from '../cart-item';
 import CartTotal from '../cart-total';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
@@ -17,8 +18,9 @@ function Cart({list, totalSum, onCloseModal, onDeleteItemFromCart}) {
       <>
         <List 
           list={list} 
-          inCart={true}
-          onDeleteItemFromCart={onDeleteItemFromCart}
+          renderItem={(item) => (
+            <CartItem item={item} onDeleteItemFromCart={onDeleteItemFromCart} />
+          )}
         />
         <CartTotal totalSum={totalSum} />
       </>

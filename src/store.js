@@ -40,18 +40,17 @@ class Store {
 
   /**
    * Добавление объекта товара в корзину
-   * @param item {Object}
+   * @param code {Number}
    */
-  addItemToCart(item) {
-    // Проверяем наличие товара в корзине
-    const existingItem = this.state.cart.find(cartItem => cartItem.code === item.code);
+  addItemToCart(code) {
+    const itemInCart = this.state.cart.find(cartItem => cartItem.code === code);
+    const originalItem = this.state.list.find(listItem => listItem.code === code);
 
-    // Если есть, то увеличиваем количество на 1
-    if (existingItem) {
+    if (itemInCart) {
       this.setState({
         ...this.state,
         cart: this.state.cart.map(cartItem => {
-          if (cartItem.code === item.code) {
+          if (cartItem.code === code) {
 
             return {
               ...cartItem,
@@ -62,16 +61,15 @@ class Store {
           return cartItem;
         })
       })
-
-    // Иначе добавляем новый товар
     } else {
-      this.setState({
-        ...this.state,
-        cart: [...this.state.cart, {code: item.code, title: item.title, price: item.price, amount: 1}]
-      })
+      if (originalItem) {
+        this.setState({
+          ...this.state,
+          cart: [...this.state.cart, {...originalItem, amount: 1}]
+        })
+      }
     }
-
-  };
+  }
 
   /**
    * Удаление товара из корзины по коду
