@@ -5,6 +5,10 @@ import Button from "../button";
 import List from "../list";
 import './style.css';
 
+/* COMPONENTS TODO:
+component for basket:
+ - component vidget */
+
 function Basket({list, forModal, forItem, summ}) {
 
   const cartList = list.filter((item) => Boolean(item.tocart));
