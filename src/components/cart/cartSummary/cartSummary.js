@@ -1,6 +1,6 @@
 import React from 'react';
-import formatPrice from '../../../helpers/formatPrice';
-import getItemsWord from '../../../helpers/getItemsWord';
+import { formatPrice } from '../../../utils';
+import { getItemsWord } from '../../../utils';
 
 const CartSummary = ({ count, totalPrice }) => {
     return (

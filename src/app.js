@@ -15,13 +15,10 @@ function App({store}) {
   const list = store.getState().list;
   const selectedItems = store.getState().selectedItems; 
   const countPrice = store.getState().countPrice;
-
   const callbacks = {
-
       onAddItem: useCallback((code) => {
           store.addItem(code);
     }, [store]),
-
     onToggleCart: useCallback(() => {
         if (isModalOpen) {
             store.closeModal();

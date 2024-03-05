@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import './style.css';
-import formatPrice from "../../helpers/formatPrice";
+import { formatPrice } from "../../utils";
 function Item(props) {
   const callbacks = {
     onAdd: () => {

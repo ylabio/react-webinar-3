@@ -1,8 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import Item from "../item";
 import './style.css';
-import  Controls  from "../controls";
 
 function Modal({ isOpen, children, onClose }) {
     if (!isOpen) return null;

@@ -3,7 +3,7 @@ import List from "../list";
 import Controls from "../controls";
 import Head from "../head";
 import Modal from "../modal";
-import formatPrice from '../../helpers/formatPrice';
+import { formatPrice } from '../../utils';
 const Cart = ({ store }) => {
     const isModalOpen = store.getState().isModalOpen;
     const selectedItems = store.getState().selectedItems;
