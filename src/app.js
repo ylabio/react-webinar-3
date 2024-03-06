@@ -1,8 +1,13 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Popup from './components/popup';
+import PopupLayout from './components/popup-layout';
+import BasketTotal from './components/basket-total';
+import BasketItem from './components/basket-item';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -10,31 +15,59 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
+  const [isPopupOpened, setIsPopupOpened] = useState(false);
 
   const list = store.getState().list;
+  const basket = store.getState().basketList;
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    onAddToBasket: useCallback((item) => {
+      store.addItemToBasket(item);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+    onClick: useCallback(() => {
+      setIsPopupOpened(true);
+    }, [isPopupOpened]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    onClose: useCallback(() => {
+      setIsPopupOpened(false);
+    }, [isPopupOpened]),
+
+    onRemoveFromBasket: useCallback((item) => {
+      store.removeItemFromBasket(item);
+    },[store])
+  }
+
+  const totalCost = () => {
+    return basket.reduce((acc, item) => acc + item.price * item.count, 0)
+  };
+
+  const defineItem = (item, isBasket) => {
+    if(isBasket === true) {
+      return(
+        <BasketItem item={item} onClick={callbacks.onRemoveFromBasket} />
+      )
+    } else {
+      return (
+        <Item item={item} onClick={callbacks.onAddToBasket} />
+      )
+    }
   }
 
   return (
+    <>
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин'/>
+      <Controls totalCost={totalCost} basket={basket} list={list} onClick={callbacks.onClick}/>
+      <List defineItem={(item) => defineItem(item, false)} list={list}  onClick={callbacks.onAddToBasket}/>
     </PageLayout>
+    {isPopupOpened === true &&
+    <PopupLayout title='Корзина' isPopupOpened={isPopupOpened} onClose={callbacks.onClose}>
+      <List defineItem={(item) => defineItem(item, true)} list={basket} />
+      <BasketTotal totalCost={totalCost} />
+    </PopupLayout>
+    }
+    </>
   );
 }
 

@@ -1,7 +1,8 @@
-.List {
-
-}
-
 .List-item {
   border-bottom: 1px dashed #ccc;
+}
+
+.List-text {
+  margin: 20px 0;
+  padding-left: 40%;
 }

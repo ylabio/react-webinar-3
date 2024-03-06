@@ -1,0 +1,73 @@
+.Popup-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.Popup-opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.Popup-container {
+  z-index: 10;
+  width: 960px;
+  min-height: 400px;
+  background-color: #fff;
+  position: relative;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.Popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px 0 10px;
+  background-color: #F5F5F5;
+  border-radius: 10px 10px 0 0;
+}
+
+.Popup-list {
+  margin: 70px 0 0;
+  padding: 0;
+  border-top: 1px #ccc dashed;
+}
+
+.Popup-text {
+  margin: 20px 0;
+  padding-left: 40%;
+}
+
+.Popup-item-cost{
+  width: 20%;
+}
+
+.Popup-cost {
+  margin: 0 70px 0 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.Popup-cost-title {
+  padding: 0;
+  margin: 0 20px 0 0;
+}
+
+.Popup-cost-number {
+  width: 100px;
+}
