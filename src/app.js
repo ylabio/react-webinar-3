@@ -5,6 +5,7 @@ import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal/index";
 import Cart from "./components/Cart";
+import formatPrice from './utils'
 
 /**
  * Приложение
@@ -66,7 +67,6 @@ function App({ store }) {
           cartTotal={cartTotalPrice}
           cartItemCount={cartItemCount}
           onActionClick={callbacks.onDeleteCartItem}
-          
         />
       </Modal>
     </>

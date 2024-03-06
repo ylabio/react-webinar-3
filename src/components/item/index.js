@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import { formatPrice } from "../../utils";
 import "./style.css";
 
 function Item(props) {
-  const { item, price, actionName, onActionClick, quantity, currencySymbol } =
-    props;
+  const { item, price, actionName, onActionClick, currencySymbol } = props;
+
+  const formattedPrice = formatPrice(price);
 
   const handleAddToCart = () => {
     onActionClick(item.code);
@@ -21,10 +22,10 @@ function Item(props) {
     <div className={"Item"} onClick={callbacks.onClick}>
       <div className="Item-code"></div>
       <div className="Item-title">{item.title}</div>
-      <div className="Item-price">
-        {price} {quantity}
+      <div className="Item-price">{formattedPrice}</div>
+      <div className="Item-total">
+        {item.count} {currencySymbol}
       </div>
-      <div className="Item-total">{item.count} {currencySymbol}</div>
       <div className="Item-actions">
         <button onClick={handleAddToCart}>{actionName}</button>
       </div>
@@ -39,7 +40,6 @@ Item.propTypes = {
     price: PropTypes.number,
     count: PropTypes.number,
     currencySymbol: PropTypes.string,
-    quantity: PropTypes.string,
   }).isRequired,
 
   onActionClick: PropTypes.func.isRequired,

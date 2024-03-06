@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { plural } from "../../utils";
+import { plural, formatPrice } from "../../utils";
 import "./style.css";
 
 function Controls({ onOpenModal, cartTotalPrice, cartItemCount }) {
@@ -13,12 +13,12 @@ function Controls({ onOpenModal, cartTotalPrice, cartItemCount }) {
       <div className="Controls-content">
         <div>В корзине: </div>
         <p>
-          {cartItemCount > 0
-            ?  ` ${cartItemCount} ${plural(cartItemCount, {
+        {cartItemCount > 0
+            ? ` ${cartItemCount} ${plural(cartItemCount, {
                 one: "товар",
                 few: "товара",
                 many: "товаров",
-              })} / ${cartTotalPrice} ₽`
+              })} / ${formatPrice(cartTotalPrice)}`
             : "Пусто"}
         </p>
       </div>
@@ -36,7 +36,6 @@ Controls.defaultProps = {
   onOpenModal: () => {},
   cartTotalPrice: 0,
   cartItemCount: 0,
-}
-
+};
 
 export default React.memo(Controls);

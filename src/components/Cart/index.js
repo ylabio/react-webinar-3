@@ -1,10 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import List from "../list";
-
+import { formatPrice } from "../../utils";
 import "./style.css";
 
 function Cart({ list, onActionClick, cartTotal }) {
+
+  const totalPrice = cartTotal;
+  const formattedPrice = formatPrice(totalPrice);
   return (
     <div>
       <List
@@ -15,7 +18,7 @@ function Cart({ list, onActionClick, cartTotal }) {
       />
       <div className="Cart_total">
         <span>Итого </span>
-        <span>{cartTotal} ₽ </span>
+        <span>{formattedPrice} </span>
       </div>
     </div>
   );

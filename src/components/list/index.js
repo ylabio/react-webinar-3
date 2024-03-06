@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Item from "../item";
 import "./style.css";
+import { formatPrice } from "../../utils";
 
 function List({ list, onActionClick, actionName,currencySymbol }) {
   return (
