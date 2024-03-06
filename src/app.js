@@ -29,7 +29,6 @@ function App({store}) {
     }, [store]),
   }
 
-
   const onHideModal = () => {
     setShowModal(false);
   };

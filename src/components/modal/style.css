@@ -29,7 +29,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: 50px;
   background: #f5f5f5;
   margin: 0;
   padding: 20px 20px 10px;
@@ -44,12 +44,16 @@
   max-width: 960px;
   width: 100%;
   border-radius:10px;
-  overflow-x: hidden;
+  overflow: hidden;
   padding-bottom: 69px;
-  overflow-y: auto;
   max-height: 80dvh;
 }
-
+.Modal-container .List {
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  max-height: 50dvh;
+}
 .Modal-footer {
   padding: 20px 105px 10px 20px;
   font-size: 18px;
