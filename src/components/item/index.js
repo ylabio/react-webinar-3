@@ -4,10 +4,6 @@ import {plural} from "../../utils";
 import './style.css';
 
 function Item(props) {
-
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
   const callbacks = {
     onAddCartItem: (e) => {
       e.stopPropagation();
