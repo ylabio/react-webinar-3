@@ -5,7 +5,6 @@ import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal";
 import ItemShop from "./components/item-shop";
-import itemBucket from "./components/item-bucket";
 import Bucket from "./components/bucket";
 
 /**
@@ -75,7 +74,6 @@ function App({ store }) {
         <Head title="Магазин" />
         <Controls
           onModalOpen={callbacks.onModalOpen}
-          onAdd={callbacks.onAddItem}
           uniqueItems={bucket.uniqueItems}
           totalPrice={bucket.totalPrice}
         />

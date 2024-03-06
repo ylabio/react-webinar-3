@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { plural, formatPrice } from "../../utils";
+import { formatPrice } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
