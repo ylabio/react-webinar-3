@@ -35,10 +35,8 @@ useMemo(()=>{
   return (
     <div>
       <PageLayout  list={list} onAddBasket={callbacks.onAddBasket} setBasketOpen={setBasketOpen} />
-    {basketOpen && <Modal setBasketOpen={setBasketOpen}> 
-   <Head title='Корзина'><Controls name='Закрыть' onButton={()=>setBasketOpen(false)}/></Head>
-   <PageOutBasket onDeleteBasketItem={callbacks.onDeleteBasketItem}   list={listBasket}
-    /></Modal> }
+    {basketOpen && <PageOutBasket setBasketOpen={setBasketOpen} onDeleteBasketItem={callbacks.onDeleteBasketItem}   list={listBasket}
+    /> }
   
     </div>
     

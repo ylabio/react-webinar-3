@@ -10,7 +10,17 @@
     top: 0;
     background-color: rgba(0, 0, 0, 0.7);
 }
-.Modal-center{
-    border-radius: 10px;
-    overflow: hidden;
+.Modalcenter{
+   
+        width: 960px;
+        max-height: 410px;
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+    
+}
+
+.Modalcenter .List{
+    overflow-y: auto;
+    max-height: 250px;
 }

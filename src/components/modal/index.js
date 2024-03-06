@@ -1,8 +1,12 @@
 import React, {useRef} from "react";
 import PropTypes from "prop-types";
+import Head from "../head";
+import Controls from "../controls";
+import {cn as bem} from '@bem-react/classname';
 import './style.css'
 
-function Modal({children,setBasketOpen}){
+function Modal({title,setBasketOpen,children}){
+    const cn = bem('Modal');
     const ref=useRef()
     const closeBasketBack=(e)=>{
         if(e.target==ref.current){
@@ -10,15 +14,17 @@ function Modal({children,setBasketOpen}){
         }
         
     }
-    return(<div onClick={(e)=>closeBasketBack(e)} ref={ref} className="Modal">
-        <div className='Modal-center'> 
-           {children} 
+    return(<div className={cn()} onClick={(e)=>closeBasketBack(e)} ref={ref}>
+        <div className={cn()+'center'}>
+           <Head title={title}><Controls name='Закрыть' onButton={()=>setBasketOpen(false)}/></Head>
+         {children}  
         </div>
-
+        
     </div>)
 }
 
 Modal.propTypes = {
+    title:PropTypes.string,
     children: PropTypes.node,
     setBasketOpen: PropTypes.func,
   }

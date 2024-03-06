@@ -66,6 +66,7 @@ informationForPriceAndCount(){
     this.basket=this.basket.filter((elem)=>elem.code!=code)
     this.setLocalStorage(this.basket)
     this.updateBasketList()
+    console.log('1')
     for (const listener of this.listeners) listener();
   }
   getBasketList(){
