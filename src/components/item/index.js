@@ -1,9 +1,11 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
+import {formatPrice, plural} from "../../utils";
 import './style.css';
 
 function Item(props) {
+  const priceContent = `${formatPrice(props.item.price)} ₽`;
+
   const callbacks = {
     onAddCartItem: (e) => {
       e.stopPropagation();
@@ -15,7 +17,7 @@ function Item(props) {
     <div className='Item'>
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>
-        {props.item.title} <span className='Item-price'>{props.item.price} ₽</span>
+        {props.item.title} <span className='Item-price'>{priceContent}</span>
       </div>
       
       <div className='Item-actions'>

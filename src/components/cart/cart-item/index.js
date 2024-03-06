@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import "./style.css";
+import { formatPrice } from "../../../utils";
 
 const CartItem = ({id, itemData, onDelete}) => {
-	const priceContent = (itemData.price * itemData.quantity) === 0 ? "бесплатно" : `${itemData.price * itemData.quantity} ₽`;
+	const priceContent = (itemData.price * itemData.quantity) === 0 ? "бесплатно" : `${formatPrice(itemData.price * itemData.quantity)} ₽`;
 
 	return (
 		<li className="CartItem">

@@ -2,8 +2,10 @@ import React from "react";
 import PropTypes from 'prop-types';
 import "./style.css";
 import CartItem from "./cart-item";
+import { formatPrice } from "../../utils";
 
 function Cart({ list, onClose, onDeleteCartItem, totalCartPrice }) {
+	const totalCartPriceContent = `${formatPrice(totalCartPrice)} ₽`;
 
 	const bodyContent = list.length === 0 ? <h3 className="Cart-warning">Корзинка пуста!</h3> :
 		<>
@@ -14,7 +16,7 @@ function Cart({ list, onClose, onDeleteCartItem, totalCartPrice }) {
 			</ul>
 
 			<p className="Cart-total">
-				Итого <span>{totalCartPrice} ₽</span>
+				Итого <span>{totalCartPriceContent}</span>
 			</p>
 		</>
 	;

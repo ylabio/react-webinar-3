@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import "./style.css";
-import { plural } from "../../utils";
+import { formatPrice, plural } from "../../utils";
 
 function CartControls({ onOpenModalCart, amountCart, totalCartPrice }) {
   const amountContent = amountCart === 0 ? 
@@ -10,7 +10,7 @@ function CartControls({ onOpenModalCart, amountCart, totalCartPrice }) {
     one: 'товар',
     few: 'товара',
     many: 'товаров'
-  })} ${totalCartPrice === 0 ? "" : `/ ${totalCartPrice} ₽`}`;
+  })} ${totalCartPrice === 0 ? "" : `/ ${formatPrice(totalCartPrice)} ₽`}`;
 
   return (
     <div className="CartControls">
