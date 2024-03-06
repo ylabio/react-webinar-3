@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { plural, priceFormat } from '../../utils';
 
-function Controls({shoppingCartList, handleClickOpenModal, total}) {
+function Controls({shoppingCartList, handleOpenModal, total}) {
   const status = shoppingCartList.length
     ? (total.totalAmount + ' ' + plural(total.totalAmount, ['товар', 'товара', 'товаров'])
       + " / " + priceFormat(total.totalCost))
@@ -15,7 +15,7 @@ function Controls({shoppingCartList, handleClickOpenModal, total}) {
       <span className="Controls-status">
         {status}
       </span>
-      <button className="Controls-btn" onClick={handleClickOpenModal}>Перейти</button>
+      <button className="Controls-btn" onClick={handleOpenModal}>Перейти</button>
     </div>
   )
 }
@@ -36,7 +36,7 @@ Controls.propTypes = {
 };
 
 Controls.defaultProps = {
-  handleClickOpenModal: () => {}
+  handleOpenModal: () => {}
 }
 
 export default React.memo(Controls);

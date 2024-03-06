@@ -5,7 +5,15 @@ body {
   font-family: sans-serif;
 }
 
-.PageLayout, .ModalPageLayout {
+#root {
+  padding-left: calc(100vw - 100%); /* to prevent scrollbar shifting */
+}
+
+.PageLayout {
+  /*height: 5000px;*/
+}
+
+.PageLayout {
   max-width: 1024px;
   min-height: 100vh;
   margin: 0 auto;

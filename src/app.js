@@ -3,7 +3,8 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import ShoppingCartModal from './components/shoppingCart-modal';
+import ShoppingCartModal from './components/modal/shoppingcart-modal';
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -24,8 +25,13 @@ function App({store}) {
     onRemoveItemFromShoppingCart: useCallback((item) => {
       store.removeItemFromShoppingCart(item);
     }, [store]),
-    handleClickOpenModal() {
-      setIsModalVisible(prev => !prev)
+    handleOpenModal() {
+      document.body.style.overflow = 'hidden';
+      setIsModalVisible(true)
+    },
+    handleCloseModal() {
+      document.body.style.overflow = 'initial';
+      setIsModalVisible(false)
     }
   }
 
@@ -34,7 +40,7 @@ function App({store}) {
       <Head title='Магазин'/>
       <Controls
         shoppingCartList={shoppingCartList}
-        handleClickOpenModal={callbacks.handleClickOpenModal}
+        handleOpenModal={callbacks.handleOpenModal}
         total={total}
       />
       <List
@@ -42,12 +48,16 @@ function App({store}) {
         onAddItemToShoppingCart={callbacks.onAddItemToShoppingCart}
       />
       {isModalVisible &&
-        <ShoppingCartModal
-          shoppingCartList={shoppingCartList}
-          total={total}
-          handleClickOpenModal={callbacks.handleClickOpenModal}
-          onRemoveItemFromShoppingCart={callbacks.onRemoveItemFromShoppingCart}
+        <Modal
+          title='Корзина'
+          handleCloseModal={callbacks.handleCloseModal}
+        >
+          <ShoppingCartModal
+            shoppingCartList={shoppingCartList}
+            total={total}
+            onRemoveItemFromShoppingCart={callbacks.onRemoveItemFromShoppingCart}
         />
+        </Modal>
       }
     </PageLayout>
   );

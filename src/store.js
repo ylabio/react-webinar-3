@@ -46,6 +46,8 @@ class Store {
    */
   addItemToShoppingCart(item) {
     let newShoppingCartList;
+    let isNew = false;
+
     if (this.state.shoppingCart.list.some(cartItem => cartItem.code === item.code)) {
        newShoppingCartList = this.state.shoppingCart.list.map(cartItem => {
         if (cartItem.code === item.code) return {...cartItem, amount: cartItem.amount + 1}
@@ -53,6 +55,7 @@ class Store {
       })
     } else {
       newShoppingCartList = [...this.state.shoppingCart.list, {...item, amount: 1}]
+      isNew = !isNew
     }
 
     this.setState({
@@ -60,7 +63,9 @@ class Store {
       shoppingCart: {
         list: newShoppingCartList,
         total: {
-          totalAmount: this.state.shoppingCart.total.totalAmount + 1,
+          totalAmount: isNew
+            ? this.state.shoppingCart.total.totalAmount + 1
+            : this.state.shoppingCart.total.totalAmount,
           totalCost: this.state.shoppingCart.total.totalCost + item.price,
         }
       }
@@ -77,6 +82,8 @@ class Store {
     )
 
     let newShoppingCartList;
+    let isLast = false;
+
     if (condition) {
        newShoppingCartList = this.state.shoppingCart.list.map(cartItem => {
         if (cartItem.code === item.code) return {...cartItem, amount: cartItem.amount - 1}
@@ -84,6 +91,7 @@ class Store {
       })
     } else {
       newShoppingCartList = [...this.state.shoppingCart.list].filter(cartItem => cartItem.code !== item.code)
+      isLast = !isLast
     }
 
     this.setState({
@@ -91,7 +99,9 @@ class Store {
       shoppingCart: {
         list: newShoppingCartList,
         total: {
-          totalAmount: this.state.shoppingCart.total.totalAmount - 1,
+          totalAmount: isLast
+            ? this.state.shoppingCart.total.totalAmount - 1
+            : this.state.shoppingCart.total.totalAmount,
           totalCost: this.state.shoppingCart.total.totalCost - item.price,
         }
       }
