@@ -17,9 +17,5 @@ Button.propTypes = {
   text: PropTypes.string.isRequired, 
   onAction: PropTypes.func.isRequired, 
 };
-Button.defaultProps = {
-  onAction: () => {
-  },
-}
 
 export default React.memo(Button);

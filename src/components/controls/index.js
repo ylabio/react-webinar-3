@@ -4,8 +4,9 @@ import Button from "../button";
 import {plural} from "../../utils";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
+import { formatPrice } from "../../utils";
 
-function Controls({toggleModal, cartQuantity, totalAmount}) {
+function Controls({onAction, cartQuantity, totalAmount}) {
   const cn = bem('Controls');
   return (
     <div className={cn()}>
@@ -19,24 +20,20 @@ function Controls({toggleModal, cartQuantity, totalAmount}) {
               few: 'товара', 
               many: 'товаров' 
             })}
-            / ${totalAmount} ₽` 
+            / ${formatPrice(totalAmount)} ₽` 
           }
         </span>
       </div>
-      <Button text={'Перейти'} onAction={toggleModal}/>
+      <Button text={'Перейти'} onAction={onAction}/>
     </div>
   )
 }
 
 Controls.propTypes = {
-  toggleModal: PropTypes.func.isRequired,
+  onAction: PropTypes.func.isRequired,
   cartQuantity: PropTypes.number,
   totalAmount: PropTypes.number,
 };
-Controls.defaultProps = {
-  toggleModal: () => {
-  },
-}
 
 
 export default React.memo(Controls);

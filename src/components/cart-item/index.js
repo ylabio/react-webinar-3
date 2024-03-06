@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Button from "../button";
-import {cn as bem} from '@bem-react/classname';
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import { formatPrice } from "../../utils";
 
-function Item(props) {
-  const cn = bem('Item');
+function CartItem(props) {
+  const cn = bem('CartItem');
 
-  const handleAddItemClick = () => {
+  const handleDeleteItemClick = () => {
     props.onAction(props.item);
   };
 
@@ -21,17 +21,15 @@ function Item(props) {
       <div className={cn('price')}>
         <span>{formatPrice(props.item.price)} ₽</span>
       </div>
-      {props.item.count > 0 && 
-        <div className={cn('count')}>{props.item.count} шт</div>
-      }
+      <div className={cn('count')}>{props.item.count} шт</div>
       <div className={cn('actions')}>
-        <Button text={props.actionText} onAction={handleAddItemClick}/> 
+        <Button text='Удалить' onAction={handleDeleteItemClick}/>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
@@ -39,12 +37,11 @@ Item.propTypes = {
     count: PropTypes.number
   }).isRequired,
   actionText: PropTypes.string,
-  onAction: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
-Item.defaultProps = {
-  onAction: () => {
-  },
-}
+CartItem.defaultProps = {
+  onDelete: () => {},
+};
 
-export default React.memo(Item);
+export default React.memo(CartItem);

@@ -48,21 +48,21 @@ class Store {
   addItemToCart(item) {
     const existingItem = this.state.cart.find(cartItem => cartItem.code === item.code);
     if (existingItem) {
-        const updatedCart = this.state.cart.map(cartItem => {
-            if (cartItem.code === item.code) {
-                return { ...cartItem, count: cartItem.count + 1 };
-            }
-            return cartItem;
-        });
-        this.setState({
-            ...this.state,
-            cart: updatedCart
-        });
+      const updatedCart = this.state.cart.map(cartItem => {
+        if (cartItem.code === item.code) {
+          return { code: cartItem.code, count: cartItem.count + 1 };
+        }
+        return cartItem;
+      });
+      this.setState({
+        ...this.state,
+        cart: updatedCart
+      });
     } else {
-        this.setState({
-            ...this.state,
-            cart: [...this.state.cart, { ...item, count: 1 }]
-        });
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, { code: item.code, count: 1 }]
+      });
     }
   }
   /**
@@ -71,19 +71,26 @@ class Store {
    * @returns {Object}
    */
   deleteItemFromCart(item) {
+    const updatedCart = this.state.cart.filter(cartItem => cartItem.code !== item.code);
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      cart: this.state.cart.filter(cartItem => cartItem.code !== item.code)
-    })
-  };
+      cart: updatedCart
+    });
+  }
 
     /**
    * Получение итоговой суммы корзины 
    * @returns {Number}
    */
   getCartAmount() {
-    return this.state.cart.reduce((total, item) => total + item.price * item.count, 0);
+    let totalAmount = 0;
+    for (const cartItem of this.state.cart) {
+      const item = this.state.list.find(item => item.code === cartItem.code);
+      if (item) {
+        totalAmount += item.price * cartItem.count;
+      }
+    }
+    return totalAmount;
   }
 
   /**

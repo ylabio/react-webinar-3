@@ -4,7 +4,7 @@ import Item from "../item";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function List({list, onAction, actionText}) {
+function List({ list, renderItem}) {
   const cn = bem('List');
 
   return (
@@ -12,10 +12,7 @@ function List({list, onAction, actionText}) {
       {list.length > 0 ? (
         list.map(item => (
           <div key={item.code} className={cn('item')}>
-            <Item 
-              item={item}
-              onAction={onAction}
-              actionText={actionText}/>
+            {renderItem(item)}
           </div>
         ))
       ) : (
@@ -29,13 +26,7 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onAction: PropTypes.func,
-  actionText: PropTypes.string,
+  renderItem: PropTypes.func.isRequired,
 };
-
-List.defaultProps = {
-  onAction: () => {
-  },
-}
 
 export default React.memo(List);

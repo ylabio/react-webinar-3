@@ -17,6 +17,8 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   z-index: 1000; 
   overflow: hidden;
+  max-height: 80vh; 
+  overflow-y: auto; 
 }
   
   
@@ -26,18 +28,6 @@
   align-items: center;
   margin-bottom: 70px;
   background-color: #f5f5f5;
-}
-
-.Modal-close {
-  margin-right: 30px;
-}
-  
-.Modal-total {
-  font-weight: 700;
-  padding: 20px 0 90px;
-  display: grid;
-  grid-template-columns: 1fr 100px 120px;
-  justify-items: end;
 }
 
 .Modal-overlay {

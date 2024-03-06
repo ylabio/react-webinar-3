@@ -1,0 +1,7 @@
+.CartSummary {
+  font-weight: 700;
+  padding: 20px 0 90px;
+  display: grid;
+  grid-template-columns: 1fr 100px 120px;
+  justify-items: end;
+}
