@@ -1,0 +1,24 @@
+.close-button  { 
+  position: absolute;
+  left: 860px;
+  top: 30px;
+}
+.modal-content .Head { 
+  margin-bottom: 71px;
+}
+
+.List-Cart {
+  border-bottom: 1px dashed #ccc;
+}
+.List-Cart:first-child {
+  border-top: 1px dashed #ccc;
+}
+.totalPrice { 
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
+  margin: 20px 112px 90px 0
+}
+.totalPrice span { 
+  padding-left: 53px;
+}
