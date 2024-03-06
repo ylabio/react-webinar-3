@@ -1,0 +1,17 @@
+.Cart-content {
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  max-height: 50dvh;
+}
+
+.Cart-footer {
+  padding: 20px 105px 10px 20px;
+  font-size: 18px;
+  line-height: 21px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 53px;
+  justify-content: flex-end;
+}

@@ -5,6 +5,7 @@ import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal";
 import {formatNumber} from "./utils";
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -44,14 +45,10 @@ function App({store}) {
             onAddToCart={callbacks.onAddToCart}
       />
       <Modal title='Корзина' showModal={showModal} onHideModal={onHideModal}>
-        <List list={cart} showModal={showModal}
-              onDeleteItem={callbacks.onDeleteItem}/>
-        {cart.length > 0
-          ? <div className='Modal-footer'>
-            <span>Итого</span>  {formatNumber(sum)} ₽
-          </div>
-          : <h2>В вашей корзине пока пусто</h2>
-        }
+        <Cart cart={cart} sum={sum}>
+          <List list={cart} showModal={showModal}
+                onDeleteItem={callbacks.onDeleteItem}/>
+        </Cart>
       </Modal>
     </PageLayout>
   );
