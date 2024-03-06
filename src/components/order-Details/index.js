@@ -4,11 +4,14 @@ import PageLayout from '../page-layout';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import { numberFormat } from "../../utils";
-import OrderList from "../order-list";
+import OrderItem from "../order-item";
+import List from "../list";
 
 function OrderDetails({ basket, onDeleteItem, onClosePopUp }) {
 
   const cn = bem('OrderDetails');
+
+  const renderOrderItem = (item) => (<OrderItem item={item} onClick={onDeleteItem}/>)
 
   return (
     <PageLayout size={'s'}>
@@ -18,7 +21,7 @@ function OrderDetails({ basket, onDeleteItem, onClosePopUp }) {
           <button className={cn('btn')} onClick={onClosePopUp}>Закрыть</button>
         </div>
       </div>
-      <OrderList list={basket.list} onClick={onDeleteItem}/>
+      <List list={basket.list} renderItem={renderOrderItem}/>
       <b>
         <div className={cn('price')}>
           <div>Итого</div>

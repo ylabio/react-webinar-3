@@ -5,6 +5,9 @@ import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from './components/Modal';
 import OrderDetails from './components/order-Details';
+import Item from './components/item';
+
+
 
 /**
  * Приложение
@@ -36,14 +39,14 @@ function App({store}) {
     }, [store]),
   }
 
+  const renderItem = (item) => (<Item item={item} onClick={callbacks.onAddItem}/>)
+
   return (
     <>
     <PageLayout>
       <Head title='Магазин'/>
       <Controls onOpenPopUp={callbacks.onOpenPopUp} totalPrice={basket.totalPrice} itemsCount={basket.list.length}/>
-      <List
-        list={list}
-        onClick={callbacks.onAddItem}></List>
+      <List list={list} renderItem={renderItem}/>
     </PageLayout>
 
     {showModal && <Modal onClosePopUp={callbacks.onClosePopUp}>

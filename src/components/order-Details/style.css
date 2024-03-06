@@ -3,6 +3,7 @@
   justify-content: space-between;
   height: 80px;
   background: #f5f5f5;
+  margin-bottom: 71px;
 }
 
 .OrderDetails-header {
@@ -24,7 +25,7 @@
   display: flex;
   justify-content: end;
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 89px;
   padding-right: 120px;
 }
 

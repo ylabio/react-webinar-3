@@ -1,15 +1,14 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
 import './style.css';
 
-function List({list, onClick}) {
+function List({list, renderItem}) {
 
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onClick={onClick}/>
+         {renderItem(item)}
         </div>
       )}
     </div>
@@ -23,12 +22,7 @@ List.propTypes = {
     price: PropTypes.number,
     count: PropTypes.number
   })).isRequired,
-  onClick: PropTypes.func,
+  renderItem: PropTypes.func,
 };
-
-List.defaultProps = {
-  onClick: () => {
-  },
-}
 
 export default React.memo(List);
