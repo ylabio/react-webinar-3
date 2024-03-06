@@ -3,7 +3,7 @@ import List from "../components/list";
 import TopItem from "../components/top-item/index.js";
 import Head from "../components/head";
 import PageLayout from "../components/page-layout";
-import ModalApp from "../components/basket";
+import BasketApp from "../components/basket";
 
 /**
  * Приложение
@@ -42,14 +42,14 @@ function ShopApp({store}) {
     }, [store]),
   };
 
-  const fModal = 
-    <ModalApp showModal={showModal}
-              handleClose={handleClose}
-              list={list}
-              listBasket={listBasket}
-              onFunc={callbacks.onDeleteItem}
-              action={actionBasket}
-              onAmountPrice={callbacks.onAmountPrice}/>
+  const vBasketApp = 
+    <BasketApp showModal={showModal}
+               handleClose={handleClose}
+               list={list}
+               listBasket={listBasket}
+               onFunc={callbacks.onDeleteItem}
+               action={actionBasket}
+               onAmountPrice={callbacks.onAmountPrice}/>
 
   return (
     <div>
@@ -65,7 +65,7 @@ function ShopApp({store}) {
               action={actionShop}/>
       </PageLayout>
       </main>
-      {fModal}
+      {vBasketApp}
     </div>
   );
 }

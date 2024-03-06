@@ -5,44 +5,35 @@ import Head from "../head";
 import List from "../list";
 import PageLayout from "../page-layout";
 import BottomItem from "../bottom-item";
+import ModalApp from "../modal";
+function BasketApp({showModal,handleClose,list,listBasket,onFunc,action,onAmountPrice}) {
 
-function ModalApp({showModal,handleClose,list,listBasket,onFunc,action,onAmountPrice}) {
-
- const Modal = ({ show }) => {
+ const Basket = () => {
     return (
-      <>
-       <div
-          className={`modalContainer ${show ? "show" : ""} `}
-        >
-            <div className='backdrop' />
-            <div className='modal' >
-              <PageLayout page={action}>
-                <div className='LayoutTop'>
-                <Head title='Корзина' orange={true}/>
-                <div className='Close'>
-                <button className='Button-shop' onClick={handleClose}>
-                  Закрыть
-                </button>
-                </div>
-                </div>
-                <List list={list}
-                      listBasket={listBasket}
-                      onFunc={onFunc}
-                      action={action}/>
-                {<BottomItem onAmountPrice={onAmountPrice}/>}
-              </PageLayout>
-            </div>
+      <PageLayout page={action}>
+        <div className='LayoutTop'>
+          <Head title='Корзина' orange={true}/>
+          <div className='Close'>
+            <button className='Button-shop' onClick={handleClose}>
+              Закрыть
+            </button>
+          </div>
         </div>
-      </>
+        <List list={list}
+              listBasket={listBasket}
+              onFunc={onFunc}
+              action={action}/>
+        <BottomItem onAmountPrice={onAmountPrice}/>
+      </PageLayout>
     );
   };
 
   return (
-    <Modal show={showModal} />
+    <ModalApp showModal={showModal} children={Basket()}/>
   );
 }
 
-ModalApp.propTypes = {
+BasketApp.propTypes = {
   showModal: PropTypes.bool,
   handleClose: PropTypes.func,
   item: PropTypes.shape({
@@ -59,10 +50,10 @@ ModalApp.propTypes = {
   onAmountPrice: PropTypes.func
 };
 
-ModalApp.defaultProps = {
+BasketApp.defaultProps = {
   handleClose: () => {},
   onFunc: () => {},
   onAmountPrice: () => {},
 }
 
-export default React.memo(ModalApp);
+export default React.memo(BasketApp);

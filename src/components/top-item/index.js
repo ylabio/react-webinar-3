@@ -17,8 +17,8 @@ function TopItem({onBasket,onAmountProduct,onAmountPrice}) {
           few: 'товара',
           many: 'товаров'
         })}` : ''}
-        {((vAmountProduct > 0 && vAmountPrice > 0) ? ' / ' : '')} 
-        {(vAmountPrice != 0) ? <Currency currency="rub" value={vAmountPrice}/> : 'пусто'}
+        {((vAmountProduct > 0 && vAmountPrice >= 0) ? ' / ' : '')} 
+        {(vAmountPrice >= 0 && vAmountProduct > 0) ? <Currency currency="rub" value={vAmountPrice}/> : 'пусто'}
         </div>
       </div>
       <div className='ItemTop-actions'>
