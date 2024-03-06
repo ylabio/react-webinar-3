@@ -13,14 +13,17 @@
 .Modalcenter{
    
         width: 960px;
-        max-height: 410px;
+        max-height: 510px;
         background-color: white;
         border-radius: 10px;
         overflow: hidden;
     
 }
-
+.ModalChildren{
+    padding: 60px 0;
+}
 .Modalcenter .List{
     overflow-y: auto;
     max-height: 250px;
+    border-top: 1px dashed #ccc;
 }

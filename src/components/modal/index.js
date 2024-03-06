@@ -17,7 +17,10 @@ function Modal({title,setBasketOpen,children}){
     return(<div className={cn()} onClick={(e)=>closeBasketBack(e)} ref={ref}>
         <div className={cn()+'center'}>
            <Head title={title}><Controls name='Закрыть' onButton={()=>setBasketOpen(false)}/></Head>
-         {children}  
+           <div className={cn()+'Children'}> 
+              {children}  
+           </div>
+       
         </div>
         
     </div>)
