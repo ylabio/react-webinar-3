@@ -6,7 +6,7 @@ import "./style.css"
 
 const modalRoot = document.querySelector("#modal-root")
 
-function Modal({ onClose, children, title }) {
+function Modal({ isOpen, onClose, children, title }) {
   const cn = bem('Modal')
 
   React.useEffect(() => {
@@ -22,6 +22,8 @@ function Modal({ onClose, children, title }) {
   const closeModalOnBackdropClick = ({ target, currentTarget }) => {
     if (target === currentTarget) onClose();
   };
+
+  if (!isOpen) return null;
 
   return createPortal(
     <div onClick={closeModalOnBackdropClick} className={cn("overlay")}>
@@ -40,6 +42,7 @@ function Modal({ onClose, children, title }) {
 }
 
 Modal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func,
   children: PropTypes.node,
   title: PropTypes.string,

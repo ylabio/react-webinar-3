@@ -6,7 +6,7 @@ import { generateCode } from "./utils";
 class Store {
   constructor(initState = {}) {
     this.state = initState;
-    this.state.shoppingList = []
+    this.state.shoppingList = [];
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -62,10 +62,10 @@ class Store {
       });
     } else {
       // Если товара еще нет в списке покупок, добавляем его с начальным количеством 1
-      newItem.quantity = 1;
+      // newItem.quantity = 1;
       this.setState({
         ...this.state,
-        shoppingList: [...this.state.shoppingList, newItem]
+        shoppingList: [...this.state.shoppingList, { ...newItem, quantity: 1 }]
       });
     }
   };
@@ -78,7 +78,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      shoppingList: [...this.state.shoppingList.filter((item) => item.code !== code)],
+      shoppingList: this.state.shoppingList.filter((item) => item.code !== code),
     });
   }
 };

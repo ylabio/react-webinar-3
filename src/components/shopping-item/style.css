@@ -1,49 +1,45 @@
-.Item {
+.ShoppingItem {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
 }
 
-.Item_selected {
+.ShoppingItem_selected {
   background: #75aaf1;
   color: #fff;
 }
 
-.Item-code {
+.ShoppingItem-code {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+.ShoppingItem-title {
   width: 100%;
   padding: 20px 10px;
 }
 
-.Item-actions {
+.ShoppingItem-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
-}
-
-.Modal-window .Item-actions {
   align-items: center;
 
-  padding: 0;
-  margin-left: 24px;
+  padding: 20px 20px 20px 0;
+
   button {
     width: 76px;
     height: 22px;
   }
 }
 
-.Item-info {
+.ShoppingItem-info {
   display: flex;
   gap: 62px;
   align-items: center;
   margin-right: 23px;
 }
 
-.Item-price,
-.Item-quantity {
+.ShoppingItem-price,
+.ShoppingItem-quantity {
   white-space: nowrap;
   padding: 0;
 }

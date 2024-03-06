@@ -1,3 +1,5 @@
+import React from "react";
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -50,3 +52,27 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Функция для подсчета общей стоимости заказа
+ * @param {Array} arr - Массив объектов товаров
+ * @returns {Number} - Общая стоимость заказа
+ */
+export const countTotalPrice = arr => arr.reduce((acc, val) => {
+  return acc + (val.price * val.quantity);
+}, 0);
+
+/**
+ * Функция для отображения информации о корзине
+ * @param {Array} arr - Массив объектов товаров
+ * @returns {JSX.Element} - JSX-элемент, содержащий информацию о корзине
+ */
+export const renderCartInfo = (arr) => {
+  const itemCount = arr.length;
+  const itemWord = plural(itemCount, { one: 'товар', few: "товара", many: 'товаров' });
+  const totalPrice = countTotalPrice(arr);
+
+  return (
+    <p className="Controls-basket">В корзине: <b>{itemCount ? `${itemCount} ${itemWord} / ${totalPrice.toLocaleString()} ₽` : "Пусто"}</b></p>
+  );
+};
