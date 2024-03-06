@@ -5,8 +5,8 @@ import { numberFormat } from "../../utils";
 import Controls from "../head/controls";
 import "./style.css";
 
-function Item({ item, onClick, text }) {
-  const cn = bem("Item");
+function CartItem({ item, onClick, text }) {
+  const cn = bem("Cart-item");
   const price = numberFormat(item.price);
 
   const handleClick = () => {
@@ -28,7 +28,7 @@ function Item({ item, onClick, text }) {
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -39,8 +39,8 @@ Item.propTypes = {
   text: PropTypes.string,
 };
 
-Item.defaultProps = {
+CartItem.defaultProps = {
   text: "Click",
 };
 
-export default React.memo(Item);
+export default React.memo(CartItem);

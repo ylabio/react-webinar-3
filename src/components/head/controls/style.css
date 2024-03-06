@@ -1,5 +1,8 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+}
+
+.Controls-button {
+  width: 76px;
 }

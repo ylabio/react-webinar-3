@@ -1,39 +1,62 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from "react";
 import List from "./components/list";
-import Controls from "./components/controls";
 import Head from "./components/head";
-import PageLayout from "./components/page-layout";
+import PageLayout from "./page-layout";
+import ModalWindow from "./components/modal-window";
+import Item from "./components/item";
+import Cart from "./components/cart";
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
-
+function App({ store }) {
   const list = store.getState().list;
+  const cart = store.getState().cart;
+  const totalCost = store.getState().totalCost;
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    onDeleteItem: useCallback(
+      (code) => {
+        store.deleteItem(code);
+      },
+      [store]
+    ),
+
+    onAddItem: useCallback(
+      (code) => {
+        store.addItem(code);
+      },
+      [store]
+    ),
+
+    openCart: useCallback(() => {
+      store.openCart();
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    closeCart: useCallback(() => {
+      store.closeCart();
     }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
+  };
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <ModalWindow isCartOpen={store.cartOpen}>
+        <Cart
+          cart={cart}
+          closeCart={callbacks.closeCart}
+          deleteItem={callbacks.onDeleteItem}
+        />
+      </ModalWindow>
+
+      <Head
+        cart={cart}
+        totalCost={totalCost}
+        openCart={callbacks.openCart}
+        text="Магазин"
+      />
+      <List items={list} onClick={callbacks.onAddItem} text="Добавить"></List>
     </PageLayout>
   );
 }
