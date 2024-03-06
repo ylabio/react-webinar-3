@@ -1,5 +1,6 @@
 .List {
-  
+  overflow-y: scroll;
+  max-height: 50vh;
 }
 
 .List-item {

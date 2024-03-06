@@ -19,23 +19,7 @@
     border-radius: 10px;
     min-height: 50vh;
     padding-bottom: 20vh;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     max-height: 100vh;
     max-width: 965px;
-}
-
-.CartLayout-bottom {
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px 7.5rem 20px 0;
-    font-size: 1.125rem;
-}
-
-.CartLayout-total {
-    font-weight: 600;
-    margin-right: 3.5rem;
-}
-
-.CartLayout-amount {
-    font-weight: 600;
 }
