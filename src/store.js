@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -50,6 +50,8 @@ class Store {
       // Новый список, в котором не будет удаляемой записи
       basket: this.state.basket.filter(item => item.code !== code)
     })
+    this.__calculateTotalSum()
+    this.__calculateAmountOfUniqueItems()
   };
 
   /**
@@ -57,26 +59,53 @@ class Store {
    * @param code
    */
   selectItem(code) {
-
     const item = this.state.list.find(item => {
-      if(item.code === code) return true
+      if (item.code === code) return true
     })
 
     const index = this.state.basket.findIndex(product => product.code === code)
-    if(index === -1){
+
+
+    if (index === -1) {
       item.count = 1
       this.setState({
         ...this.state,
         basket: [...this.state.basket, item]
       })
-    } else{
-      this.state.basket[index].count += 1
+    } else {
+      const newState = this.state.basket.map(item => {
+        if (item.code === code) {
+          item.count += 1
+        }
+        return item
+      })
+
       this.setState({
         ...this.state,
-        basket: [...this.state.basket]
+        basket: [...newState]
       })
     }
+    this.__calculateTotalSum()
+    this.__calculateAmountOfUniqueItems()
+  }
 
+
+  
+  __calculateTotalSum() {
+    const total = this.state.basket.reduce((acc, item) => {
+      return acc + item.price * item.count
+    }, 0)
+    this.setState({
+      ...this.state,
+      total: total
+    })
+  }
+
+  __calculateAmountOfUniqueItems(){
+    this.setState({
+      ...this.state,
+      amount: this.state.basket.length
+    })
   }
 }
 

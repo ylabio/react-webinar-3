@@ -17,10 +17,9 @@ function Item(props) {
         {props.item.title}
       </div>
       <div className="Item-price"> {(props.item.price).toLocaleString('ru')} ₽ </div>
-      {props.isInBasket && <div className="Item-amount"> {(props.item.count)} шт </div>}
       <div className='Item-actions'>
         <button onClick={callbacks.onClick}>
-          {props.isInBasket ? "Удалить" : "Добавить"} 
+          Добавить
         </button>
       </div>
     </div>

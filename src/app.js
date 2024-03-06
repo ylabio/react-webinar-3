@@ -3,7 +3,8 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import Modal from './components/modal';
+import ModalLayout from './components/modal-layout';
+import Basket from './components/basket';
 
 /**
  * Приложение
@@ -16,6 +17,8 @@ function App({store}) {
 
   const list = store.getState().list;
   const basket = store.getState().basket
+  const totalSum = store.getState().total ?? 0
+  const amountOfItems = store.getState().amount ?? 0
   
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -37,13 +40,17 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls basket={basket} onModal={callbacks.onModal}/>
+      <Controls amount={amountOfItems} totalSum={totalSum} onModal={callbacks.onModal}/>
       <List list={list}
             onClick={callbacks.onClick}
             isInBasket={false}/>
-      { isModal && <Modal basket={basket} onClick={callbacks.onDeleteItem} onModal={callbacks.onModal}/>}
+      { isModal && 
+      <ModalLayout>
+        <Basket basket={basket} totalSum={totalSum} onClick={callbacks.onDeleteItem} onModal={callbacks.onModal}/>
+      </ModalLayout>
+      }
     </PageLayout>
   );
 }
-
+// <Modal basket={basket} totalSum={totalSum} onClick={callbacks.onDeleteItem} onModal={callbacks.onModal}/>
 export default App;

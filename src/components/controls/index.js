@@ -3,21 +3,17 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { plural } from "../../utils";
 
-function Controls({onModal, basket}) {
+function Controls({onModal, totalSum, amount}) {
 
-  const total = basket.reduce((acc, item) => {
-    return acc + (item.price * item.count)
-  }, 0)
-  
   return (
     <div className='Controls'>
       <div className="Controls-info">
         В корзине:
-        <span className="Controls-total">{basket.length ? ` ${basket.length} ${plural(basket.length, {
+        <span className="Controls-total">{amount ? ` ${amount} ${plural(amount, {
           one: 'товар',
           few: 'товара',
           many: 'товаров'
-        })}` : 'пусто'} {basket.length ? ` / ${total} ₽` : ''}</span>
+        })}` : 'пусто'} {amount ? ` / ${totalSum.toLocaleString('ru')} ₽` : ''}</span>
       </div>
       <button onClick={onModal}>Перейти</button>
     </div>

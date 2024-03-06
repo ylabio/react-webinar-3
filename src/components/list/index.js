@@ -1,14 +1,19 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import Item from "../item";
+import BasketItem from "../basket-item";
 import './style.css';
 
 function List({list, onClick, isInBasket}) {
   return (
-    <div className={isInBasket ? "List mt-71" :"List"}>{
+    <div className="List">{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item isInBasket={isInBasket} item={item} onClick={onClick}/>
+          {
+            isInBasket
+            ? <BasketItem item={item} onClick={onClick}/>
+            : <Item item={item} onClick={onClick}/>
+          }
         </div>
       )}
     </div>
