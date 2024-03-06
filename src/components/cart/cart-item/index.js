@@ -4,7 +4,7 @@ import "./style.css";
 import { formatPrice } from "../../../utils";
 
 const CartItem = ({id, itemData, onDelete}) => {
-	const priceContent = (itemData.price * itemData.quantity) === 0 ? "бесплатно" : `${formatPrice(itemData.price * itemData.quantity)} ₽`;
+	const priceContent = itemData.totalPrice === 0 ? "бесплатно" : `${formatPrice(itemData.totalPrice)} ₽`;
 
 	return (
 		<li className="CartItem">

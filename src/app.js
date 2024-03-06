@@ -16,7 +16,7 @@ function App({store}) {
   const list = store.getState().list;
   const cartList = store.getState().cartList;
 
-  const totalCartPrice = cartList.reduce((total, item) => total + item.price * item.quantity, 0);
+  const totalCartPrice = store.getState().totalCartPrice;
 
   const callbacks = {
     onOpenModalCart: useCallback(() => {

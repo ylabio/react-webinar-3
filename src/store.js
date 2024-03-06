@@ -5,7 +5,7 @@ import {generateCode} from "./utils";
  */
 class Store {
   constructor(initState = {}) {
-    this.state = {...initState, cartList: []};
+    this.state = {...initState, cartList: [], totalCartPrice: 0};
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -71,23 +71,27 @@ class Store {
    addCartItem(code) {
     const selectedItem = this.state.list.find(item => item.code === code);
     const existingCartItemIndex = this.state.cartList.findIndex(item => item.code === code);
+    const updatedTotalCartPrice = this.state.totalCartPrice + selectedItem.price;
+
 
     if (existingCartItemIndex !== -1) {
       const updatedCartList = this.state.cartList.map((item, index) => {
         if (index === existingCartItemIndex) {
-          return { ...item, quantity: item.quantity + 1 };
+          return { ...item, quantity: item.quantity + 1, totalPrice: item.price * (item.quantity + 1) };
         }
         return item;
       });
 
       this.setState({
         ...this.state,
-        cartList: updatedCartList
+        cartList: updatedCartList,
+        totalCartPrice: updatedTotalCartPrice
       });
     } else {
       this.setState({
         ...this.state,
-        cartList: [...this.state.cartList, { ...selectedItem, quantity: 1 }]
+        cartList: [...this.state.cartList, { ...selectedItem, quantity: 1 }],
+        totalCartPrice: updatedTotalCartPrice
       });
     }
   };
@@ -97,11 +101,23 @@ class Store {
  * @param code
  */
  deleteCartItem(code) {
+  let updatedTotalCartPrice = this.state.totalCartPrice;
+  const updatedCartList = this.state.cartList.filter(item => {
+    if(item.code !== code){
+      return true;
+    } else {
+      updatedTotalCartPrice -= item.totalPrice;
+      return false;
+    }
+  })
+
   this.setState({
     ...this.state,
-    cartList: this.state.cartList.filter(item => item.code !== code)
+    cartList: updatedCartList,
+    totalCartPrice: updatedTotalCartPrice
   })
   }
+
 }
 
 export default Store;
