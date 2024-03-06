@@ -10,11 +10,10 @@
   align-items: center;
   background: rgba(0, 0, 0, 0.7);
   padding: 40px 0;
-  overflow-y: auto;
 }
 
 .Modal-wraper {
-  margin: auto;
+  max-height: 100%;
   width: 960px;
   overflow: hidden;
   border-radius: 10px;
