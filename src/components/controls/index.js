@@ -7,7 +7,9 @@ import './style.css';
 function Controls({cart, callback}) {
   return (
     <div className='Controls'>
-      <Vidget cart={cart} />
+      <div className="Controls-vidget">
+        <Vidget cart={cart} title="В корзине:" full={true}/>
+      </div>
       <Button style="Button_controls" callback={callback}>
         Перейти
       </Button>
