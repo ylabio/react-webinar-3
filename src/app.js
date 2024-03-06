@@ -17,6 +17,8 @@ function App({ store }) {
   const cartList = store.getState().cartList ?? [];
   const isCartModalOpen = store.getState().isCartModalOpen;
 
+  const modifiedList = list.map((item) => ({ ...item, type: "item" }));
+
   const callbacks = {
     onDeleteCartItem: useCallback(
       (code) => {
@@ -45,28 +47,27 @@ function App({ store }) {
           cartItemCount={store.getState().cartItemCount}
         />
         <List
-          list={list}
+          list={modifiedList}
           actionName="Добавить"
           onActionClick={callbacks.onAddToCart}
         />
       </PageLayout>
 
       <Modal
-  isShowing={isCartModalOpen}
-  hide={callbacks.toggleCartModal}
-  title="Корзина"
-  cartTotal={store.getState().cartTotalPrice}
-  cartItemCount={store.getState().cartItemCount}
-  currencySymbol=''
->
-  <Cart
-    list={cartList}
-    cartTotal={store.getState().cartTotalPrice}
-    cartItemCount={store.getState().cartItemCount}
-    onActionClick={callbacks.onDeleteCartItem}
-
-  />
-</Modal>
+        isShowing={isCartModalOpen}
+        hide={callbacks.toggleCartModal}
+        title="Корзина"
+        cartTotal={store.getState().cartTotalPrice}
+        cartItemCount={store.getState().cartItemCount}
+        currencySymbol=""
+      >
+        <Cart
+          list={cartList}
+          cartTotal={store.getState().cartTotalPrice}
+          cartItemCount={store.getState().cartItemCount}
+          onActionClick={callbacks.onDeleteCartItem}
+        />
+      </Modal>
     </>
   );
 }

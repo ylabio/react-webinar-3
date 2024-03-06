@@ -5,6 +5,8 @@ import { formatPrice } from "../../utils";
 import "./style.css";
 
 function Cart({ list, onActionClick }) {
+  
+  
   return (
     <div>
       <List

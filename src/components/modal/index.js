@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import "./style.css";
-import { formatPrice } from '../../utils'
+import { formatPrice } from "../../utils";
 const Modal = ({
   isShowing,
   hide,

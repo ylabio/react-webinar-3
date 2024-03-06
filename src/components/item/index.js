@@ -4,7 +4,7 @@ import { formatPrice } from "../../utils";
 import "./style.css";
 
 function Item(props) {
-  const { item, price, actionName, onActionClick, currencySymbol } = props;
+  const { item, price, actionName, onActionClick } = props;
 
   const formattedPrice = formatPrice(price);
 
@@ -23,8 +23,6 @@ function Item(props) {
       <div className="Item-code"></div>
       <div className="Item-title">{item.title}</div>
       <div className="Item-price">{formattedPrice}</div>
-      <div className="Item-count"> {item.count}</div>
-      <div className="Item-symbol">{currencySymbol}</div>
       <div className="Item-actions">
         <button onClick={handleAddToCart} className="Item-actions-button">
           {actionName}
@@ -39,8 +37,6 @@ Item.propTypes = {
     code: PropTypes.number,
     actionName: PropTypes.string,
     price: PropTypes.number,
-    count: PropTypes.number,
-    currencySymbol: PropTypes.string,
   }).isRequired,
 
   onActionClick: PropTypes.func.isRequired,
