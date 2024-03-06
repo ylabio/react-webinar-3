@@ -38,9 +38,8 @@ function App({store}) {
   return (
     <PageLayout>
       {showCart &&
-        <Modal>
+        <Modal title='Корзина' onClose={callbacks.onCloseCart}>
           <Cart cart={cart}
-            onClose={callbacks.onCloseCart}
             onRemove={callbacks.onRemoveFromCart} />
         </Modal>}
       <Head title='Магазин' />

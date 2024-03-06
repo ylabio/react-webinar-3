@@ -12,7 +12,6 @@
 .Modal-dialog {
   max-width: 960px;
   max-height: 80%;
-  display: flex;
   box-shadow: 0 0 15px 5px #0000003b;
   position: fixed;
   top: 10%;

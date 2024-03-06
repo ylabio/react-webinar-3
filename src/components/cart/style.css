@@ -1,5 +1,6 @@
 .Cart {
-  width: 100vw;
+  width: 90vw;
+  max-width: 960px;
 }
 
 .Cart-body {

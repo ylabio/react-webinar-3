@@ -1,7 +1,5 @@
 import React from "react";
 import List from "../list";
-import Head from "../head";
-import Button from "../button";
 import {cn as bem} from '@bem-react/classname';
 import {getCost} from "../../utils";
 import PropTypes from 'prop-types';
@@ -15,9 +13,6 @@ function Cart(props) {
   
   return (
     <div className={cn()}>
-        <Head title='Корзина'>
-          <Button title='Закрыть' onClick={props.onClose} />
-        </Head>
         <div className={cn('body')}>
           <List list={props.cart} buttonTitle='Удалить' onClick={props.onRemove} />
         </div>
@@ -33,13 +28,10 @@ Cart.PropTypes = {
   cart: PropTypes.array,
   buttonTitle: PropTypes.string,
   onRemove: PropTypes.func,
-  onClose: PropTypes.func,
 }
 
 Cart.defaultProps = {
   onRemove: () => {
-  },
-  onClose: () => {
   },
 }
 
