@@ -1,0 +1,7 @@
+@import "../item/style.css";
+
+.Item-actions__count {
+  white-space: nowrap;
+  padding: 0;
+  margin: 0;
+}

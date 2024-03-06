@@ -5,7 +5,6 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import { getTotal } from './utils'
 
 /**
  * Приложение
@@ -16,6 +15,7 @@ function App({store}) {
 
   const list = store.getState().list;
   const cart = store.getState().cart;
+  const total = store.getState().totalPrice;
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -41,7 +41,7 @@ function App({store}) {
         <Head title='Магазин'/>
         <Controls onOpenCart={callbacks.onOpenCart}
                   textBtn={'Перейти'} count={cart.length}
-                  amount={getTotal(cart)}/>
+                  amount={total}/>
         <List list={list}
               buttonText={'Добавить'}
               onAddItem={callbacks.onAddItem}/>
@@ -53,7 +53,7 @@ function App({store}) {
             <List list={cart}
                   buttonText={'Удалить'}
                   onDeleteItem={callbacks.onDeleteItem}/>
-            <Footer total={getTotal(cart)}/>
+            <Footer total={total}/>
           </div>
         </Cart>
       )}

@@ -16,10 +16,6 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   return variants[key] || '';
 }
 
-export const getTotal = (items) => {
-  return items.reduce((total, item) => total + item.price * item.count, 0)
-}
-
 export function pluralCurrencies(value, locale = 'ru-RU') {
   return new Intl.NumberFormat(locale, {
     style: 'currency',

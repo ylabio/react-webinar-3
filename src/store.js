@@ -3,7 +3,7 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = { ...initState, totalPrice: 0 };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -40,15 +40,15 @@ class Store {
 
   /**
    * Добавление товара в корзину
-   * @param item
+   * @param code
    */
-  addItem(item) {
-    const existingItem = this.state.cart.find(cartItem => cartItem.code === item.code);
+  addItem(code) {
+    const existingItem = this.state.cart.find(cartItem => cartItem.code === code);
     if (existingItem) {
       this.setState({
         ...this.state,
         cart: this.state.cart.map(cartItem => {
-          if (cartItem.code === item.code) {
+          if (cartItem.code === code) {
             return {
               ...cartItem,
               count: cartItem.count + 1
@@ -56,17 +56,20 @@ class Store {
           } else {
             return cartItem;
           }
-        })
+        }),
+        totalPrice: this.state.totalPrice + existingItem.price
       });
     } else {
+      const itemToAdd = this.state.list.find(item => item.code === code);
       this.setState({
         ...this.state,
         cart: [...this.state.cart, {
-          code: item.code,
-          title: item.title,
-          price: item.price,
+          code: itemToAdd.code,
+          title: itemToAdd.title,
+          price: itemToAdd.price,
           count: 1
-        }]
+        }],
+        totalPrice: this.state.totalPrice + itemToAdd.price // Увеличение общей суммы
       });
     }
   };
@@ -76,10 +79,12 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const itemToDelete = this.state.cart.find(item => item.code === code);
+    const priceToRemove = itemToDelete.price * itemToDelete.count; // Полная цена удаляемого товара
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      cart: this.state.cart.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code),
+      totalPrice: this.state.totalPrice - priceToRemove // Уменьшение общей суммы
     })
   };
 
@@ -90,28 +95,6 @@ class Store {
     this.setState({
       ...this.state,
       cartIsOpen: !this.state.cartIsOpen,
-    })
-  }
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
     })
   }
 }
