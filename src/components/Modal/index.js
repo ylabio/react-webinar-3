@@ -1,7 +1,5 @@
 import React from "react";
 import './style.css';
-import Cart from "../cart";
-import Head from "../head";
 
 function Modal({isActive, children}) {
 
