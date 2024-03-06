@@ -26,11 +26,9 @@ function App({store}) {
       store.removeItemFromShoppingCart(item);
     }, [store]),
     handleOpenModal() {
-      document.body.style.overflow = 'hidden';
       setIsModalVisible(true)
     },
     handleCloseModal() {
-      document.body.style.overflow = 'initial';
       setIsModalVisible(false)
     }
   }
