@@ -12,7 +12,7 @@ function Item(props) {
 
   const callbacks = {
     handleAction: () => {
-      action(item);
+      action(code);
     },
   };
 

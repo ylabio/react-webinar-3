@@ -58,42 +58,49 @@ class Store {
   }
   /**
    * добавление продукта в корзину
-   * @param product
+   * @param code
    */
-  addProduct(product) {
-    // ищем index продукта
-    const existingProductIndex = this.state.cart.products.findIndex(
-      (item) => item.code === product.code
-    );
+  addProduct(code) {
+    const products = this.state.cart.products;
+    const cart = this.state.cart;
 
+    // ищем index продукта
+    const existingProductIndex = products.findIndex(
+      (item) => item.code === code
+    );
     // если товар есть в корзине
     if (existingProductIndex !== -1) {
-      //  увеличим count на 1
-      const updatedProducts = [...this.state.cart.products];
-      updatedProducts[existingProductIndex].count += 1;
+      const updatedProducts = [...products];
 
+      //  увеличим count на 1
+      updatedProducts[existingProductIndex].count += 1;
       this.setState({
         ...this.state,
         cart: {
-          ...this.state.cart,
+          ...cart,
           products: updatedProducts,
-          totalPrice: this.state.cart.totalPrice + product.price,
+          totalPrice: cart.totalPrice + products[existingProductIndex].price,
         },
       });
     } else {
+      const newProductIndex = this.state.list.findIndex(
+        (item) => item.code === code
+      );
+      const newProduct = this.state.list[newProductIndex];
+
       // Если товара нет в корзине, добавляем его с начальным количеством 1
       this.setState({
         ...this.state,
         cart: {
-          ...this.state.cart,
+          ...cart,
           products: [
-            ...this.state.cart.products,
+            ...products,
             {
-              ...product,
+              ...newProduct,
               count: 1,
             },
           ],
-          totalPrice: this.state.cart.totalPrice + product.price,
+          totalPrice: cart.totalPrice + newProduct.price,
         },
       });
     }
@@ -107,18 +114,20 @@ class Store {
     const existingProductIndex = this.state.cart.products.findIndex(
       (item) => item.code === code
     );
+
     if (existingProductIndex !== -1) {
       const price = this.state.cart.products[existingProductIndex].price;
       const count = this.state.cart.products[existingProductIndex].count;
+      const cart = this.state.cart;
+
       const amountPrice = price * count;
+
       this.setState({
         ...this.state,
         cart: {
-          ...this.state.cart,
-          products: this.state.cart.products.filter(
-            (item) => item.code !== code
-          ),
-          totalPrice: this.state.cart.totalPrice - amountPrice,
+          ...cart,
+          products: cart.products.filter((item) => item.code !== code),
+          totalPrice: cart.totalPrice - amountPrice,
         },
       });
     }

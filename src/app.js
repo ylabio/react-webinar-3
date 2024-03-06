@@ -13,6 +13,7 @@ import Item from "./components/item";
  */
 function App({ store }) {
   const { list, cart, isCart } = store.getState();
+
   const callbacks = {
     onAddProductToCart: useCallback(
       (product) => {
