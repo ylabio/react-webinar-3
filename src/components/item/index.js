@@ -19,7 +19,7 @@ function Item(props) {
       <div className={cn('code')}>{props.item.code}</div>
       <div className={cn('title')}>{props.item.title}</div>
       <div className={cn('info')}>
-        <div className={cn('price')}>{props.item.price} ₽</div>
+        <div className={cn('price')}>{props.item.price}</div>
         <Button onClick={callbacks.onClick} title={'Добавить'}/>        
       </div>
     </div>

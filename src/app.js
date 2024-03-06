@@ -16,7 +16,7 @@ function App({store}) {
 
   const list = store.getState().list;
   const isOpenCart = store.getState().isOpenCart;
-  const goods = store.getState().cart;
+  const cart = store.getState().cart;
 
   const callbacks = {
 
@@ -42,7 +42,7 @@ function App({store}) {
       <Header>
         <Head title='Магазин'/>
       </Header>
-        <Controls onClick={callbacks.onOpen} title={'Перейти'} quantity={goods.quantity} totalSum={goods.totalSum}/>
+        <Controls onClick={callbacks.onOpen} title={'Перейти'} quantity={cart.quantity} totalSum={cart.totalSum}/>
       <List list={list}
         onClick={callbacks.onAddItem}
         cart={false}
@@ -51,11 +51,11 @@ function App({store}) {
         <Overlay>
           <Cart 
             onClose={callbacks.onClose} 
-            goods={goods.list} 
+            goods={cart.list} 
             isOpenCart={isOpenCart} 
             cart={true} 
             onDelete={callbacks.onDelete} 
-            totalSum={goods.totalSum}
+            totalSum={cart.totalSum}
           />
         </Overlay>
       )  : ''}

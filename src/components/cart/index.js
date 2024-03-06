@@ -6,9 +6,10 @@ import Head from '../head';
 import List from '../list';
 import Header from '../header';
 import Button from '../button';
-
+import { priceFormatter } from '../../utils';
 
 function Cart( props ) {
+
 
     return (
         <div className='Cart'>
@@ -19,7 +20,7 @@ function Cart( props ) {
             <div className='Cart-list'>
                 <List list={props.goods} onClick={props.onDelete} cart={props.cart}/>
             </div>
-            <div className='Cart-footer'> <span className='Cart-text'>Итого</span> {props.totalSum} ₽</div> 
+            <div className='Cart-footer'> <span className='Cart-text'>Итого</span> {priceFormatter(props.totalSum)} </div> 
         </div>
     )
 }

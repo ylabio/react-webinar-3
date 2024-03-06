@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 import Button from '../button';
-import {plural} from "../../utils";
+import {plural, priceFormatter} from "../../utils";
 
 function Controls( props ) {
 
@@ -16,7 +16,7 @@ function Controls( props ) {
         <span className='Controls-info_text'>В корзине:</span>
         {
           props.quantity ? `${props.quantity} 
-          ${plural(props.quantity, {one: 'товар', few: 'товара', many: 'товаров'})} / ${props.totalSum} ₽` : 'пусто'} 
+          ${plural(props.quantity, {one: 'товар', few: 'товара', many: 'товаров'})} / ${priceFormatter(props.totalSum)}` : 'пусто'} 
       </div>
       <Button onClick={onClick} title={props.title}></Button>
     </div>
