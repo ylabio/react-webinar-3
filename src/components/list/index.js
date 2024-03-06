@@ -1,16 +1,20 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
 import './style.css';
 
-function List({list, onDeleteItem, onSelectItem}) {
+function List({list, onButtonAction,children}) {
   return (
     <div className='List'>{
-      list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
-        </div>
-      )}
+      list.map(item => {
+        children = React.cloneElement(children, {
+          item: item,
+          onButtonAction:onButtonAction
+        })
+        return(
+          <div key={item.code} className='List-item'>
+            {children}
+          </div>
+        )})}
     </div>
   )
 }
@@ -19,14 +23,11 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
+  onButtonAction: PropTypes.func,
 };
 
 List.defaultProps = {
-  onDeleteItem: () => {
-  },
-  onSelectItem: () => {
+  onButtonAction: () => {
   },
 }
 

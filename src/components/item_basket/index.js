@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import './style.css';
 import { numberWithSpaces } from "../../utils";
 
-function Item(props) {
+function ItemBasket(props) {
   const callbacks = {
     onAction: (e) => {
       e.stopPropagation();
@@ -12,31 +12,32 @@ function Item(props) {
   }
 
   return (
-    <div className={'Item'}>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>{props.item.title}</div>
-			<div className="Item-price">
+    <div className={'Item-basket'}>
+      <div className='Item-basket-code'>{props.item.code}</div>
+      <div className='Item-basket-title'>{props.item.title}</div>
+			<div className="Item-basket-price">
 				<span>{numberWithSpaces(props.item.price)} ₽</span>
+				<span>{props.item.count} шт</span>
 			</div>
-      <div className='Item-actions'>
-        <button onClick={callbacks.onAction}>Добавить</button>
+      <div className='Item-basket-actions'>
+        <button onClick={callbacks.onAction}>Удалить</button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+ItemBasket.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    price:PropTypes.number,
+    count: PropTypes.number
   }).isRequired,
   onButtonAction: PropTypes.func,
 };
 
-Item.defaultProps = {
+ItemBasket.defaultProps = {
   onButtonAction: () => {
   },
 }
 
-export default React.memo(Item);
+export default React.memo(ItemBasket);
