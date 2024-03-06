@@ -28,7 +28,6 @@ function App({store}) {
     },[store]),
 
     openModal :useCallback(() => {
-      console.log("openmodal")
       setisModalOpen(true);
     },[store]),
 
