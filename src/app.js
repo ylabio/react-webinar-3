@@ -17,10 +17,6 @@ function App({store}) {
 
   const [openModal, setOpenModal] = useState(false);
 
-  const onDeleteItem = useCallback((code) => {
-    store.deleteItem(code);
-  }, [store]);
-
   const callbacks = {
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
@@ -52,7 +48,7 @@ function App({store}) {
       {openModal && (
         <Modal title={"Корзина"} closeModal={callbacks.onCloseModal}>
           <ModalCart  store={store}
-                     onClick={onDeleteItem} />
+                     onClick={callbacks.onDeleteItem} />
         </Modal>
       )
       }
