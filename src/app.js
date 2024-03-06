@@ -57,12 +57,14 @@ function App({ store }) {
   title="Корзина"
   cartTotal={store.getState().cartTotalPrice}
   cartItemCount={store.getState().cartItemCount}
+  currencySymbol=''
 >
   <Cart
     list={cartList}
     cartTotal={store.getState().cartTotalPrice}
     cartItemCount={store.getState().cartItemCount}
     onActionClick={callbacks.onDeleteCartItem}
+
   />
 </Modal>
     </>

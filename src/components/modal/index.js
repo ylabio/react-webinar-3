@@ -2,8 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import "./style.css";
-
-const Modal = ({ isShowing, hide, title, cartTotal, cartItemCount, ...props }) =>
+import { formatPrice } from '../../utils'
+const Modal = ({
+  isShowing,
+  hide,
+  title,
+  cartTotal,
+  currencySymbol,
+  cartItemCount,
+  ...props
+}) =>
   isShowing
     ? ReactDOM.createPortal(
         <>
@@ -21,12 +29,10 @@ const Modal = ({ isShowing, hide, title, cartTotal, cartItemCount, ...props }) =
                   </button>
                 </div>
                 <div className="modal-none"></div>
-                <div className="modal-body">
-                  {props.children}
-                  </div>
-                  <div className="modal-footer">
-                    <p>Итого  </p>
-                    <p>{cartTotal}</p>
+                <div className="modal-body">{props.children}</div>
+                <div className="modal-footer">
+                  <p>Итого </p>
+                  <p>{formatPrice(cartTotal)}</p>
                 </div>
               </div>
             </div>

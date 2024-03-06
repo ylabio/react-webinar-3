@@ -22,7 +22,7 @@ function Controls({ onOpenModal, cartTotalPrice, cartItemCount }) {
             : "Пусто"}
         </p>
       </div>
-      <button onClick={handleClick}>Перейти</button>
+      <button className="Controls-button" onClick={handleClick}>Перейти</button>
     </div>
   );
 }

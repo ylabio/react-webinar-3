@@ -30,6 +30,7 @@
   border-radius: 5px;
   max-width: 960px;
   width: 80%;
+  /* min-height: 400px; */
 }
 .modal-footer p {
   min-width: 56px;
