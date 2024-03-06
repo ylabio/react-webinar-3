@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import Item from "../item";
+import CartItem from '../modal/shoppingcart-modal/cartitem';
 import './style.css';
 
 function List({list, onAddItemToShoppingCart, onRemoveItemFromShoppingCart, modal}) {
@@ -8,12 +9,21 @@ function List({list, onAddItemToShoppingCart, onRemoveItemFromShoppingCart, moda
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item
-            item={item}
-            onAddItemToShoppingCart={onAddItemToShoppingCart}
-            onRemoveItemFromShoppingCart={onRemoveItemFromShoppingCart}
-            modal={modal}
-          />
+          {modal ? (
+            <CartItem
+              item={item}
+              onAddItemToShoppingCart={onAddItemToShoppingCart}
+              onRemoveItemFromShoppingCart={onRemoveItemFromShoppingCart}
+              modal={modal}
+            />
+          ) : (
+            <Item
+              item={item}
+              onAddItemToShoppingCart={onAddItemToShoppingCart}
+              onRemoveItemFromShoppingCart={onRemoveItemFromShoppingCart}
+              modal={modal}
+            />
+          )}
         </div>
       )}
     </div>
