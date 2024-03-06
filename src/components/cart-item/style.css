@@ -1,0 +1,36 @@
+.CartItem {
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+    align-items: center;
+  }
+  .CartItem-code {
+    padding: 20px 10px 20px 20px;
+  }
+  
+  .CartItem-title {
+    width: 100%;
+    padding: 20px 10px;
+  }
+  
+  .CartItem-price {
+    display: flex;
+    justify-content: flex-end;
+    white-space: nowrap;
+  }
+  
+  .CartItem-count {
+    margin-left: 64px;
+    white-space: nowrap;
+  }
+  
+  .CartItem-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 20px;
+    padding: 20px 20px 20px 0px;
+  }
+  
+  .CartItem-btn {
+    width: 80px;
+  }
