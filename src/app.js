@@ -34,12 +34,12 @@ function App({store}) {
 
   return (
     <PageLayout>
-      <Modal title='Корзина' isOpen={modalOpen} modalClose={() => setModalOpen(false)}>
-        <Cart onDeleteCart={callbacks.onDeleteCart} store={store} cartList={cartList} />
-      </Modal>
-      <Head title='Магазин'/>
-      <Controls modalOpen={() => setModalOpen(true)} store={store} cartList={cartList}/>
-      <List list={list} onAddCart={callbacks.onAddCart} />
+        <Modal title='Корзина' isOpen={modalOpen} modalClose={() => setModalOpen(false)}>
+            <Cart onDeleteCart={callbacks.onDeleteCart} store={store} cartList={cartList} />
+        </Modal>
+        <Head title='Магазин'/>
+        <Controls modalOpen={() => setModalOpen(true)} store={store} cartList={cartList}/>
+        <List list={list} onAddCart={callbacks.onAddCart} />
     </PageLayout>
   );
 }

@@ -26,5 +26,15 @@ const Cart = ({onDeleteCart, store, cartList}) => {
         </>
     );
 }
+
+Cart.propTypes = {
+    onDeleteCart: PropTypes.func,
+    onCartPrice: PropTypes.number,
+    cartList: PropTypes.arrayOf(PropTypes.object).isRequired
+};
+  
+Cart.defaultProps = {
+    onDeleteCart: () => {}
+}
  
-export default Cart;
+export default React.memo(Cart);

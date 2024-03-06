@@ -26,16 +26,13 @@ function Modal(props) {
 }
 
 Modal.propTypes = {
+    title: PropTypes.string,
     isOpen: PropTypes.bool,
     modalClose: PropTypes.func,
-    onDeleteCart: PropTypes.func,
-    onCartPrice: PropTypes.number,
-    cartList: PropTypes.arrayOf(PropTypes.object).isRequired
 };
   
 Modal.defaultProps = {
-    modalClose: () => {},
-    onDeleteCart: () => {}
+    modalClose: () => {}
 }
 
 export default React.memo(Modal);
