@@ -1,14 +1,17 @@
+
 import React, { useCallback } from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import './style.css';
+
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
+
 function App({ store }) {
   const { list, basketList } = store.getState();
   const [openModal, setOpenModal] = React.useState(false);
