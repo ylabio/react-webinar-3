@@ -51,6 +51,31 @@ class Store {
   };
 
   /**
+   * Добавление товара в корзину
+   * @param code {Number}
+   */
+  addItemToCart(code) {
+    const isItemInCart = this.state.cart.cartList.some(cartItem => cartItem.code === code)
+    const listItem = this.state.list.find(item => item.code === code)
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        cartTotalPrice: this.state.cart.cartTotalPrice + listItem.price,
+        cartItemsCount: isItemInCart ? this.state.cart.cartItemsCount : this.state.cart.cartItemsCount + 1,
+        cartList: isItemInCart 
+          ? this.state.cart.cartList.map(cartItem => {
+            if (cartItem.code === code) {
+              return {...listItem, count: cartItem.count + 1}
+            }
+            return cartItem
+          })
+          : [...this.state.cart.cartList, {...listItem, count: 1}]
+      }
+    })
+  }
+
+  /**
    * Удаление записи по коду
    * @param code
    */
@@ -61,6 +86,23 @@ class Store {
       list: this.state.list.filter(item => item.code !== code)
     })
   };
+
+  /**
+   * Удаление товара из корзины
+   * @param code
+ */
+  deleteItemFromCart(code) {
+    const cartItem = this.state.cart.cartList.find(item => item.code === code)
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        cartItemsCount: this.state.cart.cartItemsCount - 1,
+        cartTotalPrice: this.state.cart.cartTotalPrice - cartItem.price * cartItem.count,
+        cartList: this.state.cart.cartList.filter(item => item.code !== code)
+      }
+    })
+  }
 
   /**
    * Выделение записи по коду

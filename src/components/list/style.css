@@ -1,5 +1,5 @@
 .List {
-
+  overflow-y: auto;
 }
 
 .List-item {
