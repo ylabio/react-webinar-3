@@ -2,13 +2,16 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
+import {cn as bem} from "@bem-react/classname";
 
-function List({list, onDeleteItem, onSelectItem}) {
+function List({list, onAddToCart, onDeleteItem, showModal }) {
+  const cn = bem('List')
+
   return (
-    <div className='List'>{
-      list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
+    <div className={cn()}>
+      {list.map(item =>
+        <div key={item.code} className={cn('item')}>
+          <Item showModal={showModal} item={item} onAddToCart={onAddToCart} onDeleteItem={onDeleteItem}/>
         </div>
       )}
     </div>
@@ -19,14 +22,15 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
+  showModal: PropTypes.bool,
+  onAddToCart: PropTypes.func,
   onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
 };
 
 List.defaultProps = {
-  onDeleteItem: () => {
+  onAddToCart: () => {
   },
-  onSelectItem: () => {
+  onDeleteItem: () => {
   },
 }
 
