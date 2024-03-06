@@ -27,6 +27,9 @@
 }
 
 .Item-text_extra {
-  display: flex;
-  column-gap: 60px;
+  width: 170px;
+}
+
+.Text-extra {
+  float: right;
 }

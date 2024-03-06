@@ -13,7 +13,7 @@ function Controls({ onClick, itemsCount, price }) {
         В корзине:
         <span className={cn("cart-info", "status")}>
           {!itemsCount
-            ? "Пусто"
+            ? "пусто"
             : `${itemsCount} ${plural(itemsCount, {
                 one: "товар",
                 few: "товара",

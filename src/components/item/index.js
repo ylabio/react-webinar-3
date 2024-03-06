@@ -19,8 +19,9 @@ function Item({ item, onClick, actionsText, actionsBtnText, extraText }) {
       <div className={cn("code")}>{item.code}</div>
       <div className={cn("title")}>{item.title}</div>
       <div className={cn("actions")}>
-        <p className={`${cn("text")} ${extraText && cn("text_extra")}`}>
-          {actionsText} <span>{extraText}</span>
+        <p className={`${cn("text")} ${extraText && cn("text_extra")} Text`}>
+          <span className="Text-main">{actionsText}</span>
+          {extraText && <span className="Text-extra">{extraText}</span>}
         </p>
         <button onClick={callbacks.onBtnClick}>{actionsBtnText}</button>
       </div>

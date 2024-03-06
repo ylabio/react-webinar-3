@@ -4,6 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Cart from "./components/cart";
+import Modal from "./components/modal";
 
 /**
  * Приложение
@@ -11,14 +12,9 @@ import Cart from "./components/cart";
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const { list, cart } = store.getState();
+  const { list, cart, totalPrice } = store.getState();
 
   const [cartIsOpen, setCartIsOpen] = useState(false);
-
-  const totalPrice = cart.reduce(
-    (totalPrice, item) => (totalPrice += item.price * item.count),
-    0
-  );
 
   const callbacks = {
     toggleCart: () => {
@@ -47,13 +43,13 @@ function App({ store }) {
           actionsBtnText={"Добавить"}
         />
       </PageLayout>
-      <Cart
-        isOpen={cartIsOpen}
-        closeCart={callbacks.toggleCart}
-        cart={cart}
-        totalPrice={totalPrice}
-        removeItem={callbacks.deleteFromCart}
-      />
+      <Modal isOpen={cartIsOpen} closeModal={callbacks.toggleCart}>
+        <Cart
+          cart={cart}
+          totalPrice={totalPrice}
+          removeItem={callbacks.deleteFromCart}
+        />
+      </Modal>
     </>
   );
 }

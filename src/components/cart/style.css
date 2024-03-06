@@ -1,23 +1,8 @@
 .Cart {
-  position: absolute;
   display: flex;
-  align-items: center;
-  inset: 0;
-  z-index: 50;
-  background-color: #000000b2;
-}
-
-.Cart-container {
-  position: relative;
-  margin: 0 auto;
-  width: 960px;
+  flex-direction: column;
+  min-width: 960px;
   background-color: white;
-}
-
-.Cart-closeBtn {
-  position: absolute;
-  top: 32px;
-  right: 32px;
 }
 
 .Cart-body {
@@ -31,7 +16,14 @@
 .Cart-price {
   display: flex;
   justify-content: flex-end;
-  column-gap: 15px;
   font-weight: 900;
   padding: 20px 108px 20px;
+}
+
+.Price-total {
+  width: 170px;
+}
+
+.Price-number {
+  float: right;
 }
