@@ -1,0 +1,14 @@
+.Product-counter {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  font-size: 18px;
+}
+.Product-counter-details {
+  margin-left: 12px;
+  font-weight: 700;
+}
+.Product-counter-action {
+  margin-left: 20px;
+  padding: 3px 8px 2px 9px;
+}

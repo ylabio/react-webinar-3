@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -18,8 +16,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -41,47 +39,98 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Переходим в корзину
    */
-  addItem() {
+  openCart() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
+      isCart: true,
+    });
+  }
   /**
-   * Удаление записи по коду
+   * закрываем корзины
+   */
+  closeCart() {
+    this.setState({
+      ...this.state,
+      isCart: false,
+    });
+  }
+  /**
+   * добавление продукта в корзину
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+  addProduct(code) {
+    const products = this.state.cart.products;
+    const cart = this.state.cart;
+
+    // ищем index продукта
+    const existingProductIndex = products.findIndex(
+      (item) => item.code === code
+    );
+    // если товар есть в корзине
+    if (existingProductIndex !== -1) {
+      const updatedProducts = [...products];
+
+      //  увеличим count на 1
+      updatedProducts[existingProductIndex].count += 1;
+      this.setState({
+        ...this.state,
+        cart: {
+          ...cart,
+          products: updatedProducts,
+          totalPrice: cart.totalPrice + products[existingProductIndex].price,
+        },
+      });
+    } else {
+      const newProductIndex = this.state.list.findIndex(
+        (item) => item.code === code
+      );
+      const newProduct = this.state.list[newProductIndex];
+
+      // Если товара нет в корзине, добавляем его с начальным количеством 1
+      this.setState({
+        ...this.state,
+        cart: {
+          ...cart,
+          products: [
+            ...products,
+            {
+              ...newProduct,
+              count: 1,
+            },
+          ],
+          totalPrice: cart.totalPrice + newProduct.price,
+        },
+      });
+    }
+  }
 
   /**
-   * Выделение записи по коду
+   * удаление продукта из корзины
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+  deleteProduct(code) {
+    const existingProductIndex = this.state.cart.products.findIndex(
+      (item) => item.code === code
+    );
+
+    if (existingProductIndex !== -1) {
+      const price = this.state.cart.products[existingProductIndex].price;
+      const count = this.state.cart.products[existingProductIndex].count;
+      const cart = this.state.cart;
+
+      const amountPrice = price * count;
+
+      this.setState({
+        ...this.state,
+        cart: {
+          ...cart,
+          products: cart.products.filter((item) => item.code !== code),
+          totalPrice: cart.totalPrice - amountPrice,
+        },
+      });
+    }
   }
 }
 

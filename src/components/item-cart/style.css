@@ -1,22 +1,22 @@
-.Item {
+.Item-cart {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
 }
 
-.Item-title {
+.Item-cart-title {
   margin-left: 20px;
   flex-grow: 1;
 }
-.Item-price,
-.Item-count {
+.Item-cart-price,
+.Item-cart-count {
   font-size: 18px;
   color: rgb(64, 64, 64);
 }
-.Item-count {
+.Item-cart-count {
   margin-left: 62px;
 }
-.Item-actions {
+.Item-cart-actions {
   margin-left: 24px;
 }
