@@ -1,8 +1,10 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import ModalLayout from './components/modal-layout';
+import Basket from './components/basket';
 
 /**
  * Приложение
@@ -11,31 +13,44 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
-  const list = store.getState().list;
+  const [isModal, setIsModal] = useState(false)
 
+  const list = store.getState().list;
+  const basket = store.getState().basket
+  const totalSum = store.getState().total ?? 0
+  const amountOfItems = store.getState().amount ?? 0
+  
   const callbacks = {
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
+    onClick: useCallback((code) => {
       store.selectItem(code);
     }, [store]),
 
     onAddItem: useCallback(() => {
       store.addItem();
-    }, [store])
+    }, [store]),
+    onModal: () => {
+      setIsModal(prev => !prev)
+    }
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
+      <Head title='Магазин'/>
+      <Controls amount={amountOfItems} totalSum={totalSum} onModal={callbacks.onModal}/>
       <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+            onClick={callbacks.onClick}
+            isInBasket={false}/>
+      { isModal && 
+      <ModalLayout>
+        <Basket basket={basket} totalSum={totalSum} onClick={callbacks.onDeleteItem} onModal={callbacks.onModal}/>
+      </ModalLayout>
+      }
     </PageLayout>
   );
 }
-
+// <Modal basket={basket} totalSum={totalSum} onClick={callbacks.onDeleteItem} onModal={callbacks.onModal}/>
 export default App;

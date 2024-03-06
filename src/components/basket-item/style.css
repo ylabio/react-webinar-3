@@ -1,0 +1,35 @@
+.BasketItem {
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .BasketItem-code {
+    padding: 20px 10px 20px 20px;
+  }
+  
+  .BasketItem-title {
+    width: 100%;
+    padding: 20px 10px;
+  }
+  
+  .BasketItem-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 20px 20px 10px;
+  }
+  
+  .BasketItem-amount {
+    min-width: 38px;
+    padding: 19px 0 10px;
+    margin-left: 62px;
+    margin-right: 24px;
+  }
+  
+  .BasketItem-price {
+    width: 100%;
+    padding: 19px 14px 21px 10px;
+    text-align: end;
+    color: #404040;
+    font-size: 18px;
+    line-height: 20.7px;
+  }
