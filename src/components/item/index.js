@@ -1,41 +1,28 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
+import {getRubPriceInt} from "../../utils";
 import './style.css';
 
-function Item(props) {
+function Item({ item, itemButtonsAction, itemButtonsName, children }) {
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
+  const {code, title, price} = item;
 
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
-    onDelete: (e) => {
+    onItemButtonAction: (e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
-
+      itemButtonsAction(item.code);
     }
-  }
+  };
 
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-         onClick={callbacks.onClick}>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {
-        one: 'раз',
-        few: 'раза',
-        many: 'раз'
-      })}` : ''}
-      </div>
+    <div className='Item'>
+      <div className='Item-code'>{code}</div>
+      <div className='Item-title'>{title}</div>
+      <div className="Item-price">{getRubPriceInt(price)}</div>
+      {children}
       <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button onClick={callbacks.onItemButtonAction}>
+          {itemButtonsName}
         </button>
       </div>
     </div>
@@ -46,18 +33,16 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
-    count: PropTypes.number
+    price: PropTypes.number,
+    quantity: PropTypes.number
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+  itemButtonsAction: PropTypes.func,
+  itemButtonsName: PropTypes.string,
+  children: PropTypes.node
 };
 
 Item.defaultProps = {
-  onDelete: () => {
-  },
-  onSelect: () => {
-  },
+  itemButtonsAction: () => {},
 }
 
 export default React.memo(Item);

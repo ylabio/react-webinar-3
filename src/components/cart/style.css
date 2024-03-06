@@ -1,0 +1,24 @@
+.Cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Cart__content {
+  width: 100%;
+}
+
+.Cart__total {
+  font-weight: 600;
+  display: inline-flex;
+  gap: 30px;
+  margin: 30px 110px 30px auto ;
+}
+
+.Cart__total-text {
+  margin: 0;
+}
+
+.Cart__empty-cart-info {
+  margin: 20px 0 0 20px;
+}

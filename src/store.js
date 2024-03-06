@@ -41,48 +41,60 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
-   * Удаление записи по коду
+   * Подсчёт количество товаров в корзине и общей стоимости
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+  calculateCartTotal(cart) {
+    return cart.reduce(
+      (acc, item) => ({
+        totalQuantity: acc.totalQuantity + 1,
+        totalPrice: acc.totalPrice + item.quantity * item.price,
+      }),
+      { totalQuantity: 0, totalPrice: 0 }
+    );
   }
+
+  /**
+   * Добавление товара в корзину
+   * @param code
+   */
+
+  addItemToCart(code) {
+    const itemToAdd = this.state.list.find(item => item.code === code);
+
+    if (!itemToAdd) return;
+
+    const existingCartItem = this.state.cart.find(item => item.code === code);
+
+    const updatedCart = existingCartItem
+      ? this.state.cart.map(item => (item.code === code ? { ...item, quantity: item.quantity + 1 } : item))
+      : [...this.state.cart, { ...itemToAdd, quantity: 1 }];
+
+    this.setState({
+      ...this.state,
+      cart: updatedCart,
+      cartTotal: this.calculateCartTotal(updatedCart),
+    });
+  }
+
+  /**
+   * Удалям товар из корзины
+   * @param code
+   */
+
+  removeItemFromCart(code) {
+    const updatedCart = this.state.cart.filter(item => item.code !== code);
+
+    if (updatedCart.length === this.state.cart.length) return;
+
+    this.setState({
+      ...this.state,
+      cart: updatedCart,
+      cartTotal: this.calculateCartTotal(updatedCart),
+    });
+  }
+
 }
 
 export default Store;
