@@ -1,0 +1,16 @@
+.Bucket-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 120px 20px;
+  margin-bottom: 70px;
+}
+
+.Bucket-footer_empty {
+  border-top: 1px dashed #ccc;
+}
+
+.Bucket-text_weight_700 {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 20.7px;
+}

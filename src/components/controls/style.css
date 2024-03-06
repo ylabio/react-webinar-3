@@ -1,5 +1,20 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+}
+
+.Controls-text_weight_700 {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 20.7px;
+}
+
+.Controls-bucket {
+  padding: 20px 20px 20px 10px;
+}
+
+.Controls-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 0px;
 }

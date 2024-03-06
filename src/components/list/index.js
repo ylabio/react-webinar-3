@@ -1,33 +1,35 @@
-import React from "react";
-import PropTypes from 'prop-types';
-import Item from "../item";
-import './style.css';
+import React, { createElement } from "react";
+import PropTypes from "prop-types";
+import { cn as bem } from "@bem-react/classname";
+import "./style.css";
 
-function List({list, onDeleteItem, onSelectItem}) {
+function List({ itemType, data, ...callbacks }) {
+  const cn = bem("List");
+
   return (
-    <div className='List'>{
-      list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
+    <div className={cn()}>
+      {data.map((item) => (
+        <div key={item.code} className={cn("item")}>
+          {createElement(itemType, { ...item, ...callbacks })}
         </div>
-      )}
+      ))}
     </div>
-  )
+  );
 }
 
 List.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number
-  })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
+  itemType: PropTypes.elementType.isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.number,
+      title: PropTypes.string,
+      price: PropTypes.number,
+    })
+  ).isRequired,
 };
 
 List.defaultProps = {
-  onDeleteItem: () => {
-  },
-  onSelectItem: () => {
-  },
-}
+  data: [],
+};
 
 export default React.memo(List);
