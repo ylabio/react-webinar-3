@@ -15,7 +15,9 @@ function Item(props) {
     <div className="Item">
       <div className="Item-code">{props.item?.code}</div>
       <div className="Item-title">{props.item?.title}</div>
-      <div className="Item-price">{props.item?.price} ₽</div>
+      <div className="Item-price">
+        {props.item?.price.toLocaleString("ru")} ₽
+      </div>
       {props.btnText ? (
         <>
           <div className="Item-quantity">{props.item?.quantity} шт</div>

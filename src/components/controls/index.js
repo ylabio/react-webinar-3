@@ -10,11 +10,11 @@ function Controls({ count, price, onAdd }) {
         В корзине:
         <b className="Controls-title-cart">
           {count
-            ? `${count} ${plural(count, {
+            ? `${count.toLocaleString("ru")} ${plural(count, {
                 one: "товар",
                 few: "товара",
                 many: "товаров",
-              })} / ${price} ₽`
+              })} / ${price.toLocaleString("ru")} ₽`
             : "пусто"}
         </b>
       </div>
