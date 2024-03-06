@@ -1,6 +1,11 @@
 .Item {
   display: flex;
   justify-content: flex-start;
+  border-bottom: 1px dashed #ccc;
+}
+
+.Item:first-child {
+  border-top: 1px dashed #ccc;
 }
 
 .Item_selected {
