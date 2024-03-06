@@ -1,10 +1,10 @@
 import React, {useCallback, useState} from 'react';
 import List from './components/list';
-import Item from './components/item';
 import Controls from './components/controls';
 import Head from './components/head';
 import Modal from './components/modal';
 import PageLayout from './components/page-layout';
+import FooterCart from './components/footer-cart';
 
 /**
  * Приложение
@@ -40,16 +40,10 @@ function App({store}) {
     <PageLayout>
       <Head title='Магазин'/>
       <Controls totalCartAmount={amount} sumPrices={sum} showModal={showModal} setShowModal={setShowModal}/>
-      <List list={list} onAddItemInCart={callbacks.onAddItemInCart}/>
+      <List list={list} onChangeItemInCart={callbacks.onAddItemInCart} isModalActive={showModal}/>
       <Modal modalTitle='Корзина' active={showModal} onClose={closeModal}>
-        <div>
-          {itemsInCart.map(item =>
-            <div key={item.code} className='Cart-item'>
-              <Item item={item} buttonTitle='Удалить' active={true} onDeleteInCart={callbacks.onDeleteItemInCart} />
-            </div>
-          )}
-        </div>
-        <div className='Modal-footer'><span>Итого</span> {sum} ₽</div>
+        <List list={itemsInCart} onChangeItemInCart={callbacks.onDeleteItemInCart} isModalActive={showModal}/>
+        <FooterCart sum={sum}/>
       </Modal>
     </PageLayout>
   );

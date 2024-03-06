@@ -2,13 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Item from '../item';
 import './style.css';
+import ItemCart from '../item-cart';
 
-function List({list, onAddItemInCart}) {
+function List({list, onChangeItemInCart, isModalActive}) {
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onAddInCart={onAddItemInCart} buttonTitle='Добавить' active={false}/>
+          {isModalActive ?
+            <ItemCart item={item} onDeleteInCart={onChangeItemInCart}/> :
+            <Item item={item} onAddInCart={onChangeItemInCart}/>
+          }
         </div>
       )}
     </div>
@@ -19,11 +23,11 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onAddItemInCart: PropTypes.func,
+  onChangeItemInCart: PropTypes.func,
 };
 
 List.defaultProps = {
-  onAddItemInCart: () => {
+  onChangeItemInCart: () => {
   }
 }
 

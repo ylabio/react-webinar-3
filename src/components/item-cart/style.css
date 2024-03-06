@@ -21,6 +21,13 @@
   font-size: 18px;
 }
 
+.Item-count {
+  white-space: nowrap;
+  color: #404040;
+  padding: 20px 20px 20px 45px;
+  font-size: 18px;
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;
