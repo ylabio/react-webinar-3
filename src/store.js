@@ -40,15 +40,15 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  addToCart(item) {
-    const cart = this.state.CartList; // Получил старую корзину и записал её в cart
-
+  addToCart(code) {
+    const cart = this.state.CartList; // Получил текущую корзину и записал её в cart
+    // let newTotal = this.state.totalPrice; // Получил текущую сумму 
     let changedInCart = []; // Массив для новой корзины
 
     if (cart.findIndex(
-      (itemCart) => itemCart.code === item.code) !== -1) { // Если в корзине уже есть товар
+      (itemCart) => itemCart.code === code) !== -1) { // Если в корзине уже есть товар
         changedInCart = cart.map((p) =>
-        p.code === item.code
+        p.code === code
           ? {
               ...p,
               amountCart: p.amountCart + 1, // к нашему товару прибавляем +1
@@ -56,22 +56,36 @@ class Store {
           : p
       );
     } else {
-      changedInCart = [...cart, { ...item, amountCart: 1 }]; // если нашего товара нет, добавляем его и ставим в количество значением 1
+      changedInCart = [...cart, { ...this.state.list[code-1], amountCart: 1 }]; // если нашего товара нет, добавляем его и ставим в количество значением 1
     }
-    console.log(changedInCart)
+
+
+      let total = 0;
+      changedInCart.map((item) => {
+        total = total + item.price*item.amountCart;
+      })
+      const newTotal = total;
+
     this.setState({
       ...this.state,
       CartList: changedInCart, // заменяем старую на новую
+      totalPrice: newTotal
     });
   }
 
-  deleteItem(item) { // Удаление товара из корзины
+  deleteItem(code) { // Удаление товара из корзины
     const cart = this.state.CartList;
-    const newCart = cart.filter((i) => i.code !== item.code);
+    const newCart = cart.filter((i) => i.code !== code);
+    let total = 0;
+    newCart.map((item) => {
+      total = total + item.price*item.amountCart;
+    })
+    const newTotal = total;
 
     this.setState({
       ...this.state,
       CartList: newCart,
+      totalPrice: newTotal
     });
   }
 

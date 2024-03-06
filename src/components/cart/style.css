@@ -22,3 +22,16 @@
 .Cart-space{ 
     width: 122px;
 }
+.List-header{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    justify-content: space-between;
+    margin-bottom: 70px;
+  }
+.List-header button{
+    width: 76px;
+    height: 21px;
+    margin-right: 32px;
+}

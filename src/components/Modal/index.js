@@ -3,20 +3,17 @@ import './style.css';
 import Cart from "../cart";
 import Head from "../head";
 
-function Modal({isActive, setIsActive, cartList, deleteItem}) {
+function Modal({isActive, children}) {
 
     return (
-      <div className={isActive ? "Modal-background" : ""}>
+      <div className={isActive ? "Modal-background" : ""}> 
         <div className={isActive ? "Modal-container" : "Modal-disable"}>
-          <div className="Modal-header">
-            <Head title='Корзина'/>
-            <button onClick={() => setIsActive(false)}>Закрыть</button>
-          </div>          
-          <Cart
-            list={cartList}
-            onSelect={deleteItem}
-            // onDeleteItemIntoCart={onDeleteItemIntoCart}
-          />
+          {children}   
+          {/* 
+          *
+          * Убрал всю лишнюю верстку из Модалки (Оставил только затемнение и сам контейнер). Содержимое перенес и хранится в компоненте cart
+          *
+          */}
         </div>
       </div>
     )

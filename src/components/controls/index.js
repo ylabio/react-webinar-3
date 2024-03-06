@@ -2,12 +2,7 @@ import React from "react";
 import './style.css';
 import {plural} from "../../utils";
 
-function Controls({setIsActive, cartList}) {
-
-  const summPrice = cartList.reduce((acc, item) => {
-    acc += item.price*item.amountCart;
-    return acc;
-  }, 0);
+function Controls({setIsActive, cartList, totalPrice}) {
   return (
     <div className='Controls'>
       <a>В корзине:</a>
@@ -15,7 +10,7 @@ function Controls({setIsActive, cartList}) {
         one: ' товар',
         few: ' товара',
         many: ' товаров'
-      })} / ${summPrice} ₽` : `пусто`}</strong>
+      })} / ${totalPrice.toLocaleString()} ₽` : `пусто`}</strong>
       <div className='Controls-button'><button onClick={() => setIsActive(true)}>Перейти</button></div>
       {/* onClick={() => props.onAdd()} */}
     </div>
