@@ -52,17 +52,19 @@ function App({ store }) {
       </PageLayout>
 
       <Modal
-        isShowing={isCartModalOpen}
-        hide={callbacks.toggleCartModal}
-        title="Корзина"
-      >
-        <Cart
-          list={cartList}
-          cartTotal={store.getState().cartTotalPrice}
-          cartItemCount={store.getState().cartItemCount}
-          onActionClick={callbacks.onDeleteCartItem}
-        />
-      </Modal>
+  isShowing={isCartModalOpen}
+  hide={callbacks.toggleCartModal}
+  title="Корзина"
+  cartTotal={store.getState().cartTotalPrice}
+  cartItemCount={store.getState().cartItemCount}
+>
+  <Cart
+    list={cartList}
+    cartTotal={store.getState().cartTotalPrice}
+    cartItemCount={store.getState().cartItemCount}
+    onActionClick={callbacks.onDeleteCartItem}
+  />
+</Modal>
     </>
   );
 }

@@ -4,9 +4,7 @@ import List from "../list";
 import { formatPrice } from "../../utils";
 import "./style.css";
 
-function Cart({ list, onActionClick, cartTotal }) {
-  const totalPrice = cartTotal;
-  const formattedPrice = formatPrice(totalPrice);
+function Cart({ list, onActionClick }) {
   return (
     <div>
       <List
@@ -15,10 +13,6 @@ function Cart({ list, onActionClick, cartTotal }) {
         actionName="Удалить"
         currencySymbol="шт"
       />
-      <div className="Cart_total">
-        <span>Итого </span>
-        <span>{formattedPrice} </span>
-      </div>
     </div>
   );
 }

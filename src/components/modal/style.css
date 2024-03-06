@@ -31,6 +31,29 @@
   max-width: 960px;
   width: 80%;
 }
+.modal-footer p {
+  min-width: 56px;
+  padding-right: 30px;
+  font-family: Arial;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.modal-footer{
+  max-width: 900px;
+  max-height: 60px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 20px;
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
 
 .modal-header {
   border-radius: 5px;
@@ -42,7 +65,6 @@
   background-color: #f5f5f5;
   position: sticky;
   top: 0;
-  background-color: #f5f5f5;
   z-index: 1;
 }
 .modal-header h4 {
@@ -58,11 +80,12 @@
   border: 1px solid #767676;
   background: #efefef;
   margin-right: 20px;
+
 }
 .modal-none {
   height: 80px;
 }
 .modal-body {
-  max-height: calc(100vh - 120px); /* Subtract the height of the modal header */
+  max-height: calc(100vh - 120px); 
   overflow-y: auto;
 }

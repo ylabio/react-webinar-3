@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import "./style.css";
 
-const Modal = ({ isShowing, hide, title, ...props }) =>
+const Modal = ({ isShowing, hide, title, cartTotal, cartItemCount, ...props }) =>
   isShowing
     ? ReactDOM.createPortal(
         <>
@@ -21,7 +21,13 @@ const Modal = ({ isShowing, hide, title, ...props }) =>
                   </button>
                 </div>
                 <div className="modal-none"></div>
-                <div className="modal-body">{props.children}</div>
+                <div className="modal-body">
+                  {props.children}
+                  </div>
+                  <div className="modal-footer">
+                    <p>Итого  </p>
+                    <p>{cartTotal}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -34,6 +40,7 @@ Modal.propTypes = {
   isShowing: PropTypes.bool.isRequired,
   hide: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
+  footerContent: PropTypes.string.isRequired,
 };
 
 export default Modal;
