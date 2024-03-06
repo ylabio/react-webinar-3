@@ -17,52 +17,25 @@ useMemo(()=>{
   store.getLocalStorage()
 },[])
 
-  const list = store.getState().list;
+  const list = store.getState();
   const listBasket=store.getBasketList()
 
   const callbacks = {
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
     onAddBasket: useCallback((code)=>{
       store.addItemBasket(code);
     },[store]),
-    onTotalPrice: useCallback(()=>{
-      store.totalPrice();
-    },[store]),
-    onGetTotalAmount: useCallback(()=>{
-     return store.getTotalAmount();
-    },[store]),
-    onGetTotalCount: useCallback(()=>{
-      return store.getTotalCount();
-    },[store]),
+  
     onDeleteBasketItem: useCallback((code)=>{
       return store.deleteBasketItem(code);
     },[store]),
-   
   }
-
+ 
+  basketOpen && (document.querySelector('body').style.overflow='hidden')
   return (
     <div>
-      <PageLayout>
-      <Head title='Магазин'/>
-  
-      <ProductsBasket 
-      onTotalPrice={callbacks.onTotalPrice}
-      onGetTotalAmount={callbacks.onGetTotalAmount}
-      onGetTotalCount={callbacks.onGetTotalCount}
-      >
-        <Controls onButton={()=>setBasketOpen(true)} name='Перейти' />
-      </ProductsBasket>
-      <List list={list}
-            onAddBasket={callbacks.onAddBasket}
-         />
-    </PageLayout>
-    {basketOpen? <PageOutBasket onGetTotalAmount={callbacks.onGetTotalAmount}
-    setBasketOpen={setBasketOpen}>
-      <Head title='Корзина'><Controls onButton={()=>setBasketOpen(false)} name='Закрыть'/></Head>
-      <List list={listBasket} onDeleteBasketItem={callbacks.onDeleteBasketItem} />
-    </PageOutBasket>:''}
+      <PageLayout  list={list} onAddBasket={callbacks.onAddBasket} setBasketOpen={setBasketOpen} />
+    {basketOpen && <PageOutBasket onDeleteBasketItem={callbacks.onDeleteBasketItem}   list={listBasket}
+    setBasketOpen={setBasketOpen} />}
    
     </div>
     

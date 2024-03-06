@@ -1,4 +1,4 @@
-
+import { priceFormat } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -10,7 +10,7 @@ class Store {
     this.basket = [];
     this.totalAmount=0;
     this.totalCount=0;
-    this.basketList=[]
+    this.basketList={}
   }
 
   /**
@@ -31,6 +31,7 @@ class Store {
    * @returns {Object}
    */
   getState() {
+    this.state.total=this.informationForPriceAndCount();
     return this.state;
   }
 setLocalStorage(basket){
@@ -42,6 +43,9 @@ getLocalStorage(){
     this.basket=newBasket;
     this.updateBasketList()
   }
+}
+informationForPriceAndCount(){
+  return {countProduct:this.basket.length, price: this.totalAmount}
 }
   /**
    * Установка состояния
@@ -112,7 +116,7 @@ if(state.code===basket.code){
 
 this.totalAmount=totalAmount;
 this.totalCount=count;
-this.basketList=basketList;
+this.basketList={list:basketList, total:this.informationForPriceAndCount(), };
 
 }
 

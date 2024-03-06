@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
+import {plural,priceFormat} from "../../utils";
 import './style.css';
 import Button from "../controls";
 
@@ -28,8 +28,8 @@ function Item({item,onAddBasket,onDeleteBasketItem}) {
       <div className='Item-actions'>
        
        
-   {item.count?  <div className="Item-control"><div className="Item-out"><div>{item.price+' ₽'} </div><div>{item?.count+' шт'}</div></div><Button onButton={callbacks.onDeleteBasket} name='Удалить'/></div> :
-    <div className="Item-control"><div className="Item-out">{item.price+' ₽'}</div> <Button onButton={callbacks.onAddBasket} name='Добавить'/></div>}
+   {item.count?  <div className="Item-control"><div className="Item-out"><div>{priceFormat(item.price)+' ₽'} </div><div>{item?.count+' шт'}</div></div><Button onButton={callbacks.onDeleteBasket} name='Удалить'/></div> :
+    <div className="Item-control"><div className="Item-out">{priceFormat(item.price)+' ₽'}</div> <Button onButton={callbacks.onAddBasket} name='Добавить'/></div>}
      
         
       </div>
