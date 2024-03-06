@@ -1,8 +1,10 @@
-import React, {useCallback} from 'react';
-import List from "./components/list";
-import Controls from "./components/controls";
-import Head from "./components/head";
-import PageLayout from "./components/page-layout";
+import React, {useCallback, useState} from 'react';
+import List from './components/list';
+import Controls from './components/controls';
+import Head from './components/head';
+import PageLayout from './components/page-layout';
+import CartLayout from './components/cart-layout';
+import {formatPrice} from './utils';
 
 /**
  * Приложение
@@ -10,32 +12,57 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
+	const [showCart, setShowCart] = useState(false);
 
-  const list = store.getState().list;
+	const list = store.getState().list;
+	const cart = store.getState().cart;
+	const cartSum = store.getState().cartSum;
+	const callbacks = {
+		onAddToCart: useCallback(
+			(item) => {
+				store.addToCart(item);
+			},
+			[store]
+		),
 
-  const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+		onDeleteItem: (code) => {
+			store.deleteItem(code);
+		},
+	};
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+	return (
+		<>
+			<PageLayout>
+				<Head title="Магазин" />
+				<Controls cart={cart} cartSum={cartSum} onShowCart={setShowCart} />
+				<List
+					list={list}
+					showCart={showCart}
+					onAddToCart={callbacks.onAddToCart}
+				/>
+			</PageLayout>
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
-
-  return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-    </PageLayout>
-  );
+			{showCart && (
+				<CartLayout>
+					<Head
+						title={cartSum > 0 ? 'Корзина' : 'Корзина пуста'}
+						showCart={showCart}
+						onShowCart={setShowCart}
+					/>
+					<List
+						list={cart}
+						showCart={showCart}
+						onDeleteItem={callbacks.onDeleteItem}
+					/>
+					{cartSum > 0 && (
+						<div className="CartLayout-total">
+							Итого <span>{formatPrice(cartSum)}</span> &#8381;
+						</div>
+					)}
+				</CartLayout>
+			)}
+		</>
+	);
 }
 
 export default App;
