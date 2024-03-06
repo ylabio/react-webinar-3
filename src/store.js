@@ -93,6 +93,7 @@ class Store {
         [...this.state.cart.splice(count, 1)];
         this.setState({
           ...this.state,
+          list:[...this.state.list.map((item) => item.code === code?{ ...item,count:1}:item)],
           cart: [...this.state.cart],
         });
       }
