@@ -6,16 +6,17 @@
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed; 
 }
-.content {
+.modal__content {
   margin: 200px auto;
-  height: 407px;
-  width: 980px;
+  padding-bottom: 10px;
+  width: 960px;
   background-color: white;
   border-radius: 10px;
 }
-.header {
+.modal-header {
   box-sizing: border-box;
-  border-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   height: 80px;
   background: rgb(245, 245, 245);
   padding: 20px;
@@ -23,50 +24,64 @@
   justify-content: space-between;
   align-items: center;
 }
-.header__h1 {
+.modal-header__h1 {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 32px;
   font-weight: 700;
 }
-.header__button {
+.modal-header__button {
   height: 21px;
   cursor: pointer;
   width: 76px;
   font-size: 13px;
   font-weight: 400;
 }
-.main {
-  height: 260px;
-  overflow: auto;
+.modal-list {
+  margin-top: 70px;
+  border-top: 1px dashed #ccc;
+  padding-left: 0;
 }
-.list {
-  padding: 0;
-  padding-left: 25px;
-}
-.list__item span {
-  padding: 10px 0px;
-}
-.list__item{
+.modal-list__item{
   display: flex;
   align-items: center;
+  padding: 10px 20px;
+  height: 63px;
+  box-sizing: border-box;
+  border-bottom: 1px dashed #ccc;
 }
-.item__index{
-  width: 40px;
+.modal-list__item-index{
+  margin-right: 22px;
 }
-.item__name{
-  width: 660px;
+.modal-list__item-name{
+  flex-grow: 1;
 }
-.item__price{
-  width: 110px;
+.modal-list__item-price{
+  margin-right: 60px;
 }
-.item__num{
-  width: 60px;
+.modal-list__item-num{
+  margin-right: 24px;
 }
-.item__delete {
+.modal-list__item-delete {
   height: 22px;
 }
-.footer{
-  text-align: right;
-  margin-right: 100px;
+.modal__footer{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding-right: 108px;
+  height: 63px;
+  box-sizing: border-box;
+}
+.modal-footer__total {
+  margin-right: 10px;
+}
+.modal-footer__sum {
+  min-width: 87px;
+  text-align: end;
+}
+.modal-list__empty {
+  margin: 25px;
+  font-size: 22px;
+  font-weight: 700;
 }

@@ -5,44 +5,56 @@ import "./style.css";
 function Popup({ setActive, cart, onDelete }) {
   return (
     <div className="modal">
-      <div className="content">
-        <div className="header">
-          <h1 className="header__h1">Корзина</h1>
+      <div className="modal__content">
+        <div className="modal-header">
+          <h1 className="modal-header__h1">Корзина</h1>
           <button
             onClick={() => {
               setActive((prev) => !prev);
             }}
-            className="header__button"
+            className="modal-header__button"
           >
             Закрыть
           </button>
         </div>
-        <div className="main">
+        <div className="modal__main">
           {cart.length > 0 ? (
-            <ul className="list">
+            <ul className="modal-list">
               {cart.map((item, index) => (
-                <li key={item.code} className="list__item">
-                  <span className="item__index">{index + 1}</span>
-                  <span className="item__name">{item.title}</span>
-                  <span className="item__price">{item.price} Р</span>
-                  <span className="item__num">{item.count} ШТ</span>
-                  <button onClick={onDelete} className="item__delete">
+                <li key={item.code} className="modal-list__item">
+                  <span className="modal-list__item-index">{index + 1}</span>
+                  <span className="modal-list__item-name">{item.title}</span>
+                  <span className="modal-list__item-price">
+                    {new Intl.NumberFormat("ru").format(item.price)} ₽
+                  </span>
+                  <span className="modal-list__item-num">{item.count} шт</span>
+                  <button
+                    onClick={() => {
+                      onDelete(item);
+                    }}
+                    className="modal-list__item-delete"
+                  >
                     Удалить
                   </button>
                 </li>
               ))}
+              <li className="modal__footer">
+                <span className="modal-footer__total">
+                  <b>Итого</b>
+                </span>
+                <b className="modal-footer__sum">
+                  {new Intl.NumberFormat("ru").format(
+                    cart.reduce((acc, item) => acc + item.price * item.count, 0)
+                  )}{" "}
+                  ₽
+                </b>
+              </li>
             </ul>
           ) : (
-            <div className="empty">
+            <div className="modal-list__empty">
               <b>Пусто</b>
             </div>
           )}
-        </div>
-        <div className="footer">
-          <b>
-            Итого {cart.reduce((acc, item) => acc + item.price * item.count, 0)}{" "}
-            Р
-          </b>
         </div>
       </div>
     </div>

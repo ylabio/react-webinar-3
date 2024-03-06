@@ -11,9 +11,13 @@ function Item(props) {
   };
 
   return (
-    <div className={"Item"}>
+    <div className="Item">
       <div className="Item-code">{props.item.code}</div>
       <div className="Item-title">{props.item.title}</div>
+      <div className="Item-price">
+        {new Intl.NumberFormat("ru").format(props.item.price)}
+        &nbsp;₽
+      </div>
       <div className="Item-actions">
         <button onClick={callbacks.onAdd}>Добавить</button>
       </div>

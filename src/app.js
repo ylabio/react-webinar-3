@@ -30,7 +30,7 @@ function App({ store }) {
 
   return (
     <PageLayout>
-      <Head title="Приложение на чистом JS" />
+      <Head title="Магазин" />
       <Controls cart={cart} onDeleteFromCart={callbacks.onDeleteFromCart} />
       <List list={list} onAddToCart={callbacks.onAddToCart} />
     </PageLayout>

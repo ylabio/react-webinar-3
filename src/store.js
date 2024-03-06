@@ -62,12 +62,15 @@ class Store {
     }
     this.setCart(newCart);
   }
-  deleteFromCart(item) {
+  deleteFromCart(it) {
     const newCart = [...this.cart];
     // Определяем индекс товара при нажатии
-    const index = newCart.indexOf((elem) => elem.code === item.code);
+    const index = newCart.findIndex((elem) => {
+      return elem.code === it.code;
+    });
     // И удаляем товар по индексу из массива
     newCart.splice(index, 1);
+
     this.setCart(newCart);
   }
 }

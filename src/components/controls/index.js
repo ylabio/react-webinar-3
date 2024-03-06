@@ -6,30 +6,29 @@ import Popup from "../popup/index";
 
 function Controls({ cart, onDeleteFromCart }) {
   const [modalActive, setModalActive] = React.useState(false);
+
   return (
     <div className="Controls">
-      <div>
+      <div className="Controls-info">
         В корзине:
         {cart.length > 0 ? (
-          <>
-            <b className="info">
-              {cart.length + " "}
-              {plural(cart.length, {
-                one: "товар",
-                few: "товара",
-                many: "товаров",
-              })}
-              &nbsp;/&nbsp;
-              {cart.length > 0
-                ? cart.reduce((acc, item) => acc + item.price * item.count, 0)
-                : ""}
-              ₽
-            </b>
-          </>
+          <b className="Controls-info__products">
+            {cart.length + " "}
+            {plural(cart.length, {
+              one: "товар",
+              few: "товара",
+              many: "товаров",
+            })}
+            &nbsp;/&nbsp;
+            {cart.length > 0
+              ? new Intl.NumberFormat("ru").format(
+                  cart.reduce((acc, item) => acc + item.price * item.count, 0)
+                )
+              : ""}
+            <span className="Controls-info__ruble">₽</span>
+          </b>
         ) : (
-          <>
-            <b className="empty">пусто</b>
-          </>
+          <b className="Controls-info__empty">пусто</b>
         )}
       </div>
       <button
