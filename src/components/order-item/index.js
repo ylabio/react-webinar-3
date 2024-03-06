@@ -4,14 +4,14 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import { numberFormat } from "../../utils";
 
-function Item(props) {
+function OrderItem(props) {
 
-  const cn = bem('Item');
+  const cn = bem('OrderItem');
 
   const callbacks = {
     onClick: (e) => {
       e.stopPropagation();
-      props.onClick(props.item);
+      props.onClick(props.item.code);
     }
   }
 
@@ -22,16 +22,17 @@ function Item(props) {
         {props.item.title}
       </div>
       <div className={cn('price')}>{numberFormat(props.item.price)}</div>
+      <div className={cn('count')}>{props.item.count} шт</div>
       <div className={cn('actions')}>
         <button className={cn('btn')} onClick={callbacks.onClick}>
-         Добавить
+          Удалить
         </button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+OrderItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
@@ -41,9 +42,9 @@ Item.propTypes = {
   onClick: PropTypes.func,
 };
 
-Item.defaultProps = {
+OrderItem.defaultProps = {
   onClick: () => {
   },
 }
 
-export default React.memo(Item);
+export default React.memo(OrderItem);
