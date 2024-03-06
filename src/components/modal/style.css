@@ -1,0 +1,40 @@
+.Modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Modal-content {
+  width: 50%;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.Basket-list {
+  padding: 20px 0 0;
+}
+
+.Final-price {
+  padding: 0 10px 20px;
+}
+
+.Empty-basket {
+  padding: 20px;
+}
+
+.Total-container {
+  display: flex;
+  margin-left: 70%;
+  margin-top: 10px;
+  font-weight: bold;
+}
+

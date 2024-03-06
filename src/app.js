@@ -3,6 +3,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from "./components/modal";
 
 /**
  * Приложение
@@ -12,29 +13,32 @@ import PageLayout from "./components/page-layout";
 function App({store}) {
 
   const list = store.getState().list;
+    const isModalOpen = store.getState().isModalOpen;
+    const callbacks = {
+        addToBasketItem: useCallback((code) => {
+            store.addToBasketItem(code);
+        }, [store]),
 
-  const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+        goToBasketItem: useCallback(() => {
+            store.goToBasketItem();
+        }, []),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+        closeModal: useCallback(() => {
+            store.closeModal();
+        }, []),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
+        deleteItem: useCallback((code) => {
+            store.deleteItem(code);
+        }, [store]),
+    }
 
   return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-    </PageLayout>
+      <PageLayout>
+          <Head title='Магазин'/>
+          <Controls goToBasket={() => store.goToBasketItem()} getBasket={() => store.getBasket()} place = 'catalog'/>
+          <List list={list} addToBasketItem={callbacks.addToBasketItem} getBasket={() => store.getBasket()} place = 'catalog'/>
+          {isModalOpen && <Modal onClose={callbacks.closeModal} deleteItem={callbacks.deleteItem} getBasket={() => store.getBasket()}/>}
+      </PageLayout>
   );
 }
 

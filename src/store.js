@@ -1,4 +1,5 @@
 import {generateCode} from "./utils";
+import {logPlugin} from "@babel/preset-env/lib/debug";
 
 /**
  * Хранилище состояния приложения
@@ -7,6 +8,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.basket = [];
+    this.isModalOpen = false;
   }
 
   /**
@@ -40,49 +43,47 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
+
+  goToBasketItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+      isModalOpen: true,
+    });
+  }
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
+  closeModal() {
+    this.setState({
+      ...this.state,
+      isModalOpen: false,
+    });
+  }
+
+
+  addToBasketItem(itemToAdd) {
+    const existingItemIndex = this.basket.findIndex(item => item.code === itemToAdd.code);
+    if (existingItemIndex !== -1) {
+      this.basket[existingItemIndex].quantity += 1;
+    } else {
+      const newItem = { ...itemToAdd, quantity: 1 };
+      this.basket.push(newItem);
+    }
+    for (const listener of this.listeners) listener();
+  }
+
+  getBasket() {
+    if (this.basket) {
+      let finalPrice = this.basket.reduce((acc, item) => {return acc + item.price * item.quantity}, 0)
+      return {basket: this.basket, itemsCount: this.basket.length, finalPrice};
+    } else {
+      return {basket: 0, itemsCount: 0, finalPrice: 0};
+    }
+  }
+
   deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+    this.basket = this.basket.filter(item => item.code !== code);
+    for (const listener of this.listeners) listener();
   }
 }
+
 
 export default Store;
