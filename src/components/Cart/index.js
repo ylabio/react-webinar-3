@@ -14,7 +14,7 @@ function Cart({ list, onActionClick, cartTotal }) {
         onActionClick={onActionClick}
         list={list}
         actionName="Удалить"
-        currencySymbol="шт"
+         currencySymbol="шт"
       />
       <div className="Cart_total">
         <span>Итого </span>

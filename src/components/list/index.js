@@ -4,7 +4,7 @@ import Item from "../item";
 import "./style.css";
 import { formatPrice } from "../../utils";
 
-function List({ list, onActionClick, actionName,currencySymbol }) {
+function List({ list, onActionClick, actionName, currencySymbol }) {
   return (
     <div className="List">
       {list.map((item) => (
@@ -14,9 +14,7 @@ function List({ list, onActionClick, actionName,currencySymbol }) {
             price={item.price}
             onActionClick={onActionClick}
             actionName={actionName}
-            quantity="₽"
             currencySymbol={currencySymbol}
-            
           />
         </div>
       ))}
@@ -33,7 +31,6 @@ List.propTypes = {
   ).isRequired,
   actionName: PropTypes.string.isRequired,
   onActionClick: PropTypes.func.isRequired,
-
 };
 
 export default React.memo(List);

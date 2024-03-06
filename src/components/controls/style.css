@@ -7,16 +7,19 @@
 .Controls-content {
   display: flex;
   align-items: center;
-  min-width: 200px;
+  min-width: 170px;
   height: 20px;
   justify-content: space-between;
 }
 .Controls-content p {
-  padding: 20px 50px 20px 10px;
+  padding-right: 34px;
+  padding-left: 20px;
   font-family: Arial;
   font-size: 18px;
   font-weight: 700;
   line-height: 21px;
   letter-spacing: 0em;
   text-align: left;
+  min-width: 51px;
+  height: 21px;
 }

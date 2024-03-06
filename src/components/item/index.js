@@ -23,9 +23,8 @@ function Item(props) {
       <div className="Item-code"></div>
       <div className="Item-title">{item.title}</div>
       <div className="Item-price">{formattedPrice}</div>
-      <div className="Item-total">
-        {item.count} {currencySymbol}
-      </div>
+      <div className="Item-count"> {item.count}</div>
+      <div className="Item-symbol">{currencySymbol}</div>
       <div className="Item-actions">
         <button onClick={handleAddToCart}>{actionName}</button>
       </div>

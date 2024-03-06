@@ -67,6 +67,7 @@ function App({ store }) {
           cartTotal={cartTotalPrice}
           cartItemCount={cartItemCount}
           onActionClick={callbacks.onDeleteCartItem}
+          currencySymbol='шт'
         />
       </Modal>
     </>
