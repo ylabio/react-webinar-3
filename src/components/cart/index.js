@@ -1,40 +1,25 @@
 import React from "react";
-import PropTypes, { bool, func } from "prop-types";
+import PropTypes, { func } from "prop-types";
 import './style.css';
 import List from '../list'
 import Head from "../head";
-import usePopupClose from '../../hooks/usePopupClose.js'
-import { calculateCartTotal, getRubPriceInt } from "../../utils";
+import { getRubPriceInt } from "../../utils";
+import CartItem from "../cart-item";
 
-function Cart
-    ({itemsList, cartIsOpened, toggleCartVisibility, itemButtonsAction})
-  {
+function Cart ({itemsList, itemButtonsAction, cartTotal}) {
 
-  usePopupClose(cartIsOpened, toggleCartVisibility, 'Cart_opened');
-  const {totalPrice} = calculateCartTotal(itemsList)
-
-  const callbacks = {
-    onCloseButton: () => {
-      toggleCartVisibility()
-    }
-  }
+  const {totalPrice} = cartTotal
 
   return (
-    <div className={`Cart ${cartIsOpened ? 'Cart_opened' : ''}`}>
-      <div className='Cart__container'>
-        <Head title={"Корзина"}>
-          <button
-            onClick={callbacks.onCloseButton}
-          >
-            Закрыть
-          </button>
-        </Head>
+      <div className='Cart'>
+        <Head title={"Корзина"}/>
         <div className='Cart__content'>
           {itemsList.length?
             <List
               itemsList={itemsList}
               itemButtonsAction={itemButtonsAction}
               itemButtonsName={'Удалить'}
+              renderListItem={(props) => <CartItem {...props} />}
             />
             :
             <p className='Cart__empty-cart-info'>
@@ -49,7 +34,6 @@ function Cart
           </p>
         </div>
       </div>
-    </div>
   );
 }
 
@@ -60,15 +44,15 @@ Cart.propTypes = {
     price: PropTypes.number,
     quantity: PropTypes.number
   })).isRequired,
-  cartIsOpened: bool,
-  toggleCartVisibility: func,
-  itemButtonsAction: func
+  itemButtonsAction: func,
+  cartTotal: PropTypes.shape({
+    totalQuantity: PropTypes.number,
+    totalPrice: PropTypes.number
+  }).isRequired
 };
 
 Cart.defaultProps = {
-	toggleCartVisibility: () => {},
 	itemButtonsAction: () => {},
-	cartIsOpened: false
 };
 
 

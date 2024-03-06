@@ -1,18 +1,13 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
 import './style.css';
 
-function List({itemsList, itemButtonsAction, itemButtonsName}) {
+function List({ itemsList, itemButtonsAction, itemButtonsName, renderListItem }) {
   return (
     <div className='List'>{
       itemsList.map(item =>
         <div key={item.code} className='List-item'>
-          <Item
-          item={item}
-          itemButtonsAction={itemButtonsAction}
-          itemButtonsName={itemButtonsName}
-          />
+          {renderListItem({item, itemButtonsAction, itemButtonsName})}
         </div>
       )}
     </div>
@@ -27,7 +22,8 @@ List.propTypes = {
     quantity: PropTypes.number
   })).isRequired,
   itemButtonAction: PropTypes.func,
-  itemButtonsName: PropTypes.string
+  itemButtonsName: PropTypes.string.isRequired,
+  renderListItem: PropTypes.func.isRequired
 };
 
 List.defaultProps = {

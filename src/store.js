@@ -41,6 +41,21 @@ class Store {
   }
 
   /**
+   * Подсчёт количество товаров в корзине и общей стоимости
+   * @param code
+   */
+
+  calculateCartTotal(cart) {
+    return cart.reduce(
+      (acc, item) => ({
+        totalQuantity: acc.totalQuantity + 1,
+        totalPrice: acc.totalPrice + item.quantity * item.price,
+      }),
+      { totalQuantity: 0, totalPrice: 0 }
+    );
+  }
+
+  /**
    * Добавление товара в корзину
    * @param code
    */
@@ -59,6 +74,7 @@ class Store {
     this.setState({
       ...this.state,
       cart: updatedCart,
+      cartTotal: this.calculateCartTotal(updatedCart),
     });
   }
 
@@ -75,6 +91,7 @@ class Store {
     this.setState({
       ...this.state,
       cart: updatedCart,
+      cartTotal: this.calculateCartTotal(updatedCart),
     });
   }
 

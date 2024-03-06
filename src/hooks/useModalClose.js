@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 
-export default function usePopupClose(isOpen, closePopup, popupOpenClassName) {
+export default function useModalClose(modalIsOpened, closeModal, modalOpenClassName) {
   useEffect(() => {
-    if (!isOpen) return;
+    if (!modalIsOpened) return;
 
     const handleOverlay = (event) => {
-      if (event.target.classList.contains(popupOpenClassName)) {
-        closePopup();
+      if (event.target.classList.contains(modalOpenClassName)) {
+        closeModal();
       }
     };
     const handleEscape = (e) => {
       if (e.key === "Escape") {
-        closePopup();
+        closeModal();
       }
     };
 
@@ -22,5 +22,5 @@ export default function usePopupClose(isOpen, closePopup, popupOpenClassName) {
       document.removeEventListener("keydown", handleEscape);
       document.removeEventListener("mousedown", handleOverlay);
     };
-  }, [isOpen, closePopup]);
+  }, [modalIsOpened, closeModal]);
 }

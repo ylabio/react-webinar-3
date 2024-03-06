@@ -51,17 +51,6 @@ export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
 
-export function calculateCartTotal(cart) {
-  return cart.reduce(
-    (acc, item) => ({
-      totalQuantity: acc.totalQuantity + 1,
-      totalPrice: acc.totalPrice + item.quantity * item.price,
-    }),
-    { totalQuantity: 0, totalPrice: 0 }
-  );
-}
-
-
 export function getRubPriceInt(price) {
   return new Intl.NumberFormat('ru-RU',
     {

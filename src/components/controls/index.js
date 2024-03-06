@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({onOpenCart, children}) {
+function Controls({ onOpenCart, children }) {
 
   const callbacks = {
     onOpenCart: () => {

@@ -4,8 +4,9 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Cart from './components/cart';
-import CartInfo from './components/cartInfo';
-import { calculateCartTotal } from './utils';
+import CartInfo from './components/cart-info';
+import Modal from './components/modal';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -14,12 +15,11 @@ import { calculateCartTotal } from './utils';
  */
 function App({store}) {
 
-  const [cartIsOpened, setCartIsOpened] = useState(false)
+  const [modalIsOpened, setModalIsOpened] = useState(false)
 
   const storeItems = store.getState().list;
   const cartItems = store.getState().cart;
-
-  const { totalQuantity, totalPrice } = calculateCartTotal(cartItems)
+  const cartTotal = store.getState().cartTotal
 
   const callbacks = {
     onAddItemToCart: useCallback((code) => {
@@ -28,28 +28,30 @@ function App({store}) {
     onRemoveItemFromCart: useCallback((code) => {
       store.removeItemFromCart(code);
     }, [store]),
-    toggleCartVisibility: () => {
-      setCartIsOpened(!cartIsOpened)
+    toggleModalVisibility: () => {
+      setModalIsOpened(!modalIsOpened)
     }
   }
 
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls onOpenCart={callbacks.toggleCartVisibility}>
-        <CartInfo totalQuantity={totalQuantity} totalPrice={totalPrice}/>
+      <Controls onOpenCart={callbacks.toggleModalVisibility}>
+        <CartInfo cartTotal={cartTotal}/>
       </Controls>
       <List
         itemsList={storeItems}
         itemButtonsAction={callbacks.onAddItemToCart}
         itemButtonsName={'Добавить'}
+        renderListItem={(props) => <Item {...props} />}
       />
-      <Cart
-        itemButtonsAction={callbacks.onRemoveItemFromCart}
-        itemsList={cartItems}
-        cartIsOpened={cartIsOpened}
-        toggleCartVisibility={callbacks.toggleCartVisibility}
-      />
+      <Modal modalIsOpened={modalIsOpened} toggleModal={callbacks.toggleModalVisibility}>
+        <Cart
+          cartTotal={cartTotal}
+          itemButtonsAction={callbacks.onRemoveItemFromCart}
+          itemsList={cartItems}
+        />
+      </Modal>
     </PageLayout>
   );
 }

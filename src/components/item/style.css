@@ -28,8 +28,3 @@
 .Item-price {
   padding: 20px 10px;
 }
-
-.Item-quantity {
-  min-width: max-content;
-  padding: 0 20px;
-}

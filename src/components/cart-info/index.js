@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { getRubPriceInt, plural } from "../../utils";
 import './style.css';
 
-function CartInfo({totalQuantity, totalPrice}) {
+function CartInfo({ cartTotal }) {
+  const {totalQuantity, totalPrice} = cartTotal
   return (
     <div className='Cart-info'>
       В корзине:
@@ -21,8 +22,10 @@ function CartInfo({totalQuantity, totalPrice}) {
 }
 
 CartInfo.propTypes = {
-  totalQuantity: PropTypes.number.isRequired,
-  totalPrice: PropTypes.number.isRequired
+  cartTotal: PropTypes.shape({
+    totalQuantity: PropTypes.number,
+    totalPrice: PropTypes.number
+  }).isRequired
 };
 
 export default React.memo(CartInfo);
