@@ -1,0 +1,38 @@
+.Modal-item {
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+    white-space: nowrap;
+}
+
+.Modal-item_selected {
+    background: #75aaf1;
+    color: #fff;
+}
+
+.Modal-item-code {
+    padding: 20px 10px 20px 20px;
+}
+
+.Modal-item-title {
+    width: 100%;
+    padding: 20px 10px;
+}
+
+.Modal-item-quantity-info {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 24px 20px 62px;
+}
+
+.Modal-item-price-info {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 0px;
+}
+
+.Modal-item-delete-button {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 20px 20px 24px;
+}

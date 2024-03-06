@@ -5,10 +5,9 @@ import './style.css';
 
 function Item(props) {
   const callbacks = {
-    onClickHandler: (e) => {
+    addToCard: (e) => {
       e.stopPropagation();
       props.onClick(props.item.code);
-
     }
   }
   return (
@@ -26,8 +25,8 @@ function Item(props) {
       </div>
        }
       <div className='Item-actions'>
-        <button onClick={callbacks.onClickHandler}>
-          {props.buttonContent}
+        <button onClick={callbacks.addToCard}>
+          Добавить
         </button>
       </div>
     </div>
@@ -39,7 +38,6 @@ Item.propTypes = {
     code: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    quantity: PropTypes.number
   }).isRequired,
   onClick : PropTypes.func,
 };

@@ -1,13 +1,3 @@
-.ModalCard {
-    width: 66%;
-    box-sizing: border-box;
-
-    background-color: white;
-    /* padding: 20px; */
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
 .ModalCard-header {
     display: flex;
     justify-content: space-between;
@@ -15,19 +5,8 @@
     background-color: #F5F5F5;
     padding: 0px 20px;
     margin-bottom: 71px;
-}
-
-.ModalCard-footer {
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px 119px;
-    padding-right: 134px;
-    gap: 53px;
-    margin-bottom: 70px;
-}
-
-.ModalCard-content {
-    border-top: 1px dashed #ccc;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 .ModalCard-header-close-button {
