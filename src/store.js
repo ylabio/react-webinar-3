@@ -5,7 +5,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.state.cart = {};
+    this.state.cart = [];
+    this.total = {amount: 0, cost: 0}
   }
 
   /**
@@ -38,18 +39,28 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
+  calculateTotal() {
+    const uniqueCodes = [];
+    const {cart, list} = this.state
+    return cart.reduce((prev, code) => {
+      if(!uniqueCodes.includes(code)) {
+        uniqueCodes.push(code);
+        prev.amount++
+      }
+      prev.cost += code * list[code].price
+      return prev;
+    },{amount: 0, cost: 0});
+  }
   /**
    * Добавление товара в корзину
    * @param code
    */
   addToCart(code) {
+    const newCart = [...this.state.cart, code];
     this.setState({
       ...this.state,
-      cart: {
-        ...this.state.cart,
-        [code]: this.state.cart[code] ? this.state.cart[code] + 1 : 1
-      }
+      cart: newCart,
+      total: this.calculateTotal(newCart),
     })
   };
 

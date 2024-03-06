@@ -6,6 +6,7 @@
   border: transparent;
   background-color: #FFF;
   border-radius: 10px;
+  scrollbar-width: none;
 }
 
 .Modal::backdrop {
@@ -17,7 +18,6 @@
   height: 100%;
 }
 
-.Modal::-webkit-scrollbar,
-.Modal::-moz-scrollbar {
+.Modal::-webkit-scrollbar{
    display: none;
 }
