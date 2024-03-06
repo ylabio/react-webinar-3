@@ -1,3 +1,11 @@
+.Cart-details_list {
+  overflow-y: auto;
+  max-height: calc(95vh - 250px);
+  scrollbar-width: none;
+}
+.Cart-details_list::-webkit-scrollbar{
+  display: none;
+}
 
 .Cart-details_total {
   display: flex;

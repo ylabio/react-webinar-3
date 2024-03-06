@@ -17,9 +17,11 @@ function CartDetails(props) {
         <Head title='Корзина' withGap>
           <Button onClose={props.onClose}/>
         </Head>
-        <List list={props.cartItems}
-            render={renderListItem}
-        />
+        <div className='Cart-details_list'>
+          <List list={props.cartItems}
+              render={renderListItem}
+          />
+        </div>
         <p className='Cart-details_total'>
           <span>Итого</span>
           <span className='Cart-details_total-sum'>{formatNumber(props.cost)}&nbsp;₽</span>

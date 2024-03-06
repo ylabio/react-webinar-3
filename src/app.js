@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import PageLayout from './components/page-layout';
 import Head from './components/head';
 import Info from './components/info';
@@ -18,7 +18,12 @@ function App({store}) {
 
   const {list, cartItems, cartTotal, cartCost} = store.getState();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  useEffect(() => {
+    if(isCartOpen) document.body.style.overflow = 'hidden';
+    return () => document.body.style.overflow = '';
+  }, [isCartOpen]);
 
   const callbacks = {
     onAddToCart: useCallback((code) => {
@@ -31,9 +36,9 @@ function App({store}) {
 
     onCartOpen: useCallback((e) => {
        e.stopPropagation();
-       setIsOpen(true);
+       setIsCartOpen(true);
      }, []),
-    onCartClose: useCallback(() => setIsOpen(false), []),
+    onCartClose: useCallback(() => setIsCartOpen(false), []),
   }
 
   const renderCatalogItem = useCallback(
@@ -49,7 +54,7 @@ function App({store}) {
               title='Перейти'
         />
       </Info>
-      <Modal isOpen={isOpen} onClose={callbacks.onCartClose}>
+      <Modal isOpen={isCartOpen} onClose={callbacks.onCartClose}>
         <CartDetails cartItems={cartItems}
                      cost={cartCost}
                      onClose={callbacks.onCartClose}
