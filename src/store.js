@@ -62,6 +62,7 @@ class Store {
       cart: {
         ...this.state.cart,
         cartTotalPrice: this.state.cart.cartTotalPrice + listItem.price,
+        cartItemsCount: isItemInCart ? this.state.cart.cartItemsCount : this.state.cart.cartItemsCount + 1,
         cartList: isItemInCart 
           ? this.state.cart.cartList.map(cartItem => {
             if (cartItem.code === code) {
@@ -96,6 +97,7 @@ class Store {
       ...this.state,
       cart: {
         ...this.state.cart,
+        cartItemsCount: this.state.cart.cartItemsCount - 1,
         cartTotalPrice: this.state.cart.cartTotalPrice - cartItem.price * cartItem.count,
         cartList: this.state.cart.cartList.filter(item => item.code !== code)
       }

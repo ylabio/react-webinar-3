@@ -37,7 +37,6 @@ Item.propTypes = {
 };
 
 Item.defaultProps = {
-  item: {},
   onAddToCart: () => {},
 };
 

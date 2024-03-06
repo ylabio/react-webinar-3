@@ -13,7 +13,8 @@ function Modal({isOpen, children}) {
 }
 
 Modal.propTypes = {
-  isOpen: PropTypes.bool
+  isOpen: PropTypes.bool,
+  children: PropTypes.node
 };
 
 Modal.defaultProps = {

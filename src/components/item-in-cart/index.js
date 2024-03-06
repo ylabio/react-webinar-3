@@ -40,7 +40,6 @@ ItemInCart.propTypes = {
 };
 
 ItemInCart.defaultProps = {
-  item: {},
   onDeleteFromCart: () => {},
 };
 

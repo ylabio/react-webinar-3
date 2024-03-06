@@ -13,7 +13,12 @@ function Head({title, onClose}) {
 }
 
 Head.propTypes = {
-  title: PropTypes.node,
+  title: PropTypes.string,
+  onClose: PropTypes.func,
+};
+
+Head.defaultProps = {
+  title: '',
 };
 
 export default React.memo(Head);

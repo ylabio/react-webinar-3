@@ -42,7 +42,7 @@ function App({store}) {
     <PageLayout>
       <Head title='Магазин'/>
       <Controls>
-        <CartInfo cart={cart}/>
+        <CartInfo cartItemsCount={cart.cartItemsCount} cartTotalPrice={cart.cartTotalPrice}/>
         <Button onClick={callbacks.onCartModalOpen}>Перейти</Button>
       </Controls>
       <List

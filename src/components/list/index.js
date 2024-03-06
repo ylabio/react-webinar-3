@@ -18,10 +18,12 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
+  renderItem: PropTypes.object.isRequired,
+  itemProps: PropTypes.object
 };
 
 List.defaultProps = {
-  list: [],
+  itemProps: {}
 };
 
 export default React.memo(List);

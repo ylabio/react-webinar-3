@@ -47,7 +47,6 @@ Cart.propTypes = {
 Cart.defaultProps = {
   cart: {
     cartList: [],
-    cartItemsCount: 0,
     cartTotalPrice: 0
   },
   onDeleteItemFromCart: () => {},
