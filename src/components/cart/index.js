@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Modal from "../modal/";
-import Head from "../head/";
 import List from "../list";
 import { monefy, sumPrices } from "../../utils";
 import "./style.css";
@@ -11,13 +10,8 @@ function Cart({ list, itemBtn, isShow, onClose }) {
 
   return (
     <div className="Cart" style={{ display: isShow ? "block" : "none" }}>
-      <Modal>
+      <Modal onClose={onClose}>
         <div className="Cart-content">
-          <Head title="Корзина">
-            <button className="Head-closeBtn" onClick={onClose}>
-              Закрыть
-            </button>
-          </Head>
           {list.length ? (
             <>
               <List list={list} itemsBtn={itemBtn} />

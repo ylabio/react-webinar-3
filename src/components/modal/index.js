@@ -1,12 +1,25 @@
-import React from 'react'
-import './style.css';
+import React from "react";
+import Head from "../head";
+import PropTypes from "prop-types";
+import "./style.css";
 
-function Modal({children, style}) {
+function Modal({ children, onClose}) {
   return (
-    <div className='Modal' {...style}>
-      <div className='Modal-content'>{children}</div>
+    <div className="Modal">
+      <div className="Modal-content">
+        <Head title="Корзина">
+          <button className="Head-closeBtn" onClick={onClose}>
+            Закрыть
+          </button>
+        </Head>
+        {children}
+      </div>
     </div>
-  )
+  );
 }
 
-export default Modal
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+};
+
+export default Modal;

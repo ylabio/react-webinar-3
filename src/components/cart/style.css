@@ -2,9 +2,6 @@
   width: 960px;
   max-height: 70dvh;
   padding-bottom: 89px;
-}
-
-.Cart-content > .List {
   padding-top: 71px;
 }
 
@@ -30,7 +27,6 @@
 
 .Cart-empty {
   text-align: center;
-  padding-top: 89px;
   font-size: 30px;
   font-weight: 600;
 }
