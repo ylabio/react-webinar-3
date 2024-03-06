@@ -12,10 +12,12 @@
 
 .Modal-content {
   width: 50%;
-  border-radius: 8px;
   background: white;
+  border-radius: 8px;
+  overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
+
 
 .Basket-list {
   padding: 20px 0 0;
