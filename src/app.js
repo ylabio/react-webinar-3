@@ -1,9 +1,9 @@
 import React, {useCallback} from 'react';
-import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Cart from './components/cart';
+import ListPage from './components/list-page';
 
 /**
  * Приложение
@@ -14,12 +14,8 @@ function App({store}) {
 
   const list = store.getState().list;
   const cartList = store.getState().cartList;
-  const toggleCart = () => {
-    const cart = document.querySelector('.Cart-cart-content ');
-    const backdrop = document.querySelector('.Cart-modal-backdrop');
-    cart.classList.toggle('visible');
-    backdrop.classList.toggle('hidden');
-  }
+  const toggleModal = store.toggleModal;
+  const pricesSum = store.getPricesSum();
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -33,12 +29,12 @@ function App({store}) {
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <List list={list}
-            cartList={cartList}
+      <Head title='Магазин'/>
+      <ListPage list={list}
+            cartList={cartList} pricesSum={pricesSum}
             onAddItemToCart={callbacks.onAddItemToCart}
-            toggleCart={toggleCart}/>
-      <Cart id='cart' cartList={cartList} onDeleteItem={callbacks.onDeleteItem} toggleCart={toggleCart}></Cart>
+            toggleModal={toggleModal}/>
+      <Cart id='cart' cartList={cartList} pricesSum={pricesSum} onDeleteItem={callbacks.onDeleteItem} toggleModal={toggleModal}></Cart>
     </PageLayout>
   );
 }

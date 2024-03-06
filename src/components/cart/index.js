@@ -1,43 +1,37 @@
 import React from 'react';
-import Head from '../head';
-import CartList from '../cart-list';
+import PropTypes from 'prop-types';
+import List from '../list';
+import Modal from '../modal';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
-import PropTypes from 'prop-types';
 
 function Cart(props) {
 
   const cn = bem('Cart');
 
-  const getPricesSum = () => {
-    const pricesArray = props.cartList.map(item => item.price*item.addCount);
-    return pricesArray.reduce((sum, current) => sum + current, 0)
-  }
-
   return (
     <div className={cn()}>
-      <div className={cn('cart-content')}>
-        <Head title='Корзина' closeCart={props.toggleCart}></Head>
-        <CartList cartList={props.cartList} onDeleteItem={props.onDeleteItem}></CartList>
-        <div className={cn('sum')}><span>Итого</span>{getPricesSum()+'\u00A0₽'}</div>
-      </div>
-      <div className={cn('modal-backdrop hidden')}></div>
+      <Modal title={'Корзина'} toggleModal={props.toggleModal}>
+        <List list={props.cartList} onDeleteItem={props.onDeleteItem} isCartList={true} isList={false}/>
+        <div className={cn('sum')}><span>Итого</span>{props.pricesSum + '\u00A0₽'}</div>
+      </Modal>
     </div>
   )
 }
 
-CartList.propTypes = {
+Cart.propTypes = {
   cartList: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
+  pricesSum: PropTypes.string,
   onDeleteItem: PropTypes.func,
-  toggleCart: PropTypes.func
+  toggleModal: PropTypes.func
 };
 
-CartList.defaultProps = {
+Cart.defaultProps = {
   onDeleteItem: () => {
   },
-  toggleCart: () => {
+  toggleModal: () => {
   }
 }
 

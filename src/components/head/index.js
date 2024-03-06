@@ -10,14 +10,14 @@ function Head(props) {
   return (
     <div className={cn()}>
       <h1>{props.title}</h1>
-      {props.closeCart&&<button className={cn('button')} onClick={props.closeCart}>Закрыть</button>}
+      {props.closeModal&&<button className={cn('button')} onClick={props.closeModal}>Закрыть</button>}
     </div>
   )
 }
 
 Head.propTypes = {
   title: PropTypes.node,
-  closeCart: PropTypes.func
+  closeModal: PropTypes.func
 };
 
 export default React.memo(Head);

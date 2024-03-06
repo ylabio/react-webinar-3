@@ -1,20 +1,3 @@
-.List-cart-info {
-  display: flex;
-  padding: 21px;
-  justify-content: end;
-}
-
-.List-cart-data {
-  display: flex;
-  padding-left: 15px;
-  padding-right: 20px;
-  font-weight: 700;
-}
-
-.List-cart-empty {
-  font-weight: 700;
-}
-
-.List-item, .List-cart-info {
+.List-item {
   border-bottom: 1px dashed #ccc;
 }

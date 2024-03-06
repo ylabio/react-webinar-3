@@ -66,6 +66,19 @@ class Store {
     })
   };
 
+  toggleModal() {
+    const modal = document.querySelector('.Modal-content ');
+    const backdrop = document.querySelector('.Modal-backdrop');
+    modal.classList.toggle('visible');
+    backdrop.classList.toggle('hidden');
+  };
+
+  getPricesSum() {
+    const pricesArray = this.state.cartList.map(item => item.price*item.addCount);
+    const pricesSum = pricesArray.reduce((sum, current) => sum + current, 0);
+    return Intl.NumberFormat("ru-RU").format(pricesSum);
+  }
+
 }
 
 export default Store;
