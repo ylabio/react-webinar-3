@@ -1,18 +1,23 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import './style.css';
+import {plural} from "../../utils";
 
-function Controls({onAdd}) {
+function Controls({setIsActive, cartList, totalPrice}) {
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <a>В корзине:</a>
+      <strong>{cartList.length != 0 ? ` ${cartList.length} ${plural(cartList.length, {
+        one: ' товар',
+        few: ' товара',
+        many: ' товаров'
+      })} / ${totalPrice.toLocaleString()} ₽` : `пусто`}</strong>
+      <div className='Controls-button'><button onClick={() => setIsActive(true)}>Перейти</button></div>
+      {/* onClick={() => props.onAdd()} */}
     </div>
   )
 }
 
-Controls.propTypes = {
-  onAdd: PropTypes.func
-};
+
 
 Controls.defaultProps = {
   onAdd: () => {}

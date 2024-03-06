@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
 
-function Item(props) {
+function ItemCart(props) {
 
   const callbacks = {
     onClick: () => {
@@ -23,29 +23,34 @@ function Item(props) {
       <div className='Item-price'>
       {`${props.item.price.toLocaleString()} ₽`}
       </div>
+      <div className={'Item-count'}>
+      {`${props.item.amountCart} шт`}
+      </div>
       <div className='Item-actions'>
-        <button onClick={callbacks.onClick}>Добавить</button>
+        <button onClick={callbacks.onClick}>
+          Удалить
+        </button>
       </div>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+ItemCart.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     selected: PropTypes.bool,
     count: PropTypes.number
   }).isRequired,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
-// Item.defaultProps = {
+// ItemCart.defaultProps = {
 //   onDelete: () => {
 //   },
 //   onSelect: () => {
 //   },
 // }
 
-export default React.memo(Item);
+export default React.memo(ItemCart);

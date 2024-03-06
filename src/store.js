@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+
 
 /**
  * Хранилище состояния приложения
@@ -40,49 +40,56 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+  addToCart(code) {
+    const cart = this.state.CartList; // Получил текущую корзину и записал её в cart
+    // let newTotal = this.state.totalPrice; // Получил текущую сумму 
+    let changedInCart = []; // Массив для новой корзины
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+    if (cart.findIndex(
+      (itemCart) => itemCart.code === code) !== -1) { // Если в корзине уже есть товар
+        changedInCart = cart.map((p) =>
+        p.code === code
+          ? {
+              ...p,
+              amountCart: p.amountCart + 1, // к нашему товару прибавляем +1
+            }
+          : p
+      );
+    } else {
+      changedInCart = [...cart, { ...this.state.list[code-1], amountCart: 1 }]; // если нашего товара нет, добавляем его и ставим в количество значением 1
+    }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+
+      let total = 0;
+      changedInCart.map((item) => {
+        total = total + item.price*item.amountCart;
       })
-    })
+      const newTotal = total;
+
+    this.setState({
+      ...this.state,
+      CartList: changedInCart, // заменяем старую на новую
+      totalPrice: newTotal
+    });
   }
+
+  deleteItem(code) { // Удаление товара из корзины
+    const cart = this.state.CartList;
+    const newCart = cart.filter((i) => i.code !== code);
+    let total = 0;
+    newCart.map((item) => {
+      total = total + item.price*item.amountCart;
+    })
+    const newTotal = total;
+
+    this.setState({
+      ...this.state,
+      CartList: newCart,
+      totalPrice: newTotal
+    });
+  }
+
 }
+
 
 export default Store;
