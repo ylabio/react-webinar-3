@@ -101,11 +101,11 @@ class Store {
 
   /**
    * удаление продукта из корзины
-   * @param product
+   * @param code
    */
-  deleteProduct(product) {
+  deleteProduct(code) {
     const existingProductIndex = this.state.cart.products.findIndex(
-      (item) => item.code === product.code
+      (item) => item.code === code
     );
     if (existingProductIndex !== -1) {
       const price = this.state.cart.products[existingProductIndex].price;
@@ -116,7 +116,7 @@ class Store {
         cart: {
           ...this.state.cart,
           products: this.state.cart.products.filter(
-            (item) => item.code !== product.code
+            (item) => item.code !== code
           ),
           totalPrice: this.state.cart.totalPrice - amountPrice,
         },

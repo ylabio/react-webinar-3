@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./style.css";
 import { plural, formaterCurrency } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
-import Button from "../button";
+import Button from "../button/index";
 
 function ProductCounter({ cart, onOpenCart }) {
   const cn = bem("Product-counter");
@@ -52,4 +52,9 @@ ProductCounter.defaultProps = {
   onOpenCart: () => {},
 };
 
-export default React.memo(ProductCounter);
+export default React.memo(ProductCounter, (prevProps, nextProps) => {
+  return (
+    prevProps.cart.products.length === nextProps.cart.products.length &&
+    prevProps.cart.totalPrice === nextProps.cart.totalPrice
+  );
+});

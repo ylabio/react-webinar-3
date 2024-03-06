@@ -5,6 +5,7 @@ import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Cart from "./components/cart";
 import Modal from "./components/modal";
+import Item from "./components/item";
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -34,6 +35,19 @@ function App({ store }) {
     onOpenCart: useCallback(() => {
       store.openCart();
     }, [store]),
+
+    renderItem: useCallback(
+      (item) => {
+        return (
+          <Item
+            key={item.code}
+            item={item}
+            action={callbacks.onAddProductToCart}
+          />
+        );
+      },
+      [list]
+    ),
   };
 
   return (
@@ -54,7 +68,7 @@ function App({ store }) {
           }
         />
       )}
-      <List list={list} action={callbacks.onAddProductToCart} />
+      <List list={list} renderItem={callbacks.renderItem} />
     </PageLayout>
   );
 }

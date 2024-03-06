@@ -1,18 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Item from "../item";
 import "./style.css";
 
 function List(props) {
-  const { list, action, variant } = props;
-
+  const { list, renderItem } = props;
   return (
     <div className="List">
-      {list.map((item) => (
-        <div key={item.code} className="List-item">
-          <Item variant={variant} item={item} action={action} />
-        </div>
-      ))}
+      {list.map((item) => {
+        return (
+          <div key={item.code} className="List-item">
+            {renderItem(item)}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -23,12 +23,7 @@ List.propTypes = {
       code: PropTypes.number,
     })
   ).isRequired,
-  action: PropTypes.func,
-  variant: PropTypes.string,
-};
-
-List.defaultProps = {
-  action: () => {},
+  renderItem: PropTypes.func.isRequired,
 };
 
 export default React.memo(List);

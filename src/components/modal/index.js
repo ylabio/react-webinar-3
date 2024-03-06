@@ -21,7 +21,12 @@ function Modal(props) {
         <div className={cn("inner")}>
           <div className={cn("header")}>
             <h2 className={cn("header-title")}>{title}</h2>
-            <button onClick={() => setIsVisible(false)}>{closeElement}</button>
+            <button
+              className={cn("action")}
+              onClick={() => setIsVisible(false)}
+            >
+              {closeElement}
+            </button>
           </div>
           {children}
         </div>

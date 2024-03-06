@@ -1,6 +1,4 @@
 .Cart-list {
-  max-height: calc(100vh - 340px);
-  overflow-y: auto;
   margin-bottom: 20px;
 }
 .Cart-total {
@@ -10,5 +8,4 @@
   justify-content: flex-end;
   column-gap: 53px;
   margin-right: 120px;
-  margin-bottom: 89px;
 }

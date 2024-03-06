@@ -7,12 +7,13 @@ import { formaterCurrency } from "../../utils";
 
 function Item(props) {
   const { item, action } = props;
-  const { code, title, price } = item;
-  const cn = bem("Item");
+  const { code, title, price, count } = item;
+  const cn = bem("Item-cart");
 
   const callbacks = {
-    handleAction: () => {
-      action(item);
+    handleAction: (e) => {
+      e.stopPropagation();
+      action(code);
     },
   };
 
@@ -21,8 +22,9 @@ function Item(props) {
       <div className={cn("code")}>{code}</div>
       <div className={cn("title")}>{title}</div>
       <div className={cn("price")}>{formaterCurrency(price)}</div>
+      <div className={cn("count")}>{`${count} шт`}</div>
       <div className={cn("actions")}>
-        <Button callback={callbacks.handleAction}>Добавить</Button>
+        <Button callback={callbacks.handleAction}>Удалить</Button>
       </div>
     </div>
   );
@@ -33,6 +35,7 @@ Item.propTypes = {
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number,
+    count: PropTypes.number,
   }).isRequired,
   action: PropTypes.func.isRequired,
 };

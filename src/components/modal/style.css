@@ -1,6 +1,6 @@
 .Modal {
   display: block;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -10,15 +10,17 @@
   align-items: center;
   background: rgba(0, 0, 0, 0.7);
   padding: 40px 0;
+  overflow-y: auto;
 }
 
 .Modal-wraper {
-  max-height: 100%;
+  margin: auto;
   width: 960px;
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
   background: rgb(255, 255, 255);
+  padding-bottom: 89px;
 }
 
 .Modal-inner {
@@ -36,4 +38,7 @@
 .Modal-header-title {
   font-size: 32px;
   font-weight: 700;
+}
+.Modal-action {
+  padding: 3px 8px 2px 9px;
 }
