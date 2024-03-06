@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { numberWithSpaces } from "./utils";
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
@@ -42,6 +43,11 @@ function App({ store }) {
           <button onClick={() => setModalState(false)}>Закрыть</button>
         </Head>
         <List list={cart} text={'Удалить'} onItemClick={callbacks.onDeleteItem} />
+        {cart.length > 0 &&
+          <div className='Modal-footer'>
+            <b>Итого </b><b>{numberWithSpaces(cartSum)} ₽</b>
+          </div>
+        }
       </Modal>
     </>
   );

@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import { numberWithSpaces } from "../../utils";
-import List from "../list";
-import Head from "../head";
 import './style.css';
 
-function Modal({ cart, cartSum, modal, children }) {
+function Modal({ modal, children }) {
 
   const cn = bem('Modal');
 
@@ -14,11 +11,6 @@ function Modal({ cart, cartSum, modal, children }) {
     <div className={cn({ opened: modal })}>
       <div className={cn('wrapper')}>
         {children}
-        {cart.length > 0 &&
-          <div className={cn('footer')}>
-            <b>Итого </b><b>{numberWithSpaces(cartSum)} ₽</b>
-          </div>
-        }
       </div>
     </div>
   );
