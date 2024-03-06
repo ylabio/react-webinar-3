@@ -1,0 +1,6 @@
+.TotalSum{
+    display: flex;
+    justify-content: flex-end;
+    gap: 40px;
+    padding: 30px 102px;
+}

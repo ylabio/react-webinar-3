@@ -1,8 +1,11 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import ProductsBasket from './components/products_basket'
+import PageOutBasket from './components/page-out-basket';
+import Modal from './components/modal'
 
 /**
  * Приложение
@@ -10,31 +13,33 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
+const [basketOpen,setBasketOpen]=useState(false)
+useMemo(()=>{
+  store.getLocalStorage()
+},[])
 
-  const list = store.getState().list;
+  const list = store.getState();
+  const listBasket=store.getBasketList()
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    onAddBasket: useCallback((code)=>{
+      store.addItemBasket(code);
+    },[store]),
+  
+    onDeleteBasketItem: useCallback((code)=>{
+      return store.deleteBasketItem(code);
+    },[store]),
   }
-
+ 
+  basketOpen ? (document.querySelector('body').style.overflow='hidden'):(document.querySelector('body').style.overflow='auto')
   return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-    </PageLayout>
+    <div>
+      <PageLayout  list={list} onAddBasket={callbacks.onAddBasket} setBasketOpen={setBasketOpen} />
+    {basketOpen && <PageOutBasket setBasketOpen={setBasketOpen} onDeleteBasketItem={callbacks.onDeleteBasketItem}   list={listBasket}
+    /> }
+  
+    </div>
+    
   );
 }
 

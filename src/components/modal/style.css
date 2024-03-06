@@ -1,0 +1,29 @@
+.Modal{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.Modalcenter{
+   
+        width: 960px;
+        max-height: 510px;
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+    
+}
+.ModalChildren{
+    padding: 60px 0;
+}
+.Modalcenter .List{
+    overflow-y: auto;
+    max-height: 250px;
+    border-top: 1px dashed #ccc;
+}
