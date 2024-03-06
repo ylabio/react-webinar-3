@@ -16,6 +16,15 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   return variants[key] || '';
 }
 
+export function pluralCurrencies(value, locale = 'ru-RU') {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: 'RUB',
+    maximumFractionDigits: 0,
+    minimumFractionDigits: 0,
+  }).format(value)
+}
+
 /**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.
@@ -49,4 +58,9 @@ export const generateCode1 = (function (start = 0) {
  */
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
+}
+
+export const closeWindow = (e, ref, func) => {
+  if (!ref.current) return;
+  if(e.target.contains(ref.current)) func()
 }

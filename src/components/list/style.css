@@ -3,5 +3,10 @@
 }
 
 .List-item {
+  border-top: 1px dashed #ccc;
+}
+
+.List-item:last-child {
+  border-top: 1px dashed #ccc;
   border-bottom: 1px dashed #ccc;
 }
