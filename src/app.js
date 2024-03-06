@@ -13,7 +13,6 @@ import { monefy } from "./utils";
  */
 function App({ store }) {
   const [cartIsShow, setCartIsShow] = useState(false);
-  const [productsInCart, setProductsInCart] = useState([]);
 
   const list = store.getState().list.map((product) => {
     return {
@@ -22,6 +21,8 @@ function App({ store }) {
       content: [monefy(product.price)],
     };
   });
+
+  const cartList = store.getState().cart
 
   const callbacks = {
     onCartOpen: useCallback(() => {
@@ -32,59 +33,10 @@ function App({ store }) {
       setCartIsShow(false);
       document.body.style.overflow = "scroll";
     }),
-    onAddToCart: useCallback((product) => addToCart(product)),
-    onDeleteFromCart: useCallback((product) => deleteFromCart(product.code)),
+    onAddToCart: useCallback((product) => store.addToCart(product)),
+    onDeleteFromCart: useCallback((product) => store.deleteFromCart(product.code)),
   };
 
-  const addToCart = (product) => {
-    const index = productsInCart.findIndex((item) => {
-      if (item.code === product.code) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-
-    if (index !== -1) {
-      setProductsInCart((oldCart) => {
-        const newCart = [...oldCart];
-
-        const newProduct = newCart[index];
-
-        newProduct.count += 1;
-        newProduct.content = [
-          monefy(newProduct.price),
-          newProduct.count + " шт",
-        ];
-
-        return newCart;
-      });
-    } else {
-      setProductsInCart((oldCart) => {
-        const newProduct = { ...product };
-
-        newProduct.count = 1;
-        newProduct.content = [
-          monefy(newProduct.price),
-          newProduct.count + " шт",
-        ];
-
-        return [...oldCart, newProduct];
-      });
-    }
-  };
-
-  const deleteFromCart = (code) => {
-    setProductsInCart((oldCart) => {
-      return oldCart.filter((product) => {
-        if (product.code === code) {
-          return false;
-        }
-
-        return true;
-      });
-    });
-  };
 
   const addToCartBtn = {
     title: "Добавить",
@@ -100,11 +52,11 @@ function App({ store }) {
     <>
       <PageLayout>
         <Head title="Магазин" />
-        <CartMenu cartList={productsInCart} onCartOpen={callbacks.onCartOpen} />
+        <CartMenu cartList={cartList} onCartOpen={callbacks.onCartOpen} />
         <List list={list} itemsBtn={addToCartBtn} />
       </PageLayout>
       <Cart
-        list={productsInCart}
+        list={cartList}
         itemBtn={deleteFromCartBtn}
         isShow={cartIsShow}
         onClose={callbacks.onCartClose}
