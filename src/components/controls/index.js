@@ -15,7 +15,10 @@ function Controls({ cartCount, cartSum, setModalState }) {
         few: 'товара',
         many: 'товаров'
       })} / ${numberWithSpaces(cartSum)} ₽` : 'пусто'}</b>
-      <button onClick={() => setModalState(true)}>Перейти</button>
+      <button onClick={() => {
+        document.body.style.overflow = 'hidden';
+        setModalState(true);
+      }}>Перейти</button>
     </div>
   )
 }

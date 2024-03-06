@@ -40,7 +40,10 @@ function App({ store }) {
       </PageLayout>
       <Modal cart={cart} cartSum={cartSum} modal={modal}>
         <Head title='Корзина'>
-          <button onClick={() => setModalState(false)}>Закрыть</button>
+          <button onClick={() => {
+            document.body.style.overflow = '';
+            setModalState(false);
+          }}>Закрыть</button>
         </Head>
         <List list={cart} text={'Удалить'} onItemClick={callbacks.onDeleteItem} />
         {cart.length > 0 &&

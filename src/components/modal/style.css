@@ -7,7 +7,7 @@
   z-index: 10;
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin: auto;
   padding: 20px;
   background-color: rgba(0, 0, 0, 0.7);
   opacity: 0;
@@ -21,6 +21,7 @@
   opacity: 1;
   visibility: visible;
   pointer-events: initial;
+  overflow-y: auto;
 }
 
 .Modal-wrapper {
@@ -28,6 +29,7 @@
   max-width: 960px;
   min-height: 407px;
   max-height: 100vh;
+  margin: auto;
   padding-bottom: 74px;
   background: #fff;
   border-radius: 10px;
