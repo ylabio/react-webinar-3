@@ -4,6 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Cart from "./components/cart";
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -12,25 +13,15 @@ import Cart from "./components/cart";
  */
 function App({store}) {
 
-  const {list, cart, isCartOpen} = store.getState();
-
-  const uniqueItemsCount = cart.length;
-  
-  function getTotalPrice(){
-    let totalPrice = 0;
-    if(uniqueItemsCount) {
-      totalPrice = cart.reduce((total, item) => total + item.price * item.count, 0);
-    }
-    return totalPrice;
-  }
+  const {list, cart, uniqueItemsCount, totalPrice, isCartOpen} = store.getState();
 
   const callbacks = {
-    onClickAdd: useCallback((item) => {
-      store.addToCart(item);
+    onClickAdd: useCallback((code) => {
+      store.addToCart(code);
     }, [store]),
 
-		onClickDelete: useCallback((item) => {
-	  	store.deleteFromCart(item);
+		onClickDelete: useCallback((code) => {
+	  	store.deleteFromCart(code);
 		}, [store]),
 
 		toggleOpenCloseCart: useCallback(() => {
@@ -41,18 +32,16 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls openCart={callbacks.toggleOpenCloseCart} count={uniqueItemsCount} totalPrice={getTotalPrice()}/>
+      <Controls openCart={callbacks.toggleOpenCloseCart} count={uniqueItemsCount} totalPrice={totalPrice}/>
       <List list={list} 
 	  				requiredCallback={callbacks.onClickAdd}
 			  		btnName={'Добавить'}/>
 	  	{isCartOpen && 
-	  	<Cart list={cart} 
-	  				onCloseCart={callbacks.toggleOpenCloseCart} 
-						totalPrice={getTotalPrice()} 
-						requiredCallback={callbacks.onClickDelete}
-						btnName={'Удалить'}
-						isCartOpen={isCartOpen}
-						uniqueItemsCount={uniqueItemsCount}/>}
+	  	<Modal modalTitle='Корзина' onCloseCart={callbacks.toggleOpenCloseCart} >
+				<Cart list={cart} 
+							totalPrice={totalPrice} 
+							requiredCallback={callbacks.onClickDelete}/>
+			</Modal>}
     </PageLayout>
   );
 }

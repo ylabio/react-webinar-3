@@ -10,7 +10,7 @@ function Item(props) {
 
   const callbacks = {
     requiredCallback: () => {
-      props.requiredCallback(props.item);
+      props.requiredCallback(props.item.code);
     }
   }
 
@@ -22,7 +22,7 @@ function Item(props) {
       </div>
       <div className={cn('actions')}>
 	  		<div className={cn('price')}>{formatPrice(props.item.price)} ₽</div>
-				{props.isCartOpen &&
+				{props.item?.count &&
 		  		<div className={cn('count')}>
         		{props.item.count} шт
           </div>
@@ -42,7 +42,6 @@ Item.propTypes = {
   }).isRequired,
   requiredCallback: PropTypes.func.isRequired,
   btnName: PropTypes.string.isRequired,
-  isCartOpen: PropTypes.bool,
 };
 
 Item.defaultProps = {

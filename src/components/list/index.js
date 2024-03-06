@@ -4,14 +4,14 @@ import Item from "../item";
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function List({list, requiredCallback, btnName, isCartOpen}) {
+function List({list, requiredCallback, btnName}) {
 	const cn = bem('List');
 
   return (
     <div className={cn()}>{
       list.map(item =>
         <div key={item.code} className={cn('item')}>
-          <Item item={item} requiredCallback={requiredCallback} btnName={btnName} isCartOpen={isCartOpen} />
+          <Item item={item} requiredCallback={requiredCallback} btnName={btnName}/>
         </div>
       )}
     </div>
@@ -24,7 +24,6 @@ List.propTypes = {
   })).isRequired,
   requiredCallback: PropTypes.func,
   btnName: PropTypes.string.isRequired,
-  isCartOpen: PropTypes.bool,
 };
 
 List.defaultProps = {

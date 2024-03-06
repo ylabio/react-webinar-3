@@ -6,6 +6,8 @@ class Store {
     this.state = {
 		...initState,
 		cart: [],
+		uniqueItemsCount: 0,
+		totalPrice: 0,
 		isCartOpen: false
 	  };
     this.listeners = []; // Слушатели изменений состояния
@@ -46,15 +48,15 @@ class Store {
    * Добавление товара в корзину 
    * @param item {Object}
    */
-  addToCart(item) {
-	const cartItem = this.state.cart.find(el=>el.code === item.code)
+  addToCart(code) {
+	const item = this.state.list.find(el=>el.code === code)
+	const cartItem = this.state.cart.find(el=>el.code === code)
 	
 	if (cartItem) {
 		// Если товар уже есть в корзине
-		cartItem.count+=1
 		this.setState({
 		  ...this.state,
-		  cart: [...this.state.cart]
+		  cart: this.state.cart.map(el=>el.code === code ? {...el, count: el.count + 1} : el)
 		})
 	} else {
 		// если товара нет в корзине
@@ -63,18 +65,34 @@ class Store {
 		  cart: [...this.state.cart, {...item, count: 1}]
 		})
 	}
+	this.recountTotalPrice()
   };
 
   /**
    * Удаление товара из корзины
    * @param item {Object}
    */
-  deleteFromCart(item) {
+  deleteFromCart(code) {
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter(el => el.code !== item.code)
+      cart: this.state.cart.filter(el => el.code !== code)
     })
+		this.recountTotalPrice()
   };
+
+	/**
+   * Подсчет кол-ва товаров и общей цены
+   */
+  recountTotalPrice() {
+		const count = this.state.cart.length;
+    const price = count ? this.state.cart.reduce((total, item) => total + item.price * item.count, 0) : 0;
+
+		this.setState({
+			...this.state,
+			uniqueItemsCount: count,
+			totalPrice: price
+		})
+  }
 
   /**
    * Открыть или закрыть модалку корзины
