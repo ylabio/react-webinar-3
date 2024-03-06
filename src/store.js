@@ -48,7 +48,7 @@ class Store {
       cart: {
         items: cartItems,
         totalSumm: this.getTotalSumm(cartItems),
-        itemsCount: Array.from(new Set(cartItems)).length,
+        itemsCount: (new Set(cartItems)).size,
       },
     })
   };
@@ -62,7 +62,7 @@ class Store {
       cart: {
         items: cartItems,
         totalSumm: this.getTotalSumm(cartItems),
-        itemsCount: Array.from(new Set(cartItems)).length,
+        itemsCount: (new Set(cartItems)).size,
       }
     })
   }
