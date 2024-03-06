@@ -5,8 +5,6 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.state.cart = [];
-    this.total = {amount: 0, cost: 0}
   }
 
   /**
@@ -39,41 +37,40 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-  calculateTotal() {
-    const uniqueCodes = [];
-    const {cart, list} = this.state
-    return cart.reduce((prev, code) => {
-      if(!uniqueCodes.includes(code)) {
-        uniqueCodes.push(code);
-        prev.amount++
-      }
-      prev.cost += code * list[code].price
-      return prev;
-    },{amount: 0, cost: 0});
-  }
   /**
    * Добавление товара в корзину
    * @param code
    */
   addToCart(code) {
-    const newCart = [...this.state.cart, code];
+    const itemInCart = this.state.cartItems.find((item) => item.code === code);
+    const itemToAdd = itemInCart
+      ? {...itemInCart, amount: itemInCart.amount + 1}
+      : {...this.state.list.find((item) => item.code === code), amount: 1}
+    const newCartItems = itemInCart
+    ? this.state.cartItems.map((item) => item.code === code ? itemToAdd : item)
+    : [...this.state.cartItems, itemToAdd];
+
     this.setState({
       ...this.state,
-      cart: newCart,
-      total: this.calculateTotal(newCart),
+      cartItems: newCartItems,
+      cartCost: this.state.cartCost += itemToAdd.price,
+      cartTotal: itemInCart ? this.state.cartTotal : this.state.cartTotal + 1,
     })
   };
-
   /**
   * Удаление товара из корзины
   * @param code
   */
   removeFromCart(code) {
-    const newCart = {...this.state.cart};
-    delete newCart[code];
+    const {price, amount} = this.state.cartItems.find((item) => item.code === code);
+    const newCartItems = this.state.cartItems.filter((item) => item.code !== code);
+    const total = this.state.cartTotal - 1;
+    const cost = this.state.cartCost - (price * amount)
     this.setState({
       ...this.state,
-      cart: newCart
+      cartItems: newCartItems,
+      cartTotal: total,
+      cartCost: cost,
     })
   };
 }

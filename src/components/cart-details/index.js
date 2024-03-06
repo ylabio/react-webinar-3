@@ -1,42 +1,43 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Head from '../head';
 import List from '../list';
+import CartItem from '../cart-item';
 import Button from '../button';
 import {formatNumber} from '../../utils';
 import './style.css';
 
-function CartDetails({onClose, items, cart, onRemove, cost}) {
+function CartDetails(props) {
+
+  const renderListItem = useCallback(
+    (item) => <CartItem item={item} onDelete={props.onRemove} />, [props.onRemove]);
 
   return (
       <div className='Cart-details'>
         <Head title='Корзина' withGap>
-          <Button onClose={onClose}/>
+          <Button onClose={props.onClose}/>
         </Head>
-        <List list={items}
-            amounts={cart}
-            onDelete={onRemove}
+        <List list={props.cartItems}
+            render={renderListItem}
         />
-        {items.length !== 0 &&
-          <p className='Cart-details-total'>
-            <span>Итого</span>
-            <span className='Cart-details-total-sum'>{formatNumber(cost)}&nbsp;₽</span>
-          </p>
-        }
+        <p className='Cart-details_total'>
+          <span>Итого</span>
+          <span className='Cart-details_total-sum'>{formatNumber(props.cost)}&nbsp;₽</span>
+        </p>
       </div>
   )
 }
 
 CartDetails.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  items: PropTypes.arrayOf(PropTypes.exact({
+  cartItems: PropTypes.arrayOf(PropTypes.exact({
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number,
+    amount: PropTypes.number,
   })).isRequired,
-  cart: PropTypes.objectOf(PropTypes.number).isRequired,
-  onRemove: PropTypes.func,
   cost: PropTypes.number.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
 export default React.memo(CartDetails);

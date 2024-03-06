@@ -4,7 +4,7 @@ import {plural} from '../../utils';
 import {formatNumber} from '../../utils';
 import './style.css';
 
-function CartInfo({amount, cost}) {
+function CartInfo({total, cost}) {
 
   const forms = {
     one: 'товар',
@@ -12,8 +12,8 @@ function CartInfo({amount, cost}) {
     many: 'товаров'
   }
 
-  const inCart = amount > 0
-  ? `${amount} ${plural(amount, forms)} / ${formatNumber(cost)} ₽`
+  const inCart = total > 0
+  ? `${total} ${plural(total, forms)} / ${formatNumber(cost)} ₽`
   : 'пусто';
 
   return (
@@ -25,7 +25,7 @@ function CartInfo({amount, cost}) {
 }
 
 CartInfo.propTypes = {
-  amount: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
   cost: PropTypes.number.isRequired,
 };
 
