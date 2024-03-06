@@ -1,12 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { monefy, plural, sumPrices } from "../../utils";
+import { monefy, plural } from "../../utils";
 import "./style.css";
 
-function CartMenu({ cartList, onCartOpen }) {
-  const count = cartList.length;
+function CartMenu({ store, onCartOpen }) {
+  const cart = store.getState().cart;
 
-  const sum = sumPrices(cartList);
+  const count = cart.length;
+
+  const sum = store.sumCartPrices();
 
   const pluralized = plural(count, {
     one: "товар",
@@ -14,7 +16,7 @@ function CartMenu({ cartList, onCartOpen }) {
     many: "товаров",
   });
 
-  const value = cartList.length
+  const value = cart.length
     ? `${count} ${pluralized} / ${monefy(sum)}`
     : "пусто";
 
@@ -30,12 +32,11 @@ function CartMenu({ cartList, onCartOpen }) {
 }
 
 CartMenu.propTypes = {
-  cartList: PropTypes.arrayOf(
-    PropTypes.shape({
-      price: PropTypes.number.isRequired,
-      count: PropTypes.number.isRequired,
-    })
-  ).isRequired,
+  store: PropTypes.shape({
+    getState: PropTypes.func.isRequired,
+    sumCartPrices: PropTypes.func.isRequired,
+  }).isRequired,
+  
   onCartOpen: PropTypes.func.isRequired,
 };
 

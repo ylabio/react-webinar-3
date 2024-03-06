@@ -2,19 +2,20 @@ import React from "react";
 import PropTypes from "prop-types";
 import Modal from "../modal/";
 import List from "../list";
-import { monefy, sumPrices } from "../../utils";
+import { monefy } from "../../utils";
 import "./style.css";
 
-function Cart({ list, itemBtn, isShow, onClose }) {
-  const sum = sumPrices(list);
+function Cart({ store, itemBtn, isShow, onClose }) {
+  const cart = store.getState().cart;
+  const sum = store.sumCartPrices();
 
   return (
     <div className="Cart" style={{ display: isShow ? "block" : "none" }}>
       <Modal onClose={onClose}>
         <div className="Cart-content">
-          {list.length ? (
+          {cart.length ? (
             <>
-              <List list={list} itemsBtn={itemBtn} />
+              <List list={cart} itemsBtn={itemBtn} />
               <div className="Cart-sum">
                 <span>{"Итого"}</span>
                 <span>{monefy(sum)}</span>
@@ -30,14 +31,10 @@ function Cart({ list, itemBtn, isShow, onClose }) {
 }
 
 Cart.propTypes = {
-  list: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      count: PropTypes.number.isRequired,
-    })
-  ),
+  store: PropTypes.shape({
+    getState: PropTypes.func.isRequired,
+    sumCartPrices: PropTypes.func.isRequired,
+  }).isRequired,
 
   itemBtn: PropTypes.shape({
     title: PropTypes.string.isRequired,

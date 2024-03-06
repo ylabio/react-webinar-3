@@ -22,8 +22,6 @@ function App({ store }) {
     };
   });
 
-  const cartList = store.getState().cart
-
   const callbacks = {
     onCartOpen: useCallback(() => {
       setCartIsShow(true);
@@ -34,9 +32,10 @@ function App({ store }) {
       document.body.style.overflow = "scroll";
     }),
     onAddToCart: useCallback((product) => store.addToCart(product)),
-    onDeleteFromCart: useCallback((product) => store.deleteFromCart(product.code)),
+    onDeleteFromCart: useCallback((product) =>
+      store.deleteFromCart(product.code)
+    ),
   };
-
 
   const addToCartBtn = {
     title: "Добавить",
@@ -52,11 +51,11 @@ function App({ store }) {
     <>
       <PageLayout>
         <Head title="Магазин" />
-        <CartMenu cartList={cartList} onCartOpen={callbacks.onCartOpen} />
+        <CartMenu store={store} onCartOpen={callbacks.onCartOpen} />
         <List list={list} itemsBtn={addToCartBtn} />
       </PageLayout>
       <Cart
-        list={cartList}
+        store={store}
         itemBtn={deleteFromCartBtn}
         isShow={cartIsShow}
         onClose={callbacks.onCartClose}

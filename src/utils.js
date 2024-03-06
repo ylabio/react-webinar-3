@@ -69,14 +69,3 @@ export function monefy(value, currency = "RUB", locale = "ru-RU") {
 
   return formatter.format(value);
 }
-
-/**
- * Суммирует цены продуктов в списке
- * @param {Array.<{price: Number, count: Number}>} productsList
- * @returns {Number}
- */
-export function sumPrices(productsList) {
-  return productsList.reduce((sum, product) => {
-    return sum + product.price * product.count;
-  }, 0);
-}

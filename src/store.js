@@ -48,7 +48,7 @@ class Store {
       ...this.state,
       list: [
         ...this.state.list,
-        { code: generateCode(), title: "Новая запись", price: 0},
+        { code: generateCode(), title: "Новая запись", price: 0 },
       ],
     });
   }
@@ -87,9 +87,9 @@ class Store {
     });
   }
 
-    /**
+  /**
    * Добавления товара в корзину
-   * @param {{code, title: String, price: Number }} newProduct 
+   * @param {{code, title: String, price: Number }} newProduct
    */
   addToCart(newProduct) {
     const index = this.state.cart.findIndex((product) => {
@@ -121,7 +121,7 @@ class Store {
       });
     }
   }
-    /**
+  /**
    * Удаление товара из корзины по его коду
    * @param code
    */
@@ -130,6 +130,16 @@ class Store {
       ...this.state,
       cart: this.state.cart.filter((product) => product.code !== code),
     });
+  }
+
+  /**
+   * Суммирует цены продуктов в корзине
+   * @returns {Number}
+   */
+  sumCartPrices() {
+    return this.state.cart.reduce((sum, product) => {
+      return sum + product.price * product.count;
+    }, 0);
   }
 }
 
