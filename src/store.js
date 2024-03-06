@@ -73,6 +73,7 @@ class Store {
         })
       })
     }
+    this.changePriceAndCount();
   }
 
   /**
@@ -80,33 +81,39 @@ class Store {
    * @param item
    */
   deleteItemBasket(item){
-    
-    if (item.count > 1){
-      this.setState({
-        ...this.state,
-         BasketList:this.state.BasketList.map((i,index) => {
-          if (item.code == i.code){
-            return {...i,count: i.count - 1};
-          }
-          return this.state.BasketList[index];
+    // if (item.count > 1){
+    //   this.setState({
+    //     ...this.state,
+    //      BasketList:this.state.BasketList.map((i,index) => {
+    //       if (item.code == i.code){
+    //         return {...i,count: i.count - 1};
+    //       }
+    //       return this.state.BasketList[index];
             
-        })
+    //     })
+    //   })
+    // }
+    
+    this.setState({
+      ...this.state,
+        BasketList:this.state.BasketList.filter((i,index) => {
+        if (item.code !== i.code){
+          return this.state.BasketList[index];
+        }
       })
-    }
-    else if(item.count == 1){
-      this.setState({
-        ...this.state,
-         BasketList:this.state.BasketList.filter((i,index) => {
-          if (item.code !== i.code){
-            return this.state.BasketList[index];
-          }
-        })
-      })
-    }
+    })
+    this.changePriceAndCount();
+    
     
   }
 
-  
+  changePriceAndCount() {   
+    this.setState({
+      ...this.state,
+        ListInfo:[{sum:this.state.BasketList.reduce((acc,curr) => acc + (curr.price*curr.count),0),count:this.state.BasketList.length}]
+    })
+    
+  }
 
   /**
    * Удаление записи по коду

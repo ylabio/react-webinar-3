@@ -27,9 +27,8 @@
     z-index: 2;
     background-color: white;
     width: 960px;
-    height: 407px;
+    height: auto;
     border-radius: 10px;
-    overflow: auto;
 }
 
 .Basket__top{

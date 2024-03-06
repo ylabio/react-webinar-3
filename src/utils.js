@@ -51,4 +51,6 @@ export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
 
-
+export function formatPrice(sum) {
+  return new Intl.NumberFormat("ru").format(sum)
+}

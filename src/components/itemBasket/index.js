@@ -4,7 +4,8 @@ import {plural} from "../../utils";
 import './style.css';
 import {formatPrice } from "../../utils";
 
-function Item(props) {
+function ItemBusket(props) {
+
   let props2 = props.props2;
 
   return (
@@ -25,22 +26,22 @@ function Item(props) {
   );
 }
 
-Item.propTypes = {
-  item: PropTypes.shape({
-    code: PropTypes.number,
-    title: PropTypes.string,
-    selected: PropTypes.bool,
-    count: PropTypes.number
-  }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func
-};
+// Item.propTypes = {
+//   item: PropTypes.shape({
+//     code: PropTypes.number,
+//     title: PropTypes.string,
+//     selected: PropTypes.bool,
+//     count: PropTypes.number
+//   }).isRequired,
+//   onDelete: PropTypes.func,
+//   onSelect: PropTypes.func
+// };
 
-Item.defaultProps = {
-  onDelete: () => {
-  },
-  onSelect: () => {
-  },
-}
+// Item.defaultProps = {
+//   onDelete: () => {
+//   },
+//   onSelect: () => {
+//   },
+// }
 
-export default React.memo(Item);
+export default React.memo(ItemBusket);

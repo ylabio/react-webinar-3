@@ -4,9 +4,9 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Basket from './components/basket';
-import { BasketProvider } from './components/basketContext';
-
-
+import { ModalProvider } from './components/modalContext';
+import Modal from './components/modal';
+import item from './components/item';
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -17,6 +17,7 @@ function App({store}) {
 
   const list = store.getState().list;
   const BasketList = store.getState().BasketList;
+  const ListInfo = store.getState().ListInfo;
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -41,19 +42,20 @@ function App({store}) {
 
 
   }
+ 
   
   
   return (
-    <BasketProvider>
+    <ModalProvider>
       <PageLayout>
-        <Basket basketList={BasketList} onFunc={callbacks.onDeleteItemBasket}></Basket>
+        <Basket basketList={BasketList} onFunc={callbacks.onDeleteItemBasket} info={ListInfo} ></Basket>
         <Head title='Магазин'/>
-        <Controls basketList={BasketList}/>
+        <Controls basketList={BasketList} info={ListInfo}/>
         <List list={list}
               onFunc={callbacks.onAddItemBasket}
-              button='Добавить'/>
+              button='Добавить' Items = {item}/>
       </PageLayout>
-    </BasketProvider>
+    </ModalProvider>
   );
 }
 
