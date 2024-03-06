@@ -26,7 +26,7 @@ function CartInfo({ title, calculateItems, calculateSum }) {
           ? `${calculateItems()} ${plural(calculateItems(), {one: 'товар', few: 'товара', many: 'товаров'})} /` : "пусто"}
         </div>
       }
-        {calculateSum() !== 0 && <span className={cn("content")}>{`${formatCurrency(calculateSum())}`}</span>}
+        {calculateItems() !== 0 && <span className={cn("content")}>{`${formatCurrency(calculateSum())}`}</span>}
     </div>
   );
 };
