@@ -1,0 +1,8 @@
+.ModalCard-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 119px;
+    padding-right: 134px;
+    gap: 53px;
+    margin-bottom: 70px;
+}

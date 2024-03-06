@@ -50,3 +50,12 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Форматируем чисто в денежное представление
+ * 
+ * @returns {string}
+ */
+export function formatPrice(price, locale = 'ru-RU') {
+  return new Intl.NumberFormat(locale).format(price);
+}

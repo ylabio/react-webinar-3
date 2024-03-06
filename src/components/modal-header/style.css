@@ -1,0 +1,25 @@
+.ModalCard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F5F5F5;
+    padding: 0px 20px;
+    margin-bottom: 71px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.ModalCard-header-close-button {
+    display: block;
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+}

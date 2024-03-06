@@ -1,0 +1,13 @@
+.ModalCard {
+    width: 960px;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+}
+
+
+.ModalCard-content {
+    border-top: 1px dashed #ccc;
+}

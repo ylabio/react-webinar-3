@@ -1,8 +1,11 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Item from './components/item';
+import ModalLayout from './components/modal-layout';
+import ModalItem from './components/modal-item';
 
 /**
  * Приложение
@@ -10,30 +13,39 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
+  const [isModalOpen, setisModalOpen] = useState(false); 
 
   const list = store.getState().list;
+  const cardInfo = store.getState().cardInfo;
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    onAddItemToCard: useCallback((code) => {
+      store.addItemToCard(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+    removeItemFromCard : useCallback((code) => {
+      store.removeItemFromCard(code);
+    },[store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    openModal :useCallback(() => {
+      setisModalOpen(true);
+    },[store]),
+
+    closeModal: useCallback(() => {
+      setisModalOpen(false);
+    },[store]),
   }
-
+  
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин'/>
+      <Controls cardInfo ={cardInfo} openModalCallback = {callbacks.openModal}/>
+      <List list={list} onButtonClickHandler={callbacks.onAddItemToCard} itemButtonContent = "Добавить"
+          itemChildren = {<Item/>}
+      />
+      <ModalLayout isOpen = {isModalOpen} onClose = {callbacks.closeModal} totalCost = {cardInfo.cardTotalCost}>
+          <List list = {cardInfo.cardList} onButtonClickHandler = {callbacks.removeItemFromCard} itemChildren ={<ModalItem/>}/>
+      </ModalLayout>
     </PageLayout>
   );
 }
