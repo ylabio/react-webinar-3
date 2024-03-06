@@ -1,0 +1,17 @@
+.Cart_total {
+  max-width: 900px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 20px;
+}
+
+.Cart_total span {
+  min-width: 50px;
+  padding-right: 50px;
+  font-family: Arial;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+}

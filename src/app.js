@@ -1,43 +1,75 @@
-import React from 'react';
-import {createElement} from './utils.js';
-import './styles.css';
+import React, { useCallback } from "react";
+import List from "./components/list";
+import Controls from "./components/controls";
+import Head from "./components/head";
+import PageLayout from "./components/page-layout";
+import Modal from "./components/modal/index";
+import Cart from "./components/Cart";
 
 /**
  * Приложение
- * @param store {Store} Состояние приложения
+ * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
-
+function App({ store }) {
   const list = store.getState().list;
+  const cartList = store.getState().cartList ?? [];
+  const isCartModalOpen = store.getState().isCartModalOpen;
 
+  const cartTotalPrice = cartList.reduce(
+    (total, item) => total + item.price * item.count,
+    0
+  );
+  const cartItemCount = cartList.reduce((total, item) => total + item.count, 0);
+
+  const callbacks = {
+    onDeleteCartItem: useCallback(
+      (code) => {
+        store.onDeleteCartItem(code);
+      },
+      [store]
+    ),
+
+    toggleCartModal: useCallback(() => {
+      store.toggleCartModal();
+    }, [store]),
+    onAddToCart: useCallback(
+      (code) => {
+        store.addToCart(code);
+      },
+      [store]
+    ),
+  };
   return (
-    <div className='App'>
-      <div className='App-head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='App-controls'>
-        <button onClick={() => store.addItem()}>Добавить</button>
-      </div>
-      <div className='App-center'>
-        <div className='List'>{
-          list.map(item =>
-            <div key={item.code} className='List-item'>
-              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
-                <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
-                    Удалить
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+    <>
+      <PageLayout>
+        <Head title="Магазин" />
+        <Controls
+          onOpenModal={callbacks.toggleCartModal}
+          cartTotalPrice={cartTotalPrice}
+          cartItemCount={cartItemCount}
+        />
+        <List
+          list={list}
+          actionName="Добавить"
+          onActionClick={callbacks.onAddToCart}
+        />
+      </PageLayout>
+
+      <Modal
+        isShowing={isCartModalOpen}
+        hide={callbacks.toggleCartModal}
+        title="Корзина"
+      >
+        <Cart
+          list={cartList}
+          cartTotal={cartTotalPrice}
+          cartItemCount={cartItemCount}
+          onActionClick={callbacks.onDeleteCartItem}
+          
+        />
+      </Modal>
+    </>
   );
 }
 
