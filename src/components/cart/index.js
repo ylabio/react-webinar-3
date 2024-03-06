@@ -11,7 +11,7 @@ function Cart({ store, itemBtn, isShow, onClose }) {
 
   return (
     <div className="Cart" style={{ display: isShow ? "block" : "none" }}>
-      <Modal onClose={onClose}>
+      <Modal title="Корзина" onClose={onClose}>
         <div className="Cart-content">
           {cart.length ? (
             <>

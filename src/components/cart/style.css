@@ -3,7 +3,7 @@
   max-height: 70dvh;
   padding-bottom: 89px;
   padding-top: 71px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .Cart-sum {
