@@ -4,6 +4,7 @@ import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import CartLayout from './components/cart-layout';
+import {formatPrice} from './utils';
 
 /**
  * Приложение
@@ -38,7 +39,6 @@ function App({store}) {
 					list={list}
 					showCart={showCart}
 					onAddToCart={callbacks.onAddToCart}
-					onDeleteItem={callbacks.onDeleteItem}
 				/>
 			</PageLayout>
 
@@ -56,7 +56,7 @@ function App({store}) {
 					/>
 					{cartSum > 0 && (
 						<div className="CartLayout-total">
-							Сумма: <span>{cartSum}</span> ₽
+							Итого <span>{formatPrice(cartSum)}</span> &#8381;
 						</div>
 					)}
 				</CartLayout>

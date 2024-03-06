@@ -8,12 +8,12 @@
  * @returns {*|string}
  */
 export function plural(value, variants = {}, locale = 'ru-RU') {
-  // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
-  // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
-  // В английском 2 формы: 'one', 'other'
-  const key = new Intl.PluralRules(locale).select(value);
-  // Возвращаем вариант по ключу, если он есть
-  return variants[key] || '';
+	// Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
+	// В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
+	// В английском 2 формы: 'one', 'other'
+	const key = new Intl.PluralRules(locale).select(value);
+	// Возвращаем вариант по ключу, если он есть
+	return variants[key] || '';
 }
 
 /**
@@ -22,8 +22,8 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
  * @returns {Number}
  */
 export const generateCode = (function (start = 0) {
-  return () => ++start;
-}());
+	return () => ++start;
+})();
 
 /**
  * Генератор чисел с шагом 1
@@ -32,15 +32,15 @@ export const generateCode = (function (start = 0) {
  * @returns {Number}
  */
 export const generateCode1 = (function (start = 0) {
-  function* realGenerator(start) {
-    while (true) {
-      yield ++start;
-    }
-  }
+	function* realGenerator(start) {
+		while (true) {
+			yield ++start;
+		}
+	}
 
-  const gen = realGenerator(start);
-  return () => gen.next().value;
-}());
+	const gen = realGenerator(start);
+	return () => gen.next().value;
+})();
 
 /**
  * Генератор чисел с шагом 1
@@ -48,5 +48,16 @@ export const generateCode1 = (function (start = 0) {
  * @returns {Number}
  */
 export function generateCode2() {
-  return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
+	return generateCode2.value
+		? ++generateCode2.value
+		: (generateCode2.value = 1);
+}
+
+/**
+ * Форматирует число в формат цены с разделителями пробелами.
+ * @param {number} number - Число, которое нужно отформатировать
+ * @returns {string} Отформатированная строка числа в формате цены
+ */
+export function formatPrice(number) {
+	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 }

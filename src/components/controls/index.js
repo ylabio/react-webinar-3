@@ -1,7 +1,7 @@
 import React from 'react';
 import {cn as bem} from '@bem-react/classname';
 import PropTypes from 'prop-types';
-import {plural} from '../../utils';
+import {formatPrice, plural} from '../../utils';
 import './style.css';
 
 function Controls({cart, cartSum, onShowCart}) {
@@ -17,11 +17,11 @@ function Controls({cart, cartSum, onShowCart}) {
 								one: 'товар',
 								few: 'товара',
 								many: 'товаров',
-						  })}  / ${cartSum} ₽`
+						  })} / ${formatPrice(cartSum)} \u20BD`
 						: 'пусто'}
 				</b>
 			</span>
-      <button onClick={() => onShowCart(true)}>Перейти</button>
+			<button onClick={() => onShowCart(true)}>Перейти</button>
 		</div>
 	);
 }

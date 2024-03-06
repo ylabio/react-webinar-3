@@ -39,7 +39,7 @@
 }
 
 .CartLayout-total {
-  display: flex;
+	display: flex;
 	justify-content: flex-end;
 	padding: 20px 100px 20px 20px;
 	font-weight: 700;
@@ -47,5 +47,5 @@
 }
 
 .CartLayout-total span {
-  margin-left: 50px;
+	margin: 0 5px 0 50px;
 }

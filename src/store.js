@@ -43,13 +43,26 @@ class Store {
 	 * @param item
 	 */
 	addToCart(item) {
-		if (!this.state.cart.find((cartItem) => cartItem.code === item.code)) {
+		const existingItem = this.state.cart.find(
+			(cartItem) => cartItem.code === item.code
+		);
+
+		if (!existingItem) {
 			this.setState({
 				...this.state,
 				cart: [...this.state.cart, {...item, count: 1}],
 			});
 		} else {
-			this.state.cart.find((cartItem) => cartItem.code === item.code).count++;
+			const updatedCart = this.state.cart.map((cartItem) =>
+				cartItem.code === item.code
+					? {...cartItem, count: cartItem.count + 1}
+					: cartItem
+			);
+
+			this.setState({
+				...this.state,
+				cart: updatedCart,
+			});
 		}
 
 		this.countCart();
@@ -60,14 +73,9 @@ class Store {
 	 * @param code
 	 */
 	deleteItem(code) {
-		const product = this.state.cart.find((cartItem) => cartItem.code === code);
-		if (product.count > 1) {
-			this.state.cart.find((cartItem) => cartItem.code === code).count--;
-		} else {
-			this.state.cart = this.state.cart.filter(
-				(cartItem) => cartItem.code !== code
-			);
-		}
+		this.state.cart = this.state.cart.filter(
+			(cartItem) => cartItem.code !== code
+		);
 
 		this.countCart();
 	}
