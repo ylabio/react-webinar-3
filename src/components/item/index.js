@@ -26,7 +26,15 @@ function Item(props) {
         </div>
       </div>
       <div className="Item-actions">
-        <button onClick={callbacks.onAddItemToShoppingCart}>Добавить</button>
+        {props.modal ? (
+          <button onClick={callbacks.onRemoveItemFromShoppingCart}>
+            Удалить
+          </button>
+        ) : (
+          <button onClick={callbacks.onAddItemToShoppingCart}>
+            Добавить
+          </button>
+        )}
       </div>
     </div>
   );
