@@ -4,14 +4,6 @@ import {numberWithSpaces} from "../../utils";
 import './style.css';
 
 function Item({item, onAdd}) {
-
-  const addCart = function(code) {
-    if(item.code === code){
-      item.amount++
-      onAdd(item);
-    }
-  }
-
   return (
     <div className='Item'>
       <div className='Item-code'>{item.code}</div>
@@ -22,7 +14,7 @@ function Item({item, onAdd}) {
         {numberWithSpaces(item.price)} ₽
       </div>
       <div className='Item-actions'>
-        <button className='Item-actions__button' onClick={() => addCart(item.code)}>
+        <button className='Item-actions__button' onClick={() => onAdd(item.code)}>
           Добавить
         </button>
       </div>

@@ -28,7 +28,7 @@
     border-radius: 10px;
     overflow: hidden;
     perspective: 1px;
-    padding-bottom: 40px;
+    padding-bottom: 70px;
 }
 
 .Modal-header{
@@ -37,7 +37,7 @@
     align-items: center;
     background-color: #F5F5F5;
     padding: 0 20px;
-    margin-bottom: 40px;
+    margin-bottom: 65px;
 }
 
 .Modal-title{
@@ -52,20 +52,3 @@
     border: 1px #000 solid;
 }
 
-.Modal-main{
-    border-top: 1px dashed #ccc;
-}
-
-.Modal-desc{
-    padding: 20px 0 0 20px;
-}
-
-.Modal-footer{
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px 120px 0 0;
-}
-
-.Modal-total{
-    margin-right: 35px;
-}

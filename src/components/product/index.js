@@ -1,29 +1,21 @@
 import React from "react";
 import PropTypes from 'prop-types';
+
 import {numberWithSpaces} from "../../utils";
 import './style.css';
 
 function Product({item, onDelete}) {
-
-    const deleteProduct = function(code) {
-        if(item.code === code) {
-            item.amount = 0;
-            onDelete(code);
-        }
-    }
-
-    return(
+    return (
         <div className="Product">
             <div className="Product-code">{item.code}</div>
             <div className="Product-title">{item.title}</div>
             <div className="Product-price">{numberWithSpaces(item.price)} ₽</div>
             <div className="Product-quantity">{item.amount} шт</div>
             <div className="Product-actions">
-                <button className="Product-actions__button" onClick={() => deleteProduct(item.code)}>Удалить</button>
+                <button className="Product-actions__button" onClick={() => onDelete(item.code)}>Удалить</button>
             </div>
         </div>
     )
-    
 }
 
 Product.propTypes = {

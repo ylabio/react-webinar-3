@@ -3,18 +3,15 @@ import PropTypes from 'prop-types';
 import {plural, numberWithSpaces} from "../../utils";
 import './style.css';
 
-function Controls({modalOpen, cart}) {
-  
-  const cartPrice = cart.reduce((acc, item) => acc + item.price * item.amount, 0);
-
+function Controls({modalOpen, store, cartList}) {
   return (
     <div className='Controls'>
       <div className='Controls-basket'>
-        В корзине: <b>{cart.length ? ` ${cart.length} ${plural(cart.length, {
+        В корзине: <b>{cartList.length ? ` ${cartList.length} ${plural(cartList.length, {
         one: 'товар',
         few: 'товара',
         many: 'товаров'
-      })}` : '0 товаров'} / {numberWithSpaces(cartPrice)} ₽</b>
+      })}` : '0 товаров'} / {numberWithSpaces(store.cartPrice(cartList))} ₽</b>
       </div>
       <button className='Controls-button' onClick={() => modalOpen()}>Перейти</button>
     </div>
@@ -23,7 +20,8 @@ function Controls({modalOpen, cart}) {
 
 Controls.propTypes = {
   modalOpen: PropTypes.func,
-  cart: PropTypes.arrayOf(PropTypes.object).isRequired
+  onCartPrice: PropTypes.number,
+  cartList: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 Controls.defaultProps = {

@@ -44,7 +44,12 @@ class Store {
   addCart(code) {
     this.setState({
       ...this.state,
-      cart: [...this.state.cart, code]
+      list: this.state.list.map(item => {
+        if(item.code === code) {
+          item.amount++;
+        }
+        return item;
+      })
     })
   };
 
@@ -55,10 +60,22 @@ class Store {
   deleteCart(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      cart: this.state.cart.filter(item => item.code !== code)
+      list: this.state.list.map(item => {
+        if(item.code === code) {
+          item.amount = 0;
+        }
+        return item;
+      })
     })
   };
+
+  /**
+   * Общая цена
+   * @param code
+   */
+  cartPrice(cartList){
+    return cartList.reduce((acc, item) => acc + item.price * item.amount, 0);
+  }
 }
 
 export default Store;
