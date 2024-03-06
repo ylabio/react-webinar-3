@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
+import CartItem from "../cart-item";
 import './style.css';
 
 function List({list, onAddItem }) {
@@ -8,7 +8,7 @@ function List({list, onAddItem }) {
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} itemFunction={onAddItem} button={"Добавить"}/>
+          <CartItem item={item} itemFunction={onAddItem} button={"Добавить"}/>
         </div>
       )}
     </div>

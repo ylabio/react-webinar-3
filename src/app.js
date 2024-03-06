@@ -3,7 +3,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import Cart from './components/cart';
+import CartLayout from './components/cart-layout';
 
 /**
  * Приложение
@@ -15,6 +15,7 @@ function App({store}) {
   const list = store.getState().list;
   const cart = store.getState().cart;
   const showCart = store.getState().showCart;
+  const cost = store.getState().cost;
 
   const callbacks = {
     onAddItem: useCallback((code) => {
@@ -33,8 +34,8 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Cart cart={cart} showCart={showCart} onDeleteItem={callbacks.onDeleteItem} changeCartVisability={callbacks.changeCartVisability}/>
-      <Controls cart={cart} changeCartVisability={callbacks.changeCartVisability}/>
+      <CartLayout onDeleteItem={callbacks.onDeleteItem} cost={cost} showCart={showCart} changeCartVisability={callbacks.changeCartVisability} cart={cart} />
+      <Controls cart={cart} changeCartVisability={callbacks.changeCartVisability} cost={cost}/>
       <List list={list} onAddItem={callbacks.onAddItem}/>
     </PageLayout>
   );

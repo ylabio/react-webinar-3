@@ -73,6 +73,9 @@ class Store {
         ],
       });
     }
+    this.setState({
+      ...this.state,
+      cost : this.state.cost + this.state.list.filter((item) => item.code == code)[0].price })
   }
 
   /**
@@ -80,9 +83,11 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    var good = this.state.cart.filter(item => item.code == code)[0];
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
+      cost: this.state.cost - good.price * good.quantity ? this.state.cost - good.price * good.quantity : 0,
       cart: this.state.cart.filter(item => item.code !== code)
     })
   };

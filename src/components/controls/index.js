@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { plural } from "../../utils";
-import {getTotal} from "../../scripts/getTotal";
 import "./style.css";
 
-function Controls({ cart, changeCartVisability }) {
+function Controls({ cart, changeCartVisability, cost }) {
   return (
     <div className="Controls">
       В корзине: 
@@ -14,7 +13,7 @@ function Controls({ cart, changeCartVisability }) {
               one: "товар",
               few: "товара",
               many: "товаров",
-            })} / ${getTotal(cart)} ₽`
+            })} / ${cost ? Intl.NumberFormat().format(cost) : 0} ₽`
           : "пусто"}
       </div>{" "}
       <button onClick={() => changeCartVisability()}>Перейти</button>

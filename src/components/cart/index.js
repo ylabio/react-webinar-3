@@ -1,43 +1,39 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Item from "../item";
+import CartItem from "../cart-item";
 import Head from "../head";
-import { getTotal } from "../../scripts/getTotal";
 import "./style.css";
 
-function Cart({ cart, onDeleteItem, showCart, changeCartVisability }) {
+function Cart(props) {
   const callbacks = {
-    hideCart: () => {
-      changeCartVisability();
+    function: () => {
+      props.hideCart();
+      props.onDeleteItem();
     },
   };
   return (
-    showCart && (
-      <div className="Cart-Background">
         <div className="Cart">
           <Head title={"Корзина"} />
-          <button className="Cart-Button" onClick={callbacks.hideCart}>
+          <button className="Cart-Button" onClick={props.hideCart}>
             Закрыть
           </button>
-          {cart.map((item) => (
+          {props.cart.map((item) => (
             <div key={item.code} className="Cart-Item">
-              <Item
+              <CartItem
                 item={item}
-                itemFunction={onDeleteItem}
+                itemFunction={props.onDeleteItem}
                 button={"Удалить"}
               />
             </div>
           ))}
-          {cart.length ? (
+          {props.cart.length ? (
             <div className="Cart-Total">
-              Итого<div className="Cart-Total-Numb">{getTotal(cart)} ₽</div>
+              Итого<div className="Cart-Total-Numb">{props.cost ? Intl.NumberFormat().format(props.cost) : 0} ₽</div>
             </div>
           ) : (
             <div className="Cart-Empty">В корзине пусто.</div>
           )}
         </div>
-      </div>
-    )
   );
 }
 

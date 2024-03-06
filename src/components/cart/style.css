@@ -1,22 +1,9 @@
 
-.Cart-Background {
-  margin: 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0,0,0,0.7);
-}
-
 .Cart {
   border-radius: 10px;
   position: absolute;
   background-color: white;
-  width: 66.7vw;
+  width: 960px;
 }
 .Cart .Head {
   border-radius: 10px 10px 0 0;
@@ -32,11 +19,13 @@
 
 .Cart-Total {
   font-weight: 700;
-  margin: 20px 0 89px 71.875%;
+  margin: 20px 0 89px 0;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .Cart-Total-Numb {
-  display: inline;
+  display: inline-block;
   margin: 0 120px 0 53px;
 }
 
