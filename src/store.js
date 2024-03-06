@@ -76,7 +76,6 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
       storeList: this.state.storeList.filter(item => item.code !== code),
     });
   };

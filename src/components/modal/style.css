@@ -1,5 +1,8 @@
 .Modal {
   position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 0;
   left: 0;
   width: 100%;
@@ -12,14 +15,9 @@
 .Modal-main {
   box-sizing: border-box;
   padding-bottom: 89px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 960px;
-  /*min-height: 300px;*/
+  /*max-height: 475px;*/
   border-radius: 10px;
   background: #fff;
   overflow: hidden;
-  overflow-y: auto;
 }

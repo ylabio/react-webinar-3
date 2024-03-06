@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
+import {localeNum, plural} from "../../utils";
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
 
@@ -30,7 +30,7 @@ function Item(props) {
       <div className={cn('code')}>{props.item.code}</div>
       <div className={cn('title')}>{props.item.title}</div>
       <div className={cn("actions")}>
-        <p className={cn("subtitle")}>{`${props.item.price} ₽`}</p>
+        <p className={cn("subtitle")}>{`${localeNum(props.item.price)} ₽`}</p>
         {props.cart && <p className={cn("cart")}>{`${props.item.count} шт`}</p>}
         <button onClick={callbacks.onDelete}>
           {props.btnName}

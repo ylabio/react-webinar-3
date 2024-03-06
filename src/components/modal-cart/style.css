@@ -1,19 +1,21 @@
-.ModalStore {
-
+.ModalCart {
+  max-height: 475px;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
-.ModalStore-space {
+.ModalCart-space {
   padding: 35px 0;
   border-bottom: 1px dashed #ccc;
 }
 
-.ModalStore-header {
+.ModalCart-header {
   padding: 20px 0 0 740px;
   display: flex;
   align-content: center;
 }
 
-.ModalStore-bold_span {
+.ModalCart-bold_span {
   margin: 0;
   padding: 0;
   color: #000;
@@ -23,6 +25,6 @@
   line-height: normal;
 }
 
-.ModalStore-bold_span.price {
+.ModalCart-bold_span.price {
   margin-left: 25px;
 }

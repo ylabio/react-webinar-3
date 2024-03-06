@@ -4,7 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal";
-import ModalStore from "./components/modal-store";
+import ModalCart from "./components/modal-cart";
 
 /**
  * Приложение
@@ -14,8 +14,12 @@ import ModalStore from "./components/modal-store";
 function App({store}) {
 
   const list = store.getState().list;
-  const storeList = store.getState().storeList;
+
   const [openModal, setOpenModal] = useState(false);
+
+  const onDeleteItem = useCallback((code) => {
+    store.deleteItem(code);
+  }, [store]);
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -28,10 +32,12 @@ function App({store}) {
 
     onOpenModal: () => {
       setOpenModal(true);
+      document.body.style.overflow = "hidden";
     },
 
     onCloseModal: () => {
       setOpenModal(false);
+      document.body.style.overflow = "auto";
     },
   };
 
@@ -41,12 +47,12 @@ function App({store}) {
         <Head title="Магазин" />
         <Controls onAdd={callbacks.onOpenModal} store={store} />
         <List list={list}
-              onClick={callbacks.onAddItem} btnName={'Добавить'} cart={false}/>
+              onClick={callbacks.onAddItem} btnName={"Добавить"} cart={false} />
       </PageLayout>
       {openModal && (
-        <Modal closeModal={callbacks.onCloseModal}>
-           <ModalStore closeModal={callbacks.onCloseModal} store={store}
-                       onClick={callbacks.onDeleteItem} />
+        <Modal title={"Корзина"} closeModal={callbacks.onCloseModal}>
+          <ModalCart  store={store}
+                     onClick={onDeleteItem} />
         </Modal>
       )
       }

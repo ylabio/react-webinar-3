@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 import {cn as bem} from "@bem-react/classname";
 import "./style.css";
 import {createPortal} from "react-dom";
+import Head from "../head";
 
 const modalRoot = document.querySelector("#modal-root");
 
-function Modal({children, closeModal}) {
+function Modal({children, closeModal, title}) {
 
   const cn = bem("Modal");
 
@@ -26,6 +27,11 @@ function Modal({children, closeModal}) {
     <>
       <div className={cn()}>
         <div className={cn("main")}>
+          <Head title={title}>
+            <button onClick={closeModal}>
+              Закрыть
+            </button>
+          </Head>
           {children}
         </div>
       </div>
