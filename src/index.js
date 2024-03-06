@@ -2,9 +2,10 @@ import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {generateCode} from './utils.js';
 import App from './app.js';
-import Store from './store.js';
+import { Store } from './store.js';
 
 const store = new Store({
+  showCart: false,
   list: [
     {code: generateCode(), title: 'Название товара', price: 100.0},
     {code: generateCode(), title: 'Книга про React', price: 770},
@@ -13,7 +14,12 @@ const store = new Store({
     {code: generateCode(), title: 'Телефон iPhone XIXV', price: 120000},
     {code: generateCode(), title: 'Карандаши цветные', price: 111},
     {code: generateCode(), title: 'Товар сюрприз', price: 0},
-  ]
+  ],
+  cart: {
+    amount: 0,
+    total: 0,
+    items: []
+  }
 });
 
 const root = createRoot(document.getElementById('root'));

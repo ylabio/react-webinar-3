@@ -1,8 +1,12 @@
-import React, {useCallback} from 'react';
+import React, { useState, useCallback } from 'react';
 import List from "./components/list";
+import Cart from "./components/cart";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from "./components/modal";
+import Item from "./components/item";
+import { StoreContext } from './store';
 
 /**
  * Приложение
@@ -11,30 +15,36 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
-  const list = store.getState().list;
+  const [ storeContext, setStoreContext ] = useState(store);
+  const { list, showCart } = store.getState();
 
-  const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+  const onClose = useCallback(() => {
+    store.setCartVisibility(false);
+  }, [store.setCartVisibility]);
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
+  const onAddToCart = useCallback((code) => {
+    store.addToCart(code);
+  }, [store.addToCart]);
 
   return (
+    <StoreContext.Provider value={[storeContext, setStoreContext]}>
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Modal 
+        title='Корзина' 
+        buttonText='Закрыть'
+        show={showCart}
+        onClose={onClose}
+      >
+        <Cart />
+      </Modal>
+      <Head title='Магазин'/>
+      <Controls />
+      <List 
+        list={list} 
+        onClick={onAddToCart} 
+      />
     </PageLayout>
+    </StoreContext.Provider>
   );
 }
 

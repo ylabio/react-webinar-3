@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { formatSum } from "../../utils";
 import './style.css';
 
-function Item({item, onClick}) {
+function CartItem({item, onClick}) {
 
     const onButtonClick = (e) => {
-      e.stopPropagation();
-      onClick(item.code);
+        e.stopPropagation();
+        onClick(item.code);
     }
 
   return (
@@ -19,16 +19,19 @@ function Item({item, onClick}) {
       <div className='Item-price'>
         {formatSum(item.price, { style: 'currency', currency: 'RUB' })}
       </div>
+      <div className='Item-amount'>
+      {`${item.amount} шт`}
+      </div>
       <div className='Item-actions'>
           <button className='Item-button' onClick={onButtonClick}>
-            Добавить
+            Удалить
           </button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -38,8 +41,8 @@ Item.propTypes = {
   onClick: PropTypes.func,
 };
 
-Item.defaultProps = {
+CartItem.defaultProps = {
   onClick: () => {},
 }
 
-export default React.memo(Item);
+export default React.memo(CartItem);
