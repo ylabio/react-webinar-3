@@ -43,11 +43,42 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+  addItem(item) {
+
+    const product = this.state.basket.list.some(
+      (product) => product.code === item.code
+    );
+
+    if (product) {
+      const updateItem = this.state.basket.list.map((obj) => {
+        if (obj.code === item.code) {
+          return { ...obj, count: obj.count + 1 };
+        }
+        return obj;
+      });
+
+      this.setState({
+        ...this.state,
+        basket: {
+          ...this.state.basket,
+          list: [
+            ...updateItem
+          ]
+        }});
+      } else {
+        const newItem = { ...item, count: 1 };
+
+      this.setState({
+        ...this.state,
+        basket: {
+          ...this.state.basket,
+          list: [
+            ...this.state.basket.list,
+            newItem
+          ]
+        }});
+    }
+    this.#calculatePrice()
   };
 
   /**
@@ -55,12 +86,30 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      basket: {
+        ...this.state.basket,
+        list: [...this.state.basket.list.filter(item => item.code !== code)]
+      }
     })
+
+    this.#calculatePrice()
   };
+
+   #calculatePrice() {
+    const sum = this.state.basket.list.reduce(
+      (prev, item) => prev + (item.count * item.price), 0) || 0;
+
+    this.setState({
+      ...this.state,
+      basket: {
+        ...this.state.basket,
+        totalPrice: sum
+      }
+    })
+  }
 
 }
 

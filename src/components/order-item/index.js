@@ -11,7 +11,7 @@ function OrderItem(props) {
   const callbacks = {
     onClick: (e) => {
       e.stopPropagation();
-      props.onClick(props.item);
+      props.onClick(props.item.code);
     }
   }
 
@@ -22,7 +22,7 @@ function OrderItem(props) {
         {props.item.title}
       </div>
       <div className={cn('price')}>{numberFormat(props.item.price)}</div>
-      { !!props.item.count && <div className={cn('count')}>{props.item.count} шт</div> }
+      <div className={cn('count')}>{props.item.count} шт</div>
       <div className={cn('actions')}>
         <button className={cn('btn')} onClick={callbacks.onClick}>
           Удалить
