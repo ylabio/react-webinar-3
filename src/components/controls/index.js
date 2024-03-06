@@ -3,21 +3,35 @@ import PropTypes from 'prop-types';
 import Button from "../button";
 import './style.css';
 
-function Controls({title, onEntryCart}) {
+/**
+ *  Функция для создания области управления
+ * @param {Object} props - объект пропсов
+ * @param {String} props.title - Надпись передшествующая выводу информации
+ * @param {Function} props.onToggleCart - функция показа/скрытия модалки
+ * @param {Node} props.children - разметка которую стоит поместить внутрь компонента
+ * @returns разметка
+ */
+function Controls({title, onToggleCart, children}) {
   return (
     <div className='Controls'>
-      <Button title={title} buttonFunction={onEntryCart} />
+      <div className='Controls-info'>
+        {children}
+      </div>
+      <div className='Controls-buttons'>
+        <Button title={title} buttonFunction={onToggleCart} />
+      </div>
     </div>
   )
-}
+};
 
 Controls.propTypes = {
   title: PropTypes.string,
-  onEntryCart: PropTypes.func,
+  onToggleCart: PropTypes.func,
+  children: PropTypes.node,
 };
 
 Controls.defaultProps = {
-  onEntryCart: () => {},
-}
+  onToggleCart: () => {},
+};
 
 export default React.memo(Controls);

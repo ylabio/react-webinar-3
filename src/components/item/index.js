@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Button from "../button";
 import { cn as bem } from "@bem-react/classname";
-// import {plural} from "../../utils";
 import "./style.css";
+import { formatCurrency } from "../../utils";
 
+/**
+ *  Функция для создания элемента списка
+ * @param {Object} props - объект пропсов
+ * @param {Object} props.item - Объект с информацией о товаре
+ * @param {Function} props.buttonFunction - функция для передачи кнопке
+ * @param {String} props.buttonTitle - надпись на кнопке внутри элемента списка
+ * @returns разметка
+ */
 function Item(props) {
-  // Счётчик выделений
-  // const [count, setCount] = useState(0);
   const cn = bem("Item");
-
   const callbacks = {
+    /**
+     * функция которая сработает при клике на кнопку
+     * @event {*} e - событие
+     */
     onButtonClick: (e) => {
       e.stopPropagation();
       props.buttonFunction(props.item);
@@ -21,16 +30,16 @@ function Item(props) {
     <div className={cn()}>
       <div className={cn("code")}>{props.item.code}</div>
       <div className={cn("title")}>{props.item.title}</div>
-      <div className={cn("price")}>{`${props.item.price} P`}</div>
+      <div className={cn("price")}>{`${formatCurrency(props.item.price)}`}</div>
       {props.item.count &&
-        <div className={cn("count")}>{`${props.item.count} Шт`}</div>
+        <div className={cn("count")}>{`${props.item.count} шт`}</div>
       }
       <div className={cn("actions")}>
         <Button title={props.buttonTitle} buttonFunction={callbacks.onButtonClick} />
       </div>
     </div>
   );
-}
+};
 
 Item.propTypes = {
   item: PropTypes.shape({
@@ -44,6 +53,7 @@ Item.propTypes = {
 };
 
 Item.defaultProps = {
+  item: null,
   buttonFunction: () => {},
   buttonTitle: 'Кнопка',
 };

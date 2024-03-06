@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
+/**
+ *  Функция для создания элемента списка
+ * @param {Object} props - объект пропсов
+ * @param {Array} props.list - Массив с объектами товаров
+ * @param {Function} props.buttonFunction - функция для передачи кнопке
+ * @param {String} props.buttonTitle - надпись на кнопке внутри элемента списка
+ * @returns разметка
+ */
 function List({list, buttonTitle, buttonFunction}) {
   return (
     <ul className='List'>{
@@ -13,7 +21,7 @@ function List({list, buttonTitle, buttonFunction}) {
       )}
     </ul>
   )
-}
+};
 
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
@@ -26,6 +34,6 @@ List.propTypes = {
 List.defaultProps = {
   buttonFunction: () => {},
   buttonTitle: 'Кнопка',
-}
+};
 
 export default React.memo(List);

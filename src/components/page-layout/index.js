@@ -3,8 +3,12 @@ import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
+/**
+ * Компонент лэйаута основной страницы
+ * @param {Node} children - дочерний компонент
+ * @returns разметку
+ */
 function PageLayout({children}) {
-
   const cn = bem('PageLayout');
 
   return (
@@ -14,10 +18,10 @@ function PageLayout({children}) {
       </div>
     </div>
   );
-}
+};
 
 PageLayout.propTypes = {
   children: PropTypes.node
-}
+};
 
 export default React.memo(PageLayout);

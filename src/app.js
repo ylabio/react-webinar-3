@@ -4,6 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import ModalOverlay from "./components/modal-overlay";
+import Cart from "./components/cart";
 import Modal from "./components/modal";
 import CartInfo from "./components/cart-info";
 
@@ -16,30 +17,52 @@ function App({ store }) {
   const [isModal, setIsModal] = React.useState(false);
   const list = store.getState().list;
   const cart = store.getState().cart;
-
   const callbacks = {
+
+    /**
+     * Функция подсчета общей суммы товаров в корзине
+     * @returns {Number}
+     */
     calculateSum: () => {
       return cart.reduce((acc, piece) => acc + piece.price * piece.count, 0);
     },
 
+    /**
+     * Функция подсчета количества товаров в корзине
+     * @returns {Number}
+     */
     calculateItems: () => {
       return cart.length;
     },
 
-    onEntryCart: useCallback(() => {
+    /**
+     * Функция показа/скрытия модалки
+     * @returns
+     */
+    onToggleCart: useCallback(() => {
       setIsModal(!isModal);
     }, [isModal]),
 
-    onSelectItem: useCallback(
-      (code) => {
-        store.selectItem(code);
+    /**
+     * Функция добавления товара в корзину
+     * @param {Object} item - объект с информацией о товаре
+     * @returns
+     */
+    onAddItem: useCallback(
+      (item) => {
+        store.addItem(item);
       },
       [store]
     ),
 
-    onAddItem: useCallback(
+    /**
+     * Функция удаления товара в корзины
+     * @param {Object} item - объект с информацией о товаре
+     * @returns
+     */
+    onDeleteItem: useCallback(
       (item) => {
-        store.addItem(item);
+        store.deleteItem(item);
       },
       [store]
     ),
@@ -48,18 +71,29 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <CartInfo title={'В Корзине:'}calculateItems={callbacks.calculateItems} calculateSum={callbacks.calculateSum}/>
-      <Controls title={'Перейти'} onEntryCart={callbacks.onEntryCart} />
-      <List list={list} buttonFunction={callbacks.onAddItem} buttonTitle={'Добавить'} />
+      <Controls title={"Перейти"} onToggleCart={callbacks.onToggleCart}>
+        <CartInfo
+          calculateItems={callbacks.calculateItems}
+          calculateSum={callbacks.calculateSum}
+        />
+      </Controls>
+      <List
+        list={list}
+        buttonFunction={callbacks.onAddItem}
+        buttonTitle={"Добавить"}
+      />
       {isModal && (
         <>
-          <Modal
-            cart={cart}
-            onEntryCart={callbacks.onEntryCart}
-            calculateSum={callbacks.calculateSum}
-            calculateItems={callbacks.calculateItems}
-          />
-          <ModalOverlay onModalOverlayClick={callbacks.onEntryCart} />
+          <Modal>
+            <Cart
+              cart={cart}
+              onDeleteItem={callbacks.onDeleteItem}
+              onToggleCart={callbacks.onToggleCart}
+              calculateSum={callbacks.calculateSum}
+              calculateItems={callbacks.calculateItems}
+            />
+          </Modal>
+          <ModalOverlay onModalOverlayClick={callbacks.onToggleCart} />
         </>
       )}
     </PageLayout>

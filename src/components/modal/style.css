@@ -1,10 +1,11 @@
 .Modal {
-  top: 309px;
-  border-radius: 8px;
+  inset: 0;
+  margin: auto;
   position: absolute;
-  margin: 0 auto;
   width: 960px;
-  height: 50vh;
+  height: fit-content;
   background-color: white;
   z-index: 15;
+  border-radius: 10px;
+  padding-bottom: 90px;
 }
