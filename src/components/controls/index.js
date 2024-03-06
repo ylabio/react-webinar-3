@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
-import { plural, variants } from "../../utils";
+import { formatPrice, plural, variants } from "../../utils";
 
 function Controls({totalCost, basket, onClick}) {
 
   return (
     <div className='Controls'>
       <p className='Controls-basket'>В корзине:</p>
-      <div className='Controls-cost'>{basket.length !== 0 ? `${basket.length} ${plural(basket.length,variants)} /  ${totalCost()}₽` : ' пусто'}</div>
+      <div className='Controls-cost'>{basket.length !== 0 ? `${basket.length} ${plural(basket.length,variants)} /  ${formatPrice(totalCost())} ₽` : ' пусто'}</div>
       <button onClick={() => onClick()}>Перейти</button>
     </div>
   )

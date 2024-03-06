@@ -1,32 +1,36 @@
-.Item {
+.BasketItem {
   display: flex;
   justify-content: space-between;
 }
 
-.Item-code {
+.BasketItem-code {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-group {
+.BasketItem-group {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
 
-.Item-title {
+.BasketItem-title {
   padding: 20px 10px;
 }
 
-.Item-price {
+.BasketItem-container {
+  display: flex;
+}
+
+.BasketItem-price {
   justify-self: end;
   padding: 20px 10px;
 }
 
-.Item-count {
+.BasketItem-count {
   padding: 20px;
 }
 
-.Item-actions {
+.BasketItem-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;

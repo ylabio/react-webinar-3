@@ -1,0 +1,17 @@
+.BasketTotal-cost {
+  margin: 0 30px 0 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.BasketTotal-cost-title {
+  padding: 0;
+  margin: 0 40px 0 0;
+}
+
+.BasketTotal-cost-number {
+  width: 100px;
+}

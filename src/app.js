@@ -4,6 +4,10 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Popup from './components/popup';
+import PopupLayout from './components/popup-layout';
+import BasketTotal from './components/basket-total';
+import BasketItem from './components/basket-item';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -38,21 +42,30 @@ function App({store}) {
     return basket.reduce((acc, item) => acc + item.price * item.count, 0)
   };
 
+  const defineItem = (item, isBasket) => {
+    if(isBasket === true) {
+      return(
+        <BasketItem item={item} onClick={callbacks.onRemoveFromBasket} />
+      )
+    } else {
+      return (
+        <Item item={item} onClick={callbacks.onAddToBasket} />
+      )
+    }
+  }
+
   return (
     <>
     <PageLayout>
       <Head title='Магазин'/>
       <Controls totalCost={totalCost} basket={basket} list={list} onClick={callbacks.onClick}/>
-      <List list={list} onClick={callbacks.onAddToBasket}/>
+      <List defineItem={(item) => defineItem(item, false)} list={list}  onClick={callbacks.onAddToBasket}/>
     </PageLayout>
     {isPopupOpened === true &&
-      <Popup
-      isPopupOpened={isPopupOpened}
-      totalCost={totalCost}
-      onRemoveFromBasket={callbacks.onRemoveFromBasket}
-      basket={basket}
-      onClose={callbacks.onClose}
-      />
+    <PopupLayout title='Корзина' isPopupOpened={isPopupOpened} onClose={callbacks.onClose}>
+      <List defineItem={(item) => defineItem(item, true)} list={basket} />
+      <BasketTotal totalCost={totalCost} />
+    </PopupLayout>
     }
     </>
   );
