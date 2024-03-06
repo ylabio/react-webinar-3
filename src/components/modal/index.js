@@ -32,7 +32,7 @@ Modal.propTypes = {
 Modal.defaultProps = {
   onHideModal: () => {
   },
-  showModal: false
+  showModal: false,
 }
 
 export default React.memo(Modal);

@@ -8,24 +8,13 @@ function List({list, onAddToCart, onDeleteItem, showModal }) {
   const cn = bem('List')
 
   return (
-    <>
-      {showModal ?
-        <div className={cn()}>
-          {list.map(item =>
-            <div key={item.code} className={cn('item')}>
-              <Item showModal={showModal} item={item} onDeleteItem={onDeleteItem}  text="Удалить"/>
-            </div>)}
+    <div className={cn()}>
+      {list.map(item =>
+        <div key={item.code} className={cn('item')}>
+          <Item showModal={showModal} item={item} onAddToCart={onAddToCart} onDeleteItem={onDeleteItem}/>
         </div>
-        :
-        <div className={cn()}>
-          {list.map(item =>
-            <div key={item.code} className={cn('item')}>
-              <Item showModal={showModal} item={item} onAddToCart={onAddToCart} text="Добавить"/>
-            </div>
-          )}
-        </div>
-      }
-    </>
+      )}
+    </div>
   )
 }
 

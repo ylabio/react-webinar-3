@@ -33,7 +33,7 @@ function Item({item, onAddToCart, onDeleteItem, text, showModal}) {
 
       <div className={cn('actions')}>
         <button onClick={callbacks.onClickItem} >
-          {text}
+          {showModal ? "Удалить" : "Добавить"}
         </button>
       </div>
     </div>
