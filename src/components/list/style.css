@@ -1,7 +1,16 @@
-.List {
-
-}
-
 .List-item {
   border-bottom: 1px dashed #ccc;
+}
+
+.List-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 120px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.List-footer> :first-child {
+  margin-right: 53px;
+  width: max-content;
 }
