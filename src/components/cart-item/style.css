@@ -14,7 +14,7 @@
 }
 
 .Item-price {
-  text-wrap: nowrap;
+  white-space: pre;
   align-self: center;
   margin-right: 14px;
   color: rgb(64, 64, 64);
@@ -26,7 +26,7 @@
 
 .Item-count {
   align-self: center;
-  text-wrap: nowrap;
+  white-space: pre;
   margin-right: 24px;
   margin-left: 62px;
   color: rgb(64, 64, 64);
