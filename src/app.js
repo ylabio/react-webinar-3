@@ -1,9 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import Cart from "./components/cart";
+import Modal from "./components/modal";
+import ModalFooter from "./components/modal-footer";
 
 /**
  * Приложение
@@ -11,39 +12,70 @@ import Cart from "./components/cart";
  * @returns {React.ReactElement}
  */
 function App({ store }) {
+  const [modalActive, setModalActive] = useState(false);
+
   const list = store.getState().list;
+  const state = store.getState();
+
+  const totalPrice = store.getState().totalPrice;
+  const totalCount = store
+    .getState()
+    .cart.reduce((sum, item) => sum + item.count, 0);
 
   const callbacks = {
-    onDeleteItem: useCallback(
+    onModalActive: useCallback(
+      (modal) => {
+        setModalActive(modal);
+      },
+      [modalActive]
+    ),
+
+    onDeleteItemFromCard: useCallback(
       (code) => {
-        store.deleteItem(code);
+        store.deleteItemFromCard(code);
       },
       [store]
     ),
 
-    onSelectItem: useCallback(
-      (code) => {
-        store.selectItem(code);
+    onAddItemToCart: useCallback(
+      (item) => {
+        store.addItemToCart(item);
       },
       [store]
     ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
   };
 
   return (
-    <PageLayout>
-      <Head title="Магазин" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
-      />
-      <Cart />
-    </PageLayout>
+    <>
+      <PageLayout>
+        <Head title="Магазин" cartComponent={false} />
+        <Controls
+          totalCount={totalCount}
+          totalPrice={totalPrice}
+          cartComponent={false}
+          onModalActive={callbacks.onModalActive}
+        />
+        <List
+          list={list}
+          cartComponent={false}
+          onAddItemToCart={callbacks.onAddItemToCart}
+        />
+      </PageLayout>
+      <Modal active={modalActive} setActive={setModalActive}>
+        <Head
+          title={"Корзина"}
+          cartComponent={true}
+          onModalActive={callbacks.onModalActive}
+        ></Head>
+        <Controls onAdd={callbacks.onAddItem} cartComponent={true} />
+        <List
+          list={state.cart}
+          cartComponent={true}
+          onDeleteItemFromCard={callbacks.onDeleteItemFromCard}
+        />
+        <ModalFooter totalPrice={totalPrice} />
+      </Modal>
+    </>
   );
 }
 

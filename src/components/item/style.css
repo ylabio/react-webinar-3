@@ -1,13 +1,8 @@
 .Item {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  /* align-items: center; */
   transition: background-color 1s;
-}
-
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
 }
 
 .Item-code {
@@ -20,12 +15,20 @@
 }
 
 .Item-price {
+  padding: 20px 0 20px 0;
   white-space: nowrap;
-  margin-right: 15px;
 }
 
-.Item-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+.Item-count {
+  padding: 20px 0 20px 0;
+  margin-left: 62px;
+  white-space: nowrap;
+}
+
+.Item-btns {
+  padding: 20px 20px 20px 24px;
+}
+
+.Item-btn {
+  width: 76px;
 }
