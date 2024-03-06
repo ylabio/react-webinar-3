@@ -44,6 +44,8 @@ class Store {
    * Открытие модального окна
    */
   openModal() {
+    document.body.style.overflow = "hidden";
+    
     this.setState({
         ...this.state,
         isModalOpen: true
@@ -54,6 +56,8 @@ class Store {
    * Закрытие модального окна
    */
   closeModal() {
+    document.body.style.overflow = "";
+    
       this.setState({
           ...this.state,
           isModalOpen: false
