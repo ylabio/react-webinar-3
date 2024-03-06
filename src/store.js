@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -40,15 +38,21 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+  addItemToCart(code) {
+    const currentItem = this.state.list.find(item => item.code === code);
+    if (!this.state.cartList.find(item => item.code === currentItem.code)) {
+      currentItem.addCount = 1;
+      this.setState({
+        ...this.state,
+        cartList: [...this.state.cartList, currentItem]
+      });
+    } else {
+      const newState = structuredClone(this.state);
+      const currentItemIndex = newState.cartList.findIndex(item => item.code === code);
+      newState.cartList[currentItemIndex].addCount++;
+      this.setState(newState);
+    }
+  }
 
   /**
    * Удаление записи по коду
@@ -58,31 +62,23 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cartList: this.state.cartList.filter(item => item.code !== code)
     })
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+  toggleModal() {
+    const modal = document.querySelector('.Modal-content ');
+    const backdrop = document.querySelector('.Modal-backdrop');
+    modal.classList.toggle('visible');
+    backdrop.classList.toggle('hidden');
+  };
+
+  getPricesSum() {
+    const pricesArray = this.state.cartList.map(item => item.price*item.addCount);
+    const pricesSum = pricesArray.reduce((sum, current) => sum + current, 0);
+    return Intl.NumberFormat("ru-RU").format(pricesSum);
   }
+
 }
 
 export default Store;
