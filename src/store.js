@@ -5,7 +5,7 @@ import {generateCode} from "./utils";
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {...initState, cartList: [], totalCartPrice: 0};
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -39,50 +39,85 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
+  
   /**
-   * Добавление новой записи
+   * Открытие модального окна
    */
-  addItem() {
+  openModal() {
+    document.body.style.overflow = "hidden";
+    
     this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+        ...this.state,
+        isModalOpen: true
+    });
   }
+
+  /**
+   * Закрытие модального окна
+   */
+  closeModal() {
+    document.body.style.overflow = "";
+    
+      this.setState({
+          ...this.state,
+          isModalOpen: false
+      });
+  }
+
+   /**
+   * Добавление новой записи в корзину
+   * @param code
+   */
+   addCartItem(code) {
+    const selectedItem = this.state.list.find(item => item.code === code);
+    const existingCartItemIndex = this.state.cartList.findIndex(item => item.code === code);
+    const updatedTotalCartPrice = this.state.totalCartPrice + selectedItem.price;
+
+
+    if (existingCartItemIndex !== -1) {
+      const updatedCartList = this.state.cartList.map((item, index) => {
+        if (index === existingCartItemIndex) {
+          return { ...item, quantity: item.quantity + 1, totalPrice: item.price * (item.quantity + 1) };
+        }
+        return item;
+      });
+
+      this.setState({
+        ...this.state,
+        cartList: updatedCartList,
+        totalCartPrice: updatedTotalCartPrice
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cartList: [...this.state.cartList, { ...selectedItem, quantity: 1, totalPrice: selectedItem.price }],
+        totalCartPrice: updatedTotalCartPrice
+      });
+    }
+  };
+
+ /**
+ * Удаление записи из корзины
+ * @param code
+ */
+ deleteCartItem(code) {
+  let updatedTotalCartPrice = this.state.totalCartPrice;
+  const updatedCartList = this.state.cartList.filter(item => {
+    if(item.code !== code){
+      return true;
+    } else {
+      updatedTotalCartPrice -= item.totalPrice;
+      return false;
+    }
+  })
+
+  this.setState({
+    ...this.state,
+    cartList: updatedCartList,
+    totalCartPrice: updatedTotalCartPrice
+  });
+  }
+
 }
 
 export default Store;
