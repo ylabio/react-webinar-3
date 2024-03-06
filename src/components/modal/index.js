@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 
 function Modal(props) {
-  const { children, title, closeElement, isVisible, setIsVisible } = props;
+  const { children, title, closeElement, setIsVisible } = props;
   const cn = bem("Modal");
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function Modal(props) {
   }, []);
 
   return (
-    <div className={`${isVisible ? cn() : "Dis-none"}`}>
+    <div className={cn()}>
       <div className={cn("wraper")}>
         <div className={cn("inner")}>
           <div className={cn("header")}>
@@ -33,7 +33,6 @@ function Modal(props) {
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
-  isVisible: PropTypes.bool.isRequired,
   closeElement: PropTypes.node.isRequired,
   setIsVisible: PropTypes.func.isRequired,
 };

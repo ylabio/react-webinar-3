@@ -45,7 +45,6 @@ function App({ store }) {
         <Modal
           title="Корзина"
           closeElement="Закрыть"
-          isVisible={isCart}
           setIsVisible={callbacks.onCloseCart}
           children={
             <Cart
@@ -55,7 +54,6 @@ function App({ store }) {
           }
         />
       )}
-
       <List list={list} action={callbacks.onAddProductToCart} />
     </PageLayout>
   );
