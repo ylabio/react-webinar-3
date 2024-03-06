@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -6,6 +6,7 @@ import {generateCode} from "./utils";
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.state.shoppingList = [];
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -43,12 +44,32 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+  addItem(code) {
+    const newItem = this.state.list.find(item => item.code === code);
+    const idx = this.state.shoppingList.findIndex(item => item.code === code);
+    if (idx !== -1) {
+      // Если товар уже присутствует в списке покупок, создаем копию массива
+      const updatedShoppingList = [...this.state.shoppingList];
+      // Обновляем количество товара в копии массива
+      updatedShoppingList[idx] = {
+        ...updatedShoppingList[idx],
+        quantity: updatedShoppingList[idx].quantity + 1
+      };
+      // Обновляем состояние
+      this.setState({
+        ...this.state,
+        shoppingList: [...updatedShoppingList],
+      });
+    } else {
+      // Если товара еще нет в списке покупок, добавляем его с начальным количеством 1
+      // newItem.quantity = 1;
+      this.setState({
+        ...this.state,
+        shoppingList: [...this.state.shoppingList, { ...newItem, quantity: 1 }]
+      });
+    }
   };
+
 
   /**
    * Удаление записи по коду
@@ -57,32 +78,10 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+      shoppingList: this.state.shoppingList.filter((item) => item.code !== code),
+    });
   }
-}
+};
+
 
 export default Store;

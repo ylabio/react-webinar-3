@@ -1,7 +1,16 @@
 .List {
-
+  border-bottom: 1px dashed #ccc;
 }
 
 .List-item {
+  border-top: 1px dashed #ccc;
+}
+
+.Modal-window .List {
   border-bottom: 1px dashed #ccc;
+}
+
+.Modal-window .List-item {
+  height: 63px;
+  padding: 0 20px;
 }

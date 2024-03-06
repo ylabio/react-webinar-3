@@ -2,4 +2,29 @@
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+  gap: 20px;
+  height: 21px;
+  align-items: center;
+}
+
+.Controls-count {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.Contols-basket {
+  margin: 0;
+}
+
+.Controls-counter {
+  display: flex;
+  justify-content: space-between;
+
+  margin-right: 120px;
+  margin-left: auto;
+
+  width: 147px;
+  padding-top: 20px;
 }

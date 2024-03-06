@@ -2,20 +2,24 @@ import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({onAdd}) {
+function Controls({ onClose, cartInfo }) {
+
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <div className='Controls-count'>{cartInfo}</div>
+      <button onClick={() => onClose()}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  onClose: PropTypes.func.isRequired,
+  cartInfo: PropTypes.node.isRequired,
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  onClose: () => {
+  },
 }
 
 export default React.memo(Controls);
