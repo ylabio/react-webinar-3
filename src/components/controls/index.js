@@ -16,7 +16,7 @@ function Controls(props) {
           one: " товар",
           few: " товара",
           many: " товаров",
-        })} / ${total} ₽`}` : 'пусто'}
+        })} / ${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₽`}` : 'пусто'}
       `}</span>
       </div>
       <button onClick={() => props.setActive(true)}>Перейти</button>

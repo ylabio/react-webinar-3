@@ -17,7 +17,7 @@ function Order(props) {
       <div className='Item-title'>
         {props.order.title} 
       </div>
-      <div className="Item-price">{props.order.price+' ₽'}<span className="Item-count">{props.order.count+' шт'}</span> </div>
+      <div className="Item-price">{props.order.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")+' ₽'}<span className="Item-count">{props.order.count+' шт'}</span> </div>
       <div className="Item-actions">
         <button onClick={() => callbacks.onDelete()}>Удалить</button>
         

@@ -19,7 +19,7 @@ function Item(props) {
       <div className='Item-title'>
         {props.item.title} 
       </div>
-      <div className="Item-price">{props.item.price+' ₽'}</div>
+      <div className="Item-price">{props.item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")+' ₽'}</div>
       <div className="Item-actions">
         <button onClick={callbacks.onAdd}>Добавить</button>
       </div>

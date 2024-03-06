@@ -20,7 +20,7 @@ function Cart(props) {
         )}
         
         </div>
-        <div className="Cart-sum">Итого:<span className="Cart-full-price">{` ${props.orders.reduce((sum, order) => sum + order.price, 0)} ₽`}</span></div>
+        <div className="Cart-sum">Итого:<span className="Cart-full-price">{` ${props.orders.reduce((sum, order) => sum + order.price, 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₽`}</span></div>
       </div>
       
     </div>
