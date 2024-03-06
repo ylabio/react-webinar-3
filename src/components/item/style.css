@@ -1,6 +1,6 @@
 .Item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   transition: background-color 1s;
 }
 
@@ -14,12 +14,32 @@
 }
 
 .Item-title {
-  width: 100%;
   padding: 20px 10px;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+  align-items: center;
+  margin-right: 20px;
+  width: 100px;
+}
+.Item-actions button{
+  width: 76px;
+  height: 21px;
+}
+.Item-price{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 100px;
+}
+.Item-count{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 100px;
+}
+.Item-disable{
+  display: none;
 }

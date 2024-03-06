@@ -1,6 +1,9 @@
-.Head {
+.Head1 {
   height: 80px;
   background: #f5f5f5;
+}
+.Head2 {
+  height: 80px;
 }
 
 .Head h1 {

@@ -3,3 +3,14 @@
   justify-content: flex-end;
   padding: 20px;
 }
+.Controls a{
+  margin-right: 10px;
+}
+.Controls-button{
+  display: flex;
+  justify-content: end;
+  width: 100px;
+}
+.Controls-button button{
+  width: 80px;
+}
