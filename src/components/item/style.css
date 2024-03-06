@@ -14,8 +14,14 @@
 }
 
 .Item-title {
-  width: 100%;
   padding: 20px 10px;
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Item-count {
+  padding: 20px 10px 20px 50px;
 }
 
 .Item-actions {

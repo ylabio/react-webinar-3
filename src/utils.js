@@ -50,3 +50,23 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Возвращает уникальные значения массива
+ */
+
+export function getUniqeItems(items) {
+  return items.reduce(
+    (res, cur) =>
+      res.find((find) => find.title === cur.title) ? res : [...res, cur],
+    []
+  );
+}
+
+/**
+ * Возвращает сумму полей массива
+ * @returns {Number}
+ */
+export function getPrice(items) {
+  return items.reduce((sum, current) => sum + current.price, 0);
+}
