@@ -1,0 +1,19 @@
+.Basket {
+  margin-top: 50px;
+}
+
+.Basket-items:first-child {
+  border-top: 1px dashed #ccc;
+}
+
+.Basket-total-price {
+  margin-right: 130px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 37px;
+  box-sizing: border-box;
+}
