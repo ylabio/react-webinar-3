@@ -14,26 +14,19 @@ function App({ store }) {
 
   const list = store.getState().list;
   const cart = store.getState().cart;
+  const cartCount = store.getState().cartCount;
+  const cartSum = store.getState().cartSum;
 
   const [modal, setModalState] = useState(false);
 
   const callbacks = {
-    onDeleteItem: useCallback((item) => {
-      store.deleteItem(item.code);
+    onDeleteItem: useCallback((code) => {
+      store.deleteItem(code);
     }, [store]),
 
-    onAddItem: useCallback((item) => {
-      store.addItem(item);
+    onAddItem: useCallback((code) => {
+      store.addItem(code);
     }, [store])
-  }
-
-  let cartCount = cart.length;
-  let cartSum = 0;
-
-  if (cart.length > 0) {
-    cart.forEach((item) => {
-      cartSum += item.price * item.count;
-    });
   }
 
   return (
@@ -44,7 +37,12 @@ function App({ store }) {
         <List list={list} text={'Добавить'}
           onItemClick={callbacks.onAddItem} />
       </PageLayout>
-      <Modal cart={cart} cartSum={cartSum} modal={modal} setModalState={setModalState} onItemClick={callbacks.onDeleteItem} />
+      <Modal cart={cart} cartSum={cartSum} modal={modal}>
+        <Head title='Корзина'>
+          <button onClick={() => setModalState(false)}>Закрыть</button>
+        </Head>
+        <List list={cart} text={'Удалить'} onItemClick={callbacks.onDeleteItem} />
+      </Modal>
     </>
   );
 }

@@ -40,13 +40,23 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+  calculateCartSum(items) {
+    let sum = 0;
+    if (items.length > 0) {
+      items.forEach((item) => {
+        sum += item.price * item.count;
+      });
+    }
+    return sum;
+  }
+
   /**
-   * Добавление нового товара
-   * @param item
+   * Добавление нового товара по коду
+   * @param code
    */
-  addItem(item) {
+  addItem(code) {
     let isDubl = false;
-    const newItem = { ...item };
+    const newItem = this.state.list.find(item => item.code === code);
     let newList = [...this.state.cart];
     newList.map(it => {
       if (it.code === newItem.code) {
@@ -62,7 +72,9 @@ class Store {
 
     this.setState({
       ...this.state,
-      cart: newList
+      cart: newList,
+      cartCount: newList.length,
+      cartSum: this.calculateCartSum(newList)
     });
   };
 
@@ -71,11 +83,15 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    let newList = this.state.cart.filter(item => item.code !== code);
+
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      cart: this.state.cart.filter(item => item.code !== code)
-    })
+      cart: newList,
+      cartCount: newList.length,
+      cartSum: this.calculateCartSum(newList)
+    });
   };
 }
 

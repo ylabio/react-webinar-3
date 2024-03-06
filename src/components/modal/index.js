@@ -6,17 +6,14 @@ import List from "../list";
 import Head from "../head";
 import './style.css';
 
-function Modal({ cart, cartSum, modal, setModalState, onItemClick }) {
+function Modal({ cart, cartSum, modal, children }) {
 
   const cn = bem('Modal');
 
   return (
     <div className={cn({ opened: modal })}>
       <div className={cn('wrapper')}>
-        <Head title='Корзина' setModalState={setModalState}>
-          <button onClick={() => setModalState(false)}>Закрыть</button>
-        </Head>
-        <List list={cart} text={'Удалить'} onItemClick={onItemClick} />
+        {children}
         {cart.length > 0 &&
           <div className={cn('footer')}>
             <b>Итого </b><b>{numberWithSpaces(cartSum)} ₽</b>
@@ -33,8 +30,7 @@ Modal.propTypes = {
   })).isRequired,
   cartSum: PropTypes.number.isRequired,
   modal: PropTypes.bool.isRequired,
-  setModalState: PropTypes.func.isRequired,
-  onItemClick: PropTypes.func
+  children: PropTypes.node
 };
 
 Modal.defaultProps = {

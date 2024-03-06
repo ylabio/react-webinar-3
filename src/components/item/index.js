@@ -10,7 +10,7 @@ function Item({ item, text, onItemClick }) {
 
   const callbacks = {
     onItemClick: () => {
-      onItemClick(item);
+      onItemClick(item.code);
     }
   }
 

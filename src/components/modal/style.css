@@ -53,4 +53,5 @@
 
 .Modal button {
   min-width: 77px;
+  cursor: pointer;
 }
