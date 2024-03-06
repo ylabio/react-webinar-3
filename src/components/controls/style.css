@@ -1,5 +1,15 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   padding: 20px;
+}
+
+.Controls-cart-info {
+  padding: 0;
+  margin: 0 10px 0;
+}
+
+.status {
+  font-weight: 900;
 }

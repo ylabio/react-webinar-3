@@ -14,12 +14,22 @@
 }
 
 .Item-title {
-  width: 100%;
+  flex: 1;
   padding: 20px 10px;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  column-gap: 20px;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-text_extra {
+  width: 170px;
+}
+
+.Text-extra {
+  float: right;
 }
