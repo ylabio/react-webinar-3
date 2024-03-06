@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
+import { numberWithSpaces } from "../../utils";
 
 function Item(props) {
   const callbacks = {
@@ -15,7 +16,7 @@ function Item(props) {
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>{props.item.title}</div>
 			<div className="Item-price">
-				<span>{props.item.price} ₽</span>
+				<span>{numberWithSpaces(props.item.price)} ₽</span>
 			</div>
       <div className='Item-actions'>
         <button onClick={callbacks.onAction}>Добавить</button>

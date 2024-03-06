@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
+import { numberWithSpaces } from "../../utils";
 
 function ItemBasket(props) {
   const callbacks = {
@@ -15,7 +16,7 @@ function ItemBasket(props) {
       <div className='Item-basket-code'>{props.item.code}</div>
       <div className='Item-basket-title'>{props.item.title}</div>
 			<div className="Item-basket-price">
-				<span>{props.item.price} ₽</span>
+				<span>{numberWithSpaces(props.item.price)} ₽</span>
 				<span>{props.item.count} шт</span>
 			</div>
       <div className='Item-basket-actions'>

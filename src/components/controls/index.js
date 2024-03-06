@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
-import {plural} from "../../utils";
+import {numberWithSpaces, plural} from "../../utils";
 
 function Controls({setOpen,totalProductPrice,productCount}) {
   return (
@@ -10,7 +10,7 @@ function Controls({setOpen,totalProductPrice,productCount}) {
         one: 'товар',
         few: 'товара',
         many: 'товаров'
-      })} / {totalProductPrice} ₽</span>}</b>:<b>пусто</b>} 
+      })} / {numberWithSpaces(totalProductPrice)} ₽</span>}</b>:<b>пусто</b>} 
 			</p> 
       <button onClick={() => setOpen(true)}>Перейти</button>
     </div>

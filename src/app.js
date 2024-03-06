@@ -18,7 +18,7 @@ function App({store}) {
   const listOfProducts = store.getState().productsList;
   const productCount = store.getState().productCount;
   const totalProductPrice = store.getState().totalProductPrice;
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(false);  
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {

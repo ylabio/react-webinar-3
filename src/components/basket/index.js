@@ -3,16 +3,19 @@ import PropTypes from 'prop-types';
 import './style.css';
 import List from "../list";
 import Item_basket from "../item_basket";
+import { numberWithSpaces } from "../../utils";
 
 function Basket({listOfProducts,onButtonAction,totalProductPrice}) {
   return (
     <div className='Basket'>
-					<List list={listOfProducts} onButtonAction={onButtonAction}>
-            <Item_basket/>
-          </List>
+          <div className="Basket__content">
+            <List list={listOfProducts} onButtonAction={onButtonAction}>
+              <Item_basket/>
+            </List>
+          </div>
 					<div className="Basket__count">
 						<span>Итого</span>
-						<span>{totalProductPrice}₽</span>
+						<span>{numberWithSpaces(totalProductPrice)} ₽</span>
 					</div>
     </div>
   )
