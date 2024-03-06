@@ -1,0 +1,12 @@
+.ModalFooter {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 120px 20px 20px;
+  font-weight: 700;
+  font-size: 18px;
+  color: #000;
+}
+
+.ModalFooter-total {
+  padding-right: 60px;
+}
