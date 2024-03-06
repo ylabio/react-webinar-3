@@ -2,20 +2,20 @@ import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
 
-function ModalOverlay(props) {
+function ModalOverlay({onClick}) {
   
   return (
-    <div className={'ModalOverlay'} onClick={props.onClick}>
+    <div className={'ModalOverlay'} onClick={onClick}>
     </div>
   )
 }
 
 ModalOverlay.propTypes = {
-  onClick: PropTypes.func
+  // onClick: PropTypes.func
 };
 
 ModalOverlay.defaultProps = {
-  onClick: () => {}
+  // onClick: () => {}
 }
 
 export default React.memo(ModalOverlay);

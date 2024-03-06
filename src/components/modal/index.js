@@ -4,26 +4,26 @@ import {cn as bem} from '@bem-react/classname';
 import ModalOverlay from '../modal-overlay';
 import './style.css';
 
-function Modal(props) {
+function Modal({show, title, buttonText, onClose, children}) {
   
   const cn = bem('Modal');
   
-  return (props.show ? 
+  return (show ? 
     <div className={cn()}>
-      <ModalOverlay onClick={props.onClose} />
+      <ModalOverlay onClick={onClose} />
       <div onClick={(e) => e.stopPropagation()} className={cn('container')}>
         <div className={cn('heading')}>
-          <h1 className={cn('title')}>{props.title}</h1>
+          <h1 className={cn('title')}>{title}</h1>
           <button 
             type="button" 
             className={cn('close-button')} 
-            onClick={props.onClose}
+            onClick={onClose}
           >
-            {props.buttonText}
+            {buttonText}
           </button>
         </div>
 
-      {props.children}
+      {children}
 
       </div>
 
@@ -35,14 +35,15 @@ Modal.propTypes = {
   show: PropTypes.bool,
   title: PropTypes.node,
   buttonText: PropTypes.node,
-  onClose: PropTypes.func,
+  // onClose: PropTypes.func,
+  children: PropTypes.node,
 };
 
 Modal.defaultProps = {
   show: false,
   title: "Title",
   buttonText: "button",
-  onClose: () => {}
+  // onClose: () => {}
 }
 
 export default React.memo(Modal);

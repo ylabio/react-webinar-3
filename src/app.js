@@ -1,10 +1,12 @@
-import React, {useCallback} from 'react';
+import React, { useState, useCallback } from 'react';
 import List from "./components/list";
 import Cart from "./components/cart";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal";
+import Item from "./components/item";
+import { StoreContext } from './store';
 
 /**
  * Приложение
@@ -13,41 +15,36 @@ import Modal from "./components/modal";
  */
 function App({store}) {
 
-  const { list, cartList, showCart } = store.getState();
+  const [ storeContext, setStoreContext ] = useState(store);
+  const { list, showCart } = store.getState();
 
-  const callbacks = {
-    onAddItem: useCallback((code) => {
-      store.addToCart(code);
-    }, [store]),
+  const onClose = useCallback(() => {
+    store.setCartVisibility(false);
+  }, [store.setCartVisibility]);
 
-    onDeleteItem: useCallback((code) => {
-      store.removeFromCart(code);
-    }, [store]),
-
-    onOpenCart: useCallback(() => {
-      store.setCartVisibility(true);
-    }, [store]),
-
-    onCloseCart: useCallback(() => {
-      store.setCartVisibility(false);
-    }, [store])
-  }
+  const onAddToCart = useCallback((code) => {
+    store.addToCart(code);
+  }, [store.addToCart]);
 
   return (
+    <StoreContext.Provider value={[storeContext, setStoreContext]}>
     <PageLayout>
       <Modal 
         title='Корзина' 
-        show={showCart}
         buttonText='Закрыть'
-        onClose={callbacks.onCloseCart}
+        show={showCart}
+        onClose={onClose}
       >
-        <Cart cartList={cartList} onDeleteItem={callbacks.onDeleteItem}/>
+        <Cart />
       </Modal>
       <Head title='Магазин'/>
-      <Controls onClick={callbacks.onOpenCart} cartList={cartList}/>
-      <List list={list}
-            onAddItem={callbacks.onAddItem}/>
+      <Controls />
+      <List 
+        list={list} 
+        onClick={onAddToCart} 
+      />
     </PageLayout>
+    </StoreContext.Provider>
   );
 }
 

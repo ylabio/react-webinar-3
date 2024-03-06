@@ -1,21 +1,17 @@
-import React, {useMemo} from "react";
+import React, { useCallback, useContext } from "react";
 import PropTypes from 'prop-types';
 import { plural, formatSum } from "../../utils";
+import { StoreContext } from "../../store";
 import './style.css';
 
-function Controls(props) {
+function Controls() {
+  
+  const [ storeContext, setStoreContext ] = useContext(StoreContext);
+  const { cart } = storeContext.getState();
 
-  const totalAmount = useMemo(
-    () => {
-      return props.cartList.reduce((sum, item) => sum + item.amount, 0);
-    }, [props.cartList]
-  );
-
-  const totalPrice = useMemo(
-    () => {
-      return props.cartList.reduce((sum, item) => sum + item.price * item.amount, 0);
-    }, [props.cartList]
-  );
+  const onOpenCart = useCallback(() => {
+    storeContext.setCartVisibility(true);
+  }, [storeContext.setCartVisibility]);
 
   return (
     <div className='Controls'>
@@ -24,9 +20,9 @@ function Controls(props) {
           В корзине:
         </div>
         {
-          totalAmount ?
+          cart.amount ?
             <div className='Controls-cart-info-total'>
-              {`${totalAmount} ${plural(totalAmount, {one: 'товар', few: 'товара', many: 'товаров'})} / ${formatSum(totalPrice, { style: 'currency', currency: 'RUB' })}`}
+              {`${cart.amount} ${plural(cart.amount, {one: 'товар', few: 'товара', many: 'товаров'})} / ${formatSum(cart.total, { style: 'currency', currency: 'RUB' })}`}
             </div>
           :
             <div className='Controls-cart-info-total'>
@@ -34,17 +30,9 @@ function Controls(props) {
             </div>
         }
       </div>
-      <button className='Controls-button' onClick={props.onClick}>Перейти</button>
+      <button className='Controls-button' onClick={onOpenCart}>Перейти</button>
     </div>
   )
-}
-
-Controls.propTypes = {
-  onClick: PropTypes.func
-};
-
-Controls.defaultProps = {
-  onClick: () => {}
 }
 
 export default React.memo(Controls);
