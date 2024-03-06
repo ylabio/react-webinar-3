@@ -87,14 +87,14 @@ class Store {
    * Подсчет итогового количества товара и стоимость в корзине
    */
   calcTotalCart() {
-    const counttotalPrice = this.state.listCart.reduce(
+    const countTotalPrice = this.state.listCart.reduce(
       (acc, item) => acc + item.countProduct * item.price, 0
     );
     this.setState({
       ...this.state, 
       totalCart : {
         totalProduct: (this.state.listCart).length, 
-        totalPrice: counttotalPrice
+        totalPrice: countTotalPrice
       }
     });
   }
@@ -147,10 +147,15 @@ class Store {
   }
 
   /**
-   * Показывает или скрывает Cart (корзину)
+   * Показывает или скрывает модальное окно
+   * @param nameVisibleModal
    */
-  showCart() {
-    this.setState({...this.state, activeCart : !this.state.activeCart});
+  toggleVisibleModal(nameVisibleModal) {
+    this.state.visibleModals[nameVisibleModal].visible = !this.state.visibleModals[nameVisibleModal].visible;
+    this.setState({
+      ...this.state,
+      visibleModals: {...this.state.visibleModals}
+    });
   }
 }
 

@@ -11,7 +11,8 @@ function Controls(props) {
 
   const callbacks = {
     onShowCart: () => {
-      props.onShowCart();
+      props.onShowCart(props.nameCartModal);
+      props.disabledScroll();
     }
   }
 
@@ -42,11 +43,14 @@ Controls.propTypes = {
     totalProduct: PropTypes.number,
     totalPrice: PropTypes.number,
   }).isRequired,
-  onShowCart: PropTypes.func
+  nameCartModal: PropTypes.string,
+  onShowCart: PropTypes.func,
+  disabledScroll: PropTypes.func
 };
 
 Controls.defaultProps = {
-  onShowCart: () => {}
+  onShowCart: () => {},
+  disabledScroll: () => {}
 }
 
 export default React.memo(Controls);

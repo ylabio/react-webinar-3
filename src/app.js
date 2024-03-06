@@ -4,6 +4,7 @@ import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Cart from './components/cart/index.js';
+import Modal from './components/modal/index.js';
 
 /**
  * Приложение
@@ -18,7 +19,7 @@ function App({store}) {
 
   const totalCart = store.getState().totalCart;
 
-  const activeCart = store.getState().activeCart;
+  const visibleModals = store.getState().visibleModals;
 
   const callbacks = {
     onAddItemCart: useCallback((code) => {
@@ -29,23 +30,45 @@ function App({store}) {
       store.deleteItemCart(code);
     }, [store]),
 
-    onShowCart: useCallback((code) => {
-      store.showCart();
-    }, [store])
+    toggleVisibleModal: useCallback((visibleModal) => {
+      store.toggleVisibleModal(visibleModal);
+    }, [store]),
+
+    disabledScroll: useCallback(() => {
+      document.body.style.overflow = 'hidden';
+    }, []),
+    
+    enableScroll: useCallback(() => {
+      document.body.style.overflow = '';
+    }, [])
   }
 
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls onShowCart={callbacks.onShowCart} totalCart={totalCart}/>
-      <List list={list}
-            textButton={'Добавить'}
-            onClick={callbacks.onAddItemCart}/> 
-      <Cart listCart={listCart}
-        totalPrice={totalCart.totalPrice}
-        activeCart={activeCart} 
-        onShowCart={callbacks.onShowCart}
-        onClick={callbacks.deleteItemCart}/>
+      <Controls 
+        nameCartModal={visibleModals.cart.name}
+        onShowCart={callbacks.toggleVisibleModal} 
+        totalCart={totalCart} 
+        disabledScroll={callbacks.disabledScroll}
+      />
+      <List 
+        list={list}
+        textButton={'Добавить'}
+        onClick={callbacks.onAddItemCart}
+      /> 
+      <Modal 
+        visibleModal={visibleModals.cart}
+        onHide={callbacks.toggleVisibleModal}
+        enableScroll={callbacks.enableScroll}
+      >  
+        <Cart 
+          listCart={listCart}
+          totalPrice={totalCart.totalPrice}
+          visibleCartModal={visibleModals.cart.visible} 
+          onClick={callbacks.deleteItemCart}
+        />
+      </Modal>
     </PageLayout>
   );
 }

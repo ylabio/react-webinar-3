@@ -13,8 +13,8 @@ function List(props) {
   }
 
   return (
-    <div className={cn()}>{
-      props.list.map(item =>
+    <div className={props.classModifier ? cn({[props.classModifier]: true}) : cn()}>
+      {props.list.map(item =>
         <div key={item.code} className={cn('item')}>
           <Item 
             item={item} 
@@ -31,6 +31,7 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
+  classModifier: PropTypes.string,
   textButton: PropTypes.node,
   onClick: PropTypes.func,
 };

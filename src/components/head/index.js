@@ -16,6 +16,7 @@ function Head(props) {
 }
 
 Head.propTypes = {
+  classModifier: PropTypes.string,
   title: PropTypes.node,
   children: PropTypes.node
 };

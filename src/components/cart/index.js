@@ -14,45 +14,37 @@ function Cart (props) {
   const callbacks = {
     onClick: () => {
       props.onClick();
-    },
-    onShowCart: () => {
-      props.onShowCart();
     }
   }
 
   return ( 
-    <div className={props.activeCart ? cn({active: true}) : cn()}>
-        <div className={cn('wrapper')}>
-          <Head classModifier={props.activeCart ? 'cart' : ''} title='Корзина'>
-              <button onClick={callbacks.onShowCart}>
-                Закрыть
-              </button>
-          </Head>
+        <>
+          <Head classModifier={props.visibleCartModal ? 'cart' : ''} title='Корзина'/>
           {props.listCart.length 
-            ? <List list={props.listCart} textButton={'Удалить'} onClick={props.onClick}/> 
-            : ''}
-            <div className={cn('total')}>
-              <div className={cn('total-text')}>Итого</div>
-              <div className={cn('total-price')}>
-                {separatingNumberSpaces(props.totalPrice)} &#8381;
-              </div>
-            </div>
-        </div>
-    </div>
+            ? <>
+                <List classModifier={'cart'} list={props.listCart} textButton={'Удалить'} onClick={props.onClick}/>
+                <div className={cn('total')}>
+                  <div className={cn('total-text')}>Итого</div>
+                  <div className={cn('total-price')}>
+                    {separatingNumberSpaces(props.totalPrice)} &#8381;
+                  </div>
+                </div>
+              </>
+            : <div className={cn('empty')}>В корзине пусто...</div>
+          }
+        </>
   )
 }
 
 Cart.propTypes = {
   totalPrice: PropTypes.number,
-  activeCart: PropTypes.bool,
+  visibleCartModal: PropTypes.bool,
   classModifier: PropTypes.string,
   onClick: PropTypes.func,
-  onShowCart: PropTypes.func
 };
 
 Cart.defaultProps = {
-  onClick: () => {},
-  onShowCart: () => {}
+  onClick: () => {}
 }
 
 export default React.memo(Cart);

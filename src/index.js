@@ -16,7 +16,9 @@ const store = new Store({
   ],
   listCart: [],
   totalCart: {totalProduct: 0, totalPrice: 0},
-  activeCart: false
+  visibleModals: {
+    cart: {name:'cart', visible: false}
+  }
 });
 
 const root = createRoot(document.getElementById('root'));
