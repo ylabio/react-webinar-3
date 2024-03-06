@@ -49,33 +49,34 @@ class Store {
    */
   deleteItemCart(item) {
     const { cartItems } = this.state;
-    const updatedCartItems = cartItems.filter(cartItem => cartItem.code !== item.code);
+    const updatedCartItems = cartItems.filter(
+      (cartItem) => cartItem.code !== item.code
+    );
     this.setState({ ...this.state, cartItems: updatedCartItems });
-  //   const { cartItems } = this.state;
+    //   const { cartItems } = this.state;
 
-  //   const updatedCartItems = cartItems.map(cartItem => {
-  //     if (cartItem.code === item) {
-  //       return { ...cartItem, quantity: cartItem.quantity - 1 };
-  //     }
-  //   return cartItem;
-  // }).filter(cartItem => cartItem.quantity > 0);
+    //   const updatedCartItems = cartItems.map(cartItem => {
+    //     if (cartItem.code === item) {
+    //       return { ...cartItem, quantity: cartItem.quantity - 1 };
+    //     }
+    //   return cartItem;
+    // }).filter(cartItem => cartItem.quantity > 0);
 
-  //   this.setState({ ...this.state, cartItems: updatedCartItems });
+    //   this.setState({ ...this.state, cartItems: updatedCartItems });
   }
 
   addItemToCart(item) {
     // const cartItems = [...this.state.cartItems, item];
     // this.setState({ ...this.state, cartItems });
     const { cartItems } = this.state;
-    let updatedCartItems = cartItems.slice();
     let isItemInCart = false;
-    let countItemCart = 0; 
 
-    updatedCartItems.forEach((cartItem) => {
+    const updatedCartItems = cartItems.map((cartItem) => {
       if (cartItem.code === item.code) {
-        countItemCart = cartItem.quantity + 1;
         isItemInCart = true;
+        return { ...cartItem, quantity: cartItem.quantity + 1 };
       }
+      return cartItem;
     });
 
     if (!isItemInCart) {
@@ -85,12 +86,12 @@ class Store {
     this.setState({ ...this.state, cartItems: updatedCartItems });
   }
 
-  totalPrice(){ 
+  totalPrice() {
     const { cartItems } = this.state;
     let totalPrice = 0;
 
-    cartItems.forEach(cartItem => {
-        totalPrice += cartItem.price * cartItem.quantity;
+    cartItems.forEach((cartItem) => {
+      totalPrice += cartItem.price * cartItem.quantity;
     });
 
     return totalPrice;
