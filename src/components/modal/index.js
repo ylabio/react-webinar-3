@@ -1,0 +1,52 @@
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import "./style.css";
+import { formatPrice } from "../../utils";
+const Modal = ({
+  isShowing,
+  hide,
+  title,
+  cartTotal,
+  currencySymbol,
+  cartItemCount,
+  ...props
+}) =>
+  isShowing
+    ? ReactDOM.createPortal(
+        <>
+          <div className="modal-overlay">
+            <div className="modal-wrapper">
+              <div className="modal">
+                <div className="modal-header">
+                  <h4>{title}</h4>
+                  <button
+                    type="button"
+                    className="modal-close-button"
+                    onClick={hide}
+                  >
+                    закрыть
+                  </button>
+                </div>
+                <div className="modal-none"></div>
+                <div className="modal-body">{props.children}</div>
+                <div className="modal-footer">
+                  <p>Итого </p>
+                  <p>{formatPrice(cartTotal)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>,
+        document.body
+      )
+    : null;
+
+Modal.propTypes = {
+  isShowing: PropTypes.bool.isRequired,
+  hide: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  footerContent: PropTypes.string.isRequired,
+};
+
+export default Modal;

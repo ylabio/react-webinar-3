@@ -16,8 +16,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -26,6 +26,16 @@ class Store {
    */
   getState() {
     return this.state;
+  }
+
+  /**
+   * Переключение состояния модального окна корзины
+   */
+  toggleCartModal() {
+    this.setState({
+      ...this.state,
+      isCartModalOpen: !this.state.isCartModalOpen,
+    });
   }
 
   /**
@@ -39,40 +49,50 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
+   * @param {number} code Код добавляемого товара
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
+  addToCart(code) {
+    const cartList = this.state.cartList ? [...this.state.cartList] : [];
+    const selectedProduct = this.state.list.find((product) => product.code === code);
+    
+    if (selectedProduct) {
+      const existingCartItemIndex = cartList.findIndex((item) => item.code === code);
+
+      if (existingCartItemIndex !== -1) {
+        cartList[existingCartItemIndex].count++;
+      } else {
+        cartList.push({ ...selectedProduct, count: 1 });
+      }
+
+      const cartTotalPrice = cartList.reduce((total, item) => total + item.price * item.count, 0);
+      const  cartItemCount = cartList.length;
+
+      this.setState({
+        ...this.state,
+        cartList,
+        cartTotalPrice,
+        cartItemCount,
+      });
+    }
+}
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Удаление товара из корзины
+   * @param {number} code Код удаляемого товара
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+  onDeleteCartItem(code) {
+    const updatedCartList = this.state.cartList.filter((item) => item.code !== code);
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+    const cartTotalPrice = updatedCartList.reduce((total, item) => total + item.price * item.count, 0);
+    const cartItemCount = updatedCartList.reduce((total, item) => total + item.count, 0);
+
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      })
-    })
+      cartList: updatedCartList,
+      cartTotalPrice,
+      cartItemCount,
+    });
   }
 }
 
