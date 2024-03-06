@@ -10,6 +10,7 @@ function CartLayout({children, onCloseCart}) {
   return (
     <div className={cn()} onClick={onCloseCart}>
       <div className={cn('container')} onClick={(e) => e.stopPropagation()}>
+        <button className={cn('button')} onClick={onCloseCart}>Закрыть</button>
         {children}
       </div>
     </div>

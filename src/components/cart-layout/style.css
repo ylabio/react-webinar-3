@@ -21,4 +21,12 @@
     padding-bottom: 4.31rem;
     max-height: 100vh;
     max-width: 965px;
+    position: relative;
+}
+
+.CartLayout-button {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    padding: 2px 15px;
 }

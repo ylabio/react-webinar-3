@@ -1,5 +1,5 @@
 .List {
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 50vh;
 }
 
