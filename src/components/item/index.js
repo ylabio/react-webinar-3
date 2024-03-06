@@ -8,7 +8,7 @@ function Item(props) {
       <div className="Item-code">{props.item.code}</div>
       <div className="Item-title">{props.item.title}</div>
       <div className="Item-price">
-        <p>{`${props.item.price}`}</p>
+        <p>{new Intl.NumberFormat("ru").format(props.item.price)}</p>
         <p>&#8381;</p>
         <p>{props.del ? `${props.item.count}шт` : ""}</p>
       </div>
