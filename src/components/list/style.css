@@ -1,7 +1,14 @@
-.List {
-
+.Head + .List {
+  margin-top: 74px;
 }
 
 .List-item {
   border-bottom: 1px dashed #ccc;
+}
+
+.List-placeholder {
+  margin-top: 140px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
 }
