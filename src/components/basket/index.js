@@ -3,19 +3,16 @@ import PropTypes from "prop-types";
 import Head from "../head";
 import Button from "../button";
 import List from "../list";
+import Vidget from "../vidget";
 import { format } from '../../utils';
 import './style.css';
 
-/* COMPONENTS TODO:
-component for basket:
- - component vidget */
-
-function Basket({list, forModal, forItem, summ}) {
+function Basket({list, forModal, forItem, cart}) {
 
   const cartList = list.filter((item) => Boolean(item.tocart));
   // The target for rendering elements of list items
   const lsTarget = { name: "basket", ctrl: "Удалить"};
-  const numForm = format(summ);
+  const numForm = format(cart.costs);
 
   return (
     <div className='Basket'>
@@ -28,9 +25,7 @@ function Basket({list, forModal, forItem, summ}) {
         <List list={cartList} callback={forItem} target={lsTarget}/>
       </div>
       <div className="Basket-summary">
-        <div className='Basket-summary-title'>Итого:
-          <strong className='Basket-summary-inform'>{`${numForm} ₽`}</strong>
-        </div>
+        <Vidget cart={cart} title="Итого:" full={false}/>
       </div>
     </div>
   )
@@ -46,13 +41,17 @@ Basket.propTypes = {
   })).isRequired,
   forModal: PropTypes.func.isRequired,
   forItem: PropTypes.func.isRequired,
-  summ: PropTypes.number.isRequired,
+  cart: PropTypes.shape({
+    goods: PropTypes.number,
+    costs: PropTypes.number
+  }).isRequired,
 };
 
 // Default values for properties:
 Basket.defaultProps = {
   forModal: () => {},
   forItem: () => {},
+  cart: { goods: 0, costs: 0 },
 };
 
 export default React.memo(Basket);
