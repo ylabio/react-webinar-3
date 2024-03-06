@@ -36,7 +36,7 @@ function App({ store }) {
     },
 
     /**
-     * Функция показа/скрытия модалки
+     * Колбек-Функция показа/скрытия модалки
      * @returns
      */
     onToggleCart: useCallback(() => {
@@ -44,25 +44,25 @@ function App({ store }) {
     }, [isModal]),
 
     /**
-     * Функция добавления товара в корзину
-     * @param {Object} item - объект с информацией о товаре
+     * Колбек-Функция добавления товара в корзину
+     * @param {Number} code - код товара, который нужно добавить в корзину
      * @returns
      */
     onAddItem: useCallback(
-      (item) => {
-        store.addItem(item);
+      (code) => {
+        store.addItem(code);
       },
       [store]
     ),
 
     /**
-     * Функция удаления товара в корзины
-     * @param {Object} item - объект с информацией о товаре
+     * Колбек-Функция удаления товара в корзины
+     * @param {Number} code - код товара, который нужно удалить из корзины
      * @returns
      */
     onDeleteItem: useCallback(
-      (item) => {
-        store.deleteItem(item);
+      (code) => {
+        store.deleteItem(code);
       },
       [store]
     ),

@@ -22,7 +22,7 @@ function Item(props) {
      */
     onButtonClick: (e) => {
       e.stopPropagation();
-      props.buttonFunction(props.item);
+      props.buttonFunction(props.item.code);
     },
   };
 

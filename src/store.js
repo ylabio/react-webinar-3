@@ -40,17 +40,18 @@ class Store {
 
   /**
    * Добавление товара в корзину
-   * @param {Object} item - объект товара, который нужно добавить в корзину
+   * @param {Number} code - код товара, который нужно добавить в корзину
    */
-  addItem(item) {
+  addItem(code) {
     let newCart = [...this.state.cart];
     let existedPieceIndex = this.state.cart.findIndex(
-      (piece) => piece.title === item.title
+      (piece) => piece.code === code
     );
+    let itemObject = this.state.list.find((item)=> item.code === code);
 
     if (existedPieceIndex === -1) {
       newCart.push({
-        ...item,
+        ...itemObject,
         count: 1,
       })
     } else {
@@ -65,14 +66,14 @@ class Store {
 
   /**
    * Удаление набора товаров из корзины
-   * @param {Object} item - объект товаров, который нужно удалить из корзины
+   * @param {Number} code - код товаров, который нужно удалить из корзины
    */
-  deleteItem(item) {
+  deleteItem(code) {
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter((piece) => piece.code !== item.code),
+      cart: this.state.cart.filter((piece) => piece.code !== code),
     });
   }
-}
+};
 
 export default Store;
