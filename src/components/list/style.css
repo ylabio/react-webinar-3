@@ -1,8 +1,3 @@
-.List{
-  max-height: 100vh;
-  overflow-y: auto;
-}
-
 .List-item {
   border-top: 1px dashed #ccc;
   margin-bottom: -4px;

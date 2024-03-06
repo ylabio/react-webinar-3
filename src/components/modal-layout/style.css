@@ -17,5 +17,7 @@
     box-sizing: border-box;
     border-radius: 10px;
     padding-bottom: 70px;
+    max-height: 90vh;
     overflow: hidden;
+    overflow-y: auto;
 }
