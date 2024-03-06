@@ -4,6 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal"
+import TotalPrice from "./components/total-price"
 import item from './components/item';
 
 /**
@@ -47,8 +48,10 @@ function App({store}) {
         closeModal={callbacks.onToggleModal}/>
       <Controls onToggleModal={callbacks.onToggleModal}/>
       <List list={cart}
-            isCart={true}
-            onDeleteItem={callbacks.onDeleteItem}/>
+        isCart={true}
+        onDeleteItem={callbacks.onDeleteItem}/>
+      <TotalPrice text='Итого'
+        price={totalPrice}/>
     </Modal>
     </>
   );

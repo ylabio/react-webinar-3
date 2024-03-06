@@ -9,12 +9,14 @@ function Modal(props){
     <div className={showHideClassName}>
         <div className="modal-main">
             {props.children}
-            <div className="Total-price">
-                <div className="Price-text">Итого</div>
-                <div className="Price">{props.totalPrice} ₽</div>
-            </div>
         </div>
     </div>
     );
 }
+
+Modal.PropTypes = {
+    children: PropTypes.node,
+    show: PropTypes.bool
+}
+
 export default React.memo(Modal);
