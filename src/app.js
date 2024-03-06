@@ -4,6 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Cart from "./components/cart";
+import Modal from "./components/modal";
 
 /**
  * Приложение
@@ -14,18 +15,18 @@ function App({store}) {
 
   const list = store.getState().list;
 
-  const [items, setItems] = useState([]);
+  const items = store.getState().items;
 
   const [isOpen, setIsOpen] = useState(false);
 
   const callbacks = {
     onDeleteItem: useCallback((item) => {
-      setItems((prev) => prev.filter((p) => p.title !== item.title))
-    }, [items]),
+      store.deleteItem(item);
+    }, [store]),
 
     onAddItem: useCallback((item) => {
-      setItems((prev) => [...prev, item]);
-    }, [items])
+      store.addItem(item);
+    }, [store])
   }
 
   return (
@@ -33,8 +34,10 @@ function App({store}) {
       <Head title='Магазин'/>
       <Controls items={items} onShowCart={setIsOpen}/>
       <List list={list} onAddItem={callbacks.onAddItem}/>
-      {isOpen && <Cart items={items} onCloseCart={setIsOpen}
-       onDeleteItem={callbacks.onDeleteItem}/>}
+       {isOpen && <Modal>
+          <Cart items={items} title='Корзина' onCloseCart={setIsOpen}
+          onDeleteItem={callbacks.onDeleteItem}/>
+        </Modal>}
     </PageLayout>
   );
 }

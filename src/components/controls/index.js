@@ -12,11 +12,12 @@ function Controls(props) {
 
     const price = getPrice(props.items);
 
-    total = getUniqeItems(props.items).length + " " + pluralValue + " / " + price + " ₽";
+    total = getUniqeItems(props.items).length + " " + pluralValue + " / " + price.toLocaleString()  + " ₽";
   }
 
   const callbacks = {
-    onAdd: (value) => {
+    onClick: (value) => {
+      document.body.style.overflow = 'hidden';
       props.onShowCart(value);
     }
   }
@@ -26,7 +27,7 @@ function Controls(props) {
       <span>В корзине:
         <b>{total}</b>
       </span>
-      <button onClick={() => callbacks.onAdd(true)}>Перейти</button>
+      <button onClick={() => callbacks.onClick(true)}>Перейти</button>
     </div>
   )
 }

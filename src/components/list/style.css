@@ -5,3 +5,7 @@
 .List-item {
   border-bottom: 1px dashed #ccc;
 }
+
+button{
+  padding: 1.5px 7px;
+}

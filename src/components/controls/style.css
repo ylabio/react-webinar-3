@@ -6,9 +6,13 @@
 }
 
 .Controls span{
+  font-size: 1.125rem;
   padding: 0px 20px 0px 0px;
 }
 
 .Controls b{
   padding: 0px 0px 0px 12px;
+}
+.Controls button{
+    padding: 1.5px 12px;
 }

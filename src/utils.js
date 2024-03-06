@@ -54,17 +54,13 @@ export function generateCode2() {
 /**
  * Возвращает уникальные значения массива
  */
-export function getUniqeItems(items) {
-  const names = [];
 
-  const filterdItems = items.filter((p) => {
-    if (p.title && !names.includes(p.title)) {
-      names.push(p.title);
-      return true;
-    }
-    return false;
-  });
-  return filterdItems;
+export function getUniqeItems(items) {
+  return items.reduce(
+    (res, cur) =>
+      res.find((find) => find.title === cur.title) ? res : [...res, cur],
+    []
+  );
 }
 
 /**

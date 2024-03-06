@@ -15,7 +15,7 @@ function Item(props) {
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>
         {props.item.title}
-        <span>{props.item.price + " ₽"}</span>
+        <span>{props.item.price.toLocaleString() + " ₽"}</span>
       </div>
       {!!props.count  && <span className='Item-count'>{props.count + " шт"}</span>}
       <div className='Item-actions'>
