@@ -1,0 +1,32 @@
+.ItemCart {
+    align-items: center;
+    border-bottom: 1px dashed #ccc;
+    display: flex;
+    justify-content: space-between;
+    height: 62px;
+    padding: 0 20px;
+  }
+  
+  .ItemCart-title {
+    display: flex;
+    font-size: 16px;
+    line-height: 18.4px;
+    justify-content: space-between;
+    padding: 0 24px 0 20px;
+    width: 100%;
+  }
+  
+  .ItemCart-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .ItemCart-title-price {
+    display: flex;
+    gap: 62px;
+  }
+  
+  .ItemCart-title-price span {
+    font-size: 18px;
+    line-height: 20.7px;
+  }

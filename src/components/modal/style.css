@@ -1,35 +1,8 @@
-.Modal {
-  align-items: center;
-  background: #000000b2;
-  justify-content: center;
-  display: flex;
-  height: 100vh;
-  left: 0;
-  position: fixed;
-  top: 0;
-  transition: 0.5s;
-  width: 100vw;
-  z-index: 10;
-}
-
-.Modal-content {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px #00000080;
-  display: flex;
-  flex-direction: column;
-  gap: 63px;
-  height: fit-content;
-  max-width: 960px;
-  position: absolute;
-  width: 100%;
-}
-
 .Modal-content-item {
-  max-height: 123px;
+  max-height: 315px;
   overflow: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .Modal-content-item::-webkit-scrollbar {
@@ -46,7 +19,7 @@
   gap: 53px;
   height: 62px;
   line-height: 20.7px;
-  margin-top: -63px;
+  margin-top: -71px;
   padding-right: 120px;
   padding-bottom: 79px;
 }

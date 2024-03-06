@@ -48,15 +48,14 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addToCartItem(item) {
+  addToCartItem(id) {
     const isItemExist = this.state.products.some(
-      (product) => product.code === item.code
+      (product) => product.code === id
     );
     if (isItemExist) { console.log('срабатывает при повторном клике на тот же самый товар ' + isItemExist)
       const updatedProducts = this.state.products.map((product) => {
-        if (product.code === item.code) {
+        if (product.code === id) {
           return { ...product, count: product.count + 1 };
-          //console.log(product);
         } else {
           return product;
         }
@@ -66,10 +65,10 @@ class Store {
         products: updatedProducts,
       });
     } else {
-      item.count = 1;
+      const item = this.state.list.find((product) => product.code === id);
       this.setState({
         ...this.state,
-        products: [...this.state.products, item],
+        products: [...this.state.products, { ...item, count: 1}],
       });
     }
     this.calcTotalPrice();

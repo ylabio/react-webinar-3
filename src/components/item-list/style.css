@@ -1,0 +1,32 @@
+.ItemList {
+    align-items: center;
+    border-bottom: 1px dashed #ccc;
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    padding: 0 20px;
+  }
+  
+  .ItemList-title {
+    display: flex;
+    font-size: 16px;
+    line-height: 18.4px;
+    justify-content: space-between;
+    padding: 0 24px 0 20px;
+    width: 100%;
+  }
+  
+  .ItemList-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .ItemList-title-price {
+    display: flex;
+    gap: 62px;
+  }
+  
+  .ItemList-title-price span {
+    font-size: 18px;
+    line-height: 20.7px;
+  }

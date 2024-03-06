@@ -5,6 +5,8 @@ import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Info from './components/info';
 import Modal from './components/modal';
+import ModalLayout from './components/modal-layout';
+import ItemList from './components/item-list';
 
 /**
  * Приложение
@@ -48,18 +50,24 @@ function App({store}) {
         />
       </Info>
       <List 
-        list={list}
-        products={products}
+        ItemComponent={ItemList}
+        data={list}
         onAddToCartItem={callbacks.onAddToCartItem}
-        active={active}
       />
-      <Modal 
-        active={active}
-        products={products}
-        onDeleteItem={callbacks.onDeleteItem}
-        onCloseModal={callbacks.onCloseModal}
-        totalPrice={totalPrice}
-      />
+
+      <ModalLayout active={active}>
+        <Head 
+          title="Корзина" 
+          active={active} 
+          onCloseModal={callbacks.onCloseModal} 
+        />
+        <Modal 
+          active={active}
+          data={products}
+          onDeleteItem={callbacks.onDeleteItem}
+          totalPrice={totalPrice}
+        />
+      </ModalLayout>
     </PageLayout>
   );
 }

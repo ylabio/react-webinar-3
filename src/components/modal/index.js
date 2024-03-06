@@ -1,51 +1,41 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import "./style.css";
-import Item from "../item";
-import Head from "../head";
+import List from "../list";
+import itemCart from "../item-cart";
 
-const Modal = ({ active, products, onDeleteItem, onCloseModal, totalPrice }) => {
-
+const Modal = ({ data, onDeleteItem, totalPrice }) => {
   return (
     <>
-      {active && (
-        <article className="Modal">
-          <section className="Modal-content">
-            <Head title="Корзина" active={active} closeModal={onCloseModal} />
-            {products.length > 0 ? (
-              <>
-                <div className="Modal-content-item">
-                  {products.map((item, id) => (
-                    <Fragment key={item.code}>
-                      <Item
-                        item={item}
-                        active={active}
-                        onDelete={onDeleteItem}
-                        id={id + 1}
-                      />
-                    </Fragment>
-                  ))}
-                </div>
+      {data.length > 0 ? (
+        <>
+          <div className="Modal-content-item">
+            <List
+              ItemComponent={itemCart}
+              onDelete={onDeleteItem}
+              data={data}
+            />
+          </div>
 
-                <div className="Modal-content-total">
-                  <span>Итого</span>{" "}
-                  <span>{totalPrice} ₽</span>
-                </div>
-              </>
-            ) : (
-              <div className='Modal-content-cartempty'>Ваша корзина пуста! Скорее вернитесь в магазин!</div>
-            )}
-          </section>
-        </article>
+          <div className="Modal-content-total">
+            <span>Итого</span> <span>{totalPrice} ₽</span>
+          </div>
+        </>
+      ) : (
+        <div className="Modal-content-cartempty">
+          Ваша корзина пуста! Скорее вернитесь в магазин!
+        </div>
       )}
     </>
   );
 };
 
 Modal.propTypes = {
-  products: PropTypes.arrayOf(
+  data: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.number,
+      title: PropTypes.string,
+      price: PropTypes.number,
     })
   ).isRequired,
   onDeleteItem: PropTypes.func,
