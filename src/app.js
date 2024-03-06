@@ -4,6 +4,9 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal";
+import ItemShop from "./components/item-shop";
+import itemBucket from "./components/item-bucket";
+import Bucket from "./components/bucket";
 
 /**
  * Приложение
@@ -12,13 +15,8 @@ import Modal from "./components/modal";
  */
 function App({ store }) {
   const list = store.getState().list;
-  const initialBucket = {
-    itemsList: [],
-    uniqueItems: 0,
-    totalPrice: 0,
-  };
+  const bucket = store.getState().bucket;
 
-  const [bucket, setBucket] = useState(initialBucket);
   const [showModal, setShowModal] = useState(false);
 
   const callbacks = {
@@ -53,53 +51,25 @@ function App({ store }) {
       store.addItem();
     }, [store]),
 
-    onBucketAdd: useCallback((item) => {
-      setBucket((prev) => {
-        const alreadyAdded = prev.itemsList.find(
-          (obj) => obj.code === item.code
-        );
-
-        if (alreadyAdded) {
-          alreadyAdded.amount = alreadyAdded.amount + 1;
-          return {
-            ...prev,
-            itemsList: [...prev.itemsList],
-            totalPrice: prev.totalPrice + item.price,
-          };
-        } else {
-          return {
-            ...prev,
-            itemsList: [...prev.itemsList, { ...item, amount: 1 }],
-            uniqueItems: prev.uniqueItems + 1,
-            totalPrice: prev.totalPrice + item.price,
-          };
-        }
-      });
+    onBucketAdd: useCallback((code) => {
+      store.onBucketAdd(code);
     }, []),
 
-    onBucketRemove: useCallback((item) => {
-      setBucket((prev) => {
-        const newBucketList = prev.itemsList.filter(
-          (elem) => !(elem.code === item.code)
-        );
-        return {
-          ...prev,
-          itemsList: newBucketList,
-          uniqueItems: prev.uniqueItems - 1,
-          totalPrice: prev.totalPrice - item.price * item.amount,
-        };
-      });
+    onBucketRemove: useCallback((code) => {
+      store.onBucketRemove(code);
     }, []),
   };
 
   return (
     <>
       {showModal ? (
-        <Modal
-          data={bucket}
-          onModalClose={callbacks.onModalClose}
-          onBucketAction={callbacks.onBucketRemove}
-        />
+        <Modal onModalClose={callbacks.onModalClose}>
+          <Bucket
+            data={bucket}
+            onBucketRemove={callbacks.onBucketRemove}
+            onModalClose={callbacks.onModalClose}
+          />
+        </Modal>
       ) : null}
       <PageLayout>
         <Head title="Магазин" />
@@ -110,11 +80,9 @@ function App({ store }) {
           totalPrice={bucket.totalPrice}
         />
         <List
-          theme="shop"
-          list={list}
-          onDeleteItem={callbacks.onDeleteItem}
-          onSelectItem={callbacks.onSelectItem}
-          onBucketAction={callbacks.onBucketAdd}
+          itemType={ItemShop}
+          data={list}
+          onBucketAdd={callbacks.onBucketAdd}
         />
       </PageLayout>
     </>

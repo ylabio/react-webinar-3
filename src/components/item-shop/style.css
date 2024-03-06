@@ -1,36 +1,36 @@
-.Item {
+.ItemShop {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
 }
 
-.Item_selected {
+.ItemShop_selected {
   background: #75aaf1;
   color: #fff;
 }
 
-.Item-code {
+.ItemShop-code {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+.ItemShop-title {
   width: 100%;
   padding: 20px 10px;
 }
 
-.Item-price {
+.ItemShop-price {
   text-align: center;
   padding: 20px 0px;
   white-space: nowrap;
 }
 
-.Item-amount {
+.ItemShop-amount {
   text-align: center;
   padding: 20px 0px 20px 62px;
   white-space: nowrap;
 }
 
-.Item-actions {
+.ItemShop-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 21px 20px 24px;

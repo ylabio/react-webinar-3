@@ -15,20 +15,3 @@
   overflow: hidden;
   background-color: #ffffff;
 }
-
-.Modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 120px 20px;
-  margin-bottom: 70px;
-}
-
-.Modal-footer:last-child {
-  border-top: 1px dashed #ccc;
-}
-
-.Modal-text_weight_700 {
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 20.7px;
-}
