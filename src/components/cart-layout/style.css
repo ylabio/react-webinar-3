@@ -1,0 +1,32 @@
+.CartLayout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CartLayout-container {
+    margin: 0 auto;
+    width: 71%;
+    background: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 0 15px 5px #0000003b;
+    border-radius: 10px;
+    min-height: 50vh;
+    padding-bottom: 4.31rem;
+    max-height: 100vh;
+    max-width: 965px;
+    position: relative;
+}
+
+.CartLayout-button {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    padding: 2px 15px;
+}

@@ -1,0 +1,15 @@
+.Cart-bottom {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 7.5rem 20px 0;
+    font-size: 1.125rem;
+}
+
+.Cart-total {
+    font-weight: 600;
+    margin-right: 3.5rem;
+}
+
+.Cart-amount {
+    font-weight: 600;
+}

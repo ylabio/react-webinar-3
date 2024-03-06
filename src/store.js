@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,46 +39,35 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  addToCart(code) {
+    const existingCartList = this.state.cartList || []
+
+    const itemChosen = this.state.list[code - 1]
+
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      itemsCount: (this.state.itemsCount || 0) + 1,
+      sum: +this.state.sum + +itemChosen.price || +itemChosen.price,
+      cartList: [...existingCartList, itemChosen]
     })
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  deleteFromCart(code) {
+
+    const itemChosen = this.state.list[code - 1]
+
+    const findItemsToDelete = this.state.cartList.filter(e => e.code === code)
+    const sumToRemove = itemChosen.price * findItemsToDelete.length
+
+
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cartList: this.state.cartList.filter(e => e.code !== code),
+      itemsCount: this.state.itemsCount - findItemsToDelete.length,
+      sum: +this.state.sum - +sumToRemove
     })
   }
 }
