@@ -50,3 +50,30 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Создание функции для форматирования строчного вывода больших чисел с заданным
+ * разделителем через каждые 3 порядка. Допустимы отрицательные и дробные чмсла.
+ * @param number {Number} - форматируемое число.
+ * @param fix {Number} - Выводимое количество фиксированных дробных знаков.
+ * @param sign {String} - Выводимый разделитель дробной части.
+ * @param separator {String} - Выводимый разделитель разрядов.
+ * @returns {String}
+ */
+export const formatNumber = (number, fix = 0, sign = '.', separator = ' ') => {
+
+  if (typeof number !== 'number') throw new Error('Only numbers are allowed!');
+
+  const minus = number < 0 ? '-' : '';
+  const float = number.toFixed(fix).replace('-', '');
+  const [integer, decimal] = float.split('.');
+  const tail = decimal ? sign + decimal : '';
+
+  function separate(str) {
+    const result = str.slice(-3);
+    return result.length < 3
+      ? result
+      : separate(str.slice(0, -3)) + separator + result;
+  }
+  return minus + separate(integer) + tail;
+}

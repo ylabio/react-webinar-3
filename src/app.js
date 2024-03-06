@@ -1,8 +1,13 @@
-import React, {useCallback} from 'react';
-import List from "./components/list";
-import Controls from "./components/controls";
-import Head from "./components/head";
-import PageLayout from "./components/page-layout";
+import React, {useCallback, useEffect, useState} from 'react';
+import PageLayout from './components/page-layout';
+import Head from './components/head';
+import Info from './components/info';
+import CartInfo from './components/cart-info';
+import Button from './components/button';
+import Modal from './components/modal';
+import CartDetails from './components/cart-details';
+import List from './components/list';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -11,29 +16,53 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
-  const list = store.getState().list;
+  const {list, cartItems, cartTotal, cartCost} = store.getState();
+
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  useEffect(() => {
+    if(isCartOpen) document.body.style.overflow = 'hidden';
+    return () => document.body.style.overflow = '';
+  }, [isCartOpen]);
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    onAddToCart: useCallback((code) => {
+      store.addToCart(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    onRemoveFromCart: useCallback((code) => {
+      store.removeFromCart(code);
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    onCartOpen: useCallback((e) => {
+       e.stopPropagation();
+       setIsCartOpen(true);
+     }, []),
+    onCartClose: useCallback(() => setIsCartOpen(false), []),
   }
+
+  const renderCatalogItem = useCallback(
+    (item) => <Item item={item} onAdd={callbacks.onAddToCart} />, [])
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
+      <Head title='Магазин'/>
+      <Info>
+        <CartInfo total={cartTotal} cost={cartCost} />
+        <Button className='Info_btn'
+              onOpen={callbacks.onCartOpen}
+              title='Перейти'
+        />
+      </Info>
+      <Modal isOpen={isCartOpen} onClose={callbacks.onCartClose}>
+        <CartDetails cartItems={cartItems}
+                     cost={cartCost}
+                     onClose={callbacks.onCartClose}
+                     onRemove={callbacks.onRemoveFromCart}
+        />
+      </Modal>
       <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+            render={renderCatalogItem}/>
     </PageLayout>
   );
 }

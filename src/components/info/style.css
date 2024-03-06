@@ -1,0 +1,11 @@
+.Info {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  font-size: 18px;
+}
+
+.Info .Info_btn {
+  width: 80px;
+  margin-left: 6px;
+}

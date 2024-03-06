@@ -1,0 +1,23 @@
+.Cart-details_list {
+  overflow-y: auto;
+  max-height: calc(95vh - 250px);
+  scrollbar-width: none;
+}
+.Cart-details_list::-webkit-scrollbar{
+  display: none;
+}
+
+.Cart-details_total {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 5px 60px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.Cart-details_total-sum{
+  width: 165px;
+  margin-left: 10px;
+  text-align: center;
+}

@@ -1,4 +1,4 @@
-.Catalog-item {
+.Cart-item {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -7,21 +7,28 @@
 
 }
 
-.Catalog-item_code {
+.Cart-item_code {
   padding: 20px 10px 20px 20px;
 
 }
 
-.Catalog-item_title {
+.Cart-item_title {
   margin-right: auto;
   padding: 20px 10px;
 }
 
-.Catalog-item_price {
+.Cart-item_price {
   font-size: 18px;
 }
 
-.Catalog-item_actions {
+.Cart-item_amount {
+  width: 110px;
+  margin-right: 20px;
+  text-align: end;
+  font-size: 18px;
+}
+
+.Cart-item_actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
