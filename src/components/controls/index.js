@@ -12,8 +12,8 @@ function Controls({ onOpenModal, cartTotalPrice, cartItemCount }) {
     <div className="Controls">
       <div className="Controls-content">
         <div>В корзине: </div>
-        <p >
-        {cartItemCount > 0
+        <p>
+          {cartItemCount > 0
             ? ` ${cartItemCount} ${plural(cartItemCount, {
                 one: "товар",
                 few: "товара",

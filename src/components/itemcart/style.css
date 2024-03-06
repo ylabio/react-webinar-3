@@ -1,14 +1,14 @@
-.Item {
+.ItemCart {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
 }
 
-.Item-code {
+.ItemCart-code {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+.ItemCart-title {
   width: 100%;
   padding: 20px 10px;
   font-family: Arial;
@@ -19,13 +19,13 @@
   text-align: left;
 }
 
-.Item-actions {
+.ItemCart-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }
 
-.Item-price {
+.ItemCart-price {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
@@ -37,7 +37,7 @@
   letter-spacing: 0em;
   text-align: right;
 }
-.Item-symbol {
+.ItemCart-symbol {
   display: flex;
   justify-content: flex-end;
   padding: 20px 6px 2px 2px;
@@ -48,7 +48,7 @@
   letter-spacing: 0em;
   text-align: right;
 }
-.Item-count {
+.ItemCart-count {
   display: flex;
   justify-content: flex-end;
   padding-left: 10px;

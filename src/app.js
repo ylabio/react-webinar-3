@@ -5,7 +5,7 @@ import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal/index";
 import Cart from "./components/Cart";
-import formatPrice from './utils'
+import formatPrice from "./utils";
 
 /**
  * Приложение
@@ -16,12 +16,6 @@ function App({ store }) {
   const list = store.getState().list;
   const cartList = store.getState().cartList ?? [];
   const isCartModalOpen = store.getState().isCartModalOpen;
-
-  const cartTotalPrice = cartList.reduce(
-    (total, item) => total + item.price * item.count,
-    0
-  );
-  const cartItemCount = cartList.reduce((total, item) => total + item.count, 0);
 
   const callbacks = {
     onDeleteCartItem: useCallback(
@@ -47,8 +41,8 @@ function App({ store }) {
         <Head title="Магазин" />
         <Controls
           onOpenModal={callbacks.toggleCartModal}
-          cartTotalPrice={cartTotalPrice}
-          cartItemCount={cartItemCount}
+          cartTotalPrice={store.getState().cartTotalPrice}
+          cartItemCount={store.getState().cartItemCount}
         />
         <List
           list={list}
@@ -64,10 +58,9 @@ function App({ store }) {
       >
         <Cart
           list={cartList}
-          cartTotal={cartTotalPrice}
-          cartItemCount={cartItemCount}
+          cartTotal={store.getState().cartTotalPrice}
+          cartItemCount={store.getState().cartItemCount}
           onActionClick={callbacks.onDeleteCartItem}
-          currencySymbol='шт'
         />
       </Modal>
     </>

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { formatPrice } from "../../utils";
 import "./style.css";
 
-function Item(props) {
+function ItemCart(props) {
   const { item, price, actionName, onActionClick, currencySymbol } = props;
 
   const formattedPrice = formatPrice(price);
@@ -19,14 +19,14 @@ function Item(props) {
   };
 
   return (
-    <div className={"Item"} onClick={callbacks.onClick}>
-      <div className="Item-code"></div>
-      <div className="Item-title">{item.title}</div>
-      <div className="Item-price">{formattedPrice}</div>
-      <div className="Item-count"> {item.count}</div>
-      <div className="Item-symbol">{currencySymbol}</div>
-      <div className="Item-actions">
-        <button onClick={handleAddToCart} className="Item-actions-button">
+    <div className={"ItemCart"} onClick={callbacks.onClick}>
+      <div className="ItemCart-code"></div>
+      <div className="ItemCart-title">{item.title}</div>
+      <div className="ItemCart-price">{formattedPrice}</div>
+      <div className="ItemCart-count"> {item.count}</div>
+      <div className="ItemCart-symbol">{currencySymbol}</div>
+      <div className="ItemCart-actions">
+        <button onClick={handleAddToCart} className="ItemCart-actions-button">
           {actionName}
         </button>
       </div>
@@ -34,7 +34,7 @@ function Item(props) {
   );
 }
 
-Item.propTypes = {
+ItemCart.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     actionName: PropTypes.string,
@@ -46,4 +46,4 @@ Item.propTypes = {
   onActionClick: PropTypes.func.isRequired,
 };
 
-export default React.memo(Item);
+export default React.memo(ItemCart);

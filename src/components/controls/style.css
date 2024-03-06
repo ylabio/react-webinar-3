@@ -23,3 +23,7 @@
   min-width: 51px;
   height: 21px;
 }
+.Controls button {
+  width: 80px;
+  height: 21px;
+}

@@ -53,41 +53,45 @@ class Store {
    * @param {number} code Код добавляемого товара
    */
   addToCart(code) {
-    const cartList = [].concat(this.state.cartList ?? []);
-    const selectedProduct = this.state.list.find(
-      (product) => product.code === code
-    );
+    const cartList = this.state.cartList ? [...this.state.cartList] : [];
+    const selectedProduct = this.state.list.find((product) => product.code === code);
+    
     if (selectedProduct) {
-      const existingCartItem = cartList.find((item) => item.code === code);
-      if (existingCartItem) {
-        existingCartItem.count++;
+      const existingCartItemIndex = cartList.findIndex((item) => item.code === code);
+
+      if (existingCartItemIndex !== -1) {
+        cartList[existingCartItemIndex].count++;
       } else {
         cartList.push({ ...selectedProduct, count: 1 });
       }
-    }
 
-    this.setState({
-      ...this.state,
-      cartList,
-    });
-  }
+      const cartTotalPrice = cartList.reduce((total, item) => total + item.price * item.count, 0);
+      const  cartItemCount = cartList.length;
+
+      this.setState({
+        ...this.state,
+        cartList,
+        cartTotalPrice,
+        cartItemCount,
+      });
+    }
+}
+
   /**
-   * Удаление записи из корзины по коду
+   * Удаление товара из корзины
    * @param {number} code Код удаляемого товара
    */
   onDeleteCartItem(code) {
-    const updatedCartList = this.state.cartList
-      .map((item) => {
-        if (item.code === code) {
-          return { ...item, count: item.count - 1 };
-        }
-        return item;
-      })
-      .filter((item) => item.count > 0);
+    const updatedCartList = this.state.cartList.filter((item) => item.code !== code);
+
+    const cartTotalPrice = updatedCartList.reduce((total, item) => total + item.price * item.count, 0);
+    const cartItemCount = updatedCartList.reduce((total, item) => total + item.count, 0);
 
     this.setState({
       ...this.state,
       cartList: updatedCartList,
+      cartTotalPrice,
+      cartItemCount,
     });
   }
 }

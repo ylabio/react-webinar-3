@@ -4,7 +4,6 @@ import { generateCode } from "./utils.js";
 import App from "./app.js";
 import Store from "./store.js";
 
-
 const store = new Store({
   list: [
     { code: generateCode(), title: "Название товара", price: 100.0 },
@@ -14,7 +13,8 @@ const store = new Store({
     { code: generateCode(), title: "Телефон iPhone XIXV", price: 120000 },
     { code: generateCode(), title: "Карандаши цветные", price: 111 },
     { code: generateCode(), title: "Товар сюрприз", price: 0 },
-  ]
+    
+  ],
 });
 
 const root = createRoot(document.getElementById("root"));
