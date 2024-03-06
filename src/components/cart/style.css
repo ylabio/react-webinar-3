@@ -1,11 +1,4 @@
-.Cart-titleRow{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #f5f5f5;
-}
-
-.Cart-totalSumm{
+.Cart-totalSumm {
   display: flex;
   justify-content: end;
   align-items: center;
@@ -14,7 +7,12 @@
   font-weight: 700;
 }
 
-.Cart-emptyRow{
+.Cart-emptyRow {
   height: 60px;
   border-bottom: 1px dashed #ccc;
+}
+
+.Cart-list {
+  max-height: 60vh;
+  overflow: auto;
 }

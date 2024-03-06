@@ -1,3 +1,7 @@
+* {
+  scrollbar-width: none;
+}
+
 button {
   width: 5rem;
 }
