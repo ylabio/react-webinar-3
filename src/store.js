@@ -90,7 +90,7 @@ class Store {
     } else {
       this.setState({
         ...this.state,
-        cartList: [...this.state.cartList, { ...selectedItem, quantity: 1 }],
+        cartList: [...this.state.cartList, { ...selectedItem, quantity: 1, totalPrice: selectedItem.price }],
         totalCartPrice: updatedTotalCartPrice
       });
     }
@@ -115,7 +115,7 @@ class Store {
     ...this.state,
     cartList: updatedCartList,
     totalCartPrice: updatedTotalCartPrice
-  })
+  });
   }
 
 }
