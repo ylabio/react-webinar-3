@@ -4,10 +4,14 @@ import "./style.css";
 import CartItem from "./cart-item";
 import { formatPrice } from "../../utils";
 
-function Cart({ list, onClose, onDeleteCartItem, totalCartPrice }) {
+function Cart({ list, onDeleteCartItem, totalCartPrice }) {
+	if(list.length === 0) {
+		return <h3 className="Cart-warning">Корзинка пуста!</h3>;
+	}
+
 	const totalCartPriceContent = `${formatPrice(totalCartPrice)} ₽`;
 
-	const bodyContent = list.length === 0 ? <h3 className="Cart-warning">Корзинка пуста!</h3> :
+	return (
 		<>
 			<ul className="Cart-list">
 				{list.map((item, index) => 
@@ -19,29 +23,10 @@ function Cart({ list, onClose, onDeleteCartItem, totalCartPrice }) {
 				Итого <span>{totalCartPriceContent}</span>
 			</p>
 		</>
-	;
-
-	return (
-		<div className="Cart" onClick={(event) => {
-			if (event.target === event.currentTarget) {
-				onClose();
-			}
-		}}>
-			<div className="Cart-content">
-				<div className="Cart-head">
-					<h2 className="Cart-title">Корзина</h2>
-					<button onClick={() => onClose()}>Закрыть</button>
-				</div>
-				<div className="Cart-body">
-					{bodyContent}
-				</div>
-			</div>
-		</div>
 	);
 }
 
 Cart.propTypes = {
-  onClose: PropTypes.func,
   onDeleteCartItem: PropTypes.func,
 	list: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string,
@@ -51,7 +36,6 @@ Cart.propTypes = {
 };
 
 Cart.defaultProps = {
-  onClose: () => {},
   onDeleteCartItem: () => {},
 	totalCartPrice: 0
 }

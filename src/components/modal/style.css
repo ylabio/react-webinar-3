@@ -1,0 +1,37 @@
+.Modal {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 70%);   
+}
+
+.Modal-content {
+	width: 960px;
+	border-radius: 8px;
+	background-color: white;
+}
+
+.Modal-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px 32px 20px 20px;
+	background-color: #F5F5F5;
+	border-radius: inherit;
+}
+
+.Modal-title {
+	font-size: 32px;
+	font-weight: bold;
+}
+
+.Modal-body {
+	padding-top: 71px;
+	padding-bottom: 89px;
+	border-radius: inherit;
+}

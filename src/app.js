@@ -4,6 +4,7 @@ import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import CartControls from './components/cart-controls';
 import Cart from './components/cart';
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -44,7 +45,11 @@ function App({store}) {
           list={list}
           onAddCartItem={callbacks.onAddCartItem}
       />
-      {isModalOpen && <Cart list={cartList} onClose={callbacks.onCloseModalCart} onDeleteCartItem={callbacks.onDeleteCartItem} totalCartPrice={totalCartPrice}/>}
+      {isModalOpen && 
+        <Modal onClose={callbacks.onCloseModalCart}>
+          <Cart list={cartList} onDeleteCartItem={callbacks.onDeleteCartItem} totalCartPrice={totalCartPrice}/>
+        </Modal>    
+      }
     </PageLayout>
   );
 }
