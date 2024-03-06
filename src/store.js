@@ -73,7 +73,7 @@ class Store {
 
     updatedCartItems.forEach((cartItem) => {
       if (cartItem.code === item.code) {
-        countItemCart = cartItem.quantity += 1;
+        countItemCart = cartItem.quantity + 1;
         isItemInCart = true;
       }
     });
