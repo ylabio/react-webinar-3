@@ -1,0 +1,10 @@
+.Cart-title {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 124px 20px 20px;
+  margin-bottom: 66px;
+}
+
+.Cart-title-price {
+  padding-left: 62px;
+}

@@ -1,0 +1,35 @@
+.Modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.Modal-wrapper {
+  position: absolute;
+  display: flex;
+  left: 0;
+  right: 0;
+  min-height: 100vh;
+}
+
+.Modal-content {
+  display: block;
+  margin: auto;
+  background-color: #fefefe;
+  border-radius: 10px;
+  width: 960px;
+  overflow: hidden;
+}
+
+#myModalClose {
+  display: inline-block;
+  vertical-align: middle;
+  margin: auto 12px;
+}
