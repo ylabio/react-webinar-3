@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { numberFormat } from "../../utils";
 import './style.css';
 
-function Item(props) {
+function CartItem(props) {
 
   const callbacks = {
     onClick: () => {
-      props.addToCart(props.item.code);
+      props.deleteFromCart(props.item.code);
     },
   }
 
@@ -18,29 +18,33 @@ function Item(props) {
         {props.item.title}
       </div>
       <div className='Item-price'>
-        {numberFormat(props.item.price)} ₽
+        {numberFormat(props.item.price)}&nbsp;₽
+      </div>
+      <div className="Item-count">
+        {props.item.count}&nbsp;шт
       </div>
       <div className='Item-actions'>
         <button onClick={callbacks.onClick}>
-          Добавить
+          Удалить
         </button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    price: PropTypes.number, 
+    price: PropTypes.number,
+    count: PropTypes.number
   }).isRequired,
-  addToCart: PropTypes.func,
+  deleteFromCart: PropTypes.func,
 };
 
-Item.defaultProps = {
-  addToCart: () => {
+CartItem.defaultProps = {
+  deleteFromCart: () => {
   },
 }
 
-export default React.memo(Item);
+export default React.memo(CartItem);

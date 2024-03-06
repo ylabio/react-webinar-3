@@ -14,9 +14,21 @@
 }
 
 .Item-price {
-  text-wrap: nowrap;
+  white-space: pre;
   align-self: center;
   margin-right: 14px;
+  color: rgb(64, 64, 64);
+  font-family: Arial;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.Item-count {
+  align-self: center;
+  white-space: pre;
+  margin-right: 24px;
+  margin-left: 62px;
   color: rgb(64, 64, 64);
   font-family: Arial;
   font-size: 18px;

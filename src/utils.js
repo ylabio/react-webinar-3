@@ -50,3 +50,7 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+export const numberFormat = (num) => {
+  return num.toLocaleString()
+}

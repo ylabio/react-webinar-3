@@ -1,0 +1,24 @@
+.Cart .List {
+    max-height: 360px;
+    overflow-y: auto;
+}
+
+.Cart-empty {
+    text-align: center;
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21px;
+}
+
+.Cart-total {
+    display: flex;
+    justify-content: end;
+    gap: 49px;
+    margin-right: 120px;
+    margin-top: 20px;
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21px;
+}
