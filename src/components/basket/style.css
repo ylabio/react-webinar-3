@@ -2,17 +2,14 @@
   margin-top: 50px;
 }
 
-.Basket > div {
+.Basket-items:first-child {
   border-top: 1px dashed #ccc;
 }
 
-.Basket > div:last-child {
-  border-bottom: 1px dashed #ccc;
-}
-
-.Basket-item-total-price {
+.Basket-total-price {
   margin-right: 130px;
-  margin-top: 35px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -20,5 +17,3 @@
   gap: 37px;
   box-sizing: border-box;
 }
-
-

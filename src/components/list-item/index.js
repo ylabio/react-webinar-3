@@ -21,7 +21,6 @@ function ListItem(props) {
 }
 
 ListItem.propTypes = {
-  // showModal: PropTypes.bool,
   item: PropTypes.shape({
     code: PropTypes.number,
     count: PropTypes.number,

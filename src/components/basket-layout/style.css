@@ -11,17 +11,14 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-
-
 .BasketLayout-modal {
   border-radius: 10px;
   width: 50%;
-  min-height: 657px;
+  min-height: 300px;
   max-height: max-content;
   z-index: 100;
   background-color: rgba(255, 255, 255, 1);
 }
-
 
 .BasketLayout-modal > button {
   position: relative;

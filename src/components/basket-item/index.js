@@ -4,7 +4,7 @@ import './style.css';
 import Controls from "../controls";
 
 function BasketItem(props) {
-  console.log('BasketItem:' ,props)
+
   return (
     <div className='BasketItem'>
       <div className='BasketItem-code'>{props.item.code}</div>
@@ -12,8 +12,8 @@ function BasketItem(props) {
         {props.item.title}
       </div>
       <div className='Item-actions'>
-        <Controls showModal count={props.item.count} price={props.item.price}
-                  callback={()=>props.onDeleteItemFromBasket(props.item.code)}
+        <Controls showModal={props.showModal} count={props.item.count} price={props.item.price}
+                  callback={() => props.onDeleteItemFromBasket(props.item.code)}
                   title={'Удалить'}/>
       </div>
     </div>

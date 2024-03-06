@@ -5,7 +5,7 @@ import PageLayout from "./components/page-layout";
 import BasketLayout from "./components/basket-layout";
 import Basket from "./components/basket";
 import List from "./components/list";
-import {formatPrice} from "./utils";
+
 
 /**
  * Приложение
@@ -18,7 +18,7 @@ function App({store}) {
 
   const list = store.getState().list;
   const basket = store.getBasket();
-  const totalPrice = formatPrice(basket.totalPrice)
+
 
   const callbacks = {
     onAddItemToBasket: useCallback((code) => {
@@ -41,10 +41,6 @@ function App({store}) {
           <Head title={'Корзина'}/>
           <button onClick={() => setShowModal(false)}>Закрыть</button>
           <Basket showModal basket={basket} onDeleteItemFromBasket={callbacks.onDeleteItemFromBasket}/>
-          <div className='Basket-item-total-price'>
-            <div>Итого</div>
-            <div>{totalPrice}</div>
-          </div>
         </BasketLayout>}
     </PageLayout>
   );

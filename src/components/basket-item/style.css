@@ -8,6 +8,12 @@
   background: #FFFFFF;
 }
 
+
+.BasketItem {
+  border-bottom: 1px dashed #ccc;
+}
+
+
 .BasketItem-title {
   width: max-content;
   font-size: 16px;
