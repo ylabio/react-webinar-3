@@ -1,28 +1,28 @@
 .CartItem {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 
-	padding: 20px 21px 20px 18px;
-	border-top: 1px dashed #CCCCCC;
+  padding: 20px 21px 20px 18px;
+  border-top: 1px dashed #cccccc;
 }
 
 .CartItem:last-of-type {
-	border-bottom: 1px dashed #CCCCCC;
+  border-bottom: 1px dashed #cccccc;
 }
 
 .CartItem-number {
-	margin-right: 22px;
+  margin-right: 22px;
 }
 
 .CartItem-title {
-	flex-grow: 2;
-	margin: 0;
+  flex-grow: 2;
+  margin: 0;
 }
 
 .CartItem-price {
-	margin-right: 62px;
+  margin-right: 62px;
 }
 
 .CartItem-count {
-	margin-right: 24px;
+  margin-right: 24px;
 }
