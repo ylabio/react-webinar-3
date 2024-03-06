@@ -1,0 +1,40 @@
+.Modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+}
+
+.Modal-content {
+  position: absolute;
+  max-width: 960px;
+  width: 100%;
+	max-height: 90vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  background: rgb(255, 255, 255);
+  overflow: auto;
+}
+
+.Modal-content::-webkit-scrollbar { 
+	display: none;
+}
+
+.Modal-header {
+  height: 80px;
+  background: rgb(245, 245, 245);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 30px 0px 20px;
+  border-radius: 10px;
+}
+
+.Modal-title {
+  font-size: 32px;
+}

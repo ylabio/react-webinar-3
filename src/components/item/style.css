@@ -4,11 +4,6 @@
   transition: background-color 1s;
 }
 
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
-}
-
 .Item-code {
   padding: 20px 10px 20px 20px;
 }
@@ -22,4 +17,16 @@
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+  align-items: center;
+  gap: 20px
+}
+
+.Item-price, .Item-count {
+  white-space: nowrap;
+  font-size: 18px;
+  color: #404040;
+}
+
+.Item-count {
+  padding-left: 40px;
 }

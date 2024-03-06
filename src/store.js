@@ -1,11 +1,15 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+		...initState,
+		cart: [],
+		uniqueItemsCount: 0,
+		totalPrice: 0,
+		isCartOpen: false
+	  };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -41,48 +45,64 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину 
+   * @param item {Object}
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+  addToCart(code) {
+	const item = this.state.list.find(el=>el.code === code)
+	const cartItem = this.state.cart.find(el=>el.code === code)
+	
+	if (cartItem) {
+		// Если товар уже есть в корзине
+		this.setState({
+		  ...this.state,
+		  cart: this.state.cart.map(el=>el.code === code ? {...el, count: el.count + 1} : el)
+		})
+	} else {
+		// если товара нет в корзине
+		this.setState({
+		  ...this.state,
+		  cart: [...this.state.cart, {...item, count: 1}]
+		})
+	}
+	this.recountTotalPrice()
   };
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Удаление товара из корзины
+   * @param item {Object}
    */
-  deleteItem(code) {
+  deleteFromCart(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cart: this.state.cart.filter(el => el.code !== code)
     })
+		this.recountTotalPrice()
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
+	/**
+   * Подсчет кол-ва товаров и общей цены
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+  recountTotalPrice() {
+		const count = this.state.cart.length;
+    const price = count ? this.state.cart.reduce((total, item) => total + item.price * item.count, 0) : 0;
+
+		this.setState({
+			...this.state,
+			uniqueItemsCount: count,
+			totalPrice: price
+		})
   }
+
+  /**
+   * Открыть или закрыть модалку корзины
+   */
+  toggleOpenCloseCart() {
+    this.setState({
+      ...this.state,
+      isCartOpen: !this.state.isCartOpen
+    })
+  };
 }
 
 export default Store;

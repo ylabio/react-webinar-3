@@ -3,6 +3,8 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Cart from "./components/cart";
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -11,29 +13,35 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
-  const list = store.getState().list;
+  const {list, cart, uniqueItemsCount, totalPrice, isCartOpen} = store.getState();
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    onClickAdd: useCallback((code) => {
+      store.addToCart(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+		onClickDelete: useCallback((code) => {
+	  	store.deleteFromCart(code);
+		}, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+		toggleOpenCloseCart: useCallback(() => {
+			store.toggleOpenCloseCart();
+		}, [store]),
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин'/>
+      <Controls openCart={callbacks.toggleOpenCloseCart} count={uniqueItemsCount} totalPrice={totalPrice}/>
+      <List list={list} 
+	  				requiredCallback={callbacks.onClickAdd}
+			  		btnName={'Добавить'}/>
+	  	{isCartOpen && 
+	  	<Modal modalTitle='Корзина' onCloseCart={callbacks.toggleOpenCloseCart} >
+				<Cart list={cart} 
+							totalPrice={totalPrice} 
+							requiredCallback={callbacks.onClickDelete}/>
+			</Modal>}
     </PageLayout>
   );
 }
