@@ -10,6 +10,7 @@ function Controls({list, totalPrice, setOpenModal}) {
 
   const handleOpenModal = () => {
     setOpenModal(true);
+    document.body.style.overflow = "hidden";
   }
 
   return (

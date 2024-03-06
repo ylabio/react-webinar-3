@@ -1,4 +1,4 @@
-import React, {useCallback, useState, useEffect} from 'react';
+import React, {useCallback, useState} from 'react';
 import {calculatePrice} from './utils';
 import List from "./components/list";
 import Controls from "./components/controls";
@@ -27,17 +27,6 @@ function App({store}) {
       store.toggleAdd(item);
     }, [store])
   }
-
-  /**
-   * Отключаем скролл при открытом модальном окне
-   */
-  useEffect(() => {
-    if (openModal) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [openModal])
 
   return (
     <PageLayout>

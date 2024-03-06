@@ -9,6 +9,7 @@ function Modal({title, setOpenModal, children}) {
 
   const handleCloseModal = () => {
     setOpenModal(false);
+    document.body.style.overflow = "unset";
   }
 
   return (
