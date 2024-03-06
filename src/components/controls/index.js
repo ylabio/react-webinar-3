@@ -14,7 +14,7 @@ function Controls({ onOpenModal, cartTotalPrice, cartItemCount }) {
         <div>В корзине: </div>
         <p>
           {cartItemCount > 0
-            ? `${cartItemCount} ${plural(cartItemCount, {
+            ?  ` ${cartItemCount} ${plural(cartItemCount, {
                 one: "товар",
                 few: "товара",
                 many: "товаров",
@@ -32,7 +32,11 @@ Controls.propTypes = {
   cartTotalPrice: PropTypes.number.isRequired,
   cartItemCount: PropTypes.number.isRequired,
 };
-
+Controls.defaultProps = {
+  onOpenModal: () => {},
+  cartTotalPrice: 0,
+  cartItemCount: 0,
+}
 
 
 export default React.memo(Controls);

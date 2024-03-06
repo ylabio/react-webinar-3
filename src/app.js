@@ -1,10 +1,9 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal/index";
-
 import Cart from "./components/Cart";
 
 /**
@@ -52,9 +51,8 @@ function App({ store }) {
         />
         <List
           list={list}
+          actionName="Добавить"
           onActionClick={callbacks.onAddToCart}
-          actionName="Удалить"
-          onAddToCart={callbacks.onAddToCart}
         />
       </PageLayout>
 
@@ -66,8 +64,9 @@ function App({ store }) {
         <Cart
           list={cartList}
           cartTotal={cartTotalPrice}
-          cartItemCount={callbacks.cartItemCount}
-          onDelete={callbacks.onDeleteCartItem}
+          cartItemCount={cartItemCount}
+          onActionClick={callbacks.onDeleteCartItem}
+          
         />
       </Modal>
     </>

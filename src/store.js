@@ -1,5 +1,3 @@
-import { generateCode } from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -50,11 +48,9 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-
-
   /**
-   * Установка состояния
-   * @param newState {Object}
+   * Добавление товара в корзину
+   * @param {number} code Код добавляемого товара
    */
   addToCart(code) {
     const cartList = [].concat(this.state.cartList ?? []);
@@ -76,8 +72,8 @@ class Store {
     });
   }
   /**
-   * Удаление записи по коду
-   * @param code
+   * Удаление записи из корзины по коду
+   * @param {number} code Код удаляемого товара
    */
   onDeleteCartItem(code) {
     const updatedCartList = this.state.cartList

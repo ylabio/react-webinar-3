@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { plural } from "../../utils";
+
 import "./style.css";
 
 function Item(props) {
-  const { item, price, onAddToCart, } = props;
+  const { item, price, actionName,onActionClick,quantity,currencySymbol } = props;
 
   const handleAddToCart = () => {
-    onAddToCart(item.code);
+    onActionClick(item.code);
   };
   const callbacks = {
     onDelete: (e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
+      props.onActionClick(item.code); 
     },
   };
 
@@ -20,10 +20,10 @@ function Item(props) {
     <div className={"Item"} onClick={callbacks.onClick}>
       <div className="Item-code"></div>
       <div className="Item-title">{item.title}</div>
-      <div className="Item-price">{price}</div>
-      <div className="Item-total">{item.count}</div>
+      <div className="Item-price">{price} {quantity}{currencySymbol} </div>
+      <div className="Item-total">{item.count} </div>
       <div className="Item-actions">
-        <button onClick={handleAddToCart}>Добавить</button>
+        <button onClick={handleAddToCart}>{actionName}₽</button>
       </div>
     </div>
   );
@@ -32,12 +32,14 @@ function Item(props) {
 Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
-    title: PropTypes.string,
+    actionName: PropTypes.string,
     price: PropTypes.number,
     count: PropTypes.number,
+    currencySymbol: PropTypes.string, 
   }).isRequired,
-
-  onAddToCart: PropTypes.func.isRequired,
+  quantity: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onActionClick: PropTypes.func.isRequired,
 };
 
 export default React.memo(Item);

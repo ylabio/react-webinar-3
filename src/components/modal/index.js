@@ -17,7 +17,7 @@ const Modal = ({ isShowing, hide, title, ...props }) =>
                     className="modal-close-button"
                     onClick={hide}
                   >
-                закрыть
+                    закрыть
                   </button>
                 </div>
                 <div className="modal-none"></div>
