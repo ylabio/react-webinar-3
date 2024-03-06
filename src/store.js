@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -7,6 +5,9 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.itemsInCart = new Set(); // Товары в корзине
+    this.amount = 0;
+    this.sum = 0;
   }
 
   /**
@@ -40,48 +41,40 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+  addItemInCart(code) {
+    this.state.list.map(item => {
+      if (item.code === code) {
+        this.itemsInCart.add(item);
+      }
+    });
+  }
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
+  deleteItemInCart(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
+      itemsInCart: this.itemsInCart.forEach((item) => {
         if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+          item.count = 0;
+          this.itemsInCart.delete(item);
         }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
       })
-    })
+    });
+  }
+
+  calculateAmountItems() {
+    this.amount = 0;
+    this.sum = 0;
+    this.state.list.map((item) => {
+      if (item.count) {
+        this.amount ++;
+        this.sum += item.price * item.count;
+      }
+    });
+    this.setState({
+      ...this.state,
+      amount: this.amount,
+      sum: this.sum.toLocaleString()
+    });
   }
 }
 

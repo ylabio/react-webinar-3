@@ -1,21 +1,41 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
+import {plural} from '../../utils';
 import './style.css';
 
-function Controls({onAdd}) {
+function Controls({totalCartAmount, sumPrices, setShowModal}) {
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <div className='Controls-title'>
+        В корзине:
+        <span className='Controls-amount'>
+          {totalCartAmount === 0 ? 'пусто' : `${totalCartAmount} ${plural(totalCartAmount, {
+            one: 'товар',
+            few: 'товара',
+            many: 'товаров'
+            })} / ${sumPrices} ₽`
+          }
+        </span>
+      </div>
+      <button onClick={() => {
+          setShowModal(true);
+          document.body.classList.add('Modal-open');
+        }}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  totalCartAmount: PropTypes.number,
+  sumPrices: PropTypes.string,
+  setShowModal: PropTypes.func
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  totalCartAmount: 0,
+  sumPrices: '0',
+  setShowModal: () => {
+  }
 }
 
 export default React.memo(Controls);

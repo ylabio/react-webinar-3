@@ -1,0 +1,31 @@
+.Modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+}
+
+.Modal-content {
+  width: 960px;
+  height: fit-content;
+  margin: auto 20px;
+  background-color: #ffff;
+  border-radius: 10px;
+}
+
+.Modal-content .Head {
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 71px;
+}
+
+.Cart-item {
+  border-top: 1px dashed #ccc;
+  border-bottom: 1px dashed #ccc;
+}
