@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -74,7 +72,7 @@ class Store {
 
   /**
    * Удаление предмета из корзины
-   * @param code
+   * @param item
    */
   removeItemFromShoppingCart(item) {
     const condition = this.state.shoppingCart.list.some(

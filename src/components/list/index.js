@@ -2,18 +2,26 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
+import CartItem from '../modal/shoppingcart-modal/cartitem';
 
 function List({list, onAddItemToShoppingCart, onRemoveItemFromShoppingCart, modal}) {
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item
-            item={item}
-            onAddItemToShoppingCart={onAddItemToShoppingCart}
-            onRemoveItemFromShoppingCart={onRemoveItemFromShoppingCart}
-            modal={modal}
-          />
+          {modal ? (
+            <CartItem
+              item={item}
+              onRemoveItemFromShoppingCart={onRemoveItemFromShoppingCart}
+              modal={modal}
+            />
+          ) : (
+            <Item
+              item={item}
+              onAddItemToShoppingCart={onAddItemToShoppingCart}
+              modal={modal}
+            />
+          )}
         </div>
       )}
     </div>
