@@ -1,29 +1,30 @@
-.Item {
+.Cart-Item {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   transition: background-color 1s;
   border-bottom: 1px dashed #ccc;
   border-top: 1px dashed #ccc;
 }
 
-.Item-code, .Item-title, .Item-price, .Item-quantity, .Item-actions {
+.Cart-Item-code, .Cart-Item-title, .Cart-Item-price, .Cart-Item-quantity, .Cart-Item-actions {
   display: inline-block;
 }
 
-.Item-code {
+.Cart-Item-code {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+.Cart-Item-title {
   padding: 20px 10px;
 }
-.Item-price {
+.Cart-Item-price {
   padding: 20px 62px;
 }
-.Item-quantity {
+.Cart-Item-quantity {
   padding: 20px 24px 20px 0;
 }
 
-.Item-actions {
+.Cart-Item-actions {
   padding: 20px 20px 20px 10px;
 }
