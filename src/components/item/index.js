@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {plural,priceFormat} from "../../utils";
+import {priceFormat} from "../../utils";
 import './style.css';
 import Button from "../controls";
 

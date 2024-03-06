@@ -1,37 +1,35 @@
-import React, { useRef } from "react";
-import Head from "../head";
+import React from "react";
 import List from "../list";
-import Controls from "../controls";
 import PropTypes from "prop-types";
 import './style.css'
 import {cn as bem} from '@bem-react/classname';
 import { priceFormat } from "../../utils";
 
-function PageOutBasket({list, setBasketOpen, onDeleteBasketItem}) {
-
+function PageOutBasket({list, onDeleteBasketItem}) {
   const cn = bem('PageOutBasket');
-  const ref=useRef()
-const closeBasketBack=(e)=>{
-    if(e.target==ref.current){
-       setBasketOpen(false)  
-    }
-    
+
+let price;
+if(Object.keys(list).length === 0){
+  price=0
+  list.list=[];
+} else{
+  price=list?.total?.price
 }
 console.log(list)
-const price=list.total.price;
+
   return (
-    <div onClick={(e)=>closeBasketBack(e)} ref={ref} className={cn()}>
+    <div  className={cn()}>
       <div className={cn('center')}>
-      <Head title='Корзина'><Controls name='Закрыть' onButton={()=>setBasketOpen(false)}/></Head>
+
       <div className={cn()+'List'}>
          <List list={list.list} onDeleteBasketItem={onDeleteBasketItem} />
       
-        {price?
+      
+      </div>
+       {price?
             <div className={cn('total')}><b>Итого:</b><b>{priceFormat(price)} ₽</b></div>:
             <div className={cn('total')}><b>Товары в корзине отсутствуют</b></div>
         }
-      </div>
-     
         
       </div>
     </div>
@@ -41,7 +39,6 @@ const price=list.total.price;
 PageOutBasket.propTypes = {
   children: PropTypes.node,
   onGetTotalAmount: PropTypes.func,
-  setBasketOpen:PropTypes.func,
 }
 
 export default React.memo(PageOutBasket);

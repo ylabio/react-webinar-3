@@ -5,6 +5,7 @@ import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import ProductsBasket from './components/products_basket'
 import PageOutBasket from './components/page-out-basket';
+import Modal from './components/modal'
 
 /**
  * Приложение
@@ -30,13 +31,15 @@ useMemo(()=>{
     },[store]),
   }
  
-  basketOpen && (document.querySelector('body').style.overflow='hidden')
+  basketOpen ? (document.querySelector('body').style.overflow='hidden'):(document.querySelector('body').style.overflow='auto')
   return (
     <div>
       <PageLayout  list={list} onAddBasket={callbacks.onAddBasket} setBasketOpen={setBasketOpen} />
-    {basketOpen && <PageOutBasket onDeleteBasketItem={callbacks.onDeleteBasketItem}   list={listBasket}
-    setBasketOpen={setBasketOpen} />}
-   
+    {basketOpen && <Modal setBasketOpen={setBasketOpen}> 
+   <Head title='Корзина'><Controls name='Закрыть' onButton={()=>setBasketOpen(false)}/></Head>
+   <PageOutBasket onDeleteBasketItem={callbacks.onDeleteBasketItem}   list={listBasket}
+    /></Modal> }
+  
     </div>
     
   );

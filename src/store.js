@@ -120,12 +120,6 @@ this.basketList={list:basketList, total:this.informationForPriceAndCount(), };
 
 }
 
-getTotalAmount(){
-  return this.totalAmount;
-}
-getTotalCount(){
-  return this.totalCount;
-}
 
 
   /**
