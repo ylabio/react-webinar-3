@@ -5,6 +5,9 @@ import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from './components/modal';
 import Cart from './components/cart';
+import CartInfo from "./components/cart-info";
+import Button from "./components/button"
+import Item from "./components/item"
 
 /**
  * Приложение
@@ -35,27 +38,25 @@ function App({store}) {
     }
   }
 
-  const cartInfo = {
-    count: cart.length,
-    totalPrice: cart.reduce((accum, curr) => {
-      return curr.price * curr.count + accum
-    }, 0)
-  }
-
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls cartInfo={cartInfo} handleCartModalOpen={callbacks.onCartModalOpen}/>
+      <Controls>
+        <CartInfo cart={cart}/>
+        <Button onClick={callbacks.onCartModalOpen}>Перейти</Button>
+      </Controls>
       <List
         list={list}
-        onAddItemToCart={callbacks.onAddItemToCart}
+        renderItem={Item}
+        itemProps={{
+          onAddToCart: callbacks.onAddItemToCart
+        }}
       />
       <Modal isOpen={isCartModalOpen}>
         <Cart
-          list={cart}
+          cart={cart}
           onDeleteItemFromCart={callbacks.onDeleteItemFromCart}
           handleCartModalClose={callbacks.onCartModalClose}
-          cartInfo={cartInfo}
         />
       </Modal>
     </PageLayout>

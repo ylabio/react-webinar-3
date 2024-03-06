@@ -5,6 +5,11 @@
   overflow-y: auto;
 }
 
+.Cart-content {
+  margin-top: 71px;
+  border-top: 1px dashed #CCCCCC;
+}
+
 .Cart-total {
   padding: 20px 10px 20px 20px;
   display: flex;

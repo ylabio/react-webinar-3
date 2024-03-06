@@ -1,28 +1,32 @@
-.Item {
+.ItemInCart {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
 }
 
-.Item_selected {
+.ItemInCart_selected {
   background: #75aaf1;
   color: #fff;
 }
 
-.Item-code {
+.ItemInCart-code {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+.ItemInCart-title {
   flex-grow: 1;
   padding: 20px 10px;
 }
 
-.Item-price {
+.ItemInCart-price {
+  padding: 20px 48px 20px 0;
+}
+
+.ItemInCart-count {
   padding: 20px 14px;
 }
 
-.Item-actions {
+.ItemInCart-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;

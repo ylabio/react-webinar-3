@@ -2,15 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
 import Button from "../button";
+import { formatPrice } from "../../utils";
 
 function Item(props) {
   const callbacks = {
     onAddToCart: () => {
-      props.onAddToCart(props.item);
-    },
-
-    onDeleteFromCart: () => {
-      props.onDeleteFromCart(props.item.code);
+      props.onAddToCart(props.item.code);
     },
   }
 
@@ -21,14 +18,10 @@ function Item(props) {
         {props.item.title} 
       </div>
       <div className='Item-price'>
-        {`${props.item.price} ₽`}
+        {`${formatPrice(props.item.price)} ₽`}
       </div>
-      {props.item.count && <div className='Item-count'>
-        {`${props.item.count} шт`}
-      </div>}
       <div className='Item-actions'>
-        {props.onAddToCart && <Button onClick={callbacks.onAddToCart}>Добавить</Button>}
-        {props.onDeleteFromCart && <Button onClick={callbacks.onDeleteFromCart}>Удалить</Button>}
+        <Button onClick={callbacks.onAddToCart}>Добавить</Button>
       </div>
     </div>
   );
@@ -41,7 +34,11 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAddToCart: PropTypes.func,
-  onDeleteFromCart: PropTypes.func,
+};
+
+Item.defaultProps = {
+  item: {},
+  onAddToCart: () => {},
 };
 
 

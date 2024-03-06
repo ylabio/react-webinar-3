@@ -14,5 +14,9 @@ Button.propTypes = {
   onClick: PropTypes.func,
 };
 
+Button.defaultProps = {
+  onClick: () => {},
+};
+
 
 export default React.memo(Button);
