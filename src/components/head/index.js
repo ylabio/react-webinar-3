@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import { plural, numberFormat } from "../../utils";
-import Controls from "../controls";
+import Controls from "./controls";
 import "./style.css";
 
-function Head({ cart, text, openCart }) {
+function Head({ cart, text, openCart, totalCost }) {
   const cn = bem("Head");
 
   function getLastLetter(count) {
@@ -16,11 +16,6 @@ function Head({ cart, text, openCart }) {
     });
   }
 
-  function totalPrice() {
-    const price = cart.reduce((sum, obj) => obj.quantity * obj.price + sum, 0);
-    return numberFormat(price);
-  }
-
   return (
     <div className={cn()}>
       <h1 className={cn("title")}>{text}</h1>
@@ -29,7 +24,9 @@ function Head({ cart, text, openCart }) {
           В&nbsp;корзине:{" "}
           <span className="bold">
             {cart.length > 0
-              ? `${cart.length} ${getLastLetter(cart.length)} / ${totalPrice()}`
+              ? `${cart.length} ${getLastLetter(cart.length)} / ${numberFormat(
+                  totalCost
+                )}`
               : "пусто"}
           </span>
         </div>
@@ -50,6 +47,7 @@ Head.propTypes = {
     }).isRequired
   ),
   openCart: PropTypes.func.isRequired,
+  totalCost: PropTypes.number.isRequired,
 };
 
 export default React.memo(Head);

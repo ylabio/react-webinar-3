@@ -5,7 +5,11 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      cart: [],
+      totalCost: 0,
+    };
     this.listeners = []; // Слушатели изменений состояния
     this.cartOpen = false;
   }
@@ -44,20 +48,34 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem(obj) {
+  addItem(code) {
     const cart = this.state.cart ? [...this.state.cart] : [];
-    const itemIndex = cart.findIndex((item) => item.code === obj.code);
+    const list = this.state.list;
+    const itemIndex = cart.findIndex((item) => item.code === code);
+    const itemInList = list.find((item) => item.code === code);
 
     if (itemIndex > -1) {
       const findItem = cart[itemIndex];
-      cart[itemIndex] = { ...findItem, quantity: findItem.quantity + 1 };
+      cart[itemIndex] = {
+        ...findItem,
+        quantity: findItem.quantity + 1,
+      };
     } else {
-      cart.push({ ...obj, quantity: 1 });
+      cart.push({
+        ...itemInList,
+        quantity: 1,
+      });
     }
+
+    const totalCost = cart.reduce((total, item) => {
+      const itemDetails = list.find((listItem) => listItem.code === item.code);
+      return total + itemDetails.price * item.quantity;
+    }, 0);
 
     this.setState({
       ...this.state,
       cart: cart,
+      totalCost: totalCost,
     });
   }
 
@@ -65,11 +83,11 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(obj) {
+  deleteItem(code) {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      cart: this.state.cart.filter((item) => item.code !== obj.code),
+      cart: this.state.cart.filter((item) => item.code !== code),
     });
   }
 

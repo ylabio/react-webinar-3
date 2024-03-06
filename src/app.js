@@ -2,6 +2,8 @@ import React, { useCallback } from "react";
 import List from "./components/list";
 import Head from "./components/head";
 import PageLayout from "./page-layout";
+import ModalWindow from "./components/modal-window";
+import Item from "./components/item";
 import Cart from "./components/cart";
 
 /**
@@ -12,6 +14,7 @@ import Cart from "./components/cart";
 function App({ store }) {
   const list = store.getState().list;
   const cart = store.getState().cart;
+  const totalCost = store.getState().totalCost;
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -22,8 +25,8 @@ function App({ store }) {
     ),
 
     onAddItem: useCallback(
-      (item) => {
-        store.addItem(item);
+      (code) => {
+        store.addItem(code);
       },
       [store]
     ),
@@ -39,14 +42,21 @@ function App({ store }) {
 
   return (
     <PageLayout>
-      <Cart
+      <ModalWindow isCartOpen={store.cartOpen}>
+        <Cart
+          cart={cart}
+          closeCart={callbacks.closeCart}
+          deleteItem={callbacks.onDeleteItem}
+        />
+      </ModalWindow>
+
+      <Head
         cart={cart}
-        isCartOpen={store.cartOpen}
-        closeCart={callbacks.closeCart}
-        deleteItem={callbacks.onDeleteItem}
+        totalCost={totalCost}
+        openCart={callbacks.openCart}
+        text="Магазин"
       />
-      <Head cart={cart} openCart={callbacks.openCart} text="Магазин" />
-      <List items={list} onClick={callbacks.onAddItem} text="Добавить" />
+      <List items={list} onClick={callbacks.onAddItem} text="Добавить"></List>
     </PageLayout>
   );
 }

@@ -4,15 +4,13 @@ import { cn as bem } from "@bem-react/classname";
 import Item from "../item";
 import "./style.css";
 
-function List({ items, text, onClick }) {
+function List({ items, onClick, text }) {
   const cn = bem("List");
 
   return (
     <div className={cn()}>
-      {items.map((item) => (
-        <div key={item.code} className={cn("item")}>
-          <Item item={item} onClick={onClick} text={text} />
-        </div>
+      {items.map((item, index) => (
+        <Item key={index} item={item} onClick={onClick} text={text} />
       ))}
     </div>
   );

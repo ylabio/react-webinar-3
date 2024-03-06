@@ -20,7 +20,7 @@ Controls.propTypes = {
 };
 
 Controls.defaultProps = {
-  onAdd: () => {},
+  onClick: () => {},
   text: "",
 };
 
