@@ -3,3 +3,11 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls-btn{
+  margin-left: 20px;
+}
+
+.basket-info span{
+  font-weight: bold;
+}

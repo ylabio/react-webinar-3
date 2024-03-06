@@ -2,13 +2,18 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
+import ItemBasket from "../itemBasket";
 
-function List({list, onDeleteItem, onSelectItem}) {
+function List(props) {
+
+  const Items = props.Items
+
   return (
     <div className='List'>{
-      list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
+      props.list.map(item =>
+        <div key = {item.code} className='List-item'>
+          {/* <Item item={item} onFunc={props.onFunc} button={props.button}/> */}
+          {Items !== undefined ? <Items props2={props} item = {item}></Items> : ''}
         </div>
       )}
     </div>
