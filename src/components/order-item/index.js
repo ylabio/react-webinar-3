@@ -25,7 +25,7 @@ function OrderItem(props) {
       { !!props.item.count && <div className={cn('count')}>{props.item.count} шт</div> }
       <div className={cn('actions')}>
         <button className={cn('btn')} onClick={callbacks.onClick}>
-          удалить
+          Удалить
         </button>
       </div>
     </div>

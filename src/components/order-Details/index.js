@@ -15,7 +15,7 @@ function OrderDetails({ basket, onDeleteItem, onClosePopUp }) {
       <div className={cn()}>
         <h1 className={cn('header')}>Корзина</h1>
         <div className={cn('box')}>
-          <button className={cn('btn')} onClick={onClosePopUp}>закрыть</button>
+          <button className={cn('btn')} onClick={onClosePopUp}>Закрыть</button>
         </div>
       </div>
       <OrderList list={basket.list} onClick={onDeleteItem}/>
