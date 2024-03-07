@@ -1,0 +1,29 @@
+.ItemBottom {
+  display: flex;
+  justify-content: flex-start;
+  transition: background-color 1s;
+}
+
+.ItemBottom-title {
+  width: 440%;
+  padding: 20px 10px;
+  display: flex;
+  justify-content: flex-end;
+  font-weight: 700;
+}
+
+.ItemBottom-amount-price {
+  width: 40%;
+  padding: 20px 10px;
+  font-weight: 700;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ItemBottom-empty {
+  width: 40%;
+  padding: 20px 10px;
+  font-weight: 700;
+  display: flex;
+  justify-content: flex-end;
+}

@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function PageLayout({children}) {
+function PageLayout({children,page}) {
 
-  const cn = bem('PageLayout');
+  const cn = bem((page == 0 ? 'PageLayout' : 'PageLayoutBasket'));
 
   return (
     <div className={cn()}>
@@ -17,7 +17,8 @@ function PageLayout({children}) {
 }
 
 PageLayout.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  page: PropTypes.number
 }
 
 export default React.memo(PageLayout);

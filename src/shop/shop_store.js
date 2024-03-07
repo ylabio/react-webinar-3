@@ -1,14 +1,14 @@
-import {generateCode} from "./utils";
+import {generateCode} from "../utils";
 
 /**
  * Хранилище состояния приложения
  */
-class Store {
+class ShopStore {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
   }
-
+  
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
@@ -40,13 +40,49 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+  getPrice(code) {
+    var vPrice = 0;
+    if (this.state.list.length > 0) {
+    this.state.list.map(item => {
+      if (item.code === code) {
+        vPrice = item.price;
+        return vPrice;
+      }
+    }
+    )
+    }
+    return vPrice;
+  };
+
   /**
    * Добавление новой записи
    */
-  addItem() {
+  addItem(code) {
+    var vChange = false;
+    if (this.state.listBasket.length > 0) {
+      this.state.listBasket.map((item) => {
+        if (item.code === code) {
+          vChange = true;
+        }
+      })
+    }
+
+    if (vChange == true) {
+      this.setState({
+        ...this.state,
+        listBasket: this.state.listBasket.map((item) => {
+          if (item.code === code) {
+            return {...item,
+                    qproduct: item.qproduct + 1,
+            }
+          }
+          return item;
+      })})
+      return;
+    }
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      listBasket: [...this.state.listBasket, {code: code, qproduct: 1}]
     })
   };
 
@@ -58,31 +94,26 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      listBasket: this.state.listBasket.filter(item => item.code !== code)
     })
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+  amountPrice() {
+    var vAmount = 0;
+    if (this.state.listBasket.length > 0) {
+    this.state.listBasket.map(item => {
+      if (item.qproduct > 0) {
+        vAmount += (item.qproduct * this.getPrice(item.code));
+      }
+    }
+    )
+    }
+    return vAmount;
+  };
+
+  amountProduct() {
+    return this.state.listBasket.length;
   }
 }
 
-export default Store;
+export default ShopStore;
