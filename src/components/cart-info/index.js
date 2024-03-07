@@ -18,24 +18,20 @@ function CartInfo({ title, cartItemsCount, cartTotalPrice }) {
 
   return (
     <div className={cn()}>
-      <span
-        className={cn("title") + (title !== "В Корзине:" ? cn("content") : "")}
-      >
+      <span className={cn("title") + (title !== "В Корзине:" ? cn("content") : "")} >
         {title}
       </span>
       <div className={cn("content")}>
         {isEmptyCart
-          ? ("пусто")
-          : (`${cartItemsCount} ${plural(cartItemsCount, {
-              one: "товар",
-              few: "товара",
-              many: "товаров",
-            })} /` )
+          ? "пусто"
+          : <>
+              <span>
+                  {`${cartItemsCount} ${plural(cartItemsCount, { one: "товар", few: "товара", many: "товаров",})} /`}
+              </span>
+              <span className={cn("content")}>{`${formatCurrency(cartTotalPrice)}`}</span>
+            </>
         }
-      </div>
-      {!isEmptyCart && (
-        <span className={cn("content")}>{`${formatCurrency(cartTotalPrice)}`}</span>
-      )}
+        </div>
     </div>
   );
 }

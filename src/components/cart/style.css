@@ -1,6 +1,5 @@
 .Cart {
-  display: grid;
-  row-gap: 71px;
+  padding-top: 71px;
 }
 
 .Cart-content_empty {

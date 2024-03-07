@@ -3,9 +3,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import ModalOverlay from "./components/modal-overlay";
 import Cart from "./components/cart";
-import Modal from "./components/modal";
 import CartInfo from "./components/cart-info";
 
 /**
@@ -68,18 +66,13 @@ function App({ store }) {
         buttonTitle={"Добавить"}
       />
       {isModal && (
-        <>
-          <Modal>
-            <Cart
-              cart={cart}
-              onDeleteItem={callbacks.onDeleteItem}
-              onToggleCart={callbacks.onToggleCart}
-              cartItemsCount={cartItemsCount}
-              cartTotalPrice={cartTotalPrice}
-            />
-          </Modal>
-          <ModalOverlay onModalOverlayClick={callbacks.onToggleCart} />
-        </>
+        <Cart
+          cart={cart}
+          onDeleteItem={callbacks.onDeleteItem}
+          onToggleCart={callbacks.onToggleCart}
+          cartItemsCount={cartItemsCount}
+          cartTotalPrice={cartTotalPrice}
+        />
       )}
     </PageLayout>
   );

@@ -25,13 +25,9 @@ function Controls({title, onToggleCart, children}) {
 };
 
 Controls.propTypes = {
-  title: PropTypes.string,
-  onToggleCart: PropTypes.func,
+  title: PropTypes.string.isRequired,
+  onToggleCart: PropTypes.func.isRequired,
   children: PropTypes.node,
-};
-
-Controls.defaultProps = {
-  onToggleCart: () => {},
 };
 
 export default React.memo(Controls);

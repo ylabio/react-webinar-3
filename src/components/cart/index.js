@@ -1,11 +1,10 @@
 import React from "react";
-import Head from "../head";
 import List from "../list";
 import { cn as bem } from "@bem-react/classname";
-import Controls from "../controls";
 import PropTypes from "prop-types";
 import "./style.css";
 import { formatCurrency } from "../../utils";
+import Modal from "../modal";
 
 /**
  *  Функция для создания корзины
@@ -22,50 +21,44 @@ function Cart(props) {
   const isEmptyCart = props.cartItemsCount === 0;
 
   return (
-    <div className={cn()}>
-      <Head title="Корзина">
-        <Controls title="Закрыть" onToggleCart={props.onToggleCart} />
-      </Head>
-      <div className={cn("content")}>
-        {isEmptyCart
-        ? <div className={cn("content", { empty: true })}>
-            {`Корзина пуста :(`}
-          </div>
-        : <>
-            <List
-              list={props.cart}
-              buttonFunction={props.onDeleteItem}
-              buttonTitle={"Удалить"}
-            />
-            <div className={cn("summary")}>
-              <div>Итого</div>
-              <div className={cn("total")}>{`${formatCurrency(props.cartTotalPrice)}`}</div>
+    <Modal title="Корзина" onModalOverlayClick={props.onToggleCart} >
+      <div className={cn()} >
+        <div className={cn("content")}>
+          {isEmptyCart
+          ? <div className={cn("content", { empty: true })}>
+              {`Корзина пуста :(`}
             </div>
-          </>
-        }
+          : <>
+              <List
+                list={props.cart}
+                buttonFunction={props.onDeleteItem}
+                buttonTitle={"Удалить"}
+                />
+              <div className={cn("summary")}>
+                <div>Итого</div>
+                <div className={cn("total")}>{`${formatCurrency(props.cartTotalPrice)}`}</div>
+              </div>
+            </>
+          }
+        </div>
       </div>
-    </div>
+    </Modal>
   );
 };
 
 Cart.propTypes = {
   cart: PropTypes.arrayOf(
     PropTypes.shape({
-      code: PropTypes.number,
-      title: PropTypes.string,
-      count: PropTypes.number,
-      price: PropTypes.number,
+      code: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired,
+      price: PropTypes.number.isRequired,
     })
   ).isRequired,
-  onDeleteItem: PropTypes.func,
-  onToggleCart: PropTypes.func,
+  onDeleteItem: PropTypes.func.isRequired,
+  onToggleCart: PropTypes.func.isRequired,
   cartItemsCount: PropTypes.number.isRequired,
   cartTotalPrice: PropTypes.number.isRequired,
-};
-
-Cart.defaultProps = {
-  onDeleteItem: () => {},
-  onToggleCart: () => {},
 };
 
 export default React.memo(Cart);

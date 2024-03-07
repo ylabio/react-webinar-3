@@ -27,12 +27,11 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  buttonFunction: PropTypes.func,
+  buttonFunction: PropTypes.func.isRequired,
   buttonTitle: PropTypes.string,
 };
 
 List.defaultProps = {
-  buttonFunction: () => {},
   buttonTitle: 'Кнопка',
 };
 

@@ -19,7 +19,7 @@ function Head({title, children}) {
 };
 
 Head.propTypes = {
-  title: PropTypes.node,
+  title: PropTypes.string.isRequired,
   children: PropTypes.node,
 };
 

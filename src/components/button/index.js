@@ -19,12 +19,11 @@ function Button({title, buttonFunction}) {
 
 Button.propTypes = {
   title: PropTypes.string,
-  buttonFunction: PropTypes.func,
+  buttonFunction: PropTypes.func.isRequired,
 };
 
 Button.defaultProps = {
   title: 'Кнопка',
-  buttonFunction: () => {},
 };
 
 export default React.memo(Button);

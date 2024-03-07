@@ -15,15 +15,14 @@ import { formatCurrency } from "../../utils";
  */
 function Item(props) {
   const cn = bem("Item");
-  const callbacks = {
-    /**
-     * функция которая сработает при клике на кнопку
-     * @event {*} e - событие
-     */
-    onButtonClick: (e) => {
-      e.stopPropagation();
-      props.buttonFunction(props.item.code);
-    },
+
+  /**
+   * функция которая сработает при клике на кнопку
+   * @event {*} e - событие
+   */
+  const onButtonClick = (e) => {
+    e.stopPropagation();
+    props.buttonFunction(props.item.code);
   };
 
   return (
@@ -35,7 +34,7 @@ function Item(props) {
         <div className={cn("count")}>{`${props.item.count} шт`}</div>
       }
       <div className={cn("actions")}>
-        <Button title={props.buttonTitle} buttonFunction={callbacks.onButtonClick} />
+        <Button title={props.buttonTitle} buttonFunction={onButtonClick} />
       </div>
     </div>
   );
@@ -43,18 +42,16 @@ function Item(props) {
 
 Item.propTypes = {
   item: PropTypes.shape({
-    code: PropTypes.number,
-    title: PropTypes.string,
-    selected: PropTypes.bool,
+    code: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
     count: PropTypes.number,
   }).isRequired,
-  buttonFunction: PropTypes.func,
+  buttonFunction: PropTypes.func.isRequired,
   buttonTitle: PropTypes.string,
 };
 
 Item.defaultProps = {
-  item: null,
-  buttonFunction: () => {},
   buttonTitle: 'Кнопка',
 };
 
