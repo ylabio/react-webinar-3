@@ -2,4 +2,29 @@
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+  border-bottom: 1px dashed #ccc;
+}
+.Controls_btn{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.basket{
+  min-width: 500px;
+  display:flex;
+  justify-content: flex-end;
+}
+b{
+  margin-right: 18px;
+}
+p{
+  margin-right: 18px;
+  display: inline;
+}
+.Controls_none {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  border-bottom: 1px dashed #ccc;
+  pointer-events: none;
 }

@@ -1,0 +1,119 @@
+.modal{
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0);
+    border-color: black;
+}
+.modal__content{
+    position: relative;
+    border-color: black;
+    border-radius: 10px;
+    background-color: #fff;
+    max-height: 80vh;
+    width: 50%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
+
+
+
+.modal.active{
+   transform: scale(1); 
+}
+.h1_modal{
+    width: 131px;
+    height: 37px;
+    margin:0;
+    top:0;
+    left: 0;
+    position: absolute;
+    display: inline;
+    padding: 20px 20px 10px;
+}
+.Head_modal{
+    flex-shrink: 0;
+    height: 50px;
+  background: #f5f5f5;
+  margin:0;
+  padding: 20px 20px 10px;
+}
+.btn{
+    position: absolute;
+    display: inline;
+    right: 20px;
+    top: 32px;
+}
+.btn_delete{
+    max-height: 22px;
+}
+
+.Item_modal{
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+    border-bottom: 1px dashed #ccc;
+}
+
+.Item_selected_modal {
+    background: #75aaf1;
+    color: #fff;
+}
+  
+.Item-code_modal {
+    padding: 20px 10px 20px 20px;
+}
+
+.Item-title_modal {
+    width: 100%;
+    padding: 20px 10px;
+}
+  
+.Item-actions_modal {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 20px 20px 10px;
+}
+  
+.price-actions_modal{
+    min-width:100px;
+    padding: 20px 10px;
+    display:flex;
+    justify-content:flex-end;
+}
+
+.cnt-actions_modal{
+    min-width:80px;
+    padding: 20px 10px;
+    display:flex;
+    justify-content:flex-end;
+}
+.cart{
+    overflow-y: auto;
+    flex-grow: 1;
+    margin-top: 60px;
+    border-top: 1px dashed #ccc;
+}
+
+.result{
+    flex-shrink: 0;
+    margin-top: 20px;
+    text-align: end;
+    margin-right: 80px;
+    margin-bottom: 80px;
+    
+}
+.p_modal{
+    font-weight:bold;
+    margin-right: 40px;
+}

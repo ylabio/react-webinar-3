@@ -1,39 +1,32 @@
-import React, {useCallback} from 'react';
+import React, { useCallback, useState } from "react";
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from "./components/modal/index";
 
 /**
  * Приложение
- * @param store {Store} Хранилище состояния приложения
+ * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
-
-  const list = store.getState().list;
-
-  const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
-
+function App({ store }) {
+  const [modalActive, setModalActive] = useState(false);
+  const { items } = store.getState();
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title="Магазин" />
+      <Controls
+        setModalActive={setModalActive}
+        cnt={store.countItemsInCart()}
+        total={store.calcTotal()}
+      />
+      <List list={items} onAddItemToCart={store.addToCart} />
+      <Modal
+        active={modalActive}
+        setActive={setModalActive}
+        store={store}
+      />
     </PageLayout>
   );
 }

@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -7,6 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    
   }
 
   /**
@@ -18,8 +19,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -43,12 +44,18 @@ class Store {
   /**
    * Добавление новой записи
    */
+  generateUniqueCode() {
+    return Date.now() + Math.floor(Math.random() * 10);
+  }
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+      items: [
+        ...this.state.items,
+        { code: generateCode(), title: "Новая запись", price: 111 },
+      ],
+    });
+  }
 
   /**
    * Удаление записи по коду
@@ -58,9 +65,9 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+      items: this.state.items.filter((item) => item.code !== code),
+    });
+  }
 
   /**
    * Выделение записи по коду
@@ -69,7 +76,7 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      items: this.state.items.map((item) => {
         if (item.code === code) {
           // Смена выделения и подсчёт
           return {
@@ -79,9 +86,54 @@ class Store {
           };
         }
         // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+        return item.selected ? { ...item, selected: false } : item;
+      }),
+    });
+  }
+  
+  addToCart = (code) => {
+    const { cart } = this.state;
+    let cnt = 1;
+    if (code in cart) {
+      cnt = cart[code] + 1;
+    }
+    this.setState({
+      ...this.state,
+      cart: {
+        ...cart,
+        [code]: cnt,
+      }
+    });
+  }
+
+  removeFromCart = (code) => {
+    const { cart } = this.state;
+    const cartCpy = { ...cart };
+    delete cartCpy[code];
+    this.setState({
+      ...this.state,
+      cart: cartCpy,
+    });
+  }
+
+  calcTotal() {
+    const { items, cart } = this.state;
+    let total = 0;
+    for (const codeStr in cart) {
+      const code = +codeStr;
+      const item = items.find((x) => x.code === code);
+      if (!item) {
+        continue;
+      }
+      const cnt = cart[codeStr];
+      total += cnt * item.price;
+    }
+    return total;
+  }
+
+  countItemsInCart() {
+    const { cart } = this.state;
+    return Object.keys(cart).length;
   }
 }
 
