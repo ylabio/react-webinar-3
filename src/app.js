@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -10,30 +11,42 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const list = store.getState().list;
+  const storeContent = store.getState()
+  
+  const list = storeContent.list;
+  const productsInCart = storeContent.productsInCart;
+  const productsQuantity = storeContent.productsQuantity;
+  const productsTotalAmount = storeContent.productsTotalAmount;
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    onDeleteItem: useCallback((item) => {
+      store.deleteItem(item);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    addToCart: useCallback((item) => {
+      store.addToCart(item);
     }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин' />
+      <Controls
+      setIsModalOpen={setIsModalOpen}
+      productsQuantity={productsQuantity}
+      productsTotalAmount={productsTotalAmount}/>
+      <List
+      list={list}
+      buttonAction={callbacks.addToCart}
+      buttonLabel={"Добавить"}/>
+      {(isModalOpen) &&
+      <Cart
+      setIsModalOpen={setIsModalOpen}
+      productsInCart={productsInCart}
+      productsTotalAmount={productsTotalAmount}
+      deleteItem={callbacks.onDeleteItem} />}
     </PageLayout>
   );
 }

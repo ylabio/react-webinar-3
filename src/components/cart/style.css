@@ -1,0 +1,13 @@
+.Cart-amount {
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 53px;
+    padding: 20px 120px;
+}
+
+.Cart-empty {
+    display: flex;
+    justify-content: center;
+}

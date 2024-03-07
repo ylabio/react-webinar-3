@@ -3,3 +3,36 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls-container {
+  display: flex;
+  align-items: center;
+}
+
+.Controls-basket {
+  margin: 0;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.Controls-amount {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+  margin-left: 12px;
+}
+
+.Controls-button {
+  border: 1px solid rgb(118, 118, 118);
+  border-radius: 2px;
+  background: rgb(239, 239, 239);
+  width: 80px;
+  font-size: 13px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.Controls-button:hover {
+  background-color: rgb(229 226 226);
+}
