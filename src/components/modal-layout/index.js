@@ -9,8 +9,8 @@ function ModalLayout({title, children, onClose}) {
     const cn = bem('ModalLayout')
   
     return (
-      <div className={cn()}>
-      <div className={cn('container')}>
+      <div className={cn()} onClick={onClose}>
+      <div className={cn('container')} onClick={(e) => e.stopPropagation()}>
         <Head title={title} />
         <button className={cn('close')} onClick={onClose}>
           Закрыть
