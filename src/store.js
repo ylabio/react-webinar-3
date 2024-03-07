@@ -49,14 +49,25 @@ class Store {
     this.setState({
       ...this.state,
       totalPrice: this.state.totalPrice + item.price,
-      totalCount: this.state.totalCount + 1,
     }) 
     if (cartItem) {
-      cartItem.count++;
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map((cartItem) => {
+          if (cartItem.code === code) {
+            return {
+              ...cartItem,
+              count: cartItem.count + 1
+            }
+          }
+          return cartItem;
+        })
+      });
     } else {
       this.setState({
         ...this.state,
-        cart: [...this.state.cart, {code: item.code, title: item.title, price: item.price, count: 1}],
+        cart: [...this.state.cart, {...item, count: 1}],
+        totalCount: this.state.totalCount + 1,
       })
     }
   };
@@ -71,7 +82,7 @@ class Store {
     this.setState({
       ...this.state,
       cart: this.state.cart.filter(item => item.code !== code),
-      totalCount: this.state.totalCount - cartItem.count,
+      totalCount: this.state.totalCount - 1,
       totalPrice: this.state.totalPrice - item.price * cartItem.count,
     })
   };

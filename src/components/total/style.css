@@ -1,0 +1,10 @@
+.Total {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px 90px 20px 0;
+}
+
+.Total-sum {
+  margin-left: 50px;
+}

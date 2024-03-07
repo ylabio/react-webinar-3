@@ -16,8 +16,6 @@ function Controls(props) {
         })} / ${new Intl.NumberFormat('ru-RU', {
           style: 'currency',
           maximumFractionDigits: 0,
-          notation: 'compact',
-          compactDisplay: 'long',
           currency: 'RUB'})
           .format(props.totalPrice)} ` : 'пусто'}
         </strong> 

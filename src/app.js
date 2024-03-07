@@ -5,6 +5,7 @@ import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal";
 import Button from './components/button';
+import Total from './components/total';
 
 /**
  * Приложение
@@ -35,10 +36,14 @@ function App({store}) {
             <Button onClick={() => setCartOpen(false)} name='Закрыть'/>
           </Head>
           {cart.length > 0 
-          ? <List list={cart}
+          ? 
+          <>
+            <List list={cart}
                   deleteFromCart={callbacks.deleteFromCart}
-                  totalPrice={totalPrice}
+                  cartOpen={cartOpen}
             />
+            <Total totalPrice={totalPrice} />
+          </>  
           : <p style={{padding:'0 20px'}}>Здесь пока пусто...</p>
           }
         </Modal> : null

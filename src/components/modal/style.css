@@ -2,8 +2,9 @@
   position: absolute;
   max-width: 960px;
   min-height: 200px;
-  width: 100%;
-  top: 50%;
+  padding-bottom: 70px;
+  width: 95%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: #fff;
@@ -15,4 +16,5 @@
 .Modal .Head {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
+  margin-bottom: 70px;
 }

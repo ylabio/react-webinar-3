@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, totalPrice, addToCart, deleteFromCart}) {
+function List({list, totalPrice, cartOpen, addToCart, deleteFromCart}) {
   return (
-    addToCart ? 
+    !cartOpen ? 
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
@@ -19,12 +19,6 @@ function List({list, totalPrice, addToCart, deleteFromCart}) {
           <Item item={item} deleteFromCart={deleteFromCart}/>
         </div>
       )}
-      <div className="List-summary">
-        <strong>
-          <span className="List-summary__title">Итого</span>
-          <span className="List-summary__sum">{new Intl.NumberFormat('ru-RU', {style: 'currency', maximumFractionDigits: 0, currency: 'RUB'} ).format(totalPrice)}</span>
-        </strong>
-      </div>
     </div>
   )
 }
