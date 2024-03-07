@@ -5,7 +5,10 @@ import Store from './store.js';
 import { initList } from './config.js';
 
 const store = new Store({
-  list: initList
+  list: initList,
+  cart: [],
+  sum: 0,
+  num: 0,
 });
 
 const root = createRoot(document.getElementById('root'));

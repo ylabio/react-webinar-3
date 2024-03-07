@@ -51,10 +51,16 @@ export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
 
-export function numGoods(list) {
+/*export function numGoods(list) {
   return list.reduce((acc, cur) => cur.count ? (acc = acc + 1) : acc, 0);
 }
 
 export function sumGoods(list) {
   return list.reduce((acc, cur) => cur.count ? (acc += cur.count * cur.price) : acc, 0);
+}*/
+
+export function formatPrice(price) {
+  return new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB", maximumFractionDigits: "0" }).format(
+    price,
+  )
 }

@@ -22,7 +22,7 @@ Head.propTypes = {
     PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,
       action: PropTypes.func
-    }))}).isRequired,
+    }))}),
 };
 
 export default React.memo(Head);

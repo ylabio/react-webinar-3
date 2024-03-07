@@ -18,7 +18,7 @@ console.log("controls")
 }
 
 Controls.propTypes = {
-  description: PropTypes.string,
+  description: PropTypes.node,
   actions: PropTypes.shape({current:
     PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
+import {formatPrice, plural} from "../../utils";
 import './style.css';
 
 function Item(props) {
@@ -29,7 +29,7 @@ function Item(props) {
       {
         props.show.includes('price') &&
           <div className="Item-price">
-            {props.item.price}&nbsp;₽
+            {formatPrice(props.item.price)}
           </div>
       }
       {
@@ -74,3 +74,5 @@ Item.defaultProps = {
 };
 
 export default React.memo(Item);
+
+//{props.item.price}&nbsp;₽

@@ -1,7 +1,20 @@
 .Modal {
     border: none;
     width: 960px;
+    padding: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    /*max-height: 3000px;*/
 }
+
+.Modal-contents {
+    padding: 50px 0;
+}
+
+/*.Modal-contents .List {
+    max-height: 200px;
+    overflow-y: scroll;
+}*/
 
 .Modal-sum {
     display: flex;
@@ -22,4 +35,11 @@
     justify-content: flex-end;
     padding: 20px 20px 20px 10px;
     width: 100px;
+}
+
+@media (max-height: 650px) {
+    .Modal-contents .List {
+        max-height: 100px;
+        overflow-y: scroll;
+    }
 }

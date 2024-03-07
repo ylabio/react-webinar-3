@@ -14,4 +14,5 @@
 .Head-actions {
   display: flex;
   justify-content: flex-end;
+  padding: 25px;
 }
