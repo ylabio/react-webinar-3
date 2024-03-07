@@ -1,0 +1,26 @@
+.Cart {
+  width: 90vw;
+  max-width: 960px;
+}
+
+.Cart-body {
+  max-height: 320px;
+  padding: 70px 0 0 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #fff;
+}
+
+.Cart-footer {
+  display: flex;
+  justify-content: end;
+  padding: 0px 106px 40px 0px;
+  background: #fff;
+}
+
+.Cart-footer span {
+  font-weight: bold;
+  text-align: right;
+  min-width: 95px;
+  padding: 20px 10px;
+}

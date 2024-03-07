@@ -50,3 +50,30 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Приведение числа к строке и разделение на триады
+ * @param {Number} Число, цена товара
+ * @returns {String}
+ */
+export function getTriads(number) {
+  const result = String(number)
+  .split('')
+  .reverse()
+  .map((item, index) => (index) % 3 === 0 ? `${item} ` : item)
+  .reverse()
+  .join('');
+  
+  return result;
+}
+
+/**
+ * Вычисление общей стоимости товаров в корзине
+ * @returns {Number}
+ */
+export function getCost(cart) {
+  const result = cart.reduce((acc, item) => {
+    return item.count ? acc + (item.count  * item.price) : acc + 0;
+  }, 0)
+  return getTriads(result);
+}

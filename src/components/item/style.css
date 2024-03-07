@@ -23,3 +23,15 @@
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }
+
+.Item-price {
+  min-width: 120px;
+  text-align: right;
+  padding: 20px 10px;
+}
+
+.Item-count {
+  min-width: 95px;
+  text-align: right;
+  padding: 20px 10px;
+}
