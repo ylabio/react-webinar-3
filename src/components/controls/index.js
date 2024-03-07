@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {plural} from "../../utils";
+import { plural } from "../../utils";
 import { numFormat } from "../../utils";
 import PropTypes from 'prop-types';
 import Modal from "../modal"
@@ -7,7 +7,7 @@ import './style.css';
 
 function Controls(props) {
 
-  if(props.amount != undefined){
+  if (props.amount != undefined) {
     return (
       <div className='Controls'>
         <div className="Cart">
@@ -23,7 +23,7 @@ function Controls(props) {
       </div>
     )
   }
-  return(
+  return (
     <div className="Controls"></div>
   )
 }
@@ -38,7 +38,7 @@ Controls.propTypes = {
 };
 
 Controls.defaultProps = {
-  onToggleModal: () => {}
+  onToggleModal: () => { }
 }
 
 export default React.memo(Controls);

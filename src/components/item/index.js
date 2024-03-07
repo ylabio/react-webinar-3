@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
+import { plural } from "../../utils";
 import { numFormat } from "../../utils";
 import './style.css';
 
@@ -8,7 +8,7 @@ function Item(props) {
 
   const amountVisibility = props.isCart === true ? "Item-amount" : "hidden";
   const containerWidth = props.isCart === true ? "w25" : "w50";
-  
+
   const callbacks = {
     buttonClick: (e) => {
       props.buttonClick(props.item);
@@ -21,7 +21,7 @@ function Item(props) {
       <div className={'Item-title '}>
         {props.item.title}
       </div>
-      <div className={"Item-price "+containerWidth}>
+      <div className={"Item-price " + containerWidth}>
         {numFormat(props.item.price)} ₽
       </div>
       <div className={amountVisibility}>

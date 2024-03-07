@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -46,17 +46,17 @@ class Store {
    */
   addItem(item) {
     //проверка есть ли предмет в корзине
-    if(this.state.cart.find(cartItem => cartItem.code === item.code) === undefined){
+    if (this.state.cart.find(cartItem => cartItem.code === item.code) === undefined) {
       //добавление предмета в корзину и установка счетчика
       this.setState({
         ...this.state,
-        cart: [...this.state.cart, {...item, amount: 1}]
+        cart: [...this.state.cart, { ...item, amount: 1 }]
       })
-    } else{
+    } else {
       this.setState({
         ...this.state,
         cart: this.state.cart.map(cartItem => {
-          if(cartItem.code === item.code){
+          if (cartItem.code === item.code) {
             return {
               ...cartItem,
               amount: cartItem.amount + 1
@@ -69,7 +69,7 @@ class Store {
     this.getTotalPrice();
   };
 
-  getTotalPrice(){
+  getTotalPrice() {
     this.setState({
       ...this.state,
       totalPrice: this.state.cart.reduce((acc, item) => acc + item.price * item.amount, 0)
