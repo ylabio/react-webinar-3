@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,48 +39,87 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
+   * @param item
    */
-  addItem() {
+  addInCart(item) {
+    // Добавляем элемент в корзину, присваивая ему счетчик 
+    this.state.cart.push({...item, count: 1});
+    // Обновляем состояние корзины
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      cart: this.state.cart
     })
   };
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Увеличение счетчика у выбранного элемента
+   * @param item 
    */
-  deleteItem(code) {
+  increaseCount(item) {
+    this.state.cart.map(elem => {
+      if (elem.code === item.code) {
+        // Возвращаем выбранный элемент, увеличивая его счетчик
+        return {...elem, count: elem.count++}
+      }
+    })
+    // Обновляем состояние корзины
+    this.setState({
+      ...this.state,
+      cart: this.state.cart
+    })
+  }
+
+  /**
+   * Расчет стоимости товаров
+   * @returns {Number}
+   */
+  calculatePrice() {
+    if (this.state.cart.length > 0) {
+      return this.state.cart.reduce((acc, item) => {
+        return acc + (item.price * item.count);
+      }, 0);
+    }
+    return 0;
+  }
+
+  /**
+   * Расчет количества уникального товаров
+   * @returns {Number}
+   */
+  calculateItems() {
+    return this.state.cart.length;
+  }
+
+  /**
+   * Переключатель функций добавления товара
+   * @param item 
+   */
+  toggleAdd(item) {
+    const isInCart = this.state.cart.some(({code}) => code === item.code)
+
+    if (!isInCart) {
+      this.addInCart(item);
+    } else {
+      this.increaseCount(item);
+    }
+
+    this.calculatePrice();
+    this.calculateItems();
+  }
+
+  /**
+   * Удаление товара из корзины
+   * @param item
+   */
+  deleteItem(item) {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cart: this.state.cart.filter(({code}) => code !== item.code)
     })
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
-  }
 }
 
 export default Store;

@@ -1,0 +1,24 @@
+.Cart-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.Cart-list {
+  max-height: 300px;
+  overflow: auto;
+}
+
+.Cart-total {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 53px;
+  font-weight: 700;
+  padding-right: 120px;
+}
+
+.Cart-title {
+  font-weight: 700;
+  text-align: center;
+}

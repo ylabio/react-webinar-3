@@ -13,7 +13,7 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   // В английском 2 формы: 'one', 'other'
   const key = new Intl.PluralRules(locale).select(value);
   // Возвращаем вариант по ключу, если он есть
-  return variants[key] || '';
+  return `${value} ${variants[key]}` || '';
 }
 
 /**
@@ -50,3 +50,16 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Преобразование цены
+ * @param {Number} price 
+ * @returns {String}
+ */
+export function formatPrice(price) {
+  return (
+    Math.floor(price)
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽'
+  );
+};
