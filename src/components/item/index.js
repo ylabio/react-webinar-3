@@ -1,45 +1,27 @@
-import React, {useState} from "react";
+import React, { useCallback, useState } from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
-import './style.css';
+import { plural } from "../../utils";
+import "./style.css";
 import controls from "../controls";
 import Controls from "../controls";
 
-function Item(props) {
-
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
-  
-
-  
-    const callbacks = {
-     onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
+function Item({ item, onAddToCart }) {
+  const callbacks = {
+    onAddToCart: () => {
+      onAddToCart(item.code);
     },
-  
-    }
+  };
 
   return (
-    <div className='Item'>
-      
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>
-        {props.item.title} 
-      </div>
+    <div className="Item">
+      <div className="Item-code">{item.code}</div>
+      <div className="Item-title">{item.title}</div>
       <div className="price-actions">
-        {props.item.price.toString().replace(/(\d)(?=(\d{3})+$)/g,'$1 ')} &#8381;
+        {item.price.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ")} &#8381;
       </div>
-      <div className='Item-actions'>
-        <button onClick={callbacks.onClick}>
-          Добавить
-          
-        </button>
+      <div className="Item-actions">
+        <button onClick={callbacks.onAddToCart}>Добавить</button>
       </div>
-      
     </div>
   );
 }
@@ -49,17 +31,13 @@ Item.propTypes = {
     code: PropTypes.number,
     title: PropTypes.string,
     selected: PropTypes.bool,
-    count: PropTypes.number
+    count: PropTypes.number,
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+  onAddToCart: PropTypes.func,
 };
 
 Item.defaultProps = {
-  onDelete: () => {
-  },
-  onSelect: () => {
-  },
-}
+  onAddToCart: () => {},
+};
 
 export default React.memo(Item);
