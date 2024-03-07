@@ -6,7 +6,7 @@ import './style.css';
 function Item(props) {
   const callbacks = {
     onAddItemToShoppingCart: () => {
-      props.onAddItemToShoppingCart(props.item);
+      props.onAddItemToShoppingCart(props.item.code);
     },
   }
 
@@ -36,7 +36,6 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAddItemToShoppingCart: PropTypes.func,
-  modal: PropTypes.bool,
 };
 
 Item.defaultProps = {

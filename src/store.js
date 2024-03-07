@@ -40,13 +40,18 @@ class Store {
 
   /**
    * Добавление предмета в корзину
-   * @param item {Object}
+   * @param code
    */
-  addItemToShoppingCart(item) {
-    let newShoppingCartList;
+  addItemToShoppingCart(code) {
+    const condition = this.state.shoppingCart.list.some(cartItem => cartItem.code === code)
     let isNew = false;
 
-    if (this.state.shoppingCart.list.some(cartItem => cartItem.code === item.code)) {
+    const item = this.state.list.find(item => item.code === code)
+    item.inCart = true
+
+    let newShoppingCartList;
+
+    if (condition) {
        newShoppingCartList = this.state.shoppingCart.list.map(cartItem => {
         if (cartItem.code === item.code) return {...cartItem, amount: cartItem.amount + 1}
         return cartItem
@@ -75,32 +80,15 @@ class Store {
    * @param item
    */
   removeItemFromShoppingCart(item) {
-    const condition = this.state.shoppingCart.list.some(
-      cartItem => (cartItem.code === item.code && cartItem.amount > 1)
-    )
-
-    let newShoppingCartList;
-    let isLast = false;
-
-    if (condition) {
-       newShoppingCartList = this.state.shoppingCart.list.map(cartItem => {
-        if (cartItem.code === item.code) return {...cartItem, amount: cartItem.amount - 1}
-        return cartItem
-      })
-    } else {
-      newShoppingCartList = [...this.state.shoppingCart.list].filter(cartItem => cartItem.code !== item.code)
-      isLast = !isLast
-    }
+    let newShoppingCartList= [...this.state.shoppingCart.list].filter(cartItem => cartItem.code !== item.code)
 
     this.setState({
       ...this.state,
       shoppingCart: {
         list: newShoppingCartList,
         total: {
-          totalAmount: isLast
-            ? this.state.shoppingCart.total.totalAmount - 1
-            : this.state.shoppingCart.total.totalAmount,
-          totalCost: this.state.shoppingCart.total.totalCost - item.price,
+          totalAmount: this.state.shoppingCart.total.totalAmount - 1,
+          totalCost: this.state.shoppingCart.total.totalCost - (item.price * item.amount),
         }
       }
     })

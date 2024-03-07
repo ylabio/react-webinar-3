@@ -19,8 +19,8 @@ function App({store}) {
   const total = store.getState().shoppingCart.total; // totalAmount & totalCost included as obj
 
   const callbacks = {
-    onAddItemToShoppingCart: useCallback((item) => {
-      store.addItemToShoppingCart(item);
+    onAddItemToShoppingCart: useCallback((code) => {
+      store.addItemToShoppingCart(code);
     }, [store]),
     onRemoveItemFromShoppingCart: useCallback((item) => {
       store.removeItemFromShoppingCart(item);
@@ -46,16 +46,13 @@ function App({store}) {
         onAddItemToShoppingCart={callbacks.onAddItemToShoppingCart}
       />
       {isModalVisible &&
-        <Modal
+        <ShoppingCartModal
+          shoppingCartList={shoppingCartList}
+          total={total}
+          onRemoveItemFromShoppingCart={callbacks.onRemoveItemFromShoppingCart}
           title='Корзина'
           handleCloseModal={callbacks.handleCloseModal}
-        >
-          <ShoppingCartModal
-            shoppingCartList={shoppingCartList}
-            total={total}
-            onRemoveItemFromShoppingCart={callbacks.onRemoveItemFromShoppingCart}
         />
-        </Modal>
       }
     </PageLayout>
   );

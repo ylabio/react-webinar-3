@@ -4,22 +4,20 @@ import Item from "../item";
 import './style.css';
 import CartItem from '../modal/shoppingcart-modal/cartitem';
 
-function List({list, onAddItemToShoppingCart, onRemoveItemFromShoppingCart, modal}) {
+function List({list, onAddItemToShoppingCart, onRemoveItemFromShoppingCart}) {
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          {modal ? (
+          {item.inCart ? (
             <CartItem
               item={item}
               onRemoveItemFromShoppingCart={onRemoveItemFromShoppingCart}
-              modal={modal}
             />
           ) : (
             <Item
               item={item}
               onAddItemToShoppingCart={onAddItemToShoppingCart}
-              modal={modal}
             />
           )}
         </div>
@@ -34,7 +32,6 @@ List.propTypes = {
   })).isRequired,
   onAddItemToShoppingCart: PropTypes.func,
   onRemoveItemFromShoppingCart: PropTypes.func,
-  modal: PropTypes.bool
 };
 
 List.defaultProps = {

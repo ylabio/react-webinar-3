@@ -3,24 +3,17 @@ import {cn as bem} from '@bem-react/classname';
 import PropTypes from "prop-types";
 import './style.css';
 
-function Head({title, modal, handleCloseModal}) {
-  const bemEntity = modal ? 'Head-modal' : 'Head'
-  const cn = bem(bemEntity)
+function Head({title}) {
 
   return (
-    <div className={cn()}>
+    <div className='Head'>
       <h1>{title}</h1>
-      {modal &&
-        <button className='Head-modal-btn-close' onClick={handleCloseModal}>Закрыть</button>
-      }
     </div>
   )
 }
 
 Head.propTypes = {
   title: PropTypes.node,
-  modal: PropTypes.bool,
-  handleCloseModal: PropTypes.func
 };
 
 export default React.memo(Head);

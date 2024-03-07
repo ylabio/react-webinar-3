@@ -38,7 +38,6 @@ CartItem.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onRemoveItemFromShoppingCart: PropTypes.func,
-  modal: PropTypes.bool,
 };
 
 CartItem.defaultProps = {
