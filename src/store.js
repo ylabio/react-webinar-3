@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+
 
 /**
  * Хранилище состояния приложения
@@ -35,32 +35,68 @@ class Store {
    * @param newState {Object}
    */
   setState(newState) {
-    this.state = newState;
-    // Вызываем всех слушателей
+      this.state = { ...this.state, ...newState };
+    
     for (const listener of this.listeners) listener();
   }
+  openModal() {
+        this.setState({
+            ...this.state,
+            isModalOpen: true
+        });
+      document.body.classList.add('body-no-scroll');
+    }
+    closeModal() {
+        this.setState({
+            ...this.state,
+            isModalOpen: false
+        });
+        document.body.classList.remove('body-no-scroll');
+    }
 
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+    addItem(code) {
+        const item = this.state.selectedItems.find(i => i.code === code);
+        if (item) {
+            item.count = (item.count || 0) + 1;
+            this.setState({
+                selectedItems: this.state.selectedItems,
+                countItems: this.state.countItems + 1,
+                countPrice: this.state.countPrice + item.price
+            });
+        } else {
+            const newItem = this.state.list.find(i => i.code === code);
+            if (newItem) {
+                this.setState({
+                    selectedItems: [...this.state.selectedItems, { ...newItem, count: 1 }],
+                    countItems: this.state.countItems + 1,
+                    countPrice: this.state.countPrice + newItem.price
+                });
+            }
+        }
+    }
 
   /**
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+    deleteItem(code) {
+        let itemToRemove = this.state.selectedItems.find(item => item.code === code);
+        let newCountItems = this.state.countItems;
+        let newCountPrice = this.state.countPrice;
+        if (itemToRemove) {
+            newCountItems -= itemToRemove.count; 
+            newCountPrice -= itemToRemove.count * itemToRemove.price; 
+        }
+        const newSelectedItems = this.state.selectedItems.filter(item => item.code !== code);
+        this.setState({
+            selectedItems: newSelectedItems,
+            countItems: newCountItems,
+            countPrice: newCountPrice
+        });
+    };
 
   /**
    * Выделение записи по коду

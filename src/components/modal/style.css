@@ -1,0 +1,81 @@
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.modal-content {
+    background: white;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 960px;
+    min-height: 460px; 
+    max-height: 80vh;
+  
+}
+.modal-content .List {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    overflow-y: auto;
+}
+
+.modal-content .List::before {
+    content: '';
+    flex-grow: 1;
+    min-height: 1px;
+}
+
+
+
+.close-button {
+    float: right;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.List-item {
+    border-bottom: 1px dashed #ccc;
+}
+
+
+
+
+.totalContainer {
+    display: flex;
+        align-items: center;
+        padding-left: 573px;
+        justify-content: space-between;
+        width: 200px;
+        height: 130px;
+        
+}
+.totalContainer .counting{
+    padding: 0;
+}
+.totalLabel{
+    align-self: flex-start;
+    padding: 20px;
+    height: 20px;
+}
+.amount {
+    align-self: flex-start;
+    padding: 20px 0;
+    margin-left: 10px;
+    height: 20px;
+}
+
+.counting{
+    white-space: nowrap;
+}
+

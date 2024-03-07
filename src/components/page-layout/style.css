@@ -3,6 +3,16 @@ body {
   padding: 0;
   background: #535353;
   font-family: sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+}
+.body-no-scroll {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 .PageLayout {
@@ -12,4 +22,7 @@ body {
   background: #fff;
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
+}
+.Head h1{
+    font-size: 32px;
 }
