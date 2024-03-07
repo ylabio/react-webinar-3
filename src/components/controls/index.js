@@ -4,11 +4,11 @@ import Vidget from "../vidget";
 import Button from "../button";
 import './style.css';
 
-function Controls({cart, callback}) {
+function Controls({count, callback}) {
   return (
     <div className='Controls'>
       <div className="Controls-vidget">
-        <Vidget cart={cart} title="В корзине:" full={true}/>
+        <Vidget count={count} title="В корзине:" full={true}/>
       </div>
       <Button style="Button_controls" callback={callback}>
         Перейти
@@ -19,7 +19,7 @@ function Controls({cart, callback}) {
 
 // Typechecking with PropTypes:
 Controls.propTypes = {
-  cart: PropTypes.shape({
+  count: PropTypes.shape({
     goods: PropTypes.number,
     costs: PropTypes.number
   }).isRequired,
@@ -28,7 +28,7 @@ Controls.propTypes = {
 
 // Default values for properties:
 Controls.defaultProps = {
-  cart: { goods: 0, costs: 0 },
+  count: { goods: 0, costs: 0 },
   callback: () => {},
 }
 

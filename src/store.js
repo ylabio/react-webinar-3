@@ -9,8 +9,11 @@ class Store {
     this.state = initState;
     this.state.modal = false;
     this.state.cart = {
-      goods: 0,
-      costs: 0
+      state: {},
+      count: {
+        goods: 0,
+        costs: 0
+      },
     };
     this.listeners = []; // Слушатели изменений состояния
   }
@@ -116,13 +119,16 @@ class Store {
   cartCounter() {
     this.setState({
       ...this.state,
-      cart: this.state.list.reduce((acc, elm) => {
-        if (elm.tocart && elm.tocart !== 0) {
-          const costs = elm.price * elm.tocart;
-          return { goods: acc.goods + 1, costs: acc.costs + costs}
-        }
-        return acc;
-      }, { goods: 0, costs: 0 }),
+      cart: {
+        ...this.state.cart,
+        count: Object.values(this.state.cart.state).reduce((acc, elm) => {
+          if (elm.tocart && elm.tocart !== 0) {
+            const costs = elm.price * elm.tocart;
+            return { goods: acc.goods + 1, costs: acc.costs + costs}
+          }
+          return acc;
+        }, { goods: 0, costs: 0 }),
+      },
     });
   };
 
@@ -131,18 +137,22 @@ class Store {
    * @param code
    */
   addToCart(code) {
+    const findItem = this.state.list.find((elm) => elm.code === code);
+    if (this.state.cart.state.hasOwnProperty(findItem.code)) {
+      findItem.tocart = this.state.cart.state[findItem.code].tocart + 1;
+    } else {
+      findItem.tocart = 1;
+    }
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          return {
-            ...item,
-            tocart: item.tocart + 1 || 1,
-          };
+      cart: {
+        ...this.state.cart,
+        state: {
+          ...this.state.cart.state,
+          [findItem.code]: findItem,
         }
-        return item;
-      })
-    })
+      }
+    });
     this.cartCounter();
   };
 
@@ -151,18 +161,17 @@ class Store {
    * @param code
    */
   delFromCart(code) {
+    const findItem = this.state.list.find((elm) => elm.code === code);
+    delete this.state.cart.state[findItem.code];
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          return {
-            ...item,
-            tocart: 0,
-          };
+      cart: {
+        ...this.state.cart,
+        state: {
+          ...this.state.cart.state,
         }
-        return item;
-      })
-    })
+      }
+    });
     this.cartCounter();
   };
 }

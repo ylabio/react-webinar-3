@@ -39,13 +39,12 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls cart={cart} callback={callbacks.forOpenModal}/>
+      <Controls count={cart.count} callback={callbacks.forOpenModal}/>
       <List list={list} callback={callbacks.forAddToCart} target={lsTarget}/>
       <Modal modal={modal} children>
-        <Basket list={list}
+        <Basket cart={cart}
                 forModal={callbacks.forCloseModal}
                 forItem={callbacks.forDelFromCart}
-                cart={cart}
         />
       </Modal>
     </PageLayout>
@@ -63,8 +62,16 @@ App.propTypes = {
     })),
     modal: PropTypes.bool,
     cart: PropTypes.shape({
-      goods: PropTypes.number,
-      costs: PropTypes.number
+      state: PropTypes.objectOf(PropTypes.shape({
+        code: PropTypes.number,
+        title: PropTypes.string,
+        price: PropTypes.number,
+        tocart: PropTypes.number,
+      })),
+      count: PropTypes.shape({
+        goods: PropTypes.number,
+        costs: PropTypes.number
+      }),
     }),
   }).isRequired,
 };

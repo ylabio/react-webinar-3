@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { plural, format } from '../../utils';
 import './style.css';
 
-function Vidget({cart, title, full = true}) {
+function Vidget({count, title, full = true}) {
 
-  const plForm = plural(cart.goods, { one: 'товар', few: 'товара', many: 'товаров' });
-  const numForm = format(cart.costs);
+  const plForm = plural(count.goods, { one: 'товар', few: 'товара', many: 'товаров' });
+  const numForm = format(count.costs);
 
   return (
     <div className='Vidget'>
@@ -14,10 +14,10 @@ function Vidget({cart, title, full = true}) {
           {title}
         <strong className='Vidget-inform'>
           {full && <span className='Vidget-goods'>
-            {Boolean(cart.goods) ? `${cart.goods} ${plForm} / ${numForm} ₽` : 'пусто'}
+            {Boolean(count.goods) ? `${count.goods} ${plForm} / ${numForm} ₽` : 'пусто'}
           </span>}
           {!full && <span className='Vidget-costs'>
-            {Boolean(cart.goods) ? `${numForm} ₽` : '0 ₽'}
+            {Boolean(count.goods) ? `${numForm} ₽` : '0 ₽'}
           </span>}
         </strong>
       </div>
@@ -27,7 +27,7 @@ function Vidget({cart, title, full = true}) {
 
 // Typechecking with PropTypes:
 Vidget.propTypes = {
-  cart: PropTypes.shape({
+  count: PropTypes.shape({
     goods: PropTypes.number,
     costs: PropTypes.number
   }).isRequired,
