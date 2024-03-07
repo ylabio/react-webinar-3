@@ -5,11 +5,7 @@
   justify-content: space-between;
 }
 
-.Head h1 {
-  margin: 0;
-  padding: 20px 20px 10px;
-}
-
-.Head-actions {
-  padding: 32px 32px 27px;
-}
+  .Head h1 {
+    margin: 0;
+    padding: 20px 20px 10px;
+  }

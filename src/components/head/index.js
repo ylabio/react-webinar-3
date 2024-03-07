@@ -10,7 +10,7 @@ function Head(props) {
   return (
     <div className={props.classModifier ? cn({[props.classModifier]: true}) : cn()}>
       <h1 className={cn('title')}>{props.title}</h1>
-      <div className={cn('actions')}>{props.children}</div>
+      {props.children}
     </div>
   )
 }

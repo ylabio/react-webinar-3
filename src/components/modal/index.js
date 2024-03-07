@@ -19,9 +19,11 @@ function Modal (props) {
     <div className={props.visibleModal.visible ? cn({active: true}) : cn()}>
       <div className={cn('wrapper')}>
           <Head classModifier={props.visibleModal.visible ? 'modal' : ''} title={props.title}>
-            <button className={cn('button')} onClick={callbacks.onHide}>
-                  Закрыть
-            </button>
+            <div className={cn('actions')}>
+              <button className={cn('button')} onClick={callbacks.onHide}>
+                    Закрыть
+              </button>
+            </div>
           </Head>
           {props.children}
       </div>
