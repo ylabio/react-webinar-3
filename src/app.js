@@ -5,7 +5,7 @@ import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Total from "./components/total";
 import Item from "./components/item";
-import Basket from "./components/basket";
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -39,9 +39,15 @@ function App({ store }) {
       [store]
     ),
 
-    onShowCart: useCallback(() => setModalIsShown(true), [modalIsShown]),
+    onShowCart: useCallback(() => {
+      setModalIsShown(true), [modalIsShown];
+      document.body.style.overflow = "hidden";
+    }),
 
-    onCloseModal: useCallback(() => setModalIsShown(false), [modalIsShown]),
+    onCloseModal: useCallback(() => {
+      setModalIsShown(false), [modalIsShown];
+      document.body.style.overflow = "unset";
+    }),
   };
 
   function renderItemButton(item) {
@@ -69,7 +75,7 @@ function App({ store }) {
         <Total pcs={uniqueItems} sum={totalSum} />
       </Controls>
 
-      <Basket
+      <Cart
         cart={cart}
         onClose={callbacks.onCloseModal}
         isShown={modalIsShown}

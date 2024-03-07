@@ -1,9 +1,26 @@
 .Cart {
-  margin-top: 70px;
   transition: background-color 1s;
-  margin-bottom: 90px;
-  min-height: 10vh;
-  overflow: scroll;
+  max-height: 100vh;
+}
+
+.Cart-head .Head {
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+}
+
+.Cart-list {
+  margin-top: 70px;
+  max-height: calc(100vh - 250px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.Cart-list ::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
 }
 
 .Cart-sum {
@@ -14,4 +31,5 @@
   font-weight: bold;
   width: 30%;
   margin-left: 600px;
+  margin-bottom: 90px;
 }
