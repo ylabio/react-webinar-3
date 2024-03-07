@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function Modal({title, isOpen, close, children}) {
+function Modal({title, isOpen, close, children, foot}) {
 
   const cn = bem('Modal')
 
@@ -18,7 +18,12 @@ function Modal({title, isOpen, close, children}) {
           <h1>{title}</h1>
           <button onClick={close}>Закрыть</button>
         </div>
-        {children}
+        <div className={cn('content')}>
+          {children}
+        </div>
+        <div className={cn('foot')}>
+          {foot}
+        </div>
       </div>
       <div className={`${cn('overlay')} ${isOpen ? 'active' : ''}`} onClick={close}></div>
     </>

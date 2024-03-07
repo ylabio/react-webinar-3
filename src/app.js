@@ -48,14 +48,18 @@ function App ({store}) {
         labelForBtn='Добавить'
         emptyText='Товаров пока нет.'
       />
-      <Modal title='Корзина' isOpen={isOpenCart} close={CloseCart}>
+      <Modal
+        title='Корзина'
+        isOpen={isOpenCart}
+        close={CloseCart}
+        foot={isEmptyCart && <Foot sum={totalSum()}/>}
+      >
         <List
           list={carts}
           funcForBtn={callbacks.onDeleteItem}
           labelForBtn='Удалить'
           emptyText='Ваша корзина пуста.'
         />
-        {isEmptyCart && <Foot sum={totalSum()}/>}
       </Modal>
     </PageLayout>
   )

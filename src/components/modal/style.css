@@ -10,7 +10,6 @@
   border-radius: 5px;
   transition: 0.3s;
   max-height: 100vh;
-  overflow: auto;
 }
 
 .Modal.active {
@@ -48,5 +47,9 @@
 
 .Modal-head h1 {
   margin: 0;
+}
 
+.Modal-content {
+  max-height: calc(100vh - 160px);
+  overflow: auto;
 }
