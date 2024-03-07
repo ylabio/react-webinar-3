@@ -8,13 +8,13 @@ import { cn as bem } from "@bem-react/classname";
  *  Функция для вывода информации о корзине
  * @param {Object} props - объект пропсов
  * @param {String} props.title - Надпись передшествующая выводу информации
- * @param {Number} props.calculateItems - функция подсчета количества товаров в корзине
- * @param {Number} props.calculateSum - функция подсчета суммы товаров в корзине
+ * @param {Number} props.cartItemsCount - количества товаров в корзине
+ * @param {Number} props.cartTotalPrice - сумма товаров в корзине
  * @returns разметка
  */
-function CartInfo({ title, calculateItems, calculateSum }) {
+function CartInfo({ title, cartItemsCount, cartTotalPrice }) {
   const cn = bem("CartInfo");
-  const isEmptyCart = calculateItems() === 0;
+  const isEmptyCart = cartItemsCount === 0;
 
   return (
     <div className={cn()}>
@@ -27,7 +27,7 @@ function CartInfo({ title, calculateItems, calculateSum }) {
       <div className={cn("content")}>
         {isEmptyCart
           ? ("пусто")
-          : (`${calculateItems()} ${plural(calculateItems(), {
+          : (`${cartItemsCount} ${plural(cartItemsCount, {
               one: "товар",
               few: "товара",
               many: "товаров",
@@ -36,9 +36,7 @@ function CartInfo({ title, calculateItems, calculateSum }) {
       </div>
       {/* } */}
       {!isEmptyCart && (
-        <span className={cn("content")}>{`${formatCurrency(
-          calculateSum()
-        )}`}</span>
+        <span className={cn("content")}>{`${formatCurrency(cartTotalPrice)}`}</span>
       )}
     </div>
   );
@@ -46,8 +44,8 @@ function CartInfo({ title, calculateItems, calculateSum }) {
 
 CartInfo.propTypes = {
   title: PropTypes.string,
-  calculateSum: PropTypes.func.isRequired,
-  calculateItems: PropTypes.func.isRequired,
+  cartTotalPrice: PropTypes.number.isRequired,
+  cartItemsCount: PropTypes.number.isRequired,
 };
 
 CartInfo.defaultProps = {

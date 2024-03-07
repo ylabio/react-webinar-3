@@ -17,27 +17,9 @@ function App({ store }) {
   const [isModal, setIsModal] = React.useState(false);
   const list = store.getState().list;
   const cart = store.getState().cart;
+  const cartItemsCount = store.getState().cartItemsCount;
+  const cartTotalPrice = store.getState().cartTotalPrice;
   const callbacks = {
-
-    /**
-     * Функция подсчета общей суммы товаров в корзине
-     * @returns {Number}
-     */
-    onCalculateSum: useCallback(
-      () => store.calculateSum(),
-      [cart]
-    ),
-
-    /**
-     * Функция подсчета количества товаров в корзине
-     * @returns {Number}
-     */
-    onCalculateItems : useCallback(
-      () => store.calculateItems(),
-      [cart]
-    ),
-
-
     /**
      * Колбек-Функция показа/скрытия модалки
      * @returns
@@ -76,8 +58,8 @@ function App({ store }) {
       <Head title="Магазин" />
       <Controls title={"Перейти"} onToggleCart={callbacks.onToggleCart}>
         <CartInfo
-          calculateItems={callbacks.onCalculateItems}
-          calculateSum={callbacks.onCalculateSum}
+          cartItemsCount={cartItemsCount}
+          cartTotalPrice={cartTotalPrice}
         />
       </Controls>
       <List
@@ -92,8 +74,8 @@ function App({ store }) {
               cart={cart}
               onDeleteItem={callbacks.onDeleteItem}
               onToggleCart={callbacks.onToggleCart}
-              calculateSum={callbacks.onCalculateSum}
-              calculateItems={callbacks.onCalculateItems}
+              cartItemsCount={cartItemsCount}
+              cartTotalPrice={cartTotalPrice}
             />
           </Modal>
           <ModalOverlay onModalOverlayClick={callbacks.onToggleCart} />

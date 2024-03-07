@@ -13,13 +13,13 @@ import { formatCurrency } from "../../utils";
  * @param {Array} props.cart - массив товаров, находящихся в корзине
  * @param {Function} props.onToggleCart - функция показа/скрытия модалки
  * @param {Function} props.onDeleteItem - функция удаления товаров из корзины
- * @param {Number} props.calculateItems - функция подсчета количества товаров в корзине
- * @param {Number} props.calculateSum - функция подсчета суммы товаров в корзине
+ * @param {Number} props.cartItemsCount - количества товаров в корзине
+ * @param {Number} props.cartTotalPrice - сумма товаров в корзине
  * @returns разметка
  */
 function Cart(props) {
-  const isEmptyCart = props.calculateItems();
   const cn = bem("Cart");
+  const isEmptyCart = props.cartItemsCount === 0;
 
   return (
     <div className={cn()}>
@@ -28,7 +28,10 @@ function Cart(props) {
       </Head>
       <div className={cn("content")}>
         {isEmptyCart
-        ? <>
+        ? <div className={cn("content", { empty: true })}>
+            {`Корзина пуста :(`}
+          </div>
+        : <>
             <List
               list={props.cart}
               buttonFunction={props.onDeleteItem}
@@ -36,14 +39,9 @@ function Cart(props) {
             />
             <div className={cn("summary")}>
               <div>Итого</div>
-              <div className={cn("total")}>{`${formatCurrency(
-                props.calculateSum()
-              )}`}</div>
+              <div className={cn("total")}>{`${formatCurrency(props.cartTotalPrice)}`}</div>
             </div>
           </>
-        : <div className={cn("content", { empty: true })}>
-            {`Корзина пуста :(`}
-          </div>
         }
       </div>
     </div>
@@ -56,20 +54,18 @@ Cart.propTypes = {
       code: PropTypes.number,
       title: PropTypes.string,
       count: PropTypes.number,
-      subSum: PropTypes.number,
+      price: PropTypes.number,
     })
   ).isRequired,
   onDeleteItem: PropTypes.func,
   onToggleCart: PropTypes.func,
-  calculateSum: PropTypes.func,
-  calculateItems: PropTypes.func,
+  cartItemsCount: PropTypes.number.isRequired,
+  cartTotalPrice: PropTypes.number.isRequired,
 };
 
 Cart.defaultProps = {
   onDeleteItem: () => {},
   onToggleCart: () => {},
-  calculateSum: null,
-  calculateItems: null,
 };
 
 export default React.memo(Cart);
