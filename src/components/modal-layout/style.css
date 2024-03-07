@@ -19,5 +19,22 @@
     padding-bottom: 70px;
     max-height: 90vh;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.ModalLayout-content {
+    flex: 1;
     overflow-y: auto;
+}
+  
+.ModalLayout-close {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+}
+
+.ModalLayout-total {
+    padding: 10px;
 }

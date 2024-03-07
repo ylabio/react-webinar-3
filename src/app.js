@@ -51,8 +51,7 @@ function App({store}) {
       />
 
       {isCartOpen && 
-        <ModalLayout onClose={callbacks.onCloseCart}>
-          <Head title={'Корзина'} isCartOpen={isCartOpen} onCloseCart={callbacks.onCloseCart}/>
+        <ModalLayout title={'Корзина'} onClose={callbacks.onCloseCart}>
           <List 
             style={{marginTop: '70px'}} 
             list={carts}
