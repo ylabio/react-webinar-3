@@ -31,7 +31,7 @@ button{
 .Item-price {
   width: 50%;
   font-size: 18px;
-  padding: 20px 10px;
+  padding: 20px 0px;
   text-align: end;
 }
 
@@ -42,7 +42,7 @@ button{
 }
 
 .Item-amount{
-  width: 25%;
+  width: 15%;
   font-size: 18px;
   padding: 20px 10px;
   text-align: end;

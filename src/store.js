@@ -53,11 +53,17 @@ class Store {
         cart: [...this.state.cart, {...item, amount: 1}]
       })
     } else{
-      //инкрементирование счетчика
-      this.state.cart.find(cartItem => cartItem.code === item.code).amount++;
       this.setState({
         ...this.state,
-        cart: [...this.state.cart]
+        cart: this.state.cart.map(cartItem => {
+          if(cartItem.code === item.code){
+            return {
+              ...cartItem,
+              amount: cartItem.amount + 1
+            }
+          }
+          return cartItem;
+        })
       });
     }
     this.getTotalPrice();

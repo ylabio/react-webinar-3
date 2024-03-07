@@ -42,11 +42,10 @@ function App({store}) {
       <List list={list}
             onAddItem={callbacks.onAddItem}/>
     </PageLayout>
-    <Modal show={isModalVisible}
-      totalPrice={totalPrice}>
+    <Modal show={isModalVisible}>
       <Head title='Корзина'
         closeModal={callbacks.onToggleModal}/>
-      <Controls onToggleModal={callbacks.onToggleModal}/>
+      <Controls/>
       <List list={cart}
         isCart={true}
         onDeleteItem={callbacks.onDeleteItem}/>
