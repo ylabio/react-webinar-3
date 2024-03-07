@@ -3,9 +3,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import Modal from "./components/modal"
-import TotalPrice from "./components/total-price"
-import item from './components/item';
+import Cart from "./components/cart"
 
 /**
  * Приложение
@@ -42,16 +40,13 @@ function App({ store }) {
         <List list={list}
           onAddItem={callbacks.onAddItem} />
       </PageLayout>
-      <Modal show={isModalVisible}
+      <Cart show={isModalVisible}
         closeModal={callbacks.onToggleModal}
-        title="Корзина">
-        <Controls />
-        <List list={cart}
-          isCart={true}
-          onDeleteItem={callbacks.onDeleteItem} />
-        <TotalPrice text='Итого'
-          price={totalPrice} />
-      </Modal>
+        title="Корзина"
+        footerText="Итого"
+        list={cart}
+        onDeleteItem={callbacks.onDeleteItem}
+        totalPrice={totalPrice}/>
     </>
   );
 }
