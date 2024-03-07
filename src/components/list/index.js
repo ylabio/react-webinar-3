@@ -1,20 +1,14 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
-import { basketList } from "../../basket";
 import './style.css';
 
-const onAddItem = (code, title, price) => {
-  basketList.push({ code, title, price });
-}
+function List({ list, onAction, ItemComponent }) {
 
-function List({list}) {
-  
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onAction={onAddItem} buttonText={"Добавить"}/>
+          <ItemComponent item={item} onAction={() => onAction(item.code)} />
         </div>
       )}
     </div>
@@ -24,7 +18,8 @@ function List({list}) {
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
-  })).isRequired
+  })).isRequired,
+  ItemComponent: PropTypes.elementType.isRequired
 };
 
 List.defaultProps = {

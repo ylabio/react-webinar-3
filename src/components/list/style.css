@@ -1,8 +1,13 @@
-.List {
+.List .List-item:first-child {
+  border-top: 1px dashed #ccc;
   
 }
 
 .List-item {
   width: 100%;
   border-bottom: 1px dashed #ccc;
+}
+
+.List {
+  overflow: auto;
 }

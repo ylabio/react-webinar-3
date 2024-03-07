@@ -12,10 +12,9 @@ function Item(props) {
         {props.item.title}
       </div>
       <div className='Item-price'>{formatPrice(props.item.price)} ₽</div>
-      {props.item.count && <div className='Item-count'>{props.item.count} шт.</div>}
       <div className='Item-actions'>
-        <button onClick={() => props.onAction(props.item.code, props.item.title, props.item.price)}>
-          {props.buttonText}
+        <button className="Item-button" onClick={() => props.onAction(props.item.code)}>
+          Добавить
         </button>
       </div>
     </div>
@@ -29,7 +28,6 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAction: PropTypes.func,
-  buttonText: PropTypes.string
 };
 
 Item.defaultProps = {
