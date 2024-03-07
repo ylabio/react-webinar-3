@@ -5,7 +5,7 @@ import {generateCode} from "./utils";
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {...initState, cart: []};
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -81,6 +81,61 @@ class Store {
         // Сброс выделения если выделена
         return item.selected ? {...item, selected: false} : item;
       })
+    })
+  }
+
+
+  /**
+   * Получение количества товаров и суммы
+   */
+  getCartSum() {
+    const result = {
+      items: 0,
+      sum: 0,
+    }
+    this.state.cart.forEach(item => {
+      if (item.count > 0) {
+        result.items += 1;
+        result.sum += item.count * item.price;
+      }
+    });
+    return result;
+  }
+
+  /**
+   * Добавление элемента в корзину
+   * @param newItem
+   */
+  addToCart(newItem) {
+    let noItem = true;
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.map(item => {
+        if (item.code === newItem.code) {
+          noItem = false
+          return {
+            ...item,
+            count: item.count + 1,
+          };
+        }
+        return item;
+      })
+    })
+    if (noItem)
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, { ...newItem, count: 1 }]
+      })
+  }
+
+  /**
+   * Удаление элемента из корзины
+   * @param code
+   */
+  removeFromCart(code) {
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter(item => item.code !== code)
     })
   }
 }
