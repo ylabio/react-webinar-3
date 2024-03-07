@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from "react";
-import React, { useCallback, useState } from "react";
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
@@ -10,10 +9,6 @@ import Modal from "./components/modal/index";
  * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
-function App({ store }) {
-  // code -> item count
-  const [cart, setCart] = useState({});
-
 function App({ store }) {
   // code -> item count
   const [cart, setCart] = useState({});
@@ -62,16 +57,6 @@ function App({ store }) {
   const total = calcTotal();
   return (
     <PageLayout>
-      <Head title="Магазин" />
-      <Controls setModalActive={setModalActive} cnt={cnt} total={total} />
-      <List list={list} onAddItemToCart={callbacks.onAddItemToCart} />
-      <Modal
-        active={modalActive}
-        setActive={setModalActive}
-        items={list}
-        cart={cart}
-        onDeleteItem={callbacks.onDeleteItemFromCart}
-      />
       <Head title="Магазин" />
       <Controls setModalActive={setModalActive} cnt={cnt} total={total} />
       <List list={list} onAddItemToCart={callbacks.onAddItemToCart} />
