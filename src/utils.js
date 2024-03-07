@@ -50,3 +50,39 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Разделение числа по разрядам
+ * @param number {Number} Число, которое будем делить на разряды
+ * @returns {String}
+ */
+export function numberWithSpaces(number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+/**
+ * Подсчёт стоимости всех товаров
+ * @param goodsCart {Array} Список товаров
+ * @returns {Number}
+ */
+export function calcPrice(goodsCart) {
+  return goodsCart.reduce(function(sum, current) {
+    return sum + current.price * current.count;
+  }, 0);
+}
+/**
+ * Формирование строки для корзины
+ * @param list {Array} Список товаров
+ * @returns {String}
+ */
+export function calcItems(list) {
+  const goodsCart = list.filter(item => item.count)
+  const price = calcPrice(goodsCart);
+  const count = goodsCart.length;
+  const pluralText = plural(count, {
+    one: 'товар',
+    few: 'товара', 
+    many: 'товаров'
+  });
+  return (count ? `${numberWithSpaces(count)} ${pluralText} / ${numberWithSpaces(price)} ₽` : 'пусто')
+}
