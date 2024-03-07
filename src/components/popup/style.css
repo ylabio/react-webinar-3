@@ -1,0 +1,90 @@
+.modal {
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed; 
+  display: flex;
+  align-items: center;
+  
+}
+.modal__content {
+  margin: auto auto;
+  padding-bottom: 10px;
+  width: 960px;
+  background-color: white;
+  border-radius: 10px;
+}
+.modal-header {
+  box-sizing: border-box;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 80px;
+  background: rgb(245, 245, 245);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-header__h1 {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+}
+.modal-header__button {
+  height: 21px;
+  cursor: pointer;
+  width: 76px;
+  font-size: 13px;
+  font-weight: 400;
+}
+.modal-list {
+  margin-top: 70px;
+  border-top: 1px dashed #ccc;
+  padding-left: 0;
+}
+.modal-list__item{
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  height: 63px;
+  box-sizing: border-box;
+  border-bottom: 1px dashed #ccc;
+}
+.modal-list__item-index{
+  margin-right: 22px;
+}
+.modal-list__item-name{
+  flex-grow: 1;
+}
+.modal-list__item-price{
+  margin-right: 60px;
+}
+.modal-list__item-num{
+  margin-right: 24px;
+}
+.modal-list__item-delete {
+  height: 22px;
+}
+.modal__footer{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding-right: 108px;
+  height: 63px;
+  box-sizing: border-box;
+}
+.modal-footer__total {
+  margin-right: 10px;
+}
+.modal-footer__sum {
+  min-width: 87px;
+  text-align: end;
+}
+.modal-list__empty {
+  margin: 25px;
+  font-size: 22px;
+  font-weight: 700;
+}

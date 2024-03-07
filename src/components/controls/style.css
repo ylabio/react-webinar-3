@@ -1,5 +1,29 @@
+* {
+  font-family: Arial, Helvetica, sans-serif
+}
 .Controls {
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+  height: 63px;
+  box-sizing: border-box;
 }
+.Controls-info {
+  margin-right: 16px;
+}
+.Controls-info__products {
+  margin-left: 12px;
+}
+.Controls-info__ruble {
+  margin-left: 4px;
+}
+.Controls-info__empty {
+  margin-left: 12px;
+}
+.open-modal {
+  width: 78px;
+  height: 21px;
+}
+
+
+
