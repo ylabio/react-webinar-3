@@ -1,0 +1,19 @@
+
+.Cart-list {
+  min-height: 125px;
+  max-height: 434px;
+  overflow: auto;
+}
+
+.Cart-sum {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 120px;
+  margin-top: 20px;
+  margin-bottom: 90px;
+  font-weight: bold;
+}
+
+.Cart-full-price {
+  margin-left: 53px;
+}

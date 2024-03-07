@@ -1,4 +1,3 @@
-import {generateCode} from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -41,25 +40,64 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
+   * @param code
    */
-  addItem() {
+  addItem(code) {
+    const item = this.state.list.find(item => item.code === code);
+    let existingOrder = this.state.orders.find(order => order.code === item.code);
+
+  if (existingOrder) {
+    //Если товар уже есть в корзине, увеличиваем его количество
+    existingOrder.count = existingOrder.count + 1;
+    existingOrder.price = existingOrder.price + item.price;
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      orders:
+        this.state.orders.map(order => 
+        order.code === existingOrder.code ? {...order, count: existingOrder.count} : order),
+      totalPrice: this.totalPriceCalculation(),      
+    })} else {
+    // Если товара еще нет в корзине, добавляем его
+    this.setState({
+      ...this.state,
+      orders: [...this.state.orders, {...item, count: 1,}],
+    });
+
+    this.setState({
+      ...this.state,
+      countOrders: this.state.orders.length,
     })
+
+    this.setState({
+      ...this.state,
+      totalPrice: this.totalPriceCalculation(),
+    })
+  }
   };
 
   /**
-   * Удаление записи по коду
+   * Удаление товара из корзины
    * @param code
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      orders: this.state.orders.filter(order => order.code !== code),
     })
+
+    this.setState({
+      ...this.state,
+      countOrders: this.state.orders.length,
+    })
+
+    this.setState({
+      ...this.state,
+      totalPrice: this.totalPriceCalculation(),
+    })
+
   };
 
   /**
@@ -82,6 +120,17 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     })
+  }
+
+  /**
+   * Расчет общей суммы заказов
+   */
+  totalPriceCalculation() {
+    let commonPrice = this.state.orders.reduce((sum, order) => sum + order.price, 0);
+    if (commonPrice>=0 &&
+       this.state.countOrders > 0){
+    return `${commonPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₽` } 
+    else {return 'пусто'}
   }
 }
 

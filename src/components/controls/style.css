@@ -1,5 +1,17 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 20px; 
+}
+
+.Controls button {
+  cursor: pointer;
+  width: 80px;
+  margin-right: 20px;
+}
+
+.Controls-price {
+  font-weight: bold;
+  margin-right: 25px;;
+  margin-left: 12px;
 }
