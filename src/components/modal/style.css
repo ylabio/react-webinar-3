@@ -24,18 +24,8 @@
       display: flex;
       flex-direction: column;
       overflow-y: auto; 
-    }   
-  
-      .Modal-content {
-        display: flex;
-        flex-direction: column;
-        overflow-y: auto;
-        position: relative;
-        min-height: 408px;
-      }
+    }
 
-        .Modal-actions {
-          position: absolute;
-          top: 32px;
-          right: 32px;
-        }
+.Head_modal {
+  margin-bottom: 70px;
+}

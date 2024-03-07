@@ -58,6 +58,7 @@ function App({store}) {
         onClick={callbacks.onAddItemCart}
       /> 
       <Modal 
+        title={'Корзина'}
         visibleModal={visibleModals.cart}
         onHide={callbacks.toggleVisibleModal}
         enableScroll={callbacks.enableScroll}

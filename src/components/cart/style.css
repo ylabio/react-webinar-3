@@ -1,13 +1,13 @@
 .Cart-total {
   display: flex;
-  padding: 20px 120px 90px;
+  padding: 20px 110px 90px;
   font-size: 18px;
   font-weight: 700;
   justify-content: flex-end;
 }
 
   .Cart-total-price {
-    margin-left: 50px;
+    margin-left: 52px;
   }
 
 .Cart-empty {
@@ -16,19 +16,6 @@
   color: #404040;
 }
 
-.Head_cart {
-  margin-bottom: 70px;
-  border-radius: 10px;
-}
-
 .List_cart {
   overflow-y: auto;
-  padding-right: 10px;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.List_cart::-webkit-scrollbar {
-  width: 0;
-  height: 0;
 }

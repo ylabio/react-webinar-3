@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {separatingNumberSpaces} from '../../utils';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
-import Head from '../head';
 import List from '../list';
 
 
@@ -19,7 +18,6 @@ function Cart (props) {
 
   return ( 
         <>
-          <Head classModifier={props.visibleCartModal ? 'cart' : ''} title='Корзина'/>
           {props.listCart.length 
             ? <>
                 <List classModifier={'cart'} list={props.listCart} textButton={'Удалить'} onClick={props.onClick}/>
@@ -38,7 +36,6 @@ function Cart (props) {
 
 Cart.propTypes = {
   totalPrice: PropTypes.number,
-  visibleCartModal: PropTypes.bool,
   classModifier: PropTypes.string,
   onClick: PropTypes.func,
 };
