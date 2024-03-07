@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import './style.css';
+import "./style.css";
 
-function Head({title}) {
+function Head({ title }) {
   return (
     <div className='Head'>
-      <h1>{title}</h1>
+      <h1>
+        {title}
+      </h1>
     </div>
   )
 }

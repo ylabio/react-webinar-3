@@ -1,7 +1,9 @@
-.Item {
+.Item-info {
   display: flex;
-  justify-content: flex-start;
-  transition: background-color 1s;
+}
+
+.Item-info-count {
+  padding-right: 7px;
 }
 
 .Item_selected {
@@ -9,17 +11,8 @@
   color: #fff;
 }
 
-.Item-code {
-  padding: 20px 10px 20px 20px;
-}
-
-.Item-title {
-  width: 100%;
-  padding: 20px 10px;
-}
-
-.Item-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+.Item-info-price,
+.Item-price {
+  font-size: 18px;
+  line-height: 20.7px;
 }

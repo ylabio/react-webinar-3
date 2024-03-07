@@ -50,3 +50,12 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+
+/**
+ * Формат оформления чисел
+ * @returns {Number}
+ */
+export function numberFormat(number) {
+  return new Intl.NumberFormat('ru-RU').format(number);
+}
