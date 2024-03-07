@@ -42,7 +42,7 @@ function App({store}) {
     <PageLayout>
       <Head title='Магазин'/>
       <Info 
-        products={products}
+        data={products}
         totalPrice={totalPrice}
       >
         <Controls 
@@ -54,20 +54,20 @@ function App({store}) {
         data={list}
         onAddToCartItem={callbacks.onAddToCartItem}
       />
-
-      <ModalLayout active={active}>
-        <Head 
-          title="Корзина" 
-          active={active} 
-          onCloseModal={callbacks.onCloseModal} 
-        />
-        <Modal 
-          active={active}
-          data={products}
-          onDeleteItem={callbacks.onDeleteItem}
-          totalPrice={totalPrice}
-        />
-      </ModalLayout>
+      {active && (
+        <ModalLayout>
+          <Head 
+            title="Корзина" 
+            active={active} 
+            onCloseModal={callbacks.onCloseModal} 
+          />
+          <Modal 
+            data={products}
+            onDeleteItem={callbacks.onDeleteItem}
+            totalPrice={totalPrice}
+          />
+        </ModalLayout>
+      )}
     </PageLayout>
   );
 }

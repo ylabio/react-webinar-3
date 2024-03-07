@@ -1,20 +1,19 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./style.css";
 
-const ModalLayout = ({ children, active }) => {
+const ModalLayout = ({ children }) => {
   return (
     <>
-      {active && (
-        <article className="ModalLayout">
-          <section className="ModalLayout-content">{children}</section>
-        </article>
-      )}
+      <article className="ModalLayout">
+        <section className="ModalLayout-content">{children}</section>
+      </article>
     </>
   );
 };
 
-// ModalLayout.propTypes = {
-//   children: PropTypes.node,
-// };
+ModalLayout.propTypes = {
+  children: PropTypes.node
+};
 
 export default React.memo(ModalLayout);
