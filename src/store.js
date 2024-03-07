@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,26 +39,51 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Обновление состояния cart
+   * @param data {Array}
    */
-  addItem() {
+  updateCart(data) {
+    const newCartList = data;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+      cart: {
+        ...this.state.cart,
+        list: newCartList,
+        totalSum: newCartList.reduce((acc, el) => {
+          return acc += (parseInt(el.price.replace(/\s/g, "")) * el.count)
+        }, 0),
+        quantity: newCartList.length
+      }
+    });
+  }
 
   /**
-   * Удаление записи по коду
+   * Добавление товара в корзину
+   */
+  addItem(code) {
+    const isInCart = this.getState().cart.list.find(el => el.code === code);    
+
+    if (!isInCart) {
+     this.state.cart.list.push({...this.getState().list.find(el => el.code === code), count: 1})
+    } else {
+      this.updateCart(this.state.cart.list.map(el => {
+        if (el.code === code) return {...el, count: el.count + 1}
+        return el;
+        } 
+      ));
+    }
+
+    this.updateCart(this.state.cart.list.sort((a, b) => a.code - b.code))
+  
+  }
+
+  /**
+   * Удаление товара из корзины
    * @param code
    */
   deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+    this.updateCart(this.state.cart.list.filter(item => item.code !== code));
+  }
 
   /**
    * Выделение записи по коду
@@ -83,6 +106,27 @@ class Store {
       })
     })
   }
+
+  /**
+   * Закрытие корзины
+   */
+  closeCart() {
+    this.setState({ 
+      ...this.state,
+      isOpenCart: false
+    })
+  }
+
+  /**
+   * Открытие корзины
+   */
+  openCart() {
+    this.setState({
+      ...this.state,
+      isOpenCart: true
+    })
+  }
 }
+
 
 export default Store;

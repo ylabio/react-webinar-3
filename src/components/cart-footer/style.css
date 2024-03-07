@@ -1,0 +1,23 @@
+.Cart {
+  width: 960px;
+  min-height: 407px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.Cart-footer {
+  padding: 20px 120px 21px 0;
+  border-top: 1px dashed #ccc;
+  text-align: end;
+  font-weight: bold;
+}
+
+.Cart-text {
+  margin-right: 53px;
+}
+
+.Cart-list {
+  margin-top: 71px;
+}
+

@@ -1,3 +1,5 @@
+import { func } from 'prop-types';
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -49,4 +51,25 @@ export const generateCode1 = (function (start = 0) {
  */
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
+}
+
+
+
+
+/**
+ * Форматтер цены/общей стоимости товаров
+ * Возвращает число и символ выбранной валюты под указанную локаль
+ * @param value {Number} Число, под которое выбирается валюта.
+ * @param currency {String}  Валюта.
+ * @param [locale] {String} Локаль (код языка)
+ * @returns {*|string}
+ */
+export function priceFormatter(value, currency = 'rub', locale = 'ru-RU') {
+  const formatter = new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,    
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  });
+  return formatter.format(value) || '0';
 }
