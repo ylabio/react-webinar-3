@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { plural, numberFormat } from '../../utils';
 import "./style.css";
 
-function Controls({ basket, onOpenModal }) {
-  const getPluralWord = plural(basket.productsCount, {
+function Controls(props) {
+  const getPluralWord = plural(props.basket.productsCount, {
     one: 'товар',
     few: 'товара',
     many: 'товаров',
@@ -16,14 +16,14 @@ function Controls({ basket, onOpenModal }) {
         В корзине:
         <strong
           className='Controls-interface-count'>
-          {basket.productsCount === 0 ?
+          {props.basket.productsCount === 0 ?
             "пусто"
             :
-            `${basket.productsCount} ${getPluralWord} / ${numberFormat(basket.allPrice)} ₽`
+            `${props.basket.productsCount} ${getPluralWord} / ${numberFormat(props.basket.allPrice)} ₽`
           }
         </strong>
       </div>
-      <button onClick={onOpenModal}>
+      <button onClick={props.onOpenModal}>
         Перейти
       </button>
     </div>

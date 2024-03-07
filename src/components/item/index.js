@@ -4,6 +4,7 @@ import { numberFormat } from "../../utils";
 import "./style.css";
 
 function Item(props) {
+
   const getItemInfo = () => {
     return !!props.item.count ?
       <div className="Item-info">
@@ -19,23 +20,6 @@ function Item(props) {
         {`${numberFormat(props.item.price)} ₽`}
       </div>
   }
-
-  return (
-    <div className={'Item'}>
-      <div className='Item-code'>
-        {props.item.code}
-      </div>
-      <div className='Item-title'>
-        {props.item.title}
-        {getItemInfo()}
-      </div>
-      <div className='Item-actions'>
-        <button onClick={() => props.funcButton(props.item.code)}>
-          {props.buttonTitle}
-        </button>
-      </div>
-    </div>
-  );
 }
 
 Item.propTypes = {
