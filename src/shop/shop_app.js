@@ -1,4 +1,4 @@
-import React, {useCallback,useState} from 'react';
+import React, {useCallback,useState,useRef} from 'react';
 import List from "../components/list";
 import TopItem from "../components/top-item/index.js";
 import Head from "../components/head";
@@ -12,7 +12,6 @@ import BasketApp from "../components/basket";
  */
 function ShopApp({store}) {
   const [showModal, setShowModal] = useState(false);
-  const handleClose = () => setShowModal(false);
 
   const list = store.getState().list;
   const listBasket = store.getState().listBasket;
@@ -20,9 +19,29 @@ function ShopApp({store}) {
   const actionShop = 0;
   const actionBasket = 1;
 
+  const fScrollBarBodyOn = (numEl) => {
+    if ((numEl * 60 + 180) > callbacks.fGetWindowHeight()) {
+      document.body.style.overflow = "scroll";
+    }
+  }
+
+  const fScrollBarBodyOff = () => {
+      document.body.style.overflow = "hidden";
+  }
+
+  const handleClose = () => {
+    setShowModal(false);
+    fScrollBarBodyOn(list.length);
+  }
+
   const callbacks = {
     onSetShowModalOn: () => {
       setShowModal(true);
+      fScrollBarBodyOff();
+    },
+
+    fGetWindowHeight: () => {
+      return (window.innerHeight);
     },
 
     onAmountProduct: useCallback(() => {
@@ -49,7 +68,8 @@ function ShopApp({store}) {
                listBasket={listBasket}
                onFunc={callbacks.onDeleteItem}
                action={actionBasket}
-               onAmountPrice={callbacks.onAmountPrice}/>
+               onAmountPrice={callbacks.onAmountPrice}
+               fGetWindowHeight={callbacks.fGetWindowHeight}/>
 
   return (
     <div>

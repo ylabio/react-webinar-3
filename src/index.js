@@ -13,6 +13,10 @@ const shop_store = new ShopStore({
     {code: generateCode(), title: 'Телефон iPhone XIXV', price: 120000},
     {code: generateCode(), title: 'Карандаши цветные', price: 111},
     {code: generateCode(), title: 'Товар сюрприз', price: 0},
+    {code: generateCode(), title: 'Товар сюрприз', price: 0},
+    {code: generateCode(), title: 'Товар сюрприз', price: 0},
+    {code: generateCode(), title: 'Товар сюрприз', price: 0},
+    {code: generateCode(), title: 'Товар сюрприз', price: 0},
   ],
   listBasket: [],
 });
