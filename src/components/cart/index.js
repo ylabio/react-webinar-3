@@ -32,4 +32,15 @@ function Cart(props) {
   );
 }
 
+Cart.propTypes = {
+  setActive: PropTypes.func,
+  action: PropTypes.func,
+  modalActive: PropTypes.bool,
+  title: PropTypes.string,
+  list: PropTypes.array,
+  type: PropTypes.string,
+  uniqueProductsCount: PropTypes.number,
+  totalPrice: PropTypes.number,
+};
+
 export default Cart;

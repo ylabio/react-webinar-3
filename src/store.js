@@ -56,7 +56,7 @@ class Store {
           // Добавление количества товара
           return {
             ...item,
-            count: item.count ? ++item.count : 1,
+            count: item.count ? item.count + 1 : 1,
           };
         }
         return item;
