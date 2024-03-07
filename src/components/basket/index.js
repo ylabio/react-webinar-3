@@ -4,7 +4,6 @@ import Head from "../head";
 import Button from "../button";
 import List from "../list";
 import Vidget from "../vidget";
-import { format } from '../../utils';
 import './style.css';
 
 function Basket({ cart, forModal, forItem }) {
@@ -12,7 +11,6 @@ function Basket({ cart, forModal, forItem }) {
   const cartList = Object.values(cart.state);
   // The target for rendering elements of list items
   const lsTarget = { name: "basket", ctrl: "Удалить"};
-  const numForm = format(cart.count.costs);
 
   return (
     <div className='Basket'>
