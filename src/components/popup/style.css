@@ -5,9 +5,12 @@
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed; 
+  display: flex;
+  align-items: center;
+  
 }
 .modal__content {
-  margin: 200px auto;
+  margin: auto auto;
   padding-bottom: 10px;
   width: 960px;
   background-color: white;
