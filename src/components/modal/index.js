@@ -1,20 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Head from "../head";
+import Button from "../button";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function Modal({children, modalIsActive, price}) {
+function Modal({children, modalIsActive, toggleModal, title}) {
 
   const cn = bem('Modal');
 
   return (
     <div className={modalIsActive ? `${cn()} ` : `${cn()} ${cn()}_hide`}>
       <div className={cn('content')}>
+        <Head title={title}>
+          <Button onClickFunc={toggleModal} text="Закрыть"/>
+        </Head>
         {children}
-        <div className={cn('result')}>
-          <div>Итого</div>
-          <div>{`${price} ₽`}</div>
-        </div>
       </div>
     </div>
   );
@@ -23,12 +24,13 @@ function Modal({children, modalIsActive, price}) {
 Modal.propTypes = {
   children: PropTypes.node,
   modalIsActive: PropTypes.bool,
-  price: PropTypes.string
+  toggleModal: PropTypes.func,
+  title: PropTypes.string
 }
 
 Modal.defaultProps = {
   modalIsActive: false,
-  price: ""
+  title: ""
 }
 
 export default React.memo(Modal);

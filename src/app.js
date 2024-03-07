@@ -3,11 +3,8 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import Modal from './components/modal';
-import Button from './components/button';
-import { numberWithSpaces } from './utils';
-import { calcPrice } from './utils';
-import { plural } from './utils';
+import Basket from './components/basket';
+import { calcItems } from './utils';
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -31,39 +28,21 @@ function App({store}) {
       store.addItem(code);
     }, [store]),
 
-    calcItems: useCallback(() => {
-      const goodsCart = store.getState().list.filter(item => item.count)
-      const price = calcPrice(goodsCart);
-      const count = goodsCart.length;
-      const pluralText = plural(count, {
-        one: 'товар',
-        few: 'товара', 
-        many: 'товаров'
-      });
-      return (count ? `${numberWithSpaces(count)} ${pluralText} / ${numberWithSpaces(price)} ₽` : 'пусто')
-    }, [store]),
-
     toggleModal: useCallback(() => {
+      document.body.classList.toggle('modal-open');
       store.toggleModal();
     }, [store]),
   }
 
   return (
     <>
-    <Modal modalIsActive={modalIsActive}
-            price={numberWithSpaces(calcPrice(list.filter(item => item.count)))}>
-      <Head title='Корзина'>
-        <Button onClickFunc={callbacks.toggleModal} text="Закрыть"/>
-      </Head>
-      
-      <List list={list.filter(item => item.count)}
-              actionItem={callbacks.onDeleteItem}
-              buttonText="Удалить"
-              isModal={true}/>
-    </Modal>
+      <Basket modalIsActive={modalIsActive}
+              list={list}
+              toggleModal={callbacks.toggleModal}
+              onDeleteItem={callbacks.onDeleteItem}/>
       <PageLayout>
         <Head title='Магазин'/>
-        <Controls calcText={callbacks.calcItems()} text="Перейти" action={callbacks.toggleModal}/>
+        <Controls calcText={calcItems(list)} text="Перейти" action={callbacks.toggleModal}/>
         <List list={list}
               actionItem={callbacks.onAddItem}
               buttonText="Добавить"/>

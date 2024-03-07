@@ -26,8 +26,13 @@
   padding: 20px 20px 20px 10px;
 }
 
-.Item-count, .Item-price {
-  text-wrap: nowrap;
+.Item-count {
+  white-space: nowrap;
+  padding: 20px 10px;
+}
+
+.Item-price {
+  white-space: nowrap;
   padding: 20px 10px;
 }
 

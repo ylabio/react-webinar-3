@@ -25,34 +25,11 @@
   display: none;
 }
 
-.Modal .List {
-  margin-top: 71px;
-  border-top: 1px dashed #ccc;
-}
-
-.Modal-result {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 20px;
-  padding-right: 67px;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.Modal-result div {
-  margin-right: 53px;
-}
-
-.Modal .Item-price {
-  text-wrap: nowrap;
-  padding: 20px 52px 20px 10px;
-}
-
-.Modal .Item-count {
-  padding-right: 14px;
-}
-
 .Modal .Head {
   border-radius: 10px 10px 0px 0px;
+}
+
+.modal-open {
+  overflow: hidden;
 }
 

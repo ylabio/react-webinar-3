@@ -70,3 +70,19 @@ export function calcPrice(goodsCart) {
     return sum + current.price * current.count;
   }, 0);
 }
+/**
+ * Формирование строки для корзины
+ * @param list {Array} Список товаров
+ * @returns {String}
+ */
+export function calcItems(list) {
+  const goodsCart = list.filter(item => item.count)
+  const price = calcPrice(goodsCart);
+  const count = goodsCart.length;
+  const pluralText = plural(count, {
+    one: 'товар',
+    few: 'товара', 
+    many: 'товаров'
+  });
+  return (count ? `${numberWithSpaces(count)} ${pluralText} / ${numberWithSpaces(price)} ₽` : 'пусто')
+}
