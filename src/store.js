@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import {generateCode} from './utils';
 
 /**
  * Хранилище состояния приложения
@@ -50,6 +50,55 @@ class Store {
     })
   };
 
+   /**
+   * Добавление товара в корзину
+  // @param code
+   */
+   addItemCart(code) {
+    const newProduct = (this.state.list.filter(item => item.code === code));
+    let isItemCode = false;   
+    //Проверяем есть ли товар в корзине
+    //Если товар есть, увеличиваем количество товара на 1
+    const newListCart= this.state.listCart.reduce((acc, item) => {
+      if (item.code !== newProduct[0].code) {
+        acc.push(item)
+      } else {
+        isItemCode = true;
+        acc.push({...item, countProduct: item.countProduct + 1})
+      }
+      return acc;
+    }, []);
+    // Если данного товара нету в корзине, инициализируем счетчик со значением 1
+    // Добавляем новый товар в список товаров в корзине
+    if (!isItemCode) {
+      newProduct[0].countProduct = 1;
+      newListCart.push(...newProduct);
+    }
+    // Новый список, в котором будет добавлен товар
+    this.setState({
+      ...this.state,
+      listCart: [...newListCart]
+    })
+    // Подсчет итогового количества товара и стоимость
+    this.calcTotalCart();
+  };
+
+  /**
+   * Подсчет итогового количества товара и стоимость в корзине
+   */
+  calcTotalCart() {
+    const countTotalPrice = this.state.listCart.reduce(
+      (acc, item) => acc + item.countProduct * item.price, 0
+    );
+    this.setState({
+      ...this.state, 
+      totalCart : {
+        totalProduct: (this.state.listCart).length, 
+        totalPrice: countTotalPrice
+      }
+    });
+  }
+
   /**
    * Удаление записи по коду
    * @param code
@@ -60,6 +109,19 @@ class Store {
       // Новый список, в котором не будет удаляемой записи
       list: this.state.list.filter(item => item.code !== code)
     })
+  };
+
+  /**
+   * Удаление товара из корзины
+   * @param code
+   */
+  deleteItemCart(code) {
+    this.setState({
+      ...this.state,
+      // Новый список, в котором не будет удаляемой записи
+      listCart: this.state.listCart.filter(item => item.code !== code)
+    })
+    this.calcTotalCart();
   };
 
   /**
@@ -82,6 +144,18 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     })
+  }
+
+  /**
+   * Показывает или скрывает модальное окно
+   * @param nameVisibleModal
+   */
+  toggleVisibleModal(nameVisibleModal) {
+    this.state.visibleModals[nameVisibleModal].visible = !this.state.visibleModals[nameVisibleModal].visible;
+    this.setState({
+      ...this.state,
+      visibleModals: {...this.state.visibleModals}
+    });
   }
 }
 

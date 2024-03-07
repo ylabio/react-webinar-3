@@ -50,3 +50,12 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Разбивает число на разряды пробелами
+ * @param value {Number} Число, под которое надо разбить.
+ * @returns {String}
+ */
+export function separatingNumberSpaces(value = 0) {
+  return value.toLocaleString();
+}

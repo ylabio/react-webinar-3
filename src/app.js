@@ -1,8 +1,10 @@
 import React, {useCallback} from 'react';
-import List from "./components/list";
-import Controls from "./components/controls";
-import Head from "./components/head";
-import PageLayout from "./components/page-layout";
+import List from './components/list';
+import Controls from './components/controls';
+import Head from './components/head';
+import PageLayout from './components/page-layout';
+import Cart from './components/cart/index.js';
+import Modal from './components/modal/index.js';
 
 /**
  * Приложение
@@ -13,27 +15,61 @@ function App({store}) {
 
   const list = store.getState().list;
 
+  const listCart = store.getState().listCart;
+
+  const totalCart = store.getState().totalCart;
+
+  const visibleModals = store.getState().visibleModals;
+
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    onAddItemCart: useCallback((code) => {
+      store.addItemCart(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    deleteItemCart: useCallback((code) => {
+      store.deleteItemCart(code);
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    toggleVisibleModal: useCallback((visibleModal) => {
+      store.toggleVisibleModal(visibleModal);
+    }, [store]),
+
+    disabledScroll: useCallback(() => {
+      document.body.style.overflow = 'hidden';
+    }, []),
+    
+    enableScroll: useCallback(() => {
+      document.body.style.overflow = '';
+    }, [])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин'/>
+      <Controls 
+        nameCartModal={visibleModals.cart.name}
+        onShowCart={callbacks.toggleVisibleModal} 
+        totalCart={totalCart} 
+        disabledScroll={callbacks.disabledScroll}
+      />
+      <List 
+        list={list}
+        textButton={'Добавить'}
+        onClick={callbacks.onAddItemCart}
+      /> 
+      <Modal 
+        title={'Корзина'}
+        visibleModal={visibleModals.cart}
+        onHide={callbacks.toggleVisibleModal}
+        enableScroll={callbacks.enableScroll}
+      >  
+        <Cart 
+          listCart={listCart}
+          totalPrice={totalCart.totalPrice}
+          visibleCartModal={visibleModals.cart.visible} 
+          onClick={callbacks.deleteItemCart}
+        />
+      </Modal>
     </PageLayout>
   );
 }
