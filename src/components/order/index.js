@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
 import './style.css';
 
 function Order(props) {
@@ -12,13 +11,13 @@ function Order(props) {
   }
 
   return (
-    <div className='Item'>
-      <div className='Item-code'>{props.order.code}</div>
-      <div className='Item-title'>
+    <div className='Order'>
+      <div className='Order-code'>{props.order.code}</div>
+      <div className='Order-title'>
         {props.order.title} 
       </div>
-      <div className="Item-price">{props.order.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")+' ₽'}<span className="Item-count">{props.order.count+' шт'}</span> </div>
-      <div className="Item-actions">
+      <div className="Order-price">{props.order.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")+' ₽'}<span className="Order-count">{props.order.count+' шт'}</span> </div>
+      <div className="Order-actions">
         <button onClick={() => callbacks.onDelete()}>Удалить</button>
         
       </div>
