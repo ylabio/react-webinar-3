@@ -23,17 +23,20 @@ function App({ store }) {
      * Функция подсчета общей суммы товаров в корзине
      * @returns {Number}
      */
-    calculateSum: () => {
-      return cart.reduce((acc, piece) => acc + piece.price * piece.count, 0);
-    },
+    onCalculateSum: useCallback(
+      () => store.calculateSum(),
+      [cart]
+    ),
 
     /**
      * Функция подсчета количества товаров в корзине
      * @returns {Number}
      */
-    calculateItems: () => {
-      return cart.length;
-    },
+    onCalculateItems : useCallback(
+      () => store.calculateItems(),
+      [cart]
+    ),
+
 
     /**
      * Колбек-Функция показа/скрытия модалки
@@ -73,8 +76,8 @@ function App({ store }) {
       <Head title="Магазин" />
       <Controls title={"Перейти"} onToggleCart={callbacks.onToggleCart}>
         <CartInfo
-          calculateItems={callbacks.calculateItems}
-          calculateSum={callbacks.calculateSum}
+          calculateItems={callbacks.onCalculateItems}
+          calculateSum={callbacks.onCalculateSum}
         />
       </Controls>
       <List
@@ -89,8 +92,8 @@ function App({ store }) {
               cart={cart}
               onDeleteItem={callbacks.onDeleteItem}
               onToggleCart={callbacks.onToggleCart}
-              calculateSum={callbacks.calculateSum}
-              calculateItems={callbacks.calculateItems}
+              calculateSum={callbacks.onCalculateSum}
+              calculateItems={callbacks.onCalculateItems}
             />
           </Modal>
           <ModalOverlay onModalOverlayClick={callbacks.onToggleCart} />

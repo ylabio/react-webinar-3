@@ -13,8 +13,8 @@ import { formatCurrency } from "../../utils";
  * @param {Array} props.cart - массив товаров, находящихся в корзине
  * @param {Function} props.onToggleCart - функция показа/скрытия модалки
  * @param {Function} props.onDeleteItem - функция удаления товаров из корзины
- * @param {Function} props.calculateItems - функция подсчета количества товаров в корзине
- * @param {Function} props.calculateSum - функция подсчета суммы товаров в корзине
+ * @param {Number} props.calculateItems - функция подсчета количества товаров в корзине
+ * @param {Number} props.calculateSum - функция подсчета суммы товаров в корзине
  * @returns разметка
  */
 function Cart(props) {
@@ -68,8 +68,8 @@ Cart.propTypes = {
 Cart.defaultProps = {
   onDeleteItem: () => {},
   onToggleCart: () => {},
-  calculateSum: () => {},
-  calculateItems: () => {},
+  calculateSum: null,
+  calculateItems: null,
 };
 
 export default React.memo(Cart);

@@ -74,6 +74,22 @@ class Store {
       cart: this.state.cart.filter((piece) => piece.code !== code),
     });
   }
+
+  /**
+   * Функция подсчета общей суммы товаров в корзине
+   * @returns {Number}
+   */
+  calculateSum() {
+    return this.state.cart.reduce((acc, piece) => acc + piece.price * piece.count, 0);
+  }
+
+ /**
+  * Функция подсчета количества товаров в корзине
+  * @returns {Number}
+  */
+  calculateItems() {
+    return this.state.cart.length;
+  }
 };
 
 export default Store;
