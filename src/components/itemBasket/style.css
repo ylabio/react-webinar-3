@@ -1,0 +1,35 @@
+.ItemBasket {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.ItemBasket-code {
+  padding: 22px 10px 19px 20px;
+}
+
+.ItemBasket-title {
+  width: 100%;
+  padding: 22px 10px 19px;
+}
+
+.ItemBasket-price,
+.ItemBasket-count {
+  padding: 20px 47px 19px;
+  font-size: 18px;
+  color: #404040;
+  white-space: nowrap;
+}
+
+.ItemBasket-count {
+  padding: 22px 15px 19px;
+}
+
+.ItemBasket-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 22px 20px 19px 10px;
+}
+
+.ItemBasket button {
+  width: 76px;
+}

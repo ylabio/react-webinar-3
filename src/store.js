@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -39,48 +37,59 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
+  
   /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
-   * Удаление записи по коду
+   * Добавление товара в корзину.
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  addToBasket(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
+        if (item.code === code && item.count) {
           return {
             ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+            count: item.count + 1
+          } 
+        } else if (item.code === code && !item.count) {
+          return {
+            ...item,
+            count: 1
+          }
         }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+        return item;
       })
+    })
+  }
+
+  /**
+   * Удаление товара из корзины.
+   * @param code
+   */
+  deleteFromBasket(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if(item.code === code) {
+          return {
+            ...item,
+            count: 0
+          }
+        }
+        return item;
+      })
+    })
+  }
+
+  /**
+   * Подсчет стоимости товара и его количества в корзине
+   * @param code
+   */
+  calculateSummary() {
+    this.setState({
+      ...this.state,
+      summaryPrice: this.state.list.reduce((totalPrice, item) => item.count > 0 ? totalPrice += item.price * item.count : totalPrice, 0),
+      quantityProducts: this.state.list.reduce((totalCount, item) => item.count > 0 ? totalCount + 1 : totalCount, 0)
     })
   }
 }

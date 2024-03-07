@@ -1,0 +1,41 @@
+.Modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: -5;
+  transition: opacity .6s ease;
+}
+
+.Modal.active {
+  transition: opacity .6s ease;
+  position: fixed;
+  opacity: 1;
+  z-index: 3;
+}
+
+.Modal::after {
+  content: " ";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: .7;
+}
+
+.Modal-window {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 56%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 960px;
+  height: 407px;
+  z-index: 5;
+  background-color: #FFF;
+  border-radius: 10px;
+}

@@ -1,0 +1,23 @@
+.HeadModal {
+  height: 80px;
+  background: #f5f5f5;
+  display: flex;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.HeadModal h1 {
+  margin: 0;
+  width: 100%;
+  padding: 20px 20px 10px;
+}
+
+.HeadModal-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 33px 32px 27px;
+}
+
+.HeadModal button {
+  width: 76px;
+}

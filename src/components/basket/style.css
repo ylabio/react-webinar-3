@@ -1,0 +1,14 @@
+.Modal .List {
+  padding: 71px 0 0;
+  overflow-y: auto;
+}
+
+.Modal .List-item:nth-of-type(1) {
+  border-top: 1px dashed #ccc;
+}
+
+.Modal-info {
+  font-size: 30px;
+  text-align: center;
+  padding-top: 125px;
+}

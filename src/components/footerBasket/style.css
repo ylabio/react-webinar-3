@@ -1,0 +1,21 @@
+.FooterBasket {
+  height: 80px;
+  display: flex;
+  font-weight: 700;
+}
+
+.FooterBasket-result,
+.FooterBasket-title {
+  white-space: nowrap;
+  padding: 22px 120px 20px 36px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.FooterBasket-title {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 22px 18px 20px;
+}
+

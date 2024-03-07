@@ -3,3 +3,18 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls-text {
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.Controls-result {
+  font-weight: 700;
+  padding: 0px 20px 0 20px;
+  font-size: 18px;
+}
+
+.Controls button {
+  width: 80px;
+}
