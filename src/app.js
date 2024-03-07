@@ -3,7 +3,8 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import Card from "./components/card";
+import Cart from "./components/cart";
+import Modal from "./components/modal";
 
 /**
  * Приложение
@@ -11,41 +12,43 @@ import Card from "./components/card";
  * @returns {React.ReactElement}
  */
 function App({store}) {
-
-  const list = store.getState().list;
+  const {list, orders, totalCount, totalPrice} = store.getState();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  }
-
-  const handleOpenCard = () => {
-    setIsModalOpen(true);
-  }
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    onAddToCart: useCallback((item) => {
+      store.addItemToCart(item);
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    onCloseModal: useCallback(() => {
+      setIsModalOpen(false);
+    }, []),
+
+    onOpenCart: useCallback(() => {
+      setIsModalOpen(true);
+    }, [])
   }
 
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls onAdd={callbacks.onAddItem} onOpen={handleOpenCard}/>
-      <List list={list}
+      <Controls countItem={totalCount} sumItems={totalPrice} onOpen={callbacks.onOpenCart}/>
+      <List list={list} onAddCart={callbacks.onAddToCart} />
+      {isModalOpen &&
+        <Modal onCloseModal={callbacks.onCloseModal} children={
+          // <p>hi hi hhiih hih</p>
+          <Cart
+            items={orders}
+            totalSum={totalPrice}
             onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-      {isModalOpen && <Card items={list} onCloseModal={handleCloseModal}/>}
+          />
+        } />
+      }
     </PageLayout>
   );
 }

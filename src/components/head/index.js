@@ -8,7 +8,7 @@ function Head({title, isModal, onClose}) {
   }
 
   return (
-    <div className='Head'>
+    <div className={'Head' + (isModal ? ' Head_modal' : '')}>
       <h1>{title}</h1>
       {isModal && <div className='Head-button'>
         <button onClick={handleButtonClose}>Закрыть</button>

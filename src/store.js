@@ -7,8 +7,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.orders = []
   }
-
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
@@ -27,7 +27,26 @@ class Store {
    * @returns {Object}
    */
   getState() {
-    return this.state;
+    // Находим только уникальные товары, добавленные в корзину
+    const cartItems = this.orders.reduce((acc, item) => {
+      const uniqueItem = acc.find(el => el.code === item.code);
+      if (uniqueItem) {
+        uniqueItem.count += 1;
+      } else {
+        acc.push({...item, count: 1})
+      }
+      return acc;
+    }, []);
+
+    const totalCount = cartItems.length;
+
+    const totalPrice = this.orders.reduce((acc, item) => acc + item.sum, 0);
+
+    return {
+      ...this.state,
+      totalCount,
+      totalPrice
+    };
   }
 
   /**
@@ -41,19 +60,23 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
+   * @param item
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
 
-  addItemToCard(item) {
+  addItemToCart(item) {
+    const currentItem = this.orders.find(order => order.code === item.code);
+
+    if (currentItem) {
+      currentItem.count += 1;
+      currentItem.sum = currentItem.count * item.price;
+    } else {
+      this.orders.push({...item, count: 1, sum: item.price});
+    }
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, item]
+      orders: this.orders
     })
   }
 
@@ -62,34 +85,14 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    this.orders = this.state.orders.filter(item => item.code !== code);
+
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      orders: this.orders
     })
   };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
-  }
 }
 
 export default Store;
