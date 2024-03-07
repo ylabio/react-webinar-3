@@ -1,0 +1,25 @@
+.ItemCart {
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+  }
+  
+  .ItemCart_hidden {
+    display: none;
+  }
+  
+  .ItemCart-code, .ItemCart-count, .ItemCart-price {
+    padding: 20px 10px 20px 20px;
+  }
+  
+  .ItemCart-title {
+    width: 100%;
+    padding: 20px 10px;
+  }
+  
+  .ItemCart-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 20px 20px 10px;
+  }
+  
