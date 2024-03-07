@@ -10,7 +10,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: auto;
+
 }
 
 .modal-content {
@@ -20,8 +20,22 @@
     max-width: 960px;
     min-height: 460px; 
     max-height: 80vh;
+  
+}
+.modal-content .List {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
     overflow-y: auto;
 }
+
+.modal-content .List::before {
+    content: '';
+    flex-grow: 1;
+    min-height: 1px;
+}
+
+
 
 .close-button {
     float: right;
@@ -35,9 +49,7 @@
 }
 
 
-.body-modal-open {
-    overflow: hidden;
-}
+
 
 .totalContainer {
     display: flex;
@@ -53,7 +65,6 @@
 }
 .totalLabel{
     align-self: flex-start;
-
     padding: 20px;
     height: 20px;
 }
@@ -61,15 +72,9 @@
     align-self: flex-start;
     padding: 20px 0;
     margin-left: 10px;
-
     height: 20px;
 }
-.modal-content .List {
-    display: flex;
-    flex-direction: column;
-    min-height: 200px;
-    justify-content: end;
-}
+
 .counting{
     white-space: nowrap;
 }
