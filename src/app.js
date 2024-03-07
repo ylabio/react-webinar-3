@@ -28,10 +28,12 @@ function App({store}) {
 
     onOpenCart: useCallback(() => {
       setShowCart(true);
+      document.body.style.overflow = "hidden";
     }),
 
     onCloseCart: useCallback(() => {
       setShowCart(false);
+      document.body.style.overflow = "scroll";
     }),
   }
 
