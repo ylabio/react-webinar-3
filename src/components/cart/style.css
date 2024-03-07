@@ -1,0 +1,38 @@
+.Cart {
+    width: 960px;
+    border-radius: 10px;
+    background: white;
+}
+
+.Cart-Header-Btn{
+    margin-right: 32px;
+}
+
+.Cart-Items{
+    margin-top: 70px;
+}
+
+.Cart-Item:first-child{
+    border-top: 1px dashed #ccc;
+}
+
+.Cart-Total{
+    display: flex;
+    gap:50px;
+    justify-content: end;
+    padding-bottom: 80px;
+    padding-right: 120px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.Price{
+    display: flex;
+    gap: 5px;
+}
+
+.CartIsEmpty{
+    text-align: center;
+    font-weight: 700;
+   padding-bottom: 20px;
+}

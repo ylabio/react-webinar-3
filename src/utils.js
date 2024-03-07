@@ -50,3 +50,15 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+export function currentTotalPrice(cartStore){
+  const cartTotalPrice = cartStore.reduce((acc, product) => {
+    return (acc += product.price * product.amountIntoCart);
+  }, 0);
+
+  const price =  new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(
+    cartTotalPrice,
+  )
+  
+  return price.slice(0, +(price.length) - 5)
+}
