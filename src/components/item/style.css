@@ -18,8 +18,22 @@
   padding: 20px 10px;
 }
 
+.Item-subtitle {
+  margin: 0;
+  margin-left: 62px;
+  padding: 0;
+}
+
+.Item-cart {
+  margin: 0;
+  padding: 0;
+
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+  column-gap: 24px;
+  width: 100%;
 }

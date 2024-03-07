@@ -1,4 +1,5 @@
 import {generateCode} from "./utils";
+import item from "./components/item";
 
 /**
  * Хранилище состояния приложения
@@ -19,7 +20,7 @@ class Store {
     // Возвращается функция для удаления добавленного слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);
-    }
+    };
   }
 
   /**
@@ -43,11 +44,29 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+  addItem(itemId) {
+    const existingItem = this.state.storeList.find(item => item.code === itemId);
+
+    if (existingItem) {
+      const updatedStoreList = this.state.storeList.map(item =>
+        item.code === itemId ? {...item, count: item.count + 1} : item,
+      );
+
+      this.setState({
+        ...this.state,
+        storeList: updatedStoreList,
+      });
+    } else {
+      const newItem = this.state.list.find(item => item.code === itemId);
+
+      if (newItem) {
+        this.setState({
+          ...this.state,
+          storeList: [...this.state.storeList, {...newItem, count: 1}],
+        });
+      }
+    }
+    console.log(this.state.storeList);
   };
 
   /**
@@ -57,9 +76,8 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
+      storeList: this.state.storeList.filter(item => item.code !== code),
+    });
   };
 
   /**
@@ -80,8 +98,26 @@ class Store {
         }
         // Сброс выделения если выделена
         return item.selected ? {...item, selected: false} : item;
-      })
-    })
+      }),
+    });
+  }
+
+  getCartPrice() {
+    let sum = 0;
+    for (const item of this.state.storeList) {
+      sum += item.count * item.price;
+    }
+
+    return sum;
+  }
+
+  getCartCount() {
+    let count = 0;
+    for (const item of this.state.storeList) {
+      count += item.count;
+    }
+
+    return count;
   }
 }
 
