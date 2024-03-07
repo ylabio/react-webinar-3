@@ -9,10 +9,6 @@
   margin: 0;
   padding: 20px 20px 10px;
 }
-.Head button{
-  margin: 20px 20px 10px;
-  height: 21px;
-}
 .hidden{
   visibility: collapse;
 }

@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
@@ -12,7 +12,7 @@ import item from './components/item';
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
   const [isModalVisible, setModalVisibility] = useState(false);
   const list = store.getState().list;
   const cart = store.getState().cart;
@@ -34,24 +34,24 @@ function App({store}) {
 
   return (
     <>
-    <PageLayout>
-      <Head title='Магазин'/>
-      <Controls onToggleModal={callbacks.onToggleModal}
-        totalPrice={totalPrice}
-        amount={cart.length}/>
-      <List list={list}
-            onAddItem={callbacks.onAddItem}/>
-    </PageLayout>
-    <Modal show={isModalVisible}
-     closeModal={callbacks.onToggleModal}
-     title="Корзина">
-      <Controls/>
-      <List list={cart}
-        isCart={true}
-        onDeleteItem={callbacks.onDeleteItem}/>
-      <TotalPrice text='Итого'
-        price={totalPrice}/>
-    </Modal>
+      <PageLayout>
+        <Head title='Магазин' />
+        <Controls onToggleModal={callbacks.onToggleModal}
+          totalPrice={totalPrice}
+          amount={cart.length} />
+        <List list={list}
+          onAddItem={callbacks.onAddItem} />
+      </PageLayout>
+      <Modal show={isModalVisible}
+        closeModal={callbacks.onToggleModal}
+        title="Корзина">
+        <Controls />
+        <List list={cart}
+          isCart={true}
+          onDeleteItem={callbacks.onDeleteItem} />
+        <TotalPrice text='Итого'
+          price={totalPrice} />
+      </Modal>
     </>
   );
 }
