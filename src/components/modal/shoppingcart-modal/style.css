@@ -1,0 +1,7 @@
+.ShoppingCartModal-Total {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 53px;
+  font-weight: bold;
+  padding: 20px 120px 89px 10px;
+}

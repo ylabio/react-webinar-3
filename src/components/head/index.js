@@ -1,8 +1,10 @@
 import React from "react";
+import {cn as bem} from '@bem-react/classname';
 import PropTypes from "prop-types";
 import './style.css';
 
 function Head({title}) {
+
   return (
     <div className='Head'>
       <h1>{title}</h1>

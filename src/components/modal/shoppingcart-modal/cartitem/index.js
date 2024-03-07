@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {priceFormat} from "../../utils";
+import {priceFormat} from "../../../../utils";
 import './style.css';
 
-function Item(props) {
+function CartItem(props) {
   const callbacks = {
-    onAddItemToShoppingCart: () => {
-      props.onAddItemToShoppingCart(props.item.code);
+    onRemoveItemFromShoppingCart: () => {
+      props.onRemoveItemFromShoppingCart(props.item);
     },
   }
 
@@ -23,24 +23,26 @@ function Item(props) {
         </div>
       </div>
       <div className="Item-actions">
-        <button onClick={callbacks.onAddItemToShoppingCart}>Добавить</button>
+        <button onClick={callbacks.onRemoveItemFromShoppingCart}>
+          Удалить
+        </button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
-  onAddItemToShoppingCart: PropTypes.func,
+  onRemoveItemFromShoppingCart: PropTypes.func,
 };
 
-Item.defaultProps = {
-  onAddItemToShoppingCart: () => {
+CartItem.defaultProps = {
+  onRemoveItemFromShoppingCart: () => {
   },
 }
 
-export default React.memo(Item);
+export default React.memo(CartItem);

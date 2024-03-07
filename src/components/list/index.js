@@ -2,13 +2,24 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
+import CartItem from '../modal/shoppingcart-modal/cartitem';
 
-function List({list, onDeleteItem, onSelectItem}) {
+function List({list, onAddItemToShoppingCart, onRemoveItemFromShoppingCart}) {
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
+          {item.inCart ? (
+            <CartItem
+              item={item}
+              onRemoveItemFromShoppingCart={onRemoveItemFromShoppingCart}
+            />
+          ) : (
+            <Item
+              item={item}
+              onAddItemToShoppingCart={onAddItemToShoppingCart}
+            />
+          )}
         </div>
       )}
     </div>
@@ -19,14 +30,14 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
+  onAddItemToShoppingCart: PropTypes.func,
+  onRemoveItemFromShoppingCart: PropTypes.func,
 };
 
 List.defaultProps = {
-  onDeleteItem: () => {
+  onAddItemToShoppingCart: () => {
   },
-  onSelectItem: () => {
+  onRemoveItemFromShoppingCart: () => {
   },
 }
 

@@ -3,6 +3,11 @@ body {
   padding: 0;
   background: #535353;
   font-family: sans-serif;
+  overflow-x: hidden;
+}
+
+#root {
+  padding-left: calc(100vw - 100%); /* to prevent scrollbar shifting */
 }
 
 .PageLayout {
