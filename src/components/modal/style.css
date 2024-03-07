@@ -1,0 +1,32 @@
+.Modal-content-item {
+  max-height: 315px;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.Modal-content-item::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.Modal-content-total {
+  align-items: center;
+  display: flex;
+  font-weight: 700;
+  font-size: 18px;
+  justify-content: flex-end;
+  gap: 53px;
+  height: 62px;
+  line-height: 20.7px;
+  margin-top: -71px;
+  padding-right: 120px;
+  padding-bottom: 79px;
+}
+
+.Modal-content-cartempty {
+  text-align: center;
+  font-size: 26px;
+  line-height: 30px;
+  margin-bottom: 70px;
+}

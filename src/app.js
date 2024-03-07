@@ -3,6 +3,10 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Info from './components/info';
+import Modal from './components/modal';
+import ModalLayout from './components/modal-layout';
+import ItemList from './components/item-list';
 
 /**
  * Приложение
@@ -12,28 +16,58 @@ import PageLayout from "./components/page-layout";
 function App({store}) {
 
   const list = store.getState().list;
+  const products = store.getState().products;
+  const active = store.getState().active;
+  const totalPrice = store.getState().totalPrice;
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    onAddToCartItem: useCallback((code) => {
+      store.addToCartItem(code);
+    }, [store]),
+    
+    onOpenModal: useCallback(() => {
+      store.openModal();
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    onCloseModal: useCallback(() => {
+      store.closeModal();
+    }, [store]),
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
+      <Head title='Магазин'/>
+      <Info 
+        data={products}
+        totalPrice={totalPrice}
+      >
+        <Controls 
+          onOpenModal={callbacks.onOpenModal}
+        />
+      </Info>
+      <List 
+        ItemComponent={ItemList}
+        data={list}
+        onAddToCartItem={callbacks.onAddToCartItem}
+      />
+      {active && (
+        <ModalLayout>
+          <Head 
+            title="Корзина" 
+            active={active} 
+            onCloseModal={callbacks.onCloseModal} 
+          />
+          <Modal 
+            data={products}
             onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+            totalPrice={totalPrice}
+          />
+        </ModalLayout>
+      )}
     </PageLayout>
   );
 }
