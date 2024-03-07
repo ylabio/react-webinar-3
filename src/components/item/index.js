@@ -10,7 +10,7 @@ function Item(props) {
   const callbacks = {
     onAdd: (e) => {
       e.stopPropagation();
-      props.addToBasket(props.item);
+      props.addToBasket(props.item.code);
     }
   }
 

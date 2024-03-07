@@ -10,7 +10,7 @@ function Item(props) {
   const callbacks = {
     onDelete: (e) => {
       e.stopPropagation();
-      props.onDelete(props.item);
+      props.onDelete(props.item.code);
     }
   }
 

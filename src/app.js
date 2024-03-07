@@ -1,9 +1,11 @@
 import React, {useCallback, useState} from 'react';
 import List from "./components/list";
+import Item from "./components/item"
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Basket from './components/basket';
+import ModalLayout from './components/modal-layout';
 
 /**
  * Приложение
@@ -12,21 +14,20 @@ import Basket from './components/basket';
  */
 function App({store}) {
 
-  const [activeBasket, setActiveBasket] = useState(false);
+  const [activeModal, setActiveModal] = useState(false);
 
   const list = store.getState().list;
-  const listInBasket = store.getState().listInBasket;
   const summaryPrice = store.getState().summaryPrice;
   const quantityProducts = store.getState().quantityProducts;
 
   const callbacks = {
-    deleteFromBasket: useCallback((item) => {
-      store.deleteFromBasket(item);
+    deleteFromBasket: useCallback((code) => {
+      store.deleteFromBasket(code);
       store.calculateSummary();
     }, [store]),
 
-    addToBasket: useCallback((item) => {
-      store.addToBasket(item);
+    addToBasket: useCallback((code) => {
+      store.addToBasket(code);
       store.calculateSummary();
     }, [store]),
   }
@@ -34,10 +35,17 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls openBasket={setActiveBasket} quantityProducts={quantityProducts}  summaryPrice={summaryPrice}/>
-      <List list={list}
-            addToBasket={callbacks.addToBasket}/>
-      <Basket listInBasket={listInBasket} deleteFromBasket={callbacks.deleteFromBasket} active={activeBasket} closeBasket={setActiveBasket}  summaryPrice={summaryPrice}/>
+      <Controls openModal={setActiveModal} quantityProducts={quantityProducts}  summaryPrice={summaryPrice}/>
+      <List>
+        {list.map(item =>
+          <div key={item.code} className='List-item'>
+            <Item item={item} addToBasket={callbacks.addToBasket}/>
+          </div>
+        )}
+      </List>
+      <ModalLayout title="Корзина" active={activeModal} closeModal={setActiveModal}>
+        <Basket listInBasket={list} deleteFromBasket={callbacks.deleteFromBasket} summaryPrice={summaryPrice}/>
+      </ModalLayout>
     </PageLayout>
   );
 }

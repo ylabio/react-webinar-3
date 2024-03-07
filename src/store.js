@@ -42,17 +42,23 @@ class Store {
    * Добавление товара в корзину.
    * @param code
    */
-  addToBasket(product) {
+  addToBasket(code) {
     this.setState({
       ...this.state,
-      listInBasket: this.state.listInBasket.filter(item => item.code === product.code).length > 0 ? this.state.listInBasket.map(item => {
-        if (item.code === product.code) {
+      list: this.state.list.map(item => {
+        if (item.code === code && item.count) {
           return {
             ...item,
-            count: item.count + 1,
-          };
-        } 
-        return item }) : [...this.state.listInBasket, {...product, count: 1}]
+            count: item.count + 1
+          } 
+        } else if (item.code === code && !item.count) {
+          return {
+            ...item,
+            count: 1
+          }
+        }
+        return item;
+      })
     })
   }
 
@@ -60,10 +66,18 @@ class Store {
    * Удаление товара из корзины.
    * @param code
    */
-  deleteFromBasket(product) {
+  deleteFromBasket(code) {
     this.setState({
       ...this.state,
-      listInBasket: this.state.listInBasket.filter(item => item !== product)
+      list: this.state.list.map(item => {
+        if(item.code === code) {
+          return {
+            ...item,
+            count: 0
+          }
+        }
+        return item;
+      })
     })
   }
 
@@ -74,8 +88,8 @@ class Store {
   calculateSummary() {
     this.setState({
       ...this.state,
-      summaryPrice: this.state.listInBasket.length > 0 ? this.state.listInBasket.reduce((totalPrice, item) => totalPrice += item.price * item.count, 0) : 0,
-      quantityProducts: this.state.listInBasket.length > 0 ?  this.state.listInBasket.reduce((totalCount , item) => totalCount += item.count, 0) : 0,
+      summaryPrice: this.state.list.reduce((totalPrice, item) => item.count > 0 ? totalPrice += item.price * item.count : totalPrice, 0),
+      quantityProducts: this.state.list.reduce((totalCount, item) => item.count > 0 ? totalCount + 1 : totalCount, 0)
     })
   }
 }

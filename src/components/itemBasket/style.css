@@ -1,7 +1,6 @@
 .ItemBasket {
   display: flex;
   justify-content: flex-start;
-  transition: background-color 1s;
 }
 
 .ItemBasket-code {
