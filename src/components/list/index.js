@@ -1,16 +1,14 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
 import './style.css';
-import CartItem from '../cart-item';
 
-function List({list, onClick, cart}) {
+function List({list, typeItem}) {
 
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          {cart ?  <CartItem item={item} onDelete={onClick}  /> : <Item item={item} onAdd={onClick}/>}
+          {typeItem(item)}
         </div>
       )}
     </div>

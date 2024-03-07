@@ -3,9 +3,11 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import Overlay from './components/overlay';
-import Cart from './components/cart';
 import Header from './components/header';
+import CartItem from './components/cart-item';
+import Item from './components/item';
+import Modal from './components/modal';
+import CartFooter from './components/cart-footer';
 
 /**
  * Приложение
@@ -35,6 +37,16 @@ function App({store}) {
     onDelete:  useCallback((code) => {
       store.deleteItem(code);
     }, [store]),
+
+  }
+
+  const renderItem = (typeItem, item) => {
+    switch (typeItem) {
+      case 'CartItem': 
+        return <CartItem item={item} onDelete={callbacks.onDelete}/>
+      default: 
+        return  <Item item={item} onAdd={callbacks.onAddItem}/>
+    }
   }
 
   return (
@@ -42,22 +54,15 @@ function App({store}) {
       <Header>
         <Head title='Магазин'/>
       </Header>
-        <Controls onClick={callbacks.onOpen} title={'Перейти'} quantity={cart.quantity} totalSum={cart.totalSum}/>
-      <List list={list}
-        onClick={callbacks.onAddItem}
-        cart={false}
-      />
+      <Controls onClick={callbacks.onOpen} title={'Перейти'} quantity={cart.quantity} totalSum={cart.totalSum}/>
+      <List list={list} typeItem={item => renderItem('Item', item)}/>
       {isOpenCart ? (
-        <Overlay>
-          <Cart 
-            onClose={callbacks.onClose} 
-            goods={cart.list} 
-            isOpenCart={isOpenCart} 
-            cart={true} 
-            onDelete={callbacks.onDelete} 
-            totalSum={cart.totalSum}
-          />
-        </Overlay>
+        <Modal title={"Корзина"} onClose={callbacks.onClose}>
+          <div className='Cart-list'>
+            <List list={cart.list} typeItem={item => renderItem('CartItem', item)}/>
+          </div>
+          <CartFooter totalSum={cart.totalSum}></CartFooter>
+        </Modal>
       )  : ''}
     </PageLayout>
   );

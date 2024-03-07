@@ -35,7 +35,7 @@ CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    price: PropTypes.number,
+    price: PropTypes.string,
     count: PropTypes.number
   }).isRequired,
   title: PropTypes.string,

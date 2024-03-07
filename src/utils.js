@@ -73,4 +73,3 @@ export function priceFormatter(value, currency = 'rub', locale = 'ru-RU') {
   });
   return formatter.format(value) || '0';
 }
-
