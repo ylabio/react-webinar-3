@@ -23,7 +23,6 @@ function CartInfo({ title, cartItemsCount, cartTotalPrice }) {
       >
         {title}
       </span>
-      {/* {calculateItems() !== 0 && */}
       <div className={cn("content")}>
         {isEmptyCart
           ? ("пусто")
@@ -34,7 +33,6 @@ function CartInfo({ title, cartItemsCount, cartTotalPrice }) {
             })} /` )
         }
       </div>
-      {/* } */}
       {!isEmptyCart && (
         <span className={cn("content")}>{`${formatCurrency(cartTotalPrice)}`}</span>
       )}
