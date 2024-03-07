@@ -42,12 +42,15 @@ class Store {
 
   addProduct(code) {
     const productToAdd = this.state.list.find(item => item.code === code);
-
+    const isUniqueProduct = !this.state.productList.some(item => item.code === productToAdd.code);
+    const newProductCount = isUniqueProduct
+      ? this.state.productCount + 1
+      : this.state.productCount;
     if (productToAdd) {
       this.setState({
         ...this.state,
         productList: [...this.state.productList, productToAdd],
-        productCount: this.state.productList.length + 1,
+        productCount: newProductCount,
         finalPrice: this.state.finalPrice + productToAdd.price
       });
     }
@@ -56,7 +59,7 @@ class Store {
   deleteProduct(code) {
     const newProductList = this.state.productList.filter(item => item.code !== code);
 
-    const newProductCount = newProductList.length;
+    const newProductCount = this.state.productCount - 1;
     const newFinalPrice = newProductList.reduce((total, item) => total + item.price, 0);
 
     this.setState({
