@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
+import Item from "../item-main";
 import './style.css';
+import ItemCart from "../item-cart";
 
 function List(props) {
 
@@ -10,9 +11,9 @@ function List(props) {
   return (
     <div className='List'>{
       props.list.map(item =>
-        (props.show.includes('count') && !item.count) ? null : 
+        (props.type === ItemCart && !item.count) ? null : 
           <div key={item.code} className='List-item'>
-            <Item item={item} show={props.show} onAddItem={props.onAddItem} onDeleteItem={props.onDeleteItem}/>
+            <props.type item={item} show={props.show} onAddItem={props.onAddItem} onDeleteItem={props.onDeleteItem}/>
           </div>
       )}
     </div>

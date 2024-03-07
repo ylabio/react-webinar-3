@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import './style.css';
-import Item from "../item";
+import Item from "../item-main";
 import Head from "../head";
 import List from "../list";
 import { sumGoods } from "../../utils";
