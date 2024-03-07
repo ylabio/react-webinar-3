@@ -1,6 +1,6 @@
 import React from "react";
 import './style.css';
-import { node } from "prop-types";
+import PropTypes from "prop-types";
 
 function Modal (props) {
   return (
