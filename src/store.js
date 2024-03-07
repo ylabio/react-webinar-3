@@ -1,11 +1,12 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      carts: []  
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -41,47 +42,42 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Удаление товара по коду
+   * @param code
    */
-  addItem() {
+  deleteFromCart(code) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      carts: this.state.carts.filter(item => item.code !== code) 
     })
   };
 
   /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
+ * Добавление товара в корзину
+ * @param code
+ */
+  addToCart(code) {
+    const item = this.state.list.find(i => i.code === code);
+  
+    if (!item) {
+      return;  
+    }
+  
+    const itemInCart = this.state.carts.find(i => i.code === code);
+  
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+      carts: itemInCart
+        ? this.state.carts.map(item =>
+            item.code === code
+              ? {...item, count: item.count + 1}  
+              : item  
+          )
+        : [
+          ...this.state.carts,
+          {...item, count: 1}  
+        ]
+    });
   }
 }
 

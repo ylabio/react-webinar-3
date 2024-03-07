@@ -1,25 +1,31 @@
 .Item {
   display: flex;
-  justify-content: flex-start;
-  transition: background-color 1s;
-}
-
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px;
+  box-sizing: border-box;
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  margin-right: 20px;
 }
 
 .Item-title {
-  width: 100%;
-  padding: 20px 10px;
+  flex-grow: 1;
 }
 
-.Item-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+.Item-price {
+  margin-right: 20px;
+}
+
+.Item-count {
+  padding: 2px 5px;
+  margin-right: 15px;
+  margin-left: 42px;
+}
+
+.Item-button {
+  width: 80px;
+  padding: 2px 8px;
+  cursor: pointer;
 }
