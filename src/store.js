@@ -44,12 +44,14 @@ class Store {
             ...this.state,
             isModalOpen: true
         });
+      document.body.classList.add('body-no-scroll');
     }
     closeModal() {
         this.setState({
             ...this.state,
             isModalOpen: false
         });
+        document.body.classList.remove('body-no-scroll');
     }
 
   /**

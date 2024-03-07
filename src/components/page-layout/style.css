@@ -6,6 +6,14 @@ body {
   font-weight: 400;
   font-size: 18px;
 }
+.body-no-scroll {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
 
 .PageLayout {
   max-width: 1024px;
