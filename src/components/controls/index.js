@@ -4,7 +4,7 @@ import {formatPrice, plural} from "../../utils";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function Controls({list, totalPrice, setOpenModal}) {
+function Controls({totalItems, totalPrice, setOpenModal}) {
   const variants = {one: 'товар', few: 'товара', many: 'товаров'};
   const cn = bem('Controls');
 
@@ -17,8 +17,8 @@ function Controls({list, totalPrice, setOpenModal}) {
     <div className={cn()}>
       <div className={cn('title')}>В корзине:</div>
       <div className={cn('param')}>
-        {list.length > 0 
-          ? `${plural(list.length, variants)} / ${formatPrice(totalPrice)}`
+        {totalItems > 0 
+          ? `${plural(totalItems, variants)} / ${formatPrice(totalPrice)}`
           : 'пусто'
         }
       </div>
@@ -28,7 +28,7 @@ function Controls({list, totalPrice, setOpenModal}) {
 }
 
 Controls.propTypes = {
-  list: PropTypes.array,
+  totalItems: PropTypes.number,
   totalPrice: PropTypes.number,
   setOpenCart: PropTypes.func
 };

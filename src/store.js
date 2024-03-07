@@ -43,9 +43,12 @@ class Store {
    * @param item
    */
   addInCart(item) {
+    // Добавляем элемент в корзину, присваивая ему счетчик 
+    this.state.cart.push({...item, count: 1});
+    // Обновляем состояние корзины
     this.setState({
       ...this.state,
-      cart: [...this.state.cart, {...item, count: 1}],
+      cart: this.state.cart
     })
   };
 
@@ -68,6 +71,27 @@ class Store {
   }
 
   /**
+   * Расчет стоимости товаров
+   * @returns {Number}
+   */
+  calculatePrice() {
+    if (this.state.cart.length > 0) {
+      return this.state.cart.reduce((acc, item) => {
+        return acc + (item.price * item.count);
+      }, 0);
+    }
+    return 0;
+  }
+
+  /**
+   * Расчет количества уникального товаров
+   * @returns {Number}
+   */
+  calculateItems() {
+    return this.state.cart.length;
+  }
+
+  /**
    * Переключатель функций добавления товара
    * @param item 
    */
@@ -79,6 +103,9 @@ class Store {
     } else {
       this.increaseCount(item);
     }
+
+    this.calculatePrice();
+    this.calculateItems();
   }
 
   /**

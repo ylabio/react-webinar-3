@@ -63,17 +63,3 @@ export function formatPrice(price) {
       .replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽'
   );
 };
-
-/**
- * Подсчет стоимости товаров
- * @param {Array} arr
- * @returns {Number}
- */
-export function calculatePrice(arr) {
-  if (arr.length > 0) {
-    return arr.reduce((acc, item) => {
-      return acc + (item.price * item.count);
-    }, 0);
-  }
-  return 0;
-}

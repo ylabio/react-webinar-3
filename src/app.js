@@ -1,5 +1,4 @@
 import React, {useCallback, useState} from 'react';
-import {calculatePrice} from './utils';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
@@ -16,7 +15,8 @@ function App({store}) {
   const [openModal, setOpenModal] = useState(false);
   const list = store.getState().list;
   const cart = store.getState().cart;
-  const totalPrice = calculatePrice(cart);
+  const totalPrice = store.calculatePrice();
+  const totalItems = store.calculateItems();
 
   const callbacks = {
     onDeleteItem: useCallback((item) => {
@@ -31,13 +31,10 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls list={cart} totalPrice={totalPrice} setOpenModal={setOpenModal} />
+      <Controls totalItems={totalItems} totalPrice={totalPrice} setOpenModal={setOpenModal} />
       <List list={list} onClick={callbacks.onToggleAdd} textBtn='Добавить' />
-
       {openModal && 
-        <Modal title='Корзина' setOpenModal={setOpenModal}>
-          <Cart list={cart} totalPrice={totalPrice} onClick={callbacks.onDeleteItem} />
-        </Modal>
+        <Cart list={cart} totalPrice={totalPrice} onClick={callbacks.onDeleteItem} setOpenModal={setOpenModal} />
       }
     </PageLayout>
   );

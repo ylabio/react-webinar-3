@@ -14,15 +14,8 @@
   align-items: center;
   justify-content: flex-end;
   gap: 53px;
-  width: 100%;
-}
-
-.Cart-total-text, .Cart-total-price {
   font-weight: 700;
-}
-
-.Cart-total-price {
-  margin-right: 120px;
+  padding-right: 120px;
 }
 
 .Cart-title {
