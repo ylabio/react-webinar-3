@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { numberFormat } from "../../utils";
 import "./style.css";
 
 function ItemCard(props) {
@@ -10,6 +11,9 @@ function ItemCard(props) {
       </div>
       <div className='Item-title'>
         {props.item.title}
+      </div>
+      <div className="Item-info-price">
+        {`${numberFormat(props.item.price)} ₽`}
       </div>
       <div className='Item-actions'>
         <button onClick={() => props.funcButton(props.item.code)}>
