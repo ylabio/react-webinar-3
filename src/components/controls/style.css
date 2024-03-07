@@ -1,5 +1,10 @@
 .Controls {
   display: flex;
-  justify-content: flex-end;
+  justify-content: right;
+  align-items: end;
   padding: 20px;
+}
+
+.Controls button {
+  margin-left: 30px;
 }

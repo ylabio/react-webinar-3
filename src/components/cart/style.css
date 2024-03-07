@@ -1,0 +1,27 @@
+.Cart {
+  transition: background-color 1s;
+  max-height: 100vh;
+}
+
+.Cart-head .Head {
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+}
+
+.Cart-list {
+  margin-top: 70px;
+  max-height: calc(100vh - 250px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.Cart-sum {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  justify-items: flex-end;
+  font-weight: bold;
+  width: 30%;
+  margin-left: 600px;
+  margin-bottom: 90px;
+}
