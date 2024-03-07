@@ -27,10 +27,12 @@ function App({store}) {
 
     onCloseModal: useCallback(() => {
       setIsModalOpen(false);
+      document.body.style.overflow = 'uncet';
     }, []),
 
     onOpenCart: useCallback(() => {
       setIsModalOpen(true);
+      document.body.style.overflow = 'hidden';
     }, [])
   }
 
