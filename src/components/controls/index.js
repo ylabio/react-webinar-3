@@ -4,6 +4,7 @@ import {plural} from '../../utils';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import Button from "../button";
+import { formatPrice } from '../../utils';
 
 function Controls({cartSum, onShowModal}) {
   const cn = bem("Controls");
@@ -17,7 +18,7 @@ function Controls({cartSum, onShowModal}) {
         : `${cartSum.items} ${plural(cartSum.items, {
           one: "товар",
           few: "товара",
-          many: "товаров"})} / ${cartSum.sum} ₽`}</b>
+          many: "товаров"})} / ${formatPrice(cartSum.sum)} `}</b>
       </div>
       <Button title="Перейти" onClick={() => onShowModal(true)}/>
     </div>

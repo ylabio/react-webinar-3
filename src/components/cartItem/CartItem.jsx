@@ -5,13 +5,13 @@ import './style.css';
 import Button from "../button";
 import { formatPrice } from '../../utils';
 
-function Item({item, onClick}) {
-  const cn = bem('Item');
+function CartItem({item, onClick}) {
+  const cn = bem('CartItem');
 
   const callbacks = {
     onClick: (e) => {
       e.stopPropagation();
-      onClick(item);
+      onClick(item.code);
     },
   };
 
@@ -20,22 +20,24 @@ function Item({item, onClick}) {
       <div className={cn("code")}>{item.code}</div>
       <div className={cn("title")}>{item.title}</div>
       <div className={cn("price")}>{formatPrice(item.price)}</div>
-      <Button title="Добавить" onClick={callbacks.onClick}/>
+      <div className={cn("amount")}>{item.count+" шт"}</div>
+      <Button title="Удалить" onClick={callbacks.onClick}/>
     </div>
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number,
+    count: PropTypes.number,
   }).isRequired,
   onClick: PropTypes.func,
 };
 
-Item.defaultProps = {
+CartItem.defaultProps = {
   onClick: () => {},
 };
 
-export default React.memo(Item);
+export default React.memo(CartItem);

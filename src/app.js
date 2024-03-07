@@ -4,6 +4,8 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from './components/modal';
+import Cart from './components/cart';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -14,6 +16,7 @@ function App({store}) {
   const [showModal, setShowModal] = useState(false);
 
   const list = store.getState().list;
+  const cart = store.getState().cart;
   const cartSum = store.getCartSum();
 
   const callbacks = {
@@ -21,8 +24,8 @@ function App({store}) {
       store.getCartSum()
     }, [store]),
 
-    addToCart: useCallback((code) => {
-      store.addToCart(code)
+    addToCart: useCallback((newItem) => {
+      store.addToCart(newItem)
     }, [store]),
 
     removeFromCart: useCallback((code) => {
@@ -33,16 +36,22 @@ function App({store}) {
   return (
     <>
       {showModal &&
-        <Modal
-          cart={list}
-          cartSum={cartSum.sum}
-          onRemoveItem={callbacks.removeFromCart}
-          onShowModal={setShowModal}/>}
+        <Modal >
+          <Cart
+            cart={cart}
+            cartSum={cartSum.sum}
+            onRemoveItem={callbacks.removeFromCart}
+            onShowModal={setShowModal}
+          />
+        </Modal>
+      }
       <PageLayout>
         <Head title='Магазин'/>
         <Controls cartSum={cartSum} onShowModal={setShowModal}/>
-        <List list={list}
-              onClick={callbacks.addToCart} />
+        <List 
+          list={list}
+          makeItem={(item) => <Item item={item} onClick={callbacks.addToCart}/>}
+        />
       </PageLayout>
     </>
   );

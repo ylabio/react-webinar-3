@@ -5,7 +5,7 @@ import {generateCode} from "./utils";
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {...initState, cart: []};
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -93,7 +93,7 @@ class Store {
       items: 0,
       sum: 0,
     }
-    this.state.list.forEach(item => {
+    this.state.cart.forEach(item => {
       if (item.count > 0) {
         result.items += 1;
         result.sum += item.count * item.price;
@@ -104,21 +104,28 @@ class Store {
 
   /**
    * Добавление элемента в корзину
-   * @param code
+   * @param newItem
    */
-  addToCart(code) {
+  addToCart(newItem) {
+    let noItem = true;
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
+      cart: this.state.cart.map(item => {
+        if (item.code === newItem.code) {
+          noItem = false
           return {
             ...item,
-            count: item.count + 1 || 1,
+            count: item.count + 1,
           };
         }
         return item;
       })
     })
+    if (noItem)
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, { ...newItem, count: 1 }]
+      })
   }
 
   /**
@@ -128,15 +135,7 @@ class Store {
   removeFromCart(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          return {
-            ...item,
-            count: 0,
-          };
-        }
-        return item;
-      })
+      cart: this.state.cart.filter(item => item.code !== code)
     })
   }
 }
