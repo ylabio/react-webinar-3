@@ -5,9 +5,9 @@ import {numberWithSpaces} from "../../utils";
 import Product from "../product";
 
 const Cart = ({onDeleteCart, store, cartList}) => {
-    return ( 
+    return (
         <>
-            <div className="Cart-main">
+            <div className={"Cart-main" + (cartList.length > 3 ? " Cart-scroll" : '')} >
                 {cartList.length === 0 && <div className="Cart-desc"><b>Корзина пуста</b></div>}
                 {cartList.map(item => 
                     <Product key={item.code} item={item} onDelete={onDeleteCart} />

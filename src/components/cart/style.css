@@ -1,5 +1,8 @@
 .Cart-main{
-    border-top: 1px dashed #ccc;
+    border-top: 1px dashed #ccc;    
+}
+
+.Cart-scroll{
     height: 190px;
     overflow-y: scroll;
 }
