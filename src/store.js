@@ -41,27 +41,6 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-
-  
-cartList(){
-  let total = 0;
-  const cartEls = [];
-  for (const codeStr in cart) {
-    
-    const code = +codeStr;
-    const item = items.find((x) => x.code === code);
-
-    if (!item) {
-      continue;
-    }
-    const cnt = cart[codeStr];
-    cartEls.push(
-      <CartItem key={code} item={item} cnt={cnt} onDelete={onDeleteItem} />
-    );
-    total += cnt * item.price;
-  }
-  }
-
   /**
    * Добавление новой записи
    */
@@ -71,8 +50,8 @@ cartList(){
   addItem() {
     this.setState({
       ...this.state,
-      list: [
-        ...this.state.list,
+      items: [
+        ...this.state.items,
         { code: generateCode(), title: "Новая запись", price: 111 },
       ],
     });
@@ -86,7 +65,7 @@ cartList(){
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter((item) => item.code !== code),
+      items: this.state.items.filter((item) => item.code !== code),
     });
   }
 
@@ -97,7 +76,7 @@ cartList(){
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map((item) => {
+      items: this.state.items.map((item) => {
         if (item.code === code) {
           // Смена выделения и подсчёт
           return {
@@ -112,6 +91,50 @@ cartList(){
     });
   }
   
+  addToCart = (code) => {
+    const { cart } = this.state;
+    let cnt = 1;
+    if (code in cart) {
+      cnt = cart[code] + 1;
+    }
+    this.setState({
+      ...this.state,
+      cart: {
+        ...cart,
+        [code]: cnt,
+      }
+    });
+  }
+
+  removeFromCart = (code) => {
+    const { cart } = this.state;
+    const cartCpy = { ...cart };
+    delete cartCpy[code];
+    this.setState({
+      ...this.state,
+      cart: cartCpy,
+    });
+  }
+
+  calcTotal() {
+    const { items, cart } = this.state;
+    let total = 0;
+    for (const codeStr in cart) {
+      const code = +codeStr;
+      const item = items.find((x) => x.code === code);
+      if (!item) {
+        continue;
+      }
+      const cnt = cart[codeStr];
+      total += cnt * item.price;
+    }
+    return total;
+  }
+
+  countItemsInCart() {
+    const { cart } = this.state;
+    return Object.keys(cart).length;
+  }
 }
 
 export default Store;
