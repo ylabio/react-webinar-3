@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import { formatPrice } from "../../utils";
 import "./style.css";
 
 function Item(props) {
@@ -15,7 +16,9 @@ function Item(props) {
       <div className="Item-code">{props.item.code}</div>
       <div className="Item-title">{props.item.title}</div>
       <div className="Item-info">
-        <span className="Item-info__price">{`${props.item.price} ₽`}</span>
+        <span className="Item-info__price">{`${formatPrice(
+          props.item.price
+        )} ₽`}</span>
         {props.count > 0 ? (
           <div className="Item-info__count">{`${props.count} шт`}</div>
         ) : null}

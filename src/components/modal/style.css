@@ -14,4 +14,9 @@
   width: 55%;
   background-color: white;
   padding: 0px 0px 89px 0px;
+  border-radius: 10px;
+}
+.Modal-container > div {
+  border-radius: 10px;
+  margin-bottom: 71px;
 }

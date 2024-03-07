@@ -14,7 +14,8 @@ function App({ store }) {
   const [showModal, setShowModal] = useState(false);
 
   const list = store.getState().list;
-  const cart = [...new Set(store.getState().cart)];
+  const cart = store.getState().cart;
+  const sum = store.getState().sum;
 
   function handleModal() {
     setShowModal((show) => !show);
@@ -41,18 +42,16 @@ function App({ store }) {
       <Head title="Магазин" />
       <Controls
         handleModal={handleModal}
+        sum={sum}
         cart={cart}
         showModal={showModal}
         children={"Перейти"}
       />
       <List list={list} handleCart={callbacks.addItemToCart} title="Добавить" />
-      <Modal
-        handleModal={handleModal}
-        handleCart={callbacks.onDeleteItem}
-        showModal={showModal}
-        cart={cart}
-        title="Удалить"
-      />
+      <Modal showModal={showModal}>
+        <Head title="Корзина" handleModal={handleModal} children="Закрыть" />
+        <List list={cart} handleCart={callbacks.onDeleteItem} title="Удалить" />
+      </Modal>
     </PageLayout>
   );
 }

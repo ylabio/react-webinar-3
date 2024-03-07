@@ -15,6 +15,11 @@ export function plural(value, variants = {}, locale = "ru-RU") {
   // Возвращаем вариант по ключу, если он есть
   return variants[key] || "";
 }
+
+export function formatPrice(price) {
+  const formatter = new Intl.NumberFormat("ru");
+  return formatter.format(price);
+}
 /**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.

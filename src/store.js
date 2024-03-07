@@ -1,5 +1,3 @@
-import { generateCode } from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -44,12 +42,23 @@ class Store {
    * Удаление записи
    */
   deleteItem(code) {
-    this.setState({
-      ...this.state,
-      cart: this.state.cart.filter((item) => {
-        if (item.code === code) item.count = 0;
+    let price;
+    let count;
+    const updateCart = [
+      ...this.state.cart.filter((item) => {
+        if (item.code === code) {
+          price = item.price;
+          count = item.count;
+          item.count = 0;
+        }
         return item.code !== code;
       }),
+    ];
+    const sum = this.state.sum - price * count;
+    this.setState({
+      ...this.state,
+      cart: updateCart,
+      sum: sum,
     });
   }
 
@@ -58,16 +67,24 @@ class Store {
    * @param code
    */
   itemToCart(code) {
+    const updateCart = [
+      ...this.state.cart,
+      ...this.state.list.filter((item) => {
+        if (item.code === code) return { ...item, count: (item.count += 1) };
+      }),
+    ];
+    const uniqProduct = [...new Set(updateCart)];
+
+    const sum = uniqProduct.reduce((acc, cur) => {
+      return acc + cur.price * cur.count;
+    }, 0);
+
     this.setState({
       ...this.state,
-      cart: [
-        ...this.state.cart,
-        ...this.state.list.filter((item) => {
-          if (item.code === code) item.count += 1;
-          return item.code === code;
-        }),
-      ],
+      cart: uniqProduct,
+      sum: sum,
     });
+    console.log(this.state);
   }
 }
 

@@ -8,14 +8,13 @@
 .List-sum-container {
   display: flex;
   justify-content: flex-end;
-  margin-right: 120px;
-  width: 90%;
+  width: 88%;
 }
 .List-sum {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-  width: 180px;
+  width: 150px;
   font-size: 18;
   font-weight: 700;
 }

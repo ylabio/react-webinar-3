@@ -4,10 +4,10 @@ import "./style.css";
 import CartInfo from "../cart-info";
 import Button from "../button";
 
-function Controls({ handleModal, cart }) {
+function Controls({ handleModal, sum, cart }) {
   return (
     <div className="Controls">
-      <CartInfo cart={cart} />
+      <CartInfo sum={sum} cart={cart} />
       <Button handleModal={handleModal} children="Перейти" />
     </div>
   );

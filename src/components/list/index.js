@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import Item from "../item";
 import "./style.css";
 import { getSum } from "../../utils";
+import { formatPrice } from "../../utils";
 
 function List({ list, handleCart, title }) {
   const [sum, setSum] = useState(0);
 
   useEffect(() => {
-    console.log(list);
     if (list.length > 0) {
       const sum = getSum(list);
       setSum(sum);
@@ -33,7 +33,7 @@ function List({ list, handleCart, title }) {
         <div className="List-sum-container">
           <div className="List-sum">
             <span>Итого</span>
-            <span>{sum} ₽</span>
+            <span>{formatPrice(sum)} ₽</span>
           </div>
         </div>
       ) : null}

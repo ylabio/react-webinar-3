@@ -20,6 +20,7 @@ const store = new Store({
     { code: generateCode(), title: "Товар сюрприз", price: 0, count: 0 },
   ],
   cart: [],
+  sum: 0,
 });
 
 const root = createRoot(document.getElementById("root"));
