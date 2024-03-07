@@ -1,0 +1,23 @@
+.Cart-main{
+    border-top: 1px dashed #ccc;    
+}
+
+.Cart-scroll{
+    height: 190px;
+    overflow-y: scroll;
+}
+
+.Cart-desc{
+    padding-top: 20px;
+    text-align: center;
+}
+
+.Cart-footer{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 120px 0 0;
+}
+
+.Cart-total{
+    margin-right: 35px;
+}
