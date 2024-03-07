@@ -18,15 +18,31 @@ function Controls({ setModalActive, cnt, total }) {
       <button className="Controls_btn" onClick={() => setModalActive(true)}>
         Перейти
       </button>
+    <div className="Controls">
+      В корзине: &nbsp;
+      <b>
+        {cnt === 0 && total === 0
+          ? " пусто"
+          : `${cnt} ${plural(cnt, "товар", "товара", "товаров")}  / ${total
+              .toString()
+              .replace(/(\d)(?=(\d{3})+$)/g, "$1 ")} ₽`}
+      </b>
+      <button className="Controls_btn" onClick={() => setModalActive(true)}>
+        Перейти
+      </button>
     </div>
+  );
   );
 }
 
 Controls.propTypes = {
   onAdd: PropTypes.func,
+  onAdd: PropTypes.func,
 };
 
 Controls.defaultProps = {
+  onAdd: () => {},
+};
   onAdd: () => {},
 };
 
