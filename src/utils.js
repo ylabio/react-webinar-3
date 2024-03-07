@@ -7,15 +7,19 @@
  * @param [locale] {String} Локаль (код языка)
  * @returns {*|string}
  */
-export function plural(value, variants = {}, locale = 'ru-RU') {
+export function plural(value, variants = {}, locale = "ru-RU") {
   // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
   // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
   // В английском 2 формы: 'one', 'other'
   const key = new Intl.PluralRules(locale).select(value);
   // Возвращаем вариант по ключу, если он есть
-  return variants[key] || '';
+  return variants[key] || "";
 }
 
+export function formatPrice(price) {
+  const formatter = new Intl.NumberFormat("ru");
+  return formatter.format(price);
+}
 /**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.
@@ -23,7 +27,7 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
  */
 export const generateCode = (function (start = 0) {
   return () => ++start;
-}());
+})();
 
 /**
  * Генератор чисел с шагом 1
@@ -40,7 +44,7 @@ export const generateCode1 = (function (start = 0) {
 
   const gen = realGenerator(start);
   return () => gen.next().value;
-}());
+})();
 
 /**
  * Генератор чисел с шагом 1
@@ -48,5 +52,15 @@ export const generateCode1 = (function (start = 0) {
  * @returns {Number}
  */
 export function generateCode2() {
-  return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
+  return generateCode2.value
+    ? ++generateCode2.value
+    : (generateCode2.value = 1);
+}
+
+// Получить суммарную стоимость товаров в корзине
+export function getSum(arr) {
+  const result = arr.reduce((acc, cur) => {
+    return acc + cur.price * cur.count;
+  }, 0);
+  return result;
 }
