@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, { useCallback, useState } from "react";
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
@@ -11,7 +11,7 @@ import ModalCart from "./components/modal-cart";
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
 
   const list = store.getState().list;
 
@@ -34,7 +34,7 @@ function App({store}) {
     onCloseModal: () => {
       setOpenModal(false);
       document.body.style.overflow = "auto";
-    },
+    }
   };
 
   return (
@@ -45,13 +45,10 @@ function App({store}) {
         <List list={list}
               onClick={callbacks.onAddItem} btnName={"Добавить"} cart={false} />
       </PageLayout>
-      {openModal && (
-        <Modal title={"Корзина"} closeModal={callbacks.onCloseModal}>
-          <ModalCart  store={store}
-                     onClick={callbacks.onDeleteItem} />
-        </Modal>
-      )
-      }
+      {openModal && ( <ModalCart store={store}
+                   onClick={callbacks.onDeleteItem}
+                   closeModal={callbacks.onCloseModal} />
+      )}
     </>
   );
 }
