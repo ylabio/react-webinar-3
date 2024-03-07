@@ -14,7 +14,7 @@ function Result({ totalPrice }) {
 }
 
 Result.propTypes = {
-  totalPrice: PropTypes.number
+  totalPrice: PropTypes.string
 }
 
 export default React.memo(Result);

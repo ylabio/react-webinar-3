@@ -4,6 +4,7 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from './components/modal';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -37,10 +38,11 @@ function App({store}) {
             action={callbacks.onAddToCart}
             type='list'
             onSelectItem={callbacks.onSelectItem} />
-      <Modal active={modalActive} setActive={setActive}>
+      {/* <Modal active={modalActive} setActive={setActive}>
         <Head title='Корзина' setActive={setActive}></Head>
         <List list={cart} type='cart' totalPrice={totalPrice} action={callbacks.onDeleteProduct}></List>
-      </Modal>
+      </Modal> */}
+      <Cart modalActive={modalActive} setActive={setActive} title={'Корзина'} list={cart} type={cart} totalPrice={totalPrice} uniqueProductsCount={uniqueProductsCount.size} action={callbacks.onDeleteProduct} />
     </PageLayout>
   );
 }

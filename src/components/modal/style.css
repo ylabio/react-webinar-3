@@ -24,9 +24,9 @@
   transform: scale(0.5);
   transition: 0.4s all;
   max-width: 960px;
-  max-height: 400px;
+  max-height: fit-content;
   width: 50%;
-  height: 70%;
+  height: fit-content;
   overflow-y: scroll;
 }
 
@@ -41,4 +41,10 @@
 
 .Modal-content_active {
   transform: scale(1);
+}
+
+.Modal-button {
+  position: absolute;
+  top: 30px;
+  left: 90%;
 }

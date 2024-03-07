@@ -5,9 +5,3 @@
 .List-item {
   border-bottom: 1px dashed #ccc;
 }
-
-.List-emptyCart {
-  font-size: 40px;
-  text-align: center;
-  margin-top: 100px;
-}

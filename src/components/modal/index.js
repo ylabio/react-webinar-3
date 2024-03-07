@@ -8,6 +8,7 @@ function Modal({active, setActive, children}) {
   return (
     <div className={active ? cn({active: true}) : cn() } onClick={() => {setActive(false)}}>
       <div className={active ? cn('content', { active: true }) : cn('content')} onClick={(e) => e.stopPropagation()}>
+        <button className={cn('button')} onClick={() => setActive(false)}>Закрыть</button>
         {children}
       </div>
     </div>

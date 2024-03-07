@@ -60,3 +60,7 @@ export function countLeftUniqueProducts(cart, code){
   }
   return arr;
 }
+
+export function formatPrice(price){
+  return new Intl.NumberFormat().format(price)
+}

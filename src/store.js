@@ -76,23 +76,27 @@ class Store {
     console.log(this.state);
     this.setState({
       ...this.state,
-      // Новый список, в котором будет на один товар указанного кода меньше
+      // Новый список, в котором не будет товара указанного кода
       cart: this.state.cart.map((item) => {
         if (item.code === code) {
           return {
             ...item,
-            count: --item.count,
+            count: 0,
           };
         }
         return item;
       }),
       uniqueProductsCount: this.state.cart.some(
-        (e) => e.count === 0 && e.code === code
+        (e) => e.code === code
       )
         ? new Set(countLeftUniqueProducts(this.state.cart, code))
         : this.state.uniqueProductsCount.add(code),
-      price: this.state.price - this.state.list[code - 1].price,
+      price: this.state.cart.reduce((acc, e) => {
+        if (e.code === code) return acc;
+        return acc + e.price * e.count;
+      }, 0),
     });
+    console.log(this.state);
   }
 }
 

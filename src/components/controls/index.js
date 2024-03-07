@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import "./style.css";
 import { plural } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
+import { formatPrice } from "../../utils";
+
 function Controls({ setActive, uniqueProductsCount, totalPrice }) {
   const cn = bem("Controls");
 
@@ -16,7 +18,7 @@ function Controls({ setActive, uniqueProductsCount, totalPrice }) {
                 one: "товар",
                 few: "товара",
                 many: "товаров",
-              })} / ${totalPrice} ₽`
+              })} / ${formatPrice(totalPrice)} ₽`
             : "пусто"}
         </span>
       </div>
