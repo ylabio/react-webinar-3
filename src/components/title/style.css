@@ -1,0 +1,21 @@
+.Title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #cccccc;
+  height: 80px;
+  border-radius: 10px 10px 0 0;
+}
+
+.Title b {
+  font-size: 32px;
+}
+
+.Title-button {
+  cursor: pointer;
+  width: 76px;
+  height: 21px;
+  font-size: 13px;
+}

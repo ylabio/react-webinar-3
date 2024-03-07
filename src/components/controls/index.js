@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({onAdd}) {
+function Controls({onOpenBasket}) {
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <button className='Controls-button' onClick={() => onOpenBasket()}>Перейти</button>
     </div>
   )
 }

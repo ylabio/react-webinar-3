@@ -1,0 +1,10 @@
+.Total {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  padding-right: 110px;
+}
+
+.Total > b:first-child {
+  padding-right: 20px;
+}

@@ -1,34 +1,34 @@
-.Item {
+.BasketItem {
   display: flex;
   justify-content: flex-start;
 }
 
-.Item-code {
+.BasketItem-code {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+.BasketItem-title {
   width: 100%;
   padding: 20px 10px;
 }
 
-.Item-price {
+.BasketItem-price {
   padding: 20px 10px;
   white-space: nowrap;
 }
 
-.Item-actions {
+.BasketItem-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }
 
-.Item-count {
+.BasketItem-count {
   padding: 20px 10px;
   white-space: nowrap;
 }
 
-.Item-button {
-  width: 80px;
+.BasketItem-button {
+  width: 76px;
   height: 21px;
 }

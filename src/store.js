@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -7,6 +5,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.addProduct = this.addProduct.bind(this);
+    this.deleteProduct = this.deleteProduct.bind(this);
   }
 
   /**
@@ -40,48 +40,34 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+  addProduct(code) {
+    const productToAdd = this.state.list.find(item => item.code === code);
+    const isUniqueProduct = !this.state.productList.some(item => item.code === productToAdd.code);
+    const newProductCount = isUniqueProduct
+      ? this.state.productCount + 1
+      : this.state.productCount;
+    if (productToAdd) {
+      this.setState({
+        ...this.state,
+        productList: [...this.state.productList, productToAdd],
+        productCount: newProductCount,
+        finalPrice: this.state.finalPrice + productToAdd.price
+      });
+    }
+  }
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+  deleteProduct(code) {
+    const newProductList = this.state.productList.filter(item => item.code !== code);
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+    const newProductCount = this.state.productCount - 1;
+    const newFinalPrice = newProductList.reduce((total, item) => total + item.price, 0);
+
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+      productList: newProductList,
+      productCount: newProductCount,
+      finalPrice: newFinalPrice
+    });
   }
 }
 
