@@ -5,7 +5,6 @@ import { numFormat } from "../../utils";
 import './style.css';
 
 function Item(props) {
-
   const amountVisibility = props.isCart === true ? "Item-amount" : "hidden";
   const containerWidth = props.isCart === true ? "w25" : "w50";
 
