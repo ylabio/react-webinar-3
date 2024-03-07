@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
-import UniversalBtn from "../universalBtn";
-import { plural } from "../../utils";
+import UniversalBtn from "../universal-btn";
+import { currentTotalPrice, plural } from "../../utils";
 
 function Controls({ setIsActiveModale, cartStore }) {
   const amountIntoCart = plural(cartStore.length, {
@@ -9,11 +9,7 @@ function Controls({ setIsActiveModale, cartStore }) {
     few: "товара",
     many: "товаров",
   });
-
-  const totalPriceCart = cartStore.reduce((acc, product) => {
-    acc += product.price;
-    return acc;
-  }, 0);
+  const price = currentTotalPrice(cartStore);
 
   return (
     <div className="Controls">
@@ -29,7 +25,7 @@ function Controls({ setIsActiveModale, cartStore }) {
             </div>
             <span>/</span>
             <div className="Total-price">
-              <p>{totalPriceCart}</p>
+              <p>{price}</p>
               <p>₽</p>
             </div>
           </>
@@ -44,9 +40,5 @@ function Controls({ setIsActiveModale, cartStore }) {
     </div>
   );
 }
-
-Controls.defaultProps = {
-  onSetModal: () => {},
-};
 
 export default React.memo(Controls);

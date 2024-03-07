@@ -4,14 +4,15 @@ import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import "./components/cart/style.css";
-import ModalCart from "./components/modalWindow/modalWindow";
+import ModalWindow from "./components/modal-window";
+import Cart from "./components/cart";
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
   const list = store.getState().list;
   const cartStore = store.getState().productsIntoCart;
   const [isActiveModale, setIsActiveModale] = useState(false);
@@ -34,11 +35,11 @@ function App({store}) {
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
+      <Head title="Магазин" />
       <Controls
         setIsActiveModale={setIsActiveModale}
         cartStore={cartStore}
-        btnText={'Добавить'}
+        btnText={"Добавить"}
       />
       <List
         list={list}
@@ -46,12 +47,15 @@ function App({store}) {
         cartStore={cartStore}
         onAddItemIntoCart={callbacks.onAddItemIntoCart}
       />
-      <ModalCart
+      <ModalWindow
         isActiveModal={isActiveModale}
         setIsActiveModale={setIsActiveModale}
-        cartStore={cartStore}
-        onDeleteItemIntoCart={callbacks.onDeleteItemIntoCart}
-      />
+      >
+        <Cart
+          cartStore={cartStore}
+          onDeleteItemIntoCart={callbacks.onDeleteItemIntoCart}
+        />
+      </ModalWindow>
     </PageLayout>
   );
 }

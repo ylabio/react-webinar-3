@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
-import UniversalBtn from '../universalBtn';
+import UniversalBtn from '../universal-btn';
 
 function List({ list, onAddItemIntoCart }) {
   return (

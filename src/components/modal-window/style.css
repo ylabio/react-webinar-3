@@ -6,15 +6,17 @@
   left: 0;
   display: none;
   z-index: 1;
+
 }
 
 .MyModal-Active {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
-.Modal-Window-Cart {
+.Modal-Window {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -25,4 +27,13 @@
   align-items: center;
   z-index: 1;
   background: rgba(0, 0, 0, 0.5);
+}
+.Content{
+/* border: 1px solid #000; */
+}
+
+.Modal-Btn{
+  position: absolute;
+  top: 29px;
+  right: 49px;
 }

@@ -1,30 +1,20 @@
 import React from "react";
 import Head from "../head";
-import UniversalBtn from "../universalBtn";
+import UniversalBtn from "../universal-btn";
 import Item from "../item";
 import "./style.css";
+import { currentTotalPrice } from "../../utils";
 
-function Cart({ onSetModal, cartStore, onDeleteItemIntoCart }) {
-  const cartTotalProce = cartStore.reduce((acc, product) => {
-    return (acc += product.price * product.amountIntoCart);
-  }, 0);
+function Cart({ cartStore, onDeleteItemIntoCart }) {
+  const price = currentTotalPrice(cartStore)
 
   return (
     <div className="Cart">
       <div className="Cart-Header">
         <Head
           title="Корзина"
-          children={
-            <div className="Cart-Header-Btn">
-              <UniversalBtn
-                btnText="Закрыть"
-                onClick={() => onSetModal(false)}
-              />
-            </div>
-          }
         />
       </div>
-
       {cartStore.length ? (
         <>
           <div className="Cart-Items">
@@ -46,7 +36,7 @@ function Cart({ onSetModal, cartStore, onDeleteItemIntoCart }) {
           <div className="Cart-Total">
             <p>Итого</p>
             <div className="Price">
-              <p>{cartTotalProce}</p>
+              <p>{price}</p>
               <p>₽</p>
             </div>
           </div>
