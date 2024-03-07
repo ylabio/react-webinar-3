@@ -1,0 +1,4 @@
+button {
+  cursor: pointer;
+  width: min(75px, 100%);
+}

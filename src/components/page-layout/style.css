@@ -3,13 +3,25 @@ body {
   padding: 0;
   background: #535353;
   font-family: sans-serif;
+  box-sizing: border-box;
 }
 
-.PageLayout {
+.PageLayout, .PageLayout-shade {
+  position: relative;
   max-width: 1024px;
   min-height: 100vh;
   margin: 0 auto;
   background: #fff;
-  box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
+}
+
+.PageLayout-shade::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 5;
 }
