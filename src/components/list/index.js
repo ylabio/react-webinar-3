@@ -3,31 +3,36 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, onDeleteItem, onSelectItem}) {
+/**
+ *  Функция для создания элемента списка
+ * @param {Object} props - объект пропсов
+ * @param {Array} props.list - Массив с объектами товаров
+ * @param {Function} props.buttonFunction - функция для передачи кнопке
+ * @param {String} props.buttonTitle - надпись на кнопке внутри элемента списка
+ * @returns разметка
+ */
+function List({list, buttonTitle, buttonFunction}) {
   return (
-    <div className='List'>{
+    <ul className='List'>{
       list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
-        </div>
+        <li key={item.code} className='List-item'>
+          <Item item={item} buttonFunction={buttonFunction} buttonTitle={buttonTitle} />
+        </li>
       )}
-    </div>
+    </ul>
   )
-}
+};
 
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
+  buttonFunction: PropTypes.func.isRequired,
+  buttonTitle: PropTypes.string,
 };
 
 List.defaultProps = {
-  onDeleteItem: () => {
-  },
-  onSelectItem: () => {
-  },
-}
+  buttonTitle: 'Кнопка',
+};
 
 export default React.memo(List);

@@ -49,4 +49,19 @@ export const generateCode1 = (function (start = 0) {
  */
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
-}
+};
+
+/**
+ * Функция возвращает отфарматированную цену товара
+ * @param {number} num - число которое отформатировать
+ * @returns {string}
+ */
+export function formatCurrency(num) {
+  const options = {
+    style: "currency",
+    currency: "RUB",
+    minimumFractionDigits: 0,
+   };
+
+  return Intl.NumberFormat("Ru-ru", options).format(num);
+};
