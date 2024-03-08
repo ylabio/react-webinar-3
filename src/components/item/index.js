@@ -1,32 +1,26 @@
-import React from "react";
+import {memo, useState} from "react";
 import PropTypes from "prop-types";
-import { formatPrice } from "../../utils";
-import "./style.css";
+import {cn as bem} from '@bem-react/classname';
+import {numberFormat} from "../../utils";
+import './style.css';
 
 function Item(props) {
-  const { item, price, actionName, onActionClick } = props;
 
-  const formattedPrice = formatPrice(price);
+  const cn = bem('Item');
 
-  const handleAddToCart = () => {
-    onActionClick(item.code);
-  };
   const callbacks = {
-    onDelete: (e) => {
-      e.stopPropagation();
-      props.onActionClick(item.code);
-    },
-  };
+    onAdd: (e) => props.onAdd(props.item._id)
+  }
 
   return (
-    <div className={"Item"} onClick={callbacks.onClick}>
-      <div className="Item-code"></div>
-      <div className="Item-title">{item.title}</div>
-      <div className="Item-price">{formattedPrice}</div>
-      <div className="Item-actions">
-        <button onClick={handleAddToCart} className="Item-actions-button">
-          {actionName}
-        </button>
+    <div className={cn()}>
+      {/*<div className={cn('code')}>{props.item._id}</div>*/}
+      <div className={cn('title')}>
+        {props.item.title}
+      </div>
+      <div className={cn('actions')}>
+        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
+        <button onClick={callbacks.onAdd}>Добавить</button>
       </div>
     </div>
   );
@@ -34,12 +28,15 @@ function Item(props) {
 
 Item.propTypes = {
   item: PropTypes.shape({
-    code: PropTypes.number,
-    actionName: PropTypes.string,
-    price: PropTypes.number,
+    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    title: PropTypes.string,
+    price: PropTypes.number
   }).isRequired,
-
-  onActionClick: PropTypes.func.isRequired,
+  onAdd: PropTypes.func,
 };
 
-export default React.memo(Item);
+Item.defaultProps = {
+  onAdd: () => {},
+}
+
+export default memo(Item);

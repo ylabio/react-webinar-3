@@ -12,7 +12,4 @@ body {
   background: #fff;
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
-  position: sticky;
-  top: 0;
-  z-index: 1;
 }
