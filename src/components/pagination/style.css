@@ -1,0 +1,31 @@
+.Pagination {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.Pagination-cell {
+  text-align: center;
+  font-size: 16px;
+  padding: 2px 6px;
+}
+
+.Pagination-cell:hover {
+  background: #E1E1E1;
+  cursor: pointer;
+}
+
+.Pagination-cell-current {
+  text-align: center;
+  font-size: 16px;
+  padding: 2px 6px;
+  color: white;
+  background: #0087E9;
+}
+
+.Pagination-dots {
+  text-align: center;
+  font-size: 16px;
+  padding: 2px 2px;
+  color: #CCCCCC;
+}

@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useCallback, useEffect, useState} from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -6,14 +6,47 @@ import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import Pagination from '../../components/pagination';
 
 function Main() {
 
   const store = useStore();
 
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(0)
+  const [offset, setOffset] = useState(0)
+
   useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
+    fetch('/api/v1/articles?fields=items(_id), count')
+      .then(res => res.json())
+      .then(data => setTotalPages(Math.ceil(data.result.count / 10)))
+  }, [])
+
+  function nextPage() {
+    if (currentPage === totalPages) return
+    setCurrentPage(prevValue => prevValue + 1)
+    setOffset(prevValue => prevValue + 10)
+  }
+
+  function firstPage() {
+    setCurrentPage(1)
+    setOffset(0)
+  }
+
+  function lastPage() {
+    setCurrentPage(totalPages)
+    setOffset((totalPages - 1) * 10)
+  }
+
+  function prevPage() {
+    if (currentPage === 1) return
+    setCurrentPage(prevValue => prevValue - 1)
+    setOffset(prevValue => prevValue -10)
+  }
+
+  useEffect(() => {
+    store.actions.catalog.load(offset);
+  }, [currentPage]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -37,11 +70,10 @@ function Main() {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
+      <Pagination firstPage={firstPage} lastPage={lastPage} prevPage={prevPage} nextPage={nextPage} currentPage={currentPage} totalPages={totalPages} />
     </PageLayout>
-
   );
 }
 

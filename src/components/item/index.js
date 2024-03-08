@@ -14,7 +14,6 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
         {props.item.title}
       </div>
