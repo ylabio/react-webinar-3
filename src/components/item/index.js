@@ -5,8 +5,11 @@ import {numberFormat} from "../../utils";
 import './style.css';
 import { Link } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
+import { useLanguage } from "../../language";
 
 function Item(props) {
+
+  const { currentLanguage} = useLanguage();
 
   const [showItemDetails, setShowItemDetails] = useState(false)
 
@@ -29,11 +32,11 @@ function Item(props) {
       {showItemDetails 
       ? <div className={cn('container')}>
           <div className={cn('description')}>{props.item.description}</div>
-          <div className={cn('manufacturer')}>Страна производитель: <span className={cn('value')}>{props.item.madeIn.title} ({props.item.madeIn.code})</span></div>
-          <div className={cn('category')}>Категория: <span className={cn('value')}>{props.item.category.title}</span></div>
-          <div className={cn('edition')}>Год выпуска: <span className={cn('value')}>{props.item.edition}</span></div>
-          <div className={cn('pricing')}>Цена: {numberFormat(props.item.price)} ₽</div>
-          <button onClick={callbacks.onAdd}>Добавить</button>
+          <div className={cn('manufacturer')}>{currentLanguage === 'ru' ? 'Страна производитель' : 'Manufacturer'}: <span className={cn('value')}>{props.item.madeIn.title} ({props.item.madeIn.code})</span></div>
+          <div className={cn('category')}>{currentLanguage === 'ru' ? 'Категория' : 'Category'}:  <span className={cn('value')}>{props.item.category.title}</span></div>
+          <div className={cn('edition')}>{currentLanguage === 'ru' ? 'Год выпуска' : 'Edition'}:  <span className={cn('value')}>{props.item.edition}</span></div>
+          <div className={cn('pricing')}>{currentLanguage === 'ru' ? 'Цена' : 'Price'}: {numberFormat(props.item.price)} {currentLanguage === 'ru' ? '₽' : 'RUB'}</div>
+          <button onClick={callbacks.onAdd}>{currentLanguage === 'ru' ? 'Добавить' : 'Add'}</button>
         </div>
       : <div className={cn()}>
           <div className={cn('title')}>
@@ -43,8 +46,8 @@ function Item(props) {
           </div>
 
           <div className={cn('actions')}>
-            <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-            <button onClick={callbacks.onAdd}>Добавить</button>
+            <div className={cn('price')}>{numberFormat(props.item.price)} {currentLanguage === 'ru' ? '₽' : 'RUB'}</div>
+            <button onClick={callbacks.onAdd}>{currentLanguage === 'ru' ? 'Добавить' : 'Add'}</button>
           </div>
         </div>
     }

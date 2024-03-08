@@ -10,7 +10,6 @@ import BasketTool from '../components/basket-tool';
 import { useLocation } from 'react-router-dom';
 import Item from '../components/item';
 
-
 /**
  * Приложение
  * @returns {React.ReactElement}

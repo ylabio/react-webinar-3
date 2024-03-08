@@ -7,10 +7,13 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
+import { useLanguage } from "../../language";
 
 function Main() {
 
   const store = useStore();
+
+  const { currentLanguage } = useLanguage()
 
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(0)
@@ -69,7 +72,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
+      <Head title={currentLanguage === 'ru' ? 'Магазин' : 'Shop'}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
       <Pagination firstPage={firstPage} lastPage={lastPage} prevPage={prevPage} nextPage={nextPage} currentPage={currentPage} totalPages={totalPages} />
