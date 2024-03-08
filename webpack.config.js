@@ -13,11 +13,7 @@ let config = {
   },
   mode: process.env.NODE_ENV,
   resolve: {
-<<<<<<< HEAD
-    extensions: ['.js', 'jsx'], // расширения по умолчанию если не указаны в import
-=======
     extensions: ['.js', '.jsx'], // расширения по умолчанию если не указаны в import
->>>>>>> 965c1b144a06904160cffca15056d32ecb80f433
     modules: ['./', 'node_modules'], // Где искать файлы подключаемых модулей (пакетов)
   },
   module: {
@@ -55,8 +51,6 @@ if (process.env.NODE_ENV === 'development') {
     static: path.join(__dirname, 'dist'),
     port: 8010,
     historyApiFallback: true,
-<<<<<<< HEAD
-=======
     proxy: {
       '/api/**': {
         target: 'http://example.front.ylab.io',
@@ -64,7 +58,6 @@ if (process.env.NODE_ENV === 'development') {
         changeOrigin: true,
       }
     }
->>>>>>> 965c1b144a06904160cffca15056d32ecb80f433
   };
 }
 

@@ -1,32 +1,3 @@
-<<<<<<< HEAD
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
-
-/**
- * Создание элемента со свойствами и вложенными элементами
- * @param name {String} Название HTML тега
- * @param props {Object} Свойства и атрибуты элемента
- * @param children {...Node} Вложенные элементы
- * @returns {HTMLElement}
- */
-export function createElement(name, props = {}, ...children) {
-  const element = document.createElement(name);
-
-  // Назначение свойств и атрибутов
-  for (const name of Object.keys(props)) {
-    if (propNames.has(name)) {
-      element[name] = props[name];
-    } else {
-      element.setAttribute(name, props[name]);
-    }
-  }
-
-  // Вставка вложенных элементов
-  for (const child of children) {
-    element.append(child);
-  }
-
-  return element;
-=======
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -61,5 +32,8 @@ export function codeGenerator(start = 0) {
  */
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
->>>>>>> 965c1b144a06904160cffca15056d32ecb80f433
 }
+
+export const calculateTotalPages = (totalCount) => {
+  return Math.ceil(totalCount / 10);
+}; 
