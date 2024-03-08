@@ -17,11 +17,11 @@ function Paginator({onSetPage, pagesCount, page}) {
   
   return (
     <div className={cn()}>
-      { start > 1 && <ItemPaginator onSetPage={onSetPage} page={1} isActive={page === 1} /> }
+      { start > 1 && <ItemPaginator key={1} onSetPage={onSetPage} page={1} isActive={page === 1} /> }
       { page > CAPACITY - 1 && <div key={'hellip_start'} className={cn('hellip')}>&hellip;</div> }
-      { items.map(item => <ItemPaginator onSetPage={onSetPage} page={item} isActive={page === item} />) }
+      { items.map(item => <ItemPaginator key={item} onSetPage={onSetPage} page={item} isActive={page === item} />) }
       { page < pagesCount - CAPACITY + 2 && <div key={'hellip_finish'} className={cn('hellip')}>&hellip;</div> }
-      { finish < pagesCount && <ItemPaginator onSetPage={onSetPage} page={pagesCount} isActive={page === pagesCount} /> }
+      { finish < pagesCount && <ItemPaginator key={pagesCount} onSetPage={onSetPage} page={pagesCount} isActive={page === pagesCount} /> }
     </div>
   )
 }

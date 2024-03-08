@@ -11,7 +11,7 @@ function ItemPaginator({onSetPage, page, isActive}) {
   }
 
   return (
-    <div key={page} className={cn('item', { active: isActive })} onClick={callbacks.setPage}>{ page }</div>
+    <div className={cn('item', { active: isActive })} onClick={callbacks.setPage}>{ page }</div>
   )
 }
 
