@@ -1,5 +1,6 @@
 .Controls {
   display: flex;
+  min-width: 980px;
   justify-content: flex-end;
   align-items: center;
   padding: 20px;
@@ -14,7 +15,7 @@
   justify-content: space-between;
 }
 .Controls-content p {
-  padding-right: 34px;
+  padding-right: 10px;
   padding-left: 20px;
   font-family: Arial;
   font-size: 18px;
@@ -26,6 +27,7 @@
   height: 21px;
 }
 .Controls-button {
-  min-width: 80px;
-  height: 21px;
+  width: 80px;
+  height: 20px;
+  padding-right: 10px;
 }

@@ -60,7 +60,14 @@ export function formatPrice(price) {
     maximumFractionDigits: 0,
   });
 
-  const formattedPrice = formatter.format(price); // Форматируем цену в соответствии с текущей локалью
+  /**
+ * Форматирование цены
+ * Функция принимает цену и форматирует её в удобочитаемый вид с учётом текущей локали.
+ * @param price {number} Цена, которую необходимо отформатировать.
+ * @returns {string} Отформатированная цена в виде строки с символом валюты и разделителем разрядов.
+ */
+
+  const formattedPrice = formatter.format(price); // Форматируем цену 
 
   // Заменяем символы для RUB на ₽ и удаляем десятичные знаки
   const modifiedPrice = formattedPrice
