@@ -14,3 +14,16 @@
   font-weight: bold;
   margin: 0 20px;
 }
+
+.BasketTool-home {
+  color: #0087E9;
+  cursor: pointer;
+  border-bottom: 1px solid #0087E9;
+  font-size: 18px;
+  margin-right: auto;
+}
+
+.BasketTool-home > a {
+  text-decoration: none;
+  color: inherit;
+}
