@@ -138,8 +138,8 @@ class Store {
    */
   addToCart(code) {
     const findItem = this.state.list.find((elm) => elm.code === code);
-    if (this.state.cart.state.hasOwnProperty(findItem.code)) {
-      findItem.tocart = this.state.cart.state[findItem.code].tocart + 1;
+    if (this.state.cart.state.hasOwnProperty(code)) {
+      findItem.tocart = this.state.cart.state[code].tocart + 1;
     } else {
       findItem.tocart = 1;
     }
@@ -149,7 +149,7 @@ class Store {
         ...this.state.cart,
         state: {
           ...this.state.cart.state,
-          [findItem.code]: findItem,
+          [code]: findItem,
         }
       }
     });
@@ -161,8 +161,7 @@ class Store {
    * @param code
    */
   delFromCart(code) {
-    const findItem = this.state.list.find((elm) => elm.code === code);
-    delete this.state.cart.state[findItem.code];
+    delete this.state.cart.state[code];
     this.setState({
       ...this.state,
       cart: {
