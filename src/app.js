@@ -9,7 +9,14 @@ import './styles.css';
  */
 function App({store}) {
 
+  const toAddNumorus = [2,3,4]
+  const extensionsToAvoidNumorus = [12,13,14]
   const list = store.getState().list;
+
+  function checkOnNumorus(amount){
+    const hint = (toAddNumorus.includes(amount % 10) && !extensionsToAvoidNumorus.includes(amount % 100)) ? 'раза' : 'раз'
+    return hint
+  }
 
   return (
     <div className='App'>
@@ -26,9 +33,9 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-title'>{item.title} {(item.amount > 0)  ? `| ${item.amount} ${checkOnNumorus(item.amount)}` : null} </div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => store.deleteItem(e, item.code)}>
                     Удалить
                   </button>
                 </div>
