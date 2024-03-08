@@ -18,6 +18,19 @@ let config = {
   },
   module: {
     rules: [
+      // Добавляем новое правило для обработки файлов GIF
+      {
+        test: /\.gif$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'images/', // Папка, куда будут скопированы файлы
+            },
+          },
+        ],
+      },
       // Транспиляция JS/JSX
       {
         test: /\.jsx?$/,

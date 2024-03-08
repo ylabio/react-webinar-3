@@ -1,0 +1,10 @@
+.wrapper {
+	width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.loading {
+	width: 441px;
+	height: 291px;
+}

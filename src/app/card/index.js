@@ -6,29 +6,29 @@ import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import BreadCrumbs from "../../components/bread-crumbs";
+import { useParams } from "react-router-dom";
+import ItemCard from "../../components/item-card";
 import { menuPoints } from "../../utils";
+import BreadCrumbs from "../../components/bread-crumbs";
 import CrumbsContainer from "../../components/crumbs-container";
-import Pagination from "../../components/pagination";
 import Loading from "../../components/loading";
-import SelectLanguage from "../../components/select-language";
 import translate from "../../translation/translation";
+import SelectLanguage from "../../components/select-language";
 
 
-function Main() {
+function Card() {
 
   const store = useStore();
+  const params = useParams();
 
   useEffect(() => {
-    store.actions.catalog.getCatalog(1);
-  }, []);
+    store.actions.card.getCard(params.id);
+  }, [params.id]);
 
   const select = useSelector(state => ({
-    list: state.catalog.list,
-    count: state.catalog.count,
-    limit: state.catalog.limit,
-    page: state.catalog.page,
-    loading: state.catalog.loading,
+    card: state.card.dataCard,
+    errorMessage: state.card.errorMessage,
+    loading: state.card.loading,
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.language.language,
@@ -39,15 +39,8 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    onChangePage: useCallback(page => store.actions.catalog.getCatalog(page), [store]),
     onChangeLanguage: useCallback(lang => store.actions.language.setLanguage(lang), [store]),
   }
-
-  const renders = {
-    item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} link={`/card/${item._id}`} language={languageViewData.language.card}/>
-    }, [callbacks.addToBasket, select.language]),
-  };
 
   const optionsLanguage = {
     language: useMemo(() => ([
@@ -71,12 +64,10 @@ function Main() {
                     sum={select.sum}/>
       </CrumbsContainer>
       <Loading loading={select.loading}>
-        <List list={select.list} renderItem={renders.item}/>
-        <Pagination itemsPerPage={select.limit} totalItems={select.count} onChangePage={callbacks.onChangePage} number={select.page}/>
+        <ItemCard card={select.card} error={select.errorMessage} onAddBasket={callbacks.addToBasket} language={languageViewData.language.card}/>
       </Loading>
     </PageLayout>
-
   );
 }
 
-export default memo(Main);
+export default memo(Card);
