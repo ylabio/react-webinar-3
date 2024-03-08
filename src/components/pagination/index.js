@@ -4,7 +4,7 @@ import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import './style.css';
 
-function Pagination({totalCount, currentPage, pageSize, siblingCount}) {
+function Pagination({totalCount, currentPage, pageSize, siblingCount, onChangePage}) {
 	const cn = bem('Pagination');
 
 	const paginationRange = usePagination({
@@ -25,6 +25,7 @@ function Pagination({totalCount, currentPage, pageSize, siblingCount}) {
           return (
             <li
 							className={cn('page-number', {active: pageNum === currentPage,  dots: pageNum === "..."})}
+							onClick={() => onChangePage(pageNum)}
               key={index}
             >
               {pageNum}
@@ -37,6 +38,7 @@ function Pagination({totalCount, currentPage, pageSize, siblingCount}) {
 };
 
 Pagination.propTypes = {
+	onChangePage: PropTypes.func,
   totalCount: PropTypes.number,
   currentPage: PropTypes.number,
   pageSize: PropTypes.number
