@@ -1,5 +1,7 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px dashed #ccc;
 }

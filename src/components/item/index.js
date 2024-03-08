@@ -1,43 +1,29 @@
-import React, {useState} from "react";
+import React from "react";
+import {cn as bem} from '@bem-react/classname';
+import Button from "../button/index";
+import ItemInfo from "../item-info/index";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
 import './style.css';
 
 function Item(props) {
-
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
+  const cn = bem('Item');
 
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
-    onDelete: (e) => {
+    onAddOrRemoveToCart: (e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
-
+      props.callback(props.item);
     }
   }
 
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
+    <div className={cn() + (props.item.selected ? ' Item_selected' : '')}
          onClick={callbacks.onClick}>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {
-        one: 'раз',
-        few: 'раза',
-        many: 'раз'
-      })}` : ''}
+      <div className={cn('code')}>{props.item.code}</div>
+      <div className={cn('title')}>
+        {props.item.title}
       </div>
-      <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
-      </div>
+      <ItemInfo type={props.type} price={props.item.price} count={props.item.countInCart}/>
+      <Button callback={callbacks.onAddOrRemoveToCart}  title={props.buttonTitle}/>
     </div>
   );
 }
@@ -46,17 +32,13 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
     count: PropTypes.number
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+  callback: PropTypes.func,
 };
 
 Item.defaultProps = {
-  onDelete: () => {
-  },
-  onSelect: () => {
+  callback: () => {
   },
 }
 

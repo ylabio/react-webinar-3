@@ -1,0 +1,18 @@
+.Cart-totalSumm {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem 3rem 5rem 1rem;
+  font-weight: 700;
+}
+
+.Cart-emptyRow {
+  height: 60px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.Cart-list {
+  max-height: 60vh;
+  overflow: auto;
+}

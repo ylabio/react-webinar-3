@@ -1,0 +1,11 @@
+* {
+  scrollbar-width: thin;
+}
+
+button {
+  width: 5rem;
+}
+
+.scroll {
+  overflow: hidden;
+}

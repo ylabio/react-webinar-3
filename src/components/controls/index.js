@@ -1,21 +1,29 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import {cn as bem} from '@bem-react/classname';
+import CartInfo from '../cart-info/index'
+import Button from '../button/index'
 import './style.css';
 
-function Controls({onAdd}) {
+function Controls({callbacks ,count , totalSumm}) {
+  const cn = bem('Controls');
+
   return (
-    <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+    <div className={cn()}>
+       <CartInfo count={count} totalSumm={totalSumm}/>
+       <Button callback={callbacks.onOpenCart}  title={'Перейти'}/>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  callbacks: PropTypes.object,
+  count: PropTypes.number,
+  totalSumm: PropTypes.number,
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  callbacks: {}
 }
 
 export default React.memo(Controls);
