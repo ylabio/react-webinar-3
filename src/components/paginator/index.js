@@ -8,7 +8,7 @@ function Paginator({onSetPage, pagesCount, page}) {
   const cn = bem('Paginator');
 
   // Количество ссылок в средней группе
-  const CAPACITY = 5;
+  const CAPACITY = 3;
 
   let start = page - Math.floor(CAPACITY / 2) >= 1 ? page - Math.floor(CAPACITY / 2) : 1;
   const finish = start + CAPACITY - 1 <= pagesCount ? start + CAPACITY - 1 : pagesCount;
