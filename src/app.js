@@ -46,7 +46,10 @@ function App({store}) {
       <List type={'Shop'} list={list}
             callback={callbacks.onAddToCart}
             buttonTitle={'Добавить'}/>
-        {cartIsOpen && <Modal children={<Cart list={cart.items} callbacks={callbacks} buttonTitle={'Удалить'} totalSumm={cart.totalSumm} />} title={'Закрыть'} callbacks={callbacks}/>}
+        {cartIsOpen &&
+         <Modal title={'Корзина'} callbacks={callbacks}>
+          <Cart list={cart.items} callbacks={callbacks} buttonTitle={'Удалить'} totalSumm={cart.totalSumm} />
+        </Modal> }
     </PageLayout>
   );
 }

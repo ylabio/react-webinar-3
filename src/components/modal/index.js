@@ -10,8 +10,8 @@ function Modal({children , title, callbacks}){
      <div className={cn()}>
        <div className={cn('overlay')}>
         <div className={cn('titleRow')}>
-          <Head title='Корзина'/>
-          <Button callback={callbacks.onCloseCart}  title={title}/>
+          <Head title={title}/>
+          <Button callback={callbacks.onCloseCart}  title='Закрыть'/>
         </div>
           {children}
        </div>
