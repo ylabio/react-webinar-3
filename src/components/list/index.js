@@ -3,14 +3,18 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, renderItem}) {
+function List({list, renderItem, isLoading}) {
   return (
-    <div className='List'>{
-      list.map(item =>
-        <div key={item._id} className='List-item'>
-          {renderItem(item)}
-        </div>
-      )}
+    <div className='List'>
+      {
+        isLoading ?
+        <p className='List-loading'>Loading...</p> :
+        list.map(item =>
+          <div key={item._id} className='List-item'>
+            {renderItem(item)}
+          </div>
+        )
+      }
     </div>
   )
 }
@@ -20,6 +24,7 @@ List.propTypes = {
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   })).isRequired,
   renderItem: PropTypes.func,
+  isLoading: PropTypes.bool
 };
 
 List.defaultProps = {
