@@ -1,59 +1,62 @@
 import {memo, useState, useEffect} from "react";
-import { Link } from 'react-router-dom';
 import {cn as bem} from '@bem-react/classname';
-// import Loader from "../loader/index";
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Pagination({pagesCount, onChangePage}) {
+function Pagination({pagesCount, onChangePage ,currentPage}) {
   const cn = bem('Pagination');
 
-  // const [data, setData] = useState([]);
-  // const [isLoading, setisLoading] = useState(false);
+     function getClassName(i) {
+      if (currentPage === i+1) {
 
-  // useEffect(() => {
-  //   setisLoading(true);
-  //   fetchData().then((data) => {
-  //     setData(data);
-  //     setisLoading(false);
-  //   });
-  // }, []);
+        return 'chosen_button';
+      }
+      return '';
+     }
 
-  // async function fetchData() {
-  //   const response = await fetch(`/api/v1/articles/`);
-  //   const result = await response.json();
-  //   console.log('api-result-items', result.result.items);
-  //   return result.result.items;
-  // }
+  const paginationButton = (i) => {
+    return (
+     <button key={i + 1} className={`${cn('button')} ${getClassName(i)}`} onClick={() => onChangePage(i+1)}>
+       <div key={i + 1} id={`${i + 1}`}>
+       {i + 1}
+       </div>
+     </button>
+  )}
 
   return (
     <div className={cn()}>
 
       <div className={cn('buttons')}>
-        {Array(pagesCount).fill(0).map((_, i) => (
-          <button key={i + 1} onClick={() => onChangePage(i+1)}>
-            <Link
-            // key={i + 1}
-            to={`/?page=${i + 1}&count=${10}`}
-            className={cn('button')}
-          >
-            <div key={i + 1} id={`${i + 1}`}>
-              {i + 1}
-            </div>
-          </Link>
-          </button>
+      {currentPage > 3  && paginationButton(0)}
+        {currentPage < 4  && [0,1,2].map((el) => (
+         paginationButton(el)
         ))}
+        {currentPage > 3 && ' ... '}
+        {currentPage >= 4 && currentPage <= (pagesCount-2) && [currentPage-1, currentPage,currentPage+1].map((el) => (
+         paginationButton(el-1)
+        ))}
+        {currentPage === 3 && paginationButton(3)}
+        {currentPage <= (pagesCount-2) && ' ... '}
+        {(currentPage === pagesCount-1) && paginationButton(pagesCount-3)}
+        {currentPage > (pagesCount-2) && [pagesCount-2,pagesCount-1,pagesCount].map((el) => (
+         paginationButton(el)
+        ))}
+        {currentPage <= (pagesCount-2) && paginationButton(pagesCount)}
       </div>
     </div>
   )
 }
 
-// Pagination.propTypes = {
-//   onAdd: PropTypes.func
-// };
+Pagination.propTypes = {
+  pagesCount: PropTypes.number,
+  onChangePage: PropTypes.func,
+  currentPage: PropTypes.number,
+};
 
-// Pagination.defaultProps = {
-//   onAdd: () => {}
-// }
+Pagination.defaultProps = {
+  pagesCount: 0,
+  onChangePage: () => {},
+  currentPage: 0
+}
 
 export default memo(Pagination);

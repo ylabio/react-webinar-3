@@ -19,6 +19,7 @@ function Main() {
   const select = useSelector(state => ({
     list: state.catalog.list,
     pages: state.catalog.pages,
+    currentPage: state.catalog.currentPage,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -43,7 +44,7 @@ function Main() {
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
-      <Pagination pagesCount={select.pages} onChangePage={callbacks.onChangePage}/>
+      <Pagination pagesCount={select.pages} onChangePage={callbacks.onChangePage} currentPage={select.currentPage}/>
     </PageLayout>
   );
 }
