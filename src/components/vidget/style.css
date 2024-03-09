@@ -1,0 +1,36 @@
+.Vidget {
+  min-width: 150px;
+  min-height: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  line-height: 21px;
+}
+
+.Vidget-title {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.Vidget-inform {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+}
+
+.Vidget-inform_short-gap {
+  padding-left: 15px;
+}
+
+.Vidget-inform_long-gap {
+  padding-left: 45px;
+}
+
+.Vidget-goods {
+  padding-left: 15px;
+}
+
+.Vidget-costs {
+  padding-left: 45px;
+}

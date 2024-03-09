@@ -1,4 +1,7 @@
 import React, {useCallback} from 'react';
+import PropTypes from 'prop-types';
+import Basket from "./components/basket";
+import Modal from "./components/modal";
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
@@ -11,31 +14,72 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
-  const list = store.getState().list;
-
+  const {list, modal, cart} = store.getState();
+  // The target for rendering elements of list items
+  const lsTarget = { name: "main", ctrl: "Добавить"};
+  
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+    forOpenModal: useCallback(() => {
+      store.openModal();
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    forCloseModal: useCallback(() => {
+      store.closeModal();
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    forAddToCart: useCallback((code) => {
+      store.addToCart(code);
+    }, [store]),
+
+    forDelFromCart: useCallback((code) => {
+      store.delFromCart(code);
+    }, [store]),
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title='Магазин'/>
+      <Controls count={cart.count} callback={callbacks.forOpenModal}/>
+      <List list={list} callback={callbacks.forAddToCart} target={lsTarget}/>
+      <Modal modal={modal} children>
+        <Basket cart={cart}
+                forModal={callbacks.forCloseModal}
+                forItem={callbacks.forDelFromCart}
+        />
+      </Modal>
     </PageLayout>
   );
+}
+
+// Typechecking with PropTypes:
+App.propTypes = {
+  store: PropTypes.shape({
+    list: PropTypes.arrayOf(PropTypes.shape({
+      code: PropTypes.number,
+      title: PropTypes.string,
+      price: PropTypes.number,
+      tocart: PropTypes.number,
+    })),
+    modal: PropTypes.bool,
+    cart: PropTypes.shape({
+      state: PropTypes.objectOf(PropTypes.shape({
+        code: PropTypes.number,
+        title: PropTypes.string,
+        price: PropTypes.number,
+        tocart: PropTypes.number,
+      })),
+      count: PropTypes.shape({
+        goods: PropTypes.number,
+        costs: PropTypes.number
+      }),
+    }),
+  }).isRequired,
+};
+
+// Default values for properties:
+App.defaultProps = {
+  modal: false,
+  cart: { goods: 0, costs: 0 },
 }
 
 export default App;

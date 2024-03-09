@@ -1,3 +1,4 @@
+import modal from "./components/modal";
 import {generateCode} from "./utils";
 
 /**
@@ -6,6 +7,14 @@ import {generateCode} from "./utils";
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.state.modal = false;
+    this.state.cart = {
+      state: {},
+      count: {
+        goods: 0,
+        costs: 0
+      },
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -82,7 +91,88 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     })
-  }
+  };
+
+  /**
+   * Open the modal
+   */
+  openModal() {
+    this.setState({
+      ...this.state,
+      modal: true
+    });
+  };
+
+  /**
+   * Close the modal
+   */
+  closeModal() {
+    this.setState({
+      ...this.state,
+      modal: false
+    });
+  };
+
+  /**
+   * Counting of totals goods and costs
+   */
+  cartCounter() {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        count: Object.values(this.state.cart.state).reduce((acc, elm) => {
+          if (elm.tocart && elm.tocart !== 0) {
+            const costs = elm.price * elm.tocart;
+            return { goods: acc.goods + 1, costs: acc.costs + costs}
+          }
+          return acc;
+        }, { goods: 0, costs: 0 }),
+      },
+    });
+  };
+
+  /**
+   * Adding a goods to the cart by code
+   * @param code
+   */
+  addToCart(code) {
+    const findItem = this.state.list.find((elm) => elm.code === code);
+    if (this.state.cart.state.hasOwnProperty(code)) {
+      findItem.tocart = this.state.cart.state[code].tocart + 1;
+    } else {
+      findItem.tocart = 1;
+    }
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        state: {
+          ...this.state.cart.state,
+          [code]: findItem,
+        }
+      }
+    });
+    this.cartCounter();
+  };
+
+  /**
+   * Removing a goods from the cart by code
+   * @param code
+   */
+  delFromCart(code) {
+    delete this.state.cart.state[code];
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        state: {
+          ...this.state.cart.state,
+        }
+      }
+    });
+    this.cartCounter();
+  };
 }
 
 export default Store;

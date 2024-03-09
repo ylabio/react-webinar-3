@@ -1,0 +1,65 @@
+.Modal {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.6);
+
+}
+
+.Modal-close {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  -webkit-transition: opacity .6s, visibility .5s ease;
+    -moz-transition: opacity .6s, visibility .5s ease;
+        transition: opacity .6s, visibility .5s ease;
+}
+
+.Modal-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  -webkit-transition: opacity .6s, visibility .5s ease;
+    -moz-transition: opacity .6s, visibility .5s ease;
+        transition: opacity .6s, visibility .5s ease;
+}
+
+.Modal-content {
+  width: 960px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.Modal-content > div,
+.Basket:first-child {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.Modal-content:last-child {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.Modal-content-close {
+  -webkit-transform: scale(0.5);
+    -moz-transform: scale(0.5);
+      transform: scale(0.5);
+  -webkit-transition: -webkit-transform .6s, -moz-transform .6s, transform .6s ease;
+    -moz-transition: -webkit-transform .6s, -moz-transform .6s, transform .6s ease;
+      transition: -webkit-transform .6s, -moz-transform .6s, transform .6s ease;
+}
+
+.Modal-content-open {
+  -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+      transform: scale(1);
+  -webkit-transition: -webkit-transform .6s, -moz-transform .6s, transform .6s ease;
+    -moz-transition: -webkit-transform .6s, -moz-transform .6s, transform .6s ease;
+      transition: -webkit-transform .6s, -moz-transform .6s, transform .6s ease;
+}

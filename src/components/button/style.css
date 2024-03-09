@@ -1,0 +1,15 @@
+.Button {
+  cursor: default;
+}
+
+.Button_item {
+  width: 72px;
+}
+
+.Button_basket {
+  width: 76px;
+}
+
+.Button_controls {
+  width: 80px;
+}

@@ -1,63 +1,48 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import {plural} from "../../utils";
+import {format} from "../../utils";
+import Button from "../button";
 import './style.css';
 
-function Item(props) {
+function Item({item, callback, target}) {
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
-  const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
-    onDelete: (e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code);
-
-    }
-  }
+  const numForm = format(item.price);
 
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-         onClick={callbacks.onClick}>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {
-        one: 'раз',
-        few: 'раза',
-        many: 'раз'
-      })}` : ''}
-      </div>
+    <div className='Item'>
+      <div className='Item-code'>{item.code}</div>
+      <div className='Item-title'>{item.title}</div>
+      <div className='Item-price'>{`${numForm} ₽`}</div>
+      {target.name === "basket" && <div className='Item-tocart'>
+        {`${item.tocart} шт`}</div>}
       <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
+        {/* callbacks.onDelete */}
+        <Button style='Button_item' callback={callback} param={item.code}>
+          {target.ctrl}
+        </Button>
       </div>
     </div>
   );
 }
 
+// Typechecking with PropTypes:
 Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
-    count: PropTypes.number
+    price: PropTypes.number
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+  callback: PropTypes.func.isRequired,
+  target: PropTypes.shape({
+    name: PropTypes.string,
+    ctrl: PropTypes.string
+  }).isRequired,
 };
 
+// Default values for properties:
 Item.defaultProps = {
-  onDelete: () => {
-  },
-  onSelect: () => {
-  },
+  callback: () => {},
+  target: { name: "main", ctrl: "Добавить"},
 }
 
 export default React.memo(Item);

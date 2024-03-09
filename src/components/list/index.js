@@ -3,31 +3,37 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, onDeleteItem, onSelectItem}) {
+function List({list, callback, target}) {
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem}/>
+          <Item item={item} callback={callback} target={target}/>
         </div>
       )}
     </div>
   )
 }
 
+// Typechecking with PropTypes:
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number
+    code: PropTypes.number,
+    title: PropTypes.string,
+    price: PropTypes.number,
+    tocart: PropTypes.number,
   })).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func
+  callback: PropTypes.func.isRequired,
+  target: PropTypes.shape({
+    name: PropTypes.string,
+    ctrl: PropTypes.string
+  }).isRequired,
 };
 
+// Default values for properties:
 List.defaultProps = {
-  onDeleteItem: () => {
-  },
-  onSelectItem: () => {
-  },
+  callback: () => {},
+  target: { name: "main", ctrl: "Добавить"},
 }
 
 export default React.memo(List);
