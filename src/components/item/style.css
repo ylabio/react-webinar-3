@@ -5,6 +5,15 @@
   padding-left: 10px
 }
 
+.p-title{
+ display: inline;
+}
+.p-title:hover{
+  cursor: pointer;
+  text-decoration:underline;
+}
+
+
 .Item_selected {
   background: #75aaf1;
   color: #fff;
