@@ -21,7 +21,8 @@ function Arcticle() {
   const select = useSelector(state => ({
     article: state.articles.article,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    page: state.catalog.page,
   }));
 
   const callbacks = {
@@ -40,7 +41,7 @@ function Arcticle() {
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-        link={{title: 'Главная', url: '/'}}/>
+        link={{title: 'Главная', url: `/?page=${(select.page)}`}}/>
       {select.article && <Detailizer article={select.article} onAdd={callbacks.addToBasket}/>}
     </PageLayout>
   );
