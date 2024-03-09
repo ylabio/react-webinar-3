@@ -13,34 +13,29 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 function Main() {
 
-  const store = useStore();
-  const rawPage = useParams().page
-  const page = parseInt(rawPage);
-  const navigate = useNavigate();
 
+  const store = useStore();
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    lastPage: state.catalog.pagination.last,
+    maxPage: state.catalog.pagination.max,
     currentPage: state.catalog.pagination.current,
   }));
 
-  useEffect(() => {
-    !select.lastPage && store.actions.catalog.load(1);
-  }, [select.lastPage])
+  const rawPage = useParams().page
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if(!select.lastPage || page === select.currentPage) return;
-    let normalizedPage = page;
-    if(!page || page < 1) normalizedPage = 1;
-    if(page > select.lastPage) normalizedPage = select.lastPage;
+    const page = parseInt(rawPage);
+    const normalizedPage = page ? page : 1;
+    console.log(normalizedPage)
     if(normalizedPage !== page) {
       navigate('/' + normalizedPage);
     } else {
       store.actions.catalog.load(normalizedPage);
     }
-  }, [page, select.lastPage, select.currentPage]);
+  }, [rawPage]);
 
 
   const callbacks = {
@@ -64,7 +59,7 @@ function Main() {
         <BasketTool />
       </MainMenu>
       <List list={select.list} renderItem={renders.item}/>
-      <Pagination />
+      <Pagination max={select.maxPage} current={select.currentPage} />
     </PageLayout>
 
   );

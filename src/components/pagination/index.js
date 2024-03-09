@@ -5,24 +5,19 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 
-function Pagination() {
+function Pagination({max, current}) {
 
   const cn = bem('Pagination');
 
-  const {last, current} = useSelector(state => ({
-    last: state.catalog.pagination.last,
-    current: state.catalog.pagination.current,
-  }));
-
   return (
     <div className={cn()}>
-      {new Array(last).fill(true).map((_, i)=> {
+      {new Array(max).fill(true).map((_, i)=> {
         const number = i + 1;
         let content = null;
-        if(number === 2 && current > 3 || number === last - 1 && current < last - 2) {
+        if(number === 2 && current > 3 || number === max - 1 && current < max - 2) {
           content = <div className={cn('gap')}>...</div>
         }
-        if(number === 1 || number === last || Math.abs(number - current) <= 1) {
+        if(number === 1 || number === max || Math.abs(number - current) <= 1) {
           content = <NavLink className={cn('link')} to={`/${number}`}>
                       {number}
                     </NavLink>

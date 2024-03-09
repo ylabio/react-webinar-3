@@ -14,7 +14,7 @@ class Catalog extends StoreModule {
       pagination: {
         limit: 10,
         current: 1,
-        last: undefined,
+        max: undefined,
       }
     }
   }
@@ -25,12 +25,14 @@ class Catalog extends StoreModule {
     const query = `?limit=${pagination.limit}&skip=${skip}&fields=items(_id, title, price),count`;
     const response = await fetch('/api/v1/articles' + query);
     const json = await response.json();
+    const max = Math.ceil(json.result.count / pagination.limit);
+    if(pageNumber > max) return this.load(max);
     this.setState({
       ...this.getState(),
       list: json.result.items,
       pagination: {
         ...pagination,
-        last: Math.ceil(json.result.count / pagination.limit),
+        max,
         current: pageNumber
        }
     }, 'Загружены товары из АПИ');

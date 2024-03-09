@@ -17,7 +17,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/:page" element={<Main/>} />
+        <Route path="/:page?" element={<Main/>} />
         <Route path="/product/:productId" element={<Product />} />
         {/* <Route path="*" element={<NoMatch />} /> */}
       </Routes>
