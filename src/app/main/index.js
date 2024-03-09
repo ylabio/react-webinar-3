@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useCallback, useEffect, useMemo} from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -6,14 +6,18 @@ import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import Pagination from '../../components/pagination';
+import { useLocation, useParams } from 'react-router';
 
 function Main() {
 
   const store = useStore();
+  const {id} = useParams()
 
   useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
+    const pageNum = id !== undefined ? id : "1";
+    store.actions.catalog.loadCurrPage(pageNum);
+  },[id])
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -40,6 +44,7 @@ function Main() {
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
+      <Pagination/>
     </PageLayout>
 
   );

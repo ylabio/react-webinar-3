@@ -1,0 +1,15 @@
+.pagination-button {
+    font-size: 16px;
+    border-radius: none;
+    background-color: transparent;
+    border: none;
+}
+
+.pagination-button-pressed {
+    background-color: #0087E9;
+    color: white;
+}
+
+.pagination-button:hover {
+    background-color: #E1E1E1;
+}
