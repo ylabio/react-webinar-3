@@ -1,6 +1,6 @@
 import {memo} from 'react';
 import PropTypes from 'prop-types';
-import ItemPaginator from './item-paginator';
+import {Link} from 'react-router-dom';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
@@ -17,11 +17,11 @@ function Paginator({onSetPage, pagesCount, page}) {
   
   return (
     <div className={cn()}>
-      { start > 1 && <ItemPaginator key={1} onSetPage={onSetPage} page={1} isActive={page === 1} /> }
+      { start > 1 && <Link key={1} to={'/?page=1'} className={cn('item', {active: page === 1})}>1</Link> }
       { page > CAPACITY - 1 && <div key={'hellip_start'} className={cn('hellip')}>&hellip;</div> }
-      { items.map(item => <ItemPaginator key={item} onSetPage={onSetPage} page={item} isActive={page === item} />) }
+      { items.map(item => <Link key={item} to={`/?page=${item}`} className={cn('item', {active: page === item})}>{item}</Link>) }
       { page < pagesCount - CAPACITY + 2 && <div key={'hellip_finish'} className={cn('hellip')}>&hellip;</div> }
-      { finish < pagesCount && <ItemPaginator key={pagesCount} onSetPage={onSetPage} page={pagesCount} isActive={page === pagesCount} /> }
+      { finish < pagesCount && <Link key={pagesCount} to={`/?page=${pagesCount}`} className={cn('item', {active: page === pagesCount})}>{pagesCount}</Link> }
     </div>
   )
 }

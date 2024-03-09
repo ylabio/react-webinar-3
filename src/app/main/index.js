@@ -1,4 +1,5 @@
 import {memo, useCallback, useEffect} from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -11,10 +12,12 @@ import useSelector from "../../store/use-selector";
 function Main() {
 
   const store = useStore();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
+    const page = searchParams.get("page")
+    store.actions.catalog.load(Number(page) || 1);
+  }, [searchParams]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
