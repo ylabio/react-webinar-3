@@ -33,3 +33,9 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+
+export function range(start, end) {
+  let length = end - start + 1;
+  return Array.from({ length }, (_, idx) => idx + start);
+}
