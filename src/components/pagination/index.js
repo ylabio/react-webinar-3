@@ -20,8 +20,6 @@ function Pagination(props) {
     pageSize
   })
 
-  console.log(paginationRange);
-
   if (currentPage === 0 || paginationRange.length < 2) {
     return null;
   }
@@ -54,12 +52,12 @@ Pagination.propTypes = {
   currentPage: PropTypes.number,
   pageSize: PropTypes.number,
   totalCount: PropTypes.number,
-  setCurrentPage: PropTypes.func,
+  setNumberPage: PropTypes.func,
   siblingCount: PropTypes.number,
 };
 
 Pagination.defaultProps = {
-  setCurrentPage: (num) => {},
+  setNumberPage: (num) => {},
 }
 
 export default memo(Pagination);
