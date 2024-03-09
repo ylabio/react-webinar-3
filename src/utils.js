@@ -33,3 +33,30 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {minimumFractionDigits: 2}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function getTranslater(lang) {
+  const dictionary = {
+    'en': {
+      'Магазин': 'Store',
+      'Корзина': 'Basket',
+      'Главная': 'Main',
+      'В корзине:': 'In basket:',
+      'пусто': 'empty',
+      'Добавить': 'Add',
+      'Удалить': 'Remove',
+      'Перейти': 'Go',
+      'Закрыть': 'Close',
+      'Итого': 'Total',
+      'Страна производитель:': 'Made in:',
+      'Категория:': 'Category:',
+      'Год выпуска:': 'Year of prodaction:',
+      'Цена:': 'Price',
+      'товар': 'product',
+      'товара': 'products',
+      'товаров': 'products',
+      'English': 'Русский',
+    },
+  }
+
+  return (text) => lang === 'ru' ? text : dictionary[lang][text];
+}

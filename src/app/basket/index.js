@@ -1,12 +1,15 @@
-import {memo, useCallback} from 'react';
+import {memo, useCallback, useContext} from 'react';
 import ItemBasket from "../../components/item-basket";
 import List from "../../components/list";
 import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import {LanguageContext} from '../../contexts';
 
 function Basket() {
+
+  const tralslate = useContext(LanguageContext);
 
   const store = useStore();
 
@@ -33,9 +36,9 @@ function Basket() {
   };
 
   return (
-    <ModalLayout title='Корзина' onClose={callbacks.closeModal}>
+    <ModalLayout title={tralslate('Корзина')} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} tralslate={tralslate}/>
     </ModalLayout>
   );
 }

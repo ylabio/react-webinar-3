@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useCallback, useEffect, useContext} from 'react';
 import PageLayout from "../../components/page-layout";
 import HeadLayout from '../head-layout';
 import Item from "../../components/item";
@@ -7,8 +7,12 @@ import Pagination from '../../components/pagination';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import {useNavigate, useParams} from 'react-router-dom';
+import {LanguageContext} from '../../contexts';
 
-function Main() {
+function Main({onToggleLanguage}) {
+
+
+  const tralslate = useContext(LanguageContext);
 
   const store = useStore();
   const select = useSelector(state => ({
@@ -40,7 +44,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <HeadLayout headTitle={'Магазин'}/>
+      <HeadLayout headTitle={tralslate('Магазин')} onToggleLanguage={onToggleLanguage}/>
       <List list={select.list} renderItem={renders.item}/>
       <Pagination max={select.maxPage} current={select.currentPage} />
     </PageLayout>

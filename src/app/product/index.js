@@ -6,7 +6,7 @@ import PageLayout from "../../components/page-layout";
 import HeadLayout from '../head-layout';
 import ProductContent from '../../components/product-content';
 
-function Product() {
+function Product({onToggleLanguage}) {
 
   const store = useStore();
   let { productId } = useParams();
@@ -24,7 +24,7 @@ function Product() {
 
   return (
     <PageLayout>
-      <HeadLayout headTitle={product.title} />
+      <HeadLayout headTitle={product.title} onToggleLanguage={onToggleLanguage}/>
       <ProductContent product={product} onAdd={addToBasket} />
     </PageLayout>
   );

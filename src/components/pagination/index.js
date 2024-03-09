@@ -1,9 +1,7 @@
 import {memo} from 'react';
 import {NavLink} from "react-router-dom";
-import useSelector from '../../store/use-selector';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
-
 
 function Pagination({max, current}) {
 

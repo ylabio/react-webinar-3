@@ -7,7 +7,7 @@ import MainMenu from '../../components/main-menu';
 import MainNav from '../../components/main-nav';
 
 
-function HeadLayout({headTitle}) {
+function HeadLayout({headTitle, onToggleLanguage}) {
 
   const store = useStore();
   const select = useSelector(state => ({
@@ -20,7 +20,7 @@ function HeadLayout({headTitle}) {
 
   return (
     <>
-      <Head title={headTitle}/>
+      <Head title={headTitle} onToggleLanguage={onToggleLanguage}/>
       <MainMenu>
         <MainNav currentPage={select.currentCatalogPage}/>
         <BasketTool onOpen={openModalBasket}

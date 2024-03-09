@@ -1,26 +1,29 @@
-import {memo} from "react";
+import {memo, useContext} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
+import {LanguageContext} from '../../contexts';
 import './style.css';
 
 function BasketTool(props) {
 
+  const tralslate = useContext(LanguageContext);
+
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('label')}>{tralslate('В корзине:')}</span>
       <span className={cn('total')}>
         {props.amount
           ? `${props.amount} ${plural(props.amount, {
-            one: 'товар',
-            few: 'товара',
-            many: 'товаров'
+            one: tralslate('товар'),
+            few: tralslate('товара'),
+            many: tralslate('товаров')
           })} / ${numberFormat(props.sum)} ₽`
-          : `пусто`
+          : tralslate('пусто')
         }
       </span>
-      <button onClick={props.onOpen}>Перейти</button>
+      <button onClick={props.onOpen}>{tralslate('Перейти')}</button>
     </div>
   );
 }
