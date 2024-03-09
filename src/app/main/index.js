@@ -14,6 +14,7 @@ function Main() {
   const store = useStore();
 
   const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     store.actions.catalog.load();
@@ -53,7 +54,7 @@ function Main() {
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
         sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
-      <Pagination count={totalPages} />
+      <Pagination totalPages={totalPages} currentPage={currentPage} onChangePage={setCurrentPage} />
     </PageLayout>
 
   );
