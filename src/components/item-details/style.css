@@ -1,0 +1,18 @@
+.ItemDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 20px 0 20px;
+}
+
+.ItemDetails-text {
+  margin: 0;
+}
+
+.ItemDetails-text_size_m {
+  font-size: 24px;
+}
+
+.ItemDetails-btn {
+  width: min-content;
+}

@@ -6,8 +6,11 @@
   font-size: 18px;
 }
 
-.BasketTool-label {
+.BasketTool-link {
+  margin-right: auto;
+}
 
+.BasketTool-label {
 }
 
 .BasketTool-total {
