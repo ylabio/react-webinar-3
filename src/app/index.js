@@ -1,23 +1,29 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
-import Main from "./main";
-import Basket from "./basket";
-import useStore from "../store/use-store";
-import useSelector from "../store/use-selector";
+import {
+  createBrowserRouter, 
+  createRoutesFromElements, 
+  Route, 
+  RouterProvider} from 'react-router-dom';
+import PageLayout from '../components/page-layout';
+import HomePage from '../pages/home-page';
+import ItemPage, { itemLoader } from '../pages/item-page';
+import ErrorPage from '../pages/error-page';
 
-/**
- * Приложение
- * @returns {React.ReactElement}
- */
-function App() {
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<PageLayout />}>
+      <Route index element={<HomePage />} />
+      <Route
+        path="items/:itemId"
+        element={<ItemPage />}
+        loader={itemLoader}
+      />
+      <Route path="*" element={<ErrorPage />} />
+    </Route>
+  )
+);
 
-  const activeModal = useSelector(state => state.modals.name);
-
-  return (
-    <>
-      <Main/>
-      {activeModal === 'basket' && <Basket/>}
-    </>
-  );
+export function App() {
+  return <RouterProvider router={router} />;
 }
 
 export default App;

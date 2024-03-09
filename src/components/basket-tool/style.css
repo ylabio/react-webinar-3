@@ -6,6 +6,12 @@
   font-size: 18px;
 }
 
+.BasketTool-title {
+  position: absolute;
+  left: 20px;
+  color: #0087E9;
+}
+
 .BasketTool-label {
 
 }
@@ -13,4 +19,8 @@
 .BasketTool-total {
   font-weight: bold;
   margin: 0 20px;
+}
+
+.BasketTool > button {
+  width: 75px;
 }

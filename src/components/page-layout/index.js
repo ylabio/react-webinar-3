@@ -1,6 +1,7 @@
 import {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
+import {Outlet} from 'react-router-dom'
 import './style.css';
 
 function PageLayout({head, footer, children}) {
@@ -13,7 +14,7 @@ function PageLayout({head, footer, children}) {
         {head}
       </div>
       <div className={cn('center')}>
-        {children}
+      <Outlet />
       </div>
       <div className={cn('footer')}>
         {footer}
