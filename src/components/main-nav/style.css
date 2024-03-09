@@ -10,5 +10,5 @@
 }
 
 .Main-nav a.active {
-  opacity: 70%;
+  cursor: default;
 }

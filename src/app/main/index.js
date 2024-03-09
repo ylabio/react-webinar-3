@@ -1,24 +1,18 @@
 import {memo, useCallback, useEffect} from 'react';
-import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
-import Head from "../../components/head";
-import BasketTool from "../../components/basket-tool";
+import HeadLayout from '../head-layout';
+import Item from "../../components/item";
 import List from "../../components/list";
+import Pagination from '../../components/pagination';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import MainMenu from '../../components/main-menu';
-import MainNav from '../../components/main-nav';
-import Pagination from '../../components/pagination';
-import { useNavigate, useParams } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 function Main() {
-
 
   const store = useStore();
   const select = useSelector(state => ({
     list: state.catalog.list,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
     maxPage: state.catalog.pagination.max,
     currentPage: state.catalog.pagination.current,
   }));
@@ -27,37 +21,26 @@ function Main() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const page = parseInt(rawPage);
-    const normalizedPage = page ? page : 1;
-    console.log(normalizedPage)
-    if(normalizedPage !== page) {
-      navigate('/' + normalizedPage);
+    const page = Math.abs(parseInt(rawPage));
+    if(!page) {
+      navigate('/1');
     } else {
-      store.actions.catalog.load(normalizedPage);
+      store.actions.catalog.load(page);
     }
-  }, [rawPage]);
+  }, [rawPage, select.currentPage]);
 
-
-  const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    // Открытие модалки корзины
-    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-  }
+  // Добавление в корзину
+  const addToBasket = useCallback(_id => store.actions.basket.addToBasket(_id), [store]);
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
+      return <Item item={item} onAdd={addToBasket}/>
+    }, [addToBasket]),
   };
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
-      <MainMenu>
-        <MainNav />
-        <BasketTool />
-      </MainMenu>
+      <HeadLayout headTitle={'Магазин'}/>
       <List list={select.list} renderItem={renders.item}/>
       <Pagination max={select.maxPage} current={select.currentPage} />
     </PageLayout>

@@ -1,37 +1,31 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useEffect, useCallback} from 'react';
 import {useParams} from 'react-router-dom';
+import useStore from "../../store/use-store";
+import useSelector from '../../store/use-selector';
 import PageLayout from "../../components/page-layout";
-import Head from "../../components/head";
-import MainMenu from '../../components/main-menu';
-import MainNav from '../../components/main-nav';
-import BasketTool from "../../components/basket-tool";
-
-// import useStore from "../../store/use-store";
-// import useSelector from "../../store/use-selector";
+import HeadLayout from '../head-layout';
+import ProductContent from '../../components/product-content';
 
 function Product() {
+
+  const store = useStore();
   let { productId } = useParams();
-  console.log(productId)
-  // const store = useStore();
+  const product = useSelector(state => state.product.fullData);
 
-  // useEffect(() => {
-  //   store.actions.catalog.load();
-  // }, []);
+  useEffect(() => {
+    if(!product || productId !== product._id) {
+      store.actions.product.load(productId);
+    }
+  }, [productId, product]);
 
-  // const select = useSelector(state => ({
-  //   list: state.catalog.list,
-  //   amount: state.basket.amount,
-  //   sum: state.basket.sum
-  // }));
+  const addToBasket = useCallback(_id => store.actions.basket.addToBasket(_id), [store]);
+
+  if(!product || productId !== product._id) return <h1>...Loading</h1>;
 
   return (
     <PageLayout>
-      <Head title='#$%^^&&***('/>
-      <MainMenu>
-        <MainNav />
-        <BasketTool />
-      </MainMenu>
-      <h1>Product</h1>
+      <HeadLayout headTitle={product.title} />
+      <ProductContent product={product} onAdd={addToBasket} />
     </PageLayout>
   );
 }
