@@ -1,0 +1,25 @@
+.Navigation {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
+  margin: 0;
+}
+
+.Navigation-link {
+  font-size: 18px;
+  line-height: 21px;
+  font-weight: 400;
+  text-decoration: underline;
+  color: #0087E9;
+  cursor: pointer;
+}
+
+.Navigation-link:hover {
+  text-decoration: none;
+}
+
+.Navigation-link:active {
+  text-decoration: underline;
+}

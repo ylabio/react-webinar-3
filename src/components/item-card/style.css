@@ -1,0 +1,46 @@
+.ItemCard {
+  padding: 0 40px;
+}
+
+.ItemCard-paragraph {
+  font-size: 18px;
+  line-height: 21px;
+  font-weight: 400;
+  padding: 10px 0;
+  margin: 0;
+}
+
+.ItemCard-paragraph_strong {
+  font-weight: 700;
+}
+
+.ItemCard-paragraph_text-large {
+  font-size: 24px;
+  line-height: 27px;
+}
+
+.ItemCard-button {
+  box-sizing: border-box;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 400;
+  border: solid 1px #767676;
+  border-radius: 2px;
+  min-width: 76px;
+  padding: 2px 8px 2px 9px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.ItemCard-button:hover {
+  background-color: #E5E2E2;
+}
+
+.ItemCard-button:active {
+  background-color: inherit;
+}
+
+.ItemCard-loading {
+  padding-top: 25%;
+  padding-left: 50%;
+}
