@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
+import App from './app';
 import LanguageProvider from "./language-provider"; 
 import Store from "./store";
 import { StoreContext } from "./store/context";
