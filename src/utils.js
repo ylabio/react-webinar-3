@@ -50,3 +50,17 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+export function countLeftUniqueProducts(cart, code){
+  const arr = [];
+  for(let i = 0; i < cart.length; i++){
+    if(cart[i].code !== code && cart[i].count !== 0){
+      arr.push(cart[i].code);
+    }
+  }
+  return arr;
+}
+
+export function formatPrice(price){
+  return new Intl.NumberFormat().format(price)
+}

@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { countLeftUniqueProducts, generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -7,6 +7,11 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state.cart = this.state.list.map((item) => {
+      return { ...item, count: 0 };
+    });
+    this.state.uniqueProductsCount = new Set();
+    this.state.price = 0;
   }
 
   /**
@@ -18,8 +23,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -41,47 +46,57 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление нового товара в корзину
    */
-  addItem() {
+  addToCart(code) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+      cart: this.state.cart.map((item) => {
+        if (item.code === code) {
+          // Добавление количества товара
+          return {
+            ...item,
+            count: item.count ? item.count + 1 : 1,
+          };
+        }
+        return item;
+      }),
+      //подсчёт количества уникальных товаров в корзине
+      uniqueProductsCount: this.state.uniqueProductsCount.add(code),
+      //подсёт цены товаров в корзине
+      price: this.state.price + this.state.list[code - 1].price,
+    });
+  }
 
   /**
-   * Удаление записи по коду
+   * Удаление товара по коду
    * @param code
    */
   deleteItem(code) {
+    console.log(this.state);
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
+      // Новый список, в котором не будет товара указанного кода
+      cart: this.state.cart.map((item) => {
         if (item.code === code) {
-          // Смена выделения и подсчёт
           return {
             ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
+            count: 0,
           };
         }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+        return item;
+      }),
+      uniqueProductsCount: this.state.cart.some(
+        (e) => e.code === code
+      )
+        ? new Set(countLeftUniqueProducts(this.state.cart, code))
+        : this.state.uniqueProductsCount.add(code),
+      price: this.state.cart.reduce((acc, e) => {
+        if (e.code === code) return acc;
+        return acc + e.price * e.count;
+      }, 0),
+    });
+    console.log(this.state);
   }
 }
 

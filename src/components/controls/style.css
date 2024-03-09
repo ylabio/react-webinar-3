@@ -3,3 +3,12 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls-text {
+  font-size: 18px;
+}
+
+.Controls-text_bold {
+  font-weight: 700;
+  margin-right: 10px;
+}
