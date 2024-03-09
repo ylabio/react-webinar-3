@@ -1,7 +1,8 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import PropTypes from "prop-types";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../store/use-store";
+import Article from "./article";
 import useSelector from "../store/use-selector";
 
 /**
@@ -14,10 +15,15 @@ function App() {
 
   return (
     <>
-      <Main/>
+      <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Main/> } />
+            <Route path="article/:articleId" element={<Article/> } />
+        </Routes>
+      </BrowserRouter>
       {activeModal === 'basket' && <Basket/>}
     </>
-  );
+  )
 }
 
 export default App;

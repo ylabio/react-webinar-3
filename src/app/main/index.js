@@ -47,7 +47,6 @@ function Main() {
       <List list={select.list} renderItem={renders.item}/>
       <Paginator onSetPage={callbacks.setPage} pagesCount={select.pagesCount} page={select.page} />
     </PageLayout>
-
   );
 }
 
