@@ -1,11 +1,13 @@
-import {memo} from "react";
+import {memo, useContext} from "react";
+import { LanguageContext } from '../../language-provider';
 import PropTypes from 'prop-types';
 import './style.css';
 
 function Controls({onAdd}) {
+  const { t } = useContext(LanguageContext); 
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <button onClick={() => onAdd()}>{t('buttonAdd')}</button>
     </div>
   )
 }

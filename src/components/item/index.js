@@ -1,11 +1,13 @@
-import {memo, useState} from "react";
+import {memo, useContext} from "react";
+import { LanguageContext } from '../../language-provider';
+import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
 
-function Item(props) {
-
+function Item(props) {  
+  const { t } = useContext(LanguageContext); 
   const cn = bem('Item');
 
   const callbacks = {
@@ -14,13 +16,12 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        {props.item.title}
+        <Link to={`/${props.item._id}`} >{props.item.title}</Link>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{t('buttonAdd')}</button>
       </div>
     </div>
   );

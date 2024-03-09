@@ -12,7 +12,7 @@ class Modals extends StoreModule {
     this.setState({name}, `Открытие модалки ${name}`);
   }
 
-  close() {
+  close() {   
     this.setState({name: null}, `Закрытие модалки`);
   }
 }
