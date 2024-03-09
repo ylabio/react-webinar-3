@@ -2,8 +2,7 @@
   display: flex;
   justify-content: space-between;
   transition: background-color 1s;
-  border-bottom: 1px dashed #ccc;
-  border-top: 1px dashed #ccc;
+  padding-left: 10px
 }
 
 .Item-code, .Item-title, .Item-price, .Item-quantity, .Item-actions {
@@ -26,4 +25,14 @@
 
 .Item-actions {
   padding: 20px 20px 20px 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px
+}
+
+.Item-price {
+  padding: 0 0 0 10px;
+  white-space: nowrap;
+  font-size: 18px;
 }

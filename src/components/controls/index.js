@@ -1,9 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { plural } from "../../utils";
-import "./style.css";
+import {memo} from "react";
+import PropTypes from 'prop-types';
+import './style.css';
 
-function Controls({ cart, changeCartVisability, cost }) {
+function Controls({onAdd}) {
   return (
     <div className="Controls">
       В корзине: 
@@ -29,4 +28,4 @@ Controls.defaultProps = {
   changeCartVisability: () => {},
 };
 
-export default React.memo(Controls);
+export default memo(Controls);
