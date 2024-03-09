@@ -1,0 +1,14 @@
+.Main-nav {
+  display: flex;
+  column-gap: 20px;
+  margin: 0 auto 0 0;
+  padding: 0;
+}
+
+.Main-nav a {
+  color: #0087E9;
+}
+
+.Main-nav a.active {
+  opacity: 70%;
+}

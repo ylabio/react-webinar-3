@@ -6,20 +6,42 @@ import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import MainMenu from '../../components/main-menu';
+import MainNav from '../../components/main-nav';
+import Pagination from '../../components/pagination';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function Main() {
 
   const store = useStore();
-
-  useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
+  const rawPage = useParams().page
+  const page = parseInt(rawPage);
+  const navigate = useNavigate();
 
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    lastPage: state.catalog.pagination.last,
+    currentPage: state.catalog.pagination.current,
   }));
+
+  useEffect(() => {
+    !select.lastPage && store.actions.catalog.load(1);
+  }, [select.lastPage])
+
+  useEffect(() => {
+    if(!select.lastPage || page === select.currentPage) return;
+    let normalizedPage = page;
+    if(!page || page < 1) normalizedPage = 1;
+    if(page > select.lastPage) normalizedPage = select.lastPage;
+    if(normalizedPage !== page) {
+      navigate('/' + normalizedPage);
+    } else {
+      store.actions.catalog.load(normalizedPage);
+    }
+  }, [page, select.lastPage, select.currentPage]);
+
 
   const callbacks = {
     // Добавление в корзину
@@ -37,9 +59,12 @@ function Main() {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+      <MainMenu>
+        <MainNav />
+        <BasketTool />
+      </MainMenu>
       <List list={select.list} renderItem={renders.item}/>
+      <Pagination />
     </PageLayout>
 
   );

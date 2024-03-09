@@ -1,32 +1,40 @@
-import {memo} from "react";
+import {memo, useCallback} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
+import useSelector from "../../store/use-selector";
+import useStore from "../../store/use-store";
 import './style.css';
 
-function BasketTool({sum, amount, onOpen}) {
+function BasketTool() {
+
+  const select = useSelector(state => ({
+    amount: state.basket.amount,
+    sum: state.basket.sum
+  }));
+  const store = useStore();
+  const openModalBasket = useCallback(() => store.actions.modals.open('basket'), [store]);
+
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
-        {amount
-          ? `${amount} ${plural(amount, {
+        {select.amount
+          ? `${select.amount} ${plural(select.amount, {
             one: 'товар',
             few: 'товара',
             many: 'товаров'
-          })} / ${numberFormat(sum)} ₽`
+          })} / ${numberFormat(select.sum)} ₽`
           : `пусто`
         }
       </span>
-      <button onClick={onOpen}>Перейти</button>
+      <button onClick={openModalBasket}>Перейти</button>
     </div>
   );
 }
 
 BasketTool.propTypes = {
-  onOpen: PropTypes.func.isRequired,
-  sum: PropTypes.number,
   amount: PropTypes.number
 };
 
