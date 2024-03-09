@@ -54,7 +54,7 @@ function App({ store }) {
         setActive={setActive}
         title={"Корзина"}
         list={cart}
-        type={cart}
+        type={'cart'}
         totalPrice={totalPrice}
         uniqueProductsCount={uniqueProductsCount.size}
         action={callbacks.onDeleteProduct}
