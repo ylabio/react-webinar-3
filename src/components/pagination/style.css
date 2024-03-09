@@ -29,13 +29,18 @@
 .Pagination-page-number_active:hover{
   background: #0087E9;
   color: #fff;
+	pointer-events: none;
 }
 
 .Pagination-page-number_active:hover {
 	cursor: default;
 }
 
+.Pagination-page-number_dots {
+	cursor: default;
+}
+
 .Pagination-page-number_dots:hover{
   background: transparent;
-  cursor: default;
+	pointer-events: none;
 }

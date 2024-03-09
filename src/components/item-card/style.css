@@ -1,0 +1,40 @@
+.Item-card {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 20px 40px 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.Item-card-text {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.Item-card-price {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.Item-card-button {
+  box-sizing: border-box;
+  border: 1px solid rgb(118, 118, 118);
+  border-radius: 2px;
+  background: rgb(239, 239, 239);
+  width: 76px;
+  height: 21px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 15px;
+}
+
+.Item-card-button:hover {
+  cursor: pointer;
+  background: rgb(225, 224, 224);
+}

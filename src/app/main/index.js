@@ -35,17 +35,23 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} link={`/card/${item._id}`}/>
     }, [callbacks.addToBasket]),
   };
 
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+      <BasketTool onOpen={callbacks.openModalBasket} 
+									amount={select.amount}
                   sum={select.sum}/>
-      <List list={select.list} renderItem={renders.item}/>
-			<Pagination totalCount={select.count} currentPage={select.page} pageSize={select.size} siblingCount={1} onChangePage={callbacks.onChangePage} />
+      <List list={select.list} 
+						renderItem={renders.item}/>
+			<Pagination totalCount={select.count} 
+									currentPage={select.page} 
+									pageSize={select.size} 
+									siblingCount={1} 
+									onChangePage={callbacks.onChangePage}/>
     </PageLayout>
 
   );
