@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -17,6 +17,7 @@ function Main() {
 
   const select = useSelector(state => ({
     list: state.catalog.list,
+    count: state.catalog.count,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -30,16 +31,16 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} />
     }, [callbacks.addToBasket]),
   };
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
+      <Head title='Магазин' />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
-      <List list={select.list} renderItem={renders.item}/>
+        sum={select.sum} />
+      <List list={select.list} count={select.count} renderItem={renders.item} />
     </PageLayout>
 
   );
