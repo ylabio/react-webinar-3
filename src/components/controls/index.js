@@ -1,21 +1,23 @@
-import {memo} from "react";
-import PropTypes from 'prop-types';
-import './style.css';
+import { memo } from "react";
+import PropTypes from "prop-types";
+import "./style.css";
+import useTranslation from "../../hooks/useTranslation";
 
-function Controls({onAdd}) {
+function Controls({ onAdd }) {
+  const [getTranslation] = useTranslation();
   return (
-    <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+    <div className="Controls">
+      <button onClick={() => onAdd()}>{getTranslation("add")}</button>
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  onAdd: PropTypes.func,
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
-}
+  onAdd: () => {},
+};
 
 export default memo(Controls);

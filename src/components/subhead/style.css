@@ -1,0 +1,15 @@
+.Subhead {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 19px;
+}
+
+.Subhead a {
+  color: #0087e9;
+}
+
+.Subhead a:visited {
+  color: #0087e9;
+}

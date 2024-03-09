@@ -1,0 +1,21 @@
+{
+  "shop": { "en": "Shop", "ru": "Магазин" },
+  "cart": { "en": "Cart", "ru": "Корзина" },
+  "inCart": { "en": "Cart", "ru": "В корзине" },
+  "empty": { "en": "empty", "ru": "пусто" },
+  "items": {
+    "en": { "one": "item", "few": "items", "many": "items" },
+    "ru": { "one": "товар", "few": "товара", "many": "товаров" }
+  },
+  "open": { "en": "Open", "ru": "Перейти" },
+  "close": { "en": "Close", "ru": "Закрыть" },
+  "add": { "en": "Add", "ru": "Добавить" },
+  "remove": { "en": "Remove", "ru": "Удалить" },
+  "pcs": { "en": "pcs", "ru": "шт" },
+  "total": { "en": "Total", "ru": "Итого" },
+  "home": { "en": "Home", "ru": "Главная" },
+  "madeIn": { "en": "Made in", "ru": "Страна производитель" },
+  "category": { "en": "Category", "ru": "Категория" },
+  "year": { "en": "Year of manufacture", "ru": "Год выпуска" },
+  "price": { "en": "Price", "ru": "Цена" }
+}
