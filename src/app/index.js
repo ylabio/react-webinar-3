@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
@@ -17,11 +16,11 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-            <Route path="/" element={<Main/> } />
-            <Route path="article/:articleId" element={<Article/> } />
+          <Route path="/" element={<Main/> } />
+          <Route path="article/:articleId" element={<Article/> } />
         </Routes>
+        {activeModal === 'basket' && <Basket/>}
       </BrowserRouter>
-      {activeModal === 'basket' && <Basket/>}
     </>
   )
 }
