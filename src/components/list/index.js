@@ -1,7 +1,8 @@
 import {memo} from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
-import './style.css';
+// import Item from "../item";
+// import Pagination from "../pagination"
+;import './style.css';
 
 function List({list, renderItem}) {
   return (
@@ -11,6 +12,7 @@ function List({list, renderItem}) {
           {renderItem(item)}
         </div>
       )}
+      {/* <Pagination /> */}
     </div>
   )
 }
