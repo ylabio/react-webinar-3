@@ -1,0 +1,9 @@
+{
+  "settings": {
+    "editor.formatOnSave": false,
+    "editor.tabSize": 2,
+    "editor.useTabStops": true,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": true
+  }
+}
