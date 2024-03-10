@@ -1,0 +1,13 @@
+.Loader {
+    display: flex;
+    justify-content: center;
+    background: #fff;
+}
+
+.Loader-text {
+    font-weight: 700;
+    text-align: center;
+    min-height: 100vh;
+    margin: 30% 0;
+
+}
