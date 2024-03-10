@@ -17,7 +17,8 @@ const translations = {
     country: 'Manufacturer country',
     category: 'Category',
     yearOfIssue: 'Year of issue',
-    price: 'Price'
+    price: 'Price',
+    total: 'Total'
   },
   ru: {
     store: 'Магазин',
@@ -36,7 +37,8 @@ const translations = {
     country: 'Страна производитель',
     category: 'Категория',
     yearOfIssue: 'Год выпуска',
-    price: 'Цена'
+    price: 'Цена',
+    total: 'Итого'
   },
 };
 

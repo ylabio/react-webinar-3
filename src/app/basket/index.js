@@ -1,27 +1,16 @@
-<<<<<<< HEAD
-import {memo, useCallback, useContext, useEffect} from 'react';
-=======
 import {memo, useCallback} from 'react';
->>>>>>> 965c1b144a06904160cffca15056d32ecb80f433
-import ItemBasket from "../../components/item-basket";
 import List from "../../components/list";
-import ModalLayout from "../../components/modal-layout";
-import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-<<<<<<< HEAD
 import {useLanguage} from "../../language-provider";
-import {useLocation} from "react-router-dom";
+import ModalLayout from "../../components/modal-layout";
+import ItemBasket from "../../components/item-basket";
+import BasketTotal from "../../components/basket-total";
 
 function Basket() {
 
   const { t } = useLanguage()
 
-=======
-
-function Basket() {
-
->>>>>>> 965c1b144a06904160cffca15056d32ecb80f433
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -43,14 +32,9 @@ function Basket() {
     }, [callbacks.removeFromBasket]),
   };
 
-<<<<<<< HEAD
 
   return (
     <ModalLayout title={t('basket')} onClose={callbacks.closeModal}>
-=======
-  return (
-    <ModalLayout title='Корзина' onClose={callbacks.closeModal}>
->>>>>>> 965c1b144a06904160cffca15056d32ecb80f433
       <List list={select.list} renderItem={renders.itemBasket}/>
       <BasketTotal sum={select.sum}/>
     </ModalLayout>

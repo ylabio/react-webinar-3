@@ -5,7 +5,8 @@ import translations from '../locales/translation';
 const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState('en');
+
+  const [language, setLanguage] = useState('ru');
 
   const t = (key) => translations[language][key];
 
