@@ -13,7 +13,7 @@ class Catalog extends StoreModule {
       list: []
     }
   }
-
+// ?fields=items(), count'
   async load() {
     const response = await fetch('/api/v1/articles');
     const json = await response.json();

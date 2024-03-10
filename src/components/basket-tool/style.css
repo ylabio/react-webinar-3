@@ -5,7 +5,11 @@
   padding: 20px;
   font-size: 18px;
 }
-
+.BasketTool-link{
+  color: rgb(0, 135, 233);
+  font-size: 18px;
+  margin-right: auto;
+}
 .BasketTool-label {
 
 }
