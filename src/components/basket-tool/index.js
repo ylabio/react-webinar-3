@@ -34,18 +34,14 @@ BasketTool.propTypes = {
   translate: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
-  link: PropTypes.shape({
-    title: PropTypes.string,
-    url: PropTypes.string,
-  }),
+  children: PropTypes.node
 };
 
 BasketTool.defaultProps = {
   onOpen: () => {},
   translate: () => {},
   sum: 0,
-  amount: 0,
-  children: PropTypes.node,
+  amount: 0
 }
 
 export default memo(BasketTool);
