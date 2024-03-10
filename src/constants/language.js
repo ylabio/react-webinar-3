@@ -6,7 +6,7 @@ export const langButton = {
 };
 
 export const langText = {
-  LANGUAGE: { ru: 'Ру', en: 'Ru' },
+  LANGUAGE: { ru: ['Ру', 'Ru-ru'], en: ['Ru','en-IN'] },
   UNITS: { ru: 'шт', en: 'pcs' },
   EMPTY: { ru: 'пусто', en: 'empty' },
   TOTAL: { ru: 'Итого', en: 'total' },

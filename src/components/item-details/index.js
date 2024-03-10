@@ -26,7 +26,7 @@ function ItemDetails(props) {
         {langText.YEAR_OF_ISSUE[language]}: <b>{item.edition}</b>
       </p>
       <p className={cn('text', { size: 'm' })}>
-        <strong>{langText.PRICE[language]}: {numberFormat(item.price)} ₽</strong>
+        <strong>{langText.PRICE[language]}: {numberFormat(item.price, langText.LANGUAGE[language][1])} ₽</strong>
       </p>
       <button className={cn('btn')} onClick={callbacks.onAdd}>
         {langButton.ADD[language]}

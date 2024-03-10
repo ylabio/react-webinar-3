@@ -19,7 +19,7 @@ function Head({ title }) {
             store.actions.catalog.setLanguage('ru');
           }}
         >
-          {langText.LANGUAGE[language]}
+          {langText.LANGUAGE[language][0]}
         </button>
         <button
           disabled={language === 'en'}

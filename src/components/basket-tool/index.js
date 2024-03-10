@@ -19,7 +19,7 @@ const {sum, amount, onOpen, path, language='ru'} = props
       <span className={cn('label')}>{langText.SHOPPING_CART[language][1]}:</span>
       <span className={cn('total')}>
         {amount
-          ? `${amount} ${plural(amount, pluralOptions[language])} / ${numberFormat(sum)} ₽`
+          ? `${amount} ${plural(amount, pluralOptions[language])} / ${numberFormat(sum, langText.LANGUAGE[language][1])} ₽`
           : (`${langText.EMPTY[language]}`)
         }
       </span>

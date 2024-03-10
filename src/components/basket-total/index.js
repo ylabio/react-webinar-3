@@ -10,7 +10,7 @@ function BasketTotal({sum, language='ru'}) {
   return (
     <div className={cn()}>
       <span className={cn('cell')}>{langText.TOTAL[language]}</span>
-      <span className={cn('cell')}> {numberFormat(sum)} ₽</span>
+      <span className={cn('cell')}> {numberFormat(sum, langText.LANGUAGE[language][1])} ₽</span>
       <span className={cn('cell')}></span>
     </div>
   );
