@@ -1,8 +1,10 @@
-import {memo} from "react";
+import {memo,useContext} from "react";
 import PropTypes from "prop-types";
 import './style.css';
+import { LanguageContext } from "../../languages/languagesContext";
 
 function Product_body({data,onAdd}) {
+  let { dict } = useContext(LanguageContext)
   const callbacks = {
     addProduct: (e) => {
       onAdd(data._id)
@@ -16,7 +18,7 @@ function Product_body({data,onAdd}) {
         <p className="Product-body__category">Категория: <span>{data.category}</span></p>
         <p className="Product-body__year">Год выпуска: <span>{data.dateCreate}</span></p>
         <p className="Product-body__price">Цена:  <span>{data.price}</span> ₽</p>
-        <button onClick={() => callbacks.addProduct()}>Добавить</button>
+        <button onClick={() => callbacks.addProduct()}>{dict.add}</button>
       </div>
   )
 }

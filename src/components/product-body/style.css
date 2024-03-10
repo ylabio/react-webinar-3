@@ -8,3 +8,6 @@ font-weight: 700;
 .Product-body__price{
   font-weight: 700;
 }
+.Product-body button{
+  min-width: 80px;
+}
