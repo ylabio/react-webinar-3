@@ -2,10 +2,13 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import { memo } from "react";
 import PropTypes from "prop-types";
+import { useLanguage } from "../../store/language-context";
 
 const ItemDetail = (props) => {
   
   const cn = bem('ItemCard');
+
+  const {Language, translations} = useLanguage();
 
   return (
     <div className={ cn() }>
@@ -14,7 +17,7 @@ const ItemDetail = (props) => {
       <p className={ cn( 'text' ) }> Категория: <span>{ props.card.category?.title }</span></p>
       <p className={ cn( 'text' ) }> Год выпуска: <span>{ props.card.edition }</span></p>
       <p className={ cn( 'text' ) }><span>Цена: { props.card.price }</span></p>
-      <button className={ cn( 'button' ) } onClick={() => props.onAddBasket(props.card._id)}>Добавить</button>
+      <button className={ cn( 'button' ) } onClick={() => props.onAddBasket(props.card._id)}>{translations['buttonAdd']}</button>
     </div>
   );
 };
