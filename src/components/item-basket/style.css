@@ -28,3 +28,13 @@
   font-size: 18px;
   white-space: nowrap;
 }
+
+.ItemBasket-link {
+  color:black;
+  text-decoration: none;
+}
+
+.ItemBasket-link:hover {
+  border-bottom: 1px solid black;
+}
+

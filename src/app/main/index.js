@@ -1,10 +1,12 @@
 import {memo, useCallback, useEffect} from 'react';
+import { Route, Routes } from 'react-router-dom';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
+import ItemDetails from "../../components/item-details";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
@@ -30,6 +32,7 @@ function Main() {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     onChangePage: useCallback(page => store.actions.catalog.load(page), [store]),
+    onLoadDetails: useCallback(id => store.actions.catalog.loadDetails(id), [store]),
   }
 
   const renders = {
@@ -43,7 +46,11 @@ function Main() {
       <Head title='Магазин'/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
-      <List list={select.list} renderItem={renders.item}/>
+      <Routes>
+        <Route path="/*" element={<List list={select.list} renderItem={renders.item}/>} />
+        <Route path="/:id" element={<ItemDetails onLoadDetails={callbacks.onLoadDetails} onAdd={callbacks.addToBasket}/>}/>
+      </Routes>
+
       <Pagination pagesCount={select.pages} onChangePage={callbacks.onChangePage} currentPage={select.currentPage}/>
     </PageLayout>
   );
