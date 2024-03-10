@@ -5,8 +5,9 @@ import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import PropTypes from 'prop-types';
 
-function Basket() {
+function Basket({onClose}) {
 
   const store = useStore();
 
@@ -20,7 +21,8 @@ function Basket() {
     // Удаление из корзины
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
     // Закрытие любой модалки
-    closeModal: useCallback(() => store.actions.modals.close(), [store]),
+    // closeModal: useCallback(() => store.actions.modals.close(), [store]),
+    closeModal: onClose,
   }
 
   const renders = {
@@ -36,5 +38,13 @@ function Basket() {
     </ModalLayout>
   );
 }
+
+Basket.propTypes = {
+  onClose: PropTypes.func,
+};
+
+Basket.defaultProps = {
+  onClose: () => {},
+};
 
 export default memo(Basket);
