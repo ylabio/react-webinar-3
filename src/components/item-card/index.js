@@ -6,7 +6,7 @@ import { numberFormat } from '../../utils';
 
 function ItemCard(props) {
   const cn = bem('ItemCard');
-  const {cardData, onAdd, isLoading} = props;
+  const {cardData, onAdd, isLoading, translator} = props;
 
   const callbacks = {
     onAdd: (e) => onAdd(cardData._id)
@@ -20,22 +20,22 @@ function ItemCard(props) {
         <div>
           <p className={cn('paragraph')}>{cardData.description}</p>
           <p className={cn('paragraph')}>
-            Страна произовдитель:
+            {`${translator.dictionary.card.countryOfOrigin}:`}
             <span className={cn('paragraph_strong')}>{` ${cardData.madeIn?.title} (${cardData.madeIn?.code})`}</span>
           </p>
           <p className={cn('paragraph')}>
-            Категория:
+            {`${translator.dictionary.card.category}:`}
             <span className={cn('paragraph_strong')}>{` ${cardData.category?.title}`}</span>
           </p>
           <p className={cn('paragraph')}>
-            Год выпуска:
+          {`${translator.dictionary.card.releaseYear}:`}
             <span className={cn('paragraph_strong')}>{` ${cardData.edition}`}</span>
           </p>
           <p className={[cn('paragraph'), cn('paragraph_strong'), cn('paragraph_text-large')].join(' ')}>
-            Цена:
+            {`${translator.dictionary.card.price}:`}
             <span>{` ${numberFormat(cardData.price)} ₽`}</span>
           </p>
-          <button onClick={callbacks.onAdd} className={cn('button')}>Добавить</button>
+          <button onClick={callbacks.onAdd} className={cn('button')}>{translator.dictionary.controls.add}</button>
         </div>
       }
     </div>
@@ -51,7 +51,8 @@ ItemCard.propTypes = {
     edition: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  translator: PropTypes.object
 }
 
 ItemCard.defaultProps = {

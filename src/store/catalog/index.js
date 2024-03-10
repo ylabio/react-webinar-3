@@ -23,7 +23,7 @@ class Catalog extends StoreModule {
    * Запрос списка товаров и количества товаров к АПИ
    * @param pageNumber число, номер текущей страницы в каталоге
    */
-  async loadWithParams(pageNumber) {
+  async loadWithParams(pageNumber, lang) {
     const skipItems = pageNumber === 1 ? 0 : (pageNumber - 1) * this.getState().limit;
 
     this.setState({

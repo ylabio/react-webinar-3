@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect, useState} from 'react';
+import {memo, useCallback, useEffect, useMemo, useState} from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -7,8 +7,10 @@ import List from "../../components/list";
 import Pagination from '../../components/pagination';
 import NavigationTool from '../../components/navigation-tool';
 import Navigation from '../../components/navigation';
+import LanguageTool from '../../components/language-tool';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import { translate, availableLanguages } from '../../language/translator';
 
 function Main() {
 
@@ -21,11 +23,12 @@ function Main() {
     totalItems: state.catalog.count,
     itemsPerPage: state.catalog.limit,
     currentPage: state.catalog.pageNumber,
-    isLoading: state.catalog.isLoading
+    isLoading: state.catalog.isLoading,
+    language: state.language.currentLang
   }));
 
   useEffect(() => {
-    store.actions.catalog.loadWithParams(select.currentPage);
+    store.actions.catalog.loadWithParams(select.currentPage, select.language);
   }, []);
 
   const callbacks = {
@@ -35,22 +38,30 @@ function Main() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Смена страницы
     setPage: useCallback(currentPage => store.actions.catalog.loadWithParams(currentPage), [store]),
+    // Смена языка
+    setLanguage: useCallback(lang => store.actions.language.setLanguage(lang), [store])
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} link={`card/${item._id}`} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
+      return <Item item={item} link={`card/${item._id}`} onAdd={callbacks.addToBasket} translator={translator} />
+    }, [callbacks.addToBasket, select.language]),
   };
+
+  const translator = {
+    dictionary: useMemo(() => translate(select.language))
+  }
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
+      <Head title={translator.dictionary.head.title}>
+        <LanguageTool setLanguage={callbacks.setLanguage} currentLanguage={select.language} availableLanguages={availableLanguages} />
+      </Head>
       <NavigationTool>
-        <Navigation navItems={[{title: 'Главная', link: '/'}]} />
-        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+        <Navigation navItems={[{title: translator.dictionary.navigation.main, link: '/'}]} />
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} translator={translator} />
       </NavigationTool>
-      <List list={select.list} renderItem={renders.item} isLoading={select.isLoading}/>
+      <List list={select.list} renderItem={renders.item} isLoading={select.isLoading} translator={translator} />
       {
         select.totalItems > select.itemsPerPage ?
         <Pagination
