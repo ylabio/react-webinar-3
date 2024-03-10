@@ -37,7 +37,6 @@ const ItemPage = () => {
         console.error(error);
       } finally {
         setIsLoading(false);
-        setIsLoading(false);
       }
     };
 
@@ -54,7 +53,7 @@ const ItemPage = () => {
             margin: 0,
             padding: "20px 20px 10px",
             height: "80px",
-            background: "#5f5f5",
+            background: "#5f5f5f",
           }}
         >
           {loading}...
@@ -76,5 +75,4 @@ const ItemPage = () => {
     </PageLayout>
   );
 };
-
 export default memo(ItemPage);

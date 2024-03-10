@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLanguage } from "../../localization/LanguageContext";
 
 const DropdownMenu = () => {
-  const { changeLanguage } = useLanguage();
+  const { currentLanguage, changeLanguage } = useLanguage();
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage && storedLanguage !== currentLanguage) {
+      changeLanguage(storedLanguage);
+    }
+  }, [currentLanguage, changeLanguage]);
 
   const handleLanguageChange = (event) => {
     changeLanguage(event.target.value);
@@ -10,9 +17,9 @@ const DropdownMenu = () => {
 
   return (
     <div>
-      <select onChange={handleLanguageChange}>
+      <select value={currentLanguage} onChange={handleLanguageChange}>
         <option value="ru">RU</option>
-        <option value="en">ENG</option>
+        <option value="en">EN</option>
       </select>
     </div>
   );

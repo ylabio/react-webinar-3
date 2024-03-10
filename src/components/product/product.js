@@ -3,8 +3,6 @@ import { numberFormat } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 import { useLanguage } from "../../localization/LanguageContext";
 import { dictionary } from "../../localization/dictionary";
-import { useLanguage } from "../../localization/LanguageContext";
-import { dictionary } from "../../localization/dictionary";
 import "./style.css";
 
 const Product = ({ product, addToCart }) => {
