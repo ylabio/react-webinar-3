@@ -4,6 +4,7 @@ import { cn as bem } from '@bem-react/classname';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import './style.css'
+import { numberFormat } from "../../utils";
 
 const ItemPage = () => {
 
@@ -49,7 +50,7 @@ const ItemPage = () => {
 			{madeIn && <div>{locale.Country_of_origin}: <strong>{madeIn.title}</strong></div>}
 			{category && <div>{locale.Category}: <strong>{category.title}</strong></div>}
 			{edition && <div>{locale.Year_of_production}: <strong>{edition}</strong></div>}
-			{price && <div className={cn('price')}>{locale.Price}: <strong>{price}</strong></div>}
+			{price && <div className={cn('price')}>{locale.Price}: <strong>{numberFormat(price)}</strong></div>}
 			{_id && <button onClick={() => onAdd(_id)}>{locale.Add}</button>}
 
 		</div>
