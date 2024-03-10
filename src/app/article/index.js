@@ -24,12 +24,10 @@ function Arcticle() {
 
   const select = useSelector(state => ({
     article: state.articles.article,
-    isFetchingArticle: state.articles.isFetching,
-    isSuccessArticle: state.articles.isSuccess,
+    isFetching: state.articles.isFetching,
+    isSuccess: state.articles.isSuccess,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    isFetchingPrice: state.basket.isFetching,
-    isSuccessPrice: state.basket.isSuccess,
     page: state.catalog.page,
     locales: state.translator.locales,
     locale: state.translator.locale,
@@ -39,13 +37,17 @@ function Arcticle() {
     // Запрос данных о товаре
     getArticle: useCallback(articleId => store.actions.articles.getArticle(articleId), [store]),
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    addToBasket: useCallback((_id, title, price) => store.actions.basket.addToBasket(_id, title, price), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Перевод текста
     translate: useCallback(text => store.actions.translator.translate(text), [store, select.locale]),
     // Выбор локали
     setLocale: useCallback(locale => store.actions.translator.setLocale(locale), [store]),
+  }
+
+  const addToBasket = () => {
+    callbacks.addToBasket(articleId, select.article.title, select.article.price);
   }
   
   return (
@@ -63,15 +65,14 @@ function Arcticle() {
         translate={callbacks.translate}>
           <Link to={`/?page=${(select.page)}`}>{callbacks.translate('main page')}</Link>
       </BasketTool>
-      { select.isFetchingArticle && <Preloader/> }
-      { !select.isFetchingArticle && select.isSuccessArticle &&
+      { select.isFetching && <Preloader/> }
+      { !select.isFetching && select.isSuccess &&
         <Detailizer
           article={select.article}
-          isEnabled={!select.isFetchingPrice}
-          onAdd={callbacks.addToBasket}
+          onAdd={addToBasket}
           translate={callbacks.translate}/>
       }
-      { !select.isFetchingArticle && !select.isSuccessArticle &&
+      { !select.isFetching && !select.isSuccess &&
         <Error
           message={callbacks.translate('failed to fetch data')}
           btnRetryTitle={callbacks.translate('try again')}

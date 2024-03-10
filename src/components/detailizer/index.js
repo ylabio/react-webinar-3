@@ -23,7 +23,7 @@ function Detailizer(props) {
       { props.article.edition &&
           <div className={cn('attribute')}>{callbacks.translate('year of issue')}: <span className={cn('attribute', {'value': true})}>{ props.article.edition }</span></div> }
       <div className={cn('price')}>{callbacks.translate('price')}: {numberFormat(props.article.price)} ₽</div>
-      <button onClick={callbacks.onAdd} disabled={!props.isEnabled}>{callbacks.translate('add')}</button>
+      <button onClick={callbacks.onAdd}>{callbacks.translate('add')}</button>
     </div>
   );
 }
@@ -38,13 +38,11 @@ Detailizer.propTypes = {
     category: PropTypes.shape({title: PropTypes.string}),
     edition: PropTypes.number,
   }).isRequired,
-  isEnabled: PropTypes.bool,
   translate: PropTypes.func,
   onAdd: PropTypes.func,
 };
 
 Detailizer.defaultProps = {
-  isEnabled: true,
   translate: () => {},
   onAdd: () => {},
 }
