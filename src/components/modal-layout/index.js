@@ -6,7 +6,7 @@ import './style.css';
 
 function ModalLayout(props) {
 
-  const tralslate = useContext(LanguageContext);
+  const translate = useContext(LanguageContext);
   const cn = bem('ModalLayout');
 
   // Корректировка центра, если модалка больше окна браузера.
@@ -34,7 +34,7 @@ function ModalLayout(props) {
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
           <h1 className={cn('title')}>{props.title}</h1>
-          <button className={cn('close')} onClick={props.onClose}>{tralslate('Закрыть')}</button>
+          <button className={cn('close')} onClick={props.onClose}>{translate('Закрыть')}</button>
         </div>
         <div className={cn('content')}>
           {props.children}

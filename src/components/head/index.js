@@ -4,11 +4,11 @@ import {LanguageContext} from "../../contexts";
 import './style.css';
 
 function Head({title, onToggleLanguage}) {
-  const tralslate = useContext(LanguageContext);
+  const translate = useContext(LanguageContext);
   return (
     <div className='Head'>
       <h1>{title}</h1>
-      <button onClick={() => onToggleLanguage()}>{tralslate('English')}</button>
+      <button onClick={() => onToggleLanguage()}>{translate('English')}</button>
     </div>
   )
 }

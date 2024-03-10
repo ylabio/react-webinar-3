@@ -11,7 +11,7 @@ import {LanguageContext} from '../../contexts';
 
 function Main({onToggleLanguage}) {
 
-  const tralslate = useContext(LanguageContext);
+  const translate = useContext(LanguageContext);
 
   const store = useStore();
   const select = useSelector(state => ({
@@ -43,7 +43,7 @@ function Main({onToggleLanguage}) {
 
   return (
     <PageLayout>
-      <HeadLayout headTitle={tralslate('Магазин')} onToggleLanguage={onToggleLanguage}/>
+      <HeadLayout headTitle={translate('Магазин')} onToggleLanguage={onToggleLanguage}/>
       <List list={select.list} renderItem={renders.item}/>
       <Pagination max={select.maxPage} current={select.currentPage} />
     </PageLayout>

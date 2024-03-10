@@ -8,7 +8,7 @@ import './style.css';
 
 function Item(props) {
 
-  const tralslate = useContext(LanguageContext);
+  const translate = useContext(LanguageContext);
 
   const cn = bem('Item');
 
@@ -23,7 +23,7 @@ function Item(props) {
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>{tralslate('Добавить')}</button>
+        <button onClick={callbacks.onAdd}>{translate('Добавить')}</button>
       </div>
     </div>
   );

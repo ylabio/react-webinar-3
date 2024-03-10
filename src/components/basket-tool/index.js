@@ -7,23 +7,23 @@ import './style.css';
 
 function BasketTool(props) {
 
-  const tralslate = useContext(LanguageContext);
+  const translate = useContext(LanguageContext);
 
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <span className={cn('label')}>{tralslate('В корзине:')}</span>
+      <span className={cn('label')}>{translate('В корзине:')}</span>
       <span className={cn('total')}>
         {props.amount
           ? `${props.amount} ${plural(props.amount, {
-            one: tralslate('товар'),
-            few: tralslate('товара'),
-            many: tralslate('товаров')
+            one: translate('товар'),
+            few: translate('товара'),
+            many: translate('товаров')
           })} / ${numberFormat(props.sum)} ₽`
-          : tralslate('пусто')
+          : translate('пусто')
         }
       </span>
-      <button onClick={props.onOpen}>{tralslate('Перейти')}</button>
+      <button onClick={props.onOpen}>{translate('Перейти')}</button>
     </div>
   );
 }

@@ -8,7 +8,7 @@ import './style.css';
 
 function ItemBasket(props) {
 
-  const tralslate = useContext(LanguageContext);
+  const translate = useContext(LanguageContext);
 
   const cn = bem('ItemBasket');
 
@@ -16,16 +16,20 @@ function ItemBasket(props) {
     onRemove: () => props.onRemove(props.item._id)
   };
 
+  const onCloseModal = (e) => {
+    if(e.target.tagName === 'A') props.onCloseModal();
+  }
+
   return (
     <div className={cn()}>
-      <div className={cn('title')} onClick={() => props.onCloseModal()}>
+      <div className={cn('title')} onClick={onCloseModal}>
         <Link to={'/product/' + props.item._id}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>{tralslate('Удалить')}</button>
+          <button onClick={callbacks.onRemove}>{translate('Удалить')}</button>
         </div>
       </div>
     </div>

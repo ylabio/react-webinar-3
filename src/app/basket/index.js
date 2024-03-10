@@ -9,7 +9,7 @@ import {LanguageContext} from '../../contexts';
 
 function Basket() {
 
-  const tralslate = useContext(LanguageContext);
+  const translate = useContext(LanguageContext);
 
   const store = useStore();
 
@@ -36,9 +36,9 @@ function Basket() {
   };
 
   return (
-    <ModalLayout title={tralslate('Корзина')} onClose={callbacks.closeModal}>
+    <ModalLayout title={translate('Корзина')} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum} tralslate={tralslate}/>
+      <BasketTotal sum={select.sum} translate={translate}/>
     </ModalLayout>
   );
 }
