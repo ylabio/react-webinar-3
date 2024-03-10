@@ -1,0 +1,12 @@
+.ItemPage {
+    padding: 20px 40px;
+}
+
+.ItemPage * {
+    margin-bottom: 20px;
+}
+
+.ItemPage-price {
+    font-size: 24px;
+    font-weight: 700;
+}
