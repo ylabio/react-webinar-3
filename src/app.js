@@ -6,7 +6,7 @@ import Cart from "./components/cart";
 
 /**
  * Приложение
- * @param store {Store} Хранилище состояния приложения
+ * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
 function App({ store }) {
