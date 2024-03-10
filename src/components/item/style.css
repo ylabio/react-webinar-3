@@ -28,6 +28,7 @@
 .Item-title a:hover {
   text-decoration: underline;
 }
+
 .Item-title a:active {
   opacity: 70%;
 }

@@ -4,7 +4,6 @@ import useSelector from '../../store/use-selector';
 import {LanguageContext} from "../../contexts";
 import './style.css';
 
-
 function MainNav() {
   const tralslate = useContext(LanguageContext);
   const currentPage = useSelector((state) => state.catalog.pagination.current);

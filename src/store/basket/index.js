@@ -42,7 +42,6 @@ class Basket extends StoreModule {
         sum += result.price;
       }
     }
-
     this.setState({
       ...this.getState(),
       list,

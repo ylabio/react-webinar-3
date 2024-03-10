@@ -49,7 +49,7 @@ export function getTranslater(lang) {
       'Итого': 'Total',
       'Страна производитель:': 'Made in:',
       'Категория:': 'Category:',
-      'Год выпуска:': 'Year of prodaction:',
+      'Год выпуска:': 'Year of production:',
       'Цена:': 'Price',
       'товар': 'product',
       'товара': 'products',

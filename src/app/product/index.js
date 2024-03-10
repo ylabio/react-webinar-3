@@ -30,4 +30,8 @@ function Product({onToggleLanguage}) {
   );
 }
 
+Product.defaultProps = {
+  onToggleLanguage: () => {},
+}
+
 export default memo(Product);

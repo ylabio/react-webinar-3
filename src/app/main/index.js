@@ -11,7 +11,6 @@ import {LanguageContext} from '../../contexts';
 
 function Main({onToggleLanguage}) {
 
-
   const tralslate = useContext(LanguageContext);
 
   const store = useStore();
@@ -48,8 +47,11 @@ function Main({onToggleLanguage}) {
       <List list={select.list} renderItem={renders.item}/>
       <Pagination max={select.maxPage} current={select.currentPage} />
     </PageLayout>
-
   );
+}
+
+Main.defaultProps = {
+  onToggleLanguage: () => {},
 }
 
 export default memo(Main);

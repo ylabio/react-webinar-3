@@ -1,7 +1,7 @@
 import MainNav from "../../components/main-nav";
 import PageLayout from "../../components/page-layout"
 
-export default function Product({error}) {
+export default function Error({error}) {
 
   return (
     <PageLayout>
@@ -11,4 +11,6 @@ export default function Product({error}) {
     );
 }
 
-
+Error.defaultProps = {
+  error: {},
+}

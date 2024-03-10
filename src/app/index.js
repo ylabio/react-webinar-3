@@ -1,4 +1,4 @@
-import {useEffect, useContext, useState, useCallback} from 'react';
+import {useEffect, useState, useCallback} from 'react';
 import Main from "./main";
 import Product from './product';
 import Basket from "./basket";
@@ -8,7 +8,6 @@ import useSelector from "../store/use-selector";
 import {useNavigate} from 'react-router-dom';
 import {getTranslater} from '../utils';
 import {LanguageContext} from '../contexts';
-
 /**
  * Приложение
  * @returns {React.ReactElement}

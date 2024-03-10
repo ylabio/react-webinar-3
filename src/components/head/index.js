@@ -4,7 +4,7 @@ import {LanguageContext} from "../../contexts";
 import './style.css';
 
 function Head({title, onToggleLanguage}) {
-  const tralslate = useContext(LanguageContext)
+  const tralslate = useContext(LanguageContext);
   return (
     <div className='Head'>
       <h1>{title}</h1>
@@ -16,5 +16,9 @@ function Head({title, onToggleLanguage}) {
 Head.propTypes = {
   title: PropTypes.node,
 };
+
+Head.defaultProps = {
+  onToggleLanguage: () => {},
+}
 
 export default memo(Head);

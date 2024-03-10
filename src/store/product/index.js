@@ -13,6 +13,7 @@ class Product extends StoreModule {
     const query = '?fields=*,madeIn(title,code),category(title)'
     const response = await fetch('/api/v1/articles' + '/' + id + query);
     const {error, result} = await response.json();
+
     const fullData = !result ? null : {
       _id: result._id,
       description: result.description,

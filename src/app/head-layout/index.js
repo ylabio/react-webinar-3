@@ -1,11 +1,11 @@
 import {memo, useCallback} from 'react';
+import PropTypes from 'prop-types';
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import MainMenu from '../../components/main-menu';
 import MainNav from '../../components/main-nav';
-
 
 function HeadLayout({headTitle, onToggleLanguage}) {
 
@@ -30,6 +30,14 @@ function HeadLayout({headTitle, onToggleLanguage}) {
       </MainMenu>
     </>
   );
+}
+
+HeadLayout.propTypes = {
+  headTitle: PropTypes.string,
+}
+
+HeadLayout.defaultProps = {
+  onToggleLanguage: () => {},
 }
 
 export default memo(HeadLayout);
