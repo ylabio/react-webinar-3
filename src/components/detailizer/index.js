@@ -7,23 +7,19 @@ import './style.css';
 function Detailizer(props) {
 
   const cn = bem('Detailizer');
-
-  const callbacks = {
-    translate: text => props.translate(text),
-    onAdd: (e) => props.onAdd(props.article._id)
-  }
+  console.log('Detailizer');
 
   return (
     <div className={cn()}>
       <div className={cn('description')}>{ props.article.description }</div>
       { props.article.madeIn.title &&
-          <div className={cn('attribute')}>{callbacks.translate('manufacturer country')}: <span className={cn('attribute', {'value': true})}>{ props.article.madeIn.title }</span></div> }
+          <div className={cn('attribute')}>{props.translate('manufacturer country')}: <span className={cn('attribute', {'value': true})}>{ props.article.madeIn.title }</span></div> }
       { props.article.category.title &&
-          <div className={cn('attribute')}>{callbacks.translate('category')}: <span className={cn('attribute', {'value': true})}>{ props.article.category.title }</span></div> }
+          <div className={cn('attribute')}>{props.translate('category')}: <span className={cn('attribute', {'value': true})}>{ props.article.category.title }</span></div> }
       { props.article.edition &&
-          <div className={cn('attribute')}>{callbacks.translate('year of issue')}: <span className={cn('attribute', {'value': true})}>{ props.article.edition }</span></div> }
-      <div className={cn('price')}>{callbacks.translate('price')}: {numberFormat(props.article.price)} ₽</div>
-      <button onClick={callbacks.onAdd}>{callbacks.translate('add')}</button>
+          <div className={cn('attribute')}>{props.translate('year of issue')}: <span className={cn('attribute', {'value': true})}>{ props.article.edition }</span></div> }
+      <div className={cn('price')}>{props.translate('price')}: {numberFormat(props.article.price)} ₽</div>
+      <button onClick={props.onAdd}>{props.translate('add')}</button>
     </div>
   );
 }

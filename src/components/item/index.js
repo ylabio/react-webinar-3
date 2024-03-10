@@ -6,7 +6,7 @@ import {numberFormat} from "../../utils";
 import './style.css';
 
 function Item(props) {
-
+  console.log('Item ' + props.item._id);
   const cn = bem('Item');
 
   const callbacks = {

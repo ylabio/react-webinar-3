@@ -6,23 +6,23 @@ import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from "../../components/basket-tool";
 import Detailizer from '../../components/detailizer';
-import LocaleSwitcher from '../../components/locale-switcher';
 import Preloader from '../../components/preloader';
 import Error from '../../components/error';
-import {Link} from 'react-router-dom';
+import WithModal from '../../components/with-modal';
 
-function Arcticle() {
+function Article() {
   const store = useStore();
   const { articleId } = useParams();
 
   useEffect(
     () => {
-      callbacks.getArticle(articleId);
+      store.actions.articles.getArticle(articleId);
     },
     [articleId]
   );
 
   const select = useSelector(state => ({
+    activeModal: state.modals.name,
     article: state.articles.article,
     isFetching: state.articles.isFetching,
     isSuccess: state.articles.isSuccess,
@@ -37,7 +37,7 @@ function Arcticle() {
     // Запрос данных о товаре
     getArticle: useCallback(articleId => store.actions.articles.getArticle(articleId), [store]),
     // Добавление в корзину
-    addToBasket: useCallback((_id, title, price) => store.actions.basket.addToBasket(_id, title, price), [store]),
+    addToBasket: useCallback(() => store.actions.basket.addToBasket(articleId, select.article.title, select.article.price), [store, select.article]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Перевод текста
@@ -45,41 +45,38 @@ function Arcticle() {
     // Выбор локали
     setLocale: useCallback(locale => store.actions.translator.setLocale(locale), [store]),
   }
+  console.log('Article');
 
-  const addToBasket = () => {
-    callbacks.addToBasket(articleId, select.article.title, select.article.price);
-  }
-  
   return (
-    <PageLayout>
-      <Head title={select.article ? select.article.title : ''}>
-        <LocaleSwitcher
+    <WithModal activeModal={select.activeModal}>
+      <PageLayout>
+        <Head
+          title={select.article ? select.article.title : ''}
           locales={select.locales}
           locale={select.locale}
           setLocale={callbacks.setLocale}/>
-      </Head>
-      <BasketTool
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-        translate={callbacks.translate}>
-          <Link to={`/?page=${(select.page)}`}>{callbacks.translate('main page')}</Link>
-      </BasketTool>
-      { select.isFetching && <Preloader/> }
-      { !select.isFetching && select.isSuccess &&
-        <Detailizer
-          article={select.article}
-          onAdd={addToBasket}
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+          page={select.page}
           translate={callbacks.translate}/>
-      }
-      { !select.isFetching && !select.isSuccess &&
-        <Error
-          message={callbacks.translate('failed to fetch data')}
-          btnRetryTitle={callbacks.translate('try again')}
-          onRetry={() => callbacks.getArticle(articleId)}/>
-      }
-    </PageLayout>
+        { select.isFetching && <Preloader/> }
+        { !select.isFetching && select.isSuccess &&
+          <Detailizer
+            article={select.article}
+            onAdd={callbacks.addToBasket}
+            translate={callbacks.translate}/>
+        }
+        { !select.isFetching && !select.isSuccess &&
+          <Error
+            message={callbacks.translate('failed to fetch data')}
+            btnRetryTitle={callbacks.translate('try again')}
+            onRetry={() => callbacks.getArticle(articleId)}/>
+        }
+      </PageLayout>
+    </WithModal>
   );
 }
 
-export default memo(Arcticle);
+export default memo(Article);

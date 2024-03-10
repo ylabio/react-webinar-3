@@ -14,7 +14,7 @@ function Paginator({onSetPage, pagesCount, page}) {
   const finish = start + CAPACITY - 1 <= pagesCount ? start + CAPACITY - 1 : pagesCount;
   if (finish - start < CAPACITY - 1) { start = finish - CAPACITY + 1 > 1 ? finish - CAPACITY + 1 : 1; }
   const items = [...Array(finish - start + 1).keys().map(item => item + start)]
-  
+  console.log('Paginator');
   return (
     <div className={cn()}>
       { start > 1 && <Link key={1} to={'/?page=1'} className={cn('item', {active: page === 1})}>1</Link> }

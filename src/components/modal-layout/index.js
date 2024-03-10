@@ -26,7 +26,7 @@ function ModalLayout(props) {
       resizeObserver.disconnect();
     }
   }, []);
-
+  console.log('Modal Layout');
   return (
     <div className={cn()} ref={layout}>
       <div className={cn('frame')} ref={frame}>

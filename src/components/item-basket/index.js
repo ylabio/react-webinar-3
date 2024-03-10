@@ -9,7 +9,7 @@ import './style.css';
 function ItemBasket(props) {
 
   const cn = bem('ItemBasket');
-
+  console.log('Item basket ' + props.item._id);
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id),
     onClick: (e) => props.onClick()

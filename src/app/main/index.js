@@ -6,11 +6,11 @@ import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import Paginator from '../../components/paginator';
-import LocaleSwitcher from '../../components/locale-switcher';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Preloader from '../../components/preloader';
 import Error from '../../components/error';
+import WithModal from '../../components/with-modal';
 
 function Main() {
 
@@ -23,6 +23,7 @@ function Main() {
   }, [searchParams]);
 
   const select = useSelector(state => ({
+    activeModal: state.modals.name,
     list: state.catalog.list,
     pagesCount: state.catalog.pagesCount,
     page: state.catalog.page,
@@ -52,39 +53,40 @@ function Main() {
       return <Item item={item} onAdd={callbacks.addToBasket} btnAddTitle={callbacks.translate('add')}/>
     }, [callbacks.addToBasket, select.locale]),
   };
-
+  console.log('Main');
   return (
-    <PageLayout>
-      <Head title={callbacks.translate('store')}>
-        <LocaleSwitcher
+    <WithModal activeModal={select.activeModal}>
+      <PageLayout>
+        <Head
+          title={callbacks.translate('store')}
           locales={select.locales}
           locale={select.locale}
           setLocale={callbacks.setLocale}/>
-      </Head>
-      <BasketTool
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-        translate={callbacks.translate}/>
-      { select.isFetching && <Preloader/> }
-      { !select.isFetching && select.isSuccess &&
-        <>
-          <List
-            list={select.list}
-            renderItem={renders.item}/>
-          <Paginator
-            onSetPage={callbacks.load}
-            pagesCount={select.pagesCount}
-            page={select.page} />
-        </>
-      }
-      { !select.isFetching && !select.isSuccess &&
-        <Error
-          message={callbacks.translate('failed to fetch data')}
-          btnRetryTitle={callbacks.translate('try again')}
-          onRetry={() => callbacks.load(select.page)}/>
-      }
-    </PageLayout>
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+          translate={callbacks.translate}/>
+        { select.isFetching && <Preloader/> }
+        { !select.isFetching && select.isSuccess &&
+          <>
+            <List
+              list={select.list}
+              renderItem={renders.item}/>
+            <Paginator
+              onSetPage={callbacks.load}
+              pagesCount={select.pagesCount}
+              page={select.page} />
+          </>
+        }
+        { !select.isFetching && !select.isSuccess &&
+          <Error
+            message={callbacks.translate('failed to fetch data')}
+            btnRetryTitle={callbacks.translate('try again')}
+            onRetry={() => callbacks.load(select.page)}/>
+        }
+      </PageLayout>
+    </WithModal>
   );
 }
 
