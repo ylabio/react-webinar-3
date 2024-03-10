@@ -1,0 +1,28 @@
+.LanguageSwitcher {
+  position: relative;
+
+}
+
+.LanguageSwitcher-btn {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+.LanguageSwitcher-btn span {
+  font-family: 'Arial', sans-serif;
+  font-size: 10px;
+}
+
+.LanguageSwitcher-select {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translateY(100%);
+  display: none;
+  flex-direction: column;
+}
+
+.LanguageSwitcher-select.active {
+  display: flex;
+}

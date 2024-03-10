@@ -1,0 +1,22 @@
+.ItemSingle {
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.ItemSingle-info {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.ItemSingle-info span {
+  font-weight: 700;
+}
+
+.ItemSingle-price {
+  font-size: 24px;
+  font-weight: 700;
+}
+

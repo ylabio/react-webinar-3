@@ -1,0 +1,17 @@
+/* Контрол с общими действиями */
+.BasketTool {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  font-size: 18px;
+}
+
+.BasketTool-content {
+
+}
+
+.BasketTool-total {
+  font-weight: bold;
+  margin: 0 20px;
+}
