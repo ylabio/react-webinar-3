@@ -17,5 +17,6 @@
   "total": "Total",
   "pcs": "pcs",
   "basket": "Basket",
-  "close": "Close"
+  "close": "Close",
+  "productDetailsError": "Error loading product data"
 }

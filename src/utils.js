@@ -33,3 +33,19 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Функция debounce для отложенного выполнения функции
+ * @param {Function} func - Функция для выполнения
+ * @param {number} delay - Задержка в миллисекундах
+ * @returns {Function} - Возвращает обертку, очищая таймер
+ */
+export function debounce(func, delay) {  
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+}

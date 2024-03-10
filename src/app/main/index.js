@@ -1,10 +1,11 @@
-import {memo, useCallback, useEffect, useState} from 'react';
+import {memo, useCallback, useEffect, useState} from "react";
+import { debounce } from "../../utils"; 
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
-import Pagination from '../../components/pagination';
+import Pagination from "../../components/pagination";
 import Skeleton from "../../components/skeleton"; 
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
@@ -14,8 +15,10 @@ function Main() {
   const store = useStore();
   const [isListLoading, setIsListLoading] = useState(true); 
 
+  const defaultCurrentPage = 1;
+
   useEffect(() => {
-    store.actions.catalog.load().then(() => {
+    store.actions.catalog.load(select.currentPage || defaultCurrentPage).then(() => {
       setIsListLoading(false);
     });
   }, []);
@@ -34,12 +37,12 @@ function Main() {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Изменение страницы
-    onPageChange: useCallback(page => {
+    onPageChange: useCallback(debounce(page => {
       setIsListLoading(true); 
       store.actions.catalog.load(page).then(() => {
         setIsListLoading(false);
       });
-    }, [store])
+    }, 200), [store]) 
   };
 
   const renders = {
