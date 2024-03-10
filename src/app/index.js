@@ -3,6 +3,7 @@ import Main from "./main";
 import Basket from "./basket";
 import useSelector from "../store/use-selector";
 import Info from './info';
+import { LanguageProvider } from '../localization/language-context'
 
 /**
  * Приложение
@@ -13,7 +14,7 @@ function App() {
   const activeModal = useSelector(state => state.modals.name);
 
   return (
-    <>
+    <LanguageProvider>
       <Router>
         <Routes>
           <Route path="/" element={<Main/>} />
@@ -21,7 +22,7 @@ function App() {
         </Routes>
         {activeModal === 'basket' && <Basket/>}
       </Router>
-    </>
+    </LanguageProvider>
   );
 }
 
