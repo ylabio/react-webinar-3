@@ -28,20 +28,25 @@ class Catalog extends StoreModule {
       ...this.getState(),
       list: json.result.items,
       pages: Math. trunc(json.result.count / LIMIT),
-      currentPage: page
+      currentPage: page,
+      details: {},
     }, 'Загружены товары из АПИ');
   }
 
   async loadDetails(id) {
-    console.log('loadDetails id', id);
-    const response = await fetch(`/api/v1/articles/${id}`);
-    const json = await response.json();
-    console.log('json', json);
-    this.setState({
-      ...this.getState(),
-      details: json.result
-    }, `Получили детали товара с id ${id}`);
-    return json.result
+    // const response = await fetch(`/api/v1/articles/${id}`);
+    try{
+      const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
+          const json = await response.json();
+          this.setState({
+            ...this.getState(),
+            details: json.result
+          }, `Получили детали товара с id ${id}`);
+          return json.result
+    }catch(error){
+      throw new Error(error.message);
+    }
+
   }
 }
 
