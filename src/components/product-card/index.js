@@ -1,12 +1,16 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from "../../utils";
 import './style.css';
 
-function ProductCard({ product, onAdd }) {
+function ProductCard({ product, onAdd, lang }) {
 
   const cn = bem('ProductCard');
+
+  const button = useMemo(() => {
+    return lang === 'ru' ? 'Добавить' : 'Add';
+  }, [lang]);
 
   return (
     <div className={cn()}>
@@ -15,7 +19,7 @@ function ProductCard({ product, onAdd }) {
       <p className={cn('category')}>Категория: <b>{product?.category?.title}</b></p>
       <p className={cn('year')}>Год выпуска: <b>{product?.edition}</b></p>
       <p className={cn('price')}>Цена:&nbsp;&nbsp;{numberFormat(product?.price)} ₽</p>
-      <button className={cn('addButton')} onClick={() => onAdd(product._id)}>Добавить</button>
+      <button className={cn('addButton')} onClick={() => onAdd(product._id)}>{button}</button>
     </div>
   );
 }
@@ -23,10 +27,12 @@ function ProductCard({ product, onAdd }) {
 ProductCard.propTypes = {
   product: PropTypes.object,
   onAdd: PropTypes.func.isRequired,
+  lang: PropTypes.string
 };
 
 ProductCard.defaultProps = {
-  product: {}
+  product: {},
+  lang: 'ru'
 }
 
 export default memo(ProductCard);
