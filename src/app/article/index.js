@@ -6,6 +6,7 @@ import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from "../../components/basket-tool";
 import Detailizer from '../../components/detailizer';
+import LocaleSwitcher from '../../components/locale-switcher';
 
 function Arcticle() {
   const store = useStore();
@@ -23,6 +24,8 @@ function Arcticle() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     page: state.catalog.page,
+    locales: state.translator.locales,
+    locale: state.translator.locale,
   }));
 
   const callbacks = {
@@ -32,17 +35,32 @@ function Arcticle() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Перевод текста
+    translate: useCallback(text => store.actions.translator.translate(text), [store, select.locale]),
+    // Выбор локали
+    setLocale: useCallback(locale => store.actions.translator.setLocale(locale), [store]),
   }
   
   return (
     <PageLayout>
-      <Head title={select.article ? select.article.title : 'Магазин'}/>
+      <Head title={select.article ? select.article.title : ''}>
+        <LocaleSwitcher
+          locales={select.locales}
+          locale={select.locale}
+          setLocale={callbacks.setLocale}/>
+      </Head>
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-        link={{title: 'Главная', url: `/?page=${(select.page)}`}}/>
-      {select.article && <Detailizer article={select.article} onAdd={callbacks.addToBasket}/>}
+        link={{title: callbacks.translate('main page'), url: `/?page=${(select.page)}`}}
+        translate={callbacks.translate}/>
+      {select.article &&
+        <Detailizer
+          article={select.article}
+          onAdd={callbacks.addToBasket}
+          translate={callbacks.translate}/>
+      }
     </PageLayout>
   );
 }

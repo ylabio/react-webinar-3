@@ -1,0 +1,7 @@
+import React from 'react';
+
+/**
+ * Контекст для Translator
+ * @type {React.Context<Translator>}
+ */
+export const TranslatorContext = React.createContext();

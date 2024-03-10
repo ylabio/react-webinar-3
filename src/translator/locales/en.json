@@ -1,0 +1,19 @@
+{
+  "store": "Store",
+  "cart": "Cart",
+  "in cart": "In cart",
+  "empty": "empty",
+  "item": "item",
+  "few items": "items",
+  "many items": "items",
+  "open": "Open",
+  "main page": "Home",
+  "total": "Total",
+  "manufacturer country": "Manufacturer country",
+  "category": "Category",
+  "year of issue": "Year of issue",
+  "price": "Price",
+  "add": "Add",
+  "delete": "Delete",
+  "close": "Close"
+}

@@ -5,26 +5,26 @@ import {numberFormat, plural} from "../../utils";
 import {Link} from 'react-router-dom';
 import './style.css';
 
-function BasketTool({sum, amount, onOpen, link}) {
+function BasketTool(props) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
       <div className={cn('links')}>
-        {link && <Link to={link.url} className={cn('link')}>{link.title}</Link>}
+        {props.link && <Link to={props.link.url} className={cn('link')}>{props.link.title}</Link>}
       </div>
       <div className={cn('tools')}>
-        <span className={cn('label')}>В корзине:</span>
+        <span className={cn('label')}>{props.translate('in cart')}:</span>
         <span className={cn('total')}>
-          {amount
-            ? `${amount} ${plural(amount, {
-              one: 'товар',
-              few: 'товара',
-              many: 'товаров'
-            })} / ${numberFormat(sum)} ₽`
-            : `пусто`
+          {props.amount
+            ? `${props.amount} ${plural(props.amount, {
+              one: props.translate('item'),
+              few: props.translate('few items'),
+              many: props.translate('many items')
+            })} / ${numberFormat(props.sum)} ₽`
+            : props.translate('empty')
           }
         </span>
-        <button onClick={onOpen}>Перейти</button>
+        <button onClick={props.onOpen}>{props.translate('open')}</button>
       </div>
     </div>
   );
@@ -32,6 +32,7 @@ function BasketTool({sum, amount, onOpen, link}) {
 
 BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
+  translate: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
   link: PropTypes.shape({
@@ -42,6 +43,7 @@ BasketTool.propTypes = {
 
 BasketTool.defaultProps = {
   onOpen: () => {},
+  translate: () => {},
   sum: 0,
   amount: 0,
   link: null

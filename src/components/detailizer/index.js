@@ -4,7 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
 
-function Detailizer({article, onAdd}) {
+function Detailizer({article, translate, onAdd}) {
 
   const cn = bem('Detailizer');
 
@@ -16,13 +16,13 @@ function Detailizer({article, onAdd}) {
     <div className={cn()}>
       <div className={cn('description')}>{ article.description }</div>
       { article.madeIn.title &&
-          <div className={cn('attribute')}>Страна производитель: <span className={cn('attribute', {'value': true})}>{ article.madeIn.title }</span></div> }
+          <div className={cn('attribute')}>{translate('manufacturer country')}: <span className={cn('attribute', {'value': true})}>{ article.madeIn.title }</span></div> }
       { article.category.title &&
-          <div className={cn('attribute')}>Категория: <span className={cn('attribute', {'value': true})}>{ article.category.title }</span></div> }
+          <div className={cn('attribute')}>{translate('category')}: <span className={cn('attribute', {'value': true})}>{ article.category.title }</span></div> }
       { article.edition &&
-          <div className={cn('attribute')}>Год выпуска: <span className={cn('attribute', {'value': true})}>{ article.edition }</span></div> }
-      <div className={cn('price')}>Цена: {numberFormat(article.price)} ₽</div>
-      <button onClick={callbacks.onAdd}>Добавить</button>
+          <div className={cn('attribute')}>{translate('year of issue')}: <span className={cn('attribute', {'value': true})}>{ article.edition }</span></div> }
+      <div className={cn('price')}>{translate('price')}: {numberFormat(article.price)} ₽</div>
+      <button onClick={callbacks.onAdd}>{translate('add')}</button>
     </div>
   );
 }
@@ -37,10 +37,12 @@ Detailizer.propTypes = {
     category: PropTypes.shape({title: PropTypes.string}),
     edition: PropTypes.number,
   }).isRequired,
+  translate: PropTypes.func,
   onAdd: PropTypes.func,
 };
 
 Detailizer.defaultProps = {
+  translate: () => {},
   onAdd: () => {},
 }
 

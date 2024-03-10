@@ -6,6 +6,7 @@ import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import Paginator from '../../components/paginator';
+import LocaleSwitcher from '../../components/locale-switcher';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
@@ -24,7 +25,9 @@ function Main() {
     pagesCount: state.catalog.pagesCount,
     page: state.catalog.page,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    locales: state.translator.locales,
+    locale: state.translator.locale
   }));
 
   const callbacks = {
@@ -34,21 +37,38 @@ function Main() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Переход на страницу
     setPage: useCallback(page => store.actions.catalog.setPage(page), [store]),
+    // Перевод текста
+    translate: useCallback(text => store.actions.translator.translate(text), [store, select.locale]),
+    // Выбор локали
+    setLocale: useCallback(locale => store.actions.translator.setLocale(locale), [store]),
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
+      return <Item item={item} onAdd={callbacks.addToBasket} btnAddTitle={callbacks.translate('add')}/>
+    }, [callbacks.addToBasket, select.locale]),
   };
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
-      <List list={select.list} renderItem={renders.item}/>
-      <Paginator onSetPage={callbacks.setPage} pagesCount={select.pagesCount} page={select.page} />
+      <Head title={callbacks.translate('store')}>
+        <LocaleSwitcher
+          locales={select.locales}
+          locale={select.locale}
+          setLocale={callbacks.setLocale}/>
+      </Head>
+      <BasketTool
+        onOpen={callbacks.openModalBasket}
+        amount={select.amount}
+        sum={select.sum}
+        translate={callbacks.translate}/>
+      <List
+        list={select.list}
+        renderItem={renders.item}/>
+      <Paginator
+        onSetPage={callbacks.setPage}
+        pagesCount={select.pagesCount}
+        page={select.page} />
     </PageLayout>
   );
 }
