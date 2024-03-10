@@ -17,7 +17,7 @@ const traductions = {
     },
     details: {
       country_txt: 'Страна производитель:',
-      category_txt: 'Категория',
+      category_txt: 'Категория:',
       year_txt: 'Год выпуска:',
       price_txt: 'Цена:',
     },
@@ -46,14 +46,14 @@ const traductions = {
     },
     details: {
       country_txt: 'Manufacturer country:',
-      category_txt: 'Category',
+      category_txt: 'Category:',
       year_txt: 'Year of issue:',
       price_txt: 'Price:',
     },
     buttons: {
       onAddTxt: 'Add',
       onRemoveTxt: 'Remove',
-      onOpenTxt: 'Navigate',
+      onOpenTxt: 'Open',
       onCloseTxt: 'Close',
     }
   }
