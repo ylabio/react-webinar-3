@@ -9,7 +9,7 @@ function Pagination({max, current}) {
 
   return (
     <div className={cn()}>
-      {new Array(max).fill(true).map((_, i)=> {
+      {Array(max).fill(true).map((_, i)=> {
         const number = i + 1;
         let content = null;
         if(number === 2 && current > 3 || number === max - 1 && current < max - 2) {

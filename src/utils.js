@@ -46,6 +46,7 @@ export function getTranslater(lang) {
       'Удалить': 'Remove',
       'Перейти': 'Go',
       'Закрыть': 'Close',
+      'шт': 'pcs',
       'Итого': 'Total',
       'Страна производитель:': 'Made in:',
       'Категория:': 'Category:',
