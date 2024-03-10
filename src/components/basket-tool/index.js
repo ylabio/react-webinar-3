@@ -5,11 +5,11 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
 
-function BasketTool({sum, amount, onOpen}) {
+function BasketTool({sum, amount, onOpen, translation}) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-			<Link to={'/'} className={cn('link')}>Главная</Link>
+			<Link to={'/'} className={cn('link')}>{translation.main}</Link>
       <div className={cn('group')}>
 				<span className={cn('label')}>В корзине:</span>
 				<span className={cn('total')}>
@@ -22,7 +22,7 @@ function BasketTool({sum, amount, onOpen}) {
 						: `пусто`
 					}
 				</span>
-				<button onClick={onOpen}>Перейти</button>
+				<button onClick={onOpen}>{translation.actions.open}</button>
 			</div>
     </div>
   );
@@ -31,7 +31,8 @@ function BasketTool({sum, amount, onOpen}) {
 BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
-  amount: PropTypes.number
+  amount: PropTypes.number,
+	translation: PropTypes.object
 };
 
 BasketTool.defaultProps = {
