@@ -1,4 +1,4 @@
-import { memo, useCallback, useLayoutEffect } from 'react';
+import { useCallback, useLayoutEffect } from 'react';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
@@ -6,6 +6,7 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import { useParams } from 'react-router-dom';
 import ItemDetails from '../../components/item-details';
+import ErrorText from '../../components/error-text';
 
 function ArticlesPage() {
   const store = useStore();
@@ -13,7 +14,7 @@ function ArticlesPage() {
 
   useLayoutEffect(() => {
     store.actions.articles.getProductDetails(articleId);
-  }, []);
+  }, [articleId]);
 
   const basket = useSelector(({ basket }) => ({
     amount: basket.amount,
@@ -37,23 +38,24 @@ function ArticlesPage() {
       [store],
     ),
   };
-  console.log(articles.loading);
+
   return (
     <PageLayout>
+      <Head title={articles.title} />
+      <p>{}</p>
+      <BasketTool
+        onOpen={callbacks.openModalBasket}
+        amount={basket.amount}
+        sum={basket.sum}
+      />
       {articles.loading === 'success' && (
-        <>
-          <Head title={articles.title} />
-          <p>{}</p>
-          <BasketTool
-            onOpen={callbacks.openModalBasket}
-            amount={basket.amount}
-            sum={basket.sum}
-          />
-          <ItemDetails item={articles} onAdd={callbacks.addToBasket} />
-        </>
+        <ItemDetails item={articles} onAdd={callbacks.addToBasket} />
+      )}
+      {articles.loading === 'failed' && (
+        <ErrorText>Не удалось загрузить товар</ErrorText>
       )}
     </PageLayout>
   );
 }
 
-export default memo(ArticlesPage);
+export default ArticlesPage;

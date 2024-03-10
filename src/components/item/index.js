@@ -16,7 +16,7 @@ function Item(props) {
   return (
     <div className={cn()}>
       <Link
-      to={`/articles/${props.item._id}`}
+      to={`articles/${props.item._id}`}
       state={{ background: location }}
       className={cn('title')}>
         {props.item.title}

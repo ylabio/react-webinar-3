@@ -8,6 +8,11 @@
 
 .BasketTool-link {
   margin-right: auto;
+  color: #0087E9;
+}
+
+.BasketTool-link:hover {
+  color: #003ae9;
 }
 
 .BasketTool-label {
