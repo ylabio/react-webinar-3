@@ -11,7 +11,7 @@ class Language extends StoreModule {
   switch(lang) {
     this.setState({
       lang
-    });
+    }, 'Переключили язык');
   }
 }
 
