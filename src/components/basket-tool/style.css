@@ -14,3 +14,11 @@
   font-weight: bold;
   margin: 0 20px;
 }
+
+
+.BasketTool-link {
+  margin-right: auto;
+  display: block;
+  color: rgba(0, 135, 233, 1);
+  text-decoration: underline;
+}
