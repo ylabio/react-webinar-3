@@ -5,20 +5,24 @@ import BasketTool from "../../components/basket-tool";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import ProductBody from '../../components/product-body';
+import { useParams } from 'react-router-dom';
 
 function Product() {
 
   const store = useStore();
-
-  useEffect(() => {
-    store.actions.product.load();
-  }, []);
+  let { productId } = useParams();
 
   const select = useSelector(state => ({
     data:state.product.data,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
+  
+  useEffect(() => {
+    if(productId !== select.data._id) {
+      store.actions.product.load(productId);
+    }
+  }, [productId]);
 
   const callbacks = {
     // Добавление в корзину

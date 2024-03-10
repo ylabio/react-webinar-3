@@ -9,9 +9,8 @@ class Product extends StoreModule {
       }
     }
   }
-  // http://example.front.ylab.io/api/v1/articles/65817bed5c295a2ff2fcd182?fields=*,madeIn(title,code),category(title)
-  async load() {
-    const response = await fetch('/api/v1/articles/65817bed5c295a2ff2fcd182?fields=*,madeIn(title,code),category(title)');
+  async load(id) {
+    const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
     const json = await response.json();
     
     let productData={
@@ -22,7 +21,7 @@ class Product extends StoreModule {
       category:json.result.category.title,
       price:json.result.price,
       dateCreate:new Date(json.result.dateCreate).getFullYear(),
-      _id:json.result.id
+      _id:json.result._id
     }
     this.setState({
       ...this.getState(),

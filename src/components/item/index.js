@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
+import { NavLink } from "react-router-dom";
 
 function Item(props) {
 
@@ -14,9 +15,10 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
+      <NavLink to={`/product/${props.item._id}`}>
         {props.item.title}
+      </NavLink>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
