@@ -9,6 +9,8 @@ import Paginator from '../../components/paginator';
 import LocaleSwitcher from '../../components/locale-switcher';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import Preloader from '../../components/preloader';
+import Error from '../../components/error';
 
 function Main() {
 
@@ -24,6 +26,8 @@ function Main() {
     list: state.catalog.list,
     pagesCount: state.catalog.pagesCount,
     page: state.catalog.page,
+    isFetching: state.catalog.isFetching,
+    isSuccess: state.catalog.isSuccess,
     amount: state.basket.amount,
     sum: state.basket.sum,
     locales: state.translator.locales,
@@ -36,7 +40,7 @@ function Main() {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Переход на страницу
-    setPage: useCallback(page => store.actions.catalog.setPage(page), [store]),
+    load: useCallback(page => store.actions.catalog.load(page), [store]),
     // Перевод текста
     translate: useCallback(text => store.actions.translator.translate(text), [store, select.locale]),
     // Выбор локали
@@ -62,13 +66,24 @@ function Main() {
         amount={select.amount}
         sum={select.sum}
         translate={callbacks.translate}/>
-      <List
-        list={select.list}
-        renderItem={renders.item}/>
-      <Paginator
-        onSetPage={callbacks.setPage}
-        pagesCount={select.pagesCount}
-        page={select.page} />
+      { select.isFetching && <Preloader/> }
+      { !select.isFetching && select.isSuccess &&
+        <>
+          <List
+            list={select.list}
+            renderItem={renders.item}/>
+          <Paginator
+            onSetPage={callbacks.load}
+            pagesCount={select.pagesCount}
+            page={select.page} />
+        </>
+      }
+      { !select.isFetching && !select.isSuccess &&
+        <Error
+          message={callbacks.translate('failed to fetch data')}
+          btnRetryTitle={callbacks.translate('try again')}
+          onRetry={() => callbacks.load(select.page)}/>
+      }
     </PageLayout>
   );
 }

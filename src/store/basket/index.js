@@ -6,7 +6,9 @@ class Basket extends StoreModule {
     return {
       list: [],
       sum: 0,
-      amount: 0
+      amount: 0,
+      isFetching: false,
+      isSuccess: false
     }
   }
 
@@ -38,16 +40,30 @@ class Basket extends StoreModule {
         // Добавляем к сумме.
         sum += item.price;
       } else {
-        const response = await fetch(`/api/v1/articles/${_id}`);
-        const json = await response.json();
-        list.push({_id: json.result._id, title: json.result.title, price: json.result.price, amount: 1});
-        sum += json.result.price;
         this.setState({
           ...this.getState(),
-          list,
-          sum,
-          amount: list.length
-        }, 'Добавление в корзину через запрос');
+          isFetching: true
+        }, 'Запрос цены товара ' + _id);
+        const response = await fetch(`/api/v1/articlesa/${_id}`);
+        if (response.status === 200) {
+          const json = await response.json();
+          list.push({_id: json.result._id, title: json.result.title, price: json.result.price, amount: 1});
+          sum += json.result.price;
+          this.setState({
+            ...this.getState(),
+            list,
+            sum,
+            amount: list.length,
+            isFetching: false,
+            isSuccess: true
+          }, 'Добавление в корзину через запрос');
+        } else {
+          this.setState({
+            ...this.getState(),
+            isFetching: false,
+            isSuccess: false
+          }, 'Ошибка запроса цены товара ' + _id);
+        }
         return;
       }
     }
@@ -56,7 +72,9 @@ class Basket extends StoreModule {
       ...this.getState(),
       list,
       sum,
-      amount: list.length
+      amount: list.length,
+      isFetching: false,
+      isSuccess: true
     }, 'Добавление в корзину');
   }
 

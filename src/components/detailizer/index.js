@@ -4,25 +4,26 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
 
-function Detailizer({article, translate, onAdd}) {
+function Detailizer(props) {
 
   const cn = bem('Detailizer');
 
   const callbacks = {
-    onAdd: (e) => onAdd(article._id)
+    translate: text => props.translate(text),
+    onAdd: (e) => props.onAdd(props.article._id)
   }
 
   return (
     <div className={cn()}>
-      <div className={cn('description')}>{ article.description }</div>
-      { article.madeIn.title &&
-          <div className={cn('attribute')}>{translate('manufacturer country')}: <span className={cn('attribute', {'value': true})}>{ article.madeIn.title }</span></div> }
-      { article.category.title &&
-          <div className={cn('attribute')}>{translate('category')}: <span className={cn('attribute', {'value': true})}>{ article.category.title }</span></div> }
-      { article.edition &&
-          <div className={cn('attribute')}>{translate('year of issue')}: <span className={cn('attribute', {'value': true})}>{ article.edition }</span></div> }
-      <div className={cn('price')}>{translate('price')}: {numberFormat(article.price)} ₽</div>
-      <button onClick={callbacks.onAdd}>{translate('add')}</button>
+      <div className={cn('description')}>{ props.article.description }</div>
+      { props.article.madeIn.title &&
+          <div className={cn('attribute')}>{callbacks.translate('manufacturer country')}: <span className={cn('attribute', {'value': true})}>{ props.article.madeIn.title }</span></div> }
+      { props.article.category.title &&
+          <div className={cn('attribute')}>{callbacks.translate('category')}: <span className={cn('attribute', {'value': true})}>{ props.article.category.title }</span></div> }
+      { props.article.edition &&
+          <div className={cn('attribute')}>{callbacks.translate('year of issue')}: <span className={cn('attribute', {'value': true})}>{ props.article.edition }</span></div> }
+      <div className={cn('price')}>{callbacks.translate('price')}: {numberFormat(props.article.price)} ₽</div>
+      <button onClick={callbacks.onAdd} disabled={!props.isEnabled}>{callbacks.translate('add')}</button>
     </div>
   );
 }
@@ -37,11 +38,13 @@ Detailizer.propTypes = {
     category: PropTypes.shape({title: PropTypes.string}),
     edition: PropTypes.number,
   }).isRequired,
+  isEnabled: PropTypes.bool,
   translate: PropTypes.func,
   onAdd: PropTypes.func,
 };
 
 Detailizer.defaultProps = {
+  isEnabled: true,
   translate: () => {},
   onAdd: () => {},
 }

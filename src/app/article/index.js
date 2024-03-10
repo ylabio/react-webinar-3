@@ -7,6 +7,8 @@ import Head from '../../components/head';
 import BasketTool from "../../components/basket-tool";
 import Detailizer from '../../components/detailizer';
 import LocaleSwitcher from '../../components/locale-switcher';
+import Preloader from '../../components/preloader';
+import Error from '../../components/error';
 import {Link} from 'react-router-dom';
 
 function Arcticle() {
@@ -22,8 +24,12 @@ function Arcticle() {
 
   const select = useSelector(state => ({
     article: state.articles.article,
+    isFetchingArticle: state.articles.isFetching,
+    isSuccessArticle: state.articles.isSuccess,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    isFetchingPrice: state.basket.isFetching,
+    isSuccessPrice: state.basket.isSuccess,
     page: state.catalog.page,
     locales: state.translator.locales,
     locale: state.translator.locale,
@@ -57,11 +63,19 @@ function Arcticle() {
         translate={callbacks.translate}>
           <Link to={`/?page=${(select.page)}`}>{callbacks.translate('main page')}</Link>
       </BasketTool>
-      {select.article &&
+      { select.isFetchingArticle && <Preloader/> }
+      { !select.isFetchingArticle && select.isSuccessArticle &&
         <Detailizer
           article={select.article}
+          isEnabled={!select.isFetchingPrice}
           onAdd={callbacks.addToBasket}
           translate={callbacks.translate}/>
+      }
+      { !select.isFetchingArticle && !select.isSuccessArticle &&
+        <Error
+          message={callbacks.translate('failed to fetch data')}
+          btnRetryTitle={callbacks.translate('try again')}
+          onRetry={() => callbacks.getArticle(articleId)}/>
       }
     </PageLayout>
   );

@@ -17,5 +17,7 @@
   "price": "Price",
   "add": "Add",
   "delete": "Delete",
-  "close": "Close"
+  "close": "Close",
+  "failed to fetch data": "Failed to fetch data",
+  "try again": "Try again"
 }
