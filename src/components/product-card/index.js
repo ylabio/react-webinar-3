@@ -8,18 +8,24 @@ function ProductCard({ product, onAdd, lang }) {
 
   const cn = bem('ProductCard');
 
-  const button = useMemo(() => {
-    return lang === 'ru' ? 'Добавить' : 'Add';
+  const language = useMemo(() => {
+    return {
+      country: lang === 'ru' ? 'Страна производитель: ' : 'Made in: ',
+      category: lang === 'ru' ? 'Категория: ' : 'Category: ',
+      year: lang === 'ru' ? 'Год выпуска: ' : 'Year of manufacture: ',
+      price: lang === 'ru' ? 'Цена: ' : 'Price: ',
+      button: lang === 'ru' ? 'Добавить' : 'Add'
+    }
   }, [lang]);
 
   return (
     <div className={cn()}>
       <p className={cn('desc')}>{product?.description}</p>
-      <p className={cn('country')}>Страна производитель: <b>{product?.madeIn?.title} ({product?.madeIn?.code})</b></p>
-      <p className={cn('category')}>Категория: <b>{product?.category?.title}</b></p>
-      <p className={cn('year')}>Год выпуска: <b>{product?.edition}</b></p>
-      <p className={cn('price')}>Цена:&nbsp;&nbsp;{numberFormat(product?.price)} ₽</p>
-      <button className={cn('addButton')} onClick={() => onAdd(product._id)}>{button}</button>
+      <p className={cn('country')}>{language.country}<b>{product?.madeIn?.title} ({product?.madeIn?.code})</b></p>
+      <p className={cn('category')}>{language.category}<b>{product?.category?.title}</b></p>
+      <p className={cn('year')}>{language.year}<b>{product?.edition}</b></p>
+      <p className={cn('price')}>{language.price}&nbsp;&nbsp;{numberFormat(product?.price)} ₽</p>
+      <button className={cn('addButton')} onClick={() => onAdd(product._id)}>{language.button}</button>
     </div>
   );
 }
