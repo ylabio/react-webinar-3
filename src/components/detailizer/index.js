@@ -7,7 +7,6 @@ import './style.css';
 function Detailizer(props) {
 
   const cn = bem('Detailizer');
-  console.log('Detailizer');
 
   return (
     <div className={cn()}>

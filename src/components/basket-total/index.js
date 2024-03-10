@@ -6,7 +6,6 @@ import './style.css';
 
 function BasketTotal({sum, labelTotal}) {
   const cn = bem('BasketTotal');
-  console.log('BasketTotal');
   return (
     <div className={cn()}>
       <span className={cn('cell')}>{labelTotal}</span>

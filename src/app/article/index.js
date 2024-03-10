@@ -45,7 +45,6 @@ function Article() {
     // Выбор локали
     setLocale: useCallback(locale => store.actions.translator.setLocale(locale), [store]),
   }
-  console.log('Article');
 
   return (
     <WithModal activeModal={select.activeModal}>

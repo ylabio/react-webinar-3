@@ -7,9 +7,6 @@ import './style.css';
 
 function BasketTool(props) {
   const cn = bem('BasketTool');
-
-  console.log('BasketTool');
-
   return (
     <div className={cn()}>
       <div className={cn('links')}>
@@ -38,7 +35,7 @@ BasketTool.propTypes = {
   translate: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
-  page: PropTypes.page
+  page: PropTypes.number
 };
 
 BasketTool.defaultProps = {

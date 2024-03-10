@@ -1,4 +1,4 @@
-import {memo, useCallback} from "react";
+import {memo} from "react";
 import PropTypes from "prop-types";
 import LocaleSwitcher from "../locale-switcher";
 import './style.css';

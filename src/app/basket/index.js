@@ -31,7 +31,7 @@ function Basket() {
       return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} onClick={callbacks.closeModal} translate={callbacks.translate}/>
     }, [callbacks.removeFromBasket, callbacks.translate]),
   };
-  console.log('Basket');
+
   return (
     <ModalLayout
       title={callbacks.translate('cart')}

@@ -53,7 +53,7 @@ function Main() {
       return <Item item={item} onAdd={callbacks.addToBasket} btnAddTitle={callbacks.translate('add')}/>
     }, [callbacks.addToBasket, select.locale]),
   };
-  console.log('Main');
+
   return (
     <WithModal activeModal={select.activeModal}>
       <PageLayout>

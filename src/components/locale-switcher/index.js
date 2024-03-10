@@ -1,11 +1,10 @@
-import {memo, useCallback} from "react";
+import {memo} from "react";
 import {cn as bem} from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import './style.css';
 
 function LocaleSwitcher(props) {
   const cn = bem('LocaleSwitcher');
-  console.log('Locale Switcher');
   return (
     <div className='LocaleSwitcher'>
       {props.locales.map(item =>

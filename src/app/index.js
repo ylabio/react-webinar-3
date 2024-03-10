@@ -7,9 +7,6 @@ import Article from "./article";
  * @returns {React.ReactElement}
  */
 function App() {
-
-  console.log('App');
-
   return (
     <>
       <BrowserRouter>
