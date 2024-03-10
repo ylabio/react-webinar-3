@@ -10,6 +10,7 @@ class Catalog extends StoreModule {
 
   initState() {
     return {
+<<<<<<< HEAD
       list: [],
       item: null,
       totalPages: 1,
@@ -38,6 +39,19 @@ class Catalog extends StoreModule {
       ...this.getState(),
       item: json.result
     }, 'Загружен товар из АПИ');
+=======
+      list: []
+    }
+  }
+
+  async load() {
+    const response = await fetch('/api/v1/articles');
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      list: json.result.items
+    }, 'Загружены товары из АПИ');
+>>>>>>> 965c1b144a06904160cffca15056d32ecb80f433
   }
 }
 

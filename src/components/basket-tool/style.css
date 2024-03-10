@@ -1,13 +1,21 @@
 /* Контрол с общими действиями */
 .BasketTool {
   display: flex;
+<<<<<<< HEAD
   justify-content: space-between;
   align-items: center;
+=======
+  justify-content: flex-end;
+>>>>>>> 965c1b144a06904160cffca15056d32ecb80f433
   padding: 20px;
   font-size: 18px;
 }
 
+<<<<<<< HEAD
 .BasketTool-content {
+=======
+.BasketTool-label {
+>>>>>>> 965c1b144a06904160cffca15056d32ecb80f433
 
 }
 

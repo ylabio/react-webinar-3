@@ -17,11 +17,14 @@
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+<<<<<<< HEAD
   color: black;
   text-decoration: none;
   &:hover {
     text-decoration-line: underline;
   }
+=======
+>>>>>>> 965c1b144a06904160cffca15056d32ecb80f433
 }
 
 .Item-actions {

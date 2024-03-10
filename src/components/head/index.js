@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {memo, useContext} from "react";
 import PropTypes from "prop-types";
 import './style.css';
@@ -10,6 +11,16 @@ function Head({title}) {
     <div className='Head'>
       <h1>{title}</h1>
       <LanguageSwitcher/>
+=======
+import {memo} from "react";
+import PropTypes from "prop-types";
+import './style.css';
+
+function Head({title}) {
+  return (
+    <div className='Head'>
+      <h1>{title}</h1>
+>>>>>>> 965c1b144a06904160cffca15056d32ecb80f433
     </div>
   )
 }
