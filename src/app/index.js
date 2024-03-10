@@ -11,15 +11,17 @@ import ArticlesPage from './articles-page';
 function App() {
   const activeModal = useSelector(state => state.modals.name);
 
+  const language = useSelector(state => state.catalog.language);
+
   return (
     <>
       <Routes>
         <Route path="/">
-          <Route path="" element={<Main />}></Route>
-          <Route path="articles/:articleId" element={<ArticlesPage />} />
+          <Route path="" element={<Main language={language}/>}></Route>
+          <Route path="articles/:articleId" element={<ArticlesPage language={language}/>} />
         </Route>
       </Routes>
-      {activeModal === 'basket' && <Basket />}
+      {activeModal === 'basket' && <Basket language={language}/>}
     </>
   );
 }

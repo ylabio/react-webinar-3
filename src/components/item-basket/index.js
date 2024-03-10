@@ -4,12 +4,15 @@ import {numberFormat} from "../../utils";
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import './style.css';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import useStore from '../../store/use-store';
+import { langButton, langText } from '../../constants/language';
 
 function ItemBasket(props) {
-  const location = useLocation();
+  const {language='ru'} = props
+
   const cn = bem('ItemBasket');
+
   const store = useStore();
 
   const callbacks = {
@@ -24,15 +27,14 @@ function ItemBasket(props) {
       <Link
         onClick={callbacks.closeModal}
         to={`articles/${props.item._id}`}
-        state={{ background: location }}
         className={cn('title')}>
         {props.item.title}
         </Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {langText.UNITS[language]}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{langButton.REMOVE[language]}</button>
         </div>
       </div>
     </div>
@@ -46,6 +48,7 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number
   }).isRequired,
+  language: PropTypes.string,
   onRemove: propTypes.func,
 }
 

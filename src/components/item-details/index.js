@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import './style.css';
+import { langButton, langText } from '../../constants/language';
 
 function ItemDetails(props) {
-  const { item, onAdd } = props;
+  const { item, onAdd, language='ru' } = props;
   const cn = bem('ItemDetails');
 
   const callbacks = {
@@ -16,19 +17,19 @@ function ItemDetails(props) {
     <div className={cn()}>
       <p className={cn('text')}>{item.description}</p>
       <p className={cn('text')}>
-        Страна производитель: <b>{item.madeIn?.title}</b>
+        {langText.MADE_IN[language]}: <b>{item.madeIn?.title}</b>
       </p>
       <p className={cn('text')}>
-        Категория: <b>{item.category?.title}</b>
+        {langText.CATEGORY[language]}: <b>{item.category?.title}</b>
       </p>
       <p className={cn('text')}>
-        Год выпуска: <b>{item.edition}</b>
+        {langText.YEAR_OF_ISSUE[language]}: <b>{item.edition}</b>
       </p>
       <p className={cn('text', { size: 'm' })}>
-        <strong>Цена: {numberFormat(item.price)} ₽</strong>
+        <strong>{langText.PRICE[language]}: {numberFormat(item.price)} ₽</strong>
       </p>
       <button className={cn('btn')} onClick={callbacks.onAdd}>
-        Добавить
+        {langButton.ADD[language]}
       </button>
     </div>
   );
@@ -43,6 +44,7 @@ ItemDetails.propTypes = {
     madeIn: PropTypes.shape({ title: PropTypes.string }),
     category: PropTypes.shape({ title: PropTypes.string }),
   }).isRequired,
+  language: PropTypes.string,
   onAdd: PropTypes.func,
 };
 

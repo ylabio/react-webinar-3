@@ -11,17 +11,18 @@ class Catalog extends StoreModule {
     return {
       list: [],
       count: 0,
+      language: 'ru',
     };
   }
 
-  async load(limit = 10, page = 1) {
+  async load(limit = 10, page = 1, language='ru') {
     let skip = 0;
 
     if (page > 1) {
       skip = (page - 1) * limit;
     }
     const response = await fetch(
-      `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id, title, price),count`,
+      `/api/v1/articles?lang=${language}&limit=${limit}&skip=${skip}&fields=items(_id, title, price),count`,
     );
     const json = await response.json();
     this.setState(
@@ -31,6 +32,15 @@ class Catalog extends StoreModule {
         count: json.result.count,
       },
       'Загружены товары из АПИ',
+    );
+  }
+  setLanguage(language) {
+    this.setState(
+      {
+        ...this.getState(),
+        language: language,
+      },
+      'Изменение языка',
     );
   }
 }
