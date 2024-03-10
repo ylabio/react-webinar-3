@@ -6,6 +6,8 @@ import BasketTool from "../../components/basket-tool";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Product from "../../components/product/product";
+import { useLanguage } from "../../localization/LanguageContext";
+import { dictionary } from "../../localization/dictionary";
 
 const ItemPage = () => {
   const { id } = useParams();
@@ -42,6 +44,8 @@ const ItemPage = () => {
     fetchProductData();
   }, [id, store]);
 
+  const { currentLanguage } = useLanguage();
+  const { loading } = dictionary[currentLanguage];
   return (
     <PageLayout>
       {isLoading ? (
@@ -53,7 +57,7 @@ const ItemPage = () => {
             background: "#5f5f5",
           }}
         >
-          Загрузка...
+          {loading}...
         </h1>
       ) : (
         <>

@@ -14,6 +14,11 @@ export const dictionary = {
     goods_few: "товара",
     goods_many: "товаров",
     empty: "пусто",
+    country: "Страна производитель",
+    category: "Категория",
+    year: "Год выпуска",
+    price: "Цена",
+    loading: "Загрузка",
   },
   en: {
     shop: "Shop",
@@ -30,5 +35,10 @@ export const dictionary = {
     goods_few: "goods",
     goods_many: "goods",
     empty: "empty",
+    country: "Country",
+    category: "Category",
+    year: "Year",
+    price: "Price",
+    loading: "Loading",
   },
 };
