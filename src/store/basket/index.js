@@ -24,6 +24,7 @@ class Basket extends StoreModule {
         exist = true; // Запомним, что был найден в корзине
         result = {...item, amount: item.amount + 1};
       }
+      
       sum += result.price * result.amount;
       return result;
     });

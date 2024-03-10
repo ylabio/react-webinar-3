@@ -1,0 +1,15 @@
+.Description{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 20px;
+}
+
+.Description-Price{
+    font-size: 20px;
+    font-weight: 800;
+}
+.Description b{
+    padding-left: 5px;
+    
+}
