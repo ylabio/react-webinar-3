@@ -4,25 +4,31 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from "../../utils";
 import './style.css';
 import { NavLink } from "react-router-dom";
+import useSelector from "../../store/use-selector";
 
 function BasketTool({ sum, amount, onOpen }) {
   const cn = bem('BasketTool');
+
+  const { locale } = useSelector(state => ({
+    locale: state.i18n.locale
+  }))
+
   return (
     <div className={cn()}>
-      <NavLink className={cn('link')} to='/'>Главная</NavLink>
+      <NavLink className={cn('link')} to='/'>{locale.Main}</NavLink>
       <div>
-        <span className={cn('label')}>В корзине:</span>
+        <span className={cn('label')}>{locale.In_cart}:</span>
         <span className={cn('total')}>
           {amount
             ? `${amount} ${plural(amount, {
-              one: 'товар',
-              few: 'товара',
-              many: 'товаров'
+              one: locale.product.one,
+              few: locale.product.few,
+              many: locale.product.many
             })} / ${numberFormat(sum)} ₽`
-            : `пусто`
+            : locale.empty
           }
         </span>
-        <button onClick={onOpen}>Перейти</button>
+        <button onClick={onOpen}>{locale.Navigate}</button>
       </div>
     </div>
   );

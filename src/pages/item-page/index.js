@@ -19,7 +19,16 @@ const ItemPage = () => {
 		}
 	}, [id])
 
-	const select = useSelector(state => ({
+	const {
+		_id,
+		title,
+		description,
+		price,
+		madeIn,
+		category,
+		edition,
+		locale
+	} = useSelector(state => ({
 		_id: state.product._id,
 		title: state.product.title,
 		description: state.product.description,
@@ -27,6 +36,7 @@ const ItemPage = () => {
 		madeIn: state.product.madeIn,
 		category: state.product.category,
 		edition: state.product.edition,
+		locale: state.i18n.locale
 	}));
 
 	const onAdd = (_id) => {
@@ -35,12 +45,12 @@ const ItemPage = () => {
 
 	return (
 		<div className={cn()}>
-			<div>{select.description}</div>
-			{select.madeIn && <div>Страна производитель: <strong>{select.madeIn.title}</strong></div>}
-			{select.category && <div>Категория: <strong>{select.category.title}</strong></div>}
-			{select.edition && <div>Год выпуска: <strong>{select.edition}</strong></div>}
-			{select.price && <div className={cn('price')}>Цена: <strong>{select.price}</strong></div>}
-			{select._id && <button onClick={() => onAdd(select._id)}>Добавить</button>}
+			<div>{description}</div>
+			{madeIn && <div>{locale.Country_of_origin}: <strong>{madeIn.title}</strong></div>}
+			{category && <div>{locale.Category}: <strong>{category.title}</strong></div>}
+			{edition && <div>{locale.Year_of_production}: <strong>{edition}</strong></div>}
+			{price && <div className={cn('price')}>{locale.Price}: <strong>{price}</strong></div>}
+			{_id && <button onClick={() => onAdd(_id)}>{locale.Add}</button>}
 
 		</div>
 	)

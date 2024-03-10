@@ -2,8 +2,9 @@ import { memo } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from "../../utils";
-import './style.css';
 import { NavLink } from "react-router-dom";
+import useSelector from "../../store/use-selector";
+import './style.css';
 
 function Item(props) {
 
@@ -13,6 +14,10 @@ function Item(props) {
     onAdd: (e) => props.onAdd(props.item._id)
   }
 
+  const { locale } = useSelector(state => ({
+    locale: state.i18n.locale
+  }))
+
   return (
     <div className={cn()}>
       <NavLink to={`/items/${props.item._id}`} className={cn('title')}>
@@ -20,7 +25,7 @@ function Item(props) {
       </NavLink>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{locale.Add}</button>
       </div>
     </div>
   );

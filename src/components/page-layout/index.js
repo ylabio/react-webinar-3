@@ -25,11 +25,12 @@ function PageLayout() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     title: state.product.title,
+    locale: state.i18n.locale
   }));
 
   let title = '';
   if (location.pathname === '/' || location.pathname === '/items') {
-    title = 'Магазин';
+    title = select.locale.Shop;
   } else if (location.pathname.startsWith('/items/')) {
     title = select.title;
   }

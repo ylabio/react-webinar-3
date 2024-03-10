@@ -1,11 +1,12 @@
 import { memo, useCallback } from 'react';
 import propTypes from 'prop-types';
-import { numberFormat } from "../../utils";
+import { numberFormat, plural } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 import PropTypes from "prop-types";
-import './style.css';
 import { useNavigate } from 'react-router';
 import useStore from '../../store/use-store';
+import useSelector from '../../store/use-selector';
+import './style.css';
 
 function ItemBasket(props) {
 
@@ -13,6 +14,10 @@ function ItemBasket(props) {
 
   const navigate = useNavigate();
   const store = useStore();
+
+  const { locale } = useSelector(state => ({
+    locale: state.i18n.locale
+  }))
 
   const callbacks = {
     handleClick: () => {
@@ -27,9 +32,15 @@ function ItemBasket(props) {
       <div onClick={() => callbacks.handleClick()} className={cn('title')}>{props.item.title}</div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          {numberFormat(props.item.amount || 0)}&nbsp;
+          {plural(props.item.amount, {
+            one: locale.unit.one,
+            few: locale.unit.few,
+            many: locale.unit.many
+          })}</div>
+        <div className={cn('cell')}>
+          <button onClick={callbacks.onRemove}>{locale.Delete}</button>
         </div>
       </div>
     </div>
