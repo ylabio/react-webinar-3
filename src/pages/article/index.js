@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState} from "react";
+import { memo, useCallback, useEffect} from "react";
 import Navbar from "../../components/navbar";
 import Head from "../../components/head";
 import PageLayout from "../../components/page-layout";
@@ -6,34 +6,23 @@ import BasketTool from "../../components/basket-tool";
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
 import ArticleItem from "../../components/article-item";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./style.css";
 import Basket from "../../app/basket";
 
 function Article() {
   const store = useStore();
   const { id } = useParams();
-  const navigate = useNavigate();
-  const [articleItem, setArticleItem] = useState();
   const activeModal = useSelector(state => state.modals.name);
 
   useEffect(() => {
-    async function getArticle() {
-      try {
-        const response = (await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`));
-        const data = await response.json();
-        setArticleItem(data.result);
-      } catch {
-        alert("Ошибка при поиске товара");
-        navigate('/');
-      }
-    }
-    getArticle()
-  }, [id, navigate]);
+    store.actions.article.load(id);
+  }, [id]);
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    item: state.article.item,
   }))
 
   const callbacks = {
@@ -43,19 +32,19 @@ function Article() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   }
 
-  if (!articleItem) {
+  if (select.item === null) {
     return <>Загрузка...</>
   }
 
   return (
     <>
       <PageLayout>
-        <Head title={articleItem.title}/>
+        <Head title={select.item.title}/>
         <Navbar />
         <BasketTool onOpen={callbacks.openModalBasket} 
                     amount={select.amount} 
                     sum={select.sum}/>
-        <ArticleItem onAdd={callbacks.addToBasket} item={articleItem}/>
+        <ArticleItem onAdd={callbacks.addToBasket} item={select.item}/>
       </PageLayout>
       {activeModal === 'basket' && <Basket />}
     </>
