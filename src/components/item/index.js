@@ -1,12 +1,14 @@
-import {memo, useState} from "react";
+import React, {useContext} from "react";
+import {LanguagesContext} from "../../lang/context";
+import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
 
 function Item(props) {
-
   const cn = bem('Item');
+  const {data} = useContext(LanguagesContext);
 
   const callbacks = {
     onAdd: (e) => props.onAdd(props.item._id)
@@ -14,13 +16,12 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        {props.item.title}
+        <Link to={props.item._id}>{props.item.title}</Link>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{data.buttons.onAddTxt}</button>
       </div>
     </div>
   );
@@ -39,4 +40,4 @@ Item.defaultProps = {
   onAdd: () => {},
 }
 
-export default memo(Item);
+export default React.memo(Item);

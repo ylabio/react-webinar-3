@@ -1,22 +1,27 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useCallback, useEffect, useState, useContext} from 'react';
+import {LanguagesContext} from '../../lang/context';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
+import Pagination from "../../components/pagination";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
 function Main() {
-
   const store = useStore();
+  const {data} = useContext(LanguagesContext);
+  const [skip, setSkip] = useState(0);
+  const limit = 10;
 
   useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
+    store.actions.catalog.load(limit, skip);
+  }, [skip]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
+    count: state.catalog.count,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -36,12 +41,14 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
+      <Head title={data.main.title}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
+      {!!select.list.length && 
+        <Pagination totalCount={select.count} limit={limit} setSkip={setSkip} />
+      }
     </PageLayout>
-
   );
 }
 

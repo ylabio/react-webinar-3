@@ -1,22 +1,20 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import {Routes, Route} from "react-router-dom";
+import Layout from "../components/layout";
 import Main from "./main";
-import Basket from "./basket";
-import useStore from "../store/use-store";
-import useSelector from "../store/use-selector";
+import Details from "./details";
 
 /**
  * Приложение
  * @returns {React.ReactElement}
  */
 function App() {
-
-  const activeModal = useSelector(state => state.modals.name);
-
   return (
-    <>
-      <Main/>
-      {activeModal === 'basket' && <Basket/>}
-    </>
+    <Routes>
+      <Route path="/" element={<Layout/>}>
+        <Route index element={<Main/>}/>
+        <Route path="/:id" element={<Details/>}/>
+      </Route>
+    </Routes>
   );
 }
 

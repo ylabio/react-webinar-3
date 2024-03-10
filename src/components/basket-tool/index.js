@@ -1,4 +1,6 @@
-import {memo} from "react";
+import {memo, useContext} from "react";
+import {LanguagesContext} from "../../lang/context";
+import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
@@ -6,20 +8,21 @@ import './style.css';
 
 function BasketTool({sum, amount, onOpen}) {
   const cn = bem('BasketTool');
+  const {data} = useContext(LanguagesContext);
+
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
-      <span className={cn('total')}>
-        {amount
-          ? `${amount} ${plural(amount, {
-            one: 'товар',
-            few: 'товара',
-            many: 'товаров'
-          })} / ${numberFormat(sum)} ₽`
-          : `пусто`
-        }
-      </span>
-      <button onClick={onOpen}>Перейти</button>
+      <Link to="/" className={cn('link')}>{data.main.page}</Link>
+      <div>
+        <span className={cn('label')}>{data.basket.inCart}</span>
+        <span className={cn('total')}>
+          {amount
+            ? `${amount} ${plural(amount, data.basket.variants)} / ${numberFormat(sum)} ₽`
+            : `${data.basket.tools}`
+          }
+        </span>
+        <button onClick={onOpen}>{data.buttons.onOpenTxt}</button>
+      </div>
     </div>
   );
 }
