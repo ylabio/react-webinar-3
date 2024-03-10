@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './style.css'
+import PropTypes from "prop-types";
 
 const Pagination = ({ currentPage, setCurrentPage, count }) => {
 
@@ -54,4 +55,10 @@ const Pagination = ({ currentPage, setCurrentPage, count }) => {
   );
 };
 
-export default Pagination;
+Pagination.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
+  count: PropTypes.number.isRequired
+}
+
+export default React.memo(Pagination);

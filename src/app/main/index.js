@@ -50,7 +50,6 @@ function Main() {
       <List list={select.list} renderItem={renders.item}/>
       <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} count={select.count} />
     </PageLayout>
-
   );
 }
 

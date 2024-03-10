@@ -19,6 +19,14 @@
   padding: 20px 10px;
 }
 
+.Item-title span {
+  cursor: pointer;
+}
+
+.Item-title span:hover {
+  border-bottom: 2px solid rgba(0, 0, 0, .8);
+}
+
 .Item-actions {
   padding: 20px 20px 20px 10px;
   display: flex;
