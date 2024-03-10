@@ -16,7 +16,8 @@ function ItemBasket(props) {
 
   const language = useMemo(() => {
     return {
-      button: props.lang === 'ru' ? 'Удалить' : 'Delete'
+      button: props.lang === 'ru' ? 'Удалить' : 'Delete',
+      pcs: props.lang === 'ru' ? 'шт' : 'pcs',
     }
   }, [props.lang]);
 
@@ -28,7 +29,7 @@ function ItemBasket(props) {
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {language.pcs}</div>
         <div className={cn('cell')}>
           <button onClick={callbacks.onRemove}>{language.button}</button>
         </div>
