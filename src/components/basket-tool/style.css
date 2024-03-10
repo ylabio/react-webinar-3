@@ -1,16 +1,31 @@
 /* Контрол с общими действиями */
 .BasketTool {
   display: flex;
-  justify-content: flex-end;
-  padding: 20px;
+  justify-content: flex-start;
+  padding-left: 10px;
   font-size: 18px;
 }
 
-.BasketTool-label {
+.BasketTool-link {
+  width: 100%;
+  padding: 20px 10px;
+}
 
+.BasketTool-action {
+  padding: 20px 20px 20px 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
 }
 
 .BasketTool-total {
   font-weight: bold;
-  margin: 0 20px;
+  padding: 0 0 0 10px;
+  white-space: nowrap;
+}
+
+.BasketTool-label {
+  padding: 0 0 0 10px;
+  white-space: nowrap;
 }
