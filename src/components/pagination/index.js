@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { NavLink } from "react-router-dom";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import PropTypes from "prop-types";
@@ -32,15 +33,26 @@ const Pagination = ({ currentPage, totalItems, onPageChange }) => {
         pageNumbers.push(totalPages); 
     }
 
+    const handlePageClick = (page) => {
+        if (page === '...') {
+            onPageChange(currentPage + showPages);
+        } else {
+            onPageChange(page);
+        }
+    };
+
+
     return (
         <div className={cn()}>
         {pageNumbers.map((page, index) => (
-            <span 
-                key={index} 
-                className={cn('item', {active: page === currentPage,  dots: page === "..."})}
-                onClick={() => onPageChange(page)}>
-            {page}
-            </span>
+            <NavLink
+              key={index}
+              to={`?page=${page}`}
+              className={cn('item', {active: page === currentPage,  dots: page === "..."})}
+              onClick={() => handlePageClick(page)}
+              >
+              {page}
+            </NavLink>
         ))}
         </div>
     );

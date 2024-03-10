@@ -17,6 +17,7 @@
     min-width: 20px;
     text-align: center;
     line-height: 18px;
+    text-decoration: none;
   }
   
   .Pagination-item:hover{
