@@ -12,16 +12,17 @@ function Product() {
   const store = useStore();
   const params = useParams();
 
-  useEffect(() => {
-    store.actions.product.load(params.id);
-  }, [params.id]);
-
   const select = useSelector(state => ({
     product: state.product.data,
     amount: state.basket.amount,
     sum: state.basket.sum,
     lang: state.language.lang,
   }));
+
+  useEffect(() => {
+    store.actions.product.load(params.id, select.lang);
+  }, [params.id, select.lang]);
+
 
   const callbacks = {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),

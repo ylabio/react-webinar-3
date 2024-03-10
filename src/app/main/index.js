@@ -12,10 +12,6 @@ function Main() {
 
   const store = useStore();
 
-  useEffect(() => {
-    store.actions.catalog.load({ page: 1 });
-  }, []);
-
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
@@ -25,6 +21,11 @@ function Main() {
     count: state.catalog.count,
     lang: state.language.lang
   }));
+
+  useEffect(() => {
+    store.actions.catalog.load({ page: 1, lang: select.lang });
+  }, [select.lang]);
+
 
   const callbacks = {
     // Добавление в корзину

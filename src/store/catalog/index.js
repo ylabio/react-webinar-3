@@ -33,11 +33,13 @@ class Catalog extends StoreModule {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
+      lang: params.lang
     };
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
 
     const json = await response.json();
+    console.log(json);
 
     this.setState({
       ...this.getState(),
