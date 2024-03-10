@@ -13,6 +13,7 @@ export const dictionary = {
     goods_one: "товар",
     goods_few: "товара",
     goods_many: "товаров",
+    empty: "пусто",
   },
   en: {
     shop: "Shop",
@@ -28,5 +29,6 @@ export const dictionary = {
     goods_one: "goods",
     goods_few: "goods",
     goods_many: "goods",
+    empty: "empty",
   },
 };

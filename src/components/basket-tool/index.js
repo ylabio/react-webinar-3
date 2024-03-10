@@ -18,6 +18,7 @@ function BasketTool({ sum, amount, onOpen }) {
     goods_one,
     goods_few,
     goods_many,
+    empty,
   } = dictionary[currentLanguage];
 
   return (
@@ -34,7 +35,7 @@ function BasketTool({ sum, amount, onOpen }) {
                 few: `${goods_few}`,
                 many: `${goods_many}`,
               })} / ${numberFormat(sum)} ${currency}`
-            : `пусто`}
+            : `${empty}`}
         </span>
         <button onClick={onOpen}>{go_to_cart}</button>
       </div>
