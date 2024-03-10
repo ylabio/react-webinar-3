@@ -17,8 +17,7 @@ class Catalog extends StoreModule {
       totalProductCount: 0,
     }
   }
-// ?fields=items(), count'
-  async load(page) {
+  async load(page=1) {
     let pageSize=this.getState().pageSize
     let scip=this.getState().scip
     let currentPage=this.getState().currentPage

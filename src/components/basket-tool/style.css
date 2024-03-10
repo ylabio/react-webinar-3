@@ -18,3 +18,7 @@
   font-weight: bold;
   margin: 0 20px;
 }
+
+.BasketTool button{
+  min-width: 70px;
+}

@@ -25,10 +25,10 @@ function Pagination({}) {
     <div className='Pagination'>
       {links.map((el)=>{
           if(el === 2 && select.currentPage > 3 || el === pages - 1 && select.currentPage < pages - 2) {
-            return <span className={'Pagination__dot'}>...</span>
+            return <span key={el} className={'Pagination__dot'}>...</span>
           }
-          if(el === 1 || el === pages || Math.abs(el - select.currentPage) <= 1){
-            return <NavLink className={el==select.currentPage?'Pagination__link current':'Pagination__link'} to={`/${el}`} onClick={()=>callbacks.changePage(el)}>{el}</NavLink>
+          if(el === 1 || el === pages || Math.abs(el - select.currentPage) <= 1 ||el==3 && select.currentPage<5 ){
+            return <NavLink key={el} className={el==select.currentPage?'Pagination__link current':'Pagination__link'} to={`/${el}`} onClick={()=>callbacks.changePage(el)}>{el}</NavLink>
           }
         }
       )

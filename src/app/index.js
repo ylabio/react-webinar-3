@@ -11,7 +11,7 @@ import Product from './product';
  * @returns {React.ReactElement}
  */
 function App() {
-
+  
   const activeModal = useSelector(state => state.modals.name);
 
   return (

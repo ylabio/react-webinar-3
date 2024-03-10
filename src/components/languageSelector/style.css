@@ -1,0 +1,13 @@
+.Language{
+  display: flex;
+  column-gap: 5px;
+  justify-content: center;
+  align-items: center;
+}
+.Language span{
+  cursor: pointer;
+  font-size: 20px;
+}
+.Language-current{
+  color: blue;
+}

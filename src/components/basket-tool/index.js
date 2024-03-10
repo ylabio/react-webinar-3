@@ -1,27 +1,38 @@
-import {memo} from "react";
+import {memo,useContext} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
 import { NavLink } from "react-router-dom";
+import { LanguageContext } from "../../languages/languagesContext";
+import useStore from "../../store/use-store";
 
 function BasketTool({sum, amount, onOpen}) {
+
+  const store = useStore();
+
+  function toMain(){
+    store.actions.catalog.load();
+  }
+
+  let { dict } = useContext(LanguageContext)
+
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <NavLink className={cn('link')} to="/">Главная</NavLink>
-      <span className={cn('label')}>В корзине:</span>
+      <NavLink onClick={()=>toMain()} className={cn('link')} to="/">{dict.mainPage}</NavLink>
+      <span className={cn('label')}>{dict.basketInfo}:</span>
       <span className={cn('total')}>
         {amount
           ? `${amount} ${plural(amount, {
-            one: 'товар',
-            few: 'товара',
-            many: 'товаров'
+            one: `${dict.product}`,
+            few: `${dict.productsFew}`,
+            many: `${dict.products}`
           })} / ${numberFormat(sum)} ₽`
-          : `пусто`
+          : `${dict.empty}`
         }
       </span>
-      <button onClick={onOpen}>Перейти</button>
+      <button onClick={onOpen}>{dict.go}</button>
     </div>
   );
 }
