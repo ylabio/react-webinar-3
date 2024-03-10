@@ -4,9 +4,7 @@ class Product extends StoreModule {
 
   initState() {
     return {
-      data: {
-
-      }
+      data: {}
     }
   }
   async load(id) {

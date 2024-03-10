@@ -1,0 +1,33 @@
+.Pagination{
+  padding: 23px;
+  display: flex;
+  justify-content: flex-end;
+}
+.Pagination__dot{
+  color: rgb(204, 204, 204);
+  font-size: 16px;
+  font-weight: 400;
+  padding: 0 2px;
+}
+.Pagination__link{
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 20px;
+  text-decoration: none;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 2px;
+}
+.Pagination__link:hover{
+  background: rgb(225, 225, 225);
+  color: black;
+}
+.current{
+  background: rgb(0, 135, 233);
+  color: white;
+}
