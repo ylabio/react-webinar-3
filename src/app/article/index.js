@@ -7,6 +7,7 @@ import Head from '../../components/head';
 import BasketTool from "../../components/basket-tool";
 import Detailizer from '../../components/detailizer';
 import LocaleSwitcher from '../../components/locale-switcher';
+import {Link} from 'react-router-dom';
 
 function Arcticle() {
   const store = useStore();
@@ -53,8 +54,9 @@ function Arcticle() {
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-        link={{title: callbacks.translate('main page'), url: `/?page=${(select.page)}`}}
-        translate={callbacks.translate}/>
+        translate={callbacks.translate}>
+          <Link to={`/?page=${(select.page)}`}>{callbacks.translate('main page')}</Link>
+      </BasketTool>
       {select.article &&
         <Detailizer
           article={select.article}

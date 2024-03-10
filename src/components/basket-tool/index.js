@@ -2,7 +2,6 @@ import {memo} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
-import {Link} from 'react-router-dom';
 import './style.css';
 
 function BasketTool(props) {
@@ -10,7 +9,7 @@ function BasketTool(props) {
   return (
     <div className={cn()}>
       <div className={cn('links')}>
-        {props.link && <Link to={props.link.url} className={cn('link')}>{props.link.title}</Link>}
+        {props.children}
       </div>
       <div className={cn('tools')}>
         <span className={cn('label')}>{props.translate('in cart')}:</span>
@@ -46,7 +45,7 @@ BasketTool.defaultProps = {
   translate: () => {},
   sum: 0,
   amount: 0,
-  link: null
+  children: PropTypes.node,
 }
 
 export default memo(BasketTool);
