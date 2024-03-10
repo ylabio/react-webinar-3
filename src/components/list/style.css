@@ -1,6 +1,7 @@
-.List {
-
+.List:not(:last-child) {
+  margin-bottom: 22px;
 }
+
 
 .List-item {
   border-bottom: 1px dashed #ccc;

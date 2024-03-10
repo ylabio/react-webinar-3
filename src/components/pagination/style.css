@@ -1,0 +1,26 @@
+.Pagination {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Pagination-item {
+  padding: 0.5px 5.5px;
+}
+
+.Pagination-item_active {
+  background: #0087E9;
+  color: #fff;
+  pointer-events: none;
+}
+
+@media(any-hover: hover) {
+  .Pagination-item {
+    cursor: pointer;
+    transition: background-color .3s ease 0s;
+  }
+
+  .Pagination-item:hover {
+    background-color: #E1E1E1;
+
+  }
+}
