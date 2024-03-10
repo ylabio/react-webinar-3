@@ -1,9 +1,26 @@
 .Head {
-  height: 80px;
   background: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 23px;
 }
 
 .Head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  padding: 0;
+}
+
+.Head-languages {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  column-gap: 30px;
+}
+
+.Head-language {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  cursor: pointer;
 }

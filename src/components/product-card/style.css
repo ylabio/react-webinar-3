@@ -1,0 +1,13 @@
+.ProductCard {
+  padding: 20px 40px;
+  font-size: 18px;
+}
+
+.ProductCard-price {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.ProductCard-addButton {
+  cursor: pointer;
+}

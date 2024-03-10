@@ -33,3 +33,41 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+const english = {
+  "title": "Shop",
+  "menu.main": "Main",
+  "basket.title": "Cart",
+  "basket.open": "Open",
+  "basket.close": "Close",
+  "basket.inBasket": "In cart",
+  "basket.empty": "empty",
+  "basket.total": "Total",
+  "basket.unit": "pcs",
+  "basket.delete": "Delete",
+  "article.add": "Add",
+  "basket.articles": {
+    "one": "article",
+    "other": "articles"
+  }
+}
+
+const russian = {
+  "title": "Магазин",
+  "menu.main": "Главная",
+  "basket.title": "Корзина",
+  "basket.open": "Перейти",
+  "basket.close": "Закрыть",
+  "basket.inBasket": "В корзине",
+  "basket.empty": "пусто",
+  "basket.total": "Итого",
+  "basket.unit": "шт",
+  "basket.delete": "Удалить",
+  "article.add": "Добавить",
+  "basket.articles": {
+    "one": "товар",
+    "few": "товара",
+    "many": "товаров",
+    "other": "товара"
+  }
+}
