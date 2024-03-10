@@ -1,21 +1,29 @@
 import {memo} from "react";
+import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
+import BasketTool from "../basket-tool";
+import { useLanguage } from '../../language-context';
 import './style.css';
 
-function Controls({onAdd}) {
+function Controls(props) {
+  const { translate } = useLanguage();
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <Link to={'/'} className='Controls-link'>{translate('Главная')}</Link>
+      <BasketTool onOpen={props.onOpen} amount={props.amount}
+                  sum={props.sum}/>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  onOpen: PropTypes.func,
+  amount: PropTypes.number,
+  sum: PropTypes.number  
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  onOpen: () => {}
 }
 
 export default memo(Controls);

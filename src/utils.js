@@ -33,3 +33,22 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function generatePages (currentPage, totalPages, dots = '...') {
+  const pages = [];
+
+    if (currentPage === 1 || currentPage === 2) {
+      pages.push(1, 2, 3, dots, totalPages)
+    }
+    if (currentPage === 3) {
+      pages.push(1, 2, 3, 4, dots, totalPages)
+    }
+    if (currentPage >= 4 && currentPage <= totalPages - 3) {
+      pages.push(1, dots, currentPage - 1, currentPage, currentPage + 1, dots, totalPages)
+    }
+    if (currentPage > totalPages - 3) {
+      pages.push(1, dots, totalPages - 3, totalPages - 2, totalPages - 1, totalPages)
+    }
+
+  return pages;
+}

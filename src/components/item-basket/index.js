@@ -3,10 +3,11 @@ import propTypes from 'prop-types';
 import {numberFormat} from "../../utils";
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
+import { useLanguage } from '../../language-context';
 import './style.css';
 
 function ItemBasket(props) {
-
+  const { translate } = useLanguage();
   const cn = bem('ItemBasket');
 
   const callbacks = {
@@ -21,7 +22,7 @@ function ItemBasket(props) {
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{translate('Удалить')}</button>
         </div>
       </div>
     </div>
