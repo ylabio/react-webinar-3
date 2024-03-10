@@ -8,6 +8,7 @@ class Store {
   constructor(initState = {}) {
     this.listeners = []; // Слушатели изменений состояния
     this.state = initState;
+    console.log(initState)
     /** @type {{
      * basket: Basket,
      * catalog: Catalog,

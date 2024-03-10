@@ -4,9 +4,16 @@
   justify-content: flex-end;
   padding: 20px;
   font-size: 18px;
+
 }
 
 .BasketTool-label {
+
+}
+.BasketTool a{
+  color:  #0087E9;
+  position: absolute;
+  left: 460px;
 
 }
 

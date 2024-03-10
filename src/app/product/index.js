@@ -1,25 +1,27 @@
 import {memo, useCallback, useEffect} from 'react';
-import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
-import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import Pagination from "../../components/pagination";
 
-function Main() {
+import ProductCard from "../../components/product-card";
+import {useParams} from "react-router-dom";
 
+function Product() {
+  const {_Id} = useParams();
   const store = useStore();
 
+
   const select = useSelector(state => ({
-    list: state.catalog.list,
-    currentPage: state.catalog.currentPage,
-    count: state.catalog.count,
+    list: state.catalog.product,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
 
+  const product = select.list.filter(el => el._id === _Id)
+
+  console.log(product)
 
   const callbacks = {
     // Добавление в корзину
@@ -27,29 +29,18 @@ function Main() {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     setCurrentPage: useCallback((pageNumber) => store.actions.catalog.setPage(pageNumber), [store]),
-
   }
 
-  const renders = {
-    item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
-  };
-
-  useEffect(() => {
-    store.actions.catalog.load();
-  }, [select.currentPage]);
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
+      <Head title={product[0].title}/>
       <BasketTool setCurrentPage={()=>callbacks.setCurrentPage(1)} onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum} currentPage={select.currentPage}/>
-      <List list={select.list} renderItem={renders.item}/>
-      <Pagination count={select.count} currentPage={select.currentPage} setCurrentPage={callbacks.setCurrentPage}/>
+                  sum={select.sum}/>
+      <ProductCard addToBasket={callbacks.addToBasket} product={product[0]}/>
     </PageLayout>
 
   );
 }
 
-export default memo(Main);
+export default memo(Product);

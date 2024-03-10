@@ -15,7 +15,7 @@ function Basket() {
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
-
+  console.log(select.list)
   const callbacks = {
     // Удаление из корзины
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
@@ -25,7 +25,7 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
+      return <ItemBasket closeModal={callbacks.closeModal} item={item} onRemove={callbacks.removeFromBasket}/>
     }, [callbacks.removeFromBasket]),
   };
 

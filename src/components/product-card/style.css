@@ -1,0 +1,19 @@
+.ProductCard {
+  margin: 35px;
+  text-align: left;
+}
+.ProductCard p{
+  margin-bottom: 20px;
+}
+
+.ProductCard span{
+  font-weight: 700;
+}
+.ProductCard div{
+  margin-bottom: 20px;
+}
+.ProductCard-price{
+  font-size: 24px;
+  font-weight: 700;
+
+}
