@@ -20,17 +20,19 @@ function Product() {
     product: state.product.data,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    lang: state.language.lang,
   }));
 
   const callbacks = {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    switchLanguage: useCallback(lang => store.actions.language.switch(lang), [store])
   }
 
   return (
     <PageLayout>
-      <Head title={select.product.title} />
-      <Navigation lang={select.lang} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <Head title={select.product.title} link='/' onClick={callbacks.switchLanguage} />
+      <Navigation onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} />
       <ProductCard product={select.product} onAdd={callbacks.addToBasket} />
     </PageLayout>
   );
