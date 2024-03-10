@@ -6,11 +6,22 @@
   font-size: 18px;
 }
 
+.BasketTool button {
+  width: 80px;
+}
+
+.BasketTool-link {
+  align-self: flex-start;
+  margin-right: auto;
+  text-decoration-line: underline;
+  color: #0087E9;
+}
+
 .BasketTool-label {
 
 }
 
 .BasketTool-total {
   font-weight: bold;
-  margin: 0 20px;
+  margin: 0 20px 0 15px;
 }
