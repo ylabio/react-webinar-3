@@ -33,3 +33,36 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+
+export function getPagination(activePage, totalPages) {
+  const delta = 1;
+  const range = [];
+  const rangeWithDots = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    if (
+      i === 1 ||
+      i === totalPages ||
+      (i >= activePage - delta && i <= activePage + delta)
+    ) {
+      range.push(i);
+    }
+  }
+
+  let l;
+  range.forEach((num) => {
+    if (l) {
+      if (num - l === 2) {
+        rangeWithDots.push(l + 1);
+      } else if (num - l !== 1) {
+        rangeWithDots.push("...");
+      }
+    }
+    rangeWithDots.push(num);
+    l = num;
+  });
+
+  return rangeWithDots;
+}
+
