@@ -31,7 +31,7 @@ function Product() {
 
   return (
     <PageLayout>
-      <Head title={select.product.title} link='/' onClick={callbacks.switchLanguage} />
+      <Head title={select.product.title} link='/' onClick={callbacks.switchLanguage} lang={select.lang} />
       <Navigation onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} />
       <ProductCard product={select.product} onAdd={callbacks.addToBasket} lang={select.lang} />
     </PageLayout>

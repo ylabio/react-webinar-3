@@ -33,7 +33,7 @@ function BasketTool({ language, sum, amount, onOpen }) {
 
   const open = useMemo(() => {
     return language === 'ru'
-      ? 'Перейти:'
+      ? 'Перейти'
       : 'Open'
   }, [language]);
 

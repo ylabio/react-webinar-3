@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Head({ title, onClick }) {
+function Head({ title, onClick, lang }) {
 
   const cn = bem('Head');
 
@@ -11,8 +11,8 @@ function Head({ title, onClick }) {
     <div className={cn()}>
       <h1>{title}</h1>
       <ul className={cn('languages')}>
-        <li className={cn('language')} onClick={() => onClick('ru')}>Ru</li>
-        <li className={cn('language')} onClick={() => onClick('en')}>En</li>
+        <li className={cn('language', { active: lang == 'ru' })} onClick={() => onClick('ru')}>Ru</li>
+        <li className={cn('language', { active: lang != 'ru' })} onClick={() => onClick('en')}>En</li>
       </ul>
     </div>
   )
@@ -20,11 +20,13 @@ function Head({ title, onClick }) {
 
 Head.propTypes = {
   title: PropTypes.node,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  lang: PropTypes.string
 };
 
 Head.defaultProps = {
-  onClick: () => { }
+  onClick: () => { },
+  lang: 'ru'
 }
 
 export default memo(Head);

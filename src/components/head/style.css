@@ -24,3 +24,8 @@
   list-style: none;
   cursor: pointer;
 }
+
+.Head-language_active {
+  color: rgb(0, 135, 233);
+  border-bottom: 1px solid;
+}

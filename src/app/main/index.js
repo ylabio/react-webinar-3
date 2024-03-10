@@ -50,7 +50,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title={language.title} link='/' onClick={callbacks.switchLanguage}/>
+      <Head title={language.title} link='/' onClick={callbacks.switchLanguage} lang={select.lang} />
       <Navigation onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} />
       <List list={select.list} renderItem={renders.item} />
       <Pagination
