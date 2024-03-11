@@ -8,10 +8,9 @@ function Head({ title }) {
 
   const store = useStore();
 
-  const { lang, allLocales, locale } = useSelector(state => ({
+  const { lang, languageNames } = useSelector(state => ({
     lang: state.i18n.lang,
-    allLocales: state.i18n.allLocales,
-    locale: state.i18n.locale,
+    languageNames: state.i18n.languageNames,
   }));
 
   const changeLang = useCallback((e) => store.actions.i18n.changeLocale(e.target.value), [store]);
@@ -20,8 +19,8 @@ function Head({ title }) {
     <div className='Head'>
       <h1>{title}</h1>
       <select value={lang} onChange={changeLang}>
-        {Object.keys(allLocales).map(key =>
-          <option key={key} value={key}>{allLocales[key]._Title}</option>
+        {Object.keys(languageNames).map(key =>
+          <option key={key} value={key}>{languageNames[key]}</option>
         )}
       </select>
     </div>

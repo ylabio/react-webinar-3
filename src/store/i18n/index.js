@@ -1,42 +1,27 @@
 import StoreModule from "../module";
+import { languageNames } from "./config";
+
+const DEFAULT_LANG = 'ru';
 
 class I18n extends StoreModule {
 
 	initState() {
-		const locales = this.loadLocaleFiles();
 		return {
-			allLocales: locales,
-			lang: 'ru',
-			locale: locales['ru']
+			languageNames,
+			lang: DEFAULT_LANG,
+			locale: this.loadLocaleFile(DEFAULT_LANG)
 		}
 	}
 
-	loadLocaleFiles() {
-		const locales = {};
-		const files = this.importAll(require.context('../../locales', false, /\.json$/));
-		files.forEach(file => {
-			locales[file.locale] = file.translations;
-		});
-		return locales;
+	loadLocaleFile(lang) {
+		return require(`../../locales/${lang}.json`);
 	}
 
-	importAll(context) {
-		let files = {};
-		context.keys().forEach((filename) => {
-			const locale = filename.replace('./', '').replace('.json', '');
-			files[locale] = context(filename);
-		});
-		return Object.keys(files).map(key => ({
-			locale: key,
-			translations: files[key]
-		}));
-	};
-
-	changeLocale(newLocale) {
+	changeLocale(lang) {
 		this.setState({
 			...this.getState(),
-			lang: newLocale,
-			locale: this.getState().allLocales[newLocale]
+			lang,
+			locale: this.loadLocaleFile(lang)
 		}, 'Сменен язык');
 	};
 }
