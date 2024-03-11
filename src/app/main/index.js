@@ -13,14 +13,18 @@ import Pagination from "../../components/pagination";
 import Loading from "../../components/loading";
 import SelectLanguage from "../../components/select-language";
 import translate from "../../translation/translation";
+import { useParams } from "react-router-dom";
 
 
 function Main() {
 
   const store = useStore();
 
+  const params = useParams();
+
   useEffect(() => {
-    store.actions.catalog.getCatalog(1);
+    const par = Number(params.id) || 1;
+    store.actions.catalog.getCatalog(par);
   }, []);
 
   const select = useSelector(state => ({

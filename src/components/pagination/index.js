@@ -2,6 +2,7 @@ import { memo } from "react";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 function Pagination({ totalItems, itemsPerPage, onChangePage, number }) {
 
@@ -44,30 +45,39 @@ function Pagination({ totalItems, itemsPerPage, onChangePage, number }) {
     return pageNumbers;
   };
 
+  const changePage = (e, pageNumber) => {
+    if (pageNumber === "...") {
+      e.preventDefault();
+      return false;
+    } else if (pageNumber === number) {
+      e.preventDefault();
+      return false;
+    }
+    onChangePage(pageNumber);
+  }
+
   return (
     <div className={cn()}>
       {generatePageNumbers().map((pageNumber, index) => (
-        <span
+        <Link
           key={index}
-          className={cn('item', {active: pageNumber === number,  dots: pageNumber === "..."})}
-          onClick={() => onChangePage(pageNumber)}
+          className={cn('item', {active: pageNumber === number, dots: pageNumber === "..."})}
+          onClick={(e) => changePage(e, pageNumber)}
+          to={`/${pageNumber}`}
         >
           {pageNumber}
-        </span>
+        </Link>
       ))}
-    </div>
-  );
+    </div>);
 }
 
 Pagination.propTypes = {
-  itemsPerPage: PropTypes.number,
-  totalItems: PropTypes.number,
-  onChangePage: PropTypes.func,
-  number: PropTypes.number
+  itemsPerPage: PropTypes.number, totalItems: PropTypes.number, onChangePage: PropTypes.func, number: PropTypes.number
 };
 
 Pagination.defaultProps = {
-  onChangePage: () => {}
+  onChangePage: () => {
+  }
 };
 
 export default memo(Pagination);

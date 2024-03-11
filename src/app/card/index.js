@@ -55,7 +55,7 @@ function Card() {
 
   return (
     <PageLayout>
-      <Head title={languageViewData.language.title}>
+      <Head title={select.card.title}>
         <SelectLanguage language={optionsLanguage.language} onChangeLanguage={callbacks.onChangeLanguage}/>
       </Head>
       <CrumbsContainer>
