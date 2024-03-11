@@ -12,11 +12,13 @@ function Main() {
   const store = useStore();
 
   useEffect(() => {
-    store.actions.catalog.load();
+    store.actions.catalog.load(select.currentPage);
   }, []);
 
   const select = useSelector((state) => ({
     list: state.catalog.list,
+    currentPage: state.catalog.currentPage,
+    itemsTotal: state.catalog.itemsTotal,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
@@ -31,6 +33,13 @@ function Main() {
     openModalBasket: useCallback(
       () => store.actions.modals.open("basket"),
       [store]
+    ),
+    // Переход на другую страницу
+    changePage: useCallback(
+      (page) => {
+        if (page !== select.currentPage) store.actions.catalog.load(page);
+      },
+      [store, select.currentPage]
     ),
   };
 
@@ -52,7 +61,13 @@ function Main() {
         sum={select.sum}
       />
       <List list={select.list} renderItem={renders.item} />
-      <Paginator currentPage={44} itemsTotal={543} />
+      {select.itemsTotal > 10 && (
+        <Paginator
+          currentPage={select.currentPage}
+          itemsTotal={select.itemsTotal}
+          changePage={callbacks.changePage}
+        />
+      )}
     </PageLayout>
   );
 }

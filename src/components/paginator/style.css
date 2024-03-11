@@ -1,0 +1,46 @@
+.Paginator {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.Paginator-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Paginator-item {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 18.4px;
+}
+
+.Paginator-item:hover {
+  background-color: #e1e1e1;
+}
+
+.Paginator-item_blank {
+  cursor: default;
+}
+
+.Paginator-item_blank:hover {
+  background-color: #ffffff;
+}
+
+.Paginator-item_selected {
+  background-color: #0087e9;
+}
+
+.Paginator-item_selected:hover {
+  background-color: #0087e9;
+}

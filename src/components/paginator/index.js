@@ -1,22 +1,39 @@
-import React from "react";
+import React, { memo } from "react";
 import { cn as bem } from "@bem-react/classname";
 import { paginationBuilder } from "../../utils";
+import "./style.css";
 
-function Paginator({ currentPage, itemsTotal, pageSize }) {
+function Paginator({ currentPage, itemsTotal, changePage }) {
   const cn = bem("Paginator");
-  const pagination = paginationBuilder(currentPage, itemsTotal, pageSize);
+  const pagination = paginationBuilder(currentPage, itemsTotal, 10);
 
   return (
     <div className={cn()}>
-      {pagination.map((item, index) => {
-        item != "..." ? (
-          <div key={index} className={cn("item")} pageNumber={item}></div>
-        ) : (
-          <div key={index} className={cn("item")} pageNumber={item}></div>
-        );
-      })}
+      <div className={cn("controls")}>
+        {pagination.map((item, index) => {
+          return item !== "..." ? (
+            <div
+              key={index}
+              className={
+                item === currentPage
+                  ? cn("item", { selected: true })
+                  : cn("item")
+              }
+              onClick={() => {
+                changePage(item);
+              }}
+            >
+              {item}
+            </div>
+          ) : (
+            <div key={index} className={cn("item", { blank: true })}>
+              ...
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
 
-export default Paginator;
+export default memo(Paginator);
