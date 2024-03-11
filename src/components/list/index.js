@@ -1,14 +1,13 @@
-import React from "react";
+import {memo} from "react";
 import PropTypes from 'prop-types';
-import CartItem from "../cart-item";
 import './style.css';
 
-function List({list, onAddItem }) {
+function List({list, renderItem}) {
   return (
     <div className='List'>{
       list.map(item =>
-        <div key={item.code} className='List-item'>
-          <CartItem item={item} itemFunction={onAddItem} button={"Добавить"}/>
+        <div key={item._id} className='List-item'>
+          {renderItem(item)}
         </div>
       )}
     </div>
@@ -17,14 +16,13 @@ function List({list, onAddItem }) {
 
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number
+    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   })).isRequired,
-  onAddItem: PropTypes.func
+  renderItem: PropTypes.func,
 };
 
 List.defaultProps = {
-  onAddItem: () => {
-  },
+  renderItem: (item) => {},
 }
 
-export default React.memo(List);
+export default memo(List);

@@ -4,7 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
 
-function Item(props) {
+function ItemPage(props) {
 
   const cn = bem('Item');
 
@@ -39,4 +39,4 @@ Item.defaultProps = {
   onAdd: () => {},
 }
 
-export default memo(Item);
+export default memo(ItemPage);
