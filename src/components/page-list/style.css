@@ -1,0 +1,25 @@
+.PageList{
+  padding: 20px;
+  display: flex;
+  justify-content: end;
+  font-family: Arial;
+}
+
+.page{
+  text-align: center;
+  height: 20px;
+  width: 24px;
+  user-select: none;
+  cursor: pointer;
+}
+.dots{
+  color: #CCCCCC;
+}
+.selected{
+  background-color: #0087E9 !important;
+  color: white;
+}
+
+.page:hover{
+  background-color: #E1E1E1;
+}
