@@ -1,0 +1,21 @@
+.Pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: end;
+  margin: 20px 20px 0 0;
+  padding-bottom: 20px;
+}
+
+.Pagination-item {
+  padding: 5px;
+}
+
+.Pagination-item:hover {
+  cursor: pointer;
+  background: #e1e1e1;
+}
+
+.Pagination-item-active {
+  background: #0087e9;
+  color: #fff;
+}
