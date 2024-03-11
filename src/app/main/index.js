@@ -7,6 +7,7 @@ import Pagination from "../../components/pagination";
 import { useParams } from "react-router-dom";
 import List from "../../components/list";
 import LoaderList from "../../components/loader-list";
+import ErrorPage from "../../components/page-error";
 
 function Main() {
   const store = useStore();
@@ -42,7 +43,7 @@ function Main() {
   return (
     <>
       {select.isLoading && <LoaderList count={select.limit} />}
-      {select.error && <h1>{select.error}</h1>}
+      {select.error && <ErrorPage text={select.error} />}
       {select.list && <List list={select.list} renderItem={renders.item} />}
 
       <Pagination currentPage={page} totalPages={select.totalPage} />

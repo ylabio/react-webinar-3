@@ -6,6 +6,7 @@ import { useCallback } from "react";
 import { numberFormat } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
+import ErrorPage from "../page-error";
 function PageProduct() {
   const cn = bem("Product-page");
   const { id } = useParams();
@@ -24,9 +25,15 @@ function PageProduct() {
     store.actions.catalog.loadById(id);
   }, []);
   if (select.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className={cn()}>
+        <div className={cn("loader-inner")}>loading</div>
+      </div>
+    );
   }
-
+  if (select.error) {
+    return <ErrorPage text={select.error} />;
+  }
   return (
     <>
       {select.list[0]?.description && (

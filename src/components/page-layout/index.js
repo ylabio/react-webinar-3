@@ -43,13 +43,13 @@ function PageLayout({ footer }) {
       <div className={cn("center")}>
         <Outlet />
       </div>
-      <div className={cn("footer")}></div>
+      <div className={cn("footer")}>{footer}</div>
     </div>
   );
 }
 
 PageLayout.propTypes = {
-  children: PropTypes.node,
+  footer: PropTypes.node,
 };
 
 export default memo(PageLayout);

@@ -22,3 +22,18 @@
 .Product-page-action {
   padding: 3px 8px 2px 9px;
 }
+
+.Product-page-loader-inner {
+  text-align: center;
+  color: green;
+  animation: loader-inner 1s infinite;
+}
+
+@keyframes loader-inner {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
