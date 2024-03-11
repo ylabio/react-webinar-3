@@ -1,7 +1,5 @@
-.List {
-
-}
-
-.List-item {
-  border-bottom: 1px dashed #ccc;
+.List h3 {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
 }

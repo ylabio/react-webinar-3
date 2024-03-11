@@ -1,5 +1,12 @@
 .Controls {
-  display: flex;
-  justify-content: flex-end;
   padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  column-gap: 20px;
+}
+
+.Controls-sum {
+  font-size: 18px;
+  font-weight: 700;
 }

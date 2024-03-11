@@ -1,41 +1,68 @@
-import React, {useCallback} from 'react';
-import List from "./components/list";
-import Controls from "./components/controls";
-import Head from "./components/head";
+import React, {useCallback, useState} from "react";
 import PageLayout from "./components/page-layout";
+import Head from "./components/head";
+import Controls from "./components/controls";
+import Modal from "./components/modal";
+import List from "./components/list";
+import Foot from "./components/foot";
 
-/**
- * Приложение
- * @param store {Store} Хранилище состояния приложения
- * @returns {React.ReactElement}
- */
-function App({store}) {
+function App ({store}) {
 
-  const list = store.getState().list;
+  const [isOpenCart, setIsOpenCart] = useState(false)
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+      store.onDeleteToCardItem(code);
     }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
+    onAddItem: useCallback((code) => {
+      store.onAddToCardItem(code);
     }, [store])
   }
+
+  const OpenCart = () => {
+    setIsOpenCart(true)
+  }
+
+  const CloseCart = () => {
+    setIsOpenCart(false)
+  }
+
+  const list = store.getState().list;
+  const carts = store.getState().baskets;
+
+  const totalSum = () => carts.reduce((acc, rec) => {
+    return rec.price * rec.basketCount + acc;
+  }, 0);
+
+
+  const isEmptyCart = Boolean(carts.length)
+  const cartsCount = carts.length
 
   return (
     <PageLayout>
       <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Controls sum={totalSum()} count={cartsCount} carts={carts} openCart={OpenCart}/>
+      <List
+        list={list}
+        funcForBtn={callbacks.onAddItem}
+        labelForBtn='Добавить'
+        emptyText='Товаров пока нет.'
+      />
+      <Modal
+        title='Корзина'
+        isOpen={isOpenCart}
+        close={CloseCart}
+        foot={isEmptyCart && <Foot sum={totalSum()}/>}
+      >
+        <List
+          list={carts}
+          funcForBtn={callbacks.onDeleteItem}
+          labelForBtn='Удалить'
+          emptyText='Ваша корзина пуста.'
+        />
+      </Modal>
     </PageLayout>
-  );
+  )
 }
 
 export default App;

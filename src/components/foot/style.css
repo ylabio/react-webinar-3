@@ -1,0 +1,8 @@
+.Foot {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+  padding: 0 90px;
+  justify-content: right;
+  height: 80px;
+}

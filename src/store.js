@@ -40,49 +40,46 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
 
   /**
-   * Удаление записи по коду
+   * Добавление товара в корзину по коду
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+  onAddToCardItem(code) {
+    const existingBasketItem = this.state.baskets.find(item => item.code === code);
+
+    if (existingBasketItem) {
+      // Если элемент уже существует в корзине, увеличиваем его basketCount
+      this.setState({
+        ...this.state,
+        baskets: this.state.baskets.map(item =>
+          item.code === code ? { ...item, basketCount: item.basketCount + 1 } : item
+        )
+      });
+    } else {
+      // Если элемента нет в корзине, добавляем его с basketCount равным 1
+      const listItem = this.state.list.find(item => item.code === code);
+      if (listItem) {
+        this.setState({
+          ...this.state,
+          baskets: [...this.state.baskets, { ...listItem, basketCount: 1 }]
+        });
+      }
+    }
+  }
 
   /**
-   * Выделение записи по коду
+   * Удаление товара из корзины по коду
    * @param code
    */
-  selectItem(code) {
+
+  onDeleteToCardItem (code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
+      baskets: this.state.baskets.filter(item => item.code !== code)
     })
   }
+
 }
 
 export default Store;
