@@ -1,15 +1,20 @@
-import {memo, useEffect, useRef} from "react";
+import { memo, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname';
-import './style.css';
+import { cn as bem } from "@bem-react/classname";
+
+import useDictionary from "../../store/use-dictionary";
+
+import "./style.css";
 
 function ModalLayout(props) {
+  const { currentDictionary } = useDictionary();
 
   const cn = bem('ModalLayout');
 
   // Корректировка центра, если модалка больше окна браузера.
   const layout = useRef();
   const frame = useRef();
+
   useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
       // Центрирование frame или его прижатие к краю, если размеры больше чем у layout
@@ -29,10 +34,18 @@ function ModalLayout(props) {
 
   return (
     <div className={cn()} ref={layout}>
-      <div className={cn('frame')} ref={frame}>
+      <div
+        className={cn('frame')}
+        ref={frame}>
         <div className={cn('head')}>
-          <h1 className={cn('title')}>{props.title}</h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <h1 className={cn('title')}>
+            {currentDictionary.modals.basket.title}
+          </h1>
+          <button
+            className={cn('close')}
+            onClick={props.onClose}>
+            {currentDictionary.modals.basket.close}
+          </button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -50,7 +63,8 @@ ModalLayout.propTypes = {
 
 ModalLayout.defaultProps = {
   title: 'Модалка',
-  onClose: () => {}
+  onClose: () => {
+  }
 };
 
 export default memo(ModalLayout);

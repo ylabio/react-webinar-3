@@ -1,6 +1,6 @@
 import useStore from "./use-store";
-import {useEffect, useLayoutEffect, useMemo, useState} from "react";
-import shallowequal from 'shallowequal';
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import shallowequal from "shallowequal";
 
 /**
  * Хук для выборки данных из store и отслеживания их изменения

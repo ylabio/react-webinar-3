@@ -1,8 +1,15 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
-import Main from "./main";
-import Basket from "./basket";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import routes from "../store/routes";
+
 import useStore from "../store/use-store";
 import useSelector from "../store/use-selector";
+
+import Main from "./main";
+import Basket from "./basket";
+
+import PageProduct from "./page-product";
 
 /**
  * Приложение
@@ -10,13 +17,29 @@ import useSelector from "../store/use-selector";
  */
 function App() {
 
-  const activeModal = useSelector(state => state.modals.name);
+  const activeModal = useSelector(state =>
+    state.modals.name
+  );
+  const currentPage = useSelector(state =>
+    state.catalog.currentPage
+  )
 
   return (
-    <>
-      <Main/>
-      {activeModal === 'basket' && <Basket/>}
-    </>
+    <BrowserRouter>
+      {activeModal === 'basket' && <Basket />}
+      <Routes>
+        <Route
+          path={routes.main()}
+          element={<Main />}
+        />
+        <Route
+          path={routes.product(currentPage)}
+          element={
+          <PageProduct />
+        }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
