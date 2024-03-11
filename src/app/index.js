@@ -22,8 +22,8 @@ function App() {
           <Route exact path='/' element={<Main/>}/>
           <Route path='/description/:_id' element={<Description/>}/>
         </Routes>
+        {activeModal === 'basket' && <Basket/>}
       </Router>
-      {activeModal === 'basket' && <Basket/>}
     </>
   );
 }
