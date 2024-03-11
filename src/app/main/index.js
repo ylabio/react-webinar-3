@@ -25,10 +25,10 @@ function Main() {
       .then(data => setTotalPages(Math.ceil(data.result.count / 10)))
   }, [])
 
-  function nextPage() {
+  function nextPage(num, shift) {
     if (currentPage === totalPages) return
-    setCurrentPage(prevValue => prevValue + 1)
-    setOffset(prevValue => prevValue + 10)
+    setCurrentPage(prevValue => prevValue + 1 + num)
+    setOffset(prevValue => prevValue + 10 * shift)
   }
 
   function firstPage() {

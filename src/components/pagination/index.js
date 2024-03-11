@@ -11,8 +11,8 @@ function Pagination({currentPage, totalPages, firstPage, lastPage, prevPage, nex
       {currentPage >= 4 && <span className={cn('dots')}>...</span>}
       {currentPage !== 1 && <span className={cn('cell')} onClick={prevPage}>{currentPage - 1}</span>}
       <span className={cn('cell-current')}>{currentPage}</span>
-      {(currentPage !== totalPages && currentPage !== totalPages - 1) && <span className={cn('cell')} onClick={nextPage}>{currentPage + 1}</span>}
-      {currentPage == 1 && <span className={cn('cell')} onClick={nextPage}>{currentPage + 2}</span>}
+      {(currentPage !== totalPages && currentPage !== totalPages - 1) && <span className={cn('cell')} onClick={() => nextPage(0, 1)}>{currentPage + 1}</span>}
+      {currentPage === 1 && <span className={cn('cell')} onClick={() => nextPage(1, 2)}>{currentPage + 2}</span>}
       {currentPage <= totalPages - 3 && <span className={cn('dots')}>...</span>}
       {currentPage !== totalPages && <span className={cn('cell')} onClick={lastPage}>{totalPages}</span>}
     </div>
