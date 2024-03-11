@@ -12,7 +12,7 @@ function Main() {
   const store = useStore();
 
   useEffect(() => {
-    store.actions.catalog.load();
+    store.actions.catalog.loadPage(1);
   }, []);
 
   const select = useSelector(state => ({
@@ -26,6 +26,8 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    //Смена страницы
+    changePage: useCallback(num => store.actions.catalog.loadPage(num), [store]),
   }
 
   const renders = {
