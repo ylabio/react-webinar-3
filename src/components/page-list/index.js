@@ -14,6 +14,9 @@ function PageList({page, totalPages, onPageChange}){
     onPageChange(clickedPage)
   }
   let content = [];
+  const dots = <p className="dots">...</p>;
+  const lastPage = <p className="page" key={totalPages} onClick={() => handlepageClick(totalPages)}>{totalPages}</p>;
+  const firstPage = <p className="page" key={1} onClick={() => handlepageClick(1)}>1</p>;
 
   if(page < 4){
     for(let i = 1; i < 5; i++){
@@ -22,8 +25,8 @@ function PageList({page, totalPages, onPageChange}){
     return(
       <div className={cn()}>
         {content}
-        <p className="dots">...</p>
-        <p className="page" key={totalPages} onClick={() => handlepageClick(totalPages)}>{totalPages} </p>
+        {dots}
+        {lastPage}
       </div>
     );
   }
@@ -33,8 +36,8 @@ function PageList({page, totalPages, onPageChange}){
     }
     return(
       <div className={cn()}>
-        <p className="page" key={1} onClick={() => handlepageClick(1)}>1</p>
-        <p className="dots">...</p>
+        {firstPage}
+        {dots}
         {content}
       </div>
     );
@@ -42,13 +45,13 @@ function PageList({page, totalPages, onPageChange}){
 
   return(
     <div className={cn()}>
-      <p className="page" key={1} onClick={() => handlepageClick(1)}>1</p>
-      <p className="dots">...</p>
+      {firstPage}
+      {dots}
       <p className="page" key={page-1} onClick={() => handlepageClick(page-1)}>{page-1}</p>
       <p className="page selected" key={page}>{page}</p>
       <p className="page" key={page+1} onClick={() => handlepageClick(page+1)}>{page+1}</p>
-      <p className="dots">...</p>
-      <p className="page" key={totalPages} onClick={() => handlepageClick(totalPages)}>{totalPages}</p>
+      {dots}
+      {lastPage}
     </div>
   );
 }
