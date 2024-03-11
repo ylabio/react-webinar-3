@@ -1,0 +1,25 @@
+.ProductInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 92%;
+  margin: auto;
+  padding-top: 20px;
+}
+
+.ProductInfo-text {
+  font-size: 18px;
+  margin: 0;
+}
+
+.ProductInfo-text_bold {
+  font-weight: 700;
+}
+
+.ProductInfo-text_big {
+  font-size: 24px;
+}
+
+.ProductInfo-button {
+  max-width: max-content;
+}

@@ -30,6 +30,6 @@ export function codeGenerator(start = 0) {
  * @param options {Object}
  * @returns {String}
  */
-export function numberFormat(value, locale = 'ru-RU', options = {}) {
+export function numberFormat(value, locale = 'ru-RU', options) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
