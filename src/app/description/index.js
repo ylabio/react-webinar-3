@@ -1,10 +1,13 @@
 import { memo, useCallback, useEffect } from "react";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
-import BasketTool from "../../components/basket-tool";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import { useParams } from "react-router-dom";
+import { numberFormat } from "../../utils";
+import DescriptionBasketTool from "../../components/description-basket-tool";
+import DescriptionBody from "../../components/description-body";
+import './style.css';
 
 
 function Description(){
@@ -24,7 +27,7 @@ function Description(){
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    addToBasket: useCallback(() => store.actions.basket.addToBasket(select.item._id), [store, select.item._id]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   }
@@ -32,8 +35,10 @@ function Description(){
   return (
     <PageLayout>
       <Head title={select.item.title}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+      <DescriptionBasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
+      <DescriptionBody item={select.item}/>
+      <button onClick={callbacks.addToBasket}>Добавить</button>
     </PageLayout>
   );
 }

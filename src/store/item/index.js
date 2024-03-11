@@ -10,11 +10,15 @@ class Item extends StoreModule{
   }
 
   async load({_id}){
-    const response = await fetch('/api/v1/articles/'+_id);
-    const json = await response.json();
+    const itemResponse = await fetch('/api/v1/articles/'+_id+'?fields=_id,title,description,price,madeIn,edition,category');
+    const itemJson = await itemResponse.json();
+    const countryResponse = await fetch('/api/v1/countries/'+itemJson.result.madeIn._id);
+    const countryJson = await countryResponse.json();
+    const categoryResponse = await fetch('/api/v1/categories/'+itemJson.result.category._id);
+    const categoryJson = await categoryResponse.json();
     this.setState({
       ...this.getState(),
-      selectedItem: json.result
+      selectedItem: {...itemJson.result, country: countryJson.result, category: categoryJson.result}
     }, 'Загружен товар с _id='+_id);
   }
 }
