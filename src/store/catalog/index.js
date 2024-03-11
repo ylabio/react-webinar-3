@@ -1,4 +1,5 @@
-import {codeGenerator} from "../../utils";
+import routes from "../routes";
+import { codeGenerator } from "../../utils";
 import StoreModule from "../module";
 
 class Catalog extends StoreModule {
@@ -10,17 +11,44 @@ class Catalog extends StoreModule {
 
   initState() {
     return {
-      list: []
+      list: [],
+      currentPage: 1,
+      perPage: null,
+      totalCountPages: null,
+      isLoading: false,
     }
   }
 
-  async load() {
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  setPerPage(perPage) {
     this.setState({
       ...this.getState(),
-      list: json.result.items
-    }, 'Загружены товары из АПИ');
+      perPage: perPage,
+    })
+  }
+
+  async loadPage(currentPage) {
+    this.setState({
+      ...this.getState(),
+      isLoading: true,
+    }, 'Загрузка');
+    currentPage === 0 ? currentPage = 1 : null;
+
+
+    const response = await fetch('/api/v1/articles');
+    const json = await response.json();
+    const perPage = this.getState().perPage;
+    const skip = (currentPage - 1) * perPage;
+
+    setTimeout(() => {
+      this.setState({
+        ...this.getState(),
+        list: json.result.items,
+        currentPage: currentPage,
+        totalCountPages: Math.ceil(json.result.count / perPage),
+        perPage: perPage,
+        isLoading: false
+      }, 'Загружены товары из АПИ');
+    }, 500);
   }
 }
 

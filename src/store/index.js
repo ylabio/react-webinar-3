@@ -1,4 +1,4 @@
-import * as modules from './exports.js';
+import * as modules from "./exports.js";
 
 /**
  * Хранилище состояния приложения

@@ -1,10 +1,17 @@
-import {memo, useState} from "react";
+import { memo, useState } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname';
-import {numberFormat} from "../../utils";
-import './style.css';
+import { cn as bem } from "@bem-react/classname";
 
+import routes from "../../store/routes";
+
+import useDictionary from "../../store/use-dictionary";
+
+import { numberFormat } from "../../utils";
+
+import "./style.css";
 function Item(props) {
+  const { currentDictionary } = useDictionary();
 
   const cn = bem('Item');
 
@@ -15,12 +22,15 @@ function Item(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>
+      <Link
+        to={routes.product(props.item._id)}
+        className={cn('title')}
+      >
         {props.item.title}
-      </div>
+      </Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{currentDictionary.main.item.add}</button>
       </div>
     </div>
   );
@@ -33,10 +43,12 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  loadProductInfo: PropTypes.func,
 };
 
 Item.defaultProps = {
-  onAdd: () => {},
+  onAdd: () => {
+  },
 }
 
 export default memo(Item);
