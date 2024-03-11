@@ -1,0 +1,17 @@
+.Description {
+  padding: 20px 40px;
+}
+
+.Description div {
+  padding-bottom: 20px;
+}
+
+.Description span {
+  padding-left: 10px;
+  font-weight: 700;
+}
+
+.Description-price {
+  font-size: 24px;
+  font-weight: 700;
+}
