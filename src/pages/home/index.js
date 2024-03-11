@@ -16,9 +16,11 @@ function Home() {
     store.actions.catalog.load({ page: 1 });
   }, [store.actions.catalog]);
 
-  const list = useSelector((state) => state.catalog.list);
-  const totalPages = useSelector((state) => state.catalog.totalPages);
-  const currentPage = useSelector((state) => state.catalog.currentPage); // Используем текущую страницу из состояния
+  const select = {
+    list: useSelector((state) => state.catalog.list),
+    totalPages: useSelector((state) => state.catalog.totalPages),
+    currentPage: useSelector((state) => state.catalog.currentPage) // Используем текущую страницу из состояния
+  }
 
   const addToBasket = useCallback((_id) => store.actions.basket.addToBasket(_id), [store]);
 
@@ -39,8 +41,12 @@ function Home() {
     <>
       <Head title={tr('store')} />
       <BasketTool />
-      <List list={list} renderItem={renders.item} />
-      <Paginator totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
+      <List list={select.list} renderItem={renders.item} />
+      <Paginator
+        totalPages={select.totalPages}
+        currentPage={select.currentPage}
+        onPageChange={handlePageChange}
+      />
     </>
   );
 }
