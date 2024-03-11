@@ -30,5 +30,25 @@
   "Empty": {
     "Ru": "пусто",
     "En": "empty"
+  },
+  "Basket": {
+    "Ru": "Корзина",
+    "En": "Basket"
+  },
+  "Good": {
+    "Ru": "товар",
+    "En": "good"
+  },
+  "FewGoods": {
+    "Ru": "товара",
+    "En": "goods"
+  },
+  "ManyGoods": {
+    "Ru": "товаров",
+    "En": "goods"
+  },
+  "Total": {
+    "Ru": "Итого",
+    "En": "Total"
   }
 }
