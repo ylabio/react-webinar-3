@@ -1,0 +1,54 @@
+.Pagination {
+  display: flex;
+  list-style: none;
+  justify-content: flex-end;
+  padding: 14px 20px;
+  margin: 0;
+}
+
+.Pagination-button {
+  display: none;
+}
+
+.Pagination-link {
+  text-decoration: none;
+  padding: 1px 5px;
+  color: #000;
+}
+
+.Pagination-link:hover {
+  background-color: #CCCCCC;
+}
+
+.Pagination-button.active .Pagination-link {
+  color: #fff;
+}
+
+.Pagination-button.active .Pagination-link{
+  background-color: #0087E9;
+}
+
+.Pagination-button.active,
+.Pagination-button.subactive,
+.Pagination-button:nth-of-type(1),
+.Pagination-button:nth-of-type(1).active + .Pagination-button + .Pagination-button,
+.Pagination-button:nth-last-of-type(1) {
+  display: block;
+}
+
+.Pagination-button:nth-of-type(1)::after {
+  content: "...";
+  padding-left: 7px;
+}
+
+.Pagination-button:nth-last-of-type(1)::before {
+  content: "...";
+  padding-right: 7px;
+}
+
+.Pagination-button:nth-of-type(1).active::after,
+.Pagination-button:nth-of-type(1).subactive::after,
+.Pagination-button:nth-last-of-type(1).active::before,
+.Pagination-button:nth-last-of-type(1).subactive::before {
+  display: none;
+}

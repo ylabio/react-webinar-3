@@ -1,4 +1,5 @@
 import {memo} from "react";
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
@@ -8,6 +9,7 @@ function BasketTool({sum, amount, onOpen}) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
+      <NavLink to='/' relative="path" className={cn('nav')}>Главная</NavLink>
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
         {amount

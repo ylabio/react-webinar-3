@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useCallback, useEffect, useState} from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -10,13 +10,16 @@ import useSelector from "../../store/use-selector";
 function Main() {
 
   const store = useStore();
+  const [skip, setSkip] = useState(0);
+  const [limit, setLimit] = useState(10);
 
   useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
+    store.actions.catalog.load(skip, limit);
+  }, [skip]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
+    listLength: state.catalog.listLength,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -39,7 +42,7 @@ function Main() {
       <Head title='Магазин'/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
-      <List list={select.list} renderItem={renders.item}/>
+      <List list={select.list} listLength={select.listLength} limit={limit} renderItem={renders.item} setSkip={setSkip}/>
     </PageLayout>
 
   );

@@ -6,8 +6,10 @@
   font-size: 18px;
 }
 
-.BasketTool-label {
-
+.BasketTool-nav {
+  margin: 0 auto 0 0;
+  text-align: left;
+  color: #0087E9;
 }
 
 .BasketTool-total {
