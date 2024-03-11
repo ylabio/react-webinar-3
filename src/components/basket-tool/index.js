@@ -51,7 +51,7 @@ function BasketTool({sum, amount, onOpen}) {
             : getBasketEmptyText()
           }
         </span>      
-        <button onClick={onOpen}>{getBasketOpenText()}</button>
+        <button className={cn('open-button')} onClick={onOpen}>{getBasketOpenText()}</button>
       </span>
     </div>
   );

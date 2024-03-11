@@ -69,7 +69,7 @@ function ArticleInfo() {
         <div className={cn('paragraph-price')}>
           {`${getItemPriceText()}: ${numberFormat(select?.item?.price)} ₽`}
         </div>
-        <button onClick={onAddToCart}>{getBasketAddText()}</button>
+        <button className={cn('buy-button')} onClick={onAddToCart}>{getBasketAddText()}</button>
       </div>
     </>
   );

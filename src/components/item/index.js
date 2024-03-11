@@ -36,7 +36,7 @@ function Item({item, onAdd}) {
       </Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>{getBasketAddText()}</button>
+        <button className={cn('add-button')} onClick={callbacks.onAdd}>{getBasketAddText()}</button>
       </div>
     </div>
   );

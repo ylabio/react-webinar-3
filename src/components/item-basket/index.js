@@ -40,7 +40,7 @@ function ItemBasket({item, onRemove}) {
         <div className={cn('cell')}>{numberFormat(item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(item.amount || 0)} {getItemCounterText()}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>{getBasketRemoveText()}</button>
+          <button className={cn('remove-button')} onClick={callbacks.onRemove}>{getBasketRemoveText()}</button>
         </div>
       </div>
     </div>

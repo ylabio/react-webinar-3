@@ -11,7 +11,12 @@
 }
 
 .BasketTool-return {
-  
+  text-decoration: underline;
+  color: #0087e9;
+}
+
+.BasketTool-return:hover {
+  background-color: #ccc;
 }
 
 .BasketTool-cartInfo {
@@ -22,4 +27,9 @@
 .BasketTool-total {
   font-weight: bold;
   margin: 0 20px;
+}
+
+.BasketTool-open-button {
+  width: 75px;
+  height: 21px;
 }

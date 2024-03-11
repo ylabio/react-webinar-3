@@ -1,11 +1,23 @@
 .ArticleInfo {
-  
+  padding: 20px;
 }
 
 .ArticleInfo-paragraph {
-  
+  padding: 10px 20px;
 }
 
 .ArticleInfo-paragraph-bold {
   font-weight: bold;
+}
+
+.ArticleInfo-paragraph-price {
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.ArticleInfo-buy-button {
+  margin: 10px 20px;
+  width: 75px;
+  height: 21px;
 }

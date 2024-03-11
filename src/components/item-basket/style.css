@@ -13,6 +13,12 @@
 .ItemBasket-title {
   width: 100%;
   padding: 20px 10px;
+  text-decoration: none;
+  color: #000;
+}
+
+.ItemBasket-title:hover {
+  text-decoration: underline;
 }
 
 .ItemBasket-right {
@@ -27,4 +33,9 @@
   text-align: right;
   font-size: 18px;
   white-space: nowrap;
+}
+
+.ItemBasket-remove-button {
+  width: 75px;
+  height: 21px;
 }
