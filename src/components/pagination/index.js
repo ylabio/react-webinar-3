@@ -1,7 +1,6 @@
 import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import {Link} from "react-router-dom";
 
 function Pagination({setCurrentPage, count, currentPage}) {
 
@@ -51,7 +50,6 @@ function Pagination({setCurrentPage, count, currentPage}) {
   return (
     <div className="Pagination">
       {getPageNumbers().map((pageNumber, index) => (
-
         <span
           key={index}
           className={pageNumber === currentPage ? 'active' : ''}

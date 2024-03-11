@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useCallback} from 'react';
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";

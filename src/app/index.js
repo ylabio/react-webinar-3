@@ -1,8 +1,7 @@
-import {Navigate, Route, Routes, useNavigate, useParams} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {ErrorPage} from "../pages/error-page";
 import MainPage from "../pages/main-page";
 import ProductPage from "../pages/product-page";
-import {useEffect, useState} from "react";
 
 
 /**
