@@ -7,7 +7,7 @@ import useStore from "../../store/use-store";
 
 function SingleProduct () {
 
-  const params = useParams()
+  const {id} = useParams()
   const store = useStore();
 
   const [product, setProduct] = useState(null)
@@ -17,8 +17,8 @@ function SingleProduct () {
   useEffect(() => {
     const getProduct = async () => {
       try {
-
-        const response = await fetch(`/api/v1/articles/${params.id}?fields=*,madeIn(title,code),category(title)`);
+        const fields = '_id,title,edition,price,description,madeIn(title),category(title)'
+        const response = await fetch(`/api/v1/articles/${id}?fields=${fields}`);
         const json = await response.json();
         setProduct(json.result)
       } catch (e) {
@@ -26,13 +26,17 @@ function SingleProduct () {
       }
     }
     getProduct()
-  }, [params.id]);
+  }, [id]);
 
   return (
     <>
-      {product && <Head title={product.title}/>}
-      <BasketTool/>
-      {product && <ProductInfo product={product} onAdd={addToBasket}/>}
+      {product && (
+        <>
+          <Head title={product.title} />
+          <BasketTool />
+          <ProductInfo product={product} onAdd={addToBasket} />
+        </>
+      )}
     </>
   )
 }
