@@ -17,9 +17,9 @@ function Main() {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    store.actions.catalog.load();
+    store.actions.catalog.load((currentPage - 1) * 10);
 
-  }, []);
+  }, [currentPage]);
 
   useEffect(() => {
     async function fetchCount() {
