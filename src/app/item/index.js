@@ -22,6 +22,10 @@ function Item() {
     isLoading: state.item.isLoading,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    totalItemsCount: state.catalog.totalItemsCount,
+    t: state.i18n.translations[state.i18n.lang],
+    currentLang: state.i18n.lang,
+    supportedLangs: state.i18n.supportedLangs
   }));
 
   const callbacks = {
@@ -30,6 +34,9 @@ function Item() {
       [store]
     ),
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    onLangeChange: useCallback((e) => {
+      return store.actions.i18n.setLang(e.target.value)
+    }, [store])
   };
 
 
@@ -39,13 +46,19 @@ function Item() {
         <Head title={'Загрузка...'} />
       ) : (
         <>
-          <Head title={select.data.title} />
+          <Head
+            title={select.data.title}
+            lang={select.currentLang}
+            supportedLangs={select.supportedLangs}
+            onLangChange={callbacks.onLangeChange}
+          />
           <BasketTool
             onOpen={callbacks.openModalBasket}
             amount={select.amount}
             sum={select.sum}
+            t={select.t}
           />
-          <ItemContent data={select.data} onAdd={callbacks.addToBasket}/>
+          <ItemContent t={select.t} data={select.data} onAdd={callbacks.addToBasket}/>
         </>
       )}
     </PageLayout>

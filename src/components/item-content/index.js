@@ -11,7 +11,6 @@ function ItemContent(props) {
   const callbacks = {
     onAdd: (e) => props.onAdd(props.data._id)
   }
-  console.log(props)
 
   return (
     <div className={cn()}>
@@ -19,22 +18,22 @@ function ItemContent(props) {
         {props.data.description}
       </p>
       <p className={cn('country')}>
-        Страна производитель:
+        {`${props.t.country}: `}
         <span className={cn('country-name')}>{props.data.madeIn.title} ({props.data.madeIn.code})</span>
       </p>
       <p className={cn('category')}>
-        {'Категория: '}
+        {`${props.t.category}: `}
         <span className={cn('category-name')}>{props.data.category.title}</span>
       </p>
       <p className={cn('year')}>
-        {'Год выпуска: '}
+        {`${props.t.year}: `}
         <span className={cn('year-number')}>{(new Date(props.data.dateCreate)).getFullYear()}</span>
       </p>
       <p className={cn('price')}>
-        {`Цена: ${numberFormat(props.data.price)} ₽`}
+        {`${props.t.price}: ${numberFormat(props.data.price)} ₽`}
       </p>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{props.t.add}</button>
       </div>
     </div>
   );
