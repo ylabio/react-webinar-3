@@ -2,9 +2,12 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import {memo} from 'react';
 import PropTypes from "prop-types";
+import {useTranslate} from '../../hooks/useTranslate'
 import './style.css';
 
 function ProductInfo({ product, onAction }) {
+
+  const tr = useTranslate()
 
   const
   {
@@ -31,20 +34,20 @@ function ProductInfo({ product, onAction }) {
     <div className={cn()}>
       <p className={cn('text')}>{description}</p>
       <p className={cn('text')}>
-        Страна производитель: <BoldText content={country + ` (${countryCode})`}/>
+        {tr('ManufacturerСountry')}: <BoldText content={country + ` (${countryCode})`}/>
       </p>
       <p className={cn('text')}>
-        Категория: <BoldText content={category}/>
+        {tr('Category')}: <BoldText content={category}/>
       </p>
       <p className={cn('text')}>
-        Год выпуска: <BoldText content={year}/>
+        {tr('YearOfManufacture')}: <BoldText content={year}/>
       </p>
       <p
         className={`${cn('text')} ${cn('text_bold')} ${cn('text_big')}`}
       >
         Цена: {numberFormat(price, 'ru-RU', {style: 'currency', currency: 'RUB'})}
       </p>
-      <button className={cn('button')} onClick={callbacks.onAdd}>Добавить</button>
+      <button className={cn('button')} onClick={callbacks.onAdd}>{tr('Add')}</button>
     </div>
   )
 }

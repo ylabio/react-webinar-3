@@ -6,11 +6,14 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import { useParams } from 'react-router';
+import { useTranslate } from '../../hooks/useTranslate';
 import Pagination from '../../components/pagination';
+import Preloader from '../../components/preloader'
 
 function Main() {
 
   const store = useStore();
+  const tr = useTranslate()
 
   const page = Number(useParams().page)
 
@@ -32,8 +35,8 @@ function Main() {
 
   return (
     <PageLayout>
-      <Header title={'Магазин'}/>
-      <List list={list} renderItem={renders.item}/>
+      <Header title={tr('Store')}/>
+      {!list.length ? <Preloader/> : <List list={list} renderItem={renders.item}/>}
       <Pagination/>
     </PageLayout>
 

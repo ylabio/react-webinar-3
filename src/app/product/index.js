@@ -1,4 +1,3 @@
-import Head from '../../components/head';
 import PageLayout from '../../components/page-layout';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';

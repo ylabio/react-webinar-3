@@ -33,3 +33,44 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export const translateDictionary = {
+  ru: {
+    Store: 'Магазин',
+    Home: 'Главная',
+    Open: 'Перейти',
+    Add: 'Добавить',
+    Close: 'Закрыть',
+    Delete: 'Удалить',
+    ManufacturerСountry: 'Страна производитель',
+    Category: 'Категория',
+    YearOfManufacture: 'Год выпуска',
+    Price: 'Цена',
+    InCart: 'В корзине',
+    Empty: 'Пусто',
+    Total: 'Итого',
+    OneProduct: 'товар',
+    FewProducts: 'товара',
+    ManyProducts: 'товаров',
+    Pcs: 'шт.',
+  },
+  en: {
+    Store: 'Store',
+    Home: 'Home',
+    Open: 'Open',
+    Add: 'Add',
+    Close: 'Close',
+    Delete: 'Delete',
+    ManufacturerСountry: 'Manufacturer country',
+    Category: 'Category',
+    YearOfManufacture: 'Year of manufacture',
+    Price: 'Price',
+    InCart: 'In cart',
+    Empty: 'Empty',
+    Total: 'Total',
+    OneProduct: 'product',
+    FewProducts: 'products',
+    ManyProducts: 'products',
+    Pcs: 'pcs.',
+  },
+};
