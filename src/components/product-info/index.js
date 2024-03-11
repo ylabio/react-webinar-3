@@ -45,7 +45,7 @@ function ProductInfo({ product, onAction }) {
       <p
         className={`${cn('text')} ${cn('text_bold')} ${cn('text_big')}`}
       >
-        Цена: {numberFormat(price, 'ru-RU', {style: 'currency', currency: 'RUB'})}
+        {tr('Price')}: {numberFormat(price, 'ru-RU', {style: 'currency', currency: 'RUB'})}
       </p>
       <button className={cn('button')} onClick={callbacks.onAdd}>{tr('Add')}</button>
     </div>

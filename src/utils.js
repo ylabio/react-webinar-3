@@ -53,6 +53,7 @@ export const translateDictionary = {
     FewProducts: 'товара',
     ManyProducts: 'товаров',
     Pcs: 'шт.',
+    Cart: 'Корзина'
   },
   en: {
     Store: 'Store',
@@ -72,5 +73,6 @@ export const translateDictionary = {
     FewProducts: 'products',
     ManyProducts: 'products',
     Pcs: 'pcs.',
+    Cart: 'Cart'
   },
 };
