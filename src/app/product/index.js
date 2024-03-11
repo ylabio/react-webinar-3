@@ -18,7 +18,7 @@ function Product() {
 
   useEffect(() => {
     store.actions.product.load(id);
-  },[product])
+  },[id])
 
   const product = useSelector(state => state.product.data);
 
