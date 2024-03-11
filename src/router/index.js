@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     {
         path: "product/:id",
         element: <Product/>
-    }
+    },
 ])
 
 export default router

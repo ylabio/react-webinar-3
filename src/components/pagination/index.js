@@ -15,28 +15,27 @@ function Pagination() {
       const json = await response.json();
       const totalItems = json.result.count;
       const totalPages = Math.ceil(totalItems/10)
-      console.log(totalItems)
       setTotalPages(totalPages);
-      setPaginationArray(formPaginationArray(currPage,totalPages));
     } 
 
     getPagesQuantity()
-  },[currPage])
+  },[])
 
-  
-  // const formPaginationArr = formPaginationArray(currPage,totalPages)
+  useEffect(() => {
+    setPaginationArray(formPaginationArray(currPage,totalPages));
+  },[currPage,totalPages])
   
   return (
-    <>
-    {paginationArray.map((el) => 
+    <div className='Pagination-content'>
+    {paginationArray.map((el,index) => 
       el !== "..." ?  
-      <button onClick={() => navigate(`/${el}`)} className={currPage === el ?"pagination-button pagination-button-pressed" : "pagination-button"}>
+      <button onClick={() => navigate(`/${el}`)} className={currPage === el ?"pagination-button pagination-button-pressed" : "pagination-button"} key = {index} >
           {el}
       </button> :
        el
-  )
-}
-    </>
+       )}
+    </div>
+
   )
 }
 

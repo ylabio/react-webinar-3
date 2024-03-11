@@ -16,7 +16,6 @@ class Catalog extends StoreModule {
   }
 
   async loadCurrPage(pageNum){
-    console.log(pageNum)
     const itemsPerPage = 10;
     const itemsToSkip = itemsPerPage * (pageNum - 1);
     const response = await fetch(`/api/v1/articles?limit=${itemsPerPage}&skip=${itemsToSkip}`);
