@@ -62,6 +62,7 @@ class Catalog extends StoreModule {
     );
     const json = await response.json();
     this.setState({
+      
       ...this.getState(),
       maxPage: Math.ceil(json.result.count / 10),
     });
