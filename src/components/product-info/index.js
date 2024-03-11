@@ -44,7 +44,7 @@ function ProductInfo({ product, onAction }) {
       >
         Цена: {numberFormat(price, 'ru-RU', {style: 'currency', currency: 'RUB'})}
       </p>
-      <button className={cn('button')} onClick={callbacks.onAdd()}>Добавить</button>
+      <button className={cn('button')} onClick={callbacks.onAdd}>Добавить</button>
     </div>
   )
 }

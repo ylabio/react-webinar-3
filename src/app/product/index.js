@@ -33,7 +33,7 @@ function Product() {
         :
         <>
           <Header title={product.title}/>
-          <ProductInfo product={product} />
+          <ProductInfo product={product} onAction={callbacks.addToBasket} />
         </>
       }
     </PageLayout>
