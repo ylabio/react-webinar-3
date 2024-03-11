@@ -33,3 +33,16 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export const createPagesList = (page, pages, intervalLit) => {
+  const start = pages[0]
+  const end = pages[pages.length - 1]
+  const count = 3
+  if (page <= start + 2) {
+    return [start, ...pages.slice(Math.max(start, page - 2), Math.max(count, page + 1)), intervalLit, end]
+  }
+  else if (page >= end - 2) {
+    return [start, intervalLit, ...pages.slice(Math.min(page - 2, end - count), end)]
+  }
+  return [start, intervalLit, ...pages.slice(page - 2, page + 1), intervalLit, end]
+}

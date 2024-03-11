@@ -5,6 +5,7 @@ import BasketTool from "../../components/basket-tool";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import ArticlePage from '../../components/article-page';
+import PreloadWrapper from '../../components/preload-wrapper';
 
 function Article() {
 
@@ -13,7 +14,8 @@ function Article() {
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
-    article: state.article.data
+    article: state.article.data,
+    isLoad: state.article.isLoad
   }));
   useEffect(() => {
     store.actions.article.loadArticle(article_id);
@@ -34,7 +36,9 @@ function Article() {
   return (
     <PageLayout head={renders.head()} onOpen={callbacks.openModalBasket} amount={select.amount}
       sum={select.sum}>
-      <ArticlePage article={select.article} addToBasket={callbacks.addToBasket} />
+      <PreloadWrapper isLoad={select.isLoad}>
+        <ArticlePage article={select.article} addToBasket={callbacks.addToBasket} />
+      </PreloadWrapper>
     </PageLayout>
   );
 }
