@@ -1,53 +1,42 @@
 import { memo, useCallback, useEffect } from 'react';
-import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
-import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import Pagination from '../../components/pagination';
+import ArticlePage from '../../components/article-page';
 
-function Main() {
+function Article() {
 
   const store = useStore();
-
-  useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
-
+  const article_id = new URLSearchParams(location.search).get('id')
   const select = useSelector(state => ({
-    list: state.catalog.list,
-    count: state.catalog.count,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    article: state.article.data
   }));
-
+  useEffect(() => {
+    store.actions.article.loadArticle(article_id);
+    callbacks.closeModal()
+  }, [article_id])
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    loadItems: useCallback((page) => store.actions.catalog.load(page), [store])
+    closeModal: useCallback(() => store.actions.modals.close(), [store]),
   }
-
   const renders = {
-    item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} />
-    }, [callbacks.addToBasket]),
     head: useCallback(() => {
-      return <Head title='Магазин' />
-    }, []),
+      return <Head title={select.article.title} />
+    }, [select.article.title]),
   };
-
   return (
     <PageLayout head={renders.head()} onOpen={callbacks.openModalBasket} amount={select.amount}
       sum={select.sum}>
-      <List list={select.list} renderItem={renders.item} />
-      <Pagination count={select.count} loadItems={callbacks.loadItems} limit={10} />
+      <ArticlePage article={select.article} addToBasket={callbacks.addToBasket} />
     </PageLayout>
-
   );
 }
 
-export default memo(Main);
+export default memo(Article);
