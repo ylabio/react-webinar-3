@@ -29,7 +29,7 @@ function PaginationNumber({ page, onClick, isActive }) {
   return typeof page === 'number' && !isActive ? (
       <button
         className='Pagination-element Pagination-page'
-        onClick={() => onClick(page)}
+        onClick={() => onClick(prev => ({oldValue: prev.newValue, newValue: page}))}
       >
         {page}
       </button>
@@ -42,7 +42,10 @@ function PaginationNumber({ page, onClick, isActive }) {
 
 Pagination.propTypes = {
   totalPages: PropTypes.number,
-  currentPage: PropTypes.number,
+  currentPage: PropTypes.shape({
+    newValue: PropTypes.number,
+    oldValue: PropTypes.number,
+  }),
   handleSelectPage: PropTypes.func
 }
 

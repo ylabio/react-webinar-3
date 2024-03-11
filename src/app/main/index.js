@@ -10,17 +10,22 @@ import Pagination from '../../components/pagination';
 function Main() {
   const store = useStore();
 
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState({ newValue: 1, oldValue: 1 })
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    store.actions.catalog.load(page);
-  }, [page]);
+    const fetchCatalog = async () => {
+      await store.actions.catalog.load(page.newValue)
+      setIsLoading(false)
+    }
+    fetchCatalog()
+  }, [page, store.actions.catalog]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
     totalPages: state.catalog.totalPages,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
   }));
 
   const callbacks = {
@@ -30,7 +35,8 @@ function Main() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     handleSelectPage(pageNumber) {
       setPage(pageNumber)
-    }
+      setIsLoading(true)
+    },
   }
 
   const renders = {
@@ -41,15 +47,14 @@ function Main() {
 
   return (
     <>
-      <Head title='Магазин'/>
+      <Head title="Магазин"/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
       <Pagination
         totalPages={select.totalPages}
-        currentPage={page}
+        currentPage={!isLoading ? page.newValue : page.oldValue}
         handleSelectPage={callbacks.handleSelectPage}
-        items={select.list.length}
       />
     </>
   );

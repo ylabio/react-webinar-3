@@ -3,7 +3,7 @@ import BasketTool from '../../components/basket-tool';
 import { memo, useState, useEffect, useCallback } from 'react';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
-import { Outlet, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { numberFormat } from '../../utils';
 import './style.css'
 
