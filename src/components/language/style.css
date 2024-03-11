@@ -1,0 +1,22 @@
+.Language {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.Language-paragraph {
+  margin: 0;
+}
+
+.Language-button {
+  border: none;
+  border-radius: 50%;
+  background-color: violet;
+  color: whitesmoke;
+  height: 26px;
+  width: 26px;
+  text-align: center;
+  padding: 0;
+
+  cursor: pointer;
+}

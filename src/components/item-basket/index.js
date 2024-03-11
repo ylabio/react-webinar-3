@@ -14,15 +14,16 @@ function ItemBasket(props) {
     onRemove: (e) => props.onRemove(props.item._id)
   };
 
+  const { remove, pieces } = props.translations
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <Link to={`/${props.item._id}`} className={cn('title')}>{props.item.title}</Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {pieces}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{remove}</button>
         </div>
       </div>
     </div>
@@ -37,6 +38,9 @@ ItemBasket.propTypes = {
     amount: PropTypes.number
   }).isRequired,
   onRemove: propTypes.func,
+  translations: PropTypes.shape({
+    pieces: PropTypes.string, remove: PropTypes.string,
+  }),
 }
 
 ItemBasket.defaultProps = {
