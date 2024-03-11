@@ -1,0 +1,68 @@
+.ItemContent {
+  padding: 20px 40px;
+}
+
+.ItemContent-description {
+  font-family: Arial;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+
+.ItemContent-country {
+  font-family: Arial;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 20px 0;
+  padding: 0;
+}
+
+.ItemContent-country-name {
+  font-weight: 700;
+}
+
+.ItemContent-category {
+  font-family: Arial;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 20px 0;
+  padding: 0;
+}
+
+.ItemContent-category-name {
+  font-weight: 700;
+}
+
+.ItemContent-year {
+  font-family: Arial;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 20px 0;
+  padding: 0;
+}
+
+.ItemContent-year-number {
+  font-weight: 700;
+}
+
+.ItemContent-price {
+  font-family: Arial;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: left;
+}

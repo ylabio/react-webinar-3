@@ -16,6 +16,7 @@ function Main() {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
+    store.actions.item.setLoading(true);
     store.actions.catalog.load(PageSize, (currentPage - 1) * PageSize);
   }, [currentPage]);
   
