@@ -33,3 +33,38 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export const createPageList = (totalPage) => {
+  let pages = [];
+  for (let i = 1; i <= totalPage; i++) {
+    pages.push(i);
+  }
+  return pages;
+};
+
+export const createPagination = (pages, currentPage, setArrCurrBtn) => {
+  let tempNumberPage = [...pages];
+  let dots = "...";
+
+  if (currentPage >= 1 && currentPage <= 2) {
+    tempNumberPage = [1, 2, 3, dots, pages.length];
+  } else if (currentPage === 3) {
+    const sliced = pages.slice(0, 4);
+    tempNumberPage = [...sliced, dots, pages.length];
+  } else if (currentPage > 3 && currentPage < pages.length - 2) {
+    const slicedLeft = pages.slice(currentPage - 2, currentPage);
+    const slicedRight = pages.slice(currentPage, currentPage + 1);
+    tempNumberPage = [
+      1,
+      dots,
+      ...slicedLeft,
+      ...slicedRight,
+      dots,
+      pages.length,
+    ];
+  } else if (currentPage > pages.length - 3) {
+    const sliced = pages.slice(pages.length - 4);
+    tempNumberPage = [1, dots, ...sliced];
+  }
+  setArrCurrBtn(tempNumberPage);
+};

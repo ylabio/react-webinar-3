@@ -1,0 +1,20 @@
+.ProductDescription {
+    margin: 0 40px;
+}
+
+.ProductDescription p {
+    font-size: 18px;
+    line-height: 20.7px;
+    margin: 20px 0;
+}
+
+.ProductDescription p:last-child {
+    font-size: 24px;
+    line-height: 27.6px;
+}
+
+.ProductDescription button {
+    cursor: pointer;
+    height: 21px;
+    width: 76px;
+}
