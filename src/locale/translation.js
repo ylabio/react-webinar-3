@@ -1,0 +1,40 @@
+export default {
+  ru: {
+    store: 'Магазин',
+    language: 'Язык',
+    home: 'Главная',
+    inTheBasket: 'В корзине',
+    empty: 'пусто',
+    oneProduct: 'товар',
+    fewProduct: 'товара',
+    manyProduct: 'товаров',
+    goBtn: 'Перейти',
+    closeBtn: 'Закрыть',
+    addBtn: 'Добавить',
+    deleteBtn: 'Удалить',
+    manufacture: 'Страна производитель',
+    category: 'Категория',
+    edition: 'Год выпуска',
+    price: 'Цена',
+    total: 'Итого'
+  },
+  en: {
+    store: 'Store',
+    language: 'Language',
+    home: 'Home',
+    inTheBasket: 'In the basket',
+    empty: 'empty',
+    oneProduct: 'product',
+    fewProduct: 'products',
+    manyProduct: 'products',
+    goBtn: 'Open',
+    closeBtn: 'Close',
+    addBtn: 'Add',
+    deleteBtn: 'Delete',
+    manufacture: 'Manufacturer country',
+    category: 'Category',
+    edition: 'Year of issue',
+    price: 'Price',
+    total: 'Total'
+  }
+}

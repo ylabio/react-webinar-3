@@ -1,0 +1,24 @@
+.Paginator {
+  display: flex;
+  justify-content: right;
+  padding: 20px;
+}
+
+.Paginator-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.Paginator-btn:hover {
+  background: #CCCCCC;
+}
+
+.Paginator-btn.active {
+  background: #0087E9;
+  color: white;
+}
+
+.Paginator-ellipse {
+  color: #CCCCCC;
+}

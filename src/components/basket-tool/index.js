@@ -1,39 +1,47 @@
-import {memo} from "react";
-import PropTypes from 'prop-types';
+import React, {memo, useCallback, useEffect} from "react";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
+import useStore from "../../store/use-store";
+import useSelector from "../../store/use-selector";
+import {Link} from "react-router-dom";
+import {useLanguage} from "../../LanguageContext";
 
-function BasketTool({sum, amount, onOpen}) {
+function BasketTool() {
   const cn = bem('BasketTool');
+
+  const store = useStore();
+  const {tr} = useLanguage()
+
+
+  const select = useSelector(state => ({
+    amount: state.basket.amount,
+    sum: state.basket.sum
+  }));
+
+  // Открытие модалки корзины
+  const openModalBasket = useCallback(() => store.actions.modals.open('basket'), [store])
+
+
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
-      <span className={cn('total')}>
-        {amount
-          ? `${amount} ${plural(amount, {
-            one: 'товар',
-            few: 'товара',
-            many: 'товаров'
-          })} / ${numberFormat(sum)} ₽`
-          : `пусто`
+      <Link to={'/'}>{tr('home')}</Link>
+      <div className={cn('content')}>
+        <span className={cn('label')}>{tr('inTheBasket')}:</span>
+        <span className={cn('total')}>
+        {select.amount
+          ? `${select.amount} ${plural(select.amount, {
+            one: tr('oneProduct'),
+            few: tr('fewProduct'),
+            many: tr('manyProduct')
+          })} / ${numberFormat(select.sum)} ₽`
+          : tr('empty')
         }
       </span>
-      <button onClick={onOpen}>Перейти</button>
+        <button onClick={openModalBasket}>{tr('goBtn')}</button>
+      </div>
     </div>
   );
-}
-
-BasketTool.propTypes = {
-  onOpen: PropTypes.func.isRequired,
-  sum: PropTypes.number,
-  amount: PropTypes.number
-};
-
-BasketTool.defaultProps = {
-  onOpen: () => {},
-  sum: 0,
-  amount: 0
 }
 
 export default memo(BasketTool);
