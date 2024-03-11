@@ -18,6 +18,10 @@
   width: 100%;
   padding: 20px 10px;
 }
+.Item-title span:hover{
+  text-decoration: underline;
+  cursor: pointer;
+} 
 
 .Item-actions {
   padding: 20px 20px 20px 10px;

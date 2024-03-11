@@ -33,3 +33,72 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+
+export const langArr = {
+  "shop":{
+    "ru":'Магазин',
+    "en":"Shop"
+  },
+  "main":{
+    "ru":'Главная',
+    "en":"Home"
+  },
+  "delete":{
+    "ru":'Удалить',
+    "en":"Delete"
+  },
+  "add":{
+    "ru":"Добавить",
+    "en":"Add"
+  },
+  "cart":{
+    "ru":'Корзина',
+    "en":"Cart"
+  },
+  "BasketTools":{
+    "ru": 'В корзине:',
+    "en": 'In cart:'
+  },
+  "empty":{
+    "ru": 'пусто',
+    "en": 'empty'
+  },
+  "goodsOne":{
+    "ru": "товар",
+    "en": "product"
+  },
+  "goodsFew":{
+    "ru": "товара",
+    "en": "products"
+  },
+  "goodsMany":{
+    "ru": "товаров",
+    "en": "products"
+  },
+  "main":{
+    "ru":'Главная',
+    "en":'Home'
+  },
+  "pcs":{
+    "ru": "шт",
+    "en": "pcs",
+  },
+  "go":{
+    "ru":"Перейти",
+    "en":"Go"
+  },
+  "close":{
+    "ru":'Закрыть',
+    "en":"Close"
+  },
+  "remove":{
+    "ru":"Удалитъ",
+    "en":"Remove"
+  },
+  "total":{
+    "ru":"Итого",
+    "en":"Total"
+  }
+
+}

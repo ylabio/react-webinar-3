@@ -6,7 +6,7 @@ import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
-function Basket() {
+function Basket({language}) {
 
   const store = useStore();
 
@@ -25,14 +25,14 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
+      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} language={language}/>
     }, [callbacks.removeFromBasket]),
   };
 
   return (
-    <ModalLayout title='Корзина' onClose={callbacks.closeModal}>
+    <ModalLayout title='Корзина' onClose={callbacks.closeModal} language={language}>
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal language={language} sum={select.sum}/>
     </ModalLayout>
   );
 }

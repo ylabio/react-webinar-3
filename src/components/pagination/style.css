@@ -1,0 +1,28 @@
+.pagination{
+    margin-right: 20px;
+}
+
+.pagination__btns{
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* .pagination-btn a{
+    text-decoration: none;
+    color:black
+} */
+
+.pagination-btn{
+    list-style-type: none;
+    padding: 5px;
+    cursor: pointer;
+    
+}
+
+.pagination-btn--active{
+    background-color: #1e90ff;
+
+}
+.pagination-btn--active{
+    color: white;
+}
