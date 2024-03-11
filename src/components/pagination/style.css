@@ -1,0 +1,44 @@
+.Pagination-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Pagination {
+  display: flex;
+  margin: 22px 20px 0 0;
+}
+
+.Pagination-element {
+  box-sizing: border-box;
+  border: none;
+  display: flex;
+  min-height: 20px;
+  min-width: 20px;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  padding: 0 3px;
+}
+
+
+.Pagination-page {
+  background-color: white;
+  cursor: pointer;
+}
+
+.Pagination-page:hover {
+  background-color: #E1E1E1;
+}
+
+.Pagination-page--selected {
+  background-color: #0087E9;
+  color: white;
+  cursor: default;
+
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
