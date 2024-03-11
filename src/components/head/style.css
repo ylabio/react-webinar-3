@@ -1,9 +1,36 @@
 .Head {
   height: 80px;
   background: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
 }
 
 .Head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+}
+
+.SelectLanguage {
+  font-size: 18px;
+}
+
+.SelectLanguage-label {
+  display: flex;
+  justify-content: flex-start;
+  padding: 5px 20px 0px;
+}
+
+.SelectLanguage-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.SelectLanguage-button {
+  display: flex;
+  justify-content: center;
+  padding: 20px 20px 10px;
+}
+
+.Button-SelectLanguage {
+  width: 100px;
 }

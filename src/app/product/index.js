@@ -38,7 +38,8 @@ function Product() {
     product: state.basket.product,
     list: state.catalog.list,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    variablesLanguage: state.lingua.variablesLanguage,
   }));
 
   
@@ -57,6 +58,7 @@ function Product() {
 
   return (
     <>
+    {(store.actions.lingua.getState().Language == 'null' ? store.actions.lingua.setVariable('ru-RU') : '')}
     <main>
     <PageLayout>
       <React.Suspense
@@ -72,7 +74,19 @@ function Product() {
                              onOpen={callbacks.openModalBasket}
                              amount={select.amount}
                              sum={select.sum}
-                             addToBasket= {callbacks.addToBasket}/>
+                             main={select.variablesLanguage.BasketTool.main}
+                             label={select.variablesLanguage.BasketTool.label}
+                             buttonBasket={select.variablesLanguage.BasketTool.buttonBasket}
+                             one={select.variablesLanguage.BasketTool.product.one}
+                             few={select.variablesLanguage.BasketTool.product.few}
+                             many={select.variablesLanguage.BasketTool.product.many}
+                             empty={select.variablesLanguage.BasketTool.empty}
+                             addToBasket={callbacks.addToBasket}
+                             madeIn={select.variablesLanguage.Page2.madeIn}
+                             category={select.variablesLanguage.Page2.category}
+                             edition={select.variablesLanguage.Page2.edition}
+                             price={select.variablesLanguage.Page2.price}
+                             buttonAddProduct={select.variablesLanguage.buttonAddProduct}/>
         </Await>
       </React.Suspense>
     </PageLayout>

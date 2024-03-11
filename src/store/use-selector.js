@@ -29,6 +29,21 @@ export default function useSelector(selector) {
 
   // Отписка от store при демонтировании компонента
   useLayoutEffect(() => unsubscribe, [unsubscribe]);//заносим функцию отписки слушателя при изменения расположения слоя
+  useEffect(() => {
+    function handleWindowClick2() {
+      if (store.actions.modals.getState().name !='basket')
+      {
+        const newState = selector(store.getState());
+        setState(newState);
+      }
+    }
+
+    window.addEventListener('click', handleWindowClick2);
+
+    return () => {
+      window.removeEventListener('click', handleWindowClick2);
+    };
+  }, [store]);
 
   return state;//useSelector отдаёт переменную state
 }

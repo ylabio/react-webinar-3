@@ -21,7 +21,8 @@ function Basket() {
     vFlag2: state.modals.vFlag2,
     vFlag3: state.modals.vFlag3,
     scrollHeight: state.modals.scrollHeight,
-    heightListToList: state.modals.heightListToList
+    heightListToList: state.modals.heightListToList,
+    variablesLanguage: state.lingua.variablesLanguage,
   }));
 
   const callbacks = {
@@ -36,8 +37,12 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} onClose={callbacks.closeModal}/>
-    }, [callbacks.removeFromBasket,callbacks.closeModal]),
+      return <ItemBasket item={item}
+                         onRemove={callbacks.removeFromBasket}
+                         onClose={callbacks.closeModal}
+                         buttonDeleteProduct={select.variablesLanguage.buttonDeleteProduct}
+                         ItemQ={select.variablesLanguage.Basket.ItemQ}/>
+    }, [callbacks.removeFromBasket,callbacks.closeModal,select]),
   };
 
   const refList = useRef(null);
@@ -67,7 +72,9 @@ function Basket() {
   }, [store]);
 
   return (
-    <ModalLayout title='Корзина' onClose={callbacks.closeModal}>
+    <ModalLayout title={select.variablesLanguage.Basket.title}
+                 onClose={callbacks.closeModal}
+                 buttonClose={select.variablesLanguage.Basket.buttonClose}>
         <div ref={refList}>
         <div ref={refScroll}
              style={(store.actions.modals.fScrollBarBasket(select.vFlag2) &&
@@ -79,7 +86,8 @@ function Basket() {
       <List list={select.list} renderItem={renders.itemBasket}/>
       </div>
       </div>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum}
+                   label={select.variablesLanguage.Total.label}/>
     </ModalLayout>
   );
 }

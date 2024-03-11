@@ -11,12 +11,12 @@ class Store {
     /** @type {{
      * basket: Basket,
      * catalog: Catalog,
-     * modals: Modals
+     * modals: Modals,
+     * lingua: MultiLingua
      * }} */
     this.actions = {};//создаём пустое хранилище для модулей
     for (const name of Object.keys(modules)) {//Пробегаемся по ключас модулей
       this.actions[name] = new modules[name](this, name);//Подгрущаем модули в actions,
-                                                        //зачем мы передаём в модули Basket и Modals переменные this и name не понятно
       this.state[name] = this.actions[name].initState();//Устанавливаем изначальные данные модулей
     }
   }

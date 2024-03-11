@@ -71,7 +71,7 @@ function ModalLayout(props) {
                                                       {height: select.heightFrame} : {})}>
         <div className={cn('head')}>
           <h1 className={cn('title')}>{props.title}</h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <button className={cn('close')} onClick={props.onClose}>{props.buttonClose}</button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -85,6 +85,7 @@ ModalLayout.propTypes = {
   title: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
+  buttonClose: PropTypes.string,
 };
 
 ModalLayout.defaultProps = {
