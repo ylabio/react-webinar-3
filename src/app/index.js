@@ -1,4 +1,6 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
+import { Route, Routes } from 'react-router-dom'
+import ArticlePage from './articlePage'
 import Main from "./main";
 import Basket from "./basket";
 import useStore from "../store/use-store";
@@ -13,10 +15,17 @@ function App() {
   const activeModal = useSelector(state => state.modals.name);
 
   return (
-    <>
-      <Main/>
-      {activeModal === 'basket' && <Basket/>}
-    </>
+    <Routes>
+      <Route path={'/'} element={
+        <>
+          <Main/>
+          {activeModal === 'basket' && <Basket/>}
+        </>
+      } />
+      <Route path={'/articles/:id'} element={<ArticlePage />} />
+      {/*<Route path={'*'} element={<NotFound />} />*/}
+    </Routes>
+
   );
 }
 
