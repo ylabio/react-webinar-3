@@ -1,6 +1,7 @@
 .Pagination {
   display: flex;
   justify-content: flex-end;
+  align-items: end;
   margin: 20px 20px 0 0;
   padding-bottom: 20px;
 }
