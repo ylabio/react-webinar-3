@@ -3,45 +3,36 @@ import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import { numberFormat, plural } from "../../utils";
 import "./style.css";
-import { Link } from "react-router-dom";
-import useSelector from "../../store/use-selector";
+import GoHome from "./go-home";
 
-function BasketTool({ sum, amount, onOpen }) {
+function BasketTool({ sum, amount, onOpen, lang, data }) {
   const cn = bem("BasketTool");
-  const select = useSelector((state) => ({
-    data: state.translate.data,
-    lang: state.translate.lang,
-  }));
   return (
     <div className={cn()}>
-      <Link to={"/"} className={cn("home")}>
-        {select.data.main.linkHome}
-      </Link>
+      <GoHome title={data.main.linkHome} />
       <div>
-        <span className={cn("label")}>
-          {select.data.basket.basketToolText}:
-        </span>
+        <span className={cn("label")}>{data.basket.basketToolText}:</span>
         <span className={cn("total")}>
           {amount
             ? `${amount} ${
-                select.lang === "RU"
+                lang === "RU"
                   ? plural(amount, {
-                      one: select.data.basket.productOne,
-                      few: select.data.basket.productsFew,
-                      many: select.data.basket.productsMany,
+                      one: data.basket.productOne,
+                      few: data.basket.productsFew,
+                      many: data.basket.productsMany,
                     })
                   : plural(
                       amount,
                       {
-                        one: select.data.basket.productOne,
-                        other: select.data.basket.productsOther,
+                        one: data.basket.productOne,
+                        other: data.basket.productsOther,
                       },
                       "en-EN"
                     )
               } / ${numberFormat(sum)} ₽`
-            : `${select.data.basket.emptyBasket}`}
+            : `${data.basket.emptyBasket}`}
         </span>
-        <button onClick={onOpen}>{select.data.basket.toBasketBtn}</button>
+        <button onClick={onOpen}>{data.basket.toBasketBtn}</button>
       </div>
     </div>
   );
@@ -51,6 +42,8 @@ BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
+  lang: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
 };
 
 BasketTool.defaultProps = {

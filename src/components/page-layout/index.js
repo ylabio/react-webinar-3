@@ -13,12 +13,15 @@ function PageLayout({ footer }) {
   const cn = bem("PageLayout");
   const { id } = useParams();
   const store = useStore();
+
   const select = useSelector((state) => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
     list: state.catalog.list,
     data: state.translate.data,
+    lang: state.translate.lang,
   }));
+
   const openModalBasket = useCallback(
     () => store.actions.modals.open("basket"),
     [store]
@@ -38,6 +41,8 @@ function PageLayout({ footer }) {
           onOpen={openModalBasket}
           amount={select.amount}
           sum={select.sum}
+          lang={select.lang}
+          data={select.data}
         />
       </div>
       <div className={cn("center")}>
