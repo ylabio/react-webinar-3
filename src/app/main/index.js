@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useCallback, useContext, useEffect} from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -7,6 +7,7 @@ import List from "../../components/list";
 import Pagination from "../../components/pagination"
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import { LanguageContext } from '../../languageContext';
 
 function Main() {
 
@@ -18,6 +19,8 @@ function Main() {
     sum: state.basket.sum,
     pagination: state.pages
   }));
+
+  const [language, setLanguage] = useContext(LanguageContext);
 
   const callbacks = {
     // Добавление в корзину
@@ -44,9 +47,14 @@ function Main() {
     }, [callbacks.addToBasket]),
   };
 
+  const text = {
+    ru: 'Магазин',
+    eng: 'Shop'
+  }
+
   return (
     <PageLayout>
-      <Head title='Магазин'/>
+      <Head title={text[language]}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum} changePage={callbacks.changePage}/>
       <List list={select.list} renderItem={renders.item}/>
