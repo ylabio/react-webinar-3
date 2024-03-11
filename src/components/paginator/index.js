@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import { cn as bem } from "@bem-react/classname";
 import { paginationBuilder } from "../../utils";
 import "./style.css";
