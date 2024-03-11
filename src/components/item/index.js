@@ -18,12 +18,12 @@ function Item(props) {
   return (
     <div className={cn()}>
       <Link
-      to={`articles/${props.item._id}`}
+      to={`/articles/${props.item._id}`}
       className={cn('title')}>
         {props.item.title}
       </Link>
       <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price, langText.LANGUAGE[language][1])} ₽</div>
+        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
         <button onClick={callbacks.onAdd}>{langButton.ADD[language]}</button>
       </div>
     </div>

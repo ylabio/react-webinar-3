@@ -15,7 +15,7 @@ class Catalog extends StoreModule {
     };
   }
 
-  async load(limit = 10, page = 1, language='ru') {
+  async load(limit = 10, page = 1, language = 'ru') {
     let skip = 0;
 
     if (page > 1) {

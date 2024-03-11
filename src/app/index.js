@@ -17,7 +17,7 @@ function App() {
     <>
       <Routes>
         <Route path="/">
-          <Route path="" element={<Main language={language}/>}></Route>
+          <Route path=":page?" element={<Main language={language}/>}></Route>
           <Route path="articles/:articleId" element={<ArticlesPage language={language}/>} />
         </Route>
       </Routes>

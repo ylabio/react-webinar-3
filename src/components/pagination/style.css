@@ -7,17 +7,19 @@
 }
 
 .Pagination-btn {
+  display: block;
   border: none;
+  color: black;
   background-color: white;
+  text-decoration: none;
   padding: 0;
   width: 20px;
   height: 20px;
   cursor: pointer;
+  text-align: center;
 }
 
 .Pagination-dots {
-  border: none;
-  padding: 0;
   width: 20px;
   height: 20px;
 }

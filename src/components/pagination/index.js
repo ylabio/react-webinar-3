@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { DOTS, usePagination } from '../../hooks/usePagination';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import { Link } from 'react-router-dom';
 
 function Pagination(props) {
-  const { limit = 10, count, currentPage, onPageChange } = props;
+  const { limit = 10, count, currentPage, path="/"} = props;
 
   const paginationRange = usePagination([count, limit, currentPage]);
 
@@ -16,26 +17,24 @@ function Pagination(props) {
         if (pageNumber === DOTS) {
           return (
             <li key={index}>
-              <button className={cn('dots')} disabled={true}>
+              <div className={cn('dots')} disabled={true}>
                 &#8230;
-              </button>
+              </div>
             </li>
           );
         }
         return (
           <li key={index}>
-            <button
+            <Link
+              to={`${path}${pageNumber}`}
               className={
                 pageNumber === currentPage
                   ? cn('btn', { active: true })
                   : cn('btn')
               }
-              onClick={() => {
-                onPageChange(pageNumber);
-              }}
             >
               {pageNumber}
-            </button>
+            </Link>
           </li>
         );
       })}
@@ -46,8 +45,8 @@ function Pagination(props) {
 Pagination.propTypes = {
   limit: PropTypes.number,
   count: PropTypes.number.isRequired,
+  path: PropTypes.string,
   currentPage: PropTypes.number.isRequired,
-  onPageChange: PropTypes.func.isRequired,
 };
 
 export default memo(Pagination);

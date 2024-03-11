@@ -26,13 +26,13 @@ function ItemBasket(props) {
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <Link
         onClick={callbacks.closeModal}
-        to={`articles/${props.item._id}`}
+        to={`/articles/${props.item._id}`}
         className={cn('title')}>
         {props.item.title}
         </Link>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.price, langText.LANGUAGE[language][1])} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0, langText.LANGUAGE[language][1])}
+        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)}
         {langText.UNITS[language]}
         </div>
         <div className={cn('cell')}>

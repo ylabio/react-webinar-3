@@ -9,15 +9,11 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import { langText } from '../../constants/language';
+import { useParams } from 'react-router-dom';
 
 function Main({ language = 'ru' }) {
   const store = useStore();
-
-  const [currentPage, setCurrentPage] = useState(1);
-
-  useEffect(() => {
-    store.actions.catalog.load(10, currentPage, language);
-  }, [currentPage, store.actions.catalog, language]);
+  const { page } = useParams();
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -25,6 +21,10 @@ function Main({ language = 'ru' }) {
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
+
+  useEffect(() => {
+    store.actions.catalog.load(10, Number(page), language);
+  }, [page, store.actions.catalog, language]);
 
   const callbacks = {
     // Добавление в корзину
@@ -62,8 +62,7 @@ function Main({ language = 'ru' }) {
       <Pagination
         limit={10}
         count={select.count}
-        currentPage={currentPage}
-        onPageChange={page => setCurrentPage(page)}
+        currentPage={Number(page || 1)}
       />
     </PageLayout>
   );
