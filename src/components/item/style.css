@@ -15,7 +15,18 @@
 
 .Item-title {
   padding: 20px 10px;
+  color: black;
 }
+.Item-title a{
+  color: black;
+  text-decoration: none;
+}
+
+.Item-title a:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .Item-price {
   padding: 20px 62px;
 }
