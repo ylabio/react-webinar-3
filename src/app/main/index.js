@@ -24,28 +24,31 @@ function Main() {
     list: state.catalog.list,
     length: state.catalog.length,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    lang: state.language.language
   }));
+
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    setLang: useCallback((lang) => store.actions.language.change(lang), [store])
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
+      return <Item item={item} onAdd={callbacks.addToBasket} lang={select.lang}/>
+    }, [callbacks.addToBasket, select.lang]),
   };
 
   const maxPage = Math.ceil(select.length/10)
   return (
     <PageLayout>
-      <Head title='Магазин'/>
+      <Head title={select.lang === "ru" ? "Магазин" : "Shop"} selectedLang={select.lang} setLang={callbacks.setLang}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+                  sum={select.sum} lang={select.lang} />
       <List list={select.list} renderItem={renders.item}/>
       {maxPage && <Pagination maxPage={maxPage} currentSkip={skip} changePage={setSkip} />}
     </PageLayout>

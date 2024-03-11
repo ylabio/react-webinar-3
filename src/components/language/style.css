@@ -1,0 +1,12 @@
+.Language{
+    padding: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+.Language:hover{
+    background-color: #E1E1E1;
+}
+.Language.selected{
+    background-color: #0087E9;
+    color: white;
+}

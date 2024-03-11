@@ -8,7 +8,8 @@ import { Link } from "react-router-dom";
 function Item(props) {
 
   const cn = bem('Item');
-
+  console.log(props.lang);
+  const isRus = props.lang === "ru"
   const callbacks = {
     onAdd: (e) => props.onAdd(props.item._id)
   }
@@ -23,7 +24,7 @@ function Item(props) {
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}> {isRus ? "Добавить" : "Add"} </button>
       </div>
     </div>
   );

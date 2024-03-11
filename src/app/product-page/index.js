@@ -23,12 +23,16 @@ function ProductPage() {
         list: state.catalog.list,
         length: state.catalog.length,
         amount: state.basket.amount,
-        sum: state.basket.sum
+        sum: state.basket.sum,
+        lang: state.language.language
     }));
+
+    const isRus = select.lang === "ru"
 
     const callbacks = {
         openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
         addToBasket: useCallback(() => store.actions.basket.addToBasket(id), [store]),
+        setLang: useCallback((lang) => store.actions.language.change(lang), [store])
     }
 
     const product = useSelector(state => state.product).product
@@ -42,12 +46,12 @@ function ProductPage() {
                 item &&
                 (
                     <>
-                        <Head title={item.title} />
+                        <Head title={item.title} selectedLang={select.lang} setLang={callbacks.setLang} />
                         <div className='ProductPage-controls'>
                             <Link to={"/"}>
-                                <p>Главная</p>
+                                <p>{isRus ? "Главная" : "Main"}</p>
                             </Link>
-                            <BasketTool sum={select.sum} amount={select.amount} onOpen={callbacks.openModalBasket} />
+                            <BasketTool sum={select.sum} amount={select.amount} onOpen={callbacks.openModalBasket} lang={select.lang}/>
                         </div>
                         <div className='ProductPage-info'>
                             <p className='ProductPage-description'>{item.description}</p>
@@ -57,7 +61,7 @@ function ProductPage() {
                             <p className='PructPage-price'>Цена: {item.price} ₽</p>
                             <button
                             onClick={callbacks.addToBasket}
-                            >Добавить</button>
+                            >{isRus ? "Добавить" : "Add"}</button>
                         </div>
 
                         {activeModal === 'basket' && <Basket />}
