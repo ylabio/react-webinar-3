@@ -7,6 +7,7 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
 import Navigation from '../../components/navigation';
+import { useParams } from "react-router-dom";
 
 function Main() {
 
@@ -22,9 +23,12 @@ function Main() {
     lang: state.language.lang
   }));
 
+  const params = useParams();
+
   useEffect(() => {
-    store.actions.catalog.load({ page: 1, lang: select.lang });
-  }, [select.lang]);
+    const page = Number(params.id) || 1;
+    store.actions.catalog.load({ page: page, lang: select.lang });
+  }, [select.lang, params]);
 
 
   const callbacks = {

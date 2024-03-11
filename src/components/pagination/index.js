@@ -1,5 +1,5 @@
 import { memo } from "react";
-// import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
@@ -24,16 +24,17 @@ function Pagination({ page, count, limit, range, onChange }) {
   if (right < totalPages) items.push(totalPages);
 
   return (
-    <ul className={cn()}>
+    <div className={cn()}>
       {items.map((number, index) => (
-        <li key={index}
+        <Link key={index}
           className={cn('item', { active: number === page, split: !number })}
           onClick={() => onChange(number)}
+          to={`/${number}`}
         >
           {number || '...'}
-        </li>
+        </Link>
       ))}
-    </ul>
+    </div>
   );
 }
 
