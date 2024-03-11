@@ -1,0 +1,16 @@
+.BreadCrumbs {
+  padding: 20px;
+  margin: 0;
+  display: flex;
+  list-style: none;
+  justify-content: flex-start;
+}
+
+.BreadCrumbs-li {
+  margin: 0;
+  padding: 0;
+  color: rgb(0, 135, 233);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+}
