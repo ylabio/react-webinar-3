@@ -38,7 +38,7 @@ function Basket() {
   return (
     <ModalLayout title={title} onClose={callbacks.closeModal} lang={select.lang}>
       <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <BasketTotal sum={select.sum} lang={select.lang} />
     </ModalLayout>
   );
 }
