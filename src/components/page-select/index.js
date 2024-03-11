@@ -1,15 +1,27 @@
 import { memo, useCallback } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import { PageSelectButton } from '../page-select-button';
+import PageSelectButton from '../page-select-button';
 import './style.css';
 
 function PageSelect({currentPage, pages}) {
 
   const renderPageSelect = useCallback((currentPage, pages) => {
+    let pageNumbers = [1, currentPage - 1, currentPage, currentPage + 1, pages];
+    pageNumbers = pageNumbers.filter((page) => page > 0 && page <= pages);
+    pageNumbers = Array.from(new Set(pageNumbers));
+    
+    if (currentPage > 3) {
+      pageNumbers.splice(1, 0, '…');
+    }
+    if (currentPage < pages - 2) {
+      pageNumbers.splice(pageNumbers.length - 1, 0, '…');
+    }
 
-  }, [currentPage,pages]);
+    return pageNumbers.map((page, index) => {
+      return <PageSelectButton key={`page-select-button-${index}`} page={page.toString()} active={currentPage === page} />
+    });
+  }, []);
 
   const cn = bem('PageSelect');
   return (

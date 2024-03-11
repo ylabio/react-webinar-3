@@ -7,14 +7,19 @@ class Article extends StoreModule {
   }
 
   initState() {
-    console.log('called init state on article');
     return {
         item: {},
     }
   }
 
+  clearArticle() {
+    this.setState({
+      item: {},
+    });
+  }  
+
   async fetchArticle(id) {
-    const response = await fetch(`/api/v1/articles/${id}`);
+    const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
     const json = await response.json();
     this.setState({
       item: json.result,

@@ -1,5 +1,11 @@
 .ArticleInfo {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px;
+  
+}
+
+.ArticleInfo-paragraph {
+  
+}
+
+.ArticleInfo-paragraph-bold {
+  font-weight: bold;
 }

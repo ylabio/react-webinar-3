@@ -1,8 +1,9 @@
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from "../../utils";
+import useSelector from "../../store/use-selector";
 import './style.css';
 
 function Item({item, onAdd}) {
@@ -12,6 +13,16 @@ function Item({item, onAdd}) {
   const callbacks = {
     onAdd: (e) => onAdd(item._id)
   }
+
+  const select = useSelector(state => ({
+    item: state.article?.item,
+    currentLanguage: state.localization.currentLanguage,
+    uiElements: state.localization.uiElements,
+  }));
+
+  const getBasketAddText = useCallback(() => {
+    return select.uiElements.basketAdd[select.currentLanguage];
+  }, [select.currentLanguage, select.uiElements]);
 
   return (
     <div className={cn()}>
@@ -25,7 +36,7 @@ function Item({item, onAdd}) {
       </Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{getBasketAddText()}</button>
       </div>
     </div>
   );
