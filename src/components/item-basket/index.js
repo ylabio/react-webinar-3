@@ -1,14 +1,14 @@
-import {memo, useCallback} from 'react';
-import propTypes from 'prop-types';
-import {numberFormat} from "../../utils";
-import {cn as bem} from "@bem-react/classname";
-import PropTypes from "prop-types";
+import { cn as bem } from "@bem-react/classname";
+import { default as PropTypes, default as propTypes } from 'prop-types';
+import { memo } from 'react';
+import { numberFormat } from "../../utils";
 import './style.css';
-import { Link } from 'react-router-dom';
 
 function ItemBasket(props) {
 
   const cn = bem('ItemBasket');
+
+
 
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id)
@@ -18,7 +18,7 @@ function ItemBasket(props) {
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-      {props.item.title}
+      <span>{props.item.title}</span>
         </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>

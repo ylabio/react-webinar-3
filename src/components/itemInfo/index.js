@@ -1,14 +1,13 @@
-import {memo} from 'react';
+import { memo } from 'react';
 import './style.css';
 
 
 function ItemInfo({data, onAdd}) {
 
 
-    const callbacks = {
-        onAdd: (e) => onAdd(data._id),
-        
-      }
+  const callbacks = {
+    onAdd: (e) => onAdd(data._id),
+    }
 
   return (
     <div className='ItemInfo-container'>

@@ -1,13 +1,13 @@
-import {memo, useCallback, useEffect} from 'react';
-import Item from "../../components/item";
-import PageLayout from "../../components/page-layout";
+import { memo, useCallback, useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Head from "../../components/head";
-import NavBar from "../../components/navbar";
+import Item from "../../components/item";
 import List from "../../components/list";
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
 import ListNavigation from '../../components/list-navigation';
-import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
+import NavBar from "../../components/navbar";
+import PageLayout from "../../components/page-layout";
+import useSelector from "../../store/use-selector";
+import useStore from "../../store/use-store";
 import ItemPage from '../itemPage';
 
 function Main() {
@@ -30,7 +30,7 @@ function Main() {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Подробная информация по клику на товар
-    SetSkip: useCallback((count) => store.actions.catalog.load(count),[store])
+    SetSkip: useCallback(count => store.actions.catalog.load(count),[store])
   }
 
   const renders = {
@@ -42,25 +42,29 @@ function Main() {
   return (
     <BrowserRouter>
     <Routes>
-      {/* 
+      {/*
       * ----- Главная страница (path = "/")
       */}
       <Route path="/" element={
       <PageLayout>
         <Head title='Магазин'/>
-        <NavBar onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+        <NavBar
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+        />
         <List list={select.list} renderItem={renders.item}/>
-        <ListNavigation length={select.length}/>
+        <ListNavigation length={select.length} setSkip={callbacks.SetSkip}/>
       </PageLayout>}/>
-      {/* 
+      {/*
       * ----- Информация о товаре (path = "/id")
       */}
       <Route path="/:id" element={
       <PageLayout>
-        <ItemPage         
-          onOpen={callbacks.openModalBasket} 
+        <ItemPage
+          onOpen={callbacks.openModalBasket}
           amount={select.amount}
+          onAdd={callbacks.addToBasket}
           sum={select.sum}
           />
       </PageLayout>

@@ -1,10 +1,10 @@
-import {memo, useEffect, useState} from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Head from '../../components/head';
-import NavBar from '../../components/navbar';
 import ItemInfo from '../../components/itemInfo';
+import NavBar from '../../components/navbar';
 
-function ItemPage({onOpen,amount, sum}) {
+function ItemPage({onOpen,amount, sum, onAdd}) {
     const locate = useLocation();
     const [data,setData]= useState();
     useEffect(() => {
@@ -15,31 +15,37 @@ function ItemPage({onOpen,amount, sum}) {
         }
         load()
     },[])
-    
-    if (data != undefined){console.log(data.title)}
-  return (
+
+return (
     <>
-    {data != undefined 
-    ? <> 
-    <Head title={data.title}/> 
-    <NavBar 
-        onOpen={onOpen} 
+    {data != undefined
+    ? <>
+    <Head title={data.title}/>
+    <NavBar
+        onOpen={onOpen}
         amount={amount}
         sum={sum}
     />
-    <ItemInfo data={data}/>
+    <ItemInfo data={data} onAdd={onAdd} />
     </>
-    : <> 
-    <Head title=''/> 
-    <NavBar 
-        onOpen={onOpen} 
+    : <>
+    <Head title=''/>
+    <NavBar
+        onOpen={onOpen}
         amount={amount}
         sum={sum}
     />
     </>}
     </>
-  )
+)
 }
 
+ItemPage.propTypes = {
+    onAdd: propTypes.func,
+  }
+  
+  ItemPage.defaultProps = {
+    onAdd: () => {},
+  }
 
 export default memo(ItemPage);
