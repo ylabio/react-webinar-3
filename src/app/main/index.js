@@ -15,13 +15,14 @@ function Main() {
     }));
     const store = useStore();
     const addToBasket = useCallback(_id => {
-        console.log('Добавляем в корзину товар с ID:', _id);
         store.actions.basket.addToBasket(_id);
     }, [store]);
     const renderItem = useCallback((item) => {
         return <Item item={item} onAdd={addToBasket} />
     }, [addToBasket]);
-
+    if (!select.list) {
+        return <div>Loading...</div>;
+    }
     return (
         <LayoutWithCommonElements titleKey='shop'>
             <List list={select.list} renderItem={renderItem} />

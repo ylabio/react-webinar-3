@@ -25,7 +25,7 @@ const translations = {
         Basket:'Basket'
     },
     ru: {
-        mainPage: 'На главную',
+        mainPage: 'Главная',
         shop: 'Магазин',
         title: 'Добро пожаловать',
         button: 'Нажми на меня',
