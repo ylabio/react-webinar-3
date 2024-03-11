@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 
 export function ArticlesNav({ pages, current }) {
   const cn = bem("ArticlesNav");
-  console.log([pages, current])
-  console.log(formPaginationArr(pages, current))
+  console.log([pages, current]);
+  console.log(formPaginationArr(pages, current));
   return (
     <div className={cn()}>
       {formPaginationArr(pages, current).map((e, index) => {
@@ -18,9 +18,15 @@ export function ArticlesNav({ pages, current }) {
               current === e ? cn("item", { current: true }) : cn("item")
             }
           >
-            {e !== '...' ? <Link className={cn('text')} to={`/${e}`}>{e}</Link> : <p className={cn('dots')}>...</p>}
+            {e !== "..." && e !== current ? (
+              <Link className={cn("text")} to={`/${e}`}>
+                {e}
+              </Link>
+            ) : (
+              <p className={e !== current ? cn("dots") : cn("text")}>{e}</p>
+            )}
           </div>
-        )
+        );
       })}
     </div>
   );

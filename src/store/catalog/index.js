@@ -24,7 +24,7 @@ class Catalog extends StoreModule {
    */
   async load(params) {
     const query = params !== null ? params : this.initQuery;
-    const response = await fetch(`/api/v1/articles?limit=${10 * query.limit}&skip=${10 * query.skip}${query.fields ? '&fields=' + query.fields : ''}`);
+    const response = await fetch(`/api/v1/articles?limit=${10 * query.limit}&skip=${10 * (query.skip !== 0 ? query.skip - 1 : query.skip)}${query.fields ? '&fields=' + query.fields : ''}`);
     const json = await response.json();
     this.setState({
       ...this.getState(),

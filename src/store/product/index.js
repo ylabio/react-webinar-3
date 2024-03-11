@@ -1,0 +1,23 @@
+import StoreModule from "../module";
+
+class Product extends StoreModule {
+  initState() {
+    return {
+      product: {},
+    }
+  }
+
+  /**
+   * Добавление товара в корзину
+   * @param productId айдишник товара в запросе
+   */
+  // fields=title,description,madeIn(title,code),category(title),edition,price
+  async load(productId, fields = 'fields=title,description,madeIn(title,code),category(title),edition,price') {
+    const response = await fetch(`/api/v1/articles/${productId}?${fields}`);
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      product: json.result,
+    }, 'Загружен товар из АПИ');
+  }
+}

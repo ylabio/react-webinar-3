@@ -3,6 +3,7 @@ import App from './app';
 import Store from "./store";
 import {StoreContext} from "./store/context";
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { ProductPage } from './app/product-page';
 
 const store = new Store();
 
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: '/:current',
     element: <App/>,
+  },
+  {
+    path: '/product/:productId',
+    element: <ProductPage/>,
   }
 ]);
 
