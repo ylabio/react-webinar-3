@@ -42,10 +42,7 @@ function PaginationNumber({ page, onClick, isActive }) {
 
 Pagination.propTypes = {
   totalPages: PropTypes.number,
-  currentPage: PropTypes.shape({
-    newValue: PropTypes.number,
-    oldValue: PropTypes.number,
-  }),
+  currentPage: PropTypes.number,
   handleSelectPage: PropTypes.func
 }
 
