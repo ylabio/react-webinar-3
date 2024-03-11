@@ -25,7 +25,7 @@ function Main() {
   useEffect(() => {
     const par = Number(params.id) || 1;
     store.actions.catalog.getCatalog(par);
-  }, []);
+  }, [params]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
