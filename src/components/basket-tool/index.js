@@ -1,13 +1,24 @@
-import {memo} from "react";
+import {memo, useEffect, useContext} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
+import {Link, useNavigate, useLocation, useHref} from "react-router-dom";
 
-function BasketTool({sum, amount, onOpen}) {
+
+function BasketTool({sum, amount, onOpen, paginate}) {
   const cn = bem('BasketTool');
+const navigate = useNavigate();
+
+// const goHome = () => {
+//   navigate('/');
+// };
+
+  // const { resetPage } = useContext(PaginationContext);
   return (
     <div className={cn()}>
+      <Link to={"/"} className={cn('home')} onClick={() => navigate('/')}>Главная</Link>
+      {/* <a href='/' className={cn('home')}>Главная</a> */}
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
         {amount
@@ -20,6 +31,7 @@ function BasketTool({sum, amount, onOpen}) {
         }
       </span>
       <button onClick={onOpen}>Перейти</button>
+      {/* <Link to={"*"} className={cn('home')}>Перейти</Link> */}
     </div>
   );
 }

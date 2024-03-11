@@ -6,11 +6,16 @@
   font-size: 18px;
 }
 
-.BasketTool-label {
+/* .BasketTool-label {
 
-}
+} */
 
 .BasketTool-total {
   font-weight: bold;
   margin: 0 20px;
+}
+
+.BasketTool-home {
+  margin-right: auto;
+  color: #0087E9;
 }

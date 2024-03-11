@@ -1,8 +1,9 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import {BrowserRouter, Routes, Route, RouterProvider} from 'react-router-dom'
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../store/use-store";
 import useSelector from "../store/use-selector";
+
+import AboutOrder from './about-order';
 
 /**
  * Приложение
@@ -14,8 +15,17 @@ function App() {
 
   return (
     <>
-      <Main/>
-      {activeModal === 'basket' && <Basket/>}
+      {/* <Main/>
+      <RouterProvider router={AppRouter} />
+      
+      {activeModal === 'basket' && <RouterProvider router={ModalRouter} />} */}
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Main/>}/>  
+          <Route path='/order/:id' element={<AboutOrder/>}/>
+        </Routes>
+        {activeModal === 'basket' && <Basket/>}
+      </BrowserRouter>
     </>
   );
 }

@@ -1,0 +1,47 @@
+.Pagination {
+  display: flex;
+  justify-content: flex-end;
+  list-style: none;
+  /* color: black; */
+  /* gap: 5px; */
+  margin-top: 22px;
+  margin-right: 20px;
+  /* font-size: 18px; */
+  height: 272px;
+}
+
+.Pagination-page-btn {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  border: none;
+  height: 20px;
+  min-width: 20px;
+  align-items: center;
+  color: black;
+}
+
+.Pagination-page-btn:hover {
+  background: #E1E1E1;
+}
+
+.Pagination-page-btn.active {
+  background: #0087E9;
+  color: white;
+}
+
+
+.Pagination-page-item {
+
+  display: inline-block;
+  width: auto;
+
+} 
+
+.Pagination-page-space {
+  /* display: flex;
+  justify-content: center; */
+  width: 18px;
+  height: 18px;
+  color: #E1E1E1;
+}
