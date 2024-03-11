@@ -1,16 +1,16 @@
 /* Контрол с общими действиями */
-.BasketTool {
+.NavBar {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 20px;
   font-size: 18px;
 }
 
-.BasketTool-label {
+.NavBar-label {
 
 }
 
-.BasketTool-total {
+.NavBar-total {
   font-weight: bold;
   margin: 0 20px;
 }

@@ -1,0 +1,12 @@
+.ItemInfo-container{
+    padding: 20px 40px 20px 40px;
+}
+.ItemInfo-container div{
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-family: Arial;
+}
+
+.ItemInfo-container div:nth-child(5){
+    font-size: 24px;
+}
