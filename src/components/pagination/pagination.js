@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import { useEffect } from "react";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import './style.css';
 function Pagination({ limit }) {
     const store = useStore(); 
     const [skip, setSkip] = useState(0); 
@@ -49,45 +50,47 @@ function Pagination({ limit }) {
     const delta = 1; //количество страниц рядом с текущей по бокам
     const range = [];
 
-    for (let i = Math.max(2, select.currentPage - delta); i <= Math.min(select.lastPage - 1, select.currentPage + delta); i++) {
-        range.push(i);
-    }
+    if (select.lastPage > 1) {
 
-    if (select.currentPage - delta > 2) {
-        range.unshift('...');
-    }
+        range.push(1);
+        if (select.currentPage - delta > 2) {
+            range.push('...');
+        }
 
-    if (select.currentPage + delta < select.lastPage - 1) {
-        range.push('...');
-    }
+        for (let i = Math.max(2, select.currentPage - delta); i <= Math.min(select.lastPage - 1, select.currentPage + delta); i++) {
+            if (!range.includes(i)) {
+                range.push(i);
+            }
+        }
+        if (select.currentPage + delta < select.lastPage - 1) {
+            range.push('...');
+        }
 
-    range.unshift(1);
-    if (select.lastPage !== 1) { 
         range.push(select.lastPage);
     }
 
     const renderPageNumbers = range.map((number, index) => {
-        if (number === '...') {
-            return <span key={number + index}>...</span>;
-        } else {
-            
-            return (
-                <button
-                    key={number}
-                    onClick={() => callbacks.goToPage(number)}
-                    disabled={select.currentPage === number}
-                >
-                    {number}
-                </button>
-            );
+        let buttonClass = 'pagination-button';
+        if (select.currentPage === number) {
+            buttonClass += ' disabled';
         }
+
+        return (
+            <button
+                key={index} 
+                className={buttonClass}
+                onClick={() => number !== '...' && callbacks.goToPage(number)}
+                disabled={select.currentPage === number || number === '...'}
+            >
+                {number}
+            </button>
+        );
     });
 
+
     return (
-        <div>
-          
+        <div className="pagination-container">
             {renderPageNumbers}
-            
         </div>
     );
 }

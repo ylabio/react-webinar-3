@@ -1,0 +1,14 @@
+.main-link {
+    margin-right: auto;
+    color: #0087E9;
+    font-size:18px;
+    line-height: 20.7px;
+    font-weight: 400;
+    margin-left: 20px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

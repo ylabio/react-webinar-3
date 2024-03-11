@@ -6,6 +6,9 @@ import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
 import { useCallback } from "react";
 import { Link } from 'react-router-dom';
+import './style.css';
+
+
 function LayoutWithCommonElements({ title, children }) {
     const select = useSelector(state => ({
         amount: state.basket.amount,
@@ -17,13 +20,13 @@ function LayoutWithCommonElements({ title, children }) {
     return (
         <PageLayout>
             <Head title={title} />
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                {/* Кнопка "На главную" */}
-                <Link to="/" style={{ marginRight: 'auto' }}>На главную</Link>
+            <div className="header-container"> 
+                <Link to="/" className="main-link">На главную</Link> 
                 <BasketTool onOpen={openModalBasket} amount={select.amount} sum={select.sum} />
             </div>
             {children}
         </PageLayout>
     );
 }
-export default LayoutWithCommonElements
+export default LayoutWithCommonElements;
+
