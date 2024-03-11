@@ -2,15 +2,19 @@ import { memo, useCallback, useEffect, useState } from "react";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
-import List from "../../components/list";
+import { useParams } from "react-router-dom";
 import CardItem from "../../components/card-item";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
-function Card({ item }) {
+function Card() {
   const store = useStore();
+  const { id } = useParams();
+  const [item, setItem] = useState({});
 
-  console.log(item);
+  useEffect(() => {
+    store.actions.catalog.dataCard({ setItem, id });
+  }, []);
 
   const select = useSelector((state) => ({
     amount: state.basket.amount,
@@ -20,7 +24,7 @@ function Card({ item }) {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(
-      (_id) => store.actions.basket.addToBasket(_id),
+      () => store.actions.basket.addToBasket(id),
       [store]
     ),
     // Открытие модалки корзины
@@ -38,7 +42,7 @@ function Card({ item }) {
         amount={select.amount}
         sum={select.sum}
       />
-      <CardItem onAdd={callbacks.addToBasket} />
+      <CardItem item={item} onAdd={callbacks.addToBasket} />
     </PageLayout>
   );
 }

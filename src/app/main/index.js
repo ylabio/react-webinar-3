@@ -8,7 +8,7 @@ import Pagination from "../../components/pagination";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
-function Main({ setItem }) {
+function Main() {
   const store = useStore();
   const limit = 10;
   const [itemCount, setItemCount] = useState(0);
@@ -31,15 +31,10 @@ function Main({ setItem }) {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(
-      (_id) => store.actions.catalog.addToBasket(_id),
+      (_id) => store.actions.basket.addToBasket(_id),
       [store]
     ),
 
-    linkCard: useCallback(
-      (_id) => store.actions.catalog.dataCard({ setItem, _id }),
-      [store]
-    ),
-    // Открытие модалки корзины
     openModalBasket: useCallback(
       () => store.actions.modals.open("basket"),
       [store]
@@ -49,13 +44,7 @@ function Main({ setItem }) {
   const renders = {
     item: useCallback(
       (item) => {
-        return (
-          <Item
-            item={item}
-            onAdd={callbacks.addToBasket}
-            onCard={callbacks.linkCard}
-          />
-        );
+        return <Item item={item} onAdd={callbacks.addToBasket} />;
       },
       [callbacks.addToBasket]
     ),

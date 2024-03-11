@@ -38,10 +38,12 @@ class Catalog extends StoreModule {
     );
   }
 
-  async dataCard({ setItem, _id }) {
-    const response = await fetch(`/api/v1/articles/${_id}`);
+  async dataCard({ setItem, id }) {
+    const response = await fetch(
+      `api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`
+    );
     const json = await response.json();
-    setItem(json.result.count);
+    setItem(json.result);
   }
 
   async itemCount({ setItemCount }) {

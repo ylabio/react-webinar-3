@@ -24,9 +24,9 @@ function BasketTool({ sum, amount, onOpen }) {
               })} / ${numberFormat(sum)} ₽`
             : `пусто`}
         </span>
-        <Link to="/basket">
-          <button onClick={onOpen}>Перейти</button>
-        </Link>
+        {/* <Link to="/basket"> */}
+        <button onClick={onOpen}>Перейти</button>
+        {/* </Link> */}
       </div>
     </div>
   );

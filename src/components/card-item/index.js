@@ -4,29 +4,26 @@ import { cn as bem } from "@bem-react/classname";
 import { numberFormat } from "../../utils";
 import "./style.css";
 
-function Item(props) {
+function CardItem(props) {
   const cn = bem("Card-Item");
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(props.item._id),
+    onAdd: (e) => props.onAdd(),
   };
 
   return (
     <div className={cn()}>
+      <div className={cn("title")}>{props.item?.description}</div>
       <div className={cn("title")}>
-        Описание товара из множества букв. Описание товара из букв. В АПИ может
-        быть меньше букв. Описание товара из множества букв.
+        Страна производитель: <b> {props.item?.madeIn?.title}</b>
       </div>
       <div className={cn("title")}>
-        Страна производитель: <b> Россия (RU)</b>
+        Категория: <b>{props.item?.category?.title}</b>
       </div>
       <div className={cn("title")}>
-        Категория: <b>Электронника123a</b>
+        Год выпуска: <b>{props.item?.edition}</b>
       </div>
-      <div className={cn("title")}>
-        Год выпуска: <b>2015</b>
-      </div>
-      <h2 className={cn("title")}>Цена: {`numberFormat(props.item.price)`}</h2>
+      <h2 className={cn("title")}>Цена: {numberFormat(props.item?.price)}</h2>
       <div className={cn("title")}>
         <button onClick={callbacks.onAdd}>Добавить</button>
       </div>
@@ -34,17 +31,25 @@ function Item(props) {
   );
 }
 
-Item.propTypes = {
+CardItem.propTypes = {
   item: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
+    description: PropTypes.string,
+    edition: PropTypes.number,
     price: PropTypes.number,
+    madeIn: PropTypes.shape({
+      title: PropTypes.string,
+    }),
+    category: PropTypes.shape({
+      title: PropTypes.string,
+    }),
   }).isRequired,
   onAdd: PropTypes.func,
 };
 
-Item.defaultProps = {
+CardItem.defaultProps = {
   onAdd: () => {},
 };
 
-export default memo(Item);
+export default memo(CardItem);

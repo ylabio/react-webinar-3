@@ -11,18 +11,13 @@ function Item(props) {
 
   const callbacks = {
     onAdd: (e) => props.onAdd(props.item._id),
-    onCard: (e) => props.onCard(props.item._id),
   };
 
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn("title")}>
-        <Link
-          to="/card"
-          className={cn("title-link")}
-          onClick={callbacks.onCard}
-        >
+        <Link to={"/card/" + props.item._id} className={cn("title-link")}>
           {props.item.title}
         </Link>
       </div>
