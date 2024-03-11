@@ -14,16 +14,18 @@ class Catalog extends StoreModule {
     }
   }
 
-    async load({ limit = 10, skip = 0 } = {}) {
-        const url = `/api/v1/articles?limit=${limit}&skip=${skip}`;
+    async load({ limit = 10, skip = 0} = {}) {
+        const url = `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id,title,price),count`;
         const response = await fetch(url);
         const json = await response.json();
         const items = json.result.items;
-        const isLastPage = items.length < limit;
+        const count = json.result.count;
+        console.log({ skip, limit, count });
         this.setState({
             ...this.getState(),
             list: items,
-            isLastPage: isLastPage,
+            currentPage : Math.floor(skip / limit) + 1,
+            lastPage: Math.ceil(count / limit)
         }, 'Загружены товары из АПИ с пагинацией');
     }
 }

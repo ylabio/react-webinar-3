@@ -6,38 +6,24 @@ import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import { useState } from 'react';
+import Pagination from '../../components/pagination/pagination';
 
 function Main() {
-
-  const store = useStore();
-    const [limit, setLimit] = useState(2); 
-    const [skip, setSkip] = useState(0); 
-
-    useEffect(() => {
-        store.actions.catalog.load({ limit, skip });
-    }, [limit, skip, store.actions.catalog]);
-
+ const store = useStore();
   const select = useSelector(state => ({
     list: state.catalog.list,
-    isLastPage: state.catalog.isLastPage,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    currentPage: state.catalog.currentPage,
+    lastPage: state.catalog.lastPage
   }));
 
   const callbacks = {
-    // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-      nextPage: useCallback(() => {
-          setSkip(skip + limit); 
-      }, [skip, limit]),
-      prevPage: useCallback(() => {
-          setSkip(Math.max(0, skip - limit));
-      }, [skip, limit])
+      
   }
-
+   
   const renders = {
     item: useCallback((item) => {
       return <Item item={item} onAdd={callbacks.addToBasket}/>
@@ -48,13 +34,10 @@ function Main() {
     <PageLayout>
       <Head title='Магазин'/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+       sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
+          <Pagination limit={10} currentPage={select.currentPage}  lastPage={select.lastPage} />
           
-          <div>
-              {skip > 0 && <button onClick={callbacks.prevPage}>Предыдущая страница</button>}
-              {!select.isLastPage && <button onClick={callbacks.nextPage}>Следующая страница</button>}
-          </div>
     </PageLayout>
 
   );
