@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import './style.css';
 
 function Head({title}) {
-  const switchLang = [ {name: "RU"}, {name: "EN"} ];
-  const [currentLang, setCurrentLang] = useState(switchLang[0].name);
+  const languages = [{name: "RU"}, {name: "EN"}];
+  const [currentLang, setCurrentLang] = useState(languages[0].name);
   const {setLang} = useContext(LanguagesContext);
   
   useEffect(() => {
@@ -19,7 +19,7 @@ function Head({title}) {
         value={currentLang}
         onChange={(e) => setCurrentLang(e.currentTarget.value)}
       >
-        {switchLang.map((item, index) => {
+        {languages.map((item, index) => {
           return <option key={index} value={item.name}>{item.name}</option>
         })}
       </select>

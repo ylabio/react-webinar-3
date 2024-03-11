@@ -1,14 +1,14 @@
 import {createContext, useState, useEffect} from "react";
-import datas from './data';
+import {traductions} from './data';
 
 export const LanguagesContext = createContext();
 
-export default function LanguagesProvider({children}) {
-  const [ lang, setLang ] = useState(navigator.language.split('-')[1]);
-  const [ data, setData ] = useState(datas[`${lang}`]);
+export function LanguagesProvider({children}) {
+  const [lang, setLang] = useState('RU');
+  const [data, setData] = useState(traductions[lang]);
     
   useEffect(() => {
-    setData(datas[`${lang}`]);
+    setData(traductions[lang]);
   }, [lang])
     
   return (

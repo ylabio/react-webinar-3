@@ -1,4 +1,4 @@
-const traductions = {
+export const traductions = {
   RU: {
     main: {
       title: 'Магазин',
@@ -58,5 +58,3 @@ const traductions = {
     }
   }
 };
-  
-export default traductions;

@@ -3,7 +3,7 @@ import App from './app';
 import Store from "./store";
 import {StoreContext} from "./store/context";
 import {HashRouter} from 'react-router-dom';
-import LanguagesProvider from './lang/context';
+import {LanguagesProvider} from './lang/context';
 
 const store = new Store();
 
@@ -11,11 +11,11 @@ const root = createRoot(document.getElementById('root'));
 
 // Первый рендер приложения
 root.render(
-  <HashRouter>
-    <StoreContext.Provider value={store}>
-      <LanguagesProvider>
+  <StoreContext.Provider value={store}>
+    <LanguagesProvider>
+      <HashRouter>
         <App/>
-      </LanguagesProvider>
-    </StoreContext.Provider>
-  </HashRouter>
+      </HashRouter>
+    </LanguagesProvider>
+  </StoreContext.Provider>
 );
