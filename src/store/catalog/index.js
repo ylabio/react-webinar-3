@@ -12,6 +12,7 @@ class Catalog extends StoreModule {
       list: [],
       currentPage: 1,
       totalPages: 1,
+      result: {}
     };
   }
 

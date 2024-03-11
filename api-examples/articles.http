@@ -23,4 +23,4 @@ GET http://example.front.ylab.io/api/v1/articles/65817bed5c295a2ff2fcd182
 # Товар по id с подробностями о стране и категории
 # Про формат fields смотри http://query.rest
 
-GET http://example.front.ylab.io/api/v1/articles/65817bed5c295a2ff2fcd182?fields=*,madeIn(title,code),category(title)
+GET http://example.front.ylab.io/api/v1/articles/65817bed5c295a2ff2fcd182?fields=*,madeIn(title,_id),category(title)

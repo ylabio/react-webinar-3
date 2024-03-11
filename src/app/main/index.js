@@ -1,4 +1,5 @@
 import { memo, useCallback, useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -7,12 +8,13 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
-import item from "../../components/item";
-import list from "../../components/list";
+import ProductDetail from "../productDetail";
 
 function Main() {
   const store = useStore();
-
+  // useEffect(() => {
+  //   store.actions.catalog.fetchProducts();
+  // }, []);
   useEffect(() => {
     store.actions.catalog.load();
   }, []);
@@ -61,6 +63,7 @@ function Main() {
         sum={select.sum}
       />
       <List list={select.list} renderItem={renders.item} />
+
       <Pagination
         currentPage={select.currentPage}
         totalPages={select.totalPages}
