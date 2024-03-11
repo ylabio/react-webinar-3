@@ -1,0 +1,7 @@
+.Pagination-pagenum, .Pagination-dots {
+    display: inline-block;
+}
+
+.Pagination_active {
+    color: blue;
+}

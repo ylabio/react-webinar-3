@@ -1,7 +1,16 @@
 /* Контрол с общими действиями */
-.BasketTool {
+.BasketTool-basket, .BasketTool-head {
+  width: 50%;
+}
+
+.BasketTool-basket {
   display: flex;
   justify-content: flex-end;
+}
+
+.BasketTool {
+  display: flex;
+  justify-content: space-between;
   padding: 20px;
   font-size: 18px;
 }
