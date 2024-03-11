@@ -4,7 +4,7 @@ import './style.css';
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-function Pagination({ totalItems, itemsPerPage, onChangePage, number }) {
+function Pagination({ totalItems, itemsPerPage, onChangePage, number, parentLink }) {
 
   const cn = bem('Pagination');
 
@@ -63,7 +63,7 @@ function Pagination({ totalItems, itemsPerPage, onChangePage, number }) {
           key={index}
           className={cn('item', {active: pageNumber === number, dots: pageNumber === "..."})}
           onClick={(e) => changePage(e, pageNumber)}
-          to={`/${pageNumber}`}
+          to={`${parentLink}${pageNumber}`}
         >
           {pageNumber}
         </Link>
@@ -72,7 +72,7 @@ function Pagination({ totalItems, itemsPerPage, onChangePage, number }) {
 }
 
 Pagination.propTypes = {
-  itemsPerPage: PropTypes.number, totalItems: PropTypes.number, onChangePage: PropTypes.func, number: PropTypes.number
+  itemsPerPage: PropTypes.number, totalItems: PropTypes.number, onChangePage: PropTypes.func, number: PropTypes.number, parentLink: PropTypes.string
 };
 
 Pagination.defaultProps = {

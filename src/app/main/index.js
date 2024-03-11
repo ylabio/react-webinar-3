@@ -76,7 +76,7 @@ function Main() {
       </CrumbsContainer>
       <Loading loading={select.loading}>
         <List list={select.list} renderItem={renders.item}/>
-        <Pagination itemsPerPage={select.limit} totalItems={select.count} onChangePage={callbacks.onChangePage} number={select.page}/>
+        <Pagination itemsPerPage={select.limit} totalItems={select.count} onChangePage={callbacks.onChangePage} number={select.page} parentLink={'/'}/>
       </Loading>
     </PageLayout>
 
