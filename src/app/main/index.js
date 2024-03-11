@@ -17,8 +17,11 @@ import './style.css';
 function Main() {
   const store = useStore();
   const {language} = useLangContext();
+  const [isShop, setIsShop] = useState(true);
+
   useEffect(() => {
     store.actions.catalog.load();
+    setIsShop(true);
   }, []);
 
   const select = useSelector(state => ({
@@ -48,14 +51,14 @@ function Main() {
 
   return (
       <PageLayout>
-        {Object.keys(select.details).length ? <Head title={select.details.title}/> : <Head title={translate.Shop[language]}/>}
+        <Head title={isShop ? translate.Shop[language] : select.details.title}/>
         <div className='row'>
-          <Navigate />
+          <Navigate setIsShop={setIsShop}/>
           <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
         </div>
         <Routes>
           <Route path="/*" element={<Shop list={select.list} renderItem={renders.item} pagesCount={select.pages} callbacks={callbacks} currentPage={select.currentPage}/>}/>
-          <Route path="/:id" element={<ItemDetails onLoadDetails={callbacks.onLoadDetails} onAdd={callbacks.addToBasket}/>}/>
+          <Route path="/:id" element={<ItemDetails onLoadDetails={callbacks.onLoadDetails} onAdd={callbacks.addToBasket} setIsShop={setIsShop}/> }/>
           <Route path="*" element={<PageNotFound/>}/>
         </Routes>
       </PageLayout>

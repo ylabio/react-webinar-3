@@ -34,7 +34,7 @@
   text-decoration: none;
 }
 
-.ItemBasket-link:hover {
+.ItemBasket-link span:hover {
   border-bottom: 1px solid black;
 }
 

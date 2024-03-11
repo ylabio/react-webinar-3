@@ -17,10 +17,11 @@ function ItemDetails(props) {
   const details = useSelector(state => state.catalog.details);
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(id.slice(1))
+    onAdd: (e) => props.onAdd(id.slice(1)),
   };
 
   useEffect(() => {
+     props.setIsShop(false);
      setIsLoading(true);
      props.onLoadDetails(id.slice(1))
      .then(details => {
@@ -48,11 +49,13 @@ function ItemDetails(props) {
 ItemDetails.propTypes = {
   onAdd: PropTypes.func,
   onLoadDetails: PropTypes.func,
+  setIsShop: PropTypes.func,
 }
 
 ItemDetails.defaultProps = {
   onAdd: () => {},
   onLoadDetails: () => {},
+  setIsShop: () => {}
 }
 
 export default memo(ItemDetails);
