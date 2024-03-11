@@ -23,7 +23,7 @@ function PageProduct() {
   );
   useEffect(() => {
     store.actions.catalog.loadById(id);
-  }, []);
+  }, [id]);
   if (select.isLoading) {
     return (
       <div className={cn()}>
