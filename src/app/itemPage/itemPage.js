@@ -21,6 +21,8 @@ function ItemPage() {
     const cn = bem('Item');
     useEffect(() => {
         async function fetchData() {
+            store.actions.catalog.resetCurrentItem();
+
             await store.actions.catalog.loadById(itemId);
         }
         fetchData();

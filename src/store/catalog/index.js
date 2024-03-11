@@ -14,7 +14,11 @@ class Catalog extends StoreModule {
       currentItem:''
     }
   }
-
+resetCurrentItem() {
+    this.setState({
+      ...this.getState(),
+      currentItem: null, 
+    }, 'Текущий товар сброшен');}
     async load({ limit = 10, skip = 0} = {}) {
         const url = `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id,title,price),count`;
         const response = await fetch(url);
