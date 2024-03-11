@@ -20,8 +20,12 @@ function Main() {
     list: state.catalog.list,
     numbersPages: state.catalog.numbersPages,
     page: state.catalog.page,
-    multilingualism: state.catalog.multilingualism,
-    language: state.catalog.language,
+    // multilingualism: state.catalog.multilingualism,
+    language: state.language.type,
+    langTitle: state.language.head.title,
+    langBasketTool: state.language.basketTool,
+    langbuttonAdd: state.language.item.buttonAdd,
+    // langType: state.language.type,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -34,16 +38,16 @@ function Main() {
     // Переход на другую страницу
     changePage: useCallback((page) => store.actions.catalog.changePage(page), [store]),
     // Смена языка
-    changeLanguage: useCallback((language) => store.actions.catalog.changeLanguage(language), [store])
+    changeLanguage: useCallback((language) => store.actions.language.changeLanguage(language), [store])
   }
 
   const renders = {
     item: useCallback((item) => {
       return (
         <Item item={item} onAdd={callbacks.addToBasket} 
-              textButtonAdd={select.multilingualism.item.buttonAdd[select.language]}/>
+              textButtonAdd={select.langbuttonAdd[select.language]}/>
       );
-    }, [callbacks.addToBasket, select.multilingualism.item.buttonAdd[select.language]]),
+    }, [callbacks.addToBasket, select.langbuttonAdd[select.language]]),
     ItemPagination: useCallback((item) => {
       return (
         <ItemPagination item={item} list={select.numbersPages} 
@@ -54,11 +58,11 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title={select.multilingualism.head.title[select.language]} changeLanguage={callbacks.changeLanguage}/>
+      <Head title={select.langTitle[select.language]} changeLanguage={callbacks.changeLanguage}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum} multilingualText={select.multilingualism.basketTool} language={select.language}/>
+                  sum={select.sum} multilingualText={select.langBasketTool} language={select.language}/>
       <List list={select.list} renderItem={renders.item} 
-            textButtonAdd={select.multilingualism.item.buttonAdd[select.language]}/>
+            textButtonAdd={select.langbuttonAdd[select.language]}/>
       <List changeClass={'ListPagination'} list={select.numbersPages} 
           page={select.page} renderItem={renders.ItemPagination}/>
     </PageLayout>

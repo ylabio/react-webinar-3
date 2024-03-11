@@ -19,8 +19,11 @@ function Card () {
 
   const select = useSelector(state => ({
     card: state.catalog.card,
-    multilingualism: state.catalog.multilingualism,
-    language: state.catalog.language,
+    // multilingualism: state.catalog.multilingualism,
+    language: state.language.type,
+    langBasketTool: state.language.basketTool,
+    langDescription: state.language.description,
+    // langType: state.language.type,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -31,16 +34,16 @@ function Card () {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
      // Смена языка
-     changeLanguage: useCallback((language) => store.actions.catalog.changeLanguage(language), [store])
+     changeLanguage: useCallback((language) => store.actions.language.changeLanguage(language), [store])
   }
 
   return (
     <PageLayout>
       <Head title={select.card.title} changeLanguage={callbacks.changeLanguage}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum} multilingualText={select.multilingualism.basketTool} language={select.language}/>
+                  sum={select.sum} multilingualText={select.langBasketTool} language={select.language}/>
       <Description card={select.card} onAdd={callbacks.addToBasket} 
-                  multilingualText={select.multilingualism.description} language={select.language}/>
+                  multilingualText={select.langDescription} language={select.language}/>
     </PageLayout>
   );
 }

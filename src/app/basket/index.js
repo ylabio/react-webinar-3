@@ -14,8 +14,12 @@ function Basket() {
     list: state.basket.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    multilingualism: state.catalog.multilingualism,
-    language: state.catalog.language
+    // multilingualism: state.catalog.multilingualism,
+    language: state.language.type,
+    langModalLayout: state.language.modalLayout,
+    langButtonRemove: state.language.itemBasket.buttonRemove,
+    langTotal: state.language.basketTotal.total,
+    // langType: state.language.type,
   }));
 
   const callbacks = {
@@ -29,17 +33,17 @@ function Basket() {
     itemBasket: useCallback((item) => {
       return (
         <ItemBasket item={item} onRemove={callbacks.removeFromBasket} 
-                    buttonRemove={select.multilingualism.itemBasket.buttonRemove[select.language]}/>
+                    buttonRemove={select.langButtonRemove[select.language]}/>
       );
-    }, [callbacks.removeFromBasket, select.multilingualism.itemBasket.buttonRemove[select.language]]),
+    }, [callbacks.removeFromBasket, select.langButtonRemove[select.language]]),
   };
 
   return (
-    <ModalLayout multilingualText={select.multilingualism.modalLayout} 
+    <ModalLayout multilingualText={select.langModalLayout} 
                   language={select.language} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket} 
-            buttonRemove={select.multilingualism.itemBasket.buttonRemove[select.language]}/>
-      <BasketTotal sum={select.sum} total={select.multilingualism.basketTotal.total[select.language]}/>
+            buttonRemove={select.langButtonRemove[select.language]}/>
+      <BasketTotal sum={select.sum} total={select.langTotal[select.language]}/>
     </ModalLayout>
   );
 }
