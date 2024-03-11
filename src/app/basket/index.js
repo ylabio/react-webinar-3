@@ -13,7 +13,9 @@ function Basket() {
   const select = useSelector(state => ({
     list: state.basket.list,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    multilingualism: state.catalog.multilingualism,
+    language: state.catalog.language
   }));
 
   const callbacks = {
@@ -25,14 +27,19 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
-    }, [callbacks.removeFromBasket]),
+      return (
+        <ItemBasket item={item} onRemove={callbacks.removeFromBasket} 
+                    buttonRemove={select.multilingualism.itemBasket.buttonRemove[select.language]}/>
+      );
+    }, [callbacks.removeFromBasket, select.multilingualism.itemBasket.buttonRemove[select.language]]),
   };
 
   return (
-    <ModalLayout title='Корзина' onClose={callbacks.closeModal}>
-      <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+    <ModalLayout multilingualText={select.multilingualism.modalLayout} 
+                  language={select.language} onClose={callbacks.closeModal}>
+      <List list={select.list} renderItem={renders.itemBasket} 
+            buttonRemove={select.multilingualism.itemBasket.buttonRemove[select.language]}/>
+      <BasketTotal sum={select.sum} total={select.multilingualism.basketTotal.total[select.language]}/>
     </ModalLayout>
   );
 }

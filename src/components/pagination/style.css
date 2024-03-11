@@ -1,0 +1,33 @@
+.Pagination {
+    display: flex;
+    justify-content: flex-end;
+    padding: 22px 21px;
+}
+
+    .Pagination-button {
+        font-size: 16px;
+        line-height: 20px;
+        border: none;
+        background-color: transparent;
+        min-width: 20px;
+        height: 20px;
+        padding: 1px 2px;
+        cursor: pointer;
+    }
+
+    .Pagination-button:hover {
+        background-color: #e1e1e1;
+    }
+
+    .Pagination-button.active {
+        background-color: #09f;
+        color: #fff;
+    }
+
+    .Pagination-lots-dots {
+        font-size: 16px;
+        line-height: 22px;
+        width: 20px;
+        text-align: center;
+        color: #CCCCCC;
+    }
