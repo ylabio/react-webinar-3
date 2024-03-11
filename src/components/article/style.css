@@ -1,0 +1,47 @@
+.Article-info {
+  margin: 20px 40px 0;
+}
+
+.Article-country,
+.Article-category,
+.Article-year {
+  display: flex;
+  align-items: center;
+}
+
+.Article-description,
+.Article-country-producer,
+.Article-category-itself,
+.Article-year-manufactured  {
+  font-weight: 400;
+  font-size: 18px;
+  color: #000;
+  margin: 0;
+}
+
+.Article-description,
+.Article-country,
+.Article-category,
+.Article-year {
+  margin-bottom: 20px;
+}
+
+.Article-country-name,
+.Article-year-number,
+.Article-category-name {
+  margin: 0;
+  padding-left: 5px;
+  font-weight: 700;
+  font-size: 18px;
+  color: #000;
+}
+
+.Article-actions {
+  font-weight: 700;
+  font-size: 24px;
+  color: #000;
+}
+
+.Article-price {
+  margin-bottom: 20px;
+}
