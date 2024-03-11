@@ -33,3 +33,19 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function pagesCount(count, limit) {
+  return Math.ceil(count/limit);
+}
+
+export function pagesNumbers(count, limit, current) {
+  const pagesAmount = pagesCount(count, limit);
+  if (current === 1) {
+    return [current, current+1, current+2, pagesAmount];
+  } else if (current === 2) {
+    return [current-1, current, current+1, pagesAmount];
+  } else if (current === pagesAmount) {
+    return [1, current-2, current-1, current];
+  }
+  return [1, current-1, current, current+1, pagesAmount];
+}
