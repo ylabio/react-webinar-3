@@ -10,7 +10,8 @@ class Catalog extends StoreModule {
 
   initState() {
     return {
-      list: []
+      list: [],
+      currentItem:''
     }
   }
 
@@ -27,6 +28,17 @@ class Catalog extends StoreModule {
             currentPage : Math.floor(skip / limit) + 1,
             lastPage: Math.ceil(count / limit)
         }, 'Загружены товары из АПИ с пагинацией');
+    }
+    async loadById(id) {
+        const url = `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`;
+        const response = await fetch(url);
+        const json = await response.json();
+        const item = json.result
+        console.log(item);
+        this.setState({
+            ...this.getState(),
+            currentItem: item,
+        }, 'Загружены товары из АПИ по id');
     }
 }
 

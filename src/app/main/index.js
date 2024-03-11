@@ -7,40 +7,29 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination/pagination';
+import LayoutWithCommonElements from '../../components/LayoutWithCommonElements/LayoutWithCommonElements';
 
 function Main() {
- const store = useStore();
-  const select = useSelector(state => ({
-    list: state.catalog.list,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
-    currentPage: state.catalog.currentPage,
-    lastPage: state.catalog.lastPage
-  }));
+    const select = useSelector(state => ({
+        list: state.catalog.list,
+    }));
+    const store = useStore();
+    const addToBasket = useCallback(_id => {
+        console.log('Добавляем в корзину товар с ID:', _id);
+        store.actions.basket.addToBasket(_id);
+    }, [store]);
+    const renderItem = useCallback((item) => {
+        return <Item item={item} onAdd={addToBasket} />
+    }, [addToBasket]);
 
-  const callbacks = {
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-      
-  }
-   
-  const renders = {
-    item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
-  };
-
-  return (
-    <PageLayout>
-      <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-       sum={select.sum}/>
-      <List list={select.list} renderItem={renders.item}/>
-          <Pagination limit={10} currentPage={select.currentPage}  lastPage={select.lastPage} />
-          
-    </PageLayout>
-
-  );
+    return (
+        <LayoutWithCommonElements title='Магазин'>
+            <List list={select.list} renderItem={renderItem} />
+            <Pagination limit={10} />
+        </LayoutWithCommonElements>
+    );
 }
+
+
 
 export default memo(Main);

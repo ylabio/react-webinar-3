@@ -1,8 +1,10 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../store/use-store";
 import useSelector from "../store/use-selector";
+import { Route, Routes } from 'react-router';
+import { Navigate } from 'react-router';
+import ItemPage from './itemPage/itemPage';
 
 /**
  * Приложение
@@ -14,9 +16,13 @@ function App() {
 
   return (
     <>
-      <Main/>
-      {activeModal === 'basket' && <Basket/>}
-    </>
+          <Routes>
+              <Route path="/" element={<Main />} />
+              <Route path="/items/:itemId" element={<ItemPage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+          {activeModal === 'basket' && <Basket />}
+      </>
   );
 }
 

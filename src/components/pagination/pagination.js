@@ -2,9 +2,14 @@ import { useState } from "react";
 import { useCallback } from "react";
 import { useEffect } from "react";
 import useStore from "../../store/use-store";
-function Pagination({ limit, currentPage, lastPage }) {
+import useSelector from "../../store/use-selector";
+function Pagination({ limit }) {
     const store = useStore(); 
     const [skip, setSkip] = useState(0); 
+    const select = useSelector(state => ({
+        currentPage: state.catalog.currentPage,
+        lastPage: state.catalog.lastPage
+    }));
     useEffect(() => {
         async function fetchData() {
             await store.actions.catalog.load({ limit, skip });
@@ -15,10 +20,10 @@ function Pagination({ limit, currentPage, lastPage }) {
         const params = new URLSearchParams(window.location.search);
         const pageFromUrl = parseInt(params.get('page') || '1', 10);
         const limitFromUrl = parseInt(params.get('limit') || limit, 10);
-        if (pageFromUrl !== currentPage || limitFromUrl !== limit) {
+        if (pageFromUrl !== select.currentPage || limitFromUrl !== limit) {
             setSkip((pageFromUrl - 1) * limitFromUrl);
         }
-    }, [currentPage, limit]);
+    }, [select.currentPage, limit]);
     const setUrlParams = (page, newLimit) => {
         const currentUrl = new URL(window.location);
         const searchParams = currentUrl.searchParams;
@@ -44,21 +49,21 @@ function Pagination({ limit, currentPage, lastPage }) {
     const delta = 1; //количество страниц рядом с текущей по бокам
     const range = [];
 
-    for (let i = Math.max(2, currentPage - delta); i <= Math.min(lastPage - 1, currentPage + delta); i++) {
+    for (let i = Math.max(2, select.currentPage - delta); i <= Math.min(select.lastPage - 1, select.currentPage + delta); i++) {
         range.push(i);
     }
 
-    if (currentPage - delta > 2) {
+    if (select.currentPage - delta > 2) {
         range.unshift('...');
     }
 
-    if (currentPage + delta < lastPage - 1) {
+    if (select.currentPage + delta < select.lastPage - 1) {
         range.push('...');
     }
 
     range.unshift(1);
-    if (lastPage !== 1) { 
-        range.push(lastPage);
+    if (select.lastPage !== 1) { 
+        range.push(select.lastPage);
     }
 
     const renderPageNumbers = range.map((number, index) => {
@@ -70,7 +75,7 @@ function Pagination({ limit, currentPage, lastPage }) {
                 <button
                     key={number}
                     onClick={() => callbacks.goToPage(number)}
-                    disabled={currentPage === number}
+                    disabled={select.currentPage === number}
                 >
                     {number}
                 </button>
