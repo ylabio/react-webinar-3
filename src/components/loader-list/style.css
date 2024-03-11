@@ -1,0 +1,14 @@
+.Loader-item {
+  height: 61px;
+  animation: loader 1s infinite;
+  border-bottom: 1px dashed #ccc;
+}
+
+@keyframes loader {
+  0% {
+    background: rgba(198, 196, 196, 0.418);
+  }
+  100% {
+    background: rgb(255, 255, 255);
+  }
+}

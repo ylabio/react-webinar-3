@@ -1,47 +1,53 @@
-import {memo, useCallback, useEffect} from 'react';
+import { memo, useCallback, useEffect } from "react";
 import Item from "../../components/item";
-import PageLayout from "../../components/page-layout";
-import Head from "../../components/head";
-import BasketTool from "../../components/basket-tool";
-import List from "../../components/list";
+
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import Pagination from "../../components/pagination";
+import { useParams } from "react-router-dom";
+import List from "../../components/list";
+import LoaderList from "../../components/loader-list";
 
 function Main() {
-
+  console.log("main");
   const store = useStore();
+  const params = useParams();
+  const page = Number(params.page);
 
   useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
+    store.actions.catalog.load((page - 1) * 10);
+  }, [page]);
 
-  const select = useSelector(state => ({
+  const select = useSelector((state) => ({
     list: state.catalog.list,
-    amount: state.basket.amount,
-    sum: state.basket.sum
+    error: state.catalog.error,
+    limit: state.catalog.limit,
+    isLoading: state.catalog.isLoading,
+    totalPage: state.catalog.totalPage,
   }));
 
-  const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    // Открытие модалки корзины
-    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-  }
+  const addToBasket = useCallback(
+    (_id) => store.actions.basket.addToBasket(_id),
+    [store]
+  );
 
   const renders = {
-    item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
+    item: useCallback(
+      (item) => {
+        return <Item item={item} onAdd={addToBasket} />;
+      },
+      [addToBasket]
+    ),
   };
 
   return (
-    <PageLayout>
-      <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
-      <List list={select.list} renderItem={renders.item}/>
-    </PageLayout>
+    <>
+      {select.isLoading && <LoaderList count={select.limit} />}
+      {select.error && <h1>{select.error}</h1>}
+      {select.list && <List list={select.list} renderItem={renders.item} />}
 
+      <Pagination currentPage={page} totalPages={select.totalPage} />
+    </>
   );
 }
 
