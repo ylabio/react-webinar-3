@@ -38,3 +38,15 @@
   font-size: 18px;
   white-space: nowrap;
 }
+
+.ItemBasket-button {
+  box-sizing: border-box;
+  border: 1px solid rgb(118, 118, 118);
+  border-radius: 2px;
+  background: rgb(239, 239, 239);
+  width: 67px;
+  height: 19px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 15px;
+}

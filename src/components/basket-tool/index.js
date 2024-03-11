@@ -6,23 +6,25 @@ import {numberFormat, plural} from "../../utils";
 import './style.css';
 
 function BasketTool({sum, amount, onOpen, translation}) {
+
   const cn = bem('BasketTool');
+
   return (
     <div className={cn()}>
 			<Link to={'/'} className={cn('link')}>{translation.main}</Link>
       <div className={cn('group')}>
-				<span className={cn('label')}>В корзине:</span>
+				<span className={cn('label')}>{`${translation.basketTool.inCart}:`}</span>
 				<span className={cn('total')}>
 					{amount
 						? `${amount} ${plural(amount, {
-							one: 'товар',
-							few: 'товара',
-							many: 'товаров'
+							one: translation.basketTool.one,
+							few: translation.basketTool.few,
+							many: translation.basketTool.many
 						})} / ${numberFormat(sum)} ₽`
-						: `пусто`
+						: `${translation.basketTool.empty}`
 					}
 				</span>
-				<button onClick={onOpen}>{translation.actions.open}</button>
+				<button className={cn('button')} onClick={onOpen}>{translation.actions.open}</button>
 			</div>
     </div>
   );

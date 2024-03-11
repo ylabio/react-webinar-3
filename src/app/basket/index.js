@@ -37,7 +37,7 @@ function Basket() {
   return (
     <ModalLayout title={translate(select.lang).titles.cart} onClose={callbacks.closeModal} translation={translate(select.lang).actions.close}>
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} translation={translate(select.lang).total}/>
     </ModalLayout>
   );
 }
