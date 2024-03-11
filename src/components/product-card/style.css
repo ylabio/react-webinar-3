@@ -1,0 +1,38 @@
+.ProductCard {
+   display: flex;
+   flex-direction: column;
+   margin: 40px;
+}
+
+.ProductCard-country {
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.ProductCard-countryContainer {
+    margin-top: 20px;
+}
+
+.ProductCard-category {
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.ProductCard-categoryContainer {
+    margin-top: 20px;
+}
+
+.ProductCard-yearContainer {
+    margin-top: 20px;
+}
+
+.ProductCard-year {
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.ProductCard-priceContainer {
+    margin-top: 20px;
+    font-weight: bold;
+}
+

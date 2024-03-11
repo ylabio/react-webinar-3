@@ -24,7 +24,13 @@ function App() {
           {activeModal === 'basket' && <Basket />}
         </>
       } />
-      {catalog.list.map(item => <Route key={item.id} path={`/product/${item.code}`} element={<ProductPage />} />)}
+      {
+        catalog.list.map(
+          item => <Route
+            key={item._key}
+            path={`/product/${item._id}`}
+            element={<ProductPage itemId={item._id} />}
+          />)}
     </Routes>
   );
 }

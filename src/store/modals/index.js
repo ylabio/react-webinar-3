@@ -9,7 +9,7 @@ class Modals extends StoreModule {
   }
 
   open(name) {
-    this.setState({name}, `Открытие модалки ${name}`);
+    this.setState({ name }, `Открытие модалки ${name}`);
   }
 
   close() {
