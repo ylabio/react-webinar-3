@@ -1,0 +1,37 @@
+.ListPagination{
+    display: flex;
+    justify-content: flex-end;
+    padding: 22px 21px;
+}
+
+    .ListPagination-item {
+        display: flex;
+    }
+
+        .ItemPagination-button {
+            font-size: 16px;
+            line-height: 20px;
+            border: none;
+            background-color: transparent;
+            min-width: 20px;
+            height: 20px;
+            padding: 1px 2px;
+            cursor: pointer;
+        }
+
+        .ItemPagination-button:hover {
+            background-color: #e1e1e1;
+        }
+
+        .ItemPagination-button.active {
+            background-color: #09f;
+            color: #fff;
+        }
+
+        .ItemPagination-lots-dots {
+            font-size: 16px;
+            line-height: 22px;
+            width: 20px;
+            text-align: center;
+            color: #CCCCCC;
+        }

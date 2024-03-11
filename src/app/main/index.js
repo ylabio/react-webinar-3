@@ -1,12 +1,12 @@
 import {memo, useCallback, useEffect} from 'react';
-import Item from "../../components/item";
-import PageLayout from "../../components/page-layout";
-import Head from "../../components/head";
-import BasketTool from "../../components/basket-tool";
-import List from "../../components/list";
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
-import Pagination from '../../components/pagination';
+import Item from '../../components/item';
+import PageLayout from '../../components/page-layout';
+import Head from '../../components/head';
+import BasketTool from '../../components/basket-tool';
+import List from '../../components/list';
+import useStore from '../../store/use-store';
+import useSelector from '../../store/use-selector';
+import ItemPagination from '../../components/item-pagination';
 
 function Main() {
 
@@ -44,6 +44,12 @@ function Main() {
               textButtonAdd={select.multilingualism.item.buttonAdd[select.language]}/>
       );
     }, [callbacks.addToBasket, select.multilingualism.item.buttonAdd[select.language]]),
+    ItemPagination: useCallback((item) => {
+      return (
+        <ItemPagination item={item} list={select.numbersPages} 
+                        page={select.page} changePage={callbacks.changePage}/>
+      );
+    }, [select.numbersPages, select.page, callbacks.changePage]),
   };
 
   return (
@@ -53,7 +59,8 @@ function Main() {
                   sum={select.sum} multilingualText={select.multilingualism.basketTool} language={select.language}/>
       <List list={select.list} renderItem={renders.item} 
             textButtonAdd={select.multilingualism.item.buttonAdd[select.language]}/>
-      <Pagination numbersPages={select.numbersPages} page={select.page} changePage={callbacks.changePage}/>
+      <List changeClass={'ListPagination'} list={select.numbersPages} 
+          page={select.page} renderItem={renders.ItemPagination}/>
     </PageLayout>
 
   );

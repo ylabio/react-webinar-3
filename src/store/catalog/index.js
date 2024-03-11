@@ -1,4 +1,4 @@
-import {codeGenerator} from "../../utils";
+import {codeGenerator} from '../../utils';
 import StoreModule from "../module";
 
 class Catalog extends StoreModule {
@@ -63,7 +63,7 @@ class Catalog extends StoreModule {
     this.setState({
       ...this.getState(),
       list: json.result.items,
-      numbersPages: numbersPages
+      numbersPages: numbersPages,
     }, 'Загружены товары из АПИ');
   }
 
@@ -79,33 +79,33 @@ class Catalog extends StoreModule {
     }, 'Загружен товар из АПИ');
   }
 
-  /**
+   /**
    * Считает номера страниц для отображения в кнопках
    * @param totalCount Всего товаров
    * @return [Array]
    */
-  getNumbersPagesArray (totalCount) {
+   getNumbersPagesArray (totalCount) {
 
     const pagesArray = this.getPagesArray(totalCount, this.getState().limit);
 
     const page = this.getState().page;
 
     const numbersPages = [
-      pagesArray[0],
-      page - 1,
-      page,
-      page + 1,
-      pagesArray[pagesArray.length - 1]
+      {_id: 0, page: pagesArray[0]},
+      {_id: 1, page: page - 1},
+      {_id: 2, page: page},
+      {_id: 3, page: page + 1},
+      {_id: 4, page: pagesArray[pagesArray.length - 1]}
     ];
 
     if (page < 3) { 
-        numbersPages[1] = pagesArray[1];
-        numbersPages[2] = pagesArray[2];
-        numbersPages[3] = false;
+        numbersPages[1].page = pagesArray[1];
+        numbersPages[2].page = pagesArray[2];
+        numbersPages[3].page = false;
     } else if (page > pagesArray.length - 2) {
-        numbersPages[2] = pagesArray.length - 2;
-        numbersPages[3] = pagesArray.length - 1;
-        numbersPages[1] = false;
+        numbersPages[2].page = pagesArray.length - 2;
+        numbersPages[3].page = pagesArray.length - 1;
+        numbersPages[1].page = false;
     }
 
     return numbersPages;
