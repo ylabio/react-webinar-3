@@ -46,7 +46,11 @@ function Main() {
       {select.error && <ErrorPage text={select.error} />}
       {select.list && <List list={select.list} renderItem={renders.item} />}
 
-      <Pagination currentPage={page} totalPages={select.totalPage} />
+      <Pagination
+        disabled={select.isLoading}
+        currentPage={page}
+        totalPages={select.totalPage}
+      />
     </>
   );
 }

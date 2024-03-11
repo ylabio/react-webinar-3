@@ -4,19 +4,36 @@ import React from "react";
 import "./style.css";
 import CustomLink from "./custom-link";
 
-function Pagination({ currentPage, totalPages }) {
+function Pagination({ disabled, currentPage, totalPages }) {
+  const renderFirstPageLink = () => (
+    <li className="Pagination-item">
+      {disabled ? (
+        <span className={`custom-link ${!currentPage ? "active-link" : ""}`}>
+          1
+        </span>
+      ) : (
+        <CustomLink to={`/`}>1</CustomLink>
+      )}
+    </li>
+  );
   const renderPageLink = (page) => (
     <li className="Pagination-item">
-      <CustomLink to={`/page/${page}`}>{page}</CustomLink>
+      {disabled ? (
+        <span
+          className={`custom-link ${currentPage === page ? "active-link" : ""}`}
+        >
+          {page}
+        </span>
+      ) : (
+        <CustomLink to={`/page/${page}`}>{page}</CustomLink>
+      )}
     </li>
   );
   const renderEllipsis = () => <li className="Pagination-ellipsis">...</li>;
   if (!currentPage || currentPage === 2) {
     return (
       <ul className="Pagination">
-        <li className="Pagination-item">
-          <CustomLink to="/">1</CustomLink>
-        </li>
+        {renderFirstPageLink()}
         {renderPageLink(2)}
         {renderPageLink(3)}
         {renderEllipsis()}
@@ -29,9 +46,7 @@ function Pagination({ currentPage, totalPages }) {
     const nextPage = currentPage + 1;
     return (
       <ul className="Pagination">
-        <li className="Pagination-item">
-          <CustomLink to="/">1</CustomLink>
-        </li>
+        {renderFirstPageLink()}
         {currentPage > 3 && renderEllipsis()}
         {renderPageLink(prevPage)}
         {renderPageLink(currentPage)}
@@ -44,9 +59,7 @@ function Pagination({ currentPage, totalPages }) {
   if (currentPage >= totalPages - 3 && currentPage <= totalPages) {
     return (
       <ul className="Pagination">
-        <li className="Pagination-item">
-          <CustomLink to="/">1</CustomLink>
-        </li>
+        {renderFirstPageLink()}
         {renderEllipsis()}
         {renderPageLink(totalPages - 3)}
         {renderPageLink(totalPages - 2)}
