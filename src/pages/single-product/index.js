@@ -26,7 +26,7 @@ function SingleProduct () {
       }
     }
     getProduct()
-  }, []);
+  }, [params.id]);
 
   return (
     <>
