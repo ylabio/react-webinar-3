@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './app';
 import Store from "./store";
 import {StoreContext} from "./store/context";
-
+import { LanguageProvider } from './utils/languageContext';
 const store = new Store();
 
 const root = createRoot(document.getElementById('root'));
@@ -12,7 +12,9 @@ const root = createRoot(document.getElementById('root'));
 root.render(
   <StoreContext.Provider value={store}>
     <BrowserRouter>
+            <LanguageProvider>
         <App />
+            </LanguageProvider>,
     </BrowserRouter>
   </StoreContext.Provider>
 );

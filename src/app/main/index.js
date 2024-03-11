@@ -23,7 +23,7 @@ function Main() {
     }, [addToBasket]);
 
     return (
-        <LayoutWithCommonElements title='Магазин'>
+        <LayoutWithCommonElements titleKey='shop'>
             <List list={select.list} renderItem={renderItem} />
             <Pagination limit={10} />
         </LayoutWithCommonElements>

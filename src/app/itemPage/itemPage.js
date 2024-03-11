@@ -35,7 +35,7 @@ function ItemPage() {
         return <div>Loading...</div>;
     }
     return (
-        <LayoutWithCommonElements title={select.currentItem.title}>
+        <LayoutWithCommonElements titleKey={select.currentItem.title}>
             <ItemDetails item={select.currentItem} onAdd={addToBasket} />
         </LayoutWithCommonElements>
     );
