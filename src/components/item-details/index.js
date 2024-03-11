@@ -5,9 +5,12 @@ import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import Loader from "../loader/index";
 import useSelector from "../../store/use-selector";
+import translate from "../../app/language/translate.json";
+import {useLangContext} from "../../store/use-lang-context";
 import './style.css';
 
 function ItemDetails(props) {
+  const {language} = useLangContext();
   const { id } = useParams();
   const cn = bem('ItemDetails');
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +39,7 @@ function ItemDetails(props) {
         <div className={cn('edition')}>Год выпуска: <b>{details.edition}</b></div>
         <div className={cn('price')}><b>Цена: {numberFormat(details.price || 0)} ₽</b></div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onAdd}>Добавить</button>
+          <button onClick={callbacks.onAdd}>{translate.Add[language]}</button>
         </div>
     </div>
   )

@@ -2,10 +2,10 @@ import React from 'react';
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
 
-const Shop = ({list , renderItem, pagesCount, onChangePage, currentPage}) => {
+const Shop = ({list , renderItem, pagesCount, callbacks, currentPage}) => {
   return <>
     <List list={list} renderItem={renderItem}/>
-    <Pagination pagesCount={pagesCount} onChangePage={onChangePage} currentPage={currentPage}/>
+    <Pagination pagesCount={pagesCount} onChangePage={callbacks.onChangePage} currentPage={currentPage}/>
     </>
 };
 

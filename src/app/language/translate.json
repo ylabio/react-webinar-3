@@ -1,0 +1,34 @@
+{
+  "Shop": {
+    "Ru": "Магазин",
+    "En": "Shop"
+  },
+  "Home": {
+    "Ru": "Главная",
+    "En": "Home"
+  },
+  "ToBasket": {
+    "Ru": "Перейти",
+    "En": "To Basket"
+  },
+  "Add": {
+    "Ru": "Добавить",
+    "En": "Add"
+  },
+  "Delete": {
+    "Ru": "Удалить",
+    "En": "Delete"
+  },
+  "Close": {
+    "Ru": "Закрыть",
+    "En": "Close"
+  },
+  "InBasket": {
+    "Ru": "В корзине",
+    "En": "In basket"
+  },
+  "Empty": {
+    "Ru": "пусто",
+    "En": "empty"
+  }
+}
