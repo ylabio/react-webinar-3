@@ -7,6 +7,8 @@ import BasketTool from "../basket-tool";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import {numberFormat} from "../../utils";
+import {lang as langData} from '../../lang/data'
+import LangSelect from "../lang-select";
 
 const ItemPage = () => {
   const {id} = useParams()
@@ -15,7 +17,8 @@ const ItemPage = () => {
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    lang: state.lang.lang
   }));
 
   const callbacks = {
@@ -23,6 +26,22 @@ const ItemPage = () => {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+  }
+
+  const lng = select.lang === 'ru' ? {
+    toHome: langData.headers.toHome.ru,
+    country: langData.itemPage.country.ru,
+    category: langData.itemPage.category.ru,
+    year: langData.itemPage.year.ru,
+    price: langData.itemPage.price.ru,
+    btn: langData.buttons.add.ru
+  } : {
+    toHome: langData.headers.toHome.en,
+    country: langData.itemPage.country.en,
+    category: langData.itemPage.category.en,
+    year: langData.itemPage.year.en,
+    price: langData.itemPage.price.en,
+    btn: langData.buttons.add.en
   }
 
   const [item, setItem] = useState(null)
@@ -41,15 +60,19 @@ const ItemPage = () => {
   return (
     <div className='ItemPage'>
       <PageLayout>
-        <Head title={item?.title} />
+        <div style={{position: "relative"}}>
+          <Head title={item?.title} inItemPage />
+          <LangSelect lang={select.lang} />
+        </div>
         <div className='ItemPage-tools'>
           <Link to={'/'} className='ItemPage-link'>
-            Главная
+            {lng.toHome}
           </Link>
           <BasketTool
             onOpen={callbacks.openModalBasket}
             amount={select.amount}
             sum={select.sum}
+            lang={select.lang}
           />
         </div>
         <div className='ItemPage-body'>
@@ -57,21 +80,21 @@ const ItemPage = () => {
             {item?.description}
           </div>
           <div className='ItemPage-made'>
-            Страна производитель: <b>{item?.madeIn.title} ({item?.madeIn.code})</b>
+            {lng.country}: <b>{item?.madeIn.title} ({item?.madeIn.code})</b>
           </div>
           <div className='ItemPage-cat'>
-            Категория: <b>{item?.category.title}</b>
+            {lng.category}: <b>{item?.category.title}</b>
           </div>
           <div className='ItemPage-year'>
-            Год выпуска: <b>{item?.edition}</b>
+            {lng.year}: <b>{item?.edition}</b>
           </div>
           <div className='ItemPage-price'>
-            Цена: {numberFormat(item?.price)} ₽
+            {lng.price}: {numberFormat(item?.price)} ₽
           </div>
           <button
             className='ItemPage-btn'
             onClick={() => callbacks.addToBasket(item?._id)}>
-            Добавить
+            {lng.btn}
           </button>
         </div>
       </PageLayout>

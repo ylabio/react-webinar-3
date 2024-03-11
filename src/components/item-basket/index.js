@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import './style.css';
 import {useNavigate} from "react-router-dom";
 import useStore from "../../store/use-store";
+import {lang as langData} from '../../lang/data'
 
 function ItemBasket(props) {
 
@@ -25,6 +26,14 @@ function ItemBasket(props) {
     navigate(`/items/${props.item._id}`)
   }
 
+  const lng = props.lang === 'ru' ? {
+    qty: langData.itemBasket.quantity.ru,
+    btn: langData.buttons.del.ru
+  } : {
+    qty: langData.itemBasket.quantity.en,
+    btn: langData.buttons.del.en
+  }
+
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
@@ -36,9 +45,9 @@ function ItemBasket(props) {
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {lng.qty}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{lng.btn}</button>
         </div>
       </div>
     </div>
@@ -50,7 +59,8 @@ ItemBasket.propTypes = {
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
     price: PropTypes.number,
-    amount: PropTypes.number
+    amount: PropTypes.number,
+    lang: PropTypes.string
   }).isRequired,
   onRemove: propTypes.func,
 }
