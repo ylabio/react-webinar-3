@@ -1,0 +1,27 @@
+import PropTypes from "prop-types";
+import "./style.css";
+import { cn as bem } from "@bem-react/classname";
+import { formPaginationArr } from "../../utils";
+import { Link } from "react-router-dom";
+
+export function ArticlesNav({ pages, current }) {
+  const cn = bem("ArticlesNav");
+  console.log([pages, current])
+  console.log(formPaginationArr(pages, current))
+  return (
+    <div className={cn()}>
+      {formPaginationArr(pages, current).map((e, index) => {
+        return (
+          <div
+            key={index}
+            className={
+              current === e ? cn("item", { current: true }) : cn("item")
+            }
+          >
+            {e !== '...' ? <Link className={cn('text')} to={`/${e}`}>{e}</Link> : <p className={cn('dots')}>...</p>}
+          </div>
+        )
+      })}
+    </div>
+  );
+}
