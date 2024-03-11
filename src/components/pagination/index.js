@@ -9,7 +9,8 @@ function Pagination({currentPage, totalPages, firstPage, lastPage, prevPage, nex
     <div className={cn()}>
       {(currentPage !== 1 && currentPage !== 2) && <span className={cn('cell')} onClick={firstPage}>1</span>}
       {currentPage >= 4 && <span className={cn('dots')}>...</span>}
-      {currentPage !== 1 && <span className={cn('cell')} onClick={prevPage}>{currentPage - 1}</span>}
+      {currentPage === totalPages && <span className={cn('cell')} onClick={() => prevPage(1, 2)}>{currentPage - 2}</span>}
+      {currentPage !== 1 && <span className={cn('cell')} onClick={() => prevPage(0, 1)}>{currentPage - 1}</span>}
       <span className={cn('cell-current')}>{currentPage}</span>
       {(currentPage !== totalPages && currentPage !== totalPages - 1) && <span className={cn('cell')} onClick={() => nextPage(0, 1)}>{currentPage + 1}</span>}
       {currentPage === 1 && <span className={cn('cell')} onClick={() => nextPage(1, 2)}>{currentPage + 2}</span>}

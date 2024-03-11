@@ -41,10 +41,10 @@ function Main() {
     setOffset((totalPages - 1) * 10)
   }
 
-  function prevPage() {
+  function prevPage(num, shift) {
     if (currentPage === 1) return
-    setCurrentPage(prevValue => prevValue - 1)
-    setOffset(prevValue => prevValue -10)
+    setCurrentPage(prevValue => prevValue - (1 + num))
+    setOffset(prevValue => prevValue - 10 * shift)
   }
 
   useEffect(() => {
