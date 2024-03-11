@@ -6,19 +6,46 @@ class Basket extends StoreModule {
     return {
       list: [],
       sum: 0,
-      amount: 0
+      amount: 0,
+      product: {
+        _id: '0',
+        title: 'Название товара',
+        description: 'Описание товара',
+        madeIn: 'Страна производитель',
+        category: 'Категория',
+        edition: 'Год выпуска',
+        price: 0,
+      }
     }
+  }
+
+  loadProduct(_id,title,description,madeIn,category,edition,price) {
+    let product = this.getState().product;
+    product._id = _id;
+    product.title = title;
+    product.description = description;
+    product.madeIn = madeIn;
+    product.category = category;
+    product.edition = edition;
+    product.price = price;
+    this.setState({
+      ...this.getState(),
+      product: product,
+    }, 'Изменение свойств товара');
   }
 
   /**
    * Добавление товара в корзину
    * @param _id Код товара
    */
-  addToBasket(_id) {
+  addToBasket(_id,flag) {
+    if (_id <= 0) return;
     let sum = 0;
     // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
-    const list = this.getState().list.map(item => {
+    let list;
+    if (this.getState().list.length >= 1) {
+      list = this.getState().list.map(item => {
       let result = item;
       if (item._id === _id) {
         exist = true; // Запомним, что был найден в корзине
@@ -27,8 +54,10 @@ class Basket extends StoreModule {
       sum += result.price * result.amount;
       return result;
     });
-
+    }
+  if (flag == 0 || exist == true) {
     if (!exist) {
+      if (this.getState().list.length == 0) list = [];
       // Поиск товара в каталоге, чтобы его добавить в корзину.
       // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
       const item = this.store.getState().catalog.list.find(item => item._id === _id);
@@ -36,13 +65,26 @@ class Basket extends StoreModule {
       // Добавляем к сумме.
       sum += item.price;
     }
-
     this.setState({
       ...this.getState(),
       list,
       sum,
-      amount: list.length
+      amount: list.length,
     }, 'Добавление в корзину');
+  }
+  else {
+    if (!exist) {
+      if (this.getState().list.length == 0) list = [];
+    }
+    let vProduct = this.getState().product;
+    sum += vProduct.price;
+    this.setState({
+      ...this.getState(),
+      list: [...list, {_id: _id, title: vProduct.title, price: vProduct.price, amount: 1}],
+      sum,
+      amount: list.length + 1,
+    }, 'Добавление в корзину №2')
+  }
   }
 
   /**
@@ -50,6 +92,7 @@ class Basket extends StoreModule {
    * @param _id Код товара
    */
   removeFromBasket(_id) {
+    if (_id <= 0) return;
     let sum = 0;
     const list = this.getState().list.filter(item => {
       if (item._id === _id) return false;
@@ -61,7 +104,7 @@ class Basket extends StoreModule {
       ...this.getState(),
       list,
       sum,
-      amount: list.length
+      amount: list.length,
     }, 'Удаление из корзины');
   }
 }

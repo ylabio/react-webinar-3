@@ -6,17 +6,18 @@ import * as modules from './exports.js';
 class Store {
 
   constructor(initState = {}) {
-    this.listeners = []; // Слушатели изменений состояния
+    this.listeners = []; // Слушатели изменений состояния (создаём пустой массив)
     this.state = initState;
     /** @type {{
      * basket: Basket,
      * catalog: Catalog,
      * modals: Modals
      * }} */
-    this.actions = {};
-    for (const name of Object.keys(modules)) {
-      this.actions[name] = new modules[name](this, name);
-      this.state[name] = this.actions[name].initState();
+    this.actions = {};//создаём пустое хранилище для модулей
+    for (const name of Object.keys(modules)) {//Пробегаемся по ключас модулей
+      this.actions[name] = new modules[name](this, name);//Подгрущаем модули в actions,
+                                                        //зачем мы передаём в модули Basket и Modals переменные this и name не понятно
+      this.state[name] = this.actions[name].initState();//Устанавливаем изначальные данные модулей
     }
   }
 
@@ -45,7 +46,7 @@ class Store {
    * Установка состояния
    * @param newState {Object}
    */
-  setState(newState, description = 'setState') {
+  setState(newState, description = 'setState') {//description нам не нужен
     console.group(
       `%c${'store.setState'} %c${description}`,
       `color: ${'#777'}; font-weight: normal`,

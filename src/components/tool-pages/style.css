@@ -1,0 +1,35 @@
+  .ToolPages {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+  }
+  
+  .ToolPages-cell {
+    min-width: 20px;
+    text-align: center;
+    font-size: 18px;
+    background-color: white;
+    padding: 0 10px 0 10px;
+  }
+
+  .ToolPages-cell-current {
+    min-width: 20px;
+    text-align: center;
+    font-size: 18px;
+    background-color: aqua;
+  }
+
+  .ToolPages-cell:hover{
+    cursor: pointer;
+    background-color: lightgray;
+  }
+
+  .ToolPages-cell-one{
+    min-width: 20px;
+    text-align: center;
+    font-size: 18px;
+    background-color: black;
+    color: white;
+  }
+  
+  
