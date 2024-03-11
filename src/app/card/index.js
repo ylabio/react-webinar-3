@@ -13,10 +13,11 @@ function Card() {
   const [item, setItem] = useState({});
 
   useEffect(() => {
-    store.actions.catalog.dataCard({ setItem, id });
+    store.actions.card.dataCard({ setItem, id });
   }, []);
 
   const select = useSelector((state) => ({
+    list: state.card.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
@@ -24,7 +25,7 @@ function Card() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(
-      () => store.actions.basket.addToBasket(id),
+      () => store.actions.basket.addToBasket(id, "card"),
       [store]
     ),
     // Открытие модалки корзины
@@ -36,7 +37,7 @@ function Card() {
 
   return (
     <PageLayout>
-      <Head title="Название товара" />
+      <Head title={item?.title} />
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}

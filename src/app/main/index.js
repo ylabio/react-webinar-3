@@ -31,7 +31,7 @@ function Main() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(
-      (_id) => store.actions.basket.addToBasket(_id),
+      (_id) => store.actions.basket.addToBasket(_id, "catalog"),
       [store]
     ),
 
