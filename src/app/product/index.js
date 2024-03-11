@@ -20,7 +20,7 @@ const Product = () => {
       setIsContentFetched(true)
     }
     fetchProductContent()
-  }, []);
+  }, [productId]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
