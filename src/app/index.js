@@ -17,6 +17,7 @@ import PageProduct from "../components/page-product";
  */
 function App() {
   const activeModal = useSelector((state) => state.modals.name);
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<PageLayout />}>
@@ -27,6 +28,7 @@ function App() {
       </Route>
     )
   );
+
   return (
     <>
       <RouterProvider router={router} />

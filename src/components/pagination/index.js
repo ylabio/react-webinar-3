@@ -4,7 +4,7 @@ import React from "react";
 import "./style.css";
 import CustomLink from "./custom-link";
 
-function Pagination({ currentPage, totalPages, disabled }) {
+function Pagination({ currentPage, totalPages }) {
   const renderPageLink = (page) => (
     <li className="Pagination-item">
       <CustomLink to={`/page/${page}`}>{page}</CustomLink>

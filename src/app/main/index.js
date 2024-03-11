@@ -9,7 +9,6 @@ import List from "../../components/list";
 import LoaderList from "../../components/loader-list";
 
 function Main() {
-  console.log("main");
   const store = useStore();
   const params = useParams();
   const page = Number(params.page);

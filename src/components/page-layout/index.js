@@ -17,8 +17,8 @@ function PageLayout({ footer }) {
     amount: state.basket.amount,
     sum: state.basket.sum,
     list: state.catalog.list,
+    data: state.translate.data,
   }));
-
   const openModalBasket = useCallback(
     () => store.actions.modals.open("basket"),
     [store]
@@ -29,7 +29,9 @@ function PageLayout({ footer }) {
       <div className={cn("head")}>
         <Head
           title={
-            id && select.list.length === 1 ? select.list[0].title : "Магазин"
+            id && select.list.length === 1
+              ? select.list[0].title
+              : select.data.main.title
           }
         />
         <BasketTool

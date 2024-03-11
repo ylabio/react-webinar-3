@@ -1,0 +1,25 @@
+{
+  "basket": {
+    "titleBasket": "Basket",
+    "toBasketBtn": "Basket",
+    "closeBasketBtn": "Close",
+    "deleteItemBasketBtn": "delete",
+    "basketToolText": "in the basket",
+    "pcs": "pcs",
+    "productOne": "product",
+    "productsOther": "products",
+    "emptyBasket": "is empty",
+    "totalBasketText": "Total"
+  },
+  "main": {
+    "title": "Shop",
+    "linkHome": "Home",
+    "addBtn": "Add"
+  },
+  "productPage": {
+    "madeIn": "Manufacturer country",
+    "category": "Category",
+    "edition": "Year of issue",
+    "price": "Price"
+  }
+}

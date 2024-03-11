@@ -7,7 +7,6 @@ import { numberFormat } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 function PageProduct() {
-  console.log("resolvedPage");
   const cn = bem("Product-page");
   const { id } = useParams();
   const store = useStore();
@@ -15,6 +14,7 @@ function PageProduct() {
     list: state.catalog.list,
     isLoading: state.catalog.isLoading,
     error: state.catalog.error,
+    data: state.translate.data,
   }));
   const addToBasket = useCallback(
     (_id) => store.actions.basket.addToBasket(_id),
@@ -26,36 +26,37 @@ function PageProduct() {
   if (select.isLoading) {
     return <div>Loading...</div>;
   }
-  console.log(select.list);
+
   return (
     <>
       {select.list[0]?.description && (
         <div className={cn()}>
           <p className={cn("description")}>{select.list[0].description}</p>
           <p>
-            Страна произвоитель:{" "}
+            {select.data.productPage.madeIn}:{" "}
             <span className={cn("madeIn")}>
               {select.list[0].madeIn.title} ({select.list[0].madeIn.code})
             </span>
           </p>
           <p>
-            Категория:{" "}
+            {select.data.productPage.category}:{" "}
             <span className={cn("category")}>
               {select.list[0].category.title}
             </span>
           </p>
           <p>
-            Год выпуска:{" "}
+            {select.data.productPage.edition}:{" "}
             <span className={cn("edition")}>{select.list[0].edition}</span>
           </p>
           <p className={cn("price")}>
-            Цена: {numberFormat(select.list[0].price)} ₽
+            {select.data.productPage.price}:{" "}
+            {numberFormat(select.list[0].price)} ₽
           </p>
           <button
             className={cn("action")}
             onClick={() => addToBasket(select.list[0]._id)}
           >
-            Добавить
+            {select.data.main.addBtn}
           </button>
         </div>
       )}
