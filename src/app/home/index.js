@@ -19,10 +19,17 @@ function Home() {
   const select = {
     list: useSelector((state) => state.catalog.list),
     totalPages: useSelector((state) => state.catalog.totalPages),
-    currentPage: useSelector((state) => state.catalog.currentPage) // Используем текущую страницу из состояния
+    currentPage: useSelector((state) => state.catalog.currentPage),
+    amount: useSelector((state) => state.basket.amount),
+    sum: useSelector((state) => state.basket.sum) // Используем текущую страницу из состояния
   }
 
-  const addToBasket = useCallback((_id) => store.actions.basket.addToBasket(_id), [store]);
+
+  const callbacks = {
+    addToBasket: useCallback((_id) => store.actions.basket.addToBasket(_id), [store]),
+    // Открытие модалки корзины
+    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store])
+  }
 
   const handlePageChange = (page) => {
     store.actions.catalog.load({ page });
@@ -31,16 +38,17 @@ function Home() {
   const renders = {
     item: useCallback(
       (item) => {
-        return <Item item={item} onAdd={addToBasket} />;
+        const link = `/articles/${item._id}`
+        return <Item item={item} onAdd={callbacks.addToBasket} customLink={link} />;
       },
-      [addToBasket]
+      [callbacks.addToBasket]
     ),
   };
 
   return (
     <>
       <Head title={tr('store')} />
-      <BasketTool />
+      <BasketTool sum={select.sum} amount={select.amount} openModal={callbacks.openModalBasket}/>
       <List list={select.list} renderItem={renders.item} />
       <Paginator
         totalPages={select.totalPages}

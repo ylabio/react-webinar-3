@@ -4,15 +4,26 @@ import BasketTool from "../../components/basket-tool";
 import ProductInfo from "../../components/product-info";
 import {useParams} from "react-router-dom";
 import useStore from "../../store/use-store";
+import useSelector from "../../store/use-selector";
 
 function SingleProduct () {
 
   const {id} = useParams()
   const store = useStore();
 
+  const select = {
+    amount: useSelector((state) => state.basket.amount),
+    sum: useSelector((state) => state.basket.sum) // Используем текущую страницу из состояния
+  }
+
+  const callbacks = {
+    addToBasket: useCallback((_id) => store.actions.basket.addToBasket(_id), [store]),
+    // Открытие модалки корзины
+    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store])
+  }
+
   const [product, setProduct] = useState(null)
 
-  const addToBasket = useCallback(_id => store.actions.basket.addToBasket(_id), [store])
 
   useEffect(() => {
     const getProduct = async () => {
@@ -33,8 +44,8 @@ function SingleProduct () {
       {product && (
         <>
           <Head title={product.title} />
-          <BasketTool />
-          <ProductInfo product={product} onAdd={addToBasket} />
+          <BasketTool sum={select.sum} amount={select.amount} openModal={callbacks.openModalBasket}/>
+          <ProductInfo product={product} onAdd={callbacks.addToBasket} />
         </>
       )}
     </>

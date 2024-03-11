@@ -1,26 +1,15 @@
-import React, {memo, useCallback, useEffect} from "react";
+import React, {memo} from "react";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
 import {Link} from "react-router-dom";
 import {useLanguage} from "../../LanguageContext";
+import PropTypes from "prop-types";
 
-function BasketTool() {
+function BasketTool({amount, sum, openModal}) {
   const cn = bem('BasketTool');
 
-  const store = useStore();
   const {tr} = useLanguage()
-
-
-  const select = useSelector(state => ({
-    amount: state.basket.amount,
-    sum: state.basket.sum
-  }));
-
-  // Открытие модалки корзины
-  const openModalBasket = useCallback(() => store.actions.modals.open('basket'), [store])
 
 
   return (
@@ -29,19 +18,25 @@ function BasketTool() {
       <div className={cn('content')}>
         <span className={cn('label')}>{tr('inTheBasket')}:</span>
         <span className={cn('total')}>
-        {select.amount
-          ? `${select.amount} ${plural(select.amount, {
+        {amount
+          ? `${amount} ${plural(amount, {
             one: tr('oneProduct'),
             few: tr('fewProduct'),
             many: tr('manyProduct')
-          })} / ${numberFormat(select.sum)} ₽`
+          })} / ${numberFormat(sum)} ₽`
           : tr('empty')
         }
       </span>
-        <button onClick={openModalBasket}>{tr('goBtn')}</button>
+        <button onClick={openModal}>{tr('goBtn')}</button>
       </div>
     </div>
   );
+}
+
+BasketTool.propTypes = {
+  amount: PropTypes.number,
+  sum: PropTypes.number,
+  openModal: PropTypes.func
 }
 
 export default memo(BasketTool);
