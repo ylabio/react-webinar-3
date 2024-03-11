@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
@@ -62,7 +62,7 @@ function Main({ language = 'ru' }) {
       <Pagination
         limit={10}
         count={select.count}
-        currentPage={Number(page || 1)}
+        currentPage={Number(page) || 1}
       />
     </PageLayout>
   );
