@@ -15,7 +15,6 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <Link to={{
         pathname: '/product',
         search: `?id=${props.item._id}`,
@@ -24,7 +23,7 @@ function Item(props) {
       </Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{props.localeDict.add}</button>
       </div>
     </div>
   );

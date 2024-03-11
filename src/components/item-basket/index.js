@@ -16,7 +16,6 @@ function ItemBasket(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <Link to={{
         pathname: '/product',
         search: `?id=${props.item._id}`,
@@ -27,7 +26,7 @@ function ItemBasket(props) {
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{props.localeDict.delete}</button>
         </div>
       </div>
     </div>

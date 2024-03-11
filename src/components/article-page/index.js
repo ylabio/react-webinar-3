@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { numberFormat } from "../../utils";
 import './style.css';
 
-function ArticlePage({ article, addToBasket}) {
+function ArticlePage({ article, addToBasket, localeDict}) {
 
   return (
     <div className='Product'>
@@ -21,7 +21,7 @@ function ArticlePage({ article, addToBasket}) {
         <span>{article.edition}</span>
       </div>
       <div className="Product-price">Цена: {numberFormat(article.price)} ₽</div>
-      <button onClick={() => { addToBasket(article._id) }} className="Product-addBtn">Добавить</button>
+      <button onClick={() => { addToBasket(article._id) }} className="Product-addBtn">{localeDict.add}</button>
     </div>
   )
 }

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { Link } from "react-router-dom";
 
-function Navigation() {
+function Navigation({ localeDict }) {
   return (
     <div className='Navigation'>
-      <Link to={'/'}>Главная</Link>
+      <Link to={'/'}>{localeDict.main}</Link>
     </div>
   )
 }

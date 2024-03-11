@@ -9,7 +9,7 @@ function PreloadWrapper({ isLoad, children }) {
 
   return (
     <div className={cn()}>
-      {isLoad ? <div className={cn('spiner')}>Loading...</div> : children}
+      {isLoad ? <div className={cn('spiner')}></div> : children}
     </div>
   );
 }

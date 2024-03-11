@@ -1,16 +1,19 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback, useContext, useEffect } from 'react';
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
-import BasketTool from "../../components/basket-tool";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import ArticlePage from '../../components/article-page';
 import PreloadWrapper from '../../components/preload-wrapper';
+import { localeContext } from '../../store/locale-context';
+import { useLocale } from '../../store/use-locale';
 
 function Article() {
 
   const store = useStore();
   const article_id = new URLSearchParams(location.search).get('id')
+  const {locale, changeLocale} = useContext(localeContext)
+  const localeDict = useLocale()
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
@@ -30,14 +33,14 @@ function Article() {
   }
   const renders = {
     head: useCallback(() => {
-      return <Head title={select.article.title} />
+      return <Head title={select.article.title} changeLocale={changeLocale}/>
     }, [select.article.title]),
   };
   return (
-    <PageLayout head={renders.head()} onOpen={callbacks.openModalBasket} amount={select.amount}
+    <PageLayout localeDict={localeDict} head={renders.head()} onOpen={callbacks.openModalBasket} amount={select.amount}
       sum={select.sum}>
       <PreloadWrapper isLoad={select.isLoad}>
-        <ArticlePage article={select.article} addToBasket={callbacks.addToBasket} />
+        <ArticlePage article={select.article} addToBasket={callbacks.addToBasket} localeDict={localeDict}/>
       </PreloadWrapper>
     </PageLayout>
   );

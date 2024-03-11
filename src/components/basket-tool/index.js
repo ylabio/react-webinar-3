@@ -4,22 +4,22 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
 
-function BasketTool({sum, amount, onOpen}) {
+function BasketTool({sum, amount, onOpen, localeDict}) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('label')}>{localeDict.inCart}:</span>
       <span className={cn('total')}>
         {amount
           ? `${amount} ${plural(amount, {
-            one: 'товар',
-            few: 'товара',
-            many: 'товаров'
+            one: localeDict.item.one,
+            few: localeDict.item.few,
+            many: localeDict.item.many
           })} / ${numberFormat(sum)} ₽`
-          : `пусто`
+          : localeDict.empty
         }
       </span>
-      <button onClick={onOpen}>Перейти</button>
+      <button onClick={onOpen}>{localeDict.goTo}</button>
     </div>
   );
 }

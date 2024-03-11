@@ -4,11 +4,11 @@ import './style.css';
 import Navigation from "../navigation";
 import BasketTool from "../basket-tool";
 
-function Menu({ sum, amount, onOpen }) {
+function Menu({ sum, amount, onOpen, localeDict }) {
     return (
         <div className='Menu'>
-            <Navigation />
-            <BasketTool sum={sum} amount={amount} onOpen={onOpen} />
+            <Navigation localeDict={localeDict}/>
+            <BasketTool sum={sum} amount={amount} onOpen={onOpen} localeDict={localeDict}/>
         </div>
     )
 }

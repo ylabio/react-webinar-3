@@ -5,6 +5,7 @@ import Basket from "./basket";
 import useStore from "../store/use-store";
 import useSelector from "../store/use-selector";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { LocaleProvider } from '../store/locale-context';
 
 /**
  * Приложение
@@ -16,13 +17,15 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route index element={<Main />} />
-          <Route path='/product' element={<Article />} />
-        </Routes>
-        {activeModal === 'basket' && <Basket />}
-      </BrowserRouter>
+      <LocaleProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route index element={<Main />} />
+            <Route path='/product' element={<Article />} />
+          </Routes>
+          {activeModal === 'basket' && <Basket />}
+        </BrowserRouter>
+      </LocaleProvider>
     </>
   );
 }

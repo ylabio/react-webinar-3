@@ -15,7 +15,7 @@ function PageLayout({head, footer, children, ...props}) {
       </div>
       <div className={cn('nav')}>
         <Menu onOpen={props.onOpen} amount={props.amount}
-          sum={props.sum} />
+          sum={props.sum} localeDict={props.localeDict}/>
       </div>
       <div className={cn('center')}>
         {children}
