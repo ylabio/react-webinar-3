@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.css';
 import { cn as bem } from '@bem-react/classname';
+import { Link } from 'react-router-dom';
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 

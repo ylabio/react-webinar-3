@@ -29,12 +29,12 @@ function Item(props) {
   const callbacks = {
     onAdd: (e) => props.onAdd(props.item._id),
   };
-
+  console.log(props.item);
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn("title")}>
-        <Link className="Links" to={"/products"}>
+        <Link className="Links" to={`/product/${props.item._id}`}>
           {" "}
           <p className="p-title">{props.item.title}</p>
         </Link>

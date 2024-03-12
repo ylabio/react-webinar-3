@@ -20,7 +20,7 @@ const AppWithRouter = (
     <Router>
       <Routes>
         <Route exact path="/" element={<App/>} />
-        <Route path="/products" element={<ProductDetail/>} />
+        <Route path="/product/:id" element={<ProductDetail/>} />
       </Routes>
     </Router>
   </StoreContext.Provider>
