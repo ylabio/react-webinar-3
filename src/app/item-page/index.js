@@ -4,8 +4,7 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import PageLayout from "../../components/page-layout";
 import ItemDetails from "../../components/item-details";
-import Head from "../../components/head";
-import BasketTool from "../../components/basket-tool";
+import MainMenu from "../main-menu";
 
 const ItemPage = () => {
 
@@ -20,24 +19,18 @@ const ItemPage = () => {
   }, [id])
 
   const select = useSelector(state => ({
-    amount: state.basket.amount,
-    sum: state.basket.sum,
     product: state.product,
     locale: state.i18n.locale
   }));
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    // Открытие модалки корзины
-    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store])
   }
 
   return (
     <PageLayout>
-      <Head title={select.product.title} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-        sum={select.sum} />
+      <MainMenu title={select.product.title} />
       <ItemDetails
         item={select.product}
         onAdd={callbacks.addToBasket}

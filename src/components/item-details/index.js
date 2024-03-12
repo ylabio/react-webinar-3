@@ -19,4 +19,14 @@ const ItemDetails = ({ item, onAdd, locale }) => {
 	)
 }
 
+ItemDetails.propTypes = {
+	item: PropTypes.object,
+	onAdd: PropTypes.function,
+	locale: PropTypes.object
+};
+
+ItemDetails.defaultProps = {
+	onAdd: () => { },
+}
+
 export default memo(ItemDetails)
