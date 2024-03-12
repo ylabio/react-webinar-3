@@ -1,11 +1,55 @@
 import * as modules from './exports.js';
 
+export const ruLanguage = {
+  country: 'RU',
+  market: 'Магазин',
+  basket: 'Корзина',
+  add: 'Добавить',
+  delete: 'Удалить',
+  close: 'Закрыть',
+  total: 'Итого',
+  language: 'Язык',
+  move: 'Перейти',
+  inBasket: 'В корзине',
+  empty: 'пусто',
+  main: 'Главная',
+  product: 'товар',
+  pluralProduct: 'товара',
+  pluralProducts: 'товаров',
+  countryOfManufacture: 'Страна производитель',
+  category: 'Категория',
+  year: 'год',
+  price: 'Цена',
+}
+
+const enLanguage = {
+  country: 'EN',
+  market: 'Market',
+  basket: 'Basket',
+  add: 'Add',
+  delete: 'Delete',
+  close: 'Close',
+  total: 'Total',
+  language: 'Language',
+  move: 'Move',
+  inBasket: 'In basket',
+  empty: 'empty',
+  main: 'Main',
+  product: 'product',
+  pluralProduct: 'products',
+  pluralProducts: 'products',
+  countryOfManufacture: 'Country of manufacture',
+  category: 'Category',
+  year: 'year',
+  price: 'Price',
+}
+
 /**
  * Хранилище состояния приложения
  */
 class Store {
 
-  constructor(initState = {}) {
+  constructor(initState = { language: ruLanguage }) {
     this.listeners = []; // Слушатели изменений состояния
     this.state = initState;
     /** @type {{
@@ -58,6 +102,14 @@ class Store {
     this.state = newState;
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener(this.state);
+  }
+
+  changeLanguage() {
+    const newLanguage = this.getState().language.country === 'RU' ? 'EN' : 'RU';
+    this.setState({
+      ...this.getState(),
+      language: newLanguage === 'RU' ? ruLanguage : enLanguage
+    })
   }
 }
 
