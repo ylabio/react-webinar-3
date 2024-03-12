@@ -11,7 +11,6 @@ class Catalog extends StoreModule {
     return {
       list: [],
       count: 0,
-      language: 'ru',
     };
   }
 
@@ -32,15 +31,6 @@ class Catalog extends StoreModule {
         count: json.result.count,
       },
       'Загружены товары из АПИ',
-    );
-  }
-  setLanguage(language) {
-    this.setState(
-      {
-        ...this.getState(),
-        language: language,
-      },
-      'Изменение языка',
     );
   }
 }

@@ -50,7 +50,7 @@ function Main({ language = 'ru' }) {
 
   return (
     <PageLayout>
-      <Head title={langText.SHOP[language]} />
+      <Head title={langText.SHOP[language]} language={language} />
       <p>{}</p>
       <BasketTool
         language={language}

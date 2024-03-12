@@ -2,12 +2,10 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import useStore from '../../store/use-store';
-import useSelector from '../../store/use-selector';
 import { langText } from '../../constants/language';
 
-function Head({ title }) {
+function Head({ title, language="ru" }) {
   const store = useStore();
-  const language = useSelector(state => state.catalog.language);
 
   return (
     <div className="Head">
@@ -16,7 +14,7 @@ function Head({ title }) {
         <button
           disabled={language === 'ru'}
           onClick={() => {
-            store.actions.catalog.setLanguage('ru');
+            store.actions.translation.setLanguage('ru');
           }}
         >
           {langText.LANGUAGE[language][0]}
@@ -24,7 +22,7 @@ function Head({ title }) {
         <button
           disabled={language === 'en'}
           onClick={() => {
-            store.actions.catalog.setLanguage('en');
+            store.actions.translation.setLanguage('en');
           }}
         >
           En
@@ -36,6 +34,7 @@ function Head({ title }) {
 
 Head.propTypes = {
   title: PropTypes.node,
+  language: PropTypes.string
 };
 
 export default memo(Head);

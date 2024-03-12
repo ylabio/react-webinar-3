@@ -46,7 +46,7 @@ function ArticlesPage({ language = 'ru' }) {
 
   return (
     <PageLayout>
-      <Head title={articles.title} />
+      <Head title={articles.title} language={language}/>
       <p>{}</p>
       <BasketTool
         language={language}
