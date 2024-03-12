@@ -1,11 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import {memo, useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function Pagination({totalCount, limit, setSkip}) {
+function Pagination({totalCount, limit, currentPage, setCurrentPage}) {
   const cn = bem('Pagination');
   const pageNumbers = [];
+  const [arrOfCurrentPages, setArrOfCurrentPages] = useState([]); // Массив для вывода нужных страниц
 
   /**
    * Определяем количество страниц и добавляем в массив
@@ -14,9 +16,6 @@ function Pagination({totalCount, limit, setSkip}) {
     pageNumbers.push(i);
   }
 
-  const [currentPage, setCurrentPage] = useState(1); // Текущая страница
-  const [arrOfCurrentPages, setArrOfCurrentPages] = useState([]); // Массив для вывода нужных страниц
-
   /**
    * Загрузка выбранной страницы
    * @param {Number} page 
@@ -24,8 +23,6 @@ function Pagination({totalCount, limit, setSkip}) {
   function loadPage(page) {
     if (typeof page === 'number') {
       setCurrentPage(page);
-      page--;
-      setSkip(page * limit);
     }
   }
 
@@ -58,13 +55,14 @@ function Pagination({totalCount, limit, setSkip}) {
     <div className={cn()}>
       {arrOfCurrentPages.map((page, index) => {
         return (
-          <button 
+          <Link 
+            to={`?page=${page}`} 
             key={index} 
-            className={currentPage === page ? cn('btn-active') : cn('btn')} 
+            className={currentPage === page ? cn('link-active') : cn('link')} 
             onClick={() => loadPage(page)}
           >
             {page}
-          </button>
+          </Link>
         )
       })}
     </div>
@@ -74,11 +72,12 @@ function Pagination({totalCount, limit, setSkip}) {
 Pagination.propTypes = {
   totalCount: PropTypes.number,
   limit: PropTypes.number,
-  setSkip: PropTypes.func,
+  currentPage: PropTypes.number,
+  setCurrentPage: PropTypes.func,
 }
 
 Pagination.defaultProps = {
-  setSkip: () => {},
+  setCurrentPage: () => {}
 }
 
-export default React.memo(Pagination);
+export default memo(Pagination);

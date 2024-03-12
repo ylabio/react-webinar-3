@@ -9,10 +9,11 @@ import useSelector from "../../store/use-selector";
 
 function Basket() {
   const store = useStore();
-  const {data} = useContext(LanguagesContext);
+  const {langData} = useContext(LanguagesContext);
 
   const select = useSelector(state => ({
     list: state.basket.list,
+    isLoading: state.catalog.isLoading,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -26,14 +27,14 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} onClose={callbacks.closeModal} />
+      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} onClose={callbacks.closeModal} langData={langData} />
     }, [callbacks.removeFromBasket]),
   };
 
   return (
-    <ModalLayout title={data.basket.title} onClose={callbacks.closeModal}>
+    <ModalLayout title={langData.basket.title} onClose={callbacks.closeModal} langData={langData}>
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} langData={langData}/>
     </ModalLayout>
   );
 }

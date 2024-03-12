@@ -5,22 +5,22 @@
   padding: 22px;
 }
 
-.Pagination-btn, .Pagination-btn-active {
-  width: 22px;
+.Pagination-link, .Pagination-link-active {
+  width: 18px;
   height: 20px;
   padding: 0 2px;
-  border: none;
-  outline: none;
-  background: transparent;
+  text-decoration: none;
+  text-align: center;
   cursor: pointer;
   transition: .2s ease;
+  color: #000;
 }
 
-.Pagination-btn:hover {
+.Pagination-link:hover {
   background: #E1E1E1;
 }
 
-.Pagination-btn-active {
+.Pagination-link-active {
   background: #0087E9;
   color: #FFFFFF;
 }

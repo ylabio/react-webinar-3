@@ -4,15 +4,15 @@ import {traductions} from './data';
 export const LanguagesContext = createContext();
 
 export function LanguagesProvider({children}) {
-  const [lang, setLang] = useState('RU');
-  const [data, setData] = useState(traductions[lang]);
+  const [lang, setLang] = useState(localStorage.getItem('lang_param') || 'RU');
+  const [langData, setLangData] = useState(traductions[lang]);
     
   useEffect(() => {
-    setData(traductions[lang]);
+    setLangData(traductions[lang]);
   }, [lang])
     
   return (
-    <LanguagesContext.Provider value={{setLang, data}}>
+    <LanguagesContext.Provider value={{setLang, langData}}>
       {children}
     </LanguagesContext.Provider>
   )

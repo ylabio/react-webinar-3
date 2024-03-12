@@ -1,5 +1,4 @@
-import {memo, useContext} from 'react';
-import {LanguagesContext} from '../../lang/context';
+import {memo} from 'react';
 import {Link} from 'react-router-dom';
 import propTypes from 'prop-types';
 import {numberFormat} from "../../utils";
@@ -9,7 +8,6 @@ import './style.css';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
-  const {data} = useContext(LanguagesContext);
 
   const callbacks = {
     onRemove: () => props.onRemove(props.item._id),
@@ -19,13 +17,13 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       <div className={cn('title')} onClick={callbacks.onNavigate}>
-        <Link to={props.item._id} onClick={callbacks.onClose}>{props.item.title}</Link>
+        <Link to={`/product/${props.item._id}`} onClick={callbacks.onClose}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>{data.buttons.onRemoveTxt}</button>
+          <button onClick={callbacks.onRemove}>{props.langData.buttons.onRemoveTxt}</button>
         </div>
       </div>
     </div>
@@ -39,6 +37,7 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number
   }).isRequired,
+  langData: propTypes.object,
   onRemove: propTypes.func,
   onClose: propTypes.func,
 }

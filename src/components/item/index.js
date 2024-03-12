@@ -1,5 +1,4 @@
-import React, {useContext} from "react";
-import {LanguagesContext} from "../../lang/context";
+import React from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
@@ -8,20 +7,19 @@ import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
-  const {data} = useContext(LanguagesContext);
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(props.item._id)
+    onAdd: () => props.onAdd(props.item)
   }
 
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-        <Link to={props.item._id}>{props.item.title}</Link>
+        <Link to={`/product/${props.item._id}`}>{props.item.title}</Link>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>{data.buttons.onAddTxt}</button>
+        <button onClick={callbacks.onAdd}>{props.langData.buttons.onAddTxt}</button>
       </div>
     </div>
   );
@@ -33,6 +31,7 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
+  langData: PropTypes.object,
   onAdd: PropTypes.func,
 };
 

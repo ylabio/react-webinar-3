@@ -5,8 +5,9 @@ import './style.css';
 
 function Head({title}) {
   const languages = [{name: "RU"}, {name: "EN"}];
-  const [currentLang, setCurrentLang] = useState(languages[0].name);
+  const [currentLang, setCurrentLang] = useState(localStorage.getItem('lang_param') || languages[0].name);
   const {setLang} = useContext(LanguagesContext);
+  localStorage.setItem('lang_param', currentLang);
   
   useEffect(() => {
     setLang(currentLang);
