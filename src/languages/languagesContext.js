@@ -1,14 +1,14 @@
 import React, { useState, createContext } from 'react'
-import { languageOptions, dictionaryList } from '../languages'
+import { dictionaryList } from '.'
 
 export const LanguageContext = createContext({
   userLanguage: 'ru',
-  dictionary: dictionaryList.ru
+  dict: dictionaryList.ru
 })
 
 export function LanguageProvider({ children }) {
   const defaultLanguage = window.localStorage.getItem('currentLanguage')
-  const [userLanguage, setUserLanguage] = useState(defaultLanguage)
+  const [userLanguage, setUserLanguage] = useState(defaultLanguage|| 'ru')
 
   const provider = {
     userLanguage,
