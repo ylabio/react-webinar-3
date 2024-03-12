@@ -1,7 +1,7 @@
-import {memo, useState} from "react";
-import PropTypes from "prop-types";
+import {memo, useState} from 'react';
+import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
-import {numberFormat} from "../../utils";
+import {numberFormat} from '../../utils';
 import './style.css';
 import {Link, useNavigate} from 'react-router-dom';
 

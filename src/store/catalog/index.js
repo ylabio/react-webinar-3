@@ -13,12 +13,18 @@ class Catalog extends StoreModule {
       list: [],
       limit: 10,
       numbersPages: [],
-      page: 2,
+      page: 1,
       card: {},
+      loading: false
     }
   }
 
   async load() {
+
+    this.setState({
+      ...this.getState(),
+      loading: true,
+    })
 
     const limit = this.getState().limit;
     const skip = (this.getState().page - 1) * limit;
@@ -30,6 +36,7 @@ class Catalog extends StoreModule {
       ...this.getState(),
       list: json.result.items,
       numbersPages: numbersPages,
+      loading: false,
     }, 'Загружены товары из АПИ');
   }
 

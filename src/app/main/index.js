@@ -7,6 +7,7 @@ import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import ItemPagination from '../../components/item-pagination';
+import Loading from '../../components/loading';
 
 function Main() {
 
@@ -20,14 +21,14 @@ function Main() {
     list: state.catalog.list,
     numbersPages: state.catalog.numbersPages,
     page: state.catalog.page,
-    // multilingualism: state.catalog.multilingualism,
+    loading: state.catalog.loading,
+    amount: state.basket.amount,
+    sum: state.basket.sum,
     language: state.language.type,
     langTitle: state.language.head.title,
     langBasketTool: state.language.basketTool,
     langbuttonAdd: state.language.item.buttonAdd,
-    // langType: state.language.type,
-    amount: state.basket.amount,
-    sum: state.basket.sum
+    langText: state.language.loading.loading,
   }));
 
   const callbacks = {
@@ -61,10 +62,15 @@ function Main() {
       <Head title={select.langTitle[select.language]} changeLanguage={callbacks.changeLanguage}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum} multilingualText={select.langBasketTool} language={select.language}/>
-      <List list={select.list} renderItem={renders.item} 
-            textButtonAdd={select.langbuttonAdd[select.language]}/>
-      <List changeClass={'ListPagination'} list={select.numbersPages} 
-          page={select.page} renderItem={renders.ItemPagination}/>
+      {select.loading 
+      ? <Loading langText={select.langText[select.language]}/>
+      : <> 
+          <List list={select.list} renderItem={renders.item} 
+                  textButtonAdd={select.langbuttonAdd[select.language]}/>
+          <List changeClass={'ListPagination'} list={select.numbersPages} 
+            page={select.page} renderItem={renders.ItemPagination}/>
+        </>
+      }
     </PageLayout>
 
   );

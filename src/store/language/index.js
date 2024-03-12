@@ -35,6 +35,9 @@ class Language extends StoreModule {
         year: {ru: 'Год выпуска', en: 'Year of release'},
         price: {ru: 'Цена', en: 'Price'},
         buttonAdd: {ru: 'Добавить', en: 'Add'},
+      },
+      loading: {
+        loading: {ru: 'Загрузка', en: 'Loading'}
       }
     }
   }
