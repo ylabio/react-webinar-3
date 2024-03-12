@@ -3,6 +3,7 @@ import App from './app';
 import Store from "./store";
 import {StoreContext} from "./store/context";
 import {LanguageProvider} from './language-context';
+import { BrowserRouter } from 'react-router-dom';
 
 const store = new Store();
 
@@ -10,9 +11,11 @@ const root = createRoot(document.getElementById('root'));
 
 // Первый рендер приложения
 root.render(
-  <LanguageProvider>
-    <StoreContext.Provider value={store}>
-      <App/>
-    </StoreContext.Provider>
-  </LanguageProvider>
+  <BrowserRouter>
+    <LanguageProvider>
+      <StoreContext.Provider value={store}>
+        <App/>
+      </StoreContext.Provider>
+    </LanguageProvider>
+  </BrowserRouter>
 );

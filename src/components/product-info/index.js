@@ -18,7 +18,7 @@ function ProductInfo({ product, onAdd }) {
         {product.description}
       </div>
       <div className={cn('country')}>
-        {translate('Страна производитель')}: <span>{product.madeIn && product.madeIn.title}</span>
+        {translate('Страна производитель')}: <span>{product.madeIn && `${product.madeIn.title} (${product.madeIn.code})`}</span>
       </div>
       <div className={cn('category')}>
         {translate('Категория')}: <span>{product.category && product.category.title}</span>
@@ -39,6 +39,7 @@ ProductInfo.propTypes = {
     description: PropTypes.string.isRequired,
     madeIn: PropTypes.shape({
       title: PropTypes.string,
+      code: PropTypes.string,
     }),
     category: PropTypes.shape({
       title: PropTypes.string

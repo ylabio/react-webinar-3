@@ -10,26 +10,32 @@ class Catalog extends StoreModule {
 
   initState() {
     return {
-      list: []
+      list: [],
+      currentPage: 1,
+      totalPages: 1
     }
   }
 
-  async load(limit = 10, skip = 0) {
-    const response = await fetch(`api/v1/articles?limit=${limit}&skip=${skip}`);
+  async load(limit = 10) { 
+    const {currentPage} = this.getState();
+    const skip = (currentPage-1) * 10;
+    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id, title, price),count`);
     const json = await response.json();
+    const totalPages = Math.ceil(json.result.count / limit)
     this.setState({
       ...this.getState(),
-      list: json.result.items
+      list: json.result.items,
+      totalPages: totalPages
     }, 'Загружены товары из API');
   }
-
-  async getTotalPages(limit = 10) {
-    const response = await fetch('/api/v1/articles?limit=*&fields=items(_id)');
-    const json = await response.json();
-    const countItems = json.result.items.length; 
-    return Math.ceil(countItems / limit);
-  }
   
+  setCurrentPage(page) {
+    this.setState({
+      ...this.getState(),
+      currentPage: page
+    }, 'Изменена текущая страница');
+  }
+
 }
 
 export default Catalog;

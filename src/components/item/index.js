@@ -12,13 +12,12 @@ function Item(props) {
   const { translate } = useLanguage();
 
   const callbacks = {
-    
     onAdd: (e) => props.onAdd(props.item._id)
   }
 
   return (
     <div className={cn()}>
-      <Link to={`/product/${props.item._id}`} className={cn('title')}>
+      <Link to={props.productLink} className={cn('title')}>
         {/*<div className={cn('code')}>{props.item._id}</div>*/}
           {props.item.title}
       </Link>
@@ -37,6 +36,7 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  productLink: PropTypes.string
 };
 
 Item.defaultProps = {

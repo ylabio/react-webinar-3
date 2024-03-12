@@ -13,42 +13,31 @@ function Main() {
   const { translate } = useLanguage();
 
   const store = useStore();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const limit = 10;
-
-  useEffect(() => {
-    fetchCatalog();
-  }, [currentPage]);
-
-  const fetchCatalog = async () => {
-    try {
-      const skip = (currentPage - 1) * limit;
-      await store.actions.catalog.load(limit, skip);
-      const totalPages = await store.actions.catalog.getTotalPages(limit);
-      setTotalPages(totalPages);
-    } catch (error) {
-      console.error('Ошибка при загрузке каталога:', error);
-    }
-  };
 
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    currentPage: state.catalog.currentPage, 
+    totalPages: state.catalog.totalPages 
   }));
+
+  useEffect(() => {
+    store.actions.catalog.load(limit);
+  }, [select.currentPage]);
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    onPageChange: useCallback(page => setCurrentPage(page), []),
+    onPageChange: useCallback(page => store.actions.catalog.setCurrentPage(page), []),
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} productLink={`product/${item._id}`} />
     }, [callbacks.addToBasket]),
   };
 
@@ -58,7 +47,7 @@ function Main() {
       <Controls onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={callbacks.onPageChange} />
+      <Pagination currentPage={select.currentPage} totalPages={select.totalPages} onPageChange={callbacks.onPageChange} />
     </PageLayout>
 
   );
