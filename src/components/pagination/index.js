@@ -1,4 +1,4 @@
-import {memo, useState} from "react";
+import {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
@@ -22,6 +22,17 @@ function Pagination(props) {
       }
     </div>
   )
+}
+
+Pagination.propTypes = {
+  count: PropTypes.number,
+  limit: PropTypes.number,
+  current: PropTypes.number,
+  onSwitch: PropTypes.func,
+};
+
+Pagination.defaultProps = {
+  onSwitch: () => {},
 }
 
 export default memo(Pagination);

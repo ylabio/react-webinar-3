@@ -1,0 +1,19 @@
+.Item-description {
+  margin: 41px 40px;
+}
+
+.Item-description-description {
+  font-size: 18px;
+  font-weight: 400;
+  font-family: Arial, sans-serif;
+  color: #000000;
+}
+
+.Item-description-info {
+  font-weight: 700;
+}
+
+.Item-description-price {
+  font-size: 24px;
+  font-weight: 700;
+}

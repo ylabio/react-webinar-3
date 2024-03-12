@@ -21,6 +21,7 @@
 
 .Pagination-page-number:hover {
   background: #E1E1E1;
+  cursor: pointer;
 }
 
 .Pagination-page-number.current {

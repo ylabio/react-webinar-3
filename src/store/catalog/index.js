@@ -12,7 +12,8 @@ class Catalog extends StoreModule {
     return {
       list: [],
       count: 0,
-      current: 4
+      current: 1,
+      itemInfo: {}
     }
   }
 
@@ -28,7 +29,6 @@ class Catalog extends StoreModule {
   async loadPage(pageNumber) {
     const response = await fetch(`api/v1/articles?limit=10&skip=${pageNumber}`);
     const json = await response.json();
-    console.log(pageNumber, json);
     this.setState({
       ...this.getState(),
       list: json.result.items,
@@ -42,6 +42,15 @@ class Catalog extends StoreModule {
     this.setState({
       ...this.getState(),
       count: json.result.count,
+    })
+  }
+
+  async loadItem(id) {
+    const response = await fetch(`api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      itemInfo: json.result
     })
   }
 
