@@ -1,0 +1,15 @@
+.MainMenu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 19px;
+}
+
+.MainMenu a {
+    color: #0087e9;
+}
+
+.MainMenu a:visited {
+    color: #0087e9;
+}

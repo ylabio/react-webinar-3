@@ -1,17 +1,20 @@
 import {memo, useCallback, useEffect} from 'react';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import { useParams } from "react-router-dom";
+import MainMenu from '../../components/main-menu';
+import { useParams, Link } from "react-router-dom";
 import PageLayout from '../../components/page-layout';
 import BasketTool from '../../components/basket-tool';
 import ItemDetail from '../../components/item-detail';
 import Head from '../../components/head';
+import { useLanguage } from "../../store/language-context";
 
 
 function ItemFull() {
     
     const store = useStore();
     const params = useParams();
+    const {Language, translations} = useLanguage();
 
     useEffect(() => {
       store.actions.card.loadCard(params.id);
@@ -32,8 +35,13 @@ function ItemFull() {
     return (
         <PageLayout>
             <Head title={select.card.title} />
-            <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+            <MainMenu>
+                <Link to="/">{translations['mainPage']}</Link>
+                <BasketTool 
+                    onOpen={callbacks.openModalBasket} 
+                    amount={select.amount}
+                    sum={select.sum}/>
+            </MainMenu>
             <ItemDetail card = {select.card} onAddBasket={callbacks.addToBasket} />
         </PageLayout>
     );

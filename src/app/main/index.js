@@ -1,8 +1,10 @@
-import {memo, useCallback, useEffect, useContext} from 'react';
+import { memo, useCallback, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
+import MainMenu from '../../components/main-menu';
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
 import useStore from "../../store/use-store";
@@ -13,7 +15,6 @@ function Main() {
 
   const store = useStore();
   const {Language, translations} = useLanguage();
-  // const localeData = useContext(LanguageContext);
 
   useEffect(() => {
     store.actions.catalog.load(1);
@@ -45,8 +46,13 @@ function Main() {
   return (
     <PageLayout>
       <Head title={translations['store']}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+      <MainMenu>
+        <Link to="/">{translations['mainPage']}</Link>
+        <BasketTool 
+          onOpen={callbacks.openModalBasket} 
+          amount={select.amount}
+          sum={select.sum}/>
+      </MainMenu>
       <List list={select.list} renderItem={renders.item}/>
 
       <Pagination 
