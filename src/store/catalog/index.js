@@ -42,6 +42,11 @@ class Catalog extends StoreModule {
 
   async loadById (id) {
 
+    this.setState({
+      ...this.getState(),
+      loading: true,
+    })
+
     const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
    
     const json = await response.json();
@@ -49,6 +54,7 @@ class Catalog extends StoreModule {
     this.setState({
       ...this.getState(),
       card: json.result,
+      loading: false,
     }, 'Загружен товар из АПИ');
   }
 
