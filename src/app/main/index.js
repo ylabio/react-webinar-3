@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useCallback, useEffect, useMemo} from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -23,8 +23,10 @@ function Main() {
     sum: state.basket.sum,
     page: state.catalog.page,
     count: state.catalog.count,
-    variablesLanguage: state.lingua.variablesLanguage,
+    vLang: state.lingua.vLang,
   }));
+
+  useMemo(() => select,[select]);
 
   const callbacks = {
     // Добавление в корзину
@@ -46,7 +48,8 @@ function Main() {
     item: useCallback((item) => {
       return <Item item={item}
                    onAdd={callbacks.addToBasket}
-                   buttonAddProduct={select.variablesLanguage.buttonAddProduct}/>
+                   buttonAddProduct={select.vLang.variablesLanguage.buttonAddProduct}
+                   path={'/product/'}/>
     }, [callbacks.addToBasket,select]),
   };
 
@@ -55,33 +58,35 @@ const activeModal = useSelector((state) => {return(state.modals.name)});
   return (
     <>
     {(store.actions.lingua.getState().Language == 'null' ? store.actions.lingua.setVariable('ru-RU') : '')}
+    {select.vLang != null &&
     <main>
     <PageLayout>
-      <Head title={select.variablesLanguage.Page1.title}
+      <Head title={select.vLang.variablesLanguage.Page1.title}
             selectLanguage={true}
             onRu={callbacks.onRu}
             onEn={callbacks.onEn}
             onDe={callbacks.onDe}
             onCn={callbacks.onCn}
-            label={select.variablesLanguage.Page1.selectLanguage.label}
-            bauttonRu={select.variablesLanguage.Page1.selectLanguage.bauttonRu}
-            bauttonEn={select.variablesLanguage.Page1.selectLanguage.bauttonEn}
-            bauttonDe={select.variablesLanguage.Page1.selectLanguage.bauttonDe}
-            bauttonCn={select.variablesLanguage.Page1.selectLanguage.bauttonCn} />
+            label={select.vLang.variablesLanguage.Page1.selectLanguage.label}
+            bauttonRu={select.vLang.variablesLanguage.Page1.selectLanguage.bauttonRu}
+            bauttonEn={select.vLang.variablesLanguage.Page1.selectLanguage.bauttonEn}
+            bauttonDe={select.vLang.variablesLanguage.Page1.selectLanguage.bauttonDe}
+            bauttonCn={select.vLang.variablesLanguage.Page1.selectLanguage.bauttonCn} />
       <BasketTool onOpen={callbacks.openModalBasket}
                   amount={select.amount}
                   sum={select.sum}
-                  main={select.variablesLanguage.BasketTool.main}
-                  label={select.variablesLanguage.BasketTool.label}
-                  buttonBasket={select.variablesLanguage.BasketTool.buttonBasket}
-                  one={select.variablesLanguage.BasketTool.product.one}
-                  few={select.variablesLanguage.BasketTool.product.few}
-                  many={select.variablesLanguage.BasketTool.product.many}
-                  empty={select.variablesLanguage.BasketTool.empty} />
+                  main={select.vLang.variablesLanguage.BasketTool.main}
+                  label={select.vLang.variablesLanguage.BasketTool.label}
+                  buttonBasket={select.vLang.variablesLanguage.BasketTool.buttonBasket}
+                  one={select.vLang.variablesLanguage.BasketTool.product.one}
+                  few={select.vLang.variablesLanguage.BasketTool.product.few}
+                  many={select.vLang.variablesLanguage.BasketTool.product.many}
+                  empty={select.vLang.variablesLanguage.BasketTool.empty} />
       <List list={select.list} renderItem={renders.item}/>
       <ToolPages page={select.page+1} count={select.count+1} openPageToCatalog={callbacks.openPageToCatalog}/>
     </PageLayout>
     </main>
+    }
       {activeModal === 'basket' && <Basket/>}
     </>
   );

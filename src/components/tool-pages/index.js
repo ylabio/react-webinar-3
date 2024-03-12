@@ -6,9 +6,9 @@ import './style.css';
 function ToolPages({page,count,openPageToCatalog}) {
   const cn = bem('ToolPages');
 
-  const elementCell = (num) => <span className={cn('cell')} onClick={() => openPageToCatalog(num-1)}>{num}</span>
-  const elementCellCurrent = (num) => <span className={cn('cell-current')}>{num}</span>
-  const elementCellThreeВots = <span className={cn('cell')}>...</span>
+  const elementCell = (num) => <span key={num-1} className={cn('cell')} onClick={() => openPageToCatalog(num-1)}>{num}</span>
+  const elementCellCurrent = (num) => <span key={num-1} className={cn('cell-current')}>{num}</span>
+  const elementCellThreeВots = (num) => <span key={num-1} className={cn('cell')}>...</span>
   const elementCellOne = <span className={cn('cell-one')}>1</span>
 
   const fToolPages = () => {
@@ -19,7 +19,7 @@ function ToolPages({page,count,openPageToCatalog}) {
     if (page >= 1 && countPage > 1) {
         for (let vvi = 1; vvi <= countPage; vvi++) {
             if (page == vvi) {
-                if ((vvi == countPage || vvi == countPage-1) && vvi-2 >= 1) {
+                if (vvi == countPage && vvi-2 >= 1) {
                     MassElements.push(elementCell(vvi-2));
                 }
                 if (vvi-1 >= 1) {
@@ -37,11 +37,11 @@ function ToolPages({page,count,openPageToCatalog}) {
                 if (vvi == 1 && page >= 3)
                 {
                     MassElements.push(elementCell(vvi));
-                    if (page > 3) MassElements.push(elementCellThreeВots);
+                    if (page > 3) MassElements.push(elementCellThreeВots(vvi+1));
                 }
                 if (vvi == countPage && page <= countPage-2)
                 {
-                    if (page < countPage-2) MassElements.push(elementCellThreeВots);
+                    if (page < countPage-2) MassElements.push(elementCellThreeВots(vvi-1));
                     MassElements.push(elementCell(vvi));
                 }
             }

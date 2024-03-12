@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useEffect} from 'react';
+import React, {memo, useCallback, useMemo, useEffect} from 'react';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import PageLayout from "../../components/page-layout";
@@ -13,36 +13,21 @@ function Product() {
 
   const store = useStore();
 
-  const fLoadProduct = (item) => {
-    item.then((result) => 
-    {
-      store.actions.basket.loadProduct(
-      result.result._id,
-      result.result.title,
-      result.result.description,
-      result.result.madeIn.title + ' (' + result.result.madeIn.code + ')',
-      result.result.category.title,
-      result.result.edition,
-      result.result.price
-      )
-      //store.actions.basket.setIdProduct(result.result._id);
-    }
-    )
-  }
-
-  useEffect(() => {
-    fLoadProduct(data.jsonItem);
-  }, [data]);
-
   const select = useSelector((state) => ({
     product: state.basket.product,
+    _id: state.basket.product._id,
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    variablesLanguage: state.lingua.variablesLanguage,
+    vLang: state.lingua.vLang,
   }));
 
-  
+  //useMemo(() => select,[select]);
+
+  useEffect (() => {
+      if (select.product._id != data._id)
+        store.actions.basket.loadProductToAsyncById(data._id);
+  },[store,data,select]);
 
   const callbacks = {
     // Добавление в корзину
@@ -52,6 +37,9 @@ function Product() {
       document.body.style.overflow = "hidden";
       store.actions.modals.open('basket');
     }, [store]),
+    refreshDataProduct: useCallback((_id) => {
+      //store.actions.basket.loadProductToAsyncById(_id);
+    }, [store,data]),
   }
 
   const activeModal = useSelector((state) => {return(state.modals.name)});
@@ -59,39 +47,30 @@ function Product() {
   return (
     <>
     {(store.actions.lingua.getState().Language == 'null' ? store.actions.lingua.setVariable('ru-RU') : '')}
+    {select.vLang != null && select.product._id != '0' &&
     <main>
     <PageLayout>
-      <React.Suspense
-        fallback={<p>Loading...</p>}
-      >
-        <Await
-          resolve={data.jsonItem}
-          errorElement={
-            <p>Error loading!</p>
-          }
-        >
           <ProductProperties product={select.product}
                              onOpen={callbacks.openModalBasket}
                              amount={select.amount}
                              sum={select.sum}
-                             main={select.variablesLanguage.BasketTool.main}
-                             label={select.variablesLanguage.BasketTool.label}
-                             buttonBasket={select.variablesLanguage.BasketTool.buttonBasket}
-                             one={select.variablesLanguage.BasketTool.product.one}
-                             few={select.variablesLanguage.BasketTool.product.few}
-                             many={select.variablesLanguage.BasketTool.product.many}
-                             empty={select.variablesLanguage.BasketTool.empty}
+                             main={select.vLang.variablesLanguage.BasketTool.main}
+                             label={select.vLang.variablesLanguage.BasketTool.label}
+                             buttonBasket={select.vLang.variablesLanguage.BasketTool.buttonBasket}
+                             one={select.vLang.variablesLanguage.BasketTool.product.one}
+                             few={select.vLang.variablesLanguage.BasketTool.product.few}
+                             many={select.vLang.variablesLanguage.BasketTool.product.many}
+                             empty={select.vLang.variablesLanguage.BasketTool.empty}
                              addToBasket={callbacks.addToBasket}
-                             madeIn={select.variablesLanguage.Page2.madeIn}
-                             category={select.variablesLanguage.Page2.category}
-                             edition={select.variablesLanguage.Page2.edition}
-                             price={select.variablesLanguage.Page2.price}
-                             buttonAddProduct={select.variablesLanguage.buttonAddProduct}/>
-        </Await>
-      </React.Suspense>
+                             madeIn={select.vLang.variablesLanguage.Page2.madeIn}
+                             category={select.vLang.variablesLanguage.Page2.category}
+                             edition={select.vLang.variablesLanguage.Page2.edition}
+                             price={select.vLang.variablesLanguage.Page2.price}
+                             buttonAddProduct={select.vLang.variablesLanguage.buttonAddProduct}/>
     </PageLayout>
     </main>
-    {(activeModal === 'basket' && <Basket/>)}
+    }
+    {(activeModal === 'basket' && <Basket refreshDataProduct={callbacks.refreshDataProduct}/>)}
     </>
   );
 }
@@ -99,12 +78,5 @@ function Product() {
 export default memo(Product);
 
 export const ProductLoader = async ({params}) => {
-  const item = loadProductToAsyncById(params._id);
-  return defer({ jsonItem: item });
+  return defer({ _id: params._id });
 };
-
-export async function loadProductToAsyncById(_id) {
-  const vRequest = `/api/v1/articles/${_id}?fields=_id,title,description,edition,price,madeIn(title,code),category(title)`;
-  const response = await fetch(vRequest);
-  return response.json();
-}

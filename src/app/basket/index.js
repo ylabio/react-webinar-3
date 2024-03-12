@@ -6,8 +6,9 @@ import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import "./style.css";
+import PropTypes from 'prop-types';
 
-function Basket() {
+function Basket(props) {
 
   const store = useStore();
 
@@ -22,7 +23,7 @@ function Basket() {
     vFlag3: state.modals.vFlag3,
     scrollHeight: state.modals.scrollHeight,
     heightListToList: state.modals.heightListToList,
-    variablesLanguage: state.lingua.variablesLanguage,
+    vLang: state.lingua.vLang,
   }));
 
   const callbacks = {
@@ -40,9 +41,11 @@ function Basket() {
       return <ItemBasket item={item}
                          onRemove={callbacks.removeFromBasket}
                          onClose={callbacks.closeModal}
-                         buttonDeleteProduct={select.variablesLanguage.buttonDeleteProduct}
-                         ItemQ={select.variablesLanguage.Basket.ItemQ}/>
-    }, [callbacks.removeFromBasket,callbacks.closeModal,select]),
+                         buttonDeleteProduct={select.vLang.variablesLanguage.buttonDeleteProduct}
+                         ItemQ={select.vLang.variablesLanguage.Basket.ItemQ}
+                         refreshDataProduct={props.refreshDataProduct}
+                         path={'/product/'}/>
+    }, [callbacks.removeFromBasket,callbacks.closeModal,select,props.refreshDataProduct]),
   };
 
   const refList = useRef(null);
@@ -72,9 +75,9 @@ function Basket() {
   }, [store]);
 
   return (
-    <ModalLayout title={select.variablesLanguage.Basket.title}
+    <ModalLayout title={select.vLang.variablesLanguage.Basket.title}
                  onClose={callbacks.closeModal}
-                 buttonClose={select.variablesLanguage.Basket.buttonClose}>
+                 buttonClose={select.vLang.variablesLanguage.Basket.buttonClose}>
         <div ref={refList}>
         <div ref={refScroll}
              style={(store.actions.modals.fScrollBarBasket(select.vFlag2) &&
@@ -87,9 +90,17 @@ function Basket() {
       </div>
       </div>
       <BasketTotal sum={select.sum}
-                   label={select.variablesLanguage.Total.label}/>
+                   label={select.vLang.variablesLanguage.Total.label}/>
     </ModalLayout>
   );
+}
+
+Basket.propTypes = {
+  refreshDataProduct: PropTypes.func,
+};
+
+Basket.defaultProps = {
+  refreshDataProduct: () => {},
 }
 
 export default memo(Basket);

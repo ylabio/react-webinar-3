@@ -19,6 +19,20 @@ class Basket extends StoreModule {
     }
   }
 
+  async loadProductToAsyncById(_id) {
+    if (_id == '0' || _id == 0) return;
+    const vRequest = `/api/v1/articles/${_id}?fields=_id,title,description,edition,price,madeIn(title,code),category(title)`;
+    const response = await fetch(vRequest);
+    const json = await response.json();
+    this.loadProduct(json.result._id,
+                     json.result.title,
+                     json.result.description,
+                     json.result.madeIn.title + ' (' + json.result.madeIn.code + ')',
+                     json.result.category.title,
+                     json.result.edition,
+                     json.result.price);
+  }
+
   loadProduct(_id,title,description,madeIn,category,edition,price) {
     let product = this.getState().product;
     product._id = _id;
@@ -26,7 +40,7 @@ class Basket extends StoreModule {
     product.description = description;
     product.madeIn = madeIn;
     product.category = category;
-    product.edition = edition;
+    product.edition = edition.toString();
     product.price = price;
     this.setState({
       ...this.getState(),

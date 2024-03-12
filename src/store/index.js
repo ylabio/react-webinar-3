@@ -28,6 +28,8 @@ class Store {
    */
   subscribe(listener) {
     this.listeners.push(listener);
+    //console.log('this.listeners.length');
+    //console.log(this.listeners.length);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);

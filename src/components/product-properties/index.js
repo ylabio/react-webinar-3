@@ -1,4 +1,4 @@
-//import {memo} from "react";
+import {memo} from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 import {numberFormat} from "../../utils";
@@ -82,4 +82,4 @@ ProductProperties.defaultProps = {
   addToBasket: () => {},
 }
 
-export default ProductProperties;
+export default ProductProperties;//memo(ProductProperties);

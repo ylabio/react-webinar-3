@@ -27,7 +27,6 @@ class Catalog extends StoreModule {
   }
 
   setPage(page) {
-    console.log(page);
     this.setState({
       ...this.getState(),
       page: page

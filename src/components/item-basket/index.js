@@ -13,14 +13,17 @@ function ItemBasket(props) {
 
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id),
-    onClose: (e) => props.onClose(),
+    onProduct: (e) => {
+      props.refreshDataProduct(props.item._id);
+      props.onClose();
+    },
   };
 
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <Link className={cn('link')} onClick={callbacks.onClose} to={`/product/${props.item._id}`}>{props.item.title}</Link>
+        <Link className={cn('link')} onClick={callbacks.onProduct} to={`${props.path}${props.item._id}`}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
@@ -44,11 +47,15 @@ ItemBasket.propTypes = {
   onClose: propTypes.func,
   buttonDeleteProduct: PropTypes.string,
   ItemQ: PropTypes.string,
+  refreshDataProduct: propTypes.func,
+  path: PropTypes.string,
 }
 
 ItemBasket.defaultProps = {
+  path: '/product/',
   onRemove: () => {},
   onClose: () => {},
+  refreshDataProduct: () => {},
 }
 
 export default memo(ItemBasket);

@@ -1,6 +1,7 @@
 import {memo} from "react";
 import PropTypes from "prop-types";
 import './style.css';
+import SelectLang from '../select-lang'
 
 function Head(props) {
   return (
@@ -9,33 +10,15 @@ function Head(props) {
         <h1>{props.title}</h1>
       </div>
       {(props.selectLanguage ?
-      <div className='SelectLanguage'>
-        <div className='SelectLanguage-label'>
-          {props.label}:
-        </div>
-        <div className='SelectLanguage-buttons'>
-          <div className='SelectLanguage-button'>
-          <button className='Button-SelectLanguage' onClick={props.onRu}>
-            {props.bauttonRu}
-          </button>
-          </div>
-          <div className='SelectLanguage-button'>
-          <button className='Button-SelectLanguage' onClick={props.onEn}>
-            {props.bauttonEn}
-          </button>
-          </div>
-          <div className='SelectLanguage-button'>
-          <button className='Button-SelectLanguage' onClick={props.onDe}>
-            {props.bauttonDe}
-          </button>
-          </div>
-          <div className='SelectLanguage-button'>
-          <button className='Button-SelectLanguage' onClick={props.onCn}>
-            {props.bauttonCn}
-          </button>
-          </div>
-        </div>
-      </div>
+        <SelectLang onRu={props.onRu}
+                    onEn={props.onEn}
+                    onDe={props.onDe}
+                    onCn={props.onCn}
+                    label={props.label}
+                    bauttonRu={props.bauttonRu}
+                    bauttonEn={props.bauttonEn}
+                    bauttonDe={props.bauttonDe}
+                    bauttonCn={props.bauttonCn}/>
       : '')}
     </div>
   )

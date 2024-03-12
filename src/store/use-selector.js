@@ -1,5 +1,5 @@
 import useStore from "./use-store";
-import {useEffect, useLayoutEffect, useMemo, useState} from "react";
+import {useLayoutEffect, useMemo, useState} from "react";
 import shallowequal from 'shallowequal';
 
 /**
@@ -17,7 +17,6 @@ export default function useSelector(selector) {
     // Подписка. Возврат функции для отписки
     return store.subscribe(() => {
       const newState = selector(store.getState());//новая переменная с новым состоянием store
-      //setState(newState);
       setState((prevState) => shallowequal(prevState, newState) ? prevState : newState);//Изменяем переменную state которая есть функция
               //данная запись имеет двойную функцию(матрёшку)
                             //сравнием две переменные на эдентичность, если эдентичны, то возвразаем
@@ -29,21 +28,6 @@ export default function useSelector(selector) {
 
   // Отписка от store при демонтировании компонента
   useLayoutEffect(() => unsubscribe, [unsubscribe]);//заносим функцию отписки слушателя при изменения расположения слоя
-  useEffect(() => {
-    function handleWindowClick2() {
-      if (store.actions.modals.getState().name !='basket')
-      {
-        const newState = selector(store.getState());
-        setState(newState);
-      }
-    }
-
-    window.addEventListener('click', handleWindowClick2);
-
-    return () => {
-      window.removeEventListener('click', handleWindowClick2);
-    };
-  }, [store]);
 
   return state;//useSelector отдаёт переменную state
 }
