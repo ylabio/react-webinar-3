@@ -1,11 +1,10 @@
-import React, {useCallback, useEffect} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
 import Description from '../../components/order-description';
-import Item from '../../components/item';
 import {useParams} from 'react-router-dom';
 
 
@@ -20,44 +19,34 @@ function AboutOrder() {
     year: state.order.year,
     price: state.order.price,
     title: state.order.title,
+    list: state.catalog.list,
+    amount: state.basket.amount,
+    sum: state.basket.sum,
+    lang: state.translation.lang,
   }));
 
-
   const { id } = useParams();
-  console.log(select.madeIn)
 
   useEffect(() => {
     store.actions.order.loadOrderInfo(id);
-  }, [store]);
+  }, [id]);
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(() => store.actions.basket.addToBasket(id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    // loadOrderInfo: useCallback(() => store.actions.order.loadOrderInfo(id), [store])
-
+    switchLang: useCallback(() => store.actions.translation.switchLang(), [select.lang]),
   }
-
-  
-
-  // const callbacks = {
-  //   item: useCallback((item) => {
-  //     return <Item item={item} onAdd={callbacks.addToBasket}/>
-  //   }, [callbacks.addToBasket]),
-  // }
-
-  // const renders = {
-  //   itemBasket: useCallback((item) => {
-  //     return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
-  //   }, [callbacks.removeFromBasket]),
-  // };
-
+console.log(callbacks.switchLang, 'ABOUT')
+  const [currentPage, setCurrentPage] = useState(1);
+  // Изменить страницу
+  const paginate = pageNumber => setTimeout(() => {setCurrentPage(pageNumber)}, 500)
 
   return (
       <PageLayout>
-      <Head title={select.title}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <Head title={select.title} switchLang={callbacks.switchLang} lang={select.lang}/>
+      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} paginate={paginate}/>
       <Description addToBasket={callbacks.addToBasket}
                     madeIn={select.madeIn}
                     category={select.category}
@@ -66,6 +55,7 @@ function AboutOrder() {
                     year={select.year}
                     price={select.price}
                     id = {id}
+                    lang={select.lang}
       />
     </PageLayout>
  

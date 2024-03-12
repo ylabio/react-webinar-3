@@ -1,4 +1,3 @@
-import {codeGenerator} from "../../utils";
 import StoreModule from "../module";
 
 class Catalog extends StoreModule {
@@ -35,7 +34,7 @@ class Catalog extends StoreModule {
       price: json.result.price,
       title: json.result.title
     }, 'Загружена инфа о товаре из АПИ');
-    console.log(json.result)
+    // console.log(json.result)
 
   }
 

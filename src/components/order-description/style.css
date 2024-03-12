@@ -13,3 +13,27 @@ body {
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
 }
+
+.Description {
+  margin-top: 20px;
+  margin-left: 40px;
+}
+
+.Description-text,
+.Description-country,
+.Description-category,
+.Description-year,
+.Description-price {
+  margin-bottom: 20px;
+}
+
+.Description-category-value,
+.Description-country-value,
+.Description-year-value,
+.Description-price {
+  font-weight: bold;
+}
+
+.Description-price {
+  font-size: 24px;
+}

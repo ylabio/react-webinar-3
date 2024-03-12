@@ -7,27 +7,19 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-  BrowserRouter,
-  Routes
-} from "react-router-dom";
-import AboutOrder from '../about-order';
 
 function Main() {
-
+  const store = useStore();
+  
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
     countItems: state.catalog.countItems,
     isLoading: state.catalog.isLoading,
+    lang: state.translation.lang,
   }));
 
-  const store = useStore();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
  
@@ -47,33 +39,39 @@ function Main() {
  
   useEffect(() => {
     store.actions.catalog.loadCountItems(itemsPerPage, currentPage);
-  }, [store]);  //?
+  }, [store]);
 
-  // useEffect(() => {
-  //   store.actions.catalog.openOrderInfo(id);
-  // }, [store]);
+
+  // useMemo(() => {
+  //   store.actions.catalog.translation.switchLang();
+  // }, [select.lang]);
+
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    switchLang: useCallback(() => store.actions.translation.switchLang(), [select.lang]),
+    
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
+      return <Item item={item} lang={select.lang} onAdd={callbacks.addToBasket} />
+    }, [callbacks.addToBasket, select.lang]),
   };
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
+      <Head title='Магазин' switchLang={callbacks.switchLang}
+      lang={select.lang} />
       <BasketTool onOpen={callbacks.openModalBasket} 
                   amount={select.amount} 
                   sum={select.sum}
-                  paginate={paginate}/>
-      <List list={select.list} renderItem={renders.item}/>
+                  paginate={paginate}
+                  lang={select.lang}/>
+      <List list={select.list} renderItem={renders.item} lang={select.lang} />
       <Pagination
          indexOfLastItem={indexOfLastItem}
          itemsPerPage={itemsPerPage}
@@ -81,7 +79,6 @@ function Main() {
          paginate={paginate}
          currentPage={currentPage}
          isLoading={select.isLoading}/>
-
     </PageLayout>
     
   );

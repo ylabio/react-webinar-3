@@ -1,37 +1,31 @@
-import {memo, useEffect, useContext} from "react";
+import {memo} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
-import {Link, useNavigate, useLocation, useHref} from "react-router-dom";
+import {Link} from "react-router-dom";
+import { content } from "../../store/translation/content";
 
 
-function BasketTool({sum, amount, onOpen, paginate}) {
+function BasketTool({sum, amount, onOpen, lang, paginate}) {
   const cn = bem('BasketTool');
-const navigate = useNavigate();
 
-// const goHome = () => {
-//   navigate('/');
-// };
-
-  // const { resetPage } = useContext(PaginationContext);
   return (
     <div className={cn()}>
-      <Link to={"/"} className={cn('home')} onClick={() => navigate('/')}>Главная</Link>
+      <Link to={"/"} className={cn('home')} onClick={() => { paginate(1)}} lang-key='main'>{content[lang].main}</Link>
       {/* <a href='/' className={cn('home')}>Главная</a> */}
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('label')} lang-key='inBasket'>{content[lang].inBasket}</span>
       <span className={cn('total')}>
         {amount
           ? `${amount} ${plural(amount, {
-            one: 'товар',
-            few: 'товара',
-            many: 'товаров'
+            one: `${content[lang].order}`,
+            few: `${content[lang].fewOrders}`,
+            many: `${content[lang].orders}`
           })} / ${numberFormat(sum)} ₽`
-          : `пусто`
+          : `${content[lang].empty}`
         }
       </span>
-      <button onClick={onOpen}>Перейти</button>
-      {/* <Link to={"*"} className={cn('home')}>Перейти</Link> */}
+      <button onClick={onOpen} lang-key='goTo'>{content[lang].goTo}</button>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import {memo, useEffect, useRef} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
-import {Outlet} from "react-router-dom";
+import { content } from "../../store/translation/content";
 
 function ModalLayout(props) {
 
@@ -32,8 +32,8 @@ function ModalLayout(props) {
     <div className={cn()} ref={layout}>
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
-          <h1 className={cn('title')}>{props.title}</h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <h1 className={cn('title')} lang-key='basket'>{props.title === 'Корзина' ? content[props.lang].basket : props.title}</h1>
+          <button className={cn('close')} onClick={props.onClose} lang-key='close'>{content[props.lang].close}</button>
         </div>
         <div className={cn('content')}>
           {props.children} 

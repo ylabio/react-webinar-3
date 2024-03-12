@@ -1,15 +1,18 @@
 import {memo} from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
 import './style.css';
 
 function List(props) {
+
   return (
-    <div className='List'>{
+    <div className='List' lang={props.lang}>{
       props.list.map(item =>
+        <>
         <div key={item._id} className='List-item'>
-          {props.renderItem(item)}
+          {props.renderItem(item)} 
         </div>
+        
+        </>
       )}
     </div>
   )

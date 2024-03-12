@@ -13,17 +13,18 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
-      isLoading: true // для блокировки кнопок пагинации во время запроса сервера
+      isLoading: true, // для блокировки кнопок пагинации во время запроса сервера
+      lang: 'ru',
     }
   }
 
   async load(limit, skip) {
     this.setState({
         ...this.getState(),
-        list: [],
+        // list: [],
         isLoading: true
       })
-      
+    this.switchLang()
     const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}`);
     const json = await response.json();
     
@@ -46,18 +47,11 @@ class Catalog extends StoreModule {
     }, 'Загружено количество товаров из АПИ');
   }
 
-
-  // async openOrderInfo(id) {
-  //   const response = await fetch(`http://example.front.ylab.io/api/v1/articles/${id}`);
-  //   const json = await response.json();
-  //   console.log(json.result.count)
-  //   this.setState({
-  //     ...this.getState(),
-  //     countItems: json.result.count
-  //   }, 'Загружено количество товаров из АПИ');
-  // }
-  //  item = this.store.getState().catalog.list.find(item => item._id === _id);
-
+  switchLang() {
+    this.setState({
+        ...this.getState(),
+        lang: this.getState().lang === 'ru' ? 'en' : 'ru',
+      })} 
 }
 
 export default Catalog;
