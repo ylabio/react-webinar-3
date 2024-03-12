@@ -14,7 +14,7 @@ function Card() {
 
   useEffect(() => {
     store.actions.card.dataCard({ setItem, id });
-  }, []);
+  }, [id]);
 
   const select = useSelector((state) => ({
     list: state.card.list,
