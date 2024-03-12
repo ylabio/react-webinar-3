@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
-import { Link} from "react-router-dom";
 import { langButton, langText, pluralOptions } from "../../constants/language";
+import BreadCrumbs from "../bread-crumbs";
 
 function BasketTool(props) {
 const {sum, amount, onOpen, path, language='ru'} = props
@@ -12,10 +12,9 @@ const {sum, amount, onOpen, path, language='ru'} = props
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <Link
-        to={path}
-        className={cn('link')}>{langText.MAIN[language]}
-      </Link>
+      <BreadCrumbs  path={path}>
+      {langText.MAIN[language]}
+      </BreadCrumbs>
       <span className={cn('label')}>{langText.SHOPPING_CART[language][1]}:</span>
       <span className={cn('total')}>
         {amount
