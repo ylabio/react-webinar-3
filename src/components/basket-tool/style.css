@@ -12,11 +12,6 @@
   align-items: center;
 }
 
-.BasketTool-link {     
-  color: #0087e9;
-  font-weight: 400;
-}
-
 .BasketTool-total {
   font-weight: bold;
   margin: 0 20px;
