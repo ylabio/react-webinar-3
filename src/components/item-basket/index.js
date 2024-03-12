@@ -16,7 +16,7 @@ function ItemBasket(props) {
 
   return (
     <div className={cn()}>
-      <Link to={props.toPath} relative="/"  className={cn('title')}>
+      <Link to={props.toPath} relative="/" className={cn('title')}>
         {props.item.title}
       </Link>
       <div className={cn('right')}>

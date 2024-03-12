@@ -7,12 +7,14 @@ import ArticlePage from '../../components/article-page';
 import PreloadWrapper from '../../components/preload-wrapper';
 import { localeContext } from '../../store/locale-context';
 import { useLocale } from '../../store/use-locale';
+import { useLocation } from 'react-router-dom';
 
 function Article() {
 
   const store = useStore();
+  const location = useLocation()
   const article_id = new URLSearchParams(location.search).get('id')
-  const {locale, changeLocale} = useContext(localeContext)
+  const {changeLocale} = useContext(localeContext)
   const localeDict = useLocale()
   const select = useSelector(state => ({
     amount: state.basket.amount,
