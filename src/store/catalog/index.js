@@ -10,7 +10,9 @@ class Catalog extends StoreModule {
 
   initState() {
     return {
-      list: []
+      list: [],
+      page: 0,
+      totalAmount: 0
     }
   }
 
@@ -24,6 +26,22 @@ class Catalog extends StoreModule {
       ...this.getState(),
       list: json.result.items
     }, 'Загружены товары из АПИ');
+  }
+
+  setPage(page) {
+    this.setState({
+      ...this.getState(),
+      page: page,
+    }, 'Изменена текущая страница')
+  }
+
+  async loadTotalAmount() {
+    const response = await fetch('/api/v1/articles?limit=*&fields=items(_id)');
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      totalAmount: json.result.items.length
+    }, 'Загружено общее количество товаров из АПИ');
   }
 }
 
