@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link, useMatch } from "react-router-dom";
 import "./style.css";
 function CustomLink({ to, children }) {
@@ -10,4 +10,4 @@ function CustomLink({ to, children }) {
   );
 }
 
-export default CustomLink;
+export default memo(CustomLink);

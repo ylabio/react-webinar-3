@@ -2,7 +2,6 @@ import { memo, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
-import useSelector from "../../store/use-selector";
 
 function ModalLayout(props) {
   const cn = bem("ModalLayout");
@@ -10,9 +9,7 @@ function ModalLayout(props) {
   // Корректировка центра, если модалка больше окна браузера.
   const layout = useRef();
   const frame = useRef();
-  const select = useSelector((state) => ({
-    data: state.translate.data,
-  }));
+
   useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
       // Центрирование frame или его прижатие к краю, если размеры больше чем у layout
@@ -38,7 +35,7 @@ function ModalLayout(props) {
         <div className={cn("head")}>
           <h1 className={cn("title")}>{props.title}</h1>
           <button className={cn("close")} onClick={props.onClose}>
-            {select.data.basket.closeBasketBtn}
+            {props.textCloseBtn}
           </button>
         </div>
         <div className={cn("content")}>{props.children}</div>
@@ -51,6 +48,7 @@ ModalLayout.propTypes = {
   title: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
+  textCloseBtn: PropTypes.string.isRequired,
 };
 
 ModalLayout.defaultProps = {

@@ -24,19 +24,19 @@ function Main() {
     limit: state.catalog.limit,
     isLoading: state.catalog.isLoading,
     totalPage: state.catalog.totalPage,
+    data: state.translate.data.main.addBtn,
   }));
 
   const addToBasket = useCallback(
     (_id) => store.actions.basket.addToBasket(_id),
     [store]
   );
-
   const renders = {
     item: useCallback(
       (item) => {
-        return <Item item={item} onAdd={addToBasket} />;
+        return <Item item={item} onAdd={addToBasket} titleBtn={select.data} />;
       },
-      [addToBasket]
+      [addToBasket, select.data]
     ),
   };
 

@@ -29,7 +29,15 @@ function Basket() {
   const renders = {
     itemBasket: useCallback(
       (item) => {
-        return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} />;
+        return (
+          <ItemBasket
+            item={item}
+            onRemove={callbacks.removeFromBasket}
+            textPcs={select.data.basket.pcs}
+            textDeletetBtn={select.data.basket.deleteItemBasketBtn}
+            closeModal={callbacks.closeModal}
+          />
+        );
       },
       [callbacks.removeFromBasket]
     ),
@@ -39,9 +47,10 @@ function Basket() {
     <ModalLayout
       title={select.data.basket.titleBasket}
       onClose={callbacks.closeModal}
+      textCloseBtn={select.data.basket.closeBasketBtn}
     >
       <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <BasketTotal sum={select.sum} text={select.data.basket.totalBasketText} />
     </ModalLayout>
   );
 }

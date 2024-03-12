@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import { numberFormat, plural } from "../../utils";
 import "./style.css";
-import GoHome from "./go-home";
+import { Link } from "react-router-dom";
 
 function BasketTool({ sum, amount, onOpen, lang, data }) {
   const cn = bem("BasketTool");
   return (
     <div className={cn()}>
-      <GoHome title={data.main.linkHome} />
+      <Link to="/">{data.main.linkHome}</Link>
       <div>
         <span className={cn("label")}>{data.basket.basketToolText}:</span>
         <span className={cn("total")}>

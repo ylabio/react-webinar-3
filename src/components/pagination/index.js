@@ -2,7 +2,7 @@
 
 import React from "react";
 import "./style.css";
-import CustomLink from "./custom-link";
+import CustomLink from "./../custom-link/index";
 
 function Pagination({ disabled, currentPage, totalPages }) {
   const renderFirstPageLink = () => (

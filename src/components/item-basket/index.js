@@ -4,26 +4,19 @@ import { numberFormat } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 import PropTypes from "prop-types";
 import "./style.css";
-import useSelector from "../../store/use-selector";
 import { useNavigate } from "react-router-dom";
-import useStore from "../../store/use-store";
 
 function ItemBasket(props) {
   const { _id, price, title, amount } = props.item;
   const cn = bem("ItemBasket");
   const navigate = useNavigate();
-  const store = useStore();
-
-  const select = useSelector((state) => ({
-    data: state.translate.data,
-  }));
 
   const callbacks = {
     onRemove: (e) => props.onRemove(_id),
 
     onClickLink: (id) => {
       navigate(`/product/${id}`);
-      store.actions.modals.close();
+      props.closeModal();
     },
   };
 
@@ -35,12 +28,10 @@ function ItemBasket(props) {
       <div className={cn("right")}>
         <div className={cn("cell")}>{numberFormat(price)} ₽</div>
         <div className={cn("cell")}>
-          {numberFormat(amount || 0)} {select.data.basket.pcs}
+          {numberFormat(amount || 0)} {props.textPcs}
         </div>
         <div className={cn("cell")}>
-          <button onClick={callbacks.onRemove}>
-            {select.data.basket.deleteItemBasketBtn}
-          </button>
+          <button onClick={callbacks.onRemove}>{props.textDeletetBtn}</button>
         </div>
       </div>
     </div>
@@ -55,6 +46,9 @@ ItemBasket.propTypes = {
     amount: PropTypes.number,
   }).isRequired,
   onRemove: propTypes.func,
+  textPcs: PropTypes.string.isRequired,
+  textDeletetBtn: PropTypes.string.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
 ItemBasket.defaultProps = {

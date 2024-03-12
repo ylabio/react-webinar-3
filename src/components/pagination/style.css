@@ -7,15 +7,6 @@
 .Pagination-item {
 }
 
-.custom-link,
-.active-link {
-  width: 20px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-}
 .Pagination-ellipsis {
   display: inline-block;
   width: 20px;

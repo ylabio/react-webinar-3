@@ -22,10 +22,18 @@ function PageLayout({ footer }) {
     lang: state.translate.lang,
   }));
 
-  const openModalBasket = useCallback(
-    () => store.actions.modals.open("basket"),
-    [store]
-  );
+  const callbacks = {
+    openModalBasket: useCallback(
+      () => store.actions.modals.open("basket"),
+      [store]
+    ),
+    handlerChange: useCallback(
+      (lang) => {
+        store.actions.translate.setLang(lang);
+      },
+      [store]
+    ),
+  };
 
   return (
     <div className={cn()}>
@@ -36,9 +44,11 @@ function PageLayout({ footer }) {
               ? select.list[0].title
               : select.data.main.title
           }
+          lang={select.lang}
+          callback={callbacks.handlerChange}
         />
         <BasketTool
-          onOpen={openModalBasket}
+          onOpen={callbacks.openModalBasket}
           amount={select.amount}
           sum={select.sum}
           lang={select.lang}
