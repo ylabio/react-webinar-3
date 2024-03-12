@@ -1,0 +1,23 @@
+.Pagination-content {
+  margin-top: 22px;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 22px;
+  padding-bottom: 100px;
+}
+
+.pagination-button {
+  font-size: 16px;
+  border-radius: none;
+  background-color: transparent;
+  border: none;
+}
+
+.pagination-button-pressed {
+  background-color: #0087e9;
+  color: white;
+}
+
+.pagination-button:hover {
+  background-color: #e1e1e1;
+}
