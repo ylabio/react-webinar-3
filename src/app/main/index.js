@@ -17,6 +17,14 @@ function Main() {
     store.actions.catalog.load(skip, limit);
   }, [skip]);
 
+  const language = useSelector(state => ({
+    language: state.language.language,
+    mainTextRu: state.language.ru.main,
+    mainTextEn: state.language.en.main,
+  }));
+
+  const text = language.language === "ru" ? language.mainTextRu : language.mainTextEn;
+
   const select = useSelector(state => ({
     list: state.catalog.list,
     listLength: state.catalog.listLength,
@@ -39,7 +47,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
+      <Head title={text.title}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
       <List list={select.list} listLength={select.listLength} limit={limit} renderItem={renders.item} setSkip={setSkip}/>

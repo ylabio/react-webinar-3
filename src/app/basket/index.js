@@ -10,6 +10,14 @@ function Basket() {
 
   const store = useStore();
 
+  const language = useSelector(state => ({
+    language: state.language.language,
+    basketTextRu: state.language.ru.basket,
+    basketTextEn: state.language.en.basket,
+  }));
+
+  const text = language.language === "ru" ? language.basketTextRu : language.basketTextEn;
+
   const select = useSelector(state => ({
     list: state.basket.list,
     amount: state.basket.amount,
@@ -30,7 +38,7 @@ function Basket() {
   };
 
   return (
-    <ModalLayout title='Корзина' onClose={callbacks.closeModal}>
+    <ModalLayout title={text.title} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket}/>
       <BasketTotal sum={select.sum}/>
     </ModalLayout>
