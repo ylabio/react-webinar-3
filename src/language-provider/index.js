@@ -13,7 +13,7 @@ const LanguageProvider = ({ children }) => {
   const changeLanguage = (newLanguage) => {
     setLanguage(newLanguage);
     localStorage.setItem(LANGUAGE_STORAGE_KEY, newLanguage);
-  };  
+  };
 
   const loadTranslations = async () => {
     const translationFile = await import(`../locales/${language}/translation.json`);
@@ -29,8 +29,14 @@ const LanguageProvider = ({ children }) => {
     return translations[key] || key;
   };
 
+  const contextValue = {
+    language,
+    changeLanguage,
+    t
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, changeLanguage, t }}>
+    <LanguageContext.Provider value={contextValue}>
       {children}
     </LanguageContext.Provider>
   );

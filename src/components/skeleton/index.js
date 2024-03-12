@@ -8,13 +8,12 @@ const SkeletonItem = React.memo(({ num }) => {
 });
 
 const Skeleton = React.memo(() => {
-  const cn = bem('Skeleton');
-  const items = Array.from({ length: 10 }, (_, index) => <SkeletonItem key={index} num={index + 1} />);
+  const cn = bem('Skeleton');  
   
   return (
     <div className={cn()}>     
       <div className={cn('content')}>
-        {items}
+        Загрузка...
       </div>
     </div>
   );

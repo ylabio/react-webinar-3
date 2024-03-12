@@ -1,11 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { numberFormat } from '../../utils';
-import { LanguageContext } from '../../language-provider';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-const ProductDetails = ({ product, addToCart }) => {
-  const { t } = useContext(LanguageContext); 
+const ProductDetails = ({ product, addToCart, t }) => {
   const cn = bem('ProductDetails');
 
   if (!product) {

@@ -1,12 +1,11 @@
-import {memo, useContext} from "react";
-import { LanguageContext } from '../../language-provider';
+import {memo} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
 
-function BasketTotal({sum}) {
-  const { t } = useContext(LanguageContext); 
+function BasketTotal({sum, t}) {
+  
   const cn = bem('BasketTotal');
 
   return (
@@ -19,7 +18,8 @@ function BasketTotal({sum}) {
 }
 
 BasketTotal.propTypes = {
-  sum: PropTypes.number
+  sum: PropTypes.number,
+  t: PropTypes.func,
 };
 
 BasketTotal.defaultProps = {

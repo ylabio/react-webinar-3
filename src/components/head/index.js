@@ -1,11 +1,9 @@
-import {memo, useContext} from "react";
+import { memo } from "react";
 import LanguageSwitcher from '../language-switcher';
-import { LanguageContext } from '../../language-provider';
 import PropTypes from "prop-types";
 import './style.css';
 
-function Head({title}) {
-  const { t } = useContext(LanguageContext); 
+function Head({ title, t }) {    
   const componentTitle = title === 'Магазин' ? t('store') : title;
 
   return (
@@ -18,6 +16,7 @@ function Head({title}) {
 
 Head.propTypes = {
   title: PropTypes.node,
+  t: PropTypes.func
 };
 
 export default memo(Head);

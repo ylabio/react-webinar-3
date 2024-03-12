@@ -1,18 +1,17 @@
-import {memo, useContext} from "react";
+import { memo } from "react";
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { LanguageContext } from '../../language-provider';
-import {cn as bem} from '@bem-react/classname';
-import {numberFormat, plural} from "../../utils";
+import Menu from '../menu';
+import { cn as bem } from '@bem-react/classname';
+import { numberFormat, plural } from "../../utils";
 import './style.css';
 
-function BasketTool({sum, amount, onOpen}) {
-  const { t } = useContext(LanguageContext); 
-  const cn = bem('BasketTool');
+function BasketTool({ sum, amount, onOpen, t }) {
+  
+  const cn = bem('BasketTool');  
 
   return (
     <div className={cn()}>
-      <Link to={'/'} className={cn('link')}>{t('mainPage')}</Link>
+      <Menu t={t} />
       <div className={cn('wrapper')}>
         <span className={cn('label')}>{t('inBasket')}</span>
         <span className={cn('total')}>
@@ -34,7 +33,8 @@ function BasketTool({sum, amount, onOpen}) {
 BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
-  amount: PropTypes.number
+  amount: PropTypes.number,
+  t: PropTypes.func
 };
 
 BasketTool.defaultProps = {

@@ -2,7 +2,7 @@ import React from 'react';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {  
 
   const cn = bem('Pagination');
 
@@ -45,7 +45,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     }
 
     return pageNumbers.map((number, index) => {
-      const isCurrent = number === currentPage;
+      const isCurrent = number === currentPage;      
       const isEllipsis = number === '...';
       const itemClasses = cn('page', { current: isCurrent, ellipsis: isEllipsis });
       const handleClick = () => {

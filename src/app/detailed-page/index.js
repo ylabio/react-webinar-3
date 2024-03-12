@@ -1,5 +1,6 @@
 import { memo, useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
@@ -8,7 +9,7 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import ProductDetails from "../../components/product-details";
 
-const DetailedPageContainer = () => {
+const DetailedPageContainer = ({ t }) => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -38,18 +39,22 @@ const DetailedPageContainer = () => {
     fetchProductData();
 
   }, [id]);
-  
+
   return (
     <PageLayout>
       { isLoading 
         ? <Skeleton /> 
         : <>
-            <Head title={product ? product.result.title : 'Ошибка загрузки данных'} />
-            <BasketTool onOpen={() => store.actions.modals.open('basket')} amount={select.amount} sum={select.sum} />
-            <ProductDetails product={product ? product.result : null} addToCart={callbacks.addToBasket} />
+            <Head title={product ? product.result.title : t('productDetailsError')} t={t} />
+            <BasketTool onOpen={() => store.actions.modals.open('basket')} amount={select.amount} sum={select.sum} t={t} />
+            <ProductDetails product={product ? product.result : null} addToCart={callbacks.addToBasket} t={t} />
           </>}
     </PageLayout>
   );
+};
+
+DetailedPageContainer.propTypes = {
+  t: PropTypes.func
 };
 
 export default memo(DetailedPageContainer);

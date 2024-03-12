@@ -1,10 +1,8 @@
-import {memo, useContext} from "react";
-import { LanguageContext } from '../../language-provider';
+import {memo} from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({onAdd}) {
-  const { t } = useContext(LanguageContext); 
+function Controls({ onAdd, t }) {  
   return (
     <div className='Controls'>
       <button onClick={() => onAdd()}>{t('buttonAdd')}</button>
@@ -13,7 +11,8 @@ function Controls({onAdd}) {
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  onAdd: PropTypes.func,
+  t: PropTypes.func
 };
 
 Controls.defaultProps = {
