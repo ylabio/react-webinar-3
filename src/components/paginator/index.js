@@ -13,7 +13,10 @@ function Paginator({onSetPage, pagesCount, page}) {
   let start = page - Math.floor(CAPACITY / 2) >= 1 ? page - Math.floor(CAPACITY / 2) : 1;
   const finish = start + CAPACITY - 1 <= pagesCount ? start + CAPACITY - 1 : pagesCount;
   if (finish - start < CAPACITY - 1) { start = finish - CAPACITY + 1 > 1 ? finish - CAPACITY + 1 : 1; }
-  const items = [...Array(finish - start + 1).keys().map(item => item + start)]
+  const items = [];
+  for (let i = 0; i < finish - start + 1; i++) {
+    items.push(start + i);
+  }
 
   return (
     <div className={cn()}>
