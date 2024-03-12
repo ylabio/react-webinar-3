@@ -7,6 +7,7 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Description from '../../components/description';
 import Loading from '../../components/loading';
+import {language} from '../../language';
 
 function Card () {
 
@@ -24,9 +25,9 @@ function Card () {
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.language.type,
-    langBasketTool: state.language.basketTool,
-    langDescription: state.language.description,
-    langText: state.language.loading.loading,
+    langBasketTool: language.basketTool,
+    langDescription: language.description,
+    langText: language.loading.loading,
   }));
 
   const callbacks = {

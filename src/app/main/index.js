@@ -8,6 +8,7 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import ItemPagination from '../../components/item-pagination';
 import Loading from '../../components/loading';
+import {language} from '../../language';
 
 function Main() {
 
@@ -25,10 +26,10 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.language.type,
-    langTitle: state.language.head.title,
-    langBasketTool: state.language.basketTool,
-    langbuttonAdd: state.language.item.buttonAdd,
-    langText: state.language.loading.loading,
+    langTitle: language.head.title,
+    langBasketTool: language.basketTool,
+    langbuttonAdd: language.item.buttonAdd,
+    langText: language.loading.loading,
   }));
 
   const callbacks = {

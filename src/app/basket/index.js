@@ -5,6 +5,7 @@ import ModalLayout from '../../components/modal-layout';
 import BasketTotal from '../../components/basket-total';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
+import {language} from '../../language';
 
 function Basket() {
 
@@ -15,9 +16,9 @@ function Basket() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.language.type,
-    langModalLayout: state.language.modalLayout,
-    langButtonRemove: state.language.itemBasket.buttonRemove,
-    langTotal: state.language.basketTotal.total,
+    langModalLayout: language.modalLayout,
+    langButtonRemove: language.itemBasket.buttonRemove,
+    langTotal: language.basketTotal.total,
   }));
 
   const callbacks = {
