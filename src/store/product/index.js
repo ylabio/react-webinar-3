@@ -1,3 +1,4 @@
+import { getProductById } from "../../utils";
 import StoreModule from "../module";
 
 class Product extends StoreModule {
@@ -11,17 +12,17 @@ class Product extends StoreModule {
   /**
    * Добавление товара в корзину
    * @param productId айдишник товара в запросе
+   * @param fields поля запроса, строка должна начинаться 'fields=', по умолчанию - 'fields=title,description,madeIn(title,code),category(title),edition,price'
    */
   // fields=title,description,madeIn(title,code),category(title),edition,price
-  async load(productId, fields = 'fields=title,description,madeIn(title,code),category(title),edition,price') {
-    const response = await fetch(`/api/v1/articles/${productId}?${fields}`);
-    const json = await response.json();
-    if(json.result) this.setState({
+  async load(productId, fields) {
+    const response = await getProductById(productId, fields)
+    if(response.result) this.setState({
       ...this.getState(),
-      item: json.result,
+      item: response.result,
       error: 'none',
     }, 'Загружен товар из АПИ');
-    else { this.setState({...this.getState(), error: json.error}) }
+    else { this.setState({...this.getState(), error: response.error}) }
   }
 }
 
