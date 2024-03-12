@@ -11,17 +11,18 @@ function Item(props) {
   const cn = bem("Item");
   const callbacks = {
     onItemClick: (e) => {
-      if (e.target.classList.contains("Item-title")) {
-        navigate(`/${props.item._id}`);
-      }
+      e.stopPropagation();
+      navigate(`/${props.item._id}`);
     },
     onAdd: (e) => props.onAdd(props.item._id),
   };
 
   return (
-    <div className={cn()} onClick={callbacks.onItemClick}>
+    <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn("title")}>{props.item.title}</div>
+      <div className={cn("title")} onClick={callbacks.onItemClick}>
+        {props.item.title}
+      </div>
       <div className={cn("actions")}>
         <div className={cn("price")}>{numberFormat(props.item.price)} ₽</div>
         <button onClick={callbacks.onAdd}>Добавить</button>

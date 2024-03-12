@@ -1,10 +1,12 @@
 import { memo, useEffect, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
+import Basket from "../basket";
+import ProductInfo from "../../components/product-info";
 import "./style.css";
 
 function ProductPage() {
@@ -12,7 +14,7 @@ function ProductPage() {
   const store = useStore();
 
   useEffect(() => {
-    store.actions.product.load(id);
+    if (id !== select.product._id) store.actions.product.load(id);
   }, []);
 
   const callbacks = {
@@ -28,25 +30,37 @@ function ProductPage() {
     ),
   };
 
+  const activeModal = useSelector((state) => state.modals.name);
+
   const select = useSelector((state) => ({
-    productData: state.product.productData,
+    product: state.product,
+    status: state.product.status,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
 
   return (
-    <PageLayout>
-      <Head
-        title={
-          select.productData.title ? select.productData.title : "Loading..."
-        }
-      />
-      <BasketTool
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-      />
-    </PageLayout>
+    <>
+      {activeModal === "basket" && <Basket />}
+      {/* Если стейт продукта пустой, или открыли новый продукт, показываем Loading... */}
+      <PageLayout>
+        {!select.product._id || id !== select.product._id ? (
+          "Loading..."
+        ) : (
+          <>
+            <Head title={select.product.title} />
+            <BasketTool
+              onOpen={callbacks.openModalBasket}
+              amount={select.amount}
+              sum={select.sum}
+            >
+              <Link to={"/"}>Главная</Link>
+            </BasketTool>
+            <ProductInfo />
+          </>
+        )}
+      </PageLayout>
+    </>
   );
 }
 

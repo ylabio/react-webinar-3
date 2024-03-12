@@ -57,7 +57,6 @@ function Main() {
   return (
     <>
       {activeModal === "basket" && <Basket />}
-
       <PageLayout>
         <Head title="Магазин" />
         <BasketTool
