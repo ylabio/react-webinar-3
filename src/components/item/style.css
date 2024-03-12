@@ -4,7 +4,14 @@
   transition: background-color 1s;
   padding-left: 10px
 }
-
+.Links{
+  text-decoration: none;
+  color: black;
+}
+.Links:hover{
+  cursor: pointer;
+  text-decoration:underline;
+}
 .p-title{
  display: inline;
 }

@@ -6,6 +6,10 @@
   font-size: 18px;
   text-align: left;
 }
+.Link_head{
+  text-decoration: none;
+  color: #0087E9;
+}
 .chapter{
   color: #0087E9;
   text-decoration:underline;

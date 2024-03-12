@@ -1,21 +1,23 @@
-import React from "react";
+
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import Head from "../../components/head";
+import BasketTool from '../../components/basket-tool';
 
 function ProductDetail() {
   const { id } = useParams();
   const store = useStore();
 
   useEffect(() => {
-      store.a
+    
   }, [id]);
 
   return (
-    <div>
-      <h2>Описание товара</h2>
-      <p>{description}</p>
+    <div className='div_detail'>
+     <Head title="Магазин" />
+     <BasketTool/>
     </div>
   );
 }
