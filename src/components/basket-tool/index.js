@@ -31,13 +31,23 @@ BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
-  translations: PropTypes.string,
+  language: PropTypes.shape({
+    goTo: PropTypes.string.isRequired,
+    inBasket: PropTypes.string.isRequired,
+    empty: PropTypes.string.isRequired,
+    forPlural: PropTypes.shape({
+      one: PropTypes.string.isRequired,
+      few: PropTypes.string.isRequired,
+      many: PropTypes.string.isRequired,
+    }).isRequired,
+    main: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 BasketTool.defaultProps = {
   onOpen: () => { },
   sum: 0,
-  amount: 0
+  amount: 0,
 }
 
 export default memo(BasketTool);

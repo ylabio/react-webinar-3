@@ -52,7 +52,7 @@ function Main() {
     <PageLayout>
       <Head title={select.translations[select.language].headerTitle} setLanguage={callbacks.setLanguage} language={select.language} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-        sum={select.sum} goTo={select.translations[select.language].goTo} basket={select.translations[select.language].inBasket} language={select.translations[select.language]} />
+        sum={select.sum} language={select.translations[select.language]} />
       <List list={select.list} renderItem={renders.item} />
       <Pagination currentPage={select.currentPage} lastPage={select.lastPage} setCurrentPage={callbacks.setCurrentPage} />
     </PageLayout>

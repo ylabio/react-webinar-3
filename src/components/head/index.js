@@ -14,8 +14,8 @@ function Head({ title, setLanguage, language }) {
 
 Head.propTypes = {
   title: PropTypes.node,
-  language: PropTypes.string.isRequired,
-  setLanguage: PropTypes.func.isRequired,
+  language: PropTypes.string,
+  setLanguage: PropTypes.func,
 };
 
 export default memo(Head);

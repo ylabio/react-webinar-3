@@ -18,7 +18,9 @@ function Product() {
   const select = useSelector(state => ({
     product: state.catalog.product,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    language: state.language.language,
+    translations: state.language.translations
   }));
 
   const callbacks = {
@@ -31,7 +33,7 @@ function Product() {
   return (
     <PageLayout>
       <Head title={select.product?.title} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.translations[select.language]} />
       <ProductCart product={select?.product} onAdd={callbacks.addToBasket} />
     </PageLayout>
   );
