@@ -18,6 +18,7 @@ function Main({onToggleLanguage}) {
     list: state.catalog.list,
     maxPage: state.catalog.pagination.max,
     currentPage: state.catalog.pagination.current,
+    loadingPage: state.catalog.pagination.loadingPage,
   }));
 
   const rawPage = useParams().page
@@ -45,7 +46,10 @@ function Main({onToggleLanguage}) {
     <PageLayout>
       <HeadLayout headTitle={translate('Магазин')} onToggleLanguage={onToggleLanguage}/>
       <List list={select.list} renderItem={renders.item}/>
-      <Pagination max={select.maxPage} current={select.currentPage} />
+      <Pagination max={select.maxPage}
+                  current={select.currentPage}
+                  loadingPage={select.loadingPage}
+      />
     </PageLayout>
   );
 }

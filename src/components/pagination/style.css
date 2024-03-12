@@ -5,6 +5,11 @@
   font-size: 16px;
 }
 
+.Pagination-spinner {
+  font-size: 12px;
+  margin-right: 10px;
+}
+
 .Pagination-item {
   display: flex;
   min-width: 20px;

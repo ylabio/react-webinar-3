@@ -5,7 +5,7 @@ class Catalog extends StoreModule {
 
   constructor(store, name) {
     super(store, name);
-    this.generateCode = codeGenerator(0)
+    this.generateCode = codeGenerator(0);
   }
 
   initState() {
@@ -15,6 +15,7 @@ class Catalog extends StoreModule {
         limit: 10,
         current: undefined,
         max: undefined,
+        loadingPage: undefined,
       },
       error: null,
     }
@@ -23,6 +24,15 @@ class Catalog extends StoreModule {
   async load(pageNumber) {
     const pagination = this.getState().pagination;
     if(pagination.current && pagination.current === pageNumber) return;
+
+    this.setState({
+      ...this.getState(),
+      pagination: {
+        ...pagination,
+        loadingPage: pageNumber,
+      },
+    }, `Начата загрузка товаров из АПИ для страницы ${pageNumber}`);
+
     const skip = (pageNumber -1 ) * pagination.limit;
     const query = `?limit=${pagination.limit}&skip=${skip}&fields=items(_id, title, price),count`;
     let error, json;
@@ -34,14 +44,19 @@ class Catalog extends StoreModule {
       error = e;
     }
     const max = Math.ceil(json.result?.count / pagination.limit);
-    if(max && pageNumber > max) return this.load(max);
+    if(max && pageNumber > max){
+      console.log('recursion')
+      return this.load(max);
+    }
+    if(this.getState().pagination.loadingPage !== pageNumber) return;
     this.setState({
       ...this.getState(),
       list: json.result?.items || [],
       pagination: {
         ...pagination,
         max: max || undefined,
-        current: pageNumber
+        current: pageNumber,
+        loadingPage: undefined,
       },
       error: error || null,
     }, `Загружены товары из АПИ для страницы ${pageNumber}`);

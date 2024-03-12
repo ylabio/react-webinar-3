@@ -3,12 +3,13 @@ import {NavLink} from "react-router-dom";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function Pagination({max, current}) {
+function Pagination({max, current, loadingPage}) {
 
   const cn = bem('Pagination');
 
   return (
     <div className={cn()}>
+      {loadingPage && <span className={cn('spinner')}>Loading...</span>}
       {Array(max).fill(true).map((_, i)=> {
         const number = i + 1;
         let content = null;
