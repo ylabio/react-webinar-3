@@ -7,8 +7,8 @@ import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
 import ArticleItem from "../../components/article-item";
 import { useParams } from "react-router-dom";
-import "./style.css";
 import Basket from "../../app/basket";
+import "./style.css";
 
 function Article() {
   const store = useStore();
@@ -17,7 +17,8 @@ function Article() {
 
   useEffect(() => {
     store.actions.article.load(id);
-  }, [id]);
+    store.setLang(store.state.lang);
+  }, [id, store.state.lang]);
 
   const select = useSelector(state => ({
     amount: state.basket.amount,

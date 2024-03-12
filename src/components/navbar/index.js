@@ -10,7 +10,7 @@ function NavBar() {
   return (
     <ul className={cn()}>
       <li className={cn('Item')}>
-        <Link to="/">Главная</Link>
+        <Link to="/" id="main">Главная</Link>
       </li>
     </ul>
   )

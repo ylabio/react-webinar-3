@@ -1,4 +1,4 @@
-import {codeGenerator} from "../../utils";
+import {LangSwitcher, codeGenerator} from "../../utils";
 import StoreModule from "../module";
 
 class Catalog extends StoreModule {

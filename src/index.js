@@ -13,17 +13,16 @@ const router = createBrowserRouter(
         <Route 
         exact path="/"
         element={<App />} />
-      <Route
+        <Route
         exact path='article/:id'
         element={<Article />}
-      />
+        />
       </>
-      
-
   )
 )
 
 const root = createRoot(document.getElementById('root'));
+
 
 // Первый рендер приложения
 root.render(

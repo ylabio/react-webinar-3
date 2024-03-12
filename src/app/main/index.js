@@ -14,14 +14,15 @@ function Main() {
 
   useEffect(() => {
     store.actions.catalog.load();
-  }, []);
+    store.setLang(store.state.lang);
+  }, [store.state.lang]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
     count : state.catalog.count,
-    currentPage : state.catalog.currentPage
+    currentPage : state.catalog.currentPage,
   }));
 
   const callbacks = {

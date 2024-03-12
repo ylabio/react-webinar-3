@@ -19,7 +19,7 @@ function ArticleItem(props) {
       <p className={cn('category')}>Категория: <strong>{props.item.category.title}</strong></p>
       <p className={cn('year')}>Год выпуска: <strong>{props.item.edition}</strong></p>
       <p className={cn('price')}><strong>Цена: {numberFormat(props.item.price)} ₽</strong></p>
-      <button onClick={callbacks.onAdd}>Добавить</button>
+      <button onClick={callbacks.onAdd} id="btn-add">Добавить</button>
     </div>
   )
 }
