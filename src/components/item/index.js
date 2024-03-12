@@ -17,7 +17,7 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      <div className={cn('title')} onClick={() => router(`/card/${props.item._id}`)}>
+      <div className={cn('title')} onClick={() => router(props.link)}>
         {props.item.title}
       </div>
       <div className={cn('actions')}>
@@ -35,6 +35,7 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   textButtonAdd: PropTypes.string,
+  link: PropTypes.string,
   onAdd: PropTypes.func,
 };
 

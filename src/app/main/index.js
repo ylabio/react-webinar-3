@@ -47,7 +47,8 @@ function Main() {
     item: useCallback((item) => {
       return (
         <Item item={item} onAdd={callbacks.addToBasket} 
-              textButtonAdd={select.langbuttonAdd[select.language]}/>
+              textButtonAdd={select.langbuttonAdd[select.language]}
+              link={`card/${item._id}`}/>
       );
     }, [callbacks.addToBasket, select.langbuttonAdd[select.language]]),
     ItemPagination: useCallback((item) => {
@@ -66,10 +67,9 @@ function Main() {
       {select.loading 
       ? <Loading langText={select.langText[select.language]}/>
       : <> 
-          <List list={select.list} renderItem={renders.item} 
-                  textButtonAdd={select.langbuttonAdd[select.language]}/>
+          <List list={select.list} renderItem={renders.item}/>
           <List changeClass={'ListPagination'} list={select.numbersPages} 
-            page={select.page} renderItem={renders.ItemPagination}/>
+                renderItem={renders.ItemPagination}/>
         </>
       }
     </PageLayout>

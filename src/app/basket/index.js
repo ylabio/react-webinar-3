@@ -40,8 +40,7 @@ function Basket() {
   return (
     <ModalLayout multilingualText={select.langModalLayout} 
                   language={select.language} onClose={callbacks.closeModal}>
-      <List list={select.list} renderItem={renders.itemBasket} 
-            buttonRemove={select.langButtonRemove[select.language]}/>
+      <List list={select.list} renderItem={renders.itemBasket}/>
       <BasketTotal sum={select.sum} total={select.langTotal[select.language]}/>
     </ModalLayout>
   );
