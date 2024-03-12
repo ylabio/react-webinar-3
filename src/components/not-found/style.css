@@ -1,0 +1,12 @@
+.NotFound {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #ffffff;
+}
+
+.NotFound-message {
+  margin: 0;
+}

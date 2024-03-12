@@ -1,0 +1,15 @@
+.ItemInfo {
+  padding: 20px 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.ItemInfo > * {
+  margin: 0;
+}
+
+.ItemInfo > button {
+  width: 75px;
+}

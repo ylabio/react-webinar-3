@@ -14,7 +14,7 @@ class Basket extends StoreModule {
    * Добавление товара в корзину
    * @param _id Код товара
    */
-  addToBasket(_id) {
+  async addToBasket(_id) {
     let sum = 0;
     // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
@@ -30,8 +30,11 @@ class Basket extends StoreModule {
 
     if (!exist) {
       // Поиск товара в каталоге, чтобы его добавить в корзину.
-      // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      const item = this.store.getState().catalog.list.find(item => item._id === _id);
+      const host = '/api/v1/articles';
+      const url = `${host}/${_id}?fields=title,price,description,edition,madeIn(title,code),category(title)`;
+      const response = await fetch(url);
+
+      const item = (await response.json()).result;
       list.push({...item, amount: 1}); // list уже новый, в него можно пушить.
       // Добавляем к сумме.
       sum += item.price;
