@@ -1,10 +1,13 @@
-import { memo } from 'react';
-import { NavLink } from "react-router-dom";
+import { memo , useEffect} from 'react';
+import { useNavigate , useLocation} from "react-router-dom";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import PropTypes from "prop-types";
 
 const Pagination = ({ currentPage, totalItems, onPageChange }) => {
+
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const cn = bem('Pagination');
 
@@ -34,25 +37,32 @@ const Pagination = ({ currentPage, totalItems, onPageChange }) => {
     }
 
     const handlePageClick = (page) => {
-        if (page === '...') {
-            onPageChange(currentPage + showPages);
-        } else {
+        if (page !== currentPage) {
             onPageChange(page);
+            navigate(`?page=${page}`, { replace: true });
         }
     };
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const pageParam = parseInt(searchParams.get('page')) || 1;
+        if (pageParam !== currentPage) {
+            onPageChange(pageParam);
+        }
+    }, [location.search, currentPage, onPageChange]);
 
 
     return (
         <div className={cn()}>
         {pageNumbers.map((page, index) => (
-            <NavLink
+            <div
               key={index}
-              to={`?page=${page}`}
+            //   to={`?page=${page}`}
               className={cn('item', {active: page === currentPage,  dots: page === "..."})}
               onClick={() => handlePageClick(page)}
               >
               {page}
-            </NavLink>
+            </div>
         ))}
         </div>
     );
