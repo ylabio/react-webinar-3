@@ -1,14 +1,11 @@
-import {memo, useContext} from 'react';
+import {memo} from 'react';
 import {numberFormat} from "../../utils";
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import {Link} from 'react-router-dom';
-import {LanguageContext} from "../../contexts";
 import './style.css';
 
 function ItemBasket(props) {
-
-  const translate = useContext(LanguageContext);
 
   const cn = bem('ItemBasket');
 
@@ -23,13 +20,13 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       <div className={cn('title')} onClick={onCloseModal}>
-        <Link to={'/product/' + props.item._id}>{props.item.title}</Link>
+        <Link to={props.linkUrl + props.item._id}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)}&nbsp;{translate('шт')}</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)}&nbsp;{props.textData.unit}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>{translate('Удалить')}</button>
+          <button onClick={callbacks.onRemove}>{props.textData.button}</button>
         </div>
       </div>
     </div>
@@ -43,7 +40,12 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number
   }).isRequired,
+  textData: PropTypes.exact({
+    unit: PropTypes.string,
+    button: PropTypes.string,
+  }).isRequired,
   onRemove: PropTypes.func,
+  linkUrl: PropTypes.string.isRequired,
 }
 
 ItemBasket.defaultProps = {

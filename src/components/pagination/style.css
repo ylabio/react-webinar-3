@@ -30,6 +30,7 @@
 
 .Pagination-link.active {
   background-color: #0087E9;
+  color: #FFFFFF;
 }
 
 .Pagination-link:hover:not(.active) {

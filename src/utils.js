@@ -30,34 +30,110 @@ export function codeGenerator(start = 0) {
  * @param options {Object}
  * @returns {String}
  */
-export function numberFormat(value, locale = 'ru-RU', options = {minimumFractionDigits: 2}) {
+export function numberFormat(value, locale = 'ru-RU', options) {
+  if(value % 1) options = {minimumFractionDigits: 2};
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
-export function getTranslater(lang) {
-  const dictionary = {
-    'en': {
-      'Магазин': 'Store',
-      'Корзина': 'Basket',
-      'Главная': 'Main',
-      'В корзине:': 'In basket:',
-      'пусто': 'empty',
-      'Добавить': 'Add',
-      'Удалить': 'Remove',
-      'Перейти': 'Go',
-      'Закрыть': 'Close',
-      'шт': 'pcs',
-      'Итого': 'Total',
-      'Страна производитель:': 'Made in:',
-      'Категория:': 'Category:',
-      'Год выпуска:': 'Year of production:',
-      'Цена:': 'Price',
-      'товар': 'product',
-      'товара': 'products',
-      'товаров': 'products',
-      'English': 'Русский',
+export function getTextData(query) {
+  const textDataset = {
+
+    ru: {
+      mainHead: {
+        title: 'Магазин',
+        optionRu: 'Русский',
+        optionEn: 'English',
+      },
+      productHead: {
+        title: 'Магазин',
+        optionRu: 'Русский',
+        optionEn: 'English',
+      },
+      mainNav: {
+        main: 'Главная',
+      },
+      catalogProduct: {
+        button: 'Добавить',
+      },
+      basketTool: {
+        inBasket: 'В корзине:',
+        empty: 'пусто',
+        button: 'Перейти',
+      },
+      basketProduct: {
+        button: 'Удалить',
+        unit: 'шт',
+      },
+      basketTotal: {
+        total: 'Итого',
+      },
+      modalBasket: {
+        title: 'Корзина',
+        button: 'Закрыть',
+      },
+      productFull: {
+        madeIn: 'Страна производитель:',
+        category: 'Категория:',
+        yearProduction: 'Год выпуска:',
+        price: 'Цена:',
+        button: 'Добавить',
+
+      },
+      pluralProduct: {
+        one: 'товар',
+        few: 'товара',
+        many: 'товаров',
+      },
+    },
+
+    en: {
+      mainHead: {
+        title: 'Store',
+        optionRu: 'Русский',
+        optionEn: 'English',
+      },
+      productHead: {
+        title: 'Store',
+        optionRu: 'Русский',
+        optionEn: 'English',
+      },
+      mainNav: {
+        main: 'Main',
+      },
+      catalogProduct: {
+        button: 'Add',
+      },
+      basketTool: {
+        inBasket: 'In basket:',
+        empty: 'empty',
+        button: 'Go',
+      },
+      basketProduct: {
+        button: 'Remove',
+        unit: 'pcs',
+      },
+      basketTotal: {
+        total: 'Total',
+      },
+      modalBasket: {
+        title: 'Basket',
+        button: 'Close',
+      },
+      productFull: {
+        madeIn: 'Made in:',
+        category: 'Category:',
+        yearProduction: 'Year of production:',
+        price: 'Price:',
+        button: 'Add',
+
+      },
+      pluralProduct: {
+        one: 'product',
+        few: 'products',
+        many: 'products',
+      },
     },
   }
 
-  return (text) => lang === 'ru' ? text : dictionary[lang][text];
+  return textDataset[query];
 }

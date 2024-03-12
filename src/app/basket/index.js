@@ -5,11 +5,12 @@ import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import {LanguageContext} from '../../contexts';
+import {TextDataContext} from '../../contexts';
+import {APP_PATHS} from '../../constants';
 
 function Basket() {
 
-  const translate = useContext(LanguageContext);
+  const textData = useContext(TextDataContext);
 
   const store = useStore();
 
@@ -31,14 +32,16 @@ function Basket() {
       return <ItemBasket item={item}
                          onRemove={callbacks.removeFromBasket}
                          onCloseModal={callbacks.closeModal}
+                         linkUrl={APP_PATHS.PRODUCT}
+                         textData={textData.basketProduct}
                          />
-    }, [callbacks.removeFromBasket]),
+    }, [callbacks.removeFromBasket, textData]),
   };
 
   return (
-    <ModalLayout title={translate('Корзина')} onClose={callbacks.closeModal}>
+    <ModalLayout textData={textData.modalBasket} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum} translate={translate}/>
+      <BasketTotal sum={select.sum} textData={textData.basketTotal}/>
     </ModalLayout>
   );
 }

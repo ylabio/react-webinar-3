@@ -1,24 +1,30 @@
-import {memo, useContext} from "react";
+import {memo} from "react";
 import PropTypes from "prop-types";
-import {LanguageContext} from "../../contexts";
 import './style.css';
 
-function Head({title, onToggleLanguage}) {
-  const translate = useContext(LanguageContext);
+function Head({textData, onChangeTextDataQuery}) {
+
   return (
     <div className='Head'>
-      <h1>{title}</h1>
-      <button onClick={() => onToggleLanguage()}>{translate('English')}</button>
+      <h1>{textData.title}</h1>
+      <select onChange={(e) => onChangeTextDataQuery(e.target.value)}>
+        <option value='ru'>{textData.optionRu}</option>
+        <option value='en'>{textData.optionEn}</option>
+      </select>
     </div>
   )
 }
 
 Head.propTypes = {
-  title: PropTypes.node,
+  textData: PropTypes.exact({
+    title: PropTypes.string,
+    optionRu: PropTypes.string,
+    optionEn: PropTypes.string,
+  }).isRequired,
 };
 
 Head.defaultProps = {
-  onToggleLanguage: () => {},
+  onChangeTextDataQuery: () => {},
 }
 
 export default memo(Head);

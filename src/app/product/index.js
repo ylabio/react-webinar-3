@@ -1,12 +1,15 @@
-import {memo, useEffect, useCallback} from 'react';
+import {memo, useEffect, useCallback, useContext} from 'react';
 import {useParams} from 'react-router-dom';
 import useStore from "../../store/use-store";
 import useSelector from '../../store/use-selector';
 import PageLayout from "../../components/page-layout";
 import HeadLayout from '../head-layout';
+import {TextDataContext} from '../../contexts';
 import ProductContent from '../../components/product-content';
 
-function Product({onToggleLanguage}) {
+function Product({onChangeTextDataQuery}) {
+
+  const textData = useContext(TextDataContext);
 
   const store = useStore();
   let { productId } = useParams();
@@ -24,14 +27,22 @@ function Product({onToggleLanguage}) {
 
   return (
     <PageLayout>
-      <HeadLayout headTitle={product.title} onToggleLanguage={onToggleLanguage}/>
-      <ProductContent product={product} onAdd={addToBasket} />
+      <HeadLayout onChangeTextDataQuery={onChangeTextDataQuery}
+                  textData={{mainNav: textData.mainNav,
+                             basketTool: textData.basketTool,
+                             pluralProduct: textData.pluralProduct}}
+                  headTextData={textData.productHead}
+      />
+      <ProductContent product={product}
+                      onAdd={addToBasket}
+                      textData={textData.productFull}
+      />
     </PageLayout>
   );
 }
 
 Product.defaultProps = {
-  onToggleLanguage: () => {},
+  onChangeTextDataQuery: () => {},
 }
 
 export default memo(Product);

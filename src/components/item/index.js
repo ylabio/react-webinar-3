@@ -1,14 +1,11 @@
-import {memo, useContext} from "react";
+import {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {Link} from 'react-router-dom';
 import {numberFormat} from "../../utils";
-import {LanguageContext} from "../../contexts";
 import './style.css';
 
 function Item(props) {
-
-  const translate = useContext(LanguageContext);
 
   const cn = bem('Item');
 
@@ -19,11 +16,11 @@ function Item(props) {
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-        <Link to={'/product/' + props.item._id}>{props.item.title}</Link>
+        <Link to={props.linkUrl + props.item._id}>{props.item.title}</Link>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>{translate('Добавить')}</button>
+        <button onClick={callbacks.onAdd}>{props.textData.button}</button>
       </div>
     </div>
   );
@@ -35,7 +32,11 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
+  textData: PropTypes.exact({
+    button: PropTypes.string,
+  }).isRequired,
   onAdd: PropTypes.func,
+  linkUrl: PropTypes.string.isRequired,
 };
 
 Item.defaultProps = {

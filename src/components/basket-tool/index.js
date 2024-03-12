@@ -1,29 +1,26 @@
-import {memo, useContext} from "react";
+import {memo} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
-import {LanguageContext} from '../../contexts';
 import './style.css';
 
 function BasketTool(props) {
 
-  const translate = useContext(LanguageContext);
-
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <span className={cn('label')}>{translate('В корзине:')}</span>
+      <span className={cn('label')}>{props.textData.inBasket}</span>
       <span className={cn('total')}>
         {props.amount
           ? `${props.amount} ${plural(props.amount, {
-            one: translate('товар'),
-            few: translate('товара'),
-            many: translate('товаров')
+            one: props.textData.one,
+            few: props.textData.few,
+            many: props.textData.many
           })} / ${numberFormat(props.sum)} ₽`
-          : translate('пусто')
+          : props.textData.empty
         }
       </span>
-      <button onClick={props.onOpen}>{translate('Перейти')}</button>
+      <button onClick={props.onOpen}>{props.textData.button}</button>
     </div>
   );
 }
@@ -31,7 +28,15 @@ function BasketTool(props) {
 BasketTool.propTypes = {
   onOpen: PropTypes.func,
   sum: PropTypes.number,
-  amount: PropTypes.number
+  amount: PropTypes.number,
+  textData: PropTypes.exact({
+    inBasket: PropTypes.string,
+    empty: PropTypes.string,
+    button: PropTypes.string,
+    few: PropTypes.string,
+    one: PropTypes.string,
+    many: PropTypes.string,
+  }).isRequired,
 };
 
 BasketTool.defaultProps = {

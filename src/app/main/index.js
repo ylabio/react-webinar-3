@@ -7,11 +7,12 @@ import Pagination from '../../components/pagination';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import {useNavigate, useParams} from 'react-router-dom';
-import {LanguageContext} from '../../contexts';
+import {TextDataContext} from '../../contexts';
+import {APP_PATHS} from '../../constants';
 
-function Main({onToggleLanguage}) {
+function Main({onChangeTextDataQuery}) {
 
-  const translate = useContext(LanguageContext);
+  const textData = useContext(TextDataContext);
 
   const store = useStore();
   const select = useSelector(state => ({
@@ -31,31 +32,41 @@ function Main({onToggleLanguage}) {
     } else {
       store.actions.catalog.load(page);
     }
-  }, [rawPage, select.currentPage]);
+  }, [rawPage]);
 
   // Добавление в корзину
   const addToBasket = useCallback(_id => store.actions.basket.addToBasket(_id), [store]);
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={addToBasket}/>
-    }, [addToBasket]),
+      return <Item item={item}
+                   onAdd={addToBasket}
+                   linkUrl={APP_PATHS.PRODUCT}
+                   textData={textData.catalogProduct}
+              />
+
+    }, [addToBasket, textData]),
   };
 
   return (
     <PageLayout>
-      <HeadLayout headTitle={translate('Магазин')} onToggleLanguage={onToggleLanguage}/>
+      <HeadLayout textData={{mainNav: textData.mainNav,
+                             basketTool: textData.basketTool,
+                             pluralProduct: textData.pluralProduct}}
+                  headTextData={textData.mainHead}
+                  onChangeTextDataQuery={onChangeTextDataQuery}/>
       <List list={select.list} renderItem={renders.item}/>
       <Pagination max={select.maxPage}
                   current={select.currentPage}
                   loadingPage={select.loadingPage}
+                  linkUrl={APP_PATHS.CATALOG}
       />
     </PageLayout>
   );
 }
 
 Main.defaultProps = {
-  onToggleLanguage: () => {},
+  onChangeTextDataQuery: () => {},
 }
 
 export default memo(Main);

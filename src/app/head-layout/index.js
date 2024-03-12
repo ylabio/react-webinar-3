@@ -7,7 +7,7 @@ import useSelector from "../../store/use-selector";
 import MainMenu from '../../components/main-menu';
 import MainNav from '../../components/main-nav';
 
-function HeadLayout({headTitle, onToggleLanguage}) {
+function HeadLayout(props) {
 
   const store = useStore();
   const select = useSelector(state => ({
@@ -20,12 +20,14 @@ function HeadLayout({headTitle, onToggleLanguage}) {
 
   return (
     <>
-      <Head title={headTitle} onToggleLanguage={onToggleLanguage}/>
+      <Head textData={props.headTextData} onChangeTextDataQuery={props.onChangeTextDataQuery}/>
       <MainMenu>
-        <MainNav currentPage={select.currentCatalogPage}/>
+        <MainNav currentPage={select.currentCatalogPage} textData={props.textData.mainNav}/>
         <BasketTool onOpen={openModalBasket}
                     amount={select.busketAmount}
                     sum={select.busketSum}
+                    textData={{...props.textData.basketTool,
+                               ...props.textData.pluralProduct}}
         />
       </MainMenu>
     </>
@@ -37,7 +39,7 @@ HeadLayout.propTypes = {
 }
 
 HeadLayout.defaultProps = {
-  onToggleLanguage: () => {},
+  onChangeTextDataQuery: () => {},
 }
 
 export default memo(HeadLayout);
