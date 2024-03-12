@@ -1,0 +1,32 @@
+.Product {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 21px 40px;
+    color: #000;
+    font-family: Arial;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.Product-price {
+    color: #000;
+    font-family: Arial;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.Product-category>span,
+.Product-edition>span,
+.Product-madeIn>span {
+    font-weight: 700;
+}
+
+.Product-addBtn {
+    width: 76px;
+    cursor: pointer;
+}

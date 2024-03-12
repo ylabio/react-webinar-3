@@ -13,6 +13,16 @@
 .ItemBasket-title {
   width: 100%;
   padding: 20px 10px;
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  font-family: Arial;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.ItemBasket-title:hover {
+  text-decoration: underline;
 }
 
 .ItemBasket-right {
