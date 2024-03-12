@@ -51,7 +51,7 @@ class Catalog extends StoreModule {
     this.setState({
       ...this.getState(),
       itemInfo: json.result
-    })
+    });
   }
 
   switchPage(event) {

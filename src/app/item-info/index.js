@@ -35,7 +35,7 @@ function ItemInfo(props) {
 
   return (
     <PageLayout>
-      <Head title={'Название товара'}></Head>
+      <Head title={select.itemInfo.title}></Head>
       <div className={cn('basket-tool-wrapper')}>
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                     sum={select.sum}/>
