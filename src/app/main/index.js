@@ -44,26 +44,31 @@ function Main() {
       [store]
     ),
   };
-
+  const { currentLanguage } = useLanguage();
   const renders = {
     item: useCallback(
       (item) => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return (
+          <Item
+            item={item}
+            onAdd={callbacks.addToBasket}
+            link={`/articles/${item._id}`}
+            translation={dictionary[currentLanguage]}
+          />
+        );
       },
-      [callbacks.addToBasket]
+      [callbacks.addToBasket, currentLanguage]
     ),
   };
 
-  const { currentLanguage } = useLanguage();
-  const { shop } = dictionary[currentLanguage];
-
   return (
     <PageLayout>
-      <Head title={shop} />
+      <Head title={dictionary[currentLanguage].shop} />
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
+        translation={dictionary[currentLanguage]}
       />
       <List list={select.list} renderItem={renders.item} />
       <Pagination

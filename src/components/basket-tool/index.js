@@ -3,41 +3,27 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import { numberFormat, plural } from "../../utils";
-import { useLanguage } from "../../localization/LanguageContext";
-import { dictionary } from "../../localization/dictionary";
+import Nav from "../nav";
 import "./style.css";
 
-function BasketTool({ sum, amount, onOpen }) {
+function BasketTool({ sum, amount, onOpen, translation }) {
   const cn = bem("BasketTool");
-  const { currentLanguage } = useLanguage();
-  const {
-    main,
-    In_the_basket,
-    go_to_cart,
-    currency,
-    goods_one,
-    goods_few,
-    goods_many,
-    empty,
-  } = dictionary[currentLanguage];
 
   return (
     <section className={cn()}>
-      <Link to={"/"} className={cn("link")}>
-        {main}
-      </Link>
+      <Nav translation={translation} />
       <div className={cn("wrapper")}>
-        <span className={cn("label")}>{In_the_basket}</span>
+        <span className={cn("label")}>{translation.In_the_basket}</span>
         <span className={cn("total")}>
           {amount
             ? `${amount} ${plural(amount, {
-                one: `${goods_one}`,
-                few: `${goods_few}`,
-                many: `${goods_many}`,
-              })} / ${numberFormat(sum)} ${currency}`
-            : `${empty}`}
+                one: `${translation.goods_one}`,
+                few: `${translation.goods_few}`,
+                many: `${translation.goods_many}`,
+              })} / ${numberFormat(sum)} ${translation.currency}`
+            : `${translation.empty}`}
         </span>
-        <button onClick={onOpen}>{go_to_cart}</button>
+        <button onClick={onOpen}>{translation.go_to_cart}</button>
       </div>
     </section>
   );

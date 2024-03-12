@@ -28,7 +28,6 @@ function Basket() {
   };
 
   const { currentLanguage } = useLanguage();
-  const { cart } = dictionary[currentLanguage];
 
   const renders = {
     itemBasket: useCallback(
@@ -38,17 +37,22 @@ function Basket() {
             item={item}
             onRemove={callbacks.removeFromBasket}
             onClose={callbacks.closeModal}
+            link={`/articles/${item._id}`}
+            translation={dictionary[currentLanguage]}
           />
         );
       },
-      [callbacks.removeFromBasket]
+      [callbacks.removeFromBasket, currentLanguage]
     ),
   };
 
   return (
-    <ModalLayout title={cart} onClose={callbacks.closeModal}>
+    <ModalLayout
+      title={dictionary[currentLanguage].cart}
+      onClose={callbacks.closeModal}
+    >
       <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <BasketTotal translation={dictionary[currentLanguage]} sum={select.sum} />
     </ModalLayout>
   );
 }

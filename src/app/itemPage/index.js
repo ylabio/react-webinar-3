@@ -44,7 +44,6 @@ const ItemPage = () => {
   }, [id, store]);
 
   const { currentLanguage } = useLanguage();
-  const { loading } = dictionary[currentLanguage];
   return (
     <PageLayout>
       {isLoading ? (
@@ -56,7 +55,7 @@ const ItemPage = () => {
             background: "#5f5f5f",
           }}
         >
-          {loading}...
+          {dictionary[currentLanguage].loading}...
         </h1>
       ) : (
         <>
@@ -65,10 +64,12 @@ const ItemPage = () => {
             onOpen={() => store.actions.modals.open("basket")}
             amount={select.amount}
             sum={select.sum}
+            translation={dictionary[currentLanguage]}
           />
           <Product
             product={product?.result}
             addToCart={callbacks.addToBasket}
+            translation={dictionary[currentLanguage]}
           />
         </>
       )}

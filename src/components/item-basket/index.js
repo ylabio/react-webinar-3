@@ -4,8 +4,6 @@ import propTypes from "prop-types";
 import { numberFormat } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 import PropTypes from "prop-types";
-import { useLanguage } from "../../localization/LanguageContext";
-import { dictionary } from "../../localization/dictionary";
 import "./style.css";
 
 function ItemBasket(props) {
@@ -16,24 +14,25 @@ function ItemBasket(props) {
     closeModal: () => props.onClose(),
   };
 
-  const { currentLanguage } = useLanguage();
-  const { pcs, delete_item, currency } = dictionary[currentLanguage];
+  console.log(props);
   return (
     <div className={cn()}>
       <div className={cn("title")}>
-        <Link to={`/${props.item._id}`} onClick={callbacks.closeModal}>
+        <Link to={props.link} onClick={callbacks.closeModal}>
           {props.item.title}
         </Link>
       </div>
       <div className={cn("right")}>
         <div className={cn("cell")}>
-          {numberFormat(props.item.price)} {currency}
+          {numberFormat(props.item.price)} {props.translation.currency}
         </div>
         <div className={cn("cell")}>
-          {numberFormat(props.item.amount || 0)} {pcs}
+          {numberFormat(props.item.amount || 0)} {props.translation.pcs}
         </div>
         <div className={cn("cell")}>
-          <button onClick={callbacks.removeFromBasket}>{delete_item}</button>
+          <button onClick={callbacks.removeFromBasket}>
+            {props.translation.delete_item}
+          </button>
         </div>
       </div>
     </div>

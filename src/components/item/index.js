@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { cn as bem } from "@bem-react/classname";
 import { numberFormat } from "../../utils";
-import { useLanguage } from "../../localization/LanguageContext";
-import { dictionary } from "../../localization/dictionary";
 import "./style.css";
 
 function Item(props) {
@@ -14,18 +12,16 @@ function Item(props) {
     onAdd: (e) => props.onAdd(props.item._id),
   };
 
-  const { currentLanguage } = useLanguage();
-  const { add, currency } = dictionary[currentLanguage];
   return (
     <div className={cn()}>
       <div className={cn("title")}>
-        <Link to={`/${props.item._id}`}>{props.item.title}</Link>
+        <Link to={props.link}>{props.item.title}</Link>
       </div>
       <div className={cn("actions")}>
         <div className={cn("price")}>
-          {numberFormat(props.item.price)} {currency}
+          {numberFormat(props.item.price)} {props.translation.currency}
         </div>
-        <button onClick={callbacks.onAdd}>{add}</button>
+        <button onClick={callbacks.onAdd}>{props.translation.add}</button>
       </div>
     </div>
   );
