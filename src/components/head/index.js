@@ -1,13 +1,17 @@
-import {memo} from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
-import './style.css';
+import DropdownMenu from "../dropdown-menu/dropdown-menu";
+import "./style.css";
 
-function Head({title}) {
+function Head({ title }) {
   return (
-    <div className='Head'>
+    <header className="Head">
       <h1>{title}</h1>
-    </div>
-  )
+      <section>
+        <DropdownMenu />
+      </section>
+    </header>
+  );
 }
 
 Head.propTypes = {
