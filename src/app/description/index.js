@@ -17,7 +17,7 @@ function Description() {
 
   useEffect(() => {
     store.actions.item.load({ _id });
-  }, []);
+  }, [_id]);
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
