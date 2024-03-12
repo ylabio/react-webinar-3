@@ -33,7 +33,11 @@ class Basket extends StoreModule {
       let item = this.store.getState().catalog.list.find(item => item._id === _id);
       if(item) existInCache = true
       if(!existInCache){
-      const response = await fetch(`/api/v1/articles/${_id}?fields=*,madeIn(title,code),category(title)`);
+      const response = await fetch(`/api/v1/articles/${_id}?fields=*,madeIn(title,code),category(title)`,{
+        headers: {
+                'Accept-Language': this.store.getState().locale.lang
+        }
+      });
       const {result} = await response.json();
       item = result
     }
@@ -67,6 +71,25 @@ class Basket extends StoreModule {
       sum,
       amount: list.length
     }, 'Удаление из корзины');
+  }
+
+  async reRender(_id) {
+    const list = await Promise.all(
+      this.getState().list.map(async (item) =>  {
+      const response = await fetch(`/api/v1/articles/${item._id}?fields=*,madeIn(title,code),category(title)`,{
+        headers: {
+                'Accept-Language': this.store.getState().locale.lang
+        }
+      });
+      const {result} = await response.json();
+      const newItem = result
+      return {...newItem,amount : item.amount};
+    }));
+
+    this.setState({
+      ...this.getState(),
+      list,
+    }, 'Ререндер корзины');
   }
 }
 

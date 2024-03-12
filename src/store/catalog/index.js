@@ -18,7 +18,11 @@ class Catalog extends StoreModule {
   async loadCurrPage(pageNum){
     const itemsPerPage = 10;
     const itemsToSkip = itemsPerPage * (pageNum - 1);
-    const response = await fetch(`/api/v1/articles?limit=${itemsPerPage}&skip=${itemsToSkip}`);
+    const response = await fetch(`/api/v1/articles?limit=${itemsPerPage}&skip=${itemsToSkip}`, {
+      headers: {
+        'Accept-Language': this.store.getState().locale.lang
+      }
+    });
     const json = await response.json();
     this.setState({
       ...this.getState(),

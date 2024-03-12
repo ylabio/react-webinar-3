@@ -5,10 +5,11 @@ import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import './style.css';
 import { Link } from 'react-router-dom';
+import useSelector from '../../store/use-selector';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
-
+  const {delete : deleteText, pieces} = useSelector(state => state.locale.translations.basket);
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id),
     onClick: () => props.onClick()
@@ -24,9 +25,9 @@ function ItemBasket(props) {
         </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {pieces}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{deleteText}</button>
         </div>
       </div>
     </div>

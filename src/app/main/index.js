@@ -14,14 +14,16 @@ function Main() {
   const store = useStore();
   const {id} = useParams()
 
-  useEffect(() => {
-    const pageNum = id !== undefined ? id : "1";
-    store.actions.catalog.loadCurrPage(pageNum);
-  },[id])
-
   const select = useSelector(state => ({
     list: state.catalog.list,
   }));
+
+  const {header} = useSelector(state =>state.locale.translations.main);
+
+  useEffect(() => {
+    const pageNum = id !== undefined ? id : "1";
+    store.actions.catalog.loadCurrPage(pageNum);
+  },[id,header]) // костыль
 
   const callbacks = {
     // Добавление в корзину
@@ -36,7 +38,7 @@ function Main() {
 
   return (
     <PageLayout
-      head={<Head title='Магазин'/>}
+      head={<Head title={header}/>}
        footer = {<Pagination/>}
     >
       <List list={select.list} renderItem={renders.item}/>

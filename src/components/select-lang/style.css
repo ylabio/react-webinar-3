@@ -1,0 +1,9 @@
+.styled-select {
+    margin-right: auto;
+
+}
+
+.styled-select select {
+    margin-left: 10px;
+
+}

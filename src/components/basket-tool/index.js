@@ -1,27 +1,33 @@
-import {memo} from "react";
+import {memo, useEffect} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
 import { Link } from "react-router-dom";
+import SelectLang from "../select-lang";
+import useStore from "../../store/use-store";
+import useSelector from "../../store/use-selector";
 
 function BasketTool({sum, amount, onOpen}) {
+  const {main,inCard,openModalCard,empty,pluralForms} = useSelector(state => state.locale.translations.basketTool);
+  const lang = useSelector(state => state.locale.lang);
+
   const cn = bem('BasketTool');
+  
   return (
     <div className={cn()}>
-      <Link className={cn('home-link')} to= "/">Главная</Link>
-      <span className={cn('label')}>В корзине:</span>
+      <Link className={cn('home-link')} to= "/">{main}</Link>
+      <SelectLang/>
+      <span className={cn('label')}>{inCard}:</span>
       <span className={cn('total')}>
         {amount
-          ? `${amount} ${plural(amount, {
-            one: 'товар',
-            few: 'товара',
-            many: 'товаров'
-          })} / ${numberFormat(sum)} ₽`
-          : `пусто`
+          ? `${amount} ${plural(amount, 
+            pluralForms,lang
+          )} / ${numberFormat(sum)} ₽`
+          : `${empty}`
         }
       </span>
-      <button onClick={onOpen}>Перейти</button>
+      <button onClick={onOpen}>{openModalCard}</button>
     </div>
   );
 }
