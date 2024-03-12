@@ -5,7 +5,7 @@ import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import ItemLink from "./item-link";
+import { Link } from "react-router-dom";
 
 function Basket() {
   const store = useStore();
@@ -37,11 +37,9 @@ function Basket() {
             textPcs={select.data.basket.pcs}
             textDeletetBtn={select.data.basket.deleteItemBasketBtn}
             children={
-              <ItemLink
-                id={item._id}
-                title={item.title}
-                closeModal={callbacks.closeModal}
-              />
+              <Link to={`/product/${item._id}`} onClick={callbacks.closeModal}>
+                {item.title}
+              </Link>
             }
           />
         );
