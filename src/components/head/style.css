@@ -1,9 +1,15 @@
 .Head {
-  height: 80px;
   background: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  align-items: center;
 }
 
-.Head h1 {
+.Head-title {
   margin: 0;
-  padding: 20px 20px 10px;
+}
+
+.Head-btn {
+  height: 100%;
 }

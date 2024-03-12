@@ -1,13 +1,19 @@
 import {memo} from "react";
 import PropTypes from "prop-types";
+import { useLanguage } from '../../language-context';
 import './style.css';
 
-function Head({title}) {
+function Head({ title }) {
+  const { translate, changeLanguage } = useLanguage();
+
   return (
     <div className='Head'>
-      <h1>{title}</h1>
+      <h1 className='Head-title'>{title}</h1>
+      <button className='Head-btn' onClick={() => changeLanguage()}>
+        {translate('Сменить язык')}
+      </button>
     </div>
-  )
+  );
 }
 
 Head.propTypes = {

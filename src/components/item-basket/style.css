@@ -11,9 +11,17 @@
 }
 
 .ItemBasket-title {
+  text-decoration: none;
+  color: black;
   width: 100%;
   padding: 20px 10px;
+  
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
+
 
 .ItemBasket-right {
   padding: 20px 20px 20px 10px;
