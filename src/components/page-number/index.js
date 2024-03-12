@@ -2,9 +2,10 @@ import {memo, useCallback} from 'react';
 import './style.css';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
+import {cn as bem} from '@bem-react/classname';
 
-function PageButton({number}) {
-
+function PageNumber({number}) {
+  const cn = bem('PageNumber');
   const store = useStore();
   const select = useSelector((state) => ({
     selectedPage: state.pagination.selectedPage
@@ -19,13 +20,17 @@ function PageButton({number}) {
 
   return(
       <li
-        className={`PageButton + ${(select.selectedPage === number) ? 'PageButton_selected' : ''} `}
-        onClick={callbacks.selectPage}
+        className={`${cn()} + ${(select.selectedPage === number) ? cn({selected: true}) : ''} `}
         key={`page_li_${number}`}
       >
-        {number}
+        <button
+          className={`${cn('button')} + ${(select.selectedPage === number) ? cn('button', {selected: true}) : ''} `}
+          onClick={callbacks.selectPage}
+        >
+          {number}
+        </button>
       </li>
   )
 };
 
-export default memo(PageButton);
+export default memo(PageNumber);

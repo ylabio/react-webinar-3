@@ -7,7 +7,7 @@ class Pagination extends StoreModule {
       paginationArray: [1],
     };
   }
-
+  
   generatePagination(articles, limit) {
     let currentPage = this.getState().selectedPage;
     let totalPages = Math.floor(articles / limit);
@@ -15,6 +15,7 @@ class Pagination extends StoreModule {
       totalPages++;
     }
     let delta = 1;
+    //для отображения дополнтельной страницы по краям
     let extra = 0;
     if ((currentPage === 1) || (currentPage === totalPages)) extra = 1;
     let range = [];

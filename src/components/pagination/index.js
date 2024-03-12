@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import PageButton from '../page-button';
+import PageNumber from '../page-number';
 import useSelector from '../../store/use-selector';
 
 function Pagination() {
@@ -12,7 +12,7 @@ function Pagination() {
       <ul className="Pagination-list">
       {select.paginationArray.map((page, index) => {
         if (typeof page === 'number') {
-          return <PageButton key={`page-button_component_${page}_${index}`} number={page} />
+          return <PageNumber key={`page-button_component_${page}_${index}`} number={page} />
         } else {
           return (
             <li className='Pagination-blank' key={`page_blank_${index}`}>

@@ -1,0 +1,44 @@
+.PageNumber {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.PageNumber-button {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+
+  /* inherit font & color from ancestor */
+  color: inherit;
+  font: inherit;
+
+  /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+  line-height: normal;
+
+  /* Corrects font smoothing for webkit */
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+
+  /* Corrects inability to style clickable `input` types in iOS */
+  -webkit-appearance: none;
+}
+
+.PageNumber:hover {
+  cursor: pointer;
+  background: #e1e1e1;
+}
+
+.PageNumber-button_selected {
+  background: #0087e9;
+  color: white;
+}
+
+.PageNumber-button_selected:hover {
+  background: #0087E9;
+  color: white;
+}
+
