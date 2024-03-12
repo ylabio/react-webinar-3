@@ -50,15 +50,17 @@ function Main() {
   return (
     <PageLayout>
       <Head title="Магазин" />
+    
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
       />
+      
       <List list={select.list} renderItem={renders.item} />
       <Pagination
         activePage={currentPage}
-        totalPages={70}
+        totalPages={55}
         onChange={callbacks.onPageClick}
       />
     </PageLayout>

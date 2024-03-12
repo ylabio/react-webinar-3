@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -66,3 +69,17 @@ export function getPagination(activePage, totalPages) {
   return rangeWithDots;
 }
 
+export function useFetchData() {
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    fetch(
+      `/api/v1/articles/${id}?fields=category(title),price,edition,description,madeIn(title)`
+    )
+      .then((response) => response.json())
+      .then((data) => setProduct(data.result));
+  }, [id]);
+
+  return { product, setProduct };
+}
