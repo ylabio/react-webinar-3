@@ -1,5 +1,5 @@
 import ItemCard from "../../components/item-card";
-import { memo, useCallback, useEffect } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
 import PageLayout from "../../components/page-layout";
@@ -10,14 +10,7 @@ import BasketTool from "../../components/basket-tool";
 import Basket from "../basket";
 import useTranslation from "../../hooks/useTranslation";
 import Subhead from "../../components/subhead";
-
-// export async function itemLoader({ params }) {
-//   const response = await fetch(
-//     `api/v1/articles/${params.id}?fields=*,madeIn(title,code),category(title)`
-//   );
-//   const itemData = await response.json();
-//   return itemData;
-// }
+import Loader from "../../components/loader";
 
 function Item() {
   const { id } = useParams();
@@ -28,6 +21,7 @@ function Item() {
     const loadItemData = () => {
       store.actions.item.load(id);
     };
+
     loadItemData();
   }, [id]);
 
@@ -42,6 +36,7 @@ function Item() {
     category: state.item.category,
     year: state.item.year,
     price: state.item.price,
+    isLoading: state.item.isLoading,
   }));
 
   const basketData = useSelector((state) => ({
@@ -53,6 +48,8 @@ function Item() {
     lang: state.language.language,
   }));
 
+  const [getTranslation] = useTranslation(lang);
+
   const callbacks = {
     openModalBasket: useCallback(
       () => store.actions.modals.open("basket"),
@@ -63,13 +60,13 @@ function Item() {
       [store]
     ),
     changeLanguage: useCallback(
-      (lang) => store.actions.language.setLanguage(lang),
+      (lang) => {
+        store.actions.language.setLanguage(lang);
+      },
+
       [store]
     ),
   };
-  const [getTranslation] = useTranslation();
-
-  console.log("ITEM", lang);
 
   return (
     <>
@@ -80,16 +77,25 @@ function Item() {
           lang={lang}
         />
         <Subhead>
-          <Link to={"/"}>{getTranslation("home")}</Link>
+          <Link to={`/`}>{getTranslation("home")}</Link>
           <BasketTool
             sum={basketData.sum}
             amount={basketData.amount}
             onOpen={callbacks.openModalBasket}
+            getTranslation={getTranslation}
           />{" "}
         </Subhead>
-        <ItemCard itemData={itemData} onAdd={callbacks.addToBasket}></ItemCard>
+        <Loader isShown={itemData.isLoading}>
+          <ItemCard
+            itemData={itemData}
+            onAdd={callbacks.addToBasket}
+            getTranslation={getTranslation}
+          >
+            {" "}
+          </ItemCard>
+        </Loader>
       </PageLayout>
-      {activeModal === "basket" && <Basket />}
+      {activeModal === "basket" && <Basket getTranslation={getTranslation} />}
     </>
   );
 }

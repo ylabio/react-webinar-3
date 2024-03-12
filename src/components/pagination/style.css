@@ -40,3 +40,8 @@
   padding: 5px;
   color: #cccccc;
 }
+
+.Pagination a {
+  text-decoration: none;
+  color: #000;
+}

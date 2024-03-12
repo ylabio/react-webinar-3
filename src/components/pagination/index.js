@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-function Pagination({ onChangePage, pagesNumber }) {
-  const [currentButton, setCurrentButton] = useState(1);
+function Pagination({ onChangePage, pagesNumber, activePage }) {
+  const [currentButton, setCurrentButton] = useState(activePage);
   const [pages, setPages] = useState([]);
 
   const dots = null;
@@ -64,17 +65,18 @@ function Pagination({ onChangePage, pagesNumber }) {
             );
           } else
             return (
-              <div
-                className={`${cn("page")} ${
-                  currentButton === page ? cn("page_active") : ""
-                }`}
-                key={index}
-                onClick={() => {
-                  setCurrentButton(page);
-                }}
-              >
-                {page}
-              </div>
+              <Link to={`/?page=${page}`} key={index}>
+                <div
+                  className={`${cn("page")} ${
+                    currentButton === page ? cn("page_active") : ""
+                  }`}
+                  onClick={() => {
+                    setCurrentButton(page);
+                  }}
+                >
+                  {page}
+                </div>
+              </Link>
             );
         })}
       </div>

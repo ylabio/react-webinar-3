@@ -5,29 +5,33 @@ import { numberFormat, plural, getTranslation } from "../../utils";
 import "./style.css";
 import useTranslation from "../../hooks/useTranslation";
 
-function BasketTool({ sum, amount, onOpen }) {
+function BasketTool({ sum, amount, onOpen, getTranslation }) {
   const cn = bem("BasketTool");
-
-  const [getTranslation] = useTranslation();
 
   let cartHas = "";
 
   if (amount) {
-    const pluralForms = getTranslation("items");
+    const pluralForms = getTranslation
+      ? getTranslation("items")
+      : { one: "товар", few: "товара", many: "товаров" };
     cartHas = `${amount} ${plural(amount, {
       one: pluralForms.one,
       few: pluralForms.few,
       many: pluralForms.many,
     })} / ${numberFormat(sum)} ₽`;
   } else {
-    cartHas = getTranslation("empty");
+    cartHas = getTranslation ? getTranslation("empty") : "пусто";
   }
 
   return (
     <div className={cn()}>
-      <span className={cn("label")}>{getTranslation("inCart")}:</span>
+      <span className={cn("label")}>
+        {getTranslation ? getTranslation("inCart") : "В корзине"}:
+      </span>
       <span className={cn("total")}>{cartHas}</span>
-      <button onClick={onOpen}>{getTranslation("open")}</button>
+      <button onClick={onOpen}>
+        {getTranslation ? getTranslation("open") : "Перейти"}
+      </button>
     </div>
   );
 }

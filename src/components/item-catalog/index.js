@@ -13,17 +13,17 @@ function ItemCatalog(props) {
     onAdd: (e) => props.onAdd(props.item._id),
   };
 
-  const [getTranslation] = useTranslation();
-
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <Link to={`${props.item._id}`} className={cn("title")}>
+      <Link to={`/items/${props.item._id}`} className={cn("title")}>
         {props.item.title}
       </Link>
       <div className={cn("actions")}>
         <div className={cn("price")}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>{getTranslation("add")}</button>
+        <button onClick={callbacks.onAdd}>
+          {props.getTranslation ? props.getTranslation("add") : "Добавить"}
+        </button>
       </div>
     </div>
   );

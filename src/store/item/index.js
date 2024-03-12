@@ -4,7 +4,6 @@ import StoreModule from "../module";
 class Item extends StoreModule {
   constructor(store, name) {
     super(store, name);
-    this.generateCode = codeGenerator(0);
   }
 
   initState() {
@@ -17,10 +16,12 @@ class Item extends StoreModule {
       category: null,
       year: null,
       price: null,
+      isLoading: false,
     };
   }
 
   async load(id) {
+    this.setState({ ...this.getState(), isLoading: true });
     const response = await fetch(
       `api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`
     );
@@ -35,6 +36,7 @@ class Item extends StoreModule {
       category: result.category.title,
       year: result.edition,
       price: result.price,
+      isLoading: false,
     });
   }
 }

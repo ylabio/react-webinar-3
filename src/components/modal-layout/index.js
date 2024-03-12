@@ -28,7 +28,6 @@ function ModalLayout(props) {
       resizeObserver.disconnect();
     };
   }, []);
-  const [getTranslation] = useTranslation();
 
   return (
     <div className={cn()} ref={layout}>
@@ -36,7 +35,7 @@ function ModalLayout(props) {
         <div className={cn("head")}>
           <h1 className={cn("title")}>{props.title}</h1>
           <button className={cn("close")} onClick={props.onClose}>
-            {getTranslation("close")}
+            {props.getTranslation ? props.getTranslation("close") : "Закрыть"}
           </button>
         </div>
         <div className={cn("content")}>{props.children}</div>

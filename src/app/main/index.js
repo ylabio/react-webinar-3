@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import ItemCatalog from "../../components/item-catalog";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -10,20 +10,32 @@ import useSelector from "../../store/use-selector";
 import useTranslation from "../../hooks/useTranslation";
 import { Link } from "react-router-dom";
 import Subhead from "../../components/subhead";
+import Loader from "../../components/loader";
+import { useParams, useSearchParams } from "react-router-dom";
 
 function Main() {
+  const [searchParams] = useSearchParams();
+  const page = Number(searchParams.get("page"));
+  console.log("Main", page);
+
   const store = useStore();
+
+  useEffect(() => {
+    store.actions.catalog.totalAmount();
+  }, []);
 
   const select = useSelector((state) => ({
     list: state.catalog.list,
+    isLoading: state.catalog.isLoading,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    pagesNumber: state.pagination.numberOfPages,
-    limitPerPage: state.pagination.limitPerPage,
-    page: state.pagination.currentPage,
+    pagesNumber: state.catalog.numberOfPages,
+    limitPerPage: state.catalog.limitPerPage,
+    page: state.catalog.currentPage,
     lang: state.language.language,
-    langOptions: state.language.options,
   }));
+
+  console.log("pagesNumber", select.pagesNumber);
 
   const callbacks = {
     // Добавление в корзину
@@ -43,40 +55,55 @@ function Main() {
       [store]
     ),
     changePage: useCallback(
-      (currentPage) => store.actions.pagination.setCurrentPage(currentPage),
+      (currentPage) => store.actions.catalog.setCurrentPage(currentPage),
       [store]
     ),
     // changeLimit: useCallback(
-    //   (limit) => store.actions.pagination.setLimit(limit),
+    //   (limit) => store.actions.catalog.setLimit(limit),
     //   [store]
     // ),
   };
 
   useEffect(() => {
-    if (select.page === 1) {
+    if (!page || page === 1) {
       store.actions.catalog.loadPerPage(select.limitPerPage, 0);
     } else {
       store.actions.catalog.loadPerPage(
         select.limitPerPage,
-        (select.page - 1) * select.limitPerPage
+        (page - 1) * select.limitPerPage
       );
     }
-  }, [select.page, select.limitPerPage]);
+  }, [page]);
 
-  useEffect(() => {
-    store.actions.pagination.totalAmount();
-  }, []);
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   if (select.page === 1) {
+  //     store.actions.catalog.loadPerPage(select.limitPerPage, 0);
+  //   } else {
+  //     store.actions.catalog.loadPerPage(
+  //       select.limitPerPage,
+  //       (select.page - 1) * select.limitPerPage
+  //     );
+  //   }
+  //   setIsLoading(false);
+  // }, [select.page, select.limitPerPage]);
 
   const renders = {
     item: useCallback(
       (item) => {
-        return <ItemCatalog item={item} onAdd={callbacks.addToBasket} />;
+        return (
+          <ItemCatalog
+            item={item}
+            onAdd={callbacks.addToBasket}
+            getTranslation={getTranslation}
+          />
+        );
       },
       [callbacks.addToBasket, select.lang]
     ),
   };
 
-  const [getTranslation] = useTranslation();
+  const [getTranslation] = useTranslation(select.lang);
 
   return (
     <PageLayout>
@@ -92,17 +119,21 @@ function Main() {
           sum={select.sum}
           amount={select.amount}
           onOpen={callbacks.openModalBasket}
+          getTranslation={getTranslation}
         />{" "}
       </Subhead>
+      <Loader isShown={select.isLoading}>
+        <List list={select.list} renderItem={renders.item} />
 
-      <List list={select.list} renderItem={renders.item} />
-      {select.pagesNumber > 1 && (
-        <Pagination
-          pagesNumber={select.pagesNumber}
-          onChangePage={callbacks.changePage}
-          onChangeLimit={callbacks.changeLimit}
-        />
-      )}
+        {select.pagesNumber > 1 && (
+          <Pagination
+            pagesNumber={select.pagesNumber}
+            activePage={page < 1 ? 1 : page}
+            onChangePage={callbacks.changePage}
+            onChangeLimit={callbacks.changeLimit}
+          />
+        )}
+      </Loader>
     </PageLayout>
   );
 }

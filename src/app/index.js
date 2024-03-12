@@ -1,36 +1,25 @@
 import useSelector from "../store/use-selector";
-import Home from "./home";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Item, { itemLoader } from "./item";
-import { Outlet } from "react-router-dom";
-import RootLayout from "../components/root-layout";
+import { useParams, useSearchParams } from "react-router-dom";
+import Basket from "./basket";
+import Main from "./main";
+import Item from "./item";
+
 /**
  * Приложение
  * @returns {React.ReactElement}
  */
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <RootLayout />,
-    children: [
-      { index: true, element: <Home /> },
-      {
-        path: ":id",
-        element: <Item />,
-        id: "itemCard",
-        // loader: itemLoader,
-      },
-    ],
-  },
-]);
-
 function App() {
   const activeModal = useSelector((state) => state.modals.name);
+  const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get("page");
 
   return (
     <>
-      <RouterProvider router={router} />
+      {!id && <Main />}
+      {!page && id && <Item />}
+      {activeModal === "basket" && <Basket />}
     </>
   );
 }

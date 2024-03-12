@@ -1,15 +1,14 @@
-import { codeGenerator } from "../../utils";
 import StoreModule from "../module";
 
 class Language extends StoreModule {
   constructor(store, name) {
     super(store, name);
-    this.generateCode = codeGenerator(0);
   }
 
   initState() {
+    const localLang = JSON.parse(window.localStorage.getItem("lang"));
     return {
-      language: "ru",
+      language: localLang || "ru",
     };
   }
 
@@ -17,6 +16,7 @@ class Language extends StoreModule {
     this.setState({
       language: lang,
     });
+    window.localStorage.setItem("lang", JSON.stringify(lang));
   }
 }
 

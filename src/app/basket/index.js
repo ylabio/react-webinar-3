@@ -17,6 +17,8 @@ function Basket() {
     lang: state.language.lang,
   }));
 
+  const [getTranslation] = useTranslation(select.lang);
+
   const callbacks = {
     // Удаление из корзины
     removeFromBasket: useCallback(
@@ -35,18 +37,22 @@ function Basket() {
             item={item}
             onRemove={callbacks.removeFromBasket}
             onClose={callbacks.closeModal}
+            getTranslation={getTranslation}
           />
         );
       },
       [callbacks.removeFromBasket]
     ),
   };
-  const [getTranslation] = useTranslation();
 
   return (
-    <ModalLayout title={getTranslation("cart")} onClose={callbacks.closeModal}>
+    <ModalLayout
+      title={getTranslation("cart")}
+      onClose={callbacks.closeModal}
+      getTranslation={getTranslation}
+    >
       <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <BasketTotal sum={select.sum} getTranslation={getTranslation} />
     </ModalLayout>
   );
 }

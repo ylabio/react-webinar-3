@@ -1,11 +1,10 @@
 import { memo, useCallback } from "react";
 import propTypes from "prop-types";
-import { numberFormat, getTranslation } from "../../utils";
+import { numberFormat } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import "./style.css";
-import useTranslation from "../../hooks/useTranslation";
 
 function ItemBasket(props) {
   const cn = bem("ItemBasket");
@@ -13,8 +12,6 @@ function ItemBasket(props) {
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id),
   };
-
-  const [getTranslation] = useTranslation();
 
   return (
     <div className={cn()}>
@@ -29,11 +26,12 @@ function ItemBasket(props) {
       <div className={cn("right")}>
         <div className={cn("cell")}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn("cell")}>
-          {numberFormat(props.item.amount || 0)} {getTranslation("pcs")}
+          {numberFormat(props.item.amount || 0)}{" "}
+          {props.getTranslation ? props.getTranslation("pcs") : "шт"}
         </div>
         <div className={cn("cell")}>
           <button onClick={callbacks.onRemove}>
-            {getTranslation("remove")}
+            {props.getTranslation ? props.getTranslation("remove") : "Удалить"}
           </button>
         </div>
       </div>
