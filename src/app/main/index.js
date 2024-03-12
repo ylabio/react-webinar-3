@@ -20,7 +20,8 @@ function Main() {
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    catalog: state.catalog
+    catalog: state.catalog,
+    texts: state.language.texts
   }));
 
   const callbacks = {
@@ -30,19 +31,21 @@ function Main() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     //Смена страницы
     changePage: useCallback(num => store.actions.catalog.loadPage(num), [store]),
+    //смена языка
+    changeLanguage: useCallback(lang => store.actions.language.changeLanguage(lang), [store])
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
+      return <Item item={item} onAdd={callbacks.addToBasket} texts={select.texts.item}/>
+    }, [callbacks.addToBasket, select.texts.item]),
   };
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
+      <Head title={select.texts.head_title} onChange={callbacks.changeLanguage} locale={select.texts.locale}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+                  sum={select.sum} texts={select.texts.controls} locale={select.texts.locale}/>
       <List list={select.list} renderItem={renders.item}/>
       <PageList page={select.catalog.currentPage} totalPages={select.catalog.pages} onPageChange={callbacks.changePage}/>
     </PageLayout>

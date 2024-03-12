@@ -1,31 +1,28 @@
-import {memo} from "react";
+import { memo } from "react";
 import PropTypes from 'prop-types';
-import {cn as bem} from '@bem-react/classname';
-import {numberFormat, plural} from "../../utils";
+import { cn as bem } from '@bem-react/classname';
+import { numberFormat, plural } from "../../utils";
 import './style.css';
 import { Link } from "react-router-dom";
 
-function DescriptionBasketTool({sum, amount, onOpen}) {
+function DescriptionBasketTool({ sum, amount, onOpen, texts, locale }) {
   const cn = bem('DescriptionBasketTool');
+  console.log(texts);
   return (
     <div className={cn()}>
       <div className={cn('link-container')}>
-        <Link className={cn('link')} to="/">Главная</Link>
+        <Link className={cn('link')} to="/">{texts?.main}</Link>
       </div>
 
       <div className={cn('main')}>
-        <span className={cn('label')}>В корзине:</span>
+        <span className={cn('label')}>{texts?.inCart}</span>
         <span className={cn('total')}>
           {amount
-            ? `${amount} ${plural(amount, {
-              one: 'товар',
-              few: 'товара',
-              many: 'товаров'
-            })} / ${numberFormat(sum)} ₽`
-            : `пусто`
+            ? `${amount} ${plural(amount, texts?.article, locale)} / ${numberFormat(sum)} ₽`
+            : texts?.empty
           }
         </span>
-        <button onClick={onOpen}>Перейти</button>
+        <button onClick={onOpen}>{texts?.openCart}</button>
       </div>
     </div>
   );
@@ -38,7 +35,7 @@ DescriptionBasketTool.propTypes = {
 };
 
 DescriptionBasketTool.defaultProps = {
-  onOpen: () => {},
+  onOpen: () => { },
   sum: 0,
   amount: 0
 }

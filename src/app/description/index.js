@@ -10,19 +10,20 @@ import DescriptionBody from "../../components/description-body";
 import './style.css';
 
 
-function Description(){
+function Description() {
 
-  const {_id} = useParams();
+  const { _id } = useParams();
   const store = useStore();
 
   useEffect(() => {
-    store.actions.item.load({_id});
+    store.actions.item.load({ _id });
   }, []);
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
-    item: state.item.selectedItem
+    item: state.item.selectedItem,
+    texts: state.language.texts
   }));
 
   const callbacks = {
@@ -30,15 +31,17 @@ function Description(){
     addToBasket: useCallback(() => store.actions.basket.addToBasket(select.item._id), [store, select.item._id]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    //смена языка
+    changeLanguage: useCallback(lang => store.actions.language.changeLanguage(lang), [store])
   }
 
   return (
     <PageLayout>
-      <Head title={select.item.title}/>
+      <Head title={select.item.title} onChange={callbacks.changeLanguage} locale={select.texts.locale}/>
       <DescriptionBasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
-      <DescriptionBody item={select.item}/>
-      <button onClick={callbacks.addToBasket}>Добавить</button>
+        sum={select.sum} texts={select.texts.description?.basket_tool} locale={select.texts.locale} />
+      <DescriptionBody item={select.item} texts={select.texts.description?.body} />
+      <button onClick={callbacks.addToBasket}>{select.texts.description?.add}</button>
     </PageLayout>
   );
 }

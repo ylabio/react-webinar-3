@@ -1,4 +1,4 @@
-import {memo, useCallback} from 'react';
+import { memo, useCallback } from 'react';
 import ItemBasket from "../../components/item-basket";
 import List from "../../components/list";
 import ModalLayout from "../../components/modal-layout";
@@ -13,7 +13,8 @@ function Basket() {
   const select = useSelector(state => ({
     list: state.basket.list,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    texts: state.language.texts
   }));
 
   const callbacks = {
@@ -25,14 +26,15 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} onClick={callbacks.closeModal}/>
-    }, [callbacks.removeFromBasket]),
+      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}
+        onClick={callbacks.closeModal} texts={select.texts.item} />
+    }, [callbacks.removeFromBasket, select.texts]),
   };
 
   return (
-    <ModalLayout title='Корзина' onClose={callbacks.closeModal}>
-      <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+    <ModalLayout title={select.texts.cart.title} onClose={callbacks.closeModal} texts={select.texts.cart}>
+      <List list={select.list} renderItem={renders.itemBasket} />
+      <BasketTotal sum={select.sum} texts={select.texts.cart.total}/>
     </ModalLayout>
   );
 }
