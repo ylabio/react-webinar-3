@@ -29,6 +29,7 @@ function Main() {
 
   const select = useSelector(state => ({
     list: state.catalog.list,
+    countItems: state.catalog.count,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -54,7 +55,7 @@ function Main() {
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
-      <Pagination articlesPerPage={articlesPerPage} totalArticles={100}
+      <Pagination articlesPerPage={articlesPerPage} totalArticles={select.countItems}
                   currentPage={currentPage} onPageChange={handlePageChange} />
     </PageLayout>
 
