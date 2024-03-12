@@ -42,7 +42,7 @@ function Main({ language = 'ru' }) {
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} language={language}/>;
+        return <Item item={item} onAdd={callbacks.addToBasket} language={language} path={'/articles'}/>;
       },
       [callbacks.addToBasket, language],
     ),

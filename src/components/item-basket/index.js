@@ -9,7 +9,7 @@ import useStore from '../../store/use-store';
 import { langButton, langText } from '../../constants/language';
 
 function ItemBasket(props) {
-  const {language='ru'} = props
+  const {language='ru', path=''} = props
 
   const cn = bem('ItemBasket');
 
@@ -23,10 +23,9 @@ function ItemBasket(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <Link
         onClick={callbacks.closeModal}
-        to={`/articles/${props.item._id}`}
+        to={`${path}/${props.item._id}`}
         className={cn('title')}>
         {props.item.title}
         </Link>
@@ -51,6 +50,7 @@ ItemBasket.propTypes = {
     amount: PropTypes.number
   }).isRequired,
   language: PropTypes.string,
+  path: PropTypes.string,
   onRemove: propTypes.func,
 }
 

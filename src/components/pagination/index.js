@@ -6,7 +6,7 @@ import './style.css';
 import { Link } from 'react-router-dom';
 
 function Pagination(props) {
-  const { limit = 10, count, currentPage, path="/"} = props;
+  const { limit = 10, count, currentPage, path=''} = props;
 
   const paginationRange = usePagination([count, limit, currentPage]);
 
@@ -26,7 +26,7 @@ function Pagination(props) {
         return (
           <li key={index}>
             <Link
-              to={`${path}${pageNumber}`}
+              to={`${path}/${pageNumber}`}
               className={
                 pageNumber === currentPage
                   ? cn('btn', { active: true })

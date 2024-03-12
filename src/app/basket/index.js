@@ -35,6 +35,7 @@ function Basket({ language = 'ru' }) {
             item={item}
             onRemove={callbacks.removeFromBasket}
             language={language}
+            path={'/articles'}
           />
         );
       },

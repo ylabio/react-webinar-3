@@ -4,10 +4,10 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
 import { Link } from "react-router-dom";
-import { langButton, langText } from "../../constants/language";
+import { langButton } from "../../constants/language";
 
 function Item(props) {
-  const {language='ru'} = props
+  const {language='ru', path=''} = props
 
   const cn = bem('Item');
 
@@ -18,7 +18,7 @@ function Item(props) {
   return (
     <div className={cn()}>
       <Link
-      to={`/articles/${props.item._id}`}
+      to={`${path}/${props.item._id}`}
       className={cn('title')}>
         {props.item.title}
       </Link>
@@ -37,6 +37,7 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   language: PropTypes.string,
+  path: PropTypes.string,
   onAdd: PropTypes.func,
 };
 
