@@ -2,11 +2,19 @@ import { memo, useState } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import { numberFormat } from "../../utils";
+import useStore from "../../store/use-store";
+import useSelector from "../../store/use-selector";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 function Item(props) {
   const navigate = useNavigate();
+  const store = useStore();
+  const t = store.actions.translator.useTranslate();
+
+  const select = useSelector((state) => ({
+    lang: state.translator.language,
+  }));
 
   const cn = bem("Item");
   const callbacks = {
@@ -25,7 +33,7 @@ function Item(props) {
       </div>
       <div className={cn("actions")}>
         <div className={cn("price")}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{t("Добавить")}</button>
       </div>
     </div>
   );

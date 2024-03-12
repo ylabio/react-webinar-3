@@ -13,6 +13,9 @@ function Main() {
   const store = useStore();
   const activeModal = useSelector((state) => state.modals.name);
 
+  // translator
+  const t = store.actions.translator.useTranslate();
+
   useEffect(() => {
     store.actions.catalog.load(select.currentPage);
   }, []);
@@ -23,6 +26,7 @@ function Main() {
     itemsTotal: state.catalog.itemsTotal,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    lang: state.translator.language,
   }));
 
   const callbacks = {
@@ -58,7 +62,7 @@ function Main() {
     <>
       {activeModal === "basket" && <Basket />}
       <PageLayout>
-        <Head title="Магазин" />
+        <Head title={t("Магазин")} />
         <BasketTool
           onOpen={callbacks.openModalBasket}
           amount={select.amount}

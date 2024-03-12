@@ -43,4 +43,5 @@
 
 .Paginator-item_selected:hover {
   background-color: #0087e9;
+  cursor: default;
 }

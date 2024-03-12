@@ -12,6 +12,7 @@ import "./style.css";
 function ProductPage() {
   const { id } = useParams();
   const store = useStore();
+  const t = store.actions.translator.useTranslate();
 
   useEffect(() => {
     if (id !== select.product._id) store.actions.product.load(id);
@@ -37,6 +38,7 @@ function ProductPage() {
     status: state.product.status,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    lang: state.translator.language,
   }));
 
   return (
@@ -54,7 +56,7 @@ function ProductPage() {
               amount={select.amount}
               sum={select.sum}
             >
-              <Link to={"/"}>Главная</Link>
+              <Link to={"/"}>{t("Главная")}</Link>
             </BasketTool>
             <ProductInfo />
           </>

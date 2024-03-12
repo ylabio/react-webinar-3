@@ -7,8 +7,9 @@ import { numberFormat } from "../../utils";
 import "./style.css";
 
 function ProductInfo() {
-  const store = useStore();
   const cn = bem("ProductInfo");
+  const store = useStore();
+  const t = store.actions.translator.useTranslate();
 
   const select = useSelector((state) => ({
     _id: state.product._id,
@@ -18,6 +19,7 @@ function ProductInfo() {
     countryName: state.product.madeIn.title,
     countryCode: state.product.madeIn.code,
     category: state.product.category.title,
+    lang: state.translator.language,
   }));
 
   const callbacks = {
@@ -53,7 +55,7 @@ function ProductInfo() {
         onClick={() => callbacks.addToBasket(select._id)}
         className={cn("btn", { add: true })}
       >
-        Добавить
+        {t("Добавить")}
       </button>
     </div>
   );
