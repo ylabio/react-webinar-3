@@ -29,8 +29,8 @@ function Main({ language = 'ru' }) {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(
-      _id => store.actions.basket.addToBasket(_id),
-      [store],
+      _id => store.actions.basket.addToBasket(_id, language),
+      [store, language],
     ),
     // Открытие модалки корзины
     openModalBasket: useCallback(
