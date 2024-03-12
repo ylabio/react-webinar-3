@@ -1,19 +1,19 @@
 import StoreModule from "../module";
 
-class Pagination extends StoreModule {
+class Language extends StoreModule {
 
   initState() {
     return {
-      currentPage: 1
+      value: 'ru'
     }
   }
 
-  changePage(page) {
+  changeLang(lang) {
     this.setState({
       ...this.getState(),
-      currentPage: page
+      value: lang
     })
   }
 }
 
-export default Pagination;
+export default Language;

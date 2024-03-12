@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import Article from '../../components/article'
 import BasketTool from '../../components/basket-tool'
 import Head from '../../components/head'
+import Item from '../../components/item'
 import List from '../../components/list'
 import PageLayout from '../../components/page-layout'
 import useStore from "../../store/use-store";
@@ -20,9 +21,9 @@ function ArticlePage() {
   const select = useSelector(state => ({
     item: state.catalog.item,
     amount: state.basket.amount,
-    sum: state.basket.sum
-  }));
+    sum: state.basket.sum,
 
+  }));
 
   const callbacks = {
     // Добавление в корзину
@@ -31,7 +32,9 @@ function ArticlePage() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   }
 
-
+  if (!select.item.title) {
+    return ;
+  }
   return (
     <PageLayout>
       <Head title={select.item?.title}/>
