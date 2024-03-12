@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import { numberFormat, plural } from "../../utils";
 import "./style.css";
-import { Link } from "react-router-dom";
 
-function BasketTool({ sum, amount, onOpen, lang, data }) {
+function BasketTool({ sum, amount, onOpen, lang, data, children }) {
   const cn = bem("BasketTool");
   return (
     <div className={cn()}>
-      <Link to="/">{data.main.linkHome}</Link>
+      <div className={cn("title")}>{children}</div>
+
       <div>
         <span className={cn("label")}>{data.basket.basketToolText}:</span>
         <span className={cn("total")}>
@@ -44,12 +44,14 @@ BasketTool.propTypes = {
   amount: PropTypes.number,
   lang: PropTypes.string.isRequired,
   data: PropTypes.object.isRequired,
+  children: PropTypes.node,
 };
 
 BasketTool.defaultProps = {
   onOpen: () => {},
   sum: 0,
   amount: 0,
+  children: "",
 };
 
 export default memo(BasketTool);

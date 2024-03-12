@@ -4,7 +4,7 @@ import Item from "../../components/item";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import List from "../../components/list";
 import LoaderList from "../../components/loader-list";
 import ErrorPage from "../../components/page-error";
@@ -34,7 +34,14 @@ function Main() {
   const renders = {
     item: useCallback(
       (item) => {
-        return <Item item={item} onAdd={addToBasket} titleBtn={select.data} />;
+        return (
+          <Item
+            item={item}
+            onAdd={addToBasket}
+            titleBtn={select.data}
+            children={<Link to={`/product/${item._id}`}>{item.title}</Link>}
+          />
+        );
       },
       [addToBasket, select.data]
     ),

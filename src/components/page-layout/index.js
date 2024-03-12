@@ -2,7 +2,7 @@ import { memo } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
-import { Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import Head from "../head";
 import BasketTool from "../basket-tool";
 import useStore from "../../store/use-store";
@@ -53,6 +53,7 @@ function PageLayout({ footer }) {
           sum={select.sum}
           lang={select.lang}
           data={select.data}
+          children={<Link to="/">{select.data.main.linkHome}</Link>}
         />
       </div>
       <div className={cn("center")}>
