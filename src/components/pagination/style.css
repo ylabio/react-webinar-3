@@ -2,11 +2,8 @@
   display: flex;
   justify-content: flex-end;
   list-style: none;
-  /* color: black; */
-  /* gap: 5px; */
   margin-top: 22px;
   margin-right: 20px;
-  /* font-size: 18px; */
   height: 272px;
 }
 
@@ -39,8 +36,6 @@
 } 
 
 .Pagination-page-space {
-  /* display: flex;
-  justify-content: center; */
   width: 18px;
   height: 18px;
   color: #E1E1E1;

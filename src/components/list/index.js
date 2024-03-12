@@ -5,14 +5,11 @@ import './style.css';
 function List(props) {
 
   return (
-    <div className='List' lang={props.lang}>{
+    <div className='List'>{
       props.list.map(item =>
-        <>
         <div key={item._id} className='List-item'>
           {props.renderItem(item)} 
         </div>
-        
-        </>
       )}
     </div>
   )

@@ -12,9 +12,9 @@ function BasketTool({sum, amount, onOpen, lang, paginate}) {
 
   return (
     <div className={cn()}>
-      <Link to={"/"} className={cn('home')} onClick={() => { paginate(1)}} lang-key='main'>{content[lang].main}</Link>
+      <Link to={"/"} className={cn('home')} onClick={() => {paginate(1)}}>{content[lang].main}</Link>
       {/* <a href='/' className={cn('home')}>Главная</a> */}
-      <span className={cn('label')} lang-key='inBasket'>{content[lang].inBasket}</span>
+      <span className={cn('label')} >{content[lang].inBasket}</span>
       <span className={cn('total')}>
         {amount
           ? `${amount} ${plural(amount, {
@@ -25,7 +25,7 @@ function BasketTool({sum, amount, onOpen, lang, paginate}) {
           : `${content[lang].empty}`
         }
       </span>
-      <button onClick={onOpen} lang-key='goTo'>{content[lang].goTo}</button>
+      <button onClick={onOpen}>{content[lang].goTo}</button>
     </div>
   );
 }
@@ -33,13 +33,17 @@ function BasketTool({sum, amount, onOpen, lang, paginate}) {
 BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
-  amount: PropTypes.number
+  amount: PropTypes.number,
+  lang: PropTypes.string,
+  paginate: PropTypes.func.isRequired
 };
 
 BasketTool.defaultProps = {
   onOpen: () => {},
   sum: 0,
-  amount: 0
+  amount: 0,
+  lang: 'ru',
+  paginate: () => {},
 }
 
 export default memo(BasketTool);

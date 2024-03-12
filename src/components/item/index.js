@@ -23,7 +23,7 @@ function Item(props) {
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd} lang-key='add'>{content[props.lang].add}</button>
+        <button onClick={callbacks.onAdd}>{content[props.lang].add}</button>
       </div>
     </div>
   );
@@ -36,10 +36,12 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  lang: PropTypes.string,
 };
 
 Item.defaultProps = {
   onAdd: () => {},
+  lang: 'ru',
 }
 
 export default memo(Item);

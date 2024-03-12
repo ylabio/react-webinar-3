@@ -2,7 +2,6 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Main from "./main";
 import Basket from "./basket";
 import useSelector from "../store/use-selector";
-
 import AboutOrder from './about-order';
 
 /**

@@ -8,7 +8,7 @@ function Head(props) {
 
   return (
     <div className='Head'>
-      <h1 id='title' lang-key='title'>{props.title === 'Магазин' ? content[props.lang].title : props.title}</h1>
+      <h1 id='title'>{props.title === 'Магазин' ? content[props.lang].title : props.title}</h1>
       <LangSwitcher lang={props.lang} switchLang={props.switchLang}/>
     </div>
   )
@@ -16,6 +16,14 @@ function Head(props) {
 
 Head.propTypes = {
   title: PropTypes.node,
+  lang: PropTypes.string,
+  switchLang: PropTypes.func.isRequired,
 };
+
+Head.defaultProps = {
+  title: 'Название',
+  lang: 'ru',
+  switchLang: () => {},
+}
 
 export default memo(Head);

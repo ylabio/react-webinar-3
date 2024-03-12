@@ -5,7 +5,7 @@ import './style.css';
 function Controls({onAdd}) {
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()} lang-key='add'>Добавить</button>
+      <button onClick={() => onAdd()}>Добавить</button>
     </div>
   )
 }

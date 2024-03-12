@@ -34,8 +34,6 @@ class Catalog extends StoreModule {
       price: json.result.price,
       title: json.result.title
     }, 'Загружена инфа о товаре из АПИ');
-    // console.log(json.result)
-
   }
 
 }

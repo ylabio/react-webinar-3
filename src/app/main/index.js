@@ -41,12 +41,6 @@ function Main() {
     store.actions.catalog.loadCountItems(itemsPerPage, currentPage);
   }, [store]);
 
-
-  // useMemo(() => {
-  //   store.actions.catalog.translation.switchLang();
-  // }, [select.lang]);
-
-
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),

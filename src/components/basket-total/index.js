@@ -9,7 +9,7 @@ function BasketTotal({sum, lang}) {
   const cn = bem('BasketTotal');
   return (
     <div className={cn()}>
-      <span className={cn('cell')} lang-key='total'> {content[lang].total}</span>
+      <span className={cn('cell')}> {content[lang].total}</span>
       <span className={cn('cell')}> {numberFormat(sum)} ₽</span>
       <span className={cn('cell')}></span>
     </div>
@@ -17,11 +17,13 @@ function BasketTotal({sum, lang}) {
 }
 
 BasketTotal.propTypes = {
-  sum: PropTypes.number
+  sum: PropTypes.number,
+  lang: PropTypes.string,
 };
 
 BasketTotal.defaultProps = {
-  sum: 0
+  sum: 0,
+  lang: 'ru',
 }
 
 export default memo(BasketTotal);

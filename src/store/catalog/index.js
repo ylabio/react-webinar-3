@@ -24,7 +24,6 @@ class Catalog extends StoreModule {
         // list: [],
         isLoading: true
       })
-    this.switchLang()
     const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}`);
     const json = await response.json();
     

@@ -18,13 +18,27 @@ function Description(props) {
       <p className={cn('category')} >{`${content[props.lang].category}: `}<span className={cn('category-value')}>{`${props.category}`}</span></p>
       <p className={cn('year')} >{`${content[props.lang].year}: `}<span className={cn('category-value')}>{`${props.year}`}</span></p>
       <p className={cn('price')} >{`${content[props.lang].price}:  ${props.price} ₽`}</p>
-      <button onClick={callbacks.addToBasket} lang-key='add'>{content[props.lang].add}</button>
+      <button onClick={callbacks.addToBasket}>{content[props.lang].add}</button>
     </div>
   );
 }
 
-// PageLayout.propTypes = {
-//   children: PropTypes.node
-// }
+Description.propTypes = {
+  addToBasket: PropTypes.func,
+  lang: PropTypes.string,
+  description: PropTypes.string,
+  madeIn: PropTypes.string,
+  category: PropTypes.node,
+  year: PropTypes.node,
+  price: PropTypes.node
+}
+
+Description.defaultProps = {
+  description: 'Описание',
+  addToBasket: () => {},
+  lang: 'ru',
+  madeIn: 'Страна',
+  category: 'Категория',
+};
 
 export default memo(Description);
