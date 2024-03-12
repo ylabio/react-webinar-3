@@ -36,6 +36,9 @@ function ProductCard(props) {
             <div className={cn('priceContainer')}>
                 Цена: {numberFormat(props.product?.price)} ₽
             </div>
+            <button className={cn('button')} type="button" onClick={props.onAdd}>
+                Добавить
+            </button>
         </div>
     )
 }

@@ -36,3 +36,9 @@
     font-weight: bold;
 }
 
+.ProductCard-button {
+    margin-top: 20px;
+    width: 76px;
+    height: 21px;
+}
+

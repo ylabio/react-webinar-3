@@ -39,7 +39,7 @@ function ProductPage({itemId}) {
             }
             } amount={select.amount}
                 sum={select.sum} />
-            <ProductCard product={product}/>
+            <ProductCard product={product} onAdd={() => store.actions.basket.addToBasket(product._id)}/>
         </PageLayout>
     );
 };
