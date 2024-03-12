@@ -15,8 +15,8 @@ class Catalog extends StoreModule {
     }
   }
 
-  async load(page) {
-    const articlesUrl = `/api/v1/articles?limit=10&skip=${(page - 1) * 10}&lang=ru`
+  async load(page, language) {
+    const articlesUrl = `/api/v1/articles?limit=10&skip=${(page - 1) * 10}&lang=${language}`
     const response = await fetch(articlesUrl);
     const totalItemsAmountResponse = await fetch('/api/v1/articles?fields=items(_id, title, price),count')
 
@@ -30,8 +30,8 @@ class Catalog extends StoreModule {
       totalPages: totalPages,
     }, 'Загружены товары из АПИ');
   }
-  async loadProductContent(id) {
-    const productUrl = `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)&lang=ru`
+  async loadProductContent(id, language) {
+    const productUrl = `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)&lang=${language}`
     const response = await fetch(productUrl);
 
     const json =  await response.json();

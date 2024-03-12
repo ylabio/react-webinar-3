@@ -6,6 +6,7 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
+import { UI_TEXTS } from '../../consts/content';
 
 function Main() {
   const store = useStore();
@@ -13,20 +14,23 @@ function Main() {
   const [page, setPage] = useState({ newValue: 1, oldValue: 1 })
   const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {
-    const fetchCatalog = async () => {
-      await store.actions.catalog.load(page.newValue)
-      setIsLoading(false)
-    }
-    fetchCatalog()
-  }, [page, store.actions.catalog]);
-
   const select = useSelector(state => ({
     list: state.catalog.list,
     totalPages: state.catalog.totalPages,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    language: state.language.currentLanguage
   }));
+
+  useEffect(() => {
+    const fetchCatalog = async () => {
+      await store.actions.catalog.load(page.newValue, select.language)
+      setIsLoading(false)
+    }
+    fetchCatalog()
+  }, [page, select.language]);
+
+
 
   const callbacks = {
     // Добавление в корзину
@@ -39,6 +43,10 @@ function Main() {
     },
   }
 
+  const uiText = {
+    title: UI_TEXTS[select.language].main.head.headTitle,
+  }
+
   const renders = {
     item: useCallback((item) => {
       return <Item item={item} onAdd={callbacks.addToBasket}/>
@@ -47,7 +55,7 @@ function Main() {
 
   return (
     <>
-      <Head title="Магазин"/>
+      <Head title={uiText.title}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>

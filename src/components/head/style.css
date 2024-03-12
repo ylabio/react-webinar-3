@@ -1,9 +1,50 @@
 .Head {
   height: 80px;
   background: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
 }
 
 .Head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  padding: 0 20px;
+}
+
+.Head-language-btn {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  padding: 10px 20px;
+  margin: 0 20px;
+}
+
+.Head-language-btn-dropdown {
+  margin: 0;
+  position: absolute;
+  bottom: -83px;
+  right: 20px;
+  padding: 0;
+  min-width: 150px;
+  background-color: #f5f5f5;
+  list-style-type: none;
+  border: 1px solid black;
+}
+
+.Head-language-btn-dropdown-item {
+  width: 100%;
+  background-color: unset;
+  border: none;
+  padding: 15px 0;
+}
+
+.Head-language-btn-dropdown-item:hover {
+  background-color: #535353;
+  color: white;
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
 }

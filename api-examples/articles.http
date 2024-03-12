@@ -1,7 +1,9 @@
+GET http://example.front.ylab.io/api/v1/articles?lang=en
+###
 ###
 # Список товаров
 
-GET http://example.front.ylab.io/api/v1/articles
+GET http://example.front.ylab.io/api/v1/articles?lang=*
 
 ###
 # Список со смещением и ограничением количества
@@ -24,3 +26,5 @@ GET http://example.front.ylab.io/api/v1/articles/65817bed5c295a2ff2fcd182
 # Про формат fields смотри http://query.rest
 
 GET http://example.front.ylab.io/api/v1/articles/65817bed5c295a2ff2fcd182?fields=*,madeIn(title,code),category(title)
+
+

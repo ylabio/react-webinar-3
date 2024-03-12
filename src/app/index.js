@@ -1,13 +1,9 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
 import {
   createBrowserRouter,
   RouterProvider
 } from 'react-router-dom';
 import Main from "./main";
-import Basket from "./basket";
 import Product from './product';
-import useStore from "../store/use-store";
-import useSelector from "../store/use-selector";
 import PageLayout from '../components/page-layout';
 
 /**

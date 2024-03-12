@@ -31,7 +31,7 @@ class Basket extends StoreModule {
     if (!exist) {
       // Поиск товара в каталоге, чтобы его добавить в корзину.
       // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      const response = await fetch(`/api/v1/articles/${_id}?fields=title,price&lang=ru`)
+      const response = await fetch(`/api/v1/articles/${_id}?fields=title,price&lang=ru}`)
       const productJson = await response.json()
       list.push({...productJson.result, amount: 1}); // list уже новый, в него можно пушить.
       // Добавляем к сумме.
