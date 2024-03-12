@@ -11,16 +11,12 @@ import ProductPage from "../pages/product-page";
 
 function App() {
 
-
-
   return (
     <>
       <Routes>
         <Route path={'/'} element={<Navigate to={`/main`}/>}/>
         <Route path={'/main'} element={<MainPage/>}/>
-
         <Route path={`/product-page/:_Id`} element={<ProductPage/>}/>
-
         <Route path={'/*'} element={<ErrorPage/>}/>
       </Routes>
     </>

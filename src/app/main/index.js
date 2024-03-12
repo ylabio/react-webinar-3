@@ -12,7 +12,10 @@ function Main() {
 
   const store = useStore();
 
+
+
   const select = useSelector(state => ({
+    lang: state.lang,
     list: state.catalog.list,
     currentPage: state.catalog.currentPage,
     count: state.catalog.count,
@@ -32,8 +35,8 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
+      return <Item lang={select.lang} item={item} onAdd={callbacks.addToBasket}/>
+    }, [callbacks.addToBasket,select.lang]),
   };
 
   useEffect(() => {
@@ -42,8 +45,8 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
-      <BasketTool setCurrentPage={()=>callbacks.setCurrentPage(1)} onOpen={callbacks.openModalBasket} amount={select.amount}
+      <Head  title={select.lang  === 'ru-RU' ? 'Магазин' : 'Shop'}/>
+      <BasketTool lang={select.lang} setCurrentPage={()=>callbacks.setCurrentPage(1)} onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum} currentPage={select.currentPage}/>
       <List list={select.list} renderItem={renders.item}/>
       <Pagination count={select.count} currentPage={select.currentPage} setCurrentPage={callbacks.setCurrentPage}/>

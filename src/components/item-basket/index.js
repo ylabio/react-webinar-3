@@ -6,7 +6,9 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import {Link} from "react-router-dom";
 
+
 function ItemBasket(props) {
+
 
   const cn = bem('ItemBasket');
 
@@ -23,9 +25,9 @@ function ItemBasket(props) {
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {props.lang === 'ru-RU' ? 'шт': 'pcs'}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{props.lang === 'ru-RU' ? 'Удалить': 'Remove'}</button>
         </div>
       </div>
     </div>
@@ -40,7 +42,8 @@ ItemBasket.propTypes = {
     amount: PropTypes.number
   }).isRequired,
   onRemove: propTypes.func,
-  closeModal: propTypes.func
+  closeModal: propTypes.func,
+  lang: PropTypes.string,
 }
 
 ItemBasket.defaultProps = {

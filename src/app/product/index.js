@@ -6,7 +6,7 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
 import ProductCard from "../../components/product-card";
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 
 function Product() {
   const {_Id} = useParams();
@@ -14,6 +14,7 @@ function Product() {
 
 
   const select = useSelector(state => ({
+    lang: state.lang,
     list: state.catalog.product,
     amount: state.basket.amount,
     sum: state.basket.sum,
@@ -21,8 +22,7 @@ function Product() {
 
   const product = select.list.filter(el => el._id === _Id)
 
-  console.log(product)
-
+  if (!product.length) return <Navigate to={'/'}/>
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
@@ -35,9 +35,10 @@ function Product() {
   return (
     <PageLayout>
       <Head title={product[0].title}/>
-      <BasketTool setCurrentPage={()=>callbacks.setCurrentPage(1)} onOpen={callbacks.openModalBasket} amount={select.amount}
+      <BasketTool lang={select.lang} setCurrentPage={() => callbacks.setCurrentPage(1)}
+                  onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
-      <ProductCard addToBasket={callbacks.addToBasket} product={product[0]}/>
+      <ProductCard lang={select.lang} addToBasket={callbacks.addToBasket} product={product[0]}/>
     </PageLayout>
 
   );

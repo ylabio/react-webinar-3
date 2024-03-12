@@ -3,16 +3,17 @@ import './style.css';
 import PropTypes from "prop-types";
 
 
-function ProductCard({product, addToBasket}) {
+function ProductCard({product, addToBasket, lang}) {
 
   return <>
     <div key={product._id} className='ProductCard'>
       <p>{product.description}</p>
-      <div>Страна производитель: <span>{product.madeIn.title}</span> <span>({product.madeIn.code})</span></div>
-      <div>Категория: <span>{product.category.title}</span></div>
-      <div>Год выпуска: <span>{product.edition}</span></div>
-      <div className='ProductCard-price'>Цена: <span>{product.price}</span></div>
-      <button onClick={() => addToBasket(product._id)}>добавить</button>
+      <div> {lang === 'ru-RU' ? 'Страна производитель:' : 'Madi in:'} <span>{product.madeIn.title}</span>
+        <span>({product.madeIn.code})</span></div>
+      <div> {lang === 'ru-RU' ? 'Категория:' : 'Category:'} <span>{product.category.title}</span></div>
+      <div>{lang === 'ru-RU' ? 'Год выпуска:' : 'Edition:'} <span>{product.edition}</span></div>
+      <div className='ProductCard-price'>{lang === 'ru-RU' ? 'Цена: ' : 'Price: '}<span>{product.price} ₽</span></div>
+      <button onClick={() => addToBasket(product._id)}>{lang === 'ru-RU' ? 'Добавить' : 'Buy'}</button>
     </div>
   </>
 
@@ -34,6 +35,7 @@ ProductCard.propTypes = {
     edition: PropTypes.number.isRequired,
   }).isRequired,
   addToBasket: PropTypes.func,
+  lang: PropTypes.string,
 };
 
 export default memo(ProductCard);

@@ -24,7 +24,6 @@ class Catalog extends StoreModule {
     const skip = (this.getState().currentPage - 1) * 10;
     const response = await fetch(`/api/v1/articles?limit=${this.getState().pageSize}&skip=${skip}&fields=items(_id,_key,name,title,description,price,madeIn(title,code,_id),category(title,_id),edition),count`);
     const json = await response.json();
-    console.log(json)
     const transformedList = json.result.items.map(item => ({
       _id: item._id,
       _key: item._key,
