@@ -14,18 +14,14 @@
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+.Item-title-container {
   width: 100%;
   padding: 20px 10px;
 }
 
-.Item-link {
-  color: black;
-  text-decoration: none;
-}
-
-.Item-link:hover {
+.Item-title:hover {
   text-decoration:underline;
+  cursor: pointer;
 }
 
 .Item-actions {

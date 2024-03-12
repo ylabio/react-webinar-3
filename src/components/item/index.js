@@ -18,8 +18,8 @@ function Item(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')} onClick={() => navigate(`/order/${props.item._id}`)}>
-        {props.item.title}
+      <div className={cn('title-container')} >
+        <span className={cn('title')} onClick={() => navigate(`/order/${props.item._id}`)}>{props.item.title}</span>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
