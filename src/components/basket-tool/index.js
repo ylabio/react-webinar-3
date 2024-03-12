@@ -4,12 +4,15 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
 import { Link } from "react-router-dom";
+import { useCallback } from "react";
+
 function BasketTool({sum, amount, onOpen}) {
+  
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
       <div className="chapter">
-        <Link className='Link_head' to={'/'} ><p className="p-chapter">Главная</p></Link>
+        <Link className='Link_head' to={'/'} ><p  className="p-chapter">Главная</p></Link>
         </div>
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>

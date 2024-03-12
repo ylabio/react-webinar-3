@@ -9,21 +9,7 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
 function Item(props) {
-  // const [data, setData] = useState([]);
-  // const store = useStore();
-  // useEffect(() => {
-  //   store.acfetchData();
-  // }, []);
 
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await fetch('/api/v1/articles/65817bed5c295a2ff2fcd182?fields=*,madeIn(title,_id),category(title)');
-  //     const jsonData = await response.json();
-  //     setData(jsonData);
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   }
-  // };
   const cn = bem("Item");
 
   const callbacks = {
