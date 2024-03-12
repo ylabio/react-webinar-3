@@ -20,7 +20,7 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       <div className={cn('title')} onClick={onCloseModal}>
-        <Link to={props.linkUrl + props.item._id}>{props.item.title}</Link>
+        <Link to={props.linkUrl}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>

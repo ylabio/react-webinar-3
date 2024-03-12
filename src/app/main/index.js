@@ -41,7 +41,7 @@ function Main({onChangeTextDataQuery}) {
     item: useCallback((item) => {
       return <Item item={item}
                    onAdd={addToBasket}
-                   linkUrl={APP_PATHS.PRODUCT}
+                   linkUrl={APP_PATHS.PRODUCT + item._id}
                    textData={textData.catalogProduct}
               />
 

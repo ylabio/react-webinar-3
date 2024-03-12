@@ -32,9 +32,9 @@ function Basket() {
       return <ItemBasket item={item}
                          onRemove={callbacks.removeFromBasket}
                          onCloseModal={callbacks.closeModal}
-                         linkUrl={APP_PATHS.PRODUCT}
+                         linkUrl={APP_PATHS.PRODUCT + item._id}
                          textData={textData.basketProduct}
-                         />
+              />
     }, [callbacks.removeFromBasket, textData]),
   };
 
