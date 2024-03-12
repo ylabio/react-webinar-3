@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import propTypes from 'prop-types';
 import { numberFormat, plural } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
@@ -24,7 +24,7 @@ function ItemBasket(props) {
       store.actions.modals.close();
       navigate(`/items/${props.item._id}`);
     },
-    onRemove: (e) => props.onRemove(props.item._id),
+    onRemove: () => props.onRemove(props.item._id),
   };
 
   return (
