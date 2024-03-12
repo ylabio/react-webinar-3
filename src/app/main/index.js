@@ -1,4 +1,5 @@
 import {memo, useCallback, useEffect, useMemo, useState} from 'react';
+import { useParams } from 'react-router-dom';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -8,6 +9,7 @@ import Pagination from '../../components/pagination';
 import NavigationTool from '../../components/navigation-tool';
 import Navigation from '../../components/navigation';
 import LanguageTool from '../../components/language-tool';
+import Loader from '../../components/loader';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import { translate, availableLanguages } from '../../language/translator';
@@ -15,6 +17,7 @@ import { translate, availableLanguages } from '../../language/translator';
 function Main() {
 
   const store = useStore();
+  const params = useParams();
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -28,8 +31,9 @@ function Main() {
   }));
 
   useEffect(() => {
-    store.actions.catalog.loadWithParams(select.currentPage, select.language);
-  }, []);
+    const page = Number(params.page) ? Number(params.page) : 1;
+    store.actions.catalog.loadWithParams(page, select.language);
+  }, [params]);
 
   const callbacks = {
     // Добавление в корзину
@@ -44,7 +48,7 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} link={`card/${item._id}`} onAdd={callbacks.addToBasket} translator={translator} />
+      return <Item item={item} link={`/card/${item._id}`} onAdd={callbacks.addToBasket} translator={translator} />
     }, [callbacks.addToBasket, select.language]),
   };
 
@@ -61,7 +65,9 @@ function Main() {
         <Navigation navItems={[{title: translator.dictionary.navigation.main, link: '/'}]} />
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} translator={translator} />
       </NavigationTool>
-      <List list={select.list} renderItem={renders.item} isLoading={select.isLoading} translator={translator} />
+      <Loader isLoading={select.isLoading}>
+        <List list={select.list} renderItem={renders.item} translator={translator} />
+      </Loader>
       {
         select.totalItems > select.itemsPerPage ?
         <Pagination
@@ -69,6 +75,7 @@ function Main() {
           totalItems={select.totalItems}
           currentPage={select.currentPage}
           paginate={callbacks.setPage}
+          rootLink={'/'}
         /> : ''
       }
     </PageLayout>

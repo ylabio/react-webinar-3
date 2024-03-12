@@ -2,12 +2,10 @@ import {memo} from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
-function List({list, renderItem, isLoading}) {
+function List({list, renderItem}) {
   return (
     <div className='List'>
       {
-        isLoading ?
-        <p className='List-loading'>Loading...</p> :
         list.map(item =>
           <div key={item._id} className='List-item'>
             {renderItem(item)}
@@ -22,8 +20,7 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   })).isRequired,
-  renderItem: PropTypes.func,
-  isLoading: PropTypes.bool
+  renderItem: PropTypes.func
 };
 
 List.defaultProps = {

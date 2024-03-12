@@ -16,14 +16,19 @@
 }
 
 .Pagination-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 16px;
   line-height: 18px;
   font-weight: 400;
+  text-decoration: none;
+  color: #000000;
   border: none;
   background-color: inherit;
-  min-width: 20px;
+  min-width: 14px;
   height: 20px;
-  padding: 1px 3px;
+  padding: 0 3px;
   cursor: pointer;
   transition: all linear .3s;
 }

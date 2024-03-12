@@ -9,6 +9,7 @@ import ItemCard from '../../components/item-card';
 import NavigationTool from '../../components/navigation-tool';
 import Navigation from '../../components/navigation';
 import LanguageTool from '../../components/language-tool';
+import Loader from '../../components/loader';
 import { translate, availableLanguages } from '../../language/translator';
 
 function Card() {
@@ -41,18 +42,18 @@ function Card() {
     dictionary: useMemo(() => translate(select.language))
   }
 
-  console.log(translator);
-
   return (
     <PageLayout>
-      <Head title={translator.dictionary.cart.title}>
+      <Head title={select.cardData.title}>
         <LanguageTool setLanguage={callbacks.setLanguage} currentLanguage={select.language} availableLanguages={availableLanguages} />
       </Head>
       <NavigationTool>
         <Navigation navItems={[{title: translator.dictionary.navigation.main, link: '/'}]} />
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} translator={translator} />
       </NavigationTool>
-      <ItemCard cardData={select.cardData} onAdd={callbacks.addToBasket} isLoading={select.isLoading} translator={translator} />
+      <Loader isLoading={select.isLoading}>
+        <ItemCard cardData={select.cardData} onAdd={callbacks.addToBasket} translator={translator} />
+      </Loader>
     </PageLayout>
   )
 }

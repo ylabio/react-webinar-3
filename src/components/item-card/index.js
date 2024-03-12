@@ -6,7 +6,7 @@ import { numberFormat } from '../../utils';
 
 function ItemCard(props) {
   const cn = bem('ItemCard');
-  const {cardData, onAdd, isLoading, translator} = props;
+  const {cardData, onAdd, translator} = props;
 
   const callbacks = {
     onAdd: (e) => onAdd(cardData._id)
@@ -15,8 +15,6 @@ function ItemCard(props) {
   return (
     <div className={cn()}>
       {
-        isLoading ?
-        <p className='ItemCard-loading'>Loading...</p> :
         <div>
           <p className={cn('paragraph')}>{cardData.description}</p>
           <p className={cn('paragraph')}>
@@ -51,7 +49,6 @@ ItemCard.propTypes = {
     edition: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
-  isLoading: PropTypes.bool,
   translator: PropTypes.object
 }
 
