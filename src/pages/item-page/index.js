@@ -1,4 +1,4 @@
-import { memo, useEffect } from "react"
+import { memo, useEffect, useMemo } from "react"
 import { useParams } from "react-router";
 import { cn as bem } from '@bem-react/classname';
 import useStore from "../../store/use-store";
@@ -20,23 +20,8 @@ const ItemPage = () => {
 		}
 	}, [id])
 
-	const {
-		_id,
-		title,
-		description,
-		price,
-		madeIn,
-		category,
-		edition,
-		locale
-	} = useSelector(state => ({
-		_id: state.product._id,
-		title: state.product.title,
-		description: state.product.description,
-		price: state.product.price,
-		madeIn: state.product.madeIn,
-		category: state.product.category,
-		edition: state.product.edition,
+	const { product, locale } = useSelector(state => ({
+		product: state.product,
 		locale: state.i18n.locale
 	}));
 
@@ -46,12 +31,12 @@ const ItemPage = () => {
 
 	return (
 		<div className={cn()}>
-			<div>{description}</div>
-			{madeIn && <div>{locale.Country_of_origin}: <strong>{madeIn.title}</strong></div>}
-			{category && <div>{locale.Category}: <strong>{category.title}</strong></div>}
-			{edition && <div>{locale.Year_of_production}: <strong>{edition}</strong></div>}
-			{price && <div className={cn('price')}>{locale.Price}: <strong>{numberFormat(price)}</strong></div>}
-			{_id && <button onClick={() => onAdd(_id)}>{locale.Add}</button>}
+			<div>{product.description}</div>
+			{product.madeIn && <div>{locale.Country_of_origin}: <strong>{product.madeIn.title}</strong></div>}
+			{product.category && <div>{locale.Category}: <strong>{product.category.title}</strong></div>}
+			{product.edition && <div>{locale.Year_of_production}: <strong>{product.edition}</strong></div>}
+			{product.price && <div className={cn('price')}>{locale.Price}: <strong>{numberFormat(product.price)}</strong></div>}
+			{product._id && <button onClick={() => onAdd(product._id)}>{locale.Add}</button>}
 
 		</div>
 	)
