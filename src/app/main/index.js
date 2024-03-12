@@ -13,7 +13,7 @@ import { useLocale } from '../../store/use-locale';
 function Main() {
 
   const store = useStore();
-  const {locale, changeLocale} = useContext(localeContext)
+  const { locale, changeLocale } = useContext(localeContext)
   const localeDict = useLocale()
   const select = useSelector(state => ({
     isLoad: state.catalog.isLoad,
@@ -37,10 +37,13 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item localeDict={localeDict} item={item} onAdd={callbacks.addToBasket} />
-    }, [callbacks.addToBasket,locale]),
+      return <Item localeDict={localeDict} toPath={{
+        pathname: '/product',
+        search: `?id=${item._id}`,
+      }} item={item} onAdd={callbacks.addToBasket} />
+    }, [callbacks.addToBasket, locale]),
     head: useCallback(() => {
-      return <Head title={localeDict.shop} changeLocale={changeLocale}/>
+      return <Head title={localeDict.shop} changeLocale={changeLocale} />
     }, [locale]),
   };
 
