@@ -5,7 +5,6 @@ import { cn as bem } from "@bem-react/classname";
 import PropTypes from "prop-types";
 import { useNavigate } from 'react-router';
 import useStore from '../../store/use-store';
-import useSelector from '../../store/use-selector';
 import './style.css';
 
 function ItemBasket(props) {
@@ -14,10 +13,6 @@ function ItemBasket(props) {
 
   const navigate = useNavigate();
   const store = useStore();
-
-  const { locale } = useSelector(state => ({
-    locale: state.i18n.locale
-  }))
 
   const callbacks = {
     handleClick: () => {
@@ -34,13 +29,10 @@ function ItemBasket(props) {
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>
           {numberFormat(props.item.amount || 0)}&nbsp;
-          {plural(props.item.amount, {
-            one: locale.unit.one,
-            few: locale.unit.few,
-            many: locale.unit.many
-          })}</div>
+          {props.locale.pcs}
+        </div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>{locale.Delete}</button>
+          <button onClick={callbacks.onRemove}>{props.locale.deleteBtnTitle}</button>
         </div>
       </div>
     </div>

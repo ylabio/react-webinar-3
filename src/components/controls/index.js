@@ -2,13 +2,10 @@ import {memo} from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({onAdd}) {
-  const { locale } = useSelector(state => ({
-    locale: state.i18n.locale
-  }))
+function Controls({onAdd, addBtnTitle}) {
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>{locale.Add}</button>
+      <button onClick={() => onAdd()}>{addBtnTitle}</button>
     </div>
   )
 }

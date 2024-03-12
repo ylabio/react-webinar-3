@@ -18,9 +18,5 @@
 	"Navigate": "Navigate",
 	"Close": "Close",
 	"Total": "Total",
-	"unit": {
-		"one": "unit",
-		"few": "units",
-		"many": "units"
-	}
+	"pcs": "pcs"
 }

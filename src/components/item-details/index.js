@@ -1,6 +1,7 @@
 import { memo } from "react"
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from "../../utils";
+import PropTypes from "prop-types";
 import './style.css'
 
 const ItemDetails = ({ item, onAdd, locale }) => {
@@ -21,7 +22,7 @@ const ItemDetails = ({ item, onAdd, locale }) => {
 
 ItemDetails.propTypes = {
 	item: PropTypes.object,
-	onAdd: PropTypes.function,
+	onAdd: PropTypes.func,
 	locale: PropTypes.object
 };
 

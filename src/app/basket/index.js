@@ -1,4 +1,4 @@
-import {memo, useCallback} from 'react';
+import { memo, useCallback } from 'react';
 import ItemBasket from "../../components/item-basket";
 import List from "../../components/list";
 import ModalLayout from "../../components/modal-layout";
@@ -26,14 +26,26 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
-    }, [callbacks.removeFromBasket]),
+      return <ItemBasket
+        item={item}
+        onRemove={callbacks.removeFromBasket}
+        // передаю только используемые компонентом переводы
+        locale={{
+          pcs: select.locale.pcs,
+          deleteBtnTitle: select.locale.Delete
+        }}
+      />
+    }, [callbacks.removeFromBasket, select.locale]),
   };
 
   return (
-    <ModalLayout title={select.locale.Cart} onClose={callbacks.closeModal}>
-      <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+    <ModalLayout
+      title={select.locale.Cart}
+      onClose={callbacks.closeModal}
+      closeBtnTitle={select.locale.Close}
+    >
+      <List list={select.list} renderItem={renders.itemBasket} />
+      <BasketTotal sum={select.sum} totalTitle={select.locale.Total} />
     </ModalLayout>
   );
 }

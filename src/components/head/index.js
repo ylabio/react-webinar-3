@@ -19,7 +19,7 @@ Head.propTypes = {
   title: PropTypes.string,
   lang: PropTypes.string,
   languageNames: PropTypes.object,
-  changeLang: PropTypes.function
+  changeLang: PropTypes.func,
 };
 
 Head.defaultProps = {
