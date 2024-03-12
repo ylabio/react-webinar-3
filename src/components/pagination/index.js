@@ -9,12 +9,14 @@ function Pagination(props) {
 
   const cn = bem('Pagination');
 
+  const pagesAmount = pagesCount(props.count, props.limit);
+
   return (
     <div className={cn()}>
       {
         pagesNumbers(props.count, props.limit, props.current).map(number =>
           <div className={cn('pages')} key={number}>
-            {(number === pagesCount(props.count, props.limit))&&<div className={cn('break')}>...</div>}
+            {(number === pagesAmount && props.current <= pagesAmount - 3)&&<div className={cn('break')}>...</div>}
             <div className={cn('page-number') + (number === props.current ? ' current' : '')}
             onClick={(event) => {props.onSwitch(event)}}>{number}</div>
             {(number === 1 && props.current > 3)&&<div className={cn('break')}>...</div>}

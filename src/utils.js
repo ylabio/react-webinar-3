@@ -44,6 +44,8 @@ export function pagesNumbers(count, limit, current) {
     return [current, current+1, current+2, pagesAmount];
   } else if (current === 2) {
     return [current-1, current, current+1, pagesAmount];
+  } else if (current === pagesAmount - 1) {
+    return [1, current-2, current-1, current, pagesAmount]
   } else if (current === pagesAmount) {
     return [1, current-2, current-1, current];
   }

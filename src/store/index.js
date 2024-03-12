@@ -18,8 +18,6 @@ class Store {
       this.actions[name] = new modules[name](this, name);
       this.state[name] = this.actions[name].initState();
     }
-    console.log(555, this.actions.itemInfo);
-    console.log(666, this.actions.basket);
   }
 
   /**
