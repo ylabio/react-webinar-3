@@ -4,27 +4,29 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
 import { Link } from "react-router-dom";
+import { useLanguage } from "../../languageContext";
 
 function NavBar({sum, amount, onOpen}) {
   const cn = bem('NavBar');
+  const {tr} = useLanguage()
   return (
     <div className={cn()}>
       <div className={cn('home')}>
-        <Link to="/">Главная</Link>
+        <Link to="/">{tr('home')}</Link>
       </div>
       <div className={cn('basketTools')}>
-        <span className={cn('label')}>В корзине:</span>
+        <span className={cn('label')}>{tr('inTheBasket')}</span>
         <span className={cn('total')}>
           {amount
             ? `${amount} ${plural(amount, {
-              one: 'товар',
-              few: 'товара',
-              many: 'товаров'
+              one: tr('oneProduct'),
+              few: tr('fewProduct'),
+              many: tr('manyProduct')
             })} / ${numberFormat(sum)} ₽`
-            : `пусто`
+            : `${tr('empty')}`
           }
         </span>
-        <button onClick={onOpen}>Перейти</button>
+        <button onClick={onOpen}>{tr('goBtn')}</button>
       </div>
       
     </div>

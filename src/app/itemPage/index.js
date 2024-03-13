@@ -40,12 +40,6 @@ return (
 )
 }
 
-ItemPage.propTypes = {
-    onAdd: propTypes.func,
-  }
-  
-  ItemPage.defaultProps = {
-    onAdd: () => {},
-  }
+
 
 export default memo(ItemPage);

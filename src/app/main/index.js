@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Head from "../../components/head";
 import Item from "../../components/item";
 import List from "../../components/list";
@@ -40,7 +40,7 @@ function Main() {
   };
 
   return (
-    <BrowserRouter>
+
     <Routes>
       {/*
       * ----- Главная страница (path = "/")
@@ -70,7 +70,6 @@ function Main() {
       </PageLayout>
     }/>
     </Routes>
-    </BrowserRouter>
 
   );
 }
