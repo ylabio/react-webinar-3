@@ -5,11 +5,14 @@ import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import {useTranslate} from '../../translate'
+import { url } from '../../url';
+import { Link } from 'react-router-dom';
 
 function Basket() {
 
   const store = useStore();
-
+const {translate}=useTranslate();
   const select = useSelector(state => ({
     list: state.basket.list,
     amount: state.basket.amount,
@@ -25,14 +28,16 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
-    }, [callbacks.removeFromBasket]),
+      return  <ItemBasket url={url.product} item={item} onRemove={callbacks.removeFromBasket}>
+        <Link to={url.product+item._id} onClick={callbacks.closeModal}> {item.title}
+      </Link>  </ItemBasket>
+    }, [callbacks]),
   };
 
   return (
-    <ModalLayout title='Корзина' onClose={callbacks.closeModal}>
+    <ModalLayout url={url.main} title={translate('inTheBasket')} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal  sum={select.sum}/>
     </ModalLayout>
   );
 }

@@ -1,4 +1,5 @@
 import StoreModule from "../module";
+import {api} from "../../api";
 
 class Basket extends StoreModule {
 
@@ -24,25 +25,41 @@ class Basket extends StoreModule {
         exist = true; // Запомним, что был найден в корзине
         result = {...item, amount: item.amount + 1};
       }
+      
       sum += result.price * result.amount;
       return result;
     });
+   
 
     if (!exist) {
       // Поиск товара в каталоге, чтобы его добавить в корзину.
       // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      const item = this.store.getState().catalog.list.find(item => item._id === _id);
-      list.push({...item, amount: 1}); // list уже новый, в него можно пушить.
-      // Добавляем к сумме.
-      sum += item.price;
-    }
-
+       api.getAddPriceApi(_id).then(res=>{
+        
+    list.push({...res.result, amount: 1})
+    sum += res.result.price;
     this.setState({
       ...this.getState(),
       list,
       sum,
       amount: list.length
     }, 'Добавление в корзину');
+    
+    })
+   
+       // list уже новый, в него можно пушить.
+      // Добавляем к сумме.
+      
+    } else{
+        this.setState({
+      ...this.getState(),
+      list,
+      sum,
+      amount: list.length
+    }, 'Добавление в корзину');
+    }
+
+  
   }
 
   /**
