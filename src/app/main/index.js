@@ -7,6 +7,8 @@ import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
 import Loader from "../../components/loader";
+import Nav from "../../components/nav";
+import NavMenu from "../../components/nav-menu";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
@@ -47,14 +49,15 @@ function Main() {
   return (
     <PageLayout>
       <Head title={langData.main.title}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum} langData={langData}/>
+      <Nav>
+        <NavMenu langData={langData}/>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} langData={langData}/>
+      </Nav>
       <Loader isLoading={select.isLoading}>
         <List list={select.list} renderItem={renders.item}/>
       </Loader>
       {!!select.list.length && 
-        <Pagination totalCount={select.count} limit={select.limit} 
-                    currentPage={select.currentPage} setCurrentPage={callbacks.setCurrentPage} />
+        <Pagination totalCount={select.count} limit={select.limit} currentPage={select.currentPage} setCurrentPage={callbacks.setCurrentPage}/>
       }
     </PageLayout>
   );

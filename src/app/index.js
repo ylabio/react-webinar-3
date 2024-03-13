@@ -1,20 +1,24 @@
 import {Routes, Route} from "react-router-dom";
-import Layout from "../components/layout";
 import Main from "./main";
 import Details from "./details";
+import Basket from "./basket";
+import useSelector from "../store/use-selector";
 
 /**
  * Приложение
  * @returns {React.ReactElement}
  */
 function App() {
+  const activeModal = useSelector(state => state.modals.name);
+
   return (
-    <Routes>
-      <Route path="/" element={<Layout/>}>
-        <Route index element={<Main/>}/>
+    <>
+      <Routes>
+        <Route path="/" element={<Main/>}/>
         <Route path="/product/:id" element={<Details/>}/>
-      </Route>
-    </Routes>
+      </Routes>
+      {activeModal === 'basket' && <Basket/>}
+    </>
   );
 }
 

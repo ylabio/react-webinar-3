@@ -6,6 +6,8 @@ import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import ItemDetails from "../../components/item-details";
 import Loader from "../../components/loader";
+import Nav from "../../components/nav";
+import NavMenu from "../../components/nav-menu";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
@@ -36,7 +38,10 @@ function Details() {
   return (
     <PageLayout>
       <Head title={select.result.title}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} langData={langData}/>
+      <Nav>
+        <NavMenu langData={langData} />
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} langData={langData}/>
+      </Nav>
       <Loader isLoading={select.isLoading}>
         <ItemDetails result={select.result} addToBasket={callbacks.addToBasket} langData={langData}/>
       </Loader>

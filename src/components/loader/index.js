@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 function Loader({isLoading, children}) {
+
   return (
     <div className="Loader">
         {isLoading 

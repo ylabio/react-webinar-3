@@ -1,7 +1,6 @@
 import {memo} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
-import NavMenu from "../nav-menu";
 import {numberFormat, plural} from "../../utils";
 import './style.css';
 
@@ -10,7 +9,6 @@ function BasketTool({sum, amount, onOpen, langData}) {
 
   return (
     <div className={cn()}>
-      <NavMenu langData={langData} />
       <div>
         <span className={cn('label')}>{langData.basket.inCart}</span>
         <span className={cn('total')}>
