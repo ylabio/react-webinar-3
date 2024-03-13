@@ -2,7 +2,7 @@ import {memo} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
-import translate from "../../app/language/translate.json";
+import translate from "../../language/translate.json";
 import {useLangContext} from "../../store/use-lang-context";
 import './style.css';
 

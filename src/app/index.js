@@ -6,7 +6,7 @@ import useStore from "../store/use-store";
 import useSelector from "../store/use-selector";
 import {LangContext} from "../store/use-lang-context";
 import PageNotFound from "../components/page-not-found";
-import ItemDetails from "../components/item-details";
+import ItemDetails from "./item-details";
 
 /**
  * Приложение
@@ -26,7 +26,6 @@ function App() {
       language,
       setLanguage: switchLanguage,
     }}>
-      {/* <Main/> */}
       {activeModal === 'basket' && <Basket/>}
       <Routes>
           <Route path="/*" element={<Main/>}/>

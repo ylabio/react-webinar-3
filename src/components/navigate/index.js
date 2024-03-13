@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate} from 'react-router-dom';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
-import translate from "../../app/language/translate.json";
+import translate from "../../language/translate.json";
 import {useLangContext} from "../../store/use-lang-context"
 
 const Navigate = () => {

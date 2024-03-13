@@ -1,19 +1,15 @@
-import {memo, useCallback, useEffect, useState} from 'react';
-// import { Route, Routes} from 'react-router-dom';
+import {memo, useCallback, useEffect} from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
-import ItemDetails from "../../components/item-details";
 import Navigate from "../../components/navigate/";
-// import PageNotFound from "../../components/page-not-found"
-// import Shop from "../../components/shop"
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import {useLangContext} from "../../store/use-lang-context";
-import translate from "../language/translate.json";
+import translate from "../../language/translate.json";
 import './style.css';
 
 function Main() {

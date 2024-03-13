@@ -3,7 +3,7 @@ import { Link, useNavigate} from 'react-router-dom';
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
-import translate from "../../app/language/translate.json";
+import translate from "../../language/translate.json";
 import {useLangContext} from "../../store/use-lang-context";
 import './style.css';
 
