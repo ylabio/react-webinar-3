@@ -27,7 +27,7 @@ function Card() {
 
   useEffect(() => {
     store.actions.cardStore.loadCardData(params.id);
-  }, []);
+  }, [params.id]);
 
   const callbacks = {
     // Добавление в корзину
