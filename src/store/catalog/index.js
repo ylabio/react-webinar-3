@@ -14,15 +14,14 @@ class Catalog extends StoreModule {
     return {
       list: [],
       pages: 0,
-      currentPage: 1,
+      currentPage: +localStorage.getItem('YLab_currentPage') || 1,
       details: {}
     }
   }
 
   async load(page = this.getState().currentPage) {
-    // const response = await fetch(`/api/v1/articles?limit=${LIMIT}&skip=10&fields=items(_id, title, price),count`);
+    localStorage.setItem('YLab_currentPage', page);
     const response = await fetch(`/api/v1/articles?limit=${LIMIT}&skip=${(page-1)*LIMIT}&fields=items(_id, title, price),count`);
-    // const response = await fetch(`/api/v1/articles?limit=${10}`);
     const json = await response.json();
     this.setState({
       ...this.getState(),
@@ -34,7 +33,6 @@ class Catalog extends StoreModule {
   }
 
   async loadDetails(id) {
-    // const response = await fetch(`/api/v1/articles/${id}`);
     try{
       const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
           const json = await response.json();

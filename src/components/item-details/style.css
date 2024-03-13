@@ -6,3 +6,9 @@
   gap: 1rem;
   padding: 1rem 2rem;
 }
+
+.ItemDetails-price{
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 27.6px;
+}

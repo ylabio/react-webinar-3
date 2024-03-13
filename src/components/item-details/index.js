@@ -15,20 +15,16 @@ function ItemDetails(props) {
   const cn = bem('ItemDetails');
   const [isLoading, setIsLoading] = useState(false);
   const details = useSelector(state => state.catalog.details);
-
   const callbacks = {
-    onAdd: (e) => props.onAdd(id.slice(1)),
+    onAdd: (e) => props.onAdd(details._id),
   };
 
   useEffect(() => {
      props.setIsShop(false);
      setIsLoading(true);
      props.onLoadDetails(id.slice(1))
-     .then(details => {
-      // setDetails(details);
-     })
      .then(()=> setIsLoading(false))
-  }, [id]);
+  }, [id, details._id]);
 
   return isLoading ? (
     <Loader />
