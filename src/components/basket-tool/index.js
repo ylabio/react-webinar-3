@@ -1,14 +1,18 @@
-import {memo} from "react";
+import {memo, useContext} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
+import {LanguageContext} from "../../language-provider.js";
 
 function BasketTool({sum, amount, onOpen}) {
   const cn = bem('BasketTool');
+
+  const { wordsTranslate } = useContext(LanguageContext);
+
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('label')}>{wordsTranslate("inBasket")}</span>
       <span className={cn('total')}>
         {amount
           ? `${amount} ${plural(amount, {
@@ -16,10 +20,10 @@ function BasketTool({sum, amount, onOpen}) {
             few: 'товара',
             many: 'товаров'
           })} / ${numberFormat(sum)} ₽`
-          : `пусто`
+          : <>{wordsTranslate("empty")}</>
         }
       </span>
-      <button onClick={onOpen}>Перейти</button>
+      <button onClick={onOpen}>{wordsTranslate("move")}</button>
     </div>
   );
 }

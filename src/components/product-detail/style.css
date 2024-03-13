@@ -1,0 +1,20 @@
+.ProductDetail-content {
+  padding: 0 40px;
+}
+
+.ProductDetail-content p {
+  margin: 0;
+  padding-bottom: 20px;
+  font-size: 18px;
+}
+
+p.ProductDetail-price {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.ProductDetail-error {
+  font-size: 28px;
+  text-align: center;
+  padding: 5rem;
+}

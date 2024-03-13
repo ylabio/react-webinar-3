@@ -1,0 +1,12 @@
+{
+  "store": "Store",
+  "home": "Home",
+  "basket": "Basket",
+  "buttonAdd": "Add",
+  "buttonRemove": "Delete",
+  "close": "Close",
+  "move": "Move",
+  "inBasket": "In a basket",
+  "empty": "empty",
+  "total": "Total"
+}
