@@ -17,6 +17,20 @@
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  text-decoration: none;
+}
+
+.Item-title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.Item-title a:hover {
+  text-decoration: underline;
+}
+
+.Item-title a:active {
+  opacity: 70%;
 }
 
 .Item-actions {

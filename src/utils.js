@@ -30,6 +30,108 @@ export function codeGenerator(start = 0) {
  * @param options {Object}
  * @returns {String}
  */
-export function numberFormat(value, locale = 'ru-RU', options = {}) {
+export function numberFormat(value, locale = 'ru-RU', options) {
+  if(value % 1) options = {minimumFractionDigits: 2};
   return new Intl.NumberFormat(locale, options).format(value);
+}
+
+export function getTextData(query) {
+  const textDataset = {
+
+    ru: {
+      mainHead: {
+        title: 'Магазин',
+        optionRu: 'Русский',
+        optionEn: 'English',
+      },
+      productHead: {
+        optionRu: 'Русский',
+        optionEn: 'English',
+      },
+      mainNav: {
+        main: 'Главная',
+      },
+      catalogProduct: {
+        button: 'Добавить',
+      },
+      basketTool: {
+        inBasket: 'В корзине:',
+        empty: 'пусто',
+        button: 'Перейти',
+      },
+      basketProduct: {
+        button: 'Удалить',
+        unit: 'шт',
+      },
+      basketTotal: {
+        total: 'Итого',
+      },
+      modalBasket: {
+        title: 'Корзина',
+        button: 'Закрыть',
+      },
+      productFull: {
+        madeIn: 'Страна производитель:',
+        category: 'Категория:',
+        yearProduction: 'Год выпуска:',
+        price: 'Цена:',
+        button: 'Добавить',
+
+      },
+      pluralProduct: {
+        one: 'товар',
+        few: 'товара',
+        many: 'товаров',
+      },
+    },
+
+    en: {
+      mainHead: {
+        title: 'Store',
+        optionRu: 'Русский',
+        optionEn: 'English',
+      },
+      productHead: {
+        optionRu: 'Русский',
+        optionEn: 'English',
+      },
+      mainNav: {
+        main: 'Main',
+      },
+      catalogProduct: {
+        button: 'Add',
+      },
+      basketTool: {
+        inBasket: 'In basket:',
+        empty: 'empty',
+        button: 'Go',
+      },
+      basketProduct: {
+        button: 'Remove',
+        unit: 'pcs',
+      },
+      basketTotal: {
+        total: 'Total',
+      },
+      modalBasket: {
+        title: 'Basket',
+        button: 'Close',
+      },
+      productFull: {
+        madeIn: 'Made in:',
+        category: 'Category:',
+        yearProduction: 'Year of production:',
+        price: 'Price:',
+        button: 'Add',
+
+      },
+      pluralProduct: {
+        one: 'product',
+        few: 'products',
+        many: 'products',
+      },
+    },
+  }
+
+  return textDataset[query];
 }

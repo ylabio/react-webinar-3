@@ -1,12 +1,16 @@
-import {memo, useCallback} from 'react';
+import {memo, useCallback, useContext} from 'react';
 import ItemBasket from "../../components/item-basket";
 import List from "../../components/list";
 import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import {TextDataContext} from '../../contexts';
+import {APP_PATHS} from '../../constants';
 
 function Basket() {
+
+  const textData = useContext(TextDataContext);
 
   const store = useStore();
 
@@ -25,14 +29,19 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
-    }, [callbacks.removeFromBasket]),
+      return <ItemBasket item={item}
+                         onRemove={callbacks.removeFromBasket}
+                         onCloseModal={callbacks.closeModal}
+                         linkUrl={APP_PATHS.PRODUCT + item._id}
+                         textData={textData.basketProduct}
+              />
+    }, [callbacks.removeFromBasket, textData]),
   };
 
   return (
-    <ModalLayout title='Корзина' onClose={callbacks.closeModal}>
+    <ModalLayout textData={textData.modalBasket} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} textData={textData.basketTotal}/>
     </ModalLayout>
   );
 }
