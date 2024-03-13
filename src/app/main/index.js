@@ -57,7 +57,6 @@ function Main() {
                           avail: select.avail}}
             />
     </PageLayout>
-
   );
 }
 
