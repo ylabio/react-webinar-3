@@ -1,6 +1,5 @@
 import { memo } from "react";
 import PropTypes from 'prop-types';
-import Menu from '../menu';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from "../../utils";
 import './style.css';
@@ -11,8 +10,6 @@ function BasketTool({ sum, amount, onOpen, t }) {
 
   return (
     <div className={cn()}>
-      <Menu t={t} />
-      <div className={cn('wrapper')}>
         <span className={cn('label')}>{t('inBasket')}</span>
         <span className={cn('total')}>
           {amount
@@ -25,7 +22,6 @@ function BasketTool({ sum, amount, onOpen, t }) {
           }
         </span>
         <button onClick={onOpen}>{t('proceed')}</button>
-      </div>
     </div>
   );
 }

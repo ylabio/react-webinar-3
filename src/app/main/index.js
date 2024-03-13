@@ -3,6 +3,7 @@ import { debounce } from "../../utils";
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
+import Menu from '../../components/menu'
 import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
@@ -10,6 +11,7 @@ import Skeleton from "../../components/skeleton";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import { useNavigate, useParams } from 'react-router-dom';
+import '../../global.css';
 
 function Main({ t }) {
 
@@ -59,8 +61,11 @@ function Main({ t }) {
   return (
     <PageLayout>
       <Head title='Магазин' t={t} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum} t={t}/>
+        <div className="container">
+          <Menu t={t} />
+          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+          sum={select.sum} t={t}/>
+        </div>
       {isListLoading ? <Skeleton /> : <List list={select.list} renderItem={renders.item} t={t}/>}
       <Pagination currentPage={select.currentPage} totalPages={select.totalPages} onPageChange={callbacks.onPageChange} />
     </PageLayout>

@@ -3,11 +3,13 @@ import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
+import Menu from '../../components/menu'
 import BasketTool from "../../components/basket-tool";
 import Skeleton from "../../components/skeleton";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import ProductDetails from "../../components/product-details";
+import '../../global.css';
 
 const DetailedPageContainer = ({ t }) => {
   const { id } = useParams();
@@ -46,7 +48,10 @@ const DetailedPageContainer = ({ t }) => {
         ? <Skeleton /> 
         : <>
             <Head title={product ? product.result.title : t('productDetailsError')} t={t} />
-            <BasketTool onOpen={() => store.actions.modals.open('basket')} amount={select.amount} sum={select.sum} t={t} />
+            <div className="container">
+              <Menu t={t} />
+              <BasketTool onOpen={() => store.actions.modals.open('basket')} amount={select.amount} sum={select.sum} t={t} />
+             </div>
             <ProductDetails product={product ? product.result : null} addToCart={callbacks.addToBasket} t={t} />
           </>}
     </PageLayout>
