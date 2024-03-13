@@ -3,6 +3,7 @@ import { cn as bem } from "@bem-react/classname";
 
 import "./style.css";
 import constructPageArray, { codeGenerator } from "../../utils";
+import PropTypes from "prop-types";
 
 function Pagination({ currentPage = 1, pagesCount = 25, onPageChange }) {
   const cn = bem("Pagination");
@@ -43,5 +44,15 @@ function Pagination({ currentPage = 1, pagesCount = 25, onPageChange }) {
     </ul>
   );
 }
+
+Pagination.defineProps = {
+  currentPage: PropTypes.number,
+  pagesCount: PropTypes.number,
+  onPageChange: PropTypes.func,
+};
+
+Pagination.defaultProps = {
+  onPageChange: () => {},
+};
 
 export default React.memo(Pagination);
