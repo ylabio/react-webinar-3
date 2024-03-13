@@ -5,26 +5,22 @@ import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import './style.css';
 import {LanguageContext} from "../../language-provider.js";
-import {Link} from "react-router-dom";
 
-function ItemBasket({item, link, onRemove}) {
+function ItemBasket({item, onNavigate, onRemove}) {
 
   const cn = bem('ItemBasket');
-
-  const linkProduct = link ? link : item._id;
 
   const { wordsTranslate } = useContext(LanguageContext);
 
   const callbacks = {
-    onRemove: (e) => onRemove(item._id)
+    onRemove: (e) => onRemove(item._id),
+    onLink: (e) => onNavigate(item._id),
   };
 
   return (
     <div className={cn()}>
-      <div className={cn('title')}>
-        <Link to={`/articles/${linkProduct}`}>
-          {item.title}
-        </Link>
+      <div className={cn('title')} onClick={callbacks.onLink}>
+        {item.title}
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(item.price)} ₽</div>
@@ -45,10 +41,12 @@ ItemBasket.propTypes = {
     amount: PropTypes.number
   }).isRequired,
   onRemove: propTypes.func,
+  onNavigate: PropTypes.func,
 }
 
 ItemBasket.defaultProps = {
   onRemove: () => {},
+  onNavigate: () => {},
 }
 
 export default memo(ItemBasket);

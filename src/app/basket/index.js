@@ -6,10 +6,12 @@ import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import {LanguageContext} from "../../language-provider.js";
+import {useNavigate} from "react-router";
 
-function Basket() {
+function Basket(callback, deps) {
 
   const store = useStore();
+  const navigate = useNavigate();
 
   const { wordsTranslate } = useContext(LanguageContext);
 
@@ -24,11 +26,12 @@ function Basket() {
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
     // Закрытие любой модалки
     closeModal: useCallback(() => store.actions.modals.close(), [store]),
+    onNavigate: useCallback((id) => navigate(`/articles/${id}`), deps)
   }
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} link={item._id} onRemove={callbacks.removeFromBasket}/>
+      return <ItemBasket item={item} link={item._id} onClose={callbacks.closeModal}  onNavigate={callbacks.onNavigate} onRemove={callbacks.removeFromBasket}/>
     }, [callbacks.removeFromBasket]),
   };
 

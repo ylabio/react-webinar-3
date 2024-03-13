@@ -1,5 +1,4 @@
 import {memo, useContext} from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
@@ -7,24 +6,21 @@ import './style.css';
 import {LanguageContext} from "../../language-provider.js";
 
 
-function Item({item, link, onAdd}) {
+function Item({item, onNavigate, onAdd}) {
 
   const cn = bem('Item');
-
-  const linkProduct = link ? link : item._id;
 
   const { wordsTranslate } = useContext(LanguageContext);
 
   const callbacks = {
-    onAdd: (e) => onAdd(item._id)
+    onAdd: (e) => onAdd(item._id),
+    onLink: (e) => onNavigate(item._id),
   }
 
   return (
     <div className={cn()}>
-      <div className={cn('title')}>
-        <Link to={`/articles/${linkProduct}`}>
+      <div className={cn('title')} onClick={callbacks.onLink}>
           {item.title}
-        </Link>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
@@ -41,10 +37,12 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  onNavigate: PropTypes.func,
 };
 
 Item.defaultProps = {
   onAdd: () => {},
+  onNavigate: () => {},
 }
 
 export default memo(Item);

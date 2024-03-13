@@ -9,10 +9,12 @@ import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
 import Menu from "../../components/menu";
 import Nav from "../../components/nav";
+import {useNavigate} from "react-router";
 
-function Main() {
+function Main(callback, deps) {
 
   const store = useStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     store.actions.catalog.load(select.page);
@@ -34,11 +36,12 @@ function Main() {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     onChangePage : useCallback(page => store.actions.catalog.load(page), [store]),
+    onNavigate: useCallback((id) => navigate(`/articles/${id}`), deps)
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} link={item._id} onAdd={callbacks.addToBasket}/>
+      return <Item item={item} onNavigate={callbacks.onNavigate} onAdd={callbacks.addToBasket}/>
     }, [callbacks.addToBasket]),
   };
 
