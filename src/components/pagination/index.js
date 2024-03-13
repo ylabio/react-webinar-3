@@ -24,18 +24,20 @@ function Pagination({ currentPage = 1, pagesCount = 25, onPageChange }) {
   return (
     <ul className={cn()}>
       {pages?.map((el) => (
-        <li
-          className={
-            el === "..."
-              ? cn("item_disabled")
-              : el === currentPage
-              ? cn("item_active")
-              : cn("item")
-          }
-          key={uniqKey()}
-          onClick={callbacks.onPageChange}
-        >
-          {el}
+        <li key={uniqKey()} onClick={callbacks.onPageChange}>
+          <button
+            type="button"
+            className={
+              el === "..."
+                ? cn("item_disabled")
+                : el === currentPage
+                ? cn("item_active")
+                : cn("item")
+            }
+            disabled={el === "..."}
+          >
+            {el}
+          </button>
         </li>
       ))}
     </ul>
