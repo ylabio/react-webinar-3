@@ -13,13 +13,13 @@
   align-items: baseline;
   font-size: 18px;
   font-weight: 400;
-  line-height: 22px;
+  line-height: 20px;
 }
 
 .Paging-select {
   font-size: 16px;
   font-weight: 400;
-  line-height: 20px;
+  line-height: 18px;
   padding-left: 20px;
 }
 
@@ -27,15 +27,16 @@
   display: flex;
   font-size: 16px;
   font-weight: 400;
+  line-height: 18px;
   padding-left: 20px;
-  line-height: 20px;
 }
 
 .Paging-item {
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
+  min-width: 16px;
+  min-height: 18px;
+  line-height: 18px;
   text-align: center;
+  padding: 2px 2px 0;
 }
 
 .Paging-item_show_current {
