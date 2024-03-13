@@ -8,10 +8,11 @@ class Translator extends StoreModule {
   }
 
   initState() {
+    const locale = "locale" in localStorage && ["ru", "en"].indexOf(localStorage.locale) ? localStorage.locale : "ru";
     return {
       locales: ["ru", "en"],
-      locale: "ru",
-      dictionary: dictionary["ru"],
+      locale,
+      dictionary: dictionary[locale],
     }
   }
 
@@ -37,6 +38,8 @@ class Translator extends StoreModule {
       locale,
       dictionary: dictionary[locale]
     }, 'Смена локали: ' + locale);
+
+    localStorage.setItem('locale', locale);
   }
 }
 
