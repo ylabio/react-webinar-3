@@ -1,3 +1,4 @@
+import loading from "../../components/loading";
 import {codeGenerator} from "../../utils";
 import StoreModule from "../module";
 
@@ -15,9 +16,14 @@ class Catalog extends StoreModule {
       skip:0,
       currentPage: 1,
       totalProductCount: 0,
+      isLoading:false
     }
   }
   async load(page=1) {
+    this.setState({
+      ...this.getState(),
+      isLoading:true})
+
     let pageSize=this.getState().pageSize
     let skip=this.getState().skip
     let currentPage=this.getState().currentPage
@@ -31,7 +37,8 @@ class Catalog extends StoreModule {
       ...this.getState(),
       list: json.result.items,
       totalProductCount:json.result.count,
-      currentPage:currentPage
+      currentPage:currentPage,
+      isLoading:false
     }, 'Загружены товары из АПИ');
   }
   changePage(page){

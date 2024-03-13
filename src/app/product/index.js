@@ -8,6 +8,7 @@ import ProductBody from '../../components/product-body';
 import { useParams } from 'react-router-dom';
 import Menu from '../../components/menu';
 import Navigation from '../../components/navigation';
+import Loading from '../../components/loading';
 
 function Product() {
 
@@ -17,7 +18,8 @@ function Product() {
   const select = useSelector(state => ({
     data:state.product.data,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    isLoading:state.product.isLoading
   }));
   
   useEffect(() => {
@@ -37,13 +39,15 @@ function Product() {
 
   return (
     <PageLayout>
-      <Head title={select.data.title}/>
-      <Menu>
-        <Navigation toMain={callbacks.toMain}/>
-        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
-      </Menu>
-      <ProductBody data={select.data} onAdd={callbacks.addToBasket}/>
+      <Loading isLoading={select.isLoading}>
+        <Head title={select.data.title}/>
+        <Menu>
+          <Navigation toMain={callbacks.toMain}/>
+          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+                    sum={select.sum}/>
+        </Menu>
+        <ProductBody data={select.data} onAdd={callbacks.addToBasket}/>
+      </Loading>
     </PageLayout>
 
   );

@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom';
 import { LanguageContext } from '../../languages/languagesContext';
 import Menu from '../../components/menu';
 import Navigation from '../../components/navigation';
+import Loading from '../../components/loading';
 
 function Main() {
 
@@ -23,6 +24,7 @@ function Main() {
     currentPage: state.catalog.currentPage,
     totalProductCount: state.catalog.totalProductCount,
     pageSize: state.catalog.pageSize,
+    isLoading:state.catalog.isLoading
   }));
 
   let page = useParams().page
@@ -58,11 +60,13 @@ function Main() {
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
           sum={select.sum} />
       </Menu>
-      <List list={select.list} renderItem={renders.item} />
-      <Pagination 
-      currentPage={select.currentPage} totalProductCount={select.totalProductCount} 
-      pageSize={select.pageSize} changePage={callbacks.changePage} 
-      />
+      <Loading isLoading={select.isLoading}>
+        <List list={select.list} renderItem={renders.item} />
+        <Pagination 
+        currentPage={select.currentPage} totalProductCount={select.totalProductCount} 
+        pageSize={select.pageSize} changePage={callbacks.changePage} 
+        />
+      </Loading>
     </PageLayout>
   );
 }

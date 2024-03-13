@@ -4,10 +4,16 @@ class Product extends StoreModule {
 
   initState() {
     return {
-      data: {}
+      data: {},
+      isLoading:false
     }
   }
   async load(id) {
+    this.setState({
+      ...this.getState(),
+      isLoading:true
+    });
+
     const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
     const json = await response.json();
     
@@ -23,7 +29,8 @@ class Product extends StoreModule {
     }
     this.setState({
       ...this.getState(),
-      data: productData
+      data: productData,
+      isLoading:false
     }, 'Загружены товары из АПИ');
   }
 }
