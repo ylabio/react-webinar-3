@@ -6,9 +6,9 @@ import './style.css';
 import {Link} from "react-router-dom";
 
 
-function BasketTool({sum, amount, onOpen , lang}) {
+function BasketTool({sum, amount, onOpen, lang}) {
 
-  const variants =   lang ===  'ru-RU' ? {one: 'товар', few: 'товара', many: 'товаров'} :{one: 'good', other:'goods'}
+  const variants = lang === 'ru-RU' ? {one: 'товар', few: 'товара', many: 'товаров'} : {one: 'good', other: 'goods'}
 
 
   const locale = lang === 'ru' ? 'ru-RU' : 'en-US'
@@ -18,14 +18,16 @@ function BasketTool({sum, amount, onOpen , lang}) {
   return (
     <div className={cn()}>
       <Link to={'/main'}>{lang === 'ru-RU' ? 'Главная' : 'Main'}</Link>
-      <span className={cn('label')}>{lang === 'ru-RU' ? 'В корзине:' : 'Basket:'}</span>
-      <span className={cn('total')}>
+      <div className='basket'>
+        <span className={cn('label')}>{lang === 'ru-RU' ? 'В корзине:' : 'Basket:'}</span>
+        <span className={cn('total')}>
         {amount
-          ? `${amount} ${plural(amount,variants, lang)} / ${numberFormat(sum)} ₽`
+          ? `${amount} ${plural(amount, variants, lang)} / ${numberFormat(sum)} ₽`
           : `${lang === 'ru-RU' ? 'пусто' : 'empty'}`
         }
       </span>
-      <button onClick={onOpen}>{lang === 'ru-RU' ? 'Перейти' : 'To basket'}</button>
+        <button onClick={onOpen}>{lang === 'ru-RU' ? 'Перейти' : 'To basket'}</button>
+      </div>
     </div>
   );
 }

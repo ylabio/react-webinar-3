@@ -1,20 +1,18 @@
 /* Контрол с общими действиями */
 .BasketTool {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 20px;
   font-size: 18px;
 
 }
 
-.BasketTool-label {
-
+.BasketTool-basket {
+  align-self: flex-end;
 }
-.BasketTool a{
-  color:  #0087E9;
-  position: absolute;
-  left: 460px;
 
+.BasketTool a {
+  color: #0087E9;
 }
 
 .BasketTool-total {

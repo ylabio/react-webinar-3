@@ -45,14 +45,16 @@ function Pagination({setCurrentPage, count, currentPage}) {
     if (pageNumber !== '...') {
       setCurrentPage(pageNumber);
     }
+
   };
+
 
   return (
     <div className="Pagination">
       {getPageNumbers().map((pageNumber, index) => (
         <span
           key={index}
-          className={pageNumber === currentPage ? 'active' : ''}
+          className={pageNumber === currentPage ? 'page-number + active + pointer' : (pageNumber === '...' ? 'page-number': 'page-number + pointer')}
           onClick={() => handlePageClick(pageNumber)}
         >
         {pageNumber}

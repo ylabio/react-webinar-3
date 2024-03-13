@@ -7,21 +7,23 @@
   margin-left: -20px;
 }
 
-.Pagination span {
+.Pagination .page-number {
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   width: 20px;
   height: 20px;
   margin-right: 3px;
   margin-left: 3px;
 }
 
+.pointer{
+  cursor: pointer;
+}
+
 .Pagination a {
   text-decoration: none;
   color: black;
-
 }
 
 .active {
