@@ -25,8 +25,7 @@ Head.propTypes = {
 };
 
 Head.defaultProps = {
-  onClick: () => { },
-  lang: 'ru'
+  onClick: () => { }
 }
 
 export default memo(Head);
