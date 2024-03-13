@@ -1,14 +1,29 @@
-import React, {memo} from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { Link, useParams } from 'react-router-dom';
 
-function Pagination({setCurrentPage, count, currentPage}) {
+function Pagination({ setCurrentPage, count, currentPage }) {
+  const { pageNumber } = useParams();
+  console.log('Pagination: ', pageNumber);
 
+  const [currentPageNumber, setCurrentPageNumber] = useState(currentPage);
+
+  useEffect(() => {
+    setCurrentPageNumber(Number(pageNumber));
+  }, [pageNumber]);
+
+  const handlePageClick = (pageNumber) => {
+    if (pageNumber !== '...') {
+      setCurrentPage(pageNumber);
+    }
+  };
+
+  const totalPagesToShow = 3;
+  const totalPages = Math.ceil(count / 10);
 
   const getPageNumbers = () => {
     const pageNumbers = [];
-    const totalPagesToShow = 3;
-    const totalPages = Math.ceil(count / 10)
 
     if (totalPages <= totalPagesToShow) {
       for (let i = 1; i <= totalPages; i++) {
@@ -16,15 +31,15 @@ function Pagination({setCurrentPage, count, currentPage}) {
       }
     } else {
       let startPage, endPage;
-      if (currentPage <= 2) {
+      if (currentPageNumber <= 2) {
         startPage = 1;
         endPage = totalPagesToShow;
-      } else if (currentPage >= totalPages - 1) {
+      } else if (currentPageNumber >= totalPages - 1) {
         startPage = totalPages - totalPagesToShow + 1;
         endPage = totalPages;
       } else {
-        startPage = currentPage - 1;
-        endPage = currentPage + 1;
+        startPage = currentPageNumber - 1;
+        endPage = currentPageNumber + 1;
       }
 
       for (let i = startPage; i <= endPage; i++) {
@@ -41,24 +56,24 @@ function Pagination({setCurrentPage, count, currentPage}) {
     return pageNumbers;
   };
 
-  const handlePageClick = (pageNumber) => {
-    if (pageNumber !== '...') {
-      setCurrentPage(pageNumber);
-    }
-
-  };
-
-
   return (
     <div className="Pagination">
-      {getPageNumbers().map((pageNumber, index) => (
-        <span
-          key={index}
-          className={pageNumber === currentPage ? 'page-number + active + pointer' : (pageNumber === '...' ? 'page-number': 'page-number + pointer')}
-          onClick={() => handlePageClick(pageNumber)}
-        >
-        {pageNumber}
-        </span>
+      {getPageNumbers().map((pn, index) => (
+        <Link key={index} to={`/main/${pn}`}>
+          <span
+            key={index}
+            className={
+              pn === currentPageNumber
+                ? 'page-number + active + pointer'
+                : pn === '...'
+                  ? 'page-number'
+                  : 'page-number + pointer'
+            }
+            onClick={() => handlePageClick(pn)}
+          >
+            {pn}
+          </span>
+        </Link>
       ))}
     </div>
   );
@@ -71,4 +86,3 @@ Pagination.propTypes = {
 };
 
 export default memo(Pagination);
-

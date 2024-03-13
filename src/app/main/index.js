@@ -7,8 +7,11 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
+import {useParams} from "react-router-dom";
 
 function Main() {
+  const {pageNumber} = useParams()
+  console.log(pageNumber)
 
   const store = useStore();
 
@@ -36,7 +39,7 @@ function Main() {
   };
 
   useEffect(() => {
-    store.actions.catalog.load();
+    store.actions.catalog.load(pageNumber);
   }, [select.currentPage, select.lang]);
 
   return (

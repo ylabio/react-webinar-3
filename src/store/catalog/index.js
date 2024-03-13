@@ -6,7 +6,6 @@ class Catalog extends StoreModule {
   constructor(store, name) {
     super(store, name);
     this.generateCode = codeGenerator(0)
-
   }
 
   initState() {
@@ -15,12 +14,12 @@ class Catalog extends StoreModule {
       currentPage: 1,
       pageSize: 10,
       count: 0,
-      product:[]
+      product: []
     }
   }
 
-  async load() {
-    const skip = (this.getState().currentPage - 1) * 10;
+  async load(pageNumber) {
+    const skip = (pageNumber - 1) * 10;
     const response = await fetch(`/api/v1/articles?limit=${this.getState().pageSize}&skip=${skip}&fields=items(_id,_key,name,title,description,price,madeIn(title,code,_id),category(title,_id),edition),count`);
     const json = await response.json();
     const transformedList = json.result.items.map(item => ({
@@ -44,7 +43,7 @@ class Catalog extends StoreModule {
     this.setState({
       ...this.getState(),
       list: transformedList,
-      count: json.result.count
+      count: json.result.count,
     }, 'Загружены товары из АПИ');
   }
 
@@ -70,7 +69,7 @@ class Catalog extends StoreModule {
         _id: item.result.category._id
       } : null
     };
-    console.log('Метод :' , transformedItem)
+    console.log('Метод :', transformedItem)
     this.setState(({
         ...this.getState(),
         product: [transformedItem]
