@@ -1,0 +1,22 @@
+  .ProductProperties-label {
+  
+  }
+  
+  .ProductProperties {
+    padding: 20px 20px;
+  }
+
+  .ProductProperties-box {
+    padding: 10px 20px;
+    font-size: 18px;
+  }
+  
+  .ProductProperties-bold {
+    font-weight: bold;
+    margin: 0 10px;
+  }
+
+  .ProductProperties-bold-big {
+    font-weight: bold;
+    font-size: 25px;
+  }

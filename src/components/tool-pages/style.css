@@ -1,0 +1,46 @@
+  .ToolPages {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+  }
+  
+  .ToolPages-cell {
+    min-width: 20px;
+    text-align: center;
+    font-size: 18px;
+    background-color: white;
+    padding: 0 5px 0 5px;
+  }
+
+  .ToolPages-cell-ThreeВots{
+    min-width: 20px;
+    text-align: center;
+    font-size: 18px;
+    background-color: white;
+    padding: 0 5px 0 5px;
+    color: lightgray;
+  }
+  
+
+  .ToolPages-cell-current {
+    min-width: 20px;
+    text-align: center;
+    font-size: 18px;
+    background-color: aqua;
+    color: white;
+    padding: 0 5px 0 5px;
+  }
+
+  .ToolPages-cell:hover{
+    cursor: pointer;
+    background-color: lightgray;
+  }
+
+  .ToolPages-cell-one{
+    min-width: 20px;
+    text-align: center;
+    font-size: 18px;
+    background-color: black;
+    color: white;
+  }
+  

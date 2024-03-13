@@ -1,4 +1,12 @@
-/* Контрол с общими действиями */
+.Main-page-and-BasketTool {
+  display: flex;
+  justify-content: space-between;
+}
+
+.BasketTool-label {
+
+}
+
 .BasketTool {
   display: flex;
   justify-content: flex-end;
@@ -6,11 +14,12 @@
   font-size: 18px;
 }
 
-.BasketTool-label {
-
-}
-
 .BasketTool-total {
   font-weight: bold;
   margin: 0 20px;
+}
+
+.main-page {
+  padding: 20px;
+  font-size: 18px;
 }

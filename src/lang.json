@@ -1,0 +1,170 @@
+{
+    "ru": {
+    "Language": "ru-RU",
+    "variablesLanguage": {
+        "buttonAddProduct": "Добавить",
+        "buttonDeleteProduct": "Удалить",
+        "Page1": {
+            "title": "Магазин",
+            "selectLanguage": {
+                "label": "Выбор языка",
+                "bauttonRu": "Русский",
+                "bauttonEn": "Английский",
+                "bauttonDe": "Немецкий",
+                "bauttonCn": "Китайский"
+        }
+      },
+      "Page2": {
+        "madeIn": "Страна производитель",
+        "category": "Категория",
+        "edition": "Год выпуска",
+        "price": "Цена"
+      },
+      "Total": {
+        "label": "Итого"
+      },
+      "Basket": {
+        "title": "Корзина",
+        "buttonClose": "Закрыть",
+        "ItemQ": "шт"
+      },
+      "BasketTool": {
+        "main": "Главная",
+        "label": "В корзине",
+        "buttonBasket": "Перейти",
+        "product": {
+            "one": "товар",
+            "few": "товара",
+            "many": "товаров"
+        },
+        "empty": "пусто"
+      }
+    }
+    },
+    "en": {
+        "Language": "en-EN",
+        "variablesLanguage": {
+            "buttonAddProduct": "Add",
+            "buttonDeleteProduct": "Remove",
+            "Page1": {
+                "title": "Shop",
+                "selectLanguage": {
+                    "label": "Language selection",
+                    "bauttonRu": "Russian",
+                    "bauttonEn": "English",
+                    "bauttonDe": "German",
+                    "bauttonCn": "Chinese"
+            }
+          },
+          "Page2": {
+            "madeIn": "Country of origin",
+            "category": "Category",
+            "edition": "Year of release",
+            "price": "Price"
+          },
+          "Total": {
+            "label": "Total"
+          },
+          "Basket": {
+            "title": "Basket",
+            "buttonClose": "Close",
+            "ItemQ": "pcs"
+          },
+          "BasketTool": {
+            "main": "Main",
+            "label": "In the shopping cart",
+            "buttonBasket": "Go over",
+            "product": {
+                "one": "product",
+                "few": "the product",
+                "many": "products"
+            },
+            "empty": "empty"
+          }
+        }
+    },
+    "de": {
+        "Language": "de-DE",
+        "variablesLanguage": {
+            "buttonAddProduct": "Hinzufügen",
+            "buttonDeleteProduct": "Entfernen",
+            "Page1": {
+                "title": "Geschäft",
+                "selectLanguage": {
+                    "label": "Sprachauswahl",
+                    "bauttonRu": "Russisch",
+                    "bauttonEn": "Englisch",
+                    "bauttonDe": "Deutsch",
+                    "bauttonCn": "Chinesisch"
+            }
+          },
+          "Page2": {
+            "madeIn": "Herstellerland",
+            "category": "Kategorie",
+            "edition": "Baujahr",
+            "price": "Preis"
+          },
+          "Total": {
+            "label": "Insgesamt"
+          },
+          "Basket": {
+            "title": "Korb",
+            "buttonClose": "Schließen",
+            "ItemQ": "st"
+          },
+          "BasketTool": {
+            "main": "Hauptsaechliche",
+            "label": "Im Korb",
+            "buttonBasket": "Übergehen",
+            "product": {
+                "one": "die Ware",
+                "few": "ware",
+                "many": "waren"
+            },
+            "empty": "es ist leer"
+          }
+        }
+    },
+    "cn": {
+        "Language": "cn-CN",
+        "variablesLanguage": {
+            "buttonAddProduct": "添加",
+            "buttonDeleteProduct": "移走",
+            "Page1": {
+                "title": "商店",
+                "selectLanguage": {
+                    "label": "语言选择",
+                    "bauttonRu": "俄语",
+                    "bauttonEn": "英语",
+                    "bauttonDe": "德语",
+                    "bauttonCn": "中文"
+            }
+          },
+          "Page2": {
+            "madeIn": "原产国家",
+            "category": "类别：",
+            "edition": "发行年份",
+            "price": "价格；价格"
+          },
+          "Total": {
+            "label": "总计"
+          },
+          "Basket": {
+            "title": "篮子；篮子",
+            "buttonClose": "关闭",
+            "ItemQ": "件"
+          },
+          "BasketTool": {
+            "main": "主要",
+            "label": "在购物车里",
+            "buttonBasket": "过去",
+            "product": {
+                "one": "产品",
+                "few": "产品",
+                "many": "产品中心"
+            },
+            "empty": "空的"
+          }
+        }
+    }
+}
