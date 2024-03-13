@@ -7,6 +7,7 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
+import Menu from '../../components/menu';
 
 function Main() {
 
@@ -35,17 +36,21 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} path='/article/'/>
     }, [callbacks.addToBasket]),
   };
 
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+        <Menu href='/'/>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+          sum={select.sum}/>
+      </div>
+      
       <List list={select.list} renderItem={renders.item}/>
-      <Pagination page={select.page} count={select.count} onClickPage={callbacks.setCatalogPage}/>
+      {select.count ? <Pagination page={select.page} count={select.count} onClickPage={callbacks.setCatalogPage}/> : 'Loading...'}
     </PageLayout>
 
   );

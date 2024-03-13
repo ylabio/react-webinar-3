@@ -5,7 +5,7 @@ import './style.css';
 function Pagination({page, count, onClickPage}) {
 
     return (
-        <div className="Pagination" onClick={e => {onClickPage(+e.target.dataset.pagenum)}}>
+        <div className="Pagination" onClick={e => {Number.isInteger(+e.target.dataset.pagenum) && onClickPage(+e.target.dataset.pagenum)}}>
             {count > 0 && <div className={"Pagination-pagenum" + (page === 0 ? " Pagination_active" : '')} data-pagenum="0">1</div>}
             {page > 2 && <div className="Pagination-dots">...</div>}
             {((page === 0 || page === 1 || page === 2) && count > 10) &&
@@ -26,6 +26,16 @@ function Pagination({page, count, onClickPage}) {
         </div>
     )
 
+}
+
+Pagination.propTypes = {
+    page: PropTypes.number.isRequired,
+    count: PropTypes.number.isRequired,
+    onClickPage: PropTypes.func,
+}
+
+Pagination.defaultProps = {
+    onClickPage: () => {},
 }
 
 export default memo(Pagination);

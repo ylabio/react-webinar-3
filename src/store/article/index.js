@@ -2,10 +2,6 @@ import StoreModule from "../module";
 
 class Article extends StoreModule {
 
-  constructor(store, name) {
-    super(store, name);
-  }
-
   initState() {
     return {
       list: undefined,

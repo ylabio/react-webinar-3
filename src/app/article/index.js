@@ -6,6 +6,7 @@ import useSelector from "../../store/use-selector";
 import BasketTool from "../../components/basket-tool";
 import useStore from "../../store/use-store";
 import Head from "../../components/head";
+import Menu from "../../components/menu";
 
 function ArticleMain() {
 
@@ -28,14 +29,17 @@ function ArticleMain() {
 
     useEffect(() => {
         store.actions.article.load(id);
-    }, []);
+    }, [id]);
 
     return (
         <PageLayout>
             <Head title={select.list?.title}/>
-            <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                sum={select.sum}/>
-            <Article item={select.list} onAdd={callbacks.addToBasket}/>
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <Menu href='/'/>
+                <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+                    sum={select.sum}/>
+            </div>
+            {select.list ? <Article item={select.list} onAdd={callbacks.addToBasket}/> : 'Loading...'}
         </PageLayout>
     )
 
