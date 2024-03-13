@@ -14,12 +14,13 @@ import Description from './description';
 function App() {
 
   const activeModal = useSelector(state => state.modals.name);
+  //const isLoading = useSelector();
 
   return (
     <>
       <Router>
         <Routes>
-          {['/','/page/:_id'].map(path => <Route path={path} element={<Main/>}/>)}
+          {['/', '/page/:_id'].map(path => <Route path={path} element={<Main />} />)}
           <Route path='/description/:_id' element={<Description />} />
         </Routes>
         {activeModal === 'basket' && <Basket />}

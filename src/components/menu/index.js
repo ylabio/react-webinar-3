@@ -6,7 +6,7 @@ import './style.css';
 import BasketTool from "../basket-tool"
 import { Link } from "react-router-dom";
 
-function Menu({sum, amount, onOpen, texts, locale}){
+function Menu({ sum, amount, onOpen, texts, locale }) {
   const cn = bem('Menu');
   console.log(texts);
   return (
@@ -15,8 +15,8 @@ function Menu({sum, amount, onOpen, texts, locale}){
         <Link className={cn('link')} to="/page/1">{texts?.main}</Link>
       </div>
       <div className="BasketTool-container">
-      <BasketTool onOpen={onOpen} amount={amount}
-                  sum={sum} texts={texts} locale={locale}/>
+        <BasketTool onOpen={onOpen} amount={amount}
+          sum={sum} texts={texts} locale={locale} />
       </div>
     </div>
   );

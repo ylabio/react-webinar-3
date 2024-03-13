@@ -1,25 +1,25 @@
 import StoreModule from "../module";
 
 
-class Item extends StoreModule{
+class Item extends StoreModule {
 
-  initState(){
+  initState() {
     return {
       selectedItem: {}
     }
   }
 
-  async load({_id}){
-    const itemResponse = await fetch('/api/v1/articles/'+_id+'?fields=_id,title,description,price,madeIn,edition,category');
+  async load({ _id }) {
+    const itemResponse = await fetch('/api/v1/articles/' + _id + '?fields=_id,title,description,price,madeIn,edition,category');
     const itemJson = await itemResponse.json();
-    const countryResponse = await fetch('/api/v1/countries/'+itemJson.result.madeIn._id);
+    const countryResponse = await fetch('/api/v1/countries/' + itemJson.result.madeIn._id);
     const countryJson = await countryResponse.json();
-    const categoryResponse = await fetch('/api/v1/categories/'+itemJson.result.category._id);
+    const categoryResponse = await fetch('/api/v1/categories/' + itemJson.result.category._id);
     const categoryJson = await categoryResponse.json();
     this.setState({
       ...this.getState(),
-      selectedItem: {...itemJson.result, country: countryJson.result, category: categoryJson.result}
-    }, 'Загружен товар с _id='+_id);
+      selectedItem: { ...itemJson.result, country: countryJson.result, category: categoryJson.result }
+    }, 'Загружен товар с _id=' + _id);
   }
 }
 

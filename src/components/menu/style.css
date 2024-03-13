@@ -5,10 +5,18 @@
   font-size: 18px;
 }
 
-.Menu-link-container{
-  width:50%
+.Menu-link-container {
+  width: 50%
 }
 
 .BasketTool-container * {
   padding: 0px;
+}
+
+.Menu-link {
+  color: #0087E9;
+}
+
+.BasketTool button {
+  padding: 1px 6px;
 }
