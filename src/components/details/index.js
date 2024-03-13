@@ -7,7 +7,6 @@ import './style.css';
 function Details({detail, onAdd}) {
 
   const cn = bem('Details');
-  console.log(detail);
 
   return (
     <div className={cn()}>
