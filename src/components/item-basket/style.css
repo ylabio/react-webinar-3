@@ -28,3 +28,9 @@
   font-size: 18px;
   white-space: nowrap;
 }
+
+
+.ItemBasket-link:hover {
+  text-decoration:underline;
+  cursor: pointer;
+}

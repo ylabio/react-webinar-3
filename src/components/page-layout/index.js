@@ -13,11 +13,11 @@ function PageLayout({head, footer, children}) {
         {head}
       </div>
       <div className={cn('center')}>
-        {children}
+        {children} 
       </div>
       <div className={cn('footer')}>
         {footer}
-      </div>
+      </div>     
     </div>
   );
 }
