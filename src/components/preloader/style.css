@@ -1,0 +1,21 @@
+.Preloader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 30dvh;
+}
+
+.Preloader-inner {
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 3px solid #000000;
+  animation: circ-anim 0.9s linear infinite;
+  border-bottom-color: transparent;
+}
+
+@keyframes circ-anim {
+  from {transform: rotate(0);}
+  to {transform: rotate(360deg);}
+}

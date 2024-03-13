@@ -1,0 +1,23 @@
+{
+  "store": "Магазин",
+  "cart": "Корзина",
+  "in cart": "В корзине",
+  "empty": "пусто",
+  "item": "товар",
+  "few items": "товара",
+  "many items": "товаров",
+  "piece": "шт",
+  "pieces": "шт",
+  "open": "Перейти",
+  "main page": "Главная",
+  "total": "Итого",
+  "manufacturer country": "Страна производитель",
+  "category": "Категория",
+  "year of issue": "Год выпуска",
+  "price": "Цена",
+  "add": "Добавить",
+  "delete": "Удалить",
+  "close": "Закрыть",
+  "failed to fetch data": "Не удалось получить данные",
+  "try again": "Повторить"
+}

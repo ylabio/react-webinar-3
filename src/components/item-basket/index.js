@@ -1,7 +1,8 @@
-import {memo, useCallback} from 'react';
+import {memo} from 'react';
 import propTypes from 'prop-types';
 import {numberFormat} from "../../utils";
 import {cn as bem} from "@bem-react/classname";
+import {Link} from 'react-router-dom';
 import PropTypes from "prop-types";
 import './style.css';
 
@@ -10,18 +11,23 @@ function ItemBasket(props) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: (e) => props.onRemove(props.item._id)
+    onRemove: (e) => props.onRemove(props.item._id),
+    onClick: (e) => props.onClick()
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>{props.item.title}</div>
+      <div className={cn('title')}>
+        { props.url
+            ? <Link to={props.url} onClick={callbacks.onClick}>{props.item.title}</Link>
+            : props.item.title
+        }
+      </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {props.translate(props.item.amount > 1 ? 'pieces' : 'piece')}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{props.translate('delete')}</button>
         </div>
       </div>
     </div>
@@ -35,11 +41,17 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number
   }).isRequired,
+  url: PropTypes.string,
+  translate: PropTypes.func,
   onRemove: propTypes.func,
+  onClick: PropTypes.func,
 }
 
 ItemBasket.defaultProps = {
+  url: '',
+  translate: () => {},
   onRemove: () => {},
+  onClick: () => {},
 }
 
 export default memo(ItemBasket);

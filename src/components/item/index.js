@@ -1,6 +1,7 @@
-import {memo, useState} from "react";
+import {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
+import {Link} from 'react-router-dom';
 import {numberFormat} from "../../utils";
 import './style.css';
 
@@ -14,13 +15,15 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        {props.item.title}
+        { props.url
+            ? <Link to={props.url}>{props.item.title}</Link>
+            : props.item.title
+        }
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{props.btnAddTitle}</button>
       </div>
     </div>
   );
@@ -32,10 +35,14 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
+  url: PropTypes.string,
+  btnAddTitle: PropTypes.string,
   onAdd: PropTypes.func,
 };
 
 Item.defaultProps = {
+  url: '',
+  btnAddTitle: 'add',
   onAdd: () => {},
 }
 

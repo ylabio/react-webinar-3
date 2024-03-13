@@ -1,0 +1,12 @@
+.Error {
+  padding: 20px;
+  text-align: center;
+}
+
+.Error-message {
+  font-size: 18px;
+}
+
+.Error-tools {
+  padding: 20px;
+}
