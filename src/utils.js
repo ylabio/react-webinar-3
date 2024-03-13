@@ -57,7 +57,7 @@ export default function constructPageArray(pagesCount, currentPage) {
 
     if (
       (i < 4 && currentPage < 4) ||
-      (i > pagesCount - 2 && currentPage > pagesCount - 2)
+      (i > pagesCount - 3 && currentPage > pagesCount - 2)
     ) {
       pagesArray.push(i);
     }
