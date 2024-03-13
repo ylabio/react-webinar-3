@@ -1,0 +1,22 @@
+{
+  "buttonAdd": "Добавить",
+  "buttonRemove": "Удалить",
+  "productDescription": "Описание",
+  "productCountry": "Страна производитель",
+  "productCategory": "Категория",
+  "productYear": "Год выпуска",
+  "productPrice": "Цена",
+  "store": "Магазин",
+  "mainPage": "Главная",
+  "inBasket": "В корзине:",
+  "proceed": "Перейти",
+  "empty": "пусто",
+  "oneProduct": "товар",
+  "twoProducts": "товара",
+  "aLotOfProducts": "товаров",
+  "total": "Итого",
+  "pcs": "шт",
+  "basket": "Корзина",
+  "close": "Закрыть",
+  "productDetailsError": "Ошибка загрузки данных о продукте"
+}

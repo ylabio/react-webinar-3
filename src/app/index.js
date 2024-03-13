@@ -1,22 +1,30 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../store/use-store";
+import DetailedPageContainer from "./detailed-page";
 import useSelector from "../store/use-selector";
+import { LanguageContext } from '../language-provider';
 
 /**
  * Приложение
  * @returns {React.ReactElement}
  */
 function App() {
-
   const activeModal = useSelector(state => state.modals.name);
 
   return (
-    <>
-      <Main/>
-      {activeModal === 'basket' && <Basket/>}
-    </>
+    <LanguageContext.Consumer> 
+      {({ t }) => (
+        <Router>
+          <Routes>
+            <Route path="/" element={<Main t={t} />} />           
+            <Route path="/page/:pageNumber" element={<Main t={t} />} />           
+            <Route path="/item/:id" element={<DetailedPageContainer t={t} />} /> 
+          </Routes>
+          {activeModal === 'basket' && <Basket t={t} />}
+        </Router>
+      )}
+    </LanguageContext.Consumer>
   );
 }
 

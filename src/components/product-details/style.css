@@ -1,0 +1,32 @@
+.ProductDetails {
+  padding: 40px;  
+  padding-top: 20px;
+  overflow: auto;
+}
+
+.ProductDetails-content {  
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.ProductDetails p {
+  margin: 0;
+}
+
+.ProductDetails-button {
+  margin-top: 20px; 
+}
+
+.ProductDetails span {
+  font-weight: bold;
+}
+.ProductDetails-price {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.ProductDetails-error {
+  padding: 20px;
+  text-align: center;
+}

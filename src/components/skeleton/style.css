@@ -1,0 +1,12 @@
+.Skeleton {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;  
+}
+
+.Skeleton-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  min-height: 681px;
+}

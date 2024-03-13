@@ -1,27 +1,34 @@
-import {memo, useCallback} from 'react';
+import {memo} from 'react';
+import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import {numberFormat} from "../../utils";
+import useStore from "../../store/use-store";
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import './style.css';
 
 function ItemBasket(props) {
-
+  const { item, onRemove, t } = props;    
+  const store = useStore();
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: (e) => props.onRemove(props.item._id)
+    onRemove: (e) => onRemove(item.item._id),
+    onCloseModal: () => store.actions.modals.close('basket'),
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>{props.item.title}</div>
+      <div className={cn('title')}>
+        <Link to={`/item/${item.item._id}`} onClick={callbacks.onCloseModal}>
+          {item.item.title}
+        </Link>
+      </div>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>{numberFormat(item.item.price)} ₽</div>
+        <div className={cn('cell')}>{numberFormat(item.item.amount || 0)} {t('pcs')}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={() => onRemove(item.item._id)}>{t('buttonRemove')}</button>
         </div>
       </div>
     </div>
@@ -36,6 +43,7 @@ ItemBasket.propTypes = {
     amount: PropTypes.number
   }).isRequired,
   onRemove: propTypes.func,
+  t: PropTypes.func
 }
 
 ItemBasket.defaultProps = {
