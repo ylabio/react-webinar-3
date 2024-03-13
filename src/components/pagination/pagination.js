@@ -4,66 +4,24 @@ import { useEffect } from "react";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import './style.css';
-function Pagination({ limit }) {
-    const store = useStore(); 
-    const [skip, setSkip] = useState(0); 
-    const select = useSelector(state => ({
-        currentPage: state.catalog.currentPage,
-        lastPage: state.catalog.lastPage
-    }));
-    useEffect(() => {
-        async function fetchData() {
-            await store.actions.catalog.load({ limit, skip });
-        }
-        fetchData();
-    }, [skip, store.actions.catalog, limit]);
-    useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        const pageFromUrl = parseInt(params.get('page') || '1', 10);
-        const limitFromUrl = parseInt(params.get('limit') || limit, 10);
-        if (pageFromUrl !== select.currentPage || limitFromUrl !== limit) {
-            setSkip((pageFromUrl - 1) * limitFromUrl);
-        }
-    }, [select.currentPage, limit]);
-    const setUrlParams = (page, newLimit) => {
-        const currentUrl = new URL(window.location);
-        const searchParams = currentUrl.searchParams;
-        searchParams.set('page', page);
-        if (newLimit !== limit) {
-            searchParams.set('limit', newLimit);
-        } else {
-            searchParams.delete('limit');//удаляем если равно базовому
-        }
-        window.history.pushState({}, '', currentUrl);
-    };
-    const callbacks = {
-        goToPage: useCallback((page) => {
-            const newSkip = (page - 1) * limit;
-            setSkip(newSkip);
-            setUrlParams(page, limit);
-        }, [limit]),
-        setLimit: useCallback((newLimit) => {
-            setSkip(0); 
-            setUrlParams(1, newLimit); 
-        }, []),
-    };
+function Pagination({ currentPage, lastPage, goToPage }) {
     const delta = 1; //количество страниц рядом с текущей по бокам
     const range = [];
 
-    if (select.lastPage > 1) {
+    if (lastPage > 1) {
         range.push(1); 
 
         let startPage, endPage;
 
-        if (select.currentPage <= 3) {
+        if (currentPage <= 3) {
             startPage = 2;
             endPage = 4;
-        } else if (select.currentPage > select.lastPage - 3) {
-            startPage = select.lastPage - 3;
-            endPage = select.lastPage - 1;
+        } else if (currentPage > lastPage - 3) {
+            startPage = lastPage - 3;
+            endPage = lastPage - 1;
         } else {
-            startPage = select.currentPage - delta;
-            endPage = select.currentPage + delta;
+            startPage = currentPage - delta;
+            endPage = currentPage + delta;
         }
 
         if (startPage > 2) {
@@ -71,23 +29,23 @@ function Pagination({ limit }) {
         }
 
         for (let i = startPage; i <= endPage; i++) {
-            if (i < select.lastPage) {
+            if (i < lastPage) {
                 range.push(i); 
             }
         }
 
-        if (endPage < select.lastPage - 1) {
+        if (endPage < lastPage - 1) {
             range.push('...'); 
         }
 
-        if (range[range.length - 1] !== select.lastPage) {
-            range.push(select.lastPage); 
+        if (range[range.length - 1] !== lastPage) {
+            range.push(lastPage); 
         }
     }
 
     const renderPageNumbers = range.map((number, index) => {
         let buttonClass = 'pagination-button';
-        if (select.currentPage === number) {
+        if (currentPage === number) {
             buttonClass += ' disabled';
         }
 
@@ -95,8 +53,8 @@ function Pagination({ limit }) {
             <button
                 key={index} 
                 className={buttonClass}
-                onClick={() => number !== '...' && callbacks.goToPage(number)}
-                disabled={select.currentPage === number || number === '...'}
+                onClick={() => number !== '...' && goToPage(number)}
+                disabled={currentPage === number || number === '...'}
             >
                 {number}
             </button>

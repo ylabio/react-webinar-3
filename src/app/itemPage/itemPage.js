@@ -15,6 +15,7 @@ import Spinner from "../../components/spiner";
 
 function ItemPage() {
     const { itemId } = useParams();
+    
     const store = useStore();
     const select = useSelector(state => ({
         currentItem: state.catalog.currentItem,
@@ -32,6 +33,7 @@ function ItemPage() {
         console.log('Добавляем в корзину товар с ID:', _id);
         store.actions.basket.addToBasket(_id);
     }, [store]);
+    
     if (!select.currentItem) {
         return <Spinner />;
     }
