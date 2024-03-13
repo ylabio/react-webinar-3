@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect } from "react";
 import BasketTool from "../../components/basket-tool";
 import Head from "../../components/head";
 import Item from "../../components/item";
@@ -13,23 +13,24 @@ import useStore from "../../store/use-store";
 function Main() {
   const store = useStore();
 
-  const [page, setPage] = useState(1);
-
-  useEffect(() => {
-    try {
-      store.actions.catalog.load(page);
-    } catch (e) {
-      alert("Ошибка при загрузке каталога");
-      console.error(e);
-    }
-  }, [page]);
+  // const [page, setPage] = useState(1);
 
   const select = useSelector((state) => ({
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
     pagesAmount: state.catalog.pagesAmount,
+    page: state.catalog.page,
   }));
+
+  useEffect(() => {
+    try {
+      store.actions.catalog.load(select.page);
+    } catch (e) {
+      alert("Ошибка при загрузке каталога");
+      console.error(e);
+    }
+  }, [select.page]);
 
   const callbacks = {
     // Добавление в корзину
@@ -42,8 +43,13 @@ function Main() {
       () => store.actions.modals.open("basket"),
       [store]
     ),
-
-    changePage: () => {},
+    // Смена страницы
+    changePage: useCallback(
+      (page) => {
+        store.actions.catalog.changePage(page);
+      },
+      [store]
+    ),
   };
 
   const renders = {
@@ -68,9 +74,9 @@ function Main() {
       </Row>
       <List list={select.list} renderItem={renders.item} />
       <Pagination
-        currentPage={page}
+        currentPage={select.page}
         totalPages={select.pagesAmount}
-        onPageChange={setPage}
+        onPageChange={callbacks.changePage}
       />
     </PageLayout>
   );

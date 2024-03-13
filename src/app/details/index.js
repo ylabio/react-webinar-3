@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import BasketTool from "../../components/basket-tool";
 import Head from "../../components/head";
@@ -10,7 +10,7 @@ import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
 
 function Details() {
-  const [item, setItem] = React.useState(null);
+  // const [item, setItem] = React.useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -19,6 +19,7 @@ function Details() {
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    item: state.product,
   }));
 
   const callbacks = {
@@ -34,28 +35,36 @@ function Details() {
     ),
   };
 
-  const getProduct = async () => {
+  // const getProduct = async () => {
+  //   try {
+  //     const res = await fetch(
+  //       `/api/v1/articles/${id}?fields=*,madeIn(title),category(title)`
+  //     );
+  //     const json = await res.json();
+  //     setItem(json.result);
+  //   } catch (e) {
+  //     alert("Ошибка при загрузке продукта");
+  //     console.error(e);
+  //     navigate(-1);
+  //   }
+  // };
+
+  useEffect(() => {
     try {
-      const res = await fetch(
-        `/api/v1/articles/${id}?fields=*,madeIn(title),category(title)`
-      );
-      const json = await res.json();
-      setItem(json.result);
+      if (id) store.actions.product.loadProduct(id);
     } catch (e) {
       alert("Ошибка при загрузке продукта");
       console.error(e);
-      navigate("/");
+      navigate(-1);
     }
-  };
-  useEffect(() => {
-    getProduct();
   }, [id]);
 
+  console.log(select.item);
   return (
     <PageLayout>
-      {item && (
+      {select.item && (
         <>
-          <Head title={item.title} />
+          <Head title={select.item.title} />
           <Row>
             <Menu />
             <BasketTool
@@ -64,11 +73,11 @@ function Details() {
               onOpen={callbacks.openModalBasket}
             />
           </Row>
-          <ItemDetails item={item} onAdd={callbacks.addToBasket} />
+          <ItemDetails item={select.item} onAdd={callbacks.addToBasket} />
         </>
       )}
     </PageLayout>
   );
 }
 
-export default Details;
+export default memo(Details);

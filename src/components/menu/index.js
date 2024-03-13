@@ -3,7 +3,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./style.css";
 
-const Menu = () => {
+function Menu() {
   const cn = bem("Menu");
   return (
     <nav className={cn()}>
@@ -16,6 +16,6 @@ const Menu = () => {
       </ul>
     </nav>
   );
-};
+}
 
 export default Menu;

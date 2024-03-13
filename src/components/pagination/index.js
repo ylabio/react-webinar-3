@@ -1,14 +1,15 @@
 import { cn as bem } from "@bem-react/classname";
+import PropTypes from "prop-types";
 import React from "react";
 import "./style.css";
 
-const Pagination = ({
+function Pagination({
   currentPage,
   totalPages,
   paginationRange = 1,
   breakLabel = "...",
   onPageChange,
-}) => {
+}) {
   let pages = [];
 
   if (totalPages <= 5) {
@@ -22,7 +23,7 @@ const Pagination = ({
     } else if (currentPage === 3) {
       pages = [1, 2, 3, 4];
       pages.push(breakLabel, totalPages);
-    } else if (currentPage >= totalPages - 2) {
+    } else if (currentPage > totalPages - 2) {
       pages.push(1, breakLabel);
       for (let i = totalPages - 2; i <= totalPages; i++) {
         pages.push(i);
@@ -61,6 +62,18 @@ const Pagination = ({
       )}
     </div>
   );
+}
+
+Pagination.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  paginationRange: PropTypes.number,
+  breakLabel: PropTypes.string,
+  onPageChange: PropTypes.func.isRequired,
+};
+Pagination.defaultProps = {
+  paginationRange: 1,
+  breakLabel: "...",
 };
 
 export default Pagination;
