@@ -1,0 +1,19 @@
+.PaginationItem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    font-size: 18px;
+    min-width: 20px;
+    min-height: 20px;
+    padding: 4px;
+    transition: all 200ms ease-in-out;
+}
+.PaginationItem:hover{
+    cursor: pointer;
+    background-color: #E1E1E1;
+}
+.PaginationItem.selected{
+    background-color: #0087E9;
+    color: white;
+}

@@ -1,0 +1,5 @@
+.Pagination{
+    padding: 6px 12px;
+    display: flex;
+    justify-content: end;
+}
