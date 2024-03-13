@@ -51,22 +51,38 @@ function Pagination({ limit }) {
     const range = [];
 
     if (select.lastPage > 1) {
+        range.push(1); 
 
-        range.push(1);
-        if (select.currentPage - delta > 2) {
-            range.push('...');
+        let startPage, endPage;
+
+        if (select.currentPage <= 3) {
+            startPage = 2;
+            endPage = 4;
+        } else if (select.currentPage > select.lastPage - 3) {
+            startPage = select.lastPage - 3;
+            endPage = select.lastPage - 1;
+        } else {
+            startPage = select.currentPage - delta;
+            endPage = select.currentPage + delta;
         }
 
-        for (let i = Math.max(2, select.currentPage - delta); i <= Math.min(select.lastPage - 1, select.currentPage + delta); i++) {
-            if (!range.includes(i)) {
-                range.push(i);
+        if (startPage > 2) {
+            range.push('...'); 
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            if (i < select.lastPage) {
+                range.push(i); 
             }
         }
-        if (select.currentPage + delta < select.lastPage - 1) {
-            range.push('...');
+
+        if (endPage < select.lastPage - 1) {
+            range.push('...'); 
         }
 
-        range.push(select.lastPage);
+        if (range[range.length - 1] !== select.lastPage) {
+            range.push(select.lastPage); 
+        }
     }
 
     const renderPageNumbers = range.map((number, index) => {
