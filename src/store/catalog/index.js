@@ -12,6 +12,8 @@ class Catalog extends StoreModule {
     return {
       list: [],
       item: {},
+      currentPage: null,
+      lastPage: null
     }
   }
 
@@ -31,17 +33,56 @@ class Catalog extends StoreModule {
     const json = await response.json();
     this.setState({
       ...this.getState(),
-      item: json.result
+      item: json.result ?? this.getState().item
     }, 'Загружен текущий товар из АПИ')  
   }
 
-  async load() {
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  getLastPage(count) {
+    let page;
+    switch (count) {
+      case (count <= 10):
+        page = 1;
+        break;
+      case (count % 10 === 0):
+        page = count / 10;
+        break;
+      default:
+        page = Math.floor(count / 10) + 1;
+        break;
+    }
+    return page;
+  }
+
+  setCurrentPage(page) {
     this.setState({
       ...this.getState(),
-      list: json.result.items
-    }, 'Загружены товары из АПИ');
+      currentPage: page
+    }, 'Изменена текущая страница')
+  }
+
+  async loadList() {
+    const response = await fetch('/api/v1/articles');
+    const json = await response.json();
+    return json.result.items;
+  }
+
+  async loadItemsCount() {
+    const response = await fetch('api/v1/articles?fields=items(), count');
+    const json = await response.json();
+    return json.result.count;
+  }
+
+  async load() {
+    const count = await this.loadItemsCount();
+    const list = await this.loadList();
+    const lastPage = this.getLastPage(count);
+
+    this.setState({
+      ...this.getState(),
+      list: list,
+      currentPage: 1,
+      lastPage: lastPage
+    }, 'Загружены товары и количество страниц из АПИ')
   }
 }
 

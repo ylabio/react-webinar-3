@@ -7,24 +7,27 @@ import List from "../../components/list";
 import Pagination from '../../components/pagination';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import { locale } from '../../locale';
+import LangTool from '../../components/lang-tool';
+import {locale} from '../../locale';
+import {setLocale} from '../../utils';
+import Loader from '../../components/loader';
 
 function Main({lang, setLang}) {
-  const [buttonWorks, setButtonWorks] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const store = useStore();
 
   useEffect(() => {
-    store.actions.catalog.load();
-    store.actions.pagination.load();
+    store.actions.catalog.load()
+    .then(() => setIsLoading(false))
   }, []);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    currentPage: state.pagination.currentPage,
-    lastPage: state.pagination.lastPage
+    currentPage: state.catalog.currentPage,
+    lastPage: state.catalog.lastPage
   }));
 
   const callbacks = {
@@ -34,10 +37,10 @@ function Main({lang, setLang}) {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Смена текущей страницы, загрузка следующей страницы товаров
     setCurrentPage: useCallback((page) => {
-      setButtonWorks(false);
-      store.actions.pagination.setCurrentPage(page);
+      setIsLoading(true)
+      store.actions.catalog.setCurrentPage(page);
       store.actions.catalog.setNewList(page)
-      .then(() => setButtonWorks(true));
+      .then(() => setIsLoading(false));
     }, [store]),
     // Обновление текущего товара
     setItemPage: useCallback(_id => store.actions.catalog.setCurrentItem(_id), [store])
@@ -45,22 +48,26 @@ function Main({lang, setLang}) {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} lang={lang}
-      onAdd={callbacks.addToBasket} 
-      onFollowing={callbacks.setItemPage} />
+      return <Item item={item} lang={lang} link={`/item/${item._id}`}
+        onAdd={callbacks.addToBasket} 
+        onFollowing={callbacks.setItemPage} />
     }, [callbacks.addToBasket, lang]),
   };
 
   return (
     <PageLayout>
-      <Head title={locale[lang].head.shop} onChange={setLang}>
-        <button onClick={() => setLang('ru')}>ru</button>
-        <button onClick={() => setLang('eng')}>eng</button>
+      <Head title={locale[lang].head.shop}>
+        <LangTool setLocale={setLocale} setLang={setLang}/>
       </Head>
-      <BasketTool lang={lang} onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
-      <List list={select.list} renderItem={renders.item}/>
-      <Pagination buttonWorks={buttonWorks} currentPage={select.currentPage}
+      <BasketTool lang={lang} 
+        onOpen={callbacks.openModalBasket} 
+        amount={select.amount}
+        sum={select.sum}/>
+      <Loader isLoading={isLoading}>
+        <List list={select.list} renderItem={renders.item}/>
+      </Loader>
+      <Pagination isLoading={isLoading} 
+        currentPage={select.currentPage}
         lastPage={select.lastPage}
         onClick={callbacks.setCurrentPage}
       />

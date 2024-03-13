@@ -13,7 +13,7 @@ function Head(props) {
 
 Head.propTypes = {
   title: PropTypes.node,
-  children: PropTypes.children
+  children: PropTypes.node
 };
 
 export default memo(Head);

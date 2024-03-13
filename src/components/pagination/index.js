@@ -15,7 +15,7 @@ function Pagination(props) {
           return <span key={item} id={item} className='Pagination-selected'>{item}</span>
         default:
           return <span key={item} className='Pagination-page'
-            onClick={() => props.buttonWorks && props.onClick(item)}
+            onClick={() => !props.isLoading && props.onClick(item)}
             id={item}>
             {item}
           </span>

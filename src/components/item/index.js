@@ -19,7 +19,7 @@ function Item(props) {
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <Link to={`item/${props.item._id}`} onClick={callbacks.onFollowing}>
+        <Link to={props.link} onClick={callbacks.onFollowing}>
           {props.item.title}
         </Link>
       </div>
@@ -36,8 +36,9 @@ Item.propTypes = {
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
     price: PropTypes.number,
-    lang: PropTypes.string
   }).isRequired,
+  lang: PropTypes.string,
+  link: PropTypes.string,
   onAdd: PropTypes.func,
 };
 
