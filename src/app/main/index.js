@@ -42,7 +42,7 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} langData={langData}/>
+      return <Item item={item} onAdd={callbacks.addToBasket}/>
     }, [callbacks.addToBasket]),
   };
 
