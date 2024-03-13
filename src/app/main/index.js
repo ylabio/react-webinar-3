@@ -16,7 +16,12 @@ function Main() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    store.actions.catalog.load(page);
+    try {
+      store.actions.catalog.load(page);
+    } catch (e) {
+      alert("Ошибка при загрузке каталога");
+      console.error(e);
+    }
   }, [page]);
 
   const select = useSelector((state) => ({
