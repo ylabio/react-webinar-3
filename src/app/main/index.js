@@ -29,13 +29,17 @@ function Main() {
     const renderItem = useCallback((item) => {
         return <Item item={item} onAdd={addToBasket} />
     }, [addToBasket]);
-    if (select.isLoading) {
-        return <Spinner />;
-    }
+    
     return (
         <LayoutWithCommonElements titleKey='shop'>
-            <List list={select.list} renderItem={renderItem} />
-            <Pagination currentPage={select.currentPage} lastPage={select.lastPage} goToPage={goToPage} />
+            {select.isLoading ? (
+                <Spinner />
+            ) : (
+                <>
+                    <List list={select.list} renderItem={renderItem} />
+                    <Pagination currentPage={select.currentPage} lastPage={select.lastPage} goToPage={goToPage} />
+                </>
+            )}
         </LayoutWithCommonElements>
     );
 }
