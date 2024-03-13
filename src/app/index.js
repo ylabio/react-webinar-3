@@ -1,5 +1,5 @@
 import useSelector from "../store/use-selector";
-import { useParams, useSearchParams } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Basket from "./basket";
 import Main from "./main";
 import Item from "./item";
@@ -11,14 +11,13 @@ import Item from "./item";
 
 function App() {
   const activeModal = useSelector((state) => state.modals.name);
-  const { id } = useParams();
-  const [searchParams] = useSearchParams();
-  const page = searchParams.get("page");
 
   return (
     <>
-      {!id && <Main />}
-      {!page && id && <Item />}
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/items/:id" element={<Item />} />
+      </Routes>
       {activeModal === "basket" && <Basket />}
     </>
   );

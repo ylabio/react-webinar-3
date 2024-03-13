@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect } from "react";
 import ItemCatalog from "../../components/item-catalog";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -11,7 +11,7 @@ import useTranslation from "../../hooks/useTranslation";
 import { Link } from "react-router-dom";
 import Subhead from "../../components/subhead";
 import Loader from "../../components/loader";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 function Main() {
   const [searchParams] = useSearchParams();
@@ -96,6 +96,7 @@ function Main() {
             item={item}
             onAdd={callbacks.addToBasket}
             getTranslation={getTranslation}
+            linkTo={`items/${item._id}`}
           />
         );
       },

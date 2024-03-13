@@ -14,8 +14,10 @@ function Basket() {
     list: state.basket.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    lang: state.language.lang,
+    lang: state.language.language,
   }));
+
+  console.log(select.lang);
 
   const [getTranslation] = useTranslation(select.lang);
 
@@ -38,6 +40,7 @@ function Basket() {
             onRemove={callbacks.removeFromBasket}
             onClose={callbacks.closeModal}
             getTranslation={getTranslation}
+            linkTo={`items/${item._id}`}
           />
         );
       },

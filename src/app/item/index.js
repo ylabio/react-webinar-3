@@ -1,5 +1,5 @@
 import ItemCard from "../../components/item-card";
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect } from "react";
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
 import PageLayout from "../../components/page-layout";

@@ -16,7 +16,7 @@ function ItemCatalog(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <Link to={`/items/${props.item._id}`} className={cn("title")}>
+      <Link to={props.linkTo} className={cn("title")}>
         {props.item.title}
       </Link>
       <div className={cn("actions")}>
