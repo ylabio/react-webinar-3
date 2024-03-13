@@ -3,13 +3,17 @@ import StoreModule from "../module";
 class Basket extends StoreModule {
 
   initState() {
+    const list = JSON.parse(localStorage.getItem('basket-list'))
+    const sum = JSON.parse(localStorage.getItem('basket-sum'))
+    const amount = JSON.parse(localStorage.getItem('basket-amount'))
+    console.log(list)
     return {
-      list: [],
-      sum: 0,
-      amount: 0
+      list: list || [],
+      sum: sum || 0,
+      amount: amount || 0
     }
   }
-
+  
   /**
    * Добавление товара в корзину
    * @param _id Код товара
@@ -43,6 +47,9 @@ class Basket extends StoreModule {
       sum,
       amount: list.length
     }, 'Добавление в корзину');
+    localStorage.setItem('basket-list', JSON.stringify(list));
+    localStorage.setItem('basket-sum', JSON.stringify(sum));
+    localStorage.setItem('basket-amount', JSON.stringify(list.length));
   }
 
   /**
@@ -63,6 +70,9 @@ class Basket extends StoreModule {
       sum,
       amount: list.length
     }, 'Удаление из корзины');
+    localStorage.setItem('basket-list', JSON.stringify(list));
+    localStorage.setItem('basket-sum', JSON.stringify(sum));
+    localStorage.setItem('basket-amount', JSON.stringify(list.length))
   }
 }
 

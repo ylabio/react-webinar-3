@@ -19,7 +19,6 @@ class Catalog extends StoreModule {
     }
   }
 
-
   async load() {
     const skip = (this.getState().currentPage - 1) * 10;
     const response = await fetch(`/api/v1/articles?limit=${this.getState().pageSize}&skip=${skip}&fields=items(_id,_key,name,title,description,price,madeIn(title,code,_id),category(title,_id),edition),count`);
@@ -45,11 +44,39 @@ class Catalog extends StoreModule {
     this.setState({
       ...this.getState(),
       list: transformedList,
-      product: [...this.getState().product, ...transformedList],
       count: json.result.count
     }, 'Загружены товары из АПИ');
   }
 
+  async loadItemById(Id) {
+    const response = await fetch(`/api/v1/articles/${Id}?fields=*,madeIn(title,code),category(title)`);
+    const item = await response.json();
+    console.log(item);
+    const transformedItem = {
+      _id: item.result._id,
+      _key: item.result._key,
+      name: item.result.name,
+      title: item.result.title,
+      description: item.result.description,
+      price: item.result.price,
+      edition: item.result.edition,
+      madeIn: item.result.madeIn ? {
+        title: item.result.madeIn.title,
+        code: item.result.madeIn.code,
+        _id: item.result.madeIn._id
+      } : null,
+      category: item.result.category ? {
+        title: item.result.category.title,
+        _id: item.result.category._id
+      } : null
+    };
+    console.log('Метод :' , transformedItem)
+    this.setState(({
+        ...this.getState(),
+        product: [transformedItem]
+      }
+    ), 'Загружен товар из API по Id');
+  }
 
   setPage(pageNumber) {
     this.setState({

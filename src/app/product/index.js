@@ -1,10 +1,9 @@
-import {memo, useCallback} from 'react';
+import {memo, useCallback, useEffect} from 'react';
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-
 import ProductCard from "../../components/product-card";
 import {useParams} from "react-router-dom";
 
@@ -15,12 +14,10 @@ function Product() {
 
   const select = useSelector(state => ({
     lang: state.lang,
-    list: state.catalog.product,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    product: state.catalog.product,
   }));
-
-  const product = select.list.filter(el => el._id === _Id)
 
   const callbacks = {
     // Добавление в корзину
@@ -29,14 +26,18 @@ function Product() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     setCurrentPage: useCallback((pageNumber) => store.actions.catalog.setPage(pageNumber), [store]),
   }
+  useEffect(() => {
+    store.actions.catalog.loadItemById(_Id);
+  }, [_Id])
+
 
   return (
     <PageLayout>
-      <Head title={product[0].title}/>
+      <Head title={select.product.map(el => el.title)}/>
       <BasketTool lang={select.lang} setCurrentPage={() => callbacks.setCurrentPage(1)}
                   onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
-      <ProductCard lang={select.lang} addToBasket={callbacks.addToBasket} product={product[0]}/>
+      <ProductCard lang={select.lang} addToBasket={callbacks.addToBasket} product={select.product}/>
     </PageLayout>
 
   );
