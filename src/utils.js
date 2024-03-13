@@ -51,8 +51,6 @@ export function codeGenerator(start = 0) {
   return () => ++start;
 }
 
-export function numberFormat(price){
-  return new Intl.NumberFormat("ru-RU", {  currency: "RUB" }).format(
-   Math.ceil(price),
-   )
- }
+export function numberFormat(value, locale = 'ru-RU', options = {}) {
+  return new Intl.NumberFormat(locale, options).format(value);
+}

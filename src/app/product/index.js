@@ -6,18 +6,20 @@ import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
 import BasketTool from "../../components/basket-tool";
 import Controls from "../../components/controls";
+import {api} from '../../api'
 import {
     Outlet,
     Link,
     useParams,
   } from "react-router-dom";
 import { url } from "../../url";
+import Menu from "../../components/main-menu";
 const Product=()=>{
     const [result,setResult]=useState()
     const {productId} = useParams();
     const store = useStore();
     useMemo(()=>{
-     store.actions.catalog.getProductLoad(productId).then(res=>setResult(res.result))   
+     api.getProductPriceApi(productId).then(res=>setResult(res.result))   
     },[])
   
     const select = useSelector(state => ({
@@ -34,8 +36,7 @@ const Product=()=>{
       }
     
     return <div className="Product">
-    <Head title={result?.title}/>
-    <BasketTool url={url.basket} onOpen={callbacks.openModalBasket} amount={select.amount}
+    <Menu title={result?.title} url={url.basket} onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
     <Description props={result}/>
     <Controls onAdd={callbacks.addToBasket}/>

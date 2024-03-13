@@ -25,7 +25,7 @@ const {setLanguage}=useTranslate()
       children:[
          {
       path: "/basket",
-      element: activeModal === 'basket' &&  <Basket/>,
+      element:   <Basket/>,
     },
       ]
     },

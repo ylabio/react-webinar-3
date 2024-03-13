@@ -32,7 +32,7 @@ const {translate}=useTranslate();
   };
 
   return (
-    <ModalLayout title={translate('inTheBasket')} onClose={callbacks.closeModal}>
+    <ModalLayout url={url.main} title={translate('inTheBasket')} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket}/>
       <BasketTotal url={url.main} sum={select.sum}/>
     </ModalLayout>

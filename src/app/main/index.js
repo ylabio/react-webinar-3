@@ -10,6 +10,7 @@ import Pagination from '../../components/pagination';
 import { useTranslate } from '../../translate'
 import { Outlet } from 'react-router-dom';
 import { url } from '../../url';
+import Menu from '../../components/main-menu';
 
 
 function Main() {
@@ -45,10 +46,7 @@ const {translate}=useTranslate()
 
   return (
     <PageLayout>
-     
-      <Head title={translate('shop')}/>
-      <BasketTool url={url.basket} onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+                  <Menu title={translate('shop')} sum={select.sum} url={url.basket} onOpen={callbacks.openModalBasket} amount={select.amount}/>
       <List list={select.list} renderItem={renders.item}/>
       <Pagination getPageLoad={callbacks.onGetPageLoad} onGetCountItems={callbacks.onGetCountItems} limit={10}/>
       <Outlet/>

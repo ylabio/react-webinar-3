@@ -23,17 +23,17 @@ numbersPage.push(i)
     }
     else if(numbersPage[active-1]!=undefined &&numbersPage[active+1]!=undefined){
       
-        numbersPageNew=[0,'...',numbersPage[active-1],numbersPage[active],numbersPage[active+1],'...',kol_page-1]
+        numbersPageNew=[0,'...',numbersPage[active-1],numbersPage[active],active+1,'...',kol_page-1]
     }   
 
     if(active===kol_page-1){
-        numbersPageNew=[0,'...',numbersPage[active]-2,numbersPage[active]-1,kol_page-1]
+        numbersPageNew=[0,'...',active-2,active-1,kol_page-1]
 
     } else if (active===kol_page-2){
-        numbersPageNew=[0,'...',numbersPage[active]-1,numbersPage[active],kol_page-1]
+        numbersPageNew=[0,'...',active-1,active,kol_page-1]
     }
     else if (active===kol_page-3){
-        numbersPageNew=[0,'...',numbersPage[active]-2,numbersPage[active]-1,numbersPage[active],kol_page-1]
+        numbersPageNew=[0,'...',active-1,active,active+1,kol_page-1]
     }
     } else{
         numbersPageNew=numbersPage;

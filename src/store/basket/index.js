@@ -34,7 +34,7 @@ class Basket extends StoreModule {
     if (!exist) {
       // Поиск товара в каталоге, чтобы его добавить в корзину.
       // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-       api.getProductPriceApi(_id).then(res=>{
+       api.getAddPriceApi(_id).then(res=>{
         
     list.push({...res.result, amount: 1})
     sum += res.result.price;
