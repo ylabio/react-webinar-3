@@ -14,10 +14,8 @@ function BasketTool({amount, sum, openModal}) {
 
   return (
     <div className={cn()}>
-      <Link to={'/'}>{tr('home')}</Link>
-      <div className={cn('content')}>
-        <span className={cn('label')}>{tr('inTheBasket')}:</span>
-        <span className={cn('total')}>
+      <span className={cn('label')}>{tr('inTheBasket')}:</span>
+      <span className={cn('total')}>
         {amount
           ? `${amount} ${plural(amount, {
             one: tr('oneProduct'),
@@ -27,8 +25,7 @@ function BasketTool({amount, sum, openModal}) {
           : tr('empty')
         }
       </span>
-        <button onClick={openModal}>{tr('goBtn')}</button>
-      </div>
+      <button onClick={openModal}>{tr('goBtn')}</button>
     </div>
   );
 }

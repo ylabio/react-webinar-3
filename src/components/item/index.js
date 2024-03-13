@@ -5,6 +5,7 @@ import {numberFormat} from "../../utils";
 import './style.css';
 import {Link} from "react-router-dom";
 import {useLanguage} from "../../LanguageContext";
+import FlexContainer from "../flex-container";
 
 function Item(props) {
 
@@ -18,15 +19,15 @@ function Item(props) {
   const linkTo = props.customLink || `/articles/${props.item._id}`;
 
   return (
-    <div className={cn()}>
-      <Link to={linkTo} className={cn('title')}>
-        {props.item.title}
-      </Link>
-      <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>{tr('addBtn')}</button>
-      </div>
-    </div>
+      <FlexContainer>
+        <Link to={linkTo} className={cn('title')}>
+          {props.item.title}
+        </Link>
+        <div className={cn('actions')}>
+          <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
+          <button onClick={callbacks.onAdd}>{tr('addBtn')}</button>
+        </div>
+      </FlexContainer>
   );
 }
 

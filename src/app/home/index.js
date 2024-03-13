@@ -7,6 +7,8 @@ import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import Paginator from "../../components/paginator";
 import {useLanguage} from "../../LanguageContext";
+import FlexContainer from "../../components/flex-container";
+import MainMenu from "../../components/main-menu";
 
 function Home() {
   const store = useStore();
@@ -48,7 +50,10 @@ function Home() {
   return (
     <>
       <Head title={tr('store')} />
-      <BasketTool sum={select.sum} amount={select.amount} openModal={callbacks.openModalBasket}/>
+      <FlexContainer>
+        <MainMenu/>
+        <BasketTool sum={select.sum} amount={select.amount} openModal={callbacks.openModalBasket}/>
+      </FlexContainer>
       <List list={select.list} renderItem={renders.item} />
       <Paginator
         totalPages={select.totalPages}

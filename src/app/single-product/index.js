@@ -5,6 +5,8 @@ import ProductInfo from "../../components/product-info";
 import {useParams} from "react-router-dom";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import FlexContainer from "../../components/flex-container";
+import MainMenu from "../../components/main-menu";
 
 function SingleProduct () {
 
@@ -44,7 +46,10 @@ function SingleProduct () {
       {product && (
         <>
           <Head title={product.title} />
-          <BasketTool sum={select.sum} amount={select.amount} openModal={callbacks.openModalBasket}/>
+          <FlexContainer>
+            <MainMenu/>
+            <BasketTool sum={select.sum} amount={select.amount} openModal={callbacks.openModalBasket}/>
+          </FlexContainer>
           <ProductInfo product={product} onAdd={callbacks.addToBasket} />
         </>
       )}
