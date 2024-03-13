@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect,useContext} from 'react';
+import { memo, useCallback, useEffect, useContext } from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -17,11 +17,14 @@ function Main() {
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    currentPage: state.catalog.currentPage,
+    totalProductCount: state.catalog.totalProductCount,
+    pageSize: state.catalog.pageSize,
   }));
 
   let page = useParams().page
- 
+
   useEffect(() => {
     store.actions.catalog.load(page);
   }, []);
@@ -33,23 +36,27 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Смена страницы
+    changePage: useCallback(page => store.actions.catalog.changePage(page), [store]),
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} />
     }, [callbacks.addToBasket]),
   };
 
   return (
     <PageLayout>
-      <Head title={dict.title}/>
+      <Head title={dict.title} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
-      <List list={select.list} renderItem={renders.item}/>
-      <Pagination/>
+        sum={select.sum} />
+      <List list={select.list} renderItem={renders.item} />
+      <Pagination 
+      currentPage={select.currentPage} totalProductCount={select.totalProductCount} 
+      pageSize={select.pageSize} changePage={callbacks.changePage} 
+      />
     </PageLayout>
-
   );
 }
 

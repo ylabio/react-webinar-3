@@ -1,22 +1,12 @@
-import {memo,useCallback} from "react";
+import {memo} from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 import { NavLink } from "react-router-dom";
-import useSelector from "../../store/use-selector";
-import useStore from "../../store/use-store";
 
-function Pagination({}) {
-  const store = useStore();
+function Pagination({currentPage,totalProductCount,pageSize,changePage}) {
 
-  const select = useSelector(state => ({
-    currentPage: state.catalog.currentPage,
-    totalProductCount:state.catalog.totalProductCount,
-    pageSize:state.catalog.pageSize,
-  }));
-  let pages = Math.ceil(select.totalProductCount/select.pageSize)
-  const callbacks = {
-    changePage: useCallback(page => store.actions.catalog.changePage(page), [store]),
-  }
+  let pages = Math.ceil(totalProductCount/pageSize)
+
   let links=[]
   for (let i = 1; i <= pages; i++) {
     links.push(i)
@@ -24,11 +14,11 @@ function Pagination({}) {
   return (
     <div className='Pagination'>
       {links.map((el)=>{
-          if(el === 2 && select.currentPage > 3 || el === pages - 1 && select.currentPage < pages - 2) {
+          if(el === 2 && currentPage > 3 || el === pages - 1 && currentPage < pages - 2) {
             return <span key={el} className={'Pagination__dot'}>...</span>
           }
-          if(el === 1 || el === pages || Math.abs(el - select.currentPage) <= 1 ||el==3 && select.currentPage<5 ){
-            return <NavLink key={el} className={el==select.currentPage?'Pagination__link current':'Pagination__link'} to={`/${el}`} onClick={()=>callbacks.changePage(el)}>{el}</NavLink>
+          if(el === 1 || el === pages || Math.abs(el - currentPage) <= 1 ||el==3 && currentPage<5 || el==pages-3 && currentPage==pages){
+            return <NavLink key={el} className={el==currentPage?'Pagination__link current':'Pagination__link'} to={`/${el}`} onClick={()=>changePage(el)}>{el}</NavLink>
           }
         }
       )
@@ -38,11 +28,14 @@ function Pagination({}) {
 }
 
 Pagination.propTypes = {
- 
+ currentPage: PropTypes.number,
+ totalProductCount:PropTypes.number,
+ pageSize:PropTypes.number,
+ changePage: PropTypes.func
 };
 
 Pagination.defaultProps = {
-
+  changePage:()=>{}
 }
 
 export default memo(Pagination);
