@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -7,14 +7,16 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import PageList from '../../components/page-list';
+import { useParams } from "react-router-dom";
 
 function Main() {
 
+  const { _id } = useParams();
   const store = useStore();
 
   useEffect(() => {
-    store.actions.catalog.loadPage(1);
-  }, []);
+    store.actions.catalog.loadPage(_id ? _id : 1);
+  }, [_id]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -30,24 +32,24 @@ function Main() {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     //Смена страницы
-    changePage: useCallback(num => store.actions.catalog.loadPage(num), [store]),
+    //changePage: useCallback(num => store.actions.catalog.loadPage(num), [store]),
     //смена языка
     changeLanguage: useCallback(lang => store.actions.language.changeLanguage(lang), [store])
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} texts={select.texts.item} link={`/description/${item._id}`}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} texts={select.texts.item} link={`/description/${item._id}`} />
     }, [callbacks.addToBasket, select.texts.item]),
   };
 
   return (
     <PageLayout>
-      <Head title={select.texts.head_title} onChange={callbacks.changeLanguage} locale={select.texts.locale}/>
+      <Head title={select.texts.head_title} onChange={callbacks.changeLanguage} locale={select.texts.locale} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum} texts={select.texts.controls} locale={select.texts.locale}/>
-      <List list={select.list} renderItem={renders.item}/>
-      <PageList page={select.catalog.currentPage} totalPages={select.catalog.pages} onPageChange={callbacks.changePage}/>
+        sum={select.sum} texts={select.texts.controls} locale={select.texts.locale} />
+      <List list={select.list} renderItem={renders.item} />
+      <PageList page={select.catalog.currentPage} totalPages={select.catalog.pages} />
     </PageLayout>
 
   );

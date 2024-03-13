@@ -1,0 +1,14 @@
+.Menu {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  font-size: 18px;
+}
+
+.Menu-link-container{
+  width:50%
+}
+
+.BasketTool-container * {
+  padding: 0px;
+}

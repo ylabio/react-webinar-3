@@ -2,10 +2,12 @@ import { memo } from "react";
 import {cn as bem} from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import './style.css'
+import { Link } from "react-router-dom";
 
 
 function PageList({page, totalPages, onPageChange}){
   const cn = bem('PageList');
+  page = parseInt(page, 10);
   const callbacks = {
     changePage: (e) => onPageChange(e)
   }
@@ -15,12 +17,12 @@ function PageList({page, totalPages, onPageChange}){
   }
   let content = [];
   const dots = <p className="dots">...</p>;
-  const lastPage = <p className="page" key={totalPages} onClick={() => handlepageClick(totalPages)}>{totalPages}</p>;
-  const firstPage = <p className="page" key={1} onClick={() => handlepageClick(1)}>1</p>;
+  const lastPage = <Link className="page" key={totalPages} to={`/page/${totalPages}`}>{totalPages}</Link>;
+  const firstPage = <Link className="page" key={1} to={`/page/1`}>1</Link>;
 
   if(page < 4){
     for(let i = 1; i < 5; i++){
-      content.push(<p key={i} className={i === page ? 'page selected' : 'page'} onClick={() => handlepageClick(i)}>{i}</p>);
+      content.push(<Link key={i} className={i === page ? 'page selected' : 'page'} to={`/page/${i}`}>{i}</Link>);
     }
     return(
       <div className={cn()}>
@@ -32,7 +34,7 @@ function PageList({page, totalPages, onPageChange}){
   }
   if(page > totalPages-3){
     for(let i = totalPages - 3; i <= totalPages; i++){
-      content.push(<p key={i} className={i === page ? 'page selected' : 'page'} onClick={() => handlepageClick(i)}>{i}</p>);
+      content.push(<Link key={i} className={i === page ? 'page selected' : 'page'} to={`/page/${i}`}>{i}</Link>);
     }
     return(
       <div className={cn()}>
@@ -47,9 +49,9 @@ function PageList({page, totalPages, onPageChange}){
     <div className={cn()}>
       {firstPage}
       {dots}
-      <p className="page" key={page-1} onClick={() => handlepageClick(page-1)}>{page-1}</p>
-      <p className="page selected" key={page}>{page}</p>
-      <p className="page" key={page+1} onClick={() => handlepageClick(page+1)}>{page+1}</p>
+      <Link className="page" key={page-1} to={`/page/${page-1}`}>{page-1}</Link>
+      <Link className="page selected" key={page}>{page}</Link>
+      <Link className="page" key={page+1} to={`/page/${page+1}`}>{page+1}</Link>
       {dots}
       {lastPage}
     </div>

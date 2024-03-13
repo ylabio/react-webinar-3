@@ -5,9 +5,9 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import { useParams } from "react-router-dom";
 import { numberFormat } from "../../utils";
-import DescriptionBasketTool from "../../components/description-basket-tool";
 import DescriptionBody from "../../components/description-body";
 import './style.css';
+import Menu from "../../components/menu";
 
 
 function Description() {
@@ -38,7 +38,7 @@ function Description() {
   return (
     <PageLayout>
       <Head title={select.item.title} onChange={callbacks.changeLanguage} locale={select.texts.locale}/>
-      <DescriptionBasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+      <Menu onOpen={callbacks.openModalBasket} amount={select.amount}
         sum={select.sum} texts={select.texts.description?.basket_tool} locale={select.texts.locale} />
       <DescriptionBody item={select.item} texts={select.texts.description?.body} />
       <button onClick={callbacks.addToBasket}>{select.texts.description?.add}</button>
