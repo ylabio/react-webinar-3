@@ -6,6 +6,7 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import ProductCard from '../../components/product-card';
 import Navigation from '../../components/navigation';
+import Loading from '../../components/loading';
 
 function Product() {
 
@@ -17,6 +18,7 @@ function Product() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     lang: state.language.lang,
+    request: state.product.request
   }));
 
   useEffect(() => {
@@ -34,7 +36,9 @@ function Product() {
     <PageLayout>
       <Head title={select.product.title} link='/' onClick={callbacks.switchLanguage} lang={select.lang} />
       <Navigation onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} />
-      <ProductCard product={select.product} onAdd={callbacks.addToBasket} lang={select.lang} />
+      <Loading isLoad={select.request}>
+        <ProductCard product={select.product} onAdd={callbacks.addToBasket} lang={select.lang} />
+      </Loading>
     </PageLayout>
   );
 }

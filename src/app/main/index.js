@@ -10,6 +10,7 @@ import Navigation from '../../components/navigation';
 import { useParams } from "react-router-dom";
 import ruTranslations from '../../translations/ru.json';
 import enTranslations from '../../translations/en.json';
+import Loading from '../../components/loading';
 
 function Main() {
 
@@ -22,7 +23,8 @@ function Main() {
     page: state.catalog.params.page,
     limit: state.catalog.params.limit,
     count: state.catalog.count,
-    lang: state.language.lang
+    lang: state.language.lang,
+    request: state.catalog.request
   }));
 
   const params = useParams();
@@ -55,13 +57,15 @@ function Main() {
     <PageLayout>
       <Head title={language.title} link='/' onClick={callbacks.switchLanguage} lang={select.lang} />
       <Navigation onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} />
-      <List list={select.list} renderItem={renders.item} />
-      <Pagination
-        page={select.page}
-        count={select.count}
-        limit={select.limit}
-        range={1}
-        onChange={callbacks.goToPage} />
+      <Loading isLoad={select.request}>
+        <List list={select.list} renderItem={renders.item} />
+        <Pagination
+          page={select.page}
+          count={select.count}
+          limit={select.limit}
+          range={1}
+          onChange={callbacks.goToPage} />
+      </Loading>
     </PageLayout>
   );
 }

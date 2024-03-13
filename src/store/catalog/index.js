@@ -15,7 +15,8 @@ class Catalog extends StoreModule {
         page: 1,
         limit: 10
       },
-      count: 0
+      count: 0,
+      request: true
     }
   }
 
@@ -25,7 +26,8 @@ class Catalog extends StoreModule {
 
     this.setState({
       ...this.getState(),
-      params
+      params,
+      request: true
     }, 'Установлены параметры');
 
 
@@ -44,7 +46,8 @@ class Catalog extends StoreModule {
     this.setState({
       ...this.getState(),
       list: json.result.items,
-      count: json.result.count
+      count: json.result.count,
+      request: false
     }, 'Загружены товары из АПИ');
   }
 }

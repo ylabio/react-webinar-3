@@ -4,13 +4,15 @@ class Product extends StoreModule {
 
   initState() {
     return {
-      data: {}
+      data: {},
+      request: false
     }
   }
 
   async load(id, lang) {
     this.setState({
-      data: {}
+      data: {},
+      request: true
     });
 
     try {
@@ -18,7 +20,8 @@ class Product extends StoreModule {
       const json = await response.json();
 
       this.setState({
-        data: json.result
+        data: json.result,
+        request: false
       }, 'Загружен товар из АПИ по id');
     } catch (e) {
       this.setState({
