@@ -18,6 +18,8 @@ const texts = {
     edition: 'Год выпуска',
     price: 'Цена',
     close: 'Закрыть',
+    loading: 'Загрузка',
+    pcs: 'шт',
   },
   en: {
     toggler: 'RU (Русский)',
@@ -38,6 +40,8 @@ const texts = {
     edition: 'Year',
     price: 'Price',
     close: 'Close',
+    loading: 'Loading',
+    pcs: 'pcs',
   },
 };
 

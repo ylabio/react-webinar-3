@@ -13,7 +13,7 @@ class Catalog extends StoreModule {
       list: [],
       totalPages: 0,
       limit: 10,
-      currentPage: 0
+      currentPage: null
     }
   }
 
