@@ -16,7 +16,7 @@ function ProductPage() {
 
   useEffect(() => {
     if (id !== select.product._id) store.actions.product.load(id);
-  }, []);
+  }, [id]);
 
   const activeModal = useSelector((state) => state.modals.name);
 
