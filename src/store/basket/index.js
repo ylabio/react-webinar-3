@@ -2,11 +2,13 @@ import StoreModule from "../module";
 
 class Basket extends StoreModule {
   initState() {
-    return {
-      list: [],
-      sum: 0,
-      amount: 0,
-    };
+    return (
+      JSON.parse(localStorage.getItem("basket")) || {
+        list: [],
+        sum: 0,
+        amount: 0,
+      }
+    );
   }
 
   /**
@@ -47,6 +49,7 @@ class Basket extends StoreModule {
       },
       "Добавление в корзину"
     );
+    localStorage.setItem("basket", JSON.stringify(this.getState()));
   }
 
   /**
@@ -70,6 +73,7 @@ class Basket extends StoreModule {
       },
       "Удаление из корзины"
     );
+    localStorage.setItem("basket", JSON.stringify(this.getState()));
   }
 }
 

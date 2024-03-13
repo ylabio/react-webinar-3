@@ -6,7 +6,6 @@ import "./style.css";
 
 function BasketTool({ sum, amount, onOpen, lang, data }) {
   const cn = bem("BasketTool");
-
   return (
     <div className={cn()}>
       <div>
