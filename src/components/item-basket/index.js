@@ -4,7 +4,8 @@ import {numberFormat} from "../../utils";
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import './style.css';
-
+import { useTranslation } from '../../utils/useTranslition';
+import { Link } from 'react-router-dom';
 function ItemBasket(props) {
 
   const cn = bem('ItemBasket');
@@ -12,16 +13,21 @@ function ItemBasket(props) {
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id)
   };
-
+    const handleLinkClick = (e) => {
+        props.closeModal(); 
+    };
+    const t = useTranslation();
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>{props.item.title}</div>
+          <div className={cn('title')} ><Link className={cn('link')} onClick={handleLinkClick} to={`/items/${props.item._id}`}>
+              {props.item.title}
+          </Link></div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+              <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {t('pcs')}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+                  <button onClick={callbacks.onRemove}>{t('remove')}</button>
         </div>
       </div>
     </div>

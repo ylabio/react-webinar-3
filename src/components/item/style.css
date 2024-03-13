@@ -17,6 +17,17 @@
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18.4px;
+}
+.Item-title a {
+  text-decoration: none; /* Убирает подчеркивание */
+  color: inherit; /* Наследует цвет текста от родительского элемента */
+}
+
+.Item-title a:hover {
+  text-decoration: underline; /* Добавляет подчеркивание при наведении */
 }
 
 .Item-actions {

@@ -10,18 +10,55 @@ class Catalog extends StoreModule {
 
   initState() {
     return {
-      list: []
+      list: [],
+      currentItem:'',
+      isLoading:false
     }
   }
-
-  async load() {
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+resetCurrentItem() {
     this.setState({
       ...this.getState(),
-      list: json.result.items
-    }, 'Загружены товары из АПИ');
-  }
+      currentItem: null, 
+    }, 'Текущий товар сброшен');}
+    async load({ limit = 10, skip = 0} = {}) {
+        this.setState({ ...this.getState(), isLoading: true }, 'Загрузка начата');
+        try {
+        const url = `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id,title,price),count`;
+        const response = await fetch(url);
+        const json = await response.json();
+        const items = json.result.items;
+        const count = json.result.count;
+        console.log({ skip, limit, count });
+        this.setState({
+            ...this.getState(),
+            list: items,
+            currentPage : Math.floor(skip / limit) + 1,
+            lastPage: Math.ceil(count / limit)
+        }, 'Загружены товары из АПИ с пагинацией');
+    } catch(error) {
+        console.error('Ошибка при загрузке товаров:', error);
+    } finally {
+        this.setState({ ...this.getState(), isLoading: false }, 'Загрузка завершена');
+    }
+    }
+    async loadById(id) {
+        this.setState({ ...this.getState(), isLoading: true }, 'Загрузка товара по ID начата');
+        try {
+        const url = `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`;
+        const response = await fetch(url);
+        const json = await response.json();
+        const item = json.result
+        console.log(item);
+        this.setState({
+            ...this.getState(),
+            currentItem: item,
+        }, 'Загружены товары из АПИ по id');
+        } catch (error) {
+            console.error('Ошибка при загрузке товара по ID:', error);
+        } finally {
+            this.setState({ ...this.getState(), isLoading: false }, 'Загрузка товара по ID завершена');
+        }
+    }
 }
 
 export default Catalog;
