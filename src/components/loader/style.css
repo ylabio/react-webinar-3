@@ -1,0 +1,11 @@
+.Loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+.Loader-paragraph {
+  font-size: 18px;
+  line-height: 21px;
+}

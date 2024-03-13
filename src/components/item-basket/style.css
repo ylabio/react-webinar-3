@@ -28,3 +28,16 @@
   font-size: 18px;
   white-space: nowrap;
 }
+
+.ItemBasket-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ItemBasket-link:hover {
+  text-decoration: underline;
+}
+
+.ItemBasket-link:active {
+  text-decoration: none;
+}
