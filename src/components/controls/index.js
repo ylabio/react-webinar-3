@@ -1,16 +1,11 @@
 import {memo} from "react";
 import PropTypes from 'prop-types';
-import {useLanguage} from '../../localization/language-context'
-import texts from '../../localization/texts';
 import './style.css';
 
-function Controls({onAdd}) {
-
-  const {language} = useLanguage();
-
+function Controls({onAdd, language}) {
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>{texts[language].add}</button>
+      <button onClick={() => onAdd()}>{language.add}</button>
     </div>
   )
 }

@@ -10,9 +10,12 @@
   width: 80px;
 }
 
-.BasketTool-link {
+.BasketTool-main{
   align-self: flex-start;
   margin-right: auto;
+}
+
+.BasketTool-main a{
   text-decoration-line: underline;
   color: #0087E9;
 }

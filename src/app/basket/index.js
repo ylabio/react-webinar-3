@@ -1,4 +1,5 @@
 import {memo, useCallback} from 'react';
+import {Link} from 'react-router-dom';
 import ItemBasket from "../../components/item-basket";
 import List from "../../components/list";
 import ModalLayout from "../../components/modal-layout";
@@ -28,14 +29,15 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
-    }, [callbacks.removeFromBasket]),
+      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} language={texts[language]}
+                link={<Link to={`/info/${item._id}`} onClick={callbacks.closeModal}>{item.title}</Link>}/>
+    }, [callbacks.removeFromBasket, callbacks.closeModal, language]),
   };
 
   return (
-    <ModalLayout title={texts[language].basket} onClose={callbacks.closeModal}>
+    <ModalLayout title={texts[language].basket} onClose={callbacks.closeModal} language={texts[language]}>
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} language={texts[language]}/>
     </ModalLayout>
   );
 }

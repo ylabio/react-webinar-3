@@ -4,8 +4,8 @@ class Info extends StoreModule {
 
   initState() {
     return {
-      title: '',
       itemInfo: {
+        title: '',
         description: '',
         price: 0,
         madeIn: {
@@ -25,8 +25,8 @@ class Info extends StoreModule {
     const json = await response.json();
     this.setState({
       ...this.getState(),
-      title: json.result.title,
       itemInfo: {
+        title: json.result.title,
         description: json.result.description,
         price: json.result.price,
         madeIn: {

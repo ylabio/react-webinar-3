@@ -1,16 +1,12 @@
 import {memo} from "react";
 import PropTypes from "prop-types";
-import {useLanguage} from '../../localization/language-context'
-import texts from '../../localization/texts';
 import './style.css';
 
-function Head({title}) {
-  const {language, toggleLanguage} = useLanguage();
-
+function Head({title, language, toggleLanguage}) {
   return (
     <div className='Head'>
       <h1>{title}</h1>
-      <button onClick={toggleLanguage}>{texts[language].toggler}</button>
+      <button onClick={toggleLanguage}>{language.toggler}</button>
     </div>
   )
 }
