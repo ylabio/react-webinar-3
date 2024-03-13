@@ -42,7 +42,7 @@ export default function usePagination({
     // 3 вариант: Нет точек справа, но есть слева
     if (shouldLeftDots && !shouldRightDots) {
       let rightItemCount = 3 + 2 * siblingCount;
-      let rightRange = range(totalPageCount - rightItemCount + 2, totalPageCount);
+      let rightRange = range(currentPage === totalPageCount - rightItemCount + 3 ? totalPageCount - rightItemCount + 2 : totalPageCount - rightItemCount + 3, totalPageCount);
       return [firstPageIndex, DOTS, ...rightRange];
     }
 

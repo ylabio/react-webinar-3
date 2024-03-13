@@ -14,11 +14,12 @@ function Article() {
   const store = useStore();
   const { id } = useParams();
   const activeModal = useSelector(state => state.modals.name);
+  
 
   useEffect(() => {
     store.actions.article.load(id);
     store.setLang(store.state.lang);
-  }, [id, store.state.lang]);
+  }, [id]);
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
