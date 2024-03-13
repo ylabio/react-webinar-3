@@ -10,13 +10,14 @@ import {
 import { url } from "../../url";
 import Menu from "../../components/main-menu";
 import ModalProduct from "../../components/modal-product";
+import item from "../../components/item";
 const Product=()=>{
     const [result,setResult]=useState()
     const {productId} = useParams();
     const store = useStore();
     useMemo(()=>{
      api.getProductPriceApi(productId).then(res=>setResult(res.result))   
-    },[])
+    },[productId])
   
     const select = useSelector(state => ({
         list: state.catalog.list,
@@ -30,10 +31,10 @@ const Product=()=>{
         openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
        
       }
-    
+ 
     return <>
       <ModalProduct>
-   <Menu title={result?.title} url={url.basket} onOpen={callbacks.openModalBasket} amount={select.amount}
+   <Menu title={result?.title} url={url.main} onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
     <Description props={result}/>
     <Controls onAdd={callbacks.addToBasket}/>

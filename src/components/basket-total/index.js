@@ -7,7 +7,7 @@ import { useTranslate } from "../../translate";
 import { Link } from "react-router-dom";
 
 
-function BasketTotal({sum,url}) {
+function BasketTotal({sum}) {
   const {translate}=useTranslate()
   const cn = bem('BasketTotal');
   return (

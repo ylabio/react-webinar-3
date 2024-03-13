@@ -7,6 +7,7 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import {useTranslate} from '../../translate'
 import { url } from '../../url';
+import { Link } from 'react-router-dom';
 
 function Basket() {
 
@@ -27,14 +28,16 @@ const {translate}=useTranslate();
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket url={url.product} item={item} onRemove={callbacks.removeFromBasket}/>
-    }, [callbacks.removeFromBasket]),
+      return  <ItemBasket url={url.product} item={item} onRemove={callbacks.removeFromBasket}>
+        <Link to={url.product+item._id} onClick={callbacks.closeModal}> {item.title}
+      </Link>  </ItemBasket>
+    }, [callbacks]),
   };
 
   return (
     <ModalLayout url={url.main} title={translate('inTheBasket')} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal url={url.main} sum={select.sum}/>
+      <BasketTotal  sum={select.sum}/>
     </ModalLayout>
   );
 }

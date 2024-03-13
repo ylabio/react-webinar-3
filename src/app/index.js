@@ -4,8 +4,11 @@ import Basket from "./basket";
 import useStore from "../store/use-store";
 import useSelector from "../store/use-selector";
 import {
+  BrowserRouter,
   createBrowserRouter,
+  Route,
   RouterProvider,
+  Routes,
 } from "react-router-dom";
 
 import Product from './product';
@@ -22,25 +25,35 @@ const {setLanguage}=useTranslate()
     {
       path: "/",
       element: <Main/>,
-      children:[
-         {
-      path: "/basket",
-      element:   <Basket/>,
-    },
-      ]
+    //   children:[
+    //      {
+    //   path: "/basket",
+    //   element:   <Basket/>,
+    // },
+    //   ]
     },
    
     {
       path: "/product/:productId",
       element: <Product/>,
     },
+  
+    
+   
   ]);
   
   return (
     <>
-      <RouterProvider router={router} />
-      {/* {activeModal === 'basket' && <Basket/>} */}
-  
+     
+     
+<BrowserRouter><Routes>
+      <Route path="/" element={<Main/>}/>
+      <Route path="/product/:productId" element={<Product/>}/>
+    </Routes>
+     {activeModal === 'basket' && <Basket/>}
+</BrowserRouter>
+    
+ 
     </>
   );
 }

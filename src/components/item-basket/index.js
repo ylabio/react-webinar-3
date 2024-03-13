@@ -8,7 +8,7 @@ import { useTranslate } from '../../translate';
 import { Link } from 'react-router-dom';
 import { url } from '../../url';
 
-function ItemBasket(props) {
+function ItemBasket(props,{children}) {
 
   const cn = bem('ItemBasket');
 const {translate}=useTranslate()
@@ -19,9 +19,7 @@ const {translate}=useTranslate()
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-   <Link to={url.product+props.item._id}> <div className={cn('title')}>{props.item.title}</div>
-  
-   </Link>  
+      <div className={cn('title')}>{props.children}</div>
        <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>

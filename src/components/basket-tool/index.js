@@ -2,7 +2,7 @@ import {memo} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
-import { Link } from "react-router-dom";
+
 import './style.css';
 import { useTranslate } from "../../translate";
 
@@ -25,8 +25,8 @@ function BasketTool({sum, amount, onOpen,url}) {
           : translate('empty')
         }
       </span>
-     <Link to={url}><button onClick={onOpen}>{translate('goCart')}</button>
-     </Link> 
+   <button onClick={onOpen}>{translate('goCart')}</button>
+    
       </div>
      
     </div>

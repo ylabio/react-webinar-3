@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import { useTranslate } from "../../translate";
-import { Link } from "react-router-dom";
+
 
 function ModalLayout(props) {
 
@@ -34,8 +34,8 @@ const {translate}=useTranslate()
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
           <h1 className={cn('title')}>{props.title}</h1>
-       <Link to={props.url}><button className={cn('close')} onClick={props.onClose}>{translate('closed')}</button>
-       </Link>   
+      <button className={cn('close')} onClick={props.onClose}>{translate('closed')}</button>
+      
         </div>
         <div className={cn('content')}>
           {props.children}
