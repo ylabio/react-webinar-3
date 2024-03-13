@@ -1,0 +1,30 @@
+.Pagination-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.Pagination-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 0.8rem;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.2s;
+  border: none;
+}
+
+.Pagination-button:hover {
+  background-color: #E1E1E1;
+  color: black;
+}
+
+.chosen_button {
+  background-color: #0087E9;
+  color: white;
+}
