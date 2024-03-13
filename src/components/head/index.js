@@ -8,14 +8,14 @@ function Head(props) {
 
   return (
     <div className='Head'>
-      <h1 id='title'>{props.title === 'Магазин' ? content[props.lang].title : props.title}</h1>
+      <h1 id='title'>{props.title === 'Магазин' ? content[props.lang].title : props.title.title}</h1>
       <LangSwitcher lang={props.lang} switchLang={props.switchLang}/>
     </div>
   )
 }
 
 Head.propTypes = {
-  title: PropTypes.node,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   lang: PropTypes.string,
   switchLang: PropTypes.func.isRequired,
 };

@@ -19,6 +19,7 @@ function Main() {
     isLoading: state.catalog.isLoading,
     lang: state.translation.lang,
   }));
+  const linkOrderInfo = '/order/'
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
@@ -51,8 +52,8 @@ function Main() {
   }
 
   const renders = {
-    item: useCallback((item) => {
-      return <Item item={item} lang={select.lang} onAdd={callbacks.addToBasket} />
+    item: useCallback((item, id) => {
+      return <Item item={item} lang={select.lang} onAdd={callbacks.addToBasket} link={linkOrderInfo+id} />
     }, [callbacks.addToBasket, select.lang]),
   };
 

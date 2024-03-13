@@ -8,7 +8,7 @@ function List(props) {
     <div className='List'>{
       props.list.map(item =>
         <div key={item._id} className='List-item'>
-          {props.renderItem(item)} 
+          {props.renderItem(item, item._id)} 
         </div>
       )}
     </div>

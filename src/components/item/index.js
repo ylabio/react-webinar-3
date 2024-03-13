@@ -20,7 +20,7 @@ function Item(props) {
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title-container')} >
-        <span className={cn('title')} onClick={() => navigate(`/order/${props.item._id}`)}>{props.item.title}</span>
+        <span className={cn('title')} onClick={() => navigate(props.link)}>{props.item.title}</span>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
@@ -38,11 +38,13 @@ Item.propTypes = {
   }).isRequired,
   onAdd: PropTypes.func,
   lang: PropTypes.string,
+  link: PropTypes.string,
 };
 
 Item.defaultProps = {
   onAdd: () => {},
   lang: 'ru',
+  link: '/'
 }
 
 export default memo(Item);

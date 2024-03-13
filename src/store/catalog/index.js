@@ -21,7 +21,6 @@ class Catalog extends StoreModule {
   async load(limit, skip) {
     this.setState({
         ...this.getState(),
-        // list: [],
         isLoading: true
       })
     const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}`);
@@ -39,7 +38,6 @@ class Catalog extends StoreModule {
   async loadCountItems(limit, skip) {
     const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id, title, price),count`);
     const json = await response.json();
-    console.log(json.result.count)
     this.setState({
       ...this.getState(),
       countItems: json.result.count

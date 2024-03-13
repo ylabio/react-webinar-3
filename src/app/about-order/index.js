@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import PageLayout from '../../components/page-layout';
@@ -12,22 +12,15 @@ function AboutOrder() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    madeIn: state.order.madeIn,
-    category: state.order.category,
-    madeInCode: state.order.madeInCode,
-    description: state.order.description,
-    year: state.order.year,
-    price: state.order.price,
-    title: state.order.title,
-    list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
     lang: state.translation.lang,
+    description: state.order.description,
   }));
 
   const { id } = useParams();
 
-  useMemo(() => {
+  useEffect(() => {
     store.actions.order.loadOrderInfo(id);
   }, [id]);
 
@@ -45,17 +38,11 @@ function AboutOrder() {
 
   return (
       <PageLayout>
-      <Head title={select.title} switchLang={callbacks.switchLang} lang={select.lang}/>
+      <Head title={select.description} switchLang={callbacks.switchLang} lang={select.lang}/>
       <Panel onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} paginate={paginate}/>
       <Description addToBasket={callbacks.addToBasket}
-                    madeIn={select.madeIn}
-                    category={select.category}
-                    madeInCode={select.madeInCode}
-                    description={select.description}
-                    year={select.year}
-                    price={select.price}
-                    id = {id}
                     lang={select.lang}
+                    orderDescription={select.description}
       />
     </PageLayout>
  
