@@ -15,10 +15,6 @@ function Main() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
-
   const select = useSelector((state) => ({
     list: state.catalog.list,
     amount: state.basket.amount,
@@ -27,6 +23,12 @@ function Main() {
     itemsPerPage: state.catalog.itemsPerPage,
     currentPage: state.catalog.currentPage,
   }));
+
+  useEffect(() => {
+    const skip = (select.currentPage - 1) * select.itemsPerPage;
+
+    store.actions.catalog.load(skip);
+  }, [select.currentPage]);
 
   const callbacks = {
     // Добавление в корзину
@@ -47,10 +49,6 @@ function Main() {
 
     changePage: useCallback(
       (pageNumber) => {
-        const skip = (pageNumber - 1) * select.itemsPerPage;
-
-        store.actions.catalog.load(skip);
-
         store.actions.catalog.changePage(pageNumber);
       },
       [store]
