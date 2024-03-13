@@ -1,6 +1,8 @@
 import { memo, useCallback, useEffect, useState } from "react";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
+import Tabs from "../../components/tabs";
+import BtnMain from "../../components/btnMain";
 import BasketTool from "../../components/basket-tool";
 import { useParams } from "react-router-dom";
 import CardItem from "../../components/card-item";
@@ -38,11 +40,14 @@ function Card() {
   return (
     <PageLayout>
       <Head title={item?.title} />
-      <BasketTool
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-      />
+      <Tabs>
+        <BtnMain />
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+        />
+      </Tabs>
       <CardItem item={item} onAdd={callbacks.addToBasket} />
     </PageLayout>
   );

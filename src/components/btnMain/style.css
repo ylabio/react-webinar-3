@@ -1,0 +1,9 @@
+.ButtonMain {
+  padding: 20px;
+  font-size: 18px;
+}
+
+.ButtonMain-btnBack {
+  text-decoration: none;
+  color: #0000ee;
+}

@@ -2,6 +2,8 @@ import { memo, useCallback, useEffect, useState } from "react";
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
+import Tabs from "../../components/tabs";
+import BtnMain from "../../components/btnMain";
 import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
@@ -16,6 +18,7 @@ function Main() {
 
   useEffect(() => {
     store.actions.catalog.itemCount({ setItemCount });
+    store.actions.languages.changeLanguage();
   }, []);
 
   useEffect(() => {
@@ -39,6 +42,11 @@ function Main() {
       () => store.actions.modals.open("basket"),
       [store]
     ),
+
+    onChangeLang: useCallback(
+      (e) => store.actions.languages.change(e),
+      [store]
+    ),
   };
 
   const renders = {
@@ -52,12 +60,15 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
-      <BasketTool
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-      />
+      <Head title="Магазин" onChangeLang={callbacks.onChangeLang} />
+      <Tabs>
+        <BtnMain />
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+        />
+      </Tabs>
       <List list={select.list} renderItem={renders.item} />
       <Pagination
         itemCount={itemCount}
