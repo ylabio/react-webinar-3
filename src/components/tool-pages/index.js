@@ -8,7 +8,7 @@ function ToolPages({page,count,openPageToCatalog}) {
 
   const elementCell = (num) => <span key={num-1} className={cn('cell')} onClick={() => openPageToCatalog(num-1)}>{num}</span>
   const elementCellCurrent = (num) => <span key={num-1} className={cn('cell-current')}>{num}</span>
-  const elementCellThreeВots = (num) => <span key={num-1} className={cn('cell')}>...</span>
+  const elementCellThreeВots = (num) => <span key={num-1} className={cn('cell-ThreeВots')}>...</span>
   const elementCellOne = <span className={cn('cell-one')}>1</span>
 
   const fToolPages = () => {
