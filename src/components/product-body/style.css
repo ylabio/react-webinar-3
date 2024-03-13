@@ -1,0 +1,13 @@
+.Product-body{
+  padding: 0px 40px;
+  font-size: 18px;
+}
+.Product-body p span{
+font-weight: 700;
+}
+.Product-body__price{
+  font-weight: 700;
+}
+.Product-body button{
+  min-width: 80px;
+}

@@ -1,27 +1,35 @@
-import {memo, useCallback} from 'react';
-import propTypes from 'prop-types';
+import {memo, useCallback, useContext} from 'react';
 import {numberFormat} from "../../utils";
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import './style.css';
+import { NavLink } from 'react-router-dom';
+import { LanguageContext } from '../../languages/languagesContext';
+
 
 function ItemBasket(props) {
+
+  let { dict } = useContext(LanguageContext)
 
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: (e) => props.onRemove(props.item._id)
+    onRemove: (e) => props.onRemove(props.item._id),
+    onLink:(e)=>props.closeModal()
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>{props.item.title}</div>
+      <div className={cn('title')}>
+      <NavLink to={props.link} onClick={callbacks.onLink}>
+        {props.item.title}
+      </NavLink>
+      </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {dict.things}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{dict.remove}</button>
         </div>
       </div>
     </div>
@@ -35,11 +43,14 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number
   }).isRequired,
-  onRemove: propTypes.func,
+  onRemove: PropTypes.func,
+  closeModal: PropTypes.func,
+  link: PropTypes.string
 }
 
 ItemBasket.defaultProps = {
   onRemove: () => {},
+  closeModal:()=>{}
 }
 
 export default memo(ItemBasket);

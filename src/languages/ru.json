@@ -1,0 +1,17 @@
+{
+  "title":"Магазин",
+  "mainPage":"Главная",
+  "basketInfo":"В корзине",
+  "basket":"Корзина",
+  "empty": "пусто",
+  "go":"Перейти",
+  "add":"Добавить",
+  "product":"товар",
+  "products":"товаров",
+  "productsFew":"товара",
+  "total":"Итого",
+  "remove":"Удалить",
+  "things":"шт",
+  "close":"Закрыть",
+  "loading":"Загрузка"
+}

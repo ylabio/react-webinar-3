@@ -1,25 +1,29 @@
-import {memo} from "react";
+import {memo,useContext} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
+import { LanguageContext } from "../../languages/languagesContext";
 
 function BasketTool({sum, amount, onOpen}) {
+
+  let { dict } = useContext(LanguageContext)
+
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('label')}>{dict.basketInfo}:</span>
       <span className={cn('total')}>
         {amount
           ? `${amount} ${plural(amount, {
-            one: 'товар',
-            few: 'товара',
-            many: 'товаров'
+            one: `${dict.product}`,
+            few: `${dict.productsFew}`,
+            many: `${dict.products}`
           })} / ${numberFormat(sum)} ₽`
-          : `пусто`
+          : `${dict.empty}`
         }
       </span>
-      <button onClick={onOpen}>Перейти</button>
+      <button onClick={onOpen}>{dict.go}</button>
     </div>
   );
 }
