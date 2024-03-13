@@ -14,7 +14,6 @@ function Main() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 10;
-  debugger
 
   const lastArticlesIndex = currentPage * articlesPerPage;
   const firstArticlesIndex = lastArticlesIndex - articlesPerPage;
@@ -39,6 +38,8 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Изменение номера страницы
+    onPageChange: useCallback((pageNumber) => setCurrentPage(pageNumber), [])
   }
 
   const renders = {
@@ -56,7 +57,7 @@ function Main() {
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
       <Pagination articlesPerPage={articlesPerPage} totalArticles={select.countItems}
-                  currentPage={currentPage} onPageChange={handlePageChange} />
+                  currentPage={currentPage} onPageChange={callbacks.onPageChange} />
     </PageLayout>
 
   );
