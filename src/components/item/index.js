@@ -1,10 +1,14 @@
-import {memo, useState} from "react";
+import {memo} from "react";
 import PropTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname';
+import useSelector from "../../store/use-selector";
+import { cn as bem } from '@bem-react/classname';
+import { Link } from "react-router-dom"; 
 import {numberFormat} from "../../utils";
 import './style.css';
 
 function Item(props) {
+
+  const language = useSelector(state => state.language);
 
   const cn = bem('Item');
 
@@ -16,11 +20,11 @@ function Item(props) {
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        {props.item.title}
+        <Link className={cn('link')} to={`/product/${props.item._id}`}>{props.item.title}</Link>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{language.add}</button>
       </div>
     </div>
   );

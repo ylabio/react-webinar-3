@@ -1,0 +1,35 @@
+.Pagination-container {
+    display: flex;
+    justify-content: end;
+    width: 144px;
+    height: 20px;
+    margin-top: 20px;
+    padding-right: 20px;
+}
+
+.Pagination-container button {
+    width: fit-content;
+    height: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.Pagination-container span {
+    display: inline-block;
+    align-self: flex-end;
+}
+
+.Pagination {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+}
+
+.Pagination-current {
+    background-color: #0087E9;
+    color: #FFF;
+}
+
+.Pagination-item {
+    background-color: #FFF;
+}
