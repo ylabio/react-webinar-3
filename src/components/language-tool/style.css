@@ -1,0 +1,8 @@
+.LanguageTool {
+    margin: 30px;
+    width: 35px;
+}
+
+.LanguageTool-button:hover {
+    cursor: pointer;
+}

@@ -1,0 +1,28 @@
+.Pagination {
+    display: flex;
+    justify-content: flex-end;
+    padding: 22px 21px;
+}
+
+.Pagination-page {
+    box-sizing: border-box;
+    text-align: center;
+    min-width: 20px;
+    height: 20px;
+    cursor: pointer;
+    padding: 1px;
+}
+
+.Pagination-page:hover {
+    background: #E1E1E1;
+}
+
+.Pagination-page_active,
+.Pagination-page_active:hover {
+    background: #0087E9;
+    color: #fff;
+}
+
+.Pagination-dots {
+    color: rgba(204, 204, 204, 1);
+}

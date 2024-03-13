@@ -6,8 +6,8 @@
   font-size: 18px;
 }
 
-.BasketTool-label {
-
+.BasketTool-title:hover {
+  text-decoration: underline;
 }
 
 .BasketTool-total {
