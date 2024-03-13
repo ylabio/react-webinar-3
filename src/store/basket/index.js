@@ -28,8 +28,6 @@ class Basket extends StoreModule {
     });
 
     if (!exist) {
-      console.log("exist", _id);
-
       // Поиск товара в каталоге, чтобы его добавить в корзину.
       // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
       const response = await fetch(
