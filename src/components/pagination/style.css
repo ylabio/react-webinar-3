@@ -1,6 +1,6 @@
 .Pagination{
     display: flex;
-    gap: 10px;
+   
     padding: 20px 25px;
     justify-content: flex-end;
 }
@@ -12,7 +12,7 @@
     height: 20px;
 }
 .Pagination-number:not(.Pagination-number-active, .Pagination-number-dots):hover{
-    background-color: gray;
+    background-color: #E1E1E1;
 }
 .Pagination-number-active{
     background-color: #0087E9;

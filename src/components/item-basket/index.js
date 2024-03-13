@@ -5,6 +5,8 @@ import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import './style.css';
 import { useTranslate } from '../../translate';
+import { Link } from 'react-router-dom';
+import { url } from '../../url';
 
 function ItemBasket(props) {
 
@@ -17,8 +19,10 @@ const {translate}=useTranslate()
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>{props.item.title}</div>
-      <div className={cn('right')}>
+   <Link to={url.product+props.item._id}> <div className={cn('title')}>{props.item.title}</div>
+  
+   </Link>  
+       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>

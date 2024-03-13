@@ -11,6 +11,7 @@ import {
     Link,
     useParams,
   } from "react-router-dom";
+import { url } from "../../url";
 const Product=()=>{
     const [result,setResult]=useState()
     const {productId} = useParams();
@@ -34,7 +35,7 @@ const Product=()=>{
     
     return <div className="Product">
     <Head title={result?.title}/>
-    <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+    <BasketTool url={url.basket} onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
     <Description props={result}/>
     <Controls onAdd={callbacks.addToBasket}/>

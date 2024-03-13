@@ -22,7 +22,14 @@ const {setLanguage}=useTranslate()
     {
       path: "/",
       element: <Main/>,
+      children:[
+         {
+      path: "/basket",
+      element: activeModal === 'basket' &&  <Basket/>,
     },
+      ]
+    },
+   
     {
       path: "/product/:productId",
       element: <Product/>,
@@ -32,7 +39,7 @@ const {setLanguage}=useTranslate()
   return (
     <>
       <RouterProvider router={router} />
-      {activeModal === 'basket' && <Basket/>}
+      {/* {activeModal === 'basket' && <Basket/>} */}
       <div style={{display:'flex',justifyContent:'center',gap:'10px',padding:'15px',cursor:'pointer',color:'#0087E9'}}>
         <div onClick={()=>setLanguage('ru-RU')}>RU</div><div onClick={()=>setLanguage('en-EN')}>EN</div></div>
     </>

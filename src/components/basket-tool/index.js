@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import './style.css';
 import { useTranslate } from "../../translate";
 
-function BasketTool({sum, amount, onOpen}) {
+function BasketTool({sum, amount, onOpen,url}) {
   const {translate,language}=useTranslate()
   const cn = bem('BasketTool');
   return (
@@ -25,7 +25,8 @@ function BasketTool({sum, amount, onOpen}) {
           : translate('empty')
         }
       </span>
-      <button onClick={onOpen}>{translate('goCart')}</button>
+     <Link to={url}><button onClick={onOpen}>{translate('goCart')}</button>
+     </Link> 
       </div>
      
     </div>

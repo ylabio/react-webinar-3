@@ -6,6 +6,7 @@ import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import {useTranslate} from '../../translate'
+import { url } from '../../url';
 
 function Basket() {
 
@@ -26,14 +27,14 @@ const {translate}=useTranslate();
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
+      return <ItemBasket url={url.product} item={item} onRemove={callbacks.removeFromBasket}/>
     }, [callbacks.removeFromBasket]),
   };
 
   return (
     <ModalLayout title={translate('inTheBasket')} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal url={url.main} sum={select.sum}/>
     </ModalLayout>
   );
 }

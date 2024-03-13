@@ -8,6 +8,8 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
 import { useTranslate } from '../../translate'
+import { Outlet } from 'react-router-dom';
+import { url } from '../../url';
 
 
 function Main() {
@@ -22,8 +24,9 @@ const {translate}=useTranslate()
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
   }));
+  
 
   const callbacks = {
     // Добавление в корзину
@@ -36,7 +39,7 @@ const {translate}=useTranslate()
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} url={url.product}/>
     }, [callbacks.addToBasket]),
   };
 
@@ -44,13 +47,14 @@ const {translate}=useTranslate()
     <PageLayout>
      
       <Head title={translate('shop')}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+      <BasketTool url={url.basket} onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
       <Pagination getPageLoad={callbacks.onGetPageLoad} onGetCountItems={callbacks.onGetCountItems} limit={10}/>
+      <Outlet/>
     </PageLayout>
 
   );
 }
 
-export default memo(Main);
+export default (Main);
