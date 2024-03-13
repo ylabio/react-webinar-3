@@ -40,8 +40,7 @@ const {setLanguage}=useTranslate()
     <>
       <RouterProvider router={router} />
       {/* {activeModal === 'basket' && <Basket/>} */}
-      <div style={{display:'flex',justifyContent:'center',gap:'10px',padding:'15px',cursor:'pointer',color:'#0087E9'}}>
-        <div onClick={()=>setLanguage('ru-RU')}>RU</div><div onClick={()=>setLanguage('en-EN')}>EN</div></div>
+  
     </>
   );
 }
