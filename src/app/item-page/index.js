@@ -5,7 +5,8 @@ import Description from "../../components/description"
 import BasketTool from "../../components/basket-tool"
 import useSelector from "../../store/use-selector"
 import useStore from "../../store/use-store"
-import { locale } from "../../locale"
+import {getIdFromUrl} from "../../utils"
+import {locale} from "../../locale"
 
 function ItemPage({lang}) {
 
@@ -23,15 +24,21 @@ function ItemPage({lang}) {
     addToBasket: useCallback((_id) => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Обновление текущего товара
+    setItemPage: useCallback(_id => store.actions.catalog.setCurrentItem(_id), [store])
   }
+
+  const itemId = getIdFromUrl();
+
+  const currentItem = Object.keys(select.item).length ? select.item : callbacks.setItemPage(itemId);
 
   return (
     <PageLayout>
-      <Head title={select.item.title} />
+      <Head title={currentItem.title} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
         sum={select.sum} lang={lang}/>
-      <Description item={select.item} lang={lang} onClick={callbacks.addToBasket}>
-        <button onClick={() => callbacks.addToBasket(select.item._id)}>{locale[lang].button.add}</button>
+      <Description item={currentItem} lang={lang} onClick={callbacks.addToBasket}>
+        <button onClick={() => callbacks.addToBasket(currentItem._id)}>{locale[lang].button.add}</button>
       </Description>
     </PageLayout>
   )

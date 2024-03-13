@@ -3,7 +3,8 @@ import Basket from "./basket";
 import ItemPage from "./item-page";
 import useSelector from "../store/use-selector";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import { useState } from "react";
+import {getLocale} from "../utils";
+import {useState, useEffect} from "react";
 
 /**
  * Приложение
@@ -11,6 +12,11 @@ import { useState } from "react";
  */
 function App() {
   const [lang, setLang] = useState('ru');
+
+  useEffect(() => {
+    const result = getLocale();
+    result && setLang(result);
+  }, [])
 
   const activeModal = useSelector(state => state.modals.name);
 

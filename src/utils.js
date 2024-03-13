@@ -64,3 +64,28 @@ export function getPageNumbers(page, lastPage) {
     }
   }
 }
+
+/**
+ * Установка текущей локали
+ * @param string {String} 
+ */
+export function setLocale(locale) {
+  return window.localStorage.setItem('lang', locale);
+}
+
+/**
+ * Загрузка сохраненной локали
+ * @returns {String}
+ */
+export function getLocale() {
+  return localStorage.getItem('lang');
+}
+
+/**
+ * Получение id из url
+ * @returns {String}
+ */
+export function getIdFromUrl() {
+  const url = window.location.href;
+  return url.split('/').reverse()[0];
+}

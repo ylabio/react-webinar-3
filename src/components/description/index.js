@@ -32,7 +32,7 @@ function Description(props) {
 }
 
 Description.propTypes = {
-  children: PropTypes.children,
+  children: PropTypes.node,
   item: PropTypes.object,
   lang: PropTypes.string
 };

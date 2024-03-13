@@ -28,11 +28,11 @@ function Basket({lang}) {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} lang={lang}
+      return <ItemBasket item={item} lang={lang} link={`/item/${item._id}`}
       onRemove={callbacks.removeFromBasket}
       onFollowing={callbacks.setItemPage}
       onClose={callbacks.closeModal} />
-    }, [callbacks.removeFromBasket]),
+    }, [callbacks.removeFromBasket, lang]),
   };
 
   return (
