@@ -2,10 +2,13 @@ import {memo, useCallback, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import { Link } from "react-router-dom";
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from "../../components/basket-tool";
 import Detailizer from '../../components/detailizer';
+import Topbar from '../../components/topbar';
+import MainMenu from '../../components/main-menu';
 import Preloader from '../../components/preloader';
 import Error from '../../components/error';
 import WithModal from '../../components/with-modal';
@@ -54,12 +57,16 @@ function Article() {
           locales={select.locales}
           locale={select.locale}
           setLocale={callbacks.setLocale}/>
-        <BasketTool
-          onOpen={callbacks.openModalBasket}
-          amount={select.amount}
-          sum={select.sum}
-          page={select.page}
-          translate={callbacks.translate}/>
+        <Topbar>
+          <MainMenu>
+            <Link to={`/?page=${select.page}`}>{callbacks.translate('main page')}</Link>
+          </MainMenu>
+          <BasketTool
+            onOpen={callbacks.openModalBasket}
+            amount={select.amount}
+            sum={select.sum}
+            translate={callbacks.translate}/>
+        </Topbar>
         { select.isFetching && <Preloader/> }
         { !select.isFetching && select.isSuccess &&
           <Detailizer
