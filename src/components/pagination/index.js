@@ -1,5 +1,5 @@
-import { memo, useCallback, useEffect, useState } from 'react'
-import PropTypes, { number } from 'prop-types'
+import PropTypes from 'prop-types'
+import { memo} from 'react'
 import './style.css';
 
 function Pagination({countPages, currentPage, onChangePage}) {
@@ -18,7 +18,7 @@ function Pagination({countPages, currentPage, onChangePage}) {
     <div className='Pagination'>
       <div className='Pagination__content'>
         {array.map(number => {
-          if (number === 1 || number === countPages || currentPage === number || (currentPage + 1) === number || (currentPage - 1) === number || (currentPage === 1 && number === 3)) {
+          if (number === 1 || number === countPages || currentPage === number || (currentPage + 1) === number || (currentPage - 1) === number || (currentPage === 1 && number === 3) || (currentPage === countPages && number === countPages - 2)) {
             dotsRendered = false;
             return (
               <button className={`Pagination__content-page${currentPage === number ? ' active' : ''}`}
@@ -36,6 +36,16 @@ function Pagination({countPages, currentPage, onChangePage}) {
       </div>
     </div>
   );
+}
+
+Pagination.propTypes = {
+  countPages: PropTypes.number,
+  currentPage: PropTypes.number,
+  onChangePage: PropTypes.func,
+};
+
+Pagination.defaultProps = {
+  onChangePage: () => {},
 }
 
 

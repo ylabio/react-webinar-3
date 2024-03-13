@@ -8,7 +8,7 @@ function BasketTotal({sum}) {
   const cn = bem('BasketTotal');
   return (
     <div className={cn()}>
-      <span className={cn('cell')}>Итого</span>
+      <span className={cn('cell') + ' lng-total'}>Итого</span>
       <span className={cn('cell')}> {numberFormat(sum)} ₽</span>
       <span className={cn('cell')}></span>
     </div>

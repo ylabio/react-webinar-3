@@ -1,3 +1,24 @@
 .Article {
   padding: 0 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px
+}
+
+p {
+  margin-bottom: 0
+}
+
+.Article button {
+  width: 80px;
+}
+
+.Article-price {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.Article div .lng-price {
+  font-size: 24px;
+  font-weight: 700;
 }

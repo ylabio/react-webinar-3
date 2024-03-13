@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react'
+import { memo } from 'react'
 import PropTypes from 'prop-types';
 import './style.css';
 import { numberFormat } from '../../utils'
@@ -6,7 +6,9 @@ import { numberFormat } from '../../utils'
 function Article({article, onAdd}) {
 
   const callbacks = {
-    onAdd: (e) => onAdd(article._id)
+    onAdd: () => {
+      onAdd(article._id)
+    }
   }
 
   if (!article.description) {
@@ -16,11 +18,23 @@ function Article({article, onAdd}) {
   return (
     <div className='Article'>
       <p>{article.description}</p>
-      <p>Страна производитель: <b>{article.madeIn.title} ({article.madeIn.code})</b></p>
-      <p>Категория: <b>{article.category.title}</b></p>
-      <p>Год выпуска:  <b>{article.edition}</b></p>
-      <h3>Цена: {numberFormat(article.price)} ₽</h3>
-      <button onClick={callbacks.onAdd}>Добавить</button>
+      <div>
+        <span className='lng-article-madeIn'>Страна производитель: </span>
+        <b>{article.madeIn.title} ({article.madeIn.code})</b>
+      </div>
+      <div>
+        <span className='lng-article-category'>Категория: </span>
+        <b>{article.category.title}</b>
+      </div>
+      <div>
+        <span className='lng-article-release'>Год выпуска:  </span>
+        <b>{article.edition}</b>
+      </div>
+      <div>
+        <span className='lng-price'>Цена: </span>
+        <b className='Article-price'>{numberFormat(article.price)} ₽</b>
+      </div>
+      <button className='lng-add' onClick={callbacks.onAdd}>Добавить</button>
     </div>
   )
 }

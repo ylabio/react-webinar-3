@@ -1,0 +1,14 @@
+.NotFound {
+  padding: 100px;
+  text-align: center;
+}
+
+.NotFound span {
+  font-size: 100px;
+}
+
+.NotFound p {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 400;
+}

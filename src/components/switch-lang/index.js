@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { memo } from 'react'
 import PropTypes from "prop-types";
 import './style.css';
 
@@ -9,6 +9,8 @@ function SwitchLang({lang, changeLang}) {
     } else {
       changeLang('en')
     }
+
+
   }
 
   return (

@@ -35,5 +35,5 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
 }
 
 export const getCountPages = (itemLength) => {
-  return Math.round(itemLength / 10)
+  return Math.round(itemLength / 10) + 1
 }
