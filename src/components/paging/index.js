@@ -22,7 +22,7 @@ function Paging({changePage, setupLimit, dataPaging}) {
       <div className={cn('limit')}>
         Отображать:
         <div className={cn('select')} >
-          <select defaultValue={10} onChange={(event) => {
+          <select value={limit} onChange={(event) => {
             const newlim = +event.target.value;
             event.stopPropagation();
             setupLimit(newlim);
