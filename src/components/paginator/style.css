@@ -29,11 +29,12 @@
   background-color: #e1e1e1;
 }
 
-.Paginator-item_blank {
+.Paginator-item_dots {
   cursor: default;
+  color: #cccccc;
 }
 
-.Paginator-item_blank:hover {
+.Paginator-item_dots:hover {
   background-color: #ffffff;
 }
 

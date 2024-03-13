@@ -26,7 +26,7 @@ function Paginator({ currentPage, itemsTotal, changePage }) {
               {item}
             </div>
           ) : (
-            <div key={index} className={cn("item", { blank: true })}>
+            <div key={index} className={cn("item", { dots: true })}>
               ...
             </div>
           );
