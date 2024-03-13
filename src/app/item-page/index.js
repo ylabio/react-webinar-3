@@ -40,9 +40,7 @@ function ItemPage({lang}) {
         sum={select.sum} lang={lang}>
         <Navigation link='/' title={locale[lang].tool.main} />
       </BasketTool>
-      <Description item={currentItem} lang={lang} onClick={callbacks.addToBasket}>
-        <button onClick={() => callbacks.addToBasket(currentItem._id)}>{locale[lang].button.add}</button>
-      </Description>
+      <Description item={currentItem} lang={lang} onClick={callbacks.addToBasket} />
     </PageLayout>
   )
 }

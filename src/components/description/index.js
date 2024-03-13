@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from "../../utils";
 import './style.css'
-import { locale } from "../../locale";
+import {locale} from "../../locale";
 
 function Description(props) {
   const cn = bem('Description');
@@ -26,7 +26,7 @@ function Description(props) {
         {locale[props.lang].description.price}:
         <span>{numberFormat(props.item.price)} ₽</span>
       </div>
-      {props.children}
+      <button onClick={() => props.onClick(props.item._id)}>{locale[props.lang].button.add}</button>
     </div>
   )
 }
