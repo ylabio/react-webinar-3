@@ -1,0 +1,48 @@
+.Pagination {
+  padding: 20px;
+	font-size: 16px;
+	display: flex;
+  justify-content: flex-end;
+	list-style: none;
+	margin: 0;
+}
+
+.Pagination-page-number {
+	box-sizing: border-box;
+	padding: 2px;
+	height: 20px;
+	min-width: 20px;
+	line-height: 18px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	text-decoration: none;
+	color: black;
+}
+
+.Pagination-page-number:hover{
+  background: #E1E1E1;
+}
+
+.Pagination-page-number_active,
+.Pagination-page-number_active:hover{
+  background: #0087E9;
+  color: #fff;
+	pointer-events: none;
+}
+
+.Pagination-page-number_active:hover {
+	cursor: default;
+}
+
+.Pagination-page-number_dots {
+	color: #CCCCCC;
+	cursor: default;
+	pointer-events: none;
+}
+
+.Pagination-page-number_dots:hover{
+  background: transparent;
+	pointer-events: none;
+}
