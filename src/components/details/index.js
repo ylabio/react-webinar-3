@@ -1,6 +1,7 @@
 import {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
+import {numberFormat} from "../../utils";
 import './style.css';
 
 function Details({detail, onAdd}) {
@@ -26,7 +27,7 @@ function Details({detail, onAdd}) {
           {detail.edition}
         </span>
       </p>
-      <p className={cn('price')}>Цена: {detail.price} ₽</p>
+      <p className={cn('price')}>Цена: {numberFormat(detail.price)} ₽</p>
       <button onClick={() => onAdd(detail._id)}>Добавить</button>
     </div>
   )
