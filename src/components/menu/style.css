@@ -1,9 +1,6 @@
-.Controls {
+.Menu {
   display: flex;
   justify-content: flex-end;
   padding: 20px;
-}
-
-.Controls button {
-  width: 75px;
+  font-size: 18px;
 }

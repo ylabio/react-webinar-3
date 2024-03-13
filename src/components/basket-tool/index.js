@@ -1,25 +1,27 @@
-import {memo} from "react";
+import {memo} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
-import {numberFormat, plural} from "../../utils";
+import {numberFormat, plural} from '../../utils';
 import './style.css';
 
-function BasketTool({sum, amount, onOpen}) {
+function BasketTool(props) {
+
   const cn = bem('BasketTool');
+
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('label')}>{props.language.inBasket}:</span>
       <span className={cn('total')}>
-        {amount
-          ? `${amount} ${plural(amount, {
-            one: 'товар',
-            few: 'товара',
-            many: 'товаров'
-          })} / ${numberFormat(sum)} ₽`
-          : `пусто`
+        {props.amount
+          ? `${props.amount} ${plural(props.amount, {
+            one: props.language.productOne,
+            few: props.language.productFew,
+            many: props.language.productMany
+          })} / ${numberFormat(props.sum)} ₽`
+          : props.language.empty
         }
       </span>
-      <button onClick={onOpen}>Перейти</button>
+      <button onClick={props.onOpen}>{props.language.follow}</button>
     </div>
   );
 }
