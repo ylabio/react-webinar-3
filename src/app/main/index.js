@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState,useContext} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
@@ -8,9 +8,13 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
-import ProductDetail from "../productDetail";
+import { LanguagesContext } from "../../components/languageSwitcher";
+
+
 
 function Main() {
+
+  const {langData} = useContext(LanguagesContext);
   const store = useStore();
   // useEffect(() => {
   //   store.actions.catalog.fetchProducts();
@@ -29,10 +33,7 @@ function Main() {
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(
-      (_id) => store.actions.basket.addToBasket(_id),
-      [store]
-    ),
+    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(
       () => store.actions.modals.open("basket"),
@@ -48,19 +49,22 @@ function Main() {
   const renders = {
     item: useCallback(
       (item) => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return <Item item={item} onAdd={callbacks.addToBasket} langData={langData} />;
       },
       [callbacks.addToBasket]
     ),
   };
 
   return (
+    
     <PageLayout>
-      <Head title="Магазин" />
+      <Head title={langData.main.title} />
+      
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
+        langData={langData}
       />
       <List list={select.list} renderItem={renders.item} />
       <Pagination
@@ -69,6 +73,7 @@ function Main() {
         onPageChange={callbacks.onChangePage}
       />
     </PageLayout>
+    
   );
 }
 

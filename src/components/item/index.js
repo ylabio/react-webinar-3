@@ -13,7 +13,7 @@ function Item(props) {
   const cn = bem("Item");
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(props.item._id),
+    onAdd: () => props.onAdd(props.item._id),
   };
   console.log(props.item);
   return (
@@ -27,7 +27,7 @@ function Item(props) {
       </div>
       <div className={cn("actions")}>
         <div className={cn("price")}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{props.langData.buttons.onAddTxt}</button>
       </div>
     </div>
   );
@@ -38,6 +38,7 @@ Item.propTypes = {
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
     price: PropTypes.number,
+    langData: PropTypes.object,
   }).isRequired,
   onAdd: PropTypes.func,
 };

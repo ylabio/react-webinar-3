@@ -5,27 +5,23 @@ import {numberFormat, plural} from "../../utils";
 import './style.css';
 import { Link } from "react-router-dom";
 import { useCallback } from "react";
-
-function BasketTool({sum, amount, onOpen}) {
+import MainMenu from "../mainmenu";
+function BasketTool({sum, amount, onOpen, langData}) {
   
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
       <div className="chapter">
-        <Link className='Link_head' to={'/'} ><p  className="p-chapter">Главная</p></Link>
+       <MainMenu langData={langData}/>
         </div>
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('label')}>{langData.basket.inCart}</span>
       <span className={cn('total')}>
-        {amount
-          ? `${amount} ${plural(amount, {
-            one: 'товар',
-            few: 'товара',
-            many: 'товаров'
-          })} / ${numberFormat(sum)} ₽`
-          : `пусто`
-        }
+      {amount
+            ? `${amount} ${plural(amount, langData.basket.variants)} / ${numberFormat(sum)} ₽`
+            : `${langData.basket.tools}`
+          }
       </span>
-      <button onClick={onOpen}>Перейти</button>
+      <button onClick={onOpen}>{langData.buttons.onOpenTxt}</button>
     </div>
   );
 }

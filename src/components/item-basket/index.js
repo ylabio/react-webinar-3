@@ -26,7 +26,7 @@ const store=useStore();
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{props.langData.buttons.onRemoveTxt}</button>
         </div>
       </div>
     </div>

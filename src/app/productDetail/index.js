@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback,useContext } from "react";
 import { useParams } from "react-router-dom";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
@@ -9,8 +9,10 @@ import "./style.css";
 import PageLayout from "../../components/page-layout";
 import { numberFormat, plural } from "../../utils";
 import Controls from "../../components/controls";
+import { LanguagesContext } from "../../components/languageSwitcher";
 
 function ProductDetail() {
+  const {langData} = useContext(LanguagesContext);
   const { id } = useParams();
   const store = useStore();
 
@@ -50,6 +52,7 @@ function ProductDetail() {
             onOpen={callbacks.openModalBasket}
             amount={select.amount}
             sum={select.sum}
+            langData={langData}
           />
           {/*JSON.stringify(select.result)*/}
           <div className="div_detail">{select.result.description}</div>
