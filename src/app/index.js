@@ -1,21 +1,41 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../store/use-store";
+import Card from "./card";
 import useSelector from "../store/use-selector";
+import useStore from "../store/use-store";
 
 /**
  * Приложение
  * @returns {React.ReactElement}
  */
 function App() {
+  const store = useStore();
+  const activeModal = useSelector((state) => state.modals.name);
 
-  const activeModal = useSelector(state => state.modals.name);
+  React.useEffect(() => {
+    store.actions.languages.changeLanguage();
+  }, []);
 
   return (
     <>
-      <Main/>
-      {activeModal === 'basket' && <Basket/>}
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/card/:id" element={<Card />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+
+        {/* <Route
+          path="/basket"
+          element={
+            activeModal === "basket" && <Basket /> && (
+              <Navigate to="/basket" replace={true} />
+            )
+          }
+        /> */}
+        {/* <Route path="/" element={<Navigate to="dashboard" />} /> */}
+      </Routes>
+      {activeModal === "basket" && <Basket />}
     </>
   );
 }
