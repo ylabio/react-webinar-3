@@ -16,7 +16,6 @@ function ProductCard({product, addToBasket, lang}) {
       <button onClick={() => addToBasket(product._id)}>{lang === 'ru-RU' ? 'Добавить' : 'Buy'}</button>
     </div>
   </>
-
 }
 
 ProductCard.propTypes = {

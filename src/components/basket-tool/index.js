@@ -12,7 +12,7 @@ function BasketTool({sum, amount, onOpen, lang}) {
 
 
   const locale = lang === 'ru' ? 'ru-RU' : 'en-US'
-  console.log(locale)
+
 
   const cn = bem('BasketTool');
   return (

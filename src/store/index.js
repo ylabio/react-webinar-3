@@ -7,7 +7,7 @@ class Store {
 
   constructor(initState = {}) {
     this.listeners = []; // Слушатели изменений состояния
-    this.state = {...initState, lang: 'ru-RU'};
+    this.state = {...initState, lang: localStorage.getItem('lang') || 'ru-RU'};
     console.log(initState)
     /** @type {{
      * basket: Basket,
@@ -67,6 +67,7 @@ class Store {
       lang: newLang
     };
     this.setState(newState);
+    localStorage.setItem('lang', newLang);
   }
 }
 
