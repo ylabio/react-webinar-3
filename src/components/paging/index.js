@@ -44,7 +44,7 @@ function Paging({changePage, setupLimit, dataPaging}) {
             } else if (item && item !== page) {
               return (<div key={indx} className={cn('item', { show: 'active'})} onClick={() => changePage(item)}>{item}</div>);
             } else {
-              return (<div key={indx} className={cn('item', { show: 'space'})}>. . .</div>);
+              return (<div key={indx} className={cn('item', { show: 'space'})}>...</div>);
             }
           })}
         </div>
