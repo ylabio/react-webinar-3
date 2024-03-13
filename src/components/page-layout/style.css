@@ -19,3 +19,16 @@ ul {
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
 }
+
+.PageLayout > * {
+  animation: fadeIn 0.8s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
