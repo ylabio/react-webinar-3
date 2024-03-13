@@ -10,7 +10,6 @@ function BasketTool(props) {
 
   return (
     <div className={cn()}>
-      <div className={cn('main')}>{props.link}</div>
       <span className={cn('label')}>{props.language.inBasket}:</span>
       <span className={cn('total')}>
         {props.amount

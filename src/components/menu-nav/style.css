@@ -1,0 +1,10 @@
+
+.MenuNav {
+  align-self: flex-start;
+  margin-right: auto;
+}
+
+.MenuNav a{
+  text-decoration-line: underline;
+  color: #0087E9;
+}

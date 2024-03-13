@@ -1,5 +1,7 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 import {Link, useNavigate, useLocation } from 'react-router-dom';
+import Menu from '../../components/menu';
+import MenuNav from '../../components/menu-nav';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -68,9 +70,11 @@ function Main() {
   return (
     <PageLayout>
       <Head title={texts[language].shop} language={texts[language]} toggleLanguage={toggleLanguage}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-        sum={select.sum} language={texts[language]}
-        link={<Link to={`/?currentPage=0`}>{texts[language].main}</Link>}/>
+      <Menu>
+        <MenuNav link={<Link to={`/?currentPage=0`}>{texts[language].main}</Link>}/>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+          sum={select.sum} language={texts[language]}/>
+      </Menu>
       <LoaderWrapper isLoading={isLoading} language={texts[language]}>
         <List list={select.list} renderItem={renders.item} />
         {select.totalPages &&

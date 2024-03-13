@@ -1,27 +1,9 @@
-/* Контрол с общими действиями */
 .BasketTool {
   display: flex;
-  justify-content: flex-end;
-  padding: 20px;
-  font-size: 18px;
 }
 
 .BasketTool button {
   width: 80px;
-}
-
-.BasketTool-main{
-  align-self: flex-start;
-  margin-right: auto;
-}
-
-.BasketTool-main a{
-  text-decoration-line: underline;
-  color: #0087E9;
-}
-
-.BasketTool-label {
-
 }
 
 .BasketTool-total {
