@@ -19,6 +19,7 @@ function ItemPage() {
     const store = useStore();
     const select = useSelector(state => ({
         currentItem: state.catalog.currentItem,
+        isLoading: state.catalog.isLoading
     }));
     const cn = bem('Item');
     useEffect(() => {
@@ -33,13 +34,16 @@ function ItemPage() {
         console.log('Добавляем в корзину товар с ID:', _id);
         store.actions.basket.addToBasket(_id);
     }, [store]);
-    
-    if (!select.currentItem) {
-        return <Spinner />;
-    }
+    const getTitleKey = () =>
+        select.isLoading || !select.currentItem ? 'shop' : select.currentItem.title;
+  
     return (
-        <LayoutWithCommonElements titleKey={select.currentItem.title}>
-            <ItemDetails item={select.currentItem} onAdd={addToBasket} />
+        <LayoutWithCommonElements titleKey={getTitleKey()}>
+            {select.isLoading ? (
+                <Spinner />
+            ) : (
+                <ItemDetails item={select.currentItem} onAdd={addToBasket} />
+            )}
         </LayoutWithCommonElements>
     );
 }
