@@ -20,7 +20,7 @@ function Head({ title }) {
   return (
     <div className="Head">
       <h1>{title}</h1>
-      <select
+      <select className="div_lang"
         value={currentLang}
         onChange={(e) => setCurrentLang(e.currentTarget.value)}
       >

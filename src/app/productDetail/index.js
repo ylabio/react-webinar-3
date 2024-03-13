@@ -8,8 +8,8 @@ import Basket from "../basket";
 import "./style.css";
 import PageLayout from "../../components/page-layout";
 import { numberFormat, plural } from "../../utils";
-import Controls from "../../components/controls";
 import { LanguagesContext } from "../../components/languageSwitcher";
+import DescriptionItem from "../../components/descriptionItem";
 
 function ProductDetail() {
   const {langData} = useContext(LanguagesContext);
@@ -55,15 +55,8 @@ function ProductDetail() {
             langData={langData}
           />
           {/*JSON.stringify(select.result)*/}
-          <div className="div_detail">{select.result.description}</div>
-          <p className="div_detail"> Страна производитель:
-            <span> <b> {select.result.madeIn?.title}</b> </span>
-            <span> <b> ({select.result.madeIn?.code}) </b> </span>
-          </p>
-          <p className="div_detail">Категория: <span ><b>{select.result.category?.title}</b></span></p>
-          <p className="div_detail">Год выпуска: <span ><b>{select.result.edition}</b></span></p>
-          <div className="div_detail"><b>Цена: {select.result.price} ₽</b></div>
-        <Controls onAdd={callbacks.addToBasket}/>
+          <DescriptionItem  result={select.result} addToBasket={callbacks.addToBasket} langData={langData}/>
+       
         </div>
         {select.activeModal === "basket" && <Basket />}
       </>
