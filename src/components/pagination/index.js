@@ -5,7 +5,7 @@ import "./style.css";
 import constructPageArray, { codeGenerator } from "../../utils";
 import PropTypes from "prop-types";
 
-function Pagination({ currentPage = 1, pagesCount = 25, onPageChange }) {
+function Pagination({ currentPage, pagesCount, onPageChange }) {
   const cn = bem("Pagination");
   const uniqKey = codeGenerator(500);
   const [pages, setPages] = useState([]);
