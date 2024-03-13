@@ -5,12 +5,12 @@ import './style.css';
 import translate from "../../app/language/translate.json";
 import {useLangContext} from "../../store/use-lang-context"
 
-const Navigate = ({setIsShop}) => {
+const Navigate = () => {
   const cn = bem('Navigate');
   const {language} = useLangContext();
 
   return <div className={cn()}>
-    <Link to={`/`} onClick={()=>setIsShop(true)}>
+    <Link to={`/`}>
       {translate.Home[language]}
     </Link>
   </div>;

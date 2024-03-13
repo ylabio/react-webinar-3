@@ -1,13 +1,15 @@
 import {memo, useCallback, useEffect, useState} from 'react';
-import { Route, Routes} from 'react-router-dom';
+// import { Route, Routes} from 'react-router-dom';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import ItemDetails from "../../components/item-details";
 import Navigate from "../../components/navigate/";
-import PageNotFound from "../../components/page-not-found"
-import Shop from "../../components/shop"
+// import PageNotFound from "../../components/page-not-found"
+// import Shop from "../../components/shop"
+import List from "../../components/list";
+import Pagination from "../../components/pagination";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import {useLangContext} from "../../store/use-lang-context";
@@ -17,11 +19,9 @@ import './style.css';
 function Main() {
   const store = useStore();
   const {language} = useLangContext();
-  const [isShop, setIsShop] = useState(true);
 
   useEffect(() => {
     store.actions.catalog.load();
-    setIsShop(true);
   }, []);
 
   const select = useSelector(state => ({
@@ -40,7 +40,7 @@ function Main() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     closeModalBasket: useCallback(() => store.actions.modals.close(), [store]),
     onChangePage: useCallback(page => store.actions.catalog.load(page), [store]),
-    onLoadDetails: useCallback(id => store.actions.catalog.loadDetails(id), [store]),
+    // onLoadDetails: useCallback(id => store.actions.catalog.loadDetails(id), [store]),
   }
 
   const renders = {
@@ -51,16 +51,13 @@ function Main() {
 
   return (
       <PageLayout>
-        <Head title={isShop ? translate.Shop[language] : select.details.title}/>
+        <Head title={translate.Shop[language]}/>
         <div className='row'>
-          <Navigate setIsShop={setIsShop}/>
+          <Navigate/>
           <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
         </div>
-        <Routes>
-          <Route path="/*" element={<Shop list={select.list} renderItem={renders.item} pagesCount={select.pages} callbacks={callbacks} currentPage={select.currentPage}/>}/>
-          <Route path="/:id" element={<ItemDetails onLoadDetails={callbacks.onLoadDetails} onAdd={callbacks.addToBasket} setIsShop={setIsShop}/> }/>
-          <Route path="*" element={<PageNotFound/>}/>
-        </Routes>
+        <List list={select.list} renderItem={renders.item}/>
+        <Pagination pagesCount={select.pages} onChangePage={callbacks.onChangePage} currentPage={select.currentPage}/>
       </PageLayout>
   );
 }
