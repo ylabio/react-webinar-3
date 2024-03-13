@@ -13,7 +13,7 @@ function Item(props) {
   };
   return (
     <div className={cn()}>
-      <Link to={pageLink} className={cn('title')}>
+      <Link to={props.pageLink} className={cn('title')}>
         {props.item.title}
       </Link>
       <div className={cn('actions')}>
