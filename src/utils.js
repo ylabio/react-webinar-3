@@ -45,7 +45,6 @@ export function getTextData(query) {
         optionEn: 'English',
       },
       productHead: {
-        title: 'Магазин',
         optionRu: 'Русский',
         optionEn: 'English',
       },
@@ -93,7 +92,6 @@ export function getTextData(query) {
         optionEn: 'English',
       },
       productHead: {
-        title: 'Store',
         optionRu: 'Русский',
         optionEn: 'English',
       },

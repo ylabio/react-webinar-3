@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import useStore from "../../store/use-store";
 import useSelector from '../../store/use-selector';
 import PageLayout from "../../components/page-layout";
-import HeadLayout from '../head-layout';
+import HeadContainer from '../head-container';
 import {TextDataContext} from '../../contexts';
 import ProductContent from '../../components/product-content';
 
@@ -12,7 +12,7 @@ function Product({onChangeTextDataQuery}) {
   const textData = useContext(TextDataContext);
 
   const store = useStore();
-  let { productId } = useParams();
+  let {productId} = useParams();
   const product = useSelector(state => state.product.fullData);
 
   useEffect(() => {
@@ -27,11 +27,10 @@ function Product({onChangeTextDataQuery}) {
 
   return (
     <PageLayout>
-      <HeadLayout onChangeTextDataQuery={onChangeTextDataQuery}
-                  textData={{mainNav: textData.mainNav,
-                             basketTool: textData.basketTool,
-                             pluralProduct: textData.pluralProduct}}
-                  headTextData={textData.productHead}
+      <HeadContainer onChangeTextDataQuery={onChangeTextDataQuery}
+                     headTextData={{...textData.productHead,
+                                      title: product.title,
+                                  }}
       />
       <ProductContent product={product}
                       onAdd={addToBasket}

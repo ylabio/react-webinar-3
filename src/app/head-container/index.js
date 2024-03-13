@@ -1,4 +1,4 @@
-import {memo, useCallback} from 'react';
+import {memo, useCallback, useContext} from 'react';
 import PropTypes from 'prop-types';
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
@@ -6,9 +6,12 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import MainMenu from '../../components/main-menu';
 import MainNav from '../../components/main-nav';
+import {TextDataContext} from '../../contexts';
 import { APP_PATHS } from '../../constants';
 
 function HeadLayout(props) {
+
+  const textData = useContext(TextDataContext);
 
   const store = useStore();
   const select = useSelector(state => ({
@@ -26,14 +29,14 @@ function HeadLayout(props) {
     <>
       <Head textData={props.headTextData} onChangeTextDataQuery={props.onChangeTextDataQuery}/>
       <MainMenu>
-        <MainNav textData={props.textData.mainNav}
+        <MainNav textData={textData.mainNav}
                  links={mainNavLinks}
         />
         <BasketTool onOpen={openModalBasket}
                     amount={select.busketAmount}
                     sum={select.busketSum}
-                    textData={{...props.textData.basketTool,
-                               ...props.textData.pluralProduct}}
+                    textData={{...textData.basketTool,
+                               ...textData.pluralProduct}}
         />
       </MainMenu>
     </>

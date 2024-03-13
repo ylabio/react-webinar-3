@@ -1,6 +1,6 @@
 import {memo, useCallback, useEffect, useContext} from 'react';
 import PageLayout from "../../components/page-layout";
-import HeadLayout from '../head-layout';
+import HeadContainer from '../head-container';
 import Item from "../../components/item";
 import List from "../../components/list";
 import Pagination from '../../components/pagination';
@@ -50,11 +50,8 @@ function Main({onChangeTextDataQuery}) {
 
   return (
     <PageLayout>
-      <HeadLayout textData={{mainNav: textData.mainNav,
-                             basketTool: textData.basketTool,
-                             pluralProduct: textData.pluralProduct}}
-                  headTextData={textData.mainHead}
-                  onChangeTextDataQuery={onChangeTextDataQuery}/>
+      <HeadContainer headTextData={textData.mainHead}
+                     onChangeTextDataQuery={onChangeTextDataQuery}/>
       <List list={select.list} renderItem={renders.item}/>
       <Pagination max={select.maxPage}
                   current={select.currentPage}
