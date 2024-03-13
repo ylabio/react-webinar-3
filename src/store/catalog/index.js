@@ -19,13 +19,11 @@ class Catalog extends StoreModule {
 
   async setNewList(page) {
     const skippedCount = (page - 1) * 10;
+    const parameters = page > 1 ? `?limit=10&skip=${skippedCount}` : '';
 
-    const response = await fetch(`/api/v1/articles?limit=10&skip=${skippedCount}`);
+    const response = await fetch(`/api/v1/articles${parameters}`);
     const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      list: json.result.items
-    }, 'Загружен новый список товаров из АПИ')
+    return json.result.items;
   }
 
   async setCurrentItem(id) {
@@ -60,12 +58,6 @@ class Catalog extends StoreModule {
     }, 'Изменена текущая страница')
   }
 
-  async loadList() {
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
-    return json.result.items;
-  }
-
   async loadItemsCount() {
     const response = await fetch('api/v1/articles?fields=items(), count');
     const json = await response.json();
@@ -74,13 +66,14 @@ class Catalog extends StoreModule {
 
   async load() {
     const count = await this.loadItemsCount();
-    const list = await this.loadList();
     const lastPage = this.getLastPage(count);
+    const currentPage = this.getState().currentPage ?? 1;
+    const list = await this.setNewList(currentPage);
 
     this.setState({
       ...this.getState(),
       list: list,
-      currentPage: 1,
+      currentPage: currentPage,
       lastPage: lastPage
     }, 'Загружены товары и количество страниц из АПИ')
   }

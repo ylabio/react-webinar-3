@@ -80,12 +80,3 @@ export function setLocale(locale) {
 export function getLocale() {
   return localStorage.getItem('lang');
 }
-
-/**
- * Получение id из url
- * @returns {String}
- */
-export function getIdFromUrl() {
-  const url = window.location.href;
-  return url.split('/').reverse()[0];
-}

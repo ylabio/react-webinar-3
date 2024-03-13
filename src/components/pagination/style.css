@@ -14,10 +14,6 @@
   cursor: pointer;
 }
 
-.Pagination-page:hover {
-  background: #CCCCCC;
-}
-
 .Pagination-selected {
   background-color: #0087E9;
   color: #FFFFFF;

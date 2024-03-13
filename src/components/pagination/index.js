@@ -2,6 +2,7 @@ import React from "react";
 import { getPageNumbers } from "../../utils";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
+import PaginationLink from "../pagination-link";
 import './style.css'
 
 function Pagination(props) {
@@ -18,11 +19,9 @@ function Pagination(props) {
         case props.currentPage:
           return <span key={item} id={item} className={cn('selected')}>{item}</span>
         default:
-          return <span key={item} className={cn('page')}
-            onClick={() => !props.isLoading && props.onClick(item)}
-            id={item}>
-            {item}
-          </span>
+          return <PaginationLink key={item} page={item} >
+                   <span key={item} id={item}>{item}</span>
+                 </PaginationLink>
       }
     })
   }

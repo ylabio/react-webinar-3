@@ -12,16 +12,22 @@ import {locale} from '../../locale';
 import {setLocale} from '../../utils';
 import Loader from '../../components/loader';
 import Navigation from '../../components/navigation';
+import {useParams} from 'react-router-dom';
 
 function Main({lang, setLang}) {
   const [isLoading, setIsLoading] = useState(true);
+  const {page} = useParams();
 
   const store = useStore();
 
   useEffect(() => {
+    if (page) {
+      setIsLoading(true);
+      store.actions.catalog.setCurrentPage(Number(page))
+    }
     store.actions.catalog.load()
-    .then(() => setIsLoading(false))
-  }, []);
+      .then(() => setIsLoading(false))
+  }, [page]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -36,13 +42,6 @@ function Main({lang, setLang}) {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    // Смена текущей страницы, загрузка следующей страницы товаров
-    setCurrentPage: useCallback((page) => {
-      setIsLoading(true)
-      store.actions.catalog.setCurrentPage(page);
-      store.actions.catalog.setNewList(page)
-      .then(() => setIsLoading(false));
-    }, [store]),
     // Обновление текущего товара
     setItemPage: useCallback(_id => store.actions.catalog.setCurrentItem(_id), [store])
   }
@@ -64,16 +63,14 @@ function Main({lang, setLang}) {
         onOpen={callbacks.openModalBasket} 
         amount={select.amount}
         sum={select.sum}>
-        <Navigation link='/' title={locale[lang].tool.main} />
+        <Navigation link='/page/1' title={locale[lang].tool.main} />
       </BasketTool>
       <Loader isLoading={isLoading}>
         <List list={select.list} renderItem={renders.item}/>
+        <Pagination isLoading={isLoading} 
+          currentPage={select.currentPage}
+          lastPage={select.lastPage} />
       </Loader>
-      <Pagination isLoading={isLoading} 
-        currentPage={select.currentPage}
-        lastPage={select.lastPage}
-        onClick={callbacks.setCurrentPage}
-      />
     </PageLayout>
 
   );

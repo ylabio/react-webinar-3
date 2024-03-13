@@ -5,13 +5,14 @@ import Description from "../../components/description"
 import BasketTool from "../../components/basket-tool"
 import useSelector from "../../store/use-selector"
 import useStore from "../../store/use-store"
-import {getIdFromUrl} from "../../utils"
 import {locale} from "../../locale"
 import Navigation from "../../components/navigation"
+import {useParams} from "react-router-dom"
 
 function ItemPage({lang}) {
 
   const store = useStore();
+  const {id} = useParams();
 
   const select = useSelector(state => ({
     list: state.basket.list,
@@ -29,16 +30,14 @@ function ItemPage({lang}) {
     setItemPage: useCallback(_id => store.actions.catalog.setCurrentItem(_id), [store])
   }
 
-  const itemId = getIdFromUrl();
-
-  const currentItem = Object.keys(select.item).length ? select.item : callbacks.setItemPage(itemId);
+  const currentItem = Object.keys(select.item).length ? select.item : callbacks.setItemPage(id);
 
   return (
     <PageLayout>
       <Head title={currentItem.title} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
         sum={select.sum} lang={lang}>
-        <Navigation link='/' title={locale[lang].tool.main} />
+        <Navigation link='/page/1' title={locale[lang].tool.main} />
       </BasketTool>
       <Description item={currentItem} lang={lang} onClick={callbacks.addToBasket} />
     </PageLayout>

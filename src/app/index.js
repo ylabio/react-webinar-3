@@ -23,8 +23,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Main lang={lang} setLang={setLang}/>} />
-        <Route path='/item/*' element={<ItemPage lang={lang}/>} />
+        <Route path='*' element={<Main lang={lang} setLang={setLang}/>} />
+        <Route path='/page/:page' element={<Main lang={lang} setLang={setLang}/>} />
+        <Route path='/item/:id' element={<ItemPage lang={lang}/>} />
       </Routes>
       {activeModal === 'basket' && <Basket lang={lang}/>}
     </BrowserRouter>
