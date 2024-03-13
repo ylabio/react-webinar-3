@@ -6,22 +6,19 @@ import { numberFormat } from "../../utils";
 import './style.css';
 
 function Item(props) {
-  const { pageLink = "product" } = props;
-
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(props.item._id)
+    onAdd: () => props.onAdd(props.item._id),
   };
-
   return (
     <div className={cn()}>
-      <Link to={`/${pageLink}/${props.item._id}`} className={cn('title')}>
+      <Link to={pageLink} className={cn('title')}>
         {props.item.title}
       </Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>{props.translations}</button>
+        <button onClick={callbacks.onAdd}>{props.addButtonText}</button>
       </div>
     </div>
   );
@@ -34,13 +31,12 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
-  translations: PropTypes.string,
+  addButtonText: PropTypes.string,
   pageLink: PropTypes.string,
 };
 
 Item.defaultProps = {
   onAdd: () => { },
-  pageLink: "product",
 }
 
 export default memo(Item);

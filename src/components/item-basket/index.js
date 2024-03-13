@@ -42,7 +42,8 @@ ItemBasket.propTypes = {
   onRemove: propTypes.func,
   onClose: propTypes.func,
   translations: PropTypes.shape({
-    pieces: PropTypes.string, remove: PropTypes.string,
+    pieces: PropTypes.string,
+    remove: PropTypes.string,
   }),
 }
 

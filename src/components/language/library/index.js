@@ -11,7 +11,7 @@ const translations = {
     basketTotal: 'Итого',
     empty: "пусто",
     pieces: "шт",
-    forPlural: {
+    pluralForms: {
       one: 'товар',
       few: 'товара',
       many: 'товаров'
@@ -29,7 +29,7 @@ const translations = {
     basketTotal: 'Total',
     empty: "is empty",
     pieces: "pcs",
-    forPlural: {
+    pluralForms: {
       one: 'product',
       few: 'products',
       many: 'products'

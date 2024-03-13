@@ -7,22 +7,17 @@ import MainMenu from "../main-menu";
 
 
 function BasketTool({ sum, amount, onOpen, language }) {
-  const { goTo, inBasket, empty, forPlural, main } = language;
   const cn = bem('BasketTool');
+  const { goTo, inBasket, empty, pluralForms, main } = language;
+  const { one, few, many } = pluralForms;
+  const formattedAmountSummary = amount
+    ? `${amount} ${plural(amount, { one, few, many })} / ${numberFormat(sum)} ₽`
+    : `${empty}`;
   return (
     <div className={cn()}>
       <MainMenu main={main} />
       <span className={cn('label')}>{inBasket}</span>
-      <span className={cn('total')}>
-        {amount
-          ? `${amount} ${plural(amount, {
-            one: forPlural.one,
-            few: forPlural.few,
-            many: forPlural.many,
-          })} / ${numberFormat(sum)} ₽`
-          : `${empty}`
-        }
-      </span>
+      <span className={cn('total')}>{formattedAmountSummary}</span>
       <button onClick={onOpen}>{goTo}</button>
     </div>
   );
@@ -36,7 +31,7 @@ BasketTool.propTypes = {
     goTo: PropTypes.string.isRequired,
     inBasket: PropTypes.string.isRequired,
     empty: PropTypes.string.isRequired,
-    forPlural: PropTypes.shape({
+    pluralForms: PropTypes.shape({
       one: PropTypes.string.isRequired,
       few: PropTypes.string.isRequired,
       many: PropTypes.string.isRequired,
