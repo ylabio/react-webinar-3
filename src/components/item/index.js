@@ -8,17 +8,18 @@ import { Link } from "react-router-dom";
 function Item(props) {
 
   const cn = bem('Item');
-  console.log(props.lang);
   const isRus = props.lang === "ru"
   const callbacks = {
     onAdd: (e) => props.onAdd(props.item._id)
   }
 
+  const url = props.link || `/product/${props.item._id}`
+
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <Link to={`/product/${props.item._id}`}>
+        <Link to={url}>
           {props.item.title}
         </Link>
       </div>

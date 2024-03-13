@@ -1,4 +1,3 @@
-import './style.css'
 import { memo, useEffect, useState, useCallback } from 'react'
 import Head from '../../components/head'
 import { Link, useParams } from 'react-router-dom'
@@ -7,27 +6,25 @@ import useStore from '../../store/use-store'
 import item from '../../components/item'
 import BasketTool from '../../components/basket-tool'
 import Basket from "../basket";
+import PageLayout from '../../components/page-layout'
+import MainMenu from '../../components/main-menu'
+import ProductInfo from '../../components/product-info'
 function ProductPage() {
 
     const { id } = useParams();
-
     const store = useStore()
 
-    useEffect(() => {
-        store.actions.product.getProduct(id)
-    }, [id])
 
-    const activeModal = useSelector(state => state.modals.name);
 
     const select = useSelector(state => ({
         list: state.catalog.list,
         length: state.catalog.length,
         amount: state.basket.amount,
         sum: state.basket.sum,
-        lang: state.language.language
+        activeModal: state.modals.name,
+        lang: state.language.language,
+        product: state.product
     }));
-
-    const isRus = select.lang === "ru"
 
     const callbacks = {
         openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
@@ -35,40 +32,30 @@ function ProductPage() {
         setLang: useCallback((lang) => store.actions.language.change(lang), [store])
     }
 
-    const product = useSelector(state => state.product).product
-    let item;
-    if (product) {
-        item = product.result
-    }
-    return (
-        <div className='ProductPage'>
-            {
-                item &&
-                (
-                    <>
-                        <Head title={item.title} selectedLang={select.lang} setLang={callbacks.setLang} />
-                        <div className='ProductPage-controls'>
-                            <Link to={"/"}>
-                                <p>{isRus ? "Главная" : "Main"}</p>
-                            </Link>
-                            <BasketTool sum={select.sum} amount={select.amount} onOpen={callbacks.openModalBasket} lang={select.lang}/>
-                        </div>
-                        <div className='ProductPage-info'>
-                            <p className='ProductPage-description'>{item.description}</p>
-                            <p className='PructPage-region'>Страна производитель: <strong>{item.madeIn.title} ({item.madeIn.code})</strong></p>
-                            <p className='PructPage-category'>Категория: <strong>{item.category.title}</strong></p>
-                            <p className='PructPage-year'>Год выпуска: <strong>{item.edition}</strong></p>
-                            <p className='PructPage-price'>Цена: {item.price} ₽</p>
-                            <button
-                            onClick={callbacks.addToBasket}
-                            >{isRus ? "Добавить" : "Add"}</button>
-                        </div>
 
-                        {activeModal === 'basket' && <Basket />}
-                    </>
-                )
-            }
-        </div>
+    useEffect(() => {
+        const getProduct = async () => {
+            const product = await store.actions.product.getProduct(id)
+            store.actions.catalog.addItem(product);
+        }
+        getProduct()
+    }, [id])
+
+    return (
+        <PageLayout>
+                {
+                    select.product &&
+                    (
+                        <>
+                            <Head title={select.product.title} selectedLang={select.lang} setLang={callbacks.setLang} />
+                            <BasketTool sum={select.sum} amount={select.amount} onOpen={callbacks.openModalBasket} lang={select.lang} />
+                            <ProductInfo item={select.product} lang={select.lang} addToBasket={callbacks.addToBasket} />
+
+                            {select.activeModal === 'basket' && <Basket />}
+                        </>
+                    )
+                }
+        </PageLayout>
     )
 }
 

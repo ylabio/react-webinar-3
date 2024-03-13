@@ -15,13 +15,15 @@ function ItemBasket(props) {
     closeModal: () => props.closeModal()
   };
 
+  const url = props.link || `/product/${props.item._id}`
+
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
         <Link
           onClick={callbacks.closeModal}
-          to={`/product/${props.item._id}`}>
+          to={url}>
           {props.item.title}
         </Link>
       </div>

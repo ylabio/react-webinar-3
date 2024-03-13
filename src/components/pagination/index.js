@@ -13,8 +13,11 @@ function Pagination({ currentSkip, changePage, maxPage  }) {
     if (currentPage >= 4){
         numbersToShow = [1,"...",currentPage - 1, currentPage, currentPage + 1, "...", maxPage]
     }
-    if(currentPage >= maxPage - 2){
+    if(currentPage === maxPage - 2){
         numbersToShow = [1, "...", maxPage -3, maxPage -2, maxPage - 1, maxPage]
+    }
+    if(currentPage > maxPage - 2){
+        numbersToShow = [1, "...", maxPage -2, maxPage - 1, maxPage]
     }
     return (
         <div className="Pagination">

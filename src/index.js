@@ -9,20 +9,10 @@ const store = new Store();
 
 const root = createRoot(document.getElementById('root'));
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />
-  },
-  {
-    path: "/product/:id",
-    element: <ProductPage />
-  }
-])
+
 // Первый рендер приложения
 root.render(
   <StoreContext.Provider value={store}>
-    {/* <App/> */}
-    <RouterProvider router={router} />
+    <App/>
   </StoreContext.Provider>
 );

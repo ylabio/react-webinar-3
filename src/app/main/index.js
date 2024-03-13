@@ -7,6 +7,7 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
+import Basket from '../basket';
 
 function Main() {
 
@@ -24,6 +25,7 @@ function Main() {
     list: state.catalog.list,
     length: state.catalog.length,
     amount: state.basket.amount,
+    activeModal: state.modals.name,
     sum: state.basket.sum,
     lang: state.language.language
   }));
@@ -39,7 +41,7 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} lang={select.lang}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} link={`/product/${item._id}`} lang={select.lang}/>
     }, [callbacks.addToBasket, select.lang]),
   };
 
@@ -51,6 +53,7 @@ function Main() {
                   sum={select.sum} lang={select.lang} />
       <List list={select.list} renderItem={renders.item}/>
       {maxPage && <Pagination maxPage={maxPage} currentSkip={skip} changePage={setSkip} />}
+      {select.activeModal === 'basket' && <Basket />}
     </PageLayout>
 
   );

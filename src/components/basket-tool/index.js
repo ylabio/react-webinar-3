@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from "../../utils";
 import './style.css';
+import MainMenu from "../main-menu";
 
 function BasketTool({ sum, amount, onOpen, lang }) {
   const cn = bem('BasketTool');
   const isRus = lang === 'ru'
   return (
     <div className={cn()}>
+      <MainMenu lang={lang}/>
+      <div>
       {isRus
         ?
         <>
@@ -41,6 +44,7 @@ function BasketTool({ sum, amount, onOpen, lang }) {
           <button onClick={onOpen}>Watch</button>
         </>
       }
+      </div>
     </div>
   );
 }

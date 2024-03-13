@@ -11,7 +11,6 @@ export default function useSelector(selector) {
   const store = useStore();
 
   const [state, setState] = useState(() => selector(store.getState()));
-
   const unsubscribe = useMemo(() => {
     // Подписка. Возврат функции для отписки
     return store.subscribe(() => {
