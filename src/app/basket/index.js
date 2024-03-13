@@ -1,11 +1,11 @@
 import {memo, useCallback} from 'react';
+import useStore from '../../store/use-store';
+import useSelector from '../../store/use-selector';
+import {language} from '../../language';
 import ItemBasket from '../../components/item-basket';
 import List from '../../components/list';
 import ModalLayout from '../../components/modal-layout';
 import BasketTotal from '../../components/basket-total';
-import useStore from '../../store/use-store';
-import useSelector from '../../store/use-selector';
-import {language} from '../../language';
 
 function Basket() {
 
@@ -31,8 +31,9 @@ function Basket() {
   const renders = {
     itemBasket: useCallback((item) => {
       return (
-        <ItemBasket item={item} onRemove={callbacks.removeFromBasket} 
-                    buttonRemove={select.langButtonRemove[select.language]}/>
+        <ItemBasket item={item} onRemove={callbacks.removeFromBasket} link={`/card/${item._id}`}
+                    buttonRemove={select.langButtonRemove[select.language]} 
+                    closeModal={callbacks.closeModal}/>
       );
     }, [callbacks.removeFromBasket, select.langButtonRemove[select.language]]),
   };

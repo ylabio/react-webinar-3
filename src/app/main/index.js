@@ -63,13 +63,13 @@ function Main() {
               textButtonAdd={select.langbuttonAdd[select.language]}
               link={`/card/${item._id}`}/>
       );
-    }, [callbacks.addToBasket, select.langbuttonAdd[select.language]]),
+    }, [callbacks.addToBasket]),
     ItemPagination: useCallback((item) => {
       return (
         <ItemPagination item={item} list={select.numbersPages} 
                         page={select.page}  link={`/${item.page}`}/>             
       );
-    }, [select.numbersPages, select.page]),
+    }, [select.numbersPages]),
   };
 
   return (
