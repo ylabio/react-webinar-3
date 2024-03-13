@@ -1,0 +1,9 @@
+.BreadCrumbs {
+  font-size: 18px;
+  font-weight: 400;
+  color: rgb(0, 135, 233);
+}
+
+.BreadCrumbs a:visited {
+  color: rgb(0, 135, 233);
+}
