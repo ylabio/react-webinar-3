@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useCallback, useEffect, useState} from 'react';
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
@@ -6,8 +6,10 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import ProductCard from "../../components/product-card";
 import {useParams} from "react-router-dom";
+import LoadWraper from "../../components/load-wraper";
 
 function Product() {
+  const [isLoading, setIsLoading] = useState(true);
   const {_Id} = useParams();
   const store = useStore();
 
@@ -28,6 +30,9 @@ function Product() {
   }
   useEffect(() => {
     store.actions.catalog.loadItemById(_Id);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000)
   }, [_Id])
 
 
@@ -37,7 +42,9 @@ function Product() {
       <BasketTool lang={select.lang} setCurrentPage={() => callbacks.setCurrentPage(1)}
                   onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
-      <ProductCard lang={select.lang} addToBasket={callbacks.addToBasket} product={select.product}/>
+      <LoadWraper isLoading={isLoading} lang={select.lang}>
+        <ProductCard lang={select.lang} addToBasket={callbacks.addToBasket} product={select.product}/>
+      </LoadWraper>
     </PageLayout>
 
   );

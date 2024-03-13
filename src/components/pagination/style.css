@@ -31,3 +31,10 @@
   color: white;
 }
 
+
+.disabled-link {
+  pointer-events: none;
+  cursor: default;
+  color: #999;
+}
+

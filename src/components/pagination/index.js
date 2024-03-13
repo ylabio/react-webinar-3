@@ -1,12 +1,10 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import { Link, useParams } from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 
-function Pagination({ setCurrentPage, count, currentPage }) {
-  const { pageNumber } = useParams();
-  console.log('Pagination: ', pageNumber);
-
+function Pagination({setCurrentPage, count, currentPage}) {
+  const {pageNumber} = useParams();
   const [currentPageNumber, setCurrentPageNumber] = useState(currentPage);
 
   useEffect(() => {
@@ -59,16 +57,9 @@ function Pagination({ setCurrentPage, count, currentPage }) {
   return (
     <div className="Pagination">
       {getPageNumbers().map((pn, index) => (
-        <Link key={index} to={`/main/${pn}`}>
+        <Link key={index} to={`/main/${pn}`} className={pn === '...' ? 'disabled-link' : ''}>
           <span
-            key={index}
-            className={
-              pn === currentPageNumber
-                ? 'page-number + active + pointer'
-                : pn === '...'
-                  ? 'page-number'
-                  : 'page-number + pointer'
-            }
+            className={pn === '...' ? 'page-number' : pn === currentPageNumber ? 'page-number + active' : 'page-number + pointer'}
             onClick={() => handlePageClick(pn)}
           >
             {pn}

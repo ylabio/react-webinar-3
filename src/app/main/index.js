@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useCallback, useEffect, useState} from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -8,8 +8,11 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
 import {useParams} from "react-router-dom";
+import LoadWrapper from "../../components/load-wraper";
 
 function Main() {
+  const [isLoading, setIsLoading] = useState(true);
+
   const {pageNumber} = useParams()
   console.log(pageNumber)
 
@@ -40,6 +43,9 @@ function Main() {
 
   useEffect(() => {
     store.actions.catalog.load(pageNumber);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000)
   }, [select.currentPage, select.lang]);
 
   return (
@@ -48,7 +54,9 @@ function Main() {
       <BasketTool lang={select.lang} setCurrentPage={() => callbacks.setCurrentPage(1)}
                   onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum} currentPage={select.currentPage}/>
-      <List list={select.list} renderItem={renders.item}/>
+      <LoadWrapper isLoading={isLoading} lang={select.lang}>
+        <List list={select.list} renderItem={renders.item}/>
+      </LoadWrapper>
       <Pagination count={select.count} currentPage={select.currentPage} setCurrentPage={callbacks.setCurrentPage}/>
     </PageLayout>
 
