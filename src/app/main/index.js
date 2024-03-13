@@ -10,6 +10,8 @@ import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import { langText } from '../../constants/language';
 import { useParams } from 'react-router-dom';
+import BreadCrumbs from '../../components/bread-crumbs';
+import Row from '../../components/row';
 
 function Main({ language = 'ru' }) {
   const store = useStore();
@@ -52,12 +54,17 @@ function Main({ language = 'ru' }) {
     <PageLayout>
       <Head title={langText.SHOP[language]} language={language} />
       <p>{}</p>
-      <BasketTool
-        language={language}
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-      />
+      <Row>
+      <BreadCrumbs  path={'/'}>
+        {langText.MAIN[language]}
+      </BreadCrumbs>
+        <BasketTool
+          language={language}
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+        />
+      </Row>
       <List list={select.list} renderItem={renders.item} />
       <Pagination
         limit={10}

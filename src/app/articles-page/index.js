@@ -9,6 +9,8 @@ import { useParams } from 'react-router-dom';
 import ItemDetails from '../../components/item-details';
 import ErrorText from '../../components/error-text';
 import { langText } from '../../constants/language';
+import BreadCrumbs from '../../components/bread-crumbs';
+import Row from '../../components/row';
 
 function ArticlesPage({ language = 'ru' }) {
   const store = useStore();
@@ -48,12 +50,17 @@ function ArticlesPage({ language = 'ru' }) {
     <PageLayout>
       <Head title={articles.title} language={language}/>
       <p>{}</p>
-      <BasketTool
-        language={language}
-        onOpen={callbacks.openModalBasket}
-        amount={basket.amount}
-        sum={basket.sum}
-      />
+      <Row>
+        <BreadCrumbs  path={'/'}>
+          {langText.MAIN[language]}
+        </BreadCrumbs>
+        <BasketTool
+          language={language}
+          onOpen={callbacks.openModalBasket}
+          amount={basket.amount}
+          sum={basket.sum}
+        />
+      </Row>
       {articles.loading === 'success' && (
         <ItemDetails
           item={articles}

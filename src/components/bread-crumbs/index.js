@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 function BreadCrumbs(props) {
   const { path, children } = props;
 
-  const cn = bem('BasketTool');
+  const cn = bem('BreadCrumbs');
   return (
     <Link to={path} className={cn('link')}>
       {children}
