@@ -19,7 +19,7 @@ function ItemBasket(props) {
     <div className={cn()}>
       <div className={cn('code')}>{props.item._key}</div>
       <div className={cn('title')}>
-        <Link to={`/goods/${props.item._id}`} onClick={callbacks.onClose}>
+        <Link to={props.link} onClick={callbacks.onClose}>
           {props.item.title}
         </Link>
       </div>
@@ -41,6 +41,7 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number
   }).isRequired,
+  link: PropTypes.string,
   onRemove: propTypes.func,
   onClose: PropTypes.func,
 }
