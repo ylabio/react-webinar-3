@@ -17,21 +17,15 @@ function App() {
   const catalog = useSelector(state => state.catalog);
 
   return (
-      <Routes>
-        <Route path="/" element={
-          <>
-            <Main />
-            {activeModal === 'basket' && <Basket />}
-          </>
-        } />
-        {
-          catalog.list.map(
-            item => <Route
-              key={item._key}
-              path={`/product/${item._id}`}
-              element={<ProductPage itemId={item._id} />}
-            />)}
-      </Routes>
+    <Routes>
+      <Route path="/" element={
+        <>
+          <Main />
+          {activeModal === 'basket' && <Basket />}
+        </>
+      } />
+      <Route path="/product/:itemId" element={<ProductPage />} />
+    </Routes>
   );
 }
 

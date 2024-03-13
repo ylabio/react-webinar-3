@@ -4,9 +4,9 @@ class Basket extends StoreModule {
 
   initState() {
     return {
-      list: [],
-      sum: 0,
-      amount: 0
+      list: localStorage.getItem('list') ? JSON.parse(localStorage.getItem('list')) : [],
+      sum: localStorage.getItem('sum') ? +localStorage.getItem('sum') : 0,
+      amount: localStorage.getItem('amount') ? +localStorage.getItem('amount') : 0
     }
   }
 
@@ -37,6 +37,10 @@ class Basket extends StoreModule {
       sum += item.price;
     }
 
+    localStorage.setItem('list', JSON.stringify(list));
+    localStorage.setItem('sum', JSON.stringify(sum));
+    localStorage.setItem('amount', JSON.stringify(list.length));
+
     this.setState({
       ...this.getState(),
       list,
@@ -56,6 +60,10 @@ class Basket extends StoreModule {
       sum += item.price * item.amount;
       return true;
     });
+
+    localStorage.setItem('sum', JSON.stringify(sum));
+    localStorage.setItem('amount', JSON.stringify(list.length));
+    localStorage.setItem('list', JSON.stringify(list));
 
     this.setState({
       ...this.getState(),

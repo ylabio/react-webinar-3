@@ -44,12 +44,26 @@ const enLanguage = {
   price: 'Price',
 }
 
+const language = {
+  RU: ruLanguage,
+  EN: enLanguage
+}
+
 /**
  * Хранилище состояния приложения
  */
 class Store {
 
-  constructor(initState = { language: ruLanguage }) {
+  constructor(
+    initState = {
+      language: localStorage.getItem('language')
+        ?
+        language[localStorage.getItem('language')]
+        :
+        language.RU
+    }
+  ) {
+    
     this.listeners = []; // Слушатели изменений состояния
     this.state = initState;
     /** @type {{
@@ -90,6 +104,7 @@ class Store {
    * @param newState {Object}
    */
   setState(newState, description = 'setState') {
+    /*
     console.group(
       `%c${'store.setState'} %c${description}`,
       `color: ${'#777'}; font-weight: normal`,
@@ -98,6 +113,7 @@ class Store {
     console.log(`%c${'prev:'}`, `color: ${'#d77332'}`, this.state);
     console.log(`%c${'next:'}`, `color: ${'#2fa827'}`, newState);
     console.groupEnd();
+    */
 
     this.state = newState;
     // Вызываем всех слушателей
@@ -106,6 +122,7 @@ class Store {
 
   changeLanguage() {
     const newLanguage = this.getState().language.country === 'RU' ? 'EN' : 'RU';
+    localStorage.setItem('language', newLanguage);
     this.setState({
       ...this.getState(),
       language: newLanguage === 'RU' ? ruLanguage : enLanguage

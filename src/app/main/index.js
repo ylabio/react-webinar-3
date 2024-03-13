@@ -16,7 +16,9 @@ function Main() {
   const language = useSelector(state => state.language);
 
   const [totalPages, setTotalPages] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(
+    localStorage.getItem('currentPage') ? +localStorage.getItem('currentPage') : 1
+  );
 
   useEffect(() => {
     store.actions.catalog.load((currentPage - 1) * 10);
@@ -29,7 +31,19 @@ function Main() {
       setTotalPages(calculateTotalPages(count));
     };
     fetchCount();
-  })
+  });
+  
+  useEffect(() => {
+    localStorage.setItem('currentPage', currentPage);
+
+  }, [currentPage]);
+
+  useEffect(() => {
+    const current = localStorage.getItem('currentPage');
+    if (current) {
+      setCurrentPage(+current);
+    }
+  }, []);
 
   const select = useSelector(state => ({
     list: state.catalog.list,

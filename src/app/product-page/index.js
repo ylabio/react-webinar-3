@@ -7,11 +7,16 @@ import useStore from "../../store/use-store";
 import ProductCard from "../../components/product-card";
 import useSelector from "../../store/use-selector";
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import Head from "../../components/head";
 
-function ProductPage({itemId}) {
+function ProductPage() {
+    
     const cn = bem('ProductPage');
 
     const store = useStore();
+
+    const { itemId } = useParams();
 
     const [product, setProduct] = useState({});
 
@@ -31,8 +36,13 @@ function ProductPage({itemId}) {
         fetchData();
     }, []);
 
+    if (!product) {
+        return <div>Загрузка...</div>; 
+    }
+
     return (
         <PageLayout>
+            <Head title={product?.title}/>
             <BasketTool onOpen={() => {
                 store.actions.modals.open('basket');
                 navigate('/');
