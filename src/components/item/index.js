@@ -17,9 +17,13 @@ function Item(props) {
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-              <Link to={`/items/${props.item._id}`}>
-                  {props.item.title}
-              </Link>
+              {props.linkComponent ? (
+                  props.linkComponent(props.item)
+              ) : (
+                      <Link to={props.linkUrl}>
+                      {props.item.title}
+                  </Link>
+              )}
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>

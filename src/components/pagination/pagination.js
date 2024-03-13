@@ -5,7 +5,7 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import './style.css';
 function Pagination({ currentPage, lastPage, goToPage }) {
-    const delta = 1; //количество страниц рядом с текущей по бокам
+    const delta = 1; 
     const range = [];
 
     if (lastPage > 1) {

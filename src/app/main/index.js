@@ -27,7 +27,7 @@ function Main() {
         store.actions.basket.addToBasket(_id);
     }, [store]);
     const renderItem = useCallback((item) => {
-        return <Item item={item} onAdd={addToBasket} />
+        return <Item item={item} onAdd={addToBasket} linkUrl={`/items/${item._id}`} />
     }, [addToBasket]);
     
     return (
