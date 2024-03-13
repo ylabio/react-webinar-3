@@ -1,13 +1,15 @@
 import {memo, useCallback, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
+import useStore from '../../store/use-store';
+import useSelector from '../../store/use-selector';
+import {language} from '../../language';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
-import useStore from '../../store/use-store';
-import useSelector from '../../store/use-selector';
 import Description from '../../components/description';
 import Loading from '../../components/loading';
-import {language} from '../../language';
+import Menu from '../../components/menu';
+import Navbar from '../../components/navbar';
 
 function Card () {
 
@@ -25,6 +27,7 @@ function Card () {
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.language.type,
+    langMenu: language.menu.main,
     langBasketTool: language.basketTool,
     langDescription: language.description,
     langText: language.loading.loading,
@@ -42,8 +45,11 @@ function Card () {
   return (
     <PageLayout>
       <Head title={select.card.title} changeLanguage={callbacks.changeLanguage}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+      <Navbar>
+        <Menu langMenu={select.langMenu[select.language]}/>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum} multilingualText={select.langBasketTool} language={select.language}/>
+      </Navbar>
       {select.loading 
         ? <Loading langText={select.langText[select.language]}/>
         : <Description card={select.card} onAdd={callbacks.addToBasket} 

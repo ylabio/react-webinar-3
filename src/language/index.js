@@ -2,8 +2,10 @@ export const language = {
   head : {
     title: {ru: 'Магазин', en: 'Shop'}
   },
-  basketTool: {
+  menu: {
     main: {ru: 'Главная', en: 'Main'},
+  },
+  basketTool: {
     cart: {ru: 'В корзине', en: 'In the shopping cart'},
     empty: {ru: 'пусто', en: 'empty'},
     product: {ru: 'товар', en: 'product'},

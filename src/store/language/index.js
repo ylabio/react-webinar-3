@@ -13,6 +13,8 @@ class Language extends StoreModule {
    * @param language Тип языка
    */
   changeLanguage (language) {
+
+    localStorage.setItem('language', language);
    
     this.setState({
       ...this.getState(),

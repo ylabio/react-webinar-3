@@ -19,21 +19,23 @@ class Catalog extends StoreModule {
     }
   }
 
-  async load() {
+  async load(page) {
 
+    page = +page;
     this.setState({
       ...this.getState(),
       loading: true,
-    })
+    }, 'Старт загрузки товаров из АПИ')
 
     const limit = this.getState().limit;
-    const skip = (this.getState().page - 1) * limit;
+    const skip = (page - 1) * limit;
     const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id, title, price),count`);
     const json = await response.json();
-    const numbersPages = this.getNumbersPagesArray(json.result.count);
+    const numbersPages = this.getNumbersPagesArray(json.result.count, page);
 
     this.setState({
       ...this.getState(),
+      page: page,
       list: json.result.items,
       numbersPages: numbersPages,
       loading: false,
@@ -45,7 +47,7 @@ class Catalog extends StoreModule {
     this.setState({
       ...this.getState(),
       loading: true,
-    })
+    }, 'Старт загрузки 1 товара из АПИ')
 
     const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
    
@@ -55,7 +57,7 @@ class Catalog extends StoreModule {
       ...this.getState(),
       card: json.result,
       loading: false,
-    }, 'Загружен товар из АПИ');
+    }, 'Загружен 1 товар из АПИ');
   }
 
    /**
@@ -63,11 +65,9 @@ class Catalog extends StoreModule {
    * @param totalCount Всего товаров
    * @return [Array]
    */
-   getNumbersPagesArray (totalCount) {
+   getNumbersPagesArray (totalCount, page) {
 
     const pagesArray = this.getPagesArray(totalCount, this.getState().limit);
-
-    const page = this.getState().page;
 
     const numbersPages = [
       {_id: 0, page: pagesArray[0]},
@@ -105,17 +105,17 @@ class Catalog extends StoreModule {
     return result;
   }
 
-  /**
-   * Переход на другую страницу
-   * @param page Номер страницы для перехода
-   */
-  changePage (page)  {
-    this.setState({
-      ...this.getState(),
-      page: page
-    });
-    this.load();
-  }
+  // /**
+  //  * Переход на другую страницу
+  //  * @param page Номер страницы для перехода
+  //  */
+  // changePage (page)  {
+  //   this.setState({
+  //     ...this.getState(),
+  //     page: page
+  //   });
+  //   this.load();
+  // }
 
 }
 

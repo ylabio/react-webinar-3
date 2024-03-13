@@ -1,15 +1,14 @@
-import {memo} from 'react';
+import {memo, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
+import {useNavigate} from 'react-router-dom';
 import './style.css';
 
 function ItemPagination (props) {
 
   const cn = bem('ItemPagination');
 
-  const callbacks = {
-    changePage: () => props.changePage(props.item.page)
-  };
+  const router = useNavigate();
 
     if (props.item._id === 0 || props.item._id === 1 || props.item._id === 3) {
       return (
@@ -17,7 +16,7 @@ function ItemPagination (props) {
           {(props.item._id === 0 || props.item._id === 1 && props.list[1].page || props.item._id === 3 && props.list[3].page) 
           && <button
             className={props.page === props.item.page ? cn('button active') : cn('button')} 
-            onClick={callbacks.changePage}
+            onClick={() => router(props.link)}
           >
             {props.item.page}
           </button>}
@@ -30,7 +29,7 @@ function ItemPagination (props) {
       return (
           <button 
             className={props.page === props.item.page ? cn('button active') : cn('button')}
-            onClick={callbacks.changePage}
+            onClick={() => router(props.link)}
           >
             {props.item.page}
           </button>
@@ -47,11 +46,7 @@ ItemPagination.propTypes = {
   page: PropTypes.oneOfType([
     PropTypes.string, PropTypes.number, PropTypes.bool
   ]),
-  changePage: PropTypes.func
-}
-
-ItemPagination.defaultProps = {
-  changePage: () => {}
+  link: PropTypes.string,
 }
 
 export default memo(ItemPagination);
