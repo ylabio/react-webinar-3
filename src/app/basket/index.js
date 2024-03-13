@@ -5,6 +5,8 @@ import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import ruTranslations from '../../translations/ru.json';
+import enTranslations from '../../translations/en.json';
 
 function Basket() {
 
@@ -31,12 +33,10 @@ function Basket() {
     }, [callbacks.removeFromBasket]),
   };
 
-  const title = useMemo(() => {
-    return select.lang === 'ru' ? 'Корзина' : 'Basket';
-  }, [select.lang]);
+  const language = select.lang === 'ru' ? ruTranslations : enTranslations;
 
   return (
-    <ModalLayout title={title} onClose={callbacks.closeModal} lang={select.lang}>
+    <ModalLayout title={language['basket.title']} onClose={callbacks.closeModal} lang={select.lang}>
       <List list={select.list} renderItem={renders.itemBasket} />
       <BasketTotal sum={select.sum} lang={select.lang} />
     </ModalLayout>

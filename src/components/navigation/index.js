@@ -4,20 +4,19 @@ import { cn as bem } from '@bem-react/classname';
 import BreadCrumbs from "../bread-crumbs";
 import BasketTool from '../basket-tool'
 import './style.css';
+import ruTranslations from '../../translations/ru.json';
+import enTranslations from '../../translations/en.json';
+
 
 function Navigation({ lang, onOpen, amount, sum }) {
   const cn = bem('Navigation');
 
-  const language = useMemo(() => {
-    return {
-      title: lang === 'ru' ? 'Главная' : 'Main'
-    }
-  }, [lang]);
+  const language = lang === 'ru' ? ruTranslations : enTranslations;
 
   return (
     <div className={cn()}>
-      <BreadCrumbs title={language.title} link='/' />
-      <BasketTool language={lang} onOpen={onOpen} amount={amount}
+      <BreadCrumbs title={language.main} link='/' />
+      <BasketTool lang={lang} onOpen={onOpen} amount={amount}
         sum={sum} />
     </div>
   );

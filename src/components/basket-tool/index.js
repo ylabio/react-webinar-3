@@ -3,48 +3,35 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from "../../utils";
 import './style.css';
+import ruTranslations from '../../translations/ru.json';
+import enTranslations from '../../translations/en.json';
 
-function BasketTool({ language, sum, amount, onOpen }) {
+function BasketTool({ lang, sum, amount, onOpen }) {
   const cn = bem('BasketTool');
 
+  const language = lang === 'ru' ? ruTranslations : enTranslations;
+
   const total = useMemo(() => {
-    return language === 'ru'
-      ? amount
-        ? `${amount} ${plural(amount, {
-          one: 'товар',
-          few: 'товара',
-          many: 'товаров',
-        })} / ${numberFormat(sum)} ₽`
-        : 'пусто'
-      : amount
-        ? `${amount} ${plural(amount, {
-          one: 'article',
-          few: 'articles',
-          many: 'articles',
-        })} / ${numberFormat(sum)} ₽`
-        : 'empty';
-  }, [language, amount, sum]);
-
-  const inCart = useMemo(() => {
-    return language === 'ru'
-      ? 'В корзине:'
-      : 'In cart:'
-  }, [language]);
-
-  const open = useMemo(() => {
-    return language === 'ru'
-      ? 'Перейти'
-      : 'Open'
-  }, [language]);
-
+    if (amount) {
+      const itemWord = plural(amount, {
+        one: language["basket.articles"]["one"],
+        few: language["basket.articles"]["few"],
+        many: language["basket.articles"]["many"],
+        other: language["basket.articles"]["other"],
+      }, lang);
+      return `${amount} ${itemWord} / ${numberFormat(sum)} ₽`;
+    } else {
+      return language['basket.empty'];
+    }
+  }, [lang, amount, sum]);
 
   return (
     <div className={cn()}>
-      <span className={cn('label')}>{inCart}</span>
+      <span className={cn('label')}>{language["basket.inBasket"]}</span>
       <span className={cn('total')}>
         {total}
       </span>
-      <button onClick={onOpen}>{open}</button>
+      <button onClick={onOpen}>{language["basket.open"]}</button>
     </div>
   );
 }
@@ -53,14 +40,14 @@ BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
-  language: PropTypes.string
+  lang: PropTypes.string
 };
 
 BasketTool.defaultProps = {
   onOpen: () => { },
   sum: 0,
   amount: 0,
-  language: 'ru'
+  lang: 'ru'
 }
 
 export default memo(BasketTool);

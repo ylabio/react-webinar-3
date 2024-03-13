@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from "../../utils";
 import './style.css';
+import ruTranslations from '../../translations/ru.json';
+import enTranslations from '../../translations/en.json';
 
 function Item(props) {
 
@@ -13,9 +15,8 @@ function Item(props) {
     onAdd: (e) => props.onAdd(props.item._id)
   }
 
-  const button = useMemo(() => {
-    return props.lang === 'ru' ? 'Добавить' : 'Add'
-  }, [props.lang]);
+  const language = props.lang === 'ru' ? ruTranslations : enTranslations;
+
 
   return (
     <div className={cn()}>
@@ -25,7 +26,7 @@ function Item(props) {
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>{button}</button>
+        <button onClick={callbacks.onAdd}>{language["article.add"]}</button>
       </div>
     </div>
   );

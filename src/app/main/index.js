@@ -8,6 +8,8 @@ import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
 import Navigation from '../../components/navigation';
 import { useParams } from "react-router-dom";
+import ruTranslations from '../../translations/ru.json';
+import enTranslations from '../../translations/en.json';
 
 function Main() {
 
@@ -47,11 +49,7 @@ function Main() {
     }, [callbacks.addToBasket, select.lang]),
   };
 
-  const language = useMemo(() => {
-    return {
-      title: select.lang === 'ru' ? 'Магазин' : 'Shop'
-    }
-  }, [select.lang]);
+  const language = select.lang === 'ru' ? ruTranslations : enTranslations;
 
   return (
     <PageLayout>

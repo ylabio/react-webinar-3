@@ -5,6 +5,8 @@ import { cn as bem } from "@bem-react/classname";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import './style.css';
+import ruTranslations from '../../translations/ru.json';
+import enTranslations from '../../translations/en.json';
 
 function ItemBasket(props) {
 
@@ -14,12 +16,7 @@ function ItemBasket(props) {
     onRemove: (e) => props.onRemove(props.item._id)
   };
 
-  const language = useMemo(() => {
-    return {
-      button: props.lang === 'ru' ? 'Удалить' : 'Delete',
-      pcs: props.lang === 'ru' ? 'шт' : 'pcs',
-    }
-  }, [props.lang]);
+  const language = props.lang === 'ru' ? ruTranslations : enTranslations;
 
   return (
     <div className={cn()}>
@@ -29,9 +26,9 @@ function ItemBasket(props) {
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {language.pcs}</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {language['basket.unit']}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>{language.button}</button>
+          <button onClick={callbacks.onRemove}>{language['basket.delete']}</button>
         </div>
       </div>
     </div>
