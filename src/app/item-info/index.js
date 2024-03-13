@@ -7,33 +7,27 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import ItemCard from "../../components/item-card";
 import { useParams } from "react-router-dom";
-import fetchData from "../../api/fetch-data";
-
-let resourse;
+import Loader from "../../components/loader";
 
 function ItemInfo() {
   const { itemId } = useParams();
-
-  if (!resourse) {
-    resourse = fetchData(
-      `/api/v1/articles/${itemId}?fields=*,madeIn(title,code),category(title)`
-    );
-  }
-
-  const item = resourse.read();
-
-  useEffect(() => {
-    return () => {
-      resourse = null;
-    };
-  }, []);
 
   const store = useStore();
 
   const select = useSelector((state) => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
+    item: state.catalog.currentProduct,
+    productIsLoading: state.catalog.productIsLoading,
   }));
+
+  useEffect(() => {
+    store.actions.catalog.loadFullProductData(itemId);
+
+    return () => {
+      store.actions.catalog.setProductIsLoading();
+    };
+  }, [itemId]);
 
   const callbacks = {
     // Добавление в корзину
@@ -49,17 +43,23 @@ function ItemInfo() {
   };
 
   return (
-    <PageLayout>
-      <Head title={item.title} />
-      <Navbar navList={[{ name: "Главная", path: "/" }]}>
-        <BasketTool
-          onOpen={callbacks.openModalBasket}
-          amount={select.amount}
-          sum={select.sum}
-        />
-      </Navbar>
-      <ItemCard item={item} onAdd={callbacks.addToBasket} />
-    </PageLayout>
+    <>
+      {!select.productIsLoading ? (
+        <PageLayout>
+          <Head title={select.item.title} />
+          <Navbar navList={[{ name: "Главная", path: "/" }]}>
+            <BasketTool
+              onOpen={callbacks.openModalBasket}
+              amount={select.amount}
+              sum={select.sum}
+            />
+          </Navbar>
+          <ItemCard item={select.item} onAdd={callbacks.addToBasket} />
+        </PageLayout>
+      ) : (
+        <Loader />
+      )}
+    </>
   );
 }
 

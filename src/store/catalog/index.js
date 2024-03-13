@@ -13,26 +13,57 @@ class Catalog extends StoreModule {
       itemsCount: 0,
       currentPage: 1,
       itemsPerPage: 10,
+      currentProduct: null,
+      listIsLoading: false,
+      productIsLoading: true,
     };
   }
 
-  async load(skip = 0, limit = 10) {
+  async loadCatalog({ skip, limit }) {
+    this.setState({
+      ...this.getState(),
+      listIsLoading: true,
+    });
+
     const response = await fetch(
       `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id, title, price),count`
     );
-    const json = await response.json();
+    const { result } = await response.json();
+
     this.setState(
       {
         ...this.getState(),
-        list: json.result.items,
-        itemsCount: json.result.count,
+        list: result.items,
+        itemsCount: result.count,
+        listIsLoading: false,
       },
       "Загружены товары и их количество из АПИ"
     );
   }
+  async loadFullProductData(productId) {
+    this.setState({
+      ...this.getState(),
+      productIsLoading: true,
+    });
+
+    const response = await fetch(
+      `/api/v1/articles/${productId}?fields=*,madeIn(title,code),category(title)`
+    );
+    const { result } = await response.json();
+
+    this.setState({
+      ...this.getState(),
+      currentProduct: { ...result },
+      productIsLoading: false,
+    });
+  }
 
   changePage(pageNumber) {
     this.setState({ ...this.getState(), currentPage: pageNumber });
+  }
+
+  setProductIsLoading() {
+    this.setState({ ...this.getState(), productIsLoading: true });
   }
 }
 

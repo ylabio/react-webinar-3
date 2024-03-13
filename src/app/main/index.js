@@ -27,7 +27,7 @@ function Main() {
   useEffect(() => {
     const skip = (select.currentPage - 1) * select.itemsPerPage;
 
-    store.actions.catalog.load(skip);
+    store.actions.catalog.loadCatalog({ skip, limit: select.itemsPerPage });
   }, [select.currentPage]);
 
   const callbacks = {

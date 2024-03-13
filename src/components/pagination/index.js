@@ -11,7 +11,13 @@ function Pagination({ currentPage, pagesCount, onPageChange }) {
   const [pages, setPages] = useState([]);
 
   const callbacks = {
-    onPageChange: (event) => onPageChange(parseInt(event.target.innerText, 10)),
+    onPageChange: (event) => {
+      const nextPage = parseInt(event.target.innerText, 10);
+
+      if (nextPage !== currentPage) {
+        onPageChange(nextPage);
+      }
+    },
     constructPageArray: useCallback(
       (currentPage, pagesCount) => constructPageArray(currentPage, pagesCount),
       [currentPage, pagesCount]
