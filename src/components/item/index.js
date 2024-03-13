@@ -1,26 +1,24 @@
-import { memo, useState } from "react";
+import { memo } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from "../../utils";
 import './style.css';
-import { Link } from "react-router-dom";
 
 function Item(props) {
+  const { pageLink = "product" } = props;
 
   const cn = bem('Item');
 
   const callbacks = {
     onAdd: (e) => props.onAdd(props.item._id)
-  }
+  };
+
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <Link to={`/product/${props.item._id}`} className={cn('title')}>
+      <Link to={`/${pageLink}/${props.item._id}`} className={cn('title')}>
         {props.item.title}
       </Link>
-      {/* <div className={cn('title')}>
-        {props.item.title}
-      </div> */}
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
         <button onClick={callbacks.onAdd}>{props.translations}</button>
@@ -37,10 +35,12 @@ Item.propTypes = {
   }).isRequired,
   onAdd: PropTypes.func,
   translations: PropTypes.string,
+  pageLink: PropTypes.string,
 };
 
 Item.defaultProps = {
   onAdd: () => { },
+  pageLink: "product",
 }
 
 export default memo(Item);

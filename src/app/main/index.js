@@ -7,7 +7,7 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
-import { language } from '../../store/exports';
+import translations from '../../components/language/library';
 
 
 function Main() {
@@ -26,7 +26,6 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.language.language,
-    translations: state.language.translations
   }));
 
   const callbacks = {
@@ -41,18 +40,17 @@ function Main() {
     // Изменения языка приложения
     setLanguage: useCallback(language => store.actions.language.setLanguage(language), [store])
   }
-
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} translations={select.translations[select.language].add} onAdd={callbacks.addToBasket} />
+      return <Item item={item} translations={translations[select.language].add} onAdd={callbacks.addToBasket} pageLink={"product"} />
     }, [callbacks.addToBasket, select.language]),
   };
 
   return (
     <PageLayout>
-      <Head title={select.translations[select.language].headerTitle} setLanguage={callbacks.setLanguage} language={select.language} />
+      <Head title={translations[select.language].headerTitle} setLanguage={callbacks.setLanguage} language={select.language} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-        sum={select.sum} language={select.translations[select.language]} />
+        sum={select.sum} language={translations[select.language]} />
       <List list={select.list} renderItem={renders.item} />
       <Pagination currentPage={select.currentPage} lastPage={select.lastPage} setCurrentPage={callbacks.setCurrentPage} />
     </PageLayout>

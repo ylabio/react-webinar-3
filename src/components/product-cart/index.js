@@ -11,30 +11,29 @@ function ProductCart({ product, onAdd }) {
   };
 
   useEffect(() => {
-    const fetchCountryName = async (id) => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(`api/v1/countries/${id}?lang=ru&fields=%2A`);
-        const { result } = await response.json();
-        return result;
-      } catch (error) {
-        console.log(error);
-      }
-    };
+        const [countryResponse, categoryResponse] = await Promise.all([
+          fetch(`api/v1/countries/${product.madeIn._id}?lang=ru&fields=%2A`),
+          fetch(`api/v1/categories/${product.category._id}?lang=ru&fields=%2A`),
+        ]);
 
-    const fetchCategoryName = async (id) => {
-      try {
-        const response = await fetch(`api/v1/categories/${id}?lang=ru&fields=%2A`);
-        const { result } = await response.json();
-        return result;
+        const [countryData, categoryData] = await Promise.all([
+          countryResponse.json(),
+          categoryResponse.json(),
+        ]);
+
+        setCountryName(countryData.result.title);
+        setCategoryName(categoryData.result.title);
       } catch (error) {
         console.log(error);
       }
     };
 
     if (product?.madeIn?._id && product?.category?._id) {
-      fetchCategoryName(product?.category._id).then(({ title }) => setCategoryName(title));
-      fetchCountryName(product?.madeIn._id).then(({ title }) => setCountryName(title));
+      fetchData();
     }
+
   }, [product]);
 
   return (

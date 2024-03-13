@@ -48,6 +48,9 @@ function Pagination({ currentPage = 0, lastPage = 0, setCurrentPage }) {
         );
       }
     }
+    if (currentPage === lastPage) {
+      items.splice(-2, 0, <li className='Pagination-item' onClick={() => setCurrentPage(lastPage - 2)} key={lastPage - 2}>{lastPage - 2}</li>)
+    }
 
     // Если текущая страница меньше предпоследней, добавляем "..." после текущей страницы
     if (currentPage < lastPage - 2) {

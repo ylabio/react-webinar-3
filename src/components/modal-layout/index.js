@@ -6,6 +6,7 @@ import './style.css';
 function ModalLayout(props) {
 
   const cn = bem('ModalLayout');
+  const { title, close } = props.translations
 
   // Корректировка центра, если модалка больше окна браузера.
   const layout = useRef();
@@ -31,8 +32,8 @@ function ModalLayout(props) {
     <div className={cn()} ref={layout}>
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
-          <h1 className={cn('title')}>{props.title}</h1>
-          <button className={cn('close')} onClick={props.onClose}>{props.translations}</button>
+          <h1 className={cn('title')}>{title}</h1>
+          <button className={cn('close')} onClick={props.onClose}>{close}</button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -43,14 +44,19 @@ function ModalLayout(props) {
 }
 
 ModalLayout.propTypes = {
-  title: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
-  translations: PropTypes.string,
+  translations: PropTypes.shape({
+    title: PropTypes.string,
+    close: PropTypes.string,
+  }),
 };
 
 ModalLayout.defaultProps = {
-  title: 'Модалка',
+  translations: {
+    title: 'Модалка',
+    close: 'Закрыть',
+  },
   onClose: () => { }
 };
 

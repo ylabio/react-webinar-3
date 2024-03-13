@@ -6,21 +6,21 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import { useParams } from 'react-router-dom';
 import ProductCart from '../../components/product-cart';
+import translations from '../../components/language/library';
 
 function Product() {
   const store = useStore();
   const { id } = useParams();
-
   useEffect(() => {
-    store.actions.catalog.loadById(id);
+    store.actions.product.loadById(id);
   }, [id, store.actions.catalog]);
 
+
   const select = useSelector(state => ({
-    product: state.catalog.product,
+    product: state.product,
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.language.language,
-    translations: state.language.translations
   }));
 
   const callbacks = {
@@ -28,13 +28,18 @@ function Product() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Закрытие модалки
+    closeModal: useCallback(() => store.actions.modals.close(), [store]),
+    // Изменения языка приложения
+    setLanguage: useCallback(language => store.actions.language.setLanguage(language), [store])
   };
+
 
   return (
     <PageLayout>
-      <Head title={select.product?.title} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.translations[select.language]} />
-      <ProductCart product={select?.product} onAdd={callbacks.addToBasket} />
+      <Head title={select.product.title} setLanguage={callbacks.setLanguage} language={select.language} />
+      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={translations[select.language]} />
+      {select.product._id && <ProductCart product={select.product} onAdd={callbacks.addToBasket} />}
     </PageLayout>
   );
 }

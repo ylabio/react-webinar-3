@@ -1,15 +1,30 @@
 .Pagination {
   display: flex;
-  gap: 10px;
+  gap: 1px;
   justify-content: end;
   list-style: none;
   padding-right: 20px;
+}
+.Pagination li:nth-child(-n + 2) {
+  min-width: 20px;
+}
+.Pagination-item--active {
+  font-weight: 400;
+  font-size: 16px;
+
+  background-color: #0087e9;
+  min-width: 24px;
+  height: 20px;
+  color: #fff;
+  text-align: center;
+
+  cursor: pointer;
 }
 
 .Pagination-item {
   color: black;
 
-  width: 20px;
+  min-width: 24px;
   height: 20px;
   text-align: center;
 
@@ -19,19 +34,8 @@
   }
 }
 
-.Pagination-item--active {
-  font-weight: 400;
-  font-size: 16px;
-
-  background-color: #0087e9;
-  width: 20px;
-  height: 20px;
-  color: #fff;
-  text-align: center;
-
-  cursor: pointer;
-}
-
 .Pagination-ellipsis {
   color: #cccccc;
+  text-align: center;
+  width: 20px;
 }
