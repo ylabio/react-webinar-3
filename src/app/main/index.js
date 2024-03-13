@@ -2,11 +2,11 @@ import {memo, useCallback, useEffect, useState} from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
-import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
+import Panel from '../../components/panel';
 
 function Main() {
   const store = useStore();
@@ -60,7 +60,7 @@ function Main() {
     <PageLayout>
       <Head title='Магазин' switchLang={callbacks.switchLang}
       lang={select.lang} />
-      <BasketTool onOpen={callbacks.openModalBasket} 
+      <Panel onOpen={callbacks.openModalBasket} 
                   amount={select.amount} 
                   sum={select.sum}
                   paginate={paginate}

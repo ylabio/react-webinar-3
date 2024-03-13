@@ -1,11 +1,11 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useMemo, useState} from 'react'
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
-import BasketTool from '../../components/basket-tool';
 import Description from '../../components/order-description';
 import {useParams} from 'react-router-dom';
+import Panel from '../../components/panel';
 
 
 function AboutOrder() {
@@ -27,7 +27,7 @@ function AboutOrder() {
 
   const { id } = useParams();
 
-  useEffect(() => {
+  useMemo(() => {
     store.actions.order.loadOrderInfo(id);
   }, [id]);
 
@@ -38,7 +38,7 @@ function AboutOrder() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     switchLang: useCallback(() => store.actions.translation.switchLang(), [select.lang]),
   }
-console.log(callbacks.switchLang, 'ABOUT')
+
   const [currentPage, setCurrentPage] = useState(1);
   // Изменить страницу
   const paginate = pageNumber => setTimeout(() => {setCurrentPage(pageNumber)}, 500)
@@ -46,7 +46,7 @@ console.log(callbacks.switchLang, 'ABOUT')
   return (
       <PageLayout>
       <Head title={select.title} switchLang={callbacks.switchLang} lang={select.lang}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} paginate={paginate}/>
+      <Panel onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} paginate={paginate}/>
       <Description addToBasket={callbacks.addToBasket}
                     madeIn={select.madeIn}
                     category={select.category}

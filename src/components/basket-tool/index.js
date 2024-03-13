@@ -3,17 +3,14 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
-import {Link} from "react-router-dom";
 import { content } from "../../store/translation/content";
 
 
-function BasketTool({sum, amount, onOpen, lang, paginate}) {
+function BasketTool({sum, amount, onOpen, lang}) {
   const cn = bem('BasketTool');
 
   return (
     <div className={cn()}>
-      <Link to={"/"} className={cn('home')} onClick={() => {paginate(1)}}>{content[lang].main}</Link>
-      {/* <a href='/' className={cn('home')}>Главная</a> */}
       <span className={cn('label')} >{content[lang].inBasket}</span>
       <span className={cn('total')}>
         {amount
@@ -35,7 +32,6 @@ BasketTool.propTypes = {
   sum: PropTypes.number,
   amount: PropTypes.number,
   lang: PropTypes.string,
-  paginate: PropTypes.func.isRequired
 };
 
 BasketTool.defaultProps = {
@@ -43,7 +39,6 @@ BasketTool.defaultProps = {
   sum: 0,
   amount: 0,
   lang: 'ru',
-  paginate: () => {},
 }
 
 export default memo(BasketTool);

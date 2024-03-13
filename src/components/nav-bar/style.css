@@ -1,0 +1,9 @@
+.NavBar {
+  margin-right: auto;
+  display: flex;
+}
+
+.NavBar-home {
+  color: #0087E9;
+  padding: 20px 10px 20px 20px;
+}
