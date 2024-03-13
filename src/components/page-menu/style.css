@@ -1,0 +1,12 @@
+.PageMenu {
+  position: relative;
+}
+
+.PageMenu-link {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+
+  font-size: 18px;
+  color: #0087E9;
+}

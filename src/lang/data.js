@@ -1,4 +1,8 @@
 export const lang = {
+  loader: {
+    ru: 'Загрузка...',
+    en: 'Loading...'
+  },
   headers: {
     main: {
       ru: 'Магазин',
@@ -13,7 +17,7 @@ export const lang = {
       en: 'Close'
     },
     toHome: {
-      ru: 'На главную',
+      ru: 'Главная',
       en: 'Home'
     }
   },
@@ -50,6 +54,10 @@ export const lang = {
         one: 'item',
         other: 'items'
       }
+    },
+    locale: {
+      ru: 'ru-RU',
+      en: 'en-US'
     }
   },
   basketTotal: {

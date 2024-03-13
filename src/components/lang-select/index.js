@@ -1,20 +1,13 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import './style.css'
-import useStore from "../../store/use-store";
 import PropTypes from "prop-types";
 
-const LangSelect = ({ lang }) => {
+const LangSelect = ({ lang, changeLang }) => {
   const [selectedLang, setSelectedLang] = useState(lang)
-
-  const store = useStore()
-
-  const callbacks = {
-    changeLang: useCallback((lang) => store.actions.lang.changeLang(lang), [store])
-  }
 
   const onSelectChange = (e) => {
     setSelectedLang(e.target.value)
-    callbacks.changeLang(e.target.value)
+    changeLang(e.target.value)
   }
 
   return (
@@ -30,7 +23,12 @@ const LangSelect = ({ lang }) => {
 };
 
 LangSelect.propTypes = {
-  lang: PropTypes.string
+  lang: PropTypes.string,
+  changeLang: PropTypes.func
+}
+
+LangSelect.defaultProps = {
+  changeLang: () => {}
 }
 
 export default React.memo(LangSelect);

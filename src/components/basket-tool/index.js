@@ -7,31 +7,17 @@ import {lang as langData} from '../../lang/data'
 
 function BasketTool({sum, amount, onOpen, lang}) {
 
-  const lng = lang === 'ru' ? {
-    title: langData.basketTool.title.ru,
-    items: langData.basketTool.items.ru,
-    locale: 'ru-RU',
-    empty: langData.basketTool.empty.ru,
-    btn: langData.basketTool.button.ru
-  } : {
-    title: langData.basketTool.title.en,
-    items: langData.basketTool.items.en,
-    locale: 'en-US',
-    empty: langData.basketTool.empty.en,
-    btn: langData.basketTool.button.en
-  }
-
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <span className={cn('label')}>{lng.title}</span>
+      <span className={cn('label')}>{langData.basketTool.title[lang]}</span>
       <span className={cn('total')}>
         {amount
-          ? `${amount} ${plural(amount, lng.items, lng.locale)} / ${numberFormat(sum)} ₽`
-          : `${lng.empty}`
+          ? `${amount} ${plural(amount, langData.basketTool.items[lang], langData.basketTool.locale[lang])} / ${numberFormat(sum)} ₽`
+          : `${langData.basketTool.empty[lang]}`
         }
       </span>
-      <button onClick={onOpen}>{lng.btn}</button>
+      <button onClick={onOpen}>{langData.basketTool.button[lang]}</button>
     </div>
   );
 }

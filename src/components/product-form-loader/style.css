@@ -1,0 +1,22 @@
+.ProductFormLoader-body {
+  padding: 20px;
+
+  font-size: 18px;
+}
+
+.ProductFormLoader-body span {
+  color: #ccc;
+}
+
+.ProductFormLoader-made,
+.ProductFormLoader-cat,
+.ProductFormLoader-year,
+.ProductFormLoader-price,
+.ProductFormLoader-btn {
+  margin-top: 10px;
+}
+
+.ProductFormLoader-price {
+  font-weight: 700;
+  font-size: 24px;
+}

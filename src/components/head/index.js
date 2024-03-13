@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import './style.css';
 import {lang as langData} from '../../lang/data'
 
-function Head({title, lang, inItemPage}) {
+function Head({title, lang, inProductPage}) {
   return (
     <div className='Head'>
       <h1>
-        {inItemPage
+        {inProductPage
           ? title
-          : lang === 'ru' ? langData.headers.main.ru : langData.headers.main.en
+          : langData.headers.main[lang]
         }
       </h1>
     </div>
@@ -18,7 +18,8 @@ function Head({title, lang, inItemPage}) {
 
 Head.propTypes = {
   title: PropTypes.node,
-  lang: PropTypes.string
+  lang: PropTypes.string,
+  inProductPage: PropTypes.bool
 };
 
 export default memo(Head);

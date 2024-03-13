@@ -9,7 +9,7 @@ function BasketTotal({sum, lang}) {
   const cn = bem('BasketTotal');
   return (
     <div className={cn()}>
-      <span className={cn('cell')}>{lang === 'ru' ? langData.basketTotal.title.ru : langData.basketTotal.title.en}</span>
+      <span className={cn('cell')}>{langData.basketTotal.title[lang]}</span>
       <span className={cn('cell')}> {numberFormat(sum)} ₽</span>
       <span className={cn('cell')}></span>
     </div>

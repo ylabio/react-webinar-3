@@ -17,7 +17,7 @@ function Item(props) {
   }
 
   const onItemClick = () => {
-    navigate(`/items/${props.item._id}`)
+    navigate(props.link)
   }
 
   return (
@@ -28,7 +28,7 @@ function Item(props) {
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>{props.lang === 'ru' ? langData.buttons.add.ru : langData.buttons.add.en}</button>
+        <button onClick={callbacks.onAdd}>{langData.buttons.add[props.lang]}</button>
       </div>
     </div>
   );
@@ -38,9 +38,10 @@ Item.propTypes = {
   item: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
-    lang: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
+  lang: PropTypes.string,
+  link: PropTypes.string,
   onAdd: PropTypes.func,
 };
 

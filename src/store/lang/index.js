@@ -4,7 +4,7 @@ class Lang extends StoreModule {
 
   initState() {
     return {
-      lang: 'ru'
+      lang: localStorage.getItem('locale') || 'ru'
     }
   }
 
@@ -13,6 +13,8 @@ class Lang extends StoreModule {
       ...this.getState(),
       lang,
     }, 'Изменение языка')
+
+    localStorage.setItem('locale', lang)
   }
 }
 

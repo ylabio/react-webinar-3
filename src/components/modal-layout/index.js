@@ -28,20 +28,12 @@ function ModalLayout(props) {
     }
   }, []);
 
-  const lng = props.lang === 'ru' ? {
-    title: langData.headers.basket.ru,
-    btn: langData.headers.button.ru,
-  } : {
-    title: langData.headers.basket.en,
-    btn: langData.headers.button.en,
-  }
-
   return (
     <div className={cn()} ref={layout}>
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
-          <h1 className={cn('title')}>{lng.title}</h1>
-          <button className={cn('close')} onClick={props.onClose}>{lng.btn}</button>
+          <h1 className={cn('title')}>{langData.headers.basket[props.lang]}</h1>
+          <button className={cn('close')} onClick={props.onClose}>{langData.headers.button[props.lang]}</button>
         </div>
         <div className={cn('content')}>
           {props.children}

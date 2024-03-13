@@ -11,17 +11,35 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
-      count: 0
+      loading: false,
+      currentPage: 0,
+      count: 0,
+      totalPages: 0
     }
   }
 
   async load(page = 0) {
+    this.setState({
+      ...this.getState(),
+      loading: true,
+    }, 'Загрузка данных начата')
+
     const response = await fetch(`/api/v1/articles?limit=10${page > 0 ? `&skip=${page * 10}` : ''}`);
     const json = await response.json();
     this.setState({
       ...this.getState(),
-      list: json.result.items
+      list: json.result.items,
+      loading: false
     }, 'Загружены товары из АПИ');
+  }
+
+  changePage(page) {
+    this.setState({
+      ...this.getState(),
+      currentPage: page
+    }, 'Изменена текущая страница')
+
+    this.load(this.getState().currentPage)
   }
 
   async getCount() {
@@ -32,6 +50,13 @@ class Catalog extends StoreModule {
       ...this.getState(),
       count: json.result.count
     }, 'Получено количество всех товаров')
+  }
+
+  getTotalPages() {
+    this.setState({
+      ...this.getState(),
+      totalPages: Math.ceil(this.getState().count / 10)
+    }, 'Получено количество всех страниц')
   }
 }
 

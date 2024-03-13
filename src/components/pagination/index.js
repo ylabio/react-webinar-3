@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './style.css'
 import PropTypes from "prop-types";
 
-const Pagination = ({ currentPage, setCurrentPage, count }) => {
+const Pagination = ({ currentPage, changePage, totalPages, count }) => {
 
   const [pages, setPages] = useState([]);
 
@@ -11,7 +11,7 @@ const Pagination = ({ currentPage, setCurrentPage, count }) => {
   }, [currentPage, count]);
 
   const renderPages = () => {
-    const last = Math.ceil(count / 10) - 1
+    const last = totalPages - 1
     let pages
 
     if ((currentPage >= 0) && (currentPage < 2)) {
@@ -30,7 +30,7 @@ const Pagination = ({ currentPage, setCurrentPage, count }) => {
   }
 
   const loadByPage = (page) => {
-    setCurrentPage(page)
+    changePage(page)
   }
 
   return (
@@ -57,8 +57,9 @@ const Pagination = ({ currentPage, setCurrentPage, count }) => {
 
 Pagination.propTypes = {
   currentPage: PropTypes.number.isRequired,
-  setCurrentPage: PropTypes.func.isRequired,
-  count: PropTypes.number.isRequired
+  changePage: PropTypes.func.isRequired,
+  count: PropTypes.number.isRequired,
+  totalPages: PropTypes.number
 }
 
 export default React.memo(Pagination);
