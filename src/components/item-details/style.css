@@ -1,0 +1,12 @@
+.ItemDetails {
+    padding: 20px 40px;
+}
+
+.ItemDetails * {
+    margin-bottom: 20px;
+}
+
+.ItemDetails-price {
+    font-size: 24px;
+    font-weight: 700;
+}

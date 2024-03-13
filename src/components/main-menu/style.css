@@ -1,0 +1,11 @@
+.MainMenu {
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.MainMenu-link {
+  align-self: flex-start;
+  color: #0087E9;
+}

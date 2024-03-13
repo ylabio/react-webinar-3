@@ -1,0 +1,22 @@
+{
+	"Shop": "Shop",
+	"Cart": "Cart",
+	"Main": "Main",
+	"In_cart": "In cart",
+	"empty": "empty",
+	"product": {
+		"one": "product",
+		"few": "products",
+		"many": "products"
+	},
+	"Country_of_origin": "Country of origin",
+	"Category": "Category",
+	"Year_of_production": "Year of production",
+	"Price": "Price",
+	"Add": "Add",
+	"Delete": "Delete",
+	"Navigate": "Navigate",
+	"Close": "Close",
+	"Total": "Total",
+	"pcs": "pcs"
+}
