@@ -3,8 +3,10 @@ import { cn as bem } from "@bem-react/classname";
 import { numberFormat } from "../../utils";
 import PropTypes from "prop-types";
 
+import "./style.css";
+
 function ItemCard({ item, onAdd }) {
-  const cn = bem("Card_item");
+  const cn = bem("ItemCard");
 
   const callbacks = {
     onAdd: () => onAdd(item._id),
@@ -28,10 +30,13 @@ function ItemCard({ item, onAdd }) {
         </li>
         <li className={cn("price")}>
           Цена:&nbsp;
-          {numberFormat(item.price, { style: "currency", currency: "rub" })}
+          {numberFormat(item.price, undefined, {
+            style: "currency",
+            currency: "RUB",
+          })}
         </li>
       </ul>
-      <button type="button" onClick={callbacks.onAdd}>
+      <button type="button" onClick={callbacks.onAdd} className={cn("addBtn")}>
         Добавить
       </button>
     </div>

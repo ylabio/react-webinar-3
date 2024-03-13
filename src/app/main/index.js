@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -8,11 +8,14 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Navbar from "../../components/navbar";
 import { useNavigate } from "react-router-dom";
+import Pagination from "../../components/pagination";
 
 function Main() {
   const store = useStore();
 
   const navigate = useNavigate();
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     store.actions.catalog.load();
@@ -22,6 +25,8 @@ function Main() {
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    itemsCount: state.catalog.itemsCount,
+    itemsPerPage: state.catalog.itemsPerPage,
   }));
 
   const callbacks = {
@@ -39,6 +44,17 @@ function Main() {
     navigateToItemPage: useCallback(
       (_id) => navigate(`item/${_id}`),
       [navigate]
+    ),
+
+    changePage: useCallback(
+      (pageNumber) => {
+        const skip = (pageNumber - 1) * select.itemsPerPage;
+
+        store.actions.catalog.load(skip);
+
+        setCurrentPage(() => pageNumber);
+      },
+      [store]
     ),
   };
 
@@ -68,6 +84,11 @@ function Main() {
         />
       </Navbar>
       <List list={select.list} renderItem={renders.item} />
+      <Pagination
+        currentPage={currentPage}
+        pagesCount={Math.ceil(select.itemsCount / 10)}
+        onPageChange={callbacks.changePage}
+      />
     </PageLayout>
   );
 }
