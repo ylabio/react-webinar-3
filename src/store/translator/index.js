@@ -24,6 +24,8 @@ class Translator extends StoreModule {
 
       if (translation[currentLang][text]) {
         return translation[currentLang][text];
+      } else {
+        return text;
       }
     };
   }

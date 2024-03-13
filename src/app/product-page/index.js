@@ -1,5 +1,5 @@
 import { memo, useEffect, useCallback } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import PageLayout from "../../components/page-layout";
@@ -12,11 +12,21 @@ import "./style.css";
 function ProductPage() {
   const { id } = useParams();
   const store = useStore();
-  const t = store.actions.translator.useTranslate();
+  const useTranslate = store.actions.translator.useTranslate();
 
   useEffect(() => {
     if (id !== select.product._id) store.actions.product.load(id);
   }, []);
+
+  const activeModal = useSelector((state) => state.modals.name);
+
+  const select = useSelector((state) => ({
+    product: state.product,
+    status: state.product.status,
+    amount: state.basket.amount,
+    sum: state.basket.sum,
+    lang: state.translator.language,
+  }));
 
   const callbacks = {
     // Добавление в корзину
@@ -29,17 +39,16 @@ function ProductPage() {
       () => store.actions.modals.open("basket"),
       [store]
     ),
+
+    useTranslate: useCallback(
+      (text) => useTranslate(text),
+      [store, select.lang]
+    ),
+
+    langChange: useCallback(() => {
+      store.actions.translator.langChange();
+    }, [store]),
   };
-
-  const activeModal = useSelector((state) => state.modals.name);
-
-  const select = useSelector((state) => ({
-    product: state.product,
-    status: state.product.status,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
-    lang: state.translator.language,
-  }));
 
   return (
     <>
@@ -50,15 +59,23 @@ function ProductPage() {
           "Loading..."
         ) : (
           <>
-            <Head title={select.product.title} />
+            <Head
+              title={select.product.title}
+              lang={select.lang}
+              langChange={callbacks.langChange}
+              useTranslate={callbacks.useTranslate}
+            />
             <BasketTool
               onOpen={callbacks.openModalBasket}
               amount={select.amount}
               sum={select.sum}
-            >
-              <Link to={"/"}>{t("Главная")}</Link>
-            </BasketTool>
-            <ProductInfo />
+              useTranslate={callbacks.useTranslate}
+            />
+            <ProductInfo
+              productData={select.product}
+              addToBasket={callbacks.addToBasket}
+              useTranslate={callbacks.useTranslate}
+            />
           </>
         )}
       </PageLayout>

@@ -12,6 +12,7 @@ import Paginator from "../../components/paginator";
 function Main() {
   const store = useStore();
   const activeModal = useSelector((state) => state.modals.name);
+  const useTranslate = store.actions.translator.useTranslate();
 
   // translator
   const t = store.actions.translator.useTranslate();
@@ -47,14 +48,29 @@ function Main() {
       },
       [store, select.currentPage]
     ),
+
+    useTranslate: useCallback(
+      (text) => useTranslate(text),
+      [store, select.lang]
+    ),
+
+    langChange: useCallback(() => {
+      store.actions.translator.langChange();
+    }, [store]),
   };
 
   const renders = {
     item: useCallback(
       (item) => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return (
+          <Item
+            item={item}
+            onAdd={callbacks.addToBasket}
+            useTranslate={callbacks.useTranslate}
+          />
+        );
       },
-      [callbacks.addToBasket]
+      [callbacks.addToBasket, callbacks.useTranslate]
     ),
   };
 
@@ -62,11 +78,17 @@ function Main() {
     <>
       {activeModal === "basket" && <Basket />}
       <PageLayout>
-        <Head title={t("Магазин")} />
+        <Head
+          title={"Магазин"}
+          lang={select.lang}
+          langChange={callbacks.langChange}
+          useTranslate={callbacks.useTranslate}
+        />
         <BasketTool
           onOpen={callbacks.openModalBasket}
           amount={select.amount}
           sum={select.sum}
+          useTranslate={callbacks.useTranslate}
         />
         <List list={select.list} renderItem={renders.item} />
         {select.itemsTotal > 10 && (

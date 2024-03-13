@@ -23,6 +23,7 @@
   cursor: pointer;
   font-size: 16px;
   line-height: 18.4px;
+  color: #000000;
 }
 
 .Paginator-item:hover {
@@ -40,6 +41,7 @@
 
 .Paginator-item_selected {
   background-color: #0087e9;
+  color: #ffffff;
 }
 
 .Paginator-item_selected:hover {

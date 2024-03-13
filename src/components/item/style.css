@@ -33,6 +33,17 @@
   font-size: 18px;
 }
 
+.Item-link {
+  text-decoration: none;
+  color: #000000;
+  font-size: 18px;
+  line-height: 18.4px;
+}
+
+.Item-link:hover {
+  text-decoration: underline;
+}
+
 .Item button {
   width: 80px;
   height: 21px;
