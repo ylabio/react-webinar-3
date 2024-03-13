@@ -10,7 +10,8 @@ function Nav({translations, path}) {
 }
 
 Nav.propTypes = {
-  translations: PropTypes.object
+  translations: PropTypes.object,
+  path: PropTypes.string
 };
 
 
