@@ -1,20 +1,20 @@
 import {memo} from "react";
 import PropTypes from "prop-types";
-import LanguageToggler from "../language-toggler";
 import './style.css';
 
-function Head({title}) {
+function Head({title, children}) {
 
   return (
     <div className='Head'>
       <h1>{title}</h1>
-      <LanguageToggler/>
+      {children}
     </div>
   )
 }
 
 Head.propTypes = {
-  title: PropTypes.node,
+  title: PropTypes.string,
+  children: PropTypes.node
 };
 
 export default memo(Head);

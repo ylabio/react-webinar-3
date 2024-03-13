@@ -1,25 +1,11 @@
 import React, { memo } from 'react';
-import useSelector from '../../store/use-selector';
 import { cn as bem } from '@bem-react/classname';
+import PropTypes from 'prop-types';
+
 import './style.css';
-import { useNavigate } from 'react-router';
 
-function Pagination() {
+function Pagination({ lastPage, currentPage, onPageClick }) {
   const cn = bem('Pagination');
-  const navigate = useNavigate();
-
-  const { lastPage, currentPage } = useSelector((state) => ({
-    lastPage: state.catalog.pages.lastPage,
-    currentPage: state.catalog.pages.currentPage,
-  }));
-
-  const callbacks = {
-    handlePageClick: (page) => () => {
-      if (typeof page === 'number') {
-        navigate(`/${page}`);
-      }
-    }
-  }
 
   function renderPagination() {
     const visiblePageCount = 3;
@@ -42,7 +28,6 @@ function Pagination() {
     return result;
   }
 
-
   return (
     <div className={cn()}>
       {renderPagination().map((page, index) => (
@@ -54,13 +39,19 @@ function Pagination() {
             ? `${cn('spread')}`
             : `${cn('page')}`
           }
-          onClick={callbacks.handlePageClick(page)}
+          onClick={onPageClick(page)}
         >
           {page}
         </span>
       ))}
     </div>
   );
+}
+
+Pagination.propTypes = {
+  lastPage: PropTypes.number,
+  currentPage: PropTypes.number,
+  onPageClick: PropTypes.func,
 }
 
 export default memo(Pagination);

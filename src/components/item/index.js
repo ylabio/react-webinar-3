@@ -18,7 +18,7 @@ function Item(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <Link to={`/product/${props.item._id}`} className={cn('title')}>
+      <Link to={props.itemLink} className={cn('title')}>
         {props.item.title}
       </Link>
       <div className={cn('actions')}>
@@ -36,10 +36,12 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  itemLink: PropTypes.string
 };
 
 Item.defaultProps = {
   onAdd: () => {},
+  itemLink: '#'
 }
 
 export default memo(Item);

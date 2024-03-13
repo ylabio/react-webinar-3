@@ -3,12 +3,13 @@ import StoreModule from "../module";
 class Language extends StoreModule {
   initState() {
     return {
-      currentLanguage: 'ru',
+      currentLanguage: localStorage.getItem('currentLanguage') || 'ru',
     };
   }
 
   setLanguage(newLanguage) {
     this.setState({ currentLanguage: newLanguage });
+    localStorage.setItem('currentLanguage', newLanguage)
   }
 
   toggleLanguage() {

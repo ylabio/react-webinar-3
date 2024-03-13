@@ -1,14 +1,15 @@
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
+import PropTypes from 'prop-types';
+
 import './style.css';
 
-export default function LanguageToggler() {
-
-  const store = useStore()
-  const currentLanguage = useSelector(state => state.language.currentLanguage)
-  const toggleLanguage = () => store.actions.language.toggleLanguage();
+export default function LanguageToggler({ currentLanguage, onToggleLanguage }) {
 
   const languageButtontitle = currentLanguage === 'ru'? 'Русский' : 'English'
 
-  return <button onClick={toggleLanguage} className="LanguageToggler">{languageButtontitle}</button>
+  return <button onClick={onToggleLanguage} className="LanguageToggler">{languageButtontitle}</button>
+}
+
+LanguageToggler.propTypes = {
+  currentLanguage: PropTypes.string,
+  onToggleLanguage: PropTypes.func,
 }

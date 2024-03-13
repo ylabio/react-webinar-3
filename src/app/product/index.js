@@ -6,9 +6,7 @@ import { useParams } from 'react-router';
 import { memo } from 'react';
 import ProductInfo from '../../components/product-info';
 import Preloader from '../../components/preloader';
-import Header from '../../components/header';
-
-import './style.css';
+import Header from '../header';
 
 function Product() {
 

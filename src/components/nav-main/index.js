@@ -1,16 +1,19 @@
 import {memo} from 'react';
 import {NavLink} from "react-router-dom";
-import useSelector from '../../store/use-selector';
+import PropTypes from 'prop-types';
 import './style.css';
 import { useTranslate } from '../../hooks/useTranslate';
 
-function NavMain() {
-  const currentPage = useSelector((state) => state.catalog.pages.currentPage);
+function NavMain(props) {
   const tr = useTranslate()
 
   return (
-      <NavLink className="Nav-main" to={`/${currentPage}`}>{tr('Home')}</NavLink>
+      <NavLink className="Nav-main" to={props.link}>{tr('Home')}</NavLink>
   )
+}
+
+NavMain.propTypes = {
+  link: PropTypes.string,
 }
 
 export default memo(NavMain);
