@@ -33,7 +33,7 @@ class Basket extends StoreModule {
       // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
       const item = this.store.getState().catalog.list.find(item => item._id === _id);
       list.push({...item, amount: 1}); // list уже новый, в него можно пушить.
-      // Добавляем к сумме.
+      //Добавляем к сумме.
       sum += item.price;
     }
 
