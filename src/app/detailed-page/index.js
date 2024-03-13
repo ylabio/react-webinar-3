@@ -9,7 +9,7 @@ import Skeleton from "../../components/skeleton";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import ProductDetails from "../../components/product-details";
-import '../../global.css';
+import {Row, Col} from '../../components/row-col';
 
 const DetailedPageContainer = ({ t }) => {
   const { id } = useParams();
@@ -48,10 +48,14 @@ const DetailedPageContainer = ({ t }) => {
         ? <Skeleton /> 
         : <>
             <Head title={product ? product.result.title : t('productDetailsError')} t={t} />
-            <div className="container">
-              <Menu t={t} />
-              <BasketTool onOpen={() => store.actions.modals.open('basket')} amount={select.amount} sum={select.sum} t={t} />
-             </div>
+            <Row>
+              <Col>
+                <Menu t={t} />
+              </Col>
+              <Col>
+                <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} t={t}/>
+              </Col>
+            </Row>
             <ProductDetails product={product ? product.result : null} addToCart={callbacks.addToBasket} t={t} />
           </>}
     </PageLayout>

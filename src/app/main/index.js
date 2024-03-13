@@ -1,4 +1,5 @@
 import {memo, useCallback, useEffect, useState} from "react";
+import { useNavigate, useParams } from 'react-router-dom';
 import { debounce } from "../../utils"; 
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
@@ -10,8 +11,7 @@ import Pagination from "../../components/pagination";
 import Skeleton from "../../components/skeleton"; 
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import { useNavigate, useParams } from 'react-router-dom';
-import '../../global.css';
+import {Row, Col} from '../../components/row-col';
 
 function Main({ t }) {
 
@@ -61,11 +61,14 @@ function Main({ t }) {
   return (
     <PageLayout>
       <Head title='Магазин' t={t} />
-        <div className="container">
+      <Row>
+        <Col>
           <Menu t={t} />
-          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-          sum={select.sum} t={t}/>
-        </div>
+        </Col>
+        <Col>
+          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} t={t}/>
+        </Col>
+      </Row>
       {isListLoading ? <Skeleton /> : <List list={select.list} renderItem={renders.item} t={t}/>}
       <Pagination currentPage={select.currentPage} totalPages={select.totalPages} onPageChange={callbacks.onPageChange} />
     </PageLayout>
