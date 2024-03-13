@@ -26,7 +26,7 @@ function Basket(callback, deps) {
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
     // Закрытие любой модалки
     closeModal: useCallback(() => store.actions.modals.close(), [store]),
-    onNavigate: useCallback((id) => navigate(`/articles/${id}`), deps)
+    onNavigate: useCallback((id) => navigate(`/articles/${id}`), [])
   }
 
   const renders = {

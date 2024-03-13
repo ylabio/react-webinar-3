@@ -36,7 +36,7 @@ function Main(callback, deps) {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     onChangePage : useCallback(page => store.actions.catalog.load(page), [store]),
-    onNavigate: useCallback((id) => navigate(`/articles/${id}`), deps)
+    onNavigate: useCallback((id) => navigate(`/articles/${id}`), [])
   }
 
   const renders = {

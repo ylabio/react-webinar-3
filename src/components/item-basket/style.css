@@ -11,9 +11,10 @@
 }
 
 .ItemBasket-title {
-  width: 100%;
+  width: fit-content;
   padding: 20px 10px;
   cursor: pointer;
+  margin-right: auto;
 }
 
 .ItemBasket-right {

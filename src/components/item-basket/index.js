@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import './style.css';
 import {LanguageContext} from "../../language-provider.js";
 
-function ItemBasket({item, onNavigate, onRemove}) {
+function ItemBasket({item, onNavigate, onRemove, onClose}) {
 
   const cn = bem('ItemBasket');
 
@@ -14,7 +14,10 @@ function ItemBasket({item, onNavigate, onRemove}) {
 
   const callbacks = {
     onRemove: (e) => onRemove(item._id),
-    onLink: (e) => onNavigate(item._id),
+    onLink: (e) => {
+      onNavigate(item._id)
+      onClose()
+    },
   };
 
   return (
@@ -42,11 +45,13 @@ ItemBasket.propTypes = {
   }).isRequired,
   onRemove: propTypes.func,
   onNavigate: PropTypes.func,
+  onClose: PropTypes.func,
 }
 
 ItemBasket.defaultProps = {
   onRemove: () => {},
   onNavigate: () => {},
+  onClose: () => {},
 }
 
 export default memo(ItemBasket);
