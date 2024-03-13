@@ -11,6 +11,7 @@ import { useParams } from "react-router";
 import ItemDetails from "../../components/item-details/item-details";
 import LayoutWithCommonElements from "../../components/LayoutWithCommonElements/LayoutWithCommonElements";
 import { useCallback } from "react";
+import Spinner from "../../components/spiner";
 
 function ItemPage() {
     const { itemId } = useParams();
@@ -26,13 +27,13 @@ function ItemPage() {
             await store.actions.catalog.loadById(itemId);
         }
         fetchData();
-    }, [itemId, store.actions.catalog]);
+    }, [itemId]);
     const addToBasket = useCallback(_id => {
         console.log('Добавляем в корзину товар с ID:', _id);
         store.actions.basket.addToBasket(_id);
     }, [store]);
     if (!select.currentItem) {
-        return <div>Loading...</div>;
+        return <Spinner />;
     }
     return (
         <LayoutWithCommonElements titleKey={select.currentItem.title}>

@@ -8,12 +8,22 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination/pagination';
 import LayoutWithCommonElements from '../../components/LayoutWithCommonElements/LayoutWithCommonElements';
+import Spinner from "../../components/spiner";
+
 
 function Main() {
     const select = useSelector(state => ({
         list: state.catalog.list,
     }));
+   
+    
     const store = useStore();
+    useEffect(() => {
+
+        store.actions.catalog.resetCurrentItem();
+
+
+    }, []);
     const addToBasket = useCallback(_id => {
         store.actions.basket.addToBasket(_id);
     }, [store]);
@@ -21,7 +31,7 @@ function Main() {
         return <Item item={item} onAdd={addToBasket} />
     }, [addToBasket]);
     if (!select.list) {
-        return <div>Loading...</div>;
+        return <Spinner/>;
     }
     return (
         <LayoutWithCommonElements titleKey='shop'>
