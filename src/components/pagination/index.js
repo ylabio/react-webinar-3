@@ -25,7 +25,7 @@ function Pagination({ currentPage, pagesCount, onPageChange }) {
   return (
     <ul className={cn()}>
       {pages?.map((el) => (
-        <li key={uniqKey()} onClick={callbacks.onPageChange}>
+        <li key={uniqKey()}>
           <button
             type="button"
             className={
@@ -36,6 +36,7 @@ function Pagination({ currentPage, pagesCount, onPageChange }) {
                 : cn("item")
             }
             disabled={el === "..."}
+            onClick={callbacks.onPageChange}
           >
             {el}
           </button>
