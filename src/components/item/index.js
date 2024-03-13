@@ -31,15 +31,19 @@ function Item(props) {
 
 Item.propTypes = {
   item: PropTypes.shape({
-    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    title: PropTypes.string,
-    price: PropTypes.number
+      _id: PropTypes.string,
+      title: PropTypes.string,
+      price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  locale: PropTypes.shape({
+      add: PropTypes.string.isRequired
+  }).isRequired,
+  link: PropTypes.string
 };
 
 Item.defaultProps = {
-  onAdd: () => {},
-}
+  onAdd: () => {}
+};
 
 export default memo(Item);

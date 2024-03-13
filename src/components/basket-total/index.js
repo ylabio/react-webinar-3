@@ -17,7 +17,10 @@ function BasketTotal({sum,locale}) {
 }
 
 BasketTotal.propTypes = {
-  sum: PropTypes.number
+  sum: PropTypes.number,
+  locale: PropTypes.shape({
+      total: PropTypes.string.isRequired
+  }).isRequired
 };
 
 BasketTotal.defaultProps = {

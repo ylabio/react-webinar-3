@@ -1,7 +1,6 @@
 import { useParams } from "react-router";
 import {codeGenerator} from "../../utils";
 import StoreModule from "../module";
-import { formPaginationArray } from "./formPaginationArray";
 
 class Catalog extends StoreModule {
 
@@ -17,7 +16,6 @@ class Catalog extends StoreModule {
       totalItems: 0,
       totalPages: 0,
       itemPerPage : 10,
-      paginationArray : []
     }
   }
 
@@ -41,19 +39,10 @@ class Catalog extends StoreModule {
       }
     });
     const json = await response.json();
-    this.formPaginationArray(pageNum)
     this.setState({
       ...this.getState(),
       list : json.result.items
     },`Загружена страница ${pageNum} с товарами`)
-  }
-
-  formPaginationArray(currPage){
-    const newPagArr = formPaginationArray(currPage,this.store.getState().catalog.totalPages)
-    this.setState({
-      ...this.getState(),
-      paginationArray : newPagArr
-    }, 'Пересчет пагинации');
   }
 
   async load() {

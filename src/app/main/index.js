@@ -1,13 +1,12 @@
-import {memo, useCallback, useEffect, useMemo} from 'react';
+import {memo, useCallback, useEffect} from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
-import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
-import { useLocation, useParams } from 'react-router';
+import { useParams } from 'react-router';
 
 function Main() {
 
@@ -18,7 +17,6 @@ function Main() {
   const select = useSelector(state => ({
     list: state.catalog.list,
     totalPages : state.catalog.totalPages,
-    paginationArray : state.catalog.paginationArray,
   }));
   
   const locale = useSelector(state =>state.locale);
@@ -41,7 +39,7 @@ function Main() {
   return (
     <PageLayout
       head={<Head title={locale.translations.main.header}/>}
-       footer = {<Pagination paginationArray = {select.paginationArray} currPage = {pageNum}/>}
+       footer = {<Pagination currPage = {Number(pageNum)} totalPages = {select.totalPages}/>}
     >
       <List list={select.list} renderItem={renders.item}/>
     </PageLayout >

@@ -4,10 +4,15 @@ class Product extends StoreModule {
 
   initState() {
     return {
-        madeIn : {},
-        category : "",
-        edition : "",
-        price : "",
+        madeIn : {
+          title: "",
+          code: ""
+        },
+        category:{
+          title : ""
+        },
+        edition : 0,
+        price : 0,
         description : ""
     }
   }

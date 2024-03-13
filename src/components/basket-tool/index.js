@@ -1,12 +1,8 @@
-import {memo, useEffect} from "react";
+import {memo} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
-import { Link } from "react-router-dom";
-import SelectLang from "../select-lang";
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
 
 function BasketTool({sum, amount, onOpen,locale,lang}) {
   const cn = bem('BasketTool');
@@ -30,13 +26,19 @@ function BasketTool({sum, amount, onOpen,locale,lang}) {
 BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
-  amount: PropTypes.number
+  amount: PropTypes.number,
+  locale: PropTypes.shape({
+      inCard: PropTypes.string.isRequired,
+      empty: PropTypes.string.isRequired,
+      openModalCard: PropTypes.string.isRequired,
+      pluralForms: PropTypes.object.isRequired
+  }).isRequired,
+  lang: PropTypes.string.isRequired
 };
 
 BasketTool.defaultProps = {
-  onOpen: () => {},
   sum: 0,
   amount: 0
-}
+};
 
 export default memo(BasketTool);
