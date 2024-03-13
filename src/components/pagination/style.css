@@ -42,3 +42,7 @@
   -webkit-user-select: none;
   -o-user-select: none;
 }
+
+.Pagination-dots {
+  color: #CCCCCC;
+}

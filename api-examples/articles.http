@@ -1,4 +1,4 @@
-GET http://example.front.ylab.io/api/v1/articles?lang=en
+GET http://example.front.ylab.io/api/v1/articles?lang=*
 ###
 ###
 # Список товаров

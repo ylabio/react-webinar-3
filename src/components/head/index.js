@@ -1,56 +1,35 @@
-import { memo, useCallback, useState } from "react";
+import { memo, useState } from "react";
 import PropTypes from "prop-types";
+import propTypes from 'prop-types';
 import './style.css';
-import Lang from '../../../public/icons/language.svg'
-import useSelector from '../../store/use-selector';
-import useStore from '../../store/use-store';
+import LanguageBtn from '../head-language-btn';
 
-function Head({title}) {
-
-  const store = useStore()
-
+function Head({title, languageState, onChangeLang}) {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false)
-  const select = useSelector(state => ({
-    currentLanguage: state.language.languages[state.language.currentLanguage],
-    languages: state.language.languages
-  }))
-
-  const callbacks = {
-    onChangeLang: useCallback((language) => {
-      store.actions.language.setLanguage(language)
-    }, [store]),
-    handleDropDownOpen: () => setIsDropdownVisible(prev => !prev)
-  }
 
   return (
     <div className='Head'>
       <h1>{title}</h1>
-      <div className="Head-language">
-        <button className="Head-language-btn" onClick={callbacks.handleDropDownOpen}>
-          <Lang className="icon"/>
-          {select.currentLanguage}
-        </button>
-        {isDropdownVisible && (
-          <ul className="Head-language-btn-dropdown">
-            {Object.entries(select.languages).map((lang, i) => (
-              <li key={i}>
-                <button
-                  onClick={() => {
-                    callbacks.handleDropDownOpen()
-                    callbacks.onChangeLang(lang[0])
-                  }}
-                  className="Head-language-btn-dropdown-item">{lang[1]}</button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <LanguageBtn
+        isDropdownVisible={isDropdownVisible}
+        languageState={languageState}
+        onChangeLang={onChangeLang}
+        handleDropDownOpen={setIsDropdownVisible}
+      />
     </div>
   )
 }
 
 Head.propTypes = {
   title: PropTypes.node,
+  languageState: PropTypes.shape({
+    currentLanguage: PropTypes.string,
+    languages: PropTypes.shape({
+      ru: PropTypes.string,
+      en: PropTypes.string,
+    })
+  }),
+  onChangeLang: PropTypes.func
 };
 
 export default memo(Head);

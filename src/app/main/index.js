@@ -1,12 +1,13 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 import Item from "../../components/item";
 import Head from "../../components/head";
-import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
 import { UI_TEXTS } from '../../consts/content';
+import PageLayout from '../../components/page-layout';
+import Menu from '../../components/menu';
 
 function Main() {
   const store = useStore();
@@ -19,16 +20,18 @@ function Main() {
     totalPages: state.catalog.totalPages,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    language: state.language.currentLanguage
+    language: state.language,
+    modalStatus: state.modals.name
   }));
 
   useEffect(() => {
     const fetchCatalog = async () => {
-      await store.actions.catalog.load(page.newValue, select.language)
+      await store.actions.catalog.load(page.newValue, select.language.currentLanguage)
       setIsLoading(false)
     }
+
     fetchCatalog()
-  }, [page, select.language]);
+  }, [page, select.language.currentLanguage]);
 
 
 
@@ -41,30 +44,33 @@ function Main() {
       setPage(pageNumber)
       setIsLoading(true)
     },
+    setLanguage: useCallback((language) => {
+      store.actions.language.setLanguage(language)
+    }, [store]),
   }
 
   const uiText = {
-    title: UI_TEXTS[select.language].main.head.headTitle,
+    title: UI_TEXTS[select.language.currentLanguage].main.head.headTitle,
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} productLink={`/product/${item._id}`} />
     }, [callbacks.addToBasket]),
   };
 
   return (
-    <>
-      <Head title={uiText.title}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
-      <List list={select.list} renderItem={renders.item}/>
+    <PageLayout modalStatus={select.modalStatus}>
+      <Head title={uiText.title} languageState={select.language} onChangeLang={callbacks.setLanguage} />
+      <Menu onOpen={callbacks.openModalBasket} amount={select.amount} language={select.language.currentLanguage}
+        sum={select.sum} />
+      <List list={select.list[select.language.currentLanguage]} renderItem={renders.item} />
       <Pagination
         totalPages={select.totalPages}
         currentPage={!isLoading ? page.newValue : page.oldValue}
         handleSelectPage={callbacks.handleSelectPage}
       />
-    </>
+    </PageLayout>
   );
 }
 

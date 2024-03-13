@@ -14,15 +14,12 @@ import PageLayout from '../components/page-layout';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <PageLayout />,
-    children: [
-      { index: true, element: <Main /> },
-      {
-        path: '/product/:productId',
-        element: <Product />
-      }
-    ]
+    element: <Main />,
   },
+  {
+    path: '/product/:productId',
+    element: <Product />
+  }
 
 ])
 

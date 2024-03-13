@@ -1,22 +1,18 @@
-import {memo, useState} from "react";
+import {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
-import { Link } from 'react-router-dom';
-import useSelector from '../../store/use-selector';
 import { UI_TEXTS } from '../../consts/content';
+import LinkComponent from '../link';
 
 function Item(props) {
 
   const cn = bem('Item');
 
-  const select = useSelector(state => ({
-    language: state.language.currentLanguage
-  }))
-
+  const currentLanguage = document.documentElement.lang
   const uiText = {
-    addItemBtn: UI_TEXTS[select.language].main.catalogList.addItemBtn,
+    addItemBtn: UI_TEXTS[currentLanguage].main.catalogList.addItemBtn,
   }
 
   const callbacks = {
@@ -25,9 +21,9 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      <Link to={`product/${props.item._id}`} className={cn('title')}>
+      <LinkComponent to={props.productLink} className={cn('title')}>
         {props.item.title}
-      </Link>
+      </LinkComponent>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
         <button onClick={callbacks.onAdd}>{uiText.addItemBtn}</button>
@@ -42,6 +38,7 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
+  productLink: PropTypes.string,
   onAdd: PropTypes.func,
 };
 

@@ -3,18 +3,14 @@ import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import { UI_TEXTS } from '../../consts/content';
-import useSelector from '../../store/use-selector';
 
 function ModalLayout(props) {
 
   const cn = bem('ModalLayout');
 
-  const select = useSelector(state => ({
-    language: state.language.currentLanguage
-  }))
-
+  const currentLanguage = document.documentElement.lang;
   const uiText = {
-    closeModalBtn: UI_TEXTS[select.language].basket.head.closeModalBtn,
+    closeModalBtn: UI_TEXTS[currentLanguage].basket.head.closeModalBtn,
   }
 
   // Корректировка центра, если модалка больше окна браузера.
@@ -56,6 +52,7 @@ ModalLayout.propTypes = {
   title: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
+  language: PropTypes.string,
 };
 
 ModalLayout.defaultProps = {

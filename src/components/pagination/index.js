@@ -34,7 +34,12 @@ function PaginationNumber({ page, onClick, isActive }) {
         {page}
       </button>
     ) : (
-      <div className={'Pagination-element ' + (isActive ? 'Pagination-page--selected' : '')}>
+      <div
+        className={'Pagination-element ' +
+          (isActive ? 'Pagination-page--selected' : '') +
+          (page === '...' ? 'Pagination-dots' : '')
+      }
+      >
         {page}
       </div>
   )

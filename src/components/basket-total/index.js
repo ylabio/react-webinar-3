@@ -3,18 +3,14 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
-import useSelector from '../../store/use-selector';
 import { UI_TEXTS } from '../../consts/content';
 
 function BasketTotal({sum}) {
   const cn = bem('BasketTotal');
 
-  const select = useSelector(state => ({
-    language: state.language.currentLanguage
-  }))
-
+  const currentLanguage = document.documentElement.lang;
   const uiText = {
-    totalSum: UI_TEXTS[select.language].basket.total.totalSum,
+    totalSum: UI_TEXTS[currentLanguage].basket.total.totalSum,
   }
 
   return (
@@ -27,7 +23,7 @@ function BasketTotal({sum}) {
 }
 
 BasketTotal.propTypes = {
-  sum: PropTypes.number
+  sum: PropTypes.number,
 };
 
 BasketTotal.defaultProps = {

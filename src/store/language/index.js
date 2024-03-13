@@ -6,15 +6,21 @@ class Language extends StoreModule {
     return {
       currentLanguage: document.documentElement.lang,
       languages: {
-        'ru': 'Русский',
-        'en': 'English'
+        ru: 'Русский',
+        en: 'English'
       }
     }
   }
 
-  setLanguage(name) {
-    document.documentElement.setAttribute('lang', name)
-    this.setState({...this.getState(), currentLanguage: name} );
+  async setLanguage(languageName) {
+    document.documentElement.setAttribute('lang', languageName)
+    this.setState({...this.getState(), currentLanguage: languageName} );
+
+    const translateBasketList = async () => {
+      await this.store.actions.basket.translateList(this.store.state.basket.list, languageName)
+    }
+
+    await translateBasketList()
   }
 }
 
