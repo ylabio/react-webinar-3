@@ -1,0 +1,10 @@
+
+.BreadCrumbs-link {
+  padding: 0 20px;
+  margin-right: auto;
+  color: #0087E9;
+}
+
+.BreadCrumbs-link:hover {
+  color: #003ae9;
+}

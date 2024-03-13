@@ -1,10 +1,13 @@
-import {memo, useState} from "react";
+import {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
+import { Link } from "react-router-dom";
+import { langButton } from "../../constants/language";
 
 function Item(props) {
+  const {language='ru', path=''} = props
 
   const cn = bem('Item');
 
@@ -14,13 +17,14 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>
+      <Link
+      to={`${path}/${props.item._id}`}
+      className={cn('title')}>
         {props.item.title}
-      </div>
+      </Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{langButton.ADD[language]}</button>
       </div>
     </div>
   );
@@ -32,6 +36,8 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
+  language: PropTypes.string,
+  path: PropTypes.string,
   onAdd: PropTypes.func,
 };
 
