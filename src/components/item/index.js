@@ -7,13 +7,14 @@ import {useNavigate} from 'react-router-dom';
 import { content } from "../../store/translation/content";
 
 function Item(props) {
-  const navigate = useNavigate()
+
   const cn = bem('Item');
 
   const callbacks = {
     onAdd: (e) => {
       props.onAdd(props.item._id)}
   }
+  const navigate = useNavigate()
 
   return (
     <div className={cn()}>

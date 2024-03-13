@@ -4,24 +4,35 @@ class Catalog extends StoreModule {
 
   constructor(store, name) {
     super(store, name);
-    this.madeIn = ''
-    this.category = ''
-    this.madeInCode = ''
-    this.description = ''
-    this.year = ''
-    this.price = ''
-    this.title = ''
   }
 
   initState() {
     return {
       list: [],
       sum: 0,
-      amount: 0
+      amount: 0,
+      madeIn: '',
+      category: '',
+      madeInCode: '',
+      description: '',
+      year: '',
+      price: '',
+      title: '',
     }
   }
   
   async loadOrderInfo(id) {
+    this.setState({
+        ...this.getState(),
+        madeIn: '',
+        category: '',
+        madeInCode: '',
+        description: '',
+        year: '',
+        price: '',
+        title: '',
+        isLoading: true
+      })
     const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
     const json = await response.json();
     this.setState({
