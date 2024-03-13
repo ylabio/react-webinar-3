@@ -6,6 +6,7 @@ import "./style.css";
 
 function CardItem(props) {
   const cn = bem("Card-Item");
+  console.log(props.item);
 
   const callbacks = {
     onAdd: (e) => props.onAdd(),
@@ -15,7 +16,10 @@ function CardItem(props) {
     <div className={cn()}>
       <div className={cn("title")}>{props.item?.description}</div>
       <div className={cn("title")}>
-        Страна производитель: <b> {props.item?.madeIn?.title}</b>
+        Страна производитель:{" "}
+        <b>
+          {props.item?.madeIn?.title} ({props.item?.madeIn?.code})
+        </b>
       </div>
       <div className={cn("title")}>
         Категория: <b>{props.item?.category?.title}</b>
@@ -23,7 +27,7 @@ function CardItem(props) {
       <div className={cn("title")}>
         Год выпуска: <b>{props.item?.edition}</b>
       </div>
-      <h2 className={cn("title")}>Цена: {numberFormat(props.item?.price)}</h2>
+      <h2 className={cn("title")}>Цена: {numberFormat(props.item?.price)} ₽</h2>
       <div className={cn("title")}>
         <button onClick={callbacks.onAdd}>Добавить</button>
       </div>

@@ -4,10 +4,8 @@ import { cn as bem } from "@bem-react/classname";
 import Dots from "./Dots";
 import "./style.css";
 
-function Pagination({ itemCount, perPage, currentPage, setCurrentPage }) {
+function Pagination({ currentPage, setCurrentPage, pagesCount }) {
   const cn = bem("Pagination");
-
-  const pagesCount = Math.ceil(itemCount / perPage);
 
   let min = 1;
   const pages = [];
@@ -78,15 +76,13 @@ function Pagination({ itemCount, perPage, currentPage, setCurrentPage }) {
 
 Pagination.propTypes = {
   setCurrentPage: PropTypes.func,
-  itemCount: PropTypes.number,
-  perPage: PropTypes.number,
+  pagesCount: PropTypes.number,
   currentPage: PropTypes.number,
 };
 
 Pagination.defaultProps = {
   setCurrentPage: () => {},
-  itemCount: 0,
-  perPage: 1,
+  pagesCount: 0,
   currentPage: 1,
 };
 

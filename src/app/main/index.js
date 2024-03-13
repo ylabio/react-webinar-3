@@ -12,23 +12,22 @@ import useSelector from "../../store/use-selector";
 
 function Main() {
   const store = useStore();
-  const limit = 10;
-  const [itemCount, setItemCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    store.actions.catalog.itemCount({ setItemCount });
-    store.actions.languages.changeLanguage();
+    store.actions.catalog.itemCount();
   }, []);
 
   useEffect(() => {
-    store.actions.catalog.load({ currentPage, limit });
+    store.actions.catalog.load();
   }, [currentPage]);
 
   const select = useSelector((state) => ({
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    pagesCount: state.catalog.pagesCount,
+    currentPage: state.catalog.currentPage,
   }));
 
   const callbacks = {
@@ -47,12 +46,23 @@ function Main() {
       (e) => store.actions.languages.change(e),
       [store]
     ),
+
+    onClickPage: useCallback(
+      (e) => store.actions.catalog.clickPage(e),
+      [store]
+    ),
   };
 
   const renders = {
     item: useCallback(
       (item) => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return (
+          <Item
+            item={item}
+            link={"/card/" + item._id}
+            onAdd={callbacks.addToBasket}
+          />
+        );
       },
       [callbacks.addToBasket]
     ),
@@ -71,10 +81,9 @@ function Main() {
       </Tabs>
       <List list={select.list} renderItem={renders.item} />
       <Pagination
-        itemCount={itemCount}
-        perPage={limit}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+        currentPage={select.currentPage}
+        setCurrentPage={callbacks.onClickPage}
+        pagesCount={select.pagesCount}
       />
     </PageLayout>
   );

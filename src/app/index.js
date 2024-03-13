@@ -4,13 +4,19 @@ import Main from "./main";
 import Basket from "./basket";
 import Card from "./card";
 import useSelector from "../store/use-selector";
+import useStore from "../store/use-store";
 
 /**
  * Приложение
  * @returns {React.ReactElement}
  */
 function App() {
+  const store = useStore();
   const activeModal = useSelector((state) => state.modals.name);
+
+  React.useEffect(() => {
+    store.actions.languages.changeLanguage();
+  }, []);
 
   return (
     <>
