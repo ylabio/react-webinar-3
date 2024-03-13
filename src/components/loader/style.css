@@ -1,0 +1,12 @@
+.Loader {
+  position: relative;
+  height: 100vh;
+  font-size: 48px;
+}
+
+.Loader span {
+  position: absolute;
+  right: calc(50% - 100px);
+  top: calc(50% - 24px);
+  width: 200px;
+}

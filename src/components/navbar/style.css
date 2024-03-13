@@ -1,0 +1,23 @@
+.Navbar,
+.NavList {
+  display: flex;
+  align-items: center;
+}
+
+.Navbar {
+  padding: 20px;
+}
+
+.NavList {
+  font-size: 18px;
+  margin-right: auto;
+}
+
+.NavList-item {
+  color: #0087e9;
+  text-decoration: underline;
+}
+
+.NavList-item:hover {
+  cursor: pointer;
+}
