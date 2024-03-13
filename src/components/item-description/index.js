@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import {numberFormat} from '../../utils';
+import {localization} from '../../localization';
 
 function ItemDescription(props) {
 
@@ -12,14 +13,18 @@ function ItemDescription(props) {
     <div className={cn()}>
       <p className={cn('description')}>{props.itemInfo.description}</p>
       <p className={cn('description')}>
-        Страна производитель:
-        <span className={cn('info')}> {props.itemInfo.madeIn?.title}</span>
+        {localization.description.country[props.language]}
+        <span className={cn('info')}>{props.itemInfo.madeIn?.title}</span>
         <span className={cn('info')}> ({props.itemInfo.madeIn?.code})</span>
       </p>
-      <p className={cn('description')}>Категория: <span className={cn('info')}>{props.itemInfo.category?.title}</span></p>
-      <p className={cn('description')}>Год выпуска: <span className={cn('info')}>{props.itemInfo.edition}</span></p>
-      <p className={cn('price')}>Цена: {numberFormat(props.itemInfo.price)} ₽</p>
-      <button onClick={() => props.onAdd(props.itemInfo._id)}>Добавить</button>
+      <p className={cn('description')}>{localization.description.category[props.language]}<span
+        className={cn('info')}>{props.itemInfo.category?.title}</span></p>
+      <p className={cn('description')}>{localization.description.year[props.language]}<span
+        className={cn('info')}>{props.itemInfo.edition}</span></p>
+      <p className={cn('price')}>
+        <span>{localization.description.price[props.language]}</span>{numberFormat(props.itemInfo.price)} {localization.currency.rub[props.language]}
+      </p>
+      <button onClick={() => props.onAdd(props.itemInfo._id)}>{localization.description.add[props.language]}</button>
     </div>
   )
 }
@@ -37,7 +42,8 @@ ItemDescription.propTypes = {
 };
 
 ItemDescription.defaultProps = {
-  onAdd: () => {},
+  onAdd: () => {
+  },
 }
 
 export default memo(ItemDescription);

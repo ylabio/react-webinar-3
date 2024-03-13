@@ -31,16 +31,15 @@ function ItemInfo(props) {
     itemInfo: state.catalog.itemInfo,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    language: state.language.language,
   }))
 
   return (
     <PageLayout>
       <Head title={select.itemInfo.title}></Head>
-      <div className={cn('basket-tool-wrapper')}>
-        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                    sum={select.sum}/>
-      </div>
-      <ItemDescription itemInfo={select.itemInfo} onAdd={callbacks.addToBasket}/>
+      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+                    sum={select.sum} language={select.language}/>
+      <ItemDescription itemInfo={select.itemInfo} language={select.language} onAdd={callbacks.addToBasket}/>
     </PageLayout>
   )
 }
