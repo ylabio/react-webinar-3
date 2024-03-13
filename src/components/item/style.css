@@ -23,8 +23,11 @@
   line-height: 18px;
   letter-spacing: 0em;
   text-align: left;
+
+}
+.Item-title a {
+  text-decoration: none;
   color: #000000;
-  text-decoration: none
 }
 
 .Item-actions {

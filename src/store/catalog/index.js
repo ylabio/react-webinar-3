@@ -32,6 +32,21 @@ class Catalog extends StoreModule {
       "Загружены товары из АПИ"
     );
   }
-}
 
+//    async useFetchData() {
+//     const { id } = useParams();
+//     const [product, setProduct] = useState(null);
+  
+//     useEffect(() => {
+//       fetch(
+//         `/api/v1/articles/${id}?fields=category(title),price,edition,description,madeIn(title)`
+//       )
+//         .then((response) => response.json())
+//         .then((data) => setProduct(data.result));
+//     }, [id]);
+  
+//     return { product, setProduct };
+//   }
+// }
+}
 export default Catalog;

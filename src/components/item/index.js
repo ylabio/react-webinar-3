@@ -14,7 +14,7 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      <Link to={`/details/${props.item._id}`} className={cn("title")}>{props.item.title}</Link>
+      <div className={cn("title")}><Link to={`/details/${props.item._id}`}>{props.item.title}</Link></div>
       <div className={cn("actions")}>
         <div className={cn("price")}>{numberFormat(props.item.price)} ₽</div>
         <button onClick={callbacks.onAdd}>Добавить</button>
