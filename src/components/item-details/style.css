@@ -1,0 +1,20 @@
+.ItemDetails {
+  padding: 40px;
+  font-size: 18px;
+}
+.ItemDetais-cell + .ItemDetais-cell {
+  margin-top: 20px;
+}
+
+.ItemDetails-cell p span {
+  font-weight: bold;
+}
+
+.ItemDetails-description {
+  text-align: justify;
+}
+
+.ItemDetails-price {
+  font-size: 24px;
+  font-weight: bold;
+}
