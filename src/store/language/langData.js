@@ -30,7 +30,8 @@ export const langData = {
       service: {
         loading: 'Грузим данные...',
         error: 'Что-то пошло не так'
-      }
+      },
+      language: 'rus'
     },
     eng: {
       shop: 'Shop',
@@ -63,6 +64,7 @@ export const langData = {
       service: {
         loading: 'Loading data...',
         error: 'Something went wrong'
-      }
+      },
+      language: 'eng'
     }
   }

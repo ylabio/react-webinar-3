@@ -19,7 +19,18 @@ function Basket() {
   }));
 
   const translations = {
-    cart: langData[select.language].cart
+    cart: langData[select.language].cart,
+    itemBasket: {
+      one: langData[select.language].things.one,
+      few: langData[select.language].things.few,
+      removeBtn: langData[select.language].buttons.remove,
+    },
+    modalLayout: {
+      close: langData[select.language].buttons.close,
+    },
+    basketTotal: {
+      total: langData[select.language].total
+    }
   }
 
   const callbacks = {
@@ -33,7 +44,7 @@ function Basket() {
     itemBasket: useCallback((item) => {
       return <ItemBasket
         item={item}
-        language={select.language}
+        translations={translations.itemBasket}
         onRemove={callbacks.removeFromBasket}
         link={`product/${item._id}`}
         onCloseModal={callbacks.closeModal}/>
@@ -41,9 +52,9 @@ function Basket() {
   };
 
   return (
-    <ModalLayout title={translations.cart} onClose={callbacks.closeModal} language={select.language}>
+    <ModalLayout title={translations.cart} onClose={callbacks.closeModal} translations={translations.modalLayout}>
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum} language={select.language}/>
+      <BasketTotal sum={select.sum} translations={translations.basketTotal}/>
     </ModalLayout>
   );
 }

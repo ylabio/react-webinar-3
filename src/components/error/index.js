@@ -2,14 +2,9 @@ import {memo} from "react";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import { PropTypes } from 'prop-types';
-import { langData } from "../../store/language/langData";
 
-function Error({isError, language, children}) {
+function Error({isError, translations, children}) {
   const cn = bem('Error');
-
-  const translations = {
-    error: langData[language].service.error
-  }
 
   if (isError) {
     return (
@@ -27,7 +22,7 @@ function Error({isError, language, children}) {
 Error.propTypes = {
   isError: PropTypes.bool,
   children: PropTypes.node,
-  language: PropTypes.string
+  translations: PropTypes.object
 }
 
 export default memo(Error);

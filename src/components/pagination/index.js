@@ -19,11 +19,15 @@ function Pagination({currentPage, totalPages, changePage}) {
       if (currentPage === 3) {
         pagesArr.push(minPage, 2, 3, 4, dots, totalPages)
       }
-      if (currentPage >= 4 && currentPage <= totalPages - 3) {
+      if (currentPage >= 4 && currentPage < totalPages - 2) {
         pagesArr.push(minPage, dots, currentPage - 1, currentPage, currentPage + 1, dots, totalPages)
       }
-      if (currentPage > totalPages - 3) {
-        pagesArr.push(minPage, dots, totalPages - 3, totalPages - 2, totalPages - 1, totalPages)
+      if (currentPage > totalPages - 2) {
+        pagesArr.push(minPage, dots, totalPages - 2, totalPages - 1, totalPages)
+      }
+      if (currentPage === totalPages - 2) {
+        console.log('fuf')
+        pagesArr.push(minPage,dots, totalPages - 4, currentPage, totalPages - 1, totalPages)
       }
       
     return pagesArr

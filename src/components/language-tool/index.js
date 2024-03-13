@@ -3,12 +3,12 @@ import './style.css';
 import PropTypes from "prop-types";
 import { memo } from "react";
 
-function LanguageTool({toggleLanguage, language}) {
+function LanguageTool({toggleLanguage, translations}) {
 
   const cn = bem('LanguageTool');
 
   let buttonText = ''
-  if (language === 'rus') {
+  if (translations.language === 'rus') {
     buttonText = 'eng'
   } else {
     buttonText = 'rus'
@@ -22,7 +22,7 @@ function LanguageTool({toggleLanguage, language}) {
 }
 
 LanguageTool.propTypes = {
-  language: PropTypes.string,
+  translations: PropTypes.object,
   toggleLanguage: PropTypes.func,
 };
 

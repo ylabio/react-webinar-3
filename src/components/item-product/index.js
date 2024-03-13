@@ -2,26 +2,17 @@ import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import './style.css';
 import { memo } from "react";
-import { langData } from "../../store/language/langData";
 
-function ItemProduct({language, product, addToBasket}) {
+function ItemProduct({translations, product, addToBasket}) {
   const cn = bem('ItemProduct');
-
-  const translations = {
-    country: langData[language].product.country,
-    category: langData[language].product.category,
-    year: langData[language].product.year,
-    price: langData[language].product.price,
-    add: langData[language].buttons.add
-  }
 
   return (
     <div className={cn() }>
       <p className={cn('text')}>{product?.description}</p>
-      <p className={cn('text')}> {translations.country}: <span>{product.madeIn?.title}</span></p>
+      <p className={cn('text')}> {translations.country}: <span>{product.madeIn?.title} ({product.madeIn?.code})</span></p>
       <p className={cn('text')}> {translations.category}: <span>{product.category?.title}</span></p>
       <p className={cn('text')}> {translations.year}: <span>{product.edition}</span></p>
-      <p className={cn('text')}><span>{translations.price}: {product.price}</span></p>
+      <p className={cn('text')}><span>{translations.price}: {product.price} ₽</span></p>
       <button className={cn('button')} onClick={() => addToBasket(product._id)}>{translations.add}</button>
     </div>
   )
@@ -37,7 +28,7 @@ ItemProduct.propTypes = {
       price: PropTypes.number
     }).isRequired,
     addToBasket: PropTypes.func,
-    language: PropTypes.string
+    translations: PropTypes.object
   };
   
 ItemProduct.defaultProps = {

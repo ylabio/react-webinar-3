@@ -11,6 +11,8 @@ import { langData } from '../../store/language/langData';
 import Error from '../../components/error';
 import Loader from '../../components/loader';
 import LanguageTool from '../../components/language-tool';
+import Nav from '../../components/nav';
+import NavWrapper from '../../components/nav-wrapper';
 
 function Main() {
   const store = useStore();
@@ -23,11 +25,34 @@ function Main() {
     isLoading: state.catalog.isLoading,
     currentPage: state.catalog.currentPage,
     totalPages: state.catalog.totalPages,
-    language: state.language.currentLanguage
+    language: state.language.currentLanguage,
   }));
   
   const translations = {
-    headTitle: langData[select.language].shop
+    headTitle: langData[select.language].shop,
+    nav: {
+      navTitle: langData[select.language].main
+    },
+    languageTool: {
+      language: langData[select.language].language
+    },
+    basketTool: {
+      inCart: langData[select.language].inCart,
+      one: langData[select.language].item.one,
+      few: langData[select.language].item.few,
+      many: langData[select.language].item.many,
+      empty: langData[select.language].item.empty,
+      goTo: langData[select.language].buttons.goTo
+    },
+    loader: {
+      loading: langData[select.language].service.loading
+    },
+    error: {
+      error: langData[select.language].service.error
+    },
+    item: {
+      add: langData[select.language].buttons.add
+    }
   }
 
   useEffect(() => {
@@ -45,22 +70,25 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} link={`product/${item._id}`} language={select.language}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} link={`product/${item._id}`} translations={translations.item}/>
     }, [callbacks.addToBasket, select.language]),
   };
 
   return (
     <PageLayout>
       <Head title={translations.headTitle}>
-        <LanguageTool language={select.language} toggleLanguage={callbacks.toggleLanguage}/>
+        <LanguageTool translations={translations.languageTool} toggleLanguage={callbacks.toggleLanguage}/>
       </Head>
+      <NavWrapper>
+      <Nav translations={translations.nav}/>
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-        language={select.language}/>
-      <Loader isLoading={select.isLoading} language={select.language}>
-        <Error isError={select.isError} language={select.language}>
+        translations={translations.basketTool}/>
+      </NavWrapper>
+      <Loader isLoading={select.isLoading} translations={translations.loader}>
+        <Error isError={select.isError} translations={translations.error}>
           <List list={select.list} renderItem={renders.item}/>
           <Pagination
             changePage={callbacks.onPageChange}
