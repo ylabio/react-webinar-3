@@ -15,8 +15,6 @@ function Main() {
 
   const navigate = useNavigate();
 
-  const [currentPage, setCurrentPage] = useState(1);
-
   useEffect(() => {
     store.actions.catalog.load();
   }, []);
@@ -27,6 +25,7 @@ function Main() {
     sum: state.basket.sum,
     itemsCount: state.catalog.itemsCount,
     itemsPerPage: state.catalog.itemsPerPage,
+    currentPage: state.catalog.currentPage,
   }));
 
   const callbacks = {
@@ -52,7 +51,7 @@ function Main() {
 
         store.actions.catalog.load(skip);
 
-        setCurrentPage(() => pageNumber);
+        store.actions.catalog.changePage(pageNumber);
       },
       [store]
     ),
@@ -85,7 +84,7 @@ function Main() {
       </Navbar>
       <List list={select.list} renderItem={renders.item} />
       <Pagination
-        currentPage={currentPage}
+        currentPage={select.currentPage}
         pagesCount={Math.ceil(select.itemsCount / 10)}
         onPageChange={callbacks.changePage}
       />

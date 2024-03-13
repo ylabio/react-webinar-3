@@ -11,6 +11,7 @@ class Catalog extends StoreModule {
     return {
       list: [],
       itemsCount: 0,
+      currentPage: 1,
       itemsPerPage: 10,
     };
   }
@@ -28,6 +29,10 @@ class Catalog extends StoreModule {
       },
       "Загружены товары и их количество из АПИ"
     );
+  }
+
+  changePage(pageNumber) {
+    this.setState({ ...this.getState(), currentPage: pageNumber });
   }
 }
 
