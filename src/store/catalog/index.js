@@ -11,8 +11,19 @@ class Catalog extends StoreModule {
   initState() {
     return {
       avail: 0,
-      list: []
+      list: [],
+      detail: {}
     }
+  }
+
+  async detail(id) {
+    const getDetail = `api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`;
+    const respDetail = await fetch(getDetail);
+    const jsonDetail = await respDetail.json();
+    this.setState({
+      ...this.getState(),
+      detail: jsonDetail.result,
+    }, 'Загружен Detail товара');
   }
 
   async avail() {

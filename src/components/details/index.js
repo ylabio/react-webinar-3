@@ -2,7 +2,8 @@ import {memo} from "react";
 import PropTypes from "prop-types";
 import './style.css';
 
-function Details({onAdd}) {
+function Details({detail, onAdd}) {
+  console.log(detail);
   return (
     <div className='Details'>
       <p>Свойства товара</p>

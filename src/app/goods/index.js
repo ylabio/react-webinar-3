@@ -1,4 +1,5 @@
 import {memo, useCallback, useEffect} from 'react';
+import { useParams } from "react-router-dom";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
@@ -8,15 +9,18 @@ import useSelector from "../../store/use-selector";
 
 function Goods() {
 
+  const { id } = useParams();
+
   const store = useStore();
 
   const select = useSelector(state => ({
+    detail: state.catalog.detail,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
 
   useEffect(() => {
-    console.log('rurring actions');
+    store.actions.catalog.detail(id);
   }, []);
 
   const callbacks = {
@@ -31,7 +35,7 @@ function Goods() {
       <Head title='Магазин'/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
-      <Details onAdd={callbacks.addToBasket}/>
+      <Details detail={select.detail} onAdd={callbacks.addToBasket}/>
     </PageLayout>
   );
 }
