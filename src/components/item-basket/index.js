@@ -9,7 +9,7 @@ import useSelector from '../../store/use-selector';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
-  const {delete : deleteText, pieces} = useSelector(state => state.locale.translations.basket);
+  
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id),
     onClick: () => props.onClick()
@@ -17,17 +17,16 @@ function ItemBasket(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <Link onClick= {callbacks.onClick} to = {`/product/${props.item._id}`}>
+        <Link onClick= {callbacks.onClick} to = {props.item.link || `/product/${props.item._id}`}>
         {props.item.title}
         </Link>
         </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {pieces}</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {props.locale.pieces}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>{deleteText}</button>
+          <button onClick={callbacks.onRemove}>{props.locale.delete}</button>
         </div>
       </div>
     </div>

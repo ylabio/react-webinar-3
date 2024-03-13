@@ -1,0 +1,7 @@
+.MainMenu {
+    display: flex;
+}
+
+.MainMenu-home-link {
+    padding: 20px;
+}

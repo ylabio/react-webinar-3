@@ -8,26 +8,21 @@ import SelectLang from "../select-lang";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
-function BasketTool({sum, amount, onOpen}) {
-  const {main,inCard,openModalCard,empty,pluralForms} = useSelector(state => state.locale.translations.basketTool);
-  const lang = useSelector(state => state.locale.lang);
-
+function BasketTool({sum, amount, onOpen,locale,lang}) {
   const cn = bem('BasketTool');
   
   return (
     <div className={cn()}>
-      <Link className={cn('home-link')} to= "/">{main}</Link>
-      <SelectLang/>
-      <span className={cn('label')}>{inCard}:</span>
+      <span className={cn('label')}>{locale.inCard}:</span>
       <span className={cn('total')}>
         {amount
           ? `${amount} ${plural(amount, 
-            pluralForms,lang
+            locale.pluralForms,lang
           )} / ${numberFormat(sum)} ₽`
-          : `${empty}`
+          : `${locale.empty}`
         }
       </span>
-      <button onClick={onOpen}>{openModalCard}</button>
+      <button onClick={onOpen}>{locale.openModalCard}</button>
     </div>
   );
 }

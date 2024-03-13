@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import useSelector from "../../store/use-selector";
 
 function Item(props) {
-  const add = useSelector(state =>state.locale.translations.main.add);
   const cn = bem('Item');
 
   const callbacks = {
@@ -18,13 +17,13 @@ function Item(props) {
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <Link to = {`/product/${props.item._id}`}>
+        <Link to = {props.link || `/product/${props.item._id}`}>
         {props.item.title}
         </Link>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>{add}</button>
+        <button onClick={callbacks.onAdd}>{props.locale.add}</button>
       </div>
     </div>
   );

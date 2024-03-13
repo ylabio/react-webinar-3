@@ -1,9 +1,8 @@
-.styled-select {
+.SelectLang {
     margin-right: auto;
-
+    padding: 20px;
 }
 
-.styled-select select {
+.SelectLang select {
     margin-left: 10px;
-
 }

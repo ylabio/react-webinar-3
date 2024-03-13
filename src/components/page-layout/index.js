@@ -6,10 +6,13 @@ import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
 import BasketTool from "../basket-tool";
 import Basket from "../../app/basket";
+import MainMenu from "../main-menu";
+import SpaceBetween from "../space-between";
+import SelectLang from "../select-lang";
 
 function PageLayout({head, footer, children}) {
   const store = useStore()
-
+  const locale = useSelector(state => state.locale)
   const cn = bem('PageLayout');
 
   const select = useSelector(state => ({
@@ -27,8 +30,12 @@ function PageLayout({head, footer, children}) {
     <div className={cn()}>
       <div className={cn('head')}>
         {head}
-        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+        <SpaceBetween>
+          <MainMenu locale = {locale.translations.mainMenu}/>
+          <SelectLang locale = {locale.translations.mainMenu}/>
+          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+                  sum={select.sum} locale={locale.translations.basketTool} lang = {locale.lang}/>
+        </SpaceBetween>
       </div>
       <div className={cn('center')}>
         {children}

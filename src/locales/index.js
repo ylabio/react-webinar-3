@@ -1,8 +1,10 @@
 export const translations = {
     en: {
-      chooseLanguage : "Choose a language",
-      basketTool:{
+      mainMenu :{
         main:"Main",
+        chooseLanguage : "Choose a language",
+      },
+      basketTool:{
         inCard : "In Card",
         openModalCard : "Open",
         empty: "empty",
@@ -28,14 +30,14 @@ export const translations = {
         pieces: "pс",
         delete : "Delete",
         close : "Close"
-      },
-      greeting: "Hello, world!",
-      buttonText: "Click me",
+      }
     },
     ru: {
-      chooseLanguage : "Выбрать язык",
-      basketTool:{
+      mainMenu :{
         main:"Главная",
+        chooseLanguage : "Выбрать язык",
+      },
+      basketTool:{
         inCard : "В корзине",
         openModalCard : "Перейти",
         empty: "пусто",
@@ -62,8 +64,6 @@ export const translations = {
         pieces: "шт",
         delete : "Удалить",
         close : "Закрыть"
-      },
-      greeting: "Привет, мир!",
-      buttonText: "Нажми меня",
+      }
     },
   };
