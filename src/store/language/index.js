@@ -5,17 +5,13 @@ import ru from '../../lang/ru.json'
 class Language extends StoreModule {
 
   initState() {
-    return {
-      lang: "ru-RU",
-      texts: ru
-    }
+    const locale = localStorage.getItem('locale');
+    this.changeLanguage(locale ? locale : 'ru-RU');
   }
 
-  changeLanguage(lang){
-    // const response = await fetch(`../../lang/${lang}.json`);
-    // const json = await response.json();
-    // console.log(response);
-    // console.log(json);
+  changeLanguage(lang) {
+
+    localStorage.setItem('locale', lang);
     this.setState({
       ...this.getState(),
       texts: lang == "ru-RU" ? ru : eng
