@@ -15,12 +15,12 @@ function ItemDetails() {
   const {language} = useLangContext();
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false);
-  const details = useSelector(state => state.catalog.details);
+  const details = useSelector(state => state.details.details);
   const basket = useSelector(state => state.basket);
 
   const callbacks = {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    onLoadDetails: useCallback(id => store.actions.catalog.loadDetails(id), [store]),
+    onLoadDetails: useCallback(id => store.actions.details.loadDetails(id), [store]),
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     onChangePage: useCallback(page => store.actions.catalog.load(page), [store]),
   };

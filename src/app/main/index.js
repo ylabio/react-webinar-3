@@ -36,12 +36,11 @@ function Main() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     closeModalBasket: useCallback(() => store.actions.modals.close(), [store]),
     onChangePage: useCallback(page => store.actions.catalog.load(page), [store]),
-    // onLoadDetails: useCallback(id => store.actions.catalog.loadDetails(id), [store]),
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} link={`/:${item._id}`}/>
     }, [callbacks.addToBasket]),
   };
 

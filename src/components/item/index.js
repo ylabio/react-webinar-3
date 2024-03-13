@@ -18,7 +18,7 @@ function Item(props) {
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <Link className={cn('link')} to={`/:${props.item._id}`}>
+        <Link className={cn('link')} to={props.link}>
          {props.item.title}
         </Link>
       </div>
@@ -34,7 +34,8 @@ Item.propTypes = {
   item: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
-    price: PropTypes.number
+    price: PropTypes.number,
+    link: PropTypes.string,
   }).isRequired,
   onAdd: PropTypes.func,
 };
