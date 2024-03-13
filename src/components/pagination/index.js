@@ -26,8 +26,7 @@ function Pagination({currentPage, totalPages, changePage}) {
         pagesArr.push(minPage, dots, totalPages - 2, totalPages - 1, totalPages)
       }
       if (currentPage === totalPages - 2) {
-        console.log('fuf')
-        pagesArr.push(minPage,dots, totalPages - 4, currentPage, totalPages - 1, totalPages)
+        pagesArr.push(minPage,dots, totalPages - 3, currentPage, totalPages - 1, totalPages)
       }
       
     return pagesArr
