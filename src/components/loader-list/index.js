@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import "./style.css";
 import PropTypes from "prop-types";
 function LoaderList({ count }) {
@@ -15,4 +15,4 @@ LoaderList.propTypes = {
 LoaderList.defaultProps = {
   count: 10,
 };
-export default LoaderList;
+export default memo(LoaderList);

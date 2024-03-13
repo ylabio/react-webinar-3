@@ -37,7 +37,7 @@ function Basket() {
             textPcs={select.data.basket.pcs}
             textDeletetBtn={select.data.basket.deleteItemBasketBtn}
             children={
-              <Link to={`/product/${item._id}`} onClick={callbacks.closeModal}>
+              <Link to={`/articles/${item._id}`} onClick={callbacks.closeModal}>
                 {item.title}
               </Link>
             }

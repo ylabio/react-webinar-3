@@ -3,6 +3,7 @@
 import React from "react";
 import "./style.css";
 import CustomLink from "./../custom-link/index";
+import { memo } from "react";
 
 function Pagination({ disabled, currentPage, totalPages }) {
   const renderFirstPageLink = () => (
@@ -25,7 +26,7 @@ function Pagination({ disabled, currentPage, totalPages }) {
           {page}
         </span>
       ) : (
-        <CustomLink to={`/page/${page}`}>{page}</CustomLink>
+        <CustomLink to={`/${page}`}>{page}</CustomLink>
       )}
     </li>
   );
@@ -41,7 +42,7 @@ function Pagination({ disabled, currentPage, totalPages }) {
       </ul>
     );
   }
-  if (currentPage > 2 && currentPage <= totalPages - 3) {
+  if (currentPage > 2 && currentPage <= totalPages - 2) {
     const prevPage = currentPage - 1;
     const nextPage = currentPage + 1;
     return (
@@ -51,17 +52,16 @@ function Pagination({ disabled, currentPage, totalPages }) {
         {renderPageLink(prevPage)}
         {renderPageLink(currentPage)}
         {renderPageLink(nextPage)}
-        {renderEllipsis()}
+        {currentPage !== totalPages - 2 && renderEllipsis()}
         {renderPageLink(totalPages)}
       </ul>
     );
   }
-  if (currentPage >= totalPages - 3 && currentPage <= totalPages) {
+  if (currentPage >= totalPages - 2 && currentPage <= totalPages) {
     return (
       <ul className="Pagination">
         {renderFirstPageLink()}
         {renderEllipsis()}
-        {renderPageLink(totalPages - 3)}
         {renderPageLink(totalPages - 2)}
         {renderPageLink(totalPages - 1)}
         {renderPageLink(totalPages)}
@@ -70,4 +70,4 @@ function Pagination({ disabled, currentPage, totalPages }) {
   }
 }
 
-export default Pagination;
+export default memo(Pagination);

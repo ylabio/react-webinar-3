@@ -17,43 +17,6 @@ class Catalog extends StoreModule {
     };
   }
 
-  async loadById(id) {
-    this.setState({
-      ...this.getState(),
-      isLoading: true,
-      error: "",
-    });
-
-    try {
-      const response = await fetch(
-        `/api/v1/articles/${id}?fields=price,title,description,edition,madeIn(title,code),category(title)`
-      );
-      if (!response.ok) {
-        throw new Error("bad request");
-      }
-      const product = await response.json();
-      this.setState(
-        {
-          ...this.getState(),
-          list: [
-            {
-              ...product.result,
-            },
-          ],
-          isLoading: false,
-        },
-        "Загружен товар из АПИ"
-      );
-    } catch (error) {
-      this.setState({
-        ...this.getState(),
-        list: [],
-        isLoading: false,
-        error: error.message,
-      });
-    }
-  }
-
   async load(skip = 0) {
     const limit = this.getState().limit;
     this.setState({

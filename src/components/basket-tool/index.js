@@ -4,12 +4,11 @@ import { cn as bem } from "@bem-react/classname";
 import { numberFormat, plural } from "../../utils";
 import "./style.css";
 
-function BasketTool({ sum, amount, onOpen, lang, data, children }) {
+function BasketTool({ sum, amount, onOpen, lang, data }) {
   const cn = bem("BasketTool");
+
   return (
     <div className={cn()}>
-      <div className={cn("title")}>{children}</div>
-
       <div>
         <span className={cn("label")}>{data.basket.basketToolText}:</span>
         <span className={cn("total")}>
@@ -44,14 +43,12 @@ BasketTool.propTypes = {
   amount: PropTypes.number,
   lang: PropTypes.string.isRequired,
   data: PropTypes.object.isRequired,
-  children: PropTypes.node,
 };
 
 BasketTool.defaultProps = {
   onOpen: () => {},
   sum: 0,
   amount: 0,
-  children: "",
 };
 
 export default memo(BasketTool);
