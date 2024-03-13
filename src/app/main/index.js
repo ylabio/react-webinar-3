@@ -8,14 +8,21 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
 import translate from '../../store/language/use-translate';
+import Tools from '../../components/tools';
+import Menu from '../../components/menu';
+import Loader from '../../components/loader';
+import { useParams } from "react-router-dom";
 
 function Main() {
 
   const store = useStore();
 
+	const {id} = useParams();
+
   useEffect(() => {
-    store.actions.catalog.loadCatalog(1);
-  }, []);
+		const currentId = Number(id) || 1;
+    store.actions.catalog.loadCatalog(currentId);
+  }, [id]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -25,6 +32,7 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
 		lang: state.language.language,
+		isLoading: state.catalog.isLoading,
   }));
 
   const callbacks = {
@@ -38,8 +46,11 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} link={`/card/${item._id}`}/>
-    }, [callbacks.addToBasket]),
+      return <Item item={item} 
+									 onAdd={callbacks.addToBasket} 
+									 link={`/card/${item._id}`} 
+									 translation={translate(select.lang).actions.add}/>
+    }, [callbacks.addToBasket, select.lang]),
   };
 
   return (
@@ -47,17 +58,23 @@ function Main() {
       <Head title={translate(select.lang).titles.main} 
 						onChangeLang={callbacks.onChangeLang} 
 						lang={select.lang}/>
-      <BasketTool onOpen={callbacks.openModalBasket} 
-									amount={select.amount}
-                  sum={select.sum}
-									translation={translate(select.lang)}/>
-      <List list={select.list} 
-						renderItem={renders.item}/>
-			<Pagination totalCount={select.count} 
-									currentPage={select.page} 
-									pageSize={select.size} 
-									siblingCount={1} 
-									onChangePage={callbacks.onChangePage}/>
+			<Tools>
+				<Menu menuLinks={[{title: translate(select.lang).main, link: '/'}]}/>
+				<BasketTool onOpen={callbacks.openModalBasket} 
+										amount={select.amount}
+										sum={select.sum}
+										translation={translate(select.lang)}/>
+			</Tools>
+      <Loader isLoading={select.isLoading}>
+				<List list={select.list} 
+							renderItem={renders.item}/>
+				<Pagination totalCount={select.count} 
+										currentPage={select.page} 
+										pageSize={select.size} 
+										siblingCount={1} 
+										onChangePage={callbacks.onChangePage}
+										path={'/'}/>
+			</Loader>
     </PageLayout>
 
   );

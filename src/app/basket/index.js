@@ -30,7 +30,8 @@ function Basket() {
       return <ItemBasket item={item} 
 												 onRemove={callbacks.removeFromBasket} 
 												 link={`/card/${item._id}`} 
-												 onCloseModal={callbacks.closeModal}/>
+												 onCloseModal={callbacks.closeModal}
+												 translation={translate(select.lang)}/>
     }, [callbacks.removeFromBasket]),
   };
 

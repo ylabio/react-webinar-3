@@ -2,9 +2,10 @@ import {memo} from "react";
 import {usePagination} from './use-pagination';
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import './style.css';
 
-function Pagination({totalCount, currentPage, pageSize, siblingCount, onChangePage}) {
+function Pagination({totalCount, currentPage, pageSize, siblingCount, onChangePage, path}) {
 	const cn = bem('Pagination');
 
 	const paginationRange = usePagination({
@@ -20,19 +21,16 @@ function Pagination({totalCount, currentPage, pageSize, siblingCount, onChangePa
 
   return (
     <div className={cn()}>
-      <ul className={cn('list')}>
-				{paginationRange.map((pageNum, index) => {
-          return (
-            <li
-							className={cn('page-number', {active: pageNum === currentPage,  dots: pageNum === "..."})}
-							onClick={() => onChangePage(pageNum)}
-              key={index}
-            >
-              {pageNum}
-            </li>
-          );
-        })}
-      </ul>
+			{paginationRange.map((pageNum, index) => {
+        return (
+          <Link to={`${path}${pageNum}`}
+								className={cn('page-number', {active: pageNum === currentPage,  dots: pageNum === "..."})}
+								onClick={() => onChangePage(pageNum)}
+          		  key={index}>
+            {pageNum}
+          </Link>
+        );
+      })}
     </div>
   );
 };
@@ -41,7 +39,8 @@ Pagination.propTypes = {
 	onChangePage: PropTypes.func,
   totalCount: PropTypes.number,
   currentPage: PropTypes.number,
-  pageSize: PropTypes.number
+  pageSize: PropTypes.number,
+	path: PropTypes.string,
 };
 
 export default memo(Pagination);

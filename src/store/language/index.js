@@ -3,18 +3,15 @@ import StoreModule from "../module";
 
 class Language extends StoreModule {
 
-  constructor(store, name) {
-    super(store, name);
-    this.generateCode = codeGenerator(0);
-  }
-
   initState() {
+		const currentLang = localStorage.getItem('language');
     return {
-      language: "ru",
+      language: currentLang ? currentLang : "ru",
     };
   }
 
   setLanguage(lang) {
+		localStorage.setItem('language', lang);
     this.setState({
 			...this.getState(),
       language: lang,

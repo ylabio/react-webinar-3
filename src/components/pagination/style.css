@@ -1,16 +1,14 @@
 .Pagination {
   padding: 20px;
 	font-size: 16px;
-}
-
-.Pagination-list {
-	margin: 0;
-	list-style: none;
 	display: flex;
   justify-content: flex-end;
+	list-style: none;
+	margin: 0;
 }
 
 .Pagination-page-number {
+	box-sizing: border-box;
 	padding: 2px;
 	height: 20px;
 	min-width: 20px;
@@ -19,6 +17,8 @@
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
+	text-decoration: none;
+	color: black;
 }
 
 .Pagination-page-number:hover{
@@ -37,7 +37,9 @@
 }
 
 .Pagination-page-number_dots {
+	color: #CCCCCC;
 	cursor: default;
+	pointer-events: none;
 }
 
 .Pagination-page-number_dots:hover{

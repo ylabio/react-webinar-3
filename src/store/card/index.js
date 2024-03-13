@@ -4,18 +4,26 @@ class Card extends StoreModule {
 
   initState() {
     return {
-      cardData: {}
+      cardData: {},
+			isLoading: false
     }
   }
 
   async loadCard(id) {
+		
+		this.setState({
+			...this.getState(),
+			isLoading: true
+		})
+
 		try {
 			const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
       const json = await response.json();
 
 			this.setState({
 				...this.getState(),
-				cardData: json.result
+				cardData: json.result,
+				isLoading: false
 			});
 
 		} catch (e) {

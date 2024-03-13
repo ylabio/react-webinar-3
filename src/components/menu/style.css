@@ -1,0 +1,22 @@
+.Menu {   
+	margin: 0;
+  padding: 20px;
+	list-style: none;
+  display: flex;
+	justify-content: flex-start;
+	gap: 12px;
+}
+
+.Menu-item {
+	margin: 0;
+  padding: 0;
+  color: #0087E9;
+  font-weight: 400;
+	font-size: 18px;
+	line-height: 21px;
+	cursor: pointer;
+}
+
+.Menu-item a:visited {
+	color: #0087E9;
+}

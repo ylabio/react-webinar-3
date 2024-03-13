@@ -7,6 +7,9 @@ import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
 import ItemCard from '../../components/item-card';
 import translate from '../../store/language/use-translate';
+import Tools from '../../components/tools';
+import Menu from '../../components/menu';
+import Loader from '../../components/loader';
 
 function Card() {
 
@@ -22,6 +25,7 @@ function Card() {
     sum: state.basket.sum,
 		card: state.card.cardData,
 		lang: state.language.language,
+		isLoading: state.card.isLoading,
   }));
 
 	const callbacks = {
@@ -35,11 +39,16 @@ function Card() {
 			<Head title={select.card.title}
 						onChangeLang={callbacks.onChangeLang} 
 						lang={select.lang}/>
-			<BasketTool onOpen={callbacks.openModalBasket} 
-									amount={select.amount}
-                  sum={select.sum}
-									translation={translate(select.lang)}/>
-			<ItemCard card={select.card} onAdd={callbacks.addToBasket} translation={translate(select.lang).actions}/>
+			<Tools>
+				<Menu menuLinks={[{title: translate(select.lang).main, link: '/'}]}/>
+				<BasketTool onOpen={callbacks.openModalBasket} 
+										amount={select.amount}
+                 	  sum={select.sum}
+										translation={translate(select.lang)}/>
+			</Tools>
+			<Loader isLoading={select.isLoading}>
+				<ItemCard card={select.card} onAdd={callbacks.addToBasket} translation={translate(select.lang).actions}/>
+			</Loader>
 		</PageLayout>
   );
 }
