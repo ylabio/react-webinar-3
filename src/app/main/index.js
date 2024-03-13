@@ -3,6 +3,7 @@ import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
+import Basket from '../basket';
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
@@ -11,6 +12,7 @@ import Navbar from "../../components/navbar";
 
 function Main() {
   const store = useStore();
+  const activeModal = useSelector(state => state.modals.name);
 
   useEffect(() => {
     store.actions.catalog.load();
@@ -41,6 +43,7 @@ function Main() {
   };
 
   return (
+    <>
     <PageLayout>
       <Head title='Магазин'/>
       <Navbar />
@@ -50,6 +53,8 @@ function Main() {
       <Pagination currentPage={select.currentPage} totalCount={select.count}
                   pageSize={10} setNumberPage={page => callbacks.setNumberPage(page)}/>
     </PageLayout>
+    {activeModal === 'basket' && <Basket/>}
+    </>
   );
 }
 

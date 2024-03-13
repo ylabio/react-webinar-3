@@ -1,6 +1,7 @@
 import Main from "./main";
-import Basket from "./basket";
 import useSelector from "../store/use-selector";
+import Article from './article';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 
 /**
  * Приложение
@@ -8,13 +9,21 @@ import useSelector from "../store/use-selector";
  */
 function App() {
 
-  const activeModal = useSelector(state => state.modals.name);
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+        <>
+          <Route 
+          exact path="/"
+          element={<Main />} />
+          <Route
+          exact path='article/:id'
+          element={<Article />} />
+        </>
+    )
+  )
 
   return (
-    <>
-      <Main/>
-      {activeModal === 'basket' && <Basket/>}
-    </>
+    <RouterProvider router={router}/>
   );
 }
 

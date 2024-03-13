@@ -6,8 +6,8 @@ import BasketTool from "../../components/basket-tool";
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
 import ArticleItem from "../../components/article-item";
+import Basket from "../basket";
 import { useParams } from "react-router-dom";
-import Basket from "../../app/basket";
 import "./style.css";
 
 function Article() {
@@ -48,7 +48,7 @@ function Article() {
                     sum={select.sum}/>
         <ArticleItem onAdd={callbacks.addToBasket} item={select.item}/>
       </PageLayout>
-      {activeModal === 'basket' && <Basket />}
+      {activeModal === 'basket' && <Basket/>}
     </>
   )
 }
