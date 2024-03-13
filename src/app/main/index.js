@@ -11,6 +11,7 @@ import LangTool from '../../components/lang-tool';
 import {locale} from '../../locale';
 import {setLocale} from '../../utils';
 import Loader from '../../components/loader';
+import Navigation from '../../components/navigation';
 
 function Main({lang, setLang}) {
   const [isLoading, setIsLoading] = useState(true);
@@ -62,7 +63,9 @@ function Main({lang, setLang}) {
       <BasketTool lang={lang} 
         onOpen={callbacks.openModalBasket} 
         amount={select.amount}
-        sum={select.sum}/>
+        sum={select.sum}>
+        <Navigation link='/' title={locale[lang].tool.main} />
+      </BasketTool>
       <Loader isLoading={isLoading}>
         <List list={select.list} renderItem={renders.item}/>
       </Loader>

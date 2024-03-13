@@ -7,6 +7,7 @@ import useSelector from "../../store/use-selector"
 import useStore from "../../store/use-store"
 import {getIdFromUrl} from "../../utils"
 import {locale} from "../../locale"
+import Navigation from "../../components/navigation"
 
 function ItemPage({lang}) {
 
@@ -36,7 +37,9 @@ function ItemPage({lang}) {
     <PageLayout>
       <Head title={currentItem.title} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-        sum={select.sum} lang={lang}/>
+        sum={select.sum} lang={lang}>
+        <Navigation link='/' title={locale[lang].tool.main} />
+      </BasketTool>
       <Description item={currentItem} lang={lang} onClick={callbacks.addToBasket}>
         <button onClick={() => callbacks.addToBasket(currentItem._id)}>{locale[lang].button.add}</button>
       </Description>
