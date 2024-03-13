@@ -1,5 +1,7 @@
-.List {
-
+.List-loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
 }
 
 .List-item {

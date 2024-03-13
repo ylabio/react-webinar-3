@@ -1,16 +1,15 @@
 import { memo } from "react";
-import { Link } from "react-router-dom";
 import './style.css';
 import PropTypes from "prop-types";
 
-function MainMenu({ main }) {
+function MainMenu({ children }) {
   return <div className="Main-menu">
-    <Link className="Main-menu-link" to='/' >{main}</Link>
+    {children}
   </div>
 }
 
 MainMenu.propTypes = {
-  main: PropTypes.string,
+  children: PropTypes.node,
 };
 
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from "../../utils";
 import './style.css';
-import MainMenu from "../main-menu";
+
 
 
 function BasketTool({ sum, amount, onOpen, language }) {
@@ -15,7 +15,7 @@ function BasketTool({ sum, amount, onOpen, language }) {
     : `${empty}`;
   return (
     <div className={cn()}>
-      <MainMenu main={main} />
+
       <span className={cn('label')}>{inBasket}</span>
       <span className={cn('total')}>{formattedAmountSummary}</span>
       <button onClick={onOpen}>{goTo}</button>

@@ -7,6 +7,8 @@ import useSelector from "../../store/use-selector";
 import { useParams } from 'react-router-dom';
 import ProductCart from '../../components/product-cart';
 import translations from '../../components/language/library';
+import MainMenu from '../../components/main-menu';
+import Menu from '../../components/menu';
 
 function Product() {
   const store = useStore();
@@ -38,7 +40,10 @@ function Product() {
   return (
     <PageLayout>
       <Head title={select.product.title} setLanguage={callbacks.setLanguage} language={select.language} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={translations[select.language]} />
+      <MainMenu>
+        <Menu main={translations[select.language].main} />
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={translations[select.language]} />
+      </MainMenu>
       {select.product._id && <ProductCart product={select.product} onAdd={callbacks.addToBasket} />}
     </PageLayout>
   );

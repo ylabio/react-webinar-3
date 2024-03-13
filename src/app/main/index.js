@@ -8,6 +8,8 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
 import translations from '../../components/language/library';
+import MainMenu from '../../components/main-menu';
+import Menu from '../../components/menu';
 
 
 function Main() {
@@ -21,13 +23,13 @@ function Main() {
 
   const select = useSelector(state => ({
     list: state.catalog.list,
+    isLoading: state.catalog.isLoading,
     currentPage: state.catalog.currentPage,
     lastPage: state.catalog.lastPage,
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.language.language,
   }));
-
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
@@ -49,10 +51,13 @@ function Main() {
   return (
     <PageLayout>
       <Head title={translations[select.language].headerTitle} setLanguage={callbacks.setLanguage} language={select.language} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-        sum={select.sum} language={translations[select.language]} />
-      <List list={select.list} renderItem={renders.item} />
-      <Pagination currentPage={select.currentPage} lastPage={select.lastPage} setCurrentPage={callbacks.setCurrentPage} />
+      <MainMenu>
+        <Menu main={translations[select.language].main} />
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+          sum={select.sum} language={translations[select.language]} />
+      </MainMenu>
+      <List list={select.list} renderItem={renders.item} isLoading={select.isLoading} />
+      {!select.isLoading && <Pagination currentPage={select.currentPage} lastPage={select.lastPage} setCurrentPage={callbacks.setCurrentPage} />}
     </PageLayout>
 
   );
