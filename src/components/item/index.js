@@ -19,7 +19,7 @@ function Item(props) {
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-      <NavLink to={`/product/${props.item._id}`}>
+      <NavLink to={props.link}>
         {props.item.title}
       </NavLink>
       </div>
@@ -38,6 +38,7 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  link: PropTypes.string
 };
 
 Item.defaultProps = {

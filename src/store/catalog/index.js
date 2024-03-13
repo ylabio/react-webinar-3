@@ -12,20 +12,20 @@ class Catalog extends StoreModule {
     return {
       list: [],
       pageSize: 10,
-      scip:0,
+      skip:0,
       currentPage: 1,
       totalProductCount: 0,
     }
   }
   async load(page=1) {
     let pageSize=this.getState().pageSize
-    let scip=this.getState().scip
+    let skip=this.getState().skip
     let currentPage=this.getState().currentPage
     if(currentPage!=page){
       currentPage=page
     }
-    scip=(currentPage-1)*pageSize
-    const response = await fetch(`/api/v1/articles?limit=${pageSize}&skip=${scip}&fields=items(_id, title, price),count`);
+    skip=(currentPage-1)*pageSize
+    const response = await fetch(`/api/v1/articles?limit=${pageSize}&skip=${skip}&fields=items(_id, title, price),count`);
     const json = await response.json();
     this.setState({
       ...this.getState(),

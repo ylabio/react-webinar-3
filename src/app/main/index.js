@@ -9,6 +9,8 @@ import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination/pagination';
 import { useParams } from 'react-router-dom';
 import { LanguageContext } from '../../languages/languagesContext';
+import Menu from '../../components/menu';
+import Navigation from '../../components/navigation';
 
 function Main() {
 
@@ -38,19 +40,24 @@ function Main() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Смена страницы
     changePage: useCallback(page => store.actions.catalog.changePage(page), [store]),
+    // Переход на главную
+    toMain: useCallback(()=> store.actions.catalog.load(),[store])
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} />
+      return <Item item={item} onAdd={callbacks.addToBasket} link={`/product/${item._id}`}/>
     }, [callbacks.addToBasket]),
   };
 
   return (
     <PageLayout>
       <Head title={dict.title} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-        sum={select.sum} />
+      <Menu>
+        <Navigation toMain={callbacks.toMain}/>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+          sum={select.sum} />
+      </Menu>
       <List list={select.list} renderItem={renders.item} />
       <Pagination 
       currentPage={select.currentPage} totalProductCount={select.totalProductCount} 

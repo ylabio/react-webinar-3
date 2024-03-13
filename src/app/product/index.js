@@ -6,6 +6,8 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import ProductBody from '../../components/product-body';
 import { useParams } from 'react-router-dom';
+import Menu from '../../components/menu';
+import Navigation from '../../components/navigation';
 
 function Product() {
 
@@ -29,13 +31,18 @@ function Product() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Переход на главную
+    toMain: useCallback(()=> store.actions.catalog.load(),[store])
   }
 
   return (
     <PageLayout>
       <Head title={select.data.title}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+      <Menu>
+        <Navigation toMain={callbacks.toMain}/>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
+      </Menu>
       <ProductBody data={select.data} onAdd={callbacks.addToBasket}/>
     </PageLayout>
 
