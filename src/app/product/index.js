@@ -7,6 +7,7 @@ import useSelector from "../../store/use-selector";
 import ProductCard from "../../components/product-card";
 import {useParams} from "react-router-dom";
 import LoadWraper from "../../components/load-wraper";
+import Menu from "../../components/menu";
 
 function Product() {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,6 +40,7 @@ function Product() {
   return (
     <PageLayout>
       <Head title={select.product.map(el => el.title)}/>
+      <Menu title={select.lang === 'ru-RU' ? 'Главная' : 'Main'}/>
       <BasketTool lang={select.lang} setCurrentPage={() => callbacks.setCurrentPage(1)}
                   onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>

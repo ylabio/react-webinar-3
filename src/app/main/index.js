@@ -9,6 +9,7 @@ import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
 import {useParams} from "react-router-dom";
 import LoadWrapper from "../../components/load-wraper";
+import Menu from "../../components/menu";
 
 function Main() {
   const [isLoading, setIsLoading] = useState(true);
@@ -51,6 +52,7 @@ function Main() {
   return (
     <PageLayout>
       <Head title={select.lang === 'ru-RU' ? 'Магазин' : 'Shop'}/>
+      <Menu title={select.lang === 'ru-RU' ? 'Главная' : 'Main'}/>
       <BasketTool lang={select.lang} setCurrentPage={() => callbacks.setCurrentPage(1)}
                   onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum} currentPage={select.currentPage}/>
