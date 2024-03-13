@@ -33,3 +33,7 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export const getCountPages = (itemLength) => {
+  return Math.round(itemLength / 10) + 1
+}

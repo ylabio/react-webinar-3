@@ -1,0 +1,32 @@
+.Pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
+}
+
+.Pagination__content {
+
+}
+
+.Pagination__content-page {
+  border: none;
+  background: white;
+  transition: ease-in-out 0.3s;
+  cursor: pointer;
+}
+
+.Pagination__content-page.active {
+  background: #0087e9;
+  color: white;
+}
+
+.Pagination__content-page.active:hover {
+  background: #0087e9;
+  color: white;
+  cursor: default;
+}
+
+.Pagination__content-page:hover {
+  background-color: #d5d5d5;
+}
