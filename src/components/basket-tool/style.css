@@ -2,7 +2,6 @@
 .BasketTool {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
   font-size: 18px;
 }
 
@@ -13,12 +12,4 @@
 .BasketTool-total {
   font-weight: bold;
   margin: 0 20px;
-}
-
-
-.BasketTool-link {
-  margin-right: auto;
-  display: block;
-  color: rgba(0, 135, 233, 1);
-  text-decoration: underline;
 }

@@ -7,6 +7,8 @@ import {LanguageContext} from "../../language-provider.js";
 
 function ProductDetail({ product, addToCart }) {
 
+  console.log(product)
+
   const cn = bem('ProductDetail');
 
   const { wordsTranslate } = useContext(LanguageContext);
@@ -19,7 +21,7 @@ function ProductDetail({ product, addToCart }) {
     <div className={cn()}>
       <div className={cn('content')}>
         <p className={cn('description')}>{product?.description}</p>
-        <p className={cn('category')}>Страна производитель: <b>{product.madeIn?.title}</b></p>
+        <p className={cn('category')}>Страна производитель: <b>{product.madeIn?.title} ({product.madeIn?.code})</b></p>
         <p className={cn('category')}> Категория: <b>{product.category?.title}</b></p>
 
         <p className={cn('category')}>Год выпуска: <b>{product?.edition}</b></p>
@@ -42,11 +44,11 @@ ProductDetail.propTypes = {
     edition: PropTypes.number,
     category: PropTypes.shape({
       title: PropTypes.string,
-    }),
+    }).isRequired,
     madeIn: PropTypes.shape({
       title: PropTypes.string,
     })
-  }).isRequired,
+  }),
 };
 
 ProductDetail.defaultProps = {

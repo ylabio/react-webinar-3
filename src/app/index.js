@@ -17,7 +17,7 @@ function App() {
     <LanguageProvider>
       <Routes>
         <Route path="/" exact element={<Main/>} />
-        <Route path=':id' element={<PageDetail />} />
+        <Route path='/articles/:id' element={<PageDetail />} />
       </Routes>
       {activeModal === 'basket' && <Basket/>}
     </LanguageProvider >

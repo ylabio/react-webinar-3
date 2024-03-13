@@ -4,7 +4,6 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
 import {LanguageContext} from "../../language-provider.js";
-import {Link} from "react-router-dom";
 
 function BasketTool({sum, amount, onOpen}) {
   const cn = bem('BasketTool');
@@ -13,9 +12,6 @@ function BasketTool({sum, amount, onOpen}) {
 
   return (
     <div className={cn()}>
-      <Link to='/' className={cn("link")}>
-        {wordsTranslate("home")}
-      </Link>
       <span className={cn('label')}>{wordsTranslate("inBasket")}</span>
       <span className={cn('total')}>
         {amount

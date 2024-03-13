@@ -6,13 +6,13 @@ import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import PageLayout from "../../components/page-layout";
 import ProductDetail from "../../components/product-detail";
+import Nav from "../../components/nav";
+import Menu from "../../components/menu";
 
 function PageDetail() {
 
   const store = useStore();
   const {id} = useParams();
-
-
 
   useEffect(() => {
     store.actions.product.getDetailProduct(id);
@@ -29,13 +29,15 @@ function PageDetail() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   };
 
-
   return (
     <div >
       <PageLayout>
         <Head title={select.product?.title} />
-        <BasketTool onOpen={() => store.actions.modals.open('basket')} amount={select.amount} sum={select.sum} />
-        <ProductDetail product={ select?.product} addToCart={callbacks.addToBasket} />
+        <Nav>
+          <Menu/>
+          <BasketTool onOpen={() => store.actions.modals.open('basket')} amount={select.amount} sum={select.sum} />
+        </Nav>
+        <ProductDetail product={select?.product} addToCart={callbacks.addToBasket} />
       </PageLayout>
     </div>
   );
