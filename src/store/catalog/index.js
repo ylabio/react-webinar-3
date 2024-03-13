@@ -29,7 +29,9 @@ class Catalog extends StoreModule {
   }
 
   async loadPage(num) {
-    const response = await fetch('/api/v1/articles?limit=10&skip=' + (num * 10 - 10) + '&fields=items(_id, title, price),count');
+    this.store.actions.loading.start();
+    const response = await fetch('/api/v1/articles?limit=10&skip=' + (num * 10 - 10) + '&fields=items(_id, title, price),count')
+      .then(this.store.actions.loading.finish());
     const json = await response.json();
     this.setState({
       ...this.getState(),

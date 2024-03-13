@@ -39,7 +39,8 @@ function Description() {
     <PageLayout>
       <Head title={select.item.title} onChange={callbacks.changeLanguage} locale={select.texts.locale}/>
       <Menu onOpen={callbacks.openModalBasket} amount={select.amount}
-        sum={select.sum} texts={select.texts.description?.basket_tool} locale={select.texts.locale} />
+        sum={select.sum} texts={select.texts.description?.basket_tool}
+        locale={select.texts.locale} link={'/page/1'}/>
       <DescriptionBody item={select.item} texts={select.texts.description?.body} />
       <button onClick={callbacks.addToBasket}>{select.texts.description?.add}</button>
     </PageLayout>

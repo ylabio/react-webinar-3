@@ -6,6 +6,7 @@ import useStore from "../store/use-store";
 import useSelector from "../store/use-selector";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Description from './description';
+import Loading from '../components/loading'
 
 /**
  * Приложение
@@ -13,8 +14,11 @@ import Description from './description';
  */
 function App() {
 
-  const activeModal = useSelector(state => state.modals.name);
-  //const isLoading = useSelector();
+  const select = useSelector( state => ({
+    activeModal: state.modals.name,
+    isLoading: state.loading.isLoading,
+    loadingText: state.language.texts.loading
+  }));
 
   return (
     <>
@@ -23,7 +27,8 @@ function App() {
           {['/', '/page/:_id'].map(path => <Route path={path} element={<Main />} />)}
           <Route path='/description/:_id' element={<Description />} />
         </Routes>
-        {activeModal === 'basket' && <Basket />}
+        {select.activeModal === 'basket' && <Basket />}
+        {select.isLoading && <Loading text={select.loadingText}/>}
       </Router>
     </>
   );
