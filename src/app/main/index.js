@@ -8,7 +8,7 @@ import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
 import MainMenu from '../../components/main-menu';
-import "../style.css"
+import Row from '../../components/row';
 
 function Main() {
 
@@ -56,7 +56,7 @@ function Main() {
           languageNames={select.languageNames}
           changeLang={callbacks.changeLang}
         />
-        <div className="MenuAndBasketTool">
+        <Row>
           <MainMenu title={select.locale.Main} />
           <BasketTool
             onOpen={callbacks.openModalBasket}
@@ -70,7 +70,7 @@ function Main() {
               Navigate: select.locale.Navigate
             }}
           />
-        </div>
+        </Row>
       </>}
     >
       <List
