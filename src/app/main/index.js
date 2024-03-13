@@ -80,7 +80,7 @@ function Main() {
         <LanguageTool translations={translations.languageTool} toggleLanguage={callbacks.toggleLanguage}/>
       </Head>
       <NavWrapper>
-      <Nav translations={translations.nav}/>
+      <Nav translations={translations.nav} path='/'/>
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}

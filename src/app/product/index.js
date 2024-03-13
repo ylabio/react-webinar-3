@@ -67,7 +67,7 @@ function Product() {
     <PageLayout>
       <Head title={select.product?.title}/>
       <NavWrapper>
-      <Nav translations={translations.nav}/>
+      <Nav translations={translations.nav} path='/'/>
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
