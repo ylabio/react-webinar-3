@@ -33,3 +33,18 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export const paginationRange = (array, page) => {
+  const leftIndex = array[page - 3]; 
+  const rightIndex = array[page]; 
+  if(page < 4) {
+      const leftArray = array.slice(0, 4);
+      return [...leftArray, '...', array[array.length - 1]];
+  } else if (page > 3 && page < 53) {
+      const middleArray = array.slice(leftIndex, rightIndex);
+      return [array[0], '...', ...middleArray, '...', array[array.length - 1]];
+  } else {
+      const rightArray = array.slice(-4);
+      return [array[0], '...', ...rightArray];
+  }
+}

@@ -1,0 +1,24 @@
+.ProductPage{
+    padding: 0 20px 0 20px;
+    margin-top: 20px;
+}
+
+.ProductPage-description{
+    margin-bottom: 15px;
+}
+
+.ProductPage-country{
+    margin-bottom: 15px;
+}
+
+.ProductPage-category{
+    margin-bottom: 15px;
+}
+
+.ProductPage-edition{
+    margin-bottom: 15px;
+}
+
+.ProductPage-price{
+    margin-bottom: 15px;
+}
