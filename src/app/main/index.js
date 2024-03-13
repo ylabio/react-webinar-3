@@ -12,15 +12,11 @@ import useSelector from "../../store/use-selector";
 
 function Main() {
   const store = useStore();
-  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     store.actions.catalog.itemCount();
-  }, []);
-
-  useEffect(() => {
     store.actions.catalog.load();
-  }, [currentPage]);
+  }, []);
 
   const select = useSelector((state) => ({
     list: state.catalog.list,
