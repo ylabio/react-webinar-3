@@ -38,19 +38,19 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item lang={select.lang} item={item} onAdd={callbacks.addToBasket}/>
+      return <Item lang={select.lang} link={`/product-page/${item._id}`} item={item} onAdd={callbacks.addToBasket}/>
     }, [callbacks.addToBasket, select.lang]),
   };
 
   useEffect(() => {
-      store.actions.catalog.load(pageNumber);
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 2000);
+    store.actions.catalog.load(pageNumber);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
     return () => {
       setIsLoading(true);
     };
-    }, [select.currentPage, select.lang]);
+  }, [select.currentPage, select.lang]);
 
   return (
     <PageLayout>

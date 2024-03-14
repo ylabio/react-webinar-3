@@ -19,7 +19,7 @@ function Item(props) {
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-        <Link  to={`/product-page/${props.item._id}`}>
+        <Link  to={props.link}>
           {props.item.title}
         </Link>
       </div>

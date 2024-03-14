@@ -19,7 +19,7 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       <div onClick={props.closeModal}  className={cn('title')}>
-        <Link to={`/product-page/${props.item._id}`}>
+        <Link to={props.link}>
           {props.item.title}
         </Link>
       </div>
@@ -39,7 +39,8 @@ ItemBasket.propTypes = {
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
     price: PropTypes.number,
-    amount: PropTypes.number
+    amount: PropTypes.number,
+    link: PropTypes.string
   }).isRequired,
   onRemove: propTypes.func,
   closeModal: propTypes.func,
