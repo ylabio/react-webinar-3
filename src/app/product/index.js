@@ -7,6 +7,7 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import { useParams } from "react-router-dom";
 import ItemContent from "../../components/item-content"
+import Menu from "../../components/menu"
 
 function Product() {
   const store = useStore();
@@ -40,6 +41,13 @@ function Product() {
     }, [store])
   };
 
+  const menuLinks = [
+    {
+      to: '/',
+      children: select.t.main
+    }
+  ]
+
   return (
     <PageLayout>
       <Preloader isLoading={select.isLoading}>
@@ -54,6 +62,8 @@ function Product() {
           amount={select.amount}
           sum={select.sum}
           t={select.t}
+          menu={Menu}
+          menuLinks={menuLinks}
         />
         <ItemContent t={select.t} data={select.data} onAdd={callbacks.addToBasket}/>
       </Preloader>

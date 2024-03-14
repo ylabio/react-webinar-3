@@ -8,7 +8,8 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination"
 import Preloader from "../../components/preloader"
-import { useSearchParams, useNavigate } from "react-router-dom";
+import Menu from "../../components/menu"
+import { useSearchParams, useNavigate, Link } from "react-router-dom";
 
 function Main() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -52,9 +53,18 @@ function Main() {
 
   const renders = {
     item: (item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} t={select.t}/>
+      const itemLink = <Link to={`item/${item._id}`}>{item.title}</Link>
+      return <Item item={item} onAdd={callbacks.addToBasket} t={select.t} itemLink={itemLink}/>
     },
   };
+
+  const menuLinks = [
+    {
+      to: '/',
+      children: select.t.main,
+      onClick: () => setCurrentPage(1)
+    }
+  ]
 
   return (
     <PageLayout>
@@ -66,7 +76,7 @@ function Main() {
           onLangChange={callbacks.onLangeChange}
         />
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                    sum={select.sum} t={select.t}/>
+                    sum={select.sum} t={select.t} menu={Menu} menuLinks={menuLinks}/>
         <List list={select.list} renderItem={renders.item}/>
         <Pagination
           currentPage={currentPage}
