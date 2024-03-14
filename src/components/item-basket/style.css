@@ -31,6 +31,10 @@
   white-space: nowrap;
 }
 
+.ItemBasket-cell button{
+  margin: 0px;
+}
+
 .ItemBasket-title:hover{
   text-decoration: underline;
 }

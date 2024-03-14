@@ -29,6 +29,10 @@
   gap: 20px
 }
 
+.Item-actions button{
+  margin: 0px;
+}
+
 .Item-price {
   padding: 0 0 0 10px;
   white-space: nowrap;

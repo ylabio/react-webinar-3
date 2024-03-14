@@ -8,6 +8,8 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import PageList from '../../components/page-list';
 import { useParams } from "react-router-dom";
+import Row from '../../components/row';
+import BasketTool from '../../components/basket-tool';
 
 function Main() {
 
@@ -46,9 +48,12 @@ function Main() {
   return (
     <PageLayout>
       <Head title={select.texts.head_title} onChange={callbacks.changeLanguage} locale={select.texts.locale} />
-      <Menu onOpen={callbacks.openModalBasket} amount={select.amount}
+      <Row>
+        <Menu link={'/page/1'} texts={select.texts.description?.basket_tool.main}/>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
         sum={select.sum} texts={select.texts.description?.basket_tool}
-        locale={select.texts.locale} link={'/page/1'}/>
+        locale={select.texts.locale} />
+      </Row>
       <List list={select.list} renderItem={renders.item} />
       <PageList page={_id?_id:1} totalPages={select.catalog.pages} />
     </PageLayout>

@@ -6,8 +6,8 @@
   font-size: 18px;
 }
 
-.BasketTool-label {
-
+.BasketTool button {
+  margin: 0px;
 }
 
 .BasketTool-total {

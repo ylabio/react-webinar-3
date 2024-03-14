@@ -4,10 +4,11 @@ import Head from "../../components/head";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import { useParams } from "react-router-dom";
-import { numberFormat } from "../../utils";
 import DescriptionBody from "../../components/description-body";
 import './style.css';
 import Menu from "../../components/menu";
+import Row from "../../components/row";
+import BasketTool from "../../components/basket-tool";
 
 
 function Description() {
@@ -38,9 +39,12 @@ function Description() {
   return (
     <PageLayout>
       <Head title={select.item.title} onChange={callbacks.changeLanguage} locale={select.texts.locale}/>
-      <Menu onOpen={callbacks.openModalBasket} amount={select.amount}
+      <Row>
+        <Menu link={'/page/1'} texts={select.texts.description?.basket_tool.main}/>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
         sum={select.sum} texts={select.texts.description?.basket_tool}
-        locale={select.texts.locale} link={'/page/1'}/>
+        locale={select.texts.locale} />
+      </Row>
       <DescriptionBody item={select.item} texts={select.texts.description?.body} />
       <button onClick={callbacks.addToBasket}>{select.texts.description?.add}</button>
     </PageLayout>

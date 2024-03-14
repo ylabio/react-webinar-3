@@ -1,7 +1,7 @@
 .Menu {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 0px;
   font-size: 18px;
 }
 
@@ -9,17 +9,9 @@
   width: 50%
 }
 
-.BasketTool-container * {
-  padding: 0px;
-}
-
 .Menu-link {
   color: #0087E9;
   text-decoration: none;
-}
-
-.BasketTool button {
-  padding: 1px 6px;
 }
 
 .Menu-link:hover {
