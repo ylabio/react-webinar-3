@@ -33,3 +33,37 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Формирует пагинацию
+ */
+export const DOTS = '...';
+
+export function getPaginationButtons(currentPage, pagesCount) {
+  let pagesArr = [];
+  for (let i = 1; i <= pagesCount; i++) {
+    pagesArr.push(i);
+  }
+
+  if (currentPage <= 2) {
+    pagesArr = [1, 2, 3, DOTS, pagesCount];
+  } else if (currentPage === 3) {
+    const sliced = pagesArr.slice(0, 4);
+    pagesArr = [...sliced, DOTS, pagesCount];
+  } else if (currentPage > 3 && currentPage < pagesCount - 2) {
+    const slicedLeft = pagesArr.slice(currentPage - 2, currentPage);
+    const slicedRight = pagesArr.slice(currentPage, currentPage + 1);
+    pagesArr = [
+      1,
+      DOTS,
+      ...slicedLeft,
+      ...slicedRight,
+      DOTS,
+      pagesCount,
+    ];
+  } else if (currentPage > pagesCount - 3) {
+    const sliced = pagesArr.slice(pagesCount - 4);
+    pagesArr = [1, DOTS, ...sliced];
+  }
+  return pagesArr;
+}
