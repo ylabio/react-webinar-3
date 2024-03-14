@@ -88,7 +88,6 @@ function Main() {
         navList={[
           {
             name: "Главная",
-            // path: !pageNumber ? "/" : `/page/${select.currentPage}`,
             path: `/page/${select.currentPage}`,
           },
         ]}
