@@ -22,12 +22,16 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/article/:id" element={<ArticleMain />}/>
-        <Route path="/" element={<>
+        <Route path="/:lang/article/:id" element={
+        <>
+          <ArticleMain />
+          {activeModal === 'basket' && <Basket/>}
+        </>}/>
+        <Route path="/:lang/" element={<>
           <Main/>
+          {activeModal === 'basket' && <Basket/>}
         </>}/>
       </Routes>
-      {activeModal === 'basket' && <Basket/>}
     </Router>
   );
 }

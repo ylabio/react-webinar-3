@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { memo, useCallback, useState, useEffect } from "react";
+import { memo, useCallback, useState, useEffect, Suspense } from "react";
 import Article from "../../components/article";
 import PageLayout from "../../components/page-layout";
 import useSelector from "../../store/use-selector";
@@ -7,10 +7,11 @@ import BasketTool from "../../components/basket-tool";
 import useStore from "../../store/use-store";
 import Head from "../../components/head";
 import Menu from "../../components/menu";
+import Locale from "../../components/locale";
 
 function ArticleMain() {
 
-    const { id } = useParams();
+    const { id, lang } = useParams();
 
     const store = useStore();
 
@@ -33,13 +34,25 @@ function ArticleMain() {
 
     return (
         <PageLayout>
-            <Head title={select.list?.title}/>
+            <Head title={<div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <div style={{
+                    display: 'flex',
+                    width: '50%',
+                }}>{select.list?.title}</div>
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    width: '50%',
+                }}><Locale lang={lang}/></div>
+            </div>}/>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                <Menu href='/'/>
+                <Menu href={`/${lang}/`} lang={lang}/>
                 <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                    sum={select.sum}/>
+                    sum={select.sum} lang={lang}/>
             </div>
-            {select.list ? <Article item={select.list} onAdd={callbacks.addToBasket}/> : 'Loading...'}
+            <Suspense fallback={<div>Loading...</div>}>
+                {select.list ? <Article item={select.list} onAdd={callbacks.addToBasket} lang={lang}/> : <div>Loading...</div>}
+            </Suspense>
         </PageLayout>
     )
 

@@ -13,13 +13,20 @@
     color: #ccc;
 }
 
-.Pagination-pagenum {
+.Pagination-pagenum a {
     cursor: pointer;
+    text-decoration: none;
+}
+.Pagination-pagenum:not(.Pagination_active) a {
+    color: black;
 }
 
 .Pagination_active {
-    color: white;
     background-color: #0087E9;
+}
+
+.Pagination_active a {
+    color: white;
 }
 
 .Pagination_active:hover {
@@ -28,4 +35,5 @@
 
 .Pagination-pagenum:not(.Pagination_active):hover {
     background-color: #E1E1E1;
+    
 }

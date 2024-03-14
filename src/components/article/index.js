@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import './style.css';
 import Head from "../head";
 import { numberFormat } from "../../utils";
+import { locale } from "../../locale";
 
-function Article({item, onAdd}) {
+function Article({item, onAdd, lang}) {
 
     const callbacks = {
         onAdd: (e) => onAdd(item._id)
@@ -13,11 +14,11 @@ function Article({item, onAdd}) {
     return (
         <div className="Article">
             <div className="Article-paragraph">{item.description}</div>
-            <div className="Article-paragraph">Страна производитель: <b>{item.madeIn.title} ({item.madeIn.code})</b></div>
-            <div className="Article-paragraph">Категория: <b>{item.category.title}</b></div>
-            <div className="Article-paragraph">Год: <b>{item.edition}</b></div>
-            <div className="Article-paragraph Article_big"><b>Цена: {numberFormat(item.price)}</b></div>
-            <button onClick={callbacks.onAdd}>Добавить</button>
+            <div className="Article-paragraph">{locale[lang].description.country}<b>{item.madeIn.title} ({item.madeIn.code})</b></div>
+            <div className="Article-paragraph">{locale[lang].description.category}<b>{item.category.title}</b></div>
+            <div className="Article-paragraph">{locale[lang].description.year}<b>{item.edition}</b></div>
+            <div className="Article-paragraph Article_big"><b>{locale[lang].description.price}{numberFormat(item.price)}</b></div>
+            <button onClick={callbacks.onAdd}>{locale[lang].description.add}</button>
         </div>
     )
 }
@@ -37,6 +38,7 @@ Article.propTypes = {
         price: PropTypes.number
     }).isRequired,
     onAdd: PropTypes.func,
+    lang: PropTypes.string,
 };
 
 Article.defaultProps = {
