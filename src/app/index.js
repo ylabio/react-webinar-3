@@ -1,22 +1,34 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../store/use-store";
+import ItemPage from "./item-page";
 import useSelector from "../store/use-selector";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {getLocale} from "../utils";
+import {useState, useEffect} from "react";
 
 /**
  * Приложение
  * @returns {React.ReactElement}
  */
 function App() {
+  const [lang, setLang] = useState('ru');
+
+  useEffect(() => {
+    const result = getLocale();
+    result && setLang(result);
+  }, [])
 
   const activeModal = useSelector(state => state.modals.name);
 
   return (
-    <>
-      <Main/>
-      {activeModal === 'basket' && <Basket/>}
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path='*' element={<Main lang={lang} setLang={setLang}/>} />
+        <Route path='/page/:page' element={<Main lang={lang} setLang={setLang}/>} />
+        <Route path='/item/:id' element={<ItemPage lang={lang}/>} />
+      </Routes>
+      {activeModal === 'basket' && <Basket lang={lang}/>}
+    </BrowserRouter>
   );
 }
 

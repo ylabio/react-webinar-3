@@ -1,0 +1,20 @@
+.Loader-sheet {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding-top: 10vw;
+}
+
+.Loader-spinner {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  border: 8px dotted #0087E9;
+  animation: spin 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+  100% {
+    rotate: 360deg;
+  }
+}
