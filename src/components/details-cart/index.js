@@ -17,7 +17,6 @@ function DetailsCart({ onAdd,sum,amount,onOpen,onClick }) {
 
   return (
     <div className={cn()}>
-      {/* <Head title="Название товара" /> */}
        <div className={cn("header")}> 
       <Link to="/" className={cn("header-button")}>
         Главная

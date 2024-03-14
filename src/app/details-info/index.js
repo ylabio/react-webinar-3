@@ -1,8 +1,5 @@
 import { memo, useCallback } from "react";
-import { useParams } from "react-router-dom";
 import Head from "../../components/head";
-import Controls from "../../components/controls";
-import BasketTool from "../../components/basket-tool";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import DetailsCart from "../../components/details-cart";
