@@ -4,7 +4,7 @@ class Product extends StoreModule {
 
   initState() {
     return {
-      item: {},
+      item: {}
     }
   }
 
@@ -14,7 +14,7 @@ class Product extends StoreModule {
     console.log(json.result)
     this.setState({
       ...this.getState(),
-      item: json.result,
+      item: json.result
     }, 'Загружен товар');
   }
 

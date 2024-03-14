@@ -28,19 +28,23 @@ function ItemPage() {
       openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     }
     const data = select.item
-    console.log(data)
 return (
     <>
     <PageLayout>
-    {data._id != undefined
-    &&  <>
+    {data._id != undefined & data._id == id
+    ?  <>
     <Head title={data.title}/>
     <NavBar
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
     />
-    <ItemInfo data={data} onAdd={callbacks.addToBasket} /> </>}
+    <ItemInfo data={data} onAdd={callbacks.addToBasket} /> </> 
+    :
+    <>
+    <Head />
+    </> 
+    }
     </PageLayout>
     </>
 )
