@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center
 }
-button{
+.ChangeLanguage{
   font-size: 20px;
   height: fit-content;
   margin-right: 10px;
