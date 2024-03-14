@@ -1,25 +1,30 @@
-import {memo} from "react";
+import {memo} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
-import {numberFormat, plural} from "../../utils";
+import {numberFormat, plural} from '../../utils';
 import './style.css';
+import {localization} from '../../localization';
 
-function BasketTool({sum, amount, onOpen}) {
+function BasketTool(props) {
+
   const cn = bem('BasketTool');
+
+  const local = localization.basketTool;
+
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('label')}>{local.inBasket[props.language]}</span>
       <span className={cn('total')}>
-        {amount
-          ? `${amount} ${plural(amount, {
-            one: 'товар',
-            few: 'товара',
-            many: 'товаров'
-          })} / ${numberFormat(sum)} ₽`
-          : `пусто`
+        {props.amount
+          ? `${props.amount} ${plural(props.amount, {
+            one: `${local.one[props.language]}`,
+            few: `${local.few[props.language]}`,
+            many: `${local.many[props.language]}`,
+          })} / ${numberFormat(props.sum)} ${localization.currency.rub[props.language]}`
+          : local.empty[props.language]
         }
       </span>
-      <button onClick={onOpen}>Перейти</button>
+      <button onClick={props.onOpen}>{local.toBasket[props.language]}</button>
     </div>
   );
 }
@@ -27,11 +32,14 @@ function BasketTool({sum, amount, onOpen}) {
 BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
-  amount: PropTypes.number
+  amount: PropTypes.number,
+  localization: PropTypes.object,
+  language: PropTypes.string
 };
 
 BasketTool.defaultProps = {
-  onOpen: () => {},
+  onOpen: () => {
+  },
   sum: 0,
   amount: 0
 }

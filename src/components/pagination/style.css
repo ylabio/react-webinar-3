@@ -1,0 +1,36 @@
+.Pagination {
+  display: flex;
+  justify-content: end;
+  padding-top: 22px;
+  padding-right: 21px;
+}
+
+.Pagination-pages {
+  display: flex;
+}
+
+.Pagination-page-number {
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+  color: #000000;
+  text-align: center;
+}
+
+.Pagination-page-number:hover {
+  background: #E1E1E1;
+  cursor: pointer;
+}
+
+.Pagination-page-number.current {
+  background: #0087E9;
+  color: #ffffff;
+}
+
+.Pagination-break {
+  width: 20px;
+  height: 20px;
+  color: #CCCCCC;
+}

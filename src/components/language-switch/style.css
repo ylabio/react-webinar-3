@@ -1,0 +1,20 @@
+.LanguageSwitch {
+  align-self: center;
+  margin-right: 20px;
+}
+
+.LanguageSwitch-button {
+  background: #CCCCCC;
+  border: 1px solid #000000;
+  width: 80px;
+  height: 25px;
+}
+
+.LanguageSwitch-button:hover {
+  cursor: pointer;
+}
+
+.LanguageSwitch-button:focus {
+  background: #75aaf1;
+}
+
