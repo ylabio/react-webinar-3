@@ -1,13 +1,12 @@
 .Item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   transition: background-color 1s;
   padding-left: 10px
 }
 
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
+.Item-code, .Item-title, .Item-price, .Item-quantity, .Item-actions {
+  display: inline-block;
 }
 
 .Item-code {
@@ -15,8 +14,24 @@
 }
 
 .Item-title {
-  width: 100%;
   padding: 20px 10px;
+  color: black;
+}
+.Item-title a{
+  color: black;
+  text-decoration: none;
+}
+
+.Item-title a:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.Item-price {
+  padding: 20px 62px;
+}
+.Item-quantity {
+  padding: 20px 24px 20px 0;
 }
 
 .Item-actions {

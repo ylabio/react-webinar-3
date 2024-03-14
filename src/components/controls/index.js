@@ -4,18 +4,28 @@ import './style.css';
 
 function Controls({onAdd}) {
   return (
-    <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+    <div className="Controls">
+      В корзине: 
+      <div className="Cost">
+        {cart.length
+          ? `${cart.length} ${plural(cart.length, {
+              one: "товар",
+              few: "товара",
+              many: "товаров",
+            })} / ${cost ? Intl.NumberFormat().format(cost) : 0} ₽`
+          : "пусто"}
+      </div>{" "}
+      <button onClick={() => changeCartVisability()}>Перейти</button>
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  changeCartVisability: PropTypes.func,
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
-}
+  changeCartVisability: () => {},
+};
 
 export default memo(Controls);

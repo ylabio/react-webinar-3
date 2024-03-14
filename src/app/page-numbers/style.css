@@ -1,0 +1,27 @@
+.PageNumb, .CurNumb, .Dots {
+    display: inline-block;
+    text-align: center;
+    margin-right: 1px;
+    font-size: 18px;
+    width: 20px;
+    height: 20px;
+    padding: 1px;
+}
+
+.Dots {
+    color: #CCCCCC;
+}
+
+.CurNumb {
+    background-color: #0087E9;
+    color: white;
+}
+.PageNumb:hover {
+    background-color: #E1E1E1;
+    cursor: pointer;
+}
+
+.PageNumbers {
+    padding: 22px 21px 96px;
+    text-align: right;
+}
