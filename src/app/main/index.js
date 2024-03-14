@@ -43,11 +43,14 @@ function Main() {
   };
 
   useEffect(() => {
-    store.actions.catalog.load(pageNumber);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000)
-  }, [select.currentPage, select.lang]);
+      store.actions.catalog.load(pageNumber);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+    return () => {
+      setIsLoading(true); 
+    };
+    }, [select.currentPage, select.lang]);
 
   return (
     <PageLayout>
