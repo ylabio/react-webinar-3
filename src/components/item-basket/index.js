@@ -18,6 +18,7 @@ function ItemBasket(props) {
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn("title")}>
         <Link
+          onClick={props.onClick}
           to={`/products/${props.linkTo ? props.linkTo : props.item._id}`}
           className={cn("link")}
         >
