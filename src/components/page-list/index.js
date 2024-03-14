@@ -17,14 +17,14 @@ function PageList({ page, totalPages, onPageChange }) {
   }
   let content = [];
   const dots = <p className="dots">...</p>;
-  const lastPage = <Link className="page" key={totalPages} to={`/page/${totalPages}`}>{totalPages}</Link>;
-  const firstPage = <Link className="page" key={1} to={`/page/1`}>1</Link>;
+  const lastPage = generateLink(totalPages);
+  const firstPage = generateLink(1);
 
   if (page < 4) {
     for (let i = 1; i < 4; i++) {
-      content.push(<Link key={i} className={i === page ? 'page selected' : 'page'} to={`/page/${i}`}>{i}</Link>);
+      content.push(generateLink(i, page === i));
     }
-    page == 3 ? content.push(<Link key={4} className='page' to={`/page/${4}`}>4</Link>) : '';
+    page == 3 ? content.push(generateLink(4)) : '';
     return (
       <div className={cn()}>
         {content}
@@ -35,9 +35,9 @@ function PageList({ page, totalPages, onPageChange }) {
   }
 
   if (page > totalPages - 3) {
-    page == totalPages - 2 ? content.push(<Link key={totalPages - 3} className='page' to={`/page/${totalPages - 3}`}>{totalPages - 3}</Link>) : '';
+    page == totalPages - 2 ? content.push(generateLink(totalPages - 3)) : '';
     for (let i = totalPages - 2; i <= totalPages; i++) {
-      content.push(<Link key={i} className={i === page ? 'page selected' : 'page'} to={`/page/${i}`}>{i}</Link>);
+      content.push(generateLink(i, page === i));
     }
     return (
       <div className={cn()}>
@@ -52,13 +52,17 @@ function PageList({ page, totalPages, onPageChange }) {
     <div className={cn()}>
       {firstPage}
       {dots}
-      <Link className="page" key={page - 1} to={`/page/${page - 1}`}>{page - 1}</Link>
-      <Link className="page selected" key={page}>{page}</Link>
-      <Link className="page" key={page + 1} to={`/page/${page + 1}`}>{page + 1}</Link>
+      {generateLink(page - 1)}
+      {generateLink(page, true)}
+      {generateLink(page + 1)}
       {dots}
       {lastPage}
     </div>
   );
+}
+
+function generateLink(num, isCurent) {
+  return <Link className={isCurent ? 'page selected' : 'page'} to={`/page/${num}`}>{num}</Link>;
 }
 
 PageList.propTypes = {
