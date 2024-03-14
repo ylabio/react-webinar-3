@@ -2,7 +2,7 @@ import { memo, useCallback, useEffect } from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
-import BasketTool from "../../components/basket-tool";
+import Menu from "../../components/menu"
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
@@ -46,10 +46,11 @@ function Main() {
   return (
     <PageLayout>
       <Head title={select.texts.head_title} onChange={callbacks.changeLanguage} locale={select.texts.locale} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-        sum={select.sum} texts={select.texts.controls} locale={select.texts.locale} />
+      <Menu onOpen={callbacks.openModalBasket} amount={select.amount}
+        sum={select.sum} texts={select.texts.description?.basket_tool}
+        locale={select.texts.locale} link={'/page/1'}/>
       <List list={select.list} renderItem={renders.item} />
-      <PageList page={_id} totalPages={select.catalog.pages} />
+      <PageList page={_id?_id:1} totalPages={select.catalog.pages} />
     </PageLayout>
 
   );
