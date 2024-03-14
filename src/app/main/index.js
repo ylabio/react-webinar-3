@@ -39,7 +39,7 @@ function Main() {
   let query = useQuery();
 
   useEffect(() => {
-    store.actions.catalog.load(Number.isInteger(+query.get("page")) ? +query.get("page") : 0);
+    store.actions.catalog.load(+query.get("page") - 1 >= 0 ? +query.get("page") - 1 : 0);
   }, [query.get("page")]);
 
   const callbacks = {
@@ -57,16 +57,14 @@ function Main() {
 
   return (
     <PageLayout>
-      <div style={{background: '#f5f5f5'}}>
-          <Header left={<Head title={locale[lang].headers.shop}/>} right={<Locale lang={lang}/>}/>
-      </div>
+      <Header left={<Head title={locale[lang].headers.shop}/>} right={<Locale lang={lang}/>} dark={true}/>
       <Header left={<Menu href={`/${lang}/`} lang={lang}/>} right={
           <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-              sum={select.sum} lang={lang}/>}/>
+              sum={select.sum} lang={lang}/>} dark={false}/>
       <Suspense fallback={<div>Loading...</div>}>
         <List list={select.list} renderItem={renders.item}/>
       </Suspense>
-      {select.count ? <Pagination path={`/${lang}/`} page={Number.isInteger(+query.get("page")) ? +query.get("page") : 0} count={select.count}/> : 'Loading...'}
+      {select.count ? <Pagination path={`/${lang}/`} page={+query.get("page") - 1 >= 0 ? +query.get("page") - 1 : 0} count={select.count}/> : 'Loading...'}
     </PageLayout>
 
   );

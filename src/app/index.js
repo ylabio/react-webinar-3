@@ -4,6 +4,7 @@ import Basket from "./basket";
 import useStore from "../store/use-store";
 import useSelector from "../store/use-selector";
 import ArticleMain from "./article";
+import { Navigate } from 'react-router-dom';
 
 import {
   BrowserRouter as Router,
@@ -31,6 +32,7 @@ function App() {
           <Main/>
           {activeModal === 'basket' && <Basket/>}
         </>}/>
+        <Route path="/" element={<Navigate to="/ru/" replace />} />
       </Routes>
     </Router>
   );

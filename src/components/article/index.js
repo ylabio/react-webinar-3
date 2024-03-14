@@ -17,7 +17,7 @@ function Article({item, onAdd, lang}) {
             <div className="Article-paragraph">{locale[lang].description.country}<b>{item.madeIn.title} ({item.madeIn.code})</b></div>
             <div className="Article-paragraph">{locale[lang].description.category}<b>{item.category.title}</b></div>
             <div className="Article-paragraph">{locale[lang].description.year}<b>{item.edition}</b></div>
-            <div className="Article-paragraph Article_big"><b>{locale[lang].description.price}{numberFormat(item.price)}</b></div>
+            <div className="Article-paragraph Article_big"><b>{locale[lang].description.price}{numberFormat(item.price) + ' ₽'}</b></div>
             <button onClick={callbacks.onAdd}>{locale[lang].description.add}</button>
         </div>
     )

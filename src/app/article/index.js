@@ -35,12 +35,10 @@ function ArticleMain() {
 
     return (
         <PageLayout>
-            <div style={{background: '#f5f5f5'}}>
-                <Header left={<Head title={select.list?.title}/>} right={<Locale lang={lang}/>}/>
-            </div>
+            <Header left={<Head title={select.list?.title}/>} right={<Locale lang={lang}/>} dark={true}/>
             <Header left={<Menu href={`/${lang}/`} lang={lang}/>} right={
                 <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                    sum={select.sum} lang={lang}/>}/>
+                    sum={select.sum} lang={lang}/>} dark={false}/>
             <Suspense fallback={<div>Loading...</div>}>
                 {select.list ? <Article item={select.list} onAdd={callbacks.addToBasket} lang={lang}/> : <div>Loading...</div>}
             </Suspense>
