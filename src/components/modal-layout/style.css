@@ -49,7 +49,8 @@ body:has(.ModalLayout) {
   padding: 20px 0 10px;
 }
 
-.ModalLayout-title::first-letter {
+.ModalLayout-title::first-letter,
+.ModalLayout-close::first-letter {
   text-transform: uppercase;
 }
 
