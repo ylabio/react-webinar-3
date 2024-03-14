@@ -36,7 +36,8 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    switchPage: useCallback((event) => store.actions.catalog.switchPage(event), [store])
+    switchPage: useCallback((event) => store.actions.catalog.switchPage(event), [store]),
+    switchLanguage: useCallback((lang) => store.actions.language.switchLanguage(lang), [store]),
   }
 
   const renders = {
@@ -47,7 +48,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title={localization.main.shop[select.language]}/>
+      <Head title={localization.main.shop[select.language]} switchLanguage={callbacks.switchLanguage}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum} language={select.language}/>
       <List list={select.list} language={select.language} renderItem={renders.item}/>

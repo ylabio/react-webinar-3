@@ -1,5 +1,4 @@
 import {memo, useCallback, useEffect} from 'react';
-import './style.css';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Head from '../../components/head';
@@ -7,11 +6,8 @@ import {useParams} from 'react-router';
 import PageLayout from '../../components/page-layout';
 import BasketTool from '../../components/basket-tool';
 import ItemDescription from '../../components/item-description';
-import {cn as bem} from '@bem-react/classname';
 
-function ItemInfo(props) {
-
-  const cn = bem('Item-info');
+function ItemInfo() {
 
   const store = useStore();
 
@@ -24,6 +20,7 @@ function ItemInfo(props) {
   const callbacks = {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    switchLanguage: useCallback((lang) => store.actions.language.switchLanguage(lang), [store]),
   }
 
   const select = useSelector(state => ({
@@ -36,7 +33,7 @@ function ItemInfo(props) {
 
   return (
     <PageLayout>
-      <Head title={select.itemInfo.title}></Head>
+      <Head title={select.itemInfo.title} switchLanguage={callbacks.switchLanguage}></Head>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                     sum={select.sum} language={select.language}/>
       <ItemDescription itemInfo={select.itemInfo} language={select.language} onAdd={callbacks.addToBasket}/>
