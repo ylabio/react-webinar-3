@@ -2,8 +2,26 @@
 .BasketTool {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   padding: 20px;
   font-size: 18px;
+  
+}
+ul{
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0;
+}
+.BasketTool-tool-menu{
+  margin: 0 ;
+  margin-right: auto;
+  list-style: none;
+}
+
+.BasketTool-tool-menu-link{
+  color: #0087E9;
 }
 
 .BasketTool-label {
