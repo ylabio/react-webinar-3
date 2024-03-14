@@ -1,7 +1,11 @@
-.List {
-
+.List-loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
 }
-
+.List-error {
+  color: red;
+}
 .List-item {
   border-bottom: 1px dashed #ccc;
 }
