@@ -1,0 +1,27 @@
+.ItemCard {
+  padding: 20px 40px;
+  font-size: 18px;
+}
+
+.ItemCard-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  margin-bottom: 20px;
+}
+
+.ItemCard span {
+  font-weight: 700;
+}
+
+.ItemCard-price {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.ItemCard-country::first-letter,
+.ItemCard-category::first-letter,
+.ItemCard-edition::first-letter,
+.ItemCard-price::first-letter {
+  text-transform: uppercase;
+}

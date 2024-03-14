@@ -1,0 +1,23 @@
+.Loader {
+  position: relative;
+  height: 100vh;
+  font-size: 48px;
+}
+
+.Loader-title {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: calc(50% - 200px);
+  top: calc(50% - 100px);
+  border-radius: 20px;
+  width: 400px;
+  height: 200px;
+  background-color: rgba(70, 70, 70, 0.077);
+  backdrop-filter: blur(10px);
+}
+
+.Loader-dots {
+  flex-basis: 7%;
+}

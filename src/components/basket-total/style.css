@@ -5,7 +5,8 @@
   padding: 20px;
 }
 
-.BasketTotal-cell {
+.BasketTotal-cell,
+.BasketTotal-cell_total {
   min-width: 85px;
   text-align: right;
   font-weight: bold;
@@ -14,3 +15,6 @@
   white-space: nowrap;
 }
 
+.BasketTotal-cell_total::first-letter {
+  text-transform: uppercase;
+}

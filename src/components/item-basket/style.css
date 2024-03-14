@@ -3,7 +3,7 @@
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
-  padding-left: 10px
+  padding-left: 10px;
 }
 
 .ItemBasket-code {
@@ -13,6 +13,11 @@
 .ItemBasket-title {
   width: 100%;
   padding: 20px 10px;
+}
+
+.ItemBasket-title > span:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .ItemBasket-right {
@@ -27,4 +32,8 @@
   text-align: right;
   font-size: 18px;
   white-space: nowrap;
+}
+
+.ItemBasket-removeFromCartBtn::first-letter {
+  text-transform: uppercase;
 }

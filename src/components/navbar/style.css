@@ -1,0 +1,30 @@
+.Navbar,
+.NavList {
+  display: flex;
+  align-items: center;
+}
+
+.Navbar {
+  padding: 20px;
+}
+
+.NavList {
+  font-size: 18px;
+  margin-right: auto;
+}
+
+.NavList-item {
+  color: #0087e9;
+}
+
+.NavList-item:hover {
+  cursor: pointer;
+}
+
+.NavList-item span {
+  text-decoration: underline;
+}
+
+.NavList-item span::first-letter {
+  text-transform: uppercase;
+}
