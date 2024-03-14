@@ -1,0 +1,36 @@
+.ItemCard {
+}
+
+.ItemCard-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 19px;
+}
+
+.ItemCard-info {
+  margin-top: 40px;
+  margin-left: 40px;
+}
+
+.ItemCard-properties {
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 1.2;
+  margin-bottom: 30px;
+}
+
+.ItemCard-properties span {
+  font-weight: 700;
+}
+
+.ItemCard-price {
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.ItemCard-price span {
+  margin-left: 10px;
+}

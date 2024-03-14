@@ -1,0 +1,47 @@
+.Pagination {
+  height: 100px;
+  background: #fff;
+}
+
+.Pagination-pages {
+  display: flex;
+  flex-direction: row;
+  justify-items: flex-end;
+  float: right;
+  margin-right: 30px;
+  margin-top: 20px;
+  /* top: 800px;
+  right: 300px;
+  margin-bottom: 200px; */
+}
+
+.Pagination-page {
+  font-size: 16px;
+  padding: 5px;
+}
+
+.Pagination-page:hover {
+  background-color: #e1e1e1;
+  cursor: pointer;
+}
+
+.Pagination-page_active {
+  background-color: #0087e9;
+  color: #fff;
+}
+
+.Pagination-page_active:hover {
+  background-color: #0087e9;
+  cursor: pointer;
+}
+
+.Pagination-dots {
+  font-size: 16px;
+  padding: 5px;
+  color: #cccccc;
+}
+
+.Pagination a {
+  text-decoration: none;
+  color: #000;
+}
