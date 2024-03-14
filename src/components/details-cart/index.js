@@ -7,7 +7,6 @@ import BasketTool from "../basket-tool";
 import Head from '../head'
 
 
-
 function DetailsCart({ onAdd,sum,amount,onOpen, }) {
   const cn = bem("details_cart");
 
@@ -16,19 +15,17 @@ function DetailsCart({ onAdd,sum,amount,onOpen, }) {
   if (!product) {
     return <div>Loading...</div>;
   }
-  const displayPrice = product && product.price ? product.price : "Цена не указана";
+
   return (
     <div className={cn()}>
     <Head title={product.title}/>
        <div className={cn("header")}> 
-
       <Link to="/" className={cn("header-button")}>
         Главная
       </Link>
        <BasketTool  sum={sum} amount={amount} onOpen={onOpen}/> 
        </div> 
       <p className={cn("description")}>{product.description}</p>
-
       <p className={cn("made-in")}>
         Страна Производитель:
         <span className="made-in-title">{product.madeIn.title}</span>
@@ -41,8 +38,7 @@ function DetailsCart({ onAdd,sum,amount,onOpen, }) {
         Год выпуска:<span className="edition-text">{product.edition}</span>
       </p>
       <p className={cn("price")}>Цена: {product.price} ₽</p>
-      <button className={cn("button")} onClick={() => product && product._id && onAdd(product._id)}>Добавить</button>
-
+      <button className={cn("button")} onClick={() => product._id && onAdd(product._id)}>Добавить</button>
     </div>
   );
 }

@@ -15,43 +15,48 @@ class Basket extends StoreModule {
    */
   addToBasket(_id) {
     let sum = 0;
-    let exist = false;
-    const list = this.getState().list.map((item) => {
-        let result = item;
-        if (item._id === _id) {
-            exist = true;
-            result = { ...item, amount: item.amount + 1 };
-        }
-        sum += result.price * result.amount;
-        return result;
-    });
+    let list = this.getState().list.slice(); // Создаем копию текущего списка товаров
 
-    if (!exist) {
-        // Поиск товара в каталоге
-        const catalogItem = this.store.getState().catalog.list.find(item => item._id === _id);
+    // Ищем товар в корзине, чтобы увеличить его количество
+    let existingItem = list.find(item => item._id === _id);
 
-        if (catalogItem) {
-            // Проверяем, есть ли цена у товара
-            const price = catalogItem.price !== undefined ? catalogItem.price : 0;
+    if (existingItem) {
+        // Если товар уже присутствует в корзине, увеличиваем его количество
+        existingItem.amount++;
+    } else {
+        // Если товар не найден в корзине, тогда делаем запрос к API для получения информации о товаре
+        fetch(`/api/v1/articles/${_id}?fields=category(title),price,edition,description,madeIn(title),edition,title`)
+            .then(response => response.json())
+            .then(data => {
+                const newItem = data.result;
+                newItem.amount = 1;
+                list.push(newItem);
 
-            list.push({ ...catalogItem, amount: 1, price: price });
-            sum += price;
-        } else {
-            // В случае, если цена еще не загружена, добавляем товар по _id без цены
-            list.push({ _id, amount: 1, price: 0 });
-            console.warn('Цена для товара с _id: ' + _id + ' еще не загружена.');
-        }
+                sum += newItem.price;
+
+                this.updateBasket(list, sum);
+            })
+            .catch(error => {
+                console.error("Error fetching product information: ", error);
+                // Обработка ошибки при запросе данных о товаре
+            });
     }
 
-    this.setState(
-        {
-            ...this.getState(),
-            list,
-            sum,
-            amount: list.length,
-        },
-        "Добавление в корзину"
-    );
+    if (existingItem) {
+        // Пересчитываем общую сумму для уже существующих товаров
+        sum = list.reduce((total, item) => total + item.price * item.amount, 0);
+    }
+
+    this.updateBasket(list, sum);
+}
+
+updateBasket(list, sum) {
+    this.setState({
+        ...this.getState(),
+        list,
+        sum,
+        amount: list.length,
+    }, "Добавление в корзину");
 }
 
   /**
