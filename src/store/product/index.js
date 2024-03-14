@@ -7,10 +7,15 @@ class Product extends StoreModule {
 
     return {
       product: productData ? JSON.parse(productData) : null,
+      isLoading: false,
     };
   }
 
   async loadProduct(id) {
+    this.setState({
+      ...this.getState(),
+      isLoading: true,
+    });
     const response = await fetch(
       `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`
     );
@@ -19,6 +24,7 @@ class Product extends StoreModule {
     this.setState({
       ...this.getState(),
       product: json.result,
+      isLoading: false,
     });
     localStorage.setItem("product", JSON.stringify(this.getState().product));
   }

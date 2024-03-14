@@ -10,6 +10,7 @@ import List from "../../components/list";
 import MenuLayout from "../../components/menu-layout";
 import Nav from "../../components/nav";
 import BtnPages from "../../components/btn-pages";
+import Load from "../../components/load";
 
 function Main() {
   const store = useStore();
@@ -18,22 +19,18 @@ function Main() {
 
   const select = useSelector((state) => ({
     list: state.catalog.list,
-    //currentPage: state.catalog.currentPage,
     totalPage: state.catalog.totalPage,
     limit: state.catalog.limit,
+    isLoading: state.catalog.isLoading,
     amount: state.basket.amount,
     sum: state.basket.sum,
     valueLang: state.language.valueLang,
   }));
-//console.log(select.currentPage)
+
   useEffect(() => {
     store.actions.catalog.load(select.limit, currentPage);
   }, [currentPage]);
 
-  const getPage = (page) => {
-    navigate(`?page=${page}`, { replace: true });
-  };
-  
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const page = urlParams.get('page');
@@ -60,6 +57,10 @@ function Main() {
     }),
     // Смена языка
     onChangeLang: useCallback(()=> store.actions.language.changeLang()),
+
+    getPage: useCallback((page) => {
+      navigate(`?page=${page}`, { replace: true })
+    }) 
   };
 
   const renders = {
@@ -84,25 +85,30 @@ function Main() {
           valueLang={select.valueLang} 
         />
       }
-      footer={
+      footer={ !select.isLoading ?
         <BtnPages
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           totalPage={select.totalPage}
-          getPage={getPage}
-        />
+          getPage={callbacks.getPage}
+        /> : ''
       }
     >
-      <MenuLayout>
-        <Nav textLink={ select.valueLang ? "Главная" : "Main" }/>
-        <BasketTool
-          onOpen={callbacks.openModalBasket}
-          amount={select.amount}
-          sum={select.sum}
-          valueLang={select.valueLang}
-        />
-      </MenuLayout>
-      <List list={select.list} renderItem={renders.item} />
+      {select.isLoading ?
+        <Load valueLang={select.valueLang}/> :
+          <>
+            <MenuLayout>        
+              <Nav textLink={ select.valueLang ? "Главная" : "Main" }/>
+              <BasketTool
+                onOpen={callbacks.openModalBasket}
+                amount={select.amount}
+                sum={select.sum}
+                valueLang={select.valueLang}
+              />
+            </MenuLayout>
+            <List list={select.list} renderItem={renders.item} />
+        </> 
+      }
     </PageLayout>
   );
 }

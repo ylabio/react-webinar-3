@@ -7,12 +7,14 @@ import MenuLayout from "../../components/menu-layout";
 import Nav from "../../components/nav";
 import BasketTool from "../../components/basket-tool";
 import ProductDescription from "../../components/product-description";
+import Load from "../../components/load";
 
 const ProductPage = () => {
   const store = useStore();
 
   const select = useSelector((state) => ({
     product: state.product.product,
+    isLoading: state.product.isLoading,
     amount: state.basket.amount,
     sum: state.basket.sum,
     valueLang: state.language.valueLang,
@@ -39,22 +41,27 @@ const ProductPage = () => {
         onChangeLang={callbacks.onChangeLang}
         valueLang={select.valueLang} 
       />
-      <MenuLayout>
-        <Nav textLink={ select.valueLang ? "Главная" : "Main" } />
-        <BasketTool
-          onOpen={callbacks.openModalBasket}
-          amount={select.amount}
-          sum={select.sum}
-          valueLang={select.valueLang} 
-        />
-      </MenuLayout>
-      {select.product && (
-        <ProductDescription
-          product={select.product}
-          onAdd={callbacks.addToBasket}
-          valueLang={select.valueLang} 
-        />
-      )}
+      {select.isLoading ?
+        <Load valueLang={select.valueLang}/> :
+          <>
+            <MenuLayout>
+              <Nav textLink={ select.valueLang ? "Главная" : "Main" } />
+              <BasketTool
+                onOpen={callbacks.openModalBasket}
+                amount={select.amount}
+                sum={select.sum}
+                valueLang={select.valueLang} 
+              />
+            </MenuLayout>
+            {select.product && (
+              <ProductDescription
+                product={select.product}
+                onAdd={callbacks.addToBasket}
+                valueLang={select.valueLang} 
+              />
+            )}
+          </> 
+        }
     </PageLayout>
   );
 };
