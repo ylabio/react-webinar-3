@@ -8,6 +8,9 @@
   text-decoration: none;
   background-color: #fff;
   color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .PageSelectButton:hover {
@@ -24,6 +27,9 @@
   cursor: default;
   color: #fff;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .PageSelectButton-ellipsis {
@@ -34,4 +40,7 @@
   font-size: 16px;
   background-color: #fff;
   color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
