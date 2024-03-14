@@ -49,7 +49,7 @@ function Main() {
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
         sum={select.sum} texts={select.texts.controls} locale={select.texts.locale} />
       <List list={select.list} renderItem={renders.item} />
-      <PageList page={select.catalog.currentPage} totalPages={select.catalog.pages} />
+      <PageList page={_id} totalPages={select.catalog.pages} />
     </PageLayout>
 
   );

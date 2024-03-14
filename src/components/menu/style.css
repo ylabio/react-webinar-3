@@ -15,8 +15,13 @@
 
 .Menu-link {
   color: #0087E9;
+  text-decoration: none;
 }
 
 .BasketTool button {
   padding: 1px 6px;
+}
+
+.Menu-link:hover {
+  text-decoration: underline;
 }
