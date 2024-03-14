@@ -14,6 +14,7 @@ import { getTotalPages } from '../../utils';
 function Main() {
   const store = useStore();
 
+  const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
 
@@ -45,6 +46,7 @@ function Main() {
 
       let fetchPage = searchParams.get('page') || 1
       await store.actions.catalog.load(fetchPage, select.language.currentLanguage)
+      setIsLoading(false)
     }
 
     fetchCatalog()
@@ -55,9 +57,8 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    handleSelectPage(pageNumber) {
-      setPage(pageNumber)
-      setIsLoading(true)
+    switchLoading:() => {
+      setIsLoading(prev => !prev)
     },
     setLanguage: useCallback((language) => {
       store.actions.language.setLanguage(language)
@@ -82,6 +83,8 @@ function Main() {
       <List list={select.list[select.language.currentLanguage]} renderItem={renders.item} />
       <Pagination
         totalPages={select.totalPages}
+        isLoading={isLoading}
+        switchLoading={callbacks.switchLoading}
       />
     </PageLayout>
   );

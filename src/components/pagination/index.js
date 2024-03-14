@@ -2,16 +2,15 @@ import PropTypes from 'prop-types';
 import './style.css'
 import { generateAllPages } from '../../utils';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
-const Pagination = ({ totalPages }) => {
+const Pagination = ({ totalPages, isLoading, switchLoading }) => {
+  const [oldPageNumber, setOldPageNumber] = useState(1) // it's used to defer render selected page, while list is rendering
   const [searchParams, setSearchParams] = useSearchParams();
   
-  const callbacks = {
-    onClick: (numberPage) => handleSelectPage(numberPage)
-  }
-  
   const pathname = useLocation().pathname
-  const currentPage = Number(searchParams.get('page')) || 1
+  const currentPage = !isLoading && Number(searchParams.get('page')) || oldPageNumber
+
   const creatPageURL = (pageNumber) => {
     const params = new URLSearchParams(searchParams)
     params.set('page', pageNumber.toString())
@@ -19,6 +18,11 @@ const Pagination = ({ totalPages }) => {
   }
 
   const allPages = generateAllPages(totalPages, currentPage)
+
+  const callbacks = {
+    onSwitchLoading: () =>  switchLoading(),
+    onChangeOldPageNumber: () => setOldPageNumber(prev => prev = currentPage)
+  }
   
   return (
     <div className="Pagination-wrapper">
@@ -30,6 +34,8 @@ const Pagination = ({ totalPages }) => {
             page={page}
             onClick={callbacks.onClick}
             isActive={currentPage === page}
+            onSwitchLoading={callbacks.onSwitchLoading}
+            onChangeOldPageNumber={callbacks.onChangeOldPageNumber}
           />
         ))}
       </div>
@@ -37,11 +43,15 @@ const Pagination = ({ totalPages }) => {
   );
 };
 
-function PaginationNumber({ href, page, isActive }) {
+function PaginationNumber({ href, page, isActive, onSwitchLoading, onChangeOldPageNumber }) {
   return typeof page === 'number' && !isActive ? (
       <Link
         to={href}
         className='Pagination-element Pagination-page'
+        onClick={() => {
+          onChangeOldPageNumber()
+          onSwitchLoading()
+        }}
       >
         {page}
       </Link>
