@@ -19,6 +19,16 @@
   padding: 20px 10px;
 }
 
+.Item-title p {
+  cursor: pointer;
+  margin: 0;
+  width: fit-content;
+}
+
+.Item-title p:hover {
+  text-decoration: underline;
+}
+
 .Item-actions {
   padding: 20px 20px 20px 10px;
   display: flex;
@@ -26,6 +36,12 @@
   align-items: center;
   gap: 20px
 }
+
+.Item-actions button {
+  cursor: pointer;
+  width: 75px;
+}
+
 
 .Item-price {
   padding: 0 0 0 10px;
