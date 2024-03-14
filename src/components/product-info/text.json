@@ -1,0 +1,14 @@
+{"ru": {
+      "country": "Страна производитель",
+      "category": "Категория",
+      "year": "Год выпуска",
+      "cost": "Цена",
+      "add": "Добавить"
+  },
+  "eng": {
+      "country": "Made in",
+      "category": "Category",
+      "year": "Year",
+      "cost": "Cost",
+      "add": "Add into basket"
+}}

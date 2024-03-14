@@ -1,0 +1,16 @@
+.Product {
+    margin: 20px 41px 20px 40px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+}
+.Product p{
+    margin: 0px;
+}
+.Product p:nth-child(5){
+    font-size: 24px;
+}
+.Product button{
+    align-self: self-start;
+}

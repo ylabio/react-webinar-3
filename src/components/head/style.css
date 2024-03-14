@@ -1,6 +1,13 @@
 .Head {
   height: 80px;
   background: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Head select{
+  align-self: center;
+  margin-right: 10px;
 }
 
 .Head h1 {

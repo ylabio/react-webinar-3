@@ -1,0 +1,18 @@
+.Pagination {
+    margin: 22px 21px 0px auto;
+    display: flex;
+    justify-content: flex-end;
+}
+.Pagination button {
+    background:white;
+    border:none
+}
+.Pagination button:hover {
+    cursor: pointer;
+    background: #E1E1E1;
+}
+.Pagination .active {
+    color: white;
+    background: #0087E9;
+    box-shadow: 0px 0px 15px 0px #0000003B;
+}
