@@ -10,6 +10,8 @@ import Pagination from "../../components/pagination";
 import Navigation from "../../components/navigation";
 import Menu from "../../components/menu";
 import Loader from "../../components/loader";
+import Toggler from "../../components/toggler";
+import HeadParts from "../../components/head-parts";
 
 function Main() {
   const store = useStore();
@@ -65,15 +67,18 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
-        <Navigation>
-          <Menu />
-          <BasketTool
-            onOpen={callbacks.openModalBasket}
-            amount={select.amount}
-            sum={select.sum}
-          />
-        </Navigation>
+      <HeadParts>
+        <Head title="Магазин" />
+        <Toggler />
+      </HeadParts>
+      <Navigation>
+        <Menu />
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+        />
+      </Navigation>
       {select.list.lenght !== 0 ? (
         <>
           <List list={select.list} renderItem={renders.item} />
