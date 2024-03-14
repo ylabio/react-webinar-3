@@ -6,7 +6,9 @@
   font-size: 18px;
 }
 
-.BasketTool-label {
+.BasketTool-label::first-letter,
+.BasketTool-toCartBtn::first-letter {
+  text-transform: uppercase;
 }
 
 .BasketTool-total {

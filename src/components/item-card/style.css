@@ -18,3 +18,10 @@
   font-size: 24px;
   font-weight: 700;
 }
+
+.ItemCard-country::first-letter,
+.ItemCard-category::first-letter,
+.ItemCard-edition::first-letter,
+.ItemCard-price::first-letter {
+  text-transform: uppercase;
+}

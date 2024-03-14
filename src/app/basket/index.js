@@ -3,14 +3,18 @@ import ItemBasket from "../../components/item-basket";
 import List from "../../components/list";
 import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
+import useStore from "../../store/hooks/use-store";
+import useSelector from "../../store/hooks/use-selector";
 import { useNavigate } from "react-router-dom";
+import { useTranslateContext } from "../../contexts/translate-context";
 
 function Basket() {
   const store = useStore();
 
   const navigate = useNavigate();
+
+  const { translate, currentLocale, constructOptionsByLocale } =
+    useTranslateContext();
 
   const select = useSelector((state) => ({
     list: state.basket.list,
@@ -31,6 +35,16 @@ function Basket() {
       navigate(`item/${_id}`);
       callbacks.closeModal();
     }, []),
+
+    translate: useCallback(
+      (resourseKey) => translate(resourseKey),
+      [translate]
+    ),
+
+    constructOptionsByLocale: useCallback(
+      (valueName) => constructOptionsByLocale(valueName),
+      [constructOptionsByLocale]
+    ),
   };
 
   const renders = {
@@ -41,6 +55,9 @@ function Basket() {
             item={item}
             onRemove={callbacks.removeFromBasket}
             onTitleClick={callbacks.navigateToItemPage}
+            t={callbacks.translate}
+            optionsConstructor={callbacks.constructOptionsByLocale}
+            locale={currentLocale}
           />
         );
       },
@@ -49,9 +66,9 @@ function Basket() {
   };
 
   return (
-    <ModalLayout title="Корзина" onClose={callbacks.closeModal}>
+    <ModalLayout title={translate("basket")} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <BasketTotal sum={select.sum} t={callbacks.translate} />
     </ModalLayout>
   );
 }

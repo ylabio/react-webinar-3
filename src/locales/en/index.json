@@ -1,0 +1,21 @@
+{
+  "shop": "shop",
+  "main-page": "main",
+  "in-basket": "cart",
+  "basket": "cart",
+  "unit_one": "unit",
+  "unit_other": "units",
+  "product_one": "product",
+  "product_other": "products",
+  "add": "add",
+  "go-to-cart": "go to cart",
+  "empty": "is empty",
+  "close": "close",
+  "delete": "delete",
+  "total": "total",
+  "loading": "loading",
+  "manufacturer-country": "manufacturer country",
+  "category": "category",
+  "year-of-issue": "year of issue",
+  "price": "price"
+}

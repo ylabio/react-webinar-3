@@ -15,9 +15,16 @@
 
 .NavList-item {
   color: #0087e9;
-  text-decoration: underline;
 }
 
 .NavList-item:hover {
   cursor: pointer;
+}
+
+.NavList-item span {
+  text-decoration: underline;
+}
+
+.NavList-item span::first-letter {
+  text-transform: uppercase;
 }

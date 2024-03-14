@@ -4,11 +4,11 @@ import { cn as bem } from "@bem-react/classname";
 import { numberFormat } from "../../utils";
 import "./style.css";
 
-function Item({ item, onAdd, onTitleClick }) {
+function Item({ item, onAdd, onTitleClick, t }) {
   const cn = bem("Item");
 
   const callbacks = {
-    onAdd: (e) => onAdd(item._id),
+    onAdd: () => onAdd(item._id),
     onTitleClick: () => onTitleClick(item._id),
   };
 
@@ -20,7 +20,9 @@ function Item({ item, onAdd, onTitleClick }) {
       </div>
       <div className={cn("actions")}>
         <div className={cn("price")}>{numberFormat(item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button className={cn("addToCartBtn")} onClick={callbacks.onAdd}>
+          {t("add")}
+        </button>
       </div>
     </div>
   );
@@ -34,11 +36,13 @@ Item.propTypes = {
   }).isRequired,
   onAdd: PropTypes.func,
   onTitleClick: PropTypes.func,
+  t: PropTypes.func.isRequired,
 };
 
 Item.defaultProps = {
   onAdd: () => {},
   onTitleClick: () => {},
+  t: () => {},
 };
 
 export default memo(Item);

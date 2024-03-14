@@ -1,11 +1,18 @@
 import { memo, useCallback } from "react";
 import propTypes from "prop-types";
-import { numberFormat } from "../../utils";
+import { numberFormat, plural } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 import PropTypes from "prop-types";
 import "./style.css";
 
-function ItemBasket({ item, onRemove, onTitleClick }) {
+function ItemBasket({
+  item,
+  onRemove,
+  onTitleClick,
+  t,
+  optionsConstructor,
+  locale,
+}) {
   const cn = bem("ItemBasket");
 
   const callbacks = {
@@ -21,9 +28,17 @@ function ItemBasket({ item, onRemove, onTitleClick }) {
       </div>
       <div className={cn("right")}>
         <div className={cn("cell")}>{numberFormat(item.price)} ₽</div>
-        <div className={cn("cell")}>{numberFormat(item.amount || 0)} шт</div>
         <div className={cn("cell")}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          {numberFormat(item.amount || 0)}&nbsp;
+          {plural(item.amount, optionsConstructor("unit"), locale)}
+        </div>
+        <div className={cn("cell")}>
+          <button
+            className={cn("removeFromCartBtn")}
+            onClick={callbacks.onRemove}
+          >
+            {t("delete")}
+          </button>
         </div>
       </div>
     </div>
@@ -39,11 +54,16 @@ ItemBasket.propTypes = {
   }).isRequired,
   onRemove: propTypes.func,
   onTitleClick: PropTypes.func,
+  t: PropTypes.func.isRequired,
+  optionsConstructor: PropTypes.func.isRequired,
+  locale: PropTypes.string.isRequired,
 };
 
 ItemBasket.defaultProps = {
   onRemove: () => {},
   onTitleClick: () => {},
+  t: () => {},
+  optionsConstructor: () => {},
 };
 
 export default memo(ItemBasket);

@@ -33,3 +33,7 @@
   font-size: 18px;
   white-space: nowrap;
 }
+
+.ItemBasket-removeFromCartBtn::first-letter {
+  text-transform: uppercase;
+}

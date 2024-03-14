@@ -11,6 +11,10 @@ ul {
   padding: 0;
 }
 
+span {
+  display: inline-block;
+}
+
 .PageLayout {
   max-width: 1024px;
   min-height: 100vh;

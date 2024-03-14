@@ -37,3 +37,7 @@
   white-space: nowrap;
   font-size: 18px;
 }
+
+.Item-addToCartBtn::first-letter {
+  text-transform: uppercase;
+}

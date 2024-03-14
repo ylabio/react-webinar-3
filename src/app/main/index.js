@@ -4,12 +4,14 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
+import useStore from "../../store/hooks/use-store";
+import useSelector from "../../store/hooks/use-selector";
 import Navbar from "../../components/navbar";
 import { useNavigate, useParams } from "react-router-dom";
 import Pagination from "../../components/pagination";
 import Loader from "../../components/loader";
+import { useTranslateContext } from "../../contexts/translate-context";
+import LangSelector from "../../components/lang-selector";
 
 function Main() {
   const store = useStore();
@@ -17,6 +19,9 @@ function Main() {
   const navigate = useNavigate();
 
   const { pageNumber } = useParams();
+
+  const { translate, currentLocale, constructOptionsByLocale, changeLang } =
+    useTranslateContext();
 
   const select = useSelector((state) => ({
     list: state.catalog.list,
@@ -64,6 +69,21 @@ function Main() {
       },
       [store]
     ),
+
+    translate: useCallback(
+      (resourseKey) => translate(resourseKey),
+      [translate, currentLocale]
+    ),
+
+    constructOptionsByLocale: useCallback(
+      (valueName) => constructOptionsByLocale(valueName),
+      [constructOptionsByLocale, currentLocale]
+    ),
+
+    changeLang: useCallback(
+      (event) => changeLang(event.target.value),
+      [changeLang, currentLocale]
+    ),
   };
 
   const renders = {
@@ -74,20 +94,27 @@ function Main() {
             item={item}
             onAdd={callbacks.addToBasket}
             onTitleClick={callbacks.navigateToItemPage}
+            t={callbacks.translate}
           />
         );
       },
-      [callbacks.addToBasket]
+      [callbacks.addToBasket, callbacks.navigateToItemPage, callbacks.translate]
     ),
   };
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
+      <Head title={translate("shop")}>
+        <LangSelector
+          optionsList={["ru", "en"]}
+          onCange={callbacks.changeLang}
+          defaultValue={currentLocale}
+        />
+      </Head>
       <Navbar
         navList={[
           {
-            name: "Главная",
+            name: translate("main-page"),
             path: `/page/${select.currentPage}`,
           },
         ]}
@@ -96,6 +123,9 @@ function Main() {
           onOpen={callbacks.openModalBasket}
           amount={select.amount}
           sum={select.sum}
+          t={callbacks.translate}
+          optionsConstructor={callbacks.constructOptionsByLocale}
+          locale={currentLocale}
         />
       </Navbar>
       {!select.listIsLoading ? (

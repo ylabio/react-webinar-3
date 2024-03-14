@@ -17,7 +17,7 @@ function Navbar({ navList, children }) {
         {navList.map(({ name, path }) => (
           <li key={uniqKey()}>
             <NavLink className={list("item")} to={path}>
-              {name}
+              <span>{name}</span>
             </NavLink>
           </li>
         ))}

@@ -1,8 +1,9 @@
 import Main from "./main";
 import Basket from "./basket";
-import useSelector from "../store/use-selector";
+import useSelector from "../store/hooks/use-selector";
 import { Route, Routes } from "react-router-dom";
 import ItemInfo from "./item-info";
+import useTranslate from "../hooks/use-translate";
 
 /**
  * Приложение

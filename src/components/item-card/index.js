@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 import "./style.css";
 
-function ItemCard({ item, onAdd }) {
+function ItemCard({ item, onAdd, t }) {
   const cn = bem("ItemCard");
 
   const callbacks = {
@@ -16,20 +16,20 @@ function ItemCard({ item, onAdd }) {
     <div className={cn()}>
       <ul className={cn("list")}>
         <li className={cn("description")}>{item.description}</li>
-        <li>
-          Страна производитель:&nbsp;
+        <li className={cn("country")}>
+          {t("manufacturer-country")}:&nbsp;
           <span>
             {item.madeIn.title} ({item.madeIn.code})
           </span>
         </li>
         <li className={cn("category")}>
-          Категория:&nbsp;<span>{item.category.title}</span>
+          {t("category")}:&nbsp;<span>{item.category.title}</span>
         </li>
         <li className={cn("edition")}>
-          Год выпуска:&nbsp;<span>{item.edition}</span>
+          {t("year-of-issue")}:&nbsp;<span>{item.edition}</span>
         </li>
         <li className={cn("price")}>
-          Цена:&nbsp;
+          {t("price")}:&nbsp;
           {numberFormat(item.price, undefined, {
             style: "currency",
             currency: "RUB",
@@ -37,7 +37,7 @@ function ItemCard({ item, onAdd }) {
         </li>
       </ul>
       <button type="button" onClick={callbacks.onAdd} className={cn("addBtn")}>
-        Добавить
+        {t("add")}
       </button>
     </div>
   );

@@ -3,16 +3,21 @@ import Head from "../../components/head";
 import PageLayout from "../../components/page-layout";
 import Navbar from "../../components/navbar";
 import BasketTool from "../../components/basket-tool";
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
+import useStore from "../../store/hooks/use-store";
+import useSelector from "../../store/hooks/use-selector";
 import ItemCard from "../../components/item-card";
 import { useParams } from "react-router-dom";
 import Loader from "../../components/loader";
+import { useTranslateContext } from "../../contexts/translate-context";
+import LangSelector from "../../components/lang-selector";
 
 function ItemInfo() {
   const { itemId } = useParams();
 
   const store = useStore();
+
+  const { translate, currentLocale, constructOptionsByLocale, changeLang } =
+    useTranslateContext();
 
   const select = useSelector((state) => ({
     amount: state.basket.amount,
@@ -41,23 +46,56 @@ function ItemInfo() {
       () => store.actions.modals.open("basket"),
       [store]
     ),
+
+    translate: useCallback(
+      (resourseKey) => translate(resourseKey),
+      [translate]
+    ),
+
+    constructOptionsByLocale: useCallback(
+      (valueName) => constructOptionsByLocale(valueName),
+      [constructOptionsByLocale]
+    ),
+
+    changeLang: useCallback(
+      (event) => changeLang(event.target.value),
+      [changeLang, currentLocale]
+    ),
   };
 
   return (
     <PageLayout>
       {!select.productIsLoading ? (
         <>
-          <Head title={select.item.title} />
+          <Head title={select.item.title}>
+            <LangSelector
+              optionsList={["ru", "en"]}
+              onCange={callbacks.changeLang}
+              defaultValue={currentLocale}
+            />
+          </Head>
           <Navbar
-            navList={[{ name: "Главная", path: `/page/${select.mainPage}` }]}
+            navList={[
+              {
+                name: translate("main-page"),
+                path: `/page/${select.mainPage}`,
+              },
+            ]}
           >
             <BasketTool
               onOpen={callbacks.openModalBasket}
               amount={select.amount}
               sum={select.sum}
+              t={callbacks.translate}
+              optionsConstructor={callbacks.constructOptionsByLocale}
+              locale={currentLocale}
             />
           </Navbar>
-          <ItemCard item={select.item} onAdd={callbacks.addToBasket} />
+          <ItemCard
+            item={select.item}
+            onAdd={callbacks.addToBasket}
+            t={callbacks.translate}
+          />
         </>
       ) : (
         <Loader />

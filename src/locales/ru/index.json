@@ -1,0 +1,23 @@
+{
+  "shop": "магазин",
+  "main-page": "главная",
+  "in-basket": "в корзине",
+  "basket": "корзина",
+  "unit_one": "шт",
+  "unit_few": "шт",
+  "unit_many": "шт",
+  "product_one": "товар",
+  "product_few": "товара",
+  "product_many": "товаров",
+  "add": "добавить",
+  "go-to-cart": "перейти",
+  "empty": "пусто",
+  "close": "закрыть",
+  "delete": "удалить",
+  "total": "итого",
+  "loading": "загрузка",
+  "manufacturer-country": "страна производитель",
+  "category": "категория",
+  "year-of-issue": "год выпуска",
+  "price": "цена"
+}
