@@ -7,18 +7,25 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination"
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 function Main() {
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(Number(searchParams.get('page')) || 1);
+  const navigate = useNavigate(); 
   const store = useStore();
   const PageSize = 10
-  
-  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     store.actions.item.setLoading(true);
     store.actions.catalog.load(PageSize, (currentPage - 1) * PageSize);
+    store.actions.modals.close("basket");
   }, [currentPage]);
+
+  const handlePageChange = (page) => {
+    navigate(`./?page=${page}`)
+    setCurrentPage(page)
+  }
   
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -61,7 +68,7 @@ function Main() {
         currentPage={currentPage}
         totalCount={select.totalItemsCount}
         pageSize={PageSize}
-        onPageChange={page => setCurrentPage(page)}
+        onPageChange={handlePageChange}
       />
     </PageLayout>
   );
