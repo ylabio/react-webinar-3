@@ -4,24 +4,31 @@ import {numberFormat} from "../../utils";
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import './style.css';
+import { UI_TEXTS } from '../../consts/content';
+import LinkComponent from '../link';
 
 function ItemBasket(props) {
-
   const cn = bem('ItemBasket');
 
+  const currentLanguage = document.documentElement.lang;
+  const uiText = {
+    quantities: UI_TEXTS[currentLanguage].basket.basketList.quantities,
+    removeItemBtn: UI_TEXTS[currentLanguage].basket.basketList.removeItemBtn,
+  }
+
   const callbacks = {
-    onRemove: (e) => props.onRemove(props.item._id)
+    onRemove: (e) => props.onRemove(props.item._id),
+    onClose: () => props.onClose()
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>{props.item.title}</div>
+      <LinkComponent to={props.productLink} onClick={callbacks.onClose} className={cn('title')}>{props.item.title}</LinkComponent>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {uiText.quantities}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{uiText.removeItemBtn}</button>
         </div>
       </div>
     </div>
@@ -35,11 +42,14 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number
   }).isRequired,
-  onRemove: propTypes.func,
+  productLink: PropTypes.string,
+  onRemove: PropTypes.func,
+  onClose: PropTypes.func,
 }
 
 ItemBasket.defaultProps = {
   onRemove: () => {},
+  onClose: () => {},
 }
 
 export default memo(ItemBasket);

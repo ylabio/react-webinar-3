@@ -1,12 +1,19 @@
-import {memo, useState} from "react";
+import {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
+import { UI_TEXTS } from '../../consts/content';
+import LinkComponent from '../link';
 
 function Item(props) {
 
   const cn = bem('Item');
+
+  const currentLanguage = document.documentElement.lang
+  const uiText = {
+    addItemBtn: UI_TEXTS[currentLanguage].main.catalogList.addItemBtn,
+  }
 
   const callbacks = {
     onAdd: (e) => props.onAdd(props.item._id)
@@ -14,13 +21,12 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>
+      <LinkComponent to={props.productLink} className={cn('title')}>
         {props.item.title}
-      </div>
+      </LinkComponent>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{uiText.addItemBtn}</button>
       </div>
     </div>
   );
@@ -32,6 +38,7 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
+  productLink: PropTypes.string,
   onAdd: PropTypes.func,
 };
 
