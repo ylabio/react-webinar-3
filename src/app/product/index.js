@@ -8,6 +8,7 @@ import useSelector from "../../store/use-selector";
 import { useParams } from "react-router-dom";
 import ItemContent from "../../components/item-content"
 import Menu from "../../components/menu"
+import Row from "../../components/row"
 
 function Product() {
   const store = useStore();
@@ -57,14 +58,15 @@ function Product() {
           supportedLangs={select.supportedLangs}
           onLangChange={callbacks.onLangeChange}
         />
-        <BasketTool
-          onOpen={callbacks.openModalBasket}
-          amount={select.amount}
-          sum={select.sum}
-          t={select.t}
-          menu={Menu}
-          menuLinks={menuLinks}
-        />
+        <Row>
+          <Menu menuLinks={menuLinks}/>
+          <BasketTool
+            onOpen={callbacks.openModalBasket}
+            amount={select.amount}
+            sum={select.sum}
+            t={select.t}
+          />
+        </Row>
         <ItemContent t={select.t} data={select.data} onAdd={callbacks.addToBasket}/>
       </Preloader>
     </PageLayout>

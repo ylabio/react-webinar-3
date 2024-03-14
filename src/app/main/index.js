@@ -9,6 +9,7 @@ import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination"
 import Preloader from "../../components/preloader"
 import Menu from "../../components/menu"
+import Row from "../../components/row"
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
 
 function Main() {
@@ -75,8 +76,11 @@ function Main() {
           supportedLangs={select.supportedLangs}
           onLangChange={callbacks.onLangeChange}
         />
-        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                    sum={select.sum} t={select.t} menu={Menu} menuLinks={menuLinks}/>
+        <Row>
+          <Menu menuLinks={menuLinks}/>
+          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+                      sum={select.sum} t={select.t} menu={Menu} menuLinks={menuLinks}/>
+        </Row>
         <List list={select.list} renderItem={renders.item}/>
         <Pagination
           currentPage={currentPage}
