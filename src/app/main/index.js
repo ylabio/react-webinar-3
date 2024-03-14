@@ -6,20 +6,41 @@ import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import Pagination from '../../components/pagination';
+import Menu from '../../components/menu';
+import { useLocation } from 'react-router';
+import React from 'react';
+import { Suspense } from 'react';
+import { useParams } from 'react-router-dom';
+import Locale from '../../components/locale';
+import { locale } from '../../locale';
+import Header from '../../components/header';
 
 function Main() {
 
-  const store = useStore();
+  const { lang } = useParams();
 
-  useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
+  const store = useStore();
 
   const select = useSelector(state => ({
     list: state.catalog.list,
+    page: state.catalog.page,
+    count: state.catalog.count,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
+
+  function useQuery() {
+    const { search } = useLocation();
+  
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+  }
+
+  let query = useQuery();
+
+  useEffect(() => {
+    store.actions.catalog.load(+query.get("page") - 1 >= 0 ? +query.get("page") - 1 : 0);
+  }, [query.get("page")]);
 
   const callbacks = {
     // Добавление в корзину
@@ -30,16 +51,20 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
+      return <Item item={item} onAdd={callbacks.addToBasket} path={`/${lang}/article/`} lang={lang}/>
+    }, [callbacks.addToBasket, lang]),
   };
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
-      <List list={select.list} renderItem={renders.item}/>
+      <Header left={<Head title={locale[lang].headers.shop}/>} right={<Locale lang={lang}/>} dark={true}/>
+      <Header left={<Menu href={`/${lang}/`} lang={lang}/>} right={
+          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+              sum={select.sum} lang={lang}/>} dark={false}/>
+      <Suspense fallback={<div>Loading...</div>}>
+        <List list={select.list} renderItem={renders.item}/>
+      </Suspense>
+      {select.count ? <Pagination path={`/${lang}/`} page={+query.get("page") - 1 >= 0 ? +query.get("page") - 1 : 0} count={select.count}/> : 'Loading...'}
     </PageLayout>
 
   );

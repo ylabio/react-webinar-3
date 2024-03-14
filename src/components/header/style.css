@@ -1,0 +1,17 @@
+.Header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Header_dark {
+    background: #f5f5f5;
+}
+
+.Header-left, .Header-right {
+    display: flex;
+    width: 50%;
+}
+
+.Header-right {
+    justify-content: flex-end;
+}

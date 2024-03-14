@@ -1,0 +1,39 @@
+.Pagination {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 25px;
+}
+
+.Pagination-pagenum, .Pagination-dots {
+    display: inline-block;
+    padding: 2.5px 5px;
+}
+
+.Pagination-dots {
+    color: #ccc;
+}
+
+.Pagination-pagenum a {
+    cursor: pointer;
+    text-decoration: none;
+}
+.Pagination-pagenum:not(.Pagination_active) a {
+    color: black;
+}
+
+.Pagination_active {
+    background-color: #0087E9;
+}
+
+.Pagination_active a {
+    color: white;
+}
+
+.Pagination_active:hover {
+    background-color: #0081dd;
+}
+
+.Pagination-pagenum:not(.Pagination_active):hover {
+    background-color: #E1E1E1;
+    
+}

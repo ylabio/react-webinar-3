@@ -3,6 +3,14 @@ import Main from "./main";
 import Basket from "./basket";
 import useStore from "../store/use-store";
 import useSelector from "../store/use-selector";
+import ArticleMain from "./article";
+import { Navigate } from 'react-router-dom';
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
 
 /**
  * Приложение
@@ -13,10 +21,20 @@ function App() {
   const activeModal = useSelector(state => state.modals.name);
 
   return (
-    <>
-      <Main/>
-      {activeModal === 'basket' && <Basket/>}
-    </>
+    <Router>
+      <Routes>
+        <Route path="/:lang/article/:id" element={
+        <>
+          <ArticleMain />
+          {activeModal === 'basket' && <Basket/>}
+        </>}/>
+        <Route path="/:lang/" element={<>
+          <Main/>
+          {activeModal === 'basket' && <Basket/>}
+        </>}/>
+        <Route path="/" element={<Navigate to="/ru/" replace />} />
+      </Routes>
+    </Router>
   );
 }
 

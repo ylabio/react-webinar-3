@@ -7,6 +7,8 @@ const store = new Store();
 
 const root = createRoot(document.getElementById('root'));
 
+console.log('root');
+
 // Первый рендер приложения
 root.render(
   <StoreContext.Provider value={store}>
