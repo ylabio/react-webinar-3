@@ -15,39 +15,44 @@ class Basket extends StoreModule {
    */
   addToBasket(_id) {
     let sum = 0;
-    // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
     const list = this.getState().list.map((item) => {
-      let result = item;
-      if (item._id === _id) {
-        exist = true; // Запомним, что был найден в корзине
-        result = { ...item, amount: item.amount + 1 };
-      }
-      sum += result.price * result.amount;
-      return result;
+        let result = item;
+        if (item._id === _id) {
+            exist = true;
+            result = { ...item, amount: item.amount + 1 };
+        }
+        sum += result.price * result.amount;
+        return result;
     });
 
     if (!exist) {
-      // Поиск товара в каталоге, чтобы его добавить в корзину.
-      // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      const item = this.store
-        .getState()
-        .catalog.list.find((item) => item._id === _id);
-      list.push({ ...item, amount: 1 }); // list уже новый, в него можно пушить.
-      // Добавляем к сумме.
-      sum += item.price;
+        // Поиск товара в каталоге
+        const catalogItem = this.store.getState().catalog.list.find(item => item._id === _id);
+
+        if (catalogItem) {
+            // Проверяем, есть ли цена у товара
+            const price = catalogItem.price !== undefined ? catalogItem.price : 0;
+
+            list.push({ ...catalogItem, amount: 1, price: price });
+            sum += price;
+        } else {
+            // В случае, если цена еще не загружена, добавляем товар по _id без цены
+            list.push({ _id, amount: 1, price: 0 });
+            console.warn('Цена для товара с _id: ' + _id + ' еще не загружена.');
+        }
     }
 
     this.setState(
-      {
-        ...this.getState(),
-        list,
-        sum,
-        amount: list.length,
-      },
-      "Добавление в корзину"
+        {
+            ...this.getState(),
+            list,
+            sum,
+            amount: list.length,
+        },
+        "Добавление в корзину"
     );
-  }
+}
 
   /**
    * Удаление товара из корзины

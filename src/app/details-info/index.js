@@ -1,5 +1,4 @@
 import { memo, useCallback } from "react";
-import Head from "../../components/head";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import DetailsCart from "../../components/details-cart";

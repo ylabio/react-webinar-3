@@ -16,7 +16,7 @@ function DetailsCart({ onAdd,sum,amount,onOpen, }) {
   if (!product) {
     return <div>Loading...</div>;
   }
-
+  const displayPrice = product && product.price ? product.price : "Цена не указана";
   return (
     <div className={cn()}>
     <Head title={product.title}/>
@@ -41,7 +41,8 @@ function DetailsCart({ onAdd,sum,amount,onOpen, }) {
         Год выпуска:<span className="edition-text">{product.edition}</span>
       </p>
       <p className={cn("price")}>Цена: {product.price} ₽</p>
-      <button className={cn("button")} onClick={() => product._id && onAdd(product._id)}>Добавить</button>
+      <button className={cn("button")} onClick={() => product && product._id && onAdd(product._id)}>Добавить</button>
+
     </div>
   );
 }
