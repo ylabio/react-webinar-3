@@ -30,7 +30,7 @@ function Main() {
         }
       : null;
     store.actions.catalog.load(query);
-  }, [params]);
+  }, [params.current]);
 
   const select = useSelector((state) => ({
     list: state.catalog.list,
