@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({ list, renderItem, isLoading }) {
+function List({ list, renderItem, isLoading, error }) {
+  if (error) return <p className="List-error List-loading">Sorry.. {error}</p>;
   return isLoading ? <p className="List-loading">Loading..</p> : <div className='List'>{
     list.map(item =>
       <div key={item._id} className='List-item'>

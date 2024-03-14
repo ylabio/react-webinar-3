@@ -24,6 +24,7 @@ function Main() {
   const select = useSelector(state => ({
     list: state.catalog.list,
     isLoading: state.catalog.isLoading,
+    error: state.catalog.error,
     currentPage: state.catalog.currentPage,
     lastPage: state.catalog.lastPage,
     amount: state.basket.amount,
@@ -56,8 +57,8 @@ function Main() {
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
           sum={select.sum} language={translations[select.language]} />
       </MainMenu>
-      <List list={select.list} renderItem={renders.item} isLoading={select.isLoading} />
-      {!select.isLoading && <Pagination currentPage={select.currentPage} lastPage={select.lastPage} setCurrentPage={callbacks.setCurrentPage} />}
+      <List list={select.list} renderItem={renders.item} isLoading={select.isLoading} error={select.error} />
+      {!select.isLoading && !select.error && <Pagination currentPage={select.currentPage} lastPage={select.lastPage} setCurrentPage={callbacks.setCurrentPage} />}
     </PageLayout>
 
   );
