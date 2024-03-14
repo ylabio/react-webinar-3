@@ -38,6 +38,12 @@ export function calculateTotalPagesAmount(itemsAmount) {
   return Math.ceil(itemsAmount / 10)
 }
 
+export async function getTotalPages() {
+  const totalItemsAmountResponse = await fetch('/api/v1/articles?fields=items(),count')
+  const totalItemsAmount = await totalItemsAmountResponse.json();
+  return calculateTotalPagesAmount(totalItemsAmount.result.count)
+}
+
 export function generateAllPages(totalPages, currentPage) {
   if (totalPages <= 7) {
     return Array.from({ length: totalPages }, (_, i) => i + 1)

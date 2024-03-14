@@ -8,11 +8,12 @@ import Pagination from '../../components/pagination';
 import { UI_TEXTS } from '../../consts/content';
 import PageLayout from '../../components/page-layout';
 import Menu from '../../components/menu';
+import { useSearchParams } from 'react-router-dom';
 
 function Main() {
   const store = useStore();
 
-  const [page, setPage] = useState({ newValue: 1, oldValue: 1 })
+  const [searchParams, setSearchParams] = useSearchParams()
   const [isLoading, setIsLoading] = useState(true)
 
   const select = useSelector(state => ({
@@ -26,12 +27,13 @@ function Main() {
 
   useEffect(() => {
     const fetchCatalog = async () => {
-      await store.actions.catalog.load(page.newValue, select.language.currentLanguage)
+      const page = searchParams.get('page') || 1
+      await store.actions.catalog.load(page, select.language.currentLanguage)
       setIsLoading(false)
     }
 
     fetchCatalog()
-  }, [page, select.language.currentLanguage]);
+  }, [searchParams.get('page'), select.language.currentLanguage]);
 
 
 
@@ -67,8 +69,6 @@ function Main() {
       <List list={select.list[select.language.currentLanguage]} renderItem={renders.item} />
       <Pagination
         totalPages={select.totalPages}
-        currentPage={!isLoading ? page.newValue : page.oldValue}
-        handleSelectPage={callbacks.handleSelectPage}
       />
     </PageLayout>
   );

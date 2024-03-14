@@ -1,4 +1,4 @@
-import { calculateTotalPagesAmount, codeGenerator } from "../../utils";
+import { calculateTotalPagesAmount, codeGenerator, getTotalPages } from "../../utils";
 import StoreModule from "../module";
 
 class Catalog extends StoreModule {
@@ -22,7 +22,7 @@ class Catalog extends StoreModule {
     }
   }
 
-  async load(page, language) {
+  async load(page) {
     const newList = {}
     for (let lang of Object.keys(this.store.state.language.languages)) {
       newList[lang] = []
@@ -36,9 +36,7 @@ class Catalog extends StoreModule {
       newList[listLang] = json.result.items
     }
 
-    const totalItemsAmountResponse = await fetch('/api/v1/articles?fields=items(),count')
-    const totalItemsAmount = await totalItemsAmountResponse.json();
-    const totalPages = calculateTotalPagesAmount(totalItemsAmount.result.count)
+    const totalPages = await getTotalPages()
 
     this.setState({
       ...this.getState(),
