@@ -22,6 +22,7 @@ function App() {
           <Route path=":itemId" element={<ItemInfo />} />
         </Route>
       </Routes>
+
       {activeModal === "basket" && <Basket />}
     </>
   );

@@ -18,6 +18,7 @@ function ItemInfo() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     item: state.catalog.currentProduct,
+    mainPage: state.catalog.currentPage,
     productIsLoading: state.catalog.productIsLoading,
   }));
 
@@ -47,7 +48,9 @@ function ItemInfo() {
       {!select.productIsLoading ? (
         <>
           <Head title={select.item.title} />
-          <Navbar navList={[{ name: "Главная", path: "/" }]}>
+          <Navbar
+            navList={[{ name: "Главная", path: `/page/${select.mainPage}` }]}
+          >
             <BasketTool
               onOpen={callbacks.openModalBasket}
               amount={select.amount}
