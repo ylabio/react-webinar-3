@@ -22,6 +22,7 @@ function Main() {
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    
   }));
 
   const callbacks = {

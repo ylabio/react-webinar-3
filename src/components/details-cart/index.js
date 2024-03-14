@@ -6,7 +6,7 @@ import "./style.css";
 import BasketTool from "../basket-tool";
 
 
-function DetailsCart({ onAdd,sum,amount,onOpen }) {
+function DetailsCart({ onAdd,sum,amount,onOpen,onClick }) {
   const cn = bem("details_cart");
 
   const { product } = useFetchData();

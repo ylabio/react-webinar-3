@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import useSelector from "../store/use-selector";
-import DetailsInfo from "./details";
+import DetailsInfo from "./details-info";
 
 /**
  * Приложение

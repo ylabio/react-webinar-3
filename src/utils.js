@@ -75,7 +75,7 @@ export function useFetchData() {
 
   useEffect(() => {
     fetch(
-      `/api/v1/articles/${id}?fields=category(title),price,edition,description,madeIn(title)`
+      `/api/v1/articles/${id}?fields=category(title),price,edition,description,madeIn(title),edition`
     )
       .then((response) => response.json())
       .then((data) => setProduct(data.result));
