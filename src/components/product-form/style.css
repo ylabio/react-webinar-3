@@ -1,0 +1,21 @@
+.ProductForm-body {
+  padding: 20px;
+
+  font-size: 18px;
+}
+
+.ProductForm-made,
+.ProductForm-cat,
+.ProductForm-year,
+.ProductForm-price {
+  margin-top: 20px;
+}
+
+.ProductForm-price {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.ProductForm-btn {
+  margin-top: 20px;
+}
