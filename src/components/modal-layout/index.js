@@ -1,21 +1,11 @@
-import { memo, useEffect, useRef, useCallback } from "react";
+import { memo, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from '@bem-react/classname';
-import useSelector from "../../store/use-selector";
 import './style.css';
 
-function ModalLayout(props) {
+function ModalLayout({title, onClose, uiElements, children }) {
 
   const cn = bem('ModalLayout');
-
-  const select = useSelector(state => ({
-    currentLanguage: state.localization.currentLanguage,
-    uiElements: state.localization.uiElements,
-  }));
-
-  const getModalCloseText = useCallback(() => {
-    return select.uiElements.modalClose[select.currentLanguage];
-  }, [select.currentLanguage, select.uiElements]);
 
   // Корректировка центра, если модалка больше окна браузера.
   const layout = useRef();
@@ -41,11 +31,11 @@ function ModalLayout(props) {
     <div className={cn()} ref={layout}>
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
-          <h1 className={cn('title')}>{props.title}</h1>
-          <button className={cn('close')} onClick={props.onClose}>{getModalCloseText()}</button>
+          <h1 className={cn('title')}>{title}</h1>
+          <button className={cn('close')} onClick={onClose}>{uiElements.close}</button>
         </div>
         <div className={cn('content')}>
-          {props.children}
+          {children}
         </div>
       </div>
     </div>
@@ -55,6 +45,9 @@ function ModalLayout(props) {
 ModalLayout.propTypes = {
   title: PropTypes.string,
   onClose: PropTypes.func,
+  uiElements: PropTypes.shape({
+    close: PropTypes.string,
+  }),
   children: PropTypes.node,
 };
 

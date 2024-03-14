@@ -1,38 +1,12 @@
-import { memo, useCallback } from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from "../../utils";
-import useSelector from "../../store/use-selector";
 import './style.css';
 
-function ArticleInfo({item, onAddToCart}) {
+function ArticleInfo({item, onAddToCart, uiElements}) {
 
   const cn = bem('ArticleInfo');
-
-  const select = useSelector(state => ({
-    currentLanguage: state.localization.currentLanguage,
-    uiElements: state.localization.uiElements,
-  }));
-
-  const getBasketAddText = useCallback(() => {
-    return select.uiElements.basketAdd[select.currentLanguage];
-  }, [select.currentLanguage, select.uiElements]);
-  
-  const getBasketCountryText = useCallback(() => {
-    return select.uiElements.basketCountry[select.currentLanguage];
-  }, [select.currentLanguage, select.uiElements]);
-
-  const getBasketCategoryText = useCallback(() => {
-    return select.uiElements.basketCategory[select.currentLanguage];
-  }, [select.currentLanguage, select.uiElements]);
-
-  const getBasketYearText = useCallback(() => {
-    return select.uiElements.basketYear[select.currentLanguage];
-  }, [select.currentLanguage, select.uiElements]);
-
-  const getItemPriceText = useCallback(() => {
-    return select.uiElements.itemPrice[select.currentLanguage];
-  }, [select.currentLanguage, select.uiElements]);
 
   return item.title && (
     <>  
@@ -41,18 +15,18 @@ function ArticleInfo({item, onAddToCart}) {
           {item?.description}
         </div>
         <div className={cn('paragraph')}>
-          {getBasketCountryText()}: {<span className={cn('paragraph-bold')}>{`${item?.madeIn?.title} (${item?.madeIn?.code})`}</span>}
+          {uiElements.country}: {<span className={cn('paragraph-bold')}>{`${item?.madeIn?.title} (${item?.madeIn?.code})`}</span>}
         </div>
         <div className={cn('paragraph')}>
-          {getBasketCategoryText()}: {<span className={cn('paragraph-bold')}>{`${item?.category?.title}`}</span>}
+          {uiElements.category}: {<span className={cn('paragraph-bold')}>{`${item?.category?.title}`}</span>}
         </div>
         <div className={cn('paragraph')}>
-          {getBasketYearText()}: {<span className={cn('paragraph-bold')}>{`${item?.edition}`}</span>}
+          {uiElements.year}: {<span className={cn('paragraph-bold')}>{`${item?.edition}`}</span>}
         </div>
         <div className={cn('paragraph-price')}>
-          {`${getItemPriceText()}: ${numberFormat(item?.price)} ₽`}
+          {`${uiElements.price}: ${numberFormat(item?.price)} ₽`}
         </div>
-        <button className={cn('buy-button')} onClick={onAddToCart}>{getBasketAddText()}</button>
+        <button className={cn('buy-button')} onClick={onAddToCart}>{uiElements.addButton}</button>
       </div>
     </>
   );
@@ -61,6 +35,13 @@ function ArticleInfo({item, onAddToCart}) {
 ArticleInfo.propTypes = {
   item: PropTypes.object,
   onAddToCart: PropTypes.func,
+  uiElements: PropTypes.shape({
+    addButton: PropTypes.string,
+    country: PropTypes.string,
+    category: PropTypes.string,
+    year: PropTypes.string,
+    price: PropTypes.string,
+  }),  
 };
 
 ArticleInfo.defaultProps = {

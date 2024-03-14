@@ -30,6 +30,7 @@ function PageSelect({currentPage, pages}) {
   }, []);
 
   const cn = bem('PageSelect');
+  
   return (
     <div className={cn()}>
         {renderPageSelect(currentPage, pages)}

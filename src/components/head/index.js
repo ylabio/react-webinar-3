@@ -1,38 +1,21 @@
-import { memo, useCallback } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { memo } from "react";
 import PropTypes from "prop-types";
 import LanguageSelectButton from "../language-select-button";
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
 
-function Head({title}) {
+function Head({title, languages, currentLanguage, onLanguageChange}) {
   const cn = bem('Item');
 
-  const store = useStore();
-
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const select = useSelector(state => ({
-    languages: state.localization.languages,
-    currentLanguage: state.localization.currentLanguage,
-  }));
-
-  const onLanguageChange = useCallback((lang) => {
-    store.actions.localization.setCurrentLanguage(lang);    
-  }, [store]);
-  
   return (
     <div className={cn()}>
       <h1 className={cn("title")}>{title}</h1>
       <div className={cn("language")}>
-        {select.languages.map((lang) => {
+        {languages.map((lang) => {
           return  <LanguageSelectButton 
                     key={lang.code} 
                     lang={lang.title}
-                    active={lang.code === select.currentLanguage}
+                    active={lang.code === currentLanguage}
                     onClick={() => onLanguageChange(lang.code)}
                   />
         })}
@@ -43,6 +26,11 @@ function Head({title}) {
 
 Head.propTypes = {
   title: PropTypes.node,
+  languages: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string,
+    title: PropTypes.string,
+  })),
+  currentLanguage: PropTypes.string,
 };
 
 export default memo(Head);

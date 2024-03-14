@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import Item from "../../components/item";
@@ -27,9 +27,21 @@ function Main() {
     list: state.catalog.list,
     pageLength: state.catalog.pageLength,
     count: state.catalog.count,
+    currentLanguage: state.localization.currentLanguage,
+    uiElements: state.localization.uiElements,
   }));
 
-  const location = useLocation();
+  const itemUiElements = useMemo(() => {
+    return {
+      addText: select.uiElements.basketAdd[select.currentLanguage]
+    };
+  }, [select.currentLanguage, select.uiElements]);
+
+  const getLoadingText = useCallback(() => {
+    return select.uiElements.loadingText[select.currentLanguage];
+  }, [select.currentLanguage, select.uiElements]);
+
+   const location = useLocation();
   const navigate = useNavigate();
 
   const callbacks = {
@@ -46,13 +58,14 @@ function Main() {
                  item={item} 
                  onAdd={callbacks.addToBasket} 
                  link={`/articles/${item._id}`}
+                 uiElements={itemUiElements}
               />
-    }, [callbacks.addToBasket]),
+    }, [callbacks.addToBasket, itemUiElements]),
   };
 
   return (
     <>
-      <Loading isLoading={select.list === undefined}>      
+      <Loading isLoading={select.list === undefined} text={getLoadingText()}>      
         <List list={select.list} renderItem={renders.item}/>      
       </Loading>
       <PageSelect 

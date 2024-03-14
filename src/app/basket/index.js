@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import ItemBasket from "../../components/item-basket";
 import List from "../../components/list";
 import ModalLayout from "../../components/modal-layout";
@@ -19,9 +19,25 @@ function Basket({onClose}) {
     uiElements: state.localization.uiElements,
   }));
 
-  const getBasketTitleText = useCallback(() => {
-    return select.uiElements.basketTitle[select.currentLanguage];
+  const modalLayoutUiElements = useMemo(() => {
+    return {
+      close: select.uiElements.modalClose[select.currentLanguage],
+    };
   }, [select.currentLanguage, select.uiElements]);
+
+  const itemBasketUiElements = useMemo(() => {
+    return {
+      remove: select.uiElements.basketRemove[select.currentLanguage],
+      counter: select.uiElements.itemCounter[select.currentLanguage],
+    }
+  }, [select.currentLanguage, select.uiElements]);
+
+  const basketTotalUiElements = useMemo(() => {
+    return {
+      title: select.uiElements.basketTitle[select.currentLanguage],
+      total: select.uiElements.basketTotal[select.currentLanguage],
+    }
+  }, [select.currentLanguage, select.uiElements])
 
   const callbacks = {
     // Удаление из корзины
@@ -34,17 +50,22 @@ function Basket({onClose}) {
   const renders = {
     itemBasket: useCallback((item) => {
       return  <ItemBasket 
-                 item={item} 
-                 onRemove={callbacks.removeFromBasket} 
-                 link={`/articles/${item._id}`}
+                item={item} 
+                onRemove={callbacks.removeFromBasket} 
+                link={`/articles/${item._id}`}
+                uiElements={itemBasketUiElements}
               />
-    }, [callbacks.removeFromBasket]),
+    }, [callbacks.removeFromBasket, itemBasketUiElements]),
   };
 
   return (
-    <ModalLayout title={getBasketTitleText()} onClose={callbacks.closeModal}>
+    <ModalLayout 
+      title={basketTotalUiElements.title} 
+      onClose={callbacks.closeModal}
+      uiElements={modalLayoutUiElements}
+    >
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} uiElements={basketTotalUiElements} />
     </ModalLayout>
   );
 }

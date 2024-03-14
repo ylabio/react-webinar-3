@@ -1,58 +1,29 @@
-import { memo, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { memo } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from "../../utils";
-import useSelector from "../../store/use-selector";
 import './style.css';
 
-function BasketTool({sum, amount, onOpen}) {
-  const cn = bem('BasketTool');
-  const navigate = useNavigate();
-
-  const select = useSelector(state => ({
-    currentLanguage: state.localization.currentLanguage,
-    uiElements: state.localization.uiElements,
-    page: state.catalog.page,
-  }));
-
-  const getReturnText = useCallback(() => {
-    return select.uiElements.returnText[select.currentLanguage];
-  }, [select.currentLanguage, select.uiElements]);
-
-  const getInCartText = useCallback(() => {
-    return select.uiElements.basketInCart[select.currentLanguage];
-  }, [select.currentLanguage, select.uiElements]);
-
-  const getBasketEmptyText = useCallback(() => {
-    return select.uiElements.basketEmpty[select.currentLanguage];
-  }, [select.currentLanguage, select.uiElements]);
-
-  const getBasketCountables = useCallback(() => {
-    return select.uiElements.basketCountables[select.currentLanguage];
-  }, [select.currentLanguage, select.uiElements]);
-
-  const getBasketOpenText = useCallback(() => {
-    return select.uiElements.basketOpen[select.currentLanguage];
-  }, [select.currentLanguage, select.uiElements]);
-  
+function BasketTool({sum, amount, onOpen, uiElements, renderReturnButton}) {
+  const cn = bem('BasketTool');  
   return (
     <div className={cn()}>
-      <Link to={`/pages/${select.page}`} className={cn('return')}>
-        {getReturnText()}
-      </Link>
+      <div className={cn('return')}>
+        {renderReturnButton()}
+      </div>      
       <span className={cn('cartInfo')}>
-        <span className={cn('label')}>{`${getInCartText()}:`}</span>
+        <span className={cn('label')}>{`${uiElements.inCart}:`}</span>
         <span className={cn('total')}>
           {amount
             ? `${amount} ${plural(
                 amount, 
-                getBasketCountables()
+                uiElements.countables
               )} / ${numberFormat(sum)} ₽`
-            : getBasketEmptyText()
+            : uiElements.empty
           }
         </span>      
-        <button className={cn('open-button')} onClick={onOpen}>{getBasketOpenText()}</button>
+        <button className={cn('open-button')} onClick={onOpen}>{uiElements.open}</button>
       </span>
     </div>
   );
@@ -61,13 +32,21 @@ function BasketTool({sum, amount, onOpen}) {
 BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
-  amount: PropTypes.number
+  amount: PropTypes.number,
+  uiElements: PropTypes.shape({
+    inCart: PropTypes.string,
+    empty: PropTypes.string,
+    countables: PropTypes.string,
+    open: PropTypes.string,
+  }),
+  renderReturnButton: PropTypes.func,
 };
 
 BasketTool.defaultProps = {
   onOpen: () => {},
   sum: 0,
-  amount: 0
+  amount: 0,
+  renderReturnButton: () => {},
 }
 
 export default memo(BasketTool);

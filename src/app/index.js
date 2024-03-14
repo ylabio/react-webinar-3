@@ -1,5 +1,5 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
-import { Routes, Route, useLocation, useNavigate, useParams, Navigate } from "react-router-dom";
+import { useCallback, useContext, useEffect, useState, useMemo } from 'react';
+import { Routes, Route, useLocation, useNavigate, useParams, Navigate, Link } from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import ArticlePage from "./article-page";
@@ -38,9 +38,24 @@ function App() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     item: state.article.item,
+    languages: state.localization.languages,
     currentLanguage: state.localization.currentLanguage,
     uiElements: state.localization.uiElements,
+    page: state.catalog.page,
   }));
+
+  const onLanguageChange = useCallback((lang) => {
+    store.actions.localization.setCurrentLanguage(lang);    
+  }, [store]);
+
+  const basketToolUiElements = useMemo(() => {
+    return {
+      inCart: select.uiElements.basketInCart[select.currentLanguage],
+      empty: select.uiElements.basketEmpty[select.currentLanguage],
+      countables: select.uiElements.basketCountables[select.currentLanguage],
+      open: select.uiElements.basketOpen[select.currentLanguage],
+    }
+  }, [select.currentLanguage, select.uiElements])
 
   const getPageTitle = useCallback((location) => {
     if (location.pathname.includes("articles")) {
@@ -49,12 +64,25 @@ function App() {
     return select.uiElements.mainTitle[select.currentLanguage];
   }, [select.item, select.currentLanguage, select.uiElements]);
 
+  const renderReturnButton = useCallback(() => {
+    return <Link to={`/pages/${select.page}`}>
+      {select.uiElements.returnText[select.currentLanguage]}
+    </Link>
+  })
+  
+
   return (
     <>
       <PageLayout>
-        <Head title={getPageTitle(location)} />
+        <Head 
+          title={getPageTitle(location)}
+          languages={select.languages}
+          currentLanguage={select.currentLanguage}
+          onLanguageChange={onLanguageChange}
+        />
           <BasketTool onOpen={onCartOpen} amount={select.amount}
-                      sum={select.sum}/>
+                      sum={select.sum} uiElements={basketToolUiElements}
+                      renderReturnButton={renderReturnButton} />
           <Routes location={background || location}>
             <Route 
               path="/" 
