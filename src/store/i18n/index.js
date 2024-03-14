@@ -4,7 +4,7 @@ import { defaultLang, supportedLangs } from "../../config/i18nConfig";
 class I18n extends StoreModule {
   initState() {
     return {
-      lang: defaultLang,
+      lang: localStorage.getItem("language") || defaultLang,
       supportedLangs: { ...supportedLangs },
       translations: {
         ru: {
@@ -53,6 +53,7 @@ class I18n extends StoreModule {
 
   setLang(lang) {
     this.setState({...this.getState(), lang}, 'Язык изменен');
+    localStorage.setItem("language", lang)
   }
 }
 
