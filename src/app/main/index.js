@@ -2,45 +2,47 @@ import {memo, useCallback, useEffect} from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
-import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import Pagination from '../../components/pagination';
+import { useParams } from 'react-router';
 
 function Main() {
 
   const store = useStore();
-
-  useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
+  const {id} = useParams();
+  const pageNum = id || "1"
 
   const select = useSelector(state => ({
     list: state.catalog.list,
-    amount: state.basket.amount,
-    sum: state.basket.sum
+    totalPages : state.catalog.totalPages,
   }));
+  
+  const locale = useSelector(state =>state.locale);
+
+  useEffect(() => {
+    store.actions.catalog.loadCurrPage(pageNum);
+  },[pageNum,locale])
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    // Открытие модалки корзины
-    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
+      return <Item item={item} onAdd={callbacks.addToBasket} link = {`/product/${item._id}`} locale = {locale.translations.main}/>
+    }, [callbacks.addToBasket,locale]),
   };
 
   return (
-    <PageLayout>
-      <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+    <PageLayout
+      head={<Head title={locale.translations.main.header}/>}
+       footer = {<Pagination currPage = {Number(pageNum)} totalPages = {select.totalPages}/>}
+    >
       <List list={select.list} renderItem={renders.item}/>
-    </PageLayout>
+    </PageLayout >
 
   );
 }

@@ -1,0 +1,8 @@
+.SelectLang {
+    margin-right: auto;
+    padding: 20px;
+}
+
+.SelectLang select {
+    margin-left: 10px;
+}
