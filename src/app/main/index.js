@@ -7,6 +7,7 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
+import Basket from "../basket";
 
 function Main() {
 
@@ -17,10 +18,6 @@ function Main() {
 
   const lastArticlesIndex = currentPage * articlesPerPage;
   const firstArticlesIndex = lastArticlesIndex - articlesPerPage;
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  }
 
   useEffect(() => {
     store.actions.catalog.load(firstArticlesIndex);
@@ -47,7 +44,6 @@ function Main() {
       return <Item item={item} onAdd={callbacks.addToBasket}/>
     }, [callbacks.addToBasket]),
   };
-
 
 
   return (

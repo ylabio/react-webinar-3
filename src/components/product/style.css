@@ -1,0 +1,16 @@
+.Product {
+  padding: 20px 40px;
+}
+
+.Product-text {
+  padding-bottom: 20px;
+}
+
+.Product-text span {
+  font-weight: 700;
+}
+
+.Product-price {
+  padding-bottom: 20px;
+  font-weight: 700;
+}
