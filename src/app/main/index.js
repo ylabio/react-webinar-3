@@ -9,16 +9,9 @@ import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
 import Navigation from "../../components/navigation";
 import Menu from "../../components/menu";
-import { useParams } from "react-router-dom";
 
 function Main() {
   const store = useStore();
-  // const [currentPage, setCurrentPage] = useState(1);
-  /* let { page } = useParams();
-  if (page !== undefined) {
-
-  }
-  console.log("page=", page); */
   useEffect(() => {
     store.actions.catalog.load(1);
   }, []);

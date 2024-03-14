@@ -32,31 +32,10 @@ class Basket extends StoreModule {
       // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
       let item = this.store.getState().catalog.list.find(item => item._id === _id) ??
       this.store.getState().productDetails.result;
-     /*  const response = await fetch(
-        `http://example.front.ylab.io/api/v1/articles/${_id}`
-      );
-      let data = await response.json(); */
-      // const item = data.result;
-      /*  if ((item === undefined)) {
-        const product = this.store.getState().productDetailts.result;
-        if (product && (product._id === _id)) {
-          item = {
-            _id: product._id,
-            title: product.title,
-            price: product.price,
-          }
-        }
-      } */
       list.push({
         ...item,
         amount: 1
       });
-      /* list.push({
-        _id: item._id,
-        price: item.price,
-        title: item.title,
-        amount: 1
-      }); */ // list уже новый, в него можно пушить.
       // Добавляем к сумме.
       sum += item.price;
     }

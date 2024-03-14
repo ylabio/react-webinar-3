@@ -12,18 +12,6 @@ import Product from "./product";
  */
 function App() {
   const activeModal = useSelector((state) => state.modals.name);
-  /* const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Main />,
-      errorElement: <ErrorPage />,
-    },
-    {
-      path: "/product/:productId",
-      element: <Product />,
-      errorElement: <ErrorPage />,
-    },
-  ]); */
   return (
     <BrowserRouter>
       <Routes>
