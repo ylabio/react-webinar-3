@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import useSelector from "../../store/use-selector";
 import './style.css';
 
-function ItemBasket({item, onRemove}) {
+function ItemBasket({item, onRemove, link}) {
 
   const cn = bem('ItemBasket');
 
@@ -32,7 +32,7 @@ function ItemBasket({item, onRemove}) {
     <div className={cn()}>
       <Link
         className={cn('title')}
-        to={`/articles/${item._id}`}
+        to={link}
       >
         <div>{item.title}</div>
       </Link>
@@ -55,6 +55,7 @@ ItemBasket.propTypes = {
     amount: PropTypes.number
   }).isRequired,
   onRemove: propTypes.func,
+  link: PropTypes.string
 }
 
 ItemBasket.defaultProps = {

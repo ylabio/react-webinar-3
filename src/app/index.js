@@ -1,8 +1,8 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
-import { Routes, Route, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate, useParams, Navigate } from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
-import ArticleInfo from "../components/article-info";
+import ArticlePage from "./article-page";
 import useStore from "../store/use-store";
 import useSelector from "../store/use-selector";
 import PageLayout from "../components/page-layout";
@@ -22,8 +22,6 @@ function App() {
   const navigate = useNavigate();
 
   const store = useStore();
-
-  const { lang } = useParams();
 
   const onCartOpen = () => {
     const navigatePath = location.pathname === '/' ? '/cart' : location.pathname + '/cart';
@@ -61,11 +59,11 @@ function App() {
             <Route 
               path="/" 
               element={<LocaleMatch 
-                element={<Main />} 
+                element={<Navigate to="/pages/1" />} 
               />} 
             />
             <Route 
-              path="/pages/:id" 
+              path="/pages/:page" 
               element={<LocaleMatch 
                 element={<Main />} 
               />} 
@@ -73,29 +71,8 @@ function App() {
             <Route 
               path="/articles/:id"
               element={<LocaleMatch 
-                element={<ArticleInfo />} 
+                element={<ArticlePage />} 
               />} 
-            />
-            <Route 
-              path="/:lang"
-              element={<LocaleMatch
-               forceLang={true}
-               element={<Main />} 
-              />} 
-            />
-            <Route 
-              path="/pages/:id/:lang"
-              element={<LocaleMatch
-                forceLang={true}
-                element={<Main />} 
-              />} 
-            />
-            <Route 
-              path="/articles/:id/:lang"
-              element={<LocaleMatch
-                forceLang={true}
-                element={<ArticleInfo />} 
-              />}
             />
           </Routes>
       </PageLayout>  
@@ -106,7 +83,7 @@ function App() {
             element={<Basket onClose={onCartClose} />}
           />
           <Route 
-            path="/pages/:id?/:lang?/cart"
+            path="/pages/:page?/:lang?/cart"
             element={<Basket onClose={onCartClose} />}
           />
           <Route 

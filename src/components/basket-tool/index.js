@@ -13,6 +13,7 @@ function BasketTool({sum, amount, onOpen}) {
   const select = useSelector(state => ({
     currentLanguage: state.localization.currentLanguage,
     uiElements: state.localization.uiElements,
+    page: state.catalog.page,
   }));
 
   const getReturnText = useCallback(() => {
@@ -37,7 +38,7 @@ function BasketTool({sum, amount, onOpen}) {
   
   return (
     <div className={cn()}>
-      <Link to={'/'} className={cn('return')}>
+      <Link to={`/pages/${select.page}`} className={cn('return')}>
         {getReturnText()}
       </Link>
       <span className={cn('cartInfo')}>

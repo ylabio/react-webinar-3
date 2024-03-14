@@ -1,28 +1,15 @@
-import { memo, useEffect, useCallback } from "react";
-import { useParams } from 'react-router-dom';
+import { memo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from "../../utils";
-import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import './style.css';
 
-function ArticleInfo() {
+function ArticleInfo({item, onAddToCart}) {
 
   const cn = bem('ArticleInfo');
-  const { id, lang } = useParams();
-
-  const store = useStore();
-
-  useEffect(() => {
-    store.actions.article.fetchArticle(id);
-    return () => {
-      store.actions.article.clearArticle();
-    }
-  }, []);
 
   const select = useSelector(state => ({
-    item: state.article?.item,
     currentLanguage: state.localization.currentLanguage,
     uiElements: state.localization.uiElements,
   }));
@@ -47,27 +34,23 @@ function ArticleInfo() {
     return select.uiElements.itemPrice[select.currentLanguage];
   }, [select.currentLanguage, select.uiElements]);
 
-  const onAddToCart = useCallback(() => {
-    store.actions.basket.addToBasket(select.item._id);
-  }, [store, select]);
-
-  return select.item.title && (
+  return item.title && (
     <>  
       <div className={cn()}>
         <div className={cn('paragraph')}>
-          {select.item?.description}
+          {item?.description}
         </div>
         <div className={cn('paragraph')}>
-          {getBasketCountryText()}: {<span className={cn('paragraph-bold')}>{`${select.item?.madeIn?.title} (${select.item?.madeIn?.code})`}</span>}
+          {getBasketCountryText()}: {<span className={cn('paragraph-bold')}>{`${item?.madeIn?.title} (${item?.madeIn?.code})`}</span>}
         </div>
         <div className={cn('paragraph')}>
-          {getBasketCategoryText()}: {<span className={cn('paragraph-bold')}>{`${select.item?.category?.title}`}</span>}
+          {getBasketCategoryText()}: {<span className={cn('paragraph-bold')}>{`${item?.category?.title}`}</span>}
         </div>
         <div className={cn('paragraph')}>
-          {getBasketYearText()}: {<span className={cn('paragraph-bold')}>{`${select.item?.edition}`}</span>}
+          {getBasketYearText()}: {<span className={cn('paragraph-bold')}>{`${item?.edition}`}</span>}
         </div>
         <div className={cn('paragraph-price')}>
-          {`${getItemPriceText()}: ${numberFormat(select?.item?.price)} ₽`}
+          {`${getItemPriceText()}: ${numberFormat(item?.price)} ₽`}
         </div>
         <button className={cn('buy-button')} onClick={onAddToCart}>{getBasketAddText()}</button>
       </div>
@@ -76,9 +59,12 @@ function ArticleInfo() {
 }
 
 ArticleInfo.propTypes = {
+  item: PropTypes.object,
+  onAddToCart: PropTypes.func,
 };
 
 ArticleInfo.defaultProps = {
+  onAddToCart: () => {},
 }
 
 export default memo(ArticleInfo);

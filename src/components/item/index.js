@@ -6,7 +6,7 @@ import { numberFormat } from "../../utils";
 import useSelector from "../../store/use-selector";
 import './style.css';
 
-function Item({item, onAdd}) {
+function Item({item, onAdd, link}) {
 
   const cn = bem('Item');
 
@@ -27,7 +27,7 @@ function Item({item, onAdd}) {
   return (
     <div className={cn()}>
       <Link
-        to={`/articles/${item._id}`}
+        to={link}
         className={cn('title')}
       >
         <div>
@@ -49,6 +49,7 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  link: PropTypes.string,
 };
 
 Item.defaultProps = {

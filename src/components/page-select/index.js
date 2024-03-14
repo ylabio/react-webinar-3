@@ -8,6 +8,12 @@ function PageSelect({currentPage, pages}) {
 
   const renderPageSelect = useCallback((currentPage, pages) => {
     let pageNumbers = [1, currentPage - 1, currentPage, currentPage + 1, pages];
+    if (currentPage === 1) {
+      pageNumbers.splice(4, 0, 3);
+    }
+    if (currentPage === pages) {
+      pageNumbers.splice(pageNumbers.length - 4, 0, pages - 2);
+    }
     pageNumbers = pageNumbers.filter((page) => page > 0 && page <= pages);
     pageNumbers = Array.from(new Set(pageNumbers));
     

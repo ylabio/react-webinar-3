@@ -24,6 +24,10 @@ class Localization extends StoreModule {
           "ru-RU": "Магазин",
           "en-US": "Shop",
         },
+        loadingText: {
+          "ru-RU": "Загрузка",
+          "en-US": "Loading",
+        },
         returnText: {
           "ru-RU": "Главная",
           "en-US": "Return",

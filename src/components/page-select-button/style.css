@@ -11,7 +11,7 @@
 }
 
 .PageSelectButton:hover {
-  background-color: grey;
+  background-color: #ccc;
 }
 
 .PageSelectButton-active {

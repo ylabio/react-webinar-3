@@ -8,13 +8,13 @@ class Article extends StoreModule {
 
   initState() {
     return {
-        item: {},
+        //item: {},
     }
   }
 
   clearArticle() {
     this.setState({
-      item: {},
+      //item: {},
     });
   }  
 

@@ -10,11 +10,16 @@ class Catalog extends StoreModule {
 
   initState() {
     return {
-      list: [],
+      //list: [],
       count: 0,
       pageLength: 10,
       page: 1,
     }
+  }
+
+  clearList() {
+    const { list, ...newState } = this.getState();
+    this.setState(newState, 'Cleared list of items');
   }
 
   async fetchCount() {
@@ -33,15 +38,14 @@ class Catalog extends StoreModule {
     const json = await response.json();
     this.setState({
       ...this.getState(),
-      page: page,
+      page,
       list: json.result.items
     }, `Fetched page ${page}`);
   }
 
   async load() {
-    const { page } = this.getState();
     await this.fetchCount();
-    await this.fetchPage(page);
+    //await this.fetchPage(page);
     // const response = await fetch('/api/v1/articles?limit=256');
     // const json = await response.json();
     // this.setState({
