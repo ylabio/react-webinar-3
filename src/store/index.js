@@ -1,10 +1,23 @@
+import * as modules from './exports.js';
+
 /**
  * Хранилище состояния приложения
  */
 class Store {
+
   constructor(initState = {}) {
-    this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state = initState;
+    /** @type {{
+     * basket: Basket,
+     * catalog: Catalog,
+     * modals: Modals,
+     * }} */
+    this.actions = {};
+    for (const name of Object.keys(modules)) {
+      this.actions[name] = new modules[name](this, name);
+      this.state[name] = this.actions[name].initState();
+    }
   }
 
   /**
@@ -22,7 +35,7 @@ class Store {
 
   /**
    * Выбор состояния
-   * @returns {Object}
+   * @returns {{basket: Object, catalog: Object, modals: Object,details: Object}}
    */
   getState() {
     return this.state;
@@ -32,47 +45,19 @@ class Store {
    * Установка состояния
    * @param newState {Object}
    */
-  setState(newState) {
+  setState(newState, description = 'setState') {
+    console.group(
+      `%c${'store.setState'} %c${description}`,
+      `color: ${'#777'}; font-weight: normal`,
+      `color: ${'#333'}; font-weight: bold`,
+    );
+    console.log(`%c${'prev:'}`, `color: ${'#d77332'}`, this.state);
+    console.log(`%c${'next:'}`, `color: ${'#2fa827'}`, newState);
+    console.groupEnd();
+
     this.state = newState;
     // Вызываем всех слушателей
-    for (const listener of this.listeners) listener();
-  }
-
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
-    })
-  };
-
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      })
-    })
+    for (const listener of this.listeners) listener(this.state);
   }
 }
 
