@@ -6,7 +6,7 @@ import './style.css';
 
 function Pagination({currentPage, totalArticles, changePage}) {
   const paginationArray = generatePagination(currentPage, totalArticles, 10);
-  console.log(paginationArray);
+
   return(
     <div className="Pagination">
       <ul className="Pagination-list">

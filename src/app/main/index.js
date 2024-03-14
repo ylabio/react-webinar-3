@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect } from "react";
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -12,9 +12,11 @@ import Menu from "../../components/menu";
 import Loader from "../../components/loader";
 import Toggler from "../../components/toggler";
 import HeadParts from "../../components/head-parts";
+import { translate } from "../../utils";
 
 function Main() {
   const store = useStore();
+
   useEffect(() => {
     store.actions.catalog.load(1);
   }, []);
@@ -26,6 +28,8 @@ function Main() {
 
     amount: state.basket.amount,
     sum: state.basket.sum,
+
+    lang: state.language.lang,
   }));
 
   // console.log("page=", select.page);
@@ -47,7 +51,11 @@ function Main() {
     ),
     // Смена номера страницы каталога
     changePage: useCallback((page) => store.actions.catalog.load(page), []),
+    // Переключение языка
+    changeLanguage: useCallback(() => store.actions.language.change(), [store]),
   };
+
+  const text = translate('main', select.lang);
 
   const renders = {
     item: useCallback(
@@ -58,25 +66,27 @@ function Main() {
             onTransition={callbacks.onTransition}
             onAdd={callbacks.addToBasket}
             url="/articles"
+            text={text.item}
           />
         );
       },
-      [callbacks.addToBasket]
+      [callbacks.addToBasket, text, callbacks.onTransition]
     ),
   };
 
   return (
     <PageLayout>
       <HeadParts>
-        <Head title="Магазин" />
-        <Toggler />
+        <Head text={text.head} />
+        <Toggler checked={select.lang === 'eng'} onChange={callbacks.changeLanguage} />
       </HeadParts>
       <Navigation>
-        <Menu />
+        <Menu text={text.menu} />
         <BasketTool
           onOpen={callbacks.openModalBasket}
           amount={select.amount}
           sum={select.sum}
+          text={text.basketTool}
         />
       </Navigation>
       {select.list.lenght !== 0 ? (

@@ -65,3 +65,57 @@ export function generatePagination(currentPage, articles, limit) {
 
   return range;
 }
+
+export function translate(page, lang) {
+  switch (page) {
+    case 'main' :
+      if (lang === 'eng') {
+        return {
+          head: 'Store',
+          menu: 'Main',
+          item: 'Add',
+          basketTool: ["In basket:", "item", "items", "items", "empty", "Enter"],
+        }
+      }
+      if (lang === 'ru') {
+        return {
+          head: 'Магазин',
+          menu: 'Главная',
+          item: 'Добавить',
+          basketTool: ["В корзине:", "товар", "товара", "товаров", "пусто", "Перейти"],
+        }
+      }
+    case 'basket' :
+      if (lang === 'eng') {
+        return {
+          itemBasket: ['pc', 'pcs', 'Delete'],
+          modal: ['Modal', 'Close'],
+          basketTotal: 'Total',
+        }
+      }
+      if (lang === 'ru') {
+        return {
+          itemBasket: ['шт', 'шт', 'Удалить'],
+          modal: ['Модалка', 'Закрыть'],
+          basketTotal: 'Итого',
+        }
+      }
+    case 'product' :
+      if (lang === 'eng') {
+        return {
+          head: 'Store',
+          menu: 'Main',
+          details: ['Country:', 'Category:', 'Release date:', 'Price:', 'Add'],
+          basketTool: ["In basket:", "item", "items", "items", "empty", "Enter"],
+        }
+      }
+      if (lang === 'ru') {
+        return {
+          head: 'Магазин',
+          menu: 'Главная',
+          details: ["Страна произодитель:", "Категория:", "Год выпуска:", "Цена:", "Добавить"],
+          basketTool: ["В корзине:", "товар", "товара", "товаров", "пусто", "Перейти"],
+        }
+      }
+  }
+}

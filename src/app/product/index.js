@@ -9,6 +9,9 @@ import { useParams } from "react-router-dom";
 import Navigation from "../../components/navigation";
 import Menu from "../../components/menu";
 import Loader from '../../components/loader';
+import { translate } from "../../utils";
+import Toggler from "../../components/toggler";
+import HeadParts from "../../components/head-parts";
 
 function Product() {
   const store = useStore();
@@ -22,6 +25,7 @@ function Product() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     product: state.productDetails.result,
+    lang: state.language.lang,
   }));
 
   const callbacks = {
@@ -35,21 +39,32 @@ function Product() {
       () => store.actions.modals.open("basket"),
       [store]
     ),
+     // Переключение языка
+    changeLanguage: useCallback(() => store.actions.language.change(), [store]),
   };
+ const text = translate('product', select.lang);
 
   return (
     <PageLayout>
-      <Head title={select.product.title} />
+      <HeadParts>
+        <Head title={select.product.title} />
+        <Toggler checked={select.lang === 'eng'} onChange={callbacks.changeLanguage} />
+      </HeadParts>
       <Navigation>
-        <Menu />
+        <Menu text={text.menu}/>
         <BasketTool
           onOpen={callbacks.openModalBasket}
           amount={select.amount}
           sum={select.sum}
+          text={text.basketTool}
         />
       </Navigation>
       {select.product._id !== undefined ? (
-        <Details product={select.product} addToBasket={callbacks.addToBasket} />
+        <Details
+          product={select.product}
+          addToBasket={callbacks.addToBasket}
+          text={text.details}
+        />
       ) : (
         <Loader />
       )}
