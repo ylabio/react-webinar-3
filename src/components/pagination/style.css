@@ -1,0 +1,40 @@
+.Pagination {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+  margin-left: -20px;
+}
+
+.Pagination .page-number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  margin-right: 3px;
+  margin-left: 3px;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.Pagination a {
+  text-decoration: none;
+  color: black;
+}
+
+.active {
+  background-color: #0087E9;
+  color: white;
+}
+
+
+.disabled-link {
+  pointer-events: none;
+  cursor: default;
+  color: #999;
+}
+

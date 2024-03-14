@@ -7,7 +7,8 @@ class Store {
 
   constructor(initState = {}) {
     this.listeners = []; // Слушатели изменений состояния
-    this.state = initState;
+    this.state = {...initState, lang: localStorage.getItem('lang') || 'ru-RU'};
+    console.log(initState)
     /** @type {{
      * basket: Basket,
      * catalog: Catalog,
@@ -58,6 +59,15 @@ class Store {
     this.state = newState;
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener(this.state);
+  }
+
+  setLang(newLang) {
+    const newState = {
+      ...this.state,
+      lang: newLang
+    };
+    this.setState(newState);
+    localStorage.setItem('lang', newLang);
   }
 }
 

@@ -4,11 +4,13 @@
   justify-content: flex-end;
   padding: 20px;
   font-size: 18px;
-}
-
-.BasketTool-label {
 
 }
+
+.BasketTool-basket {
+  align-self: flex-end;
+}
+
 
 .BasketTool-total {
   font-weight: bold;

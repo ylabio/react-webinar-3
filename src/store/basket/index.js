@@ -3,10 +3,14 @@ import StoreModule from "../module";
 class Basket extends StoreModule {
 
   initState() {
+    const list = JSON.parse(localStorage.getItem('basket-list'))
+    const sum = JSON.parse(localStorage.getItem('basket-sum'))
+    const amount = JSON.parse(localStorage.getItem('basket-amount'))
+    console.log('Basket :', list)
     return {
-      list: [],
-      sum: 0,
-      amount: 0
+      list: list || [],
+      sum: sum || 0,
+      amount: amount || 0
     }
   }
 
@@ -18,6 +22,7 @@ class Basket extends StoreModule {
     let sum = 0;
     // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
+
     const list = this.getState().list.map(item => {
       let result = item;
       if (item._id === _id) {
@@ -31,18 +36,26 @@ class Basket extends StoreModule {
     if (!exist) {
       // Поиск товара в каталоге, чтобы его добавить в корзину.
       // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      const item = this.store.getState().catalog.list.find(item => item._id === _id);
-      list.push({...item, amount: 1}); // list уже новый, в него можно пушить.
-      // Добавляем к сумме.
-      sum += item.price;
+      if (this.store.getState().catalog.list.length) {
+        const item = this.store.getState().catalog.list.find(item => item._id === _id);
+        list.push({...item, amount: 1}); // list уже новый, в него можно пушить.
+        // Добавляем к сумме.
+        sum += item.price;
+      } else {
+        const item = this.store.getState().catalog.product.find(item => item._id === _id);
+        list.push({...item, amount: 1});
+        sum += item.price;
+      }
     }
-
     this.setState({
       ...this.getState(),
       list,
       sum,
       amount: list.length
     }, 'Добавление в корзину');
+    localStorage.setItem('basket-list', JSON.stringify(list));
+    localStorage.setItem('basket-sum', JSON.stringify(sum));
+    localStorage.setItem('basket-amount', JSON.stringify(list.length));
   }
 
   /**
@@ -63,6 +76,9 @@ class Basket extends StoreModule {
       sum,
       amount: list.length
     }, 'Удаление из корзины');
+    localStorage.setItem('basket-list', JSON.stringify(list));
+    localStorage.setItem('basket-sum', JSON.stringify(sum));
+    localStorage.setItem('basket-amount', JSON.stringify(list.length))
   }
 }
 
