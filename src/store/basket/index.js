@@ -16,10 +16,16 @@ class Basket extends StoreModule {
    */
   async addToBasket(_id) {
     async function fetchData() {
-      const res = await fetch(`/api/v1/articles/${_id}`)
-      const json = await res.json()
+      let data
 
-      return json.result
+      try {
+        const res = await fetch(`/api/v1/articles/${_id}`)
+        data = await res.json()
+      } catch (e) {
+        console.error(e)
+      }
+
+      return data.result
     }
 
     let sum = 0;

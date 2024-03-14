@@ -19,18 +19,26 @@ class Catalog extends StoreModule {
   }
 
   async load(page = 0) {
-    this.setState({
-      ...this.getState(),
-      loading: true,
-    }, 'Загрузка данных начата')
+    try {
+      this.setState({
+        ...this.getState(),
+        loading: true,
+      }, 'Загрузка данных начата')
 
-    const response = await fetch(`/api/v1/articles?limit=10${page > 0 ? `&skip=${page * 10}` : ''}`);
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      list: json.result.items,
-      loading: false
-    }, 'Загружены товары из АПИ');
+      const response = await fetch(`/api/v1/articles?limit=10${page > 0 ? `&skip=${page * 10}` : ''}`);
+      const json = await response.json();
+      this.setState({
+        ...this.getState(),
+        list: json.result.items,
+      }, 'Загружены товары из АПИ');
+    } catch (e) {
+      console.error(e)
+    } finally {
+      this.setState({
+        ...this.getState(),
+        loading: false,
+      }, 'Загрузка данных завершена')
+    }
   }
 
   changePage(page) {
