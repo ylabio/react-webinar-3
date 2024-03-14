@@ -1,10 +1,11 @@
 import StoreModule from "../module";
-
 class Language extends StoreModule {
   initState() {
+    const langActive = localStorage.getItem("lang");
+
     return {
       lang: "ru",
-      valueLang: true,
+      valueLang: langActive ? JSON.parse(langActive) : null,
     };
   }
 
@@ -17,6 +18,7 @@ class Language extends StoreModule {
       lang: newLang,
       valueLang: !currentValue,
     });
+    localStorage.setItem("lang", JSON.stringify(!currentValue));
   }
 }
 

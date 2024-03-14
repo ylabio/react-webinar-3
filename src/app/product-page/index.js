@@ -28,12 +28,16 @@ const ProductPage = () => {
       () => store.actions.modals.open("basket"),
       [store]
     ),
+    // Смена языка
+    onChangeLang: useCallback(()=> store.actions.language.changeLang()),
   };
 
   return (
     <PageLayout>
       <Head
         title={select.product ? select.product?.title : "Товар не выбран"}
+        onChangeLang={callbacks.onChangeLang}
+        valueLang={select.valueLang} 
       />
       <MenuLayout>
         <Nav textLink={ select.valueLang ? "Главная" : "Main" } />
