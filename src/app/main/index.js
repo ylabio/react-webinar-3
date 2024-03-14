@@ -53,7 +53,7 @@ function Main() {
     <PageLayout>
       <Head title={translations[select.language].headerTitle} setLanguage={callbacks.setLanguage} language={select.language} />
       <MainMenu>
-        <Menu main={translations[select.language].main} />
+        <Menu main={translations[select.language].main} setCurrentPage={callbacks.setCurrentPage} />
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
           sum={select.sum} language={translations[select.language]} />
       </MainMenu>
