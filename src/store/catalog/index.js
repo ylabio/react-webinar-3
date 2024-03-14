@@ -1,4 +1,4 @@
-import {codeGenerator} from "../../utils";
+import { codeGenerator } from "../../utils";
 import StoreModule from "../module";
 
 class Catalog extends StoreModule {
@@ -10,18 +10,22 @@ class Catalog extends StoreModule {
 
   initState() {
     return {
-      list: []
+      list: [],
+      length: 0,
+      item: {}
     }
   }
 
-  async load() {
-    const response = await fetch('/api/v1/articles');
+  async load(count) {
+    const response = await fetch(`api/v1/articles?limit=10&skip=${count}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
       ...this.getState(),
-      list: json.result.items
+      list: json.result.items,
+      length: json.result.count
     }, 'Загружены товары из АПИ');
   }
+
 }
 
 export default Catalog;

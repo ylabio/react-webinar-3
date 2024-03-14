@@ -2,9 +2,11 @@ import {memo} from "react";
 import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
+import ListNavigation from "../list-navigation";
 
 function List({list, renderItem}) {
   return (
+    <>
     <div className='List'>{
       list.map(item =>
         <div key={item._id} className='List-item'>
@@ -12,6 +14,7 @@ function List({list, renderItem}) {
         </div>
       )}
     </div>
+    </>
   )
 }
 
