@@ -1,20 +1,11 @@
 import {memo} from "react";
-import useSelector from "../../store/use-selector";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function Article({articleId, item, onAdd}) {
+function Article({articleId, item, onAdd, articleText}) {
   
   const cn = bem('Article');
-
-  const language = useSelector(state => ({
-    language: state.language.language,
-    articleTextRu: {...state.language.ru.itemPage, ...state.language.ru.values},
-    articleTextEn: {...state.language.en.itemPage, ...state.language.en.values},
-  }));
-
-  const text = language.language === "ru" ? language.articleTextRu : language.articleTextEn;
 
   const callbacks = {
     onAdd: (e) => onAdd(articleId)
@@ -23,11 +14,11 @@ function Article({articleId, item, onAdd}) {
   return (
     <div className={cn()}>
       <div className={cn('description')}>{item.description}</div>
-      <div className={cn('made')}>{text.madeIn}: <b>{item.madeIn}</b></div>
-      <div className={cn('category')}>{text.category}: <b>{item.category}</b></div>
-      <div className={cn('edition')}>{text.edition}: <b>{item.edition}</b></div>
-      <div className={cn('price')}>{text.price}: {item.price} {text.currency}</div>
-      <button onClick={callbacks.onAdd}>{text.itemAddButtonText}</button>
+      <div className={cn('made')}>{articleText.madeIn}: <b>{item.madeIn}</b></div>
+      <div className={cn('category')}>{articleText.category}: <b>{item.category}</b></div>
+      <div className={cn('edition')}>{articleText.edition}: <b>{item.edition}</b></div>
+      <div className={cn('price')}>{articleText.price}: {item.price} {articleText.currency}</div>
+      <button onClick={callbacks.onAdd}>{articleText.itemAddButtonText}</button>
     </div>
   );
 }
@@ -39,6 +30,14 @@ Article.propTypes = {
     category: PropTypes.string,
     edition: PropTypes.number,
     price: PropTypes.number
+  }).isRequired,
+  articleText: PropTypes.shape({
+    currency: PropTypes.string,
+    madeIn: PropTypes.string,
+    category: PropTypes.string,
+    edition: PropTypes.string,
+    price: PropTypes.string,
+    itemAddButtonText: PropTypes.string,
   }).isRequired,
   onAdd: PropTypes.func
 };

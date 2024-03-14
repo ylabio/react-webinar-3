@@ -4,7 +4,7 @@ class Languages extends StoreModule {
 
   initState() {
     return {
-      language: 'ru',
+      language: localStorage.getItem('language') ? localStorage.getItem('language') : 'ru',
       ru: {
         head: {
           navButton: 'Главная',
@@ -75,7 +75,8 @@ class Languages extends StoreModule {
   }
 
   setLanguage(language) {
-    this.setState({...this.getState(), language: language});
+    localStorage.setItem('language', language)
+    this.setState({...this.getState(), language: localStorage.getItem('language')});
   }
 }
 

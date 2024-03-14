@@ -1,5 +1,4 @@
-import {memo, useCallback} from 'react';
-import useSelector from "../../store/use-selector";
+import {memo} from 'react';
 import { Link } from 'react-router-dom'
 import propTypes from 'prop-types';
 import {numberFormat} from "../../utils";
@@ -10,29 +9,24 @@ import './style.css';
 function ItemBasket(props) {
 
   const cn = bem('ItemBasket');
-
-  const language = useSelector(state => ({
-    language: state.language.language,
-    itemTextRu: {...state.language.ru.itemPage, ...state.language.ru.values},
-    itemTextEn: {...state.language.en.itemPage, ...state.language.en.values},
-  }));
-
-  const text = language.language === "ru" ? language.itemTextRu : language.itemTextEn;
+  const {item, itemText} = {...props}
 
   const callbacks = {
-    onRemove: (e) => props.onRemove(props.item._id)
+    onRemove: (e) => props.onRemove(item._id),
+    // Закрытие любой модалки
+    closeModal: () => props.closeModal(),
   };
 
   return (
     <div className={cn()}>
-      <Link to={`/${props.item._id}`} className={cn('title')}>
-        {props.item.title}
+      <Link to={`/${item._id}`} onClick={callbacks.closeModal} className={cn('title')}>
+        {item.title}
       </Link>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} {text.currency}</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {text.unit}</div>
+        <div className={cn('cell')}>{numberFormat(item.price)} {itemText.currency}</div>
+        <div className={cn('cell')}>{numberFormat(item.amount || 0)} {itemText.unit}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>{text.itemDeleteButtonText}</button>
+          <button onClick={callbacks.onRemove}>{itemText.itemDeleteButtonText}</button>
         </div>
       </div>
     </div>
@@ -46,11 +40,19 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number
   }).isRequired,
+  itemText: PropTypes.shape({
+    currency: PropTypes.string,
+    unit: PropTypes.string,
+    price: PropTypes.string,
+    itemDeleteButtonText: PropTypes.string,
+  }).isRequired,
   onRemove: propTypes.func,
+  closeModal: propTypes.func,
 }
 
 ItemBasket.defaultProps = {
   onRemove: () => {},
+  closeModal: () => {},
 }
 
 export default memo(ItemBasket);

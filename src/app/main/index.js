@@ -21,8 +21,14 @@ function Main() {
     language: state.language.language,
     mainTextRu: state.language.ru.main,
     mainTextEn: state.language.en.main,
+    headTextRu: {...state.language.ru.head, ...state.language.ru.values},
+    headTextEn: {...state.language.en.head, ...state.language.en.values},
+    itemTextRu: {...state.language.ru.itemPage, ...state.language.ru.values},
+    itemTextEn: {...state.language.en.itemPage, ...state.language.en.values},
   }));
-
+  
+  const itemText = language.language === "ru" ? language.itemTextRu : language.itemTextEn;
+  const headText = language.language === "ru" ? language.headTextRu : language.headTextEn;
   const text = language.language === "ru" ? language.mainTextRu : language.mainTextEn;
 
   const select = useSelector(state => ({
@@ -41,7 +47,7 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} itemText={itemText}/>
     }, [callbacks.addToBasket]),
   };
 
@@ -49,7 +55,7 @@ function Main() {
     <PageLayout>
       <Head title={text.title}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+                  sum={select.sum} basketToolText={headText}/>
       <List list={select.list} listLength={select.listLength} limit={limit} renderItem={renders.item} setSkip={setSkip}/>
     </PageLayout>
 

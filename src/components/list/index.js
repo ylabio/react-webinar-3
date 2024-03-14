@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo, useState} from "react";
+import {memo} from "react";
 import PropTypes from 'prop-types';
 import Paginate from "../pagination";
 import './style.css';
