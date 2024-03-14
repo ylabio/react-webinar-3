@@ -15,7 +15,8 @@ Controls.propTypes = {
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  onAdd: () => {
+  }
 }
 
 export default memo(Controls);

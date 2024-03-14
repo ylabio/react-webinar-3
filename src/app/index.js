@@ -1,25 +1,26 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {useCallback, useContext, useEffect, useState} from 'react';
+import {Routes, Route} from 'react-router-dom';
+import useSelector from "../hooks/use-selector";
 import Main from "./main";
 import Basket from "./basket";
-import useSelector from "../store/use-selector";
-import DetailsInfo from "./details-info";
+import Article from "./article";
 
 /**
  * Приложение
- * @returns {React.ReactElement}
+ * Маршрутизация по страницам и модалкам
  */
 function App() {
-  const activeModal = useSelector((state) => state.modals.name);
+
+  const activeModal = useSelector(state => state.modals.name);
 
   return (
     <>
-      <Router>
-        <Routes>
-          <Route index element={<Main />} />
-          <Route path="/details/:id" element={<DetailsInfo />} />
-        </Routes>
-        {activeModal === "basket" && <Basket />}
-      </Router>
+      <Routes>
+        <Route path={''} element={<Main/>}/>
+        <Route path={'/articles/:id'} element={<Article/>}/>
+      </Routes>
+
+      {activeModal === 'basket' && <Basket/>}
     </>
   );
 }

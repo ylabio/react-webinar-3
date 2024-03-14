@@ -1,63 +1,54 @@
 import StoreModule from "../module";
 
-class Basket extends StoreModule {
+/**
+ * Покупательская корзина
+ */
+class BasketState extends StoreModule {
+
   initState() {
     return {
       list: [],
       sum: 0,
-      amount: 0,
-    };
+      amount: 0
+    }
   }
 
   /**
    * Добавление товара в корзину
-   * @param _id Код товара
+   * @param _id {String} Код товара
    */
-  addToBasket(_id) {
+  async addToBasket(_id) {
     let sum = 0;
-    let list = this.getState().list.slice(); // Создаем копию текущего списка товаров
-
     // Ищем товар в корзине, чтобы увеличить его количество
-    let existingItem = list.find(item => item._id === _id);
+    let exist = false;
+    const list = this.getState().list.map(item => {
+      let result = item;
+      if (item._id === _id) {
+        exist = true; // Запомним, что был найден в корзине
+        result = {...item, amount: item.amount + 1};
+      }
+      sum += result.price * result.amount;
+      return result;
+    });
 
-    if (existingItem) {
-        // Если товар уже присутствует в корзине, увеличиваем его количество
-        existingItem.amount++;
-    } else {
-        // Если товар не найден в корзине, тогда делаем запрос к API для получения информации о товаре
-        fetch(`/api/v1/articles/${_id}?fields=category(title),price,edition,description,madeIn(title),edition,title`)
-            .then(response => response.json())
-            .then(data => {
-                const newItem = data.result;
-                newItem.amount = 1;
-                list.push(newItem);
+    if (!exist) {
+      // Поиск товара в каталоге, чтобы его добавить в корзину.
+      const response = await fetch(`/api/v1/articles/${_id}`);
+      const json = await response.json();
+      const item = json.result;
 
-                sum += newItem.price;
-
-                this.updateBasket(list, sum);
-            })
-            .catch(error => {
-                console.error("Error fetching product information: ", error);
-                // Обработка ошибки при запросе данных о товаре
-            });
+      list.push({...item, amount: 1}); // list уже новый, в него можно пушить.
+      // Добавляем к сумме.
+      sum += item.price;
     }
 
-    if (existingItem) {
-        // Пересчитываем общую сумму для уже существующих товаров
-        sum = list.reduce((total, item) => total + item.price * item.amount, 0);
-    }
-
-    this.updateBasket(list, sum);
-}
-
-updateBasket(list, sum) {
     this.setState({
-        ...this.getState(),
-        list,
-        sum,
-        amount: list.length,
-    }, "Добавление в корзину");
-}
+      ...this.getState(),
+      list,
+      sum,
+      amount: list.length
+    }, 'Добавление в корзину');
+  }
 
   /**
    * Удаление товара из корзины
@@ -65,22 +56,19 @@ updateBasket(list, sum) {
    */
   removeFromBasket(_id) {
     let sum = 0;
-    const list = this.getState().list.filter((item) => {
+    const list = this.getState().list.filter(item => {
       if (item._id === _id) return false;
       sum += item.price * item.amount;
       return true;
     });
 
-    this.setState(
-      {
-        ...this.getState(),
-        list,
-        sum,
-        amount: list.length,
-      },
-      "Удаление из корзины"
-    );
+    this.setState({
+      ...this.getState(),
+      list,
+      sum,
+      amount: list.length
+    }, 'Удаление из корзины');
   }
 }
 
-export default Basket;
+export default BasketState;
