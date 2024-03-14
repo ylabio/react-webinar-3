@@ -1,0 +1,46 @@
+.Pagination {
+  display: flex;
+  list-style-type: none;
+  margin: 22px 0;
+  padding: 0 20px 0 0;
+  justify-content: flex-end;
+  list-style-type: none;
+}
+
+.Pagination-item {
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+}
+
+.Pagination-item:hover {
+  background-color: #E1E1E1;
+}
+
+.Pagination-item--active, .Pagination-item--active:hover {
+  background-color: #0087E9;
+  color: white;
+}
+
+.Pagination-dots {
+  width: 20px;
+  height: 20px;
+  font-family: Arial;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #CCCCCC;
+}
+
+

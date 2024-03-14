@@ -1,0 +1,11 @@
+.Menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-right: auto;
+  padding: 20px;
+}
+
+.Menu-main-link {
+  color: #0087E9
+}
