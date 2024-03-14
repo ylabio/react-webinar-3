@@ -6,25 +6,31 @@
   padding-left: 10px
 }
 
-.ItemBasket-code {
-  padding: 20px 10px 20px 20px;
-}
+  .ItemBasket-code {
+    padding: 20px 10px 20px 20px;
+  }
 
-.ItemBasket-title {
-  width: 100%;
-  padding: 20px 10px;
-}
+  .ItemBasket-title {
+    width: 100%;
+    padding: 20px 10px;
+    color: #000;
+    text-decoration: none;
+  }
 
-.ItemBasket-right {
-  padding: 20px 20px 20px 10px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
+  .ItemBasket-title:hover {
+    text-decoration: underline;
+  }
 
-.ItemBasket-cell {
-  min-width: 95px;
-  text-align: right;
-  font-size: 18px;
-  white-space: nowrap;
-}
+  .ItemBasket-right {
+    padding: 20px 20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+    .ItemBasket-cell {
+      min-width: 95px;
+      text-align: right;
+      font-size: 18px;
+      white-space: nowrap;
+    }

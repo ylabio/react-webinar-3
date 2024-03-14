@@ -1,0 +1,18 @@
+.Description {
+    padding: 20px 40px;
+}
+
+    .Description-text {
+        margin-bottom: 20px;
+        font-size: 18px;
+        line-height: 20px;
+    }
+
+        .Description-text span {
+            font-weight: 700;
+        }
+
+        .Description-price {
+          font-size: 24px;
+          line-height: 28px;
+        }
