@@ -43,6 +43,7 @@ class Catalog extends StoreModule {
   }
 
   async loadItem(id) {
+    console.log(id);
     const response = await fetch(
       `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`
     );

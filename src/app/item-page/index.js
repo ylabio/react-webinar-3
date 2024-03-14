@@ -9,14 +9,14 @@ import Basket from "../basket";
 import "./style.css";
 
 function ItemPage() {
-  const id = useParams().id;
+  var id = useParams().id;
   const store = useStore();
 
   const activeModal = useSelector((state) => state.modals.name);
 
   useEffect(() => {
     store.actions.catalog.loadItem(id);
-  }, []);
+  }, [id]);
 
   const select = useSelector((state) => ({
     amount: state.basket.amount,
