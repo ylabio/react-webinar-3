@@ -12,6 +12,7 @@ class Catalog extends StoreModule {
     return {
       list: [],
       count: 0,
+      page: 1,
     }
   }
 
@@ -19,7 +20,8 @@ class Catalog extends StoreModule {
     const response = await fetch(`/api/v1/articles?limit=10&skip=${(page-1)*10}&fields=items(_id, title, price),count`);
     const json = await response.json();
     this.setState({
-      ...this.getState(),
+      // ...this.getState(),
+      page: page,
       list: json.result.items,
       count: json.result.count,
     }, 'Загружены товары из АПИ');
