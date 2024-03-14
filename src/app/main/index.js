@@ -27,7 +27,7 @@ function Main() {
     list: state.catalog.list,
     count: state.catalog.count,
     page: state.catalog.page,
-    
+
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
@@ -61,6 +61,7 @@ function Main() {
             item={item}
             onTransition={callbacks.onTransition}
             onAdd={callbacks.addToBasket}
+            url='/articles'
           />
         );
       },

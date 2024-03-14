@@ -30,7 +30,12 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onTransition={callbacks.onTransition} onRemove={callbacks.removeFromBasket}/>
+      return <ItemBasket
+        item={item}
+        onTransition={callbacks.onTransition}
+        onRemove={callbacks.removeFromBasket}
+        url='/articles'
+      />
     }, [callbacks.removeFromBasket]),
   };
 

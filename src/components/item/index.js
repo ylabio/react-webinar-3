@@ -18,7 +18,7 @@ function Item(props) {
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn("title")}>
         <Link
-          to={`/articles/${props.item._id}`}
+          to={`${props.url}/${props.item._id}`}
           onClick={callbacks.onClickItem}
           className={cn('link')}
         >
