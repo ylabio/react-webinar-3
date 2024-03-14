@@ -1,6 +1,7 @@
 import { memo, useCallback } from "react";
 import { cn as bem } from "@bem-react/classname";
 import { numberFormat } from "../../utils";
+import PropTypes from 'prop-types';
 import "./style.css";
 
 function Details({ product, addToBasket }) {
@@ -36,5 +37,22 @@ function Details({ product, addToBasket }) {
     </>
   );
 }
+
+Details.propTypes = {
+  product: PropTypes.shape({
+    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    description: PropTypes.string.isRequired,
+    edition: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    category: PropTypes.shape({
+      title: PropTypes.string.isRequired
+    }).isRequired,
+    madeIn: PropTypes.shape({
+      title: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired,
+  addToBasket: PropTypes.func.isRequired,
+};
+
 
 export default memo(Details);

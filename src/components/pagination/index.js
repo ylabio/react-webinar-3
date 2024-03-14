@@ -1,8 +1,8 @@
 import React from 'react';
-import './style.css';
 import PageNumber from '../page-number';
-// import useSelector from '../../store/use-selector';
 import { generatePagination } from '../../utils';
+import PropTypes from 'prop-types';
+import './style.css';
 
 function Pagination({currentPage, totalArticles, changePage}) {
   const paginationArray = generatePagination(currentPage, totalArticles, 10);
@@ -31,6 +31,12 @@ function Pagination({currentPage, totalArticles, changePage}) {
       </ul>
     </div>
   )
+};
+
+Pagination.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  totalArticles: PropTypes.number.isRequired,
+  changePage: PropTypes.func.isRequired,
 };
 
 export default React.memo(Pagination);

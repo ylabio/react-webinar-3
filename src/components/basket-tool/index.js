@@ -1,7 +1,7 @@
 import {memo} from "react";
-import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
+import PropTypes from 'prop-types';
 import './style.css';
 
 function BasketTool({sum, amount, onOpen}) {

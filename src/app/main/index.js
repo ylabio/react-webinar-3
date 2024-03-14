@@ -26,7 +26,7 @@ function Main() {
     sum: state.basket.sum,
   }));
 
-  console.log("page=", select.page);
+  // console.log("page=", select.page);
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(

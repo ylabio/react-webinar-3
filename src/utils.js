@@ -61,7 +61,7 @@ export function generatePagination(currentPage, articles, limit) {
   }
 
   range.unshift(1);
-  if (totalPages !== 1) range.push(totalPages);
+  if ((totalPages !== 1)&&(totalPages !== 0)) range.push(totalPages);
 
   return range;
 }

@@ -1,5 +1,4 @@
 import Main from "./main";
-// import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import useSelector from "../store/use-selector";
 import Basket from "./basket";
