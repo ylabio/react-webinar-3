@@ -14,6 +14,7 @@ import { Suspense } from 'react';
 import { useParams } from 'react-router-dom';
 import Locale from '../../components/locale';
 import { locale } from '../../locale';
+import Header from '../../components/header';
 
 function Main() {
 
@@ -56,22 +57,12 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title={<div style={{display: 'flex', justifyContent: 'space-between'}}>
-          <div style={{
-              display: 'flex',
-              width: '50%',
-          }}>{locale[lang].headers.shop}</div>
-          <div style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              width: '50%',
-          }}><Locale lang={lang}/></div>
-      </div>}/>
-      <div style={{display: 'flex', justifyContent: 'space-between'}}>
-        <Menu href={`/${lang}/`} lang={lang}/>
-        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-          sum={select.sum} lang={lang}/>
+      <div style={{background: '#f5f5f5'}}>
+          <Header left={<Head title={locale[lang].headers.shop}/>} right={<Locale lang={lang}/>}/>
       </div>
+      <Header left={<Menu href={`/${lang}/`} lang={lang}/>} right={
+          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+              sum={select.sum} lang={lang}/>}/>
       <Suspense fallback={<div>Loading...</div>}>
         <List list={select.list} renderItem={renders.item}/>
       </Suspense>

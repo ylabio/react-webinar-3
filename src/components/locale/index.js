@@ -15,7 +15,7 @@ function Locale({lang}) {
         }
     }
 
-    return <Link to={changeLocale()}>{lang}</Link>
+    return <div className='Locale'><button><Link to={changeLocale()}>{lang}</Link></button></div>
 }
 
 export default memo(Locale);

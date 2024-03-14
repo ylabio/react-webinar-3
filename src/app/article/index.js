@@ -8,6 +8,7 @@ import useStore from "../../store/use-store";
 import Head from "../../components/head";
 import Menu from "../../components/menu";
 import Locale from "../../components/locale";
+import Header from "../../components/header";
 
 function ArticleMain() {
 
@@ -34,22 +35,12 @@ function ArticleMain() {
 
     return (
         <PageLayout>
-            <Head title={<div style={{display: 'flex', justifyContent: 'space-between'}}>
-                <div style={{
-                    display: 'flex',
-                    width: '50%',
-                }}>{select.list?.title}</div>
-                <div style={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    width: '50%',
-                }}><Locale lang={lang}/></div>
-            </div>}/>
-            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                <Menu href={`/${lang}/`} lang={lang}/>
-                <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                    sum={select.sum} lang={lang}/>
+            <div style={{background: '#f5f5f5'}}>
+                <Header left={<Head title={select.list?.title}/>} right={<Locale lang={lang}/>}/>
             </div>
+            <Header left={<Menu href={`/${lang}/`} lang={lang}/>} right={
+                <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+                    sum={select.sum} lang={lang}/>}/>
             <Suspense fallback={<div>Loading...</div>}>
                 {select.list ? <Article item={select.list} onAdd={callbacks.addToBasket} lang={lang}/> : <div>Loading...</div>}
             </Suspense>
