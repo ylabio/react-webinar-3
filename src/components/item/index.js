@@ -6,18 +6,18 @@ import './style.css';
 import {Link} from "react-router-dom";
 
 function Item(props) {
-
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(props.item._id)
+    onAdd: (e) => props.onAdd(props.item._id),
+    onUpload: (e) => props.onUploadItem(props.item._id)
   }
 
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <Link className={cn('link')} to={`/${props.item._id}`}>
+        <Link className={cn('link')} onClick={callbacks.onUpload} to={props.link}>
           {props.item.title}
         </Link>
       </div>
@@ -36,6 +36,7 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  link: PropTypes.string
 };
 
 Item.defaultProps = {

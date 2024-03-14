@@ -9,16 +9,16 @@ function Pagination({articlesPerPage, totalArticles, currentPage, onPageChange})
   const pageNumbers = [];
   const totalPages = Math.ceil(totalArticles / articlesPerPage);
 
-  if (currentPage <= 3) {
-    for (let i = 1; i <= 4; i++) {
+  if (currentPage < 3) {
+    for (let i = 1; i <= 3; i++) {
       pageNumbers.push(i);
     }
     pageNumbers.push('...');
     pageNumbers.push(totalPages);
-  } else if (currentPage >= totalPages - 2) {
+  } else if (currentPage > totalPages - 2) {
     pageNumbers.push(1);
     pageNumbers.push('...');
-    for (let i = totalPages - 3; i <= totalPages; i++) {
+    for (let i = totalPages - 2; i <= totalPages; i++) {
       pageNumbers.push(i);
     }
   } else {
@@ -27,7 +27,9 @@ function Pagination({articlesPerPage, totalArticles, currentPage, onPageChange})
     for (let i = currentPage - 1; i <= currentPage + 1; i++) {
       pageNumbers.push(i);
     }
-    pageNumbers.push('...');
+    if (currentPage !== totalPages - 2) {
+      pageNumbers.push('...');
+    }
     pageNumbers.push(totalPages);
   }
 

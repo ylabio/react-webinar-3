@@ -7,18 +7,21 @@ import './style.css';
 import {Link} from "react-router-dom";
 
 function ItemBasket(props) {
-
   const cn = bem('ItemBasket');
 
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id),
+    onUpload: (e) => {
+      props.onClose();
+      props.onUploadItem(props.item._id)
+    }
   };
 
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}  onClick={props.onClose}>
-        <Link className={cn('link')} to={`/${props.item._id}`}>{props.item.title}</Link>
+      <div className={cn('title')}>
+        <Link className={cn('link')} to={props.link} onClick={callbacks.onUpload} >{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>

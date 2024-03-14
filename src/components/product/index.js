@@ -31,7 +31,13 @@ function Product(props) {
 Product.propTypes = {
   item: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    title: PropTypes.string,
+    madeIn: PropTypes.shape({
+      title: PropTypes.string,
+      code: PropTypes.string
+    }).isRequired,
+    category: PropTypes.shape({
+      title: PropTypes.string,
+    }).isRequired,
     edition: PropTypes.number,
     price: PropTypes.number
   }).isRequired,
