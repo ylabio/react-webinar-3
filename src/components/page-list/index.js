@@ -35,7 +35,7 @@ function PageList({ page, totalPages, onPageChange }) {
   }
 
   if (page > totalPages - 3) {
-    page == totalPages-2 ? content.push(<Link key={totalPages-3} className='page' to={`/page/${totalPages-3}`}>{totalPages-3}</Link>) : '';
+    page == totalPages - 2 ? content.push(<Link key={totalPages - 3} className='page' to={`/page/${totalPages - 3}`}>{totalPages - 3}</Link>) : '';
     for (let i = totalPages - 2; i <= totalPages; i++) {
       content.push(<Link key={i} className={i === page ? 'page selected' : 'page'} to={`/page/${i}`}>{i}</Link>);
     }
