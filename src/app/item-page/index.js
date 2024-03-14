@@ -27,7 +27,7 @@ function ItemPage() {
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback((_id) => store.actions.basket.addToBasket(_id), [
+    addToBasket: useCallback((_id, item) => store.actions.basket.addToBasket(_id, item), [
       store,
     ]),
     // Открытие модалки корзины
@@ -59,7 +59,7 @@ function ItemPage() {
         Год выпуска: <div className="Answer">{select.item.edition}</div>
       </div>
       <div className="Cost">Цена: {select.item.price} ₽</div>
-      <button className="AddButton" onClick={() => {callbacks.addToBasket(id)}}>Добавить</button>
+      <button className="AddButton" onClick={() => {callbacks.addToBasket(id, select.item)}}>Добавить</button>
       {activeModal === "basket" && <Basket />}
     </PageLayout>
   );
