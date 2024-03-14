@@ -14,8 +14,6 @@ function Goods() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    skip: state.paging.skip,
-    limit: state.paging.limit,
     detail: state.catalog.detail,
     amount: state.basket.amount,
     sum: state.basket.sum
@@ -23,8 +21,7 @@ function Goods() {
 
   useEffect(() => {
     store.actions.catalog.detail(id);
-    store.actions.catalog.load(select.skip, select.limit);
-  }, [select.skip, select.limit]);
+  }, []);
 
   const callbacks = {
     // Добавление в корзину
