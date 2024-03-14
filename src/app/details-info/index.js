@@ -37,7 +37,6 @@ function DetailsInfo() {
 
   return (
     <PageLayout>
-      <Head title="Название Товара" />
       <DetailsCart
         onAdd={callbacks.addToBasket}
         onOpen={callbacks.openModalBasket}
