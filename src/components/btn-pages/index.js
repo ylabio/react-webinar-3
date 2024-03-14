@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { createPageList, createPagination } from "../../utils";
 import { Fragment } from "react";
 
-const BtnPages = ({ totalPage, setCurrentPage, currentPage }) => {
+const BtnPages = ({ totalPage, setCurrentPage, currentPage, getPage }) => {
   const [arrCurrBtn, setArrCurrBtn] = useState([]);
   let pages = createPageList(totalPage);
 
@@ -25,6 +25,8 @@ const BtnPages = ({ totalPage, setCurrentPage, currentPage }) => {
             onClick={() => {
               if (page !== "...") {
                 setCurrentPage(page);
+                getPage(page);
+                window.history.pushState(null, null, `?page=${page}`);
               }
             }}
           >

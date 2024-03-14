@@ -18,16 +18,29 @@ function Main() {
 
   const select = useSelector((state) => ({
     list: state.catalog.list,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
+    //currentPage: state.catalog.currentPage,
     totalPage: state.catalog.totalPage,
     limit: state.catalog.limit,
+    amount: state.basket.amount,
+    sum: state.basket.sum,
     valueLang: state.language.valueLang,
   }));
-
+//console.log(select.currentPage)
   useEffect(() => {
     store.actions.catalog.load(select.limit, currentPage);
   }, [currentPage]);
+
+  const getPage = (page) => {
+    navigate(`?page=${page}`, { replace: true });
+  };
+  
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const page = urlParams.get('page');
+    if (page) {
+      setCurrentPage(parseInt(page));
+    }
+  }, []);
 
   const callbacks = {
     // Добавление в корзину
@@ -76,6 +89,7 @@ function Main() {
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           totalPage={select.totalPage}
+          getPage={getPage}
         />
       }
     >

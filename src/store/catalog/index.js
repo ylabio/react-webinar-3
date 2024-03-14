@@ -23,7 +23,8 @@ class Catalog extends StoreModule {
     const json = await response.json();
     this.setState({
       ...this.getState(),
-      list: json.result.items
+      list: json.result.items,
+      currentPage: currentPage
     }, 'Загружены товары из АПИ');
     this.getTotalCount();
   }
