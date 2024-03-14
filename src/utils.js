@@ -16,6 +16,10 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   return variants[key] || '';
 }
 
+export function pluralEn(value, variants = {}) {
+  return plural(value, variants, 'en-US');
+}
+
 /**
  * Генератор чисел с шагом 1
  * @returns {Function}
