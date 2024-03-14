@@ -9,6 +9,7 @@ class Product extends StoreModule {
             description: null,
             price: null,
             madeIn: null,
+            madeInCode: null,
             edition: null,
             category: null
         }
@@ -24,6 +25,7 @@ class Product extends StoreModule {
             description: json.result.description,
             price: json.result.price,
             madeIn: json.result.madeIn.title,
+            madeInCode: json.result.madeIn.code,
             edition: json.result.edition,
             category: json.result.category.title
         }, `Загружены данные о товаре ${_id} из API`);

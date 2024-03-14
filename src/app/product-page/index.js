@@ -1,12 +1,13 @@
-import { memo, useCallback, useLayoutEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
-import Basket from "../basket"
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
 import ProductLayout from "../../components/product-layout";
 import ProductInfo from "../../components/product-info";
+import TopMenuContainer from "../../components/top-menu-container";
+import MainMenu from "../../components/main-menu";
 
 const ProductPage = () => {
 
@@ -19,8 +20,7 @@ const ProductPage = () => {
         list: state.catalog.list,
         amount: state.basket.amount,
         sum: state.basket.sum,
-        pagination: state.pages,
-        activeModal: state.modals.name,
+        pagination: state.catalog,
         productInfo: state.product
     }));
 
@@ -29,35 +29,37 @@ const ProductPage = () => {
         addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
         // Открытие модалки корзины
         openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-
-        changePage: useCallback((number) => store.actions.pages.changePage(number), [store])
+        // Изменение текущей страницы
+        changePage: useCallback((number) => store.actions.catalog.changePage(number), [store])
     }
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const loadPage = async (productId) => {
             await store.actions.product.loadInfo(productId);
             setIsLoaded(true)
         }
 
-        store.actions.catalog.load(select.pagination.currentPage)
         loadPage(productId)
-    }, [store])
+    }, [productId])
 
     return (
             <>
                 <ProductLayout>
                     <Head title={select.productInfo.title} />
-                    <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                    sum={select.sum} changePage={callbacks.changePage}/>
+                    <TopMenuContainer>
+                        <MainMenu changePage={callbacks.changePage} />
+                        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+                        sum={select.sum} />
+                    </TopMenuContainer>
                     {isLoaded ? <ProductInfo description={select.productInfo.description}
                                 _id={select.productInfo._id}
                                 madeIn={select.productInfo.madeIn}
+                                madeInCode={select.productInfo.madeInCode}
                                 category={select.productInfo.category}
                                 year={select.productInfo.edition}
                                 cost={select.productInfo.price}
                                 addToBasket={callbacks.addToBasket} /> : <p style={{'textAlign': 'center'}}>Loading product info...</p>}
                 </ProductLayout>
-                {select.activeModal === 'basket' && <Basket />}
             </>
     )
 }

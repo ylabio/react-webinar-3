@@ -2,15 +2,13 @@ import {memo, useContext} from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 import { LanguageContext } from "../../languageContext";
+import jsonText from './text.json'
 
 function Controls({onAdd}) {
 
   const [language, setLanguage] = useContext(LanguageContext);
 
-  const text = {
-    ru: 'Добавить',
-    eng: 'Add into basket'
-  }
+  const text = jsonText;
 
   return (
     <div className='Controls'>

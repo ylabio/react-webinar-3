@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import './style.css';
 import { Link } from 'react-router-dom';
 import { LanguageContext } from '../../languageContext';
+import jsonText from './text.json'
 
 function ItemBasket(props) {
 
@@ -14,23 +15,16 @@ function ItemBasket(props) {
   const [language, setLanguage] = useContext(LanguageContext)
 
   const callbacks = {
-    onRemove: () => props.onRemove(props.item._id)
+    onRemove: () => props.onRemove(props.item._id),
+
+    onClose: () => props.onClose()
   };
 
-  const text = {
-    ru: {
-      remove: 'Удалить',
-      items: 'шт'
-      },
-    eng: {
-      remove: 'Remove',
-      items: 'items'
-      }
-  }
+  const text = jsonText;
 
   return (
     <div className={cn()}>
-      <Link to={`${props.item._id}`} className={cn('link')}>
+      <Link to={`/articles/${props.item._id}`} onClick={() => callbacks.onClose()} className={cn('link')}>
         <div className={cn('title')}>{props.item.title}</div>
       </Link>
       <div className={cn('right')}>

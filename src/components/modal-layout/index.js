@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import { LanguageContext } from "../../languageContext";
+import jsonText from './text.json'
 
 function ModalLayout(props) {
 
@@ -30,16 +31,7 @@ function ModalLayout(props) {
     }
   }, []);
 
-  const text = {
-    ru: {
-      title: 'Корзина',
-      close: 'Закрыть'
-    },
-    eng: {
-      title: 'Basket',
-      close: 'Close'
-    },
-  }
+  const text = jsonText;
 
   return (
     <div className={cn()} ref={layout}>

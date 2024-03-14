@@ -1,0 +1,12 @@
+{"ru": {
+      "basket": "В корзине",
+      "item": "товар",
+      "clear": "пусто",
+      "goTo": "Перейти"
+    },
+    "eng": {
+      "basket": "In basket",
+      "item": "item",
+      "clear": "no items",
+      "goTo": "Go into basket"
+}}

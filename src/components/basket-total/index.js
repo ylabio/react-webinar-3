@@ -4,6 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
 import { LanguageContext } from "../../languageContext";
+import jsonText from './text.json'
 
 function BasketTotal({sum}) {
 
@@ -11,10 +12,7 @@ function BasketTotal({sum}) {
 
   const cn = bem('BasketTotal');
 
-  const text = {
-    ru: 'Итого',
-    eng: 'Total'
-  }
+  const text = jsonText;
 
   return (
     <div className={cn()}>

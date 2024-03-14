@@ -8,6 +8,9 @@ import Pagination from "../../components/pagination"
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import { LanguageContext } from '../../languageContext';
+import TopMenuContainer from '../../components/top-menu-container';
+import MainMenu from '../../components/main-menu';
+import jsonText from './text.json'
 
 function Main() {
 
@@ -17,7 +20,7 @@ function Main() {
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    pagination: state.pages
+    pagination: state.catalog
   }));
 
   const [language, setLanguage] = useContext(LanguageContext);
@@ -27,10 +30,12 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Закрытие модалки корзины
+    closeModalBasket: useCallback(() => store.actions.modals.close(), [store]),
     //Изменение страницы
-    changePage: useCallback((page) => store.actions.pages.changePage(page), [store]),
+    changePage: useCallback((page) => store.actions.catalog.changePage(page), [store]),
     //Получение общего количества страниц
-    getPagesQuantity: useCallback(() => store.actions.pages.getPagesQuantity(), [])
+    getPagesQuantity: useCallback(() => store.actions.catalog.getPagesQuantity(), [])
   }
 
   useEffect(() => {
@@ -43,20 +48,21 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} onClose={callbacks.closeModalBasket}/>
     }, [callbacks.addToBasket]),
   };
 
-  const text = {
-    ru: 'Магазин',
-    eng: 'Shop'
-  }
-
+  const text = jsonText;
+  
   return (
     <PageLayout>
       <Head title={text[language]}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum} changePage={callbacks.changePage}/>
+      <TopMenuContainer>
+          <MainMenu changePage={callbacks.changePage} />
+          <BasketTool onOpen={callbacks.openModalBasket} 
+                      amount={select.amount}
+                      sum={select.sum} />
+      </TopMenuContainer>
       <List list={select.list} renderItem={renders.item}/>
       <Pagination pages={select.pagination} changePage={callbacks.changePage}/>
     </PageLayout>

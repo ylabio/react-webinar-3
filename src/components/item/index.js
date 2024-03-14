@@ -1,10 +1,11 @@
-import {memo, useContext} from "react";
+import {memo, useCallback, useContext} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
 import { Link } from "react-router-dom";
 import { LanguageContext } from "../../languageContext";
+import jsonText from './text.json'
 
 function Item(props) {
 
@@ -13,17 +14,16 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(props.item._id)
+    onAdd: (e) => props.onAdd(props.item._id),
+
+    closeModal: () => props.onClose(),
   }
 
-  const text = {
-    ru: 'Добавить',
-    eng: 'Add into basket',
-  }
+  const text = jsonText;
 
   return (
     <div className={cn()}>
-      <Link to={`${props.item._id}`} className={cn('link')}>
+      <Link to={`/articles/${props.item._id}`} onClick={() => callbacks.closeModal()} className={cn('link')}>
         <div className={cn('title')}>{props.item.title}</div>
       </Link>
       <div className={cn('actions')}>

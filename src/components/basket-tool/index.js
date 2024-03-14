@@ -3,35 +3,19 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
 import './style.css';
-import { Link, useMatch } from "react-router-dom";
 import { LanguageContext } from "../../languageContext";
+import jsonText from './text.json'
 
-function BasketTool({sum, amount, onOpen, changePage}) {
+function BasketTool({sum, amount, onOpen}) {
 
   const [language, setLanguage] = useContext(LanguageContext);
 
   const cn = bem('BasketTool');
-  const path = useMatch('/')
 
-  const text = {
-    ru: {
-      main: 'Главная',
-      basket: 'В корзине',
-      item: 'товар',
-      goTo: 'Перейти'
-    },
-    eng: {
-      main: 'Main',
-      basket: 'In basket',
-      item: 'item',
-      clear: 'no items',
-      goTo: 'Go into basket'
-    }
-  }
+  const text = jsonText;
 
   return (
     <div className={cn()}>
-      <Link className={cn('link')} to='/' onClick={path ? () => changePage(1) : () => {}}>{text[language].main}</Link>
       <span className={cn('label')}>{text[language].basket}:</span>
       <span className={cn('total')}>
         {amount
@@ -52,14 +36,12 @@ BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
-  changePage: PropTypes.func.isRequired
 };
 
 BasketTool.defaultProps = {
   onOpen: () => {},
   sum: 0,
   amount: 0,
-  changePage: () => {}
 }
 
 export default memo(BasketTool);

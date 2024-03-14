@@ -4,6 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import { numberFormat } from "../../utils";
 import { LanguageContext } from "../../languageContext";
+import jsonText from './text.json'
 
 function ProductInfo (props) {
 
@@ -11,29 +12,14 @@ function ProductInfo (props) {
 
     const cn = bem('Product');
 
-    const text = {
-        ru: {
-            country: 'Страна производитель',
-            category: 'Категория',
-            year: 'Год выпуска',
-            cost: 'Цена',
-            add: 'Добавить'
-        },
-        eng: {
-            country: 'Made in',
-            category: 'Category',
-            year: 'Year',
-            cost: 'Cost',
-            add: 'Add into basket'
-        }
-    }
+    const text = jsonText;
 
     return (
         <div className={cn('')}>
             <p>{props.description}</p>
             <p>
                 {text[language].country}: 
-                <strong> {props.madeIn}</strong>
+                <strong> {props.madeIn} ({props.madeInCode})</strong>
             </p>
             <p>
                 {text[language].category}: 
@@ -55,6 +41,7 @@ ProductInfo.propTypes = {
     addToBasket: PropTypes.func.isRequired,
     description: PropTypes.string,
     madeIn: PropTypes.string,
+    madeInCode: PropTypes.string,
     category: PropTypes.string,
     year: PropTypes.number,
     cost: PropTypes.number
