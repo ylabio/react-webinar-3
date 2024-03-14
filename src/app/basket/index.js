@@ -66,7 +66,11 @@ function Basket() {
   };
 
   return (
-    <ModalLayout title={translate("basket")} onClose={callbacks.closeModal}>
+    <ModalLayout
+      title={translate("basket")}
+      onClose={callbacks.closeModal}
+      modalBtnText={translate("close")}
+    >
       <List list={select.list} renderItem={renders.itemBasket} />
       <BasketTotal sum={select.sum} t={callbacks.translate} />
     </ModalLayout>
