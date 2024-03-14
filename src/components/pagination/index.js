@@ -1,12 +1,16 @@
 import React from 'react';
+import { memo, useCallback, useEffect, useState,useContext} from "react";
 import './style.css';
 import { cn as bem } from '@bem-react/classname';
 import { Link } from 'react-router-dom';
-
+import useStore from "../../store/use-store";
+import useSelector from "../../store/use-selector";
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-
+  const store = useStore();
   const cn = bem('pagination');
-
+  useEffect(() => {
+    store.actions.catalog.load();
+  }, []);
   const renderPageNumbers = () => {
     const pageNumbers = [];
     const visiblePages = 3;
@@ -55,13 +59,14 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         }
       };
       return (
-        <a
+        <Link to={`/${number}`}
+        
           key={index}
           className={itemClasses}
           onClick={handleClick}
         >
           {number}
-        </a>
+        </Link>
       );
     });
   };

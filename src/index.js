@@ -5,6 +5,7 @@ import {StoreContext} from "./store/context";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProductDetail from './app/productDetail';
 import { LanguagesProvider } from './components/languageSwitcher';
+import Pagination from './components/pagination';
 const store = new Store();
 
 const root = createRoot(document.getElementById('root'));
@@ -23,6 +24,7 @@ const AppWithRouter = (
       <Routes>
         <Route exact path="/" element={<App/>} />
         <Route path="/product/:id" element={<ProductDetail/>} />
+        <Route path="/:page?" element={<App/>} />
       </Routes>
     </Router>
     </LanguagesProvider>

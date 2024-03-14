@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import useStore from "../../store/use-store";
 import PropTypes from "prop-types";
 import useSelector from "../../store/use-selector";
-
+import LinkProduct from '../linkProduct';
 function Item(props) {
-
+  const productLink = `/product/${props.item._id}`;
   const cn = bem("Item");
 
   const callbacks = {
@@ -19,10 +19,7 @@ function Item(props) {
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn("title")}>
-        <Link className="Links" to={`/product/${props.item._id}`}>
-          {" "}
-          <p className="p-title">{props.item.title}</p>
-        </Link>
+      <LinkProduct to={productLink} title={props.item.title} closeModal={callbacks.closeModal}/>
       </div>
       <div className={cn("actions")}>
         <div className={cn("price")}>{numberFormat(props.item.price)} ₽</div>

@@ -9,11 +9,11 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
 import { LanguagesContext } from "../../components/languageSwitcher";
-
-
+import MainMenu from "../../components/mainmenu";
+import LoadingWrapper from "../../components/loading";
 
 function Main() {
-
+  const [isLoading, setIsLoading] = useState(true);
   const {langData} = useContext(LanguagesContext);
   const store = useStore();
   // useEffect(() => {
@@ -21,6 +21,9 @@ function Main() {
   // }, []);
   useEffect(() => {
     store.actions.catalog.load();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
   }, []);
 
   const select = useSelector((state) => ({
@@ -29,6 +32,7 @@ function Main() {
     sum: state.basket.sum,
     currentPage: state.catalog.currentPage,
     totalPages: state.catalog.totalPages,
+    currentPosition:state.catalog.currentPosition,
   }));
 
   const callbacks = {
@@ -51,15 +55,16 @@ function Main() {
       (item) => {
         return <Item item={item} onAdd={callbacks.addToBasket} langData={langData} />;
       },
-      [callbacks.addToBasket]
+      [callbacks.addToBasket,langData]
     ),
   };
 
   return (
     
     <PageLayout>
+        <LoadingWrapper isLoading={isLoading}>
       <Head title={langData.main.title} />
-      
+      <MainMenu langData={langData}/>
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
@@ -71,7 +76,9 @@ function Main() {
         currentPage={select.currentPage}
         totalPages={select.totalPages}
         onPageChange={callbacks.onChangePage}
+        currentPosition={select.currentPosition}
       />
+      </LoadingWrapper>
     </PageLayout>
     
   );

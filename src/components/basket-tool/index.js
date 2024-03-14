@@ -11,9 +11,6 @@ function BasketTool({sum, amount, onOpen, langData}) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <div className="chapter">
-       <MainMenu langData={langData}/>
-        </div>
       <span className={cn('label')}>{langData.basket.inCart}</span>
       <span className={cn('total')}>
       {amount

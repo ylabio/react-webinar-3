@@ -6,11 +6,12 @@ import PropTypes from "prop-types";
 import './style.css';
 import { Link } from 'react-router-dom';
 import useStore from '../../store/use-store';
+import LinkProduct from '../linkProduct';
 function ItemBasket(props) {
 const store=useStore();
 
   const cn = bem('ItemBasket');
-
+  const productLink = `/product/${props.item._id}`;
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id),
     closeModal: useCallback(() => store.actions.modals.close(), [store]),
@@ -20,7 +21,7 @@ const store=useStore();
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-       <Link className='Links' to={`/product/${props.item._id}`}><p onClick={callbacks.closeModal} className='p-title'>{props.item.title}</p></Link> 
+       <LinkProduct to={productLink} title={props.item.title} closeModal={callbacks.closeModal}/> 
         </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>

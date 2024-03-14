@@ -5,11 +5,11 @@ import useSelector from "../../store/use-selector";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import Basket from "../basket";
-import "./style.css";
 import PageLayout from "../../components/page-layout";
 import { numberFormat, plural } from "../../utils";
 import { LanguagesContext } from "../../components/languageSwitcher";
 import DescriptionItem from "../../components/descriptionItem";
+import MainMenu from "../../components/mainmenu";
 
 function ProductDetail() {
   const {langData} = useContext(LanguagesContext);
@@ -48,6 +48,7 @@ function ProductDetail() {
       <>
         <div>
           <Head title={select.result.title} />
+          <MainMenu langData={langData}/>
           <BasketTool
             onOpen={callbacks.openModalBasket}
             amount={select.amount}
