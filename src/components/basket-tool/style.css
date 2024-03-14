@@ -1,13 +1,13 @@
 /* Контрол с общими действиями */
 .BasketTool {
   display: flex;
-  justify-content: flex-end;
-  padding: 20px;
+  justify-content: space-between;
   font-size: 18px;
 }
-
+.BasketTool-home {
+  justify-items: start;
+}
 .BasketTool-label {
-
 }
 
 .BasketTool-total {

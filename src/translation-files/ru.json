@@ -1,0 +1,26 @@
+{
+  "basket": {
+    "titleBasket": "Корзина",
+    "productOne": "товар",
+    "productsFew": "товара",
+    "productsMany": "товаров",
+    "toBasketBtn": "Перейти",
+    "closeBasketBtn": "Закрыть",
+    "deleteItemBasketBtn": "Удалить",
+    "basketToolText": "в корзине",
+    "pcs": "шт",
+    "emptyBasket": "пусто",
+    "totalBasketText": "Итого"
+  },
+  "main": {
+    "title": "Магазин",
+    "linkHome": "Главная",
+    "addBtn": "Добавить"
+  },
+  "productPage": {
+    "madeIn": "Страна произвоитель",
+    "category": "Категория",
+    "edition": "Год выпуска",
+    "price": "Цена"
+  }
+}

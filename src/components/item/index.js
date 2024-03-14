@@ -1,26 +1,22 @@
-import {memo, useState} from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname';
-import {numberFormat} from "../../utils";
-import './style.css';
+import { cn as bem } from "@bem-react/classname";
+import { numberFormat } from "../../utils";
+import "./style.css";
 
 function Item(props) {
-
-  const cn = bem('Item');
+  const { _id, price } = props.item;
+  const cn = bem("Item");
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(props.item._id)
-  }
-
+    onAdd: (e) => props.onAdd(_id),
+  };
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>
-        {props.item.title}
-      </div>
-      <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+      <div className={cn("title")}>{props.children}</div>
+      <div className={cn("actions")}>
+        <div className={cn("price")}>{numberFormat(price)} ₽</div>
+        <button onClick={callbacks.onAdd}>{props.titleBtn}</button>
       </div>
     </div>
   );
@@ -30,13 +26,16 @@ Item.propTypes = {
   item: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
-    price: PropTypes.number
+    price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
+  titleBtn: PropTypes.string.isRequired,
+  children: PropTypes.node,
 };
 
 Item.defaultProps = {
   onAdd: () => {},
-}
+  children: "",
+};
 
 export default memo(Item);

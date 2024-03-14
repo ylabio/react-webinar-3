@@ -1,0 +1,29 @@
+.Pagination {
+  padding: 22.5px 20px;
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+}
+.Pagination-item {
+}
+
+.Pagination-ellipsis {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  margin: 0 2px;
+  color: rgb(130, 126, 126);
+  font-weight: 700;
+}
+.custom-link {
+  color: black;
+}
+.active-link {
+  color: rgb(255, 255, 255);
+  background: rgb(0, 135, 233);
+}
+.custom-link:not(.active-link):hover {
+  background: rgb(225, 225, 225);
+}
