@@ -9,8 +9,6 @@ function Navbar({ navList, children }) {
   const cn = bem("Navbar");
   const list = bem("NavList");
 
-  console.log(navList[0].path);
-
   const uniqKey = codeGenerator(500);
 
   return (
