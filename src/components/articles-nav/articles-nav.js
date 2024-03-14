@@ -7,8 +7,6 @@ import { memo } from "react";
 
 export function ArticlesNav({ pages, current }) {
   const cn = bem("ArticlesNav");
-  console.log([pages, current]);
-  console.log(formPaginationArr(pages, current));
   return (
     <div className={cn()}>
       {formPaginationArr(pages, current).map((e, index) => {
