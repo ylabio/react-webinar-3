@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from "react";
+import { memo, useCallback, useEffect, useMemo } from "react";
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -17,10 +17,6 @@ function Main() {
 
   const params = useParams();
 
-  /* useEffect(() => {
-    store.actions.catalog.load();
-  }, []); */
-
   useEffect(() => {
     const query = params.current
       ? {
@@ -38,6 +34,10 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
+
+  const calculations = {
+    pages: useMemo(() => Math.ceil(select.productsCount / 10), [select.productsCount]),
+  };
 
   const callbacks = {
     // Добавление в корзину
@@ -76,7 +76,7 @@ function Main() {
       </NavToolWrap>
       <List list={select.list} renderItem={renders.item} />
       <ArticlesNav
-        pages={Math.ceil(select.productsCount / 10)}
+        pages={calculations.pages}
         current={params.current ? +params.current : 1}
       />
     </PageLayout>

@@ -3,6 +3,7 @@ import "./style.css";
 import { cn as bem } from "@bem-react/classname";
 import { formPaginationArr } from "../../utils";
 import { Link } from "react-router-dom";
+import { memo } from "react";
 
 export function ArticlesNav({ pages, current }) {
   const cn = bem("ArticlesNav");
@@ -31,3 +32,5 @@ export function ArticlesNav({ pages, current }) {
     </div>
   );
 }
+
+export default memo(ArticlesNav)
