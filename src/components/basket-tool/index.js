@@ -1,9 +1,8 @@
-import {memo} from "react";
+import {memo} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
-import {numberFormat, plural} from "../../utils";
+import {numberFormat, plural} from '../../utils';
 import './style.css';
-import {Link} from 'react-router-dom';
 import {localization} from '../../localization';
 
 function BasketTool(props) {
@@ -14,10 +13,8 @@ function BasketTool(props) {
 
   return (
     <div className={cn()}>
-      <Link className={cn('link')} to={'/'}>{localization.link.mainPage[props.language]}</Link>
-      <div className={cn('wrapper')}>
-        <span className={cn('label')}>{local.inBasket[props.language]}</span>
-        <span className={cn('total')}>
+      <span className={cn('label')}>{local.inBasket[props.language]}</span>
+      <span className={cn('total')}>
         {props.amount
           ? `${props.amount} ${plural(props.amount, {
             one: `${local.one[props.language]}`,
@@ -27,8 +24,7 @@ function BasketTool(props) {
           : local.empty[props.language]
         }
       </span>
-        <button onClick={props.onOpen}>{local.toBasket[props.language]}</button>
-      </div>
+      <button onClick={props.onOpen}>{local.toBasket[props.language]}</button>
     </div>
   );
 }
@@ -42,7 +38,8 @@ BasketTool.propTypes = {
 };
 
 BasketTool.defaultProps = {
-  onOpen: () => {},
+  onOpen: () => {
+  },
   sum: 0,
   amount: 0
 }

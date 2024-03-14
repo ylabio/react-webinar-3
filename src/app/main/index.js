@@ -8,6 +8,7 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import {localization} from '../../localization';
+import MenuWrapper from '../../components/menu-wrapper';
 
 function Main() {
 
@@ -49,8 +50,8 @@ function Main() {
   return (
     <PageLayout>
       <Head title={localization.main.shop[select.language]} switchLanguage={callbacks.switchLanguage}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum} language={select.language}/>
+      <MenuWrapper onOpen={callbacks.openModalBasket} amount={select.amount}
+                   sum={select.sum} language={select.language}/>
       <List list={select.list} language={select.language} renderItem={renders.item}/>
       <Pagination count={select.count} limit={limit} current={select.current} onSwitch={callbacks.switchPage}/>
     </PageLayout>

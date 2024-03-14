@@ -4,8 +4,8 @@ import useSelector from '../../store/use-selector';
 import Head from '../../components/head';
 import {useParams} from 'react-router';
 import PageLayout from '../../components/page-layout';
-import BasketTool from '../../components/basket-tool';
 import ItemDescription from '../../components/item-description';
+import MenuWrapper from '../../components/menu-wrapper';
 
 function ItemInfo() {
 
@@ -34,8 +34,8 @@ function ItemInfo() {
   return (
     <PageLayout>
       <Head title={select.itemInfo.title} switchLanguage={callbacks.switchLanguage}></Head>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                    sum={select.sum} language={select.language}/>
+      <MenuWrapper onOpen={callbacks.openModalBasket} amount={select.amount}
+                   sum={select.sum} language={select.language}/>
       <ItemDescription itemInfo={select.itemInfo} language={select.language} onAdd={callbacks.addToBasket}/>
     </PageLayout>
   )
