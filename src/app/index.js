@@ -2,7 +2,7 @@ import useSelector from "../store/use-selector";
 import { Routes, Route } from "react-router-dom";
 import Basket from "./basket";
 import Main from "./main";
-import Item from "./item";
+import ProductPage from "./product-page";
 
 /**
  * Приложение
@@ -16,7 +16,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/items/:id" element={<Item />} />
+        <Route path="/products/:id" element={<ProductPage />} />
       </Routes>
       {activeModal === "basket" && <Basket />}
     </>

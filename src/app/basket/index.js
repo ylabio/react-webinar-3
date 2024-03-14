@@ -40,7 +40,7 @@ function Basket() {
             onRemove={callbacks.removeFromBasket}
             onClose={callbacks.closeModal}
             getTranslation={getTranslation}
-            linkTo={`items/${item._id}`}
+            linkTo={`/products/${item._id}`}
           />
         );
       },

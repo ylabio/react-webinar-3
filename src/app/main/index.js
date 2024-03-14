@@ -9,7 +9,7 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import useTranslation from "../../hooks/useTranslation";
 import { Link } from "react-router-dom";
-import Subhead from "../../components/subhead";
+import Row from "../../components/row";
 import Loader from "../../components/loader";
 import { useSearchParams } from "react-router-dom";
 
@@ -96,7 +96,7 @@ function Main() {
             item={item}
             onAdd={callbacks.addToBasket}
             getTranslation={getTranslation}
-            linkTo={`items/${item._id}`}
+            linkTo={`/products/${item._id}`}
           />
         );
       },
@@ -114,7 +114,7 @@ function Main() {
         lang={select.lang}
       ></Head>
 
-      <Subhead>
+      <Row type="space-between">
         <Link to={"/"}>{getTranslation("home")}</Link>
         <BasketTool
           sum={select.sum}
@@ -122,7 +122,7 @@ function Main() {
           onOpen={callbacks.openModalBasket}
           getTranslation={getTranslation}
         />{" "}
-      </Subhead>
+      </Row>
       <Loader isShown={select.isLoading}>
         <List list={select.list} renderItem={renders.item} />
 

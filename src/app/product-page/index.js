@@ -9,10 +9,10 @@ import { Link } from "react-router-dom";
 import BasketTool from "../../components/basket-tool";
 import Basket from "../basket";
 import useTranslation from "../../hooks/useTranslation";
-import Subhead from "../../components/subhead";
+import Row from "../../components/row";
 import Loader from "../../components/loader";
 
-function Item() {
+function ProductPage() {
   const { id } = useParams();
 
   const store = useStore();
@@ -76,7 +76,7 @@ function Item() {
           onChangeLang={callbacks.changeLanguage}
           lang={lang}
         />
-        <Subhead>
+        <Row type="space-between">
           <Link to={`/`}>{getTranslation("home")}</Link>
           <BasketTool
             sum={basketData.sum}
@@ -84,7 +84,7 @@ function Item() {
             onOpen={callbacks.openModalBasket}
             getTranslation={getTranslation}
           />{" "}
-        </Subhead>
+        </Row>
         <Loader isShown={itemData.isLoading}>
           <ItemCard
             itemData={itemData}
@@ -100,4 +100,4 @@ function Item() {
   );
 }
 
-export default memo(Item);
+export default memo(ProductPage);
