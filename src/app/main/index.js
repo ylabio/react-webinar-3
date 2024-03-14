@@ -7,6 +7,7 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination"
+import Preloader from "../../components/preloader"
 import { useSearchParams, useNavigate } from "react-router-dom";
 
 function Main() {
@@ -17,7 +18,8 @@ function Main() {
   const PageSize = 10
 
   useEffect(() => {
-    store.actions.item.setLoading(true);
+    store.actions.product.setLoading(true);
+    store.actions.catalog.setLoading(true);
     store.actions.catalog.load(PageSize, (currentPage - 1) * PageSize);
     store.actions.modals.close("basket");
   }, [currentPage]);
@@ -34,7 +36,8 @@ function Main() {
     totalItemsCount: state.catalog.totalItemsCount,
     t: state.i18n.translations[state.i18n.lang],
     currentLang: state.i18n.lang,
-    supportedLangs: state.i18n.supportedLangs
+    supportedLangs: state.i18n.supportedLangs,
+    isLoading: state.catalog.isLoading
   }));
 
   const callbacks = {
@@ -55,21 +58,23 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head
-        title={select.t.shopName}
-        lang={select.currentLang}
-        supportedLangs={select.supportedLangs}
-        onLangChange={callbacks.onLangeChange}
-      />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum} t={select.t}/>
-      <List list={select.list} renderItem={renders.item}/>
-      <Pagination
-        currentPage={currentPage}
-        totalCount={select.totalItemsCount}
-        pageSize={PageSize}
-        onPageChange={handlePageChange}
-      />
+      <Preloader isLoading={select.isLoading}>
+        <Head
+          title={select.t.shopName}
+          lang={select.currentLang}
+          supportedLangs={select.supportedLangs}
+          onLangChange={callbacks.onLangeChange}
+        />
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+                    sum={select.sum} t={select.t}/>
+        <List list={select.list} renderItem={renders.item}/>
+        <Pagination
+          currentPage={currentPage}
+          totalCount={select.totalItemsCount}
+          pageSize={PageSize}
+          onPageChange={handlePageChange}
+        />
+      </Preloader>
     </PageLayout>
   );
 }

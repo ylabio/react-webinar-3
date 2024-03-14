@@ -1,6 +1,6 @@
 import StoreModule from "../module";
 
-class Item extends StoreModule {
+class Product extends StoreModule {
 
   initState() {
     return {
@@ -24,4 +24,4 @@ class Item extends StoreModule {
   }
 }
 
-export default Item;
+export default Product;

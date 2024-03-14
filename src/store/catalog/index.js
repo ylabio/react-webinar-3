@@ -11,7 +11,8 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
-      totalItemsCount: 0
+      totalItemsCount: 0,
+      isLoading: true
     }
   }
 
@@ -21,8 +22,13 @@ class Catalog extends StoreModule {
     this.setState({
       ...this.getState(),
       list: json.result.items,
-      totalItemsCount: json.result.count
+      totalItemsCount: json.result.count,
+      isLoading: false
     }, 'Загружены товары из АПИ');
+  }
+
+  setLoading(state) {
+    this.setState({isLoading: state});
   }
 }
 
