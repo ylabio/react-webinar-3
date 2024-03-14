@@ -1,2 +1,5 @@
 ### Internet shop
-Training project for ylab
+
+Training project for ylab.io
+
+Student: Igor Nazirov
