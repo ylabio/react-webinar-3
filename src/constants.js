@@ -1,0 +1,1 @@
+export const links = [{ title: 'Главная', link: '/' }]

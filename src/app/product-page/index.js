@@ -7,6 +7,9 @@ import BasketTool from "../../components/basket-tool";
 import PageLayout from "../../components/page-layout";
 import { ProductData } from "../../components/product-data";
 import Basket from "../basket";
+import { NavToolWrap } from "../../components/nav-tool-wrap";
+import { NavBar } from "../../components/nav-bar";
+import { links } from "../../constants";
 
 export function ProductPage() {
   const store = useStore();
@@ -40,19 +43,25 @@ export function ProductPage() {
   };
 
   return (
-    <>{ select.product.title && select.error === 'none' ?
-      <PageLayout>
-        <Head title={select.product.title} />
-        <BasketTool
-          onOpen={callbacks.openModalBasket}
-          amount={select.amount}
-          sum={select.sum}
-        />
-        <ProductData item={select.product} onAdd={callbacks.addToBasket} />
-      </PageLayout>
-     : <p>loading</p>}
+    <>
+      {select.product.title && select.error === "none" ? (
+        <PageLayout>
+          <Head title={select.product.title} />
+          <NavToolWrap>
+            <NavBar links={links} />
+            <BasketTool
+              onOpen={callbacks.openModalBasket}
+              amount={select.amount}
+              sum={select.sum}
+            />
+          </NavToolWrap>
+          <ProductData item={select.product} onAdd={callbacks.addToBasket} />
+        </PageLayout>
+      ) : (
+        <p>loading</p>
+      )}
 
-     {select.activeModal === 'basket' && <Basket/>}
-     </>
+      {select.activeModal === "basket" && <Basket />}
+    </>
   );
 }
