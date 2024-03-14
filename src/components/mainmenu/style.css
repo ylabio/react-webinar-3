@@ -1,0 +1,17 @@
+.Link_head{
+    text-decoration: none;
+    color: #0087E9;
+  }
+  .p-chapter{
+   
+   }
+   .chapter{
+    color: #0087E9;
+    text-decoration:underline;
+    margin-right: auto;
+    display: inline-block;
+     width: 42%;
+    padding: 20px;
+    top: 82px;
+    left: 20px;
+   }

@@ -1,0 +1,28 @@
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 22px;
+  margin-right: 21px;
+}
+
+.pagination-page {  
+  font-size: 16px;
+  padding: 1px 7px;  
+  cursor: pointer;
+  text-decoration: none;
+  color: #333;
+}
+
+.pagination-page_current {
+  background-color: #0087E9;
+  color: white;
+}
+
+.pagination-page:not(.Pagination-page_current):hover {
+  background-color: #e1e1e1;
+}
+
+.pagination-page_ellipsis {
+  pointer-events: none;
+  user-select: none;
+}

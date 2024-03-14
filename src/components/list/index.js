@@ -1,9 +1,12 @@
-import {memo} from "react";
+import {memo,useState,useEffect} from "react";
 import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
+import Pagination from "../pagination";
 
 function List({list, renderItem}) {
+
+ 
   return (
     <div className='List'>{
       list.map(item =>
@@ -11,6 +14,7 @@ function List({list, renderItem}) {
           {renderItem(item)}
         </div>
       )}
+     
     </div>
   )
 }

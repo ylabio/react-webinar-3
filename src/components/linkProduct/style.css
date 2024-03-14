@@ -1,0 +1,16 @@
+.Links{
+  text-decoration: none;
+  color: black;
+}
+.Links:hover{
+  cursor: pointer;
+  text-decoration:underline;
+}
+.p-title{
+  display: inline;
+ }
+ .p-title:hover{
+   cursor: pointer;
+   text-decoration:underline;
+ }
+ 

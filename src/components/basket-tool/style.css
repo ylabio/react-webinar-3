@@ -1,11 +1,29 @@
 /* Контрол с общими действиями */
 .BasketTool {
-  display: flex;
   justify-content: flex-end;
   padding: 20px;
   font-size: 18px;
+  text-align: right;
+  margin-left: auto;
+  display: inline-block;
+     width: 50%;
 }
-
+.Link_head{
+  text-decoration: none;
+  color: #0087E9;
+}
+.chapter{
+  color: #0087E9;
+  text-decoration:underline;
+  margin-right: auto
+ }
+ .p-chapter{
+  display: inline;
+ }
+ .p-chapter:hover{
+  cursor: pointer;
+  text-decoration:underline;
+}
 .BasketTool-label {
 
 }
