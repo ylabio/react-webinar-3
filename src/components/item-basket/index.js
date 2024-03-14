@@ -28,10 +28,10 @@ function ItemBasket(props) {
       <div className={cn("right")}>
         <div className={cn("cell")}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn("cell")}>
-          {numberFormat(props.item.amount || 0)} шт
+          {numberFormat(props.item.amount || 0)} {props.translate('productsCount')}
         </div>
         <div className={cn("cell")}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{props.translate('deleteButton')}</button>
         </div>
       </div>
     </div>

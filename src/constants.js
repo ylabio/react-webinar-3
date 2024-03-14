@@ -1,1 +1,1 @@
-export const links = [{ title: 'Главная', link: '/' }]
+export const links = [{ title: 'appLinkHome', link: '/', altText: 'Главная' }]

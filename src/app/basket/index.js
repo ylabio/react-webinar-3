@@ -24,6 +24,11 @@ function Basket() {
     ),
     // Закрытие любой модалки
     closeModal: useCallback(() => store.actions.modals.close(), [store]),
+    //взятие фразы текущего языка
+    translate: useCallback(
+      (phrase) => store.actions.language.translate(phrase),
+      [store]
+    ),
   };
 
   const renders = {
@@ -35,6 +40,7 @@ function Basket() {
             linkTo={item._id}
             onRemove={callbacks.removeFromBasket}
             onClick={callbacks.closeModal}
+            translate={callbacks.translate}
           />
         );
       },
@@ -43,9 +49,9 @@ function Basket() {
   };
 
   return (
-    <ModalLayout title="Корзина" onClose={callbacks.closeModal}>
+    <ModalLayout title={callbacks.translate('basketTitle')} onClose={callbacks.closeModal} translate={callbacks.translate}>
       <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <BasketTotal sum={select.sum} translate={callbacks.translate} />
     </ModalLayout>
   );
 }

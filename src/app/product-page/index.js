@@ -10,6 +10,7 @@ import Basket from "../basket";
 import { NavToolWrap } from "../../components/nav-tool-wrap";
 import { NavBar } from "../../components/nav-bar";
 import { links } from "../../constants";
+import LangOptions from "../../components/lang-options";
 
 export function ProductPage() {
   const store = useStore();
@@ -27,6 +28,7 @@ export function ProductPage() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     activeModal: state.modals.name,
+    langCode: state.language.currentLanguage,
   }));
 
   const callbacks = {
@@ -40,22 +42,36 @@ export function ProductPage() {
       () => store.actions.modals.open("basket"),
       [store]
     ),
+    //взятие фразы текущего языка
+    translate: useCallback(
+      (phrase) => store.actions.language.translate(phrase),
+      [store]
+    ),
+    //Смена языка
+    changeLang: useCallback(
+      (lang) => store.actions.language.changeLanguage(lang),
+      [store]
+    )
   };
 
   return (
     <>
       {select.product.title && select.error === "none" ? (
         <PageLayout>
-          <Head title={select.product.title} />
+          <Head title={select.product.title} >
+            <LangOptions changeLang={callbacks.changeLang} lang={select.langCode}/>
+          </Head>
           <NavToolWrap>
-            <NavBar links={links} />
+            <NavBar links={links} translate={callbacks.translate}/>
             <BasketTool
               onOpen={callbacks.openModalBasket}
               amount={select.amount}
               sum={select.sum}
+              translate={callbacks.translate}
+              lang={select.langCode}
             />
           </NavToolWrap>
-          <ProductData item={select.product} onAdd={callbacks.addToBasket} />
+          <ProductData item={select.product} onAdd={callbacks.addToBasket} translate={callbacks.translate} lang={select.langCode} />
         </PageLayout>
       ) : (
         <p>loading</p>
