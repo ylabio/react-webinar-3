@@ -1,7 +1,7 @@
 /* Контрол с общими действиями */
 .BasketTool {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 20px;
   font-size: 18px;
 }
@@ -10,7 +10,26 @@
 
 }
 
+.BasketTool-return {
+  text-decoration: underline;
+  color: #0087e9;
+}
+
+.BasketTool-return:hover {
+  background-color: #ccc;
+}
+
+.BasketTool-cartInfo {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .BasketTool-total {
   font-weight: bold;
   margin: 0 20px;
+}
+
+.BasketTool-open-button {
+  width: 75px;
+  height: 21px;
 }

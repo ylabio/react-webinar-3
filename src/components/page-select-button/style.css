@@ -1,0 +1,46 @@
+.PageSelectButton {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  font-weight: normal;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.PageSelectButton:hover {
+  background-color: #ccc;
+}
+
+.PageSelectButton-active {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  font-weight: normal;
+  font-size: 16px;
+  background-color: #0087e9;
+  cursor: default;
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.PageSelectButton-ellipsis {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  font-weight: normal;
+  font-size: 16px;
+  background-color: #fff;
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

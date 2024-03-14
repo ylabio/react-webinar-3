@@ -1,0 +1,26 @@
+.LanguageSelectButton {
+  width: 120px;
+  height: 20px;
+  text-align: center;
+  font-weight: normal;
+  font-size: 16px;
+  color: #000;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.LanguageSelectButton:hover {
+  background-color: #ccc;
+}
+
+.LanguageSelectButton-active {
+  width: 120px;
+  height: 20px;
+  text-align: center;
+  font-weight: normal;
+  font-size: 16px;
+  background-color: #0087e9;
+  color: #fff;
+  cursor: default;
+  text-decoration: none;
+}

@@ -4,6 +4,11 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const path = require("path");
 
 let config = {
+  devServer: {
+    allowedHosts: [
+      "all",
+    ]
+  },
   context: path.join(__dirname, '/src'), // Директория с исходным кодом приложения
   entry: 'index.js', // Главный файл приложения
   output: {
