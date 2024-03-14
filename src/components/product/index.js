@@ -18,7 +18,7 @@ function Product(props) {
       <div className={cn('text')}>{props.item.description}</div>
       <div className={cn('text')}>
         Страна производитель:
-        <span>{`${props.item.madeIn.title} (${props.item.madeIn.code})`}</span>
+        <span>{` ${props.item.madeIn.title} (${props.item.madeIn.code})`}</span>
       </div>
       <div className={cn('text')}>Категория: <span>{props.item.category.title}</span></div>
       <div className={cn('text')}>Год выпуска: <span>{props.item.edition}</span></div>
