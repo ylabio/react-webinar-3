@@ -22,6 +22,18 @@ class Language extends StoreModule {
     });
 
   }
+
+  /**
+   * Проверяет и устанавливает сохраненый язык пользователя в приложении
+   */
+  checkLangUser () {
+    // localStorage.removeItem('language');
+    const langLocal = localStorage.getItem('language');
+    if (langLocal) {
+      this.changeLanguage(langLocal);
+    }
+  }
+
 }
 
 export default Language;

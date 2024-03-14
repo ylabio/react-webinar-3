@@ -21,6 +21,10 @@ function Card () {
     store.actions.catalog.loadById(params.id);
   }, [params.id]);
 
+  useEffect(() => {
+    store.actions.language.checkLangUser();
+  }, []);
+
   const select = useSelector(state => ({
     card: state.catalog.card,
     loading: state.catalog.loading,

@@ -25,11 +25,7 @@ function Main() {
   }, [params]);
 
   useEffect(() => {
-    // localStorage.removeItem('language');
-    const langLocal = localStorage.getItem('language');
-    if (langLocal) {
-      callbacks.changeLanguage(langLocal);
-    }
+    store.actions.language.checkLangUser();
   }, []);
 
   const select = useSelector(state => ({
@@ -63,7 +59,7 @@ function Main() {
               textButtonAdd={select.langbuttonAdd[select.language]}
               link={`/card/${item._id}`}/>
       );
-    }, [callbacks.addToBasket]),
+    }, [callbacks.addToBasket, select.langbuttonAdd[select.language]]),
     ItemPagination: useCallback((item) => {
       return (
         <ItemPagination item={item} list={select.numbersPages} 

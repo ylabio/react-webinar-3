@@ -9,7 +9,7 @@ export const language = {
     cart: {ru: 'В корзине', en: 'In the shopping cart'},
     empty: {ru: 'пусто', en: 'empty'},
     product: {ru: 'товар', en: 'product'},
-    productTwo: {ru: 'товара', en: 'product'},
+    productTwo: {ru: 'товара', en: 'products'},
     products: {ru: 'товаров', en: 'products'},
     buttonGo: {ru: 'Перейти', en: 'Go over'}
   },
