@@ -6,7 +6,7 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import ProductCard from "../../components/product-card";
 import {useParams} from "react-router-dom";
-import LoadWraper from "../../components/load-wraper";
+import LoadWrapper from "../../components/load-wraper";
 import Menu from "../../components/menu";
 
 function Product() {
@@ -44,9 +44,9 @@ function Product() {
       <BasketTool lang={select.lang} setCurrentPage={() => callbacks.setCurrentPage(1)}
                   onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
-      <LoadWraper isLoading={isLoading} lang={select.lang}>
+      <LoadWrapper isLoading={isLoading} lang={select.lang}>
         <ProductCard lang={select.lang} addToBasket={callbacks.addToBasket} product={select.product}/>
-      </LoadWraper>
+      </LoadWrapper>
     </PageLayout>
 
   );

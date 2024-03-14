@@ -50,7 +50,7 @@ class Catalog extends StoreModule {
   async loadItemById(Id) {
     const response = await fetch(`/api/v1/articles/${Id}?fields=*,madeIn(title,code),category(title)`);
     const item = await response.json();
-    console.log(item);
+    console.log('loadItemById',item);
     const transformedItem = {
       _id: item.result._id,
       _key: item.result._key,

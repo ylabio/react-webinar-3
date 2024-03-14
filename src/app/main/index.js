@@ -48,7 +48,7 @@ function Main() {
         setIsLoading(false);
       }, 2000);
     return () => {
-      setIsLoading(true); 
+      setIsLoading(true);
     };
     }, [select.currentPage, select.lang]);
 
