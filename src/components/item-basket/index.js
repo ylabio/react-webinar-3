@@ -4,13 +4,11 @@ import {numberFormat,langArr} from "../../utils";
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import { useNavigate } from 'react-router-dom';
-import useStore from '../../store/use-store';
 import './style.css';
 
 
 function ItemBasket(props) {
   const router = useNavigate();
-  const store = useStore();
 
   const cn = bem('ItemBasket');
 
@@ -19,8 +17,8 @@ function ItemBasket(props) {
   };
   
   function onClickFunc(){
-    router(`/post/${props.item._id}`);
-    store.actions.modals.close('basket')
+    router(props.link);
+    props.closeModal();
   }
 
   

@@ -6,6 +6,7 @@ import useSelector from "../store/use-selector";
 import { BrowserRouter, Route, Routes, Redire } from 'react-router-dom';
 import ItemLayout from '../components/item-layout';
 import { changeLang } from '../change-lang';
+import ProductPage from './product';
 
 /**
  * Приложение
@@ -23,7 +24,8 @@ function App() {
         {activeModal === 'basket' && <Basket language={language}/>}
         <Routes>
           <Route path='/' element={<Main language={language} setLanguage={setLanguage}/>}/>
-          <Route path='/post/:id' element={<ItemLayout language={language} setLanguage={setLanguage}/>}/>
+          <Route path={'/:id'} element={<Main language={language} setLanguage={setLanguage}/>}/>
+          <Route path='/post/:id' element={<ProductPage language={language} setLanguage={setLanguage}/>}/>
           <Route path="*" element={<Main/>}/>
         </Routes> 
       </BrowserRouter>

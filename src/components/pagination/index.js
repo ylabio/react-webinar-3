@@ -4,80 +4,77 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import { Link } from "react-router-dom";
 
 
-function Pagination({}) {
-    const [currentButton, setCurrentButton] = useState(1);
-    const [arrOfCurrButtons, setArrOfCurrButtons] = useState([]);
-
-    const store = useStore();
-
-    const select = useSelector(state => ({
-        list: state.catalog.list,
-      }));
+function Pagination({totalItems,number,link, onChangePage}) {
     
-    useMemo(() => {
-        store.actions.catalog.load(currentButton);
-    }, [currentButton])
+    const totalPages = Math.floor(totalItems / 10);
 
 
-    let pageNumbers = [];
-    for (let i = 1; i <= 25; i++){
-        pageNumbers.push(i);
-    }
+    const getNumbers = () => {
+        const pageNumbers = [];
+        const maxVisiblePages = 3;
+        const middleIndex = Math.floor(maxVisiblePages / 2);
 
-    useEffect(() => {
-        let tempNumberOfPages = [...arrOfCurrButtons];
 
-        let dotsInitial = '...';
-        let dotsRight = '... ';
-        let dotsLeft = ' ...';
+        let startPage = Math.max(number - middleIndex, 1);
+        let endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
 
-        if (currentButton >= 1 && currentButton <= 3 ){
-            tempNumberOfPages = [1,2,3,4, dotsInitial,pageNumbers.length]
+        if (endPage - startPage + 1 < maxVisiblePages) {
+          startPage = Math.max(endPage - maxVisiblePages + 1, 1);
         }
-        else if(currentButton == 4){
-            const sliced = pageNumbers.slice(0,5);
-            tempNumberOfPages = [...sliced, dotsInitial, pageNumbers.length]
+        if (endPage - startPage + 1 < maxVisiblePages) {
+          endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
         }
-        else if (currentButton > 4 && currentButton < pageNumbers.length - 2){
-            const sliced1 = pageNumbers.slice(currentButton - 2, currentButton);
-            const sliced2 = pageNumbers.slice(currentButton, currentButton + 1);
-            tempNumberOfPages = ([1, dotsLeft, ...sliced1, ...sliced2, dotsRight, pageNumbers.length])
+    
+        for (let i = startPage; i <= endPage; i++) {
+          pageNumbers.push(i);
         }
-        else if (currentButton > pageNumbers.length - 3 ){
-            const sliced = pageNumbers.slice(pageNumbers.length - 4)
-            tempNumberOfPages = ([1, dotsLeft, ...sliced])
+    
+        if (startPage > 2) {
+          pageNumbers.unshift('...');
         }
-
-        else if (currentButton === dotsInitial){
-            setCurrentButton(arrOfCurrButtons[arrOfCurrButtons.length - 3] + 1);
+        if (endPage < totalPages - 1) {
+          pageNumbers.push('...');
         }
-
-        else if (currentButton === dotsRight){
-            setCurrentButton(arrOfCurrButtons[3] + 2);
+    
+        if (!pageNumbers.includes(1)) {
+          pageNumbers.unshift(1);
         }
-        else if (currentButton === dotsLeft){
-            setCurrentButton(arrOfCurrButtons[3] - 2);
+        if (!pageNumbers.includes(totalPages)) {
+          pageNumbers.push(totalPages);
         }
 
-        setArrOfCurrButtons(tempNumberOfPages);
-    }, [currentButton])
-   
+        return pageNumbers;
+      };
+    
+      const changePage = (e, pageNumber) => {
+
+        if (pageNumber === "...") {
+          e.preventDefault();
+          return false;
+        }
+
+        else if (pageNumber === number) {
+          e.preventDefault();
+          return false;
+        }
+        onChangePage(pageNumber);
+      }
+
+    
+    
     return (
-        <div className="pagination">
-            <ul className="pagination__btns">
-                {
-                    arrOfCurrButtons.map((number,index) =>
-                        <li onClick={() => setCurrentButton(number)} className={"pagination-btn " + (currentButton == number ? 'pagination-btn--active' : '')} key = {index}>
-                            {/* <a href="!#" className="btn-link"> */}
-                                {number}
-                            {/* </a> */}
-                        </li>
-                    )
-                }
-            </ul>
-        </div>
+    <div className="pagination">
+        {
+            getNumbers().map((pageNumber,index) =>
+                <Link className={"pagination-btn " + (pageNumber == number ? "pagination-btn--active":'')} to={`${link}${pageNumber}`} onClick={(e) => changePage(e,pageNumber)} key = {index}>
+                    {pageNumber}
+                </Link>
+            )
+        } 
+    </div>
     );
 }
 

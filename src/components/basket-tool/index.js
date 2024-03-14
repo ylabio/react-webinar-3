@@ -2,13 +2,18 @@ import {memo} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural,langArr} from "../../utils";
+import { Link } from "react-router-dom";
 import './style.css';
 
 function BasketTool({sum, amount, onOpen,children,button,language}) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      {button}
+      <ul className={cn('tool-menu')}>
+        <li className={cn('tool-menu-item')}>
+            <Link to="/" className={cn('tool-menu-link')}>{langArr.main[language]}</Link>
+        </li>
+      </ul>
       <span className={cn('label')}>{langArr.BasketTools[language]}</span>
       <span className={cn('total')}>
         {amount

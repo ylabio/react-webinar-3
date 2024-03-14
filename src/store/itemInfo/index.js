@@ -19,10 +19,10 @@ class ItemInfo extends StoreModule {
 
   async getInfo(id) {
 
-    //   let skip = (10 * currentButton) - 10;
+    console.log(id)
     const response = await fetch(`api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
     const json = await response.json();
-
+    
     this.setState({
     ...this.getState(),
     itemInfo: json.result,
