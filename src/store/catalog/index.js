@@ -22,6 +22,7 @@ class Catalog extends StoreModule {
       }&fields=items(_id, title, price),count`
     );
     const json = await response.json();
+
     this.setState(
       {
         ...this.getState(),

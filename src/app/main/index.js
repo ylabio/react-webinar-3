@@ -8,17 +8,21 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Paginator from "../../components/paginator";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Main() {
   const store = useStore();
   const activeModal = useSelector((state) => state.modals.name);
   const useTranslate = store.actions.translator.useTranslate();
-
-  // translator
-  const t = store.actions.translator.useTranslate();
+  const navigate = useNavigate();
+  const { id: page } = useParams();
 
   useEffect(() => {
-    store.actions.catalog.load(select.currentPage);
+    if (page) {
+      store.actions.catalog.load(Number(page));
+    } else {
+      store.actions.catalog.load(1);
+    }
   }, []);
 
   const select = useSelector((state) => ({
@@ -45,6 +49,7 @@ function Main() {
     changePage: useCallback(
       (page) => {
         if (page !== select.currentPage) store.actions.catalog.load(page);
+        navigate(`/page/${page}`);
       },
       [store, select.currentPage]
     ),
@@ -89,6 +94,7 @@ function Main() {
           amount={select.amount}
           sum={select.sum}
           useTranslate={callbacks.useTranslate}
+          changePage={callbacks.changePage}
         />
         <List list={select.list} renderItem={renders.item} />
         {select.itemsTotal > 10 && (

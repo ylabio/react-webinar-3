@@ -12,6 +12,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/page/:id" element={<Main />} />
         <Route path="/articles/:id" element={<ProductPage />} />
       </Routes>
     </>

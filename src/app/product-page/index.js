@@ -7,11 +7,13 @@ import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import Basket from "../basket";
 import ProductInfo from "../../components/product-info";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 function ProductPage() {
   const { id } = useParams();
   const store = useStore();
+  const navigate = useNavigate();
   const useTranslate = store.actions.translator.useTranslate();
 
   useEffect(() => {
@@ -26,6 +28,7 @@ function ProductPage() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     lang: state.translator.language,
+    currentPage: state.catalog.currentPage,
   }));
 
   const callbacks = {
@@ -48,6 +51,14 @@ function ProductPage() {
     langChange: useCallback(() => {
       store.actions.translator.langChange();
     }, [store]),
+
+    changePage: useCallback(
+      (page) => {
+        store.actions.catalog.load(page);
+        navigate("/");
+      },
+      [store, select.currentPage]
+    ),
   };
 
   return (
@@ -70,6 +81,7 @@ function ProductPage() {
               amount={select.amount}
               sum={select.sum}
               useTranslate={callbacks.useTranslate}
+              changePage={callbacks.changePage}
             />
             <ProductInfo
               productData={select.product}

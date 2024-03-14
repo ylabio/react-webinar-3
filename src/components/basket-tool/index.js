@@ -5,13 +5,21 @@ import { numberFormat, plural } from "../../utils";
 import { Link } from "react-router-dom";
 import "./style.css";
 
-function BasketTool({ sum, amount, onOpen, useTranslate }) {
+function BasketTool({ sum, amount, onOpen, useTranslate, changePage }) {
   const cn = bem("BasketTool");
   const t = useTranslate;
 
+  const callbacks = {
+    changePage: () => {
+      changePage(1);
+    },
+  };
+
   return (
     <div className={cn()}>
-      <Link to={"/"}>{t("Главная")}</Link>
+      <Link to={"/"} onClick={callbacks.changePage}>
+        {t("Главная")}{" "}
+      </Link>
       <div className={cn("controls")}>
         <span className={cn("label")}>{t("В корзине")}:</span>
         <span className={cn("total")}>
