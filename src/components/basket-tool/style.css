@@ -2,12 +2,12 @@
 .BasketTool {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 0px;
   font-size: 18px;
 }
 
-.BasketTool-label {
-
+.BasketTool button {
+  margin: 0px;
 }
 
 .BasketTool-total {

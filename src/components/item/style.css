@@ -17,6 +17,8 @@
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  color: black;
+  text-decoration: none;
 }
 
 .Item-actions {
@@ -27,8 +29,16 @@
   gap: 20px
 }
 
+.Item-actions button{
+  margin: 0px;
+}
+
 .Item-price {
   padding: 0 0 0 10px;
   white-space: nowrap;
   font-size: 18px;
+}
+
+.Item-title:hover{
+  text-decoration: underline;
 }
