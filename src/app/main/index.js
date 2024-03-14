@@ -7,13 +7,16 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Navbar from "../../components/navbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Pagination from "../../components/pagination";
+import Loader from "../../components/loader";
 
 function Main() {
   const store = useStore();
 
   const navigate = useNavigate();
+
+  const { pageNumber } = useParams();
 
   const select = useSelector((state) => ({
     list: state.catalog.list,
@@ -22,13 +25,20 @@ function Main() {
     itemsCount: state.catalog.itemsCount,
     itemsPerPage: state.catalog.itemsPerPage,
     currentPage: state.catalog.currentPage,
+    listIsLoading: state.catalog.listIsLoading,
   }));
 
   useEffect(() => {
-    const skip = (select.currentPage - 1) * select.itemsPerPage;
+    const currentPage = parseInt(pageNumber || select.currentPage, 10);
+
+    const skip = (currentPage - 1) * select.itemsPerPage;
 
     store.actions.catalog.loadCatalog({ skip, limit: select.itemsPerPage });
-  }, [select.currentPage]);
+
+    if (pageNumber && parseInt(pageNumber, 10) !== select.currentPage) {
+      store.actions.catalog.changePage(currentPage);
+    }
+  }, [select.currentPage, pageNumber]);
 
   const callbacks = {
     // Добавление в корзину
@@ -43,13 +53,14 @@ function Main() {
     ),
 
     navigateToItemPage: useCallback(
-      (_id) => navigate(`item/${_id}`),
+      (_id) => navigate(`/item/${_id}`),
       [navigate]
     ),
 
     changePage: useCallback(
       (pageNumber) => {
         store.actions.catalog.changePage(pageNumber);
+        navigate(`/page/${pageNumber}`);
       },
       [store]
     ),
@@ -73,19 +84,32 @@ function Main() {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Navbar navList={[{ name: "Главная", path: "/" }]}>
+      <Navbar
+        navList={[
+          {
+            name: "Главная",
+            path: !pageNumber ? "/" : `/page/${select.currentPage}`,
+          },
+        ]}
+      >
         <BasketTool
           onOpen={callbacks.openModalBasket}
           amount={select.amount}
           sum={select.sum}
         />
       </Navbar>
-      <List list={select.list} renderItem={renders.item} />
-      <Pagination
-        currentPage={select.currentPage}
-        pagesCount={Math.ceil(select.itemsCount / 10)}
-        onPageChange={callbacks.changePage}
-      />
+      {!select.listIsLoading ? (
+        <>
+          <List list={select.list} renderItem={renders.item} />
+          <Pagination
+            currentPage={select.currentPage}
+            pagesCount={Math.ceil(select.itemsCount / 10)}
+            onPageChange={callbacks.changePage}
+          />
+        </>
+      ) : (
+        <Loader />
+      )}
     </PageLayout>
   );
 }

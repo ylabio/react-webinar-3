@@ -15,6 +15,9 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="page">
+          <Route path=":pageNumber" element={<Main />} />
+        </Route>
         <Route path="item">
           <Route path=":itemId" element={<ItemInfo />} />
         </Route>

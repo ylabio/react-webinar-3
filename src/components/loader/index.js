@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { cn as bem } from "@bem-react/classname";
-import PageLayout from "../page-layout";
 
 import "./style.css";
 
@@ -20,11 +19,11 @@ function Loader() {
   }, []);
 
   return (
-    <PageLayout>
-      <div className={cn()}>
-        <span>Loading{dots}</span>
-      </div>
-    </PageLayout>
+    <div className={cn()}>
+      <span className={cn("title")}>
+        Loading<span className={cn("dots")}>{dots}</span>
+      </span>
+    </div>
   );
 }
 

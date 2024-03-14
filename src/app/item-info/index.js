@@ -43,9 +43,9 @@ function ItemInfo() {
   };
 
   return (
-    <>
+    <PageLayout>
       {!select.productIsLoading ? (
-        <PageLayout>
+        <>
           <Head title={select.item.title} />
           <Navbar navList={[{ name: "Главная", path: "/" }]}>
             <BasketTool
@@ -55,11 +55,11 @@ function ItemInfo() {
             />
           </Navbar>
           <ItemCard item={select.item} onAdd={callbacks.addToBasket} />
-        </PageLayout>
+        </>
       ) : (
         <Loader />
       )}
-    </>
+    </PageLayout>
   );
 }
 
