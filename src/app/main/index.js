@@ -8,13 +8,14 @@ import Pagination from '../../components/pagination';
 import { UI_TEXTS } from '../../consts/content';
 import PageLayout from '../../components/page-layout';
 import Menu from '../../components/menu';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { getTotalPages } from '../../utils';
 
 function Main() {
   const store = useStore();
 
+  const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
-  const [isLoading, setIsLoading] = useState(true)
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -27,15 +28,27 @@ function Main() {
 
   useEffect(() => {
     const fetchCatalog = async () => {
-      const page = searchParams.get('page') || 1
-      await store.actions.catalog.load(page, select.language.currentLanguage)
-      setIsLoading(false)
+      const params = new URLSearchParams(searchParams)
+      const totalPages = await getTotalPages()
+      let page = searchParams.get('page')
+
+      if (page <= 0 || isNaN(Number(page))) {
+        searchParams.set('page', 1)
+        params.set('page', 1)
+        navigate(`/?${params.toString()}`)
+      }
+      if (page > totalPages) {
+        searchParams.set('page', totalPages)
+        params.set('page', totalPages)
+        navigate(`/?${params.toString()}`)
+      }
+
+      let fetchPage = searchParams.get('page') || 1
+      await store.actions.catalog.load(fetchPage, select.language.currentLanguage)
     }
 
     fetchCatalog()
   }, [searchParams.get('page'), select.language.currentLanguage]);
-
-
 
   const callbacks = {
     // Добавление в корзину
