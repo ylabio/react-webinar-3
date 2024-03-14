@@ -9,10 +9,12 @@ import PageLayout from "../../components/page-layout";
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
 import ItemPage from '../itemPage';
+import { useLanguage } from '../../languageContext';
 
-function Main() {
+function Home() {
 
   const store = useStore();
+  const {tr} = useLanguage();
 
   useEffect(() => {
     store.actions.catalog.load();
@@ -40,14 +42,9 @@ function Main() {
   };
 
   return (
-
-    <Routes>
-      {/*
-      * ----- Главная страница (path = "/")
-      */}
-      <Route path="/" element={
+    <>
       <PageLayout>
-        <Head title='Магазин'/>
+        <Head title={tr('store')}/>
         <NavBar
           onOpen={callbacks.openModalBasket}
           amount={select.amount}
@@ -55,23 +52,9 @@ function Main() {
         />
         <List list={select.list} renderItem={renders.item}/>
         <ListNavigation length={select.length} setSkip={callbacks.SetSkip}/>
-      </PageLayout>}/>
-      {/*
-      * ----- Информация о товаре (path = "/id")
-      */}
-      <Route path="/:id" element={
-      <PageLayout>
-        <ItemPage
-          onOpen={callbacks.openModalBasket}
-          amount={select.amount}
-          onAdd={callbacks.addToBasket}
-          sum={select.sum}
-          />
       </PageLayout>
-    }/>
-    </Routes>
-
+    </>
   );
 }
 
-export default memo(Main);
+export default memo(Home);

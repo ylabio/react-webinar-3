@@ -1,41 +1,47 @@
-import { memo, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { memo, useCallback, useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import Head from '../../components/head';
 import ItemInfo from '../../components/itemInfo';
 import NavBar from '../../components/navbar';
+import PageLayout from '../../components/page-layout';
+import useStore from '../../store/use-store';
+import useSelector from '../../store/use-selector';
 
-function ItemPage({onOpen,amount, sum, onAdd}) {
-    const locate = useLocation();
-    const [data,setData]= useState();
+function ItemPage() {
+    const {id} = useParams();
+    // const [data,setData]= useState();
+    const store = useStore();
+    const select = useSelector(state => ({
+      amount: state.basket.amount,
+      sum: state.basket.sum,
+      item: state.product.item || {}
+
+    }));
     useEffect(() => {
-        const load = async () => {
-            const response = await fetch(`api/v1/articles`+`${locate.pathname}`+`?fields=*,madeIn(title,code),category(title)`);
-            const json = await response.json();
-            setData(json.result)
-        }
-        load()
-    },[])
+        store.actions.product.load(id)
 
+    },[id])
+    const callbacks = {
+      // Добавление в корзину
+      addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+      // Открытие модалки корзины
+      openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    }
+    const data = select.item
+    console.log(data)
 return (
     <>
-    {data != undefined
-    ? <>
+    <PageLayout>
+    {data._id != undefined
+    &&  <>
     <Head title={data.title}/>
     <NavBar
-        onOpen={onOpen}
-        amount={amount}
-        sum={sum}
+        onOpen={callbacks.openModalBasket}
+        amount={select.amount}
+        sum={select.sum}
     />
-    <ItemInfo data={data} onAdd={onAdd} />
-    </>
-    : <>
-    <Head title=''/>
-    <NavBar
-        onOpen={onOpen}
-        amount={amount}
-        sum={sum}
-    />
-    </>}
+    <ItemInfo data={data} onAdd={callbacks.addToBasket} /> </>}
+    </PageLayout>
     </>
 )
 }

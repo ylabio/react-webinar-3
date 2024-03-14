@@ -11,7 +11,8 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
-      length: 0
+      length: 0,
+      item: {}
     }
   }
 
@@ -24,6 +25,7 @@ class Catalog extends StoreModule {
       length: json.result.count
     }, 'Загружены товары из АПИ');
   }
+
 }
 
 export default Catalog;

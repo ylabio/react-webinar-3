@@ -5,10 +5,10 @@ import LanguageSwitch from "../languageSwitch";
 import { useLanguage } from "../../languageContext";
 
 function Head({title}) {
-  const {tr} = useLanguage() 
+
   return (
     <div className='Head'>
-      <h1>{tr('store')}</h1>
+      <h1>{title}</h1>
       <LanguageSwitch />
     </div>
   )

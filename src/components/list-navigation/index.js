@@ -1,5 +1,6 @@
 import { memo, useEffect, useState } from "react";
 import './style.css';
+import PropTypes from "prop-types";
 
 function ListNavigation({length, setSkip}) {
     const [Count,setCount] = useState(1) // Текущая страница
@@ -38,7 +39,7 @@ function ListNavigation({length, setSkip}) {
     <div className={'Navbar'}>
       {CurrentPages.map((page,index) => (
         page == 0
-        ? (<a>{' ... '}</a>)
+        ? (<a key={index}>{' ... '}</a>)
         : (<button
             key={index}
             className={`Navbar-btn ${Count === page && 'Navbar-btn-active'}`}
@@ -51,5 +52,10 @@ function ListNavigation({length, setSkip}) {
     </div>
   )
 }
+
+ListNavigation.propTypes = {
+  length: PropTypes.number,
+  setSkip: PropTypes.func,
+};
 
 export default memo(ListNavigation);

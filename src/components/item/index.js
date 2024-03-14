@@ -21,7 +21,7 @@ function Item(props) {
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <span onClick={() => navigate(`/${props.item._id}`)}>{props.item.title}</span>
+        <span onClick={() => navigate(`articles/${props.item._id}`)}>{props.item.title}</span>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
