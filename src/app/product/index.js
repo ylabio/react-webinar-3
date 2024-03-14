@@ -8,6 +8,7 @@ import Details from "../../components/details";
 import { useParams } from "react-router-dom";
 import Navigation from "../../components/navigation";
 import Menu from "../../components/menu";
+import Loader from '../../components/loader';
 
 function Product() {
   const store = useStore();
@@ -47,7 +48,11 @@ function Product() {
           sum={select.sum}
         />
       </Navigation>
-      <Details product={select.product} addToBasket={callbacks.addToBasket} />
+      {select.product._id !== undefined ? (
+        <Details product={select.product} addToBasket={callbacks.addToBasket} />
+      ) : (
+        <Loader />
+      )}
     </PageLayout>
   );
 }

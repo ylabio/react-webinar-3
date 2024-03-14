@@ -9,6 +9,7 @@ import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
 import Navigation from "../../components/navigation";
 import Menu from "../../components/menu";
+import Loader from "../../components/loader";
 
 function Main() {
   const store = useStore();
@@ -54,7 +55,7 @@ function Main() {
             item={item}
             onTransition={callbacks.onTransition}
             onAdd={callbacks.addToBasket}
-            url='/articles'
+            url="/articles"
           />
         );
       },
@@ -65,20 +66,26 @@ function Main() {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Navigation>
-        <Menu />
-        <BasketTool
-          onOpen={callbacks.openModalBasket}
-          amount={select.amount}
-          sum={select.sum}
-        />
-      </Navigation>
-      <List list={select.list} renderItem={renders.item} />
-      <Pagination
-        currentPage={select.page}
-        totalArticles={select.count}
-        changePage={callbacks.changePage}
-      />
+        <Navigation>
+          <Menu />
+          <BasketTool
+            onOpen={callbacks.openModalBasket}
+            amount={select.amount}
+            sum={select.sum}
+          />
+        </Navigation>
+      {select.list.lenght !== 0 ? (
+        <>
+          <List list={select.list} renderItem={renders.item} />
+          <Pagination
+            currentPage={select.page}
+            totalArticles={select.count}
+            changePage={callbacks.changePage}
+          />
+        </>
+      ) : (
+        <Loader />
+      )}
     </PageLayout>
   );
 }
