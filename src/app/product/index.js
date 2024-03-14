@@ -16,7 +16,9 @@ const Product = () => {
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
-    lang: state.lang.lang
+    lang: state.lang.lang,
+    item: state.product.item,
+    isLoading: state.product.loading
   }));
 
   const callbacks = {
@@ -24,29 +26,18 @@ const Product = () => {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    changeLang: useCallback((lang) => store.actions.lang.changeLang(lang), [store])
+    changeLang: useCallback((lang) => store.actions.lang.changeLang(lang), [store]),
+    getItem: useCallback((_id) => store.actions.product.getItem(_id), [store])
   }
 
-  const [item, setItem] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
-
   useEffect(() => {
-    async function fetchData() {
-      setIsLoading(true)
-      const res = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`)
-      const json = await res.json()
-      setIsLoading(false)
-
-      setItem(json.result)
-    }
-
-    fetchData()
+    callbacks.getItem(id)
   }, [id])
 
   return (
     <PageLayout>
       <PageHeader
-        title={item?.title}
+        title={select.item?.title}
         lang={select.lang}
         changeLang={callbacks.changeLang}
         inProductPage
@@ -57,9 +48,9 @@ const Product = () => {
         sum={select.sum}
         lang={select.lang}
       />
-      <ProductFormLoader isLoading={isLoading} lang={select.lang}>
+      <ProductFormLoader isLoading={select.isLoading} lang={select.lang}>
         <ProductForm
-          item={item}
+          item={select.item}
           lang={select.lang}
           openModal={callbacks.openModalBasket}
           addToBasket={callbacks.addToBasket}
