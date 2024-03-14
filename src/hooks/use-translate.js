@@ -15,7 +15,7 @@ export default function useTranslate() {
   useEffect(() => {
     const locale = select.defaultLocale;
 
-    changeLang(locale);
+    loadLang(locale);
   }, []);
 
   function translate(resourseKey) {
@@ -24,7 +24,7 @@ export default function useTranslate() {
     return select.resourse[resourseKey];
   }
 
-  function changeLang(locale) {
+  function loadLang(locale) {
     store.actions.intl.setCurrentLocale(locale);
     store.actions.intl.loadLocaleResourse(locale);
   }
@@ -54,7 +54,7 @@ export default function useTranslate() {
   return {
     translate,
     constructOptionsByLocale,
-    changeLang,
+    changeLang: loadLang,
     resourseIsLoading: select.resourseIsLoading,
     currentLocale: select.currentLocale,
     defaultLocale: select.defaultLocale,
