@@ -1,0 +1,15 @@
+.Menu-list {
+  flex: 1 1 auto;
+}
+
+.Menu-link {
+  font-size: 18px;
+  text-decoration: underline;
+  color: #0087e9;
+}
+
+@media(any-hover: hover) {
+  .Menu-link:hover {
+    text-decoration: none;
+  }
+}

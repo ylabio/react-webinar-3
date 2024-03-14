@@ -45,6 +45,15 @@ class Catalog extends StoreModule {
     }, 'Загружен текущий продукт');
   }
 
+  async getProductById(id) {
+    const response = await fetch(`/api/v1/articles/${id}`);
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      list: [json.result]
+    }, 'Загружен текущий продукт по id');
+  }
+
   changeCurrentPage(page) {
     this.setState({
       ...this.getState(),

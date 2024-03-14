@@ -3,25 +3,26 @@ import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import { useParams } from "react-router";
-import useStore from "../../store/use-store";
+import { languages } from '../../store/language/languages';
 import './style.css';
 
 function ProductItem(props) {
 
   const cn = bem('ProductItem');
 
-  const store = useStore();
-
   const callbacks = {
-    onAdd: (id) => props.onAdd(id),
-    onClose: () => props.onClose()
+    onAdd: async (_id) => props.onAdd(_id),
+    onClose: () => props.onClose(),
+    getProduct: (id) => props.getProduct(id),
+    getProductById: (id) => props.getProductById(id)
   }
 
   const {productId} = useParams();
 
   useEffect(() => {
     callbacks.onClose();
-    store.actions.catalog.getProduct(productId);
+    callbacks.getProduct(productId);
+    callbacks.getProductById(productId);
   }, [productId]);
 
   if(!props.product) return <div>Загрузка товара ...</div>
@@ -40,7 +41,7 @@ function ProductItem(props) {
       <button
         className={cn('button')}
         onClick={() => callbacks.onAdd(productId)}>
-          Добавить
+          {languages[props.lang].add}
       </button>
     </div>
   );
@@ -53,13 +54,18 @@ ProductItem.propTypes = {
   price: PropTypes.number,
   amount: PropTypes.number
   }),
-   onAdd: PropTypes.func,
-   onClose: PropTypes.func
+  lang: PropTypes.string.isRequired,
+  onAdd: PropTypes.func,
+  onClose: PropTypes.func,
+  getProduct: PropTypes.func,
+  getProductById: PropTypes.func
 };
 
 ProductItem.defaultProps = {
   onAdd: () => {},
-  onClose: () => {}
+  onClose: () => {},
+  getProduct: () => {},
+  getProductById: () => {},
 }
 
 export default memo(ProductItem);

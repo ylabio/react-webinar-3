@@ -5,6 +5,7 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import ProductItem from "../../components/product-item";
+import { languages } from '../../store/language/languages';
 
 function Product() {
 
@@ -14,6 +15,7 @@ function Product() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     product: state.catalog.product,
+    lang: state.language.language
   }));
 
   const callbacks = {
@@ -23,15 +25,22 @@ function Product() {
     closeModal: useCallback(() => store.actions.modals.close(), [store]),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    // Получение товара от сервера с доп. полями
+    getProduct: useCallback(id =>  store.actions.catalog.getProduct(id), [store]),
+    // Получение товара от сервера по id
+    getProductById: useCallback(id =>  store.actions.catalog.getProductById(id), [store]),
+    // Изменение языка
+    changeCurrentLanguage: useCallback(() => store.actions.language.changeCurrentLanguage(), [store]),
   }
 
   return (
     <PageLayout>
-      <Head title='Название товара'/>
+      <Head title={languages[select.lang].title} lang={select.lang} changeCurrentLanguage={callbacks.changeCurrentLanguage}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+                  sum={select.sum} lang={select.lang}/>
       <ProductItem onAdd={callbacks.addToBasket} onClose={callbacks.closeModal}
-                  product={select.product}/>
+                  product={select.product} getProduct={callbacks.getProduct}
+                  getProductById={callbacks.getProductById} lang={select.lang}/>
     </PageLayout>
   );
 }
