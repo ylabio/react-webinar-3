@@ -25,7 +25,7 @@ function DetailsInfo() {
       () => store.actions.modals.open("basket"),
       [store]
     ),
-    }
+  };
   const renders = {
     itemBasket: useCallback(
       (item) => {
@@ -43,7 +43,6 @@ function DetailsInfo() {
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-
       />
     </PageLayout>
   );

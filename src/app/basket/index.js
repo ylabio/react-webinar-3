@@ -24,7 +24,7 @@ function Basket() {
     // Закрытие любой модалки
     closeModal: useCallback(() => store.actions.modals.close(), [store]),
     onRemove: (e) => props.onRemove(props.item._id),
-
+    //Закрытие модального окна при клике на item
     closeModalBasket: useCallback(() => store.actions.modals.close(),[store]),
     onRemoveModal: (e) => props.onRemove(props.item._id),
   };

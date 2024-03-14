@@ -83,3 +83,17 @@ export function useFetchData() {
 
   return { product, setProduct };
 }
+export function useFetchDataLang() {
+  const { id } = useParams();
+  const [language, setLanguage] = useState(null);
+
+  useEffect(() => {
+    fetch(
+      `/api/v1/articles/${id}/language`
+    )
+      .then((response) => response.json())
+      .then((data) => setLanguage(data.language));
+  }, [id]);
+
+  return { language, setLanguage };
+}
