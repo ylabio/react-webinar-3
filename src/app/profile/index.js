@@ -9,24 +9,21 @@ import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import LocaleSelect from "../../containers/locale-select";
+import ProfileBody from '../../components/profile-body';
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
  */
 function Profile() {
-  // const store = useStore();
+  const store = useStore();
 
-  // Параметры из пути /articles/:id
-  // const params = useParams();
+  useInit(() => {
+    store.actions.profile.load();
+  }, []);
 
-  // useInit(() => {
-  //   store.actions.article.load(params.id);
-  // }, [params.id]);
-
-  // const select = useSelector(state => ({
-  //   article: state.article.data,
-  //   waiting: state.article.waiting,
-  // }));
+  const select = useSelector(state => ({
+    waiting: state.profile.waiting,
+  }));
 
 
   return (
@@ -35,8 +32,8 @@ function Profile() {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <Spinner active={false}>
-        profile
+      <Spinner active={select.waiting}>
+        <ProfileBody/>
       </Spinner>
     </PageLayout>
   );

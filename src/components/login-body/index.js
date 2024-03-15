@@ -1,26 +1,18 @@
-import {memo, useCallback, useState} from "react";
+import {memo, useState} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
-import useStore from "../../hooks/use-store";
 
-function LoginBody({t}) {
+function LoginBody({t,onLogin,error}) {
 
   let [login,setLogin]=useState('')
   let [password,setPassword]=useState('')
 
-  const store = useStore();
-  const callbacks = {
-    // авторизация
-    onLogin: useCallback((data) => store.actions.user.auth(data), [store])
-  }
-
   function sendForm(){
-    callbacks.onLogin({login,password})
+    onLogin({login,password})
   }
 
   const cn = bem('LoginBody');
-  let error='Текст ошибки от сервера'
   return (
     <div className={cn()}>
      <h2 className={cn('title')}>Вход</h2>
@@ -39,11 +31,14 @@ function LoginBody({t}) {
 }
 
 LoginBody.propTypes = {
-  t: PropTypes.func
+  t: PropTypes.func,
+  onLogin: PropTypes.func,
+  error:PropTypes.string
 };
 
 LoginBody.defaultProps = {
-  t: (text) => text
+  t: (text) => text,
+  onLogin:(data)=>{}
 }
 
 export default memo(LoginBody);

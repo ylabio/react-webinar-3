@@ -1,21 +1,26 @@
 import StoreModule from "../module";
 
 /**
- * Детальная информация о товаре для страницы товара
+ * user
  */
 class UserState extends StoreModule {
 
   initState() {
     return {
-      login:'',
+      userName:'',
+      _id:'',
+      data:{},
+      token:'',
       isAuth:false,
-      waiting: false // признак ожидания загрузки
+      waiting: false, // признак ожидания загрузки
+      error:null,
+
     }
   }
 
   async auth(data) {
     this.setState({
-      login:'',
+      userName:'',
       isAuth:false,
       waiting: true // признак ожидания загрузки
     });
@@ -29,20 +34,24 @@ class UserState extends StoreModule {
         body: JSON.stringify(data),
       });
       const json = await response.json();
+      // Авторизован успешно
+      localStorage.setItem('access_token', json.result.token);
       debugger
-      // Товар загружен успешно
-      // this.setState({
-      //   data: json.result,
-      //   waiting: false
-      // }, 'Загружен товар из АПИ');
+      this.setState({
+        token: json.result.token,
+        userName:json.result.user.username,
+        _id:json.result.user._id,
+        waiting: false
+      }, 'Авторизован успешно');
 
     } catch (e) {
       // Ошибка при загрузке
-      // @todo В стейт можно положить информацию об ошибке
-      // this.setState({
-      //   data: {},
-      //   waiting: false
-      // });
+      this.setState({
+        userName:'',
+        isAuth:false,
+        waiting: false, // признак ожидания загрузки
+        error:e
+      });
     }
   }
 }

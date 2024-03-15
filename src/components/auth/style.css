@@ -1,5 +1,10 @@
 .Auth{
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   padding: 10px 20px;
+  column-gap: 20px;
+}
+.Auth a{
+  color: rgb(0, 135, 233);
 }
