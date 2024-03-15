@@ -1,0 +1,29 @@
+.ProductInfo {
+  width: 100%;
+  padding: 20px 40px 20px 40px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.ProductInfo-field {
+  margin-bottom: 20px;
+  font-size: 18px;
+  line-height: 20.7px;
+}
+
+.ProductInfo-field_w700s {
+  font-weight: 700;
+}
+
+.ProductInfo-field_w700b {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 27.6px;
+}
+
+.ProductInfo-btn_add {
+  width: 76px;
+  height: 21px;
+}

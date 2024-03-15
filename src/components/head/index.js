@@ -1,13 +1,20 @@
-import {memo} from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
-import './style.css';
+import useStore from "../../store/use-store";
+import "./style.css";
 
-function Head({title}) {
+function Head(props) {
+  const store = useStore();
+  const t = props.useTranslate;
+
   return (
-    <div className='Head'>
-      <h1>{title}</h1>
+    <div className="Head">
+      <h1>{t(props.title)}</h1>
+      <button onClick={props.langChange}>
+        {props.lang === "ru" ? "en" : "ru"}
+      </button>
     </div>
-  )
+  );
 }
 
 Head.propTypes = {
