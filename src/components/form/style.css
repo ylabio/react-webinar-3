@@ -1,0 +1,10 @@
+.Form {
+  padding: 20px;
+}
+
+.Form-form {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 20px;
+}

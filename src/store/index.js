@@ -8,13 +8,7 @@ class Store {
   constructor(initState = {}) {
     this.listeners = []; // Слушатели изменений состояния
     this.state = initState;
-    /** @type {{
-     * basket: BasketState,
-     * catalog: CatalogState,
-     * modals: ModalsState,
-     * article: ArticleState,
-     * locale: LocaleState
-     * }} */
+
     this.actions = {};
     for (const name of Object.keys(modules)) {
       this.actions[name] = new modules[name](this, name);
