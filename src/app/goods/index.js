@@ -21,7 +21,7 @@ function Goods() {
 
   useEffect(() => {
     store.actions.catalog.detail(id);
-  }, []);
+  }, [id]);
 
   const callbacks = {
     // Добавление в корзину
