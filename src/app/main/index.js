@@ -20,6 +20,10 @@ function Main() {
     store.actions.catalog.initParams();
   }, [], true);
 
+  useInit(() => {
+    store.actions.catalog.loadCategories();
+  }, [], true);
+
   const {t} = useTranslate();
 
   return (

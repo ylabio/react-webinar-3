@@ -16,10 +16,12 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        categorySort: 'all'
       },
       count: 0,
-      waiting: false
+      waiting: false,
+      categories: [],
     }
   }
 
@@ -92,6 +94,31 @@ class CatalogState extends StoreModule {
       count: json.result.count,
       waiting: false
     }, 'Загружен список товаров из АПИ');
+  }
+
+  async loadCategories() {
+    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
+    const json = await response.json();
+    const items = json.result.items;
+    console.log(111, items);
+    // const sortItems = (items, parentId = null) => {
+    //   return items
+    //     .filter(item => item.parent === parentId)
+    //     .map(item => ({
+    //       ...item,
+    //       children: sortItems(items, item.id)
+    //     }));
+    // };
+    // const sortedItems = sortItems(items);
+    // console.log(0, sortedItems);
+    this.setState({
+      ...this.getState(),
+      categories: json.result.items,
+    });
+  }
+
+  async filterCategories() {
+
   }
 }
 
