@@ -20,7 +20,7 @@ function ItemBasket(props) {
       <div className={cn("title")}>
         <Link
           className={cn("link")}
-          to={`/articles/${props.item._id}`}
+          to={props.linkTo}
           onClick={callbacks.closeModal}
         >
           {props.item.title}

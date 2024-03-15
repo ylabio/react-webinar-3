@@ -70,6 +70,7 @@ function Main() {
         return (
           <Item
             item={item}
+            linkTo={`/articles/${item._id}`}
             onAdd={callbacks.addToBasket}
             useTranslate={callbacks.useTranslate}
           />
@@ -96,7 +97,12 @@ function Main() {
           useTranslate={callbacks.useTranslate}
           changePage={callbacks.changePage}
         />
-        <List list={select.list} renderItem={renders.item} />
+        {page != select.currentPage && select.currentPage != 1 ? (
+          "Loading..."
+        ) : (
+          <List list={select.list} renderItem={renders.item} />
+        )}
+        {/* <List list={select.list} renderItem={renders.item} /> */}
         {select.itemsTotal > 10 && (
           <Paginator
             currentPage={select.currentPage}

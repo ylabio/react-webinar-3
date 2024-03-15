@@ -11,7 +11,7 @@ function BasketTool({ sum, amount, onOpen, useTranslate, changePage }) {
 
   const callbacks = {
     changePage: () => {
-      changePage(1);
+      changePage();
     },
   };
 

@@ -38,6 +38,7 @@ function Basket() {
         return (
           <ItemBasket
             item={item}
+            linkTo={`/articles/${item._id}`}
             onRemove={callbacks.removeFromBasket}
             closeModal={callbacks.closeModal}
             useTranslate={callbacks.useTranslate}

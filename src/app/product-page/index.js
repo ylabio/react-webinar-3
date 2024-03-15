@@ -52,13 +52,9 @@ function ProductPage() {
       store.actions.translator.langChange();
     }, [store]),
 
-    changePage: useCallback(
-      (page) => {
-        store.actions.catalog.load(page);
-        navigate("/");
-      },
-      [store, select.currentPage]
-    ),
+    changePage: useCallback(() => {
+      navigate("/");
+    }, [store, select.currentPage]),
   };
 
   return (
