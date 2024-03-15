@@ -1,0 +1,18 @@
+.Label {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  width: 203px;
+  margin-top: 20px;
+}
+
+.Label-input {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  padding: 3px;
+}

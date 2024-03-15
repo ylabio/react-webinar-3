@@ -33,3 +33,43 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function buildCategoryHierarchy(categories) {
+
+  const categoryMap = {};
+  categories.forEach(category => {
+    categoryMap[category._id] = category;
+  });
+
+  let counter = {};
+
+  const hierarchy = [];
+  categories.forEach(category => {
+    if (!category.parent) {
+      hierarchy.push({title: category.title, _id: category._id});
+    } else {
+      let parent = category;
+
+      const chain = [];
+      while (parent.parent) {
+        parent = categoryMap[parent.parent._id];
+        chain.unshift(parent.title);
+      }
+
+      const prefix = '-'.repeat(chain.length);
+
+      if (chain.length === 1) {
+        const index = hierarchy.findIndex(item => item.title === chain[0])
+        counter[hierarchy[index]._id] = counter[hierarchy[index]._id] ? counter[hierarchy[index]._id] : 0;
+        hierarchy.splice(index + 1 + counter[hierarchy[index]._id], 0,  {title: `${prefix} ${category.title}`, _id: category._id})
+        counter[hierarchy[index]._id] += 1
+      } else if (chain.length > 1) {
+        const index = hierarchy.findIndex(item => item.title === `${prefix.slice(0, prefix.length - 1)} ${chain[chain.length - 1]}`)
+        counter[hierarchy[index]._id] = counter[hierarchy[index]._id] ? counter[hierarchy[index]._id] : 0;
+        hierarchy.splice(index + 1 + counter[hierarchy[index]._id], 0, {title: `${prefix} ${category.title}`, _id: category._id})
+        counter[hierarchy[index]._id] += 1
+      }
+    }
+  });
+  return hierarchy;
+}
