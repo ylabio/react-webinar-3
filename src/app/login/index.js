@@ -1,5 +1,5 @@
-import {memo, useCallback, useEffect, useState} from 'react';
-import {useNavigate, useLocation} from "react-router-dom";
+import { memo, useCallback, useEffect, useState } from 'react';
+import { useNavigate, useLocation } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import Navigation from "../../containers/navigation";
@@ -16,7 +16,7 @@ function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const store = useStore();
-  const [data, setData] = useState({login: '', password: ''})
+  const [data, setData] = useState({ login: '', password: '' })
 
   const select = useSelector(state => ({
     status: state.login.status,
@@ -29,14 +29,14 @@ function Login() {
       store.actions.login.signIn(dataForm)
     }, []),
     onChange: useCallback((value, name) => {
-      setData(prev => ({...prev, [name]: value}))
+      setData(prev => ({ ...prev, [name]: value }))
     }, [store]),
   }
 
   useEffect(() => {
     store.actions.login.reset()
-    if(select.status) {
-    const back = location.state?.come_back && location.pathname !== location.state?.come_back
+    if (select.status) {
+      const back = location.state?.come_back && location.pathname !== location.state?.come_back
         ? location.state?.come_back
         : '/';
       navigate(back);
@@ -45,27 +45,27 @@ function Login() {
 
   return (
     <PageLayout>
-      <TopMenu/>
+      <TopMenu />
       <Head title='Магазин'>
-        <LocaleSelect/>
+        <LocaleSelect />
       </Head>
-      <Navigation/>
+      <Navigation />
       <Form onSubmit={callbacks.onSubmit} dataForm={data}>
-        <InputLayout label='Логин'>
+        <InputLayout name='login' label='Логин'>
           <Input
             type='text'
             name='login'
             value={data.login}
-            onChange={callbacks.onChange}/>
+            onChange={callbacks.onChange} />
         </InputLayout>
-        <InputLayout label='Пароль'>
+        <InputLayout name='password' label='Пароль'>
           <Input
             type='password'
             name='password'
             value={data.password}
-            onChange={callbacks.onChange}/>
+            onChange={callbacks.onChange} />
         </InputLayout>
-        {select.error && <InputLayout error={select.error}/>}
+        {select.error && <InputLayout error={select.error} />}
         <button type='submit'>Войти</button>
       </Form>
     </PageLayout>
