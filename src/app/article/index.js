@@ -24,9 +24,15 @@ function Article() {
     store.actions.article.load(params.id);
   }, [params.id]);
 
+  useInit(() => {
+    store.actions.login.initParams();
+  }, []);
+
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
+    isAuth: state.login.isAuth,
+    user: state.login.user
   }));
 
   const {t} = useTranslate();
@@ -34,11 +40,16 @@ function Article() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    // Выйти из аккаунта
+    removeAuthorization: useCallback(body =>
+      store.actions.login.removeAuthorization(body), [store]),
   }
 
   return (
     <PageLayout>
-      <Head title={select.article.title}>
+      <Head title={select.article.title} enter={t('enter')} exit={t('exit')} user={select.user}
+            isAuth={select.isAuth} removeAuthorization={callbacks.removeAuthorization}
+            link='/profile'>
         <LocaleSelect/>
       </Head>
       <Navigation/>

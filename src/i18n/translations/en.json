@@ -1,5 +1,9 @@
 {
   "title": "Shop",
+  "enter": "Enter",
+  "exit": "Exit",
+  "login": "Login",
+  "profile": "Profile",
   "menu.main": "Main",
   "basket.title": "Cart",
   "basket.open": "Open",
