@@ -16,16 +16,17 @@ import HeadParts from "../../components/head-parts";
 function Product() {
   const store = useStore();
   const { productId } = useParams();
-
+  console.log(store);
   useEffect(() => {
     store.actions.productDetails.load(productId);
-  }, [store]);
+  }, [productId]);
 
   const select = useSelector((state) => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
     product: state.productDetails.result,
     lang: state.language.lang,
+    waiting: state.productDetails.waiting,
   }));
 
   const callbacks = {
@@ -59,15 +60,13 @@ function Product() {
           text={text.basketTool}
         />
       </Navigation>
-      {select.product._id !== undefined ? (
+      <Loader active={select.waiting}>
         <Details
           product={select.product}
           addToBasket={callbacks.addToBasket}
           text={text.details}
         />
-      ) : (
-        <Loader />
-      )}
+      </Loader>
     </PageLayout>
   );
 }

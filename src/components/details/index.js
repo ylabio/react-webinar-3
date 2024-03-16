@@ -44,7 +44,7 @@ function Details({ product, addToBasket, text }) {
 
 Details.propTypes = {
   product: PropTypes.shape({
-    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     description: PropTypes.string.isRequired,
     edition: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,

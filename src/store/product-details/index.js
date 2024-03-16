@@ -11,15 +11,32 @@ class ProductDetails extends StoreModule {
   initState() {
     return {
       result: {},
+      waiting: true,
     }
   }
 
   async load(id) {
-    const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
-    const json = await response.json();
     this.setState({
-      result: json.result,
-    }, 'Загружена информация о товаре из АПИ');
+      result: {},
+      waiting: true,
+    })
+
+    try {
+
+      const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
+      const json = await response.json();
+      this.setState({
+        result: json.result,
+        waiting: false,
+      }, 'Загружена информация о товаре из АПИ');
+
+      //@todo в стейм можно положить информацию об ошибке.
+    } catch(e) {
+      this.setState({
+        result: {},
+        waiting: false,
+      })
+    }
   }
 }
 

@@ -25,6 +25,7 @@ function Main() {
     list: state.catalog.list,
     count: state.catalog.count,
     page: state.catalog.page,
+    waiting: state.catalog.waiting,
 
     amount: state.basket.amount,
     sum: state.basket.sum,
@@ -89,18 +90,14 @@ function Main() {
           text={text.basketTool}
         />
       </Navigation>
-      {select.list.lenght !== 0 ? (
-        <>
+        <Loader active={select.waiting}>
           <List list={select.list} renderItem={renders.item} />
           <Pagination
             currentPage={select.page}
             totalArticles={select.count}
             changePage={callbacks.changePage}
           />
-        </>
-      ) : (
-        <Loader />
-      )}
+        </Loader>
     </PageLayout>
   );
 }
