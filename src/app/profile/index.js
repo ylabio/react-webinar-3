@@ -10,30 +10,50 @@ import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import LocaleSelect from "../../containers/locale-select";
 import ProfileBody from '../../components/profile-body';
-
+import Autorisation from '../../containers/autorisation';
+import { useNavigate } from "react-router-dom";
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
  */
 function Profile() {
+  const navigate = useNavigate();
+
   const store = useStore();
 
-  useInit(() => {
-    store.actions.profile.load();
-  }, []);
-
   const select = useSelector(state => ({
-    waiting: state.profile.waiting,
+    waiting: state.user.waiting,
+    userName:state.user.data.userName,
+    phone:state.user.data.phone,
+    email:state.user.data.email,
+    isAuth:state.user.isAuth,
+
   }));
 
 
+  useInit(() => {
+    store.actions.user.load();
+  }, []);
+
+  if(!select.isAuth){
+    navigate('/login')
+  }
+  const {t} = useTranslate();
+  
+  const profileText={
+    title:t('profile.title'),
+    name:t('profile.name'),
+    phone:t('profile.phone'),
+  }
+
   return (
     <PageLayout>
+      <Autorisation/>
       <Head title={'Магазин'}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <ProfileBody/>
+        <ProfileBody name={select.userName} phone={select.phone} email={select.email} profileText={profileText}/>
       </Spinner>
     </PageLayout>
   );

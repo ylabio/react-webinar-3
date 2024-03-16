@@ -8,15 +8,14 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
 import LocaleSelect from "../../containers/locale-select";
-import Auth from '../../components/auth';
 import LoginBody from '../../components/login-body';
+import Autorisation from '../../containers/autorisation';
+import { useNavigate } from "react-router-dom";
 
 /**
  * Страница логина
  */
 function Login() {
-
-  
 
   const store = useStore();
 
@@ -26,17 +25,31 @@ function Login() {
 
   const callbacks = {
     // авторизация
-    onLogin: useCallback((data) => store.actions.user.auth(data), [store])
+    onLogin: useCallback((data) => store.actions.user.login(data), [store])
   }
-
+  const navigate = useNavigate();
+  function tryLogin(data){
+    callbacks.onLogin(data).then((res)=>{
+      if(res){
+        navigate("/profile")
+      }
+    })
+  }
+  const {t} = useTranslate();
+  const loginText={
+    title:t('login.title'),
+    login:t('login.login'),
+    password:t('login.password'),
+    button:t('login.button')
+  }
   return (
     <PageLayout>
-      <Auth/>
-      <Head title={'Магазин'}>
+      <Autorisation/>
+      <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <LoginBody onLogin={callbacks.onLogin} serverError={select.error}/>
+      <LoginBody onLogin={tryLogin} serverError={select.error} loginText={loginText}/>
     </PageLayout>
   );
 }

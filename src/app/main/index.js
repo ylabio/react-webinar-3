@@ -8,8 +8,7 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
-import Auth from '../../components/auth';
-import useSelector from '../../hooks/use-selector';
+import Autorisation from '../../containers/autorisation';
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -17,10 +16,6 @@ import useSelector from '../../hooks/use-selector';
 function Main() {
 
   const store = useStore();
-
-  const select = useSelector(state => ({
-    userName: state.user.userName,
-  }));
 
   useInit(() => {
     store.actions.catalog.initParams();
@@ -30,7 +25,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Auth userName={select.userName}/>
+      <Autorisation/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
