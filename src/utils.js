@@ -33,3 +33,29 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Сортировка вложенного списка с категориями товаров
+ * @param categories {[Oblect]}
+ * @param parentId {String}
+ * @param count {Number}
+ * @returns {[Object]}
+ */
+export function sortCategories(categories, parentId = null, count = 0) {
+  const sortedItems = [];
+
+  for (const item of categories) {
+    if ((item.parent === null && parentId === null) || (item.parent && item.parent._id === parentId)) {
+      const sortedItem = {
+        ...item,
+        value: item._id,
+        title: '- '.repeat(count) + item.title
+      }
+      sortedItems.push(sortedItem);
+      const children = sortCategories(categories, item._id, count + 1);
+      sortedItems.push(...children);
+    }
+  }
+
+  return sortedItems;
+}
