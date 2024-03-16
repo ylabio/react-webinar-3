@@ -1,10 +1,11 @@
-import {memo, useCallback, useMemo} from "react";
+import {memo, useCallback, useEffect, useMemo} from "react";
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
+import { buildHierarchy } from "../../utils";
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -13,9 +14,14 @@ function CatalogFilter() {
 
   const store = useStore();
 
+  useEffect(() => {
+    store.actions.catalog.getCategories();
+  }, [store]);
+
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    categories: state.catalog.categories
   }));
 
   const callbacks = {
@@ -25,6 +31,8 @@ function CatalogFilter() {
     onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
+    // Поиск по категории
+    onCategory: useCallback(category => store.actions.catalog.setParams({category, page: 1}), [store]),
   };
 
   const options = {
@@ -35,6 +43,12 @@ function CatalogFilter() {
       {value: 'edition', title: 'Древние'},
     ]), [])
   };
+
+  const optionsCategories = {
+    categories: useMemo(() => {return buildHierarchy(select.categories) }, [select.categories])
+  }
+
+  console.log(optionsCategories.categories);
 
   const {t} = useTranslate();
 

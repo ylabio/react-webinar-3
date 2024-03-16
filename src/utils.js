@@ -1,3 +1,5 @@
+import { func } from "prop-types";
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -32,4 +34,18 @@ export function codeGenerator(start = 0) {
  */
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
+}
+
+export function buildHierarchy(items, parent = null) {
+  const result = [];
+
+  for (const item of items) {
+    if (parent && item.parent && (item.parent._id === parent._id)) {
+      result.push("-" + item.title);
+      buildHierarchy(items, item);
+    }
+    result.push(item.title);
+  }
+
+  return result;
 }
