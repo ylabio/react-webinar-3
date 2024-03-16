@@ -1,17 +1,21 @@
 import {memo} from "react";
 import PropTypes from 'prop-types';
-import Item from "../item";
+import Paginate from "../pagination";
 import './style.css';
 
-function List({list, renderItem}) {
+function List({list, listLength = 0, limit = 10, renderItem, setSkip}) {
+
   return (
-    <div className='List'>{
-      list.map(item =>
-        <div key={item._id} className='List-item'>
-          {renderItem(item)}
-        </div>
-      )}
-    </div>
+    <>
+      <div className='List'>{
+        list.map(item =>
+          <div key={item._id} className='List-item'>
+            {renderItem(item)}
+          </div>
+        )}
+      </div>
+      {listLength > 0 && <Paginate listLength={listLength} limit={limit} setSkip={setSkip}/>}
+    </>
   )
 }
 

@@ -14,26 +14,27 @@ class Basket extends StoreModule {
    * Добавление товара в корзину
    * @param _id Код товара
    */
-  addToBasket(_id) {
+  addToBasket(_id = 0, articleId = 0) {
     let sum = 0;
     // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
     const list = this.getState().list.map(item => {
       let result = item;
-      if (item._id === _id) {
+      if (item._id === _id || item._id === articleId) {
         exist = true; // Запомним, что был найден в корзине
         result = {...item, amount: item.amount + 1};
       }
       sum += result.price * result.amount;
       return result;
     });
-
     if (!exist) {
       // Поиск товара в каталоге, чтобы его добавить в корзину.
       // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      const item = this.store.getState().catalog.list.find(item => item._id === _id);
+      let item = this.store.getState().catalog.list.find(item => item._id === _id || item._id === articleId);
+      !item && (item = this.store.getState().article.item); // Поиск товара в случаях, когда добавление происходит со страницы товара(для случаев когда пользователь попал на страницу товара по ссылке)
       list.push({...item, amount: 1}); // list уже новый, в него можно пушить.
       // Добавляем к сумме.
+      
       sum += item.price;
     }
 

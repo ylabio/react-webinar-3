@@ -1,9 +1,20 @@
 .Head {
   height: 80px;
   background: #f5f5f5;
+  display: flex;
+  justify-content: space-around;
 }
 
 .Head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+}
+
+.Head-langs {
+  margin: auto 0 auto auto;
+  padding: 30px;
+}
+
+.Head-langs a {
+  padding: 0 15px;
 }
