@@ -1,0 +1,18 @@
+.Pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  padding: 22px 21px;
+}
+
+.Pagination-list {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  margin-block: 0;
+}
+
+.Pagination-blank {
+  color: #CCCCCC;
+  width: 20px;
+}

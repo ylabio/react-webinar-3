@@ -17,6 +17,16 @@
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  font-size: 16px;
+}
+
+.Item-link {
+  text-decoration: none;
+  color: #000000;
+}
+
+.Item-link:hover {
+  text-decoration: underline;
 }
 
 .Item-actions {

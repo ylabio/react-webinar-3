@@ -1,0 +1,22 @@
+.Product {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  padding: 20px 40px;
+}
+
+.Product-button {
+  width: 76px;
+  height: 21px;
+  border: 1px solid #767676;
+  border-radius: 2px;
+}
+
+.Product span {
+  font-weight: bold;
+}
+
+.Product-price {
+  font-size: 24px;
+  font-weight: bold;
+}

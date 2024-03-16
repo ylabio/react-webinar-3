@@ -1,0 +1,7 @@
+.HeadParts {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 30px;
+  background-color: #f5f5f5;
+}
