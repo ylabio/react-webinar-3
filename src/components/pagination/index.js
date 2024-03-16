@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function Paginate({listLength = 0, limit = 10, setSkip}) {
+function Paginate({listLength, limit, setSkip}) {
   const [currentPage, setCurrentPage] = useState(1);
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(listLength / limit); i++) {

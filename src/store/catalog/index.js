@@ -11,7 +11,8 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
-      listLength: 0 
+      listLength: 0, 
+      limit: 10,
     }
   }
 
