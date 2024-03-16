@@ -40,25 +40,14 @@ function CatalogFilter() {
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
     ]), []),
-    // filter: useMemo(() => ([
-    //   {value: 'all', title: 'Все'},
-    //   {value: 'electronics', title: 'Электроника'},
-    // ]), [])
-    // filter: useMemo(() => {
-    //   setIsLoading(true);
-    //   const categories = callbacks.getCategories();
-    //   setIsLoading(false);
-    //   console.log('options filter', categories);
-    //   return categories;
-    // },[])
     filter: select.categories
   };
 
   const {t} = useTranslate();
 
-  useEffect(()=>{
-    callbacks.getCategories();
-  },[callbacks.getCategories]);
+  // useEffect(()=>{
+  //   callbacks.getCategories();
+  // },[callbacks.getCategories]);
 
   return (
     <SideLayout padding='medium'>
