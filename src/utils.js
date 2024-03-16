@@ -33,3 +33,38 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Строит иерархию категорий с учетом родительских и дочерних категорий.
+ * @param {Array<Object>} categories - Массив категорий.
+ * @returns {Array<Object>} - Массив объектов категорий с учетом иерархии.
+ */
+export function buildCategoryOptions(categories, parentId = null, depth = 0) {
+  const result = [];
+  
+  if (!parentId) {
+    result.push({ value: 'all', title: 'Все категории' });
+  }
+
+  categories.forEach(category => {
+    const { _id, title, parent } = category;
+
+    if (parent && parent._id === parentId) {
+      const prefix = '-'.repeat(depth);
+      const fullTitle = `${prefix} ${title}`;
+      result.push({ value: _id, title: fullTitle });
+
+      const children = buildCategoryOptions(categories, _id, depth + 1);
+      result.push(...children);
+    } else if (!parent && !parentId) {
+      const prefix = '-'.repeat(depth);
+      const fullTitle = `${prefix} ${title}`;
+      result.push({ value: _id, title: fullTitle });
+
+      const children = buildCategoryOptions(categories, _id, depth + 1);
+      result.push(...children);
+    }
+  });
+
+  return result;
+}

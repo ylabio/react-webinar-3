@@ -1,0 +1,26 @@
+.AuthPanel {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 20px;
+}
+
+.AuthPanel-authorized {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.AuthPanel-name {
+  font-weight: 400;
+  font-size: 13px;
+  text-decoration: none;  
+  color: #0087e9;
+}
+
+.AuthPanel-name:hover {
+  text-decoration: underline;  
+}
+
+
+
