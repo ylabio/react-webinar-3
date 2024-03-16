@@ -14,7 +14,7 @@ function CatalogFilter() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    filter: state.catalog.params.filter,
+    category: state.catalog.params.category,
     categories: state.catalog.categories,
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
@@ -24,7 +24,7 @@ function CatalogFilter() {
     // Получить категории из API
     getCategories: useCallback(() => store.actions.catalog.getCategories(), [store]),
     // Фильтр
-    onFilter: useCallback(filter => store.actions.catalog.setParams({filter}), [store]),
+    onFilter: useCallback(category => store.actions.catalog.setParams({category, page: 1}), [store]),
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
     // Поиск
@@ -40,7 +40,7 @@ function CatalogFilter() {
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
     ]), []),
-    filter: select.categories
+    categories: select.categories
   };
 
   const {t} = useTranslate();
@@ -51,7 +51,7 @@ function CatalogFilter() {
 
   return (
     <SideLayout padding='medium'>
-      <Select options={options.filter} value={select.filter} onChange={callbacks.onFilter}/>
+      <Select options={options.categories} value={select.category} onChange={callbacks.onFilter}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>

@@ -4,7 +4,7 @@ import {cn as bem} from '@bem-react/classname'
 import './style.css';
 
 function Pagination(props) {
-  console.log('Pagination(props)', props);
+  // console.log('Pagination(props)', props);
 
   // Количество страниц
   const length = Math.ceil(props.count / Math.max(props.limit, 1));
