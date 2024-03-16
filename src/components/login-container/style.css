@@ -1,0 +1,11 @@
+.Login {
+  height: 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 22px;
+}
+
+.Login button {
+  margin-left: 20px;
+}

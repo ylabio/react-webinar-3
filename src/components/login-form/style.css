@@ -1,0 +1,33 @@
+.LoginForm {
+  display: flex;
+  flex-direction: column;
+  padding-left: 19px;
+  margin-top: 20px;
+}
+
+.LoginForm-inputs {
+  margin-top: 5px;
+  display: block;
+}
+
+.LoginForm-inputs span {
+  display: block;
+}
+
+.LoginForm-inputs input {
+  display: block;
+  margin-bottom: 20px;
+  width: 200px;
+  height: 26px;
+  border-radius: 0;
+  border: 1px solid #767676;
+}
+
+.LoginForm-inputs input:focus {
+  outline: none;
+}
+
+.LoginForm-error {
+  color: #ff0000;
+  margin-bottom: 20px;
+}
