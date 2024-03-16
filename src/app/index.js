@@ -1,6 +1,7 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import {Routes, Route} from 'react-router-dom';
 import useSelector from "../hooks/use-selector";
+import useStore from "../hooks/use-store";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
@@ -11,7 +12,12 @@ import Article from "./article";
  */
 function App() {
 
+  const store = useStore();
   const activeModal = useSelector(state => state.modals.name);
+  
+  useEffect(() => {
+    store.actions.categories.load();
+  }, []);
 
   return (
     <>
