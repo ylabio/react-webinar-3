@@ -1,0 +1,17 @@
+.ProfileCard {
+
+}
+.ProfileCard span {
+    font-weight: 700;
+    font-size: 18px;
+}
+.ProfileCard-title{
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 27.6px;
+    margin: 30px 20px;
+}
+.ProfileCard-name,.ProfileCard-email,.ProfileCard-phone {
+    font-size: 18px;
+    margin: 20px;
+}

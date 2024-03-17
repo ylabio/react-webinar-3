@@ -14,7 +14,7 @@ import LocaleSelect from "../../containers/locale-select";
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
  */
-function Article() {
+function Article(props) {
   const store = useStore();
 
   // Параметры из пути /articles/:id
@@ -37,8 +37,9 @@ function Article() {
   }
 
   return (
-    <PageLayout>
+      <PageLayout> {props.isLoggedIn}
       <Head title={select.article.title}>
+             
         <LocaleSelect/>
       </Head>
       <Navigation/>
