@@ -58,15 +58,15 @@ class CategoriesState extends StoreModule {
 
       this.setState({
         ...this.getState(),
-        categories
+        categories,
+        waiting: false
       }, 'Категории получены из АПИ')
     } catch (e) {
       console.error(e)
-    } finally {
       this.setState({
         ...this.getState(),
-        waiting: false,
-      }, 'Загрузка категорий завершена')
+        waiting: false
+      }, 'Ошибка загрузки категорий')
     }
   }
 }

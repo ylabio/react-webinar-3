@@ -1,0 +1,19 @@
+.ProfileInfo {
+  margin-top: 40px;
+}
+
+.ProfileInfo-title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.ProfileInfo-body {
+  display: flex;
+  flex-direction: column;
+
+  font-size: 18px;
+}
+
+.ProfileInfo-body span {
+  margin-top: 20px;
+}
