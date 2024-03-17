@@ -31,26 +31,29 @@ class UserState extends StoreModule {
         body: JSON.stringify(data),
       });
       const json = await response.json();
-      // Авторизован успешно
-      localStorage.setItem('access_token', json.result.token);
-      this.setState({
-        ...this.getState(),
-        isAuth:true,
-        waiting:false,
-        data:{
-          userName:json.result.user.username,
-        }
-      }, 'Авторизован успешно');
-      return true
+      if(!json.error){
+        this.setState({
+          ...this.getState(),
+          isAuth:true,
+          waiting:false,
+          data:{
+            userName:json.result.user.username,
+          }
+        }, 'Авторизован успешно');
+        localStorage.setItem('access_token', json.result.token);
+        return true
+      }else{
+        this.setState({
+          ...this.getState(),
+          waiting:false,
+          error: json.error.data.issues[0].message,
+        });
+      }
     } catch (e) {
-      // Ошибка при загрузке
-      this.setState({
-        ...this.getState(),
-        waiting:false,
-        error:e
-      });
+      console.error(e.message)
     }
   }
+
   async logout() {
     this.setState({
       ...this.getState(),
@@ -80,11 +83,7 @@ class UserState extends StoreModule {
 
     } catch (e) {
       // Ошибка при загрузке
-      this.setState({
-        ...this.getState(),
-        waiting: false, // признак ожидания загрузки
-        error:e
-      });
+      console.error(e.message)
     }
   }
   async load() {
@@ -92,7 +91,6 @@ class UserState extends StoreModule {
       ...this.getState(),
       waiting: true, // признак ожидания загрузки
     });
-
     try {
       const response = await fetch(`/api/v1/users/self?fields=*`,{
         method: "GET",
@@ -102,7 +100,6 @@ class UserState extends StoreModule {
         },
       });
       const json = await response.json();
-      // данные профиля загружены успешно
       this.setState({
         ...this.getState(),
         isAuth:true,
@@ -114,13 +111,9 @@ class UserState extends StoreModule {
         waiting: false, // признак ожидания загрузки
         error:null,
       }, 'Данные профиля загружены');
+      return true
     } catch (e) {
-      // Ошибка при загрузке
-      this.setState({
-        ...this.getState(),
-        waiting: false, // признак ожидания загрузки
-        error:e,
-      });
+      console.error(e.message)
     }
   }
 }

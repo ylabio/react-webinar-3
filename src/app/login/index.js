@@ -3,7 +3,6 @@ import {useParams} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
-import useInit from "../../hooks/use-init";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
@@ -20,7 +19,7 @@ function Login() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    error: state.user.amount,
+    error: state.user.error,
   }));
 
   const callbacks = {
@@ -49,7 +48,7 @@ function Login() {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <LoginBody onLogin={tryLogin} serverError={select.error} loginText={loginText}/>
+      <LoginBody onLogin={tryLogin} error={select.error} loginText={loginText}/>
     </PageLayout>
   );
 }

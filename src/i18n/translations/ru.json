@@ -22,7 +22,7 @@
   "login.password":"Пароль",
   "login.button":"Войти",
   "auth.buttonIn":"Вход",
-  "auth.buttonOut":"log out",
+  "auth.buttonOut":"Выход",
   "profile.title":"Профиль",
   "profile.name":"Имя",
   "profile.phone":"Телефон"

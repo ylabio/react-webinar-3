@@ -1,5 +1,4 @@
 import {memo, useCallback, useMemo} from 'react';
-import {useParams} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -13,7 +12,7 @@ import ProfileBody from '../../components/profile-body';
 import Autorisation from '../../containers/autorisation';
 import { useNavigate } from "react-router-dom";
 /**
- * Страница товара с первичной загрузкой товара по id из url адреса
+ * Страница профиля
  */
 function Profile() {
   const navigate = useNavigate();
@@ -26,17 +25,17 @@ function Profile() {
     phone:state.user.data.phone,
     email:state.user.data.email,
     isAuth:state.user.isAuth,
-
   }));
 
 
   useInit(() => {
-    store.actions.user.load();
-  }, []);
+    store.actions.user.load().then((res)=>{
+      if(!res){
+        navigate('/login')
+      }
+    })
+  }, [select.isAuth]);
 
-  if(!select.isAuth){
-    navigate('/login')
-  }
   const {t} = useTranslate();
   
   const profileText={
