@@ -25,6 +25,7 @@ FormInput.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string,
   value: PropTypes.string,
+  errorMessage: PropTypes.string,
   onChange: PropTypes.func
 };
 

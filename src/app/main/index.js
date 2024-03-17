@@ -19,7 +19,6 @@ function Main() {
 
   useInit(() => {
     store.actions.catalog.initParams();
-    store.actions.category.getCategories(); // перенести в catalog-filter
   }, [], true);
 
   const {t} = useTranslate();

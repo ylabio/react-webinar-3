@@ -6,13 +6,18 @@ import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
 import { formatCategories } from "../../utils";
+import useInit from "../../hooks/use-init";
 
 /**
  * Контейнер со всеми фильтрами каталога
  */
 function CatalogFilter() {
-
   const store = useStore();
+  const {t} = useTranslate();
+
+  useInit(() => {
+    store.actions.category.getCategories();
+  }, [], true);
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
@@ -20,8 +25,6 @@ function CatalogFilter() {
     category: state.catalog.params.category,
     categories: state.category.list
   }));
-
-  console.log(select.list)
 
   const callbacks = {
     // Сортировка
@@ -45,8 +48,6 @@ function CatalogFilter() {
       ...formatCategories(select.categories)
     ]), [select.categories])
   };
-
-  const {t} = useTranslate();
 
   return (
     <SideLayout padding='medium'>

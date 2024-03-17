@@ -17,14 +17,12 @@ function Profile() {
     const store = useStore();
     const navigate = useNavigate() 
 
-
     const select = useSelector(state => ({
         user: state.profile.user,
         waiting: state.profile.waiting,
         errorMessage: state.profile.errorMessage,
         token: state.authorization.token
       }));
-
 
     useInit(async () => {
         if (select.token) {

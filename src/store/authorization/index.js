@@ -6,7 +6,6 @@ class AuthorizationState extends StoreModule {
     return {
       userName: localStorage.getItem('userName') || '',
       token: localStorage.getItem('token') || null,
-      waiting: false,
       errorMessage: ''
     }
   }
@@ -14,7 +13,6 @@ class AuthorizationState extends StoreModule {
   async signIn(data) {
     this.setState({
         ...this.getState(),
-        waiting: true,
         errorMessage: ''
       });
 
@@ -34,7 +32,6 @@ class AuthorizationState extends StoreModule {
         this.setState({
           ...this.getState(),
           errorMessage: json.error.data.issues[0].message,
-          waiting: false
         });
       } 
 
@@ -42,8 +39,8 @@ class AuthorizationState extends StoreModule {
         ...this.getState(),
         userName: json.result.user.profile.name,
         token: json.result.token,
-        waiting: false,
       });
+      
         window.localStorage.setItem('token', json.result.token); 
         window.localStorage.setItem('userName', json.result.user.profile.name); 
     } catch (e) {

@@ -22,9 +22,7 @@ function Login() {
     })
 
     const select = useSelector(state => ({
-      user: state.authorization.user,
       errorMessage: state.authorization.errorMessage,
-      waiting: state.authorization.waiting,
       token: state.authorization.token
     }));
 
