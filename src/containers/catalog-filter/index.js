@@ -46,7 +46,6 @@ function CatalogFilter() {
     ]), [select.categories])
   };
 
-
   return (
     <SideLayout padding='medium'>
       <Select options={options.category} value={select.category} onChange={callbacks.onSelectCategory}/>

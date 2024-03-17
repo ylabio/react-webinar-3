@@ -2,6 +2,10 @@
   padding: 20px;
 }
 
+.UserData-title {
+  margin-bottom: 40px;
+}
+
 .UserData-prop {
   margin: 20px 0;
   display: flex;
