@@ -16,8 +16,10 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category: 'all',
       },
+      categories: [],
       count: 0,
       waiting: false
     }
@@ -36,6 +38,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
 
@@ -81,17 +84,54 @@ class CatalogState extends StoreModule {
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
-      'search[query]': params.query
+      'search[query]': params.query,
     };
+
+    if (params.category !== 'all') {
+      apiParams['search[category]'] = params.category;
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
+    
+    const responeCategories = await fetch('api/v1/categories?fields=_id,title,parent(_id)&limit=*');
+    const jsonCategories = await responeCategories.json();
+    const nestedCategories = this.setCategories(jsonCategories.result.items);
+
     this.setState({
       ...this.getState(),
       list: json.result.items,
       count: json.result.count,
+      categories: [
+        {
+          _id: 1,
+          title: 'Все',
+          value: 'all',
+          parent: null,
+        },
+        ...nestedCategories
+      ],
       waiting: false
     }, 'Загружен список товаров из АПИ');
+  }
+
+
+  // Создаём список категорий из данных API
+  setCategories(categories, parentId = null, nesting = 0) {
+    const result = [];
+    categories.forEach(category => {
+      if (category.parent && category.parent._id === parentId || (!category.parent && !parentId)) {
+        result.push({
+          _id: category._id,
+          title: ('-').repeat(nesting) + ' ' + category.title,
+          value: category._id,
+          parent: parentId,
+        })
+        const nestedCategories = this.setCategories(categories, category._id, nesting + 1);
+        result.push(...nestedCategories);
+      }
+    });
+    return result;
   }
 }
 
