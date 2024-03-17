@@ -25,6 +25,11 @@ class CatalogState extends StoreModule {
     }
   }
 
+
+  /**
+   * Получение категории.
+   * @return {Promise<void>}
+   */
   async getCategories() {
     const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
     const json = await response.json();
@@ -47,7 +52,7 @@ class CatalogState extends StoreModule {
 
       function buildModifiedCategories(category, modifiedCategories) {
         const hierarchyLevel = getHierarchyLevel(category);
-        const prefix = '-'.repeat(hierarchyLevel);
+        const prefix = ' -'.repeat(hierarchyLevel);
         const modifiedTitle = prefix + ' ' + category.title;
         modifiedCategories.push({ value: category._id, title: modifiedTitle });
 
