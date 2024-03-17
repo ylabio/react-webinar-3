@@ -1,3 +1,4 @@
+import { Children } from "react";
 import StoreModule from "../module";
 
 /**
@@ -16,8 +17,10 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        filter: "",
       },
+      categories: [],
       count: 0,
       waiting: false
     }
@@ -36,7 +39,8 @@ class CatalogState extends StoreModule {
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
-    await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
+    if (urlParams.has('filter') && urlParams.get('filter')) validParams.filter = urlParams.get('filter');
+    await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
   /**
@@ -46,9 +50,44 @@ class CatalogState extends StoreModule {
    */
   async resetParams(newParams = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
-    const params = {...this.initState().params, ...newParams};
+    const params = { ...this.initState().params, ...newParams };
     // Установка параметров и загрузка данных
     await this.setParams(params);
+  }
+
+  filterCategories(categories, parentId, nesting){
+    const filtered = []
+    categories.forEach((category) => {
+      if((!category.parent && parentId === null) || (category.parent && category.parent._id === parentId)){
+        filtered.push({
+          ...category,
+          title: "-".repeat(nesting) + category.title
+        })
+        const childrenCategories = this.filterCategories(categories, category._id, nesting + 1)
+        filtered.push(...childrenCategories)
+      }
+    })
+    return filtered
+  }
+
+  async getCategories() {
+    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*')
+    const data = await response.json();
+    const categories = data.result.items;
+    categories.forEach(category => category["value"] = category._id);
+    const filteredCategories = this.filterCategories(categories, null, 0)
+    
+    filteredCategories.unshift({
+      _id: "allCategoriesID",
+      parent: null,
+      title: "Все",
+      value: "",
+    })
+
+    this.setState({
+      ...this.getState(),
+      categories: filteredCategories,
+    })
   }
 
   /**
@@ -58,7 +97,7 @@ class CatalogState extends StoreModule {
    * @returns {Promise<void>}
    */
   async setParams(newParams = {}, replaceHistory = false) {
-    const params = {...this.getState().params, ...newParams};
+    const params = { ...this.getState().params, ...newParams };
 
     // Установка новых параметров и признака загрузки
     this.setState({
@@ -66,6 +105,9 @@ class CatalogState extends StoreModule {
       params,
       waiting: true
     }, 'Установлены параметры каталога');
+
+    // TODO: Вынести
+    this.getCategories();
 
     // Сохранить параметры в адрес страницы
     let urlSearch = new URLSearchParams(params).toString();
@@ -81,8 +123,11 @@ class CatalogState extends StoreModule {
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
-      'search[query]': params.query
+      'search[query]': params.query,
     };
+    if (params.filter) {
+      apiParams['search[category]'] = params.filter
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
