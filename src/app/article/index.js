@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback, useState} from 'react';
 import {useParams} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -10,6 +10,7 @@ import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
+import AuthHeader from '../../components/auth-header';
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
@@ -20,6 +21,16 @@ function Article() {
   // Параметры из пути /articles/:id
   const params = useParams();
 
+  const [userIsAuthorized, setUserIsAuthorized] = useState(false);
+
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    !userIsAuthorized && setUserIsAuthorized(true);
+  } else {
+    userIsAuthorized && setUserIsAuthorized(false);
+  }
+
   useInit(() => {
     store.actions.article.load(params.id);
   }, [params.id]);
@@ -27,6 +38,7 @@ function Article() {
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
+    userName: state.user.profile.userName,
   }));
 
   const {t} = useTranslate();
@@ -34,10 +46,18 @@ function Article() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    onSignOut: useCallback(token => store.actions.user.signOut(token), [store]),
   }
 
   return (
     <PageLayout>
+      <AuthHeader
+        token={token}
+        buttonTitle={userIsAuthorized ? 'Выход' : 'Вход'}
+        link={userIsAuthorized ? '/profile' : '/login'}
+        onSignOut={callbacks.onSignOut}
+        userName={select.userName}
+      />
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>

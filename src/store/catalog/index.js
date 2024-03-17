@@ -16,8 +16,10 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category: ''
       },
+      categories: [],
       count: 0,
       waiting: false
     }
@@ -36,6 +38,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
 
@@ -49,6 +52,31 @@ class CatalogState extends StoreModule {
     const params = {...this.initState().params, ...newParams};
     // Установка параметров и загрузка данных
     await this.setParams(params);
+  }
+
+  buildCategoriesTree(categories, parentId = null, depth = 0) {
+    const nestedTitles = [];
+    categories.forEach(category => {
+      if (category.parent === parentId || (category.parent && category.parent._id === parentId)) {
+        const titlePrefix = depth > 0 ? '-'.repeat(depth) : '';
+        const nestedTitle = { value: category._id, title: titlePrefix + ' ' + category.title };
+        nestedTitles.push(nestedTitle);
+        nestedTitles.push(...this.buildCategoriesTree(categories, category._id, depth + 1));
+      }
+    });
+    return nestedTitles;
+  }
+
+  async initCategories() {
+    const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
+    const json = await response.json();
+    const categoriesTree = this.buildCategoriesTree(json.result.items);
+    categoriesTree.unshift({value: '', title: 'Всё'})
+    this.setState({
+      ...this.getState(),
+      categories: categoriesTree,
+      waiting: false
+    }, 'Загружен список категорий из АПИ');
   }
 
   /**
@@ -76,13 +104,26 @@ class CatalogState extends StoreModule {
       window.history.pushState({}, '', url);
     }
 
-    const apiParams = {
-      limit: params.limit,
-      skip: (params.page - 1) * params.limit,
-      fields: 'items(*),count',
-      sort: params.sort,
-      'search[query]': params.query
-    };
+    let apiParams = {};
+
+    if (params.category === '') {
+      apiParams = {
+        limit: params.limit,
+        skip: (params.page - 1) * params.limit,
+        fields: 'items(*),count',
+        sort: params.sort,
+        'search[query]': params.query,
+      };
+    } else {
+      apiParams = {
+        limit: params.limit,
+        skip: (params.page - 1) * params.limit,
+        fields: 'items(*),count',
+        sort: params.sort,
+        'search[query]': params.query,
+        'search[category]' : params.category
+      };
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();

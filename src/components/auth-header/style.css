@@ -1,0 +1,14 @@
+.AuthHeader {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 20px;
+}
+
+.AuthHeader-profile-link {
+  margin-right: 20px;
+  color: #0087E9;
+}
+
+.AuthHeader button {
+  width: 60px;
+}

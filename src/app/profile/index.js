@@ -1,46 +1,39 @@
-import {memo, useCallback, useState} from 'react';
+import {memo, useCallback} from 'react';
 import { useNavigate } from 'react-router-dom';
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
-import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
+import useTranslate from "../../hooks/use-translate";
 import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
-import CatalogFilter from "../../containers/catalog-filter";
-import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
 import AuthHeader from '../../components/auth-header';
+import ProfileInfo from '../../components/profile-info';
 
-/**
- * Главная страница - первичная загрузка каталога
- */
-function Main() {
+function Profile() {
 
   const store = useStore();
   const navigate = useNavigate();
-  const [userIsAuthorized, setUserIsAuthorized] = useState(false);
 
   const token = localStorage.getItem('token');
 
-  if (token) {
-    !userIsAuthorized && setUserIsAuthorized(true);
-  } else {
-    userIsAuthorized && setUserIsAuthorized(false);
-  }
-
   useInit(() => {
-    store.actions.catalog.initParams();
-    store.actions.catalog.initCategories();
-    if (userIsAuthorized) store.actions.user.initUserProfile(token);
+    if (token) {
+      store.actions.user.initUserProfile(token);
+    } else {
+      navigate('/');
+    }
   }, [], true);
 
   const callbacks = {
     onSignOut: useCallback(token => store.actions.user.signOut(token, navigate), [store]),
   }
 
-  const select = useSelector(state => ({
+  const select = useSelector((state) => ({
     userName: state.user.profile.userName,
+    phone: state.user.profile.phone,
+    email: state.user.profile.email
   }));
 
   const {t} = useTranslate();
@@ -49,19 +42,22 @@ function Main() {
     <PageLayout>
       <AuthHeader
         token={token}
-        buttonTitle={userIsAuthorized ? 'Выход' : 'Вход'}
-        link={userIsAuthorized ? '/profile' : '/login'}
-        onSignOut={callbacks.onSignOut}
+        buttonTitle='Выход'
+        login='/login'
         userName={select.userName}
+        onSignOut={callbacks.onSignOut}
       />
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <CatalogFilter/>
-      <CatalogList/>
+      <ProfileInfo
+        userName={select.userName}
+        phone={select.phone}
+        email={select.email}
+      />
     </PageLayout>
   );
 }
 
-export default memo(Main);
+export default memo(Profile);
