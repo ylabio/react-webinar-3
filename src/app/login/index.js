@@ -10,45 +10,47 @@ import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
+import { LoginForm } from '../../components/login-form';
 import UserBar from '../../components/user-bar';
+
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
  */
-function Article() {
+function Login() {
   const store = useStore();
 
-  // Параметры из пути /articles/:id
-  const params = useParams();
 
-  useInit(() => {
-    store.actions.article.load(params.id);
-  }, [params.id]);
+  // useInit(() => {
+  //   store.actions.article.load(params.id);
+  // }, [params.id]);
 
   const select = useSelector(state => ({
-    article: state.article.data,
-    waiting: state.article.waiting,
+    userName: state.auth.user?.profile?.name,
+    error: state.auth.error,
+    waiting: state.auth.waiting,
   }));
 
-  const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    login: useCallback(body => store.actions.auth.login(body), [store]),
+    logOut: useCallback(() => store.actions.auth.logOut(), [store]),
+    getUserInfo: useCallback(() => store.actions.auth.getUserInfo(), [store]),
   }
 
   return (
     <PageLayout>
-      <UserBar />
-      <Head title={select.article.title}>
+      <UserBar name={select.userName} logOut={callbacks.logOut} />
+      <Head title={"Магазин"}>
         <LocaleSelect />
       </Head>
       <Navigation />
       <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
+        <LoginForm onSubmitForm={callbacks.login} error={select.error} />
       </Spinner>
     </PageLayout>
   );
 }
 
-export default memo(Article);
+export default memo(Login);

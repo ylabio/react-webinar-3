@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import { useParams } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -10,45 +10,54 @@ import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
+import ProfileCard from '../../components/profile-card';
 import UserBar from '../../components/user-bar';
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
  */
-function Article() {
+function Profile() {
   const store = useStore();
-
   // Параметры из пути /articles/:id
   const params = useParams();
 
-  useInit(() => {
-    store.actions.article.load(params.id);
-  }, [params.id]);
+  // useInit(() => {
+  //   store.actions.auth.getUserInfo();
+  // }, []);
+  useEffect(() => {
+    async function getUser() {
+      await store.actions.auth.getUserInfo()
+    };
+    getUser()
+  }, [])
 
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
+    user: state.auth.user,
+    token: state.auth.token,
+    isAuth: state.auth.isAuth,
   }));
 
   const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    // addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    // getUserInfo: useCallback(() => store.actions.auth.getUserInfo(), [store]),
   }
 
-  return (
-    <PageLayout>
-      <UserBar />
-      <Head title={select.article.title}>
-        <LocaleSelect />
-      </Head>
-      <Navigation />
-      <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
-      </Spinner>
-    </PageLayout>
+  return (<PageLayout>
+    <UserBar />
+    <Head title={t("Shop")}>
+      <LocaleSelect />
+    </Head>
+    <Navigation />
+    <Spinner active={select.waiting}>
+      <ProfileCard user={select.user} title={"Профиль"} />
+    </Spinner>
+  </PageLayout>
   );
 }
 
-export default memo(Article);
+export default memo(Profile);
