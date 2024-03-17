@@ -11,10 +11,17 @@
   "basket.delete": "Удалить",
   "article.add": "Добавить",
   "filter.reset": "Сбросить",
+  "account.login": "Вход",
   "basket.articles": {
     "one": "товар",
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "login.login": "Логин",
+  "login.password": "Пароль",
+  "profile": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "account.logout": "Выход"
 }

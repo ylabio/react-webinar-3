@@ -1,4 +1,5 @@
 import {memo} from 'react';
+import AccountBlock from '../../components/account-block'
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -24,6 +25,7 @@ function Main() {
 
   return (
     <PageLayout>
+      <AccountBlock />
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

@@ -1,5 +1,6 @@
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback} from 'react';
 import {useParams} from "react-router-dom";
+import AccountBlock from '../../components/account-block'
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -38,6 +39,7 @@ function Article() {
 
   return (
     <PageLayout>
+      <AccountBlock title={t('account.login')} />
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>

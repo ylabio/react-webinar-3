@@ -10,9 +10,16 @@
   "basket.unit": "pcs",
   "basket.delete": "Delete",
   "article.add": "Add",
+  "account.login": "Login",
   "filter.reset": "Reset",
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "login.login": "Login",
+  "login.password": "Password",
+  "profile": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "account.logout": "Logout"
 }
