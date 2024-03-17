@@ -1,0 +1,7 @@
+.SelectCategory {
+  font-size: 16px;
+  padding: 3px 2px 2px;
+  width: 161px;
+  max-height: 251px;
+  overflow: 'auto';
+}

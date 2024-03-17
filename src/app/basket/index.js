@@ -1,12 +1,13 @@
 import {memo, useCallback} from 'react';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import ItemBasket from "../../components/item-basket";
 import List from "../../components/list";
 import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
+import ScrollBar from "../../components/scrollbar";
+
 
 /**
  * Корзина в модальном окне
@@ -18,14 +19,17 @@ function Basket() {
   const select = useSelector(state => ({
     list: state.basket.list,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
   }));
 
   const callbacks = {
     // Удаление из корзины
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
     // Закрытие любой модалки
-    closeModal: useCallback(() => store.actions.modals.close(), [store]),
+    closeModal: useCallback(() => {
+      document.body.style.overflow = "scroll";
+      store.actions.modals.close();
+    }, [store]),
   }
 
   const {t} = useTranslate();
@@ -45,7 +49,9 @@ function Basket() {
   return (
     <ModalLayout title={t('basket.title')} labelClose={t('basket.close')}
                  onClose={callbacks.closeModal}>
-      <List list={select.list} renderItem={renders.itemBasket}/>
+      <ScrollBar>
+        <List list={select.list} renderItem={renders.itemBasket}/>
+      </ScrollBar>
       <BasketTotal sum={select.sum} t={t}/>
     </ModalLayout>
   );

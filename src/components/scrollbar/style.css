@@ -1,0 +1,54 @@
+
+.scroll-container-standart.show {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.scroll-container-standart {
+  overflow: hidden;
+}
+
+.scroll-container-thin.show {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.scroll-container-thin {
+  overflow: hidden;
+  scrollbar-width: thin;
+}
+
+.scroll-container.show {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.scroll-container {
+  overflow: hidden;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background-color: #ddd;
+  border: 1px solid #ccc;
+}
+
+.scroll-container::-webkit-scrollbar-button {
+  background-color: #4d7fff;
+  border-radius: 5px;
+}
+
+.scroll-container::-webkit-scrollbar {
+width: 24px;
+height: 24px;
+background-color: #143861;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+background-color: #843465;
+border-radius: 9em;
+box-shadow: inset 1px 1px 10px #f3faf7;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+background-color: #253861;
+}
