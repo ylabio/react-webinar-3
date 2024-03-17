@@ -16,7 +16,15 @@ function Profile() {
         user: state.user.user
     }));
 
+    const navigate = useNavigate()
+
     const {t} = useTranslate()
+
+    useEffect(() => {
+        if(!select.token){
+            navigate('/login')
+        }
+    }, [])
 
     return (
         <PageLayout>
