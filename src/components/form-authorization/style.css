@@ -1,0 +1,18 @@
+.Form {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Form-title {
+  margin: 0 0 17px;
+}
+
+.Form-input {
+  width: fit-content;
+  margin-bottom: 20px;
+}
+
+button {
+  width: fit-content;
+}

@@ -2,9 +2,20 @@
   display: flex;
   list-style: none;
   justify-content: flex-start;
-  padding: 20px;
   margin: 0;
   font-size: 18px;
+}
+
+.Menu_padding_note {
+  padding: 0;
+}
+
+.Menu_padding_small {
+  padding: 10px;
+}
+
+.Menu_padding_medium {
+  padding: 20px;
 }
 
 .Menu-item {
@@ -22,3 +33,5 @@
   margin-right: 0;
   padding-right: 0;
 }
+
+
