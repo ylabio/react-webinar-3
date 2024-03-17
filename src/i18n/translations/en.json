@@ -1,5 +1,9 @@
 {
   "title": "Shop",
+  "enter": "Sign in",
+  "exit": "Sign out",
+  "login": "Login",
+  "pass": "Password",
   "menu.main": "Main",
   "basket.title": "Cart",
   "basket.open": "Open",
