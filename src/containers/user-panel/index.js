@@ -3,6 +3,7 @@ import SideLayout from "../../components/side-layout";
 import UserTools from "../../components/user-tools";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
+import useTranslate from "../../hooks/use-translate";
 
 const UserPanel = () => {
 
@@ -16,9 +17,11 @@ const UserPanel = () => {
     logout: useCallback(() => store.actions.user.logout(), [store])
   }
 
+  const {t} = useTranslate();
+
   return (
     <SideLayout side={'end'} padding={'medium'}>
-      <UserTools username={select.username} login={'/login'} profile={'/profile'} onClick={callbacks.logout} />
+      <UserTools username={select.username} login={'/login'} profile={'/profile'} onClick={callbacks.logout} t={t} />
     </SideLayout>
   );
 };

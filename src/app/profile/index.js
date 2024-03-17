@@ -30,7 +30,7 @@ const Profile = () => {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <ProfileInfo user={select.user} />
+      <ProfileInfo user={select.user} t={t} />
     </PageLayout>
   );
 };

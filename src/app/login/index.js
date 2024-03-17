@@ -39,7 +39,7 @@ const Login = () => {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <LoginForm error={select.error} onClick={callbacks.authorize} />
+      <LoginForm error={select.error} onClick={callbacks.authorize} t={t} />
     </PageLayout>
   );
 };
