@@ -16,7 +16,8 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category: ''
       },
       count: 0,
       waiting: false
@@ -34,6 +35,7 @@ class CatalogState extends StoreModule {
     let validParams = {};
     if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
@@ -67,6 +69,13 @@ class CatalogState extends StoreModule {
       waiting: true
     }, 'Установлены параметры каталога');
 
+    const responseCategories = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
+    const jsonCategories = await responseCategories.json();
+    this.setState({
+      ...this.getState(),
+      categories: jsonCategories.result.items
+    }, 'Загружен список категорий из АПИ');
+
     // Сохранить параметры в адрес страницы
     let urlSearch = new URLSearchParams(params).toString();
     const url = window.location.pathname + '?' + urlSearch + window.location.hash;
@@ -76,12 +85,15 @@ class CatalogState extends StoreModule {
       window.history.pushState({}, '', url);
     }
 
+    const hasCategory = params.category && {'search[category]': params.category};
+
     const apiParams = {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
-      'search[query]': params.query
+      'search[query]': params.query,
+      ...hasCategory
     };
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
