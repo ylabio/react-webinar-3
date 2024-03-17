@@ -1,0 +1,17 @@
+.form{
+    padding: 0 15px;
+}
+
+label{
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.form-login{
+    margin-bottom: 15px;
+}
+
+.exception{
+    color: red;
+}
