@@ -1,0 +1,23 @@
+.AuthBtn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 20px;
+}
+
+.AuthBtn-auth {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.AuthBtn-name {
+  font-weight: 400;
+  font-size: 13px;
+  text-decoration: none;
+  color: #0087e9;
+}
+
+.AuthBtn-name:hover {
+  text-decoration: underline;
+}
