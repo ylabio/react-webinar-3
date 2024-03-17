@@ -9,6 +9,7 @@ function AuthHead() {
 
   const select = useSelector(state => ({
     isAuth: state.auth.isAuth,
+    profile: state.auth.profile
   }));
 
   const callbacks = {
@@ -22,7 +23,8 @@ function AuthHead() {
   }
 
   return (
-    <UserMenu links={links} isAuth={select.isAuth} logOut={callbacks.logOut}/>
+    <UserMenu links={links} isAuth={select.isAuth}
+              logOut={callbacks.logOut} userName={select.profile?.name}/>
   )
 }
 
