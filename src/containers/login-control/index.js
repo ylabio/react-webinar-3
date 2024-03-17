@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import LoginContainer from "../../components/login-container";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
+import useInit from "../../hooks/use-init";
+import useTranslate from "../../hooks/use-translate";
 
 function LoginControl() {
   const store = useStore();
@@ -11,12 +13,10 @@ function LoginControl() {
     openLoginPage: useCallback(() => navigate("/login"), []),
     onLogout: useCallback(() => store.actions.auth.logout(), []),
   };
+  const { t } = useTranslate();
 
-  useEffect(() => {
-    async function checkLogin() {
-      await store.actions.auth.checkLogin();
-    }
-    checkLogin();
+  useInit(() => {
+    store.actions.auth.checkLogin();
   }, []);
 
   const select = useSelector((state) => ({
@@ -29,9 +29,11 @@ function LoginControl() {
       <LoginContainer>
         {select.isLogin && <Link to="/profile">{select.name}</Link>}
         {!select.isLogin && (
-          <button onClick={callbacks.openLoginPage}>Вход</button>
+          <button onClick={callbacks.openLoginPage}>{t("login")}</button>
         )}
-        {select.isLogin && <button onClick={callbacks.onLogout}>Выход</button>}
+        {select.isLogin && (
+          <button onClick={callbacks.onLogout}>{t("logout")}</button>
+        )}
       </LoginContainer>
     </>
   );

@@ -1,4 +1,4 @@
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import ProfileCard from "../../components/profile-card";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
@@ -10,6 +10,7 @@ import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../components/spinner";
+import useInit from "../../hooks/use-init";
 
 function Profile() {
   const { t } = useTranslate();
@@ -27,7 +28,8 @@ function Profile() {
 
   const token = JSON.parse(window.localStorage.getItem("XToken"));
 
-  useEffect(() => {
+  useInit(() => {
+    // store.actions.auth.checkLogin();
     if (!token) {
       navigate("/login");
     }
@@ -45,6 +47,7 @@ function Profile() {
           name={select.name}
           phoneNumber={select.phoneNumber}
           email={select.email}
+          t={t}
         />
       </Spinner>
     </PageLayout>

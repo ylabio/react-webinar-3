@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from "react";
+import { memo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginForm from "../../components/login-form";
 import Head from "../../components/head";
@@ -10,6 +10,7 @@ import LoginControl from "../../containers/login-control";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import Spinner from "../../components/spinner";
+import useInit from "../../hooks/use-init";
 
 function Login() {
   const { t } = useTranslate();
@@ -23,7 +24,7 @@ function Login() {
     waiting: state.auth.waiting,
   }));
 
-  useEffect(() => {
+  useInit(() => {
     if (select.isLogin) {
       navigate("/profile");
     }
@@ -43,7 +44,7 @@ function Login() {
       </Head>
       <Navigation />
       <Spinner active={select.waiting}>
-        <LoginForm onSubmit={callbacks.onLogin} error={select.error} />
+        <LoginForm onSubmit={callbacks.onLogin} error={select.error} t={t} />
       </Spinner>
     </PageLayout>
   );

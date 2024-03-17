@@ -38,6 +38,8 @@ class AuthState extends StoreModule {
       });
 
       const json = await response.json();
+      console.log("check login");
+      console.log(json);
 
       this.setState({
         isLogin: true,
