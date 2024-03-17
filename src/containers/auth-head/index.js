@@ -2,6 +2,7 @@ import React, {useCallback} from "react";
 import UserMenu from "../../components/user-menu";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
+import useTranslate from "../../hooks/use-translate";
 
 function AuthHead() {
 
@@ -9,7 +10,7 @@ function AuthHead() {
 
   const select = useSelector(state => ({
     isAuth: state.auth.isAuth,
-    profile: state.auth.profile
+    profile: state.auth.profile,
   }));
 
   const callbacks = {

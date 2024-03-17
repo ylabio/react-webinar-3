@@ -38,14 +38,14 @@ function Login() {
   const options = {
     values: [
       {
-        label: 'Логин',
+        label: t('label.login'),
         name: 'login',
         onChange: setLogin,
         type: 'text',
         value: login
       },
       {
-        label: 'Пароль',
+        label: t('label.password'),
         name: 'password',
         onChange: setPassword,
         type: 'password',
@@ -78,8 +78,8 @@ function Login() {
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <FlexContainer title='Вход'>
-          <FormLayout btnLabel='Войти' error={select.error} onSubmit={callbacks.logIn}>
+        <FlexContainer title={t('login')}>
+          <FormLayout btnLabel={t('signIn')} error={select.error} onSubmit={callbacks.logIn}>
             {renders.values}
           </FormLayout>
         </FlexContainer>
