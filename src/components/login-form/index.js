@@ -20,7 +20,7 @@ function LoginForm(props) {
         <h5>{props.t('login.password')}</h5>
         <Input value={props.password} onChange={props.setPassword} />
       </div>
-      {!props.isValid && <h4 className={cn('error-message')}>{props.errorMessage}</h4>}
+      <h4 className={cn('error-message')}>{props.error}</h4>
       <button type='submit'>{props.t('login.enter')}</button>
     </form>
     </SideLayout>

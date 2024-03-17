@@ -40,14 +40,14 @@ function Profile() {
   }
 
   useEffect(() => {
-    if (!token) {
+    if (!select.isLogin) {
      return navigate('/login')
    }
-  }, [token])
+  }, [select.isLogin])
 
   return (
     <PageLayout>
-      <LoginNav title={t('login.exit')} onClick={handleOnclick}/>
+      <LoginNav onClick={handleOnclick}/>
       <Head title={t("title")}>
         <LocaleSelect />
       </Head>

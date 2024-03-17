@@ -15,12 +15,14 @@ import LoginNav from '../../components/login-nav';
  * Главная страница - первичная загрузка каталога
  */
 function Main() {
+  const token = JSON.parse(localStorage.getItem("XToken"));
   const navigate = useNavigate()
   const store = useStore();
 
   useInit(() => {
     store.actions.catalog.initParams();
     store.actions.catalog.getCategories();
+    if(token) store.actions.login.loginByToken(token);
   }, [], true);
 
   const {t} = useTranslate();
@@ -31,7 +33,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <LoginNav title={t('login.enter')} onClick={handleOnclick}/>
+      <LoginNav onClick={handleOnclick}/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

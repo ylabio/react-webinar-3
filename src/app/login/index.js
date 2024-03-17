@@ -19,16 +19,13 @@ function Login() {
 
   const select = useSelector(state => ({
     isLogin: state.login.isLogin,
-    isValid: state.login.isValid,
-    // article: state.article.data,
     errorMessage: state.login.errorMessage,
-    // errorMessage: 'Текст ошибки от сервера',
   }));
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    onLogin: useCallback((loginName, password) => store.actions.login.login(loginName, password), [store]),
+    onLogin: useCallback((loginName, password) => store.actions.login.loginByEmail(loginName, password), [store]),
     onLogout: useCallback(() => store.actions.login.logout(), [store]),
   }
 
@@ -49,7 +46,7 @@ function Login() {
 
   return (
     <PageLayout>
-      <LoginNav title={t('login.enter')} onClick={handleOnclick}/>
+      <LoginNav onClick={handleOnclick}/>
       {/* <Head title={select.article.title}> */}
       <Head title={t('title')}>
         <LocaleSelect/>

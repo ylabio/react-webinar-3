@@ -17,14 +17,45 @@ class LoginState extends StoreModule {
         phone: '',
       },
       isLogin: false,
-      isValid: false,
       errorMessage: '',
       waiting: false,
     }
   }
+    // test_1 123456
 
-  async login(loginName='test_1', password='123456') {
-  console.log('login({loginName, password})' , loginName, password);
+    async loginByToken(token) {
+
+      this.setState({
+        ...this.getState(),
+        isLogin: false,
+        waiting: true,
+      }, 'Установлены параметры логина');
+
+      const response = await fetch(`/api/v1/users/self?fields=*`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json", "X-Token": token,
+        },
+      });
+
+      const json = await response.json();
+
+      if (response.ok) {
+
+        this.setState({
+          ...this.getState(),
+          isLogin: true,
+          userData: {
+            name: json.result.profile?.name,
+            email: json.result.email,
+            phone: json.result.profile?.phone,
+          },
+          waiting: false,
+        }, 'Логин по Токену');
+      }
+    }
+
+  async loginByEmail(loginName, password) {
 
     this.setState({
       ...this.getState(),
@@ -57,7 +88,7 @@ class LoginState extends StoreModule {
           phone: json.result.user.profile?.phone,
         },
         waiting: false,
-      }, 'Логин');
+      }, 'Логин по логину и почте');
     }
 
     this.setState({
@@ -67,15 +98,23 @@ class LoginState extends StoreModule {
   }
 
  async logout(){
+  const token = JSON.parse(localStorage.getItem("XToken"));
 
-  const loginName = '';
-  const password = '';
+
+  await fetch("/api/v1/users/sign", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Token": token,
+    },
+  });
 
   this.setState({
     ...this.getState(),
-    loginName,
-    password,
+    isLogin: false,
   }, 'Логаут');
+
+  localStorage.removeItem("XToken");
  }
 
 //  validate(loginName, password){

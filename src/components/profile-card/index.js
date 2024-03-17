@@ -10,7 +10,7 @@ function ProfileCard({t, name, email, phone}) {
   return (
     <SideLayout side='start' padding='medium'>
     <div className={cn()}>
-      <h2 className={cn('title')}>{t('login.profile')}:</h2>
+      <h3 className={cn('title')}>{t('login.profile')}:</h3>
       <div className={cn('prop')}>
         <div className={cn('label')}>{t('login.loginName')}:</div>
         <div className={cn('value')}>{name}</div>
