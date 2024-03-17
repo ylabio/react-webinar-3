@@ -31,7 +31,7 @@ function Authorization() {
 
   return (
     <SideLayout side='end' padding='medium'>
-      {select.isAuthorized ? <Link key={select.user?.name} to='/'>{select.user?.username}</Link> : ''}
+      {select.isAuthorized ? <Link to={'/profile'}>{select.user?.profile.name}</Link> : ''}
       <AuthorizationTool
         onClick={select.isAuthorized ? callbacks.onLogout : callbacks.onLogin}
         buttonTitle={select.isAuthorized ? t('authorization.logout') : t('authorization.login')}

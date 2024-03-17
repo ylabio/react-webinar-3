@@ -6,7 +6,9 @@ import useInit from '../hooks/use-init';
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
-import Login from './login/login';
+import Login from './login';
+import Profile from './profile';
+import ProtectedRoute from '../containers/protected-route';
 
 /**
  * Приложение
@@ -27,6 +29,7 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={'/login'} element={<Login/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
+        <Route path={'/profile'} element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}

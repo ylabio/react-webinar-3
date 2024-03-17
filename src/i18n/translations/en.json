@@ -19,5 +19,9 @@
   "authorization.logout": "Logout",
   "authorization.signin": "Sign in",
   "authorization.name": "Name",
-  "authorization.password": "Password"
+  "authorization.password": "Password",
+  "profile.title": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "profile.email": "email"
 }
