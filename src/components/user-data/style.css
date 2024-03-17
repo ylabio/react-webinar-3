@@ -1,0 +1,18 @@
+.UserData {
+  padding: 20px;
+}
+
+.UserData-prop {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 18px
+}
+
+.UserData-label {
+  padding-right: 10px;
+}
+
+.UserData-value {
+  font-weight: bold;
+}

@@ -1,3 +1,16 @@
 .Spinner {
   opacity: 0.5;
 }
+.Spinner_wait {
+  opacity: 1;
+}
+
+.Spinner-content {
+  width: 1024px;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+}

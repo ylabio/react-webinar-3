@@ -8,6 +8,7 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import TopControls from '../../containers/top-controls';
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -26,9 +27,9 @@ function Main() {
     store.actions.catalog.loadCategories(lang);
   }, [lang]);
 
-
   return (
     <PageLayout>
+      <TopControls />
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

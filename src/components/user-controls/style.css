@@ -1,0 +1,12 @@
+.UserBlock {
+  display: flex;
+  justify-content: end;
+  column-gap: 20px;
+  padding: 0 10px;
+  font-size: 13px;
+}
+
+.UserBlock-link {
+  color: #0087E9;
+  padding-top: 5px;
+}
