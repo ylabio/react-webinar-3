@@ -11,6 +11,7 @@ import FormInput from "../../components/form-input";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import {useNavigate} from "react-router-dom";
+import Spinner from "../../components/spinner";
 
 function Login() {
 
@@ -76,11 +77,13 @@ function Login() {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <FlexContainer title='Вход'>
-        <FormLayout btnLabel='Войти' error={select.error} onSubmit={callbacks.logIn}>
-          {renders.values}
-        </FormLayout>
-      </FlexContainer>
+      <Spinner active={select.waiting}>
+        <FlexContainer title='Вход'>
+          <FormLayout btnLabel='Войти' error={select.error} onSubmit={callbacks.logIn}>
+            {renders.values}
+          </FormLayout>
+        </FlexContainer>
+      </Spinner>
     </PageLayout>
   )
 }
