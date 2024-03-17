@@ -1,7 +1,6 @@
 import {memo} from 'react';
 import {useNavigate} from 'react-router-dom';
 import useInit from '../../hooks/use-init';
-import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from "../../hooks/use-translate";
 import Navigation from "../../containers/navigation";
@@ -17,7 +16,6 @@ import Spinner from "../../components/spinner";
  */
 function Profile() {
   const navigate = useNavigate();
-  const store = useStore();
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
@@ -30,10 +28,6 @@ function Profile() {
   useInit(() => {
     if (!select.isLogged && !select.token) navigate('/');
   }, [select.isLogged, select.token, navigate])
-
-  useInit(() => {
-    if (select.token) store.actions.auth.loadUser(select.token);
-  }, [select.token], true)
 
   return (
     <PageLayout>

@@ -11,6 +11,7 @@ class CategoriesState extends StoreModule {
   initState() {
     return {
       list: [{value: '', title: 'Все'}],
+      error: null,
       waiting: false
     }
   }
@@ -59,12 +60,25 @@ class CategoriesState extends StoreModule {
   async loadCategories() {
     this.resetState();
 
-    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*')
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      list: [...this.getState().list, ...this.sorting(json.result.items)]
-    })
+    try {
+      const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*')
+      const json = await response.json();
+
+      // Данные загружены успешно
+      this.setState({
+        ...this.getState(),
+        list: [...this.getState().list, ...this.sorting(json.result.items)]
+      })
+
+    } catch (error) {
+      // Ошибка при загрузке
+      this.setState({
+        ...this.getState(),
+        error: error,
+        waiting: false,
+      })
+    }
+    
   }
 }
 
