@@ -36,15 +36,19 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
-export function buildHierarchy(items, parent = null) {
+export function buildHierarchy(items, parent = null, index = 0) {
   const result = [];
-
-  for (const item of items) {
-    if (parent && item.parent && (item.parent._id === parent._id)) {
-      result.push("-" + item.title);
-      buildHierarchy(items, item);
+  for (let i = index; i < items.length; i++) {
+    if (!items[i].parent) {
+      result.push(items[i].title);
+      console.log(parent);
+      buildHierarchy(items, items[i + 1], i + 1);
     }
-    result.push(item.title);
+    if (parent && items[i].parent && (items[i].parent._id === parent._id)) {
+      result.push("-" + items[i].title);
+      buildHierarchy(items, items[i + 1], i + 1);
+    }
+    result.push(items[i].title);
   }
 
   return result;
