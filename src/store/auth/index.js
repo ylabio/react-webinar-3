@@ -17,7 +17,7 @@ class AuthState extends StoreModule {
 
     try {
 
-      if (!login && !password) {
+      if (!login || !password) {
         throw new Error('Все поля обязательные!');
       }
 
