@@ -16,6 +16,11 @@ class AuthState extends StoreModule {
     this.setState( {...this.getState(), error: null , waiting: true});
 
     try {
+
+      if (!login && !password) {
+        throw new Error('Все поля обязательные!');
+      }
+
       const response = await fetch('/api/v1/users/sign', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
