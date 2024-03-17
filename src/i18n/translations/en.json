@@ -18,5 +18,8 @@
   "login.enter": "Enter",
   "login.exit": "Exit",
   "login.password": "Password",
-  "login.loginName": "login name"
+  "login.loginName": "Login name",
+  "login.phone": "Phone",
+  "login.email": "email",
+  "login.profile": "Profile"
 }

@@ -7,21 +7,22 @@ import './style.css';
 
 function LoginForm(props) {
   const cn = bem('LoginForm');
+
   return (
     <SideLayout side='start' padding='medium'>
-    <div className={cn()}>
+    <form onSubmit={props.onClick} className={cn()}>
       <h3 className={cn('title')}>{props.t('login.enter')}</h3>
-      <div className={cn()}>
+      <div>
         <h5>{props.t('login.loginName')}</h5>
-        <Input theme={cn('input')} value={props.loginName} onChange={props.setLoginName} />
+        <Input theme={cn('input')} value={props.loginName} onChange={props.setLoginName}/>
       </div>
-      <div className={cn()}>
+      <div>
         <h5>{props.t('login.password')}</h5>
         <Input value={props.password} onChange={props.setPassword} />
       </div>
       {!props.isValid && <h4 className={cn('error-message')}>{props.errorMessage}</h4>}
-      <button onClick={props.onClick}>{props.t('login.enter')}</button>
-      </div>
+      <button type='submit'>{props.t('login.enter')}</button>
+    </form>
     </SideLayout>
   );
 }

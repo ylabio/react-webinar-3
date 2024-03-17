@@ -90,14 +90,12 @@ class CatalogState extends StoreModule {
       fields: `items(*),count,category(*)`,
       sort: params.sort,
       'search[query]': params.query,
-      // 'search[category]': (params.category == 'Все') ? '0' : categoryId,
     } ;
 
     if (params.category !== 'Все')  apiParams['search[category]'] = categoryId;
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
-    // const list = (!params.filter || params.filter == 'Все') ? json.result.items : json.result.items.filter(el=> el.category._id == categoryId);
     const list = json.result.items;
 
     this.setState({
@@ -119,7 +117,6 @@ class CatalogState extends StoreModule {
   }
 
   formatCategories(json){
-    // categories: [...this.getState().categories, ...json.result.items.map((category)=>({value: category.title, title: category.title, id: category._id}))],
     const categories = [...this.getState().categories, ...json.result.items.map(category=> ({...category, value: category.title}))];
     this.getSubCategories(categories);
      return this.getState().sortedCategories;
@@ -147,8 +144,6 @@ class CatalogState extends StoreModule {
     this.getState().sortedCategories.push(child);
     return child;
     });
-
-      // console.log('getState().sortedCategories', this.getState().sortedCategories);
       return sortedCategories;
     }
 }

@@ -20,15 +20,21 @@ function Login() {
   const select = useSelector(state => ({
     isLogin: state.login.isLogin,
     isValid: state.login.isValid,
-    article: state.article.data,
+    // article: state.article.data,
     errorMessage: state.login.errorMessage,
+    // errorMessage: 'Текст ошибки от сервера',
   }));
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    onLogin: useCallback(() => store.actions.login.login(loginName, password), [store]),
+    onLogin: useCallback((loginName, password) => store.actions.login.login(loginName, password), [store]),
     onLogout: useCallback(() => store.actions.login.logout(), [store]),
+  }
+
+  const handleOnLogin=(e)=>{
+    e.preventDefault();
+    callbacks.onLogin(loginName, password);
   }
 
   const handleOnclick =()=>{
@@ -50,7 +56,7 @@ function Login() {
       </Head>
       <Navigation/>
 
-      <LoginForm isValid={select.isValid} onClick={callbacks.onLogin}
+      <LoginForm isValid={select.isValid} onClick={handleOnLogin}
          t={t} setLoginName={setLoginName} loginName={loginName} setPassword={setPassword}
          password={password} error={select.errorMessage}/>
 
