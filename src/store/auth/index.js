@@ -8,14 +8,14 @@ class AuthorizeState extends StoreModule {
       user: {},
       token: localStorage.getItem('token') || '',
       loggedIn: !!localStorage.getItem('token'),
-      error: null,
+      error: '',
       waiting: false,
     };
   }
 
   async signIn(credentials) {
     const {login, password} = credentials;
-    this.setState({waiting: true, error: null});
+    this.setState({waiting: true, error: ''});
 
     try {
       const response = await fetch('/api/v1/users/sign', {
@@ -38,7 +38,7 @@ class AuthorizeState extends StoreModule {
           waiting: false,
         });
       } else {
-        this.setState({waiting: false, error: data.error.message});
+        this.setState({waiting: false, error: data.error.data.issues[0].message});
       }
     } catch (error) {
       this.setState({waiting: false, error: error.message});
@@ -47,7 +47,7 @@ class AuthorizeState extends StoreModule {
 
   async signOut() {
     try {
-      this.setState({...this.getState(), waiting: true, error: null})
+      this.setState({...this.getState(), waiting: true, error: ''})
       await fetch('api/v1/users/sign', {
         method: 'DELETE',
         headers: {
@@ -55,7 +55,7 @@ class AuthorizeState extends StoreModule {
           'Content-Type': 'application/json'
         }
       });
-      this.setState({token: '', loggedIn: false, error: null, waiting: false, user: null});
+      this.setState({token: '', loggedIn: false, error: '', waiting: false, user: null});
       localStorage.removeItem('token');
     } catch (error) {
       this.setState({waiting: false, error: error.message});

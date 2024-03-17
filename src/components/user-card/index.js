@@ -8,9 +8,9 @@ function UserCard(props) {
   const {user} = props
   return (<>
       {user && <div className={cn()}>
-        <h2>Профиль</h2>
-        <p>Имя:<span>{user.profile?.name}</span></p>
-        <p>Телефон:<span>{user.profile?.phone}</span></p>
+        <h2>{props.t('profile')}</h2>
+        <p>{props.t('name')}:<span>{user.profile?.name}</span></p>
+        <p>{props.t('phone')}:<span>{user.profile?.phone}</span></p>
         <p>email:<span>{user?.email}</span></p>
       </div>}
     </>
@@ -23,7 +23,7 @@ UserCard.propTypes = {
     profile: PropTypes.shape({
       name: PropTypes.string.isRequired,
       phone: PropTypes.string.isRequired,
-    }).isRequired,
+    }),
     email: PropTypes.string.isRequired,
   }),
 };

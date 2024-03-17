@@ -45,7 +45,7 @@ function User() {
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <UserCard user={select.user}/>
+        <UserCard t={t} user={select.user}/>
       </Spinner>
     </PageLayout>
   );

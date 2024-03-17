@@ -6,6 +6,9 @@
   margin: 0;
   font-size: 18px;
 }
+.Menu a{
+color: #0087E9;
+}
 
 .Menu-item {
   display: block;

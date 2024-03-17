@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback, useEffect, useMemo} from 'react';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -17,6 +17,7 @@ function Login() {
   const select = useSelector(state => ({
     loggedIn: state.auth.loggedIn,
     waiting: state.article.waiting,
+    error: state.auth.error
   }));
 
 
@@ -28,7 +29,6 @@ function Login() {
   if (select.loggedIn) return <Navigate to={'/'}/>
 
 
-
   return (
     <PageLayout>
       <UserPanel loggedIn={select.loggedIn} title={select.loggedIn ? t('exit') : t('enter')}/>
@@ -37,7 +37,7 @@ function Login() {
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <LoginForm  t={t} onSubmit={callbacks.signIn}/>
+        <LoginForm t={t} error={select.error} onSubmit={callbacks.signIn}/>
       </Spinner>
     </PageLayout>
   );

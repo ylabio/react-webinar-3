@@ -1,28 +1,16 @@
-.ArticleCard {
-  padding: 20px 40px;
+.UserCard {
+  padding: 20px;
 }
 
-.ArticleCard-description {
-  font-size: 18px;
-  margin: 20px 0;
-}
-
-.ArticleCard-prop {
-  margin: 20px 0;
-  display: flex;
-  justify-content: flex-start;
-  font-size: 18px
-}
-
-.ArticleCard-prop_size_big {
+.UserCard h2 {
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 700;
+  line-height: 27.6px;
 }
 
-.ArticleCard-label {
-  padding-right: 10px;
-}
-
-.ArticleCard-value {
-  font-weight: bold;
+.UserCard span {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 20.7px;
+  margin-left: 5px;
 }
