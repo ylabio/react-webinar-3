@@ -42,7 +42,6 @@ class AuthState extends StoreModule {
         waiting: false
       });
     } catch (error) {
-      console.error('Ошибка авторизации:', error);
       this.setState({ error: error.message || 'Не удалось выполнить вход', waiting: false });
     }
   }

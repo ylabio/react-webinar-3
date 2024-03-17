@@ -19,7 +19,7 @@ class CatalogState extends StoreModule {
         query: '',
         category: ''
       },
-      categories: [],
+      categories: [{value: '', title: 'Все'}],
       count: 0,
       waiting: false
     }
@@ -72,7 +72,7 @@ class CatalogState extends StoreModule {
     const categories = flattenCategories(json.result.items);
     this.setState({
       ...this.getState(),
-      categories: [{value: '', title: 'Все'}, ...categories],
+      categories: [...this.getState().categories, ...categories],
       waiting: false
     }, 'Загружены категории товаров из АПИ');
   }
