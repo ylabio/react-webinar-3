@@ -11,6 +11,7 @@ import PageLayout from '../../components/page-layout';
 import Form from '../../components/form';
 import Input from '../../components/input';
 import InputLabel from '../../components/input-label';
+import Spinner from '../../components/spinner';
 
 function Login() {
   const store = useStore();
@@ -26,7 +27,8 @@ function Login() {
   const select = useSelector(state => ({
     user: state.authorization.user,
     error: state.authorization.error,
-    errorMessage: state.authorization.errorMessage
+    errorMessage: state.authorization.errorMessage,
+    waiting: state.authorization.waiting
   }));
 
   const callbacks = {
@@ -52,21 +54,35 @@ function Login() {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <Form
-        onSubmit={callbacks.onFormSubmit}
-        error={select.error}
-        errorMessage={select.errorMessage}
-        formData={values}
-        title={t('authorization.login')}
-        submitBtnTitle={t('authorization.signin')}
-      >
-        <InputLabel name='login' title={t('authorization.name')}>
-          <Input type='text' name='login' value={values.login} onChange={callbacks.onInputChange}/>
-        </InputLabel>
-        <InputLabel name='password' title={t('authorization.password')}>
-          <Input onChange={callbacks.onInputChange} value={values.password} type='password' name='password'/>
-        </InputLabel>
-      </Form>
+      <Spinner active={select.waiting}>
+        <Form
+          onSubmit={callbacks.onFormSubmit}
+          error={select.error}
+          errorMessage={select.errorMessage}
+          formData={values}
+          title={t('authorization.login')}
+          submitBtnTitle={t('authorization.signin')}
+        >
+          <InputLabel name='login' title={t('authorization.name')}>
+            <Input
+              onChange={callbacks.onInputChange}
+              value={values.login}
+              type='text'
+              name='login'
+              theme='medium'
+            />
+          </InputLabel>
+          <InputLabel name='password' title={t('authorization.password')}>
+            <Input
+              onChange={callbacks.onInputChange}
+              value={values.password}
+              type='password'
+              name='password'
+              theme='medium'
+            />
+          </InputLabel>
+        </Form>
+      </Spinner>
     </PageLayout>
   )
 }

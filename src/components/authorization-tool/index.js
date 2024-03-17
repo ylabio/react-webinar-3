@@ -1,24 +1,25 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
+import './style.css';
 
-function AuthorizationTool({onLogin, buttonTitle}) {
+function AuthorizationTool({onClick, buttonTitle}) {
   const cn = bem('AuthorizationTool');
 
   return (
     <div className={cn()}>
-      <button onClick={onLogin}>{buttonTitle}</button>
+      <button onClick={onClick}>{buttonTitle}</button>
     </div>
   );
 }
 
 AuthorizationTool.propTypes = {
-  onLogin: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   buttonTitle: PropTypes.string
 }
 
 AuthorizationTool.deaultProps = {
-  onLogin: () => {
+  onClick: () => {
   }
 }
 
