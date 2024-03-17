@@ -30,5 +30,10 @@
 
 .SideLayout-item {
   margin: 0 5px;
+
+}
+
+.SideLayout select:first-child {
+  min-width: 161px;
 }
 

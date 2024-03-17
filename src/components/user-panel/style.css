@@ -3,7 +3,7 @@
   justify-content: flex-end;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-right: 20px;
+  padding-right: 30px;
   gap: 10px;
 }
 .UserPanel a{
@@ -15,6 +15,7 @@
   line-height: 14.95px;
 }
 .UserPanel button{
-  width: 59px;
+  width: max-content;
+  min-width: 59px;
   height: 21px;
 }

@@ -25,7 +25,7 @@ function CatalogFilter() {
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
     // Фильтрация
-    onFilter: useCallback(id => store.actions.catalog.setParams({category: id}), [store]),
+    onFilter: useCallback(id => store.actions.catalog.setParams({category: id, page: 1}), [store]),
     // Поиск
     onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
     // Сброс
