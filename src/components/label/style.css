@@ -1,0 +1,17 @@
+.FormInput {
+    display: flex;
+    flex-direction: column;
+    width: 203px;
+}
+
+.FormInput-input {
+    font-size: 16px;
+    padding: 5px 3px;
+}
+
+.FormInput-error {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: rgba(255, 0, 0, 1);
+}

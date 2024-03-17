@@ -8,7 +8,7 @@ function SideLayout({children, side, padding}) {
   return (
     <div className={cn({side, padding})}>
       {React.Children.map(children, (child) => (
-        <div key={child.key} className={cn('item')}>{child}</div>
+        <div key={child?.key} className={cn('item')}>{child}</div>
       ))}
     </div>
   );
@@ -17,7 +17,7 @@ function SideLayout({children, side, padding}) {
 SideLayout.propTypes = {
   children: PropTypes.node,
   side: PropTypes.oneOf(['start', 'end', 'between']),
-  padding: PropTypes.oneOf(['small', 'medium']),
+  padding: PropTypes.oneOf(['small', 'medium', 'medium_additionally']),
 }
 
 SideLayout.defaultProps = {};

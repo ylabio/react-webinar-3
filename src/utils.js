@@ -33,3 +33,35 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+//
+export function formatCategories(categories) {
+  let depths = {}
+  
+  // добавим глубину вложенности для каждой категории
+  let categoriesWithDepth = categories.map(item => {
+      let depth = item.parent ? depths[item.parent._id] + 1 : 0
+      
+      depths[item._id] = depth
+      item.depth = depth
+
+      return item;
+  })
+
+  // отсортируем по возрастанию вложенности
+  let sortedCategories = categoriesWithDepth.toSorted((a,b) => { return a.depth - b.depth })
+
+  let result = []
+
+  // изменим порядок таким образом, чтобы категории-потомки шли сразу после своих родителей
+  sortedCategories.forEach((item) => {
+    if (item.depth !== 0) {
+      let parentIndex = result.findIndex((element) => element._id === item.parent._id)
+      result.splice(parentIndex + 1, 0, item)
+    } else {
+      result.push(item)
+    }
+  })
+
+  return result.map(item => { return { value: item._id, title: '-'.repeat(item.depth) + item.title} })
+}
