@@ -1,0 +1,23 @@
+.AuthHeader {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 20px;
+}
+
+.AuthHeader-authorized {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.AuthHeader-name {
+  font-weight: 400;
+  font-size: 13px;
+  text-decoration: none;  
+  color: #0087e9;
+}
+
+.AuthHeader-name:hover {
+  text-decoration: underline;  
+}

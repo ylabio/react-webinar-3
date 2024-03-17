@@ -38,7 +38,9 @@ class ArticleState extends StoreModule {
       // Ошибка при загрузке
       // @todo В стейт можно положить информацию об ошибке
       this.setState({
-        data: {},
+        data: {
+          error: e
+        },
         waiting: false
       });
     }
