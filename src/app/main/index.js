@@ -1,67 +1,35 @@
-import { memo, useCallback, useEffect } from "react";
-import Item from "../../components/item";
+import {memo} from 'react';
+import useStore from "../../hooks/use-store";
+import useTranslate from "../../hooks/use-translate";
+import useInit from "../../hooks/use-init";
+import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
-import BasketTool from "../../components/basket-tool";
-import List from "../../components/list";
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
-import PageNumber from "../page-numbers";
+import CatalogFilter from "../../containers/catalog-filter";
+import CatalogList from "../../containers/catalog-list";
+import LocaleSelect from "../../containers/locale-select";
 
+/**
+ * Главная страница - первичная загрузка каталога
+ */
 function Main() {
+
   const store = useStore();
 
-  useEffect(() => {
-    store.actions.catalog.load();
-    store.actions.catalog.getMax();
-  }, []);
+  useInit(() => {
+    store.actions.catalog.initParams();
+  }, [], true);
 
-  const select = useSelector((state) => ({
-    list: state.catalog.list,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
-    page: state.catalog.page,
-    maxPage: state.catalog.maxPage,
-    lang: state.language.lang
-  }));
-
-  const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback((_id, item) => store.actions.basket.addToBasket(_id, item), [
-      store,
-    ]),
-    // Открытие модалки корзины
-    openModalBasket: useCallback(() => store.actions.modals.open("basket"), [
-      store,
-    ]),
-    changePage: useCallback((numb) => store.actions.catalog.changePage(numb)),
-    changeLang: useCallback(()=> store.actions.language.changeLang()),
-  };
-
-  const renders = {
-    item: useCallback(
-      (item) => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
-      },
-      [callbacks.addToBasket]
-    ),
-  };
+  const {t} = useTranslate();
 
   return (
     <PageLayout>
-      <Head title={select.lang == 'Рус' ? 'Магазин' : 'Shop'} changeLang={callbacks.changeLang} lang={select.lang}/>
-      <BasketTool
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-        lang={select.lang}
-      />
-      <List list={select.list} renderItem={renders.item} />
-      <PageNumber
-        changePage={callbacks.changePage}
-        page={select.page}
-        maxPage={select.maxPage}
-      />
+      <Head title={t('title')}>
+        <LocaleSelect/>
+      </Head>
+      <Navigation/>
+      <CatalogFilter/>
+      <CatalogList/>
     </PageLayout>
   );
 }

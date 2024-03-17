@@ -2,19 +2,20 @@ import {memo} from "react";
 import PropTypes from "prop-types";
 import './style.css';
 
-function Head({title, changeLang, lang}) {
+function Head({title, children}) {
   return (
     <div className='Head'>
-      <h1>{title}</h1>
-      <button className="ChangeLanguage" onClick={changeLang}>{lang=='Рус' ? 'Eng' : 'Рус'}</button>
+      <div className='Head-place'>
+        <h1>{title}</h1>
+      </div>
+      <div className='Head-place'>{children}</div>
     </div>
   )
 }
 
 Head.propTypes = {
   title: PropTypes.node,
-  lang: PropTypes.string,
-  changeLang: PropTypes.func.isRequired,
+  children: PropTypes.node,
 };
 
 export default memo(Head);

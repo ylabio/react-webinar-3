@@ -1,33 +1,21 @@
 import {createRoot} from 'react-dom/client';
-import * as React from "react";
-import * as ReactDOM from "react-dom/client";
-import Store from "./store";
+import {BrowserRouter} from "react-router-dom";
 import {StoreContext} from "./store/context";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import App from "./app/index";
-import ItemPage from './app/item-page/index';
+import {I18nProvider} from "./i18n/context";
+import App from './app';
+import Store from "./store";
 
 const store = new Store();
 
 const root = createRoot(document.getElementById('root'));
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App/>,
-  },
-  {
-    path: "/item/:id",
-    element: <ItemPage/>,
-  },
-]);
-
 // Первый рендер приложения
-ReactDOM.createRoot(document.getElementById("root")).render(
+root.render(
   <StoreContext.Provider value={store}>
-    <RouterProvider router={router} />
+    <I18nProvider>
+      <BrowserRouter>
+        <App/>
+      </BrowserRouter>
+    </I18nProvider>
   </StoreContext.Provider>
 );

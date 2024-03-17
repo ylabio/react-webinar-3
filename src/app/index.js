@@ -1,10 +1,13 @@
+import {useCallback, useContext, useEffect, useState} from 'react';
+import {Routes, Route} from 'react-router-dom';
+import useSelector from "../hooks/use-selector";
 import Main from "./main";
 import Basket from "./basket";
-import useSelector from "../store/use-selector";
+import Article from "./article";
 
 /**
  * Приложение
- * @returns {React.ReactElement}
+ * Маршрутизация по страницам и модалкам
  */
 function App() {
 
@@ -12,7 +15,11 @@ function App() {
 
   return (
     <>
-      <Main/>
+      <Routes>
+        <Route path={''} element={<Main/>}/>
+        <Route path={'/articles/:id'} element={<Article/>}/>
+      </Routes>
+
       {activeModal === 'basket' && <Basket/>}
     </>
   );

@@ -1,6 +1,9 @@
 import StoreModule from "../module";
 
-class Basket extends StoreModule {
+/**
+ * Покупательская корзина
+ */
+class BasketState extends StoreModule {
 
   initState() {
     return {
@@ -12,15 +15,13 @@ class Basket extends StoreModule {
 
   /**
    * Добавление товара в корзину
-   * @param _id Код товара
+   * @param _id {String} Код товара
    */
-  addToBasket(_id, newItem) {
+  async addToBasket(_id) {
     let sum = 0;
     // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
-    var list = this.getState().list;
-    if (list) {
-    list = this.getState().list.map(item => {
+    const list = this.getState().list.map(item => {
       let result = item;
       if (item._id === _id) {
         exist = true; // Запомним, что был найден в корзине
@@ -28,22 +29,17 @@ class Basket extends StoreModule {
       }
       sum += result.price * result.amount;
       return result;
-    });}
+    });
 
     if (!exist) {
       // Поиск товара в каталоге, чтобы его добавить в корзину.
-      // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      try {
-      const item = this.store.getState().catalog.list.find(item => item._id === _id);
+      const response = await fetch(`/api/v1/articles/${_id}`);
+      const json = await response.json();
+      const item = json.result;
+
       list.push({...item, amount: 1}); // list уже новый, в него можно пушить.
       // Добавляем к сумме.
       sum += item.price;
-      }
-      catch {
-        list =[{...newItem, amount: 1}]; // list уже новый, в него можно пушить.
-        // Добавляем к сумме.
-        sum += newItem.price;
-      }
     }
 
     this.setState({
@@ -75,4 +71,4 @@ class Basket extends StoreModule {
   }
 }
 
-export default Basket;
+export default BasketState;
