@@ -15,6 +15,7 @@ class CatalogState extends StoreModule {
       params: {
         page: 1,
         limit: 10,
+        category: '',
         sort: 'order',
         query: ''
       },
@@ -36,6 +37,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
 
@@ -67,6 +69,13 @@ class CatalogState extends StoreModule {
       waiting: true
     }, 'Установлены параметры каталога');
 
+    const responseCategories = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
+    const jsonCategories = await responseCategories.json();
+    this.setState({
+      ...this.getState(),
+      categories: jsonCategories.result.items
+    }, 'Загружен список категорий из АПИ');
+
     // Сохранить параметры в адрес страницы
     let urlSearch = new URLSearchParams(params).toString();
     const url = window.location.pathname + '?' + urlSearch + window.location.hash;
@@ -83,6 +92,10 @@ class CatalogState extends StoreModule {
       sort: params.sort,
       'search[query]': params.query
     };
+
+    if (params.category) {
+      apiParams['search[category]'] = params.category;
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
