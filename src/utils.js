@@ -33,3 +33,44 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+export function buildCategoryHierarchy(categories) {
+  const categoryMap = {};
+  categories.forEach(category => {
+    categoryMap[category._id] = category;
+  });
+
+  const counter = {};
+
+  const hierarchy = [];
+
+  for (const category of categories) {
+    if (!category.parent) {
+      hierarchy.push({ title: category.title, _id: category._id });
+    } else {
+      let currentCategory = category;
+      const chain = [];
+      
+      while (currentCategory.parent) {
+        currentCategory = categoryMap[currentCategory.parent._id];
+        chain.unshift(currentCategory.title);
+      }
+
+      const prefix = '-'.repeat(chain.length);
+
+      const index = hierarchy.findIndex(item => item.title === (chain.length === 1 ? chain[0] : `${prefix.slice(0, -1)} ${chain[chain.length - 1]}`));
+      
+      if (!counter.hasOwnProperty(hierarchy[index]._id)) {
+        counter[hierarchy[index]._id] = 0;
+      }
+
+      insertCategoryAtIndex(hierarchy, { title: `${prefix} ${category.title}`, _id: category._id }, index, counter);
+    }
+  }
+
+  return hierarchy;
+}
+
+function insertCategoryAtIndex(hierarchy, category, index, counter) {
+  counter[hierarchy[index]._id]++;
+  hierarchy.splice(index + counter[hierarchy[index]._id], 0, category);
+}

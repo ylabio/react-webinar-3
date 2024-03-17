@@ -1,0 +1,57 @@
+
+  .auth-input {  
+    margin-left: 20px;
+    max-width: 20%;
+  }
+  .auth-h2{
+    margin-left: 20px;
+    margin-top: 40px;
+  }
+.auth-label{
+  margin-top: 20px;
+  margin-left: 20px;
+}
+  .auth-label1{
+    margin-top: 1px;
+    margin-left: 20px;
+      }
+  
+  /* Стили для заголовка формы */
+  .auth-title {
+    color: #4CAF50;
+    font-size: 20px;
+    text-align: center;
+  }
+.auth-button{
+    margin-left: 20px;
+    margin-top: 20px;
+}
+  
+  /* Стили для ссылки на регистрацию */
+  .auth-link {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+  
+  /* Стили для сообщения об ошибке */
+  .error-message {
+    color: #FF0000;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  
+  /* Фон страницы */
+  
+  /* Стили для кнопки переключения языка */
+
+  /* Стили для логотипа */
+  .logo {
+    width: 100px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }

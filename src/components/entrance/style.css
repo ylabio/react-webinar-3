@@ -1,0 +1,18 @@
+.btn{
+    margin: 10px;
+    margin-right: 20px;
+    color: buttontext; 
+    box-sizing: border-box;
+    background-color: buttonface;
+    text-decoration: none;
+    padding-block: 1px;
+    padding-inline: 6px;
+    border-width: 1px;
+    border-style: outset;
+    border-radius: 3px;
+   
+}
+.container-ent {
+    display: flex;
+    justify-content: flex-end;
+}
