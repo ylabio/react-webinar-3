@@ -1,0 +1,9 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+.Form-error {
+  color: rgb(255, 0, 0);
+}
