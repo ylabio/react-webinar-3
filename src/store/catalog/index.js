@@ -16,11 +16,60 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category: ''
       },
+      categories: [{value: '', title: 'Все'}],
       count: 0,
       waiting: false
     }
+  }
+
+  async getCategories() {
+    const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
+    const json = await response.json();
+
+    // Функция для рекурсивного добавления категорий с учетом их иерархии
+    const flattenCategories = (categories) => {
+      function getParentCategory(category) {
+        return category.parent ? categories.find(c => c._id === category.parent._id) : null;
+      }
+
+      function getHierarchyLevel(category) {
+        let level = 0;
+        let parent = getParentCategory(category);
+        while (parent) {
+          level++;
+          parent = getParentCategory(parent);
+        }
+        return level;
+      }
+
+      function buildModifiedCategories(category, modifiedCategories) {
+        const hierarchyLevel = getHierarchyLevel(category);
+        const prefix = '-'.repeat(hierarchyLevel);
+        const modifiedTitle = prefix + ' ' + category.title;
+        modifiedCategories.push({ value: category._id, title: modifiedTitle });
+
+        categories
+          .filter(c => c.parent && c.parent._id === category._id)
+          .forEach(child => buildModifiedCategories(child, modifiedCategories));
+      }
+
+      const modifiedCategories = [];
+      categories.filter(category => !category.parent).forEach(rootCategory => {
+        buildModifiedCategories(rootCategory, modifiedCategories);
+      });
+
+      return modifiedCategories;
+    };
+
+    const categories = flattenCategories(json.result.items);
+    this.setState({
+      ...this.getState(),
+      categories: [...this.getState().categories, ...categories],
+      waiting: false
+    }, 'Загружены категории товаров из АПИ');
   }
 
   /**
@@ -30,6 +79,7 @@ class CatalogState extends StoreModule {
    * @return {Promise<void>}
    */
   async initParams(newParams = {}) {
+    await this.getCategories()
     const urlParams = new URLSearchParams(window.location.search);
     let validParams = {};
     if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
@@ -81,8 +131,12 @@ class CatalogState extends StoreModule {
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
-      'search[query]': params.query
+      'search[query]': params.query,
     };
+
+    if (params.category && params.category !== '') {
+      apiParams['search[category]'] = params.category;
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
