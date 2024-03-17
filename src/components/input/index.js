@@ -25,18 +25,24 @@ function Input(props) {
   useLayoutEffect(() => setValue(props.value), [props.value]);
 
   const cn = bem('Input');
+
   return (
-    <input
-      className={cn({theme: props.theme})}
-      value={value}
-      type={props.type}
-      placeholder={props.placeholder}
-      onChange={onChange}
-    />
+    <div className={cn()}>
+      {props.label && <label>{props.label}</label>}
+
+      <input
+        className={cn({theme: props.theme})}
+        value={value}
+        type={props.type}
+        placeholder={props.placeholder}
+        onChange={onChange}
+      />
+    </div>
   )
 }
 
 Input.propTypes = {
+  label: PropTypes.string,
   value: PropTypes.string,
   name: PropTypes.string,
   type: PropTypes.string,

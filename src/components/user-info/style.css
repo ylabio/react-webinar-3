@@ -1,0 +1,21 @@
+.UserInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 40px 20px;
+}
+
+.UserInfo-title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.UserInfo-user {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.UserInfo-bold {
+  font-weight: 700;
+}
