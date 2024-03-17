@@ -7,12 +7,7 @@ class CategoryState extends StoreModule {
 
   initState() {
     return {
-      list: [{
-        _id: "1",
-        title: "Все",
-        value: 'all',
-        parent: null
-      }],
+      list: [],
       waiting: false // признак ожидания загрузки
     }
   }
@@ -32,7 +27,12 @@ class CategoryState extends StoreModule {
       // Категории загружены успешно
       this.setState({
         list: [
-          ...this.getState().list,
+          {
+            _id: "1",
+            title: "Все",
+            value: 'all',
+            parent: null
+          },
           ...list
         ],
         waiting: false
