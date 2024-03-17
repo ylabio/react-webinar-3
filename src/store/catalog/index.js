@@ -130,6 +130,7 @@ class CatalogState extends StoreModule {
   }
 
   getSubCategories(categories, parentId = null, count = 0) {
+    // console.log('getSubCategories(categories)', categories);
      //todo порядок вложенности, дефис
     const childs = categories.filter(category=> (parentId === null || category.parent === null) ? category.parent === parentId : category.parent._id === parentId);
 

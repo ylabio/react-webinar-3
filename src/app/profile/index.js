@@ -15,12 +15,10 @@ function Profile() {
   const { t } = useTranslate();
   const store = useStore();
   const navigate = useNavigate();
-  const token = JSON.parse(window.localStorage.getItem("XToken"));
 
   const select = useSelector((state) => ({
     isLogin: state.login.isLogin,
     isValid: state.login.isValid,
-    // article: state.article.data,
     errorMessage: state.login.errorMessage,
 
     waiting: state.login.waiting,
@@ -36,7 +34,6 @@ function Profile() {
   const handleOnclick =()=>{
     callbacks.onLogout();
     navigate('/');
-
   }
 
   useEffect(() => {

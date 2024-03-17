@@ -9,6 +9,7 @@ import Navigation from "../../containers/navigation";
 import LoginForm from "../../components/login-form";
 import LocaleSelect from "../../containers/locale-select";
 import LoginNav from '../../components/login-nav';
+import useInit from "../../hooks/use-init";
 
 function Login() {
   const navigate = useNavigate()
@@ -16,6 +17,7 @@ function Login() {
   const store = useStore();
   const [loginName, setLoginName] = useState('');
   const [password, setPassword] = useState('');
+  const token = JSON.parse(localStorage.getItem("XToken"));
 
   const select = useSelector(state => ({
     isLogin: state.login.isLogin,
@@ -38,7 +40,12 @@ function Login() {
     navigate('/login');
   }
 
+  useInit(() => {
+    if(token) store.actions.login.loginByToken(token);
+  }, [], true);
+
   useEffect(() => {
+    // if(token) store.actions.login.loginByToken(token);
     if (select.isLogin) {
      return navigate('/profile')
    }

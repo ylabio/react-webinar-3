@@ -10,13 +10,14 @@ import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
+import LoginNav from '../../components/login-nav';
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
  */
 function Article() {
   const store = useStore();
-
+  const token = JSON.parse(localStorage.getItem("XToken"));
   // Параметры из пути /articles/:id
   const params = useParams();
 
@@ -36,8 +37,17 @@ function Article() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   }
 
+  useInit(() => {
+    if(token) store.actions.login.loginByToken(token);
+  }, [], true);
+
+  const handleOnclick =()=>{
+    navigate('/login');
+  }
+
   return (
     <PageLayout>
+      <LoginNav onClick={handleOnclick}/>
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>

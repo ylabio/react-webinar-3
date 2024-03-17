@@ -72,11 +72,9 @@ class LoginState extends StoreModule {
     });
 
     const json = await response.json();
-    console.log('json', json);
 
     if (response.ok) {
       const token = json.result.token;
-      console.log('token', token);
       localStorage.setItem("XToken", JSON.stringify(token));
 
       this.setState({
