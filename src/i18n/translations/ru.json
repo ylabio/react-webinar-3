@@ -16,5 +16,9 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "login.enter": "Вход",
+  "login.exit": "Выход",
+  "login.password": "Пароль",
+  "login.loginName": "Логин"
 }

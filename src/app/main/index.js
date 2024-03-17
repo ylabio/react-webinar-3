@@ -1,4 +1,5 @@
 import {memo} from 'react';
+import {useNavigate} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -8,12 +9,13 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import LoginNav from '../../components/login-nav';
 
 /**
  * Главная страница - первичная загрузка каталога
  */
 function Main() {
-
+  const navigate = useNavigate()
   const store = useStore();
 
   useInit(() => {
@@ -23,8 +25,13 @@ function Main() {
 
   const {t} = useTranslate();
 
+  const handleOnclick =()=>{
+    navigate('/login');
+  }
+
   return (
     <PageLayout>
+      <LoginNav title={t('login.enter')} onClick={handleOnclick}/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
