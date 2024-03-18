@@ -16,5 +16,13 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "auth.login": "Вход",
+  "auth.log-in": "Логин",
+  "auth.logout": "Выйти",
+  "auth.password": "Пароль",
+  "user.profile": "Профиль",
+  "user.name": "Имя",
+  "user.phone": "Телефон",
+  "user.email": "email"
 }
