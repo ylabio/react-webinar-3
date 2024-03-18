@@ -10,7 +10,9 @@ function Menu({items, onNavigate}) {
     <ul className={cn()}>
       {items.map(item => (
         <li key={item.key} className={cn('item')}>
-          <Link to={item.link} onClick={() => onNavigate(item)}>{item.title}</Link>
+          <Link to={item.link} className="Menu-link" onClick={() => onNavigate(item)}>
+           {item.title}
+          </Link>
         </li>
       ))}
     </ul>

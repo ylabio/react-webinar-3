@@ -1,3 +1,5 @@
+import { Children } from "react";
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -32,4 +34,23 @@ export function codeGenerator(start = 0) {
  */
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
+}
+
+export function makeCategoriesOptions(categoriesList, id, level) {
+  const categories = []
+
+  for (let category of categoriesList) {
+    if (category.parent === null && !id) {
+      const children = []
+      children.push({value: category._id, title: category.title})
+      children.push(...makeCategoriesOptions(categoriesList, category._id, 1))
+      categories.push(...children)
+    }
+    if (category.parent && category.parent._id === id) {
+      categories.push({value: category._id, title: '-'.repeat(level) + category.title})
+      categories.push(...makeCategoriesOptions(categoriesList, category._id, level + 1))
+    }
+  }
+  
+  return categories;
 }

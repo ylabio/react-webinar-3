@@ -1,0 +1,33 @@
+.LoginLayout {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  padding: 0;
+  margin-left: -5px;
+  margin-right: -5px;
+  align-items: center;
+}
+
+.LoginLayout_side_start {
+  justify-content: flex-start;
+}
+
+.LoginLayout_side_end {
+  justify-content: flex-end;
+}
+
+.LoginLayout_side_between {
+  justify-content: space-between;
+}
+
+.LoginLayout_padding_small {
+  padding: 10px;
+}
+
+.LoginLayout_padding_medium {
+  padding: 10px 20px;
+}
+
+.LoginLayout-item {
+  margin: 0 5px;
+}
