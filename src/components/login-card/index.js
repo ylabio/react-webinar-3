@@ -1,9 +1,8 @@
 import { memo } from 'react';
 import './style.css'
-import useSelector from '../../hooks/use-selector';
 import { useState } from 'react';
 import {cn as bem} from '@bem-react/classname'
-import Input from '../input';
+import PropTypes from 'prop-types';
 
 function LoginCard({t, buttonClick, error}) {
   const cn = bem('LoginCard');
@@ -42,6 +41,12 @@ function LoginCard({t, buttonClick, error}) {
       <button onClick={callbacks.onClick}>{t('login.button')}</button>
     </div>
   );
+}
+
+LoginCard.propTypes = {
+  error: PropTypes.string,
+  t: PropTypes.func,
+  buttonClick: PropTypes.func
 }
 
 export default memo(LoginCard);

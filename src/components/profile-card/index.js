@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { cn as bem } from '@bem-react/classname'
 import './style.css'
+import PropTypes from 'prop-types';
 
 function ProfileCard({ user, t }) {
 
@@ -24,6 +25,13 @@ function ProfileCard({ user, t }) {
       </div>
     </div>
   );
+}
+
+ProfileCard.propTypes = {
+  user: PropTypes.shape({
+    profile: PropTypes.object,
+    email: PropTypes.string
+  })
 }
 
 export default memo(ProfileCard)
