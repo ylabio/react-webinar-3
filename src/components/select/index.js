@@ -5,7 +5,7 @@ import './style.css';
 function Select(props) {
 
   const onSelect = (e) => {
-    props.onChange({sort: e.target.value});
+    props.onChange(e.target.value);
   };
 
   return (
