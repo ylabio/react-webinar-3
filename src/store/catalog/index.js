@@ -105,7 +105,7 @@ class CatalogState extends StoreModule {
    * @returns {Promise<void>}
    */
   async initCategoryData() {
-    const response = await fetch(`/api/v1/categories?lang=ru&limit=10&skip=0&fields=%2A`);
+    const response = await fetch(`/api/v1/categories?lang=ru&skip=0&fields=%2A`);
     const json = await response.json();
 
     this.setState({
