@@ -8,7 +8,7 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
-import useSelector from "../../hooks/use-selector";
+
 import UserAuthPortal from "../../containers/user-auth-portal";
 
 /**
@@ -16,14 +16,11 @@ import UserAuthPortal from "../../containers/user-auth-portal";
  */
 function Main() {
   const store = useStore();
-  const data = useSelector((s) => ({
-    cat: s.catalog,
-  }));
 
-  console.log(data, "data");
   useInit(
     () => {
       store.actions.catalog.initParams();
+      store.actions.categories.setCategories();
     },
     [],
     true

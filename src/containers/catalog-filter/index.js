@@ -16,7 +16,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     category: state.catalog.category,
     query: state.catalog.params.query,
-    categories: state.catalog.categories,
+    categories: state.categories.categories,
   }));
 
   const callbacks = {

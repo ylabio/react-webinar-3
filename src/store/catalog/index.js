@@ -20,7 +20,6 @@ class CatalogState extends StoreModule {
       },
       count: 0,
       waiting: false,
-      categories: [],
     };
   }
 
@@ -45,7 +44,7 @@ class CatalogState extends StoreModule {
       { ...this.initState().params, ...validParams, ...newParams },
       true
     );
-    await this.setCategories();
+    // await this.setCategories();
   }
 
   /**
@@ -111,40 +110,6 @@ class CatalogState extends StoreModule {
       },
       "Загружен список товаров из АПИ"
     );
-  }
-
-  async setCategories() {
-    function recursion(data = [], parentId = null, depth = 0) {
-      const result = [];
-
-      data.map((item) => {
-        if (
-          item.parent === parentId ||
-          (item.parent && item.parent._id === parentId)
-        ) {
-          const title = "-".repeat(depth) + item.title;
-          result.push({ value: item._id, title });
-          const children = recursion(data, item._id, depth + 1);
-          result.push(...children);
-        }
-      });
-
-      return result;
-    }
-    try {
-      const response = await fetch(
-        "/api/v1/categories?fields=_id,title,parent(_id)&limit=*"
-      );
-      const json = await response.json();
-      const result = [
-        { value: "", title: "Все" },
-        ...recursion(json.result.items),
-      ];
-      this.setState({
-        ...this.getState(),
-        categories: result,
-      });
-    } catch (error) {}
   }
 }
 
