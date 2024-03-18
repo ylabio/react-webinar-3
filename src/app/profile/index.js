@@ -29,7 +29,7 @@ const ProfilePage = (props) => {
 
    
         return (
-            <PageLayout>{props.isLoggedIn}
+            <PageLayout>
                 <Head title={t('title')}>
 
                     <LocaleSelect />

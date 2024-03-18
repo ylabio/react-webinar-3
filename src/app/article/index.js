@@ -37,7 +37,7 @@ function Article(props) {
   }
 
   return (
-      <PageLayout> {props.isLoggedIn}
+      <PageLayout>
       <Head title={select.article.title}>
              
         <LocaleSelect/>

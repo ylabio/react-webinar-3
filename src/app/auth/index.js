@@ -37,7 +37,7 @@ const LoginPage = (props) => {
     const { t } = useTranslate();
 
     return (
-        <PageLayout>{props.isLoggedIn}
+        <PageLayout>
             <Head title={t('title')}>
                 <LocaleSelect />
             </Head>

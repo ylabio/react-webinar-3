@@ -27,7 +27,7 @@ function Main(props) {
 
     
   return (
-      <PageLayout>{props.isLoggedIn}
+      <PageLayout>
       <Head title={t('title')}>   
         <LocaleSelect/>
       </Head>
