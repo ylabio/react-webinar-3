@@ -55,6 +55,7 @@ function CatalogFilter() {
         }
         debounceTimerRef.current = setTimeout(() => {
             if (!isResetClickedRef.current) {
+                callbacks.onReset()
                 callbacks.onSearch();
             }
         }, 1000);
@@ -68,8 +69,7 @@ function CatalogFilter() {
               onChange={e => callbacks.onCategorySelect(e)}
           />
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
-          <Input value={select.query || ''} onChange={callbacks.onSearch} placeholder={'Поиск'}
-       delay={1000}/>
+          <Input value={select.query !== undefined ? select.query : ''} onChange={callbacks.onSearch} placeholder={'Поиск'} delay={1000} />
           <button onClick={handleInputChange}>{t('filter.reset')}</button>
     </SideLayout>
   )

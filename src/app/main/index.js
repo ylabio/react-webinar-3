@@ -23,7 +23,7 @@ function Main(props) {
     }));
     useInit(() => {
         store.actions.catalog.initParams();  
-    }, [store.actions.catalog]);
+    }, []);
 
     
   return (
