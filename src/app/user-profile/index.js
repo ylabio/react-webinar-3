@@ -26,7 +26,7 @@ const UserProfile = () => {
   return (
     <>
       <ModalUser>
-        {!select.auth && <Navigate to={"/"} />}
+        {!select.auth && <Navigate to={"/login"} />}
         <HeaderAuth />
         <Head title={t("title")}>
           <LocaleSelect />
