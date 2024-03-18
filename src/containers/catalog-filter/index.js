@@ -56,7 +56,7 @@ function CatalogFilter() {
         debounceTimerRef.current = setTimeout(() => {
             if (!isResetClickedRef.current) {
                 callbacks.onReset()
-                callbacks.onSearch();
+        
             }
         }, 1000);
     }, [store]);//как смог исправил косяк с тем что если нажать сброс сразу после ввода то некорректно отрабатывает все
