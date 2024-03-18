@@ -34,38 +34,28 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
-function deepPerent(data,search,count){
-  let result = data.find((el)=>el._id==search)
-  if(!result.parent){
-    return count
-  }
-  if(result.parent){
-    return deepPerent(data,result.parent._id,count+1)
-  }
-}
-
 function createTreeData(arr, idProp, parentProp) {
   const tree = Object.fromEntries(arr.map(n => [ n[idProp], { ...n, children: [] } ]));
   return Object.values(tree).filter(n => !tree[n[parentProp]]?.children.push(n));
 }
 
-function makeData(data){
+function makeData(data,count){
   let output =[]
   for(let i =0; i<data.length;i++){
+    if(data[i].parent){
+      data[i].title='-'.repeat(count)+data[i].title
+    }
     output.push(data[i])
     if(data[i].children){
-      output.push(...makeData(data[i].children))
+      output.push(...makeData(data[i].children,count+1))
     }
   }
-  return [...output]
+  return output
 }
 
 export function addNesting(data){
-  let result =[...data]
-  result.map((el)=>{
+  let result = data.map((el)=>{
     if(el.parent){
-      let count = deepPerent(data,el.parent._id,1)
-      el.title ='-'.repeat(count)+el.title
       el.parent_id=el.parent._id
       return el
     }
@@ -73,5 +63,6 @@ export function addNesting(data){
   })
 
   const output = createTreeData(result, '_id', 'parent_id');
-  return makeData(output)
+  console.log(output)
+  return makeData(output,0)
 }
