@@ -102,8 +102,8 @@ class CatalogState extends StoreModule {
   async loadCategories(lang) {
     const apiParams = {
       lang,
-      fields: '_id,title,parent(_id)',
-      sort: '-_id',
+      fields: '_id,title,parent(_id),order',
+      sort: '-order',
     };
     const response = await fetch(`/api/v1/categories?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
