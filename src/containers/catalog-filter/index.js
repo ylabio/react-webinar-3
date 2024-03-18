@@ -1,10 +1,11 @@
 import {memo, useCallback, useMemo} from "react";
-import useTranslate from "../../hooks/use-translate";
-import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
-import Select from "../../components/select";
-import Input from "../../components/input";
-import SideLayout from "../../components/side-layout";
+import useTranslate from "../../hooks/use-translate.js";
+import useStore from "../../hooks/use-store.js";
+import useSelector from "../../hooks/use-selector.js";
+import Select from "../../components/select/index.js";
+import Input from "../../components/input/index.js";
+import SideLayout from "../../components/side-layout/index.js";
+import SelectCategory from "../../components/select-category/index.js";
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -16,11 +17,13 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    categoriesList: state.catalog.categories
   }));
 
   const callbacks = {
     // Сортировка
-    onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
+    onSort: useCallback(sort => store.actions.catalog.setParams(sort), [store]),
     // Поиск
     onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
     // Сброс
@@ -40,6 +43,7 @@ function CatalogFilter() {
 
   return (
     <SideLayout padding='medium'>
+      <SelectCategory options={select.categoriesList} value={select.category} onChange={callbacks.onSort}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>

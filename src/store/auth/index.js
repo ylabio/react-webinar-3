@@ -1,0 +1,104 @@
+import StoreModule from "../module";
+
+/**
+ * Детальная информация о товаре для страницы товара
+ */
+class AuthState extends StoreModule {
+
+  initState() {
+    return {
+      userData: {},
+      error: '',
+      waiting: false // признак ожидания загрузки
+    }
+  }
+
+  //вход пользователя, получение токена
+  async logInUser(login, password) {
+    this.setState({
+      userData: {},
+      error: '',
+      waiting: true
+    })
+    const sendData = {
+      "login": login,
+      "password": password
+    }
+    try {
+      const response = await fetch('/api/v1/users/sign', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(sendData),
+      })
+      const userJson = await response.json();
+      userJson.result ? this.setState({
+                          userData: userJson.result.user,
+                          error: '',
+                          waiting: false
+                        }, 'Загружена информация о пользователе из АПИ')
+                      : this.setState({
+                        userData: {},
+                        error: userJson.error.message,
+                        waiting: false
+                        }, 'Что-то пошло не так')
+    } catch (error) {
+      this.setState({
+        error: error.message,
+        waiting: false
+      }, 'Ошибка!');
+    }
+  }
+
+  //выход пользователя
+  async logOutUser(token) {
+    try {
+      const response = await fetch('/api/v1/users/sign', {
+        method: "DELETE",
+        headers: {
+          "X-Token": token,
+          "Content-Type": "application/json",
+        }});
+
+        this.setState({
+          userData: {},
+          error: '',
+          waiting: false
+        }, 'Пользователь вышел из системы');
+
+    } catch (error) {
+      console.log(error.message)
+      return error.message
+    }
+  }
+
+  
+ //загрузка пользователя по токену
+ async loadUser(token) {
+  try {
+    const response = await fetch('/api/v1/users/self?fields=*', {
+      method: "GET",
+      headers: {
+        "X-Token": token,
+        "Content-Type": "application/json",
+      }});
+
+    const userJson = await response.json();
+    userJson.result ? this.setState({
+                        userData: userJson.result,
+                        error: '',
+                        waiting: false
+                      }, 'Загружена информация о пользователе по токену')
+                    : this.setState({
+                      userData: {},
+                      error: '',
+                      waiting: false
+                      }, 'Пользователь не был ранее авторизован')
+  } catch (error) {
+    console.log(error.message)
+  }
+ }
+}
+
+export default AuthState;
