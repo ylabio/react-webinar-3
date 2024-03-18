@@ -1,10 +1,11 @@
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import {cn as bem} from "@bem-react/classname";
 import './style.css'
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/use-auth";
 
 const LoginForm = () => {
     
@@ -14,12 +15,14 @@ const LoginForm = () => {
     }
 
     const [formData, setFormData] = useState(initialState);
-    const navigate = useNavigate();
 
     const store = useStore();
 
+    const navigate = useNavigate();
+
     const select = useSelector(state => ({
         authError: state.auth.error,
+        userInfo: state.auth.userData,
         waiting: state.auth.waiting
       }));
     
@@ -28,7 +31,6 @@ const LoginForm = () => {
     const callbacks = {
     logIn: useCallback((login, password) => store.actions.auth.logInUser(login, password), [store])
     }
-
 
     const cn = bem('LoginForm');
 
@@ -39,12 +41,14 @@ const LoginForm = () => {
         })
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        callbacks.logIn(formData.login, formData.password);
+        const success = await callbacks.logIn(formData.login, formData.password);
         setFormData(initialState);
-        // navigate('/profile');
+        if (success) navigate("/profile");
     }
+
+    useAuth([]);
 
     return(
         <div className={cn()}>
@@ -52,11 +56,11 @@ const LoginForm = () => {
                 <p>Вход</p>
                 <div className={cn('input')}>
                     <label>Логин</label>
-                    <input id='login' onChange={changeInput} type="text"></input>
+                    <input id='login' onChange={changeInput} type="text" value={formData.login}></input>
                 </div>
                 <div className={cn('input')}>
                     <label>Пароль</label>
-                    <input id='password' onChange={changeInput} type="password"></input>
+                    <input id='password' onChange={changeInput} type="password" value={formData.password}></input>
                 </div>
                 <div className={cn('error')}>{select.authError}</div>
                 <button onClick={handleSubmit}>Войти</button>

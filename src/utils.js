@@ -68,5 +68,5 @@ export function getAuthToken() {
   const cookieString = document.cookie.split(';').find((element) => element.includes('token'));
   if (cookieString) {
     return cookieString.slice(7, cookieString.length)
-  }
+  } else return false
 }

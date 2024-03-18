@@ -33,16 +33,21 @@ class AuthState extends StoreModule {
         body: JSON.stringify(sendData),
       })
       const userJson = await response.json();
-      userJson.result ? this.setState({
-                          userData: userJson.result.user,
-                          error: '',
-                          waiting: false
-                        }, 'Загружена информация о пользователе из АПИ')
-                      : this.setState({
-                        userData: {},
-                        error: userJson.error.message,
-                        waiting: false
-                        }, 'Что-то пошло не так')
+      if (userJson.result) {
+        this.setState({
+          userData: userJson.result.user,
+          error: '',
+          waiting: false
+        }, 'Загружена информация о пользователе из АПИ');
+        return true
+      } else {
+        this.setState({
+          userData: {},
+          error: userJson.error.message,
+          waiting: false
+          }, 'Что-то пошло не так')
+          return false
+        };
     } catch (error) {
       this.setState({
         error: error.message,

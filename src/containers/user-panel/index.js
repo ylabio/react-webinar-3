@@ -32,7 +32,8 @@ function UserPanel() {
 
   const handleLogOut = () => {
     callbacks.onLogOut(getAuthToken());
-    deleteCookie('token')
+    deleteCookie('token');
+    navigate("/login");
   }
 
   return (
