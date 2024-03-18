@@ -16,6 +16,10 @@
   justify-content: flex-end;
 }
 
+.SideLayout_side_end *{
+  margin: 5px;
+}
+
 .SideLayout_side_between {
   justify-content: space-between;
 }

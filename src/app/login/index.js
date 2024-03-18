@@ -3,6 +3,7 @@ import Head from "../../components/head";
 import PageLayout from "../../components/page-layout";
 import LocaleSelect from "../../containers/locale-select";
 import Navigation from "../../containers/navigation";
+import ProfileTools from "../../containers/profile-tools";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import LoginCard from "../../components/login-card";
@@ -26,6 +27,7 @@ function Login() {
   }
   return (
     <PageLayout>
+      <ProfileTools/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

@@ -5,9 +5,8 @@ class ProfileState extends StoreModule {
   initState() {
     const token = localStorage.getItem('token');
     return {
-      token: token? token : '',
+      token: token ? token : '',
       error: '',
-      user: {}
     }
   }
 
@@ -25,35 +24,47 @@ class ProfileState extends StoreModule {
     });
     const json = await response.json();
     console.log(json);
-    if(json.error){
+    if (json.error) {
       this.setState({
         ...this.getState(),
         error: json.error.message
-      });
+      }, 'Ошибка при попытке авторизации');
     }
-    if(json.result){
+    if (json.result) {
       this.setState({
         ...this.getState(),
         token: json.result.token,
         error: '',
-      });
-      this.setUser(json.result.token);
+      }, "Успешная авторизация");
       localStorage.setItem('token', json.result.token);
+      this.setUser();
     }
   }
 
-  async setUser(token) {
+  async setUser() {
     const response = await fetch('/api/v1/users/self', {
       headers: {
         'Content-Type': 'application/json',
-        'X-Token' : token
+        'X-Token': localStorage.getItem('token')
       }
     });
     const json = await response.json();
     this.setState({
       ...this.getState(),
       user: json.result
+    }, "Получение данных пользователя");
+  }
+
+  async logOut() {
+    const response = await fetch('/api/v1/users/sign', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        "X-Token" : localStorage.getItem('token')
+      }
     });
+    localStorage.removeItem('token');
+    this.setState({}, 'Выход пользователя');
   }
 }
 
