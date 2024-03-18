@@ -28,6 +28,7 @@ function Input(props) {
   return (
     <input
       className={cn({theme: props.theme})}
+      id={props.id}
       value={value}
       type={props.type}
       placeholder={props.placeholder}
@@ -37,6 +38,7 @@ function Input(props) {
 }
 
 Input.propTypes = {
+  id: PropTypes.string,
   value: PropTypes.string,
   name: PropTypes.string,
   type: PropTypes.string,

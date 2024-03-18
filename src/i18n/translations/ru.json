@@ -1,6 +1,8 @@
 {
   "title": "Магазин",
   "menu.main": "Главная",
+  "login.btn": "Вход",
+  "login.submit": "Войти",
   "basket.title": "Корзина",
   "basket.open": "Перейти",
   "basket.close": "Закрыть",

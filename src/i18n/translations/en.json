@@ -1,6 +1,8 @@
 {
   "title": "Shop",
   "menu.main": "Main",
+  "login.btn": "Login",
+  "login.submit": "Login",
   "basket.title": "Cart",
   "basket.open": "Open",
   "basket.close": "Close",

@@ -1,0 +1,12 @@
+.form {
+  padding: 20px;
+}
+
+.form-item:nth-child(2n + 2) {
+  margin-top: 20px;
+}
+
+.form-btn {
+  margin-top: 20px;
+  cursor: pointer;
+}

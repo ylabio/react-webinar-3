@@ -13,3 +13,15 @@ body {
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
 }
+
+.PageLayout-head {
+  display: flex;
+  padding: 10px 20px;
+  justify-content: flex-end;
+}
+
+.PageLayout-login-btn {
+  text-transform: none;
+  color: #000;
+  cursor: pointer;
+}
