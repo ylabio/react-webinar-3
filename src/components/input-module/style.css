@@ -1,0 +1,19 @@
+.InputModule-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 20px 20px 20px 20px;
+}
+.InputModule-input-login,
+.InputModule-input-password {
+  width: 203px;
+  height: 26px;
+  margin-bottom: 10px;
+}
+.InputModule-form-group {
+  display: flex;
+  flex-direction: column;
+}
+.InputModule-button {
+  width: 60px;
+}

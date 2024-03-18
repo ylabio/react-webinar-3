@@ -1,0 +1,33 @@
+.ButtonLogin-wrapper {
+  height: 41px;
+  background: #f5f5f5;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 0 30px;
+  align-items: center;
+  justify-content: flex-end;
+}
+.ButtonLogin-button {
+  width: 59px;
+  height: 21px;
+  font-family: Arial;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 15px;
+  letter-spacing: 0em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+a {
+  text-decoration: none;
+}
+.ButtonLogin-users {
+  display: flex;
+  min-width: 100px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 20px 20px;
+}
+
