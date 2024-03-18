@@ -12,6 +12,7 @@ import LoginPage from "./auth"
 import LoginButton from '../components/login-button';
 import UserProfileButton from '../components/userProfile-button';
 import useTranslate from '../hooks/use-translate';
+import LoginBox from '../containers/login-line';
 
 /**
  * Приложение
@@ -21,47 +22,24 @@ function App() {
     const { t } = useTranslate();
     const activeModal = useSelector(state => state.modals.name);
     const store = useStore();
-    const navigate = useNavigate();
-    const auth = useSelector(state => state.auth);
-
     useInit(async () => {
         await store.actions.auth.autoLogin();
     }, []);
 
-    
-    const isLoggedIn = !!localStorage.getItem('authToken');
+    return (
+        <>
+            <LoginBox /> 
 
-    const handleLogoutClick = async () => {
-        await store.actions.auth.logout();
-        navigate('/login');
-    };
-    const handleLoginClick = () => {
-        if (!isLoggedIn) {
-            navigate('/login');
-        }
-    };
-    const renderLoginBox = () => {
-        if (!isLoggedIn) {
-            return <LoginButton title={t('auth.login')} onLoginClick={handleLoginClick} />;
-        } else {
-            console.log(auth);
-            return <UserProfileButton title={t('auth.logout')} user={auth.user} onLogoutClick={handleLogoutClick} />;
-        }
-    };
-    
+            <Routes>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/" element={<Main />} />
+                <Route path="/articles/:id" element={<Article />} />
+            </Routes>
 
-  return (
-    <>
-      <Routes>
-              <Route path={'/login'} element={<LoginPage isLoggedIn={renderLoginBox()} />} />
-              <Route path={'/profile'} element={<ProfilePage isLoggedIn={renderLoginBox()} />} />
-              <Route path={''} element={<Main isLoggedIn={renderLoginBox()} />}  />
-              <Route path={'/articles/:id'} element={<Article isLoggedIn={renderLoginBox()} />} />
-      </Routes>
-
-      {activeModal === 'basket' && <Basket/>}
-    </>
-  );
+            {activeModal === 'basket' && <Basket />}
+        </>
+    );
 }
 
 export default App;
