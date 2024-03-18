@@ -8,6 +8,8 @@ import Basket from './basket';
 import Article from './article';
 import Login from './login';
 import Profile from './profile';
+import RedirectLogin from '../containers/redirect-login';
+import RedirectProfile from '../containers/redirect-profile';
 
 /**
  * Приложение
@@ -17,21 +19,27 @@ function App() {
 
   const store = useStore();
 
-  useInit(() => {
-    store.actions.login.checklogin();
+  useInit(async() => {
+    await store.actions.login.checklogin();
   }, [], true);
 
   const activeModal = useSelector(state => state.modals.name);
-
-  // const authLogin = useSelector(state => state.login.authLogin);
 
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
-        <Route path={'/login'} element={<Login/>}/>
+        <Route path={'/login'} element={
+          <RedirectProfile>
+            <Login/>
+          </RedirectProfile>
+        }/>
         <Route path={'/articles/:id'} element={<Article/>}/>
-        <Route path={'/profile'} element={<Profile/>}/>
+        <Route path={'/profile'} element={
+          <RedirectLogin>
+            <Profile/>
+          </RedirectLogin>
+        }/>
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}

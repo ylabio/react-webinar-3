@@ -73,9 +73,9 @@ class CatalogState extends StoreModule {
     let urlSearch = new URLSearchParams(params).toString();
     const url = window.location.pathname + '?' + urlSearch + window.location.hash;
     if (replaceHistory) {
-      window.history.replaceState({}, '', url);
+      window.history.replaceState({}, '/', url);
     } else {
-      window.history.pushState({}, '', url);
+      window.history.pushState({}, '/', url);
     }
 
     const apiParams = {
