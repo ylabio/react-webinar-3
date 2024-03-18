@@ -14,7 +14,9 @@ function CatalogFilter() {
   const store = useStore();
 
   const select = useSelector(state => ({
+    categories: state.catalog.categories,
     sort: state.catalog.params.sort,
+    category: state.catalog.params.category,
     query: state.catalog.params.query,
   }));
 
@@ -23,9 +25,17 @@ function CatalogFilter() {
     onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
     // Поиск
     onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
+    // Сортировка по категориям
+    onSortCategories: useCallback((category) => store.actions.catalog.setParams({category}), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
+
+  const nestingOfCategories = (item) => {
+    if (!item.parent) return item.title;
+    if (item.parent) return `-${item.title}`
+    return `--${item.title}`
+  }
 
   const options = {
     sort: useMemo(() => ([
@@ -33,13 +43,18 @@ function CatalogFilter() {
       {value: 'title.ru', title: 'По именованию'},
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
-    ]), [])
+    ]), []),
+    category: useMemo(() => ([
+      {value: '', title: 'Все'},
+      ...select.categories.map( item => ({value: item._id, title: nestingOfCategories(item)}))
+    ]), [select.categories])
   };
 
   const {t} = useTranslate();
 
   return (
     <SideLayout padding='medium'>
+      <Select options={options.category} value={select.category} onChange={callbacks.onSortCategories}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>
