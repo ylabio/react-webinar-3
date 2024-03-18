@@ -34,7 +34,7 @@ function Login() {
       navigate('/profile');
       return null;
     }
-  }, [select.user.username, navigate])
+  }, [select.user.profile, navigate])
 
   const handleSubmit = (e) => {
     e.preventDefault();
