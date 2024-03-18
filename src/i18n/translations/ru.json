@@ -2,6 +2,7 @@
   "title": "Магазин",
   "menu.main": "Главная",
   "login.btn": "Вход",
+  "logout.btn": "Выход",
   "login.submit": "Войти",
   "basket.title": "Корзина",
   "basket.open": "Перейти",

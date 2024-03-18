@@ -10,3 +10,8 @@
   margin-top: 20px;
   cursor: pointer;
 }
+
+.form-error {
+  color: red;
+  margin-top: 20px;
+}

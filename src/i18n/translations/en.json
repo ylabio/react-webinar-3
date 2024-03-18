@@ -2,6 +2,7 @@
   "title": "Shop",
   "menu.main": "Main",
   "login.btn": "Login",
+  "logout.btn": "Logout",
   "login.submit": "Login",
   "basket.title": "Cart",
   "basket.open": "Open",

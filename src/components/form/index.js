@@ -3,13 +3,9 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Form({children, title, error, btnTitle, className} ) {
+function Form({children, title, error, btnTitle, className, onSubmit} ) {
 
   const cn = bem(className + ' form');
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-  }
 
   return (
     <form className={cn()} onSubmit={onSubmit}>
@@ -17,14 +13,16 @@ function Form({children, title, error, btnTitle, className} ) {
         {React.Children.map(children, (child) => (
           <div key={child.key} className={cn('item')}>{child}</div>
         ))}      
-      {error  && <div className={cn('error')}>{error}</div>}
-      <button className={cn('btn')}>{btnTitle}</button>
+      {error  && <div className={cn('error')}>{error.message}</div>}
+      <button className={cn('btn')} type='submit'>{btnTitle}</button>
     </form>
   )
 }
 
 Form.propTypes = {
-  error: PropTypes.string,
+  error: PropTypes.shape({
+    message: PropTypes.string
+  }),
   onSubmit: PropTypes.func,
   children: PropTypes.node,
 }

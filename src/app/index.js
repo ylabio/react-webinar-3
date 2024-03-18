@@ -4,6 +4,7 @@ import Main from "./main";
 import Login from "./login";
 import Basket from "./basket";
 import Article from "./article";
+import Profile from './profile';
 
 /**
  * Приложение
@@ -19,6 +20,7 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={'/login'} element={<Login/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
+        <Route path={'/profile'} element={<Profile/>}/>
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}

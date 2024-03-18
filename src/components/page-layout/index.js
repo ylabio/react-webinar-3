@@ -1,9 +1,10 @@
 import {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
-import './style.css';
-import { Link } from "react-router-dom";
 import useTranslate from "../../hooks/use-translate";
+import './style.css';
+import LoginTab from "../../containers/login-tab";
+
 
 function PageLayout({footer, children}) {
 
@@ -14,7 +15,7 @@ function PageLayout({footer, children}) {
   return (
     <div className={cn()}>
       <div className={cn('head')}>
-      <Link to="/login"><button className={cn('login-btn')}>{t('login.btn')}</button></Link>
+        <LoginTab />
       </div>
       <div className={cn('center')}>
         {children}
