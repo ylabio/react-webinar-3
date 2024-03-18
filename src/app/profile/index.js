@@ -20,7 +20,7 @@ function Profile() {
 
   useInit(() => {
     if (!select.user.profile) {
-      navigate('login');
+      navigate('/login');
       return null;
     }
   }, [select.user.profile, navigate])
@@ -34,7 +34,7 @@ function Profile() {
       </Head>
       <Navigation />
       <Spinner active={select.loading}>
-        <ProfileCard profile={select.user} />
+        {select.user.profile && <ProfileCard profile={select.user} t={t} />}
       </Spinner>
     </PageLayout>
   )

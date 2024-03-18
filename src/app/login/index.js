@@ -57,9 +57,9 @@ function Login() {
         onSubmit={handleSubmit}
         error={select.error}
       >
-        <Label id={'login'} title={'Логин'}/>
+        <Label id={'login'} title={t('login.label')}/>
         <FormInput id={'login'} value={loginName} onChange={setLoginName} />
-        <Label id={'password'} title={'Пароль'} />
+        <Label id={'password'} title={t('login.password')} />
         <FormInput id={'password'} type={'password'} value={password} onChange={setPassword} />
       </Form>
     </PageLayout>
