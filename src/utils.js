@@ -33,3 +33,35 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Форматирование категорий
+ * @param list {Array}
+ * @returns {Array}
+ */
+export function categoriesFormat(list = []) {
+  function getDepth(item, acc = '') {
+    if (item.parent) {
+      const found = list.find((node) => node._id === item.parent._id);
+      acc = `- ${acc}`;
+      return getDepth(found, acc);
+    } else {
+      return acc;
+    }
+  }
+  const nestedList = list.map((item) => {
+    const dash = getDepth(item);
+    item.title = dash + item.title;
+    return item;
+  })
+
+  const result = nestedList.filter((item) => !item.parent).reverse();
+
+  for (let i = 0; i < nestedList.length; i += 1) {
+    if (nestedList[i].parent) {
+      const parentIndex = result.findIndex((item) => item._id === nestedList[i].parent._id)
+      result.splice(parentIndex, 0, nestedList[i])
+    }
+  }
+  return result.reverse();
+}

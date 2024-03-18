@@ -5,6 +5,7 @@ import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
+import { categoriesFormat } from "../../utils";
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -31,7 +32,7 @@ function CatalogFilter() {
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
 
-  const categories = select.categories && select.categories
+  const categories = categoriesFormat(select.categories)
     .map((category) => ({value: category._id, title: category.title}));
 
   const options = {

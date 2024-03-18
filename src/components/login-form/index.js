@@ -1,5 +1,7 @@
 import { memo } from "react";
 import Input from "../input";
+import PropTypes from "prop-types";
+import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 function LoginForm(props) {
@@ -19,6 +21,28 @@ function LoginForm(props) {
       <button onClick={props.onClick}>{props.t('form.enter')}</button>
     </div>
   )
+}
+
+LoginForm.PropTypes = {
+  login: PropTypes.string,
+  password: PropTypes.string,
+  validation: PropTypes.bool,
+  errorMessage: PropTypes.string,
+  setLogin: PropTypes.func,
+  setPassword: PropTypes.func,
+  onClick: PropTypes.func,
+  t: PropTypes.func
+}
+
+LoginForm.defaultProps = {
+  setLogin: () => {
+  },
+  setPassword: () => {
+  },
+  onClick: () => {
+  },
+  t: () => {
+  },
 }
 
 export default memo(LoginForm);
