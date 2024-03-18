@@ -36,14 +36,14 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
 
 function createTreeData(arr, idProp, parentProp) {
   const tree = Object.fromEntries(arr.map(n => [ n[idProp], { ...n, children: [] } ]));
-  return Object.values(tree).filter(n => !tree[n[parentProp]]?.children.push(n));
+  return Object.values(tree).filter(n => !tree[n[parentProp]?.[idProp]]?.children.push(n));
 }
 
 function makeData(data,count){
   let output =[]
-  for(let i =0; i<data.length;i++){
+  for(let i =0; i < data.length; i++){
     if(data[i].parent){
-      data[i].title='-'.repeat(count)+data[i].title
+      data[i].title=' - '.repeat(count)+data[i].title
     }
     output.push(data[i])
     if(data[i].children){
@@ -54,15 +54,6 @@ function makeData(data,count){
 }
 
 export function addNesting(data){
-  let result = data.map((el)=>{
-    if(el.parent){
-      el.parent_id=el.parent._id
-      return el
-    }
-    return el
-  })
-
-  const output = createTreeData(result, '_id', 'parent_id');
-  console.log(output)
+  const output = createTreeData([...data], '_id', 'parent');
   return makeData(output,0)
 }
