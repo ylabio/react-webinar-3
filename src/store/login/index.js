@@ -44,11 +44,16 @@ class LoginState extends StoreModule {
       });
       const json = await response.json();
 
-      validParams.token = token;
-      validParams.email = json.result.email;
-      validParams.phone = json.result.profile.phone;
-      validParams.name = json.result.profile.name;
-      validParams.authorized = true;
+      if (json.error) {
+        validParams.validation = false;
+        validParams.errorMessage = json.error.message
+      } else {
+        validParams.token = token;
+        validParams.email = json.result.email;
+        validParams.phone = json.result.profile.phone;
+        validParams.name = json.result.profile.name;
+        validParams.authorized = true;
+      }
     }
     await this.setParams({...this.initState(), ...validParams, ...newParams});
   }
