@@ -13,6 +13,7 @@ import { redirect, useNavigate } from "react-router-dom";
 
 function Login() {
   const store = useStore();
+  const navigate = useNavigate();
   const select = useSelector(state => ({
     error: state.profile.error,
     token: state.profile.token
@@ -20,7 +21,10 @@ function Login() {
   const {t} = useTranslate();
 
   const callbacks = {
-    login: useCallback((login, password) => store.actions.profile.login(login, password), [store]),
+    login: useCallback((login, password) => {
+      store.actions.profile.login(login, password);
+      navigate('/profile');
+    }, [store]),
   }
   if(select.token){
 

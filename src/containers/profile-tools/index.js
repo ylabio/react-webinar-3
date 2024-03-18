@@ -9,6 +9,7 @@ import useInit from "../../hooks/use-init";
 
 function ProfileTools() {
   const store = useStore();
+  const navigate = useNavigate();
 
   const { t } = useTranslate();
 
@@ -28,17 +29,15 @@ function ProfileTools() {
       if (select.user) {
         store.actions.profile.logOut();
       } else {
-        redirect('/login');
+        navigate('/login');
       }
-    }, [store])
+    }, [store, navigate, select.user])
   }
 
   return (
     <SideLayout side='end' padding='small'>
       <Link to='/profile'>{select.user ? select.user.username : ''}</Link>
-      <Link to={!select.user ? '/login' : ''}>
-        <button onClick={callbacks.buttonClick}>{select.user ? t('auth.logout') : t('auth.login')}</button>
-      </Link>
+      <button onClick={callbacks.buttonClick}>{select.user ? t('auth.logout') : t('auth.login')}</button>
     </SideLayout>
   );
 }

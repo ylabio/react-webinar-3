@@ -64,7 +64,10 @@ class ProfileState extends StoreModule {
       }
     });
     localStorage.removeItem('token');
-    this.setState({}, 'Выход пользователя');
+    this.setState({
+      token: '',
+      error: '',
+    }, 'Выход пользователя');
   }
 }
 
