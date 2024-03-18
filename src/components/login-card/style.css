@@ -1,0 +1,21 @@
+.LoginCard {
+  padding: 20px;
+}
+.LoginCard-input{
+  padding-bottom: 20px;
+}
+
+.visible{
+  padding-bottom: 20px;
+  color: #FF0000;
+}
+
+.collapsed{
+  visibility: collapse;
+}
+
+input {
+  font-size: 16px;
+  padding: 2px;
+}
+

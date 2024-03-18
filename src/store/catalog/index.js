@@ -78,21 +78,19 @@ class CatalogState extends StoreModule {
     } else {
       window.history.pushState({}, '', url);
     }
-    console.log(params.query);
+    
     const apiParams = {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
-      // 'search[query]': params.query,
-      // 'search[category]': params.category
     };
-    // Добавляем параметр query, если он есть
+    // Добавляем поиск по названию, если он есть
     if (params.query) {
       apiParams['search[query]'] = params.query;
     }
 
-    // Добавляем параметр category, если он есть
+    // Добавляем поиск по категории, если он есть
     if (params.category) {
       apiParams['search[category]'] = params.category;
     }
