@@ -13,9 +13,10 @@ function LoginBox({ onLogin, loginError }) {
                 <input className={cn('name')} type="text" name="username" />
                 <span className={cn('input-password')} >{'Пароль'}</span>
                 <input className={cn('password')} type="password" name="password" />
+                {loginError && <p className={cn('error')}>{loginError}</p>}
                 <button className={cn('button')} type="submit">Войти</button>
             </form>
-            {loginError && <p>{loginError}</p>}
+          
         </div>
     );
 }

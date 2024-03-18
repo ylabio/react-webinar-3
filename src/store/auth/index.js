@@ -28,25 +28,28 @@ class AuthState extends StoreModule {
                 body: JSON.stringify({ login, password })
             });
 
-            if (!response.ok) {
-                throw new Error('Ошибка авторизации');
-            }
+            const json = await response.json(); // Сначала получаем JSON, независимо от статуса ответа
 
-            const json = await response.json();
-            console.log('json',json);
+            if (!response.ok) {
+                let errorMessage = 'Ошибка авторизации'; 
+                if (json.error && json.error.data && json.error.data.issues && json.error.data.issues.length > 0) {
+                    errorMessage = json.error.data.issues[0].message;
+                }
+                throw new Error(errorMessage);
+            }
             this.setState({
                 token: json.result.token,
-                user: json.result.user.username,
+                user: json.result.user.profile.name,
                 waiting: false
             });
-            
+
             localStorage.setItem('authToken', json.result.token);
         } catch (e) {
             this.setState({
                 waiting: false,
-                loginError: e.message
+                loginError: e.message 
             });
-            throw e; 
+            throw e;
         }
     }
 
@@ -93,7 +96,7 @@ class AuthState extends StoreModule {
 
                 const json = await response.json();
                 this.setState({
-                    user: json.result.username,
+                    user: json.result.profile.name,
                     token,
                     waiting: false,
                     profile: {
@@ -101,8 +104,6 @@ class AuthState extends StoreModule {
                         email: json.result.email
                     },
                 });
-               
-                console.log('1231231231',user,'13212313');
             } catch (e) {
                 console.error('Ошибка при загрузке профиля:', e);
             }
@@ -132,9 +133,8 @@ class AuthState extends StoreModule {
             }
 
             const json = await response.json();
-            console.log('json', json);
             this.setState({
-                user: json.result.username,
+                user: json.result.profile.name,
                 token,
                 waiting: false,
                 profile: {
