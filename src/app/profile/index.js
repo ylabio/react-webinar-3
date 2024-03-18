@@ -1,6 +1,4 @@
 import {memo} from 'react';
-import {useNavigate} from 'react-router-dom';
-import useInit from '../../hooks/use-init';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from "../../hooks/use-translate";
 import Navigation from "../../containers/navigation";
@@ -15,19 +13,13 @@ import Spinner from "../../components/spinner";
  * Личный кабинет пользователя
  */
 function Profile() {
-  const navigate = useNavigate();
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
     user: state.auth.user,
-    token: state.auth.token,
-    isLogged: state.auth.isLogged,
     waiting: state.auth.waiting,
+    isLogged: state.auth.isLogged,
   }));
-
-  useInit(() => {
-    if (!select.isLogged && !select.token) navigate('/');
-  }, [select.isLogged, select.token, navigate])
 
   return (
     <PageLayout>
@@ -38,7 +30,7 @@ function Profile() {
       <Navigation/>
       {select.isLogged &&
         <Spinner active={select.waiting}>
-          <UserInfo user={select.user}/>
+          <UserInfo user={select.user} t={t}/>
         </Spinner>
       }
     </PageLayout>

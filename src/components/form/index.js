@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function FormLayout({title, onSubmit, children}) {
+function Form({title, onSubmit, children}) {
   const cn = bem('FormLayout');
 
   function handleSubmit(e) {
@@ -19,14 +19,14 @@ function FormLayout({title, onSubmit, children}) {
   )
 }
 
-FormLayout.propTypes = {
+Form.propTypes = {
   title: PropTypes.string,
   onSubmit: PropTypes.func,
   children: PropTypes.node,
 }
 
-FormLayout.defaultProps = {
+Form.defaultProps = {
   onSubmit: () => {}
 }
 
-export default memo(FormLayout);
+export default memo(Form);

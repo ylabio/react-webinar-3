@@ -7,6 +7,7 @@ import Basket from "./basket";
 import Article from "./article";
 import Authorization from "./auth";
 import Profile from "./profile";
+import AuthCheck from "../containers/auth-check";
 
 /**
  * Приложение
@@ -22,7 +23,7 @@ function App() {
   }));
 
   /**
-   * Проверка авторизации пользователя
+   * Проверка авторизации и получение данных пользователя
    */
   useInit(() => {
     if (select.token) store.actions.auth.loadUser(select.token);
@@ -34,7 +35,7 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
         <Route path={'/authorization'} element={<Authorization/>}/>
-        <Route path={'/profile'} element={<Profile/>}/>
+        <Route path={'/profile'} element={<AuthCheck redirect={'/'}><Profile/></AuthCheck>}/>
       </Routes>
 
       {select.activeModal === 'basket' && <Basket/>}

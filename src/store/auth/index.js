@@ -76,7 +76,7 @@ class AuthState extends StoreModule {
       // Ошибка при загрузке данных
       this.setState({
         ...this.getState(),
-        error: json.error.message,
+        error: json.error.data?.issues[0]?.message,
         isLogged: false,
         waiting: false
       });
@@ -90,16 +90,16 @@ class AuthState extends StoreModule {
   async loadUser(token) {
     this.setWaiting();
 
-    try {
-      const response = await fetch('/api/v1/users/self?fields=*', {
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Token': token
-        }
-      })
-      const json = await response.json();
-  
-      // Данные успешно загружены
+    const response = await fetch('/api/v1/users/self?fields=*', {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Token': token
+      }
+    })
+    const json = await response.json();
+
+    // Данные успешно загружены
+    if (response.ok) {
       this.setState({
         ...this.getState(),
         user: json.result,
@@ -107,12 +107,14 @@ class AuthState extends StoreModule {
         error: null,
         waiting: false
       });
-
-    } catch (error) {
+      
+    } else {
       // Ошибка при загрузке данных
+      console.log(json);
       this.setState({
         ...this.getState(),
-        error: error,
+        isLogged: false,
+        error: json,
         waiting: false
       });
     }
