@@ -22,11 +22,11 @@ function LoginPage() {
   }));
 
   useInit(() => {
-    if (select.user.username) {
+    if (select.user && Object.keys(select.user).length !== 0) {
       navigate('/profile');
       return null;
     }
-  }, [select.user.username, navigate])
+  }, [select.user, navigate])
 
   const {t} = useTranslate();
 
