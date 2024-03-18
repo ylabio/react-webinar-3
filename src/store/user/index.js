@@ -14,6 +14,13 @@ class UserState extends StoreModule {
     }
   }
 
+  initUser() {
+    const accessToken = getCookie("token");
+    if (accessToken && !this.getState().user) {
+      this.getUserRequest(accessToken);
+    }
+  }
+
   /**
    * Логин по почте и паролю
    * @param email {String}
@@ -21,6 +28,8 @@ class UserState extends StoreModule {
    * @return {Promise<void>}
    */
   async login(email, password) {
+    console.log('login');
+    console.log(`${email}: ${password}`);
     this.setState({
       user: null,
       errorMessage: "",
@@ -35,24 +44,27 @@ class UserState extends StoreModule {
         },
         body: JSON.stringify({
           login: email,
-          password,
+          password: password,
           remember: true,
         })
       });
-      if (response && response.result) {
+      if (response && response.ok) {
         const json = await response.json();
         deleteCookie("token");
-        setCookie("token", json.token);
+        console.log(response);
+        console.log(json);
+        console.log(`setting cookie for ${json.result.token}`);
+        setCookie("token", json.result.token);
         this.setState({
-          user: json.result.user,
+          user: json.result,
           errorMessage: "",
           waiting: false,
         }, 'Пользователь залогинился');
-      } else if (response && response.error) {
+      } else if (response) {
         const json = await response.json();
         this.setState({
           ...this.getState(),
-          errorMessage: `Ошибка ${json.code}: ${json.error}`,
+          errorMessage: `Ошибка ${json.error.code}: ${json.error.message}`,
           waiting: false,
         }, 'Пользователь не залогинился');
       }
@@ -89,7 +101,7 @@ class UserState extends StoreModule {
         console.log('response:');
         console.log(json);
         this.setState({
-          user: json.result.user,
+          user: json.result,
           errorMessage: "",
           waiting: false,
         }, 'Данные о пользователе получены');
@@ -99,7 +111,7 @@ class UserState extends StoreModule {
         console.log(json);
         this.setState({
           ...this.getState(),
-          errorMessage: `Ошибка ${json.code}: ${json.error}`,
+          errorMessage: `Ошибка ${json.error.code}: ${json.error.message}`,
           waiting: false,
         }, 'Не удалось получить данные о пользователе');
       }
@@ -116,13 +128,15 @@ class UserState extends StoreModule {
     }
   }
 
-  async logout(accessToken) {    
+  async logout() {    
+    console.log('logout');
+    const accessToken = getCookie("token");
     this.setState({
       user: null,
       errorMessage: "",
       waiting: false
     }, 'Пользователь вышел');
-
+    console.log('before try block');
     try {
       const response = await fetch(`/api/v1/users/sign`, {
         method: 'DELETE',
@@ -130,25 +144,22 @@ class UserState extends StoreModule {
           'Content-Type': 'application/json',
           'X-Token': accessToken,
         },
-        body: JSON.stringify({
-          login: email,
-          password,
-          remember: true,
-        })
-      });;
-      if (response && response.result) {
-        const json = await response.json();
+      });
+      console.log('response: ');
+      console.log(response);
+      if (response && response.ok) {
+        console.log('deleting cookie');
         deleteCookie("token");
         this.setState({
           ...this.getState(),
           errorMessage: "",
           waiting: false,
         }, 'Пользователь вышел');
-      } else if (response && response.error) {
+      } else if (response) {
         const json = await response.json();
         this.setState({
           ...this.getState(),
-          errorMessage: `Ошибка ${json.code}: ${json.error}`,
+          errorMessage: `Ошибка ${json.error.code}: ${json.error.message}`,
           waiting: false,
         }, 'Пользователь не смог выйти');
       }
@@ -156,6 +167,8 @@ class UserState extends StoreModule {
     } catch (e) {
       // Ошибка при логине
       // @todo В стейт можно положить информацию об ошибке
+      console.log('error');
+      console.log(e);
       this.setState({
         user: null,
         errorMessage: "Не удалось выйти из учетной записи",

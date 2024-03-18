@@ -1,48 +1,39 @@
-import { memo, useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import useStore from "../../hooks/use-store";
+import useInit from "../../hooks/use-init";
 import useSelector from "../../hooks/use-selector";
-import { Navigate } from "react-router-dom";
-import { getCookie } from "../../cookie";
-import GoBack from "../../components/go-back";
+import { Navigate, Route } from "react-router-dom";
+import Spinner from "../../components/spinner";
 
-const ProtectedRoute = ({ authRequired, element }) => {
+const ProtectedRoute = ({ shouldBeAuthorized, element, redirect }) => {
   const store = useStore();
+
+  // useInit(() => {
+  //   store.actions.user.initUser();
+  // }, [], true);
 
   const select = useSelector(state => ({
     user: state.user.user,
     waiting: state.user.waiting,
   }));
 
-  const init = useCallback(() => {
-    const accessToken = getCookie("token");
-    if (accessToken && !select.user) {
-      callbacks.getUserRequest(accessToken);
+  useMemo(() => {
+    if (!select.user) {
+      store.actions.user.initUser();
     }
-  }, [select.user]);
+  }, []);
 
-  useEffect(() => {
-    init();
-  }, [init]);
+  const route = useCallback(() => {
+    console.log('select:')
+    console.log(select);
+    if (select.waiting) {
+      return <h3>Loading...</h3>
+    }
+    return (shouldBeAuthorized == (select.user !== null) ? element : <Navigate to={redirect} />);
 
-  const callbacks = {
-    getUserRequest: useCallback((accessToken) => store.actions.user.getUserRequest(accessToken), [store]),
-    renderPage: useCallback(() => {
-      if (select.waiting) {
-        return <h1>Загрузка...</h1>;
-      } else {
-        if (authRequired) {
-          console.log('auth required; redirecting to login page; user:')
-          console.log(select.user);
-          return select.user ? element : <Navigate to="/login" />;
-        } else {
-          console.log('auth not required; redirecting back; user:')
-          console.log(select.user);
-          return select.user ? <GoBack /> : element;
-        }
-      }
-    }, [select.user])
-  };
-  return useMemo(() => callbacks.renderPage(), [callbacks.renderPage]);
+  }, [select.user, select.waiting])
+
+  return route();
 }
 
-export default memo(ProtectedRoute);
+export default ProtectedRoute;
