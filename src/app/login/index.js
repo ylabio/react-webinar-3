@@ -9,29 +9,37 @@ import Authorization from "../../components/authorization";
 import useSelector from "../../hooks/use-selector";
 import AuthorizationForm from "../../components/authorization-form";
 import useTranslate from "../../hooks/use-translate";
+import {Navigate} from "react-router-dom";
 
 function Login(props) {
   const store = useStore();
 
   const select = useSelector(state => ({
-    query: state.catalog.params.query,
+    user: state.user.user,
+    isAuth: state.user.isAuth,
+    waiting: state.user.waiting
   }));
+  console.log(select.user)
 
   const callbacks = {
-    // Поиск
-    onInput: useCallback(query => store.actions.catalog.setParams({query}), [store])
+    // Отправка данных формы регистрации
+    onSubmit: useCallback(({login, password}) => store.actions.user.login({login, password}), [])
   }
   const {t} = useTranslate();
 
+  if (select.isAuth) {
+    return (<Navigate to={'/'} />)
+  }
+
   return (
     <PageLayout>
-      <Authorization />
+      <Authorization login={select.user.profile?.name} isAuth={select.isAuth} title={'Вход'} />
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <Spinner >
-        <AuthorizationForm value={select.query} onInput={callbacks.onInput} t={t} />
+      <Spinner active={select.waiting}>
+        <AuthorizationForm isAuth={select.isAuth} onSubmit={callbacks.onSubmit} t={t} />
       </Spinner>
     </PageLayout>
   );

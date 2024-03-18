@@ -1,23 +1,46 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {cn as bem} from '@bem-react/classname';
-import Input from "../input";
 import './style.css';
 
-function AuthorizationForm({value, onInput, t}) {
+function AuthorizationForm({onSubmit, t}) {
+  const loginRef = useRef(null);
+  const passwordRef = useRef(null);
+
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
+
+    if (loginRef !== null && passwordRef !== null) {
+      onSubmit({
+        login: loginRef.current.value,
+        password: passwordRef.current.value,
+      })
+    }
+  }
+
   const cn = bem('AuthorizationForm');
 
   return (
     <div className={cn()}>
       <div className={cn('title')}>Вход</div>
-      <div className={cn('group')}>
-        <label>Логин</label>
-        <Input value={value} onChange={onInput} />
-      </div>
-      <div className={cn('group')}>
-        <label>Пароль</label>
-        <Input value={value} onChange={onInput} />
-      </div>
-      <button>Войти</button>
+      <form className={cn('form')} onSubmit={handleSubmitForm}>
+        <div className={cn('group')}>
+          <label htmlFor='login'>Логин</label>
+          <input
+            ref={loginRef}
+            name='login'
+            required
+          />
+        </div>
+        <div className={cn('group')}>
+          <label htmlFor='password'>Пароль</label>
+          <input
+            ref={passwordRef}
+            name='password'
+            required
+          />
+        </div>
+        <button>Войти</button>
+      </form>
     </div>
   );
 }

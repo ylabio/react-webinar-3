@@ -18,7 +18,6 @@ function CatalogFilter() {
     query: state.catalog.params.query,
     category: state.category.categories,
   }));
-  console.log(select.category)
 
   const callbacks = {
     // Сортировка

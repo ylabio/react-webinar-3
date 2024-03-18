@@ -4,6 +4,10 @@
   padding: 10px 20px;
 }
 
+.Authorization-user {
+  margin-right: 20px;
+}
+
 .Authorization-link {
   padding: 2px 8px;
   border: 1px solid #767676;
