@@ -36,19 +36,24 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
 
 export const sortCategories = (categories, result = []) => {
 
-  const unhandleds = [];
-
+  const subcategories = [];
   categories.forEach((item) => {
-    if(!item.parent) return (item.level = 0, result.unshift(item));
-    const parentIndex = result.findIndex((parent) => (
-      parent._id !== item.parent._id
-        ? false
-        : (item.level = parent.level + 1, true)));
-
-    if(parentIndex === -1) return unhandleds.push(item);
-
-    result.splice(parentIndex + 1, 0, item);
+    const noParent = !item.parent || !categories.find((parent) => parent._id === item.parent._id)
+    if(noParent) return (item.level = 0, result.unshift(item));
+    subcategories.push(item);
   });
 
-  return !unhandleds.length ? result : sortCategories(unhandleds, result);
+  const sortChildren = (children) => {
+    const unhandleds = [];
+    children.forEach((item) => {
+      const parentIndex = result.findIndex((parent) => (
+        parent._id !== item.parent._id
+          ? false
+          : (item.level = parent.level + 1, true)));
+      if(parentIndex === -1) return unhandleds.push(item);
+      result.splice(parentIndex + 1, 0, item);
+    });
+    return !unhandleds.length ? result : sortChildren(unhandleds, result);
+  }
+  return sortChildren(subcategories);
 }
