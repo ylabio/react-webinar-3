@@ -17,6 +17,7 @@ function Main() {
   const store = useStore();
 
   useInit(() => {
+    store.actions.categories.getCategories();
     store.actions.catalog.initParams();
   }, [], true);
 

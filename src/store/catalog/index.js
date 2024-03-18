@@ -16,6 +16,7 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
+        category: '',
         query: ''
       },
       count: 0,
@@ -35,6 +36,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
@@ -81,8 +83,13 @@ class CatalogState extends StoreModule {
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
-      'search[query]': params.query
+      'search[category]': params.category,
+      'search[query]': params.query,
     };
+
+  if (!params.category) {
+    delete apiParams['search[category]']
+  }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
