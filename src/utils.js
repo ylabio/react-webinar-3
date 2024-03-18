@@ -34,42 +34,24 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
-export function buildCategoryHierarchy(categories) {
-
-  const categoryMap = {};
-  categories.forEach(category => {
-    categoryMap[category._id] = category;
-  });
-
-  let counter = {};
-
-  const hierarchy = [];
-  categories.forEach(category => {
-    if (!category.parent) {
-      hierarchy.push({title: category.title, _id: category._id});
-    } else {
-      let parent = category;
-
-      const chain = [];
-      while (parent.parent) {
-        parent = categoryMap[parent.parent._id];
-        chain.unshift(parent.title);
-      }
-
-      const prefix = '-'.repeat(chain.length);
-
-      if (chain.length === 1) {
-        const index = hierarchy.findIndex(item => item.title === chain[0])
-        counter[hierarchy[index]._id] = counter[hierarchy[index]._id] ? counter[hierarchy[index]._id] : 0;
-        hierarchy.splice(index + 1 + counter[hierarchy[index]._id], 0,  {title: `${prefix} ${category.title}`, _id: category._id})
-        counter[hierarchy[index]._id] += 1
-      } else if (chain.length > 1) {
-        const index = hierarchy.findIndex(item => item.title === `${prefix.slice(0, prefix.length - 1)} ${chain[chain.length - 1]}`)
-        counter[hierarchy[index]._id] = counter[hierarchy[index]._id] ? counter[hierarchy[index]._id] : 0;
-        hierarchy.splice(index + 1 + counter[hierarchy[index]._id], 0, {title: `${prefix} ${category.title}`, _id: category._id})
-        counter[hierarchy[index]._id] += 1
-      }
+export function buildCategoryHierarchy(items) {
+  const parentChildMap = {};
+  items.forEach(item => {
+    const parent = item.parent || null;
+    if (!parentChildMap[parent]) {
+      parentChildMap[parent] = [];
     }
+    parentChildMap[parent].push(item);
   });
-  return hierarchy;
+  function sortItems(parent, depth = 0) {
+    const children = parentChildMap[parent] || [];
+    let result = [];
+    children.forEach(child => {
+      child.title = '- '.repeat(depth) + child.title;
+      result.push(child);
+      result = [...result, ...sortItems(child.value, depth + 1)];
+    });
+    return result;
+  }
+  return sortItems(null);
 }

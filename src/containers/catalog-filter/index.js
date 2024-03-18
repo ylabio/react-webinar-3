@@ -40,7 +40,7 @@ function CatalogFilter() {
     ]), []),
     categoriesView: useMemo(() => ([
       {value: '', title: 'Все'},
-      ...buildCategoryHierarchy(select.categoriesData).map(item => ({value: item._id, title: item.title})),
+      ...buildCategoryHierarchy(select.categoriesData)
     ]), [select.categoriesData]),
   };
 
