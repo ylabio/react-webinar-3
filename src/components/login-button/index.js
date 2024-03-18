@@ -3,9 +3,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
 
-const LoginButton = ({ onLoginClick }) => (
+const LoginButton = ({ onLoginClick,title }) => (
     <div className="userProfile-button">
-     <button type="button" onClick={onLoginClick}>Войти</button>   
+        <button type="button" onClick={onLoginClick}>{title}</button>   
     </div>
     
 );

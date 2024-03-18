@@ -11,15 +11,15 @@ import ProfilePage from "./profile"
 import LoginPage from "./auth"
 import LoginButton from '../components/login-button';
 import UserProfileButton from '../components/userProfile-button';
-
+import useTranslate from '../hooks/use-translate';
 
 /**
  * Приложение
  * Маршрутизация по страницам и модалкам
  */
 function App() {
-
-  const activeModal = useSelector(state => state.modals.name);
+    const { t } = useTranslate();
+    const activeModal = useSelector(state => state.modals.name);
     const store = useStore();
     const navigate = useNavigate();
     const auth = useSelector(state => state.auth);
@@ -42,10 +42,10 @@ function App() {
     };
     const renderLoginBox = () => {
         if (!isLoggedIn) {
-            return <LoginButton onLoginClick={handleLoginClick} />;
+            return <LoginButton title={t('auth.login')} onLoginClick={handleLoginClick} />;
         } else {
             console.log(auth);
-            return <UserProfileButton user={auth.user} onLogoutClick={handleLogoutClick} />;
+            return <UserProfileButton title={t('auth.logout')} user={auth.user} onLogoutClick={handleLogoutClick} />;
         }
     };
     

@@ -35,7 +35,7 @@ const ProfilePage = (props) => {
                     <LocaleSelect />
                 </Head>
                 <Navigation />
-                <ProfileCard user={auth} />
+                <ProfileCard title={t('profile.title')} name={t('profile.name')} phone={t('profile.phone')} email={t('profile.email')} user={auth} />
             </PageLayout>
         );
     

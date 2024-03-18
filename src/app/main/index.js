@@ -9,6 +9,8 @@ import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
 import { useNavigate } from 'react-router-dom';
+import useSelector from '../../hooks/use-selector';
+import Spinner from '../../components/spinner';
 /**
  * Главная страница - первичная загрузка каталога
  */
@@ -16,21 +18,24 @@ function Main(props) {
     const navigate = useNavigate(); 
     const store = useStore();
     const { t } = useTranslate();
-
+    const select = useSelector(state => ({
+        waiting: state.catalog.waiting,
+    }));
     useInit(() => {
-        store.actions.catalog.initParams();
-    }, []);
+        store.actions.catalog.initParams();  
+    }, [store.actions.catalog]);
 
     
   return (
       <PageLayout>{props.isLoggedIn}
-      <Head title={t('title')}>
-              
+      <Head title={t('title')}>   
         <LocaleSelect/>
       </Head>
+          <Spinner active={select.waiting}>
       <Navigation/>
       <CatalogFilter/>
       <CatalogList/>
+          </Spinner>
     </PageLayout>
   );
 }

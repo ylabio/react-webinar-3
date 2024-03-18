@@ -42,7 +42,7 @@ const LoginPage = (props) => {
                 <LocaleSelect />
             </Head>
             <Navigation />
-            <LoginBox onLogin={handleLogin} loginError={auth.loginError} />
+            <LoginBox title={t('auth.title')} login={t('auth.title-login')} password={t('auth.title-password')} button={t('auth.title-button')}  onLogin={handleLogin} loginError={auth.loginError} />
         </PageLayout>
     );
 };

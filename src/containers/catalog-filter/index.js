@@ -34,18 +34,18 @@ function CatalogFilter() {
           }
       }, [store])
   };
-
+    const categoryTree = buildCategoryTree(store.getState().catalog.categories);
+    const categoryOptions = flattenCategories(categoryTree);
   const options = {
     sort: useMemo(() => ([
       {value: 'order', title: 'По порядку'},
       {value: 'title.ru', title: 'По именованию'},
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
-    ]), [])
+    ]), []),
+    
   };
-    console.log(store.getState().catalog.categories, 'Raw category data');
-    const categoryTree = buildCategoryTree(store.getState().catalog.categories);
-    const categoryOptions = flattenCategories(categoryTree);
+    
 
   const {t} = useTranslate();
 
