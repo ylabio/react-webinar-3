@@ -5,6 +5,8 @@ import Login from "./login";
 import Basket from "./basket";
 import Article from "./article";
 import Profile from './profile';
+import useStore from '../hooks/use-store';
+import useInit from '../hooks/use-init';
 
 /**
  * Приложение
@@ -13,6 +15,12 @@ import Profile from './profile';
 function App() {
 
   const activeModal = useSelector(state => state.modals.name);
+
+  const store = useStore();
+
+  useInit(() => {
+    store.actions.login.autoLogin();
+  }, [])
 
   return (
     <>

@@ -49,6 +49,75 @@ class loginState extends StoreModule {
           error: err,
         })
   }
-}}
+  }
+
+  async autoLogin() {
+    this.setState({
+      ...this.getState(),
+      waiting: true,
+    })
+    const token = localStorage.getItem('X-token');
+    if (!token) return;
+
+    const options = {
+      headers: {
+        "Content-Type": "application/json",
+        "X-Token": token
+      },
+      
+    }
+    try {
+      const response = await fetch('api/v1/users/self?fields=*', options);
+      const json = await response.json();
+      console.log(json);
+      this.setState({
+        loginData: json.result,
+        waiting: false,
+        error: null
+      })
+    } catch (err) {
+      this.setState({
+        loginData: {},
+        waiting: false,
+        error: err
+      })
+    }
+  }
+
+  async logout() {
+    this.setState({
+      ...this.getState(),
+      waiting: true
+    })
+    const token = localStorage.getItem('X-token');
+
+    const options = {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json",
+        "X-Token": token
+      }
+    }
+
+    try {
+      const response = await fetch('api/v1/users/sign', options);
+      const json = response.json();
+      if (json) {
+        this.setState({
+          loginData: {},
+          waiting: false,
+          error: null,
+        }, 'Выход из аккаунта успешен')
+      }
+      localStorage.removeItem('X-token');
+    } catch (err) {
+      this.setState({
+        loginData: {},
+        error: err,
+        waiting: false
+      })
+    }
+  }
+}
 
 export default loginState;

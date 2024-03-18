@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
@@ -13,13 +13,17 @@ function loginTab() {
     user: state.login.loginData
   }))
 
+  const callbacks = {
+    onLogOut: useCallback(() => store.actions.login.logout(), [store])
+  };
+
   const {t} = useTranslate();
 
   if(select.user && Object.keys(select.user).length !== 0) {
     return (
       <SideLayout side={'end'}>
         <Link to="/profile">{select.user.profile.name}</Link>
-        <button>
+        <button onClick={callbacks.onLogOut}>
           {t('logout.btn')}
         </button>
       </SideLayout>

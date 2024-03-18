@@ -5,15 +5,25 @@ import useTranslate from "../../hooks/use-translate";
 import LocaleSelect from "../../containers/locale-select";
 import Navigation from "../../containers/navigation";
 import ProfileCard from "../../components/profile-card";
-import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
+import useInit from "../../hooks/use-init";
+import { useNavigate } from "react-router-dom";
+import Spinner from "../../components/spinner";
 
 function Profile() {
-  const store = useStore()
-
+  const navigate = useNavigate();
+  
   const select = useSelector(state =>({
-    user: state.login.loginData
+    user: state.login.loginData,
+    loading: state.login.waiting,
   }))
+
+  useInit(() => {
+    if (!select.user.profile) {
+      navigate('login');
+      return null;
+    }
+  }, [select.user.profile, navigate])
   
   const {t} = useTranslate();
 
@@ -23,7 +33,9 @@ function Profile() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <ProfileCard profile={select.user} />
+      <Spinner active={select.loading}>
+        <ProfileCard profile={select.user} />
+      </Spinner>
     </PageLayout>
   )
 }
