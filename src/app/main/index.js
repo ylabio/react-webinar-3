@@ -1,4 +1,4 @@
-import {memo} from 'react';
+import {memo, useCallback} from 'react';
 import {useNavigate} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
@@ -10,6 +10,7 @@ import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
 import LoginNav from '../../components/login-nav';
+import useSelector from "../../hooks/use-selector";
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -27,8 +28,17 @@ function Main() {
 
   const {t} = useTranslate();
 
+  const select = useSelector(state => ({
+    isLogin: state.login.isLogin,
+  }));
+
+  const callbacks = {
+    onLogout: useCallback(() => store.actions.login.logout(), [store]),
+  }
+
   const handleOnclick =()=>{
     navigate('/login');
+    if(select.isLogin) callbacks.onLogout();
   }
 
   return (
