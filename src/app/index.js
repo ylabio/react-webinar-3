@@ -1,7 +1,5 @@
 import {Routes, Route} from 'react-router-dom';
 import useSelector from "../hooks/use-selector";
-import AuthChecker from '../checker/auth-checker';
-import LoginChecker from '../checker/login-checker';
 import useStore from "../hooks/use-store";
 import useInit from "../hooks/use-init";
 import Main from "./main";
@@ -29,8 +27,8 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
-        <Route path={'/login'} element={<LoginChecker><UserLogin /></LoginChecker>}/>
-        <Route path={'/profile'} element={<AuthChecker><UserProfile /></AuthChecker>} />   
+        <Route path={'/login'} element={<UserLogin />}/>
+        <Route path={'/profile'} element={<UserProfile />}/>   
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}
