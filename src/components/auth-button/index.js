@@ -1,4 +1,4 @@
-import React from 'react'
+import {memo} from 'react'
 import './style.css'
 import PropTypes from 'prop-types';
 
@@ -26,4 +26,4 @@ AuthButton.defaultProps = {
   buttonTitle: ''
 }
 
-export default AuthButton
+export default memo(AuthButton)

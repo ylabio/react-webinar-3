@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import './style.css'
 
-const Form = ({title, inputs, sumbitAction, errorMessage, buttonTitle, t}) => {
+const Form = ({title, inputs, sumbitAction, errorMessage, buttonTitle}) => {
   const {
     register,
     formState: { errors, isValid },
@@ -33,7 +33,7 @@ const Form = ({title, inputs, sumbitAction, errorMessage, buttonTitle, t}) => {
       <form autoComplete='on' className='Form' onSubmit={handleSubmit(onSubmit)}>
         {inputs.map((input) => (
           <div key={input.id} className='Form-input-container'>
-            <label className='Form-label' htmlFor={input.id}>{t(input.label)}</label>
+            <label className='Form-label' htmlFor={input.id}>{input.label}</label>
             <input
               id={input.id}
               name={input.id}
@@ -78,14 +78,12 @@ Form.propTypes = {
   errorMessage: PropTypes.string,
   submitAction: PropTypes.func,
   buttonTitle: PropTypes.string,
-  t: PropTypes.func,
 };
 
 Form.defaultProps = {
   sumbitAction: () => {},
-  t: (text) => text
 }
 
-export default Form;
+export default memo(Form);
 
 

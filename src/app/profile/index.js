@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import AuthMenu from '../../containers/auth-menu'
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -39,4 +40,4 @@ const Profile = () => {
   )
 }
 
-export default Profile
+export default memo(Profile)

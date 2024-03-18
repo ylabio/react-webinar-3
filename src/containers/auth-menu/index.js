@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, memo } from 'react'
 import useSelector from '../../hooks/use-selector'
 import SideLayout from '../../components/side-layout'
 import AuthButton from '../../components/auth-button'
@@ -35,4 +35,4 @@ const AuthMenu = () => {
   )
 }
 
-export default AuthMenu
+export default memo(AuthMenu)

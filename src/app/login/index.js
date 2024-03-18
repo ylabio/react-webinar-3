@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, memo } from 'react'
 import Form from '../../components/form'
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
 import LocaleSelect from "../../containers/locale-select";
-import { loginInputs } from '../../constants/constants';
 import { useCallback } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -37,6 +36,37 @@ const Login = () => {
 
   },[isLoggedIn])
 
+  const options = {
+    loginInputs: [
+      {
+        label: t('auth.login'),
+        id: 'login',
+        type: 'text',
+        autoComplite: 'username',
+        validationConfig: {
+          required: 'Введите логин',
+          minLength: {
+            value: 2,
+            message: 'Введите не менее 2 символов',
+          },
+          maxLength: {
+            value: 30,
+            message: 'Введите менее 30 символов',
+          },
+        },
+      },
+      {
+        label: t('auth.password'),
+        id: 'password',
+        type: 'password',
+        autoComplite: 'current-password',
+        validationConfig: {
+          required: 'Введите пароль',
+        },
+      },
+    ],
+  }
+
   return (
     <PageLayout>
       <Head title={t('title')}>
@@ -47,14 +77,13 @@ const Login = () => {
         <Form
           title={t('auth.signin')}
           buttonTitle={t('auth.signin-btn')}
-          inputs={loginInputs}
+          inputs={options.loginInputs}
           sumbitAction={callbacks.onLogin}
           errorMessage={error}
-          t={t}
         />
       </Spinner>
     </PageLayout>
   )
 }
 
-export default Login
+export default memo(Login)
