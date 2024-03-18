@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback, useEffect, useMemo} from 'react';
 import {useParams} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -8,47 +8,44 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
-import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
 import LoginBanner from "../../containers/login-banner";
+import ProfileCard from "../../components/profile-card";
+import { useNavigate } from 'react-router-dom';
 
-/**
- * Страница товара с первичной загрузкой товара по id из url адреса
- */
-function Article() {
+function Profile() {
   const store = useStore();
+  const navigate = useNavigate();
 
-  // Параметры из пути /articles/:id
-  const params = useParams();
-
-  useInit(() => {
-    store.actions.article.load(params.id);
-  }, [params.id]);
+  useEffect(() => {
+    store.actions.user.auth()
+      .then((success) => {
+        if (!success) {
+          navigate('/')
+        }
+      })
+  }, [])
 
   const select = useSelector(state => ({
-    article: state.article.data,
-    waiting: state.article.waiting,
+    loggedIn: state.user.loggedIn,
+    userInfo: state.user.userInfo,
+    waiting: state.user.waiting
   }));
 
   const {t} = useTranslate();
 
-  const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-  }
-
   return (
     <PageLayout>
       <LoginBanner/>
-      <Head title={select.article.title}>
+      <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        <ProfileCard userInfo={select.userInfo} t={t}/>
       </Spinner>
     </PageLayout>
   );
 }
 
-export default memo(Article);
+export default memo(Profile);

@@ -1,0 +1,26 @@
+.LoginCard {
+  padding: 20px 40px;
+}
+
+.LoginCard-title {
+  font-family: Arial;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 0em;
+  margin-bottom: 17px;
+}
+
+.LoginCard-input {
+  margin-bottom: 20px;
+  margin-top: 1px;
+}
+
+.LoginCard-button {
+  display: block
+}
+
+.LoginCard-error {
+  margin-bottom: 20px;
+  color: #FF0000;
+}

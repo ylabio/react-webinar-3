@@ -1,0 +1,11 @@
+.LoginControls {
+  display: flex;
+  height: 41px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  gap: 20px
+}
+
+.LoginControls-link a {
+  color: #0087E9
+}
