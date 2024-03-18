@@ -1,4 +1,5 @@
-import {memo} from 'react';
+import {memo, useEffect} from 'react';
+import { useNavigate } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import { Link } from 'react-router-dom';
 import useTranslate from "../../hooks/use-translate";
@@ -20,7 +21,7 @@ import ButtonOut from '../../components/button-out';
 function Main() {
 
   const store = useStore();
-
+  const navigate = useNavigate();
   const select = useSelector((state) => ({
     user: state.auth.user,
   }));
@@ -30,11 +31,24 @@ function Main() {
 
   const {t} = useTranslate();
 
+  useEffect(() => {
+    // Проверка доступа пользователя при загрузке страницы профиля
+    if (!select.user || !select.token) {
+      navigate("");
+    }
+  }, [select.user, select.token, navigate]);
+
+
+  const handleLogout = async () => {
+    await store.actions.auth.handleLogout();
+    navigate("/login");
+  };
+
   return (
     <PageLayout>
     {select.user ? (
         <>
-          <ButtonOut title="Выход" user={select.user} profilePath={"/profile-page"}/>
+          <ButtonOut title="Выход" user={select.user} onClick={handleLogout}  profilePath={"/profile-page"}/>
         </>
       ) : (
         <>
