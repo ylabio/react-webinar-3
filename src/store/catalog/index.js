@@ -12,11 +12,13 @@ class CatalogState extends StoreModule {
   initState() {
     return {
       list: [],
+      categories: [],
       params: {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        category: '',
+        query: '',
       },
       count: 0,
       waiting: false
@@ -30,11 +32,13 @@ class CatalogState extends StoreModule {
    * @return {Promise<void>}
    */
   async initParams(newParams = {}) {
+    await this.fetchCategories();
     const urlParams = new URLSearchParams(window.location.search);
     let validParams = {};
     if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
@@ -81,7 +85,8 @@ class CatalogState extends StoreModule {
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
-      'search[query]': params.query
+      ...(params.query && { 'search[query]': params.query } ),
+      ...(params.category && { 'search[category]': params.category } ),
     };
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
@@ -92,6 +97,54 @@ class CatalogState extends StoreModule {
       count: json.result.count,
       waiting: false
     }, 'Загружен список товаров из АПИ');
+  }
+
+  async fetchCategories() {
+    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      categories: this.#parseCategories(json.result.items),
+    }, 'Загружен список категорий');
+  }
+
+  #parseCategories(categories) {
+    categories = this.#sortCategories(categories);
+    return [{value: "", title: "Все"}, ...this.#generateCategoryNames(categories)];
+  }
+  
+  #sortCategories(categories) {
+    let result = [...categories];
+    result.slice().forEach((category) => {
+      if (category.parent) {
+        let parentIndex = result.findIndex(item => item._id === category.parent._id);
+        if (parentIndex) {
+          const currentIndex = result.findIndex(item => item._id === category._id);
+          if (currentIndex) {
+            result.splice(currentIndex, 1);
+          }
+          parentIndex = result.findIndex(item => item._id === category.parent._id);
+          result.splice(parentIndex + 1, 0, category);          
+        }
+      }
+    });
+    return result;
+  }
+
+  #generateCategoryNames(categories) {
+    let result = [];
+    for (let category of categories) {
+      result.push({value: category._id, title: this.#addSpaces(category.title, category.parent, categories)});
+    }
+    return result;
+  }
+
+  #addSpaces(title, parent, categories) {
+    if (parent) {
+      title = `- ${title}`;
+      title = this.#addSpaces(title, categories.find(c => c._id === parent._id).parent, categories);
+    }
+    return title;
   }
 }
 
