@@ -16,8 +16,14 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category: '',
       },
+      categories: [{
+        _id: "",
+        title: "Все",
+        name: ""
+      }],
       count: 0,
       waiting: false
     }
@@ -76,21 +82,31 @@ class CatalogState extends StoreModule {
       window.history.pushState({}, '', url);
     }
 
-    const apiParams = {
+    const apiParams = this.getState().params.category !== '' ? {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
-      'search[query]': params.query
+      'search[query]': params.query,
+      'search[category]': params.category,
+    } : {
+      limit: params.limit,
+      skip: (params.page - 1) * params.limit,
+      fields: 'items(*),count',
+      sort: params.sort,
+      'search[query]': params.query,
     };
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
+    const categoriesResponse = await fetch(`/api/v1/categories?fields=items(_id, title, name)`)
     const json = await response.json();
+    const categoriesJson = await categoriesResponse.json();
     this.setState({
       ...this.getState(),
       list: json.result.items,
       count: json.result.count,
-      waiting: false
+      waiting: false,
+      categories: categoriesJson.result.items.concat(this.initState().categories),
     }, 'Загружен список товаров из АПИ');
   }
 }
