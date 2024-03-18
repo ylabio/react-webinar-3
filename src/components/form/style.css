@@ -1,0 +1,43 @@
+.Form-container {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 203px;
+}
+
+.Form {
+  display: flex;
+  flex-direction: column;
+  max-width: 210px;
+}
+
+.Form-input-container {
+  width: inherit;
+}
+
+.Form-input {
+  width: 100%;
+  padding: 3px;
+  font-size: 16px;
+}
+
+.Form-error {
+  color: #ee3465;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 6px 0 0 0;
+  display: block;
+  min-height: 14px;
+}
+
+.Form-buttom {
+  width: fit-content;
+}
+
+.Form-submit-error {
+  font-size: 16px;
+  color: #f00;
+  margin-bottom: 10px;
+}

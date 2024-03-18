@@ -18,4 +18,8 @@ Head.propTypes = {
   children: PropTypes.node,
 };
 
+Head.defaultProps = {
+  title: "Магазин"
+}
+
 export default memo(Head);
