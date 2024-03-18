@@ -43,7 +43,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Authorization isAuth={select.isAuth} login={select.user.profile?.name}
+      <Authorization isAuth={select.isAuth} login={select.user?.profile?.name}
                      profile={'/profile'} link={select.isAuth ? '' : '/login'}
                      title={select.isAuth ? 'Выход' : 'Вход'} onLogout={callbacks.onLogout} />
       <Head title={t('title')}>

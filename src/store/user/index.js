@@ -75,7 +75,8 @@ class UserState extends StoreModule {
   } catch (e) {
     this.setState({
       ...this.getState(),
-      error: e.message
+      error: e.message,
+      isAuth: false
     })
     }
   }
@@ -92,13 +93,21 @@ class UserState extends StoreModule {
       const json = await response.json();
       console.log(json)
 
-      this.setState({
-        ...this.getState(),
-        user: json.result,
-        waiting: false,
-        isAuth: true,
-        error: ''
-      }, 'Получены данные пользователя')
+      if (response.ok) {
+        this.setState({
+          ...this.getState(),
+          user: json.result,
+          waiting: false,
+          isAuth: true,
+          error: ''
+        }, 'Получены данные пользователя')
+      } else {
+        this.setState({
+          ...this.getState(),
+          isAuth: false
+        })
+      }
+
     } catch (e) {
       this.setState({
         ...this.getState(),

@@ -1,17 +1,15 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
-import {Navigate} from "react-router-dom";
 import PageLayout from "../../components/page-layout";
 import Authorization from "../../components/authorization";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
 import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
-import AuthorizationForm from "../../components/authorization-form";
 import UserProfile from "../../components/user-profile";
-import useInit from "../../hooks/use-init";
+import {Navigate} from "react-router-dom";
 
 function Profile(props) {
   const store = useStore();
@@ -22,15 +20,21 @@ function Profile(props) {
     waiting: state.user.waiting
   }));
 
+  const callbacks = {
+    // Выход из профиля
+    onLogout: useCallback(() => store.actions.user.signOut(), [store]),
+  }
+
   const {t} = useTranslate();
 
-  // if (select.isAuth) {
-  //   return (<Navigate to={'/'} />)
-  // }
+  if (!select.isAuth) {
+    return (<Navigate to={'/'} />)
+  }
 
   return (
     <PageLayout>
-      <Authorization login={select.user?.profile?.name} isAuth={select.isAuth} title={select.isAuth ? 'Выход' : 'Вход'} />
+      <Authorization login={select.user?.profile?.name} isAuth={select.isAuth}
+                     title={select.isAuth ? 'Выход' : 'Вход'} onLogout={callbacks.onLogout} />
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
