@@ -42,7 +42,7 @@ function CatalogFilter() {
     category: useMemo(() => ([
       {value: 'All', title: t('catalog.all')},
       ...select.categories.map(({_id, title, level}) => (
-        {value: _id, title: '-'.repeat(level) + title})),
+        {value: _id, title: '- '.repeat(level) + title})),
     ]), [select.categories])
   };
 
