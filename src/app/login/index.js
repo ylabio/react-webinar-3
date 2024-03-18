@@ -32,7 +32,6 @@ function Login() {
   const callbacks = {
     logIn: useCallback(() => store.actions.auth.logIn(login, password), [login, password]),
     logOut: useCallback(() => store.actions.auth.logOut(), [store]),
-    getProfile: useCallback(() => store.actions.auth.getProfile(), [store]),
   }
 
   const options = {

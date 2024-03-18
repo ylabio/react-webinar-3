@@ -72,7 +72,7 @@ class CatalogState extends StoreModule {
     const categories = flattenCategories(json.result.items);
     this.setState({
       ...this.getState(),
-      categories: [...this.getState().categories, ...categories],
+      categories: [{value: '', title: 'Все'}, ...categories],
       waiting: false
     }, 'Загружены категории товаров из АПИ');
   }
