@@ -45,7 +45,7 @@ class CatalogState extends StoreModule {
 
       categories.unshift({
           _id: null, 
-          title: 'ВСЕ',
+          title: 'Все',
       });
       this.setState({
           ...this.getState(),
@@ -85,7 +85,7 @@ class CatalogState extends StoreModule {
         if (params.query === '') {
             delete params.query;
         }
-      if (params['search[category]'] === '' || params['search[category]'] === 'ВСЕ') {
+      if (params['search[category]'] === '' || params['search[category]'] === 'Все') {
           delete params['search[category]'];
       }
 

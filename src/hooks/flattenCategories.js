@@ -1,7 +1,7 @@
 function flattenCategories(categories, depth = 0) {
     let options = [];
     categories.forEach(category => {
-        const prefix = depth > 0 ? '-'.repeat(depth) : '';
+        const prefix = depth > 0 ? '- '.repeat(depth) : '';
         options.push({
             value: category.value,
             title: prefix + category.title, 
