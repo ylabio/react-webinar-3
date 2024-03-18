@@ -6,6 +6,7 @@ import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
 import { makeCategoriesOptions } from "../../utils";
+import translate from "../../i18n/translate";
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -43,7 +44,7 @@ function CatalogFilter() {
       {value: 'edition', title: 'Древние'},
     ]), []),
     category: useMemo(() => ([
-      {value: '', title: t('category.all')},
+      {value: '', title: translate(navigator.language, 'category.all')},
       ...makeCategoriesOptions(select.categories)
     ]))
   };
