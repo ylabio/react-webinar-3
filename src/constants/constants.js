@@ -1,6 +1,6 @@
 export const loginInputs = [
 	{
-		label: 'Логин',
+		label: 'auth.login',
 		id: 'login',
 		type: 'text',
     autoComplite: 'username',
@@ -17,7 +17,7 @@ export const loginInputs = [
 		},
 	},
 	{
-		label: 'Пароль',
+		label: 'auth.password',
 		id: 'password',
 		type: 'password',
     autoComplite: 'current-password',

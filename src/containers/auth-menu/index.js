@@ -4,10 +4,12 @@ import SideLayout from '../../components/side-layout'
 import AuthButton from '../../components/auth-button'
 import { useNavigate, Link } from 'react-router-dom'
 import useStore from '../../hooks/use-store'
+import useTranslate from '../../hooks/use-translate';
 
 const AuthMenu = () => {
   const navigate = useNavigate()
   const store = useStore()
+  const {t} = useTranslate();
 
   const {isLoggedIn, user} = useSelector(state => ({
     isLoggedIn: state.auth.isLoggedIn,
@@ -24,10 +26,10 @@ const AuthMenu = () => {
       {isLoggedIn ?
         <>
           <Link to={'/profile'}>{user?.name}</Link>
-          <AuthButton onAction={callbacks.onLogout} buttonTitle={'Выход'}/>
+          <AuthButton onAction={callbacks.onLogout} buttonTitle={t('auth.signout')}/>
         </>
       :
-        <AuthButton onAction={callbacks.onLogin} buttonTitle={'Вход'}/>
+        <AuthButton onAction={callbacks.onLogin} buttonTitle={t('auth.signin')}/>
       }
     </SideLayout>
   )

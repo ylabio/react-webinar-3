@@ -19,8 +19,8 @@ function App() {
   const activeModal = useSelector(state => state.modals.name);
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
 
-  useInit(async () => {
-    await store.actions.auth.auth()
+  useInit(() => {
+    store.actions.auth.auth()
   }, [])
 
   return (

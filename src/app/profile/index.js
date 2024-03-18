@@ -8,10 +8,13 @@ import ProfileCard from '../../components/profile-card';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import useInit from '../../hooks/use-init';
+import useTranslate from '../../hooks/use-translate';
+
 
 const Profile = () => {
 
   const store = useStore();
+  const {t} = useTranslate()
 
   const {pending, userData} = useSelector(state => ({
     pending: state.profile.pending,
@@ -25,7 +28,7 @@ const Profile = () => {
   return (
     <PageLayout>
       <AuthMenu/>
-      <Head>
+      <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
