@@ -15,14 +15,9 @@ class LoginState extends StoreModule {
   }
 
   async signIn(data) {
-    // const formData = {
-    //   login: data.get('login'),
-    //   password: data.get('password'),
-    // };
-
     const formData = {
-      login: 'test_1',
-      password: '123456',
+      login: data.get('login'),
+      password: data.get('password'),
     };
 
     try {
