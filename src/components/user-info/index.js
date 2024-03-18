@@ -7,11 +7,6 @@ import useTranslate from "../../hooks/use-translate";
 function UserInfo({ user }) {
   const cn = bem('UserInfo');
   const { t } = useTranslate();
-
-  if (!user) {
-    return null; 
-  }
-
   return (
     <div className={cn()}>
       <h2 className={cn('title')}>{t('user.profile')}</h2>

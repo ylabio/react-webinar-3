@@ -5,21 +5,19 @@ import './style.css';
 import useTranslate from "../../hooks/use-translate";
 import SideLayout from "../side-layout";
 
-function AuthMenu({isAuth, username, onLogout}) {
+function AuthMenu({isAuth, onLogout, children}) {
 
   const {t} = useTranslate();
   
   return (
     <SideLayout side='end' padding='small-medium'>
       <div className="AuthMenu">
-        {username && isAuth && (
-          <Link to='/profile'>{username}</Link>
-        )}
+        {children}
         {isAuth ? (
-          <button className="AuthMenu-btn" onClick={onLogout}>{t('auth.logout')}</button>
+          <button className="AuthMenu-btn" onClick={onLogout}>{t('auth.signout')}</button>
         ) : (
           <button className="AuthMenu-btn">
-            <Link to="/login" className="AuthMenu-link">{t('auth.login')}</Link>
+            <Link to="/login" className="AuthMenu-link">{t('auth.signin')}</Link>
           </button>
         )}
       </div>
@@ -28,6 +26,14 @@ function AuthMenu({isAuth, username, onLogout}) {
 }
 
 AuthMenu.propTypes = {
+  isAuth: PropTypes.bool.isRequired,
+  username: PropTypes.string,
+  AuthMenu: PropTypes.func,
 };
+
+AuthMenu.defaultProps = {
+  AuthMenu: () => {
+  },
+}
 
 export default memo(AuthMenu);

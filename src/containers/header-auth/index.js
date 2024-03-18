@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import AuthMenu from '../../components/auth-menu';
 import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
@@ -17,14 +18,10 @@ const HeaderAuth = () => {
   return (
     <>
       {!select.isAuth ? 
-      <AuthMenu 
-        isAuth={select.isAuth}
-      /> : 
-      <AuthMenu         
-        isAuth={select.isAuth} 
-        username={select.userInfo.profile.name}
-        onLogout={callbacks.onLogout}
-      />}
+      <AuthMenu isAuth={select.isAuth}/> : 
+      <AuthMenu isAuth={select.isAuth} onLogout={callbacks.onLogout}>
+        <Link to='/profile'>{select.userInfo.profile.name}</Link>
+      </AuthMenu>}
     </>
   );
 };

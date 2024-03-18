@@ -18,9 +18,9 @@ function AuthForm({ onSubmit, errorMessage }) {
 
   return (
     <form className={cn()} onSubmit={handleSubmit}>
-      <h2 className={cn('title')}>{t("auth.login")}</h2>
+      <h2 className={cn('title')}>{t("auth.signin")}</h2>
       <div className={cn('group')}>
-        <label className={cn('label')} htmlFor="username">{t("auth.log-in")}</label>
+        <label className={cn('label')} htmlFor="username">{t("auth.login")}</label>
         <input
           className={cn('input')}
           type="text"
@@ -42,13 +42,14 @@ function AuthForm({ onSubmit, errorMessage }) {
         />
       </div>
       {errorMessage && <div className={cn('error')}>{errorMessage}</div>}
-      <button type="submit" className={cn('btn')}>{t("auth.login")}</button>
+      <button type="submit" className={cn('btn')}>{t("auth.log-in")}</button>
     </form>
   );
 }
 
 AuthForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string,
 };
 
 export default memo(AuthForm);

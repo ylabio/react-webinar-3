@@ -12,20 +12,18 @@ import Profile from './profile';
  * Маршрутизация по страницам и модалкам
  */
 function App() {
-
   const activeModal = useSelector(state => state.modals.name);
   const select = useSelector(state => ({
     activeModal: state.modals.name,
     isAuth: state.user.isAuth,
   }));
-
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
         <Route path={'/login'} element={<Login/>}/>
-        <Route path={'/profile'} element={<Profile/>}/>
+        <Route path={'/profile'} element={select.isAuth ? <Profile/> : <Navigate to="/login" replace/>}/>
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}

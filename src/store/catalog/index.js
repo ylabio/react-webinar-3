@@ -33,6 +33,7 @@ class CatalogState extends StoreModule {
    */
   async initParams(newParams = {}) {
     const urlParams = new URLSearchParams(window.location.search);
+    await this.loadCategories();
     let validParams = {};
     if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);

@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo, useEffect} from "react";
+import {memo, useCallback, useMemo} from "react";
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -6,16 +6,12 @@ import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
 import { buildCategoryOptions } from "../../utils";
-import useInit from "../../hooks/use-init";
 /**
  * Контейнер со всеми фильтрами каталога
  */
 function CatalogFilter() {
 
   const store = useStore();
-  useInit(() => {
-    store.actions.catalog.loadCategories();
-  }, []); 
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
@@ -34,15 +30,16 @@ function CatalogFilter() {
     onCategoryChange: useCallback(category => store.actions.catalog.setParams({ category, page: 1 }), [store])
   };
 
-  const options = {
-    sort: useMemo(() => ([
+  const options = useMemo(() => ({
+    sort: [
       {value: 'order', title: 'По порядку'},
       {value: 'title.ru', title: 'По именованию'},
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
-    ]), []),
+    ],
     categories: buildCategoryOptions(select.categories)
-  };
+  }), [select.categories]);
+  
 
   const {t} = useTranslate();
 
