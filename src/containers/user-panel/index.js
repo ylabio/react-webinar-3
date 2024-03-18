@@ -40,9 +40,9 @@ function UserPanel() {
     <SideLayout side='end' padding='small'>
       {Object.keys(select.userData).length ? <div className="UserPanel">
                                               <Link to='/profile' >{select.userData.profile.name}</Link>
-                                              <button onClick={handleLogOut}>Выход</button>
+                                              <button onClick={handleLogOut}>{t('auth.signOut')}</button>
                                              </div>
-                                            : <button onClick={handleLogIn}>Вход</button>}
+                                            : <button onClick={handleLogIn}>{t('auth.signingIn')}</button>}
     </SideLayout>
   )
 }

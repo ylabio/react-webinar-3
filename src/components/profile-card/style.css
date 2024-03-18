@@ -1,0 +1,7 @@
+.ProfileCard-item{
+    display: flex;
+    gap: 5px
+}
+.ProfileCard-item p:nth-child(2){
+    font-weight: 700;
+}

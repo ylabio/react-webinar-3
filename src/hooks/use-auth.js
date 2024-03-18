@@ -1,19 +1,30 @@
 import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useStore from "./use-store";
-import { getAuthToken } from "../utils";
+import { deleteCookie, getAuthToken } from "../utils";
+import useSelector from "./use-selector";
 
 export default function useAuth (dependencies) {
 
     const store = useStore();
     const navigate = useNavigate();
-    const onLoadUser = useCallback(token => store.actions.auth.loadUser(token), [store])
+    const onLoadUser = useCallback(token => store.actions.auth.loadUser(token), [store]);
+    const select = useSelector(state => ({
+        userInfo: state.auth.userData,
+      }));
 
     useEffect(() => {
-        const token = getAuthToken();
-        if (token) {
-            onLoadUser(token);
-            navigate('/profile')
-        } else navigate('/login');
+        const checkUser = async() => {
+            const token = getAuthToken();
+            if (token) {
+                const success = await onLoadUser(token);
+                if (!success) {
+                    deleteCookie('token');
+                    navigate('/login');
+                } else navigate('/profile');            
+            } else navigate('/login');
+        }
+
+        Object.keys(select.userInfo).length == 0 && checkUser();
     }, dependencies)
 }

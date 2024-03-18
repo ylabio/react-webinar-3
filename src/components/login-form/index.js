@@ -32,7 +32,7 @@ const LoginForm = () => {
     logIn: useCallback((login, password) => store.actions.auth.logInUser(login, password), [store])
     }
 
-    const cn = bem('LoginForm');
+    const cn = bem('LoginForm');    
 
     const changeInput = (event) => {
         setFormData({
@@ -53,17 +53,17 @@ const LoginForm = () => {
     return(
         <div className={cn()}>
             <form className={cn('form')}>
-                <p>Вход</p>
+                <p>{t('auth.signingIn')}</p>
                 <div className={cn('input')}>
-                    <label>Логин</label>
+                    <label>{t('auth.login')}</label>
                     <input id='login' onChange={changeInput} type="text" value={formData.login}></input>
                 </div>
                 <div className={cn('input')}>
-                    <label>Пароль</label>
+                    <label>{t('auth.password')}</label>
                     <input id='password' onChange={changeInput} type="password" value={formData.password}></input>
                 </div>
                 <div className={cn('error')}>{select.authError}</div>
-                <button onClick={handleSubmit}>Войти</button>
+                <button onClick={handleSubmit}>{t('auth.signIn')}</button>
             </form>
         </div>
     )

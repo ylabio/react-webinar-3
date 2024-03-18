@@ -10,10 +10,3 @@
     line-height: 28px;
     margin-bottom: 0px;
 }
-.ProfileInfo-item{
-    display: flex;
-    gap: 5px
-}
-.ProfileInfo-item p:nth-child(2){
-    font-weight: 700;
-}

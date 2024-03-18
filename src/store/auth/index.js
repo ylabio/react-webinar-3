@@ -90,16 +90,21 @@ class AuthState extends StoreModule {
       }});
 
     const userJson = await response.json();
-    userJson.result ? this.setState({
-                        userData: userJson.result,
-                        error: '',
-                        waiting: false
-                      }, 'Загружена информация о пользователе по токену')
-                    : this.setState({
-                      userData: {},
-                      error: '',
-                      waiting: false
-                      }, 'Пользователь не был ранее авторизован')
+    if (userJson.result) {
+      this.setState({
+        userData: userJson.result,
+        error: '',
+        waiting: false
+      }, 'Загружена информация о пользователе по токену');
+      return true
+    } else {
+      this.setState({
+        userData: {},
+        error: userJson.error.message,
+        waiting: false
+      }, 'Пользователь не был ранее авторизован');
+      return false
+    }
   } catch (error) {
     console.log(error.message)
   }

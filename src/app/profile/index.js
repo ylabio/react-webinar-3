@@ -7,7 +7,7 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
 import Navigation from "../../containers/navigation";
-import ProfileInfo from "../../components/profile-info";
+import ProfileInfo from "../../containers/profile-info";
 
 function Profile() {
 
