@@ -3,15 +3,15 @@ import StoreModule from "../module";
 class ProfileState extends StoreModule {
 
   initState() {
+    const token = localStorage.getItem('token');
     return {
-      token: '',
+      token: token? token : '',
       error: '',
+      user: {}
     }
   }
 
   async login(login, password) {
-    console.log(login);
-    console.log(password);
     const response = await fetch('/api/v1/users/sign', {
       method: 'POST',
       headers: {
@@ -35,10 +35,25 @@ class ProfileState extends StoreModule {
       this.setState({
         ...this.getState(),
         token: json.result.token,
-        error: ''
-      })
-      alert(`Добро пожаловать ${json.result.user.profile.name} ${json.result.user.profile.surname}`);
+        error: '',
+      });
+      this.setUser(json.result.token);
+      localStorage.setItem('token', json.result.token);
     }
+  }
+
+  async setUser(token) {
+    const response = await fetch('/api/v1/users/self', {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Token' : token
+      }
+    });
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      user: json.result
+    });
   }
 }
 

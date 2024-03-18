@@ -7,26 +7,31 @@ import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import LoginCard from "../../components/login-card";
 import useSelector from "../../hooks/use-selector";
+import { redirect, useNavigate } from "react-router-dom";
 
 
 function Login() {
   const store = useStore();
   const select = useSelector(state => ({
-    error: state.profile.error
+    error: state.profile.error,
+    token: state.profile.token
   }))
   const {t} = useTranslate();
 
   const callbacks = {
     login: useCallback((login, password) => store.actions.profile.login(login, password), [store]),
   }
+  if(select.token){
 
+  }
   return (
     <PageLayout>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <LoginCard t={t} buttonClick={callbacks.login} error={select.error}/>
+      {select.token ? <h1>Вход успешно выполнен</h1> : <LoginCard t={t} buttonClick={callbacks.login} error={select.error}/>}
+      {/* <LoginCard t={t} buttonClick={callbacks.login} error={select.error}/> */}
     </PageLayout>
   );
 }
