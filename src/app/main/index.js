@@ -32,6 +32,7 @@ function Main() {
   useInit(() => {
     store.actions.catalog.initParams();
     store.actions.category.load();
+    store.actions.user.setProfile();
   }, [], true);
 
   const {t} = useTranslate();
