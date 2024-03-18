@@ -27,7 +27,7 @@ function Basket() {
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
     // Закрытие любой модалки
     closeModal: useCallback(() => {
-      document.body.style.overflow = "scroll";
+      document.body.style.overflow = "auto";
       store.actions.modals.close();
     }, [store]),
   }
