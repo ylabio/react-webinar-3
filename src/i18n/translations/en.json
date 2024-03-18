@@ -21,6 +21,7 @@
   "profile.name": "Name",
   "profile.phone": "Phone",
   "profile.email": "email",
+  "catalog.no_items": "no items",
 
   "basket.articles": {
     "one": "article",

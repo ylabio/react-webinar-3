@@ -8,11 +8,8 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
-import LoginBox from '../../components/loginBox';
 import ProfileCard from '../../components/profile-card';
 
 const ProfilePage = (props) => {

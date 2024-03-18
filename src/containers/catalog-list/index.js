@@ -48,13 +48,20 @@ function CatalogList() {
     ), [callbacks.addToBasket, t]),
   };
 
-  return (
-    <Spinner active={select.waiting}>
-      <List list={select.list} renderItem={renders.item}/>
-      <Pagination count={select.count} page={select.page} limit={select.limit}
-                  onChange={callbacks.onPaginate} makeLink={callbacks.makePaginatorLink}/>
-    </Spinner>
-  );
+    return (
+        <Spinner active={select.waiting}>
+            {select.list.length > 0 ? (
+               
+                <>
+                    <List list={select.list} renderItem={renders.item} />
+                    <Pagination count={select.count} page={select.page} limit={select.limit}
+                        onChange={callbacks.onPaginate} makeLink={callbacks.makePaginatorLink} />
+                </>
+            ) : (
+                <div className="catalog-list-empty">{t('catalog.no_items')}</div>
+            )}
+        </Spinner>
+    );
 }
 
 export default memo(CatalogList);
