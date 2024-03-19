@@ -14,14 +14,14 @@ function CatalogFilter() {
   const store = useStore();
     
   useEffect(() => {
-    store.actions.catalog.initCategoryData();
+    store.actions.categories.initCategories();
   },[])
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categoryData: state.catalog.categoryData,
+    categories: state.categories.categories,
   }));
 
   const callbacks = {
@@ -42,14 +42,14 @@ function CatalogFilter() {
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
     ]), []),
-    category: select.categoryData
+    categories: select.categories
   };
 
   const {t} = useTranslate();
 
   return (
     <SideLayout padding='medium'>
-      <Select options={options.category} value={select.category} onChange={callbacks.onCategory}/>
+      <Select options={options.categories} value={select.category} onChange={callbacks.onCategory}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>

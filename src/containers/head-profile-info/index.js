@@ -10,19 +10,19 @@ import useTranslate from '../../hooks/use-translate'
 function HeadProfileInfo() {
     const navigate = useNavigate()
     const store = useStore();
-    const isAuthenticated = useSelector(state => state.profile.isAuthenticated)
-    const profile = useSelector(state => state.profile.profile)
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+    const profileName = useSelector(state => state.auth.profileName)
     const waiting = useSelector(state => state.profile.waiting)
     const {t} = useTranslate();
     const callbacks = {
         loginCallback : useCallback(() => navigate("/login"),[]),
-        logoutCallback : useCallback(() => {store.actions.profile.logout()},[])
+        logoutCallback : useCallback(() => {store.actions.auth.logout()},[])
     }
 
     return (
         <Spinner active = {waiting}>
         <SideLayout  padding = "small" side = "end">
-            <ProfileMenu loginHandler= {callbacks.loginCallback} logoutHandler ={callbacks.logoutCallback} profile = {profile} isAuthenticated ={isAuthenticated} t = {t}/>    
+            <ProfileMenu loginHandler= {callbacks.loginCallback} logoutHandler ={callbacks.logoutCallback} profileName = {profileName} isAuthenticated ={isAuthenticated} t = {t}/>    
         </SideLayout>
         </Spinner>
     )

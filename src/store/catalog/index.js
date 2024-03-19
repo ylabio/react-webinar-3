@@ -1,4 +1,3 @@
-import getFlatTree from "../../containers/catalog-filter/getFlatTree";
 import StoreModule from "../module";
 
 /**
@@ -21,7 +20,7 @@ class CatalogState extends StoreModule {
         category: ''
       },
       count: 0,
-      categoryData : [],
+      
       waiting: false
     }
   }
@@ -100,19 +99,7 @@ class CatalogState extends StoreModule {
   }
 
 
-    /**
-   * Инициализация категорий
-   * @returns {Promise<void>}
-   */
-  async initCategoryData() {
-    const response = await fetch(`/api/v1/categories?lang=ru&skip=0&fields=%2A`);
-    const json = await response.json();
-
-    this.setState({
-      ...this.getState(),
-      categoryData : getFlatTree(json.result.items,"-")
-    }, 'Загружены категории');
-  }
+  
 }
 
 export default CatalogState;

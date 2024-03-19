@@ -6,6 +6,9 @@ import Basket from "./basket";
 import Article from "./article";
 import Login from './login';
 import Profile from './profile';
+import useAuth from '../hooks/use-auth';
+import RequireAuth from '../hoc/require-auth';
+import RequireUnAuth from '../hoc/require-unauth';
 
 /**
  * Приложение
@@ -14,14 +17,23 @@ import Profile from './profile';
 function App() {
 
   const activeModal = useSelector(state => state.modals.name);
-
+  useAuth();
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
-        <Route path={'/login'} element={<Login/>}/>
-        <Route path={'/profile'} element={<Profile/>}/>
+        <Route path={'/login'} element={
+          <RequireUnAuth>
+            <Login/>
+          </RequireUnAuth>
+        }/>
+        <Route path={'/profile'} element={
+          <RequireAuth>
+            <Profile/>
+          </RequireAuth>
+        }/>
+        
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}

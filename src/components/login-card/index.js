@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {cn as bem} from "@bem-react/classname"
 import PropTypes from 'prop-types';
 import "./style.css"
 
 function LoginCard(props) {
     const cn = bem("Login-Card")
-    
     const callbacks = {
         onChangeHandler : (e) => {props.onFormChange(e.target.name, e.target.value)},
         onSubmit : (e) => {e.preventDefault(); props.onSubmit()}
@@ -21,9 +20,12 @@ function LoginCard(props) {
             </label>
             <label>
                 {props.t("login.password")}
-                <input value={props.user.password} name={"password"} onChange={callbacks.onChangeHandler}/>
+                <input value={props.user.password} name={"password"} type="password" onChange={callbacks.onChangeHandler}/>
             </label>
-            {props.error && <p className={cn("error-message")}>{props.error}</p>}
+
+            {props.errors && props.errors.map((el,index) => (
+                <p className={cn("error-message")} key = {index}>{el}</p>
+            ))}
             <button type='submit'>
                 {props.t("login.enter-button")}
             </button>
@@ -38,7 +40,7 @@ LoginCard.propTypes = {
         login: PropTypes.string.isRequired,
         password: PropTypes.string.isRequired
     }).isRequired,
-    error: PropTypes.string,
+    errors: PropTypes.arrayOf(PropTypes.string),
     onFormChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     t: PropTypes.func

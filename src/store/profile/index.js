@@ -1,7 +1,7 @@
 import StoreModule from "../module";
 
 /**
- * Состояние профиля - Данные пользователя
+ * Состояние профиля
  */
 class ProfileStore extends StoreModule {
     /**
@@ -9,60 +9,21 @@ class ProfileStore extends StoreModule {
      * @return {Object}
      */
     initState() {
-        this.checkToken()
         return {
             profile: {
+                name:"",
+                phone:"",
+                email: ""
             },
-            isAuthenticated: localStorage.getItem("token") ? true : false,
             isAuthorized : false,
-            error: null,
-            waiting: false
+            waiting: false,
         }
-    }
-
-    async authentication(user) {
-        this.setState({
-            ...this.getState(),
-            waiting: true,
-            error: ""
-        }, 'Идет запрос на Аутентификацию');
-
-        try{
-            const response = await fetch('/api/v1/users/sign?fields=_id%2Cprofile%28name%29', {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(user)
-            })
-            if (response.ok) {
-                const json = await response.json();
-                localStorage.setItem("token", json.result.token,);
-                this.setState({
-                    ...this.getState(),
-                    isAuthenticated : true,
-                    waiting : false,
-                }, 'Пользователь аутефицировался');
-                
-            } else {
-                console.log("Ошибка")
-                throw new Error('Ошибка запроса');
-            }
-        }catch{
-            this.setState({
-                ...this.getState(),
-                waiting: false,
-                error: "Ошибка попробуйте снова",
-            }, 'Ошибка аутентификации');
-        }   
     }
 
     async authorization() {
         this.setState({
             ...this.getState(),
             waiting: true,
-            isAuthenticated : false,
-            error: ""
         }, 'Идет запрос на Авторизацию');
 
         try{
@@ -74,13 +35,13 @@ class ProfileStore extends StoreModule {
             })
             if (response.ok) {
                 const json = await response.json();
+                console.log(this.getState())
                 this.setState({
                     ...this.getState(),
-                    isAuthorized:true,
-                    isAuthenticated : true,
                     waiting: false,
+                    isAuthorized : true,
                     profile:{
-                        name:json.result.username,
+                        name: json.result.profile.name,
                         phone: json.result.profile.phone,
                         email: json.result.email,
                     },
@@ -97,49 +58,8 @@ class ProfileStore extends StoreModule {
             }, 'Ошибка авторизации');
         }   
     }
+    
 
-    async logout() {
-        this.setState({
-            ...this.getState(),
-            waiting: true,
-            error: ""
-        }, 'Идет запрос на Выход');
-
-        try{
-            const token = localStorage.getItem('token');
-            const response = await fetch('/api/v1/users/sign', {
-                method: "DELETE",
-                headers: {
-                    'X-Token': token,
-                },
-            })
-            if (response.ok) {
-                localStorage.removeItem("token")
-                this.setState({
-                    ...this.initState(),
-                }, 'Пользователь вышел');
-                
-
-            } else {
-                throw new Error('Ошибка запроса');
-            }
-        }catch{
-            this.setState({
-                ...this.getState(),
-                waiting: false,
-                error: "Ошибка попробуйте снова",
-            }, 'Ошибка выхода');
-        }   
-            
-        
-    }
-
-    checkToken() {
-        const token = localStorage.getItem('token');
-        if (token) {
-            this.authorization();
-        }
-    }
 }
 
 export default ProfileStore;

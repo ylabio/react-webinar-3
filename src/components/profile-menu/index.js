@@ -10,7 +10,7 @@ function ProfileMenu(props) {
 
     return (
         <div className={cn()}>
-            {props.isAuthenticated && <Link className={cn("user-name")} to = "/profile">{props.profile.name}</Link>}
+            {props.isAuthenticated && <Link className={cn("user-name")} to = "/profile">{props.profileName}</Link>}
             {props.isAuthenticated ?  
             <button onClick = {props.logoutHandler}>
                 {props.t("profile-nav.exit")}
@@ -25,9 +25,7 @@ function ProfileMenu(props) {
 
 ProfileMenu.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    profile: PropTypes.shape({
-        name: PropTypes.string
-    }),
+    profileName:PropTypes.string,
     logoutHandler: PropTypes.func.isRequired,
     loginHandler: PropTypes.func.isRequired,
     t: PropTypes.func

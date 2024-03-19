@@ -5,24 +5,16 @@ import HeadProfileInfo from '../../containers/head-profile-info';
 import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
 import Navigation from '../../containers/navigation';
-import useSelector from '../../hooks/use-selector';
-import { Navigate} from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import ProfileMain from '../../containers/profile-main';
 
 function Profile() {
     const {t} = useTranslate();
-    const isAuthorized = useSelector(state => state.profile.isAuthorized)
-    const isAuthenticated = useSelector(state => state.profile.isAuthenticated)
     const store = useStore()
 
     useLayoutEffect(() => {
-        if(!isAuthorized && isAuthenticated) store.actions.profile.authorization();
-    },[isAuthorized])
-
-    if(!isAuthenticated){
-        return <Navigate to= "/login"/>
-    }
+        store.actions.profile.authorization();
+    },[])
 
     return(
     <PageLayout>

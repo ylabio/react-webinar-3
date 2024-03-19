@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import SideLayout from '../../components/side-layout';
@@ -10,29 +10,32 @@ import useTranslate from '../../hooks/use-translate';
 function ProfileLogin() {
     const store = useStore();
     const {t} = useTranslate();
+
+    useEffect(() =>{
+        store.actions.auth.clearLoginErrors();
+    },[])
+    
+    const select = useSelector(state => ({
+        loginErrors: state.auth.loginErrors,
+        waiting : state.auth.waiting
+    }));
+
     const [userData,setUserData] = useState({
         login :"",
         password :""
     })
 
-    const select = useSelector(state => ({
-        error: state.profile.error,
-        waiting : state.profile.waiting
-    }));
-
-    
-
     const callbacks = { 
         // Ввод данных
         onFormChange: useCallback((name,value) => setUserData(prev => ({...prev,[name]:value}))),
         // Сабмит формы
-        onFormSubmit: useCallback(() => store.actions.profile.authentication(userData) ),
+        onFormSubmit: useCallback(() => store.actions.auth.authentication(userData) ),
       }
 
     return (
         <Spinner active = {select.waiting}>
         <SideLayout padding="medium">
-                <LoginCard user = {userData} onFormChange = {callbacks.onFormChange} onSubmit = {callbacks.onFormSubmit} error = {select.error} t={t}/>
+                <LoginCard user = {userData} onFormChange = {callbacks.onFormChange} onSubmit = {callbacks.onFormSubmit} errors = {select.loginErrors} t={t}/>
         </SideLayout>
         </Spinner>
     )
