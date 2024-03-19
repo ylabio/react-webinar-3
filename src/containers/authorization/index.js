@@ -13,6 +13,8 @@ function Authorization() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
+  const { t } = useTranslate();
+
   const select = useSelector((state) => ({
     username: state.user.username,
   }));
@@ -45,11 +47,11 @@ function Authorization() {
             {select.username}
           </Link>
           <button className={cn("btn")} onClick={callbacks.onLogout}>
-            Выход
+            {t("auth.close")}
           </button>
         </>
       ) : (
-        <button onClick={callbacks.toLoginForm}>Вход</button>
+        <button onClick={callbacks.toLoginForm}>{t("auth.open")}</button>
       )}
     </SideLayout>
   );

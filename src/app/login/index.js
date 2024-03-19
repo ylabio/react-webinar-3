@@ -16,7 +16,6 @@ function Login() {
   const store = useStore();
 
   const select = useSelector((state) => ({
-    token: state.user.token,
     error: state.user.error,
   }));
 
@@ -42,7 +41,7 @@ function Login() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <LoginForm error={select.error} onLogin={callbacks.onLogin} />
+      <LoginForm error={select.error} onLogin={callbacks.onLogin} t={t} />
     </PageLayout>
   );
 }

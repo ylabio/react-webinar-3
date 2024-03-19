@@ -1,5 +1,4 @@
 import { memo } from "react";
-import Login from "../../app/login";
 import { Navigate } from "react-router-dom";
 
 function WithAuth({ children }) {

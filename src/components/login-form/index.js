@@ -2,7 +2,6 @@ import { memo } from "react";
 import PropTypes from "prop-types";
 import { useRef } from "react";
 import { cn as bem } from "@bem-react/classname";
-import { numberFormat } from "../../utils";
 import "./style.css";
 
 function LoginForm({ error, onLogin, t }) {
@@ -24,10 +23,10 @@ function LoginForm({ error, onLogin, t }) {
   console.log(error);
   return (
     <div className={cn("")}>
-      <h2 className={cn("header")}>Вход</h2>
-      <span className={cn("text")}>Логин</span>
+      <h2 className={cn("header")}>{t("auth.open")}</h2>
+      <span className={cn("text")}>{t("auth.login")}</span>
       <input title="username" ref={username} className={cn("input")}></input>
-      <span className={cn("text")}>Пароль</span>
+      <span className={cn("text")}>{t("auth.password")}</span>
       <input title="password" ref={password} className={cn("input")}></input>
       {error ? (
         <span className={error === "Success!" ? cn("success") : cn("error")}>
@@ -35,7 +34,7 @@ function LoginForm({ error, onLogin, t }) {
         </span>
       ) : null}
       <button className={cn("btn")} onClick={callbacks.onLogin}>
-        Войти
+        {t("auth.log-in")}
       </button>
     </div>
   );

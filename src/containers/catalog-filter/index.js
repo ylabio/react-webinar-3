@@ -54,6 +54,7 @@ function CatalogFilter() {
       ],
       []
     ),
+    categories: useMemo(() => [...select.categories], [select.categories]),
   };
 
   const { t } = useTranslate();
@@ -61,7 +62,7 @@ function CatalogFilter() {
   return (
     <SideLayout padding="medium">
       <Select
-        options={select.categories}
+        options={options.categories}
         value={select.category}
         onChange={callbacks.onCategory}
       />

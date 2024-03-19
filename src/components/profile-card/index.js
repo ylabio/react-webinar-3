@@ -8,13 +8,13 @@ function ProfileCard({ data, t }) {
 
   return (
     <div className={cn()}>
-      <h2 className={cn("title")}>Профиль</h2>
+      <h2 className={cn("title")}>{t("profile")}</h2>
       <span className={cn("text")}>
-        Имя:{" "}
+        {t("profile.username")}:{" "}
         <span className={cn("text", { w700: true })}>{data?.username}</span>
       </span>
       <span className={cn("text")}>
-        Телефон:{" "}
+        {t("profile.phone")}:{" "}
         <span className={cn("text", { w700: true })}>{data?.phone}</span>
       </span>
       <span className={cn("text")}>
