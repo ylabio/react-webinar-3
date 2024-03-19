@@ -34,6 +34,8 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 export function buildCategoryHierarchy(categories) {
+  console.log('categories');
+  console.log(categories);
   const categoryMap = {};
   categories.forEach(category => {
     categoryMap[category._id] = category;
@@ -59,6 +61,9 @@ export function buildCategoryHierarchy(categories) {
 
       const index = hierarchy.findIndex(item => item.title === (chain.length === 1 ? chain[0] : `${prefix.slice(0, -1)} ${chain[chain.length - 1]}`));
       
+      if (index < 0) {
+        continue;
+      }
       if (!counter.hasOwnProperty(hierarchy[index]._id)) {
         counter[hierarchy[index]._id] = 0;
       }
