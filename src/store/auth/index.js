@@ -1,5 +1,5 @@
 import StoreModule from "../module";
-import { navigate } from "react-router-dom";
+
 class AuthActionState extends StoreModule {
   initState() {
     return {
@@ -41,34 +41,35 @@ class AuthActionState extends StoreModule {
     }
   }
 
-  async handleLogout()  {
+  async handleLogout() {
     try {
-        this.setState({
-					...this.getState(),
-					waiting: true,
-					error: ''
-				});
+      this.setState({
+        ...this.getState(),
+        waiting: true,
+        error: ''
+      });
 
-        await fetch('/api/v1/users/sign', {
-            method: 'DELETE',
-            headers: {
-                'X-Token': this.getState().token,
-                'Content-Type': 'application/json'
-            }
-        });
+      await fetch('/api/v1/users/sign', {
+        method: 'DELETE',
+        headers: {
+          'X-Token': this.getState().token,
+          'Content-Type': 'application/json'
+        }
+      });
 
-        this.setState({
-					token: '',
-					user: null,
-					error: '',
-					waiting: false
-				});
+      this.setState({
+        token: '',
+        user: null,
+        error: '',
+        waiting: false
+      });
 
-        localStorage.removeItem('token');
+      localStorage.removeItem('token');
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
   }
+
   async handleAuth() {
     const token = this.getState().token;
 
@@ -98,4 +99,5 @@ class AuthActionState extends StoreModule {
     }
   }
 }
+
 export default AuthActionState;

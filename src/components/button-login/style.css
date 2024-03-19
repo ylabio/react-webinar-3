@@ -5,9 +5,11 @@
   flex-wrap: nowrap;
   padding: 0 30px;
   align-items: center;
+
   justify-content: flex-end;
 }
 .ButtonLogin-button {
+  justify-content: center;
   width: 59px;
   height: 21px;
   font-family: Arial;

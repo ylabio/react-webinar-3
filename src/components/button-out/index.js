@@ -6,7 +6,7 @@ import "./style.css";
 
 function ButtonOut({  title, to,user,profilePath,onClick}) {
   const cn = bem("ButtonOut");
-
+  const  userProfile = user && user.profile;
   return (
     <div className={cn("wrapper")}>
       <div className={cn("users")}>

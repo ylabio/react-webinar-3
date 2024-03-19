@@ -11,33 +11,35 @@ import ButtonLogin from "../../components/button-login";
 
 function Login() {
   const store = useStore();
-
+  const initialValues = { login: "", password: "" };
+  const [formData, setFormData] = useState(initialValues);
   const select = useSelector((state) => ({
     waiting: state.auth.waiting,
     user: state.auth.user,
     error: state.auth?.error,
   }));
-  const initFormData = { login: "", password: "" };
-  const [formData, setFormData] = useState(initFormData);
 
-   const navigate = useNavigate();
-   useEffect(() => {
+  const navigate = useNavigate();
+  useEffect(() => {
     if (!select.waiting && select.user) {
-      setFormData(initFormData);
-      navigate("/profile-page"); 
+      setFormData(initialValues);
+      navigate("/profile-page");
     }
-  }, [select.user, select.waiting, initFormData, navigate]);
+  }, [select.user, select.waiting, initialValues, navigate]);
 
   const { t } = useTranslate();
 
   const callbacks = {
     onLoginFormChange: useCallback(
       (fieldName, value) => {
-        setFormData((prevFormData) => ({ ...prevFormData, [fieldName]: value }));
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [fieldName]: value,
+        }));
       },
       [setFormData]
     ),
-  
+
     onLoginFormSubmit: useCallback(
       (e) => {
         e.preventDefault();
@@ -46,9 +48,10 @@ function Login() {
       [store, formData]
     ),
   };
+
   return (
     <PageLayout>
-    <ButtonLogin profilePath={'/profile-page'} title="войти"/>
+      <ButtonLogin profilePath={"/profile-page"} title="войти" />
       <Head title={t("title")} />
       <Navigation />
       <InputModule

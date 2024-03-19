@@ -9,7 +9,6 @@ import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
 import useSelector from "../../hooks/use-selector";
 import { useNavigate } from "react-router-dom";
-import { useCallback } from "react";
 
 function ProfilePage() {
   const store = useStore();
@@ -21,17 +20,18 @@ function ProfilePage() {
   const { t } = useTranslate();
   const navigate = useNavigate();
 
+  
   useEffect(() => {
-    // Проверка доступа пользователя при загрузке страницы профиля
     if (!select.user || !select.token) {
-      navigate("/login");
+      navigate('');
+    } else {
+      store.actions.auth.handleAuth();
     }
-  }, [select.user, select.token, navigate]);
-
+  }, [select.user, select.token, navigate, store.actions.auth]);
 
   const handleLogout = async () => {
     await store.actions.auth.handleLogout();
-    navigate("/login");
+    navigate('');
   };
 
   return (
