@@ -37,7 +37,7 @@ const LoginBox = () => {
     if (!isLoggedIn) {
         return <LoginButton title={t('auth.login')} onLoginClick={handleLoginClick} />;
     } else {
-        return <UserProfileButton title={t('auth.logout')} user={auth.user} onLogoutClick={handleLogoutClick} />;
+        return <UserProfileButton to={'/profile'} title={t('auth.logout')} user={auth.user} onLogoutClick={handleLogoutClick} />;
     }
 };
 
