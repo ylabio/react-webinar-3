@@ -40,7 +40,7 @@ function CatalogFilter() {
       {value: 'edition', title: 'Древние'},
     ]), []),
     categories: useMemo(() => ([{
-      _id: "00000",
+      _id: "",
       title: "Все",
       parent: null,
       name: "",

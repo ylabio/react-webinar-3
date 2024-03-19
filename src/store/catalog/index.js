@@ -20,7 +20,7 @@ class CatalogState extends StoreModule {
         category: '',
       },
       categories: [{
-        _id: "0000",
+        _id: "",
         title: "Все",
         parent: null,
         name: ""
