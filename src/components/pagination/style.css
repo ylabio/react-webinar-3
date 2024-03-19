@@ -45,4 +45,11 @@
   color: #CCCCCC;
 }
 
+.Pagination-item_single,
+.Pagination-item_single a,
+.Pagination-item_single a:hover,
+.Pagination-item_single:hover {
+  background: black;
+}
+
 

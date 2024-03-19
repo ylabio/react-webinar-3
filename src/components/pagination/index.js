@@ -39,11 +39,11 @@ function Pagination(props) {
     <ul className={cn()}>
       {items.map((number, index) => (
         <li key={index}
-            className={cn('item', {active: number === props.page, split: !number})}
+            className={cn('item', {active: number === props.page, split: !number, single: items.length === 1})}
             onClick={onClickHandler(number)}>
           {number
             ? (props.makeLink
-                ? <a href={props.makeLink(number)}>{number}</a>
+                ? <a href={items.length === 1? '' : props.makeLink(number)}>{number}</a>
                 : number
             )
             : '...'
