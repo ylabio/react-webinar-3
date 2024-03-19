@@ -1,5 +1,4 @@
 import StoreModule from "../module";
-import {sortCategories} from '../../utils';
 
 /**
  * Состояние каталога - параметры фильтра и список товара
@@ -21,7 +20,6 @@ class CatalogState extends StoreModule {
         category: 'All',
       },
       count: 0,
-      categories: [],
       waiting: false
     }
   }
@@ -98,21 +96,6 @@ class CatalogState extends StoreModule {
       waiting: false
     }, 'Загружен список товаров из АПИ');
   }
-
-  async loadCategories(lang) {
-    const apiParams = {
-      lang,
-      fields: '_id,title,parent(_id),order',
-      sort: '-order',
-    };
-    const response = await fetch(`/api/v1/categories?${new URLSearchParams(apiParams)}`);
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      categories: sortCategories(json.result.items),
-    }, 'Загружен список категорий из АПИ');
-  }
-
 }
 
 export default CatalogState;

@@ -57,3 +57,10 @@ export const sortCategories = (categories, result = []) => {
   }
   return sortChildren(subcategories);
 }
+
+export const detailError = (error) => (
+  Array.isArray(error?.data?.issues)
+    ? error.data.issues.map(({message}) => message).join('.')
+    : error?.message
+);
+

@@ -24,7 +24,7 @@ function Main() {
   const {lang, t} = useTranslate();
 
   useEffect(() => {
-    store.actions.catalog.loadCategories(lang);
+    store.actions.categories.loadCategories(lang);
   }, [lang]);
 
   return (

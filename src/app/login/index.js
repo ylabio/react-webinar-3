@@ -10,6 +10,7 @@ import Spinner from "../../components/spinner";
 import LocaleSelect from "../../containers/locale-select";
 import TopControls from '../../containers/top-controls';
 import LoginForm from '../../components/login-form';
+import {detailError} from '../../utils';
 
 function Login() {
   const store = useStore();
@@ -17,8 +18,9 @@ function Login() {
   const select = useSelector(state => ({
     waiting: state.user.waiting,
     user: state.user.data,
-    loginError: state.user.error,
+    loginErrorMessage: detailError(state.user.error),
   }));
+
   const initFormData = {login: '', password: ''}
   const [formData, setFormData] = useState(initFormData);
 
@@ -59,7 +61,7 @@ function Login() {
                    onChange={callbacks.onLoginFormChange}
                    onSubmit={callbacks.onLoginFormSubmit}
                    isSubmitting={select.waiting}
-                   errorMessage={select.loginError?.message}
+                   errorMessage={select.loginErrorMessage}
                    t={t}
         />
       </Spinner>
