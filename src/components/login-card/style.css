@@ -1,0 +1,15 @@
+.LoginCard_color_red {
+    color: red;
+}
+
+.LoginCard {
+    padding: 30px;
+}
+
+.LoginCard-field, .LoginCard h1 {
+    padding-bottom: 10px;
+}
+
+.LoginCard label {
+    display: block;
+}

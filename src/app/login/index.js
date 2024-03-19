@@ -1,5 +1,4 @@
 import {memo, useCallback, useMemo} from 'react';
-import {useParams} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -11,46 +10,36 @@ import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
 import AuthBar from '../../components/auth-bar';
+import LoginCard from "../../components/login-card";
 
 /**
- * Страница товара с первичной загрузкой товара по id из url адреса
+ * Страница авторизации
  */
-function Article() {
+function Login() {
   const store = useStore();
-
-  // Параметры из пути /articles/:id
-  const params = useParams();
-
-  useInit(() => {
-    store.actions.article.load(params.id);
-  }, [params.id]);
-
-  const select = useSelector(state => ({
-    article: state.article.data,
-    waiting: state.article.waiting,
-    user: state.auth.user,
-  }));
 
   const {t} = useTranslate();
 
+  const select = useSelector((state) => ({
+    user: state.auth.user,
+    error: state.auth.error
+  }))
+
   const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    login: ({user, pass}) => store.actions.auth.login({login: user, password: pass}),
     logout: useCallback(() => store.actions.auth.logout(), [store]),
   }
 
   return (
     <PageLayout>
       <AuthBar t={t} logout={callbacks.logout} user={select.user}/>
-      <Head title={select.article.title}>
+      <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
-      </Spinner>
+      <LoginCard t={t} login={callbacks.login} error={select.error}/>
     </PageLayout>
   );
 }
 
-export default memo(Article);
+export default memo(Login);

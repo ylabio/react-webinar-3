@@ -5,6 +5,7 @@ import useTranslate from "../../hooks/use-translate";
 import Menu from "../../components/menu";
 import BasketTool from "../../components/basket-tool";
 import SideLayout from "../../components/side-layout";
+import AuthBar from "../../components/auth-bar";
 
 /**
  * Контейнер с компонентами навигации
