@@ -2,7 +2,7 @@ import {memo, useCallback, useEffect} from 'react';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -18,6 +18,7 @@ function Login() {
 
   const store = useStore();
   const navigate = useNavigate();
+  const location = useLocation();
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
@@ -29,7 +30,11 @@ function Login() {
   useEffect(
     () => {
       if (select.user) {
-        navigate('/profile/');
+        if (location.state && location.state.isNotStartPage) {
+          navigate(-1, {replace: true});
+        } else {
+          navigate('/profile/');
+        }
       }
     },
     [select.user]
@@ -39,6 +44,8 @@ function Login() {
     // Авторизация
     login: useCallback((login, password) => store.actions.profile.login(login, password), [store]),
   }
+
+  console.log(location.state)
 
   return (
     <PageLayout>

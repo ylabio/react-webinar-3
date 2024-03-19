@@ -1,4 +1,5 @@
 import {memo, useCallback} from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -11,19 +12,23 @@ import { Link } from "react-router-dom";
 function ProfileBar() {
 
   const store = useStore();
-  
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const select = useSelector(state => ({
     user: state.profile.user
   }));
 
   const callbacks = {
-    onClickLogin: (e) => window.location='/login/',
+    onClickLogin: (e) => {
+      if (location.pathname !== '/login/') {
+        navigate('/login/', {state: {isNotStartPage: true}});
+      }
+    },
     onClickLogout: useCallback(() => store.actions.profile.logout(), [store]),
   }
 
   const {t} = useTranslate();
-
-  console.log(select)
 
   return (
     <SideLayout side='end' padding='small' border='bottom'>
