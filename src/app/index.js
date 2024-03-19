@@ -20,7 +20,7 @@ function App() {
   const store = useStore(); 
 
   useInit(() => {
-    store.actions.auth.fetchProfile();
+    store.actions.auth.checkAuthorization();
   }, []);
 
   return (

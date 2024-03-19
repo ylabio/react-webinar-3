@@ -21,6 +21,13 @@
   flex-direction: column;
 }
 
+.UserLogin-form-control label,
+.UserLogin-form-control input {
+  font-size: 16px;
+}
+
 .UserLogin-error {
+  margin: 0;
+  font-size: 16px;
   color: #FF0000;
 }

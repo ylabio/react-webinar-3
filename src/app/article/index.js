@@ -6,7 +6,7 @@ import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
-import AuthPanel from '../../components/auth-panel';
+import AuthPanel from '../../containers/auth-panel';
 import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";

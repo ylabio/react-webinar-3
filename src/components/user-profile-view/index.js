@@ -6,18 +6,24 @@ import './style.css';
 const UserProfileView = ({ user, t }) => {
   const cn = bem('UserProfile');
 
-  return (
+  return (    
     <>
-      {user && (
+      {user && 
         <div className={cn()}>
           <h2 className={cn('title')}>{t('profile.title')}</h2>
           <div className={cn('wrapper')}>
-            <p>{t('profile.name')} <span>{user.profile.name}</span></p>
-            <p>{t('profile.phone')} <span>{user.profile.phone}</span></p>
-            <p>email: <span>{user.email}</span></p>
+            <p>{t('profile.name')} {' '}
+              <span>{user?.profile.name}</span>
+            </p>
+            <p>{t('profile.phone')} {' '}
+              <span>{user?.profile.phone}</span>
+            </p>
+            <p>email: {' '}
+              <span>{user?.email}</span>
+            </p>
           </div>
         </div>
-      )}
+      }
     </>
   );
 };

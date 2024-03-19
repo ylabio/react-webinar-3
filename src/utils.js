@@ -50,14 +50,14 @@ export function buildCategoryOptions(categories, parentId = null, depth = 0) {
     const { _id, title, parent } = category;
 
     if (parent && parent._id === parentId) {
-      const prefix = '-'.repeat(depth);
+      const prefix = '- '.repeat(depth);
       const fullTitle = `${prefix} ${title}`;
       result.push({ value: _id, title: fullTitle });
 
       const children = buildCategoryOptions(categories, _id, depth + 1);
       result.push(...children);
     } else if (!parent && !parentId) {
-      const prefix = '-'.repeat(depth);
+      const prefix = '- '.repeat(depth);
       const fullTitle = `${prefix} ${title}`;
       result.push({ value: _id, title: fullTitle });
 
@@ -65,6 +65,7 @@ export function buildCategoryOptions(categories, parentId = null, depth = 0) {
       result.push(...children);
     }
   });
+  
 
   return result;
 }

@@ -27,7 +27,7 @@ class AuthorizationState extends StoreModule {
             throw new Error(errorData?.error?.data?.issues[0]?.message || errorData?.error?.message );
         }
 
-        const data = await response.json();
+        const data = await response.json();        
         
         this.setState({ 
           ...this.getState(), 
@@ -60,31 +60,35 @@ class AuthorizationState extends StoreModule {
     }
   }
 
-  async fetchProfile() {
-    try {
-      const token = this.getState().token;        
-      
-      if (!token) {        
-        return;
-      }  
-      
-      const response = await fetch('/api/v1/users/self?fields=*', {
-        method: 'GET',
-        headers: {
-          'X-Token': token,
-          'Content-Type': 'application/json'
-        }
-      });
+  async checkAuthorization() {
+    const token = localStorage.getItem('token') || '';
+
+    if (!token) {
+      this.initState();
+    } else {
+      try {
+        this.setState({ ...this.getState(), waiting: true, error: '' });
   
-      const data = await response.json();
-      this.setState({ 
-        ...this.getState(), 
-        user: data.result, 
-        error: '', 
-        waiting: false }, 'Повторная авторизация'); 
-    } catch (error) {
-      console.error('Fetch profile error:', error);
-      this.setState({ error: error.message, waiting: false });
+        const response = await fetch('/api/v1/users/self?fields=*', {
+          method: 'GET',
+          headers: {
+            'X-Token': token,
+            'Content-Type': 'application/json'
+          }
+        });     
+  
+        const data = await response.json();
+        this.setState({
+          ...this.getState(),
+          token,
+          user: data.result,          
+          error: '',
+          waiting: false
+        }, 'Повторная авторизация пользователя');
+      } catch (error) {
+        console.error('Ошибка повторной авторизации:', error);
+        this.setState({ error: error.message, waiting: false });
+      }
     }
   }
 }

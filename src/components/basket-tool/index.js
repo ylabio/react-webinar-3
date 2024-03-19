@@ -2,6 +2,7 @@ import {memo} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from "../../utils";
+import Button from '../button';
 import './style.css';
 
 function BasketTool({sum, amount, onOpen, t}) {
@@ -15,7 +16,7 @@ function BasketTool({sum, amount, onOpen, t}) {
           : t('basket.empty')
         }
       </span>
-      <button onClick={onOpen}>{t('basket.open')}</button>
+      <Button onClick={onOpen}>{t('basket.open')}</Button>      
     </div>
   );
 }
