@@ -20,8 +20,9 @@ class CatalogState extends StoreModule {
         category: '',
       },
       categories: [{
-        _id: "",
+        _id: "0000",
         title: "Все",
+        parent: null,
         name: ""
       }],
       count: 0,
@@ -98,7 +99,7 @@ class CatalogState extends StoreModule {
     };
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
-    const categoriesResponse = await fetch(`/api/v1/categories?fields=items(_id, title, name)`)
+    const categoriesResponse = await fetch(`/api/v1/categories?fields=items(_id, title, name, parent)`)
     const json = await response.json();
     const categoriesJson = await categoriesResponse.json();
     this.setState({
