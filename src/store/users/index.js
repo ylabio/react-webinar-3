@@ -12,8 +12,8 @@ class UsersState extends StoreModule {
     return {
       user: null,
       params: {
-        login: "test_1",
-        password: "123456",
+        login: "",
+        password: "",
         remember: true,
       },
       waiting: false,
