@@ -10,10 +10,10 @@ class UsersState extends StoreModule {
    */
   initState() {
     return {
-      list: [],
+      user: null,
       params: {
         login: "test_1",
-        password: "123456",
+        password: "12356",
         remember: true,
       },
       waiting: false,
@@ -83,7 +83,6 @@ class UsersState extends StoreModule {
       login: params.login,
       password: params.password,
     };
-    console.log(apiParams);
     const response = await fetch(`/api/v1/users/sign`, {
       method: "POST",
       headers: {
@@ -100,11 +99,10 @@ class UsersState extends StoreModule {
       password: params.password,
     });
     const json = await response.json();
-    console.log(json);
     this.setState(
       {
         ...this.getState(),
-        list: json.result,
+        user: json,
         waiting: false,
       },
       "Загружен ответ из АПИ"

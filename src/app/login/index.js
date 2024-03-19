@@ -1,6 +1,5 @@
 import { memo, useCallback, useMemo } from "react";
 import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
 import Navigation from "../../containers/navigation";
@@ -25,10 +24,6 @@ function Login() {
 
   const { t } = useTranslate();
 
-  const select = useSelector((state) => ({
-    list: state.users.list,
-    params: state.users.params,
-  }));
 
   const callbacks = {
     // Удаление из корзины
