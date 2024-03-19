@@ -26,7 +26,7 @@ function TopMenu({ }) {
   }
 
   return (
-    <SideLayout side="end" padding="small-with-medium">
+    <SideLayout side="end" padding="small-with-medium" border="bottom">
       {select.status ? <UserName link="/profile" name={select.user?.profile.name} /> : ''}
       {select.status
         ? <button onClick={callbacks.onSignOut}>Выход</button>
