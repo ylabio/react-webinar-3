@@ -23,7 +23,7 @@ function Header() {
   }
 
   const links = {
-    toAuth: () => navigate('/authorization'),
+    toAuth: useCallback(() => navigate('/sign'), []),
     toProfile: '/profile',
   }
   

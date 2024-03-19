@@ -7,7 +7,7 @@ import Basket from "./basket";
 import Article from "./article";
 import Authorization from "./auth";
 import Profile from "./profile";
-import AuthCheck from "../containers/auth-check";
+import AuthGuard from "../containers/auth-guard";
 
 /**
  * Приложение
@@ -18,7 +18,6 @@ function App() {
 
   const select = useSelector(state => ({
     activeModal: state.modals.name,
-    isLogged: state.auth.isLogged,
     token: state.auth.token,
   }));
 
@@ -26,7 +25,9 @@ function App() {
    * Проверка авторизации и получение данных пользователя
    */
   useInit(() => {
-    if (select.token) store.actions.auth.loadUser(select.token);
+    if (select.token) {
+      store.actions.auth.loadUser(select.token);
+    }
   }, [select.token], true)
 
   return (
@@ -34,8 +35,8 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
-        <Route path={'/authorization'} element={<Authorization/>}/>
-        <Route path={'/profile'} element={<AuthCheck redirect={'/'}><Profile/></AuthCheck>}/>
+        <Route path={'/sign'} element={<Authorization/>}/>
+        <Route path={'/profile'} element={<AuthGuard link={'/'}><Profile/></AuthGuard>}/>
       </Routes>
 
       {select.activeModal === 'basket' && <Basket/>}

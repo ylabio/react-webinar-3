@@ -1,5 +1,5 @@
 import {memo, useEffect} from "react";
-import {useNavigate, useLocation} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import PropTypes from 'prop-types';
 
@@ -7,9 +7,8 @@ import PropTypes from 'prop-types';
  * Проверка авторизации на странице
  * Если пользователь не авторизован, перенаправляем по переданному адресу
  */
-function AuthCheck({redirect, children}) {
+function AuthGuard({link, children}) {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const select = useSelector(state => ({
     isLogged: state.auth.isLogged,
@@ -18,9 +17,9 @@ function AuthCheck({redirect, children}) {
 
   useEffect(() => {
     if (!select.isLogged && !select.token) {
-      navigate(redirect, {state: {back: location.pathname}});
+      navigate(link);
     }
-  }, [select.isLogged, select.token])
+  }, [select.isLogged, select.token, navigate])
 
   return (
     <>
@@ -29,9 +28,9 @@ function AuthCheck({redirect, children}) {
   )
 }
 
-AuthCheck.propTypes = {
-  redirect: PropTypes.string,
+AuthGuard.propTypes = {
+  link: PropTypes.string,
   children: PropTypes.node,
 }
 
-export default memo(AuthCheck);
+export default memo(AuthGuard);

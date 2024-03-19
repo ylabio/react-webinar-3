@@ -22,7 +22,9 @@ function Authorization() {
   }));
 
   useInit(() => {
-    if (select.isLogged) navigate(-1, {replace: true});
+    if (select.isLogged) {
+      navigate(-1, {replace: true});
+    }
   }, [select.isLogged, navigate], true)
 
   return (
