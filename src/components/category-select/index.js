@@ -6,7 +6,7 @@ function CategorySelect(props) {
 
   const onSelect = (e) => {
     props.onChange(e.target.value);
-  };
+  }
 
   return (
     <select className="CategorySelect" value={props.value} onChange={onSelect}>

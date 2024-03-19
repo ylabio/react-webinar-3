@@ -34,11 +34,3 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
-export function sortCategories(categories, parentId = null) {
-  return categories
-    .filter(item => item.parent === parentId)
-    .map(item => ({
-      ...item,
-      children: sortCategories(categories, item._id)
-    }));
-}

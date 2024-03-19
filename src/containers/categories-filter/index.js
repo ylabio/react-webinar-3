@@ -1,11 +1,7 @@
 import {memo, useCallback} from 'react';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import Select from "../../components/select";
-import Input from "../../components/input";
-import SideLayout from "../../components/side-layout";
 import CategorySelect from '../../components/category-select';
-import {sortCategories} from '../../utils';
 
 function CategoriesFilter() {
 
@@ -13,20 +9,17 @@ function CategoriesFilter() {
 
   const select = useSelector(state => ({
     categories: state.catalog.categories,
+    categorySort: state.catalog.params.categorySort,
   }));
 
   const callbacks = {
     onLoad: useCallback(() => store.actions.catalog.loadCategories(), [store]),
-    onSort: useCallback(() => store.actions.catalog.setParams(), [store]),
+    onSort: useCallback((categorySort) => store.actions.catalog.setParams({categorySort, page: 1}), [store]),
   }
-
-  const defaultValue = 'all';
-  const sortedItems = sortCategories(select.categories);
-  console.log(22, sortedItems);
 
   return (
     <>
-      <CategorySelect options={select.categories} value={defaultValue}></CategorySelect>
+      <CategorySelect options={select.categories} value={select.categorySort} onChange={callbacks.onSort}></CategorySelect>
     </>
   )
 }
