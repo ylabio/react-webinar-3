@@ -41,6 +41,12 @@ function Login() {
   };
 
   useEffect(() => {
+    if(select.error) {
+      store.actions.authorization.resetError();
+    }
+  }, []);
+
+  useEffect(() => {
     if(select.user && !select.error) {
       const goBackLink = location.state?.goBackLink && location.state?.goBackLink !== location.pathname ? location.state.goBackLink : '/';
       navigate(goBackLink);

@@ -112,6 +112,7 @@ class AuthrizationStore extends StoreModule {
         });
       } else {
         this.setState({
+          ...this.getState(),
           isAuthorized: false,
           waiting: false,
           error: true
@@ -120,6 +121,14 @@ class AuthrizationStore extends StoreModule {
     } else {
       this.initState();
     }
+  }
+
+  resetError() {
+    this.setState({
+      ...this.getState(),
+      error: false,
+      errorMessage: ''
+    })
   }
 }
 

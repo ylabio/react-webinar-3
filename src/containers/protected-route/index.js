@@ -8,12 +8,11 @@ function ProtectedRoute({children}) {
   const location = useLocation();
 
   const select = useSelector(state => ({
-    isAuthorized: state.authorization.isAuthorized
+    isAuthorized: state.authorization.isAuthorized,
   }));
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token && !select.isAuthorized) {
+    if (!select.isAuthorized) {
       navigate('/login', {state: {goBackLink: location.pathname}});
     }
   }, [select.isAuthorized, navigate, location.pathname])
