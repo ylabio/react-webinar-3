@@ -1,0 +1,10 @@
+.AuthTool {
+  height: 40px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 13px;
+  gap: 20px;
+  border-bottom: 1px solid #DCDCDC;
+}

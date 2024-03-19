@@ -19,6 +19,7 @@ function CatalogList() {
     limit: state.catalog.params.limit,
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    filter: state.catalog.params.filter,
     count: state.catalog.count,
     waiting: state.catalog.waiting,
   }));
@@ -34,9 +35,10 @@ function CatalogList() {
         page,
         limit: select.limit,
         sort: select.sort,
-        query: select.query
+        query: select.query,
+        filter: select.filter
       })}`;
-    }, [select.limit, select.sort, select.query])
+    }, [select.limit, select.sort, select.query, select.filter])
   }
 
   const {t} = useTranslate();
