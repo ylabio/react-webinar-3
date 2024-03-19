@@ -32,6 +32,9 @@ function Input(props) {
       type={props.type}
       placeholder={props.placeholder}
       onChange={onChange}
+      onKeyDown={props.onKeyDown}
+      autoFocus={props.autoFocus}
+      disabled={props.disabled}
     />
   )
 }
@@ -42,12 +45,15 @@ Input.propTypes = {
   type: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
+  onkeydown: PropTypes.func,
   theme: PropTypes.string,
+  autoFocus: PropTypes.bool,
+  disabled: PropTypes.bool
 }
 
 Input.defaultProps = {
-  onChange: () => {
-  },
+  onChange: () => {},
+  onKeyDown: () => {},
   type: 'text',
   theme: ''
 }

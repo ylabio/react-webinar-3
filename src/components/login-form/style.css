@@ -1,0 +1,30 @@
+.LoginForm {
+  padding: 20px;
+}
+
+.LoginForm h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.LoginForm-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  padding-block: 20px;
+}
+
+.LoginForm label {
+  display: block;
+  font-size: 16px;
+}
+
+.LoginForm-message {
+  color: red;
+}
+
+.LoginForm input[type='text'], .LoginForm input[type='password']  {
+  max-width: 200px;
+}

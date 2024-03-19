@@ -1,0 +1,20 @@
+.ProfileCard {
+  padding: 40px 20px 20px 20px;
+}
+
+.ProfileCard h2 {
+  margin: 0 0 30px 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.ProfileCard-field {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 18px;
+  margin: 0 0 20px 0;
+}
+
+.ProfileCard-value { font-weight: 700; }
