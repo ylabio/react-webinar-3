@@ -19,15 +19,17 @@ class User extends StoreModule {
     
   }
   
-  handleLogin = async () => {
+   handleSubmit = async (event) => {
+    event.preventDefault();
     try {
       const response = await axios.post('/api/v1/users/sign', {
-        login: 'test_1',
-        password: '123456'
+        login: login,
+        password: password
       });
-      this.setState({ result: response.data }); // Обновление состояния с данными от сервера
+      setUser(response.data.user);
+      console.log('User signed in successfully');
     } catch (error) {
-      console.error(error); // Обработка ошибок
+      setError(error.response.data.message); // Предполагается, что сервер возвращает сообщение об ошибке в поле "message"
     }
   };
 }
