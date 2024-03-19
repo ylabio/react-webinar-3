@@ -27,8 +27,9 @@ class ProfileState extends StoreModule {
     if (json.error) {
       this.setState({
         ...this.getState(),
-        error: json.error.message
+        error: json.error.data.issues[0].message
       }, 'Ошибка при попытке авторизации');
+      return false;
     }
     if (json.result) {
       this.setState({
@@ -38,6 +39,7 @@ class ProfileState extends StoreModule {
       }, "Успешная авторизация");
       localStorage.setItem('token', json.result.token);
       this.setUser();
+      return true;
     }
   }
 

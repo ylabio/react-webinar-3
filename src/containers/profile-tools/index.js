@@ -5,6 +5,7 @@ import useTranslate from "../../hooks/use-translate";
 import SideLayout from "../../components/side-layout";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import useInit from "../../hooks/use-init";
+import "./style.css"
 
 
 function ProfileTools() {
@@ -35,10 +36,12 @@ function ProfileTools() {
   }
 
   return (
-    <SideLayout side='end' padding='small'>
-      <Link to='/profile'>{select.user ? select.user.username : ''}</Link>
-      <button onClick={callbacks.buttonClick}>{select.user ? t('auth.logout') : t('auth.login')}</button>
-    </SideLayout>
+    <div className="ProfileTools">
+      <SideLayout side='end' padding='small'>
+        <Link to='/profile'>{select.user ? select.user.profile.name : ''}</Link>
+        <button onClick={callbacks.buttonClick}>{select.user ? t('auth.logout') : t('auth.login')}</button>
+      </SideLayout>
+    </div>
   );
 }
 

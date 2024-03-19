@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect } from "react";
 import Head from "../../components/head";
 import PageLayout from "../../components/page-layout";
 import LocaleSelect from "../../containers/locale-select";
@@ -13,31 +13,35 @@ import { redirect, useNavigate } from "react-router-dom";
 
 function Login() {
   const store = useStore();
-  const navigate = useNavigate();
+
   const select = useSelector(state => ({
     error: state.profile.error,
-    token: state.profile.token
+    token: state.profile.token,
+    user: state.profile.user
   }))
-  const {t} = useTranslate();
+
+  const { t } = useTranslate();
 
   const callbacks = {
     login: useCallback((login, password) => {
       store.actions.profile.login(login, password);
-      navigate('/profile');
     }, [store]),
   }
-  if(select.token){
 
-  }
+  useEffect(() => {
+    if(select.token){
+      window.history.back();
+    }
+  })
+
   return (
     <PageLayout>
-      <ProfileTools/>
+      <ProfileTools />
       <Head title={t('title')}>
-        <LocaleSelect/>
+        <LocaleSelect />
       </Head>
-      <Navigation/>
-      {select.token ? <h1>Вход успешно выполнен</h1> : <LoginCard t={t} buttonClick={callbacks.login} error={select.error}/>}
-      {/* <LoginCard t={t} buttonClick={callbacks.login} error={select.error}/> */}
+      <Navigation />
+      <LoginCard t={t} buttonClick={callbacks.login} error={select.error} />
     </PageLayout>
   );
 }

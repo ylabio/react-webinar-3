@@ -24,7 +24,7 @@ function Profile() {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      {select.user? <ProfileCard user={select.user} t={t}/> : <h1>Авторизируйтесь для просмотра профиля</h1>}
+      <ProfileCard user={select.user} t={t}/>
     </PageLayout>
   );
 }
