@@ -33,3 +33,14 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Убирает из обьеста пустые поля
+ * @param obj {Object}
+ * @returns {Object}
+ */
+export function removeEmptyFields(obj) {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([key, value]) => value !== null && value !== undefined && value !== '')
+  );
+}
