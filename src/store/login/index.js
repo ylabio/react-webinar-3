@@ -83,6 +83,13 @@ class LoginState extends StoreModule {
       console.error('Fetch error', err) 
     }
   }
+
+  resetError() {
+    this.setState({
+      ...this.getState(),
+      error: null,
+    })
+  }
 }
 
 export default LoginState;

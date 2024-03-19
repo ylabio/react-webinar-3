@@ -1,4 +1,4 @@
-import {memo, useCallback} from 'react';
+import {memo, useCallback, useEffect} from 'react';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -26,6 +26,13 @@ function Login() {
   useInit(() => {
     if(select.isLoggedIn) navigate('/')
   }, [select.isLoggedIn]);
+
+  useEffect(() => {
+    return () => {
+      store.actions.login.resetError()
+    }
+  }, [])
+  
 
   const {t} = useTranslate();
 

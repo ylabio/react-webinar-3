@@ -1,7 +1,0 @@
-1. create separated modal route; -
-2. use reacr router loader;
-3. to defer render pagination while fetching goods list
-4. make catches for fetches
-5. to make url parameters for pagination navigation
-6. en ui text the shopping cart is  5 товаров и тд
-7. баг в cart когда добавляешь с русского языка в корзину переходишь на англ айтемы на русском
