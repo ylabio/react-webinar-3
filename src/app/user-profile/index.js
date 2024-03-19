@@ -11,28 +11,26 @@ import UserInf from "../../components/user-profil";
 import { Navigate } from "react-router-dom";
 import Navigation from "../../containers/navigation";
 
+
 const UserProfile = () => {
   const { t } = useTranslate();
-  const store = useStore();
   const select = useSelector((state) => ({
     auth: state.user.auth,
-    userProfile: state.user.user_profile,
+    user: state.user.user,
   }));
 
-  useMemo(() => {
-    store.actions.user.getUserProfile();
-  }, [store]);
 
   return (
     <>
       <ModalUser>
+ 
         {!select.auth && <Navigate to={"/login"} />}
         <HeaderAuth />
         <Head title={t("title")}>
           <LocaleSelect />
         </Head>
         <Navigation />
-        <UserInf result={select.userProfile} />
+        <UserInf result={select.user} />
       </ModalUser>
     </>
   );

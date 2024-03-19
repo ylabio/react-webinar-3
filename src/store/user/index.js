@@ -3,7 +3,6 @@ class User extends StoreModule {
   initState() {
     return {
       user: "",
-      user_profile: "",
       token: "",
       eror: false,
       auth: false,
@@ -39,6 +38,7 @@ class User extends StoreModule {
       });
       if (response.ok) {
         let result = await response.json();
+        localStorage.setItem('token',result.result.token);
         this.setUserInformation({ ...result.result, eror: false, auth: true });
       } else {
         console.log(response);
@@ -53,6 +53,7 @@ class User extends StoreModule {
 
   async deleteUser() {
     try {
+     
       let response = await fetch("/api/v1/users/sign", {
         method: "DELETE",
         headers: {
@@ -60,15 +61,17 @@ class User extends StoreModule {
           "X-Token": this.getState().token,
         },
       });
+
       if (response.ok) {
         this.setUserInformation(this.initState());
+    localStorage.removeItem('token')
       }
     } catch (e) {
       console.log(e);
     }
   }
 
-  async getUserProfile() {
+  async getUserToken(token) {
     try {
       let response = await fetch(
         "/api/v1/users/self?fields=username,profile(phone),email",
@@ -76,17 +79,24 @@ class User extends StoreModule {
           method: "GET",
           headers: {
             "Content-Type": "application/json;charset=utf-8",
-            "X-Token": this.getState().token,
+            "X-Token": token,
           },
         }
       );
 
       if (response.ok) {
         let result = await response.json();
-        this.setUserInformation({ user_profile: result.result });
+        this.setUserInformation({ user: result.result, auth:true });
       }
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  AuthCheck(){
+    const token=localStorage.getItem('token');
+    if(!this.getState().auth && token){
+      this.getUserToken(token)
     }
   }
 }

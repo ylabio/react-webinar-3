@@ -25,7 +25,7 @@ const UserAuthCard = ({ onGetUser, eror }) => {
         <div>Пароль</div>
         <input
           className={cn() + "-Input"}
-          type="text"
+          type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>

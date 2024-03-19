@@ -10,6 +10,7 @@ import HeaderAuth from "../../components/header-auth";
 import { Navigate } from "react-router-dom";
 import Navigation from "../../containers/navigation";
 
+
 const UserAuth = () => {
   const { t } = useTranslate();
   const store = useStore();
@@ -29,7 +30,7 @@ const UserAuth = () => {
   return (
     <>
       <ModalUser>
-        {select.auth && <Navigate to={"/profile"} />}
+          {select.auth && <Navigate to={"/profile"} />}
         <HeaderAuth />
         <Head title={t("title")}>
           <LocaleSelect />

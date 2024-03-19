@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -23,7 +23,7 @@ function Main() {
     [],
     true
   );
-
+useMemo(()=>store.actions.user.AuthCheck(),[store])
   const { t } = useTranslate();
 
   return (
