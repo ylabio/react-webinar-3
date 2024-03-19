@@ -12,15 +12,26 @@ function Authorization() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setError('');
     try {
       const response = await axios.post('/api/v1/users/sign', {
         login: login,
         password: password
       });
-      setUser(response.data.user);
+      console.log(response);
+      setUser(response.data.result.user);
       console.log('User signed in successfully');
     } catch (error) {
-      setError(error.response.data.message); // Предполагается, что сервер возвращает сообщение об ошибке в поле "message"
+      const er = error.response.data.error;
+      let msg = er.message;
+      if ('data' in er) {
+        const {data} = er;
+        if ('issues' in data) {
+          const {issues} = data;
+          msg += ': ' + issues.map(x => x.message).join(', ');
+        }
+      }
+      setError(msg); // Предполагается, что сервер возвращает сообщение об ошибке в поле "message"
     }
   };
 
@@ -32,16 +43,16 @@ function Authorization() {
         <input className="auth-input" type="text" value={login} onChange={(e) => setLogin(e.target.value)} />
         <label className="auth-label" htmlFor="email">Password</label>
         <input className="auth-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        {error && <div style={{color: 'red'}}>{error}</div>}
         <button className="auth-button" type="submit">Войти</button>
       </form>
       {user && (
-  <div>
-    <p>Имя: {user.name}</p>
-    <p>Телефон: {user.phone}</p>
-    <p>Email: {user.email}</p>
-  </div>
-)}
-      {error && <div>{error}</div>}
+        <div>
+          <p>Имя: {user.profile.name}</p>
+          <p>Телефон: {user.profile.phone}</p>
+          <p>Email: {user.email}</p>
+        </div>
+      )}
     </div>
   );
 }

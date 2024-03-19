@@ -12,7 +12,7 @@ function Login() {
     <PageLayout>
       <Entrance/>
       <Head title={t('title')}>
-      <LocaleSelect/>
+        <LocaleSelect/>
       </Head>
       <Navigation/>
       <Authorization/>
