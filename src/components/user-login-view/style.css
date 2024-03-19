@@ -1,0 +1,33 @@
+.UserLogin {
+  padding: 30px 20px;
+}
+
+.UserLogin-title {
+  margin: 0;
+  margin-bottom: 17px;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.UserLogin-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: flex-start;   
+}
+
+.UserLogin-form-control {
+  display: flex;
+  flex-direction: column;
+}
+
+.UserLogin-form-control label,
+.UserLogin-form-control input {
+  font-size: 16px;
+}
+
+.UserLogin-error {
+  margin: 0;
+  font-size: 16px;
+  color: #FF0000;
+}

@@ -4,7 +4,7 @@
   "basket.title": "Корзина",
   "basket.open": "Перейти",
   "basket.close": "Закрыть",
-  "basket.inBasket": "В корзине",
+  "basket.inBasket": "В корзине:",
   "basket.empty": "пусто",
   "basket.total": "Итого",
   "basket.unit": "шт",
@@ -16,5 +16,13 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "login": "Вход",
+  "logout": "Выход",
+  "login.login": "Логин",
+  "login.password": "Пароль",
+  "login.submit": "Войти",
+  "profile.title": "Профиль",
+  "profile.name": "Имя:",
+  "profile.phone": "Телефон:"
 }

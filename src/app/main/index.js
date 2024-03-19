@@ -5,6 +5,7 @@ import useInit from "../../hooks/use-init";
 import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
+import AuthPanel from '../../containers/auth-panel';
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
@@ -18,12 +19,14 @@ function Main() {
 
   useInit(() => {
     store.actions.catalog.initParams();
+    store.actions.category.fetchCategories();
   }, [], true);
 
   const {t} = useTranslate();
 
   return (
-    <PageLayout>
+    <PageLayout>   
+      <AuthPanel />  
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
