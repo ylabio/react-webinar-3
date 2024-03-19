@@ -13,24 +13,27 @@ function Header() {
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
-    isLogged: state.auth.isLogged,
+    isLogged: state.user.isLogged,
     token: state.auth.token,
-    user: state.auth.user,
+    result: state.user.result,
   }));
 
   const callbacks = {
-    onSignOut: useCallback(() => store.actions.auth.signOut(select.token), [store, select.token]),
+    onSignOut: useCallback(() => {
+      store.actions.auth.signOut(select.token);
+      store.actions.user.setIsLogged();
+    }, [store, select.token]),
   }
 
   const links = {
-    toAuth: useCallback(() => navigate('/sign'), []),
+    toAuth: useCallback(() => navigate('/login'), []),
     toProfile: '/profile',
   }
   
   return (
-    <SideLayout side='end' padding='medium'>
+    <SideLayout side={'end'} padding={'medium'} border={'bottom'}>
       {select.isLogged 
-        ? <HeaderInfo user_name={select.user.profile?.name} text_btn={t('signout')} 
+        ? <HeaderInfo user_name={select.result.profile.name} text_btn={t('signout')} 
                       link={links.toProfile} onClick={callbacks.onSignOut}/>
         : <Button text_btn={t('signin')} onClick={links.toAuth} />
       }

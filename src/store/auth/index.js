@@ -10,9 +10,8 @@ class AuthState extends StoreModule {
    */
   initState() {
     return {
-      user: {},
+      result: {},
       token: localStorage.getItem('token') || '',
-      isLogged: false,
       error: null,
       waiting: false
     }
@@ -25,9 +24,8 @@ class AuthState extends StoreModule {
   resetState() {
     this.setState({
       ...this.getState(),
-      user: {},
+      result: {},
       token: '',
-      isLogged: false,
       error: null,
       waiting: false
     })
@@ -65,8 +63,7 @@ class AuthState extends StoreModule {
       this.setState({
         ...this.getState(),
         token: json.result.token,
-        user: json.result.user,
-        isLogged: true,
+        result: json.result.user,
         error: null,
         waiting: false
       });
@@ -77,44 +74,6 @@ class AuthState extends StoreModule {
       this.setState({
         ...this.getState(),
         error: json.error.data?.issues[0]?.message,
-        isLogged: false,
-        waiting: false
-      });
-    }
-  }
-
-  /**
-   * Получение данных пользователя
-   * @param {String} token
-   */
-  async loadUser(token) {
-    this.setWaiting();
-
-    const response = await fetch('/api/v1/users/self?fields=*', {
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Token': token
-      }
-    })
-    const json = await response.json();
-
-    // Данные успешно загружены
-    if (response.ok) {
-      this.setState({
-        ...this.getState(),
-        user: json.result,
-        isLogged: true,
-        error: null,
-        waiting: false
-      });
-      
-    } else {
-      // Ошибка при загрузке данных
-      console.log(json);
-      this.setState({
-        ...this.getState(),
-        isLogged: false,
-        error: json,
         waiting: false
       });
     }

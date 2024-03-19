@@ -17,12 +17,12 @@ function Authorization() {
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
-    isLogged: state.auth.isLogged,
+    isLogged: state.user.isLogged,
   }));
 
   useEffect(() => {
     if (select.isLogged) {
-      navigate(-1, {replace: true});
+      navigate('/profile');
     }
   }, [select.isLogged, navigate])
 

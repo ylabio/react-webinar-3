@@ -26,7 +26,7 @@ function App() {
    */
   useInit(() => {
     if (select.token) {
-      store.actions.auth.loadUser(select.token);
+      store.actions.user.loadUser(select.token);
     }
   }, [select.token], true)
 
@@ -35,8 +35,8 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
-        <Route path={'/sign'} element={<Authorization/>}/>
-        <Route path={'/profile'} element={<AuthGuard link={'/'}><Profile/></AuthGuard>}/>
+        <Route path={'/login'} element={<Authorization/>}/>
+        <Route path={'/profile'} element={<AuthGuard redirect={'/login'}><Profile/></AuthGuard>}/>
       </Routes>
 
       {select.activeModal === 'basket' && <Basket/>}

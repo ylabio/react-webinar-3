@@ -16,9 +16,9 @@ function Profile() {
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
-    user: state.auth.user,
-    waiting: state.auth.waiting,
-    isLogged: state.auth.isLogged,
+    result: state.user.result,
+    waiting: state.user.waiting,
+    isLogged: state.user.isLogged,
   }));
 
   return (
@@ -30,7 +30,7 @@ function Profile() {
       <Navigation/>
       {select.isLogged &&
         <Spinner active={select.waiting}>
-          <UserInfo user={select.user} t={t}/>
+          <UserInfo data={select.result} t={t}/>
         </Spinner>
       }
     </PageLayout>

@@ -7,17 +7,17 @@ import PropTypes from 'prop-types';
  * Проверка авторизации на странице
  * Если пользователь не авторизован, перенаправляем по переданному адресу
  */
-function AuthGuard({link, children}) {
+function AuthGuard({redirect, children}) {
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    isLogged: state.auth.isLogged,
+    isLogged: state.user.isLogged,
     token: state.auth.token,
   }));
 
   useEffect(() => {
     if (!select.isLogged && !select.token) {
-      navigate(link);
+      navigate(redirect);
     }
   }, [select.isLogged, select.token, navigate])
 
@@ -29,7 +29,7 @@ function AuthGuard({link, children}) {
 }
 
 AuthGuard.propTypes = {
-  link: PropTypes.string,
+  redirect: PropTypes.string,
   children: PropTypes.node,
 }
 
