@@ -11,25 +11,35 @@ class User extends StoreModule {
    * Начальное состояние
    * @return {Object}
    */
-  initState() {
-    return {
-      result: {},
-      
-    }
+ initState() {
+  return {
+    result:  {},
     
   }
+}
   
    handleSubmit = async (event) => {
     event.preventDefault();
+    setError('');
     try {
       const response = await axios.post('/api/v1/users/sign', {
         login: login,
         password: password
       });
-      setUser(response.data.user);
+      console.log(response);
+      setUser(response.data.result.user);
       console.log('User signed in successfully');
     } catch (error) {
-      setError(error.response.data.message); // Предполагается, что сервер возвращает сообщение об ошибке в поле "message"
+      const er = error.response.data.error;
+      let msg = er.message;
+      if ('data' in er) {
+        const {data} = er;
+        if ('issues' in data) {
+          const {issues} = data;
+          msg += ': ' + issues.map(x => x.message).join(', ');
+        }
+      }
+      setError(msg); // Предполагается, что сервер возвращает сообщение об ошибке в поле "message"
     }
   };
 }

@@ -10,31 +10,7 @@ import { buildCategoryHierarchy } from "../../utils";
  * Контейнер со всеми фильтрами каталога
  */
 function CatalogFilter() {
-  // const [categories, setCategories] = useState([]);
-
-  // const [selectedCategory, setSelectedCategory] = useState("");
-
-  // useEffect(() => {
-  //   fetch("/api/v1/categories?fields=_id,title,parent(_id)&limit=*")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setCategories(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching categories", error);
-  //     });
-  // }, []);
-
-  // function handleCategoryChange(event) {
-  //   setSelectedCategory(event.target.value);
-  //   // Тут можно добавить логику для фильтрации товаров по выбранной категории
-  // }
-
-  // function handleCategoryChange(event) {
-  //   setSelectedCategory(event.target.value);
-  //   // Тут можно добавить логику для фильтрации товаров по выбранной категории
-  // }
+  
 
   const store = useStore();
 

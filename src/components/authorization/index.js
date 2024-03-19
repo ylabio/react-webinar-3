@@ -1,14 +1,16 @@
 import { memo, useState, useEffect } from "react";
 import "./style.css";
-import useStore from "../../hooks/use-store";
 import axios from "axios";
 import useSelector from "../../hooks/use-selector";
 import User from "../../store/user";
+import UserData from "../user-data";
 function Authorization() {
+  
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [user, setUser] = useState(null);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -43,16 +45,10 @@ function Authorization() {
         <input className="auth-input" type="text" value={login} onChange={(e) => setLogin(e.target.value)} />
         <label className="auth-label" htmlFor="email">Password</label>
         <input className="auth-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        {error && <div style={{color: 'red'}}>{error}</div>}
+        {error && <div className="error" >{error}</div>}
         <button className="auth-button" type="submit">Войти</button>
       </form>
-      {user && (
-        <div>
-          <p>Имя: {user.profile.name}</p>
-          <p>Телефон: {user.profile.phone}</p>
-          <p>Email: {user.email}</p>
-        </div>
-      )}
+      <UserData user={user}/>
     </div>
   );
 }
