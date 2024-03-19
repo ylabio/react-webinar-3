@@ -33,7 +33,7 @@ function App() {
             <LoginBox /> 
 
             <Routes>
-                <Route path="/login" element={<LoginPage />} />
+                <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/profile" replace />} />
                 <Route path="/profile" element={user ? <ProfilePage /> : <Navigate to="/login" replace />} />
                 <Route path="/" element={<Main />} />
                 <Route path="/articles/:id" element={<Article />} />
