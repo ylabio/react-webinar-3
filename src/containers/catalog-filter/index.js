@@ -20,6 +20,7 @@ function CatalogFilter() {
   }));
     const debounceTimerRef = useRef(null);
     const isResetClickedRef = useRef(false);
+    
   const callbacks = {
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),

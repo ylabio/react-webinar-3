@@ -30,34 +30,35 @@ class CatalogState extends StoreModule {
    * @param [newParams] {Object} Новые параметры
    * @return {Promise<void>}
    */
-  async initParams(newParams = {}) {
-    const urlParams = new URLSearchParams(window.location.search);
-    let validParams = {};
-      if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
-      if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
-      if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
-      if (urlParams.has('query')) validParams.query = urlParams.get('query');
-      validParams['search[category]'] = validParams['search[category]'] === 'ВСЕ' ? null : validParams['search[category]'];
-      // Загрузка категорий
-      const categoriesResponse = await fetch('/api/v1//categories?fields=_id,title,parent(_id)&limit=*');
-      const categoriesJson = await categoriesResponse.json();
-      const categories = Array.isArray(categoriesJson.result.items) ? categoriesJson.result.items : [];
+    async initParams(newParams = {}) {
+        const urlParams = new URLSearchParams(window.location.search);
+        let validParams = {};
+        // Проверяем и сохраняем параметры из URL
+        if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
+        if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
+        if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
+        if (urlParams.has('query')) validParams.query = urlParams.get('query');
+        if (urlParams.has('search[category]')) validParams['search[category]'] = urlParams.get('search[category]');
 
-      categories.unshift({
-          _id: null, 
-          title: 'Все',
-      });
-      this.setState({
-          ...this.getState(),
-          categories: categories.map(cat => ({
-              value: cat._id,
-              title: cat.title,
-              parent: cat.parent ? cat.parent._id : null
-          })),
-      });
+        // Загрузка категорий
+        const categoriesResponse = await fetch('/api/v1//categories?fields=_id,title,parent(_id)&limit=*');
+        const categoriesJson = await categoriesResponse.json();
+        const categories = Array.isArray(categoriesJson.result.items) ? categoriesJson.result.items : [];
 
-      await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
-  }
+        categories.unshift({
+            _id: null,
+            title: 'Все',
+        });
+        this.setState({
+            ...this.getState(),
+            categories: categories.map(cat => ({
+                value: cat._id,
+                title: cat.title,
+                parent: cat.parent ? cat.parent._id : null
+            })),
+        });
+        await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
+    }
 
   /**
    * Сброс параметров к начальным
