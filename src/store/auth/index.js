@@ -16,6 +16,9 @@ class AuthState extends StoreModule {
      * @param password {String}
      * @return {Promise<void>}
      */
+    resetLoginError() {
+        this.setState({ loginError: null });
+    }
     async login(login, password) {
         this.setState({ waiting: true, loginError: null });
 

@@ -24,15 +24,25 @@ function CatalogFilter() {
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
     // Поиск
-    onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
-    // Сброс
-    onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
-
-      onCategorySelect: useCallback(categoryId => {
-          if (categoryId !== undefined) {
-              store.actions.catalog.setParams({ 'search[category]': categoryId, page: 1 });
-          }
-      }, [store])
+    onSearch: useCallback(query => {
+      // Установить флаг сброса в false каждый раз при поиске
+      isResetClickedRef.current = false;
+      store.actions.catalog.setParams({ query, page: 1 });
+    }, [store]),
+    onReset: useCallback(() => {
+      // Отменить дебаунс если он активен
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+      // Установить флаг сброса в true
+      isResetClickedRef.current = true;
+      store.actions.catalog.resetParams();
+    }, [store]),
+    onCategorySelect: useCallback(categoryId => {
+      if (categoryId !== undefined) {
+        store.actions.catalog.setParams({ 'search[category]': categoryId, page: 1 });
+      }
+    }, [store])
   };
     const categoryTree = buildCategoryTree(store.getState().catalog.categories);
     const categoryOptions = flattenCategories(categoryTree);

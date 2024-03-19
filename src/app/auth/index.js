@@ -21,7 +21,12 @@ const LoginPage = (props) => {
     const store = useStore();
     const navigate = useNavigate();
     const auth = useSelector(state => state.auth);
+    useInit(async () => {
+        store.actions.auth.resetLoginError();
+        return () => {
 
+        };
+    }, [store.actions.auth]);
     const handleLogin = async (event) => {
         event.preventDefault();
         const { username, password } = event.target.elements;
