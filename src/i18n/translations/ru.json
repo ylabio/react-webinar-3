@@ -21,5 +21,6 @@
   "login": "Вход",
   "signIn": "Войти",
   "label.login": "Логин",
-  "label.password": "Пароль"
+  "label.password": "Пароль",
+  "search": "Поиск"
 }

@@ -11,10 +11,12 @@ class Store {
     /** @type {{
      * basket: BasketState,
      * catalog: CatalogState,
+     * category: CategoryState,
      * modals: ModalsState,
      * article: ArticleState,
      * locale: LocaleState,
-     * auth: AuthState
+     * auth: AuthState,
+     * profile: ProfileState
      * }} */
     this.actions = {};
     for (const name of Object.keys(modules)) {

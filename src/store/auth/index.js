@@ -4,13 +4,16 @@ class AuthState extends StoreModule {
   initState() {
     const token = localStorage.getItem('userToken')
     return {
-      profile: null,
+      user: null,
       error: null,
       waiting: false,
       isAuth: Boolean(token)
     };
   }
 
+  resetAuth() {
+    this.setState(this.initState())
+  }
 
   async logIn(login, password) {
     this.setState( {...this.getState(), error: null , waiting: true});
@@ -21,7 +24,7 @@ class AuthState extends StoreModule {
         throw new Error('Все поля обязательные!');
       }
 
-      const response = await fetch('/api/v1/users/sign', {
+      const response = await fetch('/api/v1/users/sign?fields=profile(name)', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ login, password }),
@@ -37,7 +40,7 @@ class AuthState extends StoreModule {
 
       this.setState({
         ...this.getState(),
-        profile: { ...data.result.user.profile, email: data.result.user.email },
+        user: data.result.user.profile,
         isAuth: true,
         waiting: false
       });
@@ -63,13 +66,13 @@ class AuthState extends StoreModule {
     }
   }
 
-  async getProfile() {
+  async sessionRecovery() {
     this.setState({  ...this.getState(), error: null , waiting: true});
 
     try {
       const token = localStorage.getItem('userToken')
 
-      const response = await fetch('/api/v1/users/self?fields=*', {
+      const response = await fetch('/api/v1/users/self?fields=profile(name)', {
         method: 'GET',
         headers: { 'X-Token': token, 'Content-Type': 'application/json' },
       });
@@ -81,7 +84,7 @@ class AuthState extends StoreModule {
 
       this.setState({
         ...this.getState(),
-        profile: { ...data.result.profile, email: data.result.email },
+        user: data.result.profile,
         isAuth: true,
         waiting: false,
       });

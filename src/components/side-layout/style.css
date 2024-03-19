@@ -6,6 +6,10 @@
   margin-left: -5px;
   margin-right: -5px;
   align-items: center;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    height: 0;
+  }
 }
 
 .SideLayout_side_start {

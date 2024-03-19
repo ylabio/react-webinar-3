@@ -2,7 +2,6 @@ import React, {useCallback} from "react";
 import UserMenu from "../../components/user-menu";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import useTranslate from "../../hooks/use-translate";
 
 function AuthHead() {
 
@@ -10,7 +9,7 @@ function AuthHead() {
 
   const select = useSelector(state => ({
     isAuth: state.auth.isAuth,
-    profile: state.auth.profile,
+    user: state.auth.user,
   }));
 
   const callbacks = {
@@ -19,13 +18,13 @@ function AuthHead() {
 
 
   const links = {
-    login: '/login',
+    login: `/login?referrer=${encodeURIComponent(window.location.pathname)}`,
     profile: '/profile'
   }
 
   return (
     <UserMenu links={links} isAuth={select.isAuth}
-              logOut={callbacks.logOut} userName={select.profile?.name}/>
+              logOut={callbacks.logOut} userName={select.user?.name}/>
   )
 }
 

@@ -29,9 +29,12 @@ function Login() {
     isAuth: state.auth.isAuth,
   }));
 
+  const referrer = new URLSearchParams(location.search).get("referrer");
+
   const callbacks = {
     logIn: useCallback(() => store.actions.auth.logIn(login, password), [login, password]),
     logOut: useCallback(() => store.actions.auth.logOut(), [store]),
+    resetAuth: useCallback(() => store.actions.auth.resetAuth(), [store]),
   }
 
   const options = {
@@ -65,9 +68,13 @@ function Login() {
 
   useEffect(() => {
     if (select.isAuth) {
-      navigate(links.profile)
+      navigate(referrer || links.profile); // Редирект на предыдущую страницу или на профиль по умолчанию
     }
-  }, [select.isAuth]);
+  }, [select.isAuth, referrer, navigate]);
+
+  useEffect(() => {
+    callbacks.resetAuth()
+  }, []);
 
   return (
     <PageLayout>

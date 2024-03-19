@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import AuthHead from "../../containers/auth-head";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
@@ -7,32 +7,29 @@ import useTranslate from "../../hooks/use-translate";
 import ProfileInfo from "../../components/profile-info";
 import FlexContainer from "../../components/flex-container";
 import Navigation from "../../containers/navigation";
-import {useNavigate} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import FormInput from "../../components/form-input";
+import Spinner from "../../components/spinner";
+import useAuthCheck from "../../hooks/use-auth-check";
 
 function Profile() {
 
   const {t} = useTranslate();
+  const store = useStore()
 
-  const navigate = useNavigate()
-
-  const select = useSelector(state => ({
-    profile: state.auth.profile,
-    waiting: state.auth.waiting,
-    isAuth: state.auth.isAuth,
-  }));
-
-  const links = {
-    login: '/login'
+  const callbacks = {
+    getMyProfile: useCallback(() => store.actions.profile.getMyProfile(), [store])
   }
 
+  const select = useSelector(state => ({
+    profile: state.profile.myProfile,
+    waiting: state.profile.waiting,
+  }));
+
   useEffect(() => {
-    if (!select.isAuth) {
-      navigate(links.login)
-    }
-  }, [select.isAuth]);
+    callbacks.getMyProfile()
+  }, []);
+
 
   return (
     <PageLayout>
@@ -41,14 +38,14 @@ function Profile() {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <FlexContainer title='Профиль'>
-        {
-          select.profile && <ProfileInfo profile={select.profile}/>
-        }
-      </FlexContainer>
+      <Spinner active={select.waiting}>
+        <FlexContainer title='Профиль'>
+          <ProfileInfo profile={select.profile}/>
+        </FlexContainer>
+      </Spinner>
     </PageLayout>
   )
 }
 
 
-export default React.memo(Profile);
+export default React.memo(useAuthCheck(Profile));

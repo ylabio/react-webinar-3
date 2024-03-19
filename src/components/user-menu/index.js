@@ -17,7 +17,7 @@ function UserMenu({links, isAuth, logOut, userName}) {
       {
         isAuth ?
           <>
-            <Link to={links.profile}>{userName}</Link>
+            <Link to={links.profile} className={cn(('name'))}>{userName}</Link>
             <button onClick={() => logOut()}>{t('logout')}</button>
           </>
           :

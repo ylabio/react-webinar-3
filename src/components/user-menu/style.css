@@ -4,4 +4,10 @@
   display: flex;
   justify-content: right;
   column-gap: 20px;
+  align-items: center;
+}
+
+.UserMenu-name {
+  font-size: 13px;
+  font-weight: 400;
 }
