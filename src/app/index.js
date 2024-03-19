@@ -13,6 +13,7 @@ import LoginButton from '../components/login-button';
 import UserProfileButton from '../components/userProfile-button';
 import useTranslate from '../hooks/use-translate';
 import LoginBox from '../containers/login-line';
+import { Navigate } from 'react-router-dom';
 
 /**
  * Приложение
@@ -21,6 +22,7 @@ import LoginBox from '../containers/login-line';
 function App() {
     const { t } = useTranslate();
     const activeModal = useSelector(state => state.modals.name);
+    const user = useSelector(state => state.auth.user); 
     const store = useStore();
     useInit(async () => {
         await store.actions.auth.autoLogin();
@@ -32,7 +34,7 @@ function App() {
 
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/profile" element={user ? <ProfilePage /> : <Navigate to="/login" replace />} />
                 <Route path="/" element={<Main />} />
                 <Route path="/articles/:id" element={<Article />} />
             </Routes>
