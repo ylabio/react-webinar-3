@@ -1,0 +1,17 @@
+.ProfileCard {
+    padding: 20px;
+}
+
+.ProfileCard-block {
+    font-size: 18px;
+    margin: 20px 0;
+    display: flex;
+}
+
+.ProfileCard-label {
+    padding-right: 5px;
+}
+
+.ProfileCard-value {
+    font-weight: bold;
+}
