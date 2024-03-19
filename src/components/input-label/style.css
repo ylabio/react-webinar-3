@@ -1,0 +1,10 @@
+.InputLabel {
+  display: flex;
+  flex-direction: column;
+}
+
+.InputLabel-title {
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 400;
+}
