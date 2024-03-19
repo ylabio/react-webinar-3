@@ -36,6 +36,10 @@ function Login() {
     }
   }, [select.user, select.waiting]);
 
+  useEffect(() => {
+    return store.actions.user.resetError();
+  },[store])
+
   const {t} = useTranslate();
 
   const callbacks = {

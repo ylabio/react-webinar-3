@@ -3,8 +3,6 @@
   flex-wrap: nowrap;
   justify-content: flex-start;
   padding: 0;
-  margin-left: -5px;
-  margin-right: -5px;
   align-items: center;
 }
 
@@ -30,4 +28,12 @@
 
 .SideLayout-item {
   margin: 0 5px;
+}
+
+.SideLayout-item:first-child {
+  margin-left: 0px;
+}
+
+.SideLayout-item:last-child {
+  margin-right: 0px;
 }

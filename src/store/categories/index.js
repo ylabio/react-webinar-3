@@ -21,6 +21,7 @@ class CategoriesState extends StoreModule {
       waiting: true,
     });
     const apiParams = {
+      limit: '*',
       lang,
       fields: '_id,title,parent(_id),order',
       sort: '-order',
