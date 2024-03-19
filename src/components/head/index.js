@@ -1,14 +1,34 @@
 import { memo, useCallback } from "react";
 import PropTypes from "prop-types";
-import "./style.css";
 import { Link } from "react-router-dom";
+import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
+import "./style.css";
 
 function Head({ title, children }) {
+  const store = useStore();
+
+  const select = useSelector((state) => ({
+    user: state.users.user,
+    params: state.users.params,
+  }));
+
+  const callbacks = {
+    // Удаление из корзины
+    resetParams: useCallback(() => store.actions.users.resetParams(), [store]),
+  };
   return (
     <>
       <div className="Login-Button">
         <Link to="/login">
-          <button>Вход</button>
+        { select.user != null ? `${select.user.result.user.profile.name}` : ''}
+          <button
+            onClick={() => {
+              select.user != null ? callbacks.resetParams() : {};
+            }}
+          >
+             { select.user != null ? 'Выход' : 'Вход'}
+          </button>
         </Link>
       </div>
       <div className="Head">

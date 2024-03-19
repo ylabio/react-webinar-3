@@ -22,3 +22,12 @@
   margin-bottom: 19px;
   color:red;
 }
+
+.User-Data{
+  font-weight: 700;
+  display: inline;
+}
+
+.User-Info {
+  margin-bottom: 20px;
+}
