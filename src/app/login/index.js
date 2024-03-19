@@ -1,6 +1,6 @@
 import {memo, useCallback, useEffect} from 'react';
 import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
+import useProfile from '../../hooks/use-profile';
 import useTranslate from "../../hooks/use-translate";
 import { useNavigate, useLocation } from 'react-router-dom';
 import Navigation from "../../containers/navigation";
@@ -19,17 +19,12 @@ function Login() {
   const store = useStore();
   const navigate = useNavigate();
   const location = useLocation();
+  const profile = useProfile();
   const {t} = useTranslate();
-
-  const select = useSelector(state => ({
-    user: state.profile.user,
-    waiting: state.profile.waiting,
-    message: state.profile.message
-  }));
 
   useEffect(
     () => {
-      if (select.user) {
+      if (profile.data) {
         if (location.state && location.state.isNotStartPage) {
           navigate(-1, {replace: true});
         } else {
@@ -37,15 +32,13 @@ function Login() {
         }
       }
     },
-    [select.user]
+    [profile.data]
   );
 
   const callbacks = {
     // Авторизация
     login: useCallback((login, password) => store.actions.profile.login(login, password), [store]),
   }
-
-  console.log(location.state)
 
   return (
     <PageLayout>
@@ -54,12 +47,12 @@ function Login() {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <Spinner active={select.waiting}>
+      <Spinner active={profile.waiting}>
         <LoginForm
           t={t}
           onClickLogin={callbacks.login}
-          waiting={select.waiting}
-          message={select.message}/>
+          waiting={profile.waiting}
+          message={profile.message}/>
       </Spinner>
     </PageLayout>
   );

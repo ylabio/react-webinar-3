@@ -1,6 +1,6 @@
 import {memo, useEffect} from 'react';
-import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
+import useProfile from '../../hooks/use-profile';
 import { useNavigate } from 'react-router-dom';
 import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
@@ -16,22 +16,16 @@ import ProfileCard from '../../components/profile-card';
 function Profile() {
 
   const navigate = useNavigate();
+  const profile = useProfile();
   const {t} = useTranslate();
-
-  const select = useSelector(state => ({
-    user: state.profile.user,
-    waiting: state.profile.waiting,
-    isChecked: state.profile.isChecked,
-    message: state.profile.message
-  }));
 
   useEffect(
     () => {
-      if (!select.user && select.isChecked) {
+      if (!profile.data && profile.isChecked) {
         navigate('/login/');
       }
     },
-    [select.user]
+    [profile]
   )
 
   return (
@@ -41,8 +35,8 @@ function Profile() {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <Spinner active={select.waiting}>
-        <ProfileCard user={select.user} t={t}/>
+      <Spinner active={profile.waiting}>
+        <ProfileCard user={profile.data} t={t}/>
       </Spinner>
     </PageLayout>
   );

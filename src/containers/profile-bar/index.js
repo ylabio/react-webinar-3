@@ -1,7 +1,7 @@
 import {memo, useCallback} from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
+import useProfile from '../../hooks/use-profile';
 import useTranslate from "../../hooks/use-translate";
 import SideLayout from "../../components/side-layout";
 import { Link } from "react-router-dom";
@@ -14,10 +14,7 @@ function ProfileBar() {
   const store = useStore();
   const navigate = useNavigate();
   const location = useLocation();
-
-  const select = useSelector(state => ({
-    user: state.profile.user
-  }));
+  const profile = useProfile();
 
   const callbacks = {
     onClickLogin: (e) => {
@@ -32,8 +29,8 @@ function ProfileBar() {
 
   return (
     <SideLayout side='end' padding='small' border='bottom'>
-      { select.user && <Link to={'/profile/'}>{ select.user.profile.name }</Link> }
-      { select.user 
+      { profile.data && <Link to={'/profile/'}>{ profile.data.profile.name }</Link> }
+      { profile.data 
         ? <button key='btnLogout' onClick={callbacks.onClickLogout}>{t('profile.logout')}</button>
         : <button key='btnLogin' onClick={callbacks.onClickLogin}>{t('profile.login')}</button>
       }
