@@ -63,7 +63,6 @@ class LoginState extends StoreModule {
     }
     
     try {
-      
       await fetch('/api/v1/users/sign', {
         method: 'DELETE',
         headers: {

@@ -21,11 +21,7 @@ function App() {
 
   useInit(() => {
     const token = getCurrentToken()
-    if(token) {
-      store.actions.login.validateToken(token)
-    } else {
-      store.actions.login.logOut()
-    }
+    if(token) store.actions.login.validateToken(token)
   }, [])
 
   useEffect(() => {
@@ -34,6 +30,7 @@ function App() {
     }
 
     window.addEventListener('storage', handleStorage)
+
     return () => {
       window.removeEventListener('storage', handleStorage)
     }

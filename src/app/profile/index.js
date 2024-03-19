@@ -27,6 +27,8 @@ function Profile() {
 
   useInit(() => {
     const token = getCurrentToken()
+    store.actions.login.validateToken(token)
+
     store.actions.profile.load(token)
   }, []);
 

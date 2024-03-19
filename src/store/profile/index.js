@@ -46,7 +46,11 @@ class ProfileState extends StoreModule {
         data: json.result,
         waiting: false,
       }, 'Загружен профиль из АПИ');
-    } catch (e) {
+    } catch (err) {
+      this.setState({
+        ...this.initState(),
+        error: err.message
+      })
       // Ошибка при загрузке
       // @todo В стейт можно положить информацию об ошибке
       this.store.actions.login.validateToken(token)
