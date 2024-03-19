@@ -1,7 +1,7 @@
-import {memo, useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
-import useAuth from '../../hooks/use-auth';
+import {memo, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useTranslate from "../../hooks/use-translate";
+import useSelector from '../../hooks/use-selector';
 import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -18,13 +18,17 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const {isAuthorized} = useAuth();
+  const location = useLocation();
+
+  const select = useSelector(state => ({
+    auth: state.auth.auth
+  }));
 
   useEffect(() => {
-    if (isAuthorized) {
-      navigate('/', { replace: true });
+    if (select.auth) {
+      navigate(location.state || '/', {replace: true});
     }
-  }, [isAuthorized])
+  }, [select.auth])
 
   return (
     <PageLayout>

@@ -1,12 +1,11 @@
-import {memo} from "react";
+import {memo, useEffect} from "react";
 import useTranslate from "../../hooks/use-translate";
 import SideLayout from "../../components/side-layout";
-import useAuth from "../../hooks/use-auth";
 import UserInfo from "../../components/user-info";
+import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
 
 function UserProfile() {
-
-  const {user} = useAuth();
 
   const {t} = useTranslate();
 
@@ -16,9 +15,20 @@ function UserProfile() {
     phone: t('profile.phone')
   }
 
+  const store = useStore();
+
+  const select = useSelector(state => ({
+    profile: state.profile.profile,
+    profileError: state.profile.profileError
+  }));
+
+  useEffect(() => {
+    store.actions.profile.getProfile()
+  }, [])
+
   return (
     <SideLayout side='start'>
-      {user && <UserInfo user={user} {...content} />}
+      {(!select.profileError && select.profile) && <UserInfo user={select.profile} {...content} />}
     </SideLayout>
   )
 }

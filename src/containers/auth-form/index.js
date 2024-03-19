@@ -1,12 +1,11 @@
-import {memo, useMemo} from "react";
+import {memo, useMemo, useCallback} from "react";
 import useTranslate from "../../hooks/use-translate";
 import LoginForm from "../../components/login-form";
-import useAuth from "../../hooks/use-auth";
+import useSelector from "../../hooks/use-selector";
+import useStore from "../../hooks/use-store";
 
 function AuthForm() {
   
-  const {error, logIn} = useAuth();
-
   const {t} = useTranslate();
 
   const content = useMemo(() => ({
@@ -16,8 +15,18 @@ function AuthForm() {
     button: t('auth.form.button'),
   }), [t])
 
+  const store = useStore();
+
+  const select = useSelector(state => ({
+    authError: state.auth.authError
+  }));
+
+  const callbacks = {
+    logIn: useCallback((login, password) => store.actions.auth.logIn(login, password), [store]),
+  }
+
   return (
-    <LoginForm error={error} onLogIn={logIn} {...content} />
+    <LoginForm error={select.authError} onLogIn={callbacks.logIn} {...content} />
   );
 }
 

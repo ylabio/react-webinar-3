@@ -1,27 +1,39 @@
-import {memo} from "react";
-import {Link} from "react-router-dom";
+import {memo, useCallback} from "react";
+import {Link, useLocation} from "react-router-dom";
 import AuthTool from "../../components/auth-tool";
 import useTranslate from "../../hooks/use-translate";
-import useAuth from "../../hooks/use-auth";
+import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
 
 function AppAuth() {
   const {t} = useTranslate();
 
-  const {isAuthorized, user, logOut} = useAuth();
+  const location = useLocation();
+
+  const store = useStore();
+
+  const select = useSelector(state => ({
+    auth: state.auth.auth,
+    user: state.auth.user
+  }));
+
+  const callbacks = {
+    logOut: useCallback(store.actions.auth.logOut, [store]),
+  }
 
   return (
     <AuthTool>
-      {!isAuthorized
+      {!select.auth
         ? 
-        <Link to={`/login`}>
+        <Link to='/login' state={location.pathname}>
           <button>{t('auth.login')}</button>
         </Link>
        :
         <>
           <Link to={`/profile`}>
-            <p>{user && user.profile.name}</p>
+            <p>{select.user}</p>
           </Link>
-          <button onClick={logOut}>{t('auth.logout')}</button>
+          <button onClick={callbacks.logOut}>{t('auth.logout')}</button>
         </>
       }
     </AuthTool>

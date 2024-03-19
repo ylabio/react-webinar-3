@@ -40,9 +40,7 @@ LoginForm.defaultProps = {
   title: 'Вход',
   login: 'Логин',
   password: 'Пароль',
-  error: {
-    message: ''
-  },
+  error: null,
   onLogIn: () => {},
 }
 

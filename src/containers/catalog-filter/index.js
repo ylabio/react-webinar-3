@@ -1,11 +1,10 @@
-import {memo, useCallback, useMemo} from "react";
+import {memo, useCallback, useEffect, useMemo} from "react";
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
-import useGetFilters from "../../hooks/use-get-filters";
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -18,6 +17,8 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     filter: state.catalog.params.filter,
+    category: state.category.category,
+    categoryError: state.category.categoryError,
   }));
 
   const callbacks = {
@@ -31,8 +32,6 @@ function CatalogFilter() {
     onFilter: useCallback(filter => store.actions.catalog.setParams({filter}), [store]),
   };
 
-  const filters = useGetFilters();
-
   const options = {
     sort: useMemo(() => ([
       {value: 'order', title: 'По порядку'},
@@ -42,11 +41,15 @@ function CatalogFilter() {
     ]), []),
     filter: useMemo(() => ([
       {value: '', title: 'Все'},
-      ...filters
-    ]), [filters]),
+      ...(!select.categoryError ? select.category : [])
+    ]), [select.category, select.categoryError]),
   };
 
   const {t} = useTranslate();
+
+  useEffect(() => {
+    store.actions.category.getCategories();
+  }, [])
 
   return (
     <SideLayout padding='medium'>
