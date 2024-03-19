@@ -55,13 +55,22 @@ export function categoriesFormat(list = []) {
     return item;
   })
 
-  const result = nestedList.filter((item) => !item.parent).reverse();
+  const result = nestedList.filter((item) => !item.parent);
+  const children = nestedList.filter((item) => item.parent);
 
-  for (let i = 0; i < nestedList.length; i += 1) {
-    if (nestedList[i].parent) {
-      const parentIndex = result.findIndex((item) => item._id === nestedList[i].parent._id)
-      result.splice(parentIndex, 0, nestedList[i])
+  function putChildren(arr) {
+    const restChildren = arr
+    .reverse()
+    .filter((item) => {
+      const parentIndex = result.findIndex((node) => node._id === item.parent._id);
+      parentIndex >= 0 && result.splice(parentIndex + 1, 0, item);
+      return parentIndex >= 0 ? 0 : 1;
+    })
+    if (restChildren.length) {
+      return putChildren(restChildren);
     }
   }
-  return result.reverse();
+  putChildren(children);
+
+  return result.map((category) => ({value: category._id, title: category.title}));
 }

@@ -6,18 +6,20 @@ import './style.css';
 
 function LoginForm(props) {
 
+  const cn = bem('LoginForm')
+
   return (
-    <div className='LoginForm'>
-      <span className='LoginForm-title'>{props.t('login.entry')}</span>
-      <div className='LoginForm-input'>
+    <div className={cn()}>
+      <span className={cn('title')}>{props.t('login.entry')}</span>
+      <div className={cn('input')}>
         <span>{props.t('form.login')}</span>
         <Input value={props.login} onChange={props.setLogin} />
       </div>
-      <div className='LoginForm-input'>
+      <div className={cn('input')}>
         <span>{props.t('form.password')}</span>
-        <Input value={props.password} onChange={props.setPassword} />
+        <Input value={props.password} onChange={props.setPassword} type='password' />
       </div>
-      {!props.validation ? <span className='LoginForm-error'>{props.errorMessage}</span> : null}
+      {!props.validation ? props.errorMessages.map((item) => <span key={item} className={cn('error')}>{item}</span>) : null}
       <button onClick={props.onClick}>{props.t('form.enter')}</button>
     </div>
   )
@@ -27,7 +29,7 @@ LoginForm.PropTypes = {
   login: PropTypes.string,
   password: PropTypes.string,
   validation: PropTypes.bool,
-  errorMessage: PropTypes.string,
+  errorMessages: PropTypes.array,
   setLogin: PropTypes.func,
   setPassword: PropTypes.func,
   onClick: PropTypes.func,
@@ -43,6 +45,7 @@ LoginForm.defaultProps = {
   },
   t: () => {
   },
+  errorMessages: [],
 }
 
 export default memo(LoginForm);

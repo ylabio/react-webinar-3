@@ -23,12 +23,14 @@ function Main() {
 
   useInit(() => {
     store.actions.catalog.initParams();
+    store.actions.categories.initList();
     store.actions.login.initParams();
+    store.actions.profile.initProfile();
   }, [], true);
 
   const select = useSelector(state => ({
     validation: state.login.validation,
-    name: state.login.name,
+    name: state.profile.name,
     authorized: state.login.authorized
   }));
 

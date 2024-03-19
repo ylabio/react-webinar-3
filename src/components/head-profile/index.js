@@ -5,7 +5,7 @@ import './style.css';
 function HeadProfile({children, title, onClick}) {
   return (
     <div className='HeadProfile'>
-      {children}
+      <div className='HeadProfile-props'>{children}</div>
       <button onClick={onClick}>{title}</button>
     </div>
   )

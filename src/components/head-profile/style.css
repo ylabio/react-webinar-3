@@ -7,3 +7,11 @@
   border-bottom: 1px solid;
   border-color: #DCDCDC;
 }
+
+.HeadProfile-props {
+  padding-right: 20px;
+}
+
+.HeadProfile a {
+  color: #0087E9;
+}

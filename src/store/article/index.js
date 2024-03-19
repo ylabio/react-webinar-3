@@ -8,6 +8,7 @@ class ArticleState extends StoreModule {
   initState() {
     return {
       data: {},
+      redirect: false,
       waiting: false // признак ожидания загрузки
     }
   }
@@ -21,6 +22,7 @@ class ArticleState extends StoreModule {
     // Сброс текущего товара и установка признака ожидания загрузки
     this.setState({
       data: {},
+      redirect: false,
       waiting: true
     });
 
@@ -31,6 +33,7 @@ class ArticleState extends StoreModule {
       // Товар загружен успешно
       this.setState({
         data: json.result,
+        redirect: false,
         waiting: false
       }, 'Загружен товар из АПИ');
 
@@ -39,9 +42,14 @@ class ArticleState extends StoreModule {
       // @todo В стейт можно положить информацию об ошибке
       this.setState({
         data: {},
+        redirect: false,
         waiting: false
       });
     }
+  }
+
+  async setRedirect() {
+    this.setState({...this.getState(), redirect: true})
   }
 }
 

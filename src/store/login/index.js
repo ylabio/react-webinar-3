@@ -1,4 +1,3 @@
-import { redirect } from "react-router-dom";
 import StoreModule from "../module";
 
 class LoginState extends StoreModule {
@@ -12,12 +11,9 @@ class LoginState extends StoreModule {
         login: '',
         password: ''
       },
-      email: '',
-      name: '',
-      phone: '',
       token: '',
       validation: true,
-      errorMessage: '',
+      errorMessages: [],
       authorized: false
     }
   }
@@ -45,13 +41,14 @@ class LoginState extends StoreModule {
       const json = await response.json();
 
       if (json.error) {
+        const errors = json.error.data.issues
+          .filter((error) => error.message)
+          .map((error) => error.message)
+
         validParams.validation = false;
-        validParams.errorMessage = json.error.message
+        validParams.errorMessages = errors;
       } else {
         validParams.token = token;
-        validParams.email = json.result.email;
-        validParams.phone = json.result.profile.phone;
-        validParams.name = json.result.profile.name;
         validParams.authorized = true;
       }
     }
@@ -68,7 +65,7 @@ class LoginState extends StoreModule {
     this.setState({
       ...this.getState(),
       ...newParams
-    }, 'Установлены параметры авторизаии');
+    }, 'Установлены параметры авторизации');
   }
 
   /**
@@ -78,6 +75,8 @@ class LoginState extends StoreModule {
    */
   async logIn(newParams = {}) {
     this.setParams(newParams);
+
+    let validParams = {};
 
     const data = this.getState().data
 
@@ -89,25 +88,21 @@ class LoginState extends StoreModule {
     const json = await response.json();
 
     if (json.error) {
-      this.setState({
-        ...this.getState(),
-        validation: false,
-        errorMessage: json.error.message,
-      })
+      const errors = json.error.data.issues
+        .filter((error) => error.message)
+        .map((error) => error.message)
+
+      validParams.validation = false;
+      validParams.errorMessages = errors;
     } else {
       window.localStorage.setItem('token', json.result.token);
 
-      this.setState({
-        ...this.getState(),
-        token: json.result.token,
-        email: json.result.user.email,
-        name: json.result.user.profile.name,
-        phone: json.result.user.profile.phone,
-        validation: true,
-        errorMessage: '',
-        authorized: true,
-      })
+      validParams.token = json.result.token;
+      validParams.validation = true;
+      validParams.errorMessages = '';
+      validParams.authorized = true;
     }
+    await this.setParams({...this.getState(), ...validParams});
   }
 
   /**

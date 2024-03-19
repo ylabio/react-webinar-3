@@ -5,30 +5,29 @@ import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import LocaleSelect from "../../containers/locale-select";
 import LoginForm from "../../components/login-form";
+import PageAccess from "../../containers/page-access";
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import {useNavigate} from "react-router-dom";
+import useInit from "../../hooks/use-init";
 
 function Login() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigate = useNavigate()
   const store = useStore();
+
+  useInit(() => {
+    store.actions.login.initParams();
+  }, [], true);
 
   const select = useSelector(state => ({
     token: state.login.token,
     validation: state.login.validation,
-    errorMessage: state.login.errorMessage,
-    authorized: state.login.authorized
+    errorMessages: state.login.errorMessages,
+    redirect: state.article.redirect,
+    id: state.article.data._id
   }));
-
-  useEffect(() => {
-    if (select.authorized) {
-     return navigate('/profile')
-   }
-  }, [select.authorized])
 
   const callbacks = {
     //Авторизация
@@ -38,18 +37,20 @@ function Login() {
   const {t} = useTranslate();
 
   return (
-    <PageLayout>
-      <HeadProfile title={t('login.entry')} link={'/login'} />
-      <Head title={t('title')}>
-        <LocaleSelect />
-      </Head>
-      <Navigation />
-      <LoginForm t={t} onClick={callbacks.onLogIn}
-        login={login} setLogin={setLogin}
-        password={password} setPassword={setPassword}
-        validation={select.validation} errorMessage={select.errorMessage}>
-      </LoginForm>
-    </PageLayout>
+    <PageAccess redirect={select.redirect ? `/articles/${select.id}`: '/profile'} needAuthorization={false}>
+      <PageLayout>
+        <HeadProfile title={t('login.entry')} link={'/login'}/>
+        <Head title={t('title')}>
+          <LocaleSelect />
+        </Head>
+        <Navigation />
+        <LoginForm t={t} onClick={callbacks.onLogIn}
+          login={login} setLogin={setLogin}
+          password={password} setPassword={setPassword}
+          validation={select.validation} errorMessages={select.errorMessages}>
+        </LoginForm>
+      </PageLayout>
+    </PageAccess>
   )
 }
 
