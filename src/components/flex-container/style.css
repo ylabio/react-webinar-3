@@ -1,0 +1,10 @@
+.FlexContainer {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.FlexContainer h2 {
+  margin: 20px 0 0 0;
+}
