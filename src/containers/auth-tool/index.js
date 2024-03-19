@@ -5,6 +5,7 @@ import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import AuthLogged from "../../components/auth-logged";
+import AuthUnlogged from "../../components/auth-unlogged";
 
 function AuthTool() {
     const store = useStore()
@@ -26,13 +27,11 @@ function AuthTool() {
     }
 
     return (
-        <SideLayout side={"end"} padding={"small"}>
+        <SideLayout side={"end"} padding={"small"} border={"bottom"}>
             { select.token ?
                 <AuthLogged path={'/profile'} onExit={callbacks.exit} buttonText={t('logout')} username={select.userName}/>
                 :
-                <Link to={"/login"}>
-                    <button>{t('enter')}</button>
-                </Link>
+                <AuthUnlogged path={'/login'} buttonText={t('enter')} />
             }
         </SideLayout>
     )

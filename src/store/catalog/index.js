@@ -20,7 +20,7 @@ class CatalogState extends StoreModule {
         query: '',
         filter: "",
       },
-      categories: [],
+      // categories: [],
       count: 0,
       waiting: false
     }
@@ -55,40 +55,40 @@ class CatalogState extends StoreModule {
     await this.setParams(params);
   }
 
-  filterCategories(categories, parentId, nesting){
-    const filtered = []
-    categories.forEach((category) => {
-      if((!category.parent && parentId === null) || (category.parent && category.parent._id === parentId)){
-        filtered.push({
-          ...category,
-          title: "-".repeat(nesting) + category.title
-        })
-        const childrenCategories = this.filterCategories(categories, category._id, nesting + 1)
-        filtered.push(...childrenCategories)
-      }
-    })
-    return filtered
-  }
+  // filterCategories(categories, parentId, nesting){
+  //   const filtered = []
+  //   categories.forEach((category) => {
+  //     if((!category.parent && parentId === null) || (category.parent && category.parent._id === parentId)){
+  //       filtered.push({
+  //         ...category,
+  //         title: "- ".repeat(nesting) + category.title
+  //       })
+  //       const childrenCategories = this.filterCategories(categories, category._id, nesting + 1)
+  //       filtered.push(...childrenCategories)
+  //     }
+  //   })
+  //   return filtered
+  // }
 
-  async getCategories() {
-    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*')
-    const data = await response.json();
-    const categories = data.result.items;
-    categories.forEach(category => category["value"] = category._id);
-    const filteredCategories = this.filterCategories(categories, null, 0)
+  // async getCategories() {
+  //   const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*')
+  //   const data = await response.json();
+  //   const categories = data.result.items;
+  //   categories.forEach(category => category["value"] = category._id);
+  //   const filteredCategories = this.filterCategories(categories, null, 0)
     
-    filteredCategories.unshift({
-      _id: "allCategoriesID",
-      parent: null,
-      title: "Все",
-      value: "",
-    })
+  //   filteredCategories.unshift({
+  //     _id: "allCategoriesID",
+  //     parent: null,
+  //     title: "Все",
+  //     value: "",
+  //   })
 
-    this.setState({
-      ...this.getState(),
-      categories: filteredCategories,
-    })
-  }
+  //   this.setState({
+  //     ...this.getState(),
+  //     categories: filteredCategories,
+  //   })
+  // }
 
   /**
    * Установка параметров и загрузка списка товаров
@@ -106,8 +106,7 @@ class CatalogState extends StoreModule {
       waiting: true
     }, 'Установлены параметры каталога');
 
-    // TODO: Вынести
-    this.getCategories();
+    // this.getCategories();
 
     // Сохранить параметры в адрес страницы
     let urlSearch = new URLSearchParams(params).toString();

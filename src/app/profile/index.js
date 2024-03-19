@@ -33,7 +33,7 @@ function Profile() {
                 <LocaleSelect />
             </Head>
             <Navigation />
-            <ProfileInfo name={t('name')} phone={t('phone')} email={select.user.email} user={select.user.profile}/>
+            <ProfileInfo title={t("profile")} name={t('name')} phone={t('phone')} email={select.user.email} user={select.user.profile}/>
         </PageLayout>
     )
 }

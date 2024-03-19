@@ -1,20 +1,17 @@
 import { memo, useState } from 'react'
 import './style.css'
-import { useNavigate } from 'react-router-dom'
 
 function AuthForm({error,onAuth, onSuccess, title, login, password, enter}){
-    const navigate = useNavigate()
-
     const [loginValue, setLoginValue] = useState("")
     const [passwordValue, setPasswordValue] = useState("")
     return(
         <form 
         onSubmit={async (e) => {
             e.preventDefault()
-            await onAuth(loginValue, passwordValue)
+            const response = await onAuth(loginValue, passwordValue)
             setLoginValue('');
             setPasswordValue('');
-            if(!error){
+            if(response){
                 onSuccess()
             }
         }}

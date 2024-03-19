@@ -33,6 +33,7 @@ class UserState extends StoreModule {
             error: ''
         })
         localStorage.setItem("X-Token", token)
+        return true
     } else{
         console.error(data.error.data.issues[0].message);
         this.setState({
@@ -57,12 +58,26 @@ class UserState extends StoreModule {
     })
   }
 
-  logOut(){
+  async logOut(){
+    await fetch('/api/v1/users/sign', {
+        method: "DELETE",
+        headers: {
+            'X-Token': this.getState().token,
+            'Content-Type': 'application/json'
+        } 
+    })
     localStorage.removeItem("X-Token")
     this.setState({
         ...this.getState(),
         token: '',
         user: {},
+        error: ''
+    })
+  }
+
+  removeError(){
+    this.setState({
+        ...this.getState(),
         error: ''
     })
   }
