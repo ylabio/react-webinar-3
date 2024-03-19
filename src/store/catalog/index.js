@@ -1,3 +1,4 @@
+import { object } from "prop-types";
 import StoreModule from "../module";
 
 /**
@@ -16,8 +17,15 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category: '',
       },
+      categories: [
+        {
+          _id:"",
+          title:"Все"
+        }
+      ],
       count: 0,
       waiting: false
     }
@@ -30,12 +38,13 @@ class CatalogState extends StoreModule {
    * @return {Promise<void>}
    */
   async initParams(newParams = {}) {
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(window.location.search); // Получаем текущую ссылку страницы
     let validParams = {};
     if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category'); // Если ссылка имеет опр. параметры - записываем их значения
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
 
@@ -50,6 +59,29 @@ class CatalogState extends StoreModule {
     // Установка параметров и загрузка данных
     await this.setParams(params);
   }
+
+  filtredCategory(items, parent = null, depth = 0) {
+    let temp = []; // создаем временный массив
+    items.forEach(item => {
+      if ((!item.parent && !parent) || (item.parent && item.parent._id === parent)) { // если категория имеет родителя
+        temp.push({
+          ...item,
+          title: ` ${
+            (depth==1) 
+              ? '' 
+              : (depth==2) 
+                ? '- ' 
+                : ''
+          } ${item.title}`, // добавляем в временный массив категорию с опр.количеством дефизов
+          _id: item._id
+        });
+        temp.push(...this.filtredCategory(items, item._id, depth + 1));
+      }
+    });
+    return temp;
+  }
+
+
 
   /**
    * Установка параметров и загрузка списка товаров
@@ -76,7 +108,7 @@ class CatalogState extends StoreModule {
       window.history.pushState({}, '', url);
     }
 
-    const apiParams = {
+    let apiParams = {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
@@ -84,12 +116,21 @@ class CatalogState extends StoreModule {
       'search[query]': params.query
     };
 
+    if (params.category !== ''){
+      apiParams = {...apiParams,'search[category]': params.category}
+    };
+
+ 
+
+    const result = await fetch('/api/v1/categories?fields=_id,title,parent(_id),child&limit=*').then(result => result.json())
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
+    console.log(`/api/v1/articles?${new URLSearchParams(apiParams)}`)
     const json = await response.json();
     this.setState({
       ...this.getState(),
       list: json.result.items,
       count: json.result.count,
+      categories: [...this.initState().categories,...this.filtredCategory(result.result.items)],
       waiting: false
     }, 'Загружен список товаров из АПИ');
   }
