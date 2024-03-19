@@ -33,3 +33,27 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function sortCategories(categories, parent = null, indent = 0) {
+  const sortedCategories = [];
+  categories.forEach((category) => {
+    if ((category.parent && category.parent._id === parent) || (!category.parent && parent === null)) {
+      const sortedCategory = {
+        ...category,
+        indent,
+        value: category._id,
+        //  используется для создания отступов в иерархическом представлении категорий. Количество повторений определяется переменной indent, которая увеличивается на каждом уровне иерархии
+        title: '- '.repeat(indent) + category.title
+      };
+      sortedCategories.push(sortedCategory);
+      //вызываем рекурсивно эту же функцию
+      const childCategories = sortCategories(
+        categories,
+        category._id,
+        indent + 1
+      );
+      sortedCategories.push(...childCategories);
+    }
+  });
+  return sortedCategories;
+}

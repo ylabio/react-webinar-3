@@ -1,0 +1,23 @@
+.ProfileDescription {
+  padding: 20px;
+}
+
+.ProfileDescription-title {
+  margin-bottom: 30px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.ProfileDescription-line {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.ProfileDescription-label {
+  font-weight: 400;
+}
+
+.ProfileDescription-value {
+  font-weight: 700;
+}

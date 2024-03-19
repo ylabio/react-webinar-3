@@ -1,0 +1,12 @@
+.InputLayout {
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 400;
+}
+
+.InputLayout-error {
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 400;
+  color: #FF0000;
+}

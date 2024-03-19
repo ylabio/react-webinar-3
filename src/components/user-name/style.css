@@ -1,0 +1,10 @@
+.UserName {
+  color: #0087E9;
+  font-size: 13px;
+  line-height: 15px;
+  margin-right: 15px;
+}
+
+.UserName-a:active {
+  color: #0087E9;
+}
