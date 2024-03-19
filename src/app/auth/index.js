@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
-import LoginBox from '../../components/loginBox';
+import LoginBox from '../../components/login-box';
 import ProfileCard from '../../components/profile-card';
 /**
  * Главная страница - первичная загрузка каталога

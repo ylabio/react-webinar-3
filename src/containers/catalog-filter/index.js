@@ -5,8 +5,8 @@ import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
-import buildCategoryTree from "../../hooks/buildCategoryTree";
-import flattenCategories from "../../hooks/flattenCategories";
+import buildCategoryTree from "../../hooks/build-categoryTree";
+import flattenCategories from "../../hooks/flatten-categories";
 import { useRef } from "react";
 /**
  * Контейнер со всеми фильтрами каталога
