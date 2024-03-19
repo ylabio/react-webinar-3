@@ -6,6 +6,8 @@ import Basket from "./basket";
 import Article from "./article";
 import Login from "./login";
 import Profile from "./profile";
+import ProtectedProfile from "../containers/protected-profile";
+import ProtectedLogin from "../containers/protected-login";
 
 /**
  * Приложение
@@ -19,8 +21,22 @@ function App() {
       <Routes>
         <Route path={""} element={<Main />} />
         <Route path={"/articles/:id"} element={<Article />} />
-        <Route path={"/login"} element={<Login />} />
-        <Route path={"/profile"} element={<Profile />} />
+        <Route
+          path={"/login"}
+          element={
+            <ProtectedLogin>
+              <Login />
+            </ProtectedLogin>
+          }
+        />
+        <Route
+          path={"/profile"}
+          element={
+            <ProtectedProfile>
+              <Profile />
+            </ProtectedProfile>
+          }
+        />
       </Routes>
 
       {activeModal === "basket" && <Basket />}

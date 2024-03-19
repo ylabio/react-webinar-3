@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import LoginContainer from "../../components/login-container";
+import LoginBar from "../../components/login-bar";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
@@ -11,7 +11,10 @@ function LoginControl() {
   const navigate = useNavigate();
   const callbacks = {
     openLoginPage: useCallback(() => navigate("/login"), []),
-    onLogout: useCallback(() => store.actions.auth.logout(), []),
+    onLogout: useCallback(() => {
+      store.actions.auth.logout();
+      navigate("/");
+    }, []),
   };
   const { t } = useTranslate();
 
@@ -21,12 +24,12 @@ function LoginControl() {
 
   const select = useSelector((state) => ({
     isLogin: state.auth.isLogin,
-    name: state.auth.user.name,
+    name: state.auth.userName,
   }));
 
   return (
     <>
-      <LoginContainer>
+      <LoginBar>
         {select.isLogin && <Link to="/profile">{select.name}</Link>}
         {!select.isLogin && (
           <button onClick={callbacks.openLoginPage}>{t("login")}</button>
@@ -34,7 +37,7 @@ function LoginControl() {
         {select.isLogin && (
           <button onClick={callbacks.onLogout}>{t("logout")}</button>
         )}
-      </LoginContainer>
+      </LoginBar>
     </>
   );
 }

@@ -11,29 +11,12 @@ import useSelector from "../../hooks/use-selector";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../components/spinner";
 import useInit from "../../hooks/use-init";
+import useSession from "../../hooks/use-session";
 
 function Profile() {
   const { t } = useTranslate();
-  const store = useStore();
-  const navigate = useNavigate();
 
-  const select = useSelector((state) => ({
-    isLogin: state.auth.isLogin,
-    waiting: state.auth.waiting,
-    user: state.auth.user,
-    name: state.auth.user.name,
-    phoneNumber: state.auth.user.phoneNumber,
-    email: state.auth.user.email,
-  }));
-
-  const token = JSON.parse(window.localStorage.getItem("XToken"));
-
-  useInit(() => {
-    // store.actions.auth.checkLogin();
-    if (!token) {
-      navigate("/login");
-    }
-  }, [token]);
+  const session = useSession();
 
   return (
     <PageLayout>
@@ -42,11 +25,11 @@ function Profile() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <Spinner active={select.waiting}>
+      <Spinner active={session.waiting}>
         <ProfileCard
-          name={select.name}
-          phoneNumber={select.phoneNumber}
-          email={select.email}
+          name={session.user.name}
+          phoneNumber={session.user.phoneNumber}
+          email={session.user.email}
           t={t}
         />
       </Spinner>

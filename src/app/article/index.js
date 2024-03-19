@@ -10,7 +10,6 @@ import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
-import LoginButton from "../../components/login-container";
 import LoginControl from "../../containers/login-control";
 
 /**

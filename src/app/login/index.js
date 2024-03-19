@@ -14,21 +14,13 @@ import useInit from "../../hooks/use-init";
 
 function Login() {
   const { t } = useTranslate();
-  const navigate = useNavigate();
 
   const store = useStore();
 
   const select = useSelector((state) => ({
-    isLogin: state.auth.isLogin,
     error: state.auth.error,
     waiting: state.auth.waiting,
   }));
-
-  useInit(() => {
-    if (select.isLogin) {
-      navigate("/profile");
-    }
-  }, [select.isLogin]);
 
   const callbacks = {
     onLogin: useCallback((login, password) => {

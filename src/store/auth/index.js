@@ -12,18 +12,14 @@ class AuthState extends StoreModule {
     return {
       isLogin: false,
       error: "",
-      user: {
-        name: "",
-        phoneNumber: "",
-        email: "",
-      },
+      userName: "",
       waiting: false,
+      token: JSON.parse(window.localStorage.getItem("XToken")) || null,
     };
   }
 
   async checkLogin() {
-    const token = JSON.parse(window.localStorage.getItem("XToken"));
-    if (token) {
+    if (this.getState().token) {
       this.setState({
         ...this.getState(),
         isLogin: false,
@@ -33,22 +29,17 @@ class AuthState extends StoreModule {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "X-Token": token,
+          "X-Token": this.getState().token,
         },
       });
 
       const json = await response.json();
-      console.log("check login");
-      console.log(json);
 
       this.setState({
+        ...this.getState(),
         isLogin: true,
         error: "",
-        user: {
-          name: json.result.profile.name,
-          phoneNumber: json.result.profile.phone,
-          email: json.result.email,
-        },
+        userName: json.result.profile.name,
         waiting: false,
       });
     }
@@ -75,24 +66,23 @@ class AuthState extends StoreModule {
 
     if (response.status === 200) {
       window.localStorage.setItem("XToken", JSON.stringify(json.result.token));
+      console.log("LOGIN RESPONSE");
+      console.log(json);
 
       this.setState(
         {
           isLogin: true,
-          user: {
-            name: json.result.user.profile.name,
-            phoneNumber: json.result.user.profile.phone,
-            email: json.result.user.email,
-          },
+          userName: json.result.user.profile.name,
           error: "",
           waiting: false,
+          token: json.result.token,
         },
         "Загружен X-Token"
       );
     } else {
       this.setState(
         {
-          ...this.getState(),
+          userName: "",
           isLogin: false,
           error: json.error.data.issues[0].message,
           waiting: false,
@@ -104,32 +94,26 @@ class AuthState extends StoreModule {
   }
 
   async logout() {
-    const token = JSON.parse(window.localStorage.getItem("XToken"));
     this.setState({
       ...this.getState(),
-      isLogin: true,
       waiting: true,
     });
     const response = await fetch("/api/v1/users/sign", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "X-Token": token,
+        "X-Token": this.getState().token,
       },
     });
 
     this.setState({
       isLogin: false,
       error: "",
-      user: {
-        name: "",
-        phoneNumber: "",
-        email: "",
-      },
+      userName: "",
       waiting: false,
+      token: null,
     });
 
-    // delete XToken from localstorage
     window.localStorage.removeItem("XToken");
   }
 }
