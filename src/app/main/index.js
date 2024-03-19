@@ -18,13 +18,14 @@ function Main() {
 
   useInit(() => {
     store.actions.catalog.initParams();
+    store.actions.catalog.initCategories();
   }, [], true);
 
   const {t} = useTranslate();
 
   return (
     <PageLayout>
-      <Head title={t('title')}>
+      <Head title={t('title')} topContent={<a>Вход</a>}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
