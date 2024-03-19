@@ -1,0 +1,12 @@
+.LoginBar {
+  height: 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 22px;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+.LoginBar button {
+  margin-left: 20px;
+}
