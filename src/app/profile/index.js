@@ -1,30 +1,34 @@
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import PageLayout from "../../components/page-layout";
 import AuthTool from "../../containers/auth-tool";
-import { useNavigate } from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
 import Navigation from "../../containers/navigation";
 import useTranslate from "../../hooks/use-translate";
 import ProfileInfo from "../../components/profile-info";
+import useCheckAuth from "../../hooks/use-check-auth";
+import useStore from "../../hooks/use-store";
+import useInit from "../../hooks/use-init";
 
 
 function Profile() {
+    const store = useStore();
     const select = useSelector(state => ({
         token: state.user.token,
-        user: state.user.user
+        email: state.userInfo.email,
+        profile: state.userInfo.profile
     }));
 
-    const navigate = useNavigate()
+    useCheckAuth()
 
-    const {t} = useTranslate()
-
-    useEffect(() => {
-        if(!select.token){
-            navigate('/login')
+    useInit(() => {
+        if(select.token){
+            store.actions.userInfo.getUserInfo(select.token)
         }
     }, [])
+
+    const {t} = useTranslate()
 
     return (
         <PageLayout>
@@ -33,7 +37,7 @@ function Profile() {
                 <LocaleSelect />
             </Head>
             <Navigation />
-            <ProfileInfo title={t("profile")} name={t('name')} phone={t('phone')} email={select.user.email} user={select.user.profile}/>
+            <ProfileInfo title={t("profile")} name={t('name')} phone={t('phone')} email={select.email} user={select.profile}/>
         </PageLayout>
     )
 }

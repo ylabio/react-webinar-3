@@ -22,6 +22,7 @@ function AuthTool() {
         // Выход из аккаунта
         exit: useCallback(() => {
             store.actions.user.logOut()
+            store.actions.userInfo.clearUser()
             navigate('/login')
         }, [store]),
     }
