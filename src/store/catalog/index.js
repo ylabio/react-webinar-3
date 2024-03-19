@@ -151,9 +151,10 @@ class CatalogState extends StoreModule {
         break;
 
         case parentId == category.parent._id :
-        res = this.getSubCategories(categories, category._id, count++);
+        count = 1;
         this.getState().sortedCategories.push({...category,title: `${' - '.repeat(count)}${category.title}`});
-        count = 0;
+        res = this.getSubCategories(categories, category._id, count++);
+        // count = 0;
         break;
 
         // default:
