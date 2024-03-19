@@ -7,8 +7,8 @@ import Select from "../../components/select";
 /**
  * Контейнер для смены языка
  */
-function LocaleSelect() {
-  const { lang, setLang } = useTranslate();
+function LocaleSelect({ onChange, value }) {
+  // const { lang, setLang } = useTranslate();
 
   const options = {
     lang: useMemo(
@@ -20,7 +20,7 @@ function LocaleSelect() {
     ),
   };
 
-  return <Select onChange={setLang} value={lang} options={options.lang} />;
+  return <Select onChange={onChange} value={value} options={options.lang} />;
 }
 
 export default memo(LocaleSelect);

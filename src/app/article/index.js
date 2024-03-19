@@ -10,8 +10,7 @@ import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
-import SideLayout from "../../components/side-layout";
-import Button from "../../components/Button";
+import Auth from "../../containers/auth-tool";
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
@@ -22,11 +21,15 @@ function Article() {
   // Параметры из пути /articles/:id
   const params = useParams();
 
-  const { t, lang } = useTranslate();
+  const { t, lang, setLang } = useTranslate();
 
-  useInit(() => {
-    store.actions.article.load(params.id, lang);
-  }, [params.id, lang]);
+  useInit(
+    () => {
+      store.actions.article.initParams(params.id, { lang });
+    },
+    [params.id, lang],
+    true
+  );
 
   const select = useSelector((state) => ({
     article: state.article.data,
@@ -39,18 +42,20 @@ function Article() {
       (_id) => store.actions.basket.addToBasket(_id),
       [store]
     ),
+
+    setLang: useCallback(
+      (lang) => {
+        store.actions.catalog.setParams({ lang });
+        setLang(lang);
+      },
+      [store, lang]
+    ),
   };
 
   return (
-    <PageLayout
-      head={
-        <SideLayout side="end" padding="10x20">
-          <Button label={t("login")} />
-        </SideLayout>
-      }
-    >
+    <PageLayout head={<Auth />}>
       <Head title={select.article.title}>
-        <LocaleSelect />
+        <LocaleSelect onChange={callbacks.setLang} value={lang} />
       </Head>
       <Navigation />
       <Spinner active={select.waiting}>

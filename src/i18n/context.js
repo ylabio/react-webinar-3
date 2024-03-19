@@ -24,10 +24,7 @@ export function I18nProvider({ children }) {
       // Код локали
       lang,
       // Функция для смены локали
-      setLang: (lang) => {
-        store.actions.catalog.setParams({ lang });
-        setLang(lang);
-      },
+      setLang,
       // Функция для локализации текстов с замыканием на код языка
       t: (text, number) => translate(lang, text, number),
     }),

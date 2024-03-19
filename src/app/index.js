@@ -4,6 +4,8 @@ import useSelector from "../hooks/use-selector";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
+import Profile from "./profile";
+import AuthPage from "./auth-page";
 
 /**
  * Приложение
@@ -12,12 +14,12 @@ import Article from "./article";
 function App() {
   const activeModal = useSelector((state) => state.modals.name);
 
-  console.log("start");
-
   return (
     <>
       <Routes>
         <Route path={""} element={<Main />} />
+        <Route path={"/profile"} element={<Profile />} />
+        <Route path={"/login"} element={<AuthPage />} />
         <Route path={"/articles/:id"} element={<Article />} />
       </Routes>
 
