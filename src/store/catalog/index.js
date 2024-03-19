@@ -136,20 +136,49 @@ class CatalogState extends StoreModule {
   }
 
   getSubCategories(categories, parentId = null, count = 0) {
-    // console.log('getSubCategories(categories)', categories);
+
      //todo порядок вложенности, дефис
+
     const childs = categories.filter(category=> (parentId === null || category.parent === null) ? category.parent === parentId : category.parent._id === parentId);
+    // const parents = childs.filter((el) => el.parent === null);
+    console.log('childs.length',childs.length);
+    console.log('childs',childs);
 
     const sortedCategories = childs.map(category => {
 
-    const child = ({
-      ...category,
-      subCategory: this.getSubCategories(categories, category._id, count++),
-      title: parentId === null ? category.title : `${' - '.repeat(count)}${category.title}`,
-    })
+      console.log('category', category);
+      let res;
 
-    this.getState().sortedCategories.push(child);
-    return child;
+      switch (true) {
+        case (parentId === null) :
+        this.getState().sortedCategories.push({...category,title: `${' - '.repeat(count)}${category.title}`});
+        res = this.getSubCategories(categories, category._id, count);
+        break;
+
+        case parentId == category.parent._id :
+        res = this.getSubCategories(categories, category._id, count++);
+        this.getState().sortedCategories.push({...category,title: `${' - '.repeat(count)}${category.title}`});
+        count = 0;
+        break;
+
+        // default:
+        // res = this.getSubCategories(categories, category._id, count++);
+      }
+
+      return res;
+
+    // const child = ({
+    //   ...category,
+    //   // subCategory: this.getSubCategories(categories, category._id, count++),
+    //   subCategory: subCategory(category),
+    //   // title: parentId === null ? category.title : `${' - '.repeat(count)}${category.title}`,
+    //   title: `${' - '.repeat(count)}${category.title}`,
+    // })
+    // console.log('child',child);
+
+    // this.getState().sortedCategories.push(child);
+    // console.log('getSubCategories(categories)', this.getState().sortedCategories);
+    // return child;
     });
       return sortedCategories;
     }
