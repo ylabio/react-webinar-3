@@ -14,7 +14,7 @@ function LoginNav(props) {
     name: state.login.userData.name,
     })
   )
-console.log('LoginNav isLogin', select.isLogin);
+
   const cn = bem('LoginNav');
   return (
     <SideLayout side='end' padding='medium'>
