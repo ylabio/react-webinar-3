@@ -107,6 +107,12 @@ class CatalogState extends StoreModule {
   }
 
   async getCategories() {
+    this.setState({
+      ...this.getState(),
+      categories: [{_id: '0', title: 'Все', value: 'Все', parent: null}],
+      sortedCategories: []
+    }, 'Обнулен список каталога');
+
     const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
     const json = await response.json();
     this.setState({
