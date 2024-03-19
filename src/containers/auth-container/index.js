@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect } from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import { Link, useNavigate } from "react-router-dom";
@@ -23,8 +23,14 @@ function AuthContainer() {
     onSignOut: useCallback(() => {store.actions.authorization.signOut()}, []),
   }
 
+  useEffect(() => {
+    if (select.token) {
+      store.actions.authorization.checkAuth(select.token);
+    }
+  }, [select.token]);
+
   return (
-    <SideLayout side='end' padding='medium_additionally'>
+    <SideLayout side='end' padding='medium_additionally' border='bottom'>
       { select.token && <Link to={'/profile'}>{select.userName}</Link> }
       {
         select.token

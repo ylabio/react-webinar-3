@@ -4,17 +4,14 @@ class AuthorizationState extends StoreModule {
 
   initState() {
     return {
-      userName: localStorage.getItem('userName') || '',
+      userName: '',
       token: localStorage.getItem('token') || null,
       errorMessage: ''
     }
   }
 
   async signIn(data) {
-    this.setState({
-        ...this.getState(),
-        errorMessage: ''
-      });
+    this.clearErrors()
 
     try {
       const response = await fetch('/api/v1/users/sign',
@@ -42,7 +39,6 @@ class AuthorizationState extends StoreModule {
       });
       
         window.localStorage.setItem('token', json.result.token); 
-        window.localStorage.setItem('userName', json.result.user.profile.name); 
     } catch (e) {
       console.error(e);
     }
@@ -58,13 +54,44 @@ class AuthorizationState extends StoreModule {
         }
       });
       window.localStorage.removeItem('token');
-      window.localStorage.removeItem('userName'); 
-
 
     } catch (e) {
       console.error(e);
     }
     this.setState({...this.initState()});
+  }
+
+  async checkAuth(token) {
+    try {
+      const response = await fetch('/api/v1/users/self?fields=profile',
+      {
+        method: 'GET',
+        headers: {
+          'X-Token': token,
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      const json = await response.json();
+      if (json.error) {
+        window.localStorage.removeItem('token');
+        this.setState({...this.initState()});
+      } else {
+        this.setState({
+          ...this.getState(),
+          userName: json.result.profile.name,
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  clearErrors() {
+    this.setState({
+      ...this.getState(),
+      errorMessage: '',
+    });
   }
 }
 

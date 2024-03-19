@@ -23,12 +23,14 @@ function Login() {
 
     const select = useSelector(state => ({
       errorMessage: state.authorization.errorMessage,
-      token: state.authorization.token
+      token: state.authorization.token,
     }));
 
     useEffect(() => {
       if (select.token) {
-        navigate('/profile')
+        navigate(-1)
+      } else {
+        store.actions.authorization.clearErrors()
       }
     }, [select.token])
 

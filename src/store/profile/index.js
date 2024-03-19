@@ -34,17 +34,17 @@ class ProfileState extends StoreModule {
           errorMessage: json.error.data.issues[0].message,
           waiting: false
         });
-      } 
-
-      this.setState({
-        ...this.getState(),
-        user: {
-            name: json.result.profile.name,
-            phone: json.result.profile.phone,
-            email: json.result.email,
-        },
-        waiting: false,
-      });
+      } else {
+        this.setState({
+          ...this.getState(),
+          user: {
+              name: json.result.profile.name,
+              phone: json.result.profile.phone,
+              email: json.result.email,
+          },
+          waiting: false,
+        });
+      }
     } catch (e) {
       console.error(e);
     }

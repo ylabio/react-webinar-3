@@ -10,12 +10,10 @@ import useTranslate from "../../hooks/use-translate";
 import ProfileCard from "../../components/profile-card";
 import Spinner from "../../components/spinner";
 import useInit from "../../hooks/use-init";
-import { useNavigate } from "react-router-dom";
 
 function Profile() {
     const {t} = useTranslate();
     const store = useStore();
-    const navigate = useNavigate() 
 
     const select = useSelector(state => ({
         user: state.profile.user,
@@ -25,12 +23,8 @@ function Profile() {
       }));
 
     useInit(async () => {
-        if (select.token) {
-            await store.actions.profile.getUser(select.token);
-        } else {
-            navigate('/login')
-        }
-      }, [select.token]);
+        await store.actions.profile.getUser(select.token);
+    });
   
     return (
       <PageLayout>

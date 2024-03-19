@@ -34,18 +34,22 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
-//
 export function formatCategories(categories) {
-  let depths = {}
-  
-  // добавим глубину вложенности для каждой категории
-  let categoriesWithDepth = categories.map(item => {
-      let depth = item.parent ? depths[item.parent._id] + 1 : 0
-      
-      depths[item._id] = depth
-      item.depth = depth
+  let calculateCategoryDepth = (item) =>{
+    if (item.parent){
+      let parent = categories.find((element) => element._id === item.parent._id)
+      return calculateCategoryDepth(parent) + 1
+    } else {
+      return 0;
+    }
+  }
 
-      return item;
+  // добавим глубину вложенности для каждой категории
+  let categoriesWithDepth = categories.map(item => { 
+    return { 
+      ...item,
+      depth: calculateCategoryDepth(item)
+    }
   })
 
   // отсортируем по возрастанию вложенности
@@ -63,5 +67,5 @@ export function formatCategories(categories) {
     }
   })
 
-  return result.map(item => { return { value: item._id, title: '-'.repeat(item.depth) + item.title} })
+  return result.map(item => { return { value: item._id, title: '- '.repeat(item.depth) + item.title} })
 }
