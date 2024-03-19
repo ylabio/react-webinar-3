@@ -12,8 +12,8 @@ class UsersState extends StoreModule {
     return {
       user: null,
       params: {
-        login: "test_1",
-        password: "12356",
+        login: "",
+        password: "",
         remember: true,
       },
       waiting: false,
@@ -50,6 +50,27 @@ class UsersState extends StoreModule {
     await this.setParams(params);
   }
 
+  setPassword(newPassword) {
+    this.setState(
+      {
+        ...this.getState(),
+        params: { login: this.getState().params.login, password: newPassword },
+        waiting: false,
+      },
+      "Установлены параметры пользователя"
+    );
+  }
+
+  setLogin(newLogin) {
+    this.setState(
+      {
+        ...this.getState(),
+        params: { login: newLogin, password: this.getState().params.password },
+        waiting: false,
+      },
+      "Установлены параметры пользователя"
+    );
+  }
   /**
    * Установка параметров и загрузка списка товаров
    * @param [newParams] {Object} Новые параметры
