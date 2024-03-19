@@ -30,7 +30,6 @@ export function badfunc(res) {
       if (parentIndex === -1) {
         withoutParent.push(e);
       } else {
-        console.log(parentIndex);
         res[parentIndex].childs.push(e);
       }
     }

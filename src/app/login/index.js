@@ -6,14 +6,14 @@ import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
-import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
 import HeadLogin from '../../components/head-login';
+import LoginForm from '../../components/login-form';
 
 /**
  * Главная страница - первичная загрузка каталога
  */
-function Main() {
+function Login() {
 
   const store = useStore();
 
@@ -30,10 +30,9 @@ function Main() {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <CatalogFilter/>
-      <CatalogList/>
+      <LoginForm />
     </PageLayout>
   );
 }
 
-export default memo(Main);
+export default memo(Login);
