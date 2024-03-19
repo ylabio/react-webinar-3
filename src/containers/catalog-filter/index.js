@@ -31,11 +31,13 @@ function CatalogFilter() {
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
 
-  const nestingOfCategories = (item) => {
+  const nestingOfCategories = (item, categories) => {
     if (!item.parent) return item.title;
-    if (item.parent) return `-${item.title}`
-    return `--${item.title}`
+    if (item.parent && categories.filter(mainCategory => !mainCategory.parent && mainCategory._id === item.parent._id).length > 0) return `- ${item.title}`
+    return `-- ${item.title}`
   }
+
+  console.log( ...select.categories.map( item => ({value: item._id, title: nestingOfCategories(item, select.categories), key: item._key, parentKey: item.parent ? item.parent._key : 0})))
 
   const options = {
     sort: useMemo(() => ([
@@ -46,7 +48,14 @@ function CatalogFilter() {
     ]), []),
     category: useMemo(() => ([
       {value: '', title: 'Все'},
-      ...select.categories.map( item => ({value: item._id, title: nestingOfCategories(item)}))
+      ...select.categories.map( item => ({value: item._id, title: nestingOfCategories(item, select.categories), key: item._key, parentKey: item.parent ? item.parent._key : 1000})).sort(function(item1,item2) {
+        if (item1.parentKey < item2.parentKey) return -1;
+        if (item1.parentKey > item2.parentKey) return 1;
+        // при равных parentKey сортируем по key
+        if (item1.key < item2.key) return -1;
+        if (item1.key > item2.key) return 1;
+        return 0;
+      })
     ]), [select.categories])
   };
 

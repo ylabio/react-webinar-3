@@ -25,7 +25,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title={t('title')}>
+      <Head title={t('title')} topContent={<a>Вход</a>}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
