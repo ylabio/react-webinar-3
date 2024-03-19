@@ -36,20 +36,41 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
-export function buildHierarchy(items, parent = null, index = 0) {
-  const result = [];
-  for (let i = index; i < items.length; i++) {
-    if (!items[i].parent) {
+/*
+const result = [];
+export function buildHierarchy(items, parent = null, index = [], tab = '-') {
+  
+  for (let i = 0; i < items.length; i++) {
+    if (!parent && !items[i].parent && !index.includes(i)) {
+      index.push(i);
       result.push(items[i].title);
-      console.log(parent);
-      buildHierarchy(items, items[i + 1], i + 1);
+      buildHierarchy(items, items[i], index);
     }
+    
     if (parent && items[i].parent && (items[i].parent._id === parent._id)) {
-      result.push("-" + items[i].title);
-      buildHierarchy(items, items[i + 1], i + 1);
+      result.push(tab + items[i].title);
+      buildHierarchy(items, items[i], index, tab + '-');
     }
-    result.push(items[i].title);
+    
   }
 
   return result;
+}
+*/
+
+export function buildHierarchy(items, parent = null, tab = '') {
+  // Фильтруем элементы на основе того, есть ли у них родитель и соответствует ли он текущему родителю
+  const filteredItems = items.filter(item =>
+    parent ? item.parent && item.parent._id === parent._id : !item.parent
+  );
+
+  // Рекурсивно строим иерархию
+  return filteredItems.reduce((result, item) => {
+    // Добавляем текущий элемент
+    result.push(tab + item.title);
+    // Рекурсивно добавляем дочерние элементы, увеличивая отступ
+    const children = buildHierarchy(items, item, tab + '-');
+    // Добавляем результаты к итоговому массиву
+    return result.concat(children);
+  }, []);
 }
