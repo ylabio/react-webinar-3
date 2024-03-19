@@ -1,5 +1,5 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
-import {Routes, Route} from 'react-router-dom';
+import { useMemo } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import useSelector from "../hooks/use-selector";
 import Main from "./main";
 import Basket from "./basket";
@@ -7,7 +7,6 @@ import Article from "./article";
 import ProtectedRoute from "../containers/protected-route";
 import Profile from "./profile";
 import Login from "./login";
-import useInit from "../hooks/use-init";
 import useStore from '../hooks/use-store';
 
 /**
@@ -17,14 +16,17 @@ import useStore from '../hooks/use-store';
 function App() {
   const store = useStore();
 
-  useInit(() => {
-    store.actions.user.initUser();
-  }, [], true);
-
   const select = useSelector(state => ({
     activeModal: state.modals.name,
-    // user: state.user.user,
+    user: state.user.user,
+    waiting: state.user.waiting,
   }));
+
+  useMemo(() => {
+    if (!select.user) {
+      store.actions.user.initUser();
+    }    
+  }, []);
 
   return (
     <>
@@ -34,6 +36,8 @@ function App() {
         <Route path="/profile" element={
           <ProtectedRoute 
             shouldBeAuthorized={true}
+            isAuthorized={select.user !== null}
+            isWaiting={select.waiting}
             element={<Profile />}
             redirect="/login"
           />}
@@ -41,13 +45,11 @@ function App() {
         <Route path="/login" element={
           <ProtectedRoute
             shouldBeAuthorized={false}
+            isAuthorized={select.user !== null}
+            isWaiting={select.waiting}
             element={<Login />}
             redirect="/"
           />}
-          // <AnonymousRoute 
-          //   authorized={select.user !== null}
-          //   element={<Login />}
-          // />}
         />
       </Routes>
 
