@@ -1,29 +1,29 @@
 import { memo, useEffect, useMemo } from 'react';
-import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
+import Navigation from "../../containers/navigation";
 import ProfileBar from '../../containers/profile-bar';
+import LocaleSelect from "../../containers/locale-select";
+import "./style.css";
 
 const Profile = () => {
-
-  useEffect(() => {
-    console.log('profile page');
-  })
 
   const select = useSelector(state => ({
     user: state.user.user,
     waiting: state.user.waiting,
   }));
 
+  const userName = useMemo(() => {
+    return select.user?.username;
+  }, [select.user?.username]);
+
   const phone = useMemo(() => {
-    console.log(select.user?.profile?.phone);
     return select.user?.profile?.phone;
-  }, [select.user?.profile?.phone])
+  }, [select.user?.profile?.phone]);
 
   const email = useMemo(() => {
-    console.log(select.user?.email);
     return select.user?.email;
   }, [select.user?.email])
   
@@ -32,11 +32,15 @@ const Profile = () => {
   return (
   <PageLayout>
     <ProfileBar />
-    <Head title={t('title')} />
-    <div>
-      <h3>Профиль</h3>
-      <p>Телефон: {phone}</p>
-      <p>email: {email}</p>
+    <Head title={t('title')} >
+      <LocaleSelect />
+    </Head>
+    <Navigation />
+    <div className="Profile">
+      <h3 className="Profile-heading">Профиль</h3>
+      <p className="Profile-entry">Имя: <span className="Profile-entry-bold">{userName}</span></p>
+      <p className="Profile-entry">Телефон: <span className="Profile-entry-bold">{phone}</span></p>
+      <p className="Profile-entry">email: <span className="Profile-entry-bold">{email}</span></p>
     </div>
   </PageLayout>
   );

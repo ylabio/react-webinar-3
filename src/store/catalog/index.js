@@ -109,34 +109,52 @@ class CatalogState extends StoreModule {
   }
 
   #parseCategories(categories) {
-    categories = this.#sortCategories(categories);
     return [{value: "", title: "Все"}, ...this.#generateCategoryNames(categories)];
   }
-  
-  #sortCategories(categories) {
-    let result = [...categories];
-    result.slice().forEach((category) => {
-      if (category.parent) {
-        let parentIndex = result.findIndex(item => item._id === category.parent._id);
-        if (parentIndex) {
-          const currentIndex = result.findIndex(item => item._id === category._id);
-          if (currentIndex) {
-            result.splice(currentIndex, 1);
-          }
-          parentIndex = result.findIndex(item => item._id === category.parent._id);
-          result.splice(parentIndex + 1, 0, category);          
+
+  #generateTree(items) {
+    let tree = [];
+    let mappedItems = {};
+    let item;
+    let mappedItem;
+
+    for (let i = 0, len = items.length; i < len; i++) {
+      item = items[i];
+      mappedItems[item._id] = item;
+      mappedItems[item._id]['children'] = [];
+    }
+
+    for (let id in mappedItems) {
+      if (mappedItems.hasOwnProperty(id)) {
+        mappedItem = mappedItems[id];
+        if (mappedItem.parent) {
+          mappedItems[mappedItem.parent._id]['children'].push(mappedItem);
+        }
+        else {
+          tree.push(mappedItem);
         }
       }
-    });
-    return result;
+    }
+    return tree;
   }
 
   #generateCategoryNames(categories) {
-    let result = [];
-    for (let category of categories) {
-      result.push({value: category._id, title: this.#addSpaces(category.title, category.parent, categories)});
+    const tree = this.#generateTree(categories);
+
+    let visited = [];
+
+    let traverse = (prefix, node) => {
+      visited.push({value: node._id, title: `${prefix}${node.title}`});
+      if (node.children) {
+        prefix = `- ${prefix}`;
+        for (let child of node.children) {
+          traverse(prefix, child);
+        }
+      }
     }
-    return result;
+
+    tree.forEach(branch => traverse("", branch));
+    return visited;
   }
 
   #addSpaces(title, parent, categories) {

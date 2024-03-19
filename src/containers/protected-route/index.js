@@ -24,8 +24,6 @@ const ProtectedRoute = ({ shouldBeAuthorized, element, redirect }) => {
   }, []);
 
   const route = useCallback(() => {
-    console.log('select:')
-    console.log(select);
     if (select.waiting) {
       return <h3>Loading...</h3>
     }

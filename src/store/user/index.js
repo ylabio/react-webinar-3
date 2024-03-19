@@ -28,8 +28,6 @@ class UserState extends StoreModule {
    * @return {Promise<void>}
    */
   async login(email, password) {
-    console.log('login');
-    console.log(`${email}: ${password}`);
     this.setState({
       user: null,
       errorMessage: "",
@@ -51,12 +49,9 @@ class UserState extends StoreModule {
       if (response && response.ok) {
         const json = await response.json();
         deleteCookie("token");
-        console.log(response);
-        console.log(json);
-        console.log(`setting cookie for ${json.result.token}`);
         setCookie("token", json.result.token);
         this.setState({
-          user: json.result,
+          user: json.result.user,
           errorMessage: "",
           waiting: false,
         }, 'Пользователь залогинился');
@@ -80,7 +75,6 @@ class UserState extends StoreModule {
   }
 
   async getUserRequest(accessToken) {
-    console.log("getUserRequest");
     this.setState({
       user: null,
       errorMessage: "",
@@ -95,11 +89,8 @@ class UserState extends StoreModule {
           'Content-Type': 'application/json'
         }
       });
-      console.log(response);
       if (response && response.ok) {
         const json = await response.json();
-        console.log('response:');
-        console.log(json);
         this.setState({
           user: json.result,
           errorMessage: "",
@@ -107,8 +98,6 @@ class UserState extends StoreModule {
         }, 'Данные о пользователе получены');
       } else if (response) {
         const json = await response.json();
-        console.log('response error');
-        console.log(json);
         this.setState({
           ...this.getState(),
           errorMessage: `Ошибка ${json.error.code}: ${json.error.message}`,
@@ -118,8 +107,6 @@ class UserState extends StoreModule {
     } catch (e) {
       // Ошибка при логине
       // @todo В стейт можно положить информацию об ошибке
-      console.log("error");
-      console.log(e);
       this.setState({
         user: null,
         errorMessage: "Не удалось получить информацию с сервера",
@@ -129,14 +116,12 @@ class UserState extends StoreModule {
   }
 
   async logout() {    
-    console.log('logout');
     const accessToken = getCookie("token");
     this.setState({
       user: null,
       errorMessage: "",
       waiting: false
     }, 'Пользователь вышел');
-    console.log('before try block');
     try {
       const response = await fetch(`/api/v1/users/sign`, {
         method: 'DELETE',
@@ -145,10 +130,7 @@ class UserState extends StoreModule {
           'X-Token': accessToken,
         },
       });
-      console.log('response: ');
-      console.log(response);
       if (response && response.ok) {
-        console.log('deleting cookie');
         deleteCookie("token");
         this.setState({
           ...this.getState(),
@@ -167,8 +149,6 @@ class UserState extends StoreModule {
     } catch (e) {
       // Ошибка при логине
       // @todo В стейт можно положить информацию об ошибке
-      console.log('error');
-      console.log(e);
       this.setState({
         user: null,
         errorMessage: "Не удалось выйти из учетной записи",

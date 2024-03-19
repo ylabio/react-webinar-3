@@ -9,7 +9,7 @@ function ProfileBar() {
   const navigate = useNavigate();
   const store = useStore();
   const select = useSelector(state => ({
-    user: state.user?.user,
+    user: state.user.user,
   }));
 
   const callbacks = {
@@ -23,10 +23,12 @@ function ProfileBar() {
       store.actions.user.logout();
     }, [store]),
   };
-  
-  const userName = useMemo(() => {
-    return select.user?.username;
-  }, [select.user?.username])
+
+  const renderProfileLink = useCallback(() => {
+    if (select.user) {
+      return <Link to="/profile" className="ProfileBar-username">{select.user.username}</Link>
+    }
+  }, [select.user]);
 
   const renderButton = useCallback(() => {
     return (<button className="ProfileBar-button" onClick={select.user === null ? callbacks.onLoginClick : callbacks.onLogoutClick}>{select.user ? "Выход" : "Вход"}</button>);
@@ -35,7 +37,7 @@ function ProfileBar() {
 
   return (
     <div className="ProfileBar">
-      {userName && <Link to="/profile" className="ProfileBar-username">{userName}</Link>}
+      {renderProfileLink()}
       {renderButton()}
     </div>
   )

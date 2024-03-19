@@ -10,9 +10,6 @@ const getCookie = (name) => {
 };
 
 const setCookie = (name, value, props) => {
-  console.log(`setting cookie: ${name}: ${value}`);
-  console.log(value);
-  // props = props || {};
   props = {
     path: "/",
     ...props,

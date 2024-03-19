@@ -5,7 +5,6 @@ import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
 import ProtectedRoute from "../containers/protected-route";
-import AnonymousRoute from '../containers/anonymous-route';
 import Profile from "./profile";
 import Login from "./login";
 import useInit from "../hooks/use-init";
