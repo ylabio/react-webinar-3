@@ -5,10 +5,9 @@ import './style.css';
 import {Link, useNavigate} from "react-router-dom";
 import useTranslate from "../../hooks/use-translate";
 
-function UserMenu({links, isAuth, logOut, userName}) {
+function UserMenu({links, isAuth, logOut, userName, t}) {
 
   const cn = bem('UserMenu')
-  const {t} = useTranslate()
 
   const navigate = useNavigate()
 
@@ -33,11 +32,13 @@ UserMenu.PropTypes = {
   }),
   userName: PropTypes.string,
   isAuth: PropTypes.bool,
-  logOut: PropTypes.func
+  logOut: PropTypes.func,
+  t: PropTypes.func
 }
 
 UserMenu.defaultProps = {
-  logOut: () => {}
+  logOut: () => {},
+  t: (text) => text
 }
 
 export default React.memo(UserMenu);
