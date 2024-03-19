@@ -19,7 +19,6 @@ class ProfileState extends StoreModule {
    * @return {Promise<void>}
    */
   async load(token) {
-    // Сброс текущего товара и установка признака ожидания загрузки
     this.setState({
       data: {},
       waiting: true
@@ -50,10 +49,7 @@ class ProfileState extends StoreModule {
     } catch (e) {
       // Ошибка при загрузке
       // @todo В стейт можно положить информацию об ошибке
-      this.setState({
-        data: {},
-        waiting: false
-      });
+      this.store.actions.login.validateToken(token)
     }
   }
 }

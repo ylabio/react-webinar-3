@@ -4,9 +4,14 @@ import useSelector from "../../hooks/use-selector"
 import LoginContent from "../../components/login-header-content"
 import useStore from "../../hooks/use-store"
 import useTranslate from "../../hooks/use-translate"
+import useInit from "../../hooks/use-init"
 
 const LoginHeader = () => {
   const store = useStore()
+  
+  useInit(() => {
+    
+  }, []);
   
   const select = useSelector(state => ({
     isLoggedIn: state.login.isLoggedIn,

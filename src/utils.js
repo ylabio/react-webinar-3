@@ -54,3 +54,7 @@ export function makeCategoriesOptions(categoriesList, id, level) {
   
   return categories;
 }
+
+export function getCurrentToken() {
+  return window.localStorage.getItem('token')
+}

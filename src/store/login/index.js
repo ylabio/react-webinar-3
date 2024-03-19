@@ -1,15 +1,15 @@
+import { getCurrentToken } from "../../utils";
 import StoreModule from "../module";
 
 class LoginState extends StoreModule {
 
   initState() {
-    const token = window.localStorage.getItem('token') || null
-    const username = window.localStorage.getItem('username') || null
+    const token = getCurrentToken()
+    const username = window.localStorage.getItem('username')
     
     return {
       isLoggedIn: token ? true : false,
       error: null,
-      token: token,
       username: username
     }
   }
@@ -38,10 +38,9 @@ class LoginState extends StoreModule {
       }
       
       const json = await response.json()
-
+      
       this.setState({
         isLoggedIn: true,
-        token: json.result.token,
         username: json.result.user.username,
         error: null,
       })
@@ -54,7 +53,7 @@ class LoginState extends StoreModule {
   }
 
   async logOut(){
-    const token = this.getState().token
+    const token = getCurrentToken();
     
     if(!token) {
       this.setState({
@@ -64,6 +63,7 @@ class LoginState extends StoreModule {
     }
     
     try {
+      
       await fetch('/api/v1/users/sign', {
         method: 'DELETE',
         headers: {
@@ -81,6 +81,9 @@ class LoginState extends StoreModule {
 
     } catch(err) {
       console.error('Fetch error', err) 
+      this.setState({
+        ...this.initState(),
+      })
     }
   }
 
@@ -89,6 +92,23 @@ class LoginState extends StoreModule {
       ...this.getState(),
       error: null,
     })
+  }
+
+  async validateToken(token) {
+    try {
+      const response = await fetch(`/api/v1/users/self?fields=status`, {
+        headers: {
+          'X-Token': token,
+          'Content-Type': 'application/json',
+        }
+      });
+  
+      const json = await response.json();
+      if(json.result.status !== 'confirm') this.logOut()
+    } catch (error) {
+      console.error(error)
+      this.logOut()
+    }
   }
 }
 

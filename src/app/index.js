@@ -6,12 +6,38 @@ import Article from "./article";
 import Login from './login';
 import Profile from './profile';
 import {PrivateRoute} from './PrivateRoute';
+import useInit from '../hooks/use-init';
+import useStore from '../hooks/use-store';
+import { useEffect } from 'react';
+import { getCurrentToken } from '../utils';
 
 /**
  * Приложение
  * Маршрутизация по страницам и модалкам
  */
 function App() {
+
+  const store = useStore()
+
+  useInit(() => {
+    const token = getCurrentToken()
+    if(token) {
+      store.actions.login.validateToken(token)
+    } else {
+      store.actions.login.logOut()
+    }
+  }, [])
+
+  useEffect(() => {
+    const handleStorage = (e) => {
+      if(e.key === 'token') store.actions.login.logOut()
+    }
+
+    window.addEventListener('storage', handleStorage)
+    return () => {
+      window.removeEventListener('storage', handleStorage)
+    }
+  }, [])
 
   const select = useSelector(state =>({
      activeModal: state.modals.name,

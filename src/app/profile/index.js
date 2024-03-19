@@ -11,27 +11,24 @@ import LocaleSelect from "../../containers/locale-select";
 import LoginHeader from '../../containers/login-header';
 import Spinner from '../../components/spinner';
 import ProfileInfo from '../../components/profile-info';
+import { getCurrentToken } from '../../utils';
 
 /**
  * Страница профиля
  */
 function Profile() {
   const store = useStore();
-  const navigate = useNavigate()
 
   const select = useSelector(state => ({
-    token: state.login.token,
     profile: state.profile.data,
     waiting: state.profile.waiting,
     error: state.profile.error
   }));
 
-  console.log(select.profile);
-
   useInit(() => {
-    if(!select.token) navigate('/')
-    store.actions.profile.load(select.token)
-  }, [select.token]);
+    const token = getCurrentToken()
+    store.actions.profile.load(token)
+  }, []);
 
 
   const {t} = useTranslate();
