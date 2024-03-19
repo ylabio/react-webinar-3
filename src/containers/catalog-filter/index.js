@@ -48,13 +48,18 @@ function CatalogFilter() {
     categories: useMemo(() => {return buildHierarchy(select.categories) }, [select.categories])
   }
 
-  console.log(optionsCategories.categories);
-
   const {t} = useTranslate();
 
   return (
     <SideLayout padding='medium'>
-      <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
+      <Select options={options.sort} value={select.sort} onChange={callbacks.onSort} />
+      <Select
+        options={optionsCategories.categories}
+        value={select.category}
+        onChange={event => {
+          console.log(event);
+          event === "Все" ? callbacks.onReset() : callbacks.onCategory(event)
+        }} />
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

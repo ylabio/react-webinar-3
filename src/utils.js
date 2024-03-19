@@ -65,12 +65,19 @@ export function buildHierarchy(items, parent = null, tab = '') {
   );
 
   // Рекурсивно строим иерархию
-  return filteredItems.reduce((result, item) => {
+  let hierarchy = filteredItems.reduce((result, item) => {
     // Добавляем текущий элемент
-    result.push(tab + item.title);
+    result.push({ value: item._id, title: tab + item.title });
     // Рекурсивно добавляем дочерние элементы, увеличивая отступ
     const children = buildHierarchy(items, item, tab + '-');
     // Добавляем результаты к итоговому массиву
     return result.concat(children);
   }, []);
+
+  // Добавляем объект {value: null, title: 'Все'} только в начало итогового массива для самого первого вызова
+  if (parent === null) {
+    hierarchy = [{ value: null, title: 'Все' }, ...hierarchy];
+  }
+
+  return hierarchy;
 }
