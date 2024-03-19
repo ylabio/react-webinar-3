@@ -140,6 +140,8 @@ async getCategotys() {
     let vSrt;
     let vFlag;
     let vFlag2;
+    let vFlag3;
+    let vFlag4;
     let _idTemp;
     let vvg;
     let vvj;
@@ -166,7 +168,7 @@ async getCategotys() {
             }
           }
         if (vFlag == false && !vItems[vvg].parent?._id) {//нулевой уровень
-          vMassCategoryNum.push({_id: vItems[vvz]._id, level: vLevelParent - 1, title: vItems[vvz].title});
+          vMassCategoryNum.push({_id: vItems[vvz]._id, level: vLevelParent - 1, title: vItems[vvz].title, parentId: vItems[vvz].parent?._id});
           vLevelParent = 0;
           if (vLevelParent == 0) {
             vFlag2 = false;
@@ -216,15 +218,76 @@ async getCategotys() {
       }
       vvg++;
     }
-    
+    let vLevel = 0;
+    let vFlag5;
+    let vCount = 0;
+    vFlag4 = true;
+    while (vFlag4) {
+    vFlag4 = false;
+    vFlag5 = false;
+    for (let vvj = 0; vvj < vMassCategoryNum.length; vvj++) {
+      if (vFlag5 == true) {
+        break;
+      }
       for (let vvi = 0; vvi < vMassCategoryNum.length; vvi++) {
+        if (vvi != vvj && vMassCategoryNum[vvj].level == vLevel &&
+            (vLevel == 0 ||
+             vLevel > 0 && vMassCategoryNum[vvi]._id == vMassCategoryNum[vvj].parentId)) {
+          if (vMassCategoryNum[vvj].level != 0) {
+            vFlag3 = false;
+            for (let vvz = 0; vvz < vMassCategory.length; vvz++) {
+              if (vMassCategoryNum[vvj]._id == vMassCategory[vvz].value) {
+                vFlag3 = true;
+                break;
+              }
+            }
+            if (vFlag3 == true) {
+              continue;
+            }
+            vFlag3 = false;
+            for (let vvz = 0; vvz < vMassCategory.length; vvz++) {
+              if (vMassCategoryNum[vvi]._id == vMassCategory[vvz].value &&
+                  vMassCategoryNum[vvi].level == vMassCategoryNum[vvj].level - 1) {
+                vLevel += 1;
+                vFlag4 = true;
+                vFlag3 = true;
+                break;
+              }
+            }
+            if (vFlag3 == false) {
+              vFlag4 = true;
+              continue;
+            }
+          }
+          else {
+            vFlag3 = false;
+            for (let vvz = 0; vvz < vMassCategory.length; vvz++) {
+              if (vMassCategoryNum[vvj]._id == vMassCategory[vvz].value) {
+                vFlag3 = true;
+                break;
+              }
+            }
+            if (vFlag3 == true) {
+              continue;
+            }
+            vLevel += 1;
+            vFlag4 = true;
+          }
           vSrt = '';
-          for (let vvz = 0; vvz < vMassCategoryNum[vvi].level; vvz++) {
+          for (let vvz = 0; vvz < vMassCategoryNum[vvj].level; vvz++) {
             vSrt += '- ';
           }
-          vMassCategory.push({value: vMassCategoryNum[vvi]._id, title: vSrt + vMassCategoryNum[vvi].title});
+          vMassCategory.push({value: vMassCategoryNum[vvj]._id, title: vSrt + vMassCategoryNum[vvj].title});
+          vFlag5 = true;
+          break;
+        }
       }
-
+    }
+    if (vFlag5 == false && vLevel > 0) {
+      vLevel -= 1;
+      vFlag4 = true;
+    }
+  }
   this.setState({
     ...this.getState(),
     listCategory: vMassCategory,
