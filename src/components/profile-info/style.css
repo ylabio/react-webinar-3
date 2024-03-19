@@ -1,0 +1,17 @@
+p, h1,h2{
+    margin: 0;
+}
+.ProfileInfo{
+    padding: 62px 20px;
+}
+.ProfileInfo-title{
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+.Profile-value{
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.Profile-value:last-child{
+    margin-bottom: 0;
+}

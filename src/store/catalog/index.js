@@ -1,3 +1,4 @@
+import { Children } from "react";
 import StoreModule from "../module";
 
 /**
@@ -16,7 +17,8 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        filter: "",
       },
       count: 0,
       waiting: false
@@ -36,7 +38,8 @@ class CatalogState extends StoreModule {
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
-    await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
+    if (urlParams.has('filter') && urlParams.get('filter')) validParams.filter = urlParams.get('filter');
+    await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
   /**
@@ -46,7 +49,7 @@ class CatalogState extends StoreModule {
    */
   async resetParams(newParams = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
-    const params = {...this.initState().params, ...newParams};
+    const params = { ...this.initState().params, ...newParams };
     // Установка параметров и загрузка данных
     await this.setParams(params);
   }
@@ -58,7 +61,7 @@ class CatalogState extends StoreModule {
    * @returns {Promise<void>}
    */
   async setParams(newParams = {}, replaceHistory = false) {
-    const params = {...this.getState().params, ...newParams};
+    const params = { ...this.getState().params, ...newParams };
 
     // Установка новых параметров и признака загрузки
     this.setState({
@@ -81,8 +84,11 @@ class CatalogState extends StoreModule {
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
-      'search[query]': params.query
+      'search[query]': params.query,
     };
+    if (params.filter) {
+      apiParams['search[category]'] = params.filter
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
