@@ -1,6 +1,5 @@
-import {memo} from 'react';
+import {memo, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
-import useInit from '../../hooks/use-init';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from "../../hooks/use-translate";
 import Navigation from "../../containers/navigation";
@@ -21,11 +20,11 @@ function Authorization() {
     isLogged: state.auth.isLogged,
   }));
 
-  useInit(() => {
+  useEffect(() => {
     if (select.isLogged) {
       navigate(-1, {replace: true});
     }
-  }, [select.isLogged, navigate], true)
+  }, [select.isLogged, navigate])
 
   return (
     <PageLayout>
