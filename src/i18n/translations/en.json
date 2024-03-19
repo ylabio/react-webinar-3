@@ -14,5 +14,13 @@
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "filter.search": "Search",
+  "filter.sort.order": "In order",
+  "filter.sort.title": "By name",
+  "filter.sort.price": "First expensive",
+  "filter.sort.edition": "Ancients",
+  "filter.category.all": "All",
+  "login": "Login",
+  "logout": "Logout"
 }

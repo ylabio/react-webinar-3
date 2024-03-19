@@ -16,5 +16,13 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "filter.search": "Поиск",
+  "filter.sort.order": "По порядку",
+  "filter.sort.title": "По именованию",
+  "filter.sort.price": "Сначала дорогие",
+  "filter.sort.edition": "Древние",
+  "filter.category.all": "Все",
+  "login": "Войти",
+  "logout": "Выйти"
 }
