@@ -13,6 +13,7 @@ class ProfileState extends StoreModule {
     return {
       user: null,
       waiting: false,
+      isChecked: false,
       message: ''
     }
   }
@@ -53,13 +54,15 @@ class ProfileState extends StoreModule {
       this.setState({
         ...this.getState(),
         user,
-        waiting: false
+        waiting: false,
+        isChecked: true,
       }, user ? 'Загружен профиль из АПИ' : 'Не удалось загрузить профиль из АПИ');
 
     } catch (e) {
       this.setState({
         user: null,
-        waiting: false
+        waiting: false,
+        isChecked: true,
       }, 'Ошибка загрузки профиля из АПИ');
     }
   }

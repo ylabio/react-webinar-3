@@ -21,12 +21,13 @@ function Profile() {
   const select = useSelector(state => ({
     user: state.profile.user,
     waiting: state.profile.waiting,
+    isChecked: state.profile.isChecked,
     message: state.profile.message
   }));
 
   useEffect(
     () => {
-      if (!select.user) {
+      if (!select.user && select.isChecked) {
         navigate('/login/');
       }
     },
