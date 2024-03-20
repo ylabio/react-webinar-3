@@ -32,7 +32,7 @@ class LoginState extends StoreModule {
       if (!response.ok) {
         this.setState({
           ...this.initState(),
-          error: response.statusText
+          error: response.statusText 
         })
         throw new Error(`request failed with status ${response.status}`)
       }
@@ -52,13 +52,15 @@ class LoginState extends StoreModule {
     }
   }
 
-  async logOut(){
+  async logOut(error = null){
     const token = getCurrentToken();
     
     if(!token) {
       this.setState({
-        ...this.initState()
+        ...this.initState(),
+        error
       })
+      window.localStorage.clear()
       return;
     }
     
@@ -71,11 +73,11 @@ class LoginState extends StoreModule {
         },
       }) 
       
-      window.localStorage.removeItem('token')
-      window.localStorage.removeItem('username')
+      window.localStorage.clear()
 
       this.setState({
         ...this.initState(),
+        error
       })
 
     } catch(err) {
@@ -103,7 +105,11 @@ class LoginState extends StoreModule {
       });
   
       const json = await response.json();
-      if(json.result.status !== 'confirm') this.logOut()
+      if(json.result.status !== 'confirm') {
+        this.logOut()
+        return false
+      }
+      return true
     } catch (error) {
       console.error(error)
       this.logOut()

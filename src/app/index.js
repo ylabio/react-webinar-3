@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     const handleStorage = (e) => {
-      if(e.key === 'token') store.actions.login.logOut()
+      if(e.key === 'token') store.actions.login.logOut('Login data was forcibly changed. Need to re-login.')
     }
 
     window.addEventListener('storage', handleStorage)
