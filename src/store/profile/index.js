@@ -3,13 +3,15 @@ import StoreModule from "../module";
 class UserProfileState extends StoreModule {
     initState() {
         return {
-            user: null,
             profile: null,
             profileError: null,
+            waiting: false,
         };
     }
 
-    async fetchProfile() { 
+    async fetchProfile() {
+        this.setState({ waiting: true });
+
         const token = localStorage.getItem('authToken');
         if (token) {
             try {
@@ -26,8 +28,6 @@ class UserProfileState extends StoreModule {
 
                 const json = await response.json();
                 this.setState({
-                    user: json.result.profile.name,
-                    token,
                     waiting: false,
                     profile: {
                         ...json.result.profile,
@@ -36,11 +36,18 @@ class UserProfileState extends StoreModule {
                 });
             } catch (e) {
                 console.error('Ошибка при загрузке профиля:', e);
+                this.setState({
+                    waiting: false,
+                    profileError: e.message,
+                });
             }
+        } else {
+            
+            this.setState({ waiting: false });
         }
     }
 
-    // Дополнительные методы для работы с профилем пользователя могут быть добавлены здесь
+    
 }
 
 export default UserProfileState;
