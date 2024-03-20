@@ -33,3 +33,22 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+
+export function setOptionCategory(categories, nesting=0,id=null){
+
+  let newCategories=[];
+  if(id==null){
+    newCategories.push({title:'Все', value:'', })
+  }
+  categories.forEach(elem=>{
+
+    if(elem.parent?._id===id || elem.parent===id){   
+      newCategories.push({...elem, value:elem._id,title:'- '.repeat(nesting)+elem.title})
+      newCategories.push(...setOptionCategory(categories,nesting+1,elem._id))
+    }
+  })
+ return newCategories;
+
+}
+

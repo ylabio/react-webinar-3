@@ -1,13 +1,6 @@
-body {
-  margin: 0;
-  padding: 0;
-  background: #535353;
-  font-family: sans-serif;
-}
-
-.PageLayout {
+.ModalUser {
   max-width: 1024px;
-  min-height: 95.5vh;
+  min-height: 100vh;
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;

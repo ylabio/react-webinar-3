@@ -1,0 +1,10 @@
+.UserProfil {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px 20px;
+}
+.UserProfil-Title {
+  font-size: 24px;
+  font-weight: 700;
+}
