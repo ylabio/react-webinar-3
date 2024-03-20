@@ -33,3 +33,45 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function deepCopy(obj) {
+  if (obj === null || typeof obj !== 'object') {
+    return obj
+  }
+
+  const copy = Array.isArray(obj) ? [] : {}
+
+  for (let key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      copy[key] = deepCopy(obj[key])
+    }
+  }
+
+  return copy
+}
+
+export function getCatOptions(categories) {
+  const proxy = deepCopy(categories)
+  const options = [{ title: 'Все', _id: '', value: '' }]
+
+  const collectOptions = (cat, level = 0) => {
+    // console.log('Category:', cat)
+
+    if (!options.includes(cat)) {
+      cat.title = level > 0 ? '- '.repeat(level) + cat.title : cat.title
+      cat.value = cat._id
+      options.push(cat)
+      const subs = proxy.filter(c => c.parent?._id === cat._id)
+      // console.log('This category subs:', subs)
+      subs.forEach(sub => {
+        // console.log('iterating subs')
+        if (options.includes(sub)) delete options[options.indexOf(sub)]
+        collectOptions(sub, level + 1)
+      })
+    }
+  }
+
+  proxy.forEach(cat => collectOptions(cat, 0))
+
+  return options
+}

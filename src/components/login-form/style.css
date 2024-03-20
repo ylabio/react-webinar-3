@@ -1,0 +1,35 @@
+.LoginForm {
+  margin-top: 40px;
+}
+
+.LoginForm input {
+  width: 200px;
+  height: 25px;
+
+  border: 1px solid #767676;
+  border-radius: 1px;
+}
+
+.LoginForm-header {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.LoginForm-login,
+.LoginForm-pass {
+  margin-top: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.LoginForm-btn {
+  margin-top: 20px;
+}
+
+.LoginForm-error {
+  margin-top: 20px;
+
+  color: #FF0000;
+}
+
