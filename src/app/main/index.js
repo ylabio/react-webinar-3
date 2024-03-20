@@ -8,6 +8,8 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import LoginLine from '../../components/login-line';
+import { useNavigateToLogin } from '../../hooks/use-navigate-to-login';
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -20,10 +22,13 @@ function Main() {
     store.actions.catalog.initParams();
   }, [], true);
 
-  const {t} = useTranslate();
+  const { t } = useTranslate();
+  
+  const navigateToLogin = useNavigateToLogin();
 
   return (
     <PageLayout>
+      <LoginLine onClick={navigateToLogin}/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
