@@ -6,13 +6,8 @@ class LoginState extends StoreModule {
     return {
       loginData: {
         loginName: '',
-        // password: ''
+        token: JSON.parse(localStorage.getItem("XToken")) || '',
       },
-      // userData: {
-      //   name: '',
-      //   email: '',
-      //   phone: '',
-      // },
       isLogin: false,
       errorMessage: '',
       waiting: false,
@@ -53,11 +48,6 @@ class LoginState extends StoreModule {
             loginName: json.result.profile?.name,
           },
           isLogin: true,
-          // userData: {
-          //   name: json.result.profile?.name,
-          //   email: json.result.email,
-          //   phone: json.result.profile?.phone,
-          // },
           waiting: false,
         }, 'Логин по Токену');
       }
@@ -91,13 +81,9 @@ class LoginState extends StoreModule {
         ...this.getState(),
         loginData: {
           loginName: json.result.user.profile?.name,
+          token: json.result.token,
         },
         isLogin: true,
-        // userData: {
-        //   name: json.result.user.profile?.name,
-        //   email: json.result.user.email,
-        //   phone: json.result.user.profile?.phone,
-        // },
         waiting: false,
       }, 'Логин по логину и почте');
     }

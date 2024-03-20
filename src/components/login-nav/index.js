@@ -11,7 +11,6 @@ function LoginNav(props) {
 
   const select = useSelector(state => ({
     isLogin: state.login.isLogin,
-    // name: state.login.userData.name,
     name: state.login.loginData.loginName,
     })
   )
