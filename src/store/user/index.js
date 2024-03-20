@@ -6,21 +6,34 @@ import StoreModule from "../module";
 class UserState extends StoreModule {
   initState() {
     return {
-      isAuth:false,
+      isAuth:!!window.localStorage.getItem('access_token'),
       waiting: false, // признак ожидания загрузки
       error:null,
       data:{
         userName:'',
-        phone:null,
-        email:''
       },
     }
   }
-
+  setStatus(userName){
+    this.setState({
+      ...this.getState(),
+      isAuth:true,
+      data:{
+        userName:userName,
+      }
+    });
+  }
+  resetError(){
+    this.setState({
+      ...this.getState(),
+      error:null
+    });
+  }
   async login(data) {
     this.setState({
       ...this.getState(),
-      waiting:true
+      waiting:true,
+      error:null,
     });
     try {
       const response = await fetch(`/api/v1/users/sign`,{
@@ -47,7 +60,7 @@ class UserState extends StoreModule {
           ...this.getState(),
           waiting:false,
           error: json.error.data.issues[0].message,
-        });
+        })
       }
     } catch (e) {
       console.error(e.message)
@@ -76,43 +89,11 @@ class UserState extends StoreModule {
         waiting:false,
         data:{
           userName:'',
-          phone:null,
-          email:''
         },
       }, 'выход успешно');
 
     } catch (e) {
       // Ошибка при загрузке
-      console.error(e.message)
-    }
-  }
-  async load() {
-    this.setState({
-      ...this.getState(),
-      waiting: true, // признак ожидания загрузки
-    });
-    try {
-      const response = await fetch(`/api/v1/users/self?fields=*`,{
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Token":localStorage.getItem('access_token')
-        },
-      });
-      const json = await response.json();
-      this.setState({
-        ...this.getState(),
-        isAuth:true,
-        data:{
-          userName:json.result.profile.name,
-          phone:json.result.profile.phone,
-          email:json.result.email
-        },
-        waiting: false, // признак ожидания загрузки
-        error:null,
-      }, 'Данные профиля загружены');
-      return true
-    } catch (e) {
       console.error(e.message)
     }
   }

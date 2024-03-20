@@ -10,31 +10,20 @@ import Spinner from "../../components/spinner";
 import LocaleSelect from "../../containers/locale-select";
 import ProfileBody from '../../components/profile-body';
 import Autorisation from '../../containers/autorisation';
-import { useNavigate } from "react-router-dom";
 /**
  * Страница профиля
  */
 function Profile() {
-  const navigate = useNavigate();
 
   const store = useStore();
 
   const select = useSelector(state => ({
     waiting: state.user.waiting,
-    userName:state.user.data.userName,
-    phone:state.user.data.phone,
-    email:state.user.data.email,
+    userName:state.profile.data.userName,
+    phone:state.profile.data.phone,
+    email:state.profile.data.email,
     isAuth:state.user.isAuth,
   }));
-
-
-  useInit(() => {
-    store.actions.user.load().then((res)=>{
-      if(!res){
-        navigate('/login')
-      }
-    })
-  }, [select.isAuth]);
 
   const {t} = useTranslate();
   
@@ -43,6 +32,11 @@ function Profile() {
     name:t('profile.name'),
     phone:t('profile.phone'),
   }
+
+  useInit(() => {
+      store.actions.profile.load()
+    }
+  , []);
 
   return (
     <PageLayout>

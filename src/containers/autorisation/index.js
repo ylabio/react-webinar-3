@@ -3,13 +3,13 @@ import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import Auth from "../../components/auth";
-import useInit from "../../hooks/use-init";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 /**
  * Контейнер с компонентами навигации
  */
 function Autorisation() {
+  const location = useLocation();
 
   const store = useStore();
 
@@ -18,18 +18,13 @@ function Autorisation() {
     isAuth: state.user.isAuth
   }));
 
-  useInit(() => {
-    if(window.localStorage.getItem('access_token')){
-      store.actions.user.load();
-    }
-  }, []);
-
   const navigate = useNavigate();
 
   const callbacks = {
      // выход
      onLogout: useCallback(() => store.actions.user.logout(), [store]),
-     NavigateTo:useCallback(()=>navigate("/login"),[])
+     //вход
+     NavigateTo:useCallback(()=>navigate("/login",{state:{redirectTo: location.pathname}}),[])
   }
 
   // Функция для локализации текстов

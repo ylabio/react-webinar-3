@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback, useEffect, useMemo} from 'react';
 import {useParams} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -9,19 +9,22 @@ import Navigation from "../../containers/navigation";
 import LocaleSelect from "../../containers/locale-select";
 import LoginBody from '../../components/login-body';
 import Autorisation from '../../containers/autorisation';
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 
 /**
  * Страница логина
  */
 function Login() {
 
+  const location = useLocation();
+  const from = location?.state?.redirectTo || '/profile'
+
   const store = useStore();
 
   const select = useSelector(state => ({
     error: state.user.error,
   }));
-
+ 
   const callbacks = {
     // авторизация
     onLogin: useCallback((data) => store.actions.user.login(data), [store])
@@ -30,10 +33,13 @@ function Login() {
   function tryLogin(data){
     callbacks.onLogin(data).then((res)=>{
       if(res){
-        navigate("/profile")
+        navigate(from)
       }
     })
   }
+  useEffect(()=>{
+    return ()=>store.actions.user.resetError()
+  },[])
   const {t} = useTranslate();
   const loginText={
     title:t('login.title'),
