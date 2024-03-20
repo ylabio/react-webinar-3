@@ -14,3 +14,8 @@
   font-weight: bold;
   margin: 0 20px;
 }
+
+.BasketTool-buttonOpenBasket {
+  width: 80px;
+  height: 21px;
+}

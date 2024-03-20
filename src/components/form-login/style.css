@@ -1,0 +1,41 @@
+.FormLogin {
+  margin: 20px 20px;
+}
+
+.FormLogin-entrance {
+  font-size: 24px;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+.FormLogin-prop {
+  margin: 20px 0;
+  font-size: 18px
+}
+
+.FormLogin-label {
+  margin: 0 0;
+}
+
+.FormLogin-input {
+  width: 203px;
+  margin: 0 0;
+}
+
+.FormLogin-prop_size_big {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.FormLogin-value {
+  font-weight: bold;
+}
+
+.FormLogin-error {
+  color: red;
+}
+
+.FormLogin-LoginButton {
+  margin: 20px 0px;
+}
+

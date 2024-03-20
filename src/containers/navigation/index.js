@@ -15,25 +15,31 @@ function Navigation() {
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
-    lang: state.locale.lang
+    lang: state.locale.lang,
+    params: state.catalog.params,
   }));
 
   const callbacks = {
     // Открытие модалки корзины
-    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    openModalBasket: useCallback(() => {
+      document.body.style.overflow = "hidden";
+      store.actions.modals.open('basket');
+    }, [store]),
     // Обработка перехода на главную
     onNavigate: useCallback((item) => {
-      if (item.key === 1) store.actions.catalog.resetParams();
     }, [store])
   }
 
   // Функция для локализации текстов
   const {t} = useTranslate();
 
+  let urlSearch = new URLSearchParams(select.params).toString();
+  const url = '/' + '?' + urlSearch + window.location.hash;
+  
   const options = {
     menu: useMemo(() => ([
-      {key: 1, title: t('menu.main'), link: '/'},
-    ]), [t])
+      {key: 1, title: t('menu.main'), link: url},
+    ]), [t,url])
   };
 
   return (

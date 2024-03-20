@@ -1,0 +1,34 @@
+.FormProfile {
+  margin: 20px 20px;
+}
+
+.FormProfile-profile {
+  font-size: 24px;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+.FormProfile-prop {
+  margin: 20px 0;
+  font-size: 18px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.FormProfile-label {
+  margin: 0 0;
+}
+
+.FormProfile-input {
+  margin: 0 0;
+}
+
+.FormProfile-prop_size_big {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.FormProfile-value {
+  margin: 0px 10px;
+  font-weight: bold;
+}

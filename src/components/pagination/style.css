@@ -38,6 +38,17 @@
   color: #fff;
 }
 
+.Pagination-item_active_one,
+.Pagination-item_active_one:hover,
+.Pagination-item_active_one a,
+.Pagination-item_active_one a:hover {
+  background: black;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+}
+
 .Pagination-item_split,
 .Pagination-item_split:hover {
   background: transparent;

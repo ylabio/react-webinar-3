@@ -39,7 +39,7 @@ function Pagination(props) {
     <ul className={cn()}>
       {items.map((number, index) => (
         <li key={index}
-            className={cn('item', {active: number === props.page, split: !number})}
+            className={cn((items.length == 1 ? 'item_active_one' : 'item'), {active: number === props.page, split: !number})}
             onClick={onClickHandler(number)}>
           {number
             ? (props.makeLink
