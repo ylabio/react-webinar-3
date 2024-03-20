@@ -1,5 +1,6 @@
 {
   "title": "Shop",
+  "catalog.all": "All",
   "menu.main": "Main",
   "basket.title": "Cart",
   "basket.open": "Open",
@@ -14,5 +15,15 @@
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "user.login": "Sign",
+  "user.logout": "Exit",
+  "login.title": "Sign in",
+  "login.form.login": "Login",
+  "login.form.password": "Password",
+  "login.form.button": "Enter",
+  "profile.title": "Profile",
+  "profile.user.name": "Name:",
+  "profile.user.phone": "Phone:",
+  "profile.user.email": "email:"
 }

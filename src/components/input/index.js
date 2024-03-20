@@ -10,28 +10,28 @@ function Input(props) {
   // Внутренний стейт для быстрого отображения ввода
   const [value, setValue] = useState(props.value);
 
-  const onChangeDebounce = useCallback(
-    debounce(value => props.onChange(value, props.name), 600),
-    [props.onChange, props.name]
-  );
+  // const onChangeDebounce = useCallback(
+  //   value => props.onChange(value, props.name),
+  //   [props.onChange, props.name]
+  // );
 
   // Обработчик изменений в поле
   const onChange = (event) => {
     setValue(event.target.value);
-    onChangeDebounce(event.target.value);
+    props.onChange(event.target.value);
   };
 
   // Обновление стейта, если передан новый value
-  useLayoutEffect(() => setValue(props.value), [props.value]);
-
+  // useLayoutEffect(() => setValue(props.value), [props.value]);
+console.log('props.value',props.value)
   const cn = bem('Input');
   return (
     <input
       className={cn({theme: props.theme})}
-      value={value}
+      value={props.value}
       type={props.type}
       placeholder={props.placeholder}
-      onChange={onChange}
+      onChange={(e) => props.onChange(e.target.value)}
     />
   )
 }
