@@ -9,10 +9,13 @@ const LoginForm = ({ onClick, error, t }) => {
 
   const [showError, setShowError] = useState(false)
 
-  const handleBtnClick = () => {
-    onClick(login, pass)
-    setShowError(true)
-  }
+  useEffect(() => {
+    if (error) setShowError(true)
+  }, [error])
+
+  useEffect(() => {
+    setShowError(false)
+  }, [])
 
   return (
     <SideLayout side='start' padding='medium'>
@@ -31,7 +34,7 @@ const LoginForm = ({ onClick, error, t }) => {
             <div key={i} className='LoginForm-error'>{issue.message}</div>
           ))
         }
-        <button className='LoginForm-btn' onClick={handleBtnClick}>{t('user.enter')}</button>
+        <button className='LoginForm-btn' onClick={() => onClick(login, pass)}>{t('user.enter')}</button>
       </div>
     </SideLayout>
   );
