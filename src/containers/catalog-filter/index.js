@@ -1,7 +1,8 @@
-import {memo, useCallback, useMemo} from "react";
+import {memo, useCallback, useMemo, useState, useEffect} from "react";
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
+import useDebounce from "../../hooks/use-debounce";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
@@ -21,15 +22,29 @@ function CatalogFilter() {
     categories: sortCategories(state.categories.list),
   }));
 
+  const [debouncedSearch, clearDebouncedSearch] = useDebounce(query => store.actions.catalog.setParams({query, page: 1}), 600);
+
+  const [searchValue, setSearchValue] = useState(select.query);
+
+  useEffect(() => setSearchValue(select.query), [select.query]);
+  useEffect(() => clearDebouncedSearch, []);
+
   const callbacks = {
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
     // Поиск
-    onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
+    onSearch: useCallback((value) => {
+      setSearchValue(value);
+      debouncedSearch(value);
+    }, [store]),
     // Выбор категории
     onSelectCategory: useCallback(category => store.actions.catalog.setParams({category, page: 1}), [store]),
     // Сброс
-    onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
+    onReset: useCallback(() => {
+      store.actions.catalog.resetParams()
+      clearDebouncedSearch();
+      setSearchValue('');
+    }, [store]),
   };
 
   const {t} = useTranslate();
@@ -51,7 +66,7 @@ function CatalogFilter() {
     <SideLayout padding='medium'>
       <Select options={options.category} value={select.category} onChange={callbacks.onSelectCategory}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
-      <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
+      <Input value={searchValue} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>
