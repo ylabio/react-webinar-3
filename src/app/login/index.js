@@ -9,7 +9,7 @@ import Navigation from "../../containers/navigation";
 import LocaleSelect from "../../containers/locale-select";
 import LoginHeader from '../../containers/login-header';
 import LoginForm from '../../components/login-form';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 /**
  * Страница входа
@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom'
 function Login() {
   const store = useStore();
   const navigate = useNavigate()
+  const location = useLocation()
 
   const select = useSelector(state => ({
     error: state.login.error,
@@ -24,7 +25,11 @@ function Login() {
   }))
   
   useInit(() => {
-    if(select.isLoggedIn) navigate('/')
+    if(select.isLoggedIn && location.key === 'default') {
+      navigate('/')
+    } else if (select.isLoggedIn) {
+      navigate(-1)
+    }
   }, [select.isLoggedIn]);
 
   useEffect(() => {

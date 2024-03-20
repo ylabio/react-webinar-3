@@ -44,7 +44,7 @@ function CatalogFilter() {
       {value: 'edition', title: 'Древние'},
     ]), []),
     category: useMemo(() => ([
-      {value: '', title: translate(navigator.language, 'category.all')},
+      {value: '', title: 'Все'},
       ...makeCategoriesOptions(select.categories)
     ]))
   };
@@ -54,7 +54,7 @@ function CatalogFilter() {
       <Select options={options.category} value={select.category} onChange={callbacks.onCategory}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
-             delay={1000}/>
+             delay={1000} theme='big'/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>
   )

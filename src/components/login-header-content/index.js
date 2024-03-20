@@ -13,10 +13,10 @@ const LoginContent = ({isLoggedIn, username, onLogOut, t}) => {
       {isLoggedIn ? (
         <>
           <Link to='/profile' className='Login-profile-link'>{username}</Link>
-          <button onClick={callbacks.onLogOut}>{t('loginHeader.logout')}</button>
+          <button className='Login-btn--logout' onClick={callbacks.onLogOut}>{t('loginHeader.logout')}</button>
         </>
       ) : (
-        <Link className="Login-btn" to='/login'>{t('loginHeader.login')}</Link>
+        <Link className="Login-btn--login" to='/login'>{t('loginHeader.login')}</Link>
       )}
     </>
   )

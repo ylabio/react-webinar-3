@@ -25,4 +25,7 @@
 
 .Menu-link {
   color: #0087E9;
+  border-bottom: 1px solid #0087E9;
+  text-decoration: none;
+  margin-bottom: -50px;
 }

@@ -1,4 +1,4 @@
-import { getCurrentToken } from "../../utils";
+import { gatherErrorMessages, getCurrentToken } from "../../utils";
 import StoreModule from "../module";
 
 class LoginState extends StoreModule {
@@ -30,13 +30,15 @@ class LoginState extends StoreModule {
       }) 
 
       if (!response.ok) {
+        const errorData = await response.json()
+        const errorMessage = gatherErrorMessages(errorData.error)
+        
         this.setState({
           ...this.initState(),
-          error: response.statusText 
+          error: errorMessage
         })
         throw new Error(`request failed with status ${response.status}`)
       }
-      
       const json = await response.json()
       
       this.setState({
@@ -47,8 +49,8 @@ class LoginState extends StoreModule {
 
       window.localStorage.setItem('token', json.result.token)
       window.localStorage.setItem('username', json.result.user.username)
-    } catch(err) {
-      console.error('Fetch error', err) 
+    } catch(error) {
+      console.error('Fetch error', error) 
     }
   }
 
@@ -96,8 +98,10 @@ class LoginState extends StoreModule {
   }
 
   async validateToken(token) {
+    const username = window.localStorage.getItem('username')
+    
     try {
-      const response = await fetch(`/api/v1/users/self?fields=status`, {
+      const response = await fetch(`/api/v1/users/self?fields=status,username`, {
         headers: {
           'X-Token': token,
           'Content-Type': 'application/json',
@@ -109,6 +113,12 @@ class LoginState extends StoreModule {
         this.logOut()
         return false
       }
+
+      if(username !== json.result.username) {
+        window.localStorage.setItem('username', json.result.username)
+        this.setState({...this.getState(), username: json.result.username})
+      }
+
       return true
     } catch (error) {
       console.error(error)

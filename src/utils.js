@@ -47,7 +47,7 @@ export function makeCategoriesOptions(categoriesList, id, level) {
       categories.push(...children)
     }
     if (category.parent && category.parent._id === id) {
-      categories.push({value: category._id, title: '-'.repeat(level) + category.title})
+      categories.push({value: category._id, title: ' - '.repeat(level) + category.title})
       categories.push(...makeCategoriesOptions(categoriesList, category._id, level + 1))
     }
   }
@@ -57,4 +57,17 @@ export function makeCategoriesOptions(categoriesList, id, level) {
 
 export function getCurrentToken() {
   return window.localStorage.getItem('token')
+}
+
+export function gatherErrorMessages(errObj) {
+  const result = []
+  if(errObj.message) result.push(errObj.message)
+  
+  if(errObj.data.issues) {
+    for (let issue of errObj.data.issues) {
+      result.push(issue.message)
+    }
+  }
+
+  return result.join('. ');
 }

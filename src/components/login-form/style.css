@@ -13,7 +13,21 @@
   margin-bottom: 20px;
 }
 
+.Login-form-input > input {
+  font-size: 16px;
+  width: 100%;
+  padding: 2px;
+  box-sizing: border-box;
+  border: 1px solid #767676;
+  border-radius: 0;
+}
+
+.Login-form-input > input textarea:focus, input:focus{
+  outline: none;
+}
+
 .Login-form-error {
   color: red;
   margin-bottom: 19px;
+  font-size: 16px;
 }

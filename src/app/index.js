@@ -1,4 +1,4 @@
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, useLocation} from 'react-router-dom';
 import useSelector from "../hooks/use-selector";
 import Main from "./main";
 import Basket from "./basket";
@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     const handleStorage = (e) => {
-      if(e.key === 'token') store.actions.login.logOut('Login data was forcibly changed. Need to re-login.')
+      if(e.key === 'token') store.actions.login.logOut('Ключ входа был измнен. Необходимо перезайти в аккаунт')
     }
 
     window.addEventListener('storage', handleStorage)
@@ -48,7 +48,7 @@ function App() {
         <Route path={'/articles/:id'} element={<Article/>}/>
         <Route path={'/login'} element={<Login />}/>
         <Route path={'/profile'} element={
-          <PrivateRoute isLoggedIn={select.isLoggedIn}>
+          <PrivateRoute route='/login'>
             <Profile />
           </PrivateRoute>
         }

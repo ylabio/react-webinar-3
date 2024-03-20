@@ -4,6 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 function ProfileInfo({profile, t, error}) {
+  console.log(profile);
   const cn = bem('ProfileInfo');
   return (
     <div className={cn()}>

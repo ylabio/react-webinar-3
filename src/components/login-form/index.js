@@ -10,11 +10,9 @@ const LoginForm = ({uiText, error, onSubmit}) => {
     onSubmit: (e) => {
       e.preventDefault();
       const formData = new FormData(e.target)
-      if(login !== '' && password !== '') {
-        onSubmit(formData)
-        setLogin('')
-        setPassword('')
-      }
+      onSubmit(formData)
+      setLogin('')
+      setPassword('')
     },
     onChangeLogin: (e) => setLogin(e.target.value),
     onChangePassword: (e) => setPassword(e.target.value),
