@@ -10,7 +10,7 @@ import useInit from "../hooks/use-init";
 import ProfilePage from "./profile"
 import LoginPage from "./auth"
 import LoginButton from '../components/login-button';
-import UserProfileButton from '../components/userProfile-button';
+import userProfileButton from '../components/user-profile-button';
 import useTranslate from '../hooks/use-translate';
 import LoginBox from '../containers/login-line';
 import { Navigate } from 'react-router-dom';

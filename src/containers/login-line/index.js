@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
 import LoginButton from "../../components/login-button";
-import UserProfileButton from "../../components/userProfile-button";
+import UserProfileButton from "../../components/user-profile-button";
 import { useLocation } from "react-router-dom";
 const LoginBox = () => {
     const { t } = useTranslate();
