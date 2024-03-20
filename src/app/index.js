@@ -28,9 +28,7 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
-        <Route
-          path='/login'
-          element={isLoggedIn ? <Navigate to='/profile'/> : <Login/>}
+        <Route path='/login' element={<Login/>}
         />
         <Route
           path='/profile'

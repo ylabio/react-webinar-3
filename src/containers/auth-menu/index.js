@@ -22,7 +22,7 @@ const AuthMenu = () => {
   }
 
   return (
-    <SideLayout side='end' padding='small'>
+    <SideLayout side='end' padding='small' border='bottom'>
       {isLoggedIn ?
         <>
           <Link to={'/profile'}>{user?.name}</Link>

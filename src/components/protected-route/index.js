@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 
 const ProtectedRoute = ({isLoggedIn, element}) => {
-  return isLoggedIn ? <>{element} </> : <Navigate to='/login' replace={true} />;
+  return isLoggedIn ? <>{element} </> : <Navigate to='/login' />;
 }
 
 ProtectedRoute.propTypes = {

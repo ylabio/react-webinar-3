@@ -8,6 +8,7 @@ import { useCallback } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import Spinner from '../../components/spinner'
+import AuthMenu from '../../containers/auth-menu';
 import { useNavigate } from 'react-router';
 import useTranslate from '../../hooks/use-translate';
 
@@ -31,7 +32,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate('/profile')
+      navigate(-1)
     }
 
   },[isLoggedIn])
@@ -44,15 +45,9 @@ const Login = () => {
         type: 'text',
         autoComplite: 'username',
         validationConfig: {
-          required: 'Введите логин',
-          minLength: {
-            value: 2,
-            message: 'Введите не менее 2 символов',
-          },
-          maxLength: {
-            value: 30,
-            message: 'Введите менее 30 символов',
-          },
+          required: true,
+          minLength:2,
+          maxLength: 30,
         },
       },
       {
@@ -61,7 +56,7 @@ const Login = () => {
         type: 'password',
         autoComplite: 'current-password',
         validationConfig: {
-          required: 'Введите пароль',
+          required: true,
         },
       },
     ],
@@ -69,6 +64,7 @@ const Login = () => {
 
   return (
     <PageLayout>
+      <AuthMenu />
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

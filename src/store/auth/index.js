@@ -26,7 +26,7 @@ class AuthState extends StoreModule {
       const json = await res.json();
 
       if (!res.ok) {
-        const errorMessage = json.error.message;
+        const errorMessage = json.error.data.issues[0].message;
 
         this.setState({
           error: errorMessage,

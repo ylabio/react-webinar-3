@@ -1,16 +1,11 @@
 import { useState, useEffect, memo } from 'react';
-import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import './style.css'
 
 const Form = ({title, inputs, sumbitAction, errorMessage, buttonTitle}) => {
-  const {
-    register,
-    formState: { errors, isValid },
-    handleSubmit,
-  } = useForm({ mode: 'onTouched' });
 
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [formValues, setFormValues] = useState({})
 
   useEffect(() => {
     if (errorMessage) {
@@ -23,32 +18,40 @@ const Form = ({title, inputs, sumbitAction, errorMessage, buttonTitle}) => {
     }
   }, [errorMessage]);
 
-  const onSubmit = (data) => {
-    sumbitAction(data)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    sumbitAction(formValues)
   }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues(prev => ({ ...prev, [name]: value }));
+  };
 
   return (
     <div className='Form-container'>
       <h2 className='Form-title'>{title}</h2>
-      <form autoComplete='on' className='Form' onSubmit={handleSubmit(onSubmit)}>
+      <form autoComplete='on' className='Form' onSubmit={handleSubmit}>
         {inputs.map((input) => (
           <div key={input.id} className='Form-input-container'>
             <label className='Form-label' htmlFor={input.id}>{input.label}</label>
             <input
+              onChange={handleInputChange}
+              required={input.validationConfig.required}
+              minLength={input.validationConfig.minLength}
+              maxLength={input.validationConfig.maxLength}
               id={input.id}
               name={input.id}
               autoComplete={input.autoComplete}
               type={input.type}
-              {...register(input.id, input.validationConfig)}
               className='Form-input'
             />
-              <span className='Form-error'>{errors[input.id]?.message}</span>
           </div>
         ))}
         {showErrorMessage ? (
           <span className='Form-submit-error'>{errorMessage}</span>
         ): ''}
-        <button className='Form-buttom' disabled={!isValid} type='submit'>{buttonTitle}</button>
+        <button className='Form-buttom' type='submit'>{buttonTitle}</button>
       </form>
     </div>
   );
@@ -63,15 +66,9 @@ Form.propTypes = {
       type: PropTypes.string.isRequired,
       autoComplete: PropTypes.string,
       validationConfig: PropTypes.shape({
-        required: PropTypes.string,
-        minLength: PropTypes.shape({
-          value: PropTypes.number,
-          message: PropTypes.string,
-        }),
-        maxLength: PropTypes.shape({
-          value: PropTypes.number,
-          message: PropTypes.string,
-        }),
+        required: PropTypes.bool,
+        minLength: PropTypes.number,
+        maxLength: PropTypes.number,
       }),
     })
   ).isRequired,
