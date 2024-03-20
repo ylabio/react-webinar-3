@@ -22,5 +22,6 @@
   "login":"Login",
   "password":"Password",
   "signin":"signIn",
-  "signout":"signOut"
+  "signout":"signOut",
+  "submit":"submit"
 }

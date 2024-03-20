@@ -17,10 +17,14 @@ function Profile() {
   const select = useSelector(state => ({
     profileInfo: state.auth.profileInfo
   }));
+  const callbacks = {
+    check: useCallback((_id = 'self') => store.actions.profile.checkProfile('self')),
+  };
   useInit(() => {
     if (select.profileInfo.result) {} else navigate('/login')
+    callbacks.check()
     }, [select.profileInfo])
-
+    
     const {t} = useTranslate();
   return (
     <>

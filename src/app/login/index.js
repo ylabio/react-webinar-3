@@ -1,4 +1,4 @@
-import {memo, useCallback} from 'react';
+import {memo, useCallback, useEffect} from 'react';
 import PageLayout from '../../components/page-layout';
 import AuthControl from '../../components/auth-control';
 import Head from '../../components/head';
@@ -21,19 +21,19 @@ function Login() {
       token: state.auth.profileInfo.token
     }));
     const {t} = useTranslate();
-
     const callbacks = {
       // Авторизация
       onAuth: useCallback((login,password) => store.actions.auth.login({login,password})),
       onGet: useCallback(() => store.actions.auth.getProfile()),
+      clear: useCallback(() => store.actions.auth.clearError()),
     };
     useInit(() => {
     if (select.name) {
-      navigate('/profile')
+      navigate(-1)
     }
     }, [select.name])
 
-    
+    useEffect(() => callbacks.clear(), [])
   return (
       <>
         <Navigation/>

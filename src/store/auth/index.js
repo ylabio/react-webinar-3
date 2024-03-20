@@ -6,7 +6,7 @@ class AuthState extends StoreModule {
     initState(){
         return{
             profileInfo: {},
-            token:'',
+            token:localStorage.getItem('token'),
             error:''
 
         }
@@ -19,12 +19,19 @@ class AuthState extends StoreModule {
     }
     }
 
+    clearError(){
+        this.setState({
+            ...this.getState(),
+            error:''
+        })
+    }
+
     async loadToken(token){
 
         this.setState({
             ...this.getState(),
             error:'',
-            token:token
+            token:this.getState().token
         })
     }
 
@@ -42,28 +49,28 @@ class AuthState extends StoreModule {
 
 
             const json = await response.json();
-            if (json?.error?.message){
+            if (json?.error){
                 this.setState({
                     ...this.getState(),
-                    error:json.error.message
+                    error:json.error
                 })
             }
             else{   
                 const responeProfile = await fetch('api/v1/users/self?fields=*',{
                     method: 'get',
                     headers:{
-                        "X-token": `${json.result?.token}`,
+                        "X-token": `${json.result.token}`,
                         "Content-Type": "application/json"
                     }
                 })
-                localStorage.setItem('token',JSON.stringify({token:json.result?.token}));
                 this.setState({
                     ...this.getState(),
                     error:'',
-                    token:json.result?.token,
+                    token:json.result.token,
                     profileInfo:await responeProfile.json()
 
                 })
+                localStorage.setItem('token',this.getState().token);
                 
             }
 
@@ -75,6 +82,16 @@ class AuthState extends StoreModule {
 
     async exit(){
         // localStorage.clear();
+        const token = localStorage.getItem('token');
+        try {
+          await fetch(`/api/v1/users/sign`, {
+            method: 'DELETE',
+            headers:  {
+              'Content-Type': 'application/json',
+              'X-Token': token
+            }
+        })
+
         localStorage.removeItem('token')
         this.setState({
             ...this.getState(),
@@ -82,10 +99,16 @@ class AuthState extends StoreModule {
             error:'',
             profileInfo: {}
         })
+        } catch (e) {
+            this.setState({
+            waiting: false,
+            error: e
+            });
+      }
     }
 
     async getProfile(){
-        const token = JSON.parse(localStorage.getItem('token'))?.token;
+        const token = localStorage.getItem('token');
 
         const response = await fetch('api/v1/users/self?fields=*',{
             method: 'get',

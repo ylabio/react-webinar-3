@@ -24,6 +24,7 @@
   "login":"Логин",
   "password":"Пароль",
   "signin":"войти",
-  "signout":"выйти"
+  "signout":"выйти",
+  "submit":"войти"
 
 }

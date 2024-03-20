@@ -10,7 +10,6 @@ function SelectCategory(props) {
 
  
 
-  console.log(props)
   return (
     <select className="Select" value={props.value} onChange={onSelect}>
       {props.categories.map(item => (
