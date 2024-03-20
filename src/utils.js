@@ -42,7 +42,7 @@ export function buildCategory(categories, parentId = null, depth = 0) {
       const { _id, title, parent } = category;
       
       if ((parent && parent._id === parentId) || (!parent && !parentId)) {
-          const prefix = '-'.repeat(depth);
+          const prefix = '- '.repeat(depth);
           const fullTitle = `${prefix} ${title}`;
           result.push({ value: _id, title: fullTitle });
           
