@@ -17,7 +17,7 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
-        categorySort: '',
+        categorySort: 'Все',
       },
       count: 0,
       waiting: false,
@@ -87,7 +87,7 @@ class CatalogState extends StoreModule {
       'search[query]': params.query
     };
 
-    if (params.categorySort !== 'Все') {
+    if (params.categorySort && params.categorySort !== 'Все') {
       const categoryId = this.getState().categories.find(item => item.title === params.categorySort)?._id;
       apiParams['search[category]'] = categoryId;
     }

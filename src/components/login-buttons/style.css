@@ -1,0 +1,19 @@
+.LoginButtons {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  height: 41px;
+  padding-right: 23px;
+}
+
+.LoginButtons-link {
+  display: inline-block;
+  width: 47px;
+  height: 21px;
+  text-decoration: none;
+  background: #EFEFEF;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  color: #000000;
+  text-align: center;
+}

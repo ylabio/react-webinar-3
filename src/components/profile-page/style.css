@@ -1,0 +1,17 @@
+.ProfilePage {
+  padding-top: 46px;
+  padding-left: 20px;
+}
+
+.ProfilePage-title {
+  margin-bottom: 30px;
+}
+
+.ProfilePage-data {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.ProfilePage-user-data {
+  font-weight: 700;
+}

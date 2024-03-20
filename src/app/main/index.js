@@ -28,7 +28,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title={t('title')}>
+      <Head title={t('title')} link={'login'}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
