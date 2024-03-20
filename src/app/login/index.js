@@ -33,8 +33,12 @@ const Login = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      const navigationPath = location.state?.prevPage || '/';
-        navigate(navigationPath);
+      const prevPage = location.state?.prevPage || '/';
+      if(prevPage === location.pathname) {
+        navigate('/')
+      } else {
+        navigate(prevPage);
+      }
     }
   }, [isLoggedIn]);
 
