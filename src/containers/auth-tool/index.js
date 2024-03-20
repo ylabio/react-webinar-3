@@ -30,7 +30,7 @@ function Auth() {
     <SideLayout side="end" padding="10x20">
       {!select.userData ? (
         <ProfileTool
-          label={t("login")}
+          label={t("enter")}
           onClick={callbacks.navigateToAuthForm}
         />
       ) : (

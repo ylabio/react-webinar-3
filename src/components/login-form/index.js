@@ -12,7 +12,7 @@ function LoginForm({ errorMessage, onChange, values, onSubmit, t }) {
         <label className={cn("login-label")} htmlFor="login">
           {t("form.label.login")}
           <input
-            className={cn("login-input")}
+            className={cn("input")}
             id="login"
             type="text"
             name="login"
@@ -23,7 +23,7 @@ function LoginForm({ errorMessage, onChange, values, onSubmit, t }) {
         <label className={cn("pass-label")} htmlFor="password">
           {t("form.label.password")}
           <input
-            className={cn("pass-input")}
+            className={cn("input")}
             id="password"
             type="password"
             name="password"
