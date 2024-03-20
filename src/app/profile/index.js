@@ -16,9 +16,14 @@ const ProfilePage = (props) => {
     const store = useStore();
     const navigate = useNavigate();
     const auth = useSelector(state => state.auth);
+    const userProfile = useSelector(state => state.profile);
     useInit(async () => {
-        await store.actions.auth.fetchProfile();
-    }, []);
+        if (auth.token) { 
+            await store.actions.profile.fetchProfile(auth.token);
+        } else {
+           //утт можно обработать отрицательный вариант
+        }
+    }, [store.actions.userProfile, auth.token]);
     
 
 
@@ -28,11 +33,10 @@ const ProfilePage = (props) => {
         return (
             <PageLayout>
                 <Head title={t('title')}>
-
                     <LocaleSelect />
                 </Head>
                 <Navigation />
-                <ProfileCard title={t('profile.title')} name={t('profile.name')} phone={t('profile.phone')} email={t('profile.email')} user={auth} />
+                <ProfileCard title={t('profile.title')} name={t('profile.name')} phone={t('profile.phone')} email={t('profile.email')} user={userProfile} />
             </PageLayout>
         );
     

@@ -2,11 +2,9 @@ import StoreModule from "../module";
 class AuthState extends StoreModule {
     initState() {
         return {
-            user: null,        
-            token: null,      
-            loginError: null, 
-            waiting: false ,
-            profile:null ,
+            token: null,
+            loginError: null,
+            waiting: false
         };
     }
 
@@ -82,39 +80,7 @@ class AuthState extends StoreModule {
             }
         }
     }
-    async fetchProfile() { //по сути получился двойной запрос, но я пока не знаю как проверять на валидность токена кроме как через это, не хранить пароли
-        const token = localStorage.getItem('authToken');
-        if (token) {
-            try {
-                const response = await fetch('/api/v1/users/self?fields=*', {
-                    headers: {
-                        'X-Token': token,
-                        'Content-Type': 'application/json'
-                    }
-                });
 
-                if (!response.ok) {
-                    throw new Error('Ошибка получения данных профиля');
-                }
-
-                const json = await response.json();
-                this.setState({
-                    user: json.result.profile.name,
-                    token,
-                    waiting: false,
-                    profile: {
-                        ...json.result.profile,
-                        email: json.result.email
-                    },
-                });
-            } catch (e) {
-                console.error('Ошибка при загрузке профиля:', e);
-            }
-        }
-    }
-
-
-    
     async autoLogin() { //Так как а апи нет ссылки для авторизации по логину, я сделал авторизацю через получение данных, это позволяет сразу проверить ликвидность токена и его удаление если он неправильный или вышел из строя, поидее тут должен быть другой запрос
         const token = localStorage.getItem('authToken');
         if (!token) {
