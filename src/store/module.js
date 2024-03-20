@@ -14,10 +14,12 @@ class StoreModule {
   }
 
   getState() {
+    console.log('getState', this.store.getState())
     return this.store.getState()[this.name];
   }
 
   setState(newState, description = 'setState') {
+    console.log('setState', this.store.getState(), this.name, newState)
     this.store.setState({
       ...this.store.getState(),
       [this.name]: newState

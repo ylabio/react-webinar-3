@@ -16,10 +16,12 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        categorySort: 'Все',
       },
       count: 0,
-      waiting: false
+      waiting: false,
+      categories: [],
     }
   }
 
@@ -36,6 +38,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('categorySort')) validParams.categorySort = urlParams.get('categorySort');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
 
@@ -73,7 +76,7 @@ class CatalogState extends StoreModule {
     if (replaceHistory) {
       window.history.replaceState({}, '', url);
     } else {
-      window.history.pushState({}, '', url);
+      window.history.pushState({},  '', url);
     }
 
     const apiParams = {
@@ -84,14 +87,48 @@ class CatalogState extends StoreModule {
       'search[query]': params.query
     };
 
+    if (params.categorySort && params.categorySort !== 'Все') {
+      const categoryId = this.getState().categories.find(item => item.title === params.categorySort)?._id;
+      apiParams['search[category]'] = categoryId;
+    }
+
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
+
     this.setState({
       ...this.getState(),
       list: json.result.items,
       count: json.result.count,
       waiting: false
     }, 'Загружен список товаров из АПИ');
+  }
+
+  async loadCategories() {
+    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
+    const json = await response.json();
+    const categories = json.result.items;
+    const sortedCategories = this.setCategories(categories);
+
+    this.setState({
+      ...this.getState(),
+      categories: [{_id: '', title: 'Все', parent: null}, ...sortedCategories],
+    });
+  }
+
+  setCategories(categories, parentId = null, nestLevel = 0) {
+    const sortedCategories = [];
+    categories.forEach(category => {
+      if (category.parent && category.parent._id === parentId || (!category.parent && !parentId)) {
+        sortedCategories.push({
+          _id: category._id,
+          title: `${('-').repeat(nestLevel)} ${category.title}`,
+          parent: parentId,
+        })
+        const nestedCategories = this.setCategories(categories, category._id, nestLevel + 1);
+        sortedCategories.push(...nestedCategories);
+      }
+    });
+    return sortedCategories;
   }
 }
 
