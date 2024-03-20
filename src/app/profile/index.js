@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback} from 'react';
 import PageLayout from "../../components/page-layout";
 import UserPanel from "../../containers/user-panel";
 import Head from "../../components/head";
@@ -7,12 +7,11 @@ import Navigation from "../../containers/navigation";
 import useTranslate from "../../hooks/use-translate";
 import ProfileInfo from "../../components/profile-info";
 import useSelector from "../../hooks/use-selector";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import useStore from "../../hooks/use-store";
+import useAuth from "../../hooks/use-auth";
 
 const Profile = () => {
-
-  const navigate = useNavigate()
 
   const { id } = useParams()
 
@@ -27,14 +26,7 @@ const Profile = () => {
     getUserProfile: useCallback((id, token) => store.actions.profile.getUserProfile(id, token), [store])
   }
 
-  useEffect(() => {
-    if (!select.token) {
-      navigate('/login')
-    } else {
-      callbacks.getUserProfile(id, select.token)
-    }
-  }, [select.token])
-
+  useAuth(callbacks.getUserProfile, [id, select.token])
 
   const {t} = useTranslate();
 
