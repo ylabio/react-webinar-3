@@ -1,18 +1,26 @@
 import React, { useState, memo, useCallback } from "react";
+import useInit from "../../hooks/use-init";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
-import AuthBtn from "../../components/auth-btn";
 import Navigation from "../../containers/navigation";
 import LocaleSelect from "../../containers/locale-select";
 import useTranslate from "../../hooks/use-translate";
 import UserProfile from "../../components/user-profile";
+import AuthBtn from "../../containers/auth-btn";
 
 const Profile = () => {
+  const store = useStore();
+
   const select = useSelector((state) => ({
-    username: state.auth.username,
+    profile: state.profile.profile,
+    waiting: state.profile.waiting,
   }));
+
+  useInit(async () => {
+    await store.actions.profile.fetchProfile();
+  }, []);
 
   const { t } = useTranslate();
 
@@ -23,7 +31,11 @@ const Profile = () => {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <UserProfile username={select.username} t={t} />
+      {select.waiting ? (
+        "Загрузка..."
+      ) : (
+        <UserProfile user={select.profile} t={t} />
+      )}
     </PageLayout>
   );
 };

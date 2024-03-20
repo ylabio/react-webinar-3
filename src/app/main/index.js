@@ -1,4 +1,5 @@
-import { memo } from "react";
+import { memo, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -8,7 +9,7 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
-import AuthBtn from "../../components/auth-btn";
+import AuthBtn from "../../containers/auth-btn";
 
 /**
  * Главная страница - первичная загрузка каталога

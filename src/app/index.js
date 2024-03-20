@@ -7,8 +7,8 @@ import Article from "./article";
 import Login from "./login";
 import Profile from "./profile";
 import useStore from "../hooks/use-store";
-import LoginCheck from "../components/check-auth/login-check";
-import AuthCheck from "../components/check-auth/auth-check";
+import LoginCheck from "../containers/check-auth/login-check";
+import AuthCheck from "../containers/check-auth/auth-check";
 
 /**
  * Приложение
@@ -21,8 +21,6 @@ function App() {
   useInit(() => {
     store.actions.auth.checkAuth();
   }, []);
-
-  // console.log(store.actions);
 
   return (
     <>

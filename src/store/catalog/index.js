@@ -20,6 +20,7 @@ class CatalogState extends StoreModule {
       },
       count: 0,
       waiting: false,
+      itemsCategory: [],
     };
   }
 
@@ -112,6 +113,52 @@ class CatalogState extends StoreModule {
       },
       "Загружен список товаров из АПИ"
     );
+  }
+
+  async initCategory() {
+    const CategoryOptions = (categories, parentId = null, depth = 0) => {
+      const result = [];
+
+      if (!parentId) {
+        result.push({ value: "all", title: "Все категории" });
+      }
+
+      categories.forEach((category) => {
+        const { _id, title, parent } = category;
+
+        if (parent && parent._id === parentId) {
+          const prefix = "- ".repeat(depth);
+          const titleName = `${prefix}${title}`;
+          result.push({ value: _id, title: titleName });
+
+          const children = CategoryOptions(categories, _id, depth + 1);
+          result.push(...children);
+        } else if (!parent && !parentId) {
+          const prefix = "- ".repeat(depth);
+          const titleName = `${prefix}${title}`;
+          result.push({ value: _id, title: titleName });
+
+          const children = CategoryOptions(categories, _id, depth + 1);
+          result.push(...children);
+        }
+      });
+
+      return result;
+    };
+
+    try {
+      const response = await fetch(
+        `/api/v1/categories?fields=_id,title,parent(_id)&limit=*`
+      );
+      const data = await response.json();
+      const categories = CategoryOptions(data.result.items);
+      this.setState({
+        ...this.getState(),
+        itemsCategory: categories,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 

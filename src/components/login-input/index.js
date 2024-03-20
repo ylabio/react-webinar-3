@@ -14,7 +14,7 @@ const LoginInput = ({
 
   return (
     <div className={cn()}>
-      <h2 className={cn("title")}>{t("login.title")}</h2>
+      <h2 className={cn("title")}>{t("login.login")}</h2>
       <form onSubmit={onLogin} className={cn("form")}>
         <div className={cn("form-control")}>
           <label htmlFor="login">{t("login.login")}</label>

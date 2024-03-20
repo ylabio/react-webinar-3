@@ -25,13 +25,12 @@ class AuthState extends StoreModule {
         body: JSON.stringify(dataAuth),
       });
 
-      if (!response.ok) {
-        const errorAuth = await response.json();
-        console.log("errorAuth =>", errorAuth);
-        throw new Error(errorAuth?.error?.message);
-      }
-
       const data = await response.json();
+
+      if (!response.ok) {
+        const errorMessage = data.error.data.issues[0].message;
+        throw new Error(errorMessage);
+      }
 
       this.setState({
         token: data.result.token,
@@ -98,6 +97,9 @@ class AuthState extends StoreModule {
       console.error(error);
       this.setState({ error: error.message, waiting: false });
     }
+  }
+  clearError() {
+    this.setState({ error: "" });
   }
 }
 

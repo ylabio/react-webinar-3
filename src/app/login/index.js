@@ -1,13 +1,14 @@
 import React, { useState, memo, useCallback } from "react";
+import useInit from "../../hooks/use-init";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import LoginInput from "../../components/login-input";
-import AuthBtn from "../../components/auth-btn";
 import Navigation from "../../containers/navigation";
 import LocaleSelect from "../../containers/locale-select";
 import useTranslate from "../../hooks/use-translate";
+import AuthBtn from "../../containers/auth-btn";
 
 const Login = () => {
   const [dataAuth, setDataAuth] = useState({ login: "", password: "" });
@@ -36,6 +37,10 @@ const Login = () => {
   };
 
   const { t } = useTranslate();
+
+  useInit(() => {
+    store.actions.auth.clearError();
+  }, []);
 
   return (
     <PageLayout>
