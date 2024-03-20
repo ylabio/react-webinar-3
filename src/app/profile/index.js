@@ -1,4 +1,5 @@
-import { memo, useEffect, useCallback } from "react";
+import { memo, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import ProfileCard from "../../components/profile-card";
 import Head from "../../components/head";
 import Spinner from "../../components/spinner";
@@ -14,7 +15,7 @@ import useInit from '../../hooks/use-init';
 function Profile() {
   const { t } = useTranslate();
   const store = useStore();
-
+  const navigate = useNavigate();
   const select = useSelector((state) => ({
     isLogin: state.login.isLogin,
     waiting: state.profile.waiting,
