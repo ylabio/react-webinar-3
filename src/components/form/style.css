@@ -1,0 +1,33 @@
+.Form-container {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 203px;
+}
+
+.Form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 205px;
+}
+
+.Form-input-container {
+  width: inherit;
+}
+
+.Form-input {
+  width: 100%;
+  padding: 3px;
+  font-size: 16px;
+  border: 1px solid #767676;
+}
+
+.Form-buttom {
+  width: fit-content;
+}
+
+.Form-submit-error {
+  font-size: 16px;
+  color: #f00;
+}

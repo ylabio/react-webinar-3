@@ -1,5 +1,10 @@
 {
   "title": "Shop",
+  "auth.login": "Login",
+  "auth.password": "Password",
+  "auth.signin": "Sign in",
+  "auth.signin-btn": "Sign in",
+  "auth.signout": "Sign out",
   "menu.main": "Main",
   "basket.title": "Cart",
   "basket.open": "Open",

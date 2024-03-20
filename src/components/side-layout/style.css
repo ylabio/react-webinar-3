@@ -3,8 +3,6 @@
   flex-wrap: nowrap;
   justify-content: flex-start;
   padding: 0;
-  margin-left: -5px;
-  margin-right: -5px;
   align-items: center;
 }
 
@@ -25,9 +23,32 @@
 }
 
 .SideLayout_padding_medium {
-  padding: 20px;
+  padding: 15px;
+}
+
+.SideLayout_border_standart {
+  border: solid 1px #DCDCDC;
+}
+
+.SideLayout_border_bottom {
+  border-bottom: solid 1px #DCDCDC;
+}
+
+.SideLayout_border_top {
+  border-top: solid 1px #DCDCDC;
+}
+
+.SideLayout_border_right {
+  border-right: solid 1px #DCDCDC;
+}
+
+.SideLayout_border_left {
+  border-left: solid 1px #DCDCDC;
 }
 
 .SideLayout-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
   margin: 0 5px;
 }
