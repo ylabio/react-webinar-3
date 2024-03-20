@@ -44,7 +44,7 @@ export function setOptionCategory(categories, nesting=0,id=null){
   categories.forEach(elem=>{
 
     if(elem.parent?._id===id || elem.parent===id){   
-      newCategories.push({...elem, value:elem._id,title:'-'.repeat(nesting)+elem.title})
+      newCategories.push({...elem, value:elem._id,title:'- '.repeat(nesting)+elem.title})
       newCategories.push(...setOptionCategory(categories,nesting+1,elem._id))
     }
   })

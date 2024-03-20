@@ -29,7 +29,7 @@ const UserAuthCard = ({ onGetUser, eror }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      {eror && <div className={cn() + "-Eror"}>{eror}</div>}
+      {eror && <div className={cn() + "-Eror"}>{eror.map((error)=><div key={eror.message}>{error.message}</div>)}</div>}
       <button onClick={() => onGetUser(login, password)}>Войти</button>
     </div>
   );

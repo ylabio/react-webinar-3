@@ -8,7 +8,7 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
-import HeaderAuth from "../../components/header-auth";
+
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -23,12 +23,12 @@ function Main() {
     [],
     true
   );
-useMemo(()=>store.actions.user.AuthCheck(),[store])
+
   const { t } = useTranslate();
 
   return (
     <PageLayout>
-      <HeaderAuth />
+
       <Head title={t("title")}>
         <LocaleSelect />
       </Head>

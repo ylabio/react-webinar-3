@@ -18,6 +18,8 @@ const [categories, setCategories]=useState([]);
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
+    categoriesSort: state.categories.categoriesSort,
+    categoriesProducts: state.categories.categoriesProducts,
   }));
 
   const callbacks = {
@@ -30,27 +32,17 @@ const [categories, setCategories]=useState([]);
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
     onGetCategories: useCallback(() => store.actions.catalog.getCategories(), [store]),
   };
+useMemo(()=>{
+store.actions.categories.getCatalogProducts()
+},[store])
 
-  const options = {
-    sort: useMemo(() => ([
-      {value: 'order', title: 'По порядку'},
-      {value: 'title.ru', title: 'По именованию'},
-      {value: '-price', title: 'Сначала дорогие'},
-      {value: 'edition', title: 'Древние'},
-    ]), []),
- 
-  };
-useMemo(async()=>{
-  const response = await fetch(`/api/v1/categories?fields=_id,title,name,parent(_id)&limit=*`)
-  const json = await response.json()
-  setCategories(setOptionCategory(json.result.items))
-},[])
+
   const {t} = useTranslate();
 
   return (
     <SideLayout padding='medium'>
-       <Select options={categories} value={select.category} onChange={callbacks.onSortCategory}/>
-      <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
+       <Select options={select.categoriesProducts} value={select.category} onChange={callbacks.onSortCategory}/>
+      <Select options={select.categoriesSort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

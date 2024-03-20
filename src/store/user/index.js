@@ -36,13 +36,13 @@ class User extends StoreModule {
         },
         body: JSON.stringify(user),
       });
+         let result = await response.json();
       if (response.ok) {
-        let result = await response.json();
         localStorage.setItem('token',result.result.token);
         this.setUserInformation({ ...result.result, eror: false, auth: true });
       } else {
-        console.log(response);
-        this.setUserInformation({ eror: response.statusText, auth: false });
+   
+        this.setUserInformation({ eror: result.error.data.issues, auth: false });
       }
     } catch (e) {
       console.log(e);
@@ -74,7 +74,7 @@ class User extends StoreModule {
   async getUserToken(token) {
     try {
       let response = await fetch(
-        "/api/v1/users/self?fields=username,profile(phone),email",
+        "/api/v1/users/self?fields=username,profile(phone,name),email",
         {
           method: "GET",
           headers: {
@@ -86,19 +86,14 @@ class User extends StoreModule {
 
       if (response.ok) {
         let result = await response.json();
-        this.setUserInformation({ user: result.result, auth:true });
+        this.setUserInformation({ user: result.result, auth:true, token:token });
       }
     } catch (e) {
       console.log(e);
     }
   }
 
-  AuthCheck(){
-    const token=localStorage.getItem('token');
-    if(!this.getState().auth && token){
-      this.getUserToken(token)
-    }
-  }
+
 }
 
 export default User;

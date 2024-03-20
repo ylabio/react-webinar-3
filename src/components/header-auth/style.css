@@ -1,8 +1,13 @@
 .HeaderAuth {
+  max-width: 1024px;
+  background-color: white;
+  margin: auto;
   display: flex;
   justify-content: flex-end;
+  box-sizing: border-box;
   padding: 10px 20px;
   gap: 20px;
+  border-bottom: 1px solid #CCCCCC;
 }
 .HeaderAuth-Username {
   color: #60b4f1;

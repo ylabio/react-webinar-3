@@ -1,14 +1,13 @@
 import Head from "../../components/head";
-import ModalUser from "../../components/modal-user";
 import useTranslate from "../../hooks/use-translate";
 import LocaleSelect from "../../containers/locale-select";
 import UserAuthCard from "../../components/user-auth-card";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import { useCallback } from "react";
-import HeaderAuth from "../../components/header-auth";
-import { Navigate } from "react-router-dom";
 import Navigation from "../../containers/navigation";
+import PageLayout from "../../components/page-layout";
+
 
 
 const UserAuth = () => {
@@ -29,15 +28,16 @@ const UserAuth = () => {
 
   return (
     <>
-      <ModalUser>
-          {select.auth && <Navigate to={"/profile"} />}
-        <HeaderAuth />
+    <PageLayout>
+     
         <Head title={t("title")}>
           <LocaleSelect />
         </Head>
         <Navigation />
         <UserAuthCard onGetUser={callbacks.onGetUser} eror={select.eror} />
-      </ModalUser>
+   
+    </PageLayout>
+    
     </>
   );
 };

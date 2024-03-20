@@ -15,6 +15,7 @@ const HeaderAuth = () => {
     onDeleteUser: useCallback(() => store.actions.user.deleteUser(), [store]),
   };
 
+
   return (
     <div className="HeaderAuth">
       {select.auth && (
@@ -22,7 +23,7 @@ const HeaderAuth = () => {
           className="HeaderAuth-Username"
           onClick={() => navigate("/profile")}
         >
-          {select.user.username}
+          {select.user.profile.name}
         </div>
       )}
       {select.auth ? (
