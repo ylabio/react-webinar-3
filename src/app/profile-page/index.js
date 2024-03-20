@@ -13,7 +13,7 @@ const ProfilePage = () => {
 
     const select = useSelector(state => ({
         exception: state.login.exception,
-        profileInfo:state.login.profileInfo
+        profileInfo:state.profile.profileInfo
       }));
     
     

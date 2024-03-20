@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import Head from "../head";
 import LocaleSelect from "../../containers/locale-select";
 import ButtonLogin from "../../app/login-menu";
@@ -10,12 +10,20 @@ import 'style.css'
 const LoginLayout = (props) => {
     const router = useNavigate();
     
+    let exception = props.exception;
+    
+    useEffect(()=>{
+       props.clearException();
+       exception = '';
+    },[])
+
     function onButton(e){
         e.preventDefault();
         props.onEnter(props.logValue,props.passValue);
 
-        if (!props.exception && props.logValue && props.passValue){
+        if (!exception && props.logValue && props.passValue){
             router(props.navigateLink);
+           
         }
         
     }
@@ -37,7 +45,7 @@ const LoginLayout = (props) => {
                 <input className="form-password" id="password" type={"password"} value={props.passValue}
                 onChange={(e)=> props.setPassValue(e.target.value)}
                 />
-                <p className="exception">{props.exception}</p>
+                <p className="exception">{exception}</p>
                 <button className="enter-btn" onClick={(e) => onButton(e)} >Войти</button>
             </form>
         </>

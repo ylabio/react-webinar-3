@@ -1,5 +1,5 @@
 import {useCallback, useContext, useEffect, useMemo, useState} from 'react';
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route,Navigate} from 'react-router-dom';
 import useSelector from "../hooks/use-selector";
 import Main from "./main";
 import Basket from "./basket";
@@ -16,17 +16,14 @@ function App() {
   const store = useStore();
   const activeModal = useSelector(state => state.modals.name);
   
-  const token = JSON.parse(localStorage.getItem('token'))?.token;
   
   useEffect(()=>{
-    store.actions.login.loadToken(token);
-    store.actions.login.getProfile();
+    store.actions.profile.getProfile();
   })
 
   const select = useSelector(state => ({
     token: state.login.token
   }));
-  
   
 
   return (
@@ -34,11 +31,17 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
-        <Route path={'/login'} element={<LoginPage/>}/>
-        {select.token ? 
-        <Route path={'/profile'} element={<ProfilePage/>}/>
+        {!select.token
+        ?
+        <Route path={'/profile'} element={<Navigate to={'/login'}/>}/>
         :
-        <Route path={'/profile'} element={<LoginPage/>}/>
+        <Route path={'/profile'} element={<ProfilePage/>}/>
+        }
+        {select.token
+        ?
+        <Route path={'/login'} element={<Navigate to={'/'}/>}/>
+        :
+        <Route path={'/login'} element={<LoginPage/>}/>
         }
       </Routes>
 

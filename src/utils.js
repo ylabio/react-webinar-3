@@ -46,11 +46,11 @@ export function category(categoryArr){
       parentId = elem._id;
     }
     else if (elem?.parent?._id == parentId){
-      arr.push({value:elem._id,title: '-' + elem.title})
+      arr.push({value:elem._id,title: '- ' + elem.title})
       kidId = elem._id;
       for (let elem2 of categoryArr){
         if (elem2?.parent?._id == kidId){
-          arr.push({value:elem2._id,title: '--' + elem2.title})
+          arr.push({value:elem2._id,title: '- - ' + elem2.title})
         }
       }
     }

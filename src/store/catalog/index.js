@@ -1,5 +1,5 @@
 import StoreModule from "../module";
-import { category } from "../../utils";
+
 /**
  * Состояние каталога - параметры фильтра и список товара
  */
@@ -12,7 +12,6 @@ class CatalogState extends StoreModule {
   initState() {
     return {
       list: [],
-      categoryList:[{value:'all',title:'Все'}],
       params: {
         page: 1,
         limit: 10,
@@ -79,9 +78,6 @@ class CatalogState extends StoreModule {
       window.history.pushState({}, '', url);
     }
     
-    const categoryRes = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=10`);
-    const categoryJson = await categoryRes.json()
-
     
     let apiParams = {
       limit: params.limit,
@@ -103,7 +99,6 @@ class CatalogState extends StoreModule {
       list: json.result.items,
       count: json.result.count,
       waiting: false,
-      categoryList:[...category(categoryJson.result.items)]
     }, 'Загружен список товаров из АПИ');
   }
 }

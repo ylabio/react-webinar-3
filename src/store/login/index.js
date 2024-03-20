@@ -6,20 +6,12 @@ class Login extends StoreModule{
 
     initState(){
         return{
-            token:'',
+            token: JSON.parse(localStorage.getItem('token'))?.token,
             exception:'',
-            profileInfo: {}
         }
     }
 
-    async loadToken(token){
-        
-        this.setState({
-            ...this.getState(),
-            exception:'',
-            token:token
-        })
-    }
+    
 
     async login(login,password) {
         try{
@@ -34,27 +26,27 @@ class Login extends StoreModule{
             
         
             const json = await response.json();
-            if (json?.error?.message){
+            if (json?.error){
+                console.log(json)
                 this.setState({
                     ...this.getState(),
-                    exception:json.error.message
+                    exception:json.error.data.issues[0].message
                 })
             }
             else{   
-                const responeProfile = await fetch('api/v1/users/self?fields=*',{
+                const responseProfile = await fetch('api/v1/users/self?fields=*',{
                     method: 'get',
                     headers:{
                         "X-token": `${json.result?.token}`,
                         "Content-Type": "application/json"
                     }
                 })
-                // const jsonProfile = await responeProfile.json()
+                
                 localStorage.setItem('token',JSON.stringify({token:json.result?.token}));
                 this.setState({
                     ...this.getState(),
                     exception:'',
                     token:json.result?.token,
-                    profileInfo:await responeProfile.json()
                     
                 })
             }
@@ -67,34 +59,27 @@ class Login extends StoreModule{
 
     async exit(){
         localStorage.clear();
+        const response = await fetch('api/v1/users/self?fields=*',{
+            method: 'delete',
+            headers:{
+                "X-token": `${this.getState().token}`,
+                "Content-Type": "application/json"
+            }
+        })
         this.setState({
             ...this.getState(),
             token:null,
             exception:'',
-            profileInfo: {}
         })
     }
 
-    async getProfile(){
-        const token = JSON.parse(localStorage.getItem('token'))?.token;
-
-        const response = await fetch('api/v1/users/self?fields=*',{
-            method: 'get',
-            headers:{
-                "X-token": `${token}`,
-                "Content-Type": "application/json"
-            }
-        })
-        
+    clearException(){
         this.setState({
             ...this.getState(),
-            profileInfo:await response.json()
+            exception:'',
         })
-
-        
-        
-        
     }
+
 }
 
 export default Login;

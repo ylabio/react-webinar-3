@@ -1,6 +1,12 @@
+.login-menu{
+    display: flex;
+    justify-content: flex-end;
+    border-bottom: 1px solid rgb(220, 220, 220);
+}
+
 .login-btn{
     width: 45px;
-    align-self: flex-end;
+    /* justify-self: flex-end; */
     margin: 10px 20px;
 }
 

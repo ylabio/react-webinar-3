@@ -7,7 +7,7 @@ const LoginMenuLayout = (props) => {
     
 
     return (
-        <>  
+        <div className='login-menu'>  
             {
             props.token? 
             <div className='exit-wrapper'>
@@ -17,8 +17,8 @@ const LoginMenuLayout = (props) => {
             :
             <button className='login-btn' onClick={()=> router(props.loginPage)}>Вход</button>
             }
-            {/* <Link to={'/login'} className='link-btn'><button className='login-btn'>Вход</button></Link> */}
-        </>
+            
+        </div>
     );
 };
 

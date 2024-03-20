@@ -33,6 +33,7 @@ function Input(props) {
       placeholder={props.placeholder}
       onChange={onChange}
       name={props.name}
+      style={{width:props.width}}
     />
   )
 }

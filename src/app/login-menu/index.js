@@ -9,7 +9,7 @@ const LoginMenu = () => {
     const select = useSelector(state => ({
         token: state.login.token,
         exception: state.login.exception,
-        profileInfo:state.login.profileInfo
+        profileInfo:state.profile.profileInfo
       }));
     
     const callbacks = {

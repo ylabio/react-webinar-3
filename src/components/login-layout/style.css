@@ -12,6 +12,12 @@ label{
     margin-bottom: 15px;
 }
 
+
+
 .exception{
     color: red;
+}
+
+.enter-btn{
+    display: block;
 }
