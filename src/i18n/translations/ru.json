@@ -24,5 +24,12 @@
   "filter.sort.edition": "Древние",
   "filter.category.all": "Все",
   "login": "Войти",
-  "logout": "Выйти"
+  "logout": "Выйти",
+  "profile": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "profile.email": "email",
+  "enter": "Вход",
+  "form.label.login": "Логин",
+  "form.label.password": "Пароль"
 }

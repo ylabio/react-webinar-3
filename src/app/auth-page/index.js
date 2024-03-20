@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect } from "react";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -14,10 +14,18 @@ function AuthPage() {
 
   const { t, lang, setLang } = useTranslate();
 
+  useInit(
+    () => {
+      store.actions.locale.initLocaleParams(lang);
+    },
+    [lang],
+    true
+  );
+
   const callbacks = {
     setLang: useCallback(
       (lang) => {
-        store.actions.catalog.setParams({ lang });
+        store.actions.locale.setLocaleParams(lang);
         setLang(lang);
       },
       [store, lang]
@@ -30,7 +38,6 @@ function AuthPage() {
         <LocaleSelect onChange={callbacks.setLang} value={lang} />
       </Head>
       <Navigation />
-      {/* форма для авторизации */}
       <LoginFormContainer />
     </PageLayout>
   );

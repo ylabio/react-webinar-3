@@ -7,16 +7,32 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
 import Auth from "../../containers/auth-tool";
+import useSelector from "../../hooks/use-selector";
+import ProfileComponent from "../../components/profile-component";
+import Spinner from "../../components/spinner";
 
-function Profile() {
+function ProfilePage() {
   const store = useStore();
 
   const { t, lang, setLang } = useTranslate();
 
+  const select = useSelector((state) => ({
+    userData: state.user.userData,
+    isLoading: state.user.waiting,
+  }));
+
+  useInit(
+    () => {
+      store.actions.locale.initLocaleParams(lang);
+    },
+    [lang],
+    true
+  );
+
   const callbacks = {
     setLang: useCallback(
       (lang) => {
-        store.actions.catalog.setParams({ lang });
+        store.actions.locale.setLocaleParams(lang);
         setLang(lang);
       },
       [store, lang]
@@ -29,9 +45,11 @@ function Profile() {
         <LocaleSelect onChange={callbacks.setLang} value={lang} />
       </Head>
       <Navigation />
-      {/* профиль юзера */}
+      <Spinner active={select.isLoading}>
+        <ProfileComponent t={t} userData={select.userData} />
+      </Spinner>
     </PageLayout>
   );
 }
 
-export default memo(Profile);
+export default memo(ProfilePage);

@@ -22,5 +22,12 @@
   "filter.sort.edition": "Ancients",
   "filter.category.all": "All",
   "login": "Login",
-  "logout": "Logout"
+  "logout": "LogOut",
+  "profile": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "profile.email": "email",
+  "enter": "LogIn",
+  "form.label.login": "Username",
+  "form.label.password": "Password"
 }
