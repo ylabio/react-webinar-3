@@ -8,15 +8,18 @@ import Navigation from "../../containers/navigation";
 import LocaleSelect from "../../containers/locale-select";
 import LoginForm from "../../components/login-form";
 import Authorization from "../../containers/authorization";
+import { Navigate } from "react-router-dom";
 
 /**
  * Страница логин формы
  */
 function Login() {
   const store = useStore();
+  const token = localStorage.getItem("token");
 
   const select = useSelector((state) => ({
-    error: state.user.error,
+    error: state.session.error,
+    authorized: state.session.authorized,
   }));
 
   const { t } = useTranslate();
@@ -28,20 +31,27 @@ function Login() {
   const callbacks = {
     onLogin: useCallback(
       (authData) => {
-        store.actions.user.getToken(authData);
+        store.actions.session.getToken(authData);
       },
       [store]
     ),
   };
 
-  return (
+  return token ? (
+    <Navigate to="/profile" />
+  ) : (
     <PageLayout>
       <Authorization />
       <Head title={t("title")}>
         <LocaleSelect />
       </Head>
       <Navigation />
-      <LoginForm error={select.error} onLogin={callbacks.onLogin} t={t} />
+      <LoginForm
+        authorized={select.authorized}
+        error={select.error}
+        onLogin={callbacks.onLogin}
+        t={t}
+      />
     </PageLayout>
   );
 }

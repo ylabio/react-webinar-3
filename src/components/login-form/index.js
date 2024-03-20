@@ -1,13 +1,19 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useRef } from "react";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
+import { useNavigate } from "react-router-dom";
 
-function LoginForm({ error, onLogin, t }) {
+function LoginForm({ authorized, error, onLogin, t }) {
   const cn = bem("LoginForm");
   const username = useRef();
   const password = useRef();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authorized) navigate("/profile");
+  }, [authorized]);
 
   const callbacks = {
     onLogin: () => {
@@ -20,19 +26,19 @@ function LoginForm({ error, onLogin, t }) {
     },
   };
 
-  console.log(error);
   return (
     <div className={cn("")}>
       <h2 className={cn("header")}>{t("auth.open")}</h2>
       <span className={cn("text")}>{t("auth.login")}</span>
       <input title="username" ref={username} className={cn("input")}></input>
       <span className={cn("text")}>{t("auth.password")}</span>
-      <input title="password" ref={password} className={cn("input")}></input>
-      {error ? (
-        <span className={error === "Success!" ? cn("success") : cn("error")}>
-          {error}
-        </span>
-      ) : null}
+      <input
+        title="password"
+        type="password"
+        ref={password}
+        className={cn("input")}
+      ></input>
+      {error ? <span className={cn("error")}>{error}</span> : null}
       <button className={cn("btn")} onClick={callbacks.onLogin}>
         {t("auth.log-in")}
       </button>

@@ -1,3 +1,9 @@
+.Auth {
+  height: 41px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #dcdcdc;
+}
+
 .Auth-link {
   color: #0087e9;
   font-size: 13px;

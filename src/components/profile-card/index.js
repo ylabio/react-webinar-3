@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-function ProfileCard({ data, t }) {
+function ProfileCard({ name, email, phone, t }) {
   const cn = bem("ProfileCard");
 
   return (
@@ -11,14 +11,14 @@ function ProfileCard({ data, t }) {
       <h2 className={cn("title")}>{t("profile")}</h2>
       <span className={cn("text")}>
         {t("profile.username")}:{" "}
-        <span className={cn("text", { w700: true })}>{data?.username}</span>
+        <span className={cn("text", { w700: true })}>{name}</span>
       </span>
       <span className={cn("text")}>
         {t("profile.phone")}:{" "}
-        <span className={cn("text", { w700: true })}>{data?.phone}</span>
+        <span className={cn("text", { w700: true })}>{phone}</span>
       </span>
       <span className={cn("text")}>
-        email: <span className={cn("text", { w700: true })}>{data?.email}</span>
+        email: <span className={cn("text", { w700: true })}>{email}</span>
       </span>
     </div>
   );
@@ -26,7 +26,7 @@ function ProfileCard({ data, t }) {
 
 ProfileCard.propTypes = {
   data: PropTypes.shape({
-    username: PropTypes.string,
+    name: PropTypes.string,
     phone: PropTypes.string,
     email: PropTypes.string,
   }).isRequired,

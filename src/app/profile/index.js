@@ -18,8 +18,10 @@ function Profile() {
   const { t } = useTranslate();
 
   const select = useSelector((state) => ({
-    data: state.user.data,
-    waiting: state.user.data.waiting,
+    name: state.user.name,
+    email: state.user.email,
+    phone: state.user.phone,
+    waiting: state.user.waiting,
   }));
 
   useEffect(() => {
@@ -34,7 +36,12 @@ function Profile() {
       </Head>
       <Navigation />
       <Spinner active={select.waiting}>
-        <ProfileCard data={select.data} t={t} />
+        <ProfileCard
+          name={select.name}
+          email={select.email}
+          phone={select.phone}
+          t={t}
+        />
       </Spinner>
     </PageLayout>
   );

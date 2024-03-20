@@ -39,13 +39,13 @@ export function categoriesFormat(
   data,
   depth = 0,
   result = [],
-  prefix = "-"
+  prefix = "- "
 ) {
   data.forEach((item) => {
     if (item.parent?._id == root) {
       result.push({
         value: item._id,
-        title: `${prefix.repeat(depth)} ${item.title}`,
+        title: `${prefix.repeat(depth)}${item.title}`,
       });
 
       categoriesFormat(item._id, data, depth + 1, result);

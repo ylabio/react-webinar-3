@@ -16,18 +16,18 @@ function Authorization() {
   const { t } = useTranslate();
 
   const select = useSelector((state) => ({
-    username: state.user.username,
+    name: state.session.name,
   }));
 
   useEffect(() => {
-    if (token && !select.username) {
-      store.actions.user.getSelf();
+    if (token && !select.name) {
+      store.actions.session.getName();
     }
   }, [store]);
 
   const callbacks = {
     toLoginForm: useCallback(() => {
-      store.actions.user.clearError();
+      store.actions.session.clearError();
       navigate("/login");
     }, [store]),
 
@@ -35,25 +35,28 @@ function Authorization() {
       // Нужно удалять сессию через DELETE api реквест?
       localStorage.removeItem("token");
       store.actions.user.clearData();
+      store.actions.session.clearData();
       navigate("/");
-    }, []),
+    }, [store]),
   };
 
   return (
-    <SideLayout padding="medium10x20" side={"end"}>
-      {select.username ? (
-        <>
-          <Link className={cn("link")} to="/profile">
-            {select.username}
-          </Link>
-          <button className={cn("btn")} onClick={callbacks.onLogout}>
-            {t("auth.close")}
-          </button>
-        </>
-      ) : (
-        <button onClick={callbacks.toLoginForm}>{t("auth.open")}</button>
-      )}
-    </SideLayout>
+    <div className={cn("")}>
+      <SideLayout padding="medium10x20" side={"end"}>
+        {select.name ? (
+          <div>
+            <Link className={cn("link")} to="/profile">
+              {select.name}
+            </Link>
+            <button className={cn("btn")} onClick={callbacks.onLogout}>
+              {t("auth.close")}
+            </button>
+          </div>
+        ) : (
+          <button onClick={callbacks.toLoginForm}>{t("auth.open")}</button>
+        )}
+      </SideLayout>
+    </div>
   );
 }
 
