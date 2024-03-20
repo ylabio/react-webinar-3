@@ -18,8 +18,6 @@ function NavigationProfile() {
   }, []);
 
   const select = useSelector(state => ({
-    login: state.user.login,
-    password: state.user.password,
     data: state.user.data,
     autorization: state.user.autorization,
     waiting: state.user.waiting,
@@ -51,7 +49,7 @@ function NavigationProfile() {
 
   const options = {
     formLogin: useMemo(() => (
-      {key: 333, login: select.login, password: select.password, link: `/profile`}
+      {key: 333, login: '', password: '', link: `/profile`}
     ), [t,select]),
 
     formProfile: useMemo(() => (

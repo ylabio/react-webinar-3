@@ -10,8 +10,6 @@ class UserState extends StoreModule {
       autorization: false,
       error: 0,
       errorReally: '',
-      login: '',
-      password: '',
       data: {},
       waiting: false, // признак ожидания загрузки
       profile: false,
@@ -31,30 +29,10 @@ class UserState extends StoreModule {
   async fAutorization(login,password) {
     this.setState({
       ...this.getState(),
-      login: login,
-      password: password,
       waiting: true
     });
     let error = 0;
-    let errorReally = '';
-    if (login == '' || password == '') {
-      if(login == '') {
-        error = 1;
-      }
-      else if(password == '') {
-        error = 2;
-      }
-        this.setState({
-          ...this.getState(),
-          error: error,
-          errorReally: errorReally,
-          autorization: false,
-          data: {},
-          waiting: false
-        }, 'Сообщение об ощибке');
-      return;
-    }
-    
+    let errorReally = '';    
 
     try {
       const apiParams = {
@@ -70,12 +48,7 @@ class UserState extends StoreModule {
       const json = await response.json();
 
       if(json.error) {
-        if (json.error.data.issues[0].message == 'Wrong login or password'){
-          error = 3;
-        }
-        else {
-          errorReally = json.error.data.issues[0].message;
-        }
+        errorReally = json.error.data.issues[0].message;
         this.setState({
           ...this.getState(),
           error: error,
