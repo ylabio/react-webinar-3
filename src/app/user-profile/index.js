@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
-import AuthHeader from '../../components/auth-header';
+import AuthHeader from '../../containers/auth-header';
 import Navigation from "../../containers/navigation";
 import LocaleSelect from '../../containers/locale-select';
 import useTranslate from "../../hooks/use-translate";
@@ -27,7 +27,7 @@ const UserProfile = () => {
 
   return (
     <PageLayout>   
-      <AuthHeader />    
+      <AuthHeader/>    
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

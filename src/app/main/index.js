@@ -8,7 +8,7 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
-import AuthHeader from '../../components/auth-header';
+import AuthHeader from '../../containers/auth-header';
 
 /**
  * Главная страница - первичная загрузка каталога

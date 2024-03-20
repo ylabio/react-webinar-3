@@ -10,7 +10,7 @@ import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
-import AuthHeader from '../../components/auth-header';
+import AuthHeader from '../../containers/auth-header';
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
