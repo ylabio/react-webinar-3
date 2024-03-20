@@ -11,6 +11,7 @@ import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
 import LoginLine from "../../components/login-line";
+import { useNavigateToLogin } from '../../hooks/use-navigate-to-login';
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
@@ -21,6 +22,8 @@ function Article() {
   // Параметры из пути /articles/:id
   const params = useParams();
 
+  const userState = useSelector(state => state.user);
+
   useInit(() => {
     store.actions.article.load(params.id);
   }, [params.id]);
@@ -30,7 +33,9 @@ function Article() {
     waiting: state.article.waiting,
   }));
 
-  const {t} = useTranslate();
+  const { t } = useTranslate();
+  
+  const navigateToLogin = useNavigateToLogin();
 
   const callbacks = {
     // Добавление в корзину
@@ -39,7 +44,7 @@ function Article() {
 
   return (
     <PageLayout>
-      <LoginLine />
+      <LoginLine onClick={navigateToLogin} buttonName={userState && userState?.username ? 'Выход' : 'Вход'} />
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>

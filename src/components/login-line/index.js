@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function LoginLine({onClick}) {
+function LoginLine({onClick, buttonName}) {
 
     const cn = bem('LoginLine');
 
@@ -14,7 +14,7 @@ function LoginLine({onClick}) {
                 type="button"
                 onClick={onClick}
             >
-                Вход
+                {buttonName}
             </button>
         </div> 
     )
