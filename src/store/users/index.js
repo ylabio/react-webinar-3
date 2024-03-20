@@ -1,5 +1,9 @@
 import StoreModule from "../module";
 
+function getCookie(name) {
+  let cookie = document.cookie.split('; ').find(row => row.startsWith(name + '='));
+  return cookie!='' ? cookie.split('=')[1] : null;
+}
 /**
  * Состояние каталога - параметры фильтра и список товара
  */
@@ -10,10 +14,11 @@ class UsersState extends StoreModule {
    */
   initState() {
     return {
-      user: null,
+      user: JSON.parse(getCookie("user")),
+      userName: getCookie("userName"),
       params: {
-        login: "",
-        password: "",
+        login: getCookie("login"),
+        password: getCookie("password"),
         remember: true,
       },
       waiting: false,
@@ -26,16 +31,19 @@ class UsersState extends StoreModule {
    * @param [newParams] {Object} Новые параметры
    * @return {Promise<void>}
    */
-  async initParams(newParams = {}) {
+  async initParams() {
+    document.cookie = "token=token";
     const urlParams = new URLSearchParams(window.location.search);
     let validParams = {};
     if (urlParams.has("login")) validParams.query = urlParams.get("login");
     if (urlParams.has("password"))
       validParams.category = urlParams.get("password");
-    await this.setParams(
-      { ...this.initState().params, ...validParams, ...newParams },
-      true
-    );
+    if (
+      this.getState().params.login != null &&
+      this.getState().params.password != null
+    ) {
+      this.getInfo();
+    }
   }
 
   /**
@@ -46,23 +54,24 @@ class UsersState extends StoreModule {
   async resetParams(newParams = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
     const params = { ...this.initState().params, ...newParams };
-    // Установка параметров и загрузка данных
-    await this.setParams(params);
-  }
-
-  resetParams() {
+    document.cookie = "login=";
+    document.cookie = "password=";
+    document.cookie = "userName=";
+    document.cookie = "user=";
     this.setState(
       {
         ...this.getState(),
         user: null,
+        userName: null,
         params: { login: "", password: "" },
         waiting: false,
       },
-      "Установлены параметры пользователя"
+      "Очищены параметры пользователя"
     );
   }
 
   setPassword(newPassword) {
+    document.cookie = `password=${newPassword}`;
     this.setState(
       {
         ...this.getState(),
@@ -74,6 +83,7 @@ class UsersState extends StoreModule {
   }
 
   setLogin(newLogin) {
+    document.cookie = `login=${newLogin}`;
     this.setState(
       {
         ...this.getState(),
@@ -112,15 +122,10 @@ class UsersState extends StoreModule {
       window.history.pushState({}, "", url);
     }
 
-    const apiParams = {
-      login: params.login,
-      password: params.password,
-    };
     const response = await fetch(`/api/v1/users/sign`, {
       method: "POST",
       headers: {
-        "X-Token":
-          "0fde46478ddbf96c7328043996955ba30d133faeedd6d17461222c62a9b84240",
+        "X-Token": getCookie("token"),
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -136,10 +141,24 @@ class UsersState extends StoreModule {
       {
         ...this.getState(),
         user: json,
+        userName: json.result ? json.result.user.profile.name : null,
         waiting: false,
       },
       "Загружен ответ из АПИ"
     );
+    document.cookie = `user=${JSON.stringify(this.getState().user)}`;
+    document.cookie = `userName=${this.getState().userName }`;
+  }
+
+  async deleteInfo() {
+    const response = await fetch(`/api/v1/users/sign`, {
+      method: "DELETE",
+      headers: {
+        "X-Token": getCookie("token"),
+        "Content-Type": "application/json",
+      },
+    });
+    this.resetParams();
   }
 }
 

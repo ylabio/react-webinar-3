@@ -6,21 +6,13 @@ import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
-import LoginPage from "../../components/login-page";
+import LoginPage from "../login-page";
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
  */
 function Login() {
   const store = useStore();
-
-  useInit(
-    () => {
-      store.actions.catalog.initParams();
-    },
-    [],
-    true
-  );
 
   const { t } = useTranslate();
 

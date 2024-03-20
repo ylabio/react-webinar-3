@@ -3,16 +3,16 @@ import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import "./style.css";
 
-function LoginPage() {
+function ProfileForm() {
   const store = useStore();
 
   const select = useSelector((state) => ({
     user: state.users.user,
+    userName: state.users.userName,
     params: state.users.params,
   }));
 
   const callbacks = {
-    // Удаление из корзины
     getInfo: useCallback(() => store.actions.users.getInfo(), [store]),
     setPassword: useCallback(
       (value) => store.actions.users.setPassword(value),
@@ -22,9 +22,8 @@ function LoginPage() {
       store,
     ]),
   };
-  console.log(select.user);
   return (
-    <div className="Login-Page">
+    <div className="Profile-Form">
       {select.user == null || Object.keys(select.user)[0] == "error" ? (
         <>
           <div className="Login-Title">Вход</div>
@@ -63,4 +62,4 @@ function LoginPage() {
   );
 }
 
-export default memo(LoginPage);
+export default memo(ProfileForm);

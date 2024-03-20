@@ -2,14 +2,20 @@ import { memo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import useStore from "../../hooks/use-store";
+import useInit from "../../hooks/use-init";
 import useSelector from "../../hooks/use-selector";
 import "./style.css";
 
 function Head({ title, children }) {
   const store = useStore();
 
+  useInit(() => {
+    store.actions.users.initParams();
+  }, [], true);
+
   const select = useSelector((state) => ({
     user: state.users.user,
+    userName: state.users.userName,
     params: state.users.params,
   }));
 
@@ -21,13 +27,13 @@ function Head({ title, children }) {
     <>
       <div className="Login-Button">
         <Link to="/login">
-        { select.user != null ? `${select.user.result.user.profile.name}` : ''}
+        {select.userName}
           <button
             onClick={() => {
-              select.user != null ? callbacks.resetParams() : {};
+              select.userName != null ? callbacks.resetParams() : {};
             }}
           >
-             { select.user != null ? 'Выход' : 'Вход'}
+             { select.userName != null ? 'Выход' : 'Вход'}
           </button>
         </Link>
       </div>
