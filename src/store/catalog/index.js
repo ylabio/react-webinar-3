@@ -15,8 +15,8 @@ class CatalogState extends StoreModule {
       params: {
         page: 1,
         limit: 10,
-        category: 'all',
         sort: 'order',
+        category: '',
         query: ''
       },
       count: 0,
@@ -86,7 +86,7 @@ class CatalogState extends StoreModule {
       'search[query]': params.query
     };
 
-    if (params.category !== 'all') {
+    if (params.category !== '') {
       apiParams['search[category]'] = params.category;
     }
 
