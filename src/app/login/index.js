@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react'
+import React, { useEffect, memo, useRef } from 'react'
 import Form from '../../components/form'
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -9,14 +9,18 @@ import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import Spinner from '../../components/spinner'
 import AuthMenu from '../../containers/auth-menu';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import useTranslate from '../../hooks/use-translate';
 
 const Login = () => {
 
   const store = useStore();
   const navigate = useNavigate()
+  const location = useLocation()
+  const prevLocation = useRef(null);
   const {t} = useTranslate()
+
+  console.log(location)
 
   const {pending, isLoggedIn, error} = useSelector(state => ({
     pending: state.auth.pending,
@@ -32,10 +36,10 @@ const Login = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate(-1)
+      const navigationPath = location.state?.prevPage || '/';
+        navigate(navigationPath);
     }
-
-  },[isLoggedIn])
+  }, [isLoggedIn]);
 
   const options = {
     loginInputs: [

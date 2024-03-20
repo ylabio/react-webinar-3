@@ -2,13 +2,14 @@ import { useCallback, memo } from 'react'
 import useSelector from '../../hooks/use-selector'
 import SideLayout from '../../components/side-layout'
 import AuthButton from '../../components/auth-button'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
 import useStore from '../../hooks/use-store'
 import useTranslate from '../../hooks/use-translate';
 
 const AuthMenu = () => {
   const navigate = useNavigate()
   const store = useStore()
+  const location = useLocation()
   const {t} = useTranslate();
 
   const {isLoggedIn, user} = useSelector(state => ({
@@ -17,7 +18,7 @@ const AuthMenu = () => {
   }))
 
   const callbacks = {
-    onLogin: useCallback(() => {navigate('/login')},[]),
+    onLogin: useCallback(() => {navigate('/login', {state: {prevPage: location.pathname}})},[]),
     onLogout: useCallback(() => {store.actions.auth.signOut()},[]),
   }
 
