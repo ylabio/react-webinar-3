@@ -4,9 +4,9 @@ import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import ItemBasket from "../../components/item-basket";
 import List from "../../components/list";
-import ModalLayout from "../../components/modal-layout";
+import ModalLayoutMain from "../../containers/modal-layout-main";
 import BasketTotal from "../../components/basket-total";
-import ScrollBar from "../../components/scrollbar";
+import ScrollBarMain from "../../containers/scrollbar-main";
 
 
 /**
@@ -47,13 +47,13 @@ function Basket() {
   };
 
   return (
-    <ModalLayout title={t('basket.title')} labelClose={t('basket.close')}
+    <ModalLayoutMain title={t('basket.title')} labelClose={t('basket.close')}
                  onClose={callbacks.closeModal}>
-      <ScrollBar>
+      <ScrollBarMain>
         <List list={select.list} renderItem={renders.itemBasket}/>
-      </ScrollBar>
+      </ScrollBarMain>
       <BasketTotal sum={select.sum} t={t}/>
-    </ModalLayout>
+    </ModalLayoutMain>
   );
 }
 

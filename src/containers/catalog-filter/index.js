@@ -16,7 +16,7 @@ function CatalogFilter() {
   const store = useStore();
 
   useInit(() => {
-    store.actions.catalog.getCategotys();
+    store.actions.category.getCategotys();
   }, []);
 
   const select = useSelector(state => ({
@@ -24,7 +24,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     sortCategory: state.catalog.params.sortCategory,
-    listCategory: state.catalog.listCategory,
+    listCategory: state.category.listCategory,
   }));
 
   const callbacks = {
@@ -56,7 +56,7 @@ function CatalogFilter() {
                       value={select.sortCategory}
                       onChangeCategory={callbacks.onSortCategory}
                       all={t('filter.category.all')}/>
-      <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
+      <Select width={157} options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={t('filter.search')}
              delay={1000}/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

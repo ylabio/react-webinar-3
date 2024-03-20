@@ -8,8 +8,8 @@ class UserState extends StoreModule {
   initState() {
     return {
       autorization: false,
-      token: '',
       error: 0,
+      errorReally: '',
       login: '',
       password: '',
       data: {},
@@ -18,35 +18,13 @@ class UserState extends StoreModule {
     }
   }
 
-  async initParams() {
-    const urlParams = new URLSearchParams(window.location.search);
-    let validToken;
-    if (urlParams.has('token')) {
-      validToken = urlParams.get('token');
-      if (validToken && validToken != '') {
-        this.setState({...this.getState(), 
-          autorization: false,
-          token: validToken
-        });
-        this.fGetDataUser(validToken);
-      }
-    }
-  }
-
-  async resetParams() {
-    await this.setParams('');
-  }
-
-  async setParams(token, replaceHistory = false, path = window.location.pathname) {
-    if (token && token != '' &&
-        path && path != '') {
-    const url = path + '?token=' + token + window.location.hash;
-    if (replaceHistory) {
-      window.history.replaceState({}, '', url);
-    } else {
-      window.history.pushState({}, '', url);
-    }
-    }
+  // Сброс ошибки
+  async fResetError() {
+    this.setState({
+      ...this.getState(),
+        error: 0,
+        errorReally: '',
+    });
   }
 
   // Авторизация
@@ -58,6 +36,7 @@ class UserState extends StoreModule {
       waiting: true
     });
     let error = 0;
+    let errorReally = '';
     if (login == '' || password == '') {
       if(login == '') {
         error = 1;
@@ -68,12 +47,12 @@ class UserState extends StoreModule {
         this.setState({
           ...this.getState(),
           error: error,
-          token: '',
+          errorReally: errorReally,
           autorization: false,
           data: {},
           waiting: false
         }, 'Сообщение об ощибке');
-      return '';
+      return;
     }
     
 
@@ -94,20 +73,24 @@ class UserState extends StoreModule {
         if (json.error.data.issues[0].message == 'Wrong login or password'){
           error = 3;
         }
+        else {
+          errorReally = json.error.data.issues[0].message;
+        }
         this.setState({
           ...this.getState(),
           error: error,
-          token: '',
+          errorReally: errorReally,
           autorization: false,
           data: {},
           waiting: false
         }, 'Сообщение об ощибке от сервера');
-        return '';
+        return;
       }
 
       this.setState({
         ...this.getState(),
         error: 0,
+        errorReally: '',
         token: json.result.token,
         autorization: true,
         data: {
@@ -117,23 +100,24 @@ class UserState extends StoreModule {
         },
         waiting: false
       }, 'Загружены данные пользователя из АПИ');
+      localStorage.setItem('token', json.result.token);
       return json.result.token;
     } catch (e) {
       this.setState({
         ...this.getState(),
         error: 4,
-        token: '',
+        errorReally: '',
         autorization: false,
         data: {},
         waiting: false
       });
     }
-    return '';
+    return;
   }
 
   // Выход
   async fExit() {
-    let token = this.getState().token;
+    let token = localStorage.getItem('token');
     if (!token || token == '') return;
     this.setState({
       ...this.getState(),
@@ -153,16 +137,14 @@ class UserState extends StoreModule {
 
       this.setState({
         ...this.getState(),
-        token: '',
         autorization: false,
         data: {},
         waiting: false
       }, 'Выход пользователя с сайта');
-
+      localStorage.setItem('token', '');
     } catch (e) {
       this.setState({
         ...this.getState(),
-        token: '',
         autorization: false,
         data: {},
         waiting: false
@@ -192,8 +174,7 @@ class UserState extends StoreModule {
         console.log(json.error.data.issues[0].message);
         this.setState({
           ...this.getState(),
-          error: 5,
-          token: '',
+          error: 0,
           autorization: false,
           data: {},
           waiting: false
@@ -202,7 +183,6 @@ class UserState extends StoreModule {
       else {
       this.setState({
         ...this.getState(),
-        token: token,
         autorization: true,
         data: {
           name: json.result.profile.name,
@@ -215,7 +195,6 @@ class UserState extends StoreModule {
     } catch (e) {
       this.setState({
         ...this.getState(),
-        token: '',
         autorization: false,
         data: {},
         waiting: false

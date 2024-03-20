@@ -14,6 +14,7 @@ class Modals extends StoreModule {
       vFlag1: 0,
       vFlag2: 1,
       vFlag3: 2,
+      innerHeight: 0,
     }
   }
 
@@ -68,6 +69,15 @@ class Modals extends StoreModule {
       heightListToList: height,
     }, 'heightListToList для скролбара');
   }
+
+  fInnerHeight() {
+    let innerHeight = window.innerHeight;
+    if (innerHeight != this.getState().innerHeight) {
+      console.log(1111111);
+      return false;
+    }
+    return true;
+  }
   
   setscrollHeight(height) {
     this.setState({
@@ -76,9 +86,16 @@ class Modals extends StoreModule {
     }, 'scrollHeight для скролбара');
   }
 
+  setinnerHeight(height = window.innerHeight) {
+    this.setState({
+      ...this.getState(),
+      innerHeight: height,
+    }, 'innerHeight для скролбара');
+  }
+
   fHeightContainer (flag) {
     const fAnswer = () => {
-      var vHeight = window.innerHeight;
+      var vHeight = this.getState().innerHeight;
       var vHeightContainer = vHeight - (this.getState().vNumForContainer/this.getState().vNumForZoom)*vHeight;
       if (this.getState().vFlag1 == flag) {
         return (Math.floor(vHeightContainer))

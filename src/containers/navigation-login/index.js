@@ -16,7 +16,6 @@ function NavigationLogin() {
   }, [], true);
 
   const select = useSelector(state => ({
-    token: state.user.token,
     user: state.user.data.name,
     autorization: state.user.autorization,
     waiting: state.user.waiting,
@@ -27,10 +26,8 @@ function NavigationLogin() {
     onFunc: useCallback((item) => {
       if (item.key == 222) {
         store.actions.user.fExit();
-        store.actions.user.setParams('');
-        store.actions.catalog.initParams();
       }
-    }, [store,select]),
+    }, [store]),
   }
 
   const {t} = useTranslate();
@@ -38,10 +35,10 @@ function NavigationLogin() {
   const options = {
     menuSiteLogin: useMemo(() => ([
     {key: 221, title: t('menuSite.login'), link: `/login`},
-    ]), [t,select]),
+    ]), [t]),
 
     menuSiteExit: useMemo(() => ([
-      {key: 223, title: select.user, link: `/profile?token=${select.token}`},
+      {key: 223, title: select.user, link: `/profile`},
       {key: 222, title: t('menuSite.exit'), profile: (window.location.pathname == `/profile` ? true : false)},
       ]), [t,select]),
   };

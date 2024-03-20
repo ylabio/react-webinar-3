@@ -20,64 +20,56 @@ function NavigationProfile() {
   const select = useSelector(state => ({
     login: state.user.login,
     password: state.user.password,
-    token: state.user.token,
     data: state.user.data,
     autorization: state.user.autorization,
     waiting: state.user.waiting,
     error: state.user.error,
+    errorReally: state.user.errorReally
   }));
 
   const {t} = useTranslate();
 
   const callbacks = { 
     onAutorization: useCallback((login,password) => {
-      let vToken;
-      if (select.token == '') {
-        vToken = store.actions.user.fAutorization(login,password);
-        vToken.then((token => {
-          if (token != '') store.actions.user.setParams(token,true,'profile');
-          return 1;//Удачная авторизация
-        }));
+      if (localStorage.getItem('token') == '') {
+        store.actions.user.fAutorization(login,password);
+        return 1;//Удачная авторизация
       }
       else {
         store.actions.user.fExit();
         if (true) {
-          vToken = store.actions.user.fAutorization(login,password);
-          vToken.then((token => {
-            if (token != '') store.actions.user.setParams(token,true,'profile');
-            return 1;//Удачная авторизация
-          }));
+          store.actions.user.fAutorization(login,password);
+          return 1;//Удачная авторизация
         }
         else {
           return 2;//Не удалось выйти с сайта
         }
       }
       return 3;//Ошибка в программе
-    }, [store,select]),   
+    }, [store]),   
   }
 
   const options = {
     formLogin: useMemo(() => (
-      {key: 333, login: select.login, password: select.password, link: `/profile?token=${select.token}`}
+      {key: 333, login: select.login, password: select.password, link: `/profile`}
     ), [t,select]),
 
     formProfile: useMemo(() => (
-      {key: 444, link: `/login?token=${select.token}`}
+      {key: 444, link: `/login`}
     ), [t,select])
   };
 
-  let urlParams = new URLSearchParams(window.location.search);
-  const token = urlParams.get('token');
-
   return (
     <>
-    {(window.location.pathname == `/profile` && !token || select.error == 5 ?
+    {(window.location.pathname == `/login` && localStorage.getItem('token') ?
+      <Navigate to={`/profile`} replace={true} />  : '' )}
+    {(window.location.pathname == `/profile` && !localStorage.getItem('token') || select.error == 5 ?
       <Navigate to={`/login`} replace={true} /> :
       '' )}
     
     <Spinner active={select.waiting}>
     {(select.autorization == false ?
-      <FormLogin item={options.formLogin} error={select.error} onLogin={callbacks.onAutorization} t={t}/>
+      <FormLogin item={options.formLogin} error={select.error} onLogin={callbacks.onAutorization} t={t} errorReally={select.errorReally}/>
       :
       <FormProfile item={options.formProfile} data={select.data} autorization={select.autorization} t={t}/>
     )}

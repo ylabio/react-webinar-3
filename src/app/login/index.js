@@ -16,7 +16,8 @@ function Login() {
   const store = useStore();
 
   useInit(() => {
-    store.actions.user.initParams();
+    store.actions.user.fResetError();
+    store.actions.user.fGetDataUser(localStorage.getItem('token'));
   }, [store]);
 
   const {t} = useTranslate();

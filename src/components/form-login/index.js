@@ -1,14 +1,13 @@
-import {memo,useState,useCallback} from "react";
+import {memo,useState} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function FormLogin({item, error, onLogin, t}) {
+function FormLogin({item, error, errorReally, onLogin, t}) {
   const cn = bem('FormLogin');
 
    const [login, setLogin] = useState(item.login);
    const [password, setPassword] = useState(item.password);
-   const [profile, setProfile] = useState(false);
 
    const onLoginInput = (event) => {
     setLogin(event.target.value);
@@ -21,7 +20,6 @@ function FormLogin({item, error, onLogin, t}) {
    const onLoginButton = () => {
     let vResult = onLogin(login,password);
     if (vResult == 1) {
-      setProfile(true);
     }
    };
 
@@ -68,18 +66,21 @@ function FormLogin({item, error, onLogin, t}) {
         />
         </div>
       </div>
-      {(error != 0 ?
+      {(error != 0 && errorReally == '' ?
       <div className={cn('error')}>
         {fError(error)}
+      </div>
+      : ''
+      )}
+      {(errorReally != '' ?
+      <div className={cn('error')}>
+      {errorReally}
       </div>
       : ''
       )}
       <div className={cn('LoginButton')}>
         <button  onClick={() => onLoginButton()}>{t('formLogin.enter')}</button>
       </div>
-      {profile && (
-          <Navigate to={item.link} replace={true} />
-      )}
     </div>
   );
 }
@@ -93,10 +94,12 @@ FormLogin.propTypes = {
   }),
   error: PropTypes.number,
   onLogin: PropTypes.func,
-  t: PropTypes.func
+  t: PropTypes.func,
+  errorReally: PropTypes.string,
 };
 
 FormLogin.defaultProps = {
+  errorReally: '',
   error: 0,
   onLogin: () => {},
   t: (text) => text

@@ -27,9 +27,6 @@ function Navigation() {
     }, [store]),
     // Обработка перехода на главную
     onNavigate: useCallback((item) => {
-      //store.actions.catalog.initParams({}, store.actions.user.getState().token);
-      //store.actions.user.fGetDataUser(store.actions.catalog.getState().params.token);
-      //if (item.key === 1) store.actions.catalog.resetParams();
     }, [store])
   }
 
