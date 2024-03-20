@@ -6,7 +6,6 @@ import "./style.css";
 
 function ButtonLogin({title, profilePath }) {
   const cn = bem("ButtonLogin");
-  // const userName = user && user.profile ? user.profile.name : "Guest";
   return (
     <div className={cn("wrapper")}>
     <div className={cn("users-name")}></div>
@@ -19,10 +18,8 @@ function ButtonLogin({title, profilePath }) {
   );
 }
 ButtonLogin.propTypes = {
-  onClick: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   profilePath: PropTypes.string.isRequired,
-  user: PropTypes.string.isRequired,
 };
 
 export default memo(ButtonLogin);

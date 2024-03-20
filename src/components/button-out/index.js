@@ -26,8 +26,7 @@ function ButtonOut({  title, to,user,profilePath,onClick}) {
 ButtonOut.propTypes = {
   onClick: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  user: PropTypes.string.isRequired
+  user: PropTypes.object.isRequired
 };
 
 export default memo(ButtonOut);
