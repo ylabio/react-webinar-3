@@ -30,7 +30,7 @@ class CategoriesState extends StoreModule {
 
     const collectOptions = (cat, level = 0) => {
       if (!options.includes(cat)) {
-        cat.title = level > 0 ? '-'.repeat(level) + ' ' + cat.title : cat.title
+        cat.title = level > 0 ? '- '.repeat(level) + cat.title : cat.title
         cat.value = cat._id
         options.push(cat)
         const subs = categories.filter(c => c.parent?._id === cat._id)
