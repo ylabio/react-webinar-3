@@ -6,6 +6,7 @@ import SideLayout from "../../components/side-layout";
 import './style.css';
 
 function LoginForm(props) {
+  // console.log('props', props);
   const cn = bem('LoginForm');
 
   return (
@@ -14,13 +15,13 @@ function LoginForm(props) {
       <h3 className={cn('title')}>{props.t('login.enter')}</h3>
       <div>
         <h5>{props.t('login.loginName')}</h5>
-        <Input theme={cn('input')} value={props.loginName} onChange={props.setLoginName}/>
+        <Input type={'text'} theme={cn('input')} value={props.loginName} onChange={props.setLoginName}/>
       </div>
       <div>
         <h5>{props.t('login.password')}</h5>
-        <Input value={props.password} onChange={props.setPassword} />
+        <Input type={'password'} value={props.password} onChange={props.setPassword} />
       </div>
-      <h4 className={cn('error-message')}>{props.error}</h4>
+      {<h4 className={cn('error-message')}>{props.error}</h4>}
       <button type='submit'>{props.t('login.enter')}</button>
     </form>
     </SideLayout>

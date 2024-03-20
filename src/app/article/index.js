@@ -1,4 +1,5 @@
 import {memo, useCallback, useMemo} from 'react';
+import {useNavigate} from "react-router-dom";
 import {useParams} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -16,8 +17,8 @@ import LoginNav from '../../components/login-nav';
  * Страница товара с первичной загрузкой товара по id из url адреса
  */
 function Article() {
+  const navigate = useNavigate();
   const store = useStore();
-  const token = JSON.parse(localStorage.getItem("XToken"));
   // Параметры из пути /articles/:id
   const params = useParams();
 
@@ -26,6 +27,7 @@ function Article() {
   }, [params.id]);
 
   const select = useSelector(state => ({
+    isLogin: state.login.isLogin,
     article: state.article.data,
     waiting: state.article.waiting,
   }));
@@ -38,7 +40,7 @@ function Article() {
   }
 
   useInit(() => {
-    if(token) store.actions.login.loginByToken(token);
+    if(select.isLogin === true) store.actions.login.loginByToken();
   }, [], true);
 
   const handleOnclick =()=>{

@@ -22,12 +22,20 @@ class LoginState extends StoreModule {
     }
   }
     // test_1 123456
+    clearErrorMessage(){
+      this.setState({
+        ...this.getState(),
+        errorMessage: '',
+      }, 'Очищено сообщение об ошибке');
+    }
 
-    async loginByToken(token) {
 
+    async loginByToken() {
+      const token = JSON.parse(localStorage.getItem("XToken"));
       this.setState({
         ...this.getState(),
         isLogin: false,
+        errorMessage: '',
         waiting: true,
       }, 'Установлены параметры логина');
 
@@ -60,6 +68,7 @@ class LoginState extends StoreModule {
     this.setState({
       ...this.getState(),
       isLogin: false,
+      errorMessage: '',
       waiting: true,
     }, 'Установлены параметры логина');
 
@@ -75,6 +84,7 @@ class LoginState extends StoreModule {
 
     if (response.ok) {
       const token = json.result.token;
+
       localStorage.setItem("XToken", JSON.stringify(token));
 
       this.setState({
@@ -91,7 +101,8 @@ class LoginState extends StoreModule {
 
     this.setState({
       ...this.getState(),
-      errorMessage: json.error?.message,
+      errorMessage: json.error?.data.issues[0].message,
+
     }, 'Ошибка сервера');
   }
 
@@ -114,17 +125,6 @@ class LoginState extends StoreModule {
 
   localStorage.removeItem("XToken");
  }
-
-//  validate(loginName, password){
-//   const checkOneNumber = /(?=.*[0-9])/g;
-//   const checkOneLowerLatinSimbol = /(?=.*[a-z])/;
-//   const checkOneUpperLatinSimbol = /(?=.*[A-Z])/;
-//   const checkSpecialSimbols = /(?=.*[!@#$%^&*])/;
-//   const checkLenght = /[0-9a-zA-Z!@#$%^&*]{8,}/;
-//   const checkWhiteSpace = /^\s|\s$/;
-//   const checkEmail = /[a-z0-9]+[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/;
-//  }
-
 }
 
 export default LoginState;

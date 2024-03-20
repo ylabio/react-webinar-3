@@ -140,6 +140,8 @@ class CatalogState extends StoreModule {
      //todo порядок вложенности, дефис
 
     const childs = categories.filter(category=> (parentId === null || category.parent === null) ? category.parent === parentId : category.parent._id === parentId);
+    // const childsIds = childs.map(category => category._id);
+   // console.log('childsIds',childsIds.includes(category.parent._id));
     const sortedCategories = childs.map(category => {
 
       let res;
@@ -150,11 +152,11 @@ class CatalogState extends StoreModule {
         res = this.getSubCategories(categories, category._id, count);
         break;
 
-        case parentId == category.parent._id :
+        case (parentId == category.parent._id) :
+          // console.log('count',count, category);
         count = 1;
         this.getState().sortedCategories.push({...category,title: `${' - '.repeat(count)}${category.title}`});
         res = this.getSubCategories(categories, category._id, count++);
-        // count = 0;
         break;
 
         // default:

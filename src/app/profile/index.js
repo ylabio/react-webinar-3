@@ -10,7 +10,7 @@ import PageLayout from "../../components/page-layout";
 import LoginNav from '../../components/login-nav';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-
+  // test_1 123456
 function Profile() {
   const { t } = useTranslate();
   const store = useStore();
@@ -33,7 +33,7 @@ function Profile() {
 
   const handleOnclick =()=>{
     callbacks.onLogout();
-    navigate('/');
+    navigate('/login');
   }
 
   useEffect(() => {

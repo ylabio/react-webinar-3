@@ -16,21 +16,19 @@ import useSelector from "../../hooks/use-selector";
  * Главная страница - первичная загрузка каталога
  */
 function Main() {
-  const token = JSON.parse(localStorage.getItem("XToken"));
   const navigate = useNavigate()
   const store = useStore();
-
-  useInit(() => {
-    store.actions.catalog.initParams();
-    store.actions.catalog.getCategories();
-    if(token) store.actions.login.loginByToken(token);
-  }, [], true);
-
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
     isLogin: state.login.isLogin,
   }));
+
+  useInit(() => {
+    store.actions.catalog.initParams();
+    store.actions.catalog.getCategories();
+    if(select.isLogin === true) store.actions.login.loginByToken();
+  }, [], true);
 
   const callbacks = {
     onLogout: useCallback(() => store.actions.login.logout(), [store]),
@@ -38,7 +36,7 @@ function Main() {
 
   const handleOnclick =()=>{
     navigate('/login');
-    if(select.isLogin) callbacks.onLogout();
+    if(select.isLogin === true) callbacks.onLogout();
   }
 
   return (

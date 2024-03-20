@@ -17,18 +17,19 @@ function Login() {
   const store = useStore();
   const [loginName, setLoginName] = useState('');
   const [password, setPassword] = useState('');
-  const token = JSON.parse(localStorage.getItem("XToken"));
 
   const select = useSelector(state => ({
     isLogin: state.login.isLogin,
     errorMessage: state.login.errorMessage,
   }));
 
+  console.log('select.isLogin', select.isLogin);
+
   const callbacks = {
-    // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     onLogin: useCallback((loginName, password) => store.actions.login.loginByEmail(loginName, password), [store]),
     onLogout: useCallback(() => store.actions.login.logout(), [store]),
+    onСlearErrorMessage : useCallback(() => store.actions.login.clearErrorMessage(), [store]),
   }
 
   const handleOnLogin=(e)=>{
@@ -41,12 +42,12 @@ function Login() {
   }
 
   useInit(() => {
-    if(token) store.actions.login.loginByToken(token);
+    callbacks.onСlearErrorMessage();
+    if(select.isLogin === true) store.actions.login.loginByToken();
   }, [], true);
 
   useEffect(() => {
-    // if(token) store.actions.login.loginByToken(token);
-    if (select.isLogin) {
+    if (select.isLogin === true) {
      return navigate('/profile')
    }
   }, [select.isLogin])
@@ -54,7 +55,6 @@ function Login() {
   return (
     <PageLayout>
       <LoginNav onClick={handleOnclick}/>
-      {/* <Head title={select.article.title}> */}
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
