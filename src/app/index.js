@@ -33,18 +33,20 @@ function App() {
         <Route path={'/articles/:id'} element={<Article/>}/>
         <Route path="/profile/:userid" element={
           <ProtectedRoute 
-            shouldBeAuthorized={true}
-            element={<Profile />}
+            shouldBeAuthorized={true}            
             redirect="/login"
-          />}
-        />
+          >
+            <Profile />
+          </ProtectedRoute>
+        }/>
         <Route path="/login" element={
           <ProtectedRoute
             shouldBeAuthorized={false}
-            element={<Login />}
             redirect="/"
-          />}
-        />
+          >
+            <Login />
+          </ProtectedRoute>
+        }/>
       </Routes>
 
       {select.activeModal === 'basket' && <Basket/>}
