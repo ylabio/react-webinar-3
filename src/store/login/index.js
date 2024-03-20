@@ -1,21 +1,18 @@
 import StoreModule from "../module";
 
-/**
- * Покупательская корзина
- */
 class LoginState extends StoreModule {
 
   initState() {
     return {
       loginData: {
         loginName: '',
-        password: ''
+        // password: ''
       },
-      userData: {
-        name: '',
-        email: '',
-        phone: '',
-      },
+      // userData: {
+      //   name: '',
+      //   email: '',
+      //   phone: '',
+      // },
       isLogin: false,
       errorMessage: '',
       waiting: false,
@@ -52,12 +49,15 @@ class LoginState extends StoreModule {
 
         this.setState({
           ...this.getState(),
-          isLogin: true,
-          userData: {
-            name: json.result.profile?.name,
-            email: json.result.email,
-            phone: json.result.profile?.phone,
+          loginData: {
+            loginName: json.result.profile?.name,
           },
+          isLogin: true,
+          // userData: {
+          //   name: json.result.profile?.name,
+          //   email: json.result.email,
+          //   phone: json.result.profile?.phone,
+          // },
           waiting: false,
         }, 'Логин по Токену');
       }
@@ -89,12 +89,15 @@ class LoginState extends StoreModule {
 
       this.setState({
         ...this.getState(),
-        isLogin: true,
-        userData: {
-          name: json.result.user.profile?.name,
-          email: json.result.user.email,
-          phone: json.result.user.profile?.phone,
+        loginData: {
+          loginName: json.result.user.profile?.name,
         },
+        isLogin: true,
+        // userData: {
+        //   name: json.result.user.profile?.name,
+        //   email: json.result.user.email,
+        //   phone: json.result.user.profile?.phone,
+        // },
         waiting: false,
       }, 'Логин по логину и почте');
     }

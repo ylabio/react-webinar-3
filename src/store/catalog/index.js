@@ -21,8 +21,6 @@ class CatalogState extends StoreModule {
       },
       count: 0,
       waiting: false,
-      // categories: [{_id: '0', title: 'Все', value: 'Все', parent: null}],
-      // sortedCategories: [],
     }
   }
 
@@ -92,7 +90,6 @@ class CatalogState extends StoreModule {
       'search[query]': params.query,
     } ;
 
-    // if (params.category !== 'Все')  apiParams['search[category]'] = categoryId;
     if (params.category !== 'Все')  apiParams['search[category]'] = params.category;
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);

@@ -10,7 +10,8 @@ import PageLayout from "../../components/page-layout";
 import LoginNav from '../../components/login-nav';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-  // test_1 123456
+import useInit from '../../hooks/use-init';
+
 function Profile() {
   const { t } = useTranslate();
   const store = useStore();
@@ -18,18 +19,21 @@ function Profile() {
 
   const select = useSelector((state) => ({
     isLogin: state.login.isLogin,
-    isValid: state.login.isValid,
-    errorMessage: state.login.errorMessage,
+    waiting: state.profile.waiting,
 
-    waiting: state.login.waiting,
-    name: state.login.userData.name,
-    email: state.login.userData.email,
-    phone: state.login.userData.phone,
+    name: state.profile.userData.name,
+    email: state.profile.userData.email,
+    phone: state.profile.userData.phone,
   }));
 
   const callbacks = {
+    onGetProfile: useCallback(() => store.actions.profile.getProfileByToken(), [store]),
     onLogout: useCallback(() => store.actions.login.logout(), [store]),
   }
+
+  useInit(() => {
+   callbacks.onGetProfile();
+  }, []);
 
   const handleOnclick =()=>{
     callbacks.onLogout();

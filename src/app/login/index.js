@@ -23,8 +23,6 @@ function Login() {
     errorMessage: state.login.errorMessage,
   }));
 
-  console.log('select.isLogin', select.isLogin);
-
   const callbacks = {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     onLogin: useCallback((loginName, password) => store.actions.login.loginByEmail(loginName, password), [store]),

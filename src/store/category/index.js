@@ -7,7 +7,6 @@ class CategoryState extends StoreModule {
    */
 initState() {
   return {
-    // category: 'Все',
     waiting: false,
     categories: [{_id: '0', title: 'Все', value: 'Все', parent: null}],
     sortedCategories: [],
