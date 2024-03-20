@@ -1,0 +1,15 @@
+.AuthMenu {
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: 1px solid #DCDCDC;
+  padding: 10px 20px;
+}
+
+.AuthMenu-link {
+  color: black;
+  text-decoration: none;
+}
+
+.AuthMenu-btn {
+  margin-left: 20px;
+}
