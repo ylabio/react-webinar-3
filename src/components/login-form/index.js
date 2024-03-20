@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import './style.css'
 import SideLayout from "../side-layout";
 import PropTypes from "prop-types";
@@ -7,8 +7,12 @@ const LoginForm = ({ onClick, error, t }) => {
   const [login, setLogin] = useState('')
   const [pass, setPass] = useState('')
 
-  const [loginBlur, setLoginBlur] = useState(false)
-  const [passBlur, setPassBlur] = useState(false)
+  const [showError, setShowError] = useState(false)
+
+  const handleBtnClick = () => {
+    onClick(login, pass)
+    setShowError(true)
+  }
 
   return (
     <SideLayout side='start' padding='medium'>
@@ -16,16 +20,18 @@ const LoginForm = ({ onClick, error, t }) => {
         <span className='LoginForm-header'>{t('user.login')}</span>
         <div className='LoginForm-login'>
           <label htmlFor="user-login">{t('user.loginInput')}</label>
-          <input id='user-login' type="text" value={login} onBlur={() => setLoginBlur(true)} onChange={(e) => setLogin(e.target.value)}/>
+          <input id='user-login' type="text" value={login} onChange={(e) => setLogin(e.target.value)}/>
         </div>
         <div className='LoginForm-pass'>
           <label htmlFor="user-pass">{t('user.passInput')}</label>
-          <input id='user-pass' type="password" onBlur={() => setPassBlur(true)} value={pass} onChange={(e) => setPass(e.target.value)}/>
+          <input id='user-pass' type="password" value={pass} onChange={(e) => setPass(e.target.value)}/>
         </div>
-        {error && (loginBlur || passBlur) &&
-          <div className='LoginForm-error'>{error}</div>
+        {showError &&
+          error?.map((issue, i) => (
+            <div key={i} className='LoginForm-error'>{issue.message}</div>
+          ))
         }
-        <button className='LoginForm-btn' onClick={() => onClick(login, pass)}>{t('user.enter')}</button>
+        <button className='LoginForm-btn' onClick={handleBtnClick}>{t('user.enter')}</button>
       </div>
     </SideLayout>
   );
@@ -33,7 +39,7 @@ const LoginForm = ({ onClick, error, t }) => {
 
 LoginForm.propTypes = {
   onClick: PropTypes.func,
-  error: PropTypes.string,
+  error: PropTypes.array,
   t: PropTypes.func
 }
 
@@ -41,4 +47,4 @@ LoginForm.defaultProps = {
   onClick: () => {}
 }
 
-export default React.memo(LoginForm);
+export default LoginForm;

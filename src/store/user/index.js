@@ -47,7 +47,7 @@ class UserState extends StoreModule {
         this.setState({
           ...this.getState(),
           waiting: false,
-          error: json.error.message
+          error: json.error.data.issues
         }, 'Ошибка получения данных пользователя')
       }
   }
@@ -75,7 +75,7 @@ class UserState extends StoreModule {
       this.setState({
         ...this.getState(),
         waiting: false,
-        error: json.error.message
+        error: json.error.data.issues
       }, 'Ошибка авторизации')
     } else {
       this.setState({
@@ -117,7 +117,7 @@ class UserState extends StoreModule {
       this.setState({
         ...this.getState(),
         waiting: false,
-        error: json.error.message
+        error: json.error.data.issues
       }, 'Ошибка разлогина')
     }
   }
