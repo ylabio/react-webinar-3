@@ -33,3 +33,50 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Форматирование категорий
+ * @param source {Array}
+ * @returns {Array}
+ */
+export const getCategories = (source) => {
+	const options = [{
+		"_id": null,
+		"parent": '',
+		"value": '',
+		"title": "Все категории"
+	}];
+	source.forEach((elem) => {
+		if (elem.parent === null) {
+			options.push({
+				"_id": elem._id,
+				"parent": elem.parent,
+				"value": elem._id,
+				"title": elem.title
+			});
+		}
+	});
+	let nesting = 0;
+	const handler = (current, parent) => {
+		const child = source.filter((elem) => elem.parent?._id === current);
+		(child.length && parent) ? nesting += 1 : nesting = 1;
+		options.splice(
+			options.findIndex((elem) => elem._id === current) + 1,
+			0,
+			...child.map((elem) => {
+					return {
+						"_id": elem._id,
+						"parent": elem.parent,
+						"value": elem._id,
+						"title": `${('- ').repeat(nesting)}${elem.title}`
+					}
+				})
+		);
+	};
+	for (const elem of options) {
+		if (elem._id) {
+			handler(elem._id, elem.parent);
+		}
+	};
+	return options;
+};
