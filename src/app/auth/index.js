@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
 import LoginBox from '../../components/login-box';
 import ProfileCard from '../../components/profile-card';
+
 /**
  * Главная страница - первичная загрузка каталога
  */
@@ -21,6 +22,7 @@ const LoginPage = (props) => {
     const store = useStore();
     const navigate = useNavigate();
     const auth = useSelector(state => state.auth);
+    const location = useLocation();
     useInit(async () => {
         store.actions.auth.resetLoginError();
         return () => {
@@ -32,10 +34,10 @@ const LoginPage = (props) => {
         const { username, password } = event.target.elements;
         try {
             await store.actions.auth.login(username.value, password.value);
-            navigate('/'); 
+            const from = location.state?.from || '/';
+            navigate(from);
         } catch (error) {
             console.error('Ошибка входа', error);
-           
         }
     };
 

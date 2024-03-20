@@ -5,11 +5,13 @@ import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
 import LoginButton from "../../components/login-button";
 import UserProfileButton from "../../components/userProfile-button";
+import { useLocation } from "react-router-dom";
 const LoginBox = () => {
     const { t } = useTranslate();
    
     const store = useStore();
     const navigate = useNavigate();
+    const location = useLocation();
     const auth = useSelector(state => state.auth);
 
     useInit(async () => {
@@ -25,7 +27,7 @@ const LoginBox = () => {
     };
     const handleLoginClick = () => {
         if (!isLoggedIn) {
-            navigate('/login');
+            navigate('/login', { state: { from: location.pathname } });
         }
     };
   
