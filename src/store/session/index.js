@@ -1,14 +1,13 @@
 import StoreModule from "../module";
 
-class UserState extends StoreModule {
+class SessionState extends StoreModule {
 
   initState() {
     return {
       data: {
         token: localStorage.getItem('user') || '',
+        id: '',
         name: '',
-        phone: '',
-        email: ''
       },
       waiting: false,
       error: null
@@ -37,9 +36,8 @@ class UserState extends StoreModule {
           ...this.getState(),
           data: {
             ...this.getState().data,
-            name: json.result.profile.name,
-            phone: json.result.profile.phone,
-            email: json.result.email
+            id: json.result._id,
+            name: json.result.profile.name
           },
           waiting: false
         }, 'Данные пользователя успешно получены')
@@ -82,9 +80,8 @@ class UserState extends StoreModule {
         ...this.getState(),
         data: {
           token: json.result.token,
-          name: json.result.user.profile.name,
-          phone: json.result.user.profile.phone,
-          email: json.result.user.email
+          id: json.result.user._id,
+          name: json.result.user.profile.name
         },
         waiting: false,
         error: null,
@@ -125,4 +122,4 @@ class UserState extends StoreModule {
 
 }
 
-export default UserState;
+export default SessionState;

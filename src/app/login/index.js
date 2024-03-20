@@ -16,17 +16,18 @@ const Login = () => {
   const navigate = useNavigate()
 
   const select = useSelector(state => ({
-    user: state.user.data.token,
-    error: state.user.error
+    user: state.session.data.token,
+    id: state.session.data.id,
+    error: state.session.error
   }))
 
   const callbacks = {
-    authorize: useCallback((login, pass) => store.actions.user.authorize(login, pass), [store])
+    authorize: useCallback((login, pass) => store.actions.session.authorize(login, pass), [store])
   }
 
   useEffect(() => {
     if (select.user) {
-      navigate('/profile')
+      navigate(`/profile/${select.id}`)
     }
   }, [select.user])
 

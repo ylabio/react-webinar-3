@@ -19,7 +19,7 @@ function App() {
   const store = useStore()
 
   useEffect(() => {
-    store.actions.user.getMe()
+    store.actions.session.getMe()
   }, []);
 
   return (
@@ -28,7 +28,7 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
         <Route path={'/login'} element={<Login />} />
-        <Route path={'/profile'} element={<Profile />}/>
+        <Route path={'/profile/:id'} element={<Profile />}/>
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}
