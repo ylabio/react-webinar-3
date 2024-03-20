@@ -1,5 +1,4 @@
-import {memo, useCallback} from 'react';
-import { useNavigate } from 'react-router-dom';
+import {memo} from 'react';
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
@@ -11,29 +10,21 @@ import LocaleSelect from "../../containers/locale-select";
 import AuthHeader from '../../components/auth-header';
 import ProfileInfo from '../../components/profile-info';
 
-function Profile() {
+function Profile(props) {
 
   const store = useStore();
-  const navigate = useNavigate();
-
-  const token = localStorage.getItem('token');
 
   useInit(() => {
-    if (token) {
-      store.actions.user.initUserProfile(token);
-    } else {
-      navigate('/');
-    }
-  }, [], true);
+    store.actions.profile.initUserProfile(props.token);
+  }, [store], true);
 
   const callbacks = {
-    onSignOut: useCallback(token => store.actions.user.signOut(token, navigate), [store]),
+    onSignOut: () => props.onLogout(),
   }
 
   const select = useSelector((state) => ({
-    userName: state.user.profile.userName,
-    phone: state.user.profile.phone,
-    email: state.user.profile.email
+    phone: state.profile.phone,
+    email: state.profile.email
   }));
 
   const {t} = useTranslate();
@@ -41,10 +32,10 @@ function Profile() {
   return (
     <PageLayout>
       <AuthHeader
-        token={token}
+        token={props.token}
         buttonTitle='Выход'
         login='/login'
-        userName={select.userName}
+        userName={props.userName}
         onSignOut={callbacks.onSignOut}
       />
       <Head title={t('title')}>
@@ -52,7 +43,7 @@ function Profile() {
       </Head>
       <Navigation/>
       <ProfileInfo
-        userName={select.userName}
+        userName={props.userName}
         phone={select.phone}
         email={select.email}
       />

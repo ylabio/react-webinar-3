@@ -4,51 +4,24 @@ class User extends StoreModule {
 
   initState() {
     return {
-      token: '',
+      token: localStorage.getItem('token') || '',
       user: {},
       profile: {
-        userName: '',
-        phone: '',
-        email: '',
+        userName: localStorage.getItem('userName') || '',
       },
       errorMessage: '',
       waiting: false // признак ожидания загрузки
     }
   }
 
-  async initUserProfile(token) {
-    this.setState({
-      profile: {},
-      waiting: true
-    });
-
-    await fetch('api/v1/users/self?fields=*', {
-      method: 'GET',
-      headers: {
-        'X-Token': token,
-        'Content-Type': 'application/json'
-      },
-    })
-      .then(response => {
-        const json = response.json();
-        return json;
-      })
-      .then(data => {
-        this.setState({
-          profile: {
-            userName: data.result.profile.name,
-            phone: data.result.profile.phone,
-            email: data.result.email,
-          },
-          waiting: false
-        }, 'Данные пользователя получены');
-      })
-  }
-
   async auth(body, navigate) {
     this.setState({
       token: '',
       user: {},
+      profile: {
+        userName: '',
+      },
+      errorMessage: '',
       waiting: true
     });
 
@@ -66,7 +39,12 @@ class User extends StoreModule {
       .then(data => {
         if (data.error) {
           this.setState({
-            errorMessage: data.error.message,
+            token: '',
+            user: {},
+            profile: {
+              userName: '',
+            },
+            errorMessage: data.error.data.issues[0].message,
             waiting: false
           });
         } else {
@@ -77,16 +55,18 @@ class User extends StoreModule {
             profile: {
               userName: data.result.user.profile.name,
             },
+            errorMessage: '',
             waiting: false
           }, 'Пользователь авторизован');
 
           localStorage.setItem('token', this.getState().token);
-          navigate('/');
+          localStorage.setItem('userName', this.getState().profile.userName)
+          navigate('/', {replace: true});
         }
       })
   }
 
-  async signOut(token, navigate) {
+  async signOut(token) {
     await fetch('/api/v1/users/sign', {
       method: 'DELETE',
       headers: {
@@ -98,17 +78,15 @@ class User extends StoreModule {
     this.setState({
       token: '',
       user: {},
-      userName: '',
       profile: {
         userName: '',
-        phone: '',
-        email: '',
       },
+      errorMessage: '',
       waiting: false
     }, 'Пользователь вышел из аккаунта');
 
     localStorage.setItem('token', '');
-    if (navigate) navigate('/');
+    localStorage.setItem('userName', '')
   }
 }
 

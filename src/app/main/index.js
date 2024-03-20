@@ -1,6 +1,4 @@
-import {memo, useCallback, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
-import useSelector from "../../hooks/use-selector";
+import {memo} from 'react';
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -15,44 +13,28 @@ import AuthHeader from '../../components/auth-header';
 /**
  * Главная страница - первичная загрузка каталога
  */
-function Main() {
+function Main(props) {
 
   const store = useStore();
-  const navigate = useNavigate();
-  const [userIsAuthorized, setUserIsAuthorized] = useState(false);
-
-  const token = localStorage.getItem('token');
-
-  if (token) {
-    !userIsAuthorized && setUserIsAuthorized(true);
-  } else {
-    userIsAuthorized && setUserIsAuthorized(false);
-  }
 
   useInit(() => {
     store.actions.catalog.initParams();
-    store.actions.catalog.initCategories();
-    if (userIsAuthorized) store.actions.user.initUserProfile(token);
+    store.actions.categories.initCategories();
   }, [], true);
-
   const callbacks = {
-    onSignOut: useCallback(token => store.actions.user.signOut(token, navigate), [store]),
+    onSignOut: () => props.onLogout(),
   }
-
-  const select = useSelector(state => ({
-    userName: state.user.profile.userName,
-  }));
 
   const {t} = useTranslate();
 
   return (
     <PageLayout>
       <AuthHeader
-        token={token}
-        buttonTitle={userIsAuthorized ? 'Выход' : 'Вход'}
-        link={userIsAuthorized ? '/profile' : '/login'}
+        token={props.token}
+        buttonTitle={props.isLoggedIn ? 'Выход' : 'Вход'}
+        link={props.isLoggedIn ? '/profile' : '/login'}
         onSignOut={callbacks.onSignOut}
-        userName={select.userName}
+        userName={props.userName}
       />
       <Head title={t('title')}>
         <LocaleSelect/>

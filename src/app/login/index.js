@@ -1,5 +1,4 @@
-import {memo, useCallback, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import {memo} from 'react';
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
@@ -11,35 +10,26 @@ import LocaleSelect from "../../containers/locale-select";
 import AuthHeader from '../../components/auth-header';
 import LoginForm from '../../components/login-form';
 
-function Login() {
+function Login(props) {
 
   const store = useStore();
-  const navigate = useNavigate();
-  const [userIsAuthorized, setUserIsAuthorized] = useState(false);
-  const token = localStorage.getItem('token');
-
-  if (token) {
-    !userIsAuthorized && setUserIsAuthorized(true);
-  } else {
-    userIsAuthorized && setUserIsAuthorized(false);
-  }
 
   useInit(() => {
-    if (token) navigate('/');
-  }, [], true);
+    store.actions.user.setState({...store.actions.user.getState(), errorMessage: ''});
+  }, [store], true);
 
   const callbacks = {
     handleSignIn(e) {
       e.preventDefault();
       const login = e.target.login.value;
       const password = e.target.password.value;
-      callbacks.onSignIn({ login, password });
+      callbacks.onSignIn({login, password});
     },
-    onSignIn: useCallback(body => store.actions.user.auth(body, navigate), [store]),
+    onSignIn: (body) => props.onLogin(body),
   }
 
   const select = useSelector((state) => ({
-    errorMessage: state.user.errorMessage
+    errorMessage: state.user.errorMessage,
   }));
 
   const {t} = useTranslate();
@@ -48,13 +38,17 @@ function Login() {
     <PageLayout>
       <AuthHeader
         buttonTitle='Вход'
-        link={userIsAuthorized ? '/profile' : '/login'}
+        link={'/login'}
       />
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <LoginForm onSignIn={callbacks.onSignIn} handleSignIn={callbacks.handleSignIn} errorMessage={select.errorMessage}/>
+      <LoginForm
+        onSignIn={callbacks.onSignIn}
+        handleSignIn={callbacks.handleSignIn}
+        errorMessage={select.errorMessage}
+      />
     </PageLayout>
   );
 }

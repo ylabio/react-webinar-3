@@ -5,10 +5,16 @@ import './style.css';
 
 function LoginForm(props) {
   const cn = bem('LoginForm');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.handleSignIn(e);
+  };
+
   return (
     <div className={cn()}>
       <div className={cn('title')}>Вход</div>
-      <form onSubmit={(e) => props.handleSignIn(e)}>
+      <form onSubmit={handleSubmit}>
         <div className={cn('form-group')}>
           <label htmlFor='login'>Логин</label>
           <input type='text' id='login' name='login' required />
