@@ -1,4 +1,6 @@
-import {memo} from 'react';
+import { memo, useCallback } from 'react'
+import AccountBlock from '../../components/account-block'
+import useSelector from '../../hooks/use-selector'
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -16,14 +18,25 @@ function Main() {
 
   const store = useStore();
 
+
+  const select = useSelector(state => ({
+    user: state.profile.data
+  }));
+
   useInit(() => {
     store.actions.catalog.initParams();
   }, [], true);
+
+  const callbacks = {
+    onLogout: useCallback(() => store.actions.profile.logout(), [store]),
+    setUrl: useCallback((url) => store.actions.router.setUrl(url), [store])
+  }
 
   const {t} = useTranslate();
 
   return (
     <PageLayout>
+      <AccountBlock t={t} onLogout={callbacks.onLogout} username={select.user?.profile?.name} setUrl={callbacks.setUrl}/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

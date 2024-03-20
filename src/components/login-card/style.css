@@ -1,0 +1,23 @@
+.LoginCard {
+  padding: 0 20px;
+}
+
+.LoginCard-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.LoginCard-form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  gap: 30px
+}
+
+.LoginCard-form button {
+  width: 60px;
+}
+
+.LoginCard-error {
+  color: red;
+}
