@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect } from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
@@ -19,11 +19,11 @@ function ProfileTools() {
     user: state.profile.user
   }));
 
-  useInit(() => {
+  useEffect(() => {
     if (select.token) {
       store.actions.profile.setUser()
     }
-  })
+  }, [store])
 
   const callbacks = {
     buttonClick: useCallback(() => {

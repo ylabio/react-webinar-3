@@ -14,9 +14,9 @@ function CatalogFilter() {
 
   const store = useStore();
 
-  useInit(()=>{
+  useEffect(()=>{
     store.actions.categories.setCategories();
-  })
+  }, [store])
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
