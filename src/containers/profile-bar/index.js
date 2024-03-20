@@ -42,7 +42,7 @@ function ProfileBar() {
 
   return (
     <SideLayout side="end">
-      {select.user && <Hyperlink key="profile-link" to="/profile" caption={select.user.profile.name} />}
+      {select.user && <Hyperlink key="profile-link" to={`/profile/${select.user._id}`} caption={select.user.profile.name} />}
       {renderButton()}
     </SideLayout>
   )

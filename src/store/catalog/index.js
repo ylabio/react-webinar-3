@@ -11,8 +11,7 @@ class CatalogState extends StoreModule {
    */
   initState() {
     return {
-      list: [],
-      categories: [],
+      list: [],      
       params: {
         page: 1,
         limit: 10,
@@ -32,7 +31,6 @@ class CatalogState extends StoreModule {
    * @return {Promise<void>}
    */
   async initParams(newParams = {}) {
-    await this.fetchCategories();
     const urlParams = new URLSearchParams(window.location.search);
     let validParams = {};
     if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
@@ -97,72 +95,6 @@ class CatalogState extends StoreModule {
       count: json.result.count,
       waiting: false
     }, 'Загружен список товаров из АПИ');
-  }
-
-  async fetchCategories() {
-    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      categories: this.#parseCategories(json.result.items),
-    }, 'Загружен список категорий');
-  }
-
-  #parseCategories(categories) {
-    return [{value: "", title: "Все"}, ...this.#generateCategoryNames(categories)];
-  }
-
-  #generateTree(items) {
-    let tree = [];
-    let mappedItems = {};
-    let item;
-    let mappedItem;
-
-    for (let i = 0, len = items.length; i < len; i++) {
-      item = items[i];
-      mappedItems[item._id] = item;
-      mappedItems[item._id]['children'] = [];
-    }
-
-    for (let id in mappedItems) {
-      if (mappedItems.hasOwnProperty(id)) {
-        mappedItem = mappedItems[id];
-        if (mappedItem.parent) {
-          mappedItems[mappedItem.parent._id]['children'].push(mappedItem);
-        }
-        else {
-          tree.push(mappedItem);
-        }
-      }
-    }
-    return tree;
-  }
-
-  #generateCategoryNames(categories) {
-    const tree = this.#generateTree(categories);
-
-    let visited = [];
-
-    let traverse = (prefix, node) => {
-      visited.push({value: node._id, title: `${prefix}${node.title}`});
-      if (node.children) {
-        prefix = `- ${prefix}`;
-        for (let child of node.children) {
-          traverse(prefix, child);
-        }
-      }
-    }
-
-    tree.forEach(branch => traverse("", branch));
-    return visited;
-  }
-
-  #addSpaces(title, parent, categories) {
-    if (parent) {
-      title = `- ${title}`;
-      title = this.#addSpaces(title, categories.find(c => c._id === parent._id).parent, categories);
-    }
-    return title;
   }
 }
 

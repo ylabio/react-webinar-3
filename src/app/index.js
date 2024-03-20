@@ -31,7 +31,7 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
-        <Route path="/profile" element={
+        <Route path="/profile/:userid" element={
           <ProtectedRoute 
             shouldBeAuthorized={true}
             element={<Profile />}
