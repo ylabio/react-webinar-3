@@ -1,0 +1,8 @@
+.AuthTool {
+  display: flex;
+  gap: 20px;
+}
+
+.AuthTool-link {
+  color: #0087e9;
+}
