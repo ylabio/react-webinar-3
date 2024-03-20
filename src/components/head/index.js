@@ -1,16 +1,14 @@
 import { memo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
 import useSelector from "../../hooks/use-selector";
 import "./style.css";
 
-function Head({ title, children }) {
-  const store = useStore();
+function Head({ title, children, initParams, resetParams }) {
 
   useInit(() => {
-    store.actions.users.initParams();
+    initParams;
   }, [], true);
 
   const select = useSelector((state) => ({
@@ -21,7 +19,7 @@ function Head({ title, children }) {
 
   const callbacks = {
     // Удаление из корзины
-    resetParams: useCallback(() => store.actions.users.resetParams(), [store]),
+    resetParams: useCallback(() => resetParams(), []),
   };
   return (
     <>
@@ -30,10 +28,10 @@ function Head({ title, children }) {
         {select.userName}
           <button
             onClick={() => {
-              select.userName != null ? callbacks.resetParams() : {};
+              select.userName != '' ? callbacks.resetParams() : {};
             }}
           >
-             { select.userName != null ? 'Выход' : 'Вход'}
+             { select.userName != '' ? 'Выход' : 'Вход'}
           </button>
         </Link>
       </div>

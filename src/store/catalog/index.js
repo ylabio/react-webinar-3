@@ -62,12 +62,7 @@ class CatalogState extends StoreModule {
    * @returns {Promise<void>}
    */
   async setParams(newParams = {}, replaceHistory = false) {
-    const categoriesResponse = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
-    const categoriesJson = await categoriesResponse.json();
-    this.setState({
-      ...this.getState(),
-      categories: categoriesJson.result.items,
-    }, 'Загружен список категорий');
+    
 
     const params = {...this.getState().params, ...newParams};
 

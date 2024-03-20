@@ -2,7 +2,7 @@ import StoreModule from "../module";
 
 function getCookie(name) {
   let cookie = document.cookie.split('; ').find(row => row.startsWith(name + '='));
-  return cookie!='' ? cookie.split('=')[1] : null;
+  return cookie ? cookie.split('=')[1] : '';
 }
 /**
  * Состояние каталога - параметры фильтра и список товара
@@ -14,7 +14,7 @@ class UsersState extends StoreModule {
    */
   initState() {
     return {
-      user: JSON.parse(getCookie("user")),
+      user: getCookie("user") != '' ? JSON.parse(getCookie("user")) : null,
       userName: getCookie("userName"),
       params: {
         login: getCookie("login"),
@@ -39,8 +39,8 @@ class UsersState extends StoreModule {
     if (urlParams.has("password"))
       validParams.category = urlParams.get("password");
     if (
-      this.getState().params.login != null &&
-      this.getState().params.password != null
+      this.getState().params.login != '' &&
+      this.getState().params.password != ''
     ) {
       this.getInfo();
     }

@@ -17,7 +17,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories,
+    categories: state.category.categories,
   }));
 
   const callbacks = {
@@ -37,6 +37,7 @@ function CatalogFilter() {
     ),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
+    onResetCat: useCallback(() => store.actions.category.resetParams(), [store]),
   };
 
   const options = {
@@ -75,13 +76,14 @@ function CatalogFilter() {
         value={select.sort}
         onChange={callbacks.onSort}
       />
+      <div className="SideLayout-item-input">
       <Input
         value={select.query}
         onChange={callbacks.onSearch}
         placeholder={"Поиск"}
         delay={1000}
-      />
-      <button onClick={callbacks.onReset}>{t("filter.reset")}</button>
+      /></div>
+      <button onClick={() => {callbacks.onReset(); callbacks.onResetCat()}}>{t("filter.reset")}</button>
     </SideLayout>
   );
 }
@@ -108,14 +110,14 @@ const sortCategories = (items) => {
         catList.length > 0 &&
         sortedCat
           .map((x) => x.title)
-          .indexOf("-".repeat(quantity) + catList[0].title) == -1
+          .indexOf("- ".repeat(quantity) + catList[0].title) == -1
       ) {
         sortedCat = [
           ...sortedCat.slice(0, sortedCat.indexOf(item)),
           item,
           ...catList.map((i) => ({
             value: i.value,
-            title: "-".repeat(quantity) + i.title,
+            title: "- ".repeat(quantity) + i.title,
             parent: i.parent,
           })),
           ...sortedCat.slice(sortedCat.indexOf(item) + 1),

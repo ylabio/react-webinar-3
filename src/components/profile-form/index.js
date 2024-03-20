@@ -1,10 +1,8 @@
 import { memo, useCallback } from "react";
-import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import "./style.css";
 
-function ProfileForm() {
-  const store = useStore();
+function ProfileForm(props) {
 
   const select = useSelector((state) => ({
     user: state.users.user,
@@ -12,16 +10,6 @@ function ProfileForm() {
     params: state.users.params,
   }));
 
-  const callbacks = {
-    getInfo: useCallback(() => store.actions.users.getInfo(), [store]),
-    setPassword: useCallback(
-      (value) => store.actions.users.setPassword(value),
-      [store]
-    ),
-    setLogin: useCallback((value) => store.actions.users.setLogin(value), [
-      store,
-    ]),
-  };
   return (
     <div className="Profile-Form">
       {select.user == null || Object.keys(select.user)[0] == "error" ? (
@@ -31,7 +19,7 @@ function ProfileForm() {
           <input
             value={select.params.login}
             onChange={(e) => {
-              callbacks.setLogin(e.target.value);
+              props.setLogin(e.target.value);
             }}
             id="Input-Login"
           />
@@ -39,7 +27,7 @@ function ProfileForm() {
           <input
             value={select.params.password}
             onChange={(e) => {
-              callbacks.setPassword(e.target.value);
+              props.setPassword(e.target.value);
             }}
             id="Input-Password"
           />
@@ -48,7 +36,7 @@ function ProfileForm() {
               {select.user.error.data.issues[0].message}
             </div>
           )}
-          <button onClick={callbacks.getInfo}>Войти</button>
+          <button onClick={props.getInfo}>Войти</button>
         </>
       ) : (
         <div className="User-Page">

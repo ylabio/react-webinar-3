@@ -4,11 +4,11 @@ import useSelector from "../../hooks/use-selector";
 import ProfileForm from "../../components/profile-form";
 import "./style.css";
 
-function LoginPage() {
+function LoginPage(props) {
 
   return (
     <div className="Login-Page">
-      <ProfileForm/>
+      <ProfileForm getInfo={props.getInfo} initParams={props.initParams} resetParams={props.resetParams} setLogin={props.setLogin} setPassword={props.setPassword}/>
     </div>
   );
 }

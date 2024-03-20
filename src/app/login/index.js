@@ -16,10 +16,21 @@ function Login() {
 
   const { t } = useTranslate();
 
-
   const callbacks = {
     // Удаление из корзины
     getInfo: useCallback(() => store.actions.users.getInfo(), [store]),
+
+    // Добавление в корзину
+    initParams: useCallback(() => store.actions.users.initParams(), [store]),
+    // Открытие модалки корзины
+    resetParams: useCallback(() => store.actions.users.resetParams(), [store]),
+    setLogin: useCallback((login) => store.actions.users.setLogin(login), [
+      store,
+    ]),
+    setPassword: useCallback(
+      (password) => store.actions.users.setPassword(password),
+      [store]
+    ),
   };
 
   return (
@@ -28,7 +39,7 @@ function Login() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <LoginPage />
+      <LoginPage getInfo={callbacks.getInfo} initParams={callbacks.initParams} resetParams={callbacks.resetParams} setLogin={callbacks.setLogin} setPassword={callbacks.setPassword} />
     </PageLayout>
   );
 }

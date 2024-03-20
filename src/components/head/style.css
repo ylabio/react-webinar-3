@@ -19,7 +19,10 @@
 
 .Login-Button{
   text-align: right;
+  border-bottom: 1px solid #DCDCDC;
 }
+
+
 .Login-Button button{
   margin: 10px 20px;
 }
