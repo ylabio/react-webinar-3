@@ -7,13 +7,23 @@ import LocaleSelect from '../../containers/locale-select';
 import useTranslate from "../../hooks/use-translate";
 import useSelector from "../../hooks/use-selector";
 import UserProfileForm from '../../components/user-profile-form';
+import useStore from '../../hooks/use-store';
+import useInit from '../../hooks/use-init';
+import Spinner from '../../components/spinner';
 
 const UserProfile = () => {
-  const select = useSelector(state => ({    
-    user: state.auth.user    
-  }));  
 
+  const store = useStore();
   const {t} = useTranslate();
+
+  useInit(async () => {
+    await store.actions.profile.fetchProfile();
+  }, []);
+
+  const select = useSelector(state => ({    
+    user: state.profile.profile,
+    waiting: state.profile.waiting
+  }));  
 
   return (
     <PageLayout>   
@@ -22,7 +32,9 @@ const UserProfile = () => {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <UserProfileForm user={select.user} t={t} />
+      <Spinner active={select.waiting}>
+        <UserProfileForm user={select.user} t={t} />
+      </Spinner>
     </PageLayout>  
   )
 };

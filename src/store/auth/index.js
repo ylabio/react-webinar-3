@@ -60,31 +60,35 @@ initState() {
     }
   }
 
-  async fetchProfile() {
-    try {
-      const token = this.getState().token;        
+  async checkAuth() {
+    const token = localStorage.getItem('token') || '';
 
-      if (!token) {        
-        return;
-      }  
+    if (!token) {
+      this.initState();
+    } else {
+      try {
+        this.setState({ ...this.getState(), waiting: true, error: '' });
 
-      const response = await fetch('/api/v1/users/self?fields=*', {
-        method: 'GET',
-        headers: {
-          'X-Token': token,
-          'Content-Type': 'application/json'
-        }
-      });
+        const response = await fetch('/api/v1/users/self?fields=*', {
+          method: 'GET',
+          headers: {
+            'X-Token': token,
+            'Content-Type': 'application/json'
+          }
+        });     
 
-      const data = await response.json();
-      this.setState({ 
-        ...this.getState(), 
-        user: data.result, 
-        error: '', 
-        waiting: false }, 'Повторная авторизация'); 
-    } catch (error) {
-      console.error('Fetch profile error:', error);
-      this.setState({ error: error.message, waiting: false });
+        const data = await response.json();
+        this.setState({
+          ...this.getState(),
+          token,
+          user: data.result,          
+          error: '',
+          waiting: false
+        }, 'Повторная авторизация пользователя');
+      } catch (error) {
+        console.error('Ошибка повторной авторизации:', error);
+        this.setState({ error: error.message, waiting: false });
+      }
     }
   }
 }
