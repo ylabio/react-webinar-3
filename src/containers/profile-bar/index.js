@@ -1,9 +1,10 @@
 import { memo, useCallback, useMemo } from "react";
-import PropTypes from "prop-types";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import { useNavigate, Link } from "react-router-dom";
-import './style.css';
+import { useNavigate } from "react-router-dom";
+import SideLayout from "../../components/side-layout";
+import Hyperlink from "../../components/hyperlink";
+import useTranslate from "../../hooks/use-translate";
 
 function ProfileBar() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ function ProfileBar() {
   const select = useSelector(state => ({
     user: state.user.user,
   }));
+  const {t} = useTranslate();
 
   const callbacks = {
     onLoginClick: useCallback((e) => {
@@ -24,22 +26,25 @@ function ProfileBar() {
     }, [store]),
   };
 
-  const renderProfileLink = useCallback(() => {
-    if (select.user) {
-      return <Link to="/profile" className="ProfileBar-username">{select.user.username}</Link>
-    }
-  }, [select.user]);
-
   const renderButton = useCallback(() => {
-    return (<button className="ProfileBar-button" onClick={select.user === null ? callbacks.onLoginClick : callbacks.onLogoutClick}>{select.user ? "Выход" : "Вход"}</button>);
-  }, [select.user, callbacks.onLoginClick, callbacks.onLogoutClick]);
+    let callback;
+    let caption;
+    if (select.user) {
+      callback = callbacks.onLogoutClick;
+      caption = t("profile.logout");
+    } else {
+      callback = callbacks.onLoginClick;
+      caption = t("profile.login");
+    }
+    return (<button key="profile-button" onClick={callback}>{caption}</button>);
+  }, [select.user, callbacks.onLoginClick, callbacks.onLogoutClick, t]);
 
 
   return (
-    <div className="ProfileBar">
-      {renderProfileLink()}
+    <SideLayout side="end">
+      {select.user && <Hyperlink key="profile-link" to="/profile" caption={select.user.profile.name} />}
       {renderButton()}
-    </div>
+    </SideLayout>
   )
 }
 

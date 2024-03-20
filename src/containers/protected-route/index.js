@@ -1,15 +1,22 @@
 import { useCallback } from "react";
-import { Navigate, Route } from "react-router-dom";
-import Spinner from "../../components/spinner";
+import { Navigate } from "react-router-dom";
+import useSelector from "../../hooks/use-selector";
 
-const ProtectedRoute = ({ shouldBeAuthorized, isAuthorized, isWaiting, element, redirect }) => {
+const ProtectedRoute = ({ shouldBeAuthorized, element, redirect }) => {
+  
+  const select = useSelector(state => ({
+    activeModal: state.modals.name,
+    user: state.user.user,
+    waiting: state.user.waiting,
+  }));
+  
   const route = useCallback(() => {
-    if (isWaiting) {
+    if (select.waiting) {
       return <h3>Loading...</h3>
     }
-    return (shouldBeAuthorized == isAuthorized ? element : <Navigate to={redirect} />);
+    return (shouldBeAuthorized == (select.user !== null) ? element : <Navigate to={redirect} />);
 
-  }, [shouldBeAuthorized, isAuthorized, isWaiting, element, redirect])
+  }, [shouldBeAuthorized, element, redirect, select.user, select.waiting])
 
   return route();
 }

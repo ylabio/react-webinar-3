@@ -46,7 +46,7 @@ function CatalogFilter() {
       <Select key="selector-category" options={select.categories} value={select.category} onChange={callbacks.onSetCategory} />
       <Select key="selector-sort" options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input key="input-search" value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
-             delay={1000}/>
+             delay={1000} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>
   )

@@ -18,8 +18,6 @@ function App() {
 
   const select = useSelector(state => ({
     activeModal: state.modals.name,
-    user: state.user.user,
-    waiting: state.user.waiting,
   }));
 
   useMemo(() => {
@@ -36,8 +34,6 @@ function App() {
         <Route path="/profile" element={
           <ProtectedRoute 
             shouldBeAuthorized={true}
-            isAuthorized={select.user !== null}
-            isWaiting={select.waiting}
             element={<Profile />}
             redirect="/login"
           />}
@@ -45,8 +41,6 @@ function App() {
         <Route path="/login" element={
           <ProtectedRoute
             shouldBeAuthorized={false}
-            isAuthorized={select.user !== null}
-            isWaiting={select.waiting}
             element={<Login />}
             redirect="/"
           />}

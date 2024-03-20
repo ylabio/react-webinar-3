@@ -6,6 +6,7 @@ import { getCookie, setCookie, deleteCookie } from "../../cookie";
  */
 class UserState extends StoreModule {
 
+
   initState() {
     return {
       user: null,
@@ -59,7 +60,7 @@ class UserState extends StoreModule {
         const json = await response.json();
         this.setState({
           ...this.getState(),
-          errorMessage: `Ошибка ${json.error.code}: ${json.error.message}`,
+          errorMessage: `Ошибка ${json.error.code}: ${json.error?.data?.issues.map(issue => issue.message).join("; ")}`,
           waiting: false,
         }, 'Пользователь не залогинился');
       }
@@ -155,6 +156,13 @@ class UserState extends StoreModule {
         waiting: false
       });
     }
+  }
+
+  clearErrorMessage() {
+    this.setState({
+      ...this.getState(),
+      errorMessage: "",
+    });
   }
 }
 
