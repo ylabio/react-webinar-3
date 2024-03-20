@@ -1,17 +1,15 @@
-function flattenCategories(categories, depth = 0) {
-    let options = [];
+function flattenCategories(categories, depth = 0, result = []) {
     categories.forEach(category => {
         const prefix = depth > 0 ? '- '.repeat(depth) : '';
-        options.push({
+        result.push({
             value: category.value,
-            title: prefix + category.title, 
+            title: prefix + category.title,
         });
         if (category.children && category.children.length > 0) {
-            const childOptions = flattenCategories(category.children, depth + 1);
-            options = options.concat(childOptions);
+            flattenCategories(category.children, depth + 1, result);
         }
     });
-
-    return options;
+    return result;
 }
-export default flattenCategories
+
+export default flattenCategories;

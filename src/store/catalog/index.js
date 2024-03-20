@@ -9,6 +9,7 @@ class CatalogState extends StoreModule {
    * Начальное состояние
    * @return {Object}
    */
+    
   initState() {
     return {
       list: [],
