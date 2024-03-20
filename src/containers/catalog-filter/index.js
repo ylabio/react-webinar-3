@@ -17,7 +17,7 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    categories: state.catalog.categories,
+    categories: state.category.list,
     category: state.catalog.params.category
   }));
 
@@ -32,8 +32,6 @@ function CatalogFilter() {
     onCategory: useCallback(category => store.actions.catalog.setParams({category, page: 1}), [store]),
   };
 
-  const categories = select.categories && buildCategory(select.categories); 
-
   const options = {
     sort: useMemo(() => ([
       {value: 'order', title: 'По порядку'},
@@ -43,8 +41,8 @@ function CatalogFilter() {
     ]), []),
     categories: useMemo(() => ([
       {value: '', title: 'Все'},
-      ...categories ?? []
-    ]), [select])
+      ...buildCategory(select.categories) ?? []
+    ]), [select.categories])
   }; 
 
   const {t} = useTranslate();

@@ -69,13 +69,6 @@ class CatalogState extends StoreModule {
       waiting: true
     }, 'Установлены параметры каталога');
 
-    const responseCategories = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
-    const jsonCategories = await responseCategories.json();
-    this.setState({
-      ...this.getState(),
-      categories: jsonCategories.result.items
-    }, 'Загружен список категорий из АПИ');
-
     // Сохранить параметры в адрес страницы
     let urlSearch = new URLSearchParams(params).toString();
     const url = window.location.pathname + '?' + urlSearch + window.location.hash;
