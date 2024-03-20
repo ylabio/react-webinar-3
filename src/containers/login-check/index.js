@@ -15,8 +15,6 @@ function LoginCheck({children}) {
    }
   }, [select.isLogin])
 
-  console.log('LoginCheck isLogin', select.isLogin);
-
   return children;
 }
 
