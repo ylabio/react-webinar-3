@@ -9,7 +9,6 @@ class RouterState extends StoreModule {
   }
 
   setUrl(url) {
-    console.log(url)
     this.setState({url: url !== '/login' && url}, `Установлен послений url: ${url}`);
   }
 }

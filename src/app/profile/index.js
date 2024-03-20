@@ -7,7 +7,7 @@ import ProfileCard from '../../components/profile-card'
 import Spinner from '../../components/spinner'
 import LocaleSelect from '../../containers/locale-select'
 import Navigation from '../../containers/navigation'
-import useInit from '../../hooks/use-init'
+import { useAuthorized } from '../../hooks/use-authorized'
 import useSelector from '../../hooks/use-selector'
 import useStore from '../../hooks/use-store'
 import useTranslate from '../../hooks/use-translate'
@@ -15,12 +15,11 @@ import useTranslate from '../../hooks/use-translate'
 
 function Profile() {
   const store = useStore();
-  const navigate = useNavigate()
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
     user: state.profile.data,
-    waiting: state.profile.waiting
+    waiting: state.profile.waiting,
   }));
 
   const callbacks = {
@@ -29,11 +28,7 @@ function Profile() {
 
   }
 
-  useInit(() => {
-    if (!select.user?.profile?.name) {
-      navigate('/login')
-    }
-  }, [select.user?.profile?.name])
+  useAuthorized('/login', select.user?.profile?.name)
 
   return (
     <PageLayout>
