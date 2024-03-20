@@ -1,4 +1,4 @@
-import React, { useEffect, memo, useRef } from 'react'
+import React, { useEffect, memo } from 'react'
 import Form from '../../components/form'
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -17,10 +17,7 @@ const Login = () => {
   const store = useStore();
   const navigate = useNavigate()
   const location = useLocation()
-  const prevLocation = useRef(null);
   const {t} = useTranslate()
-
-  console.log(location)
 
   const {pending, isLoggedIn, error} = useSelector(state => ({
     pending: state.auth.pending,
