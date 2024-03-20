@@ -1,22 +1,16 @@
 import {memo} from 'react';
-import useStore from "../../hooks/use-store";
 import useSelector from '../../hooks/use-selector';
 import useTranslate from "../../hooks/use-translate";
-import useInit from "../../hooks/use-init";
 import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import LocaleSelect from '../../containers/locale-select';
 import ProfilePage from '../../components/profile-page';
+import AuthButtons from '../../containers/auth-buttons';
 
 function Profile() {
 
-  const store = useStore();
-
   const select = useSelector(state => ({
-    // name: state.login.userData.profile.name,
-    // phone: state.login.userData.profile.phone,
-    // email: state.login.userData.email,
     userData: state.login.userData
   }));
 
@@ -24,7 +18,8 @@ function Profile() {
 
   return (
     <PageLayout>
-      <Head title={t('title')} link={'login'}>
+      <AuthButtons></AuthButtons>
+      <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation></Navigation>

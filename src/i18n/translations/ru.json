@@ -19,5 +19,7 @@
   },
   "profile.title": "Профиль",
   "profile.name": "Имя",
-  "profile.phone": "Телефон"
+  "profile.phone": "Телефон",
+  "auth.login": "Вход",
+  "auth.logout": "Выход"
 }

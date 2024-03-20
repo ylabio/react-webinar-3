@@ -6,7 +6,6 @@ import LoginButtons from '../login-buttons';
 function Head(props) {
   return (
     <div>
-      <LoginButtons title={'Вход'} link={props.link}></LoginButtons>
       <div className='Head'>
         <div className='Head-place'>
           <h1>{props.title}</h1>

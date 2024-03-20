@@ -4,8 +4,10 @@ import useSelector from "../hooks/use-selector";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
-import Login from '../containers/login';
+import Login from './login';
 import Profile from './profile';
+import useInit from '../hooks/use-init';
+import useStore from '../hooks/use-store';
 
 /**
  * Приложение
@@ -14,6 +16,12 @@ import Profile from './profile';
 function App() {
 
   const activeModal = useSelector(state => state.modals.name);
+
+  const store = useStore();
+
+  useInit(() => {
+    store.actions.login.getProfile();
+  }, []);
 
   return (
     <>

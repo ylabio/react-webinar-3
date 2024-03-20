@@ -17,5 +17,7 @@
   },
   "profile.title": "Profile",
   "profile.name": "Name",
-  "profile.phone": "Phone"
+  "profile.phone": "Phone",
+  "auth.login": "Login",
+  "auth.logout": "Logout"
 }
