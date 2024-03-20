@@ -23,11 +23,15 @@ const AuthBtn = () => {
       store.actions.auth.logout();
       navigate("/");
     }, [store, navigate]),
+    redirectToLoginPage: useCallback(
+      () => navigate("/login", { state: { from: location.pathname } }),
+      []
+    ),
   };
 
-  function redirectToLoginPage() {
-    navigate("/login");
-  }
+  // function redirectToLoginPage() {
+  //   navigate("/login");
+  // }
 
   return (
     <div className={cn()}>
@@ -41,7 +45,7 @@ const AuthBtn = () => {
           </button>
         </div>
       ) : (
-        <button type="button" onClick={redirectToLoginPage}>
+        <button type="button" onClick={callbacks.redirectToLoginPage}>
           {t("login.title")}
         </button>
       )}
