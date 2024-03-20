@@ -1,20 +1,24 @@
 .UserPanel {
+  padding-right: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
   display: flex;
   justify-content: flex-end;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-right: 30px;
-  gap: 10px;
+  border-bottom: 1px solid #DCDCDC;
+  gap: 15px;
 }
-.UserPanel a{
+
+.UserPanel-name a {
   width: 53px;
   height: 15px;
   color: #0087E9;
   font-weight: 400;
   font-size: 13px;
   line-height: 14.95px;
+  align-self: center;
 }
-.UserPanel button{
+
+.UserPanel-button a {
   width: max-content;
   min-width: 59px;
   height: 21px;

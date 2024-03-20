@@ -6,19 +6,17 @@ import './style.css';
 const LoginForm = (props) => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(props.error);
+  const [error, setError] = useState(null);
 
-
-  console.log(error)
 
   const handleLoginChange = (event) => {
     setLogin(event.target.value);
-    setError('')
+    setError(null)
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-    setError('')
+    setError(null)
   };
 
   const handleSubmit = (event) => {
@@ -27,12 +25,13 @@ const LoginForm = (props) => {
       return;
     }
     props.onSubmit({login, password});
+
   };
 
 
   useEffect(() => {
-    setError(props.error)
-  }, [props.error])
+    setError(props.error);
+  },[props.error])
 
   return (
     <div className='LoginForm'>
@@ -58,7 +57,7 @@ const LoginForm = (props) => {
             required
           />
         </div>
-        {error && <div style={{color: 'red'}}>{props.t(error)}</div>}
+        {error && <div style={{color: 'red'}}>{error}</div>}
         <button type="submit">{props.t('to.enter')}</button>
       </form>
     </div>
@@ -69,6 +68,7 @@ LoginForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   error: PropTypes.string,
+  dropError: PropTypes.func,
 };
 
 export default LoginForm;

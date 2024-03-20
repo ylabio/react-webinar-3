@@ -16,35 +16,30 @@ import useTranslate from "../../hooks/use-translate";
  * Главная страница - первичная загрузка каталога
  */
 function Main() {
-
   const store = useStore();
 
   const select = useSelector(state => ({
     loggedIn: state.auth.loggedIn,
-    user: state.auth.user
+    token: state.auth.token,
+    user: state.user.user
   }));
 
-
+  useInit(() => {
+    store.actions.catalog.initParams();
+    store.actions.user.fetchUser(select.token);
+  }, [select.loggedIn, select.token], true);
 
   const callbacks = {
     signOut: useCallback(() => store.actions.auth.signOut(), [store]),
   }
 
 
-  useInit(() => {
-    store.actions.auth.fetchUser();
-  }, [select.loggedIn], true);
-
-
-  useInit(() => {
-    store.actions.catalog.initParams();
-  }, [select.loggedIn], true);
-
   const {t} = useTranslate();
 
   return (
     <PageLayout>
-      <UserPanel userName={select.user?.profile?.name} callBack={select.loggedIn ? callbacks.signOut : undefined} loggedIn={select.loggedIn}
+      <UserPanel userName={select.user?.profile?.name} callBack={select.loggedIn ? callbacks.signOut : undefined}
+                 loggedIn={select.loggedIn}
                  profile={'/profile'}
                  login={'/login'}
                  title={select.loggedIn ? t('exit') : t('enter')}/>

@@ -39,32 +39,26 @@ export function modifyArrForFilter(arr) {
   const result = [];
   const addedItems = {};
 
-  for (const item of arr) {
-    if (!addedItems[item._id]) {
-      result.push(item);
-      addedItems[item._id] = true;
-
-      const parentId = item._id;
-      for (const childItem of arr) {
-        if (childItem.parent && childItem.parent._id === parentId && !addedItems[childItem._id]) {
-          const level = item.title.split('-').length - 1;
-          const prefix = '-'.repeat(level + 1);
-          const childTitle = `${prefix} ${childItem.title}`;
-          result.push({...childItem, title: childTitle});
-          addedItems[childItem._id] = true;
-
-          const childParentId = childItem._id;
-          for (const grandChildItem of arr) {
-            if (grandChildItem.parent && grandChildItem.parent._id === childParentId && !addedItems[grandChildItem._id]) {
-              const grandChildTitle = `-- ${grandChildItem.title}`;
-              result.push({...grandChildItem, title: grandChildTitle});
-              addedItems[grandChildItem._id] = true;
-            }
-          }
-        }
+  function addChildren(parentId, level) {
+    for (const item of arr) {
+      if (item.parent && item.parent._id === parentId && !addedItems[item._id]) {
+        const prefix = '- '.repeat(level);
+        const childTitle = `${prefix} ${item.title}`;
+        result.push({ ...item, title: childTitle });
+        addedItems[item._id] = true;
+        addChildren(item._id, level + 1);
       }
     }
   }
 
+  for (const item of arr) {
+    if (!item.parent && !addedItems[item._id]) {
+      result.push(item);
+      addedItems[item._id] = true;
+      addChildren(item._id, 1);
+    }
+  }
+
   return result;
+
 }

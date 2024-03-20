@@ -17,9 +17,7 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
-        category:''
       },
-      filterValues: [],
       count: 0,
       waiting: false
     }
@@ -40,13 +38,6 @@ class CatalogState extends StoreModule {
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
     if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
-    const responseFilterValues = await fetch(`api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
-    const jsonFilterValues = await responseFilterValues.json();
-    this.setState({
-      ...this.getState(),
-      filterValues: jsonFilterValues.result.items,
-      waiting: false
-    }, 'Загружен список товаров из АПИ');
   }
 
   /**

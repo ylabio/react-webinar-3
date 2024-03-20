@@ -36,4 +36,7 @@
 .SideLayout select:first-child {
   min-width: 161px;
 }
+.SideLayout input:first-child {
+  width: 300px;
+}
 

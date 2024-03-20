@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect, useMemo} from 'react';
+import {memo, useCallback, useEffect} from 'react';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -9,10 +9,12 @@ import Spinner from "../../components/spinner";
 import LocaleSelect from "../../containers/locale-select";
 import UserPanel from "../../components/user-panel";
 import LoginForm from "../../components/login-form";
-import {Navigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 
 function Login() {
+  const navigate = useNavigate();
+
   const store = useStore();
   const select = useSelector(state => ({
     loggedIn: state.auth.loggedIn,
@@ -20,14 +22,22 @@ function Login() {
     error: state.auth.error
   }));
 
-
   const callbacks = {
     signIn: useCallback(({login, password}) => store.actions.auth.signIn({login, password}), [store]),
+    dropError: useCallback(() => store.actions.auth.dropError(), [store]),
   }
 
-  const {t} = useTranslate();
-  if (select.loggedIn) return <Navigate to={'/'}/>
+  useEffect(() => {
+    callbacks.dropError()
+  }, [])
 
+  const {t} = useTranslate();
+
+  useEffect(() => {
+    if (select.loggedIn) {
+      navigate(-1);
+    }
+  }, [select.loggedIn, navigate]);
 
   return (
     <PageLayout>
@@ -37,7 +47,7 @@ function Login() {
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <LoginForm t={t} error={select.error} onSubmit={callbacks.signIn}/>
+        <LoginForm t={t} error={select.error} onSubmit={callbacks.signIn} dropError={callbacks.dropError}/>
       </Spinner>
     </PageLayout>
   );

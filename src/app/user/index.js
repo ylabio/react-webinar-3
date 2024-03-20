@@ -11,30 +11,29 @@ import LocaleSelect from "../../containers/locale-select";
 import UserPanel from "../../components/user-panel";
 import UserCard from "../../components/user-card";
 import useInit from "../../hooks/use-init";
+import AuthorizedRoute from "../../containers/autorized-route";
 
 
 function User() {
   const store = useStore();
-  const callbacks = {
-    signOut: useCallback(() => store.actions.auth.signOut(), [store]),
-  }
-
 
   const select = useSelector(state => ({
     loggedIn: state.auth.loggedIn,
     waiting: state.article.waiting,
-    user: state.auth.user,
+    user: state.user.user,
+    token: state.auth.token,
   }));
+
+  const callbacks = {
+    signOut: useCallback(() => store.actions.auth.signOut(), [store]),
+  }
+
+  useInit(() => {
+    store.actions.user.fetchUser(select.token);
+  }, [select.loggedIn, select.token]);
 
   const {t} = useTranslate();
 
-
-  useInit(() => {
-    console.log('произошел феч')
-    store.actions.auth.fetchUser()
-  }, []);
-
-  if (!select.loggedIn) return <Navigate to={'/login'}/>
 
   return (
     <PageLayout>
@@ -45,7 +44,9 @@ function User() {
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <UserCard t={t} user={select.user}/>
+        <AuthorizedRoute loggedIn={select.loggedIn}>
+          <UserCard t={t} user={select.user}/>
+        </AuthorizedRoute>
       </Spinner>
     </PageLayout>
   );

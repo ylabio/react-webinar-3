@@ -6,6 +6,7 @@ import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
 import {modifyArrForFilter} from "../../utils";
+import useInit from "../../hooks/use-init";
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -16,7 +17,7 @@ function CatalogFilter() {
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
-    filterValues: state.catalog.filterValues,
+    filterValues: state.categories.filterValues,
     query: state.catalog.params.query,
     category: state.catalog.params.category
   }));
@@ -48,6 +49,9 @@ function CatalogFilter() {
     filter: useMemo(() => ([{_id: '', title: 'Все'}, ...filterData]), [filterData])
   };
 
+  useInit(() => {
+    store.actions.categories.fetchCategories();
+  }, [], true);
 
 
   const {t} = useTranslate();
@@ -55,7 +59,7 @@ function CatalogFilter() {
   return (
     <SideLayout padding='medium'>
       <Select options={filterOptions.filter} value={select.category} onChange={callbacks.onFilter}/>
-      <Select  options={sortOptions.sort} value={select.sort} onChange={callbacks.onSort}/>
+      <Select options={sortOptions.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
