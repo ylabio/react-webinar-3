@@ -1,13 +1,13 @@
 import StoreModule from "../module";
 
 
-class UsersState extends StoreModule {
+class ProfileState extends StoreModule {
 
   initState() {
     return {
       data: {},
       waiting: false, // признак ожидания загрузки
-      error: null
+      error:  null
     }
   }
 
@@ -98,6 +98,13 @@ class UsersState extends StoreModule {
       });
     }
   }
+
+  resetError() {
+    this.setState({
+      ...this.getState(),
+      error: null
+    })
+  }
 }
 
-export default UsersState;
+export default ProfileState;

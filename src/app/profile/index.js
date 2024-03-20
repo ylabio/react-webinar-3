@@ -19,9 +19,15 @@ function Profile() {
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
-    user: state.users.data,
-    waiting: state.users.waiting
+    user: state.profile.data,
+    waiting: state.profile.waiting
   }));
+
+  const callbacks = {
+    onLogout: useCallback(() => store.actions.profile.logout(), [store]),
+    setUrl: useCallback((url) => store.actions.router.setUrl(url), [store])
+
+  }
 
   useInit(() => {
     if (!select.user?.profile?.name) {
@@ -31,7 +37,7 @@ function Profile() {
 
   return (
     <PageLayout>
-      <AccountBlock title={t('account.login')} />
+      <AccountBlock t={t} username={select.user?.profile?.name} onLogout={callbacks.onLogout} setUrl={callbacks.setUrl}/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

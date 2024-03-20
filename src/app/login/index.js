@@ -21,30 +21,38 @@ function Login() {
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
-    user: state.users.data
+    user: state.profile.data,
+    error: state.profile.error,
+    url: state.router.url
   }));
 
-  console.log(select.user)
+  const callbacks = {
+    login: useCallback(data => store.actions.profile.login(data), [store]),
+    onLogout: useCallback(() => store.actions.profile.logout(), [store]),
+    resetError: useCallback(() => store.actions.profile.resetError(), [store]),
+    setUrl: useCallback((url) => store.actions.router.setUrl(url), [store])
 
+  }
   useInit(() => {
-    if (select.user?.profile?.name) {
+    callbacks.resetError()
+
+    if (select.user?.profile?.name && select.url) {
+      navigate(select.url)
+    } else if (select.user?.profile?.name && !select.url) {
       navigate('/profile')
     }
+
   }, [select.user?.profile?.name])
 
-  const callbacks = {
-    // Добавление в корзину
-    login: useCallback(data => store.actions.users.login(data), [store]),
-  }
 
   return (
     <PageLayout>
-      <AccountBlock title={t('account.login')} />
+      <AccountBlock t={t} onLogout={callbacks.onLogout} username={select.user?.profile?.name} setUrl={callbacks.setUrl}/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <LoginCard onLogin={callbacks.login}/>
+      <LoginCard onLogin={callbacks.login} t={t} error={select.error} navigate={navigate}/>
     </PageLayout>
   );
 }

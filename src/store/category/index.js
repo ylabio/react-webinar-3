@@ -14,7 +14,7 @@ class CategoryState extends StoreModule {
       if ((item.parent && item.parent._id === parent) || (!item.parent && !parent)) {
         options.push({
           ...item,
-          title: ` ${'-'.repeat(depth)} ${item.title}`,
+          title: ` ${' - '.repeat(depth)} ${item.title}`,
           value: item._id
         });
         options.push(...this.itemsToOptions(items, item._id, depth + 1));

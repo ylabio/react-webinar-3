@@ -16,7 +16,6 @@ function CatalogFilter() {
 
   useInit(() => {
     store.actions.category.load();
-    console.log('АА')
   }, [])
 
   const select = useSelector(state => ({
@@ -53,7 +52,7 @@ function CatalogFilter() {
     <SideLayout padding='medium'>
       <Select options={select.category} value={select.sort.category} onChange={callbacks.onCategory} />
       <Select options={options.sort} value={select.sort.sort} onChange={callbacks.onSort}/>
-      <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
+      <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'} theme={'big'}
              delay={1000}/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>

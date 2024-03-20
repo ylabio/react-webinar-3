@@ -17,7 +17,7 @@ function App() {
 
   const activeModal = useSelector(state => state.modals.name);
   useInit(() => {
-    store.actions.users.checkAuth()
+    store.actions.profile.checkAuth()
   }, [])
 
   return (
