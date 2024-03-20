@@ -37,6 +37,7 @@ function Article() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    onLogout: useCallback(() => store.actions.login.logout(), [store]),
   }
 
   useInit(() => {
@@ -45,6 +46,7 @@ function Article() {
 
   const handleOnclick =()=>{
     navigate('/login');
+    if(select.isLogin === true) callbacks.onLogout();
   }
 
   return (
