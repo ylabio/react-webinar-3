@@ -86,7 +86,7 @@ class CatalogState extends StoreModule {
         if (params.query === '') {
             delete params.query;
         }
-      if (params['search[category]'] === '' || params['search[category]'] === 'Все') {
+      if (params['search[category]'] === '' || params['search[category]'] === 'Все' || params['search[category]'] === null) {
           delete params['search[category]'];
       }
 
