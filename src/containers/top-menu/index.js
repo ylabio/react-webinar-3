@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo} from 'react'
+import React, {memo, useCallback, useEffect, useMemo} from 'react'
 import SideLayout from "../../components/side-layout";
 import useTranslate from "../../hooks/use-translate";
 import Controls from "../../components/controls";
@@ -12,19 +12,20 @@ const TopMenu = () => {
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
-    token:  state.user.token,
-    user: state.user.user,
+    token:  state.authorization.token,
+    user: state.profile.user,
   }));
 
   const text = select.token ? t("logout") :  t("login");
 
   const callbacks = {
     onLogout: useCallback((e) => {
-      store.actions.user.logout();
+
+      store.actions.authorization.logout();
     }, [store])
   }
 
-  const  onClick = () => {
+  const onClick = () => {
     if (select.token) {
       callbacks.onLogout()
     } else {
@@ -39,4 +40,4 @@ const TopMenu = () => {
     </SideLayout>
   )
 }
-export default TopMenu;
+export default memo(TopMenu);

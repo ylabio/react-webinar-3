@@ -20,15 +20,17 @@ const Login = () => {
   const [userData, setUserData] = useState({login: '', password: ''})
 
   const select = useSelector(state => ({
-    token:  state.user.token,
-    waiting: state.user.waiting,
-    error: state.user.error,
+    params:  state.catalog.params,
+    token:  state.authorization.token,
+    waiting: state.authorization.waiting,
+    error: state.authorization.error,
+    profile: state.profile.user,
   }));
 
   const callbacks = {
     onSign: useCallback((e) => {
       e.preventDefault();
-      store.actions.user.sign(userData);
+      store.actions.authorization.sign(userData);
     }, [store, userData]),
     onChange: useCallback((name, value) => {
       setUserData(prevState => ({...prevState, [name]: value}));
@@ -37,7 +39,7 @@ const Login = () => {
 
   const redirectPforile = () => {
     if (select.token) {
-      return navigate("/profile");
+      return navigate(-1);
     }
     return null;
   };

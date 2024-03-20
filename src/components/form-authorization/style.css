@@ -13,6 +13,10 @@
   margin-bottom: 20px;
 }
 
+.Form-error {
+  color: red;
+}
+
 button {
   width: fit-content;
 }
