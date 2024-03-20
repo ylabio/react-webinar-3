@@ -8,7 +8,7 @@ function SideLayout({children, side, padding}) {
   return (
     <div className={cn({side, padding})}>
       {React.Children.map(children, (child) => (
-        <div key={child.key} className={cn('item')}>{child}</div>
+        child && <div key={child.key} className={cn('item')}>{child}</div>
       ))}
     </div>
   );

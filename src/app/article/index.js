@@ -10,6 +10,7 @@ import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
+import ProfileBar from '../../containers/profile-bar';
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
@@ -38,7 +39,8 @@ function Article() {
 
   return (
     <PageLayout>
-      <Head title={select.article.title}>
+      <ProfileBar />
+      <Head title={"Магазин"}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
