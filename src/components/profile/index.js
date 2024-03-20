@@ -2,12 +2,9 @@ import {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
-import { Navigate } from "react-router-dom";
 
-function Profile({user, isAuth}) {
+function Profile({user}) {
   const cn = bem('Profile');
-
-  if(!isAuth) return <Navigate to={'/login'}/>
 
   return (
     <div className={cn()}>
@@ -19,8 +16,6 @@ function Profile({user, isAuth}) {
   )
 }
 
-Profile.propTypes = {
-  isAuth: PropTypes.bool
-};
+Profile.propTypes = {};
 
 export default memo(Profile);

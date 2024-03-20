@@ -39,9 +39,7 @@ function CatalogFilter() {
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
     ]), []),
-    categories: useMemo(() => (
-      select.categories.map(c => ({ value: c.title, title: c.title })))
-    , [select.categories])
+    categories: select.categories
   };
 
   useInit(() => {

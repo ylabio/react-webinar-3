@@ -37,19 +37,27 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
 /**
  * Форматирование категорий
  */
-export function sortItems(arr, key) {
-  let newArr = [];
+export function sortItems(categories) {
+  const result = [];
 
-  for (let i = 0; i < arr.length; i++) {
-    if(arr[i]?.parent?._key === key){
-      newArr.push({...arr[i], title: '- ' + arr[i].title});
-      const childs = sortItems(arr, arr[i]._key);
+  const addCategory = (category, depth = 0) => {
+    result.push({
+      value: category._id,
+      title: '- '.repeat(depth) + category.title
+    });
 
-      if(childs.length){
-        newArr = [...newArr, ...childs.map(a => ({...a, title: '- ' + a.title}))]
+    categories.forEach(child => {
+      if (child.parent && child.parent._id === category._id) {
+        addCategory(child, depth + 1);
       }
-    }
-  }
+    });
+  };
 
-  return newArr;
+  categories.forEach(category => {
+    if (!category.parent) {
+      addCategory(category);
+    }
+  });
+
+  return result;
 }

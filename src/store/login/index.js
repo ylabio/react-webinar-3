@@ -14,6 +14,11 @@ class Login extends StoreModule {
    * Инициализация параметров.
    */
   async initParams() {
+    this.setState({
+      ...this.getState(),
+      error: null,
+    })
+
     const token = localStorage.getItem('X-Token');
 
     if(token){
@@ -31,6 +36,7 @@ class Login extends StoreModule {
         user: json.result
       }, 'Авторизованный пользователь');
     }
+
   }
   /**
    * Авторизация

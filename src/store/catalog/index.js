@@ -81,7 +81,7 @@ class CatalogState extends StoreModule {
       window.history.pushState({}, '', url);
     }
 
-    const activeCategory = this.getState().categories.find(c => c.title === params.category);
+    const activeCategory = this.getState().categories.find(c => c.value === params.category);
 
     const apiParams = {
       limit: params.limit,
@@ -89,7 +89,7 @@ class CatalogState extends StoreModule {
       fields: 'items(*),count',
       sort: params.sort,
       'search[query]': params.query,
-      ...(activeCategory?._id && {'search[category]': activeCategory._id ?? ''})
+      ...(!!activeCategory?.value && {'search[category]': activeCategory.value ?? ''})
     };
 
     const response = await fetch(
@@ -107,23 +107,16 @@ class CatalogState extends StoreModule {
    * Загрузка категорий
    */
   async getCategories(){
-    const response = await fetch(`api/v1/categories`);
+    const response = await fetch(`api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
     const json = await response.json();
 
     const categoryItems = json.result.items;
 
-    let sortedCategories =[];
-
-    for (let i = 0; i < categoryItems.length; i++) {
-      if(!categoryItems[i].parent){
-        sortedCategories.push(categoryItems[i]);
-        sortedCategories = [...sortedCategories,...sortItems(categoryItems, categoryItems[i]._key)];
-      }
-    }
+    const sortedCategories = sortItems(categoryItems);
 
     this.setState({
       ...this.getState(),
-      categories: [{title: 'Все'}, ...sortedCategories]
+      categories: [{title: 'Все', value: ''}, ...sortedCategories]
     }, 'Загружены категории');
   }
 }

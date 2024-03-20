@@ -8,6 +8,7 @@ import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
 import useSelector from "../../hooks/use-selector";
 import Profile from '../../components/profile';
+import {Navigate} from 'react-router-dom'
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -36,6 +37,8 @@ function PofilePage() {
       store.actions.login.removeAuthorization(body), [store]),
   }
 
+	if(!select.isAuth) return <Navigate to={'/login'}/>
+
   return (
     <PageLayout>
       <Head title={t('profile')} enter={t('enter')} exit={t('exit')} isAuth={select.isAuth}
@@ -44,7 +47,7 @@ function PofilePage() {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <Profile user={select.user} isAuth={select.isAuth}/>
+      <Profile user={select.user}/>
     </PageLayout>
   );
 }

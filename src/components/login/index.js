@@ -1,10 +1,9 @@
 import {memo, useState} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
-import { Navigate } from "react-router-dom";
 import './style.css';
 
-function Login({getAuthorization, error, isAuth}) {
+function Login({getAuthorization, error}) {
   const cn = bem('Login');
 
   const [login, setLogin] = useState('');
@@ -20,12 +19,9 @@ function Login({getAuthorization, error, isAuth}) {
     };
 
     getAuthorization(body);
-
     setLogin('');
     setPassword('');
   }
-
-  if(isAuth) return <Navigate to='/'/>
 
   return (
     <div className={cn()}>
@@ -45,14 +41,13 @@ function Login({getAuthorization, error, isAuth}) {
             <button className={cn('button')}>Войти</button>
           </div>
         </form>
-      </div>
+    </div>
   )
 }
 
 Login.propTypes = {
   getAuthorization: PropTypes.func,
-  error: PropTypes.string,
-  isAuth: PropTypes.bool
+  error: PropTypes.string
 };
 
 export default memo(Login);
