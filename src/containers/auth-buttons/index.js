@@ -32,9 +32,9 @@ function AuthButtons() {
   const {t} = useTranslate();
 
   return (
-    <SideLayout side='end'>
+    <>
       <LoginButtons loginTitle={t('auth.login')} logoutTitle={t('auth.logout')} userData={select.userData} loginLink={'/login'} profileLink={'/profile'} onLogout={logout}></LoginButtons>
-    </SideLayout>
+    </>
   )
 }
 

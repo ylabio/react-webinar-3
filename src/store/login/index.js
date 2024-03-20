@@ -10,7 +10,6 @@ class LoginState extends StoreModule {
   }
 
   async login(formData) {
-
     const options = {
       method: 'POST',
       headers: {
@@ -20,6 +19,7 @@ class LoginState extends StoreModule {
     }
 
     this.setState({
+      ...this.getState(),
       userData: {},
       waiting: true
     });
@@ -29,18 +29,17 @@ class LoginState extends StoreModule {
       const json = await response.json();
 
       if (json.error) {
-        throw new Error(json.error.message);
+        throw new Error(json.error.data.issues[0].message);
       }
 
       this.setState({
-        ...this.getState(),
         userData: json.result.user,
         waiting: false,
         error: null,
       });
-
       localStorage.setItem('X-Token', json.result.token);
     } catch (error) {
+
       this.setState({
         ...this.getState(),
         userData: {},

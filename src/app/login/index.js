@@ -8,12 +8,14 @@ import Head from '../../components/head';
 import LoginPage from '../../components/login-page';
 import Navigation from '../../containers/navigation';
 import {useNavigate} from 'react-router-dom';
+import AuthButtons from '../../containers/auth-buttons';
 
 function Login() {
 
   const store = useStore();
 
   const select = useSelector(state => ({
+    loginData: state.login,
     userData: state.login.userData,
     error: state.login.error,
   }));
@@ -25,10 +27,10 @@ function Login() {
     onGetProfile: useCallback(() => store.actions.login.getProfile(), []),
   };
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
-    callbacks.onLogin(login, password);
-    if (select.userData) {
+    await callbacks.onLogin(login, password);
+    if (select.userData.profile) {
       navigate('/profile');
     }
   }
@@ -40,6 +42,7 @@ function Login() {
 
   return (
     <PageLayout>
+      <AuthButtons></AuthButtons>
       <Head title={t('title')} link={'login'}>
         <LocaleSelect/>
       </Head>

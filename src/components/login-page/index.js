@@ -8,11 +8,11 @@ function LoginPage(props) {
   const cn = bem('LoginPage');
 
   const onSetLogin = (event) => {
-    props.onSetLogin(event.target.value||'test_1');
+    props.onSetLogin(event.target.value);
   }
 
   const onSetPassword= (event) => {
-    props.onSetPassword(event.target.value||'123456');
+    props.onSetPassword(event.target.value);
   }
 
   return (

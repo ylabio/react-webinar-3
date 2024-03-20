@@ -76,7 +76,7 @@ class CatalogState extends StoreModule {
     if (replaceHistory) {
       window.history.replaceState({}, '', url);
     } else {
-      window.history.pushState({}, '', url);
+      window.history.pushState({},  '', url);
     }
 
     const apiParams = {
