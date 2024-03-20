@@ -5,6 +5,7 @@ import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
+import {getCatOptions} from "../../utils";
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -37,14 +38,15 @@ function CatalogFilter() {
       {value: 'title.ru', title: 'По именованию'},
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
-    ]), [])
+    ]), []),
+    filter: useMemo(() => getCatOptions(select.categories), [select.categories])
   };
 
   const {t} = useTranslate();
 
   return (
     <SideLayout padding='medium'>
-      <Select options={select.categories} value={select.category} onChange={callbacks.onFilter} />
+      <Select options={options.filter} value={select.category} onChange={callbacks.onFilter} />
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input theme={'big'} value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>
