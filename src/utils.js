@@ -35,12 +35,12 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
 }
 
 export function buildCategoryOptions(categories) {
-  const result = [];
+  const result = [{title: 'Все', value: 'all'}];
 
   const addCategory = (category, depth = 0) => {
     result.push({
       value: category._id,
-      title: '-'.repeat(depth) + category.title
+      title: '- '.repeat(depth) + category.title
     });
 
     categories.forEach(child => {

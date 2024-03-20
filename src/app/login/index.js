@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import PageLayout from '../../components/page-layout';
@@ -16,18 +16,21 @@ function Login() {
   const {t} = useTranslate();
   const store = useStore();
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const select = useSelector(state => ({
     waiting: state.user.waiting,
     isAuth: state.user.isAuth,
-    errorMessage: state.user.errorMessage
   }));
+
   const callbacks = {
-    login: useCallback(({ username, password }) => {
-      store.actions.user.login(username, password)
-        .then(() => {
-          navigate('/profile');
-        })
+    login: useCallback(async ({ username, password }) => {
+      try {
+        await store.actions.user.login(username, password);
+        navigate('/profile');
+      } catch (error) {
+        setErrorMessage(error.message); 
+      }
     }, [store.user]),
   };
   return (
@@ -38,7 +41,7 @@ function Login() {
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <AuthForm onSubmit={callbacks.login} errorMessage={select.errorMessage}/>
+        <AuthForm onSubmit={callbacks.login} errorMessage={errorMessage}/>
       </Spinner>
     </PageLayout>
   );

@@ -6,27 +6,34 @@ import Basket from "./basket";
 import Article from "./article";
 import Login from './login';
 import Profile from './profile';
+import useInit from '../hooks/use-init';
+import useStore from '../hooks/use-store';
+import AuthRoute from '../containers/auth-route';
 
 /**
  * Приложение
  * Маршрутизация по страницам и модалкам
  */
 function App() {
-  const activeModal = useSelector(state => state.modals.name);
+  const store = useStore();
+  useInit(() => {
+    store.actions.user.initParams();
+  }, [], true);
+
   const select = useSelector(state => ({
     activeModal: state.modals.name,
-    isAuth: state.user.isAuth,
+    isAuth: state.user.isAuth
   }));
   return (
     <>
       <Routes>
-        <Route path={''} element={<Main/>}/>
-        <Route path={'/articles/:id'} element={<Article/>}/>
-        <Route path={'/login'} element={<Login/>}/>
-        <Route path={'/profile'} element={select.isAuth ? <Profile/> : <Navigate to="/login" replace/>}/>
+        <Route path={''} element={<Main />} />
+        <Route path={'/articles/:id'} element={<Article />} />
+        <Route path={'/login'} element={<AuthRoute redirectPath={'/profile'} check={!select.isAuth}><Login /></AuthRoute>} />
+        <Route path={'/profile'} element={<AuthRoute redirectPath={'/login'} check={select.isAuth}><Profile /></AuthRoute>} />
       </Routes>
 
-      {activeModal === 'basket' && <Basket/>}
+      {select.activeModal === 'basket' && <Basket />}
     </>
   );
 }

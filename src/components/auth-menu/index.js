@@ -10,23 +10,21 @@ function AuthMenu({isAuth, onLogout, children}) {
   const {t} = useTranslate();
   
   return (
-    <SideLayout side='end' padding='small-medium'>
-      <div className="AuthMenu">
-        {children}
-        {isAuth ? (
-          <button className="AuthMenu-btn" onClick={onLogout}>{t('auth.signout')}</button>
-        ) : (
-          <button className="AuthMenu-btn">
-            <Link to="/login" className="AuthMenu-link">{t('auth.signin')}</Link>
-          </button>
-        )}
-      </div>
-    </SideLayout>
+    <div className="AuthMenu">
+      {children}
+      {isAuth ? (
+        <button className="AuthMenu-btn" onClick={onLogout}>{t('auth.signout')}</button>
+      ) : (
+        <button className="AuthMenu-btn">
+          <Link to="/login" className="AuthMenu-link">{t('auth.signin')}</Link>
+        </button>
+      )}
+    </div>
   )
 }
 
 AuthMenu.propTypes = {
-  isAuth: PropTypes.bool.isRequired,
+  isAuth: PropTypes.bool,
   username: PropTypes.string,
   AuthMenu: PropTypes.func,
 };
