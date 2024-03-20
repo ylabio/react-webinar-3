@@ -8,7 +8,6 @@ import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import LoginCard from "../../components/login-card";
 import useSelector from "../../hooks/use-selector";
-import { redirect, useNavigate } from "react-router-dom";
 
 
 function Login() {
