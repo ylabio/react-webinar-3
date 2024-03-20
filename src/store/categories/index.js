@@ -24,7 +24,7 @@ class CatigoriesState extends StoreModule {
           item.parent === parentId ||
           (item.parent && item.parent._id === parentId)
         ) {
-          const title = "-".repeat(depth) + item.title;
+          const title = "- ".repeat(depth) + item.title;
           result.push({ value: item._id, title });
           const children = recursion(data, item._id, depth + 1);
           result.push(...children);

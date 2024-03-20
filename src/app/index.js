@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import useSelector from "../hooks/use-selector";
 import Main from "./main";
@@ -8,6 +8,7 @@ import Login from "./login";
 import Profile from "./profile";
 import useAuth from "../hooks/use-auth";
 import RequireAuth from "../containers/require-auth";
+
 /**
  * Приложение
  * Маршрутизация по страницам и модалкам
@@ -18,7 +19,6 @@ function App() {
 
   useEffect(() => {
     authMe();
-    console.log("app");
   }, []);
 
   return (

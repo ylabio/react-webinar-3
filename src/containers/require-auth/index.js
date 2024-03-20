@@ -9,7 +9,8 @@ function RequireAuth({ children }) {
 
   if (user.isLoading)
     return <Spinner active={user.isLoading}>{children}</Spinner>;
-  if (!user.data) return <Navigate to="/login" state={{ from: location }} />;
+  if (!user.data)
+    return <Navigate to="/login" state={{ from: location.pathname }} />;
   if (user.data) return children;
 }
 

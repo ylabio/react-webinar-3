@@ -11,7 +11,7 @@ import Field from "../../components/field";
 import useAuth from "../../hooks/use-auth";
 import UserAuthPortal from "../../containers/user-auth-portal";
 import Spinner from "../../components/spinner";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 function Login() {
   const [values, handleChange, resetForm] = useForm({
@@ -19,16 +19,14 @@ function Login() {
     password: "",
   });
   const { t } = useTranslate();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const fromPage = location.state?.from?.pathname || "/";
+
   const { signIn, user } = useAuth();
+  const { state } = useLocation();
+  const fromPage = state?.from || "/";
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signIn({ ...values }, () => {
-      navigate(fromPage, { replace: true });
-    });
+    signIn({ ...values });
     resetForm();
   };
 
