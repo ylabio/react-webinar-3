@@ -1,3 +1,5 @@
+import { func } from "prop-types";
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -32,4 +34,50 @@ export function codeGenerator(start = 0) {
  */
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
+}
+
+/*
+const result = [];
+export function buildHierarchy(items, parent = null, index = [], tab = '-') {
+  
+  for (let i = 0; i < items.length; i++) {
+    if (!parent && !items[i].parent && !index.includes(i)) {
+      index.push(i);
+      result.push(items[i].title);
+      buildHierarchy(items, items[i], index);
+    }
+    
+    if (parent && items[i].parent && (items[i].parent._id === parent._id)) {
+      result.push(tab + items[i].title);
+      buildHierarchy(items, items[i], index, tab + '-');
+    }
+    
+  }
+
+  return result;
+}
+*/
+
+export function buildHierarchy(items, parent = null, tab = '') {
+  // Фильтруем элементы на основе того, есть ли у них родитель и соответствует ли он текущему родителю
+  const filteredItems = items.filter(item =>
+    parent ? item.parent && item.parent._id === parent._id : !item.parent
+  );
+
+  // Рекурсивно строим иерархию
+  let hierarchy = filteredItems.reduce((result, item) => {
+    // Добавляем текущий элемент
+    result.push({ value: item._id, title: tab + item.title });
+    // Рекурсивно добавляем дочерние элементы, увеличивая отступ
+    const children = buildHierarchy(items, item, tab + '-');
+    // Добавляем результаты к итоговому массиву
+    return result.concat(children);
+  }, []);
+
+  // Добавляем объект {value: null, title: 'Все'} только в начало итогового массива для самого первого вызова
+  if (parent === null) {
+    hierarchy = [{ value: null, title: 'Все' }, ...hierarchy];
+  }
+
+  return hierarchy;
 }

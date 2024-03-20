@@ -8,6 +8,9 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import LoginLine from '../../components/login-line';
+import { useNavigateToLogin } from '../../hooks/use-navigate-to-login';
+import useSelector from "../../hooks/use-selector";
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -16,14 +19,19 @@ function Main() {
 
   const store = useStore();
 
+  const userState = useSelector(state => state.user);
+
   useInit(() => {
     store.actions.catalog.initParams();
   }, [], true);
 
-  const {t} = useTranslate();
+  const { t } = useTranslate();
+  
+  const navigateToLogin = useNavigateToLogin();
 
   return (
     <PageLayout>
+      <LoginLine onClick={navigateToLogin} buttonName={userState && userState?.username ? 'Выход' : 'Вход'}/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

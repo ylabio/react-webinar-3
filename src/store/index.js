@@ -14,6 +14,7 @@ class Store {
      * modals: ModalsState,
      * article: ArticleState,
      * locale: LocaleState
+     * user: UserState
      * }} */
     this.actions = {};
     for (const name of Object.keys(modules)) {
@@ -54,6 +55,7 @@ class Store {
    * @param newState {Object}
    */
   setState(newState, description = 'setState') {
+    /*
     console.group(
       `%c${'store.setState'} %c${description}`,
       `color: ${'#777'}; font-weight: normal`,
@@ -62,6 +64,7 @@ class Store {
     console.log(`%c${'prev:'}`, `color: ${'#d77332'}`, this.state);
     console.log(`%c${'next:'}`, `color: ${'#2fa827'}`, newState);
     console.groupEnd();
+    */
 
     this.state = newState;
     // Вызываем всех слушателей

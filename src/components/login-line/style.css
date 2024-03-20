@@ -1,0 +1,11 @@
+.LoginLine {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 41px;
+    padding-right: 20px;
+}
+
+.LoginLine-button {
+    height: 21px;
+}
