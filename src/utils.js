@@ -33,3 +33,50 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export const getDepth = (item, list) => {
+  if (item.parent === null) {
+    return -1
+  }
+  return getDepth(list.find(i => i._id === item.parent._id), list) + 1
+}
+
+export const makeTree = (items) => {
+  const tree = []
+  const mappedArr = {}
+      
+  items.forEach(function(item) {
+    const id = item._id;
+    if (!mappedArr.hasOwnProperty(id)) {
+      mappedArr[id] = item;
+      mappedArr[id].children = [];
+    }
+  })
+  
+  for (const id in mappedArr) { 
+    const mappedElem = mappedArr[id];
+    if (mappedElem.parent !== null) { 
+      const parentId = mappedElem.parent._id;
+      mappedArr[parentId].children.push(mappedElem); 
+    } else { 
+      tree.push(mappedElem);
+    } 
+  }
+  return tree;
+}
+
+export const multiplyString = (num, string) => {
+  let arr = []
+  for (let i = 0; i <= num; i++) {
+    arr.push(string)
+  }
+  return arr.join('')
+}
+
+export const getItemsReqursively = (node, res = []) => {
+  for (const child of node.children) {
+    res.push(child);
+    getItemsReqursively(child, res);
+  }
+  return res
+}
