@@ -16,3 +16,14 @@
   margin: 0;
   padding: 20px 0 10px;
 }
+
+.Login-Button{
+  text-align: right;
+  border-bottom: 1px solid #DCDCDC;
+}
+
+
+.Login-Button button{
+  margin: 10px 20px;
+}
+

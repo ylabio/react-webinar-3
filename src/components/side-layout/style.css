@@ -31,3 +31,12 @@
 .SideLayout-item {
   margin: 0 5px;
 }
+
+.SideLayout-item-input{
+  width:300px;
+  margin-right: 10px;
+}
+.SideLayout-item-input input{
+  width:100%;
+}
+
