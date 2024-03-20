@@ -20,7 +20,7 @@ function AuthMenu() {
 	const {t} = useTranslate();
 
   return (
-    <SideLayout side={'end'} padding={'small-and-medium'} gap={'big'}>
+    <SideLayout side='end' padding='small-and-medium' gap={'big'} border='bottom'>
       {select.user ? <Link to={'/profile'}>{select?.user?.profile?.name}</Link> : <></>}
       {select.user ?
         <button onClick={callbacks.onlogout}>{t('auth.logout')}</button> :

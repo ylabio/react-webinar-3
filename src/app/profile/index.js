@@ -1,4 +1,4 @@
-import React, {memo, useEffect} from 'react';
+import React, {memo} from 'react';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import ProfileInfo from '../../components/profile-info';
@@ -7,20 +7,22 @@ import Navigation from "../../containers/navigation";
 import LocaleSelect from '../../containers/locale-select';
 import useTranslate from "../../hooks/use-translate";
 import useSelector from "../../hooks/use-selector";
-import {useNavigate} from 'react-router-dom';
+import useInit from '../../hooks/use-init';
+import useStore from '../../hooks/use-store';
+import Spinner from '../../components/spinner';
 
 const UserProfile = () => {
-	const navigate = useNavigate();
+
+	const store = useStore()
 
 	const select = useSelector(state => ({
-    user: state.auth.user
+    profile: state.profile.data,
+		waiting: state.profile.waiting
   }));
 
-	useEffect(() => {
-    if (!select.user) {
-      navigate('/login')
-    }
-  }, [select.user]);
+	useInit(() => {
+    store.actions.profile.getProfile();
+  }, []);
 
   const {t} = useTranslate();
 
@@ -31,7 +33,9 @@ const UserProfile = () => {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <ProfileInfo user={select.user} t={t} />
+			<Spinner active={select.waiting}>
+   	    <ProfileInfo user={select.profile} t={t} />
+			</Spinner>
     </PageLayout>
   )
 };

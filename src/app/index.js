@@ -7,6 +7,7 @@ import Login from './login';
 import Profile from './profile';
 import useStore from '../hooks/use-store';
 import useInit from "../hooks/use-init";
+import ProtectedRoute from '../containers/protected-route';
 
 /**
  * Приложение
@@ -27,7 +28,7 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
 				<Route path={'/login'} element={<Login/>}/>
-				<Route path={'/profile'} element={<Profile/>}/>
+				<Route path={'/profile'} element={<ProtectedRoute redirect='/login'><Profile/></ProtectedRoute>}/>
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}

@@ -12,9 +12,9 @@ function ProfileInfo({ user, t }) {
         <div className={cn()}>
           <h2 className={cn('title')}>{t('profile.title')}</h2>
           <div className={cn('wrapper')}>
-            <p>{t('profile.name')} <b>{user.profile.name}</b></p>
-            <p>{t('profile.phone')} <b>{user.profile.phone}</b></p>
-            <p>email: <b>{user.email}</b></p>
+            <p>{t('profile.name')} <b>{user?.profile?.name}</b></p>
+            <p>{t('profile.phone')} <b>{user?.profile?.phone}</b></p>
+            <p>email: <b>{user?.email}</b></p>
           </div>
         </div>
       )}

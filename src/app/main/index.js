@@ -17,8 +17,9 @@ function Main() {
 
   const store = useStore();
 
-  useInit(() => {
+  useInit(async () => {
     store.actions.catalog.initParams();
+		await store.actions.categories.getCategories();
   }, [], true);
 
   const {t} = useTranslate();
