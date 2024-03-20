@@ -1,0 +1,28 @@
+.LoginBox-form{
+    display: flex;
+    flex-direction: column;
+    max-width: 203px;
+    padding-left: 20px;
+}
+.LoginBox-title{
+margin: 60px 0 17px;
+font-weight: 700;
+font-size: 24px;
+}
+.LoginBox-button {
+    width: 53px;
+    height: 21px;
+}
+.LoginBox-name,.LoginBox-password{
+height: 26px;
+margin-bottom: 20px;
+}
+.LoginBox-input-name,.LoginBox-input-password{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.4px;
+}
+.LoginBox-error{
+    color: red;
+    margin-top: 0;
+}

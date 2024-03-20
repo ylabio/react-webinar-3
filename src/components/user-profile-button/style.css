@@ -1,0 +1,14 @@
+.userProfile-button{
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    background-color: #fff;
+    max-width: 1004px;
+    margin: 0 auto;
+    font-size: 13px;
+    line-height: 14.95px;
+    align-items: center;
+}
+.userProfile-button a{
+margin-right: 20px;
+}
