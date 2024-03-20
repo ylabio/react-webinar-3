@@ -19,7 +19,6 @@
 .Login-pass-label {
   display: flex;
   flex-direction: column;
-  font-size: 18px;
 }
 
 .Login-error-message {
@@ -27,7 +26,6 @@
 }
 
 .Login-input {
-  width: 203px;
-  height: 26px;
-  font-size: 18px;
+  width: 195px;
+  height: 20px;
 }
