@@ -1,8 +1,8 @@
-import {memo, useCallback} from "react";
+import { memo, useCallback } from "react";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import SideLayout from "../../components/side-layout";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import LoginTool from "../../components/login-tool";
 import useSelector from "../../hooks/use-selector";
 import ProfileTool from "../../components/profile-tool";
@@ -13,7 +13,8 @@ function Login() {
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    user: state.user.data
+    user: state.user.data,
+    waiting: state.user.waiting
   }));
 
   const callbacks = {
@@ -26,9 +27,9 @@ function Login() {
   }
 
   // Функция для локализации текстов
-  const {t} = useTranslate();
+  const { t } = useTranslate();
 
-  if(select.user && Object.keys(select.user).length !== 0) {
+  if (select.user && Object.keys(select.user).length !== 0) {
     return (
       <SideLayout side='end'>
         <ProfileTool username={select.user.profile.name} openProfile={callbacks.openProfile} />

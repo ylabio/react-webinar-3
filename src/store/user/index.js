@@ -1,3 +1,4 @@
+import { deleteCookie, getCookie } from "../../utils";
 import StoreModule from "../module";
 
 class UserState extends StoreModule {
@@ -6,14 +7,21 @@ class UserState extends StoreModule {
     return {
       data: {},
       error: null,
-      waiting: false // признак ожидания загрузки
+      waiting: true // признак ожидания загрузки
     }
   }
 
   async autoLogin() {
-    const token = localStorage.getItem('X-Token');
+    
+    const token = getCookie('token');
 
-    if(!token) return;
+    if(!token) {
+      this.setState({
+        ...this.getState(),
+        waiting: false
+      }, 'Получены данные пользователя');
+      return;
+    };
 
     const options = {
       headers: {
@@ -28,14 +36,16 @@ class UserState extends StoreModule {
 
       // Даные пользователя успешно получены
       this.setState({
+        ...this.getState(),
         data: json.result,
+        error: null,
         waiting: false
       }, 'Получены данные пользователя');
-
+      
     } catch (e) {
       // Ошибка при загрузке
       this.setState({
-        data: {},
+        ...this.getState(),
         error: e,
         waiting: false
       });
@@ -43,6 +53,11 @@ class UserState extends StoreModule {
   }
 
   async login(data) {
+
+    this.setState({
+      ...this.getState(),
+      waiting: true
+    }, 'Загрузка');
 
     const options = {
       method: 'POST',
@@ -56,20 +71,19 @@ class UserState extends StoreModule {
       const response = await fetch('/api/v1/users/sign', options);
       const json = await response.json();
 
-      if(json.error) throw new Error(json.error.data.issues[0].message);
-      
-      localStorage.setItem('X-Token', json.result.token);
+      if (json.error) throw new Error(json.error.data.issues[0].message);
 
       // Даные пользователя успешно получены
       this.setState({
         data: json.result.user,
+        error: null,
         waiting: false
       }, 'Получены данные пользователя');
 
     } catch (e) {
       // Ошибка при загрузке
       this.setState({
-        data: {},
+        ...this.getState(),
         error: e,
         waiting: false
       });
@@ -78,7 +92,7 @@ class UserState extends StoreModule {
 
   async signOut() {
 
-    const token = localStorage.getItem('X-Token');
+    const token = getCookie('token');
 
     const options = {
       method: 'DELETE',
@@ -96,19 +110,28 @@ class UserState extends StoreModule {
         // Выход произведен
         this.setState({
           data: {},
+          error: null,
           waiting: false
         }, 'Выход произведен');
 
-        localStorage.removeItem('X-Token');
+        deleteCookie('token');
       }
     } catch (e) {
       // Ошибка при загрузке
       this.setState({
-        data: {},
+        ...this.getState(),
         error: e,
         waiting: false
       });
     }
+  }
+
+  clear () {
+    this.setState({
+      data: {},
+      error: null,
+      waiting: false
+    });
   }
 }
 

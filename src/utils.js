@@ -33,3 +33,29 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Получение данных из куки
+ * @param name наменование ключа
+ */
+export function getCookie(name) {
+  const cookieString = document.cookie;
+  const cookies = cookieString.split(';').map(cookie => cookie.trim());
+
+  for (const cookie of cookies) {
+    const [cookieName, cookieValue] = cookie.split('=');
+    if (cookieName === name) {
+      return decodeURIComponent(cookieValue);
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Удаление данных из куки
+ * @param name наменование ключа
+ */
+export function deleteCookie(name) {
+  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+}

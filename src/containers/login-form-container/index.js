@@ -4,6 +4,7 @@ import useTranslate from "../../hooks/use-translate";
 import SideLayout from "../../components/side-layout";
 import LoginForm from "../../components/login-form";
 import useSelector from "../../hooks/use-selector";
+import useInit from "../../hooks/use-init";
 
 function LoginFormContainer() {
 	const store = useStore();
@@ -11,9 +12,13 @@ function LoginFormContainer() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 
+	useInit(() => {
+		store.actions.user.clear();	
+	}, []);
+	
 	const select = useSelector(state => ({
-    error: state.user.error
-  }));
+		error: state.user.error
+	}));
 
 	const callbacks = {
 		// Смена значения поля имени пользователя

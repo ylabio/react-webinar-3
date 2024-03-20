@@ -9,6 +9,7 @@ import Navigation from "../../containers/navigation";
 import LocaleSelect from "../../containers/locale-select";
 import Login from '../../containers/login';
 import LoginFormContainer from '../../containers/login-form-container';
+import Spinner from '../../components/spinner';
 
 /**
  * Страница авторизации
@@ -18,15 +19,15 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    user: state.user.data
+    user: state.user.data,
+    waiting: state.user.waiting,
   }));
 
   useInit(() => {
-    if (select.user && Object.keys(select.user).length !== 0) {
-      navigate('/profile');
-      return null;
+    if(Object.keys(select.user).length !== 0 && !select.waiting) {
+      navigate(-1);
     }
-  }, [select.user, navigate])
+  }, [select.user, select.waiting, navigate])
 
   const {t} = useTranslate();
 
@@ -37,7 +38,9 @@ function LoginPage() {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <LoginFormContainer />
+      <Spinner active={select.waiting}>
+        <LoginFormContainer />
+      </Spinner>
     </PageLayout>
   );
 }
