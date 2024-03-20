@@ -5,6 +5,7 @@
   margin: 0;
   font-size: 18px;
   height: 41px;
+  border-bottom: 1px solid gray;
 }
 
 .MenuSite-item {
