@@ -19,10 +19,6 @@ function Select(props) {
 }
 
 Select.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    title: PropTypes.string
-  })).isRequired,
   value: PropTypes.any,
   onChange: PropTypes.func
 };

@@ -15,14 +15,14 @@ function CatalogFilter() {
 
   const select = useSelector(state => ({
     category: state.catalog.params.category,
-    categories: state.catalog.categories,
+    categories: state.category.categories,
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
   }));
 
   const callbacks = {
     // Получить категории из API
-    getCategories: useCallback(() => store.actions.catalog.getCategories(), [store]),
+    getCategories: useCallback(() => store.actions.category.getCategories(), [store]),
     // Фильтр
     onFilter: useCallback(category => store.actions.catalog.setParams({category, page: 1}), [store]),
     // Сортировка
@@ -44,10 +44,6 @@ function CatalogFilter() {
   };
 
   const {t} = useTranslate();
-
-  // useEffect(()=>{
-  //   callbacks.getCategories();
-  // },[callbacks.getCategories]);
 
   return (
     <SideLayout padding='medium'>
