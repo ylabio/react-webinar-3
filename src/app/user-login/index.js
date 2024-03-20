@@ -1,4 +1,4 @@
-import React, { useState, memo, useCallback } from 'react';
+import React, { useEffect, memo, useCallback } from 'react';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import PageLayout from '../../components/page-layout';
@@ -9,9 +9,7 @@ import Navigation from "../../containers/navigation";
 import LocaleSelect from '../../containers/locale-select';
 import useTranslate from "../../hooks/use-translate";
 
-const UserLogin = () => {  
-  const [loginData, setLoginData] = useState({ login: '', password: '' });  
-
+const UserLogin = () => { 
   const store = useStore();
 
   const select = useSelector(state => ({    
@@ -21,13 +19,15 @@ const UserLogin = () => {
 
   const {t} = useTranslate();  
 
+  useEffect(() => {
+    return () => {
+      store.actions.auth.clearError();
+    };
+  }, [store]);
+
   const callbacks = {
-    onLogin: useCallback(e => {
-      e.preventDefault();
+    onLogin: useCallback((loginData) => {
       store.actions.auth.login(loginData);
-    }, [store, loginData]),
-    onChange: useCallback((name, value) => {
-      setLoginData(prevState => ({...prevState, [name]: value}));
     }, [store]),
   }  
 
@@ -39,8 +39,6 @@ const UserLogin = () => {
       </Head>
       <Navigation/>
       <UserLoginForm
-        loginData={loginData}
-        onInputChange={callbacks.onChange}
         onLogin={callbacks.onLogin}
         error={select.error}
         loading={select.waiting} 

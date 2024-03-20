@@ -27,7 +27,7 @@ initState() {
             throw new Error(errorData?.error?.data?.issues[0]?.message || errorData?.error?.message );
         }
 
-        const data = await response.json();
+        const data = await response.json();        
 
         this.setState({ 
           ...this.getState(), 
@@ -91,6 +91,11 @@ initState() {
       }
     }
   }
+
+  clearError() {
+    this.setState({ error: '' });
+  }
+
 }
 
 export default AuthState;
