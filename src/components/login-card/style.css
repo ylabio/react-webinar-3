@@ -14,6 +14,10 @@
 .LoginCard-input {
   margin-bottom: 20px;
   margin-top: 1px;
+  border: 1px solid #767676;
+  width: 203px;
+  height: 26px;
+  box-sizing: border-box;
 }
 
 .LoginCard-button {

@@ -7,5 +7,11 @@
 }
 
 .LoginControls-link a {
-  color: #0087E9
+  color: #0087E9;
+  font-family: Arial;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 14.95px;
+  text-align: center;
+  text-underline-offset: 2px;
 }

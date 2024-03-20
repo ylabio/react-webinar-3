@@ -8,7 +8,6 @@ class User extends StoreModule {
       userInfo: {
         profile: {}
       },
-      loginError: '',
       token: localStorage.getItem('token') || '',
     }
   }
@@ -30,7 +29,7 @@ class User extends StoreModule {
         loggedIn: true,
         waiting: false,
       }, 'Успешно авторизован');
-      return true
+      return {success: true, error: ''}
     } 
     this.setState({
       ...this.getState(),
@@ -38,7 +37,7 @@ class User extends StoreModule {
       userInfo: {},
       waiting: false,
     }, 'Ошибка авторизации');
-    return false
+    return {success: false, error: json.error.data.issues.map(i => i.message).join('; ')}
   }
 
   async login({ login, password }) {
@@ -57,22 +56,20 @@ class User extends StoreModule {
         ...this.getState(),
         userInfo: json.result.user,
         token: json.result.token,
-        loginError: '',
         waiting: false,
         loggedIn: true
       }, 'Успешно авторизован');
-      return true
+      return {success: true, error: ''}
     }
     localStorage.setItem('token', '')
     this.setState({
       ...this.getState(),
       userInfo: {},
       token: '',
-      loginError: json.error.message,
       waiting: false,
       loggedIn: false
     }, 'Ошибка авторизации');
-    return false
+    return {success: false, error: json.error.data.issues.map(i => i.message).join('; ')}
   }
 
   async logout() {
@@ -91,7 +88,6 @@ class User extends StoreModule {
         ...this.getState(),
         userInfo: {},
         token: '',
-        loginError: '',
         waiting: false,
         loggedIn: false
       }, 'Успешно разовторизован');

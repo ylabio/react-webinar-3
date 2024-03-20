@@ -1,9 +1,7 @@
-import {memo, useCallback, useEffect, useMemo} from 'react';
-import {useParams} from "react-router-dom";
+import {memo, useEffect} from 'react';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
-import useInit from "../../hooks/use-init";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
@@ -11,25 +9,17 @@ import Spinner from "../../components/spinner";
 import LocaleSelect from "../../containers/locale-select";
 import LoginBanner from "../../containers/login-banner";
 import ProfileCard from "../../components/profile-card";
-import { useNavigate } from 'react-router-dom';
 
 function Profile() {
   const store = useStore();
-  const navigate = useNavigate();
 
   useEffect(() => {
-    store.actions.user.auth()
-      .then((success) => {
-        if (!success) {
-          navigate('/')
-        }
-      })
+    store.actions.profile.getUserInfo()
   }, [])
 
   const select = useSelector(state => ({
-    loggedIn: state.user.loggedIn,
-    userInfo: state.user.userInfo,
-    waiting: state.user.waiting
+    userInfo: state.profile.userInfo,
+    waiting: state.profile.waiting
   }));
 
   const {t} = useTranslate();

@@ -1,15 +1,15 @@
-import { memo, useCallback, useMemo } from "react";
+import { memo, useCallback } from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import SideLayout from "../../components/side-layout";
 import LoginControls from "../../components/login-controls";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function LoginBanner() {
   const store = useStore();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const select = useSelector((state) => ({
     loggedIn: state.user.loggedIn,
@@ -17,9 +17,13 @@ function LoginBanner() {
     userName: state.user.userInfo.profile?.name
   }));
 
+  const getCurrentPath = () => {
+    return `${window.location.pathname}${window.location.search}`
+  }
+
   const callbacks = {
     onLogin: useCallback(() => {
-      navigate("/login");
+      navigate("/login", { state: { redirectTo: getCurrentPath() } });
     }, [store]),
     onLogout: useCallback(() => {
       store.actions.user.logout()
@@ -30,7 +34,7 @@ function LoginBanner() {
   const { t } = useTranslate();
 
   return (
-    <SideLayout side="end">
+    <SideLayout side="end" border={"bottom"}>
       <LoginControls
         isLoggedIn={select.loggedIn}
         onLogin={callbacks.onLogin}

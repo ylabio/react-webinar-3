@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -9,15 +9,17 @@ import LocaleSelect from "../../containers/locale-select";
 import LoginCard from "../../components/login-card";
 import Spinner from "../../components/spinner";
 import LoginBanner from "../../containers/login-banner";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Login() {
   const store = useStore();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [loginError, setLoginError] = useState('')
+  
   const select = useSelector((state) => ({
     waiting: state.user.waiting,
     userInfo: state.user.userInfo,
-    loginError: state.user.loginError,
   }));
 
   const { t } = useTranslate();
@@ -25,9 +27,11 @@ function Login() {
   const callbacks = {
     onLogin: useCallback(({ login, password }) => {
       store.actions.user.login({ login, password })
-        .then(success => {
+        .then(({success, error}) => {
           if (success) {
-            navigate('/profile')
+            navigate(location.state && location.state.redirectTo ? `${location.state.redirectTo}` : '/');
+          } else {
+            setLoginError(error)
           }
         })
     }, [store]),
@@ -44,7 +48,7 @@ function Login() {
         <LoginCard
           t={t}
           onLogin={callbacks.onLogin}
-          loginError={select.loginError}
+          loginError={loginError}
           waiting={select.waiting}
         />
       </Spinner>
