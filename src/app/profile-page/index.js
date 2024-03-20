@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect } from "react";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -10,11 +10,14 @@ import Auth from "../../containers/auth-tool";
 import useSelector from "../../hooks/use-selector";
 import ProfileComponent from "../../components/profile-component";
 import Spinner from "../../components/spinner";
+import { useNavigate } from "react-router-dom";
 
 function ProfilePage() {
   const store = useStore();
 
   const { t, lang, setLang } = useTranslate();
+
+  const navigate = useNavigate();
 
   const select = useSelector((state) => ({
     userData: state.user.userData,
@@ -28,6 +31,12 @@ function ProfilePage() {
     [lang],
     true
   );
+
+  useEffect(() => {
+    if (!select.userData) {
+      navigate("/login");
+    }
+  }, [select.userData]);
 
   const callbacks = {
     setLang: useCallback(
