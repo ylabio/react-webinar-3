@@ -1,27 +1,30 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect } from "react";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
 import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
-import CatalogFilter from "../../containers/catalog-filter";
-import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
 import Auth from "../../containers/auth-tool";
+import useSelector from "../../hooks/use-selector";
+import ProfileComponent from "../../components/profile-component";
+import Spinner from "../../components/spinner";
+import { useNavigate } from "react-router-dom";
 
-/**
- * Главная страница - первичная загрузка каталога
- */
-function Main() {
+function ProfilePage() {
   const store = useStore();
 
   const { t, lang, setLang } = useTranslate();
 
+  const select = useSelector((state) => ({
+    userData: state.user.userData,
+    isLoading: state.user.waiting,
+  }));
+
   useInit(
     () => {
-      store.actions.catalog.initParams({ lang });
-      store.actions.categories.load(lang);
+      store.actions.locale.initLocaleParams(lang);
     },
     [lang],
     true
@@ -30,7 +33,7 @@ function Main() {
   const callbacks = {
     setLang: useCallback(
       (lang) => {
-        store.actions.catalog.setParams({ lang });
+        store.actions.locale.setLocaleParams(lang);
         setLang(lang);
       },
       [store, lang]
@@ -43,10 +46,11 @@ function Main() {
         <LocaleSelect onChange={callbacks.setLang} value={lang} />
       </Head>
       <Navigation />
-      <CatalogFilter />
-      <CatalogList />
+      <Spinner active={select.isLoading}>
+        <ProfileComponent t={t} userData={select.userData} />
+      </Spinner>
     </PageLayout>
   );
 }
 
-export default memo(Main);
+export default memo(ProfilePage);

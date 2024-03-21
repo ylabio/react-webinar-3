@@ -1,0 +1,30 @@
+.Profile {
+  padding: 40px 20px;
+  row-gap: 30px;
+}
+
+.Profile,
+.Profile-info-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.Profile-title,
+.Profile-info-list {
+  padding: 0;
+  margin: 0;
+}
+
+.Profile-info-list {
+  list-style: none;
+  row-gap: 20px;
+}
+
+.Profile-info-item {
+  font-size: 18px;
+}
+
+.Profile-info-item > span {
+  font-weight: 700;
+}

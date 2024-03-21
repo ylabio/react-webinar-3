@@ -6,19 +6,19 @@ Content-Type: application/json
 
 {
   "login": "test_1",
-  "password": "123456"
+  "password": "12345"
 }
 
 ###
 # Выход - отмена авториазции для удаления токена
 
 DELETE http://example.front.ylab.io/api/v1/users/sign
-X-Token: 0fde46478ddbf96c7328043996955ba30d133faeedd6d17461222c62a9b84240
+X-Token: f378b112604b6e4b539a0937d82e202de124525f73ed23d10ea14034fbd5c882
 Content-Type: application/json
 
 ###
 # Свой профиль
 
 GET http://example.front.ylab.io/api/v1/users/self?fields=*
-X-Token: 0fde46478ddbf96c7328043996955ba30d133faeedd6d17461222c62a9b84240
+X-Token: 9c521716964f56ca6d9c60c0179110b3c8ad9270ecc356f0fab9f10f68ba7fff
 Content-Type: application/json

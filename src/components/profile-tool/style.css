@@ -1,0 +1,9 @@
+.Profile-tool {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.Profile-tool-profile-link {
+  font-size: 14px;
+}
