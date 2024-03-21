@@ -8,7 +8,7 @@ const UserPanel = (props) => {
   return (
     <div className="UserPanel">
       {props.loggedIn && <span className={'UserPanel-name'}><Link to={props.profile}>{props.userName}</Link></span>}
-      <Link className={'UserPanel-button'} to={props.login}>
+      <Link className={'UserPanel-button'} to={props.buttonPath}>
         <button onClick={props.callBack}>{props.title}</button>
       </Link>
     </div>
@@ -17,7 +17,7 @@ const UserPanel = (props) => {
 
 UserPanel.propTypes = {
   title: PropTypes.string,
-  login: PropTypes.string,
+  buttonPath: PropTypes.string,
   profile: PropTypes.string,
   loggedIn: PropTypes.bool,
   userName: PropTypes.string,

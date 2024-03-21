@@ -44,7 +44,7 @@ function User() {
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <AuthorizedRoute login={'/login'}>
+        <AuthorizedRoute path={'/login'}>
           <UserCard t={t} user={select.user}/>
         </AuthorizedRoute>
       </Spinner>

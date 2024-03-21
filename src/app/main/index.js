@@ -10,6 +10,7 @@ import useInit from "../../hooks/use-init";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
+import {Navigate} from "react-router-dom";
 
 
 /**
@@ -41,7 +42,7 @@ function Main() {
       <UserPanel userName={select.user?.profile?.name} callBack={select.loggedIn ? callbacks.signOut : undefined}
                  loggedIn={select.loggedIn}
                  profile={'/profile'}
-                 login={'/login'}
+                 buttonPath={!select.loggedIn ? '/login' : ''}
                  title={select.loggedIn ? t('exit') : t('enter')}/>
       <Head title={t('title')}>
         <LocaleSelect/>

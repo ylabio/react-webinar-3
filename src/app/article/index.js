@@ -50,7 +50,7 @@ function Article() {
       <UserPanel userName={select.user?.profile?.name} callBack={select.loggedIn ? callbacks.signOut : undefined}
                  loggedIn={select.loggedIn}
                  profile={'/profile'}
-                 login={select.loggedIn ? '' : '/login'}
+                 buttonPath={!select.loggedIn ? '/login' : ''}
                  title={select.loggedIn ? t('exit') : t('enter')}/>
       <Head title={select.article.title}>
         <LocaleSelect/>
