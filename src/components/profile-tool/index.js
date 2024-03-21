@@ -8,7 +8,11 @@ function ProfileTool({ onClick, label, userName, path }) {
 
   return (
     <div className={cn()}>
-      {userName && <Link to={path}>{userName}</Link>}
+      {userName && (
+        <Link to={path} className={cn("profile-link")}>
+          {userName}
+        </Link>
+      )}
       <button type="button" onClick={onClick}>
         {label}
       </button>

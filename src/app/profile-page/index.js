@@ -17,8 +17,6 @@ function ProfilePage() {
 
   const { t, lang, setLang } = useTranslate();
 
-  const navigate = useNavigate();
-
   const select = useSelector((state) => ({
     userData: state.user.userData,
     isLoading: state.user.waiting,
@@ -31,12 +29,6 @@ function ProfilePage() {
     [lang],
     true
   );
-
-  useEffect(() => {
-    if (!select.userData) {
-      navigate("/login");
-    }
-  }, [select.userData]);
 
   const callbacks = {
     setLang: useCallback(

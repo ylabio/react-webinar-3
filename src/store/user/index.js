@@ -9,9 +9,7 @@ class UserState extends StoreModule {
     };
   }
 
-  async initUser() {
-    const authToken = localStorage.getItem("token");
-
+  async initUser(authToken) {
     if (!authToken) return;
 
     this.setState({
@@ -113,9 +111,7 @@ class UserState extends StoreModule {
     }
   }
 
-  async logout() {
-    const authToken = localStorage.getItem("token");
-
+  async logout(authToken) {
     this.setState({
       ...this.getState(),
       waiting: true,

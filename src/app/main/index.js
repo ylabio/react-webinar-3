@@ -21,6 +21,7 @@ function Main() {
   useInit(
     () => {
       store.actions.catalog.initParams({ lang });
+      store.actions.categories.load(lang);
     },
     [lang],
     true
