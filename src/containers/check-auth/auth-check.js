@@ -1,6 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 
 const AuthCheck = ({ children }) => {

@@ -22,7 +22,7 @@ const AuthBtn = () => {
   };
 
   function redirectToLoginPage() {
-    navigate("/login");
+    navigate("/login", { state: { from: location.pathname } });
   }
 
   return (
