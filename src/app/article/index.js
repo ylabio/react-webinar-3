@@ -37,15 +37,12 @@ function Article() {
   }
 
   return (
-    <PageLayout>
-      <Head title={select.article.title}>
-        <LocaleSelect/>
-      </Head>
+    <>
       <Navigation/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
-    </PageLayout>
+    </>
   );
 }
 

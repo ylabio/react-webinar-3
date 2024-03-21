@@ -1,0 +1,10 @@
+.AuthControl-container{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap:20px;
+}
+.AuthControl-container button{
+    margin: 10px 20px 10px 0;
+}

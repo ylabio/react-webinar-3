@@ -1,0 +1,26 @@
+.Auth-container{
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.Auth-input{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.Auth-input input {
+    width: 203px;
+    height: 26px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.Auth-container button {
+    width: 53px;
+    height: 21px;
+}
+.Auth-error {
+    color:red;
+    margin-bottom: 20px;
+}

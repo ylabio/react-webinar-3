@@ -1,0 +1,9 @@
+.ProfileInfo-container{
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ProfileInfo-container p{
+font-size: 18px;
+}
