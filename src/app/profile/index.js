@@ -1,4 +1,4 @@
-import { memo, useInsertionEffect } from "react";
+import { memo } from "react";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import UserPanel from "../../containers/user-panel";

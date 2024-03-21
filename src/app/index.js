@@ -6,6 +6,7 @@ import Basket from "./basket";
 import Article from "./article";
 import Login from "./login";
 import Profile from "./profile";
+import useAuth from '../hooks/use-auth';
 
 /**
  * Приложение
@@ -14,6 +15,7 @@ import Profile from "./profile";
 function App() {
 
   const activeModal = useSelector(state => state.modals.name);
+  useAuth([]);
 
   return (
     <>

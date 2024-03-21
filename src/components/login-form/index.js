@@ -5,7 +5,6 @@ import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/use-auth";
 
 const LoginForm = () => {
     
@@ -47,8 +46,6 @@ const LoginForm = () => {
         setFormData(initialState);
         if (success) navigate("/profile");
     }
-
-    useAuth([]);
 
     return(
         <div className={cn()}>
