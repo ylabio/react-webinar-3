@@ -9,11 +9,7 @@ class AuthActionState extends StoreModule {
       waiting: false,
     };
   }
-  componentDidMount() {
-    this.setState({
-      error: null,
-    });
-  }
+
   async handleLogin(data) {
     try {
       this.setState({
@@ -59,7 +55,11 @@ class AuthActionState extends StoreModule {
       });
     }
   }
-
+  clearError() {
+    this.setState({
+      error: "",
+    });
+  }
   async handleLogout() {
     try {
       this.setState({

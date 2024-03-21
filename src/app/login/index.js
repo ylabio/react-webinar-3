@@ -53,7 +53,10 @@ function Login() {
       store.actions.auth.handleLogout();
     }, [store.actions.auth])
   };
-
+  useEffect(() => {
+    store.actions.auth.clearError();
+  }, [store.actions.auth]);
+  
   
 
   return (
