@@ -3,3 +3,27 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 20px;
+}
+
+.Controls-auth {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.Controls-name {
+  font-weight: 400;
+  font-size: 13px;
+  text-decoration: none;
+  color: #0087e9;
+}
+
+.Controls-name:hover {
+  text-decoration: underline;
+}

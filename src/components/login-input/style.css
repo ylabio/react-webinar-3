@@ -1,0 +1,26 @@
+.LoginInput {
+  padding: 30px 20px;
+}
+
+.LoginInput-title {
+  margin: 0;
+  margin-bottom: 17px;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.LoginInput-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: flex-start;
+}
+
+.LoginInput-form-control {
+  display: flex;
+  flex-direction: column;
+}
+
+.LoginInput-error {
+  color: #ff0000;
+}
