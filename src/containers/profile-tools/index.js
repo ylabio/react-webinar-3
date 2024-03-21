@@ -21,7 +21,7 @@ function ProfileTools() {
 
   const callbacks = {
     buttonClick: useCallback(() => {
-      if (select.user) {
+      if (select.token) {
         store.actions.session.logOut();
         store.actions.profile.clearData();
       } else {
@@ -33,7 +33,7 @@ function ProfileTools() {
   return (
     <div className="ProfileTools">
       <SideLayout side='end' padding='small'>
-        <Link to='/profile'>{select.user ? select.user.profile?.name : ''}</Link>
+        <Link to='/profile'>{select.token ? select.user.profile?.name : ''}</Link>
         <button onClick={callbacks.buttonClick}>{select.token ? t('auth.logout') : t('auth.login')}</button>
       </SideLayout>
     </div>

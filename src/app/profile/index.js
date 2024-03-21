@@ -18,8 +18,8 @@ function Profile() {
   const navigate = useNavigate();
   const { t } = useTranslate();
 
-  useInit(() => {
-    store.actions.profile.setUser();
+  useInit(async() => {
+    await store.actions.profile.setUser();
   });
 
   const select = useSelector(state => ({
@@ -27,9 +27,10 @@ function Profile() {
     user: state.profile.data,
     waiting: state.session.waiting
   }));
+
   useEffect(() => {
     console.log(select.user);
-    if (!select.user && !select.waiting) {
+    if (!select.token) {
       navigate('/login');
     }
   }, [select.waiting, select.user])
