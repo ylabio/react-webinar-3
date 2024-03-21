@@ -59,7 +59,7 @@ function flattenCategories(categories, depth = 0) {
   categories.forEach((category) => {
     category.title = !depth
       ? category.title
-      : "-".repeat(depth) + " " + category.title;
+      : "- ".repeat(depth) + " " + category.title;
     flattenedCategories.push(category);
     if (category.subCategories.length > 0) {
       const subCategories = flattenCategories(
