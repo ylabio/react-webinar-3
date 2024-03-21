@@ -1,0 +1,11 @@
+.LoginUserButton-button {
+  text-decoration: none;
+  color: black;
+  background-color: #efefef;
+  padding: 1px 6px;
+  border: 1px solid black;
+  border-radius: 2px;
+  font-size: 0.85em;
+  display: block;
+  margin: 10px 20px;
+}

@@ -33,3 +33,33 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+Упорядочивает категории в соответствии с их вложенностью и добавляет дефисы перед названиями категорий в зависимости от уровня вложенности.
+@param categories {Array} - Массив объектов категорий.
+@returns {Array} - Упорядоченный массив категорий.
+*/
+export function organizeCategories(categories) {
+  // Функция для рекурсивного поиска дочерних категорий
+  function findChildren(parentId, level) {
+    const children = categories.filter(category => category.parent && category.parent._id === parentId);
+    children.forEach(child => {
+      child.title = `${'- '.repeat(level)}${child.title}`;
+      sortedCategories.push(child);
+      findChildren(child._id, level + 1);
+    });
+  }
+
+  const sortedCategories = [];
+
+  // Находим категории верхнего уровня и добавляем их в отсортированный массив
+  const topLevelCategories = categories.filter(category => !category.parent);
+  topLevelCategories.unshift({ value: "all", title: "Все", parent: null, level: 0, _id: "all" });
+  topLevelCategories.forEach(category => {
+    category.title = `${category.title}`;
+    sortedCategories.push(category);
+    findChildren(category._id, 1);
+  });
+
+  return sortedCategories;
+}

@@ -1,0 +1,22 @@
+.LoginForm {
+  margin: 0 20px;
+  padding-top: 55px;
+}
+
+.LoginForm-title {
+  margin: 0;
+  padding-bottom: 17px;
+}
+
+.LoginForm-container {
+  & > label {
+    display: block;
+  }
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}
+
+.LoginForm-error {
+  color: #ff0000;
+}
