@@ -20,12 +20,6 @@ class CatalogState extends StoreModule {
         query: '',
         category: '',
       },
-      categories: [
-        {
-          _id:"",
-          title:"Все"
-        }
-      ],
       count: 0,
       waiting: false
     }
@@ -66,13 +60,7 @@ class CatalogState extends StoreModule {
       if ((!item.parent && !parent) || (item.parent && item.parent._id === parent)) { // если категория имеет родителя
         temp.push({
           ...item,
-          title: ` ${
-            (depth==1) 
-              ? '' 
-              : (depth==2) 
-                ? '- ' 
-                : ''
-          } ${item.title}`, // добавляем в временный массив категорию с опр.количеством дефизов
+          title: ` ${' - '.repeat(depth).slice(0,-2)} ${item.title}`, // добавляем в временный массив категорию с опр.количеством дефизов
           _id: item._id
         });
         temp.push(...this.filtredCategory(items, item._id, depth + 1));
@@ -122,14 +110,12 @@ class CatalogState extends StoreModule {
 
  
 
-    const result = await fetch('/api/v1/categories?fields=_id,title,parent(_id),child&limit=*').then(result => result.json())
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
     this.setState({
       ...this.getState(),
       list: json.result.items,
       count: json.result.count,
-      categories: [...this.initState().categories,...this.filtredCategory(result.result.items)],
       waiting: false
     }, 'Загружен список товаров из АПИ');
   }

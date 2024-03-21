@@ -6,6 +6,7 @@ import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
 import SelectCategory from "../../components/select-category";
+import useInit from "../../hooks/use-init";
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -18,7 +19,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories,
+    categories: state.categories.list,
   }));
 
   const callbacks = {
@@ -26,12 +27,17 @@ function CatalogFilter() {
     onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
     // Поиск
     onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
-    // Категории
+    // Выбор категорий
     onCategory: useCallback(category => store.actions.catalog.setParams({category, page: 1}), [store]),
+    // Список категорий
+    categories: useCallback(() => store.actions.categories.setParams(), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
 
+  useInit(() => {
+    store.actions.categories.setParams()
+  });
   const options = {
     sort: useMemo(() => ([
       {value: 'order', title: 'По порядку'},

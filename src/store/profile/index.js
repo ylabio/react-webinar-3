@@ -1,8 +1,6 @@
 import StoreModule from "../module";
 
-/**
- * Покупательская корзина
- */
+
 class ProfileState extends StoreModule {
 
   initState() {
