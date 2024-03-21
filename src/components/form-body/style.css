@@ -1,0 +1,30 @@
+.FormBody {
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 20px;
+}
+
+.FormBody-title {
+  font-size: 24px;
+  margin: 0;
+}
+
+.FormBody-lists {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.FormBody-errorMessage {
+  margin: 0;
+  color: #ff0000;
+}
+
+.FormBody-btn {
+  flex-shrink: 0;
+}

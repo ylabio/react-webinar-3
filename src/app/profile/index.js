@@ -9,32 +9,36 @@ import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
 import TopMenu from '../../containers/top-menu';
+import useSelector from '../../hooks/use-selector';
+import Spinner from '../../components/spinner';
+import ProfileCard from '../../components/profile-card';
 
 /**
  * Главная страница - первичная загрузка каталога
  */
-function Main() {
+function Profile() {
 
   const store = useStore();
 
-  useInit(() => {
-    store.actions.categories.getCategories();
-    store.actions.catalog.initParams();
-  }, [], true);
+  const select = useSelector(state => ({
+    user: state.auth.user,
+    waiting: state.auth.waiting,
+  }));
 
   const {t} = useTranslate();
 
   return (
     <PageLayout>
       <TopMenu/>
-      <Head title={t('title')}>
+      <Head title={t('profile')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <CatalogFilter/>
-      <CatalogList/>
+      <Spinner active={select.waiting}>
+        <ProfileCard user={select.user} t={t}/>
+      </Spinner>
     </PageLayout>
   );
 }
 
-export default memo(Main);
+export default memo(Profile);

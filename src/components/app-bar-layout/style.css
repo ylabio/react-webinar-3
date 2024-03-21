@@ -1,0 +1,28 @@
+.AppBarLayout {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  padding: 0;
+  gap: 20px;
+  align-items: center;
+}
+
+.AppBarLayout_side_start {
+  justify-content: flex-start;
+}
+
+.AppBarLayout_side_end {
+  justify-content: flex-end;
+}
+
+.AppBarLayout_side_between {
+  justify-content: space-between;
+}
+
+.AppBarLayout_padding_small {
+  padding: 5px 10px;
+}
+
+.AppBarLayout_padding_medium {
+  padding: 10px 20px;
+}
