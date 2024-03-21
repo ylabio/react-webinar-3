@@ -1,0 +1,16 @@
+.LoginBody{
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.LoginBody-area{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 19px;
+}
+
+.LoginBody-error{
+  color:red;
+}

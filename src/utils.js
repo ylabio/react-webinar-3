@@ -33,3 +33,27 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+function createTreeData(arr, idProp, parentProp) {
+  const tree = Object.fromEntries(arr.map(n => [ n[idProp], { ...n, children: [] } ]));
+  return Object.values(tree).filter(n => !tree[n[parentProp]?.[idProp]]?.children.push(n));
+}
+
+function makeData(data,count){
+  let output =[]
+  for(let i =0; i < data.length; i++){
+    if(data[i].parent){
+      data[i].title=' - '.repeat(count)+data[i].title
+    }
+    output.push(data[i])
+    if(data[i].children){
+      output.push(...makeData(data[i].children,count+1))
+    }
+  }
+  return output
+}
+
+export function addNesting(data){
+  const output = createTreeData([...data], '_id', 'parent');
+  return makeData(output,0)
+}
