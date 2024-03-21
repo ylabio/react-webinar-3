@@ -12,10 +12,11 @@ import UserBar from '../../components/user-bar';
 
 
 /**
- * Страница товара с первичной загрузкой товара по id из url адреса
+ * Страница авторизации
  */
 function Login() {
   const store = useStore();
+  const { t } = useTranslate();
 
   const select = useSelector(state => ({
     userName: state.auth.user?.name,
@@ -24,21 +25,22 @@ function Login() {
   }));
 
   const callbacks = {
-    // Добавление в корзину
     login: useCallback(body => store.actions.auth.login(body), [store]),
     logOut: useCallback(() => store.actions.auth.logOut(), [store]),
-  }
+  };
 
   return (
     <PageLayout>
       <UserBar name={select.userName} logOut={callbacks.logOut} />
-      <Head title={"Магазин"}>
+      <Head title={t("title")}>
         <LocaleSelect />
       </Head>
       <Navigation />
-      {/* <Spinner active={select.waiting}> */}
-      <LoginForm onSubmitForm={callbacks.login} error={select.error} />
-      {/* </Spinner> */}
+      <Spinner active={select.waiting}>
+        <LoginForm onSubmitForm={callbacks.login} error={select.error}
+          buttonText={t("button.enter")} title={t("login.title")} login={t("login.login")}
+          password={t("login.password")} />
+      </Spinner>
     </PageLayout>
   );
 }

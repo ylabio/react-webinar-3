@@ -32,7 +32,7 @@ function App() {
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
         <Route path={'/login'} element={<PublicRoute nav={params}><Login /></PublicRoute>} />
-        <Route path={'/profile'} element={<PrivateRoute nav={location.search}><Profile /></PrivateRoute>} />
+        <Route path={'/profile'} element={<PrivateRoute nav={"/login"}><Profile /></PrivateRoute>} />
       </Routes>
 
       {activeModal === 'basket' && <Basket />}

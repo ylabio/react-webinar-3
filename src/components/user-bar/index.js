@@ -5,12 +5,14 @@ import useTranslate from "../../hooks/use-translate";
 import SideLayout from "../../components/side-layout";
 import LogoutUserButton from "../user-buttons/logout-button";
 import LoginUserButton from "../user-buttons/login-button";
+import PropTypes from "prop-types";
 
 /**
  * Контейнер с компонентами навигации
  */
-function UserBar(props) {
+function UserBar() {
   const store = useStore();
+  const { t } = useTranslate()
 
   const userName = useSelector(state => state.auth.user?.profile?.name);
 
@@ -21,8 +23,8 @@ function UserBar(props) {
 
   return (
     <SideLayout side='end'>
-      {userName ? <LogoutUserButton userName={userName} logOut={callbacks.logOut} /> :
-        <LoginUserButton />
+      {userName ? <LogoutUserButton userName={userName} logOut={callbacks.logOut} buttonText={t("button.exit")} /> :
+        <LoginUserButton buttonText={t("button.enter")} />
       }
     </SideLayout>
   );

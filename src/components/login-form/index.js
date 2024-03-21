@@ -1,4 +1,5 @@
 import { memo, useState } from "react";
+import PropTypes from "prop-types";
 import "./style.css"
 
 export function LoginForm(props) {
@@ -17,10 +18,10 @@ export function LoginForm(props) {
 
   return (
     <div className="LoginForm">
-      <h2 className="LoginForm-title">Вход</h2>
+      <h2 className="LoginForm-title">{props.title}</h2>
       <form onSubmit={handleSubmit}>
         <div className="LoginForm-container">
-          <label htmlFor="login">Логин</label>
+          <label htmlFor="login">{props.login}</label>
           <input
             name="login"
             type="text"
@@ -30,7 +31,7 @@ export function LoginForm(props) {
           />
         </div>
         <div className="LoginForm-container">
-          <label htmlFor="password">Пароль</label>
+          <label htmlFor="password">{props.password}</label>
           <input
             name="password"
             type="password"
@@ -40,10 +41,19 @@ export function LoginForm(props) {
           />
         </div>
         {props.error && <p className="LoginForm-error">{props.error}</p>}
-        <button type="submit">Войти</button>
+        <button type="submit">{props.buttonText}</button>
       </form>
     </div>
   )
 }
+
+LoginForm.propTypes = {
+  title: PropTypes.string.isRequired,
+  login: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  error: PropTypes.string,
+  buttonText: PropTypes.string.isRequired,
+  onSubmitForm: PropTypes.func.isRequired
+};
 
 export default memo(LoginForm);
