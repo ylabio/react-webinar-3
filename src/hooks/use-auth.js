@@ -8,7 +8,7 @@ export default function useAuth (dependencies) {
 
     const store = useStore();
     const navigate = useNavigate();
-    const onLoadUser = useCallback(token => store.actions.auth.loadUser(token), [store]);
+    const onLoadUser = useCallback(token => store.actions.profile.loadUser(token), [store]);
     const select = useSelector(state => ({
         userInfo: state.auth.userData,
       }));

@@ -11,7 +11,7 @@ function SelectCategory(props) {
   return (
     <select className="SelectCategory" value={props.value} onChange={onSelect}>
       {props.options && props.options.map(item => {
-        return <option key={item._id} value={item.title}>{item.title}</option>
+        return <option key={item._id} value={item._id}>{item.title}</option>
     })}
     </select>
   )

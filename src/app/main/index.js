@@ -19,7 +19,7 @@ function Main() {
 
   useInit(() => {
     store.actions.catalog.initParams();
-    store.actions.catalog.getCategories();
+    store.actions.category.getCategories();
     store.actions.auth.initState();
   }, [], true);
 

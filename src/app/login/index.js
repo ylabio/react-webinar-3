@@ -1,4 +1,4 @@
-import { memo, useInsertionEffect } from "react";
+import { memo, useEffect } from "react";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import UserPanel from "../../containers/user-panel";
@@ -12,9 +12,9 @@ function LoginPage() {
 
     const store = useStore();
   
-    useInsertionEffect(() => {
+    useEffect(() => {
       store.actions.catalog.initParams();
-      store.actions.catalog.getCategories();
+      store.actions.category.getCategories();
     }, [], true);
   
     const {t} = useTranslate();

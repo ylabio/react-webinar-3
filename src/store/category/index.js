@@ -38,13 +38,15 @@ class CategoryState extends StoreModule {
     categoriesJson.result.items.forEach((item) => {
       if (item.parent) {
         let index = sortedCategories.findIndex((el) => (el._id == item.parent._id && el.parent !== null));
-        index !== -1 && sortedCategories.splice(index + 1, 0, {_id: item._id, title: `- - ${item.title}`, parent: item.parent._id})
+        index !== -1 && sortedCategories.splice(index + 1, 0, {_id: item._id, queryName: item.title, title: `- - ${item.title}`, parent: item.parent._id})
       }
     })
     categoriesJson.result.items.forEach((item) => {
         if (item.parent) {
-          let index = sortedCategories.findIndex((el) => (el._id == item.parent._id && el.parent !== null));
-          index !== -1 && sortedCategories.splice(index + 1, 0, {_id: item._id, queryName: item.title, title: `- - ${item.title}`, parent: item.parent._id})
+          let index = sortedCategories.findIndex((el) => (el._id == item.parent._id 
+                                                          && el.parent !== null 
+                                                          && sortedCategories.findIndex((elem) => elem._id == item._id) == -1));
+          index !== -1 && sortedCategories.splice(index + 1, 0, {_id: item._id, queryName: item.title, title: `- - - ${item.title}`, parent: item.parent._id})
         }
       })
     this.setState({

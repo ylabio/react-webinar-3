@@ -15,7 +15,7 @@ function Profile() {
   
     useInit(() => {
       store.actions.catalog.initParams();
-      store.actions.catalog.getCategories();
+      store.actions.category.getCategories();
     }, [], true);
   
     const {t} = useTranslate();
