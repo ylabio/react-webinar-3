@@ -1,5 +1,5 @@
-import {memo, useCallback, useMemo} from 'react';
-import {useParams} from "react-router-dom";
+import { memo, useCallback, useMemo } from "react";
+import { useParams } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -10,7 +10,7 @@ import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
-import HeadLogin from '../../components/head-login';
+import HeadLogin from "../../components/head-login";
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
@@ -25,27 +25,39 @@ function Article() {
     store.actions.article.load(params.id);
   }, [params.id]);
 
-  const select = useSelector(state => ({
+  const select = useSelector((state) => ({
     article: state.article.data,
     waiting: state.article.waiting,
+    auth: state.user.auth,
+    username: state.user.user.name
   }));
 
-  const {t} = useTranslate();
+  const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-  }
+    addToBasket: useCallback(
+      (_id) => store.actions.basket.addToBasket(_id),
+      [store]
+    ),
+    onLoguot: useCallback(() => {
+      store.actions.user.logout();
+    }, [store]),
+  };
 
   return (
     <PageLayout>
-    <HeadLogin/>
+      <HeadLogin auth={select.auth} onClick={callbacks.onLoguot} username={select.username}/>
       <Head title={select.article.title}>
-        <LocaleSelect/>
+        <LocaleSelect />
       </Head>
-      <Navigation/>
+      <Navigation />
       <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        <ArticleCard
+          article={select.article}
+          onAdd={callbacks.addToBasket}
+          t={t}
+        />
       </Spinner>
     </PageLayout>
   );

@@ -21,7 +21,7 @@ export function plural(value, variants = {}, locale = "ru-RU") {
  * @param res {Array} исходный массив, который получается по запросу на бэк
  * @returns {Array}
  */
-export function badfunc(res) {
+export function formCategoriesArr(res) {
   const withoutParent = [];
   res.forEach((e) => (e.childs = []));
   res.forEach((e) => {
@@ -43,7 +43,7 @@ export function badfunc(res) {
   });
 
   let catArr = [];
-  let tires = new RegExp("-*");
+  let tires = new RegExp("(- )*");
   //if(withoutParent){catArr = catArr.concat(withoutParent)}
   function categoriesArr(el) {
     if (!el.parent) catArr = [...catArr, el];
@@ -55,11 +55,11 @@ export function badfunc(res) {
         catArr[catArr.findIndex((parent) => el.parent._id === parent._id)].title
       );
 
-      if (nest !== null) el.title = nest[0] + "-" + el.title;
-      else if (el.parent !== null) el.title = "-" + el.title;
+      if (nest !== null) el.title = nest[0] + "- " + el.title;
+      else if (el.parent !== null) el.title = "- " + el.title;
       catArr = [...catArr, el];
     } else if (el.parent !== null) {
-      el.title = "-" + el.title;
+      el.title = "- " + el.title;
       catArr = [...catArr, el];
     }
     el.childs.length > 0

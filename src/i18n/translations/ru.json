@@ -22,5 +22,9 @@
   "login.title": "Вход",
   "login.input.label": "Логин",
   "login.password.label": "Пароль",
-  "login.button": "Войти"
+  "login.button": "Войти",
+  "profile.title": "Профиль",
+  "profile.name": "Имя: ",
+  "profile.number": "Телефон: ",
+  "profile.email": "email: "
 }

@@ -1,4 +1,4 @@
-import {memo} from 'react';
+import {memo, useCallback, useEffect} from 'react';
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -9,6 +9,7 @@ import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
 import HeadLogin from '../../components/head-login';
+import useSelector from '../../hooks/use-selector';
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -16,6 +17,25 @@ import HeadLogin from '../../components/head-login';
 function Main() {
 
   const store = useStore();
+
+  const select = useSelector((state) => ({
+    auth: state.user.auth,
+    error: state.user.error,
+    username: state.user.user.name,
+  }));
+
+  const callbacks = {
+    onLoguot: useCallback(() => {
+      store.actions.user.logout();
+    }, [store]),
+    clearError: useCallback(() => {
+      store.actions.user.clearErrorMessage();
+    }, [store])
+  }
+
+  useEffect(() => {
+    callbacks.clearError();
+  }, [])
 
   useInit(() => {
     store.actions.catalog.initParams();
@@ -25,7 +45,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <HeadLogin/>
+      <HeadLogin auth={select.auth} onClick={callbacks.onLoguot} username={select.username}/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

@@ -20,5 +20,9 @@
   "login.title": "Login",
   "login.input.label": "Log in",
   "login.password.label": "Password",
-  "login.button": "Log in"
+  "login.button": "Log in",
+  "profile.title": "Profile",
+  "profile.name": "Name: ",
+  "profile.number": "Phone number: ",
+  "profile.email": "email: "
 }
