@@ -42,21 +42,21 @@ function Login() {
       <Navigation/>
       <FormBody
         onSubmit={handlerSubmit}
-        title='Вход'
+        title={t('signIn')}
         message={message}
         isMessage={true}
-        btnName={'Войти'}
+        btnName={t('signIn')}
       >
         <FormInput
         onChange={handleChanges}
         value={valueForm.login || ''}
-        title={'Логин'}
+        title={t('username')}
         name={'login'}
         />
         <FormInput
         onChange={handleChanges}
         value={valueForm.password || ''}
-        title={'Пароль'}
+        title={t('password')}
         name={'password'}
         type={'password'}
         />

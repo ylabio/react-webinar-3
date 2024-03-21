@@ -4,6 +4,7 @@ import useSelector from "../../hooks/use-selector";
 import AppBarLayout from "../../components/app-bar-layout";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Spinner from "../../components/spinner";
+import useTranslate from "../../hooks/use-translate";
 
 /**
  * Контейнер с компонентами навигации
@@ -18,7 +19,6 @@ function TopMenu() {
     waiting: state.auth.waiting
   }));
 
-
   const callbacks = {
     onSign: useCallback(() => {
       navigate('/login', {state: {goBack: location.pathname + location.search}})
@@ -27,6 +27,8 @@ function TopMenu() {
       store.actions.auth.signOut();
     }, [])
   }
+
+  const {t} = useTranslate();
 
   const options = {
     showLink: useMemo(() => {
@@ -38,11 +40,11 @@ function TopMenu() {
     },[userName]),
     toggleAuth: useMemo(() => {
       if (userName) {
-        return <button onClick={callbacks.onSignOut}>Выйти</button>
+        return <button onClick={callbacks.onSignOut}>{t('topMenu.logOut')}</button>
       } else {
-        return <button onClick={callbacks.onSign}>Войти</button>
+        return <button onClick={callbacks.onSign}>{t('topMenu.login')}</button>
       }
-    },[userName]),
+    },[userName, t]),
   };
 
   return (
