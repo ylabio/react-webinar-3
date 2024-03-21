@@ -1,0 +1,33 @@
+.ProfileInfo {
+  padding: 20px 20px;
+}
+
+.ProfileInfo-title {
+  font-size: 24px;
+  margin-top: 20px;
+  padding-bottom: 10px;
+}
+
+.ProfileInfo-prop {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 18px
+}
+
+.ProfileInfo-prop_size_big {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.ProfileInfo-label {
+  padding-right: 10px;
+}
+
+.ProfileInfo-value {
+  font-weight: bold;
+}
+
+.ProfileInfo-error {
+  color: red;
+}
