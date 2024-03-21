@@ -1,0 +1,12 @@
+.ProfileInfo{
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.ProfileInfo-title{
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28px;
+    margin-bottom: 0px;
+}

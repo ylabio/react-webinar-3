@@ -1,0 +1,7 @@
+.UserPanel {
+    display: flex;
+    gap: 20px;
+}
+.UserPanel a{
+    color: #0087E9;
+}

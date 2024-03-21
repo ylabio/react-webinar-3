@@ -1,3 +1,4 @@
+import CategoryState from "../category";
 import StoreModule from "../module";
 
 /**
@@ -16,7 +17,8 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category: 'Все'
       },
       count: 0,
       waiting: false
@@ -36,6 +38,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('search[category]')) validParams.category = urlParams.get('search[category]');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
 
@@ -76,13 +79,16 @@ class CatalogState extends StoreModule {
       window.history.pushState({}, '', url);
     }
 
+    //формируем apiParams с и без категорий
     const apiParams = {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
-      sort: params.sort,
+      sort: params.sort,      
       'search[query]': params.query
-    };
+    }
+    if (params.category !== 'Все')
+        apiParams['search[category]'] = params.category;
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
