@@ -15,7 +15,6 @@ class ProfileState extends StoreModule {
 
   async setProfile(id) {
     const token = localStorage.getItem("token");
-
     if (!token) return;
 
     this.setState({
@@ -34,6 +33,9 @@ class ProfileState extends StoreModule {
       );
 
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error.data.issues[0].message);
+      }
       this.setState({
         ...this.getState(),
         data: data.result,
@@ -43,7 +45,7 @@ class ProfileState extends StoreModule {
     } catch (error) {
       this.setState({
         ...this.getState(),
-        error: error,
+        error: error.message,
         waiting: false,
         data: null,
       });

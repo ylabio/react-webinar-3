@@ -1,3 +1,8 @@
+.User-Logged-In {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
 .User-Logged-In-link {
   color: rgb(0, 135, 233);
 

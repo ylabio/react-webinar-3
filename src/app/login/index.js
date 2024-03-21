@@ -40,7 +40,6 @@ function Login() {
     store.actions.user.signIn({ ...values });
     resetForm();
   };
-
   if (select.user.data) return <Navigate to={fromPage} />;
 
   return (

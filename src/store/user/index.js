@@ -6,9 +6,12 @@ class User extends StoreModule {
    * @return {Object}
    */
   initState() {
+    // для очистки истории
+    window.history.replaceState({}, "");
     return {
       data: null,
       error: "",
+      errorAuthMe: "",
       waiting: false,
       authFetchCompleted: false,
     };
@@ -86,14 +89,14 @@ class User extends StoreModule {
       this.setState({
         ...this.getState(),
         data: data.result,
-        error: "",
+        errorAuthMe: "",
         waiting: false,
         authFetchCompleted: true,
       });
     } catch (error) {
       this.setState({
         ...this.getState(),
-        error: error.message,
+        errorAuthMe: error.message,
         waiting: false,
         data: null,
         authFetchCompleted: true,
@@ -115,7 +118,9 @@ class User extends StoreModule {
           "X-Token": token,
         },
       });
-      console.log("out");
+      if (!response.ok) {
+        throw new Error(data.error.data.issues[0].message);
+      }
       const data = await response.json();
       if (data.result && response.ok) {
         this.setState({
@@ -129,7 +134,7 @@ class User extends StoreModule {
     } catch (error) {
       this.setState({
         ...this.getState(),
-        error: error,
+        error: error.message,
         waiting: false,
         data: null,
       });

@@ -25,6 +25,13 @@ function Profile() {
     }
   }, [select.user]);
 
+  // на случай если токен есть,но стал не валидным
+  useInit(() => {
+    if (select.profile.error) {
+      store.actions.user.authMe();
+    }
+  }, [select.profile.error]);
+
   const data = useMemo(
     () => [
       {
@@ -42,21 +49,6 @@ function Profile() {
     ],
     [lang, select.profile]
   );
-
-  if (!select.user) {
-    return (
-      <PageLayout>
-        <UserAuthPortal />
-        <Head title={t("title")}>
-          <LocaleSelect />
-        </Head>
-        <Navigation />
-        <Spinner active={true}>
-          <ProfileInfo title={t("profile.title")} data={data} />
-        </Spinner>
-      </PageLayout>
-    );
-  }
 
   return (
     <PageLayout>
