@@ -13,13 +13,12 @@ import TopMenu from '../../containers/top-menu';
 /**
  * Главная страница - первичная загрузка каталога
  */
-function Main() {
+function Profile() {
 
   const store = useStore();
 
   useInit(() => {
-    store.actions.categories.getCategories();
-    store.actions.catalog.initParams();
+    store.actions.auth.loginIn()
   }, [], true);
 
   const {t} = useTranslate();
@@ -37,4 +36,4 @@ function Main() {
   );
 }
 
-export default memo(Main);
+export default memo(Profile);

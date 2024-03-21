@@ -1,0 +1,9 @@
+.FormInput {
+  display: flex;
+  flex-direction: column;
+  min-width: 203px;
+}
+
+.FormInput-input {
+  padding: 3px 0;
+}
