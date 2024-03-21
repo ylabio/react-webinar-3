@@ -40,7 +40,7 @@ function App() {
     store.actions.profile.getProfile();
   },[select.isAuth])
 
-  console.log(localStorage.getItem('page'))
+  
   return (
     <>
       <Routes>
