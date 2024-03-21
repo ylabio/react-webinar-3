@@ -8,7 +8,6 @@ export function LoginForm(props) {
   const handleSubmit = e => {
     e.preventDefault();
     props.onSubmitForm({ password, login })
-    setLogin('');
     setPassword('');
   }
 

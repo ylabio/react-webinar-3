@@ -44,7 +44,7 @@ export function organizeCategories(categories) {
   function findChildren(parentId, level) {
     const children = categories.filter(category => category.parent && category.parent._id === parentId);
     children.forEach(child => {
-      child.title = `${'-'.repeat(level)}${child.title}`;
+      child.title = `${'- '.repeat(level)}${child.title}`;
       sortedCategories.push(child);
       findChildren(child._id, level + 1);
     });

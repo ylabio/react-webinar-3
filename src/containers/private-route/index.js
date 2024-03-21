@@ -4,11 +4,13 @@ import useSelector from '../../hooks/use-selector';
 
 
 
-const PrivateRoute = ({ children }) => {
-  const select = useSelector(state => ({
-    isAuth: state.auth.isAuth,
-  }));
-  return select.isAuth ? <>{children}</> : <Navigate to="/login" />;
+const PrivateRoute = ({ children, nav }) => {
+  console.log(nav)
+  const token = localStorage.getItem('token');
+  const isAuth = useSelector(state => state.auth.isAuth);
+
+  if (!isAuth && !token) return <Navigate to='/' />;
+  return <>{children}</>;
 };
 
 export default PrivateRoute;

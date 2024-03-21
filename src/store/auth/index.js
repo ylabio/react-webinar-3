@@ -25,20 +25,15 @@ class AuthState extends StoreModule {
       ...this.getState(),
       waiting: true,
     })
-    try {
-      const response = await fetch('/api/v1/users/sign', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-      });
-
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-
-      const json = await response.json();
+    const response = await fetch('/api/v1/users/sign', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    });
+    const json = await response.json();
+    if (response.ok) {
       const { token, user } = json.result;
 
       localStorage.setItem('token', token);
@@ -51,10 +46,11 @@ class AuthState extends StoreModule {
         error: '',
         isAuth: true,
       }, 'Авторизация успешна');
-    } catch (error) {
+    } else {
       this.setState({
         ...this.getState(),
-        error: error.message,
+        token: '',
+        error: json.error?.data?.issues[0].message || "Error :( Please try again",
         waiting: false,
         isAuth: false,
       }, 'Авторизация провалена');
@@ -65,18 +61,11 @@ class AuthState extends StoreModule {
      * Получение данных о пользователе
      * 
      */
-  async getUserInfo() {
-    const body = {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Token": this.getState().token,
-      },
-    };
+  async getSession() {
     const token = localStorage.getItem('token');
     if (!token) {
       // Если токен отсутствует, выходим из функции
-      console.error('Token is not available');
+      console.log('Token is not available');
       return;
     }
     const response = await fetch('/api/v1/users/self?fields=*', {
@@ -103,7 +92,7 @@ class AuthState extends StoreModule {
 
   async logOut() {
 
-    const response = await fetch('/api/v1/users/sign', {
+    await fetch('/api/v1/users/sign', {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -118,6 +107,8 @@ class AuthState extends StoreModule {
       token: '',
       user: {},
       isAuth: false,
+      waiting: false,
+      error: '',
     }, 'Выход успешен');
   }
 }

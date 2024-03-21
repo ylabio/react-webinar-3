@@ -1,6 +1,19 @@
 .Input {
   font-size: 16px;
   padding: 2px;
+
+  padding-block: 0;
+  padding-inline: 0;
+
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 3px;
+  &::placeholder {
+    color: #000000;
+
+    font-family: Arial;
+    font-weight: 400;
+  }
 }
 
 .Input_theme_big {

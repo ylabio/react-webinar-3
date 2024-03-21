@@ -97,9 +97,6 @@ class CatalogState extends StoreModule {
     };
     params.category !== "all" ? apiParams["search[category]"] = params.category : delete apiParams["search[category]"];
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
-    const categories = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
-    const { result: { items: rawCategoriesList } } = await categories.json();
-    const categoriesList = organizeCategories(rawCategoriesList)
 
     const json = await response.json();
     this.setState({
@@ -107,7 +104,6 @@ class CatalogState extends StoreModule {
       list: json.result.items,
       count: json.result.count,
       waiting: false,
-      categoriesList,
     }, 'Загружен список товаров из АПИ');
   }
 }

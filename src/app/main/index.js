@@ -19,7 +19,6 @@ function Main() {
 
   useInit(() => {
     store.actions.catalog.initParams();
-    store.actions.auth.getUserInfo();
   }, [], true);
 
   const { t } = useTranslate();

@@ -19,14 +19,10 @@ import UserBar from '../../components/user-bar';
 function Profile() {
   const store = useStore();
   // Параметры из пути /articles/:id
-  const params = useParams();
 
-  // useInit(() => {
-  //   store.actions.auth.getUserInfo();
-  // }, []);
   useEffect(() => {
     async function getUser() {
-      await store.actions.auth.getUserInfo()
+      await store.actions.user.getUserInfo();
     };
     getUser()
   }, [])
@@ -34,18 +30,12 @@ function Profile() {
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    user: state.auth.user,
+    user: state.user.info,
     token: state.auth.token,
     isAuth: state.auth.isAuth,
   }));
 
   const { t } = useTranslate();
-
-  const callbacks = {
-    // Добавление в корзину
-    // addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    // getUserInfo: useCallback(() => store.actions.auth.getUserInfo(), [store]),
-  }
 
   return (<PageLayout>
     <UserBar />
