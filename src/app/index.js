@@ -20,7 +20,12 @@ function App() {
 
   useEffect(() => {
     if (location.pathname != '/login'){
-      localStorage.setItem('page',location.pathname+location.search);
+      if (location == null){
+        localStorage.setItem('page','/')
+      }
+      else{
+        localStorage.setItem('page',location.pathname);
+      }
     }
   })
   const select = useSelector(state => ({
@@ -35,7 +40,7 @@ function App() {
     store.actions.profile.getProfile();
   },[select.isAuth])
 
-  
+  console.log(localStorage.getItem('page'))
   return (
     <>
       <Routes>
