@@ -1,5 +1,8 @@
-import useStore from '../hooks/use-store';;
+import useStore from "../hooks/use-store";
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import useSelector from "../hooks/use-selector";
 import useInit from "../hooks/use-init";
 import Main from "./main";
@@ -12,13 +15,14 @@ import ProfilePage from "./profile-page";
  * Маршрутизация по страницам и модалкам
  */
 function App() {
-  const store = useStore(); 
+  const store = useStore();
+
   const activeModal = useSelector((state) => state.modals.name);
+
 
   useInit(() => {
     store.actions.auth.handleAuth();
   }, []);
-
   return (
     <>
       <Routes>

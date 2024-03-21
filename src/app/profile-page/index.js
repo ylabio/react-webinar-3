@@ -9,21 +9,28 @@ import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
 import useSelector from "../../hooks/use-selector";
 import { useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 
 function ProfilePage() {
   const store = useStore();
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const select = useSelector((state) => ({
     user: state.auth.user,
     token: state.auth.token,
   }));
 
-  const { t } = useTranslate();
-  const navigate = useNavigate();
-
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     navigate('/login'); // Redirect to the login page if the user is not authenticated
+  //   }
+  // }, [isAuthenticated, navigate]);
   
+  const { t } = useTranslate();
+
   useEffect(() => {
     if (!select.user || !select.token) {
-      navigate('');
+      navigate('/login');
     } else {
       store.actions.auth.handleAuth();
     }
@@ -31,8 +38,9 @@ function ProfilePage() {
 
   const handleLogout = async () => {
     await store.actions.auth.handleLogout();
-    navigate('');
+    navigate("/");
   };
+ 
 
   return (
     <PageLayout>

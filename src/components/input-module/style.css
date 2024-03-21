@@ -6,8 +6,8 @@
 }
 .InputModule-input-login,
 .InputModule-input-password {
-  width: 203px;
-  height: 26px;
+  width: 195px;
+  min-height: 20px;
   margin-bottom: 10px;
 }
 .InputModule-form-group {
@@ -16,4 +16,8 @@
 }
 .InputModule-button {
   width: 60px;
+}
+.InputModule-error {
+	color: #FF0000;
+	margin: 0;
 }

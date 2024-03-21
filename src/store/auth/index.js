@@ -5,7 +5,7 @@ class AuthActionState extends StoreModule {
     return {
       token: localStorage.getItem("token") || null,
       user: null,
-      error: null,
+      error: "",
       waiting: false,
     };
   }
@@ -46,25 +46,25 @@ class AuthActionState extends StoreModule {
       this.setState({
         ...this.getState(),
         waiting: true,
-        error: ''
+        error: "",
       });
 
-      await fetch('/api/v1/users/sign', {
-        method: 'DELETE',
+      await fetch("/api/v1/users/sign", {
+        method: "DELETE",
         headers: {
-          'X-Token': this.getState().token,
-          'Content-Type': 'application/json'
-        }
+          "X-Token": this.getState().token,
+          "Content-Type": "application/json",
+        },
       });
 
       this.setState({
-        token: '',
+        token: "",
         user: null,
-        error: '',
-        waiting: false
+        error: "",
+        waiting: false,
       });
 
-      localStorage.removeItem('token');
+      localStorage.removeItem("token");
     } catch (error) {
       console.error(error);
     }

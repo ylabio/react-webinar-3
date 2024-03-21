@@ -25,15 +25,18 @@ function CatalogFilter() {
   };
 
   const options = {
-    category: buildCategoryOptions,
+    category: [
+      {value: '', title: 'Все'},
+      ...buildCategoryOptions
+    ],
     sort: [
       { value: "order", title: "По порядку" },
       { value: "title.ru", title: "По именованию" },
       { value: "-price", title: "Сначала дорогие" },
       { value: "edition", title: "Древние" },
-    ],
+    ]
   };
-
+  
   return (
     <SideLayout padding="medium">
       <Select
@@ -41,7 +44,8 @@ function CatalogFilter() {
         value={select.category}
         onChange={callbacks.onCategory}
         theme="big"
-      />
+      >
+      </Select>
       <Select
         options={options.sort}
         value={select.sort}

@@ -22,10 +22,12 @@ margin-left: 10px;
 }
 .ButtonOut-users-name {
   color:#005F99;
-  transition: color 0.3s; 
+  transition: color 0.3s;
+  text-decoration: underline;
 }
 
 .ButtonOut-users-name:hover {
   color: #0087E9; 
+  
 }
 
