@@ -1,5 +1,9 @@
 {
   "title": "Магазин",
+  "enter": "Вход",
+  "exit": "Выход",
+  "login": "Логин",
+  "profile": "Профиль",
   "menu.main": "Главная",
   "basket.title": "Корзина",
   "basket.open": "Перейти",

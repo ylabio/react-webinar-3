@@ -1,0 +1,29 @@
+.Login {
+  padding: 40px 20px;
+}
+
+.Login-title {
+  margin: 0 0 17px 0;
+}
+
+.Login-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  max-width: 203px;
+}
+
+.Login-button {
+  align-self: flex-start;
+}
+
+input {
+  height: 24px;
+  border: 1px solid #767676;
+  padding: 0 3px;
+}
+
+.Login-error {
+  color: #FF0000;
+  margin-bottom: 20px;
+}

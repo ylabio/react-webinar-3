@@ -1,52 +1,50 @@
 import {memo, useCallback} from 'react';
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import useInit from "../../hooks/use-init";
 import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
-import CatalogFilter from "../../containers/catalog-filter";
-import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import Login from '../../components/login';
 import useSelector from "../../hooks/use-selector";
+import Spinner from "../../components/spinner";
 
 /**
  * Главная страница - первичная загрузка каталога
  */
-function Main() {
+function LoginPage() {
 
   const store = useStore();
 
-  useInit(() => {
-    store.actions.catalog.initParams();
-    store.actions.login.initParams();
-  }, [], true);
+  const {t} = useTranslate();
 
   const select = useSelector(state => ({
+    error: state.login.error,
     isAuth: state.login.isAuth,
-    user: state.login.user
+    waiting: state.login.waiting,
   }));
 
   const callbacks = {
+    // Авторизация
+    getAuthorization: useCallback(body => store.actions.login.getAuthorization(body), [store]),
     // Выйти из аккаунта
     removeAuthorization: useCallback(body =>
       store.actions.login.removeAuthorization(body), [store]),
   }
 
-  const {t} = useTranslate();
-
   return (
     <PageLayout>
-      <Head title={t('title')} enter={t('enter')} exit={t('exit')} isAuth={select.isAuth}
-            removeAuthorization={callbacks.removeAuthorization} user={select.user}
-            link='/profile'>
+      <Head title={t('login')} enter={t('enter')} exit={t('exit')} isAuth={select.isAuth}
+            removeAuthorization={callbacks.removeAuthorization}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <CatalogFilter/>
-      <CatalogList/>
+      <Spinner active={select.waiting}>
+        <Login getAuthorization={callbacks.getAuthorization} error={select.error}
+            isAuth={select.isAuth}/>
+      </Spinner>
     </PageLayout>
   );
 }
 
-export default memo(Main);
+export default memo(LoginPage);
