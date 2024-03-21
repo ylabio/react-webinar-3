@@ -17,25 +17,36 @@ function Login() {
   const [error, setError] = useState('');
 
   const select = useSelector(state => ({
-    error: state.profile.error,
-    token: state.profile.token,
-    user: state.profile.user
+    token: state.session.token,
+    user: state.profile.data,
+    waiting: state.session.waiting,
   }))
 
   const { t } = useTranslate();
 
   const callbacks = {
     login: useCallback(async(login, password) => {
-       const error = await store.actions.profile.login(login, password);
+       const error = await store.actions.session.logIn(login, password);
        setError(error);
+       if(!error && !select.waiting){
+        navigate('/profile');
+       }
     }, [store]),
   }
 
   useEffect(() => {
-    if(select.token){
-      navigate('/profile');
+    if(!select.waiting){
+      //redirect();
     }
-  }, [])
+  }, [select.user, select.waiting])
+
+  // const redirect = () =>{
+  //   if(select.user){
+  //     navigate('/profile');
+  //   } else {
+  //     navigate('');
+  //   }
+  // }
 
   return (
     <PageLayout>

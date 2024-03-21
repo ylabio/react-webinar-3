@@ -15,20 +15,15 @@ function ProfileTools() {
   const { t } = useTranslate();
 
   const select = useSelector(state => ({
-    token: state.profile.token,
-    user: state.profile.user
+    token: state.session.token,
+    user: state.profile.data
   }));
-
-  useEffect(() => {
-    if (select.token) {
-      store.actions.profile.setUser()
-    }
-  }, [store])
 
   const callbacks = {
     buttonClick: useCallback(() => {
       if (select.user) {
-        store.actions.profile.logOut();
+        store.actions.session.logOut();
+        store.actions.profile.clearData();
       } else {
         navigate('/login');
       }
@@ -38,8 +33,8 @@ function ProfileTools() {
   return (
     <div className="ProfileTools">
       <SideLayout side='end' padding='small'>
-        <Link to='/profile'>{select.user ? select.user.profile.name : ''}</Link>
-        <button onClick={callbacks.buttonClick}>{select.user ? t('auth.logout') : t('auth.login')}</button>
+        <Link to='/profile'>{select.user ? select.user.profile?.name : ''}</Link>
+        <button onClick={callbacks.buttonClick}>{select.token ? t('auth.logout') : t('auth.login')}</button>
       </SideLayout>
     </div>
   );

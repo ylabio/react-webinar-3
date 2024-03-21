@@ -9,35 +9,43 @@ import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import ProfileCard from "../../components/profile-card";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../../components/spinner";
+import useInit from "../../hooks/use-init";
 
 
 function Profile() {
-
-  const navigate = useNavigate();
   const store = useStore();
+  const navigate = useNavigate();
   const { t } = useTranslate();
-  const select = useSelector(state => ({
-    user: state.profile.user,
-  }));
 
-  useEffect(() =>{
-    if(!select.user){
+  useInit(() => {
+    store.actions.profile.setUser();
+  });
+
+  const select = useSelector(state => ({
+    token: state.session.token,
+    user: state.profile.data,
+    waiting: state.session.waiting
+  }));
+  useEffect(() => {
+    console.log(select.user);
+    if (!select.user && !select.waiting) {
       navigate('/login');
     }
-  })
+  }, [select.waiting, select.user])
 
-  if (select.user) {
-    return (
-      <PageLayout>
-        <ProfileTools />
-        <Head title={t('title')}>
-          <LocaleSelect />
-        </Head>
-        <Navigation />
+  return (
+    <PageLayout>
+      <ProfileTools />
+      <Head title={t('title')}>
+        <LocaleSelect />
+      </Head>
+      <Navigation />
+      <Spinner active={select.waiting}>
         <ProfileCard user={select.user} t={t} />
-      </PageLayout>
-    );
-  }
+      </Spinner>
+    </PageLayout>
+  );
 }
 
 export default memo(Profile);
