@@ -1,0 +1,21 @@
+.Authorization {
+  display: flex;
+  justify-content: end;
+  padding: 10px 20px;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+.Authorization-user {
+  margin-right: 20px;
+}
+
+.Authorization-link {
+  padding: 2px 8px;
+  border: 1px solid #767676;
+  background-color: #efefef;
+  border-radius: 2px;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 15px;
+  color: inherit;
+}

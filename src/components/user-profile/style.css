@@ -1,0 +1,24 @@
+.UserProfile {
+  padding: 40px 20px;
+}
+
+.UserProfile-title {
+  margin: 0 0 30px;
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 700;
+}
+
+.UserProfile-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.UserProfile-text {
+  line-height: 21px;
+}
+
+.UserProfile-text span {
+  font-weight: 700;
+}
