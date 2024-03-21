@@ -18,6 +18,7 @@ function Login() {
     login: "",
     password: "",
   });
+  const [error, setError] = useState("");
   const store = useStore();
   const navigate = useNavigate();
   const { t } = useTranslate();
@@ -42,6 +43,10 @@ function Login() {
 
   useEffect(() => {
     if (select.token) navigate("/profile");
+
+    return () => {
+      store.actions.session.resetError();
+    };
   }, [select.token, navigate]);
 
   return (

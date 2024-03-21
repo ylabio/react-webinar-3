@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import useSelector from "../hooks/use-selector";
+import useStore from "../hooks/use-store";
 import Article from "./article";
 import Basket from "./basket";
 import Login from "./login";
@@ -12,6 +14,22 @@ import Profile from "./profile";
  */
 function App() {
   const activeModal = useSelector((state) => state.modals.name);
+
+  const store = useStore();
+
+  const select = useSelector((state) => ({
+    token: state.session.token,
+  }));
+
+  useEffect(() => {
+    store.actions.session.checkAuth();
+  }, []);
+
+  useEffect(() => {
+    if (select.token) {
+      store.actions.user.load(select.token);
+    }
+  }, [select.token]);
 
   return (
     <>

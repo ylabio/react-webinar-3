@@ -64,18 +64,20 @@ function CatalogFilter() {
         value={select.sort}
         onChange={callbacks.onSort}
       />
-      <Input
-        value={select.query}
-        onChange={callbacks.onSearch}
-        placeholder={"Поиск"}
-        delay={1000}
-      />
       <Select
         options={options.categories}
         value={select.category}
         onChange={callbacks.onCategory}
         disabled={select.waiting}
       />
+      <Input
+        value={select.query}
+        onChange={callbacks.onSearch}
+        placeholder={"Поиск"}
+        theme={"big"}
+        delay={1000}
+      />
+
       <button onClick={callbacks.onReset}>{t("filter.reset")}</button>
     </SideLayout>
   );

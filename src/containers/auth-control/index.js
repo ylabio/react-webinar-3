@@ -24,7 +24,7 @@ const AuthControl = () => {
   const { t } = useTranslate();
 
   return (
-    <SideLayout side="end" padding="small">
+    <SideLayout side="end" padding="small" borderBottom={true}>
       <AuthTool
         text={select.token ? t("auth.logout") : t("auth.signin")}
         name={
