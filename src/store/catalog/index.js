@@ -108,6 +108,7 @@ class CatalogState extends StoreModule {
     }
 
     const apiCategoriesParams = {
+      limit: "*",
       fields: "_id,title,parent(_id)",
       lang: params.lang,
     };
