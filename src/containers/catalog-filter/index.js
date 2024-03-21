@@ -64,7 +64,7 @@ function CatalogFilter() {
   };
 
   return (
-    <SideLayout padding="medium">
+    <SideLayout padding="medium" spaced>
       <Select
         options={options.categories}
         value={select.category}

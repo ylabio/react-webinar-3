@@ -27,7 +27,7 @@ function Auth() {
   };
 
   return (
-    <SideLayout side="end" padding="10x20">
+    <SideLayout side="end" padding="10x20" border="bottom">
       {!select.userData ? (
         <ProfileTool
           label={t("enter")}
