@@ -16,5 +16,15 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "authbar.login": "Вход",
+  "authbar.logout": "Выход",
+  "logincard.login": "Вход",
+  "logincard.user": "Логин",
+  "logincard.password": "Пароль",
+  "logincard.loginbtn": "Войти",
+  "profile.profile": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "profile.email": "email"
 }

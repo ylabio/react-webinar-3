@@ -1,0 +1,14 @@
+.AuthBar {
+    display: flex;
+    justify-content: end;
+    padding: 15px 30px;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.AuthBar a {
+    color: #0087E9;
+}
+
+.AuthBar button {
+    margin-left: 10px;
+}
