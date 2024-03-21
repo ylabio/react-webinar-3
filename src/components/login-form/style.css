@@ -1,0 +1,35 @@
+.LoginForm {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: 200px;
+  padding: 20px;
+
+}
+
+.LoginForm input {
+  font-size: 16px;
+
+}
+
+.LoginForm h2 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 27.6px;
+}
+
+.LoginForm form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.LoginForm form label {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 16px;
+}
