@@ -1,4 +1,4 @@
-import { memo, useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import PageLayout from "../../components/page-layout";
@@ -9,7 +9,6 @@ import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
 import useSelector from "../../hooks/use-selector";
 import { useNavigate } from "react-router-dom";
-import { redirect } from "react-router-dom";
 
 function ProfilePage() {
   const store = useStore();
@@ -20,19 +19,19 @@ function ProfilePage() {
     token: state.auth.token,
   }));
 
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     navigate('/login'); // Redirect to the login page if the user is not authenticated
-  //   }
-  // }, [isAuthenticated, navigate]);
-  
   const { t } = useTranslate();
 
   useEffect(() => {
-    if (!select.user || !select.token) {
-      navigate('/login');
-    } else {
-      store.actions.auth.handleAuth();
+    const checkAuthentication = async () => {
+      if (!select.user || !select.token) {
+        navigate('/login');
+      } else {
+        await store.actions.auth.handleAuth();
+      }
+    };
+
+    if (select.user && select.token) {
+      checkAuthentication();
     }
   }, [select.user, select.token, navigate, store.actions.auth]);
 
@@ -40,7 +39,10 @@ function ProfilePage() {
     await store.actions.auth.handleLogout();
     navigate("/");
   };
- 
+
+  if (!select.user || !select.token) {
+    return null; // Пока данные не загружены, компонент ничего не рендерит
+  }
 
   return (
     <PageLayout>

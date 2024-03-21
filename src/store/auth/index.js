@@ -9,11 +9,17 @@ class AuthActionState extends StoreModule {
       waiting: false,
     };
   }
-
+  componentDidMount() {
+    this.setState({
+      error: null,
+    });
+  }
   async handleLogin(data) {
     try {
       this.setState({
         waiting: true,
+        error: "",
+
       });
 
       const response = await fetch(`/api/v1/users/sign`, {
@@ -24,18 +30,31 @@ class AuthActionState extends StoreModule {
 
       const json = await response.json();
 
-      this.setState({
-        token: json.result.token,
-        user: json.result.user,
-        error: "",
-        waiting: false,
-      });
+      if (response.ok) {
+        this.setState({
+          token: json.result.token,
+          user: json.result.user,
+          error: {
+            message: "",
+          },
+          waiting: false,
+        });
 
-      localStorage.setItem("token", json.result.token);
+        localStorage.setItem("token", json.result.token);
+      } else {
+        this.setState({
+          error: {
+            message: json.error.message || "Unknown error occurred",
+          },
+          waiting: false,
+        });
+      }
     } catch (error) {
       console.error(error);
       this.setState({
-        error: error.message,
+        error: {
+          message: "An error occurred while processing your request",
+        },
         waiting: false,
       });
     }

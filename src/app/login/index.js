@@ -26,9 +26,9 @@ function Login() {
       navigate("/profile-page");
     }
   }, [select.user, select.waiting, initialValues, navigate]);
+ 
 
   
-
   const { t } = useTranslate();
 
   const callbacks = {
@@ -50,7 +50,7 @@ function Login() {
       [store, formData]
     ),
     onLogout: useCallback(() => {
-      store.actions.auth.handleLogout(); // Предположим, что здесь вызывается обработчик выхода из системы
+      store.actions.auth.handleLogout();
     }, [store.actions.auth])
   };
 
@@ -62,7 +62,7 @@ function Login() {
       <Head title={t("title")} />
       <Navigation />
       <InputModule
-       error={select.error || null}
+       error={select.error && select.error.message}
         form={{
           login: formData.login || "",
           password: formData.password || "",
