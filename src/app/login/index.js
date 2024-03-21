@@ -29,6 +29,7 @@ function Login() {
        const error = await store.actions.session.logIn(login, password);
        setError(error);
        if(!error && !select.waiting){
+        store.actions.profile.setUser();
         navigate('/profile');
        }
     }, [store]),
@@ -39,14 +40,6 @@ function Login() {
       //redirect();
     }
   }, [select.user, select.waiting])
-
-  // const redirect = () =>{
-  //   if(select.user){
-  //     navigate('/profile');
-  //   } else {
-  //     navigate('');
-  //   }
-  // }
 
   return (
     <PageLayout>

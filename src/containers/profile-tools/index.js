@@ -27,7 +27,7 @@ function ProfileTools() {
       } else {
         navigate('/login');
       }
-    }, [store, navigate, select.user])
+    }, [store, navigate, select.user, select.token])
   }
 
   return (

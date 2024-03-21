@@ -1,11 +1,10 @@
 import StoreModule from "../module";
 
-class SessionState extends StoreModule{
+class SessionState extends StoreModule {
 
   initState() {
-    const token = localStorage.getItem('token');
     return {
-      token: token ? token : '',
+      token: '',
       waiting: false
     }
   }
@@ -54,7 +53,7 @@ class SessionState extends StoreModule{
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        "X-Token" : localStorage.getItem('token')
+        "X-Token": localStorage.getItem('token')
       }
     });
     localStorage.removeItem('token');
@@ -62,6 +61,33 @@ class SessionState extends StoreModule{
       token: '',
       waiting: false
     }, 'Выход пользователя');
+  }
+
+  async tokenValidation() {
+    this.setState({
+      token: '',
+      waiting: true
+    }, 'Валидация токена');
+    const response = await fetch('/api/v1/users/self', {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Token': localStorage.getItem('token')
+      }
+    });
+    const json = await response.json();
+    if (json.error) {
+      this.setState({
+        token: '',
+        waiting: false
+      }, 'Ошибка валидации токена')
+      return false;
+    } else {
+      this.setState({
+        token: localStorage.getItem('token'),
+        waiting: false
+      }, 'Успешная валидация токена');
+      return true;
+    }
   }
 }
 
