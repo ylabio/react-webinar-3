@@ -1,5 +1,5 @@
-import {useEffect, useLayoutEffect, useMemo, useState} from "react";
-import shallowequal from 'shallowequal';
+import { useLayoutEffect, useMemo, useState } from "react";
+import shallowequal from "shallowequal";
 import useStore from "./use-store";
 
 /**
@@ -16,7 +16,9 @@ export default function useSelector(selectorFunc) {
     // Подписка. Возврат функции для отписки
     return store.subscribe(() => {
       const newState = selectorFunc(store.getState());
-      setState(prevState => shallowequal(prevState, newState) ? prevState : newState);
+      setState((prevState) =>
+        shallowequal(prevState, newState) ? prevState : newState
+      );
     });
   }, []); // Нет зависимостей - исполнится один раз
 

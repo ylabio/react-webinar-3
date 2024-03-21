@@ -1,0 +1,19 @@
+.ProfileInfo {
+  padding: 42px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 20px;
+}
+.ProfileInfo-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+}
+.ProfileInfo-item {
+  font-size: 18px;
+}
+.ProfileInfo-value {
+  font-weight: 700;
+}

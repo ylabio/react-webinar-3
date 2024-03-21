@@ -11,8 +11,11 @@
   display: block;
   padding: 2px 4px 3px 2px;
   margin: 0 2px;
+  color: rgb(0, 135, 233);
 }
-
+.Menu-item a {
+  color: inherit;
+}
 .Menu-item:first-child {
   margin-left: 0;
   padding-left: 0;

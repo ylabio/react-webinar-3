@@ -4,5 +4,6 @@
 }
 
 .Input_theme_big {
+  box-sizing: border-box;
   width: 300px;
 }
