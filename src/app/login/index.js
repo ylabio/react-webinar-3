@@ -41,7 +41,7 @@ function Login() {
 
   useInit(() => {
     callbacks.onСlearErrorMessage();
-    if(select.isLogin === true) store.actions.login.loginByToken();
+    // if(select.isLogin === true) store.actions.login.loginByToken();
   }, [], true);
 
   useEffect(() => {

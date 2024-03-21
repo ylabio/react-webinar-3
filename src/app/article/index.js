@@ -40,9 +40,9 @@ function Article() {
     onLogout: useCallback(() => store.actions.login.logout(), [store]),
   }
 
-  useInit(() => {
-    if(select.isLogin === true) store.actions.login.loginByToken();
-  }, [], true);
+  // useInit(() => {
+  //   if(select.isLogin === true) store.actions.login.loginByToken();
+  // }, [], true);
 
   const handleOnclick =()=>{
     navigate('/login');

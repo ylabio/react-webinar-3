@@ -27,7 +27,7 @@ function Main() {
   useInit(() => {
     store.actions.catalog.initParams();
     store.actions.category.getCategories();
-    if(select.isLogin === true) store.actions.login.loginByToken();
+    // if(select.isLogin === true) store.actions.login.loginByToken();
   }, [], true);
 
   const callbacks = {

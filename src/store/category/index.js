@@ -44,9 +44,6 @@ findCategoryIdByTitle(value){
 
 getSubCategories(categories, parentId = null, count = 0) {
 const subCategories = [];
-   console.log('categories', categories);
-  // console.log('parentId', parentId);
-
   // const parents = categories.filter(category=> (parentId === null || category.parent === null) ? category.parent === parentId : category.parent._id === parentId);
   categories.map(category => {
     // {_id: '0', title: 'Все', value: 'Все', parent: null}
