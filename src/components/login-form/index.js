@@ -1,19 +1,13 @@
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
 import { useRef } from "react";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
-import { useNavigate } from "react-router-dom";
 
-function LoginForm({ authorized, error, onLogin, t }) {
+function LoginForm({ error, onLogin, t }) {
   const cn = bem("LoginForm");
   const username = useRef();
   const password = useRef();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (authorized) navigate("/profile");
-  }, [authorized]);
 
   const callbacks = {
     onLogin: () => {

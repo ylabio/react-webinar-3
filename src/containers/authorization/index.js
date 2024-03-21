@@ -28,14 +28,16 @@ function Authorization() {
   const callbacks = {
     toLoginForm: useCallback(() => {
       store.actions.session.clearError();
-      navigate("/login");
+      navigate("/login", {
+        state: { prev: window.location.pathname },
+        replace: true,
+      });
     }, [store]),
 
-    onLogout: useCallback(() => {
-      // Нужно удалять сессию через DELETE api реквест?
-      localStorage.removeItem("token");
+    onLogout: useCallback(async () => {
       store.actions.user.clearData();
-      store.actions.session.clearData();
+      // нужно ждать ответа сервера на DELETE токена или редирект сразу?
+      await store.actions.session.clearData();
       navigate("/");
     }, [store]),
   };

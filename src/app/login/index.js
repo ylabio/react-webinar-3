@@ -8,7 +8,7 @@ import Navigation from "../../containers/navigation";
 import LocaleSelect from "../../containers/locale-select";
 import LoginForm from "../../components/login-form";
 import Authorization from "../../containers/authorization";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 /**
  * Страница логин формы
@@ -16,6 +16,7 @@ import { Navigate } from "react-router-dom";
 function Login() {
   const store = useStore();
   const token = localStorage.getItem("token");
+  const location = useLocation();
 
   const select = useSelector((state) => ({
     error: state.session.error,
@@ -38,7 +39,7 @@ function Login() {
   };
 
   return token ? (
-    <Navigate to="/profile" />
+    <Navigate to={location.state ? location.state.prev : "/profile"} />
   ) : (
     <PageLayout>
       <Authorization />
@@ -46,12 +47,7 @@ function Login() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <LoginForm
-        authorized={select.authorized}
-        error={select.error}
-        onLogin={callbacks.onLogin}
-        t={t}
-      />
+      <LoginForm error={select.error} onLogin={callbacks.onLogin} t={t} />
     </PageLayout>
   );
 }

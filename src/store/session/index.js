@@ -14,16 +14,49 @@ class SessionState extends StoreModule {
     };
   }
 
-  clearData() {
+  async clearData() {
     this.setState(
       {
-        username: "",
-        authorized: false,
-        error: "",
-        waiting: false, // признак ожидания загрузки
+        ...this.getState(),
+        waiting: true,
       },
       "Стейт пользователя очищен"
     );
+
+    try {
+      await fetch(`/api/v1/users/sign`, {
+        method: "DELETE",
+        headers: {
+          "X-Token": localStorage.getItem("token"),
+        },
+      });
+
+      localStorage.removeItem("token");
+
+      this.setState(
+        {
+          username: "",
+          authorized: false,
+          token: "",
+          error: "",
+          waiting: false,
+        },
+        "Стейт сессии очищен"
+      );
+    } catch (e) {
+      localStorage.removeItem("token");
+
+      this.setState(
+        {
+          username: "",
+          authorized: false,
+          token: "",
+          error: e,
+          waiting: false,
+        },
+        "Стейт сессии очищен / Ошибка удаления сессии с сервера"
+      );
+    }
   }
 
   clearError() {
