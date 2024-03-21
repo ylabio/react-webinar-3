@@ -7,16 +7,17 @@ class AuthState extends StoreModule {
 
   initState() {
     return {
+        isLogged: null,
         user: null,
         token: '',
-        error: '',
+        error: null,
         waiting: false
     };
   }
 
   async login(data) {
     console.log(data);
-    this.setState({ ...this.initState(), waiting: true });
+    this.setState({ ...this.state, waiting: true });
     const res = await fetch('/api/v1/users/sign', {
         method: 'POST',
         headers: {
@@ -29,28 +30,36 @@ class AuthState extends StoreModule {
 
     if (!res.ok) {
         this.setState({
-            error: json.error.message,
+            ...this.state,
+            isLogged: false,
+            error: json.error.data.issues,
             waiting: false
         });
 
-        return Promise.reject();
+        //return Promise.reject();
+        return
     }
 
     const { token, user } = json.result;
     localStorage.setItem('token', token);
     this.setState({
+        isLogged: true,
         token,
         user,
         waiting: false,
         error: ''
     });
 
-    return Promise.resolve();
+    //return Promise.resolve();
   }
 
     async auth() {
+        this.setState({ ...this.state, waiting: true });
         const token = localStorage.getItem('token');
-        if (!token) return
+        if (!token) {
+            this.setState({ ...this.state, waiting: false, isLogged: false });
+            return
+        }
 
         const res = await fetch('/api/v1/users/self', {
             headers: {
@@ -62,20 +71,26 @@ class AuthState extends StoreModule {
         const json = await res.json();
 
         if (json.error) {
+            this.setState({...this.state, waiting: false, isLogged: false});
             localStorage.removeItem('token');
         } else {
             this.setState({
+                isLogged: true,
                 token,
                 user: json.result,
                 waiting: false,
-                error: ''
+                error: null
             });
         }
     }
 
     async logout() {
+        this.setState({ ...this.state, waiting: true });
         const token = localStorage.getItem('token');
-        if (!token) return
+        if (!token) {
+            this.setState({ ...this.state, waiting: false, isLogged: false });
+            return
+        }
 
         const res = await fetch('/api/v1/users/self', {
             method: 'DELETE',
@@ -86,9 +101,13 @@ class AuthState extends StoreModule {
         });
 
         const json = await res.json();
-        
+
         localStorage.removeItem('token');
-        this.setState(this.initState());
+        this.setState({...this.state, waiting: false, isLogged: false});
+    }
+
+    async openLogin() {
+        this.setState({ ...this.state, error: null });
     }
 }
 

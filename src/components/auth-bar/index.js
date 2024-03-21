@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 
-function AuthBar({t, logout, user}) {
+function AuthBar({t, logout, user, profileLink, loginLink}) {
 
     const cn = bem('AuthBar');
 
@@ -15,9 +15,9 @@ function AuthBar({t, logout, user}) {
     return (
         <div className={cn()}>
             {user ? <>
-                <Link to="/profile">{user.username}</Link>
+                <Link to={profileLink}>{user.profile.name}</Link>
                 <button onClick={logout}>{t("authbar.logout")}</button>
-            </> : <button onClick={() => navigate('/login')}>{t("authbar.login")}</button>}
+            </> : <button onClick={() => navigate(loginLink)}>{t("authbar.login")}</button>}
         </div>
     )
 }

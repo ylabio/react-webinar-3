@@ -11,6 +11,7 @@ import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
 import AuthBar from '../../components/auth-bar';
 import LoginCard from "../../components/login-card";
+import RedirectByLogin from '../../containers/redirect-by-login';
 
 /**
  * Страница авторизации
@@ -22,23 +23,28 @@ function Login() {
 
   const select = useSelector((state) => ({
     user: state.auth.user,
+    isLogged: state.auth.isLogged,
+    waiting: state.auth.waiting,
     error: state.auth.error
   }))
 
   const callbacks = {
     login: ({user, pass}) => store.actions.auth.login({login: user, password: pass}),
     logout: useCallback(() => store.actions.auth.logout(), [store]),
+    openLogin: useCallback(() => store.actions.auth.openLogin(), [store]),
   }
 
   return (
-    <PageLayout>
-      <AuthBar t={t} logout={callbacks.logout} user={select.user}/>
-      <Head title={t('title')}>
-        <LocaleSelect/>
-      </Head>
-      <Navigation/>
-      <LoginCard t={t} login={callbacks.login} error={select.error}/>
-    </PageLayout>
+    <RedirectByLogin redirect='/profile' exec={select.isLogged} isLoggedNull={select.isLogged === null}>
+        <PageLayout>
+            <AuthBar t={t} logout={callbacks.logout} user={select.user} profileLink={'/profile'} loginLink={'/login'}/>
+            <Head title={t('title')}>
+                <LocaleSelect/>
+            </Head>
+            <Navigation/>
+            <LoginCard t={t} login={callbacks.login} error={select.error} openLogin={callbacks.openLogin}/>
+        </PageLayout>
+    </RedirectByLogin>
   );
 }
 

@@ -38,7 +38,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <AuthBar t={t} logout={callbacks.logout} user={select.user}/>
+      <AuthBar t={t} logout={callbacks.logout} user={select.user} profileLink={'/profile'} loginLink={'/login'}/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
