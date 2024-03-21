@@ -8,7 +8,7 @@ import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
 import useSelector from "../../hooks/use-selector";
 import Profile from '../../components/profile';
-import {Navigate} from 'react-router-dom'
+import Spinner from "../../components/spinner";
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -26,7 +26,8 @@ function PofilePage() {
   const select = useSelector(state => ({
     error: state.login.error,
     isAuth: state.login.isAuth,
-    user: state.login.user
+    user: state.login.user,
+    waiting: state.login.waiting,
   }));
 
   const callbacks = {
@@ -37,8 +38,6 @@ function PofilePage() {
       store.actions.login.removeAuthorization(body), [store]),
   }
 
-	if(!select.isAuth) return <Navigate to={'/login'}/>
-
   return (
     <PageLayout>
       <Head title={t('profile')} enter={t('enter')} exit={t('exit')} isAuth={select.isAuth}
@@ -47,7 +46,9 @@ function PofilePage() {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <Profile user={select.user}/>
+      <Spinner active={select.waiting}>
+        <Profile user={select.user} isAuth={select.isAuth}/>
+      </Spinner>
     </PageLayout>
   );
 }

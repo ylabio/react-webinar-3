@@ -6,7 +6,8 @@ class Login extends StoreModule {
     return {
       isAuth: false,
       error: null,
-      user: null
+      user: null,
+      waiting: false,
     };
   }
 
@@ -17,6 +18,7 @@ class Login extends StoreModule {
     this.setState({
       ...this.getState(),
       error: null,
+      waiting: true
     })
 
     const token = localStorage.getItem('X-Token');
@@ -33,10 +35,15 @@ class Login extends StoreModule {
       this.setState({
         ...this.getState(),
         isAuth: true,
-        user: json.result
+        user: json.result,
+        //waiting: false
       }, 'Авторизованный пользователь');
     }
 
+    this.setState({
+      ...this.getState(),
+      waiting: false
+    })
   }
   /**
    * Авторизация

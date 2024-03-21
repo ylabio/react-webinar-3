@@ -7,7 +7,7 @@ import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
 import Login from '../../components/login';
 import useSelector from "../../hooks/use-selector";
-import { Navigate, useNavigate } from "react-router-dom";
+import Spinner from "../../components/spinner";
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -15,8 +15,6 @@ import { Navigate, useNavigate } from "react-router-dom";
 function LoginPage() {
 
   const store = useStore();
-
-  const navigate = useNavigate();
 
   const {t} = useTranslate();
 
@@ -34,8 +32,6 @@ function LoginPage() {
       store.actions.login.removeAuthorization(body), [store]),
   }
 
-  if(select.isAuth) return <Navigate to='/'/>
-
   return (
     <PageLayout>
       <Head title={t('login')} enter={t('enter')} exit={t('exit')} isAuth={select.isAuth}
@@ -43,7 +39,10 @@ function LoginPage() {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <Login getAuthorization={callbacks.getAuthorization} error={select.error}/>
+      <Spinner active={select.waiting}>
+        <Login getAuthorization={callbacks.getAuthorization} error={select.error}
+            isAuth={select.isAuth}/>
+      </Spinner>
     </PageLayout>
   );
 }

@@ -1,14 +1,23 @@
-import {memo, useState} from "react";
+import {memo, useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
+import { useNavigate } from "react-router-dom";
 import './style.css';
 
-function Login({getAuthorization, error}) {
+function Login({getAuthorization, error, isAuth}) {
   const cn = bem('Login');
+
+  const navigate = useNavigate();
 
   const [login, setLogin] = useState('');
 
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/profile");
+    }
+  }, [isAuth]);
 
   const handleSubmit = async (event) =>{
     event.preventDefault();
@@ -47,7 +56,8 @@ function Login({getAuthorization, error}) {
 
 Login.propTypes = {
   getAuthorization: PropTypes.func,
-  error: PropTypes.string
+  error: PropTypes.string,
+  isAuth:PropTypes.bool,
 };
 
 export default memo(Login);
