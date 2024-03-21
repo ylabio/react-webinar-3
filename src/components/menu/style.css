@@ -26,10 +26,7 @@
 .Menu-item a {
   text-decoration: none;
   color: #0087E9;
-}
-
-.Menu-item a:hover{
- text-decoration: underline;
+  text-decoration: underline;
 }
 
 

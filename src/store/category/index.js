@@ -31,8 +31,8 @@ async getCategories() {
 
 formatCategories(json){
   const categories = [...this.getState().categories, ...json.result.items.map(category=> ({...category, value: category._id}))];
-  this.getSubCategories(categories);
-   return this.getState().sortedCategories;
+  // this.getSubCategories(categories);
+   return this.getSubCategories(categories);
 }
 
 findCategoryIdByTitle(value){
@@ -43,35 +43,31 @@ findCategoryIdByTitle(value){
 }
 
 getSubCategories(categories, parentId = null, count = 0) {
+const subCategories = [];
+   console.log('categories', categories);
+  // console.log('parentId', parentId);
 
-   //todo порядок вложенности, дефис
-
-  const childs = categories.filter(category=> (parentId === null || category.parent === null) ? category.parent === parentId : category.parent._id === parentId);
-  // const childsIds = childs.map(category => category._id);
- // console.log('childsIds',childsIds.includes(category.parent._id));
-  const sortedCategories = childs.map(category => {
-
-    let res;
+  // const parents = categories.filter(category=> (parentId === null || category.parent === null) ? category.parent === parentId : category.parent._id === parentId);
+  categories.map(category => {
+    // {_id: '0', title: 'Все', value: 'Все', parent: null}
+    let children;
 
     switch (true) {
-      case (parentId === null) :
-      this.getState().sortedCategories.push({...category,title: `${' - '.repeat(count)}${category.title}`});
-      res = this.getSubCategories(categories, category._id, count);
+
+      case (!category.parent && !parentId) :
+        subCategories.push({...category,title: `${'- '.repeat(count)}${category.title}`});
+      children = this.getSubCategories(categories, category._id, count++);
+      subCategories.push(...children);
       break;
 
-      case (parentId == category.parent._id) :
-        // console.log('count',count, category);
-      count = 1;
-      this.getState().sortedCategories.push({...category,title: `${' - '.repeat(count)}${category.title}`});
-      res = this.getSubCategories(categories, category._id, count++);
+      case (category.parent && parentId === category.parent._id) :
+        subCategories.push({...category,title: `${'- '.repeat(count)}${category.title}`});
+      children = this.getSubCategories(categories, category._id, count++);
+      subCategories.push(...children);
       break;
-
-      // default:
-      // res = this.getSubCategories(categories, category._id, count++);
     }
-    return res;
   });
-    return sortedCategories;
+    return subCategories;
   }
 
 }

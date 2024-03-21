@@ -19,6 +19,7 @@
   "login.exit": "Exit",
   "login.password": "Password",
   "login.loginName": "Login name",
+  "login.userName": "Name",
   "login.phone": "Phone",
   "login.email": "email",
   "login.profile": "Profile"

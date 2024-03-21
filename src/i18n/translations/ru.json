@@ -21,6 +21,7 @@
   "login.exit": "Выход",
   "login.password": "Пароль",
   "login.loginName": "Логин",
+  "login.userName": "Имя",
   "login.profile": "Профиль",
   "login.phone": "Телефон",
   "login.email": "email"

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 function Select(props) {
-  // console.log('props', props);
+  console.log('props', props);
 
   const onSelect = (e) => {
     props.onChange(e.target.value);
@@ -11,8 +11,8 @@ function Select(props) {
 
   return (
     <select className="Select" value={props.value} onChange={onSelect}>
-      {props.options.map(item => (
-        <option key={`${item._id}${item.title}`} value={item.value}>{item.title}</option>
+      {props.options.map((item,i) => (
+        <option key={`${item._id}${i}`} value={item.value}>{item.title}</option>
       ))}
     </select>
   )

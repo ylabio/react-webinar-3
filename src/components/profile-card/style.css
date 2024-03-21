@@ -1,3 +1,8 @@
+.ProfileCard-title{
+  font-weight: 700;
+  font-size: 24px;
+}
+
 .ProfileCard-prop {
   margin: 20px 0;
   display: flex;
