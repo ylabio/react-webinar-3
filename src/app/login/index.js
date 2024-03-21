@@ -35,10 +35,10 @@ function Login() {
   }
 
   useEffect(() => {
-    if(!select.waiting){
-      //redirect();
+    if(select.token){
+      navigate('/profile');
     }
-  }, [select.user, select.waiting])
+  }, [select.token])
 
   return (
     <PageLayout>

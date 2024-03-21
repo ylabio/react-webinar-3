@@ -33,12 +33,14 @@ function ProfileTools() {
   }
 
   return (
-    <Spinner active={select.waiting}>
-      <SideLayout side='end' padding='small'>
-        <Link to='/profile'>{select.token ? select.user.profile?.name : ''}</Link>
-        <button onClick={callbacks.buttonClick}>{select.token ? t('auth.logout') : t('auth.login')}</button>
-      </SideLayout>
-    </Spinner>
+    <div className="ProfileTools">
+      <Spinner active={select.waiting}>
+        <SideLayout side='end' padding='small'>
+          <Link to='/profile'>{select.token ? select.user.profile?.name : ''}</Link>
+          <button onClick={callbacks.buttonClick}>{select.token ? t('auth.logout') : t('auth.login')}</button>
+        </SideLayout>
+      </Spinner>
+    </div>
   );
 }
 
