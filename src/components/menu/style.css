@@ -22,3 +22,11 @@
   margin-right: 0;
   padding-right: 0;
 }
+
+.Menu-item a {
+  text-decoration: none;
+  color: #0087E9;
+  text-decoration: underline;
+}
+
+

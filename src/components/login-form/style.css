@@ -1,0 +1,16 @@
+.LoginForm-title{
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.LoginForm h5{
+  margin:0;
+}
+
+.Input_theme_LoginForm-input{
+  margin-bottom:1rem;
+}
+
+.LoginForm-error-message{
+  color: #FF0000;
+}

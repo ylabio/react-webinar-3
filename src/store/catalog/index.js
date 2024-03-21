@@ -15,11 +15,12 @@ class CatalogState extends StoreModule {
       params: {
         page: 1,
         limit: 10,
+        category: 'Все',
         sort: 'order',
-        query: ''
+        query: '',
       },
       count: 0,
-      waiting: false
+      waiting: false,
     }
   }
 
@@ -31,11 +32,14 @@ class CatalogState extends StoreModule {
    */
   async initParams(newParams = {}) {
     const urlParams = new URLSearchParams(window.location.search);
+
     let validParams = {};
     if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    // if (urlParams.has('fields')) validParams.query = urlParams.get('fields');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
 
@@ -76,19 +80,25 @@ class CatalogState extends StoreModule {
       window.history.pushState({}, '', url);
     }
 
+    // const categoryId = this.findCategoryIdByTitle(params.category);
+
     const apiParams = {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
-      fields: 'items(*),count',
+      fields: `items(*),count,category(*)`,
       sort: params.sort,
-      'search[query]': params.query
-    };
+      'search[query]': params.query,
+    } ;
+
+    if (params.category !== 'Все')  apiParams['search[category]'] = params.category;
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
+    const list = json.result.items;
+
     this.setState({
       ...this.getState(),
-      list: json.result.items,
+      list: list,
       count: json.result.count,
       waiting: false
     }, 'Загружен список товаров из АПИ');

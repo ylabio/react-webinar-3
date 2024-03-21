@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo} from "react";
+import {memo, useCallback, useMemo, useEffect} from "react";
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -14,11 +14,17 @@ function CatalogFilter() {
   const store = useStore();
 
   const select = useSelector(state => ({
+    category: state.catalog.params.category,
+    categories: state.category.categories,
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
   }));
 
   const callbacks = {
+    // Получить категории из API
+    getCategories: useCallback(() => store.actions.category.getCategories(), [store]),
+    // Фильтр
+    onFilter: useCallback(category => store.actions.catalog.setParams({category, page: 1}), [store]),
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
     // Поиск
@@ -33,13 +39,15 @@ function CatalogFilter() {
       {value: 'title.ru', title: 'По именованию'},
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
-    ]), [])
+    ]), []),
+    categories: select.categories
   };
 
   const {t} = useTranslate();
 
   return (
     <SideLayout padding='medium'>
+      <Select options={options.categories} value={select.category} onChange={callbacks.onFilter}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>
