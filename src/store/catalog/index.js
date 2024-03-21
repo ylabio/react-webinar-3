@@ -44,7 +44,6 @@ class CatalogState extends StoreModule {
       { ...this.initState().params, ...validParams, ...newParams },
       true
     );
-    // await this.setCategories();
   }
 
   /**

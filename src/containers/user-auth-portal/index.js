@@ -1,33 +1,38 @@
 import React, { memo, useCallback } from "react";
 import "./style.css";
-import useAuth from "../../hooks/use-auth";
+// import useAuth from "../../hooks/use-auth";
 import UserPortal from "../../components/user-portal";
 import UserLoggedIn from "../../components/user-logged-in";
 import { useLocation, useNavigate } from "react-router-dom";
 import useTranslate from "../../hooks/use-translate";
 import Spinner from "../../components/spinner";
+import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
 
 function UserAuthPortal() {
   const navigate = useNavigate();
-  const { user, signOut } = useAuth();
+  const store = useStore();
+  const select = useSelector((state) => ({
+    user: state.user,
+  }));
   const { t } = useTranslate();
   const { pathname } = useLocation();
   const callbacks = {
     signIn: useCallback(() => {
       navigate("/login", { state: { from: pathname } });
-    }),
-    signOut: () => {
-      signOut();
-    },
+    }, [store]),
+    signOut: useCallback(() => {
+      store.actions.user.signOut();
+    }, [store]),
   };
   return (
     <UserPortal>
-      <Spinner active={user.waiting}>
-        {user.data ? (
+      <Spinner active={select.user.waiting}>
+        {select.user.data ? (
           <UserLoggedIn
             link={"/profile"}
             textBtn={t("button.exit")}
-            linkTitle={user.data.profile.name}
+            linkTitle={select.user.data.profile.name}
             action={callbacks.signOut}
           />
         ) : (

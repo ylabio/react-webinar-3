@@ -6,8 +6,8 @@ import Basket from "./basket";
 import Article from "./article";
 import Login from "./login";
 import Profile from "./profile";
-import useAuth from "../hooks/use-auth";
 import RequireAuth from "../containers/require-auth";
+import useStore from "../hooks/use-store";
 
 /**
  * Приложение
@@ -15,10 +15,10 @@ import RequireAuth from "../containers/require-auth";
  */
 function App() {
   const activeModal = useSelector((state) => state.modals.name);
-  const { authMe } = useAuth();
+  const store = useStore();
 
   useEffect(() => {
-    authMe();
+    store.actions.user.authMe();
   }, []);
 
   return (

@@ -5,7 +5,7 @@ function Field(props) {
   return (
     <label className={`Field`}>
       {props.placeholder}
-      <input {...props} placeholder="" />
+      <input className="Field-input" {...props} placeholder="" />
     </label>
   );
 }

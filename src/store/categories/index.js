@@ -1,8 +1,5 @@
 import StoreModule from "../module";
 
-/**
- * Состояние каталога - параметры фильтра и список товара
- */
 class CatigoriesState extends StoreModule {
   /**
    * Начальное состояние

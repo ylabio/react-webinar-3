@@ -1,17 +1,18 @@
-import React, { memo, useState } from "react";
-import useAuth from "../../hooks/use-auth";
+import React, { memo } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import Spinner from "../../components/spinner";
+import useSelector from "../../hooks/use-selector";
 
 function RequireAuth({ children }) {
-  const { user } = useAuth();
   const location = useLocation();
+  const select = useSelector((state) => ({
+    user: state.user,
+    authFetchCompleted: state.user.authFetchCompleted,
+  }));
 
-  if (user.isLoading)
-    return <Spinner active={user.isLoading}>{children}</Spinner>;
-  if (!user.data)
+  if (!select.authFetchCompleted || select.user.data) return children;
+
+  if (!select.user.data)
     return <Navigate to="/login" state={{ from: location.pathname }} />;
-  if (user.data) return children;
 }
 
 export default memo(RequireAuth);

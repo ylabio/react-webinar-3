@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
@@ -8,29 +8,40 @@ import AuthLayout from "../../components/auth-layout";
 import Form from "../../components/form";
 import useForm from "../../hooks/use-form";
 import Field from "../../components/field";
-import useAuth from "../../hooks/use-auth";
+// import useAuth from "../../hooks/use-auth";
 import UserAuthPortal from "../../containers/user-auth-portal";
 import Spinner from "../../components/spinner";
 import { Navigate, useLocation } from "react-router-dom";
+import useSelector from "../../hooks/use-selector";
+import useStore from "../../hooks/use-store";
 
 function Login() {
   const [values, handleChange, resetForm] = useForm({
     login: "",
     password: "",
   });
-  const { t } = useTranslate();
 
-  const { signIn, user } = useAuth();
+  const { t } = useTranslate();
+  const store = useStore();
+  const select = useSelector((state) => ({
+    user: state.user,
+  }));
   const { state } = useLocation();
   const fromPage = state?.from || "/";
 
+  useEffect(() => {
+    return () => {
+      store.actions.user.resetError();
+    };
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    signIn({ ...values });
+    store.actions.user.signIn({ ...values });
     resetForm();
   };
 
-  if (user.data) return <Navigate to={fromPage} />;
+  if (select.user.data) return <Navigate to={fromPage} />;
 
   return (
     <PageLayout>
@@ -40,12 +51,12 @@ function Login() {
       </Head>
       <Navigation />
 
-      <Spinner active={user.waiting}>
+      <Spinner active={select.user.waiting}>
         <AuthLayout title={t("login.title")}>
           <Form
             handleSubmit={handleSubmit}
             titleBtn={t("button.signIn")}
-            error={user.error}
+            error={select.user.error}
           >
             <Field
               name={"login"}

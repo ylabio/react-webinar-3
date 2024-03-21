@@ -2,31 +2,62 @@ import React, { memo, useMemo } from "react";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
 import Navigation from "../../containers/navigation";
-
 import PageLayout from "../../components/page-layout";
 import useTranslate from "../../hooks/use-translate";
 import UserAuthPortal from "../../containers/user-auth-portal";
 import ProfileInfo from "../../components/profile-info";
-import useAuth from "../../hooks/use-auth";
+import useInit from "../../hooks/use-init";
+import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
+import Spinner from "../../components/spinner";
 
 function Profile() {
   const { t, lang } = useTranslate();
-  const { user } = useAuth();
+  const store = useStore();
+  const select = useSelector((state) => ({
+    profile: state.profile,
+    user: state.user.data,
+  }));
+
+  useInit(() => {
+    if (select.user) {
+      store.actions.profile.setProfile(select.user._id);
+    }
+  }, [select.user]);
 
   const data = useMemo(
     () => [
       {
         label: t("profile.name"),
-        value: user.data ? user.data.profile.name : "",
+        value: select.profile.data ? select.profile.data.profile.name : "",
       },
       {
         label: t("profile.phone"),
-        value: user.data ? user.data.profile.phone : "",
+        value: select.profile.data ? select.profile.data.profile.phone : "",
       },
-      { label: t("profile.email"), value: user.data ? user.data.email : "" },
+      {
+        label: t("profile.email"),
+        value: select.profile.data ? select.profile.data.email : "",
+      },
     ],
-    [lang]
+    [lang, select.profile]
   );
+
+  if (!select.user) {
+    return (
+      <PageLayout>
+        <UserAuthPortal />
+        <Head title={t("title")}>
+          <LocaleSelect />
+        </Head>
+        <Navigation />
+        <Spinner active={true}>
+          <ProfileInfo title={t("profile.title")} data={data} />
+        </Spinner>
+      </PageLayout>
+    );
+  }
+
   return (
     <PageLayout>
       <UserAuthPortal />
@@ -34,7 +65,9 @@ function Profile() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <ProfileInfo title={t("profile.title")} data={data} />
+      <Spinner active={!select.profile.data}>
+        <ProfileInfo title={t("profile.title")} data={data} />
+      </Spinner>
     </PageLayout>
   );
 }
