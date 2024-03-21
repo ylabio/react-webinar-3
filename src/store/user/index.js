@@ -50,7 +50,7 @@ class UserState extends StoreModule {
           isAuth:true,
           waiting:false,
           data:{
-            userName:json.result.user.username,
+            userName:json.result.user.profile.name,
           }
         }, 'Авторизован успешно');
         localStorage.setItem('access_token', json.result.token);

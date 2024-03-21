@@ -8,7 +8,8 @@ import Profile from './profile';
 import Login from './login';
 import useInit from '../hooks/use-init';
 import useStore from '../hooks/use-store';
-import WithAuthRedirect from '../components/withAuthRedirect';
+import WithAuthRedirect from '../containers/with-auth-redirect';
+
 
 /**
  * Приложение
@@ -19,10 +20,6 @@ function App() {
   const store = useStore();
 
   const activeModal = useSelector(state => state.modals.name);
-
-  const select = useSelector(state => ({
-    isAuth:state.user.isAuth,
-  }));
 
   useInit(() => {
     if(window.localStorage.getItem('access_token')){
@@ -38,7 +35,7 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
         <Route path={'/profile'} element={
-          <WithAuthRedirect isAuth={select.isAuth}>
+          <WithAuthRedirect path={'/login'}>
             <Profile/>
           </WithAuthRedirect>
         }/>
