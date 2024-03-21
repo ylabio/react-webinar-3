@@ -2,7 +2,7 @@ import React, {useRef} from 'react';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function AuthorizationForm({onSubmit, t}) {
+function AuthorizationForm({onSubmit, error, t}) {
   const loginRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -39,6 +39,7 @@ function AuthorizationForm({onSubmit, t}) {
             required
           />
         </div>
+        <span className={cn('error')}>{error}</span>
         <button>Войти</button>
       </form>
     </div>

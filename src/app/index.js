@@ -1,4 +1,4 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {Routes, Route} from 'react-router-dom';
 import useSelector from "../hooks/use-selector";
 import Main from "./main";
@@ -7,7 +7,6 @@ import Article from "./article";
 import Login from "./login";
 import Profile from "./profile";
 import useStore from "../hooks/use-store";
-import useInit from "../hooks/use-init";
 
 /**
  * Приложение

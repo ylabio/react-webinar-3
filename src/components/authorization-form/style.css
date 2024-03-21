@@ -14,3 +14,9 @@
   flex-direction: column;
   margin: 20px 0;
 }
+
+.AuthorizationForm-error {
+  display: block;
+  padding-bottom: 19px;
+  color: #ff0000;
+}

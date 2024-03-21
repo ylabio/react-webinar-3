@@ -15,9 +15,10 @@ function Login(props) {
   const store = useStore();
 
   const select = useSelector(state => ({
-    user: state.user.user,
+    user: state.profile.profile,
     isAuth: state.user.isAuth,
-    waiting: state.user.waiting
+    waiting: state.user.waiting,
+    error: state.user.error
   }));
   console.log(select.user)
 
@@ -39,7 +40,7 @@ function Login(props) {
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <AuthorizationForm isAuth={select.isAuth} onSubmit={callbacks.onSubmit} t={t} />
+        <AuthorizationForm isAuth={select.isAuth} onSubmit={callbacks.onSubmit} error={select.error} t={t} />
       </Spinner>
     </PageLayout>
   );

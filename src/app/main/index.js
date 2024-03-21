@@ -20,7 +20,7 @@ function Main() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    user: state.profile.profile,
+    user: state.profile.profile || state.user.user,
     isAuth: state.user.isAuth
   }))
 
@@ -32,6 +32,7 @@ function Main() {
   useInit(() => {
     store.actions.catalog.initParams();
     store.actions.category.load();
+    store.actions.profile.setProfile();
   }, [], true);
 
   const {t} = useTranslate();
