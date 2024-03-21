@@ -43,7 +43,7 @@ function CatalogFilter() {
         return categories
           .map((item) => ({
             value: item._id,
-            title: item.title
+            title: item.title,
           }));
       };
       return [defaultCategory, ...mapCategories(select.category)];
