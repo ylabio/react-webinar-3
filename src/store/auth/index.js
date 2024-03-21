@@ -48,7 +48,7 @@ class AuthState extends StoreModule {
       this.setState(
         {
           ...this.getState(),
-          isAuthChecked: false,
+          isAuthChecked: true,
           user: null,
           waiting: false,
         }, 'ошибка авторизации');
@@ -68,13 +68,71 @@ class AuthState extends StoreModule {
       this.setState(
         {
           ...this.getState(),
-          isAuthChecked: false,
           user: null,
           waiting: false,
         });
       localStorage.removeItem('token');
     } catch (error) {
       console.error(error);
+    }
+  }
+  async checkUserAuth() {
+    this.setState(
+      {
+        ...this.getState(),
+        waiting: true,
+      },
+      'отправка запроса на проверку пользователя'
+    );
+
+    try {
+      const response = await fetch('/api/v1/users/self', {
+        headers: {
+          'X-Token': localStorage.getItem('token')
+        }
+      });
+      const json = await response.json();
+
+      if (!response.ok) {
+      throw console.error(json.error.data.issues[0].message)
+      }
+
+      this.setState(
+        {
+          ...this.getState(),
+          isAuthChecked: true,
+          user: json.result,
+          waiting: false,
+        }, 'пользователь нашелся');
+
+    } catch (err) {
+      this.setState(
+        {
+          ...this.getState(),
+          isAuthChecked: true,
+          user: null,
+          waiting: false,
+        }, 'ошибка авторизации');
+      localStorage.removeItem('token');
+    }
+  }
+
+  setAuthUser(boolean) {
+    this.setState(
+      {
+        ...this.getState(),
+        isAuthChecked: boolean,
+      },
+      'первая загрузка страницы'
+    );
+  }
+
+  getToken() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.checkUserAuth();
+    } else {
+      this.setAuthUser(true)
     }
   }
 }

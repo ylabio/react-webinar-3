@@ -58,6 +58,7 @@ function Login() {
         value={valueForm.password || ''}
         title={'Пароль'}
         name={'password'}
+        type={'password'}
         />
       </FormBody>
     </PageLayout>

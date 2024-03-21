@@ -2,7 +2,8 @@ import {memo, useCallback, useMemo} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import AppBarLayout from "../../components/app-bar-layout";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Spinner from "../../components/spinner";
 
 /**
  * Контейнер с компонентами навигации
@@ -10,16 +11,18 @@ import { Link, useNavigate } from "react-router-dom";
 function TopMenu() {
   const store = useStore();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const {isAuthChecked, name} = useSelector(state => ({
-    isAuthChecked: state.auth.isAuthChecked,
-    name: state.auth.user?.profile?.name
+  const {userName, waiting} = useSelector(state => ({
+    userName: state.auth.user?.profile?.name,
+    waiting: state.auth.waiting
   }));
+
 
   const callbacks = {
     onSign: useCallback(() => {
-      navigate('/login')
-    }, []),
+      navigate('/login', {state: {goBack: location.pathname + location.search}})
+    }, [location.pathname,location.search]),
     onSignOut: useCallback(() => {
       store.actions.auth.signOut();
     }, [])
@@ -27,26 +30,28 @@ function TopMenu() {
 
   const options = {
     showLink: useMemo(() => {
-      if (isAuthChecked) {
-        return (<Link to={'/profile'}>{name}</Link>)
+      if (userName) {
+        return (<Link to={'/profile'}>{userName}</Link>)
       } else {
         return ''
       }
-    },[isAuthChecked]),
+    },[userName]),
     toggleAuth: useMemo(() => {
-      if (isAuthChecked) {
+      if (userName) {
         return <button onClick={callbacks.onSignOut}>Выйти</button>
       } else {
         return <button onClick={callbacks.onSign}>Войти</button>
       }
-    },[isAuthChecked]),
+    },[userName]),
   };
 
   return (
+    <Spinner active={waiting}>
     <AppBarLayout side='end' padding='medium'>
       {options.showLink}
       {options.toggleAuth}
     </AppBarLayout>
+    </Spinner>
   );
 }
 
