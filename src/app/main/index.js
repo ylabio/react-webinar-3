@@ -20,7 +20,7 @@ function Main() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    user: state.user.user,
+    user: state.profile.profile,
     isAuth: state.user.isAuth
   }))
 
@@ -32,14 +32,9 @@ function Main() {
   useInit(() => {
     store.actions.catalog.initParams();
     store.actions.category.load();
-    store.actions.user.setProfile();
   }, [], true);
 
   const {t} = useTranslate();
-
-  if (!select.isAuth) {
-    return (<Navigate to={'/login'} />)
-  }
 
   return (
     <PageLayout>

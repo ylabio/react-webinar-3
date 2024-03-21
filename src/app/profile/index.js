@@ -15,7 +15,7 @@ function Profile(props) {
   const store = useStore();
 
   const select = useSelector(state => ({
-    user: state.user.user,
+    user: state.profile.profile,
     isAuth: state.user.isAuth,
     waiting: state.user.waiting
   }));
@@ -28,7 +28,7 @@ function Profile(props) {
   const {t} = useTranslate();
 
   if (!select.isAuth) {
-    return (<Navigate to={'/'} />)
+    return (<Navigate to={'/login'} />)
   }
 
   return (

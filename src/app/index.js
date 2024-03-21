@@ -6,6 +6,8 @@ import Basket from "./basket";
 import Article from "./article";
 import Login from "./login";
 import Profile from "./profile";
+import useStore from "../hooks/use-store";
+import useInit from "../hooks/use-init";
 
 /**
  * Приложение
@@ -13,7 +15,15 @@ import Profile from "./profile";
  */
 function App() {
 
-  const activeModal = useSelector(state => state.modals.name);
+  const store = useStore();
+
+  const select = useSelector(state => ({
+    activeModal: state.modals.name
+  }))
+
+  useEffect(() => {
+    store.actions.profile.setProfile();
+  }, [])
 
   return (
     <>
@@ -24,7 +34,7 @@ function App() {
         <Route path={'/profile'} element={<Profile />}/>
       </Routes>
 
-      {activeModal === 'basket' && <Basket/>}
+      {select.activeModal === 'basket' && <Basket/>}
     </>
   );
 }

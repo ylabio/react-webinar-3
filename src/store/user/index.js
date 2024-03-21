@@ -6,11 +6,8 @@ class UserState extends StoreModule {
    * Начальное состояние
    */
   initState() {
-    const storedUser = localStorage.getItem('user');
-    const user = storedUser ? JSON.parse(storedUser) : {};
-
     return {
-      user: user,
+      user: {},
       token: localStorage.getItem('token') || '',
       isAuth: !!localStorage.getItem('token'),
       waiting: false,
@@ -54,6 +51,11 @@ class UserState extends StoreModule {
   }
 
   async signOut() {
+    // Начальные данные
+    this.setState({
+      ...this.getState(),
+      waiting: true
+    });
     try {
       const response = await fetch('/api/v1/users/sign', {
         method: 'DELETE',
@@ -81,41 +83,7 @@ class UserState extends StoreModule {
     }
   }
 
-  async setProfile() {
-    try {
-      const response = await fetch('/api/v1/users/self?fields=*', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-token': this.getState().token
-        },
-      });
-      const json = await response.json();
-      console.log(json)
 
-      if (response.ok) {
-        this.setState({
-          ...this.getState(),
-          user: json.result,
-          waiting: false,
-          isAuth: true,
-          error: ''
-        }, 'Получены данные пользователя')
-      } else {
-        this.setState({
-          ...this.getState(),
-          isAuth: false
-        })
-      }
-
-    } catch (e) {
-      this.setState({
-        ...this.getState(),
-        error: e.message
-      })
-    }
-
-  }
 }
 
 export default UserState;

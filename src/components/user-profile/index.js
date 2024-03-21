@@ -9,8 +9,8 @@ function UserProfile({user}) {
     <div className={cn()}>
       <h2 className={cn('title')}>Профиль</h2>
       <div className={cn('wrapper')}>
-        <div className={cn('text')}>Имя: <span>{user.profile.name}</span></div>
-        <div className={cn('text')}>Телефон: <span>{user.profile.phone}</span></div>
+        <div className={cn('text')}>Имя: <span>{user.profile?.name}</span></div>
+        <div className={cn('text')}>Телефон: <span>{user.profile?.phone}</span></div>
         <div className={cn('text')}>email: <span>{user.email}</span></div>
       </div>
     </div>
