@@ -107,7 +107,7 @@ class Login extends StoreModule{
     }
 
     async exit(){
-        localStorage.clear();
+        localStorage.removeItem('token');
         const response = await fetch('/api/v1/users/sign',{
             method: 'delete',
             headers:{
