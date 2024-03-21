@@ -40,15 +40,15 @@ class LoginState extends StoreModule {
         throw new Error(`request failed with status ${response.status}`)
       }
       const json = await response.json()
-      
+
       this.setState({
         isLoggedIn: true,
-        username: json.result.user.username,
+        username: json.result.user.profile.name,
         error: null,
       })
 
       window.localStorage.setItem('token', json.result.token)
-      window.localStorage.setItem('username', json.result.user.username)
+      window.localStorage.setItem('username', json.result.user.profile.name)
     } catch(error) {
       console.error('Fetch error', error) 
     }
@@ -101,7 +101,7 @@ class LoginState extends StoreModule {
     const username = window.localStorage.getItem('username')
     
     try {
-      const response = await fetch(`/api/v1/users/self?fields=status,username`, {
+      const response = await fetch(`/api/v1/users/self?fields=status,profile(name)`, {
         headers: {
           'X-Token': token,
           'Content-Type': 'application/json',
@@ -113,10 +113,10 @@ class LoginState extends StoreModule {
         this.logOut()
         return false
       }
-
-      if(username !== json.result.username) {
-        window.localStorage.setItem('username', json.result.username)
-        this.setState({...this.getState(), username: json.result.username})
+      
+      if(username !== json.result.profile.name) {
+        window.localStorage.setItem('username', json.result.profile.name)
+        this.setState({...this.getState(), username: json.result.profile.name})
       }
 
       return true
