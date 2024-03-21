@@ -1,4 +1,6 @@
+import {memo, useCallback, useMemo} from "react";
 import React from "react";
+import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
@@ -7,36 +9,36 @@ import useSelector from "../../hooks/use-selector";
 import useCategoriesList from "../../hooks/use-сategories-list";
 
 function CatalogFilter() {
-  const { buildCategoryOptions } = useCategoriesList();
+  const categories = useCategoriesList();
   const store = useStore();
 
   const select = useSelector((state) => ({
-    category: state.catalog.params.category,
+    category: state.catalog.category,
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
   }));
 
   const callbacks = {
-    onCategory: (category) =>
-      store.actions.catalog.setParams({ category, page: 1 }),
-    onSort: (sort) => store.actions.catalog.setParams({ sort }),
-    onSearch: (query) => store.actions.catalog.setParams({ query, page: 1 }),
-    onReset: () => store.actions.catalog.resetParams(),
+		onCategory: useCallback(category => store.actions.catalog.setParams({category, page: 1}), [store]),
+    onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
+    onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
+    onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
 
-  const options = {
-    category: [
-      {value: '', title: 'Все'},
-      ...buildCategoryOptions
-    ],
+
+  const options = useMemo(() => ({
+		category: [
+			{value: '', title: 'Все'},
+			...categories
+		],
     sort: [
-      { value: "order", title: "По порядку" },
-      { value: "title.ru", title: "По именованию" },
-      { value: "-price", title: "Сначала дорогие" },
-      { value: "edition", title: "Древние" },
+      {value: 'order', title: 'По порядку'},
+      {value: 'title.ru', title: 'По именованию'},
+      {value: '-price', title: 'Сначала дорогие'},
+      {value: 'edition', title: 'Древние'},
     ]
-  };
-  
+  }), [categories]);
+  const {t} = useTranslate();
   return (
     <SideLayout padding="medium">
       <Select
@@ -63,4 +65,4 @@ function CatalogFilter() {
   );
 }
 
-export default CatalogFilter;
+export default memo(CatalogFilter);
