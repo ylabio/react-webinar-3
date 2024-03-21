@@ -11,7 +11,7 @@ class ProfileState extends StoreModule {
 
   async setUser() {
     this.setState({
-      ...this.getState(),
+      data: {},
       waiting: true
     }, 'Загрузка пользователя');
     const response = await fetch('/api/v1/users/self', {
@@ -22,7 +22,6 @@ class ProfileState extends StoreModule {
     });
     const json = await response.json();
     this.setState({
-      ...this.getState(),
       data: json.result,
       waiting: false
     }, "Окончание загрузки пользователя");

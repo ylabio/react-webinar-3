@@ -5,6 +5,7 @@ class SessionState extends StoreModule {
   initState() {
     return {
       token: '',
+      user: {},
       waiting: false
     }
   }
@@ -12,6 +13,7 @@ class SessionState extends StoreModule {
   async logIn(login, password) {
     this.setState({
       token: '',
+      user: {},
       waiting: true
     });
     const response = await fetch('/api/v1/users/sign', {
@@ -29,7 +31,8 @@ class SessionState extends StoreModule {
     console.log(json);
     if (json.error) {
       this.setState({
-        ...this.getState(),
+        token: '',
+        user: {},
         waiting: false
       }, 'Ошибка при попытке авторизации');
       return json.error.data.issues[0].message;
@@ -37,6 +40,7 @@ class SessionState extends StoreModule {
     if (json.result) {
       this.setState({
         token: json.result.token,
+        user: {},
         waiting: false
       }, "Успешная авторизация");
       localStorage.setItem('token', json.result.token);
@@ -59,12 +63,14 @@ class SessionState extends StoreModule {
     localStorage.removeItem('token');
     this.setState({
       token: '',
+      user: {},
       waiting: false
     }, 'Выход пользователя');
   }
 
   async tokenValidation() {
     this.setState({
+      user: {},
       token: '',
       waiting: true
     }, 'Валидация токена');
@@ -78,16 +84,36 @@ class SessionState extends StoreModule {
     if (json.error) {
       this.setState({
         token: '',
+        user: {},
         waiting: false
       }, 'Ошибка валидации токена')
-      return false;
     } else {
       this.setState({
         token: localStorage.getItem('token'),
+        user: {},
         waiting: false
       }, 'Успешная валидация токена');
-      return true;
+      await this.setUser();
     }
+  }
+
+  async setUser() {
+    this.setState({
+      ...this.getState(),
+      waiting: true
+    }, 'Загрузка пользователя');
+    const response = await fetch('/api/v1/users/self', {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Token': localStorage.getItem('token')
+      }
+    });
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      user: json.result,
+      waiting: false
+    }, "Окончание загрузки пользователя");
   }
 }
 

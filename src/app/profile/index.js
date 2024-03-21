@@ -15,17 +15,18 @@ import useInit from "../../hooks/use-init";
 
 function Profile() {
   const store = useStore();
+
+  useInit(() => {
+    store.actions.profile.setUser();
+  });
+
   const navigate = useNavigate();
   const { t } = useTranslate();
-
-  useInit(async() => {
-    await store.actions.profile.setUser();
-  });
 
   const select = useSelector(state => ({
     token: state.session.token,
     user: state.profile.data,
-    waiting: state.session.waiting
+    waiting: state.profile.waiting
   }));
 
   useEffect(() => {

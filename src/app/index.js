@@ -7,6 +7,7 @@ import Article from "./article";
 import Login from "./login";
 import Profile from './profile';
 import useStore from '../hooks/use-store';
+import useInit from '../hooks/use-init';
 
 /**
  * Приложение
@@ -17,9 +18,9 @@ function App() {
   const store = useStore();
   const activeModal = useSelector(state => state.modals.name);
 
-  useEffect(() => {
+  useInit(() => {
     store.actions.session.tokenValidation();
-  }, [store])
+  })
 
   return (
     <>

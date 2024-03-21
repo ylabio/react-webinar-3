@@ -29,7 +29,6 @@ function Login() {
        const error = await store.actions.session.logIn(login, password);
        setError(error);
        if(!error && !select.waiting){
-        store.actions.profile.setUser();
         navigate('/profile');
        }
     }, [store]),

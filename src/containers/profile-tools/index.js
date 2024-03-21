@@ -16,7 +16,7 @@ function ProfileTools() {
 
   const select = useSelector(state => ({
     token: state.session.token,
-    user: state.profile.data
+    user: state.session.user
   }));
 
   const callbacks = {
