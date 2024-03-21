@@ -18,14 +18,14 @@ function Profile() {
 
   const select = useSelector((state) => ({
     token: state.session.token,
-    data: state.user.data,
-    waiting: state.user.waiting,
+    data: state.profile.data,
+    waiting: state.profile.waiting,
   }));
 
   useInit(() => {
     if (!select.token) navigate("/login");
     else {
-      store.actions.user.load(select.token);
+      store.actions.profile.load(select.token);
     }
   }, [select.token, store]);
 

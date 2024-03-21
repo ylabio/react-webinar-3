@@ -12,8 +12,8 @@ const AuthControl = () => {
 
   const select = useSelector((state) => ({
     token: state.session.token,
-    user: state.user.data,
-    waiting: state.user.waiting,
+    user: state.profile.data,
+    waiting: state.profile.waiting,
   }));
 
   const callbacks = {

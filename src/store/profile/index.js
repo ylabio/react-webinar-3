@@ -1,6 +1,6 @@
 import StoreModule from "../module";
 
-class User extends StoreModule {
+class Profile extends StoreModule {
   initState() {
     return {
       data: {},
@@ -12,7 +12,7 @@ class User extends StoreModule {
   async load(token) {
     this.setState(
       { ...this.getState(), waiting: true, error: null },
-      "Загрузка пользователя"
+      "Загрузка профиля"
     );
 
     try {
@@ -27,7 +27,7 @@ class User extends StoreModule {
         const json = await response.json();
         this.setState(
           { ...this.getState(), data: json.result, waiting: false },
-          "Пользователь загружен"
+          "Профиль загружен"
         );
       } else {
         const json = await response.json();
@@ -36,7 +36,7 @@ class User extends StoreModule {
           .join(", ");
         this.setState(
           { ...this.getState(), error: errors, waiting: false },
-          "Пользователь не загружен"
+          "Профиль не загружен"
         );
       }
     } catch (e) {
@@ -49,4 +49,4 @@ class User extends StoreModule {
   }
 }
 
-export default User;
+export default Profile;

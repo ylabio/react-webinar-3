@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {
     if (select.token) {
-      store.actions.user.load(select.token);
+      store.actions.profile.load(select.token);
     }
   }, [select.token]);
 
