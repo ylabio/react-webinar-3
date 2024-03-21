@@ -1,16 +1,21 @@
 import {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
+import useTranslate from "../../hooks/use-translate";
 import './style.css';
+import LoginTab from "../../containers/login-tab";
 
-function PageLayout({head, footer, children}) {
+
+function PageLayout({footer, children}) {
 
   const cn = bem('PageLayout');
+
+  const {t} = useTranslate();
 
   return (
     <div className={cn()}>
       <div className={cn('head')}>
-        {head}
+        <LoginTab />
       </div>
       <div className={cn('center')}>
         {children}
