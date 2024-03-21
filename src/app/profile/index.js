@@ -7,23 +7,20 @@ import Navigation from "../../containers/navigation";
 import ProfileCard from "../../components/profile-card";
 import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
-import { useNavigate } from "react-router-dom";
 import Spinner from "../../components/spinner";
+import useStore from "../../hooks/use-store";
 
 function Profile() {
-  const navigate = useNavigate();
+  const store = useStore();
   
   const select = useSelector(state =>({
-    user: state.login.loginData,
-    loading: state.login.waiting,
+    user: state.profile.profileData,
+    loading: state.profile.waiting,
   }))
 
   useInit(() => {
-    if (!select.user.profile) {
-      navigate('/login');
-      return null;
-    }
-  }, [select.user.profile, navigate])
+    store.actions.profile.getProfileData();
+  }, [])
   
   const {t} = useTranslate();
 

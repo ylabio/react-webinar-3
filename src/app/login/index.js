@@ -31,7 +31,7 @@ function Login() {
 
   useInit(() => {
     if (select.user.profile) {
-      navigate('/profile');
+      navigate(`/profile`);
       return null;
     }
   }, [select.user.profile, navigate])
@@ -40,7 +40,7 @@ function Login() {
     e.preventDefault();
     callbacks.onLogin(loginName, password);
     if (select.user && Object.keys(select.user).length !== 0) {
-      navigate('/profile');
+      navigate(`/profile`);
     }
   }
 

@@ -18,6 +18,7 @@ body {
   display: flex;
   padding: 10px 20px;
   justify-content: flex-end;
+  border-bottom: 1px solid #DCDCDC;
 }
 
 .PageLayout-login-btn {

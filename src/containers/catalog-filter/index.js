@@ -5,6 +5,7 @@ import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
+import useInit from "../../hooks/use-init";
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -13,11 +14,15 @@ function CatalogFilter() {
 
   const store = useStore();
 
+  useInit(() => {
+    store.actions.categories.setCategories();
+  }, [])
+
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories
+    categories: state.categories.categories
   }));
 
   const callbacks = {

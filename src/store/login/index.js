@@ -69,7 +69,6 @@ class loginState extends StoreModule {
     try {
       const response = await fetch('api/v1/users/self?fields=*', options);
       const json = await response.json();
-      console.log(json);
       this.setState({
         loginData: json.result,
         waiting: false,
