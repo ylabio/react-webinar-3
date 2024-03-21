@@ -39,14 +39,7 @@ function CatalogFilter() {
     ]), []),
     category: useMemo(() => {
       const defaultCategory = {value: 'all', title: 'Все'};
-      const mapCategories = (categories) => {
-        return categories
-          .map((item) => ({
-            value: item._id,
-            title: item.title,
-          }));
-      };
-      return [defaultCategory, ...mapCategories(select.category)];
+      return [defaultCategory, ...select.category];
       }, [select.category])
   };
   console.log(options.category)
