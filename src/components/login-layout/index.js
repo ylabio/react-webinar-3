@@ -14,18 +14,16 @@ const LoginLayout = (props) => {
     
     useEffect(()=>{
        props.clearException();
-       exception = '';
+       
     },[])
 
     function onButton(e){
         e.preventDefault();
         props.onEnter(props.logValue,props.passValue);
-
-        if (!exception && props.logValue && props.passValue){
-            router(props.navigateLink);
-           
-        }
         
+        // if (!props.exception && props.logValue && props.passValue && props.isAuth){
+        //     router(props.navigateLink);
+        // }
     }
     
     return (
@@ -45,7 +43,7 @@ const LoginLayout = (props) => {
                 <input className="form-password" id="password" type={"password"} value={props.passValue}
                 onChange={(e)=> props.setPassValue(e.target.value)}
                 />
-                <p className="exception">{exception}</p>
+                <p className="exception">{props.exception}</p>
                 <button className="enter-btn" onClick={(e) => onButton(e)} >Войти</button>
             </form>
         </>

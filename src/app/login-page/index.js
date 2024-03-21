@@ -1,4 +1,4 @@
-import React,{memo,useCallback,useState} from 'react';
+import React,{memo,useCallback,useEffect,useState} from 'react';
 import PageLayout from '../../components/page-layout';
 import LoginLayout from '../../components/login-layout';
 import useTranslate from '../../hooks/use-translate';
@@ -9,16 +9,24 @@ import { useLocation,useNavigate } from 'react-router-dom';
 const LoginPage = () => {
     const [logValue, setLogValue] = useState('');
     const [passValue, setPassValue] = useState('');
-    const store = useStore();
-    
 
+    const store = useStore();
+    // const location = useLocation();
+    
+    // const navigateLink = localStorage.getItem('page');
+    
+    // console.log(navigateLink);
+    
     const select = useSelector(state => ({
-        exception: state.login.exception
+        exception: state.login.exception,
+        state: state.login.isAuth
       }));
 
     const callbacks = {
-        onEnter: useCallback((log,pass) => store.actions.login.login(log,pass)),
-        clearException: useCallback(() => store.actions.login.clearException())
+        onEnter: useCallback((log,pass) => store.actions.login.login(log,pass),[store]),
+
+        clearException: useCallback(() => store.actions.login.clearException(),[store]),
+
     }
     
     const {t} = useTranslate();
@@ -32,9 +40,10 @@ const LoginPage = () => {
             setLogValue={setLogValue}
             setPassValue={setPassValue}
             onEnter={callbacks.onEnter}
-            navigateLink={-1}
+            // navigateLink={navigateLink}
             exception={select.exception}
             clearException={callbacks.clearException}
+            isAuth={select.isAuth}
             />
         </PageLayout>
     );

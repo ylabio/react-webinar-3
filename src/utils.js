@@ -35,25 +35,40 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
 }
 
 
-export function category(categoryArr){
-  let arr = [{value:'all',title:'Все'}];
-  let parentId = null
-  let kidId = null;
+// export function category(categoryArr){
+//   let arr = [{value:'all',title:'Все'}];
+//   let parentId = null
+//   let kidId = null;
+  
 
+//   for (let elem of categoryArr){
+//     if (elem.parent == null){
+//       arr.push({value:elem._id,title:elem.title})
+//       parentId = elem._id;
+//     }
+//     else if (elem?.parent?._id == parentId){
+//       arr.push({value:elem._id,title: '- ' + elem.title})
+//       kidId = elem._id;
+//       for (let elem2 of categoryArr){
+//         if (elem2?.parent?._id == kidId){
+//           arr.push({value:elem2._id,title: '- - ' + elem2.title})
+//         }
+//       }
+//     }
+    
+    
+//   }
+//   return arr;
+// }
+
+
+export function category(categoryArr, parent = null, count = 0) {
+  const arr = [];
   for (let elem of categoryArr){
-    if (elem.parent == null){
-      arr.push({value:elem._id,title:elem.title})
-      parentId = elem._id;
+    if ((elem.parent?._id === parent && elem.parent) || (!elem.parent && !parent)) {
+      arr.push({title: ` ${'- '.repeat(count)} ${elem.title}`,value: elem._id});
+      arr.push(...category(categoryArr, elem._id, count + 1));
     }
-    else if (elem?.parent?._id == parentId){
-      arr.push({value:elem._id,title: '- ' + elem.title})
-      kidId = elem._id;
-      for (let elem2 of categoryArr){
-        if (elem2?.parent?._id == kidId){
-          arr.push({value:elem2._id,title: '- - ' + elem2.title})
-        }
-      }
-    }
-  }
+  };
   return arr;
 }
