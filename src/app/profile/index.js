@@ -18,7 +18,7 @@ function Profile() {
 
   useInit(() => {
     store.actions.profile.setUser();
-  });
+  }, []);
 
   const navigate = useNavigate();
   const { t } = useTranslate();
@@ -26,15 +26,13 @@ function Profile() {
   const select = useSelector(state => ({
     token: state.session.token,
     user: state.profile.data,
-    waiting: state.profile.waiting
+    profileWaiting: state.profile.waiting,
+    sessionWaiting: state.session.waiting
   }));
 
-  useEffect(() => {
-    console.log(select.user);
-    if (!select.token) {
-      navigate('/login');
-    }
-  }, [select.waiting, select.user])
+  if (!select.token && !select.sessionWaiting && !select.profileWaiting) {
+    navigate('/login');
+  }
 
   return (
     <PageLayout>
@@ -43,7 +41,7 @@ function Profile() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <Spinner active={select.waiting}>
+      <Spinner active={select.profileWaiting}>
         <ProfileCard user={select.user} t={t} />
       </Spinner>
     </PageLayout>

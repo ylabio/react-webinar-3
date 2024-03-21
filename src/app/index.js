@@ -20,7 +20,7 @@ function App() {
 
   useInit(() => {
     store.actions.session.tokenValidation();
-  })
+  }, [])
 
   return (
     <>

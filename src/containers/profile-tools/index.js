@@ -6,6 +6,7 @@ import SideLayout from "../../components/side-layout";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import "./style.css"
+import Spinner from "../../components/spinner";
 
 
 function ProfileTools() {
@@ -16,7 +17,8 @@ function ProfileTools() {
 
   const select = useSelector(state => ({
     token: state.session.token,
-    user: state.session.user
+    user: state.session.user,
+    waiting: state.session.waiting
   }));
 
   const callbacks = {
@@ -31,12 +33,12 @@ function ProfileTools() {
   }
 
   return (
-    <div className="ProfileTools">
+    <Spinner active={select.waiting}>
       <SideLayout side='end' padding='small'>
         <Link to='/profile'>{select.token ? select.user.profile?.name : ''}</Link>
         <button onClick={callbacks.buttonClick}>{select.token ? t('auth.logout') : t('auth.login')}</button>
       </SideLayout>
-    </div>
+    </Spinner>
   );
 }
 

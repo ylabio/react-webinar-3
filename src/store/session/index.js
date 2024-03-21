@@ -44,6 +44,7 @@ class SessionState extends StoreModule {
         waiting: false
       }, "Успешная авторизация");
       localStorage.setItem('token', json.result.token);
+      await this.setUser();
       return '';
     }
   }
