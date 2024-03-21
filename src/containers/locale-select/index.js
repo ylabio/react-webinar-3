@@ -19,7 +19,7 @@ function LocaleSelect() {
   };
 
   return (
-    <Select onChange={setLang} value={lang} options={options.lang}/>
+    <Select onChange={setLang} value={lang} options={options.lang} theme={'small'}/>
   );
 }
 

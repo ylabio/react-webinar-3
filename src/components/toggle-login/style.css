@@ -1,0 +1,30 @@
+.ToggleLogin-action-link {
+  margin: 0 10px;
+  padding: 2px 8px;
+  font-size: 13px;
+  line-height: 15px;
+  border: 1px solid #767676;
+  background-color: #EFEFEF;
+  border-radius: 2px;
+
+}
+
+.ToggleLogin-action-link:hover {
+  background-color: #e5e5e5;
+  border-color: #4f4f4f;
+}
+
+  .ToggleLogin-link {
+    text-decoration: none;
+    color: #000;
+    cursor: default;
+  }
+
+  .ToggleLogin-action-btn{
+    margin: 0 10px;
+  }
+
+  .ToggleLogin-btn {
+    padding: 1px 8px;
+  }
+

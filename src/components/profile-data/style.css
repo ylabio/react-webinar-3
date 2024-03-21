@@ -1,0 +1,18 @@
+.ProfileData {
+  padding: 40px 20px;
+}
+
+  .ProfileData-title {
+    margin: 0 0 30px;
+  }
+
+  .ProfileData-data {
+    display: flex;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+
+    .ProfileData-value {
+      padding-left: 6px;
+      font-weight: 700;
+    }
