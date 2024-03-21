@@ -8,8 +8,7 @@ import Basket from './basket';
 import Article from './article';
 import Login from './login';
 import Profile from './profile';
-import RedirectLogin from '../containers/redirect-login';
-import RedirectProfile from '../containers/redirect-profile';
+import Redirect from '../containers/redirect';
 
 /**
  * Приложение
@@ -30,15 +29,15 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/login'} element={
-          <RedirectProfile>
-            <Login/>
-          </RedirectProfile>
+            <Redirect link={'/profile'} login={true}>
+              <Login/>
+            </Redirect>
         }/>
         <Route path={'/articles/:id'} element={<Article/>}/>
         <Route path={'/profile'} element={
-          <RedirectLogin>
+          <Redirect link={'/login'} login={false}>
             <Profile/>
-          </RedirectLogin>
+          </Redirect>
         }/>
       </Routes>
 

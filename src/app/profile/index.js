@@ -20,14 +20,14 @@ function Profile () {
   const store = useStore();
 
   useInit(() => {
-    store.actions.login.getDataUser();
+    store.actions.profile.getDataUser();
   }, [], true);
 
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
-    waiting: state.login.waiting,
-    profile: state.login.profile
+    waiting: state.profile.waiting,
+    profile: state.profile.profile
   }));
 
   return (

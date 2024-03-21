@@ -2,9 +2,12 @@ import {memo, useCallback, useMemo} from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
+import useInit from '../../hooks/use-init';
+import {formattingCategories} from '../../utils';
 import Select from '../../components/select';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
+
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -13,10 +16,15 @@ function CatalogFilter() {
 
   const store = useStore();
 
+  useInit(async() => {
+    await store.actions.categories.getCategories();
+  }, [], true);
+
   const select = useSelector(state => ({
     category: state.catalog.params.category,
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    list: state.categories.list
   }));
 
   const callbacks = {
@@ -33,17 +41,8 @@ function CatalogFilter() {
   const options = {
     category: useMemo(() => ([
       {value: '', title: 'Все'},
-      {value: '65f32fda7696753a3078d67c', title: 'Электроника'},
-      {value: '65f32fda7696753a3078d67d', title: '- Телефоны'},
-      {value: '65f32fda7696753a3078d684', title: '- - Смартфоны'},
-      {value: '65f32fda7696753a3078d685', title: '- - Аксессуары'},
-      {value: '65f32fda7696753a3078d67e', title: '- Ноутбуки'},
-      {value: '65f32fda7696753a3078d67f', title: '- Телевизоры'},
-      {value: '65f32fda7696753a3078d680', title: 'Книги'},
-      {value: '65f32fda7696753a3078d681', title: '- Учебники'},
-      {value: '65f32fda7696753a3078d682', title: '- Художественная'},
-      {value: '65f32fda7696753a3078d683', title: '- Комиксы'},
-    ]), []),
+      ...formattingCategories(select.list)
+    ]), [select.list]),
     sort: useMemo(() => ([
       {value: 'order', title: 'По порядку'},
       {value: 'title.ru', title: 'По именованию'},
@@ -56,10 +55,10 @@ function CatalogFilter() {
 
   return (
     <SideLayout padding='medium'>
-      <Select options={options.category} value={select.category} onChange={callbacks.onFilterCategory}/>
-      <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
+      <Select options={options.category} value={select.category} onChange={callbacks.onFilterCategory} theme={'medium_plus'}/>
+      <Select options={options.sort} value={select.sort} onChange={callbacks.onSort} theme={'medium'}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
-             delay={1000}/>
+             delay={1000} theme={'big'}/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>
   )

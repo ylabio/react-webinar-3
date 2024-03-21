@@ -16,7 +16,12 @@ function LoginForm (props) {
   async function onClick (ev) {
     ev.preventDefault();
     const result = await props.loginUser(authUser);
-    result && router(props.link, {replace: true});
+    if (result) {
+      result > 1 
+        ? router(props.linkBack, {replace: true}) 
+        : router(props.linkMain, {replace: true})
+    }
+    
   }
 
   const onChange = (ev, param) => {
@@ -58,7 +63,8 @@ LoginForm.propTypes = {
   textLogin: PropTypes.string,
   password: PropTypes.string,
   logIn: PropTypes.string,
-  link: PropTypes.string,
+  linkBack: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  linkMain: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   error: PropTypes.string,
   loginUser: PropTypes.func
 }

@@ -4,7 +4,7 @@ import StoreModule from '../module';
  * Авторизация пользователя
  */
 
-class Login extends StoreModule {
+class LoginState extends StoreModule {
 
   /**
    * Начальное состояние
@@ -38,11 +38,12 @@ class Login extends StoreModule {
       });
       
       const json = await response.json();
-
+      
       if (json.error) {
+        const error = json.error.data?.issues[0]?.message || json.error.message;
         this.setState({
           ...this.getState(),
-          error: json.error.message,
+          error: error,
         }, 'Пользователь не авторизован');
         return false;
       }
@@ -54,7 +55,9 @@ class Login extends StoreModule {
         authLogin: true,
       }, 'Пользователь авторизован');
       
-      return true;
+      const result = history.length > 2 ? 2 : 1;
+
+      return result;
 
     } catch (ev) {
       console.log(ev);
@@ -127,38 +130,15 @@ class Login extends StoreModule {
   }
 
   /**
-   *Отправка данных на сервер для получения данных пользователя
+   *Удаление ошибки авторизации
    */
-   async getDataUser () {
-
-    const token = localStorage.getItem('X-Token');
-
+  deleteError () {
     this.setState({
       ...this.getState(),
-      waiting: true
-    }, 'Получен токен пользователя');
-
-    if (token) {
-      const response = await fetch('/api/v1/users/self?fields=*', {
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Token': token
-        },
-      });
-      
-      const json = await response.json();
-  
-      this.setState({
-        ...this.getState(),
-        profile: {
-          name: json.result.profile.name,
-          phone: json.result.profile.phone,
-          email: json.result.email
-        },
-        waiting: false
-      }, 'Загружены данные пользователя из АПИ');
-    }  
+      error: ''
+    }, 'Удалена ошибка авторизации');
   }
+
 }
 
-export default Login;
+export default LoginState;

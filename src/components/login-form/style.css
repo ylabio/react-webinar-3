@@ -20,6 +20,9 @@
       height: 26px;
       margin-bottom: 20px;
       font-size: 16px;
+      outline: none;
+      border: 1px solid #767676;
+      border-radius: 1px;
     }
 
     .LoginForm-error {
