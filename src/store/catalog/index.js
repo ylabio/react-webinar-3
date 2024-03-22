@@ -1,4 +1,5 @@
-import StoreModule from "../module";
+import StoreModule from '../module';
+import exclude from '../../utils/exclude';
 
 /**
  * Состояние каталога - параметры фильтра и список товара
@@ -19,12 +20,10 @@ class CatalogState extends StoreModule {
         query: '',
         category: ''
       },
-      categories: [],
       count: 0,
       waiting: false
     }
   }
-
 
   /**
    * Инициализация параметров.
@@ -62,8 +61,6 @@ class CatalogState extends StoreModule {
    * @returns {Promise<void>}
    */
   async setParams(newParams = {}, replaceHistory = false) {
-    
-
     const params = {...this.getState().params, ...newParams};
 
     // Установка новых параметров и признака загрузки
@@ -74,32 +71,32 @@ class CatalogState extends StoreModule {
     }, 'Установлены параметры каталога');
 
     // Сохранить параметры в адрес страницы
-    let urlSearch = new URLSearchParams(params).toString();
-    const url = window.location.pathname + '?' + urlSearch + window.location.hash;
+    let urlSearch = new URLSearchParams(exclude(params, this.initState().params)).toString();
+    const url = window.location.pathname + (urlSearch ? `?${urlSearch}` : '') + window.location.hash;
     if (replaceHistory) {
       window.history.replaceState({}, '', url);
     } else {
       window.history.pushState({}, '', url);
     }
 
-    const apiParams = {
+    const apiParams = exclude({
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
       'search[query]': params.query,
-    };
+      'search[category]': params.category
+    }, {
+      skip: 0,
+      'search[query]': '',
+      'search[category]': ''
+    });
 
-    if (params.category) {
-      apiParams['search[category]'] = params.category
-    }
-
-    const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
-    const json = await response.json();
+    const res = await this.services.api.request({url: `/api/v1/articles?${new URLSearchParams(apiParams)}`});
     this.setState({
       ...this.getState(),
-      list: json.result.items,
-      count: json.result.count,
+      list: res.data.result.items,
+      count: res.data.result.count,
       waiting: false
     }, 'Загружен список товаров из АПИ');
   }

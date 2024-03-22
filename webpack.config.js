@@ -1,7 +1,8 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const path = require("path");
+const webpack = require('webpack');
+const path = require('path');
 
 let config = {
   context: path.join(__dirname, '/src'), // Директория с исходным кодом приложения
@@ -41,6 +42,11 @@ let config = {
       filename: './index.html',
       title: 'Simple SPA',
       base: '/',
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      },
     }),
   ],
 }

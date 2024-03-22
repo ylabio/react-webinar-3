@@ -1,7 +1,7 @@
-import {memo} from "react";
+import {memo} from 'react';
 import PropTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import {Link} from "react-router-dom";
+import {cn as bem} from '@bem-react/classname';
+import {Link} from 'react-router-dom';
 import './style.css';
 
 function Menu({items, onNavigate}) {
