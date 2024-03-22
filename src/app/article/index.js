@@ -1,0 +1,77 @@
+import {memo, useCallback, useMemo,useEffect} from 'react';
+import {useParams} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
+import useTranslate from "../../hooks/use-translate";
+import useInit from "../../hooks/use-init";
+import PageLayout from "../../components/page-layout";
+import Head from "../../components/head";
+import Navigation from "../../containers/navigation";
+import Spinner from "../../components/spinner";
+import ArticleCard from "../../components/article-card";
+import LocaleSelect from "../../containers/locale-select";
+import ButtonLogin from '../../components/button-login';
+import ButtonOut from '../../components/button-out';
+
+/**
+ * Страница товара с первичной загрузкой товара по id из url адреса
+ */
+function Article() {
+  const store = useStore();
+  const navigate = useNavigate();
+
+  // Параметры из пути /articles/:id
+  const params = useParams();
+
+  useInit(() => {
+    store.actions.article.load(params.id);
+  }, [params.id]);
+
+  const select = useSelector(state => ({
+    article: state.article.data,
+    waiting: state.article.waiting,
+    user: state.auth.user,
+  }));
+
+  useEffect(() => {
+    // Проверка доступа пользователя при загрузке страницы профиля
+    if (!select.user || !select.token) {
+      navigate("");
+    }
+  }, [select.user, select.token, navigate])
+  const handleLogout = async () => {
+    await store.actions.auth.handleLogout();
+    navigate("/login");
+  };
+ 
+  const {t} = useTranslate();
+
+  const callbacks = {
+    // Добавление в корзину
+    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+  }
+
+  return (
+    <PageLayout>
+    {select.user ? (
+        <>
+          <ButtonOut title="Выход" user={select.user} onClick={handleLogout}  profilePath={"/profile-page"}/>
+        </>
+      ) : (
+        <>
+          <ButtonLogin title="Вход" profilePath='/login' />
+        </>
+      )}
+      <Head title={select.article.title}>
+        <LocaleSelect/>
+      </Head>
+      <Navigation/>
+      <Spinner active={select.waiting}>
+        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+      </Spinner>
+    </PageLayout>
+  );
+}
+
+export default memo(Article);

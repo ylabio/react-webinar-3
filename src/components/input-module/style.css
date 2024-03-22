@@ -1,0 +1,23 @@
+.InputModule-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 20px 20px 20px 20px;
+}
+.InputModule-input-login,
+.InputModule-input-password {
+  width: 195px;
+  min-height: 20px;
+  margin-bottom: 10px;
+}
+.InputModule-form-group {
+  display: flex;
+  flex-direction: column;
+}
+.InputModule-button {
+  width: 60px;
+}
+.InputModule-error {
+	color: #FF0000;
+	margin: 0;
+}
