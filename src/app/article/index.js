@@ -38,6 +38,9 @@ function Article() {
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
+    list: state.comments.list,
+    comWaiting: state.comments.comWaiting,
+
 
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
   // comments: state.comments.data,
@@ -59,7 +62,7 @@ function Article() {
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
-      {/* <CommentList id={params.id}/> */}
+      <CommentList list={select.list.items}/>
     </PageLayout>
   );
 }
