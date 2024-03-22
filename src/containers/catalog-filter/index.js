@@ -22,7 +22,7 @@ function CatalogFilter() {
 		onCategory: useCallback(category => store.actions.catalog.setParams({category, page: 1}), [store]),
     onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
     onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
-    onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
+    onReset: useCallback(() => store.actions.catalog.setParams({category: '', page: 1}), [store]),
   };
 
 

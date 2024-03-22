@@ -1,14 +1,15 @@
-import React, { memo, useEffect } from "react";
+import React, { useEffect, memo } from "react";
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import PageLayout from "../../components/page-layout";
 import ProfileCart from "../../components/profile-cart";
 import ButtonOut from "../../components/button-out";
 import Navigation from "../../containers/navigation";
+import useSelector from "../../hooks/use-selector";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
-import useSelector from "../../hooks/use-selector";
 import { useNavigate } from "react-router-dom";
+import useInit from "../../hooks/use-init";
 
 function ProfilePage() {
   const store = useStore();
@@ -21,19 +22,17 @@ function ProfilePage() {
 
   const { t } = useTranslate();
 
+  useInit(() => {
+    store.actions.catalog.initParams();
+  }, []);
+
   useEffect(() => {
-    const checkAuthentication = async () => {
-      if (!select.user || !select.token) {
-        navigate('/login');
-      } else {
-        await store.actions.auth.handleAuth();
-      }
+    const checkAuth = async () => {
+      await store.actions.auth.handleAuth();
     };
 
-    if (select.user && select.token) {
-      checkAuthentication();
-    }
-  }, [select.user, select.token, navigate, store.actions.auth]);
+    checkAuth();
+  }, [store.actions.auth]); // Передаем только store.actions.auth в массив зависимостей
 
   const handleLogout = async () => {
     await store.actions.auth.handleLogout();

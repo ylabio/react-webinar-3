@@ -14,9 +14,15 @@ import ProfilePage from "./profile-page";
  * Приложение
  * Маршрутизация по страницам и модалкам
  */
+
+
+
+
+
 function App() {
   const store = useStore();
 
+  
   const activeModal = useSelector((state) => state.modals.name);
 
 
