@@ -2,6 +2,7 @@ import APIService from './api';
 import Store from './store';
 import createStoreRedux from './store-redux';
 
+
 class Services {
 
   constructor(config) {
@@ -39,6 +40,7 @@ class Services {
     }
     return this._redux;
   }
+
 }
 
 export default Services;

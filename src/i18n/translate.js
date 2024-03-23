@@ -7,13 +7,13 @@ import * as translations from './translations';
  * @param [plural] {Number} Число для плюрализации
  * @returns {String} Переведенный текст
  */
-export default function translate(lang, text, plural) {
-  let result = translations[lang] && (text in translations[lang])
-    ? translations[lang][text]
-    : text;
+export default function translate(lang, text, plural) { // Получаем код языка, текст, число
+  let result = translations[lang] && (text in translations[lang])  
+    ? translations[lang][text] // Если текст есть в базе - переводим
+    : text; // Если нет - оставляем
 
-  if (typeof plural !== 'undefined') {
-    const key = new Intl.PluralRules(lang).select(plural);
+  if (typeof plural !== 'undefined') { // Если число есть
+    const key = new Intl.PluralRules(lang).select(plural); // переводим с учетом кода языка
     if (key in result) {
       result = result[key];
     }
