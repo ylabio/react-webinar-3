@@ -6,6 +6,8 @@ import CommentsLayout from "../../components/comments-layout";
 import shallowEqual from "shallowequal";
 import commentsActions from '../../store-redux/comments/actions'
 import { useDispatch, useSelector } from "react-redux";
+import Comment from "../../components/comment";
+import { useEffect } from "react";
 
 
 function Comments({id}) {
@@ -22,10 +24,14 @@ function Comments({id}) {
     waiting: state.comments.waiting,
   }), shallowEqual);
 
+  useEffect(() => {
+    console.log(select.comments);
+  }, [select.comments])
+
   return (
     <Spinner active={select.waiting}>
       <CommentsLayout count={select.count}>
-
+        <Comment item={select.comments[1]} level='0'/>
       </CommentsLayout>
     </Spinner>
   )

@@ -1,0 +1,22 @@
+.Comment {
+  padding: 15px 0px;
+}
+
+.Comment-head {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.Comment-author {
+  font-weight: 700;
+}
+
+.Comment-dateTime {
+  font: #666666;
+}
+
+.Comment-body {
+  font-size: 14px;
+  padding: 10px 0px;
+}
