@@ -8,9 +8,12 @@ import commentsActions from '../../store-redux/comments/actions'
 import { useDispatch, useSelector } from "react-redux";
 import Comment from "../../components/comment";
 import { useEffect } from "react";
+import { useMemo } from "react";
+import treeToList from "../../utils/tree-to-list";
+import listToTree from "../../utils/list-to-tree";
 
 
-function Comments({id}) {
+function Comments({ id }) {
   const store = useStore();
   const dispatch = useDispatch();
 
@@ -24,14 +27,15 @@ function Comments({id}) {
     waiting: state.comments.waiting,
   }), shallowEqual);
 
-  useEffect(() => {
-    console.log(select.comments);
-  }, [select.comments])
+  const comments = useMemo(() =>
+    treeToList(listToTree(select.comments), (item, level) => (
+      level > 0 ? <Comment key={item._id} item={item} level={level - 1} /> : ''
+    )), [select.comments]);
 
   return (
     <Spinner active={select.waiting}>
       <CommentsLayout count={select.count}>
-        <Comment item={select.comments[1]} level='0'/>
+        {comments}
       </CommentsLayout>
     </Spinner>
   )
