@@ -1,0 +1,25 @@
+.CommentArea{
+    display: none;
+}
+
+.CommentArea.CommentArea--active{
+    display: block;
+    margin-top: 30px;
+}
+
+.CommentArea-area{
+    width: 100%;
+    min-height: 76px;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+.CommentArea-title{
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.CommentArea-cancel-btn{
+    margin-left: 10px;
+}

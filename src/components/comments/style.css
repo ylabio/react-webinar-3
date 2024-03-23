@@ -1,0 +1,49 @@
+.ArticleCard-comments{
+    padding: 20px 40px;
+}
+
+.ArticleCard-comments-count{
+    font-size: 24px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+  }
+  
+  .ArticleCard-comments-list{
+    display: flex;
+    flex-direction: column;
+    gap: 30px 0;
+    margin-bottom: 30px;
+  }
+  
+  .ArticleCard-comments-item-top{
+    display: flex;
+    gap: 0 10px;
+    margin-bottom: 10px;
+  }
+  
+  .ArticleCard-comments-item-date{
+    color: rgb(102, 102, 102);
+    font-size: 12px;
+    font-weight: 400;
+  }
+  
+  .ArticleCard-comments-item-name{
+    font-size: 12px;
+    font-weight: 700;
+  
+  }
+  
+  .ArticleCard-comments-item-text{
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+  
+  .ArticleCard-comments-item-btn{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: rgb(0, 135, 233);
+    padding: 0;
+    font-size: 12px;
+  }
