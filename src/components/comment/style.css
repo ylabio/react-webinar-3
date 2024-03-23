@@ -20,3 +20,9 @@
   font-size: 14px;
   padding: 10px 0px;
 }
+
+.Comment-footer{
+  display: flex;
+  color: #0087E9;
+  cursor: pointer;
+}

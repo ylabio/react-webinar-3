@@ -16,7 +16,7 @@ function Comment({item, level}) {
       <div className={cn('body')}>
         {item?.text}
       </div>
-      <div className='footer'>
+      <div className={cn('footer')} onClick={''}>
         Ответить
       </div>
     </div>
