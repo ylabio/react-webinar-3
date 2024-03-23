@@ -1,0 +1,37 @@
+.Comments {
+  padding: 30px 40px;
+}
+
+.Comments-title {
+  font-size: 24px;
+}
+
+.Comments-container {
+  margin: 25px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  font-size: 12px;
+}
+
+.Comments-date {
+  margin-left: 10px;
+  color: #666666;
+}
+
+.Comments-text {
+  font-size: 14px;
+  padding: 10px 0;
+}
+
+.Comments-reply {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  color: #0087E9;
+  cursor: pointer;
+}
+
+.Comments-reply:hover {
+  text-decoration: underline;
+}
