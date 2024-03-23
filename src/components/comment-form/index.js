@@ -1,23 +1,37 @@
-import { memo } from 'react';
-import './style.css'
-import {cn as bem} from '@bem-react/classname';
-function CommentForm({}){
-    const cn = bem('CommentForm');
+import { memo, useRef } from "react";
+import "./style.css";
+import { cn as bem } from "@bem-react/classname";
+import LoginToLabel from "../login-to-label";
+function CommentForm({ isAuth, onUnAuth, type, user = null, cancel, onAdd, parentId, article }) {
+  const cn = bem("CommentForm");
+  const textRef = useRef(null)
 
-    return(
+  return (
+    <>
+      {isAuth ? (
         <div className={cn()}>
-            <div className={cn("title")}>Новый комментарий</div>
-            <div 
-            placeholder='Текст'
+          <div className={cn("title")}>{type === "article" ? "Новый комментарий" : "Новый ответ"}</div>
+          <textarea
+            placeholder={type === 'article' ? "Текст" : `Мой ответ для ${user}` }
             className={cn("body")}
-            contentEditable
-            suppressContentEditableWarning={true}
+            ref={textRef}
             >
-            Текст
-            </div>
-            <button>Отправить</button>
+              
+          </textarea>
+          <button
+          className={cn("send")}
+          onClick={() => {
+            onAdd(parentId, type, textRef.current.value, article)
+            textRef.current.value=""
+          }}
+          >Отправить</button>
+          {type === "comment" && <button onClick={cancel}>Отмена</button>}
         </div>
-    )
+      ) : (
+        <LoginToLabel cancel={cancel} type={type} onClick={onUnAuth} />
+      )}
+    </>
+  );
 }
 
-export default memo(CommentForm)
+export default memo(CommentForm);

@@ -4,7 +4,7 @@
  * @param [key] {String} Свойство с первичным ключом
  * @returns {Array} Корневые узлы
  */
-export default function commentsToTree(list = [], key = '_id') {
+export default function commentsToTree(list = [], key = '_id', articleId) {
   let trees = {};
   let roots = {};
   for (const item of list) {
@@ -19,8 +19,9 @@ export default function commentsToTree(list = [], key = '_id') {
       trees[item[key]] = Object.assign(trees[item[key]], item);
     }
 
+
     // Если элемент имеет родителя, то добавляем его в подчиненные родителя
-    if (item.parent?.[key] && item.parent._type === "comment") {
+    if (item.parent?.[key] && item.parent._id !== articleId) {
       // Если родителя ещё нет в индексе, то индекс создаётся, ведь _id родителя известен
       if (!trees[item.parent[key]]) {
         trees[item.parent[key]] = {children: []};

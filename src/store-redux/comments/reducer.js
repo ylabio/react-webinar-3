@@ -2,7 +2,15 @@
 export const initialState = {
     data: {
         count: 0,
-        items: []
+        items: [{
+          _id: '',
+          author: {
+            profile: {
+              name: ""
+            }
+          },
+          text: ''
+        }]
     },
     waiting: false // признак ожидания загрузки
   }
@@ -18,7 +26,10 @@ export const initialState = {
   
       case "comments/load-error":
         return {...state, data: {}, waiting: false}; //@todo текст ошибки сохранять?
-  
+
+      case "comments/add-new":
+        console.log([...state.data.items, action.payload]);
+        return {...state, data: {...state.data, count: state.data.count + 1, items: [...state.data.items, action.payload]}};
       default:
         // Нет изменений
         return state;

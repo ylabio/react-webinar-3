@@ -1,9 +1,15 @@
 import './style.css'
 import { memo } from 'react'
 
-function LoginLabel({onClick}){
+function LoginLabel({onClick, type, cancel}){
     return(
-        <p className='LoginLabel'><span onClick={onClick}>Войдите</span>, чтобы иметь возможность комментировать</p>
+        <>
+            { type === "article  " ?
+                <p className='LoginLabel'><span onClick={onClick}>Войдите</span>, чтобы иметь возможность комментировать</p>
+                :
+                <p className='LoginLabel'><span onClick={onClick}>Войдите</span>, чтобы иметь возможность ответить <span onClick={cancel} className='LoginLabel-cancel'>Отмена</span></p>
+            }
+        </>
     )
 }
 

@@ -1,4 +1,6 @@
-
+textarea{
+    resize: none;
+}
 .CommentForm{
     padding: 20px 40px;
 }
@@ -14,4 +16,7 @@
     width: 100%;
     border: 1px solid #666666;
     margin-bottom: 10px;
+}
+.CommentForm-send{
+    margin-right: 10px;
 }
