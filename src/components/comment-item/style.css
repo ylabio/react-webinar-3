@@ -1,0 +1,46 @@
+.CommentItem-text {
+    padding-bottom: 10px;
+    font-size: 14px;
+    overflow-wrap: break-word;
+}
+
+.CommentItem-user {
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+
+.CommentItem-userName {
+    padding-right: 10px;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.CommentItem-currentUserName {
+    color: #666666;
+    padding-right: 10px;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.CommentItem-userDate {
+    color: #666666;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.CommentItem-send {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #0087E9;
+    font-size: 12px;
+    padding: 0;
+}
+
+.CommentItem-depth {
+    padding-left: 0;
+}
+
+.CommentItem-ul {
+    margin-top: 0;
+}

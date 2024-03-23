@@ -25,6 +25,18 @@ function Input(props) {
   useLayoutEffect(() => setValue(props.value), [props.value]);
 
   const cn = bem('Input');
+
+  if (props.type === 'textarea') {
+    return (
+    <textarea
+      className={cn({ theme: props.theme })}
+      value={value}
+      placeholder={props.placeholder}
+      onChange={onChange}
+    />
+    )
+  }
+
   return (
     <input
       className={cn({theme: props.theme})}
