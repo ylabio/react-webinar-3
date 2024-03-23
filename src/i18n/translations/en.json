@@ -1,4 +1,5 @@
 {
+  "locale": "en-EN",
   "title": "Shop",
   "menu.main": "Main",
   "basket.title": "Cart",
@@ -20,5 +21,7 @@
   "auth.password": "Password",
   "auth.signIn": "Sign in",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "comment.listTitle": "Comments",
+  "comment.reply": "Reply"
 }

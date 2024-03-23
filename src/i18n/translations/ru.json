@@ -1,4 +1,5 @@
 {
+  "locale": "ru-RU",
   "title": "Магазин",
   "menu.main": "Главная",
   "basket.title": "Корзина",
@@ -22,5 +23,7 @@
   "auth.password": "Пароль",
   "auth.signIn": "Войти",
   "session.signIn": "Вход",
-  "session.signOut": "Выход"
+  "session.signOut": "Выход",
+  "comment.listTitle": "Комментарии",
+  "comment.reply": "Ответить"
 }
