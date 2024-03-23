@@ -1,0 +1,10 @@
+.CommentList {
+  margin-top: 40px;
+  margin-left: 40px;
+  padding-bottom: 90px;
+}
+
+.CommentList-header {
+  font-weight: 400;
+  font-size: 24px;
+}
