@@ -48,7 +48,7 @@ function Basket() {
   return (
     <ModalLayout title={t('basket.title')} labelClose={t('basket.close')}
                  onClose={callbacks.closeModal}>
-      <List list={select.list} renderItem={renders.itemBasket}/>
+      <List list={select.list} renderItem={renders.itemBasket} theme='dashed'/>
       <BasketTotal sum={select.sum} t={t}/>
     </ModalLayout>
   );

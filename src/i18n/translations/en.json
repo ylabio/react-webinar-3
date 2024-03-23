@@ -20,5 +20,12 @@
   "auth.password": "Password",
   "auth.signIn": "Sign in",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "comments": "Comments",
+  "comments.newComment": "New comment",
+  "comments.newAnswer": "New answer",
+  "comments.answer": "Answer",
+  "comments.text": "Text",
+  "comments.send": "Send",
+  "comments.cancel": "Cancel"
 }
