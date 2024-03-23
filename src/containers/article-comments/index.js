@@ -39,8 +39,8 @@ function ArticleComments({comments, usernames}) {
   }
 
   const replyForm = select.exists
-    ? <ReplyForm id={commentId} onCancel={callbacks.onCancel} onSubmit={callbacks.onSubmit} />
-    : <ReplyLine exists={select.exists} id={commentId} onCancel={callbacks.onCancel} />;
+    ? <ReplyForm id={commentId} onCancel={callbacks.onCancel} onSubmit={callbacks.onSubmit} t={t} />
+    : <ReplyLine exists={select.exists} id={commentId} onCancel={callbacks.onCancel} t={t} />;
 
   return <Comments 
     comments={comments} 

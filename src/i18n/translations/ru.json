@@ -16,11 +16,27 @@
     "other": "товара"
   },
   "article.add": "Добавить",
+  "article.manufacturer": "Страна производитель",
+  "article.category": "Категория",
+  "article.year": "Год выпуска",
+  "article.price": "Цена",
   "filter.reset": "Сбросить",
   "auth.title": "Вход",
   "auth.login": "Логин",
   "auth.password": "Пароль",
   "auth.signIn": "Войти",
   "session.signIn": "Вход",
-  "session.signOut": "Выход"
+  "session.signOut": "Выход",
+  "profile.profile": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "comments.title": "Комментарии",
+  "comments.reply": "Ответить",
+  "comments.newComment": "Новый комментарий",
+  "comments.newReply": "Новый ответ",
+  "comments.send": "Отправить",
+  "comments.cancel": "Отмена",
+  "comments.replyLogin": "Войдите",
+  "comments.replyMessage": "чтобы иметь возможность ответить",
+  "comments.commentMessage": "чтобы иметь возможность комментировать"
 }

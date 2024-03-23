@@ -8,13 +8,13 @@ function Comments(props) {
 
   return (
     <div className={cn()}>
-      <div className={cn('title')}>Комментарии: ({props.comments.length})</div>
+      <div className={cn('title')}>{props.t('comments.title')}: ({props.comments.length})</div>
       <div className={cn('container')}>
         {props.comments.map((item) => (
           <div key={item._id} className={cn('item')} style={item.level ? { paddingLeft: item.level < 10 ? item.level * 30 : 300 } : {}}>
             <div className={cn('user')}><strong>{props.usernames[item.name._id]}</strong><span className={cn('date')}>{item.data}</span></div>
             <div className={cn('text')}>{item.text}</div>
-            <button className={cn('reply')} value={item._id} onClick={props.onReply}>Ответить</button>
+            <button className={cn('reply')} value={item._id} onClick={props.onReply}>{props.t('comments.reply')}</button>
             {props.commentId === item._id && props.replyForm}
           </div>
         ))

@@ -26,6 +26,7 @@ function Article() {
   // Параметры из пути /articles/:id
 
   const params = useParams();
+  const {t, lang} = useTranslate();
 
   useInit(() => {
     //store.actions.article.load(params.id);
@@ -33,7 +34,7 @@ function Article() {
       dispatch(articleActions.load(params.id)),
       dispatch(commentsActions.load(params.id))
     ])
-  }, [params.id]);
+  }, [params.id, lang]);
 
   const select = useSelector(state => ({
     article: state.article.data,
@@ -43,8 +44,6 @@ function Article() {
     commentsWaiting: state.comments.waiting,
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const {t} = useTranslate();
-
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
@@ -52,9 +51,9 @@ function Article() {
 
   const comments = useMemo(() => [
       ...treeToList(listToTree(select.comments)[0]?.children ?? [], (item, level) => (
-        {_id: item._id, name: item.author, data: dateFormat(item.dateCreate), text: item.text, level}
+        {_id: item._id, name: item.author, data: dateFormat(item.dateCreate, lang), text: item.text, level}
       ))
-    ], [select.comments]);
+    ], [select.comments, lang]);
 
   useEffect(() => {
     if (comments.length) {
