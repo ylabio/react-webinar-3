@@ -1,6 +1,7 @@
 .Comments {
   margin-left: 40px;
   padding-bottom: 92px;
+  overflow-x: auto;
 }
 
 .Comments-Amount {

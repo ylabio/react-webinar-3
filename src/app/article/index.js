@@ -49,6 +49,9 @@ function Article() {
     transformDate: useCallback((s) => store.actions.comments.transformDate(s), [
       store,
     ]),
+    postComment: useCallback((text, parent) => dispatch(commentsActions.postComment(text, parent)), [
+      store,
+    ]),
   };
 
   return (
@@ -64,8 +67,7 @@ function Article() {
           onAdd={callbacks.addToBasket}
           t={t}
         />
-        {console.log(select.session)}
-        <CommentsSection comments={select.comments} transformDate={callbacks.transformDate}/>
+        <CommentsSection comments={select.comments} transformDate={callbacks.transformDate} postComment={callbacks.postComment}/>
       </Spinner>
     </PageLayout>
   );

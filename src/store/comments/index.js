@@ -8,11 +8,11 @@ class CommentsState extends StoreModule {
     return {
       data: {},
       waiting: false, // признак ожидания загрузки
+      token: localStorage.getItem("token"),
     };
   }
 
   /**
-   * Загрузка товаров по id
    * @param dateString {String}
    * @return {String}
    */
@@ -28,6 +28,11 @@ class CommentsState extends StoreModule {
     };
     return new Date(Date.parse(dateString)).toLocaleString("ru", options);
   }
+
+  /**
+   * @param parent {Object}
+   * @param commenText {String}
+   */
 }
 
 export default CommentsState;
