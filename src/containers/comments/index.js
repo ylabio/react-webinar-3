@@ -24,7 +24,7 @@ function Comments() {
   const customSelect = useCustomSelector((state) => ({
     currentUser: state.session.user,
     isAuthenticated: state.session.exists,
-  }));   
+  }));     
     
   const callbacks = {
     openReply: useCallback((id) => {
@@ -41,11 +41,11 @@ function Comments() {
         const data = {
           text,
           parentId,
-          parentType: 'comment'
+          parentType: 'comment',
+          currentUser: customSelect.currentUser 
         };
         
-        dispatch(commentActions.createOrAddComment(data)).then(() =>
-        dispatch(commentActions.loadComments(params.id)));      
+        dispatch(commentActions.createOrAddComment(data))     
       },
       [params.id, select.comments]
     ),
@@ -54,11 +54,11 @@ function Comments() {
         const data = {
           text,
           parentId: params.id,
-          parentType: 'article'        
+          parentType: 'article',
+          currentUser: customSelect.currentUser       
         };
 
-        dispatch(commentActions.createOrAddComment(data)).then(() =>
-        dispatch(commentActions.loadComments(params.id)));                    
+        dispatch(commentActions.createOrAddComment(data))                   
       },
       [params.id, select.comments]
     ),

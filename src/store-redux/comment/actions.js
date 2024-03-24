@@ -15,7 +15,7 @@ export default {
     };
   },
   createOrAddComment: (data) => {
-    const {text, parentId, parentType} = data;
+    const {text, parentId, parentType, currentUser} = data;
     return async (dispatch, getState, services) => {
       dispatch({ type: 'comments/add-new-start' });
       
@@ -31,7 +31,10 @@ export default {
           body: JSON.stringify(payload),
         });        
   
-        //  dispatch({ type: 'comments/add-new-success', payload: res.data.result });
+        dispatch({ type: 'comments/add-new-success', payload: {
+          data: res.data.result,
+          user: currentUser
+        } });
         dispatch({ type: 'comments/add-new-success' });
       } catch (error) {
         dispatch({ type: 'comments/add-new-error', payload: error.message });

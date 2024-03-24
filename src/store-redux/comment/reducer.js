@@ -34,33 +34,40 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'comments/add-new-start':
-      return { ...state, waiting: true, error: null };
+      return { ...state, waiting: true, error: null };    
 
-    case 'comments/add-new-success':
-    //   const { author, dateCreate, text, _id, _type } = action.payload;
-
-    //   console.log(action.payload);
-
-    //   const newComment = {
-    //     author,
-    //     dateCreate,
-    //     text,
-    //     _id,
-    //     _type,
-    //     isDeleted: false,
-    //     reply: false
-    //   };
+      case 'comments/add-new-success':
+        const { data, user } = action.payload;
+        const { _id, text, dateCreate, parent, isDeleted } = data;
+        
+        const newComment = {
+          _id,
+          text,
+          dateCreate,
+          author: { 
+            profile: {
+              name: user.profile.name
+            },
+            _id: user._id
+          },
+          parent: {
+            _id: parent._id,
+            _type: parent._type
+          },
+          isDeleted,
+          reply: false 
+        };
       
-    //   return {
-    //     ...state,
-    //     comments: [...state.comments],
-    //     count: state.count + 1,
-    //     waiting: false
-    // };
-      return {
-        ...state,        
-        waiting: false
-    };
+       
+        const updatedComments = state.comments.map(comment => ({ ...comment, reply: false }));
+        updatedComments.push(newComment);
+      
+        return {
+          ...state,
+          comments: updatedComments,
+          count: state.count + 1,
+          waiting: false
+        };
 
     case 'comments/add-new-error':
       return { ...state, waiting: false, error: action.payload };
