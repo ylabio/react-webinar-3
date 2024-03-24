@@ -28,7 +28,6 @@ export default function useTranslate() {
 // export default function useTranslate() {
 //   const i18n = useServices().i18n;
 //   useEffect(() => {
-//     console.log(i18n);
 //   }, [i18n])
 //   return useContext(I18nContext);
 // }

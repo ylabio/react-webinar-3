@@ -7,7 +7,6 @@ class I18NService {
     this.lang = config.lang;
     this.listeners = [];
     this.api = this.services.api;
-    console.log(this.lang);
   }
 
   setLang = (lang) => {
@@ -15,7 +14,6 @@ class I18NService {
     console.log("setLang");
     this.api.setHeader('X-Lang', lang)
     console.log(this.api);
-    // this.setHeader('X-Lang', this.lang)
     this.listeners.forEach(listener => listener(lang));
   }
 
