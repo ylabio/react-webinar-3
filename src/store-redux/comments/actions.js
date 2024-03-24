@@ -5,7 +5,7 @@ export default {
    * @return {Function}
    */
   load: (id) => {
-    return async (dispatch, getState, services) => {
+    return async (dispatch, _getState, services) => {
       // Сброс текущего товара и установка признака ожидания загрузки
       dispatch({ type: "comments/load-start" });
 
@@ -24,6 +24,34 @@ export default {
       } catch (e) {
         //Ошибка загрузки
         dispatch({ type: "comments/load-error" });
+      }
+    };
+  },
+
+  sendComment: (data, userName) => {
+    return async (dispatch, _getState, services) => {
+      dispatch({ type: "comments/send-start" });
+
+      try {
+        const res = await services.api.request({
+          url: `/api/v1/comments`,
+          method: "POST",
+          body: JSON.stringify(data),
+        });
+        // Комментарий отправлен успешно
+        dispatch({
+          type: "comments/send-success",
+          payload: {
+            newComment: res.data.result,
+            userName: userName,
+          },
+        });
+      } catch (e) {
+        //Ошибка загрузки
+        dispatch({
+          type: "comments/send-error",
+          payload: { error: "error" },
+        });
       }
     };
   },

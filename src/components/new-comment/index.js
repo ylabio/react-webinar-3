@@ -2,11 +2,8 @@ import { memo, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 
-function NewComment({ onSend, session = false, t }) {
+function NewComment({ onSend, onClose, session = false, t }) {
   const [value, setValue] = useState("");
-
-  console.log("session new comment");
-  console.log(session);
 
   const onChange = (event) => {
     setValue(event.target.value);
@@ -17,6 +14,7 @@ function NewComment({ onSend, session = false, t }) {
       e.preventDefault();
       console.log(value);
       onSend(value);
+      onClose();
     }),
   };
 

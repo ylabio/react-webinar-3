@@ -26,9 +26,6 @@ function CommentList({
     }),
   };
 
-  console.log("session comments list");
-  console.log(session);
-
   return (
     <div className="CommentList">
       <div className="CommentList-header">
@@ -49,7 +46,12 @@ function CommentList({
       ))}
 
       {showComment && (
-        <NewComment session={session} onSend={onSendComment} t={t} />
+        <NewComment
+          session={session}
+          onSend={onSendComment}
+          onClose={callbacks.closeReply}
+          t={t}
+        />
       )}
     </div>
   );

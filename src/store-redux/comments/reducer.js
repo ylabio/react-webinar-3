@@ -9,7 +9,7 @@ export const initialState = {
 function reducer(state = initialState, action) {
   switch (action.type) {
     case "comments/load-start":
-      return { ...state, data: [], count: null, waiting: true };
+      return { ...state, waiting: true };
 
     case "comments/load-success":
       return {
@@ -23,7 +23,7 @@ function reducer(state = initialState, action) {
       };
 
     case "comments/load-error":
-      return { ...state, data: [], count: null, waiting: false }; //@todo текст ошибки сохранять?
+      return { ...state, waiting: false }; //@todo текст ошибки сохранять?
 
     case "comments/open-reply":
       return {
@@ -43,6 +43,29 @@ function reducer(state = initialState, action) {
           return item.openReply ? { ...item, openReply: false } : item;
         }),
       };
+
+    case "comments/send-start":
+      return { ...state, waiting: true };
+
+    case "comments/send-success":
+      console.log(action.payload.newComment);
+      return {
+        ...state,
+        waiting: false,
+        data: [
+          ...state.data,
+          {
+            ...action.payload.newComment,
+            openReply: false,
+            author: { profile: { name: action.payload.userName } },
+          },
+        ],
+        // data: { ...action.payload.newComment, openReply: false },
+        count: state.count + 1,
+      };
+
+    case "comments/send-error":
+      return { ...state, waiting: false }; //@todo текст ошибки сохранять?
 
     default:
       // Нет изменений

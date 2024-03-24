@@ -19,6 +19,8 @@ function Comment({ item, session, onOpenReply, onCloseReply, onSendReply, t }) {
     );
   });
 
+  console.log(item);
+
   const callbacks = {
     openReply: useCallback((e) => {
       // e.stopPropagation();
@@ -37,7 +39,9 @@ function Comment({ item, session, onOpenReply, onCloseReply, onSendReply, t }) {
     <>
       <div className="Comment">
         <div className="Comment-info">
-          <div className="Comment-user">{item.author.profile.name}</div>
+          {/* <div className="Comment-user">
+            {name !== "undefined" ? item.author.profile.name : "unknown"}
+          </div> */}
           <div className="Comment-date">
             {formatDate(item.dateCreate, t("comments.locale"))}
           </div>

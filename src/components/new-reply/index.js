@@ -6,9 +6,6 @@ import "./style.css";
 function NewReply({ onClose, onSend, session = false, t }) {
   const [value, setValue] = useState("");
 
-  console.log("session new reply");
-  console.log(session);
-
   const onChange = (event) => {
     setValue(event.target.value);
   };
@@ -16,8 +13,8 @@ function NewReply({ onClose, onSend, session = false, t }) {
   const callbacks = {
     onSubmit: useCallback((e) => {
       e.preventDefault();
-      console.log(value);
       onSend(value);
+      onClose();
     }),
   };
 
