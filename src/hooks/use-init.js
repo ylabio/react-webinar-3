@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import { useEffect } from "react";
 
 /**
  * Хук для асинхронных расчётов, которые будут исполнены при первом рендере или изменении depends.
@@ -13,9 +13,9 @@ export default function useInit(initFunc, depends = [], backForward = false) {
     // компонент об изменениях, поэтому хук можно явно подписать на событие изменения истории
     // браузера (если нужно отреагировать на изменения search-параметров при переходе по истории)
     if (backForward) {
-      window.addEventListener('popstate', initFunc);
+      window.addEventListener("popstate", initFunc);
       return () => {
-        window.removeEventListener('popstate', initFunc);
+        window.removeEventListener("popstate", initFunc);
       };
     }
   }, depends);

@@ -1,0 +1,37 @@
+.ItemComments {
+  width: 100%;
+  box-sizing: border-box;
+}
+.ItemComments-head {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+.ItemComments-head-user_name {
+  font-weight: 700;
+}
+.ItemComments-head-author {
+  color: rgb(102, 102, 102);
+}
+.ItemComments-head-date {
+  color: rgb(102, 102, 102);
+}
+.ItemComments-text {
+  font-size: 14px;
+  line-height: 16px;
+  margin: 10px 0;
+}
+.ItemComments-action {
+  color: rgb(0, 135, 233);
+  font-size: 12px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+.ItemComments-form {
+  margin-top: 30px;
+}

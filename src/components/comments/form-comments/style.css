@@ -1,0 +1,26 @@
+.FormComments {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+
+  width: 100%;
+}
+.FormComments-label {
+  font-weight: 700;
+  font-size: 12px;
+}
+.FormComments-textarea {
+  padding: 5px;
+  font-size: 14px;
+  width: 100%;
+  min-height: 76px;
+  resize: none;
+}
+.FormComments-action {
+  padding: 3px 9px;
+}
+.FormComments-action:first-child {
+  margin-right: 10px;
+}
