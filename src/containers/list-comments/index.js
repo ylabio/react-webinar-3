@@ -1,6 +1,4 @@
-import React, { Fragment, memo, useMemo, useState } from "react";
-import "./style.css";
-import { cn as bem } from "@bem-react/classname";
+import React, { memo, useMemo, useState } from "react";
 import ItemComments from "../../components/comments/item-comments";
 import { useCallback } from "react";
 import { useDispatch, useSelector as useSelectorRedux } from "react-redux";
@@ -10,9 +8,10 @@ import commentsActions from "../../store-redux/comments/actions";
 import shallowEqual from "shallowequal";
 import treeToList from "../../utils/tree-to-list";
 import listToTree from "../../utils/list-to-tree";
+import useTranslate from "../../hooks/use-translate";
+import List from "../../components/comments/list";
 function ListComments() {
-  const cn = bem("ListComments");
-
+  const { t, lang } = useTranslate();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const select = useSelector((state) => ({
@@ -69,18 +68,20 @@ function ListComments() {
   const link = useMemo(
     () => (
       <Link to={"/login"} state={{ back: pathname }}>
-        Войдите
+        {t("comment.textLink")}
       </Link>
     ),
     [pathname]
   );
   return (
-    <div className={cn()}>
+    <List>
       {comments.map((item) => (
         <ItemComments
+          lang={lang}
+          t={t}
           key={item._id}
           item={item}
-          textBtn={"Ответить"}
+          textBtn={t("comment.answer")}
           action={callbacks.onOpenForm}
           isAuth={!!select.user.username}
           userId={select.user._id}
@@ -93,7 +94,7 @@ function ListComments() {
           children={link}
         />
       ))}
-    </div>
+    </List>
   );
 }
 

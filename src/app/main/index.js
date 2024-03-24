@@ -12,7 +12,7 @@ import TopHead from "../../containers/top-head";
 
 function Main() {
   const store = useStore();
-
+  const { lang } = useTranslate();
   useInit(
     async () => {
       await Promise.all([
@@ -20,7 +20,7 @@ function Main() {
         store.actions.categories.load(),
       ]);
     },
-    [],
+    [lang],
     true
   );
 

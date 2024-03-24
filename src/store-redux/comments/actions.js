@@ -28,18 +28,11 @@ export default {
   },
   add: (body) => {
     return async (dispatch, getState, services) => {
-      const token = localStorage.getItem("token");
-      if (token) {
-      }
-
       dispatch({ type: "comments/add-start" });
       try {
         const res = await services.api.request({
           url: `api/v1/comments?fields=text,dateUpdate,parent(_id),author(profile(name))`,
           method: "POST",
-          headers: {
-            "X-Token": token,
-          },
           body: JSON.stringify(body),
         });
         dispatch({

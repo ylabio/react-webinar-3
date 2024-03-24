@@ -18,6 +18,8 @@ function ItemComments({
   children,
   onSubmit,
   onCloseForm,
+  t,
+  lang,
 }) {
   const cn = bem("ItemComments");
   return (
@@ -33,7 +35,9 @@ function ItemComments({
         >
           {item.author.profile.name}
         </div>
-        <div className={cn("head-date")}>{formattedDate(item.dateUpdate)}</div>
+        <div className={cn("head-date")}>
+          {formattedDate(item.dateUpdate, lang)}
+        </div>
       </div>
       <div className={cn("text")}>{item.text}</div>
       <button
@@ -48,16 +52,16 @@ function ItemComments({
           {isAuth ? (
             <FormComments
               id={item._id}
-              label="Новый ответ"
-              labelBtn="Отправить"
+              label={t("comment.newAnswer")}
+              labelBtn={t("comment.send")}
               cb={onSubmit}
-              labelBtn2={"Отмена"}
+              labelBtn2={t("comment.cancel")}
               cb2={onCloseForm}
             />
           ) : (
             <AuthAlert
-              text=", чтобы иметь возможность ответить."
-              labelBtn={"Отмена"}
+              text={t("comment.textAlertComment")}
+              labelBtn={t("comment.cancel")}
               cb={onCloseForm}
             >
               {children}

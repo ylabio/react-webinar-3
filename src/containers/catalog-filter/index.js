@@ -10,7 +10,7 @@ import listToTree from "../../utils/list-to-tree";
 
 function CatalogFilter() {
   const store = useStore();
-
+  const { t, lang } = useTranslate();
   const select = useSelector((state) => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
@@ -46,27 +46,25 @@ function CatalogFilter() {
     // Варианты сортировок
     sort: useMemo(
       () => [
-        { value: "order", title: "По порядку" },
-        { value: "title.ru", title: "По именованию" },
-        { value: "-price", title: "Сначала дорогие" },
-        { value: "edition", title: "Древние" },
+        { value: "order", title: t("sort.order") },
+        { value: "title.ru", title: t("sort.name") },
+        { value: "-price", title: t("sort.price") },
+        { value: "edition", title: t("sort.edition") },
       ],
-      []
+      [lang]
     ),
     // Категории для фильтра
     categories: useMemo(
       () => [
-        { value: "", title: "Все" },
+        { value: "", title: t("categories.all") },
         ...treeToList(listToTree(select.categories), (item, level) => ({
           value: item._id,
           title: "- ".repeat(level) + item.title,
         })),
       ],
-      [select.categories]
+      [select.categories, lang]
     ),
   };
-  console.log(options.categories, "categor");
-  const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
@@ -83,7 +81,7 @@ function CatalogFilter() {
       <Input
         value={select.query}
         onChange={callbacks.onSearch}
-        placeholder={"Поиск"}
+        placeholder={t("search.placeholder")}
         delay={1000}
         theme={"big"}
       />

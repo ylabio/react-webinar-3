@@ -6,7 +6,7 @@ import FormComments from "../form-comments";
 import AuthAlert from "../auth-alert";
 import { memo } from "react";
 
-function FooterComments({ isAuth, onSubmit, children, visible }) {
+function FooterComments({ isAuth, onSubmit, children, visible, t }) {
   const cn = bem("FooterComments");
   return (
     <div className={cn()}>
@@ -14,13 +14,11 @@ function FooterComments({ isAuth, onSubmit, children, visible }) {
         (isAuth ? (
           <FormComments
             cb={onSubmit}
-            labelBtn="Отправить"
-            label="Новый комментарий"
+            labelBtn={t("comment.send")}
+            label={t("comment.new")}
           />
         ) : (
-          <AuthAlert text=", чтобы иметь возможность комментировать">
-            {children}
-          </AuthAlert>
+          <AuthAlert text={t("comment.textAuthAlert")}>{children}</AuthAlert>
         ))}
     </div>
   );
