@@ -1,0 +1,12 @@
+.CommentsCard {
+  padding: 30px 40px;
+}
+
+.CommentsCard-title {
+  font-family: Arial;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 27.6px;
+  text-align: left;
+  margin-bottom: 25px;
+}

@@ -1,0 +1,51 @@
+import { memo, useCallback, useMemo } from "react";
+import useTranslate from "../../hooks/use-translate";
+import useInit from "../../hooks/use-init";
+import Spinner from "../../components/spinner";
+import CommentsCard from "../../components/comments-card";
+import { useDispatch, useSelector } from "react-redux";
+import commentsActions from "../../store-redux/comments/comments";
+import listToTree from "../../utils/list-to-tree";
+import useCustomSelector from '../../hooks/use-selector'
+
+function Comments({ postId }) {
+  const dispatch = useDispatch();
+
+  useInit(() => {
+    dispatch(commentsActions.load(postId));
+  }, []);
+
+  const select = useSelector((state) => ({
+    comments: listToTree(state.comments.data),
+    count: state.comments.count,
+    waiting: state.comments.waiting,
+  }));
+
+  const customSelect = useCustomSelector((state) => ({
+    loggedIn: state.session.exists
+  }));
+
+  const callbacks = {
+    addComment: ({text, parent}) => {
+      dispatch(commentsActions.create({postId, text, parent}));
+    }
+  }
+
+  const { t } = useTranslate();
+
+  return (
+    <Spinner active={select.waiting}>
+      <CommentsCard
+        comments={select.comments.length ? select.comments[0]["children"] : []}
+        t={t}
+        count={select.count}
+        loggedIn={customSelect.loggedIn}
+        loginLink={'/login'}
+        onCreateComment={callbacks.addComment}
+        postId={postId}
+      />
+    </Spinner>
+  );
+}
+
+export default memo(Comments);
