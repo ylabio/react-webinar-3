@@ -16,13 +16,17 @@ function CommentForm({addNewAnswerComment,isAuth,resetCurrentForm}) {
     resetCurrentForm()
     setComment("")
   }
-  if(!isAuth) return <div className='CommentsForm-auth'><Link to={'/login'}>Войдите</Link> , чтобы иметь возможность комментировать</div>
+  if(!isAuth) return <div className='CommentForm-auth'>
+    <Link to={'/login'}>Войдите</Link>, чтобы иметь возможность комментировать. <span onClick={resetForm}>Отмена</span>
+    </div>
   return (
-    <div className='CommentsForm' >
-      <label className='CommentsForm-label' htmlFor="CommentsFormArea">Новый комментарий</label>
-      <textarea className='CommentsForm-field' id="CommentsFormArea" value={comment} onChange={(e)=>setComment(e.currentTarget.value)}></textarea>
-      <button onClick={addComment}>Отправить</button>
-      <button onClick={resetForm}>Отмена</button>
+    <div className='CommentForm' >
+      <label className='CommentForm-label' htmlFor="CommentsFormArea">Новый ответ</label>
+      <textarea className='CommentForm-field' id="CommentsFormArea" value={comment} onChange={(e)=>setComment(e.currentTarget.value)}></textarea>
+      <div className='CommentForm-buttons'>
+        <button onClick={addComment}>Отправить</button>
+        <button onClick={resetForm}>Отмена</button>
+      </div>
     </div>
   )
 }

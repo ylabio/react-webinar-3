@@ -1,19 +1,32 @@
-.CommentsForm{
+.CommentForm{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   row-gap: 10px;
   padding: 30px 40px;
 }
-.CommentsForm-label{
+.CommentForm-label{
   font-weight: 700;
 }
-.CommentsForm-field{
+.CommentForm-field{
   width: 100%;
   height: 76px;
   padding: 5px;
   resize: none;
 }
-.CommentsForm-auth{
-  padding: 30px 40px;
+.CommentForm-auth{
+  padding: 30px 0px;
+}
+
+.CommentForm-auth a{
+  color: rgb(0, 135, 233);
+}
+.CommentForm-auth span{
+  color: rgb(102, 102, 102);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.CommentForm-buttons{
+  display: flex;
+  column-gap: 10px;
 }

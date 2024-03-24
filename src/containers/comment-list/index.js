@@ -40,10 +40,10 @@ function CatalogList({productId}) {
 
   const renders = {
     comment: useCallback(comment => (
-      <Comment author={comment.author.profile.name} text={comment.text} dateCreate={formatDate(comment.dateCreate)} 
+      <Comment author={comment?.author?.profile?.name} text={comment.text} dateCreate={formatDate(comment.dateCreate)} 
       id={comment._id} current={activeComment} isAuth={activeUserName} setActiveComment={setActiveComment} 
-      resetCurrentForm={resetCurrentForm} addAnswerComment={addAnswerComment}/>
-    ), [activeComment,t]),
+      resetCurrentForm={resetCurrentForm} addAnswerComment={addAnswerComment} indentation={comment.level-1}/>
+    ), [activeComment,activeUserName,t]),
   };
 
   function addNewComment(comment,type = 'article'){
@@ -53,9 +53,17 @@ function CatalogList({productId}) {
     dispatch(commentsActions.addComment(commentId,type,comment,activeUserName))
   }
 
+  const options = {
+    comments: useMemo(() => ([
+      ...treeToList(listToTree(selectRedux.comments), (item, level) => (
+        {...item, level:level>=10?10:level}
+      ))
+    ].slice(1)), [selectRedux.comments]),
+  };
+
   return (
     <Spinner active={selectRedux.waiting}>
-      <Comments list={selectRedux.comments} renderItem={renders.comment}/>
+      <Comments list={options?.comments} renderItem={renders.comment}/>
       {!activeComment&& <CommentsForm productId={selectRedux.comments} addNewComment={addNewComment} isAuth={activeUserName}/>}
     </Spinner>
   );

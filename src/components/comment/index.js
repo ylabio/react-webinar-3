@@ -5,7 +5,7 @@ import './style.css';
 import {Link} from 'react-router-dom';
 import CommentForm from '../comment-form';
 
-function Comment({author,text,dateCreate,id,current,isAuth,setActiveComment,resetCurrentForm,addAnswerComment}) {
+function Comment({author,text,dateCreate,id,current,isAuth,setActiveComment,resetCurrentForm,addAnswerComment,indentation}) {
   const cn = bem('Comment');
 
   function showForm(){
@@ -20,8 +20,8 @@ function Comment({author,text,dateCreate,id,current,isAuth,setActiveComment,rese
   }
 
   return (
-    <div className={cn()}>
-      <div className={cn('header')}>
+    <div className={cn() } style={{"marginLeft":indentation*20}}>
+      <div className={cn('header')} >
         <span className={cn('author')}>{author}</span>
         <span className={cn('date')}>{dateCreate}</span>
       </div>

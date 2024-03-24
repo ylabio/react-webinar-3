@@ -11,7 +11,7 @@ function CommentsForm({addNewComment,isAuth}) {
     addNewComment(comment)
     setComment("")
   }
-  if(!isAuth) return <div className='CommentsForm-auth'><Link to={'/login'}>Войдите</Link> , чтобы иметь возможность комментировать</div>
+  if(!isAuth) return <div className='CommentsForm-auth'><Link to={'/login'}>Войдите</Link>, чтобы иметь возможность комментировать</div>
   return (
     <div className='CommentsForm' >
       <label className='CommentsForm-label' htmlFor="CommentsFormArea">Новый комментарий</label>
