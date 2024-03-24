@@ -1,0 +1,46 @@
+.Comment {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+  
+  .Comment-head-wrapper {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .Comment-author {
+    font-weight: 700;
+    font-size: 12px;
+  }
+  
+  .Comment-author_currentUser {
+    color: #666;
+  }
+  
+  .Comment-date {
+    font-weight: 400;
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .Comment-text {
+    font-size: 14px;  
+    word-wrap: break-word;
+  }
+  
+  .Comment-button {
+    width: max-content; 
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer; 
+    font-size: 12px;
+    color: #0087e9;
+  }
+  
+  .Comment-button:hover {
+    text-decoration: underline;
+  }

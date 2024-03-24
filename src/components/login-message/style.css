@@ -1,0 +1,23 @@
+
+.LoginMessage {
+    margin-bottom: 23px;
+  }
+  
+  .LoginMessage-login {
+    font-size: 16px;  
+  }
+  
+  .LoginMessage-text {
+    font-size: 16px;
+  }
+  
+  .LoginMessage-button {
+    font-size: 16px;
+    text-decoration: underline;  
+    color: #666;
+    background-color: transparent;
+    border: none;
+    width: max-content;  
+    cursor: pointer;
+    padding: 0;
+  }
