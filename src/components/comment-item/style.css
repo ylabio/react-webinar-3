@@ -21,6 +21,19 @@
         line-height: 16.1px;
 
 }
+.Comment-decly-button{
+    background-color: transparent;
+        border: none;
+        color: #666666;
+        text-decoration: none;
+        cursor: pointer;
+        padding: 0;
+        font-family: Arial;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 18.4px;
+            text-align: left;
+}
 
 .Comment-reply-button {
     background-color: transparent;

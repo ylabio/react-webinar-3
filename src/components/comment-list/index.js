@@ -7,10 +7,14 @@ import { useState } from 'react';
 import CommentItem from '../comment-item';
 import CommentForm from '../comment-form';
 import IsLogin from '../../utils/comment-or-login';
-const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onReply, onReplySubmit, onCancel, name, baseIndent }) => {
-    return comments.map(comment => (
-        
-        <div key={comment._id} >
+const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onReply, onReplySubmit, onCancel, name, baseIndent, title, placeholder, sendButton, cancelButton,answer }) => {
+    
+    return comments.map(comment => {
+        const placeholderText = `Мой ответ для ${comment.author && Object.keys(comment.author).length > 0 && comment.author.profile
+            ? comment.author.profile.name
+            : name}`;
+        return (
+            <div key={comment._id}>
             
             <CommentItem
                 author={comment.author && Object.keys(comment.author).length > 0 && comment.author.profile
@@ -21,18 +25,23 @@ const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onRep
                 level={level}
                 onReply={() => onReply(comment._id)}
                 baseIndent={baseIndent}
+                    answer={answer}
             />
             
             {activeForm === `replyTo-${comment._id}` && (
                 <IsLogin 
                 level= {level}
                 baseIndent={baseIndent}
+                    onCancel= {onCancel}
                     Component={CommentForm}
                     componentProps={{
-                        
                         key: `reply-to-${comment._id}`,
                         onSubmit: (text) => onReplySubmit(text, comment._id),
-                        onCancel: onCancel
+                        onCancel: onCancel,
+                        title: title,
+                        placeholder: placeholderText,
+                        sendButton: sendButton,
+                        cancelButton: cancelButton 
                     }}
                 />
             )}
@@ -47,10 +56,15 @@ const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onRep
                     onCancel={onCancel}
                     name={name}
                     baseIndent={baseIndent}
+                    title={title}
+                    placeholder={placeholder}
+                    sendButton={sendButton}
+                    cancelButton={cancelButton}
                 />
             )}
-        </div>
-    ));
+            </div>
+        );
+    });
 };
 
 export default memo(CommentsList);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import { useState } from 'react';
-function CommentForm({ onSubmit, onCancel}) {
+function CommentForm({ onSubmit, onCancel, style,title,placeholder,sendButton,cancelButton }) {
     const [commentText, setCommentText] = useState('');
     const cn = bem('CommentForm');
   
@@ -20,17 +20,19 @@ function CommentForm({ onSubmit, onCancel}) {
         }
     };
     return (
-        <form style={{ paddingLeft: `${paddingLeft}px` }} className={cn()} onSubmit={handleSubmit}>
+        <form style={style} className={cn()} onSubmit={handleSubmit}>
+            <h2 className={cn('title')}>{title}</h2> 
             <textarea
                 className={cn('input')}
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
-                placeholder="Write your comment here..."
+                placeholder={placeholder}
                 required
             />
-            <button className={cn('button')} type="submit">Submit Comment</button>
-            {onCancel && <button className={cn('button', 'cancel')} type="button" onClick={handleCancel}>Cancel</button>}
-             
+            <div className={cn('actions')}> 
+                <button className={cn('button')} type="submit">{sendButton}</button>
+                {onCancel && <button className={cn('button', 'cancel')} type="button" onClick={handleCancel}>{cancelButton}</button>}
+            </div>
         </form>
     );
 }

@@ -37,12 +37,10 @@ const CommentsContainer = (name) => {
     useInit(() => {
         dispatch(commentsActions.fetchComments(articleId));
     }, []);
-
+    const { t } = useTranslate(); 
     const profileState = useSelector(state => ({
         name: state.session.user.profile?.name,
     }));
-   
-    console.log(profileState.name,'profileState');
     const handleCancel = useCallback(() => {
         console.log(123)
         setReplyToCommentId(null);
@@ -67,10 +65,10 @@ const CommentsContainer = (name) => {
         setReplyToCommentId(commentId);
         setActiveForm(`replyTo-${commentId}`);
     };
-    
+  
     return (
         <div className='Comments-Container'>
-            <CommentAmount amount={select.count}></CommentAmount>
+            <CommentAmount title={t('comments.amount')} amount={select.count}></CommentAmount>
             <CommentsList
                 comments={select.commentTree}
                 activeForm={activeForm}
@@ -80,6 +78,11 @@ const CommentsContainer = (name) => {
                 onCancel={handleCancel}
                 name={profileState.name}
                 baseIndent={40}
+                title={t('comments.newReply')} 
+                sendButton={t('comments.send')} 
+                cancelButton={t('comments.cancel')} 
+                answer={t('comments.answer')}
+                
             />
             
             {replyToCommentId === null ? (
@@ -88,7 +91,11 @@ const CommentsContainer = (name) => {
                 componentProps={{
                     key: `new-comment`,
                     onSubmit: (text) => handleReplySubmit(text),
+                    title: t('comments.newComment'), 
+                    placeholder: t('comments.text'),
+                    sendButton: t('comments.send')
                 }}
+                
             />
             ) : null}
         </div>
