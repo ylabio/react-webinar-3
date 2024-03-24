@@ -12,7 +12,7 @@ const LoginMessage = ({ onCancel, reply = false }) => {
       <Link to="/login" className={cn('login')}>Войдите</Link>
       <span className={cn('text')}>, 
         чтобы иметь возможность
-        {reply ? 'ответить' : 'комментировать'}.
+        {reply ? ' ответить' : ' комментировать'}.
       </span>
       {' '}
       {reply && <button type='button' className={cn('button')} onClick={onCancel}>Отмена</button>}
