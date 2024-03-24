@@ -1,0 +1,34 @@
+.CommentItem {
+}
+
+.CommentItem-title {
+  font-size: 12px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.CommentItem-title span{
+  color: rgb(102, 102, 102);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+}
+
+.CommentItem-content {
+  font-size: 14px;
+}
+
+.CommentItem-link {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  color: rgb(0, 135, 233);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.CommentItem-block {
+  margin-bottom: 30px;
+}

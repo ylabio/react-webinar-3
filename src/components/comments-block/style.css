@@ -1,0 +1,21 @@
+.CommentsBlock {
+  padding: 20px 40px;
+}
+
+.CommentsBlock h2 {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+.CommentsBlock-items {
+  margin-bottom: 30px;
+}
+
+.CommentsBlock-items:last-child {
+  margin-bottom: 0;
+}
+
+.CommentsBlock-btn {
+  width: 90px;
+}
