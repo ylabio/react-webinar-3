@@ -49,7 +49,7 @@ function Article() {
       <Navigation/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
-        <CommentList/>
+        <CommentList productId={params.id}/>
       </Spinner>
     </PageLayout>
   );

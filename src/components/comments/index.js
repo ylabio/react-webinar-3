@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 function Comments({list, renderItem}) {
-  console.log(list)
   return (
     <div className='Comments'>
       <h2 className='Comments-title'>Комментарии ({list.length})</h2>

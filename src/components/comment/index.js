@@ -3,10 +3,17 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import {Link} from 'react-router-dom';
+import CommentForm from '../comment-form';
 
-function Comment({author,text,dateCreate}) {
-  console.log(dateCreate)
+function Comment({author,text,dateCreate,id,current,isAuth,setActiveComment,resetCurrentForm,addAnswerComment}) {
   const cn = bem('Comment');
+
+  function showForm(){
+    setActiveComment(id)
+  }
+  function addNewAnswerComment(comment){
+    addAnswerComment(comment,id)
+  }
 
   const callbacks = {
     // onAdd: (e) => props.onAdd(props.item._id),
@@ -19,7 +26,8 @@ function Comment({author,text,dateCreate}) {
         <span className={cn('date')}>{dateCreate}</span>
       </div>
       <div className={cn('content')}>{text}</div>
-      <span className={cn('answer')}>Ответить</span>
+      <span className={cn('answer')} onClick={showForm}>Ответить</span>
+      {id==current && <CommentForm isAuth={isAuth} resetCurrentForm={resetCurrentForm} addNewAnswerComment={addNewAnswerComment}/>}
     </div>
   );
 }
