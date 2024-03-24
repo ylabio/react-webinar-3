@@ -19,13 +19,13 @@ export default{
         }
       },
 
-    createFirstComment: (id,value) => {
+    createComment: (id,value,type) => {
         return async (dispatch, getState, services) => {
             try{
                 
                 const data = {
                     "text":value,
-                    "parent": {"_id":  id, "_type":  "article"}
+                    "parent": {"_id":  id, "_type":  type}
                 }
                 const res = await services.api.request({
                     url: '/api/v1/comments',
@@ -42,26 +42,6 @@ export default{
         }
     },
 
-    createAnswerComment: (id,value) => {
-        return async (dispatch, getState, services) => {
-            try{
-                const data = {
-                    "text":value,
-                    "parent": {"_id":  id, "_type":  "comment"}
-                }
-                const res = await services.api.request({
-                    url: '/api/v1/comments',
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers:{"X-Token":localStorage.getItem('token')}
-                    
-                  });
-                
-            }catch(e){
-                console.error(e);
-            }
-        }
-    }
 
     
 }

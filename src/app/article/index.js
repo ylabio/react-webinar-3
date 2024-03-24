@@ -50,9 +50,9 @@ function Article() {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
 
-    createFirstComment: useCallback((value) =>  dispatch(commentsActions.createFirstComment(params.id,value)), [store]),
+    createFirstComment: useCallback((value,type) =>  dispatch(commentsActions.createComment(params.id,value,type)), [store]),
 
-    createAnswerComment: useCallback((id,value) =>  dispatch(commentsActions.createAnswerComment(id,value)), [store]),
+    createAnswerComment: useCallback((id,value,type) =>  dispatch(commentsActions.createComment(id,value,type)), [store]),
 
     load: useCallback(() => dispatch(commentsActions.load(params.id)), [store]),
 

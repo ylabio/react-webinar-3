@@ -23,13 +23,13 @@ const CommentArea = ({title,cancel,createFirstComment,createAnswerComment, itemI
         if (itemId && area.length != 0){
             const currentArea = document.querySelector('.CommentArea--active');
             currentArea.classList.remove('CommentArea--active');
-            createAnswerComment(itemId,area);
+            createAnswerComment(itemId,area,'comment');
             setArea('');
             load()
         }
 
         else if (area.length != 0){
-            createFirstComment(area);
+            createFirstComment(area,'article');
             setArea('');
             load()
         }
