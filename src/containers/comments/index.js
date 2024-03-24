@@ -10,7 +10,7 @@ import commentActions from "../../store-redux/comment/actions";
 
 function Comments() {  
   
-  const {t} = useTranslate(); 
+  const {t, lang} = useTranslate(); 
   const dispatch = useDispatch();  
   const params = useParams(); 
   const [showCommentForm, setShowCommentForm] = useState(true);
@@ -78,6 +78,7 @@ function Comments() {
       onAddReplyComment={callbacks.addReplyComment}
       showCommentForm={showCommentForm}
       t={t}
+      lang={lang}
     />    
   );
 }

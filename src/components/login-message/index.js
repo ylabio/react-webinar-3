@@ -1,4 +1,5 @@
 import React, {memo} from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
@@ -17,6 +18,12 @@ const LoginMessage = ({ onCancel, reply = false, t }) => {
       {reply && <button type='button' className={cn('button')} onClick={onCancel}>{t('cancel')}</button>}
     </div>
   );
+};
+
+LoginMessage.propTypes = {
+  onCancel: PropTypes.func.isRequired,
+  reply: PropTypes.bool,
+  t: PropTypes.func.isRequired,
 };
 
 export default memo(LoginMessage);

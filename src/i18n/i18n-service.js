@@ -11,6 +11,7 @@ import * as translations from './translations';
   setLang = (newLang) => {
     this.lang = newLang;    
     this.subscribers.forEach(subscriber => subscriber(newLang));
+    this.services.api.setLanguageHeader(newLang);
   }  
 
   translate = (text, plural) => {

@@ -18,7 +18,7 @@ import commentActions from '../../store-redux/comment/actions';
 
 function Article() {
   const store = useStore();
-
+  const {t, lang} = useTranslate(); 
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
 
@@ -27,7 +27,7 @@ function Article() {
   useInit(() => {    
     dispatch(articleActions.load(params.id));
     dispatch(commentActions.loadComments(params.id));    
-  }, [params.id]);
+  }, [params.id, lang]);
 
   const select = useSelector(state => ({
     article: state.article.data,    
@@ -35,7 +35,7 @@ function Article() {
     waitingComments: state.comment.waiting
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const {t} = useTranslate();  
+  
 
   const callbacks = {
     // Добавление в корзину

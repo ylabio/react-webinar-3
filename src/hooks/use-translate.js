@@ -15,11 +15,11 @@ export default function useTranslate() {
     return () => {
       unsubscribe();
     };
-  }, [i18nService]);
+  }, [i18nService, currentLang]);
 
   const t = useCallback((text, plural) => {
     return i18nService.translate(text, plural);
-  }, [currentLang]);
+  }, [currentLang, i18nService]);
 
   return { t, lang: currentLang, setLang: i18nService.setLang };
 }

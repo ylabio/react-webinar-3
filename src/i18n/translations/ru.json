@@ -32,6 +32,20 @@
   "commentList.comments": " Комментарии",
   "comment.reply": "Ответить",
   "commentReply.newReply": "Новый ответ",
-  "commentNew.newComment": "Новый комментарий"
+  "commentNew.newComment": "Новый комментарий",
+  "search": "Поиск",
+  "profileCard.profile": "Профиль",
+  "profileCard.name": "Имя:",
+  "profileCard.phone": "Телефон:",
+  "articleCard.country": "Страна производитель:",
+  "articleCard.category": "Категория:",
+  "articleCard.year": "Год выпуска:",
+  "articleCard.price": "Цена:",
+  "sort.byOrder": "По порядку",
+  "sort.byName": "По именованию",
+  "sort.exp": "Сначала дорогие",
+  "sort.cheap": "Древние",
+  "category.all": "Все"
+
 
 }

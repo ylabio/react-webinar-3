@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import LoginMessage from '../login-message';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
@@ -27,6 +28,13 @@ const CommentReply = ({ session, onCancel, onAddReplyComment, t }) => {
       </div>
     </form>
   );
+};
+
+CommentReply.propTypes = {
+  session: PropTypes.object,
+  onCancel: PropTypes.func,
+  onAddReplyComment: PropTypes.func,
+  t: PropTypes.func,
 };
 
 export default CommentReply;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import LoginMessage from '../login-message';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
@@ -25,5 +26,12 @@ const CommentNew = ({ session, onCreateNewComment, t }) => {
     </form>
   );
 };
+
+CommentNew.propTypes = {
+  session: PropTypes.object,
+  onCreateNewComment: PropTypes.func,
+  t: PropTypes.func,
+};
+
 
 export default CommentNew;

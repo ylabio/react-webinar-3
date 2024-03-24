@@ -30,5 +30,18 @@
   "commentList.comments": " Comments",
   "comment.reply": "Reply",
   "commentReply.newReply": "New reply",
-  "commentNew.newComment": "New comment"
+  "commentNew.newComment": "New comment",
+  "search": "Search",
+  "profileCard.profile": "Profile",
+  "profileCard.name": "Name:",
+  "profileCard.phone": "Phone:",
+  "articleCard.country": "Country of origin:",
+  "articleCard.category": "Category:",
+  "articleCard.year": "Year of manufacture:",
+  "articleCard.price": "Price:",  
+  "sort.byOrder": "In order",
+  "sort.byName": "By name",
+  "sort.exp": "Expensive first",
+  "sort.cheap": "Ancient",
+  "category.all": "All"
 }

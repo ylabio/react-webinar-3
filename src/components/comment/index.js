@@ -1,5 +1,6 @@
 import React, {memo} from 'react';
-import formatCommentDate from '../../utils/comment-date';
+import PropTypes from 'prop-types';
+import formatCommentDate from '../../utils/format-comment-date';
 import CommentReply from '../comment-reply';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
@@ -13,6 +14,7 @@ const Comment = (props) => {
     onCloseReply,
     onAddReplyComment,
     t,
+    lang,
     level = 0 
   } = props;
   const cn = bem('Comment');
@@ -43,7 +45,7 @@ const Comment = (props) => {
         <div className={cn('author', { 'currentUser': isCurrentUser })}>
           {comment.author.profile.name}
         </div>
-        <div className={cn('date')}>{formatCommentDate(comment.dateCreate)}</div>
+        <div className={cn('date')}>{formatCommentDate(comment.dateCreate, lang)}</div>
       </div>
       <div className={cn('text')}>{comment.text}</div>
       <button className={cn('button')} type='button' onClick={() => onOpenReply(comment._id)}>{t('comment.reply')}</button>     
@@ -57,6 +59,18 @@ const Comment = (props) => {
       {nested}
     </div>
   );
+};
+
+Comment.propTypes = {
+  comment: PropTypes.object,
+  session: PropTypes.object,
+  currentUserId: PropTypes.string,
+  onOpenReply: PropTypes.func,
+  onCloseReply: PropTypes.func,
+  onAddReplyComment: PropTypes.func,
+  t: PropTypes.func,
+  lang: PropTypes.string,
+  level: PropTypes.number,
 };
 
 export default memo(Comment);
