@@ -32,6 +32,7 @@ function Navigation() {
 
   // Функция для локализации текстов
   const {t} = useTranslate();
+  console.log(t);
 
   const options = {
     menu: useMemo(() => ([

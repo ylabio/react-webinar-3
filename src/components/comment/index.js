@@ -12,20 +12,22 @@ function Comment({
   onUnAuth,
   isAuth,
   article,
+  t,
+  lang
 }) {
   const cn = bem("Comment");
   return (
     <div className={cn()}>
       <div className={cn("upper")}>
         <strong className={cn("author")}>{comment.author.profile.name}</strong>
-        <span className={cn("date")}> {formatDate(comment.dateCreate)} </span>
+        <span className={cn("date")}> {formatDate(comment.dateCreate, lang)} </span>
       </div>
       <div className={cn("body")}> {comment.text} </div>
       <div
         className={cn("footer")}
         onClick={() => setFormPosition(comment._id)}
       >
-        Ответить
+        {t("comments.answer")}
       </div>
       {comment.children.length ? (
         <ul className={cn("answers")}>
@@ -40,12 +42,15 @@ function Comment({
               onAdd={onAdd}
               parentId={comment._id}
               article={article}
+              t={t}
+              lang={lang}
             />
           ))}
         </ul>
       ) : null}
       {formPosition === comment._id && (
         <CommentForm
+          t={t}
           onAdd={onAdd}
           parentId={comment._id}
           article={article}

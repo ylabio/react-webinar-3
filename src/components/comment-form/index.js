@@ -2,7 +2,7 @@ import { memo, useRef } from "react";
 import "./style.css";
 import { cn as bem } from "@bem-react/classname";
 import LoginToLabel from "../login-to-label";
-function CommentForm({ isAuth, onUnAuth, type, user = null, cancel, onAdd, parentId, article }) {
+function CommentForm({ isAuth, onUnAuth, type, user = null, cancel, onAdd, parentId, article, t }) {
   const cn = bem("CommentForm");
   const textRef = useRef(null)
 
@@ -10,7 +10,7 @@ function CommentForm({ isAuth, onUnAuth, type, user = null, cancel, onAdd, paren
     <>
       {isAuth ? (
         <div className={cn()}>
-          <div className={cn("title")}>{type === "article" ? "Новый комментарий" : "Новый ответ"}</div>
+          <div className={cn("title")}>{type === "article" ? t("comments.newComment") : t("comments.newAnswer")}</div>
           <textarea
             placeholder={type === 'article' ? "Текст" : `Мой ответ для ${user}` }
             className={cn("body")}
@@ -24,11 +24,11 @@ function CommentForm({ isAuth, onUnAuth, type, user = null, cancel, onAdd, paren
             onAdd(parentId, type, textRef.current.value, article)
             textRef.current.value=""
           }}
-          >Отправить</button>
-          {type === "comment" && <button onClick={cancel}>Отмена</button>}
+          > {t("comments.send")} </button>
+          {type === "comment" && <button onClick={cancel}>{t("comments.cancel")}</button>}
         </div>
       ) : (
-        <LoginToLabel cancel={cancel} type={type} onClick={onUnAuth} />
+        <LoginToLabel t={t} cancel={cancel} type={type} onClick={onUnAuth} />
       )}
     </>
   );

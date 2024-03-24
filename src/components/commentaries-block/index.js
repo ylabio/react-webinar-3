@@ -12,12 +12,13 @@ function CommentariesBlock({
   isAuth,
   onUnAuth,
   onAdd,
-  t
+  t,
+  lang
 }) {
   const cn = bem("CommentariesBlock");
   return (
     <div className="CommentariesBlock">
-      <h2 className={cn("header")}>Комментарии ({count})</h2>
+      <h2 className={cn("header")}>{t("comments.title")} ({count})</h2>
       {comments
         .filter((comment) => comment._id )
         .map((comment) => (
@@ -27,10 +28,11 @@ function CommentariesBlock({
           formPosition={formPosition}
           setFormPosition={setFormPosition}
           key={comment._id}
-          // TODO: Подумать 
           comment={{...comment}}
           isAuth={isAuth}
           onUnAuth={onUnAuth}
+          t={t}
+          lang={lang}
         />
       ))}
     </div>

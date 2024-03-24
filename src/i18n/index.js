@@ -6,10 +6,12 @@ class I18NService {
     this.config = config;
     this.lang = config.lang;
     this.listeners = [];
+    console.log(this.lang);
   }
 
-  setLang(lang){
+  setLang = (lang) => {
     this.lang = lang;
+    console.log("setLang");
     this.listeners.forEach(listener => listener(lang));
   }
 
@@ -21,18 +23,17 @@ class I18NService {
     }
   }
 
-  translate(lang = this.lang, text, plural) {
-    let result = translations[lang] && (text in translations[lang])
-      ? translations[lang][text]
+  translate(text, plural) {
+    let result = translations[this.lang] && (text in translations[this.lang])
+      ? translations[this.lang][text]
       : text;
   
     if (typeof plural !== 'undefined') {
-      const key = new Intl.PluralRules(lang).select(plural);
+      const key = new Intl.PluralRules(this.lang).select(plural);
       if (key in result) {
         result = result[key];
       }
     }
-  
     return result;
   }
 }

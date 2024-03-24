@@ -1,6 +1,7 @@
-export default function formatDate(currentDate){
-    const date = new Date(currentDate)
-    const formatted = date.toLocaleDateString("ru-RU", {
+export default function formatDate(currentDate, lang){
+    const date = new Date(currentDate);
+    const local = lang === "ru" ? "ru-RU" : "en-EN"
+    const formatted = date.toLocaleDateString(local, {
         year: "numeric",
         month: "long",
         day: "numeric",

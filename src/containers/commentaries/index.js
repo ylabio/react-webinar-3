@@ -16,7 +16,7 @@ function Commentaries({ id }) {
   const [formPosition, setFormPosition] = useState("main")
   const dispatch = useDispatch();
 
-  const {t} = useTranslate();
+  const {t, lang} = useTranslate();
 
   const select = useSelector((state) => ({
       comments: state.comments.data.items,
@@ -54,6 +54,7 @@ function Commentaries({ id }) {
     <Spinner active={select.waiting}>
       <CommentariesBlock
         t={t}
+        lang={lang}
         article={id}
         count={select.count}
         comments={commentsTree}
@@ -63,7 +64,7 @@ function Commentaries({ id }) {
         onUnAuth={callbacks.onSignIn}
         onAdd={callbacks.addComment}
       />
-      {formPosition === "main" && <CommentForm translate={t} article={id} parentId={id} onAdd={callbacks.addComment} type={"article"} isAuth={session.exists} onUnAuth={callbacks.onSignIn} />}
+      {formPosition === "main" && <CommentForm t={t} article={id} parentId={id} onAdd={callbacks.addComment} type={"article"} isAuth={session.exists} onUnAuth={callbacks.onSignIn} />}
     </Spinner>
   );
 }
