@@ -42,7 +42,6 @@ const CommentsContainer = (name) => {
         name: state.session.user.profile?.name,
     }));
     const handleCancel = useCallback(() => {
-        console.log(123)
         setReplyToCommentId(null);
         setActiveForm('newComment');
     }, []);

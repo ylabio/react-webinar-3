@@ -19,7 +19,6 @@ fetchComments: (articleId) => async (dispatch, getState, services) => {
                     count: response.data.result.count
                 }
             });
-            console.log(response.data.result.items);
         } catch (error) {
             dispatch({ type: 'FETCH_COMMENTS_FAILURE', payload: error });
         }
@@ -35,9 +34,6 @@ fetchComments: (articleId) => async (dispatch, getState, services) => {
                 body: JSON.stringify(commentData),
             });
             dispatch({ type: `${actionTypePrefix}_SUCCESS`, payload: response.data.result });
-            console.log(' comment data:', JSON.stringify(commentData));
-            console.log('response.data.result', response.data.result);
-            console.log('actionTypePrefix', actionTypePrefix);
 
         } catch (error) {
             console.log(error);

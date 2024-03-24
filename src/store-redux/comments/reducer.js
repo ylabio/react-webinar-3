@@ -11,10 +11,8 @@ const reducer = (state = initialState, action) => {//решил их разде�
     switch (action.type) {
         case 'FETCH_COMMENTS_START':
         case 'CREATE_COMMENT_START':
-            console.log('Rendering commentTree:1', state.commentTree);
             return { ...state, loading: true, error: null };
         case 'CREATE_REPLY_START':
-            console.log('Rendering commentTree:1', state.commentTree);
             return { ...state, loading: true, error: null };
         case 'FETCH_COMMENTS_SUCCESS': {
             const { items, count } = action.payload; 
@@ -38,7 +36,6 @@ const reducer = (state = initialState, action) => {//решил их разде�
             const newReply = action.payload;
             const comments = [newReply, ...state.comments];
             const commentTree = buildCommentTree(comments);
-            console.log('cooments',[comments, commentTree]);
             return { ...state, comments, commentTree, loading: false };
         }
         case 'FETCH_COMMENTS_FAILURE':

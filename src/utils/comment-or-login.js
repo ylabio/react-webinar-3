@@ -10,9 +10,6 @@ function IsLogin({ Component, componentProps, baseIndent = 0, level = 0, onCance
     const profileState = useSelector(state => ({
         name: state.session.user.profile?.name,
     }));
-    console.log(paddingLeft);
-    console.log(baseIndent);
-    console.log(level);
     if (!profileState.name) {
         return (
             <>
