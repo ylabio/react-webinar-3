@@ -15,3 +15,6 @@ export default function plural(value, variants = {}, locale = 'ru-RU') {
   // Возвращаем вариант по ключу, если он есть
   return variants[key] || '';
 }
+
+
+//test
