@@ -9,7 +9,7 @@ class I18NService {
     this.api = this.services.api;
   }
 
-  setLang = (lang) => {
+  setLang = (lang = 'ru') => {
     this.lang = lang;
     console.log("setLang");
     this.api.setHeader('X-Lang', lang)
