@@ -2,9 +2,12 @@
  * Преобразование списка в иерархию
  * @param list {Array} Список объектов с отношением на родителя
  * @param [key] {String} Свойство с первичным ключом
+ * @param dataType {String} Тип данных в list
  * @returns {Array} Корневые узлы
  */
-export default function listToTree(list, key = '_id') {
+export default function listToTree(list, key = '_id', dataType = 'categories') {
+  if (list.length === 0) return []
+
   let trees = {};
   let roots = {};
   for (const item of list) {
@@ -29,8 +32,9 @@ export default function listToTree(list, key = '_id') {
       // Добавления в подчиненные родителя
       trees[item.parent[key]].children.push(trees[item[key]]);
       // Так как элемент добавлен к родителю, то он уже не является корневым
-      if (roots[item[key]]) delete roots[item[key]];
+      if (roots[item[key]]) delete roots[item[key]]
     }
   }
-  return Object.values(roots);
+
+  return dataType === 'comments' ? Object.values(roots)[0].children : Object.values(roots)
 }

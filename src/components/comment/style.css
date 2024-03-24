@@ -1,0 +1,30 @@
+.Comment {
+  margin-bottom: 25px;
+}
+
+.Comment-name {
+  margin-right: 10px;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.Comment-date {
+  font-size: 12px;
+  color: #666666;
+}
+
+.Comment-body {
+  margin-top: 15px;
+
+  font-size: 14px;
+}
+
+.Comment-actions {
+  margin-top: 20px;
+
+  font-size: 14px;
+  color: #0087E9;
+
+  cursor: pointer;
+}

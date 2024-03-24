@@ -1,0 +1,50 @@
+.CommentReplierForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  padding: 0px 40px 100px 40px;
+}
+
+.CommentReplierForm-header {
+  font-size: 12px;
+  font-weight: 700;
+
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.CommentReplierForm-field {
+  resize: none;
+
+  font-size: 14px;
+  font-family: 'Arial', sans-serif;
+
+  width: 100%;
+  height: 75px;
+
+  border: 1px solid #666;
+
+  margin-bottom: 10px;
+  padding: 5px 5px;
+
+  /*box-shadow: 0 1px 4px 0 #6666661A inset;*/
+  filter: drop-shadow(0 1px 4px #6666661A);
+}
+
+.CommentReplierForm button {
+  border: 1px solid #767676;
+  border-radius: 2px;
+
+  font-size: 13px;
+
+  padding: 3px 15px;
+
+  background: #efefef;
+
+  cursor: pointer;
+}
+
+.CommentReplierForm button:nth-child(2) {
+  margin-left: 10px;
+}

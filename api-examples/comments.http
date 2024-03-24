@@ -6,9 +6,9 @@ GET http://example.front.ylab.io/api/v1/comments?fields=items(_id,text,dateCreat
 
 ###
 # Создание первого коммента
-POST http://example.front.ylab.io/api/v1/comments
+POST http://example.front.ylab.io/api/v1/comments?fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted
 Content-Type: application/json
-X-Token: 0800a69a1a04cef7e70e4a69f22d5b9f029df447f5306a095278da5a51f14171
+X-Token: 8e6166162f067ba52e4321d4e385bb2325a68eea19feb865a21b1a447313f72f
 
 {
   "text": "Первый коммент!",
@@ -20,7 +20,7 @@ X-Token: 0800a69a1a04cef7e70e4a69f22d5b9f029df447f5306a095278da5a51f14171
 # Создание ответа на коммент коммента
 POST http://example.front.ylab.io/api/v1/comments
 Content-Type: application/json
-X-Token: 0800a69a1a04cef7e70e4a69f22d5b9f029df447f5306a095278da5a51f14171
+X-Token: 8e6166162f067ba52e4321d4e385bb2325a68eea19feb865a21b1a447313f72f
 
 {
   "text": "Первый коммент!",

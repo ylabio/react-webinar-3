@@ -1,0 +1,15 @@
+.CommentsList {
+  padding: 20px 40px;
+}
+
+.CommentsList-total {
+  font-size: 24px;
+
+  display: inline-block;
+
+  margin-bottom: 20px;
+}
+
+.CommentsList-list {
+  /*margin-top: 20px;*/
+}
