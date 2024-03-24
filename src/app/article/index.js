@@ -44,32 +44,14 @@ function Article() {
     waiting: state.article.waiting,
     list: state.comments.list,
     comWaiting: state.comments.comWaiting,
-    lista: state.comments.list,
 
 
-  }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
-  // comments: state.comments.data,
-  // commWaiting: state.comments.waiting
+  }), shallowequal);
   const {t} = useTranslate();
-  const header = {
-    "Content-Type": "application/json",
-    "X-Token": data.token
-  }
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    addComment: useCallback((text,id,type) => services.api.request({
-      url:'api/v1/comments?lang=ru&fields=*', 
-      method:'POST', 
-      headers: JSON.stringify(header),
-      body: JSON.stringify({
-        "text": `${text}`,
-        "parent": {"_id":  `${id}`, "_type":  `${type}`}
-      })
-    }), [services])
   }
-
-
   return (
     <PageLayout>
       <TopHead/>
@@ -80,7 +62,7 @@ function Article() {
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
-      <CommentList list={select.list} id={params.id} addComment={callbacks.addComment} auth={data.token ? true : false}/>
+      <CommentList list={select.list.items} id={params.id} auth={data.token ? true : false}/>
     </PageLayout>
   );
 }

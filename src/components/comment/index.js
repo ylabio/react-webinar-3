@@ -30,7 +30,7 @@ function Comment({item, onSelect, Select, onComment, auth}) {
     <div className='Comment-action'>
     <span onClick={(id) => onSelect(comment._id)}>Ответить</span>
     </div>
-    {Select == comment._id ? (<CommentInput type={'ответ'} id={comment._id} onComment={onComment} auth={auth}/>) : ('')}
+    {Select == comment._id ? (<CommentInput type={'comment'} id={comment._id} onComment={onComment} auth={auth}/>) : ('')}
     </div>
   );
 }

@@ -15,11 +15,37 @@ export default {
           });
           // Товар загружен успешно
           dispatch({type: 'comments/load-success', payload: {data: res.data.result}});
-          console.log(res.data.result)
         } catch (e) {
           //Ошибка загрузки
           dispatch({type: 'comments/load-error'});
         }
       }
     },
+
+    saveComment: (text, id, type) => {
+      return async (dispatch, getState, services) => {
+        dispatch({type: 'comments/load-start'});
+
+        try {
+          // ----- Сохранения комментария 
+          await services.api.request({
+            url:'api/v1/comments?lang=ru&fields=*', method:'POST', 
+            body: JSON.stringify({
+              "text": `${text}`,
+              "parent": 
+                {
+                  "_id":  `${id}`, 
+                  "_type":  `${type}`
+                } 
+            })
+          });
+          // ----- Успешное сохранение
+          dispatch({type: 'comments/load-success'});
+        } catch (e){
+          dispatch({type: 'comments/load-error'});
+        }
+        
+      }
+
+    }
   }
