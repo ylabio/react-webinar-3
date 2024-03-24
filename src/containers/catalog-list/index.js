@@ -36,7 +36,7 @@ function CatalogList() {
     }, [select.limit, select.sort, select.query])
   }
 
-  const {t} = useTranslate();
+  const {t} = useTranslate(state => ({lang: state.lang}));
 
   const renders = {
     item: useCallback(item => (

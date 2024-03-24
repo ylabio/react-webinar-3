@@ -36,7 +36,7 @@ function Article() {
     comments: state.comments
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const {t} = useTranslate();
+  const {t} = useTranslate(state => ({lang: state.lang}));
 
   const callbacks = {
     // Добавление в корзину

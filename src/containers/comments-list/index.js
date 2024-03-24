@@ -14,7 +14,7 @@ import commentsActions from '../../store-redux/comments/actions';
 function CommentsList(props) {
 
   const dispatch = useDispatch();
-  const {lang, t} = useTranslate();
+  const {lang, t} = useTranslate(state => ({lang: state.lang}));
 
   const [parent, setParent] = useState(props.parent);
   const [text, setText] = useState('');
