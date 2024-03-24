@@ -21,9 +21,9 @@ const LoginMessage = ({ onCancel, reply = false, t }) => {
 };
 
 LoginMessage.propTypes = {
-  onCancel: PropTypes.func.isRequired,
+  onCancel: PropTypes.func,
   reply: PropTypes.bool,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func,
 };
 
 export default memo(LoginMessage);

@@ -63,7 +63,7 @@ const Comment = (props) => {
 
 Comment.propTypes = {
   comment: PropTypes.object,
-  session: PropTypes.object,
+  session: PropTypes.bool,
   currentUserId: PropTypes.string,
   onOpenReply: PropTypes.func,
   onCloseReply: PropTypes.func,

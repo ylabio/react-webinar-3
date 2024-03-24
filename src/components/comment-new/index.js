@@ -28,7 +28,7 @@ const CommentNew = ({ session, onCreateNewComment, t }) => {
 };
 
 CommentNew.propTypes = {
-  session: PropTypes.object,
+  session: PropTypes.bool,
   onCreateNewComment: PropTypes.func,
   t: PropTypes.func,
 };

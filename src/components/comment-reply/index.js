@@ -31,7 +31,7 @@ const CommentReply = ({ session, onCancel, onAddReplyComment, t }) => {
 };
 
 CommentReply.propTypes = {
-  session: PropTypes.object,
+  session: PropTypes.bool,
   onCancel: PropTypes.func,
   onAddReplyComment: PropTypes.func,
   t: PropTypes.func,

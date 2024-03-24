@@ -52,7 +52,7 @@ CommentList.propTypes = {
   comments: PropTypes.array,
   count: PropTypes.number,
   userId: PropTypes.string,
-  session: PropTypes.object,
+  session: PropTypes.bool,
   onOpenReply: PropTypes.func,
   onCloseReply: PropTypes.func,
   onCreateNewComment: PropTypes.func,
