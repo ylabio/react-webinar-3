@@ -33,6 +33,7 @@ const Comment = (props) => {
           onCloseReply={onCloseReply}   
           onAddReplyComment={onAddReplyComment}    
           t={t}
+          lang={lang}
           level={level + 1} 
         />
       </div>
