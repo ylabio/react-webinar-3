@@ -1,6 +1,13 @@
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback, useState} from 'react';
 import {useParams} from 'react-router-dom';
+import {recurseList} from '../../utils/recurse-list';
+import {useDispatch, useSelector as useSelectorRedux} from 'react-redux';
+import shallowequal from 'shallowequal';
+import articleActions from '../../store-redux/article/actions';
+import commentsActions from '../../store-redux/comments/load/actions';
+import createCommentActions from '../../store-redux/comments/create/actions';
 import useStore from '../../hooks/use-store';
+import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
 import PageLayout from '../../components/page-layout';
@@ -10,33 +17,51 @@ import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
-import {useDispatch, useSelector} from 'react-redux';
-import shallowequal from 'shallowequal';
-import articleActions from '../../store-redux/article/actions';
+import Comments from "../../components/comments";
 
 function Article() {
+
   const store = useStore();
-
   const dispatch = useDispatch();
-  // Параметры из пути /articles/:id
-
   const params = useParams();
+  const {t} = useTranslate();
 
-  useInit(() => {
-    //store.actions.article.load(params.id);
-    dispatch(articleActions.load(params.id));
-  }, [params.id]);
+  const exists = useSelector(state => state.session.exists);
+  const token = useSelector(state => state.session.token);
+  const [commentValue, setCommentValue] = useState('');
 
-  const select = useSelector(state => ({
+  const select = useSelectorRedux(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
+    count: state.comments.count,
+    items: state.comments.items,
+    success_create: state.create_comment.success_create,
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const {t} = useTranslate();
+  useInit(async () => {
+    await Promise.all([
+      dispatch(articleActions.load(params.id)),
+      dispatch(commentsActions.load(params.id)),
+    ])
+  }, [params.id, select.success_create]);
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    // Создание нового комментария
+    createNewComment: useCallback(() => {
+      dispatch(createCommentActions.createComment(token, {text: commentValue, parent: {_id: params.id, _type: "article"}}));
+      setCommentValue('');
+    }, [token, commentValue, params.id]),
+    // Ответ на комментарий
+    onAnswerComment: useCallback((_id) => {
+      dispatch(createCommentActions.createComment(token, {text: commentValue, parent: {_id, _type: "comment"}}));
+      setCommentValue('');
+    }, [token, commentValue])
+  }
+
+  const options = {
+    comments: recurseList(select.items, params.id),
   }
 
   return (
@@ -49,6 +74,12 @@ function Article() {
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
+      <Comments 
+        count={select.count} list={options.comments} exists={exists} 
+        commentValue={commentValue} setCommentValue={setCommentValue} 
+        createNewComment={callbacks.createNewComment} 
+        answerComment={callbacks.onAnswerComment} t={t}
+      />
     </PageLayout>
   );
 }

@@ -8,6 +8,7 @@ import Services from './services';
 import config from './config';
 
 const services = new Services(config);
+console.log(services);
 
 const root = createRoot(document.getElementById('root'));
 
