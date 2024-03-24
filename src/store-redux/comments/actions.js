@@ -5,13 +5,20 @@ export default {
    * @param id
    * @return {Function}
    */
-     fetchComments : (articleId) => async (dispatch, getState, services) => {
+
+fetchComments: (articleId) => async (dispatch, getState, services) => {
         dispatch({ type: 'FETCH_COMMENTS_START' });
         try {
             const response = await services.api.request({
                 url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=${articleId}`,
             });
-            dispatch({ type: 'FETCH_COMMENTS_SUCCESS', payload: response.data.result.items });
+            dispatch({
+                type: 'FETCH_COMMENTS_SUCCESS',
+                payload: {
+                    items: response.data.result.items,
+                    count: response.data.result.count
+                }
+            });
             console.log(response.data.result.items);
         } catch (error) {
             dispatch({ type: 'FETCH_COMMENTS_FAILURE', payload: error });

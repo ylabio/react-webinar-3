@@ -9,7 +9,9 @@ import CommentForm from '../comment-form';
 import IsLogin from '../../utils/comment-or-login';
 const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onReply, onReplySubmit, onCancel, name, baseIndent }) => {
     return comments.map(comment => (
+        
         <div key={comment._id} >
+            
             <CommentItem
                 author={comment.author && Object.keys(comment.author).length > 0 && comment.author.profile
                     ? comment.author.profile.name
@@ -22,9 +24,12 @@ const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onRep
             />
             
             {activeForm === `replyTo-${comment._id}` && (
-                <IsLogin
+                <IsLogin 
+                level= {level}
+                baseIndent={baseIndent}
                     Component={CommentForm}
                     componentProps={{
+                        
                         key: `reply-to-${comment._id}`,
                         onSubmit: (text) => onReplySubmit(text, comment._id),
                         onCancel: onCancel

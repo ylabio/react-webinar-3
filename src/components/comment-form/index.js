@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import { useState } from 'react';
-function CommentForm({ onSubmit,onCancel }) {
+function CommentForm({ onSubmit, onCancel}) {
     const [commentText, setCommentText] = useState('');
     const cn = bem('CommentForm');
-
+  
     const handleSubmit = (event) => {
         event.preventDefault();
         onSubmit(commentText);
@@ -20,7 +20,7 @@ function CommentForm({ onSubmit,onCancel }) {
         }
     };
     return (
-        <form className={cn()} onSubmit={handleSubmit}>
+        <form style={{ paddingLeft: `${paddingLeft}px` }} className={cn()} onSubmit={handleSubmit}>
             <textarea
                 className={cn('input')}
                 value={commentText}

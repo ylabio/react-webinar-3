@@ -1,7 +1,47 @@
-:root {
-    --base-indent: 30px;
+.Comment{
+    margin-bottom: 30px;
+}
+.Comment-author{
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 13.8px;
+    padding-right: 10px;
+}
+.Comment-date {
+    font-weight: 400;
+        font-size: 12px;
+        line-height: 13.8px;
+        color: #666666;
+}
+.Comment-text {
+    padding: 10px 0;
+    margin: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16.1px;
+
 }
 
-.comment {
-    padding-left: var(--base-indent);
+.Comment-reply-button {
+    background-color: transparent;
+    border: none;
+    color: #0087E9;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 13.8px;
+        text-align: left;
+}
+
+.Comment-reply-button:hover,
+.Comment-reply-button:focus {
+    text-decoration: underline;
+    /* Добавляет подчеркивание при наведении или фокусе */
+}
+
+.Comment-reply-button:active {
+    color: #005999;
+    /* Темно-синий цвет для эффекта нажатия */
 }

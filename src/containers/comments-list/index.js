@@ -19,6 +19,7 @@ import shallowEqual from 'shallowequal';
 import commentsActions from '../../store-redux/comments/actions';
 import buildCommentTree from '../../utils/build-comment-tree';
 import IsLogin from '../../utils/comment-or-login';
+import CommentAmount from '../../components/comment-amount';
 const CommentsContainer = (name) => {
     const store = useStore();
     const [replyToCommentId, setReplyToCommentId] = useState(null);
@@ -29,6 +30,7 @@ const CommentsContainer = (name) => {
     const select = useReduxSelector((state) => ({
         commentTree: state.comments.commentTree,
         comments: state.comments.comments,
+        count: state.comments.count,
         waitingComments: state.comments.loading,
         errorComments: state.comments.error,
     }), shallowEqual);
@@ -67,7 +69,8 @@ const CommentsContainer = (name) => {
     };
     
     return (
-        <div>
+        <div className='Comments-Container'>
+            <CommentAmount amount={select.count}></CommentAmount>
             <CommentsList
                 comments={select.commentTree}
                 activeForm={activeForm}

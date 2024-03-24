@@ -4,6 +4,7 @@ const initialState = {
     commentTree: [],
     loading: false,
     error: null,
+    count: 0,
 };
 
 const reducer = (state = initialState, action) => {//решил их разделить , хотя они сейчас одинаковые, на случай если понадобится разная обработка
@@ -16,9 +17,16 @@ const reducer = (state = initialState, action) => {//решил их разде�
             console.log('Rendering commentTree:1', state.commentTree);
             return { ...state, loading: true, error: null };
         case 'FETCH_COMMENTS_SUCCESS': {
-            const filteredComments = action.payload.filter(c => !c.isDeleted);
+            const { items, count } = action.payload; 
+            const filteredComments = items.filter(c => !c.isDeleted);
             const commentTree = buildCommentTree(filteredComments);
-            return { ...state, comments: filteredComments, commentTree, loading: false };
+            return {
+                ...state,
+                comments: filteredComments,
+                commentTree,
+                loading: false,
+                count  
+            };
         }
         case 'CREATE_COMMENT_SUCCESS': {
             const newReply = action.payload;
