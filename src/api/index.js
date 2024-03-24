@@ -9,6 +9,7 @@ class APIService {
     this.config = config
     this.defaultHeaders = {
       'Content-Type': 'application/json',
+      'X-Lang': 'ru'
     }
   }
 
@@ -22,6 +23,7 @@ class APIService {
    */
   async request({url, method = 'GET', headers = {}, ...options}) {
     if (!url.match(/^(http|\/\/)/)) url = this.config.baseUrl + url;
+    console.log(this.defaultHeaders);
     const res = await fetch(url, {
       method,
       headers: {...this.defaultHeaders, ...headers},
@@ -36,6 +38,7 @@ class APIService {
    * @param value {String|null} Значение заголовка
    */
   setHeader(name, value = null) {
+    console.log("Changed header");
     if (value) {
       this.defaultHeaders[name] = value;
     } else if (this.defaultHeaders[name]) {

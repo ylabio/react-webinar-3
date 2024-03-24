@@ -6,12 +6,16 @@ class I18NService {
     this.config = config;
     this.lang = config.lang;
     this.listeners = [];
+    this.api = this.services.api;
     console.log(this.lang);
   }
 
   setLang = (lang) => {
     this.lang = lang;
     console.log("setLang");
+    this.api.setHeader('X-Lang', lang)
+    console.log(this.api);
+    // this.setHeader('X-Lang', this.lang)
     this.listeners.forEach(listener => listener(lang));
   }
 
