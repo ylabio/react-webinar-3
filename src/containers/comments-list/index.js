@@ -55,15 +55,13 @@ function CommentsList(props) {
   const renders = {
     item: useCallback(item => (
       <>
-        <ItemComment item={item} lang={lang} onAnswer={setParent}/>
+        <ItemComment item={item} lang={lang} labelAnswer={t('comments.answer')} onAnswer={setParent}/>
         { parent._id === item._id &&
             <CommentForm
               title={t('comments.newAnswer')}
               theme='embed'
               autoFocus={true}
-              placeholder={t('comments.text')}
-              labelSend={t('comments.send')}
-              labelCancel={t('comments.cancel')}
+              t={t}
               exists={session.exists}
               onCancel={cancelAnswer}
               isCancelable={true}
@@ -75,7 +73,7 @@ function CommentsList(props) {
               onSubmit={callbacks.send}/>
         }
       </>
-    ), [lang, parent, text]),
+    ), [lang, parent, text, session.exists]),
   };
 
   const items = treeToList(listToTree(select.items), (item, level) => (
@@ -88,8 +86,7 @@ function CommentsList(props) {
       { parent._id === props.parent._id &&
           <CommentForm
             title={t('comments.newComment')}
-            placeholder={t('comments.text')}
-            labelSend={t('comments.send')}
+            t={t}
             exists={session.exists}
             inviteUrl='/login/'
             text={text}

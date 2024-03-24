@@ -29,5 +29,7 @@
   "comments.answer": "Ответить",
   "comments.text": "Текст",
   "comments.send": "Отправить",
-  "comments.cancel": "Отмена"
+  "comments.cancel": "Отмена",
+  "comments.inviteAnchor": "Войдите",
+  "comments.invite": "Войдите, чтобы иметь возможность комментировать"
 }

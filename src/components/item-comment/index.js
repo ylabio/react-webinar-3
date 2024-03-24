@@ -24,7 +24,7 @@ function ItemComment(props) {
       <div className={cn('text')}>
         {props.item.text}
       </div>
-      <a href='#' className={cn('link')} onClick={callbacks.onAnswer}>Ответить</a>
+      <a href='#' className={cn('link')} onClick={callbacks.onAnswer}>{props.labelAnswer}</a>
     </div>
   )
 }
@@ -42,11 +42,13 @@ ItemComment.propTypes = {
     paddingLeft: PropTypes.number,
   }).isRequired,
   lang: PropTypes.string,
+  labelAnswer: PropTypes.string,
   onAnswer: PropTypes.func
 }
 
 ItemComment.defaultProps = {
   lang: 'ru',
+  labelAnswer: 'Ответить',
   onAnswer: () => {}
 }
 
