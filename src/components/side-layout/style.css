@@ -20,6 +20,10 @@
   justify-content: space-between;
 }
 
+.SideLayout_padding_no {
+  padding: 10px 0;
+}
+
 .SideLayout_padding_small {
   padding: 10px 20px;
 }

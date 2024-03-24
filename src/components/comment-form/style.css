@@ -1,0 +1,42 @@
+.CommentForm {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-right: 40px;
+  margin-bottom: 20px;
+}
+
+.CommentForm-auth {
+  font-size: 16px;
+  line-height: 18.4px;
+}
+
+.CommentForm-form {
+  width: 100%;
+  font-size: 14px;
+  line-height: 16.1px;
+}
+
+.CommentForm h5 {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.CommentForm-login {
+  color: #0087e9;
+}
+
+.CommentForm-send {
+  margin-right: 10px;
+}
+
+.CommentForm-input {
+  min-width: 100%;
+  width: 100%;
+  height: 80px;
+  resize: none;
+  box-sizing: border-box;
+}

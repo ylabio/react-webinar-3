@@ -1,18 +1,26 @@
-import {memo, useCallback, useMemo} from 'react';
-import {useParams} from 'react-router-dom';
-import useStore from '../../hooks/use-store';
-import useTranslate from '../../hooks/use-translate';
-import useInit from '../../hooks/use-init';
-import PageLayout from '../../components/page-layout';
-import Head from '../../components/head';
-import Navigation from '../../containers/navigation';
-import Spinner from '../../components/spinner';
-import ArticleCard from '../../components/article-card';
-import LocaleSelect from '../../containers/locale-select';
-import TopHead from '../../containers/top-head';
-import {useDispatch, useSelector} from 'react-redux';
-import shallowequal from 'shallowequal';
-import articleActions from '../../store-redux/article/actions';
+import { memo, useCallback, useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
+import useStore from "../../hooks/use-store";
+import useTranslate from "../../hooks/use-translate";
+import useInit from "../../hooks/use-init";
+import PageLayout from "../../components/page-layout";
+import Head from "../../components/head";
+import Navigation from "../../containers/navigation";
+import Spinner from "../../components/spinner";
+import ArticleCard from "../../components/article-card";
+import LocaleSelect from "../../containers/locale-select";
+import TopHead from "../../containers/top-head";
+import { useDispatch, useSelector } from "react-redux";
+import { default as oldSelector } from "../../hooks/use-selector";
+import shallowequal from "shallowequal";
+import articleActions from "../../store-redux/article/actions";
+import articleCommentsActions from "../../store-redux/article-comments/actions";
+import CommentsHead from "../../components/comments-head";
+import CommentsItem from "../../components/comments-item";
+import CommentsList from "../../components/comments-list";
+import treeToList from "../../utils/tree-to-list";
+import listToTree from "../../utils/list-to-tree";
+import CommentForm from "../../components/comment-form";
 
 function Article() {
   const store = useStore();
@@ -20,35 +28,105 @@ function Article() {
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
 
+  // const [formId, setFormId] = useState("");
+
   const params = useParams();
 
-  useInit(() => {
-    //store.actions.article.load(params.id);
-    dispatch(articleActions.load(params.id));
+  useInit(async () => {
+    await Promise.all([
+      dispatch(articleActions.load(params.id)),
+      dispatch(articleCommentsActions.load(params.id)),
+    ]);
   }, [params.id]);
 
-  const select = useSelector(state => ({
-    article: state.article.data,
-    waiting: state.article.waiting,
-  }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
+  const select = useSelector(
+    (state) => ({
+      article: state.article.data,
+      waitingArticle: state.article.waiting,
+      formId: state.articleComments.formId,
+      comments: state.articleComments.data,
+      count: state.articleComments.count,
+      waitingComments: state.articleComments.waiting,
+    }),
+    shallowequal
+  ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const {t} = useTranslate();
+  const session = oldSelector((state) => ({
+    exists: state.session.exists,
+  }));
+
+  const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-  }
+    addToBasket: useCallback(
+      (_id) => store.actions.basket.addToBasket(_id),
+      [store]
+    ),
+    // Запоминаем id элемента с открытой формой комментария
+    setFormId: useCallback(
+      (_id) => {
+        dispatch(articleCommentsActions.setFormId(_id));
+      },
+      [dispatch]
+    ),
+    // Отмена ввод комментария
+    onCancelForm: useCallback(() => {
+      dispatch(articleCommentsActions.setFormId(""));
+    }, [dispatch]),
+  };
+
+  const comments = useMemo(
+    () => [
+      ...treeToList(listToTree(select.comments), (item, level) => ({
+        _id: item._id,
+        offset: level,
+        username: item.author?.profile.name,
+        date: item.dateCreate,
+        text: item.text,
+      })).slice(1),
+    ],
+    [select.comments]
+  );
+
+  const renders = {
+    commentsItem: useCallback(
+      (comment) => (
+        <CommentsItem
+          comment={comment}
+          setFormId={callbacks.setFormId}
+          session={session}
+        />
+      ),
+      []
+    ),
+  };
 
   return (
     <PageLayout>
-      <TopHead/>
+      <TopHead />
       <Head title={select.article.title}>
-        <LocaleSelect/>
+        <LocaleSelect />
       </Head>
-      <Navigation/>
-      <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+      <Navigation />
+      <Spinner active={select.waitingArticle}>
+        <ArticleCard
+          article={select.article}
+          onAdd={callbacks.addToBasket}
+          t={t}
+        />
       </Spinner>
+      <CommentsHead count={select.count} />
+      <Spinner active={select.waitingComments}>
+        <CommentsList
+          list={comments}
+          renderItem={renders.commentsItem}
+          formId={select.formId}
+          session={session.exists}
+          onCancelForm={callbacks.onCancelForm}
+        />
+      </Spinner>
+      <CommentForm type="article" session={session.exists} />
     </PageLayout>
   );
 }
