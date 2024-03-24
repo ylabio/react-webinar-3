@@ -4,7 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import "./style.css";
 
-function CommentArea({onAddComment, session = false, path}) {
+function CommentArea({onAddComment, session = false, path, t}) {
   const [value, setValue] = useState('');
 
   const onChange = (e) => {
@@ -24,15 +24,15 @@ function CommentArea({onAddComment, session = false, path}) {
 		<>
 			{session ? (
 				<div className={cn()}>
-					<div className={cn('top')}>Новый комментарий</div>
+					<div className={cn('top')}>{t("comments.newComment")}</div>
 					<form onSubmit={callbacks.onSubmit}>
 						<textarea className={cn('textarea')} onChange={onChange}/>
-						<button type="submit">Отправить</button>
+						<button type="submit">{t("comments.send")}</button>
 					</form>
 				</div>
 			) : (
 				<div>
-					<Link to={path}>Войдите</Link>, чтобы иметь возможность комментировать
+					<Link to={path}>{t("comments.replyLogin")}</Link>, {t("comments.commentMessage")}
 				</div>
 			)}
 		</>
@@ -43,6 +43,7 @@ CommentArea.propTypes = {
   session: PropTypes.bool,
   path: PropTypes.string,
   onAddComment: PropTypes.func,
+	t: PropTypes.func,
 };
 
 export default memo(CommentArea);

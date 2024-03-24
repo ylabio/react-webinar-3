@@ -10,6 +10,7 @@ import useSelector from '../../hooks/use-selector';
 import listToTree from '../../utils/list-to-tree';
 import treeToList from '../../utils/tree-to-list';
 import dateFormat from '../../utils/date-format';
+import useTranslate from "../../hooks/use-translate";
 
 function Comments() {
 	const dispatch = useDispatch();
@@ -64,12 +65,14 @@ function Comments() {
     }, []),
 	}
 
+	const {t, lang} = useTranslate();
+
 	let comments = useMemo(() => {
     return select.comments.length ? 
 			[...treeToList(listToTree(select.comments)[0].children, (item, level) => (
-				{...item, dateCreate: dateFormat(item.dateCreate), level: level}
+				{...item, dateCreate: dateFormat(item.dateCreate, lang), level: level}
 			))]: [];
-  }, [select.comments]);
+  }, [select.comments, lang]);
 
   return (
 		<Spinner active={select.waiting}>
@@ -79,7 +82,8 @@ function Comments() {
 											 onOpenReply={callbacks.openReply}
       								 onCloseReply={callbacks.closeReply}
 											 onAddComment={callbacks.addComment}
-											 onAddReply={callbacks.addReply}/>
+											 onAddReply={callbacks.addReply}
+											 t={t}/>
 		</Spinner>
   );
 }

@@ -4,7 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import "./style.css";
 
-function ReplyArea({onAdd, onClose, session = false, path}) {
+function ReplyArea({onAdd, onClose, session = false, path, t}) {
   const [value, setValue] = useState('');
 
   const onChange = (e) => {
@@ -24,17 +24,17 @@ function ReplyArea({onAdd, onClose, session = false, path}) {
 		<>
 			{session ? (
 				<div className={cn()}>
-					<div className={cn('top')}>Новый ответ</div>
+					<div className={cn('top')}>{t("comments.newReply")}</div>
 					<form onSubmit={callbacks.onSubmit}>
 						<textarea className={cn('textarea')} onChange={onChange}/>
-						<button type="submit">Отправить</button>
-						<button type="button" onClick={onClose}>Отмена</button>
+						<button type="submit">{t("comments.send")}</button>
+						<button type="button" onClick={onClose}>{t("comments.cancel")}</button>
 					</form>
 				</div>
 			) : (
 				<div className={cn('auth')}>
-					<Link to={path}>Войдите</Link>, чтобы иметь возможность ответить.{' '}
-					<span onClick={onClose}>Отмена</span>
+					<Link to={path}>{t("comments.replyLogin")}</Link>, {t("comments.replyMessage")}.{' '}
+					<span onClick={onClose}>{t("comments.cancel")}</span>
 				</div>
 			)}
 		</>
@@ -46,6 +46,7 @@ ReplyArea.propTypes = {
   path: PropTypes.string,
   onClose: PropTypes.func,
   onAdd: PropTypes.func,
+	t: PropTypes.func,
 };
 
 export default memo(ReplyArea);

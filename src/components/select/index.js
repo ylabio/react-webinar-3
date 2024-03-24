@@ -6,6 +6,7 @@ function Select(props) {
 
   const onSelect = (e) => {
     props.onChange(e.target.value);
+		e.target.blur()
   };
 
   return (

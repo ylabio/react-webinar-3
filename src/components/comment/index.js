@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ReplyArea from '../reply-area';
 import './style.css';
 
-function Comment({item, session, onOpenReply, onCloseReply, onAddReply, path}) {
+function Comment({item, session, onOpenReply, onCloseReply, onAddReply, path, t}) {
 
   const cn = bem('Comment');
   return (
@@ -17,10 +17,10 @@ function Comment({item, session, onOpenReply, onCloseReply, onAddReply, path}) {
       </div>
       <div className={cn('text')}>{item.text}</div>
       <span className={cn('reply')} onClick={() => onOpenReply(item._id)}>
-        Ответить
+        {t("comments.reply")}
       </span>
 			{item.openReply && (
-				<ReplyArea session={session} onClose={onCloseReply} onAdd={(value) => onAddReply(value, item._id)} path={path}/>
+				<ReplyArea session={session} onClose={onCloseReply} onAdd={(value) => onAddReply(value, item._id)} path={path} t={t}/>
 			)}
     </div>
   );
@@ -33,6 +33,7 @@ Comment.propTypes = {
   onOpenReply: PropTypes.func,
   onCloseReply: PropTypes.func,
   onAddReply: PropTypes.func,
+	t: PropTypes.func,
 };
 
 export default memo(Comment);

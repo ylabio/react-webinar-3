@@ -6,7 +6,7 @@ import CommentArea from '../comment-area';
 import './style.css';
 
 function ArticleComments(props) {
-	const {comments, count, session, onOpenReply, onCloseReply, onAddComment, onAddReply} = props
+	const {comments, count, session, onOpenReply, onCloseReply, onAddComment, onAddReply, t} = props
   const cn = bem('ArticleComments');
 
 	const [isShown, setIsShown] = useState(true);
@@ -25,7 +25,7 @@ function ArticleComments(props) {
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-				Комментарии ({count})
+				{t("comments.title")} ({count})
 			</div>
 			{comments.map((item) => (
         <Comment key={item._id} 
@@ -34,9 +34,10 @@ function ArticleComments(props) {
 								 onOpenReply={callbacks.openReply}
 								 onCloseReply={callbacks.closeReply}
 								 onAddReply={onAddReply}	
-								 path="/login"/>
+								 path="/login"
+								 t={t}/>
       ))}
-			{isShown && <CommentArea session={session} onAddComment={onAddComment} path="/login"/>}
+			{isShown && <CommentArea session={session} onAddComment={onAddComment} path="/login" t={t}/>}
     </div>
   );
 }
@@ -51,6 +52,7 @@ ArticleComments.propTypes = {
 	onCloseReply: PropTypes.func,
 	onAddComment: PropTypes.func,
 	onAddReply: PropTypes.func,
+	t: PropTypes.func
 };
 
 export default memo(ArticleComments);
