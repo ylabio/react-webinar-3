@@ -28,8 +28,9 @@ export const initialState = {
         return {...state, data: {}, waiting: false}; //@todo текст ошибки сохранять?
 
       case "comments/add-new":
-        console.log([...state.data.items, action.payload]);
-        return {...state, data: {...state.data, count: state.data.count + 1, items: [...state.data.items, action.payload]}};
+        return {...state, waiting: false, data: {...state.data, count: state.data.count + 1, items: [...state.data.items, action.payload]}};
+      case 'comments/add-new-error':
+        return {...state, waiting: false, data: {}}
       default:
         // Нет изменений
         return state;

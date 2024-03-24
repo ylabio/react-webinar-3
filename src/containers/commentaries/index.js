@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import CommentariesBlock from "../../components/commentaries-block";
 import Spinner from "../../components/spinner";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,12 +19,21 @@ function Commentaries({ id }) {
   const {t} = useTranslate();
 
   const select = useSelector((state) => ({
-      comments: state.comments.data,
+      comments: state.comments.data.items,
+      count: state.comments.data.count,
       waiting: state.comments.waiting,
     }), shallowequal);
 
-  console.log(select.comments);
+  const commentsTree = commentsToTree(select.comments, '_id', id)
+  
+
   const navigate = useNavigate();
+  
+  const session = useCustomSelector((state) => ({
+    exists: state.session.exists,
+    token: state.session.token,
+    user: state.session.user.profile
+  }));
 
   const callbacks = {
     // Переход к авторизации
@@ -32,14 +41,9 @@ function Commentaries({ id }) {
       navigate("/login", { state: { back: location.pathname } });
     }, [location.pathname]),
     addComment: useCallback((parentId, parentType, text) => {
-      dispatch(commentsActions.add(parentId, parentType, text, id ))
-    }, [id])
+      dispatch(commentsActions.add(parentId, parentType, text, session.user.name ))
+    }, [session.user])
   };
-
-  const session = useCustomSelector((state) => ({
-    exists: state.session.exists,
-    token: state.session.token,
-  }));
 
 
   useInit(() => {
@@ -51,8 +55,8 @@ function Commentaries({ id }) {
       <CommentariesBlock
         t={t}
         article={id}
-        count={select.comments.count}
-        comments={commentsToTree(select.comments.items, '_id', id)}
+        count={select.count}
+        comments={commentsTree}
         formPosition={formPosition}
         setFormPosition={setFormPosition}
         isAuth={session.exists}

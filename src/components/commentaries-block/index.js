@@ -19,7 +19,7 @@ function CommentariesBlock({
     <div className="CommentariesBlock">
       <h2 className={cn("header")}>Комментарии ({count})</h2>
       {comments
-        .filter(comment => comment._id) //В посте "Книга по реакт" один комментарий имеет айди статьи, но в type записано comment. Из-за этого некорректно работает алгоритм обработки комментариев
+        .filter((comment) => comment._id )
         .map((comment) => (
         <Comment
           onAdd={onAdd}
@@ -27,7 +27,8 @@ function CommentariesBlock({
           formPosition={formPosition}
           setFormPosition={setFormPosition}
           key={comment._id}
-          comment={comment}
+          // TODO: Подумать 
+          comment={{...comment}}
           isAuth={isAuth}
           onUnAuth={onUnAuth}
         />

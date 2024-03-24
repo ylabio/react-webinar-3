@@ -23,7 +23,7 @@ export default {
       }
     },
 
-    add: (parentId, parentType, text, articleId) => {
+    add: (parentId, parentType, text, userName = "Some name") => {
       const parent = {"_id": parentId}
       if(parentType === "article"){
         parent._type = 'article'
@@ -34,25 +34,17 @@ export default {
         "text": text,
         "parent": parent
       }
+      console.log(userName);
       return async (dispatch, getState, services) => {
         try{
           const response = await services.api.request({
-            url: '/api/v1/comments',
+            url: '/api/v1/comments?fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type)',
             method: "POST",
-            headers: {"X-Token": localStorage.getItem("X-Token")},
             body: JSON.stringify(body)
           })
-          console.log(response);
-          // const res = await services.api.request({
-          //   url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=${articleId}`
-          // });
-          // Товар загружен успешно
-          // dispatch({type: 'comments/load-success', payload: {data: res.data.result}});
 
-          
-          // TODO: Исправить на реальное имя, получить в аругментах
           response.data.result.author.profile = {
-            name: "Some name"
+            name: userName
           }
           dispatch({type: 'comments/add-new', payload: response.data.result})
         } catch (e){
