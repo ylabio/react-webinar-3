@@ -58,12 +58,7 @@ const Comments = ({count, isAuth, list, createFirstComment, createAnswerComment,
                         )
                     }
                 </div>
-                {/* {!isAuth
-                ?
-                <div className={cn('not-logged-in')}><Link to={'/login'}>Войдите</Link>, чтобы иметь возможность комментировать</div>
-                : */}
-                <CommentArea title='Новый комментарий' createFirstComment={createFirstComment} load={load}/>
-                {/* } */}
+                <CommentArea title='Новый комментарий' createFirstComment={createFirstComment} load={load} isAuth={isAuth}/>
         </div>
     );
 };
