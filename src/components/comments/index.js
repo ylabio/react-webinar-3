@@ -17,10 +17,10 @@ function Comments({list, renderItem}) {
 }
 
 Comments.propTypes = {
-  // list: PropTypes.arrayOf(PropTypes.shape({
-  //   _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  // })).isRequired,
-  // renderItem: PropTypes.func,
+  list: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  })).isRequired,
+  renderItem: PropTypes.func,
 };
 
 Comments.defaultProps = {

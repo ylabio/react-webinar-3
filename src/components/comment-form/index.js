@@ -32,11 +32,14 @@ function CommentForm({addNewAnswerComment,isAuth,resetCurrentForm}) {
 }
 
 CommentForm.propTypes = {
-
+  isAuth:PropTypes.string,
+  addNewAnswerComment:PropTypes.func,
+  resetCurrentForm:PropTypes.func,
 };
 
 CommentForm.defaultProps = {
   addNewAnswerComment: () => {},
+  resetCurrentForm: () => {},
 }
 
 export default memo(CommentForm);

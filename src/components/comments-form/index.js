@@ -22,7 +22,8 @@ function CommentsForm({addNewComment,isAuth}) {
 }
 
 CommentsForm.propTypes = {
-
+  isAuth:PropTypes.string,
+  addNewComment:PropTypes.func,
 };
 
 CommentsForm.defaultProps = {

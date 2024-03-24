@@ -1,42 +1,49 @@
-import {memo, useState} from 'react';
+import {memo} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
-import {Link} from 'react-router-dom';
 import CommentForm from '../comment-form';
 
-function Comment({author,text,dateCreate,id,current,isAuth,setActiveComment,resetCurrentForm,addAnswerComment,indentation}) {
+function Comment({data,current,isAuth,setActiveComment,resetCurrentForm,addAnswerComment}) {
   const cn = bem('Comment');
 
-  function showForm(){
-    setActiveComment(id)
-  }
-  function addNewAnswerComment(comment){
-    addAnswerComment(comment,id)
-  }
-
   const callbacks = {
-    // onAdd: (e) => props.onAdd(props.item._id),
+    showForm:()=>setActiveComment(data.id),
+    addNewAnswerComment: comment=>addAnswerComment(comment,data.id)
   }
 
   return (
-    <div className={cn() } style={{"marginLeft":indentation*20}}>
+    <div className={cn() } style={{"marginLeft":data.indentation*20}}>
       <div className={cn('header')} >
-        <span className={cn('author')}>{author}</span>
-        <span className={cn('date')}>{dateCreate}</span>
+        <span className={cn('author')}>{data.author}</span>
+        <span className={cn('date')}>{data.dateCreate}</span>
       </div>
-      <div className={cn('content')}>{text}</div>
-      <span className={cn('answer')} onClick={showForm}>Ответить</span>
-      {id==current && <CommentForm isAuth={isAuth} resetCurrentForm={resetCurrentForm} addNewAnswerComment={addNewAnswerComment}/>}
+      <div className={cn('content')}>{data.text}</div>
+      <span className={cn('answer')} onClick={callbacks.showForm}>Ответить</span>
+      {data.id==current && <CommentForm isAuth={isAuth} resetCurrentForm={resetCurrentForm} addNewAnswerComment={callbacks.addNewAnswerComment}/>}
     </div>
   );
 }
 
 Comment.propTypes = {
-
+  data: PropTypes.shape({
+    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    author: PropTypes.string,
+    text:PropTypes.string,
+    dateCreate: PropTypes.string,
+    indentation:PropTypes.number
+  }).isRequired,
+  current: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  isAuth: PropTypes.string,
+  setActiveComment: PropTypes.func,
+  resetCurrentForm: PropTypes.func,
+  addAnswerComment: PropTypes.func,
 };
 
 Comment.defaultProps = {
+  setActiveComment: (id) => {},
+  resetCurrentForm: () => {},
+  addAnswerComment: (comment) => {},
 }
 
 export default memo(Comment);
