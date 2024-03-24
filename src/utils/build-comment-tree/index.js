@@ -7,14 +7,10 @@
 function buildCommentTree(comments) {
     const rootComments = comments.filter(c => c.parent?._type === 'article');
     const commentMap = {};
-
-
     comments.forEach(comment => {
         comment.replies = [];
         commentMap[comment._id] = comment;
     });
-
-
     comments.forEach(comment => {
         if (comment.parent && comment.parent._type === 'comment') {
             const parentComment = commentMap[comment.parent._id];

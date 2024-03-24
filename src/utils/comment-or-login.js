@@ -14,13 +14,15 @@ function IsLogin({ Component, componentProps, baseIndent = 0, level = 0, onCance
         return (
             <>
                 <p className="link" style={{ paddingLeft: `${paddingLeft}px` }}>
-                    <Link to={loginLink}>{t('comments.loginToComment')}</Link>, {t('comments.toComment')} {onCancel && <button className="Comment-decly-button" type="button" onClick={onCancel}>{t('comments.cancel')}</button>}
+                    <Link to={loginLink}>{t('comments.loginToComment')}</Link>,
+                    {onCancel ? t('comments.toComment') : t('comments.toPost')}
+                    {onCancel && <button className="Comment-decly-button" type="button" onClick={onCancel}>{t('comments.cancel')}</button>}
                 </p>
                
             </>
         );
     }
-
+    comments.toPost
     return <Component style={{ paddingLeft: `${paddingLeft}px` }} {...componentProps} />;
 } 
 
