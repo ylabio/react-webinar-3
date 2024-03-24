@@ -60,6 +60,7 @@ const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onRep
                     placeholder={placeholder}
                     sendButton={sendButton}
                     cancelButton={cancelButton}
+                        answer={answer}
                 />
             )}
             </div>
