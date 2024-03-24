@@ -1,8 +1,9 @@
 import React,{memo,useEffect, useState} from 'react';
 import {cn as bem} from '@bem-react/classname';
+import { Link } from 'react-router-dom';
 import './style.css';
 
-const CommentArea = ({title,cancel,createFirstComment,createAnswerComment, itemId,load}) => {
+const CommentArea = ({title,cancel,createFirstComment,createAnswerComment, itemId,load,isAuth}) => {
     const [area,setArea] = useState('');
     const cn = bem('CommentArea');
     
@@ -38,15 +39,25 @@ const CommentArea = ({title,cancel,createFirstComment,createAnswerComment, itemI
 
     return (
         <div className={cn()}>
-            <div className={cn('title')}>{title}</div>
-            <textarea className={cn('area')} onChange={e => setArea(e.target.value)} value={area}/>
-            <button className={cn('send-btn')} onClick={e => onSend(e)}>Отправить</button>
-            {cancel
+            {isAuth
             ?
-            <button className={cn('cancel-btn')}>Отмена</button>
+            <>
+                <div className={cn('title')}>{title}</div>
+                <textarea className={cn('area')} onChange={e => setArea(e.target.value)} value={area}/>
+                <button className={cn('send-btn')} onClick={e => onSend(e)}>Отправить</button>
+                {cancel
+                ?
+                <button className={cn('cancel-btn')}>Отмена</button>
+                :
+                ''
+                }
+            </>
             :
-            ''
+            
+            <div className={cn('not-logged-in')}><Link to={'/login'}>Войдите</Link>, чтобы иметь возможность комментировать <span className={cn('cancel-btn')}>{cancel ? 'Отмена':''}</span></div>
+            
             }
+            
         </div>
     );
 };

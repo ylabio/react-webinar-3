@@ -52,18 +52,18 @@ const Comments = ({count, isAuth, list, createFirstComment, createAnswerComment,
                         <div className={cn(`comments-item-bottom`)}>
                             <div className={cn(`comments-item-text`)}>{item.text}</div>
                             <button className={cn(`comments-item-btn`)}>Ответить</button>
-                            <CommentArea title='Новый ответ' cancel={true} createAnswerComment={createAnswerComment} itemId={item.id} load={load}/>
+                            <CommentArea title='Новый ответ' cancel={true} createAnswerComment={createAnswerComment} itemId={item.id} load={load} isAuth={isAuth}/>
                         </div>
                         </div>
                         )
                     }
                 </div>
-                {!isAuth
+                {/* {!isAuth
                 ?
                 <div className={cn('not-logged-in')}><Link to={'/login'}>Войдите</Link>, чтобы иметь возможность комментировать</div>
-                :
+                : */}
                 <CommentArea title='Новый комментарий' createFirstComment={createFirstComment} load={load}/>
-                }
+                {/* } */}
         </div>
     );
 };
