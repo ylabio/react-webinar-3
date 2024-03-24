@@ -62,7 +62,7 @@ function Article() {
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
-      <CommentList list={select.list.items} id={params.id} auth={data.token ? true : false}/>
+      <CommentList list={select.list.items} count={select.list.count} id={params.id} auth={data.token ? true : false} t={t}/>
     </PageLayout>
   );
 }

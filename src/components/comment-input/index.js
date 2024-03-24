@@ -3,7 +3,7 @@ import './style.css';
 import { useNavigate } from 'react-router-dom';
 
 
-function CommentInput({type, id, onComment, auth}) {
+function CommentInput({type, id, onComment, auth, t}) {
     const [Value, setValue] = useState();
     let Type
     const navigate = useNavigate()
@@ -13,31 +13,32 @@ function CommentInput({type, id, onComment, auth}) {
     }
   if (auth){  
     if (type == "article"){
-      Type = "комментарий";
-    } else Type = "ответ";
+      Type = t("comments.newComment");
+    } else Type = t("comments.newReply");
   return (
     <div className='CommentInput-container'>
-        <label>Новый {Type}</label>
-        <input 
-            placeholder='Текст'
+        <label>{Type}</label>
+        <input
+            placeholder={t("comments.placeholder")}
+            name="text" 
             onChange={(event) => setValue(event.target.value)}
             id="input"
         />
         <div className='CommentInput-btns'>
-            <button onClick={() => {onComment(Value, id, type), clear() }}>Отправить</button>
-            {type == "comment" ? (<button onClick={() => {onComment(), clear() }} style={{width:"67px"}}>Отмена</button>) : ('')}
+            <button onClick={() => {onComment(Value, id, type), clear() }}>{t("comments.send")}</button>
+            {type == "comment" ? (<button onClick={() => {onComment(), clear() }} style={{width:"67px"}}>{t("comments.cancel")}</button>) : ('')}
         </div>
         
     </div>
   );
 } else {
   if (type == "article"){
-    Type = "комментировать";
-  } else Type = "ответить.";
+    Type = t("comments.commentMessage");
+  } else Type = t("comments.replyMessage");
   return (
     <div className='CommentAuth' style={{margin:"10px"}}>
-    <span><a onClick={()=> navigate("/login")}>Войдите,</a> чтобы иметь возможность {Type} </span>
-    {type == "comment" ? (<span onClick={() => onComment()}>Отмена</span>) : ('')}
+    <span><a onClick={()=> navigate("/login")}>{t("comments.replyLogin")},</a> {Type} </span>
+    {type == "comment" ? (<span onClick={() => onComment()}>{t("comments.cancel")}</span>) : ('')}
     </div>
   );
 }

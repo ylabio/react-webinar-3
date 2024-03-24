@@ -3,7 +3,7 @@ import './style.css';
 import CommentInput from '../comment-input';
 
 
-function Comment({item, onSelect, Select, onComment, auth}) {
+function Comment({item, onSelect, Select, onComment, auth, t, lang}) {
     // console.log(item)
     if (item.author != undefined){
     let comment = item
@@ -22,15 +22,15 @@ function Comment({item, onSelect, Select, onComment, auth}) {
     <div className='Comment-container'style={{margin:`0 0 0 ${20*(item.level - 1)}px`}} >
     <div className='Comment-title'>
         <span>{comment.author?.profile.name}</span>
-        <span>{startTime.toLocaleString("ru", options)}</span>
+        <span>{startTime.toLocaleString(lang, options)}</span>
     </div>
     <div className='Comment-text' >
         <a>{comment.text}</a>
     </div>
     <div className='Comment-action'>
-    <span onClick={(id) => onSelect(comment._id)}>Ответить</span>
+    <span onClick={(id) => onSelect(comment._id)}>{t("comments.reply")}</span>
     </div>
-    {Select == comment._id ? (<CommentInput type={'comment'} id={comment._id} onComment={onComment} auth={auth}/>) : ('')}
+    {Select == comment._id ? (<CommentInput type={'comment'} id={comment._id} onComment={onComment} auth={auth} t={t}/>) : ('')}
     </div>
   );
 }
