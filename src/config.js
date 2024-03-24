@@ -19,7 +19,8 @@ const config = {
     baseUrl: ''
   },
   i18n: {
-    lang: 'ru'
+    lang: 'ru',
+    langHeader: 'X-Lang'
   }
 }
 

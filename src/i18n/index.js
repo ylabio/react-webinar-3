@@ -7,8 +7,10 @@ class I18nService {
    */
   constructor(services, config = {}) {
     this.services = services;
+    this.config = config;
     this._lang = localStorage.getItem('lang') || 'config.lang' || 'ru';
     this.listeners = [];
+    this.services.api.setHeader(this.config.langHeader, this._lang);
   }
 
   /**
@@ -31,6 +33,8 @@ class I18nService {
     this._lang = value;
     for (const listener of this.listeners) listener(this.getState());
     window.localStorage.setItem('lang', value);
+    this.services.api.setHeader(this.config.langHeader, value);
+    location.reload();
   }
 
   /**
