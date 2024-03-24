@@ -1,0 +1,34 @@
+.CommentsList {
+  padding: 30px 40px 0 40px;
+}
+
+.CommentsList-title{
+  font-size: 24px;
+}
+
+.CommentsList-container{
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.CommentsList-comment {
+  margin-bottom: 30px;
+}
+
+.CommentsList-comment .NewCommentForm{
+  margin-top: 30px;
+  padding-bottom: 0;
+}
+
+.CommentsList-button{
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+  color: #0087E9;
+}
+
+.CommentsList-button:hover {
+  text-decoration: underline;
+}

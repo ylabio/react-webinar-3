@@ -1,0 +1,54 @@
+.NewCommentForm{
+  display: flex;
+  flex-direction: column;
+  line-height: 14px;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 0 40px 30px 40px;
+}
+
+.NewCommentForm-head{
+  font-weight: 700;
+}
+
+.NewCommentForm form {
+  display: flex;
+  flex-direction: column;
+}
+
+.NewCommentForm textarea {
+  box-sizing: border-box;
+  border: 1px solid #666666;
+  resize: none;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.NewCommentForm textarea:focus {
+  outline: none;
+}
+
+.NewCommentForm-text{
+  margin: 10px 0;
+  min-height: 76px;
+}
+
+.NewCommentForm-button{
+  width: 90px;
+  margin-right: 10px;
+}
+
+.NewCommentForm-button-cancel{
+  width: 67px;
+}
+
+.NewCommentForm-message {
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.NewCommentForm-message a{
+  text-decoration-line: underline;
+  color: #0087E9;
+}
