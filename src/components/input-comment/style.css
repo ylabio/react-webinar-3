@@ -1,0 +1,19 @@
+.InputComment {
+  /* padding: 0 40px; */
+}
+.InputComment-text {
+  width: 100%;
+  height: 76px;
+  margin: 10px 0;
+  font-size: 14px;
+  padding: 5px;
+  resize: none;
+}
+.InputComment-title {
+  font-size: 12px;
+}
+
+.InputComment-buttons {
+  display: flex;
+  gap: 10px;
+}
