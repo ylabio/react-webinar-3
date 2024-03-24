@@ -40,8 +40,8 @@ function Comments({ id }) {
   }))
 
   const callbacks = {
-    onSend: useCallback((text) => {
-      dispatch(commentsActions.send(text, answerTo, select.token));
+    onSend: useCallback(async(text) => {
+      await dispatch(commentsActions.send(text, answerTo, select.token));
       dispatch(commentsActions.load(id));
     }),
     onAnswer: useCallback((commentId) => setAnswerTo({ _id: commentId, _type: 'comment' })),
