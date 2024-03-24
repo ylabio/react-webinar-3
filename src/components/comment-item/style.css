@@ -1,0 +1,7 @@
+:root {
+    --base-indent: 30px;
+}
+
+.comment {
+    padding-left: var(--base-indent);
+}
