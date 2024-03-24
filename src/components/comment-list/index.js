@@ -6,6 +6,7 @@ import commentItem from '../comment-item';
 import { useState } from 'react';
 import CommentItem from '../comment-item';
 import CommentForm from '../comment-form';
+import IsLogin from '../../utils/comment-or-login';
 const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onReply, onReplySubmit, onCancel, name, baseIndent }) => {
     return comments.map(comment => (
         <div key={comment._id} >
@@ -19,11 +20,15 @@ const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onRep
                 onReply={() => onReply(comment._id)}
                 baseIndent={baseIndent}
             />
+            
             {activeForm === `replyTo-${comment._id}` && (
-                <CommentForm
-                    key={`reply-to-${comment._id}`}
-                    onSubmit={(text) => onReplySubmit(text, comment._id)}
-                    onCancel={onCancel}
+                <IsLogin
+                    Component={CommentForm}
+                    componentProps={{
+                        key: `reply-to-${comment._id}`,
+                        onSubmit: (text) => onReplySubmit(text, comment._id),
+                        onCancel: onCancel
+                    }}
                 />
             )}
             {comment.replies && comment.replies.length > 0 && (

@@ -18,6 +18,7 @@ import { useState } from 'react';
 import shallowEqual from 'shallowequal';
 import commentsActions from '../../store-redux/comments/actions';
 import buildCommentTree from '../../utils/build-comment-tree';
+import IsLogin from '../../utils/comment-or-login';
 const CommentsContainer = (name) => {
     const store = useStore();
     const [replyToCommentId, setReplyToCommentId] = useState(null);
@@ -77,13 +78,16 @@ const CommentsContainer = (name) => {
                 name={profileState.name}
                 baseIndent={40}
             />
-            {replyToCommentId === null && (
-                <CommentForm
-                    key="new-comment"
-                    onSubmit={(text) => handleReplySubmit(text)}
-                    
-                />
-            )}
+            
+            {replyToCommentId === null ? (
+            <IsLogin
+                Component={CommentForm}
+                componentProps={{
+                    key: `new-comment`,
+                    onSubmit: (text) => handleReplySubmit(text),
+                }}
+            />
+            ) : null}
         </div>
     );
     
