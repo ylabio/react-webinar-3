@@ -1,0 +1,16 @@
+.AuthAlert {
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.AuthAlert-login {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #0087e9;
+}
+
+.AuthAlert-cancel {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #666666;
+}
