@@ -1,4 +1,12 @@
+.LoginMessage {
+  margin-bottom: 23px;
+}
+
 .LoginMessage-login {
+  font-size: 16px;  
+}
+
+.LoginMessage-text {
   font-size: 16px;
 }
 

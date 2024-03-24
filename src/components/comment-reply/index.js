@@ -14,16 +14,16 @@ const CommentReply = ({ session, onCancel, onAddReplyComment, t }) => {
   };
 
   if (!session) {
-    return (<LoginMessage onCancel={onCancel} reply={true} />)
+    return (<LoginMessage onCancel={onCancel} reply={true} t={t} />)
   }
 
   return (
     <form className={cn()} onSubmit={handleSubmit}>
-      <h2 className={cn('title')}>Новый ответ</h2>
-      <textarea className={cn('text')} value={text} onChange={(e) => setText(e.target.value)} />
+      <h2 className={cn('title')}>{t('commentReply.newReply')}</h2>
+      <textarea className={cn('text')} value={text} onChange={(e) => setText(e.target.value)} required />
       <div className={cn('wrapper')}>
-        <button type='submit'>Отправить</button>
-        <button type='button' onClick={onCancel}>Отмена</button>
+        <button type='submit'>{t('submit')}</button>
+        <button type='button' onClick={onCancel}>{t('cancel')}</button>
       </div>
     </form>
   );

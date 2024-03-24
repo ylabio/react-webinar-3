@@ -12,14 +12,17 @@ const Comment = (props) => {
     onOpenReply,
     onCloseReply,
     onAddReplyComment,
-    t  
+    t,
+    level = 0 
   } = props;
   const cn = bem('Comment');
   const isCurrentUser = currentUserId && comment.author._id === currentUserId;   
+  const maxNestingLevel = 10;
+  const marginLeft = level <= maxNestingLevel ? `30px` : '0px'; 
 
   const nested = (comment.children || []).map((item) => {
     return (
-      <div key={item._id} style={{ marginLeft: '30px' }}>
+      <div key={item._id} style={{ marginLeft }}>
         <Comment
           comment={item}          
           session={session}  
@@ -27,6 +30,8 @@ const Comment = (props) => {
           onOpenReply={onOpenReply}
           onCloseReply={onCloseReply}   
           onAddReplyComment={onAddReplyComment}    
+          t={t}
+          level={level + 1} 
         />
       </div>
     );
@@ -41,7 +46,7 @@ const Comment = (props) => {
         <div className={cn('date')}>{formatCommentDate(comment.dateCreate)}</div>
       </div>
       <div className={cn('text')}>{comment.text}</div>
-      <button className={cn('button')} type='button' onClick={() => onOpenReply(comment._id)}>Ответить</button>     
+      <button className={cn('button')} type='button' onClick={() => onOpenReply(comment._id)}>{t('comment.reply')}</button>     
       {comment.reply && 
         <CommentReply 
           session={session} 

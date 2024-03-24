@@ -23,7 +23,7 @@ const CommentList = (props) => {
   
   return (
     <div className={cn()}>
-      <h2 className={cn('title')}>Комментарии ({count})</h2>
+      <h2 className={cn('title')}>{t('commentList.comments')} ({count})</h2>
       {comments.map((item) => (
         <div key={item._id}>
           <Comment

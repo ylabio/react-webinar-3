@@ -14,14 +14,14 @@ const CommentNew = ({ session, onCreateNewComment, t }) => {
   };
 
   if (!session) {
-    return (<LoginMessage />)
+    return (<LoginMessage t={t} />)
   }  
 
   return (
     <form className={cn()} onSubmit={(e) => handleSubmit(e)}>
-      <h2 className={cn('title')}>Новый комментарий</h2>
-      <textarea className={cn('text')} value={text} onChange={(e) => setText(e.target.value)} />
-      <button className={cn('button')} type="submit">Отправить</button>
+      <h2 className={cn('title')}>{t('commentNew.newComment')}</h2>
+      <textarea className={cn('text')} value={text} onChange={(e) => setText(e.target.value)} required />
+      <button className={cn('button')} type="submit">{t('submit')}</button>
     </form>
   );
 };
