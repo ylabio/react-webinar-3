@@ -14,5 +14,30 @@ export default {
         dispatch({type: "comments/load-error"});
       }
     }
+  },
+
+  send: (text, parent, token) => {
+    return async (dispatch, getState, services) => {
+      dispatch({type: 'comments/send-start'});
+
+      try {
+        const res = await services.api.request({
+          url: '/api/v1/comments',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Token': token
+          },
+          body: JSON.stringify({
+            text: text,
+            parent: parent
+          })
+        });
+
+        dispatch({type: 'comments/send-succes', payload: {data: res.data.result}})
+      } catch (e) {
+        dispatch({type: 'comments/send-error'})
+      }
+    }
   }
 }

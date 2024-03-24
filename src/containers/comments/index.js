@@ -32,7 +32,7 @@ function Comments({ id }) {
   }, [id]);
 
   const select = useSelector(state => ({
-    user: state.session.user,
+    token: state.session.token,
     exists: state.session.exists
   }));
 
@@ -43,7 +43,10 @@ function Comments({ id }) {
   }))
 
   const callbacks = {
-    onSend: useCallback(),
+    onSend: useCallback((text) => {
+      dispatch(commentsActions.send(text,answerTo,select.token));
+      dispatch(commentsActions.load(id));
+    }),
     onAnswer: useCallback((commentId) => setAnswerTo({ _id: commentId, _type: 'comment' })),
     onCancel: useCallback(() => setAnswerTo({ _id: id, _type: 'article' }))
   };
