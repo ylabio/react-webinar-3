@@ -1,77 +1,105 @@
-import {memo, useCallback, useState, useMemo} from 'react';
-// import useStore from '../../hooks/use-store';
+import {memo, useCallback, useState, useMemo, useEffect} from 'react';
 import useSelector from '../../hooks/use-selector';
 import {useDispatch, useSelector as useSelectorRedux, shallowEqual} from 'react-redux';
 import commentsActions from '../../store-redux/comments/actions';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
-import Item from '../../components/item';
 import List from '../../components/list';
-import Pagination from '../../components/pagination';
 import Spinner from '../../components/spinner';
 import CommentsTitle from '../../components/comments-title';
 import Comment from '../../components/comment';
 import CommentsForm from '../../components/comments-form';
-import treeToList from '../../utils/tree-to-list';
-import listToTree from '../../utils/list-to-tree';
+import sortByParent from '../../utils/sort-by-parent';
+import LoginInvite from '../../components/login-invite';
+import formatCommentDate from '../../utils/format-comment-date';
 
 function Comments({articleId}) {
   const [activeFormId, setActiveFormId] = useState(articleId);
 
-  // const select = useSelector((state) => ({
-  //   exists: state.session.exists,
-  // }));
+  const select = useSelector((state) => ({
+    isSession: state.session.exists,
+    ownId: state.session.user?._id,
+  }));
 
   const redux = useSelectorRedux(
     (state) => ({
       comments: state.comments.data.items || [],
       count: state.comments.data.count,
-      waiting: state.article.waiting,
+      addingErrors: state.comments.addingErrors,
+      waiting: state.comments.waiting,
     }),
     shallowEqual
   );
-  // const comments = useSelectorRedux((state) => state.comments.data.items);
+
   const dispatch = useDispatch();
   useInit(() => {
     dispatch(commentsActions.load(articleId));
   }, [articleId]);
 
+  useEffect(() => {
+    return () => dispatch(commentsActions.resetErrors());
+  }, []);
+
   const callbacks = {
-    addComment: useCallback((data) => dispatch(commentsActions.add(data)), []),
-    cancelComment: useCallback(() => setActiveFormId(articleId), []),
+    addComment: useCallback(
+      (data) => {
+        dispatch(commentsActions.add(data));
+        if (!redux.addingErrors) setActiveFormId(articleId);
+      },
+      [redux.addingErrors, articleId]
+    ),
+    cancelComment: useCallback(() => setActiveFormId(articleId), [articleId]),
+    activateForm: useCallback((id) => setActiveFormId(id), []),
   };
 
   const commentsList = useMemo(
     () =>
-      treeToList(listToTree(redux.comments), (item, level) => ({
+      sortByParent(redux.comments, (item, level) => ({
         _id: item._id,
         authorName: item?.author?.profile?.name,
         authorId: item?.author?._id,
-        date: item.dateCreate,
+        date: formatCommentDate(item.dateCreate),
         text: item.text,
-        level,
+        style: {marginLeft: level > 10 ? '300px' : `${level * 30}px`},
       })),
     [redux.comments]
   );
-  console.log('comments', commentsList);
-  //      <Comments articleId={params.id} />
+
   const renders = {
     comment: useCallback(
       (comment) => (
         <Comment
           comment={comment}
-          isActive={comment._id === activeFormId}
+          activeId={activeFormId}
+          isSession={select.isSession}
+          loginLink={'/login'}
           onSubmit={callbacks.addComment}
           onCancel={callbacks.cancelComment}
-          // link={`/articles/${item._id}`}
+          onActivate={callbacks.activateForm}
+          self={select.ownId === comment.authorId}
+          error={redux.addingErrors?.id === comment._id ? redux.addingErrors.other : null}
+          style={comment.style}
         />
       ),
-      [] // t
+      [activeFormId, redux.addingErrors] // t
     ),
   };
 
   const {t} = useTranslate();
 
+  const footer = select.isSession ? (
+    <CommentsForm
+      id={articleId}
+      isRoot={true}
+      onSubmit={callbacks.addComment}
+      error={redux.addingErrors?.id === articleId ? redux.addingErrors.other : null}
+    />
+  ) : (
+    <LoginInvite
+      link={'/login'}
+      isRoot={true}
+    />
+  );
   return (
     <Spinner active={redux.waiting}>
       <CommentsTitle count={redux.count} />
@@ -80,7 +108,7 @@ function Comments({articleId}) {
         renderItem={renders.comment}
         noBorder={true}
       />
-      <CommentsForm onSubmit={callbacks.addComment} />
+      {activeFormId === articleId && footer}
     </Spinner>
   );
 }

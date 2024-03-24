@@ -1,42 +1,74 @@
 import {memo} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
-import './style.css';
 import CommentsForm from '../comments-form';
+import LoginInvite from '../../components/login-invite';
+import './style.css';
 
-function Comment({comment, isActive, onSubmit, onCancel}) {
+function Comment({self, ...props}) {
+  const isActive = props.activeId === props.comment._id;
+
   const cn = bem('Comment');
+
+  const handleActivate = (e) => {
+    e.preventDefault();
+    props.onActivate(props.comment._id);
+  };
+
+  const footer = props.isSession ? (
+    <CommentsForm
+      id={props.comment._id}
+      isRoot={false}
+      onSubmit={props.onSubmit}
+      onCancel={props.onCancel}
+      error={props.error}
+    />
+  ) : (
+    <LoginInvite
+      link={props.loginLink}
+      isRoot={false}
+      onCancel={props.onCancel}
+    />
+  );
+
   return (
-    <div className={cn()}>
+    <div
+      className={cn()}
+      style={props.style}
+    >
       <div className={cn('title')}>
-        <b className={cn('title-name')}>{comment.name}</b>
-        <span className={cn('title-date')}>{comment.date}</span>
+        <b className={cn('title-name', {self})}>{props.comment.authorName}</b>
+        <span className={cn('title-date')}>{props.comment.date}</span>
       </div>
-      <p className={cn('text')}>{comment.text}</p>
+      <p className={cn('text')}>{props.comment.text}</p>
       <div className={cn('controls')}>
-        <span className={cn('controls-reply')}>{'Ответить'}</span>
+        <a
+          className={cn('controls-reply')}
+          onClick={handleActivate}
+          href=''
+          role='button'
+        >
+          {'Ответить'}
+        </a>
       </div>
-      {isActive && (
-        <CommentsForm
-          id={comment._id}
-          isRoot={false}
-          onSubmit={onSubmit}
-          onCancel={onCancel}
-        />
-      )}
+      {isActive && footer}
     </div>
   );
 }
 
 Comment.propTypes = {
   comment: PropTypes.shape({
-    name: PropTypes.string,
+    authorName: PropTypes.string,
     date: PropTypes.string,
     text: PropTypes.string,
   }),
   isActive: PropTypes.bool,
+  isSession: PropTypes.bool,
+  loginLink: PropTypes.string,
   onSubmit: PropTypes.func,
   onCancel: PropTypes.func,
+  onActivate: PropTypes.func,
+  error: PropTypes.object,
 };
 
 Comment.defaultProps = {
@@ -46,6 +78,7 @@ Comment.defaultProps = {
   onCancel: (e) => {
     e.preventDefault();
   },
+  onActivate: () => {},
 };
 
 export default memo(Comment);

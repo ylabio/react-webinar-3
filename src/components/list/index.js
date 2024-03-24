@@ -8,7 +8,10 @@ function List({list, renderItem, noBorder}) {
   return (
     <div className={cn()}>
       {list.map((item) => (
-        <div key={item._id} className={cn('item', {'no-border': noBorder})}>
+        <div
+          key={item._id}
+          className={cn('item', {'no-border': noBorder})}
+        >
           {renderItem(item)}
         </div>
       ))}
@@ -26,7 +29,7 @@ List.propTypes = {
 };
 
 List.defaultProps = {
-  renderItem: (item) => {},
+  renderItem: () => {},
   noBorder: false,
 };
 

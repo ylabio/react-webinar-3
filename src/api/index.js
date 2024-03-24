@@ -1,15 +1,19 @@
 class APIService {
-
   /**
    * @param services {Services} Менеджер сервисов
    * @param config {Object}
    */
   constructor(services, config = {}) {
     this.services = services;
-    this.config = config
+    this.config = config;
     this.defaultHeaders = {
       'Content-Type': 'application/json',
-    }
+    };
+    this.services.i18n.subscribe((lang) => this.setHeader(this.config.langHeader, lang));
+    this.services.store.subscribe((state) => {
+      const token = state.session.token;
+      this.setHeader(this.config.tokenHeader, token);
+    });
   }
 
   /**

@@ -6,9 +6,9 @@ import './style.css';
 function CommentsTitle({count}) {
   const cn = bem('CommentsTitle');
   return (
-    <h3 className={cn()}>
+    <h2 className={cn()}>
       {'Комментарии'}&nbsp;{'(' + count + ')'}
-    </h3>
+    </h2>
   );
 }
 

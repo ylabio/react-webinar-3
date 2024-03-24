@@ -1,3 +1,26 @@
 .Comment {
-  display: block;
+  padding: 0 40px 30px;
+  font-size: 12px;
+}
+
+.Comment-title-name {
+  margin-right: 10px;
+}
+
+.Comment-title-name_self {
+  color: #666666;
+}
+
+.Comment-title-date {
+  color: #666666;
+}
+
+.Comment-text {
+  font-size: 14px;
+}
+
+.Comment-controls a {
+  text-decoration: none;
+  color: #0087e9;
+  cursor: pointer;
 }

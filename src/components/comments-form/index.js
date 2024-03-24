@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function CommentsForm({id, isRoot, onSubmit, onCancel}) {
+function CommentsForm({id, isRoot, onSubmit, onCancel, error}) {
+  const cn = bem('CommentsForm');
   const [text, setText] = useState('');
 
   const onChangeText = (event) => {
@@ -18,13 +19,19 @@ function CommentsForm({id, isRoot, onSubmit, onCancel}) {
       isRoot,
     });
   };
-  const cn = bem('CommentsForm');
+
+  const title = 'Новый ' + (isRoot ? 'комментарий' : 'ответ');
+  const placeholder = 'Текст ' + (isRoot ? 'комментария' : 'ответа');
+
   return (
-    <form className={cn()}>
+    <form className={cn({root: isRoot})}>
+      <h4 className={cn('title', {root: isRoot})}>{title}</h4>
       <textarea
         className={cn('text')}
         value={text}
         onChange={onChangeText}
+        autoFocus={!isRoot}
+        placeholder={placeholder}
       />
       <div className={cn('controls')}>
         <button
@@ -43,19 +50,28 @@ function CommentsForm({id, isRoot, onSubmit, onCancel}) {
             {'Отмена'}
           </button>
         )}
+        {error && <span className={cn('error')}>{error}</span>}
       </div>
     </form>
   );
 }
 
 CommentsForm.propTypes = {
-  comment: PropTypes.shape({
-    name: PropTypes.string,
-    date: PropTypes.string,
-    text: PropTypes.string,
-  }),
+  id: PropTypes.string,
+  isRoot: PropTypes.bool,
+  onSubmit: PropTypes.func,
+  onCancel: PropTypes.func,
+  link: PropTypes.string,
+  error: PropTypes.any,
 };
 
-Comment.defaultProps = {};
+Comment.defaultProps = {
+  onSubmit: (e) => {
+    e.preventDefault();
+  },
+  onCancel: (e) => {
+    e.preventDefault();
+  },
+};
 
 export default memo(CommentsForm);

@@ -1,6 +1,8 @@
 // Начальное состояние
 export const initialState = {
-  data: {},
+  data: {items: [], count: 0},
+  loadingErrors: null,
+  addingErrors: null,
   waiting: false, // признак ожидания загрузки
 };
 
@@ -11,20 +13,26 @@ function reducer(state = initialState, action) {
       return {...state, data: {}, waiting: true};
 
     case 'comments/load-success':
-      return {...state, data: action.payload.data, waiting: false};
+      return {...state, loadingErrors: null, data: action.payload.data, waiting: false};
 
     case 'comments/load-error':
-      return {...state, data: {}, waiting: false}; //@todo текст ошибки сохранять?
+      return {...state, data: {}, loadingErrors: action.payload.errors, waiting: false}; //@todo текст ошибки сохранять?
 
     case 'comments/add-start':
-      return {...state, data: {}, waiting: true};
+      return {...state, waiting: true};
 
     case 'comments/add-success':
-      return {...state, data: action.payload.data, waiting: false};
+      return {
+        ...state,
+        addingErrors: null,
+        data: {...state.data, items: [...state.data.items, action.payload.data]},
+        waiting: false,
+      };
 
     case 'comments/add-error':
-      return {...state, data: {}, waiting: false}; //@todo текст ошибки сохранять?
-
+      return {...state, addingErrors: action.payload.errors, waiting: false}; //@todo текст ошибки сохранять?
+    case 'comments/reset-errors':
+      return {...state, loadingErrors: null, addingErrors: null};
     default:
       // Нет изменений
       return state;
