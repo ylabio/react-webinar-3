@@ -24,12 +24,11 @@ const Comments = ({count, isAuth, list, createFirstComment, createAnswerComment,
         }
         
         buttons.forEach((n,i) => {
-            n.dataset.areaNumber = i;
+            
             n.addEventListener('click', () => {
                 areas.forEach((item,index) => {
                     if (index != areas.length -1){
                      item.classList.remove(active)
-                     item.dataset.areaNumber = index;
                     } 
                 });
                 areas[i].classList.add(active);
