@@ -1,0 +1,36 @@
+.ReplyArea {
+  margin-top: 30px;
+}
+
+.ReplyArea-top {
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.ReplyArea-textarea {
+	width: 100%;
+  height: 76px;
+  margin: 12px 0;
+  resize: none;
+  border: 1px solid #666;
+  box-shadow: inset 0 1px 4px 0 rgba(102, 102, 102, 0.1);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.ReplyArea button {
+	margin-right: 10px;
+}
+
+.ReplyArea-auth {
+	margin-top: 30px;
+}
+
+.ReplyArea-auth span {
+	text-decoration: underline;
+  font-size: 16px;
+  color: #666;
+}
+
+.ReplyArea-auth span:hover {
+	cursor: pointer;
+}
