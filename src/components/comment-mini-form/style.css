@@ -1,0 +1,16 @@
+.Mini-Comment {}
+
+.Mini-Comment-form label {
+    font-size: 12px;
+}
+
+.Mini-Comment-form textarea {
+    margin: 10px 0px;
+    width: 100%;
+    min-height: 80px;
+    resize: none;
+}
+
+.Mini-Comment-form button {
+    margin-right: 10px;
+}
