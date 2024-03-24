@@ -10,7 +10,7 @@ function List({list, renderItem, theme}) {
   return (
     <div className={cn()}>{
       list.map(item =>
-        <div key={item._id} className={cn('item', {theme: theme})}>
+        <div key={item._id} className={cn('item', {theme})}>
           {renderItem(item)}
         </div>
       )}

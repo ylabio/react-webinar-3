@@ -1,5 +1,10 @@
 .CommentForm {
-  padding: 30px 40px;
+  padding: 10px 40px 30px 40px;
+}
+
+.CommentForm_theme_embed {
+  padding-top: 30px;
+  padding-bottom: 10px;
 }
 
 .CommentForm h3 {

@@ -16,7 +16,7 @@ function ItemComment(props) {
   };
 
   return (
-    <div className={cn()} style={{paddingLeft: props.item.padding + 'px'}}>
+    <div className={cn()} style={{paddingLeft: props.item.paddingLeft + 'px'}}>
       <div className={cn('meta')}>
         <div className={cn('author')}>{props.item.author.profile.name}</div>
         <div className={cn('date')}>{ dateFormat(props.item.dateCreate, props.lang, {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'}).replace(' г.', '') }</div>
@@ -39,7 +39,7 @@ ItemComment.propTypes = {
     dateCreate: PropTypes.string,
     text: PropTypes.string,
     isDeleted: PropTypes.bool,
-    padding: PropTypes.number,
+    paddingLeft: PropTypes.number,
   }).isRequired,
   lang: PropTypes.string,
   onAnswer: PropTypes.func

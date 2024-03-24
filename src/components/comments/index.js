@@ -26,6 +26,7 @@ Comments.propTypes = {
     dateCreate: PropTypes.string,
     text: PropTypes.string,
     isDeleted: PropTypes.bool,
+    paddingLeft: PropTypes.number
   })),
   lang: PropTypes.string,
   title: PropTypes.string,

@@ -17,6 +17,7 @@ function CommentsList(props) {
   const {lang, t} = useTranslate();
 
   const [parent, setParent] = useState(props.parent);
+  const [text, setText] = useState('');
 
   const session = useSelector(state => ({
     exists: state.session.exists,
@@ -26,6 +27,7 @@ function CommentsList(props) {
   const select = useSelectorRedux(state => ({
     items: state.comments.items,
     count: state.comments.count,
+    message: state.comments.message,
     waiting: state.comments.waiting,
     sending: state.comments.sending
   }), shallowequal);
@@ -34,16 +36,20 @@ function CommentsList(props) {
 
   useEffect(
     () => {
-      if (!select.sending) {
+      if (!select.sending && !select.message) {
         cancelAnswer();
+        setText('');
+      }
+      if (!select.sending && select.message) {
+        alert(select.message);
       }
     },
-    [select.sending]
+    [select.sending, select.message]
   )
 
   const callbacks = {
     // Отправка комментария
-    send: useCallback(text => dispatch(commentsActions.send(session.user, parent, text))),
+    send: useCallback(() => dispatch(commentsActions.send(session.user, parent, text))),
   }
 
   const renders = {
@@ -53,6 +59,8 @@ function CommentsList(props) {
         { parent._id === item._id &&
             <CommentForm
               title={t('comments.newAnswer')}
+              theme='embed'
+              autoFocus={true}
               placeholder={t('comments.text')}
               labelSend={t('comments.send')}
               labelCancel={t('comments.cancel')}
@@ -60,15 +68,18 @@ function CommentsList(props) {
               onCancel={cancelAnswer}
               isCancelable={true}
               inviteUrl='/login/'
+              text={text}
+              setText={setText}
               disabled={select.sending}
+              paddingLeft={item.paddingLeft}
               onSubmit={callbacks.send}/>
         }
       </>
-    ), [lang, parent]),
+    ), [lang, parent, text]),
   };
 
   const items = treeToList(listToTree(select.items), (item, level) => (
-    {...item, padding: (level - 1) * 30}
+    {...item, paddingLeft: (level - 1) * 30}
   )).splice(1);
 
   return (
@@ -81,6 +92,8 @@ function CommentsList(props) {
             labelSend={t('comments.send')}
             exists={session.exists}
             inviteUrl='/login/'
+            text={text}
+            setText={setText}
             disabled={select.sending}
             onSubmit={callbacks.send}/>
       }
