@@ -1,0 +1,20 @@
+.Comment div {
+    margin: 10px 0;
+}
+
+.Comment-head span {
+    padding-right: 5px;
+}
+
+.Comment_gray {
+    color: #666;
+}
+
+.Comment-reply button {
+    background: none;
+    border: none;
+    color: #0087E9;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+}

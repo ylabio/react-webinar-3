@@ -1,0 +1,8 @@
+.Reply-login button {
+    background: none;
+    border: none;
+    color: #0087E9;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+}
