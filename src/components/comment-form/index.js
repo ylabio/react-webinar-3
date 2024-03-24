@@ -21,7 +21,9 @@ function CommentForm({ isAuth, onUnAuth, type, user = null, cancel, onAdd, paren
           <button
           className={cn("send")}
           onClick={() => {
-            onAdd(parentId, type, textRef.current.value, article)
+            if(textRef.current.value !== ''){
+              onAdd(parentId, type, textRef.current.value, article)
+            }
             textRef.current.value=""
           }}
           > {t("comments.send")} </button>

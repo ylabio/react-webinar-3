@@ -28,7 +28,7 @@ function CommentariesBlock({
           formPosition={formPosition}
           setFormPosition={setFormPosition}
           key={comment._id}
-          comment={{...comment}}
+          comment={comment}
           isAuth={isAuth}
           onUnAuth={onUnAuth}
           t={t}
