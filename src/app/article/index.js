@@ -1,56 +1,52 @@
-import {memo, useCallback, useMemo} from 'react';
-import {useParams} from 'react-router-dom';
-import useStore from '../../hooks/use-store';
-import useTranslate from '../../hooks/use-translate';
-import useInit from '../../hooks/use-init';
-import PageLayout from '../../components/page-layout';
-import Head from '../../components/head';
-import Navigation from '../../containers/navigation';
-import Spinner from '../../components/spinner';
-import ArticleCard from '../../components/article-card';
-import LocaleSelect from '../../containers/locale-select';
-import TopHead from '../../containers/top-head';
-import {useDispatch, useSelector} from 'react-redux';
-import shallowequal from 'shallowequal';
-import articleActions from '../../store-redux/article/actions';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import PageLayout from "../../components/page-layout";
+import Head from "../../components/head";
+import Navigation from "../../containers/navigation";
+import Spinner from "../../components/spinner";
+import ArticleCard from "../../components/article-card";
+import LocaleSelect from "../../containers/locale-select";
+import Comments from "../../containers/comments";
+import TopHead from "../../containers/top-head";
+import articleActions from "../../store-redux/article/actions";
+import commentActions from "../../store-redux/comment/actions";
 
 function Article() {
-  const store = useStore();
-
+  const { id } = useParams();
   const dispatch = useDispatch();
-  // Параметры из пути /articles/:id
 
-  const params = useParams();
+  useEffect(() => {
+    dispatch(articleActions.load(id));
+    dispatch(commentActions.loadComments(id));
+  }, [dispatch, id]);
 
-  useInit(() => {
-    //store.actions.article.load(params.id);
-    dispatch(articleActions.load(params.id));
-  }, [params.id]);
-
-  const select = useSelector(state => ({
+  const { article, waiting } = useSelector((state) => ({
     article: state.article.data,
-    waiting: state.article.waiting,
-  }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
+    waiting: state.article.waiting || state.comment.waiting,
+  }));
 
-  const {t} = useTranslate();
-
-  const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-  }
+  const addToBasket = (itemId) => {
+    dispatch(articleActions.addToBasket(itemId));
+  };
 
   return (
     <PageLayout>
-      <TopHead/>
-      <Head title={select.article.title}>
-        <LocaleSelect/>
+      <TopHead />
+      <Head title={article.title || ""}>
+        <LocaleSelect />
       </Head>
-      <Navigation/>
-      <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
-      </Spinner>
+      <Navigation />
+      {waiting ? (
+        <Spinner active={true} />
+      ) : (
+        <>
+          <ArticleCard article={article} onAdd={addToBasket} />
+          <Comments />
+        </>
+      )}
     </PageLayout>
   );
 }
 
-export default memo(Article);
+export default Article;
