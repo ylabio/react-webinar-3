@@ -38,7 +38,7 @@ function Login() {
     ),
   };
 
-  return token ? (
+  return select.authorized ? (
     <Navigate to={location.state ? location.state.prev : "/profile"} />
   ) : (
     <PageLayout>

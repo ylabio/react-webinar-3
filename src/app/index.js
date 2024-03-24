@@ -6,13 +6,22 @@ import Article from "./article";
 import Login from "./login";
 import Profile from "./profile";
 import WithAuth from "../components/with-auth";
+import { useEffect } from "react";
+import useStore from "../hooks/use-store";
 
 /**
  * Приложение
  * Маршрутизация по страницам и модалкам
  */
 function App() {
+  const store = useStore();
+  const token = localStorage.getItem("token");
+  const authorized = useSelector((state) => state.modals.authorized);
   const activeModal = useSelector((state) => state.modals.name);
+
+  useEffect(() => {
+    if (token && !authorized) store.actions.session.getName();
+  }, [store, token]);
 
   return (
     <>

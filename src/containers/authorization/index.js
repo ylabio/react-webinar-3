@@ -19,12 +19,6 @@ function Authorization() {
     name: state.session.name,
   }));
 
-  useEffect(() => {
-    if (token && !select.name) {
-      store.actions.session.getName();
-    }
-  }, [store]);
-
   const callbacks = {
     toLoginForm: useCallback(() => {
       store.actions.session.clearError();

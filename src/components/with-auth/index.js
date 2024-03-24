@@ -1,10 +1,11 @@
 import { memo } from "react";
 import { Navigate } from "react-router-dom";
+import useSelector from "../../hooks/use-selector";
 
 function WithAuth({ children }) {
-  const token = localStorage.getItem("token");
+  const authorized = useSelector((state) => state.session.authorized);
 
-  return <>{token ? children : <Navigate to="/login" />}</>;
+  return <>{authorized ? children : <Navigate to="/login" />}</>;
 }
 
 export default memo(WithAuth);

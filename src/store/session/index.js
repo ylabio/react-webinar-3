@@ -6,7 +6,7 @@ import StoreModule from "../module";
 class SessionState extends StoreModule {
   initState() {
     return {
-      username: "",
+      name: "",
       authorized: false,
       token: "",
       error: "",
@@ -35,7 +35,7 @@ class SessionState extends StoreModule {
 
       this.setState(
         {
-          username: "",
+          name: "",
           authorized: false,
           token: "",
           error: "",
@@ -48,7 +48,7 @@ class SessionState extends StoreModule {
 
       this.setState(
         {
-          username: "",
+          name: "",
           authorized: false,
           token: "",
           error: e,
@@ -104,7 +104,7 @@ class SessionState extends StoreModule {
         this.setState(
           {
             ...this.getState(),
-            username: json.result.user.username,
+            name: json.result.user.profile.name,
             authorized: true,
             token: json.result.token,
             waiting: false,
@@ -140,11 +140,13 @@ class SessionState extends StoreModule {
    * @return {Promise<void>}
    */
   async getName() {
-    this.setState({
-      ...this.getState(),
-      name: "",
-      waiting: true,
-    });
+    this.setState(
+      {
+        ...this.getState(),
+        waiting: true,
+      },
+      "Восстановление сессии"
+    );
 
     try {
       const response = await fetch(`/api/v1/users/self?fields=profile(name)`, {
@@ -160,23 +162,26 @@ class SessionState extends StoreModule {
           {
             ...this.getState(),
             name: json.result.profile.name,
+            authorized: true,
             waiting: false,
           },
-          "Загружены данные профиля"
+          "Сессия восстановлена"
         );
       } else {
         this.setState(
           {
             ...this.getState(),
+            authorized: false,
             error: response.statusText,
           },
-          "Ошибка при загрузке данных профиля"
+          "Ошибка при восстановлении сессии"
         );
       }
     } catch (e) {
       console.log("Application error");
       this.setState({
         ...this.getState(),
+        authorized: false,
         error: "Application error",
         waiting: false,
       });

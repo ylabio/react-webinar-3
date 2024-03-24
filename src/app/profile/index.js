@@ -26,7 +26,7 @@ function Profile() {
 
   useEffect(() => {
     store.actions.user.getSelf();
-  }, []);
+  }, [store]);
 
   return (
     <PageLayout>
