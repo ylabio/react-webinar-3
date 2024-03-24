@@ -2,14 +2,13 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import { memo } from 'react';
 
-function Comment({item, level, currentUser}) {
+function Comment({item, level, currentUser, onAnswer, children}) {
   const cn = bem('Comment');
 
   const dateOptions = {day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'}
 
   const curUser = currentUser._id == item.author._id ? 'current-user' : '';
 
-  console.log(currentUser);
   return(
     <div className={cn()} style={{paddingLeft: (level? level*30 : 0) + 'px' }}>
       <div className={cn('head')}>
@@ -19,9 +18,10 @@ function Comment({item, level, currentUser}) {
       <div className={cn('body')}>
         {item?.text}
       </div>
-      <div className={cn('footer')} onClick={''}>
+      <div className={cn('footer')} onClick={()=> onAnswer(item._id)}>
         Ответить
       </div>
+      {children}
     </div>
   )
 }

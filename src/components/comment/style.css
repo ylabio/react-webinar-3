@@ -23,9 +23,12 @@
 .Comment-body {
   font-size: 14px;
   padding: 10px 0px;
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 .Comment-footer{
+  width: fit-content;
   display: flex;
   color: #0087E9;
   cursor: pointer;

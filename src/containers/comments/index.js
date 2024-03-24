@@ -16,6 +16,7 @@ import listToTree from "../../utils/list-to-tree";
 import { useState } from "react";
 import { useCallback } from "react";
 import CommentInput from "../../components/comment-input";
+import { useDeferredValue } from "react";
 
 
 function Comments({ id }) {
@@ -41,22 +42,35 @@ function Comments({ id }) {
     waiting: state.comments.waiting,
   }))
 
-  const comments = useMemo(() =>
-    treeToList(listToTree(selectRedux.comments), (item, level) => (
-      level > 0 ? <Comment key={item._id} item={item} level={level - 1} currentUser={select.user}/> : ''
-    )), [selectRedux.comments]);
-
   const callbacks = {
     onSend: useCallback(),
-    onAnswer: useCallback((userId) => setAnswerTo({ _id: userId, _type: 'comment' })),
+    onAnswer: useCallback((commentId) => setAnswerTo({ _id: commentId, _type: 'comment' })),
     onCancel: useCallback(() => setAnswerTo({ _id: id, _type: 'article' }))
   };
+
+  const commentInput = useMemo(() => {
+    return (
+      <CommentInput isLoggedIn={select.exists} redirect='/login' onCancel={callbacks.onCancel} parent={answerTo._type} />
+    )
+  }, [answerTo, select.exists, selectRedux.comments])
+
+  const comments = useMemo(() =>
+    treeToList(listToTree(selectRedux.comments), (item, level) => {
+      return (
+        <>
+          {level > 0 ? <Comment key={item._id} item={item} level={level - 1}
+            currentUser={select.user} onAnswer={callbacks.onAnswer}
+            children={(answerTo._id == item._id && answerTo._type == 'comment') && commentInput} /> : ''}
+        </>
+      )
+    }), [selectRedux.comments, answerTo, select.exists]
+  );
 
   return (
     <Spinner active={selectRedux.waiting}>
       <CommentsLayout count={selectRedux.count}>
         {comments}
-        <CommentInput isLoggedIn={select.exists} redirect='/login' />
+        {(answerTo._id == id && answerTo._type == 'article') && commentInput}
       </CommentsLayout>
     </Spinner>
   )
