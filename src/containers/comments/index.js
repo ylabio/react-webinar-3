@@ -11,11 +11,17 @@ import { useEffect } from "react";
 import { useMemo } from "react";
 import treeToList from "../../utils/tree-to-list";
 import listToTree from "../../utils/list-to-tree";
+import { useState } from "react";
+import { useCallback } from "react";
 
 
 function Comments({ id }) {
   const store = useStore();
   const dispatch = useDispatch();
+  const [answerTo, setAnswerTo] = useState({
+    _id: id,
+    _type: 'article'
+  });
 
   useInit(() => {
     dispatch(commentsActions.load(id));
@@ -31,6 +37,12 @@ function Comments({ id }) {
     treeToList(listToTree(select.comments), (item, level) => (
       level > 0 ? <Comment key={item._id} item={item} level={level - 1} /> : ''
     )), [select.comments]);
+
+    const callbacks = {
+      onSend: useCallback(),
+      onAnswer: useCallback((userId) => setAnswerTo({_id: userId, _type: 'comment'})),
+      onCancel: useCallback(() => setAnswerTo({_id: id, _type: 'article'}))
+    };
 
   return (
     <Spinner active={select.waiting}>
