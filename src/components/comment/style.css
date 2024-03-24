@@ -12,6 +12,10 @@
   font-weight: 700;
 }
 
+.current-user {
+  color: #666666;
+}
+
 .Comment-dateTime {
   color: #666666;
 }
