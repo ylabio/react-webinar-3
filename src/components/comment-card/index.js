@@ -7,7 +7,7 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 function CommentCard(props) {
-  const {item, exists, activeForm, setActiveForm, commentValue, setCommentValue, answerComment, t, margin} = props;
+  const {item, exists, activeForm, setActiveForm, commentValue, setCommentValue, replyComment, t, margin} = props;
 
   // Функция открытия выбранной формы по id
   const handleOpenForm = (_id) => {
@@ -20,8 +20,8 @@ function CommentCard(props) {
   }
 
   // Функция ответа на выбранный комментарий по id
-  const handleAnswerComment = (_id) => {
-    answerComment(_id)
+  const handleReplyComment = (_id) => {
+    replyComment(_id);
     setActiveForm('');
   }
 
@@ -33,8 +33,12 @@ function CommentCard(props) {
         <div className={cn('author')}>{item.author.profile.name}</div>
         <div className={cn('date')}>{dateFormat(item.dateCreate)}</div>
       </div>
-      <div className={cn('text')}>{item.text}</div>
-      <button onClick={() => handleOpenForm(item._id)} className={cn('article')}>{t('comments.answer')}</button>
+      <div className={cn('text')}>
+        {item.text}
+      </div>
+      <button onClick={() => handleOpenForm(item._id)} className={cn('article')}>
+        {t('comments.reply')}
+      </button>
       
       {/* Сверяем записанный id в состоянии с id выбранной карточки для открытия  */}
       {activeForm === item._id && (
@@ -45,7 +49,7 @@ function CommentCard(props) {
                 <button className={cn('cancel-btn')} onClick={handleCloseForm}>{t('comments.cancel')}</button>
               </div>
             : <div className={cn('form-wrapper')}>
-                <CommentForm text={'ответ'} value={commentValue} onChange={setCommentValue} onClick={() => handleAnswerComment(item._id)} t={t}>
+                <CommentForm text={'ответ'} value={commentValue} onChange={setCommentValue} onClick={() => handleReplyComment(item._id)} t={t}>
                   <button onClick={handleCloseForm}>{t('comments.cancel')}</button>
                 </CommentForm>
               </div>
@@ -59,7 +63,7 @@ function CommentCard(props) {
           key={reply._id} item={reply} exists={exists} 
           activeForm={activeForm} setActiveForm={setActiveForm} 
           commentValue={commentValue} setCommentValue={setCommentValue}
-          answerComment={answerComment} t={t} margin={'left'} 
+          replyComment={replyComment} t={t} margin={'left'} 
         />
       ))}
     </div>
@@ -78,7 +82,7 @@ CommentCard.propTypes = {
   setActiveForm: PropTypes.func,
   commentValue: PropTypes.string,
   setCommentValue: PropTypes.func,
-  answerComment: PropTypes.func,
+  replyComment: PropTypes.func,
   t: PropTypes.func,
   margin: PropTypes.oneOf(['left'])
 }
@@ -86,7 +90,7 @@ CommentCard.propTypes = {
 CommentCard.defaultProps = {
   setActiveForm: () => {},
   setCommentValue: () => {},
-  answerComment: () => {},
+  replyComment: () => {},
   t: (text) => text,
 }
 

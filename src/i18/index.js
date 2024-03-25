@@ -9,7 +9,7 @@ class I18nService {
   constructor(services, config = {}) {
     this.services = services;
     this.config = config;
-    this.state = "ru";
+    this.state = config.i18n.language;
     this.listeners = [];
   }
 
@@ -43,7 +43,7 @@ class I18nService {
     for (const listener of this.listeners) listener();
   }
 
-  translate(lang, text, plural) {
+  t(lang, text, plural) {
     let result =
       translations[lang] && text in translations[lang]
         ? translations[lang][text]

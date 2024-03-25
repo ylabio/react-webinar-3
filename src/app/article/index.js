@@ -26,8 +26,7 @@ function Article() {
   const params = useParams();
   const {t} = useTranslate();
 
-  const exists = useSelector(state => state.session.exists);
-  const token = useSelector(state => state.session.token);
+  const {exists, token} = useSelector(state => state.session);
   const [commentValue, setCommentValue] = useState('');
 
   const select = useSelectorRedux(state => ({
@@ -54,7 +53,7 @@ function Article() {
       setCommentValue('');
     }, [token, commentValue, params.id]),
     // Ответ на комментарий
-    onAnswerComment: useCallback((_id) => {
+    onReplyComment: useCallback((_id) => {
       dispatch(createCommentActions.createComment(token, {text: commentValue, parent: {_id, _type: "comment"}}));
       setCommentValue('');
     }, [token, commentValue])
@@ -73,13 +72,13 @@ function Article() {
       <Navigation/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        <Comments 
+          count={select.count} list={options.comments} exists={exists} 
+          commentValue={commentValue} setCommentValue={setCommentValue} 
+          createNewComment={callbacks.createNewComment} 
+          replyComment={callbacks.onReplyComment} t={t}
+        />
       </Spinner>
-      <Comments 
-        count={select.count} list={options.comments} exists={exists} 
-        commentValue={commentValue} setCommentValue={setCommentValue} 
-        createNewComment={callbacks.createNewComment} 
-        answerComment={callbacks.onAnswerComment} t={t}
-      />
     </PageLayout>
   );
 }

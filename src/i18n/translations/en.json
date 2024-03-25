@@ -21,7 +21,7 @@
   "auth.signIn": "Sign in",
   "session.signIn": "Sign In",
   "session.signOut": "Sign Out",
-  "comments.answer": "Answer",
+  "comments.reply": "Reply",
   "comments.send": "Send",
   "comments.cancel": "Cancel"
 }

@@ -23,7 +23,7 @@
   "auth.signIn": "Войти",
   "session.signIn": "Вход",
   "session.signOut": "Выход",
-  "comments.answer": "Ответить",
+  "comments.reply": "Ответить",
   "comments.send": "Отправить",
   "comments.cancel": "Отмена"
 }

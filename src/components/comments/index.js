@@ -7,7 +7,7 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 function Comments(props) {
-  const {count, list, exists, commentValue, setCommentValue, createNewComment, answerComment, t} = props;
+  const {count, list, exists, commentValue, setCommentValue, createNewComment, replyComment, t} = props;
 
   // Внутреннее состояние для открытия выбранной формы
   const [activeForm, setActiveForm] = useState('');
@@ -23,7 +23,7 @@ function Comments(props) {
             key={item._id} item={item} exists={exists} 
             activeForm={activeForm} setActiveForm={setActiveForm}
             commentValue={commentValue} setCommentValue={setCommentValue}
-            answerComment={answerComment} t={t} 
+            replyComment={replyComment} t={t} 
           />
         ))}
       </div>
@@ -47,14 +47,14 @@ Comments.propTypes = {
   commentValue: PropTypes.string,
   setCommentValue: PropTypes.func,
   createNewComment: PropTypes.func,
-  answerComment: PropTypes.func,
+  replyComment: PropTypes.func,
   t: PropTypes.func,
 }
 
 Comments.defaultProps = {
   setCommentValue: () => {},
   createNewComment: () => {},
-  answerComment: () => {},
+  replyComment: () => {},
   t: (text) => text,
 }
 

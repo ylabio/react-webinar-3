@@ -22,6 +22,7 @@
 .CommentCard-text {
   font-size: 14px;
   line-height: 16px;
+  word-wrap: break-word;
 }
 
 .CommentCard-article {
