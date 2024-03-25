@@ -21,7 +21,7 @@ function CommentForm({callback, title, showFormId, setShowFormId}) {
   return (
     <form onSubmit={onSubmitHandler} className={cn()}>
       <h4>{title}</h4>
-      <textarea onChange={onChangeHandler} value={text}/>
+      <textarea autoFocus onChange={onChangeHandler} value={text}/>
       <div className={cn('button-block')}>
         <button type='submit'>Отправить</button>
         {showFormId && <button onClick={() => setShowFormId(null)} type='submit'>Отмена</button>}
