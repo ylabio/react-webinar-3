@@ -28,14 +28,14 @@ function Article() {
   // Параметры из пути /articles/:id
 
   const params = useParams();
+  const { t, lang } = useTranslate();
 
   useInit(async () => {
     await Promise.all([
       dispatch(articleActions.load(params.id)),
       dispatch(commentsActions.load(params.id)),
     ]);
-  }, [params.id]);
-  //useInit(() => dispatch(articleActions.load(params.id)), [params.id]);
+  }, [params.id, lang]);
 
   const select = useReduxSelector(
     (state) => ({
@@ -51,46 +51,12 @@ function Article() {
     token: state.session.token,
   }));
 
-  const { t } = useTranslate();
-
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(
       (_id) => store.actions.basket.addToBasket(_id),
       [store]
     ),
-
-    // openReply: useCallback((_id) => {
-    //   dispatch(commentsActions.openReply(_id));
-    // }, []),
-
-    // closeReply: useCallback((_id) => {
-    //   dispatch(commentsActions.closeReply(_id));
-    // }, []),
-
-    // sendReply: useCallback((parentId, text) => {
-    //   const data = {
-    //     text: text,
-    //     parent: { _id: parentId, _type: "comment" },
-    //   };
-    //   dispatch(newCommentActions.sendComment(data));
-    //   dispatch(commentsActions.load(params.id));
-    //   // console.log(select.comments);
-    // }, []),
-
-    // sendComment: useCallback((text) => {
-    //   const data = {
-    //     text: text,
-    //     parent: { _id: params.id, _type: "article" },
-    //   };
-
-    //   dispatch(newCommentActions.sendComment(data));
-
-    //   if (select.sent === true && !select.newCommentWaiting) {
-    //     dispatch(commentsActions.load(params.id));
-    //     console.log(select.comments);
-    //   }
-    // }, []),
   };
 
   return (

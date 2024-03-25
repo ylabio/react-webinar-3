@@ -8,10 +8,9 @@ class I18nService {
   constructor(services, config = {}) {
     this.services = services;
     this.config = config;
-    this.locale = "ru";
-
-    this.translate = this.translate.bind(this);
-    // this.setLang = this.setLang.bind(this);
+    this.locale = this.config.defaultLocale;
+    this.listeners = [];
+    this.setLang = this.setLang.bind(this);
   }
 
   /**
@@ -20,6 +19,8 @@ class I18nService {
    */
   setLang(lang) {
     this.locale = lang;
+    for (const listener of this.listeners) listener(this.locale);
+    this.services.api.setHeader("X-Lang", lang);
   }
 
   translate(lang = this.locale, text, plural) {
@@ -36,6 +37,14 @@ class I18nService {
     }
 
     return result;
+  }
+
+  subscribe(listener) {
+    this.listeners.push(listener);
+    // Возвращается функция для удаления добавленного слушателя
+    return () => {
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 }
 
