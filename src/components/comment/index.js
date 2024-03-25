@@ -14,6 +14,8 @@ function Comment(props) {
     onOpenReply,
     onCloseReply,
     onAddReplyComment,
+    t,
+    lang,
     level = 0 
   } = props;
 
@@ -33,6 +35,8 @@ function Comment(props) {
           onOpenReply={onOpenReply}
           onCloseReply={onCloseReply}   
           onAddReplyComment={onAddReplyComment} 
+          t={t}
+          lang={lang}
           level={level + 1} 
         />
       </div>
@@ -40,27 +44,26 @@ function Comment(props) {
   }); 
 
   return (
-
     <div className={cn()}>
       <div className={cn('head-wrapper')}>
-      <div className={cn('author', { 'currentUser': isCurrentUser })}>
+        <div className={cn('author', { 'currentUser': isCurrentUser })}>
           {comment.author.profile.name}
         </div>
-        <div className={cn('date')}>{formatCommentDate(comment.dateCreate)}</div>
+        <div className={cn('date')}>{formatCommentDate(comment.dateCreate, lang)}</div>
       </div>
       <div className={cn('text')}>{comment.text}</div>
-      <button className={cn('button')} type='button' onClick={() => onOpenReply(comment._id)}> Ответить </button>     
+      <button className={cn('button')} type='button' onClick={() => onOpenReply(comment._id)}>{t('comment.reply')}</button>     
       {comment.reply && 
         <CommentReply 
           session={session} 
           onCancel={() => onCloseReply(comment._id)} 
           onAddReplyComment={(text) => onAddReplyComment(comment._id, text)} 
-        />
+          t={t} />
       }
       {nested}
     </div>
   );
-}
+};
 
 Comment.propTypes = {
   comment: PropTypes.object,

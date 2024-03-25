@@ -8,7 +8,6 @@ import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import Navigation from '../../containers/navigation';
 import Spinner from '../../components/spinner';
-import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
 import ProfileCard from '../../components/profile-card';
@@ -18,14 +17,14 @@ function Profile() {
 
   useInit(() => {
     store.actions.profile.load();
-  }, []);
+  }, [lang]);
 
   const select = useSelector(state => ({
     profile: state.profile.data,
     waiting: state.profile.waiting,
   }));
 
-  const {t} = useTranslate();
+  const {t, lang} = useTranslate();
 
   return (
     <PageLayout>
@@ -35,7 +34,7 @@ function Profile() {
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <ProfileCard data={select.profile}/>
+        <ProfileCard data={select.profile} t={t}/>
       </Spinner>
     </PageLayout>
   );

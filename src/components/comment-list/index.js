@@ -16,14 +16,16 @@ function CommentList(props) {
     onCloseReply,
     onCreateNewComment,
     onAddReplyComment,
-    showCommentForm
+    showCommentForm,
+    lang,
+    t
   } = props; 
 
   const cn = bem('CommentList');
   
   return (
     <div className={cn()}>
-    <h2 className={cn('title')}> Комментарии ({count})</h2>
+    <h2 className={cn('title')}> {t('commentList.comments')} ({count})</h2>
         {comments.map((item) => (
         <div key={item._id}>
             <Comment
@@ -33,12 +35,14 @@ function CommentList(props) {
              onOpenReply={onOpenReply}
              onCloseReply={onCloseReply}
              onAddReplyComment={onAddReplyComment}
+             t={t}
+             lang={lang}
             />
         </div>
         ))}   
         
       {showCommentForm && (
-        <CommentForm session={session} onCreateNewComment={(text) => onCreateNewComment(text)} />
+        <CommentForm session={session} onCreateNewComment={(text) => onCreateNewComment(text)} t={t} />
       )}
     </div>
   );
@@ -53,7 +57,9 @@ CommentList.propTypes = {
   onCloseReply: PropTypes.func,
   onCreateNewComment: PropTypes.func,
   onAddReplyComment: PropTypes.func,
-  showCommentForm: PropTypes.bool
+  showCommentForm: PropTypes.bool,
+  t: PropTypes.func,
+  lang: PropTypes.string
 };
 
 export default memo(CommentList);

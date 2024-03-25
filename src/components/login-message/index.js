@@ -4,18 +4,18 @@ import { Link } from 'react-router-dom';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-const LoginMessage = ({ onCancel, reply = false }) => {
+const LoginMessage = ({ onCancel, reply = false, t}) => {
   const cn = bem('LoginMessage');
-
+  
   return (
     <div className={cn()}>
-      <Link to="/login" className={cn('login')}>Войдите</Link>
+      <Link to="/login" className={cn('login')}>{t('loginMessage.enter')}</Link>
       <span className={cn('text')}>, 
-        чтобы иметь возможность
-        {reply ? ' ответить' : ' комментировать'}.
+        {t('loginMessage.comment')} 
+        {reply ? t('loginMessage.comment.reply') : t('loginMessage.comment.comment')}.
       </span>
       {' '}
-      {reply && <button type='button' className={cn('button')} onClick={onCancel}>Отмена</button>}
+      {reply && <button type='button' className={cn('button')} onClick={onCancel}>{t('cancel')}</button>}
     </div>
   );
 };
@@ -23,6 +23,7 @@ const LoginMessage = ({ onCancel, reply = false }) => {
 LoginMessage.propTypes = {
   onCancel: PropTypes.func,
   reply: PropTypes.bool,
+  t: PropTypes.func,
 };
 
 export default memo(LoginMessage);

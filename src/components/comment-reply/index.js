@@ -5,7 +5,7 @@ import LoginMessage from '../login-message';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-const CommentReply = ({ session, onCancel, onAddReplyComment }) => {
+const CommentReply = ({ session, onCancel, onAddReplyComment, t }) => {
   const [text, setText] = useState('');
   const cn = bem('CommentReply');
 
@@ -16,16 +16,16 @@ const CommentReply = ({ session, onCancel, onAddReplyComment }) => {
   };
 
   if (!session) {
-    return (<LoginMessage onCancel={onCancel} reply={true} />)
+    return (<LoginMessage onCancel={onCancel} reply={true} t={t}/>)
   }
 
   return (
     <form className={cn()} onSubmit={handleSubmit}>
-      <h2 className={cn('title')}>Новый ответ</h2>
+      <h2 className={cn('title')}>{t('commentReply.newReply')}</h2>
       <textarea className={cn('text')} value={text} onChange={(e) => setText(e.target.value)} required />
       <div className={cn('wrapper')}>
-        <button type='submit'>Отправить</button>
-        <button type='button' onClick={onCancel}>Отмена</button>
+        <button type='submit'>{t('submit')}</button>
+        <button type='button' onClick={onCancel}>{t('cancel')}</button>
       </div>
     </form>
   );
@@ -35,6 +35,7 @@ CommentReply.propTypes = {
   session: PropTypes.bool,
   onCancel: PropTypes.func.isRequired,
   onAddReplyComment: PropTypes.func.isRequired,
+  t: PropTypes.func,
 };
 
 export default CommentReply;

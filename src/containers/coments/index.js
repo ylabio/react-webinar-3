@@ -2,12 +2,14 @@ import React, {memo, useCallback, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { useParams } from "react-router-dom";
 import shallowequal from 'shallowequal';
+import useTranslate from '../../hooks/use-translate';
 import useCustomSelector from '../../hooks/use-selector';
 import commentActions from '../../store-redux/comment/actions';
 import CommentList from '../../components/comment-list';
 import buildCommentTree from '../../utils/arrea-to-tree';
 
 function Comments() {  
+  const {t, lang} = useTranslate(); 
   const dispatch = useDispatch();
   const params = useParams();
   const [showCommentForm, setShowCommentForm] = useState(true);
@@ -65,15 +67,17 @@ function Comments() {
 
   return (     
     <CommentList       
-        comments={comments} 
-        count={select.count} 
-        userId={customSelect.currentUser._id}               
-        session={customSelect.isAuthenticated}
-        onOpenReply={callbacks.openReply}
-        onCloseReply={callbacks.closeReply}
-        onCreateNewComment={callbacks.createNewComment}
-        onAddReplyComment={callbacks.addReplyComment}
-        showCommentForm={showCommentForm}
+      comments={comments} 
+      count={select.count} 
+      userId={customSelect.currentUser._id}               
+      session={customSelect.isAuthenticated}
+      onOpenReply={callbacks.openReply}
+      onCloseReply={callbacks.closeReply}
+      onCreateNewComment={callbacks.createNewComment}
+      onAddReplyComment={callbacks.addReplyComment}
+      showCommentForm={showCommentForm}
+      t={t}
+      lang={lang}
     />
   );
 }

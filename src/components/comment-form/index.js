@@ -4,7 +4,7 @@ import LoginMessage from '../login-message';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-const CommentForm = ({ session, onCreateNewComment}) => {
+const CommentForm = ({ session, onCreateNewComment, t}) => {
   const [text, setText] = useState('');
   const cn = bem('CommentNew');
 
@@ -15,14 +15,14 @@ const CommentForm = ({ session, onCreateNewComment}) => {
   };
 
   if (!session) {
-    return (<LoginMessage />)
+    return (<LoginMessage t={t}/>)
   }  
 
   return (
     <form className={cn()} onSubmit={(e) => handleSubmit(e)}>
-      <h2 className={cn('title')}>Новый комментарий</h2>
+      <h2 className={cn('title')}>{t('commentNew.newComment')}</h2>
       <textarea className={cn('text')} value={text} onChange={(e) => setText(e.target.value)} required />
-      <button className={cn('button')} type="submit">Отправить</button>
+      <button className={cn('button')} type="submit">{t('submit')}</button>
     </form>
   );
 };
@@ -30,6 +30,7 @@ const CommentForm = ({ session, onCreateNewComment}) => {
 CommentForm.propTypes = {
   session: PropTypes.bool,
   onCreateNewComment: PropTypes.func,
+  t: PropTypes.func,
 };
 
 export default CommentForm;

@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback} from 'react';
 import {useParams} from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
@@ -19,6 +19,8 @@ import Comments from '../../containers/coments';
 function Article() {
   const store = useStore();
 
+  const {t, lang} = useTranslate();
+
   const dispatch = useDispatch();
 
   const params = useParams();
@@ -26,15 +28,13 @@ function Article() {
   useInit(() => {
     dispatch(articleActions.load(params.id));
     dispatch(commentActions.load(params.id));
-  }, [params.id]);
+  }, [params.id, lang]);
 
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,  
     waitingComments: state.comment.waiting
   }), shallowequal);
-
-  const {t} = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
