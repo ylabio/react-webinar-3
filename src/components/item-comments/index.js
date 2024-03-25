@@ -13,6 +13,7 @@ function ItemComments(props) {
 
   const callbacks = {
     openForm: (id) => props.openForm(props.item._id),
+    closeLinkSignIn: () => props.closeForm()
   }
 
   const classActive = props.item.author?._id === props.userId ? 'active' : '';
@@ -29,14 +30,18 @@ function ItemComments(props) {
       <button className={cn('btn')} onClick={callbacks.openForm}>{props.reply}</button>
       {props.idComment == props.item._id 
         ? (
-          (!props.exists && <LinkSignIn signIn={props.signIn} textSignIn={props.textSignIn} link={props.link}/>) 
-            || (
-                props.exists 
-                && <CommentForm 
-                  closeForm={props.closeForm} onSubmit={props.onSubmit} label={props.label} showNow={props.showNow} btnSend={props.btnSend}
-                  btnCancel={props.btnCancel} placeholder={props.placeholder}
-                />
-                )
+            (!props.exists 
+              && <div className={cn('action')}>
+                <LinkSignIn signIn={props.signIn} textSignIn={props.textSignIn} link={props.link} punctuation={props.punctuation}/>
+                <button className={cn('btn cancel')} onClick={callbacks.closeLinkSignIn}>{props.btnCancel}</button>
+              </div>
+            ) 
+            || (props.exists 
+              && <CommentForm 
+                closeForm={props.closeForm} onSubmit={props.onSubmit} label={props.label} showNow={props.showNow} btnSend={props.btnSend}
+                btnCancel={props.btnCancel} placeholder={props.placeholder}
+              />
+            )
           ) 
         : ''
       }
@@ -47,6 +52,7 @@ function ItemComments(props) {
 
 ItemComments.propTypes = {
   reply: PropTypes.string,
+  btnCancel: PropTypes.string,
   item: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     author: PropTypes.object,

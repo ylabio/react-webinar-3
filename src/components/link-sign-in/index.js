@@ -13,7 +13,7 @@ function LinkSignIn (props) {
   return (
     <div className={cn()}>
       <Link className={cn('link')} to={props.link} state={{back: location.pathname}}>{props.signIn}</Link>
-      <div className={cn('text')}>{props.textSignIn}</div>
+      <div className={cn('text')}>{props.textSignIn}{props.punctuation}</div>
     </div>
   );
 
@@ -24,5 +24,9 @@ LinkSignIn.propTypes = {
   textSignIn: PropTypes.string,
   link: PropTypes.string,
 };
+
+LinkSignIn.defaultProps = {
+  punctuation: '',
+}
 
 export default memo(LinkSignIn);

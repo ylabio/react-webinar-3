@@ -4,11 +4,11 @@ import {cn as bem} from '@bem-react/classname';
 import numberFormat from '../../utils/number-format';
 import './style.css';
 
-function BasketTool({sum, amount, onOpen, t}) {
+function BasketTool({sum, amount, onOpen, t, punctuation}) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <span className={cn('label')}>{t('basket.inBasket')}:</span>
+      <span className={cn('label')}>{t('basket.inBasket')}{punctuation}</span>
       <span className={cn('total')}>
         {amount
           ? `${amount} ${t('basket.articles', amount)} / ${numberFormat(sum)} ₽`
@@ -32,7 +32,8 @@ BasketTool.defaultProps = {
   },
   sum: 0,
   amount: 0,
-  t: (text) => text
+  t: (text) => text,
+  punctuation: ':',
 }
 
 export default memo(BasketTool);

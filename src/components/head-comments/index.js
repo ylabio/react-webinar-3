@@ -1,7 +1,9 @@
 import {memo} from 'react';
 import {cn as bem} from '@bem-react/classname';
 import PropTypes from 'prop-types';
+import numberFormat from '../../utils/number-format';
 import './style.css';
+
 
 function HeadComments (props) {
 
@@ -9,7 +11,7 @@ function HeadComments (props) {
   
   return (
     <div className={cn()}>
-      <h2 className={cn('title')}>{props.title} ({props.count})</h2>
+      <h2 className={cn('title')}>{props.title} ({numberFormat(props.count)})</h2>
     </div>
   );
 }

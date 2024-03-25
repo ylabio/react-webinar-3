@@ -18,7 +18,7 @@ function reducer(state = initialState, action) {
       return {...state, list: [], waiting: false}; //@todo текст ошибки сохранять?
 
     case "comments/push-new-comment":
-      return {...state, list: [...state.list, action.payload.newComment]};
+      return {...state, list: [...state.list, action.payload.newComment], count: state.count + 1};
   
     default:
       // Нет изменений

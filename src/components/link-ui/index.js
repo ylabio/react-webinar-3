@@ -11,7 +11,7 @@ function LinkUI (props) {
   const location = useLocation();
 
   return (
-    <div className={cn()}>
+    <div className={cn({margin: props.margin})}>
       <Link className={cn('link')} to={props.link} state={{back: location.pathname}}>{props.text}</Link>
     </div>
   );
@@ -21,6 +21,7 @@ function LinkUI (props) {
 LinkUI.propTypes = {
   text: PropTypes.string,
   link: PropTypes.string,
+  margin: PropTypes.oneOf(['small', 'medium']),
 };
 
 export default memo(LinkUI);

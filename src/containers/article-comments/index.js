@@ -1,10 +1,8 @@
 import {memo, useCallback, useMemo} from 'react';
 import useTranslate from '../../hooks/use-translate';
-// import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import {useDispatch, useSelector as useSelectorRedux} from 'react-redux';
 import shallowequal from 'shallowequal';
-// import treeToList from '../../utils/tree-to-list';
 import listToTree from '../../utils/list-to-tree';
 import articleCommentsForm from '../../store-redux/comments/form/actions';
 import {useParams} from 'react-router-dom';
@@ -58,9 +56,9 @@ function ArticleComments () {
       <>
         <ItemComments 
           reply={t('comments.reply')} item={item} userId={select.userId} exists={select.exists}  idComment={selectRedux.idComment} 
-          openForm={callbacks.openForm} signIn={t('comments.signIn')} 
+          openForm={callbacks.openForm} signIn={t('comments.signIn')} punctuation={'.'}
           textSignIn={t('comments.ableReply')} link={'/login'} closeForm={callbacks.closeForm} onSubmit={callbacks.onSubmit} 
-          label={t('commentForm.newReply')} showNow={true} btnSend={t('commentForm.send')} btnCancel={t('commentForm.cancel')}
+          label={t('commentForm.newReply')} showNow={true} btnSend={t('comments.send')} btnCancel={t('comments.cancel')}
           placeholder={t('commentForm.placeholderReply') +  item.author?.profile?.name}
         />
         {item.children.length > 0 && <List theme={'comments-left'} list={item.children} renderItem={renders.itemComments}/>}
@@ -76,7 +74,7 @@ function ArticleComments () {
         ? !selectRedux.idComment 
             && <CommentForm 
               closeForm={callbacks.closeForm} onSubmit={callbacks.onSubmit} label={t('commentForm.newComment')} 
-              btnSend={t('commentForm.send')} btnCancel={t('commentForm.cancel')} placeholder={t('commentForm.placeholderText')}
+              btnSend={t('comments.send')} btnCancel={t('comments.cancel')} placeholder={t('commentForm.placeholderText')}
             /> 
         : !selectRedux.idComment && <LinkSignIn signIn={t('comments.signIn')} textSignIn={t('comments.ableComment')} link={'/login'}/>}
     </ContentLayout>

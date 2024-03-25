@@ -24,11 +24,12 @@
   "comments.title": "Comments",
   "comments.reply": "Reply",
   "comments.signIn": "Sign in",
+  "comments.send": "Send",
+  "comments.cancel": "Cancel",
   "comments.ableComment": ", to be able to comment",
   "comments.ableReply": ", to be able to reply",
   "commentForm.newComment": "New comment",
   "commentForm.newReply": "New reply",
-  "commentForm.send": "Send",
   "commentForm.cancel": "Cancel",
   "commentForm.placeholderText": "Text",
   "commentForm.placeholderReply": "My reply for "
