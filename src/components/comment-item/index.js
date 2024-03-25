@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
+import formatDate from "../../utils/format-date";
 
 function CommentItem(props) {
 
@@ -9,7 +10,6 @@ function CommentItem(props) {
 
   const callbacks = {
     openForm: () => props.openForm(_id),
-    formatData: () => props.formatData(dateCreate)
   }
 
   const cn = bem('CommentItem')
@@ -19,7 +19,7 @@ function CommentItem(props) {
       <div className={cn('content')}>
         <div className={cn('head')}>
           <div className={cn('author')}>{author.profile.name}</div>
-          <div className={cn('time')}>{callbacks.formatData()}</div>
+          <div className={cn('time')}>{formatDate(dateCreate)}</div>
         </div>
         <div className={cn('text')}>{text}</div>
         <div>

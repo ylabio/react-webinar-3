@@ -29,7 +29,6 @@ function CommentSection() {
     closeForm: () => setFormSelect(null),
     addComment: useCallback((id, type, text) =>
       dispatch(commentActions.add(id, type, text)), [select.comments]),
-    formatData: (date) => format(date, "d MMMM yyyy 'в' HH:mm", { locale: ruLocale })
   }
 
   const options = {
@@ -45,7 +44,6 @@ function CommentSection() {
         comment={item}
         isActiveForm={formSelect === item._id}
         openForm={callbacks.openForm}
-        formatData={callbacks.formatData}
         form={
         <CommentForm
           id={item._id}
