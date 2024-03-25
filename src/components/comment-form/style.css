@@ -1,0 +1,28 @@
+.CommentForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  font-family: 'Arial', sans-serif;
+}
+
+.CommentForm-title {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 13.8px;
+}
+
+.CommentForm-input {
+  font-family: 'Arial', sans-serif;
+  padding: 4px 5px;
+  height: 76px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.1px;
+  resize: none;
+}
+
+.CommentForm-btns {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
