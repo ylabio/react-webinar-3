@@ -7,19 +7,13 @@ function IsLogin({ Component, componentProps, baseIndent = 0, level = 0, onCance
     const { t } = useTranslate()
     const loginLink = "/login"; 
     const paddingLeft = baseIndent * level + 40;
-    const profileState = useSelector(state => ({
-        name: state.session.user.profile?.name,
-    }));
-    if (!profileState.name) {
+    const name = useSelector(state => state.session.user.profile?.name);
+    if (!name) {
         return (
-            <>
-                <p className="link" style={{ paddingLeft: `${paddingLeft}px` }}>
-                    <Link to={loginLink}>{t('comments.loginToComment')}</Link>,
-                    {onCancel ? t('comments.toComment') : t('comments.toPost')}
-                    {onCancel && <button className="Comment-decly-button" type="button" onClick={onCancel}>{t('comments.cancel')}</button>}
-                </p>
-               
-            </>
+            <p className="link" style={{ paddingLeft }}>
+                <Link to={loginLink}>{t('comments.loginToComment')}</Link>, {t('comments.toComment')}
+                {onCancel && <button className="Comment-decly-button" type="button" onClick={onCancel}>{t('comments.cancel')}</button>}
+            </p>
         );
     }
 

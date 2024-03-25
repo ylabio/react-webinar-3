@@ -15,9 +15,7 @@ function CommentForm({ onSubmit, onCancel, style,title,placeholder,sendButton,ca
 
     const handleCancel = () => {
         setCommentText('');
-        if (onCancel) {
-            onCancel();
-        }
+        onCancel && onCancel();
     };
     return (
         <form style={style} className={cn()} onSubmit={handleSubmit}>
@@ -31,7 +29,9 @@ function CommentForm({ onSubmit, onCancel, style,title,placeholder,sendButton,ca
             />
             <div className={cn('actions')}> 
                 <button className={cn('button')} type="submit">{sendButton}</button>
-                {onCancel && <button className={cn('button', 'cancel')} type="button" onClick={handleCancel}>{cancelButton}</button>}
+                {onCancel && (
+                <button className={cn('button', 'cancel')} type="button" onClick={handleCancel}>{cancelButton}</button>
+                 )}
             </div>
         </form>
     );
@@ -40,6 +40,10 @@ function CommentForm({ onSubmit, onCancel, style,title,placeholder,sendButton,ca
 CommentForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     onCancel: PropTypes.func,
+    title: PropTypes.string,
+    placeholder: PropTypes.string,
+    sendButton: PropTypes.string,
+    cancelButton: PropTypes.string,
 };
 
 export default memo(CommentForm);

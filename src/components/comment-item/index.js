@@ -6,13 +6,14 @@ import formatDate from '../../utils/date-format';
 function Comment({ author, date, text, onReply, level, baseIndent,answer }) {
     const cn = bem('Comment');
     const paddingLeft = baseIndent * level + 40;
+    const formattedDate = formatDate(date);
     
 
     return (
         <div className={`${cn()}`} style={{ paddingLeft: `${paddingLeft}px` }}>
             <div className={cn('header')}>
                 <span className={cn('author')}>{author}</span>
-                <span className={cn('date')}>{formatDate(date)}</span>
+                <span className={cn('date')}>{formattedDate}</span>
             </div>
             <div className={cn('body')}>
                 <p className={cn('text')}>{text}</p>

@@ -1,7 +1,7 @@
 import {memo, useCallback, useMemo,useEffect} from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
-import Select from '../../components/select';
+import Spinner from '../../components/spinner';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
 import treeToList from '../../utils/tree-to-list';
@@ -27,13 +27,7 @@ const CommentsContainer = (name) => {
     const dispatch = useDispatch();
     const params = useParams();
     const articleId = params.id;
-    const select = useReduxSelector((state) => ({
-        commentTree: state.comments.commentTree,
-        comments: state.comments.comments,
-        count: state.comments.count,
-        waitingComments: state.comments.loading,
-        errorComments: state.comments.error,
-    }), shallowEqual);
+    const { commentTree, count, loading, error } = useReduxSelector((state) => state.comments, shallowEqual);
     useInit(() => {
         dispatch(commentsActions.fetchComments(articleId));
     }, []);
@@ -41,35 +35,31 @@ const CommentsContainer = (name) => {
     const profileState = useSelector(state => ({
         name: state.session.user.profile?.name,
     }));
-    const handleCancel = useCallback(() => {
+    const handleCancel = () => {
         setReplyToCommentId(null);
         setActiveForm('newComment');
-    }, []);
+    };
     
-    const handleReplySubmit = useCallback((commentText, commentId = articleId) => {
-        const isArticle = commentId === articleId; 
-        const commentData = {
+    const handleReplySubmit = (commentText, commentId = articleId) => {
+        const isArticle = commentId === articleId;
+        dispatch(commentsActions.submitComment({
             text: commentText,
-            parent: {
-                _id: commentId,
-                _type: isArticle ? "article" : "comment" 
-            },
-        };
-
-        dispatch(commentsActions.submitComment(commentData));
-        setReplyToCommentId(null);
-        setActiveForm('newComment');
-    }, [dispatch, articleId]);
+            parent: { _id: commentId, _type: isArticle ? "article" : "comment" }
+        }));
+        handleCancel();
+    };
     const handleReply = (commentId) => {
         setReplyToCommentId(commentId);
         setActiveForm(`replyTo-${commentId}`);
     };
   
     return (
+        <>
+         <Spinner active={loading}>
         <div className='Comments-Container'>
-            <CommentAmount title={t('comments.amount')} amount={select.count}></CommentAmount>
+            <CommentAmount title={t('comments.amount')} amount={count}></CommentAmount>
             <CommentsList
-                comments={select.commentTree}
+                comments={commentTree}
                 activeForm={activeForm}
                 replyToCommentId={replyToCommentId}
                 onReply={handleReply}
@@ -84,20 +74,20 @@ const CommentsContainer = (name) => {
                 
             />
             
-            {replyToCommentId === null ? (
-            <IsLogin
-                Component={CommentForm}
-                componentProps={{
-                    key: `new-comment`,
-                    onSubmit: (text) => handleReplySubmit(text),
-                    title: t('comments.newComment'), 
-                    placeholder: t('comments.text'),
-                    sendButton: t('comments.send')
-                }}
-                
-            />
-            ) : null}
+            {!replyToCommentId && (
+                <IsLogin
+                    Component={CommentForm}
+                    componentProps={{
+                        onSubmit: handleReplySubmit,
+                        title: t('comments.newComment'),
+                        placeholder: t('comments.text'),
+                        sendButton: t('comments.send')
+                    }}
+                />
+            )}
         </div>
+        </Spinner >
+        </>
     );
     
 };

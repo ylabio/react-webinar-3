@@ -10,16 +10,14 @@ import IsLogin from '../../utils/comment-or-login';
 const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onReply, onReplySubmit, onCancel, name, baseIndent, title, placeholder, sendButton, cancelButton,answer }) => {
     
     return comments.map(comment => {
-        const placeholderText = `Мой ответ для ${comment.author && Object.keys(comment.author).length > 0 && comment.author.profile
-            ? comment.author.profile.name
-            : name}`;
+        const placeholderText = comment.author?.profile?.name
+            ? `Мой ответ для ${comment.author.profile.name}`
+            : `Мой ответ для ${name}`;
         return (
             <div key={comment._id}>
             
             <CommentItem
-                author={comment.author && Object.keys(comment.author).length > 0 && comment.author.profile
-                    ? comment.author.profile.name
-                    : name}
+                author={comment.author?.profile?.name || name}
                 date={comment.dateCreate}
                 text={comment.text}
                 level={level}
