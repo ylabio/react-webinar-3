@@ -16,6 +16,7 @@
 
 .Comments-all {
   margin: 20px 0;
+  word-wrap: break-word;
 }
 .Comments {
   font-size: 12px;
