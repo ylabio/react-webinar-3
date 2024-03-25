@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function SideLayout({children, side, padding}) {
+function SideLayout({children, side, padding, itemType = false}) {
   const cn = bem('SideLayout');
   return (
     <div className={cn({side, padding})}>
       {React.Children.map(children, (child) => (
-        <div key={child.key} className={cn('item')}>{child}</div>
+        <div key={child.key} className={cn('item', {itemType: itemType})}>{child}</div>
       ))}
     </div>
   );
