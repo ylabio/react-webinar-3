@@ -21,8 +21,10 @@ function CommentCard(props) {
 
   // Функция ответа на выбранный комментарий по id
   const handleReplyComment = (_id) => {
-    replyComment(_id);
-    setActiveForm('');
+    if (commentValue.trim()) {
+      replyComment(_id);
+      setActiveForm('');
+    }
   }
 
   const cn = bem('CommentCard');
