@@ -11,12 +11,16 @@ const config = {
     modules: {
       session: {
         // Названия токена в АПИ
-        tokenHeader: 'X-Token'
+        tokenHeader: 'X-Token',
+        localeHeader: 'Accept-Language'
       }
     }
   },
   api: {
     baseUrl: ''
+  },
+  i18n: {
+    locale: 'ru'
   }
 }
 
