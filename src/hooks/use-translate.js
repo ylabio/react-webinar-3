@@ -1,9 +1,26 @@
-import useServices from './use-services';
+import { useState, useEffect } from "react";
+import useServices from "./use-services";
 
-/**
- * Хук для доступа к объекту хранилища
- * @return {i18n}
- */
 export default function useTranslate() {
-  return useServices().i18n;
+  const i18n = useServices().i18n;
+
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.lang);
+
+  useEffect(() => {
+    const handleLanguageChange = (lang) => {
+      setCurrentLanguage(lang);
+    };
+
+    const unsubscribe = i18n.subscribe(handleLanguageChange);
+
+    i18n.setLang(currentLanguage);
+    return () => {
+      unsubscribe();
+    };
+  }, [currentLanguage, i18n]);
+
+  const t = (text, plural) => {
+    return i18n.translate(currentLanguage, text, plural);
+  };
+  return { t, setCurrentLanguage, currentLanguage };
 }

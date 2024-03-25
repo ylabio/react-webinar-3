@@ -9,7 +9,7 @@ class I18n {
   constructor(services, config = {}, initState = {}) {
     this.services = services;
     this.config = config;
-    this.listeners = ['rt']; // Слушатели изменений состояния
+    this.listeners = []; // Слушатели изменений состояния
     this.state = initState;
     this.lang = "ru";
   }
@@ -18,11 +18,9 @@ class I18n {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
-
-
 
   translate(lang, text, plural) {
     let result =
@@ -39,21 +37,13 @@ class I18n {
 
     return result;
   }
- showServis(){
-    return this.services;
- }
+
   setLang(lang) {
-    console.log(lang)
     this.state = lang;
-console.log(this.listeners)
-  // this.listeners.push('sa')
-    // for (const listener of this.listeners) {
-    //   listener(lang);
-    // }
-    
-  
+    for (const listener of this.listeners) {
+      listener(lang);
+    }
   }
-  t = (text, number) => this.translate(this.lang, text, number);
 }
 
 export default I18n;

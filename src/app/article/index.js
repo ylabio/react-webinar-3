@@ -19,8 +19,6 @@ import Comments from "../../containers/comments";
 function Article() {
   const store = useStore();
 
-  console.log(store);
-
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
 
