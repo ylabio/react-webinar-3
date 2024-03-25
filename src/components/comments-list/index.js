@@ -1,19 +1,10 @@
 import {cn as bem} from '@bem-react/classname';
 import {memo} from 'react';
-import Comment from '../comment'
 import PropTypes from 'prop-types';
 import listToTree from '../../utils/list-to-tree';
 import './style.css';
 
-const CommentsList = ({
-  comments,
-  selectedComment,
-  selectComment,
-  unselectComment,
-  replyToComment,
-  isLoggedIn,
-  noAuthNavigate,
-}) => {
+const CommentsList = ({comments, renderComment}) => {
   const cn = bem('CommentsList');
 
   const commentTree = comments.count ? listToTree(comments.items)[0].children : [];
@@ -25,15 +16,7 @@ const CommentsList = ({
           <div className={cn('comments-container')}>
             {commentTree.map(comment => (
               <div key={comment._id}>
-                <Comment
-                  commentData={comment}
-                  commentToReplyId={selectedComment}
-                  handleOpenReply={selectComment}
-                  unselectComment={unselectComment}
-                  replyToComment={replyToComment}
-                  isLoggedIn={isLoggedIn}
-                  noAuthNavigate={noAuthNavigate}
-                />
+                {renderComment(comment)}
               </div>
             ))}
         </div> : ''}
@@ -46,12 +29,7 @@ CommentsList.propTypes = {
     count: PropTypes.number,
     items: PropTypes.arrayOf(PropTypes.object)
   }).isRequired,
-  selectedComment: PropTypes.string,
-  selectComment: PropTypes.func.isRequired,
-  unselectComment: PropTypes.func.isRequired,
-  replyToComment: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
-  noAuthNavigate: PropTypes.func.isRequired,
+  renderComment: PropTypes.func,
 };
 
 export default memo(CommentsList);

@@ -46,11 +46,13 @@ const Comment = ({
             <Comment
               key={child._id}
               commentData={child}
-              commentToReplyId={commentToReplyId}
-              handleOpenReply={handleOpenReply}
-              unselectComment={unselectComment}
-              replyToComment={replyToComment}
-              isLoggedIn={isLoggedIn}
+              {...{
+                commentToReplyId,
+                handleOpenReply,
+                unselectComment,
+                replyToComment,
+                isLoggedIn,
+              }}
             />
           ))}
         </div>

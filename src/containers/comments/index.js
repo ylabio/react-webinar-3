@@ -9,6 +9,7 @@ import useInit from '../../hooks/use-init';
 import useSelector from '../../hooks/use-selector';
 import { useLocation, useNavigate } from 'react-router-dom';
 import CommentsLayout from '../../components/comments-layout';
+import Comment from '../../components/comment'
 import PropTypes from 'prop-types';
 
 const Comments = ({articleId}) => {
@@ -45,32 +46,41 @@ const Comments = ({articleId}) => {
     noAuthNavigate: useCallback(() => {navigate('/login', {state: {back: location.pathname}})},[])
   }
 
+  const renders = {
+    comment: useCallback(
+      (comment) => (
+        <Comment
+          commentData={comment}
+          commentToReplyId={selectedComment}
+          handleOpenReply={callbacks.selectComment}
+          unselectComment={callbacks.unselectComment}
+          replyToComment={callbacks.replyToComment}
+          isLoggedIn={isLoggedIn}
+          noAuthNavigate={callbacks.noAuthNavigate}
+        />
+      ),
+      [selectedComment, isLoggedIn, callbacks]
+    ),
+  };
+
   useInit(() => {
     dispatch(commentsActions.load(articleId));
   }, [articleId]);
 
   return (
-    <Spinner active={waitingComments}>
-      <CommentsLayout>
-        <CommentsList
-          selectedComment={selectedComment}
-          selectComment={callbacks.selectComment}
-          unselectComment={callbacks.unselectComment}
-          comments={comments}
-          replyToComment={callbacks.replyToComment}
+  <Spinner active={waitingComments}>
+    <CommentsLayout>
+      <CommentsList comments={comments} renderComment={renders.comment} />
+      {isLoggedIn && selectedComment === null && (
+        <AddComment
           isLoggedIn={isLoggedIn}
-          noAuthNavigate={callbacks.noAuthNavigate}
+          submitAction={callbacks.addComment}
+          label={'Новый комментарий'}
         />
-        {isLoggedIn &&
-          selectedComment === null &&
-            <AddComment
-              isLoggedIn={isLoggedIn}
-              submitAction={callbacks.addComment}
-              label={'Новый комментарий'}/>
-            }
-      </CommentsLayout>
-    </Spinner>
-  )
+      )}
+    </CommentsLayout>
+  </Spinner>
+)
 }
 
 Comments.propTypes = {
