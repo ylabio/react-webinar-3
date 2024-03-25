@@ -17,7 +17,7 @@ import CommentInput from "../../components/comment-input";
 function Comments({ id }) {
   const store = useStore();
   const dispatch = useDispatch();
-  const {t} = useTranslate();
+  const { t } = useTranslate();
   const [answerTo, setAnswerTo] = useState({
     _id: id,
     _type: 'article'
@@ -40,9 +40,11 @@ function Comments({ id }) {
   }))
 
   const callbacks = {
-    onSend: useCallback(async(text) => {
-      await dispatch(commentsActions.send(text, answerTo, select.token));
-      dispatch(commentsActions.load(id));
+    onSend: useCallback(async (text) => {
+      if (text.length > 0) {
+        await dispatch(commentsActions.send(text, answerTo, select.token));
+        dispatch(commentsActions.load(id));
+      }
     }),
     onAnswer: useCallback((commentId) => setAnswerTo({ _id: commentId, _type: 'comment' })),
     onCancel: useCallback(() => setAnswerTo({ _id: id, _type: 'article' }))
@@ -51,7 +53,7 @@ function Comments({ id }) {
   const commentInput = useMemo(() => {
     return (
       <CommentInput isLoggedIn={select.exists} redirect='/login' t={t}
-        onCancel={callbacks.onCancel} parent={answerTo._type} onSend={(text) => callbacks.onSend(text)}/>
+        onCancel={callbacks.onCancel} parent={answerTo._type} onSend={(text) => callbacks.onSend(text)} />
     )
   }, [answerTo, select.exists, selectRedux.comments, t])
 
