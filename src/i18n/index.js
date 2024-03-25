@@ -6,6 +6,7 @@ class I18nService {
     this.services = services;
     this.config = config;
     this.locale = config.locale;
+    this.callbacks = [];
 
     this.t = this.t.bind(this);
     this.setLocale = this.setLocale.bind(this);
@@ -28,8 +29,18 @@ class I18nService {
 
   setLocale(value) {
     this.locale = value;
-    console.log(this.services);
-    this.services.api.setHeader(this.services.config.store.modules.session.localeHeader, value);
+    this.services.api.setHeader(
+      this.services.config.store.modules.session.localeHeader,
+      value
+    );
+
+    this.callbacks.forEach(callback => {
+      callback(value);
+    })
+  }
+
+  subscribe(callback) {
+    this.callbacks.push(callback);
   }
 }
 
