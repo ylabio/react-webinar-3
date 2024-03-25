@@ -18,6 +18,8 @@ import CommentList from '../../containers/comment-list';
 function Article() {
   const store = useStore();
 
+  const {lang} = useTranslate();
+
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
 
@@ -26,7 +28,7 @@ function Article() {
   useInit(() => {
     //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
-  }, [params.id]);
+  }, [params.id, lang]);
 
   const select = useSelector(state => ({
     article: state.article.data,
