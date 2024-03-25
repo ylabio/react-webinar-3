@@ -1,4 +1,7 @@
-.CommentsForm_root {
+.CommentsForm {
+  padding-left: 30px;
+}
+.CommentsForm.CommentsForm_root {
   padding: 0 40px 30px;
 }
 
@@ -7,13 +10,9 @@
   font-size: 12px;
 }
 
-.CommentsForm-title_root {
-  margin-top: 0;
-}
-
 .CommentsForm-text {
   width: 100%;
-  height: 75px;
+  height: 80px;
   box-sizing: border-box;
   margin-bottom: 10px;
   padding: 0 5px;
@@ -22,7 +21,7 @@
 }
 
 .CommentsForm-controls button {
-  margin-right: 10px;
+  margin: 0 10px 0 0;
 }
 
 .CommentsForm-error {

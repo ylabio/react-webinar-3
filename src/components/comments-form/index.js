@@ -61,7 +61,6 @@ CommentsForm.propTypes = {
   isRoot: PropTypes.bool,
   onSubmit: PropTypes.func,
   onCancel: PropTypes.func,
-  link: PropTypes.string,
   error: PropTypes.any,
 };
 

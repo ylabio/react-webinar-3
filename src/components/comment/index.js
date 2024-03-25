@@ -1,22 +1,26 @@
-import {memo} from 'react';
+import {memo, useCallback, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
+import CommentsForm from '../comments-form';
 import LoginInvite from '../../components/login-invite';
+import List from '../list';
 import './style.css';
 
 function Comment({self, ...props}) {
-  const isActive = props.activeId === props.comment._id;
-
   const cn = bem('Comment');
 
+  const isActive = props.activeId === props.comment._id;
+  const render = useCallback(props.makeRender(props.level + 1));
   const handleActivate = (e) => {
     e.preventDefault();
     props.onActivate(props.comment._id);
   };
 
+  const kids = useMemo(() => props.comment.children.map(props.mapper), [props.comment.children]);
+
   return (
     <div
-      className={cn()}
+      className={cn({root: !props.level, deepest: props.level > 10})}
       style={props.style}
     >
       <div className={cn('title')}>
@@ -41,7 +45,20 @@ function Comment({self, ...props}) {
           onCancel={props.onCancel}
         />
       )}
-      {props.form}
+      <List
+        list={kids}
+        renderItem={render}
+        noBorder={true}
+      />
+      {isActive && props.isSession && (
+        <CommentsForm
+          id={props.comment._id}
+          isRoot={false}
+          onSubmit={props.onSubmit}
+          onCancel={props.onCancel}
+          error={props.error}
+        />
+      )}
     </div>
   );
 }
@@ -52,13 +69,16 @@ Comment.propTypes = {
     date: PropTypes.string,
     text: PropTypes.string,
   }),
-  isActive: PropTypes.bool,
-  isSession: PropTypes.bool,
-  loginLink: PropTypes.string,
+  activeId: PropTypes.string.isRequired,
+  isSession: PropTypes.bool.isRequired,
+  loginLink: PropTypes.string.isRequired,
   onSubmit: PropTypes.func,
   onCancel: PropTypes.func,
   onActivate: PropTypes.func,
   error: PropTypes.object,
+  makeRender: PropTypes.func.isRequired,
+  mapper: PropTypes.func.isRequired,
+  level: PropTypes.number.isRequired,
 };
 
 Comment.defaultProps = {

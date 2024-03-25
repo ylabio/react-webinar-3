@@ -9,9 +9,9 @@ import Spinner from '../../components/spinner';
 import CommentsTitle from '../../components/comments-title';
 import Comment from '../../components/comment';
 import CommentsForm from '../../components/comments-form';
-import sortByParent from '../../utils/sort-by-parent';
 import LoginInvite from '../../components/login-invite';
 import formatCommentDate from '../../utils/format-comment-date';
+import listToTree from '../../utils/list-to-tree';
 
 function Comments({articleId}) {
   const [activeFormId, setActiveFormId] = useState(articleId);
@@ -50,69 +50,45 @@ function Comments({articleId}) {
     ),
     cancelComment: useCallback(() => setActiveFormId(articleId), [articleId]),
     activateForm: useCallback((id) => setActiveFormId(id), []),
+    commentsMapper: useCallback(
+      (item) => ({
+        _id: item._id,
+        text: item.text,
+        authorName: item.author.profile.name,
+        authorId: item.author._id,
+        date: formatCommentDate(item.dateCreate),
+        children: item.children,
+      }),
+      []
+    ),
+    makeRender: useCallback(
+      (level) => (comment) =>
+        (
+          <Comment
+            comment={comment}
+            activeId={activeFormId}
+            isSession={select.isSession}
+            loginLink={'/login'}
+            onSubmit={callbacks.addComment}
+            onCancel={callbacks.cancelComment}
+            onActivate={callbacks.activateForm}
+            self={select.ownId === comment.authorId}
+            error={redux.addingErrors?.id === comment._id ? redux.addingErrors.other : null}
+            makeRender={callbacks.makeRender}
+            mapper={callbacks.commentsMapper}
+            level={level}
+          />
+        ),
+      [activeFormId, redux.addingErrors, select.isSession]
+    ),
   };
 
-  const commentsList = useMemo(
-    () =>
-      sortByParent(redux.comments, (item, level) => ({
-        _id: item._id,
-        authorName: item?.author?.profile?.name,
-        authorId: item?.author?._id,
-        date: formatCommentDate(item.dateCreate),
-        text: item.text,
-        level,
-        style: {marginLeft: level > 10 ? '300px' : `${level * 30}px`},
-      })),
-    [redux.comments]
-  );
-
-  const formRannerId = useMemo(() => {
-    let result, level;
-    for (let comment of commentsList) {
-      if (comment._id === activeFormId) {
-        level = comment.level;
-        result = comment._id;
-        if (level > 9) break;
-        continue;
-      }
-      if (level !== undefined && comment.level <= level) break;
-      result = comment._id;
-    }
-    return result;
-  }, [activeFormId]);
-
-  const nestedForm = useMemo(() => {
-    if (!select.isSession || activeFormId === articleId) return null;
-    return (
-      <CommentsForm
-        id={activeFormId}
-        isRoot={false}
-        onSubmit={callbacks.addComment}
-        onCancel={callbacks.cancelComment}
-        error={redux.addingErrors?.id === activeFormId ? redux.addingErrors.other : null}
-      />
-    );
-  }, [activeFormId, select.isSession, redux.addingErrors]);
+  const commentsTree = listToTree(redux.comments);
+  const rootRaw = commentsTree.length ? commentsTree[0].children : [];
+  const rootComments = useMemo(() => rootRaw.map(callbacks.commentsMapper), [redux.comments]);
 
   const renders = {
-    comment: useCallback(
-      (comment) => (
-        <Comment
-          comment={comment}
-          activeId={activeFormId}
-          isSession={select.isSession}
-          loginLink={'/login'}
-          onSubmit={callbacks.addComment}
-          onCancel={callbacks.cancelComment}
-          onActivate={callbacks.activateForm}
-          self={select.ownId === comment.authorId}
-          error={redux.addingErrors?.id === comment._id ? redux.addingErrors.other : null}
-          style={comment.style}
-          form={comment._id === formRannerId ? nestedForm : null}
-        />
-      ),
-      [activeFormId, redux.addingErrors] // t
-    ),
+    comment: useCallback(callbacks.makeRender(0), [callbacks.makeRender]),
   };
 
   const {t} = useTranslate();
@@ -134,7 +110,7 @@ function Comments({articleId}) {
     <Spinner active={redux.waiting}>
       <CommentsTitle count={redux.count} />
       <List
-        list={commentsList}
+        list={rootComments}
         renderItem={renders.comment}
         noBorder={true}
       />

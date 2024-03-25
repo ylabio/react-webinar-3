@@ -11,9 +11,11 @@ function LoginInvite({link, isRoot, onCancel}) {
     e.preventDefault();
     onCancel();
   };
+
   return (
     <div className={cn({root: isRoot})}>
       <Link
+        autoFocus={true}
         className={cn('link')}
         to={link}
       >
