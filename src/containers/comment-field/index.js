@@ -32,7 +32,7 @@ function CommentField({ type, id }) {
 
   return (
     select.exists
-      ? <CommentInput title={t('comment.input')} onInput={setText}>
+      ? <CommentInput title={t(type === 'comment' ? 'comment.input' : 'article.input')} onInput={setText}>
         <button onClick={() => callbacks.onSend()}>{t('comment.send')}</button>
         {type === 'comment' && <button onClick={() => callbacks.onRemove()}>{t('comment.cancel')}</button>}
       </CommentInput>
