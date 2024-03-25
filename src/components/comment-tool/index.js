@@ -5,42 +5,37 @@ import { Link } from 'react-router-dom';
 import './style.css';
 
 function CommentTool({
-  session = false, //check
+  session, //check
+  currentId,
+  type,
+  title,
+  placeholder,
   //activeCommentTool,
   onClose,
-  //loginLink,
   t
+  //loginLink,
 }) {
   const cn = bem('CommentTool');
   const [value, setValue] = useState('');
-  //const [renderCommentTool, setRenderCommentTool] = useState(!activeCommentTool);
 
   // const onChange = (evt) => {
   //   setValue(evt.target.value);
   // }
 
   const callbacks = {
-    // onClose: useCallback(() => {
-    //   setRenderCommentTool(activeCommentTool);
-    //   onClose();
-    // }),
     onChange: (evt) => {
       setValue(evt.target.value);
     },
     onSubmit: useCallback((evt) => {
       evt.preventDefault();
-      onClose(); //id?
+      onClose();
     })
   }
-  //console.log(activeCommentTool);
-
-  //console.log(session);
 
   if (!session) {
     return (
       <div className={cn()}>
         {
-          // <Link to={loginLink} className={cn('link')}>
           <Link to={'/login'} className={cn('link')}>
             {t('comment.login')}
           </Link>}
@@ -54,23 +49,22 @@ function CommentTool({
     return (
       <div className={[
         cn(),
-        // `${renderCommentTool && cn('padding-top_medium')}`
         cn('padding-top_medium')
       ].join(' ')}>
-        <p className={cn('title')}>{t('comment.toolTitle')}</p>
+        <p className={cn('title')}>{title}</p>
         <textarea
           className={cn('textarea')}
-          placeholder={t('comment.toolDefaultPlaceholder')}
+          placeholder={placeholder}
           value={value}
           onChange={callbacks.onChange}
         >
         </textarea>
         <div className={cn('controls')}>
           <button onClick={callbacks.onSubmit} className={cn('button')}>{t('comment.toolSend')}</button>
-          {/* {
-            !activeCommentTool &&
-            <button onClick={callbacks.onClose} className={cn('button')}>{t('comment.toolClose')}</button>
-          } */}
+          {
+            type === 'reply' &&
+            <button onClick={onClose} className={cn('button')}>{t('comment.toolClose')}</button>
+          }
         </div>
       </div>
     )

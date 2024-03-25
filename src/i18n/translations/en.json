@@ -23,5 +23,11 @@
   "session.signIn": "Sign In",
   "session.signOut": "Sign Out",
   "comment.listTitle": "Comments",
-  "comment.reply": "Reply"
+  "comment.reply": "Reply",
+  "comment.toolTitle": "New comment",
+  "coment.toolReply": "New reply",
+  "comment.toolDefaultPlaceholder": "Text",
+  "comment.toolReplyPlaceholder": "My reply to",
+  "comment.toolSend": "Send",
+  "comment.toolClose": "Close"
 }

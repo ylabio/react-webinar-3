@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import dateFormat from '../../utils/date-format';
 import './style.css';
+import CommentTool from '../comment-tool';
 
 const MAX_NESTING_LEVEL_FOR_PADDING_LEFT = 3;
 
-function CommentItem({commentData, onReply, t, nestingLevel = 1}) {
+function CommentItem({commentData, session, onReply, onClose, currentId, t, nestingLevel = 1}) {
   const cn = bem('CommentItem');
 
   return (
@@ -18,18 +19,7 @@ function CommentItem({commentData, onReply, t, nestingLevel = 1}) {
             nestingLevel <= MAX_NESTING_LEVEL_FOR_PADDING_LEFT && nestingLevel !== 1 ?
             cn('padding-left_medium') :
             ''
-          }`,
-          // `${
-          //   nestingLevel === 1 ?
-          //   cn('padding-left_big') :
-          //     nestingLevel <= MAX_NESTING_LEVEL_FOR_PADDING_LEFT && nestingLevel !== 1 ?
-          //     cn('padding-left_medium') : ''
-          // }`,
-          // `${
-          //   nestingLevel === 1 ?
-          //   cn('padding-right') :
-          //   ''
-          // }`
+          }`
         ].join(' ')
       }
     >
@@ -43,10 +33,22 @@ function CommentItem({commentData, onReply, t, nestingLevel = 1}) {
         commentData.children && commentData.children.map(item => {
           return (
             <div key={item._id} className={cn('childBox')}>
-              <CommentItem commentData={item} t={t} nestingLevel={nestingLevel + 1} />
+              <CommentItem commentData={item} session={session} onReply={onReply} currentId={currentId} t={t} nestingLevel={nestingLevel + 1} />
             </div>
           )
         })
+      }
+      {
+        commentData._id === currentId &&
+        <CommentTool
+          session={session}
+          currentId={currentId}
+          type='reply'
+          title={t('coment.toolReply')}
+          placeholder={`${t('comment.toolReplyPlaceholder')} ${commentData.author.profile.name}`}
+          onClose={onClose}
+          t={t}
+        />
       }
     </div>
 

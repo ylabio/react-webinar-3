@@ -1,4 +1,4 @@
-import {memo, useCallback} from 'react';
+import {memo, useCallback, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector as useReduxSelector, useDispatch } from 'react-redux';
 //import useStore from '../hooks/use-store';
@@ -12,11 +12,14 @@ import CommentsList from '../../components/comments-list';
 import listToTree from '../../utils/list-to-tree';
 import treeToList from '../../utils/tree-to-list';
 import CommentItem from '../../components/comment-item';
+import CommentTool from '../../components/comment-tool';
 
 function CommentsContainer() {
   const params = useParams();
   const dispatch = useDispatch();
   const {t} = useTranslate();
+
+  const [currentCommentId, setCurrentCommnetId] = useState(null);
 
   const session = useSelector(state => ({
     exist: state.session.exists,
@@ -49,7 +52,8 @@ function CommentsContainer() {
       //   }),
       //   isCommentToolActive: false
       // })
-    }, []),
+      setCurrentCommnetId(id)
+    }, [setCurrentCommnetId]),
     onReplyClose: useCallback(() => {
       //dispatch(commentsActions.closeReply(id))
       // setState({
@@ -62,10 +66,11 @@ function CommentsContainer() {
       //   }),
       //   isCommentToolActive: true
       // })
-    }, [])
+      setCurrentCommnetId(null)
+    }, [setCurrentCommnetId])
   }
 
-  // select.comments && console.log(sortComments(select.comments));
+  //select.comments && console.log(treeToList(listToTree(select.comments)));
 
   return (
     <Spinner active={select.waiting}>
@@ -76,22 +81,35 @@ function CommentsContainer() {
         >
           {
             select.comments &&
-            treeToList(listToTree(select.comments)).filter(item => item._id).map(item => {
+            // treeToList(listToTree(select.comments)).filter(item => item._id).map(item => {
+            treeToList(listToTree(select.comments))[0].children.map(item => {
 
               return (
                 <div key={item._id}>
                   <CommentItem
-                    onReply={callbacks.onReply}
-                    onClose={callbacks.onClose}
+                    onReply={callbacks.onReplyOpen}
+                    onClose={callbacks.onReplyClose}
                     //activeCommentTool={activeCommentTool}
                     commentData={item}
                     // session={storeSelect.session.exists}
                     session={session.exist}
+                    currentId={currentCommentId}
                     t={t}
                   />
                 </div>
               )
             })
+          }
+          {
+            currentCommentId === null &&
+            <CommentTool
+              session={session.exist}
+              currentId={params.id}
+              type='article'
+              title={t('comment.toolTitle')}
+              placeholder={t('comment.toolDefaultPlaceholder')}
+              t={t}
+            />
           }
         </CommentsList>
       }

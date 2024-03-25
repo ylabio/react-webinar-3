@@ -25,5 +25,11 @@
   "session.signIn": "Вход",
   "session.signOut": "Выход",
   "comment.listTitle": "Комментарии",
-  "comment.reply": "Ответить"
+  "comment.reply": "Ответить",
+  "comment.toolTitle": "Новый комментарий",
+  "coment.toolReply": "Новый ответ",
+  "comment.toolDefaultPlaceholder": "Текст",
+  "comment.toolReplyPlaceholder": "Мой ответ для",
+  "comment.toolSend": "Отправить",
+  "comment.toolClose": "Отмена"
 }
