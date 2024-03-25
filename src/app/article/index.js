@@ -29,11 +29,13 @@ function Article() {
 
   const navigate = useNavigate();
 
+  const {t, lang} = useTranslate();
+
   useInit(() => {
     //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
     dispatch(commentsActions.load(params.id));
-  }, [params.id]);
+  }, [params.id, lang]);
 
   const select = useSelector(state => ({
     article: state.article.data,
@@ -57,8 +59,6 @@ function Article() {
     user: state.session.user,
     exists: state.session.exists
   }))
-
-  const {t} = useTranslate();
 
   const [commentId, setCommentId] = useState(null)
 

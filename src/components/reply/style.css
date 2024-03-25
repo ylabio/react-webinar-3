@@ -6,3 +6,17 @@
     cursor: pointer;
     padding: 0;
 }
+
+.Reply-head {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.Reply-form textarea {
+    resize: none;
+    width: 100%;
+}
+
+.Reply-buttons button {
+    margin-right: 10px;
+}

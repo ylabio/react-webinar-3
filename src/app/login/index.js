@@ -15,10 +15,12 @@ import useInit from '../../hooks/use-init';
 
 function Login() {
 
-  const {t} = useTranslate();
+  const {lang, t} = useTranslate();
   const location = useLocation();
   const navigate = useNavigate();
   const store = useStore();
+
+  console.log(lang)
 
   useInit(() => {
     store.actions.session.resetErrors();

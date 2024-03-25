@@ -9,7 +9,7 @@ import Reply from '../reply';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-function Comments({comments, onReply, commentId, user, exists, onSignIn, article, sendedComment}) {
+function Comments({comments, onReply, commentId, user, exists, onSignIn, article, sendedComment, t}) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,9 +27,9 @@ function Comments({comments, onReply, commentId, user, exists, onSignIn, article
   
   return (
     <div className={cn()}>
-      <div className={cn('head')}>Комментарии ({comments2?.length})</div>
-      {comments2?.length && comments2.map(comment => <Comment key={comment._id} comment={comment} onReply={onReply} isReply={comment._id===commentId} onSignIn={onSignIn} exists={exists} user={user}/>)}
-      {commentId === null && <Reply commentId={{"_id": article._id, "_type":  "article"}} user={user} exists={exists} onSignIn={onSignIn} onReply={onReply}/>}
+      <div className={cn('head')}>{t("comments.head")} ({comments2?.length})</div>
+      {comments2?.length && comments2.map(comment => <Comment key={comment._id} comment={comment} onReply={onReply} isReply={comment._id===commentId} onSignIn={onSignIn} exists={exists} user={user} t={t}/>)}
+      {commentId === null && <Reply commentId={{"_id": article._id, "_type":  "article"}} user={user} exists={exists} onSignIn={onSignIn} onReply={onReply} t={t}/>}
     </div>
   );
 }

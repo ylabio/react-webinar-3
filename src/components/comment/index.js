@@ -5,7 +5,7 @@ import './style.css';
 import dateFormat from '../../utils/date-format';
 import Reply from '../reply';
 
-function Comment({comment, onReply, isReply, user, exists, onSignIn}) {
+function Comment({comment, onReply, isReply, user, exists, onSignIn, t}) {
   const cn = bem('Comment');
 
   return (
@@ -18,11 +18,11 @@ function Comment({comment, onReply, isReply, user, exists, onSignIn}) {
         {comment.text}
       </div>
       <div className={cn('reply')}>
-        <button onClick={() => onReply(comment._id)}>Ответить</button>
+        <button onClick={() => onReply(comment._id)}>{t("comments.reply")}</button>
       </div>
       {isReply &&
         <Reply commentId={{"_id": comment._id, "_type": "comment"}} user={user} exists={exists} onSignIn={onSignIn}
-          onReply={onReply}/>}
+          onReply={onReply} t={t}/>}
     </div>
   );
 }
