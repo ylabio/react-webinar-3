@@ -11,6 +11,8 @@ import {useParams} from "react-router-dom";
 import { format } from 'date-fns';
 import ruLocale from 'date-fns/locale/ru';
 import enLocale from 'date-fns/locale/en-US';
+import AuthQuest from "../../components/auth-quest";
+import useServices from "../../hooks/use-services";
 
 function CommentSection() {
 
@@ -21,8 +23,11 @@ function CommentSection() {
 
   const select = useSelector(state => ({
     comments: state.comment.list,
-    count: state.comment.count
+    count: state.comment.count,
   }), shallowequal);
+
+
+  const isAuth = useServices().store.state.session.exists
 
   const callbacks = {
     openForm: (id) => setFormSelect(id),
@@ -50,6 +55,8 @@ function CommentSection() {
           type='comment'
           closeForm={callbacks.closeForm}
           onSubmit={callbacks.addComment}
+          isAuth={isAuth}
+          noSession={<AuthQuest link={'/login'} isTypeComment/>}
         />}
       />
     ))
@@ -64,6 +71,8 @@ function CommentSection() {
           id={params.id}
           type='article'
           onSubmit={callbacks.addComment}
+          isAuth={isAuth}
+          noSession={<AuthQuest link={'/login'} isTypeComment={false}/>}
         />}
     </CommentLayout>
   )

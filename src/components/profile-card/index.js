@@ -30,8 +30,7 @@ ProfileCard.propTypes = {
 };
 
 ProfileCard.defaultProps = {
-  onAdd: () => {
-  }
+  onAdd: () => {}
 }
 
 export default memo(ProfileCard);

@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
+import AuthQuest from "../auth-quest";
 
 function CommentForm(props) {
 
@@ -29,7 +30,7 @@ function CommentForm(props) {
     }
   }, []);
 
-  return (
+  return props.isAuth ? (
     <form className={cn()} onSubmit={callbacks.onSubmit}>
       <div className={cn('title')}>Новый {props.type === 'comment' ? 'ответ' : 'комментарий'}</div>
       <textarea
@@ -43,7 +44,7 @@ function CommentForm(props) {
         {props.type === 'comment' && <button onClick={() => callbacks.closeForm()}>Отмена</button>}
       </div>
     </form>
-  )
+  ) : props.noSession
 }
 
 CommentForm.PropTypes = {
