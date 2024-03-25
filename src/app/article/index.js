@@ -13,6 +13,8 @@ import TopHead from '../../containers/top-head';
 import {useDispatch, useSelector} from 'react-redux';
 import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
+import commentActions from '../../store-redux/comment/actions';
+import Comments from '../../containers/comments';
 
 function Article() {
   const store = useStore();
@@ -22,14 +24,17 @@ function Article() {
 
   const params = useParams();
 
-  useInit(() => {
-    //store.actions.article.load(params.id);
-    dispatch(articleActions.load(params.id));
+  useInit(async () => {
+    await Promise.all([
+      dispatch(articleActions.load(params.id)),
+      dispatch(commentActions.load(params.id))
+    ]);
   }, [params.id]);
 
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
+    comments: state.comment.data
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
   const {t} = useTranslate();
@@ -48,7 +53,9 @@ function Article() {
       <Navigation/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        <Comments comments={select.comments} articleId={params.id} />
       </Spinner>
+      
     </PageLayout>
   );
 }

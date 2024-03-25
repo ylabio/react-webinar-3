@@ -1,0 +1,16 @@
+.CommentSection {
+  padding: 30px 40px 40px 10px;
+}
+
+.CommentSection-title {
+  padding-left: 30px;
+}
+
+.CommentSection-title * {
+  margin: 0;
+}
+
+.CommentSection-footer {
+  font-size: 16px;
+  padding: 30px 0 0 30px;
+}
