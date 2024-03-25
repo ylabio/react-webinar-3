@@ -7,7 +7,17 @@ import CommentTool from '../comment-tool';
 
 const MAX_NESTING_LEVEL_FOR_PADDING_LEFT = 3;
 
-function CommentItem({commentData, session, onReply, onClose, currentId, t, nestingLevel = 1}) {
+function CommentItem({
+  commentData,
+  session,
+  onReply,
+  onClose,
+  onLogin,
+  onSend,
+  currentId,
+  t,
+  nestingLevel = 1
+}) {
   const cn = bem('CommentItem');
 
   return (
@@ -33,7 +43,17 @@ function CommentItem({commentData, session, onReply, onClose, currentId, t, nest
         commentData.children && commentData.children.map(item => {
           return (
             <div key={item._id} className={cn('childBox')}>
-              <CommentItem commentData={item} session={session} onReply={onReply} currentId={currentId} t={t} nestingLevel={nestingLevel + 1} />
+              <CommentItem
+                commentData={item}
+                session={session}
+                onReply={onReply}
+                onClose={onClose}
+                onLogin={onLogin}
+                onSend={onSend}
+                currentId={currentId}
+                t={t}
+                nestingLevel={nestingLevel + 1}
+              />
             </div>
           )
         })
@@ -43,7 +63,9 @@ function CommentItem({commentData, session, onReply, onClose, currentId, t, nest
         <CommentTool
           session={session}
           currentId={currentId}
-          type='reply'
+          onLogin={onLogin}
+          onSend={onSend}
+          type='comment'
           title={t('coment.toolReply')}
           placeholder={`${t('comment.toolReplyPlaceholder')} ${commentData.author.profile.name}`}
           onClose={onClose}

@@ -29,5 +29,7 @@
   "comment.toolDefaultPlaceholder": "Text",
   "comment.toolReplyPlaceholder": "My reply to",
   "comment.toolSend": "Send",
-  "comment.toolClose": "Close"
+  "comment.toolClose": "Close",
+  "comment.login": "Login",
+  "comment.loginDescription": " to leave a comment"
 }

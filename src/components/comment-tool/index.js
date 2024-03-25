@@ -1,44 +1,33 @@
-import {memo, useState, useCallback} from 'react';
+import {memo, useState} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
-import { Link } from 'react-router-dom';
 import './style.css';
 
 function CommentTool({
-  session, //check
+  session,
   currentId,
   type,
   title,
   placeholder,
-  //activeCommentTool,
   onClose,
+  onLogin,
+  onSend,
   t
-  //loginLink,
 }) {
   const cn = bem('CommentTool');
   const [value, setValue] = useState('');
 
-  // const onChange = (evt) => {
-  //   setValue(evt.target.value);
-  // }
-
-  const callbacks = {
-    onChange: (evt) => {
-      setValue(evt.target.value);
-    },
-    onSubmit: useCallback((evt) => {
-      evt.preventDefault();
-      onClose();
-    })
+  const onCommentSend = () => {
+    onSend(value, currentId, type);
   }
 
   if (!session) {
     return (
       <div className={cn()}>
         {
-          <Link to={'/login'} className={cn('link')}>
+          <span onClick={onLogin} className={cn('link')}>
             {t('comment.login')}
-          </Link>}
+          </span>}
           {t(t('comment.loginDescription'))
         }
       </div>
@@ -56,13 +45,13 @@ function CommentTool({
           className={cn('textarea')}
           placeholder={placeholder}
           value={value}
-          onChange={callbacks.onChange}
+          onChange={(evt) => setValue(evt.target.value)}
         >
         </textarea>
         <div className={cn('controls')}>
-          <button onClick={callbacks.onSubmit} className={cn('button')}>{t('comment.toolSend')}</button>
+          <button onClick={() => onCommentSend()} className={cn('button')}>{t('comment.toolSend')}</button>
           {
-            type === 'reply' &&
+            type === 'comment' &&
             <button onClick={onClose} className={cn('button')}>{t('comment.toolClose')}</button>
           }
         </div>

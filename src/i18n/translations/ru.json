@@ -31,5 +31,7 @@
   "comment.toolDefaultPlaceholder": "Текст",
   "comment.toolReplyPlaceholder": "Мой ответ для",
   "comment.toolSend": "Отправить",
-  "comment.toolClose": "Отмена"
+  "comment.toolClose": "Отмена",
+  "comment.login": "Войдите",
+  "comment.loginDescription": ", чтобы иметь возможность ответить"
 }
