@@ -22,7 +22,7 @@ function IsLogin({ Component, componentProps, baseIndent = 0, level = 0, onCance
             </>
         );
     }
-    comments.toPost
+
     return <Component style={{ paddingLeft: `${paddingLeft}px` }} {...componentProps} />;
 } 
 
