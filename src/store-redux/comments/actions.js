@@ -24,10 +24,6 @@ export default {
         const res = await services.api.request({
           url: '/api/v1/comments',
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Token': token
-          },
           body: JSON.stringify({
             text: text,
             parent: parent

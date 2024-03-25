@@ -28,7 +28,6 @@ function Comments({ id }) {
   }, [id]);
 
   const select = useSelector(state => ({
-    token: state.session.token,
     user: state.session.user,
     exists: state.session.exists
   }));
@@ -42,7 +41,7 @@ function Comments({ id }) {
   const callbacks = {
     onSend: useCallback(async (text) => {
       if (text.length > 0) {
-        await dispatch(commentsActions.send(text, answerTo, select.token));
+        await dispatch(commentsActions.send(text, answerTo));
         dispatch(commentsActions.load(id));
       }
     }),
