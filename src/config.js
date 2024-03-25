@@ -16,8 +16,13 @@ const config = {
     }
   },
   api: {
-    baseUrl: ''
-  }
+    baseUrl: '',
+    tokenHeader: 'X-Token',
+    langHeader: 'Accept-Language',
+  },
+  i18n: {
+    lang: window.localStorage.getItem('lang') || 'ru',
+  },
 }
 
 export default config;

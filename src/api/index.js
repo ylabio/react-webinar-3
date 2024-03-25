@@ -6,10 +6,17 @@ class APIService {
    */
   constructor(services, config = {}) {
     this.services = services;
-    this.config = config
+    this.config = config;
     this.defaultHeaders = {
       'Content-Type': 'application/json',
-    }
+    };
+
+    this.setHeader(this.config.langHeader, this.services.i18n.lang);
+    this.services.i18n.subscribe((lang) => this.setHeader(this.config.langHeader, lang));
+    this.services.store.subscribe((state) => {
+      const token = state.session.token;
+      this.setHeader(this.config.tokenHeader, token);
+    });
   }
 
   /**
