@@ -10,6 +10,7 @@ import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
 import {useSelector} from 'react-redux';
+import shallowequal from 'shallowequal';
 
 function Main() {
 
@@ -17,7 +18,7 @@ function Main() {
 
   const select = useSelector(state => ({
     language: state.translate.language
-  }));
+  }), shallowequal);
 
   useInit(async () => {
     await Promise.all([

@@ -3,12 +3,13 @@ import useStore from '../../hooks/use-store';
 import Select from '../../components/select';
 import translateActions from '../../store-redux/translate/actions';
 import {useDispatch, useSelector} from 'react-redux';
+import shallowequal from 'shallowequal';
 
 function LocaleSelect() {
 
   const select = useSelector(state => ({
     language: state.translate.language
-  }));
+  }), shallowequal);
 
   const [lang, setLang] = useState(select.language);
   const store = useStore();
