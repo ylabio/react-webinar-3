@@ -1,7 +1,7 @@
 import {memo, useCallback, useMemo} from 'react';
 import {useParams} from 'react-router-dom';
 import useStore from '../../hooks/use-store';
-import useTranslate from '../../hooks/use-translate';
+import useTranslate, {useServiceTranslate} from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -49,6 +49,7 @@ function Article() {
   }))
 
   const {t} = useTranslate();
+  const tt = useServiceTranslate()
 
   const callbacks = {
     // Добавление в корзину
@@ -69,7 +70,7 @@ function Article() {
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} tt={tt} t={t}/>
       </Spinner>
       <Spinner active={select.waitingComments}>
         <CommentsList list={listData} count={select.count}

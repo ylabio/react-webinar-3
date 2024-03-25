@@ -1,13 +1,13 @@
 import * as translations from "./index";
 
 class TranslationService {
-  constructor(services, config = {}) {
+  constructor(services, config = {}, locale = 'ru') {
     this.services = services
     this.config = config
-    this.defaultLocale = 'ru-RU'
+    this.locale = locale
   }
 
-  translate(lang = this.defaultLocale, text, plural) {
+  translate(text, lang = this.locale, plural) {
     let result = translations[lang] && (text in translations[lang])
       ? translations[lang][text]
       : text;
