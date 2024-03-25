@@ -14,9 +14,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
 import commentsActions from '../../store-redux/comments/actions';
-import CommentsList from '../../components/comments-list';
-import CommentItem from '../../components/comment-item';
-import listToTree from '../../utils/list-to-tree';
 import CommentsContainer from '../../containers/comments-container';
 
 function Article() {
@@ -55,18 +52,6 @@ function Article() {
       <Navigation/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
-        {/* <CommentsList count={select.comments?.count} t={t}>
-          {
-          select.comments.items &&
-          listToTree(select.comments.items)[0]?.children.map(item => {
-            return (
-              <div key={item._id}>
-                <CommentItem commentData={item} t={t}/>
-              </div>
-            )
-          })
-          }
-        </CommentsList> */}
       </Spinner>
       <CommentsContainer />
     </PageLayout>
