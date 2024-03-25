@@ -10,6 +10,8 @@ import Login from './login';
 import Profile from './profile';
 import Protected from '../containers/protected';
 import {useSelector as useSelectorRedux} from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
 
 /**
  * Приложение
@@ -21,6 +23,8 @@ function App() {
   useInit(async () => {
     await store.actions.session.remind();
   })
+
+
 
   const activeModal = useSelectorRedux(state => state.modals.name);
 

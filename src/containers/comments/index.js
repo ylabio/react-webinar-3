@@ -5,12 +5,15 @@ import shallowequal from "shallowequal";
 import commentsActions from "../../store-redux/comments/actions";
 import useSelector from '../../hooks/use-selector';
 import {useParams} from "react-router-dom";
+import useTranslate from "../../hooks/use-translate";
 
 const Comments = () => {
 
   const dispatch = useDispatch();
   const params = useParams();
   const [showCommentForm, setShowCommentForm] = useState(true);
+
+  const {t} = useTranslate();
 
   const select = useSelector(state => ({
     currentUser: state.session.user,
@@ -59,7 +62,6 @@ const Comments = () => {
     ),
   };
 
-
   return (
     <CommentsList
       comments={selectRedux?.comments}
@@ -72,6 +74,7 @@ const Comments = () => {
       onAddReplyComment={callbacks.addReplyComment}
       showCommentForm={showCommentForm}
       onComment={callbacks.createNewComment}
+      t={t}
      />
   )
 }

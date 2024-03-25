@@ -9,13 +9,13 @@ const LoginMessage = ({ onCancel, reply = false, t }) => {
 
   return (
     <div className={cn()}>
-      <Link to="/login" className={cn('login')}>Войдите</Link>
+      <Link to="/login" className={cn('login')}>{t('comments.login')}</Link>
       <span className={cn('text')}>,
-        чтобы иметь возможность
-        {reply ? "ответить" : "  комментировать"}.
+        {t("comments.text")}
+        {reply ? <>{t("comments.reply")}</> : <>{t("comments.commentOn")}</>}.
       </span>
       {' '}
-      {reply && <button type='button' className={cn('button')} onClick={onCancel}>Отмена</button>}
+      {reply && <button type='button' className={cn('button')} onClick={onCancel}>{t("comments.cancel")}</button>}
     </div>
   );
 };

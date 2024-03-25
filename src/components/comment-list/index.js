@@ -5,16 +5,14 @@ import CommentItem from "../../components/comment-item";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import CommentNew from "../comment-new";
-import useTranslate from "../../hooks/use-translate";
 
-function CommentsList({ comments, count, userId, session, onOpenReply, onCloseReply, onCreateNewComment, onAddReplyComment, showCommentForm,}) {
+function CommentsList({ comments, count, userId, session, onOpenReply, onCloseReply, onCreateNewComment, onAddReplyComment, showCommentForm, t}) {
 
   const cn = bem('CommentList');
-  const {t} = useTranslate();
 
   return (
     <div className={cn()}>
-      <div className={cn('title')}>Комментарии ({count})</div>
+      <div className={cn('title')}>{t("comments.title")} ({count})</div>
       {comments.length > 0 ? (
         <>
           {treeToList(listToTree(comments), (item, level) => ({
