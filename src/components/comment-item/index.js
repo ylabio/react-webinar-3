@@ -32,6 +32,23 @@ function CommentItem(props) {
   )
 }
 
-CommentItem.PropTypes = {}
+CommentItem.PropTypes = {
+  comment: PropTypes.shape({
+    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    author: PropTypes.shape({profile: PropTypes.shape({name: PropTypes.string})}),
+    dateCreate: PropTypes.string,
+    text: PropTypes.string,
+    level: PropTypes.number
+  }).isRequired,
+  type: PropTypes.oneOf(['comment', 'article']),
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  closeForm: PropTypes.func,
+  onSubmit: PropTypes.func,
+}
+
+CommentItem.defalutProps = {
+  closeForm: () => {},
+  onSubmit: () => {},
+}
 
 export default React.memo(CommentItem);

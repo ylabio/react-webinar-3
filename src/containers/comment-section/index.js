@@ -24,9 +24,6 @@ function CommentSection() {
   }), shallowequal);
 
   const callbacks = {
-    // addComment: useCallback((id, type, text) => {
-    //   dispatch(commentActions.add(id, type, text))
-    // }, []),
     openForm: (id) => setFormSelect(id),
     closeForm: () => setFormSelect(null),
     addComment: useCallback((id, type, text) =>
@@ -35,7 +32,7 @@ function CommentSection() {
 
   const options = {
     comments: treeToList(listToTree(select.comments), (item, level) => (
-      {...item, level: level > 5 ? 5 : level - 1}
+      {...item, level: level > 10 ? 10 : level - 1}
     )).slice(1)
   }
 
@@ -58,10 +55,9 @@ function CommentSection() {
   }
 
   return (
-    <CommentLayout>
+    <CommentLayout title={`Комментарии (${select.count})`}>
 
       {renders.comments}
-
       {!formSelect &&
         <CommentForm
           id={params.id}

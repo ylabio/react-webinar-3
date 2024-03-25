@@ -1,20 +1,21 @@
 // Начальное состояние
 export const initialState = {
   list: [],
-  waiting: false // признак ожидания загрузки
+  count: 0,
+  waiting: false,
 }
 
 // Обработчик действий
 function reducer(state = initialState, action) {
   switch (action.type) {
     case "comment/load-start":
-      return {...state, list: [], waiting: true};
+      return {...state, list: [], count: 0, waiting: true};
 
     case "comment/load-success":
-      return {...state, list: action.payload.data, waiting: false};
+      return {...state, list: action.payload.data, count: action.payload.count, waiting: false};
 
     case "comment/load-error":
-      return {...state, list: [], waiting: false};
+      return {...state,  count: 0, list: [], waiting: false};
 
     case "comment/add-start":
       return {...state, waiting: true};

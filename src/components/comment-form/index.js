@@ -46,6 +46,16 @@ function CommentForm(props) {
   )
 }
 
-CommentForm.PropTypes = {}
+CommentForm.PropTypes = {
+  type: PropTypes.oneOf(['comment', 'article']),
+  closeForm: PropTypes.func,
+  onSubmit: PropTypes.func,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+}
+
+CommentForm.defaultProps = {
+  closeForm: () => {},
+  onSubmit: () => {},
+}
 
 export default React.memo(CommentForm);

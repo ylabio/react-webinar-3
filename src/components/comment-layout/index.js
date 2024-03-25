@@ -9,7 +9,7 @@ function CommentLayout(props) {
 
   return (
     <div className={cn()}>
-      <div className={cn('title')}>Комментарии (6)</div>
+      <div className={cn('title')}>{props.title}</div>
       <div className={cn('content')}>
         {props.children}
       </div>
@@ -17,6 +17,9 @@ function CommentLayout(props) {
   )
 }
 
-CommentLayout.PropTypes = {}
+CommentLayout.PropTypes = {
+  children: PropTypes.node,
+  title: PropTypes.string
+}
 
 export default React.memo(CommentLayout);

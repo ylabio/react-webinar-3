@@ -17,7 +17,10 @@ export default {
           url: `/api/v1/comments?fields=${fields}&limit=*&search[parent]=${articleId}`
         });
         // Комментарии загружены успешно
-        dispatch({type: 'comment/load-success', payload: {data: res.data.result.items}});
+        dispatch({type: 'comment/load-success', payload: {
+          data: res.data.result.items,
+          count: res.data.result.count,
+        }});
 
       } catch (e) {
         //Ошибка загрузки
