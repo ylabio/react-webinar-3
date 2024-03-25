@@ -1,0 +1,20 @@
+.CommentItem {
+  padding-bottom: 30px;
+  font-size: 14px;
+}
+
+.CommentItem-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.CommentItem-title span {
+  font-weight: 700;
+}
+.CommentItem-btn {
+  color: rgba(0, 135, 233, 1);
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: transparent;
+}
