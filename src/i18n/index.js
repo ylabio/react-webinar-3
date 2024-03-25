@@ -41,6 +41,9 @@ class I18nService {
 
   subscribe(callback) {
     this.callbacks.push(callback);
+    return () => {
+      this.callbacks = this.callbacks.filter(cb => cb !== callback)
+    }
   }
 }
 

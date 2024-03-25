@@ -15,7 +15,8 @@ export default function useTranslate() {
       setLocale(value);
     }
 
-    i18n.subscribe(handleLocaleChange)
+    const subscribe =  i18n.subscribe(handleLocaleChange);
+    return subscribe;
   }, [i18n, locale])
 
   const t= useCallback((text) => {
