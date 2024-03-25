@@ -1,0 +1,24 @@
+.Comment {
+  padding-top: 30px;
+  font-size: 12px;
+}
+
+.Comment-date {
+  padding-left: 10px;
+  color: #666666;
+}
+
+.Comment-author {
+  font-weight: 700;
+}
+
+.Comment-text {
+  font-size: 14px;
+  padding: 10px 0;
+  word-break: break-all;
+}
+
+.Comment a {
+  color: #0087E9;
+  text-decoration: none;
+}

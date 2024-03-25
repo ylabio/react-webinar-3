@@ -1,0 +1,21 @@
+.CommentField {
+  font-size: 12px;
+  padding-top: 30px;
+  width: 100%;
+}
+
+.CommentField-title {
+  font-weight: 700;
+}
+
+.CommentField-input textarea {
+  padding: 0;
+  margin: 10px 0;
+  width: 100%;
+  min-height: 76px;
+  resize: none;
+}
+
+.CommentField-buttons button {
+  margin-right: 10px;
+}

@@ -1,0 +1,14 @@
+.CommentNotice {
+  padding-top: 30px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.CommentNotice a {
+  color: #0087E9;
+  text-decoration: underline;
+}
+
+.CommentNotice a:hover {
+  cursor: pointer;
+}
