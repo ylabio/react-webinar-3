@@ -1,9 +1,26 @@
-import {useCallback, useContext} from 'react';
-import {I18nContext} from '../i18n/context';
+import {useSelector} from 'react-redux';
+import * as translations from '../i18n/translations';
 
-/**
- * Хук возвращает функцию для локализации текстов, код языка и функцию его смены
- */
 export default function useTranslate() {
-  return useContext(I18nContext);
+
+  const select = useSelector(state => ({
+    language: state.translate.language
+  }));
+
+  const language = select.language;
+
+  const t = function translate( text, plural, lang = language) {
+    let result = translations[lang] && (text in translations[lang])
+      ? translations[lang][text]
+      : text;
+
+    if (typeof plural !== 'undefined') {
+      const key = new Intl.PluralRules(lang).select(plural);
+      if (key in result) {
+        result = result[key];
+      }
+    }
+    return result;
+  }
+  return {t, language}
 }

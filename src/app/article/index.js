@@ -30,18 +30,19 @@ function Article() {
 
   const [currentCommentId, setCurrentCommentId] = useState(params.id);
 
-  useInit(() => {
-    dispatch(articleActions.load(params.id));
-    dispatch(commentsActions.load(params.id));
-  }, [params.id]);
-
   const select = useSelector(state => ({
     article: state.article.data,
     comments: state.comments.comments,
     countComments: state.comments.count,
     waiting: state.article.waiting,
     waitingComments: state.comments.waiting,
+    language: state.translate.language
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
+
+  useInit(() => {
+    dispatch(articleActions.load(params.id));
+    dispatch(commentsActions.load(params.id));
+  }, [params.id, select.language]);
 
   const {t} = useTranslate();
 
@@ -77,6 +78,7 @@ function Article() {
       </Spinner>
       <Spinner active={select.waitingComments}>
         <CommentsList
+          t={t}
           comments={list.comments}
           renderComment={renders.comment}
           countComments={select.countComments}
@@ -87,7 +89,8 @@ function Article() {
       </Spinner>
       {params.id === currentCommentId &&
         <CreateComment
-          title='Новый комментарий'
+          t={t}
+          title={t('createComment.newComment')}
           isComment={false}
           setCurrentCommentId={setCurrentCommentId}
           currentCommentId={currentCommentId}

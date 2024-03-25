@@ -41,6 +41,7 @@ function CreateComment(props) {
 
   return (
     <NewCommentForm
+      t={props.t}
       exists={select.exists}
       title={props.title}
       link='/login'

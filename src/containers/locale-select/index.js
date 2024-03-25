@@ -1,12 +1,19 @@
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback, useMemo, useState} from 'react';
 import useStore from '../../hooks/use-store';
-import useSelector from '../../hooks/use-selector';
-import useTranslate from '../../hooks/use-translate';
 import Select from '../../components/select';
+import translateActions from '../../store-redux/translate/actions';
+import {useDispatch, useSelector} from 'react-redux';
 
 function LocaleSelect() {
 
-  const {lang, setLang} = useTranslate();
+  const select = useSelector(state => ({
+    language: state.translate.language
+  }));
+
+  const [lang, setLang] = useState(select.language);
+  const store = useStore();
+
+  const dispatch = useDispatch();
 
   const options = {
     lang: useMemo(() => ([
@@ -16,7 +23,11 @@ function LocaleSelect() {
   };
 
   return (
-    <Select onChange={setLang} value={lang} options={options.lang}/>
+    <Select onChange={(lang) => {
+      setLang(lang);
+      store.services.api.setHeader('X-Lang', lang);
+      dispatch(translateActions.changLanguage(lang));
+    }} value={lang} options={options.lang}/>
   );
 }
 

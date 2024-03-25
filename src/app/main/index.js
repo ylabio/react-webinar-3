@@ -9,17 +9,22 @@ import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
+import {useSelector} from 'react-redux';
 
 function Main() {
 
   const store = useStore();
+
+  const select = useSelector(state => ({
+    language: state.translate.language
+  }));
 
   useInit(async () => {
     await Promise.all([
       store.actions.catalog.initParams(),
       store.actions.categories.load()
     ]);
-  }, [], true);
+  }, [select.language], true);
 
   const {t} = useTranslate();
 

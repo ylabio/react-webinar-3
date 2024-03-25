@@ -8,16 +8,17 @@ function CommentsList(props) {
   const cn = bem('CommentsList');
   return (
     <div className={cn()}>
-      <div className={cn('title')}>Комментарии ({props.countComments})</div>
+      <div className={cn('title')}>{props.t('commentList.comments')} ({props.countComments})</div>
       <div className={cn('container')}>{
         props.comments.map(comment =>
           <div key={comment._id} className='CommentsList-comment' style={{marginLeft: comment.space + 'px'}}>
             {props.renderComment(comment)}
-            <button className={cn('button')} onClick={() => props.setCurrentCommentId(comment._id)}>Ответить</button>
+            <button className={cn('button')} onClick={() => props.setCurrentCommentId(comment._id)}>{props.t('commentList.answer')}</button>
             {comment._id === props.currentCommentId &&
               <CreateComment
+                t={props.t}
                 isComment={true}
-                title='Новый ответ'
+                title={props.t('createComment.newAnswer')}
                 parentType='comment'
                 currentCommentId={props.currentCommentId}
                 setCurrentCommentId={props.setCurrentCommentId}

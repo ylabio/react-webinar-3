@@ -13,14 +13,14 @@ function NewCommentForm(props) {
           <form onSubmit={props.onSubmit}>
             <textarea className={cn('text')} value={props.commentText} onChange={props.onChange}></textarea>
             <div>
-              <button className={cn('button')} type='submit'>Отправить</button>
+              <button className={cn('button')} type='submit'>{props.t('commentForm.send')}</button>
               {props.isComment &&
-                <button className={cn('button-cancel')} type='button' onClick={props.onCancel}>Отмена</button>
+                <button className={cn('button-cancel')} type='button' onClick={props.onCancel}>{props.t('commentForm.cancel')}</button>
               }
             </div>
           </form>
         </> :
-        <div className={cn('message')}><a href={props.link}>Войдите</a>, чтобы иметь возможность комментировать</div>
+        <div className={cn('message')}><a href={props.link}>{props.t('commentForm.messageLink')}</a> {props.t('commentForm.message')}</div>
       }
     </div>
   );
