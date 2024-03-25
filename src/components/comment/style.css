@@ -1,0 +1,26 @@
+.Comment {
+  margin-bottom: 30px;
+}
+
+.Comment-top {
+  display: flex;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.Comment-date {
+  color: #666666;
+  font-size: 12px;
+}
+
+.Comment-text {
+  margin-bottom: 10px;
+}
+
+.Comment-reply {
+  font-size: 12px;
+  color: #0087E9;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
