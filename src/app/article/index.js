@@ -52,7 +52,9 @@ function Article() {
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
   const session = oldSelector((state) => ({
+    username: state.session.user.profile?.name,
     exists: state.session.exists,
+    token: state.session.token,
   }));
 
   const { t } = useTranslate();
@@ -71,9 +73,25 @@ function Article() {
       [dispatch]
     ),
     // Отмена ввод комментария
-    onCancelForm: useCallback(() => {
+    onCloseForm: useCallback(() => {
       dispatch(articleCommentsActions.setFormId(""));
     }, [dispatch]),
+
+    // Отправка сообщения
+    onCommentSend: useCallback(
+      (_id, _type, text) => {
+        dispatch(
+          articleCommentsActions.send(
+            session.username,
+            session.token,
+            _id,
+            _type,
+            text
+          )
+        );
+      },
+      [dispatch, session.token, session.username, params.id]
+    ),
   };
 
   const comments = useMemo(
@@ -98,7 +116,7 @@ function Article() {
           session={session}
         />
       ),
-      []
+      [session]
     ),
   };
 
@@ -123,10 +141,18 @@ function Article() {
           renderItem={renders.commentsItem}
           formId={select.formId}
           session={session.exists}
-          onCancelForm={callbacks.onCancelForm}
+          onCloseForm={callbacks.onCloseForm}
+          onCommentSend={callbacks.onCommentSend}
         />
       </Spinner>
-      <CommentForm type="article" session={session.exists} />
+      {select.formId === "" && (
+        <CommentForm
+          type="article"
+          session={session.exists}
+          formId={params.id}
+          onCommentSend={callbacks.onCommentSend}
+        />
+      )}
     </PageLayout>
   );
 }

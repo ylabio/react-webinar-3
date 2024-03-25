@@ -5,7 +5,14 @@ import PropTypes from "prop-types";
 import CommentForm from "../comment-form";
 import "./style.css";
 
-function CommentsList({ list, renderItem, formId, session, onCancelForm }) {
+function CommentsList({
+  list,
+  renderItem,
+  formId,
+  session,
+  onCloseForm,
+  onCommentSend,
+}) {
   const cn = bem("CommentsList");
   const { t } = useTranslate();
 
@@ -20,9 +27,15 @@ function CommentsList({ list, renderItem, formId, session, onCancelForm }) {
           style={{ paddingLeft: 40 * item.offset }}
         >
           {renderItem(item)}
-          {formId === item._id ? (
-            <CommentForm session={session} onCancelForm={onCancelForm} />
-          ) : null}
+          {formId === item._id && (
+            <CommentForm
+              formId={formId}
+              session={session}
+              type="comment"
+              onCloseForm={onCloseForm}
+              onCommentSend={onCommentSend}
+            />
+          )}
         </div>
       ))}
     </div>

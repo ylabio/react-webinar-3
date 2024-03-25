@@ -3,12 +3,22 @@ export const initialState = {
   data: [],
   count: 0,
   formId: "",
+  post: "",
   waiting: false, // признак ожидания загрузки
 };
 
 // Обработчик действий
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case "articleComments/add-comment":
+      return { ...state, data: [...state.data, action.payload.data] };
+
+    case "articleComments/post-success":
+      return { ...state, post: "success" };
+
+    case "articleComments/post-clear":
+      return { ...state, post: "" };
+
     case "articleComments/load-start":
       return { ...state, data: [], count: 0, waiting: true };
 

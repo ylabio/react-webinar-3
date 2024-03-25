@@ -1,43 +1,80 @@
-import { memo } from "react";
+import { memo, useRef } from "react";
 import { cn as bem } from "@bem-react/classname";
 import { Link } from "react-router-dom";
 import SideLayout from "../../components/side-layout";
 import "./style.css";
 
-function CommentForm({ offset = 1, type, session, onCancelForm }) {
+function CommentForm({ formId, type, session, onCloseForm, onCommentSend }) {
   const cn = bem("CommentForm");
-  console.log(session);
+  const commentText = useRef();
+
+  const callbacks = {
+    onCommentSend: (e) => {
+      e.preventDefault();
+      onCommentSend(formId, type, commentText.current.value);
+      commentText.current.value = "";
+      if (type === "comment") onCloseForm();
+    },
+  };
+
+  const renders = {
+    // Варианты формы без авторизации
+    noAuthForm: (
+      <div className={cn("auth")}>
+        <Link className={cn("login")} to={"/login"}>
+          Войдите
+        </Link>
+        <span>, чтобы иметь возможность </span>
+        {type === "article" ? (
+          <span>комментировать</span>
+        ) : (
+          <>
+            <span>ответить. </span>
+            <span className={cn("cancel")} onClick={onCloseForm}>
+              Отмена
+            </span>
+          </>
+        )}
+      </div>
+    ),
+
+    // Варианты кнопок для авторизованной формы
+    authButtons:
+      type === "article" ? (
+        <button type="submit" className={cn("send")}>
+          Отправить
+        </button>
+      ) : (
+        <>
+          <button type="submit" className={cn("send")}>
+            Отправить
+          </button>
+          <button onClick={onCloseForm}>Отмена</button>
+        </>
+      ),
+  };
+
   return (
     <div
       className={cn("")}
       style={type === "article" ? { paddingLeft: "40px" } : {}}
     >
       {session ? (
-        <form className={cn("form")} onSubmit="">
+        <form className={cn("form")} onSubmit={callbacks.onCommentSend}>
           <h5>{type === "article" ? "Новый комментарий" : "Новый ответ"}</h5>
-          <textarea title="comment" className={cn("input")} type="text" />
+          <textarea
+            ref={commentText}
+            title="comment"
+            className={cn("input")}
+            type="text"
+          />
+
           <SideLayout side="start" padding="no">
-            {type === "article" ? (
-              <button type="submit" className={cn("send")}>
-                Отправить
-              </button>
-            ) : (
-              <>
-                <button type="submit" className={cn("send")}>
-                  Отправить
-                </button>
-                <button onClick={onCancelForm}>Отмена</button>
-              </>
-            )}
+            {renders.authButtons}
           </SideLayout>
         </form>
       ) : (
-        <div className={cn("auth")}>
-          <Link className={cn("login")} to={"/login"}>
-            Войдите
-          </Link>
-          <span>, чтобы иметь возможность комментировать</span>
-        </div>
+        renders.noAuthForm
       )}
     </div>
   );

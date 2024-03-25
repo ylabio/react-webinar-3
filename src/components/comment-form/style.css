@@ -6,7 +6,12 @@
   justify-content: center;
   align-items: flex-start;
   padding-right: 40px;
-  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+.CommentForm button {
+  height: 21px;
+  padding: 0 10px;
 }
 
 .CommentForm-auth {
@@ -20,12 +25,22 @@
   line-height: 16.1px;
 }
 
+.CommentForm-cancel {
+  font-size: 16px;
+  line-height: 18.4px;
+  color: #666666;
+  border-bottom: 2px solid #666666;
+  cursor: pointer;
+}
+
 .CommentForm h5 {
   margin: 0;
   margin-bottom: 10px;
 }
 
 .CommentForm-login {
+  text-decoration: none;
+  border-bottom: 2px solid;
   color: #0087e9;
 }
 
