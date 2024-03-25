@@ -26,7 +26,7 @@ function ArticleCard({article, onAdd, t, tt}) {
         <div className={cn('label')}>Цена:</div>
         <div className={cn('value')}>{numberFormat(article.price)} ₽</div>
       </div>
-      <button onClick={() => onAdd(article._id)}>{tt.translate('article.add')}</button>
+      <button onClick={() => onAdd(article._id)}>{tt('article.add')}</button>
     </div>
   );
 }

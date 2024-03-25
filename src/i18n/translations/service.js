@@ -4,10 +4,10 @@ class TranslationService {
   constructor(services, config = {}, locale = 'ru') {
     this.services = services
     this.config = config
-    this.locale = locale
+    this._locale = localStorage.getItem('locale') || 'ru'
   }
 
-  translate(text, lang = this.locale, plural) {
+  translate(text, lang = this._locale, plural) {
     let result = translations[lang] && (text in translations[lang])
       ? translations[lang][text]
       : text;
@@ -20,6 +20,20 @@ class TranslationService {
     }
 
     return result;
+  }
+
+  // changeLocale(locale) {
+  //   this.locale = locale
+  //   localStorage.setItem('locale', this.locale)
+  // }
+
+  get locale() {
+    return this._locale
+  }
+
+  set locale(locale) {
+    this._locale = locale
+    localStorage.setItem('locale', this._locale)
   }
 }
 

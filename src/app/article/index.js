@@ -49,7 +49,7 @@ function Article() {
   }))
 
   const {t} = useTranslate();
-  const tt = useServiceTranslate()
+  const { translate: tt } = useServiceTranslate()
 
   const callbacks = {
     // Добавление в корзину

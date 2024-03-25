@@ -1,4 +1,4 @@
-import {useCallback, useContext} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import {I18nContext} from '../i18n/context';
 import useServices from "./use-services";
 
@@ -9,6 +9,20 @@ export default function useTranslate() {
   return useContext(I18nContext);
 }
 
+// export function useServiceTranslate() {
+//   return useServices().translation
+// }
+
 export function useServiceTranslate() {
-  return useServices().translation
+  const ts = useServices().translation
+
+  const [locale, setLocale] = useState(ts.locale)
+  ts.locale = locale
+
+  return {
+    locale,
+    translate: (text, lang = locale, plural) => ts.translate(text, lang, plural),
+    setLocale: (newLocale) => setLocale(newLocale)
+  }
+
 }
