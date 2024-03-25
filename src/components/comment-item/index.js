@@ -4,7 +4,7 @@ import './style.css';
 import CommentReply from "../comment-reply";
 import formatDate from "../../utils/formatDate";
 
-const CommentItem = ({item, session,  onOpenReply, onCloseReply, onAddReplyComment, lang, t }) => {
+const CommentItem = ({item, session,  onOpenReply, onCloseReply, onAddReplyComment, lang, t, }) => {
   const cn = bem('CommentItem');
 
   return (

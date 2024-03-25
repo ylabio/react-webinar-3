@@ -4,7 +4,7 @@ import LoginMessage from '../login-message';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-const CommentReply = ({ session, onCancel, onAddReplyComment, t }) => {
+const CommentReply = ({ session, onCancel, onAddReplyComment, t,}) => {
   const [text, setText] = useState('');
   const cn = bem('CommentReply');
 

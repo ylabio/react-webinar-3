@@ -6,13 +6,13 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import CommentNew from "../comment-new";
 
-function CommentsList({ comments, count, userId, session, onOpenReply, onCloseReply, onCreateNewComment, onAddReplyComment, showCommentForm, t}) {
+function CommentsList({ comments, count, userId, session, onOpenReply, onCloseReply, onCreateNewComment, onAddReplyComment, showCommentForm, t, lang}) {
 
   const cn = bem('CommentList');
 
   return (
     <div className={cn()}>
-      <div className={cn('title')}>{t("comments.title")} ({count})</div>
+      <div className={cn('title')}>{t('comments.comment')} ({count})</div>
       {comments.length > 0 ? (
         <>
           {treeToList(listToTree(comments), (item, level) => ({
@@ -34,6 +34,7 @@ function CommentsList({ comments, count, userId, session, onOpenReply, onCloseRe
                            onCloseReply={onCloseReply}
                            onAddReplyComment={onAddReplyComment}
                            t={t}
+                           lang={lang}
               />
             ))}
         </>

@@ -13,7 +13,7 @@ const Comments = () => {
   const params = useParams();
   const [showCommentForm, setShowCommentForm] = useState(true);
 
-  const {t} = useTranslate();
+  const {t, lang} = useTranslate();
 
   const select = useSelector(state => ({
     currentUser: state.session.user,
@@ -74,6 +74,7 @@ const Comments = () => {
       onAddReplyComment={callbacks.addReplyComment}
       showCommentForm={showCommentForm}
       onComment={callbacks.createNewComment}
+      lang={lang}
       t={t}
      />
   )
