@@ -1,0 +1,11 @@
+.CommentList {
+  list-style: none;
+  padding: 0 20px;
+  margin-bottom: 0;
+}
+.CommentList:first-child {
+  margin: 0 20px;
+}
+.CommentItem {
+  margin: 0 20px;
+}
