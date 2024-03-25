@@ -7,9 +7,10 @@ import CommentForm from "../../components/comment-form";
 import CommentItem from "../../components/comment-item";
 import listToTree from "../../utils/list-to-tree";
 import treeToList from "../../utils/tree-to-list";
-import item from "../../components/item";
-import login from "../../app/login";
 import {useParams} from "react-router-dom";
+import { format } from 'date-fns';
+import ruLocale from 'date-fns/locale/ru';
+import enLocale from 'date-fns/locale/en-US';
 
 function CommentSection() {
 
@@ -27,7 +28,8 @@ function CommentSection() {
     openForm: (id) => setFormSelect(id),
     closeForm: () => setFormSelect(null),
     addComment: useCallback((id, type, text) =>
-      dispatch(commentActions.add(id, type, text)), [select.comments])
+      dispatch(commentActions.add(id, type, text)), [select.comments]),
+    formatData: (date) => format(date, "d MMMM yyyy 'в' HH:mm", { locale: ruLocale })
   }
 
   const options = {
@@ -43,6 +45,7 @@ function CommentSection() {
         comment={item}
         isActiveForm={formSelect === item._id}
         openForm={callbacks.openForm}
+        formatData={callbacks.formatData}
         form={
         <CommentForm
           id={item._id}

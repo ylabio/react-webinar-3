@@ -9,6 +9,7 @@ function CommentItem(props) {
 
   const callbacks = {
     openForm: () => props.openForm(_id),
+    formatData: () => props.formatData(dateCreate)
   }
 
   const cn = bem('CommentItem')
@@ -18,7 +19,7 @@ function CommentItem(props) {
       <div className={cn('content')}>
         <div className={cn('head')}>
           <div className={cn('author')}>{author.profile.name}</div>
-          <div className={cn('time')}>{dateCreate}</div>
+          <div className={cn('time')}>{callbacks.formatData()}</div>
         </div>
         <div className={cn('text')}>{text}</div>
         <div>
