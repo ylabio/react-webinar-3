@@ -60,10 +60,39 @@ function Comments({articleId}) {
         authorId: item?.author?._id,
         date: formatCommentDate(item.dateCreate),
         text: item.text,
+        level,
         style: {marginLeft: level > 10 ? '300px' : `${level * 30}px`},
       })),
     [redux.comments]
   );
+
+  const formRannerId = useMemo(() => {
+    let result, level;
+    for (let comment of commentsList) {
+      if (comment._id === activeFormId) {
+        level = comment.level;
+        result = comment._id;
+        if (level > 9) break;
+        continue;
+      }
+      if (level !== undefined && comment.level <= level) break;
+      result = comment._id;
+    }
+    return result;
+  }, [activeFormId]);
+
+  const nestedForm = useMemo(() => {
+    if (!select.isSession || activeFormId === articleId) return null;
+    return (
+      <CommentsForm
+        id={activeFormId}
+        isRoot={false}
+        onSubmit={callbacks.addComment}
+        onCancel={callbacks.cancelComment}
+        error={redux.addingErrors?.id === activeFormId ? redux.addingErrors.other : null}
+      />
+    );
+  }, [activeFormId, select.isSession, redux.addingErrors]);
 
   const renders = {
     comment: useCallback(
@@ -79,6 +108,7 @@ function Comments({articleId}) {
           self={select.ownId === comment.authorId}
           error={redux.addingErrors?.id === comment._id ? redux.addingErrors.other : null}
           style={comment.style}
+          form={comment._id === formRannerId ? nestedForm : null}
         />
       ),
       [activeFormId, redux.addingErrors] // t

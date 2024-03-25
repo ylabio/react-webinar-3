@@ -1,7 +1,6 @@
 import {memo} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
-import CommentsForm from '../comments-form';
 import LoginInvite from '../../components/login-invite';
 import './style.css';
 
@@ -14,22 +13,6 @@ function Comment({self, ...props}) {
     e.preventDefault();
     props.onActivate(props.comment._id);
   };
-
-  const footer = props.isSession ? (
-    <CommentsForm
-      id={props.comment._id}
-      isRoot={false}
-      onSubmit={props.onSubmit}
-      onCancel={props.onCancel}
-      error={props.error}
-    />
-  ) : (
-    <LoginInvite
-      link={props.loginLink}
-      isRoot={false}
-      onCancel={props.onCancel}
-    />
-  );
 
   return (
     <div
@@ -51,7 +34,14 @@ function Comment({self, ...props}) {
           {'Ответить'}
         </a>
       </div>
-      {isActive && footer}
+      {isActive && !props.isSession && (
+        <LoginInvite
+          link={props.loginLink}
+          isRoot={false}
+          onCancel={props.onCancel}
+        />
+      )}
+      {props.form}
     </div>
   );
 }
