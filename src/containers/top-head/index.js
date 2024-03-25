@@ -4,6 +4,7 @@ import {Link, useLocation, useNavigate} from 'react-router-dom';
 import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
+import HeadLoginTransferControls from '../../components/head-login-transfer-controls';
 
 function TopHead() {
 
@@ -31,11 +32,13 @@ function TopHead() {
 
   return (
     <SideLayout side='end' padding='small'>
-      {select.exists ? <Link to='/profile'>{select.user.profile.name}</Link> : ''}
-      {select.exists
-        ? <button onClick={callbacks.onSignOut}>{t('session.signOut')}</button>
-        : <button onClick={callbacks.onSignIn}>{t('session.signIn')}</button>
-      }
+      <HeadLoginTransferControls 
+        exists={select.exists} 
+        onSignIn={callbacks.onSignIn} 
+        onSignOut={callbacks.onSignOut}
+        user={select.user}
+        t={t}
+      />
     </SideLayout>
   );
 }
