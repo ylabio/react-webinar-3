@@ -4,16 +4,25 @@ import { Link } from "react-router-dom";
 import SideLayout from "../../components/side-layout";
 import "./style.css";
 
-function CommentForm({ formId, type, session, onCloseForm, onCommentSend }) {
+function CommentForm({
+  formId,
+  type,
+  session,
+  location,
+  onCloseForm,
+  onCommentSend,
+}) {
   const cn = bem("CommentForm");
   const commentText = useRef();
 
   const callbacks = {
     onCommentSend: (e) => {
       e.preventDefault();
-      onCommentSend(formId, type, commentText.current.value);
-      commentText.current.value = "";
-      if (type === "comment") onCloseForm();
+      if (commentText.current.value !== "") {
+        onCommentSend(formId, type, commentText.current.value);
+        commentText.current.value = "";
+        if (type === "comment") onCloseForm();
+      }
     },
   };
 
@@ -21,7 +30,7 @@ function CommentForm({ formId, type, session, onCloseForm, onCommentSend }) {
     // Варианты формы без авторизации
     noAuthForm: (
       <div className={cn("auth")}>
-        <Link className={cn("login")} to={"/login"}>
+        <Link className={cn("login")} to={"/login"} state={{ back: location }}>
           Войдите
         </Link>
         <span>, чтобы иметь возможность </span>

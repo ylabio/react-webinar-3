@@ -1,5 +1,5 @@
-import { memo, useCallback, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { memo, useCallback, useMemo } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -26,9 +26,7 @@ function Article() {
   const store = useStore();
 
   const dispatch = useDispatch();
-  // Параметры из пути /articles/:id
-
-  // const [formId, setFormId] = useState("");
+  const location = useLocation();
 
   const params = useParams();
 
@@ -141,6 +139,7 @@ function Article() {
           renderItem={renders.commentsItem}
           formId={select.formId}
           session={session.exists}
+          location={location.pathname}
           onCloseForm={callbacks.onCloseForm}
           onCommentSend={callbacks.onCommentSend}
         />
@@ -151,6 +150,7 @@ function Article() {
           session={session.exists}
           formId={params.id}
           onCommentSend={callbacks.onCommentSend}
+          location={location.pathname}
         />
       )}
     </PageLayout>

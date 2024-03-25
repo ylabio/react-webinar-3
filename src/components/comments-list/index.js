@@ -1,5 +1,4 @@
 import { memo } from "react";
-import useTranslate from "../../hooks/use-translate";
 import { cn as bem } from "@bem-react/classname";
 import PropTypes from "prop-types";
 import CommentForm from "../comment-form";
@@ -10,13 +9,11 @@ function CommentsList({
   renderItem,
   formId,
   session,
+  location,
   onCloseForm,
   onCommentSend,
 }) {
   const cn = bem("CommentsList");
-  const { t } = useTranslate();
-
-  const callbacks = {};
 
   return (
     <div className={cn("")}>
@@ -32,6 +29,7 @@ function CommentsList({
               formId={formId}
               session={session}
               type="comment"
+              location={location}
               onCloseForm={onCloseForm}
               onCommentSend={onCommentSend}
             />
@@ -53,6 +51,8 @@ CommentsList.propTypes = {
     })
   ).isRequired,
   renderItem: PropTypes.func,
+  formId: PropTypes.string,
+  location: PropTypes.string,
 };
 
 CommentsList.defaultProps = {
