@@ -3,6 +3,7 @@ import useServices from "./use-services";
 
 export default function useTranslate() {
   const i18n = useServices().i18n;
+  const api = useServices().api;
 
   const [currentLanguage, setCurrentLanguage] = useState(i18n.lang);
 
@@ -12,7 +13,7 @@ export default function useTranslate() {
     };
 
     const unsubscribe = i18n.subscribe(handleLanguageChange);
-
+    api.setHeader("X-Lang", currentLanguage);
     i18n.setLang(currentLanguage);
     return () => {
       unsubscribe();

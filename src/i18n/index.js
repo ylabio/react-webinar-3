@@ -39,7 +39,7 @@ class I18n {
   }
 
   setLang(lang) {
-    this.state = lang;
+    this.lang = lang;
     for (const listener of this.listeners) {
       listener(lang);
     }
