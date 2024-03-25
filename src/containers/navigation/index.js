@@ -14,7 +14,8 @@ function Navigation() {
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    params: state.catalog.params
   }));
 
   const callbacks = {
@@ -33,9 +34,12 @@ function Navigation() {
   // Функция для локализации текстов
   const {t} = useTranslate();
 
+  let urlSearch = new URLSearchParams(select.params);
+  const url = '/' + (urlSearch ? `?${urlSearch}` : '');
+ 
   const options = {
     menu: useMemo(() => ([
-      {key: 1, title: t('menu.main'), link: '/'},
+      {key: 1, title: t('menu.main'), link: url},
     ]), [t])
   };
 

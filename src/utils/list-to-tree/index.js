@@ -5,10 +5,10 @@
  * @returns {Array} Корневые узлы
  */
 export default function listToTree(list, key = '_id') {
+  if (!list) return Object.values({});
   let trees = {};
   let roots = {};
   for (const item of list) {
-
     // Добавление элемента в индекс узлов и создание свойства children
     if (!trees[item[key]]) {
       trees[item[key]] = item;

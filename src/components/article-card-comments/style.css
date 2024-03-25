@@ -1,0 +1,105 @@
+.ArticleCardComments {
+  padding: 20px 40px;
+}
+
+.ArticleCardComments-title {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.ArticleCardComments-comments {
+  font-size: 14px;
+  margin: 20px 0;
+}
+
+.ArticleCardComments-line {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 13px;
+}
+
+.ArticleCardComments-author {
+  font-weight: bold;
+}
+
+.ArticleCardComments-authorIsDeleted {
+  color: grey;
+  font-weight: bold;
+}
+
+.ArticleCardComments-dateCreate {
+  color: lightgray;
+  margin: 0px 20px;
+}
+
+.ArticleCardComments-text {
+  margin: 10px 0;
+}
+
+.ArticleCardComments-toAnswer {
+  margin: 10px 0;
+}
+
+.ArticleCardComments-message {
+  font-size: 18px;
+  margin: 30px 0;
+}
+
+.ArticleCardComments-cancel {
+  color: gray;
+}
+
+.ArticleCardComments-newAnswer {
+  margin: 30px 0 0 0;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.ArticleCardComments-Answer {
+  margin: 10px 0;
+}
+
+.ArticleCardComments-buttonSend {
+  width: 100px;
+}
+
+.ArticleCardComments-buttonCencel {
+  width: 50px;
+}
+
+.ArticleCardComments-textareaAnswer {
+  margin: 10px 0 0 0;
+  min-width: 100%;
+  min-height: 90px;
+}
+
+.ArticleCardComments-divSend {
+  width: 110px;
+}
+
+.ArticleCardComments-divCencel {
+  width: 60px;
+}
+
+.ArticleCardComments-lineButton {
+  margin: 10px 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.ArticleCardComments-Comment {
+  margin: 10px 0;
+}
+
+.ArticleCardComments-newComment {
+  margin: 30px 0 0 0;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.ArticleCardComments-textareaComment {
+  margin: 10px 0 0 0;
+  min-width: 100%;
+  min-height: 90px;
+}

@@ -1,4 +1,4 @@
-import {memo} from 'react';
+import {memo,useLayoutEffect} from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -13,6 +13,15 @@ import TopHead from '../../containers/top-head';
 function Main() {
 
   const store = useStore();
+
+  const {lang, refresh, setRefresh} = useTranslate();
+
+  useLayoutEffect(() => {
+    if (refresh == true) {
+      store.actions.catalog.initParams({lang: lang});
+      setRefresh(false);
+    }
+  }, [store,refresh,setRefresh]);
 
   useInit(async () => {
     await Promise.all([
