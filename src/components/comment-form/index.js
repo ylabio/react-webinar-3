@@ -15,11 +15,13 @@ function CommentForm({ parentId, type, author, onReply, onSubmit, t }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if(commentText.trim() === '') return;
     onSubmit({
       "text": commentText,
       "parent": { "_id": parentId, "_type": type }
     });
     setCommentText('');
+    onReply(null);
   };
 
   return (
@@ -34,7 +36,7 @@ function CommentForm({ parentId, type, author, onReply, onSubmit, t }) {
       />
       <div className={cn('btn-wrapper')}>
         <button type='submit'>{t('comment.submit')}</button>
-        {parentId !== null &&
+        {type === 'comment' &&
           <button onClick={() => onReply(null)}>{t('comment.cancel')}</button>
         }
       </div>

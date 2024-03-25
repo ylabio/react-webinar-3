@@ -13,15 +13,16 @@ function CommentSection(props) {
       <div className={cn('title')}>
         <h2>{props.t('comment.comments')}: {props.count}</h2>
       </div>
-      {props.comments.length !== 0 &&
+      {props.comments && props.comments.length !== 0 &&
         <CommentList list={props.comments} renderItem={props.renderItem} />
       }
       {props.replyingTo === null &&
         <>
-          {props.authorizationCheck ?
+          {props.session.exists ?
             <CommentForm
               parentId={props.articleId}
               type='article'
+              onReply={props.onReply}
               onSubmit={props.handleCommentSubmit}
               t={props.t} />
             :

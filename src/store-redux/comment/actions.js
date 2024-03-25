@@ -29,7 +29,6 @@ export default {
    * @return {Function}
    */
   submit: (options) => {
-    console.log("options: ", options);
     return async (dispatch, getState, services) => {
       // Сброс текущего товара и установка признака ожидания загрузки
       dispatch({type: 'comment/submit-start'});

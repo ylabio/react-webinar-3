@@ -1,20 +1,26 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import CommentCard from '../../components/comment-card';
-import listToTree from '../../utils/list-to-tree';
 import CommentSection from '../../components/comment-section';
 import commentActions from '../../store-redux/comment/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector as useSelectorRedux } from 'react-redux';
 import useSelector from '../../hooks/use-selector';
+import { useParams } from 'react-router-dom';
 
-function Comments({ comments, articleId }) {
+function Comments() {
   const store = useStore();
 
   const dispatch = useDispatch();
 
-  const select = useSelector(state => ({
-    exists: state.session.exists
+  const params = useParams();
+
+  const { comments } = useSelectorRedux(state => ({
+    comments: state.comment.data
+  }));
+
+  const { session } = useSelector(state => ({
+    session: state.session
   }));
 
   const [replyingTo, setReplyingTo] = useState(null);
@@ -36,27 +42,22 @@ function Comments({ comments, articleId }) {
         replyingTo={replyingTo}
         onReply={callbacks.handleReply}
         handleCommentSubmit={callbacks.handleCommentSubmit}
-        authorizationCheck={select.exists}
+        session={session}
         t={t} />
-    ), [replyingTo]),
+    ), [replyingTo, session]),
   };
-
-  let commentTree = []
-  if (Object.keys(comments).length !== 0 && comments.count !== 0) {
-    console.log(comments)
-    commentTree = listToTree(comments.items)[0].children;
-  }
 
   return (
     <>
       <CommentSection
-        articleId={articleId}
-        comments={commentTree}
+        articleId={params.id}
+        comments={comments.items}
         renderItem={renders.item}
         count={comments.count}
         replyingTo={replyingTo}
+        onReply={callbacks.handleReply}
         handleCommentSubmit={callbacks.handleCommentSubmit}
-        authorizationCheck={select.exists}
+        session={session}
         t={t}
       />
     </>

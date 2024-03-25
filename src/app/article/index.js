@@ -33,8 +33,7 @@ function Article() {
 
   const select = useSelector(state => ({
     article: state.article.data,
-    waiting: state.article.waiting,
-    comments: state.comment.data
+    waiting: state.article.waiting
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
   const {t} = useTranslate();
@@ -53,7 +52,7 @@ function Article() {
       <Navigation/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
-        <Comments comments={select.comments} articleId={params.id} />
+        <Comments />
       </Spinner>
       
     </PageLayout>

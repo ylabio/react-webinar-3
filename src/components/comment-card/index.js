@@ -8,7 +8,7 @@ import formatTextWithLineBreaks from '../../utils/formattedText';
 import { NavLink } from 'react-router-dom';
 import './style.css';
 
-function CommentCard({ comment, depth, replyingTo, onReply, handleCommentSubmit, authorizationCheck, t }) {
+function CommentCard({ comment, depth, replyingTo, onReply, handleCommentSubmit, session, t }) {
   const cn = bem('CommentCard');
 
   const handleReply = (e, commentId) => {
@@ -23,7 +23,7 @@ function CommentCard({ comment, depth, replyingTo, onReply, handleCommentSubmit,
       const { top, bottom } = new_comment.getBoundingClientRect();
       const sectionHeight = bottom - top;
       const scrollPosition = top - (windowHeight - sectionHeight) / 2;
-      
+
       window.scrollTo({
         top: window.scrollY + scrollPosition,
         behavior: 'smooth'
@@ -39,15 +39,19 @@ function CommentCard({ comment, depth, replyingTo, onReply, handleCommentSubmit,
         replyingTo={replyingTo}
         onReply={onReply}
         handleCommentSubmit={handleCommentSubmit}
-        authorizationCheck={authorizationCheck}
+        session={session}
         t={t} />
     ), [replyingTo]),
   };
 
+  const author = comment.author._id === session.user._id ? session.user.profile.name : comment.author?.profile.name
+
   return (
     <div className={cn()} >
       <div className={cn('head')}>
-        <div className={cn('user')}>{comment.author?.profile.name}</div>
+        <div className={cn('user')}>
+          {author}
+        </div>
         <div className={cn('date')}>{formatDate(comment.dateCreate)}</div>
       </div>
       <div className={cn('body')}>
@@ -57,10 +61,10 @@ function CommentCard({ comment, depth, replyingTo, onReply, handleCommentSubmit,
       <CommentList list={comment.children} renderItem={renders.item} />
       {replyingTo === comment._id &&
         <>
-          {authorizationCheck ?
+          {session.exists ?
             <CommentForm
               parentId={comment._id}
-              author={comment.author?.profile.name}
+              author={author}
               type='comment'
               onReply={onReply}
               onSubmit={handleCommentSubmit}
