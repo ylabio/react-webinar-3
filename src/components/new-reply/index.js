@@ -1,9 +1,10 @@
 import { memo, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import "./style.css";
 
-function NewReply({ onClose, onSend, session = false, t }) {
+function NewReply({ onClose, onSend, session, t }) {
   const [value, setValue] = useState("");
 
   const onChange = (event) => {
@@ -42,5 +43,19 @@ function NewReply({ onClose, onSend, session = false, t }) {
     );
   }
 }
+
+NewReply.propTypes = {
+  onSend: PropTypes.func,
+  onClose: PropTypes.func,
+  session: PropTypes.bool,
+  t: PropTypes.func,
+};
+
+NewReply.defaultProps = {
+  onSend: () => {},
+  onClose: () => {},
+  session: false,
+  t: (text) => text,
+};
 
 export default memo(NewReply);

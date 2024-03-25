@@ -1,4 +1,5 @@
 import { memo, useCallback, useState } from "react";
+import PropTypes from "prop-types";
 import "./style.css";
 import Comment from "../comment";
 import NewComment from "../new-comment";
@@ -56,5 +57,28 @@ function CommentList({
     </div>
   );
 }
+
+CommentList.propTypes = {
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    })
+  ).isRequired,
+  count: PropTypes.number,
+  onOpenReply: PropTypes.func,
+  onCloseReply: PropTypes.func,
+  onSendReply: PropTypes.func,
+  onSendComment: PropTypes.func,
+  session: PropTypes.bool,
+  t: PropTypes.func,
+};
+
+CommentList.defaultProps = {
+  onOpenReply: () => {},
+  onCloseReply: () => {},
+  onSendReply: () => {},
+  onSendComment: () => {},
+  t: (text) => text,
+};
 
 export default memo(CommentList);

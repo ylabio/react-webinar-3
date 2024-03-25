@@ -1,4 +1,5 @@
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback } from "react";
+import PropTypes from "prop-types";
 import "./style.css";
 import formatDate from "../../utils/format-date";
 import NewReply from "../new-reply";
@@ -39,9 +40,7 @@ function Comment({ item, session, onOpenReply, onCloseReply, onSendReply, t }) {
     <>
       <div className="Comment">
         <div className="Comment-info">
-          {/* <div className="Comment-user">
-            {name !== "undefined" ? item.author.profile.name : "unknown"}
-          </div> */}
+          <div className="Comment-user">{item.author.profile.name}</div>
           <div className="Comment-date">
             {formatDate(item.dateCreate, t("comments.locale"))}
           </div>
@@ -64,4 +63,22 @@ function Comment({ item, session, onOpenReply, onCloseReply, onSendReply, t }) {
   );
 }
 
+Comment.propTypes = {
+  item: PropTypes.shape({
+    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  }).isRequired,
+  session: PropTypes.bool,
+  onOpenReply: PropTypes.func,
+  onCloseReply: PropTypes.func,
+  onSendReply: PropTypes.func,
+  t: PropTypes.func,
+};
+
+Comment.defaultProps = {
+  onAdd: () => {},
+  onOpenReply: () => {},
+  onCloseReply: () => {},
+  onSendReply: () => {},
+  t: (text) => text,
+};
 export default memo(Comment);

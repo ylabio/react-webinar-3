@@ -1,7 +1,5 @@
 .CommentList {
-  margin-top: 40px;
-  margin-left: 40px;
-  padding-bottom: 90px;
+  padding: 40px 40px 90px 40px;
 }
 
 .CommentList-header {

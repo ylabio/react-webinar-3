@@ -1,5 +1,6 @@
 import { memo, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
+import PropTypes, { bool } from "prop-types";
 import "./style.css";
 
 function NewComment({ onSend, onClose, session = false, t }) {
@@ -40,5 +41,19 @@ function NewComment({ onSend, onClose, session = false, t }) {
     );
   }
 }
+
+NewComment.propTypes = {
+  onSend: PropTypes.func,
+  onClose: PropTypes.func,
+  session: PropTypes.bool,
+  t: PropTypes.func,
+};
+
+NewComment.defaultProps = {
+  onSend: () => {},
+  onClose: () => {},
+  session: false,
+  t: (text) => text,
+};
 
 export default memo(NewComment);
