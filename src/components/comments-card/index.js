@@ -9,6 +9,7 @@ function CommentsCard({
   comments,
   count,
   t,
+  lang,
   loggedIn,
   loginLink,
   onCreateComment,
@@ -36,6 +37,7 @@ function CommentsCard({
           key={comment._id}
           comment={comment}
           t={t}
+          lang={lang}
           loggedIn={loggedIn}
           loginLink={loginLink}
           handleOpenForm={handleOpenForm}
@@ -68,6 +70,7 @@ CommentsCard.propTypes = {
   ).isRequired,
   count: PropTypes.number,
   t: PropTypes.func,
+  lang: PropTypes.string,
   loggedIn: PropTypes.bool,
   loginLink: PropTypes.object,
   postId: PropTypes.string,

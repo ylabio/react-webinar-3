@@ -34,7 +34,7 @@ function Comments({ postId }) {
     }
   }
   
-  const { t } = useTranslate();
+  const { t, lang } = useTranslate();
 
   const renders = {
     loginLink: <Link to={'/login'} state={{back: location.pathname}}>{t("comment.login")}</Link>
@@ -45,6 +45,7 @@ function Comments({ postId }) {
       <CommentsCard
         comments={select.comments.length ? select.comments[0]["children"] : []}
         t={t}
+        lang={lang}
         count={select.count}
         loggedIn={customSelect.loggedIn}
         loginLink={renders.loginLink}

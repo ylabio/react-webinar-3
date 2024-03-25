@@ -14,6 +14,10 @@
     "other": "articles"
   },
   "article.add": "Add",
+  "article.country": "Country",
+  "article.category": "Category",
+  "article.year": "Year",
+  "article.price": "Price",
   "filter.reset": "Reset",
   "auth.title": "Sign In",
   "auth.login": "Login",
@@ -30,5 +34,13 @@
   "comment.new": "New",
   "comment.comment": "comment",
   "comment.newReply": "reply",
-  "comment.send": "Send"
+  "controls.all": "All",
+  "controls.order": "Order",
+  "controls.name": "Name",
+  "controls.expensive": "Expensive first",
+  "controls.old": "Old",
+  "controls.search": "Search",
+  "profile.title": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone"
 }

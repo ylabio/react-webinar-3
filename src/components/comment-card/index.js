@@ -2,12 +2,13 @@ import { memo, useState } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
-import formatDate from "../../utils/formatDate";
+import formatDate from "../../utils/format-date";
 import CommentForm from "../comment-form";
 
 function CommentCard({
   comment,
   t,
+  lang,
   loggedIn,
   loginLink,
   commentFormId,
@@ -29,7 +30,7 @@ function CommentCard({
       <div className={cn("content")}>
         <div className={cn("title")}>
           <span className={cn("author")}>{comment.author?.profile.name}</span>
-          <span className={cn("date")}>{formatDate(comment.dateCreate)}</span>
+          <span className={cn("date")}>{formatDate(comment.dateCreate, lang)}</span>
           {comment.level}
         </div>
         <div className={cn("text")}>{comment.text}</div>
@@ -57,6 +58,7 @@ function CommentCard({
             loggedIn={loggedIn}
             comment={comment}
             t={t}
+            lang={lang}
             loginLink={loginLink}
             commentFormId={commentFormId}
             handleOpenForm={handleOpenForm}
@@ -80,6 +82,7 @@ CommentCard.propTypes = {
   loginLink: PropTypes.object,
   loggedIn: PropTypes.bool,
   t: PropTypes.func,
+  lang: PropTypes.string
 };
 
 CommentCard.defaultProps = {
