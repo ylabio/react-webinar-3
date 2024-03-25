@@ -69,7 +69,7 @@ CommentsCard.propTypes = {
   count: PropTypes.number,
   t: PropTypes.func,
   loggedIn: PropTypes.bool,
-  loginLink: PropTypes.string,
+  loginLink: PropTypes.object,
   postId: PropTypes.string,
 };
 
@@ -78,7 +78,7 @@ CommentsCard.defaultProps = {
   loggedIn: false,
   t: (text) => text,
   loggedIn: false,
-  loginLink: "",
+  loginLink: null,
   postId: "",
 };
 

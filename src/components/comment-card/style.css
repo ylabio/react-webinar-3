@@ -31,6 +31,7 @@
   line-height: 16.1px;
   text-align: left;
   padding: 10px 0;
+  overflow-x: auto;
 }
 
 .CommentCard-reply {

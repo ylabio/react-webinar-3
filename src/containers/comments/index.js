@@ -7,9 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import commentsActions from "../../store-redux/comments/comments";
 import listToTree from "../../utils/list-to-tree";
 import useCustomSelector from '../../hooks/use-selector'
+import {Link, useLocation} from 'react-router-dom';
+
 
 function Comments({ postId }) {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useInit(() => {
     dispatch(commentsActions.load(postId));
@@ -30,8 +33,12 @@ function Comments({ postId }) {
       dispatch(commentsActions.create({postId, text, parent}));
     }
   }
-
+  
   const { t } = useTranslate();
+
+  const renders = {
+    loginLink: <Link to={'/login'} state={{back: location.pathname}}>{t("comment.login")}</Link>
+  };
 
   return (
     <Spinner active={select.waiting}>
@@ -40,7 +47,7 @@ function Comments({ postId }) {
         t={t}
         count={select.count}
         loggedIn={customSelect.loggedIn}
-        loginLink={'/login'}
+        loginLink={renders.loginLink}
         onCreateComment={callbacks.addComment}
         postId={postId}
       />

@@ -77,7 +77,7 @@ CommentCard.propTypes = {
     author: PropTypes.object,
     children: PropTypes.array,
   }).isRequired,
-  loginLink: PropTypes.string.isRequired,
+  loginLink: PropTypes.object,
   loggedIn: PropTypes.bool,
   t: PropTypes.func,
 };

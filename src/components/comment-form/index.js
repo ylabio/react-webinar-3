@@ -49,7 +49,7 @@ function CommentForm({
         </form>
       ) : (
         <div className={cn("logout")}>
-          <Link to={loginLink}>{t("comment.login")}</Link>,{" "}
+          {loginLink},{" "}
           {type === "comment" && t("comment.loginForComment")}
           {type === "reply" && t("comment.loginForReply")}
           {". "}
@@ -68,7 +68,7 @@ CommentForm.propTypes = {
   type: PropTypes.oneOf(["comment", "reply"]),
   loggedIn: PropTypes.bool,
   t: PropTypes.func,
-  loginLink: PropTypes.string,
+  loginLink: PropTypes.object,
   onCloseForm: PropTypes.func,
   onSubmitForm: PropTypes.func,
 };
