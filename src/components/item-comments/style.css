@@ -1,0 +1,31 @@
+.ItemComments-title {
+  display: flex;
+  font-size: 12px;
+}
+
+  .ItemComments-user {
+    margin-right: 10px;
+    font-weight: 700;
+  }
+
+  .ItemComments-user.active {
+    color: #666666;
+  }
+
+  .ItemComments-date {
+    color: #666666;
+  }
+
+.ItemComments-text {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.ItemComments-btn {
+  font-size: 12px;
+  color: #0087E9;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}

@@ -4,6 +4,7 @@ import {Link, useLocation, useNavigate} from 'react-router-dom';
 import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
+import LinkUI from '../../components/link-ui';
 
 function TopHead() {
 
@@ -31,7 +32,8 @@ function TopHead() {
 
   return (
     <SideLayout side='end' padding='small'>
-      {select.exists ? <Link to='/profile'>{select.user.profile.name}</Link> : ''}
+      {/* {select.exists ? <Link to='/profile'>{select.user.profile.name}</Link> : ''} */}
+      {select.exists ? <LinkUI link={'/profile'} text={select.user.profile.name}></LinkUI> : ''}
       {select.exists
         ? <button onClick={callbacks.onSignOut}>{t('session.signOut')}</button>
         : <button onClick={callbacks.onSignIn}>{t('session.signIn')}</button>

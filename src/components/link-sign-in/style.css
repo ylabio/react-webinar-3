@@ -1,0 +1,8 @@
+.LinkSignIn {
+  display: flex;
+  margin-top: 30px;
+}
+
+  .LinkSignIn-link {
+    color: #0087E9;
+  }

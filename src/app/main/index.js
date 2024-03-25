@@ -9,6 +9,7 @@ import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
+import useTranslateI18n from '../../hooks/use-translate-i18n';
 
 function Main() {
 
@@ -22,6 +23,11 @@ function Main() {
   }, [], true);
 
   const {t} = useTranslate();
+
+  //
+  // const {tr} = useTranslateI18n();
+  // console.log("useTranslateI18n() tr:", tr('title'))
+  //
 
   return (
     <PageLayout>
