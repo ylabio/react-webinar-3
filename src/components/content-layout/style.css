@@ -5,3 +5,7 @@
 .ContentLayout_padding_medium {
   padding: 30px 40px;
 }
+
+.ContentLayout_visibility_scroll {
+  overflow: auto;
+}

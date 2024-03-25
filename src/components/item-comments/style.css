@@ -19,6 +19,8 @@
 .ItemComments-text {
   margin: 10px 0;
   font-size: 14px;
+  min-width: 300px;
+  overflow-wrap: break-word;
 }
 
 .ItemComments-btn {

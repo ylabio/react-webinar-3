@@ -67,7 +67,7 @@ function ArticleComments () {
   };
 
   return (
-    <ContentLayout padding='medium'>
+    <ContentLayout padding='medium' visibility='scroll'>
       <HeadComments title={t('comments.title')} count={selectRedux.count}/>
       {selectRedux.listСomments[0]?.children && <List theme={'comments'} list={selectRedux.listСomments[0].children} renderItem={renders.itemComments}/>}
       {select.exists 
