@@ -4,12 +4,14 @@ import { useSelector as useReduxSelector, useDispatch } from 'react-redux';
 //import useStore from '../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
+import useInit from '../../hooks/use-init';
 import shallowEqual from 'shallowequal';
 import commentsActions from '../../store-redux/comments/actions';
 import Spinner from '../../components/spinner';
 import CommentsList from '../../components/comments-list';
 import listToTree from '../../utils/list-to-tree';
-import getNestedComments from '../../utils/comment-tree';
+import treeToList from '../../utils/tree-to-list';
+import CommentItem from '../../components/comment-item';
 
 function CommentsContainer() {
   const params = useParams();
@@ -21,55 +23,76 @@ function CommentsContainer() {
     user: state.session.user
   }));
 
+  useInit(() => {
+    dispatch(commentsActions.load(params.id));
+  }, [params.id]);
+
   const select = useReduxSelector(state => ({
-    comments: state.comments.data,
-    count: state.comments.count,
+    comments: state.comments.data.items,
+    count: state.comments.data.count,
     waiting: state.comments.waiting,
   }), shallowEqual);
 
   const callbacks = {
     onReplyOpen: useCallback((id) => {
-      //console.log(id);
-      dispatch(commentsActions.openReply(id));
-    }),
-    onReplyClose: useCallback((id) => {
-      dispatch(commentsActions.closeReply(id))
-    })
+      //dispatch(commentsActions.openReply(id));
+      // setState({
+      //   ...state,
+      //   comments: comments.map(item => {
+      //   if (item._id === id) {
+      //     return {...item, replyOpen: true};
+      //   }
+      //   if (item.replyOpen && item._id !== id) {
+      //     return {...item, replyOpen: false};
+      //   }
+      //   return item;
+      //   }),
+      //   isCommentToolActive: false
+      // })
+    }, []),
+    onReplyClose: useCallback(() => {
+      //dispatch(commentsActions.closeReply(id))
+      // setState({
+      //   ...state,
+      //   comments: comments.map(item => {
+      //     if (item.replyOpen) {
+      //       return {...item, replyOpen: false};
+      //     }
+      //     return item;
+      //   }),
+      //   isCommentToolActive: true
+      // })
+    }, [])
   }
 
-  const comments = listToTree(select.comments);
+  // select.comments && console.log(sortComments(select.comments));
 
   return (
     <Spinner active={select.waiting}>
       {
-        // comments !== undefined &&
         <CommentsList
           count={select.count}
-          //items={comments}
-          items={comments}
-          session={session.exists}
-          onReplyOpen = {callbacks.onReplyOpen}
-          onReplyClose = {callbacks.onReplyClose}
           t={t}
         >
-          {/* {
-            select.comments.items &&
-            listToTree(select.comments.items)[0]?.children.map(item => {
+          {
+            select.comments &&
+            treeToList(listToTree(select.comments)).filter(item => item._id).map(item => {
+
               return (
                 <div key={item._id}>
                   <CommentItem
                     onReply={callbacks.onReply}
                     onClose={callbacks.onClose}
-                    activeCommentTool={activeCommentTool}
+                    //activeCommentTool={activeCommentTool}
                     commentData={item}
                     // session={storeSelect.session.exists}
-                    session={storeSelect.session}
+                    session={session.exist}
                     t={t}
                   />
                 </div>
               )
             })
-          } */}
+          }
         </CommentsList>
       }
     </Spinner>

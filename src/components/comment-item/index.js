@@ -34,8 +34,8 @@ function CommentItem({commentData, onReply, t, nestingLevel = 1}) {
       }
     >
       <div className={cn('lineBox')}>
-        <div className={cn('author')}>{commentData.author.profile.name}</div>
-        <div className={cn('dateCreate')}>{dateFormat(commentData.dateCreate, t('locale'))}</div>
+        <div className={cn('author')}>{commentData.author?.profile.name}</div>
+        <div className={cn('dateCreate')}>{commentData.dateCreate && dateFormat(commentData.dateCreate, t('locale'))}</div>
       </div>
       <p className={cn('text')}>{commentData.text}</p>
       <button onClick={() => onReply(commentData._id)} className={cn('replyButton')}>{t('comment.reply')}</button>

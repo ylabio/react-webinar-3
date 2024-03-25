@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback} from 'react';
 import {useParams} from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
@@ -17,6 +17,7 @@ import commentsActions from '../../store-redux/comments/actions';
 import CommentsList from '../../components/comments-list';
 import CommentItem from '../../components/comment-item';
 import listToTree from '../../utils/list-to-tree';
+import CommentsContainer from '../../containers/comments-container';
 
 function Article() {
   const store = useStore();
@@ -54,7 +55,7 @@ function Article() {
       <Navigation/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
-        <CommentsList count={select.comments?.count} t={t}>
+        {/* <CommentsList count={select.comments?.count} t={t}>
           {
           select.comments.items &&
           listToTree(select.comments.items)[0]?.children.map(item => {
@@ -65,8 +66,9 @@ function Article() {
             )
           })
           }
-        </CommentsList>
+        </CommentsList> */}
       </Spinner>
+      <CommentsContainer />
     </PageLayout>
   );
 }
