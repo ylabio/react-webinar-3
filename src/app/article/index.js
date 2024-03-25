@@ -1,5 +1,5 @@
-import { memo, useCallback, useMemo } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { memo, useCallback } from "react";
+import { useParams } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -11,22 +11,16 @@ import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
 import TopHead from "../../containers/top-head";
 import { useDispatch, useSelector } from "react-redux";
-import { default as oldSelector } from "../../hooks/use-selector";
 import shallowequal from "shallowequal";
 import articleActions from "../../store-redux/article/actions";
 import articleCommentsActions from "../../store-redux/article-comments/actions";
 import CommentsHead from "../../components/comments-head";
-import CommentsItem from "../../components/comments-item";
-import CommentsList from "../../components/comments-list";
-import treeToList from "../../utils/tree-to-list";
-import listToTree from "../../utils/list-to-tree";
-import CommentForm from "../../components/comment-form";
+import CommentsList from "../../containers/comments-list";
 
 function Article() {
   const store = useStore();
 
   const dispatch = useDispatch();
-  const location = useLocation();
 
   const params = useParams();
 
@@ -49,12 +43,6 @@ function Article() {
     shallowequal
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const session = oldSelector((state) => ({
-    username: state.session.user.profile?.name,
-    exists: state.session.exists,
-    token: state.session.token,
-  }));
-
   const { t } = useTranslate();
 
   const callbacks = {
@@ -62,59 +50,6 @@ function Article() {
     addToBasket: useCallback(
       (_id) => store.actions.basket.addToBasket(_id),
       [store]
-    ),
-    // Запоминаем id элемента с открытой формой комментария
-    setFormId: useCallback(
-      (_id) => {
-        dispatch(articleCommentsActions.setFormId(_id));
-      },
-      [dispatch]
-    ),
-    // Отмена ввод комментария
-    onCloseForm: useCallback(() => {
-      dispatch(articleCommentsActions.setFormId(""));
-    }, [dispatch]),
-
-    // Отправка сообщения
-    onCommentSend: useCallback(
-      (_id, _type, text) => {
-        dispatch(
-          articleCommentsActions.send(
-            session.username,
-            session.token,
-            _id,
-            _type,
-            text
-          )
-        );
-      },
-      [dispatch, session.token, session.username, params.id]
-    ),
-  };
-
-  const comments = useMemo(
-    () => [
-      ...treeToList(listToTree(select.comments), (item, level) => ({
-        _id: item._id,
-        offset: level,
-        username: item.author?.profile.name,
-        date: item.dateCreate,
-        text: item.text,
-      })).slice(1),
-    ],
-    [select.comments]
-  );
-
-  const renders = {
-    commentsItem: useCallback(
-      (comment) => (
-        <CommentsItem
-          comment={comment}
-          setFormId={callbacks.setFormId}
-          session={session}
-        />
-      ),
-      [session]
     ),
   };
 
@@ -134,25 +69,8 @@ function Article() {
       </Spinner>
       <CommentsHead count={select.count} />
       <Spinner active={select.waitingComments}>
-        <CommentsList
-          list={comments}
-          renderItem={renders.commentsItem}
-          formId={select.formId}
-          session={session.exists}
-          location={location.pathname}
-          onCloseForm={callbacks.onCloseForm}
-          onCommentSend={callbacks.onCommentSend}
-        />
+        <CommentsList />
       </Spinner>
-      {select.formId === "" && (
-        <CommentForm
-          type="article"
-          session={session.exists}
-          formId={params.id}
-          onCommentSend={callbacks.onCommentSend}
-          location={location.pathname}
-        />
-      )}
     </PageLayout>
   );
 }

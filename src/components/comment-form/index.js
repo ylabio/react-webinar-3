@@ -1,6 +1,7 @@
 import { memo, useRef } from "react";
 import { cn as bem } from "@bem-react/classname";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import SideLayout from "../../components/side-layout";
 import "./style.css";
 
@@ -8,7 +9,7 @@ function CommentForm({
   formId,
   type,
   session,
-  location,
+  pathname,
   onCloseForm,
   onCommentSend,
 }) {
@@ -30,7 +31,7 @@ function CommentForm({
     // Варианты формы без авторизации
     noAuthForm: (
       <div className={cn("auth")}>
-        <Link className={cn("login")} to={"/login"} state={{ back: location }}>
+        <Link className={cn("login")} to={"/login"} state={{ back: pathname }}>
           Войдите
         </Link>
         <span>, чтобы иметь возможность </span>
@@ -88,5 +89,23 @@ function CommentForm({
     </div>
   );
 }
+
+CommentForm.PropTypes = {
+  formId: PropTypes.string,
+  type: PropTypes.string,
+  session: PropTypes.string,
+  pathname: PropTypes.string,
+  onCloseForm: PropTypes.func,
+  onCommentSend: PropTypes.func,
+};
+
+CommentForm.defaultProps = {
+  formId: "",
+  type: "",
+  session: false,
+  pathname: "/",
+  onCloseForm: () => {},
+  onCommentSend: () => {},
+};
 
 export default memo(CommentForm);

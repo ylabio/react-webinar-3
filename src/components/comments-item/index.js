@@ -1,4 +1,5 @@
 import { memo } from "react";
+import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
@@ -50,5 +51,20 @@ function CommentsItem({ comment, setFormId }) {
     </>
   );
 }
+
+CommentsItem.propTypes = {
+  comment: PropTypes.shape({
+    _id: PropTypes.string,
+    username: PropTypes.string,
+    date: PropTypes.string,
+    text: PropTypes.string,
+  }).isRequired,
+  setFormId: PropTypes.func,
+};
+
+CommentsItem.defaultProps = {
+  comment: {},
+  setFormId: () => {},
+};
 
 export default memo(CommentsItem);
