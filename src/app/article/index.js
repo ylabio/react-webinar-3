@@ -49,13 +49,17 @@ function Article() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Создание нового комментария
     createNewComment: useCallback(() => {
-      dispatch(createCommentActions.createComment(token, {text: commentValue, parent: {_id: params.id, _type: "article"}}));
-      setCommentValue('');
+      if (commentValue.trim()) {
+        dispatch(createCommentActions.createComment(token, {text: commentValue, parent: {_id: params.id, _type: "article"}}));
+        setCommentValue('');
+      }
     }, [token, commentValue, params.id]),
     // Ответ на комментарий
     onReplyComment: useCallback((_id) => {
-      dispatch(createCommentActions.createComment(token, {text: commentValue, parent: {_id, _type: "comment"}}));
-      setCommentValue('');
+      if (commentValue.trim()) {
+        dispatch(createCommentActions.createComment(token, {text: commentValue, parent: {_id, _type: "comment"}}));
+        setCommentValue('');
+      }
     }, [token, commentValue])
   }
 
