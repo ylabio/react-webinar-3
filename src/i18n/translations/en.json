@@ -1,4 +1,5 @@
 {
+  "locale": "en-EN",
   "title": "Shop",
   "menu.main": "Main",
   "basket.title": "Cart",
@@ -20,5 +21,16 @@
   "auth.password": "Password",
   "auth.signIn": "Sign in",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "comment.listTitle": "Comments",
+  "comment.reply": "Reply",
+  "comment.toolTitle": "New comment",
+  "coment.toolReply": "New reply",
+  "comment.toolDefaultPlaceholder": "Text",
+  "comment.toolReplyPlaceholder": "My reply to",
+  "comment.toolSend": "Send",
+  "comment.toolClose": "Close",
+  "comment.login": "Login",
+  "comment.loginReplyDescription": " to leave a reply. ",
+  "comment.loginCommentDescription": " to leave a comment "
 }
