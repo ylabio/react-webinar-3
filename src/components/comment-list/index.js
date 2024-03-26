@@ -12,6 +12,7 @@ function CommentList({
   onSendReply,
   onSendComment,
   session,
+  pathname,
   t,
 }) {
   const [showComment, setShowComment] = useState(true);
@@ -41,6 +42,7 @@ function CommentList({
             onOpenReply={callbacks.openReply}
             onCloseReply={callbacks.closeReply}
             onSendReply={onSendReply}
+            pathname={pathname}
             t={t}
           />
         </div>
@@ -48,9 +50,10 @@ function CommentList({
 
       {showComment && (
         <NewComment
-          session={session}
+          session={session.exists}
           onSend={onSendComment}
           onClose={callbacks.closeReply}
+          pathname={pathname}
           t={t}
         />
       )}
@@ -69,7 +72,7 @@ CommentList.propTypes = {
   onCloseReply: PropTypes.func,
   onSendReply: PropTypes.func,
   onSendComment: PropTypes.func,
-  session: PropTypes.bool,
+  session: PropTypes.shape({ exists: PropTypes.bool }).isRequired,
   t: PropTypes.func,
 };
 

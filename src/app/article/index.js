@@ -14,12 +14,10 @@ import { useDispatch, useSelector as useReduxSelector } from "react-redux";
 import shallowequal from "shallowequal";
 import articleActions from "../../store-redux/article/actions";
 import commentsActions from "../../store-redux/comments/actions";
-import newCommentActions from "../../store-redux/comments/new/actions";
+
 import Comments from "../../containers/comments";
-import CommentList from "../../components/comment-list";
-import NewComment from "../../components/new-comment";
+
 import useSelector from "../../hooks/use-selector";
-import getNestedComments from "../../utils/comment-tree";
 
 function Article() {
   const store = useStore();
@@ -41,15 +39,9 @@ function Article() {
     (state) => ({
       article: state.article.data,
       waiting: state.article.waiting,
-      count: state.comments.count,
     }),
     shallowequal
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
-
-  const session = useSelector((state) => ({
-    exists: state.session.exists,
-    token: state.session.token,
-  }));
 
   const callbacks = {
     // Добавление в корзину

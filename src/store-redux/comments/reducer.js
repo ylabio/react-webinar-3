@@ -48,7 +48,6 @@ function reducer(state = initialState, action) {
       return { ...state, waiting: true };
 
     case "comments/send-success":
-      console.log(action.payload.newComment);
       return {
         ...state,
         waiting: false,

@@ -1,9 +1,9 @@
 import { memo, useCallback, useState } from "react";
-import { Link } from "react-router-dom";
-import PropTypes, { bool } from "prop-types";
+import { Link, useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 import "./style.css";
 
-function NewComment({ onSend, onClose, session = false, t }) {
+function NewComment({ onSend, onClose, pathname, session = false, t }) {
   const [value, setValue] = useState("");
 
   const onChange = (event) => {
@@ -13,7 +13,6 @@ function NewComment({ onSend, onClose, session = false, t }) {
   const callbacks = {
     onSubmit: useCallback((e) => {
       e.preventDefault();
-      console.log(value);
       onSend(value);
       onClose();
     }),
@@ -26,7 +25,10 @@ function NewComment({ onSend, onClose, session = false, t }) {
           {t("comments.newComment")}
           <form onSubmit={callbacks.onSubmit}>
             <textarea onChange={onChange} />
-            <button type="submit"> {t("comments.send")}</button>
+            <button type="submit" disabled={!value || value.trim() === ""}>
+              {" "}
+              {t("comments.send")}
+            </button>
           </form>
         </div>
       </div>
@@ -35,7 +37,10 @@ function NewComment({ onSend, onClose, session = false, t }) {
   if (!session) {
     return (
       <div className="NewComment-message">
-        <Link to={"/login"}> {t("comments.login")}</Link>{" "}
+        <Link to={"/login"} state={{ back: pathname }}>
+          {" "}
+          {t("comments.login")}
+        </Link>{" "}
         {t("comments.toComment")}
       </div>
     );

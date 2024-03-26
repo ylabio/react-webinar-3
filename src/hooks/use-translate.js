@@ -8,8 +8,6 @@ import useServices from "./use-services";
 export default function useTranslate() {
   const i18n = useServices().i18n;
 
-  console.log("use trabslate service");
-
   const [lang, setLangState] = useState(i18n.locale);
 
   useEffect(() => {

@@ -15,6 +15,12 @@
   margin-right: 10px;
 }
 
+.Comment-user_authorized {
+  font-weight: 700;
+  margin-right: 10px;
+  color: #666;
+}
+
 .Comment-date {
   color: #666;
 }
