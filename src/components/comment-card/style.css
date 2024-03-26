@@ -10,9 +10,13 @@
   white-space: nowrap;
 }
 
-.CommentCard-user {
+.CommentCard-user, .CommentCard-current-user {
   font-weight: 700;
   margin-right: 10px;
+}
+
+.CommentCard-current-user {
+  color: #666666;
 }
 
 .CommentCard-date {

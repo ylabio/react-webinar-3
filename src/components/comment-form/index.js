@@ -2,10 +2,8 @@ import { memo, useState } from "react";
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function CommentForm({ parentId, type, author, onReply, onSubmit, t }) {
-  const [commentText, setCommentText] = useState(
-    type === 'comment' ? `${t('comment.my_reply_to')} ${author}` : ''
-  );
+function CommentForm({ parentId, type, onReply, onSubmit, t }) {
+  const [commentText, setCommentText] = useState('');
 
   const cn = bem('CommentForm');
 

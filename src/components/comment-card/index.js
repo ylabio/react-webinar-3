@@ -44,14 +44,14 @@ function CommentCard({ comment, depth, replyingTo, onReply, handleCommentSubmit,
     ), [replyingTo]),
   };
 
-  const author = comment.author._id === session.user._id ? session.user.profile.name : comment.author?.profile.name
+  const author = comment.author._id === session.user._id ?
+    <div className={cn('current-user')}>{session.user.profile.name}</div> :
+    <div className={cn('user')}>{comment.author?.profile.name}</div>
 
   return (
     <div className={cn()} >
       <div className={cn('head')}>
-        <div className={cn('user')}>
           {author}
-        </div>
         <div className={cn('date')}>{formatDate(comment.dateCreate)}</div>
       </div>
       <div className={cn('body')}>
@@ -64,7 +64,6 @@ function CommentCard({ comment, depth, replyingTo, onReply, handleCommentSubmit,
           {session.exists ?
             <CommentForm
               parentId={comment._id}
-              author={author}
               type='comment'
               onReply={onReply}
               onSubmit={handleCommentSubmit}

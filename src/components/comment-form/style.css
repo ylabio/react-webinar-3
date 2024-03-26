@@ -13,7 +13,7 @@
 .CommentForm textarea {
 	height: 70px;
 	min-height: 70px;
-	/* width: 938px; */
+	resize: vertical;
 	max-width: 938px;
 	padding: 5px;
 }
