@@ -18,7 +18,6 @@ const config = {
   },
   api: {
     baseUrl: '',
-    tokenHeader: 'X-Token',
     langHeader: 'Accept-Language',
   },
   i18n: {

@@ -48,6 +48,8 @@ class SessionState extends StoreModule {
 
         // Запоминаем токен, чтобы потом автоматически аутентифицировать юзера
         window.localStorage.setItem('token', res.data.result.token);
+        // Устанавливаем токен в АПИ
+        this.services.api.setHeader(this.config.tokenHeader, res.data.result.token);
 
         if (onSuccess) onSuccess();
       } else {
@@ -77,6 +79,8 @@ class SessionState extends StoreModule {
       });
       // Удаляем токен
       window.localStorage.removeItem('token');
+      // Удаляем заголовок
+      this.services.api.setHeader(this.config.tokenHeader, null);
     } catch (error) {
       console.error(error);
     }
@@ -98,6 +102,7 @@ class SessionState extends StoreModule {
       if (res.data.error) {
         // Удаляем плохой токен
         window.localStorage.removeItem('token');
+        this.services.api.setHeader(this.config.tokenHeader, null);
         this.setState(
           {
             ...this.getState(),
