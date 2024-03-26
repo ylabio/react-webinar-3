@@ -23,6 +23,7 @@ import WelcomeText from '../../components/welcome-text';
 
 function Article() {
   const store = useStore();
+  console.log(useTranslate())
 
   const dispatch = useDispatch();
 
@@ -54,7 +55,7 @@ function Article() {
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
   const exists = useSelector(state => state.session.exists);
 
-  const { t } = useTranslate();
+  const { t, lang } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
