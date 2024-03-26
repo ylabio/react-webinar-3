@@ -38,6 +38,8 @@
 }
 .Comments-enter {
   color: #0087e9;
+  text-decoration: underline;
+  cursor: pointer;
 }
 .Comments-cancle {
   cursor: pointer;

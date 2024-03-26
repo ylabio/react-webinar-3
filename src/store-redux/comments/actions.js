@@ -23,10 +23,16 @@ export default {
     };
   },
 
-  //загрузка первого коментария
-  sendCommentArticle: (user, text, parentId) => {
+  sendComment: (user, text, parentId) => {
     return async (dispatch, getState, services) => {
       dispatch({ type: "comments/load-start" });
+
+      let type;
+      if (getState().article.data._id === parentId) {
+        type = "article";
+      } else {
+        type = "comment";
+      }
 
       try {
         const res = await services.api.request({
@@ -34,7 +40,7 @@ export default {
           method: "POST",
           body: JSON.stringify({
             text: text,
-            parent: { _id: parentId, _type: "article" },
+            parent: { _id: parentId, _type: type },
           }),
         });
 
@@ -44,34 +50,6 @@ export default {
             comments: [
               ...getState().comments.comments,
               { ...res.data.result, author: user },
-            ],
-          },
-        });
-      } catch (e) {
-        dispatch({ type: "comments/load-error" });
-      }
-    };
-  },
-  //загрузка ответа на коментарий коментария
-  sendComment: (user, text) => {
-    return async (dispatch, getState, services) => {
-      dispatch({ type: "comments/load-start" });
-      try {
-        const res = await services.api.request({
-          url: `/api/v1/comments`,
-          method: "POST",
-          body: JSON.stringify({
-            text: text,
-            parent: { _id: user._id, _type: "comment" },
-          }),
-        });
-
-        dispatch({
-          type: "comments/load-success",
-          payload: {
-            comments: [
-              ...getState().comments.comments,
-              { ...res.data.result, author: user.author },
             ],
           },
         });

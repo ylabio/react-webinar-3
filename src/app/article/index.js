@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -15,39 +15,36 @@ import shallowequal from "shallowequal";
 import articleActions from "../../store-redux/article/actions";
 import commentsActions from "../../store-redux/comments/actions";
 import Comments from "../../containers/comments";
-import useServices from "../../hooks/use-services";
-import {default as useSelectorStore} from "../../hooks/use-selector";
+import { default as useSelectorStore } from "../../hooks/use-selector";
 function Article() {
+  const { t } = useTranslate();
   const store = useStore();
   const { currentLanguage } = useTranslate();
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
- const selectStore=useSelectorStore((state) => ({
+  const selectStore = useSelectorStore((state) => ({
+    isAuth: state.session.exists,
+    user: state.session.user,
+  }));
+  // console.log(selectStore.user);
 
-}),)
-//заглушка, только с этим параметром обновляется компонент при выходк
   const params = useParams();
-
-
-  
+  const navigate = useNavigate();
+  const location = useLocation();
   // console.log(store)
   useInit(() => {
     dispatch(articleActions.load(params.id));
     dispatch(commentsActions.load(params.id));
-  }, [params.id,currentLanguage]);
-
+  }, [params.id, currentLanguage, selectStore]);
 
   const select = useSelector(
     (state) => ({
       article: state.article.data,
       waiting: state.article.waiting,
       comments: state.comments.comments,
-     
     }),
     shallowequal
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
-
-  const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
@@ -55,25 +52,22 @@ function Article() {
       (_id) => store.actions.basket.addToBasket(_id),
       [store]
     ),
-    addCommentArticle: useCallback(
-      (element, comment) => {
+
+    addComment: useCallback(
+      (comment, parentId) => {
         dispatch(
-          commentsActions.sendCommentArticle(
-            store.state.session?.user,
+          commentsActions.sendComment(
+            store.state.session.user,
             comment,
-            params.id
+            parentId
           )
         );
       },
       [store]
     ),
-    addComment: useCallback(
-      (user, comment) => {
-        dispatch(commentsActions.sendComment(user, comment));
-      },
-      [store]
-    ),
-    isAuth: useCallback(() => store.state.session.exists, [store]),
+    onSignIn: useCallback(() => {
+      navigate("/login", { state: { back: location.pathname } });
+    }, [location.pathname]),
     idUser: useCallback(() => store.state.session.user._id, [store]),
   };
 
@@ -91,12 +85,12 @@ function Article() {
           t={t}
         />
         <Comments
-          addCommentArticle={callbacks.addCommentArticle}
           addComment={callbacks.addComment}
           id={params.id}
           comments={select.comments}
-          isAuth={callbacks.isAuth}
+          isAuth={selectStore.isAuth}
           idUser={callbacks.idUser}
+          onSignIn={callbacks.onSignIn}
         />
       </Spinner>
     </PageLayout>

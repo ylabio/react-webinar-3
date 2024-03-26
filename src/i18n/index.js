@@ -11,7 +11,7 @@ class I18n {
     this.config = config;
     this.listeners = []; // Слушатели изменений состояния
     this.state = initState;
-    this.lang = "ru";
+    this.lang = this.config.lang;
   }
 
   subscribe(listener) {
@@ -40,6 +40,7 @@ class I18n {
 
   setLang(lang) {
     this.lang = lang;
+    localStorage.setItem("lang", lang);
     for (const listener of this.listeners) {
       listener(lang);
     }
