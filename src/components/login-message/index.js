@@ -1,15 +1,27 @@
-import React, {memo} from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-const LoginMessage = ({ onCancel, reply = false, t }) => {
-  const cn = bem('LoginMessage');
+const LoginMessage = ({ onCancel, reply, t, onLogin  }) => {
+  const cn = bem('LoginMessage');  
+  const loginMessageRef = useRef(null);
+
+  useEffect(() => {    
+    if (loginMessageRef.current && reply) {
+      loginMessageRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    
+    return () => {
+      loginMessageRef.current = null;
+    };
+  }, []);
 
   return (
-    <div className={cn()}>
-      <Link to="/login" className={cn('login')}>{t('loginMessage.enter')}</Link>
+    <div ref={loginMessageRef}  className={cn({ 'reply': reply })}>      
+      <button type="button" className={cn('login')} onClick={onLogin}>
+        {t('loginMessage.enter')}
+      </button>
       <span className={cn('text')}>, 
         {t('loginMessage.comment')} 
         {reply ? t('loginMessage.comment.reply') : t('loginMessage.comment.comment')}.

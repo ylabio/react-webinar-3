@@ -4,10 +4,12 @@
  * @param [key] {String} Свойство с первичным ключом
  * @returns {Array} Корневые узлы
  */
-export default function listToTree(list, key = '_id') {
+export default function listToTree(list, key = '_id', dateTransformCallback) {
   let trees = {};
   let roots = {};
   for (const item of list) {
+    // Преобразование даты
+    const transformedDate = dateTransformCallback ? dateTransformCallback(item.dateCreate) : item.dateCreate;
 
     // Добавление элемента в индекс узлов и создание свойства children
     if (!trees[item[key]]) {
@@ -27,7 +29,7 @@ export default function listToTree(list, key = '_id') {
         roots[item.parent[key]] = trees[item.parent[key]]
       }
       // Добавления в подчиненные родителя
-      trees[item.parent[key]].children.push(trees[item[key]]);
+      trees[item.parent[key]].children.push({...item, dateCreate: transformedDate});
       // Так как элемент добавлен к родителю, то он уже не является корневым
       if (roots[item[key]]) delete roots[item[key]];
     }

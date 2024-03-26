@@ -6,7 +6,6 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 const CommentList = (props) => {  
-
   const { 
     comments, 
     count,
@@ -18,7 +17,8 @@ const CommentList = (props) => {
     onAddReplyComment,
     showCommentForm,
     t,
-    lang
+    onLogin,
+    isReply
   } = props; 
 
   const cn = bem('CommentList');  
@@ -26,7 +26,7 @@ const CommentList = (props) => {
   return (
     <div className={cn()}>
       <h2 className={cn('title')}>{t('commentList.comments')} ({count})</h2>
-      {comments.map((item) => (
+      {comments.length > 0 && comments.map((item) => (
         <div key={item._id}>
           <Comment
             comment={item}
@@ -36,13 +36,13 @@ const CommentList = (props) => {
             onCloseReply={onCloseReply}
             onAddReplyComment={onAddReplyComment}
             t={t}
-            lang={lang}
+            onLogin={onLogin}   
+            isReply={isReply}   
           />
         </div>
-      ))}        
-
+      ))}
       {showCommentForm && (
-        <CommentNew session={session} onCreateNewComment={(text) => onCreateNewComment(text)} t={t} />
+        <CommentNew session={session} onCreateNewComment={(text) => onCreateNewComment(text)} t={t} onLogin={onLogin} />
       )}
     </div>
   );
@@ -59,7 +59,7 @@ CommentList.propTypes = {
   onAddReplyComment: PropTypes.func,
   showCommentForm: PropTypes.bool,
   t: PropTypes.func,
-  lang: PropTypes.string
+  onLogin: PropTypes.func 
 };
 
 export default memo(CommentList);

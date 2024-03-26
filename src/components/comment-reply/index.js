@@ -1,25 +1,39 @@
-import React, { useState } from 'react';
+import React, { memo, useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import LoginMessage from '../login-message';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-const CommentReply = ({ session, onCancel, onAddReplyComment, t }) => {
+const CommentReply = ({ session, onCancel, onAddReplyComment, t, onLogin, isReply }) => {
   const [text, setText] = useState('');
   const cn = bem('CommentReply');
+  const formRef = useRef(null);
+  
+  useEffect(() => {   
+    if (formRef.current && !isReply) {      
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });      
+    }
+
+    return () => {
+      formRef.current = null;
+    };
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddReplyComment(text);
-    setText('');
+    const trimmedText = text.trim();
+    if (trimmedText !== '') { 
+      onAddReplyComment(trimmedText);
+      setText('');
+    }
   };
 
   if (!session) {
-    return (<LoginMessage onCancel={onCancel} reply={true} t={t} />)
+    return (<LoginMessage onCancel={onCancel} reply={!isReply} t={t} onLogin={onLogin} />)
   }
 
   return (
-    <form className={cn()} onSubmit={handleSubmit}>
+    <form ref={formRef} className={cn()} onSubmit={handleSubmit}>
       <h2 className={cn('title')}>{t('commentReply.newReply')}</h2>
       <textarea className={cn('text')} value={text} onChange={(e) => setText(e.target.value)} required />
       <div className={cn('wrapper')}>
@@ -35,6 +49,7 @@ CommentReply.propTypes = {
   onCancel: PropTypes.func,
   onAddReplyComment: PropTypes.func,
   t: PropTypes.func,
+  onLogin: PropTypes.func,
 };
 
-export default CommentReply;
+export default memo(CommentReply);

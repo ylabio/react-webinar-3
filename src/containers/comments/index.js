@@ -1,12 +1,13 @@
-import React, {memo, useCallback, useState} from 'react';
+import React, {memo, useCallback, useState, useMemo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import shallowequal from 'shallowequal';
 import useTranslate from '../../hooks/use-translate';
 import CommentList from '../../components/comment-list';
 import useCustomSelector from '../../hooks/use-selector';
-import getNestedComments from '../../utils/comments-nested';
+import listToTree from '../../utils/list-to-tree';
 import commentActions from "../../store-redux/comment/actions";
+import formatCommentDate from '../../utils/format-comment-date';
 
 function Comments() {  
   
@@ -14,6 +15,8 @@ function Comments() {
   const dispatch = useDispatch();  
   const params = useParams(); 
   const [showCommentForm, setShowCommentForm] = useState(true);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const select = useSelector((state) => ({    
     comments: state.comment.comments, 
@@ -62,13 +65,19 @@ function Comments() {
       },
       [params.id, select.comments]
     ),
+
+    transformDate: useCallback((date) => formatCommentDate(date, lang), [lang]),
+
+    onLogin: useCallback(() => { navigate('/login', { state: { back: location.pathname } }) }, [location])
   };
-
-  const nestedComments = getNestedComments(select.comments);
-
+ 
+  const comments = useMemo(function() {
+    return listToTree(select.comments, '_id', callbacks.transformDate)[0]?.children ?? [];
+  }, [select.comments, callbacks.transformDate]);   
+  
   return (     
     <CommentList
-      comments={nestedComments} 
+      comments={comments} 
       count={select.count} 
       userId={customSelect.currentUser._id}               
       session={customSelect.isAuthenticated}
@@ -77,8 +86,9 @@ function Comments() {
       onCreateNewComment={callbacks.createNewComment}
       onAddReplyComment={callbacks.addReplyComment}
       showCommentForm={showCommentForm}
-      t={t}
-      lang={lang}
+      t={t}      
+      onLogin={callbacks.onLogin}
+      isReply={showCommentForm}
     />    
   );
 }

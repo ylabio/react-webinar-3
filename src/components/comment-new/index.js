@@ -4,18 +4,21 @@ import LoginMessage from '../login-message';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-const CommentNew = ({ session, onCreateNewComment, t }) => {
+const CommentNew = ({ session, onCreateNewComment, t, onLogin }) => {
   const [text, setText] = useState('');
   const cn = bem('CommentNew');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onCreateNewComment(text);
-    setText('');
+    const trimmedText = text.trim();
+    if (trimmedText !== '') { 
+      onCreateNewComment(trimmedText);
+      setText('');
+    }
   };
 
   if (!session) {
-    return (<LoginMessage t={t} />)
+    return (<LoginMessage t={t} onLogin={onLogin} />)
   }  
 
   return (
@@ -31,6 +34,7 @@ CommentNew.propTypes = {
   session: PropTypes.bool,
   onCreateNewComment: PropTypes.func,
   t: PropTypes.func,
+  onLogin: PropTypes.func,
 };
 
 

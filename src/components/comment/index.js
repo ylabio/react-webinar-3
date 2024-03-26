@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import PropTypes from 'prop-types';
-import formatCommentDate from '../../utils/format-comment-date';
+
 import CommentReply from '../comment-reply';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
@@ -13,9 +13,10 @@ const Comment = (props) => {
     onOpenReply,
     onCloseReply,
     onAddReplyComment,
-    t,
-    lang,
-    level = 0 
+    t,    
+    level = 0,
+    onLogin,
+    isReply
   } = props;
   const cn = bem('Comment');
   const isCurrentUser = currentUserId && comment.author._id === currentUserId;   
@@ -32,9 +33,10 @@ const Comment = (props) => {
           onOpenReply={onOpenReply}
           onCloseReply={onCloseReply}   
           onAddReplyComment={onAddReplyComment}    
-          t={t}
-          lang={lang}
+          t={t}          
           level={level + 1} 
+          onLogin={onLogin}
+          isReply={isReply}
         />
       </div>
     );
@@ -46,18 +48,20 @@ const Comment = (props) => {
         <div className={cn('author', { 'currentUser': isCurrentUser })}>
           {comment.author.profile.name}
         </div>
-        <div className={cn('date')}>{formatCommentDate(comment.dateCreate, lang)}</div>
+        <div className={cn('date')}>{comment.dateCreate}</div>
       </div>
       <div className={cn('text')}>{comment.text}</div>
       <button className={cn('button')} type='button' onClick={() => onOpenReply(comment._id)}>{t('comment.reply')}</button>     
+      {nested}
       {comment.reply && 
         <CommentReply 
           session={session} 
           onCancel={() => onCloseReply(comment._id)} 
           onAddReplyComment={(text) => onAddReplyComment(comment._id, text)} 
-          t={t} />
+          t={t}
+          onLogin={onLogin}
+          isReply={isReply} />
       }
-      {nested}
     </div>
   );
 };
@@ -69,9 +73,9 @@ Comment.propTypes = {
   onOpenReply: PropTypes.func,
   onCloseReply: PropTypes.func,
   onAddReplyComment: PropTypes.func,
-  t: PropTypes.func,
-  lang: PropTypes.string,
+  t: PropTypes.func,  
   level: PropTypes.number,
+  onLogin: PropTypes.func,
 };
 
 export default memo(Comment);
