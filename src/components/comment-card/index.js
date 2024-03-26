@@ -5,10 +5,9 @@ import CommentList from '../comment-list';
 import formatDate from '../../utils/formatDate';
 import CommentForm from '../comment-form';
 import formatTextWithLineBreaks from '../../utils/formattedText';
-import { NavLink } from 'react-router-dom';
 import './style.css';
 
-function CommentCard({ comment, depth, replyingTo, onReply, handleCommentSubmit, session, t }) {
+function CommentCard({ comment, depth, replyingTo, onReply, handleCommentSubmit, session, handleLogin, t }) {
   const cn = bem('CommentCard');
 
   const handleReply = (e, commentId) => {
@@ -28,6 +27,7 @@ function CommentCard({ comment, depth, replyingTo, onReply, handleCommentSubmit,
         top: window.scrollY + scrollPosition,
         behavior: 'smooth'
       });
+      localStorage.removeItem('replyingTo');
     }
   }, [replyingTo]);
 
@@ -40,6 +40,7 @@ function CommentCard({ comment, depth, replyingTo, onReply, handleCommentSubmit,
         onReply={onReply}
         handleCommentSubmit={handleCommentSubmit}
         session={session}
+        handleLogin={handleLogin}
         t={t} />
     ), [replyingTo]),
   };
@@ -70,7 +71,7 @@ function CommentCard({ comment, depth, replyingTo, onReply, handleCommentSubmit,
               t={t} />
             :
             <div className={cn('footer')} id='new_comment'>
-              <NavLink to='/login'>Войдите</NavLink>, чтобы иметь возможность комментировать.
+              <a href="#" onClick={handleLogin}>Войдите</a>, чтобы иметь возможность комментировать.
               <a href='#' className={cn('cancel')} onClick={(e) => handleReply(e, null)}>{t('comment.cancel')}</a>
             </div>
           }

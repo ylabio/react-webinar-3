@@ -6,7 +6,8 @@ import CommentSection from '../../components/comment-section';
 import commentActions from '../../store-redux/comment/actions';
 import { useDispatch, useSelector as useSelectorRedux } from 'react-redux';
 import useSelector from '../../hooks/use-selector';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import useInit from '../../hooks/use-init';
 
 function Comments() {
   const store = useStore();
@@ -14,6 +15,10 @@ function Comments() {
   const dispatch = useDispatch();
 
   const params = useParams();
+
+  const location = useLocation();
+
+  const navigate = useNavigate();
 
   const { comments } = useSelectorRedux(state => ({
     comments: state.comment.data
@@ -30,7 +35,18 @@ function Comments() {
     handleReply: useCallback(comment_id => setReplyingTo(comment_id), [store]),
     // Отправить ответ
     handleCommentSubmit: useCallback(commentData => dispatch(commentActions.submit(commentData)), [store]),
+    // Переход на страницу логина
+    handleLogin: useCallback((e) => {
+      e.preventDefault();
+
+      localStorage.setItem('replyingTo', replyingTo || params.id);
+      navigate('/login', {state: {back: location.pathname}});
+    })
   }
+
+  useInit(() => {
+    setReplyingTo(localStorage.getItem('replyingTo'));
+  }, [])
 
   const { t } = useTranslate();
 
@@ -43,6 +59,7 @@ function Comments() {
         onReply={callbacks.handleReply}
         handleCommentSubmit={callbacks.handleCommentSubmit}
         session={session}
+        handleLogin={callbacks.handleLogin}
         t={t} />
     ), [replyingTo, session]),
   };
@@ -58,6 +75,7 @@ function Comments() {
         onReply={callbacks.handleReply}
         handleCommentSubmit={callbacks.handleCommentSubmit}
         session={session}
+        handleLogin={callbacks.handleLogin}
         t={t}
       />
     </>

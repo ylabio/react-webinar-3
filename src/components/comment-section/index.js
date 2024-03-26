@@ -1,8 +1,7 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import CommentList from '../comment-list';
-import { NavLink } from 'react-router-dom';
 import CommentForm from '../comment-form';
 import './style.css';
 
@@ -16,7 +15,7 @@ function CommentSection(props) {
       {props.comments && props.comments.length !== 0 &&
         <CommentList list={props.comments} renderItem={props.renderItem} />
       }
-      {props.replyingTo === null &&
+      {(props.replyingTo === null || props.replyingTo === props.articleId) &&
         <>
           {props.session.exists ?
             <CommentForm
@@ -27,7 +26,7 @@ function CommentSection(props) {
               t={props.t} />
             :
             <div className={cn('footer')}>
-              <NavLink to="/login">Войдите</NavLink>, чтобы иметь возможность комментировать
+              <a href="#" onClick={props.handleLogin}>Войдите</a>, чтобы иметь возможность комментировать
             </div>
           }
         </>
