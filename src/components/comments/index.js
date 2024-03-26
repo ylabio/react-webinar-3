@@ -1,63 +1,78 @@
-import {memo, useEffect} from 'react';
-import PropTypes from 'prop-types';
-import {cn as bem} from '@bem-react/classname';
-import {Link, useNavigate} from 'react-router-dom';
-import './style.css';
-//import useSelector from '../../hooks/use-selector';
-import {useDispatch, useSelector} from 'react-redux';
-import shallowequal from 'shallowequal';
-import useInit from '../../hooks/use-init';
-import commentsActions from '../../store-redux/comments/actions';
+import React, {memo, useCallback, useState} from 'react'
+import CommentsList from "../../components/comment-list";
+import {useDispatch, useSelector as useSelectorRedux} from "react-redux";
+import shallowequal from "shallowequal";
+import commentsActions from "../../store-redux/comments/actions";
+import useSelector from '../../hooks/use-selector';
+import {useParams} from "react-router-dom";
 
-function Comments({id}) {
-  const cn = bem('Comments');
-
-  // const select = useSelector(state => ({
-  //   exists: state.session.exists,
-  // }));
-
-  const select = useSelector(state => ({
-    comments: state.comments.data,
-    waiting: state.comments.waiting,
-    loading: false,
-  }), shallowequal);
+const Comments = () => {
 
   const dispatch = useDispatch();
+  const params = useParams();
+  const [showCommentForm, setShowCommentForm] = useState(true);
 
-  useInit(() => {
-    //store.actions.article.load(params.id);
-    dispatch(commentsActions.load(id));
-  }, []);
+  const select = useSelector(state => ({
+    currentUser: state.session.user,
+    isAuth: state.session.exists,
+  }))
 
-  debugger
+  const selectRedux = useSelectorRedux(state => ({
+    comments: state.comments.data,
+  }), shallowequal);
+
+  const callbacks = {
+    openReply: useCallback((id) => {
+      setShowCommentForm(false);
+      dispatch(commentsActions.openReply(id));
+    }, []),
+
+    closeReply: useCallback((id) => {
+      setShowCommentForm(true);
+      dispatch(commentsActions.closeReply(id));
+    }, []),
+
+    addReplyComment: useCallback((parentId, text) => {
+        const data = {
+          text,
+          parentId,
+          parentType: 'comment',
+          currentUser: select.currentUser
+        };
+
+        dispatch(commentsActions.createOrAddComment(data))
+      },
+      [params.id, selectRedux.comments]
+    ),
+
+    createNewComment: useCallback((text) => {
+        const data = {
+          text,
+          parentId: params.id,
+          parentType: 'article',
+          currentUser: select.currentUser
+        };
+
+        dispatch(commentsActions.createOrAddComment(data))
+      },
+      [params.id, selectRedux.comments]
+    ),
+  };
+
+
   return (
-    <div className={cn()}>
-      <div className={cn('title')}>Комментарии (0)</div>
-
-      {select.exists ? <div>asdads</div>
-              : <div>
-                  <Link to={'/login'} className={cn('link')}>Войдите</Link>
-                  <span>,чтобы иметь возможность комментировать</span>
-                </div>
-      }
-    </div>
+    <CommentsList
+      comments={selectRedux?.comments}
+      count={selectRedux?.comments.length}
+      session={select.isAuth}
+      userId={select.currentUser._id}
+      onOpenReply={callbacks.openReply}
+      onCloseReply={callbacks.closeReply}
+      onCreateNewComment={callbacks.createNewComment}
+      onAddReplyComment={callbacks.addReplyComment}
+      showCommentForm={showCommentForm}
+      onComment={callbacks.createNewComment}
+     />
   )
 }
-
-Comments.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.shape({
-    key: PropTypes.number,
-    link: PropTypes.string,
-    title: PropTypes.string,
-  })),
-  exists: PropTypes.bool,
-  //onNavigate: PropTypes.func
-}
-
-Comments.defaultProps = {
-  //exists: [],
-  //onNavigate: () => {
-  //}
-}
-
 export default memo(Comments);
