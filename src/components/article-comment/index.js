@@ -2,23 +2,26 @@ import PropTypes from 'prop-types';
 import { memo } from "react"
 import './style.css'
 import dateFormat from '../../utils/dateFormat';
-import ArticleCommentReplyForm from '../article-comment-reply-form';
+import { getLatestCommentNode } from '../../utils/getLatestCommentNode';
 
 
 const ArticleComment = (props) => {
   const isCurrentUserComment = props.comment.author._id === props.loggedUserId
-
   const callbacks = {
     openReplyForm: () => props.handleCommentForm(prev => prev = {
       form: 'reply', 
-      commentIndex: props.index
+      replyFormBelowCommentId: getLatestCommentNode(props.comment),
+      parent: {
+        replyCommentId: props.comment._id,
+        replyLevel: props.comment.level + 1
+      }
     })
   }
   
   return (
     <div className="ArticleComment" style={ 
-      (props.comment.level >= 10) ? {marginLeft: 10 * 30 + 'px'} : 
-      (props.comment.level > 0) ? {marginLeft: props.comment.level * 30 + 'px'} : {}}>
+      (props.comment.level >= 10) ? {paddingLeft: 10 * 30 + 'px'} : 
+      (props.comment.level > 0) ? {paddingLeft: props.comment.level * 30 + 'px'} : {}}>
       <div className="ArticleComment-head">
         <p className={isCurrentUserComment
         ? 'ArticleComment-username ArticleComment-username--current-user'
@@ -37,18 +40,6 @@ const ArticleComment = (props) => {
       >
         {props.t('article.commentaries-reply')}
       </button>
-
-      {props.replyFormOpen && (
-        <ArticleCommentReplyForm 
-         commentParentId={props.comment._id}
-         pathname={props.pathname}
-         isLoggedIn={props.isLoggedIn}
-         link={props.link}
-         handleCommentForm={props.handleCommentForm} 
-         onAddComment={props.onAddComment}
-         t={props.t}
-        />
-      )}
     </div>
   )
 }
@@ -65,8 +56,6 @@ ArticleComment.propTypes = {
     text: PropTypes.string
   }),
   loggedUserId: PropTypes.string,
-  index: PropTypes.number,
-  replyFormOpen: PropTypes.bool,
   handleCommentForm: PropTypes.func,
   t: PropTypes.func
 }

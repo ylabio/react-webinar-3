@@ -7,7 +7,7 @@ const ArticleCommentReplyForm = ({
   isLoggedIn, 
   pathname, 
   link,  
-  commentParentId, 
+  parent,
   onAddComment, 
   handleCommentForm,
   t
@@ -24,7 +24,7 @@ const ArticleCommentReplyForm = ({
       const data = {
         text: formData.get('commentContent'),
         parent: {
-          _id: commentParentId,
+          _id: parent.replyCommentId,
           _type: "comment"
         }
       }
@@ -34,12 +34,18 @@ const ArticleCommentReplyForm = ({
     },
     closeReplyForm: () => handleCommentForm(prev => prev = {
       form: 'comment', 
-      commentIndex: null
+      replyFormBelowCommentId: null,
+      parent: {}
     })
   }
 
   return (
-    <div className='ArticleCommentReplyForm-wrapper'>
+    <div 
+      className='ArticleCommentReplyForm-wrapper'
+      style={ 
+        (parent.replyLevel >= 10) ? {paddingLeft: 10 * 30 + 'px'} : 
+        (parent.replyLevel > 0) ? {paddingLeft: parent.replyLevel * 30 + 'px'} : {}}
+    >
       {isLoggedIn ? (
         <form className='ArticleCommentReplyForm' onSubmit={callbacks.onSubmit}>
         <label htmlFor='commentTextArea' className='ArticleCommentReplyForm-title'>
@@ -74,7 +80,10 @@ const ArticleCommentReplyForm = ({
 }
 
 ArticleCommentReplyForm.propTypes = {
-  commentParentId:PropTypes.string,
+  parent:PropTypes.shape({
+    replyCommentId: PropTypes.string,
+    replyLevel: PropTypes.number,
+  }),
   isLoggedIn: PropTypes.bool,
   link: PropTypes.string,
   pathname: PropTypes.string,

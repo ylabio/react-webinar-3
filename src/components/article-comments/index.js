@@ -1,10 +1,11 @@
-import { memo, useState } from "react"
+import React, { memo, useState } from "react"
 import PropTypes from 'prop-types';
 import './style.css'
 import ArticleComment from "../article-comment";
 import listToTree from "../../utils/list-to-tree";
 import treeToList from "../../utils/tree-to-list";
 import ArticleCommentForm from "../article-comment-form";
+import ArticleCommentReplyForm from "../article-comment-reply-form";
 
 const ArticleComments = ({
   isLoggedIn, 
@@ -17,7 +18,8 @@ const ArticleComments = ({
 }) => {
   const [commentForm, setCommentForm] = useState({
     form: 'comment',
-    commentIndex: null,
+    replyFormBelowCommentId: null,
+    parent: {}
   })
   
   let tree
@@ -38,21 +40,33 @@ const ArticleComments = ({
   
   return (
     <div className="ArticleComments">
-      <div className="ArticleComments-title">{t('article.commentaries-title')} ({comments.count})</div>
-      {list && list.map((comment, index) => (
-        <ArticleComment 
-          key={comment._id} 
-          index={index}
-          comment={comment} 
-          loggedUserId={loggedUserId} 
-          replyFormOpen={commentForm.commentIndex === index}
-          handleCommentForm={callbacks.handleCommentForm}
-          isLoggedIn={isLoggedIn} 
-          link='/login'   
-          pathname={pathname}  
-          onAddComment={onAddComment} 
-          t={t}
-        />
+      <div className="ArticleComments-title">
+        {t('article.commentaries-title')} {comments.count && `(${comments.count})`}
+      </div>
+      {list && list.map((comment) => (
+        <React.Fragment key={comment._id}>
+          <ArticleComment
+            comment={comment}
+            loggedUserId={loggedUserId}
+            handleCommentForm={callbacks.handleCommentForm}
+            isLoggedIn={isLoggedIn}
+            link='/login'
+            pathname={pathname}
+            onAddComment={onAddComment}
+            t={t}
+          />
+          {(comment._id === commentForm.replyFormBelowCommentId) && (
+            <ArticleCommentReplyForm 
+              parent={commentForm.parent}
+              pathname={pathname}
+              isLoggedIn={isLoggedIn}
+              link='/login'
+              handleCommentForm={callbacks.handleCommentForm} 
+              onAddComment={onAddComment}
+              t={t}
+            />
+          )}
+        </React.Fragment>
       ))}
       
       {commentForm.form === 'comment' && (

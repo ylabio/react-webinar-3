@@ -40,7 +40,6 @@ export default {
             }
           }
         }
-      
         dispatch({type: 'article-comments/addComment', payload: {
           newComment: resultedComment
         }})
