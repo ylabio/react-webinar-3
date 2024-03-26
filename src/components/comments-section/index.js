@@ -34,7 +34,7 @@ function CommentsSection({ comments, transformDate, postComment }) {
                 id={item._id}
                 style={{ paddingLeft: `${(item.level - 1) * 30}px` }}
               >
-                <div className="Comment-Author" style={{color: item.text =="Комментарий удален" ? '#666666' : 'black'}}>{item.author}</div>
+                <div className="Comment-Author" style={{color: (item.text =="Комментарий удален" || item.author == select.sessionUserName) ? '#666666' : 'black'}}>{item.author}</div>
                 <div className="Comment-Date">
                   {transformDate(item.dateCreate)}
                 </div>

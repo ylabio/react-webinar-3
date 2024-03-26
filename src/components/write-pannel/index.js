@@ -2,8 +2,27 @@ import { memo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./style.css";
 
+function getPixels(s) {
+  return Number(String(s).replace("px", ""));
+}
+
 function openDisplay(id) {
-  document.getElementById(id).style.display = "block";
+  for (var otherDisplay of document.getElementsByClassName("Write-Panel")) {
+    if (otherDisplay.id) otherDisplay.style.display = "none";
+  }
+  var panel = document.getElementById("write" + id);
+  panel.style.display = "block";
+
+  var nexElement = document.getElementById(id);
+  var parentPadding = getPixels(document.getElementById(id).style.paddingLeft);
+  while (getPixels(nexElement.nextSibling.style.paddingLeft) > parentPadding) {
+    nexElement = nexElement.nextSibling;
+  }
+  panel.style.marginLeft =
+    String(parentPadding + 30 - getPixels(nexElement.style.paddingLeft)) + "px";
+  nexElement.appendChild(panel);
+  var topPos = panel.offsetTop;
+  window.scrollTo(0, topPos - 200);
 }
 
 function closeDisplay(id) {
@@ -13,7 +32,7 @@ function closeDisplay(id) {
 function WritePannel({ id, session, postComment, token }) {
   function postAndClose() {
     closeDisplay("write" + id);
-    document.getElementById("textarea" + id).value
+    document.getElementById("textarea" + id).value.replaceAll(" ", "").length > 0
       ? postComment(
           document.getElementById("textarea" + id).value,
           { _id: id, _type: "comment" },
@@ -26,17 +45,14 @@ function WritePannel({ id, session, postComment, token }) {
     <>
       {id != null ? (
         <>
-          <div
-            className="Show-Write-Panel"
-            onClick={() => openDisplay("write" + id)}
-          >
+          <div className="Show-Write-Panel" onClick={() => openDisplay(id)}>
             Ответить
           </div>
           {session ? (
             <div
               className="Write-Panel"
               id={"write" + id}
-              style={{ display: "none", paddingLeft: '30px' }}
+              style={{ display: "none" }}
             >
               <div className="Write-Panel-Header">Новый ответ </div>
               <textarea
@@ -80,7 +96,9 @@ function WritePannel({ id, session, postComment, token }) {
               />
               <button
                 onClick={() =>
-                  document.getElementById("textarea" + id).value
+                  document
+                    .getElementById("textarea" + id)
+                    .value.replaceAll(" ", "").length > 0
                     ? postComment(
                         document.getElementById("textarea" + id).value,
                         { _id: articcleId, _type: "article" },

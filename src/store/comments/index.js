@@ -1,8 +1,5 @@
 import StoreModule from "../module";
 
-/**
- * Детальная ифнормация о товаре для страницы товара
- */
 class CommentsState extends StoreModule {
   initState() {
     return {
