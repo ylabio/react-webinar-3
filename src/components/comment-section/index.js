@@ -7,6 +7,9 @@ import './style.css';
 
 function CommentSection(props) {
   const cn = bem('CommentSection');
+  useEffect(() => {
+    props.onReply(null);
+  }, [props.session]);
   return (
     <div className={cn()}>
       <div className={cn('title')}>
