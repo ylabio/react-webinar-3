@@ -45,7 +45,7 @@ function Basket() {
   };
 
   return (
-    <ModalLayout title={t.translate('basket.title')} labelClose={translateService.translate('basket.close')}
+    <ModalLayout title={translateService.translate('basket.title')} labelClose={translateService.translate('basket.close')}
                  onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket}/>
       <BasketTotal sum={select.sum} t={translateService}/>

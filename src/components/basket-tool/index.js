@@ -4,18 +4,18 @@ import {cn as bem} from '@bem-react/classname';
 import numberFormat from '../../utils/number-format';
 import './style.css';
 
-function BasketTool({sum, amount, onOpen, t}) {
+function BasketTool({sum, amount, onOpen, labelInBasket, labelArticles, labelEmpty, labelOpen}) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <span className={cn('label')}>{t.translate('basket.inBasket')}</span>
+      <span className={cn('label')}>{labelInBasket}</span>
       <span className={cn('total')}>
         {amount
-          ? `${amount} ${t.translate('basket.articles', amount)} / ${numberFormat(sum)} ₽`
-          : t.translate('basket.empty')
+          ? `${amount} ${labelArticles} / ${numberFormat(sum)} ₽`
+          : labelEmpty
         }
       </span>
-      <button onClick={onOpen}>{t.translate('basket.open')}</button>
+      <button onClick={onOpen}>{labelOpen}</button>
     </div>
   );
 }

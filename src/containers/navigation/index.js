@@ -31,8 +31,6 @@ function Navigation() {
     }, [store])
   }
 
- 
-
   const options = {
     menu: useMemo(() => ([
       {key: 1, title: translateService.translate('menu.main'), link: '/'},
@@ -42,9 +40,17 @@ function Navigation() {
   return (
     <SideLayout side='between'>
       <Menu items={options.menu} onNavigate={callbacks.onNavigate}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} t={translateService}/>
+      <BasketTool 
+        onOpen={callbacks.openModalBasket} 
+        amount={select.amount} 
+        sum={select.sum}
+        labelInBasket={translateService.translate('basket.inBasket')}
+        labelArticles={translateService.translate('basket.articles')}
+        labelEmpty={translateService.translate('basket.empty')}
+        labelOpen={translateService.translate('basket.open')}
+      />
     </SideLayout>
   );
 }
 
-export default memo(Navigation);
+export default Navigation;
