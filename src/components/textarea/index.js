@@ -10,7 +10,8 @@ function TextArea(props) {
       <textarea
         placeholder={props.placeholder}
         value={props.value}
-        onChange={(e) => props.onChange(e.target.value)}></textarea>
+        onChange={(e) => props.onChange(e.target.value)}>
+      </textarea>
       {props.children}
     </div>
   )

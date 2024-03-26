@@ -37,5 +37,28 @@ export default {
         dispatch({type: 'comments/send-error'});
       }
     }
+  },
+
+  sendReply: (data, token) => {
+    return async (dispatch, getState, services) => {
+
+      dispatch({type: 'comments/send-reply-start'})
+
+      try {
+        const res = await services.api.request({
+          method: 'POST',
+          url: `/api/v1/comments?fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type,_tree)`,
+          headers: {
+            'X-Token': token
+          },
+          body: JSON.stringify(data)
+        });
+        dispatch({type: 'comments/send-reply-success', payload: {data: res.data.result}});
+
+      } catch (e) {
+        //Ошибка загрузки
+        dispatch({type: 'comments/send-reply-error'});
+      }
+    }
   }
 }

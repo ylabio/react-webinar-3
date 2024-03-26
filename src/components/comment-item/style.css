@@ -19,6 +19,10 @@
   font-size: 14px;
 }
 
+.CommentItem-content p {
+  margin: 10px 0;
+}
+
 .CommentItem-link {
   border: none;
   background-color: transparent;
@@ -29,6 +33,26 @@
   cursor: pointer;
 }
 
+.CommentItem-reply {
+  margin-top: 30px;
+}
+
+.CommentItem-reply__btns {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
 .CommentItem-block {
   margin-bottom: 30px;
+}
+
+.CommentItem-link__cancel {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  color: gray;
+  font-size: 16px;
+  cursor: pointer;
 }

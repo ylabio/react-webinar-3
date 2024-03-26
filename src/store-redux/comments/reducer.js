@@ -32,6 +32,22 @@ function reducer(state = initialState, action) {
     case "comments/send-error":
       return {...state, data: {}, waiting: false};
 
+    case "comments/send-reply-start":
+      return {...state, waiting: true};
+
+    case "comments/send-reply-success":
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          items: [...state.data.items, action.payload.data]
+        },
+        waiting: false
+      };
+
+    case "comments/send-reply-error":
+      return {...state, data: {}, waiting: false};
+
 
     default:
       // Нет изменений
