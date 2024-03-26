@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import "./style.css";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
@@ -6,18 +6,25 @@ import { cn as bem } from "@bem-react/classname";
 function FormComments({ cb, label, labelBtn, id, labelBtn2, cb2 }) {
   const cn = bem("FormComments");
   const [value, setValue] = useState("");
+  const formRef = useRef(null);
 
+  useEffect(() => {
+    formRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, []);
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      cb(value, id);
+      if (value.trim()) {
+        cb(value, id);
+        setValue("");
+      }
       setValue("");
     },
     [value]
   );
 
   return (
-    <form className={cn()} onSubmit={onSubmit}>
+    <form ref={formRef} className={cn()} onSubmit={onSubmit}>
       <label className={cn("label")} htmlFor="textarea">
         {label}
       </label>
@@ -28,7 +35,7 @@ function FormComments({ cb, label, labelBtn, id, labelBtn2, cb2 }) {
         onChange={(e) => setValue(e.target.value)}
       />
       <div className={cn("group_btn")}>
-        <button disabled={!value} className={cn("action")} type="submit">
+        <button className={cn("action")} type="submit">
           {labelBtn}
         </button>
         {labelBtn2 && cb2 && (

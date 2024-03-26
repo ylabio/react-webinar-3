@@ -1,6 +1,7 @@
 .ItemComments {
   width: 100%;
   box-sizing: border-box;
+  /* border-left: 1px solid red; */
 }
 .ItemComments-head {
   display: flex;
@@ -36,5 +37,7 @@
   cursor: pointer;
 }
 .ItemComments-form {
-  margin-top: 30px;
+  /* margin-top: 30px; */
+  box-sizing: border-box;
+  width: 100%;
 }

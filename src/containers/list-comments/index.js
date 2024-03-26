@@ -18,6 +18,8 @@ function ListComments() {
     user: state.session.user,
   }));
   const [idVisibleForm, setIdVisibleForm] = useState(null);
+  const [idComment, setIdComment] = useState(null);
+  const [level, setLevel] = useState(0);
 
   const selectRedux = useSelectorRedux(
     (state) => ({
@@ -42,7 +44,7 @@ function ListComments() {
         ]
       : [];
   }, [selectRedux.comments]);
-
+  console.log(comments);
   const callbacks = {
     addComment: useCallback((text, commentId) => {
       dispatch(
@@ -55,14 +57,22 @@ function ListComments() {
         })
       );
       dispatch(commentsActions.setTypeComments("article"));
+      setIdVisibleForm(null);
+      setIdComment(null);
+      setLevel(0);
     }, []),
     onCloseForm: useCallback(() => {
       dispatch(commentsActions.setTypeComments("article"));
       setIdVisibleForm(null);
+      setIdComment(null);
+      setLevel(0);
     }, []),
-    onOpenForm: useCallback((itemId) => {
+    onOpenForm: useCallback((itemId, idComment, level) => {
       dispatch(commentsActions.setTypeComments("comment"));
+      console.log(itemId, idComment, level, "click");
       setIdVisibleForm(itemId);
+      setIdComment(idComment);
+      setLevel(level);
     }, []),
   };
   const link = useMemo(
@@ -80,12 +90,14 @@ function ListComments() {
           lang={lang}
           t={t}
           key={item._id}
+          idComment={idComment}
           item={item}
+          level={level}
           textBtn={t("comment.answer")}
           action={callbacks.onOpenForm}
           isAuth={!!select.user.username}
           userId={select.user._id}
-          disabledBtn={!!(item._id === idVisibleForm)}
+          disabledBtn={!!(item._id === idComment)}
           onCloseForm={callbacks.onCloseForm}
           onSubmit={callbacks.addComment}
           visibleForm={

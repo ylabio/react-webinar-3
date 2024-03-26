@@ -19,39 +19,68 @@ function ItemComments({
   onSubmit,
   onCloseForm,
   t,
+  idComment,
   lang,
+  level,
 }) {
   const cn = bem("ItemComments");
+  function findLastObjectWithoutChildren(array) {
+    let lastObjectWithoutChildren = null;
+
+    function traverse(node) {
+      if (!node.children || node.children.length === 0) {
+        lastObjectWithoutChildren = node;
+      } else {
+        for (let child of node.children) {
+          traverse(child);
+        }
+      }
+    }
+
+    for (let item of array) {
+      traverse(item);
+    }
+    if (lastObjectWithoutChildren) return lastObjectWithoutChildren._id;
+  }
+
+  const displayId = item.children.length
+    ? findLastObjectWithoutChildren(item.children)
+    : item._id;
   return (
-    <div
-      className={cn()}
-      style={{ paddingLeft: `${item.level && 30 * item.level}px` }}
-    >
-      <div className={cn("head")}>
-        <div
-          className={`${cn("head-user_name")} ${
-            userId === item.author._id && cn("head-author")
-          }`}
-        >
-          {item.author.profile.name}
-        </div>
-        <div className={cn("head-date")}>
-          {formattedDate(item.dateUpdate, lang)}
-        </div>
-      </div>
-      <div className={cn("text")}>{item.text}</div>
-      <button
-        className={cn("action")}
-        disabled={disabledBtn}
-        onClick={() => action(item._id)}
+    <>
+      <div
+        className={cn()}
+        style={{ paddingLeft: `${item.level && 30 * item.level}px` }}
       >
-        {textBtn}
-      </button>
+        <div className={cn("head")}>
+          <div
+            className={`${cn("head-user_name")} ${
+              userId === item.author._id && cn("head-author")
+            }`}
+          >
+            {item.author.profile.name}
+          </div>
+          <div className={cn("head-date")}>
+            {formattedDate(item.dateUpdate, lang)}
+          </div>
+        </div>
+        <div className={cn("text")}>{item.text}</div>
+        <button
+          className={cn("action")}
+          disabled={disabledBtn}
+          onClick={() => action(displayId, item._id, item.level)}
+        >
+          {textBtn}
+        </button>
+      </div>
       {visibleForm && (
-        <div className={cn("form")}>
+        <div
+          className={cn("form")}
+          style={{ paddingLeft: `${(level + 1) * 30}px` }}
+        >
           {isAuth ? (
             <FormComments
-              id={item._id}
+              id={idComment}
               label={t("comment.newAnswer")}
               labelBtn={t("comment.send")}
               cb={onSubmit}
@@ -69,7 +98,7 @@ function ItemComments({
           )}
         </div>
       )}
-    </div>
+    </>
   );
 }
 
