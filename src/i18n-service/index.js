@@ -1,4 +1,3 @@
-// import * as translations from '../i18n/translations';
 import * as translations from './translation';
 
 class I18nService {
@@ -39,11 +38,11 @@ class I18nService {
   //  * Установка состояния
   //  * @param newState {Object}
   //  */
-  setState(newState) {
-    this.state = newState;
-    // Вызываем всех слушателей
-    for (const listener of this.listeners) listener(this.state);
-  }
+  // setState(newState) {
+  //   this.state = newState;
+  //   // Вызываем всех слушателей
+  //   for (const listener of this.listeners) listener(this.state);
+  // }
 
   /**
   * Перевод фразу по словарю
@@ -78,7 +77,7 @@ class I18nService {
   /**
   * Получить текущий язык
   */
-  getLang (lang) {
+  getLang () { 
     return this.local;
   }
 

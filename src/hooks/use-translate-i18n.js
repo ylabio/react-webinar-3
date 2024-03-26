@@ -1,5 +1,4 @@
-import {useCallback, useContext, useEffect, useMemo, useState} from 'react';
-import {I18nContext} from '../i18n/context';
+import {useEffect, useMemo, useState} from 'react';
 import useServices from './use-services';
 
 /**
@@ -9,8 +8,9 @@ export default function useTranslateI18n() {
 
   const i18nServices = useServices().i18n;
 
-  const [lang, setLang] = useState(i18nServices.lang);
+  const [lang, setLang] = useState(i18nServices.getLang());
 
+  // Подписка с возвратом функции для отписки
   const unsubscribe = i18nServices.subscribe((value) => {
     setLang(value);
   })
@@ -29,10 +29,10 @@ export default function useTranslateI18n() {
     // Функция для локализации текстов
     translate: (text, number) => i18nServices.translate(text, number)
 
-  }), [i18nServices.lang, lang]);
+  }), [lang]);
 
   // Отписка
-  useEffect(() => unsubscribe, [unsubscribe, i18nServices.lang]);
+  useEffect(() => unsubscribe, [unsubscribe]);
 
   return (
     i18n
