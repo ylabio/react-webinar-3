@@ -22,28 +22,18 @@ export default {
       }
     }
   },
-  send: (data) => {
+  send: (data, user) => {
     return async (dispatch, getState, services) => {
       dispatch({type: 'comments/load-start'});
 
       try {
-        await services.api.request({
+        const res = await services.api.request({
           method: 'POST',
           url: '/api/v1/comments',
           body: JSON.stringify(data)
         });
-
-        try {
-          const res = await services.api.request({
-            url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=${getState().article.data._id}`
-          });
-          // Комментарии загружены успешно
-          dispatch({type: 'comments/send-success', payload: {data: res.data.result}});
-
-        } catch {
-          // Ошибка загрузки
-          dispatch({type: 'comments/load-error'});
-        }
+        // Комментарий отправлен успешно
+        dispatch({type: 'comments/send-success', payload: {data: res.data.result, author: user}});
       } catch {
         // Ошибка загрузки
         dispatch({type: 'comments/send-error'});

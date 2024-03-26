@@ -3,7 +3,6 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector as useReduxSelector, useDispatch } from 'react-redux';
 import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
-import useInit from '../../hooks/use-init';
 import shallowEqual from 'shallowequal';
 import commentsActions from '../../store-redux/comments/actions';
 import Spinner from '../../components/spinner';
@@ -32,10 +31,6 @@ function CommentsContainer() {
     scrollToActiveId();
   }, [activeId]);
 
-  useInit(() => {
-    dispatch(commentsActions.load(params.id));
-  }, [params.id]);
-
   const select = useReduxSelector(state => ({
     comments: state.comments.data.items,
     count: state.comments.data.count,
@@ -52,15 +47,17 @@ function CommentsContainer() {
     onLogin: useCallback(() => {
       navigate('/login', {state: {back: location.pathname}});
     }, [location.pathname]),
-    onSend: useCallback((value, parentId, type) => {
-      if (value.trim()) {
-        dispatch(commentsActions.send({
-          text: value,
-          parent: { _id: parentId, _type: type}
-        }));
-      }
-      setCurrentCommnetId(null);
-    }, [])
+    onSend: useCallback(
+      async (value, parentId, type) => {
+        if (value.trim()) {
+          dispatch(commentsActions.send({
+            text: value,
+            parent: { _id: parentId, _type: type}
+          }, session.user));
+        }
+        setCurrentCommnetId(null);
+      },
+    [select])
   };
 
   const scrollToActiveId = () => {
