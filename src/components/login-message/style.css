@@ -1,0 +1,33 @@
+.LoginMessage {
+  margin-bottom: 23px;
+}
+
+.LoginMessage_reply {
+  margin-left: 30px;
+}
+
+.LoginMessage-login {
+  font-size: 16px;  
+  width: max-content;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #0087E9;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.LoginMessage-text {
+  font-size: 16px;
+}
+
+.LoginMessage-button {
+  font-size: 16px;
+  text-decoration: underline;  
+  color: #666;
+  background-color: transparent;
+  border: none;
+  width: max-content;  
+  cursor: pointer;
+  padding: 0;
+}
