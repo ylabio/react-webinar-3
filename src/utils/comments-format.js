@@ -1,4 +1,3 @@
-import addIndents from "./add-indents";
 import datesFormat from "./dates-format";
 
 /**
@@ -20,21 +19,20 @@ export default function commentsFormat(comments) {
     }
   });
 
-  function putChildren(arr) {
+  function putChildren(arr, indent = 1) {
     const restChildren = arr.filter((item) => {
 
       const parentIndex = result.findIndex((node) => node._id === item.parent._id)
-      parentIndex >= 0 && result.splice(parentIndex + 1, 0, item);
+      parentIndex >= 0 && result.splice(parentIndex + 1, 0, {...item, indent: indent});
       return parentIndex >= 0 ? 0 : 1;
     })
     if (restChildren.length) {
-      return putChildren(restChildren);
+      return putChildren(restChildren, indent + 1);
     }
   }
   putChildren(children);
 
-  const indentedComments = addIndents(result);
-  const currentComments = datesFormat(indentedComments)
+  const currentComments = datesFormat(result)
 
   return currentComments;
 }

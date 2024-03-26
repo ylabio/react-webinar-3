@@ -44,7 +44,6 @@ export default {
           },
           body: JSON.stringify(data),
         });
-        console.log(res.data.result)
         // Комментарий отправлен успешно
         dispatch({type: 'comments/send-success', payload: {data: {...res.data.result, author: user}}});
       } catch (e) {
