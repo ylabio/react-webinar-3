@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo, useState } from 'react'
-import "./style.css"
 import CommentCard from '../../components/comment-card';
 import { useDispatch, useSelector as useReduxSelector } from 'react-redux';
 import shallowEqual from 'shallowequal';
@@ -12,12 +11,14 @@ import { useParams } from 'react-router-dom';
 import CommentsList from '../../components/comments-list';
 import Spinner from '../../components/spinner';
 import useSelector from '../../hooks/use-selector';
+import CommentsLayout from '../../components/comments-layout';
 
 function Comments() {
 
     const dispatch = useDispatch();
     const {id} = useParams();
-    const [miniAnswerId,setMiniAnswerId] = useState();
+    const [currCommentReplied,setCurrCommentReplied] = useState();
+    const [whereToPutMiniForm,setWhereToPutMiniForm] = useState();
     const [miniCommentText,setminiCommentText] = useState("");
     const [footerCommentText,setFooterCommentText] = useState("");
 
@@ -29,6 +30,7 @@ function Comments() {
 
     const select = useSelector(state => ({
         exists: state.session.exists,
+        profile_id : state.session.user._id
       }));
 
     const list = useMemo(() => (
@@ -39,15 +41,31 @@ function Comments() {
     ), [reduxSelect.comments])
 
     const callbacks = {
-        onClick : useCallback((id) => {
-            setMiniAnswerId(id)
-        },[]),
+        onClick : useCallback((item,currIndex) => {
+            setCurrCommentReplied(item)
+            if(item.parent._type === "article" && !item.children.length){
+                setWhereToPutMiniForm(item._id)
+            }
+            else{
+                let newItemIndex = currIndex + 1
+                for(let i =currIndex + 1 ; i < list.length;i++){
+                    if( list[i].level <= item.level){
+                        newItemIndex = i
+                        break;
+                    }
+                    else if(i === list.length - 1){
+                        newItemIndex = list.length
+                    }
+                }
+                setWhereToPutMiniForm(list[newItemIndex -1 ]._id)
+            }
+        },[list]),
         addComment : useCallback((body) => {
             dispatch(commentsActions.addComment(body))
             setminiCommentText()
         },[]),
         onClose : useCallback(() => {
-            setMiniAnswerId()
+            setWhereToPutMiniForm()
             setminiCommentText()
         },[]),
         changeFooterText : useCallback((value) => {
@@ -55,47 +73,45 @@ function Comments() {
         },[]),
         
     }
-
+    
     const renders = {
-        item: useCallback(item => (
-            <CommentCard item = {item} onClick ={callbacks.onClick}/>
+        item: useCallback((item,index) => (
+            <CommentCard item = {item} onClick ={callbacks.onClick} currIndex ={index} isOwnComment = {select.profile_id === item.author._id}/>
         ), [reduxSelect.comments]),
         miniForm : useCallback(item => 
-                <CommentMiniForm style = {{paddingLeft : item.level*30}} 
+                <CommentMiniForm 
                 onChange={setminiCommentText} 
                 value={miniCommentText} 
                 addComment = {callbacks.addComment}
-                item = {item}
+                item = {currCommentReplied}
                 onClose = {callbacks.onClose}
                 isLogin = {select.exists}
                 />
-        ,[reduxSelect.comments,select.exists])
+        ,[reduxSelect.comments,select.exists,currCommentReplied])
 
       };
 
         return (
-            <Spinner active ={reduxSelect.waiting}>      
-                <div className="Comments">
-                <h2>
-                Комментарии ({reduxSelect.commentsCount})
-                </h2>
+            <Spinner active ={reduxSelect.waiting}>  
+                <CommentsLayout
+                commentsCount ={reduxSelect.commentsCount} 
+                >
                 <CommentsList 
                 list = {list}
                 defRender = {renders.item}
                 conditonRender = {renders.miniForm}
-                searchId = {miniAnswerId}
+                searchWhereFormToPut = {whereToPutMiniForm}
                 />
-                {
-
-                    <CommentFooterForm value={footerCommentText} 
-                                        articleId ={id}
-                                        onClick = {callbacks.onClose}
-                                        onChange={setFooterCommentText} 
-                                        onSubmit={callbacks.addComment} 
-                                        isLogin ={select.exists}
-                    />
+                {!whereToPutMiniForm &&
+                <CommentFooterForm value={footerCommentText} 
+                                    articleId ={id}
+                                    onClick = {callbacks.onClose}
+                                    onChange={setFooterCommentText} 
+                                    onSubmit={callbacks.addComment} 
+                                    isLogin ={select.exists}
+                />
                 }
-                </div>
+                </CommentsLayout>   
             </Spinner>
         )
 }

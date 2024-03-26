@@ -1,23 +1,26 @@
 import React from 'react'
 import "./style.css"
 import {cn as bem} from "@bem-react/classname"
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function CommentFooterForm(props) {
     const cn = bem("Comments-Frooter-Form");
+    const location = useLocation(); 
     const onSubmit = (e) =>{
         e.preventDefault();
         const form = e.target;
         const text  = form.text.value;
-        const body  = {
+        if(text.trim().length !== 0){
+            const body  = {
                 text : text,
                 parent :{
-                _id : props.articleId,
-                _type : "article"
+                    _id : props.articleId,
+                    _type : "article"
                 },
             }
-        props.onSubmit(body)
-        form.text.value = ""
+            props.onSubmit(body)
+            form.text.value = ""
+        }
     }
     
     return (
@@ -38,7 +41,7 @@ function CommentFooterForm(props) {
         </form>
      : 
         <p>
-            <Link to="/login">Войдите</Link>, чтобы иметь возможность комментировать
+            <Link to = "/login" state = {{back : location.pathname}}>Войдите</Link>, чтобы иметь возможность комментировать
         </p>
     }
     </>

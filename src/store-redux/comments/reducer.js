@@ -18,6 +18,7 @@ export const initialState = {
         return {...state, data: [], waiting: false}; //@todo текст ошибки сохранять?
 
       case "comments/add-reply":
+          console.log(action.payload.data)
           return {...state, data: action.payload.data,count : action.payload.count, waiting: false}; 
   
       default:

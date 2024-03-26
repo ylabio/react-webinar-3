@@ -3,11 +3,11 @@ import React from 'react'
 function CommentsList(props) {
   return (
     <>
-    {props.list.map(item => (
+    {props.list.map((item,index) => (
         <React.Fragment key={item._id}>
-        {props.defRender(item)}
-        {props.searchId === item._id &&
-        props.conditonRender(item)}
+        {props.defRender(item,index)}
+        {props.searchWhereFormToPut === item._id  && 
+        props.conditonRender(index)}
         </React.Fragment>
     ))
     }

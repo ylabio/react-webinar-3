@@ -1,4 +1,3 @@
-import listToTree from "../../utils/list-to-tree";
 
 export default {
     /**
@@ -12,7 +11,7 @@ export default {
   
         try {
           const res = await services.api.request({
-            url: `/api/v1/comments?search%5Bparent%5D=${id}&skip=0&fields=items(author(profile(name)),*),count`
+            url: `/api/v1/comments?search%5Bparent%5D=${id}&skip=0&limit=*&fields=items(author(profile(name)),*),count`
           });
           // Комментарии загружены успешно
           dispatch({type: 'comments/load-success', payload: {data: res.data.result.items,count : res.data.result.count}});
@@ -24,7 +23,6 @@ export default {
       }
     },
     addComment: (body) => {
-      const isZeroLevelComment = body.parent._type === "article"
       body = JSON.stringify(body)
       return async (dispatch, getState, services) => {
         try {
@@ -34,21 +32,12 @@ export default {
             body : body,
           }
           );
-          
+          const newComments = [...getState().comments.data, res.data.result];
           const count = getState().comments.count + 1;
-          if (isZeroLevelComment) {
-            const newComments = [...getState().comments.data, res.data.result];
-            dispatch({ type: 'comments/add-reply', payload: { data: newComments,count : count} });
-        } else {
-            const newComments = getState().comments.data.map(el => {
-                if (el._id === res.data.result.parent._id) {
-                    return [el, res.data.result];
-                }
-                return el;
-            }).flat();
-            dispatch({ type: 'comments/add-reply', payload: { data: newComments,count : count} });
-        }
+          dispatch({ type: 'comments/add-reply', payload: { data: newComments,count : count} });
+
         } catch (e) {
+          console.log(e)
           //Ошибка загрузки
           dispatch({type: 'comments/load-error'});
         }

@@ -8,6 +8,11 @@
     margin-top: 25px;
 }
 
+.Comment-body {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
 .Comment-user-name {
     margin-right: 10px;
 }
