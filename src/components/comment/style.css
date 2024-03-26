@@ -29,15 +29,20 @@
 
 .Comment-username {
   font-weight: 700;
+  font-size: 12px;
 }
 
 .Comment-date {
   color: #666;
+  font-size: 12px;
 }
 
 .Comment-text {
   padding: 0;
   margin: 0;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  font-size: 14px;
 }
 
 .Comment-reply-button {
@@ -47,10 +52,5 @@
   border: none;
   color: #0087e9;
   cursor: pointer;
-}
-
-.Comment-form-buttons {
-  display: flex;
-  flex-direction: row;
-  column-gap: 10px;
+  font-size: 12px;
 }

@@ -1,24 +1,14 @@
-import { memo, useState, useCallback } from 'react';
+import { memo, useMemo, useCallback, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Comment({ 
+const Comment = forwardRef(function Comment({ 
   comment, 
-  offset, 
-  replyOpen,
-  authorized,
-  onLogin,
+  replyForm,
   onOpenReply,
-  onSendReply,
-  onCloseReply, 
-  labelReplyButton,
-  labelNewReply,
-  labelSendButton,
-  labelCancelButton,
-  labelLogin,
-  labelLoginPrompt,
-}) {
+  translate
+}, ref) {
 
   const cn = bem('Comment');
 
@@ -26,42 +16,40 @@ function Comment({
     return cn(`offset-${Math.min(offset - 1, 3)}`);
   }
 
-  const renderReplyForm = useCallback(() => {
-    if (authorized && replyOpen) {
-      return <form>
-        <label>{labelNewReply}</label>
-        <textarea />
-        <div className={cn('form-buttons')}>
-          <button onClick={onSendReply}>{labelSendButton}</button>
-          <button onClick={onCloseReply}>{labelCancelButton}</button>
-        </div>      
-      </form>
-    };
-    if (!authorized && replyOpen) {
-      return <div>
-        <button onClick={onLogin}>
-          {labelLogin}
-        </button>
-        {labelLoginPrompt}
-        <button onClick={onCloseReply}>
-          {labelCancelButton}
-        </button>
-      </div>
-    };
-  }, [replyOpen, onOpenReply, onCloseReply, labelNewReply, labelSendButton, labelCancelButton])
+  const postDate = useMemo(() => {
+    const options = {
+      dateStyle: "long",
+      timeStyle: "short",
+    }
+    return new Intl.DateTimeFormat(undefined, options).format(comment.dateCreated);
+  }, [comment.dateCreate]);
+
+  const callbacks = {
+    onOpenReply: (e) => {
+      e.preventDefault();
+      onOpenReply(comment._id);
+    }
+  }
 
   return comment && (
-    <div className={`${cn()} ${getOffsetClass(offset)}`}>
+    <div ref={ref} className={`${cn()} ${getOffsetClass(comment.offset)}`}>
       <div className={cn('heading')}>
         <span className={cn('username')}>{comment.author?.profile.name}</span>
-        <span className={cn('date')}>{comment.dateCreate}</span>
+        <span className={cn('date')}>
+          {postDate}
+        </span>
       </div>
       <p className={cn('text')}>{comment.text}</p>
-      <button onClick={onOpenReply} className={cn('reply-button')}>{labelReplyButton}</button>
-      {renderReplyForm()}
+      <button 
+        onClick={callbacks.onOpenReply} 
+        className={cn('reply-button')}
+      >
+        {translate("comments.replyButton")}
+      </button>
+      {comment.replyOpen && replyForm}
     </div>    
   );
-}
+});
 
 Comment.propTypes = {
 
@@ -71,4 +59,4 @@ Comment.defaultProps = {
 
 }
 
-export default memo(Comment);
+export default Comment;

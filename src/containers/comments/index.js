@@ -1,16 +1,33 @@
-import { memo, useCallback, useMemo, useState, useEffect } from 'react';
+import { memo, useCallback, useMemo, useState, useEffect, useRef } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import { useNavigate, useLocation } from 'react-router-dom';
 import CommentsLayout from "../../components/comments-layout";
+import CommentLoginPrompt from "../../components/comment-login-prompt";
+import FormComment from "../../components/form-comment";
+import FormReply from "../../components/form-reply";
 import Comment from "../../components/comment";
+import Spinner from "../../components/spinner";
 import treeToList from '../../utils/tree-to-list';
 import listToTree from '../../utils/list-to-tree';
 import useSelector from '../../hooks/use-selector';
+import { useDispatch, useSelector as useReduxSelector } from 'react-redux';
+import commentsActions from '../../store-redux/comments/actions';
+import shallowequal from 'shallowequal';
 
-function Comments({ comments }) {
+function Comments({ articleId, comments }) {
   const {t} = useTranslate();
+  const dispatch = useDispatch();
   const [commentFormVisible, setCommentFormVisibility] = useState(true);
-  const [commentsList, setCommentsList] = useState([]);
+
+  const [commentsList, setCommentsList] = useState(
+      comments.items ? treeToList(listToTree(comments.items), (item, level) => {
+        return {
+          ...item,
+          offset: level,
+        }
+      }).filter(item => item.hasOwnProperty('_id'))
+      : []
+  );
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -18,90 +35,118 @@ function Comments({ comments }) {
     user: state.session.user,
     sessionExists: state.session.exists
   }));
-  
-  const openReply = useCallback((id) => {
-    setCommentsList(prevComments => prevComments.map(comment => {
-      if (comment._id === id) {
-        return { ...comment, replyOpen: true };
-      }
-      if (comment.replyOpen && comment.id !== id) {
-        return { ...comment, replyOpen: false };
-      }
-      return comment;
-    }));
-    setCommentFormVisibility(false);
+
+  const commentsSelect = useReduxSelector(state => ({
+    postData: state.comments.postData,
+    waitingAfterPost: state.comments.waitingAfterPost,
+  }), shallowequal);
+
+  const newCommentRef = useCallback(node => {
+    if (node !== null) {
+      node.scrollIntoView({
+        behavior: 'smooth',
+      });
+    }
   }, []);
 
-  const closeReply = () => {
-    setCommentsList(prevComments => prevComments.map(comment => {
-      if (comment.replyOpen) {
-        return { ...comment, replyOpen: false };
-      }
-      return comment;
-    }));
-    setCommentFormVisibility(true);
-  };
-
   useEffect(() => {
-    if (comments.items) {
-      setCommentsList(treeToList(listToTree(comments.items), (item, level) => {
-        return {
-          ...item,
-          offset: level,
+    if (!commentsSelect.waitingAfterPost && commentsSelect.postData._id) {
+      const repliedId = commentsSelect.postData.parent._id;
+      setCommentsList(prevList => prevList.toSpliced(
+        prevList.findIndex(item => item._id === repliedId) + 1, 
+        0, 
+        {
+          ...commentsSelect.postData, 
+          offset: commentsSelect.postData.parent._tree.length, 
+          new: true
         }
-      }).filter(item => item.hasOwnProperty('_id')));
+      ));      
     }
-  }, [comments.items]);
+  }, [commentsSelect.waitingAfterPost]);
 
   const callbacks = {
-    login: useCallback(() => {
+    onLogin: useCallback(() => {
         navigate('/login', {state: {back: location.pathname}});
     }, [location.pathname]),
     
-    onSend: (form) => {
-      
+    onSendReply: (id, form) => {
+      dispatch(commentsActions.post({ id, text: form.text, replyMode: true }));
+      callbacks.onCloseReply();
+    },
+
+    onSendComment: (form) => {
+      dispatch(commentsActions.post({ articleId, text: form.text, replyMode: false }));
+      dispatch(commentsActions.load(articleId));
+    },
+
+    onCloseReply: () => {
+      setCommentsList(prevComments => prevComments.map(comment => {
+        if (comment.replyOpen) {
+          return { ...comment, replyOpen: false };
+        }
+        return comment;
+      }));
+      setCommentFormVisibility(true);
+    },
+
+    onOpenReply: (id) => {
+      setCommentsList(prevComments => prevComments.map(comment => {
+        if (comment._id === id) {
+          return { ...comment, replyOpen: true };
+        }
+        if (comment.replyOpen && comment.id !== id) {
+          return { ...comment, replyOpen: false };
+        }
+        return comment;
+      }));
+      setCommentFormVisibility(false);
     }
   }
 
+  const forms = {
+    reply: (id) => {
+      return select.sessionExists ? <FormReply
+        to={id}
+        onSendReply={callbacks.onSendReply}
+        onCloseReply={callbacks.onCloseReply}
+        translate={t}
+      />
+      : <CommentLoginPrompt
+        onLogin={callbacks.onLogin}
+        onCloseReply={callbacks.onCloseReply}
+        translate={t}
+      />;
+    },
+
+    comment: useMemo(() => {
+      return (select.sessionExists && commentFormVisible) ? <FormComment 
+        onSendComment={callbacks.onSendComment}
+        translate={t}  
+      />
+      : <></>;
+    }, [select.sessionExists, commentFormVisible])
+  }
+
   return (
-    <CommentsLayout 
-      commentFormVisible={select.sessionExists && commentFormVisible}
-      onSend={callbacks.onSend}
-      labelTitle={t("comments.title")}
-      labelNewComment={t("comments.newComment")}
-      labelSend={t("comments.send")}
-    >
-      {commentsList.map(comment => {
-         return (
-           <Comment 
-             key={`comment-${comment._id}`} 
-             comment={comment} 
-             offset={comment.offset}
-             replyOpen={comment.replyOpen}
-             authorized={select.sessionExists}
-             onLogin={(e) => {
-               e.preventDefault();
-               callbacks.login();
-             }}
-             onSendReply={(e) => {
-               e.preventDefault();
-               console.log('send');
-             }}
-             onOpenReply={() => openReply(comment._id)}
-             onCloseReply={(e) => {
-               e.preventDefault();
-               closeReply();
-             }}
-             labelReplyButton={t("comments.replyButton")}
-             labelNewReply={t("comments.newReply")}
-             labelSendButton={t("comments.send")}
-             labelCancelButton={t("comments.cancel")}
-             labelLogin={t("comments.login")}
-             labelLoginPrompt={t("comments.loginPrompt")}
-           />
-         )
-       })}
-    </CommentsLayout>
+    <Spinner active={commentsSelect.waitingAfterPost}>
+      <CommentsLayout 
+        commentForm={forms.comment}
+        translate={t}
+      >
+        {commentsList.map(comment => {
+          return (
+             <Comment
+               key={`comment-${comment._id}`}
+               ref={comment.new ? newCommentRef : null}
+               comment={comment}
+               replyForm={forms.reply(comment._id)}
+               onOpenReply={callbacks.onOpenReply}
+               translate={t}
+             />
+           )
+         })}      
+      </CommentsLayout>
+    </Spinner>
   )
 }
 

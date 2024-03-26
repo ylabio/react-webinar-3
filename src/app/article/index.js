@@ -1,5 +1,5 @@
-import {memo, useCallback, useMemo} from 'react';
-import {useParams} from 'react-router-dom';
+import { memo, useCallback, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -11,7 +11,7 @@ import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
 import Comments from '../../containers/comments';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
 import commentsActions from '../../store-redux/comments/actions';
@@ -55,7 +55,7 @@ function Article() {
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
       <Spinner active={select.commentsWaiting}>
-        <Comments comments={select.comments} />
+        <Comments articleId={select.article._id} comments={select.comments} />
       </Spinner>
     </PageLayout>
   );

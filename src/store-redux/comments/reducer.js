@@ -1,6 +1,8 @@
 export const initialState = {
   data: {},
+  postData: {},
   waiting: false,
+  waitingAfterPost: false,
 }
 
 function reducer(state = initialState, action) {
@@ -13,6 +15,15 @@ function reducer(state = initialState, action) {
 
     case "comments/load-error":
       return {...state, data: {}, waiting: false};
+
+    case "comments/post-start":
+      return {...state, postData: {}, waitingAfterPost: true};
+
+    case "comments/post-success":
+      return {...state, postData: action.payload.data, waitingAfterPost: false};
+
+    case "comments/post-error":
+      return {...state, postData: {}, waitingAfterPost: false};
 
     default:
       return state;
