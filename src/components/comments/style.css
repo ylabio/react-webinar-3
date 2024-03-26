@@ -1,0 +1,19 @@
+.Comments {
+  padding: 50px 40px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.Comments-title {
+  font-size: 24px;
+  margin: 0 0 30px 0;
+}
+
+.Menu-item:first-child {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.Menu-item:last-child {
+  margin-right: 0;
+  padding-right: 0;
+}
