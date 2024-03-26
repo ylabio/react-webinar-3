@@ -28,7 +28,7 @@ const CommentNew = ({ session, onCreateNewComment, t }) => {
         value={text}
         onChange={(e) => setText(e.target.value)}
         aria-label="Текст комментария"
-        autoFocus // для фокуса по умолчанию
+        required
       />
       <button
         className={cn("button")}

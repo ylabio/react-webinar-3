@@ -32,6 +32,7 @@ const CommentReply = ({ session, onCancel, onAddReplyComment }) => {
         value={text}
         onChange={(e) => setText(e.target.value)}
         aria-label="Текст ответа"
+        required
       />
       <div className={cn("wrapper")}>
         <button type="submit" aria-label="Отправить ответ">

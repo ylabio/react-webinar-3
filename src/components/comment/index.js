@@ -13,27 +13,15 @@ const Comment = memo(
     onCloseReply,
     onAddReplyComment,
     t,
+    depth = 0,
   }) => {
     const cn = bem("Comment");
     const isCurrentUser = currentUserId && comment.author._id === currentUserId;
-
-    const handleOpenReply = useCallback(() => {
-      onOpenReply(comment._id);
-    }, [onOpenReply, comment._id]);
-
-    const handleCancel = useCallback(() => {
-      onCloseReply(comment._id);
-    }, [onCloseReply, comment._id]);
-
-    const handleAddReplyComment = useCallback(
-      (text) => {
-        onAddReplyComment(comment._id, text);
-      },
-      [onAddReplyComment, comment._id]
-    );
+    const maxNestingDepth = 10;
+    const marginLeft = depth <= maxNestingDepth ? `30px` : "0px";
 
     const nested = (comment.children || []).map((item) => (
-      <div key={item._id} style={{ marginLeft: "30px" }}>
+      <div key={item._id} style={{ marginLeft }}>
         <Comment
           comment={item}
           session={session}
@@ -42,6 +30,7 @@ const Comment = memo(
           onCloseReply={onCloseReply}
           onAddReplyComment={onAddReplyComment}
           t={t}
+          depth={depth + 1}
         />
       </div>
     ));
@@ -60,15 +49,15 @@ const Comment = memo(
         <button
           className={cn("button")}
           type="button"
-          onClick={handleOpenReply}
+          onClick={() => onOpenReply(comment._id)}
         >
           Ответить
         </button>
         {comment.reply && (
           <CommentReply
             session={session}
-            onCancel={handleCancel}
-            onAddReplyComment={handleAddReplyComment}
+            onCancel={() => onCloseReply(comment._id)}
+            onAddReplyComment={(text) => onAddReplyComment(comment._id, text)}
             t={t}
           />
         )}
