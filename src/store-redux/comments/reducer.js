@@ -5,6 +5,11 @@ export const initialState = {
   waitingAdd: false,
   count: 0,
   typeComments: "article",
+  showFormController: {
+    clickedId: null,
+    showId: null,
+    levelPadding: 0,
+  },
 };
 
 // Обработчик действий
@@ -39,6 +44,15 @@ function reducer(state = initialState, action) {
 
     case "comments/setTypeComments":
       return { ...state, typeComments: action.payload.type };
+    case "comments/showForm":
+      return {
+        ...state,
+        showFormController: {
+          clickedId: action.payload.clickedId,
+          showId: action.payload.showId,
+          levelPadding: action.payload.levelPadding,
+        },
+      };
     default:
       return state;
   }

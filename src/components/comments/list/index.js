@@ -3,9 +3,11 @@ import "./style.css";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 
-function List({ children }) {
+function List({ list, renderItem }) {
   const cn = bem("ListComments");
-  return <div className={cn()}>{children}</div>;
+  return (
+    <div className={cn()}>{list && list.map((item) => renderItem(item))}</div>
+  );
 }
 
 List.propTypes = {

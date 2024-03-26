@@ -36,8 +36,6 @@
   padding: 0;
   cursor: pointer;
 }
-.ItemComments-form {
-  /* margin-top: 30px; */
-  box-sizing: border-box;
-  width: 100%;
+.ItemComments-action:disabled {
+  opacity: 0.5;
 }
