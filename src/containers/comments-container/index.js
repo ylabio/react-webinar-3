@@ -1,4 +1,4 @@
-import {memo, useCallback, useState} from 'react';
+import {memo, useCallback, useState, useEffect} from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector as useReduxSelector, useDispatch } from 'react-redux';
 import useTranslate from '../../hooks/use-translate';
@@ -21,11 +21,16 @@ function CommentsContainer() {
   const {t} = useTranslate();
 
   const [currentCommentId, setCurrentCommnetId] = useState(null);
+  const [activeId, setActiveId] = useState(null);
 
   const session = useSelector(state => ({
     exist: state.session.exists,
     user: state.session.user
   }));
+
+  useEffect(() => {
+    scrollToActiveId();
+  }, [activeId]);
 
   useInit(() => {
     dispatch(commentsActions.load(params.id));
@@ -48,13 +53,24 @@ function CommentsContainer() {
       navigate('/login', {state: {back: location.pathname}});
     }, [location.pathname]),
     onSend: useCallback((value, parentId, type) => {
-      dispatch(commentsActions.send({
-        text: value,
-        parent: { _id: parentId, _type: type}
-      }));
+      if (value.trim()) {
+        dispatch(commentsActions.send({
+          text: value,
+          parent: { _id: parentId, _type: type}
+        }));
+      }
       setCurrentCommnetId(null);
     }, [])
   };
+
+  const scrollToActiveId = () => {
+    if (activeId) {
+      const commentElement = document.getElementById(activeId);
+      if (commentElement) {
+        commentElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+      }
+    }
+  }
 
   return (
     <Spinner active={select.waiting}>
@@ -65,7 +81,7 @@ function CommentsContainer() {
         >
           {
             select.comments &&
-            treeToList(listToTree(select.comments))[0].children.map(item => {
+            treeToList(listToTree(select.comments))[0]?.children.map(item => {
 
               return (
                 <div key={item._id}>
@@ -75,8 +91,9 @@ function CommentsContainer() {
                     onLogin={callbacks.onLogin}
                     onSend={callbacks.onSend}
                     commentData={item}
-                    session={session.exist}
+                    session={session}
                     currentId={currentCommentId}
+                    setActiveId={setActiveId}
                     t={t}
                   />
                 </div>

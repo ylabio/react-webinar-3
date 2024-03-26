@@ -1,11 +1,11 @@
-import {memo} from 'react';
+import {memo, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import dateFormat from '../../utils/date-format';
 import './style.css';
 import CommentTool from '../comment-tool';
 
-const MAX_NESTING_LEVEL_FOR_PADDING_LEFT = 3;
+const MAX_NESTING_LEVEL_FOR_PADDING_LEFT = 5;
 
 function CommentItem({
   commentData,
@@ -15,13 +15,36 @@ function CommentItem({
   onLogin,
   onSend,
   currentId,
+  setActiveId,
   t,
   nestingLevel = 1
 }) {
   const cn = bem('CommentItem');
+  const commentRef = useRef(null);
+
+  let isUserAuthor = false;
+
+  if (session.exist) {
+    if (session.user._id === commentData.author._id) {
+      isUserAuthor = true;
+    }
+  }
+
+  const scrollToComment = () => {
+    if (commentRef.current) {
+      commentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start'});
+    }
+  };
+
+  const handleSubmit = (id) => {
+    onReply(id);
+    setActiveId(id);
+    scrollToComment();
+  }
 
   return (
     <div
+      ref={commentRef}
       className={
         [
           cn(),
@@ -34,11 +57,11 @@ function CommentItem({
       }
     >
       <div className={cn('lineBox')}>
-        <div className={cn('author')}>{commentData.author?.profile.name}</div>
+        <div className={isUserAuthor ? cn('author_active') : cn('author')}>{commentData.author?.profile.name}</div>
         <div className={cn('dateCreate')}>{commentData.dateCreate && dateFormat(commentData.dateCreate, t('locale'))}</div>
       </div>
       <p className={cn('text')}>{commentData.text}</p>
-      <button onClick={() => onReply(commentData._id)} className={cn('replyButton')}>{t('comment.reply')}</button>
+      <button onClick={() => handleSubmit(commentData._id)} className={cn('replyButton')}>{t('comment.reply')}</button>
       {
         commentData.children && commentData.children.map(item => {
           return (
@@ -51,6 +74,7 @@ function CommentItem({
                 onLogin={onLogin}
                 onSend={onSend}
                 currentId={currentId}
+                setActiveId={setActiveId}
                 t={t}
                 nestingLevel={nestingLevel + 1}
               />
@@ -61,7 +85,7 @@ function CommentItem({
       {
         commentData._id === currentId &&
         <CommentTool
-          session={session}
+          session={session.exist}
           currentId={currentId}
           onLogin={onLogin}
           onSend={onSend}

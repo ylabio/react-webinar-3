@@ -33,5 +33,6 @@
   "comment.toolSend": "Отправить",
   "comment.toolClose": "Отмена",
   "comment.login": "Войдите",
-  "comment.loginDescription": ", чтобы иметь возможность ответить"
+  "comment.loginReplyDescription": ", чтобы иметь возможность ответить. ",
+  "comment.loginCommentDescription": ", чтобы иметь возможность комментировать "
 }

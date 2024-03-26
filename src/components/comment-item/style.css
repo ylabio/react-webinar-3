@@ -32,6 +32,11 @@
   font-weight: 700;
 }
 
+.CommentItem-author_active {
+  font-weight: 700;
+  color: #666666;
+}
+
 .CommentItem-dateCreate {
   color: #666666;
 }

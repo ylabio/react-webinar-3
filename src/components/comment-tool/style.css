@@ -15,6 +15,10 @@
   cursor: pointer;
 }
 
+.CommentTool-link_alternative {
+  color: #666666;
+}
+
 .CommentTool-title {
   font-size: 12px;
   font-weight: 700;

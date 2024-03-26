@@ -1,4 +1,4 @@
-import {memo, useState} from 'react';
+import {memo, useState, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
@@ -27,9 +27,18 @@ function CommentTool({
         {
           <span onClick={onLogin} className={cn('link')}>
             {t('comment.login')}
-          </span>}
-          {t(t('comment.loginDescription'))
+          </span>
         }
+        {
+          type === 'article' && t('comment.loginCommentDescription')
+        }
+        {
+          type === 'comment' && t('comment.loginReplyDescription')
+        }
+        {
+          type === 'comment' && <span onClick={onClose} className={[cn('link'), cn('link_alternative')].join(' ')}>{t('comment.toolClose')}</span>
+        }
+
       </div>
     )
   }

@@ -31,5 +31,6 @@
   "comment.toolSend": "Send",
   "comment.toolClose": "Close",
   "comment.login": "Login",
-  "comment.loginDescription": " to leave a comment"
+  "comment.loginReplyDescription": " to leave a reply. ",
+  "comment.loginCommentDescription": " to leave a comment "
 }
