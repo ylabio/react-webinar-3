@@ -4,7 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import CommentForm from '../comment-form';
 
-function Comment({data,current,isAuth,setActiveComment,resetCurrentForm,addAnswerComment}) {
+function Comment({data,current,isAuth,setActiveComment,resetCurrentForm,addAnswerComment,t}) {
   const cn = bem('Comment');
 
   const callbacks = {
@@ -19,8 +19,8 @@ function Comment({data,current,isAuth,setActiveComment,resetCurrentForm,addAnswe
         <span className={cn('date')}>{data.dateCreate}</span>
       </div>
       <div className={cn('content')}>{data.text}</div>
-      <span className={cn('answer')} onClick={callbacks.showForm}>Ответить</span>
-      {data.id==current && <CommentForm isAuth={isAuth} resetCurrentForm={resetCurrentForm} addNewAnswerComment={callbacks.addNewAnswerComment}/>}
+      <span className={cn('answer')} onClick={callbacks.showForm}>{t('comment.answer')}</span>
+      {data.id==current && <CommentForm t={t} isAuth={isAuth} resetCurrentForm={resetCurrentForm} addNewAnswerComment={callbacks.addNewAnswerComment}/>}
     </div>
   );
 }
@@ -38,12 +38,14 @@ Comment.propTypes = {
   setActiveComment: PropTypes.func,
   resetCurrentForm: PropTypes.func,
   addAnswerComment: PropTypes.func,
+  t: PropTypes.func,
 };
 
 Comment.defaultProps = {
   setActiveComment: (id) => {},
   resetCurrentForm: () => {},
   addAnswerComment: (comment) => {},
+  t: () => {},
 }
 
 export default memo(Comment);

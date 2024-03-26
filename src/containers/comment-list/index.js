@@ -58,7 +58,7 @@ function CatalogList({productId}) {
       }
       return ( 
       <Comment data={data} current={activeComment} isAuth={select.activeUserName} setActiveComment={setActiveComment} 
-      resetCurrentForm={resetCurrentForm} addAnswerComment={addAnswerComment}/>
+      resetCurrentForm={resetCurrentForm} addAnswerComment={addAnswerComment} t={t}/>
     )}, [activeComment,select.activeUserName,t]),
   };
 
@@ -72,8 +72,8 @@ function CatalogList({productId}) {
 
   return (
     <Spinner active={selectRedux.waiting}>
-      <Comments list={options?.comments} renderItem={renders.comment}/>
-      {!activeComment && <CommentsForm productId={selectRedux.comments} addNewComment={addNewComment} isAuth={select.activeUserName}/>}
+      <Comments t={t} list={options?.comments} renderItem={renders.comment}/>
+      {!activeComment && <CommentsForm t={t} productId={selectRedux.comments} addNewComment={addNewComment} isAuth={select.activeUserName}/>}
     </Spinner>
   );
 }
