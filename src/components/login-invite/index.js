@@ -1,16 +1,17 @@
 import {memo} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
-import {Link} from 'react-router-dom';
+import {useLocation, Link} from 'react-router-dom';
 import './style.css';
 
-function LoginInvite({link, isRoot, onCancel}) {
+function LoginInvite({link, isRoot, onCancel, anchor}) {
   const cn = bem('LoginInvite');
 
   const handleCancel = (e) => {
     e.preventDefault();
     onCancel();
   };
+  const location = useLocation();
 
   return (
     <div className={cn({root: isRoot})}>
@@ -18,6 +19,7 @@ function LoginInvite({link, isRoot, onCancel}) {
         autoFocus={true}
         className={cn('link')}
         to={link}
+        state={{back: location.pathname + '#' + anchor}}
       >
         Войдите
       </Link>
@@ -38,6 +40,7 @@ function LoginInvite({link, isRoot, onCancel}) {
 
 LoginInvite.propTypes = {
   link: PropTypes.string,
+  anchor: PropTypes.string,
   isRoot: PropTypes.bool,
   onCancel: PropTypes.func,
 };

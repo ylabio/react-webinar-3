@@ -43,6 +43,7 @@ function Comment({self, ...props}) {
           link={props.loginLink}
           isRoot={false}
           onCancel={props.onCancel}
+          anchor={props.comment._id}
         />
       )}
       <List
@@ -57,6 +58,7 @@ function Comment({self, ...props}) {
           onSubmit={props.onSubmit}
           onCancel={props.onCancel}
           error={props.error}
+          autoFocus={true}
         />
       )}
     </div>

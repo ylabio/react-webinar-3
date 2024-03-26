@@ -29,3 +29,9 @@
   font-size: 12px;
   color: red;
 }
+
+.CommentsForm-notice {
+  padding: 10px 0;
+  font-size: 12px;
+  color: #0087e9;
+}

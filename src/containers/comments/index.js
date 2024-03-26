@@ -12,10 +12,13 @@ import CommentsForm from '../../components/comments-form';
 import LoginInvite from '../../components/login-invite';
 import formatCommentDate from '../../utils/format-comment-date';
 import listToTree from '../../utils/list-to-tree';
+import {useLocation} from 'react-router-dom';
 
 function Comments({articleId}) {
   const [activeFormId, setActiveFormId] = useState(articleId);
 
+  const {hash, pathname} = useLocation();
+  const hashId = hash.slice(1);
   const select = useSelector((state) => ({
     isSession: state.session.exists,
     ownId: state.session.user?._id,
@@ -35,8 +38,10 @@ function Comments({articleId}) {
   useInit(() => {
     dispatch(commentsActions.load(articleId));
   }, [articleId]);
-
+  // console.log(window.history);
   useEffect(() => {
+    hashId && setActiveFormId(hashId);
+    window.history.replaceState({}, '', pathname);
     return () => dispatch(commentsActions.resetErrors());
   }, []);
 
@@ -95,6 +100,7 @@ function Comments({articleId}) {
 
   const footer = select.isSession ? (
     <CommentsForm
+      autoFocus={hashId === articleId}
       id={articleId}
       isRoot={true}
       onSubmit={callbacks.addComment}
@@ -104,6 +110,7 @@ function Comments({articleId}) {
     <LoginInvite
       link={'/login'}
       isRoot={true}
+      anchor={articleId}
     />
   );
   return (
