@@ -66,7 +66,7 @@ function Article() {
     <PageLayout>
       <TopHead/>
       <Head title={select.article.title}>
-        {/* <LocaleSelect/> */}
+        <LocaleSelect/>
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>

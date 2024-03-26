@@ -68,11 +68,11 @@ class I18nService {
 
   /**
   * Изменение языка
+  * @param lang {String} Код языка для смены
   */
   setLang (lang) {
     this.local = lang;
     this.listeners.forEach(listener => listener(lang));
-    this.listeners = [];
   }
 
   /**
