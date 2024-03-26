@@ -5,9 +5,9 @@ import './style.css';
 
 function List({list, renderItem}) {
   return (
-    <div className='List'>{
+    <div className={'List'}>{
       list.map(item =>
-        <div key={item._id} className='List-item'>
+        <div key={item._id} className={'List-item'}>
           {renderItem(item)}
         </div>
       )}
