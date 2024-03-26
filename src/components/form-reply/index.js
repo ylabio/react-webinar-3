@@ -3,7 +3,7 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 import PropTypes from 'prop-types';
-function FormReply({to, onSendReply, onCloseReply, translate}) {
+function FormReply({to, onSendReply, onCloseReply, t}) {
 
   const cn = bem('FormReply');
 
@@ -44,7 +44,7 @@ function FormReply({to, onSendReply, onCloseReply, translate}) {
    className={cn()}
   >
     <label className={cn("label")}>
-      {translate("comments.newReply")}
+      {t.translate("comments.newReply")}
       <textarea 
         value={form.text} 
         onChange={callbacks.onFormChange}
@@ -58,14 +58,14 @@ function FormReply({to, onSendReply, onCloseReply, translate}) {
         type="submit" 
         className={cn("button")} 
       >
-        {translate("comments.send")}
+        {t.translate("comments.send")}
       </button>
       <button 
         type="reset" 
         className={cn("button")} 
         onClick={callbacks.onCloseReply}
       >
-        {translate("comments.cancel")}
+        {t.translate("comments.cancel")}
       </button>
     </div>      
   </form>

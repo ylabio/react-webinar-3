@@ -9,6 +9,7 @@ import Spinner from '../../components/spinner';
 
 function CatalogList() {
   const store = useStore();
+  const {translateService, locale} = useTranslate();
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -35,14 +36,12 @@ function CatalogList() {
       })}`;
     }, [select.limit, select.sort, select.query])
   }
-
-  const {t} = useTranslate();
-
+  
   const renders = {
     item: useCallback(item => (
       <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`}
-            labelAdd={t('article.add')}/>
-    ), [callbacks.addToBasket, t]),
+            labelAdd={translateService.translate('article.add')}/>
+    ), [callbacks.addToBasket, locale]),
   };
 
   return (

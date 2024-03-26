@@ -8,14 +8,14 @@ function BasketTool({sum, amount, onOpen, t}) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <span className={cn('label')}>{t('basket.inBasket')}</span>
+      <span className={cn('label')}>{t.translate('basket.inBasket')}</span>
       <span className={cn('total')}>
         {amount
-          ? `${amount} ${t('basket.articles', amount)} / ${numberFormat(sum)} ₽`
-          : t('basket.empty')
+          ? `${amount} ${t.translate('basket.articles', amount)} / ${numberFormat(sum)} ₽`
+          : t.translate('basket.empty')
         }
       </span>
-      <button onClick={onOpen}>{t('basket.open')}</button>
+      <button onClick={onOpen}>{t.translate('basket.open')}</button>
     </div>
   );
 }
@@ -24,7 +24,6 @@ BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
-  t: PropTypes.func
 };
 
 BasketTool.defaultProps = {
@@ -32,7 +31,6 @@ BasketTool.defaultProps = {
   },
   sum: 0,
   amount: 0,
-  t: (text) => text
 }
 
 export default memo(BasketTool);

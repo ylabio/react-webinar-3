@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
@@ -18,11 +18,15 @@ import commentsActions from '../../store-redux/comments/actions';
 
 function Article() {
   const store = useStore();
-
+  const {translateService, locale} = useTranslate();
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
 
   const params = useParams();
+
+  useEffect(() => {
+    dispatch(articleActions.load(params.id));
+  }, [locale]);
 
   useInit(() => {
     //store.actions.article.load(params.id);
@@ -37,8 +41,6 @@ function Article() {
     commentsWaiting: state.comments.waiting,
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const {t} = useTranslate();
-
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
@@ -52,7 +54,7 @@ function Article() {
       </Head>
       <Navigation/>
       <Spinner active={select.articleWaiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={translateService}/>
       </Spinner>
       <Spinner active={select.commentsWaiting}>
         <Comments articleId={select.article._id} comments={select.comments} />

@@ -14,6 +14,7 @@ function Basket() {
 
   const store = useStore();
   const dispatch = useDispatch();
+  const {translateService, locale} = useTranslate();
 
   const select = useSelector(state => ({
     list: state.basket.list,
@@ -31,25 +32,23 @@ function Basket() {
     }, [store]),
   }
 
-  const {t} = useTranslate();
-
   const renders = {
     itemBasket: useCallback((item) => (
       <ItemBasket item={item}
                   link={`/articles/${item._id}`}
                   onRemove={callbacks.removeFromBasket}
                   onLink={callbacks.closeModal}
-                  labelUnit={t('basket.unit')}
-                  labelDelete={t('basket.delete')}
+                  labelUnit={translateService.translate('basket.unit')}
+                  labelDelete={translateService.translate('basket.delete')}
       />
-    ), [callbacks.removeFromBasket, t]),
+    ), [callbacks.removeFromBasket, locale]),
   };
 
   return (
-    <ModalLayout title={t('basket.title')} labelClose={t('basket.close')}
+    <ModalLayout title={t.translate('basket.title')} labelClose={translateService.translate('basket.close')}
                  onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum} t={t}/>
+      <BasketTotal sum={select.sum} t={translateService}/>
     </ModalLayout>
   );
 }

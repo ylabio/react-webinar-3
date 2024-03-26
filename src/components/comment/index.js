@@ -7,7 +7,7 @@ const Comment = forwardRef(function Comment({
   comment, 
   replyForm,
   onOpenReply,
-  translate
+  t
 }, ref) {
 
   const cn = bem('Comment');
@@ -44,7 +44,7 @@ const Comment = forwardRef(function Comment({
         onClick={callbacks.onOpenReply} 
         className={cn('reply-button')}
       >
-        {translate("comments.replyButton")}
+        {t.translate("comments.replyButton")}
       </button>
       {comment.replyOpen && replyForm}
     </div>    

@@ -15,7 +15,7 @@ import useInit from '../../hooks/use-init';
 
 function Login() {
 
-  const {t} = useTranslate();
+  const {translateService, locale} = useTranslate();
   const location = useLocation();
   const navigate = useNavigate();
   const store = useStore();
@@ -57,23 +57,23 @@ function Login() {
   return (
     <PageLayout>
       <TopHead/>
-      <Head title={t('title')}>
+      <Head title={translateService.translate('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
       <SideLayout padding='medium'>
         <form onSubmit={callbacks.onSubmit}>
-          <h2>{t('auth.title')}</h2>
-          <Field label={t('auth.login')} error={select.errors?.login}>
+          <h2>{translateService.translate('auth.title')}</h2>
+          <Field label={translateService.translate('auth.login')} error={select.errors?.login}>
             <Input name='login' value={data.login} onChange={callbacks.onChange}/>
           </Field>
-          <Field label={t('auth.password')} error={select.errors?.password}>
+          <Field label={translateService.translate('auth.password')} error={select.errors?.password}>
             <Input name='password' type='password' value={data.password}
                    onChange={callbacks.onChange}/>
           </Field>
           <Field error={select.errors?.other}/>
           <Field>
-            <button type='submit'>{t('auth.signIn')}</button>
+            <button type='submit'>{translateService.translate('auth.signIn')}</button>
           </Field>
         </form>
       </SideLayout>

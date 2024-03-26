@@ -15,7 +15,7 @@ import commentsActions from '../../store-redux/comments/actions';
 import shallowequal from 'shallowequal';
 
 function Comments({ articleId, comments }) {
-  const {t} = useTranslate();
+  const {translateService, locale} = useTranslate();
   const dispatch = useDispatch();
   const [commentFormVisible, setCommentFormVisibility] = useState(true);
 
@@ -109,19 +109,19 @@ function Comments({ articleId, comments }) {
         to={id}
         onSendReply={callbacks.onSendReply}
         onCloseReply={callbacks.onCloseReply}
-        translate={t}
+        t={translateService}
       />
       : <CommentLoginPrompt
         onLogin={callbacks.onLogin}
         onCloseReply={callbacks.onCloseReply}
-        translate={t}
+        t={translateService}
       />;
     },
 
     comment: useMemo(() => {
       return (authSelect.sessionExists && commentFormVisible) ? <FormComment 
         onSendComment={callbacks.onSendComment}
-        translate={t}  
+        t={translateService}  
       />
       : <></>;
     }, [authSelect.sessionExists, commentFormVisible])
@@ -131,7 +131,7 @@ function Comments({ articleId, comments }) {
     <Spinner active={commentsSelect.waitingAfterPost}>
       <CommentsLayout 
         commentForm={forms.comment}
-        translate={t}
+        t={translateService}
       >
         {commentsList.map(comment => {
           return (
@@ -141,7 +141,7 @@ function Comments({ articleId, comments }) {
                comment={comment}
                replyForm={forms.reply(comment._id)}
                onOpenReply={callbacks.onOpenReply}
-               translate={t}
+               t={translateService}
              />
            )
          })}      

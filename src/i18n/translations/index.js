@@ -1,2 +1,9 @@
-export {default as en} from './en.json';
-export {default as ru} from './ru.json';
+import * as en from './en.json';
+import * as ru from './ru.json';
+
+export default {
+  'en-US': en,
+  'ru-RU': ru,
+};
+
+

@@ -11,6 +11,7 @@ import listToTree from '../../utils/list-to-tree';
 function CatalogFilter() {
 
   const store = useStore();
+  const {translateService, locale} = useTranslate();
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
@@ -50,15 +51,15 @@ function CatalogFilter() {
     ]), [select.categories]),
   };
 
-  const {t} = useTranslate();
-
   return (
     <SideLayout padding='medium'>
       <Select options={options.categories} value={select.category} onChange={callbacks.onCategory}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000} theme={'big'}/>
-      <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
+      <button onClick={callbacks.onReset}>
+        {translateService.translate('filter.reset')}
+      </button>
     </SideLayout>
   )
 }

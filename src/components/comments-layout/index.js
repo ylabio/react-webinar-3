@@ -1,12 +1,12 @@
 import { memo, useEffect, useState } from 'react';
 import "./style.css";
 
-function CommentsLayout({ children, commentForm, translate }) {
+function CommentsLayout({ children, commentForm, t }) {
 
   return (
     <div className="CommentsLayout">
       <h3 className="CommentsLayout-title">
-        {`${translate("comments.title")}(${children ? children.length : 0})`}
+        {`${t.translate("comments.title")}(${children ? children.length : 0})`}
       </h3>
       <div className="CommentsLayout-comments">
         {children}

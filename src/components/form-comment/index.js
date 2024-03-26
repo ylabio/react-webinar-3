@@ -2,7 +2,7 @@ import { memo, useState } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function FormComment({onSendComment, translate}) {
+function FormComment({onSendComment, t}) {
 
   const cn = bem('FormComment');
 
@@ -33,7 +33,7 @@ function FormComment({onSendComment, translate}) {
     className={cn()}
   >
     <label className={cn("label")}>
-      {translate("comments.newComment")}
+      {t.translate("comments.newComment")}
     </label>
     <textarea 
       value={form.text} 
@@ -47,7 +47,7 @@ function FormComment({onSendComment, translate}) {
         type="submit"
         className={cn("button")}
       >
-        {translate("comments.send")}
+        {t.translate("comments.send")}
       </button>
     </div>
   </form>

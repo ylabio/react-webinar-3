@@ -7,7 +7,7 @@ import useStore from '../../hooks/use-store';
 
 function TopHead() {
 
-  const {t} = useTranslate();
+  const {translateService, locale} = useTranslate();
   const navigate = useNavigate();
   const location = useLocation();
   const store = useStore();
@@ -33,8 +33,12 @@ function TopHead() {
     <SideLayout side='end' padding='small'>
       {select.exists ? <Link to='/profile'>{select.user.profile.name}</Link> : ''}
       {select.exists
-        ? <button onClick={callbacks.onSignOut}>{t('session.signOut')}</button>
-        : <button onClick={callbacks.onSignIn}>{t('session.signIn')}</button>
+        ? <button onClick={callbacks.onSignOut}>
+          {translateService.translate('session.signOut')}
+        </button>
+        : <button onClick={callbacks.onSignIn}>
+          {translateService.translate('session.signIn')}
+        </button>
       }
     </SideLayout>
   );
