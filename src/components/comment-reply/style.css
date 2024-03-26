@@ -12,7 +12,11 @@
 .InputComment-title {
   font-size: 12px;
 }
-
+.InputComment-warning {
+  padding-top: 5px;
+color: brown;
+font-weight: 600;
+}
 .InputComment-buttons {
   display: flex;
   gap: 10px;

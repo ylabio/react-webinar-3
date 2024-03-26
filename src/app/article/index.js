@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
@@ -15,26 +15,34 @@ import shallowequal from "shallowequal";
 import articleActions from "../../store-redux/article/actions";
 import commentsActions from "../../store-redux/comments/actions";
 import Comments from "../../containers/comments";
-
+import useServices from "../../hooks/use-services";
+import {default as useSelectorStore} from "../../hooks/use-selector";
 function Article() {
   const store = useStore();
-
+  const { currentLanguage } = useTranslate();
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
+ const selectStore=useSelectorStore((state) => ({
 
+}),)
+//заглушка, только с этим параметром обновляется компонент при выходк
   const params = useParams();
 
+
+  
+  // console.log(store)
   useInit(() => {
     dispatch(articleActions.load(params.id));
     dispatch(commentsActions.load(params.id));
-  }, [params.id]);
+  }, [params.id,currentLanguage]);
+
 
   const select = useSelector(
     (state) => ({
       article: state.article.data,
       waiting: state.article.waiting,
       comments: state.comments.comments,
-      t: state,
+     
     }),
     shallowequal
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
@@ -66,6 +74,7 @@ function Article() {
       [store]
     ),
     isAuth: useCallback(() => store.state.session.exists, [store]),
+    idUser: useCallback(() => store.state.session.user._id, [store]),
   };
 
   return (
@@ -87,6 +96,7 @@ function Article() {
           id={params.id}
           comments={select.comments}
           isAuth={callbacks.isAuth}
+          idUser={callbacks.idUser}
         />
       </Spinner>
     </PageLayout>
