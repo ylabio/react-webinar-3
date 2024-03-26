@@ -26,11 +26,16 @@ function Article() {
 
   const params = useParams();
 
+  const {t, lang} = useTranslate();
+
   useInit(() => {
     //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
-    dispatch(articleCommentsActions.load(params.id));
-  }, [params.id]);
+  }, [params.id, lang]);
+  
+  useInit(() => {
+    dispatch(articleCommentsActions.load(params.id))
+  }, [params.id])
 
   const select = useSelectorRedux(state => ({
     article: state.article.data,
@@ -42,8 +47,6 @@ function Article() {
     exists: state.session.exists,
     loggedUser: state.session.user,
   })) 
-  
-  const {t} = useTranslate();
   
   const callbacks = {
     // Добавление в корзину

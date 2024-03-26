@@ -4,7 +4,6 @@ import Store from './store';
 import createStoreRedux from './store-redux';
 
 class Services {
-
   constructor(config) {
     this.config = config;
   }

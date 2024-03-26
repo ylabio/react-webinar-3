@@ -38,7 +38,8 @@ class I18n {
 
   setLanguage(langCode) {
     this.language = langCode
-    for (const listener of this.listeners) listener(this.language);
+    this.services.api.setHeader('X-Lang', langCode)
+    for (const listener of this.listeners) listener();
   }
 }
 
