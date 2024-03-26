@@ -17,7 +17,7 @@ import commentsActions from "../../store-redux/comments/actions";
 import CommentsArticle from "../../containers/comments-article";
 function Article() {
   const store = useStore();
-
+  const { t, lang } = useTranslate();
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
 
@@ -28,7 +28,7 @@ function Article() {
       dispatch(articleActions.load(params.id)),
       dispatch(commentsActions.load(params.id)),
     ]);
-  }, [params.id]);
+  }, [params.id, lang]);
   useEffect(() => {
     return () => {
       dispatch(commentsActions.setTypeComments("article"));
@@ -42,8 +42,6 @@ function Article() {
     shallowequal
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const { t } = useTranslate();
-
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(
@@ -55,8 +53,8 @@ function Article() {
   return (
     <PageLayout>
       <TopHead />
-      <Head title={select.article.title} bgNone>
-        {/* <LocaleSelect /> */}
+      <Head title={select.article.title}>
+        <LocaleSelect />
       </Head>
       <Navigation />
       <Spinner active={select.waiting}>

@@ -2,9 +2,9 @@ import { memo } from "react";
 import PropTypes from "prop-types";
 import "./style.css";
 
-function Head({ title, children, bgNone }) {
+function Head({ title, children }) {
   return (
-    <div className="Head" style={bgNone && { backgroundColor: "transparent" }}>
+    <div className="Head">
       <div className="Head-place">
         <h1>{title}</h1>
       </div>
@@ -16,7 +16,6 @@ function Head({ title, children, bgNone }) {
 Head.propTypes = {
   title: PropTypes.node,
   children: PropTypes.node,
-  bgNone: PropTypes.bool,
 };
 
 export default memo(Head);
