@@ -8,5 +8,7 @@ export default function formatDate(dateString) {
         hour: '2-digit',
         minute: '2-digit',
     };
-    return new Date(dateString).toLocaleString(undefined, options);
+    let formattedDate = new Date(dateString).toLocaleString(undefined, options);
+    formattedDate = formattedDate.replace(' г.', '');
+    return formattedDate;
 };
