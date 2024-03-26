@@ -19,8 +19,8 @@ export const initialState = {
   
       case "comments/send-comments-success":
         return {...state, comments: [...state.comments, action.payload.newComment], waiting: false, parentID: '', parentType: 'article'};
-  
-      case "comments/change-from-location":
+        
+      case "comments/change-parent":
         return {...state, parentType: action.payload.parentType, parentID: action.payload.parentID}
   
       default:

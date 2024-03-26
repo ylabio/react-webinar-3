@@ -8,10 +8,10 @@ function CommentField({formData, commentsData, exists, t, onSignIn}) {
   const cn = bem('CommentField');
 
   const {changeParent, parentType, sendComment} = formData;
-  const {commentText, setCommentText, parentID} = commentsData;
+  const {commentText, setCommentText} = commentsData;
 
   const callbacks = {
-    changeParent: () => changeParent('article', parentID)
+    changeParent: () => changeParent('article', '')
   }
 
   let disabledCondition = commentText.length === 0 || commentText.trim() === ''

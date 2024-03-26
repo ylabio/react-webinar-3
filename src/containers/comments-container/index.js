@@ -35,7 +35,7 @@ function CommentsContainer() {
   
   const callbacks = {
     sendComment: () => dispatch(commentsActions.sendComment(commentText, currentId, selectRedux.parentType)),
-    changeParent: (type, id) => dispatch(commentsActions.changeParent(type, id)),
+    changeParent: (type, id) => dispatch(commentsActions.changeParent(type, id), setCommentText('')),
     onSignIn: useCallback(() => {navigate('/login', { state: { back: location.pathname } });
     }, [location.pathname])  
   }

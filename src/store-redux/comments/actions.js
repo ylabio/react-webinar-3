@@ -31,7 +31,8 @@ export default {
                 }
               )
           })
-          dispatch({type: 'comments/send-comments-success', payload: { newComment: res.data.result, parentID: id, parentType: type}})
+
+          dispatch({type: 'comments/send-comments-success', payload: {newComment: res.data.result}})
         } catch (e) {
           dispatch({type: 'article/load-error'});
         }
@@ -39,6 +40,6 @@ export default {
     },
   
     changeParent: (type, id) => {
-      return {type: "comments/change-from-location", payload: {parentType: type, parentID: id}}
+      return {type: "comments/change-parent", payload: {parentType: type, parentID: id}}
     },  
   }

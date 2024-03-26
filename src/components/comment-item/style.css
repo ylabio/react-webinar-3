@@ -1,6 +1,7 @@
 .CommentItem-text {
     padding-bottom: 10px;
     font-size: 14px;
+    padding: 0 40px 10px 0;
     overflow-wrap: break-word;
 }
 
