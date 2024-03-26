@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect, useRef } from "react";
 import "./style.css";
 import { cn as bem } from "@bem-react/classname";
 import formatDate from "../../utils/format-date";
@@ -19,7 +19,20 @@ function Comment({
 }) {
   const creator = comment.author.profile.name
   const cn = bem("Comment");
-  console.log(comment._id);
+  // console.log(window.innerHeight);
+  const formRef = useRef(null)
+
+
+  useEffect(() => {
+    if(formPosition === comment._id){
+      console.log(formRef.current);
+      window.scrollTo({
+        left: 0,
+        top: formRef.current.offsetTop - window.innerHeight + formRef.current.offsetHeight,
+        behavior: 'smooth'
+      })
+    }
+  }, [formPosition])
   return (
     <div className={cn()}>
       <div className={cn("upper")}>
@@ -27,12 +40,14 @@ function Comment({
         <span className={cn("date")}> {formatDate(comment.dateCreate, lang)} </span>
       </div>
       <div className={cn("body")}> {comment.text} </div>
-      <div
+      <a
         className={cn("footer")}
-        onClick={() => setFormPosition(comment._id)}
+        onClick={() => {
+          setFormPosition(comment._id)
+        }}
       >
         {t("comments.answer")}
-      </div>
+      </a>
       {comment.children.length ? (
         <ul className={ nesting < 10 ? cn("answers") : cn("deepAnswers")}>
           {comment.children.map((comment) => (
@@ -56,6 +71,7 @@ function Comment({
       ) : null}
       {formPosition === comment._id && (
         <CommentForm
+          formRef={formRef}
           t={t}
           onAdd={onAdd}
           parentId={comment._id}

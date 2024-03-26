@@ -2,12 +2,12 @@ import { memo, useRef } from "react";
 import "./style.css";
 import { cn as bem } from "@bem-react/classname";
 import LoginToLabel from "../login-to-label";
-function CommentForm({ isAuth, onUnAuth, type, user = null, cancel, onAdd, parentId, article, t }) {
+function CommentForm({ isAuth, onUnAuth, type, user = null, cancel, onAdd, parentId, article, t, formRef }) {
   const cn = bem("CommentForm");
   const textRef = useRef(null)
-
+  
   return (
-    <>
+    <div ref={formRef}>
       {isAuth ? (
         <div className={cn()}>
           <div className={cn("title")}>{type === "article" ? t("comments.newComment") : t("comments.newAnswer")}</div>
@@ -21,8 +21,10 @@ function CommentForm({ isAuth, onUnAuth, type, user = null, cancel, onAdd, paren
           <button
           className={cn("send")}
           onClick={() => {
-            if(textRef.current.value !== ''){
+            if(textRef.current.value.trim() !== ''){
               onAdd(parentId, type, textRef.current.value, article)
+            } else{
+              console.log("Empty");
             }
             textRef.current.value=""
           }}
@@ -32,7 +34,7 @@ function CommentForm({ isAuth, onUnAuth, type, user = null, cancel, onAdd, paren
       ) : (
         <LoginToLabel t={t} cancel={cancel} type={type} onClick={onUnAuth} />
       )}
-    </>
+    </div>
   );
 }
 

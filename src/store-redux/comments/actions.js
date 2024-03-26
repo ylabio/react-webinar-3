@@ -34,7 +34,6 @@ export default {
         "text": text,
         "parent": parent
       }
-      console.log(userName);
       return async (dispatch, getState, services) => {
         try{
           const response = await services.api.request({
@@ -53,5 +52,3 @@ export default {
       }
     }
   }
-
-  console.log(localStorage.getItem("X-Token"));
