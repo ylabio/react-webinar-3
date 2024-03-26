@@ -20,5 +20,13 @@
   "auth.password": "Password",
   "auth.signIn": "Sign in",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "article.commentaries-title": "Commentaries",
+  "article.commentaryForm-title": "a New comment",
+  "article.commentaryForm-submit": "Send",
+  "article.commentaries-reply": "Reply",
+  "article.commentaryReplyForm-title": "a New reply",
+  "article.commentaryReplyForm-cancel": "Cancel",
+  "article.commentaryForm-ifnotlogedin": "Login, to be able to comment",
+  "article.commentaryReplyForm-ifnotlogedin": "Login, to be able to reply."
 }

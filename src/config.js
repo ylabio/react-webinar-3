@@ -1,5 +1,5 @@
+import * as translations from './i18n/translations';
 const isProduction = process.env.NODE_ENV === 'production';
-
 /**
  * Настройки сервисов
  */
@@ -17,6 +17,10 @@ const config = {
   },
   api: {
     baseUrl: ''
+  },
+  i18n: {
+    language: 'ru',
+    translations: translations
   }
 }
 

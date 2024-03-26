@@ -74,7 +74,8 @@ function Article() {
           loggedUserId={storeSelect.loggedUser._id}
           pathname={location.pathname}
           commentParent={commentParent}
-          onAddComment={callbacks.addComment} 
+          onAddComment={callbacks.addComment}
+          t={t}
         />
       </Spinner>
     </PageLayout>

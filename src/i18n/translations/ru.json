@@ -22,5 +22,13 @@
   "auth.password": "Пароль",
   "auth.signIn": "Войти",
   "session.signIn": "Вход",
-  "session.signOut": "Выход"
+  "session.signOut": "Выход",
+  "article.commentaries-title": "Комментарии",
+  "article.commentaryForm-title": "Новый комментарий",
+  "article.commentaryForm-submit": "Отправить",
+  "article.commentaries-reply": "Ответить",
+  "article.commentaryReplyForm-title": "Новый ответ",
+  "article.commentaryReplyForm-cancel": "Отмена",
+  "article.commentaryForm-ifnotlogedin": "Войдите, чтобы иметь возможность комментировать",
+  "article.commentaryReplyForm-ifnotlogedin": "Войдите, чтобы иметь возможность ответить."
 }

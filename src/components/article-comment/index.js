@@ -35,18 +35,18 @@ const ArticleComment = (props) => {
         onClick={callbacks.openReplyForm} 
         className="ArticleComment-reply-btn"
       >
-        Ответить
+        {props.t('article.commentaries-reply')}
       </button>
 
       {props.replyFormOpen && (
-        <ArticleCommentReplyForm
-         title='ответ' 
+        <ArticleCommentReplyForm 
          commentParentId={props.comment._id}
          pathname={props.pathname}
          isLoggedIn={props.isLoggedIn}
          link={props.link}
          handleCommentForm={props.handleCommentForm} 
          onAddComment={props.onAddComment}
+         t={props.t}
         />
       )}
     </div>
@@ -67,7 +67,12 @@ ArticleComment.propTypes = {
   loggedUserId: PropTypes.string,
   index: PropTypes.number,
   replyFormOpen: PropTypes.bool,
-  handleCommentForm: PropTypes.func
+  handleCommentForm: PropTypes.func,
+  t: PropTypes.func
+}
+
+ArticleComment.defaultProps = {
+  t: (text) => text
 }
 
 export default memo(ArticleComment)

@@ -1,6 +1,5 @@
 import { memo, useState } from "react"
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
 import './style.css'
 import ArticleComment from "../article-comment";
 import listToTree from "../../utils/list-to-tree";
@@ -13,7 +12,8 @@ const ArticleComments = ({
   pathname, 
   comments, 
   commentParent, 
-  onAddComment
+  onAddComment,
+  t
 }) => {
   const [commentForm, setCommentForm] = useState({
     form: 'comment',
@@ -35,10 +35,10 @@ const ArticleComments = ({
   const callbacks = {
     handleCommentForm: (form) => {setCommentForm(form)}
   }
-
+  
   return (
     <div className="ArticleComments">
-      <div className="ArticleComments-title">Комментарии ({comments.count})</div>
+      <div className="ArticleComments-title">{t('article.commentaries-title')} ({comments.count})</div>
       {list && list.map((comment, index) => (
         <ArticleComment 
           key={comment._id} 
@@ -51,17 +51,18 @@ const ArticleComments = ({
           link='/login'   
           pathname={pathname}  
           onAddComment={onAddComment} 
+          t={t}
         />
       ))}
       
       {commentForm.form === 'comment' && (
         <ArticleCommentForm 
-          title='комментарий'
           isLoggedIn={isLoggedIn} 
           link='/login'   
           pathname={pathname} 
           commentParent={commentParent} 
           onAddComment={onAddComment} 
+          t={t}
         />
       )}
     </div>
@@ -77,7 +78,11 @@ ArticleComments.propTypes = {
     })),
     count: PropTypes.number,
   }),
+  t: PropTypes.func
+}
 
+ArticleComments.defaultProps = {
+  t: (text) => text
 }
 
 export default memo(ArticleComments)

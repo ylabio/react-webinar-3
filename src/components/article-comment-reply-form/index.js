@@ -4,13 +4,13 @@ import './style.css'
 import { Link } from 'react-router-dom';
 
 const ArticleCommentReplyForm = ({ 
-  title, 
   isLoggedIn, 
   pathname, 
   link,  
   commentParentId, 
   onAddComment, 
   handleCommentForm,
+  t
 }) => {
   const [textValue, setTextValue] = useState('')
 
@@ -43,7 +43,7 @@ const ArticleCommentReplyForm = ({
       {isLoggedIn ? (
         <form className='ArticleCommentReplyForm' onSubmit={callbacks.onSubmit}>
         <label htmlFor='commentTextArea' className='ArticleCommentReplyForm-title'>
-          Новый {title}
+          {t('article.commentaryReplyForm-title')}
         </label>
   
         <textarea id='commentTextArea' name='commentContent' value={textValue} 
@@ -51,19 +51,21 @@ const ArticleCommentReplyForm = ({
   
         <div className='ArticleCommentReplyForm-controls'>
           <button type='submit' className='ArticleCommentReplyForm-submit-btn'>
-            Отправить
+            {t('article.commentaryForm-submit')}
           </button>
           <button 
             onClick={callbacks.closeReplyForm}  className='ArticleCommentReplyForm-cancel-btn'>
-              Отмена
+              {t('article.commentaryReplyForm-cancel')}
           </button>
         </div>
       </form>
       ) : (
         <div className="ArticleCommentReplyForm-subtitle">
-          <Link className="ArticleComments-signin-link" to={link} state={{back: pathname}}>Войдите</Link>
-          , чтобы иметь возможность ответить. {' '}
-          <button onClick={callbacks.closeReplyForm} className='ArticleCommentReplyForm-subtitle-cancel-btn'>Отмена</button>
+          <Link className="ArticleComments-signin-link" to={link} state={{back: pathname}}>{t('article.commentaryReplyForm-ifnotlogedin').split(',')[0]}</Link>
+          , {t('article.commentaryReplyForm-ifnotlogedin').split(',')[1]} {' '}
+          <button onClick={callbacks.closeReplyForm} className='ArticleCommentReplyForm-subtitle-cancel-btn'>
+            {t('article.commentaryReplyForm-cancel')
+          }</button>
         </div>
       )}
     </div>
@@ -72,13 +74,18 @@ const ArticleCommentReplyForm = ({
 }
 
 ArticleCommentReplyForm.propTypes = {
-  title: PropTypes.string,
   commentParentId:PropTypes.string,
   isLoggedIn: PropTypes.bool,
   link: PropTypes.string,
   pathname: PropTypes.string,
   onAddComment: PropTypes.func,
   handleCommentForm: PropTypes.func,
+  t: PropTypes.func
 }
+
+ArticleCommentReplyForm.defaultProps = {
+  t: (text) => text
+}
+
 
 export default memo(ArticleCommentReplyForm)

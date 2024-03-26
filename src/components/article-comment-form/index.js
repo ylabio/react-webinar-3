@@ -3,13 +3,13 @@ import { memo, useState } from 'react'
 import './style.css'
 import { Link } from 'react-router-dom';
 
-const ArticleCommentForm = ({ 
-  title, 
+const ArticleCommentForm = ({  
   commentParent, 
   isLoggedIn, 
   pathname, 
   link, 
-  onAddComment 
+  onAddComment,
+  t
 }) => {
   const [textValue, setTextValue] = useState('')
 
@@ -34,18 +34,20 @@ const ArticleCommentForm = ({
     {isLoggedIn ? (
       <form className='ArticleCommentForm' onSubmit={callbacks.onSubmit}>
         <label htmlFor='commentTextArea' className='ArticleCommentForm-title'>
-          Новый {title}
-         </label>
+          {t('article.commentaryForm-title')}  
+        </label>
 
         <textarea id='commentTextArea' name='commentContent' value={textValue} 
           onChange={callbacks.handleChangeText} className='ArticleCommentForm-textarea' />
 
-        <button type='submit' className='ArticleCommentForm-submit-btn'>Отправить</button>
+        <button type='submit' className='ArticleCommentForm-submit-btn'>
+          {t('article.commentaryForm-submit')}
+        </button>
       </form>
       ) : (
         <div className="ArticleComments-subtitle">
-          <Link className="ArticleComments-signin-link" to={link} state={{back: pathname}}>Войдите</Link>
-          , чтобы иметь возможность комментировать
+          <Link className="ArticleComments-signin-link" to={link} state={{back: pathname}}>{t('article.commentaryForm-ifnotlogedin').split(',')[0]}</Link>
+          ,{t('article.commentaryForm-ifnotlogedin').split(',')[1]}
         </div>
       )
     }
@@ -54,7 +56,6 @@ const ArticleCommentForm = ({
 }
 
 ArticleCommentForm.propTypes = {
-  title: PropTypes.string,
   commentParent: PropTypes.shape({
     _id: PropTypes.string,
     _type: PropTypes.string,
@@ -62,7 +63,8 @@ ArticleCommentForm.propTypes = {
   isLoggedIn: PropTypes.bool,
   pathname: PropTypes.string,
   link: PropTypes.string,
-  onAddComment: PropTypes.func
+  onAddComment: PropTypes.func,
+  t: PropTypes.func
 }
 
 export default memo(ArticleCommentForm)
