@@ -17,7 +17,7 @@ const ArticleCommentForm = ({
     handleChangeText: (e) => setTextValue(e.target.value),
     onSubmit: (e) => {
       e.preventDefault()
-      if(textValue === '') return; 
+      if(textValue === '' || /^\s+$/g.test(textValue)) return; 
       const form = e.target
       const formData = new FormData(form);
       const data = {

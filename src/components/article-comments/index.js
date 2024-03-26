@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react"
+import React, { memo, useState, useRef, useEffect } from "react"
 import PropTypes from 'prop-types';
 import './style.css'
 import ArticleComment from "../article-comment";
@@ -21,6 +21,27 @@ const ArticleComments = ({
     replyFormBelowCommentId: null,
     parent: {}
   })
+
+  const replyFormRef = useRef(null)
+  
+  useEffect(() => {
+    const scrollIntoViewWithOffset = (node, offset) => {
+      window.scrollTo({
+        behavior: 'smooth',
+        top:
+        node.getBoundingClientRect().top -
+          document.body.getBoundingClientRect().top -
+          window.innerHeight +
+          node.offsetHeight + 
+          offset,
+      })
+    }
+    
+    const replyFormNode = replyFormRef.current
+    if(replyFormNode) {
+      scrollIntoViewWithOffset(replyFormNode, 50)
+    }
+  }, [commentForm])
   
   let tree
   let list
@@ -57,6 +78,7 @@ const ArticleComments = ({
           />
           {(comment._id === commentForm.replyFormBelowCommentId) && (
             <ArticleCommentReplyForm 
+              ref={replyFormRef}
               parent={commentForm.parent}
               pathname={pathname}
               isLoggedIn={isLoggedIn}

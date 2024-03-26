@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import { memo, useState } from 'react'
+import { memo, useState, forwardRef } from 'react'
 import './style.css'
 import { Link } from 'react-router-dom';
 
-const ArticleCommentReplyForm = ({ 
+const ArticleCommentReplyForm = forwardRef(({ 
   isLoggedIn, 
   pathname, 
   link,  
@@ -11,14 +11,14 @@ const ArticleCommentReplyForm = ({
   onAddComment, 
   handleCommentForm,
   t
-}) => {
+}, ref) => {
   const [textValue, setTextValue] = useState('')
 
   const callbacks = {
     handleChangeText: (e) => setTextValue(e.target.value),
     onSubmit: (e) => {
       e.preventDefault()
-      if(textValue === '') return; 
+      if(textValue === '' || /^\s+$/g.test(textValue)) return; 
       const form = e.target
       const formData = new FormData(form);
       const data = {
@@ -41,6 +41,7 @@ const ArticleCommentReplyForm = ({
 
   return (
     <div 
+      ref={ref}
       className='ArticleCommentReplyForm-wrapper'
       style={ 
         (parent.replyLevel >= 10) ? {paddingLeft: 10 * 30 + 'px'} : 
@@ -78,6 +79,7 @@ const ArticleCommentReplyForm = ({
     
   )
 }
+)
 
 ArticleCommentReplyForm.propTypes = {
   parent:PropTypes.shape({
