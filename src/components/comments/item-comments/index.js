@@ -22,6 +22,7 @@ function ItemComments({
   idComment,
   lang,
   level,
+  type,
 }) {
   const cn = bem("ItemComments");
   function findLastObjectWithoutChildren(array) {
@@ -86,6 +87,7 @@ function ItemComments({
               cb={onSubmit}
               labelBtn2={t("comment.cancel")}
               cb2={onCloseForm}
+              type={type}
             />
           ) : (
             <AuthAlert

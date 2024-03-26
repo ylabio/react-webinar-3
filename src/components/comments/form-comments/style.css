@@ -17,6 +17,9 @@
   min-height: 76px;
   resize: none;
 }
+.FormComments-textarea::placeholder {
+  color: rgba(255, 0, 0, 0.435);
+}
 .FormComments-action {
   padding: 3px 9px;
 }

@@ -103,6 +103,7 @@ function ListComments() {
           visibleForm={
             !!(idVisibleForm === item._id && selectRedux.type === "comment")
           }
+          type={selectRedux.type}
           children={link}
         />
       ))}

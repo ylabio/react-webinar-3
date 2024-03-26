@@ -3,13 +3,15 @@ import "./style.css";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 
-function FormComments({ cb, label, labelBtn, id, labelBtn2, cb2 }) {
+function FormComments({ cb, label, labelBtn, id, labelBtn2, cb2, type }) {
   const cn = bem("FormComments");
   const [value, setValue] = useState("");
   const formRef = useRef(null);
 
   useEffect(() => {
-    formRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (type === "comment") {
+      formRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
   }, []);
   const onSubmit = useCallback(
     (e) => {
@@ -19,6 +21,7 @@ function FormComments({ cb, label, labelBtn, id, labelBtn2, cb2 }) {
         setValue("");
       }
       setValue("");
+      formRef.current[0].placeholder = "is empty";
     },
     [value]
   );
