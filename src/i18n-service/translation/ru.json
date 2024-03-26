@@ -26,12 +26,12 @@
   "comments.title": "Комментарии",
   "comments.reply": "Ответить",
   "comments.signIn": "Войдите",
+  "comments.send": "Отправить",
+  "comments.cancel": "Отмена",
   "comments.ableComment": ", чтобы иметь возможность комментировать",
   "comments.ableReply": ", чтобы иметь возможность ответить",
   "commentForm.newComment": "Новый комментарий",
   "commentForm.newReply": "Новый ответ",
-  "commentForm.send": "Отправить",
-  "commentForm.cancel": "Отмена",
   "commentForm.placeholderText": "Текст",
   "commentForm.placeholderReply": "Мой ответ для "
 }

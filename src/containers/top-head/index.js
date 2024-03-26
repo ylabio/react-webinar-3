@@ -3,12 +3,15 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
+import useTranslateI18n from '../../hooks/use-translate-i18n';
 import SideLayout from '../../components/side-layout';
 import LinkUI from '../../components/link-ui';
 
+
 function TopHead() {
 
-  const {t} = useTranslate();
+  // const {t} = useTranslate();
+  const {translate} = useTranslateI18n();
   const navigate = useNavigate();
   const location = useLocation();
   const store = useStore();
@@ -34,8 +37,8 @@ function TopHead() {
     <SideLayout side='end' padding='small'>
       {select.exists ? <LinkUI margin={'small'} link={'/profile'} text={select.user.profile.name}></LinkUI> : ''}
       {select.exists
-        ? <button onClick={callbacks.onSignOut}>{t('session.signOut')}</button>
-        : <button onClick={callbacks.onSignIn}>{t('session.signIn')}</button>
+        ? <button onClick={callbacks.onSignOut}>{translate('session.signOut')}</button>
+        : <button onClick={callbacks.onSignIn}>{translate('session.signIn')}</button>
       }
     </SideLayout>
   );

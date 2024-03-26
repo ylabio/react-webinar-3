@@ -6,13 +6,10 @@ import Select from '../../components/select';
 
 function LocaleSelect() {
 
-  const {lang, setLang} = useTranslate();
+  // const {lang, setLang} = useTranslate();
   // const {setLang} = useTranslate();
 
-  // const {lang, setLang} = useTranslateI18n(); 
-  
-
-  console.log("useTranslateI18n() lang:", lang);
+  const {langTranslate, setLangTranslate} = useTranslateI18n(); 
 
   const options = {
     lang: useMemo(() => ([
@@ -22,7 +19,7 @@ function LocaleSelect() {
   };
 
   return (
-    <Select onChange={setLang} value={lang} options={options.lang}/>
+    <Select onChange={setLangTranslate} value={langTranslate} options={options.lang}/>
   );
 }
 

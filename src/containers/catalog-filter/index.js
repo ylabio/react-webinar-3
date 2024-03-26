@@ -2,11 +2,12 @@ import {memo, useCallback, useMemo} from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
+import treeToList from '../../utils/tree-to-list';
+import listToTree from '../../utils/list-to-tree';
+import useTranslateI18n from '../../hooks/use-translate-i18n';
 import Select from '../../components/select';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
-import treeToList from '../../utils/tree-to-list';
-import listToTree from '../../utils/list-to-tree';
 
 function CatalogFilter() {
 
@@ -50,7 +51,8 @@ function CatalogFilter() {
     ]), [select.categories]),
   };
 
-  const {t} = useTranslate();
+  // const {t} = useTranslate();
+  const {translate} = useTranslateI18n();
 
   return (
     <SideLayout padding='medium'>
@@ -58,7 +60,7 @@ function CatalogFilter() {
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000} theme={'big'}/>
-      <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
+      <button onClick={callbacks.onReset}>{translate('filter.reset')}</button>
     </SideLayout>
   )
 }

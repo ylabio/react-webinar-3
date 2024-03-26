@@ -22,17 +22,17 @@ function Main() {
     ]);
   }, [], true);
 
-  const {t} = useTranslate();
+  // const {t} = useTranslate();
 
-  //
-  // const {tr} = useTranslateI18n();
-  // console.log("useTranslateI18n() tr:", tr('title'))
-  //
+  
+  const {translate} = useTranslateI18n();
+  // console.log("useTranslateI18n() tr:", translate('title'))
+  
 
   return (
     <PageLayout>
       <TopHead/>
-      <Head title={t('title')}>
+      <Head title={translate('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>

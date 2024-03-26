@@ -9,39 +9,31 @@ export default function useTranslateI18n() {
 
   const i18nServices = useServices().i18n;
 
-//   const [lang, setLang] = useState('ru');
-  
-  // const lang = i18nServices.getLang();
+  const [lang, setLang] = useState(i18nServices.lang);
 
-  // const setLang = (lang) => i18nServices.setLang(lang);
-
-  // const lang =  i18nServices.lang;
-  const lang =  i18nServices.getLang();
-  const setLang = (lang1) => {
-    i18nServices.setLang(lang1)
-  };
-  const tr = (text, number) => i18nServices.translate(text, number);
-
-  // const i18n = useMemo(() => ({
-  // // const i18n = () => ({
-  //   // Код локали
-  //   lang: i18nServices.getLang(),
-  //   // Функция для смены локали
-  //   setLang: function (lang) { 
-  //     i18nServices.setLang(lang);
-  //   },
-  //   // Функция для локализации текстов с замыканием на код языка
-  //   tr: (text, number) => i18nServices.translate(text, number)
-  // }), [i18nServices.lang]);
-
-  i18nServices.subscribe((value) => {
+  const unsubscribe = i18nServices.subscribe((value) => {
     setLang(value);
   })
-  // });
+ 
+  const i18n = useMemo(() => ({
+   
+    // Код локали
+    langTranslate: i18nServices.getLang(),
+
+    // Функция для смены локали
+    setLangTranslate: function (lang) {
+      setLang(lang);
+      i18nServices.setLang(lang);
+      unsubscribe();
+    },
+
+    // Функция для локализации текстов
+    translate: (text, number) => i18nServices.translate(text, number)
+
+  }), [i18nServices.lang, lang]);
 
   return (
-    // i18n
-    {lang, setLang, tr}
+    i18n
   );
 
 }

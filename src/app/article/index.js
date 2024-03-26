@@ -9,6 +9,7 @@ import articleActions from '../../store-redux/article/actions';
 import articleComments from '../../store-redux/comments/actions';
 import {useSelector as useSelectorRedux} from 'react-redux';
 import articleCommentsForm from '../../store-redux/comments/form/actions';
+import useTranslateI18n from '../../hooks/use-translate-i18n';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import Navigation from '../../containers/navigation';
@@ -52,7 +53,9 @@ function Article() {
     waiting: state.comments.waiting,
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const {t} = useTranslate();
+  // const {t} = useTranslate();
+
+  const {translate} = useTranslateI18n();
 
   const callbacks = {
     // Добавление в корзину
@@ -67,7 +70,7 @@ function Article() {
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} translate={translate}/>
       </Spinner>
       <Spinner active={selectRedux.waiting}>
         <ArticleComments/>

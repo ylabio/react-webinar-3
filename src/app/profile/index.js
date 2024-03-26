@@ -4,6 +4,7 @@ import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
+import useTranslateI18n from '../../hooks/use-translate-i18n';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import Navigation from '../../containers/navigation';
@@ -12,6 +13,7 @@ import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
 import ProfileCard from '../../components/profile-card';
+
 
 function Profile() {
   const store = useStore();
@@ -25,12 +27,13 @@ function Profile() {
     waiting: state.profile.waiting,
   }));
 
-  const {t} = useTranslate();
+  // const {t} = useTranslate();
+  const {translate} = useTranslateI18n();
 
   return (
     <PageLayout>
       <TopHead/>
-      <Head title={t('title')}>
+      <Head title={translate('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>

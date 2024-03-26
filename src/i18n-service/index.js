@@ -7,15 +7,14 @@ class I18nService {
    * @param services {Services} Менеджер сервисов
    * @param config {Object}
    */
-  constructor(services, config = {},initState = {}) {
+  constructor(services, config = {}) {
     this.services = services;
     this.config = config;
     this.local = 'ru';
-    this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
   }
 
-   /**
+  /**
   * Подписка слушателя на изменения состояния
   * @param listener {Function}
   * @returns {Function} Функция отписки
@@ -28,7 +27,7 @@ class I18nService {
     }
   }
 
-   /**
+  /**
   * Выбор состояния
   * @returns {Object}
   */
@@ -43,7 +42,7 @@ class I18nService {
   setState(newState) {
     this.state = newState;
     // Вызываем всех слушателей
-    for (const listener of this.listeners) listener();
+    for (const listener of this.listeners) listener(this.state);
   }
 
   /**
@@ -67,16 +66,18 @@ class I18nService {
     return result;
   }
 
+  /**
+  * Изменение языка
+  */
   setLang (lang) {
-    // console.log("this!!!!!!!:", this);
     this.local = lang;
-    // console.log("this!!!!!!!:", this);
-    // this.setState({
-    //   ...this.state,
-    //   local: lang
-    // });
+    this.listeners.forEach(listener => listener(lang));
+    this.listeners = [];
   }
 
+  /**
+  * Получить текущий язык
+  */
   getLang (lang) {
     return this.local;
   }

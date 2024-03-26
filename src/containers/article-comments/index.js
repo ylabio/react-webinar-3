@@ -7,6 +7,7 @@ import listToTree from '../../utils/list-to-tree';
 import articleCommentsForm from '../../store-redux/comments/form/actions';
 import {useParams} from 'react-router-dom';
 import articleComments from '../../store-redux/comments/actions';
+import useTranslateI18n from '../../hooks/use-translate-i18n';
 import HeadComments from '../../components/head-comments';
 import LinkSignIn from '../../components/link-sign-in';
 import ContentLayout from '../../components/content-layout';
@@ -15,11 +16,13 @@ import List from '../../components/list';
 import CommentForm from '../../components/comment-form';
 
 
+
 function ArticleComments () {
 
   const params = useParams();
 
-  const {t} = useTranslate();
+  // const {t} = useTranslate();
+  const {translate} = useTranslateI18n();
 
   const dispatch = useDispatch();
 
@@ -55,28 +58,28 @@ function ArticleComments () {
     itemComments: useCallback(item => (
       <>
         <ItemComments 
-          reply={t('comments.reply')} item={item} userId={select.userId} exists={select.exists}  idComment={selectRedux.idComment} 
-          openForm={callbacks.openForm} signIn={t('comments.signIn')} punctuation={'.'}
-          textSignIn={t('comments.ableReply')} link={'/login'} closeForm={callbacks.closeForm} onSubmit={callbacks.onSubmit} 
-          label={t('commentForm.newReply')} showNow={true} btnSend={t('comments.send')} btnCancel={t('comments.cancel')}
-          placeholder={t('commentForm.placeholderReply') +  item.author?.profile?.name}
+          reply={translate('comments.reply')} item={item} userId={select.userId} exists={select.exists}  idComment={selectRedux.idComment} 
+          openForm={callbacks.openForm} signIn={translate('comments.signIn')} punctuation={'.'}
+          textSignIn={translate('comments.ableReply')} link={'/login'} closeForm={callbacks.closeForm} onSubmit={callbacks.onSubmit} 
+          label={translate('commentForm.newReply')} showNow={true} btnSend={translate('comments.send')} btnCancel={translate('comments.cancel')}
+          placeholder={translate('commentForm.placeholderReply') +  item.author?.profile?.name}
         />
         {item.children.length > 0 && <List theme={'comments-left'} list={item.children} renderItem={renders.itemComments}/>}
       </>
-    ), [t, selectRedux.idComment]),
+    ), [translate, selectRedux.idComment]),
   };
 
   return (
     <ContentLayout padding='medium' visibility='scroll'>
-      <HeadComments title={t('comments.title')} count={selectRedux.count}/>
+      <HeadComments title={translate('comments.title')} count={selectRedux.count}/>
       {selectRedux.listСomments[0]?.children && <List theme={'comments'} list={selectRedux.listСomments[0].children} renderItem={renders.itemComments}/>}
       {select.exists 
         ? !selectRedux.idComment 
             && <CommentForm 
-              closeForm={callbacks.closeForm} onSubmit={callbacks.onSubmit} label={t('commentForm.newComment')} 
-              btnSend={t('comments.send')} btnCancel={t('comments.cancel')} placeholder={t('commentForm.placeholderText')}
+              closeForm={callbacks.closeForm} onSubmit={callbacks.onSubmit} label={translate('commentForm.newComment')} 
+              btnSend={translate('comments.send')} btnCancel={translate('comments.cancel')} placeholder={translate('commentForm.placeholderText')}
             /> 
-        : !selectRedux.idComment && <LinkSignIn signIn={t('comments.signIn')} textSignIn={t('comments.ableComment')} link={'/login'}/>}
+        : !selectRedux.idComment && <LinkSignIn signIn={translate('comments.signIn')} textSignIn={translate('comments.ableComment')} link={'/login'}/>}
     </ContentLayout>
   );
 
