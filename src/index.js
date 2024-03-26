@@ -7,7 +7,6 @@ import Services from './services';
 import config from './config';
 
 const services = new Services(config);
-// console.log(services.i18n.translate('article.add'))
 const root = createRoot(document.getElementById('root'));
 
 // Первый рендер приложения

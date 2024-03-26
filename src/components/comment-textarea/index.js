@@ -2,7 +2,7 @@ import { memo, useState } from "react";
 import PropTypes from 'prop-types';
 import "./style.css";
 
-function CommentTextarea({ data, onChange, comments, id, paramsId, onSubmit, onCancel }) {
+function CommentTextarea({ data, onChange, comments, id, paramsId, onSubmit, onCancel, t }) {
   const [comment, setComment] = useState(data?.text);
   const handleChange = ({ target: { value } }) => {
     let id = '';
@@ -12,9 +12,9 @@ function CommentTextarea({ data, onChange, comments, id, paramsId, onSubmit, onC
   }
 
   return <div className="CommentTextarea">
-    {comments?.parent?._type === "article" && <b>Новый ответ</b>}
-    {comments?.parent?._type === "comment" && <b>Новый ответ</b>}
-    {!comments?.parent?._type && <b>Новый комментарий</b>}
+    {comments?.parent?._type === "article" && <b>{t("article.answer")}</b>}
+    {comments?.parent?._type === "comment" && <b>{t("article.answer")}</b>}
+    {!comments?.parent?._type && <b>{t("article.comment")}</b>}
     <textarea
       className="CommentTextarea-textarea"
       value={comment}
@@ -23,9 +23,9 @@ function CommentTextarea({ data, onChange, comments, id, paramsId, onSubmit, onC
     />
     <div className="CommentTextarea-buttonsbox">
       <button
-        onClick={() => onSubmit(data)}>Отправить</button>
+        onClick={() => onSubmit(data)}>{t("article.send")}</button>
       {<button
-        onClick={() => onCancel(paramsId)}>Отмена</button>}
+        onClick={() => onCancel(paramsId)}>{t("article.cancel")}</button>}
     </div>
   </div>
 }
@@ -39,7 +39,8 @@ CommentTextarea.propTypes = {
   id: PropTypes.string,
   paramsId: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired
+  onCancel: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 export default memo(CommentTextarea);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import useServices from './use-services';
 import useInit from './use-init';
 
@@ -12,7 +12,7 @@ export default function useTranslate() {
   const [lang, setLang] = useState(service.lang);
 
 
-  useInit(() => {
+  useLayoutEffect(() => {
     const handleLanguageChange = (language) => {
       setLang(language);
     }
@@ -20,7 +20,7 @@ export default function useTranslate() {
     return () => {
       unsubscribe();
     }
-  }, [service], true)
+  }, [service])
 
   return { t: (text, number) => service.translate(text, number), lang, setLang: service.setLang };
 }
