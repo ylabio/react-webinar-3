@@ -63,6 +63,7 @@ function CommentsList() {
     ),
   };
 
+  // Форматируем загруженные комментарии под нужный формат
   const comments = useMemo(
     () => [
       ...treeToList(listToTree(select.comments), (item, level) => ({
@@ -76,6 +77,7 @@ function CommentsList() {
     [select.comments]
   );
 
+  // Рендер-функция компонента комментария
   const renders = {
     commentsItem: useCallback(
       (comment) => (
