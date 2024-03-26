@@ -1,10 +1,7 @@
 import React, { memo } from "react";
 import { useSelector as useSelectorRedux } from "react-redux";
 import shallowEqual from "shallowequal";
-
-import Spinner from "../../components/spinner";
 import CommentsLayout from "../../components/comments";
-
 import ListComments from "./list-comments";
 import useTranslate from "../../hooks/use-translate";
 import FooterComments from "./footer";

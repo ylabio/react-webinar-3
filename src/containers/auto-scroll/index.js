@@ -5,7 +5,7 @@ function AutoScroll({ children }) {
 
   useEffect(() => {
     scrollRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, []);
+  }, [children]);
   return (
     <>
       <div ref={scrollRef} />

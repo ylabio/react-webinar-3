@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { memo } from "react";
 
 function FooterLayout({ children }) {
-  console.log("foter");
   return <div className="FooterComments">{children}</div>;
 }
 

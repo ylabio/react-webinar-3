@@ -26,6 +26,7 @@ function ListComments() {
     (state) => ({
       comments: state.comments.data,
       waiting: state.comments.waiting,
+      waitingAdd: state.comments.waitingAdd,
       type: state.comments.typeComments,
       showForm: state.comments.showFormController,
     }),
@@ -90,7 +91,6 @@ function ListComments() {
             textBtn={t("comment.answer")}
             action={callbacks.onOpenForm}
             userId={select.user._id}
-            disabledBtn={!!(item._id === selectRedux.showForm.clickedId)}
           />
           {!!(
             selectRedux.showForm.showId === item._id &&
@@ -112,7 +112,7 @@ function ListComments() {
     ),
   };
   return (
-    <Spinner active={selectRedux.waiting}>
+    <Spinner active={selectRedux.waiting || selectRedux.waitingAdd}>
       <List list={comments} renderItem={renders.item} />
     </Spinner>
   );

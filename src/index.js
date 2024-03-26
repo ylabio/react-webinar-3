@@ -10,7 +10,6 @@ import config from "./config";
 const services = new Services(config);
 
 const root = createRoot(document.getElementById("root"));
-console.log(services);
 
 // Первый рендер приложения
 root.render(

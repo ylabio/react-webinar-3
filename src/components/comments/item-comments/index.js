@@ -5,13 +5,13 @@ import formattedDate from "../../../utils/formattedDate";
 import { memo } from "react";
 import findLastChildren from "../../../utils/findLastChildren";
 import PropTypes from "prop-types";
-function ItemComments({ item, action, textBtn, disabledBtn, userId, lang }) {
+function ItemComments({ item, action, textBtn, userId, lang }) {
   const cn = bem("ItemComments");
 
-  const displayId = useMemo(
-    () => (item.children.length ? findLastChildren(item.children) : item._id),
-    [item.children.length]
-  );
+  const displayId = item.children.length
+    ? findLastChildren(item.children)
+    : item._id;
+
   return (
     <div
       className={cn()}
@@ -32,7 +32,6 @@ function ItemComments({ item, action, textBtn, disabledBtn, userId, lang }) {
       <div className={cn("text")}>{item.text}</div>
       <button
         className={cn("action")}
-        disabled={disabledBtn}
         onClick={() => action(item._id, displayId, item.level)}
       >
         {textBtn}
@@ -45,7 +44,6 @@ ItemComments.propTypes = {
   item: PropTypes.shape({}),
   action: PropTypes.func.isRequired,
   textBtn: PropTypes.string,
-  disabledBtn: PropTypes.bool,
   userId: PropTypes.string,
   lang: PropTypes.string,
 };
