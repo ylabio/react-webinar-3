@@ -19,7 +19,7 @@ function CommentTextarea({ data, onChange, comments, id, paramsId, onSubmit, onC
       className="CommentTextarea-textarea"
       value={comment}
       onChange={handleChange}
-      placeholder="Текст"
+      placeholder={t("textarea.placeholder")}
     />
     <div className="CommentTextarea-buttonsbox">
       <button

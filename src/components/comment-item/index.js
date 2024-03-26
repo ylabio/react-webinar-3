@@ -22,7 +22,7 @@ const CommentItem = ({ comment, setIsOpenTextarea, isOpenTextarea, data, onChang
     <button className={cn('button')} onClick={() => setIsOpenTextarea(comment._id)}>{t("article.reply")}</button>
     {!exists && isOpenTextarea === comment._id &&
       <div className={cn('welcome-box')}>
-        <WelcomeText />
+        <WelcomeText t={t} />
         <button className={cn('cancel-button')} onClick={() => onCancel(paramsId)}>{t("article.cancel")}</button>
       </div>}
     {isOpenTextarea === comment._id && exists &&

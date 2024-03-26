@@ -91,7 +91,7 @@ function Article() {
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
         <CommentCount count={select.count} t={t} />
         <CommentList comments={select.comments} renderItem={renders.commentItem} />
-        {!exists ? <WelcomeText /> : select.modal === params.id &&
+        {!exists ? <WelcomeText t={t} /> : select.modal === params.id &&
           <CommentTextarea data={data} onChange={callbacks.onChange} paramsId={params.id}
             id={params.id} onSubmit={callbacks.onSubmit} onCancel={callbacks.onCancel} t={t} />}
       </Spinner>
