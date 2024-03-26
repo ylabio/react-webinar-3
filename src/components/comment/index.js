@@ -21,6 +21,8 @@ const Comment = ({
     onReply: (text) => replyToComment(text, commentData._id)
   }
 
+  const commentHasChildren = commentData.children?.length
+
   return (
     <div className={cn()}>
       <div className={cn('heading')}>
@@ -31,16 +33,7 @@ const Comment = ({
         <p className={cn('text')}>{commentData.text}</p>
       </div>
       <button onClick={callbacks.onAnswerClick} className={cn('btn')}>Ответить</button>
-      {commentToReplyId === commentData._id &&
-        <AddComment
-          isLoggedIn={isLoggedIn}
-          submitAction={callbacks.onReply}
-          onCancelReply={unselectComment}
-          noAuthNavigate={noAuthNavigate}
-          label='Новый ответ'
-        />
-      }
-      {commentData.children.length ? (
+      {commentHasChildren ? (
         <div className={cn('children')}>
           {commentData.children.map(child => (
             <Comment
@@ -55,8 +48,19 @@ const Comment = ({
               }}
             />
           ))}
+
         </div>
       ): ''}
+      {commentToReplyId === commentData._id &&
+        <AddComment
+          isLoggedIn={isLoggedIn}
+          submitAction={callbacks.onReply}
+          onCancelReply={unselectComment}
+          noAuthNavigate={noAuthNavigate}
+          label='Новый ответ'
+          commentHasChildren={commentHasChildren}
+        />
+      }
     </div>
   );
 };

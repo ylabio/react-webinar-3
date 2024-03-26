@@ -4,7 +4,9 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 
-const AddComment = ({label, submitAction, onCancelReply, isLoggedIn, noAuthNavigate}) => {
+const AddComment = ({
+  label, submitAction, onCancelReply, isLoggedIn, noAuthNavigate, commentHasChildren
+}) => {
   const cn = bem('AddComment');
   const [replyText, setReplyText] = useState('')
 
@@ -22,7 +24,7 @@ const AddComment = ({label, submitAction, onCancelReply, isLoggedIn, noAuthNavig
   if (isLoggedIn) {
     return (
       <div className={cn()}>
-        <form onSubmit={handleSubmit} className={cn('form')}>
+        <form onSubmit={handleSubmit} className={commentHasChildren? cn('form-padding') : cn('form')}>
           <label htmlFor='reply' className={cn('label')}>{label}</label>
           <textarea
             autoFocus={onCancelReply ? true : false}
