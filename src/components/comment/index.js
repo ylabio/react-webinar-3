@@ -1,15 +1,17 @@
 import {cn as bem} from "@bem-react/classname";
 import {memo} from "react";
 import './style.css';
+import dateFormat from "../../utils/date-format";
 
 function Comment({item}) {
   const cn = bem('Comment');
+  const date = dateFormat(item.dateCreate);
   return (
     <div className={cn()} key={item._id}>
-      <span>{item.author.profile.name}</span>
-      <span>25 августа 2022 в 14:00</span>
+      <span className={cn('name')}>{item.author.profile.name}</span>
+      <span className={cn('date')}>{date}</span>
       <div className={cn('text')}>{item.text}</div>
-      <button>Ответить</button>
+      <button className={cn('button')}>Ответить</button>
     </div>
   );
 }

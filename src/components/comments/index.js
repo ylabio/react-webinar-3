@@ -4,6 +4,7 @@ import {memo, useCallback} from "react";
 import Comment from "../comment";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
+import CommentForm from "../comment-form";
 
 function Comments({comments, count, itemId}) {
   const store = useStore();
@@ -27,6 +28,8 @@ function Comments({comments, count, itemId}) {
         </div>
         : <div>Нет комментариев</div>
       }
+
+      <CommentForm />
 
     </div>
   );
