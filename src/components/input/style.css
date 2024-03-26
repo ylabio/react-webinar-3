@@ -6,3 +6,14 @@
 .Input_theme_big {
   width: 300px;
 }
+
+.Input_theme_comment {
+  width: 100%;
+  height: 76px;
+  padding: 4px;
+}
+
+.Input_theme_comment::placeholder {
+  position: absolute;
+  top: 0;
+}
