@@ -31,7 +31,7 @@ function Comments({ articleId, comments }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const select = useSelector(state => ({
+  const authSelect = useSelector(state => ({
     user: state.session.user,
     sessionExists: state.session.exists
   }));
@@ -52,12 +52,13 @@ function Comments({ articleId, comments }) {
   useEffect(() => {
     if (!commentsSelect.waitingAfterPost && commentsSelect.postData._id) {
       const repliedId = commentsSelect.postData.parent._id;
+      const offset = commentsSelect.postData.parent._tree?.length || 0;
       setCommentsList(prevList => prevList.toSpliced(
         prevList.findIndex(item => item._id === repliedId) + 1, 
         0, 
         {
           ...commentsSelect.postData, 
-          offset: commentsSelect.postData.parent._tree.length, 
+          offset, 
           new: true
         }
       ));      
@@ -76,7 +77,6 @@ function Comments({ articleId, comments }) {
 
     onSendComment: (form) => {
       dispatch(commentsActions.post({ articleId, text: form.text, replyMode: false }));
-      dispatch(commentsActions.load(articleId));
     },
 
     onCloseReply: () => {
@@ -105,7 +105,7 @@ function Comments({ articleId, comments }) {
 
   const forms = {
     reply: (id) => {
-      return select.sessionExists ? <FormReply
+      return authSelect.sessionExists ? <FormReply
         to={id}
         onSendReply={callbacks.onSendReply}
         onCloseReply={callbacks.onCloseReply}
@@ -119,12 +119,12 @@ function Comments({ articleId, comments }) {
     },
 
     comment: useMemo(() => {
-      return (select.sessionExists && commentFormVisible) ? <FormComment 
+      return (authSelect.sessionExists && commentFormVisible) ? <FormComment 
         onSendComment={callbacks.onSendComment}
         translate={t}  
       />
       : <></>;
-    }, [select.sessionExists, commentFormVisible])
+    }, [authSelect.sessionExists, commentFormVisible])
   }
 
   return (
