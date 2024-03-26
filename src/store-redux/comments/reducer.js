@@ -25,7 +25,7 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         addingErrors: null,
-        data: {...state.data, items: [...state.data.items, action.payload.data]},
+        data: {...state.data, items: [...state.data.items, action.payload.data], count: state.data.count + 1},
         waiting: false,
       };
 

@@ -38,7 +38,7 @@ function Comments({articleId}) {
   useInit(() => {
     dispatch(commentsActions.load(articleId));
   }, [articleId]);
-  // console.log(window.history);
+
   useEffect(() => {
     hashId && setActiveFormId(hashId);
     window.history.replaceState({}, '', pathname);
