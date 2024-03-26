@@ -1,6 +1,5 @@
 import Spinner from "../../components/spinner";
 import useInit from "../../hooks/use-init";
-import useStore from "../../hooks/use-store";
 import CommentsLayout from "../../components/comments-layout";
 import useTranslate from '../../hooks/use-translate';
 import commentsActions from '../../store-redux/comments/actions'
@@ -15,7 +14,6 @@ import CommentInput from "../../components/comment-input";
 
 
 function Comments({ id }) {
-  const store = useStore();
   const dispatch = useDispatch();
   const { t } = useTranslate();
   const [answerTo, setAnswerTo] = useState({

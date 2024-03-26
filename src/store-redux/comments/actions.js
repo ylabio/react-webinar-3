@@ -16,7 +16,7 @@ export default {
     }
   },
 
-  send: (text, parent, token) => {
+  send: (text, parent) => {
     return async (dispatch, getState, services) => {
       dispatch({type: 'comments/send-start'});
 
