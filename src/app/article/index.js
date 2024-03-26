@@ -42,7 +42,7 @@ function Article() {
       dispatch(articleCommentsForm.closeForm()),
     ]);
    
-  }, [params.id, articleCommentsForm.onSubmit]); 
+  }, [params.id, articleCommentsForm.onSubmit, useTranslateI18n()]); 
 
   const select = useSelector(state => ({
     article: state.article.data,

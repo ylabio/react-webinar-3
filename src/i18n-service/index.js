@@ -34,16 +34,6 @@ class I18nService {
     return this.state;
   }
 
-  // /**
-  //  * Установка состояния
-  //  * @param newState {Object}
-  //  */
-  // setState(newState) {
-  //   this.state = newState;
-  //   // Вызываем всех слушателей
-  //   for (const listener of this.listeners) listener(this.state);
-  // }
-
   /**
   * Перевод фразу по словарю
   * @param text {String} Текст для перевода
@@ -72,6 +62,9 @@ class I18nService {
   setLang (lang) {
     this.local = lang;
     this.listeners.forEach(listener => listener(lang));
+
+    // Устанавливаем код языка в АПИ
+    this.services.api.setHeader('X-Lang', lang);
   }
 
   /**
