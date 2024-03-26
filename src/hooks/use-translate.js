@@ -24,9 +24,8 @@ export default function useTranslate() {
   }, [i18n, locale])
 
   const setLocaleCallback = useCallback((value) => {
-    setLocale(value);
-    i18n.setLocale(value);
-  }, [i18n, locale])
+    return i18n.setLocale(value)
+  }, [i18n])
 
-  return {t, locale, setLocale: i18n.setLocale};
+  return {t, locale, setLocale: setLocaleCallback};
 }

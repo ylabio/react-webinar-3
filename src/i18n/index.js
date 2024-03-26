@@ -7,9 +7,6 @@ class I18nService {
     this.config = config;
     this.locale = config.locale;
     this.callbacks = [];
-
-    this.t = this.t.bind(this);
-    this.setLocale = this.setLocale.bind(this);
   }
 
   t(text, lang = this.locale) {
