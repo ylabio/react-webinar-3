@@ -28,8 +28,7 @@ export default function listToTree(list, key = '_id', dateTransformCallback) {
         trees[item.parent[key]] = {children: []};
         roots[item.parent[key]] = trees[item.parent[key]]
       }
-      // Добавления в подчиненные родителя
-      // trees[item.parent[key]].children.push({...item, dateCreate: transformedDate});
+      // Добавления в подчиненные родителя      
       trees[item.parent[key]].children.push({...trees[item[key]], dateCreate: transformedDate});
       // Так как элемент добавлен к родителю, то он уже не является корневым
       if (roots[item[key]]) delete roots[item[key]];
