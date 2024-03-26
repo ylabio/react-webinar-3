@@ -8,7 +8,7 @@ const ReplyLine = forwardRef(({id, link, level, location, onCancel, t}, ref) => 
   const cn = bem('ReplyLine');
 
   return (
-    <p className={cn('')} ref={ref} style={(id && level < 10) ? { paddingLeft: 30} : {}}><Link to={link} state={{back: location}}>{t('comments.replyLogin')}</Link>, {id ? t('comments.replyMessage') : t('comments.commentMessage')}. {id && 
+    <p className={cn('')} ref={ref} style={(id && level < 10) ? { paddingLeft: 30 * (level + 1)} : {}}><Link to={link} state={{back: location}}>{t('comments.replyLogin')}</Link>, {id ? t('comments.replyMessage') : t('comments.commentMessage')}. {id && 
       <span className={cn('cancel')} onClick={onCancel}>{t('comments.cancel')}</span>}
     </p>
   )

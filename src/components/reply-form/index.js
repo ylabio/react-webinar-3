@@ -7,7 +7,7 @@ const ReplyForm = forwardRef(({id, level, onSubmit, onCancel, t}, ref) => {
   const cn = bem('ReplyForm');
 
   return (
-    <form className={cn()} ref={ref} onSubmit={onSubmit} style={(id && level < 10) ? { paddingLeft: 30} : {}}>
+    <form className={cn()} ref={ref} onSubmit={onSubmit} style={(id && level < 10) ? { paddingLeft: 30 * (level + 1)} : {}}>
       <p className={cn('title')}>{id ? t('comments.newReply') : t('comments.newComment')}</p>
       <textarea className={cn('textarea')} name='comment' />
       <div>

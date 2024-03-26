@@ -16,7 +16,8 @@ function ArticleComments({comments}) {
 
   const dispatch = useDispatch();
 
-  const [commentId, setCommentId] = useState(null);
+  const [comment, setComment] = useState(null);
+  const [lastChild, setLastChild] = useState(null);
 
   const select = useSelector(state => ({
     user: state.session.user,
@@ -26,32 +27,38 @@ function ArticleComments({comments}) {
   const {t} = useTranslate();
 
   const callbacks = {
-    onReply: useCallback(event => {
-      setCommentId(event.target.value);
+    onReply: useCallback(comment => {
+      let lastChild = comment;
+      while (lastChild?.children.length > 0) {
+        lastChild = lastChild.children.at(-1)
+      }
+      setComment(comment);
+      setLastChild(lastChild);
     }, []),
     onCancel: useCallback(() => {
-      setCommentId(null);
+      setComment(null);
+      setLastChild(null);
     }, []),
     onSubmit: event => {
       event.preventDefault();
       const text = event.target.comment.value.trim();
-      if (text) dispatch(commentsActions.uploadComment(params.id, text, commentId));
+      if (text) dispatch(commentsActions.uploadComment(params.id, text, comment._id));
     },
   }
 
   const ref = useRef();
 
   useEffect(() => {
-    commentId && ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest'});
+    comment && ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest'});
   }, [ref.current])
 
-  const replyForm = (level) => select.exists
-    ? <ReplyForm id={commentId} level={level} ref={ref} onCancel={callbacks.onCancel} onSubmit={callbacks.onSubmit} t={t} />
-    : <ReplyLine exists={select.exists} id={commentId} level={level} ref={ref} location={location.pathname} onCancel={callbacks.onCancel} t={t} />;
+  const replyForm = () => select.exists
+    ? <ReplyForm id={comment?._id} level={comment?.level} ref={ref} onCancel={callbacks.onCancel} onSubmit={callbacks.onSubmit} t={t} />
+    : <ReplyLine exists={select.exists} id={comment?._id} level={comment?.level} ref={ref} location={location.pathname} onCancel={callbacks.onCancel} t={t} />;
 
   return <Comments 
     comments={comments} 
-    commentId={commentId}
+    commentId={lastChild?._id}
     currentUser={select.user}
     replyForm={replyForm}
     onReply={callbacks.onReply}
