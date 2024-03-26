@@ -1,0 +1,48 @@
+.CommentForm {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  margin-top: 30px;
+  padding-right: 40px;
+}
+
+.CommentForm-textarea {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
+  resize: none;
+  width: 100%;
+  min-height: 80px;
+}
+
+.CommentForm-title {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 14px;
+}
+.CommentForm-wrapper {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.CommentForm-send, .CommentForm-cancel {
+  box-sizing: border-box;
+  border: 1px solid rgb(118, 118, 118);
+  border-radius: 2px;
+  background: rgb(239, 239, 239);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 15px;
+  cursor: pointer;
+}
+
+.CommentForm-send:hover, .CommentForm-cancel:hover {
+  opacity: 0.7;
+}

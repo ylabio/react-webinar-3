@@ -1,0 +1,55 @@
+.CommentItem {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  padding-right: 40px;
+}
+
+.CommentItem-wrapper {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 10px;
+}
+
+.CommentItem-user {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 14px;
+}
+
+.CommentItem-date {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+  color: rgb(102, 102, 102);
+}
+
+.CommentItem-text {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  margin-top: 10px;
+  overflow-wrap: break-word;
+}
+
+.CommentItem-button {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+  color: rgb(0, 135, 233);
+  border: none;
+  background-color: transparent;
+  margin-top: 10px;
+  cursor: pointer;
+}
