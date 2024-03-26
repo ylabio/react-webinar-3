@@ -46,7 +46,6 @@ function FormComment({onSendComment, translate}) {
       <button 
         type="submit"
         className={cn("button")}
-        onClick={callbacks.onSendComment}
       >
         {translate("comments.send")}
       </button>

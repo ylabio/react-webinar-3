@@ -57,7 +57,6 @@ function FormReply({to, onSendReply, onCloseReply, translate}) {
       <button 
         type="submit" 
         className={cn("button")} 
-        onClick={callbacks.onSendReply}
       >
         {translate("comments.send")}
       </button>
