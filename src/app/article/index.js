@@ -38,6 +38,7 @@ function Article() {
 
   const data = useSelector(state => ({
     token: state.session.token,
+    _id: state.session.user._id
   }))
   const select = useSelectorRedux(state => ({
     article: state.article.data,
@@ -62,7 +63,7 @@ function Article() {
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
-      <CommentList list={select.list.items} count={select.list.count} id={params.id} auth={data.token ? true : false} t={t}/>
+      <CommentList list={select.list.items} count={select.list.count} id={params.id} auth={data.token ? true : false} t={t} user={data._id}/>
     </PageLayout>
   );
 }

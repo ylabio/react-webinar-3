@@ -21,6 +21,7 @@
 /* text */
 .Comment-text a{
     font-size: 14px;
+    word-wrap: break-word;
 }
 /* action*/
 .Comment-action span {

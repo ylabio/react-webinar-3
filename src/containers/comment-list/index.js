@@ -10,7 +10,7 @@ import commentsActions from '../../store-redux/comments/actions';
 import useTranslate from '../../hooks/use-translate';
 
 
-function CommentList({list, count, id, auth, t}) {
+function CommentList({list, count, id, auth, t, user}) {
   const params = useParams();
   const dispatch = useDispatch();
   const [Select, setSelect] = useState(id) // Выделение нужного комментария (По умолчанию выделения нет (На товаре))
@@ -34,7 +34,7 @@ function CommentList({list, count, id, auth, t}) {
     <div className='Comments-List'>  
     {comments 
       ? comments.map((item,index) => 
-        <Comment key={index} item={item} onSelect={onSelect} Select={Select} onComment={onComment} auth={auth} t={t} lang={lang}/>
+        <Comment key={index} item={item} onSelect={onSelect} Select={Select} onComment={onComment} auth={auth} t={t} lang={lang} user={user}/>
         ) 
       : ('')}
     {Select === id ? (<CommentInput type={'article'} id={id} onComment={onComment} auth={auth} t={t}/> ):('')} 
