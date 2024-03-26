@@ -13,13 +13,17 @@ function Comment({
   isAuth,
   article,
   t,
-  lang
+  lang,
+  nesting,
+  user
 }) {
+  const creator = comment.author.profile.name
   const cn = bem("Comment");
+  console.log(comment._id);
   return (
     <div className={cn()}>
       <div className={cn("upper")}>
-        <strong className={cn("author")}>{comment.author.profile.name}</strong>
+        <strong className={user === creator ? cn("authedAuthor") : cn("author")}>{comment.author.profile.name}</strong>
         <span className={cn("date")}> {formatDate(comment.dateCreate, lang)} </span>
       </div>
       <div className={cn("body")}> {comment.text} </div>
@@ -30,9 +34,11 @@ function Comment({
         {t("comments.answer")}
       </div>
       {comment.children.length ? (
-        <ul className={cn("answers")}>
+        <ul className={ nesting < 10 ? cn("answers") : cn("deepAnswers")}>
           {comment.children.map((comment) => (
             <Comment
+              user={user}
+              nesting={nesting+1}
               formPosition={formPosition}
               setFormPosition={setFormPosition}
               key={comment._id}

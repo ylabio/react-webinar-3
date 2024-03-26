@@ -24,7 +24,7 @@ function Commentaries({ id }) {
       waiting: state.comments.waiting,
     }), shallowequal);
 
-  const commentsTree = commentsToTree(select.comments, '_id', id)
+  const commentsTree = useMemo(() => commentsToTree(select.comments, '_id', id), [select.comments])
   
 
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ function Commentaries({ id }) {
   const session = useCustomSelector((state) => ({
     exists: state.session.exists,
     token: state.session.token,
-    user: state.session.user.profile
+    user: state.session.user.profile ?? {name: ''}
   }));
 
   const callbacks = {
@@ -42,7 +42,10 @@ function Commentaries({ id }) {
     }, [location.pathname]),
     addComment: useCallback((parentId, parentType, text) => {
       dispatch(commentsActions.add(parentId, parentType, text, session.user.name ))
-    }, [session.user])
+    }, [session.user]),
+    changeForm: useCallback((id) => {
+      setFormPosition(id)
+    }, [])
   };
 
 
@@ -59,10 +62,11 @@ function Commentaries({ id }) {
         count={select.count}
         comments={commentsTree}
         formPosition={formPosition}
-        setFormPosition={setFormPosition}
+        setFormPosition={callbacks.changeForm}
         isAuth={session.exists}
         onUnAuth={callbacks.onSignIn}
         onAdd={callbacks.addComment}
+        user={session.user.name}
       />
       {formPosition === "main" && <CommentForm t={t} article={id} parentId={id} onAdd={callbacks.addComment} type={"article"} isAuth={session.exists} onUnAuth={callbacks.onSignIn} />}
     </Spinner>

@@ -13,28 +13,34 @@ function CommentariesBlock({
   onUnAuth,
   onAdd,
   t,
-  lang
+  lang,
+  user
 }) {
   const cn = bem("CommentariesBlock");
+  const nesting = 0;
   return (
     <div className="CommentariesBlock">
-      <h2 className={cn("header")}>{t("comments.title")} ({count})</h2>
+      <h2 className={cn("header")}>
+        {t("comments.title")} ({count})
+      </h2>
       {comments
-        .filter((comment) => comment._id )
+        .filter((comment) => comment._id)
         .map((comment) => (
-        <Comment
-          onAdd={onAdd}
-          article={article}
-          formPosition={formPosition}
-          setFormPosition={setFormPosition}
-          key={comment._id}
-          comment={comment}
-          isAuth={isAuth}
-          onUnAuth={onUnAuth}
-          t={t}
-          lang={lang}
-        />
-      ))}
+          <Comment
+            user={user}
+            nesting={nesting + 1}
+            onAdd={onAdd}
+            article={article}
+            formPosition={formPosition}
+            setFormPosition={setFormPosition}
+            key={comment._id}
+            comment={comment}
+            isAuth={isAuth}
+            onUnAuth={onUnAuth}
+            t={t}
+            lang={lang}
+          />
+        ))}
     </div>
   );
 }

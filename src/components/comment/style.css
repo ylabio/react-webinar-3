@@ -1,13 +1,21 @@
+ul {
+  padding: 0;
+}
 .Comment {
   margin-bottom: 30px;
 }
 .Comment-upper {
   margin-bottom: 10px;
 }
-.Comment-author{
-    font-size: 12px;
-    font-weight: 700;
-    color: black;
+.Comment-author {
+  font-size: 12px;
+  font-weight: 700;
+  color: black;
+}
+.Comment-authedAuthor {
+  font-size: 12px;
+  font-weight: 700;
+  color: #666666;
 }
 .Comment-date {
   font-size: 12px;
@@ -15,19 +23,24 @@
   color: #666666;
   margin-left: 10px;
 }
-.Comment-body{
-    margin-bottom: 10px;
-    font-size: 14px;
+.Comment-body {
+  margin-bottom: 10px;
+  font-size: 14px;
+  word-wrap: break-word;
 }
-.Comment-footer{
-    text-align: start;
-    color: #0087E9;
-    font-size: 12px;
-    cursor: pointer;
+.Comment-footer {
+  text-align: start;
+  color: #0087e9;
+  font-size: 12px;
+  cursor: pointer;
 }
-.Comment-answers{
+.Comment-answers {
   margin: 0;
   list-style-type: none;
   padding-left: 40px;
   padding-top: 20px;
+}
+.Comment-deepAnswers {
+  margin: 0;
+  list-style-type: none;
 }
