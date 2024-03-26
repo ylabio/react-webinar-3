@@ -12,15 +12,17 @@ function Comments(props) {
       <div className={cn('container')}>
         {props.comments.map((item) => (
           <div key={item._id} className={cn('item')} style={item.level ? { paddingLeft: item.level < 10 ? item.level * 30 : 300 } : {}}>
-            <div className={cn('user')}><strong>{props.usernames[item.name._id]}</strong><span className={cn('date')}>{item.data}</span></div>
+            <div className={cn('user', item.author._id === props.currentUser._id && 'current-user')}>
+              <strong>{item.author.profile.name}</strong><span className={cn('date')}>{item.data}</span>
+            </div> 
             <div className={cn('text')}>{item.text}</div>
             <button className={cn('reply')} value={item._id} onClick={props.onReply}>{props.t('comments.reply')}</button>
-            {props.commentId === item._id && props.replyForm}
+            {props.commentId === item._id && props.replyForm(item.level)}
           </div>
         ))
         }
       </div>
-      {props.commentId === null && props.replyForm}
+      {props.commentId === null && props.replyForm()}
     </div>
   );
 }

@@ -14,6 +14,10 @@
   font-size: 12px;
 }
 
+.current-user {
+  color: #666666;
+}
+
 .Comments-date {
   margin-left: 10px;
   color: #666666;
@@ -22,6 +26,7 @@
 .Comments-text {
   font-size: 14px;
   padding: 10px 0;
+  overflow-wrap: break-word;
 }
 
 .Comments-reply {

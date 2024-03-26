@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect, useMemo} from 'react';
+import {memo, useCallback, useMemo} from 'react';
 import {useParams} from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
@@ -40,7 +40,6 @@ function Article() {
     article: state.article.data,
     waiting: state.article.waiting,
     comments: state.comments.data,
-    usernames: state.comments.usernames,
     commentsWaiting: state.comments.waiting,
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
@@ -51,16 +50,9 @@ function Article() {
 
   const comments = useMemo(() => [
       ...treeToList(listToTree(select.comments)[0]?.children ?? [], (item, level) => (
-        {_id: item._id, name: item.author, data: dateFormat(item.dateCreate, lang), text: item.text, level}
+        {...item, data: dateFormat(item.dateCreate, lang), level}
       ))
     ], [select.comments, lang]);
-
-  useEffect(() => {
-    if (comments.length) {
-      const usernames = new Set(comments.map(item => item.name._id));
-      dispatch(commentsActions.loadUsernames([...usernames]));
-    }
-  }, [comments]);
 
   return (
     <PageLayout>
@@ -73,7 +65,7 @@ function Article() {
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
       <Spinner active={select.commentsWaiting}>
-        <ArticleComments comments={comments} usernames={select.usernames} />
+        <ArticleComments comments={comments} />
       </Spinner>
     </PageLayout>
   );

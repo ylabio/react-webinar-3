@@ -1,13 +1,13 @@
-import {memo} from 'react';
+import {memo, forwardRef} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function ReplyForm({id, onSubmit, onCancel, t}) {
+const ReplyForm = forwardRef(({id, level, onSubmit, onCancel, t}, ref) => {
   const cn = bem('ReplyForm');
 
   return (
-    <form className={cn()}  onSubmit={onSubmit}>
+    <form className={cn()} ref={ref} onSubmit={onSubmit} style={(id && level < 10) ? { paddingLeft: 30} : {}}>
       <p className={cn('title')}>{id ? t('comments.newReply') : t('comments.newComment')}</p>
       <textarea className={cn('textarea')} name='comment' />
       <div>
@@ -16,10 +16,11 @@ function ReplyForm({id, onSubmit, onCancel, t}) {
       </div>
     </form>
   )
-}
+})
 
 ReplyForm.propTypes = {
   id: PropTypes.string,
+  level: PropTypes.number,
   onSubmit: PropTypes.func,
   onCancel: PropTypes.func,
   t: PropTypes.func,
@@ -27,6 +28,7 @@ ReplyForm.propTypes = {
 
 ReplyForm.defaultProps = {
   id: '',
+  level: 0,
   onSubmit: () => {},
   onCancel: () => {},
   t: () => {},

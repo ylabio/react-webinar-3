@@ -11,7 +11,7 @@ export default {
 
       try {
         const res = await services.api.request({
-          url: `/api/v1/comments?search[parent]=${id}&fields=*&limit=*`
+          url: `/api/v1/comments?search[parent]=${id}&fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type))&limit=*`
         });
         // Комментарии загружены успешно
         dispatch({type: 'comments/load-success', payload: {data: res.data.result.items}});
@@ -19,33 +19,6 @@ export default {
       } catch (e) {
         // Ошибка загрузки
         dispatch({type: 'comments/load-error', payload: {data: e}});
-      }
-    }
-  },
-
-  /**
-   * Загрузка пользователей
-   * @param array
-   * @return {Function}
-   */
-  loadUsernames: (array) => {
-    return async (dispatch, getState, services) => {
-      // Установка признака ожидания загрузки
-      dispatch({type: 'comments/load-start'})
-
-      try {
-        const res = await services.api.request({
-          url: `/api/v1/users?search[query]=${array.join('|')}&items(_id,profile(name))`
-        });
-        // Юзернеймы загружены успешно
-        dispatch({type: 'usernames/load-success', payload: {data: res.data.result.items.reduce((acc, curr) => {
-          acc[curr._id] = curr.profile.name
-          return acc;
-        }, [])}});
-
-      } catch (e) {
-        // Ошибка загрузки
-        dispatch({type: 'usernames/load-error', payload: {data: e}});
       }
     }
   },
@@ -63,8 +36,8 @@ export default {
       dispatch({type: 'comments/load-start'})
 
       try {
-        await services.api.request({
-          url: '/api/v1/comments',
+        const response = await services.api.request({
+          url: '/api/v1/comments?fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type)',
           method: 'POST',
           headers: {
             'accept': 'application/json'
@@ -78,7 +51,7 @@ export default {
           })
         });
         // Юзернеймы загружены успешно
-        dispatch({type: 'comments/upload-success'});
+        dispatch({type: 'comments/upload-success', payload: {data: response.data.result}});
 
       } catch (e) {
         // Ошибка загрузки

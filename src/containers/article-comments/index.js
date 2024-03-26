@@ -1,5 +1,5 @@
-import {memo, useCallback, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {memo, useCallback, useEffect, useRef, useState} from 'react';
+import {useLocation, useParams} from 'react-router-dom';
 import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
 import commentsActions from '../../store-redux/comments/actions';
@@ -8,9 +8,11 @@ import ReplyLine from '../../components/reply-line';
 import ReplyForm from '../../components/reply-form';
 import { useDispatch } from 'react-redux';
 
-function ArticleComments({comments, usernames}) {
+function ArticleComments({comments}) {
 
   const params = useParams();
+
+  const location = useLocation();
 
   const dispatch = useDispatch();
 
@@ -32,20 +34,25 @@ function ArticleComments({comments, usernames}) {
     }, []),
     onSubmit: event => {
       event.preventDefault();
-      const text = event.target.comment.value;
-      dispatch(commentsActions.uploadComment(params.id, text, commentId));
-      setTimeout(() => dispatch(commentsActions.load(params.id)), 100);
+      const text = event.target.comment.value.trim();
+      if (text) dispatch(commentsActions.uploadComment(params.id, text, commentId));
     },
   }
 
-  const replyForm = select.exists
-    ? <ReplyForm id={commentId} onCancel={callbacks.onCancel} onSubmit={callbacks.onSubmit} t={t} />
-    : <ReplyLine exists={select.exists} id={commentId} onCancel={callbacks.onCancel} t={t} />;
+  const ref = useRef();
+
+  useEffect(() => {
+    commentId && ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest'});
+  }, [ref.current])
+
+  const replyForm = (level) => select.exists
+    ? <ReplyForm id={commentId} level={level} ref={ref} onCancel={callbacks.onCancel} onSubmit={callbacks.onSubmit} t={t} />
+    : <ReplyLine exists={select.exists} id={commentId} level={level} ref={ref} location={location.pathname} onCancel={callbacks.onCancel} t={t} />;
 
   return <Comments 
     comments={comments} 
-    usernames={usernames} 
     commentId={commentId}
+    currentUser={select.user}
     replyForm={replyForm}
     onReply={callbacks.onReply}
     onCancel={callbacks.onCancel}

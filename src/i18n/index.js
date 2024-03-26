@@ -5,6 +5,8 @@ class I18n {
   /**
    * @param services {Services} Менеджер сервисов
    * @param config {Object}
+   * @param lang {String}
+   * @param listeners {Object}
    */
   constructor(services, config = {}) {
     this.services = services;
@@ -28,7 +30,6 @@ class I18n {
   /**
    * Перевод фразу по словарю
    * @param text {String} Текст для перевода
-   * @param lang {String} Код языка
    * @param [plural] {Number} Число для плюрализации
    * @returns {String} Переведенный текст
    */

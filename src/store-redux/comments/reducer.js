@@ -1,7 +1,6 @@
 // Начальное состояние
 export const initialState = {
   data: [],
-  usernames: [],
   waiting: false, // признак ожидания загрузки
   error: null,
 }
@@ -18,14 +17,8 @@ function reducer(state = initialState, action) {
     case "comments/load-error":
       return {...state, data: [], waiting: false, error: action.payload.data};
 
-    case "usernames/load-success":
-      return {...state, usernames: action.payload.data, waiting: false};
-
-    case "usernames/load-error":
-      return {...state, usernames: [], waiting: false, error: action.payload.data};
-
     case "comments/upload-success":
-      return {...state, waiting: false};
+      return {...state, data: [...state.data, action.payload.data], waiting: false};
 
     case "comments/upload-error":
       return {...state, waiting: false, error: action.payload.data};
