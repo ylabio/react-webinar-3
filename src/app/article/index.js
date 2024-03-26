@@ -19,17 +19,16 @@ import CommentsList from "../../containers/comments-list";
 
 function Article() {
   const store = useStore();
-
   const dispatch = useDispatch();
-
   const params = useParams();
+  const { t } = useTranslate();
 
   useInit(async () => {
     await Promise.all([
       dispatch(articleActions.load(params.id)),
       dispatch(articleCommentsActions.load(params.id)),
     ]);
-  }, [params.id]);
+  }, [params.id, t]);
 
   const select = useSelector(
     (state) => ({
@@ -42,8 +41,6 @@ function Article() {
     }),
     shallowequal
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
-
-  const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину

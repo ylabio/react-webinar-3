@@ -51,6 +51,7 @@ class I18nService {
   // Функция для смены локали
   setLang = (newLang) => {
     this.language = newLang;
+
     for (const listener of this.listeners) {
       listener(newLang);
     }
