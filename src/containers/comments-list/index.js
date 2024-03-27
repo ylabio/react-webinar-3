@@ -34,8 +34,6 @@ function CommentsList(props) {
     sending: state.comments.sending
   }), shallowequal);
 
-  const cancelAnswer = () => setParent(props.parent);
-
   useEffect(
     () => {
       if (parent._id !== props.parent._id) {
@@ -48,7 +46,7 @@ function CommentsList(props) {
   useEffect(
     () => {
       if (!select.sending && !select.message) {
-        cancelAnswer();
+        callbacks.cancelAnswer();
         setText('');
       }
       if (!select.sending && select.message) {
@@ -62,7 +60,15 @@ function CommentsList(props) {
     send: useCallback(() => dispatch(commentsActions.send(session.user, parent, text))),
     onSignIn: useCallback(() => {
       navigate('/login', {state: {back: location.pathname}});
-    }, [location.pathname])
+    }, [location.pathname]),
+    cancelAnswer: useCallback(() => {
+      setParent(props.parent);
+      setText('');
+    }),
+    setParent: useCallback((parent) => {
+      setParent(parent);
+      setText('');
+    })
   }
 
   const renders = {
@@ -76,7 +82,7 @@ function CommentsList(props) {
             lang={lang}
             isSelf={session.exists && session.user._id === item.author._id}
             labelAnswer={t('comments.answer')}
-            onAnswer={setParent}
+            onAnswer={callbacks.setParent}
             renderItem={renderItem}
           />
           { parent._id === item._id &&
@@ -86,7 +92,7 @@ function CommentsList(props) {
                 autoFocus={true}
                 t={t}
                 exists={session.exists}
-                onCancel={cancelAnswer}
+                onCancel={callbacks.cancelAnswer}
                 isCancelable={true}
                 text={text}
                 setText={setText}
@@ -117,6 +123,7 @@ function CommentsList(props) {
             text={text}
             setText={setText}
             disabled={select.sending}
+            onSubmit={callbacks.send}
             onSignIn={callbacks.onSignIn}/>
       }
     </>
