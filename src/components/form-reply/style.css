@@ -3,6 +3,12 @@
   flex-direction: column;
 }
 
+.FormReply-list-element {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 .FormReply-offset-0 {
   margin-left: 0;
 }

@@ -149,6 +149,7 @@ function Comments({ articleId, comments }) {
       if (replyTo) {
         return authSelect.sessionExists ? <FormReply
           to={replyTo.id}
+          key={`reply-form-${replyTo.lastReplyIndex}`}
           ref={scrollToRef}
           offset={replyTo.offset - 1}
           onSendReply={onSendReply}
@@ -157,6 +158,7 @@ function Comments({ articleId, comments }) {
         />
         : <CommentLoginPrompt
             ref={scrollToRef}
+            key={`login-prompt-${replyTo.lastReplyIndex}`}
             offset={replyTo.offset - 1}
             onLogin={onLogin}
             onCloseReply={onCloseReply}
@@ -169,6 +171,7 @@ function Comments({ articleId, comments }) {
 
     comment: useMemo(() => {
       return (authSelect.sessionExists && !replyOpen) ? <FormComment 
+        key={`form-comment-${articleId}`}
         onSendComment={onSendComment}
         t={translateService}  
       />
@@ -179,13 +182,14 @@ function Comments({ articleId, comments }) {
   return (
     <Spinner active={commentsSelect.waitingAfterPost}>
       <CommentsLayout
+        key={`comments-layout-${articleId}`}
         t={translateService}
       >
         {commentsList.map((comment, index) => {
           return (
             <> 
               <Comment
-                 key={`comment-${comment._id}`}
+                 key={`comment-${index}`}
                  own={comment.author?.profile.name === authSelect.user?.profile.name}
                  ref={comment.new ? scrollToRef : null}
                  comment={comment}

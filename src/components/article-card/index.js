@@ -40,7 +40,6 @@ ArticleCard.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
-  t: PropTypes.func
 };
 
 ArticleCard.defaultProps = {

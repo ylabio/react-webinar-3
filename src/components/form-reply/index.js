@@ -49,39 +49,42 @@ const FormReply = forwardRef(function FormReply({
     }
   }
 
-  return <form
-   ref={ref}
-   onSubmit={callbacks.onFormSubmit} 
-   onReset={callbacks.onFormReset} 
-   className={`${cn()} ${getOffsetClass(offset)}`}
-  >
-    <label className={cn("label")}>
-      {t.translate("comments.newReply")}
-      <textarea 
-        value={form.text} 
-        onChange={callbacks.onFormChange}
-        name="text"
-        id="text"
-        className={cn("textarea")} 
-      />
-    </label>
-    <div className={cn('form-buttons')}>
-      <button 
-        type="submit" 
-        disabled={form.text.trim().length === 0}
-        className={cn("button")} 
+  return 
+    <li className={cn('list-element')}>  
+      <form
+       ref={ref}
+       onSubmit={callbacks.onFormSubmit} 
+       onReset={callbacks.onFormReset} 
+       className={`${cn()} ${getOffsetClass(offset)}`}
       >
-        {t.translate("comments.send")}
-      </button>
-      <button 
-        type="reset" 
-        className={cn("button")} 
-        onClick={callbacks.onCloseReply}
-      >
-        {t.translate("comments.cancel")}
-      </button>
-    </div>      
-  </form>
+        <label className={cn("label")}>
+          {t.translate("comments.newReply")}
+          <textarea 
+            value={form.text} 
+            onChange={callbacks.onFormChange}
+            name="text"
+            id="text"
+          className={cn("textarea")} 
+        />
+        </label>
+        <div className={cn('form-buttons')}>
+          <button 
+            type="submit" 
+            disabled={form.text.trim().length === 0}
+            className={cn("button")} 
+          >
+            {t.translate("comments.send")}
+          </button>
+          <button 
+            type="reset" 
+            className={cn("button")} 
+            onClick={callbacks.onCloseReply}
+          >
+            {t.translate("comments.cancel")}
+          </button>
+        </div>      
+      </form>
+    </li>
 
 });
 

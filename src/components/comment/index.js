@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-const Comment = forwardRef(function Comment({ 
+const Comment = forwardRef(function Comment({
   comment, 
   onOpenReply,
   own,
@@ -33,7 +33,7 @@ const Comment = forwardRef(function Comment({
   };
 
   return comment && (
-    <div className={`${cn()} ${getOffsetClass(comment.offset)}`}>
+    <li className={`${cn()} ${getOffsetClass(comment.offset)}`}>
       <div ref={ref} className={cn('body')}>
         <div className={cn('heading')}>
           <span className={own ? cn('username-own') : cn('username')}>
@@ -51,7 +51,7 @@ const Comment = forwardRef(function Comment({
           {t.translate("comments.replyButton")}
         </button>
       </div>
-    </div>
+    </li>
   );
 });
 

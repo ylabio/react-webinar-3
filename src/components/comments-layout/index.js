@@ -8,9 +8,9 @@ function CommentsLayout({ children, commentForm, t }) {
       <h3 className="CommentsLayout-title">
         {`${t.translate("comments.title")}(${children ? children.length : 0})`}
       </h3>
-      <div className="CommentsLayout-comments">
+      <ul className="CommentsLayout-comments">
         {children}
-      </div>
+      </ul>
       {commentForm}
     </div>
   );
