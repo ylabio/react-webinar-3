@@ -6,7 +6,7 @@ import CommentArea from '../comment-area';
 import './style.css';
 
 function ArticleComments(props) {
-	const {comments, count, session, onOpenReply, onCloseReply, onAddComment, onAddReply, t} = props
+	const {comments, count, session, onOpenReply, onCloseReply, onAddComment, onAddReply, t, path, location} = props
   const cn = bem('ArticleComments');
 
 	const [isShown, setIsShown] = useState(true);
@@ -34,10 +34,11 @@ function ArticleComments(props) {
 								 onOpenReply={callbacks.openReply}
 								 onCloseReply={callbacks.closeReply}
 								 onAddReply={onAddReply}	
-								 path="/login"
-								 t={t}/>
+								 path={path}
+								 t={t}
+								 location={location}/>
       ))}
-			{isShown && <CommentArea session={session} onAddComment={onAddComment} path="/login" t={t}/>}
+			{isShown && <CommentArea session={session.exists} onAddComment={onAddComment} path={path} t={t} location={location}/>}
     </div>
   );
 }
@@ -47,12 +48,13 @@ ArticleComments.propTypes = {
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   })).isRequired,
   count: PropTypes.number,
-	session: PropTypes.bool,
+	session: PropTypes.shape({exists: PropTypes.bool}).isRequired,
 	onOpenReply: PropTypes.func,
 	onCloseReply: PropTypes.func,
 	onAddComment: PropTypes.func,
 	onAddReply: PropTypes.func,
-	t: PropTypes.func
+	t: PropTypes.func,
+	location: PropTypes.string,
 };
 
 export default memo(ArticleComments);

@@ -1,5 +1,5 @@
 import {memo, useCallback, useMemo} from 'react';
-import {useParams} from 'react-router-dom';
+import {useLocation, useParams} from 'react-router-dom';
 import useInit from '../../hooks/use-init';
 import Spinner from '../../components/spinner';
 import ArticleComments from '../../components/article-comments';
@@ -15,6 +15,7 @@ import useTranslate from "../../hooks/use-translate";
 function Comments() {
 	const dispatch = useDispatch();
 	const params = useParams();
+	const location = useLocation();
 
   useInit(() => {
     dispatch(commentsActions.load(params.id));
@@ -27,7 +28,8 @@ function Comments() {
   }), shallowequal);
 
 	const session = useSelector((state) => ({
-		exists: state.session.exists
+		exists: state.session.exists,
+		user: state.session.user,
 	}))
 
 	const callbacks = {
@@ -41,27 +43,25 @@ function Comments() {
 
 		addComment: useCallback((text) => {
       const data = {
-        text,
+        text: text.trim(),
         parent: {
 					_id: params.id,
 					_type: "article",
 				},
       };
-      dispatch(commentsActions.addComment(data))
-				.then(() => dispatch(commentsActions.load(params.id)));
+      if (data.text) dispatch(commentsActions.addComment(data))
     }, []), 
 
 		addReply: useCallback((text, commentId) => {
       const data = {
-        text,
+        text: text.trim(),
         parent: {
 					_id: commentId,
 					_type: "comment",
 				},
       };
 
-			dispatch(commentsActions.addComment(data))
-				.then(() => dispatch(commentsActions.load(params.id)));
+			if (data.text) dispatch(commentsActions.addComment(data))
     }, []),
 	}
 
@@ -78,12 +78,14 @@ function Comments() {
 		<Spinner active={select.waiting}>
 			<ArticleComments comments={comments}
 											 count={select.count}
-											 session={session.exists}
+											 session={session}
 											 onOpenReply={callbacks.openReply}
       								 onCloseReply={callbacks.closeReply}
 											 onAddComment={callbacks.addComment}
 											 onAddReply={callbacks.addReply}
-											 t={t}/>
+											 t={t}
+											 path="/login"
+											 location={location.pathname}/>
 		</Spinner>
   );
 }

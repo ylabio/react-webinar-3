@@ -37,7 +37,7 @@ function reducer(state = initialState, action) {
       };
 
 		case "comments/add-success":
-      return {...state, waiting: false};
+      return {...state, data: [...state.data, action.payload.data], waiting: false, count: state.count + 1};
 
     default:
       // Нет изменений

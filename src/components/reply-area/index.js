@@ -4,7 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import "./style.css";
 
-function ReplyArea({onAdd, onClose, session = false, path, t}) {
+function ReplyArea({onAdd, onClose, session = false, path, t, location}) {
   const [value, setValue] = useState('');
 
   const onChange = (e) => {
@@ -15,6 +15,7 @@ function ReplyArea({onAdd, onClose, session = false, path, t}) {
     onSubmit: useCallback((e) => {
       e.preventDefault();
       onAdd(value);
+			onClose()
     }),
   };
 
@@ -33,7 +34,7 @@ function ReplyArea({onAdd, onClose, session = false, path, t}) {
 				</div>
 			) : (
 				<div className={cn('auth')}>
-					<Link to={path}>{t("comments.replyLogin")}</Link>, {t("comments.replyMessage")}.{' '}
+					<Link to={path} state={{back: location}}>{t("comments.replyLogin")}</Link>, {t("comments.replyMessage")}.{' '}
 					<span onClick={onClose}>{t("comments.cancel")}</span>
 				</div>
 			)}
@@ -47,6 +48,7 @@ ReplyArea.propTypes = {
   onClose: PropTypes.func,
   onAdd: PropTypes.func,
 	t: PropTypes.func,
+	location: PropTypes.string,
 };
 
 export default memo(ReplyArea);

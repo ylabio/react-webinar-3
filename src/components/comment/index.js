@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 import ReplyArea from '../reply-area';
 import './style.css';
 
-function Comment({item, session, onOpenReply, onCloseReply, onAddReply, path, t}) {
+function Comment({item, session, onOpenReply, onCloseReply, onAddReply, path, t, location}) {
 
   const cn = bem('Comment');
   return (
-    <div className={cn()} style={{paddingLeft: `${item.level && 30 * item.level}px`}}>
+    <div className={cn()} style={item.level ? {paddingLeft: item.level < 10 ? item.level * 30 : 300} : {}}>
       <div className={cn('info')}>
-        <div className={cn('user')}>{item.author.profile.name}</div>
+        <div className={cn(item.author.profile.name === session?.user?.profile?.name ? 'current-user' : 'user')}>
+					{item.author.profile.name}
+				</div>
         <div className={cn('date')}>
           {item.dateCreate}
         </div>
@@ -20,7 +22,11 @@ function Comment({item, session, onOpenReply, onCloseReply, onAddReply, path, t}
         {t("comments.reply")}
       </span>
 			{item.openReply && (
-				<ReplyArea session={session} onClose={onCloseReply} onAdd={(value) => onAddReply(value, item._id)} path={path} t={t}/>
+				<ReplyArea session={session.exists} 
+									 onClose={onCloseReply} 
+									 onAdd={(value) => onAddReply(value, item._id)} path={path} 
+									 t={t} 
+									 location={location}/>
 			)}
     </div>
   );
@@ -28,12 +34,13 @@ function Comment({item, session, onOpenReply, onCloseReply, onAddReply, path, t}
 
 Comment.propTypes = {
   item: PropTypes.shape({}),
-  session: PropTypes.bool,
+  session: PropTypes.shape({exists: PropTypes.bool}).isRequired,
   path: PropTypes.string,
   onOpenReply: PropTypes.func,
   onCloseReply: PropTypes.func,
   onAddReply: PropTypes.func,
 	t: PropTypes.func,
+	location: PropTypes.string,
 };
 
 export default memo(Comment);

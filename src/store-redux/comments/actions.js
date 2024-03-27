@@ -38,13 +38,13 @@ export default {
       dispatch({type: 'comments/load-start'});
 
       try {
-        await services.api.request({
-          url: "/api/v1/comments",
+        const res = await services.api.request({
+          url: "/api/v1/comments?fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type)",
           method: "POST",
           body: JSON.stringify(data),
         });
 
-        dispatch({type: "comments/add-success"});
+        dispatch({type: "comments/add-success",  payload: {data: res.data.result}});
       } catch (error) {
         dispatch({type: 'comments/load-error'});
       }

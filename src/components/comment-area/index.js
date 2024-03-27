@@ -4,7 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import "./style.css";
 
-function CommentArea({onAddComment, session = false, path, t}) {
+function CommentArea({onAddComment, session = false, path, t, location}) {
   const [value, setValue] = useState('');
 
   const onChange = (e) => {
@@ -32,7 +32,7 @@ function CommentArea({onAddComment, session = false, path, t}) {
 				</div>
 			) : (
 				<div>
-					<Link to={path}>{t("comments.replyLogin")}</Link>, {t("comments.commentMessage")}
+					<Link to={path} state={{back: location}}>{t("comments.replyLogin")}</Link>, {t("comments.commentMessage")}
 				</div>
 			)}
 		</>
@@ -44,6 +44,7 @@ CommentArea.propTypes = {
   path: PropTypes.string,
   onAddComment: PropTypes.func,
 	t: PropTypes.func,
+	location: PropTypes.string,
 };
 
 export default memo(CommentArea);
