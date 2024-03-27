@@ -9,19 +9,26 @@ import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
-
+import I18NService from '../../i18n';
+import useServices from '../../hooks/use-services';
+import config from '../../config';
 function Main() {
 
   const store = useStore();
+  // const services = useServices()
+  // const i18n = new I18NService(services, config)
+
+  const {t, lang} = useTranslate();
 
   useInit(async () => {
+    console.log("Init");
     await Promise.all([
       store.actions.catalog.initParams(),
       store.actions.categories.load()
     ]);
-  }, [], true);
+  }, [lang], true);
 
-  const {t} = useTranslate();
+  
 
   return (
     <PageLayout>

@@ -1,0 +1,22 @@
+textarea{
+    resize: none;
+}
+.CommentForm{
+    padding: 20px 40px;
+}
+.CommentForm-title{
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 700;
+}
+/* .CommentForm */
+.CommentForm-body{
+    padding: 4px 5px;
+    min-height: 76px;
+    width: 100%;
+    border: 1px solid #666666;
+    margin-bottom: 10px;
+}
+.CommentForm-send{
+    margin-right: 10px;
+}

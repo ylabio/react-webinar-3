@@ -1,0 +1,13 @@
+.LoginLabel{
+    margin: 0;
+    padding: 20px 40px;
+}
+.LoginLabel span{
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.LoginLabel .LoginLabel-cancel{
+    color: #999;
+    text-decoration: underline;
+}

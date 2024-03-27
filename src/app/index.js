@@ -11,11 +11,18 @@ import Profile from './profile';
 import Protected from '../containers/protected';
 import {useSelector as useSelectorRedux} from 'react-redux';
 
+// import config from '../config';
+// import useServices from '../hooks/use-services';
+// import I18NService from '../i18n';
+
 /**
  * Приложение
  * @returns {React.ReactElement}
  */
 function App() {
+  // const services = useServices()
+  // const i18n = new I18NService(services, config)
+
 
   const store = useStore();
   useInit(async () => {

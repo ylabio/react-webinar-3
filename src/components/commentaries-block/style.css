@@ -1,0 +1,13 @@
+h2{
+    margin: 0;
+}
+
+.CommentariesBlock{
+    padding: 20px 40px 0
+}
+.CommentariesBlock-header{
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 30px;
+    margin-bottom: 25px;
+}

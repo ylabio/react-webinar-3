@@ -9,6 +9,7 @@ class APIService {
     this.config = config
     this.defaultHeaders = {
       'Content-Type': 'application/json',
+      'X-Lang': 'ru'
     }
   }
 
@@ -36,6 +37,7 @@ class APIService {
    * @param value {String|null} Значение заголовка
    */
   setHeader(name, value = null) {
+    console.log("Changed header");
     if (value) {
       this.defaultHeaders[name] = value;
     } else if (this.defaultHeaders[name]) {
