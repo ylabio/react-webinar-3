@@ -17,6 +17,7 @@ const config = {
   },
   api: {
     baseUrl: "",
+    language: "ru",
   },
   i18n: {
     language: "ru",
