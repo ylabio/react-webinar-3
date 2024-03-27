@@ -18,11 +18,13 @@
   padding: 30px 0px;
 }
 
-.CommentForm-auth a{
-  color: rgb(0, 135, 233);
-}
-.CommentForm-auth span{
+.CommentForm-cencel{
   color: rgb(102, 102, 102);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.CommentForm-login{
+  color: rgb(0, 135, 233);
   text-decoration: underline;
   cursor: pointer;
 }

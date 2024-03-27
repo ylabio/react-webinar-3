@@ -1,17 +1,18 @@
 import {memo, useState} from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import { Link } from 'react-router-dom';
 
-function CommentsForm({addNewComment,isAuth,t}) {
+function CommentsForm({addNewComment,isAuth,t,onSignIn}) {
 
   let [comment , setComment] = useState('')
 
   function addComment(){
-    addNewComment(comment)
-    setComment("")
+    if (comment.length>0){
+      addNewComment(comment)
+      setComment("")
+    }
   }
-  if(!isAuth) return <div className='CommentsForm-auth'><Link to={'/login'}>{t('comment.login')}</Link>, чтобы иметь возможность комментировать</div>
+  if(!isAuth) return <div className='CommentsForm-auth'><span className='CommentsForm-login' onClick={onSignIn}>{t('comment.login')}</span>, чтобы иметь возможность комментировать</div>
   return (
     <div className='CommentsForm' >
       <label className='CommentsForm-label' htmlFor="CommentsFormArea">{t('comment.newComment')}</label>
@@ -24,11 +25,13 @@ function CommentsForm({addNewComment,isAuth,t}) {
 CommentsForm.propTypes = {
   isAuth:PropTypes.string,
   addNewComment:PropTypes.func,
+  onSignIn:PropTypes.func,
   t:PropTypes.func
 };
 
 CommentsForm.defaultProps = {
   addNewComment: () => {},
+  onSignIn: () => {},
   t: () => {},
 }
 

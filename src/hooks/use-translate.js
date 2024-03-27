@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import useServices from './use-services';
 
 /**
@@ -16,9 +16,17 @@ export default function useTranslate() {
     setLang(value);
   };
 
-  i18n.subscribe((value) => {
-    setLang(value);
-  })
+  useEffect(() => {
+    const handleLangChange = (value) => {
+      setLang(value);
+    };
+
+    const unsubscribe = i18n.subscribe(handleLangChange);
+
+    return () => {
+      unsubscribe()
+    };
+  }, [lang]);
 
   return {lang, changeLang, t};
 }

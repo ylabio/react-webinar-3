@@ -8,8 +8,10 @@
 .CommentsForm-label{
   font-weight: 700;
 }
-.CommentsForm-auth a{
+.CommentsForm-login{
   color: rgb(0, 135, 233);
+  text-decoration: underline;
+  cursor: pointer;
 }
 .CommentsForm-field{
   width: 100%;

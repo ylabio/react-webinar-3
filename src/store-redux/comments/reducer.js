@@ -1,7 +1,8 @@
 // Начальное состояние
 export const initialState = {
   data: [],
-  waiting: false // признак ожидания загрузки
+  waiting: false, // признак ожидания загрузки
+  newCommentId:''
 }
 
 // Обработчик действий
@@ -11,7 +12,7 @@ function reducer(state = initialState, action) {
       return {...state, data: [], waiting: true};
 
     case "comments/add-success":
-      return {...state, data: [...state.data, action.payload], waiting: false};
+      return {...state, data: [...state.data, action.payload], waiting: false, newCommentId:action.payload._id};
 
     case "comments/add-error":
       return {...state, waiting: false};

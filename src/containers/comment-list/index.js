@@ -1,5 +1,6 @@
-import {memo, useCallback, useEffect, useMemo, useState} from 'react';
+import {memo, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useDispatch, useSelector as useSelectorRedux, useStore} from 'react-redux';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import useTranslate from '../../hooks/use-translate';
 import Spinner from '../../components/spinner';
 import commentsActions from '../../store-redux/comments/actions';
@@ -15,6 +16,8 @@ import useSelector from '../../hooks/use-selector';
 
 function CatalogList({productId}) {
 
+  const commentRef = useRef(null);
+
   useInit(() => {
     dispatch(commentsActions.load(productId));
   }, []);
@@ -23,11 +26,17 @@ function CatalogList({productId}) {
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate()
+
+  const location = useLocation()
+
   let [activeComment, setActiveComment]=useState(null)
+  let [highlightedComment, setHighlightedComment] = useState(null);
 
   const selectRedux = useSelectorRedux(state => ({
     comments: state.comments.data,
     waiting: state.comments.waiting,
+    newCommentId: state.comments.newCommentId,
   }), shallowEqual);
 
   const select = useSelector(state => ({
@@ -47,6 +56,21 @@ function CatalogList({productId}) {
     dispatch(commentsActions.addComment(commentId,type,comment,select.activeUserName))
   }
   
+  useEffect(()=>{
+    if(commentRef.current){
+      commentRef.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
+      setHighlightedComment(selectRedux.newCommentId);
+      setTimeout(() => {
+        setHighlightedComment(null);
+      }, 2000);
+    }
+  },[selectRedux.newCommentId])
+
+  const callbacks = {
+  onSignIn: useCallback(() => {
+    navigate('/login', {state: {back: location.pathname}});
+  }, [location.pathname])}
+  
   const renders = {
     comment: useCallback(comment => {
       let data={
@@ -57,8 +81,8 @@ function CatalogList({productId}) {
         indentation:comment.level-1
       }
       return ( 
-      <Comment data={data} current={activeComment} isAuth={select.activeUserName} setActiveComment={setActiveComment} 
-      resetCurrentForm={resetCurrentForm} addAnswerComment={addAnswerComment} t={t}/>
+      <Comment highlightedComment={highlightedComment} ref={comment._id===selectRedux.newCommentId?commentRef:null} data={data} current={activeComment} isAuth={select.activeUserName} setActiveComment={setActiveComment} 
+      resetCurrentForm={resetCurrentForm} addAnswerComment={addAnswerComment} t={t} onSignIn={callbacks.onSignIn}/>
     )}, [activeComment,select.activeUserName,t]),
   };
 
@@ -73,7 +97,7 @@ function CatalogList({productId}) {
   return (
     <Spinner active={selectRedux.waiting}>
       <Comments t={t} list={options?.comments} renderItem={renders.comment}/>
-      {!activeComment && <CommentsForm t={t} productId={selectRedux.comments} addNewComment={addNewComment} isAuth={select.activeUserName}/>}
+      {!activeComment && <CommentsForm t={t} productId={selectRedux.comments} addNewComment={addNewComment} isAuth={select.activeUserName} onSignIn={callbacks.onSignIn}/>}
     </Spinner>
   );
 }
