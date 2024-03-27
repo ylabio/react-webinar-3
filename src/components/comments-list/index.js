@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
 import Comment from '../comment/index'

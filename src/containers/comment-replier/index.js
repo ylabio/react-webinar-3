@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback} from 'react';
 import CommentReplierForm from "../../components/comment-replier-form";
 import useSelector from "../../hooks/use-selector";
 import CommentReminder from "../../components/comment-reminder";
@@ -13,7 +13,6 @@ const CommentReplier = ({ parent }) => {
   const dispatch = useDispatch()
   const location = useLocation()
   const navigate = useNavigate()
-  const params = useParams()
 
   const select = useSelector(state => ({
     user: state.session.user._id,

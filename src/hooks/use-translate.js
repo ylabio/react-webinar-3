@@ -9,20 +9,22 @@ export default function useTranslate() {
   return useContext(I18nContext);
 }
 
-// export function useServiceTranslate() {
-//   return useServices().translation
-// }
-
 export function useServiceTranslate() {
   const ts = useServices().translation
 
   const [locale, setLocale] = useState(ts.locale)
-  ts.locale = locale
+
+  useEffect(() => {
+    const updateLocale = () => setLocale(ts.locale)
+    ts.onLocaleChange(updateLocale)
+
+    return () => ts.offLocaleChange(updateLocale)
+  }, [ts])
 
   return {
     locale,
     translate: (text, lang = locale, plural) => ts.translate(text, lang, plural),
-    setLocale: (newLocale) => setLocale(newLocale)
+    setLocale: (newLocale) => ts.locale = newLocale
   }
 
 }
