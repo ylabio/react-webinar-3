@@ -5,10 +5,12 @@
   line-height: 18.4px;
 }
 
-.LoginMessage p > a {
+.LoginMessage p > span {
   color: #0087E9;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
-.LoginMessage p > a:last-child {
+.LoginMessage p > span:last-child {
   color: #666666;
 }

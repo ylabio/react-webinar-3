@@ -1,6 +1,6 @@
-import {memo} from 'react';
+import {memo, useCallback} from 'react';
 import './style.css';
-import {Link} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 
@@ -8,9 +8,23 @@ import PropTypes from "prop-types";
 function LoginMessage({text, id, callback, link}) {
   const cn = bem('LoginMessage');
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const callbacks = {
+    // Переход к авторизации
+    onSignIn: useCallback(() => {
+      navigate(link, {state: {back: location.pathname}});
+    }, [location.pathname, link, navigate]),
+
+  }
+
+
   return (
     <div className={cn()}>
-      <p><Link to={link}>Войдите</Link>,<span>{text}</span>{id && <Link onClick={callback}>Отмена</Link>}</p>
+      <p><span onClick={callbacks.onSignIn}>Войдите</span>,<span style={{color:'black', textDecoration:'none' }}>{text}</span>
+        {
+          id && <span  onClick={callback}>Отмена</span>}</p>
     </div>
   )
 }

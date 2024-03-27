@@ -24,8 +24,7 @@ function Article() {
 
   const store = useStore();
   const [showFormId, setShowFormId] = useState(null)
-  const loggedUserId = useSelector(state => state.session.user._id)
-  const loggedIn = useSelector(state => state.session.user._id)
+  const loggedUser = useSelector(state => state.session.user)
 
 
   const dispatch = useDispatch();
@@ -35,12 +34,12 @@ function Article() {
 
   useInit(() => {
     dispatch(articleActions.load(params.id));
-  }, [dispatch]);
+  }, [dispatch, params.id,loggedUser]);
 
   const select = useSelectorRedux(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    comments: state.comments.data
+    comments: state.comments.data,
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
 
@@ -56,7 +55,6 @@ function Article() {
     onComment: useCallback((text) => dispatch(commentsActions.addComment(text, params.id)), []),
     onAnswer: useCallback((text, _id) => dispatch(commentsActions.addAnswer(text, _id)), []),
 
-
   }
 
   return (
@@ -68,8 +66,9 @@ function Article() {
       <Navigation/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
-        <CommentsBlock onAnswer={callbacks.onAnswer} onComment={callbacks.onComment} comments={sortedList}
-                       loggedIn={loggedIn}  loggedUserId={loggedUserId}
+        <CommentsBlock link={'/login'} onAnswer={callbacks.onAnswer} onComment={callbacks.onComment}
+                       comments={sortedList}
+                       loggedUser={loggedUser}
                        showFormId={showFormId} setShowFormId={setShowFormId}/>
       </Spinner>
     </PageLayout>

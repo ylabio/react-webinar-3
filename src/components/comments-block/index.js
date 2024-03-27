@@ -14,7 +14,7 @@ import LoginMessage from "../login-message";
 function CommentsBlock(props) {
   const commentListRef = useRef(null);
   const commentFormRef = useRef(null);
-
+  console.log(props.loggedUser)
   const scrollToLastComment = () => {
     if (commentFormRef.current) {
       commentFormRef.current.scrollIntoView({behavior: 'smooth'});
@@ -28,7 +28,7 @@ function CommentsBlock(props) {
   useInit(() => {
     props.setShowFormId(null)
     dispatch(commentsActions.loadComments(params.id)).then(scrollToLastComment);
-  }, [dispatch]);
+  }, [dispatch, params.id, props.loggedUser]);
 
 
   const cn = bem('CommentsBlock');
@@ -45,24 +45,24 @@ function CommentsBlock(props) {
                  style={{paddingLeft: `${(comm.level - 1) * 30}px`}}>
               <div className={cn('nameDate')}>
                 <span
-                  className={props.loggedUserId !== comm.author._id ? cn('name') : ''}>{comm.author?.profile?.name}</span>
+                  className={props.loggedUser._id !== comm.author._id ? cn('name') : ''}>{comm.author?.profile?.name ? comm.author?.profile?.name : props.loggedUser?.profile?.name }</span>
                 <span>{formatDate(comm.dateCreate)}</span>
               </div>
               <div className={cn('text')}>{comm.text}</div>
               <Link onClick={() => props.setShowFormId(comm._id)} className={cn('button')}>Ответить</Link>
-              {props.showFormId === comm._id && props.loggedIn &&
+              {props.showFormId === comm._id && props.loggedUser._id &&
                 <CommentForm setShowFormId={props.setShowFormId} showFormId={comm._id} title={'Новый ответ'}
                              callback={(text) => props.onAnswer(text, comm._id)}/>}
-              {!props.loggedIn && props.showFormId === comm._id &&
-                <LoginMessage link={'/login'} callback={() => setShowFormId(null)} id={comm._id}
+              {!props.loggedUser._id && props.showFormId === comm._id &&
+                <LoginMessage link={props.link} callback={() => props.setShowFormId(null)} id={comm._id}
                               text={' чтобы иметь возможность ответить. '}/>}
             </div>
           )
         }
       )}
-      {!props.loggedIn && !props.showFormId &&
-        <LoginMessage link={'/login'} text={' чтобы иметь возможность комментировать.'}/>}
-      {props.loggedIn && !props.showFormId &&
+      {!props.loggedUser._id && !props.showFormId &&
+        <LoginMessage link={props.link} text={' чтобы иметь возможность комментировать.'}/>}
+      {props.loggedUser._id && !props.showFormId &&
         <CommentForm ref={commentFormRef} title={'Новый комментарий'} callback={props.onComment}/>}
     </div>
   );
