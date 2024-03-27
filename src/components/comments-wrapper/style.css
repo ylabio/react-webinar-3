@@ -1,0 +1,10 @@
+.CommentsWrapper {
+    padding-top: 50px;
+    margin: 0;
+    padding-bottom: 92px;
+}
+
+.CommentsWrapper-amount {
+    padding-left: 40px;
+    font-size: 24px;
+}

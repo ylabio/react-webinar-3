@@ -6,3 +6,9 @@
 .Input_theme_big {
   width: 300px;
 }
+
+.Input_theme_comment {
+  font-size: 14px;
+  height: 76px;
+  resize: none;
+}
