@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 const CommentReminder = ({ parent, login, setReplierActive }) => {
   const style = parent === 'comment' ? {
     padding: 0,
-    marginTop: '25px'
+    margin: '25px 0',
   } : {}
 
   const cn = bem('CommentReminder')
@@ -17,7 +17,7 @@ const CommentReminder = ({ parent, login, setReplierActive }) => {
   }
 
   return (
-    <div style={style} className={cn()}>
+    <div style={style} id={parent === 'comment' ? 'replyTo' : ''} className={cn()}>
       <Link to={login}>Войдите</Link>, чтобы иметь возможность {parent === 'article' ? 'комментировать' : 'ответить'}.
       {' '}{parent === 'comment' && <span onClick={onCancelClick}>Отмена</span>}
     </div>
