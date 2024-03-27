@@ -14,6 +14,9 @@
         color: #666666;
 }
 .Comment-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
     padding: 10px 0;
     margin: 0;
         font-size: 14px;
