@@ -24,6 +24,7 @@ const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onRep
                 onReply={() => onReply(comment._id)}
                 baseIndent={baseIndent}
                 answer={answer}
+                name={name}
             />
             
             {activeForm === `replyTo-${comment._id}` && (

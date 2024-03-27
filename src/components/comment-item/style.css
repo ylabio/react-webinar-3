@@ -7,6 +7,13 @@
     line-height: 13.8px;
     padding-right: 10px;
 }
+.Comment-author-logged {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 13.8px;
+    padding-right: 10px;
+    color: #666;
+}
 .Comment-date {
     font-weight: 400;
         font-size: 12px;

@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import formatDate from '../../utils/date-format';
-function Comment({ author, date, text, onReply, level, baseIndent,answer }) {
+function Comment({ author, date, text, onReply, level, baseIndent,answer,name }) {
     const cn = bem('Comment');
     const paddingLeft = baseIndent * level + 40;
     const formattedDate = formatDate(date);
-    
+    const isAuthorLoggedIn = author === name;
 
     return (
         <div className={`${cn()}`} style={{ paddingLeft: `${paddingLeft}px` }}>
             <div className={cn('header')}>
-                <span className={cn('author')}>{author}</span>
+                <span className={cn(isAuthorLoggedIn ? 'author-logged' : 'author')}>{author}</span>
                 <span className={cn('date')}>{formattedDate}</span>
             </div>
             <div className={cn('body')}>
