@@ -4,6 +4,7 @@ import { cn as bem } from '@bem-react/classname';
 import CommentList from '../comment-list';
 import CommentForm from '../comment-form';
 import './style.css';
+import useTranslate from '../../hooks/use-translate';
 
 function CommentSection(props) {
   const cn = bem('CommentSection');
@@ -29,7 +30,7 @@ function CommentSection(props) {
               t={props.t} />
             :
             <div className={cn('footer')}>
-              <a href="#" onClick={props.handleLogin}>Войдите</a>, чтобы иметь возможность комментировать
+              <a href="#" onClick={props.handleLogin}>{props.t('comment.log_in')}</a>,&nbsp;{props.t('comment.to_comment')}
             </div>
           }
         </>

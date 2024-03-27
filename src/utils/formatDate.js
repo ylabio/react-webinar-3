@@ -1,7 +1,21 @@
+import useTranslate from "../hooks/use-translate";
+
 export default function formatDate(inputDate) {
+
+	const {t} = useTranslate();
+
 	const months = [
-		"января", "февраля", "марта", "апреля", "мая", "июня",
-		"июля", "августа", "сентября", "октября", "ноября", "декабря"
+		t('comment.january'),
+		t('comment.february'),
+		t('comment.march'),
+		t('comment.april'),
+		t('comment.june'),
+		t('comment.july'),
+		t('comment.august'),
+		t('comment.september'),
+		t('comment.october'),
+		t('comment.november'),
+		t('comment.december'),
 	];
 
 	const date = new Date(inputDate);
@@ -12,7 +26,7 @@ export default function formatDate(inputDate) {
 	const hours = date.getHours();
 	const minutes = date.getMinutes();
 
-	const formattedDate = `${day} ${month} ${year} в ${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+	const formattedDate = `${day} ${month} ${year} ${t('comment.at')} ${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
 
 	return formattedDate;
 }

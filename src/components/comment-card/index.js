@@ -58,7 +58,7 @@ function CommentCard({ comment, depth, replyingTo, onReply, handleCommentSubmit,
       <div className={cn('body')}>
         <div className={cn('text')}>{formatTextWithLineBreaks(comment.text)}</div>
       </div>
-      <a href='/' className={cn('answer-btn')} onClick={(e) => handleReply(e, comment._id)}>{t('comment.answer')}</a>
+      <a href='/' className={cn('reply-btn')} onClick={(e) => handleReply(e, comment._id)}>{t('comment.reply')}</a>
       <CommentList list={comment.children} renderItem={renders.item} />
       {replyingTo === comment._id &&
         <>
@@ -71,7 +71,7 @@ function CommentCard({ comment, depth, replyingTo, onReply, handleCommentSubmit,
               t={t} />
             :
             <div className={cn('footer')} id='new_comment'>
-              <a href="#" onClick={handleLogin}>Войдите</a>, чтобы иметь возможность комментировать.
+              <a href="#" onClick={handleLogin}>{t('comment.log_in')}</a>,&nbsp;{t('comment.to-comment')}.
               <a href='#' className={cn('cancel')} onClick={(e) => handleReply(e, null)}>{t('comment.cancel')}</a>
             </div>
           }

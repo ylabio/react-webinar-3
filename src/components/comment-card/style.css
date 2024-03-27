@@ -31,14 +31,14 @@
   word-wrap: break-word;
 }
 
-.CommentCard-answer-btn {
+.CommentCard-reply-btn {
   font-size: 12px;
   border: none;
   background: none;
   padding: 0;
 }
 
-.CommentCard-answer-btn:hover {
+.CommentCard-reply-btn:hover {
   cursor: pointer;
   text-decoration: underline;
 }
