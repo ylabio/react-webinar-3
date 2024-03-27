@@ -6,7 +6,6 @@ import TextArea from '../textarea'
 
 function CommentsBlock({count, articleId, items, renderItem, exists, sendComment}) {
   const [commentValue, setCommentValue] = useState('')
-  console.log(items)
   if (!items) {
     return ;
   }

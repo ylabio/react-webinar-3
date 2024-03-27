@@ -35,7 +35,7 @@ function CommentItem(props) {
   }
 
   return (
-    <div className={cn()} style={{marginLeft: `${(props.item.parent._tree.length - 1) * 30}px`}} id={props.item._id}>
+    <div className={cn()} style={{marginLeft: `${props.item.parent._tree.length - 1 === 0 ? 0 : 30}px`}} id={props.item._id}>
       <div className={cn('block')}>
         <div className={cn('title')}>
           <b>{props.item.author?.profile?.name}</b>
