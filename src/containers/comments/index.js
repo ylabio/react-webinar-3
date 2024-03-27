@@ -11,17 +11,30 @@ import listToTree from "../../utils/list-to-tree";
 import { useState, useCallback, useMemo, memo } from "react";
 import CommentInput from "../../components/comment-input";
 import React from "react";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 
 function Comments({ id }) {
   const store = useStore();
+
   const dispatch = useDispatch();
+
   const { t } = useTranslate();
+
+  const inputRef = useRef();
+
   const [answerTo, setAnswerTo] = useState({
     _id: id,
     _type: 'article'
   });
-  console.log(store);
+
+  useEffect(() => {
+    if(inputRef.current){
+      inputRef.current.scrollIntoView({behavior: 'smooth'})
+    }
+  }, [answerTo])
+
   useInit(() => {
     dispatch(commentsActions.load(id));
   }, [id]);
@@ -45,14 +58,14 @@ function Comments({ id }) {
         setAnswerTo({ _id: id, _type: 'article' });
       }
     }, [store, answerTo]),
-    onAnswer: useCallback((commentId) => {setAnswerTo({ _id: commentId, _type: 'comment' })}),
+    onAnswer: useCallback((commentId) => { setAnswerTo({ _id: commentId, _type: 'comment' }) }),
     onCancel: useCallback(() => setAnswerTo({ _id: id, _type: 'article' }))
   };
 
   const commentInput = useMemo(() => {
     return (
       <CommentInput isLoggedIn={select.exists} redirect='/login' t={t}
-        onCancel={callbacks.onCancel} parent={answerTo._type} onSend={(text) => callbacks.onSend(text)} />
+        onCancel={callbacks.onCancel} parent={answerTo._type} onSend={(text) => callbacks.onSend(text)} inputRef={inputRef}/>
     )
   }, [answerTo, select.exists, selectRedux.comments, t])
 

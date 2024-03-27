@@ -5,7 +5,7 @@ import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-function CommentInput({ onSend, onCancel, parent, redirect, isLoggedIn, t }) {
+function CommentInput({ onSend, onCancel, parent, redirect, isLoggedIn, t, inputRef }) {
   const cn = bem('CommentInput');
   const [text, setText] = useState('');
 
@@ -16,7 +16,7 @@ function CommentInput({ onSend, onCancel, parent, redirect, isLoggedIn, t }) {
 
   if (isLoggedIn) {
     return (
-      <div id='CommentInput' className={cn()}>
+      <div id='CommentInput' className={cn()} ref={inputRef}>
         <div className={cn('head')}>
           {t("comments.new")} {parent == 'comment' ? t("comments.answer") : t("comments.comment")}
         </div>
