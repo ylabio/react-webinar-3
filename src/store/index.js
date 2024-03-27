@@ -56,6 +56,7 @@ class Store {
    * categories: Object,
    * session: Object,
    * profile: Object,
+   * comments: Object,
    * }}
    */
   getState() {

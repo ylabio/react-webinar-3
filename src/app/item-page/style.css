@@ -1,0 +1,22 @@
+.Field {
+  margin:  0 0 20px 40px;
+  max-width: 943px;
+  font-size: 18px;
+}
+
+.Field .Answer{
+  display: inline-block;
+  font-weight: 700;
+}
+
+.Cost {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 20px 0 0 40px;
+}
+
+.AddButton {
+  margin: 20px 0 0 40px;
+  padding: 3px 8px;
+font-size: 13px;
+}

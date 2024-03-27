@@ -14,38 +14,27 @@ import { useDispatch, useSelector } from "react-redux";
 import shallowequal from "shallowequal";
 import articleActions from "../../store-redux/article/actions";
 import commentsActions from "../../store-redux/comments/actions";
-import Comments from "../comments";
+import CommentsSection from "../../components/comments-section";
 
-function Article() {
+function Comments() {
   const store = useStore();
 
   const dispatch = useDispatch();
-  // Параметры из пути /articles/:id
 
-  const params = useParams();
+  var id = useParams().id;
 
   useInit(() => {
-    //store.actions.article.load(params.id);
-    dispatch(articleActions.load(params.id));
-    dispatch(commentsActions.load(params.id));
-  }, [params.id]);
+    dispatch(commentsActions.load(id));
+  }, [id]);
 
   const select = useSelector(
     (state) => ({
-      article: state.article.data,
-      waiting: state.article.waiting,
       comments: state.comments.data,
     }),
     shallowequal
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const { t } = useTranslate();
-
   const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback((_id) => store.actions.basket.addToBasket(_id), [
-      store,
-    ]),
     transformDate: useCallback((s) => store.actions.comments.transformDate(s), [
       store,
     ]),
@@ -55,22 +44,8 @@ function Article() {
   };
 
   return (
-    <PageLayout>
-      <TopHead />
-      <Head title={select.article.title}>
-        <LocaleSelect />
-      </Head>
-      <Navigation />
-      <Spinner active={select.waiting}>
-        <ArticleCard
-          article={select.article}
-          onAdd={callbacks.addToBasket}
-          t={t}
-        />
-        <Comments/>
-      </Spinner>
-    </PageLayout>
+    <CommentsSection comments={select.comments} transformDate={callbacks.transformDate} postComment={callbacks.postComment}/>
   );
 }
 
-export default memo(Article);
+export default memo(Comments);

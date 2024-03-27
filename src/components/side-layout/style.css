@@ -31,3 +31,7 @@
 .SideLayout-item {
   margin: 0 5px;
 }
+
+.SideLayout-item input {
+  border: solid 1px #767676;
+}
