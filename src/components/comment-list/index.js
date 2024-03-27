@@ -7,8 +7,14 @@ import { useState } from 'react';
 import CommentItem from '../comment-item';
 import CommentForm from '../comment-form';
 import IsLogin from '../../utils/comment-or-login';
+import { useRef,useEffect } from 'react';
 const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onReply, onReplySubmit, onCancel, name, baseIndent, title, placeholder, sendButton, cancelButton, answer, maxLevel = 5 }) => {
-    
+    const replyFormRef = useRef(null);
+    useEffect(() => {
+        if (activeForm && replyFormRef.current) {
+            replyFormRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [activeForm]);
     return comments.map(comment => {
         const placeholderText = comment.author?.profile?.name
             ? `Мой ответ для ${comment.author.profile.name}`
@@ -46,6 +52,7 @@ const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onRep
                 />
             )}
                 {activeForm === `replyTo-${comment._id}` && (
+                    <div ref={replyFormRef}>
                     <IsLogin
                         level={level}
                         baseIndent={baseIndent}
@@ -60,6 +67,7 @@ const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onRep
                             cancelButton: cancelButton
                         }}
                     />
+                    </div>
                 )}
             </div>
         );
