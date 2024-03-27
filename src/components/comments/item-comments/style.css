@@ -1,7 +1,6 @@
 .ItemComments {
   width: 100%;
   box-sizing: border-box;
-  /* border-left: 1px solid red; */
 }
 .ItemComments-head {
   display: flex;

@@ -12,6 +12,7 @@ import useTranslate from "../../../hooks/use-translate";
 import List from "../../../components/comments/list";
 import Spinner from "../../../components/spinner";
 import AnswerComment from "../../../components/comments/answer-comment";
+import AutoScroll from "../../auto-scroll";
 
 function ListComments() {
   const { t, lang } = useTranslate();
@@ -96,15 +97,17 @@ function ListComments() {
             selectRedux.showForm.showId === item._id &&
             selectRedux.type === "comment"
           ) && (
-            <AnswerComment
-              id={selectRedux.showForm.clickedId}
-              addComment={callbacks.addComment}
-              t={t}
-              onCloseForm={callbacks.onCloseForm}
-              children={link}
-              isAuth={!!select.user.username}
-              paddingLeft={(selectRedux.showForm.levelPadding + 1) * 30}
-            />
+            <AutoScroll>
+              <AnswerComment
+                id={selectRedux.showForm.clickedId}
+                addComment={callbacks.addComment}
+                t={t}
+                onCloseForm={callbacks.onCloseForm}
+                children={link}
+                isAuth={!!select.user.username}
+                paddingLeft={(selectRedux.showForm.levelPadding + 1) * 30}
+              />
+            </AutoScroll>
           )}
         </Fragment>
       ),

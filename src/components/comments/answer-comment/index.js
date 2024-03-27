@@ -3,7 +3,6 @@ import "./style.css";
 import PropTypes from "prop-types";
 import FormComments from "../form-comments";
 import AuthAlert from "../auth-alert";
-import AutoScroll from "../../../containers/auto-scroll";
 
 function AnswerComment({
   isAuth,
@@ -22,26 +21,22 @@ function AnswerComment({
       }}
     >
       {isAuth ? (
-        <AutoScroll>
-          <FormComments
-            id={id}
-            label={t("comment.newAnswer")}
-            labelBtn={t("comment.send")}
-            cb={addComment}
-            labelBtn2={t("comment.cancel")}
-            cb2={onCloseForm}
-          />
-        </AutoScroll>
+        <FormComments
+          id={id}
+          label={t("comment.newAnswer")}
+          labelBtn={t("comment.send")}
+          cb={addComment}
+          labelBtn2={t("comment.cancel")}
+          cb2={onCloseForm}
+        />
       ) : (
-        <AutoScroll>
-          <AuthAlert
-            text={t("comment.textAlertComment")}
-            labelBtn={t("comment.cancel")}
-            cb={onCloseForm}
-          >
-            {children}
-          </AuthAlert>
-        </AutoScroll>
+        <AuthAlert
+          text={t("comment.textAlertComment")}
+          labelBtn={t("comment.cancel")}
+          cb={onCloseForm}
+        >
+          {children}
+        </AuthAlert>
       )}
     </div>
   );

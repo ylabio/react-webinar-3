@@ -7,10 +7,9 @@ function AutoScroll({ children }) {
     scrollRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [children]);
   return (
-    <>
-      <div ref={scrollRef} />
+    <div style={{ width: "100%" }} ref={scrollRef}>
       {children}
-    </>
+    </div>
   );
 }
 
