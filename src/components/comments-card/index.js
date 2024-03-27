@@ -14,6 +14,7 @@ function CommentsCard({
   loginLink,
   onCreateComment,
   postId,
+  currentUser
 }) {
   const [commentFormId, setCommentFormId] = useState("");
 
@@ -44,6 +45,7 @@ function CommentsCard({
           commentFormId={commentFormId}
           onCloseForm={() => handleOpenForm("")}
           onCreateComment={onCreateComment}
+          mine={comment.author._id === currentUser._id}
         />
       ))}
       {!commentFormId && (
@@ -74,6 +76,7 @@ CommentsCard.propTypes = {
   loggedIn: PropTypes.bool,
   loginLink: PropTypes.object,
   postId: PropTypes.string,
+  currentUser: PropTypes.object
 };
 
 CommentsCard.defaultProps = {
@@ -83,6 +86,7 @@ CommentsCard.defaultProps = {
   loggedIn: false,
   loginLink: null,
   postId: "",
+  currentUser: {}
 };
 
 export default memo(CommentsCard);

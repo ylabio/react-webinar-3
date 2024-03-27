@@ -14,7 +14,8 @@ function CommentCard({
   commentFormId,
   handleOpenForm,
   onCloseForm,
-  onCreateComment
+  onCreateComment,
+  mine
 }) {
   const cn = bem("CommentCard");
 
@@ -29,7 +30,7 @@ function CommentCard({
     <div className={cn()}>
       <div className={cn("content")}>
         <div className={cn("title")}>
-          <span className={cn("author")}>{comment.author?.profile.name}</span>
+          <span className={cn("author", {mine})}>{comment.author?.profile.name}</span>
           <span className={cn("date")}>{formatDate(comment.dateCreate, lang)}</span>
           {comment.level}
         </div>
@@ -82,12 +83,14 @@ CommentCard.propTypes = {
   loginLink: PropTypes.object,
   loggedIn: PropTypes.bool,
   t: PropTypes.func,
-  lang: PropTypes.string
+  lang: PropTypes.string,
+  mine: PropTypes.bool
 };
 
 CommentCard.defaultProps = {
   loggedIn: false,
   t: (text) => text,
+  mine: false
 };
 
 export default memo(CommentCard);

@@ -25,7 +25,8 @@ function Comments({ postId }) {
   }));
 
   const customSelect = useCustomSelector((state) => ({
-    loggedIn: state.session.exists
+    loggedIn: state.session.exists,
+    currentUser: state.session.user
   }));
 
   const callbacks = {
@@ -51,6 +52,7 @@ function Comments({ postId }) {
         loginLink={renders.loginLink}
         onCreateComment={callbacks.addComment}
         postId={postId}
+        currentUser={customSelect.currentUser}
       />
     </Spinner>
   );
