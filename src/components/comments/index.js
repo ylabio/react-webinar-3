@@ -1,7 +1,7 @@
 import {memo} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
-import List from '../../components/list';
+import TreeList from '../../components/tree-list';
 import './style.css';
 
 function Comments(props) {
@@ -10,7 +10,7 @@ function Comments(props) {
   return (
     <div className={cn()}>
       <h2>{props.title}</h2>
-      <List list={props.items} renderItem={props.renderItem}/>
+      <TreeList list={props.items} level={0} maxLevel={props.maxLevel} renderItem={props.renderItem}/>
     </div>
   );
 }
@@ -25,10 +25,10 @@ Comments.propTypes = {
     }),
     dateCreate: PropTypes.string,
     text: PropTypes.string,
-    isDeleted: PropTypes.bool,
-    paddingLeft: PropTypes.number
+    isDeleted: PropTypes.bool
   })),
   lang: PropTypes.string,
+  maxLevel: PropTypes.number,
   title: PropTypes.string,
   renderItem: PropTypes.func.isRequired
 };
@@ -37,6 +37,7 @@ Comments.defaultProps = {
   count: 0,
   items: [],
   lang: 'ru',
+  maxLevel: 0,
   title: 'Комментарии'
 }
 

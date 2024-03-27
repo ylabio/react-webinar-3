@@ -11,14 +11,26 @@ function CommentForm(props) {
   const callbacks = {
     onSubmit: (e) => {
       e.preventDefault();
-      props.onSubmit();
+      if (props.text.trim()) {
+        props.onSubmit();
+      } else {
+        alert(props.t('comment.emptyTextAlert'));
+      }
+    },
+    onCancel: (e) => {
+      e.preventDefault();
+      props.onCancel();
+    },
+    onSignIn: (e) => {
+      e.preventDefault();
+      props.onSignIn();
     }
   }
 
   return (
-    <div className={cn({theme: props.theme})} style={{paddingLeft: props.paddingLeft + 'px'}}>
+    <div className={cn({theme: props.theme})}>
       { props.exists
-          ? <form onSubmit={callbacks.onSubmit} disabled={props.disabled}>
+          ? <form id='commentForm' onSubmit={callbacks.onSubmit} disabled={props.disabled}>
               <h3>{props.title}</h3>
               <textarea rows='4' onChange={e => { props.setText(e.target.value); }} placeholder={props.t('comments.text')} value={props.text} autoFocus={props.autoFocus}/>
               <div className={cn('buttons')}>
@@ -26,8 +38,9 @@ function CommentForm(props) {
                 { props.isCancelable && <button onClick={props.onCancel}>{props.t('comments.cancel')}</button> }
               </div>
             </form>
-          : <div className={cn('invite')}>
-              <Link to={props.inviteUrl}>{props.t('comments.inviteAnchor')}</Link>{props.t('comments.invite').replace(props.t('comments.inviteAnchor'), '')}
+          : <div id='commentForm' className={cn('invite')}>
+              <a href="#" onClick={callbacks.onSignIn} className={cn('anchor')}>{props.t('comments.inviteAnchor')}</a>{props.t(props.isCancelable ? 'comments.inviteAnswer' : 'comments.inviteComment').replace(props.t('comments.inviteAnchor'), '')}
+              { props.isCancelable && <>{ "\u00a0" }<a href="#" onClick={callbacks.onCancel} className={cn('cancel')}>{props.t('comments.cancel')}</a></> }
             </div>
       }
     </div>
@@ -39,30 +52,28 @@ CommentForm.propTypes = {
   title: PropTypes.string,
   theme: PropTypes.string,
   autoFocus: PropTypes.bool,
-  paddingLeft: PropTypes.number,
   isCancelable: PropTypes.bool,
   exists: PropTypes.bool,
-  inviteUrl: PropTypes.string,
   disabled: PropTypes.bool,
   text: PropTypes.string.isRequired,
   t: PropTypes.func,
   setText: PropTypes.func.isRequired,
   onSubmit: PropTypes.func,
-  onCancel: PropTypes.func
+  onCancel: PropTypes.func,
+  onSignIn: PropTypes.func
 };
 
 CommentForm.defaultProps = {
   title: 'Новый комментарий',
   theme: '',
   autoFocus: false,
-  paddingLeft: 40,
   isCancelable: false,
   exists: false,
-  inviteUrl: '/login/',
   disabled: false,
   t: (text) => text,
   onSubmit: () => {},
-  onCancel: () => {}
+  onCancel: () => {},
+  onSignIn: () => {}
 }
 
 export default memo(CommentForm);

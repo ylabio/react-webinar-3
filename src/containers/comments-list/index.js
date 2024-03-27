@@ -1,11 +1,11 @@
 import {memo, useCallback, useEffect, useState} from 'react';
 import useSelector from '../../hooks/use-selector';
 import {useDispatch, useSelector as useSelectorRedux} from 'react-redux';
+import {useLocation, useNavigate} from 'react-router-dom';
 import useTranslate from '../../hooks/use-translate';
 import PropTypes from 'prop-types';
 import shallowequal from 'shallowequal';
 import ItemComment from '../../components/item-comment';
-import treeToList from '../../utils/tree-to-list';
 import listToTree from '../../utils/list-to-tree';
 import CommentForm from '../../components/comment-form';
 import Comments from '../../components/comments';
@@ -14,6 +14,8 @@ import commentsActions from '../../store-redux/comments/actions';
 function CommentsList(props) {
 
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
   const {lang, t} = useTranslate(state => ({lang: state.lang}));
 
   const [parent, setParent] = useState(props.parent);
@@ -36,6 +38,15 @@ function CommentsList(props) {
 
   useEffect(
     () => {
+      if (parent._id !== props.parent._id) {
+        document.getElementById('commentForm').scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+      }
+    },
+    [parent]
+  );
+
+  useEffect(
+    () => {
       if (!select.sending && !select.message) {
         cancelAnswer();
         setText('');
@@ -45,54 +56,68 @@ function CommentsList(props) {
       }
     },
     [select.sending, select.message]
-  )
+  );
 
   const callbacks = {
-    // Отправка комментария
     send: useCallback(() => dispatch(commentsActions.send(session.user, parent, text))),
+    onSignIn: useCallback(() => {
+      navigate('/login', {state: {back: location.pathname}});
+    }, [location.pathname])
   }
 
   const renders = {
-    item: useCallback(item => (
-      <>
-        <ItemComment item={item} lang={lang} labelAnswer={t('comments.answer')} onAnswer={setParent}/>
-        { parent._id === item._id &&
-            <CommentForm
-              title={t('comments.newAnswer')}
-              theme='embed'
-              autoFocus={true}
-              t={t}
-              exists={session.exists}
-              onCancel={cancelAnswer}
-              isCancelable={true}
-              inviteUrl='/login/'
-              text={text}
-              setText={setText}
-              disabled={select.sending}
-              paddingLeft={item.paddingLeft}
-              onSubmit={callbacks.send}/>
-        }
-      </>
-    ), [lang, parent, text, session.exists]),
+    item: useCallback(
+      (item, level, maxLevel, renderItem) => {
+        return <>
+          <ItemComment
+            item={item}
+            level={level + 1}
+            maxLevel={maxLevel}
+            lang={lang}
+            isSelf={session.exists && session.user._id === item.author._id}
+            labelAnswer={t('comments.answer')}
+            onAnswer={setParent}
+            renderItem={renderItem}
+          />
+          { parent._id === item._id &&
+              <CommentForm
+                title={t('comments.newAnswer')}
+                theme='embed'
+                autoFocus={true}
+                t={t}
+                exists={session.exists}
+                onCancel={cancelAnswer}
+                isCancelable={true}
+                text={text}
+                setText={setText}
+                disabled={select.sending}
+                onSubmit={callbacks.send}
+                onSignIn={callbacks.onSignIn}/>
+          }
+        </>
+      },
+      [lang, parent, text, session.exists]
+    ),
   };
 
-  const items = treeToList(listToTree(select.items), (item, level) => (
-    {...item, paddingLeft: (level - 1) * 30}
-  )).splice(1);
+  const items = select.items.length > 0 ? listToTree(select.items)[0].children : [];
 
   return (
     <>
-      <Comments items={items} renderItem={renders.item} title={t('comments') + ` (${select.count})`} />
+      <Comments
+        title={t('comments') + ` (${select.count})`}
+        items={items}
+        maxLevel={5}
+        renderItem={renders.item}/>
       { parent._id === props.parent._id &&
           <CommentForm
             title={t('comments.newComment')}
             t={t}
             exists={session.exists}
-            inviteUrl='/login/'
             text={text}
             setText={setText}
             disabled={select.sending}
-            onSubmit={callbacks.send}/>
+            onSignIn={callbacks.onSignIn}/>
       }
     </>
   );

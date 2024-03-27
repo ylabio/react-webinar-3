@@ -3,8 +3,7 @@
 }
 
 .CommentForm_theme_embed {
-  padding-top: 30px;
-  padding-bottom: 10px;
+  padding: 30px 30px 10px 30px;
 }
 
 .CommentForm h3 {
@@ -28,4 +27,13 @@
 
 .CommentForm-invite {
   font-size: 16;
+}
+
+.CommentForm-anchor {
+  text-decoration: underline;
+}
+
+.CommentForm-cancel {
+  color: #666;
+  text-decoration: underline;
 }

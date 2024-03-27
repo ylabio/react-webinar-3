@@ -29,5 +29,7 @@
   "comments.send": "Send",
   "comments.cancel": "Cancel",
   "comments.inviteAnchor": "Sign in",
-  "comments.invite": "Sign in to post comments"
+  "comments.inviteComment": "Sign in to post comments",
+  "comments.inviteAnswer": "Sign in to answer comments.",
+  "comment.emptyTextAlert": "Input text to send comment"
 }

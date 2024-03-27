@@ -14,8 +14,16 @@
   font-weight: 700;
 }
 
+.ItemComment-author_self {
+  color: #666;
+}
+
 .ItemComment-date {
   color: #666;
+}
+
+.ItemComment-text {
+  overflow-wrap: break-word;
 }
 
 .ItemComment-link {

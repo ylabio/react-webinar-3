@@ -31,5 +31,7 @@
   "comments.send": "Отправить",
   "comments.cancel": "Отмена",
   "comments.inviteAnchor": "Войдите",
-  "comments.invite": "Войдите, чтобы иметь возможность комментировать"
+  "comments.inviteComment": "Войдите, чтобы иметь возможность комментировать",
+  "comments.inviteAnswer": "Войдите, чтобы иметь возможность ответить.",
+  "comment.emptyTextAlert": "Введите текст для отправки комментария"
 }
