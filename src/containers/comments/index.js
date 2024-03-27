@@ -102,13 +102,10 @@ function Comments({ articleId, comments }) {
       onCloseReply();
       setNewPostReceived(true);
     }
-  }, [commentsSelect.waitingAfterPost]);
-
-  useEffect(() => {
-    if (newPostReceived) {
+    return() => {
       dispatch(commentsActions.clearPostData());
     }
-  }, [newPostReceived, dispatch]);
+  }, [commentsSelect.waitingAfterPost]);
   
   const onLogin = useCallback(() => {
       navigate('/login', {state: {back: location.pathname}});
@@ -147,8 +144,6 @@ function Comments({ articleId, comments }) {
   const forms = {
     reply: useMemo(() => {
       if (replyTo) {
-        console.log(replyTo);
-        console.log(authSelect.sessionExists);
         return authSelect.sessionExists ? <FormReply
           to={replyTo.id}
           ref={scrollToRef}
@@ -183,20 +178,21 @@ function Comments({ articleId, comments }) {
     <Spinner key="spinner-comments" active={commentsSelect.waitingAfterPost}>
       <CommentsLayout
         key={`comments-layout-${articleId}`}
+        count={commentsList.length}
         t={translateService}
       >
         {commentsList.map((comment, index) => {
           return (
+            <li key={`comment-${index}`}>  
               <Comment
-                 key={`comment-${comment._id}`}
-                 own={comment.author?.profile?.name === authSelect.user?.profile?.name}
-                 ref={comment.new ? scrollToRef : null}
-                 comment={comment}
-                 onOpenReply={onOpenReply}
-                 t={translateService}
-              >
-                {(replyOpen && replyTo?.lastReplyIndex === index) && forms.reply}
-              </Comment>   
+                   own={comment.author?.profile?.name === authSelect.user?.profile?.name}
+                   ref={comment.new ? scrollToRef : null}
+                   comment={comment}
+                   onOpenReply={onOpenReply}
+                   t={translateService}
+              />
+              {(replyOpen && replyTo?.lastReplyIndex === index) && forms.reply}
+            </li>
            )
          })}      
         {forms.comment}

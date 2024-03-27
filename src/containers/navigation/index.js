@@ -45,7 +45,7 @@ function Navigation() {
         amount={select.amount} 
         sum={select.sum}
         labelInBasket={translateService.translate('basket.inBasket')}
-        labelArticles={translateService.translate('basket.articles')}
+        labelUnits={translateService.translate('basket.unit')}
         labelEmpty={translateService.translate('basket.empty')}
         labelOpen={translateService.translate('basket.open')}
       />

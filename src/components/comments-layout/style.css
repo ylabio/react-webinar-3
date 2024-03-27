@@ -18,3 +18,9 @@
   padding: 0;
   padding-bottom: 30px;
 }
+
+.CommentsLayout-comments > li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}

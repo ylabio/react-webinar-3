@@ -9,7 +9,6 @@ const Comment = forwardRef(function Comment({
   own,
   t,
   locale,
-  children
 }, ref) {
 
   const cn = bem('Comment');
@@ -34,7 +33,7 @@ const Comment = forwardRef(function Comment({
   };
 
   return comment && (
-    <li className={`${cn()} ${getOffsetClass(comment.offset)}`}>
+    <div className={`${cn()} ${getOffsetClass(comment.offset)}`}>
       <div ref={ref} className={cn('body')}>
         <div className={cn('heading')}>
           <span className={own ? cn('username-own') : cn('username')}>
@@ -52,8 +51,7 @@ const Comment = forwardRef(function Comment({
           {t.translate("comments.replyButton")}
         </button>
       </div>
-      {children}
-    </li>
+    </div>
   );
 });
 
