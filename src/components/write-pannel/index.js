@@ -1,5 +1,6 @@
 import { memo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./style.css";
 
 function getPixels(s) {
@@ -30,6 +31,7 @@ function closeDisplay(id) {
 }
 
 function WritePannel({ id, session, postComment, token }) {
+  const navigate = useNavigate();
   function postAndClose() {
     closeDisplay("write" + id);
     document.getElementById("textarea" + id).value.replaceAll(" ", "").length > 0
@@ -70,9 +72,9 @@ function WritePannel({ id, session, postComment, token }) {
               style={{ display: "none" }}
             >
               <>
-                <Link className="Write-Panel-Login" to="/login">
+                <div className="Write-Panel-Login" onClick={() =>  navigate('/login', {state: {back: location.pathname}})}>
                   Войдите
-                </Link>
+                </div>
                 , чтобы иметь возможность ответить.{" "}
                 <div
                   className="Write-Panel-Cancel"
@@ -88,7 +90,7 @@ function WritePannel({ id, session, postComment, token }) {
         <>
           {session ? (
             <div className="Write-Panel">
-              <div className="Write-Panel-Header">Новый ответ </div>
+              <div className="Write-Panel-Header">Новый комментарий</div>
               <textarea
                 className="Write-Panel-Textarea"
                 id={"textarea" + id}

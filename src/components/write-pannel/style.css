@@ -7,6 +7,10 @@
     margin-bottom: 30px;
 }
 
+.Write-Panel button {
+    margin-right: 10px;
+}
+
 
 .Write-Panel-Header {
     font-weight: 700;
@@ -14,7 +18,7 @@
     margin-bottom: 10px;
 }
 
-.Write-Panel-Textarea{
+.Write-Panel-Textarea {
     border: solid 1px #666666;
     width: 914px;
     min-height: 80px;
@@ -27,9 +31,15 @@
 .Write-Panel-Cancel {
     text-decoration: underline;
     display: inline;
-    color: rgb(102,102,102);
+    color: rgb(102, 102, 102);
 }
 
 .Write-Panel-Login {
     color: #0087E9;
+}
+
+.Write-Panel-Cancel,
+.Write-Panel-Login {
+    cursor: pointer;
+    display: inline;
 }
