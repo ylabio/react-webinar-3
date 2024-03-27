@@ -27,23 +27,7 @@ const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onRep
                 name={name}
             />
             
-            {activeForm === `replyTo-${comment._id}` && (
-                <IsLogin 
-                level= {level}
-                baseIndent={baseIndent}
-                    onCancel= {onCancel}
-                    Component={CommentForm}
-                    componentProps={{
-                        key: `reply-to-${comment._id}`,
-                        onSubmit: (text) => onReplySubmit(text, comment._id),
-                        onCancel: onCancel,
-                        title: title,
-                        placeholder: placeholderText,
-                        sendButton: sendButton,
-                        cancelButton: cancelButton 
-                    }}
-                />
-            )}
+            
             {comment.replies && comment.replies.length > 0 && (
                 <CommentsList
                     comments={comment.replies}
@@ -62,6 +46,23 @@ const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onRep
                         answer={answer}
                 />
             )}
+                {activeForm === `replyTo-${comment._id}` && (
+                    <IsLogin
+                        level={level}
+                        baseIndent={baseIndent}
+                        onCancel={onCancel}
+                        Component={CommentForm}
+                        componentProps={{
+                            key: `reply-to-${comment._id}`,
+                            onSubmit: (text) => onReplySubmit(text, comment._id),
+                            onCancel: onCancel,
+                            title: title,
+                            placeholder: placeholderText,
+                            sendButton: sendButton,
+                            cancelButton: cancelButton
+                        }}
+                    />
+                )}
             </div>
         );
     });
