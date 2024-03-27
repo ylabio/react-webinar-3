@@ -4,7 +4,7 @@ import './style.css'
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 
-const CommentReminder = ({ parent, onSignIn, setReplierActive }) => {
+const CommentReminder = ({ parent, onSignIn, setReplierActive, tt }) => {
   const style = parent === 'comment' ? {
     padding: 0,
     margin: '25px 0',
@@ -18,8 +18,8 @@ const CommentReminder = ({ parent, onSignIn, setReplierActive }) => {
 
   return (
     <div style={style} id={parent === 'comment' ? 'replyTo' : ''} className={cn()}>
-      <span className={cn('link')} onClick={onSignIn}>Войдите</span>, чтобы иметь возможность {parent === 'article' ? 'комментировать' : 'ответить'}.
-      {' '}{parent === 'comment' && <span className={cn('cancel')} onClick={onCancelClick}>Отмена</span>}
+      <span className={cn('link')} onClick={onSignIn}>{tt('comments.signIn')}</span>{tt('comments.message')} {parent === 'article' ? tt('comments.messageComment') : tt('comments.messageReply')}.
+      {' '}{parent === 'comment' && <span className={cn('cancel')} onClick={onCancelClick}>{tt('comments.cancel')}</span>}
     </div>
   );
 };

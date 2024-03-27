@@ -4,7 +4,7 @@ import {parseDate} from "../../utils/parse-date";
 import CommentReplier from "../../containers/comment-replier";
 import PropTypes from "prop-types";
 
-const Comment = ({ data, isOwner, replierActive, setReplierComment, setReplierOn }) => {
+const Comment = ({ data, isOwner, replierActive, setReplierComment, setReplierOn, tt }) => {
   const style = isOwner ? {
     color: '#666'
   } : {}
@@ -27,9 +27,8 @@ const Comment = ({ data, isOwner, replierActive, setReplierComment, setReplierOn
         className='Comment-actions'
         onClick={onAnswerClick}
       >
-        Ответить
+        {tt('comments.reply')}
       </div>
-      {/*{replierActive === data._id && <CommentReplier parent={'comment'} />}*/}
     </div>
   );
 };
@@ -38,11 +37,13 @@ Comment.propTypes = {
   data: PropTypes.object,
   isOwner: PropTypes.bool,
   replierActive: PropTypes.string,
-  setReplierComment: PropTypes.func
+  setReplierComment: PropTypes.func,
+  tt: PropTypes.func
 }
 
 Comment.defaultProps = {
-  setReplierComment: () => {}
+  setReplierComment: () => {},
+  tt: () => {}
 }
 
 export default React.memo(Comment);

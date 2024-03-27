@@ -8,6 +8,7 @@ import commentsActions from "../../store-redux/comments/actions";
 import {useSelector as useSelectorRedux} from 'react-redux'
 import propTypes from "prop-types";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useServiceTranslate} from "../../hooks/use-translate";
 
 const CommentReplier = ({ parent }) => {
   const dispatch = useDispatch()
@@ -31,10 +32,12 @@ const CommentReplier = ({ parent }) => {
     onSignIn: useCallback(() => navigate('/login', { state: {back: location.pathname} }), [location.state])
   }
 
+  const { translate: tt } = useServiceTranslate()
+
   if (select.user) {
-    return <CommentReplierForm parent={parent} setReplierActive={callbacks.setReplierActive} onCreate={callbacks.onCreate} />
+    return <CommentReplierForm tt={tt} parent={parent} setReplierActive={callbacks.setReplierActive} onCreate={callbacks.onCreate} />
   } else {
-    return <CommentReminder onSignIn={callbacks.onSignIn} parent={parent} setReplierActive={callbacks.setReplierActive} />
+    return <CommentReminder tt={tt} onSignIn={callbacks.onSignIn} parent={parent} setReplierActive={callbacks.setReplierActive} />
   }
 };
 

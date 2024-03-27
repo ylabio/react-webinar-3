@@ -10,6 +10,7 @@ import {useParams} from "react-router-dom";
 import commentReplierActions from "../../store-redux/comment-replier/actions";
 import useInit from "../../hooks/use-init";
 import commentsActions from "../../store-redux/comments/actions";
+import {useServiceTranslate} from "../../hooks/use-translate";
 
 const Comments = () => {
   const params = useParams()
@@ -39,10 +40,12 @@ const Comments = () => {
     setReplierComment: useCallback(id => dispatch(commentReplierActions.setComment(id)), [])
   }
 
+  const { translate: tt } = useServiceTranslate()
+
   return (
     <>
       <Spinner active={select.waitingComments}>
-        <CommentsList list={listData} count={select.count}
+        <CommentsList tt={tt} list={listData} count={select.count}
                       nest={0} user={selectStore.user}
                       replierActive={select.replierActive} setReplierComment={callbacks.setReplierComment} />
       </Spinner>

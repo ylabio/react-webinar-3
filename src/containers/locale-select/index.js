@@ -9,7 +9,6 @@ function LocaleSelect() {
   // const {lang, setLang} = useTranslate();
 
   const { locale: lang, setLocale: setLang } = useServiceTranslate()
-  console.log(lang, setLang)
 
 
   const options = {

@@ -1,6 +1,6 @@
 import {memo} from 'react';
 import useStore from '../../hooks/use-store';
-import useTranslate from '../../hooks/use-translate';
+import useTranslate, {useServiceTranslate} from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
 import Navigation from '../../containers/navigation';
 import PageLayout from '../../components/page-layout';
@@ -22,11 +22,12 @@ function Main() {
   }, [], true);
 
   const {t} = useTranslate();
+  const { translate: tt } = useServiceTranslate()
 
   return (
     <PageLayout>
       <TopHead/>
-      <Head title={t('title')}>
+      <Head title={tt('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>

@@ -5,7 +5,7 @@ import Comment from '../comment/index'
 import PropTypes from "prop-types";
 import CommentReplier from "../../containers/comment-replier";
 
-const CommentsList = ({ list, nest, user, count, replierActive, setReplierComment }) => {
+const CommentsList = ({ list, nest, user, count, replierActive, setReplierComment, tt }) => {
   const style = nest === 0
     ? {}
     : nest > 10 ? {padding: 0, margin: 0} : {padding: 0, marginLeft: '20px'}
@@ -24,11 +24,11 @@ const CommentsList = ({ list, nest, user, count, replierActive, setReplierCommen
   const cn = bem('CommentsList')
   return (
     <div style={style} className={cn()}>
-      {nest === 0 && <span className={cn('total')}>Комментарии ({count})</span>}
+      {nest === 0 && <span className={cn('total')}>{tt('comments.title')} ({count})</span>}
       <div className={cn('list')}>
         {list?.map(comment => (
           <React.Fragment key={comment._id}>
-            <Comment data={comment} isOwner={user === comment.author._id}
+            <Comment tt={tt} data={comment} isOwner={user === comment.author._id}
                      replierActive={replierActive} setReplierComment={setReplierComment}
                      setReplierOn={setReplierOn}
             />
@@ -50,11 +50,13 @@ CommentsList.propTypes = {
   nest: PropTypes.number,
   count: PropTypes.number,
   replierActive: PropTypes.string,
-  setReplierComment: PropTypes.func
+  setReplierComment: PropTypes.func,
+  tt: PropTypes.func
 }
 
 CommentsList.defaultProps = {
-  setReplierComment: () => {}
+  setReplierComment: () => {},
+  tt: () => {}
 }
 
 export default React.memo(CommentsList);

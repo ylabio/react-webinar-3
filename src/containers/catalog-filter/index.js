@@ -1,5 +1,5 @@
 import {memo, useCallback, useMemo} from 'react';
-import useTranslate from '../../hooks/use-translate';
+import useTranslate, {useServiceTranslate} from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import Select from '../../components/select';
@@ -51,14 +51,15 @@ function CatalogFilter() {
   };
 
   const {t} = useTranslate();
+  const { translate: tt } = useServiceTranslate()
 
   return (
     <SideLayout padding='medium'>
       <Select options={options.categories} value={select.category} onChange={callbacks.onCategory}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
-      <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
+      <Input value={select.query} onChange={callbacks.onSearch} placeholder={tt('placeholder.search')}
              delay={1000} theme={'big'}/>
-      <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
+      <button onClick={callbacks.onReset}>{tt('filter.reset')}</button>
     </SideLayout>
   )
 }

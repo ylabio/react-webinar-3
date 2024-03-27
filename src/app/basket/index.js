@@ -3,7 +3,7 @@ import {useDispatch, useStore as useStoreRedux} from 'react-redux';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useInit from '../../hooks/use-init';
-import useTranslate from '../../hooks/use-translate';
+import useTranslate, {useServiceTranslate} from '../../hooks/use-translate';
 import ItemBasket from '../../components/item-basket';
 import List from '../../components/list';
 import ModalLayout from '../../components/modal-layout';
@@ -32,6 +32,7 @@ function Basket() {
   }
 
   const {t} = useTranslate();
+  const { translate: tt } = useServiceTranslate()
 
   const renders = {
     itemBasket: useCallback((item) => (
@@ -39,17 +40,17 @@ function Basket() {
                   link={`/articles/${item._id}`}
                   onRemove={callbacks.removeFromBasket}
                   onLink={callbacks.closeModal}
-                  labelUnit={t('basket.unit')}
-                  labelDelete={t('basket.delete')}
+                  labelUnit={tt('basket.unit')}
+                  labelDelete={tt('basket.delete')}
       />
-    ), [callbacks.removeFromBasket, t]),
+    ), [callbacks.removeFromBasket, tt]),
   };
 
   return (
-    <ModalLayout title={t('basket.title')} labelClose={t('basket.close')}
+    <ModalLayout title={tt('basket.title')} labelClose={tt('basket.close')}
                  onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum} t={t}/>
+      <BasketTotal sum={select.sum} tt={tt} t={t}/>
     </ModalLayout>
   );
 }

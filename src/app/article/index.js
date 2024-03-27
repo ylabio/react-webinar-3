@@ -33,7 +33,7 @@ function Article() {
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
   const {t} = useTranslate();
-  const { translate: tt, locale } = useServiceTranslate()
+  const { translate: tt } = useServiceTranslate()
 
   const callbacks = {
     // Добавление в корзину

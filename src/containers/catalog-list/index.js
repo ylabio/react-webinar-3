@@ -1,7 +1,7 @@
 import {memo, useCallback} from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
-import useTranslate from '../../hooks/use-translate';
+import useTranslate, {useServiceTranslate} from '../../hooks/use-translate';
 import Item from '../../components/item';
 import List from '../../components/list';
 import Pagination from '../../components/pagination';
@@ -37,12 +37,13 @@ function CatalogList() {
   }
 
   const {t} = useTranslate();
+  const { translate: tt } = useServiceTranslate()
 
   const renders = {
     item: useCallback(item => (
       <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`}
-            labelAdd={t('article.add')}/>
-    ), [callbacks.addToBasket, t]),
+            labelAdd={tt('article.add')}/>
+    ), [callbacks.addToBasket, tt]),
   };
 
   return (
