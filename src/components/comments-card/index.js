@@ -45,7 +45,7 @@ function CommentsCard({
           commentFormId={commentFormId}
           onCloseForm={() => handleOpenForm("")}
           onCreateComment={onCreateComment}
-          mine={comment.author._id === currentUser._id}
+          currentUser={currentUser}
         />
       ))}
       {!commentFormId && (

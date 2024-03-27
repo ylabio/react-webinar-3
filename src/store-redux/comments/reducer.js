@@ -20,7 +20,7 @@ function reducer(state = initialState, action) {
       return {...state, waiting: true};
 
     case "comments/create-success":
-      return {...state, data: action.payload.data, waiting: false, count: action.payload.count};
+      return {...state, data: [...state.data, action.payload.data], waiting: false, count: state.count + 1};
 
     case "comments/create-error":
       return {...state, waiting: false}; //@todo текст ошибки сохранять?

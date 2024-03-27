@@ -15,10 +15,11 @@ function CommentCard({
   handleOpenForm,
   onCloseForm,
   onCreateComment,
-  mine,
+  currentUser,
 }) {
   const cn = bem("CommentCard");
   const commentFormRef = useRef();
+  const mine = comment.author._id === currentUser._id;
 
   const handleFormSubmit = (text) => {
     onCreateComment({
@@ -37,7 +38,7 @@ function CommentCard({
       <div className={cn("content")}>
         <div className={cn("title")}>
           <span className={cn("author", { mine })}>
-            {comment.author?.profile.name}
+            {mine ? currentUser.profile?.name : comment.author?.profile.name}
           </span>
           <span className={cn("date")}>
             {formatDate(comment.dateCreate, lang)}
@@ -62,7 +63,7 @@ function CommentCard({
             handleOpenForm={handleOpenForm}
             onCloseForm={() => handleOpenForm("")}
             onCreateComment={onCreateComment}
-            mine={mine}
+            currentUser={currentUser}
           />
         ))}
         <div ref={commentFormRef}>
@@ -94,13 +95,13 @@ CommentCard.propTypes = {
   loggedIn: PropTypes.bool,
   t: PropTypes.func,
   lang: PropTypes.string,
-  mine: PropTypes.bool,
+  currentUser: PropTypes.object,
 };
 
 CommentCard.defaultProps = {
   loggedIn: false,
   t: (text) => text,
-  mine: false,
+  currentUser: {},
 };
 
 export default memo(CommentCard);
