@@ -17,7 +17,6 @@ import shallowequal from 'shallowequal';
 function Comments({ articleId, comments }) {
   const {translateService, locale} = useTranslate();
   const dispatch = useDispatch();
-  const [commentFormVisible, setCommentFormVisibility] = useState(true);
 
   const [commentsList, setCommentsList] = useState(
       comments.items ? treeToList(listToTree(comments.items), (item, level) => {
@@ -28,6 +27,28 @@ function Comments({ articleId, comments }) {
       }).filter(item => item.hasOwnProperty('_id'))
       : []
   );
+  const [newPostReceived, setNewPostReceived] = useState(false);
+
+  const findLastChild = (item) => {
+    if (item.children?.length) {
+      return findLastChild(item.children[item.children.length - 1]);
+    }
+    return item;
+  };
+
+  const findLastChildIndex = (list, item) => {
+    const lastChild = findLastChild(item);
+    return list.findIndex(item => item._id === lastChild._id);
+  }
+
+  const [replyTo, setReplyTo] = useState({
+    id: articleId, 
+    lastReplyIndex: commentsList?.length - 1 || 0,
+    offset: 1
+  });
+  
+  const [replyOpen, setReplyOpen] = useState(false);
+  
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -41,7 +62,7 @@ function Comments({ articleId, comments }) {
     waitingAfterPost: state.comments.waitingAfterPost,
   }), shallowequal);
 
-  const newCommentRef = useCallback(node => {
+  const scrollToRef = useCallback(node => {
     if (node !== null) {
       node.scrollIntoView({
         behavior: 'smooth',
@@ -51,103 +72,134 @@ function Comments({ articleId, comments }) {
 
   useEffect(() => {
     if (!commentsSelect.waitingAfterPost && commentsSelect.postData._id) {
-      const repliedId = commentsSelect.postData.parent._id;
-      const offset = commentsSelect.postData.parent._tree?.length || 0;
+      const repliedIndex = replyTo.lastReplyIndex;
+      const offset = replyTo.offset;
+      
       setCommentsList(prevList => prevList.toSpliced(
-        prevList.findIndex(item => item._id === repliedId) + 1, 
+        repliedIndex + 1, 
         0, 
         {
           ...commentsSelect.postData, 
           offset, 
           new: true
         }
-      ));      
+      ));
+      setCommentsList(prevList => prevList.map((item, index) => {
+        if (index === repliedIndex) {
+          if (!item.hasOwnProperty('children')) {
+            item.children = [];
+          }
+          return {
+            ...item,
+            children: [
+              ...item.children,
+              commentsSelect.postData
+            ]
+          }
+        }
+        return item;
+      }));
+      onCloseReply();
+      setNewPostReceived(true);
     }
   }, [commentsSelect.waitingAfterPost]);
 
-  const callbacks = {
-    onLogin: useCallback(() => {
-        navigate('/login', {state: {back: location.pathname}});
-    }, [location.pathname]),
-    
-    onSendReply: (id, form) => {
-      dispatch(commentsActions.post({ id, text: form.text, replyMode: true }));
-      callbacks.onCloseReply();
-    },
-
-    onSendComment: (form) => {
-      dispatch(commentsActions.post({ articleId, text: form.text, replyMode: false }));
-    },
-
-    onCloseReply: () => {
-      setCommentsList(prevComments => prevComments.map(comment => {
-        if (comment.replyOpen) {
-          return { ...comment, replyOpen: false };
-        }
-        return comment;
-      }));
-      setCommentFormVisibility(true);
-    },
-
-    onOpenReply: (id) => {
-      setCommentsList(prevComments => prevComments.map(comment => {
-        if (comment._id === id) {
-          return { ...comment, replyOpen: true };
-        }
-        if (comment.replyOpen && comment.id !== id) {
-          return { ...comment, replyOpen: false };
-        }
-        return comment;
-      }));
-      setCommentFormVisibility(false);
+  useEffect(() => {
+    if (newPostReceived) {
+      dispatch(commentsActions.clearPostData());
     }
-  }
+  }, [newPostReceived, dispatch]);
+  
+  const onLogin = useCallback(() => {
+      navigate('/login', {state: {back: location.pathname}});
+  }, [location.pathname]);
+  
+  const onSendReply = (id, form) => {
+    dispatch(commentsActions.post({ id, text: form.text, replyMode: true }));      
+  };
+
+  const onSendComment = useCallback((form) => {
+    setReplyTo({
+      id: articleId,
+      lastReplyIndex: commentsList.length - 1,
+      offset: 1
+    });
+    dispatch(commentsActions.post({ id: articleId, text: form.text, replyMode: false }));
+  }, [commentsList.length]);
+
+  const onCloseReply = useCallback(() => {
+    setReplyOpen(false);
+    setReplyTo({
+      id: articleId, 
+      lastReplyIndex: commentsList.length - 1,
+      offset: 1
+    });
+  }, [commentsList.length]);
+
+  const onOpenReply = useCallback((id) => {
+    const repliedComment = commentsList.find(item => item._id === id); 
+    const lastReplyIndex = findLastChildIndex(commentsList, repliedComment);
+    const offset = repliedComment.offset + 1 || 1;
+    setReplyTo({id, lastReplyIndex, offset});
+    setReplyOpen(true);
+  }, [commentsList]);
 
   const forms = {
-    reply: (id) => {
-      return authSelect.sessionExists ? <FormReply
-        to={id}
-        onSendReply={callbacks.onSendReply}
-        onCloseReply={callbacks.onCloseReply}
-        t={translateService}
-      />
-      : <CommentLoginPrompt
-        onLogin={callbacks.onLogin}
-        onCloseReply={callbacks.onCloseReply}
-        t={translateService}
-      />;
-    },
+    reply: useMemo(() => {
+      if (replyTo) {
+        return authSelect.sessionExists ? <FormReply
+          to={replyTo.id}
+          ref={scrollToRef}
+          offset={replyTo.offset - 1}
+          onSendReply={onSendReply}
+          onCloseReply={onCloseReply}
+          t={translateService}
+        />
+        : <CommentLoginPrompt
+            ref={scrollToRef}
+            offset={replyTo.offset - 1}
+            onLogin={onLogin}
+            onCloseReply={onCloseReply}
+            t={translateService}
+          />;
+      } else {
+        return <></>
+      }
+    }, [authSelect.sessionExists, replyTo, onSendReply, onCloseReply, onLogin]),
 
     comment: useMemo(() => {
-      return (authSelect.sessionExists && commentFormVisible) ? <FormComment 
-        onSendComment={callbacks.onSendComment}
+      return (authSelect.sessionExists && !replyOpen) ? <FormComment 
+        onSendComment={onSendComment}
         t={translateService}  
       />
       : <></>;
-    }, [authSelect.sessionExists, commentFormVisible])
+    }, [authSelect.sessionExists, replyOpen, onSendComment])
   }
 
   return (
     <Spinner active={commentsSelect.waitingAfterPost}>
-      <CommentsLayout 
-        commentForm={forms.comment}
+      <CommentsLayout
         t={translateService}
       >
-        {commentsList.map(comment => {
+        {commentsList.map((comment, index) => {
           return (
-             <Comment
-               key={`comment-${comment._id}`}
-               ref={comment.new ? newCommentRef : null}
-               comment={comment}
-               replyForm={forms.reply(comment._id)}
-               onOpenReply={callbacks.onOpenReply}
-               t={translateService}
-             />
+            <> 
+              <Comment
+                 key={`comment-${comment._id}`}
+                 own={comment.author?.profile.name === authSelect.user?.profile.name}
+                 ref={comment.new ? scrollToRef : null}
+                 comment={comment}
+                 onOpenReply={onOpenReply}
+                 t={translateService}
+              />              
+              {(replyOpen && replyTo?.lastReplyIndex === index) && forms.reply}
+            </>
            )
          })}      
+        {forms.comment}
       </CommentsLayout>
     </Spinner>
   )
 }
 
-export default memo(Comments);
+export default Comments;

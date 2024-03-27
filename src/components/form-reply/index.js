@@ -1,13 +1,24 @@
-import { memo, useState } from 'react';
+import { memo, useState, forwardRef } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 import PropTypes from 'prop-types';
-function FormReply({to, onSendReply, onCloseReply, t}) {
+const FormReply = forwardRef(function FormReply({
+  to,
+  offset,
+  onSendReply, 
+  onCloseReply, 
+  t},
+  ref
+) {
 
   const cn = bem('FormReply');
 
-  const [form, setFormValue] = useState({});
+  const getOffsetClass = (offset) => {
+    return cn(`offset-${Math.min(Math.max(offset - 1, 0), 3)}`);
+  };
+
+  const [form, setFormValue] = useState({text: ""});
 
   const callbacks = {
     onFormSubmit: (e) => {
@@ -38,10 +49,11 @@ function FormReply({to, onSendReply, onCloseReply, t}) {
     }
   }
 
-  return <form 
+  return <form
+   ref={ref}
    onSubmit={callbacks.onFormSubmit} 
    onReset={callbacks.onFormReset} 
-   className={cn()}
+   className={`${cn()} ${getOffsetClass(offset)}`}
   >
     <label className={cn("label")}>
       {t.translate("comments.newReply")}
@@ -56,6 +68,7 @@ function FormReply({to, onSendReply, onCloseReply, t}) {
     <div className={cn('form-buttons')}>
       <button 
         type="submit" 
+        disabled={form.text.trim().length === 0}
         className={cn("button")} 
       >
         {t.translate("comments.send")}
@@ -70,6 +83,6 @@ function FormReply({to, onSendReply, onCloseReply, t}) {
     </div>      
   </form>
 
-}
+});
 
-export default memo(FormReply);
+export default FormReply;

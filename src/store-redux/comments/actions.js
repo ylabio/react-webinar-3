@@ -50,4 +50,10 @@ export default {
       }
     }
   },
+
+  clearPostData: () => {
+    return async(dispatch, getState, services) => {
+      dispatch({type: 'comments/post-clear-data'});
+    }
+  }
 }

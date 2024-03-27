@@ -6,7 +6,7 @@ function FormComment({onSendComment, t}) {
 
   const cn = bem('FormComment');
 
-  const [form, setFormValue] = useState({});
+  const [form, setFormValue] = useState({text: ""});
 
   const callbacks = {
     onFormSubmit: (e) => {
@@ -45,6 +45,7 @@ function FormComment({onSendComment, t}) {
     <div className={cn("form-buttons")}>
       <button 
         type="submit"
+        disabled={form.text.trim().length === 0}
         className={cn("button")}
       >
         {t.translate("comments.send")}

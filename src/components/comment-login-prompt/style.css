@@ -3,6 +3,22 @@
   display: inline-flex;
 }
 
+.LoginPrompt-offset-0 {
+  margin-left: 0;
+}
+
+.LoginPrompt-offset-1 {
+  margin-left: 30px;
+}
+
+.LoginPrompt-offset-2 {
+  margin-left: 60px;
+}
+
+.LoginPrompt-offset-3 {
+  margin-left: 90px;
+}
+
 .LoginPrompt-button {
   margin: 0;
   padding: 0;

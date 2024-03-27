@@ -1,12 +1,21 @@
-import { memo } from 'react';
+import { memo, forwardRef } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function CommentLoginPrompt({onLogin, onCloseReply, t}) {
+const CommentLoginPrompt = forwardRef(function CommentLoginPrompt({
+  offset,
+  onLogin, 
+  onCloseReply, 
+  t},
+  ref) {
 
   const cn = bem('LoginPrompt');
+
+  const getOffsetClass = (offset) => {
+    return cn(`offset-${Math.min(Math.max(offset - 1, 0), 3)}`);
+  };
   
-  return <div className={cn()}>
+  return <div ref={ref} className={`${cn()} ${getOffsetClass(offset)}`}>
     <button className={cn("button")} onClick={onLogin}>
       {t.translate("comments.login")}
     </button>
@@ -15,7 +24,7 @@ function CommentLoginPrompt({onLogin, onCloseReply, t}) {
       {t.translate("comments.cancel")}
     </button>
   </div>
-}
+});
 
-export default memo(CommentLoginPrompt);
+export default CommentLoginPrompt;
 

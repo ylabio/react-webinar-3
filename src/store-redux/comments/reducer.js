@@ -25,6 +25,11 @@ function reducer(state = initialState, action) {
     case "comments/post-error":
       return {...state, postData: {}, waitingAfterPost: false};
 
+    case "comments/post-clear-data": {
+      return {...state, postData: {}};
+    }
+      
+
     default:
       return state;
   }

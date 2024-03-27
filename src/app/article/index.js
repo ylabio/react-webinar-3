@@ -23,7 +23,7 @@ function Article() {
   // Параметры из пути /articles/:id
 
   const params = useParams();
-
+  
   useEffect(() => {
     dispatch(articleActions.load(params.id));
   }, [locale]);
