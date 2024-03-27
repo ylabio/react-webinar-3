@@ -80,7 +80,6 @@ const CommentsContainer = (name) => {
                     componentProps={{
                         onSubmit: handleReplySubmit,
                         title: t('comments.newComment'),
-                        placeholder: t('comments.text'),
                         sendButton: t('comments.send')
                     }}
                 />

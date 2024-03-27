@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import { useState } from 'react';
-function CommentForm({ onSubmit, onCancel, style,title,placeholder,sendButton,cancelButton }) {
+function CommentForm({ onSubmit, onCancel, style,title,placeholder='',sendButton,cancelButton }) {
     const [commentText, setCommentText] = useState('');
     const cn = bem('CommentForm');
   

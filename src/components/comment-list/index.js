@@ -40,7 +40,6 @@ const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onRep
                     name={name}
                     baseIndent={baseIndent}
                     title={title}
-                    placeholder={placeholder}
                     sendButton={sendButton}
                     cancelButton={cancelButton}
                         answer={answer}
@@ -57,7 +56,6 @@ const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onRep
                             onSubmit: (text) => onReplySubmit(text, comment._id),
                             onCancel: onCancel,
                             title: title,
-                            placeholder: placeholderText,
                             sendButton: sendButton,
                             cancelButton: cancelButton
                         }}
