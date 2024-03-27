@@ -13,7 +13,7 @@
 }
 
 .ArticleCardComments-line {
-  margin: 20px 0;
+  margin: 12px 0;
   display: flex;
   justify-content: flex-start;
   font-size: 13px;
@@ -23,18 +23,18 @@
   font-weight: bold;
 }
 
-.ArticleCardComments-authorIsDeleted {
-  color: grey;
+.ArticleCardComments-authorAutorization {
+  color: #666666;
   font-weight: bold;
 }
 
 .ArticleCardComments-dateCreate {
-  color: lightgray;
-  margin: 0px 20px;
+  color: #666666;
+  margin: 0px 10px;
 }
 
 .ArticleCardComments-text {
-  margin: 10px 0;
+  padding: 0px 0px;
 }
 
 .ArticleCardComments-toAnswer {
@@ -47,7 +47,7 @@
 }
 
 .ArticleCardComments-cancel {
-  color: gray;
+  color: #666666;
 }
 
 .ArticleCardComments-newAnswer {

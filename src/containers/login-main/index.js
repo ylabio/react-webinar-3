@@ -5,8 +5,11 @@ import Field from '../../components/field';
 import SideLayout from '../../components/side-layout';
 import {useLocation, useNavigate} from 'react-router-dom';
 import useStore from '../../hooks/use-store';
-import useSelector from '../../hooks/use-selector';
+import useSelectorForStore from '../../hooks/use-selector';
 import useInit from '../../hooks/use-init';
+import {useDispatch,useSelector} from 'react-redux';
+import shallowequal from 'shallowequal';
+import articleCommentsActions from '../../store-redux/article-comments/actions';
 
 function LoginMain() {
 
@@ -14,12 +17,18 @@ function LoginMain() {
   const location = useLocation();
   const navigate = useNavigate();
   const store = useStore();
+  const dispatch = useDispatch();
 
   useInit(() => {
     store.actions.session.resetErrors();
   })
 
-  const select = useSelector(state => ({
+  const selectRedux = useSelector(state => ({
+    login: state.articleComments.login,
+    _id: state.articleComments._id,
+  }), shallowequal);
+
+  const select = useSelectorForStore(state => ({
     waiting: state.session.waiting,
     errors: state.session.errors,
     exists: state.session.exists,
@@ -44,15 +53,22 @@ function LoginMain() {
         const back = location.state?.back && location.state?.back !== location.pathname
           ? location.state?.back
           : '/';
-        if (select.exists == false) {
+        
+        if (!window.localStorage.getItem('token')) {
           navigate(back);
         }
         else {
-          navigate('/profile');
+          if (selectRedux.login == true) {
+            navigate(`/articles/${selectRedux._id}`);
+            dispatch(articleCommentsActions.login(false,''));
+          }
+          else {
+            navigate('/profile');
+          }
         }
       });
 
-    }, [data, location.state,select.exists])
+    }, [store,data,location,select,selectRedux])
   };
 
   return (

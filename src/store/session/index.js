@@ -33,7 +33,6 @@ class SessionState extends StoreModule {
         method: 'POST',
         body: JSON.stringify(data)
       });
-
       if (!res.data.error) {
         this.setState({
           ...this.getState(),
