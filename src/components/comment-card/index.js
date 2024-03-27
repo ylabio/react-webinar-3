@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
@@ -15,30 +15,37 @@ function CommentCard({
   handleOpenForm,
   onCloseForm,
   onCreateComment,
-  mine
+  mine,
 }) {
   const cn = bem("CommentCard");
+  const commentFormRef = useRef();
 
   const handleFormSubmit = (text) => {
     onCreateComment({
-      parent: {_id:  comment._id, "_type":  "comment"},
-      text
-    })
-  }
+      parent: { _id: comment._id, _type: "comment" },
+      text,
+    });
+  };
+
+  const onReplyClick = () => {
+    handleOpenForm(comment._id);
+    commentFormRef.current.scrollIntoView({block: "center", behavior: "smooth"});
+  };
 
   return (
     <div className={cn()}>
       <div className={cn("content")}>
         <div className={cn("title")}>
-          <span className={cn("author", {mine})}>{comment.author?.profile.name}</span>
-          <span className={cn("date")}>{formatDate(comment.dateCreate, lang)}</span>
+          <span className={cn("author", { mine })}>
+            {comment.author?.profile.name}
+          </span>
+          <span className={cn("date")}>
+            {formatDate(comment.dateCreate, lang)}
+          </span>
           {comment.level}
         </div>
         <div className={cn("text")}>{comment.text}</div>
-        <div
-          className={cn("reply")}
-          onClick={() => handleOpenForm(comment._id)}
-        >
+        <div className={cn("reply")} onClick={onReplyClick}>
           {t("comment.reply")}
         </div>
       </div>
@@ -58,16 +65,18 @@ function CommentCard({
             mine={mine}
           />
         ))}
-        {commentFormId === comment._id && (
-          <CommentForm
-            t={t}
-            loggedIn={loggedIn}
-            loginLink={loginLink}
-            onCloseForm={onCloseForm}
-            type={"reply"}
-            onSubmitForm={handleFormSubmit}
-          />
-        )}
+        <div ref={commentFormRef}>
+          {commentFormId === comment._id && (
+            <CommentForm
+              t={t}
+              loggedIn={loggedIn}
+              loginLink={loginLink}
+              onCloseForm={onCloseForm}
+              type={"reply"}
+              onSubmitForm={handleFormSubmit}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
@@ -85,13 +94,13 @@ CommentCard.propTypes = {
   loggedIn: PropTypes.bool,
   t: PropTypes.func,
   lang: PropTypes.string,
-  mine: PropTypes.bool
+  mine: PropTypes.bool,
 };
 
 CommentCard.defaultProps = {
   loggedIn: false,
   t: (text) => text,
-  mine: false
+  mine: false,
 };
 
 export default memo(CommentCard);
