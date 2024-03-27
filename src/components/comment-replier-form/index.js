@@ -3,15 +3,13 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css'
 import PropTypes from "prop-types";
 
-const CommentReplierForm = ({ parent, setReplierActive, onCreate, replyTo }) => {
+const CommentReplierForm = ({ parent, setReplierActive, onCreate }) => {
   const style = parent === 'comment' ? {
     padding: 0,
     marginTop: '25px'
   } : {}
 
-  const fieldInitState = useMemo(() => (parent === 'article' ? 'Текст' : `Мой ответ для ${replyTo}`), [parent, replyTo])
-
-  const [field, setField] = useState(fieldInitState)
+  const [field, setField] = useState('')
 
   const cn = bem('CommentReplierForm')
 
@@ -20,9 +18,8 @@ const CommentReplierForm = ({ parent, setReplierActive, onCreate, replyTo }) => 
   }
 
   const onSubmitClick = () => {
-    if (field && field !== fieldInitState) {
+    if (field && field.trim()) {
       onCreate(field)
-      setField(fieldInitState)
       setReplierActive('article')
     }
 
@@ -31,7 +28,8 @@ const CommentReplierForm = ({ parent, setReplierActive, onCreate, replyTo }) => 
   return (
     <div style={style} className={cn()}>
       <span className={cn('header')}>Новый {parent === 'article' ? 'комментарий' : 'ответ'}</span>
-      <textarea className={cn('field')} value={field} onChange={(e) => setField(e.target.value)} />
+      <textarea className={cn('field')} value={field} placeholder={'Напишите комментарий'}
+                onChange={(e) => setField(e.target.value)} />
       <div className={cn('actions')}>
         <button onClick={onSubmitClick}>Отправить</button>
         {parent === 'comment' && <button onClick={onCancelClick}>Отмена</button>}
@@ -44,7 +42,6 @@ CommentReplierForm.propTypes = {
   parent: PropTypes.string,
   setReplierActive: PropTypes.func,
   onCreate: PropTypes.func,
-  replyTo: PropTypes.string
 }
 
 CommentReplierForm.defaultProps = {
