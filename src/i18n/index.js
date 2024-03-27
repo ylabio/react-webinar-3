@@ -13,17 +13,14 @@ class I18nService {
       lang: "ru",
     };
     this.listeners = [];
-    this.t = this.t.bind(this);
-    this.setLang = this.setLang.bind(this);
-    this.getLang = this.getLang.bind(this);
   }
-  subscribe(listener) {
+  subscribe = (listener) => {
     this.listeners.push(listener);
     return () => {
       this.listeners = this.listeners.filter((l) => l !== listener);
     };
-  }
-  t(lang, text, plural) {
+  };
+  t = (lang, text, plural) => {
     let result =
       translations[lang] && text in translations[lang]
         ? translations[lang][text]
@@ -36,14 +33,14 @@ class I18nService {
       }
     }
     return result;
-  }
-  setLang(lang) {
+  };
+  setLang = (lang) => {
     this.state.lang = lang;
     this.listeners.forEach((listener) => listener(lang));
-  }
-  getLang() {
+  };
+  getLang = () => {
     return this.state.lang;
-  }
+  };
 }
 
 export default I18nService;
