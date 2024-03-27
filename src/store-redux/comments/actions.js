@@ -17,5 +17,26 @@ export default {
         dispatch({type: 'comments/load-error'});
       }
     }
+  },
+
+  postComment: (data) => {
+    return async (dispatch, getState, services) => {
+      dispatch({type: 'post-comment/post-start'});
+
+      try {
+        const response = await services.api.request({
+          url: '/api/v1/comments',
+          method: 'POST',
+          body: JSON.stringify(data)
+        });
+        console.log(response)
+
+        dispatch({type: 'post-comment/post-success', payload: {
+            comment: response.data.result
+          }})
+      } catch (error) {
+        dispatch({type: 'post-comment/post-error', payload: error});
+      }
+    }
   }
 }

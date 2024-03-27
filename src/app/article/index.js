@@ -34,7 +34,7 @@ function Article() {
     waiting: state.article.waiting,
     comments: state.comments.items,
     countComment: state.comments.count,
-    waitingComments: state.comments.waiting
+    waitingComments: state.comments.waitingComments
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
   const {t} = useTranslate();
@@ -54,7 +54,11 @@ function Article() {
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
         <Spinner active={select.waitingComments}>
-          <Comments comments={select?.comments} count={select.countComment} itemId={params.id} />
+          <Comments comments={select?.comments}
+                    count={select.countComment}
+                    itemId={params.id}
+                    waiting={select.waitingComments}
+          />
         </Spinner>
       </Spinner>
 

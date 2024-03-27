@@ -1,22 +1,31 @@
 import useStore from "../../hooks/use-store";
 import List from "../list";
-import {memo, useCallback} from "react";
+import {memo, useCallback, useEffect} from "react";
 import Comment from "../comment";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import CommentForm from "../comment-form";
+import {useDispatch} from "react-redux";
+import commentsActions from '../../store-redux/comments/actions';
 
-function Comments({comments, count, itemId}) {
+function Comments({comments, count, itemId, waiting}) {
   const store = useStore();
+
+  const dispatch = useDispatch();
 
   const cn = bem('Comments');
   console.log(comments)
 
-  const renders = {
-    item: useCallback(item => (
-      <Comment item={item} />
-    ), []),
-  };
+  const addComment = (comment) => {
+    dispatch(commentsActions.postComment({
+      text: comment,
+      dateCreate: new Date().getDate()
+    }))
+  }
+  //
+  // useInit(() => {
+  //   dispatch(commentsActions.loadComments(itemId))
+  // }, [itemId]);
 
   return (
     <div className={cn()}>
@@ -29,7 +38,7 @@ function Comments({comments, count, itemId}) {
         : <div>Нет комментариев</div>
       }
 
-      <CommentForm />
+      <CommentForm handleSubmit={addComment} waiting={waiting} />
 
     </div>
   );
