@@ -4,7 +4,7 @@ import useSelector from "../../hooks/use-selector";
 import CommentReminder from "../../components/comment-reminder";
 import {useDispatch} from "react-redux";
 import commentReplierActions from "../../store-redux/comment-replier/actions";
-import createCommentActions from '../../store-redux/create-comment/actions';
+import commentsActions from "../../store-redux/comments/actions";
 import {useSelector as useSelectorRedux} from 'react-redux'
 import propTypes from "prop-types";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
@@ -27,7 +27,7 @@ const CommentReplier = ({ parent }) => {
   const callbacks = {
     setReplierActive: useCallback((type) => dispatch(commentReplierActions.setActive(type)), []),
     onCreate: useCallback((text) =>
-      dispatch(createCommentActions.create(selectRedux.replierActive, parent, text, select.token)),
+      dispatch(commentsActions.create(selectRedux.replierActive, parent, text, select.token)),
       [select.token, selectRedux.replierActive]),
     onSignIn: useCallback(() => navigate('/login', { state: {back: location.pathname} }), [location.state])
   }

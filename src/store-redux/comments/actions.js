@@ -19,5 +19,25 @@ export default {
       type: 'comments/update',
       payload: data
     }
+  },
+
+  create: (parentId, type, text, userId) => async (dispatch, getState, services) => {
+
+    const body = {
+      text,
+      parent: {_id: parentId, _type: type}
+    }
+
+    const res = await services.api.request({
+      url: '/api/v1/comments?fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted',
+      method: 'POST',
+      headers: {'X-Token': userId},
+      body: JSON.stringify(body)
+    })
+
+    dispatch({
+      type: 'comments/create-comment',
+      payload: res.data.result
+    })
   }
 }
