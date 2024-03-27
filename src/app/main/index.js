@@ -9,16 +9,15 @@ import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
-import {useSelector} from 'react-redux';
-import shallowequal from 'shallowequal';
+import {useSelectorTranslate} from '../../hooks/use-selector-translate';
 
 function Main() {
 
   const store = useStore();
 
-  const select = useSelector(state => ({
+  const select = useSelectorTranslate(state => ({
     language: state.translate.language
-  }), shallowequal);
+  }));
 
   useInit(async () => {
     await Promise.all([

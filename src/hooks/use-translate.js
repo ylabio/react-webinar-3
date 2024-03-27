@@ -1,12 +1,11 @@
-import {useSelector} from 'react-redux';
+import {useSelectorTranslate} from '../hooks/use-selector-translate';
 import * as translations from '../i18n/translations';
-import shallowequal from 'shallowequal';
 
 export default function useTranslate() {
 
-  const select = useSelector(state => ({
+  const select = useSelectorTranslate(state => ({
     language: state.translate.language
-  }), shallowequal);
+  }));
 
   const language = select.language;
 

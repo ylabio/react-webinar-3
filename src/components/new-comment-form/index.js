@@ -6,7 +6,7 @@ import './style.css';
 function NewCommentForm(props) {
   const cn = bem('NewCommentForm');
   return (
-    <div className={cn()}>
+    <div className={cn()} style={{marginLeft: (props.space - 1)*(-30) + 'px'}}>
       {props.exists ?
         <>
           <div className={cn('head')}>{props.title}</div>
@@ -20,7 +20,17 @@ function NewCommentForm(props) {
             </div>
           </form>
         </> :
-        <div className={cn('message')}><a href={props.link}>{props.t('commentForm.messageLink')}</a> {props.t('commentForm.message')}</div>
+        <div className={cn('message')}>
+          <button className={cn('button-signIn')} type='button' onClick={props.onSignIn}>{props.t('commentForm.messageLink')}</button>
+          {
+            props.isComment ?
+            <>
+              {` ${props.t('commentForm.messageAnswer')}`}
+              <button className={cn('button-answer')} type='button' onClick={props.onCancel}>{props.t('commentForm.cancel')}</button>
+            </> :
+            ` ${props.t('commentForm.message')}`
+          }
+        </div>
       }
     </div>
   );
@@ -28,9 +38,9 @@ function NewCommentForm(props) {
 
 NewCommentForm.propTypes = {
   title: PropTypes.string,
-  link: PropTypes.string,
   commentText: PropTypes.string,
   exists: PropTypes.bool,
+  onSignIn: PropTypes.func,
   onSubmit: PropTypes.func,
   onChange: PropTypes.func,
   onCancel: PropTypes.func,
@@ -39,9 +49,9 @@ NewCommentForm.propTypes = {
 
 NewCommentForm.defaultProps = {
   title: '',
-  link: '',
   commentText: '',
   exists: false,
+  onSignIn: () => {},
   onSubmit: () => {},
   onChange: () => {},
   onCancel: () => {},

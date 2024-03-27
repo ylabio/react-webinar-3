@@ -1,5 +1,6 @@
 import APIService from './api';
 import Store from './store';
+import Translate from './store-translate';
 import createStoreRedux from './store-redux';
 
 class Services {
@@ -29,6 +30,17 @@ class Services {
     }
     return this._store;
   }
+
+    /**
+   * Сервис Translate
+   * @returns {Translate}
+   */
+     get translate() {
+      if (!this._translate) {
+        this._translate = new Translate(this, this.config.translate);
+      }
+      return this._translate;
+    }
 
   /**
    * Redux store

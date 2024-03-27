@@ -1,7 +1,7 @@
 import {memo} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
-import CreateComment from '../../containers/create-comment';
+import getLastComment from '../../utils/get-last-comment-in-branch';
 import './style.css';
 
 function CommentsList(props) {
@@ -13,17 +13,12 @@ function CommentsList(props) {
         props.comments.map(comment =>
           <div key={comment._id} className='CommentsList-comment' style={{marginLeft: comment.space + 'px'}}>
             {props.renderComment(comment)}
-            <button className={cn('button')} onClick={() => props.setCurrentCommentId(comment._id)}>{props.t('commentList.answer')}</button>
-            {comment._id === props.currentCommentId &&
-              <CreateComment
-                t={props.t}
-                isComment={true}
-                title={props.t('createComment.newAnswer')}
-                parentType='comment'
-                currentCommentId={props.currentCommentId}
-                setCurrentCommentId={props.setCurrentCommentId}
-                articleId={props.articleId}
-            />}
+            <button className={cn('button')} onClick={() => props.onAnswer(comment, getLastComment(comment))}>
+              {props.t('commentList.answer')}
+            </button>
+            {comment._id === props.idAndSpaceForForm.id &&
+             <>{props.children}</>
+            }
           </div>
         )}
       </div>
@@ -37,21 +32,17 @@ CommentsList.propTypes = {
   })).isRequired,
   articleId: PropTypes.string,
   countComments: PropTypes.number,
-  currentCommentId: PropTypes.string,
   renderComment: PropTypes.func,
-  setCurrentCommentId: PropTypes.func,
-  t: PropTypes.func
+  t: PropTypes.func,
+  onAnswer: PropTypes.func,
 };
 
 CommentsList.defaultProps = {
   articleId: '',
   countComments: 0,
-  currentCommentId: '',
-  renderComment: (comment) => {
-  },
-  setCurrentCommentId: () => {
-  },
-  t: (text) => text
+  renderComment: () => {},
+  onAnswer: () => {},
+  t: () => {}
 }
 
 export default memo(CommentsList);
