@@ -23,13 +23,18 @@ function WritePannel({ id, session, postComment, token, level }) {
     ) {
       nexElement = nexElement.nextSibling;
     }
-    panel.style.marginLeft =
-      String(parentPadding + 30 - getPixels(nexElement.style.paddingLeft)) +
-      "px";
-      
+    if (level < 10)
+      panel.style.marginLeft =
+        String(parentPadding + 30 - getPixels(nexElement.style.paddingLeft)) +
+        "px";
+    else
+      panel.style.marginLeft =
+        String(parentPadding - getPixels(nexElement.style.paddingLeft)) + "px";
+
     nexElement.appendChild(panel);
-    document.getElementById('textarea' + id).style.width = String(944 - (level * 30)) + 'px';
-    console.log(level);
+    if (session)
+      document.getElementById("textarea" + id).style.width =
+        String(944 - level * 30) + "px";
     var topPos = panel.offsetTop;
     window.scrollTo(0, topPos - 200);
   }
