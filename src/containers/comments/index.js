@@ -8,8 +8,6 @@ import shallowequal from 'shallowequal';
 import commentsActions from '../../store-redux/comments/actions';
 import useSelector from '../../hooks/use-selector';
 import listToTree from '../../utils/list-to-tree';
-import treeToList from '../../utils/tree-to-list';
-import dateFormat from '../../utils/date-format';
 import useTranslate from "../../hooks/use-translate";
 
 function Comments() {
@@ -65,14 +63,11 @@ function Comments() {
     }, []),
 	}
 
-	const {t, lang} = useTranslate();
+	const {t} = useTranslate();
 
 	let comments = useMemo(() => {
-    return select.comments.length ? 
-			[...treeToList(listToTree(select.comments)[0].children, (item, level) => (
-				{...item, dateCreate: dateFormat(item.dateCreate, lang), level: level}
-			))]: [];
-  }, [select.comments, lang]);
+    return listToTree(select.comments)[0]?.children ?? [];
+  }, [select.comments]);
 
   return (
 		<Spinner active={select.waiting}>

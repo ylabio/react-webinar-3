@@ -1,8 +1,5 @@
 .ArticleComments {
 	padding: 20px 40px 90px;
-	display: flex;
-	flex-direction: column;
-	row-gap: 30px;
 }
 
 .ArticleComments-title {

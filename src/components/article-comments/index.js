@@ -27,7 +27,7 @@ function ArticleComments(props) {
       <div className={cn('title')}>
 				{t("comments.title")} ({count})
 			</div>
-			{comments.map((item) => (
+			{comments.length > 0 && comments.map((item) => (
         <Comment key={item._id} 
 								 item={item}
 								 session={session}

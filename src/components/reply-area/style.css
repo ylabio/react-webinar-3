@@ -1,5 +1,6 @@
 .ReplyArea {
   margin-top: 30px;
+	margin-left: 30px;
 }
 
 .ReplyArea-top {
@@ -23,6 +24,7 @@
 
 .ReplyArea-auth {
 	margin-top: 30px;
+	margin-left: 30px;
 }
 
 .ReplyArea-auth span {

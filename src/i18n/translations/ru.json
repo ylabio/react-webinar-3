@@ -44,5 +44,6 @@
   "filter.byName": "По именованию",
   "filter.exp": "Сначала дорогие",
   "filter.ancient": "Древние",
-  "category.all": "Все"
+  "category.all": "Все",
+	"comments.lang": "ru-RU"
 }

@@ -42,5 +42,6 @@
   "filter.byName": "By name",
   "filter.exp": "Expensive first",
   "filter.ancient": "Ancient",
-  "category.all": "All"
+  "category.all": "All",
+	"comments.lang": "en-EN"
 }

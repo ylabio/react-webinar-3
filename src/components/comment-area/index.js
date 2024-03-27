@@ -31,7 +31,7 @@ function CommentArea({onAddComment, session = false, path, t, location}) {
 					</form>
 				</div>
 			) : (
-				<div>
+				<div className={cn()}>
 					<Link to={path} state={{back: location}}>{t("comments.replyLogin")}</Link>, {t("comments.commentMessage")}
 				</div>
 			)}
