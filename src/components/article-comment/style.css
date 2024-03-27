@@ -1,0 +1,36 @@
+.ArticleComment {
+  font-size: 12px;
+  margin-bottom: 30px;
+}
+
+.ArticleComment-head {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.ArticleComment-username {
+  font-weight: bold;
+  margin: 0;
+}
+
+.ArticleComment-username--current-user {
+  color: #666666;
+}
+
+.ArticleComment-date {
+  color: #666666;
+  margin: 0;
+}
+
+.ArticleComment-content {
+  font-size: 14px;
+  margin: 10px 0;
+  word-wrap: break-word;
+}
+
+.ArticleComment-reply-btn {
+  all: unset;
+  color: #0087E9;
+  cursor: pointer;
+}

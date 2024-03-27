@@ -1,0 +1,23 @@
+.ArticleCommentForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.ArticleCommentForm-title {
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.ArticleCommentForm-textarea {
+  resize: none;
+  min-height: 76px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.ArticleCommentForm-submit-btn {
+  align-self: flex-start;
+  padding: 1px 10px
+}

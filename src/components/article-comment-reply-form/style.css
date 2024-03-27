@@ -1,0 +1,42 @@
+.ArticleCommentReplyForm-wrapper {
+  margin-bottom: 30px;
+}
+
+.ArticleCommentReplyForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.ArticleCommentReplyForm-title {
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.ArticleCommentReplyForm-textarea {
+  resize: none;
+  min-height: 76px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.ArticleCommentReplyForm-submit-btn {
+  margin-right: 10px;
+  padding: 1px 10px
+}
+
+.ArticleCommentReplyForm-cancel-btn {
+  padding: 1px 8px
+}
+
+.ArticleCommentReplyForm-subtitle {
+  font-size: 16px;
+}
+
+.ArticleCommentReplyForm-subtitle-cancel-btn {
+  all: unset;
+  cursor: pointer;
+  color: #666666;
+  border-bottom: 1px solid #666666;
+}
