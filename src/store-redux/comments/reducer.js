@@ -7,15 +7,14 @@ const initialState = {
     count: 0,
 };
 
-const reducer = (state = initialState, action) => {//решил их разделить , хотя они сейчас одинаковые, на случай если понадобится разная обработка
-    switch (action.type) {
+const reducer = (state = initialState, action) => {
+    switch (action.type) { // удалил дублирующий код, поправил имутабельность
         case 'FETCH_COMMENTS_START':
         case 'CREATE_COMMENT_START':
-            return { ...state, loading: true, error: null };
         case 'CREATE_REPLY_START':
             return { ...state, loading: true, error: null };
         case 'FETCH_COMMENTS_SUCCESS': {
-            const { items, count } = action.payload; 
+            const { items, count } = action.payload;
             const filteredComments = items.filter(c => !c.isDeleted);
             const commentTree = buildCommentTree(filteredComments);
             return {
@@ -23,24 +22,23 @@ const reducer = (state = initialState, action) => {//решил их разде�
                 comments: filteredComments,
                 commentTree,
                 loading: false,
-                count  
+                count
             };
         }
-        case 'CREATE_COMMENT_SUCCESS': {
-            const newReply = action.payload;
-            const comments = [newReply, ...state.comments];
-            const commentTree = buildCommentTree(comments);
-            return { ...state, comments, commentTree, loading: false };
-        }
+        case 'CREATE_COMMENT_SUCCESS':
         case 'CREATE_REPLY_SUCCESS': {
-            const newReply = action.payload;
-            const comments = [newReply, ...state.comments];
+            const newCommentOrReply = action.payload;
+            const comments = [newCommentOrReply, ...state.comments];
             const commentTree = buildCommentTree(comments);
-            return { ...state, comments, commentTree, loading: false };
+            return {
+                ...state,
+                comments,
+                commentTree,
+                loading: false
+            };
         }
         case 'FETCH_COMMENTS_FAILURE':
         case 'CREATE_COMMENT_FAILURE':
-            return { ...state, loading: false, error: action.payload };
         case 'CREATE_REPLY_FAILURE':
             return { ...state, loading: false, error: action.payload };
         default:
