@@ -6,6 +6,7 @@ import listToTree from "../../utils/list-to-tree";
 import treeToList from "../../utils/tree-to-list";
 import ArticleCommentForm from "../article-comment-form";
 import ArticleCommentReplyForm from "../article-comment-reply-form";
+import { scrollIntoViewWithOffset } from "../../utils/article-comments/helpers";
 
 const ArticleComments = ({
   isLoggedIn, 
@@ -25,19 +26,8 @@ const ArticleComments = ({
   const replyFormRef = useRef(null)
   
   useEffect(() => {
-    const scrollIntoViewWithOffset = (node, offset) => {
-      window.scrollTo({
-        behavior: 'smooth',
-        top:
-        node.getBoundingClientRect().top -
-          document.body.getBoundingClientRect().top -
-          window.innerHeight +
-          node.offsetHeight + 
-          offset,
-      })
-    }
-    
     const replyFormNode = replyFormRef.current
+
     if(replyFormNode) {
       scrollIntoViewWithOffset(replyFormNode, 50)
     }
@@ -62,7 +52,7 @@ const ArticleComments = ({
   return (
     <div className="ArticleComments">
       <div className="ArticleComments-title">
-        {t('article.commentaries-title')} {comments.count && `(${comments.count})`}
+        {t('article.commentaries-title')} {!!comments.count && `(${comments.count})`}
       </div>
       {list && list.map((comment) => (
         <React.Fragment key={comment._id}>
@@ -70,10 +60,6 @@ const ArticleComments = ({
             comment={comment}
             loggedUserId={loggedUserId}
             handleCommentForm={callbacks.handleCommentForm}
-            isLoggedIn={isLoggedIn}
-            link='/login'
-            pathname={pathname}
-            onAddComment={onAddComment}
             t={t}
           />
           {(comment._id === commentForm.replyFormBelowCommentId) && (

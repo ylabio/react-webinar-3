@@ -7,3 +7,15 @@ export function getLatestCommentNode(comment) {
     return getLatestCommentNode(comment.children[comment.children.length - 1])
   }
 }
+
+export function scrollIntoViewWithOffset(node, offset) {
+  window.scrollTo({
+    behavior: 'smooth',
+    top:
+    node.getBoundingClientRect().top -
+      document.body.getBoundingClientRect().top -
+      window.innerHeight +
+      node.offsetHeight + 
+      offset,
+  })
+}

@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import { memo } from "react"
 import './style.css'
 import dateFormat from '../../utils/dateFormat';
-import { getLatestCommentNode } from '../../utils/getLatestCommentNode';
+import { getLatestCommentNode } from '../../utils/article-comments/helpers';
 
 
 const ArticleComment = (props) => {
   const isCurrentUserComment = props.comment.author._id === props.loggedUserId
+  
   const callbacks = {
     openReplyForm: () => props.handleCommentForm(prev => prev = {
       form: 'reply', 
