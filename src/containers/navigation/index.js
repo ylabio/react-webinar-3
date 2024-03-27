@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback, useMemo, useEffect} from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -11,6 +11,7 @@ import modalsActions from '../../store-redux/modals/actions';
 function Navigation() {
   const store = useStore();
   const dispatch = useDispatch();
+  const {translateService, locale} = useTranslate();
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
@@ -30,21 +31,26 @@ function Navigation() {
     }, [store])
   }
 
-  // Функция для локализации текстов
-  const {t} = useTranslate();
-
   const options = {
     menu: useMemo(() => ([
-      {key: 1, title: t('menu.main'), link: '/'},
-    ]), [t])
+      {key: 1, title: translateService.translate('menu.main'), link: '/'},
+    ]), [locale])
   };
 
   return (
     <SideLayout side='between'>
       <Menu items={options.menu} onNavigate={callbacks.onNavigate}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} t={t}/>
+      <BasketTool 
+        onOpen={callbacks.openModalBasket} 
+        amount={select.amount} 
+        sum={select.sum}
+        labelInBasket={translateService.translate('basket.inBasket')}
+        labelUnits={translateService.translate('basket.unit')}
+        labelEmpty={translateService.translate('basket.empty')}
+        labelOpen={translateService.translate('basket.open')}
+      />
     </SideLayout>
   );
 }
 
-export default memo(Navigation);
+export default Navigation;

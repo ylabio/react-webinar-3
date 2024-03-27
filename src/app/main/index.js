@@ -1,4 +1,4 @@
-import {memo} from 'react';
+import {memo, useEffect} from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -13,6 +13,11 @@ import TopHead from '../../containers/top-head';
 function Main() {
 
   const store = useStore();
+  const {translateService, locale} = useTranslate();
+
+  useEffect(() => {
+    store.actions.catalog.initParams();
+  }, [locale])
 
   useInit(async () => {
     await Promise.all([
@@ -20,13 +25,11 @@ function Main() {
       store.actions.categories.load()
     ]);
   }, [], true);
-
-  const {t} = useTranslate();
-
+  
   return (
     <PageLayout>
       <TopHead/>
-      <Head title={t('title')}>
+      <Head title={translateService.translate('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>

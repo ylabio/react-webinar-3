@@ -1,0 +1,26 @@
+.CommentsLayout {
+  margin: 0;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.CommentsLayout-title {
+  margin-bottom: 25px;
+  font-size: 24px;
+}
+
+.CommentsLayout-comments {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 30px;
+}
+
+.CommentsLayout-comments > li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
