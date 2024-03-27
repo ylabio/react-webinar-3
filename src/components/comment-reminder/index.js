@@ -4,7 +4,7 @@ import './style.css'
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 
-const CommentReminder = ({ parent, login, setReplierActive }) => {
+const CommentReminder = ({ parent, onSignIn, setReplierActive }) => {
   const style = parent === 'comment' ? {
     padding: 0,
     margin: '25px 0',
@@ -18,20 +18,21 @@ const CommentReminder = ({ parent, login, setReplierActive }) => {
 
   return (
     <div style={style} id={parent === 'comment' ? 'replyTo' : ''} className={cn()}>
-      <Link to={login}>Войдите</Link>, чтобы иметь возможность {parent === 'article' ? 'комментировать' : 'ответить'}.
-      {' '}{parent === 'comment' && <span onClick={onCancelClick}>Отмена</span>}
+      <span className={cn('link')} onClick={onSignIn}>Войдите</span>, чтобы иметь возможность {parent === 'article' ? 'комментировать' : 'ответить'}.
+      {' '}{parent === 'comment' && <span className={cn('cancel')} onClick={onCancelClick}>Отмена</span>}
     </div>
   );
 };
 
 CommentReminder.propTypes = {
   parent: PropTypes.string,
-  login: PropTypes.string,
+  onSignIn: PropTypes.func,
   setReplierActive: PropTypes.func
 }
 
 CommentReminder.defaultProps = {
-  setReplierActive: () => {}
+  setReplierActive: () => {},
+  onSignIn: () => {}
 }
 
 export default React.memo(CommentReminder);
