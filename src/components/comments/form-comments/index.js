@@ -3,7 +3,7 @@ import "./style.css";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 
-function FormComments({ cb, label, labelBtn, id, labelBtn2, cb2, autofocus }) {
+function FormComments({ cb, label, labelBtn, id, labelBtn2, cb2 }) {
   const cn = bem("FormComments");
   const [value, setValue] = useState("");
   const textareaRef = useRef();
@@ -15,7 +15,7 @@ function FormComments({ cb, label, labelBtn, id, labelBtn2, cb2, autofocus }) {
         setValue("");
       } else {
         setValue("");
-        formRef.current[0].placeholder = "is empty";
+        textareaRef.current.placeholder = "is empty";
       }
     },
     [value]
