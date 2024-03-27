@@ -1,4 +1,4 @@
-import {memo} from 'react';
+import {memo, useCallback, useMemo} from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -14,14 +14,14 @@ function Main() {
 
   const store = useStore();
 
+  const {t} = useTranslate(state => ({lang: state.lang}));
+
   useInit(async () => {
     await Promise.all([
       store.actions.catalog.initParams(),
       store.actions.categories.load()
     ]);
   }, [], true);
-
-  const {t} = useTranslate();
 
   return (
     <PageLayout>

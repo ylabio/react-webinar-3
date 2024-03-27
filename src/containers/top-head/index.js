@@ -7,7 +7,7 @@ import useStore from '../../hooks/use-store';
 
 function TopHead() {
 
-  const {t} = useTranslate();
+  const {t} = useTranslate(state => ({lang: state.lang}));
   const navigate = useNavigate();
   const location = useLocation();
   const store = useStore();

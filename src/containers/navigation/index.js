@@ -31,7 +31,7 @@ function Navigation() {
   }
 
   // Функция для локализации текстов
-  const {t} = useTranslate();
+  const {t} = useTranslate(state => ({lang: state.lang}));
 
   const options = {
     menu: useMemo(() => ([

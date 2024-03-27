@@ -27,7 +27,11 @@ class APIService {
       headers: {...this.defaultHeaders, ...headers},
       ...options,
     });
-    return {data: await res.json(), status: res.status, headers: res.headers};
+    if (res.ok) {
+      return {data: await res.json(), status: res.status, headers: res.headers};      
+    } else {
+      return {data: {error: res.statusText}, status: res.status, headers: res.headers};
+    }
   }
 
   /**

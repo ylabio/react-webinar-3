@@ -50,7 +50,7 @@ function CatalogFilter() {
     ]), [select.categories]),
   };
 
-  const {t} = useTranslate();
+  const {t} = useTranslate(state => ({lang: state.lang}));
 
   return (
     <SideLayout padding='medium'>

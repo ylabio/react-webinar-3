@@ -20,5 +20,16 @@
   "auth.password": "Password",
   "auth.signIn": "Sign in",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "comments": "Comments",
+  "comments.newComment": "New comment",
+  "comments.newAnswer": "New answer",
+  "comments.answer": "Answer",
+  "comments.text": "Text",
+  "comments.send": "Send",
+  "comments.cancel": "Cancel",
+  "comments.inviteAnchor": "Sign in",
+  "comments.inviteComment": "Sign in to post comments",
+  "comments.inviteAnswer": "Sign in to answer comments.",
+  "comment.emptyTextAlert": "Input text to send comment"
 }
