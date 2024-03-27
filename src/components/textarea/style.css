@@ -1,0 +1,22 @@
+.TextArea {
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+}
+
+.TextArea b {
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.TextArea textarea {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  font-family: Arial;
+  padding: 4px 5px;
+  resize: vertical;
+  width: 100%;
+  max-height: 300px;
+  min-height: 76px;
+}

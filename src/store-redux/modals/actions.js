@@ -13,5 +13,17 @@ export default {
    */
   close: () => {
     return {type: 'modal/close'}
+  },
+
+  openTextArea: (name) => {
+    return {type: 'modal/openTextArea', payload: {name}};
+  },
+
+  /**
+   * Закрытие модалки
+   * @param name
+   */
+  closeTextArea: () => {
+    return {type: 'modal/closeTextArea'}
   }
 }
