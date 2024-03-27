@@ -4,6 +4,10 @@
   width: 100%;
 }
 
+.CommentField-comment {
+  padding-left: 30px;
+}
+
 .CommentField-title {
   font-weight: 700;
 }
