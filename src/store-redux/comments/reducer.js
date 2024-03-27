@@ -18,7 +18,7 @@ export const initialState = {
         return {...state, waiting: true};
   
       case "comments/send-comments-success":
-        return {...state, comments: [...state.comments, action.payload.newComment], waiting: false, parentID: '', parentType: 'article'};
+        return {...state, comments: [...state.comments, {...action.payload.newComment}], waiting: false, parentID: '', parentType: 'article'};
         
       case "comments/change-parent":
         return {...state, parentType: action.payload.parentType, parentID: action.payload.parentID}
