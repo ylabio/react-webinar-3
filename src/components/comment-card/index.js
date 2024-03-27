@@ -65,6 +65,7 @@ function CommentCard({
             handleOpenForm={handleOpenForm}
             onCloseForm={() => handleOpenForm("")}
             onCreateComment={onCreateComment}
+            mine={mine}
           />
         ))}
       </div>
