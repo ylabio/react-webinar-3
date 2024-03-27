@@ -26,7 +26,7 @@ class I18nService {
    * @param [plural] {Number} Число для плюрализации
    * @returns {String} Переведенный текст
    */
-  t(text, plural, lang) {
+  translate(text, plural, lang) {
     lang = lang || this.lang
     let result =
       translations[lang] && text in translations[lang]
@@ -49,6 +49,7 @@ class I18nService {
   setLang(lang) {
     this.lang = lang
     localStorage.setItem('lang', lang)
+    this.services.api.setHeader('Accept-Language', this.lang)
     for (const listener of this.listeners) listener(this.lang);
   }
 }

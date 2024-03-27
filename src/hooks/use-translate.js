@@ -20,6 +20,6 @@ export default function useTranslate() {
   return useMemo(() => ({
     lang: i18n.lang,
     setLang: (lang) => i18n.setLang(lang),
-    t: (text, number, lang) => i18n.t(text, number, lang)
+    t: (text, number, lang) => i18n.translate(text, number, lang)
   }), [lang]);
 }

@@ -9,7 +9,7 @@ class APIService {
     this.config = config
     this.defaultHeaders = {
       'Content-Type': 'application/json',
-      'Accept-Language': this.services.i18n.lang
+      'Accept-Language': this.services.i18n.getLang()
     }
   }
 
@@ -23,7 +23,6 @@ class APIService {
    */
   async request({url, method = 'GET', headers = {}, ...options}) {
     if (!url.match(/^(http|\/\/)/)) url = this.config.baseUrl + url;
-    this.setHeader('Accept-Language', this.services.i18n.lang)
     const res = await fetch(url, {
       method,
       headers: {...this.defaultHeaders, ...headers},
