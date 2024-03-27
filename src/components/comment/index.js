@@ -4,13 +4,14 @@ import {parseDate} from "../../utils/parse-date";
 import CommentReplier from "../../containers/comment-replier";
 import PropTypes from "prop-types";
 
-const Comment = ({ data, isOwner, replierActive, setReplierComment }) => {
+const Comment = ({ data, isOwner, replierActive, setReplierComment, setReplierOn }) => {
   const style = isOwner ? {
     color: '#666'
   } : {}
 
   const onAnswerClick = () => {
     setReplierComment(data._id)
+    setReplierOn(true)
   }
 
   return (
@@ -28,7 +29,7 @@ const Comment = ({ data, isOwner, replierActive, setReplierComment }) => {
       >
         Ответить
       </div>
-      {replierActive === data._id && <CommentReplier replyTo={data.author.profile.name} parent={'comment'} />}
+      {/*{replierActive === data._id && <CommentReplier parent={'comment'} />}*/}
     </div>
   );
 };

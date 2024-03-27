@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 const CommentReplierForm = ({ parent, setReplierActive, onCreate }) => {
   const style = parent === 'comment' ? {
     padding: 0,
-    marginTop: '25px'
+    margin: '25px 0',
   } : {}
 
   const [field, setField] = useState('')
@@ -26,7 +26,7 @@ const CommentReplierForm = ({ parent, setReplierActive, onCreate }) => {
   }
 
   return (
-    <div style={style} className={cn()}>
+    <div style={style} id={parent === 'comment' ? 'replyTo' : ''} className={cn()}>
       <span className={cn('header')}>Новый {parent === 'article' ? 'комментарий' : 'ответ'}</span>
       <textarea className={cn('field')} value={field} placeholder={'Напишите комментарий'}
                 onChange={(e) => setField(e.target.value)} />

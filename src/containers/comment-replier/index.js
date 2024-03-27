@@ -8,7 +8,7 @@ import createCommentActions from '../../store-redux/create-comment/actions';
 import {useSelector as useSelectorRedux} from 'react-redux'
 import propTypes from "prop-types";
 
-const CommentReplier = ({ parent, replyTo }) => {
+const CommentReplier = ({ parent }) => {
   const dispatch = useDispatch()
 
   const select = useSelector(state => ({
@@ -28,7 +28,7 @@ const CommentReplier = ({ parent, replyTo }) => {
   }
 
   if (select.user) {
-    return <CommentReplierForm parent={parent} replyTo={replyTo} setReplierActive={callbacks.setReplierActive} onCreate={callbacks.onCreate} />
+    return <CommentReplierForm parent={parent} setReplierActive={callbacks.setReplierActive} onCreate={callbacks.onCreate} />
   } else {
     return <CommentReminder login={'/login'} parent={parent} setReplierActive={callbacks.setReplierActive} />
   }
@@ -36,7 +36,6 @@ const CommentReplier = ({ parent, replyTo }) => {
 
 CommentReplier.propTypes = {
   parent: propTypes.string,
-  replyTo: propTypes.string
 }
 
 export default React.memo(CommentReplier);
