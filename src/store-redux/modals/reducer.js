@@ -1,6 +1,7 @@
 // Начальное состояние
 const initialState = {
-  name: ''
+  name: '',
+  textarea: 'textarea'
 }
 
 // Обработчик действий
@@ -10,6 +11,10 @@ function reducer(state = initialState, action) {
       return {...state, name: action.payload.name};
     case 'modal/close':
       return {...state, name: null};
+    case 'modal/openTextArea':
+      return {...state, textarea: action.payload.name};
+    case 'modal/closeTextArea':
+      return {...state, textarea: 'textarea'};
     default:
       return state;
   }

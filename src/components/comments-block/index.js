@@ -1,21 +1,23 @@
-import { memo, useCallback, useState } from 'react'
+import { memo, useState } from 'react'
 import PropTypes from 'prop-types';
 import './style.css';
+import { isEmptyOrSpaces } from '../../utils/is-empty-or-spaces'
 import LoginAlert from '../login-alert'
 import TextArea from '../textarea'
 
-function CommentsBlock({count, articleId, items, renderItem, exists, sendComment}) {
+function CommentsBlock({count, articleId, items, renderItem, exists, sendComment, isFormOpen}) {
   const [commentValue, setCommentValue] = useState('')
   if (!items) {
     return ;
   }
+
 
   const onChangeComment = (value) => {
     setCommentValue(value)
   }
 
   const onSend = () => {
-    commentValue && sendComment({
+    !isEmptyOrSpaces(commentValue) && sendComment({
       text: commentValue,
       parent: {
         _id: articleId,
@@ -33,11 +35,14 @@ function CommentsBlock({count, articleId, items, renderItem, exists, sendComment
           {renderItem(item)}
         </div>
       ))}
-      {exists ?
+      {isFormOpen === `textarea` && exists && (
         <TextArea placeholder={'Напишите свой комментарий'} value={commentValue} onChange={onChangeComment} label={'Новый комментарий'}>
           <button className={'CommentsBlock-btn'} onClick={onSend}>Отправить</button>
-        </TextArea> :
-        <LoginAlert text={'комментировать'} />}
+        </TextArea>
+      )}
+      {isFormOpen === `textarea` && !exists &&(
+        <LoginAlert text={'комментировать.'} />
+      )}
     </div>
   )
 }

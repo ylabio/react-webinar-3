@@ -48,6 +48,9 @@ function Login() {
         const back = location.state?.back && location.state?.back !== location.pathname
           ? location.state?.back
           : '/';
+
+        console.log(location.state?.back)
+        console.log(location.pathname)
         navigate(back);
       });
 

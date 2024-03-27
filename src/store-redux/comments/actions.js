@@ -5,7 +5,7 @@ export default {
 
       try {
         const res = await services.api.request({
-          url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type,_tree),isDeleted),count&limit=*&search[parent]=${_id}`
+          url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=${_id}`
         });
         dispatch({type: 'comments/load-success', payload: {data: res.data.result}});
 
