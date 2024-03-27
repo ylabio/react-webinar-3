@@ -23,5 +23,6 @@
   "session.signOut": "Sign Out",
   "comments.reply": "Reply",
   "comments.send": "Send",
-  "comments.cancel": "Cancel"
+  "comments.cancel": "Cancel",
+  "comments.signin": "Sign In"
 }

@@ -25,5 +25,6 @@
   "session.signOut": "Выход",
   "comments.reply": "Ответить",
   "comments.send": "Отправить",
-  "comments.cancel": "Отмена"
+  "comments.cancel": "Отмена",
+  "comments.signin": "Войдите"
 }

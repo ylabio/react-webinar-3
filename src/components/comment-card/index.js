@@ -1,13 +1,16 @@
-import {memo} from "react";
+import {memo, useRef} from "react";
 import {dateFormat} from "../../utils/date-format";
 import PropTypes from 'prop-types';
-import CommentHint from "../comment-hint";
+import CommentNav from "../comment-nav";
 import CommentForm from "../comment-form";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 function CommentCard(props) {
-  const {item, exists, activeForm, setActiveForm, commentValue, setCommentValue, replyComment, t, margin} = props;
+  const {item, exists, activeForm, setActiveForm, commentValue, setCommentValue, replyComment, user, t, margin} = props;
+
+  const formRef = useRef();
+  const username = exists ? user.profile.name : '';
 
   // Функция открытия выбранной формы по id
   const handleOpenForm = (_id) => {
@@ -24,6 +27,7 @@ function CommentCard(props) {
     if (commentValue.trim()) {
       replyComment(_id);
       setActiveForm('');
+      formRef.current.scrollIntoView({behavior: 'smooth'});
     }
   }
 
@@ -32,8 +36,12 @@ function CommentCard(props) {
   return (
     <div className={cn({margin})}>
       <div className={cn('head')}>
-        <div className={cn('author')}>{item.author.profile.name}</div>
-        <div className={cn('date')}>{dateFormat(item.dateCreate)}</div>
+        <div className={cn(username === item.author.profile.name ? 'current-author' : 'author')}>
+          {item.author.profile.name}
+        </div>
+        <div className={cn('date')}>
+          {dateFormat(item.dateCreate)}
+        </div>
       </div>
       <div className={cn('text')}>
         {item.text}
@@ -47,10 +55,10 @@ function CommentCard(props) {
         <> 
           {!exists
             ? <div className={cn('form-wrapper')}>
-                <CommentHint link={'/login'} text={'ответить'}/>
+                <CommentNav link={'/login'} description={'ответить'} t={t}/>
                 <button className={cn('cancel-btn')} onClick={handleCloseForm}>{t('comments.cancel')}</button>
               </div>
-            : <div className={cn('form-wrapper')}>
+            : <div ref={formRef} className={cn('form-wrapper')}>
                 <CommentForm text={'ответ'} value={commentValue} onChange={setCommentValue} onClick={() => handleReplyComment(item._id)} t={t}>
                   <button onClick={handleCloseForm}>{t('comments.cancel')}</button>
                 </CommentForm>
@@ -65,7 +73,7 @@ function CommentCard(props) {
           key={reply._id} item={reply} exists={exists} 
           activeForm={activeForm} setActiveForm={setActiveForm} 
           commentValue={commentValue} setCommentValue={setCommentValue}
-          replyComment={replyComment} t={t} margin={'left'} 
+          replyComment={replyComment} user={user} t={t} margin={'left'} 
         />
       ))}
     </div>

@@ -1,15 +1,15 @@
-.CommentHint {
+.CommentNav {
   display: flex;
   align-items: center;
 }
 
-.CommentHint > a {
+.CommentNav > a {
   text-decoration: none;
   color: #0087E9;
   position: relative;
 }
 
-.CommentHint > a::after {
+.CommentNav > a::after {
   position: absolute;
   content: '';
   width: 100%;

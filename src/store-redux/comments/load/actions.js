@@ -22,5 +22,16 @@ export default {
       }
     }
   },
+
+  /**
+   * Динамическое добавление нового комментария
+   * @param {Object} comment 
+   * @returns {Function}
+   */
+  update: (comment) => {
+    return (dispatch) => {
+      dispatch({type: 'add_comment/update-success', payload: {data: comment}});
+    }
+  }
 }
   

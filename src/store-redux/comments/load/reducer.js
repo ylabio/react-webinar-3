@@ -9,7 +9,7 @@ export const initialState = {
 function reducer(state = initialState, action) {
   switch (action.type) {
     case "comments/load-start":
-      return {...state, data: {}, waiting: true};
+      return {...state, count: 0, items: [], waiting: true};
 
     case "comments/load-success":
       return {
@@ -20,7 +20,14 @@ function reducer(state = initialState, action) {
       };
 
     case "comments/load-error":
-      return {...state, data: {}, waiting: false}; //@todo текст ошибки сохранять?
+      return {...state, count: 0, items: [], waiting: false}; //@todo текст ошибки сохранять?
+
+    case "add_comment/update-success":
+      return {
+        ...state, 
+        count: state.count + 1, 
+        items: [...state.items, action.payload.data]
+      };
 
     default:
       // Нет изменений
