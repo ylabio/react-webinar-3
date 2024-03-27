@@ -30,7 +30,7 @@ function Comments({ id }) {
   });
 
   useEffect(() => {
-    if(inputRef.current){
+    if(inputRef.current && answerTo._type != 'article'){
       inputRef.current.scrollIntoView({behavior: 'smooth'})
     }
   }, [answerTo])
@@ -52,13 +52,13 @@ function Comments({ id }) {
 
   const callbacks = {
     onSend: useCallback(async (text) => {
-      if (text.length > 0) {
+      if (text.trim().length > 0) {
         console.log(answerTo);
         await dispatch(commentsActions.send(text, answerTo));
         setAnswerTo({ _id: id, _type: 'article' });
       }
     }, [store, answerTo]),
-    onAnswer: useCallback((commentId) => { setAnswerTo({ _id: commentId, _type: 'comment' }) }),
+    onAnswer: useCallback((commentId) => setAnswerTo({ _id: commentId, _type: 'comment' })),
     onCancel: useCallback(() => setAnswerTo({ _id: id, _type: 'article' }))
   };
 

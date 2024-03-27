@@ -32,8 +32,8 @@ function CommentInput({ onSend, onCancel, parent, redirect, isLoggedIn, t, input
   }
 
   return (
-    <div className={cn('redirect')}>
-      <Link to={redirect}>{t("comments.login")}</Link>
+    <div className={cn('redirect')} ref={inputRef}>
+      <Link to={redirect} state={{back: location.pathname}}>{t("comments.login")}</Link>
       , {t('comments.why')}.
       {parent == 'comment' && <div className={cn('redirect-cancel')} onClick={() => onCancel()}> {t("comments.cancel")}</div>}
     </div>
