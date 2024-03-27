@@ -37,6 +37,7 @@ class I18nService {
   setLang = (lang) => {
     this.state.lang = lang;
     this.listeners.forEach((listener) => listener(lang));
+    this.services.api.setHeader("Accept-Language", lang);
   };
   getLang = () => {
     return this.state.lang;

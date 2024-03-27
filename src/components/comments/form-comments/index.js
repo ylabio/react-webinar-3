@@ -3,10 +3,23 @@ import "./style.css";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 
-function FormComments({ cb, label, labelBtn, id, labelBtn2, cb2 }) {
+function FormComments({
+  cb,
+  label,
+  labelBtn,
+  id,
+  labelBtn2,
+  cb2,
+  autofocus = false,
+}) {
   const cn = bem("FormComments");
   const [value, setValue] = useState("");
   const textareaRef = useRef();
+  useEffect(() => {
+    if (autofocus) {
+      textareaRef.current.focus();
+    }
+  }, [autofocus]);
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();

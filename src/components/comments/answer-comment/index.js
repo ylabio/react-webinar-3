@@ -28,6 +28,7 @@ function AnswerComment({
           cb={addComment}
           labelBtn2={t("comment.cancel")}
           cb2={onCloseForm}
+          autofocus={true}
         />
       ) : (
         <AuthAlert

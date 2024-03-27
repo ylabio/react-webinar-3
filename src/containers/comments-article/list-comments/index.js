@@ -33,7 +33,6 @@ function ListComments() {
     }),
     shallowEqual
   );
-
   let comments = useMemo(() => {
     return selectRedux.comments.length
       ? [
