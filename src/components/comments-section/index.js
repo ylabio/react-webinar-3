@@ -21,7 +21,11 @@ function CommentsSection({ comments, transformDate, postComment }) {
             _id: item._id,
             text: item.isDeleted ? "Комментарий удален" : item.text,
             dateCreate: item.dateCreate,
-            author: item.isDeleted ? "No name" : Object(item.author).profile ? JSON.parse(JSON.stringify(item)).author.profile.name : select.sessionUserName,
+            author: item.isDeleted
+              ? "No name"
+              : Object(item.author).profile
+              ? JSON.parse(JSON.stringify(item)).author.profile.name
+              : select.sessionUserName,
             level: level,
             parent:
               !item.parent || item.parent._type == "article" ? {} : item.parent,
@@ -32,18 +36,42 @@ function CommentsSection({ comments, transformDate, postComment }) {
                 key={item._id}
                 className="Comments-item"
                 id={item._id}
-                style={{ paddingLeft: `${(item.level - 1) * 30}px` }}
+                style={{
+                  paddingLeft: `${(Math.min(item.level, 10) - 1) * 30}px`,
+                  width: `${974 - Math.min(item.level, 10) * 30}px`,
+                }}
               >
-                <div className="Comment-Author" style={{color: (item.text =="Комментарий удален" || item.author == select.sessionUserName) ? '#666666' : 'black'}}>{item.author}</div>
+                <div
+                  className="Comment-Author"
+                  style={{
+                    color:
+                      item.text == "Комментарий удален" ||
+                      item.author == select.sessionUserName
+                        ? "#666666"
+                        : "black",
+                  }}
+                >
+                  {item.author}
+                </div>
                 <div className="Comment-Date">
                   {transformDate(item.dateCreate)}
                 </div>
-                <div className="Comment-Text" style={{color: item.text =="Комментарий удален" ? '#666666' : 'black'}}>{item.text}</div>
+                <div
+                  className="Comment-Text"
+                  style={{
+                    inlineSize: `${974 - Math.min(item.level, 10) * 30}px`,
+                    color:
+                      item.text == "Комментарий удален" ? "#666666" : "black",
+                  }}
+                >
+                  {item.text}
+                </div>
                 <WritePannel
                   id={item._id}
                   session={select.exists}
                   postComment={postComment}
                   token={select.token}
+                  level = {Math.min(item.level, 10)}
                 />
               </div>
             ))}
@@ -52,6 +80,7 @@ function CommentsSection({ comments, transformDate, postComment }) {
             session={select.exists}
             postComment={postComment}
             token={select.token}
+            level = {0}
           />
         </>
       ) : (
@@ -60,6 +89,7 @@ function CommentsSection({ comments, transformDate, postComment }) {
           session={select.exists}
           postComment={postComment}
           token={select.token}
+          level = {0}
         />
       )}
     </div>

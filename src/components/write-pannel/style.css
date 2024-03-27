@@ -1,10 +1,13 @@
 .Show-Write-Panel {
     color: #0087E9;
     margin-bottom: 30px;
+    cursor: pointer;
 }
 
 .Write-Panel {
     margin-bottom: 30px;
+    overflow: hidden;
+    display: block;
 }
 
 .Write-Panel button {
@@ -26,8 +29,12 @@
     overflow-x: hidden;
     text-align: start;
     margin-right: 10px;
+    resize:vertical;
 }
-
+#textareanull {
+    width: 944px;
+    margin-bottom: 10px;
+}
 .Write-Panel-Cancel {
     text-decoration: underline;
     display: inline;

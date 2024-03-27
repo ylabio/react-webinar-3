@@ -2,39 +2,46 @@ import { memo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./style.css";
-
-function getPixels(s) {
-  return Number(String(s).replace("px", ""));
-}
-
-function openDisplay(id) {
-  for (var otherDisplay of document.getElementsByClassName("Write-Panel")) {
-    if (otherDisplay.id) otherDisplay.style.display = "none";
+function WritePannel({ id, session, postComment, token, level }) {
+  function getPixels(s) {
+    return Number(String(s).replace("px", ""));
   }
-  var panel = document.getElementById("write" + id);
-  panel.style.display = "block";
 
-  var nexElement = document.getElementById(id);
-  var parentPadding = getPixels(document.getElementById(id).style.paddingLeft);
-  while (getPixels(nexElement.nextSibling.style.paddingLeft) > parentPadding) {
-    nexElement = nexElement.nextSibling;
+  function openDisplay(id) {
+    for (var otherDisplay of document.getElementsByClassName("Write-Panel")) {
+      if (otherDisplay.id) otherDisplay.style.display = "none";
+    }
+    var panel = document.getElementById("write" + id);
+    panel.style.display = "block";
+
+    var nexElement = document.getElementById(id);
+    var parentPadding = getPixels(
+      document.getElementById(id).style.paddingLeft
+    );
+    while (
+      getPixels(nexElement.nextSibling.style.paddingLeft) > parentPadding
+    ) {
+      nexElement = nexElement.nextSibling;
+    }
+    panel.style.marginLeft =
+      String(parentPadding + 30 - getPixels(nexElement.style.paddingLeft)) +
+      "px";
+      
+    nexElement.appendChild(panel);
+    document.getElementById('textarea' + id).style.width = String(944 - (level * 30)) + 'px';
+    console.log(level);
+    var topPos = panel.offsetTop;
+    window.scrollTo(0, topPos - 200);
   }
-  panel.style.marginLeft =
-    String(parentPadding + 30 - getPixels(nexElement.style.paddingLeft)) + "px";
-  nexElement.appendChild(panel);
-  var topPos = panel.offsetTop;
-  window.scrollTo(0, topPos - 200);
-}
 
-function closeDisplay(id) {
-  document.getElementById(id).style.display = "none";
-}
-
-function WritePannel({ id, session, postComment, token }) {
+  function closeDisplay(id) {
+    document.getElementById(id).style.display = "none";
+  }
   const navigate = useNavigate();
   function postAndClose() {
     closeDisplay("write" + id);
-    document.getElementById("textarea" + id).value.replaceAll(" ", "").length > 0
+    document.getElementById("textarea" + id).value.replaceAll(" ", "").length >
+    0
       ? postComment(
           document.getElementById("textarea" + id).value,
           { _id: id, _type: "comment" },
@@ -72,7 +79,12 @@ function WritePannel({ id, session, postComment, token }) {
               style={{ display: "none" }}
             >
               <>
-                <div className="Write-Panel-Login" onClick={() =>  navigate('/login', {state: {back: location.pathname}})}>
+                <div
+                  className="Write-Panel-Login"
+                  onClick={() =>
+                    navigate("/login", { state: { back: location.pathname } })
+                  }
+                >
                   Войдите
                 </div>
                 , чтобы иметь возможность ответить.{" "}

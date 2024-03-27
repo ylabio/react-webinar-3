@@ -1,8 +1,9 @@
 .Comments {
   margin-left: 40px;
   padding-bottom: 92px;
-  overflow-x: scroll;
+  width: 100%;
   padding-right: 10px;
+  overflow-x: hidden;
 }
 
 .Comments-Amount {
@@ -27,5 +28,6 @@ margin-bottom: 25px;
   display: block;
   margin-bottom: 10px;
   width: 944px;
-  word-break: break-all;
+  inline-size: 944px;
+  overflow-wrap: break-word;
 }
