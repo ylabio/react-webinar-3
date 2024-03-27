@@ -9,7 +9,12 @@ function CommentForm({ onSubmit, onCancel, style,title,placeholder='',sendButton
   
     const handleSubmit = (event) => {
         event.preventDefault();
-        onSubmit(commentText);
+        const trimmedCommentText = commentText.trim();
+        if (!trimmedCommentText) {
+            alert('Комментарий не может быть пустым или содержать только пробелы.'); // так как не сказано как именно увдомлять, я решил просто добавить алерт
+            return;
+        }
+        onSubmit(trimmedCommentText); 
         setCommentText('');
     };
 
