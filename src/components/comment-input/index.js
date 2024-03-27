@@ -16,7 +16,7 @@ function CommentInput({ onSend, onCancel, parent, redirect, isLoggedIn, t }) {
 
   if (isLoggedIn) {
     return (
-      <div className={cn()}>
+      <div id='CommentInput' className={cn()}>
         <div className={cn('head')}>
           {t("comments.new")} {parent == 'comment' ? t("comments.answer") : t("comments.comment")}
         </div>

@@ -27,9 +27,13 @@
   overflow-wrap: break-word;
 }
 
-.Comment-footer{
+.Comment-footer {
   width: fit-content;
   display: flex;
   color: #0087E9;
   cursor: pointer;
+}
+
+.Comment-input {
+  padding-left: 30px;
 }

@@ -3,24 +3,25 @@ import useInit from "../../hooks/use-init";
 import CommentsLayout from "../../components/comments-layout";
 import useTranslate from '../../hooks/use-translate';
 import commentsActions from '../../store-redux/comments/actions'
-import { useDispatch } from "react-redux";
+import { useDispatch, useStore } from "react-redux";
 import { useSelector as selectorRedux } from "react-redux";
 import useSelector from "../../hooks/use-selector";
 import Comment from "../../components/comment";
-import treeToList from "../../utils/tree-to-list";
 import listToTree from "../../utils/list-to-tree";
 import { useState, useCallback, useMemo, memo } from "react";
 import CommentInput from "../../components/comment-input";
+import React from "react";
 
 
 function Comments({ id }) {
+  const store = useStore();
   const dispatch = useDispatch();
   const { t } = useTranslate();
   const [answerTo, setAnswerTo] = useState({
     _id: id,
     _type: 'article'
   });
-
+  console.log(store);
   useInit(() => {
     dispatch(commentsActions.load(id));
   }, [id]);
@@ -39,11 +40,12 @@ function Comments({ id }) {
   const callbacks = {
     onSend: useCallback(async (text) => {
       if (text.length > 0) {
+        console.log(answerTo);
         await dispatch(commentsActions.send(text, answerTo));
-        dispatch(commentsActions.load(id));
+        setAnswerTo({ _id: id, _type: 'article' });
       }
-    }),
-    onAnswer: useCallback((commentId) => setAnswerTo({ _id: commentId, _type: 'comment' })),
+    }, [store, answerTo]),
+    onAnswer: useCallback((commentId) => {setAnswerTo({ _id: commentId, _type: 'comment' })}),
     onCancel: useCallback(() => setAnswerTo({ _id: id, _type: 'article' }))
   };
 
@@ -54,17 +56,13 @@ function Comments({ id }) {
     )
   }, [answerTo, select.exists, selectRedux.comments, t])
 
-  const comments = useMemo(() =>
-    treeToList(listToTree(selectRedux.comments), (item, level) => {
-      return (
-        <>
-          {level > 0 ? <Comment key={item._id} item={item} level={level - 1}
-            currentUser={select.user} onAnswer={callbacks.onAnswer} t={t}
-            children={(answerTo._id == item._id && answerTo._type == 'comment') && commentInput} /> : ''}
-        </>
-      )
-    }), [selectRedux.comments, answerTo, select.exists, t]
-  );
+  const comments = useMemo(() => {
+    return listToTree(selectRedux.comments)[0]?.children.map(comment => (
+      <Comment key={comment._id} t={t} item={comment} currentUser={select.user}
+        answerTo={answerTo} onAnswer={callbacks.onAnswer} input={commentInput} />
+    ))
+  }, [selectRedux.comments, answerTo, t, select.exists]);
+
 
   return (
     <Spinner active={selectRedux.waiting}>

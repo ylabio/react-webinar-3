@@ -30,8 +30,9 @@ export default {
           })
         });
 
-        dispatch({type: 'comments/send-succes', payload: {data: res.data.result}})
+        dispatch({type: 'comments/send-success', payload: {data: res.data.result}})
       } catch (e) {
+        console.log(e);
         dispatch({type: 'comments/send-error'})
       }
     }

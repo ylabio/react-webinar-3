@@ -5,13 +5,13 @@ import { memo } from 'react';
 import { oneOfType } from 'prop-types';
 import dateTimeFormat from '../../utils/datetime-format';
 
-function Comment({ item, level, currentUser, onAnswer, children, t }) {
+function Comment({ item, currentUser, onAnswer, t, answerTo, input }) {
   const cn = bem('Comment');
 
   const curUser = currentUser._id == item.author._id ? 'current-user' : '';
 
   return (
-    <div className={cn()} style={{ paddingLeft: (level ? level * 30 : 0) + 'px' }}>
+    <div className={cn()} style={{ paddingLeft: '30px' }}>
       <div className={cn('head')}>
         <div className={cn('author', curUser)}>{item?.author?.profile?.name}</div>
         <div className={cn('dateTime')}>{dateTimeFormat(item?.dateCreate).replace(' г.', '')}</div>
@@ -22,7 +22,14 @@ function Comment({ item, level, currentUser, onAnswer, children, t }) {
       <div className={cn('footer')} onClick={() => onAnswer(item._id)}>
         {t('comments.toAnswer')}
       </div>
-      {children}
+      <div className={cn('children')}>
+        {item.children && item.children.map(comment => (
+          <Comment key={comment._id} t={t} item={comment} answerTo={answerTo}
+            currentUser={currentUser} onAnswer={onAnswer} input={input} />
+        ))}
+        {answerTo._id == item._id && (<div className={cn('input')}>{input}</div>)}
+
+      </div>
     </div>
   )
 }
