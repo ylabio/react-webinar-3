@@ -27,10 +27,16 @@ function Reply({commentId, user, exists, onSignIn, onReply, t}) {
             }}>{t("comments.send")}</button>
             <button onClick={() => onReply(null)}>{t("comments.cancel")}</button>
           </div>
-        </div> : 
-        <div className={cn('login')}>
-          <button className={"Reply_blue"} onClick={() => onSignIn()}>{t("comments.signIn")}</button>, {t("comments.signInDescription")}. <button className={"Reply_grey"} onClick={() => onReply(null)}>Отмена</button>
-        </div>}
+        </div> : (
+          commentId._type === "article" ? (
+              <div className={cn('login')}>
+                <button className={"Reply_blue"} onClick={() => onSignIn()}>{t("comments.signIn")}</button>, {t("comments.signInDescriptionComment")}
+              </div>) : (
+              <div className={cn('login')}>
+                <button className={"Reply_blue"} onClick={() => onSignIn()}>{t("comments.signIn")}</button>, {t("comments.signInDescriptionReply")}. <button className={"Reply_grey"} onClick={() => onReply(null)}>Отмена</button>
+              </div>
+            )
+        )}
     </div>
   );
 }
