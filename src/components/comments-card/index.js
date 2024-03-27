@@ -46,6 +46,7 @@ function CommentsCard({
           onCloseForm={() => handleOpenForm("")}
           onCreateComment={onCreateComment}
           currentUser={currentUser}
+          depth={0}
         />
       ))}
       {!commentFormId && (

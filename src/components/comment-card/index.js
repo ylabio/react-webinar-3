@@ -16,6 +16,7 @@ function CommentCard({
   onCloseForm,
   onCreateComment,
   currentUser,
+  depth
 }) {
   const cn = bem("CommentCard");
   const commentFormRef = useRef();
@@ -50,7 +51,7 @@ function CommentCard({
           {t("comment.reply")}
         </div>
       </div>
-      <div className={cn("answers")}>
+      <div className={cn("answers", depth <= 15 && {shift: 'left'})}>
         {comment.children.map((comment) => (
           <CommentCard
             key={comment._id}
@@ -64,6 +65,7 @@ function CommentCard({
             onCloseForm={() => handleOpenForm("")}
             onCreateComment={onCreateComment}
             currentUser={currentUser}
+            depth={depth + 1}
           />
         ))}
         <div ref={commentFormRef}>
@@ -96,12 +98,14 @@ CommentCard.propTypes = {
   t: PropTypes.func,
   lang: PropTypes.string,
   currentUser: PropTypes.object,
+  depth: PropTypes.number
 };
 
 CommentCard.defaultProps = {
   loggedIn: false,
   t: (text) => text,
   currentUser: {},
+  depth: 0
 };
 
 export default memo(CommentCard);
