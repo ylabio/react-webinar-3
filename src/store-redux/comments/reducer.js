@@ -1,9 +1,11 @@
+import comment from "../../components/comment";
+
 // Начальное состояние
 export const initialState = {
+  commentId: null,
+  newComment: null,
   data: {},
   waiting: false, // признак ожидания загрузки
-  data2: null,
-  waiting2: false
 }
 
 // Обработчик действий
@@ -19,13 +21,17 @@ function reducer(state = initialState, action) {
       return {...state, data: {}, waiting: false}; //@todo текст ошибки сохранять?
 
     case "comments/send-start":
-      return {...state, data2: {}, waiting2: true};
+      return {...state, waiting: true};
 
     case "comments/send-success":
-      return {...state, data2: action.payload.data, waiting2: false};
+      return {...state, data: state.data.concat(action.payload.data), newComment: action.payload.data._id,
+        waiting: false};
 
     case "comments/send-error":
-      return {...state, data2: {}, waiting2: false}; //@todo текст ошибки сохранять?
+      return {...state, data: {}, waiting: false}; //@todo текст ошибки сохранять?
+    
+    case "comments/set-comment-id":
+      return {...state, commentId: action.payload.data};
 
     default:
       // Нет изменений

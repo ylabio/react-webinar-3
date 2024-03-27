@@ -20,7 +20,7 @@ function Login() {
   const navigate = useNavigate();
   const store = useStore();
 
-  console.log(lang)
+  //console.log(lang);
 
   useInit(() => {
     store.actions.session.resetErrors();

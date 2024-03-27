@@ -1,4 +1,4 @@
-import {memo, useState} from 'react';
+import {memo, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
@@ -23,13 +23,13 @@ function Reply({commentId, user, exists, onSignIn, onReply, t}) {
           <textarea rows='4' value={text} onInput={e => setText(e.target.value)}></textarea>
           <div className={cn('buttons')}>
             <button onClick={() => {
-              dispatch(commentsActions.send({"text": text, "parent": commentId}));
+              text.trim() && dispatch(commentsActions.send({"text": text.trim(), "parent": commentId}));
             }}>{t("comments.send")}</button>
             <button onClick={() => onReply(null)}>{t("comments.cancel")}</button>
           </div>
         </div> : 
         <div className={cn('login')}>
-          <button onClick={() => onSignIn()}>{t("comments.signIn")}</button>, {t("comments.signInDescription")}
+          <button className={"Reply_blue"} onClick={() => onSignIn()}>{t("comments.signIn")}</button>, {t("comments.signInDescription")}. <button className={"Reply_grey"} onClick={() => onReply(null)}>Отмена</button>
         </div>}
     </div>
   );

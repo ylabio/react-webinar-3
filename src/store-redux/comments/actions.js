@@ -36,7 +36,7 @@ export default {
             'X-Token': localStorage.getItem('token')
           },
           body: JSON.stringify(data),
-          url: `/api/v1/comments`
+          url: `/api/v1/comments?fields=author(profile(name)),dateCreate,text,parent(_type),isDeleted`
         });
         // Товар загружен успешно
         dispatch({type: 'comments/send-success', payload: {data: res.data.result}});
@@ -45,6 +45,12 @@ export default {
         //Ошибка загрузки
         dispatch({type: 'comments/send-error'});
       }
+    }
+  },
+
+  setCommentId: (id) => {
+    return async (dispatch, getState, services) => {
+      dispatch({type: 'comments/set-comment-id', payload: {data: id}});
     }
   }
 }

@@ -42,13 +42,15 @@ function Article() {
     waitingArticle: state.article.waiting,
     comments: state.comments.data,
     waitingComments: state.comments.waiting,
-    sendedComment: state.comments.data2,
-    waitingSendedComment: state.comments.waiting2
+    //sendedComment: state.comments.data2,
+    //waitingSendedComment: state.comments.waiting2,
+    commentId: state.comments.commentId,
+    newComment: state.comments.newComment
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  useEffect(() => {
+  /*useEffect(() => {
     dispatch(commentsActions.load(params.id));
-  }, [select.sendedComment]);
+  }, [select.sendedComment]);*/
 
   /*useEffect(() => {
     console.log(select.waitingComments);
@@ -60,12 +62,12 @@ function Article() {
     exists: state.session.exists
   }))
 
-  const [commentId, setCommentId] = useState(null)
+  //const [commentId, setCommentId] = useState(null)
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    onReply: useCallback(id => setCommentId(id), [setCommentId]),
+    onReply: useCallback(id => dispatch(commentsActions.setCommentId(id)), [commentsActions]),
     onSignIn: useCallback(() => {
       navigate('/login', {state: {back: location.pathname}});
     }, [location.pathname]),
@@ -82,9 +84,9 @@ function Article() {
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
       <Spinner active={select.waitingComments}>
-        <Comments comments={select.comments} onReply={callbacks.onReply} commentId={commentId} t={t}
+        <Comments comments={select.comments} onReply={callbacks.onReply} commentId={select.commentId} t={t}
           user={select2.user} exists={select2.exists} onSignIn={callbacks.onSignIn} article={select.article}
-          sendedComment={select.sendedComment}/>
+          newComment={select.newComment}/>
       </Spinner>
     </PageLayout>
   );
