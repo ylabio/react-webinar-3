@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo, useState} from "react";
+import {forwardRef, memo, useCallback, useMemo, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from 'react-redux';
 import useSelector from "../../hooks/use-selector";
@@ -7,7 +7,7 @@ import CommentInput from "../../components/comment-input";
 import CommentNotice from "../../components/comment-notice";
 import useTranslate from "../../hooks/use-translate";
 
-function CommentField({ type, id }) {
+const CommentField = forwardRef(({ type, id }, ref) => {
   const [text, setText] = useState('');
 
   const {t} = useTranslate();
@@ -24,7 +24,9 @@ function CommentField({ type, id }) {
 
   const callbacks = {
     onRemove: useCallback(() => dispatch(commentsActions.removeCurrentId()), []),
-    onSend: useCallback(() => dispatch(commentsActions.send(select.token, id, type, text, select.user)), [select.user, text]),
+    onSend: useCallback(() => {
+      text.trim().length && dispatch(commentsActions.send(select.token, id, type, text, select.user))
+    }, [select.user, text]),
     onSignIn: useCallback(() => {
       navigate('/login', { state: { back: location.pathname } });
     }, [location.pathname]),
@@ -36,14 +38,14 @@ function CommentField({ type, id }) {
         title={t(type === 'comment' ? 'comment.input' : 'article.input')} 
         onInput={setText}
         type={type}>
-        <button onClick={() => callbacks.onSend()}>{t('comment.send')}</button>
+        <button ref={ref} onClick={() => callbacks.onSend()}>{t('comment.send')}</button>
         {type === 'comment' && <button onClick={() => callbacks.onRemove()}>{t('comment.cancel')}</button>}
       </CommentInput>
       : <CommentNotice text={t(type === 'comment' ? 'comment.notice' : 'article.notice')}>
-        <a onClick={() => callbacks.onSignIn()}>{t('comment.signIn')}</a>
+        <a ref={ref} onClick={() => callbacks.onSignIn()}>{t('comment.signIn')}</a>
         {type === 'comment' && <a style={{color: 'grey'}}onClick={() => callbacks.onRemove()}>{t('comment.cancel')}</a>}
       </CommentNotice>
   )
-}
+})
 
 export default memo(CommentField);

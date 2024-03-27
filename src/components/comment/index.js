@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import {cn as bem} from '@bem-react/classname';
 import './style.css'
 
-function Comment({author, date, text, style, onClick, children, t}) {
+function Comment({author, authorStyle, date, text, style, onClick, children, t}) {
   
   const cn = bem('Comment')
 
   return (
     <div style={style} className={cn()}>
-      <span className={cn('author')}>{author}</span>
+      <span style={authorStyle} className={cn('author')}>{author}</span>
       <span className={cn('date')}>{date}</span>
       <div className={cn('text')}>{text}</div>
       <Link onClick={onClick}>{t('comment.answer')}</Link>

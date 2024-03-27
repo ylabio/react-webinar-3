@@ -20,14 +20,15 @@ export default function commentsFormat(comments) {
   });
 
   function putChildren(arr, indent = 1) {
+    const correctIndent = indent > 10? 10 : indent;
     const restChildren = arr.filter((item) => {
 
       const parentIndex = result.findIndex((node) => node._id === item.parent._id)
-      parentIndex >= 0 && result.splice(parentIndex + 1, 0, {...item, indent: indent});
+      parentIndex >= 0 && result.splice(parentIndex + 1, 0, {...item, indent: correctIndent});
       return parentIndex >= 0 ? 0 : 1;
     })
     if (restChildren.length) {
-      return putChildren(restChildren, indent + 1);
+      return putChildren(restChildren, correctIndent + 1);
     }
   }
   putChildren(children);

@@ -1,4 +1,4 @@
-import {useCallback, useState, useEffect} from "react";
+import {useCallback, useState, useEffect, useMemo} from "react";
 import useServices from "./use-services";
 
 /**
@@ -15,9 +15,11 @@ export default function useTranslate() {
     translate: useCallback((text, number) => i18n.translate(text, number), [lang]),
   }
 
-  useEffect(() => {
-    i18n.subscribe(setLang);
-  }, []);
+  const unsubscribe = useMemo(() => {
+    return i18n.subscribe(setLang);
+  }, [])
+
+  useEffect(() => unsubscribe, [unsubscribe]);
 
   return {lang: lang, setLang: callbacks.setLang, t: callbacks.translate};
 }
