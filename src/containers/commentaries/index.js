@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import CommentariesBlock from "../../components/commentaries-block";
 import Spinner from "../../components/spinner";
 import { useDispatch, useSelector } from "react-redux";
@@ -41,7 +41,8 @@ function Commentaries({ id }) {
       navigate("/login", { state: { back: location.pathname } });
     }, [location.pathname]),
     addComment: useCallback((parentId, parentType, text) => {
-      dispatch(commentsActions.add(parentId, parentType, text, session.user.name ))
+      dispatch(commentsActions.add(parentId, parentType, text, session.user.name ));
+      
     }, [session.user]),
     changeForm: useCallback((id) => {
       setFormPosition(id)
@@ -52,6 +53,10 @@ function Commentaries({ id }) {
   useInit(() => {
     dispatch(commentsActions.load(id));
   }, [id]);
+
+  useEffect(() => {
+    setFormPosition("main");
+  }, [select.comments])
 
   return (
     <Spinner active={select.waiting}>

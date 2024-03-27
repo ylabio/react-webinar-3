@@ -4,7 +4,7 @@ import { cn as bem } from "@bem-react/classname";
 import LoginToLabel from "../login-to-label";
 function CommentForm({ isAuth, onUnAuth, type, user = null, cancel, onAdd, parentId, article, t, formRef }) {
   const cn = bem("CommentForm");
-  const textRef = useRef(null)
+  const textRef = useRef(null);
   
   return (
     <div ref={formRef}>
