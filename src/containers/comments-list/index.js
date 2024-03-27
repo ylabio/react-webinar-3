@@ -71,7 +71,7 @@ const CommentsContainer = (name) => {
                 sendButton={t('comments.send')} 
                 cancelButton={t('comments.cancel')} 
                 answer={t('comments.answer')}
-                
+                maxLevel={5}
             />
             
             {!replyToCommentId && (

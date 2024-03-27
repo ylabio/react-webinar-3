@@ -7,7 +7,7 @@ import { useState } from 'react';
 import CommentItem from '../comment-item';
 import CommentForm from '../comment-form';
 import IsLogin from '../../utils/comment-or-login';
-const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onReply, onReplySubmit, onCancel, name, baseIndent, title, placeholder, sendButton, cancelButton,answer }) => {
+const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onReply, onReplySubmit, onCancel, name, baseIndent, title, placeholder, sendButton, cancelButton, answer, maxLevel = 5 }) => {
     
     return comments.map(comment => {
         const placeholderText = comment.author?.profile?.name
@@ -20,10 +20,10 @@ const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onRep
                 author={comment.author?.profile?.name || name}
                 date={comment.dateCreate}
                 text={comment.text}
-                level={level}
+                level={Math.min(level, maxLevel)}
                 onReply={() => onReply(comment._id)}
                 baseIndent={baseIndent}
-                    answer={answer}
+                answer={answer}
             />
             
             {activeForm === `replyTo-${comment._id}` && (
