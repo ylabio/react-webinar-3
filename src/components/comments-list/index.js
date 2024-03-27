@@ -13,8 +13,6 @@ const CommentsList = ({ list, nest, user, count, replierActive, setReplierCommen
   const [replierOn, setReplierOn] = useState(false)
 
   useEffect(() => {
-    console.log(replierOn)
-
     if (replierOn) {
       window.scrollTo({
         top: document.querySelector('#replyTo')?.offsetTop,
