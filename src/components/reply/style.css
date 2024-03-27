@@ -1,0 +1,41 @@
+.Reply-login {
+    font-size: 16px;
+}
+
+.Reply-login button {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    font-size: inherit;
+}
+
+.Reply_blue {
+    color: #0087E9;
+}
+
+.Reply_grey {
+    color: #666666;
+}
+
+.Reply-head {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.Reply-form textarea {
+    resize: none;
+    width: 100%;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.Reply-buttons button {
+    margin-right: 10px;
+    font-size: 13px;
+}
+
+.Reply {
+    margin: 20px 0;
+}

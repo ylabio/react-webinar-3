@@ -6,6 +6,8 @@ import Select from '../../components/select';
 
 function LocaleSelect() {
 
+  //console.log(1)
+
   const {lang, setLang} = useTranslate();
 
   const options = {

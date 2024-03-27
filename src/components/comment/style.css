@@ -1,0 +1,33 @@
+.Comment-head {
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.Comment-text {
+    margin-bottom: 5px;
+    font-size: 14px;
+    word-break: break-word;
+}
+
+.Comment {
+    margin-bottom: 20px;
+}
+
+.Comment-head span {
+    padding-right: 5px;
+}
+
+.Comment_gray {
+    color: #666;
+}
+
+.Comment-reply button {
+    background: none;
+    border: none;
+    color: #0087E9;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    font-size: 12px;
+    line-height: 12px;
+}
