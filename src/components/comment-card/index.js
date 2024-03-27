@@ -41,16 +41,6 @@ function CommentCard({
         >
           {t("comment.reply")}
         </div>
-        {commentFormId === comment._id && (
-          <CommentForm
-            t={t}
-            loggedIn={loggedIn}
-            loginLink={loginLink}
-            onCloseForm={onCloseForm}
-            type={"reply"}
-            onSubmitForm={handleFormSubmit}
-          />
-        )}
       </div>
       <div className={cn("answers")}>
         {comment.children.map((comment) => (
@@ -68,6 +58,16 @@ function CommentCard({
             mine={mine}
           />
         ))}
+        {commentFormId === comment._id && (
+          <CommentForm
+            t={t}
+            loggedIn={loggedIn}
+            loginLink={loginLink}
+            onCloseForm={onCloseForm}
+            type={"reply"}
+            onSubmitForm={handleFormSubmit}
+          />
+        )}
       </div>
     </div>
   );
