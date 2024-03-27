@@ -24,6 +24,7 @@ const CommentsContainer = (name) => {
     const store = useStore();
     const [replyToCommentId, setReplyToCommentId] = useState(null);
     const [activeForm, setActiveForm] = useState('newComment');
+    const [userName, setUserName] = useState("");
     const dispatch = useDispatch();
     const params = useParams();
     const articleId = params.id;
@@ -35,6 +36,12 @@ const CommentsContainer = (name) => {
     const profileState = useSelector(state => ({
         name: state.session.user.profile?.name,
     }));
+
+    useEffect(() => {
+        if (profileState?.name) {
+            setUserName(profileState.name);
+        }
+    }, [profileState?.name]);
     const handleCancel = () => {
         setReplyToCommentId(null);
         setActiveForm('newComment');
@@ -65,7 +72,7 @@ const CommentsContainer = (name) => {
                 onReply={handleReply}
                 onReplySubmit={handleReplySubmit}
                 onCancel={handleCancel}
-                name={profileState.name}
+                name={userName}
                 baseIndent={40}
                 title={t('comments.newReply')} 
                 sendButton={t('comments.send')} 
