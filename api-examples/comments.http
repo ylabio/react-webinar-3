@@ -8,11 +8,11 @@ GET http://example.front.ylab.io/api/v1/comments?fields=items(_id,text,dateCreat
 # Создание первого коммента
 POST http://example.front.ylab.io/api/v1/comments
 Content-Type: application/json
-X-Token: 0800a69a1a04cef7e70e4a69f22d5b9f029df447f5306a095278da5a51f14171
+X-Token:ec55d77cdc129c4dffc5dcd61f56a209152a3ee2c226690ed9c73e99727fabc8
 
 {
-  "text": "Первый коммент!",
-  "parent": {"_id":  "65f8322cf3360f03347a6be8", "_type":  "article"}
+  "text": "1111",
+  "parent": {"_id":  "65f8322cf3360f03347a6bdf", "_type":  "article"}
 }
 
 
@@ -20,9 +20,9 @@ X-Token: 0800a69a1a04cef7e70e4a69f22d5b9f029df447f5306a095278da5a51f14171
 # Создание ответа на коммент коммента
 POST http://example.front.ylab.io/api/v1/comments
 Content-Type: application/json
-X-Token: 0800a69a1a04cef7e70e4a69f22d5b9f029df447f5306a095278da5a51f14171
+X-Token: 9311be362c8e3b834e4643935e0e99f4ee6a69afee1fc633c5bcf49a67d6dc82
 
 {
-  "text": "Первый коммент!",
-  "parent": {"_id":  "65fc807d48a54759d5ca8cdc", "_type":  "comment"}
+  "text": "net",
+  "parent": {"_id":  "65ff256879c52242c46736df", "_type":  "comment"}
 }

@@ -23,3 +23,6 @@ root.render(
     </ServicesContext.Provider>
   </Provider>
 );
+
+
+window.store = services.redux;

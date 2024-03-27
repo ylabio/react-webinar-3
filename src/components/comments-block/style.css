@@ -1,0 +1,53 @@
+.CommentsBlock {
+  padding: 20px 40px;
+  box-sizing: border-box;
+}
+
+.CommentsBlock h4 {
+  margin: 0;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 27.6px;
+}
+
+
+.CommentsBlock-layout {
+  overflow: hidden;
+  margin-top: 20px;
+  min-height: 64px;
+}
+
+.CommentsBlock-nameDate {
+  margin-bottom: 13px;
+  color: #666666;
+  font-size: 12px;
+  line-height: 13.8px;
+}
+
+.CommentsBlock-nameDate span:first-child {
+  font-weight: 700;
+}
+
+.CommentsBlock-nameDate span:last-child {
+  margin-left: 10px;
+}
+.CommentsBlock-name {
+  color:black;
+}
+
+.CommentsBlock-text {
+  overflow-wrap: break-word;
+  margin-bottom: 13px;
+  min-height: 16px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16.1px;
+}
+
+.CommentsBlock-button {
+  color: #0087E9;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 13.8px;
+}
+

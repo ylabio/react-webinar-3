@@ -1,0 +1,39 @@
+.CommentForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  width: 100%;
+  height: 140px;
+}
+
+.CommentForm h4 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 13.8px;
+}
+
+.CommentForm textarea {
+  box-sizing: border-box;
+  padding: 5px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16.1px;
+  margin-top: 10px;
+  border: 1px solid #666666;
+  width: 100%;
+  min-height: 76px;
+  box-shadow: 0px 1px 4px 0px #6666661A inset;
+  resize: none;
+}
+
+.CommentForm button {
+  margin-top: 10px;
+
+  height: 21px;
+}
+.CommentForm-button-block {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}

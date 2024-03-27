@@ -1,0 +1,16 @@
+.LoginMessage p {
+  margin-top: 30px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18.4px;
+}
+
+.LoginMessage p > span {
+  color: #0087E9;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.LoginMessage p > span:last-child {
+  color: #666666;
+}
