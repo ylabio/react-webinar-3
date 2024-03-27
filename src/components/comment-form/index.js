@@ -21,7 +21,9 @@ function CommentForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmitForm(commentText);
+    if (commentText.trim().length !== 0) {
+      onSubmitForm(commentText);
+    }
   };
 
   return (
@@ -39,7 +41,7 @@ function CommentForm({
             required
           />
           <div className={cn("controls")}>
-            <button onClick={handleSubmit} disabled={!commentText}>{t("comment.send")}</button>
+            <button onClick={handleSubmit} disabled={commentText.trim().length === 0}>{t("comment.send")}</button>
             {onCloseForm && (
               <button onClick={onCloseForm} type="button">
                 {t("comment.cancel")}
