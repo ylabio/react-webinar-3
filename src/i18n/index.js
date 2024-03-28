@@ -5,7 +5,7 @@ class I18nService {
   constructor(services, config = {}) {
     this.services = services;
     this.config = config;
-    this.locale = config.locale;
+    this.locale =  localStorage.getItem('locale') || config.locale;
     this.callbacks = [];
   }
 
@@ -26,6 +26,7 @@ class I18nService {
 
   setLocale(value) {
     this.locale = value;
+    localStorage.setItem('locale', value);
     this.services.api.setHeader(
       this.services.config.store.modules.session.localeHeader,
       value
