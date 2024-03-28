@@ -19,16 +19,12 @@ const CommentReply = ({ session, onCancel, onAddReplyComment, t, scrollToBottom,
   if (!session) {
     return (<LoginMessage onSignIn={onSignIn} onCancel={onCancel} reply={true} t={t}/>)
   }
-
   return (
     <form className={cn()} onSubmit={handleSubmit}>
       <h2 className={cn('title')}>{t("comments.newCom")}</h2>
       <textarea className={cn('text')} value={text} onChange={(e) => setText(e.target.value)} required />
       <div className={cn('wrapper')}>
-        {text.replaceAll(' ','').length <= 0 ?
-          <button disabled type='submit'>{t('comments.toSend')}</button>
-          :  <button type='submit'>{t('comments.toSend')}</button>
-        }
+        <button  type='submit' disabled={text.replaceAll(' ','').length <= 0}>{t('comments.toSend')}</button>
         <button type='button' onClick={onCancel}>{t("comments.cancel")}</button>
       </div>
     </form>

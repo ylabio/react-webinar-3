@@ -22,7 +22,7 @@ const CommentNew = ({ session, onCreateNewComment, t, onSignIn }) => {
     <form className={cn()} onSubmit={(e) => handleSubmit(e)}>
       <h2 className={cn('title')}>{t('comments.comments')}</h2>
       <textarea className={cn('text')} value={text} onChange={(e) => setText(e.target.value)} required />
-      <button className={cn('button')} type="submit">{t('comments.toSend')}</button>
+      <button className={cn('button')} type="submit" disabled={text.replaceAll(' ','').length <= 0}>{t('comments.toSend')}</button>
     </form>
   );
 };
