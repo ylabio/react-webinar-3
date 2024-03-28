@@ -17,7 +17,9 @@
   margin-left: 0;
   padding-left: 0;
 }
-
+.Menu-item a {
+  color: rgb(0, 135, 233);
+}
 .Menu-item:last-child {
   margin-right: 0;
   padding-right: 0;

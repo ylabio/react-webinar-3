@@ -1,0 +1,21 @@
+.AuthAlert {
+  font-size: 16px;
+}
+.AuthAlert-link {
+  color: rgb(0, 135, 233);
+  text-decoration: underline;
+}
+.AuthAlert-btn {
+  color: rgb(102, 102, 102);
+  outline: none;
+  padding: 0;
+  text-decoration: underline;
+  border: none;
+  background: transparent;
+  font-size: inherit;
+  cursor: pointer;
+}
+.AuthAlert-link a {
+  font-size: inherit;
+  color: inherit;
+}
