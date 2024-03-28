@@ -15,6 +15,7 @@ export default {
           method: 'POST',
           body: JSON.stringify(data)
         });
+
         // Товар загружен успешно
         dispatch({type: 'article-comment/load-success', payload: {data: res.data.result}});
 

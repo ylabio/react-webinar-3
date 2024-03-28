@@ -63,10 +63,16 @@ function ArticleCardComments({articleComments, autorization, count, onAnswer, on
   };
 
   const fIndentAnswer = (level) => {
-    const vIndentAnswer = 30 * level;
-    const vMaxIndentAnswer = 10 * 30;
-    const vBoolMaxIndentAnswer = (vIndentAnswer < vMaxIndentAnswer ? false : true);
-    const vIndentAnswerNew = (vBoolMaxIndentAnswer ? vMaxIndentAnswer : vIndentAnswer);
+    let vIndentAnswer;
+    if (level > 1) {
+      vIndentAnswer = 30 * (level - 1);
+    }
+    else {
+      vIndentAnswer = 0;
+    }
+    let vMaxIndentAnswer = 10 * 30;
+    let vBoolMaxIndentAnswer = (vIndentAnswer < vMaxIndentAnswer ? false : true);
+    let vIndentAnswerNew = (vBoolMaxIndentAnswer ? vMaxIndentAnswer : vIndentAnswer);
     return vIndentAnswerNew;
   };
 
@@ -162,14 +168,15 @@ function ArticleCardComments({articleComments, autorization, count, onAnswer, on
       <div key={index * vMaxIndex + 10} style={{marginLeft: IndentAnswer}}>
         <div key={index * vMaxIndex + 11} className={cn('Answer')}>
           <div key={index * vMaxIndex + 12} className={cn('newAnswer')}>{t('articleComments.newAnswer')}</div>
-          <textarea ref={vRefScrollY} key={index * vMaxIndex + 13}
+          <textarea ref={vRefScrollY}
+                    key={index * vMaxIndex + 13}
                     className={cn('textareaAnswer')}
                     onChange={onChangeAnswer}/>
           <div key={index * vMaxIndex + 14} className={cn('lineButton')}>
             <div key={index * vMaxIndex + 15} className={cn('divSend')}>
               <button key={index * vMaxIndex + 16}
                       className={cn('buttonSend')}
-                      onClick={() => onAnswer(Answer,id)}>{t('articleComments.send')}</button>
+                      onClick={() => {onAnswer(Answer,id); setId(0);}}>{t('articleComments.send')}</button>
             </div>
             <div key={index * vMaxIndex + 17} className={cn('divCancel')}>
               <button key={index * vMaxIndex + 18}
@@ -187,7 +194,7 @@ function ArticleCardComments({articleComments, autorization, count, onAnswer, on
 
   return (
     <div className={cn()}>
-      <div className={cn('title')}>{t('articleComments.title')} ({count+1})</div>
+      <div className={cn('title')}>{(count > 0 ? t('articleComments.title',count) : t('articleComments.title.other'))} ({count})</div>
       <div className={cn('comments')}>
       {articleComments.length > 0 && articleComments.map((item,index) => 
         (fCommentElement(item,index))
@@ -197,12 +204,13 @@ function ArticleCardComments({articleComments, autorization, count, onAnswer, on
       {(autorization && id == 0 ?
         <div className={cn('Comment')}>
           <div className={cn('newComment')}>{t('articleComments.newComment')}</div>
-          <textarea className={cn('textareaComment')}
+          <textarea value={Comment}
+                    className={cn('textareaComment')}
                     onChange={onChangeComment}/>
           <div className={cn('lineButton')}>
             <div className={cn('divSend')}>
               <button className={cn('buttonSend')}
-                      onClick={() => onComment(Comment)}>{t('articleComments.send')}</button>
+                      onClick={() => {onComment(Comment); setComment('');}}>{t('articleComments.send')}</button>
             </div>
           </div>
         </div>

@@ -23,6 +23,19 @@ export default {
     }
   },
 
+  loadComment: (data,user) => {
+    return async (dispatch, getState, services) => {
+      dispatch({type: 'article-comments/loadComment-start'});
+
+      try {
+        dispatch({type: 'article-comments/loadComment-success', payload: {data: data, user: user}});
+
+      } catch (e) {
+        dispatch({type: 'article-comments/loadComment-error'});
+      }
+    }
+  },
+
   login: (login,_id) => {
     return async (dispatch, getState, services) => {
       try {

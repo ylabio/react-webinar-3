@@ -33,7 +33,12 @@
   "articleComments.cancel": "Отмена",
   "articleComments.textForToAnswer": "чтобы иметь возможность ответить",
   "articleComments.toAnswer": "Ответить",
-  "articleComments.title": "Комментарии",
+  "articleComments.title": {
+    "one": "Комментарий",
+    "few": "Комментария",
+    "many": "Комментариев",
+    "other": "Комментариев"
+  },
   "articleComments.logIn": "Войдите",
   "articleComments.textForLogIn": "чтобы иметь возможность комментировать",
   "title": "Магазин",

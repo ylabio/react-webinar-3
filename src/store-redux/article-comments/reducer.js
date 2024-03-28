@@ -24,6 +24,19 @@ function reducer(state = initialState, action) {
     case "article-comments/login-error":
       return {...state, data: {}, waiting: false};
 
+    case "article-comments/loadComment-start":
+      return {...state, waiting: true};
+  
+    case "article-comments/loadComment-success":
+      let data = {...state.data};
+      data.items.push({...action.payload.data, author: {profile: {name: action.payload.user}}});
+      data.count++;
+      console.log(action.payload.data);
+      return {...state, waiting: false, data: data };
+  
+    case "article-comments/loadComment-error":
+      return {...state, data: {}, waiting: false};
+
     default:
       // Нет изменений
       return state;

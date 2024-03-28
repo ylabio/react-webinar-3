@@ -17,7 +17,9 @@ function ArticleCommentsMain() {
   const store = useStore();
 
   const [pageRefresh,setPageRefresh] = useState(false);
+  const [boolComment,setBoolComment] = useState(false);
   const [vY,setY] = useState(0);
+  const [data,setData] = useState(null);
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -28,17 +30,18 @@ function ArticleCommentsMain() {
     count: state.articleComments.data.count,
     waiting: state.articleComments.waiting,
     _id: state.article.data._id,
+    data: state.articleComment.data,
   }), shallowequal);
 
   const select = useSelectorForStore(state => ({
     user: state.session.user.profile?.name,
     exists: state.session.exists,
-  })); 
+  }));
 
   const {t} = useTranslate();
 
   const options = {
-    articleComments: useMemo(() => ([
+    articleComments: [
       ...treeToList(listToTree(selectRedux.articleComments), (item, level) => (
         {_id: item._id,
          text: item.text,
@@ -47,13 +50,11 @@ function ArticleCommentsMain() {
          isDeleted: item.isDeleted,
          level: level
         }
-      ))
-    ]), [selectRedux.articleComments]),
+      ))],
 
     count: useMemo(() => selectRedux.count, [selectRedux.count]),
     exists: useMemo(() => select.exists, [select.exists]),
     _id: useMemo(() => selectRedux._id, [selectRedux._id]),
-    user: useMemo(() => select.user, [select.user]),
     waiting: useMemo(() => selectRedux.waiting, [selectRedux.waiting]),
   };
 
@@ -67,17 +68,19 @@ function ArticleCommentsMain() {
   };
 
   const fComment = (data) => {
-      dispatch(articleCommentActions.load(data));
+      setData(data);
+      //dispatch(articleCommentActions.load(data));
       //dispatch(articleActions.load(options._id));
       //dispatch(articleCommentsActions.load(options._id));
       //dispatch(articleCommentsActions.fScrollY(fScrollY()));
       //navigate(location.pathname);
       setY(fScrollY());
-      setPageRefresh(true);
+      setBoolComment(true);
   }
 
   const callbacks = {
     onComment: useCallback((Comment) => {
+      if (Comment == '') return;
       const data = {
         text: Comment,
         parent: {_id:  options._id, _type:  "article"}
@@ -85,6 +88,7 @@ function ArticleCommentsMain() {
       fComment(data);
     }, [options._id]),
     onAnswer: useCallback((Answer,_id) => {
+      if (Answer == '') return;
       const data = {
         text: Answer,
         parent: {_id:  _id, _type:  "comment"}
@@ -98,19 +102,34 @@ function ArticleCommentsMain() {
   }
 
   useEffect(() => {
-    if (pageRefresh == true) {
-      setPageRefresh(false);
+    if (boolComment == true) {
+      setBoolComment(false);
     async function fLoad() {
       await Promise.all([
-        dispatch(articleCommentsActions.load(options._id)),
+        dispatch(articleCommentActions.load(data)),
         setTimeout(() => {
-          window.scrollTo(0, vY);
-        }, 4000)
+          setPageRefresh(true);
+        }, 100)
       ]);
     }
     fLoad();
     }
-  }, [options.waiting,options._id, options.scrollY,pageRefresh])
+  }, [data, pageRefresh])
+
+  useEffect(() => {
+    if (pageRefresh == true) {
+      setPageRefresh(false);
+    async function fLoad() {
+      await Promise.all([        
+        dispatch(articleCommentsActions.loadComment(selectRedux.data,select.user)),
+        setTimeout(() => {
+          window.scrollTo(0, vY);
+        }, 100)
+      ]);
+    }
+    fLoad();
+    }
+  }, [select.user, selectRedux.data, pageRefresh])
 
   /*useLayoutEffect(() => {
     if (selectRedux.waiting == false) {
@@ -135,7 +154,7 @@ function ArticleCommentsMain() {
         (options.waiting == false ?
         <ArticleCardComments articleComments={options.articleComments}
                              autorization={options.exists}
-                             user={options.user}
+                             user={select.user}
                              count={options.count}
                              onAnswer={callbacks.onAnswer}
                              onComment={callbacks.onComment}

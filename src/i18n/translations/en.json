@@ -33,7 +33,10 @@
   "articleComments.cancel": "Cancel",
   "articleComments.textForToAnswer": "to be able to respond",
   "articleComments.toAnswer": "To answer",
-  "articleComments.title": "Comments",
+  "articleComments.title": {
+    "one": "Comment",
+    "other": "Comments"
+  },
   "articleComments.logIn": "Log in",
   "articleComments.textForLogIn": "to be able to comment",
   "title": "Shop",
