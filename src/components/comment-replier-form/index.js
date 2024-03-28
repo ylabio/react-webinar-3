@@ -42,11 +42,13 @@ CommentReplierForm.propTypes = {
   parent: PropTypes.string,
   setReplierActive: PropTypes.func,
   onCreate: PropTypes.func,
+  tt: PropTypes.func
 }
 
 CommentReplierForm.defaultProps = {
   setReplierActive: () => {},
   onCreate: () => {},
+  tt: () => {}
 }
 
 export default React.memo(CommentReplierForm);

@@ -4,7 +4,7 @@ import {parseDate} from "../../utils/parse-date";
 import CommentReplier from "../../containers/comment-replier";
 import PropTypes from "prop-types";
 
-const Comment = ({ data, isOwner, replierActive, setReplierComment, setReplierOn, tt }) => {
+const Comment = ({ data, isOwner, setReplierComment, setReplierOn, tt }) => {
   const style = isOwner ? {
     color: '#666'
   } : {}
@@ -36,7 +36,6 @@ const Comment = ({ data, isOwner, replierActive, setReplierComment, setReplierOn
 Comment.propTypes = {
   data: PropTypes.object,
   isOwner: PropTypes.bool,
-  replierActive: PropTypes.string,
   setReplierComment: PropTypes.func,
   tt: PropTypes.func
 }

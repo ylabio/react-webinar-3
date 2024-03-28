@@ -27,12 +27,14 @@ const CommentReminder = ({ parent, onSignIn, setReplierActive, tt }) => {
 CommentReminder.propTypes = {
   parent: PropTypes.string,
   onSignIn: PropTypes.func,
-  setReplierActive: PropTypes.func
+  setReplierActive: PropTypes.func,
+  tt: PropTypes.func
 }
 
 CommentReminder.defaultProps = {
   setReplierActive: () => {},
-  onSignIn: () => {}
+  onSignIn: () => {},
+  tt: () => {}
 }
 
 export default React.memo(CommentReminder);

@@ -23,13 +23,15 @@ Menu.propTypes = {
     link: PropTypes.string,
     title: PropTypes.string,
   })),
-  onNavigate: PropTypes.func
+  onNavigate: PropTypes.func,
+  tt: PropTypes.func
 }
 
 Menu.defaultProps = {
   items: [],
   onNavigate: () => {
-  }
+  },
+  tt: () => {}
 }
 
 export default memo(Menu);

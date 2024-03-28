@@ -29,7 +29,7 @@ const CommentsList = ({ list, nest, user, count, replierActive, setReplierCommen
         {list?.map(comment => (
           <React.Fragment key={comment._id}>
             <Comment tt={tt} data={comment} isOwner={user === comment.author._id}
-                     replierActive={replierActive} setReplierComment={setReplierComment}
+                     setReplierComment={setReplierComment}
                      setReplierOn={setReplierOn}
             />
             {comment.children.length > 0 &&

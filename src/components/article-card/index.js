@@ -41,13 +41,15 @@ ArticleCard.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
-  t: PropTypes.func
+  t: PropTypes.func,
+  tt: PropTypes.func
 };
 
 ArticleCard.defaultProps = {
   onAdd: () => {
   },
-  t: (text) => text
+  t: (text) => text,
+  tt: () => {}
 }
 
 export default memo(ArticleCard);

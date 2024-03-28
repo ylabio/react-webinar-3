@@ -27,11 +27,13 @@ function ProfileCard({data, tt}) {
 
 ProfileCard.propTypes = {
   data: PropTypes.object.isRequired,
+  tt: PropTypes.func
 };
 
 ProfileCard.defaultProps = {
   onAdd: () => {
-  }
+  },
+  tt: () => {}
 }
 
 export default memo(ProfileCard);
