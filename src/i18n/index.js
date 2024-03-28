@@ -27,14 +27,7 @@ class I18nService {
   setLocale(value) {
     this.locale = value;
     localStorage.setItem('locale', value);
-    this.services.api.setHeader(
-      this.services.config.store.modules.session.localeHeader,
-      value
-    );
-
-    this.callbacks.forEach(callback => {
-      callback(value);
-    })
+    this.notifySubscribers(value);
   }
 
   subscribe(callback) {
@@ -42,6 +35,12 @@ class I18nService {
     return () => {
       this.callbacks = this.callbacks.filter(cb => cb !== callback)
     }
+  }
+
+  notifySubscribers(value) {
+    this.callbacks.forEach(callback => {
+      callback(value);
+    })
   }
 }
 
