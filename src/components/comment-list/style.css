@@ -1,5 +1,6 @@
 .CommentList {
   padding: 30px 40px;
+  word-break: break-word;
 }
 
 .CommentList-title {

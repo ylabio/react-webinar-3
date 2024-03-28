@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useState} from 'react'
+import React, {memo, useCallback, useRef, useState} from 'react'
 import CommentsList from "../../components/comment-list";
 import {useDispatch, useSelector as useSelectorRedux} from "react-redux";
 import shallowequal from "shallowequal";
@@ -6,14 +6,25 @@ import commentsActions from "../../store-redux/comments/actions";
 import useSelector from '../../hooks/use-selector';
 import {useParams} from "react-router-dom";
 import useTranslate from "../../hooks/use-translate";
+import useInit from "../../hooks/use-init";
+
 
 const Comments = () => {
 
   const dispatch = useDispatch();
   const params = useParams();
   const [showCommentForm, setShowCommentForm] = useState(true);
-
   const {t, lang} = useTranslate();
+
+  useInit(() => {
+    dispatch(commentsActions.load(params.id));
+  }, [params.id, lang]);
+
+  const commentsEndRef = useRef()
+
+  const scrollToBottom = () => {
+    commentsEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
 
   const select = useSelector(state => ({
     currentUser: state.session.user,
@@ -76,6 +87,8 @@ const Comments = () => {
       onComment={callbacks.createNewComment}
       lang={lang}
       t={t}
+      commentsEndRef={commentsEndRef}
+      scrollToBottom={scrollToBottom}
      />
   )
 }

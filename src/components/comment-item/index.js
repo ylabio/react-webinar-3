@@ -1,17 +1,24 @@
-import React, {memo} from "react";
+import React, {memo, useEffect, useState} from "react";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import CommentReply from "../comment-reply";
 import formatDate from "../../utils/formatDate";
 
-const CommentItem = ({item, session,  onOpenReply, onCloseReply, onAddReplyComment, lang, t, }) => {
+const CommentItem = ({item, session,  onOpenReply, onCloseReply, onAddReplyComment, lang, t, scrollToBottom }) => {
   const cn = bem('CommentItem');
+  const [paddingLeft, setPaddingLeft] = useState(item.level);
+
+  useEffect(() => {
+    if(item.level > 5) {
+      setPaddingLeft(5)
+    }
+  }, [item.level])
 
   return (
-    <div className={cn()} style={{paddingLeft: `${20*(item.level - 1)}px`}} >
+    <div className={cn()} style={{paddingLeft: `${20*(paddingLeft - 1)}px`}} >
       <div className={cn('title')}>
         <span>{item.author?.profile.name}</span>
-        <div>
+        <div className={cn('date')}>
           {formatDate(item.dateCreate, lang)}
         </div>
       </div>
@@ -21,13 +28,13 @@ const CommentItem = ({item, session,  onOpenReply, onCloseReply, onAddReplyComme
       <button className={cn('btn')} type='button' onClick={() => onOpenReply(item._id)}>{t("comments.reply")}</button>
       {item.reply &&
         <CommentReply
+          scrollToBottom={scrollToBottom}
           session={session}
           t={t}
           onCancel={() => onCloseReply(item._id)}
           onAddReplyComment={(text) => onAddReplyComment(item._id, text)}
-          />
+        />
       }
-
     </div>
   );
 }

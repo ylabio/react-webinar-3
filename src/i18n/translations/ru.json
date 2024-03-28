@@ -29,6 +29,7 @@
   "session.signOut": "Выход",
   "comments.title": "Комментарии",
   "comments.reply": "Ответить",
+  "comments.replySmall": "ответить",
   "comments.comments": "Новый комментарий",
   "comments.toSend": "Отправить",
   "comments.login": "Войдите",

@@ -1,0 +1,8 @@
+.LoginMessage {
+  padding-top: 30px;
+  font-size: 16px;
+}
+
+.LoginMessage-cancel {
+  color: rgba(102, 102, 102, 1);
+}

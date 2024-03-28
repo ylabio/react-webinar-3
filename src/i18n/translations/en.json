@@ -27,6 +27,7 @@
   "session.signOut": "Sign Out",
   "comments.title": "Comments",
   "comments.reply": "To answer",
+  "comments.replySmall": "answer",
   "comments.comments": "New comment",
   "comments.toSend": "To send",
   "comments.login": "Log in",

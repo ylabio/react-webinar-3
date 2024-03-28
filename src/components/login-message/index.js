@@ -5,17 +5,20 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 const LoginMessage = ({ onCancel, reply = false, t }) => {
-  const cn = bem('LoginMessage');
+  const cn = bem('LoginMessage')
+
+  const onCancelForm = (e) => {
+    e.preventDefault();
+    onCancel()
+  }
 
   return (
     <div className={cn()}>
       <Link to="/login" className={cn('login')}>{t('comments.login')}</Link>
-      <span className={cn('text')}>,
-        {t("comments.text")}
-        {reply ? <>{t("comments.reply")}</> : <>{t("comments.commentOn")}</>}.
+      <span className={cn('text')}>, {t("comments.text")} {reply ? <>{t("comments.replySmall")}</> : <>{t("comments.commentOn")}</>}.
       </span>
       {' '}
-      {reply && <button type='button' className={cn('button')} onClick={onCancel}>{t("comments.cancel")}</button>}
+      {reply && <a href='' className={cn('cancel')} onClick={onCancelForm}>{t("comments.cancel")}</a>}
     </div>
   );
 };
