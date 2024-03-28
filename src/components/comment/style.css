@@ -1,0 +1,33 @@
+.Comment {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  word-wrap: break-word;
+}
+
+.Comment-header{
+  display: flex;
+  column-gap: 10px;
+  font-size: 12px;
+}
+
+.Comment-author{
+  font-weight: 700;
+}
+.Comment-current_author{
+  font-weight: 700;
+  color: rgb(102, 102, 102);
+}
+.Comment-content_current{
+  color: lightgray;
+  transition: 0.5s;
+}
+.Comment-text{
+  font-size: 14px;
+  line-height: 16px;
+}
+.Comment-answer{
+  color: rgb(0, 135, 233);
+  font-size: 12px;
+  cursor: pointer;
+}
