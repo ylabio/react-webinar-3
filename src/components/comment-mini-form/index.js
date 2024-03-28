@@ -31,7 +31,7 @@ function CommentMiniForm(props) {
         form.text.value = ""
       }
   }
-  const saveLevel = (window.innerWidth * 0.60)
+  const saveLevel = (window.innerWidth * 0.4)
   return (
     <>
     {props.isLogin ?

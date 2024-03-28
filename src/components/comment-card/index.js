@@ -10,7 +10,7 @@ function CommentCard(props) {
     console.log("Ререндер комментария")
   });
   console.log(window.innerWidth )
-  const saveLevel = (window.innerWidth * 0.60 )
+  const saveLevel = (window.innerWidth * 0.40 )
   return (
     <div className={cn()} style = {{paddingLeft:  props.item.level > saveLevel/30 ? saveLevel/30*30 : props.item.level * 30}}>
         <div className={cn("head")}>
