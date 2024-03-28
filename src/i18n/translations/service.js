@@ -43,6 +43,13 @@ class TranslationService {
   set locale(locale) {
     this._locale = locale
     localStorage.setItem('locale', this._locale)
+
+    if (this._locale !== 'ru') {
+      this.services.api.setHeader('X-Lang', this._locale)
+    } else {
+      this.services.api.setHeader('X-Lang')
+    }
+
     this._localeChangeCallbacks.forEach(cb => cb(this._locale))
   }
 }
