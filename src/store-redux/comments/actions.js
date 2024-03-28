@@ -11,7 +11,7 @@ export default {
   
         try {
           const res = await services.api.request({
-            url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=${id}`
+            url: `/api/v1/comments?fields=items(_id,text,status,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=${id}`
           });
           // Товар загружен успешно
           dispatch({type: 'comments/load-success', payload: {data: res.data.result}});
@@ -22,27 +22,29 @@ export default {
       }
     },
 
-    saveComment: (text, id, type) => {
+    saveComment: (text, id, type, level) => {
       return async (dispatch, getState, services) => {
-        dispatch({type: 'comments/load-start'});
+        dispatch({type: 'comment/load-start'});
 
         try {
           // ----- Сохранения комментария 
-          await services.api.request({
+          const res = await services.api.request({
             url:'api/v1/comments?lang=ru&fields=*', method:'POST', 
             body: JSON.stringify({
-              "text": `${text}`,
+              "text": text,
               "parent": 
                 {
-                  "_id":  `${id}`, 
-                  "_type":  `${type}`
-                } 
+                  "_id": id, 
+                  "_type": type
+                }
             })
           });
+          console.log(res.data.result)
           // ----- Успешное сохранение
-          dispatch({type: 'comments/load-success'});
+          dispatch({type: 'comment/load-success', payload: {data: res.data.result}});
+          return Object.assign(res.data.result,{"level":level});
         } catch (e){
-          dispatch({type: 'comments/load-error'});
+          dispatch({type: 'comment/load-error', payload: {data: e}});
         }
         
       }

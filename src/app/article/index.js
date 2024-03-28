@@ -25,7 +25,7 @@ function Article() {
   // Параметры из пути /articles/:id
 
   const params = useParams();
-
+  const {lang} = useTranslate();
   useInit(async () => {
       //store.actions.article.load(params.id);
       dispatch(articleActions.load(params.id));
@@ -34,7 +34,7 @@ function Article() {
 
 
 
-  }, [params.id]);
+  }, [params.id, lang]);
 
   const data = useSelector(state => ({
     token: state.session.token,

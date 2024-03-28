@@ -14,7 +14,17 @@ export const initialState = {
         return {...state, list: action.payload.data, comWaiting: false};
   
       case "comments/load-error":
-        return {...state, list: {}, comWaiting: false}; //@todo текст ошибки сохранять?
+        return {...state, list: {}, comWaiting: false, error: action.payload.data}; //@todo текст ошибки сохранять?
+       
+        
+      case "comment/load-start":
+        return {...state, comWaiting: true};
+
+      case "comment/load-success":
+        return {...state, waiting: false};
+    
+      case "comment/load-error":
+        return {...state, waiting: false, error: action.payload.data};
   
       default:
         // Нет изменений

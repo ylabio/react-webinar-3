@@ -1,17 +1,18 @@
 import {memo, useState} from 'react';
 import './style.css';
-import { useNavigate } from 'react-router-dom';
 
 
 function CommentInput({type, id, onComment, auth, t, onSignIn}) {
     const [Value, setValue] = useState();
+
     let Type
-    const navigate = useNavigate()
-    
     const clear = () => {
       var input = document.getElementById('input')
       input.value=''
     }
+
+
+ 
   if (auth){  
     if (type == "article"){
       Type = t("comments.newComment");
@@ -28,7 +29,7 @@ function CommentInput({type, id, onComment, auth, t, onSignIn}) {
             <button onClick={() => {onComment(Value, id, type), clear() }}>{t("comments.send")}</button>
             {type == "comment" ? (<button onClick={() => {onComment(), clear() }} style={{width:"67px"}}>{t("comments.cancel")}</button>) : ('')}
         </div>
-        
+        <div />
     </div>
   );
 } else {
