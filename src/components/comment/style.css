@@ -14,6 +14,9 @@
   font-size: 12px;
   font-weight: 700;
 }
+.Comment-user_author {
+  color: #666666;
+}
 
 .Comment-date {
   margin: 0;
@@ -26,6 +29,7 @@
   margin: 0;
   font-size: 14px;
   font-weight: 400;
+  word-wrap: break-word;
 }
 
 .Comment-btn {
@@ -40,9 +44,12 @@
 }
 
 .Comment-children {
-  margin-left: 30px;
-  margin-top: 15px;
+  padding-top: 15px;
   display: flex;
   flex-direction: column;
   gap: 30px;
+}
+
+.Comment-children_padding {
+  padding-left: 30px;
 }

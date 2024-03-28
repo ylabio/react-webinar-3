@@ -37,6 +37,7 @@
 
 .AddComment-no-auth {
   display: flex;
+  padding-top: 30px;
   font-size: 16px;
 }
 

@@ -18,7 +18,10 @@ const Comments = ({articleId}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isLoggedIn = useSelector(state => state.session.exists)
+  const {isLoggedIn, currentUserId} = useSelector(state => ({
+    isLoggedIn: state.session.exists,
+    currentUserId: state.session.user._id
+  }))
 
   const {comments, waitingComments, selectedComment} = useSelectorRedux(state => ({
     comments: state.comments.data,
@@ -50,6 +53,7 @@ const Comments = ({articleId}) => {
     comment: useCallback(
       (comment) => (
         <Comment
+          currentUserId={currentUserId}
           commentData={comment}
           commentToReplyId={selectedComment}
           handleOpenReply={callbacks.selectComment}
@@ -71,10 +75,11 @@ const Comments = ({articleId}) => {
   <Spinner active={waitingComments}>
     <CommentsLayout>
       <CommentsList comments={comments} renderComment={renders.comment} />
-      {isLoggedIn && selectedComment === null && (
+      {selectedComment === null && (
         <AddComment
           isLoggedIn={isLoggedIn}
           submitAction={callbacks.addComment}
+          noAuthNavigate={callbacks.noAuthNavigate}
           label={'Новый комментарий'}
         />
       )}

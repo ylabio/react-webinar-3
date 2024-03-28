@@ -5,6 +5,8 @@ import formatDate from '../../utils/date-format';
 import AddComment from '../add-comment';
 import './style.css';
 
+const MAX_COMMENT_NESTING = 15
+
 const Comment = ({
   commentData,
   commentToReplyId,
@@ -13,6 +15,8 @@ const Comment = ({
   replyToComment,
   isLoggedIn,
   noAuthNavigate,
+  currentUserId,
+  currNesting = 1
 }) => {
   const cn = bem('Comment');
 
@@ -22,11 +26,13 @@ const Comment = ({
   }
 
   const commentHasChildren = commentData.children?.length
+  const isAuthor = currentUserId === commentData.author._id
+  const isNested = currNesting <= MAX_COMMENT_NESTING && currNesting !== 1
 
   return (
     <div className={cn()}>
       <div className={cn('heading')}>
-        <p className={cn('user')}>{commentData.author.profile.name}</p>
+        <p className={cn('user', { author: isAuthor })}>{commentData.author.profile.name}</p>
         <p className={cn('date')}>{formatDate(commentData.dateCreate)}</p>
       </div>
       <div className={cn('content')}>
@@ -34,16 +40,19 @@ const Comment = ({
       </div>
       <button onClick={callbacks.onAnswerClick} className={cn('btn')}>Ответить</button>
       {commentHasChildren ? (
-        <div className={cn('children')}>
+        <div className={cn('children', {padding: isNested})}>
           {commentData.children.map(child => (
             <Comment
               key={child._id}
               commentData={child}
+              currNesting={currNesting + 1}
               {...{
                 commentToReplyId,
                 handleOpenReply,
                 unselectComment,
                 replyToComment,
+                noAuthNavigate,
+                currentUserId,
                 isLoggedIn,
               }}
             />
@@ -58,7 +67,7 @@ const Comment = ({
           onCancelReply={unselectComment}
           noAuthNavigate={noAuthNavigate}
           label='Новый ответ'
-          commentHasChildren={commentHasChildren}
+          commentHasChildren={isNested && commentHasChildren}
         />
       }
     </div>
@@ -88,7 +97,7 @@ Comment.propTypes = {
   unselectComment: PropTypes.func.isRequired,
   replyToComment: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
-  noAuthNavigate: PropTypes.func,
+  noAuthNavigate: PropTypes.func.isRequired,
 };
 
 export default memo(Comment)

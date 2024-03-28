@@ -10,13 +10,6 @@ class APIService {
     this.defaultHeaders = {
       'Content-Type': 'application/json',
     };
-
-    this.setHeader(this.config.langHeader, this.services.i18n.lang);
-    this.services.i18n.subscribe((lang) => this.setHeader(this.config.langHeader, lang));
-    this.services.store.subscribe((state) => {
-      const token = state.session.token;
-      this.setHeader(this.config.tokenHeader, token);
-    });
   }
 
   /**
@@ -31,7 +24,11 @@ class APIService {
     if (!url.match(/^(http|\/\/)/)) url = this.config.baseUrl + url;
     const res = await fetch(url, {
       method,
-      headers: {...this.defaultHeaders, ...headers},
+      headers: {
+        // Может быть можно так?
+        // 'Accept-Language': this.services.i18n.lang,
+        ...this.defaultHeaders, ...headers
+      },
       ...options,
     });
     return {data: await res.json(), status: res.status, headers: res.headers};

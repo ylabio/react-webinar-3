@@ -27,7 +27,7 @@ const AddComment = ({
         <form onSubmit={handleSubmit} className={commentHasChildren? cn('form-padding') : cn('form')}>
           <label htmlFor='reply' className={cn('label')}>{label}</label>
           <textarea
-            autoFocus={onCancelReply ? true : false}
+            autoFocus={onCancelReply ? true : undefined}
             value={replyText}
             onChange={handleTextAreaChange}
             id='reply'
@@ -44,9 +44,14 @@ const AddComment = ({
   } else {
     return (
       <div className={cn('no-auth')}>
-        <button onClick={noAuthNavigate} className={cn('no-auth-btn-link')}>Войдите</button>
-        <p className={cn('no-auth-text')}>, чтобы имень возможность ответить.</p>
-        <button className={cn('no-auth-btn')} onClick={onCancelReply}>Отмена</button>
+        <button
+        autoFocus={onCancelReply ? true : undefined}
+        onClick={noAuthNavigate}
+        className={cn('no-auth-btn-link')}>
+          Войдите
+        </button>
+        <p className={cn('no-auth-text')}>, чтобы иметь возможность ответить.</p>
+        {onCancelReply && <button className={cn('no-auth-btn')} onClick={onCancelReply}>Отмена</button>}
       </div>)
 
   }

@@ -6,6 +6,8 @@ class I18nService {
     this.config = config;
     this.lang = config.lang;
     this.listeners = [];
+    // при инициализации меняем langHeader
+    this.services.api.setHeader(this.services.api.config.langHeader, this.lang);
   }
 
   subscribe(listener) {
@@ -24,6 +26,8 @@ class I18nService {
   setLang(lang) {
     this.lang = lang;
     window.localStorage.setItem('lang', lang)
+    // при смене изыка меняем langHeader
+    this.services.api.setHeader(this.services.api.config.langHeader, lang);
     this.notifyListeners();
   }
 
