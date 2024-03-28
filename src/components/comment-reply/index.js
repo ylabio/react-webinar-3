@@ -12,7 +12,7 @@ const CommentReply = ({
   const ref = useRef();
   const [warning, setWarning] = useState("");
   const onClick = () => {
-    if (ref.current.value.replaceAll(" ", "").length > 0) {
+    if (ref.current.value.trim().length > 0) {
       addComment(ref.current.value, parentId);
       ref.current.value = "";
       setOpenInput(false);
