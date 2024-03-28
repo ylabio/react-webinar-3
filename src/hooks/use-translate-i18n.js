@@ -8,7 +8,7 @@ export default function useTranslateI18n() {
 
   const i18nServices = useServices().i18n;
 
-  const [lang, setLang] = useState(i18nServices.getLang());
+  const [lang, setLang] = useState(i18nServices.local);
 
   // Подписка с возвратом функции для отписки
   const unsubscribe = i18nServices.subscribe((value) => {
@@ -18,7 +18,7 @@ export default function useTranslateI18n() {
   const i18n = useMemo(() => ({
    
     // Код локали
-    langTranslate: i18nServices.getLang(),
+    langTranslate: i18nServices.local,
 
     // Функция для смены локали
     setLangTranslate: function (lang) {

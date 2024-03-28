@@ -67,13 +67,6 @@ class I18nService {
     this.services.api.setHeader('X-Lang', lang);
   }
 
-  /**
-  * Получить текущий язык
-  */
-  getLang () { 
-    return this.local;
-  }
-
 }
 
 export default I18nService;
