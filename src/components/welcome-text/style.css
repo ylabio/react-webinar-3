@@ -1,0 +1,20 @@
+.WelcomeText {
+  display: flex;
+  align-items: center;
+  margin-left: 40px;
+}
+.WelcomeText-paragraph {
+  margin: 0;
+}
+
+.WelcomeText-button {
+  border: none;
+  background-color: transparent;
+
+  font-size: 16px;
+  color: #0087e9;
+
+  padding: 0;
+
+  cursor: pointer;
+}

@@ -6,12 +6,11 @@ class APIService {
    */
   constructor(services, config = {}) {
     this.services = services;
-    this.config = config
+    this.config = config;
     this.defaultHeaders = {
       'Content-Type': 'application/json',
-    }
+    };
   }
-
   /**
    * HTTP запрос
    * @param url
@@ -20,14 +19,15 @@ class APIService {
    * @param options
    * @returns {Promise<{}>}
    */
-  async request({url, method = 'GET', headers = {}, ...options}) {
+  async request({ url, method = 'GET', headers = {}, ...options }) {
+    this.services.langToApi.setAcceptLanguageHeader();
     if (!url.match(/^(http|\/\/)/)) url = this.config.baseUrl + url;
     const res = await fetch(url, {
       method,
-      headers: {...this.defaultHeaders, ...headers},
+      headers: { ...this.defaultHeaders, ...headers },
       ...options,
     });
-    return {data: await res.json(), status: res.status, headers: res.headers};
+    return { data: await res.json(), status: res.status, headers: res.headers };
   }
 
   /**

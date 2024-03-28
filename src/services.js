@@ -1,11 +1,25 @@
 import APIService from './api';
+import i18nService from './i18n';
 import Store from './store';
 import createStoreRedux from './store-redux';
+import LangToApiService from './lang-to-api';
+
 
 class Services {
 
   constructor(config) {
     this.config = config;
+  }
+
+  /**
+   * i18n Service
+   * @returns {i18nService}
+   */
+  get i18n() {
+    if (!this._i18n) {
+      this._i18n = new i18nService(this, this.config.i18n)
+    }
+    return this._i18n;
   }
 
   /**
@@ -39,6 +53,16 @@ class Services {
     }
     return this._redux;
   }
+  /**
+   * Вспомогательный сервис для связи сервисов i18n и api
+   */
+  get langToApi() {
+    if (!this._langToApi) {
+      this._langToApi = new LangToApiService(this, this.config.store);
+    }
+    return this._langToApi;
+  }
+
 }
 
 export default Services;

@@ -1,4 +1,4 @@
-import {memo, useCallback} from 'react';
+import { memo, useCallback } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -24,7 +24,7 @@ function CatalogList() {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Пагинация
-    onPaginate: useCallback(page => store.actions.catalog.setParams({page}), [store]),
+    onPaginate: useCallback(page => store.actions.catalog.setParams({ page }), [store]),
     // генератор ссылки для пагинатора
     makePaginatorLink: useCallback((page) => {
       return `?${new URLSearchParams({
@@ -36,20 +36,22 @@ function CatalogList() {
     }, [select.limit, select.sort, select.query])
   }
 
-  const {t} = useTranslate();
+  const { t } = useTranslate();
 
   const renders = {
     item: useCallback(item => (
       <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`}
-            labelAdd={t('article.add')}/>
+        labelAdd={t('article.add')} />
     ), [callbacks.addToBasket, t]),
   };
 
+
+
   return (
     <Spinner active={select.waiting}>
-      <List list={select.list} renderItem={renders.item}/>
+      <List list={select.list} renderItem={renders.item} />
       <Pagination count={select.count} page={select.page} limit={select.limit}
-                  onChange={callbacks.onPaginate} makeLink={callbacks.makePaginatorLink}/>
+        onChange={callbacks.onPaginate} makeLink={callbacks.makePaginatorLink} />
     </Spinner>
   );
 }
