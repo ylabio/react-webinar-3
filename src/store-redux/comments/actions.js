@@ -29,8 +29,7 @@ export default {
             parent: parent
           })
         });
-
-        dispatch({type: 'comments/send-success', payload: {data: res.data.result}})
+        dispatch({type: 'comments/send-success', payload: {data: {...res.data.result, author: services._store.state.session.user}}})
       } catch (e) {
         console.log(e);
         dispatch({type: 'comments/send-error'})
