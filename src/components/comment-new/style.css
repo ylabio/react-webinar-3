@@ -1,0 +1,28 @@
+.CommentNew {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.CommentNew-title {
+  margin: 0;
+  font-size: 12px;
+}
+.CommentNew textarea {
+  min-height: 80px;
+  padding: 5px;
+  color: black;
+  resize: none;
+}
+.CommentNew textarea::placeholder {
+  color: black;
+}
+.CommentNew button {
+  width: fit-content;
+}
+
+.CommentNew label {
+  font-weight: 700;
+  font-size: 12px;
+}

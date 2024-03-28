@@ -12,7 +12,9 @@
   padding: 2px 4px 3px 2px;
   margin: 0 2px;
 }
-
+.Menu-item a {
+  color: rgba(0, 135, 233, 1);
+}
 .Menu-item:first-child {
   margin-left: 0;
   padding-left: 0;

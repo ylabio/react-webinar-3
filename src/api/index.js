@@ -42,6 +42,10 @@ class APIService {
       delete this.defaultHeaders[name];
     }
   }
+
+  setLanguageHeader(lang) {
+    this.setHeader('Accept-Language', lang);
+  }
 }
 
 export default APIService;

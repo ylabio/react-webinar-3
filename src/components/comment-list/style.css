@@ -1,0 +1,9 @@
+.CommentList {
+  padding: 30px 40px;
+  word-break: break-word;
+}
+
+.CommentList-title {
+  margin-bottom: 25px;
+  font-size: 24px;
+}
