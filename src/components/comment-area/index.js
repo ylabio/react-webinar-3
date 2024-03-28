@@ -3,7 +3,7 @@ import {cn as bem} from '@bem-react/classname';
 import { Link } from 'react-router-dom';
 import './style.css';
 
-const CommentArea = ({title,cancel,createFirstComment,createAnswerComment, itemId,load,isAuth}) => {
+const CommentArea = ({title,cancel,createFirstComment,createAnswerComment, itemId,load,isAuth, lvl, parent, margin, mainClass, loginNavigate}) => {
     const [area,setArea] = useState('');
     const cn = bem('CommentArea');
     
@@ -15,30 +15,36 @@ const CommentArea = ({title,cancel,createFirstComment,createAnswerComment, itemI
         buttons.forEach((n,i) => {
             n.addEventListener('click', () => {
                 areas[i].classList.remove(active);
+                document.querySelector('.Main').style.display = "block";
             })
         })
     })
     
     function onSend(e){
-        if (itemId && area.length != 0){
+        e.preventDefault();
+        if (itemId && area.length != 0 && area.trim() != ''){
             const currentArea = document.querySelector('.CommentArea--active');
             currentArea.classList.remove('CommentArea--active');
             createAnswerComment(itemId,area,'comment');
             setArea('');
-            load()
+            document.querySelector('.Main').style.display = "block";
+            
         }
 
-        else if (area.length != 0){
+        else if (area.length != 0 && area.trim() != ''){
             createFirstComment(area,'article');
             setArea('');
-            load()
+            document.querySelector('.Main').style.display = "block";
+            
         }
 
-        load()
+        setArea('');
     }
 
+    
+
     return (
-        <div className={cn()}>
+        <div className={cn()+" "+mainClass} id='comment_area' data-id={parent} style={{marginLeft:`${margin+15}px`}}>
             {isAuth
             ?
             <>
@@ -54,7 +60,7 @@ const CommentArea = ({title,cancel,createFirstComment,createAnswerComment, itemI
             </>
             :
             
-            <div className={cn('not-logged-in')}><Link to={'/login'}>Войдите</Link>, чтобы иметь возможность комментировать <span className={cn('cancel-btn')}>{cancel ? 'Отмена':''}</span></div>
+            <div className={cn('not-logged-in')}><a href='#' onClick={loginNavigate}>Войдите</a>, чтобы иметь возможность комментировать <span className={cn('cancel-btn')}>{cancel ? 'Отмена':''}</span></div>
             
             }
             

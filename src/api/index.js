@@ -9,7 +9,6 @@ class APIService {
     this.config = config
     this.defaultHeaders = {
       'Content-Type': 'application/json',
-      'X-Lang':'ru'
     }
   }
 
@@ -42,6 +41,10 @@ class APIService {
     } else if (this.defaultHeaders[name]) {
       delete this.defaultHeaders[name];
     }
+  }
+
+  setLangHeader(lang){
+    this.setHeader('X-lang',lang);
   }
 }
 
