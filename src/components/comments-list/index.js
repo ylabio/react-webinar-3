@@ -33,7 +33,7 @@ const CommentsList = ({ list, nest, user, count, replierActive, setReplierCommen
                      setReplierOn={setReplierOn}
             />
             {comment.children.length > 0 &&
-              <CommentsList list={comment.children} nest={nest + 1} user={user}
+              <CommentsList tt={tt} list={comment.children} nest={nest + 1} user={user}
                             replierActive={replierActive} setReplierComment={setReplierComment}/>
             }
             {replierActive === comment._id && <CommentReplier parent={'comment'} />}
