@@ -2,10 +2,13 @@ import {memo} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import numberFormat from '../../utils/number-format';
+import { Link } from 'react-router-dom';
 import './style.css';
 
 function ArticleCard({article, onAdd, t}) {
+  
   const cn = bem('ArticleCard');
+
   return (
     <div className={cn()}>
       <div className={cn('description')}>{article.description}</div>
