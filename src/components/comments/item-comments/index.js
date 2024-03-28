@@ -1,37 +1,18 @@
-import React, { useEffect, useMemo } from "react";
+import React from "react";
 import "./style.css";
 import { cn as bem } from "@bem-react/classname";
-import formattedDate from "../../../utils/formattedDate";
 import { memo } from "react";
-import findLastChildren from "../../../utils/findLastChildren";
+
 import PropTypes from "prop-types";
-import useInit from "../../../hooks/use-init";
 function ItemComments({
   item,
   action,
   textBtn,
   userId,
-  lang,
   paddingLeft,
-  waiting,
-  idAfterRedirect,
-  typeNavigation,
+  dateComment,
 }) {
   const cn = bem("ItemComments");
-
-  const displayId = item.children.length
-    ? findLastChildren(item.children)
-    : item._id;
-
-  useInit(() => {
-    if (
-      typeNavigation === "REPLACE" &&
-      idAfterRedirect === item._id &&
-      !waiting
-    ) {
-      action(idAfterRedirect, displayId, item.level);
-    }
-  }, []);
 
   return (
     <div className={cn()} style={{ paddingLeft: `${paddingLeft}px` }}>
@@ -43,15 +24,10 @@ function ItemComments({
         >
           {item.author.profile.name}
         </div>
-        <div className={cn("head-date")}>
-          {formattedDate(item.dateUpdate, lang)}
-        </div>
+        <div className={cn("head-date")}>{dateComment}</div>
       </div>
       <div className={cn("text")}>{item.text}</div>
-      <button
-        className={cn("action")}
-        onClick={() => action(item._id, displayId, item.level)}
-      >
+      <button className={cn("action")} onClick={action}>
         {textBtn}
       </button>
     </div>
@@ -63,7 +39,7 @@ ItemComments.propTypes = {
   action: PropTypes.func.isRequired,
   textBtn: PropTypes.string,
   userId: PropTypes.string,
-  lang: PropTypes.string,
+  dateComment: PropTypes.string,
 };
 
 ItemComments.defaultProps = {};

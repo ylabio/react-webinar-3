@@ -1,5 +1,4 @@
-import React, { Fragment, memo, useMemo, useCallback, useRef } from "react";
-import ItemComments from "../../../components/comments/item-comments";
+import React, { Fragment, memo, useMemo, useCallback } from "react";
 import { useDispatch, useSelector as useSelectorRedux } from "react-redux";
 import { Link, useLocation, useNavigationType } from "react-router-dom";
 import useSelector from "../../../hooks/use-selector";
@@ -13,15 +12,18 @@ import Spinner from "../../../components/spinner";
 import AnswerComment from "../../../components/comments/answer-comment";
 import AutoScroll from "../../auto-scroll";
 import setPaddingLeft from "../../../utils/setPaddingLeft";
+import ScrollAfterRedirect from "../../scroll-after-redirect";
 
 function ListComments() {
   const { t, lang } = useTranslate();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const typeNavigation = useNavigationType();
+
   const select = useSelector((state) => ({
     user: state.session.user,
   }));
+
   const selectRedux = useSelectorRedux(
     (state) => ({
       comments: state.comments.data,
@@ -33,6 +35,7 @@ function ListComments() {
     }),
     shallowEqual
   );
+
   let comments = useMemo(() => {
     return selectRedux.comments.length
       ? [
@@ -67,11 +70,6 @@ function ListComments() {
       selectRedux.idAfterRedirect &&
         dispatch(commentsActions.setIdAfterRedirect(""));
     }, []),
-
-    onOpenForm: useCallback((clickedId, showId, levelPadding) => {
-      dispatch(commentsActions.setTypeComments("comment"));
-      dispatch(commentsActions.setShowForm(clickedId, showId, levelPadding));
-    }, []),
   };
 
   const link = useMemo(
@@ -95,13 +93,11 @@ function ListComments() {
     item: useCallback(
       (item) => (
         <Fragment key={item._id}>
-          <ItemComments
+          <ScrollAfterRedirect
             lang={lang}
             item={item}
             textBtn={t("comment.answer")}
-            action={callbacks.onOpenForm}
             userId={select.user._id}
-            paddingLeft={item.level && setPaddingLeft(item.level, 30)}
             idAfterRedirect={selectRedux.idAfterRedirect}
             typeNavigation={typeNavigation}
           />
