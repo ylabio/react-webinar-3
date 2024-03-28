@@ -13,6 +13,8 @@ import TopHead from '../../containers/top-head';
 import {useDispatch, useSelector} from 'react-redux';
 import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
+import commentsActions from '../../store-redux/comments/actions';
+import Comments from "../../components/comments";
 
 function Article() {
   const store = useStore();
@@ -23,13 +25,18 @@ function Article() {
   const params = useParams();
 
   useInit(() => {
-    //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
-  }, [params.id]);
+    dispatch(commentsActions.loadComments(params.id));
+    dispatch(commentsActions.setTypeComment('article'));
+  }, [params.id, dispatch]);
 
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
+    comments: state.comments.items,
+    countComment: state.comments.count,
+    waitingComments: state.comments.waitingComments,
+    type: state.comments.typeComment
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
   const {t} = useTranslate();
@@ -37,6 +44,16 @@ function Article() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+
+    addComment: useCallback((comment) => {
+      dispatch(commentsActions.postComment({
+        text: comment,
+        parent: {
+          _id: params.id,
+          _type: "article"
+        }
+      }));
+    }, [])
   }
 
   return (
@@ -48,7 +65,18 @@ function Article() {
       <Navigation/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        <Spinner active={select.waitingComments}>
+          <Comments comments={select?.comments}
+                    count={select.countComment}
+                    itemId={params.id}
+                    waiting={select.waitingComments}
+                    type={select.type}
+                    onSubmit={callbacks.addComment}
+          />
+        </Spinner>
       </Spinner>
+
+
     </PageLayout>
   );
 }

@@ -1,0 +1,31 @@
+.Comment {
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.Comment-name {
+  font-weight: 700;
+}
+
+.Comment-date {
+  padding-left: 10px;
+  color: #666666;
+}
+
+.Comment-text {
+  padding: 10px 0;
+  font-size: 14px;
+  line-height: 16px;
+  overflow-wrap: break-word;
+}
+
+.Comment-button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: #0087e9;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
