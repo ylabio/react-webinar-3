@@ -1,22 +1,40 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import "./style.css";
 import { cn as bem } from "@bem-react/classname";
 import formattedDate from "../../../utils/formattedDate";
 import { memo } from "react";
 import findLastChildren from "../../../utils/findLastChildren";
 import PropTypes from "prop-types";
-function ItemComments({ item, action, textBtn, userId, lang }) {
+import useInit from "../../../hooks/use-init";
+function ItemComments({
+  item,
+  action,
+  textBtn,
+  userId,
+  lang,
+  paddingLeft,
+  waiting,
+  idAfterRedirect,
+  typeNavigation,
+}) {
   const cn = bem("ItemComments");
 
   const displayId = item.children.length
     ? findLastChildren(item.children)
     : item._id;
 
+  useInit(() => {
+    if (
+      typeNavigation === "REPLACE" &&
+      idAfterRedirect === item._id &&
+      !waiting
+    ) {
+      action(idAfterRedirect, displayId, item.level);
+    }
+  }, []);
+
   return (
-    <div
-      className={cn()}
-      style={{ paddingLeft: `${item.level && 30 * item.level}px` }}
-    >
+    <div className={cn()} style={{ paddingLeft: `${paddingLeft}px` }}>
       <div className={cn("head")}>
         <div
           className={`${cn("head-user_name")} ${

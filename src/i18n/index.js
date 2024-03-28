@@ -20,7 +20,7 @@ class I18nService {
       this.listeners = this.listeners.filter((l) => l !== listener);
     };
   };
-  t = (lang, text, plural) => {
+  translate = (lang, text, plural) => {
     let result =
       translations[lang] && text in translations[lang]
         ? translations[lang][text]

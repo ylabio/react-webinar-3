@@ -49,7 +49,7 @@ function Login() {
             location.state?.back && location.state?.back !== location.pathname
               ? location.state?.back
               : "/";
-          navigate(back);
+          navigate(back, { replace: true });
         });
       },
       [data, location.state]

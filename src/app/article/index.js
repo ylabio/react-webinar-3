@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
@@ -19,15 +19,20 @@ function Article() {
   const store = useStore();
   const { t, lang } = useTranslate();
   const dispatch = useDispatch();
-  // Параметры из пути /articles/:id
 
   const params = useParams();
 
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
   useInit(async () => {
-    await Promise.all([
-      dispatch(articleActions.load(params.id)),
-      dispatch(commentsActions.load(params.id)),
-    ]);
+    if (isFirstLoad) {
+      await Promise.all([
+        dispatch(articleActions.load(params.id)),
+        dispatch(commentsActions.load(params.id)),
+      ]);
+      setIsFirstLoad(false);
+    } else {
+      dispatch(articleActions.load(params.id));
+    }
   }, [params.id, lang]);
   useEffect(() => {
     return () => {

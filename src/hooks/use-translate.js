@@ -7,15 +7,16 @@ export default function useTranslate() {
 
   useEffect(() => {
     const unsubscribe = i18n.subscribe(setLang);
+    // отписка
     return unsubscribe;
   }, [i18n]);
 
-  const t = useMemo(
+  const translate = useMemo(
     () => ({
-      translate: (text, number) => i18n.t(lang, text, number),
+      t: (text, number) => i18n.translate(lang, text, number),
     }),
     [lang]
   );
 
-  return { lang, setLang: i18n.setLang, t: t.translate };
+  return { lang, setLang: i18n.setLang, t: translate.t };
 }

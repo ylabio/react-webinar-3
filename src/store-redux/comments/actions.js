@@ -53,4 +53,7 @@ export default {
       payload: { clickedId, showId, levelPadding },
     };
   },
+  setIdAfterRedirect: (id) => {
+    return { type: "comments/setIdAfterRedirect", payload: { id } };
+  },
 };

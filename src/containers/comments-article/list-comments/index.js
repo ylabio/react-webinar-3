@@ -1,8 +1,7 @@
-import React, { Fragment, memo, useMemo } from "react";
+import React, { Fragment, memo, useMemo, useCallback, useRef } from "react";
 import ItemComments from "../../../components/comments/item-comments";
-import { useCallback } from "react";
 import { useDispatch, useSelector as useSelectorRedux } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigationType } from "react-router-dom";
 import useSelector from "../../../hooks/use-selector";
 import commentsActions from "../../../store-redux/comments/actions";
 import shallowEqual from "shallowequal";
@@ -13,16 +12,16 @@ import List from "../../../components/comments/list";
 import Spinner from "../../../components/spinner";
 import AnswerComment from "../../../components/comments/answer-comment";
 import AutoScroll from "../../auto-scroll";
+import setPaddingLeft from "../../../utils/setPaddingLeft";
 
 function ListComments() {
   const { t, lang } = useTranslate();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-
+  const typeNavigation = useNavigationType();
   const select = useSelector((state) => ({
     user: state.session.user,
   }));
-
   const selectRedux = useSelectorRedux(
     (state) => ({
       comments: state.comments.data,
@@ -30,6 +29,7 @@ function ListComments() {
       waitingAdd: state.comments.waitingAdd,
       type: state.comments.typeComments,
       showForm: state.comments.showFormController,
+      idAfterRedirect: state.comments.idAfterRedirect,
     }),
     shallowEqual
   );
@@ -64,6 +64,8 @@ function ListComments() {
     onCloseForm: useCallback(() => {
       dispatch(commentsActions.setTypeComments("article"));
       dispatch(commentsActions.setShowForm(null, null, 0));
+      selectRedux.idAfterRedirect &&
+        dispatch(commentsActions.setIdAfterRedirect(""));
     }, []),
 
     onOpenForm: useCallback((clickedId, showId, levelPadding) => {
@@ -74,11 +76,19 @@ function ListComments() {
 
   const link = useMemo(
     () => (
-      <Link to={"/login"} state={{ back: pathname }}>
+      <Link
+        to={"/login"}
+        onClick={() =>
+          dispatch(
+            commentsActions.setIdAfterRedirect(selectRedux.showForm.clickedId)
+          )
+        }
+        state={{ back: pathname }}
+      >
         {t("comment.textLink")}
       </Link>
     ),
-    [pathname]
+    [pathname, selectRedux.showForm.clickedId, lang]
   );
 
   const renders = {
@@ -91,6 +101,9 @@ function ListComments() {
             textBtn={t("comment.answer")}
             action={callbacks.onOpenForm}
             userId={select.user._id}
+            paddingLeft={item.level && setPaddingLeft(item.level, 30)}
+            idAfterRedirect={selectRedux.idAfterRedirect}
+            typeNavigation={typeNavigation}
           />
           {!!(
             selectRedux.showForm.showId === item._id &&
@@ -104,7 +117,10 @@ function ListComments() {
                 onCloseForm={callbacks.onCloseForm}
                 children={link}
                 isAuth={!!select.user.username}
-                paddingLeft={(selectRedux.showForm.levelPadding + 1) * 30}
+                paddingLeft={setPaddingLeft(
+                  selectRedux.showForm.levelPadding + 1,
+                  30
+                )}
               />
             </AutoScroll>
           )}

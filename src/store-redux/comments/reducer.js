@@ -10,6 +10,7 @@ export const initialState = {
     showId: null,
     levelPadding: 0,
   },
+  idAfterRedirect: "",
 };
 
 // Обработчик действий
@@ -52,6 +53,11 @@ function reducer(state = initialState, action) {
           showId: action.payload.showId,
           levelPadding: action.payload.levelPadding,
         },
+      };
+    case "comments/setIdAfterRedirect":
+      return {
+        ...state,
+        idAfterRedirect: action.payload.id,
       };
     default:
       return state;
