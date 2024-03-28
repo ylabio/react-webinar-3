@@ -48,11 +48,13 @@ function Comments() {
     setReplyingTo(localStorage.getItem('replyingTo'));
   }, [])
 
+  const translate = useTranslate();
+
   useInit(() => {
     dispatch(commentActions.load(params.id))
   }, [params.id])
 
-  const { t } = useTranslate();
+  const { t } = translate;
 
   const renders = {
     item: useCallback(item => (
@@ -65,7 +67,7 @@ function Comments() {
         session={session}
         handleLogin={callbacks.handleLogin}
         t={t} />
-    ), [replyingTo, session]),
+    ), [replyingTo, session, translate]),
   };
 
   return (
