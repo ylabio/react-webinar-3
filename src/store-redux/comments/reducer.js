@@ -20,9 +20,13 @@ export const initialState = {
       case "comment/load-start":
         return {...state, comWaiting: true};
 
-      case "comment/load-success":
+      case "comment/load-success": {
         return {...state, waiting: false};
-    
+      }
+      // ...state.list, 
+        
+      
+
       case "comment/load-error":
         return {...state, waiting: false, error: action.payload.data};
   

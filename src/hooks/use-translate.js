@@ -9,7 +9,7 @@ export default function useTranslate(name) {
   const translate = useServices().translate;
   const [lang, setCurrentLang] = useState(translate.lang);
 
-  const t = useCallback((text, number) => translate.translate(text, number),[lang]);
+  const t = useCallback((text, number) => translate.translate(text, number), [lang]);
 
   useEffect(() => {
     const handleLanguageChange = (language) => {

@@ -1,4 +1,4 @@
-import {memo, useCallback, useRef, useState} from 'react';
+import {memo, useCallback, useEffect, useRef, useState} from 'react';
 import Comment from '../../components/comment';
 import './style.css'
 import listToTree from '../../utils/list-to-tree';
@@ -24,27 +24,29 @@ function CommentList({list, count, id, auth, t, user}) {
   const onSelect = (id) => {
     setSelect(id);
     const refNode = ref.current;
-    // console.log(comments.findIndex(item => item._id == id  && item.author === undefined),' / ',refNode.querySelectorAll('item > div').length)
-    // console.log(refNode.querySelectorAll('item > div')[comments.findIndex(item => item._id == id  && item.author === undefined)])
     const divNode = refNode.querySelectorAll('item')[comments.findIndex(item => item._id == id  && item.author === undefined)-3];
-    divNode.scrollIntoView({inline: 'start'});
+    divNode.scrollIntoView({inline: 'center'});
 
   }
 
+
+
   const onComment = (text, _id, type, level, index) => { 
-    
+    console.log(_id, text)
     if (_id && text){    
       setSelect(id)
       let result = text.replace(/\s+/g,' ') != ' ' ? dispatch(commentsActions.saveComment(text, _id, type, level)) : {} // Сохраняю комментарий
-      console.log(result)
       comments = comments.splice(index,1,result);
+      console.log(comments)
       //dispatch(commentsActions.load(params.id)); // Обновляю список комментариев
     } else setSelect(id)
-    //text.replace(' ','') // Это надо справить, он удаляет только первый найденный символ
 
   }
+
   console.log(comments)
   const onSignIn = () => navigate('/login', {state: {back: location.pathname}});
+  const inputForm = (type, id) =>
+    (<CommentInput type={type} id={id} onComment={onComment} onSignIn={onSignIn} auth={auth} t={t}/>)
 
   return (
     <>
@@ -53,11 +55,11 @@ function CommentList({list, count, id, auth, t, user}) {
     {comments 
       ? comments.map((item,index) =>
       <item key={index}>
-        <Comment item={item} onSelect={onSelect} Select={Select} onComment={onComment} onSignIn={onSignIn} auth={auth} t={t} lang={lang} user={user} index={index}/>
+        <Comment item={item} onSelect={onSelect} Select={Select} onComment={onComment} onSignIn={onSignIn} auth={auth} t={t} lang={lang} user={user} index={index} inputForm={inputForm}/>
       </item>    
         ) 
       : ('')}
-    {Select === id ? (<CommentInput type={'article'} id={id} onComment={onComment} onSignIn={onSignIn} auth={auth} t={t}/> ):('')} 
+    {Select === id ? inputForm('article',id):('')} 
     </div>
     
     </>

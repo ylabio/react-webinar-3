@@ -11,7 +11,6 @@ function CommentInput({type, id, onComment, auth, t, onSignIn}) {
       input.value=''
     }
 
-
  
   if (auth){  
     if (type == "article"){

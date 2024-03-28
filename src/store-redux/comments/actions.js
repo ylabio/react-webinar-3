@@ -41,7 +41,7 @@ export default {
           });
           console.log(res.data.result)
           // ----- Успешное сохранение
-          dispatch({type: 'comment/load-success', payload: {data: res.data.result}});
+          dispatch({type: 'comment/load-success', payload: {data: res.data.result}, level:level});
           return Object.assign(res.data.result,{"level":level});
         } catch (e){
           dispatch({type: 'comment/load-error', payload: {data: e}});
