@@ -1,13 +1,16 @@
 import { cn as bem } from "@bem-react/classname";
-import React from "react";
+import React, { forwardRef } from "react";
 import "./style.css";
 
-function CommentForm({ onSubmit, onCancel, onLogin, isLoggedIn, label }) {
+const CommentForm = forwardRef(function CommentForm(
+  { onSubmit, onCancel, onLogin, isLoggedIn, label },
+  ref
+) {
   const isReply = onCancel !== undefined;
 
   const cn = bem("CommentForm");
   return (
-    <div className={cn("wrapper", { reply: isReply })}>
+    <div ref={ref} className={cn("wrapper", { reply: isReply })}>
       {isLoggedIn ? (
         <form className={cn("form")} onSubmit={onSubmit}>
           <div className={cn("field")}>
@@ -44,6 +47,6 @@ function CommentForm({ onSubmit, onCancel, onLogin, isLoggedIn, label }) {
       )}
     </div>
   );
-}
+});
 
 export default CommentForm;

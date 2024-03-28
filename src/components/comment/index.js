@@ -1,5 +1,5 @@
 import { cn as bem } from "@bem-react/classname";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import dateFormat from "../../utils/date-format";
 import CommentForm from "../comment-form";
 import "./style.css";
@@ -17,6 +17,15 @@ function Comment({
   onCancel,
   onLogin,
 }) {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (selectedCommentId === data._id) {
+      if (ref.current)
+        ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [selectedCommentId, ref]);
+
   const cn = bem("Comment");
   return (
     <div className={cn({ nested: nesting > 1 && nesting <= MAX_NESTING })}>
@@ -54,6 +63,7 @@ function Comment({
       )}
       {selectedCommentId === data._id && (
         <CommentForm
+          ref={ref}
           onSubmit={onSubmit}
           onCancel={onCancel}
           onLogin={onLogin}
