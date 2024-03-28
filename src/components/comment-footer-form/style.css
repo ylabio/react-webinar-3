@@ -1,0 +1,11 @@
+.Comments-Frooter-Form label {
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.Comments-Frooter-Form textarea {
+    margin: 10px 0px;
+    width: 100%;
+    min-height: 80px;
+    resize: none;
+}

@@ -1,0 +1,35 @@
+.Comment {
+    margin-bottom: 30px;
+}
+
+.Comment-head {
+    font-size: 12px;
+    margin-bottom: 10px;
+    margin-top: 25px;
+}
+
+.Comment-body {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.Comment-date {
+    color: #666666;
+}
+
+.Comment-user-name {
+    margin-right: 10px;
+}
+
+.Comment-button button {
+    color: #0087E9;
+    border: none;
+    background-color: transparent;
+    padding: 0px;
+    margin-top: 10px;
+}
+
+
+.Comment-button button:hover {
+    cursor: pointer;
+}
