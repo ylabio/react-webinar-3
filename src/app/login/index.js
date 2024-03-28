@@ -48,7 +48,8 @@ function Login() {
         const back = location.state?.back && location.state?.back !== location.pathname
           ? location.state?.back
           : '/';
-        navigate(back);
+        const scrollY = location.state?.scrollY || 0;
+        navigate(back, { state: { scrollY } });
       });
 
     }, [data, location.state])

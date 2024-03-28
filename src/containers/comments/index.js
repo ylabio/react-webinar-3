@@ -12,7 +12,6 @@ import NewCommentForm from '../../components/new-comment-form';
 import CommentsList from '../../components/comments-list';
 import Comment from '../../components/comment';
 import shallowequal from 'shallowequal';
-import {useSelectorTranslate} from '../../hooks/use-selector-translate';
 
 function Comments({articleId}) {
 
@@ -32,10 +31,6 @@ function Comments({articleId}) {
     waitingComments: state.comments.waiting,
   }), shallowequal);
 
-  const selectTranslate = useSelectorTranslate(state => ({
-    language: state.translate.language
-  }));
-
   const selectStore = useSelector(state => ({
     user: state.session.user,
     exists: state.session.exists,
@@ -43,7 +38,11 @@ function Comments({articleId}) {
 
   useInit(() => {
     dispatch(commentsActions.load(articleId));
-  }, [articleId, selectTranslate.language]);
+    const savedScrollY = location.state?.scrollY;
+    if (savedScrollY !== undefined && savedScrollY !== null) {
+      window.scrollTo(0, savedScrollY);
+    }
+  }, [articleId, location.state]);
 
   const renders = {
     comment: useCallback(comment => (
@@ -96,7 +95,7 @@ function Comments({articleId}) {
     }, []),
 
     onSignIn: useCallback(() => {
-      navigate('/login', {state: {back: location.pathname}});
+      navigate('/login', {state: {back: location.pathname, scrollY: window.scrollY}});
     }, [location.pathname]),
   }
 
