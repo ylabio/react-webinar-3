@@ -1,0 +1,54 @@
+.CommentsItem {
+  width: 100%;
+  padding: 0;
+  padding-right: 40px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.CommentsItem-head {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.CommentsItem-username {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 13.8px;
+  margin-right: 10px;
+}
+
+.CommentsItem-username_authorized {
+  color: #666666;
+}
+
+.CommentsItem-date {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 13.8px;
+  color: #666666;
+}
+
+.CommentsItem-text {
+  font-size: 14px;
+  line-height: 16.1px;
+  word-wrap: break-word;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.CommentsItem-control {
+  padding-bottom: 30px;
+}
+
+.CommentsItem-answer {
+  font-size: 12px;
+  line-height: 13.8px;
+  color: #0087e9;
+  cursor: pointer;
+}

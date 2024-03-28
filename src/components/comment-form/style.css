@@ -1,0 +1,57 @@
+.CommentForm {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-right: 40px;
+  padding-bottom: 20px;
+}
+
+.CommentForm button {
+  height: 21px;
+  padding: 0 10px;
+}
+
+.CommentForm-auth {
+  font-size: 16px;
+  line-height: 18.4px;
+}
+
+.CommentForm-form {
+  width: 100%;
+  font-size: 14px;
+  line-height: 16.1px;
+}
+
+.CommentForm-cancel {
+  font-size: 16px;
+  line-height: 18.4px;
+  color: #666666;
+  border-bottom: 2px solid #666666;
+  cursor: pointer;
+}
+
+.CommentForm h5 {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.CommentForm-login {
+  text-decoration: none;
+  border-bottom: 2px solid;
+  color: #0087e9;
+}
+
+.CommentForm-send {
+  margin-right: 10px;
+}
+
+.CommentForm-input {
+  min-width: 100%;
+  width: 100%;
+  height: 80px;
+  resize: none;
+  box-sizing: border-box;
+}
