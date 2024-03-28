@@ -1,0 +1,37 @@
+.Comment {
+  padding: 30px 0px 0 30px;
+  font-size: 12px;
+}
+
+.Comment.Comment_root {
+  padding-left: 40px;
+  padding-right: 30px;
+}
+
+.Comment.Comment_deepest {
+  padding-left: 0;
+}
+
+.Comment-title-name {
+  margin-right: 10px;
+}
+
+.Comment-title-name_self {
+  color: #666666;
+}
+
+.Comment-title-date {
+  color: #666666;
+}
+
+.Comment-text {
+  font-size: 14px;
+  overflow-wrap: break-word;
+  white-space: break-spaces;
+}
+
+.Comment-controls a {
+  text-decoration: none;
+  color: #0087e9;
+  cursor: pointer;
+}

@@ -4,7 +4,6 @@ import * as modules from './exports.js';
  * Хранилище состояния приложения
  */
 class Store {
-
   /**
    * @param services {Services}
    * @param config {Object}
@@ -41,8 +40,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -71,7 +70,7 @@ class Store {
       console.group(
         `%c${'store.setState'} %c${description}`,
         `color: ${'#777'}; font-weight: normal`,
-        `color: ${'#333'}; font-weight: bold`,
+        `color: ${'#333'}; font-weight: bold`
       );
       console.log(`%c${'prev:'}`, `color: ${'#d77332'}`, this.state);
       console.log(`%c${'next:'}`, `color: ${'#2fa827'}`, newState);

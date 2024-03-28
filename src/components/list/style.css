@@ -1,5 +1,4 @@
 .List {
-
 }
 
 .List-item {
@@ -8,4 +7,8 @@
 
 .List-item:first-child {
   border-top: 1px dashed #ccc;
+}
+
+.List .List-item_no-border {
+  border: none;
 }

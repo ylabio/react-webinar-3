@@ -16,24 +16,39 @@ import {useSelector as useSelectorRedux} from 'react-redux';
  * @returns {React.ReactElement}
  */
 function App() {
-
   const store = useStore();
   useInit(async () => {
     await store.actions.session.remind();
-  })
+  });
 
-  const activeModal = useSelectorRedux(state => state.modals.name);
+  const activeModal = useSelectorRedux((state) => state.modals.name);
 
   return (
     <>
       <Routes>
-        <Route path={''} element={<Main/>}/>
-        <Route path={'/articles/:id'} element={<Article/>}/>
-        <Route path={'/login'} element={<Login/>}/>
-        <Route path={'/profile'} element={<Protected redirect='/login'><Profile/></Protected>}/>
+        <Route
+          path={''}
+          element={<Main />}
+        />
+        <Route
+          path={'/articles/:id'}
+          element={<Article />}
+        />
+        <Route
+          path={'/login'}
+          element={<Login />}
+        />
+        <Route
+          path={'/profile'}
+          element={
+            <Protected redirect='/login'>
+              <Profile />
+            </Protected>
+          }
+        />
       </Routes>
 
-      {activeModal === 'basket' && <Basket/>}
+      {activeModal === 'basket' && <Basket />}
     </>
   );
 }

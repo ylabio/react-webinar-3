@@ -5,14 +5,15 @@
  * @param issues {Array<{path: string, message: string}>}
  * @return {Record<string, Array<string>}
  */
-export default function simplifyErrors(issues = {}) {
+export default function simplifyErrors(issues = []) {
   const result = {};
   for (const issue of issues) {
-    const key = issue.path.join('.') || 'other';
+    const path = issue.path?.join ? issue.path.join('.') : null;
+    const key = path || 'other';
     if (result[key]) {
       result[key].push(issue.message);
     } else {
-      result[key] = [issue.message]
+      result[key] = [issue.message];
     }
   }
   return result;

@@ -1,0 +1,18 @@
+.LoginInvite {
+  margin-top: 30px;
+  font-size: 16px;
+}
+
+.LoginInvite_root {
+  padding: 0 40px 30px;
+}
+
+.LoginInvite-link {
+  color: #0087e9;
+}
+
+.LoginInvite-cancel {
+  text-decoration: underline;
+  color: #666666;
+  cursor: pointer;
+}
