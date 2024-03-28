@@ -1,7 +1,7 @@
 import {memo, useCallback, useMemo} from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
-import useTranslate from '../../hooks/use-translate';
+import useTranslate, {useServiceTranslate} from '../../hooks/use-translate';
 import Menu from '../../components/menu';
 import BasketTool from '../../components/basket-tool';
 import SideLayout from '../../components/side-layout';
@@ -32,6 +32,7 @@ function Navigation() {
 
   // Функция для локализации текстов
   const {t} = useTranslate();
+  const { translate: tt } = useServiceTranslate()
 
   const options = {
     menu: useMemo(() => ([
@@ -41,8 +42,8 @@ function Navigation() {
 
   return (
     <SideLayout side='between'>
-      <Menu items={options.menu} onNavigate={callbacks.onNavigate}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} t={t}/>
+      <Menu tt={tt} items={options.menu} onNavigate={callbacks.onNavigate}/>
+      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} tt={tt} t={t}/>
     </SideLayout>
   );
 }

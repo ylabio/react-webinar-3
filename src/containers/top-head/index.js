@@ -1,13 +1,14 @@
 import {memo, useCallback} from 'react';
 import SideLayout from '../../components/side-layout';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
-import useTranslate from '../../hooks/use-translate';
+import useTranslate, {useServiceTranslate} from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 
 function TopHead() {
 
   const {t} = useTranslate();
+  const { translate: tt } = useServiceTranslate()
   const navigate = useNavigate();
   const location = useLocation();
   const store = useStore();
@@ -33,8 +34,8 @@ function TopHead() {
     <SideLayout side='end' padding='small'>
       {select.exists ? <Link to='/profile'>{select.user.profile.name}</Link> : ''}
       {select.exists
-        ? <button onClick={callbacks.onSignOut}>{t('session.signOut')}</button>
-        : <button onClick={callbacks.onSignIn}>{t('session.signIn')}</button>
+        ? <button onClick={callbacks.onSignOut}>{tt('session.signOut')}</button>
+        : <button onClick={callbacks.onSignIn}>{tt('session.signIn')}</button>
       }
     </SideLayout>
   );

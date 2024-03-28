@@ -1,5 +1,5 @@
 import {memo, useCallback, useState} from 'react';
-import useTranslate from '../../hooks/use-translate';
+import useTranslate, {useServiceTranslate} from '../../hooks/use-translate';
 import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
 import Navigation from '../../containers/navigation';
@@ -16,6 +16,7 @@ import useInit from '../../hooks/use-init';
 function Login() {
 
   const {t} = useTranslate();
+  const { translate: tt } = useServiceTranslate()
   const location = useLocation();
   const navigate = useNavigate();
   const store = useStore();
@@ -57,23 +58,23 @@ function Login() {
   return (
     <PageLayout>
       <TopHead/>
-      <Head title={t('title')}>
+      <Head title={tt('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
       <SideLayout padding='medium'>
         <form onSubmit={callbacks.onSubmit}>
-          <h2>{t('auth.title')}</h2>
-          <Field label={t('auth.login')} error={select.errors?.login}>
+          <h2>{tt('auth.title')}</h2>
+          <Field label={tt('auth.login')} error={select.errors?.login}>
             <Input name='login' value={data.login} onChange={callbacks.onChange}/>
           </Field>
-          <Field label={t('auth.password')} error={select.errors?.password}>
+          <Field label={tt('auth.password')} error={select.errors?.password}>
             <Input name='password' type='password' value={data.password}
                    onChange={callbacks.onChange}/>
           </Field>
           <Field error={select.errors?.other}/>
           <Field>
-            <button type='submit'>{t('auth.signIn')}</button>
+            <button type='submit'>{tt('auth.signIn')}</button>
           </Field>
         </form>
       </SideLayout>

@@ -2,7 +2,7 @@ import {memo, useCallback, useMemo} from 'react';
 import {useParams} from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
-import useTranslate from '../../hooks/use-translate';
+import useTranslate, {useServiceTranslate} from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -26,16 +26,17 @@ function Profile() {
   }));
 
   const {t} = useTranslate();
+  const { translate: tt } = useServiceTranslate()
 
   return (
     <PageLayout>
       <TopHead/>
-      <Head title={t('title')}>
+      <Head title={tt('title')}>
         <LocaleSelect/>
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <ProfileCard data={select.profile}/>
+        <ProfileCard tt={tt} data={select.profile}/>
       </Spinner>
     </PageLayout>
   );

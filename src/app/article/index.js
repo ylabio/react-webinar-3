@@ -1,7 +1,7 @@
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback} from 'react';
 import {useParams} from 'react-router-dom';
 import useStore from '../../hooks/use-store';
-import useTranslate from '../../hooks/use-translate';
+import useTranslate, {useServiceTranslate} from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -13,9 +13,11 @@ import TopHead from '../../containers/top-head';
 import {useDispatch, useSelector} from 'react-redux';
 import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
+import Comments from "../../containers/comments";
 
 function Article() {
   const store = useStore();
+  const { translate: tt, locale } = useServiceTranslate()
 
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
@@ -23,9 +25,8 @@ function Article() {
   const params = useParams();
 
   useInit(() => {
-    //store.actions.article.load(params.id);
-    dispatch(articleActions.load(params.id));
-  }, [params.id]);
+    dispatch(articleActions.load(params.id))
+  }, [params.id, locale]);
 
   const select = useSelector(state => ({
     article: state.article.data,
@@ -47,8 +48,9 @@ function Article() {
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} tt={tt} t={t}/>
       </Spinner>
+      <Comments />
     </PageLayout>
   );
 }
