@@ -4,6 +4,10 @@
   margin: 30px 0;
 }
 
+.CommentForm_theme_item {
+  margin: 30px 0 30px 30px;
+}
+
   .CommentForm-label{
     font-size: 12px;
     font-weight: 700;
@@ -24,6 +28,11 @@
 
   .CommentForm-textarea::placeholder {
     color: #000;
+  }
+
+  .CommentForm-error {
+    margin-bottom: 10px;
+    color: red;
   }
 
   .CommentForm-btn {

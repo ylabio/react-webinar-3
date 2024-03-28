@@ -8,7 +8,7 @@ function ContentLayout (props) {
   const cn = bem('ContentLayout');
 
   return (
-    <div className={cn({padding: props.padding, visibility: props.visibility})}>{props.children}</div>
+    <div className={cn({padding: props.padding})}>{props.children}</div>
   );
 
 }
@@ -16,7 +16,6 @@ function ContentLayout (props) {
 ContentLayout.propTypes = {
   children: PropTypes.node,
   padding: PropTypes.oneOf(['small', 'medium']),
-  visibility: PropTypes.oneOf(['scroll']),
 }
 
 export default memo(ContentLayout);

@@ -1,4 +1,4 @@
-import {memo} from 'react';
+import {memo, useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import FormattedDate from '../../utils/formatted-date';
@@ -11,8 +11,23 @@ function ItemComments(props) {
 
   const cn = bem('ItemComments');
 
+  const commentRef = useRef(null);
+
+  const [scroll, setScroll] = useState(false);
+
+  useEffect(() => {
+    if (scroll) {
+      const elementActiveForm = document.getElementById('activeForm');
+      elementActiveForm.scrollIntoView({ behavior: "smooth",  block: "center" });
+      setScroll(false);
+    }
+  }, [scroll]);
+
   const callbacks = {
-    openForm: (id) => props.openForm(props.item._id),
+    openForm: (id) => {
+      props.openForm(props.item._id);
+      setScroll(true);
+    },
     closeLinkSignIn: () => props.closeForm()
   }
 
@@ -28,6 +43,8 @@ function ItemComments(props) {
          {props.item.text}
       </div>
       <button className={cn('btn')} onClick={callbacks.openForm}>{props.reply}</button>
+      {props.children}
+      <div id={props.idComment == props.item._id ? 'activeForm' : ''}></div>
       {props.idComment == props.item._id 
         ? (
             (!props.exists 
@@ -39,7 +56,7 @@ function ItemComments(props) {
             || (props.exists 
               && <CommentForm 
                 closeForm={props.closeForm} onSubmit={props.onSubmit} label={props.label} showNow={props.showNow} btnSend={props.btnSend}
-                btnCancel={props.btnCancel} placeholder={props.placeholder}
+                btnCancel={props.btnCancel} placeholder={props.placeholder} theme={props.theme}
               />
             )
           ) 
@@ -62,6 +79,7 @@ ItemComments.propTypes = {
   userId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   exists: PropTypes.bool, 
   idComment: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  children: PropTypes.node
 };
 
 ItemComments.defaultProps = {
