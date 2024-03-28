@@ -42,15 +42,13 @@ function Comments() {
       (id) => setSelectedCommentId(id),
       [setSelectedCommentId]
     ),
-    onSubmit: (e) => {
-      e.preventDefault();
-      if (!/\S/.test(e.target.text.value)) return;
+    onSubmit: (text, isReply) => {
       dispatch(
         commentsActions.post({
-          text: e.target.text.value,
+          text: text,
           parent: {
-            _id: selectedCommentId ? selectedCommentId : params.id,
-            _type: selectedCommentId ? "comment" : "article",
+            _id: isReply ? selectedCommentId : params.id,
+            _type: isReply ? "comment" : "article",
           },
         })
       );
