@@ -147,9 +147,10 @@ function Comments({ articleId, comments }) {
   const forms = {
     reply: useMemo(() => {
       if (replyTo) {
+        console.log(replyTo);
+        console.log(authSelect.sessionExists);
         return authSelect.sessionExists ? <FormReply
           to={replyTo.id}
-          key={`reply-form-${replyTo.lastReplyIndex}`}
           ref={scrollToRef}
           offset={replyTo.offset - 1}
           onSendReply={onSendReply}
@@ -158,7 +159,6 @@ function Comments({ articleId, comments }) {
         />
         : <CommentLoginPrompt
             ref={scrollToRef}
-            key={`login-prompt-${replyTo.lastReplyIndex}`}
             offset={replyTo.offset - 1}
             onLogin={onLogin}
             onCloseReply={onCloseReply}
@@ -180,24 +180,23 @@ function Comments({ articleId, comments }) {
   }
 
   return (
-    <Spinner active={commentsSelect.waitingAfterPost}>
+    <Spinner key="spinner-comments" active={commentsSelect.waitingAfterPost}>
       <CommentsLayout
         key={`comments-layout-${articleId}`}
         t={translateService}
       >
         {commentsList.map((comment, index) => {
           return (
-            <> 
               <Comment
-                 key={`comment-${index}`}
-                 own={comment.author?.profile.name === authSelect.user?.profile.name}
+                 key={`comment-${comment._id}`}
+                 own={comment.author?.profile?.name === authSelect.user?.profile?.name}
                  ref={comment.new ? scrollToRef : null}
                  comment={comment}
                  onOpenReply={onOpenReply}
                  t={translateService}
-              />              
-              {(replyOpen && replyTo?.lastReplyIndex === index) && forms.reply}
-            </>
+              >
+                {(replyOpen && replyTo?.lastReplyIndex === index) && forms.reply}
+              </Comment>   
            )
          })}      
         {forms.comment}

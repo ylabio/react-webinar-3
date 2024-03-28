@@ -1,28 +1,7 @@
 .FormReply {
   display: flex;
   flex-direction: column;
-}
-
-.FormReply-list-element {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.FormReply-offset-0 {
-  margin-left: 0;
-}
-
-.FormReply-offset-1 {
-  margin-left: 30px;
-}
-
-.FormReply-offset-2 {
-  margin-left: 60px;
-}
-
-.FormReply-offset-3 {
-  margin-left: 90px;
+  width: 100%;
 }
 
 .FormReply-label {

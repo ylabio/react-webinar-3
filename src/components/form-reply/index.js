@@ -47,10 +47,9 @@ const FormReply = forwardRef(function FormReply({
       e.preventDefault();
       callbacks.resetForm();
     }
-  }
+  };
 
-  return 
-    <li className={cn('list-element')}>  
+  return (
       <form
        ref={ref}
        onSubmit={callbacks.onFormSubmit} 
@@ -84,7 +83,7 @@ const FormReply = forwardRef(function FormReply({
           </button>
         </div>      
       </form>
-    </li>
+  )
 
 });
 

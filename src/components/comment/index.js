@@ -9,6 +9,7 @@ const Comment = forwardRef(function Comment({
   own,
   t,
   locale,
+  children
 }, ref) {
 
   const cn = bem('Comment');
@@ -51,6 +52,7 @@ const Comment = forwardRef(function Comment({
           {t.translate("comments.replyButton")}
         </button>
       </div>
+      {children}
     </li>
   );
 });
