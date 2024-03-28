@@ -43,6 +43,7 @@ function Comments() {
     const callbacks = {
         onClick : useCallback((item,currIndex) => {
             setCurrCommentReplied(item)
+            setminiCommentText()
             if(item.parent._type === "article" && !item.children.length){
                 setWhereToPutMiniForm(item._id)
             }

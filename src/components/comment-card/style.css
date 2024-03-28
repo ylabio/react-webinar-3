@@ -13,6 +13,10 @@
     word-wrap: break-word;
 }
 
+.Comment-date {
+    color: #666666;
+}
+
 .Comment-user-name {
     margin-right: 10px;
 }

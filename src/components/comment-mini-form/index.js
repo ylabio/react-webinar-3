@@ -31,11 +31,11 @@ function CommentMiniForm(props) {
         form.text.value = ""
       }
   }
-  const saveLevel = (window.innerWidth * 0.60 - 30)
+  const saveLevel = (window.innerWidth * 0.60)
   return (
     <>
     {props.isLogin ?
-      <div className = {cn()} style = {{paddingLeft:  (props.item.level+1) > saveLevel/30 ? saveLevel/30*30 : (props.item.level+1) * 30}}ref={elementRef}>
+      <div className = {cn()} style = {{paddingLeft:  (props.item.level+1) > saveLevel/30 ? (saveLevel/30+1)*30 : (props.item.level+1) * 30}}ref={elementRef}>
          <form onSubmit={onSubmit} className={cn("form")}>
       <label htmlFor="replyInput"><b>Новый ответ</b></label>
       <br />

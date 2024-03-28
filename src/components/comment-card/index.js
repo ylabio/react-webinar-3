@@ -10,7 +10,7 @@ function CommentCard(props) {
     console.log("Ререндер комментария")
   });
   console.log(window.innerWidth )
-  const saveLevel = (window.innerWidth * 0.60 - 30)
+  const saveLevel = (window.innerWidth * 0.60 )
   return (
     <div className={cn()} style = {{paddingLeft:  props.item.level > saveLevel/30 ? saveLevel/30*30 : props.item.level * 30}}>
         <div className={cn("head")}>
@@ -19,13 +19,13 @@ function CommentCard(props) {
                 {props.item.author?.profile.name}
               </b>
             </span>
-            <span>{getFormattedDateTime(props.item.dateCreate)}</span>
+            <span className={cn("date")}>{getFormattedDateTime(props.item.dateCreate)}</span>
         </div>
         <div className={cn("body")}>
         {props.item.text}
         </div>
         <div className={cn("button")}>
-            <button onClick = {() => props.onClick(props.item,props.currIndex)}>
+            <button onClick = {() => props.onClick(props.item, props.currIndex)}>
                 Ответить
             </button>
         </div>
