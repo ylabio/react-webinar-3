@@ -6,30 +6,33 @@ import useServices from './use-services';
  */
 export default function useTranslate() {
   // Получаем ссылку на инстанс сервиса
-  const i18nService = useServices().i18n;
+  const {i18n} = useServices();
 
   // Создаем useState для отслеживаемого хранения текущей локали
-  const [lang, setLang] = useState(i18nService.lang);
+  const [lang, setLang] = useState(i18n.lang);
 
   // Сохраняем текущий язык в localStorage
   localStorage.setItem('lang', lang);
 
   // Отписка и подписка на смену локали
   const unsubscribe = useMemo(() => {
-    i18nService.subscribe((newLang) => {
+    i18n.subscribe((newLang) => {
       setLang(newLang);
     })
   }, [])
 
   // Отслеживаем реакцию смены локали
-  useEffect(() => unsubscribe, [unsubscribe]);
+  useEffect(() => {
+    unsubscribe;
+    i18n.setLang(lang);
+  }, [unsubscribe, lang]);
 
   return useMemo(() => ({
     // Код локали
     lang,
     // Функция для смены локали
-    setLang: (lang) => i18nService.setLang(lang),
+    setLang: (lang) => i18n.setLang(lang),
     // Функция для локализации текстов с замыканием на код языка
-    t: (text, number, lang) => i18nService.translate(lang, text, number),
+    t: (text, number, lang) => i18n.translate(lang, text, number),
   }), [lang])
 }

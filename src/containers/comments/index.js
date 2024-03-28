@@ -6,8 +6,7 @@ import shallowequal from 'shallowequal';
 import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
-import commentsActions from "../../store-redux/comments/load/actions";
-import createCommentActions from "../../store-redux/comments/create/actions";
+import commentsActions from "../../store-redux/comments/actions";
 import CommentsLayout from "../../components/comments-layout";
 import Spinner from "../../components/spinner";
 import CommentsList from "../../components/comments-list";
@@ -32,9 +31,9 @@ function Comments() {
   const select = useSelectorRedux(state => ({
     count: state.comments.count,
     items: state.comments.items,
-    data: state.create_comment.result,
+    data: state.comments.result,
     waiting: state.comments.waiting,
-    success_create: state.create_comment.success_create,
+    success_create: state.comments.success_create,
   }), shallowequal);
 
   useEffect(() => {
@@ -42,7 +41,7 @@ function Comments() {
     if (select.success_create) {
       const newComment = {...select.data, author: {profile: {name: user.profile.name} }};
       // Функция динамического добавления нового комментария в массив состояния
-      dispatch(commentsActions.update(newComment));
+      dispatch(commentsActions.add(newComment));
     }
   }, [select.success_create, select.data])
 
@@ -50,14 +49,14 @@ function Comments() {
     // Создание нового комментария
     createNewComment: useCallback(() => {
       if (commentValue.trim()) {
-        dispatch(createCommentActions.createComment(token, {text: commentValue, parent: {_id: params.id, _type: "article"}}));
+        dispatch(commentsActions.create(token, {text: commentValue, parent: {_id: params.id, _type: "article"}}));
         setCommentValue('');
       }
     }, [token, commentValue, params.id]),
     // Ответ на комментарий
     onReplyComment: useCallback((_id) => {
       if (commentValue.trim()) {
-        dispatch(createCommentActions.createComment(token, {text: commentValue, parent: {_id, _type: "comment"}}));
+        dispatch(commentsActions.create(token, {text: commentValue, parent: {_id, _type: "comment"}}));
         setCommentValue('');
       }
     }, [token, commentValue])
@@ -69,7 +68,7 @@ function Comments() {
   const renders = {
     item: useCallback(item => (
       <CommentCard 
-        item={item} exists={exists} user={user} t={t} activeForm={activeForm} setActiveForm={setActiveForm} 
+        item={item} nestedLevel={1} exists={exists} user={user} t={t} activeForm={activeForm} setActiveForm={setActiveForm} 
         commentValue={commentValue} setCommentValue={setCommentValue} replyComment={callbacks.onReplyComment}
       />
     ), [exists, user, t, activeForm, commentValue, callbacks.onReplyComment])
