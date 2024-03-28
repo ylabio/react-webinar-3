@@ -5,32 +5,52 @@
  * @returns {Array} Корневые узлы
  */
 export default function listToTree(list, key = '_id') {
-  let trees = {};
-  let roots = {};
-  for (const item of list) {
+    const treeMap = {};
+    const rootElements = [];
 
-    // Добавление элемента в индекс узлов и создание свойства children
-    if (!trees[item[key]]) {
-      trees[item[key]] = item;
-      trees[item[key]].children = [];
-      // Ещё никто не ссылался, поэтому пока считаем корнем
-      roots[item[key]] = trees[item[key]];
-    } else {
-      trees[item[key]] = Object.assign(trees[item[key]], item);
+    // Создание индекса элементов
+    list.forEach(item => {
+        item.children = []; 
+        treeMap[item[key]] = item;
+    });
+
+    // Построение дерева
+    list.forEach(item => {
+        if (item.parent) {
+            const parentType = item.parent._type;
+            if (parentType === 'article') {
+                // Элемент является корневым комментарием
+                rootElements.push(item);
+            } else if (parentType === 'comment') {
+                // Элемент является ответом на комментарий
+                const parentComment = treeMap[item.parent[key]];
+                if (parentComment) {
+                    parentComment.replies = parentComment.replies || [];
+                    parentComment.replies.push(item);
+                }
+            } else {
+                // Элемент является подкатегорией
+                const parentCategory = treeMap[item.parent[key]];
+                if (parentCategory) {
+                    parentCategory.children.push(item);
+                }
+            }
+        } else {
+            // Элемент не имеет родителя и является корневым элементом категории
+            rootElements.push(item);
+        }
+    });
+
+    // Сортировка, если это комментарии
+    if (list.length > 0 && list[0].parent && list[0].parent._type === 'article') {
+        rootElements.sort((a, b) => new Date(a.dateCreate) - new Date(b.dateCreate));
+        Object.values(treeMap).forEach(comment => {
+            if (comment.replies) {
+                comment.replies.sort((a, b) => new Date(a.dateCreate) - new Date(b.dateCreate));
+            }
+        });
     }
 
-    // Если элемент имеет родителя, то добавляем его в подчиненные родителя
-    if (item.parent?.[key]) {
-      // Если родителя ещё нет в индексе, то индекс создаётся, ведь _id родителя известен
-      if (!trees[item.parent[key]]) {
-        trees[item.parent[key]] = {children: []};
-        roots[item.parent[key]] = trees[item.parent[key]]
-      }
-      // Добавления в подчиненные родителя
-      trees[item.parent[key]].children.push(trees[item[key]]);
-      // Так как элемент добавлен к родителю, то он уже не является корневым
-      if (roots[item[key]]) delete roots[item[key]];
-    }
-  }
-  return Object.values(roots);
+    return rootElements;
 }
+

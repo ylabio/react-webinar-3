@@ -17,11 +17,12 @@ import useInit from '../../hooks/use-init';
 import { useState } from 'react';
 import shallowEqual from 'shallowequal';
 import commentsActions from '../../store-redux/comments/actions';
-import buildCommentTree from '../../utils/build-comment-tree';
 import IsLogin from '../../utils/comment-or-login';
 import CommentAmount from '../../components/comment-amount';
+import { useRef } from 'react';
 const CommentsContainer = (name) => {
     const store = useStore();
+    const replyFormRef = useRef(null);
     const [replyToCommentId, setReplyToCommentId] = useState(null);
     const [activeForm, setActiveForm] = useState('newComment');
     const [userName, setUserName] = useState("");
@@ -42,17 +43,24 @@ const CommentsContainer = (name) => {
             setUserName(profileState.name);
         }
     }, [profileState?.name]);
+    useEffect(() => {
+        if (activeForm === 'newComment' && replyFormRef.current) {
+            replyFormRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [activeForm]);
     const handleCancel = () => {
         setReplyToCommentId(null);
         setActiveForm('newComment');
     };
     
     const handleReplySubmit = (commentText, commentId = articleId) => {
+        console.log(commentTree, 'commentTree before');
         const isArticle = commentId === articleId;
         dispatch(commentsActions.submitComment({
             text: commentText,
             parent: { _id: commentId, _type: isArticle ? "article" : "comment" }
         }));
+        console.log(commentTree,'commentTree after');
         handleCancel();
     };
     const handleReply = (commentId) => {
@@ -82,14 +90,21 @@ const CommentsContainer = (name) => {
             />
             
             {!replyToCommentId && (
+                        <div ref = { replyFormRef }>
+                    
+               
                 <IsLogin
-                    Component={CommentForm}
-                    componentProps={{
-                        onSubmit: handleReplySubmit,
-                        title: t('comments.newComment'),
-                        sendButton: t('comments.send')
-                    }}
-                />
+                        baseIndent={40}
+                        Component={CommentForm}
+                        componentProps={{
+                            key: `newComment`,
+                            onSubmit: handleReplySubmit,
+                            title: t('comments.newComment'),
+                            sendButton: t('comments.send'),
+                        }}
+                    />
+                        </div>
+                
             )}
         </div>
         </Spinner >
