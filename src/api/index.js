@@ -7,6 +7,7 @@ class APIService {
   constructor(services, config = {}) {
     this.services = services;
     this.config = config
+    this.i18n = services.i18n;
     this.defaultHeaders = {
       'Content-Type': 'application/json',
     }
@@ -24,7 +25,7 @@ class APIService {
     if (!url.match(/^(http|\/\/)/)) url = this.config.baseUrl + url;
     const res = await fetch(url, {
       method,
-      headers: {...this.defaultHeaders, ...headers},
+      headers: {...this.defaultHeaders, 'Accept-Language': this.i18n.lang, ...headers},
       ...options,
     });
     return {data: await res.json(), status: res.status, headers: res.headers};

@@ -1,0 +1,10 @@
+.Comments-List{
+    display: flex;
+    flex-direction: column;
+    padding: 0 40px;
+    padding-bottom: 120px;
+}
+.Comments-h2{
+    font-weight: 400;
+    padding: 0 40px;
+}

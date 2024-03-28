@@ -7,6 +7,7 @@ import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
 import treeToList from '../../utils/tree-to-list';
 import listToTree from '../../utils/list-to-tree';
+import { categories } from '../../store/exports';
 
 function CatalogFilter() {
 
@@ -33,6 +34,7 @@ function CatalogFilter() {
     }), [store]),
   };
 
+  console.log(select.categories)
   const options = {
     // Варианты сортировок
     sort: useMemo(() => ([
@@ -42,6 +44,7 @@ function CatalogFilter() {
       {value: 'edition', title: 'Древние'},
     ]), []),
     // Категории для фильтра
+    
     categories: useMemo(() => ([
       {value: '', title: 'Все'},
       ...treeToList(listToTree(select.categories), (item, level) => (

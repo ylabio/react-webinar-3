@@ -1,0 +1,39 @@
+.CommentInput-container{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.CommentInput-container label{
+    font-size: 12px;
+    font-weight: 700;
+}
+.CommentInput-container input{
+    padding-bottom: 76px;
+    font-size: 14px;
+}
+.CommentInput-container input::placeholder{
+    color:black;
+    font-size: 14px;
+}
+.CommentInput-container button{
+    width: 90px;
+    height: 21px;
+}
+.CommentInput-btns{
+    display: flex;
+    gap: 10px;
+}
+.CommentAuth span{
+    font-size: 16px;
+}
+.CommentAuth > span > a{
+    color: #0087E9;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.CommentAuth > span:nth-child(2){
+    color: #666666;
+    text-decoration: underline;
+    cursor: pointer;
+}

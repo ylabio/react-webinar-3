@@ -1,0 +1,34 @@
+/* COMMON */
+.Comment-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.Comment-title{
+    display: flex;
+    gap: 10px;
+}
+/* title */
+.Comment-title span{
+    font-size: 12px;
+}
+.Comment-title span:nth-child(2){
+    color: #666666;
+}
+.Comment-title span:nth-child(1){
+    font-weight: 700;
+}
+/* text */
+.Comment-text a{
+    font-size: 14px;
+    word-wrap: break-word;
+}
+/* action*/
+.Comment-action span {
+    color: #0087E9;
+    font-size: 12px;
+}
+.Comment-action span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

@@ -17,6 +17,7 @@ export default function listToTree(list, key = '_id') {
       roots[item[key]] = trees[item[key]];
     } else {
       trees[item[key]] = Object.assign(trees[item[key]], item);
+      // trees[item[key]] = Object.assign(trees[item[key]], {status:'empty'})
     }
 
     // Если элемент имеет родителя, то добавляем его в подчиненные родителя
@@ -30,7 +31,9 @@ export default function listToTree(list, key = '_id') {
       trees[item.parent[key]].children.push(trees[item[key]]);
       // Так как элемент добавлен к родителю, то он уже не является корневым
       if (roots[item[key]]) delete roots[item[key]];
+
     }
+
   }
   return Object.values(roots);
 }
