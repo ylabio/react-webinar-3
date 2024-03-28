@@ -10,6 +10,9 @@ class APIService {
     this.defaultHeaders = {
       'Content-Type': 'application/json',
     }
+
+    this.services.i18n.subscribe(this.handleLocaleChange.bind(this));
+    this.handleLocaleChange(services.i18n.locale);
   }
 
   /**
@@ -41,6 +44,10 @@ class APIService {
     } else if (this.defaultHeaders[name]) {
       delete this.defaultHeaders[name];
     }
+  }
+
+  handleLocaleChange(value){
+    this.setHeader('Accept-Language', value)
   }
 }
 
