@@ -1,0 +1,24 @@
+.CommentForm {
+  display:flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+.CommentForm-title {
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.CommentForm-form {
+  min-height: 76px;
+  border: 1px solid #666666;
+  box-shadow: 0px 1px 4px 0px #6666661A inset;
+}
+
+.CommentForm-articles {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
