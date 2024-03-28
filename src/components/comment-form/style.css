@@ -1,0 +1,53 @@
+.CommentForm-wrapper {
+  margin: 30px 0;
+}
+
+.CommentForm-wrapper_reply {
+  padding-left: 30px;
+}
+
+.CommentForm {
+  margin-bottom: 30px;
+}
+
+.CommentForm-field {
+  margin-bottom: 10px;
+}
+
+.CommentForm-label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.CommentForm-input {
+  display: block;
+  width: 100%;
+}
+
+textarea.CommentForm-input {
+  min-height: 76px;
+  resize: none;
+}
+
+.CommentForm-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.CommentForm-not-logged {
+  font-size: 16px;
+}
+
+.CommentForm-login {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #0087e9;
+}
+
+.CommentForm-cancel {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #666666;
+}
