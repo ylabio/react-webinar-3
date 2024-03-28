@@ -10,7 +10,7 @@ import commentsActions from '../../store-redux/comments/actions';
 import useSelector from "../../hooks/use-selector";
 import {Link} from "react-router-dom";
 
-function Comments({comments, count, itemId, waiting}) {
+function Comments({comments, count, type, itemId, onSubmit, waiting}) {
   const store = useStore();
 
   const dispatch = useDispatch();
@@ -28,17 +28,20 @@ function Comments({comments, count, itemId, waiting}) {
   const callback = {
     addComment: useCallback((comment, idComment) => {
       dispatch(commentsActions.postComment({
-        text: comment.text,
+        text: comment,
         parent: {
           _id: idComment,
           _type: "comment"
         }
-      }))
+      }));
+      dispatch(commentsActions.setTypeComment('article'))
     }, []),
     onOpenForm: useCallback((id) => {
+      dispatch(commentsActions.setTypeComment('comment'));
       setReplyToCommentId(id);
     }, []),
     onCloseForm: useCallback(() => {
+      dispatch(commentsActions.setTypeComment('article'));
       setReplyToCommentId(null);
     }, [])
   }
@@ -51,20 +54,23 @@ function Comments({comments, count, itemId, waiting}) {
       <div className={cn('list')}>
         {comments.map((item) => (
           <Comment
+            key={item._id}
             item={item}
             isAuth={!!select.user.username}
             onOpenForm={callback.onOpenForm}
             onCloseForm={callback.onCloseForm}
-            visibleForm={!!replyToCommentId === item._id}
+            handleSubmit={callback.addComment}
+            visibleForm={!!(replyToCommentId === item._id && type === 'comment')}
           />
         ))}
       </div>
 
-      {!!replyToCommentId === itemId &&
+      {!!(type === 'article') &&
         <div className={cn('form')}>
           {!!select.user.username ?
             <CommentForm
-              onCloseForm={callback.onCloseForm}
+              handleSubmit={onSubmit}
+              labelButton={'Новый комментарий'}
             />
             : <div className={cn('auth-none')}>
               <Link to={'/login'}>Войдите</Link>
@@ -73,8 +79,6 @@ function Comments({comments, count, itemId, waiting}) {
           }
         </div>
       }
-
-      {/*<CommentForm handleSubmit={callback.addComment} waiting={waiting}/>*/}
 
     </div>
   );

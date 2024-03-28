@@ -24,3 +24,8 @@
 .CommentForm-button {
   align-self: start;
 }
+
+.CommentForm-buttonWrapper {
+  display: flex;
+  gap: 10px;
+}

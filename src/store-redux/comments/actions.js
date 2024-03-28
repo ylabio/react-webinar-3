@@ -38,5 +38,9 @@ export default {
         dispatch({type: 'post-comment/post-error', payload: error});
       }
     }
+  },
+
+  setTypeComment: (type) => {
+    return {type: 'comments/setTypeComment', payload: {type}}
   }
 }

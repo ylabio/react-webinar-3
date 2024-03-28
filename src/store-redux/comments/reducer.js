@@ -2,7 +2,8 @@ export const initialState = {
   items: [],
   count: 0,
   waiting: false,
-  waitingPost: false
+  waitingPost: false,
+  typeComment: 'article'
 }
 
 function reducer(state = initialState, action) {
@@ -24,6 +25,9 @@ function reducer(state = initialState, action) {
 
     case "post-comment/post-error":
       return {...state, waitingPost: false};
+
+    case "comments/setTypeComment":
+      return {...state, typeComment: action.payload.type}
 
 
     default:

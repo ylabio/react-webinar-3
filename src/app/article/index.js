@@ -26,7 +26,8 @@ function Article() {
 
   useInit(() => {
     dispatch(articleActions.load(params.id));
-    dispatch(commentsActions.loadComments(params.id))
+    dispatch(commentsActions.loadComments(params.id));
+    dispatch(commentsActions.setTypeComment('article'));
   }, [params.id, dispatch]);
 
   const select = useSelector(state => ({
@@ -34,7 +35,8 @@ function Article() {
     waiting: state.article.waiting,
     comments: state.comments.items,
     countComment: state.comments.count,
-    waitingComments: state.comments.waitingComments
+    waitingComments: state.comments.waitingComments,
+    type: state.comments.typeComment
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
   const {t} = useTranslate();
@@ -42,6 +44,16 @@ function Article() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+
+    addComment: useCallback((comment) => {
+      dispatch(commentsActions.postComment({
+        text: comment,
+        parent: {
+          _id: params.id,
+          _type: "article"
+        }
+      }));
+    }, [])
   }
 
   return (
@@ -58,6 +70,8 @@ function Article() {
                     count={select.countComment}
                     itemId={params.id}
                     waiting={select.waitingComments}
+                    type={select.type}
+                    onSubmit={callbacks.addComment}
           />
         </Spinner>
       </Spinner>

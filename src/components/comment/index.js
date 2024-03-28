@@ -5,12 +5,12 @@ import dateFormat from "../../utils/date-format";
 import CommentForm from "../comment-form";
 import {Link} from "react-router-dom";
 
-function Comment({item, isAuth, onCloseForm, onOpenForm, visibleForm}) {
+function Comment({item, isAuth, key, onCloseForm, onOpenForm, visibleForm, handleSubmit}) {
   const cn = bem('Comment');
   const date = dateFormat(item.dateCreate);
 
   return (
-    <div className={cn()} key={item._id}>
+    <div className={cn()} key={key}>
       <span className={cn('name')}>{item.author.profile.name}</span>
       <span className={cn('date')}>{date}</span>
       <div className={cn('text')}>{item.text}</div>
@@ -23,6 +23,8 @@ function Comment({item, isAuth, onCloseForm, onOpenForm, visibleForm}) {
               id={item._id}
               onOpenForm={onOpenForm}
               onCloseForm={onCloseForm}
+              handleSubmit={handleSubmit}
+              labelButton={'Новый ответ'}
             />
             : <div className={cn('auth-none')}>
               <Link to={'/login'}>Войдите</Link>
