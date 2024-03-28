@@ -10,7 +10,6 @@ import Spinner from "../../components/spinner";
 import useInit from "../../hooks/use-init";
 import useSelector from "../../hooks/use-selector";
 import commentsActions from "../../store-redux/comments/actions";
-import "./style.css";
 
 function Comments() {
   const [selectedCommentId, setSelectedCommentId] = useState(null);

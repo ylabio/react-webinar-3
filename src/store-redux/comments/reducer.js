@@ -24,7 +24,7 @@ function reducer(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          items: [...state.data.items, action.payload.data],
+          items: [...state.data.items, { ...action.payload.data }],
           count: state.data.count + 1,
         },
       };
