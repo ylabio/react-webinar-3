@@ -14,18 +14,23 @@ function CommentsList({
   const cn = bem("CommentsList");
   console.log(comments);
 
+  // Костыли !!! :)
   const addForm = (comments, formId) => {
     const commentWithForm = comments.findIndex((item) => item._id == formId);
 
-    if (commentWithForm + 1 == comments.length)
-      return comments[commentWithForm]._id;
+    if (commentWithForm + 1 === comments.length)
+      return { _id: comments[commentWithForm]._id, offset: "40px" };
 
     for (let i = commentWithForm + 1; i < comments.length; i++) {
       console.log(commentWithForm);
 
       if (comments[i].offset <= comments[commentWithForm].offset) {
         console.log(`found you ${comments[i - 1]._id}`);
-        return comments[i - 1]._id;
+        if (comments[i - 1]._id === formId) {
+          return { _id: formId, offset: "40px" };
+        } else {
+          return { _id: comments[i - 1]._id, offset: "0px" };
+        }
       }
     }
   };
@@ -46,15 +51,17 @@ function CommentsList({
         >
           {renderItem(item)}
           {/* {formId === item._id && ( */}
-          {item._id === commentWithForm && (
-            <CommentForm
-              formId={formId}
-              sessionExists={sessionExists}
-              type="comment"
-              pathname={pathname}
-              onCloseForm={onCloseForm}
-              onCommentSend={onCommentSend}
-            />
+          {item._id === commentWithForm?._id && (
+            <div style={{ paddingLeft: commentWithForm.offset }}>
+              <CommentForm
+                formId={formId}
+                sessionExists={sessionExists}
+                type="comment"
+                pathname={pathname}
+                onCloseForm={onCloseForm}
+                onCommentSend={onCommentSend}
+              />
+            </div>
           )}
         </div>
       ))}
