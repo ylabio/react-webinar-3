@@ -54,10 +54,11 @@ const CommentsList = ({ comments, level = 0, activeForm, replyToCommentId, onRep
                 {activeForm === `replyTo-${comment._id}` && (
                     <div ref={replyFormRef}>
                     <IsLogin
-                        level={level}
+                        level={level+1}
                         baseIndent={baseIndent}
                         onCancel={onCancel}
                         Component={CommentForm}
+                        maxLevel={maxLevel}
                         componentProps={{
                             key: `reply-to-${comment._id}`,
                             onSubmit: (text) => onReplySubmit(text, comment._id),

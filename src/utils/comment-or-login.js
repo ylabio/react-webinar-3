@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import React from 'react';
 import useTranslate from "../hooks/use-translate";
 import { useLocation } from "react-router-dom";
-function IsLogin({ Component, componentProps, baseIndent = 0, level = 0, onCancel }) { //почемму-то не работает обратная ссылка 
+function IsLogin({ Component, componentProps, baseIndent = 0, level = 0, onCancel, maxLevel = 5 }) {  
     const { t } = useTranslate()
     const loginLink = "/login"; 
     const location = useLocation();
-    const paddingLeft = baseIndent * level + 40;
+    const effectiveLevel = Math.min(level, maxLevel); 
+    const paddingLeft = baseIndent * effectiveLevel + 40;
     
     const name = useSelector(state => state.session.user.profile?.name);
     if (!name) {
