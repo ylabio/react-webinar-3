@@ -63,23 +63,18 @@ function CommentsWidget() {
   };
 
   // Форматируем загруженные комментарии под нужный формат
-  const comments = useMemo(
-    () => [
+  const comments = useMemo(() => {
+    return [
       ...treeToList(listToTree(select.comments), (item, level) => ({
         _id: item._id,
         offset: level,
-        // children: item.children.length,
-        // formId:
-        //   item.children.length !== 0 ? item.children[length - 1] : item._id,
         username: item.author?.profile.name,
         date: item.dateCreate,
         text: item.text,
       })).slice(1),
-    ],
-    [select.comments]
-  );
+    ];
+  }, [select.comments, select.formId]);
 
-  console.log(comments);
   // Рендер-функция компонента комментария
   const renders = {
     commentsItem: useCallback(
