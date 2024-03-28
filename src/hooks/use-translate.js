@@ -1,26 +1,23 @@
-import {useSelectorTranslate} from '../hooks/use-selector-translate';
-import * as translations from '../i18n/translations';
+import useServices from './use-services';
+import {useEffect, useCallback, useState} from 'react';
 
 export default function useTranslate() {
 
-  const select = useSelectorTranslate(state => ({
-    language: state.translate.language
-  }));
+  const translateService = useServices().translate;
 
-  const language = select.language;
+  const [lang, setLang] = useState(translateService.language);
 
-  const t = function translate( text, plural, lang = language) {
-    let result = translations[lang] && (text in translations[lang])
-      ? translations[lang][text]
-      : text;
+  const t = useCallback((text, plural) => {
+    return translateService.translate(text, plural);
+  }, [lang, translateService]);
 
-    if (typeof plural !== 'undefined') {
-      const key = new Intl.PluralRules(lang).select(plural);
-      if (key in result) {
-        result = result[key];
-      }
-    }
-    return result;
-  }
-  return {t, language}
+  useEffect(() => {
+    function onChangeLanguage(language) {
+      setLang(language);
+    };
+    const unsubscribe = translateService.subscribe(onChangeLanguage);
+    return () => unsubscribe();
+  }, [translateService, lang]);
+
+  return {t, lang: lang, setLang: translateService.changeLanguage};
 }

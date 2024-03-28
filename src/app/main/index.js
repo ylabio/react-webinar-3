@@ -9,24 +9,19 @@ import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
-import {useSelectorTranslate} from '../../hooks/use-selector-translate';
 
 function Main() {
 
   const store = useStore();
 
-  const select = useSelectorTranslate(state => ({
-    language: state.translate.language
-  }));
+  const {t, lang} = useTranslate();
 
   useInit(async () => {
     await Promise.all([
       store.actions.catalog.initParams(),
       store.actions.categories.load()
     ]);
-  }, [select.language], true);
-
-  const {t} = useTranslate();
+  }, [lang], true);
 
   return (
     <PageLayout>

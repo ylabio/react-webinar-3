@@ -13,8 +13,6 @@ import TopHead from '../../containers/top-head';
 import {useDispatch, useSelector} from 'react-redux';
 import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
-import {useSelectorTranslate} from '../../hooks/use-selector-translate';
-
 import Comments from '../../containers/comments';
 
 function Article() {
@@ -30,15 +28,11 @@ function Article() {
     waiting: state.article.waiting,
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const selectTranslate = useSelectorTranslate(state => ({
-    language: state.translate.language
-  }));
+  const {t, lang} = useTranslate();
 
   useInit(() => {
     dispatch(articleActions.load(params.id));
-  }, [params.id, selectTranslate.language]);
-
-  const {t} = useTranslate();
+  }, [params.id, lang]);
 
   const callbacks = {
     // Добавление в корзину

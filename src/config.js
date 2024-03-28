@@ -17,6 +17,9 @@ const config = {
   },
   api: {
     baseUrl: ''
+  },
+  translate: {
+    language: 'ru'
   }
 }
 
