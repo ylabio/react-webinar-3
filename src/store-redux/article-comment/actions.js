@@ -4,21 +4,24 @@ export default {
    * @param id
    * @return {Function}
    */
-  load: (id) => {
+  load: (data) => {
     return async (dispatch, getState, services) => {
       // Сброс текущего товара и установка признака ожидания загрузки
-      dispatch({type: 'article/load-start'});
+      dispatch({type: 'article-comment/load-start'});
 
       try {
         const res = await services.api.request({
-          url: `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)&lang=${services.i18n.lang}`
+          url: '/api/v1/comments',
+          method: 'POST',
+          body: JSON.stringify(data)
         });
+
         // Товар загружен успешно
-        dispatch({type: 'article/load-success', payload: {data: res.data.result}});
+        dispatch({type: 'article-comment/load-success', payload: {data: res.data.result}});
 
       } catch (e) {
         //Ошибка загрузки
-        dispatch({type: 'article/load-error'});
+        dispatch({type: 'article-comment/load-error'});
       }
     }
   },

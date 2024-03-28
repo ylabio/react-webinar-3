@@ -18,7 +18,8 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
-        category: ''
+        category: '',
+        lang: 'ru'
       },
       count: 0,
       waiting: false
@@ -39,6 +40,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
     if (urlParams.has('category')) validParams.category = urlParams.get('category');
+    if (urlParams.has('lang')) validParams.lang = urlParams.get('lang');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
 
@@ -85,7 +87,8 @@ class CatalogState extends StoreModule {
       fields: 'items(*),count',
       sort: params.sort,
       'search[query]': params.query,
-      'search[category]': params.category
+      'search[category]': params.category,
+      lang: params.lang
     }, {
       skip: 0,
       'search[query]': '',

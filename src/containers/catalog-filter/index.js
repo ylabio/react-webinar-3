@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback, useMemo, useLayoutEffect} from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -11,6 +11,15 @@ import listToTree from '../../utils/list-to-tree';
 function CatalogFilter() {
 
   const store = useStore();
+
+  const {refresh, setRefresh} = useTranslate();
+
+  useLayoutEffect(() => {
+    if (refresh == true) {
+      store.actions.categories.load();
+      setRefresh(false);
+    }
+  }, [store,refresh,setRefresh]);
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
@@ -33,30 +42,30 @@ function CatalogFilter() {
     }), [store]),
   };
 
+  const {t} = useTranslate();
+
   const options = {
     // Варианты сортировок
     sort: useMemo(() => ([
-      {value: 'order', title: 'По порядку'},
-      {value: 'title.ru', title: 'По именованию'},
-      {value: '-price', title: 'Сначала дорогие'},
-      {value: 'edition', title: 'Древние'},
-    ]), []),
+      {value: 'order', title: t('sort.inOrder')},
+      {value: 'title.ru', title: t('sort.byNaming')},
+      {value: '-price', title: t('sort.dearOnesFirst')},
+      {value: 'edition', title: t('sort.ancient')},
+    ]), [t]),
     // Категории для фильтра
     categories: useMemo(() => ([
-      {value: '', title: 'Все'},
+      {value: '', title: t('category.all')},
       ...treeToList(listToTree(select.categories), (item, level) => (
         {value: item._id, title: '- '.repeat(level) + item.title}
       ))
-    ]), [select.categories]),
+    ]), [select.categories,t]),
   };
-
-  const {t} = useTranslate();
 
   return (
     <SideLayout padding='medium'>
       <Select options={options.categories} value={select.category} onChange={callbacks.onCategory}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
-      <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
+      <Input value={select.query} onChange={callbacks.onSearch} placeholder={t('search')}
              delay={1000} theme={'big'}/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>
