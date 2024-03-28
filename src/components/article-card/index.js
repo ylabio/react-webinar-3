@@ -4,7 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import numberFormat from '../../utils/number-format';
 import './style.css';
 
-function ArticleCard({article, onAdd, t}) {
+function ArticleCard({article, onAdd, translate}) {
   const cn = bem('ArticleCard');
   return (
     <div className={cn()}>
@@ -25,7 +25,7 @@ function ArticleCard({article, onAdd, t}) {
         <div className={cn('label')}>Цена:</div>
         <div className={cn('value')}>{numberFormat(article.price)} ₽</div>
       </div>
-      <button onClick={() => onAdd(article._id)}>{t('article.add')}</button>
+      <button onClick={() => onAdd(article._id)}>{translate('article.add')}</button>
     </div>
   );
 }
@@ -40,13 +40,13 @@ ArticleCard.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
-  t: PropTypes.func
+  translate: PropTypes.func
 };
 
 ArticleCard.defaultProps = {
   onAdd: () => {
   },
-  t: (text) => text
+  translate: (text) => text
 }
 
 export default memo(ArticleCard);

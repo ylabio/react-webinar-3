@@ -1,0 +1,48 @@
+.ItemComments-title {
+  display: flex;
+  font-size: 12px;
+}
+
+  .ItemComments-user {
+    margin-right: 10px;
+    font-weight: 700;
+  }
+
+  .ItemComments-user.active {
+    color: #666666;
+  }
+
+  .ItemComments-date {
+    color: #666666;
+  }
+
+.ItemComments-text {
+  margin: 10px 0;
+  font-size: 14px;
+  min-width: 300px;
+  overflow-wrap: break-word;
+}
+
+.ItemComments-btn {
+  font-size: 12px;
+  color: #0087E9;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.ItemComments-action {
+  display: flex;
+  align-items: end;
+  margin: 30px 0 0 30px;
+}
+
+  .ItemComments-btn.cancel {
+   color: #666666;
+   font-size: 16px;
+   line-height: 18px;
+   font-weight: 400;
+   text-decoration: underline;
+   margin-left: 6px;
+  }

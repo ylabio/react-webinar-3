@@ -9,3 +9,17 @@
 .List-item:first-child {
   border-top: 1px dashed #ccc;
 }
+
+.List-item_theme_comments {
+  border: none;
+  margin-bottom: 30px;
+}
+
+.List-item_theme_comment-left{
+  padding-left: 30px;
+  margin: 30px 0;
+}
+
+.List-item_theme_comment{
+  margin: 30px 0;
+}
