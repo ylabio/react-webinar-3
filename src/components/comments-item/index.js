@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-function CommentsItem({ comment, setFormId }) {
+function CommentsItem({ comment, setFormId, username }) {
   const cn = bem("CommentsItem");
   const month = [
     "января",
@@ -35,7 +35,15 @@ function CommentsItem({ comment, setFormId }) {
   return (
     <>
       <div className={cn("head")}>
-        <span className={cn("username")}>{comment?.username}</span>
+        <span
+          className={
+            comment?.username === username
+              ? cn("username", { authorized: true })
+              : cn("username")
+          }
+        >
+          {comment?.username}
+        </span>
         <span className={cn("date")}>{`${date.getDate()} ${
           month[date.getMonth()]
         } ${date.getFullYear()} в ${date.getHours()}:${convertTime(

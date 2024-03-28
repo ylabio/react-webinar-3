@@ -8,7 +8,7 @@ import "./style.css";
 function CommentForm({
   formId,
   type,
-  session,
+  sessionExists,
   pathname,
   onCloseForm,
   onCommentSend,
@@ -19,10 +19,13 @@ function CommentForm({
   const callbacks = {
     onCommentSend: (e) => {
       e.preventDefault();
-      if (commentText.current.value !== "") {
+
+      if (commentText.current.value.trim() !== "") {
         onCommentSend(formId, type, commentText.current.value);
         commentText.current.value = "";
         if (type === "comment") onCloseForm();
+      } else {
+        commentText.current.value = "";
       }
     },
   };
@@ -69,7 +72,7 @@ function CommentForm({
       className={cn("")}
       style={type === "article" ? { paddingLeft: "40px" } : {}}
     >
-      {session ? (
+      {sessionExists ? (
         <form className={cn("form")} onSubmit={callbacks.onCommentSend}>
           <h5>{type === "article" ? "Новый комментарий" : "Новый ответ"}</h5>
           <textarea

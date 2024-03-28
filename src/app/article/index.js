@@ -15,7 +15,7 @@ import shallowequal from "shallowequal";
 import articleActions from "../../store-redux/article/actions";
 import articleCommentsActions from "../../store-redux/article-comments/actions";
 import CommentsHead from "../../components/comments-head";
-import CommentsList from "../../containers/comments-list";
+import CommentsWidget from "../../containers/comments-widget";
 
 function Article() {
   const store = useStore();
@@ -66,7 +66,7 @@ function Article() {
       </Spinner>
       <CommentsHead count={select.count} />
       <Spinner active={select.waitingComments}>
-        <CommentsList />
+        <CommentsWidget />
       </Spinner>
     </PageLayout>
   );

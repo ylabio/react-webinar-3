@@ -9,10 +9,9 @@ import CommentsItem from "../../components/comments-item";
 import treeToList from "../../utils/tree-to-list";
 import listToTree from "../../utils/list-to-tree";
 import articleCommentsActions from "../../store-redux/article-comments/actions";
+import CommentsList from "../../components/comments-list";
 
-function CommentsList() {
-  const cn = bem("CommentsList");
-
+function CommentsWidget() {
   const params = useParams();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -69,6 +68,9 @@ function CommentsList() {
       ...treeToList(listToTree(select.comments), (item, level) => ({
         _id: item._id,
         offset: level,
+        // children: item.children.length,
+        // formId:
+        //   item.children.length !== 0 ? item.children[length - 1] : item._id,
         username: item.author?.profile.name,
         date: item.dateCreate,
         text: item.text,
@@ -77,48 +79,44 @@ function CommentsList() {
     [select.comments]
   );
 
+  console.log(comments);
   // Рендер-функция компонента комментария
   const renders = {
     commentsItem: useCallback(
       (comment) => (
-        <CommentsItem comment={comment} setFormId={callbacks.setFormId} />
+        <CommentsItem
+          comment={comment}
+          username={session.username}
+          setFormId={callbacks.setFormId}
+        />
       ),
-      [callbacks.setFormId]
+      [callbacks.setFormId, session.username]
     ),
   };
 
   return (
-    <div className={cn("")}>
-      {comments.map((item) => (
-        <div
-          key={item._id}
-          className={cn("item")}
-          style={{ paddingLeft: 40 * item.offset, paddingRight: 40 }}
-        >
-          {renders.commentsItem(item)}
-          {select.formId === item._id && (
-            <CommentForm
-              formId={select.formId}
-              session={session.exists}
-              type="comment"
-              pathname={location.pathname}
-              onCloseForm={callbacks.onCloseForm}
-              onCommentSend={callbacks.onCommentSend}
-            />
-          )}
-        </div>
-      ))}
+    // Пропсы! Тысячи их!
+    <>
+      <CommentsList
+        comments={comments}
+        renderItem={renders.commentsItem}
+        formId={select.formId}
+        sessionExists={session.exists}
+        pathname={location.pathname}
+        onCloseForm={callbacks.onCloseForm}
+        onCommentSend={callbacks.onCommentSend}
+      />
       {select.formId === "" && (
         <CommentForm
           type="article"
-          session={session.exists}
+          sessionExists={session.exists}
           formId={params.id}
           onCommentSend={callbacks.onCommentSend}
           pathname={location.pathname}
         />
       )}
-    </div>
+    </>
   );
 }
 
-export default memo(CommentsList);
+export default memo(CommentsWidget);
