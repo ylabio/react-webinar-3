@@ -4,7 +4,7 @@ import './style.css';
 import CommentReply from "../comment-reply";
 import formatDate from "../../utils/formatDate";
 
-const CommentItem = ({item, session,  onOpenReply, onCloseReply, onAddReplyComment, lang, t, scrollToBottom }) => {
+const CommentItem = ({item, session,  onOpenReply, onCloseReply, onAddReplyComment, lang, t, scrollToBottom, onSignIn }) => {
   const cn = bem('CommentItem');
   const [paddingLeft, setPaddingLeft] = useState(item.level);
 
@@ -33,6 +33,7 @@ const CommentItem = ({item, session,  onOpenReply, onCloseReply, onAddReplyComme
           t={t}
           onCancel={() => onCloseReply(item._id)}
           onAddReplyComment={(text) => onAddReplyComment(item._id, text)}
+          onSignIn={onSignIn}
         />
       }
     </div>

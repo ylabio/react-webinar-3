@@ -6,7 +6,7 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import CommentNew from "../comment-new";
 
-function CommentsList({ comments, count, userId, session, onOpenReply, onCloseReply, onCreateNewComment, onAddReplyComment, showCommentForm, t, lang, scrollToBottom, commentsEndRef}) {
+function CommentsList({ comments, count, userId, session, onSignIn,onOpenReply, onCloseReply, onCreateNewComment, onAddReplyComment, showCommentForm, t, lang, scrollToBottom, commentsEndRef}) {
 
   const cn = bem('CommentList');
 
@@ -36,6 +36,7 @@ function CommentsList({ comments, count, userId, session, onOpenReply, onCloseRe
                             t={t}
                             scrollToBottom={scrollToBottom}
                             lang={lang}
+                            onSignIn={onSignIn}
                />
             ))}
           <div ref={commentsEndRef} />
@@ -44,7 +45,7 @@ function CommentsList({ comments, count, userId, session, onOpenReply, onCloseRe
         <></>
       )}
       {showCommentForm && (
-        <CommentNew session={session} onCreateNewComment={(text) => onCreateNewComment(text)} t={t} />
+        <CommentNew onSignIn={onSignIn} session={session} onCreateNewComment={(text) => onCreateNewComment(text)} t={t} />
       )}
     </div>
   );

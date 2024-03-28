@@ -4,7 +4,7 @@ import LoginMessage from '../login-message';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-const CommentReply = ({ session, onCancel, onAddReplyComment, t, scrollToBottom}) => {
+const CommentReply = ({ session, onCancel, onAddReplyComment, t, scrollToBottom, onSignIn}) => {
   const [text, setText] = useState('');
   const cn = bem('CommentReply');
 
@@ -17,7 +17,7 @@ const CommentReply = ({ session, onCancel, onAddReplyComment, t, scrollToBottom}
   };
 
   if (!session) {
-    return (<LoginMessage onCancel={onCancel} reply={true} t={t}/>)
+    return (<LoginMessage onSignIn={onSignIn} onCancel={onCancel} reply={true} t={t}/>)
   }
 
   return (

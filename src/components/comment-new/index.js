@@ -4,7 +4,7 @@ import LoginMessage from '../login-message';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-const CommentNew = ({ session, onCreateNewComment, t }) => {
+const CommentNew = ({ session, onCreateNewComment, t, onSignIn }) => {
   const [text, setText] = useState('');
   const cn = bem('CommentNew');
 
@@ -15,7 +15,7 @@ const CommentNew = ({ session, onCreateNewComment, t }) => {
   };
 
   if (!session) {
-    return (<LoginMessage t={t}/>)
+    return (<LoginMessage t={t} onSignIn={onSignIn}/>)
   }
 
   return (

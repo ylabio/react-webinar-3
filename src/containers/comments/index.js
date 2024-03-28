@@ -4,27 +4,24 @@ import {useDispatch, useSelector as useSelectorRedux} from "react-redux";
 import shallowequal from "shallowequal";
 import commentsActions from "../../store-redux/comments/actions";
 import useSelector from '../../hooks/use-selector';
-import {useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
 
 
 const Comments = () => {
-
+  const location = useLocation();
   const dispatch = useDispatch();
   const params = useParams();
   const [showCommentForm, setShowCommentForm] = useState(true);
   const {t, lang} = useTranslate();
+  const commentsEndRef = useRef()
+  const navigate = useNavigate();
 
   useInit(() => {
     dispatch(commentsActions.load(params.id));
   }, [params.id, lang]);
 
-  const commentsEndRef = useRef()
-
-  const scrollToBottom = () => {
-    commentsEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
 
   const select = useSelector(state => ({
     currentUser: state.session.user,
@@ -40,6 +37,10 @@ const Comments = () => {
       setShowCommentForm(false);
       dispatch(commentsActions.openReply(id));
     }, []),
+
+    onSignIn: useCallback(() => {
+      navigate('/login', {state: {back: location.pathname}});
+    }, [location.pathname]),
 
     closeReply: useCallback((id) => {
       setShowCommentForm(true);
@@ -73,6 +74,10 @@ const Comments = () => {
     ),
   };
 
+  const scrollToBottom = () => {
+    commentsEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
   return (
     <CommentsList
       comments={selectRedux?.comments}
@@ -87,6 +92,7 @@ const Comments = () => {
       onComment={callbacks.createNewComment}
       lang={lang}
       t={t}
+      onSignIn={callbacks.onSignIn}
       commentsEndRef={commentsEndRef}
       scrollToBottom={scrollToBottom}
      />
