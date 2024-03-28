@@ -7,7 +7,8 @@ function CommentsForm({addNewComment,isAuth,t,onSignIn}) {
   let [comment , setComment] = useState('')
 
   function addComment(){
-    if (comment.length>0){
+    let regex = /^\s+$/g
+    if (!regex.test(comment)){
       addNewComment(comment)
       setComment("")
     }

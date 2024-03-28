@@ -5,11 +5,18 @@ import './style.css';
 import CommentForm from '../comment-form';
 import React, { forwardRef } from 'react';
 
-let Comment=forwardRef(({data,current,isAuth,setActiveComment,resetCurrentForm,addAnswerComment,t,onSignIn,highlightedComment},ref)=> {
+let Comment=forwardRef(({data,activeComment,isAuth,setActiveComment,resetCurrentForm,addAnswerComment,t,onSignIn,highlightedComment,setParentComment,parentComment},ref)=> {
   const cn = bem('Comment');
   const callbacks = {
-    showForm:()=>setActiveComment(data.id),
-    addNewAnswerComment: comment=>addAnswerComment(comment,data.id)
+    showForm:()=>{
+      setParentComment(data.id)
+      if(data.lastChildId){
+        setActiveComment(data.lastChildId)
+      }else{
+        setActiveComment(data.id)
+      }
+    },
+    addNewAnswerComment: (comment,id)=>addAnswerComment(comment,id)
   }
 
   return (
@@ -20,7 +27,7 @@ let Comment=forwardRef(({data,current,isAuth,setActiveComment,resetCurrentForm,a
       </div>
       <div className={highlightedComment===data.id?cn('content_current'):cn('content')}>{data.text}</div>
       <span className={cn('answer')} onClick={callbacks.showForm}>{t('comment.answer')}</span>
-      {data.id==current && <CommentForm t={t} isAuth={isAuth} resetCurrentForm={resetCurrentForm} addNewAnswerComment={callbacks.addNewAnswerComment} onSignIn={onSignIn}/>}
+      {data.id==activeComment && <CommentForm indentation={data.id==parentComment?1:0} parentComment={parentComment} t={t} isAuth={isAuth} resetCurrentForm={resetCurrentForm} addNewAnswerComment={callbacks.addNewAnswerComment} onSignIn={onSignIn}/>}
     </div>
   );
 })
@@ -33,7 +40,7 @@ Comment.propTypes = {
     dateCreate: PropTypes.string,
     indentation:PropTypes.number
   }).isRequired,
-  current: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  activeComment: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isAuth: PropTypes.string,
   setActiveComment: PropTypes.func,
   resetCurrentForm: PropTypes.func,

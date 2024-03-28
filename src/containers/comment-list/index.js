@@ -31,6 +31,7 @@ function CatalogList({productId}) {
   const location = useLocation()
 
   let [activeComment, setActiveComment]=useState(null)
+  let [parentComment, setParentComment]=useState(null)
   let [highlightedComment, setHighlightedComment] = useState(null);
 
   const selectRedux = useSelectorRedux(state => ({
@@ -78,11 +79,12 @@ function CatalogList({productId}) {
         text:comment.text,
         dateCreate:formatDate(comment.dateCreate),
         id:comment._id,
-        indentation:comment.level-1
+        indentation:comment.level-1,
+        lastChildId:comment.children?.at(-1)?._id
       }
       return ( 
-      <Comment highlightedComment={highlightedComment} ref={comment._id===selectRedux.newCommentId?commentRef:null} data={data} current={activeComment} isAuth={select.activeUserName} setActiveComment={setActiveComment} 
-      resetCurrentForm={resetCurrentForm} addAnswerComment={addAnswerComment} t={t} onSignIn={callbacks.onSignIn}/>
+      <Comment highlightedComment={highlightedComment} ref={comment._id===selectRedux.newCommentId?commentRef:null} data={data} activeComment={activeComment} isAuth={select.activeUserName} setActiveComment={setActiveComment} 
+      resetCurrentForm={resetCurrentForm} addAnswerComment={addAnswerComment} t={t} onSignIn={callbacks.onSignIn} setParentComment={setParentComment} parentComment={parentComment}/>
     )}, [activeComment,select.activeUserName,t]),
   };
 
