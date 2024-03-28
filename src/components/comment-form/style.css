@@ -1,5 +1,12 @@
+.CommentForm-wrapper {
+  margin: 30px 0;
+}
+
+.CommentForm-wrapper_reply {
+  padding-left: 30px;
+}
+
 .CommentForm {
-  /* padding: 20px 40px; */
   margin-bottom: 30px;
 }
 
@@ -27,4 +34,20 @@ textarea.CommentForm-input {
 .CommentForm-actions {
   display: flex;
   gap: 10px;
+}
+
+.CommentForm-not-logged {
+  font-size: 16px;
+}
+
+.CommentForm-login {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #0087e9;
+}
+
+.CommentForm-cancel {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #666666;
 }

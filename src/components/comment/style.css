@@ -1,22 +1,23 @@
 .Comment {
-  margin-bottom: 30px;
+  margin: 30px 0;
 }
 
-.Comment > * + * {
-  margin-top: 10px;
+.Comment_nested {
+  padding-left: 30px;
 }
 
 .Comment-info {
   display: flex;
   gap: 10px;
   font-size: 12px;
+  margin-bottom: 10px;
 }
 
-.Comment-author {
+.Comment-user {
   font-weight: 700;
 }
 
-.Comment-author_isAuthor {
+.Comment-user_author {
   color: #666666;
 }
 
@@ -27,6 +28,7 @@
 .Comment-text {
   font-size: 14px;
   word-break: break-word;
+  margin-bottom: 10px;
 }
 
 .Comment-actions {
@@ -34,7 +36,11 @@
   gap: 10px;
 }
 
-.Comment-reply {
+.Comment-children_nested {
+  padding-left: 30px;
+}
+
+.Comment-btn-reply {
   border: none;
   background: none;
   padding: 0;
