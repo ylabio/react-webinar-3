@@ -3,16 +3,16 @@ import React, { memo, useCallback, useMemo, useState } from "react";
 import { useDispatch, useSelector as useSelectorRedux } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import shallowEqual from "shallowequal";
+import AuthAlert from "../../components/auth-alert";
+import Comment from "../../components/comment";
+import CommentForm from "../../components/comment-form";
+import Spinner from "../../components/spinner";
 import useInit from "../../hooks/use-init";
 import useSelector from "../../hooks/use-selector";
 import commentsActions from "../../store-redux/comments/actions";
 import dateFormat from "../../utils/date-format";
 import listToTree from "../../utils/list-to-tree";
 import treeToList from "../../utils/tree-to-list";
-import AuthAlert from "../auth-alert";
-import Comment from "../comment";
-import CommentForm from "../comment-form";
-import Spinner from "../spinner";
 import "./style.css";
 
 function Comments() {
@@ -66,11 +66,12 @@ function Comments() {
 
   const options = {
     comments: useMemo(() => {
+      console.log(listToTree(select.comments));
       return treeToList(listToTree(select.comments), (item, level) => ({
         _id: item._id,
         text: item.isDeleted ? "Комментарий удален" : item.text,
         date: dateFormat(item.date),
-        author: item?.author?.profile?.name || "Аноним",
+        author: item?.author?.profile?.name,
         isAuthor: item?.author?._id === userId,
         level: level - 1,
         parent:
