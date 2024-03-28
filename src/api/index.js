@@ -22,6 +22,7 @@ class APIService {
    */
   async request({url, method = 'GET', headers = {}, ...options}) {
     if (!url.match(/^(http|\/\/)/)) url = this.config.baseUrl + url;
+    if (this.services.translation._locale !== 'ru') headers = { ...headers, 'X-Lang': this.services.translation._locale }
     const res = await fetch(url, {
       method,
       headers: {...this.defaultHeaders, ...headers},

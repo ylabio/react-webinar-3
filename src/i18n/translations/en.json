@@ -40,5 +40,10 @@
   "comments.replierTitle": "New",
   "comments.replierTitleReply": "reply",
   "comments.replierTitleComment": "comment",
-  "comments.placeholder": "Type comment"
+  "comments.placeholder": "Type comment",
+  "filter.all": "All",
+  "options.order": "By order",
+  "options.title": "By title",
+  "options.price": "Expensive first",
+  "options.old": "Old"
 }

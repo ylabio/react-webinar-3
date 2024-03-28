@@ -42,5 +42,10 @@
   "comments.replierTitle": "Новый",
   "comments.replierTitleReply": "ответ",
   "comments.replierTitleComment": "комментарий",
-  "comments.placeholder": "Напишите комментарий"
+  "comments.placeholder": "Напишите комментарий",
+  "filter.all": "Все",
+  "options.order": "По порядку",
+  "options.title": "По именованию",
+  "options.price": "Сначала дорогие",
+  "options.old": "Древние"
 }
