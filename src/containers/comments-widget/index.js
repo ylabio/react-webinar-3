@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from "react";
+import { memo, useCallback, useEffect, useMemo } from "react";
 import { cn as bem } from "@bem-react/classname";
 import CommentForm from "../../components/comment-form";
 import { useDispatch, useSelector } from "react-redux";

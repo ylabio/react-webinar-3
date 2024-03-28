@@ -69,6 +69,7 @@ function CommentForm({
 
   return (
     <div
+      id="commentForm"
       className={cn("")}
       style={type === "article" ? { paddingLeft: "40px" } : {}}
     >
