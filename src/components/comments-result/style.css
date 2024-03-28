@@ -1,0 +1,51 @@
+.Comments-count {
+  font-size: 24px;
+}
+.Comments-user {
+  display: flex;
+  gap: 5px;
+}
+.Comments-iduser {
+  color: #666666;
+}
+
+.Comments-time {
+  color: rgba(102, 102, 102, 1);
+}
+
+.Comments-comment {
+  padding: 10px 0;
+}
+
+.Comments-all {
+  margin: 20px 0;
+  word-wrap: break-word;
+}
+.Comments {
+  font-size: 12px;
+  padding: 20px 40px;
+}
+
+.Comments-answer {
+  color: #0087e9;
+  cursor: pointer;
+}
+
+.Comments-wrapper-enter {
+  display: flex;
+  font-size: 16px;
+  padding-top: 20px;
+}
+.Comments-enter {
+  color: #0087e9;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.Comments-cancle {
+  cursor: pointer;
+  color: #666666;
+  text-decoration: underline;
+}
+.Comments-reply {
+  margin-top: 30px;
+}
