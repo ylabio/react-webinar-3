@@ -1,6 +1,9 @@
 .CommentItem {
   font-family: Arial;
 }
+.CommentItem-wrapper {
+  padding-left: 20px;
+}
 
 .CommentItem-head {
   display: flex;
@@ -15,6 +18,12 @@
   font-weight: 700;
   font-size: 12px;
   color: #000000;
+}
+
+.CommentItem-commentator {
+  font-weight: 700;
+  font-size: 12px;
+  color: #666666;
 }
 
 .CommentItem-data {
@@ -39,11 +48,17 @@
   font-size: 12px;
   padding: 0;
 
+  cursor: pointer;
+
   margin-bottom: 30px;
 }
 .CommentItem-welcome-box {
   display: flex;
   gap: 5px;
+  margin-bottom: 30px;
+  & .WelcomeText {
+    margin-left: 0;
+  }
 }
 
 .CommentItem-cancel-button {
@@ -53,7 +68,6 @@
   font-weight: 400;
   font-size: 16px;
   padding: 0;
-  margin-bottom: 30px;
 
   text-decoration: underline;
   cursor: pointer;

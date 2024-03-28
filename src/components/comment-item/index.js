@@ -1,44 +1,45 @@
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import CommentTextarea from "../comment-textarea"
 import "./style.css"
 import { cn as bem } from '@bem-react/classname';
 import WelcomeText from "../welcome-text";
 
+import formatingDate from "../../utils/formatingDate"
 
-const CommentItem = ({ comment, setIsOpenTextarea, isOpenTextarea, data, onChange, paramsId, onSubmit, exists, onCancel, t }) => {
+
+const CommentItem = ({ comment, setIsOpenTextarea, isOpenTextarea, paramsId, exists, onCancel, t, onSignIn, handleCommentSubmit }) => {
   const cn = bem('CommentItem');
-  const newDate = new Date(comment.dateCreate)
-  const formatedDate = new Intl.DateTimeFormat('ru', {
-    dateStyle: 'long',
-    timeStyle: 'short',
-  }).format(newDate);
+  const formatedDate = formatingDate(comment.dateCreate);
+
   return <div className={cn("wrapper")}>
     <div className={cn("head")}>
-      <p className={cn('author')}>{comment.author.profile?.name}</p>
+      {comment.author.profile?.authorName ? <p className={cn('commentator')}>{comment.author.profile?.authorName}</p> : <p className={cn('author')}>{comment.author.profile?.name}</p>}
       <p className={cn("data")}>{formatedDate}</p>
     </div>
     <p className={cn("comment")}>{comment.text}</p>
-    <button className={cn('button')} onClick={() => setIsOpenTextarea(comment._id)}>{t("article.reply")}</button>
+    <button className={cn('button')}
+      onClick={() => setIsOpenTextarea(comment._id)}>{t("article.reply")}</button>
     {!exists && isOpenTextarea === comment._id &&
       <div className={cn('welcome-box')}>
-        <WelcomeText t={t} />
+        <WelcomeText t={t} onSignIn={onSignIn} />
         <button className={cn('cancel-button')} onClick={() => onCancel(paramsId)}>{t("article.cancel")}</button>
       </div>}
-    {isOpenTextarea === comment._id && exists &&
-      <CommentTextarea data={data} onChange={onChange} id={comment._id} paramsId={paramsId}
-        comments={comment} onSubmit={onSubmit} onCancel={onCancel} t={t} />}
     {comment.children && (
       <ul className="CommentList">
         {comment?.children?.map(child => (
           <CommentItem
             key={child._id} t={t} comment={child} setIsOpenTextarea={setIsOpenTextarea}
-            isOpenTextarea={isOpenTextarea} data={data} onChange={onChange}
-            onCancel={onCancel} onSubmit={onSubmit} exists={exists} paramsId={paramsId}
+            isOpenTextarea={isOpenTextarea}
+            onCancel={onCancel} exists={exists} paramsId={paramsId} onSignIn={onSignIn}
+            handleCommentSubmit={handleCommentSubmit}
           />
         ))}
       </ul>
     )}
+    {isOpenTextarea === comment._id && exists &&
+      <CommentTextarea id={comment._id} paramsId={paramsId}
+        comments={comment} onCancel={onCancel} t={t} handleCommentSubmit={handleCommentSubmit} exists={exists} />}
   </div>
 };
 
@@ -56,10 +57,9 @@ CommentItem.propTypes = {
   }).isRequired,
   setIsOpenTextarea: PropTypes.func.isRequired,
   isOpenTextarea: PropTypes.string,
-  data: PropTypes.object,
-  onChange: PropTypes.func,
   paramsId: PropTypes.string,
-  onSubmit: PropTypes.func,
+  handleCommentSubmit: PropTypes.func,
+  onSignIn: PropTypes.func,
   exists: PropTypes.bool,
   onCancel: PropTypes.func,
   t: PropTypes.func.isRequired

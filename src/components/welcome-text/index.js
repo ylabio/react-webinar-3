@@ -1,9 +1,11 @@
 import { memo } from "react"
-import { Link } from "react-router-dom"
-import "style.css"
+import "./style.css"
 
-function WelcomeText({ t }) {
-  return <p className="WelcomeText"><Link to="/login">{t("welcome.sign")}</Link>{t("welcome.message")}</p>
+function WelcomeText({ t, onSignIn }) {
+  return <div className="WelcomeText">
+    <button onClick={onSignIn} className="WelcomeText-button" >{t("welcome.sign")}</button>
+    <p className="WelcomeText-paragraph">{t("welcome.message")}</p>
+  </div>
 }
 
 export default memo(WelcomeText)

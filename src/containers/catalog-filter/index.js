@@ -35,7 +35,6 @@ function CatalogFilter() {
     }), [store]),
   };
 
-  "Sequentially, by name, first expensive, then ancient"
   const options = {
     // Варианты сортировок
     sort: useMemo(() => ([

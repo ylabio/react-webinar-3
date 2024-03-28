@@ -2,6 +2,7 @@ import APIService from './api';
 import i18nService from './i18n';
 import Store from './store';
 import createStoreRedux from './store-redux';
+import LangToApiService from './lang-to-api';
 
 
 class Services {
@@ -51,6 +52,15 @@ class Services {
       this._redux = createStoreRedux(this, this.config.redux);
     }
     return this._redux;
+  }
+  /**
+   * Вспомогательный сервис для связи сервисов i18n и api
+   */
+  get langToApi() {
+    if (!this._langToApi) {
+      this._langToApi = new LangToApiService(this, this.config.store);
+    }
+    return this._langToApi;
   }
 
 }
