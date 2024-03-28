@@ -5,9 +5,14 @@ import "./style.css";
 function Comment({ comment, onReply }) {
   const cn = bem("Comment");
   return (
-    <div className={cn()}>
+    <div
+      style={{ marginLeft: comment.level <= 5 ? comment.level * 30 : 5 * 30 }}
+      className={cn()}
+    >
       <div className={cn("info")}>
-        <div className={cn("author")}>{comment.author}</div>
+        <div className={cn("author", { isAuthor: comment.isAuthor })}>
+          {comment.author}
+        </div>
         <div className={cn("date")}>{comment.date}</div>
       </div>
       <div className={cn("text")}>{comment.text}</div>

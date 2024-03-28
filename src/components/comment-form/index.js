@@ -5,7 +5,6 @@ import "./style.css";
 
 function CommentForm(props) {
   const cn = bem("CommentForm");
-
   return (
     <form className={cn()} onSubmit={props.onSubmit}>
       <div className={cn("field")}>
