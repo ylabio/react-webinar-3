@@ -16,3 +16,8 @@
   line-height: 28px;
   padding-bottom: 25px;
 }
+
+.Comments-auth-none {
+  display: flex;
+  padding: 30px 0;
+}

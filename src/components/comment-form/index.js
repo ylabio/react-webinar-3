@@ -3,22 +3,19 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import {useDispatch} from "react-redux";
 
-function CommentForm({handleSubmit, waiting}) {
+function CommentForm({handleSubmit, id, onCloseForm, waiting}) {
   const cn = bem('CommentForm');
 
   const dispatch = useDispatch();
 
-  const [detailsComment, setDetailsComment] = useState({
-    text: '',
-    dateCreated: null,
-  });
+  const [textComment, setTextComment] = useState('');
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(detailsComment)
+    console.log(textComment)
 
-    handleSubmit(detailsComment);
-    setDetailsComment({text: '', dateCreated: null});
+    handleSubmit(textComment, id);
+    setTextComment('');
   }
 
   return (
@@ -27,9 +24,9 @@ function CommentForm({handleSubmit, waiting}) {
       <form className={cn('form')} onSubmit={handleFormSubmit}>
         <textarea
           className={cn('textarea')}
-          value={detailsComment.text}
+          value={textComment}
           onChange={(e) =>
-            setDetailsComment({...detailsComment, text: e.target.value})}
+            setTextComment(e.target.value)}
         ></textarea>
         <button className={cn('button')}>Отправить</button>
       </form>
