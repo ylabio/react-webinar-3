@@ -50,34 +50,39 @@ function CommentCard({ comment, depth, replyingTo, onReply, handleCommentSubmit,
     <div className={cn('user')}>{comment.author?.profile.name}</div>
 
   return (
-    <div className={cn()} >
-      <div className={cn('head')}>
+    <>
+      <div className={cn()} >
+        <div className={cn('head')}>
           {author}
-        <div className={cn('date')}>{formatDate(comment.dateCreate)}</div>
+          <div className={cn('date')}>{formatDate(comment.dateCreate)}</div>
+        </div>
+        <div className={cn('body')}>
+          <div className={cn('text')}>{formatTextWithLineBreaks(comment.text)}</div>
+        </div>
+        <a href='/' className={cn('reply-btn')} onClick={(e) => handleReply(e, comment._id)}>{t('comment.reply')}</a>
+        {depth < 15 &&
+          <CommentList list={comment.children} renderItem={renders.item} />
+        }
+        {replyingTo === comment._id &&
+          <>
+            {session.exists ?
+              <CommentForm
+                parentId={comment._id}
+                type='comment'
+                onReply={onReply}
+                onSubmit={handleCommentSubmit}
+                t={t} />
+              :
+              <div className={cn('footer')} id='new_comment'>
+                <a href="#" onClick={handleLogin}>{t('comment.log_in')}</a>,&nbsp;{t('comment.to_comment')}.
+                <a href='#' className={cn('cancel')} onClick={(e) => handleReply(e, null)}>{t('comment.cancel')}</a>
+              </div>
+            }
+          </>
+        }
       </div>
-      <div className={cn('body')}>
-        <div className={cn('text')}>{formatTextWithLineBreaks(comment.text)}</div>
-      </div>
-      <a href='/' className={cn('reply-btn')} onClick={(e) => handleReply(e, comment._id)}>{t('comment.reply')}</a>
-      <CommentList list={comment.children} renderItem={renders.item} />
-      {replyingTo === comment._id &&
-        <>
-          {session.exists ?
-            <CommentForm
-              parentId={comment._id}
-              type='comment'
-              onReply={onReply}
-              onSubmit={handleCommentSubmit}
-              t={t} />
-            :
-            <div className={cn('footer')} id='new_comment'>
-              <a href="#" onClick={handleLogin}>{t('comment.log_in')}</a>,&nbsp;{t('comment.to-comment')}.
-              <a href='#' className={cn('cancel')} onClick={(e) => handleReply(e, null)}>{t('comment.cancel')}</a>
-            </div>
-          }
-        </>
-      }
-    </div>
+      {depth >= 15 && <CommentList list={comment.children} renderItem={renders.item} />}
+    </>
   );
 }
 

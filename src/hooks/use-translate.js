@@ -8,10 +8,10 @@ import useServices from './use-services';
 export default function useTranslate() {
   const service = useServices().i18n;
 
-  const [lang, setLang] = useState(service.getLang());
+  const [lang, setLang] = useState(service.lang);
 
   const i18n = useMemo(() => ({
-    lang: service.getLang(),
+    lang: service.lang,
     setLang: (lang) => service.setLang(lang),
     t: (text, number) => service.translate(lang, text, number)
   }), [lang]);

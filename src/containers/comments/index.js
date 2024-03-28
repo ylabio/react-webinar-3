@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import CommentCard from '../../components/comment-card';
@@ -48,13 +48,11 @@ function Comments() {
     setReplyingTo(localStorage.getItem('replyingTo'));
   }, [])
 
-  const translate = useTranslate();
-
   useInit(() => {
     dispatch(commentActions.load(params.id))
-  }, [params.id, translate])
+  }, [params.id])
 
-  const { t } = translate;
+  const { t } = useTranslate();
 
   const renders = {
     item: useCallback(item => (

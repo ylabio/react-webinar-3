@@ -24,10 +24,6 @@ class I18nService {
     }
   }
 
-  getLang() {
-    return this.lang;
-  }
-
   setLang(lang) {
     this.lang = lang;
     this.services.api.setHeader('X-Lang', lang);
