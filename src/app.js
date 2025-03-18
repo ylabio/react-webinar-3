@@ -13,7 +13,7 @@ function App({ store }) {
   return (
     <div className="App">
       <div className="App-head">
-        <h1>Приложение на чистом JS</h1>
+        <h1>Приложение на очень чистом JS</h1>
       </div>
       <div className="App-controls">
         <button onClick={() => store.addItem()}>Добавить</button>
