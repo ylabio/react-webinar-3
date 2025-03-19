@@ -63,10 +63,16 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(event,code) {
+    let ctrlPressed =  (event.ctrlKey || event.metaKey) ;
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        if(!ctrlPressed){
+          if (item.selected === true){
+            item.selected = !item.selected
+          }
+        }
         if (item.code === code) {
           item.selected = !item.selected;
         }
