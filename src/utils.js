@@ -26,3 +26,7 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getMaxCode(list) {
+  return list.reduce((maxCode, list) => Math.max(list.code, maxCode), 0);
+}

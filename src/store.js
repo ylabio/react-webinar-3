@@ -1,3 +1,5 @@
+import { getMaxCode } from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,6 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.maxCode = getMaxCode(this.state.list);
   }
 
   /**
@@ -34,6 +37,8 @@ class Store {
    */
   setState(newState) {
     this.state = newState;
+    this.maxCode = getMaxCode(this.state.list);
+
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
@@ -42,9 +47,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const code = ++this.maxCode;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: code, title: 'Новая запись' }],
     });
   }
 
