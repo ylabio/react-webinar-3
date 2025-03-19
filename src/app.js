@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement } from './utils.js';
+import {createElement} from './utils.js';
 import './styles.css';
 
 /**
@@ -7,7 +7,7 @@ import './styles.css';
  * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
-function App({ store }) {
+function App({store}) {
   const list = store.getState().list;
 
   return (
@@ -20,10 +20,10 @@ function App({ store }) {
       </div>
       <div className="App-center">
         <div className="List">
-          {list.map(item => (
+          {list.map((item, idx) => (
             <div key={item.code} className="List-item">
               <div
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
+                className={'Item' + (idx % 2 === 0 ? ' Item_shadow' : '') + (item.selected ? ' Item_selected' : '')}
                 onClick={() => store.selectItem(item.code)}
               >
                 <div className="Item-code">{item.code}</div>

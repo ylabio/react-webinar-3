@@ -82,6 +82,10 @@ body {
   padding: 16px 16px 15px;
 }
 
+.Item_shadow {
+  background: rgba(107, 74, 203, 0.03);
+}
+
 .Item_selected {
   background: rgba(107, 74, 203, 0.1);
 }
