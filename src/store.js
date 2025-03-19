@@ -1,3 +1,5 @@
+import { generateCode } from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -44,7 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: generateCode(), title: 'Новая запись', selectedTimes: 0 }],
     });
   }
 
@@ -62,15 +64,21 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param e
    */
-  selectItem(code) {
+  selectItem(e, code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          const newSelected = !item.selected;
+          return {
+            ...item,
+            selected: newSelected,
+            selectedTimes: newSelected ? item.selectedTimes + 1 : item.selectedTimes,
+          };
         }
-        return item;
+        return e.ctrlKey || e.metaKey ? item : { ...item, selected: false };
       }),
     });
   }

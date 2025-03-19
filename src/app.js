@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement } from './utils.js';
+import { createElement, generateCode } from './utils.js';
 import './styles.css';
 
 /**
@@ -24,10 +24,15 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={e => store.selectItem(e, item.code)}
               >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-info">
+                  <div className="Item-code">{item.code}</div>
+                  <div className="Item-title">{item.title}</div>
+                  <div className="Item-counts">
+                    {Boolean(item.selectedTimes) && `| Выделяли ${item.selectedTimes} раз`}
+                  </div>
+                </div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>

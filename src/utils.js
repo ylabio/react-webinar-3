@@ -26,3 +26,11 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+function generateRandomNumber(start = 0) {
+  return function () {
+    return (start += 1);
+  };
+}
+
+export const generateCode = generateRandomNumber();
