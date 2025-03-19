@@ -26,3 +26,7 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function declOfNum(n, titles) {
+  return titles[n % 100 >= 11 && n % 100 <= 14 ? 0 : n % 10 >= 2 && n % 10 <= 4 ? 1 : 0];
+}
