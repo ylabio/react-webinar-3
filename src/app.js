@@ -16,7 +16,13 @@ function App({ store }) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button className="App-add_button" onClick={() => store.addItem()}>
+        <button
+          className="App-add_button"
+          onClick={e => {
+            store.addItem();
+            e.stopPropagation();
+          }}
+        >
           Добавить
         </button>
       </div>
