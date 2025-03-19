@@ -50,7 +50,7 @@ class Store {
 
   /**
    * Удаление записи по коду
-   * @param code
+   * @param {string} code - Код элемента
    */
   deleteItem(code) {
     this.setState({
@@ -60,15 +60,18 @@ class Store {
   }
 
   /**
-   * Выделение записи по коду
-   * @param code
+   * Переключает выделение элемента
+   * @param {string} code - Код элемента
+   * @param {boolean} isMultiSelect - Флаг множественного выделения
    */
-  selectItem(code) {
+  selectItem(code, isMultiSelect) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+        }  else if (!isMultiSelect) {
+          item.selected = false;
         }
         return item;
       }),

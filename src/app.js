@@ -10,6 +10,11 @@ import './styles.css';
 function App({ store }) {
   const list = store.getState().list;
 
+  function handleSelect(e, code) {
+    const isMultiSelect = e.ctrlKey || e.metaKey;
+    store.selectItem(code, isMultiSelect);
+  }
+
   return (
     <div className="App">
       <div className="App-head">
@@ -24,12 +29,15 @@ function App({ store }) {
               <div
                 key={item.code}
                 className={'List-item Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(e) => handleSelect(e, item.code)}
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}{(item.code === 1 || item.code === 3) && <span className="Item-span"> | Выделяли 7 раз</span>}</div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)} className="Button Button_accent Btn-text">Удалить</button>
+                  <button   onClick={(e) => {
+                    e.stopPropagation();
+                    store.deleteItem(item.code);
+                  }}  className="Button Button_accent Btn-text">Удалить</button>
                 </div>
             </div>
           ))}
