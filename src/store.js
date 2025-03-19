@@ -74,6 +74,16 @@ class Store {
       }),
     });
   }
+
+  unselectItems() {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        item.selected = false;
+        return item;
+      }),
+    });
+  }
 }
 
 export default Store;
