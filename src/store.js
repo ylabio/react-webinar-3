@@ -8,6 +8,7 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.maxCode = getMaxCode(this.state.list);
+    this.selections = {};
   }
 
   /**
@@ -31,13 +32,21 @@ class Store {
     return this.state;
   }
 
+  getSelectionByCode(code) {
+    return this.selections[code];
+  }
+
+  updateSelectionByCode(code) {
+    const selectionCount = this.selections[code];
+    this.selections[code] = selectionCount ? selectionCount + 1 : 1;
+  }
+
   /**
    * Установка состояния
    * @param newState {Object}
    */
   setState(newState) {
     this.state = newState;
-    this.maxCode = getMaxCode(this.state.list);
 
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
@@ -63,6 +72,7 @@ class Store {
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
     });
+    delete this.selections[code];
   }
 
   /**
@@ -77,7 +87,7 @@ class Store {
           item.selected = !item.selected;
 
           if (item.selected) {
-            item.selectCount = item.selectCount ? item.selectCount + 1 : 1;
+            this.updateSelectionByCode(item.code);
           }
         }
         return item;

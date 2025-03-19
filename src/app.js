@@ -54,8 +54,8 @@ function App({ store }) {
                 <div className="Item-content">
                   <div className="Item-code">{item.code}</div>
                   <div className="Item-title">{item.title}</div>
-                  {item.selectCount && (
-                    <span className="Item-subtitle"> | Выделяли {item.selectCount} раз(-a)</span>
+                  {store.getSelectionByCode(item.code) && (
+                    <span className="Item-subtitle"> | Выделяли {store.getSelectionByCode(item.code)} раз(-a)</span>
                   )}
                 </div>
                 <div className="Item-actions">
