@@ -62,13 +62,17 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param event
    */
-  selectItem(code) {
+  selectItem(code, event) {
+    const isMultiple = event.ctrlKey || event.metaKey;  // флаг множественного выделения
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+        } else if (!isMultiple) {
+          item.selected = false;
         }
         return item;
       }),
