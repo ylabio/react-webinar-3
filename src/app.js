@@ -1,5 +1,4 @@
 import React from 'react';
-import { createElement } from './utils.js';
 import './styles.css';
 
 /**
@@ -28,6 +27,16 @@ function App({ store }) {
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}</div>
+                {item.selectedCount > 0 && (
+                  <div className="Item-selected-count">
+                    Выделяли {item.selectedCount}{' '}
+                    {item.selectedCount % 10 >= 2 &&
+                    item.selectedCount % 10 <= 4 &&
+                    !(item.selectedCount % 100 >= 12 && item.selectedCount % 100 <= 14)
+                      ? 'раза'
+                      : 'раз'}
+                  </div>
+                )}
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>
