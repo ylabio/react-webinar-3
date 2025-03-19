@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement } from './utils.js';
+import { createElement, getCountWordForm } from './utils.js';
 import './styles.css';
 
 /**
@@ -34,7 +34,12 @@ function App({ store }) {
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
                   {item.title}
-                  {item.selectedCount > 0 && <span> | Выделяли {item.selectedCount} раз</span>}
+                  {item.selectedCount > 0 && (
+                    <span>
+                      {' '}
+                      | Выделяли {item.selectedCount} {getCountWordForm(item.selectedCount)}
+                    </span>
+                  )}
                 </div>
 
                 <div className="Item-actions">
