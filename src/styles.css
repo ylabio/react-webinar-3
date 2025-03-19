@@ -1,61 +1,115 @@
-body {
+:root {
+  --primary-color: #6f42c1;
+  --accent-color: #D43B3B;
+  --border: 1px solid #EFEFEF;
+  --bg-list-item-even: #6B4ACB08;
+  --bg-list-item-selected: #6B4ACB1A;
+}
+
+* {
+  border: none;
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Golos Text", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0;
 }
 
 .App {
-  max-width: 1024px;
+  width: 100%;
   min-height: 100vh;
-  margin: 0 auto;
-  background: #fff;
-  box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: var(--border);
 }
 
-.App-head h1 {
-  margin: 0;
-  padding: 20px 20px 10px;
+.App-title {
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 24px 16px;
 }
 
-.List-item {
-  border-bottom: 1px dashed #ccc;
+.Well {
+  width: 100%;
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
+.List-item:nth-child(even) {
+  background-color: var(--bg-list-item-even);
 }
 
 .Item {
+  border-bottom: var(--border);
+  padding: 16px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
   transition: background-color 1s;
 }
 
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
+.List-item.Item_selected {
+  background-color: var(--bg-list-item-selected);
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  padding-right: 16px;
 }
 
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
+  font-weight: 700;
+}
+
+.Item-span {
+  font-weight: 400;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
 }
+
+.Button {
+  padding: 9px 16px;
+  border-radius: 4px;
+  background: var(--primary-color);
+  color: white;
+  transition: opacity .3s;
+  cursor: pointer;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.Button:hover {
+  opacity: 0.8;
+}
+
+.Button_accent {
+  background: var(--accent-color);
+}
+
+
