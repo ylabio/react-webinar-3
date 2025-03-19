@@ -1,3 +1,5 @@
+import { generateUniqueId } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -44,7 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: generateUniqueId(), title: 'Новая запись' }],
     });
   }
 
@@ -61,14 +63,22 @@ class Store {
 
   /**
    * Выделение записи по коду
-   * @param code
+   * @param code код записи
+   * @param unselectOthers флаг, указывающий следует ли сбрасывать выделение с остальных записей
    */
-  selectItem(code) {
+  selectItem(code, unselectOthers) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          return {
+            ...item,
+            selected: !item.selected,
+            selectCount: !item.selected ? item.selectCount + 1 : item.selectCount
+          };
+        }
+        if (unselectOthers) {
+          return {...item, selected: false};
         }
         return item;
       }),
