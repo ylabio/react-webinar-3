@@ -63,14 +63,17 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, event) {
+    const isCtrlOrCmdPressed = event ? (event.ctrlKey || event.metaKey) : false;
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          return {...item, selected: !item.selected};
+        } else {
+          return isCtrlOrCmdPressed ? item : {...item, selected: false};
         }
-        return item;
       }),
     });
   }
