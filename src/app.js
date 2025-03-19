@@ -37,7 +37,7 @@ function App({ store }) {
       </div>
       <div className="App-center">
         <div className="List">
-          {list.map(item => (
+          {list.map((item, i) => (
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
@@ -45,8 +45,13 @@ function App({ store }) {
                   handleItemSelect(e, item.code);
                 }}
               >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-content">
+                  <div className="Item-code">{item.code}</div>
+                  <div className="Item-title">{item.title}</div>
+                  {item.selectCount && (
+                    <span className="Item-subtitle"> | Выделяли {item.selectCount} раз(-a)</span>
+                  )}
+                </div>
                 <div className="Item-actions">
                   <button
                     onClick={e => {
