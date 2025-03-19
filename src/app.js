@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement } from './utils.js';
+import { createElement, getCountLabel } from './utils.js';
 import './styles.css';
 
 /**
@@ -36,7 +36,13 @@ function App({ store }) {
                 onClick={(e) => handleSelectItemClick(e, item)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">
+                  {item.title}
+                  {item.selectCount
+                    ? ` | Выделяли ${item.selectCount} ${getCountLabel(item.selectCount, ["раз", "раза", "раз"])}`
+                    : ""
+                  }
+                </div>
                 <div className="Item-actions">
                   <button onClick={(e) => handleDeleteItemClick(e, item)}>Удалить</button>
                 </div>
