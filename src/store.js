@@ -5,6 +5,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.usedCodes = new Set();
+    initState.list.forEach(item => this.usedCodes.add(item.code)); //Заполняем множество использующимися кодами записей
   }
 
   /**
@@ -38,14 +40,30 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+  /** 
+   * Генерация уникального кода
+   * */
+  generateUniqueCode() {
+    let code = 1;
+
+    if (this.usedCodes.size > 0) {
+      code = Math.max(...this.usedCodes) + 1;
+    }
+
+    return code;
+  }
+
   /**
    * Добавление новой записи
    */
   addItem() {
+    const newCode = this.generateUniqueCode();
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: newCode, title: 'Новая запись', selectedTimes: 0 }],
     });
+    this.usedCodes.add(newCode);
   }
 
   /**
@@ -63,12 +81,21 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(e, code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          if (!item.selected) {
+            //По хорошему конечно делать иммутабельные изменения объекта, используя новую копию, но в контексте данной задачи с учетом мутабельного изменения item.selected решил реализовать таким образом
+            item.selectedTimes++
+          }
+
           item.selected = !item.selected;
+        }
+
+        else if (!e.ctrlKey) {
+          item.selected = false;
         }
         return item;
       }),
