@@ -38,10 +38,12 @@ function App({ store }) {
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
                   {item.title}
-                  {item.selectCount
-                    ? ` | Выделяли ${item.selectCount} ${getCountLabel(item.selectCount, ["раз", "раза", "раз"])}`
-                    : ""
-                  }
+                  <span className="Item-title-count">
+                    {item.selectCount
+                      ? ` | Выделяли ${item.selectCount} ${getCountLabel(item.selectCount, ["раз", "раза", "раз"])}`
+                      : ""
+                    }
+                  </span>
                 </div>
                 <div className="Item-actions">
                   <button onClick={(e) => handleDeleteItemClick(e, item)}>Удалить</button>

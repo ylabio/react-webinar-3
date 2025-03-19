@@ -6,11 +6,11 @@ import Store from './store.js';
 
 const store = new Store({
   list: [
-    { code: generateUniqueId(), title: 'Название элемента', selectCount: 0 },
     { code: generateUniqueId(), title: 'Некий объект', selectCount: 0 },
     { code: generateUniqueId(), title: 'Заголовок', selectCount: 0 },
     { code: generateUniqueId(), title: 'Очень длинное название элемента из семи слов', selectCount: 0 },
     { code: generateUniqueId(), title: 'Запись', selectCount: 0 },
+    { code: generateUniqueId(), title: 'Пятая запись', selectCount: 0 },
     { code: generateUniqueId(), title: 'Шестая запись', selectCount: 0 },
     { code: generateUniqueId(), title: 'Седьмая запись', selectCount: 0 },
   ],
