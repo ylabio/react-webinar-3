@@ -8,6 +8,7 @@ import './styles.css';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
+  
   const list = store.getState().list;
 
   return (
