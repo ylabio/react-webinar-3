@@ -51,7 +51,7 @@ body {
   border-bottom: 1px solid rgb(239, 239, 239);
 }
 
-.List-item:nth-child(even) {
+.List-item:nth-child(odd) {
   background: rgba(107, 74, 203, 0.03);
 }
 
