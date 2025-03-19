@@ -16,20 +16,37 @@ function App({ store }) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button className="App-controls-btn" onClick={() => store.addItem()}>
+          Добавить
+        </button>
       </div>
       <div className="App-center">
         <div className="List">
           {list.map(item => (
             <div key={item.code} className="List-item">
-              <div
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
-              >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+              <div className="List-item-left">
+                <div
+                  className={'Item' + (item.selected ? ' Item_selected' : '')}
+                  onClick={e => store.selectItem(item.code, e)}
+                >
+                  <div className="Item-code">{item.code}</div>
+                  <div className="Item-title">
+                    {item.title}
+
+                    {item.selectionCount > 0 && (
+                      <span className="Item-selected">
+                        {'|  '} Выделяли {item.selectionCount} раз
+                      </span>
+                    )}
+                  </div>
+                  <div className="Item-actions">
+                    <button
+                      className="Item-actions-btn"
+                      onClick={() => store.deleteItem(item.code)}
+                    >
+                      Удалить
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
