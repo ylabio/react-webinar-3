@@ -10,6 +10,23 @@ import './styles.css';
 function App({ store }) {
   const list = store.getState().list;
 
+  function handleItemSelect(e, code) {
+    if (e.ctrlKey) {
+      store.selectItem(code);
+      return;
+    }
+
+    list.forEach(item => {
+      if (item.code === code) {
+        store.selectItem(item.code);
+        return;
+      }
+      if (item.selected) {
+        store.selectItem(item.code);
+      }
+    });
+  }
+
   return (
     <div className="App">
       <div className="App-head">
@@ -24,12 +41,21 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={e => {
+                  handleItemSelect(e, item.code);
+                }}
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}</div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button
+                    onClick={e => {
+                      e.stopPropagation();
+                      store.deleteItem(item.code);
+                    }}
+                  >
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>
