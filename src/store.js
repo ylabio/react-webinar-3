@@ -35,7 +35,6 @@ class Store {
   setState(newState) {
     this.state = newState;
     // Вызываем всех слушателей
-    // for (const listener of this.listeners) listener();
     this.listeners.forEach(listener => listener());
   }
 
@@ -43,8 +42,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const idCode =
+      this.state.list.length > 0 ? Math.max(...this.state.list.map(item => item.code)) : 0;
+    //создается уникальный код.
     const newItem = {
-      code: Math.floor(Math.random() * 1000), //уникальный код
+      code: idCode + 1,
       title: 'Новая запись',
       selected: false,
       count: 0,
