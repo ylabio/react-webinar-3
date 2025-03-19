@@ -62,15 +62,16 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param event {MouseEvent}
    */
-  selectItem(code) {
+  selectItem(code, event) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        if (event.ctrlKey || event.metaKey) {
+          return item.code === code ? { ...item, selected: !item.selected } : item;
         }
-        return item;
+        return item.code === code ? { ...item, selected: !item.selected } : { ...item, selected: false };
       }),
     });
   }
