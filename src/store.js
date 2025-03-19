@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.selectCounts = new Map(); // Я долго думал, как добавить счётчик на количество выделений, без прямого вмешательства в существующий list
   }
 
   /**
@@ -41,11 +42,13 @@ class Store {
   /**
    * Добавление новой записи
    */
+
   addItem() {
+    // Классический способ добавить уникальные ID, через текущую дату-время с отсчета UNIX
+    const newId = Date.now();  
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
-    });
+    list: [...this.state.list, { code: newId, title: 'Новая запись' }],    });
   }
 
   /**
@@ -63,15 +66,42 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, event) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+
+        const isItemSelected = item.code === code;
+
+        // Создаем selectCounts если не его не существует
+        if (isItemSelected && !this.selectCounts.has(code)) {
+          this.selectCounts.set(code, 0); 
         }
-        return item;
+
+        // Прибавка счетчика
+        let newSelectCount = this.selectCounts.get(code) || 0;
+        if (isItemSelected && !item.selected) {
+          newSelectCount++;  
+        }
+
+        //Постановка счетчика
+        if (this.selectCounts.has(code)) {
+          this.selectCounts.set(code, newSelectCount);
+        }
+
+        // Нажатый ctrl?
+        if (event?.ctrlKey || event?.metaKey) {
+          return isItemSelected 
+          ? {...item, selected: !item.selected} : item
+        }
+        else {
+          return {...item, 
+            selected: isItemSelected ? !item.selected : false}
+        }
+
+
       }),
+      
     });
   }
 }

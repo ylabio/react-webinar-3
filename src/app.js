@@ -1,5 +1,4 @@
 import React from 'react';
-import { createElement } from './utils.js';
 import './styles.css';
 
 /**
@@ -20,20 +19,33 @@ function App({ store }) {
       </div>
       <div className="App-center">
         <div className="List">
-          {list.map(item => (
-            <div key={item.code} className="List-item">
-              <div
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
-              >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+        {list.map(item => {
+            let selectCount = store.selectCounts.get(item.code) || 0;
+
+            return (
+              <div key={item.code} className="List-item">
+                <div
+                  className={'Item' + (item.selected ? ' Item_selected' : '')}
+                  onClick={(event) => store.selectItem(item.code, event)}
+                >
+                  <div className="Item-code">{item.code}</div>
+                  <div className="Item-title">{item.title}</div>
+
+                    <div className="Item-count">
+                    {selectCount > 0 && (
+                        <>| Выделяли {selectCount} раз</>
+
+                    )}
+
+                      </div>
+
+                  <div className="Item-actions">
+                    <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
