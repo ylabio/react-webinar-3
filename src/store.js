@@ -62,13 +62,16 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param addToSelected
    */
-  selectItem(code) {
+  selectItem(code, addToSelected) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+        } else if (!addToSelected) {
+          item.selected = false;
         }
         return item;
       }),
