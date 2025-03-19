@@ -11,7 +11,7 @@ function App({ store }) {
   const list = store.getState().list;
 
   function handleItemSelect(e, code) {
-    if (e.ctrlKey) {
+    if (e.ctrlKey || e.metaKey) {
       store.selectItem(code);
       return;
     }
