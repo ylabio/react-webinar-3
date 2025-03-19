@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   background: #535353;
-  font-family: sans-serif, 'Golos Text' 'Montserrat Alternates';
+  font-family: 'Golos Text', sans-serif;
 }
 
 .App {
@@ -92,6 +92,7 @@ body {
 
 .Item-code {
   padding: 0 20px;
+  font-family: 'Golos Text';
   font-weight: 400;
   font-size: 16px;
   line-height: 22px;
@@ -100,6 +101,7 @@ body {
 .Item-title {
   width: 100%;
   padding: 0;
+  font-family: 'Golos Text';
   font-weight: 700;
   font-size: 16px;
   line-height: 22px;
