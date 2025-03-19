@@ -76,7 +76,7 @@ class Store {
           } else {
             item.selected = true;
 
-            item.quantity = item.quantity ? item.quantity++ : (item.quantity = 1);
+            item.quantity ? item.quantity++ : (item.quantity = 1);
           }
         } else if (!isCmdPress) {
           item.selected = false;
