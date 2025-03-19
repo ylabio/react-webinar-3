@@ -15,6 +15,11 @@ function App({ store }) {
     store.selectItem(code, isCmdPress);
   };
 
+  const handleDeletItem = (event, code) => {
+    event.stopPropagation();
+    store.deleteItem(code);
+  };
+
   return (
     <div className="App">
       <div className="App-head">
@@ -41,7 +46,7 @@ function App({ store }) {
                   </span>
                 </div>
                 <div className="Item-actions">
-                  <button className="Item-button" onClick={() => store.deleteItem(item.code)}>
+                  <button className="Item-button" onClick={(e) => handleDeletItem(e, item.code)}>
                     Удалить
                   </button>
                 </div>
