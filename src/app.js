@@ -25,8 +25,8 @@ function App({ store }) {
       </div>
       <div className="App-center">
         <div className="List">
-          {list.map(item => (
-            <div key={item.code} className={`List-item ${item.code % 2 !== 0 && 'List-item--colored'}`}>
+          {list.map((item, index) => (
+            <div key={item.code} className={`List-item ${index % 2 !== 0 && 'List-item--colored'}`}>
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
                 onClick={e => {

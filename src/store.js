@@ -61,7 +61,7 @@ class Store {
 
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: newCode, title: 'Новая запись' }],
+      list: [...this.state.list, { code: newCode, title: 'Новая запись', selectedTimes: 0 }],
     });
     this.usedCodes.add(newCode);
   }
@@ -93,6 +93,7 @@ class Store {
 
           item.selected = !item.selected;
         }
+
         else if (!e.ctrlKey) {
           item.selected = false;
         }
