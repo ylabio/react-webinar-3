@@ -5,7 +5,6 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.usedCodes =[];
   }
 
   /**
@@ -43,20 +42,9 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    const { list } = this.state;
-    const usedCodes = list.map(item => item.code);
-    const maxCode = Math.max(...usedCodes);
-
-    let newCode = maxCode + 1;
-
-    if (this.usedCodes.length > 0) {
-      newCode = Math.min(...this.usedCodes);
-      this.usedCodes = this.usedCodes.filter(code => code !== newCode);      
-    }
-
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: newCode, title: 'Новая запись', selectCount: 0 }],
+      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
     });
   }
 
@@ -73,36 +61,17 @@ class Store {
 
   /**
    * Выделение записи по коду
-   * @param isCtrlPressed
    * @param code
    */
-  selectItem(code , isCtrlPressed) {
-    const { list } = this.state;
-    const newList = list.map(item => {
-      if (item.code === code) {
-        if(!item.selected) {
-          return {
-            ...item,
-            selected: true,
-            selectCount: item.selectCount + 1,
-          };
-        } else {
-          return {
-            ...item,
-            selected: false,
-            selectCount: item.selectCount,
-          };
-        }
-      }
-      return {
-        ...item,
-        selected: isCtrlPressed ? item.selected : false,
-      };
-    });
-
+  selectItem(code) {
     this.setState({
       ...this.state,
-      list: newList,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          item.selected = !item.selected;
+        }
+        return item;
+      }),
     });
   }
 }

@@ -24,17 +24,12 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={(e) => store.selectItem(item.code , e.ctrlKey || e.metaKey)}
+                onClick={() => store.selectItem(item.code)}
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}</div>
-                {item.selectCount > 0 && <div className="Item-selectCount">Выделяли {item.selectCount} раз</div>}
                 <div className="Item-actions">
-                  <button onClick={(e) => { 
-                    e.stopPropagation();
-                    store.deleteItem(item.code);
-                    }}
-                    >Удалить</button>
+                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>
               </div>
             </div>
