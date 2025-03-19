@@ -13,6 +13,7 @@ const store = new Store({
     { code: 6, title: 'Шестая запись', selected: false, selectionCount: 0 },
     { code: 7, title: 'Седьмая запись', selected: false, selectionCount: 0 },
   ],
+  maxId: 7,
 });
 
 const root = createRoot(document.getElementById('root'));

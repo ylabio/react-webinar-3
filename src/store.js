@@ -43,7 +43,7 @@ class Store {
    */
   addItem() {
     const newItem = {
-      code: this.state.list.length + 1,
+      code: this.state.maxId + 1,
       title: 'Новая запись',
       selected: false,
       selectionCount: 0,
@@ -53,6 +53,8 @@ class Store {
       ...this.state,
       list: [...this.state.list, newItem],
     });
+
+    this.incrementMaxId();
   }
 
   /**
@@ -96,6 +98,16 @@ class Store {
         }
         return item;
       }),
+    });
+  }
+
+  /**
+   * Увеличение максимального значения id
+   */
+  incrementMaxId() {
+    this.setState({
+      ...this.state,
+      maxId: this.state.maxId + 1,
     });
   }
 }
