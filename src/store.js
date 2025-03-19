@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.maxCode = this.state.list.length;
   }
 
   /**
@@ -44,7 +45,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: ++this.maxCode, title: 'Новая запись' }],
     });
   }
 
@@ -63,12 +64,22 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, isCmdPress) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          if (item.selected && !isCmdPress) {
+            item.selected = false;
+          } else if (item.selected && isCmdPress) {
+            item.selected = false;
+          } else {
+            item.selected = true;
+
+            item.quantity ? item.quantity++ : (item.quantity = 1);
+          }
+        } else if (!isCmdPress) {
+          item.selected = false;
         }
         return item;
       }),
