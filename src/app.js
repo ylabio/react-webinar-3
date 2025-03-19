@@ -36,7 +36,12 @@ function App({ store }) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button
+          className="Button Button_view_primary Button_theme_primary"
+          onClick={() => store.addItem()}
+        >
+          Добавить
+        </button>
       </div>
       <div className="App-center">
         <div className="List">
@@ -58,7 +63,12 @@ function App({ store }) {
                   )}
                 </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button
+                    className="Button Button_view_primary Button_theme_secondary"
+                    onClick={() => store.deleteItem(item.code)}
+                  >
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>
