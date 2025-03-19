@@ -26,3 +26,10 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+  function generateUniqId () {
+    let count = 0;
+    return () => ++count
+  }
+
+  export const generatedId = generateUniqId()
