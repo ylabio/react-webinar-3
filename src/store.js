@@ -62,33 +62,39 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    console.log(this.state);
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
     });
+    console.log(this.state);
   }
 
   /**
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code,isCtrlPressed) {
+   
+    
 		this.setState({
 			...this.state,
 			list: this.state.list.map((item) => {
-				if (item.code === code) {
-					item.selected = !item.selected;
-					if (item.selected) {
-            if (item.count) {
-              item.count = item.count + 1;
-            } else {
-              item.count = 1;
-            }
-					}
-				} else {
-					item.selected = false;
-				}
-				return item;
+        if (item.code === code) {
+          // Если запись уже выделена и Ctrl не удерживается, снимаем выделение
+          if (item.selected && !isCtrlPressed) {
+            item.selected = false;
+           
+          } else {
+            // Если запись не выделена, выделяем её
+            item.selected = true;
+            item.count = item.count ? item.count + 1 : 1; // Увеличиваем счетчик
+          }
+        } else if (!isCtrlPressed) {
+          // Если Ctrl не удерживается, сбрасываем выделение для других записей
+          item.selected = false;
+        }
+        return item;
 			}),
 		});
 	}

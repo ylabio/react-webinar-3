@@ -9,7 +9,11 @@ import './styles.css';
  */
 function App({ store }) {
   const list = store.getState().list;
-
+  const handleItemClick = (item, event) => {
+        // Проверяем, удерживается ли клавиша Ctrl или Cmd
+    const isCtrlPressed = event.ctrlKey || event.metaKey;
+    store.selectItem(item.code, isCtrlPressed);
+  };
   return (
     <div className="App">
       <div className="App-head">
@@ -26,10 +30,10 @@ function App({ store }) {
            <div key={item.code} className="List-item">
            <div
              className={"Item" + (item.selected ? " Item_selected" : "")}
-             onClick={() => store.selectItem(item.code)}
+           
            >
              <div className="Item-code">{item.code}</div>
-             <div className="Item-title">
+             <div className="Item-title"   onClick={(event) => handleItemClick(item, event)}>
                {item.title}
                <span>
                {item?.count && item.count !== 0 &&

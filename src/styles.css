@@ -44,8 +44,8 @@ body {
   padding: 1px 0px 4px 1px;
 }
 .App-controls {
-  width: 1160px;
-   display: flex;
+  min-width: 1160px;
+  display: flex;
   justify-content: flex-end;
   padding: 26px 57px 23px 10px
 }
