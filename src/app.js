@@ -1,5 +1,4 @@
 import React from 'react';
-import { createElement } from './utils.js';
 import './styles.css';
 
 /**
@@ -9,6 +8,16 @@ import './styles.css';
  */
 function App({ store }) {
   const list = store.getState().list;
+
+  const selectItemHandler = (e) => {
+    const isMultipleChoiceKeyPressed = e.ctrlKey || e.metaKey
+    store.selectItem(+e.currentTarget.id, isMultipleChoiceKeyPressed)
+  }
+
+  const deleteItemHandler = (e) => {
+    e.stopPropagation()
+    store.deleteItem(+e.currentTarget.id)
+  }
 
   return (
     <div className="App">
@@ -23,13 +32,14 @@ function App({ store }) {
           {list.map(item => (
             <div key={item.code} className="List-item">
               <div
+                id={item.code}
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={selectItemHandler}
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}</div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button id={item.code} onClick={deleteItemHandler}>Удалить</button>
                 </div>
               </div>
             </div>

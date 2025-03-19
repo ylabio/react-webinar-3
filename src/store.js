@@ -62,15 +62,16 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param isMultipleChoiceKeyPressed
    */
-  selectItem(code) {
+  selectItem(code, isMultipleChoiceKeyPressed) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          return { ...item, selected: !item.selected };
         }
-        return item;
+        return { ...item, selected: isMultipleChoiceKeyPressed && item.selected };
       }),
     });
   }
