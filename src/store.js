@@ -45,7 +45,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generatedId(), title: 'Новая запись' }],
+      list: [...this.state.list, { code: generatedId(), title: 'Новая запись' , selectedCounter : 0 }],
     });
   }
 
@@ -69,13 +69,16 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if(!ctrlPressed){
-          if (item.selected === true){
-            item.selected = !item.selected
-          }
-        }
+      
         if (item.code === code) {
           item.selected = !item.selected;
+          console.log(item.selected)
+        }
+        if(!ctrlPressed && item.code !== code ){
+          item.selected = false;          
+        }
+        if(item.selected === true && item.code === code){
+          item.selectedCounter++
         }
         return item;
       }),

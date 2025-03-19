@@ -7,13 +7,13 @@ import { generatedId } from './utils.js';
 
 const store = new Store({
   list: [
-    { code: generatedId(), title: 'Название элемента' },
-    { code: generatedId(), title: 'Некий объект' },
-    { code: generatedId(), title: 'Заголовок' },
-    { code: generatedId(), title: 'Очень длинное название элемента из семи слов' },
-    { code: generatedId(), title: 'Запись' },
-    { code: generatedId(), title: 'Шестая запись' },
-    { code: generatedId(), title: 'Седьмая запись' },
+    { code: generatedId(), title: 'Название элемента', selectedCounter : 0 },
+    { code: generatedId(), title: 'Некий объект', selectedCounter : 0 },
+    { code: generatedId(), title: 'Заголовок' , selectedCounter : 0 },
+    { code: generatedId(), title: 'Очень длинное название элемента из семи слов' , selectedCounter : 0},
+    { code: generatedId(), title: 'Запись' , selectedCounter : 0 },
+    { code: generatedId(), title: 'Шестая запись' , selectedCounter : 0 },
+    { code: generatedId(), title: 'Седьмая запись' , selectedCounter : 0},
   ],
 });
 
