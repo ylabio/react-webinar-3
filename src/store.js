@@ -3,9 +3,13 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      list: [],
+      ...initState
+    }
     this.listeners = []; // Слушатели изменений состояния
   }
+
 
   /**
    * Подписка слушателя на изменения состояния
@@ -32,8 +36,10 @@ class Store {
    * Установка состояния
    * @param newState {Object}
    */
-  setState(newState) {
-    this.state = newState;
+  setState(cb) {
+    //Изменил на функциональную форму
+    this.state = cb(this.state)
+    // this.state = newState;
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
@@ -42,10 +48,15 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
-    });
+    this.setState((prevState) => {
+
+      const newCode = Math.max(...prevState.list.map(i => i.code)) + 1
+      return {
+        ...prevState,
+        list: [...prevState.list, { code: newCode, title: 'Новая запись',countSelected:0 }],
+      }
+    }
+    );
   }
 
   /**
@@ -53,27 +64,55 @@ class Store {
    * @param code
    */
   deleteItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.filter(item => item.code !== code),
-    });
+    this.setState((prevState) => {
+
+      return {
+        ...prevState,
+        list: prevState.list.filter(item => item.code !== code),
+      }
+    }
+    )
   }
 
   /**
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+  selectItem(code, event) {
+    this.setState(
+      (prevState) => {
+        const isCtrlPressed = event && (event.ctrlKey || event.metaKey);
+        let newList;
+        if (isCtrlPressed) {
+          //Если нажата кнопка
+          newList = prevState.list.map((item) => {
+            if (item.code === code) {
+              item.selected = !item.selected;
+            }
+            return item;
+          })
+        } else {
+          newList = prevState.list.map((item) => {
+            if (item.code === code) {
+              item.selected = !item.selected;
+              if(item.selected)item.countSelected++;
+            } else {
+              item.selected = false;
+            }
+            return item;
+          })
         }
-        return item;
-      }),
-    });
+        return {
+          ...prevState,
+          list: newList
+        }
+      }
+
+    );
+
   }
+
 }
+
 
 export default Store;
