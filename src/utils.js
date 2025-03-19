@@ -26,3 +26,8 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export const generateUniqueId = (() => {
+  let count = 1;
+  return () => count++
+})()
