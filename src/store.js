@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.lastUniqCode = Math.max(0, ...this.state.list.map(item => item.code)); // code последнего элемента
   }
 
   /**
@@ -42,17 +43,22 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.lastUniqCode++;
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.lastUniqCode, title: 'Новая запись' }],
     });
   }
 
   /**
    * Удаление записи по коду
    * @param code
+   * @param evt {MouseEvent} - Событие клика
    */
-  deleteItem(code) {
+  deleteItem(code, evt) {
+    evt.stopPropagation(); //предотвращаем всплытие, чтобы не влияло на selected
+
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
@@ -62,15 +68,23 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param evt {MouseEvent} - Событие клика
    */
-  selectItem(code) {
+  selectItem(code, evt) {
+
+    const isMultiSelect = evt.ctrlKey || evt.metaKey;
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          return {
+            ...item,
+            selected: !item.selected,
+            selectedCount: (item.selected ? item.selectedCount : (item.selectedCount || 0) + 1)
+          }
         }
-        return item;
+        return isMultiSelect ? item : {...item, selected: false};
       }),
     });
   }

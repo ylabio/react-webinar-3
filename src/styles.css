@@ -1,27 +1,26 @@
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  font-family: "Golos Text", sans-serif;
 }
 
 .App {
-  max-width: 1024px;
-  min-height: 100vh;
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
+
 }
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
+  border-bottom: 1px solid rgba(239, 239, 239, 1);
 }
 
 .App-head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  padding: 20px 20px 10px 0;
+  color: rgba(107, 74, 203, 1);
+  font-size: 32px;
 }
 
 .App-controls {
@@ -31,7 +30,11 @@ body {
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid rgba(239, 239, 239, 1);
+}
+
+.List-item:nth-child(odd) {
+  background-color: rgba(107, 74, 203, 0.0314);
 }
 
 .Item {
@@ -41,8 +44,7 @@ body {
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: rgba(107, 74, 203, 0.1);
 }
 
 .Item-code {
@@ -52,10 +54,39 @@ body {
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.Item-selected-count {
+  font-weight: normal;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+button {
+  width: 105px;
+  height: 40px;
+  border-radius: 4px;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 1);
+}
+
+.Add-button {
+  width: 114px;
+  background-color: rgba(107, 74, 203, 1);
+}
+
+.Delete-button {
+  background-color: rgba(212, 59, 59, 1);
+}
+
+.container {
+  max-width: 1200px;
 }
