@@ -5,6 +5,11 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+
+    // Инициализируем lastCode на основе существующих записей или 0, если записей нет.
+    this.lastCode = initState.list && initState.list.length > 0
+      ? Math.max(...initState.list.map(item => item.code))
+      : 0;
   }
 
   /**
@@ -39,12 +44,14 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление новой записи с уникальным кодом
    */
   addItem() {
+    this.lastCode++;
+    const newItem = { code: this.lastCode, title: 'Новая запись', selectCount: 0 };
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, newItem],
     });
   }
 
@@ -67,8 +74,50 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        if (item.code === code && !item.selected) {
+          item.selected = true;
+          item.selectCount = (item.selectCount || 0) + 1;
+        }
+        return item;
+      }),
+    });
+  }
+
+  /**
+   * Множественное выделение записи без сброса других выделений
+   */
+  selectAdditionalItem(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code && !item.selected) {
+          item.selected = true;
+          item.selectCount = (item.selectCount || 0) + 1;
+        }
+        return item;
+      }),
+    });
+  }
+
+  /**
+   * Сброс выделения всех записей
+   */
+  clearSelection() {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => ({ ...item, selected: false })),
+    });
+  }
+
+  /**
+   * Снятие выделения записи по коду
+   */
+  deselectItem(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          item.selected = false;
         }
         return item;
       }),
