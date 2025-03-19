@@ -6,6 +6,7 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.lastId = initState.list[initState.list.length - 1].code;
+    this.selectedItems = 0;
   }
 
   /**
@@ -26,6 +27,8 @@ class Store {
    * @returns {Object}
    */
   getState() {
+    this.hasSelectedItem()
+
     return this.state;
   }
 
@@ -53,8 +56,10 @@ class Store {
   /**
    * Удаление записи по коду
    * @param code
+   * @param ev
    */
-  deleteItem(code) {
+  deleteItem(code, ev) {
+    ev.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
@@ -62,19 +67,36 @@ class Store {
   }
 
   /**
+   * Подсчет количества выделенных записей
+   */
+  hasSelectedItem() {
+    this.selectedItems = this.state.list.filter(item => item.selected).length;
+  }
+
+  /**
    * Выделение записи по коду
    * @param code
+   * @param event
    */
-  selectItem(code) {
+  selectItem(code, event) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          item.selected = this.selectedItems > 1 && (event.ctrlKey || event.metaKey) ? !item.selected : this.selectedItems > 1 ? true : !item.selected;
+          if(item.selected) {
+            item.selectedCount = item.selectedCount ? item.selectedCount + 1 : 1;
+          }
+        } else {
+          if (!event.ctrlKey && !event.metaKey) {
+            item.selected = false;
+          }
         }
+
         return item;
       }),
     });
+
   }
 }
 

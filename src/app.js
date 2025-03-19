@@ -24,12 +24,12 @@ function App({store}) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (idx % 2 === 0 ? ' Item_shadow' : '') + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(event) => store.selectItem(item.code, event)}
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}</div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button onClick={(ev) => store.deleteItem(item.code, ev)}>Удалить</button>
                 </div>
               </div>
             </div>
