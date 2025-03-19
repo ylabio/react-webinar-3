@@ -10,6 +10,12 @@ import './styles.css';
 function App({ store }) {
   const list = store.getState().list;
 
+  // Обработчик клика по элементу списка
+  const handleItemClick = (code, event) => {
+    const isCtrlPressed = event.ctrlKey || event.metaKey; 
+    store.selectItem(code, isCtrlPressed); 
+  };
+
   return (
     <div className="App">
       <div className="App-head">
@@ -24,7 +30,7 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(e) => handleItemClick(item.code, e)}
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}</div>
