@@ -5,6 +5,19 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+
+    this.lastUsedCode = this.findMaxCode();
+  }
+
+  /**
+   * Находит максимальный существующий код в списке
+   * @returns {Number} Максимальный код
+   */
+  findMaxCode() {
+    if (!this.state.list || this.state.list.length === 0) {
+      return 0;
+    }
+    return Math.max(...this.state.list.map(item => item.code));
   }
 
   /**
@@ -42,9 +55,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.lastUsedCode += 1;
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.lastUsedCode, title: 'Новая запись' }],
     });
   }
 
