@@ -2,7 +2,10 @@ body {
   margin: 0;
   padding: 0;
   background: #535353;
-  font-family: sans-serif;
+  font-family: 'Golos Text', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
 }
 
 .App {
