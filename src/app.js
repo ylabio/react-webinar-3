@@ -12,30 +12,34 @@ function App({ store }) {
 
   return (
     <div className="App">
-      <div className="App-head">
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
-      </div>
-      <div className="App-center">
-        <div className="List">
+      <header className="App-head">
+        <h1 className="App-title">Приложение на чистом JS</h1>
+      </header>
+      <main className="App-center">
+        <section className="App-controls">
+          <button className="App-button" onClick={() => store.addItem()}>
+            Добавить
+          </button>
+        </section>
+        <ul className="List">
           {list.map(item => (
-            <div key={item.code} className="List-item">
-              <div
+            <li key={item.code} className="List-item">
+              <article
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
                 onClick={() => store.selectItem(item.code)}
               >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <p className="Item-code">{item.code}</p>
+                <h2 className="Item-title">{item.title}</h2>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button className="Item-button" onClick={() => store.deleteItem(item.code)}>
+                    Удалить
+                  </button>
                 </div>
-              </div>
-            </div>
+              </article>
+            </li>
           ))}
-        </div>
-      </div>
+        </ul>
+      </main>
     </div>
   );
 }

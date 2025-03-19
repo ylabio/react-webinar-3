@@ -2,41 +2,86 @@ body {
   margin: 0;
   padding: 0;
   background: #535353;
-  font-family: sans-serif;
+  font-family: sans-serif, 'Golos Text' 'Montserrat Alternates';
 }
 
 .App {
   max-width: 1024px;
   min-height: 100vh;
   margin: 0 auto;
+  padding: 0;
   background: #fff;
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
+  box-sizing: border-box;
+  padding: 0 100px;
   height: 80px;
-  background: #f5f5f5;
+  display: flex;
+  border-bottom: 1px solid #ccc;
 }
 
-.App-head h1 {
+.App-title {
   margin: 0;
+  color: #6B4ACB;
   padding: 20px 20px 10px;
+  font-family: 'Golos Text';
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
 }
 
 .App-controls {
+  box-sizing: border-box;
+  width: 100%;
   display: flex;
   justify-content: flex-end;
   padding: 20px;
 }
 
+.App-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: 'Montserrat Alternates';
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 22px;
+  border: none;
+  background-color: #6B4ACB;
+  color: #fff;
+}
+
+.App-center {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 100px;
+}
+
+.List {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid #ccc;
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   transition: background-color 1s;
 }
 
@@ -46,16 +91,35 @@ body {
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  padding: 0 20px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
 }
 
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
+  padding: 0;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
 }
 
 .Item-actions {
   display: flex;
+  box-sizing: border-box;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: 'Montserrat Alternates';
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 22px;
+  border: none;
+  background-color: #D43B3B;
+  color: #fff;
 }
