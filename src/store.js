@@ -61,14 +61,17 @@ class Store {
 
   /**
    * Выделение записи по коду
-   * @param code
+   * @param code код записи
+   * @param unselectOthers флаг, указывающий следует ли сбрасывать выделение с остальных записей
    */
-  selectItem(code) {
+  selectItem(code, unselectOthers) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+        } else if (unselectOthers) {
+          item.selected = false;
         }
         return item;
       }),
