@@ -1,61 +1,93 @@
+:root {
+  --color-purple: #6b4acb;
+  --color-red: #d43b3b;
+  --color-gray: #efefef;
+  --color-black: #000000;
+  --color-white: #ffffff;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  font-style: normal;
+  font-family: 'Golos Text', sans-serif;
+  font-optical-sizing: auto;
+}
+
+.Btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.875rem;
+  font-family: 'Montserrat Alternates', sans-serif;
+  line-height: 1.73;
+  color: var(--color-white);
+  background-color: var(--color-purple);
+}
+
+.Btn_delete {
+  background-color: var(--color-red);
 }
 
 .App {
-  max-width: 1024px;
+  max-width: 1152px;
   min-height: 100vh;
   margin: 0 auto;
-  background: #fff;
-  box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-gray);
 }
 
-.App-head h1 {
+.App-title {
   margin: 0;
-  padding: 20px 20px 10px;
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--color-purple);
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  margin-top: 24px;
+  padding: 0 16px;
 }
 
-.List-item {
-  border-bottom: 1px dashed #ccc;
+.App-center {
+  margin-top: 24px;
 }
 
 .Item {
   display: flex;
-  justify-content: flex-start;
-  transition: background-color 1s;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.Item_even {
+  background-color: rgb(from var(--color-purple) r g b / 0.0314);
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background-color: rgb(from var(--color-purple) r g b / 0.1);
 }
 
-.Item-code {
-  padding: 20px 10px 20px 20px;
+.Item-content {
+  display: flex;
+  align-items: center;
 }
 
 .Item-title {
-  width: 100%;
-  padding: 20px 10px;
+  margin-left: 16px;
+  font-weight: 700;
 }
 
-.Item-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+.Item-subtitle {
+  white-space: pre;
 }

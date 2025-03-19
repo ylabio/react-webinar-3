@@ -30,17 +30,23 @@ function App({ store }) {
   return (
     <div className="App">
       <div className="App-head">
-        <h1>Приложение на чистом JS</h1>
+        <h1 className="App-title">Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button className="Btn" onClick={() => store.addItem()}>
+          Добавить
+        </button>
       </div>
       <div className="App-center">
         <div className="List">
           {list.map((item, i) => (
             <div key={item.code} className="List-item">
               <div
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
+                className={
+                  'Item' +
+                  (item.selected ? ' Item_selected' : '') +
+                  (i % 2 === 0 ? ' Item_even' : '')
+                }
                 onClick={e => {
                   handleItemSelect(e, item.code);
                 }}
@@ -54,6 +60,7 @@ function App({ store }) {
                 </div>
                 <div className="Item-actions">
                   <button
+                    className="Btn Btn_delete"
                     onClick={e => {
                       e.stopPropagation();
                       store.deleteItem(item.code);
