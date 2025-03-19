@@ -1,3 +1,5 @@
+import { getMaxCode } from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,6 +7,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.maxCode = getMaxCode(this.state.list);
+    this.selections = {};
   }
 
   /**
@@ -28,12 +32,22 @@ class Store {
     return this.state;
   }
 
+  getSelectionByCode(code) {
+    return this.selections[code];
+  }
+
+  updateSelectionByCode(code) {
+    const selectionCount = this.selections[code];
+    this.selections[code] = selectionCount ? selectionCount + 1 : 1;
+  }
+
   /**
    * Установка состояния
    * @param newState {Object}
    */
   setState(newState) {
     this.state = newState;
+
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
@@ -42,9 +56,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const code = ++this.maxCode;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: code, title: 'Новая запись' }],
     });
   }
 
@@ -57,6 +72,7 @@ class Store {
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
     });
+    delete this.selections[code];
   }
 
   /**
@@ -69,6 +85,10 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+
+          if (item.selected) {
+            this.updateSelectionByCode(item.code);
+          }
         }
         return item;
       }),
