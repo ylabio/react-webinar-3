@@ -6,14 +6,15 @@ body {
 }
 
 .App {
-  max-width: 1152px;
+  display: flex;
+  flex-direction: column;
+  max-width: 1440px;
   min-height: 100vh;
   margin: 0 auto;
   background: #fff;
 }
 
 .App-head {
-  width: 1440px;
   height: 72px;
   border-bottom: 1px solid rgba(239, 239, 239, 1);
   color: rgba(107, 74, 203, 1);
@@ -23,12 +24,15 @@ body {
   font-weight: 700;
   font-size: 32px;
   line-height: 40px;
+  padding: 15px 144px;
+  margin: 0;
 }
 
 .App-controls {
+  max-width: 1152px;
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 20px 164px 20px 144px;
 }
 
 .App-controls-button {
@@ -43,6 +47,11 @@ body {
   font-size: 14px;
   line-height: 22px;
   cursor: pointer;
+}
+
+.List {
+  max-width: 1152px;
+  padding: 0 144px;
 }
 
 .List .List-item:nth-child(odd) {

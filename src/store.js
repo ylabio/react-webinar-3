@@ -64,13 +64,21 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, isCmdPress) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
-        } else {
+          if (item.selected && !isCmdPress) {
+            item.selected = false;
+          } else if (item.selected && isCmdPress) {
+            item.selected = false;
+          } else {
+            item.selected = true;
+
+            item.quantity = item.quantity ? item.quantity++ : (item.quantity = 1);
+          }
+        } else if (!isCmdPress) {
           item.selected = false;
         }
         return item;
