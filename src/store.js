@@ -5,6 +5,16 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.nextId = this.getInitialNextId();
+  }
+
+  getInitialNextId() {
+    const maxCodeNumber = (this.state.list || []).reduce(
+      (maxNumber, curItem) => (curItem.code > maxNumber ? curItem.code : maxNumber),
+      0,
+    );
+
+    return maxCodeNumber + 1;
   }
 
   /**
@@ -44,7 +54,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.nextId++, title: 'Новая запись' }],
     });
   }
 
