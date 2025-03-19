@@ -71,7 +71,7 @@ body {
 
 .List-item {
   border-bottom: 1px solid #efefef;
-  padding: 16px 16px 15px;
+
 }
 
 .Item {
@@ -79,6 +79,7 @@ body {
   align-items: center;
   justify-content: flex-start;
   transition: background-color 1s;
+  padding: 16px 16px 15px;
 }
 
 .Item_selected {
@@ -86,6 +87,10 @@ body {
 }
 
 .Item-code {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+  color: #1a2028;
 }
 
 .Item-title {
