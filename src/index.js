@@ -5,13 +5,13 @@ import Store from './store.js';
 
 const store = new Store({
   list: [
-    { code: 1, title: 'Название элемента', selected: false },
-    { code: 2, title: 'Некий объект', selected: false },
-    { code: 3, title: 'Заголовок', selected: false },
-    { code: 4, title: 'Очень длинное название элемента из семи слов', selected: false },
-    { code: 5, title: 'Запись', selected: false },
-    { code: 6, title: 'Шестая запись', selected: false },
-    { code: 7, title: 'Седьмая запись', selected: false },
+    { code: 1, title: 'Название элемента', selected: false, selectionCount: 0 },
+    { code: 2, title: 'Некий объект', selected: false, selectionCount: 0 },
+    { code: 3, title: 'Заголовок', selected: false, selectionCount: 0 },
+    { code: 4, title: 'Очень длинное название элемента из семи слов', selected: false, selectionCount: 0 },
+    { code: 5, title: 'Запись', selected: false, selectionCount: 0 },
+    { code: 6, title: 'Шестая запись', selected: false, selectionCount: 0 },
+    { code: 7, title: 'Седьмая запись', selected: false, selectionCount: 0 },
   ],
 });
 

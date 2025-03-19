@@ -42,9 +42,16 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newItem = {
+      code: this.state.list.length + 1,
+      title: 'Новая запись',
+      selected: false,
+      selectionCount: 0,
+    };
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, newItem],
     });
   }
 
@@ -72,6 +79,22 @@ class Store {
           return { ...item, selected: !item.selected };
         }
         return { ...item, selected: isMultipleChoiceKeyPressed && item.selected };
+      }),
+    });
+  }
+
+  /**
+   * Увеличение счетчика совершенных выделений
+   * @param code
+   */
+  incrementSelectionCount(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code && !item.selected) {
+          item.selectionCount += 1;
+        }
+        return item;
       }),
     });
   }

@@ -9,15 +9,22 @@ import './styles.css';
 function App({ store }) {
   const list = store.getState().list;
 
-  const selectItemHandler = (e) => {
-    const isMultipleChoiceKeyPressed = e.ctrlKey || e.metaKey
-    store.selectItem(+e.currentTarget.id, isMultipleChoiceKeyPressed)
-  }
+  const selectItemHandler = e => {
+    const isMultipleChoiceKeyPressed = e.ctrlKey || e.metaKey;
+    store.incrementSelectionCount(+e.currentTarget.id);
+    store.selectItem(+e.currentTarget.id, isMultipleChoiceKeyPressed);
+  };
 
-  const deleteItemHandler = (e) => {
-    e.stopPropagation()
-    store.deleteItem(+e.currentTarget.id)
-  }
+  const deleteItemHandler = e => {
+    e.stopPropagation();
+    store.deleteItem(+e.currentTarget.id);
+  };
+
+  const getSelectionCountText = selectionCount => {
+    if (selectionCount === 0) return null;
+    const timesText = selectionCount > 1 ? 'раза' : 'раз';
+    return `| Выделяли ${selectionCount} ${timesText}`;
+  };
 
   return (
     <div className="App">
@@ -37,9 +44,14 @@ function App({ store }) {
                 onClick={selectItemHandler}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title_container">
+                  <div className="Item-title">{item.title}</div>
+                  <div className="Item-subtitle">{getSelectionCountText(item.selectionCount)}</div>
+                </div>
                 <div className="Item-actions">
-                  <button id={item.code} onClick={deleteItemHandler}>Удалить</button>
+                  <button id={item.code} onClick={deleteItemHandler}>
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>

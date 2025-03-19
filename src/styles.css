@@ -49,9 +49,22 @@ body {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+.Item-title_container {
+  display: flex;
   width: 100%;
+}
+
+.Item-title {
   padding: 20px 10px;
+}
+
+.Item-subtitle {
+  padding: 20px 0;
+  font-family: "Golos Text", sans-serif;;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+  color: #1a2028;
 }
 
 .Item-actions {
