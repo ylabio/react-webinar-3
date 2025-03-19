@@ -71,6 +71,9 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          if (!item.selected) {
+            item.selectedCount = (item.selectedCount || 0) + 1;
+          }
           item.selected = !item.selected;
         } else if (!isCtrlPressed) {
           item.selected = false;
