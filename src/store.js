@@ -1,3 +1,4 @@
+import { generatedId } from "./utils";
 /**
  * Хранилище состояния приложения
  */
@@ -44,7 +45,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: generatedId(), title: 'Новая запись' , selectedCounter : 0 }],
     });
   }
 
@@ -63,12 +64,21 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(event,code) {
+    let ctrlPressed =  (event.ctrlKey || event.metaKey) ;
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+      
         if (item.code === code) {
           item.selected = !item.selected;
+          console.log(item.selected)
+        }
+        if(!ctrlPressed && item.code !== code ){
+          item.selected = false;          
+        }
+        if(item.selected === true && item.code === code){
+          item.selectedCounter++
         }
         return item;
       }),

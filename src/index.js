@@ -3,16 +3,17 @@ import { createRoot } from 'react-dom/client';
 import { createElement } from './utils.js';
 import App from './app.js';
 import Store from './store.js';
+import { generatedId } from './utils.js';
 
 const store = new Store({
   list: [
-    { code: 1, title: 'Название элемента' },
-    { code: 2, title: 'Некий объект' },
-    { code: 3, title: 'Заголовок' },
-    { code: 4, title: 'Очень длинное название элемента из семи слов' },
-    { code: 5, title: 'Запись' },
-    { code: 6, title: 'Шестая запись' },
-    { code: 7, title: 'Седьмая запись' },
+    { code: generatedId(), title: 'Название элемента', selectedCounter : 0 },
+    { code: generatedId(), title: 'Некий объект', selectedCounter : 0 },
+    { code: generatedId(), title: 'Заголовок' , selectedCounter : 0 },
+    { code: generatedId(), title: 'Очень длинное название элемента из семи слов' , selectedCounter : 0},
+    { code: generatedId(), title: 'Запись' , selectedCounter : 0 },
+    { code: generatedId(), title: 'Шестая запись' , selectedCounter : 0 },
+    { code: generatedId(), title: 'Седьмая запись' , selectedCounter : 0},
   ],
 });
 
