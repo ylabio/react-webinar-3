@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement } from './utils.js';
+import { createElement,  pluralFunc } from './utils.js';
 import './styles.css';
 
 /**
@@ -9,11 +9,17 @@ import './styles.css';
  */
 function App({ store }) {
   const list = store.getState().list;
-
+  const handleItemClick = (item, event) => {
+        // Проверяем, удерживается ли клавиша Ctrl или Cmd
+    const isCtrlPressed = event.ctrlKey || event.metaKey;
+    store.selectItem(item.code, isCtrlPressed);
+  };
   return (
     <div className="App">
       <div className="App-head">
+        <div>
         <h1>Приложение на чистом JS</h1>
+        </div>
       </div>
       <div className="App-controls">
         <button onClick={() => store.addItem()}>Добавить</button>
@@ -21,18 +27,30 @@ function App({ store }) {
       <div className="App-center">
         <div className="List">
           {list.map(item => (
-            <div key={item.code} className="List-item">
-              <div
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
-              >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
-                </div>
-              </div>
-            </div>
+           <div key={item.code} className="List-item">
+           <div
+             className={"Item" + (item.selected ? " Item_selected" : "")}
+           
+           >
+             <div className="Item-code">{item.code}</div>
+             <div className="Item-title"   onClick={(event) => handleItemClick(item, event)}>
+               {item.title}
+               <span>
+               {item?.count && item.count !== 0 &&
+                 `${' '}| Выделяли ${item.count} ${pluralFunc(item.count,{
+                  one: "раз",
+                  few: "раза",
+                  many: "раз",})}`
+                }
+                </span>
+             </div>
+             <div className="Item-actions">
+               <button onClick={() => store.deleteItem(item.code)}>
+                 Удалить
+               </button>
+             </div>
+           </div>
+         </div>
           ))}
         </div>
       </div>

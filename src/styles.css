@@ -1,61 +1,116 @@
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  background: #fff;
+  font-family: "Golos Text", sans-serif;
 }
 
 .App {
-  max-width: 1024px;
+  display: flex;
+  flex-direction: column;
+ 
+  align-items: center; /* Центрируем по вертикали */
+  height: 100%; /* Высота контейнера */
   min-height: 100vh;
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
+ 
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  width: 100%;
+  align-items:start;
+  height: 71px;
+  border-bottom:1px solid #EFEFEF;
+  background: #fff;
+  
 }
+.App-head>div {
+  margin: 0 auto;
+  display: flex;
+  justify-content: start;
+  width: 1160px;
 
-.App-head h1 {
-  margin: 0;
-  padding: 20px 20px 10px;
+  
 }
+.App-head >div>h1 {
+ color: #6B4ACB;
+ font-size: 32px;
 
+}
+.App-center{
+  width: 1160px;
+  padding: 1px 0px 4px 1px;
+}
 .App-controls {
+  min-width: 1160px;
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 26px 57px 23px 10px
 }
-
+.App-controls>button {
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 22px;
+  font-family: "Montserrat Alternates", sans-serif;
+  padding: 9px 16px 9px 16px;
+  background: #6B4ACB;
+  border: none;
+  color: #FFFFFF;
+  border-radius: 4px;
+  letter-spacing: 10%;
+  font-size: 14px;
+}
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  
+  border-bottom: 1px dashed #EFEFEF;
+  padding: 0px;
 }
 
 .Item {
+  height: 71px;
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
 }
+.List>div:nth-child(odd) {
+  background-color: rgba(107, 74, 203, 0.0314); 
+}
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: rgba(107, 74, 203, 0.1);
+ 
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  padding: 27px 9px 20px 17px;
 }
 
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
+  font-weight: 700;
+  padding:26px 19px 19px 6px
 }
-
-.Item-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+.Item-title >span{
+  font-weight: 400;
+  
+}
+.Item-actions{
+ display: flex;
+ align-self: center;
+ justify-self: end;
+ padding: 20px 23px 20px 17px;
+}
+.Item-actions>button {
+  font-family: "Montserrat Alternates", sans-serif;
+  background: #6B4ACB;
+  padding: 12px 18px 12px 18px;
+  border-radius: 4px;
+  font-weight: 700;
+  border: none;
+  background: rgba(212, 59, 59, 1);
+  color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+  
 }
