@@ -63,13 +63,18 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, ctrlKey = false) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          // Переключаем выделение для текущей записи
+          return { ...item, selected: !item.selected };
+        } else if (!ctrlKey) {
+          // Сбрасываем выделение с остальных записей, если Ctrl/Cmd не удерживается
+          return { ...item, selected: false };
         }
+        // Если Ctrl/Cmd удерживается, оставляем выделение других записей без изменений
         return item;
       }),
     });
