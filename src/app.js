@@ -1,5 +1,4 @@
-import React from 'react';
-import { createElement } from './utils.js';
+import React, { useState } from 'react';
 import './styles.css';
 
 /**
@@ -9,14 +8,16 @@ import './styles.css';
  */
 function App({ store }) {
   const list = store.getState().list;
-
+  const [count, setCount] = useState(list.length);
   return (
     <div className="App">
       <div className="App-head">
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button onClick={() => {
+          setCount(count + 1);
+          store.addItem(count)}}>Добавить</button>
       </div>
       <div className="App-center">
         <div className="List">
@@ -24,12 +25,18 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(e) => {
+                  store.selectItem(item.code, e.ctrlKey || e.metaKey)}}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">
+                  {`${item.title} ${item.clickCount !== 0 ? `| Выделяли ${item.clickCount} раз` : ''}`}
+                </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button onClick={(e) => {
+                    e.stopPropagation();
+                    store.deleteItem(item.code);
+                    }}>Удалить</button>
                 </div>
               </div>
             </div>
