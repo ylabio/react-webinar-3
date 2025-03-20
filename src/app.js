@@ -19,9 +19,9 @@ function App({ store }) {
         <button onClick={() => store.addItem()}>Добавить</button>
       </div>
       <div className="App-center">
-        <div className="List">
+        <ul className="List">
           {list.map(item => (
-            <div key={item.code} className="List-item">
+            <li key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
                 onClick={event => {
@@ -30,9 +30,13 @@ function App({ store }) {
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
-                  {item.selectCount
-                    ? `${item.title} | Выделяли ${item.selectCount} раз`
-                    : item.title}
+                  {item.selectCount ? (
+                    <>
+                      <strong>{item.title}</strong> | Выделяли {item.selectCount} раз
+                    </>
+                  ) : (
+                    <strong>{item.title}</strong>
+                  )}
                 </div>
                 <div className="Item-actions">
                   <button
@@ -45,9 +49,9 @@ function App({ store }) {
                   </button>
                 </div>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   );
