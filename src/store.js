@@ -6,7 +6,7 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.lastId = initState.list[initState.list.length - 1].code;
-    this.selectedItems = 0;
+    this.selectedItemsCount = 0;
   }
 
   /**
@@ -70,7 +70,7 @@ class Store {
    * Подсчет количества выделенных записей
    */
   hasSelectedItem() {
-    this.selectedItems = this.state.list.filter(item => item.selected).length;
+    this.selectedItemsCount = this.state.list.filter(item => item.selected).length;
   }
 
   /**
@@ -103,7 +103,7 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = this.selectedItems > 1 && (event.ctrlKey || event.metaKey) ? !item.selected : this.selectedItems > 1 ? true : !item.selected;
+          item.selected = this.selectedItemsCount > 1 && (event.ctrlKey || event.metaKey) ? !item.selected : this.selectedItemsCount > 1 ? true : !item.selected;
           if (item.selected) {
             item.selectedCount = item.selectedCount ? item.selectedCount + 1 : 1;
             item.selectedMessage = item.selectedCount ? ` | Выделяли ${this.pluralize(item.selectedCount, 'раз', 'раза', 'раз')}` : '';
