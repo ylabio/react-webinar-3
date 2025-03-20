@@ -1,61 +1,118 @@
+/* Общие стили */
 body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .App {
-  max-width: 1024px;
-  min-height: 100vh;
-  margin: 0 auto;
-  background: #fff;
-  box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
+  width: 80%;
+  max-width: 800px;
+  min-width: 800px;
+
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
-}
-
-.App-head h1 {
-  margin: 0;
-  padding: 20px 20px 10px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .App-controls {
   display: flex;
-  justify-content: flex-end;
-  padding: 20px;
+  justify-content: start;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #6b4acb;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.List {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  transition: background 0.3s ease;
 }
 
 .Item {
   display: flex;
-  justify-content: flex-start;
-  transition: background-color 1s;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  display: flex;
+  background-color: #6b4acb1a;
+  color: black;
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  font-weight: bold;
+  margin-right: 10px;
+  color: #333;
 }
 
 .Item-title {
-  width: 100%;
-  padding: 20px 10px;
+  flex-grow: 1;
+  font-size: 16px;
+  font-weight: 600;
 }
 
-.Item-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+.Item-count {
+  font-size: 14px;
+  color: black;
+}
+
+.Item-actions button {
+  background: #d43b3b;
+  color: white;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 3px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.Item-actions button:hover {
+  background: darkred;
+}
+
+.empty-message {
+  text-align: center;
+  font-size: 18px;
+  color: gray;
+  margin-top: 20px;
 }
