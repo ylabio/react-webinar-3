@@ -3,8 +3,28 @@
  */
 class Store {
   constructor(initState = {}) {
+    if (initState.list) {
+      initState.list = initState.list.map(item => ({
+        ...item,
+        selectionCount: item.selectionCount || 0,
+      }));
+    }
+
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+
+    this.lastUsedCode = this.findMaxCode();
+  }
+
+  /**
+   * Находит максимальный существующий код в списке
+   * @returns {Number} Максимальный код
+   */
+  findMaxCode() {
+    if (!this.state.list || this.state.list.length === 0) {
+      return 0;
+    }
+    return Math.max(...this.state.list.map(item => item.code));
   }
 
   /**
@@ -42,9 +62,14 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.lastUsedCode += 1;
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        { code: this.lastUsedCode, title: 'Новая запись', selectionCount: 0 },
+      ],
     });
   }
 
@@ -63,13 +88,24 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, isMultiSelect = false) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          const newSelected = !item.selected;
+          const newSelectionCount = newSelected ? item.selectionCount + 1 : item.selectionCount;
+          return {
+            ...item,
+            selected: newSelected,
+            selectionCount: newSelectionCount,
+          };
         }
+
+        if (!isMultiSelect) {
+          return { ...item, selected: false };
+        }
+
         return item;
       }),
     });
