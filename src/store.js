@@ -5,6 +5,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.maxCode =
+      this.state.list.length > 0 ? Math.max(...this.state.list.map(item => item.code)) : 0;
   }
 
   /**
@@ -42,9 +44,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.maxCode += 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.maxCode, title: 'Новая запись', selectionCount: 0 }],
     });
   }
 
@@ -63,13 +66,22 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, ctrlKey = false) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          // Переключаем выделение для текущей записи
+          return {
+            ...item,
+            selected: !item.selected,
+            selectionCount: item.selected ? item.selectionCount : (item.selectionCount || 0) + 1,
+          };
+        } else if (!ctrlKey) {
+          // Сбрасываем выделение с остальных записей, если Ctrl/Cmd не удерживается
+          return { ...item, selected: false };
         }
+        // Если Ctrl/Cmd удерживается, оставляем выделение других записей без изменений
         return item;
       }),
     });
