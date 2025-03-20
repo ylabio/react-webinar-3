@@ -3,11 +3,15 @@
  */
 class Store {
   constructor(initState = {}) {
-    const list = initState.list || [];
-    const maxCode = list.length > 0
-      ? Math.max(...list.map(item => item.code))
+    const updatedList = (initState.list || []).map(item => ({
+      ...item,
+      selectionCount: 0,
+    }));
+
+    const maxCode = updatedList.length > 0
+      ? Math.max(...updatedList.map(item => item.code))
       : 0;
-    this.state = {...initState, nextCode: maxCode + 1} //Инициализация nextCode на основе максимального существующего кода
+    this.state = {...initState, list: updatedList, nextCode: maxCode + 1} //Инициализация nextCode на основе максимального существующего кода
 
     this.listeners = []; // Слушатели изменений состояния
   }
@@ -50,7 +54,7 @@ class Store {
     const newCode = this.state.nextCode;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: newCode, title: 'Новая запись' }],
+      list: [...this.state.list, { code: newCode, title: 'Новая запись', selectionCount: 0 }],
       nextCode: newCode + 1 // Увеличить для следующего добавления
     });
   }
@@ -77,7 +81,12 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          return {...item, selected: !item.selected};
+          const isSelected = !item.selected;
+          return {
+            ...item,
+            selected: isSelected,
+            selectionCount: isSelected ? item.selectionCount + 1 : item.selectionCount
+          };
         } else {
           return isCtrlOrCmdPressed ? item : {...item, selected: false};
         }
