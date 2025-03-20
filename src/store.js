@@ -2,9 +2,9 @@
  * Хранилище состояния приложения
  */
 class Store {
-  constructor(initState = {}) {
+  constructor(initState = { list: [], codes: [] }) {
     this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.listeners = [];
   }
 
   /**
@@ -42,9 +42,16 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const { list, codes } = this.state;
+
+    const highestCode = codes.reduce((max, code) => (code > max ? code : max), 0);
+
+    const newCode = highestCode + 1;
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...list, { code: newCode, title: 'Новая запись', counter: 0 }],
+      codes: [...codes, newCode],
     });
   }
 
@@ -63,12 +70,23 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, event) {
+    const isCtrlPressed = event.ctrlKey || event.metaKey;
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        if (!isCtrlPressed) {
+          item.selected = item.code === code ? !item.selected : false;
+          if (item.selected) {
+            item.counter += 1;
+          }
+        } else {
+          if (item.code === code) {
+            item.selected = !item.selected;
+            if (item.selected) {
+              item.counter += 1;
+            }
+          }
         }
         return item;
       }),
