@@ -1,8 +1,17 @@
+:root {
+  --white: #fff;
+  --red: rgba(212, 59, 59, 1);
+  --Main-Violet: #6b4acb;
+  --Grey-Border: #efefef;
+  --Grey-Filled: #6b4acb;
+  --Main-Black: #1a2028;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  background: #fff;
+  font-family: 'Golos Text', sans-serif;
 }
 
 .App {
@@ -11,17 +20,24 @@ body {
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
+  /* box-shadow: 0 0 15px 5px #0000003b; */
 }
 
 .App-head {
+  box-sizing: border-box;
+  padding: 16px 0;
   height: 80px;
-  background: #f5f5f5;
+  background: #fff;
+  border-bottom: 1px solid var(--Grey-Border);
 }
 
 .App-head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  color: var(--Main-Violet);
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
 }
 
 .App-controls {
@@ -31,7 +47,12 @@ body {
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid var(--Grey-Border);
+  background: rgba(107, 74, 203, 0.03);
+}
+
+.List-item:nth-child(even) {
+  background-color: #fff;
 }
 
 .Item {
@@ -41,21 +62,72 @@ body {
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  border-bottom: 1px solid var(--Grey-Border);
+  background: rgba(107, 74, 203, 0.1);
 }
 
 .Item-code {
   padding: 20px 10px 20px 20px;
+  height: 40px;
+  line-height: 40px;
 }
 
 .Item-title {
   width: 100%;
+  height: 40px;
   padding: 20px 10px;
+  line-height: 40px;
+}
+
+.Item-title-span {
+  color: var(--Main-Black);
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Button-add {
+  display: flex;
+  height: 40px;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+  background: var(--Main-Violet);
+  border: none;
+
+  font-family: 'Montserrat Alternates';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+  color: var(--white);
+}
+
+.Button-delete {
+  display: flex;
+  height: 40px;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+  background: var(--red);
+  border: none;
+
+  font-family: 'Montserrat Alternates';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+  color: var(--white);
 }

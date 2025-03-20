@@ -26,3 +26,19 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getTextNumber(number) {
+  const lastDigit = number % 10;
+  const lastTwoDigits = number % 100;
+
+  if (lastDigit === 1 && lastTwoDigits !== 11) {
+    return number + ' раз';
+  } else if (
+    (lastDigit === 2 || lastDigit === 3 || lastDigit === 4) &&
+    (lastTwoDigits < 12 || lastTwoDigits > 14)
+  ) {
+    return number + ' раза';
+  } else {
+    return number + ' раз';
+  }
+}
