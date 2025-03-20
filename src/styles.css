@@ -2,7 +2,6 @@ body {
   margin: 0;
   padding: 0;
   background: #535353;
-  font-family: sans-serif;
 }
 
 .App {
@@ -12,6 +11,7 @@ body {
   background: #fff;
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
+  font-family: 'Golos Text';
 }
 
 .App-head {
@@ -22,12 +22,28 @@ body {
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  color: #6b4acb;
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+}
+
+.App-controls button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  background-color: #6b4acb;
+  color: #fff;
+  font-family: 'Montserrat Alternates';
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
 }
 
 .List-item {
@@ -37,6 +53,7 @@ body {
 .Item {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   transition: background-color 1s;
 }
 
@@ -54,8 +71,37 @@ body {
   padding: 20px 10px;
 }
 
+.Item-title__text {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+}
+
+.Item-title__select-count {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-actions button {
+  background-color: #d43b3b;
+  padding: 8px 16px;
+  font-family: 'Montserrat Alternates';
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 22px;
+  color: #fff;
+  text-align: center;
+  vertical-align: middle;
+  letter-spacing: 0%;
+  border: none;
 }

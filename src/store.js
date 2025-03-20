@@ -2,8 +2,19 @@
  * Хранилище состояния приложения
  */
 class Store {
+  *codeGenerator(current) {
+    while (true) {
+      yield ++current;
+    }
+  }
+
   constructor(initState = {}) {
     this.state = initState;
+
+    const existCodes = this.state.list.map(el => el.code);
+    const maxCode = Math.max(...existCodes);
+    this.codeGeneratorIterator = this.codeGenerator(maxCode);
+
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -44,7 +55,10 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        { code: this.codeGeneratorIterator.next().value, title: 'Новая запись' },
+      ],
     });
   }
 
@@ -63,12 +77,18 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, multiple) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          const selected = !item.selected;
+          item.selected = selected;
+          if (selected) {
+            item.selectCount = (item.selectCount || 0) + 1;
+          }
+        } else if (!multiple) {
+          item.selected = false;
         }
         return item;
       }),
