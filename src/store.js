@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.lastCode = initState.list.length ? Math.max(...initState.list.map(item => item.code)) : 0;
   }
 
   /**
@@ -42,9 +43,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.lastCode += 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.lastCode, title: 'Новая запись', selected: false, selectCount: 0 }],
     });
   }
 
@@ -62,15 +64,33 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param ctrlPressed {boolean} - Зажат ли Ctrl/Cmd
    */
-  selectItem(code) {
+  selectItem(code, ctrlPressed) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        if (ctrlPressed) {
+          // Множественное выделение с Ctrl/Cmd
+          if (item.code === code) {
+            return {
+              ...item,
+              selected: !item.selected,
+              selectCount: item.selected ? item.selectCount : item.selectCount + 1
+            };
+          }
+          return item;
+        } else {
+          // Одиночное выделение (сбрасываем остальные)
+          if (item.code === code) {
+            return {
+              ...item,
+              selected: !item.selected,
+              selectCount: item.selected ? item.selectCount : item.selectCount + 1
+            };
+          }
+          return { ...item, selected: false };
         }
-        return item;
       }),
     });
   }
