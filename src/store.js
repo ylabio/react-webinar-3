@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.usedCodes = new Set(this.state.list.map(item => item.code)); // Список использованных кодов
   }
 
   /**
@@ -39,20 +40,30 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление новой записи с оригинальными кодами
    */
   addItem() {
+    let nextCode = 1; // Счетчик кодов
+    while (this.usedCodes.has(nextCode)) {
+      nextCode++;
+    }
+
+    this.usedCodes.add(nextCode);
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: nextCode, title: 'Новая запись' }]
     });
   }
 
   /**
    * Удаление записи по коду
-   * @param code
+   * @param code {Number}
+   * @param e {Event}
+   * @returns {Object}
    */
-  deleteItem(code) {
+  deleteItem(code, e) {
+    e.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
@@ -61,19 +72,42 @@ class Store {
 
   /**
    * Выделение записи по коду
-   * @param code
+   * @param code {Number}
+   * @param e {Event}
+   * @returns {Object}
    */
-  selectItem(code) {
+  selectItem(code, e) {
+    const isCtrlPressed = e.ctrlKey;
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        // Инициализируем количество выделений равным 0
+        if (item.selectionCount === undefined) {
+          item.selectionCount = 0;
         }
-        return item;
+
+        if (isCtrlPressed) {
+          if (item.code === code) {
+            const newSelectedState = !item.selected;
+            // Вычисляем количество выделений
+            if (newSelectedState) {
+              return { ...item, selected: newSelectedState, selectionCount: item.selectionCount + 1 };
+            } else {
+              return { ...item, selected: newSelectedState, selectionCount: item.selectionCount };
+            }
+          }
+          return item;
+        } else {
+          return {
+            ...item,
+            selected: item.code === code,
+            selectionCount: item.code === code ? item.selectionCount + 1 : item.selectionCount
+          }
+        }
       }),
     });
   }
-}
+};
 
 export default Store;
