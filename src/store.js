@@ -3,7 +3,10 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      list: initState.list || [],
+      lastCode: initState.list.length ? Math.max(...initState.list.map(item => item.code)) : 1,
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -42,9 +45,12 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newCode = this.state.lastCode + 1;
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: newCode, title: 'Новая запись' }],
+      lastCode: newCode,
     });
   }
 
@@ -63,14 +69,19 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, isCtrlPressed = false) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          const isCurrentlySelected = item.selected;
+          return {
+            ...item,
+            selected: isCtrlPressed ? !item.selected : !isCurrentlySelected,
+            selectCount: isCurrentlySelected ? item.selectCount : (item.selectCount || 0) + 1,
+          };
         }
-        return item;
+        return isCtrlPressed ? item : { ...item, selected: false };
       }),
     });
   }

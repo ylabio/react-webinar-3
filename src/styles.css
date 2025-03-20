@@ -1,3 +1,8 @@
+:root {
+  --white: #fff;
+  --violet-main: #6b4acb;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -22,6 +27,7 @@ body {
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  color: #6b4acb;
 }
 
 .App-controls {
@@ -30,12 +36,33 @@ body {
   padding: 20px;
 }
 
+.App-controls button {
+  display: flex;
+  height: 40px;
+  width: 114px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  border-radius: 4px;
+  background: var(--violet-main, #6b4acb);
+
+  color: var(--white, #fff);
+  text-align: center;
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px; /* 157.143% */
+}
+
 .List-item {
   border-bottom: 1px dashed #ccc;
 }
 
 .Item {
   display: flex;
+  align-items: center;
   justify-content: flex-start;
   transition: background-color 1s;
 }
@@ -58,4 +85,23 @@ body {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-actions button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 105px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  background: #d43b3b;
+
+  color: var(--white, #fff);
+  text-align: center;
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px; /* 157.143% */
 }
