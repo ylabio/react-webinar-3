@@ -22,6 +22,34 @@ body {
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  font-family: Golos Text, serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  color: #6B4ACB;
+}
+
+.App button {
+  border: none;
+  padding: .5rem 1rem;
+  gap: .5rem;
+  border-radius: 4px;
+
+  font-family: Montserrat Alternates, serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: center;
+  vertical-align: middle;
+  color: #FFFFFF;
+}
+
+._delete_button {
+  background: #D43B3B;
+}
+
+._add_button {
+  background: #6B4ACB;
 }
 
 .App-controls {
@@ -31,18 +59,22 @@ body {
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #EFEFEF;
+}
+
+.Item_odd {
+  background: #6B4ACB08;
 }
 
 .Item {
   display: flex;
+  align-items: center;
   justify-content: flex-start;
   transition: background-color 1s;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: #6B4ACB1A;
 }
 
 .Item-code {
@@ -52,6 +84,15 @@ body {
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+
+  font-family: Golos Text, serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.Item-title span {
+  font-weight: 400;
 }
 
 .Item-actions {

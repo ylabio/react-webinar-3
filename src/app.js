@@ -1,5 +1,4 @@
 import React from 'react';
-import { createElement } from './utils.js';
 import './styles.css';
 
 /**
@@ -16,20 +15,32 @@ function App({ store }) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button
+          className="_add_button"
+          onClick={() => store.addItem()}
+        >Добавить</button>
       </div>
       <div className="App-center">
         <div className="List">
-          {list.map(item => (
-            <div key={item.code} className="List-item">
+          {list.map((item, index) => (
+            <div key={item.code} className={'List-item'}>
               <div
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                className={'Item' + (item.selected ? ' Item_selected' : (index & 1 ? '' : ' Item_odd'))}
+                onClick={(e) => store.selectItem(item.code, e)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">{item.title}
+                  {
+                    item.selectCount
+                      ? <span> | Выделено {item.selectCount} раз</span>
+                      : ''
+                  }
+                </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button
+                    className="_delete_button"
+                    onClick={() => store.deleteItem(item.code)}
+                  >Удалить</button>
                 </div>
               </div>
             </div>
