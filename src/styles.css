@@ -16,6 +16,15 @@
   font-weight: 400;
 }
 
+:root {
+  --main-title-color: #6B4ACB;
+  --add-btn-color: #6B4ACB;
+  --add-btn-color-hover: #5228c4;
+  --del-btn-color: #D43B3B;
+  --del-btn-color-hover: #bb2136;
+  --item-selected-color: #6B4ACB1A;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -33,6 +42,7 @@ button {
   color: white;
   border: none;
   border-radius: 4px;
+  line-height: 22px;
 }
 
 .App {
@@ -52,7 +62,7 @@ button {
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
-  color: #6B4ACB;
+  color: var(--main-title-color);
 }
 
 .App-controls {
@@ -62,7 +72,12 @@ button {
 }
 
 .App-controls > button {
-  background-color: #6B4ACB;
+  background-color: var(--add-btn-color);
+  transition: 0.5s;
+}
+
+.App-controls > button:hover {
+  background-color: var(--add-btn-color-hover);
 }
 
 .List > .List-item:nth-child(2n + 1) {
@@ -77,14 +92,22 @@ button {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  display: flex;
+  align-items: center;
 }
 
 .Item_selected {
-  background: #6B4ACB1A;
+  background: var(--item-selected-color);
+
 }
 
 .Item-code {
   padding: 20px 10px 20px 20px;
+  font-family: "Golos Text", sans-serif;
+  font-weight: 400;
+}
+
+.Count-text {
   font-family: "Golos Text", sans-serif;
   font-weight: 400;
 }
@@ -101,5 +124,10 @@ button {
 }
 
 .Item-actions > button {
-  background-color: #D43B3B;
+  background-color: var(--del-btn-color);
+  transition: 0.5s;
+}
+
+.Item-actions > button:hover {
+  background-color: var(--del-btn-color-hover);
 }
