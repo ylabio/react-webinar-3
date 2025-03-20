@@ -1,12 +1,57 @@
+@font-face {
+  font-family: 'GolosText';
+  src: url('/fonts/golos-text_regular.woff2') format('woff2'),
+    url('/fonts/golos-text_regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GolosText';
+  src: url('/fonts/golos-text_bold.woff2') format('woff2'),
+    url('/fonts/golos-text_bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MontserratAlternates';
+  src: url('/fonts/MontserratAlternates-Bold.woff2') format('woff2'),
+    url('/fonts/MontserratAlternates-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
   background: #535353;
-  font-family: sans-serif;
+  font-family: 'GolosText', 'Arial', sans-serif;
+}
+
+.Button {
+  cursor: pointer;
+  display: block;
+  padding: 13px 16px;
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  color: #FFFFFF;
+  font-family: 'MontserratAlternates', 'Arial', sans-serif;
+
+  border: none;
+  border-radius: 4px;
 }
 
 .App {
-  max-width: 1024px;
+  max-width: 1440px;
   min-height: 100vh;
   margin: 0 auto;
   background: #fff;
@@ -14,48 +59,81 @@ body {
   box-shadow: 0 0 15px 5px #0000003b;
 }
 
+.App-container {
+  width: 100%;
+  max-width: 1192px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  border-bottom: 1px solid #EFEFEF;
 }
 
 .App-head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  padding: 20px 0 18px;
+
+  font-size: 32px;
+  line-height: 1;
+  color: #6B4ACB;
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 25px 16px;
+}
+
+.App-controls .Button {
+  background: #6B4ACB;
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #EFEFEF;
+}
+
+.List-item .Button {
+  background: #D43B3B;
+}
+
+.List-item:nth-child(odd) {
+  background-color: rgba(107, 74, 203, 0.03);
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
+  padding: 15px 0 16px;
+
+  font-size: 16px;
+  line-height: 1;
+
   transition: background-color 1s;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: rgba(107, 74, 203, 0.1);
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  padding: 0 7px 0 16px;
 }
 
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
+  padding: 0 10px;
+
+  font-weight: 700;
+}
+
+.Item-title span {
+  font-weight: 400;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+  padding: 0 20px 0 10px;
 }
