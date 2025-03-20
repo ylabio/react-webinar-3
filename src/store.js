@@ -73,6 +73,24 @@ class Store {
         list: this.state.list.map(item => {
           if (item.code === code) {
             item.selected = !item.selected;
+            if (item.selected) {
+              item.selectedCount ? (item.selectedCount += 1) : (item.selectedCount = 1);
+              switch (item.selectedCount % 10) {
+                case 2:
+                case 3:
+                case 4:
+                  if (
+                    item.selectedCount % 100 !== 12 &&
+                    item.selectedCount % 100 !== 13 &&
+                    item.selectedCount % 100 !== 12
+                  ) {
+                    item.selectedCountText = item.selectedCount + ' раза';
+                    break;
+                  }
+                default:
+                  item.selectedCountText = item.selectedCount + ' раз';
+              }
+            }
           } else if (!isCtrlPressed) {
             item.selected = false;
           }
