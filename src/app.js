@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement } from './utils.js';
+import { pluralize } from './utils.js';
 import './styles.css';
 
 /**
@@ -15,34 +15,57 @@ function App({ store }) {
     store.selectItem(code, isMultiSelect);
   }
 
+  function handleAddItem() {
+    store.addItem();
+  }
+
+  function handleDeleteItem(e, code) {
+    e.stopPropagation();
+    store.deleteItem(code);
+  }
+
+
+  function getSelectionText(countSelected) {
+    if (!countSelected) return "";
+
+    const text = pluralize({
+      count: countSelected,
+      formMany: "раз",
+      formOne: "раз",
+      formFew: "раза",
+    });
+
+    return ` | Выделяли ${countSelected} ${text}`;
+  }
+
   return (
     <div className="App">
-      <div className="App-head">
+      <header className="App-head">
         <h1 className="App-title Well">Приложение на чистом JS</h1>
-      </div>
-      <div className="App-controls Well">
-        <button onClick={() => store.addItem()} className="Button Btn-text">Добавить</button>
-      </div>
-      <div className="Well">
-        <div className="List">
+      </header>
+      <main className="App-main Well">
+        <button onClick={handleAddItem} className="App-controls Button">Добавить</button>
+        <ul className="List">
           {list.map(item => (
-              <div
-                key={item.code}
-                className={'List-item Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={(e) => handleSelect(e, item.code)}
-              >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}{(item.code === 1 || item.code === 3) && <span className="Item-span"> | Выделяли 7 раз</span>}</div>
-                <div className="Item-actions">
-                  <button   onClick={(e) => {
-                    e.stopPropagation();
-                    store.deleteItem(item.code);
-                  }}  className="Button Button_accent Btn-text">Удалить</button>
-                </div>
-            </div>
+            <li
+              key={item.code}
+              className={"List-item Item" + (item.selected ? " Item_selected" : "")}
+              onClick={(e) => handleSelect(e, item.code)}
+            >
+              <div className="Item-info">
+                <span>{item.code}</span>
+                <p>
+                  <span className="Item-title">{item.title}</span>
+                  {getSelectionText(item.countSelected)}
+                </p>
+              </div>
+              <button onClick={(e) => handleDeleteItem(e, item.code)}
+                      className="Item-actions Button Button_accent">Удалить
+              </button>
+            </li>
           ))}
-        </div>
-      </div>
+        </ul>
+      </main>
     </div>
   );
 }

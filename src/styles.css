@@ -40,16 +40,26 @@ body {
   line-height: 40px;
 }
 
-.App-controls {
+.App-main {
   display: flex;
-  justify-content: flex-end;
-  padding: 24px 16px;
+  flex-direction: column;
+  padding-top: 24px;
+  gap: 24px;
+}
+
+.App-controls {
+  align-self: end;
+  margin-right: 16px;
 }
 
 .Well {
   width: 100%;
   max-width: 1152px;
   margin: 0 auto;
+}
+
+.List {
+  list-style: none;
 }
 
 .List-item:nth-child(even) {
@@ -62,15 +72,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: background-color 1s;
+  transition: background-color .5s;
 }
 
 .List-item.Item_selected {
   background-color: var(--bg-list-item-selected);
-}
-
-.Item-code {
-  padding-right: 16px;
 }
 
 .Item-title {
@@ -78,13 +84,13 @@ body {
   font-weight: 700;
 }
 
-.Item-span {
-  font-weight: 400;
+.Item-info {
+  display: flex;
+  gap: 16px;
 }
 
 .Item-actions {
-  display: flex;
-  justify-content: flex-end;
+  align-self: end;
 }
 
 .Button {
@@ -102,6 +108,7 @@ body {
   letter-spacing: 0;
   text-align: center;
   vertical-align: middle;
+  width: fit-content;
 }
 
 .Button:hover {

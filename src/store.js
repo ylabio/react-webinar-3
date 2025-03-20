@@ -110,6 +110,8 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          const count = item.countSelected ?? 0
+          item.countSelected = item.selected ? count + 1 : item.countSelected
         }  else if (!isMultiSelect) {
           item.selected = false;
         }
