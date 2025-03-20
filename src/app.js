@@ -8,7 +8,14 @@ import './styles.css';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const [state, setState] = React.useState(store.getState());
+
+  React.useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+      setState(store.getState());
+    });
+    return () => unsubscribe();
+  }, [store]);
 
   return (
     <div className="App">
@@ -20,20 +27,36 @@ function App({ store }) {
       </div>
       <div className="App-center">
         <div className="List">
-          {list.map(item => (
-            <div key={item.code} className="List-item">
-              <div
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
-              >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+          {state.list.length > 0 ? (
+            state.list.map(item => (
+              <div key={item.code} className="List-item">
+                <div
+                  className={'Item' + (item.selected ? ' Item_selected' : '')}
+                  onClick={e => store.selectItem(item.code, e)}
+                >
+                  <div className="Item-code">{item.code}</div>
+                  <div className="Item-title">{item.title}</div>
+
+                  {item.selected && item.selectCount > 0 && (
+                    <div className="Item-count">Выделяли {item.selectCount} раз</div>
+                  )}
+
+                  <div className="Item-actions">
+                    <button
+                      onClick={e => {
+                        e.stopPropagation();
+                        store.deleteItem(item.code);
+                      }}
+                    >
+                      Удалить
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p className="empty-message">Список пуст</p>
+          )}
         </div>
       </div>
     </div>

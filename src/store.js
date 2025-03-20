@@ -42,9 +42,15 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+    this.setState(prevState => {
+      const list = prevState.list || [];
+
+      const maxCode = list.reduce((max, item) => Math.max(max, item.code), 0);
+      const newCode = maxCode + 1;
+
+      return {
+        list: [...list, { code: newCode, title: 'Новая запись', selected: false }],
+      };
     });
   }
 
@@ -52,10 +58,13 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
+
   deleteItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.filter(item => item.code !== code),
+    this.setState(prevState => {
+      const list = Array.isArray(prevState.list) ? prevState.list : [];
+      const updatedList = list.filter(item => item.code !== code);
+
+      return { list: updatedList };
     });
   }
 
@@ -63,15 +72,28 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      }),
+  selectItem(code, event = {}) {
+    this.setState(prevState => {
+      const list = prevState.list || [];
+
+      return {
+        list: list.map(item => {
+          if (event.ctrlKey || event.metaKey) {
+            return item.code === code
+              ? { ...item, selected: !item.selected, selectCount: (item.selectCount || 0) + 1 }
+              : item;
+          } else {
+            if (item.code === code && item.selected) {
+              return { ...item, selected: false };
+            }
+            return {
+              ...item,
+              selected: item.code === code,
+              selectCount: item.code === code ? (item.selectCount || 0) + 1 : item.selectCount,
+            };
+          }
+        }),
+      };
     });
   }
 }
