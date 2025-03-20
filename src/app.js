@@ -13,12 +13,18 @@ function App({ store }) {
   return (
     <div className="App">
       <div className="App-head">
-        <h1>Приложение на чистом JS</h1>
+        <div className="container">
+          <h1 className="">Приложение на чистом JS</h1>
+        </div>
       </div>
-      <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+      <div className="container">
+        <div className="App-controls ">
+          <button className="Button Button_primary" onClick={() => store.addItem()}>
+            Добавить
+          </button>
+        </div>
       </div>
-      <div className="App-center">
+      <div className="App-center container">
         <div className="List">
           {list.map(item => (
             <div key={item.code} className="List-item">
@@ -27,9 +33,16 @@ function App({ store }) {
                 onClick={() => store.selectItem(item.code)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">
+                  <strong>{item.title}</strong>
+                </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button
+                    className="Button Button_primary"
+                    onClick={() => store.deleteItem(item.code)}
+                  >
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>
