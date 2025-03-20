@@ -43,7 +43,9 @@ function App({ store }) {
                   <div className="Item-code">{item.code}</div>
                   <div className="Item-title">
                     <b>{item.title}</b>
-                    {item.selectedCounter !== 0 && `| Выделяли ${item.selectedCounter} раз`}
+                    {item.selectedCounter !== 0 && (
+                      <span>| Выделяли {item.selectedCounter} раз</span>
+                    )}
                   </div>
 
                   <div className="Item-actions">
