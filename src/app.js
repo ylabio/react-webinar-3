@@ -9,7 +9,6 @@ import './styles.css';
  */
 function App({ store }) {
   const list = store.getState().list;
-
   return (
     <div className="App">
       <div className="App-head">
@@ -40,6 +39,7 @@ function App({ store }) {
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
                   <strong>{item.title}</strong>
+                  {item.selectedCount && <span> | Выделяли {item.selectedCount} раз</span>}
                 </div>
                 <div className="Item-actions">
                   <button
