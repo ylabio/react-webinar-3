@@ -111,17 +111,19 @@ class Store {
    * @param event
    */
   selectItem(code, event) {
+    const isHasEvent = event.ctrlKey || event.metaKey;
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = this.selectedItemsCount > 1 && (event.ctrlKey || event.metaKey) ? !item.selected : this.selectedItemsCount > 1 ? true : !item.selected;
+          item.selected = this.selectedItemsCount > 1 && isHasEvent ? !item.selected : this.selectedItemsCount > 1 ? true : !item.selected;
           if (item.selected) {
             item.selectedCount = item.selectedCount ? item.selectedCount + 1 : 1;
             item.selectedMessage = item.selectedCount ? ` | Выделяли ${this.pluralize(item.selectedCount, 'раз', 'раза', 'раз')}` : '';
           }
         } else {
-          if (!event.ctrlKey && !event.metaKey) {
+          if (!isHasEvent) {
             item.selected = false;
           }
         }
