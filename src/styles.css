@@ -5,6 +5,18 @@ body {
   font-family: sans-serif;
 }
 
+.Button {
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 157%;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+}
+
 .App {
   max-width: 1024px;
   min-height: 100vh;
@@ -17,6 +29,11 @@ body {
 .App-head {
   height: 80px;
   background: #f5f5f5;
+  font-family: "Golos Text", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 125%;
+  color: #6b4acb;
 }
 
 .App-head h1 {
@@ -30,8 +47,12 @@ body {
   padding: 20px;
 }
 
+.App-controls__button {
+  background: #6b4acb;
+}
+
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #efefef;
 }
 
 .Item {
@@ -40,35 +61,51 @@ body {
   transition: background-color 1s;
 }
 
-.Item_selected {
+.List-item:nth-child(odd) .Item {
+  background: rgba(107, 74, 203, 0.1);
+}
+
+.List-item .Item.Item_selected {
   background: #75aaf1;
   color: #fff;
 }
 
 .Item-code {
   padding: 20px 10px 20px 20px;
+  font-weight: 400;
 }
 
-.Item-title_container {
+.Item-title__container {
   display: flex;
+  align-items: center;
   width: 100%;
+}
+
+.Item-title, .Item-subtitle, .Item-code {
+  font-family: "Golos Text", sans-serif;
+  font-size: 16px;
+  line-height: 137%;
+  color: #1a2028;
 }
 
 .Item-title {
   padding: 20px 10px;
+  font-weight: 700;
 }
 
 .Item-subtitle {
-  padding: 20px 0;
-  font-family: "Golos Text", sans-serif;;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 137%;
-  color: #1a2028;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-actions__button {
+  align-self: flex-start;
+  border-radius: 4px;
+  padding: 8px 16px;
+  background: #d43b3b;
 }

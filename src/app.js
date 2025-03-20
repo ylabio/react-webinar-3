@@ -32,7 +32,9 @@ function App({ store }) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button className="App-controls__button Button" onClick={() => store.addItem()}>
+          Добавить
+        </button>
       </div>
       <div className="App-center">
         <div className="List">
@@ -43,13 +45,17 @@ function App({ store }) {
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
                 onClick={selectItemHandler}
               >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title_container">
+                <div className="Item-title__container">
+                  <div className="Item-code">{item.code}</div>
                   <div className="Item-title">{item.title}</div>
                   <div className="Item-subtitle">{getSelectionCountText(item.selectionCount)}</div>
                 </div>
                 <div className="Item-actions">
-                  <button id={item.code} onClick={deleteItemHandler}>
+                  <button
+                    className="Item-actions__button Button"
+                    id={item.code}
+                    onClick={deleteItemHandler}
+                  >
                     Удалить
                   </button>
                 </div>
