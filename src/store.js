@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.idCode = Math.max(...this.state.list.map(item => item.code)) + 1; //ищет макс код из лист и +1 для уникального кода. Отслеживает след код
   }
 
   /**
@@ -42,11 +43,8 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    const idCode =
-      this.state.list.length > 0 ? Math.max(...this.state.list.map(item => item.code)) : 0;
-    //создается уникальный код.
     const newItem = {
-      code: idCode + 1,
+      code: this.idCode++,
       title: 'Новая запись',
       selected: false,
       count: 0,
