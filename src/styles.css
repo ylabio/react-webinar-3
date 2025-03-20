@@ -64,9 +64,14 @@ button {
 
 .List-item {
   border-bottom: 1px solid #efefef;
-
   &:nth-child(2n - 1) {
-    background-color: hsla(255, 55%, 54%, 0.031);
+    .Item {
+      background-color: hsla(255, 55%, 54%, 0.031);
+    }
+  }
+
+  .Item.Item_selected {
+    background: #6b4acb1a;
   }
 }
 
@@ -74,14 +79,10 @@ button {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  background-color: transparent;
 }
 
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
-}
-
-.Item-code {
+.Item .Item-code {
   padding: 25px 16px 0;
 }
 
