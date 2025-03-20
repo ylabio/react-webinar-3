@@ -8,6 +8,7 @@ import './styles.css';
  */
 function App({ store }) {
   const list = store.getState().list;
+  console.log(list);
 
   const addItemHandler = () => {
     store.addItem();
@@ -40,7 +41,11 @@ function App({ store }) {
                   onClick={selectItemHandler}
                 >
                   <div className="Item-code">{item.code}</div>
-                  <div className="Item-title">{item.title}</div>
+                  <div className="Item-title">
+                    <b>{item.title}</b>
+                    {item.selectedCounter !== 0 && `| Выделяли ${item.selectedCounter} раз`}
+                  </div>
+
                   <div className="Item-actions">
                     <button onClick={deleteItemHandler}>Удалить</button>
                   </div>

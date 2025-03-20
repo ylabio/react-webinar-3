@@ -45,7 +45,10 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: ++this.maxCode, title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        { code: ++this.maxCode, title: 'Новая запись', selectedCounter: 0 },
+      ],
     });
   }
 
@@ -73,6 +76,9 @@ class Store {
           item.selected = !item.selected;
         } else if (!ctrlKey && item.selected) {
           item.selected = !item.selected;
+        }
+        if (item.code === code && item.selected) {
+          item.selectedCounter += 1;
         }
         return item;
       }),
