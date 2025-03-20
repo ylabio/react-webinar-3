@@ -1,27 +1,41 @@
+:root {
+  --color-red: #D43B3B;
+  --color-violet: #6B4ACB;
+  --color-grey: #EFEFEF;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  /* background: #535353; */
+  background-color: #FFFFFF;
+  font-family: "Golos Text";
+  width: 1440px;
+  height: 900px;
 }
 
 .App {
-  max-width: 1024px;
-  min-height: 100vh;
-  margin: 0 auto;
-  background: #fff;
-  box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
+  height: fit-content;
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  height: 72px;
+  border-bottom: 1px solid var(--color-grey);
+  margin-bottom: 4px;
+  padding: 16px 144px 16px 144px;
 }
 
 .App-head h1 {
+  font-size: 32;
+  font-weight: bold;
+  color: var(--color-violet);
   margin: 0;
   padding: 20px 20px 10px;
+}
+
+.App-center {
+  margin: auto;
+  width: 1152px;
 }
 
 .App-controls {
@@ -31,18 +45,20 @@ body {
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid var(--color-grey);
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  font-weight: 400;
+  font-size: 16;
+  align-items: center;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background-color: #6B4ACB1A;
 }
 
 .Item-code {
@@ -50,12 +66,47 @@ body {
 }
 
 .Item-title {
-  width: 100%;
+  width: fit-content;
+  font-weight: 700;
+  padding-right: 5px;
+}
+
+.Item-text {
   padding: 20px 10px;
+  width: 100%;
+  display: flex;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-striped {
+  background-color: #6B4ACB08;
+}
+
+.Btn-add, .Btn-del {
+  height: 40px;
+  color: white;
+  border-radius: 4%;
+  border-style: solid;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-family: "Montserrat Alternates";
+  font-size: 14;
+  font-weight: 700;
+}
+
+.Btn-add {
+  border-color: var(--color-red);
+  background-color: var(--color-red);
+}
+
+.Btn-del {
+  border-color: var(--color-violet);
+  background-color: var(--color-violet);
 }
