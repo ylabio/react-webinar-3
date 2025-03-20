@@ -30,6 +30,18 @@ body {
   padding: 20px;
 }
 
+.App-controls button{
+  background-color: #6B4ACB;
+  color: white;
+
+  font-weight: bold;
+
+  padding: 9px 16px;
+  border: none;
+
+  border-radius: 4px;
+}
+
 .List-item {
   border-bottom: 1px dashed #ccc;
 }
@@ -59,3 +71,15 @@ body {
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }
+
+.Item-actions button{
+  background-color: #D43B3B;
+  color: white;
+
+  font-weight: bold;
+
+  border: none;
+  padding: 9px 16px;
+  border-radius: 4px;
+}
+
