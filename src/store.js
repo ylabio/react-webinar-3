@@ -47,7 +47,7 @@ class Store {
     this.maxCode += 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.maxCode, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.maxCode, title: 'Новая запись', selectionCount: 0 }],
     });
   }
 
@@ -72,7 +72,11 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           // Переключаем выделение для текущей записи
-          return { ...item, selected: !item.selected };
+          return {
+            ...item,
+            selected: !item.selected,
+            selectionCount: item.selected ? item.selectionCount : (item.selectionCount || 0) + 1,
+          };
         } else if (!ctrlKey) {
           // Сбрасываем выделение с остальных записей, если Ctrl/Cmd не удерживается
           return { ...item, selected: false };

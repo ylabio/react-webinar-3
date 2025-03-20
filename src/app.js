@@ -27,7 +27,14 @@ function App({ store }) {
                 onClick={e => store.selectItem(item.code, e.ctrlKey || e.metaKey)} // Передаём ctrlKey или metaKey
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">
+                  {item.title}
+                  {item.selectionCount > 0 && (
+                    <span className="Item-selection-count">
+                      (Выделяли {item.selectionCount} раз)
+                    </span>
+                  )}
+                </div>
                 <div className="Item-actions">
                   <button
                     onClick={e => {
