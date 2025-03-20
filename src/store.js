@@ -44,7 +44,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: Math.max(...this.state.list.map(lists => lists.code)) + 1, title: 'Новая запись', clicks: 0, selected: false }],
     });
   }
 
@@ -63,17 +63,43 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+
+  selectItem(code, isCtrlPressed) {
+    let updatedList = this.state.list.map(item => {
+      if (isCtrlPressed) {
+        // Если Ctrl зажата
+        if (item.code === code) {
+          return { ...item, selected: !item.selected };
+        }
+        return item;
+      } else {
+        // Если Ctrl не зажата
+        if (item.code === code) {
+          return { ...item, selected: true };
+        }
+        return { ...item, selected: false };
+      }
+    });
+
+    this.setState({
+      ...this.state,
+      list: updatedList,
+    });
+  }
+
+  // Локальная функция для подсчета кликов на запись
+  clickOnRow(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          return { ...item, clicks: item.clicks + 1 };
         }
         return item;
-      }),
+      })
     });
   }
 }
 
 export default Store;
+
