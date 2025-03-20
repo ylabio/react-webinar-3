@@ -41,16 +41,35 @@ class Store {
   }
 
   /**
+   * Установка значения последнего id записи
+   * @param lastId
+   */
+  setLastId(lastId) {
+    this.lastId = lastId;
+  }
+
+ /**
+   * Установка количества выделленых записей
+   * @param selectedItemsCount
+   */
+  setSelectedItemsCount(selectedItemsCount) {
+    this.selectedItemsCount = selectedItemsCount;
+  }
+
+
+  /**
    * Добавление новой записи
    * @param ev
    */
   addItem(ev) {
     ev.stopPropagation();
-    this.lastId += 1;
+    const lastId = this.lastId + 1;
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.lastId, title: 'Новая запись'}],
+      list: [...this.state.list, {code: lastId, title: 'Новая запись'}],
     });
+    this.setLastId(lastId);
   }
 
   /**
@@ -64,13 +83,6 @@ class Store {
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
     });
-  }
-
-  /**
-   * Подсчет количества выделенных записей
-   */
-  hasSelectedItem() {
-    this.selectedItemsCount = this.state.list.filter(item => item.selected).length;
   }
 
   /**
@@ -118,7 +130,7 @@ class Store {
       }),
     });
 
-    this.hasSelectedItem()
+    this.setSelectedItemsCount(this.state.list.filter(item => item.selected).length);
   }
 }
 
