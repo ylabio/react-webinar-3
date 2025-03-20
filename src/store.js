@@ -62,14 +62,24 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param ctrlKey нажат ли Ctrl (или Cmd на macOS)
    */
-  selectItem(code) {
+  selectItem(code, ctrlKey) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        if (ctrlKey) {
+          if (item.code === code) {
+            item.selected = !item.selected;
+          }
+        } else {
+          if (item.code === code) {
+            item.selected = !item.selected;
+          } else {
+            item.selected = false;
+          }
         }
+
         return item;
       }),
     });
