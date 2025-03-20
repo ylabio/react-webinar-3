@@ -1,6 +1,7 @@
 import React from 'react';
 import { createElement } from './utils.js';
 import './styles.css';
+import { getTimesText } from './utils.js';
 
 /**
  * Приложение
@@ -27,7 +28,7 @@ function App({ store }) {
                 onClick={(event) => store.selectItem(item.code, event.ctrlKey || event.metaKey)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}<span>{item.selectCount > 0 && ` | Выделяли ${item.selectCount} раз`}</span></div>
+                <div className="Item-title">{item.title}<span>{item.selectCount > 0 && ` | Выделяли ${item.selectCount} ${getTimesText(item.selectCount)}`} </span></div>
 
                 <div className="Item-actions">
                   <button onClick={(event) => { event.stopPropagation(); store.deleteItem(item.code); }}>Удалить</button>
