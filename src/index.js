@@ -4,16 +4,19 @@ import { createElement } from './utils.js';
 import App from './app.js';
 import Store from './store.js';
 
+const initArr = [
+  { code: 1, title: 'Название элемента' },
+  { code: 2, title: 'Некий объект' },
+  { code: 3, title: 'Заголовок' },
+  { code: 4, title: 'Очень длинное название элемента из семи слов' },
+  { code: 5, title: 'Запись' },
+  { code: 6, title: 'Шестая запись' },
+  { code: 7, title: 'Седьмая запись' },
+];
+
 const store = new Store({
-  list: [
-    { code: 1, title: 'Название элемента' },
-    { code: 2, title: 'Некий объект' },
-    { code: 3, title: 'Заголовок' },
-    { code: 4, title: 'Очень длинное название элемента из семи слов' },
-    { code: 5, title: 'Запись' },
-    { code: 6, title: 'Шестая запись' },
-    { code: 7, title: 'Седьмая запись' },
-  ],
+  list: initArr,
+  uniqCode: initArr.length + 1,
 });
 
 const root = createRoot(document.getElementById('root'));
