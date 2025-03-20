@@ -1,7 +1,30 @@
+/* keep all color together */
+:root {
+  --black: #1A2028;
+  --border: #EFEFEF;
+  --white: #FFF;
+  --red: #D43B3B;
+
+  --violet: #6B4ACB;
+  --violet-opacity-soft: #6B4ACB08;
+  --violet-opacity-hard: #6B4ACB1A;
+}
+
+/* add long border under App-head. yes, that's a bit strange way */
+#root::before {
+  content: '';
+  top: 80px;
+  display: block;
+  position: absolute;
+  width: 100vw;
+  height: 1px;
+  background: var(--border);
+}
+
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
+  background: var(--white);
   font-family: sans-serif;
 }
 
@@ -9,19 +32,17 @@ body {
   max-width: 1024px;
   min-height: 100vh;
   margin: 0 auto;
-  background: #fff;
-  box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
+  background: var(--white);
 }
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
 }
 
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  color: var(--violet);
 }
 
 .App-controls {
@@ -30,8 +51,31 @@ body {
   padding: 20px;
 }
 
+/* buttons style. general and special for different event */
+button {
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 9px 16px; 
+  color: var(--white);
+}
+
+.App-controls button {
+  background-color: var(--violet);
+}
+
+.Item-actions button {
+  background-color: var(--red);
+}
+
+/* colored listed odd numbers */
+.List .List-item:nth-child(2n-1) {
+  background: var(--violet-opacity-soft);
+}
+
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid var(--border);
 }
 
 .Item {
@@ -41,8 +85,7 @@ body {
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: var(--violet-opacity-hard);
 }
 
 .Item-code {
