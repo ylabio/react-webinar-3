@@ -4,6 +4,7 @@
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.count = initState.list.length;
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -42,9 +43,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.count++;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.count, title: 'Новая запись' }],
     });
   }
 
@@ -60,15 +62,30 @@ class Store {
   }
 
   /**
+   * Изменение счетчика выделений
+   * @param item
+   */
+  changeHighlightCount(item) {
+    if (!item.highlightCount) {
+      item.highlightCount = 1;
+    } else if (item.selected) {
+      item.highlightCount++;
+    }
+  }
+
+  /**
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, isHold) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          this.changeHighlightCount(item);
+        } else if (!isHold && item.selected) {
+          item.selected = false;
         }
         return item;
       }),
