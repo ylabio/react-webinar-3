@@ -1,3 +1,5 @@
+import { handleCtrlPress } from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -63,16 +65,22 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      }),
-    });
+  selectItem(code, event) {
+    const isCtrlPressed = event.ctrlKey || event.metaKey;
+
+    if (event.target.tagName !== 'BUTTON') {
+      this.setState({
+        ...this.state,
+        list: this.state.list.map(item => {
+          if (item.code === code) {
+            item.selected = !item.selected;
+          } else if (!isCtrlPressed) {
+            item.selected = false;
+          }
+          return item;
+        }),
+      });
+    }
   }
 }
 
