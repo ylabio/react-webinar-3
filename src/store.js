@@ -5,6 +5,38 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
+
+    window.addEventListener('keydown', this.handleKeyDown);
+    window.addEventListener('keyup', this.handleKeyUp);
+  }
+
+  /**
+   * Обработчик нажатия клавиши
+   * @param event {KeyboardEvent}
+   */
+  handleKeyDown(event) {
+    if ((event.key === 'Control' || event.key === 'Meta') && !this.state.isCtrlPressed) {
+      this.setState({
+        ...this.state,
+        isCtrlPressed: true,
+      });
+    }
+  }
+
+  /**
+   * Обработчик отпускания клавиши
+   * @param event {KeyboardEvent}
+   */
+  handleKeyUp(event) {
+    if ((event.key === 'Control' || event.key === 'Meta') && this.state.isCtrlPressed) {
+      this.setState({
+        ...this.state,
+        isCtrlPressed: false,
+      });
+    }
   }
 
   /**
@@ -44,7 +76,8 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.state.uniqCode, title: 'Новая запись' }],
+      uniqCode: this.state.uniqCode + 1,
     });
   }
 
@@ -68,7 +101,12 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          if (!item.selected) {
+            item.clickCount = item.clickCount !== undefined ? item.clickCount + 1 : 1;
+          }
           item.selected = !item.selected;
+        } else if (!this.state.isCtrlPressed) {
+          item.selected = false;
         }
         return item;
       }),
