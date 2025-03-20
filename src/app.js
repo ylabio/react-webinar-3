@@ -19,22 +19,39 @@ function App({ store }) {
         <button onClick={() => store.addItem()}>Добавить</button>
       </div>
       <div className="App-center">
-        <div className="List">
+        <ul className="List">
           {list.map(item => (
-            <div key={item.code} className="List-item">
+            <li key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={event => {
+                  store.selectItem(item.code, event.ctrlKey);
+                }}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">
+                  {item.selectCount ? (
+                    <>
+                      <strong>{item.title}</strong> | Выделяли {item.selectCount} раз
+                    </>
+                  ) : (
+                    <strong>{item.title}</strong>
+                  )}
+                </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button
+                    onClick={event => {
+                      event.stopPropagation();
+                      store.deleteItem(item.code);
+                    }}
+                  >
+                    Удалить
+                  </button>
                 </div>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   );

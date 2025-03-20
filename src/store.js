@@ -3,7 +3,7 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = { ...initState, lastCode: initState.list.length };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -44,7 +44,8 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.state.lastCode + 1, title: 'Новая запись' }],
+      lastCode: this.state.lastCode + 1,
     });
   }
 
@@ -63,12 +64,18 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, isMultiSelect) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+
+          if (item.selected) {
+            item.selectCount = item.selectCount + 1 || 1;
+          }
+        } else if (!isMultiSelect) {
+          item.selected = false;
         }
         return item;
       }),
