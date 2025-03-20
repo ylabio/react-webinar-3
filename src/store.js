@@ -44,7 +44,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.state.list[this.state.list.length - 1].code + 1, title: 'Новая запись'}],
     });
   }
 
@@ -67,11 +67,21 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        if(!item.selectedCout){
+          item.selectedCout = 0
+        }
+        
         if (item.code === code) {
-          item.selected = !item.selected;
+          if(item.selected){
+            item.selectedCout += 0
+          } else{
+            item.selectedCout += 1
+          }
+          
+          item.selected =!item.selected
         }
         return item;
-      }),
+      }), 
     });
   }
 }

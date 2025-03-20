@@ -5,6 +5,18 @@ body {
   font-family: sans-serif;
 }
 
+h1{
+  color: #6B4ACB;
+}
+
+button{
+  padding: 8px 16px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .App {
   max-width: 1024px;
   min-height: 100vh;
@@ -58,4 +70,11 @@ body {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Button-add{
+  background: #6B4ACB;
+}
+.Button-remove{
+  background: #D43B3B;
 }
