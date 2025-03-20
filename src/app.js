@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement } from './utils.js';
+import { createElement, getCorrectFormOfRaz } from './utils.js';
 import './styles.css';
 
 /**
@@ -16,7 +16,7 @@ function App({ store }) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button onClick={() => store.addItem()} className='button button_add'>Добавить</button>
       </div>
       <div className="App-center">
         <div className="List">
@@ -24,12 +24,12 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(e) => store.selectItem(e, item.code)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">{item.title} {item.selectedNum > 0 && <div className="Item-selectedNum"> | Выделяли {item.selectedNum} {getCorrectFormOfRaz(item.selectedNum)}</div>}</div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button onClick={() => store.deleteItem(item.code)} className='button button_delete'>Удалить</button>
                 </div>
               </div>
             </div>
