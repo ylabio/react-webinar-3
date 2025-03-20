@@ -24,16 +24,28 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(e) => {
+                  if(e.ctrlKey || e.metaKey){
+                    store.multiSelectItem(item.code)
+                  }else{
+                    store.selectItem(item.code)
+                  }
+                }
+              }
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">{item.title}
+                <div className="Item-allocCount">{(
+                  item.allocCounter > 0 ? 'Выделяли ' + item.allocCounter + ' раз' : ''
+                  )}</div>
+                </div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>
               </div>
             </div>
           ))}
+
         </div>
       </div>
     </div>

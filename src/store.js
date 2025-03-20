@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.countItem = 0; // Счетчик записей
   }
 
   /**
@@ -44,8 +45,15 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.countItem += 1, title: 'Новая запись', allocCounter: 0 }],
     });
+  }
+
+  /**
+   * Возвращает количество элементов списка
+   */
+  getListLength(){
+    return this.state.list.length;
   }
 
   /**
@@ -60,20 +68,52 @@ class Store {
   }
 
   /**
-   * Выделение записи по коду
+   * Единичное выделение записи по коду
    * @param code
    */
   selectItem(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        
+        if (item.code == code){
+          
+          if(!item.selected || item.selected === undefined){
+            item.allocCounter += 1;
+          }
+
+          item.selected = !item.selected;
+
+        }else{
+          item.selected = false;
+        }
+
+        return item;
+      }),
+    });
+  }
+
+    /**
+   * Множественное выделение записей по коду
+   * @param code
+   */
+  multiSelectItem(code){
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
         if (item.code === code) {
+
+          if(!item.selected || item.selected === undefined){
+            item.allocCounter += 1;
+          }
+
           item.selected = !item.selected;
         }
         return item;
       }),
     });
   }
+
 }
 
 export default Store;

@@ -49,6 +49,12 @@ body {
   padding: 20px 10px 20px 20px;
 }
 
+.Item-allocCount {
+  padding: 0px 10px 0px 0px;
+  font-size: 10px;
+  color: firebrick;
+}
+
 .Item-title {
   width: 100%;
   padding: 20px 10px;
