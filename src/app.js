@@ -1,5 +1,4 @@
 import React from 'react';
-import { createElement } from './utils.js';
 import './styles.css';
 
 /**
@@ -28,6 +27,12 @@ function App({ store }) {
                 <div className="Item">
                   <div className="Item-code">{item.code}</div>
                   <div className="Item-title">{item.title}</div>
+                  {item.selectionsCount > 0 && (
+                    <>
+                      <span>&nbsp;|&nbsp;</span>
+                      <div className="Item-selected-count">Выделяли {item.selectionsCount} раз</div>
+                    </>
+                  )}
                   <div className="Item-actions">
                     <button className="Button Delete-button" onClick={(event) => {
                       event.stopPropagation();

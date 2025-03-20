@@ -61,14 +61,12 @@ body {
 }
 
 .Item-title {
-  width: 100%;
   font-weight: 700;
 }
 
 .Item-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 16px 16px 16px 0px;
+  margin-left: auto;
+  padding: 16px;
 }
 
 .Button {

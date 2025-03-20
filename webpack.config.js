@@ -32,19 +32,6 @@ let config = {
           { loader: 'css-loader', options: { url: true, import: true } },
         ],
       },
-      // Правила обработки шрифтов
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'fonts/',
-            },
-          },
-        ],
-      },
     ],
   },
   plugins: [
