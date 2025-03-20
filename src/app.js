@@ -10,6 +10,25 @@ import './styles.css';
 function App({ store }) {
   const list = store.getState().list;
 
+  const selectItem = (item) => {
+    
+    return (event) => {
+      if (event.ctrlKey || event.metaKey || item.selected) {
+        store.selectItem(item.code);
+      } else {
+        store.resetSelecting();
+        store.selectItem(item.code);
+      }
+    };
+  };
+  
+  const deleteItem = (code) => {
+    return (event) => {
+      event.stopPropagation();
+      store.deleteItem(code);
+    }
+  }
+
   return (
     <div className="App">
       <div className="App-head">
@@ -24,12 +43,13 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={selectItem(item)}
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}</div>
+                {item.selectionCount && <div>| Выделяли {item.selectionCount} раз</div>}
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button onClick={deleteItem(item.code)}>Удалить</button>
                 </div>
               </div>
             </div>
