@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --font-family: "Golos Text", sans-serif;
+    --second-family: "Montserrat Alternates", sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -6,56 +17,104 @@ body {
 }
 
 .App {
-  max-width: 1024px;
+  max-width: 1440px;
   min-height: 100vh;
   margin: 0 auto;
+  padding: 0 144px;
   background: #fff;
-  box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  height: 72px;
+  align-content: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #efefef;
 }
 
 .App-head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 125%;
+  color: #6b4acb;
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  align-items: center;
+  padding: 16px;
+  height: 88px;
+}
+
+.App-controls button {
+    border: none;
+    background: #6b4acb;
+    border-radius: 4px;
+    padding: 8px 16px;
+    width: 114px;
+    height: 40px;
+    cursor: pointer;
+    font-family: var(--second-family);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 157%;
+    text-align: center;
+    color: #fff;
+}
+
+.List .List-item:nth-child(2n+1) {
+  background: rgba(107, 74, 203, 0.03);
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+    border-bottom: 1px solid #efefef;
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  padding: 16px;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: rgba(107, 74, 203, 0.1);
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+    padding-right: 16px;
+    align-content: center;
 }
 
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
+    align-content: center;
+}
+
+.bold {
+    font-weight: bold;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+}
+
+.Item-actions button {
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    width: 105px;
+    height: 40px;
+    color: #fff;
+    background: #d43b3b;
+    font-family: var(--second-family);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 157%;
+    text-align: center;
+    cursor: pointer;
 }
