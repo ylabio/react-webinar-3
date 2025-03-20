@@ -2,9 +2,12 @@
  * Хранилище состояния приложения
  */
 class Store {
+  selectedItems = [];
+  code = 1;
   constructor(initState = {}) {
     this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.listeners = [];
+    this.code = this.state.list[this.state.list.length - 1].code; 
   }
 
   /**
@@ -27,7 +30,9 @@ class Store {
   getState() {
     return this.state;
   }
-
+  getSelectedItems() {
+    return this.selectedItems;
+  }
   /**
    * Установка состояния
    * @param newState {Object}
@@ -42,10 +47,13 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newCode = this.code + 1;
+    console.log('newCode', newCode);
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: newCode, title: 'Новая запись' }],
     });
+    this.code = newCode;
   }
 
   /**
@@ -63,12 +71,34 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, keyPush) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        if (keyPush) {
+          if (item.code === code) {
+            item.selected = !item.selected;
+            if (item.selected) {
+              this.selectedItems.push(code);
+              item.selectedTimes > 0 ? (item.selectedTimes += 1) : (item.selectedTimes = 1);
+              console.log('1', this.selectedItems);
+            } else {
+              this.selectedItems = this.selectedItems.filter(selectedCode => selectedCode !== code);
+            }
+          }
+        } else {
+          if (item.code === code) {
+            item.selected = !item.selected;
+            if (item.selected) {
+              this.selectedItems = [code];
+              item.selectedTimes > 0 ? (item.selectedTimes += 1) : (item.selectedTimes = 1);
+              console.log('2', item.selectedTimes);
+            } else {
+              this.selectedItems = [];
+            }
+          } else {
+            item.selected = false;
+          }
         }
         return item;
       }),
