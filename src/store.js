@@ -68,10 +68,15 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (event.ctrlKey || event.metaKey) {
-          return item.code === code ? { ...item, selected: !item.selected } : item;
+        if (item.code === code) {
+          const newSelected = !item.selected;
+          return {
+            ...item,
+            selected: newSelected,
+            counter: newSelected ? (item.counter || 0) + 1 : item.counter,
+          };
         }
-        return item.code === code ? { ...item, selected: !item.selected } : { ...item, selected: false };
+        return event.ctrlKey || event.metaKey ? item : { ...item, selected: false };
       }),
     });
   }

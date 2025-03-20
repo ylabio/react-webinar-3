@@ -94,7 +94,7 @@ body {
 }
 
 .Item_selected {
-  background: #6B4ACB1A;
+  background: #6b4acb1a;
 }
 
 .Item-code {
@@ -114,8 +114,19 @@ body {
   font-size: 16px;
   line-height: 22px;
   letter-spacing: 0%;
+  display: flex;
+  align-items: center;
 
   /* padding: 20px 10px; */
+}
+
+.Item-title p{
+  padding-left: 4px;
+  font-family: 'Golos Text', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
 }
 
 .Item-actions {
