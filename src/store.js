@@ -113,5 +113,5 @@ class Store {
     });
   }
 }
-// this.state.isCtrlPressed
+
 export default Store;
