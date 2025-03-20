@@ -26,3 +26,17 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getPluralForm(n) {
+  const lastTwo = n % 100;
+  if (lastTwo >= 11 && lastTwo <= 14) return 'раз';
+
+  const lastOne = n % 10;
+  switch(lastOne) {
+    case 1: return 'раз';
+    case 2:
+    case 3:
+    case 4: return 'раза';
+    default: return 'раз';
+  }
+}

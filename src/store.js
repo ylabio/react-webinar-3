@@ -3,7 +3,16 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    const updatedList = (initState.list || []).map(item => ({
+      ...item,
+      selectionCount: 0,
+    }));
+
+    const maxCode = updatedList.length > 0
+      ? Math.max(...updatedList.map(item => item.code))
+      : 0;
+    this.state = {...initState, list: updatedList, nextCode: maxCode + 1} //Инициализация nextCode на основе максимального существующего кода
+
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -42,9 +51,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newCode = this.state.nextCode;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: newCode, title: 'Новая запись', selectionCount: 0 }],
+      nextCode: newCode + 1 // Увеличить для следующего добавления
     });
   }
 
@@ -63,14 +74,22 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, event) {
+    const isCtrlOrCmdPressed = event ? (event.ctrlKey || event.metaKey) : false;
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          const isSelected = !item.selected;
+          return {
+            ...item,
+            selected: isSelected,
+            selectionCount: isSelected ? item.selectionCount + 1 : item.selectionCount
+          };
+        } else {
+          return isCtrlOrCmdPressed ? item : {...item, selected: false};
         }
-        return item;
       }),
     });
   }
