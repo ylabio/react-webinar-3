@@ -26,3 +26,16 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getCorrectFormOfRaz(count) {
+  const lastDigit = count % 10; 
+  const lastTwoDigits = count % 100; 
+
+  if (lastDigit === 1 && lastTwoDigits !== 11) {
+      return 'раз';
+  } else if ((lastDigit >= 2 && lastDigit <= 4) && (lastTwoDigits < 12 || lastTwoDigits > 14)) {
+      return 'раза';
+  } else {
+      return 'раз';
+  }
+}

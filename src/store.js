@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.code = initState.list.length;
   }
 
   /**
@@ -44,7 +45,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: ++this.code, title: 'Новая запись', selectedNum: 0 }],
     });
   }
 
@@ -63,16 +64,26 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      }),
-    });
+  selectItem(e, code) {
+
+  
+    if(e.target.tagName !== 'BUTTON'){
+      this.setState({
+        ...this.state,
+        list: this.state.list.map(item => {
+          if (item.code === code) {
+            item.selected = !item.selected;
+            if(item.selected){
+              item.selectedNum++;
+            }
+          }else if(!e.ctrlKey && !e.metaKey){
+              item.selected = false;  
+          }
+          return item;
+        }),
+      });
+    }
+    
   }
 }
 
