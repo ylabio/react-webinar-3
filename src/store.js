@@ -3,8 +3,15 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      list: initState.list.map(item => ({
+        ...item,
+        selected: false,
+        selectionsCount: 0 // Счётчик выделений
+      }))
+    };;
     this.listeners = []; // Слушатели изменений состояния
+    this.maxCode = Math.max(...initState.list.map(item => item.code), 1); // Максимальный код записи
   }
 
   /**
@@ -42,9 +49,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.maxCode += 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.maxCode, title: 'Новая запись', selected: false, selectionsCount: 0 }],
     });
   }
 
@@ -62,13 +70,20 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param event
    */
-  selectItem(code) {
+  selectItem(code, event) {
+    const isMultiple = event.ctrlKey || event.metaKey;  // Флаг множественного выделения
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.selectionsCount++;
+          }
+        } else if (!isMultiple) {
+          item.selected = false;
         }
         return item;
       }),
