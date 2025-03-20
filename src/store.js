@@ -44,8 +44,8 @@ class Store {
     addItem() {
         this.setState({
             ...this.state,
-            list: [...this.state.list, { code: this.state.ind + 1, title: 'Новая запись'}],
-            ind: this.state.ind + 1,
+            list: [...this.state.list, { code: this.state.lastInd + 1, title: 'Новая запись'}],
+            lastInd: this.state.lastInd + 1,
         });
     }
 
@@ -71,7 +71,7 @@ class Store {
                 if (item.code === code) {
                     item.selected = !item.selected;
                     if (item.selected) {
-                        !item.countH ? item.countH = 1 : item.countH++
+                        !item.highlightCount ? item.highlightCount = 1 : item.highlightCount++
                     }
                 } else if (!ctrlCmd) {
                     item.selected = false;
