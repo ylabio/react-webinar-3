@@ -1,12 +1,29 @@
+@import url(https://fonts.googleapis.com/css?family=Golos+Text:regular,500,600,700,800,900);
+@import url(https://fonts.googleapis.com/css?family=Montserrat+Alternates:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+
 body {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
   background: #535353;
-  font-family: sans-serif;
+  font-family: 'Golos Text';
+  letter-spacing: 0;
+  line-height: 22px;
+}
+
+button {
+  font: inherit;
+  padding: 9px 16px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  outline: none;
+  font-family: 'Montserrat Alternates';
 }
 
 .App {
-  max-width: 1024px;
+  max-width: 1440px;
   min-height: 100vh;
   margin: 0 auto;
   background: #fff;
@@ -14,48 +31,76 @@ body {
   box-shadow: 0 0 15px 5px #0000003b;
 }
 
+.wrapper {
+  max-width: 1142px;
+  margin: 0 auto;
+  padding: 0 8px;
+}
+
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  height: 72px;
+  border-bottom: 1px solid #efefef;
 }
 
 .App-head h1 {
+  line-height: 40px;
+  color: #6b4acb;
+  font-size: 32px;
+  font-weight: 700;
   margin: 0;
-  padding: 20px 20px 10px;
+  padding: 16px 0px;
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+
+  button {
+    background-color: #6b4acb;
+    color: #ffffff;
+  }
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #efefef;
+  &:nth-child(2n - 1) {
+    .Item {
+      background-color: hsla(255, 55%, 54%, 0.031);
+    }
+  }
+
+  .Item.Item_selected {
+    background: #6b4acb1a;
+  }
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  background-color: transparent;
 }
 
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
-}
-
-.Item-code {
-  padding: 20px 10px 20px 20px;
+.Item .Item-code {
+  padding: 25px 16px 0;
 }
 
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
+  padding: 25px 0;
+  span {
+    font-weight: 700;
+  }
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+  padding: 16px;
+
+  button {
+    background-color: #d43b3b;
+    color: #ffffff;
+  }
 }
