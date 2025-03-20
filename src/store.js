@@ -5,6 +5,10 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.nextCode =
+      initState.list && initState.list.length > 0
+        ? Math.max(...initState.list.map(item => item.code)) + 1
+        : 1;
   }
 
   /**
@@ -44,8 +48,13 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        { code: this.nextCode, title: 'Новая запись', selected: false, counter: 0 },
+      ],
     });
+
+    this.nextCode += 1;
   }
 
   /**
@@ -62,13 +71,27 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param isCtrlPressed
    */
-  selectItem(code) {
+  selectItem(code, isCtrlPressed = false) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          // Если запись уже выделена, снимаем выделение
+          if (item.selected) {
+            item.selected = false;
+          } else {
+            // Если Ctrl/Cmd не нажат, снимаем выделение со всех записей
+            if (!isCtrlPressed) {
+              this.state.list.forEach(i => (i.selected = false));
+            }
+            item.selected = true;
+            item.selectionCount += 1; // Увеличиваем счетчик выделений
+          }
+        } else if (!isCtrlPressed) {
+          // Если Ctrl/Cmd не нажат, снимаем выделение с других записей
+          item.selected = false;
         }
         return item;
       }),
