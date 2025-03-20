@@ -17,6 +17,7 @@ const initArr = [
 const store = new Store({
   list: initArr,
   uniqCode: initArr.length + 1,
+  isCtrlPressed: false,
 });
 
 const root = createRoot(document.getElementById('root'));

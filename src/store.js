@@ -5,6 +5,38 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
+
+    window.addEventListener('keydown', this.handleKeyDown);
+    window.addEventListener('keyup', this.handleKeyUp);
+  }
+
+  /**
+   * Обработчик нажатия клавиши
+   * @param event {KeyboardEvent}
+   */
+  handleKeyDown(event) {
+    if ((event.key === 'Control' || event.key === 'Meta') && !this.state.isCtrlPressed) {
+      this.setState({
+        ...this.state,
+        isCtrlPressed: true,
+      });
+    }
+  }
+
+  /**
+   * Обработчик отпускания клавиши
+   * @param event {KeyboardEvent}
+   */
+  handleKeyUp(event) {
+    if ((event.key === 'Control' || event.key === 'Meta') && this.state.isCtrlPressed) {
+      this.setState({
+        ...this.state,
+        isCtrlPressed: false,
+      });
+    }
   }
 
   /**
@@ -70,11 +102,13 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+        } else if (!this.state.isCtrlPressed) {
+          item.selected = false;
         }
         return item;
       }),
     });
   }
 }
-
+// this.state.isCtrlPressed
 export default Store;
