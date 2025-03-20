@@ -26,3 +26,14 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Функция для правильного склонения слова "раз"
+ * @param count {number}  
+ * @returns {string}
+ */
+export function getTimesText(count) {
+  if (count % 10 === 1 && count % 100 !== 11) return "раз";
+  if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) return "раза";
+  return "раз";
+}
