@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state.countDb = Array.isArray(initState.list) ? initState.list.length : 0;
   }
 
   /**
@@ -25,6 +26,8 @@ class Store {
    * @returns {Object}
    */
   getState() {
+    // console.log(this.state);
+    // console.log(this.listeners);
     return this.state;
   }
 
@@ -44,7 +47,8 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.state.countDb + 1, title: 'Новая запись' }],
+      countDb: this.state.countDb + 1,
     });
   }
 
@@ -63,13 +67,24 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, isCtrlPressed = false) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        if (!item.hasOwnProperty('selectedCount')) {
+          item.selectedCount = 0;
         }
+
+        if (item.code === code) {
+          if (!item.selected) {
+            item.selectedCount += 1;
+          }
+
+          item.selected = !item.selected;
+        } else if (!isCtrlPressed) {
+          item.selected = false;
+        }
+
         return item;
       }),
     });
