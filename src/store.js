@@ -44,7 +44,8 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.state.uniqueID, title: 'Новая запись' }],
+      uniqueID: this.state.uniqueID + 1,
     });
   }
 
@@ -62,13 +63,22 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param ctrlMetaKey
    */
-  selectItem(code) {
+  selectItem(code, ctrlMetaKey) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        if ((item.code === code) && !item.selected) {
+          item.selected = true;
+          item.countSelect = isNaN(item.countSelect) // Если не number или не существует
+            ? 1
+            : item.countSelect + 1;
+        } else {
+          // При нажатом Ctrl или Cmd не сбрасывать выделение других записей
+          if (!ctrlMetaKey) {
+            item.selected = false;
+          }
         }
         return item;
       }),
