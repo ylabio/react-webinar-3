@@ -3,9 +3,9 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = initState.hasOwnProperty("list") ? initState : {list: []};
     this.listeners = []; // Слушатели изменений состояния
-    this.lastId = initState.list[initState.list.length - 1].code;
+    this.lastId = Math.max(...this.state.list.map(item => item.code), 0);
     this.selectedItemsCount = 0;
   }
 
@@ -48,7 +48,7 @@ class Store {
     this.lastId = lastId;
   }
 
- /**
+  /**
    * Установка количества выделленых записей
    * @param selectedItemsCount
    */
