@@ -27,8 +27,6 @@ class Store {
    * @returns {Object}
    */
   getState() {
-    this.hasSelectedItem()
-
     return this.state;
   }
 
@@ -44,8 +42,10 @@ class Store {
 
   /**
    * Добавление новой записи
+   * @param ev
    */
-  addItem() {
+  addItem(ev) {
+    ev.stopPropagation();
     this.lastId += 1;
     this.setState({
       ...this.state,
@@ -74,6 +74,26 @@ class Store {
   }
 
   /**
+   * Определяем форму сообщения о количестве выделений записи
+   * @param count
+   * @param singular
+   * @param few
+   * @param many
+   */
+  pluralize(count, singular, few, many) {
+    const number = Math.abs(count) % 100;
+    const number1 = number % 10;
+
+    if (number1 === 1 && number !== 11) {
+      return `${count} ${singular}`;
+    } else if (number1 >= 2 && number1 <= 4 && (number < 12 || number > 14)) {
+      return `${count} ${few}`;
+    } else {
+      return `${count} ${many}`;
+    }
+  }
+
+  /**
    * Выделение записи по коду
    * @param code
    * @param event
@@ -84,8 +104,9 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = this.selectedItems > 1 && (event.ctrlKey || event.metaKey) ? !item.selected : this.selectedItems > 1 ? true : !item.selected;
-          if(item.selected) {
+          if (item.selected) {
             item.selectedCount = item.selectedCount ? item.selectedCount + 1 : 1;
+            item.selectedMessage = item.selectedCount ? ` | Выделяли ${this.pluralize(item.selectedCount, 'раз', 'раза', 'раз')}` : '';
           }
         } else {
           if (!event.ctrlKey && !event.metaKey) {
@@ -93,10 +114,11 @@ class Store {
           }
         }
 
-        return item;
+        return {...item};
       }),
     });
 
+    this.hasSelectedItem()
   }
 }
 

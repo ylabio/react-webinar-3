@@ -16,7 +16,6 @@ button {
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
   font-family: 'Golos Text', sans-serif;
 }
 
@@ -26,7 +25,6 @@ body {
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
@@ -105,6 +103,11 @@ body {
   color: #1a2028;
   margin-left: 16px;
 }
+
+.Item-title span {
+  font-weight: 400;
+}
+
 
 .Item-actions {
   display: flex;
