@@ -10,6 +10,11 @@ import './styles.css';
 function App({ store }) {
   const list = store.getState().list;
 
+  const handleItemClick = (code, event) => {
+    const isCtrlKey = event.ctrlKey || event.metaKey;
+    store.selectItem(code, isCtrlKey);
+  };
+
   return (
     <div className="App">
       <div className="App-head">
@@ -24,12 +29,18 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(event) => handleItemClick(item.code, event)}
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}</div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button  onClick={(event) => {
+                      event.stopPropagation();
+                      store.deleteItem(item.code);
+                    }}
+                  >
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>
