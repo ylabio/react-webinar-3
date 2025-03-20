@@ -2,7 +2,7 @@
  * Хранилище состояния приложения
  */
 class Store {
-  constructor(initState = {}) {
+  constructor(initState = { list: [], maxCode: 0 }) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
   }
@@ -42,9 +42,17 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newCode = this.state.maxCode + 1;
+    const newItem = {
+      code: newCode,
+      title: 'Новая запись',
+      selected: false,
+      selectedCount: 0,
+    };
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, newItem],
+      maxCode: newCode,
     });
   }
 
@@ -53,9 +61,12 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const updatedList = this.state.list.filter(item => item.code !== code);
+    const maxCode = updatedList.length > 0 ? Math.max(...updatedList.map(item => item.code)) : 0;
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code),
+      list: updatedList,
+      maxCode: maxCode,
     });
   }
 
@@ -63,14 +74,18 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, ctrlKey) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          const newSelectedCount = item.selected ? item.selectedCount : (item.selectedCount || 0) + 1; // Увеличиваем счетчик выделений
+          return { ...item, selected: !item.selected, selectedCount: newSelectedCount }; // Переключаем выделение
+        } else if (!ctrlKey) {
+          // Если Ctrl не удерживается, сбрасываем выделение у остальных
+          return { ...item, selected: false };
         }
-        return item;
+        return item; // Возвращаем элемент без изменений, если Ctrl удерживается
       }),
     });
   }
