@@ -4,7 +4,8 @@
 class Store {
   constructor(initState = {}) {
     this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.listeners = [];// Слушатели изменений состояния
+    this.lastCode = Math.max(0, ...this.state.list.map(item => item.code));
   }
 
   /**
@@ -42,9 +43,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newCode = ++this.lastCode;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: newCode, title: 'Новая запись', counter: 0 }],
     });
   }
 
@@ -62,15 +64,21 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param event {MouseEvent}
    */
-  selectItem(code) {
+  selectItem(code, event) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          const newSelected = !item.selected;
+          return {
+            ...item,
+            selected: newSelected,
+            counter: newSelected ? (item.counter || 0) + 1 : item.counter,
+          };
         }
-        return item;
+        return event.ctrlKey || event.metaKey ? item : { ...item, selected: false };
       }),
     });
   }
