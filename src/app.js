@@ -25,8 +25,7 @@ function App({ store }) {
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
                 onClick={event => {
-                  if (!event.ctrlKey) store.unselectItems();
-                  store.selectItem(item.code);
+                  store.selectItem(item.code, event.ctrlKey);
                 }}
               >
                 <div className="Item-code">{item.code}</div>
