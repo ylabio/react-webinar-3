@@ -1,5 +1,6 @@
 import React from 'react';
 import { createElement } from './utils.js';
+import { getSelectionText } from './getSelectionText.js';
 import './styles.css';
 
 /**
@@ -27,7 +28,10 @@ function App({ store }) {
                 onClick={() => store.selectItem(item.code)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">
+                  {item.title}
+                  <span>{item.clickCount !== undefined ? getSelectionText(item.clickCount) : ""}</span>
+                </div>
                 <div className="Item-actions">
                   <button onClick={(event) => {
                     event.stopPropagation();
