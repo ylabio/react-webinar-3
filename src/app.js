@@ -31,7 +31,8 @@ function App({ store }) {
                   {item.title}
                   {item.selectionCount > 0 && (
                     <span className="Item-selection-count">
-                      (Выделяли {item.selectionCount} раз)
+                      {' | Выделяли '}
+                      {item.selectionCount} раз
                     </span>
                   )}
                 </div>
