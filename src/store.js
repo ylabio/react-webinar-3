@@ -61,43 +61,61 @@ class Store {
   }
 
   /**
+   * Сборка текста о количестве выделения задач
+   */
+  getCountText(item) {
+    if (item.selected) {
+      item.selectedCount ? (item.selectedCount += 1) : (item.selectedCount = 1);
+      switch (item.selectedCount % 10) {
+        case 2:
+        case 3:
+        case 4:
+          if (
+            item.selectedCount % 100 !== 12 &&
+            item.selectedCount % 100 !== 13 &&
+            item.selectedCount % 100 !== 14
+          ) {
+            item.selectedCountText = item.selectedCount + ' раза';
+            break;
+          }
+        default:
+          item.selectedCountText = item.selectedCount + ' раз';
+      }
+    }
+    return item;
+  }
+
+  /**
    * Выделение записи по коду
    * @param code
    */
   selectItem(code, event) {
     const isCtrlPressed = event.ctrlKey || event.metaKey;
 
-    if (event.target.tagName !== 'BUTTON') {
-      this.setState({
-        ...this.state,
-        list: this.state.list.map(item => {
-          if (item.code === code) {
-            item.selected = !item.selected;
-            if (item.selected) {
-              item.selectedCount ? (item.selectedCount += 1) : (item.selectedCount = 1);
-              switch (item.selectedCount % 10) {
-                case 2:
-                case 3:
-                case 4:
-                  if (
-                    item.selectedCount % 100 !== 12 &&
-                    item.selectedCount % 100 !== 13 &&
-                    item.selectedCount % 100 !== 12
-                  ) {
-                    item.selectedCountText = item.selectedCount + ' раза';
-                    break;
-                  }
-                default:
-                  item.selectedCountText = item.selectedCount + ' раз';
-              }
-            }
-          } else if (!isCtrlPressed) {
-            item.selected = false;
-          }
-          return item;
-        }),
-      });
+    if (event.target.tagName === 'BUTTON') {
+      return;
     }
+
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          if (
+            item.selected &&
+            this.state.list.filter(item => item.selected).length > 1 &&
+            !isCtrlPressed
+          ) {
+            item.selected = item.selected;
+          } else {
+            item.selected = !item.selected;
+            this.getCountText(item);
+          }
+        } else if (!isCtrlPressed) {
+          item.selected = false;
+        }
+        return item;
+      }),
+    });
   }
 }
 
