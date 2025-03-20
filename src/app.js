@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.css';
+import {pluralizeRu} from "./utils";
 
 /**
  * Приложение
@@ -22,8 +23,8 @@ function App({ store }) {
 
   const getSelectionCountText = selectionCount => {
     if (selectionCount === 0) return null;
-    const timesText = selectionCount > 1 ? 'раза' : 'раз';
-    return `| Выделяли ${selectionCount} ${timesText}`;
+    const timesText = pluralizeRu(selectionCount, 'раз', 'раза', 'раз')
+    return `| Выделяли ${timesText}`;
   };
 
   return (
