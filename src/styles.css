@@ -1,61 +1,115 @@
-body {
+* {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'GolosText';
+  src: url('fonts/GolosText-Regular.ttf');
+}
+@font-face {
+  font-family: 'GolosText Bold';
+  src: url('fonts/GolosText-Bold.ttf');
+}
+@font-face {
+  font-family: 'Montserrat Alternates Bold';
+  src: url('fonts/MontserratAlternates-Bold.ttf');
+}
+
+
+body {
+  font-family: GolosText, sans-serif;
+}
+
+.container {
+  max-width: 1152px;
+  margin: 0 auto;
 }
 
 .App {
-  max-width: 1024px;
   min-height: 100vh;
   margin: 0 auto;
   background: #fff;
-  box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  padding: 16px 0;
+  border-bottom: 1px solid #efefef;
 }
 
 .App-head h1 {
-  margin: 0;
-  padding: 20px 20px 10px;
+  font-family: "GolosText Bold", sans-serif;
+  font-size: 32px;
+  line-height: 125%;
+  color: #6b4acb;
 }
 
 .App-controls {
+  padding: 24px 0;
+}
+.App-controls .container {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+}
+
+.App-controls button {
+  border: none;
+  border-radius: 4px;
+  padding: 11px 16px;
+  width: 114px;
+  background: #6b4acb;
+  font-family: "Montserrat Alternates Bold", sans-serif;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+  margin-right: 16px;
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #efefef;
+  background-color: white;
+}
+.List-item:nth-child(odd) {
+  background: rgba(107, 74, 203, 0.03);
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  padding: 16px;
+  align-items: center;
 }
 
 .Item_selected {
-  background: #75aaf1;
+  background-color: rgba(107, 74, 203, 0.1);
   color: #fff;
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  font-size: 16px;
+  color: #1a2028;
+  margin-right: 16px;
 }
 
 .Item-title {
+  font-family: "GolosText Bold", sans-serif;
+  font-size: 16px;
+  color: #1a2028;
   width: 100%;
-  padding: 20px 10px;
+}
+.Item-title span {
+  font-family: GolosText, sans-serif;
 }
 
-.Item-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+.Item-actions button {
+  border: none;
+  border-radius: 4px;
+  padding: 11px 16px;
+  width: 105px;
+  background: #d43b3b;
+  font-family: "Montserrat Alternates Bold", sans-serif;
+  font-size: 14px;
+  color: #fff;
 }
