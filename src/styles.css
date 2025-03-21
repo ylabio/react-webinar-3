@@ -1,61 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 157%;
+  text-align: center;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  font-family: "Golos Text", sans-serif;
 }
 
 .App {
-  max-width: 1024px;
+  width: 100%;
   min-height: 100vh;
-  margin: 0 auto;
   background: #fff;
-  box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
+  margin: 0 auto;
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 72px;
+  border-bottom: 1px solid #efefef;
+  padding: 0 144px;
+  margin-bottom: 24px;
 }
 
 .App-head h1 {
-  margin: 0;
-  padding: 20px 20px 10px;
+  width: 100%;
+  max-width: 1152px;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 125%;
+  color: #6b4acb;
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  width: 1152px;
+  height: 40px;
+  padding: 0 16px;
+  margin: 0 auto 24px;
+}
+
+.App-controls button {
+  width: 114px;
+  height: 40px;
+  border-radius: 4px;
+  padding: 8px 16px;
+  background: #6b4acb;
+}
+
+.App-center {
+  width: 1152px;
+  margin: 0 auto;
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #efefef;
 }
 
 .Item {
   display: flex;
+  align-items: center;
   justify-content: flex-start;
   transition: background-color 1s;
+  padding: 16px 16px 15px;
+}
+
+.Item_shadow {
+  background: rgba(107, 74, 203, 0.03);
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: rgba(107, 74, 203, 0.1);
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+  color: #1a2028;
 }
 
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 136%;
+  color: #1a2028;
+  margin-left: 16px;
+}
+
+.Item-title span {
+  font-weight: 400;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+}
+
+.Item-actions button {
+  width: 105px;
+  height: 40px;
+  background: #d43b3b;
+  border-radius: 4px;
+  padding: 8px 16px;
 }
