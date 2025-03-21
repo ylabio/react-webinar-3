@@ -1,5 +1,4 @@
 import React from 'react';
-import { createElement } from './utils.js';
 import './styles.css';
 
 /**
@@ -20,16 +19,37 @@ function App({ store }) {
       </div>
       <div className="App-center">
         <div className="List">
-          {list.map(item => (
-            <div key={item.code} className="List-item">
+          {list.map((item, index) => (
+            <div 
+              key={item.code}
+              className="List-item"
+              style={{
+                backgroundColor: index % 2 !== 0 ? '#fff' : '#6B4ACB08'
+              }} 
+            >
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(event) => store.selectItem(item.code, event)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">
+                  {item.title}
+                  
+                  {item.selectCount > 0 && (
+                    <span className="Item-count">
+                    | Выделяли {item.selectCount} раз
+                    </span>
+                  )}
+                </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      store.deleteItem(item.code);
+                    }}
+                  >
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>
