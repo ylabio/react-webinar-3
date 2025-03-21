@@ -4,7 +4,6 @@
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
   font-family: 'Golos Text',sans-serif;
 }
 
@@ -14,7 +13,6 @@ body {
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
@@ -59,7 +57,7 @@ body {
   padding: 20px 10px;
 }
 
-.bold-title {
+.Item-title__bold {
   font-weight: bold;
 }
 
@@ -72,20 +70,17 @@ body {
 button {
   font-family: 'Montserrat Alternates', sans-serif;
   font-weight: 700;
-}
-
-button {
-  padding: 8px;
+  padding: 8px 16px;
   color: #fff;
   border: none; 
   border-radius: 8px;
 }
 
-.add-item-button {
+.Item-addButton {
   background-color: #6B4ACB;
 }
 
-.remove-item-button {
+.Item-removeButton {
   background-color: #D43B3B;
 }
 

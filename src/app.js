@@ -16,7 +16,7 @@ function App({ store }) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-      <button className="add-item-button" onClick={() => store.addItem()}>Добавить</button>
+      <button className="Item-addButton" onClick={() => store.addItem()}>Добавить</button>
       </div>
       <div className="App-center">
         <div className="List">
@@ -28,13 +28,13 @@ function App({ store }) {
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
-                  <span className="bold-title">{item.title}</span>
+                  <span className="Item-title__bold">{item.title}</span>
                   {item.selectionCount > 0 && (
                     <span className="Item-selectionCount"> | Выделяли {item.selectionCount} раз</span>
                   )}
                 </div>
                 <div className="Item-actions">
-                  <button className="remove-item-button" onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button className="Item-removeButton" onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>
               </div>
             </div>
