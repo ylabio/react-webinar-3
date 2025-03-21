@@ -26,3 +26,22 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export const createateUniqueId = (() => {
+  let count = 1;
+  return () => count++;
+})();
+
+export function getCountLabel(count, wordForms) {
+  if (count % 100 >= 11 && count % 100 <= 19) {
+    return wordForms[2];
+  }
+  const lastDigit = count % 10;
+  if (lastDigit === 1) {
+    return wordForms[0];
+  } else if (lastDigit >= 2 && lastDigit <= 4) {
+    return wordForms[1];
+  } else {
+    return wordForms[2];
+  }
+}
