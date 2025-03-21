@@ -47,7 +47,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.generator.generate(), title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.generator.generate(), title: 'Новая запись', selectionCount: 0 }],
     });
   }
 
@@ -75,6 +75,7 @@ class Store {
           item.selected = false;
         }
         if (item.code === code) {
+          item.selectionCount = item.selected ? item.selectionCount : item.selectionCount + 1;
           item.selected = !item.selected;
         }
         return item;
