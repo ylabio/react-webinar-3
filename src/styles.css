@@ -1,8 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 body {
   margin: 0;
   padding: 0;
   background: #535353;
   font-family: sans-serif;
+  font-family: 'Golos Text', sans-serif;
+}
+
+button {
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 14px;
+  line-height: 22px;
 }
 
 .App {
@@ -16,12 +26,15 @@ body {
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
+  border:1px solid #EFEFEF;
+  padding: 16px 144px;
+  line-height: 40px;
 }
 
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  color: #6B4ACB;
 }
 
 .App-controls {
@@ -30,8 +43,21 @@ body {
   padding: 20px;
 }
 
+.App-controls button {
+  background-color: #6B4ACB;
+  color: #FFFFFF;
+  padding: 8px 16px;
+  border-width: 0;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.App-center {
+  padding: 24px 144px;
+}
+
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid rgba(239, 239, 239, 1);
 }
 
 .Item {
@@ -40,9 +66,12 @@ body {
   transition: background-color 1s;
 }
 
+.Item_odd {
+  background: rgba(107, 74, 203, 0.03);
+}
+
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: rgba(107, 74, 203, 0.1);
 }
 
 .Item-code {
@@ -52,10 +81,20 @@ body {
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  line-height: 22px;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-actions button{
+  background-color: #D43B3B;
+  padding: 8px 16px;
+  color: #FFFFFF;
+  border-radius: 4px;
+  border-width: 0;
+  font-weight: 700;
 }
