@@ -82,8 +82,17 @@ class Store {
   selectItem(code, ctrlKey) {
     let itemList = this.state.list.map(item => {
       if (item.code === code) {
-        if (item.selected && !ctrlKey) {
-          item.selected = false;
+        if (item.selected) {
+          if (ctrlKey) {
+            item.selected = false;
+            if (!item.selectionCount) {
+              item.selectionCount = 1;
+            } else {
+              item.selectionCount++;
+            }
+          } else {
+            item.selected = false;
+          }
         } else {
           item.selected = true;
           if (!item.selectionCount) {
