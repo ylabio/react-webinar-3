@@ -16,7 +16,7 @@ function App({ store }) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button className="btn btn--add" onClick={() => store.addItem()}>Добавить</button>
       </div>
       <div className="App-center">
         <div className="List">
@@ -40,7 +40,7 @@ function App({ store }) {
                   )}
                 </div>
                 <div className="Item-actions">
-                  <button onClick={(e) => {
+                  <button className="btn btn--delete" onClick={(e) => {
                     e.stopPropagation();
                     store.deleteItem(item.code);
                   }}>Удалить</button>
