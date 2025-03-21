@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { createElement } from './utils.js';
 import './styles.css';
 
@@ -8,15 +8,24 @@ import './styles.css';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const [list, setList] = useState(store.getState().list);
+
+  useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+      setList(store.getState().list);
+    });
+    return () => unsubscribe();
+  }, [store]);
 
   return (
     <div className="App">
-      <div className="App-head">
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+      <div className="App-header">
+        <div className="App-head">
+          <h1>Приложение на чистом JS</h1>
+        </div>
+        <div className="App-controls">
+          <button onClick={() => store.addItem()}>Добавить</button>
+        </div>
       </div>
       <div className="App-center">
         <div className="List">
@@ -24,12 +33,21 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(e) => store.selectItem(item.code, e)}
               >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-left">
+                  <div className="Item-code">{item.code}</div>
+                  <div className="Item-title">{item.title}</div>
+                  {item.selectionCount > 0 && (
+                    <div className="Item-selection">
+                      | Выделяли {item.selectionCount} раз
+                    </div>
+                  )}
+                </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button onClick={(e) => store.deleteItem(item.code, e)}>
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>

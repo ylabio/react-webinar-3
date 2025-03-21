@@ -3,55 +3,51 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    const initialList = initState.list || [];
+    const maxCode = initialList.length > 0 
+      ? Math.max(...initialList.map(item => item.code || 0)) 
+      : 0;
+    this.state = {
+      ...initState,
+      list: initialList,
+      lastCode: maxCode,
+    };
+    this.listeners = [];
   }
 
-  /**
-   * Подписка слушателя на изменения состояния
-   * @param listener {Function}
-   * @returns {Function} Функция отписки
-   */
   subscribe(listener) {
     this.listeners.push(listener);
-    // Возвращается функция для удаления добавленного слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);
     };
   }
 
-  /**
-   * Выбор состояния
-   * @returns {Object}
-   */
   getState() {
     return this.state;
   }
 
-  /**
-   * Установка состояния
-   * @param newState {Object}
-   */
   setState(newState) {
     this.state = newState;
-    // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
   addItem() {
+    const newCode = this.state.lastCode + 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        {
+          code: newCode,
+          title: 'Новая запись',
+          selected: false,
+          selectionCount: 0,
+        },
+      ],
+      lastCode: newCode,
     });
   }
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
   deleteItem(code) {
     this.setState({
       ...this.state,
@@ -59,16 +55,20 @@ class Store {
     });
   }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  selectItem(code, event) {
+    const isCtrlPressed = event ? event.ctrlKey || event.metaKey : false;
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          return {
+            ...item,
+            selected: !item.selected,
+            selectionCount: !item.selected ? (item.selectionCount || 0) + 1 : item.selectionCount,
+          };
+        }
+        if (!isCtrlPressed && item.selected) {
+          return { ...item, selected: false };
         }
         return item;
       }),
