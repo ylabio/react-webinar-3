@@ -2,11 +2,6 @@ import React from 'react';
 import { createElement } from './utils.js';
 import './styles.css';
 
-/**
- * Приложение
- * @param store {Store} Состояние приложения
- * @returns {React.ReactElement}
- */
 function App({ store }) {
   const list = store.getState().list;
 
@@ -24,12 +19,23 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(event) => store.selectItem(item.code, event)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">
+                  <span className="Item-title-text">{item.title}</span>
+                  {item.selectionCount > 0 && (
+                    <>
+                      <span className="Item-title-separator"> | </span>
+                      <span className="Item-selection-count">Выделяли {item.selectionCount} раз</span>
+                    </>
+                  )}
+                </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button onClick={(event) => {
+                    event.stopPropagation();
+                    store.deleteItem(item.code);
+                  }}>Удалить</button>
                 </div>
               </div>
             </div>

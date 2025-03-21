@@ -1,57 +1,34 @@
-/**
- * Хранилище состояния приложения
- */
 class Store {
   constructor(initState = {}) {
     this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.maxCode = Math.max(...initState.list.map(item => item.code), 0);
+    this.listeners = [];
   }
 
-  /**
-   * Подписка слушателя на изменения состояния
-   * @param listener {Function}
-   * @returns {Function} Функция отписки
-   */
   subscribe(listener) {
     this.listeners.push(listener);
-    // Возвращается функция для удаления добавленного слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);
     };
   }
 
-  /**
-   * Выбор состояния
-   * @returns {Object}
-   */
   getState() {
     return this.state;
   }
 
-  /**
-   * Установка состояния
-   * @param newState {Object}
-   */
   setState(newState) {
     this.state = newState;
-    // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
   addItem() {
+    this.maxCode += 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.maxCode, title: 'Новая запись', selectionCount: 0 }],
     });
   }
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
   deleteItem(code) {
     this.setState({
       ...this.state,
@@ -59,16 +36,19 @@ class Store {
     });
   }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  selectItem(code, event) {
+    const isCtrlPressed = event.ctrlKey || event.metaKey;
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          const wasSelected = item.selected;
           item.selected = !item.selected;
+          if (!wasSelected) {
+            item.selectionCount = (item.selectionCount || 0) + 1;
+          }
+        } else if (!isCtrlPressed) {
+          item.selected = false;
         }
         return item;
       }),
