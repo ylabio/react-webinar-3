@@ -72,14 +72,14 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          // Toggle selection for the clicked item
+          // Переключение выбора для выбранного элемента
           const newSelected = !item.selected;
           item.selected = newSelected;
           if (newSelected) {
             item.count = (item.count || 0) + 1;
           }
         } else if (!isCtrlPressed) {
-          // Clear selection of other items if Ctrl/Cmd is not pressed
+          // Очистить выбор других элементов, если Ctrl/Cmd не нажата
           item.selected = false;
         }
         return item;
