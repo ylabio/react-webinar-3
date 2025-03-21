@@ -2,6 +2,7 @@
  * Хранилище состояния приложения
  */
 class Store {
+  static counter = 7;
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
@@ -42,9 +43,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    Store.counter++
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code:Store.counter, title: 'Новая запись',selectCount:0}],
     });
   }
 
@@ -63,12 +65,19 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code,event) {
+    console.log(event.ctrlKey)
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+
         if (item.code === code) {
+          if(!item.selected) //Считаем только выделение, без его снятия
+            item.selectCount++;
           item.selected = !item.selected;
+        }
+        else if(!event.ctrlKey){
+          item.selected = false;
         }
         return item;
       }),
