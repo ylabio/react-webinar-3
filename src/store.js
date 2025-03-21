@@ -3,8 +3,15 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.state = {
+      ...initState,
+      list: initState.list,
+    };
+    this.listeners = [];// Слушатели изменений состояния 
+
+    this.nextCode = this.state.list.length > 0 
+      ? Math.max(...this.state.list.map(item => item.code)) + 1 
+      : 1;
   }
 
   /**
@@ -42,10 +49,19 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newItem = {
+      code: this.nextCode,
+      title: 'Новая запись',
+      selected: false,
+      selectCount: 0,
+    };
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, newItem],
     });
+
+    this.nextCode += 1;
   }
 
   /**
@@ -53,25 +69,40 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const newList = this.state.list.filter(item => item.code !== code);
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code),
+      list: newList,
     });
   }
 
   /**
    * Выделение записи по коду
    * @param code
+   * @param isCtrlPressed 
    */
-  selectItem(code) {
+  selectItem(code, isCtrlPressed) {
+  
+    const updatedList = this.state.list.map(item => {
+      if (item.code === code) {
+        return {
+          ...item,
+          selected: !item.selected,
+          selectCount: item.selected ? item.selectCount : (item.selectCount || 0) + 1,
+        };
+      } else if (!isCtrlPressed) {
+        return {
+          ...item,
+          selected: false,
+        };
+      }
+      return item; 
+    });
+  
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      }),
+      list: updatedList,
+    }, () => {
     });
   }
 }
