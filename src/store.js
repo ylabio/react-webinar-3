@@ -62,11 +62,15 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param event
    */
-  selectItem(code) {
+  selectItem(code, event) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        if (!event.ctrlKey && item.code !== code && !event.target.classList.contains('Delete')) {
+          item.selected = false;
+        }
         if (item.code === code) {
           item.selected = !item.selected;
         }
