@@ -1,61 +1,102 @@
+:root {
+  --purpule-color: #6b4acb;
+  --white-color: #ffffff;
+  --red-color: #d43b3b;
+  --bule-colore: #75aaf1;
+  --gray-color: #faf9fd;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  background: var(--white-color);
+  font-family: 'Golos Text', sans-serif;
 }
 
 .App {
-  max-width: 1024px;
+  max-width: 1152px;
   min-height: 100vh;
   margin: 0 auto;
-  background: #fff;
+  background: var(--white-color);
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
 }
 
 .App-head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  padding: 20px 0 10px;
+  color: var(--purpule-color);
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 20px 15px;
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px #efefef solid;
 }
 
 .Item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
   transition: background-color 1s;
 }
 
+.List-item:nth-child(odd) {
+  background: var(--gray-color);
+}
+
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: var(--bule-colore);
+  color: var(--white-color);
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  padding: 20px 10px;
+}
+
+.Item-info {
+  display: flex;
+  align-items: center;
 }
 
 .Item-title {
-  width: 100%;
+  font-weight: 700;
   padding: 20px 10px;
+}
+
+.Item-count {
+  display: flex;
 }
 
 .Item-actions {
   display: flex;
-  justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+  padding: 15px;
+}
+
+.Button {
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  padding-left: 16px;
+  padding-right: 16px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  color: var(--white-color);
+  cursor: pointer;
+}
+
+.Add-button {
+  background: var(--purpule-color);
+}
+
+.Delete-button {
+  background: var(--red-color);
 }

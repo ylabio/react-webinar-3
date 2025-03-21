@@ -10,16 +10,15 @@ import './styles.css';
 function App({ store }) {
   const list = store.getState().list;
 
-  console.log(list);
-  
-
   return (
     <div className="App">
       <div className="App-head">
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button className="Button Add-button" onClick={() => store.addItem()}>
+          Добавить
+        </button>
       </div>
       <div className="App-center">
         <div className="List">
@@ -27,13 +26,22 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={(event) => store.selectItem(event, item.code)}
+                onClick={event => store.selectItem(event, item.code)}
               >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                {item.count > 0 ? <div>Выделяли {item.count} раз</div> : null}
+                <div className="Item-info">
+                  <div className="Item-code">{item.code}</div>
+                  <div className="Item-title">{item.title}</div>
+                  {item.count > 0 ? (
+                    <div className="Item-count">| Выделяли {item.count} раз</div>
+                  ) : null}
+                </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button
+                    className="Button Delete-button"
+                    onClick={() => store.deleteItem(item.code)}
+                  >
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>

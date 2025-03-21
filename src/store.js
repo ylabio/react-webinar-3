@@ -56,8 +56,6 @@ class Store {
    * @param code
    */
   deleteItem(code) {
-    console.log(this.nextCode);
-
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
@@ -79,6 +77,9 @@ class Store {
             selected: !item.selected,
             count: !item.selected ? (item.count || 0) + 1 : item.count,
           };
+        }
+        if (event.target.tagName === 'BUTTON') {
+          return item
         }
         return event.ctrlKey || event.metaKey ? item : { ...item, selected: false };
       }),
