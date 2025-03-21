@@ -26,3 +26,20 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Возвращает вариант множественного числа
+ * @param {Object} opts
+ * @param {Intl.LocalesArgument} [opts.locale] - локаль
+ * @param {Intl.PluralRuleType} [opts.type] - тип для множественного числа
+ * @param {number} opts.number - число
+ * @param {Map<keyof Intl.PluralRules, string>} opts.pluralForms - варианты множественного числа
+ * @returns {string}
+ */
+export const getPluralForm = ({ locale, type, number, pluralForms }) => {
+  const pr = new Intl.PluralRules(locale, { type });
+  const rule = pr.select(number);
+  const result = pluralForms.get(rule);
+
+  return result;
+};
