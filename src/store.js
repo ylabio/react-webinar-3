@@ -7,6 +7,7 @@ class Store {
       ...initState,
       maxCode: Math.max(...initState.list.map(item => item.code)),
     };
+    this.state.list = this.state.list.map(item => ({ ...item, selectCount: 0 }));
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -49,7 +50,7 @@ class Store {
     this.setState({
       ...this.state,
       maxCode: newItemCode,
-      list: [...this.state.list, { code: newItemCode, title: 'Новая запись' }],
+      list: [...this.state.list, { code: newItemCode, title: 'Новая запись', selectCount: 0 }],
     });
   }
 
@@ -74,8 +75,12 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.selectCount += 1;
+          }
+        } else {
+          item.selected = false;
         }
-        else item.selected = false;
         return item;
       }),
     });

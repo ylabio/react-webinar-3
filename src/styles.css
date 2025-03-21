@@ -46,7 +46,8 @@ body {
 }
 
 .Item-code,
-.Item-index {
+.Item-index,
+.Item-selectCount {
   padding: 20px 10px 20px 20px;
 }
 

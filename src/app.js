@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement } from './utils.js';
+import { getWordEnding } from './utils.js';
 import './styles.css';
 
 /**
@@ -29,6 +29,9 @@ function App({ store }) {
                 <div className="Item-index">№{index + 1}</div>
                 <div className="Item-code">Код:&nbsp;{item.code}</div>
                 <div className="Item-title">{item.title}</div>
+                {item.selectCount > 0 && (
+                  <div className="Item-selectCount">Выделяли {item.selectCount}&nbsp;{getWordEnding(item.selectCount)}</div>
+                )}
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>
