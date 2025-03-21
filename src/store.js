@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = {
       ...initState,
+      list: initState.list.map(item => ({ ...item, counter: 0 })),
       lastUsedCode: initState.list.reduce((max, item) => (item.code > max ? item.code : max), 0),
     };
     this.listeners = []; // Слушатели изменений состояния
@@ -49,7 +50,10 @@ class Store {
     this.setState({
       ...this.state,
       lastUsedCode: newUsedCode,
-      list: [...this.state.list, { code: newUsedCode, title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        { code: newUsedCode, title: 'Новая запись', counter: 0 }
+      ],
     });
   }
 
@@ -73,7 +77,10 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          return { ...item, selected: !item.selected };
+          return {
+            ...item,
+            selected: !item.selected,
+            counter: item.selected ? item.counter : item.counter + 1 };
         }
         if (!multipleEntries) {
           return { ...item, selected: false };
