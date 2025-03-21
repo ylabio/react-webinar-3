@@ -32,6 +32,13 @@ let config = {
           { loader: 'css-loader', options: { url: true, import: true } },
         ],
       },
+      {
+        test: /\.(ttf)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name][ext]',
+        },
+      },
     ],
   },
   plugins: [
