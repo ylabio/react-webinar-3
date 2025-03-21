@@ -45,7 +45,8 @@ body {
   color: #fff;
 }
 
-.Item-code {
+.Item-code,
+.Item-index {
   padding: 20px 10px 20px 20px;
 }
 
