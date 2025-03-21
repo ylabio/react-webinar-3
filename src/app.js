@@ -54,10 +54,20 @@ function renderTitleWithSelectionInfo(item) {
     <div className="Item-title">
       {item.title}
       {item.selectionCount > 0 && (
-        <span className="Item-info"> &nbsp;| Выделяли {item.selectionCount} раз</span>
+        <div className="Item-info"> &nbsp;| Выделяли {pluralizeRaz(item.selectionCount)} </div>
       )}
     </div>
   );
+}
+
+function pluralizeRaz(count) {
+  if (count % 10 === 1 && count % 100 !== 11) {
+    return `${count} раз`;
+  } else if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) {
+    return `${count} раза`;
+  } else {
+    return `${count} раз`;
+  }
 }
 
 
