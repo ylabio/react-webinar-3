@@ -26,3 +26,25 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+// Функция для склонения окончания слова "раз" в зависимости от числа перед ним
+
+/**
+ * @param number {Number} Число раз выделения записи
+ * @returns {String}
+ */
+export function numWords(number) {
+  let count = number % 100;
+
+  if (count >= 5 && count <= 20) {
+    return `${number} раз`;
+  } else {
+    count = count % 10;
+
+    if (count >= 2 && count <= 4) {
+      return `${number} раза`;
+    } else {
+      return `${number} раз`;
+    }
+  }
+}

@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.entryCode = initState.list.length ?? 0; // Счетчик кодов для записей
   }
 
   /**
@@ -44,7 +45,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: ++this.entryCode, title: 'Новая запись' }],
     });
   }
 
@@ -62,14 +63,32 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param ctrlKey нажат ли Ctrl (или Cmd на macOS)
    */
-  selectItem(code) {
+  selectItem(code, ctrlKey) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        item.selectedCounter ??= 0; // Устанавливаем счетчик количества выделений каждой записи, если он еще не установлен
+
+        if (ctrlKey) {
+          if (item.code === code) {
+            item.selected = !item.selected;
+            if (item.selected) {
+              item.selectedCounter++; // При выделении записи увеличиваем счетчик на 1
+            }
+          }
+        } else {
+          if (item.code === code) {
+            item.selected = !item.selected;
+            if (item.selected) {
+              item.selectedCounter++; // При выделении записи увеличиваем счетчик на 1
+            }
+          } else {
+            item.selected = false;
+          }
         }
+
         return item;
       }),
     });

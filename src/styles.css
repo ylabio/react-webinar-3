@@ -1,61 +1,127 @@
+@font-face {
+  font-family: 'Golos Text';
+  src: url('./fonts/GolosText-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Golos Text';
+  src: url('./fonts/GolosText-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat Alternates';
+  src: url('./fonts/MontserratAlternates-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-family: 'Golos Text', sans-serif;
+  --font-family-accent: 'Montserrat Alternates', sans-serif;
+
+  --color-dark: #1a2028;
+  --color-light: #ffffff;
+  --color-violet-light: #6b4acb08;
+  --color-violet: #6b4acb1a;
+  --color-violet-dark: #6b4acb;
+  --color-accent: #d43b3b;
+
+  --border-bottom: 1px solid #efefef;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  font-family: var(--font-family);
+  color: var(--color-dark);
+  line-height: 137%;
 }
 
 .App {
-  max-width: 1024px;
   min-height: 100vh;
   margin: 0 auto;
-  background: #fff;
+  background: var(--color-light);
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
+}
+
+.container {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding-inline: 16px;
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  padding-block: 16px;
+  border-bottom: var(--border-bottom);
 }
 
 .App-head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  color: var(--color-violet-dark);
+  line-height: 125%;
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  align-items: center;
+  padding: 24px 16px;
+}
+
+button {
+  padding: 9px 16px;
+  font-family: var(--font-family-accent);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 157%;
+  color: var(--color-light);
+  border-radius: 4px;
+  border: none;
+  background-color: var(--color-violet-dark);
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: var(--border-bottom);
+}
+
+.List-item:nth-child(odd) {
+  background-color: var(--color-violet-light);
 }
 
 .Item {
+  padding: 16px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 16px;
   transition: background-color 1s;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
-}
-
-.Item-code {
-  padding: 20px 10px 20px 20px;
+  background-color: var(--color-violet);
 }
 
 .Item-title {
-  width: 100%;
-  padding: 20px 10px;
+  flex-grow: 1;
+  font-weight: 700;
+}
+
+.Item-counter {
+  font-weight: 400;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+}
+
+.Item-actions button {
+  background-color: var(--color-accent);
 }
