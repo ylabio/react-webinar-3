@@ -28,15 +28,21 @@ export function createElement(name, props = {}, ...children) {
 }
 
 /**
- * Возвращает правильное окончание для слова "раз" в зависимости от числа
- * @param count {number} количество выделений
- * @returns {string} правильное окончание слова "раз"
+ * Возвращает соответствующее слово в зависимости от числа
+ * @param count {number} число
+ * @param endings {string[]} массив из трёх вариантов слов
+ * @returns {string}
  */
-export function getWordEnding(count) {
-  const ending = 'раз';
+export function getWordEnding(count, endings) {
   if (count % 100 >= 11 && count % 100 <= 19) {
-    return ending;
+    return endings[2];
   }
-  return (count % 10 === 2 || count % 10 === 3 || count % 10 === 4) ? `${ending}а` : ending;
+  const lastDigit = count % 10;
+  if (lastDigit === 1) {
+    return endings[0];
+  } else if (lastDigit >= 2 && lastDigit <= 4) {
+    return endings[1];
+  } else {
+    return endings[2];
+  }
 }
-
