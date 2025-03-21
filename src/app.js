@@ -1,5 +1,4 @@
 import React from 'react';
-import { createElement } from './utils.js';
 import './styles.css';
 
 /**
@@ -8,7 +7,12 @@ import './styles.css';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const state = store.getState();
+  const { list, selectedItems, selectionCounts } = state;
+
+  const handleItemClick = (code, event) => {
+    store.selectItem(code, event.ctrlKey || event.metaKey);
+  };
 
   return (
     <div className="App">
@@ -23,11 +27,18 @@ function App({ store }) {
           {list.map(item => (
             <div key={item.code} className="List-item">
               <div
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                className={'Item' + (selectedItems.has(item.code) ? ' Item_selected' : '')}
+                onClick={e => handleItemClick(item.code, e)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">
+                  {item.title}
+                  {selectionCounts[item.code] > 0 && (
+                    <span className="Item-selection-count">
+                      Выделяли {selectionCounts[item.code]} раз
+                    </span>
+                  )}
+                </div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>
