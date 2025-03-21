@@ -44,7 +44,15 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        {
+          code: this.state.sequence + 1,
+          title: 'Новая запись',
+          selectCount: 0,
+        },
+      ],
+      sequence: this.state.sequence + 1,
     });
   }
 
@@ -52,7 +60,8 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(code, e) {
+    e.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
@@ -63,16 +72,36 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, e) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          item.selectCount = item.selected ? item.selectCount + 1 : item.selectCount;
+        } else {
+          if (e.ctrlKey) {
+            return item;
+          }
+          item.selected = false;
         }
         return item;
       }),
     });
+  }
+
+  getCountLine(item) {
+    let count = item.selectCount;
+    if (count === 0) {
+      return '';
+    }
+    let nums = new Set(['2', '3', '4']);
+    if (nums.has(count.toString()[count.toString().length - 1])) {
+      if (count.toString()[count.toString().length - 2] !== '1') {
+        return `| Выделяли ${count} раза`;
+      }
+    }
+    return `| Выделяли ${count} раз`;
   }
 }
 
