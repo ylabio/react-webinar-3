@@ -1,3 +1,5 @@
+import {createCodeGenerator, createCounter} from './utils'
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,6 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.generateCode = createCodeGenerator(this.state.list);
   }
 
   /**
@@ -42,9 +45,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newCode = this.generateCode();
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: newCode, title: 'Новая запись' }],
     });
   }
 
@@ -55,22 +59,41 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code),
+      list: this.state.list
+        .filter(item => item.code !== code)
+        .map(item => ({ ...item, selected: item.selected ?? false })) // Сохраняем выделение
     });
   }
-
+  
   /**
-   * Выделение записи по коду
-   * @param code
+   * Выделение записи по её коду с поддержкой множественного выбора
+   * @param {number} code - Уникальный код записи, которую нужно выделить
+   * @param {Event} event - Событие клика, используемое для определения нажатых клавиш
    */
-  selectItem(code) {
+  selectItem(code, event) {
+    const isMultiSelect = event.ctrlKey || event.metaKey;
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        const isNowSelected = !item.selected;
+
         if (item.code === code) {
-          item.selected = !item.selected;
+          return {
+            ...item,
+            selected: isNowSelected,
+            selectCount: isNowSelected 
+              ? (item.selectCount || 0) + 1 // Увеличиваем, если стало выделено 
+              : item.selectCount             // Не меняем, если выделение снято 
+          }
         }
-        return item;
+
+        if (item.selected) {
+
+        }
+
+
+        return isMultiSelect ? item : {...item, selected: false}
       }),
     });
   }
