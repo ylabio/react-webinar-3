@@ -4,9 +4,17 @@
 class Store {
   constructor(initState = {}) {
     this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
-  }
+    this.listeners = [];
+    this.nextCode = Math.max(...initState.list.map(item => item.code), 0) + 1;
 
+    if (initState.list) {
+      initState.list.forEach(item => {
+        if (!item.selectionCount) {
+          item.selectionCount = 0;
+        }
+      });
+    }
+  }
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
@@ -14,7 +22,6 @@ class Store {
    */
   subscribe(listener) {
     this.listeners.push(listener);
-    // Возвращается функция для удаления добавленного слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);
     };
@@ -34,18 +41,19 @@ class Store {
    */
   setState(newState) {
     this.state = newState;
-    // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
 
   /**
    * Добавление новой записи
    */
+
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.nextCode, title: 'Новая запись', selectionCount: 0 }],
     });
+    this.nextCode++;
   }
 
   /**
@@ -58,17 +66,31 @@ class Store {
       list: this.state.list.filter(item => item.code !== code),
     });
   }
-
   /**
    * Выделение записи по коду
    * @param code
    */
   selectItem(code) {
     this.setState({
-      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          item.selected = true;
+          item.selectionCount = (item.selectionCount || 0) + 1;
+        } else {
+          item.selected = false;
+        }
+        return item;
+      }),
+    });
+  }
+  toggleItemSelection(code) {
+    this.setState({
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.selectionCount = (item.selectionCount || 0) + 1;
+          }
         }
         return item;
       }),
@@ -77,3 +99,4 @@ class Store {
 }
 
 export default Store;
+
