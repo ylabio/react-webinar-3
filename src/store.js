@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.idCode = Math.max(...this.state.list.map(item => item.code)) + 1; //ищет макс код из лист и +1 для уникального кода. Отслеживает след код
   }
 
   /**
@@ -35,16 +36,23 @@ class Store {
   setState(newState) {
     this.state = newState;
     // Вызываем всех слушателей
-    for (const listener of this.listeners) listener();
+    this.listeners.forEach(listener => listener());
   }
 
   /**
    * Добавление новой записи
    */
   addItem() {
+    const newItem = {
+      code: this.idCode++,
+      title: 'Новая запись',
+      selected: false,
+      count: 0,
+    };
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, newItem],
     });
   }
 
@@ -63,14 +71,23 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, e) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          const isSelected = !item.selected;
+
+          // возвращение нового объект
+          return {
+            ...item,
+            selected: isSelected,
+            count: isSelected ? (item.count || 0) + 1 : item.count,
+          };
         }
-        return item;
+
+        // если элемент не выбран, то обновляем его в зависимости от ctrl/metaKey
+        return e.ctrlKey || e.metaKey ? item : { ...item, selected: false };
       }),
     });
   }
