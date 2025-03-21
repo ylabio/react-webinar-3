@@ -5,6 +5,15 @@ body {
   font-family: sans-serif;
 }
 
+button {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 9px 16px;
+  border-radius: 4px;
+  border: transparent;
+}
+
 .App {
   max-width: 1024px;
   min-height: 100vh;
@@ -22,6 +31,9 @@ body {
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  font-weight: 700;
+  font-size: 32px;
+  color: #6B4ACB;
 }
 
 .App-controls {
@@ -30,14 +42,27 @@ body {
   padding: 20px;
 }
 
+.App-controls button {
+  background-color: #6B4ACB;
+}
+
+.Item-actions button {
+  background-color: #D43B3B;
+}
+
 .List-item {
   border-bottom: 1px dashed #ccc;
+}
+
+.List-item:nth-child(odd) {
+  background-color: rgba(107, 74, 203, 3.14%);
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  cursor: pointer;
 }
 
 .Item_selected {
@@ -52,6 +77,9 @@ body {
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  color: #1A2028;
+  font-weight: 700;
+  margin-right: 5px;
 }
 
 .Item-actions {
