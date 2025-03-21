@@ -1,12 +1,22 @@
+@font-face {
+  font-family: Montserrat-b;
+  src: url(../fonts/Montserrat/MontserratAlternates-Bold.ttf);
+}
+
+@font-face {
+  font-family: Golos;
+  src: url(../fonts/Golos/GolosText-VariableFont_wght.ttf);
+}
+
 body {
   margin: 0;
   padding: 0;
   background: #535353;
-  font-family: sans-serif;
+  font-family: Golos;
 }
 
 .App {
-  max-width: 1024px;
+  max-width: 1440px;
   min-height: 100vh;
   margin: 0 auto;
   background: #fff;
@@ -16,12 +26,15 @@ body {
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
+  background: #fff;
 }
 
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  color: #6B4ACB;
+  background-color: #fff;
+  border-bottom: 1px solid #EFEFEF;
 }
 
 .App-controls {
@@ -31,7 +44,7 @@ body {
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #EFEFEF;
 }
 
 .Item {
@@ -41,21 +54,71 @@ body {
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: #6B4ACB1A;
 }
 
 .Item-code {
+  display: flex;
+  align-items: center;
   padding: 20px 10px 20px 20px;
 }
 
 .Item-title {
+  display: flex;
+  align-items: center;
   width: 100%;
   padding: 20px 10px;
+  color: #1A2028;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.Item-title span{
+  position: relative;
+  inset: 0 0 0 3px;
+  font-weight: 400;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-actions button{
+  padding: 8px 16px 8px 16px;
+  width: 105px;
+  height: 40px;
+  border: none;
+  color: #EFEFEF;
+  background-color: #D43B3B;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease-out;
+}
+
+.App-controls button{
+  padding: 8px 16px 8px 16px;
+  width: 114px;
+  height: 40px;
+  border: none;
+  color: #EFEFEF;
+  background-color: #6B4ACB;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease-out;
+}
+
+.App-controls button, .Item-actions button{
+  font-family: Montserrat-b;
+}
+
+.App-controls button:hover{
+  background-color: #4b309a;
+}
+
+.Item-actions button:hover{
+  background-color: #a52e2e;
 }
