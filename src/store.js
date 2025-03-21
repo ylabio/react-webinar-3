@@ -69,13 +69,21 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        item.selectedCounter ??= 0; // Устанавливаем счетчик количества выделений каждой записи, если он еще не установлен
+
         if (ctrlKey) {
           if (item.code === code) {
             item.selected = !item.selected;
+            if (item.selected) {
+              item.selectedCounter++; // При выделении записи увеличиваем счетчик на 1
+            }
           }
         } else {
           if (item.code === code) {
             item.selected = !item.selected;
+            if (item.selected) {
+              item.selectedCounter++; // При выделении записи увеличиваем счетчик на 1
+            }
           } else {
             item.selected = false;
           }
