@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'GolosText';
+  font-weight: 400;
+  src: url('./GolosText-Regular.ttf');
+}
+@font-face {
+  font-family: 'GolosText';
+  font-weight: 700;
+  src: url('./GolosText-Bold.ttf');
+}
+@font-face {
+  font-family: 'Montserrat Alternates';
+  font-weight: 700;
+  src: url('./MontserratAlternates-Bold.ttf');
+}

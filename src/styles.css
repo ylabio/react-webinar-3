@@ -1,8 +1,9 @@
+@import url('./fonts/fonts.css');
 body {
   margin: 0;
   padding: 0;
   background: #535353;
-  font-family: sans-serif;
+  font-family: 'GolosText';
 }
 
 .App {
@@ -16,12 +17,15 @@ body {
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
 }
 
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  color: rgb(107, 74, 203);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
 }
 
 .App-controls {
@@ -36,26 +40,70 @@ body {
 
 .Item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   transition: background-color 1s;
 }
 
 .Item_selected {
-  background: #75aaf1;
+  background: rgba(107, 74, 203, 0.1);
   color: #fff;
 }
 
 .Item-code {
+  color: rgb(26, 32, 40);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
   padding: 20px 10px 20px 20px;
 }
 
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  color: rgb(26, 32, 40);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
 }
-
+.item-count {
+  margin-left: 8px;
+  padding-left: 8px;
+  position: relative;
+  font-weight: 400;
+}
+.item-count::before {
+  content: '';
+  height: 100%;
+  background-color: rgb(0, 0, 0);
+  width: 2px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+.Item-info{
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.btn {
+  padding: 8px 16px;
+  color: rgb(255, 255, 255);
+  font-family: 'Montserrat Alternates';
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  background: none;
+  border-radius: 4px;
+  height: 40px;
+}
+.btn_type_delete {
+  background: rgb(212, 59, 59);
+}
+.btn_type_add {
+  background: rgb(107, 74, 203);
 }
