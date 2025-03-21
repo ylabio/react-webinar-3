@@ -1,12 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
 body {
   margin: 0;
   padding: 0;
   background: #535353;
-  font-family: sans-serif;
+  color: black;
+  font-family: "Golos Text", sans-serif;
+}
+*{
+  font-size: 16px;
 }
 
 .App {
-  max-width: 1024px;
+  max-width: 1152px;
   min-height: 100vh;
   margin: 0 auto;
   background: #fff;
@@ -14,14 +21,46 @@ body {
   box-shadow: 0 0 15px 5px #0000003b;
 }
 
+h1{
+  color: rgba(107, 74, 203, 1);
+  font-size: 32px;
+}
+
+span{
+  font-weight: bold;
+}
+
+.container{
+  border: solid 1px black;
+  max-width: 1152px;
+  justify-content: center;
+  margin: 0 1rem 0 1rem;
+}
 .App-head {
+  padding: 1rem;
+  align-items: center;
   height: 80px;
-  background: #f5f5f5;
+  background: white;
+}
+
+.list-item {
+  font-weight: bold;
+}
+
+.App-head::after {
+  content:" ";
+  display: block;
+  height: 2px;
+  width: 100%;
+  position: absolute;
+  top: 8%;
+  left: 0;
+  background: rgba(239, 239, 239, 1);
 }
 
 .App-head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  /*padding: 20px 20px 10px;*/
 }
 
 .App-controls {
@@ -30,8 +69,14 @@ body {
   padding: 20px;
 }
 
+
+
 .List-item {
-  border-bottom: 1px dashed #ccc;
+ border: none;
+}
+
+.List-item:nth-child(odd) {
+  background-color: rgba(107, 74, 203, 0.0314);
 }
 
 .Item {
@@ -41,8 +86,8 @@ body {
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: rgba(107, 74, 203, 0.1);
+
 }
 
 .Item-code {
@@ -52,10 +97,31 @@ body {
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.button-add{
+  font-family: "Montserrat Alternates", sans-serif;
+  background-color: rgba(107, 74, 203, 1);
+  color: white;
+  width: 114px;
+  height: 40px;
+  border: solid transparent;
+  border-radius: 5px;
+}
+
+.button-delete{
+  font-family: "Montserrat Alternates", sans-serif;
+  background-color: rgba(212, 59, 59, 1);
+  color: white;
+  width: 114px;
+  height: 40px;
+  border: solid transparent;
+  border-radius: 5px;
 }
