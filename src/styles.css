@@ -1,27 +1,32 @@
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  font-family: 'Golos Text', sans-serif;
 }
 
 .App {
-  max-width: 1024px;
   min-height: 100vh;
-  margin: 0 auto;
-  background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  border-bottom: 1px solid #efefef;
 }
 
 .App-head h1 {
-  margin: 0;
-  padding: 20px 20px 10px;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 16px;
+  font-weight: 700;
+  font-family: 'Golos Text', sans-serif;
+  font-size: 32px;
+  line-height: 125%;
+  color: #6b4acb;
+}
+
+.App-container {
+  max-width: 1024px;
+  margin: 0 auto;
 }
 
 .App-controls {
@@ -30,32 +35,71 @@ body {
   padding: 20px;
 }
 
+.App-add {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 157%;
+  color: #fff;
+  background-color: #6b4acb;
+}
+
 .List-item {
-  border-bottom: 1px dashed #ccc;
+}
+
+.List-item:nth-child(2n - 1) {
+  background-color: #faf9fd;
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
   transition: background-color 1s;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: #f1edfa;
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
 }
 
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 137%;
+  color: #1a2028;
+}
+
+.Item-selection {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
 }
 
 .Item-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+}
+
+.Item-remove {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 157%;
+  color: #fff;
+  background-color: #d43b3b;
 }
