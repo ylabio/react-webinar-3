@@ -15,25 +15,52 @@ function App({ store }) {
       <div className="App-head">
         <h1>Приложение на чистом JS</h1>
       </div>
-      <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
-      </div>
-      <div className="App-center">
-        <div className="List">
-          {list.map(item => (
-            <div key={item.code} className="List-item">
+      <div className="App-main">
+        <div className="App-controls">
+          <button
+            className="Add-button"
+            onClick={event => {
+              event.stopPropagation();
+              store.addItem();
+            }}
+          >
+            Добавить
+          </button>
+        </div>
+        <div className="App-center">
+          <div className="List">
+            {list.map(item => (
               <div
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                key={item.code}
+                className={`List-item ${item.code % 2 === 0 ? 'Item-changed' : ''} ${item.selected ? 'Item-selected' : ''}`}
+                onClick={event => {
+                  store.selectItem(event, item.code);
+                }}
               >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                
+                  <div className='item-info'>
+                    <div className="Item-code">{item.code}</div>
+                    <div className="Item-title">
+                      {item.title}
+                      {!!item.selectedCount && (
+                        <span className="Selected-count">{` | Выделяли ${item.selectedCount} раз`}</span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="Item-actions">
+                    <button
+                      onClick={event => {
+                        event.stopPropagation();
+                        store.deleteItem(item.code);
+                      }}
+                    >
+                      Удалить
+                    </button>
+                  
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
