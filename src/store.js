@@ -85,11 +85,6 @@ class Store {
         if (item.selected) {
           if (ctrlKey) {
             item.selected = false;
-            if (!item.selectionCount) {
-              item.selectionCount = 1;
-            } else {
-              item.selectionCount++;
-            }
           } else {
             item.selected = false;
           }
