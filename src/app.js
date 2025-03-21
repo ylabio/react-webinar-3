@@ -13,12 +13,14 @@ function App({ store }) {
   return (
     <div className="App">
       <div className="App-head">
-        <h1>Приложение на чистом JS</h1>
+        <div className="wrapper">
+          <h1>Приложение на чистом JS</h1>
+        </div>
       </div>
-      <div className="App-controls">
+      <div className="App-controls wrapper">
         <button className="btn btn--add" onClick={() => store.addItem()}>Добавить</button>
       </div>
-      <div className="App-center">
+      <div className="App-center wrapper">
         <div className="List">
           {list.map((item) => (
             <div key={item.code} className="List-item">
