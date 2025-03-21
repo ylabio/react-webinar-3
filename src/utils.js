@@ -7,6 +7,7 @@ const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
  * @param children {...Node} Вложенные элементы
  * @returns {HTMLElement}
  */
+
 export function createElement(name, props = {}, ...children) {
   const element = document.createElement(name);
 
