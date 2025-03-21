@@ -44,7 +44,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись', selected: false }],
     });
   }
 
@@ -63,12 +63,19 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, event) {
+    const isCtrlPressed = event.ctrlKey || event.metaKey; //проверка нажатия ctrl и cmd
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          return {...item, selected: !item.selected};
+          //item.selected = !item.selected;
+        }
+        else if (!isCtrlPressed) { //если не нажато, снимаем выделение с других записей
+          return {...item, selected: false};
+          //item.selected = false;
         }
         return item;
       }),
