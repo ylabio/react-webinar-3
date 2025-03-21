@@ -1,27 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;700&display=swap');
+
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
+  background: #ffffff;
   font-family: sans-serif;
 }
 
 .App {
   max-width: 1024px;
-  min-height: 100vh;
+  min-height: 900px;
   margin: 0 auto;
-  background: #fff;
+  background: #ffffff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
+  background: #ffffff;
 }
 
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+}
+
+.App-header {
+  color: #6b4acb;
+  font-family: 'Golos Text', sans-serif;
 }
 
 .App-controls {
@@ -30,19 +37,40 @@ body {
   padding: 20px;
 }
 
+.App-divider {
+  border: none;
+  border-top: 1px solid #edeaea;
+  margin: 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+}
+
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #e9e7e7;
 }
 
 .Item {
+  font-family: 'Golos Text', sans-serif;
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: #ffffff;
 }
 
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
+.List-item:nth-child(odd) .Item {
+  background-color: #fcfafd;
+}
+
+.Item_selected,
+.List-item:nth-child(odd) .Item_selected {
+  background: rgb(242, 234, 250);
+  color: black;
 }
 
 .Item-code {
@@ -58,4 +86,25 @@ body {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Button {
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 22px;
+  height: 40px;
+  border: none;
+  color: #ffffff;
+  border-radius: 4px;
+}
+
+.Button--add {
+  width: 114px;
+  background-color: #6b4acb;
+}
+
+.Button--delete {
+  width: 105px;
+  background-color: #d43b3b;
 }

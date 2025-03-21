@@ -1,10 +1,18 @@
-/**
- * Хранилище состояния приложения
- */
 class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.usedCodes = new Set();
+    this.nextCode = 1;
+
+    if (initState.list) {
+      initState.list.forEach(item => {
+        this.usedCodes.add(item.code);
+        if (item.code >= this.nextCode) {
+          this.nextCode = item.code + 1;
+        }
+      });
+    }
   }
 
   /**
@@ -29,6 +37,20 @@ class Store {
   }
 
   /**
+   * Генерация уникального кода
+   * @returns {number}
+   */
+  generateUniqueCode() {
+    let code = this.nextCode;
+    while (this.usedCodes.has(code)) {
+      code++;
+    }
+    this.usedCodes.add(code);
+    this.nextCode = code + 1;
+    return code;
+  }
+
+  /**
    * Установка состояния
    * @param newState {Object}
    */
@@ -44,7 +66,15 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        {
+          code: this.generateUniqueCode(),
+          title: 'Новая запись',
+          selected: false,
+          selectionCount: 0, // Инициализируем счетчик выделений
+        },
+      ],
     });
   }
 
@@ -53,6 +83,7 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    this.usedCodes.delete(code); // Удаляем код из usedCodes
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
@@ -63,14 +94,18 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, isMultiSelect = false) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          if (item.selected) {
+            return { ...item, selected: false, selectionCount: item.selectionCount + 1 };
+          } else {
+            return { ...item, selected: true, selectionCount: item.selectionCount + 1 };
+          }
         }
-        return item;
+        return isMultiSelect ? item : { ...item, selected: false };
       }),
     });
   }
