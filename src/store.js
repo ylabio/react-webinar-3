@@ -5,6 +5,9 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.maxCode = (initState.list && initState.list.length > 0) 
+    ? Math.max(...initState.list.map(item => item.code))
+    : 0;
   }
 
   /**
@@ -42,9 +45,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.maxCode += 1
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.maxCode, title: 'Новая запись' }],
     });
   }
 
@@ -64,16 +68,37 @@ class Store {
    * @param code
    */
   selectItem(code) {
+   
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
+         // document.addEventListener('keydown', event);
+         // console.log(`Нажата клавиша: ${event.ctrlKey}`) 
+         console.log(event.ctrlKey)
+         if (event.ctrlKey){
+            if (item.code === code) {
+               item.selected = !item.selected;
+               if (item.selected){
+                 (item.count > 0) ? item.count++ : item.count=1;
+               }
+              } 
+              return item;  
+         }else{
+         if (item.code === code) {
+            item.selected = !item.selected;
+            if (item.selected){
+              (item.count > 0) ? item.count++ : item.count=1;
+            }
+           } 
+           else {item.selected = false;}}
+           console.log(item)
+          return item;
       }),
     });
   }
+  
 }
+
+
 
 export default Store;
