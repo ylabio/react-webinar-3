@@ -25,37 +25,41 @@ function App({ store }) {
   return (
     <div className="App">
       <div className="App-head">
-        <h1>Приложение на чистом JS</h1>
+        <div className="App-container">
+          <h1>Приложение на чистом JS</h1>
+        </div>
       </div>
-      <div className="App-controls">
-        <button className="Button Button-violet" onClick={() => store.addItem()}>
-          Добавить
-        </button>
-      </div>
-      <div className="App-center">
-        <div className="List">
-          {list.map(item => (
-            <div key={item.code} className="List-item">
-              <div
-                className={'Item' + (item.selected ? ' Item-selected' : '')}
-                onClick={e => itemSelectHandler(e, item.code)}
-              >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                {item.clickCount ? (
-                  <span className="Item-click"> | Выделяли {item.clickCount} раз</span>
-                ) : null}
-                <div className="Item-actions">
-                  <button
-                    className="Button Button-red"
-                    onClick={e => deleteItemHandler(e, item.code)}
-                  >
-                    Удалить
-                  </button>
+      <div className="App-container">
+        <div className="App-controls">
+          <button className="Button Button-violet" onClick={() => store.addItem()}>
+            Добавить
+          </button>
+        </div>
+        <div className="App-center">
+          <div className="List">
+            {list.map(item => (
+              <div key={item.code} className="List-item">
+                <div
+                  className={'Item' + (item.selected ? ' Item-selected' : '')}
+                  onClick={e => itemSelectHandler(e, item.code)}
+                >
+                  <div className="Item-code">{item.code}</div>
+                  <div className="Item-title">{item.title}</div>
+                  {item.clickCount ? (
+                    <span className="Item-click"> | Выделяли {item.clickCount} раз</span>
+                  ) : null}
+                  <div className="Item-actions">
+                    <button
+                      className="Button Button-red"
+                      onClick={e => deleteItemHandler(e, item.code)}
+                    >
+                      Удалить
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
