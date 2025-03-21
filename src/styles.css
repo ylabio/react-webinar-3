@@ -5,6 +5,12 @@ body {
   font-family: sans-serif;
 }
 
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
 .App {
   max-width: 1024px;
   min-height: 100vh;
@@ -22,6 +28,10 @@ body {
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  font-family: Golos Text;
+  font-weight: 700;
+  font-size: 32px;
+  color: #6B4ACB;
 }
 
 .App-controls {
@@ -30,8 +40,22 @@ body {
   padding: 20px;
 }
 
+.App-controls>button {
+  color: #FFFFFF;
+  background-color: #6B4ACB;
+  font-family: Montserrat Alternates;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 4px;
+  padding: 8px 16px;
+}
+
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.List-item:nth-child(2n+1) {
+  background-color: #6a4acb14;
 }
 
 .Item {
@@ -46,16 +70,39 @@ body {
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  padding: 26px 10px 20px 20px;
 }
 
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
+  padding: 25px 10px;
+  font-family: Golos Text;
+  font-weight: 700;
+  font-size: 16px;
+  color: #1A2028;
+}
+
+.Item-count-select {
+  font-family: Golos Text;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+  color: #1A2028;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-actions>button {
+  background-color: #D43B3B;
+  border-radius: 4px;
+  font-family: Montserrat Alternates;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 8px 16px;
 }
