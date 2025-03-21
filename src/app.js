@@ -11,7 +11,9 @@ function App({ store }) {
   const list = store.getState().list;
 
   const getLastSymbol = (num) => {
-    return num >= 2 && num <= 4 ? 'раза': 'раз'
+    const lastDigit = num % 10
+    const lastButOneDigit = Math.floor(num % 100 / 10)
+    return lastDigit <= 4 && lastDigit >= 2 && lastButOneDigit != 1 ? 'раза' : 'раз'
   }
 
   return (

@@ -76,7 +76,7 @@ class Store {
           item.selected = !item.selected;
           this.selectCount(item)
         }
-        else if (item.selected && !event.ctrlKey) {
+        else if (item.selected && !(event.ctrlKey || event.metaKey)) {
           item.selected = !item.selected;
         }
         return item;
