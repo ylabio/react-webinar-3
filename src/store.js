@@ -83,6 +83,7 @@ class Store {
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
     });
+    this.setSelectedItemsCount(this.state.list.filter(item => item.selected).length);
   }
 
   /**
