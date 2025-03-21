@@ -5,6 +5,10 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.counterSelectedTimes = {}; // Счетчик сколько раз выбрана запись
+    // Последний использованный код. Получаем максимальный использованный код, если список не пустой
+    this.lastUsedCode =
+      initState.list.length > 0 ? Math.max(...initState.list.map(item => item.code)) : 0;
   }
 
   /**
@@ -44,7 +48,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: ++this.lastUsedCode, title: 'Новая запись' }],
     });
   }
 
@@ -57,22 +61,51 @@ class Store {
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
     });
+
+    // Удаляем счетчик для удалённой записи
+    delete this.counterSelectedTimes[code];
+  }
+
+  // Подсчет сколько раз выбрана запись
+  setCounterSelectedTimes(code) {
+    if (this.counterSelectedTimes.hasOwnProperty(code)) {
+      this.counterSelectedTimes[code] += 1;
+    } else {
+      this.counterSelectedTimes[code] = 1;
+    }
   }
 
   /**
    * Выделение записи по коду
    * @param code
+   * @param several
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      }),
-    });
+  selectItem(code, several) {
+    if (this.state.list.find(item => item.code === code).selected) {
+      // Если элемент уже выделен, снимаем выделение, остальные не меняются
+      this.setState({
+        ...this.state,
+        list: this.state.list.map(item => {
+          if (item.code === code) {
+            return { ...item, selected: false };
+          }
+          return item;
+        }),
+      });
+    } else {
+      // Обрабатываем клик на не выделенный элемент
+      this.setState({
+        ...this.state,
+        list: this.state.list.map(item => {
+          if (item.code === code) {
+            this.setCounterSelectedTimes(code);
+            return { ...item, selected: true };
+          }
+          // several=true передаётся при зажатом CTRL или cmd. В этом случае не снимаем выделение. В противном случае снимаем
+          return several ? item : { ...item, selected: false };
+        }),
+      });
+    }
   }
 }
 
