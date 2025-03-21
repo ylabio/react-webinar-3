@@ -65,6 +65,7 @@ class Store {
    */
   getCountText(item) {
     if (item.selected) {
+      item.selectedCountText = ' | Выделяли ';
       item.selectedCount ? (item.selectedCount += 1) : (item.selectedCount = 1);
       switch (item.selectedCount % 10) {
         case 2:
@@ -75,11 +76,11 @@ class Store {
             item.selectedCount % 100 !== 13 &&
             item.selectedCount % 100 !== 14
           ) {
-            item.selectedCountText = item.selectedCount + ' раза';
+            item.selectedCountText += item.selectedCount + ' раза';
             break;
           }
         default:
-          item.selectedCountText = item.selectedCount + ' раз';
+          item.selectedCountText += item.selectedCount + ' раз';
       }
     }
     return item;
