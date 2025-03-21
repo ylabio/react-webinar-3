@@ -3,8 +3,44 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = this._checkState(initState);
     this.listeners = []; // Слушатели изменений состояния
+  }
+
+  /**
+   * Проверка корректности данных состояния -
+   * проверяет уникальность числовых кодов, гарантирует что есть код (положительное число) и тайтл (строка),
+   * иные данные считаются некорректными и отбрасываются.
+   *
+   * @param checkedState {Object} - Проверяемый объект состояния
+   * @returns {Object} - Обработанный объект состояния
+   */
+  _checkState(checkedState) {
+    const defaultState = { list: [], lastCode: 0 };
+
+    if (!Array.isArray(checkedState.list) || checkedState.list.length === 0) {
+      return defaultState;
+    }
+
+    const codeSet = new Set();
+    let maxCode = 0;
+    const validItems = [];
+
+    checkedState.list.forEach((item) => {
+      if (!item || typeof item !== 'object' || Array.isArray(item)) return;
+
+      const hasValidCode = typeof item.code === 'number' && item.code > 0;
+      const hasValidTitle = typeof item.title === 'string' && item.title.trim().length > 0;
+      const isUniqueCode = !codeSet.has(item.code);
+
+      if (hasValidCode && hasValidTitle && isUniqueCode) {
+        codeSet.add(item.code);
+        if (item.code > maxCode) maxCode = item.code;
+        validItems.push({ code: item.code, title: item.title });
+      }
+    });
+
+    return { list: validItems, lastCode: maxCode };
   }
 
   /**
@@ -30,7 +66,7 @@ class Store {
 
   /**
    * Установка состояния
-   * @param newState {Object}
+   * @param newState {Object} - Новый объект состояния
    */
   setState(newState) {
     this.state = newState;
@@ -42,15 +78,19 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const nextCode = this.state.lastCode + 1;
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: nextCode, title: 'Новая запись' }],
+      lastCode: nextCode,
     });
+
   }
 
   /**
    * Удаление записи по коду
-   * @param code
+   * @param code {number} - Код элемента
    */
   deleteItem(code) {
     this.setState({
@@ -60,15 +100,20 @@ class Store {
   }
 
   /**
-   * Выделение записи по коду
-   * @param code
+   * Переключает выделение элемента
+   * @param code {number} - Код элемента
+   * @param isMultiSelect {boolean} - Флаг группового выделения
    */
-  selectItem(code) {
+  selectItem(code, isMultiSelect) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          const count = item.countSelected ?? 0
+          item.countSelected = item.selected ? count + 1 : item.countSelected
+        }  else if (!isMultiSelect) {
+          item.selected = false;
         }
         return item;
       }),
