@@ -2,60 +2,148 @@ body {
   margin: 0;
   padding: 0;
   background: #535353;
-  font-family: sans-serif;
+  font-family: 'Golos Text', sans-serif;
 }
 
 .App {
-  max-width: 1024px;
-  min-height: 100vh;
+  width: 1440px;
+  min-height: 664px;
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
+  padding: 24px;
 }
 
 .App-head {
+  width: 1152px;
   height: 80px;
-  background: #f5f5f5;
+  margin: 0 auto 24px;
+  border-bottom: 1px solid #EFEFEF;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  box-sizing: border-box;
 }
 
 .App-head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  color: #6B4ACB;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: 0;
+}
+
+.App-center {
+  width: 1152px;
+  min-height: 568px;
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
 .App-controls {
+  width: 1152px;
+  min-height: 40px;
+  margin: 0 auto;
+  padding: 0 65px;
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  box-sizing: border-box;
+  margin-top: 24px;
+}
+
+.App-controls button {
+  background-color: #6B4ACB;
+  color: white;
+  border: none;
+  padding: 0 24px;
+  height: 40px;
+  border-radius: 8px;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 114px;
+  white-space: nowrap;
+}
+
+.App-controls button:hover {
+  background-color: #5a3ab2;
+}
+
+.List {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #EFEFEF;
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  border: 2px solid transparent;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.Item:hover {
+  outline: 2px solid #6B4ACB;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background-color: rgba(107, 74, 203, 0.1);
+  border: none;
 }
 
 .Item-code {
   padding: 20px 10px 20px 20px;
+  font-family: 'Golos Text', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0;
 }
 
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  font-family: 'Golos Text', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0;
+}
+
+.Item-title span {
+  font-weight: 400;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-actions button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0 24px;
+  height: 40px;
+  border-radius: 8px;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 105px;
+  white-space: nowrap;
+}
+
+.Item-actions button:hover {
+  background-color: #c82333;
 }
