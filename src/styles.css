@@ -1,22 +1,49 @@
+
+@font-face {
+  font-display: swap;
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/golos-text-v4-latin-regular.woff2') format('woff2');
+}
+@font-face {
+  font-display: swap;
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/golos-text-v4-latin-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/montserrat-alternates-v17-cyrillic_latin-700.woff2') format('woff2');
+}
+
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  font-family: Golos Text, sans-serif;
 }
 
 .App {
-  max-width: 1024px;
+  /*max-width: 1024px;*/
   min-height: 100vh;
-  margin: 0 auto;
+
   background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
+}
+
+.container {
+  max-width: 1152px;
+  margin: 0 auto;
 }
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
+  border-bottom: 1px solid #efefef;
 }
 
 .App-head h1 {
@@ -30,32 +57,69 @@ body {
   padding: 20px;
 }
 
-.List-item {
-  border-bottom: 1px dashed #ccc;
+.title {
+  font-family: 'Golos Text', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 125%;
+  color: #6b4acb;
+}
+
+.add {
+  border-radius: 4px;
+  padding: 8px 16px;
+  background-color: #6b4acb;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+}
+
+.List {
+  list-style: none;
+  padding: 0;
+}
+
+
+.list-item {
+  border-bottom: 1px solid #efefef;
+}
+
+.Item p {
+  margin: 0;
+}
+
+.List-item:nth-child(odd) {
+  background-color: rgba(107, 74, 203, 0.03);
 }
 
 .Item {
   display: flex;
-  justify-content: flex-start;
   transition: background-color 1s;
+  align-items: center;
+  padding: 25px 16px;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background-color: rgba(107, 74, 203, 0.1);
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  margin-right: 16px;
 }
 
 .Item-title {
-  width: 100%;
-  padding: 20px 10px;
+  font-weight: 700;
 }
 
 .Item-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+margin-left: auto;
+}
+
+.remove {
+  border-radius: 4px;
+  padding: 8px 16px;
+  background-color: #d43b3b;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
 }

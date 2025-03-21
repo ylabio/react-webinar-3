@@ -7,13 +7,13 @@ let config = {
   context: path.join(__dirname, '/src'), // Директория с исходным кодом приложения
   entry: 'index.js', // Главный файл приложения
   output: {
-    path: path.join(__dirname, 'dist'), // Куда делать оброку
+    path: path.join(__dirname, 'dist'), // Куда делать сборку
     filename: '[name].js', // Шаблон для названия файлов
     clean: true, // Очистить ./dist перед сборкой
   },
   mode: process.env.NODE_ENV,
   resolve: {
-    extensions: ['.js', 'jsx'], // расширения по умолчанию если не указаны в import
+    extensions: ['.js', '.jsx'], // Расширения по умолчанию если не указаны в import
     modules: ['./', 'node_modules'], // Где искать файлы подключаемых модулей (пакетов)
   },
   module: {
@@ -24,13 +24,21 @@ let config = {
         exclude: /node_modules/,
         use: [{ loader: 'babel-loader' }],
       },
-      // Правила обработки подключаемых файлов
+      // Правила обработки CSS
       {
         test: /\.css$/,
         use: [
           { loader: MiniCssExtractPlugin.loader, options: {} },
           { loader: 'css-loader', options: { url: true, import: true } },
         ],
+      },
+
+      {
+        test: /\.(woff2?|ttf|eot|svg)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name][ext]',
+        },
       },
     ],
   },
