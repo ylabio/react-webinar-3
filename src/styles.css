@@ -106,8 +106,12 @@ button:hover {
   padding-bottom: 156px;
 }
 
+.App-controls {
+  max-width: 1112px;
+  margin: 0 auto;
+}
+
 .App-head,
-.App-controls,
 .App-center {
   max-width: 1152px;
   margin: 0 auto;
