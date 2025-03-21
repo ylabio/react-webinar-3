@@ -44,7 +44,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, {code: this.state.list[0] ? this.state.list.at(-1).code + 1 : 1, title: 'Новая запись'}],
     });
   }
 
@@ -61,14 +61,26 @@ class Store {
 
   /**
    * Выделение записи по коду
-   * @param code
+   * @param code {number} Код записи
+   * @param event {Event} Событие клика
    */
-  selectItem(code) {
+  selectItem(code, event) {
+    const isCtrlPressed = event.ctrlKey || event.metaKey;
+    const currentItem = this.state.list.find(item => item.code === code);
+    
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          // Toggle selection for the clicked item
+          const newSelected = !item.selected;
+          item.selected = newSelected;
+          if (newSelected) {
+            item.count = (item.count || 0) + 1;
+          }
+        } else if (!isCtrlPressed) {
+          // Clear selection of other items if Ctrl/Cmd is not pressed
+          item.selected = false;
         }
         return item;
       }),

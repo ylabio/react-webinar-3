@@ -1,4 +1,5 @@
 import React from 'react';
+import { Pluralize } from './utils';
 import { createElement } from './utils.js';
 import './styles.css';
 
@@ -24,12 +25,22 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(e) => store.selectItem(item.code, e)}
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}</div>
-                <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                <div className='divider'>{item.count > 0 ? '|' : ''}</div>
+                <div className='Item-count'>
+                  {item.count ? `Выделяли ${item.count} ${Pluralize(item.count)}` : ''}
+                </div>
+                <div className='Item-actions'>
+                  <button onClick={(e) => {
+                    e.stopPropagation();
+                    store.deleteItem(item.code)
+                  }
+                  }>
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>
