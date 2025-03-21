@@ -10,13 +10,21 @@ import './styles.css';
 function App({ store }) {
   const list = store.getState().list;
 
+  document.addEventListener('keydown', function(event) {
+    store.getKeydown(event.key)
+    console.log(store.state)
+  })
+  document.addEventListener('keyup', function(event) {
+    !event.ctrlKey ? store.getKeydown(null) : "";
+  })
+
   return (
     <div className="App">
       <div className="App-head">
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+          <button className='App-button' onClick={() => store.addItem()}>Добавить</button>
       </div>
       <div className="App-center">
         <div className="List">
@@ -27,9 +35,9 @@ function App({ store }) {
                 onClick={() => store.selectItem(item.code)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">{!item.click ? <span className='Item-title-text'>{item.title}</span> : <span> <span className='Item-title-text'>{item.title}</span><span>{` | Выделяли ${item.click} раз`}</span></span>}</div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button className='Item-button' onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>
               </div>
             </div>
