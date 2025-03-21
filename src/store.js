@@ -5,6 +5,9 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.NextCode = (this.state.list && this.state.list.length > 0)
+    ? Math.max(...this.state.list.map(item => item.code)) + 1
+    : 1;
   }
 
   /**
@@ -42,9 +45,13 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newCode = this.NextCode;
+    this.NextCode += 1;
+
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: newCode, title: 'Новая запись', selected: false, selectionCount: 0 }],
     });
   }
 
@@ -53,22 +60,40 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const newList = this.state.list.filter(item => item.code !== code); // Удаляем запись
     this.setState({
-      ...this.state,
-      list: this.state.list.filter(item => item.code !== code),
+      ...this.state, // Копируем текущее состояние
+      list: newList, // Обновляем только список
     });
   }
+
+
 
   /**
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  /**
+ * Выделение записи по коду
+ * @param code {number} Код записи
+ */
+  selectItem(code, isCtrlPressed = false) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          const newSelectionCount = item.selected ? item.selectionCount : item.selectionCount + 1;
+          return {
+            ...item,
+            selected: !item.selected,
+            selectionCount: newSelectionCount,
+          };
+        }
+        if (!isCtrlPressed) {
+          return {
+            ...item,
+            selected: false,
+          };
         }
         return item;
       }),

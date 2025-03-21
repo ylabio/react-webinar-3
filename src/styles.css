@@ -1,8 +1,15 @@
+@import url(./fonst/fonts.css);
+
+:root {
+  --font-family: "Golos Text", sans-serif;
+  --second-family: "Montserrat Alternates", sans-serif;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  /* background: #535353; */
+  font-family: var(--font-family);
 }
 
 .App {
@@ -11,17 +18,23 @@ body {
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
+  /* box-shadow: 0 0 15px 5px #0000003b; */
 }
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
+  background: #fff;
+  border-bottom: 2px solid #EFEFEF;
 }
 
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 125%;
+  color: #6b4acb;
 }
 
 .App-controls {
@@ -30,8 +43,34 @@ body {
   padding: 20px;
 }
 
+.App-controls__button {
+  border-radius: 4px;
+  padding: 8px 16px;
+  width: fit-content;
+  height: 40px;
+  box-sizing: border-box;
+  background: #6b4acb;
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 157%;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 0.3s;
+}
+
+.App-controls__button:hover {
+  transform: scale(1.03);
+}
+
 .List-item {
   border-bottom: 1px dashed #ccc;
+}
+
+.List-item:nth-child(2n-1) {
+  background: rgba(107, 74, 203, 0.1);
 }
 
 .Item {
@@ -47,15 +86,59 @@ body {
 
 .Item-code {
   padding: 20px 10px 20px 20px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+  color: #1a2028;
+  display: inline-flex;
+  align-items: center;
 }
 
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 137%;
+  color: #1a2028;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+.Item-title span {
+  font-weight: 400;
+}
+
+.Item-title span::before {
+  content: '| ';
+  font-weight: 700;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-actoins__button {
+  border-radius: 4px;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  width: fit-content;
+  height: 40px;
+  background: #d43b3b;
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 157%;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 0.3s;
+}
+
+.Item-actoins__button:hover {
+  transform: scale(1.03);
 }

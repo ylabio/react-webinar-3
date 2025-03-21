@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "Golos Text";
+  src:
+    url("./GolosText-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Golos Text";
+  src:
+    url("./GolosText-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: "Montserrat Alternates";
+  src:
+    url("./MontserratAlternates-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: bold;
+}
