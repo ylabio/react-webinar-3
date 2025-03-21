@@ -6,8 +6,12 @@ class Store {
     this.state = {
       ...initState,
       lastCode: initState.list.length > 0 ? Math.max(...initState.list.map(item => item.code)) : 0, // Инициализируем lastCode
-    };
     //this.state = initState;
+    //list: initState.list.map(item => ({
+      list: initState.list ? initState.list.map(item => ({
+      ...item, selectedCount: item.selectedCount || 0, // Инициализируем selectedCount
+    })) : [],
+  };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -50,7 +54,7 @@ class Store {
     this.setState({
       ...this.state,
       lastCode: newCode,
-      list: [...this.state.list, { code: newCode, title: 'Новая запись', selected: false }],
+      list: [...this.state.list, { code: newCode, title: 'Новая запись', selected: false, selectedCount: 0 }],
       //list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись', selected: false }],
     });
   }
@@ -69,6 +73,7 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param event {Mouse Event}
    */
   selectItem(code, event) {
     const isCtrlPressed = event.ctrlKey || event.metaKey; //проверка нажатия ctrl и cmd
@@ -77,7 +82,9 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          return {...item, selected: !item.selected};
+          const newSelectedState = !item.selected;
+          return {...item, selected: newSelectedState, 
+            selectedCount: !item.selected && newSelectedState ? item.selectedCount + 1: item.selectedCount,}; //увеличение счетчика при выделении
           //item.selected = !item.selected;
         }
         else if (!isCtrlPressed) { //если не нажато, снимаем выделение с других записей
