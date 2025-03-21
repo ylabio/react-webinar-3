@@ -28,7 +28,10 @@ function App({ store }) {
                   onClick={(e) => store.selectItem(e, item.code)}
                 >
                   <div className="Item-code">{item.code}</div>
-                  <div className="Item-title">{item.title}</div>
+                  <div className="Item-title">
+                    <strong>{item.title}</strong>
+                    {item.count > 0 && ` | Выделяли ${item.count} раз${store.getCount(item.count, '', 'а')}`}
+                  </div>
                   <div className="Item-actions">
                     <button onClick={(e) => {
                       e.stopPropagation();

@@ -46,7 +46,7 @@ class Store {
     const code = lastEl.code + 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: code, title: 'Новая запись' }],
+      list: [...this.state.list, { code: code, title: 'Новая запись', count: 0 }],
     });
   }
 
@@ -70,6 +70,7 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          this.checkCount(item);
           item.selected = !item.selected;
         }
         if (item.code !== code && item.selected && !e.ctrlKey) {
@@ -78,6 +79,27 @@ class Store {
         return item;
       }),
     });
+  }
+
+  checkCount(item) {
+    if (!item.selected) {
+      item.count += 1;
+    };
+  }
+
+  getCount(number, var1, var2) {
+    number %= 100;
+    if (number >= 5 && number <= 20) {
+      return var1;
+    }
+    number %= 10;
+    if (number === 1) {
+      return var1;
+    }
+    if (number >= 2 && number <= 4) {
+      return var2;
+    }
+    return var1;
   }
 }
 
