@@ -26,3 +26,17 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * определение верного окончания для числительного
+ *
+ * @param count {Number} число выделений записи
+ * @returns {String} правильная обработка склонения "раз"
+ */
+export function declination(count) {
+  if (count === 2 || count === 3 || count === 4) {
+    return `${count} раза`;
+  } else {
+    return `${count} раз`;
+  }
+}
