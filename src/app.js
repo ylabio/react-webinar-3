@@ -10,6 +10,12 @@ import './styles.css';
 function App({ store }) {
   const list = store.getState().list;
 
+  const getLastSymbol = (num) => {
+    const lastDigit = num % 10
+    const lastButOneDigit = Math.floor(num % 100 / 10)
+    return lastDigit <= 4 && lastDigit >= 2 && lastButOneDigit != 1 ? 'раза' : 'раз'
+  }
+
   return (
     <div className="App">
       <div className="App-head">
@@ -24,10 +30,13 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(e) => store.selectItem(item.code, e)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">
+                    <span className='bold'>{item.title}</span>
+                    {item.selectCount ? ` | Выделяли ${item.selectCount} ${getLastSymbol(item.selectCount)}` : ''}
+                </div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>
