@@ -1,3 +1,4 @@
+import {generator} from "./utils";
 /**
  * Хранилище состояния приложения
  */
@@ -5,6 +6,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.uniqueCodes = new Set(this.state.list.map(item => item.code));
+    this.generateCode = generator(this.uniqueCodes);
   }
 
   /**
@@ -42,9 +45,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newCode = this.generateCode();
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: newCode, title: 'Новая запись', selected: false, selectCount: 0 }],
     });
   }
 
@@ -53,6 +58,7 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    this.uniqueCodes.delete(code);
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
@@ -62,15 +68,19 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param isMultiple
    */
-  selectItem(code) {
+  selectItem(code, isMultiple = false) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          const newSelected = !item.selected;
+          const selectCount = newSelected ? (item.selectCount || 0) + 1 : item.selectCount;
+          return { ...item, selected: newSelected, selectCount };
+        } else {
+          return !isMultiple ? { ...item, selected: false } : item;
         }
-        return item;
       }),
     });
   }

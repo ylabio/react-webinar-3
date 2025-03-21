@@ -1,6 +1,6 @@
 import React from 'react';
-import { createElement } from './utils.js';
 import './styles.css';
+import {plural} from "./utils";
 
 /**
  * Приложение
@@ -21,18 +21,29 @@ function App({ store }) {
       <div className="App-center">
         <div className="List">
           {list.map(item => (
-            <div key={item.code} className="List-item">
-              <div
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
-              >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+            item.code && (
+              <div key={item.code} className="List-item">
+                <div
+                  className={'Item' + (item.selected ? ' Item_selected' : '')}
+                  onClick={(e) => {
+                    store.selectItem(item.code, e.ctrlKey || e.metaKey);
+                  }}
+                >
+                  <div className="Item-code">{item.code}</div>
+                  <div className="Item-title">
+                    {item.title}
+                    {item.selectCount ? (
+                      <span style={{ fontWeight: 400 }}>
+                        {` | Выделяли ${item.selectCount} ${plural(item.selectCount, {one: 'раз', few: 'раза', many: 'раз'})}`}
+                      </span>) : ''
+                    }
+                  </div>
+                  <div className="Item-actions">
+                    <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  </div>
                 </div>
               </div>
-            </div>
+            )
           ))}
         </div>
       </div>
