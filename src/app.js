@@ -33,7 +33,7 @@ function App({ store }) {
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
-                  {item.title}
+                  <b>{item.title}</b>
                   {item.selectionCount > 0 && (
                   <span className="Item-selection"> | Выделяли {item.selectionCount} раз</span>
                 )}
