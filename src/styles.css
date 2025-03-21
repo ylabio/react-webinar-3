@@ -1,9 +1,10 @@
 :root {
   --primary-color: #6f42c1;
-  --accent-color: #D43B3B;
-  --border: 1px solid #EFEFEF;
-  --bg-list-item-even: #6B4ACB08;
-  --bg-list-item-selected: #6B4ACB1A;
+  --accent-color: #d43b3b;
+  --shadow-color: #0000003b;
+  --border: 1px solid #efefef;
+  --bg-list-item-even: #6b4acb08;
+  --bg-list-item-selected: #6b4acb1a;
 }
 
 * {
@@ -77,7 +78,7 @@ body {
 }
 
  .Item:hover {
-   box-shadow: 0 0 15px 5px #0000003b;
+   box-shadow: 0 0 15px 5px var(--shadow-color);
  }
 
 .List-item.Item_selected {
