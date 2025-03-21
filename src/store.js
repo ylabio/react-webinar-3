@@ -5,6 +5,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.counter = 0;
+
   }
 
   /**
@@ -42,38 +44,65 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const uniqueCode = (Date.now() % 100000) + this.counter++;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        {code: uniqueCode, title: 'Новая запись', selected: false},
+      ],
     });
   }
 
   /**
    * Удаление записи по коду
-   * @param code
+   * @param code {Number} - уникальный код записи
    */
   deleteItem(code) {
+    const currentList = this.state.list;
+    const updatedList = currentList.filter(item => item.code !== code);
+    console.log(updatedList)
+    const newList = updatedList.map(item => ({
+      ...item,
+      selected: item.selected,
+    }));
+    this.selectItem(code, false);
+
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code),
+      list: newList,
     });
   }
 
   /**
    * Выделение записи по коду
-   * @param code
+   * @param code {Number} - уникальныйц код записи
+   * @param ctrlKey {Boolean} - состояние нажатой клавиши ctrl/cmd
    */
-  selectItem(code) {
+  selectItem(code, ctrlKey) {
+    let itemList = this.state.list.map(item => {
+      if (item.code === code) {
+        if (item.selected && !ctrlKey) {
+          item.selected = false;
+        } else {
+          item.selected = true;
+          if (!item.selectionCount) {
+            item.selectionCount = 1;
+          } else {
+            item.selectionCount++;
+          }
+        }
+      }
+      if (!ctrlKey && item.code !== code) {
+        item.selected = false;
+      }
+      return item;
+    });
+
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      }),
+      list: itemList,
     });
   }
 }
-
 export default Store;

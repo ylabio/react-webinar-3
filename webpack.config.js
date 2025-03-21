@@ -7,7 +7,7 @@ let config = {
   context: path.join(__dirname, '/src'), // Директория с исходным кодом приложения
   entry: 'index.js', // Главный файл приложения
   output: {
-    path: path.join(__dirname, 'dist'), // Куда делать оброку
+    path: path.join(__dirname, 'dist'), // Куда делать сборку
     filename: '[name].js', // Шаблон для названия файлов
     clean: true, // Очистить ./dist перед сборкой
   },
@@ -49,7 +49,7 @@ if (process.env.NODE_ENV === 'development') {
   config.devtool = 'inline-source-map';
   config.devServer = {
     static: path.join(__dirname, 'dist'),
-    port: 8010,
+    port: 8020,
     historyApiFallback: true,
   };
 }
