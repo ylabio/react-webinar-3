@@ -63,12 +63,15 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, multipleEntries) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          return { ...item, selected: !item.selected };
+        }
+        if (!multipleEntries) {
+          return { ...item, selected: false };
         }
         return item;
       }),
