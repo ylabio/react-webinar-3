@@ -65,14 +65,17 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code, isCtrlKey = false) {
+  selectItem(code, isCtrlKey) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          if (!item.selected) {
+            item.selectionCount = (item.selectionCount || 0) + 1;
+          }
           item.selected = !item.selected;
         }  else if (!isCtrlKey) {
-          item.selected = false;
+          item.selected = item.selected;;
         }
         return item;
       }),
