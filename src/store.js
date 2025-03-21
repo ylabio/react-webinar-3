@@ -5,6 +5,15 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.startCount = 0; // Счетчик записей
+  }
+
+  init() {
+    const maxCode = this.state.list.reduce(
+      (item, currentValue) => item.code > currentValue ? item.code : currentValue,
+        this.state.list[0].code
+    ).code;
+    this.startCount = maxCode + 1;  
   }
 
   /**
@@ -44,7 +53,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.getNextCodeG(this.startCount), title: 'Новая запись' }],
     });
   }
 
@@ -52,7 +61,8 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(code, env) {
+    env.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
@@ -63,16 +73,31 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, key) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        return {
+          ...item,
+          selected: key ? ( item.code === code ? !item.selected : item.selected) : (item.code === code && !item.selected),
+          selectCount: item.code === code && !item.selected ? item.selectCount + 1 : item.selectCount
         }
-        return item;
       }),
     });
+  }
+
+  getNextCode() {
+    const maxCode = this.state.list.reduce(
+      (item, currentValue) => item.code > currentValue ? item.code : currentValue,
+        this.state.list[0].code
+    ).code;
+    return maxCode + 1;
+  }
+
+  
+  getNextCodeG() {
+    this.startCount+= 1
+    return this.startCount 
   }
 }
 

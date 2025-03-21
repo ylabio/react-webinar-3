@@ -16,7 +16,7 @@ function App({ store }) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button className="App-controls_btn add" onClick={() => store.addItem()}>Добавить</button>
       </div>
       <div className="App-center">
         <div className="List">
@@ -24,12 +24,17 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(evn) => store.selectItem(item.code, evn.ctrlKey)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">{item.title}<span class="Item-select-count">{item.selectCount > 0 && `| Выделяли ${item.selectCount} раз`}</span></div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button
+                    className="App-controls_btn delete"
+                    onClick={(env) => store.deleteItem(item.code, env)}
+                  >
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>

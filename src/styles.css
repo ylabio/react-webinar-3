@@ -16,18 +16,37 @@ body {
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
+  background: #fEfEfE;
 }
 
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  color: #6B4AcB;
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+}
+
+.add {
+  color: #FFF;
+  background-color: #6B4AcB;
+}
+
+.delete {
+  color: #FFF;
+  background-color: #D43B3B;
+}
+
+.App-controls_btn {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  padding: 8px 16px;
+  border: none;
 }
 
 .List-item {
@@ -41,21 +60,31 @@ body {
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: #6B4AcB1A;
 }
 
 .Item-code {
   padding: 20px 10px 20px 20px;
+  font-size: 16px;
+  line-height: 22px;
 }
 
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  color: #1A2028;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-select-count {
+  padding-left: 16px;
+  font-weight: 400;
 }
