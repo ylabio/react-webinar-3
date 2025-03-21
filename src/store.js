@@ -42,9 +42,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const lastEl = this.state.list[this.state.list.length - 1];
+    const code = lastEl.code + 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: code, title: 'Новая запись', count: 0 }],
     });
   }
 
@@ -63,16 +65,41 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(e, code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          this.checkCount(item);
+          item.selected = !item.selected;
+        }
+        if (item.code !== code && item.selected && !e.ctrlKey) {
           item.selected = !item.selected;
         }
         return item;
       }),
     });
+  }
+
+  checkCount(item) {
+    if (!item.selected) {
+      item.count += 1;
+    };
+  }
+
+  getCount(number, var1, var2) {
+    number %= 100;
+    if (number >= 5 && number <= 20) {
+      return var1;
+    }
+    number %= 10;
+    if (number === 1) {
+      return var1;
+    }
+    if (number >= 2 && number <= 4) {
+      return var2;
+    }
+    return var1;
   }
 }
 
