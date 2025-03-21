@@ -5,6 +5,23 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.maxCode = this.setMaxCode();
+  }
+
+  /**
+ * Фиксировать максимальную длину
+ */
+  setMaxCode() {
+    const maxCode = [];
+    if (this.state.list && this.state.list.length > 0) {
+      this.state.list.forEach(el => {
+        if (el.code !== undefined) {
+          maxCode.push(el.code);
+        }
+      });
+    }
+
+    return maxCode;
   }
 
   /**
@@ -39,12 +56,28 @@ class Store {
   }
 
   /**
+   * Генерация уникального id
+   */
+  getCode() {
+    this.maxCode.push(this.maxCode.length);
+    return this.maxCode.length;
+  }
+
+  /**
    * Добавление новой записи
    */
   addItem() {
+    const generateNewCode = this.getCode();
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        {
+          //Реализация генерацию уникальных числовых кодов
+          code: generateNewCode,
+          title: 'Новая запись',
+        },
+      ],
     });
   }
 
@@ -63,14 +96,23 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, event) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        // Если при клике на запись дополнительно удерживать клавишу Ctrl (или Cmd на macOS)
+        if (event.metaKey || event.ctrlKey) {
+          return item.code === code ? { ...item, selected: !item.selected } : item;
+        } else {
+          // Иначе выделять при клике только одну запись,
+          // при клике на другую запись будет сбрасываться на другой
+          return {
+            ...item,
+            selected: item.code === code ? !item.selected : false,
+            // Количество совершенных выделений для каждой записи
+            count: item.code === code && !item.selected ? (item.count || 0) + 1 : item.count,
+          };
         }
-        return item;
       }),
     });
   }
