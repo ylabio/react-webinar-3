@@ -25,8 +25,8 @@ function App({ store }) {
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
                 onClick={(e) => {
-                  e.stopPropagation();
-                  store.selectItem(item.code);
+                  const isCtrlPressed = e.ctrlKey || e.metaKey;
+                  store.selectItem(item.code, isCtrlPressed);
                 }}
               >
                 <div className="Item-code">{item.code}</div>
