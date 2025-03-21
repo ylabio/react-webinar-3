@@ -16,22 +16,22 @@ function App({ store }) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button className="Button-add" onClick={() => store.addItem()}>Добавить</button>
       </div>
       <div className="App-center">
         <div className="List">
-          {list.map(item => (
-            <div key={item.code} className="List-item">
+          {list.map((item, index) => (
+            <div key={item.code} className={`List-item ${index % 2 === 0 ? 'List-item-gray' : 'List-item-white'}`}>
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
                 onClick={(event) => store.selectItem(item.code, event)}
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}
-                  {(item.selectedCount > 0) && (<span>  | Выделяли {item.selectedCount} раз</span>)}
+                  {(item.selectedCount > 0) && (<span className="Item-count">  | Выделяли {item.selectedCount} раз</span>)}
                 </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button className="Button-deleted" onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>
               </div>
             </div>
