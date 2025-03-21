@@ -68,23 +68,40 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(event, code, count) {
+  selectItem(event, code, count, pluralize) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        
+        pluralize = ['раз', 'раза'];
         event.stopPropagation(); 
         
-        if (!item.selected && item.code === code && (event.ctrlKey || event.metaKey)) {
+        if (!item.selected && item.code === code && ((event.ctrlKey || event.metaKey) || !(event.ctrlKey || event.metaKey))) {
           item.selected = true;
           count = count + 1;
           item.count = count;
+
+          if (
+            count === 12 ||
+            count === 13 ||
+            count === 14 ||
+            count % 100 === 12 ||
+            count % 100 === 13 ||
+            count % 100 === 14) {
+            item.pluralize = pluralize[0];
+          } else if (
+            count === 2 || 
+            count === 3 || 
+            count === 4 || 
+            count % 10 === 2 || 
+            count % 10 === 3 || 
+            count % 10 === 4) {
+            item.pluralize = pluralize[1];
+          } else {
+            item.pluralize = pluralize[0];
+          }
+          
         } else if (item.selected && item.code === code && (event.ctrlKey || event.metaKey)) {
           item.selected = false;
-        } else if (!item.selected && item.code === code && !(event.ctrlKey || event.metaKey)) {
-          item.selected = true;
-          count = count + 1;
-          item.count = count;
         } else if (item.selected && (item.code !== code || item.code === code) && !(event.ctrlKey || event.metaKey)) {
           item.selected = false;
         }
