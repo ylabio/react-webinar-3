@@ -1,10 +1,13 @@
 /**
  * Хранилище состояния приложения
  */
+import { SequenceGenerator } from './sequence_generator';
+
 class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.generator = new SequenceGenerator(this.state.list.length + 1)
   }
 
   /**
@@ -44,7 +47,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.generator.generate(), title: 'Новая запись', selectionCount: 0 }],
     });
   }
 
@@ -62,12 +65,17 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param event
    */
-  selectItem(code) {
+  selectItem(code, event) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        if (!event.ctrlKey && item.code !== code && !event.target.classList.contains('Delete')) {
+          item.selected = false;
+        }
         if (item.code === code) {
+          item.selectionCount = item.selected ? item.selectionCount : item.selectionCount + 1;
           item.selected = !item.selected;
         }
         return item;
