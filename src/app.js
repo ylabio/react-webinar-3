@@ -19,11 +19,14 @@ function App({ store }) {
       </div>
       <div className="App-center">
         <div className="List">
-          {list.map(item => (
+          {list.map((item , index)=> (
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
                 onClick={(e) => store.selectItem(item.code, e)}
+                style={{
+                  backgroundColor: item.selected ? '#6B4ACB1A' : (index % 2 === 0 ? '#fff' : '#6B4ACB08')
+                }}
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}

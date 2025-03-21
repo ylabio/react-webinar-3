@@ -86,10 +86,9 @@ class Store {
         if (item.selectionCount === undefined) {
           item.selectionCount = 0;
         }
-
+        const newSelectedState = !item.selected;
         if (isCtrlPressed) {
           if (item.code === code) {
-            const newSelectedState = !item.selected;
             // Вычисляем количество выделений
             if (newSelectedState) {
               return { ...item, selected: newSelectedState, selectionCount: item.selectionCount + 1 };
@@ -99,10 +98,14 @@ class Store {
           }
           return item;
         } else {
-          return {
-            ...item,
-            selected: item.code === code,
-            selectionCount: item.code === code ? item.selectionCount + 1 : item.selectionCount
+          if (newSelectedState) {
+            return {
+              ...item,
+              selected: item.code === code,
+              selectionCount: item.code === code ? item.selectionCount + 1 : item.selectionCount
+            }
+          } else {
+              return { ...item, selected: newSelectedState, selectionCount: item.selectionCount };
           }
         }
       }),

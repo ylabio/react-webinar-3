@@ -69,10 +69,6 @@ body {
   border-bottom: 1px solid #EFEFEF;
 }
 
-.List-item:nth-child(odd) {
-  background-color: #6B4ACB08;
-}
-
 .Item {
   display: flex;
   justify-content: flex-start;
