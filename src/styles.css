@@ -1,27 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;600&display=swap');
+
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  font-family: 'Golos Text',sans-serif;
 }
 
 .App {
-  max-width: 1024px;
+  max-width: 1440px;
   min-height: 100vh;
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
+  border-bottom: 1px dashed #EFEFEF;
+  background-color: #fff;
 }
 
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  color: #6B4ACB;
 }
 
 .App-controls {
@@ -54,8 +57,37 @@ body {
   padding: 20px 10px;
 }
 
+.Item-title__bold {
+  font-weight: bold;
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+button {
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-weight: 700;
+  padding: 8px 16px;
+  color: #fff;
+  border: none; 
+  border-radius: 8px;
+}
+
+.Item-addButton {
+  background-color: #6B4ACB;
+}
+
+.Item-removeButton {
+  background-color: #D43B3B;
+}
+
+.List .List-item:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.List .List-item:nth-child(even) {
+  background-color: #6B4ACB1A;
 }
