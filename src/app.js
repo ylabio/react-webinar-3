@@ -30,7 +30,10 @@ function App({ store }) {
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
-                  {`${item.title} ${item.clickCount !== 0 ? `| Выделяли ${item.clickCount} раз` : ''}`}
+                {item.title}
+                  {item.clickCount !== 0 && (
+                    <span>{` | Выделяли ${item.clickCount} раз`}</span>
+                  )}
                 </div>
                 <div className="Item-actions">
                   <button onClick={(e) => {
