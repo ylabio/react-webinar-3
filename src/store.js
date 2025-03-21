@@ -5,7 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.nextCode = Math.max(...this.state.list.map((item) => item.code)) + 1
+    this.nextCode = Math.max(...this.state.list.map(item => item.code)) + 1;
   }
 
   /**
@@ -43,7 +43,7 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    const newCode = this.nextCode++
+    const newCode = this.nextCode++;
 
     this.setState({
       ...this.state,
@@ -57,7 +57,7 @@ class Store {
    */
   deleteItem(code) {
     console.log(this.nextCode);
-    
+
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
@@ -74,7 +74,11 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          return { ...item, selected: !item.selected };
+          return {
+            ...item,
+            selected: !item.selected,
+            count: !item.selected ? (item.count || 0) + 1 : item.count,
+          };
         }
         return event.ctrlKey || event.metaKey ? item : { ...item, selected: false };
       }),
