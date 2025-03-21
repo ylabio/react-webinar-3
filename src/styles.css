@@ -5,10 +5,6 @@ body {
   font-family: sans-serif;
 }
 
-.Item-actions button {
-  height: fit-content;
-}
-
 .App {
   max-width: 1024px;
   min-height: 100vh;
@@ -42,7 +38,6 @@ body {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
-  align-items: center;
 }
 
 .Item_selected {
@@ -50,17 +45,14 @@ body {
   color: #fff;
 }
 
-.Item-code,
-.Item-index,
-.Item-selectCount {
+.Item-code {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-selectCount {
-  flex-shrink: 0;
-}
-
-.Item-title {
+.Item-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
   width: 100%;
   padding: 20px 10px;
 }
@@ -71,53 +63,13 @@ body {
   padding: 20px 20px 20px 10px;
 }
 
-@media (max-width: 768px) {
-  .Item-selectCount {
-    flex-shrink: 1;
-  }
+.Item-actions button {
+  height: fit-content;
 }
 
 @media (max-width: 576px) {
   .App-head {
     text-align: center;
     height: fit-content;
-  }
-  .Item {
-    display: grid;
-    grid-template: repeat(3, 1fr) / 1fr 1fr 5fr;
-    grid-template-areas:
-      "index code select"
-      "title title title"
-      "buttons buttons buttons";
-    row-gap: 10px;
-    padding: 20px;
-  }
-
-  .Item-index {
-    grid-area: index;
-    padding: 0;
-  }
-
-  .Item-code {
-    grid-area: code;
-    padding-right: 20px;
-    padding: 0;
-  }
-
-  .Item-title {
-    grid-area: title;
-    text-align: center;
-    padding: 0;
-  }
-
-  .Item-selectCount {
-    grid-area: select;
-    padding: 0;
-    text-align: right;
-  }
-
-  .Item-actions {
-    grid-area: buttons;
-    padding: 0;
   }
 }

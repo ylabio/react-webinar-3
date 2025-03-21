@@ -1,5 +1,5 @@
 import React from 'react';
-import { getWordEnding } from './utils.js';
+import Item from './Item';
 import './styles.css';
 
 /**
@@ -20,22 +20,13 @@ function App({ store }) {
       </div>
       <div className="App-center">
         <div className="List">
-          {list.map((item, index) => (
+          {list.map((item) => (
             <div key={item.code} className="List-item">
-              <div
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
+              <Item
+                item={item}
                 onClick={() => store.selectItem(item.code)}
-              >
-                <div className="Item-index">№{index + 1}</div>
-                <div className="Item-code">Код:&nbsp;{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                {item.selectCount > 0 && (
-                  <div className="Item-selectCount">Выделяли {item.selectCount}&nbsp;{getWordEnding(item.selectCount)}</div>
-                )}
-                <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
-                </div>
-              </div>
+                onDelete={() => store.deleteItem(item.code)}
+              />
             </div>
           ))}
         </div>
