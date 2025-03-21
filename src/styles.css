@@ -1,61 +1,111 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  font-family: "Golos Text", sans-serif;
+  font-size: 16px;
+}
+
+.wrapper {
+  max-width: 1152px;
+  margin: 0 auto;
 }
 
 .App {
-  max-width: 1024px;
   min-height: 100vh;
   margin: 0 auto;
   background: #fff;
-  box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  border-bottom: 1px solid #f0edfa;
 }
 
 .App-head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  padding: 16px 0;
+  color: #6B4ACB;
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 24px 16px;
+}
+
+.App-center {
+  margin-bottom: 72px;
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #f0edfa;
+}
+
+.List-item:nth-child(odd) {
+  background-color: #faf9fd;
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   transition: background-color 1s;
 }
 
+.Item-title {
+  font-weight: bold;
+}
+
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: #f0edfa;
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  padding: 20px;
 }
 
-.Item-title {
+.Item-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
   width: 100%;
-  padding: 20px 10px;
+  align-items: center;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+  padding: 14px 16px;
+}
+
+.Item-actions button {
+  height: fit-content;
+}
+
+@media (max-width: 576px) {
+  .App-head {
+    text-align: center;
+    height: fit-content;
+  }
+}
+
+.btn {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 4px;
+}
+
+.btn--add {
+  background-color: #6B4ACB;
+}
+
+.btn--delete {
+  background-color: #D43B3B;
 }

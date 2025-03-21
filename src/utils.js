@@ -26,3 +26,23 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Возвращает соответствующее слово в зависимости от числа
+ * @param count {number} число
+ * @param endings {string[]} массив из трёх вариантов слов
+ * @returns {string}
+ */
+export function getWordEnding(count, endings) {
+  if (count % 100 >= 11 && count % 100 <= 19) {
+    return endings[2];
+  }
+  const lastDigit = count % 10;
+  if (lastDigit === 1) {
+    return endings[0];
+  } else if (lastDigit >= 2 && lastDigit <= 4) {
+    return endings[1];
+  } else {
+    return endings[2];
+  }
+}
