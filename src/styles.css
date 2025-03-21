@@ -22,6 +22,9 @@ body {
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  color: #6b4acb;
+  font-weight: 700;
+  font-size: 32px;
 }
 
 .App-controls {
@@ -30,13 +33,26 @@ body {
   padding: 20px;
 }
 
+.App-controls button {
+  border-radius: 4px;
+  background-color: #6b4acb;
+  width: 114px;
+  height: 40px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
 .List-item {
   border-bottom: 1px dashed #ccc;
 }
 
 .Item {
   display: flex;
-  justify-content: flex-start;
+  align-items: center;
   transition: background-color 1s;
 }
 
@@ -50,12 +66,32 @@ body {
 }
 
 .Item-title {
+  display: flex;
+  gap: 5px;
   width: 100%;
   padding: 20px 10px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #1a2028;
+}
+
+.Item-selectedCount {
+  font-weight: 400;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-actions button {
+  border-radius: 4px;
+  width: 105px;
+  height: 40px;
+  background-color: #d43b3b;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
 }
