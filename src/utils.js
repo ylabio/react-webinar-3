@@ -26,3 +26,26 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+
+/**
+ * Подготовка данных. 
+ * Присвоение уникальных code.
+ * Установка поля selected. (отвечает за выбор записи)
+ * Установка поля count. (показывает, сколько раз запись была выбрана)
+ * @param list [Array] список записей
+ */
+export function prepareData (list) {
+  let id = 1;
+  const readyData = list.map((item) => {
+    const newItem = {};
+    newItem.code = id;
+    newItem.title = item;
+    newItem.selected = false;
+    newItem.count = 0;
+    id +=1
+    return newItem;
+  })
+
+  return readyData;
+}

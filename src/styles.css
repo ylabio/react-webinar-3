@@ -1,52 +1,122 @@
+@font-face {
+  font-family: "Montserrat Alternates";
+  src: url('./assets/fonts/Montserrat-Alternates.ttf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Golos Text";
+  src: url('./assets/fonts/Golos-Text_Bold.ttf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Golos Text";
+  src: url('./assets/fonts/Golos-Text_Regular.ttf');
+  font-weight: 400;
+}
+
+:root {
+  --main-title-color: #6B4ACB;
+  --add-btn-color: #6B4ACB;
+  --add-btn-color-hover: #5228c4;
+  --del-btn-color: #D43B3B;
+  --del-btn-color-hover: #bb2136;
+  --item-selected-color: #6B4ACB1A;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
   font-family: sans-serif;
+  font-family: "Golos Text", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+button {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 8px 16px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  line-height: 22px;
 }
 
 .App {
-  max-width: 1024px;
+  max-width: 1440px;
   min-height: 100vh;
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
+  border-bottom: 1px solid #EFEFEF;
+  padding: 0 144px;
 }
 
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  color: var(--main-title-color);
+  font-size: 32px;
+  line-height: 40px;
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 20px 144px;
+}
+
+.App-center {
+  padding: 0 144px;
+}
+
+.App-controls > button {
+  background-color: var(--add-btn-color);
+  transition: 0.5s;
+  margin-right: 20px;
+}
+
+.App-controls > button:hover {
+  background-color: var(--add-btn-color-hover);
+}
+
+.List > .List-item:nth-child(2n + 1) {
+  background-color: #6B4ACB08;
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #EFEFEF;
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  display: flex;
+  align-items: center;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: var(--item-selected-color);
+
 }
 
 .Item-code {
   padding: 20px 10px 20px 20px;
+  font-family: "Golos Text", sans-serif;
+  font-weight: 400;
+}
+
+.Count-text {
+  font-family: "Golos Text", sans-serif;
+  font-weight: 400;
 }
 
 .Item-title {
@@ -58,4 +128,13 @@ body {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-actions > button {
+  background-color: var(--del-btn-color);
+  transition: 0.5s;
+}
+
+.Item-actions > button:hover {
+  background-color: var(--del-btn-color-hover);
 }
