@@ -62,14 +62,6 @@ body {
   flex-grow: 1; /* Чтобы элементы не смещались */
 }
 
-.Item-number {
-  font-size: 14px;
-  color: #333; /* Цвет для номера элемента */
-  font-weight: bold;
-  margin-right: 10px; /* Отступ от номера */
-  flex-shrink: 0; /* Номер не будет сжиматься */
-}
-
 .Item-title {
   padding: 20px 10px;
 }
@@ -100,4 +92,12 @@ body {
   border-radius: 5px;
   font-size: 14px;
   cursor: pointer;
+}
+
+.Item-number {
+  font-size: 14px;
+  color: #333; /* Цвет для номера элемента */
+  font-weight: bold;
+  margin-right: 10px; /* Отступ от номера */
+  flex-shrink: 0; /* Номер не будет сжиматься */
 }
