@@ -46,7 +46,7 @@ class Store {
     this.newItemCount +=1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.newItemCount, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.newItemCount, title: 'Новая запись', count: 0 }],
     });
   }
 
@@ -68,6 +68,7 @@ class Store {
    * @param code
    */
   selectItem(code, event) {
+    console.log(this.state.list)
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
