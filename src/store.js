@@ -3,11 +3,11 @@
  */
 class Store {
   selectedItems = [];
-  code = 1;
+  newCode = 1;
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = [];
-    this.code = this.state.list[this.state.list.length - 1].code; 
+    this.newCode = this.state.list[this.state.list.length - 1].code + 1; 
   }
 
   /**
@@ -43,17 +43,33 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+
+  addTimes(number) {
+    const lastDigit = number % 10;
+    const lastTwoDigits = number % 100;
+  
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+      return `${number} раз`;
+    }
+  
+    if (lastDigit === 1) {
+      return `${number} раз`;
+    } else if (lastDigit >= 2 && lastDigit <= 4) {
+      return `${number} раза`;
+    } else {
+      return `${number} раз`;
+    }
+  }
   /**
    * Добавление новой записи
    */
   addItem() {
-    const newCode = this.code + 1;
-    console.log('newCode', newCode);
+    
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: newCode, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.newCode, title: 'Новая запись' }],
     });
-    this.code = newCode;
+    this.newCode++;
   }
 
   /**
@@ -75,32 +91,18 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (keyPush) {
-          if (item.code === code) {
-            item.selected = !item.selected;
-            if (item.selected) {
-              this.selectedItems.push(code);
-              item.selectedTimes > 0 ? (item.selectedTimes += 1) : (item.selectedTimes = 1);
-              console.log('1', this.selectedItems);
-            } else {
-              this.selectedItems = this.selectedItems.filter(selectedCode => selectedCode !== code);
-            }
-          }
-        } else {
-          if (item.code === code) {
-            item.selected = !item.selected;
-            if (item.selected) {
-              this.selectedItems = [code];
-              item.selectedTimes > 0 ? (item.selectedTimes += 1) : (item.selectedTimes = 1);
-              console.log('2', item.selectedTimes);
-            } else {
-              this.selectedItems = [];
-            }
-          } else {
-            item.selected = false;
-          }
-        }
-        return item;
+  if (item.code === code) {
+    item.selected = !item.selected;
+    if (item.selected) {
+      keyPush ? this.selectedItems.push(code) : this.selectedItems = [code];;
+      item.selectedTimes = (item.selectedTimes || 0) + 1;
+    } else {
+      keyPush ? this.selectedItems = this.selectedItems.filter(selectedCode => selectedCode !== code) : this.selectedItems = [];
+    }
+  } else {
+    item.selected = false;
+  }
+  return item;
       }),
     });
   }

@@ -37,8 +37,8 @@ function App({ store }) {
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
                   {item.title}
-                  {item.selectedTimes > 0 && selectedItems.includes(item.code) && (
-                    <span className="Item-selectedTimes"> | Выделяли {item.selectedTimes} раз</span>
+                  {item.selectedTimes > 0 && (
+                    <span className="Item-selectedTimes"> | Выделяли {store.addTimes(item.selectedTimes)}</span>
                   )}
                 </div>
 

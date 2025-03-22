@@ -21,6 +21,7 @@ body {
 .App-head {
   height: 72px;
   border-bottom: 1px solid #efefef;
+  /* margin-block-end: 24px; */
 }
 
 .App-head h1 {
@@ -37,6 +38,7 @@ body {
   justify-content: flex-end;
   padding: 0px 144px;
   margin-inline: 16px;
+  margin-block: 24px;
 }
 
 .App-controls button {
@@ -56,7 +58,7 @@ button {
 }
 
 .App-center {
-  padding: 16px 144px;
+  padding: 0px 144px;
 }
 
 .App-center button {
