@@ -1,43 +1,15 @@
 import React from 'react';
 import './styles.css';
+import pluralize from './utils';
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
+
 function App({ store }) {
   const list = store.getState().list;
-  const pluralize = (score) => {
-    if (score === 2) {
-      return `${score} раза`
-    }
-    if (score === 3) {
-      return `${score} раза`
-    }
-    if (score === 4) {
-      return `${score} раза`
-    }
-    if (score >= 12 && score <= 14) {
-      return `${score} раз`
-    }
-    if (score >= 112 && score <= 114) {
-      return `${score} раз`
-    }
-    if (score >= 212 && score <= 214) {
-      return `${score} раз`
-    }
-    switch (score % 10) {
-      case 2:
-        return `${score} раза`;
-        case 3:
-          return `${score} раза`;
-          case 4:
-            return `${score} раза`;
-      default:
-        return `${score} раз`
-    }
-  }
 
   return (
     <div className="App">
