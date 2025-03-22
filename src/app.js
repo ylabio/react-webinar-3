@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles.css';
-import {pluralizeRu} from "./utils";
+import { pluralizeRu } from './utils';
 
 /**
  * Приложение
@@ -23,7 +23,7 @@ function App({ store }) {
 
   const getSelectionCountText = selectionCount => {
     if (selectionCount === 0) return null;
-    const timesText = pluralizeRu(selectionCount, 'раз', 'раза', 'раз')
+    const timesText = pluralizeRu(selectionCount, 'раз', 'раза', 'раз');
     return `| Выделяли ${timesText}`;
   };
 
@@ -32,37 +32,41 @@ function App({ store }) {
       <div className="App-head">
         <h1>Приложение на чистом JS</h1>
       </div>
-      <div className="App-controls">
-        <button className="App-controls__button Button" onClick={() => store.addItem()}>
-          Добавить
-        </button>
-      </div>
-      <div className="App-center">
-        <div className="List">
-          {list.map(item => (
-            <div key={item.code} className="List-item">
-              <div
-                id={item.code}
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={selectItemHandler}
-              >
-                <div className="Item-title__container">
-                  <div className="Item-code">{item.code}</div>
-                  <div className="Item-title">{item.title}</div>
-                  <div className="Item-subtitle">{getSelectionCountText(item.selectionCount)}</div>
-                </div>
-                <div className="Item-actions">
-                  <button
-                    className="Item-actions__button Button"
-                    id={item.code}
-                    onClick={deleteItemHandler}
-                  >
-                    Удалить
-                  </button>
+      <div className="App-content">
+        <div className="App-controls">
+          <button className="App-controls__button Button" onClick={() => store.addItem()}>
+            Добавить
+          </button>
+        </div>
+        <div className="App-center">
+          <div className="List">
+            {list.map(item => (
+              <div key={item.code} className="List-item">
+                <div
+                  id={item.code}
+                  className={'Item' + (item.selected ? ' Item_selected' : '')}
+                  onClick={selectItemHandler}
+                >
+                  <div className="Item-title__container">
+                    <div className="Item-code">{item.code}</div>
+                    <div className="Item-title">{item.title}</div>
+                    <div className="Item-subtitle">
+                      {getSelectionCountText(item.selectionCount)}
+                    </div>
+                  </div>
+                  <div className="Item-actions">
+                    <button
+                      className="Item-actions__button Button"
+                      id={item.code}
+                      onClick={deleteItemHandler}
+                    >
+                      Удалить
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
