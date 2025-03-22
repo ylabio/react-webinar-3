@@ -1,12 +1,13 @@
 import React from 'react';
-import { createElement } from './utils.js';
 import './styles.css';
+import pluralize from './utils';
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
+
 function App({ store }) {
   const list = store.getState().list;
 
@@ -24,12 +25,19 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(e) => store.selectItem(e, item.code)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">
+                <div>{item.title}</div>
+                {item.score > 0 &&
+                 <div className="Item-score">| Выделяли {pluralize(item.score)}</div>}
+
+                </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button onClick={(e) => {
+                    e.stopPropagation();
+                    store.deleteItem(item.code)}}>Удалить</button>
                 </div>
               </div>
             </div>

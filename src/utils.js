@@ -26,3 +26,18 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+const pluralize = (score) => {
+  const pluralRules = new Intl.PluralRules('ru');
+  const rule = pluralRules.select(score);
+    switch (rule) {
+      case 'one':
+        return `${score} раз`;
+        case 'few':
+          return `${score} раза`;
+          default:
+            return `${score} раз`;
+    }
+  }
+
+export default pluralize;
