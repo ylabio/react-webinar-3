@@ -1,64 +1,81 @@
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
   font-family: sans-serif;
 }
 
 .App {
-  max-width: 1024px;
   min-height: 100vh;
-  margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  margin-bottom: 24px;
+  font-family: 'Golos Text', serif;
+  border-bottom: 1px solid rgb(239, 239, 239);
 }
 
 .App-head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  padding: 16px 144px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  color: rgb(107, 74, 203);
 }
 
 .App-controls {
+  padding: 0 164px;
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.List {
+  padding: 0 144px;
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  height: 71px;
+  border-bottom: 1px solid rgb(239, 239, 239)
+}
+
+.List-item:nth-child(odd) {
+  background-color: rgba(107, 74, 203, 0.03);
 }
 
 .Item {
   display: flex;
   justify-content: space-between;
   transition: background-color 1s;
+  font-family: 'Golos Text', serif;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background-color: rgba(107, 74, 203, 0.1);
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  padding: 25px 16px;
 }
 
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.Item-counts {
+  font-weight: 400;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 20px 20px 20px 10px;
+  padding: 16px;
 }
 
 .Item-info {
@@ -68,4 +85,28 @@ body {
 
 .Item-counts {
   white-space: nowrap;
+}
+
+.Item-counts_count {
+  margin-left: 4px;
+}
+
+
+.App-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: 'Montserrat Alternates', serif;
+  font-weight: 700;
+  line-height: 22px;
+  color: rgb(255, 255, 255);
+  border: none;
+}
+
+.Remove-button {
+  background-color: rgb(212, 59, 59);
+}
+
+.Add-button {
+  background-color: rgb(107, 74, 203);
 }
