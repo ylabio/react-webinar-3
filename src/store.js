@@ -125,4 +125,27 @@ class Store {
   }
 }
 
+// Функция генерации уникального кода
+function generateUniqueCode(list) {
+    let code;
+    do {
+        code = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+    } while (list.some(item => item.code === code));
+    return code;
+}
+
+// Пример метода добавления элемента в состояние
+function addItem() {
+    const state = this.getState();
+    const code = generateUniqueCode(state.list);
+    const newItem = { 
+        code, 
+        title: 'Новый элемент', 
+        selected: false, 
+        selectCount: 0 
+    };
+    state.list.push(newItem);
+    // Дополнительно: уведомить подписчиков об обновлении состояния, если требуется
+}
+
 export default Store;

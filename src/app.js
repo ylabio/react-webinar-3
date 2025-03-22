@@ -31,7 +31,7 @@ function App({ store }) {
   return (
     <div className="App">
       <div className="App-head">
-        <h1 className='h1'>Приложение на чистом JS</h1>
+        <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
         <button className='Add-button' onClick={() => store.addItem()}>Добавить</button>

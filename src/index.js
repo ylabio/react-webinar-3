@@ -1,8 +1,10 @@
+import "@fontsource/montserrat-alternates/400.css"; // Импорт базового веса 400
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createElement } from './utils.js';
 import App from './app.js';
 import Store from './store.js';
+import './styles.css';
 
 const store = new Store({
   list: [
