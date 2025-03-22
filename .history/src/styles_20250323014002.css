@@ -51,9 +51,8 @@ body {
 
 .Item {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+  justify-content: flex-start;
+  transition: background-color 1s;
 }
 
 .Item_selected {
@@ -61,28 +60,19 @@ body {
   color: #fff;
 }
 
-.Item-selectCount {
-  background: white;
-  padding: 2px 5px;
-  border-radius: 5px;
-}
-
 .Item-code {
   padding: 20px 10px 20px 20px;
 }
 
 .Item-title {
-  display: inline-block;
+  width: 100%;
   padding: 20px 10px;
-  flex-grow: 1;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
-  flex-shrink: 0;
-  margin-left: auto;
 }
 
 .Item-actions button {

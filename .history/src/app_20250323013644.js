@@ -28,6 +28,7 @@ function App({ store }) {
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}</div>
+                <strong>{item.title}</strong>
                 {item.selectCount > 0 && <span> | Выделяли {item.selectCount} раз</span>}
                 <div className="Item-actions">
                   <button onClick={(e) => { 

@@ -1,3 +1,4 @@
+// 
 import React from 'react';
 import { createElement } from './utils.js';
 import './styles.css';
@@ -33,8 +34,9 @@ function App({ store }) {
                   <button onClick={(e) => { 
                     e.stopPropagation();
                     store.deleteItem(item.code);
-                    }}
-                    >Удалить</button>
+                    }}>
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>
