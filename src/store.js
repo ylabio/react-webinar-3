@@ -73,7 +73,7 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
-          if (!event.ctrlKey) {
+          if (!event.ctrlKey && !event.metaKey) {
             this.state.list.map(droppedSelectItem => {
               if (droppedSelectItem.code !== code) {
                 droppedSelectItem.selected = false;
