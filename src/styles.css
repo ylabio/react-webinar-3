@@ -6,16 +6,16 @@ body {
 }
 
 .App {
-  max-width: 1024px;
+  max-width: 1440px;
   min-height: 100vh;
   margin: 0 auto 0 ;
   background: #fff;
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
+  padding-inline: 144px;
 }
 
 .App-head {
-  height: 80px;
   background: #f5f5f5;
 }
 
@@ -30,13 +30,14 @@ body {
   justify-content: flex-start;
   align-items: flex-start;
   gap: 10px;
-  padding: 16px 144px 16px 0;
+  line-height: 40px;
+  padding-block: 16px;
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 24px 16px;
 }
 
 .List-item {
@@ -58,14 +59,10 @@ body {
 }
 
 .Item-code {
-  padding: 0;
-  position: static;
+  padding-inline: 16px;
   display: flex;
-  flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin: 0 10px;
-
   color: #1A2028;
   font-family: 'Golos Text', sans-serif;
   font-size: 16px;
@@ -76,8 +73,10 @@ body {
 
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
+  padding-block: 25px;
   font-weight: 700;
+  line-height: 22px;
+  font-size: 16px;
 }
 
 .Item-title span {
@@ -87,7 +86,7 @@ body {
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+  padding: 8px 16px 8px 16px;
 }
 .Button {
   border: none;
@@ -103,6 +102,7 @@ body {
   font-size: 14px;
   font-weight: 700;
   text-align: center;
+  line-height: 22px;
 }
 
 .App-controls__button {
