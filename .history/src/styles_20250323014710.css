@@ -35,6 +35,7 @@ body {
   display: flex;
   justify-content: flex-end;
   padding: 10px 15px;
+
 }
 
 .App-controls button {
@@ -50,39 +51,29 @@ body {
 
 .Item {
   display: flex;
-  justify-content: space-between; /* Разделить элементы */
   align-items: center;
   gap: 10px;
 }
 
-.Item-content {
-  display: flex;
-  gap: 10px; /* Пространство между титулом и счетчиком */
-  align-items: center;
-  flex-grow: 1; /* Чтобы элементы не смещались */
+.Item_selected {
+  background: #ede9fe;
+  color: #fff;
 }
 
-.Item-number {
-  font-size: 14px;
-  color: #333; /* Цвет для номера элемента */
-  font-weight: bold;
-  margin-right: 10px; /* Отступ от номера */
-  flex-shrink: 0; /* Номер не будет сжиматься */
+.Item-selectCount {
+  background: white;
+  padding: 2px 5px;
+  border-radius: 5px;
+}
+
+.Item-code {
+  padding: 20px 10px 20px 20px;
 }
 
 .Item-title {
+  display: inline-block;
   padding: 20px 10px;
-}
-
-.Item-count {
-  padding: 0 10px;
-  color: #6d28d9; /* Цвет текста для счетчика */
-}
-
-.Item_selected {
-  background: #ede9fe; /* Цвет фона для выделенного элемента */
-  color: #fff; /* Белый цвет текста для выделенного */
-  font-weight: bold; /* Сделаем текст жирным */
+  flex-grow: 1;
 }
 
 .Item-actions {
@@ -93,7 +84,7 @@ body {
 }
 
 .Item-actions button {
-  background: #dc2626;
+  background: #dc2626; 
   color: white;
   padding: 10px 15px;
   border: none;

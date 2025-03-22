@@ -1,0 +1,93 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #535353;
+  font-family: sans-serif;
+}
+
+.App {
+  max-width: 1024px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #fff;
+  box-sizing: border-box;
+  box-shadow: 0 0 15px 5px #0000003b;
+  border: 2px solid #ff00ff;
+  padding: 20px;
+}
+
+.App-head {
+  height: 80px;
+  background: #f5f5f5;
+  color: #6d28d9;
+}
+
+.App-head h1 {
+  margin: 0;
+  padding: 20px 20px 10px;
+}
+
+.App-controls {
+  background: white;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 15px;
+
+}
+
+.App-controls button {
+  background: #6d28d9;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+.List-item {
+  border-bottom: 1px dashed #ccc;
+}
+
+.Item {
+  display: flex;
+  justify-content: flex-start;
+  transition: background-color 1s;
+}
+
+.Item_selected {
+  background: #ede9fe;
+  color: #fff;
+}
+
+.Item-selectCount {
+  background: white;
+  padding: 2px 5px;
+  border-radius: 5px;
+}
+
+.Item-code {
+  padding: 20px 10px 20px 20px;
+}
+
+.Item-title {
+  display: inline-block;
+  width: 100%;
+  padding: 20px 10px;
+}
+
+.Item-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+}
+
+.Item-actions button {
+  background: #dc2626; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
