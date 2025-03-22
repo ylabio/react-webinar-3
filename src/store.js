@@ -6,6 +6,7 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.selectCounts = new Map(); // Я долго думал, как добавить счётчик на количество выделений, без прямого вмешательства в существующий list
+    this.nextId = this.calculateInitialNextId(); // Один раз считаем при старте, какой ID будет следующим. Это для ситуаций где list уже существует
   }
 
   /**
@@ -43,9 +44,21 @@ class Store {
    * Добавление новой записи
    */
 
+
+  //Считаем следующий доступный ID
+  calculateInitialNextId() {
+    // Убираем дубликаты (на случай, если в list есть повторяющиеся коды)
+    const uniqueCodes = new Set(this.state.list.map(item => item.code));
+    // Если список пуст, начинаем с 1
+    if (uniqueCodes.size === 0) return 1;
+    // Ищем максимальный уникальный код и добавляем 1
+    return Math.max(...uniqueCodes) + 1;
+  }
+
   addItem() {
-    // Классический способ добавить уникальные ID, через текущую дату-время с отсчета UNIX
-    const newId = Date.now();  
+    const newId = this.nextId; // Берем уникальный ID
+    this.nextId++; // Увеличиваем счетчик, чтобы не перезаписывать ID
+
     this.setState({
       ...this.state,
     list: [...this.state.list, { code: newId, title: 'Новая запись' }],    });
@@ -61,7 +74,7 @@ class Store {
       list: this.state.list.filter(item => item.code !== code),
     });
   }
-
+  
   /**
    * Выделение записи по коду
    * @param code
@@ -101,7 +114,6 @@ class Store {
 
 
       }),
-      
     });
   }
 }
