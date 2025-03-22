@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement } from './utils.js';
+import { createElement, getCountLabel } from './utils.js';
 import './styles.css';
 
 /**
@@ -9,6 +9,18 @@ import './styles.css';
  */
 function App({ store }) {
   const list = store.getState().list;
+
+  const handleSelectedItemClick = (e, item) => {
+    // Проверяем, зажата ли клавиша Ctrl или Cmd
+    const isMultipleSelection = e.ctrlKey || e.metaKey; // metaKey для Mac
+
+    store.selectItem(item.code, !isMultipleSelection);
+  };
+
+  const handleDeleteItemClick = (e, item) => {
+    e.stopPropagation();
+    store.deleteItem(item.code);
+  };
 
   return (
     <div className="App">
@@ -24,12 +36,20 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={e => handleSelectedItemClick(e, item)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">
+                  {item.title}
+                  <span className="Item-count">
+                    {item.countSelected
+                      ? ` | Выделяли ${item.countSelected} ${getCountLabel(item.countSelected, ['раз', 'раза'])}`
+                      : ''}
+                  </span>
+                </div>
+
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button onClick={e => handleDeleteItemClick(e, item)}>Удалить</button>
                 </div>
               </div>
             </div>
