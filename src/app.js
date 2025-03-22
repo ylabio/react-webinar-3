@@ -1,5 +1,4 @@
 import React from 'react';
-import { createElement } from './utils.js';
 import './styles.css';
 
 /**
@@ -24,17 +23,23 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={(e) => store.selectItem(item.code , e.ctrlKey || e.metaKey)}
+                onClick={(e) => store.selectItem(item.code, e.ctrlKey || e.metaKey)}
               >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                {item.selectCount > 0 && <span> | Выделяли {item.selectCount} раз</span>}
+                <div className="Item-content">
+                  <div className="Item-title">{item.title}</div>
+                  {item.selectCount > 0 && (
+                    <div className="Item-count">| Выделяли {item.selectCount} раз</div>
+                  )}
+                </div>
                 <div className="Item-actions">
-                  <button onClick={(e) => { 
-                    e.stopPropagation();
-                    store.deleteItem(item.code);
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation(); 
+                      store.deleteItem(item.code);
                     }}
-                    >Удалить</button>
+                  >
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>
