@@ -7,6 +7,20 @@ import './styles.css';
  * @param store {Store} Состояние приложения
  * @returns {React.ReactElement}
  */
+
+function pluralize(count) {
+  const lastDigit = count % 10;
+  const lastTwoDigits = count % 100;
+
+  if (lastDigit === 1 && lastTwoDigits !== 11) {
+    return 'раз';
+  } else if ([2, 3, 4].includes(lastDigit) && !(lastTwoDigits >= 11 && lastTwoDigits <= 14)) {
+    return 'раза';
+  } else {
+    return 'раз';
+  }
+}
+
 function App({ store }) {
   const list = store.getState().list;
 
@@ -30,7 +44,9 @@ function App({ store }) {
                 <div className="Item-title">
                   {item.title}
                   {item.count && (
-                    <div className="Item-selectedCount">| Выделяли {item.count} раз</div>
+                    <div className="Item-selectedCount">
+                      | Выделяли {item.count} {pluralize(item.count)}
+                    </div>
                   )}
                 </div>
                 <div className="Item-actions">
