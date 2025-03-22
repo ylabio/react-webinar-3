@@ -1,61 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Golos+Text:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Golos+Text:wght@400..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 body {
   margin: 0;
   padding: 0;
   background: #535353;
-  font-family: sans-serif;
+  font-family: 'Golos Text', sans-serif;
+  font-style: normal;
 }
 
 .App {
-  max-width: 1024px;
+  max-width: 11440px;
   min-height: 100vh;
   margin: 0 auto;
-  background: #fff;
+  background: white;
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  height: 72px;
+  border-bottom: 1px solid #efefef;
+  /* margin-block-end: 24px; */
 }
 
 .App-head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  padding: 16px 144px;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  color: #6b4acb;
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 0px 144px;
+  margin-inline: 16px;
+  margin-block: 24px;
+}
+
+.App-controls button {
+  background: #6b4acb;
+}
+
+button {
+  font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 22px;
+  padding: 9px 16px;
+  color: #fff;
+  border-radius: 4px;
+  border: none;
+}
+
+.App-center {
+  padding: 0px 144px;
+}
+
+.App-center button {
+  background: #d43b3b;
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  padding: 16px;
+}
+
+.List-item_even {
+  background: rgba(107, 74, 203, 0.0313726);
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  align-items: center;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #1a2028;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: rgb(107, 74, 203, 0.1);
+}
+
+.Item-selectedTimes {
+  font-weight: 400;
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  margin-inline-end: 16px;
 }
 
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
+  font-weight: 700;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
 }
