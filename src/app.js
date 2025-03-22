@@ -50,7 +50,14 @@ function App({ store }) {
                   <div className='Item-count'>| Выделяли {item.selectCount} раз</div>
                 )}
                 <div className="Item-actions">
-                  <button className='Delete-button' onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button 
+                    className='Delete-button' 
+                    onClick={(e) => { 
+                      e.stopPropagation(); 
+                      store.deleteItem(item.code); 
+                    }}>
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>
