@@ -1,61 +1,114 @@
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
+  background: #fff;
   font-family: sans-serif;
 }
 
+.Button {
+  border-radius: 4px;
+  padding: 9px 16px;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 157%;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+}
+
 .App {
-  max-width: 1024px;
+  max-width: 1440px;
   min-height: 100vh;
   margin: 0 auto;
-  background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  width: 100%;
+  padding: 16px 0;
+  border-bottom: 1px solid #efefef;
 }
 
 .App-head h1 {
-  margin: 0;
-  padding: 20px 20px 10px;
+  margin: 0 auto;
+  max-width: 1152px;
+  font-family: "Golos Text", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 125%;
+  color: #6b4acb;
+}
+
+.App-content {
+  max-width: 1152px;
+  margin: 0 auto;
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 24px 16px;
+}
+
+.App-controls__button {
+  background: #6b4acb;
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #efefef;
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
+  padding: 16px;
   transition: background-color 1s;
 }
 
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
+.List-item:nth-child(odd) .Item {
+  background: rgba(107, 74, 203, 0.03);
+}
+
+.List-item .Item.Item_selected {
+  background: rgba(107, 74, 203, 0.1);
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  margin-right: 16px;
+  font-weight: 400;
+}
+
+.Item-title__container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.Item-title, .Item-subtitle, .Item-code {
+  font-family: "Golos Text", sans-serif;
+  font-size: 16px;
+  line-height: 137%;
+  color: #1a2028;
+  text-align: center;
 }
 
 .Item-title {
-  width: 100%;
-  padding: 20px 10px;
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.Item-subtitle {
+  font-weight: 400;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+}
+
+.Item-actions__button {
+  align-self: flex-start;
+  border-radius: 4px;
+  background: #d43b3b;
 }

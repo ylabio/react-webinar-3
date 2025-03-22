@@ -26,3 +26,25 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Возвращает слово в правильной форме в зависимости от числа.
+ *
+ * @param {number} number - Число, с которым согласуется слово.
+ * @param {string} singular - Форма единственного числа (именительный падеж).
+ * @param {string} genitiveSingular - Форма родительного падежа единственного числа.
+ * @param {string} genitivePlural - Форма родительного падежа множественного числа.
+ * @returns {string} Строка с числом и правильной формой слова.
+ */
+
+export const pluralizeRu = (number, singular, genitiveSingular, genitivePlural) => {
+  if (number % 100 >= 11 && number % 100 <= 14) {
+    return `${number} ${genitivePlural}`;
+  } else if (number % 10 === 1) {
+    return `${number} ${singular}`;
+  } else if (number % 10 >= 2 && number % 10 <= 4) {
+    return `${number} ${genitiveSingular}`;
+  } else {
+    return `${number} ${genitivePlural}`;
+  }
+}

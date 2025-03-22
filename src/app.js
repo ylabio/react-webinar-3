@@ -1,6 +1,6 @@
 import React from 'react';
-import { createElement } from './utils.js';
 import './styles.css';
+import { pluralizeRu } from './utils';
 
 /**
  * Приложение
@@ -10,30 +10,63 @@ import './styles.css';
 function App({ store }) {
   const list = store.getState().list;
 
+  const selectItemHandler = e => {
+    const isMultipleChoiceKeyPressed = e.ctrlKey || e.metaKey;
+    store.incrementSelectionCount(+e.currentTarget.id);
+    store.selectItem(+e.currentTarget.id, isMultipleChoiceKeyPressed);
+  };
+
+  const deleteItemHandler = e => {
+    e.stopPropagation();
+    store.deleteItem(+e.currentTarget.id);
+  };
+
+  const getSelectionCountText = selectionCount => {
+    if (selectionCount === 0) return null;
+    const timesText = pluralizeRu(selectionCount, 'раз', 'раза', 'раз');
+    return `| Выделяли ${timesText}`;
+  };
+
   return (
     <div className="App">
       <div className="App-head">
         <h1>Приложение на чистом JS</h1>
       </div>
-      <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
-      </div>
-      <div className="App-center">
-        <div className="List">
-          {list.map(item => (
-            <div key={item.code} className="List-item">
-              <div
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
-              >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+      <div className="App-content">
+        <div className="App-controls">
+          <button className="App-controls__button Button" onClick={() => store.addItem()}>
+            Добавить
+          </button>
+        </div>
+        <div className="App-center">
+          <div className="List">
+            {list.map(item => (
+              <div key={item.code} className="List-item">
+                <div
+                  id={item.code}
+                  className={'Item' + (item.selected ? ' Item_selected' : '')}
+                  onClick={selectItemHandler}
+                >
+                  <div className="Item-title__container">
+                    <div className="Item-code">{item.code}</div>
+                    <div className="Item-title">{item.title}</div>
+                    <div className="Item-subtitle">
+                      {getSelectionCountText(item.selectionCount)}
+                    </div>
+                  </div>
+                  <div className="Item-actions">
+                    <button
+                      className="Item-actions__button Button"
+                      id={item.code}
+                      onClick={deleteItemHandler}
+                    >
+                      Удалить
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
