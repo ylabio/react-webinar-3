@@ -11,7 +11,10 @@ function App({ store }) {
   const list = store.getState().list;
 
   const handleSelectedItemClick = (e, item) => {
-    store.selectItem(item.code, !e.ctrlKey);
+    // Проверяем, зажата ли клавиша Ctrl или Cmd
+    const isMultipleSelection = e.ctrlKey || e.metaKey; // metaKey для Mac
+
+    store.selectItem(item.code, !isMultipleSelection);
   };
 
   const handleDeleteItemClick = (e, item) => {
@@ -40,7 +43,7 @@ function App({ store }) {
                   {item.title}
                   <span className="Item-count">
                     {item.countSelected
-                      ? ` | Выделяли ${item.countSelected} ${getCountLabel(item.countSelected, ['раз', 'раза', 'раз'])}`
+                      ? ` | Выделяли ${item.countSelected} ${getCountLabel(item.countSelected, ['раз', 'раза'])}`
                       : ''}
                   </span>
                 </div>

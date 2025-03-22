@@ -33,15 +33,17 @@ export const createateUniqueId = (() => {
 })();
 
 export function getCountLabel(count, wordForms) {
-  if (count % 100 >= 11 && count % 100 <= 19) {
-    return wordForms[2];
-  }
   const lastDigit = count % 10;
-  if (lastDigit === 1) {
-    return wordForms[0];
-  } else if (lastDigit >= 2 && lastDigit <= 4) {
-    return wordForms[1];
-  } else {
-    return wordForms[2];
+  const lastTwoDigits = count % 100;
+
+  // Если число заканчивается на 1, но не на 11, используем "раз"
+  if (lastDigit === 1 && lastTwoDigits !== 11) {
+    return wordForms[0]; // "раз"
   }
+  // Если число заканчивается на 2, 3 или 4, но не на 12, 13, 14, используем "раза"
+  if (lastDigit >= 2 && lastDigit <= 4 && (lastTwoDigits < 12 || lastTwoDigits > 14)) {
+    return wordForms[1]; // "раза"
+  }
+  // Во всех остальных случаях используем "раз"
+  return wordForms[0]; // "раз"
 }
