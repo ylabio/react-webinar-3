@@ -9,8 +9,8 @@ class Store {
   }
 
   /**
- * Фиксировать максимальную длину
- */
+   * Фиксировать максимальную длину
+   */
   setMaxCode() {
     const maxCode = [];
     if (this.state.list && this.state.list.length > 0) {
@@ -87,7 +87,6 @@ class Store {
    */
   deleteItem(code) {
     this.setState({
-      ...this.state,
       list: this.state.list.filter(item => item.code !== code),
     });
   }
@@ -108,7 +107,7 @@ class Store {
           // при клике на другую запись будет сбрасываться на другой
           return {
             ...item,
-            selected: item.code === code ? !item.selected : false,
+            selected: item.code === code ? !item.selected : item.selected,
             // Количество совершенных выделений для каждой записи
             count: item.code === code && !item.selected ? (item.count || 0) + 1 : item.count,
           };
