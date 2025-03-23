@@ -1,61 +1,126 @@
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  font-family: 'Golos Text', sans-serif;
+}
+
+.Container {
+  padding-left: 144px;
+  padding-right: 144px;
 }
 
 .App {
-  max-width: 1024px;
+  max-width: 1440px;
   min-height: 100vh;
   margin: 0 auto;
-  background: #fff;
+  background-color: #fff;
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  border-bottom: 1px solid #efefef;
 }
 
 .App-head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  color: #6b4acb;
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  margin: 24px 20px 24px 0;
+}
+
+.List {
+  margin: 0;
+  padding: 0;
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  list-style-type: none;
+  border-bottom: 1px solid #efefef;
+  cursor: pointer;
+}
+
+.List-item:nth-child(odd) {
+  background-color: #6b4acb08;
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background-color: #6b4acb1a;
 }
 
 .Item-code {
   padding: 20px 10px 20px 20px;
+  color: #1a2028;
 }
 
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  font-weight: 700;
+}
+
+.Item-count {
+  font-weight: 400;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+  padding: 16px 20px 16px 10px;
+}
+
+.Button {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
+  outline: none;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+  border-radius: 4px;
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 22px;
+  color: #fff;
+  padding: 9px 16px;
+}
+
+.Button:hover {
+  opacity: 0.8;
+}
+
+.Button_type_add {
+  background-color: #6b4acb;
+}
+
+.Button_type_delete {
+  background-color: #d43b3b;
 }
