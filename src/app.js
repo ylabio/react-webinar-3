@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.css';
+import { plurate } from './utils';
 
 /**
  * Приложение
@@ -25,13 +26,14 @@ function App({ store }) {
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
                 onClick={(e) => store.selectItem(item.code, e)}
                 style={{
-                  backgroundColor: item.selected ? '#6B4ACB1A' : (index % 2 === 0 ? '#fff' : '#6B4ACB08')
+                  backgroundColor: item.selected ? '#6B4ACB1A' : (index % 2 === 0 ? '#6B4ACB08' : '#fff')
                 }}
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}
-                {item.selectionCount > 0 && 
-                  <p className="Selection-title">&nbsp;| Выделяли {item.selectionCount} раз</p>}
+                {item.selectionCount > 0 &&
+                    <p className="Selection-title">&nbsp;| Выделяли {item.selectionCount} {plurate(item.selectionCount)}</p>
+                }
                 </div>
                 <div className="Item-actions">
                   <button className="Button Button--delete" onClick={(e) => store.deleteItem(item.code, e)}>Удалить</button>

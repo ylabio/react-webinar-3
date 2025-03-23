@@ -26,3 +26,17 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function plurate(selectionCount) {
+  let lastDigit = selectionCount % 10;
+  
+  if (selectionCount === 12 || selectionCount === 13 || selectionCount === 14) {
+    return 'раз'
+  }
+
+  if (lastDigit === 2 || lastDigit === 3 || lastDigit === 4) {
+    return 'раза'
+  } else {
+    return 'раз'
+  }
+};
