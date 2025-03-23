@@ -30,12 +30,12 @@ function App({ store }) {
                 <div className="Item-title">{item.title}
                   {item.selectionCount > 0 && (
                     <span className="Item-count">
-                      | Выделяли {item.selectionCount} раз{item.selectionCount > 1 ? 'а' : ''}
+                      | Выделяли {item.selectionCount} раз{item.selectionCount >= 2 && item.selectionCount <= 4 ? 'а' : ''}
                     </span>
                   )}
                 </div>
                 <div className="Item-actions">
-                  <button className="Delete" onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button className="Item-delete" onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>
               </div>
             </div>
