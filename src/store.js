@@ -44,10 +44,13 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    this.lastCode += 1; // Увеличиваем код на 1
+    this.lastCode += 1; // Увеличиваем счётчик
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        { code: this.lastCode, title: 'Новая запись', selected: false, selectionCount: 0 },
+      ],
     });
   }
 
@@ -66,30 +69,24 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  //Задача 1
-  /* selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        // Сброс выделения у всех записей
-        item.selected = item.code === code ? !item.selected : false;
-        return item;
-      }),
-    });
-  } */
 
-  //Задача 3
-  selectItem(code) {
+  selectItem(code, isCtrlPressed) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
-          if (item.selected) {
-            item.selectionCount = (item.selectionCount || 0) + 1; // Увеличение счётчика
+          // Если запись уже выделена и Ctrl не нажат, снимаем выделение
+          if (item.selected && !isCtrlPressed) {
+            item.selected = false;
+          } else {
+            // Если Ctrl нажат или запись не выделена, добавляем её к выделенным
+            item.selected = true;
+            // Увеличиваем счётчик выделений
+            item.selectionCount = (item.selectionCount || 0) + 1;
           }
-        } else {
-          item.selected = false; // Сброс выделения у других записей
+        } else if (!isCtrlPressed) {
+          // Если Ctrl не нажат, снимаем выделение с других записей
+          item.selected = false;
         }
         return item;
       }),
