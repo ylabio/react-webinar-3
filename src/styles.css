@@ -6,56 +6,122 @@ body {
 }
 
 .App {
-  max-width: 1024px;
+  max-width: 1440px;
   min-height: 100vh;
-  margin: 0 auto;
+  margin: 0 auto 0 ;
   background: #fff;
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
+  padding-inline: 144px;
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  border-bottom: 1px solid #EFEFEF;
+  padding-inline: 144px;
+  margin-inline: -144px;
 }
 
 .App-head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  color: #6B4ACB;
+  font-family: Golos Text, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 40px;
+  padding-block: 16px;
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 24px 16px;
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #EFEFEF;
+  background: #6B4ACB08;
+}
+.List-item:nth-child(even) {
+  background: transparent; /* Убираем фон */
+  border-bottom: 1px solid #EFEFEF; /* Оставляем только border */
 }
 
 .Item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
   transition: background-color 1s;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background-color: #6B4ACB1A;
+  color: #1A2028;
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  padding-inline: 16px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: #1A2028;
+  font-family: 'Golos Text', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
 }
 
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
+  padding-block: 25px;
+  font-weight: 700;
+  line-height: 22px;
+  font-size: 16px;
+}
+
+.Item-title span {
+  font-weight: 400;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+  padding: 8px 16px 8px 16px;
+}
+.Button {
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.Button__text {
+  color: #fff;
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 22px;
+}
+
+.App-controls__button {
+  background: #6B4ACB;
+}
+
+.App-controls__button:hover {
+  background: #5339a8;
+}
+
+.Item-actions__button {
+  background: #D43B3B;
+}
+
+.Item-actions__button:hover {
+  background: #cc0000;
 }
