@@ -16,7 +16,9 @@ body {
 }
 
 .App-head {
-  background: #f5f5f5;
+  border-bottom: 1px solid #EFEFEF;
+  padding-inline: 144px;
+  margin-inline: -144px;
 }
 
 .App-head h1 {
@@ -41,13 +43,16 @@ body {
 }
 
 .List-item {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #EFEFEF;
+  background: #6B4ACB08;
+}
+.List-item:nth-child(even) {
+  background: transparent; /* Убираем фон */
+  border-bottom: 1px solid #EFEFEF; /* Оставляем только border */
 }
 
 .Item {
-  position: static;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   transition: background-color 1s;
