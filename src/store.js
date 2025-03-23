@@ -46,7 +46,7 @@ class Store {
     const maxCode = this.state.list.reduce((max, item) => Math.max(max, item.code), 0);
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: maxCode + 1, title: 'Новая запись', count: 0 }],
+      list: [...this.state.list, { code: maxCode + 1, title: 'Новая запись', click: 0 }],
     });
   }
 
@@ -62,27 +62,43 @@ class Store {
     });
   }
 
+  pluralization(count) {
+    const digit = count % 10;
+    const number = count % 100;
+
+    if (number >= 12 && number <= 14) {
+      return `${count} раз`;
+    }
+
+    if (digit >= 2 && digit <= 4) {
+      return `${count} раза`;
+    }
+
+    return `${count} раз`;
+  }
+
   /**
    * Выделение записи по коду
    * @param code
    */
   selectItem(code, e) {
+    const isCtrlPressed = e.ctrlKey || e.metaKey;
+
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        const isCtrlPressed = e.ctrlKey || e.metaKey;
-
+      list: this.state.list.map(item => {      
         if (item.code === code) {
           // Если запись уже выделена и Ctrl не нажата, снимаем выделение
-          if (item.selected && !isCtrlPressed) {
-            item.selected = false;
-          } else {
+          if (!item.selected) {
             item.selected = true; // Выделяем запись
-            item.count++;
+            item.click++;
+          } else {
+            item.selected = false;
           }
         } else if (!isCtrlPressed) {
           item.selected = false; // Сбрасываем выделение с других записей
         }
+
         return item;
       }),
     });
