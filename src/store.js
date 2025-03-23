@@ -53,7 +53,8 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(code,event) {
+    event.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
@@ -72,7 +73,6 @@ class Store {
       
         if (item.code === code) {
           item.selected = !item.selected;
-          console.log(item.selected)
         }
         if(!ctrlPressed && item.code !== code ){
           item.selected = false;          

@@ -2,7 +2,11 @@ body {
   margin: 0;
   padding: 0;
   background: #535353;
-  font-family: sans-serif;
+  font-family: 'Golos Text', sans-serif;
+}
+
+*, *::before, *::after{
+  box-sizing: border-box;
 }
 
 .App {
@@ -16,31 +20,36 @@ body {
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
+  border-bottom: 1px solid #EFEFEF;
   
 }
 
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
-  color: #6a35f2;
-  font-weight: bold;
+  color: #6B4ACB;
+  font-weight: 700;
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .App-controls button {
-  background: rgb(107, 74, 203);
+  font-family: 'Montserrat Alternates' , sans-serif;
+  width: 114px;
+  height: 40px;
+  background: #6B4ACB;
   color: white;
-  padding: 10px 15px;
+  padding: 8px 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   transition: all 0.2s ease-in;
 }
@@ -50,7 +59,7 @@ body {
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #EFEFEF;
 }
 
 .Item {
@@ -64,7 +73,7 @@ font-weight: 700;
 line-height: 22px;
 }
 .Item_selected {
-  background: rgba(107, 74, 203, 0.1);
+  background: #6B4ACB1A;
   color: #000;
 }
 
@@ -83,11 +92,15 @@ line-height: 22px;
   padding: 20px 20px 20px 10px; 
 }
 .Item-actions button {
-  background: rgb(212, 59, 59);
+  font-family: 'Montserrat Alternates' , sans-serif;
+  width: 105px;
+  height: 40px;
+  background: #D43B3B;
   color: white;
   border: none;
-  padding: 10px 16px;
-  border-radius: 5px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease-in;
