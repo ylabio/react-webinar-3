@@ -1,32 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles.css';
 
 function App({ store }) {
-  const { list, selectedIds, clickCounts } = store.getState();
+  const [state, setState] = useState(store.getState());
+
+  useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+      setState(store.getState());
+    });
+    return () => unsubscribe();
+  }, [store]);
 
   const SingleSelectList = ({ items }) => {
-    const handleItemClick = (itemCode, event) => {
+    const handleItemClick = (item, event) => {
       const ctrlPressed = event.ctrlKey || event.metaKey;
-      const isCurrentlySelected = selectedIds.has(itemCode);
+      const isCurrentlySelected = state.selectedIds.has(item.code);
+
+      const newSelectedIds = new Set(state.selectedIds);
 
       if (ctrlPressed) {
-        store.toggleSelection(itemCode, !isCurrentlySelected);
-      } else {
         if (isCurrentlySelected) {
-          store.toggleSelection(itemCode, false);
+          newSelectedIds.delete(item.code);
         } else {
-          const newSelectedIds = new Set();
-          newSelectedIds.add(itemCode);
-          store.setState({
-            ...store.getState(),
-            selectedIds: newSelectedIds,
-            clickCounts: new Map(store.getState().clickCounts).set(
-              itemCode,
-              (clickCounts.get(itemCode) || 0) + 1,
-            ),
-          });
+          newSelectedIds.add(item.code);
+        }
+      } else {
+        if (!isCurrentlySelected) {
+          newSelectedIds.clear();
+          newSelectedIds.add(item.code);
+        } else {
+          newSelectedIds.delete(item.code);
         }
       }
+
+      const newClickCounts = new Map(state.clickCounts);
+      if (newSelectedIds.has(item.code) && !isCurrentlySelected) {
+        newClickCounts.set(item.code, (state.clickCounts.get(item.code) || 0) + 1);
+      }
+
+      store.setState({
+        selectedIds: newSelectedIds,
+        clickCounts: newClickCounts,
+      });
+    };
+
+    const handleDelete = (itemCode, event) => {
+      event.stopPropagation();
+      store.deleteItem(itemCode);
     };
 
     return (
@@ -34,22 +54,19 @@ function App({ store }) {
         {items.map(item => (
           <div key={item.code} className="List-item">
             <div
-              className={`Item ${selectedIds.has(item.code) ? 'Item_selected' : ''}`}
-              onClick={event => handleItemClick(item.code, event)}
+              className={`Item ${state.selectedIds.has(item.code) ? 'Item_selected' : ''}`}
+              onClick={event => handleItemClick(item, event)}
             >
               <div className="Item-code">{item.code}</div>
-              <div className="Item-title">
-                {item.title}
-                {clickCounts.get(item.code) > 0 && (
-                  <div className="Item-count">
-                    | Выделяли {clickCounts.get(item.code)} раз
-                    {clickCounts.get(item.code) > 1 && clickCounts.get(item.code) < 5 ? 'а' : ''}
-                  </div>
-                )}
-              </div>
-
+              <div className="Item-title">{item.title}</div>
+              {state.clickCounts.get(item.code) > 0 && (
+                <div className="Item-count">
+                  &nbsp;|&nbsp;Выделяли {state.clickCounts.get(item.code)} раз
+                  {state.clickCounts.get(item.code) > 1 ? 'а' : ''}
+                </div>
+              )}
               <div className="Item-actions">
-                <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                <button onClick={event => handleDelete(item.code, event)}>Удалить</button>
               </div>
             </div>
           </div>
@@ -67,7 +84,7 @@ function App({ store }) {
         <button onClick={() => store.addItem()}>Добавить</button>
       </div>
       <div className="App-center">
-        <SingleSelectList items={list} />
+        <SingleSelectList items={state.list} />
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ class Store {
       lastCode: 7,
       ...initState,
     };
-    this.listeners = []; // Слушатели изменений состояния
+    this.listeners = [];
   }
 
   subscribe(listener) {
@@ -22,59 +22,60 @@ class Store {
   }
 
   setState(newState) {
-    this.state = newState;
+    this.state = {
+      ...this.state,
+      ...newState,
+    };
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
   addItem() {
     this.state.lastCode += 1;
-
     this.setState({
-      ...this.state,
       list: [...this.state.list, { code: this.state.lastCode, title: 'Новая запись' }],
     });
   }
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
   deleteItem(code) {
     const updatedList = this.state.list.filter(item => item.code !== code);
-    const updatedSelected = new Set(this.state.selectedIds);
-    const updatedCounts = new Map(this.state.clickCounts);
-    updatedCounts.delete(code);
+
+    const newSelectedIds = new Set(this.state.selectedIds);
+    newSelectedIds.delete(code);
 
     this.setState({
-      ...this.state,
       list: updatedList,
-      selectedIds: updatedSelected,
-      clickCounts: updatedCounts,
+      selectedIds: newSelectedIds,
     });
   }
 
-  toggleSelection(itemCode, shouldIncrement) {
+  toggleSelection(itemCode, event) {
     const newSelectedIds = new Set(this.state.selectedIds);
-    const isCurrentlySelected = newSelectedIds.has(itemCode);
+    const ctrlPressed = event.ctrlKey || event.metaKey;
+    const isCurrentlySelected = this.state.selectedIds.has(itemCode);
 
-    if (isCurrentlySelected) {
-      newSelectedIds.delete(itemCode);
+    if (ctrlPressed) {
+      if (isCurrentlySelected) {
+        newSelectedIds.delete(itemCode);
+      } else {
+        newSelectedIds.add(itemCode);
+      }
     } else {
-      newSelectedIds.add(itemCode);
+      if (!isCurrentlySelected) {
+        newSelectedIds.clear();
+        newSelectedIds.add(itemCode);
+      } else {
+        newSelectedIds.delete(itemCode);
+      }
+    }
+
+    const newClickCounts = new Map(this.state.clickCounts);
+    if (newSelectedIds.has(itemCode)) {
+      newClickCounts.set(itemCode, (this.state.clickCounts.get(itemCode) || 0) + 1);
     }
 
     this.setState({
-      ...this.state,
       selectedIds: newSelectedIds,
-      clickCounts: shouldIncrement
-        ? new Map(this.state.clickCounts).set(
-            itemCode,
-            (this.state.clickCounts.get(itemCode) || 0) + 1,
-          )
-        : this.state.clickCounts,
+      clickCounts: newClickCounts,
     });
   }
 }
