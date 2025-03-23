@@ -66,9 +66,6 @@ class Store {
   /**
    * Добавление новой записи
    */
-  /**
-   * Добавление новой записи
-   */
   addItem() {
     this.setState({
       ...this.state,
