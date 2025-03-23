@@ -145,7 +145,6 @@ function addItem() {
         selectCount: 0 
     };
     state.list.push(newItem);
-    // Дополнительно: уведомить подписчиков об обновлении состояния, если требуется
 }
 
 export default Store;
