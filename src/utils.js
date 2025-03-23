@@ -26,3 +26,22 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function pluralize(count) {
+  const lastDigit = count % 10;
+  const lastTwoDigits = count % 100;
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+    return 'раз';
+  }
+
+  if (lastDigit === 1) {
+    return 'раз';
+  }
+
+  if (lastDigit >= 2 && lastDigit <= 4) {
+    return 'раза';
+  }
+
+  return 'раз';
+}

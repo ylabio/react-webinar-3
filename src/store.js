@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.maxCode = Math.max(...this.state.list.map(item => item.code), 0);
   }
 
   /**
@@ -38,11 +39,16 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+  generateUniqueCode() {
+    this.maxCode++;  
+    return this.maxCode; 
+  }
+
   /**
    * Добавление новой записи
    */
   addItem() {
-    const newCode = Math.max(...this.state.list.map(item => item.code)) + 1;
+    const newCode = this.generateUniqueCode();
     this.setState({
       ...this.state,
       list: [...this.state.list, { code: newCode, title: 'Новая запись' }],
@@ -53,7 +59,8 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(code, evt) {
+    evt.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
