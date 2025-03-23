@@ -1,61 +1,160 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --font-family: 'Golos Text', sans-serif;
+  --second-family: 'Montserrat Alternates', sans-serif;
+  --primary-color: #6b4acb;
+  --secondary-color: #d43b3b;
+  --background-light: rgba(107, 74, 203, 0.03);
+  --background-selected: rgba(108, 75, 204, 0.3);
+  --border-color: #efefef;
+  --text-color: #333;
+  --text-light: #777;
+  --white: #fff;
+}
+
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+}
+
+body {
+  background: #e3dfdf;
+  font-family: var(--font-family);
+  color: var(--text-color);
 }
 
 .App {
-  max-width: 1024px;
+  max-width: 1440px;
   min-height: 100vh;
   margin: 0 auto;
-  background: #fff;
-  box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
+  padding: 0 144px;
+  background: var(--white);
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.1);
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .App-head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 125%;
+  color: var(--primary-color);
 }
 
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  align-items: center;
+  padding: 16px;
+  height: 88px;
+}
+
+.App-controls button {
+  border: none;
+  background: var(--primary-color);
+  border-radius: 4px;
+  padding: 8px 16px;
+  width: 114px;
+  height: 40px;
+  cursor: pointer;
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 157%;
+  text-align: center;
+  color: var(--white);
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
+}
+
+.App-controls button:hover {
+  background: #5a3bb2;
+  transform: scale(1.05);
+}
+
+.List {
+  padding: 0;
+}
+
+.List .List-item:nth-child(2n + 1) {
+  background: var(--background-light);
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.3s ease;
+}
+
+.List-item:hover {
+  background: rgba(107, 74, 203, 0.05);
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
-  transition: background-color 1s;
+  align-items: center;
+  padding: 16px;
+  transition: background-color 0.3s ease;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: var(--background-selected);
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  padding-right: 16px;
+  font-weight: 500;
+  color: var(--text-light);
 }
 
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.Item-title span {
+  font-size: 14px;
+  color: var(--text-light);
+  margin-left: 8px;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+}
+
+.Item-actions button {
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  width: 105px;
+  height: 40px;
+  color: var(--white);
+  background: var(--secondary-color);
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 157%;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
+}
+
+.Item-actions button:hover {
+  background: #b83232;
+  transform: scale(1.05);
 }

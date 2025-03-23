@@ -5,6 +5,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    //задача 2.1
+    this.lastCode = Math.max(0, ...initState.list.map(item => item.code)); // Находим максимальный код
   }
 
   /**
@@ -42,9 +44,13 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.lastCode += 1; // Увеличиваем счётчик
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        { code: this.lastCode, title: 'Новая запись', selected: false, selectionCount: 0 },
+      ],
     });
   }
 
@@ -63,12 +69,24 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+
+  selectItem(code, isCtrlPressed) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          // Если запись уже выделена, снимаем выделение
+          if (item.selected) {
+            item.selected = false;
+          } else {
+            // Если запись не выделена, выделяем её
+            item.selected = true;
+            // Увеличиваем счётчик выделений
+            item.selectionCount = (item.selectionCount || 0) + 1;
+          }
+        } else if (!isCtrlPressed) {
+          // Если Ctrl не нажат, снимаем выделение с других записей
+          item.selected = false;
         }
         return item;
       }),
