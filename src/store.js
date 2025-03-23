@@ -1,3 +1,5 @@
+import { getCountText } from './utils.js';
+
 /**
  * Хранилище состояния приложения
  */
@@ -65,32 +67,6 @@ class Store {
   }
 
   /**
-   * Сборка текста о количестве выделения задач
-   */
-  getCountText(item) {
-    if (item.selected) {
-      item.selectedCountText = ' | Выделяли ';
-      item.selectedCount ? (item.selectedCount += 1) : (item.selectedCount = 1);
-      switch (item.selectedCount % 10) {
-        case 2:
-        case 3:
-        case 4:
-          if (
-            item.selectedCount % 100 !== 12 &&
-            item.selectedCount % 100 !== 13 &&
-            item.selectedCount % 100 !== 14
-          ) {
-            item.selectedCountText += item.selectedCount + ' раза';
-            break;
-          }
-        default:
-          item.selectedCountText += item.selectedCount + ' раз';
-      }
-    }
-    return item;
-  }
-
-  /**
    * Выделение записи по коду
    * @param code
    */
@@ -113,7 +89,7 @@ class Store {
             item.selected = item.selected;
           } else {
             item.selected = !item.selected;
-            this.getCountText(item);
+            getCountText(item);
           }
         } else if (!isCtrlPressed) {
           item.selected = false;
