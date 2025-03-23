@@ -10,6 +10,30 @@ import './styles.css';
 function App({ store }) {
   const list = store.getState().list;
 
+  const handleItemClick = (code, event) => {
+    const isCtrlKey = event.ctrlKey || event.metaKey;
+    store.selectItem(code, isCtrlKey);
+  };
+
+  const pluralize = (count) => {
+    const lastDigit = count % 10;
+    const lastTwoDigits = count % 100;
+
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+      return 'раз';
+    }
+
+    if (lastDigit === 1) {
+      return 'раз';
+    }
+
+    if (lastDigit >= 2 && lastDigit <= 4) {
+      return 'раза';
+    }
+
+    return 'раз';
+  }
+
   return (
     <div className="App">
       <div className="App-head">
@@ -24,12 +48,25 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(event) => handleItemClick(item.code, event)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">
+                  <b>{item.title}</b>
+                  {item.selectionCount > 0 && (
+                  <span className="Item-selection">
+                     | Выделяли {item.selectionCount} {pluralize(item.selectionCount)}
+                  </span>
+                )}
+                </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button  onClick={(event) => {
+                      event.stopPropagation();
+                      store.deleteItem(item.code);
+                    }}
+                  >
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>
