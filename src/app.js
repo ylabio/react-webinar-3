@@ -29,7 +29,7 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={event => store.selectItem(item.code, event.ctrlKey || event.metaKey)}
+                onClick={e => store.selectItem(item.code, e)}
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
@@ -46,7 +46,10 @@ function App({ store }) {
                 <div className="Item-actions">
                   <button
                     className="Button Button--delete"
-                    onClick={() => store.deleteItem(item.code)}
+                    onClick={e => {
+                      e.stopPropagation();
+                      store.deleteItem(item.code);
+                    }}
                   >
                     <b>Удалить</b>
                   </button>

@@ -1,3 +1,6 @@
+/**
+ * Хранилище состояния приложения
+ */
 class Store {
   constructor(initState = {}) {
     this.state = initState;
@@ -63,6 +66,9 @@ class Store {
   /**
    * Добавление новой записи
    */
+  /**
+   * Добавление новой записи
+   */
   addItem() {
     this.setState({
       ...this.state,
@@ -72,7 +78,7 @@ class Store {
           code: this.generateUniqueCode(),
           title: 'Новая запись',
           selected: false,
-          selectionCount: 0, // Инициализируем счетчик выделений
+          selectionCount: 0,
         },
       ],
     });
@@ -83,7 +89,7 @@ class Store {
    * @param code
    */
   deleteItem(code) {
-    this.usedCodes.delete(code); // Удаляем код из usedCodes
+    this.usedCodes.delete(code);
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
@@ -94,18 +100,31 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code, isMultiSelect = false) {
+  selectItem(code, e) {
+    const isCtrlPressed = e.ctrlKey || e.metaKey;
+
+    if (e.target.tagName === 'BUTTON') {
+      return;
+    }
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          if (item.selected) {
-            return { ...item, selected: false, selectionCount: item.selectionCount + 1 };
+          if (
+            item.selected &&
+            this.state.list.filter(item => item.selected).length > 1 &&
+            !isCtrlPressed
+          ) {
+            item.selected = true;
           } else {
-            return { ...item, selected: true, selectionCount: item.selectionCount + 1 };
+            item.selected = !item.selected;
+            item.selectionCount += item.selected ? 1 : 0;
           }
+        } else if (!isCtrlPressed) {
+          item.selected = false;
         }
-        return isMultiSelect ? item : { ...item, selected: false };
+        return item;
       }),
     });
   }
