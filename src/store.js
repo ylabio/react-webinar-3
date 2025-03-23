@@ -73,9 +73,9 @@ class Store {
           if (!item.selected) {
             item.selectionCount = (item.selectionCount || 0) + 1;
           }
-          item.selected = !item.selected;
+          item.selected = isCtrlKey ? !item.selected : true;
         }  else if (!isCtrlKey) {
-          item.selected = item.selected;;
+          item.selected = false;
         }
         return item;
       }),

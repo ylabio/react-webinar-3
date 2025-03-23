@@ -15,6 +15,25 @@ function App({ store }) {
     store.selectItem(code, isCtrlKey);
   };
 
+  const pluralize = (count) => {
+    const lastDigit = count % 10;
+    const lastTwoDigits = count % 100;
+
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+      return 'раз';
+    }
+
+    if (lastDigit === 1) {
+      return 'раз';
+    }
+
+    if (lastDigit >= 2 && lastDigit <= 4) {
+      return 'раза';
+    }
+
+    return 'раз';
+  }
+
   return (
     <div className="App">
       <div className="App-head">
@@ -35,7 +54,9 @@ function App({ store }) {
                 <div className="Item-title">
                   <b>{item.title}</b>
                   {item.selectionCount > 0 && (
-                  <span className="Item-selection"> | Выделяли {item.selectionCount} раз</span>
+                  <span className="Item-selection">
+                     | Выделяли {item.selectionCount} {pluralize(item.selectionCount)}
+                  </span>
                 )}
                 </div>
                 <div className="Item-actions">
