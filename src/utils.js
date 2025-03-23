@@ -26,3 +26,16 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Определяет верное окончание слова "раз" в зависимости от числа.
+ * @param number {number} Число, для которого нужно определить склонение.
+ * @returns {string} Корректное склонение слова "раз(а)"
+ */
+export const numeralDeclension = (number) => {
+  if (number % 10 >=2 && number % 10 <=4 && (number % 100 < 10 || number % 100 >= 20)) {
+    return 'раза';
+  }
+
+  return 'раз';
+}
