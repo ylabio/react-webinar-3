@@ -1,3 +1,13 @@
+:root {
+  --title-color: #6b4acb;
+  --btn-bg-color: #d43b3b;
+  --btn-text-color: #fff;
+}
+* {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 700;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -16,7 +26,11 @@ body {
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
+  color: var(--title-color);
+  border-bottom: 1px solid #EFEFEF
+}
+.App-head h1 {
+  font-family: "Roboto", sans-serif;
 }
 
 .App-head h1 {
@@ -28,10 +42,24 @@ body {
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+
+}
+
+
+
+.App-control__btn {
+  min-width: 114px;
+  min-height: 40px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  line-height: 22px;
+  border: none;
+  color: var(--btn-text-color);
+  background-color: var(--title-color);
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #EFEFEF;
 }
 
 .Item {
@@ -41,8 +69,13 @@ body {
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: #EFEFEF;
+  color: black;
+}
+.Item-info {
+  display: flex;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
 }
 
 .Item-code {
@@ -50,6 +83,7 @@ body {
 }
 
 .Item-title {
+  display: flex;
   width: 100%;
   padding: 20px 10px;
 }
@@ -58,4 +92,14 @@ body {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-actions__btn {
+  min-width: 105px;
+  min-height: 40px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  color: var(--btn-text-color);
+  background-color: var(--btn-bg-color);
 }
