@@ -6,7 +6,7 @@ class Store {
     const initialList = initState.list || [];
 
     this.state = {
-      list: initialList.map((element) => ({ ...element, selectedCount: 0 })),
+      list: initialList.map(element => ({ ...element, selectedCount: 0 })),
       codeSetted: initialList.reduce((max, item) => Math.max(max, item.code), 0),
     };
 
@@ -71,24 +71,24 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(event, code) {   
-      this.setState({
-        ...this.state,
-        list: this.state.list.map(item => {
-          if (item.code === code) {
-            if(!item.selected) {
-              item.selectedCount++
-            } 
-            item.selected = !item.selected;
-          } else if(!event.ctrlKey)
-            {
-              item.selected = false
-            }
-          return item;
-        }),
-      });
-    
-    
+  selectItem(event, code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          if (!item.selectedCount) {
+            item.selectedCount = 0;
+          }
+          if (!item.selected) {
+            item.selectedCount++;
+          }
+          item.selected = !item.selected;
+        } else if (!(event.ctrlKey || event.metaKey)) {
+          item.selected = false;
+        }
+        return item;
+      }),
+    });
   }
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { createElement } from './utils.js';
 import './styles.css';
+import plural  from 'plural-ru';
 
 /**
  * Приложение
@@ -37,26 +38,26 @@ function App({ store }) {
                   store.selectItem(event, item.code);
                 }}
               >
-                
-                  <div className='item-info'>
-                    <div className="Item-code">{item.code}</div>
-                    <div className="Item-title">
-                      {item.title}
-                      {!!item.selectedCount && (
-                        <span className="Selected-count">{` | Выделяли ${item.selectedCount} раз`}</span>
-                      )}
-                    </div>
+                <div className="item-info">
+                  <div className="Item-code">{item.code}</div>
+                  <div className="Item-title">
+                    {item.title}
+                    {!!item.selectedCount && (
+                      <span className="Selected-count">
+                        {` | Выделяли ${item.selectedCount} ${plural(item.selectedCount, 'раз', 'раза', 'раз')}`}
+                      </span>
+                    )}
                   </div>
-                  <div className="Item-actions">
-                    <button
-                      onClick={event => {
-                        event.stopPropagation();
-                        store.deleteItem(item.code);
-                      }}
-                    >
-                      Удалить
-                    </button>
-                  
+                </div>
+                <div className="Item-actions">
+                  <button
+                    onClick={event => {
+                      event.stopPropagation();
+                      store.deleteItem(item.code);
+                    }}
+                  >
+                    Удалить
+                  </button>
                 </div>
               </div>
             ))}
