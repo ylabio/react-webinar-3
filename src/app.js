@@ -32,7 +32,14 @@ function App({ store }) {
                   {item.title} {item.selectionCount > 0 && ` | Выделяли ${item.selectionCount} раз`}
                 </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button
+                    onClick={e => {
+                      e.stopPropagation(); // Останавливаем всплытие события, чтобы не сработал onClick на Item
+                      store.deleteItem(item.code);
+                    }}
+                  >
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>
