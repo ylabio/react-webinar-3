@@ -1,10 +1,10 @@
-/**
- * Хранилище состояния приложения
- */
 class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.afterNumber = (this.state.list?.length > 0) 
+      ? Math.max(...this.state.list.map(item => item.code)) + 1 
+      : 1; 
   }
 
   /**
@@ -44,8 +44,10 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.afterNumber, title: 'Новая запись',selectCount: 0 }],
+     
     });
+    this.afterNumber += 1;
   }
 
   /**
@@ -62,15 +64,25 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param isCtrlPressed  флаг указывает на то Зажат ли ctrl
    */
-  selectItem(code) {
+  selectItem(code, isCtrlPressed = false) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        // Нажатие на себя = переключение состояния
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.selectCount += 1; // Увеличиваем счётчик выделений
+          }
+        }
+        // Без ctrl убираем выделения
+        else if (!isCtrlPressed) {
+          item.selected = false;
         }
         return item;
+        
       }),
     });
   }
