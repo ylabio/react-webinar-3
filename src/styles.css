@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: "Outfit", sans-serif;
+  font-family: "Golos Text", sans-serif;
   color: #1A2028;
 }
 
@@ -15,13 +14,17 @@ button {
   cursor: pointer;
 }
 
+.wrapper {
+  width: 100%;
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
 .App {
-  max-width: 1024px;
   min-height: 100vh;
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
 }
 
 .App-head {
@@ -37,8 +40,6 @@ button {
 }
 
 .App-controls {
-  display: flex;
-  justify-content: flex-end;
   padding: 20px;
 }
 
@@ -49,7 +50,9 @@ button {
   font-weight: 700;
   font-size: 14px;
   border-radius: 4px;
-  padding: 8px 16px;
+  padding: 9px 16px;
+  display: block;
+  margin-left: auto;
 }
 
 .List-item {
@@ -99,5 +102,5 @@ button {
   color: #FFFFFF;
   font-weight: 700;
   font-size: 14px;
-  padding: 8px 16px;
+  padding: 9px 16px;
 }
