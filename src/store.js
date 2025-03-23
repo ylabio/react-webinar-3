@@ -1,3 +1,5 @@
+import { getCountText } from './utils.js';
+
 /**
  * Хранилище состояния приложения
  */
@@ -5,6 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.lastCode = this.state.list.length;
   }
 
   /**
@@ -42,9 +45,13 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.lastCode += 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        { code: this.lastCode ? this.lastCode : 1, title: 'Новая запись' },
+      ],
     });
   }
 
@@ -63,12 +70,29 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, event) {
+    const isCtrlPressed = event.ctrlKey || event.metaKey;
+
+    if (event.target.tagName === 'BUTTON') {
+      return;
+    }
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          if (
+            item.selected &&
+            this.state.list.filter(item => item.selected).length > 1 &&
+            !isCtrlPressed
+          ) {
+            item.selected = item.selected;
+          } else {
+            item.selected = !item.selected;
+            getCountText(item);
+          }
+        } else if (!isCtrlPressed) {
+          item.selected = false;
         }
         return item;
       }),
