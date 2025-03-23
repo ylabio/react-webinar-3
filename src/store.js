@@ -73,8 +73,7 @@ class Store {
       list: [
         ...this.state.list,
         {
-          //Реализация генерацию уникальных числовых кодов
-          code: generateNewCode,
+          code: generateNewCode, //Реализация генерацию уникальных числовых кодов
           title: 'Новая запись',
         },
       ],
@@ -107,7 +106,7 @@ class Store {
           // при клике на другую запись будет сбрасываться на другой
           return {
             ...item,
-            selected: item.code === code ? !item.selected : item.selected,
+            selected: item.code === code ? !item.selected : false,
             // Количество совершенных выделений для каждой записи
             count: item.code === code && !item.selected ? (item.count || 0) + 1 : item.count,
           };
