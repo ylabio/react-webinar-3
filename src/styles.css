@@ -16,12 +16,14 @@ body {
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
+  background: #EFEFEF;
+  border-bottom-width: 1px;
 }
 
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  color: #6B4ACB;
 }
 
 .App-controls {
@@ -31,31 +33,76 @@ body {
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 4px #ccc;
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   transition: background-color 1s;
+  border-bottom: 1px solid #ccc;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: rgba(107, 74, 203, 0.1);
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  padding: 20px 5px 20px 15px;
 }
 
 .Item-title {
-  width: 100%;
-  padding: 20px 10px;
+  padding: 20px 3px 20px 10px;
+  font-weight: 700;
+}
+
+.Item-count {
+  padding: 20px 5px 20px 5px;
 }
 
 .Item-actions {
+  margin-left: auto;
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Add-button {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0;
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+  background: #6B4ACB;
+  width: 114px;
+  height: 40px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+}
+
+.Delete-button {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  color: #FFFFFF;
+  background: #D43B3B;
+  width: 105px;
+  height: 40px; 
+  padding-top: 8px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  border-radius: 4px;
+  border: none;
 }

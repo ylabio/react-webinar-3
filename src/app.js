@@ -10,13 +10,31 @@ import './styles.css';
 function App({ store }) {
   const list = store.getState().list;
 
+  const handleItemClick = (event, item) => {
+    const isMultiSelect = event.ctrlKey || event.metaKey;
+    if (isMultiSelect) {
+      if (item.selected) {
+        store.deselectItem(item.code);
+      } else {
+        store.selectAdditionalItem(item.code);
+      }
+    } else {
+      if (item.selected) {
+        store.deselectItem(item.code);
+      } else {
+        store.clearSelection();
+        store.selectItem(item.code);
+      }
+    }
+  };
+
   return (
     <div className="App">
       <div className="App-head">
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button className='Add-button' onClick={() => store.addItem()}>Добавить</button>
       </div>
       <div className="App-center">
         <div className="List">
@@ -24,12 +42,22 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(e) => handleItemClick(e, item)}
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}</div>
+                {item.selectCount > 0 && (
+                  <div className='Item-count'>| Выделяли {item.selectCount} раз</div>
+                )}
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button 
+                    className='Delete-button' 
+                    onClick={(e) => { 
+                      e.stopPropagation(); 
+                      store.deleteItem(item.code); 
+                    }}>
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>
