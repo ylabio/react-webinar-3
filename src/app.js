@@ -1,6 +1,6 @@
 import React from 'react';
-import { createElement } from './utils.js';
 import './styles.css';
+import { plurate } from './utils';
 
 /**
  * Приложение
@@ -16,20 +16,27 @@ function App({ store }) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button className="Button Button--add" onClick={() => store.addItem()}>Добавить</button>
       </div>
       <div className="App-center">
         <div className="List">
-          {list.map(item => (
+          {list.map((item , index)=> (
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(e) => store.selectItem(item.code, e)}
+                style={{
+                  backgroundColor: item.selected ? '#6B4ACB1A' : (index % 2 === 0 ? '#6B4ACB08' : '#fff')
+                }}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">{item.title}
+                {item.selectionCount > 0 &&
+                    <p className="Selection-title">&nbsp;| Выделяли {item.selectionCount} {plurate(item.selectionCount)}</p>
+                }
+                </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button className="Button Button--delete" onClick={(e) => store.deleteItem(item.code, e)}>Удалить</button>
                 </div>
               </div>
             </div>
