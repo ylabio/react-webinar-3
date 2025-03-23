@@ -71,7 +71,7 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (!event.ctrlKey && item.code !== code && !event.target.classList.contains('Item-delete')) {
+        if (!(event.metaKey || event.ctrlKey) && item.code !== code && !event.target.classList.contains('Item-delete')) {
           item.selected = false;
         }
         if (item.code === code) {

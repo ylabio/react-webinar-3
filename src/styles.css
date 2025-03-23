@@ -25,7 +25,7 @@ button {
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
+  background: #EFEFEF;
 }
 
 .App-head h1 {
@@ -51,7 +51,7 @@ button {
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #EFEFEF;
 }
 
 .List-item:nth-child(odd) {
@@ -60,14 +60,14 @@ button {
 
 .Item {
   display: flex;
+  align-items: center;
   justify-content: flex-start;
   transition: background-color 1s;
   cursor: pointer;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: rgba(107, 74, 203, 0.1);
 }
 
 .Item-code {
