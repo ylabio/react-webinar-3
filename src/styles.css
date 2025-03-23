@@ -5,6 +5,15 @@ body {
   font-family: sans-serif;
 }
 
+button {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 9px 16px;
+  border-radius: 4px;
+  border: transparent;
+}
+
 .App {
   max-width: 1024px;
   min-height: 100vh;
@@ -16,12 +25,15 @@ body {
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
+  background: #EFEFEF;
 }
 
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  font-weight: 700;
+  font-size: 32px;
+  color: #6B4ACB;
 }
 
 .App-controls {
@@ -30,19 +42,32 @@ body {
   padding: 20px;
 }
 
+.App-controls button {
+  background-color: #6B4ACB;
+}
+
+.Item-actions button {
+  background-color: #D43B3B;
+}
+
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #EFEFEF;
+}
+
+.List-item:nth-child(odd) {
+  background-color: rgba(107, 74, 203, 3.14%);
 }
 
 .Item {
   display: flex;
+  align-items: center;
   justify-content: flex-start;
   transition: background-color 1s;
+  cursor: pointer;
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: rgba(107, 74, 203, 0.1);
 }
 
 .Item-code {
@@ -52,10 +77,17 @@ body {
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  color: #1A2028;
+  font-weight: 700;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-count {
+  padding-left: 5px;
+  font-weight: 400;
 }
