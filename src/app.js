@@ -18,6 +18,11 @@ function App({ store }) {
     }
   }
 
+  const deleteHandler = (evt, code) => {
+    evt.stopPropagation();
+    store.deleteItem(code);
+  }
+
   return (
     <>
       <div className="App-head">
@@ -45,7 +50,7 @@ function App({ store }) {
                     { item.selectCount !== 0 && <div className="Item-description"> | Выделяли {item.selectCount} {numeralDeclension(item.selectCount)}</div> }
                   </div>
                   <div className="Item-actions">
-                    <button className="button delete-button" onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                    <button className="button delete-button" onClick={evt => deleteHandler(evt, item.code)}>Удалить</button>
                   </div>
                 </div>
               </div>
