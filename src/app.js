@@ -36,7 +36,7 @@ function App({ store }) {
                 onClick={(event) => handleItemClick(event, item.code)}
               >
                 <div className="Item-code">{item.code}</div>
-                {renderTitleWithSelectionInfo(item)}
+                {renderTitleWithSelectionInfo(item, pluralizeRaz)}
                 <div className="Item-actions">
                   <button className="Item-actions__btn" onClick={(event) => {
                     event.stopPropagation();
@@ -52,17 +52,16 @@ function App({ store }) {
   );
 }
 
-function renderTitleWithSelectionInfo(item) {
+function renderTitleWithSelectionInfo(item, pluralize) {
   return (
     <div className="Item-title">
       {item.title}
       {item.selectionCount > 0 && (
-        <div className="Item-info"> &nbsp;| Выделяли {pluralizeRaz(item.selectionCount)} </div>
+        <div className="Item-info"> &nbsp;| Выделяли {pluralize(item.selectionCount)} </div>
       )}
     </div>
   );
 }
-
 function pluralizeRaz(count) {
   if (count % 10 === 1 && count % 100 !== 11) {
     return `${count} раз`;
