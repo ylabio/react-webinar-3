@@ -6,7 +6,7 @@ body {
 }
 
 .App {
-  max-width: 1024px;
+  max-width: 1400px;
   min-height: 100vh;
   margin: 0 auto;
   background: #fff;
@@ -15,7 +15,12 @@ body {
 }
 
 .App-head {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
   height: 80px;
+  padding: 0 16px;
+  color: #6B4ACB;
   background: #f5f5f5;
 }
 
@@ -29,9 +34,25 @@ body {
   justify-content: flex-end;
   padding: 20px;
 }
+.App-controls-btn {
+  width: 114px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 700;
+  padding: 9px 16px;
+  background-color: #6B4ACB;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.App-controls-btn:hover {
+  background-color: #5c3fbb;
+}
 
-.List-item {
-  border-bottom: 1px dashed #ccc;
+.List-item:nth-of-type(odd) {
+  background: rgba(107, 74, 203, 0.03);
+  border: none;
 }
 
 .Item {
@@ -41,21 +62,48 @@ body {
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: rgba(107, 74, 203, 0.1);
+  color: #000;
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  padding: 30px 10px 20px 20px;
 }
 
 .Item-title {
+  display: flex;
+  align-items: center;
+  gap: 20px;
   width: 100%;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
   padding: 20px 10px;
+}
+.Item-selection-count {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-actions-btn {
+  width: 105px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 700;
+  padding: 9px 16px;
+  background-color: #D43B3B;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.Item-actions-btn:hover {
+  background-color: #c52b2b;
 }
