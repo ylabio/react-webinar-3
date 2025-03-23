@@ -5,6 +5,17 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.usedCodes = new Set();
+    this.nextCode = 1;
+
+    if (initState.list) {
+      initState.list.forEach(item => {
+        this.usedCodes.add(item.code);
+        if (item.code >= this.nextCode) {
+          this.nextCode = item.code + 1;
+        }
+      });
+    }
   }
 
   /**
@@ -29,6 +40,20 @@ class Store {
   }
 
   /**
+   * Генерация уникального кода
+   * @returns {number}
+   */
+  generateUniqueCode() {
+    let code = this.nextCode;
+    while (this.usedCodes.has(code)) {
+      code++;
+    }
+    this.usedCodes.add(code);
+    this.nextCode = code + 1;
+    return code;
+  }
+
+  /**
    * Установка состояния
    * @param newState {Object}
    */
@@ -44,7 +69,15 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        {
+          code: this.generateUniqueCode(),
+          title: 'Новая запись',
+          selected: false,
+          selectionCount: 0,
+        },
+      ],
     });
   }
 
@@ -53,6 +86,7 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    this.usedCodes.delete(code);
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
@@ -63,12 +97,29 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, e) {
+    const isCtrlPressed = e.ctrlKey || e.metaKey;
+
+    if (e.target.tagName === 'BUTTON') {
+      return;
+    }
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          if (
+            item.selected &&
+            this.state.list.filter(item => item.selected).length > 1 &&
+            !isCtrlPressed
+          ) {
+            item.selected = true;
+          } else {
+            item.selected = !item.selected;
+            item.selectionCount += item.selected ? 1 : 0;
+          }
+        } else if (!isCtrlPressed) {
+          item.selected = false;
         }
         return item;
       }),
