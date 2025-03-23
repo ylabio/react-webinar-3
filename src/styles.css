@@ -6,56 +6,131 @@ body {
 }
 
 .App {
-  max-width: 1024px;
-  min-height: 100vh;
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 0 15px 5px #0000003b;
+  width: 1440;
+  height: 664;
+  gap: 24px;
+  height: 100vh;
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  background: #ffffff;
+  border-bottom: 1px solid #efefef;
+  padding-top: 16px;
+  padding-right: 144px;
+  padding-bottom: 16px;
+  padding-left: 144px;
 }
 
 .App-head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  font-family: 'Golos Text';
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0%;
+  color: #6b4acb;
 }
-
+.App-main {
+  padding: 0 144px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+
+  width: 1152;
+  height: 40;
+  gap: 716px;
+  border-bottom-width: 1px;
+  padding-right: 16px;
+  padding-left: 16px;
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
-}
-
-.Item {
+  padding: 16px;
   display: flex;
-  justify-content: flex-start;
-  transition: background-color 1s;
+  background: #6b4acb08;
+  border-bottom: 1px solid #efefef;
+  justify-content: space-between;
+}
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.Item-changed {
+  background: #ffffff;
 }
 
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
+.Item-selected {
+  background: #6b4acb1a;
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  height: fit-content;
+  font-family: 'Golos Text';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
 }
 
 .Item-title {
+  font-family: 'Golos Text';
+  font-weight: 700;
+  font-size: 16px;
+  height: fit-content;
+  letter-spacing: 0%;
+  line-height: 22px;
   width: 100%;
-  padding: 20px 10px;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+  width: 243;
+  height: 40;
+  gap: 24px;
+}
+
+.Add-button {
+  background: #6b4acb;
+  width: 114;
+}
+
+button {
+  background: #d43b3b;
+  font-family: 'Montserrat Alternates';
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  color: #fff;
+  border: none;
+  width: 105;
+  height: 40;
+  gap: 8px;
+  padding-top: 8px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  border-radius: 4px;
+  
+}
+.Selected-count {
+  font-family: 'Golos Text';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
 }
