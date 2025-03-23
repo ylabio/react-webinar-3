@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/ylabio/react-webinar-3#readme",
   "dependencies": {
-    "numeral-ru": "^0.0.6",
     "plural-ru": "^2.0.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
