@@ -3,8 +3,11 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.state = {
+      ...initState,
+      lastCode: Math.max(...initState.list.map(item => item.code), 0), 
+    };
+    this.listeners = [];
   }
 
   /**
@@ -42,9 +45,14 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newCode = this.state.lastCode + 1; // Генерируем новый уникальный код
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      lastCode: newCode,
+      list: [
+        ...this.state.list,
+        { code: newCode, title: 'Новая запись', selected: false, selectionCount: 0 },
+      ],
     });
   }
 
@@ -62,13 +70,17 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param isCtrlPressed {boolean} Нажата ли клавиша Ctrl/Cmd
    */
-  selectItem(code) {
+  selectItem(code, isCtrlPressed) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          item.selected = !item.selected; 
+          item.selectionCount = (item.selectionCount || 0) + 1; 
+        } else if (!isCtrlPressed) {
+          item.selected = false; 
         }
         return item;
       }),
