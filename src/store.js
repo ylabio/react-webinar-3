@@ -1,77 +1,81 @@
-/**
- * Хранилище состояния приложения
- */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.state = {
+      list: [],
+      selectedIds: new Set(),
+      clickCounts: new Map(),
+      lastCode: 7,
+      ...initState,
+    };
+    this.listeners = [];
   }
 
-  /**
-   * Подписка слушателя на изменения состояния
-   * @param listener {Function}
-   * @returns {Function} Функция отписки
-   */
   subscribe(listener) {
     this.listeners.push(listener);
-    // Возвращается функция для удаления добавленного слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);
     };
   }
 
-  /**
-   * Выбор состояния
-   * @returns {Object}
-   */
   getState() {
     return this.state;
   }
 
-  /**
-   * Установка состояния
-   * @param newState {Object}
-   */
   setState(newState) {
-    this.state = newState;
-    // Вызываем всех слушателей
+    this.state = {
+      ...this.state,
+      ...newState,
+    };
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
   addItem() {
+    this.state.lastCode += 1;
     this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.state.lastCode, title: 'Новая запись' }],
     });
   }
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
   deleteItem(code) {
+    const updatedList = this.state.list.filter(item => item.code !== code);
+
+    const newSelectedIds = new Set(this.state.selectedIds);
+    newSelectedIds.delete(code);
+
     this.setState({
-      ...this.state,
-      list: this.state.list.filter(item => item.code !== code),
+      list: updatedList,
+      selectedIds: newSelectedIds,
     });
   }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  toggleSelection(itemCode, event) {
+    const newSelectedIds = new Set(this.state.selectedIds);
+    const ctrlPressed = event.ctrlKey || event.metaKey;
+    const isCurrentlySelected = this.state.selectedIds.has(itemCode);
+
+    if (ctrlPressed) {
+      if (isCurrentlySelected) {
+        newSelectedIds.delete(itemCode);
+      } else {
+        newSelectedIds.add(itemCode);
+      }
+    } else {
+      if (!isCurrentlySelected) {
+        newSelectedIds.clear();
+        newSelectedIds.add(itemCode);
+      } else {
+        newSelectedIds.delete(itemCode);
+      }
+    }
+
+    const newClickCounts = new Map(this.state.clickCounts);
+    if (newSelectedIds.has(itemCode)) {
+      newClickCounts.set(itemCode, (this.state.clickCounts.get(itemCode) || 0) + 1);
+    }
+
     this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
-      }),
+      selectedIds: newSelectedIds,
+      clickCounts: newClickCounts,
     });
   }
 }
