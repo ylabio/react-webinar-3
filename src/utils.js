@@ -26,3 +26,14 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getPluralInfo(number) {
+  const certainNumbers = [2, 3, 4]; //будем сравнивать последнюю цифру number с этими числами
+  const exceptions = [12, 13, 14]; //исключения для двух последних цифр
+  const lastTwoDigits = number % 100;
+  const lastDigit = number % 10;
+  if (certainNumbers.includes(lastDigit) & !exceptions.includes(lastTwoDigits)) {
+    return `${number} раза`;
+  }
+  return `${number} раз`;
+}
