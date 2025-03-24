@@ -70,11 +70,10 @@ class Store {
    * @param code
    */
   selectItem(code) {
-   
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-         if (event.ctrlKey|| this.clear){
+         if (event.ctrlKey || event.metaKey || this.clear){
             if (item.code === code) {
                item.selected = !item.selected;
                if (item.selected){
@@ -98,7 +97,6 @@ class Store {
   
   
 }
-
 
 
 
