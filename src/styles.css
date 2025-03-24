@@ -1,27 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&family=Montserrat+Alternates:wght@700&display=swap');
+
+:root {
+  /*Шрифты*/
+  --font-family: "Golos Text", sans-serif;
+  --second-family: "Montserrat Alternates", sans-serif;
+
+  /*Цвета шрифтов*/
+  --white-color: #ffffff;
+  --black-color: #1a2028;
+
+  /*Цвета*/
+  --violet: #6b4acb;
+  --red:  #d43b3b;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
-  font-family: sans-serif;
+  background: #ffffff;
+  font-family: 'Golos Text', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--black-color);
 }
 
 .App {
-  max-width: 1024px;
   min-height: 100vh;
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
+}
+
+.App-container {
+  max-width: 1024px;
+  margin: 0 auto;
 }
 
 .App-head {
   height: 80px;
-  background: #f5f5f5;
+  border-bottom: 1px solid #efefef;
 }
 
 .App-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  color: var(--violet);
 }
 
 .App-controls {
@@ -30,19 +53,54 @@ body {
   padding: 20px;
 }
 
+.Button {
+  cursor: pointer;
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--white-color);
+  padding: 9px 16px;
+  border-radius: 4px;
+  border: none;
+}
+
+.Button:hover {
+  opacity: 0.8;
+}
+
+.Button:active {
+  opacity: 0.9;
+}
+
+.Button-violet {
+  background-color: var(--violet);
+}
+
+.Button-red {
+  background-color: var(--red);
+}
+
+.List {
+  padding-bottom: 60px;
+}
+
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #efefef;
+}
+
+.List-item:nth-child(odd) {
+  background-color: rgba(107, 74, 203, 0.03);
 }
 
 .Item {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   transition: background-color 1s;
 }
 
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
+.Item-selected {
+  background: rgba(107, 74, 203, 0.1);
 }
 
 .Item-code {
@@ -50,12 +108,19 @@ body {
 }
 
 .Item-title {
-  width: 100%;
   padding: 20px 10px;
+  font-weight: 700;
+  max-width: 670px;
+  word-break: break-all;
+}
+
+.Item-click {
+  font-weight: 400;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+  margin-left: auto;
 }

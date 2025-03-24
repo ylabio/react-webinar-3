@@ -26,3 +26,9 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function plural(count, variants) {
+  const selectedVar = new Intl.PluralRules('ru-RU').select(count);
+
+  return variants[selectedVar];
+}
