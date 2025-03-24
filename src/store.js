@@ -8,6 +8,7 @@ class Store {
     this.maxCode = (initState.list && initState.list.length > 0) 
     ? Math.max(...initState.list.map(item => item.code))
     : 0;
+    this.clear=false;
   }
 
   /**
@@ -57,6 +58,7 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    this.clear=true;
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
@@ -72,10 +74,7 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-         // document.addEventListener('keydown', event);
-         // console.log(`Нажата клавиша: ${event.ctrlKey}`) 
-         console.log(event.ctrlKey)
-         if (event.ctrlKey){
+         if (event.ctrlKey|| this.clear){
             if (item.code === code) {
                item.selected = !item.selected;
                if (item.selected){
@@ -91,10 +90,10 @@ class Store {
             }
            } 
            else {item.selected = false;}}
-           console.log(item)
           return item;
       }),
     });
+    this.clear=false;
   }
   
 }
