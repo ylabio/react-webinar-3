@@ -34,20 +34,36 @@ body {
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 10px;
+  align-items: center;
+  height: 72px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
 }
 
 .App-controls button {
-  background: #6b3fa0;
+  width: 114px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin-right: 64px;
+  border-radius: 4px;
+  background: rgb(107, 74, 203);
   color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: 'Golos Text', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
   line-height: 22px;
+  letter-spacing: 0;
+  text-align: center;
+  border: none;
+  cursor: pointer;
 }
 
 .App-controls button:hover {
@@ -59,54 +75,35 @@ body {
 }
 
 .List-item {
-  margin-bottom: 8px;
-}
-
-.List-item:last-child {
   margin-bottom: 0;
 }
 
-.List-item:nth-child(even) .Item {
-  background: #EFEFEF;
-  position: relative;
-}
-
-.List-item:nth-child(even) .Item::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(107, 74, 203, 0.0314);
-  pointer-events: none;
-}
-
 .Item {
+  width: 100%;
+  height: 72px;
   display: flex;
-  justify-content: flex-start;
+  flex-direction: row;
+  justify-content: flex-start; /* Выравниваем элементы по левому краю */
   align-items: center;
-  transition: background-color 1s;
-  position: relative;
-  height: 22px;
+  padding: 16px;
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+  margin: 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgb(239, 239, 239);
+  background: transparent;
+}
+
+.List-item:nth-child(odd) .Item {
+  background: rgba(107, 74, 203, 0.03);
 }
 
 .List-item .Item_selected {
-  background: #EFEFEF;
-}
-
-.Item_selected::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   background: rgba(107, 74, 203, 0.1);
-  pointer-events: none;
 }
 
-.List-item:nth-child(even) .Item_selected::after {
+.List-item:nth-child(odd) .Item.Item_selected {
   background: rgba(107, 74, 203, 0.1);
 }
 
@@ -119,7 +116,6 @@ body {
 }
 
 .Item-title {
-  width: 100%;
   padding: 0 10px;
   font-family: 'Golos Text', sans-serif;
   font-weight: 900;
@@ -128,6 +124,9 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin-right: 16px;
 }
 
 .Item-select-count {
@@ -142,26 +141,41 @@ body {
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 0 20px 0 10px;
+  padding: 0 0 0 10px;
+  margin-left: auto; /* Отталкиваем .Item-actions к правому краю */
 }
 
 .Item-actions button {
-  background: #d9534f;
-  color: #fff;
+  width: 105px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin-right: 16px;
+  border-radius: 4px;
+  background: rgb(212, 59, 59);
+  color: rgb(255, 255, 255);
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0;
+  text-align: center;
   border: none;
-  padding: 2px 15px;
-  border-radius: 5px;
   cursor: pointer;
-  font-family: 'Golos Text', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 18px;
 }
 
 .Item-actions button:hover {
   background: #c9302c;
 }
 
+/* Медиа-запросы */
 @media (max-width: 768px) {
   .App {
     max-width: 100%;
@@ -174,16 +188,26 @@ body {
   }
 
   .App-controls {
-    padding: 15px 15px 10px;
+    padding: 12px 15px;
+    height: 60px;
+    margin-bottom: 20px;
   }
 
   .App-controls button {
-    font-size: 14px;
+    font-size: 13px;
     padding: 8px 16px;
+    width: 100px;
+    height: 36px;
+    margin-right: 45px;
   }
 
   .App-center {
     padding: 0 15px 15px;
+  }
+
+  .Item {
+    height: 60px;
+    padding: 12px;
   }
 
   .Item-code {
@@ -196,15 +220,20 @@ body {
     font-size: 14px;
     line-height: 20px;
     padding: 0 8px;
+    margin-right: 12px;
   }
 
   .Item-actions {
-    padding: 0 15px 0 8px;
+    padding: 0 0 0 8px;
   }
 
   .Item-actions button {
-    font-size: 14px;
-    padding: 2px 12px;
+    width: 90px;
+    height: 36px;
+    padding: 8px 12px;
+    margin-right: 12px;
+    font-size: 13px;
+    line-height: 20px;
   }
 }
 
@@ -216,13 +245,18 @@ body {
   }
 
   .App-controls {
-    padding: 10px 10px 5px;
+    padding: 10px 10px;
+    height: auto;
     justify-content: center;
+    margin-bottom: 16px;
   }
 
   .App-controls button {
     font-size: 12px;
     padding: 6px 12px;
+    width: 90px;
+    height: 32px;
+    margin-right: 0;
     min-width: 44px;
     min-height: 44px;
     display: flex;
@@ -235,13 +269,13 @@ body {
   }
 
   .List-item {
-    margin-bottom: 6px;
+    margin-bottom: 0;
   }
 
   .Item {
     height: auto;
     flex-wrap: wrap;
-    padding: 5px 0;
+    padding: 10px;
   }
 
   .Item-code {
@@ -257,6 +291,7 @@ body {
     white-space: normal;
     overflow: visible;
     text-overflow: clip;
+    margin-right: 10px;
   }
 
   .Item-select-count {
@@ -269,12 +304,16 @@ body {
   }
 
   .Item-actions {
-    padding: 0 10px 0 5px;
+    padding: 0 0 0 5px;
   }
 
   .Item-actions button {
+    width: 80px;
+    height: 32px;
+    padding: 6px 10px;
+    margin-right: 10px;
     font-size: 12px;
-    padding: 2px 10px;
+    line-height: 18px;
     min-width: 44px;
     min-height: 44px;
     display: flex;

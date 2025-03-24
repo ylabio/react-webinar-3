@@ -5,7 +5,7 @@ class Store {
       list: initState.list.map(item => ({ ...item, selected: false, selectCount: 0 })),
     };
     this.listeners = [];
-    this.maxCode = Math.max(...initState.list.map(item => item.code), 0);
+    this.maxCode = initState.list.length ? Math.max(...initState.list.map(item => item.code), 0) : 0;
   }
 
   subscribe(listener) {
@@ -20,7 +20,7 @@ class Store {
   }
 
   setState(newState) {
-    this.state = newState;
+    this.state = { ...newState };
     for (const listener of this.listeners) listener();
   }
 
@@ -44,7 +44,15 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          return { ...item, selected: !item.selected, selectCount: (item.selectCount || 0) + 1 };
+          if (ctrlKey && item.selected) {
+            return { ...item, selected: false };
+          } else {
+            return {
+              ...item,
+              selected: true,
+              selectCount: (item.selectCount || 0) + 1,
+            };
+          }
         }
         return ctrlKey ? item : { ...item, selected: false };
       }),
