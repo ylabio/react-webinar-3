@@ -1,6 +1,7 @@
 import React from 'react';
 import { createElement } from './utils.js';
 import './styles.css';
+import { getPluralInfo } from './utils.js';
 
 /**
  * Приложение
@@ -24,11 +25,12 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={(event) => store.selectItem(item.code, event)}
               >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}
-                  {item.numberSelected === 0 ? '' : (<span className="Item-title-info"> | Выделяли {item.numberSelected} раз </span>)}
+                <div className="Item-main" onClick={(event) => store.selectItem(item.code, event)}>
+                  <div className="Item-code">{item.code}</div>
+                  <div className="Item-title">{item.title}
+                  {item.numberSelected === 0 ? '' : (<span className="Item-title-info"> | Выделяли {getPluralInfo(item.numberSelected)}</span>)}
+                  </div>
                 </div>
                 <div className="Item-actions">
                   <button className="Delete-button button" onClick={() => store.deleteItem(item.code)}>Удалить</button>
