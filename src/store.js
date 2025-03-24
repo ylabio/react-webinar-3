@@ -33,7 +33,6 @@ class Store {
    * @param newState {Object}
    */
   setState(newState) {
-    console.log(this.state);
     this.state = newState;
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
