@@ -26,3 +26,19 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function generator(start) {
+  let lastCode = start.size > 0 ? Math.max(...start) : 0;
+
+  return function() {
+    let newCode = ++lastCode;
+    start.add(newCode);
+    return newCode;
+  };
+}
+
+export function plural(value, variants = {}, locale = 'ru-RU') {
+  const key = new Intl.PluralRules(locale).select(value);
+
+  return variants[key] || '';
+}
