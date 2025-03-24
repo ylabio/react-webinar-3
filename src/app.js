@@ -16,7 +16,7 @@ function App({ store }) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button class="btn_add" onClick={() => store.addItem()}><b>Добавить</b></button>
       </div>
       <div className="App-center">
         <div className="List">
@@ -34,13 +34,13 @@ function App({ store }) {
               }
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}
-                <div className="Item-allocCount">{(
-                  item.allocCounter > 0 ? 'Выделяли ' + item.allocCounter + ' раз' : ''
-                  )}</div>
+                <div className="Item-title"><b>{item.title}</b>
+                {(
+                  item.allocCounter > 0 ? ' | Выделяли ' + item.allocCounter + ' раз' : ''
+                  )}
                 </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button class="btn_del" onClick={() => store.deleteItem(item.code)}><b>Удалить</b></button>
                 </div>
               </div>
             </div>

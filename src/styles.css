@@ -15,8 +15,36 @@ body {
 }
 
 .App-head {
-  height: 80px;
-  background: #f5f5f5;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #efefef;
+  font-size: 32px;
+  font-family: 'Golos Text';
+  color: #6b4acb;
+}
+
+.btn_add{
+  width: 114px;
+  height: 40px;
+  border-radius: 4px;
+  font-family: 'Montserrat Alternates';
+  font-size: 14px;
+  background-color: #6b4acb;
+  color: #f5f5f5;
+  border-color: #6b4acb;
+  box-shadow: none;
+}
+
+.btn_del{
+  width: 105px;
+  height: 40px;
+  border-radius: 4px;
+  font-family: 'Montserrat Alternates';
+  font-size: 14px;
+  background-color: #d43b3b;
+  color: #f5f5f5;
+  border-color: #d43b3b;
+  box-shadow: none;
 }
 
 .App-head h1 {
@@ -41,23 +69,20 @@ body {
 }
 
 .Item_selected {
-  background: #75aaf1;
-  color: #fff;
+  background: #6b4acb1a;
+  border-color: #6b4acb;
+  border-width: 3px;
+  border-style: solid;
 }
 
 .Item-code {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-allocCount {
-  padding: 0px 10px 0px 0px;
-  font-size: 10px;
-  color: firebrick;
-}
-
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  font-size: 16px;
 }
 
 .Item-actions {
