@@ -16,7 +16,10 @@ function App({ store }) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
+        <button onClick={() => {
+          store.addItem();
+        }
+        }>Добавить</button>
       </div>
       <div className="App-center">
         <div className="List">
@@ -25,7 +28,8 @@ function App({ store }) {
               <div className={'Item-descr' + (item.selected ? ' Item-descr_selected' : '')}
                 onClick={(event) => {
                   const ctrlKey = event.ctrlKey || event.metaKey; // Проверяем нажатие Ctrl или Cmd
-                  store.selectItem(item.code, ctrlKey)
+                  store.selectItem(item.code, ctrlKey);
+
                 }
                 }
               >

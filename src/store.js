@@ -1,8 +1,9 @@
 /**
  * Хранилище состояния приложения
  */
+
 class Store {
-  constructor(initState = { list: [], maxCode: 0 }) {
+  constructor(initState = { list: [], usedCodes: new Set(), maxCode: 0 }) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
   }
@@ -25,6 +26,7 @@ class Store {
    * @returns {Object}
    */
   getState() {
+
     return this.state;
   }
 
@@ -39,20 +41,43 @@ class Store {
   }
 
   /**
+   * Генерация уникального кода для новой записи
+   * @returns {number} Уникальный код
+   */
+  generateUniqueCode() {
+    let maxCode = this.state.usedCodes.size;
+    let newCode = maxCode + 1;
+    // Находим первый неиспользованный код, начиная с maxCode + 1
+    while (this.state.usedCodes.has(newCode)) {
+      newCode++;
+    }
+    // Обновляем maxCode, если это необходимо
+    maxCode = Math.max(maxCode, newCode);
+    return newCode;
+  }
+
+  /**
    * Добавление новой записи
    */
   addItem() {
-    const newCode = this.state.maxCode + 1;
+    const updateList = this.state.list;
+    if (!this.state.usedCodes) {
+      this.state.usedCodes = new Set(updateList); // Инициализируем, если еще не инициализировано
+    }
+    const newCode = this.generateUniqueCode();
     const newItem = {
       code: newCode,
       title: 'Новая запись',
       selected: false,
       selectedCount: 0,
     };
+
+    // Добавляем код в множество использованных кодов
+    this.state.usedCodes.add(newCode);
+
     this.setState({
       ...this.state,
       list: [...this.state.list, newItem],
-      maxCode: newCode,
     });
   }
 
@@ -61,8 +86,15 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const updateList = this.state.list;
+    if (!this.state.usedCodes) {
+      this.state.usedCodes = new Set(updateList); // Инициализируем, если еще не инициализировано
+    }
+
     const updatedList = this.state.list.filter(item => item.code !== code);
+    // Обновляем maxCode, если необходимо
     const maxCode = updatedList.length > 0 ? Math.max(...updatedList.map(item => item.code)) : 0;
+
     this.setState({
       ...this.state,
       list: updatedList,
