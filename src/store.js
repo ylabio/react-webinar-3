@@ -3,7 +3,7 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = { ...initState, list: initState.list.map(e => ({ ...e, count: 0 })) };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -37,14 +37,32 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
+  /**
+   * Изменение стейта ctrlIsActive
+   */
+  setCtrlIsActive(newState) {
+    this.setState({
+      ...this.state,
+      ctrlIsActive: newState,
+    });
+  }
+  /**
+   * Изменение стейта ctrlIsActive
+   */
+  setIdQueueIncrement() {
+    this.setState({
+      ...this.state,
+      idQueue: this.state.idQueue === 0 ? this.state.list.length : this.state.idQueue + 1,
+    });
+  }
   /**
    * Добавление новой записи
    */
   addItem() {
+    this.setIdQueueIncrement();
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.state.idQueue, title: 'Новая запись', count: 0 }],
     });
   }
 
@@ -67,8 +85,18 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
+        if (this.state.ctrlIsActive) {
+          if (item.code === code) {
+            item.selected = !item.selected;
+            item.selected && (item.count += 1);
+          }
+        } else {
+          if (item.code === code) {
+            item.selected = !item.selected;
+            item.selected && (item.count += 1);
+          } else {
+            item.selected = false;
+          }
         }
         return item;
       }),
