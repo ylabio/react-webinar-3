@@ -96,7 +96,10 @@ class Store {
     this.clear=false;
   }
   
+  
 }
+
+
 
 
 
