@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.css';
+import { plural } from './utils';
 
 /**
  * Приложение
@@ -20,6 +21,13 @@ function App({ store }) {
   const deleteItemHandler = (e, code) => {
     e.stopPropagation();
     store.deleteItem(code);
+  };
+
+  const pluralVariants = {
+    one: 'раз',
+    few: 'раза',
+    many: 'раз',
+    other: 'раз',
   };
 
   return (
@@ -46,7 +54,10 @@ function App({ store }) {
                   <div className="Item-code">{item.code}</div>
                   <div className="Item-title">{item.title}</div>
                   {item.clickCount ? (
-                    <span className="Item-click"> | Выделяли {item.clickCount} раз</span>
+                    <span className="Item-click">
+                      {' '}
+                      | Выделяли {item.clickCount} {plural(item.clickCount, pluralVariants)}
+                    </span>
                   ) : null}
                   <div className="Item-actions">
                     <button
