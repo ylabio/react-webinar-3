@@ -1,7 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  background: #535353;
+  background: rgb(255, 255, 255);
+  color: black;
   font-family: 'Golos Text', sans-serif;
 }
 
@@ -11,19 +12,33 @@ body {
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 15px 5px #0000003b;
+  box-shadow: 0 0 15px 5px #0000003b; 
 }
 
 .App-head {
+  max-width: 1152px;
+  margin: 0 1rem;
+  padding: 1rem; 
   height: 80px;
-  background: #fff;
   display: flex;
   align-items: center;
+  justify-content: left; 
+  position: relative; 
+}
+
+.App-head::after {
+  content: " ";
+  display: flex;
+  height: 2px;
+  width: 100%;
+  position: absolute;
+  top: 8%;
+  left: 0;
+  background: rgba(239, 239, 239, 1); 
 }
 
 .App-head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
   color: #6b3fa0;
   font-family: 'Golos Text', sans-serif;
   font-weight: 700;
@@ -41,8 +56,16 @@ body {
 }
 
 .App-controls button {
-  width: 114px;
+  font-family: 'Montserrat Alternates', sans-serif; 
+  font-weight: bold; 
+  font-size: 14px; 
+  background-color: rgba(107, 74, 203, 1); 
+  color: white; 
+  width: 114px; 
   height: 40px;
+  border: solid transparent;
+  border-radius: 5px; 
+  cursor: pointer; 
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -53,21 +76,10 @@ body {
   order: 0;
   flex-grow: 0;
   margin-right: 64px;
-  border-radius: 4px;
-  background: rgb(107, 74, 203);
-  color: #fff;
-  font-family: 'Montserrat Alternates', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 22px;
-  letter-spacing: 0;
-  text-align: center;
-  border: none;
-  cursor: pointer;
 }
 
 .App-controls button:hover {
-  background: #5a347f;
+  background-color: rgba(107, 74, 203, 0.581);
 }
 
 .App-center {
@@ -83,7 +95,7 @@ body {
   height: 72px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start; /* Выравниваем элементы по левому краю */
+  justify-content: flex-start;
   align-items: center;
   padding: 16px;
   flex: none;
@@ -142,12 +154,20 @@ body {
   display: flex;
   justify-content: flex-end;
   padding: 0 0 0 10px;
-  margin-left: auto; /* Отталкиваем .Item-actions к правому краю */
+  margin-left: auto;
 }
 
 .Item-actions button {
-  width: 105px;
-  height: 40px;
+  font-family: 'Montserrat Alternates', sans-serif; 
+  font-weight: bold; 
+  font-size: 14px; 
+  background-color: rgba(212, 59, 59, 1);
+  color: white;
+  width: 105px; 
+  height: 40px; 
+  border: solid transparent; 
+  border-radius: 5px;
+  cursor: pointer; 
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -158,33 +178,25 @@ body {
   order: 0;
   flex-grow: 0;
   margin-right: 16px;
-  border-radius: 4px;
-  background: rgb(212, 59, 59);
-  color: rgb(255, 255, 255);
-  font-family: 'Montserrat Alternates', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 22px;
-  letter-spacing: 0;
-  text-align: center;
-  border: none;
-  cursor: pointer;
 }
 
 .Item-actions button:hover {
-  background: #c9302c;
+  background-color: rgba(212, 59, 59, 0.581);
 }
 
-/* Медиа-запросы */
 @media (max-width: 768px) {
   .App {
     max-width: 100%;
   }
 
+  .App-head {
+    margin: 0 0.75rem; 
+    padding: 0.75rem;
+  }
+
   .App-head h1 {
     font-size: 24px;
     line-height: 32px;
-    padding: 15px 15px 10px;
   }
 
   .App-controls {
@@ -238,10 +250,14 @@ body {
 }
 
 @media (max-width: 480px) {
+  .App-head {
+    margin: 0 0.5rem;
+    padding: 0.5rem;
+  }
+
   .App-head h1 {
     font-size: 20px;
     line-height: 28px;
-    padding: 10px 10px 5px;
   }
 
   .App-controls {
