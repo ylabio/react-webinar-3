@@ -26,3 +26,19 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getPluralForm(count) {
+  const lastTwoDigits = count % 100;
+  const lastDigit = count % 10;
+  
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+    return 'раз';
+  }
+  if (lastDigit === 1) {
+    return 'раз';
+  }
+  if (lastDigit >= 2 && lastDigit <= 4) {
+    return 'раза';
+  }
+  return 'раз';
+}

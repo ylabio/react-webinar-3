@@ -3,7 +3,13 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      lastCode: initState.list.length > 0 ? Math.max(...initState.list.map(item => item.code)) : 0, // Инициализируем lastCode    
+      list: initState.list ? initState.list.map(item => ({
+      ...item, selectedCount: item.selectedCount || 0, // Инициализируем selectedCount
+    })) : [],
+  };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -42,9 +48,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newCode = this.state.lastCode + 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      lastCode: newCode,
+      list: [...this.state.list, { code: newCode, title: 'Новая запись', selected: false, selectedCount: 0 }],
     });
   }
 
@@ -52,7 +60,8 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(code,event) {
+    event.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
@@ -62,13 +71,23 @@ class Store {
   /**
    * Выделение записи по коду
    * @param code
+   * @param event {Mouse Event}
    */
-  selectItem(code) {
+  selectItem(code, event) {
+    const isCtrlPressed = event.ctrlKey || event.metaKey; //проверка нажатия ctrl и cmd
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          const newSelectedState = !item.selected;
+          return {...item, selected: newSelectedState, 
+            selectedCount: !item.selected && newSelectedState ? item.selectedCount + 1: item.selectedCount,}; //увеличение счетчика при выделении
+          //item.selected = !item.selected;
+        }
+        else if (!isCtrlPressed) { //если не нажато, снимаем выделение с других записей
+          return {...item, selected: false};
+          //item.selected = false;
         }
         return item;
       }),

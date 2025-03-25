@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement } from './utils.js';
+import { createElement, getPluralForm } from './utils.js';
 import './styles.css';
 
 /**
@@ -20,16 +20,18 @@ function App({ store }) {
       </div>
       <div className="App-center">
         <div className="List">
-          {list.map(item => (
-            <div key={item.code} className="List-item">
+          {list.map((item, index) => (
+            <div key={item.code} className={`List-item ${index % 2 === 0 ? 'List-item-gray' : 'List-item-white'}`}>
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(event) => store.selectItem(item.code, event)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">{item.title}
+                  {(item.selectedCount > 0) && (<span>  | Выделяли {item.selectedCount} {getPluralForm(item.selectedCount)}</span>)}
+                </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button onClick={(event) => store.deleteItem(item.code,event)}>Удалить</button>
                 </div>
               </div>
             </div>
