@@ -10,6 +10,18 @@ import './styles.css';
 function App({ store }) {
   const list = store.getState().list;
 
+  function pluralize(num, titles) {
+    let suffix =
+      titles[
+        num % 10 === 1 && num % 100 !== 11
+          ? 0
+          : num % 10 >= 2 && num % 10 <= 4 && (num % 100 < 10 || num % 100 >= 20)
+            ? 1
+            : 2
+      ];
+    return suffix;
+  }
+
   const handleDelete = (code, e) => {
     e.stopPropagation();
     store.deleteItem(code);
@@ -40,7 +52,9 @@ function App({ store }) {
                 <div className="Item-title">
                   {item.title}{' '}
                   <span className="Item-counter">
-                    {item.timesSelected ? `| Выделяли ${item.timesSelected} раз` : null}
+                    {item.timesSelected
+                      ? `| Выделяли ${item.timesSelected} ${pluralize(item.timesSelected, ['раз', 'раза', 'раз'])}`
+                      : null}
                   </span>
                 </div>
                 <div className="Item-actions">
