@@ -1,11 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 body {
   margin: 0;
   padding: 0;
-  font-family: "Golos Text", sans-serif;
+  background: #535353;
+  font-family: 'Golos Text', sans-serif;
 }
 
 .App {
-  max-width: 1440px;
+  max-width: 1024px;
   min-height: 100vh;
   margin: 0 auto;
   background: #FFFFFF;
@@ -14,16 +18,13 @@ body {
 }
 
 .App-head {
-  width: auto;
-  padding: 16px 144px;
-  gap: 10px;
+  height: 80px;
   border-bottom: 1px solid #EFEFEF;
 }
 
 .App-head h1 {
   margin: 0;
-  width: 420px;
-  height: 40px;
+  padding: 20px 20px 10px;  
   font-size: 32px;
   font-weight: 700;
   line-height: 40px;
@@ -33,30 +34,25 @@ body {
 .App-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 24px 160px;
+  padding: 20px;
 }
 
-.Button-add {
+.App-controls button {
   height: 40px;
   width: 114px;
+  padding: 8px 16px;
   border-radius: 4px;
-  gap: 8px;
+  border: none;
   background-color: #6B4ACB;
   color: #FFFFFF;
-  font-family: "Montserrat Alternates", sans-serif;
+  font-family: 'Montserrat Alternates' , sans-serif;
   font-size: 14px;
   font-weight: 700;
-  line-height: 22px;
-}
-
-.App-center {
-  padding: 0px 144px 16px 144px;
+  cursor: pointer;
 }
 
 .List-item {
   border-bottom: 1px dashed #EFEFEF;
-  justify-content: space-between;
-  height: 72px;
 }
 
 .List-item-gray {
@@ -71,59 +67,49 @@ body {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  align-items: center;
 }
 
 .Item_selected {
-  background-color: rgba(48, 95, 117, 0.10);
-  color: #fff;
+  background: #6B4ACB1A;
 }
 
 .Item-code {
-  padding: 25px 0 25px 16px;
-  width: 8px;
-  height: 22px;
-  font-family: "Golos Text", sans-serif;
+  padding: 20px 10px 20px 20px;
+  font-family: 'Golos Text', sans-serif;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 22px;
-  color: #1A2028;
 }
 
 .Item-title {
   width: 100%;
-  padding: 25px;
-  font-family: "Golos Text", sans-serif;
+  padding: 20px 10px;
+  font-family: 'Golos Text', sans-serif;
   font-weight: 700;
   font-size: 16px;
-  line-height: 22px;
   color: #1A2028;
 }
 
-.Item-count {
-  width: 100%;
-  padding: 25px;
-  font-family: "Golos Text", sans-serif;
+.Item-title span{
   font-weight: 400;
-  font-size: 16px;
-  line-height: 22px;
-  color: #1A2028;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 16px;
+  padding: 20px 20px 20px 10px;
 }
 
-.Button-deleted {
+.Item-actions button {
   height: 40px;
   width: 105px;
   border-radius: 4px;
-  gap: 8px;
+  border: none;
+  padding: 8px 16px;
   background-color: #D43B3B;
   color: #FFFFFF;
-  font-family: "Montserrat Alternates", sans-serif;
+  font-family: 'Montserrat Alternates', sans-serif;
   font-size: 14px;
   font-weight: 700;
   line-height: 22px;
+  cursor: pointer;
 }
