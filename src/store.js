@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state.uniqueCount = Math.max(...this.state.list.map(el => el.code), 0);
   }
 
   /**
@@ -44,7 +45,11 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      uniqueCount: this.state.uniqueCount + 1,
+      list: [
+        ...this.state.list,
+        { code: this.state.uniqueCount + 1, title: 'Новая запись', timesSelected: 0 },
+      ],
     });
   }
 
@@ -63,12 +68,17 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, isCtrlPressed = false) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          if (!item.selected) {
+            item.timesSelected = (item.timesSelected || 0) + 1;
+          }
           item.selected = !item.selected;
+        } else if (!isCtrlPressed) {
+          item.selected = false;
         }
         return item;
       }),
