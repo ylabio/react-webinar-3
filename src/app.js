@@ -14,6 +14,24 @@ function App({ store }) {
     store.addItem();
   };
 
+  const getPluralForm = num => {
+    num = Math.abs(num) % 100;
+    const lastDigit = num % 10;
+    if (num > 10 && num < 20) {
+      return 'раз';
+    }
+
+    switch (lastDigit) {
+      case 1:
+        return 'раз';
+      case 2:
+      case 3:
+      case 4:
+        return 'раза';
+      default:
+        return 'раз';
+    }
+  };
   return (
     <div className="App">
       <div className="App-head">
@@ -44,7 +62,9 @@ function App({ store }) {
                   <div className="Item-title">
                     <b>{item.title}</b>
                     {item.selectedCounter !== 0 && (
-                      <span>| Выделяли {item.selectedCounter} раз</span>
+                      <span>
+                        | Выделяли {item.selectedCounter} {getPluralForm(item.selectedCounter)}
+                      </span>
                     )}
                   </div>
 
