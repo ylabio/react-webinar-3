@@ -21,10 +21,15 @@ function App({ store }) {
       <div className="App-center">
         <div className="List">
           {list.map(item => (
-            <div key={item.code} className="List-item">
+            <div key={`item-${item.code}`} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={(evt) => store.selectItem(item.code, evt.ctrlKey || evt.metaKey)
+                onClick={(evt) => {
+                  // debugger;
+                    if (!evt.target.closest('button')) {
+                    store.selectItem(item.code, evt.ctrlKey || evt.metaKey);
+                    }
+                  }
                 }
               >
                 <div className="Item-code">{item.code}</div>

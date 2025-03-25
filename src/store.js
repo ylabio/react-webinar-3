@@ -4,8 +4,11 @@
 class Store {
   constructor(initState = {}) {
     this.state = {
-      ...initState,
-      list: initState.list.map(item => ({ ...item, counter: 0 })),
+      list: (initState.list || []).map(item => ({
+        ...item,
+        selected: item.selected || false,
+        counter: item.counter || 0,
+      })),
       lastUsedCode: initState.list.reduce((max, item) => (item.code > max ? item.code : max), 0),
     };
     this.listeners = []; // Слушатели изменений состояния
@@ -64,7 +67,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code),
+      list: this.state.list.filter(item => item.code !== code)
     });
   }
 
