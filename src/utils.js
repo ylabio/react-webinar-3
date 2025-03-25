@@ -26,3 +26,20 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Функция изменения строки в зависимости от количесвта выделений
+ * @param count {number} Количесвто выделений
+ * @returns {string} Строка с нужной формой слова
+ */
+export function getDeclensionWord(count) {
+  let modifiedString = 'раз';
+  if (count % 10 === 1 && count % 100 !== 11) {
+    return modifiedString;
+  }
+  if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) {
+    modifiedString = 'раза';
+    return modifiedString;
+  }
+  return modifiedString;
+}

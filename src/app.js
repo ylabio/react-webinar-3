@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.css';
+import { getDeclensionWord } from './utils';
 
 /**
  * Приложение
@@ -30,7 +31,9 @@ function App({ store }) {
                 <div className="Item-title">
                   {item.title}
                   {item.counter > 0 && (
-                  <span className="Item-counter">Выделяли {item.counter} раз</span>
+                  <span className="Item-counter">
+                    Выделяли {item.counter} {getDeclensionWord(item.counter)}
+                  </span>
                   )}
                 </div>
                 <div className="Item-actions">

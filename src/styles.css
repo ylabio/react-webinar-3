@@ -1,3 +1,10 @@
+/*
+* {
+  outline-width: 1px;
+  outline-style: solid;
+  outline-color: red;
+} */
+
 body {
   margin: 0;
   padding: 0;
@@ -16,10 +23,6 @@ body {
   background: #fff;
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
-}
-
-.App-head {
-  /* height: 80px; */
 }
 
 .App-head h1 {
