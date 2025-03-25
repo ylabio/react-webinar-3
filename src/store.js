@@ -5,9 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = {
       ...initState,
-      lastCode: initState.list.length > 0 ? Math.max(...initState.list.map(item => item.code)) : 0, // Инициализируем lastCode
-    //this.state = initState;
-    //list: initState.list.map(item => ({
+      lastCode: initState.list.length > 0 ? Math.max(...initState.list.map(item => item.code)) : 0, // Инициализируем lastCode    
       list: initState.list ? initState.list.map(item => ({
       ...item, selectedCount: item.selectedCount || 0, // Инициализируем selectedCount
     })) : [],
@@ -55,7 +53,6 @@ class Store {
       ...this.state,
       lastCode: newCode,
       list: [...this.state.list, { code: newCode, title: 'Новая запись', selected: false, selectedCount: 0 }],
-      //list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись', selected: false }],
     });
   }
 
@@ -63,7 +60,8 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(code,event) {
+    event.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
