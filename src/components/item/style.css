@@ -2,17 +2,16 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
   transition: background-color 1s;
   padding: 16px;
 }
 
-.Item_selected {
-  background-color: var(--primary-select);
-}
-
 .Item-title {
+  display: flex;
   flex: auto;
+  align-items: space-between;
+  justify-content: space-between;
 }
 
 .Item-actions {
@@ -21,7 +20,7 @@
 }
 
 .Item-actions button {
-  background-color: var(--delete);
+  background-color: var(--primary);
   color: var(--second-text);
   padding: 8px 16px;
 
