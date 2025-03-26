@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { generateCode } from './utils.js';
+import { generateCode } from './utils/generateCode.js';
 import App from './app.js';
 import Store from './store.js';
 import 'theme.css';
