@@ -1,0 +1,61 @@
+.CartList {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1a202866;
+}
+
+.CartList-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 1080px;
+  padding: 16px;
+}
+
+.CartList-list {
+  margin-top: 16px;
+}
+
+.CartList-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.CartItem:nth-child(odd) {
+  background-color: var(--odd-item);
+}
+
+.CartItem {
+  border-bottom: 1px solid var(--divider);
+}
+
+.CartList-total {
+  display: flex;
+  justify-content: end;
+  padding: 16px 16px;
+}
+
+.CartList-total b {
+  width: 105px;
+}
+
+.CartList-total b:first-child {
+  margin-right: 16px;
+}
+
+.CartList-total b:last-child {
+  margin-right: 121px;
+  text-align: right;
+}

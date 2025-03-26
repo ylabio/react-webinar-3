@@ -1,0 +1,24 @@
+.Cart {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 0;
+}
+
+.Cart-container {
+  display: flex;
+  border: 1px solid #6b4acb;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.Cart-container svg {
+  width: 24px;
+  height: 24px;
+}
+
+.Cart-container b {
+  margin: auto 0;
+  padding-left: 16px;
+  font-family: var(--second-font-family);
+}

@@ -13,7 +13,7 @@ function Head({ title }) {
 }
 
 Head.propTypes = {
-  title: PropTypes.node,
+  title: PropTypes.string,
 };
 
 export default React.memo(Head);

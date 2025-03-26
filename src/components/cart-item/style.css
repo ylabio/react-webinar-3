@@ -1,4 +1,4 @@
-.Item {
+.CartItem {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -7,16 +7,26 @@
   padding: 16px;
 }
 
-.Item-title {
+.CartItem-title {
   flex: auto;
 }
 
-.Item-actions {
+.CartItem-count {
+  width: 105px;
+}
+
+.CartItem-price {
+  width: 105px;
+  text-align: right;
+}
+
+.CartItem-actions {
+  width: 105px;
   display: flex;
   justify-content: flex-end;
 }
 
-/* .Item-actions button {
+.CartItem-actions button {
   background-color: var(--delete);
   color: var(--second-text);
   padding: 8px 16px;
@@ -25,17 +35,5 @@
     background-color: var(--background);
     border-color: var(--delete);
     color: var(--delete);
-  }
-} */
-
-.Item-actions button {
-  border: 1px solid var(--primary);
-  padding: 8px 16px;
-  background-color: var(--primary);
-  color: var(--second-text);
-
-  &:hover {
-    background-color: var(--background);
-    color: var(--primary);
   }
 }
