@@ -6,11 +6,7 @@ import './style.css';
 function PageLayout({ children }) {
   const cn = bem('PageLayout');
 
-  return (
-    <div className={cn()}>
-      <div className={cn('center')}>{children}</div>
-    </div>
-  );
+  return <section className={cn()}>{children}</section>;
 }
 
 PageLayout.propTypes = {
