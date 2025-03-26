@@ -1,0 +1,19 @@
+.CartWidget {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.CartWidget-button {
+  border: 1px solid var(--primary);
+  display: flex;
+}
+
+.CartWidget-box {
+  color: var(--main-text);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}

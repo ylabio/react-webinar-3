@@ -1,9 +1,10 @@
 .List {
-  border-radius: 10px;
-  overflow: hidden;
-  list-style: none;
-  padding-left: 0;
   margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  list-style: none;
 }
 
 .List-item:nth-child(odd) {

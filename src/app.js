@@ -3,6 +3,8 @@ import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import CartWidget from './components/cartWidget';
+import Main from './components/main/main';
 
 /**
  * Приложение
@@ -20,13 +22,6 @@ function App({ store }) {
       [store],
     ),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
-
     onAddItem: useCallback(() => {
       store.addItem();
     }, [store]),
@@ -34,13 +29,11 @@ function App({ store }) {
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
-      />
+      <Head title="Магазин" />
+      <Main>
+        <CartWidget amount={3} itemCount={2} onClick={() => alert('Корзина')} />
+        <List list={list} onClick={callbacks.onAddItem} />
+      </Main>
     </PageLayout>
   );
 }
