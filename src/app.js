@@ -34,7 +34,7 @@ function App({ store }) {
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
+      <Head title="Приложение на React!" />
       <Controls onAdd={callbacks.onAddItem} />
       <List
         list={list}
