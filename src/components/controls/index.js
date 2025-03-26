@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({ cart }) {
+function Controls({ cart, onOpenCart }) {
   const totalItems = Object.values(cart).reduce((sum, item) => sum + item.count, 0);
   const totalPrice = Object.values(cart).reduce((sum, item) => sum + item.price * item.count, 0);
 
@@ -12,7 +12,7 @@ function Controls({ cart }) {
 
   return (
     <div className="Controls">
-      <button className="CartButton">
+      <button className="CartButton" onClick={onOpenCart}>
         <img src={new URL('src/assets/images/basket.png', import.meta.url).href} alt="Корзина" />
         <span>{label}</span>
       </button>
