@@ -1,16 +1,26 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-}
+margin-bottom: 24px;}
 
 .Controls button {
   border: 1px solid var(--primary);
   padding: 8px 16px;
-  background-color: var(--primary);
-  color: var(--second-text);
+  min-width: 118px;
+  background-color: var(--background);
+  color: var(--primary);
 
   &:hover {
-    background-color: var(--background);
-    color: var(--primary);
+    background-color: var(--primary);
+    color: var(--second-text);
+
+    > span {
+      color: var(--second-text);
+    }
+
   }
+}
+
+.Controls button span {
+  color: var(--main-text);
 }

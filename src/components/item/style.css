@@ -1,14 +1,11 @@
 .Item {
+  height: 71px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 16px;
   transition: background-color 1s;
   padding: 16px;
-}
-
-.Item_selected {
-  background-color: var(--primary-select);
 }
 
 .Item-title {
@@ -18,17 +15,8 @@
 .Item-actions {
   display: flex;
   justify-content: flex-end;
+  padding-left: 6px;
 }
 
-/*.Item-actions button {*/
-/*  background-color: var(--delete);*/
-/*  color: var(--second-text);*/
-/*  padding: 8px 16px;*/
 
-/*  &:hover {*/
-/*    background-color: var(--background);*/
-/*    border-color: var(--delete);*/
-/*    color: var(--delete);*/
-/*  }*/
-/*}*/
 
