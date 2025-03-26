@@ -1,0 +1,21 @@
+.Item-total {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  margin-right: 140px;
+  padding: 16px 0;
+}
+
+.Item-text,
+.Item-totalPrice {
+  max-width: 105px;
+  width: 100%;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: bold;
+}
+
+.Item-totalPrice {
+  text-align: right;
+}
