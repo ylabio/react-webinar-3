@@ -23,7 +23,7 @@ function Item(props) {
       </div>
       <div className={cn("price")}>{formatPrice(props.item.price, 'ru', '₽') }</div>
       <div className={cn("actions")}>
-        <Controls/>
+        <Controls onButtonClick={props.onAddItemToCart} itemCode={props.item.code} isListButton={true} title="Добавить" />
       </div>
     </div>
   );
@@ -32,19 +32,12 @@ function Item(props) {
 Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
+    price: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
-    count: PropTypes.number,
   }).isRequired,
   onDelete: PropTypes.func,
-  onSelect: PropTypes.func,
+  onAddItemToCart: PropTypes.func,
 };
 
-Item.defaultProps = {
-  onDelete: () => {
-  },
-  onSelect: () => {
-  },
-};
 
 export default React.memo(Item);
