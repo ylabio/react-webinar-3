@@ -1,17 +1,14 @@
-import {generateCode} from './utils';
-import item from "./components/item";
-
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
     this.state = initState;
-    this.listeners = [];
+    this.listeners = []; // Слушатели изменений состояния
     this.cart = {
       list: [],
       totalPrice: 0,
-    }// Слушатели изменений состояния
+    };
   }
 
   /**
@@ -53,15 +50,14 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  // /**
-  //  * Добавление новой записи
-  //  */
-  // addItem() {
-  //   this.setState({
-  //     ...this.state,
-  //     list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}],
-  //   });
-  // }
+  setTotalCartPrice(totalPrice) {
+    this.cart = {
+      ...this.cart,
+      totalPrice,
+    };
+    // Вызываем всех слушателей
+    for (const listener of this.listeners) listener();
+  }
 
   /**
 
@@ -74,19 +70,20 @@ class Store {
     if (isHasItemInCart) {
       cartList = this.cart.list.map(item => {
         if (item.code === itemCode) {
-          return {...item, count: item.count + 1, totalPrice: item.price * (item.count + 1) };
+          return { ...item, count: item.count + 1, totalPrice: item.price * (item.count + 1) };
         }
-        return {...item};
+        return { ...item };
       });
     } else {
-      const defaultItem = {...this.state.list.filter(item => item.code === itemCode)[0]};
-      cartList = [...this.cart.list, {...defaultItem, count: 1}];
+      const defaultItem = { ...this.state.list.filter(item => item.code === itemCode)[0] };
+      cartList = [...this.cart.list, { ...defaultItem, count: 1, totalPrice: defaultItem.price }];
     }
 
     this.setCartState({
       ...this.cart,
       list: cartList,
     });
+    this.setTotalCartPrice(this.cart.list.reduce((acc, cur) => acc + cur.totalPrice, 0));
   }
 
   /**
@@ -96,9 +93,9 @@ class Store {
   deleteItemFromCart(itemCode) {
     this.setCartState({
       ...this.cart,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.cart.list.filter(item => item.code !== itemCode),
+      list: [...this.cart.list.filter(item => item.code !== itemCode)],
     });
+    this.setTotalCartPrice(this.cart.list.reduce((acc, cur) => acc + cur.totalPrice, 0));
   }
 }
 

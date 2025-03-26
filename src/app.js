@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
@@ -9,8 +9,9 @@ import PageLayout from './components/page-layout';
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
   const list = store.getState().list;
+  const cartData = store.getCartState();
 
   const callbacks = {
     onDeleteItemFromCart: useCallback(
@@ -22,19 +23,22 @@ function App({store}) {
     onAddItemToCart: useCallback(
       itemCode => {
         store.addItemToCart(itemCode);
-
-      }, [store]),
+      },
+      [store],
+    ),
   };
 
   return (
     <PageLayout>
-      <Head title="магазин"/>
-      <Controls onAdd={()=>{console.log('ddd')}} />
-      <List
-        list={list}
-        isCartList={false}
-        onClickItem={callbacks.onAddItemToCart}
+      <Head title="магазин" />
+      <Controls
+        onAdd={() => {
+          console.log('ddd');
+        }}
+        productCount={cartData.list.length}
+        totalPrice={cartData.totalPrice}
       />
+      <List list={list} isCartList={false} onClickItem={callbacks.onAddItemToCart} />
     </PageLayout>
   );
 }

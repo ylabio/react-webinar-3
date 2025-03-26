@@ -1,30 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import Button from '../button';
+
+import { formatPrice, plural } from '../../utils';
+
 import './style.css';
 
 function Controls(props) {
+  const totlaProductCount = props.productCount;
 
-  const callbacks = {
-    onClick: () => {
-      if (props.isListButton) {
-        props.onButtonClick(props.itemCode);
-      } else {
-        props.onButtonClick();
-      }
-    },
+  const isProductCount = !!totlaProductCount;
+
+  function getBtnTitle(isCountOfProducts) {
+    if (isCountOfProducts) {
+      return (
+        <span>
+          {totlaProductCount}{' '}
+          {plural(totlaProductCount, { one: 'товар', few: 'товара', many: 'товаров' })} /{' '}
+          {formatPrice(props.totalPrice, 'ru', '₽')}
+        </span>
+      );
+    }
+    return <span>пусто</span>;
   }
+
   return (
     <div className="Controls">
-      <button onClick={() => callbacks.onClick()}><span>пусто</span></button>
+      <Button
+        onClickButton={() => {
+          console.log('ffff');
+        }}
+      >
+        {getBtnTitle(isProductCount)}
+      </Button>
     </div>
   );
 }
 
 Controls.propTypes = {
-  title: PropTypes.string,
+  productCount: PropTypes.number,
+  totalPrice: PropTypes.number,
   onButtonClick: PropTypes.func,
-  itemCode: PropTypes.number,
-  isListButton: PropTypes.bool,
 };
 
 export default React.memo(Controls);

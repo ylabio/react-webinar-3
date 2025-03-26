@@ -1,21 +1,30 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import './style.css';
 
-function Button(props) {
+function Button({ children, ...props }) {
   const callbacks = {
     onClick: () => {
-      props.onClickItemButton(props.itemCode);
+      if (props.isListButton) {
+        props.onClickButton(props.itemCode);
+      } else {
+        props.onClickButton();
+      }
     },
   };
-  return  <button onClick={callbacks.onClick} className={props.className}>{props.isCartItem ? "Удалить" : "Добавить"}</button>
+  return (
+    <button onClick={callbacks.onClick} className={props.className ? props.className : null}>
+      {children}
+    </button>
+  );
 }
 
-export default Button;
+export default React.memo(Button);
 
 Button.propTypes = {
+  children: PropTypes.node,
   itemCode: PropTypes.number,
-  isCartItem: PropTypes.bool,
-  onClickItemButton: PropTypes.func,
+  isListButton: PropTypes.bool,
+  onClickButton: PropTypes.func,
 };

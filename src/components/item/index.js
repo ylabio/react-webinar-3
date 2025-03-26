@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 
@@ -20,11 +20,13 @@ function Item(props) {
       <div className={cn('price')}>{formatPrice(props.item.price, 'ru', '₽')}</div>
       <Actions className={cn('actions')}>
         <Button
-          onClickItemButton={props.onClickItem}
+          onClickButton={props.onClickItem}
           itemCode={props.item.code}
-          isCartItem={props.isCartItem}
+          isListButton={true}
           className={props.isCartItem ? cn('btn--cart') : cn('btn--list')}
-        />
+        >
+          {props.isCartItem ? 'Удалить' : 'Добавить'}
+        </Button>
       </Actions>
     </div>
   );
