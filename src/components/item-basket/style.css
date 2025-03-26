@@ -1,4 +1,5 @@
-.Item {
+.ItemBasket {
+  min-width: 1032px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -7,28 +8,34 @@
   padding: 16px;
 }
 
-.Item_selected {
+.ItemBasket_selected {
   background-color: var(--primary-select);
 }
 
-.Item-title {
+.ItemBasket-title {
   flex: auto;
 }
 
-.Item-actions {
+.ItemBasket-actions {
   display: flex;
   justify-content: flex-end;
 }
 
-.Item-actions button {
-  background-color: var(--primary);
+.ItemBasket-coast {
+  text-align: right;
+  width: 175px;
+  word-break: break-all;
+}
+
+.ItemBasket-actions button {
+  background-color: var(--delete);
   color: var(--second-text);
   padding: 8px 16px;
 
   &:hover {
     background-color: var(--background);
-    border-color: var(--primary);
-    color: var(--primary);
+    border-color: var(--delete);
+    color: var(--delete);
   }
 }
 

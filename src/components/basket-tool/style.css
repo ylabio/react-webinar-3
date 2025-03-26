@@ -1,0 +1,22 @@
+.BasketTool {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 16px 24px 0;
+}
+
+.BasketTool-inner {
+  cursor: pointer;
+  padding: 7px 16px;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.BasketTool-text {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--main-text);
+}

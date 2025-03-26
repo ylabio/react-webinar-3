@@ -1,8 +1,11 @@
 import React, { useCallback } from 'react';
 import List from './components/list';
-import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import BasketTool from './components/basket-tool';
+import Item from './components/item';
+import ItemBasket from './components/item-basket';
+import BasketModal from './components/basket-modal';
 
 /**
  * Приложение
@@ -11,36 +14,54 @@ import PageLayout from './components/page-layout';
  */
 function App({ store }) {
   const list = store.getState().list;
+  const basket = store.getState().basket;
+
+  const [isBasketOpen, setIsBasketOpen] = React.useState(false);
 
   const callbacks = {
-    onDeleteItem: useCallback(
+    onRemoveItemFromBasket: useCallback(
       code => {
-        store.deleteItem(code);
+        store.removeItemFromBasket(code);
       },
       [store],
     ),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
+    onAddItemToBasket: useCallback(
+      item => {
+        store.addItemToBasket(item);
       },
       [store],
     ),
+  };
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+  const renders = {
+    item(item) {
+      return <Item item={item} onAddItemToBasket={callbacks.onAddItemToBasket} />;
+    },
+
+    itemBasket(item) {
+      return <ItemBasket item={item} onRemoveItemFromBasket={callbacks.onRemoveItemFromBasket} />;
+    },
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+      <Head title="Магазин" />
+      <BasketTool
+        sum={basket.sum}
+        count={basket.count}
+        openBasketModal={() => setIsBasketOpen(true)}
       />
+      <List list={list} renderItem={renders.item} />
+      {isBasketOpen && (
+        <BasketModal
+          list={basket.items}
+          sum={basket.sum}
+          count={basket.count}
+          closeModalBasket={() => setIsBasketOpen(false)}
+          renderItem={renders.itemBasket}
+        />
+      )}
     </PageLayout>
   );
 }

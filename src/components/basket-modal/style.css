@@ -1,0 +1,72 @@
+.BasketModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: var(--overlay);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.BasketModal-content {
+  position: relative;
+  border-radius: 8px;
+  padding: 24px;
+  background: var(--background);
+  min-width: 300px;
+}
+
+.BasketModal-close {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  top: 12px;
+  right: 8px;
+}
+
+.BasketModal-head {
+  margin-bottom: 24px;
+}
+
+.BasketModal-title {
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--main-text);
+  margin: 0;
+}
+
+.BasketModal-empty {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--main-text);
+}
+
+.BasketModal-total {
+  padding: 16px 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 145px;
+}
+
+.BasketModal-total span {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--main-text);
+}
+
+
+.BasketModal-total span:last-child {
+  text-align: right;
+  min-width: 200px;
+  word-break: break-all;
+}
