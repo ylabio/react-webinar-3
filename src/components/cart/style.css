@@ -1,0 +1,15 @@
+.Cart {
+    margin-block: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: flex-end;
+    gap: 8px;
+
+    border: 1px solid var(--primary);
+    font-weight: 500;
+
+    &:hover {
+        background-color: #eee;
+    }
+}

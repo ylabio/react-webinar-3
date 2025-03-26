@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import List from './components/list';
-import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Cart from './components/cart';
+import CartModal from './components/cart-modal';
 
 /**
  * Приложение
@@ -10,37 +11,61 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
+  const [isOpen, setIsOpen] = useState(false);
+
   const list = store.getState().list;
+  const cart = store.getState().cart;
 
   const callbacks = {
-    onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
+    addToCart: useCallback(
+      item => {
+        store.setCart(item);
       },
       [store],
     ),
 
-    onSelectItem: useCallback(
+    deleteFromCart: useCallback(
       code => {
-        store.selectItem(code);
+        store.deleteFromCart(code);
       },
       [store],
     ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
   };
+
+  const cartInfo = useMemo(() => {
+    const newTotalPrice = cart.reduce((acc, item) => acc + item.count * item.price, 0);
+    const newCartLength = cart.length;
+
+    return {
+      totalPrice: newTotalPrice,
+      cartLength: newCartLength,
+    };
+  }, [cart]);
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+      <Head title="Магазин" />
+      <Cart
+        cart={cart}
+        cartLength={cartInfo.cartLength}
+        totalPrice={cartInfo.totalPrice}
+        setIsOpen={setIsOpen}
       />
+      <List
+        addToCart={callbacks.addToCart}
+        list={list}
+        type='main'
+      />
+      {
+        isOpen && (
+          <CartModal
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            cart={cart}
+            totalPrice={cartInfo.totalPrice}
+            deleteFromCart={callbacks.deleteFromCart}
+          />)
+      }
     </PageLayout>
   );
 }

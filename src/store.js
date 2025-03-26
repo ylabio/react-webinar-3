@@ -29,7 +29,6 @@ class Store {
   getState() {
     return this.state;
   }
-
   /**
    * Установка состояния
    * @param newState {Object}
@@ -41,47 +40,46 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Обновление состояния корзины
+   * @param item {Object}
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
-  }
-
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+  setCart(item) {
+    const currentCart = this.state.cart;
+    const findItem = currentCart.find(elem => elem.code === item.code);
+    if (findItem) {
+      const updatedCart = currentCart.map(elem => {
+        if (elem.code === item.code) {
+          return { ...elem, count: elem.count + 1 }
         }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
-    });
+        return elem;
+      })
+
+      this.setState({
+        ...this.state,
+        cart: updatedCart,
+      })
+    } else {
+      const newElem = { ...item, count: 1 }
+      this.setState({
+        ...this.state,
+        cart: [
+          ...currentCart,
+          newElem,
+        ]
+      })
+    }
+  }
+  /**
+   * Удаление товара из корзины
+   * @param code {Number}
+   */
+  deleteFromCart(code) {
+    const currentCart = this.state.cart;
+    const newCart = currentCart.filter(item => item.code !== code);
+    this.setState({
+      ...this.state,
+      cart: newCart,
+    })
   }
 }
 

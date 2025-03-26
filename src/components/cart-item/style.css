@@ -1,0 +1,19 @@
+.Item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    transition: background-color 1s;
+    padding: 16px;
+}
+
+.Item-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 150px;
+}
+
+.Item-title {
+    flex: auto;
+}
