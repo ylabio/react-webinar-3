@@ -1,9 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { generateCode } from './utils.js';
+import 'theme.css';
 import App from './app.js';
 import Store from './store.js';
-import 'theme.css';
+import { generateCode } from './utils.js';
 
 const store = new Store({
   list: [
@@ -15,6 +15,8 @@ const store = new Store({
     { code: generateCode(), title: 'Карандаши цветные', price: 111 },
     { code: generateCode(), title: 'Товар сюрприз', price: 0 },
   ],
+  cart: [],
+  isCartModalOpen: false,
 });
 
 const root = createRoot(document.getElementById('root'));
