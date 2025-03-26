@@ -5,15 +5,21 @@ import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
+
+  const { item, onClick, buttonText, quantity } = props;
   return (
     <article className={cn()}>
-      <div className={cn('textBlock')}>
-        <h2 className={cn('title')}>{props.item.title}</h2>
-        <p className={cn('price')}>{props.item.price} ₽</p>
+      <h2 className={cn('title')}>{item.title}</h2>
+      <div className={cn('textBlock', { spacing: quantity === 0 })}>
+        {quantity > 0 && <p className={cn('text')}>{quantity} шт.</p>}
+        <p className={cn('price')}>{item.price} ₽</p>
       </div>
       <div className={cn('actions')}>
-        <button className={cn('button')} onClick={props.onClick}>
-          Добавить
+        <button
+          className={buttonText === 'Добавить' ? cn('button') : cn('button_delete')}
+          onClick={onClick}
+        >
+          {buttonText}
         </button>
       </div>
     </article>
@@ -25,6 +31,8 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
+  buttonText: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 

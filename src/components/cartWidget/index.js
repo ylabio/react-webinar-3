@@ -5,15 +5,22 @@ import { plural } from '../../utils/plural';
 import './style.css';
 import CartIcon from '../cartIcon';
 
-const CartWidget = ({ itemCount, amount, onClick }) => {
+const CartWidget = ({ quantity, amount, onClick }) => {
   const cn = bem('CartWidget');
   return (
     <div className={cn()}>
       <button type="button" className={cn('button')} onClick={() => onClick()}>
-        <div className={cn('box')}>
-          <CartIcon />
-          {itemCount} {plural(itemCount)} / {amount} ₽
-        </div>
+        {quantity > 0 ? (
+          <div className={cn('box')}>
+            <CartIcon />
+            {quantity} {plural(quantity)} / {amount} ₽
+          </div>
+        ) : (
+          <div className={cn('box')}>
+            <CartIcon />
+            Пусто
+          </div>
+        )}
       </button>
     </div>
   );
@@ -22,7 +29,7 @@ const CartWidget = ({ itemCount, amount, onClick }) => {
 export default React.memo(CartWidget);
 
 CartWidget.propTypes = {
-  itemCount: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
   amount: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
 };

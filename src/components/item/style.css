@@ -1,6 +1,6 @@
 .Item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   gap: 16px;
   transition: background-color 1s;
@@ -15,8 +15,8 @@
 .Item-textBlock {
   margin: 0;
   padding: 0;
+  width: 50%;
   box-sizing: border-box;
-  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -24,8 +24,14 @@
   gap: 10px;
 }
 
+.Item-textBlock_spacing {
+  justify-content: flex-end;
+}
+
 .Item-title {
   padding: 0;
+  display: flex;
+  width: 50%;
   font-family: var(--font-family);
   font-weight: 700;
   font-size: 16px;
@@ -40,11 +46,31 @@
   line-height: 22px;
 }
 
+.Item-text {
+  padding: 0;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+}
+
 .Item-actions {
   padding: 20px 20px 20px 10px;
   box-sizing: border-box;
   display: flex;
   justify-content: flex-end;
+}
+
+.Item-button_delete {
+  background-color: var(--delete);
+  color: var(--second-text);
+  transition: background-color 1s;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
+  }
 }
 
 .Item-button {
