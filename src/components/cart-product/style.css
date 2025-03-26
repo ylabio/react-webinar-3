@@ -1,0 +1,44 @@
+.CartProduct {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 24px;
+  transition: background-color 1s;
+  padding: 16px;
+}
+
+.CartProduct-title {
+  flex: auto;
+  font-weight: 700;
+}
+
+.CartProduct-quantity {
+  min-width: 105px;
+}
+
+.CartProduct-price {
+  min-width: 105px;
+  text-align: right;
+}
+
+.CartProduct-info {
+  display: flex;
+  gap: 96px;
+}
+
+.CartProduct-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.CartProduct-actions button {
+  background-color: var(--delete);
+  color: var(--second-text);
+  padding: 8px 16px;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
+  }
+}

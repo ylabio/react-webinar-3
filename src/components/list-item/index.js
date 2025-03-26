@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function List({ children }) {
+function ListItem({ children }) {
   return (
-    <ul className="List">
+    <li className="ListItem">
       {children}
-    </ul>
+    </li>
   );
 }
 
-List.propTypes = {
+ListItem.propTypes = {
   children: PropTypes.node,
 };
 
-export default React.memo(List);
+export default React.memo(ListItem);

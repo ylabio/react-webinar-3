@@ -1,0 +1,32 @@
+.Cart {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.Cart-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 146px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  gap: 24px;
+  min-height: 54px;
+  flex-shrink: 0;
+  align-items: center
+}
+
+.Cart-footer-label {
+  min-width: 105px;
+}
+
+.Cart-footer-price {
+  min-width: 105px;
+  text-align: right;
+}
+
+.Cart-empty {
+  text-align: center;
+  opacity: 0.7;
+}
