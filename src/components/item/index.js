@@ -1,43 +1,29 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
+import Controls from "../controls";
+import {cn as bem} from '@bem-react/classname';
 import './style.css';
+import {formatPrice} from "../../utils";
 
 function Item(props) {
   // Счётчик выделений
   const [count, setCount] = useState(0);
 
-  const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
-    onDelete: e => {
-      e.stopPropagation();
-      props.onDelete(props.item.code);
-    },
-  };
+  const cn = bem('Item');
+
+  const callbacks = {};
 
   return (
     <div
-      className={'Item' + (props.item.selected ? ' Item_selected' : '')}
+      className={cn()}
       onClick={callbacks.onClick}
     >
-      <div className="Item-code">{props.item.code}</div>
-      <div className="Item-title">
+      <div className={cn("title")}>
         <b>{props.item.title}</b>
-        {count
-          ? ` | Выделяли ${count} ${plural(count, {
-              one: 'раз',
-              few: 'раза',
-              many: 'раз',
-            })}`
-          : ''}
       </div>
-      <div className="Item-actions">
-        <button onClick={callbacks.onDelete}>Удалить</button>
+      <div className={cn("price")}>{formatPrice(props.item.price, 'ru', '₽') }</div>
+      <div className={cn("actions")}>
+        <Controls/>
       </div>
     </div>
   );
@@ -55,8 +41,10 @@ Item.propTypes = {
 };
 
 Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
+  onDelete: () => {
+  },
+  onSelect: () => {
+  },
 };
 
 export default React.memo(Item);

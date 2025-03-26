@@ -20,15 +20,15 @@
   justify-content: flex-end;
 }
 
-.Item-actions button {
-  background-color: var(--delete);
-  color: var(--second-text);
-  padding: 8px 16px;
+/*.Item-actions button {*/
+/*  background-color: var(--delete);*/
+/*  color: var(--second-text);*/
+/*  padding: 8px 16px;*/
 
-  &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
-  }
-}
+/*  &:hover {*/
+/*    background-color: var(--background);*/
+/*    border-color: var(--delete);*/
+/*    color: var(--delete);*/
+/*  }*/
+/*}*/
 
