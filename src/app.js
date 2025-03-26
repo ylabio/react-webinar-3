@@ -32,7 +32,7 @@ function App({ store }) {
       <Head title="Магазин" />
       <Main>
         <CartWidget amount={0} quantity={2} onClick={() => alert('Корзина')} />
-        <List list={list} onClick={callbacks.onAddItem} buttonText="Добавить" quantity={2} />
+        <List list={list} onClick={callbacks.onAddItem} buttonText="Добавить" quantity={12} />
       </Main>
     </PageLayout>
   );
