@@ -46,13 +46,15 @@ class Store {
    */
 
   addToCart(code) {
-    const item = this.state.list.find(item => item.code === code);
-    const cart = !this.state.cart[code]
-      ? { ...this.state.cart, [code]: [item] }
-      : { ...this.state.cart, [code]: [...this.state.cart[code], item] };
+    const items = this.state.list.map((item) => {
+      if (item.code === code) {
+        item.count = item.count ? item.count += 1 : 1;
+      }
+      return item;
+    })
     this.setState({
       ...this.state,
-      cart,
+      cart: items.filter((item) => item.count),
     });
   }
 

@@ -12,9 +12,9 @@ import { Cart } from './components/cart';
 function App({ store }) {
   const list = store.getState().list;
   const cart = store.getState().cart;
-  const cartItemsCount = Object.keys(cart).length;
-  const cartTotalPrice = Object.keys(cart).reduce((acc, code) => {
-    acc += cart[code].reduce((acc, item) => (acc += item.price), 0);
+  const cartItemsCount = cart.length;
+  const cartTotalPrice = cart.reduce((acc, { price, count }) => {
+    acc += price * count;
     return acc;
   }, 0);
 
@@ -37,7 +37,7 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Cart itemsCount={cartItemsCount} totalPrice={cartTotalPrice} />
+      <Cart totalPrice={cartTotalPrice} itemsCount={cartItemsCount} />
       <List list={list} onAddToCart={callbacks.onAddItem} />
     </PageLayout>
   );
