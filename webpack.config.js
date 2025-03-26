@@ -14,7 +14,7 @@ let config = {
   mode: process.env.NODE_ENV,
   resolve: {
     extensions: ['.js', 'jsx'], // расширения по умолчанию если не указаны в import
-    modules: ['./', 'node_modules'], // Где искать фаайлы подключаемых модулей (пакетов)
+    modules: ['./', 'node_modules'], // Где искать файлы подключаемых модулей (пакетов)
   },
   module: {
     rules: [
@@ -30,7 +30,6 @@ let config = {
         use: [
           { loader: MiniCssExtractPlugin.loader, options: {} },
           { loader: 'css-loader', options: { url: true, import: true } },
-          // {loader: 'babel-loader',},
         ],
       },
     ],
@@ -52,7 +51,6 @@ if (process.env.NODE_ENV === 'development') {
     static: path.join(__dirname, 'dist'),
     port: 8010,
     historyApiFallback: true,
-    open:true,
   };
 }
 
