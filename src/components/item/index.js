@@ -21,13 +21,11 @@ function Item({ item, onAdd }) {
   // };
 
   return (
-    <div
-    // className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-    // onClick={callbacks.onClick}
-    >
+    <div className={'Item' + (item.selected ? ' Item_selected' : '')}>
       {/*<div className="Item-code">{props.item.code}</div>*/}
       <div className="Item-title">
         <b>{item.title}</b>
+        <span>{item.price + ' ' + '₽'} </span>
         {/*{count*/}
         {/*  ? ` | Выделяли ${count} ${plural(count, {*/}
         {/*      one: 'раз',*/}
