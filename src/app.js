@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import List from './components/list';
-import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import { Cart } from './components/cart';
 
 /**
  * Приложение
@@ -11,6 +11,12 @@ import PageLayout from './components/page-layout';
  */
 function App({ store }) {
   const list = store.getState().list;
+  const cart = store.getState().cart;
+  const cartItemsCount = Object.keys(cart).length;
+  const cartTotalPrice = Object.keys(cart).reduce((acc, code) => {
+    acc += cart[code].reduce((acc, item) => (acc += item.price), 0);
+    return acc;
+  }, 0);
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -20,27 +26,19 @@ function App({ store }) {
       [store],
     ),
 
-    onSelectItem: useCallback(
+    onAddItem: useCallback(
       code => {
-        store.selectItem(code);
+        store.addToCart(code);
       },
       [store],
     ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
-      />
+      <Head title="Магазин" />
+      <Cart itemsCount={cartItemsCount} totalPrice={cartTotalPrice} />
+      <List list={list} onAddToCart={callbacks.onAddItem} />
     </PageLayout>
   );
 }
