@@ -5,7 +5,13 @@ import { generateCode } from './utils';
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    /**
+     * @type {{ list: Array, cart: Object }}
+     */
+    this.state = {
+      ...initState,
+      cart: {},
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
