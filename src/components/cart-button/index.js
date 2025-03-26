@@ -4,7 +4,7 @@ import './style.css';
 import { plural } from '../../utils';
 
 function CartButton({ cart, onClick = () => {} }) {
-  const quantity = useMemo(() => cart.reduce((acc, val) => acc + val.quantity, 0), [cart]);
+  const quantity = cart.length;
   const totalPrice = useMemo(
     () => cart.reduce((acc, val) => acc + val.quantity * val.price, 0),
     [cart],
