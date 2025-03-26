@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { plural } from '../../utils';
 import './style.css';
 
-function Item(props) {
+function Item({ item, onAdd }) {
   // Счётчик выделений
   // const [count, setCount] = useState(0);
   //
@@ -27,7 +27,7 @@ function Item(props) {
     >
       {/*<div className="Item-code">{props.item.code}</div>*/}
       <div className="Item-title">
-        <b>{props.item.title}</b>
+        <b>{item.title}</b>
         {/*{count*/}
         {/*  ? ` | Выделяли ${count} ${plural(count, {*/}
         {/*      one: 'раз',*/}
