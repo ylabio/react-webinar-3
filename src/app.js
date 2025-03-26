@@ -29,10 +29,11 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title="магазин"/>
-      {/*<Controls onAdd={callbacks.onAddItem} />*/}
+      <Controls onAdd={()=>{console.log('ddd')}} />
       <List
         list={list}
-        onAddItemToCart={callbacks.onAddItemToCart}
+        isCartList={false}
+        onClickItem={callbacks.onAddItemToCart}
       />
     </PageLayout>
   );

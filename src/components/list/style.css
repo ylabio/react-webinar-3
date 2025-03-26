@@ -13,5 +13,10 @@
 
 .List-item {
   border-bottom: 1px solid var(--divider);
-  cursor: pointer;
+}
+
+.Item-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-left: 6px;
 }

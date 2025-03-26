@@ -15,7 +15,7 @@ function Controls(props) {
   }
   return (
     <div className="Controls">
-      <button onClick={() => callbacks.onClick()}>{props.title}</button>
+      <button onClick={() => callbacks.onClick()}><span>пусто</span></button>
     </div>
   );
 }

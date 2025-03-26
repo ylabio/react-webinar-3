@@ -1,30 +1,31 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
-import Controls from "../controls";
-import {cn as bem} from '@bem-react/classname';
+
+import Button from '../button';
+import Actions from '../actions';
+
+import { formatPrice } from '../../utils';
+
 import './style.css';
-import {formatPrice} from "../../utils";
 
 function Item(props) {
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
   const cn = bem('Item');
 
-  const callbacks = {};
-
   return (
-    <div
-      className={cn()}
-      onClick={callbacks.onClick}
-    >
-      <div className={cn("title")}>
+    <div className={cn()}>
+      <div className={cn('title')}>
         <b>{props.item.title}</b>
       </div>
-      <div className={cn("price")}>{formatPrice(props.item.price, 'ru', '₽') }</div>
-      <div className={cn("actions")}>
-        <Controls onButtonClick={props.onAddItemToCart} itemCode={props.item.code} isListButton={true} title="Добавить" />
-      </div>
+      <div className={cn('price')}>{formatPrice(props.item.price, 'ru', '₽')}</div>
+      <Actions className={cn('actions')}>
+        <Button
+          onClickItemButton={props.onClickItem}
+          itemCode={props.item.code}
+          isCartItem={props.isCartItem}
+          className={props.isCartItem ? cn('btn--cart') : cn('btn--list')}
+        />
+      </Actions>
     </div>
   );
 }
@@ -35,9 +36,8 @@ Item.propTypes = {
     price: PropTypes.number,
     title: PropTypes.string,
   }).isRequired,
-  onDelete: PropTypes.func,
-  onAddItemToCart: PropTypes.func,
+  isCartItem: PropTypes.bool,
+  onClickItem: PropTypes.func,
 };
-
 
 export default React.memo(Item);
