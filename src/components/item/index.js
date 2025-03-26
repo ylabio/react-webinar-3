@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
+import { formatPrice } from '../../utils';
+import { useCart } from '../../cart-context';
 import './style.css';
 
 function Item(props) {
+  const { addToCart } = useCart();
+
   return (
-    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}>
+    <div className={'Item'}>
       <div className="Item-code">{props.item.code}</div>
       <div className="Item-title"><b>{props.item.title}</b></div>
-      <div>{props.item.price} ₽</div>
+      <div className="Item-price">{formatPrice(props.item.price)}</div>
       <div className="Item-actions">
-        <button onClick={ () => {} }>Добавить</button>
+        <button onClick={ () => addToCart(props.item) }>Добавить</button>
       </div>
     </div>
   );

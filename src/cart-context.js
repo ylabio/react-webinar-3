@@ -6,9 +6,21 @@ const CartContext = React.createContext();
 export function CartProvider({ children }) {
   const [cart, setCart] = React.useState([]);
 
-  // TODO: for now fun only adds
   const addToCart = (item) => {
-    setCart((prevCart) => [...prevCart, item]);
+    setCart((prevCart) => {
+      const existingItemIndex = prevCart.findIndex(
+        (elem) => elem.code === item.code
+      );
+      if (existingItemIndex >= 0) {
+        return prevCart.map((elem, index) => 
+          index === existingItemIndex
+            ? { ...elem, quantity: elem.quantity + 1 }
+            : elem
+        );
+      } else {
+        return [...prevCart, { ...item, quantity: 1 }];
+      }
+    });
   };
 
   const value = {
@@ -20,7 +32,7 @@ export function CartProvider({ children }) {
 };
 
 export function useCart() {
-  return useContext(CartContext);
+  return React.useContext(CartContext);
 }
 
 CartProvider.propTypes = {
