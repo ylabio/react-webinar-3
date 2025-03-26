@@ -12,25 +12,32 @@ import PageLayout from './components/page-layout';
 function App({ store }) {
   const list = store.getState().list;
 
-  // const callbacks = {
-  //   onDeleteItem: useCallback(
-  //     code => {
-  //       store.deleteItem(code);
-  //     },
-  //     [store],
-  //   ),
-  //
-  //   onSelectItem: useCallback(
-  //     code => {
-  //       store.selectItem(code);
-  //     },
-  //     [store],
-  //   ),
-  //
-  //   onAddItem: useCallback(() => {
-  //     store.addItem();
-  //   }, [store]),
-  // };
+  const callbacks = {
+    onAddToCart: useCallback(
+      item => {
+        console.log('Добавлено в корзину:', item);
+        store.addToCart(item);
+      },
+      [store],
+    ),
+    //   onDeleteItem: useCallback(
+    //     code => {
+    //       store.deleteItem(code);
+    //     },
+    //     [store],
+    //   ),
+    //
+    //   onSelectItem: useCallback(
+    //     code => {
+    //       store.selectItem(code);
+    //     },
+    //     [store],
+    //   ),
+    //
+    //   onAddItem: useCallback(() => {
+    //     store.addItem();
+    //   }, [store]),
+  };
 
   return (
     <PageLayout>
@@ -40,6 +47,7 @@ function App({ store }) {
       />
       <List
         list={list}
+        onAddToCart={callbacks.onAddToCart}
         // onDeleteItem={callbacks.onDeleteItem}
         // onSelectItem={callbacks.onSelectItem}
       />

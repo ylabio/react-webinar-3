@@ -5,6 +5,7 @@ import './style.css';
 
 function List({
   list,
+  onAddToCart,
   // onDeleteItem,
   // onSelectItem
 }) {
@@ -16,6 +17,7 @@ function List({
             item={item}
             // onDelete={onDeleteItem}
             // onSelect={onSelectItem}
+            onAdd={onAddToCart}
           />
         </li>
       ))}
@@ -24,11 +26,13 @@ function List({
 }
 
 List.propTypes = {
-  list: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number,
-    }),
-  ).isRequired,
+  list: PropTypes.array.isRequired,
+  onAddToCart: PropTypes.func,
+  // list: PropTypes.arrayOf(
+  //   PropTypes.shape({
+  //     code: PropTypes.number,
+  //   }),
+  // ).isRequired,
   // onDeleteItem: PropTypes.func,
   // onSelectItem: PropTypes.func,
 };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
+// import { plural } from '../../utils';
 import './style.css';
 
 function Item({ item, onAdd }) {
@@ -38,9 +38,10 @@ function Item({ item, onAdd }) {
       </div>
       <div className="Item-actions">
         <button
-        // onClick={callbacks.onDelete}
+          // onClick={callbacks.onDelete}
+          onClick={() => onAdd(item)}
         >
-          Удалить
+          Добавить
         </button>
       </div>
     </div>
@@ -54,6 +55,7 @@ Item.propTypes = {
     selected: PropTypes.bool,
     count: PropTypes.number,
   }).isRequired,
+  onAdd: PropTypes.func,
   // onDelete: PropTypes.func,
   // onSelect: PropTypes.func,
 };
