@@ -32,6 +32,12 @@ let config = {
           { loader: 'css-loader', options: { url: true, import: true } },
         ],
       },
+      // подключение svg иконок как компоненты
+      {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        use: ['@svgr/webpack'],
+      },
     ],
   },
   plugins: [

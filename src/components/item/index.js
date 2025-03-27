@@ -1,20 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
 import './style.css';
 
 function Item(props) {
 
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
-    onDelete: e => {
+    onAdd: e => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
+      props.addToBasket(props.item);
     },
   };
 
@@ -25,7 +18,7 @@ function Item(props) {
         <span>{props.item.price} ₽</span>
       </div>
       <div className="Item-actions">
-        <button onClick={callbacks.onDelete}>Добавить</button>
+        <button onClick={callbacks.onAdd}>Добавить</button>
       </div>
     </div>
   );

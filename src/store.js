@@ -41,46 +41,48 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
+   * @param item {Object} - товар
    */
-  addItem() {
+  addToBasket(item) {
+    if(!item.count) {
+      item.count = 1;
+    } else {
+      item.count +=1;
+    }
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      basket: new Map( [...this.state.basket,  [item.code, item]]),
     });
   }
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
+  removeFromBasket(code) {
+    this.state.basket.get(code).count = 0;
+    this.state.basket.delete(code);
+
+    if ( this.state.basket.size === 0 ) {
+      this.hideModal();
+    }
+
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      basket: new Map( [...this.state.basket]),
+      modal: this.state.modal,
     });
   }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  showModal() {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      modal: { isActiv: true },
+    });
+  }
+
+  hideModal() {
+    this.setState({
+      ...this.state,
+      modal: { isActiv: false },
     });
   }
 }

@@ -1,0 +1,58 @@
+.modal-container {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(26, 32, 40, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background-color: white;
+    width: 1080px;
+    height: auto;
+    border-radius: 8px;
+    padding: 24px;
+    position: relative;
+}
+
+.cross {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 16px;
+  height: 16px;
+}
+
+.Modal-list {
+    overflow: hidden;
+    list-style: none;
+    margin: 0;
+    padding: 24px 0;
+  }
+
+.modal-title {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.total {
+  width: 234px;
+  margin-left: auto;
+  margin-right: 145px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+}
+
+.Modal-list-item:nth-child(odd) {
+    background-color: var(--odd-item);
+  }
+  
+.Modal-list-item {
+border-bottom: 1px solid var(--divider);
+cursor: pointer;
+}
