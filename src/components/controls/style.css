@@ -1,9 +1,13 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-margin-bottom: 24px;}
+  margin-bottom: 24px;
+}
 
 .Controls button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   border: 1px solid var(--primary);
   padding: 8px 16px;
   min-width: 118px;
@@ -18,9 +22,24 @@ margin-bottom: 24px;}
       color: var(--second-text);
     }
 
+    > .Controls-icon {
+      fill: var(--second-text);
+    }
   }
 }
 
 .Controls button span {
   color: var(--main-text);
 }
+
+.Controls-icon {
+  fill: var(--primary);
+}
+
+.Controls-full--text {
+  text-transform: lowercase;
+}
+.Controls-empty--text {
+  text-transform: capitalize;
+}
+

@@ -1,28 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { cn as bem } from '@bem-react/classname';
 
 import Button from '../button';
+import CartIcon from "../icons/cart-icon";
 
-import { formatPrice, plural } from '../../utils';
+import {formatPrice, plural} from '../../utils';
 
 import './style.css';
 
 function Controls(props) {
-  const totlaProductCount = props.productCount;
+  const totalProductCount = props.productCount;
 
-  const isProductCount = !!totlaProductCount;
+  const isProductCount = !!totalProductCount;
+
+  const cn = bem("Controls");
 
   function getBtnTitle(isCountOfProducts) {
     if (isCountOfProducts) {
       return (
-        <span>
-          {totlaProductCount}{' '}
-          {plural(totlaProductCount, { one: 'товар', few: 'товара', many: 'товаров' })} /{' '}
+        <span className={cn("full--text")}>
+          {totalProductCount}{' '}
+          {plural(totalProductCount, {one: 'товар', few: 'товара', many: 'товаров'})} /{' '}
           {formatPrice(props.totalPrice, 'ru', '₽')}
         </span>
       );
     }
-    return <span>пусто</span>;
+    return <span className={cn("empty--text")}>пусто</span>;
   }
 
   return (
@@ -32,6 +36,7 @@ function Controls(props) {
           console.log('ffff');
         }}
       >
+        <CartIcon className={cn("icon")} />
         {getBtnTitle(isProductCount)}
       </Button>
     </div>
