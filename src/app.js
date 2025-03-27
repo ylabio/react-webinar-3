@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
+import CartButton from './components/cart-button';
 import PageLayout from './components/page-layout';
 
 /**
@@ -31,11 +32,15 @@ function App({ store }) {
       store.addItem();
     }, [store]),
   };
+  const itemCount = 0;
+  const totalCost = 0;
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Head title="Магазин" />
+      <Controls>
+        <CartButton itemCount={itemCount} totalCost={totalCost} onClick={callbacks.onAddItem} />
+      </Controls>
       <List
         list={list}
         onDeleteItem={callbacks.onDeleteItem}
