@@ -10,9 +10,6 @@
   background-color: var(--odd-item);
 }
 
-/* По макету border 1px, но он не учытывется в размерах. Поэтому -   box-shadow: inset 0px -1px 1px 0px var(--divider);
- */
-
 .List-item {
   /* border-bottom: 1px solid var(--divider); */
   box-shadow: inset 0px -1px 1px 0px var(--divider);
