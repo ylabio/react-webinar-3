@@ -5,8 +5,15 @@ import { generateCode } from './utils';
  */
 class Store {
   constructor(initState = {}) {
+    const initialList = initState.list || [];
+
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+
+    this.state = {
+      list: initialList,
+      cartList: []
+    }
   }
 
   /**
@@ -49,6 +56,30 @@ class Store {
       list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
     });
   }
+  addItemCart(code, title, price) {
+    const itemIndex = this.state.cartList.findIndex(el => el.code === code);
+    
+    if (itemIndex !== -1) {
+      console.log(this.state.cartList)
+      
+      const updatedCart = [...this.state.cartList];
+
+      updatedCart[itemIndex] = { 
+        ...updatedCart[itemIndex], 
+        quantity: updatedCart[itemIndex].quantity + 1 
+      };
+
+      this.setState({ list: [...this.state.list], cartList: updatedCart });
+      
+    } else {
+      this.setState({
+        ...this.state,
+        cartList: [...this.state.cartList, { code: code, title: title, price: price, quantity: 1}],
+      });
+    }
+
+    
+  }
 
   /**
    * Удаление записи по коду
@@ -59,6 +90,12 @@ class Store {
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
       list: this.state.list.filter(item => item.code !== code),
+    });
+  }
+  deleteItemCart(code) {
+    this.setState({
+      ...this.state,
+      cartList: this.state.cartList.filter(item => item.code !== code),
     });
   }
 
