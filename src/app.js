@@ -26,7 +26,7 @@ function App({ store }) {
             {list.map(item => (
               <div key={item.code} className="List-item">
                 <div
-                  className={"Item" + (item.selected ? "Item_selected" : "")}
+                  className={"Item" + (item.selected ? " Item_selected" : "")}
                   onClick={(e) => store.selectItem(item.code, e)}
                 >
                   <div className="Item-code">{item.code}</div>
