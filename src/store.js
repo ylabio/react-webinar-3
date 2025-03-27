@@ -1,3 +1,5 @@
+import { generateCode } from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -46,7 +48,7 @@ class Store {
     this.lastCode += 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.lastCode, title: 'Новая запись', selected: false, selectCount: 0 }],
+      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
     });
   }
 
@@ -57,6 +59,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
+      // Новый список, в котором не будет удаляемой записи
       list: this.state.list.filter(item => item.code !== code),
     });
   }
@@ -70,27 +73,16 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (ctrlPressed) {
-          // Множественное выделение с Ctrl/Cmd
-          if (item.code === code) {
-            return {
-              ...item,
-              selected: !item.selected,
-              selectCount: item.selected ? item.selectCount : item.selectCount + 1
-            };
-          }
-          return item;
-        } else {
-          // Одиночное выделение (сбрасываем остальные)
-          if (item.code === code) {
-            return {
-              ...item,
-              selected: !item.selected,
-              selectCount: item.selected ? item.selectCount : item.selectCount + 1
-            };
-          }
-          return { ...item, selected: false };
+        if (item.code === code) {
+          // Смена выделения и подсчёт
+          return {
+            ...item,
+            selected: !item.selected,
+            count: item.selected ? item.count : item.count + 1 || 1,
+          };
         }
+        // Сброс выделения если выделена
+        return item.selected ? { ...item, selected: false } : item;
       }),
     });
   }

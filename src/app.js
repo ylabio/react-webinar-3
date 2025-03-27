@@ -1,44 +1,47 @@
-import React from 'react';
-import { createElement } from './utils.js';
-import './styles.css';
-import { getTimesText } from './utils.js';
+import React, { useCallback } from 'react';
+import List from './components/list';
+import Controls from './components/controls';
+import Head from './components/head';
+import PageLayout from './components/page-layout';
 
 /**
  * Приложение
- * @param store {Store} Состояние приложения
+ * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
 function App({ store }) {
   const list = store.getState().list;
 
-  return (
-    <div className="App">
-      <div className="App-head">
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
-      </div>
-      <div className="App-center">
-        <div className="List">
-          {list.map(item => (
-            <div key={item.code} className="List-item">
-              <div
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={(event) => store.selectItem(item.code, event.ctrlKey || event.metaKey)}
-              >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}<span>{item.selectCount > 0 && ` | Выделяли ${item.selectCount} ${getTimesText(item.selectCount)}`} </span></div>
+  const callbacks = {
+    onDeleteItem: useCallback(
+      code => {
+        store.deleteItem(code);
+      },
+      [store],
+    ),
 
-                <div className="Item-actions">
-                  <button onClick={(event) => { event.stopPropagation(); store.deleteItem(item.code); }}>Удалить</button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    onSelectItem: useCallback(
+      code => {
+        store.selectItem(code);
+      },
+      [store],
+    ),
+
+    onAddItem: useCallback(() => {
+      store.addItem();
+    }, [store]),
+  };
+
+  return (
+    <PageLayout>
+      <Head title="Приложение на React" />
+      <Controls onAdd={callbacks.onAddItem} />
+      <List
+        list={list}
+        onDeleteItem={callbacks.onDeleteItem}
+        onSelectItem={callbacks.onSelectItem}
+      />
+    </PageLayout>
   );
 }
 
