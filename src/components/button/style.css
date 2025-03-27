@@ -1,0 +1,42 @@
+.Button {
+  font-family: var(--second-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  padding: 8px 16px;
+  transition: 0.3s;
+
+  border: 1px solid transparent;
+  background-color: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Button-Icon {
+  margin-right: 8px;
+}
+
+.Button_variant_solid {
+  background-color: var(--primary);
+  color: var(--second-text);
+  border: 1px solid var(--primary);
+}
+
+.Button_variant_outline {
+  background-color: var(--background);
+  color: var(--main-text);
+  border: 1px solid var(--primary);
+}
+
+.Button_variant_solid:hover {
+  background-color: var(--background);
+  color: var(--primary);
+}
+
+.Button_variant_outline:hover {
+  background-color: var(--primary-select);
+}
