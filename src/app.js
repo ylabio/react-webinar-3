@@ -16,11 +16,11 @@ function App({ store }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const { list, cart } = store.getState();
 
-  let count = 0;
   let price = 0;
+  const uniqCount = cart.length;
+
   if (cart.length !== 0) {
     cart.forEach(item => {
-      count += item.count;
       price += item.price * item.count;
     });
   }
@@ -55,7 +55,7 @@ function App({ store }) {
     <>
       <PageLayout>
         <Head title="Магазин" />
-        <Controls price={price} count={count} open={callbacks.open} />
+        <Controls price={price} count={uniqCount} open={callbacks.open} />
         <List list={list} callback={callbacks.onAdd} modal={false} />
       </PageLayout>
       <Popup isOpen={isOpen} onClose={callbacks.close}>

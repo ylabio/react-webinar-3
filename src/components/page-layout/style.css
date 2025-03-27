@@ -3,6 +3,7 @@
   margin: 0 auto;
   background-color: var(--background);
   padding-inline: 20px;
+  overflow-x: hidden;
 }
 
 .PageLayout-center {
