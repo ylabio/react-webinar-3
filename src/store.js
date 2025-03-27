@@ -46,15 +46,16 @@ class Store {
    */
 
   addToCart(code) {
-    const items = this.state.list.map((item) => {
+    const items = this.state.list.map(item => {
       if (item.code === code) {
-        item.count = item.count ? item.count += 1 : 1;
+        item.quantity = item.quantity ? (item.quantity += 1) : 1;
       }
       return item;
-    })
+    });
+
     this.setState({
       ...this.state,
-      cart: items.filter((item) => item.count),
+      cart: items.filter(item => item.quantity),
     });
   }
 
@@ -63,10 +64,18 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const cart = this.state.cart.filter(item => item.code !== code);
+    const list = this.state.list.map(item => {
+      if (item.code === code) {
+        item.quantity = 0;
+      }
+      return item;
+    });
+
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      cart,
+      list,
     });
   }
 }

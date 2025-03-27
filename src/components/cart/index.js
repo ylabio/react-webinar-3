@@ -4,10 +4,10 @@ import cart from '../../images/cart.svg';
 import { plural } from '../../utils';
 import './style.css';
 
-function Cart({ totalPrice = 0, itemsCount = 0 }) {
+function Cart({ totalPrice = 0, itemsCount = 0, onShowModal }) {
   return (
     <div className="Cart">
-      <div className="Cart-info">
+      <div className="Cart-info" onClick={onShowModal}>
         <img src={cart} alt="Значок корзины" />
         <div className="Cart-info_info">
           {!itemsCount
@@ -26,6 +26,7 @@ function Cart({ totalPrice = 0, itemsCount = 0 }) {
 Cart.propTypes = {
   totalPrice: PropTypes.number.isRequired,
   itemsCount: PropTypes.number.isRequired,
+  onShowModal: PropTypes.func.isRequired,
 };
 
 export { Cart };

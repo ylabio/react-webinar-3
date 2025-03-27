@@ -5,15 +5,25 @@ import './style.css';
 function Item(props = {}) {
   return (
     <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}>
-      <div className="Item-code">{props.item.code}</div>
+      {!props.isCartMode && <div className="Item-code">{props.item.code}</div>}
       <div className="Item-title">
         <b>{props.item.title}</b>
       </div>
+      {props.isCartMode && (
+        <div className="Item-quantity">
+          <span>{props.item.quantity} шт</span>
+        </div>
+      )}
       <div className="Item-price">
         <span>{props.item.price} &#8381;</span>
       </div>
       <div className="Item-actions">
-        <button onClick={() => props.onAdd(props.item.code)}>Добавить</button>
+        <button
+          className={!props.isCartMode ? 'Item-actions_add-btn' : 'Item-actions_remove-btn'}
+          onClick={() => props.onButtonClick(props.item.code)}
+        >
+          {props.isCartMode ? 'Удалить' : 'Добавить'}
+        </button>
       </div>
     </div>
   );
@@ -23,11 +33,11 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
     count: PropTypes.number,
-    onSelect: PropTypes.func,
-    onAdd: PropTypes.func,
+    quantity: PropTypes.number,
   }).isRequired,
+  onButtonClick: PropTypes.func,
+  isCartMode: PropTypes.bool,
 };
 
 export default React.memo(Item);
