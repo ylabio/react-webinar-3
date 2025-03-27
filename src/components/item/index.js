@@ -12,8 +12,6 @@ function Item({ item, addToCart = () => { } }) {
 
   return (
     <div className='Item'>
-      <div className="Item-code">{item.code}</div>
-
       <div className="Item-title">
         <b>{item.title}</b>
       </div>
