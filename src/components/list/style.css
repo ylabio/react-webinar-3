@@ -4,6 +4,7 @@
   list-style: none;
   padding-left: 0;
   margin: 0;
+  width: 1152px;
 }
 
 .List-item:nth-child(odd) {
@@ -11,6 +12,7 @@
 }
 
 .List-item {
+  width: 1152px;
   border-bottom: 1px solid var(--divider);
   cursor: pointer;
 }

@@ -5,6 +5,7 @@
   gap: 16px;
   transition: background-color 1s;
   padding: 16px;
+  width: 1152px;
 }
 
 .Item-title {
@@ -12,6 +13,7 @@
 }
 
 .Item-actions {
+  padding-left: 8px;
   display: flex;
   justify-content: flex-end;
 }

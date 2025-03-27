@@ -1,9 +1,11 @@
 .Modal {
   width: 1080px;
-  padding: 24px 8px;
+  padding: 24px 24px 40px;
   background-color: var(--background);
   border-radius: 8px;
   position: relative;
+  top: -3%;
+  left: -1%;
 }
 
 .Modal-button {
