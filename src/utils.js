@@ -23,6 +23,20 @@ export function createElement(name, props = {}, ...children) {
   for (const child of children) {
     element.append(child);
   }
-
   return element;
+}
+
+export function getWordForm (count, wordForms) {
+      if (typeof wordForms === 'string') {
+          wordForms = wordForms.split(',');
+      }
+      const [single, twoFour, many] = wordForms;
+         count%= 100; // забираем только остаток от деления на 100
+       if (count >= 10 && count <=20) {
+           return many;
+       }
+       count %= 10; // забираем только остаток от деления на 10
+       if (count === 1) { return single; }
+       else if (count === 0 || count > 4) { return many; }
+       else { return twoFour; }
 }
