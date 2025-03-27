@@ -26,14 +26,8 @@ function Item(props) {
       onClick={callbacks.onClick}
     >
       <div className="Item-title">
-        <b>{props.item.title}</b>
-        {count
-          ? `Выделяли ${count} ${plural(count, {
-              one: 'раз',
-              few: 'раза',
-              many: 'раз',
-            })}`
-          : ''}
+        <b>{props.item.title}{console.log(props.item)}</b>
+        <b className="Item-price">{Number(props.item.price).toLocaleString('ru-RU')} &#8381;</b>
       </div>
       <div className="Item-actions">
         <button onClick={callbacks.onDelete}>Добавить</button>

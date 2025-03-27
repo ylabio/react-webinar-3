@@ -17,6 +17,10 @@
   flex: auto;
 }
 
+.Item-price {
+  font-weight: normal;
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;
