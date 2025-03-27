@@ -5,7 +5,6 @@ import './style.css';
 function Item({item, onAddToCart}) {
     return (
     <div className= "Item">
-      <div className="Item-code">{item.code}</div>
       <div className="Item-title">
         <b>{item.title}</b> -  {item.price} руб.        
       </div>
