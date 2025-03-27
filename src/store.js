@@ -41,6 +41,44 @@ class Store {
   }
 
   /**
+   * Добавление товара в корзину
+   * @param code
+   */
+  addItemCart(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          return {
+            ...item,
+            cartQuantity: item.cartQuantity + 1 || 1,
+          };
+        }
+        return item;
+      }),
+    });
+  }
+
+  /**
+   * Удаление продукта из корзины
+   * @param code
+   */
+  deleteItemCart(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          return {
+            ...item,
+            cartQuantity: 0,
+          };
+        }
+        return item;
+      }),
+    });
+  }
+
+  /**
    * Добавление новой записи
    */
   addItem() {

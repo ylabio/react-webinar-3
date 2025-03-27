@@ -50,3 +50,23 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
+
+/**
+ * Вычисляет статистику корзины: общую стоимость и количество уникальных товаров.
+ * @param cart {Array<Object>} - Список товаров в корзине.
+ * @example getCartStats([{ code: 1, title: 'Название товара', price: 100, cartQuantity: 2 },])
+ * @returns {{ totalCost: number, uniqueItems: number }} - Объект с общей стоимостью и количеством уникальных товаров.
+ */
+export const getCartStats = (cart) => {
+  return cart.reduce(
+    (acc, item) => {
+      if (item.cartQuantity) {
+        acc.totalCost += item.price * item.cartQuantity;
+        acc.uniqueItems++;
+      }
+      return acc;
+    },
+    { totalCost: 0, uniqueItems: 0 },
+  );
+};
+
