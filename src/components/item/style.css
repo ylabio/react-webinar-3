@@ -11,6 +11,19 @@
   flex: auto;
 }
 
+.Item-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  text-align: right;
+}
+
+.Item-quantity {
+  margin-right: 20px;
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;

@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { getCartTotalCost } from '../../utils';
 
-function Controls({ cart }) {
+function Controls({ cart, onClick = () => {} }) {
   return (
-    <div className="Controls">
-      <button>
+    <div className="Controls" onClick={onClick}>
+      <button
+        disabled={cart.length <= 0}
+        title={cart.length <= 0 ? 'Сначала добавьте товары в корзину' : 'Корзина'}
+      >
         <svg
           width="24"
           height="24"
@@ -29,6 +32,7 @@ Controls.propTypes = {
       quantity: PropTypes.number,
     }),
   ).isRequired,
+  onClick: PropTypes.func,
 };
 
 export default React.memo(Controls);

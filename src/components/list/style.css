@@ -12,5 +12,16 @@
 
 .List-item {
   border-bottom: 1px solid var(--divider);
-  cursor: pointer;
+}
+
+.List-total {
+  margin: 16px 0;
+  margin-right: 50px;
+  text-align: right;
+  color: var(--main-text);
+  font-weight: 700;
+
+  & span {
+    margin-right: 90px;
+  }
 }

@@ -18,12 +18,15 @@ function Item({ item, onDelete = () => {}, onAdd = () => {}, isCartItem = false 
       <div className="Item-title">
         <b>{item.title}</b>
       </div>
-      <div className="Item-price">{item.price} ₽</div>
-      <div className="Item-actions">
-        <Button
-          type={isCartItem ? 'delete' : 'add'}
-          onClick={isCartItem ? callbacks.onDelete : callbacks.onAdd}
-        />
+      <div className="Item-content">
+        <div className="Item-quantity">{isCartItem && `${item.quantity} шт`}</div>
+        <div className="Item-price">{item.price} ₽</div>
+        <div className="Item-actions">
+          <Button
+            type={isCartItem ? 'delete' : 'add'}
+            onClick={isCartItem ? callbacks.onDelete : callbacks.onAdd}
+          />
+        </div>
       </div>
     </div>
   );

@@ -26,4 +26,14 @@
       fill: var(--background)
     }
   }
+
+  &:disabled:hover {
+    background-color: var(--background);
+    color: var(--main-text);
+    cursor: not-allowed;
+
+    & svg {
+      fill: var(--primary)
+    }
+  }
 }
