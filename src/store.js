@@ -88,15 +88,14 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {      
         if (item.code === code) {
-          // Если запись уже выделена и Ctrl не нажата, снимаем выделение
           if (!item.selected) {
-            item.selected = true; // Выделяем запись
+            item.selected = true;
             item.click++;
           } else {
             item.selected = false;
           }
         } else if (!isCtrlPressed) {
-          item.selected = false; // Сбрасываем выделение с других записей
+          item.selected = false;
         }
 
         return item;
