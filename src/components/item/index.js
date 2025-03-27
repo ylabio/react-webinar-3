@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Controls from '../controls';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
@@ -15,12 +16,7 @@ function Item(props) {
         <p className={cn('price')}>{item.price} ₽</p>
       </div>
       <div className={cn('actions')}>
-        <button
-          className={buttonText === 'Добавить' ? cn('button') : cn('button_delete')}
-          onClick={onClick}
-        >
-          {buttonText}
-        </button>
+        <Controls onClick={onClick} buttonText={buttonText} />
       </div>
     </article>
   );

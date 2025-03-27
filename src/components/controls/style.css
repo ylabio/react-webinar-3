@@ -1,17 +1,29 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 24px 16px 24px 0;
+  padding: 0;
 }
 
-.Controls button {
-  border: 1px solid var(--primary);
-  padding: 8px 16px;
-  background-color: var(--primary);
+.Controls-button_delete {
+  background-color: var(--delete);
   color: var(--second-text);
+  transition: background-color 1s;
 
   &:hover {
     background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
+  }
+}
+
+.Controls-button {
+  background-color: var(--primary);
+  color: var(--second-text);
+  transition: background-color 1s;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--primary);
     color: var(--primary);
   }
 }
