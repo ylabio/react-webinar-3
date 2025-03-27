@@ -3,45 +3,50 @@ import PropTypes from 'prop-types';
 import { NumericFormat } from 'react-number-format';
 import './style.css';
 
-function Item(props) {
+function ItemCart(props) {
 
   const callbacks = {
 
     onClick: e => {
       e.stopPropagation();
-      props.onAdd(props.item.code);
+      props.onDelete(props.item.code);
     },
   };
 
   return (
-    <div className="Item">
-      <div className="Item-title">
+    <div className="ItemCart">
+      <div className="ItemCart-title">
         <b>{props.item.title}</b>
       </div>
-      <div className="Item-price">
+
+      <div className="ItemCart-count">{props.item.score} шт</div>
+      <div className="ItemCart-price">
         <NumericFormat value={props.item.price}
         displayType={'text'}
         thousandSeparator=" "
         suffix={' ₽'} />
         </div>
-      <div className="Item-actions">
-        <button onClick={callbacks.onClick}>Добавить</button>
+
+      <div className="ItemCart-actions">
+        <button onClick={callbacks.onClick}>Удалить</button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+ItemCart.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number,
+    score: PropTypes.number,
   }).isRequired,
-  onAdd: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
-Item.defaultProps = {
-  onAdd: () => {},
+ItemCart.defaultProps = {
+  onDelete: () => {},
 };
 
-export default React.memo(Item);
+export default React.memo(ItemCart);
+

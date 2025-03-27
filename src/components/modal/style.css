@@ -1,0 +1,20 @@
+.Modal {
+  width: 1080px;
+  padding: 24px 8px;
+  background-color: var(--background);
+  border-radius: 8px;
+  position: relative;
+}
+
+.Modal-button {
+  position: absolute;
+  top: 0px;
+  right: -8px;
+}
+
+.Modal-button svg {
+  transition: fill 0.3s;
+  &:hover {
+    fill: var(--primary);
+  }
+}
