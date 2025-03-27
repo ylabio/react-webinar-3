@@ -15,7 +15,7 @@ function ItemCart(props) {
   return (
     <div className={"ItemCart"}>
       <div className="ItemCart-title">{props.item.title} </div>
-      <div className="ItemCart-count">{props.item.count} шт.</div>
+      <div className="ItemCart-count">{props.item.count} шт</div>
       <div className="ItemCart-price">
         {getTypeOfNumber(props.item.price)} ₽
       </div>
