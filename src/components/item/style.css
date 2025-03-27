@@ -1,0 +1,42 @@
+.List-item {
+  border-bottom: 4px #ccc;
+}
+.Item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  transition: background-color 1s;
+  border-bottom: 1px solid #ccc;
+}
+
+.Item-title {
+  padding: 20px 3px 20px 10px;
+  font-weight: 700;
+}
+
+.Item-price {
+  margin-left: auto;
+  padding: 20px 5px 20px 10px;
+}
+
+.Item-actions {
+  padding: 20px 20px 20px 10px;
+}
+
+.Add-button {
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0;
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+  background: #6b4acb;
+  width: 114px;
+  height: 40px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+}

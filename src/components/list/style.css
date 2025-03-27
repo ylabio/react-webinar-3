@@ -1,0 +1,42 @@
+.List-item {
+  border-bottom: 4px #ccc;
+}
+
+.List-item:nth-child(odd) {
+  background-color: rgba(239, 239, 239, 1);
+}
+
+.List-item:nth-child(even) {
+  background-color: #ffffff; 
+}
+
+.Item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  transition: background-color 1s;
+  border-bottom: 1px solid #ccc;
+}
+
+.Item_selected {
+  background: rgba(107, 74, 203, 0.1);
+}
+
+.Item-code {
+  padding: 20px 5px 20px 15px;
+}
+
+.Item-title {
+  padding: 20px 3px 20px 10px;
+  font-weight: 700;
+}
+
+
+.Item-price{
+  margin-left: auto;
+  padding: 20px 5px 20px 10px;
+}
+
+.Item-actions {
+  padding: 20px 20px 20px 10px;
+}
