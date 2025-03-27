@@ -2,7 +2,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 16px;
+  gap: 23px;
   transition: background-color 1s;
   padding: 16px;
 }
@@ -12,6 +12,8 @@
 }
 
 .Item-title {
+  display: flex;
+  justify-content: space-between;
   flex: auto;
 }
 
@@ -21,14 +23,14 @@
 }
 
 .Item-actions button {
-  background-color: var(--delete);
+  background-color: var(--primary);
   color: var(--second-text);
   padding: 8px 16px;
 
   &:hover {
     background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
+    border-color: var(--primary);
+    color: var(--primary);
   }
 }
 
