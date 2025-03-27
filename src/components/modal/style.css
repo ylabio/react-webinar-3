@@ -1,0 +1,48 @@
+.Modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--overlay);
+}
+
+.Modal-layout {
+  position: fixed;
+  max-width: 1080px;
+  min-width: 60%;
+  top: 50%;
+  left: 50%;
+  padding: 20px;
+  transform: translate(-50%, -50%);
+  background-color: var(--background);
+  border-radius: 8px;
+  box-sizing: border-box;
+
+}
+.Modal-header {
+  position: fixed;
+  top: 15px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+
+  &::before, &::after {
+    position: absolute;
+    content: '';
+    height: 20px;
+    width: 2px;
+    top: 10%;
+    right: 50%;
+    background-color: rgba(135, 135, 135, 1);
+    transform: rotate(45deg);
+    border-radius: 2px;
+  }
+  &::after {
+    transform: rotate(-45deg);
+  }
+}
+
+.Modal-content {
+}

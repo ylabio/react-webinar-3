@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,48 +39,56 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Открытие/закрытие модалки
    */
-  addItem() {
+  setModalState() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
+      modalOpen: !this.state.modalOpen
+    })
   }
 
   /**
-   * Удаление записи по коду
+   * Добавление в корзину
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
+  addToCart(code) {
+    const cart = this.state.cart;
+    const isInCart = cart.find(item => item.code === code);
+
+    if (!isInCart) {
+      const itemToCart = this.state.list.find(item => item.code === code);
+
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, { ...itemToCart, count: 1}],
+      });
+    } else {
+        this.setState({
+          ...this.state,
+          cart: this.state.cart.map(item => {
+            if (item.code === code) {
+              return {
+                ...item,
+                count: item.count + 1,
+              }
+            } return item;
+          }),
+        });
+    }
   }
 
   /**
-   * Выделение записи по коду
+   * Удаление из корзины
    * @param code
    */
-  selectItem(code) {
+  removeFromCart(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
-    });
+      cart: this.state.cart.filter(item => item.code !== code),
+    })
   }
+
 }
 
 export default Store;

@@ -7,12 +7,27 @@
   padding: 16px;
 }
 
-.Item_selected {
-  background-color: var(--primary-select);
-}
-
 .Item-title {
   flex: auto;
+}
+
+.Item-info {
+  width: 25%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.Item-count {
+  display: flex;
+  justify-content: flex-start;
+  width: 50%;
+}
+
+.Item-price {
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
 }
 
 .Item-actions {
@@ -21,9 +36,25 @@
 }
 
 .Item-actions button {
-  background-color: var(--delete);
   color: var(--second-text);
   padding: 8px 16px;
+}
+
+.Item-actions--add {
+  background-color: var(--primary);
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}
+
+.Item-actions--delete {
+
+  background-color: var(--delete);
+  border-color: var(--delete);
+  color: var(--delete);
 
   &:hover {
     background-color: var(--background);
@@ -31,4 +62,3 @@
     color: var(--delete);
   }
 }
-

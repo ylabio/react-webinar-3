@@ -1,0 +1,34 @@
+.Cart {
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.Cart-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.Cart-list {
+}
+
+.Cart-total {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bolder;
+  padding: 16px;
+}
+
+.wrapper-1 {
+}
+.wrapper-2 {
+  width: 25%;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 20px;
+}
+.wrapper-3 {
+  width: 106px;
+}
