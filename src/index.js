@@ -10,11 +10,11 @@ const store = new Store({
   list: [
     { code: generateCode(), title: 'Название товара', price: 100.0, score: 0 },
     { code: generateCode(), title: 'Книга про React', price: 770, score: 0 },
-    { code: generateCode(), title: 'Конфета', price: 23, score: 0  },
+    { code: generateCode(), title: 'Конфета', price: 33, score: 0  },
     { code: generateCode(), title: 'Трактор', price: 7955320, score: 0  },
     { code: generateCode(), title: 'Телефон iPhone XIXV', price: 120000, score: 0  },
     { code: generateCode(), title: 'Карандаши цветные', price: 111, score: 0  },
-    { code: generateCode(), title: 'Товар сюрприз', price: 1, score: 0  },
+    { code: generateCode(), title: 'Товар сюрприз', price: 0, score: 0  },
   ]
 });
 

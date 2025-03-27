@@ -18,17 +18,27 @@ function List({ list, onAdd }) {
   );
 }
 
+// List.propTypes = {
+//   list: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       code: PropTypes.number,
+//     }),
+//   ).isRequired,
+//   onAdd: PropTypes.func,
+// };
+
+// List.defaultProps = {
+//   onAdd: () => {},
+// };
+
 List.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.number,
-    }),
-  ).isRequired,
+    })
+  ),
   onAdd: PropTypes.func,
 };
 
-List.defaultProps = {
-  onAdd: () => {},
-};
 
 export default React.memo(List);

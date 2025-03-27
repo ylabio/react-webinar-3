@@ -49,8 +49,4 @@ Controls.propTypes = {
   openCart: PropTypes.func,
 };
 
-Controls.defaultProps = {
-  openCart: () => {},
-};
-
 export default Controls;

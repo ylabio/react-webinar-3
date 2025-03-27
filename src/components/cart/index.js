@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.css';
+import PropTypes from 'prop-types';
 import ItemCart from '../itemCart';
 import { NumericFormat } from 'react-number-format';
 import { summary } from '../../utils';
@@ -10,7 +11,7 @@ function Cart({cart, onDelete}) {
 
 
   return (
-    <div class="Cart">
+    <div className="Cart">
 
     <div className="Cart-head">
      <h2>Корзина</h2>
@@ -40,4 +41,12 @@ function Cart({cart, onDelete}) {
   )
 }
 
+Cart.propTypes = {
+  cart: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.number.isRequired,
+    })
+  ),
+  onDelete: PropTypes.func,
+};
 export default Cart;

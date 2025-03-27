@@ -40,8 +40,5 @@ Item.propTypes = {
   onAdd: PropTypes.func,
 };
 
-Item.defaultProps = {
-  onAdd: () => {},
-};
 
 export default React.memo(Item);

@@ -13,8 +13,7 @@ import Modal from './components/modal';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
-  const cart = store.getState().cart;
+  const { list, cart } = store.getState();
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
