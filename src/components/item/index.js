@@ -4,10 +4,11 @@ import Controls from '../controls';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Item(props) {
+const Item = ({ item, onClick, buttonText, quantity }) => {
   const cn = bem('Item');
 
-  const { item, onClick, buttonText, quantity } = props;
+  const handleClick = () => onClick(item.code);
+
   return (
     <article className={cn()}>
       <h2 className={cn('title')}>{item.title}</h2>
@@ -16,11 +17,11 @@ function Item(props) {
         <p className={cn('price')}>{item.price} ₽</p>
       </div>
       <div className={cn('actions')}>
-        <Controls onClick={onClick} buttonText={buttonText} />
+        <Controls onClick={handleClick} buttonText={buttonText} />
       </div>
     </article>
   );
-}
+};
 
 Item.propTypes = {
   item: PropTypes.shape({

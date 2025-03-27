@@ -9,7 +9,7 @@ const CartWidget = ({ quantity, amount, onClick }) => {
   const cn = bem('CartWidget');
   return (
     <div className={cn()}>
-      <button type="button" className={cn('button')} onClick={() => onClick()}>
+      <button type="button" className={cn('button')} onClick={onClick}>
         {quantity > 0 ? (
           <div className={cn('box')}>
             <CartIcon />
@@ -26,10 +26,10 @@ const CartWidget = ({ quantity, amount, onClick }) => {
   );
 };
 
-export default React.memo(CartWidget);
-
 CartWidget.propTypes = {
   quantity: PropTypes.number.isRequired,
   amount: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
 };
+
+export default React.memo(CartWidget);

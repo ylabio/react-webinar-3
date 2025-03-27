@@ -5,7 +5,7 @@ import List from '../list';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Cart({ goodsList, onClick, amount }) {
+const Cart = ({ goodsList, onClick, amount }) => {
   const cn = bem('Cart');
   return (
     <section className={cn()}>
@@ -22,7 +22,7 @@ function Cart({ goodsList, onClick, amount }) {
       </div>
     </section>
   );
-}
+};
 
 Cart.propTypes = {
   goodsList: PropTypes.arrayOf(
@@ -31,7 +31,6 @@ Cart.propTypes = {
     }),
   ).isRequired,
   onClick: PropTypes.func.isRequired,
-  quantity: PropTypes.number.isRequired,
   amount: PropTypes.number.isRequired,
 };
 

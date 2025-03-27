@@ -18,9 +18,9 @@ const CartIcon = ({ width = 24, height = 24 }) => {
   );
 };
 
-export default CartIcon;
-
 CartIcon.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
 };
+
+export default CartIcon;

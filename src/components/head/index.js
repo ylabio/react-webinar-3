@@ -4,18 +4,14 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import Title from '../title';
 
-function Head({ title }) {
+function Head() {
   const cn = bem('Head');
 
   return (
     <header className={cn()}>
-      <Title title={title} />
+      <Title title="Магазин" />
     </header>
   );
 }
-
-Head.propTypes = {
-  title: PropTypes.node,
-};
 
 export default React.memo(Head);

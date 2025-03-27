@@ -4,7 +4,7 @@ import Item from '../item';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function List({ list, onClick, buttonText, getQuantity = () => 0 }) {
+const List = ({ list, onClick, buttonText, getQuantity = () => 0 }) => {
   const cn = bem('List');
   return (
     <ul className={cn()}>
@@ -12,7 +12,7 @@ function List({ list, onClick, buttonText, getQuantity = () => 0 }) {
         <li key={item.code} className={cn('item')}>
           <Item
             item={item}
-            onClick={() => onClick(item.code)}
+            onClick={onClick}
             buttonText={buttonText}
             quantity={getQuantity(item)}
           />
@@ -20,7 +20,7 @@ function List({ list, onClick, buttonText, getQuantity = () => 0 }) {
       ))}
     </ul>
   );
-}
+};
 
 List.propTypes = {
   list: PropTypes.arrayOf(

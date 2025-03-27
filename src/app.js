@@ -7,7 +7,7 @@ import Main from './components/main/main';
 import Modal from './components/modal';
 import Cart from './components/cart';
 
-function App({ store }) {
+const App = ({ store }) => {
   const list = store.getState().list;
   const [isCartOpen, setCartOpen] = useState(false);
 
@@ -53,6 +53,6 @@ function App({ store }) {
       )}
     </PageLayout>
   );
-}
+};
 
 export default App;
