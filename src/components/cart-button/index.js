@@ -2,7 +2,6 @@ import React from 'react';
 import Button from '../button';
 import PropTypes from 'prop-types';
 import { formatCurrency, plural } from '../../utils';
-import './style.css';
 import Cart from '../../assets/cart.svg';
 
 function CartButton({ itemCount = 0, totalCost = 0, ...props }) {
