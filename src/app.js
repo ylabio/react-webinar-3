@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback,useState  } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
-
+import CartModal from './components/cartModal/index.js';
+import { plural } from './utils.js';
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -11,37 +12,61 @@ import PageLayout from './components/page-layout';
  */
 function App({ store }) {
   const list = store.getState().list;
+  const [buttonText, setButtonText] = useState('Пусто');
+  const [isCartOpen, setCartOpen] = useState(false); // Состояние для модального окна
 
   const callbacks = {
-    onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
-      },
-      [store],
-    ),
-
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+      onDeleteItem: useCallback((code) => {
+          store.deleteItem(code);
+          updateButtonText();
+      }, [store]),
+      
+      onAddToCart: useCallback((code) => {
+          const item = list.find(i => i.code === code);
+          if (item) {
+              store.addToCart(code);
+              updateButtonText();
+          } else {
+              console.error("Товар не найден для добавления в корзину");
+          }
+      }, [list, store]),
   };
 
+  const updateButtonText = () => {
+      const totalCount = store.getTotalCount();
+      const totalPrice = store.getTotalPrice();
+      setButtonText(`${totalCount} ${plural(totalCount, { one: 'товар', few: 'товара', many: 'товаров' })} / ${totalPrice} ₽`);
+  };
+
+  const handleCartToggle = useCallback(() => {
+      setCartOpen(prev => !prev);
+  }, []);
+
+  const handleRemoveFromCart = useCallback((code) => {
+    store.onRemoveCart(code);
+    updateButtonText();
+  }, [store]);
+
+  const cartItems = store.getState().cart; // Получаем товары из корзины
+
   return (
-    <PageLayout>
-      <Head title="Магазин" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
-      />
-    </PageLayout>
+      <PageLayout>
+          <Head title="Магазин" />
+          <Controls onAdd={handleCartToggle} 
+                    buttonText={buttonText} 
+                    totalCount={store.getTotalCount()} 
+                    totalPrice={store.getTotalPrice()} />
+          <List
+              list={list}
+              onDeleteItem={callbacks.onDeleteItem}
+              onAddToCart={callbacks.onAddToCart}
+          />
+          {isCartOpen && (
+              <CartModal items={cartItems} 
+              onClose={handleCartToggle} 
+              onRemoveCart={handleRemoveFromCart}/>
+          )}
+      </PageLayout>
   );
 }
 
