@@ -5,7 +5,7 @@ import { generateCode } from './utils';
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = { ...initState, cart: [] };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -41,46 +41,42 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
+   * @param {*} code 
    */
-  addItem() {
+  addToCart(code) {
+    const item = this.state.list.find(item => item.code === code);
+    if (!item) return;
+
+    const cart = [...this.state.cart];
+    const existingCartItem = cart.find(cartItem => cartItem.code === code);
+
+    // Если в корзине
+    if (existingCartItem) { 
+      existingCartItem.quantity += 1;
+    } else {
+      cart.push({
+        code: item.code,
+        title: item.title,
+        price: item.price,
+        quantity: 1
+      });
+    }
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      cart
     });
   }
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Удаление товара из корзины
+   * @param {*} code 
    */
-  deleteItem(code) {
+  removeFromCart(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      cart: this.state.cart.filter(item => item.code !== code)
     });
   }
 }
