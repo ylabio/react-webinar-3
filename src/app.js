@@ -1,39 +1,56 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
-import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
-import CartWidget from './components/cartWidget';
+import CartWidget from './components/cart-widget';
 import Main from './components/main/main';
+import Modal from './components/modal';
+import Cart from './components/cart';
 
-/**
- * Приложение
- * @param store {Store} Хранилище состояния приложения
- * @returns {React.ReactElement}
- */
 function App({ store }) {
   const list = store.getState().list;
+  const [isCartOpen, setCartOpen] = useState(false);
+
+  const cartItems = list.filter(item => item.inCart);
+  const totalQuantity = cartItems.length;
+  const totalAmount = cartItems.reduce((sum, item) => sum + item.price * item.count, 0);
 
   const callbacks = {
-    onDeleteItem: useCallback(
+    onAddToCart: useCallback(
       code => {
-        store.deleteItem(code);
+        store.addToCart(code);
       },
       [store],
     ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onRemoveFromCart: useCallback(
+      code => {
+        store.removeFromCart(code);
+      },
+      [store],
+    ),
   };
-
   return (
     <PageLayout>
       <Head title="Магазин" />
       <Main>
-        <CartWidget amount={0} quantity={2} onClick={() => alert('Корзина')} />
-        <List list={list} onClick={callbacks.onAddItem} buttonText="Добавить" quantity={12} />
+        <CartWidget
+          quantity={totalQuantity}
+          amount={totalAmount}
+          onClick={() => setCartOpen(true)}
+        />
+        <List list={list} onClick={callbacks.onAddToCart} buttonText="Добавить" />
       </Main>
+      {isCartOpen && (
+        <Modal onClose={() => setCartOpen(false)}>
+          <Cart
+            goodsList={cartItems}
+            onClick={callbacks.onRemoveFromCart}
+            quantity={totalQuantity}
+            amount={totalAmount}
+          />
+        </Modal>
+      )}
     </PageLayout>
   );
 }
