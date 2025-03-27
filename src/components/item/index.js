@@ -5,7 +5,6 @@ import './style.css';
 function Item(props = {}) {
   return (
     <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}>
-      {!props.isCartMode && <div className="Item-code">{props.item.code}</div>}
       <div className="Item-title">
         <b>{props.item.title}</b>
       </div>
