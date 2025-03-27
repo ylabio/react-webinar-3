@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { plural } from '../../utils';
 import './style.css';
+import Button from '../button';
 
 function Item(props) {
   const callbacks = {
     onDelete: e => {
-      e.stopPropagation();
+      // e.stopPropagation();
       props.onDelete(props.item.code);
     },
   };
@@ -18,7 +19,7 @@ function Item(props) {
         <b>{props.item.title}</b>
       </div>
       <div className="Item-actions">
-        <button onClick={callbacks.onDelete}>Удалить</button>
+        <Button type="delete" onClick={callbacks.onDelete} />
       </div>
     </div>
   );
