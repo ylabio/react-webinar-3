@@ -69,11 +69,11 @@ class Store {
     this.setState({ ...this.state, cart: { ...cart } });
   }
 
-  totalItems() {
+  getTotalItems() {
     return Object.values(this.state.cart).reduce((sum, item) => sum + item.quantity, 0);
   }
 
-  totalPrice() {
+  getTotalPrice() {
     return Object.values(this.state.cart).reduce(
       (sum, item) => sum + item.price * item.quantity,
       0,

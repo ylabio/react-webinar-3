@@ -85,7 +85,7 @@
   }
 }
 
-/* По макету border 1px, но он не учытывется в размерах. Поэтому -   box-shadow: inset 0px 0px 0px 1px var(--delete); */
+/* Border не учытывется в размерах, но про hover не сказано, поэтому  box-shadow: inset 0px 0px 0px 1px var(--delete); */
 
 .CartModal-footer {
   display: flex;

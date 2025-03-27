@@ -34,9 +34,8 @@ function App({ store }) {
     }, [CartOpen]),
   };
 
-  const totalItems = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = Object.values(cart).reduce((sum, item) => sum + item.price * item.quantity, 0);
-  //Можно вынести в store.
+  const totalItems = store.getTotalItems();
+  const totalPrice = store.getTotalPrice();
 
   return (
     <PageLayout>
