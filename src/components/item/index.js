@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {getTypeOfNumber, plural } from '../../utils';
+import {getTypeOfNumber } from '../../utils';
 import './style.css';
 
 function Item(props) {

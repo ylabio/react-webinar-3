@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./style.css";
 import { getTypeOfNumber } from "../../utils";
 
-function ModalResult({ fullAmount, amountOfProducts }) {
+function ModalResult({ fullAmount = 0, amountOfProducts = 0 }) {
   return amountOfProducts ? (
     <div className="ModalResult-price">
       <span>Итого:</span>
