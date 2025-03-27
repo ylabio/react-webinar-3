@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 import PropTypes from 'prop-types';
-import ItemCart from '../itemCart';
+import List from '../list';
 import { NumericFormat } from 'react-number-format';
 import { summary } from '../../utils';
 
@@ -16,14 +16,10 @@ function Cart({cart, onDelete}) {
     <div className="Cart-head">
      <h2>Корзина</h2>
     </div>
-
-       <ul className="List">
-            {cart.map(item => (
-              <li key={item.code} className="List-item">
-                <ItemCart item={item} onDelete={onDelete}/>
-              </li>
-            ))}
-          </ul>
+           <List
+                  cart={cart}
+                  onDelete={onDelete}
+                />
 
     <div className="Cart-footer">
       <div className="Cart-summary">
