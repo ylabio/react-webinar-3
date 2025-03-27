@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Button({ variant, children, icon, ...props }) {
+function Button({ variant = 'solid', children, icon, ...props }) {
   const cn = bem('Button');
   return (
     <button className={cn({ variant: variant })} {...props}>
@@ -16,10 +16,6 @@ function Button({ variant, children, icon, ...props }) {
 Button.propTypes = {
   variant: PropTypes.oneOf(['solid', 'outline']),
   icon: PropTypes.node,
-};
-
-Button.defaultProps = {
-  variant: 'solid',
 };
 
 export default Button;
