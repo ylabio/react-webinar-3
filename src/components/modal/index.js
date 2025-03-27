@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import CloseIcon from '../components/close-icon';
-import ModalOverlay from '../components/modal-overlay';
+import CloseIcon from '../close-icon';
+import ModalOverlay from '../modal-overlay';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
