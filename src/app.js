@@ -16,6 +16,7 @@ import ModalResult from './components/modalResult'
  */
 function App({ store }) {
   const list = store.getState().list;
+  const newlist = store.getState().newlist;
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -54,9 +55,9 @@ function App({ store }) {
         <Close onClose={callbacks.onHandleClose} />
         <ModalHead title="Корзина" />
         <ModalList
-          list={list}
+          list={newlist}
           onDeleteItem={callbacks.onDeleteItem}
-          onSelectItem={callbacks.onSelectItem}
+        // onSelectItem={callbacks.onSelectItem}
         />
         <ModalResult title="223 p." />
       </Modal>

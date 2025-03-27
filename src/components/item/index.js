@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 // import { plural } from '../../utils';
+import { generateCode } from '../../utils.js';
 import './style.css';
 
 function Item(props) {
@@ -16,7 +17,7 @@ function Item(props) {
         price: props.item.price,
         countAdd: count,
       };
-      addItem(newItem)
+      props.onAdd(newItem)
     },
     onDelete: e => {
       e.stopPropagation();

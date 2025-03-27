@@ -9,10 +9,10 @@ function ModalItem(props) {
 
   const callbacks = {
     onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
+      // props.onSelect(props.item.code);
+      // if (!props.item.selected) {
+      setCount(count + 1);
+      // }
     },
     onDelete: e => {
       e.stopPropagation();

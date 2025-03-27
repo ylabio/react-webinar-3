@@ -1,5 +1,4 @@
-import { generateCode } from './utils';
-
+//import { generateCode } from './utils';
 /**
  * Хранилище состояния приложения
  */
@@ -50,19 +49,20 @@ class Store {
   addItem(item) {
     this.setState({
       ...this.state,
-      newlist: [...this.state.list, { code: item.code, title: item.title, price: item.price, count }],
+      newlist: [...this.state.newlist, { code: item.code, title: item.title, price: item.price, count }],
     });
+
   }
 
   incrementCount(code) {
-    const index = this.state.list.findIndex(item => item.code === code);
+    const index = this.state.newlist.findIndex(item => item.code === code);
     if (index !== -1) {
       this.setState({
         ...this.state,
         newlist: [
-          ...this.state.list.slice(0, index),
-          { ...this.state.list[index], count: this.state.list[index].count + 1 },
-          ...this.state.list.slice(index + 1),
+          ...this.state.newlist.slice(0, index),
+          { ...this.state.newlist[index], count: this.state.newlist[index].count + 1 },
+          ...this.state.newlist.slice(index + 1),
         ],
       });
     }
