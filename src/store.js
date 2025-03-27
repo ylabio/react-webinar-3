@@ -41,24 +41,41 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
+   * @param code
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
+  addItem(code) {
+    const cartItemIndex = this.state.cart.findIndex(cartItem => cartItem.code === code);
+
+    if (cartItemIndex >= 0) {
+      const updatedCart = [...this.state.cart];
+      updatedCart[cartItemIndex] = {
+        ...updatedCart[cartItemIndex],
+        quantity: updatedCart[cartItemIndex].quantity + 1,
+      };
+
+      this.setState({
+        ...this.state,
+        cart: updatedCart,
+      });
+    } else {
+      const item = this.state.list.find(item => item.code === code);
+
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, { ...item, quantity: 1 }],
+      });
+    }
   }
 
   /**
-   * Удаление записи по коду
+   * Удаление товара из корзины
    * @param code
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      cart: this.state.cart.filter(item => item.code !== code),
     });
   }
 }

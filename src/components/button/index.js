@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Button({ onClick, type = 'primary' }) {
+function Button({ type = 'add', onClick = () => {} }) {
   const buttonClass = type === 'delete' ? 'Delete' : 'Primary';
   const children = type === 'delete' ? 'Удалить' : 'Добавить';
 
@@ -15,12 +15,7 @@ function Button({ onClick, type = 'primary' }) {
 
 Button.propTypes = {
   onClick: PropTypes.func,
-  type: PropTypes.oneOf(['primary', 'delete']).isRequired,
-};
-
-Button.defaultProps = {
-  onClick: () => {},
-  type: 'primary',
+  type: PropTypes.oneOf(['add', 'delete']).isRequired,
 };
 
 export default React.memo(Button);

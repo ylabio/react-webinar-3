@@ -1,25 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
 import './style.css';
 import Button from '../button';
 
-function Item(props) {
+function Item({ item, onDelete = () => {}, onAdd = () => {}, isCartItem = false }) {
   const callbacks = {
-    onDelete: e => {
-      // e.stopPropagation();
-      props.onDelete(props.item.code);
+    onDelete: () => {
+      onDelete(item.code);
+    },
+    onAdd: () => {
+      onAdd(item.code);
     },
   };
 
   return (
     <div className="Item">
-      <div className="Item-code">{props.item.code}</div>
       <div className="Item-title">
-        <b>{props.item.title}</b>
+        <b>{item.title}</b>
       </div>
+      <div className="Item-price">{item.price} ₽</div>
       <div className="Item-actions">
-        <Button type="delete" onClick={callbacks.onDelete} />
+        <Button
+          type={isCartItem ? 'delete' : 'add'}
+          onClick={isCartItem ? callbacks.onDelete : callbacks.onAdd}
+        />
       </div>
     </div>
   );
@@ -29,16 +33,10 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
-    count: PropTypes.number,
   }).isRequired,
   onDelete: PropTypes.func,
-  onSelect: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
+  onAdd: PropTypes.func,
+  isCartItem: PropTypes.bool,
 };
 
 export default React.memo(Item);
