@@ -11,6 +11,7 @@
   margin: 0 auto;
 }
 
-.Head h1 {
+.Head-title {
   margin: 0;
+  margin-left: 16px;
 }

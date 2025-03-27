@@ -1,43 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
 import './style.css';
+import ActionButton from '../actionButton/actionButton';
+import { formatPrice } from '../../utils';
 
 function Item(props) {
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
-  const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
-    onDelete: e => {
-      e.stopPropagation();
-      props.onDelete(props.item.code);
-    },
-  };
+  const formattedPrice = formatPrice(props.item.price);
 
   return (
-    <div
-      className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-      onClick={callbacks.onClick}
-    >
-      <div className="Item-code">{props.item.code}</div>
+    <div className="Item">
       <div className="Item-title">
         <b>{props.item.title}</b>
-        {count
-          ? ` | Выделяли ${count} ${plural(count, {
-              one: 'раз',
-              few: 'раза',
-              many: 'раз',
-            })}`
-          : ''}
       </div>
+      {props.isInCart && <div className="Item-quantity">{props.item.quantity} шт</div>}
+      <div className="Item-price">{formattedPrice} ₽</div>
       <div className="Item-actions">
-        <button onClick={callbacks.onDelete}>Удалить</button>
+        <ActionButton
+          onClick={() => props.onChangeItem(props.item.code)}
+          text={props.isInCart ? 'Удалить' : 'Добавить'}
+          color={props.isInCart ? 'del' : 'add'}
+        />
       </div>
     </div>
   );
@@ -47,16 +29,11 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
-    count: PropTypes.number,
+    price: PropTypes.number,
+    quantity: PropTypes.number,
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
+  onChangeItem: PropTypes.func.isRequired,
+  isInCart: PropTypes.bool.isRequired,
 };
 
 export default React.memo(Item);
