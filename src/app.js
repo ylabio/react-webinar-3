@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import CartModal from './components/cart-modal';
 
 /**
  * Приложение
@@ -10,37 +11,50 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const state = store.getState();
+  const list = state.list;
+  const cart = state.cart || [];
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  // Общая сумма корзины
+  const totalSum = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  // Количество
+  const itemsCount = cart.length;
 
   const callbacks = {
-    onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
-      },
-      [store],
-    ),
-
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
+    onAddToCart: useCallback((code) => {
+      store.addToCart(code);
     }, [store]),
+
+    onRemoveFromCart: useCallback((code) => {
+      store.removeFromCart(code)
+    }, [store]),
+
+    onToggleCart: useCallback(() => {
+      setIsCartOpen(!isCartOpen);
+    }, [isCartOpen])
   };
 
   return (
     <PageLayout>
       <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Controls
+        itemsCount={itemsCount}
+        totalSum={totalSum}
+        onToggleCart={callbacks.onToggleCart}
+      />
       <List
         list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        onAddToCart={callbacks.onAddToCart}
       />
+      {isCartOpen && (
+        <CartModal
+          cart={cart}
+          onClose={callbacks.onToggleCart}
+          onRemoveFromCart={callbacks.onRemoveFromCart}
+          totalSum={totalSum}
+        />
+      )}
     </PageLayout>
   );
 }
