@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { plural } from '../../utils';
 
-function Controls({ onAdd }) {
+function Controls({ count, sum, onAdd }) {
   return (
     <div className="Controls">
-      <button onClick={() => onAdd()}>3 товара / 223 ₽</button>
+      <button>
+        {count} {plural(count, ['товар', 'товара', 'товаров'])} / {sum.toLocaleString('ru-RU')} ₽
+      </button>
     </div>
   );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func,
-};
-
-Controls.defaultProps = {
-  onAdd: () => {},
+  count: PropTypes.number.isRequired,
+  sum: PropTypes.number.isRequired,
 };
 
 export default React.memo(Controls);
