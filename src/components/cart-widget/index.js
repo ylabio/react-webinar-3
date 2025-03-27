@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { plural } from '../../utils/plural';
 import './style.css';
-import CartIcon from '../cartIcon';
+import CartIcon from '../cart-icon';
 
 const CartWidget = ({ quantity, amount, onClick }) => {
   const cn = bem('CartWidget');
