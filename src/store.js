@@ -41,10 +41,12 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
+  addItem(e) {
+    e.stopPropagation();
+    const maxCode = this.state.list.reduce((max, item) => Math.max(max, item.code), 0);
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: maxCode + 1, title: 'Новая запись', click: 0 }],
     });
   }
 
@@ -52,24 +54,50 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(code, e) {
+    e.stopPropagation();
     this.setState({
       ...this.state,
       list: this.state.list.filter(item => item.code !== code),
     });
   }
 
+  pluralization(count) {
+    const digit = count % 10;
+    const number = count % 100;
+
+    if (number >= 12 && number <= 14) {
+      return `${count} раз`;
+    }
+
+    if (digit >= 2 && digit <= 4) {
+      return `${count} раза`;
+    }
+
+    return `${count} раз`;
+  }
+
   /**
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, e) {
+    const isCtrlPressed = e.ctrlKey || e.metaKey;
+
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
+      list: this.state.list.map(item => {      
         if (item.code === code) {
-          item.selected = !item.selected;
+          if (!item.selected) {
+            item.selected = true;
+            item.click++;
+          } else {
+            item.selected = false;
+          }
+        } else if (!isCtrlPressed) {
+          item.selected = false;
         }
+
         return item;
       }),
     });
