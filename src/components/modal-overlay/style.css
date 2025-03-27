@@ -1,14 +1,9 @@
 .ModalOverlay {
-  position: relative;
-  display: flex;
-  box-sizing: border-box;
   position: fixed;
-  justify-content: center;
+  background-color: var(--overlay);
   width: 100vw;
   height: 100vh;
   top: 0;
   left: 0;
-  background-color: var(--overlay);
-  overflow: hidden;
   z-index: 3;
 }
