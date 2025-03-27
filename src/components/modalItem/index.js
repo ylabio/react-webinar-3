@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { plural } from '../../utils';
 import './style.css';
 
-function Item(props) {
+function ModalItem(props) {
   // Счётчик выделений
   const [count, setCount] = useState(0);
 
@@ -22,11 +22,11 @@ function Item(props) {
 
   return (
     <div
-      className={'Item' + (props.item.selected ? ' Item_selected' : '')}
+      className={'Modal__Item' + (props.item.selected ? ' Modal__Item_selected' : '')}
       onClick={callbacks.onClick}
     >
-      <div className="Item-code">{props.item.code}</div>
-      <div className="Item-title">
+      <div className="Modal__Item-code">{props.item.code}</div>
+      <div className="Modal__Item-title">
         <b>{props.item.title}</b>
         {count
           ? ` | Выделяли ${count} ${plural(count, {
@@ -36,15 +36,15 @@ function Item(props) {
           })}`
           : ''}
       </div>
-      <div className="Item-actions">
-        <button onClick={callbacks.onDelete}>Добавить</button>
+      <div className="Modal__Item-actions">
+        <button onClick={callbacks.onDelete}>Удалить</button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
-  item: PropTypes.shape({
+ModalItem.propTypes = {
+  ModalItem: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     selected: PropTypes.bool,
@@ -54,9 +54,9 @@ Item.propTypes = {
   onSelect: PropTypes.func,
 };
 
-Item.defaultProps = {
+ModalItem.defaultProps = {
   onDelete: () => { },
   onSelect: () => { },
 };
 
-export default React.memo(Item);
+export default React.memo(ModalItem);

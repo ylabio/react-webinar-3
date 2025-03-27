@@ -5,15 +5,19 @@ import { generateCode } from './utils';
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.state = initState,
+      this.isVisible = false,
+      this.listeners = []; // Слушатели изменений состояния
   }
 
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
    * @returns {Function} Функция отписки
+   * 
+   * 
    */
+
   subscribe(listener) {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
@@ -83,6 +87,26 @@ class Store {
       }),
     });
   }
+
+  handleClose() {
+    this.state.isVisible = false;
+    this.notify();
+  }
+
+  handleOpen() {
+    this.state.isVisible = true;
+    this.notify();
+  }
+
+  /**
+   * Функция notify
+   * @function
+   */
+  notify() {
+    this.listeners.forEach(listener => listener(this.state));
+  }
+
+
 }
 
 export default Store;

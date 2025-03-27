@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Item from '../item';
+import ModalItem from '../modalItem';
 import './style.css';
 
-function List({ list, onAddItem, onSelectItem }) {
+function List({ list, onDeleteItem, onSelectItem }) {
   return (
-    <ul className="List">
+    <ul className="Modal__List">
       {list.map(item => (
-        <li key={item.code} className="List-item">
-          <Item item={item} onAdd={onAddItem} onSelect={onSelectItem} />
+        <li key={item.code} className="Modal__List-item">
+          <ModalItem item={item} onDelete={onDeleteItem} onSelect={onSelectItem} />
         </li>
       ))}
     </ul>
