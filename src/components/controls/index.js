@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 function Controls({ cart, onOpenCart }) {
-  const totalItems = Object.values(cart).reduce((sum, item) => sum + item.count, 0);
+  const totalItems = Object.keys(cart).length;
+
   const totalPrice = Object.values(cart).reduce((sum, item) => sum + item.price * item.count, 0);
 
   const label = totalItems

@@ -15,7 +15,6 @@
   position: relative;
   background: #fff;
   border-radius: 8px;
-  padding: 24px;
   width: 100%;
   max-width: 1080px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -24,10 +23,10 @@
 .CartModal-header {
   display: flex;
   justify-content: space-between;
+  padding: 24px 24px 0 24px;
   align-items: center;
   font-size: 32px;
   font-weight: 700;
-  margin-bottom: 16px;
 }
 
 .CartModal-close {
@@ -41,8 +40,11 @@
 }
 
 .CartModal-close img {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
+}
+.CartModal-content {
+  padding: 24px;
 }
 .CartModal-list {
   list-style: none;
