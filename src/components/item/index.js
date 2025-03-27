@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
 import './style.css';
 
 function Item({
   item,
-  onAddToCart = () => {}
+  onAddToCart = () => {},
+  onRemove = null,
+  showQuantity = false,
+  mode = 'catalog',
 }) {
   // Счётчик выделений
   const [count, setCount] = useState(0);
@@ -18,14 +20,31 @@ function Item({
   };
 
   return (
-    <div className='Item'>
-      <div className="Item-title">
-        <b>{item.title}</b>
-        <b className="Item-price">{Number(item.price).toLocaleString('ru-RU')} &#8381;</b>
+    <div className={`Item Item--${mode}`}>
+      <div className="Item__info">
+        <div className="Item-title">
+        <span>{item.title}</span>
+        {showQuantity && (
+          <div className="Item__quantity">{item.quantity}</div>
+        )}
+        <span className="Item-price">{Number(item.price).toLocaleString('ru-RU')} &#8381;</span>
+        </div>
       </div>
-      <div className="Item-actions">
-        <button onClick={callbacks.onAddProduct}>Добавить</button>
-      </div>
+      {mode === 'catalog' ? (
+        <button
+          className="Item__action"
+          onClick={() => onAddToCart?.(item)}
+        >
+          Добавить
+        </button>
+      ) : (
+        <button
+          className="Item__action Item__action--remove"
+          onClick={() => onRemove?.(item.code)}
+        >
+          Удалить
+        </button>
+      )}
     </div>
   );
 }

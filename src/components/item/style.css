@@ -38,3 +38,6 @@
   }
 }
 
+.Item__info {
+  flex-grow: 1;
+}

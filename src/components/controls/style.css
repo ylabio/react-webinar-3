@@ -4,7 +4,7 @@
   padding: 24px 0;
 }
 
-.Controls button {
+.Controls__button {
   position: relative;
   border: 1px solid var(--primary);
   padding: 8px 19px 8px 43px;

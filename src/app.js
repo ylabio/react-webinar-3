@@ -14,6 +14,10 @@ function App({ store }) {
   const { count, sum } = store.getCartTotals();
 
   const callbacks = {
+    onRemoveItem: useCallback(
+      (code) => store.removeFromCart(code),
+      [store]
+    ),
     onAddToCart: useCallback(
       (item) => {
         store.addToCart(item)
@@ -28,6 +32,8 @@ function App({ store }) {
       <Controls
         count={count}
         sum={sum}
+        cart={cart}
+        onRemoveItem={callbacks.onRemoveItem}
       />
       <List
         list={list}

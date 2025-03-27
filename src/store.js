@@ -88,6 +88,17 @@ class Store {
       sum: this.state.cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0)
     };
   }
+
+  /**
+   * Функция удаления товара из корзины
+   * @param {number|string} code id-код товара
+   */
+  removeFromCart(code) {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.filter(item => item.code !== code)
+      });
+    }
 }
 
 export default Store;
