@@ -1,31 +1,33 @@
-import React from 'react';
-import { cn as bem } from '@bem-react/classname';
-import PropTypes from 'prop-types';
+import React from "react";
+import {cn as bem} from "@bem-react/classname";
+import PropTypes from "prop-types";
 
-import Button from '../button';
-import Actions from '../actions';
+import Button from "../button";
+import Actions from "../actions";
 
-import { formatPrice } from '../../utils';
+import {formatPrice} from "../../utils";
 
-import './style.css';
+import "./style.css";
 
 function Item(props) {
-  const cn = bem('Item');
+  const cn = bem("Item");
 
   return (
     <div className={cn()}>
-      <div className={cn('title')}>
+      <div className={cn("title")}>
         <b>{props.item.title}</b>
+
       </div>
-      <div className={cn('price')}>{formatPrice(props.item.price, 'ru', '₽')}</div>
-      <Actions className={cn('actions')}>
+      {props.isCartItem && <div className={cn("count")}>{props.item.count} шт</div>}
+      <div className={props.isCartItem ? cn("price--cart") : cn("price")}>{formatPrice(props.item.price, "ru")}</div>
+      <Actions className={cn("actions")}>
         <Button
           onClickButton={props.onClickItem}
           itemCode={props.item.code}
           isListButton={true}
-          className={props.isCartItem ? cn('btn--cart') : cn('btn--list')}
+          className={props.isCartItem ? cn("btn--cart") : cn("btn--list")}
         >
-          {props.isCartItem ? 'Удалить' : 'Добавить'}
+          {props.isCartItem ? "Удалить" : "Добавить"}
         </Button>
       </Actions>
     </div>
@@ -33,11 +35,7 @@ function Item(props) {
 }
 
 Item.propTypes = {
-  item: PropTypes.shape({
-    code: PropTypes.number,
-    price: PropTypes.number,
-    title: PropTypes.string,
-  }).isRequired,
+  item: PropTypes.object,
   isCartItem: PropTypes.bool,
   onClickItem: PropTypes.func,
 };

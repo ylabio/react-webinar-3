@@ -1,9 +1,17 @@
 .Head {
   color: var(--primary);
   border-bottom: 1px solid var(--divider);
-  padding: 16px 16px;
+  padding: 16px;
   margin-bottom: 24px;
+
+  &.cart {
+    color: var(--main-text);
+    border-bottom: none;
+    padding: 0;
+    margin-bottom: 26px;
+  }
 }
+
 
 .Head-container {
   display: flex;

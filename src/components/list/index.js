@@ -1,11 +1,14 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
+
 import Item from '../item';
+
 import './style.css';
 
-function List({ list, onClickItem = (val) => {},  isCartList }) {
+function List({ list,  isCartList, onClickItem = () => {} }) {
   return (
-    <ul className="List">
+    <ul className={`List${isCartList ? ' cart' : ''}`}>
       {list.map(item => (
         <li key={item.code} className="List-item">
           <Item item={item} onClickItem={onClickItem} isCartItem={isCartList} />

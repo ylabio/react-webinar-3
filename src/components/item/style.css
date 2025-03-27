@@ -16,3 +16,13 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.Item-count {
+  min-width: 50px;
+  text-align: left;
+}
+
+.Item-price--cart {
+ min-width: 170px;
+  text-align: right;
+}

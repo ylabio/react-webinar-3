@@ -1,0 +1,23 @@
+.Modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: var(--overlay);
+  overflow: hidden;
+  z-index: 10;
+}
+
+.Modal-content {
+  width: 1080px;
+  min-height: 310px;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 72px;
+  overflow: hidden;
+}

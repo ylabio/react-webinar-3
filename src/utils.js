@@ -32,6 +32,6 @@ export const generateCode = (function (start = 0) {
  * @param mark {String} обозначение валюты цены
  * @returns {String}
  */
-export const formatPrice = (price, locales, mark) => {
+export const formatPrice = (price, locales, mark = '₽') => {
   return new Intl.NumberFormat(locales, {style: "decimal"}).format(price) + ` ${mark}`;
 }

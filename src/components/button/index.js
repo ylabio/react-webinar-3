@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 
 import './style.css';
@@ -13,6 +14,7 @@ function Button({ children, ...props }) {
       }
     },
   };
+
   return (
     <button onClick={callbacks.onClick} className={props.className ? props.className : null}>
       {children}

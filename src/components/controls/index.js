@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 
@@ -22,7 +23,7 @@ function Controls(props) {
         <span className={cn("full--text")}>
           {totalProductCount}{' '}
           {plural(totalProductCount, {one: 'товар', few: 'товара', many: 'товаров'})} /{' '}
-          {formatPrice(props.totalPrice, 'ru', '₽')}
+          {formatPrice(props.totalPrice, 'ru', )}
         </span>
       );
     }

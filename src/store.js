@@ -6,9 +6,24 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.cart = {
-      list: [],
-      totalPrice: 0,
+      list: [
+       {
+          code: 1,
+          count: 2,
+          title: "Название товара",
+          price: 100.0,
+          totalPrice: 200,
+        }, {
+          code: 3,
+          count: 1,
+          price: 23,
+          title: "Конфета",
+          totalPrice: 23,
+        }
+      ],
+      totalPrice: 223,
     };
+    this.isViewModal = false;
   }
 
   /**
@@ -59,9 +74,12 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
+  setViewModal(isModalOpen) {
+    this.isViewModal = isModalOpen;
+  }
 
-   * Добавление товара в корзигу
+  /**
+   * Добавление товара в корзину
    * @param itemCode {Number}
    */
   addItemToCart(itemCode) {
@@ -70,13 +88,13 @@ class Store {
     if (isHasItemInCart) {
       cartList = this.cart.list.map(item => {
         if (item.code === itemCode) {
-          return { ...item, count: item.count + 1, totalPrice: item.price * (item.count + 1) };
+          return {...item, count: item.count + 1, totalPrice: item.price * (item.count + 1)};
         }
-        return { ...item };
+        return {...item};
       });
     } else {
-      const defaultItem = { ...this.state.list.filter(item => item.code === itemCode)[0] };
-      cartList = [...this.cart.list, { ...defaultItem, count: 1, totalPrice: defaultItem.price }];
+      const defaultItem = {...this.state.list.filter(item => item.code === itemCode)[0]};
+      cartList = [...this.cart.list, {...defaultItem, count: 1, totalPrice: defaultItem.price}];
     }
 
     this.setCartState({
@@ -96,6 +114,10 @@ class Store {
       list: [...this.cart.list.filter(item => item.code !== itemCode)],
     });
     this.setTotalCartPrice(this.cart.list.reduce((acc, cur) => acc + cur.totalPrice, 0));
+  }
+
+  changeViewModal() {
+    this.setViewModal(!this.isViewModal);
   }
 }
 
