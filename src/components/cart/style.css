@@ -1,0 +1,20 @@
+.Cart {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 144px;
+}
+
+/* По макету border 1px, но он не учытывется в размерах. Поэтому -   box-shadow: inset 0px 0px 0px 1px var(--primary);
+
+ */
+
+.Cart-container button {
+  /* border: 1px solid var(--primary); */
+  border: none;
+  box-shadow: inset 0px 0px 0px 1px var(--primary);
+  background-color: var(--background);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}

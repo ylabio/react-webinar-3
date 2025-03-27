@@ -16,6 +16,12 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   return variants[key] || '';
 }
 
+export const productsPlural = {
+  one: 'товар',
+  few: 'товара',
+  many: 'товаров',
+};
+
 /**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.
@@ -49,4 +55,8 @@ export const generateCode1 = (function (start = 0) {
  */
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
+}
+
+export function numberFormat(number) {
+  return new Intl.NumberFormat('ru-RU').format(number);
 }

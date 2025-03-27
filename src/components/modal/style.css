@@ -1,0 +1,106 @@
+/* Общий фон при открытом модальном окне */
+.CartModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--overlay);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* В макете указаны -  top: 265px left: 180px. Я бы лучше через display: flex; сделал. Оставил 2 варианта. */
+
+.CartModal-content {
+  position: relative;
+  /* top: 265px;
+  left: 180px; */
+  width: 1080px;
+  padding: 24px;
+  background-color: var(--background);
+  border-radius: 8px;
+}
+
+.CartModal-header {
+  padding-bottom: 24px;
+}
+
+.CartModal-header h2 {
+  font-size: 32px;
+  margin: 0;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.CartModal-list {
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.CartModal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: right;
+  padding: 16px 16px;
+  /* border-bottom: 1px solid var(--divider); */
+  box-shadow: inset 0px -1px 1px 0px var(--divider);
+}
+
+/* По макету border 1px, но он не учытывется в размерах. Поэтому -  box-shadow: inset 0px -1px 1px 0px var(--divider); */
+
+.CartModal-item:nth-child(odd) {
+  background-color: var(--odd-item);
+}
+
+.CartModal-item div {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 24px;
+}
+
+.CartModal-item button {
+  background-color: var(--delete);
+  color: var(--second-text);
+  border: none;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
+    box-shadow: inset 0px 0px 0px 1px var(--delete);
+  }
+}
+
+/* По макету border 1px, но он не учытывется в размерах. Поэтому -   box-shadow: inset 0px 0px 0px 1px var(--delete); */
+
+.CartModal-footer {
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
+  font-weight: bold;
+  padding: 16px 145px 16px 16px;
+  gap: 24px;
+}
+
+.CartModal-content span {
+  width: 105px;
+  display: inline-block;
+}
+
+.CartModal-span-left {
+  text-align: left;
+}
