@@ -24,6 +24,7 @@
   background-color: var(--delete);
   color: var(--second-text);
   padding: 8px 16px;
+  transition: 0s;
 
   &:hover {
     background-color: var(--background);
@@ -33,3 +34,8 @@
   }
 }
 
+.Modal__Item-prise{
+  display: flex;
+  justify-content: space-between;
+  width: 234px;
+}

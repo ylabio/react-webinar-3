@@ -28,13 +28,12 @@ function ModalItem(props) {
       <div className="Modal__Item-code">{props.item.code}</div>
       <div className="Modal__Item-title">
         <b>{props.item.title}</b>
-        {count
-          ? ` | Выделяли ${count} ${plural(count, {
-            one: 'раз',
-            few: 'раза',
-            many: 'раз',
-          })}`
-          : ''}
+      </div>
+      <div className="Modal__Item-prise">
+        <div>{count
+          ? `${count} шт`
+          : ''}</div>
+        <div>{props.item.price} &#8381;</div>
       </div>
       <div className="Modal__Item-actions">
         <button onClick={callbacks.onDelete}>Удалить</button>
@@ -42,6 +41,8 @@ function ModalItem(props) {
     </div>
   );
 }
+
+
 
 ModalItem.propTypes = {
   ModalItem: PropTypes.shape({

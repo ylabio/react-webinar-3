@@ -47,13 +47,26 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
+  addItem(item) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      newlist: [...this.state.list, { code: item.code, title: item.title, price: item.price, count }],
     });
   }
 
+  incrementCount(code) {
+    const index = this.state.list.findIndex(item => item.code === code);
+    if (index !== -1) {
+      this.setState({
+        ...this.state,
+        newlist: [
+          ...this.state.list.slice(0, index),
+          { ...this.state.list[index], count: this.state.list[index].count + 1 },
+          ...this.state.list.slice(index + 1),
+        ],
+      });
+    }
+  }
   /**
    * Удаление записи по коду
    * @param code

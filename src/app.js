@@ -32,9 +32,12 @@ function App({ store }) {
       [store],
     ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onAddItem: useCallback(
+      code => {
+        store.addItem(code);
+
+      }, [store]
+    ),
 
     onHandleClose: useCallback(() => {
       store.handleClose();
@@ -61,11 +64,12 @@ function App({ store }) {
       <Controls onOpen={callbacks.onHandleOpen} text="Пусто" />
       <List
         list={list}
-        onAddItem={callbacks.onAddItem}
+        onAdd={callbacks.onAddItem}
         onSelectItem={callbacks.onSelectItem}
       />
     </PageLayout>
   );
 }
+
 
 export default App;

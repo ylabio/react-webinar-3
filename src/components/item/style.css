@@ -21,7 +21,6 @@
 }
 
 .Item-actions button {
-
     border: 1px solid var(--primary);
     padding: 8px 16px;
     background-color: var(--primary);
@@ -32,5 +31,11 @@
     color: var(--primary);
   
   }
+}
+
+.Item-prise{
+  display: flex;
+  justify-content:flex-end;
+  width: 105px;
 }
 

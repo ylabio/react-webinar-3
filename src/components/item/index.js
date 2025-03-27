@@ -1,43 +1,40 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
+// import { plural } from '../../utils';
 import './style.css';
 
 function Item(props) {
-  // Счётчик выделений
+  // Счётчик выделений сделаем счетчиком товара
   const [count, setCount] = useState(0);
 
   const callbacks = {
     onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
+      setCount(count + 1);
+      const newItem = {
+        code: generateCode(),
+        title: props.item.title,
+        price: props.item.price,
+        countAdd: count,
+      };
+      addItem(newItem)
     },
     onDelete: e => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
+      props.onAdd();
     },
   };
 
   return (
-    <div
-      className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-      onClick={callbacks.onClick}
-    >
-      <div className="Item-code">{props.item.code}</div>
+    <div className='Item'>
+      {/* <div className="Item-code">{props.item.code}</div> */}
       <div className="Item-title">
         <b>{props.item.title}</b>
-        {count
-          ? ` | Выделяли ${count} ${plural(count, {
-            one: 'раз',
-            few: 'раза',
-            many: 'раз',
-          })}`
-          : ''}
       </div>
+
+      <div className="Item-prise">{props.item.price} &#8381;</div>
+
       <div className="Item-actions">
-        <button onClick={callbacks.onDelete}>Добавить</button>
+        <button onClick={callbacks.onClick}>Добавить</button>
       </div>
     </div>
   );
@@ -55,7 +52,7 @@ Item.propTypes = {
 };
 
 Item.defaultProps = {
-  onDelete: () => { },
+  onAdd: () => { },
   onSelect: () => { },
 };
 
