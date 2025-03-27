@@ -7,6 +7,11 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.date = {
+       fullAmount: 0, 
+       amountOfProducts: 0
+      };
+  
   }
 
   /**
@@ -50,6 +55,47 @@ class Store {
     });
   }
 
+//перерасчет
+  getNewDate() {
+    this.date.fullAmount = this.state.cart.reduce(function (acc, obj) {
+      return acc + obj.price * obj.count;
+    }, 0);
+    this.date.amountOfProducts = this.state.cart.length;
+  }
+
+/**
+   * Добавление товаров в карзину
+   * @param code
+   */
+addToCart(obj) {
+  const findOfObject = this.state.cart.find((item) => item.code === obj.code);
+  if (!findOfObject || this.state.cart.length === 0) {
+    this.setState({
+      ...this.state,
+      cart: [
+        ...this.state.cart,
+        { code: obj.code, count: 1, price: obj.price, title: obj.title },
+      ],
+    });
+  } else {
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.map((item) => {
+        if (item.code === obj.code) {
+          return {
+            ...item,
+            count: item.count + 1,
+          };
+        }
+        return item;
+      }),
+    });
+  }
+  //перерасчет
+  this.getNewDate();
+}
+
+
   /**
    * Удаление записи по коду
    * @param code
@@ -83,6 +129,20 @@ class Store {
       }),
     });
   }
-}
 
+
+  /**
+   * Удаление товара из корзины
+   * @param code
+   */
+  deleteItemCart(code) {
+    this.setState({
+      ...this.state,
+      // Новый список, в котором не будет удаляемой записи
+      cart: this.state.cart.filter((item) => item.code !== code),
+    });
+    //перерасчет
+    this.getNewDate();
+  }
+}
 export default Store;

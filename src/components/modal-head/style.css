@@ -1,0 +1,19 @@
+.ModalHead{
+  position: relative;
+  align-items: center;
+  border-radius: 8px;
+  display: flex;
+  justify-content:space-between;
+  padding: 24px 8px 23px 22px;
+}
+
+.ModalHead h1 {
+  margin: 0;
+}
+
+.ModalHead button {
+  position: absolute;
+  top: 7px;
+  right: 0;
+  cursor: pointer;
+}

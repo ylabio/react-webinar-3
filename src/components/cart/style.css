@@ -1,0 +1,29 @@
+.Card {
+  display: flex;
+  justify-content: flex-end;
+  padding: 23px 9px;
+  width: 100%;
+}
+
+
+
+.Card-content{
+height:41px;
+border: 1px solid var(--primary);
+border-radius: 4px;
+align-items: center;
+text-align: center;
+margin-right:4px;
+display:flex;
+
+}
+.Card-content>button{
+  display: flex;
+}
+.Card-content span{
+line-height: 20px;
+padding-left:10px;
+white-space: .6;
+font-size: 14px;
+font-weight: 700;
+}
