@@ -1,0 +1,31 @@
+  .Modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .Modal-header h1{
+    font-size: 32px;
+    font-weight: 700px;
+    line-height: 40px;
+  }
+  
+  .Modal-header button {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .Modal-content {
+    width: 100%;
+  }
+
+  .Modal-empty{
+    text-align: center;
+    font-size: 24px;
+  }

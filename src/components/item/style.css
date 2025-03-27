@@ -7,9 +7,9 @@
   padding: 16px;
 }
 
-.Item_selected {
+/* .Item_selected {
   background-color: var(--primary-select);
-}
+} */
 
 .Item-title {
   flex: auto;

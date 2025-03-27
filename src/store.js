@@ -61,6 +61,36 @@ class Store {
       list: this.state.list.filter(item => item.code !== code),
     });
   }
+  // Добавление товара в корзину
+  addItemtoCart(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map((item)=> { if (item.code === code) {
+        return {
+          ...item,
+          quantity: (item.quantity || 0) + 1
+        };
+      } 
+        return item
+      
+    })
+  });
+  }
+  //Удаление товара из корзины
+  deleteItemfromCart(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map((item)=> { if (item.code === code) {
+        return {
+          ...item,
+          quantity: 0
+        };
+      } 
+        return item
+      
+    })
+  });
+  }
 
   /**
    * Выделение записи по коду

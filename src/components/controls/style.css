@@ -1,10 +1,51 @@
-.Controls {
+.Controls-cart {
   display: flex;
   justify-content: flex-end;
   padding: 24px 16px 24px 0;
 }
 
-.Controls button {
+.Controls-cart button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--primary);
+  padding: 8px 16px;
+  background-color: var(--background);
+  color: var(--main-text);
+  text-align: center;
+
+  &:hover {
+    background-color: var(--background);
+    color: var(--main-text);
+  }
+}
+
+.Item-controls {
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px 16px 5px 0;
+}
+
+.Item-controls button {
+  border: 1px solid var(--primary);
+  padding: 8px 16px;
+  background-color: var(--primary);
+  color: var(--second-text);
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}
+
+/* .Controls-cart {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 16px 24px 0;
+}
+
+.Controls-cart button {
   border: 1px solid var(--primary);
   padding: 8px 16px;
   background-color: var(--primary);
@@ -14,4 +55,4 @@
     background-color: var(--background);
     color: var(--primary);
   }
-}
+} */
