@@ -5,7 +5,8 @@ import './style.css';
 function Controls({ onAdd }) {
   return (
     <div className="Controls">
-      <button onClick={() => onAdd()}>Добавить</button>
+      <button onClick={() => onAdd()}>
+        <img src='/images/cart.png'></img>Пусто</button>
     </div>
   );
 }
