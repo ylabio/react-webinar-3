@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,46 +39,54 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
+  addItem(code) {
+    const item = this.state.list.find(o => o.code === code);
+    const isExists = this.state.cart.some(o => o.code === code);
+
+    if (isExists) {
+      const updateItem = this.state.cart.map(itemCart => {
+        if (itemCart.code === item.code) {
+          return {
+            ...itemCart,
+            price: itemCart.price + item.price,
+            count: itemCart.count + 1,
+          }
+        }
+        return itemCart;
+      })
+      this.setState({
+        ...this.state,
+        cart: updateItem,
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, { ...item, count: 1 }],
+      });
+    }
   }
 
   /**
-   * Удаление записи по коду
+   * Удаление товара из корзины
    * @param code
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      cart: this.state.cart.filter(item => item.code !== code),
     });
   }
 
   /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+* Показ/скрытие корзины
+*/
+  visibleCart() {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      isVisibleCart: !this.state.isVisibleCart,
     });
   }
 }

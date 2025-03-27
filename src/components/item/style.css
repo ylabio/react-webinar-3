@@ -7,12 +7,25 @@
   padding: 16px;
 }
 
-.Item_selected {
-  background-color: var(--primary-select);
+.Item-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 363px;
 }
 
 .Item-title {
-  flex: auto;
+  flex: 40%;
+}
+
+.Item-count {
+  flex: 30%;
+}
+
+.Item-price {
+  flex: 70%;
+  padding-right: 24px;
+  text-align: end;
 }
 
 .Item-actions {
@@ -20,7 +33,19 @@
   justify-content: flex-end;
 }
 
-.Item-actions button {
+.Item-actions__add-btn {
+  background-color: var(--primary);
+  color: var(--second-text);
+  padding: 8px 16px;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}
+
+.Item-actions__delete-btn {
   background-color: var(--delete);
   color: var(--second-text);
   padding: 8px 16px;
@@ -31,4 +56,3 @@
     color: var(--delete);
   }
 }
-
