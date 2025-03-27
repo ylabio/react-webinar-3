@@ -51,7 +51,7 @@ class Store {
       const updatedCart = [...this.state.cart];
       updatedCart[cartItemIndex] = {
         ...updatedCart[cartItemIndex],
-        quantity: updatedCart[cartItemIndex].quantity + 1,
+        quantity: updatedCart[cartItemIndex].quantity + 1 || 1,
       };
 
       this.setState({

@@ -3,7 +3,7 @@ import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
-import CartModal from './components/cartModal';
+import CartModal from './components/cart-modal';
 
 /**
  * Приложение
@@ -12,6 +12,7 @@ import CartModal from './components/cartModal';
  */
 function App({ store }) {
   const [cartModalOpen, setCartModalOpen] = useState(false);
+
   const list = store.getState().list;
   const cart = store.getState().cart;
 
