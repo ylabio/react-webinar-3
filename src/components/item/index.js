@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 // import { plural } from '../../utils';
 import './style.css';
@@ -25,7 +25,6 @@ function Item({ item, onAdd }) {
       {/*<div className="Item-code">{props.item.code}</div>*/}
       <div className="Item-title">
         <b>{item.title}</b>
-        <span>{item.price + ' ' + '₽'} </span>
         {/*{count*/}
         {/*  ? ` | Выделяли ${count} ${plural(count, {*/}
         {/*      one: 'раз',*/}
@@ -35,6 +34,7 @@ function Item({ item, onAdd }) {
         {/*  : ''}*/}
       </div>
       <div className="Item-actions">
+        <span>{item.price + ' ' + '₽'} </span>
         <button
           // onClick={callbacks.onDelete}
           onClick={() => onAdd(item)}

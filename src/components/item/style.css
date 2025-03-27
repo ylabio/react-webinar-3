@@ -13,13 +13,17 @@
 
 .Item-title {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
 }
 
 .Item-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+}
+.Item-actions span {
+  width: 105px;
+  text-align: right;
+  margin-right: 24px;
 }
 
 .Item-actions button {
