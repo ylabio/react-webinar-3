@@ -1,0 +1,25 @@
+.Button {
+  padding: 8px 16px;
+  color: var(--second-text);
+}
+
+.Button.Primary {
+  border: 1px solid var(--primary);
+  background-color: var(--primary);
+
+  &:hover {
+    background-color: var(--background);
+    color: var(--primary);
+  }
+}
+
+.Button.Delete {
+  background-color: var(--delete);
+  padding: 8px 16px;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
+  }
+}
