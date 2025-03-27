@@ -58,4 +58,3 @@ CartModal.propTypes = {
 }
 
 export default React.memo(CartModal)
-
