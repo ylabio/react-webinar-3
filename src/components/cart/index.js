@@ -4,7 +4,7 @@ import "./style.css";
 import { getFullAmount, getTypeOfNumber, plural } from "../../utils";
 import CartIcon from '../../accets/cart.svg';
 
-function Cart({ cart=[], setVisible= () => {} }) {
+function Cart({ cart, setVisible = () => {} }) {
  
   return (
     <div className="Card">
