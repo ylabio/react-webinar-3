@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './style.css';
 
-function CartModal({ items, onClose, onRemoveCart  }) {
+function CartModal({ items = [], onClose, onRemoveCart }) {
   const totalPrice = items.reduce((total, item) => total + item.price * item.count, 0);
 
   const handleBackgroundClick = (e) => {
@@ -42,11 +41,5 @@ function CartModal({ items, onClose, onRemoveCart  }) {
     </div>
   );
 }
-
-CartModal.propTypes = {
-  items: PropTypes.array.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onRemoveCart: PropTypes.func.isRequired,
-};
 
 export default React.memo(CartModal);
