@@ -1,0 +1,77 @@
+.product-item {
+  width: 1032px;
+  min-height: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 0px;
+}
+
+.product-item:nth-child(odd) {
+  background-color: rgba(107, 74, 203, 0.0314);
+}
+
+.product-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: fit-content;
+  height: 22px;
+}
+
+.product-name {
+  font-family: 'Golos Text', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+  color: #000000;
+}
+
+.product-details {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 363px;
+  height: 40px;
+}
+
+.quantity {
+  width: 105px;
+  height: 22px;
+  font-family: 'Golos Text', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+  color: #1A2028;
+}
+
+.price {
+  width: 105px;
+  height: 22px;
+  font-family: 'Golos Text', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+  color: #1A2028;
+  text-align: right;
+}
+
+.delete-button {
+  width: fit-content;
+  height: 40px;
+  padding: 8px 16px;
+  background-color: #D43B3B;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Golos Text', sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  cursor: pointer;
+}

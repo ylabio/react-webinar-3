@@ -5,8 +5,12 @@ import { generateCode } from './utils';
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.state = {
+      list: [],
+      cart: [],
+      ...initState
+    };
+    this.listeners = [];
   }
 
   /**
@@ -57,32 +61,42 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      cart: this.state.cart.filter(item => item.code !== code)
     });
   }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  addToCart(code) {
+    const item = this.state.list.find(item => item.code === code);
+    if (!item) return;
+
+    const existingItem = this.state.cart.find(item => item.code === code);
+
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      cart: existingItem
+        ? this.state.cart.map(item =>
+            item.code === code
+              ? { ...item, count: item.count + 1 }
+              : item
+          )
+        : [...this.state.cart, { ...item, count: 1 }]
     });
   }
+
+  removeFromCart(code) {
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter(item => item.code !== code)
+    });
+  }
+
+  clearCart() {
+    this.setState({
+      ...this.state,
+      cart: []
+    });
+  }
+
 }
 
 export default Store;
