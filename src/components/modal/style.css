@@ -1,0 +1,29 @@
+.Modal {
+  background-color: var(--background);
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  width: 1080px;
+  max-height: 90vh;
+}
+
+.Close {
+  background: none;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  width: 16px;
+  height: 16px;
+}
+
+.Title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0%;
+}
