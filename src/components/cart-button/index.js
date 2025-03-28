@@ -8,10 +8,10 @@ function CartButton({ itemCount = 0, totalCost = 0, ...props }) {
   const formattedCount =
     itemCount + ' ' + plural(itemCount, { one: 'товар', few: 'товара', many: 'товаров' });
   const formattedCost = formatCurrency(totalCost);
-
+  const content = `${formattedCount} / ${formattedCost}`;
   return (
     <Button variant={'outline'} icon={<Cart fill={'var(--primary)'} />} {...props}>
-      {formattedCount} / {formattedCost}
+      {itemCount > 0 ? content : 'Пусто'}
     </Button>
   );
 }
