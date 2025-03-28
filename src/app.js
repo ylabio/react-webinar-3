@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
+import Modal from './components/modal';
 import PageLayout from './components/page-layout';
-
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -11,7 +11,9 @@ import PageLayout from './components/page-layout';
  */
 function App({ store }) {
   const list = store.getState().list;
-
+  const cartList = store.getState().cartList;
+  const cartValue = store.getState().cartValue;
+  
   const callbacks = {
     onDeleteItem: useCallback(
       code => {
@@ -30,16 +32,57 @@ function App({ store }) {
     onAddItem: useCallback(() => {
       store.addItem();
     }, [store]),
+
+
+
+
+    onAddCartItem: useCallback(
+      item => {
+        store.addCartItem(item);
+      },
+      [store],
+    ),
+
+    onDeleteCartItem: useCallback(
+      code => {
+        store.deleteCartItem(code);
+      },
+      [store],
+    ),
+
+    onGetTotalCash: useCallback(() => {
+      store.getTotalCash();
+    }, [store]),
+
+    onGetTotalAmount: useCallback(() => {
+      store.getTotalAmount();
+    }, [store]),
   };
+
+
+  const [isOpenModal, setIsOpenModal] = useState(false); // По умолчанию false (модалка закрыта)
+  const openModal = () => setIsOpenModal(true);
+  const closeModal = () => setIsOpenModal(false);
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Head title="Магазин" />
+      <Controls 
+        onOpen={openModal}
+        item={cartValue}
+      />
       <List
         list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        onAction={callbacks.onAddCartItem}
+        title={"Добавить"}
+      />
+      <Modal
+        list={cartList}
+        onAction={callbacks.onDeleteCartItem}
+        title={"Удалить"}
+        isOpenModal={isOpenModal}
+        onCloseModal={closeModal}
+        item={cartValue}
       />
     </PageLayout>
   );
