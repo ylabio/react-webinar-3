@@ -50,6 +50,28 @@ class Store {
     });
   }
 
+  addToBasket(item) {
+    const prevState = this.state;
+    const { basket = [], list } = prevState;
+    const checkItem = basket.find(e => e.code === item.code);
+
+    let newBasket;
+
+    if (checkItem) {
+      newBasket = basket.map(e => (e.code === item.code ? { ...e, count: (e.count || 0) + 1 } : e));
+    } else {
+      const newItem = list.find(e => e.code === item.code);
+      newBasket = newItem ? [...basket, { ...newItem, count: 1 }] : basket;
+    }
+
+    this.setState({ ...this.state, basket: newBasket });
+  }
+
+  remFormBasket(item) {
+    let newBasket = this.state.basket.filter(el => el.code !== item.code);
+    this.setState({ ...this.state, basket: newBasket });
+  }
+
   /**
    * Удаление записи по коду
    * @param code

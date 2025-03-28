@@ -12,5 +12,10 @@
 
 .List-item {
   border-bottom: 1px solid var(--divider);
-  cursor: pointer;
+}
+
+.List-empty {
+  text-align: center;
+  font-size: 24px;
+  padding-bottom: 40px;
 }

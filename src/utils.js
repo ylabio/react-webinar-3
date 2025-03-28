@@ -50,3 +50,25 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
+
+export function markingPrice(price) {
+  const reversePrise = price.toString().split('').reverse();
+  const markingPrice = reversePrise
+    .map((el, indx) => ((indx + 1) % 3 == 0 ? ` ${el}` : el))
+    .reverse()
+    .join('');
+  return markingPrice;
+}
+
+export function totalPrice(items) {
+  if (!items) return;
+  const totalAmount = {
+    totalPrice: 0,
+    totalItems: 0,
+  };
+  for (let item of items) {
+    totalAmount.totalPrice += item.price * item.count;
+    totalAmount.totalItems += 1;
+  }
+  return totalAmount;
+}

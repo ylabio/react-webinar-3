@@ -2,7 +2,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
   transition: background-color 1s;
   padding: 16px;
 }
@@ -15,20 +15,40 @@
   flex: auto;
 }
 
-.Item-actions {
+.Item-info {
+  width: 23%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
-.Item-actions button {
+.Item-info__price {
+  margin-left: auto;
+}
+
+.Item-actions__button {
+  padding: 8px 16px;
+  transition:
+    color 0.3s ease-in-out,
+    border-color 0.3s ease-in-out,
+    background-color 0.3s ease-in-out;
+}
+
+.Item-actions__button--add {
+  background-color: var(--primary);
+  color: var(--second-text);
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}
+
+.Item-actions__button--delete {
   background-color: var(--delete);
   color: var(--second-text);
-  padding: 8px 16px;
-
   &:hover {
     background-color: var(--background);
     border-color: var(--delete);
     color: var(--delete);
   }
 }
-
