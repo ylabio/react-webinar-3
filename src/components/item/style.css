@@ -1,34 +1,22 @@
 .Item {
-  display: flex;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: minmax(auto, 1fr) 105px 105px auto;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
   transition: background-color 1s;
   padding: 16px;
-}
-
-.Item_selected {
-  background-color: var(--primary-select);
+  padding-bottom: 15px;
 }
 
 .Item-title {
-  flex: auto;
+  font-weight: 700;
+}
+
+.Item-price {
+  text-align: right;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
 }
-
-.Item-actions button {
-  background-color: var(--delete);
-  color: var(--second-text);
-  padding: 8px 16px;
-
-  &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
-  }
-}
-
