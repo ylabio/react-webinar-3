@@ -11,25 +11,28 @@
     height: 0;
   }
 }
+
 .Cart-footer {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  padding: 16px 146px 16px 16px;
+  padding: 16px 144px 16px 16px;
 }
 
 .Cart-price {
   display: flex;
-  gap: 84px;
 
   > span {
     font-weight: 700;
   }
 }
-
 .Cart-text {
   display: block;
-  width: 106px;
+}
+
+.Cart-price--full {
+  min-width: 184px;
+  text-align: right;
 }
 
 .Cart-empty {

@@ -35,3 +35,16 @@ export const generateCode = (function (start = 0) {
 export const formatPrice = (price, locales, mark = '₽') => {
   return new Intl.NumberFormat(locales, {style: "decimal"}).format(price) + ` ${mark}`;
 }
+
+/**
+ * Блок прокрутки страницы при открытии модального окна
+ * @param isBlock {Boolean}
+ */
+export const addOverflowToBody = (isBlock) => {
+  const body = document.body;
+  if (isBlock) {
+    body.style.overflow = 'hidden';
+  } else {
+    body.style.overflow = '';
+  }
+}

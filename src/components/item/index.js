@@ -9,7 +9,7 @@ import {formatPrice} from "../../utils";
 
 import "./style.css";
 
-function Item(props) {
+function Item({onClickItem = () => {}, ...props}) {
   const cn = bem("Item");
 
   return (
@@ -22,7 +22,7 @@ function Item(props) {
       <div className={props.isCartItem ? cn("price--cart") : cn("price")}>{formatPrice(props.item.price, "ru")}</div>
       <Actions className={cn("actions")}>
         <Button
-          onClickButton={props.onClickItem}
+          onClickButton={onClickItem}
           itemCode={props.item.code}
           isListButton={true}
           className={props.isCartItem ? cn("btn--cart") : cn("btn--list")}

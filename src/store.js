@@ -1,3 +1,5 @@
+import {addOverflowToBody} from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -6,22 +8,8 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.cart = {
-      list: [
-       {
-          code: 1,
-          count: 2,
-          title: "Название товара",
-          price: 100.0,
-          totalPrice: 200,
-        }, {
-          code: 3,
-          count: 1,
-          price: 23,
-          title: "Конфета",
-          totalPrice: 23,
-        }
-      ],
-      totalPrice: 223,
+      list: [],
+      totalPrice: 0,
     };
     this.isViewModal = false;
   }
@@ -56,6 +44,14 @@ class Store {
   }
 
   /**
+   * Выбор состояния модального окна
+   * @returns {Boolean}
+   */
+  getIsViewModal() {
+    return this.isViewModal;
+  }
+
+  /**
    * Установка состояния корзины товаров
    * @param newCartState {Object}
    */
@@ -76,6 +72,9 @@ class Store {
 
   setViewModal(isModalOpen) {
     this.isViewModal = isModalOpen;
+    addOverflowToBody(this.isViewModal);
+    // Вызываем всех слушателей
+    for (const listener of this.listeners) listener();
   }
 
   /**
@@ -117,7 +116,8 @@ class Store {
   }
 
   changeViewModal() {
-    this.setViewModal(!this.isViewModal);
+    const isShowModal = !this.isViewModal;
+    this.setViewModal(isShowModal);
   }
 }
 

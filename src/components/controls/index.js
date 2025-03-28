@@ -10,9 +10,8 @@ import {formatPrice, plural} from '../../utils';
 
 import './style.css';
 
-function Controls(props) {
+function Controls({onChangeViewModal = () => {}, ...props}) {
   const totalProductCount = props.productCount;
-
   const isProductCount = !!totalProductCount;
 
   const cn = bem("Controls");
@@ -33,9 +32,7 @@ function Controls(props) {
   return (
     <div className="Controls">
       <Button
-        onClickButton={() => {
-          console.log('ffff');
-        }}
+        onClickButton={onChangeViewModal}
       >
         <CartIcon className={cn("icon")} />
         {getBtnTitle(isProductCount)}
@@ -47,7 +44,7 @@ function Controls(props) {
 Controls.propTypes = {
   productCount: PropTypes.number,
   totalPrice: PropTypes.number,
-  onButtonClick: PropTypes.func,
+  onChangeViewModal: PropTypes.func,
 };
 
 export default React.memo(Controls);

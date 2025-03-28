@@ -21,3 +21,32 @@
   margin-bottom: 72px;
   overflow: hidden;
 }
+
+.Modal-actions {
+  position: relative;
+  width: 100% ;
+}
+
+.Modal-close {
+  position: absolute;
+  right: -14px;
+  top: -14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 8px;
+
+  &:hover {
+    background: rgba(211, 45, 45, 0.09);
+    transform: rotate(90deg);
+    > .Modal-close--icon {
+      fill: var(--delete);
+    }
+  }
+}
+
+.Modal-close--icon {
+  fill: var(--overlay);
+}

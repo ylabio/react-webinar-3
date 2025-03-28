@@ -7,14 +7,14 @@ import {formatPrice} from "../../utils";
 
 import "./style.css";
 
-function Cart({children, totalPrice}) {
+function Cart({children, totalProductCount = 0, totalPrice = 0}) {
   const cn = bem("Cart");
 
   return <div className={cn()}>
-    <div className={totalPrice ? cn("content") : cn("content--empty")}>
+    <div className={totalProductCount ? cn("content") : cn("content--empty")}>
       {children}
     </div>
-    {totalPrice ? <footer className={cn("footer") }>
+    {totalProductCount ? <footer className={cn("footer") }>
       <div className={cn("price")}><span className={cn("text")}>Итого:</span> <span
         className={cn("price--full")}>{formatPrice(totalPrice, "ru")}</span></div>
     </footer> : <div className={cn('empty')}>В корзине нет товаров</div>}
@@ -22,7 +22,8 @@ function Cart({children, totalPrice}) {
 }
 
 Cart.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
+  totalProductCount: PropTypes.number.isRequired,
   totalPrice: PropTypes.number.isRequired,
 };
 
