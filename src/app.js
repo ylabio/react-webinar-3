@@ -3,6 +3,7 @@ import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -11,36 +12,36 @@ import PageLayout from './components/page-layout';
  */
 function App({ store }) {
   const list = store.getState().list;
+  const basketList = store.getState().basket;
+  const { isActiv } = store.getState().modal;
 
   const callbacks = {
-    onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
-      },
-      [store],
-    ),
+    onAddToBasket: useCallback((item) => {
+      store.addToBasket(item);
+    }, [store]),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
+    onDellFromBasket: useCallback((code) => {
+      store.removeFromBasket(code)
+    }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
+    showModal: useCallback(() => {
+      store.showModal();
+    }, [store]),
+
+    hideModal: useCallback(() => {
+      store.hideModal();
     }, [store]),
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Head title="Магазин" />
+      <Controls showBasket={callbacks.showModal} basketList={basketList} />
       <List
         list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        onAddToBasket={callbacks.onAddToBasket}
       />
+      { isActiv ? <Modal hideModal={callbacks.hideModal} basketItems={basketList} onDeleteItem={callbacks.onDellFromBasket} /> : ''}
     </PageLayout>
   );
 }
