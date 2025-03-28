@@ -13,17 +13,21 @@ function Item(props) {
     <div className="Item">
       <div className="Item-title">
         <b>{props.item.title}</b>
-        <div className="Item-price">
-          {props.listType === 'cart' && (
-            <span className="Item-quantity">{props.item.quantity} шт</span>
-          )}
-          <span className="Item-price-value">{formatNumber({ number: props.item.price })}</span>
-        </div>
       </div>
-      <div className="Item-actions">
-        <button data-button-type={props.listType} onClick={props.onClick}>
-          {buttonTypes[props.listType]}
-        </button>
+      <div className="Item-details" data-list-type={props.listType}>
+        {props.listType === 'cart' && (
+          <div className="Item-quantity">
+            <span>{props.item.quantity} шт</span>
+          </div>
+        )}
+        <div className="Item-price">
+          <span>{formatNumber({ number: props.item.price })}</span>
+        </div>
+        <div className="Item-actions">
+          <button onClick={() => props.onClick(props.item.code)}>
+            {buttonTypes[props.listType]}
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -31,9 +35,10 @@ function Item(props) {
 
 Item.propTypes = {
   item: PropTypes.shape({
-    title: PropTypes.string,
-    price: PropTypes.number,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
     quantity: PropTypes.number,
+    code: PropTypes.number.isRequired,
   }).isRequired,
   onClick: PropTypes.func,
   listType: PropTypes.oneOf(['list', 'cart']),
