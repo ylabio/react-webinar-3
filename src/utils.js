@@ -42,6 +42,11 @@ export const generateCode1 = (function (start = 0) {
   return () => gen.next().value;
 })();
 
+
+export const numberWithSpaces = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
 /**
  * Генератор чисел с шагом 1
  * Вариант с использованием функции как объекта для хранения значения value

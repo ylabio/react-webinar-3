@@ -1,17 +1,22 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 24px 16px 24px 0;
+  padding: 24px 0 24px 0;
 }
 
 .Controls button {
   border: 1px solid var(--primary);
   padding: 8px 16px;
-  background-color: var(--primary);
-  color: var(--second-text);
+  background-color: var(--background);
+  color: var(--primary);
+  display: flex;
+  gap: 8px;
+}
 
-  &:hover {
-    background-color: var(--background);
-    color: var(--primary);
-  }
+.Controls-button-text {
+    font-family: var(--second-font-family);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 157%;
+    color: #1a2028;
 }

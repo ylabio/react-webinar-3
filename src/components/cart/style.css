@@ -1,0 +1,142 @@
+.Cart-modal {
+  background-color: rgba(26, 32, 40, 0.4);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.Cart-container {
+    border-radius: 8px;
+    padding: 24px;
+    width: 1080px;
+    background: #fff;
+
+    padding: 24px;
+    position: relative;
+}
+
+.Cart-title {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 125%;
+    color: #1a2028;
+    
+    margin-bottom: 24px;
+}
+
+.Cart-close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.Cart-item:nth-child(odd) {
+  background-color: var(--odd-item);
+}
+
+.Cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+    border-bottom: 1px solid #efefef;
+}
+
+.Cart-item-title {
+    display: flex;
+    align-items: center;
+
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 137%;
+    color: #1a2028;
+}
+
+.Cart-item-info {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    padding-right: 24px;
+    margin-left: auto;
+}
+
+.Cart-item-delete {
+    border-radius: 4px;
+    padding: 8px 16px;
+    width: 105px;
+    height: 40px;
+    background: #d43b3b;
+
+    font-family: var(--second-font-family);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 157%;
+    text-align: center;
+    color: #fff;
+}
+
+.Cart-item-count {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 137%;
+    text-align: left;
+    color: #1a2028;
+
+    width: 105px;
+}
+
+.Cart-item-price {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 137%;
+    text-align: right;
+    color: #1a2028;
+
+    width: 105px;
+}
+
+.List-item:nth-child(odd) {
+  background-color: var(--odd-item);
+}
+
+.Cart-total {
+    display: flex;
+    justify-content: end;
+    padding: 16px;
+    padding-right: 145px;
+}
+
+.Cart-total-text {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 137%;
+    color: #1a2028;
+
+    width: 105px;
+}
+
+.Cart-total-total {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 137%;
+    text-align: right;
+    color: #1a2028;
+
+    width: 129px;
+}
