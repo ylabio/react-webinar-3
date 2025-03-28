@@ -1,0 +1,22 @@
+.Button {
+  background-color: var(--primary);
+  color: var(--second-text);
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+}
+
+.Button-red {
+  background-color: var(--delete);
+  color: var(--second-text);
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
+  }
+}
