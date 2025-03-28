@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useState } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import CartModal from './components/cart-modal';
 
 /**
  * Приложение
@@ -10,36 +11,40 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const [showCartModal, setShowCartModal] = useState(false); // Управление состоянием модалки корзины
+
+  const state = store.getState();
+  const list = state.list;
+  const cartItems = state.cartItems || [];
+  const totalPrice = store.calculateTotalPrice();
+  const totalItems = store.calculateTotalItems();
 
   const callbacks = {
-    onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
-      },
-      [store],
-    ),
-
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onAddToCart: code => {
+      store.addToCart(code);
+    },
+    onRemoveFromCart: code => {
+      store.removeFromCart(code);
+    },
+    onToggleCartModal: () => {
+      //console.log("До изменения состояния:", showCartModal);
+      //setShowCartModal(true);
+      setShowCartModal(prevState => !prevState);
+      //console.log("После изменения состояния:", showCartModal);
+    },
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+      <Head title="Магазин"  />
+      <Controls totalItems={totalItems} totalPrice={totalPrice} onToggleCartModal={callbacks.onToggleCartModal} />
+      <List list={list} onAddToCart={callbacks.onAddToCart} />
+      <CartModal
+        cartItems={cartItems}
+        totalPrice={totalPrice}
+        isOpen={showCartModal}
+        onClose={callbacks.onToggleCartModal}
+        onRemoveFromCart={callbacks.onRemoveFromCart}
       />
     </PageLayout>
   );
