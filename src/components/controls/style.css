@@ -1,17 +1,14 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 24px 16px 24px 0;
+  padding: 24px 0;
 }
 
 .Controls button {
+  display: flex;
+  gap: 8px;
   border: 1px solid var(--primary);
   padding: 8px 16px;
-  background-color: var(--primary);
-  color: var(--second-text);
-
-  &:hover {
-    background-color: var(--background);
-    color: var(--primary);
-  }
+  line-height: 157%;
+  color: var(--main-text);
 }
