@@ -28,12 +28,24 @@ export function createElement( name, props = {}, ...children ) {
 }
 
 
-export function pluralizeRaz( count ) {
-  if ( count % 10 === 1 && count % 100 !== 11 ) {
-    return `${ count } раз`;
-  } else if ( [ 2, 3, 4 ].includes( count % 10 ) && ![ 12, 13, 14 ].includes( count % 100 ) ) {
-    return `${ count } раза`;
-  } else {
-    return `${ count } раз`;
-  }
+export function isEven(index) {
+  return index % 2 === 0
 }
+
+export function formatPrice(price) {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+}
+
+export function sumReducer(sum, item){
+  return sum + item;
+}
+
+export const getDeclension = (count) => {
+  const lastDigit = count % 10;
+  const lastTwoDigits = count % 100;
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return 'ов';
+  if (lastDigit === 1) return '';
+  if (lastDigit >= 2 && lastDigit <= 4) return 'а';
+  return 'ов';
+};

@@ -12,7 +12,7 @@ const PageLayout = React.memo( ( { children } ) => {
     </div>
   );
 
-} )
+} );
 PageLayout.propTypes = {
   children: PropTypes.node,
 };

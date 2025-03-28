@@ -6,30 +6,23 @@ import * as PropTypes from "prop-types";
 
 const listClass = bem( "List" );
 
-function List( { list, onDeleteItem, handleItemClick } ) {
-  console.log(4)
+function List( { list, addItem } ) {
   return (
-    <div className={listClass()}>
-      { list.map( item => (
-        <div key={ item.code } className={listClass("item")}>
-          <Item item={item} onDeleteItem={()=>{ onDeleteItem( item.code )}}
-                handleItemClick={(event)=>{handleItemClick( event, item.code )}}/>
+    <div className={ listClass() }>
+      { list.map( ( item, index ) => (
+        <div key={ item.code } className={ listClass( "item" ) }>
+          <Item item={ item } index={ index } addItem={ addItem } modeDelete={false}/>
         </div>
       ) ) }
     </div>
   )
 }
+
 List.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.shape({
+  list: PropTypes.arrayOf( PropTypes.shape( {
     code: PropTypes.number,
-  })).isRequired,
-  onDeleteItem: PropTypes.func,
-  handleItemClick: PropTypes.func,
+  } ) ).isRequired,
 };
 
-List.defaultProps = {
-  onDeleteItem: () => {},
-  handleItemClick: () => {},
-};
 
-export default React.memo(List)
+export default React.memo( List )

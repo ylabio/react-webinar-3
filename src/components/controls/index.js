@@ -4,13 +4,10 @@ import "./style.css"
 import icon from './icon.svg';
 import { pageLayoutClass } from "../page-layout";
 
-function Controls( { onAdd } ) {
-
-  console.log(1)
-
+function Controls( { sumBasket, toggleModal } ) {
   return (
-    <div className={pageLayoutClass("controls")}>
-      <button onClick={ () => onAdd() }> <img src={icon} alt="icon"/> Пусто</button>
+    <div className={ pageLayoutClass( "controls" ) }>
+      <button onClick={ toggleModal }><img src={ icon } alt="icon"/> { sumBasket() }</button>
     </div>
   )
 }
@@ -20,7 +17,7 @@ Controls.propTypes = {
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  onAdd: () => {},
 };
 
-export default React.memo(Controls);
+export default React.memo( Controls );

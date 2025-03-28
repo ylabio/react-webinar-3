@@ -1,9 +1,12 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import './styles.css';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import { PageLayout } from "./components/page-layout";
+import { getDeclension, sumReducer } from "./utils";
+import Modal from "./components/modal";
+import ModalContent from "./components/modal-content";
 
 /**
  * Приложение
@@ -12,33 +15,43 @@ import { PageLayout } from "./components/page-layout";
  */
 function App( { store } ) {
   const list = store.getState().list;
+  const basket = store.getState().basket;
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleItemClick = useCallback( ( event, itemCode ) => {
-    if ( event.ctrlKey || event.metaKey ) {
-      store.toggleItemSelection( itemCode );
-    } else {
-      store.selectItem( itemCode );
-    }
-  }, [store] );
+  // Функция для управления модальным окном
+  const toggleModal = useCallback(() => {
+    setIsModalOpen(!isModalOpen);
+  }, [isModalOpen]);
+
+
+  const sumBasket = () => {
+    const count = basket.length;
+    const declension = getDeclension(count);
+
+    return count === 0
+      ? "Пусто"
+      : `${count} товар${declension} / ${calculateTotal()} $`;
+  };
 
   const onDeleteItem = useCallback( ( itemCode ) => {store.onDeleteItem( itemCode )}, [store] );
 
-  const addItem = useCallback( () => {
-    store.addItem()
+  const calculateTotal = ()=> store.calculateTotal(sumReducer);
+
+  const addItem = useCallback( (code) => {
+    store.addItem(code)
   }, [store] );
 
-  const ListProps = {
-    onDeleteItem,
-    handleItemClick,
-    list,
-  };
-
   return (
-    <PageLayout>
-      <Head title={ "Приложение на чистом JS" }/>
-      <Controls onAdd={ addItem }/>
-      <List { ...ListProps }/>
-    </PageLayout>
+    <div className={"full-width-container"}>
+      <PageLayout>
+        <Head title={ "Магазин" }/>
+        <Controls sumBasket={sumBasket} toggleModal={toggleModal} />
+        <List list={list}  addItem={addItem} calculateTotal={calculateTotal}/>
+        <Modal isOpen={isModalOpen} onClose={toggleModal}>
+          <ModalContent toggleModal={toggleModal} basket={basket} onDeleteItem={onDeleteItem}/>
+        </Modal>
+      </PageLayout>
+    </div>
   );
 }
 

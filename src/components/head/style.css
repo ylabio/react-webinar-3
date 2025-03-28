@@ -1,7 +1,7 @@
 .PageLayout-head {
   height: 80px;
   color: var(--title-color);
-  border-bottom: 1px solid #EFEFEF
+  border-bottom: 1px solid #EFEFEF;
 }
 
 .PageLayout-head h1 {

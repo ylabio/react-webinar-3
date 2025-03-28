@@ -1,19 +1,12 @@
+
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor( initState = {} ) {
-    this.state = initState;
+    this.state = {...initState, basket:[]};
     this.listeners = [];
     this.nextCode = Math.max( ...initState.list.map( item => item.code ), 0 ) + 1;
-
-    if ( initState.list ) {
-      initState.list.forEach( item => {
-        if ( !item.selectionCount ) {
-          item.selectionCount = 0;
-        }
-      } );
-    }
   }
 
   /**
@@ -49,12 +42,14 @@ class Store {
    * Добавление новой записи
    */
 
-  addItem() {
-    this.setState( {
-      ...this.state,
-      list: [ ...this.state.list, { code: this.nextCode, title: 'Новая запись', selectionCount: 0 } ],
-    } );
-    this.nextCode++;
+  addItem(code) {
+    const product = this.state.list.find(item => item.code === code);
+    if (product) {
+      this.setState( {
+        ...this.state,
+        basket: [...this.state.basket, product],
+      } );
+    }
   }
 
   /**
@@ -62,42 +57,20 @@ class Store {
    * @param code
    */
   onDeleteItem( code ) {
-    this.setState( {
-      ...this.state,
-      list: this.state.list.filter( item => item.code !== code ),
-    } );
+    const currentIndex = this.state.basket.findIndex( item => item.code === code );
+    if ( currentIndex !== -1 ){
+      this.setState( {
+        ...this.state,
+        basket: this.state.basket.filter( (item, index) => currentIndex !== index ),
+      } );
+    }
   }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem( code ) {
-    this.setState( {
-      list: this.state.list.map( item => {
-        if ( item.code === code ) {
-          item.selected = true;
-          item.selectionCount = ( item.selectionCount || 0 ) + 1;
-        } else {
-          item.selected = false;
-        }
-        return item;
-      } ),
-    } );
-  }
 
-  toggleItemSelection( code ) {
-    this.setState( {
-      list: this.state.list.map( item => {
-        if ( item.code === code ) {
-          item.selected = !item.selected;
-          if ( item.selected ) {
-            item.selectionCount = ( item.selectionCount || 0 ) + 1;
-          }
-        }
-        return item;
-      } ),
-    } );
+  calculateTotal(sumReducer = sumReducer) {
+    return this.state.basket.reduce((sum, item) => {
+      return sumReducer(sum, item.price);
+    }, 0);
   }
 }
 
