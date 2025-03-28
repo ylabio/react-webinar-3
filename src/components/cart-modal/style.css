@@ -20,6 +20,16 @@
     flex-direction: column;
     position: relative;
   }
+
+  .CartModal-empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 20px;
+    color: var(--main-text);
+    width: 100%;
+  }
   
   .CartModal-header {
     padding: 24px;

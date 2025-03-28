@@ -9,6 +9,8 @@ function CartModal({ cart, items, onRemoveFromCart, onClose }) {
     return sum + (item.price * quantity);
   }, 0);
 
+  const isCartEmpty = cartEntries.length === 0;
+
   return (
     <div className="CartModal-overlay">
       <div className="CartModal">        
@@ -17,26 +19,34 @@ function CartModal({ cart, items, onRemoveFromCart, onClose }) {
           <h4>Корзина</h4>
         </div>
         <div className="CartModal-content">
-          {cartEntries.map(([code, quantity]) => {
-            const item = items.find(i => i.code === Number(code));
-            return (
-              <div key={code} className="CartModal-item">
-                <div className="CartModal-name">{item.title}</div>
-                <div className="CartModal-right">
-                  <span className="CartModal-quantity">{quantity} шт</span>
-                  <span className="CartModal-price">{item.price} ₽</span>
-                  <button className="CartModal-remove" onClick={() => onRemoveFromCart(code)}>Удалить</button>
+          {isCartEmpty ? (
+            <div className="CartModal-empty">
+              Корзина пуста
+            </div>
+          ) : (
+            cartEntries.map(([code, quantity]) => {
+              const item = items.find(i => i.code === Number(code));
+              return (
+                <div key={code} className="CartModal-item">
+                  <div className="CartModal-name">{item.title}</div>
+                  <div className="CartModal-right">
+                    <span className="CartModal-quantity">{quantity} шт</span>
+                    <span className="CartModal-price">{item.price} ₽</span>
+                    <button className="CartModal-remove" onClick={() => onRemoveFromCart(code)}>Удалить</button>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </div>
-        <div className="CartModal-footer">
-          <div className="CartModal-footer-container">
-            <div className="CartModal-footer-total">Итого:</div> 
-            <div className="CartModal-footer-sum">{totalSum} ₽</div>
+        {!isCartEmpty && (
+          <div className="CartModal-footer">
+            <div className="CartModal-footer-container">
+              <div className="CartModal-footer-total">Итого:</div> 
+              <div className="CartModal-footer-sum">{totalSum} ₽</div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
