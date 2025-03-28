@@ -1,3 +1,5 @@
+import { generateCode } from './utils';
+
 /**
  * Хранилище состояния приложения
  */
@@ -39,13 +41,54 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+  getStateCart() {
+    return this.cart;
+  }
+
+  setStateCart(newState) {
+    this.cart = newState;
+    // Вызываем всех слушателей
+    for (const listener of this.listeners) listener();
+  }
+
+  addItemCart(newItem) {
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.some(item => item.code === newItem.code)
+        ? this.state.cart.map(item =>
+            item.code === newItem.code
+              ? {
+                  ...item,
+                  quantity: item.quantity + 1,
+                }
+              : item,
+          )
+        : [...this.state.cart, { ...newItem, quantity: 1 }],
+    });
+  }
+
+  removeItemCart(code) {
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter(item => item.code !== code),
+    });
+  }
+
+  openModal() {
+    this.setState({ ...this.state, isCartOpen: true });
+  }
+
+  closeModal() {
+    this.setState({ ...this.state, isCartOpen: false });
+  }
+
   /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: ++this.lastCode, title: 'Новая запись', counter: 0 }],
+      list: [...this.state.list, { code: generateCode(), title: 'Новая запись', price: 0 }],
     });
   }
 
@@ -56,7 +99,8 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter(item => item.code !== code),
+      // Новый список, в котором не будет удаляемой записи
+      cart: this.state.cart.filter(item => item.code !== code),
     });
   }
 
@@ -69,17 +113,15 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
-
-          if (item.selected) {
-            ++item.counter;
-          }
+          // Смена выделения и подсчёт
+          return {
+            ...item,
+            selected: !item.selected,
+            count: item.selected ? item.count : item.count + 1 || 1,
+          };
         }
-
-        if (item.code !== code && !e.ctrlKey) {
-          item.selected = false;
-        }
-        return item;
+        // Сброс выделения если выделена
+        return item.selected ? { ...item, selected: false } : item;
       }),
     });
   }

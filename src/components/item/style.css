@@ -1,0 +1,48 @@
+.Item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  transition: background-color 1s;
+  padding: 16px;
+}
+
+.Item_selected {
+  background-color: var(--primary-select);
+}
+
+.Item-title {
+  flex: auto;
+  display: flex;
+  align-items: center;
+
+  p {
+    margin-left: auto;
+  }
+}
+
+.Item-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Item-actions button {
+  background-color: var(--delete);
+  color: var(--second-text);
+  padding: 8px 16px;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
+  }
+}
+
+.Item-actions .add {
+  background-color: var(--primary);
+
+  &:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}

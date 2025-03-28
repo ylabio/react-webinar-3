@@ -1,0 +1,27 @@
+.Controls {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 16px 24px 0;
+}
+
+.Controls button {
+  border: 1px solid var(--primary);
+  padding: 8px 16px;
+
+  color: var(--primary-text);
+
+  &:hover {
+    background-color: var(--background);
+    color: var(--primary);
+  }
+}
+
+.icon::before {
+  content: '';
+  display: inline-block;
+  background-image: url('./assets/cart.svg');
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin-right: 12px;
+}
