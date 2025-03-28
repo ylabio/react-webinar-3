@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Item from '../item';
 import './style.css';
 import CartIcon from '../cart-icon';
-import { plural } from '../../utils';
+import { plural, formatNumber } from '../../utils';
 
 function List({ list, onAddToCart, cartTotal, cartSum, onOpenCart   }) {
   return (
@@ -12,7 +12,7 @@ function List({ list, onAddToCart, cartTotal, cartSum, onOpenCart   }) {
           <button onClick={onOpenCart}
           ><CartIcon/>
           {cartTotal > 0 
-            ? `${cartTotal} ${plural(cartTotal, {one: 'товар', few: 'товара', many: 'товаров'})} / ${cartSum} ₽`
+            ? `${cartTotal} ${plural(cartTotal, {one: 'товар', few: 'товара', many: 'товаров'})} / ${formatNumber(cartSum)} ₽`
             : 'Пусто'}</button>
         </div>
       {list.map(item => (

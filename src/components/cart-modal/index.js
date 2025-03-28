@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.css';
 import CloseIcon from '../cart-close-icon';
+import { formatNumber } from '../../utils';
 
 function CartModal({ cart, items, onRemoveFromCart, onClose }) {
   const cartEntries = Object.entries(cart);
@@ -31,7 +32,7 @@ function CartModal({ cart, items, onRemoveFromCart, onClose }) {
                   <div className="CartModal-name">{item.title}</div>
                   <div className="CartModal-right">
                     <span className="CartModal-quantity">{quantity} шт</span>
-                    <span className="CartModal-price">{item.price} ₽</span>
+                    <span className="CartModal-price">{formatNumber(item.price)} ₽</span>
                     <button className="CartModal-remove" onClick={() => onRemoveFromCart(code)}>Удалить</button>
                   </div>
                 </div>
@@ -43,7 +44,7 @@ function CartModal({ cart, items, onRemoveFromCart, onClose }) {
           <div className="CartModal-footer">
             <div className="CartModal-footer-container">
               <div className="CartModal-footer-total">Итого:</div> 
-              <div className="CartModal-footer-sum">{totalSum} ₽</div>
+              <div className="CartModal-footer-sum">{formatNumber(totalSum)} ₽</div>
             </div>
           </div>
         )}

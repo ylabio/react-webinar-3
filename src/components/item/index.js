@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { formatNumber } from '../../utils';
 
 function Item({item, onAddToCart}) {
     return (
@@ -9,7 +10,7 @@ function Item({item, onAddToCart}) {
         <b>{item.title}</b>        
       </div>
       <div className="Item-price">
-        <b>{item.price} ₽ </b>        
+        <b>{formatNumber(item.price)} ₽ </b>        
       </div>
       <div className="Item-actions">
         <button onClick={() => onAddToCart(item.code)}>Добавить</button>

@@ -17,6 +17,13 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
 }
 
 /**
+ * Форматирование чисел с разделением тысяч, миллионов и тд
+ */
+export function formatNumber(num) {
+  return num.toLocaleString('ru-RU');
+}
+
+/**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.
  * @returns {Number}
