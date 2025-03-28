@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Table from '../table';
 import './style.css';
 
-function ModalWindow(props) {
+function ModalWindow({ cart, sum, onDeleteItem = () => {}, onModalStateChange = () => {} }) {
   const callbacks = {
     onDeleteItem: code => {
-      props.onDeleteItem(code);
+      onDeleteItem(code);
     }
   };
 
@@ -16,12 +16,12 @@ function ModalWindow(props) {
         <h2>Корзина</h2>
         <button 
           className="ModalWindow-close" 
-          onClick={() => props.onModalStateChange()}
+          onClick={() => onModalStateChange()}
         />
       </div>
       <Table 
-        cart={props.cart} 
-        sum={props.sum}
+        cart={cart} 
+        sum={sum}
         onDeleteItem={callbacks.onDeleteItem}
       />
     </div>
@@ -32,14 +32,14 @@ ModalWindow.propTypes = {
   cart: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.number,
+      title: PropTypes.string,
+      price: PropTypes.number,
+      count: PropTypes.number,
     }),
   ).isRequired,
   sum: PropTypes.number,
   onModalStateChange: PropTypes.func,
-};
-
-ModalWindow.defaultProps = {
-  onModalStateChange: () => {},
+  onDeleteItem: PropTypes.func,
 };
 
 export default React.memo(ModalWindow);

@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import Row from '../row'
 import './style.css';
 
-function Table(props) {
+function Table({ cart, sum, onDeleteItem = () => {}}) {
   return (
     <table className="Table">
       <tbody>
-        {props.cart.map(item => (
+        {cart.map(item => (
           <Row 
             key={item.code} 
             item={item} 
-            onDeleteItem={props.onDeleteItem}
+            onDeleteItem={onDeleteItem}
           />
         ))}
       </tbody>
@@ -19,7 +19,7 @@ function Table(props) {
         <tr>
           <td className="Row-title"></td>
           <td className="Row-count">Итого: </td>
-          <td className="Row-price">{props.sum.toLocaleString()} ₽</td>
+          <td className="Row-price">{sum.toLocaleString()} ₽</td>
           <td></td>
         </tr>
       </tfoot>
@@ -31,14 +31,13 @@ Table.propTypes = {
   cart: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.number,
+      title: PropTypes.string,
+      price: PropTypes.number,
+      count: PropTypes.number,
     }),
   ).isRequired,
   sum: PropTypes.number,
   onDeleteItem: PropTypes.func,
-};
-
-Table.defaultProps = {
-  onDeleteItem: () => {},
 };
 
 export default React.memo(Table);

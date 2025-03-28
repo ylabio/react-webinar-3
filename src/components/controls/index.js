@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { plural } from '../../utils';
 import './style.css';
 
-function Controls({ sum, count, onModalStateChange }) {
+function Controls({ sum, count, onModalStateChange = () => {} }) {
   const getMessage = () => {
     if (!count) {
       return 'Пусто';
@@ -27,10 +27,6 @@ Controls.propTypes = {
   onModalStateChange: PropTypes.func,
   sum: PropTypes.number,
   count: PropTypes.number,
-};
-
-Controls.defaultProps = {
-  onModalStateChange: () => {},
 };
 
 export default React.memo(Controls);

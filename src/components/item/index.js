@@ -2,21 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Item(props) {
+function Item({ item, onAddToCart = () => {}}) {
   const callbacks = {
     onAddToCart: e => {
       e.stopPropagation();
-      props.onAddToCart(props.item);
+      onAddToCart(item);
     },
   };
 
   return (
     <div className='Item'>
-      <div className="Item-code">{props.item.code}</div>
+      <div className="Item-code">{item.code}</div>
       <div className="Item-title">
-        <b>{props.item.title}</b>
+        <b>{item.title}</b>
       </div>
-      <div className="Item-price">{props.item.price.toLocaleString()} ₽</div>
+      <div className="Item-price">{item.price.toLocaleString()} ₽</div>
       <div className="Item-actions">
         <button onClick={callbacks.onAddToCart}>Добавить</button>
       </div>
@@ -31,10 +31,6 @@ Item.propTypes = {
     selected: PropTypes.bool,
   }).isRequired,
   onAddToCart: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onAddToCart: () => {},
 };
 
 export default React.memo(Item);
