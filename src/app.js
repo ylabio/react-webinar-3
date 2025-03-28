@@ -14,33 +14,42 @@ function App({ store }) {
 
   const callbacks = {
     onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
+      id => {
+        store.deleteItem(id);
       },
       [store],
     ),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
+    onAddItem: useCallback(
+      (id, name, price) => {
+        store.addItem(id, name, price);
       },
       [store],
     ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    getItemsCount: () => {
+      return store.getItemsCount();
+    },
+
+    getTotalPrice: () => {
+      return store.getTotalPrice();
+    },
+
+    getCart: () => {
+      return store.getCart();
+    },
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
+      <Head title="Магазин" />
+      <Controls
+        itemsCount={callbacks.getItemsCount()}
+        totalPrice={callbacks.getTotalPrice()}
+        cart={callbacks.getCart()}
         onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
       />
+      <List list={list} onAddItem={callbacks.onAddItem} />
     </PageLayout>
   );
 }
