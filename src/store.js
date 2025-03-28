@@ -1,4 +1,4 @@
-import { generateCode } from './utils';
+import { plural } from './utils';
 
 /**
  * Хранилище состояния приложения
@@ -39,15 +39,67 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
+  countPrice() {
+    this.setState({
+      ...this.state,
+      price: this.state.cart.reduce((acc, cur) => acc + cur.count * cur.price, 0),
+    });
+  }
+
+  cartText() {
+    this.countPrice();
+    let text = 'Пусто';
+    const amountProduct = this.state.cart.length;
+    if (amountProduct > 0) {
+      text =
+        amountProduct +
+        ' ' +
+        plural(amountProduct, {
+          one: 'товар',
+          few: 'товара',
+          many: 'товаров',
+        }) +
+        ' / ' +
+        this.state.price +
+        ' ₽';
+    }
+
+    this.setState({
+      ...this.state,
+      text: text,
+    });
+  }
+  showModalToggle() {
+    this.setState({
+      ...this.state,
+      showModal: !this.state.showModal,
+    });
+  }
 
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
+  addItem(selectProduct) {
+    const checkProductInCart = this.state.cart.find(
+      cartProduct => cartProduct.code === selectProduct.code,
+    );
+    console.log(this.state.cart);
+
+    if (!checkProductInCart) {
+      selectProduct.count = 1;
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, selectProduct],
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map(cartProduct =>
+          cartProduct.code === selectProduct.code ? { ...cartProduct, count: cartProduct.count + 1 } : cartProduct,
+        ),
+      });
+    }
+    this.cartText();
   }
 
   /**
@@ -57,9 +109,9 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      cart: this.state.cart.filter(item => item.code !== code),
     });
+    this.cartText();
   }
 
   /**

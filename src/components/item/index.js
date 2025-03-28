@@ -3,41 +3,31 @@ import PropTypes from 'prop-types';
 import { plural } from '../../utils';
 import './style.css';
 
-function Item(props) {
+function Item({ item = {}, isCart = false, onAdd = () => {}, onDelete = () => {} }) {
   // Счётчик выделений
   const [count, setCount] = useState(0);
 
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
+    onAdd: () => {
+      onAdd(item);
     },
-    onDelete: e => {
-      e.stopPropagation();
-      props.onDelete(props.item.code);
+    onDel: () => {
+      onDelete(item.code);
     },
   };
 
   return (
-    <div
-      className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-      onClick={callbacks.onClick}
-    >
-      <div className="Item-code">{props.item.code}</div>
-      <div className="Item-title">
-        <b>{props.item.title}</b>
-        {count
-          ? ` | Выделяли ${count} ${plural(count, {
-              one: 'раз',
-              few: 'раза',
-              many: 'раз',
-            })}`
-          : ''}
+    <div className={'Item'}>
+      <div className="Item__title">
+        <b>{item.title}</b>
       </div>
-      <div className="Item-actions">
-        <button onClick={callbacks.onDelete}>Удалить</button>
+      <div className="Item__info">
+        <div className="Item__count">{item.count ? item.count + ' шт' : ''}</div>
+        <div className="Item__price">{item.price} ₽</div>
+        {isCart
+            ? <button className="Item__btn_type_delete" onClick={callbacks.onDel}>Удалить</button>
+            : <button className="Item__btn_type_add" onClick={callbacks.onAdd}>Добавить</button>
+          }
       </div>
     </div>
   );
@@ -52,11 +42,6 @@ Item.propTypes = {
   }).isRequired,
   onDelete: PropTypes.func,
   onSelect: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
 };
 
 export default React.memo(Item);

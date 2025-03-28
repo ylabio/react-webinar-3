@@ -7,12 +7,15 @@
   padding: 16px;
 }
 
-.Item_selected {
-  background-color: var(--primary-select);
+.Item__title {
+  flex: auto;
 }
 
-.Item-title {
-  flex: auto;
+.Item__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
 }
 
 .Item-actions {
@@ -20,15 +23,16 @@
   justify-content: flex-end;
 }
 
-.Item-actions button {
-  background-color: var(--delete);
-  color: var(--second-text);
-  padding: 8px 16px;
 
-  &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
-  }
+
+.Item__btn_type_delete, .Item__btn_type_add {
+  border: 1px solid var(--primary);
+  padding: 8px 16px;
+  background-color: var(--primary);
+  color: var(--second-text);
 }
 
+.Item__btn_type_delete {
+  border: 1px solid var(--delete);
+  background-color: var(--delete);
+}
