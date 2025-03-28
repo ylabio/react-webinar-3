@@ -1,8 +1,7 @@
 .PageLayout {
-  max-width: 1192px;
+  width: 1440px;
   margin: 0 auto;
   background-color: var(--background);
-  padding-inline: 20px;
 }
 
 .PageLayout-center {
