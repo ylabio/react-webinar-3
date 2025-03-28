@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import CartModal from './components/modal'
 
 /**
  * Приложение
@@ -11,37 +12,48 @@ import PageLayout from './components/page-layout';
  */
 function App({ store }) {
   const list = store.getState().list;
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const cartTotal = store.getCartTotal();
+  const totalItems = store.getCartItemsLength(); 
+  const cartList = useMemo(() => list.filter(item => store.getState().cart[item.code]), [list, store]);
+
+  // Не в callbacks, потому что они не меняют state 
+  const openCartModal = () => setIsCartOpen(true);
+  const closeCartModal = () => setIsCartOpen(false);
 
   const callbacks = {
-    onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
-      },
-      [store],
-    ),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
+    onAddItemToCart: useCallback((code) => {
+      store.addToCart(code);
+    }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
+    onRemoveItemFromCart: useCallback((code) => {
+      store.removeFromCart(code);
     }, [store]),
   };
 
+
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Head title="Магазин" />
+      <Controls 
+        openCartModal={openCartModal}
+        cartTotal={cartTotal}
+        totalItems={totalItems}/>
       <List
         list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        onAddItemToCart={callbacks.onAddItemToCart}
+        onRemoveItemFromCart={callbacks.onRemoveItemFromCart}
+        isCartMode={false}
       />
+      <CartModal 
+              isOpen={isCartOpen} 
+              onClose={closeCartModal} 
+              onRemoveItemFromCart={callbacks.onRemoveItemFromCart}
+              cartList = {cartList}
+              cartTotal={cartTotal}/>
     </PageLayout>
+    
   );
 }
 
