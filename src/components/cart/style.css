@@ -1,0 +1,39 @@
+.Cart {
+  padding: 24px;
+}
+
+.Cart-table {
+  border-collapse: collapse;
+
+  &:not(:first-child) {
+    margin-top: 24px;
+  }
+}
+
+.Cart-total {
+  font-weight: bold;
+
+  &:first-child {
+    border-top: 1px solid var(--divider);
+  }
+}
+
+.Cart button {
+  background-color: var(--delete);
+  color: var(--second-text);
+  padding: 8px 16px;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
+  }
+}
+
+.Cart-item {
+  border-bottom: 1px solid var(--divider);
+
+  &:nth-child(even) {
+    background-color: var(--odd-item);
+  }
+}
