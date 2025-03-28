@@ -23,7 +23,7 @@ const Controls = ({ onClick, buttonText, reversed = false }) => {
 
 Controls.propTypes = {
   onClick: PropTypes.func.isRequired,
-  buttonText: PropTypes.string.isRequired,
+  buttonText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   reversed: PropTypes.bool,
 };
 
