@@ -2,11 +2,11 @@ body {
   margin: 0;
   padding: 0;
   background: #535353;
-  font-family: sans-serif;
+  font-family: 'Golos Text', sans-serif;
 }
 
-.App {
-  max-width: 1024px;
+.app {
+  max-width: 1440px;
   min-height: 100vh;
   margin: 0 auto;
   background: #fff;
@@ -14,48 +14,88 @@ body {
   box-shadow: 0 0 15px 5px #0000003b;
 }
 
-.App-head {
-  height: 80px;
-  background: #f5f5f5;
+.container {
+  width: 100%;
+  max-width: 1152px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
-.App-head h1 {
+.app__head {
+  height: 80px;
+  background: #ffffff;
+  border-bottom: 1px solid #EFEFEF;
+  margin-bottom: 16px;
+}
+
+.app__head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+  color: #6B4ACB;
 }
 
-.App-controls {
+button {
+  height: 40px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+
+  color: #fff;
+  font-family: 'Montserrat Alternates', serif;
+  font-size: 14px;
+}
+
+.app__controls {
   display: flex;
   justify-content: flex-end;
   padding: 20px;
 }
 
-.List-item {
-  border-bottom: 1px dashed #ccc;
+.app__controls button {
+  width: 114px;
+  background: #6b4acb;
 }
 
-.Item {
+.list__item {
+  border-bottom: 1px solid #ccc;
+}
+
+.list__item:nth-child(odd) {
+  background: #6a4acc08;
+}
+
+
+.item {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
 }
 
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
+.item--selected {
+  background: #6b4acb1a;
 }
 
-.Item-code {
+.item__code {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+.item__title {
   width: 100%;
   padding: 20px 10px;
+  font-weight: bold;
 }
 
-.Item-actions {
+.item__selected-count {
+  font-weight: normal;
+}
+
+.item__actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.item__actions button {
+  width: 105px;
+  background: #d43b3b;
 }

@@ -26,3 +26,28 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Генератор уникальных кодов для новых записей, начиная с максимального значения в списке
+ * @param list {Array} Массив объектов с ключами 'code'
+ * @returns {Function} Функция, которая при вызове возвращает новый уникальный 'code'
+ */
+export function createCodeGenerator(list) {
+  // Находим максимальный 'code' среди переданных элементов
+  let lastCode = list.length > 0 ? Math.max(...list.map(item => item.code)) : 0;
+
+  return function () {
+    lastCode++;
+    return lastCode;
+  };
+};
+
+export function createCounter() {
+  let counter = 0;
+
+  return function() {
+    counter++;
+    return counter;
+  };
+};
+
