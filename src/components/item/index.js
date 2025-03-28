@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import { formatCurrency } from '../../utils';
 import './style.css';
 
-function Item({ title, price, action, ...props }) {
+function Item({ title, numeric, action, ...props }) {
   const cn = bem('Item');
 
   return (
     <div className={cn()} {...props}>
       <div className={cn('Title')}>
         <strong>{title}</strong>
-        <span>{formatCurrency(price)}</span>
+        <span>{numeric}</span>
       </div>
       <div className={cn('Actions')}>{action}</div>
     </div>
