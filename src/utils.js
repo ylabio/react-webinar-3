@@ -16,6 +16,10 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   return variants[key] || '';
 }
 
+export function numFormat (value, locale = 'ru-RU') {
+  return new Intl.NumberFormat(locale).format(value);
+}
+
 /**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.
