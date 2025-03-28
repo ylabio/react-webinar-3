@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 export const selectList = state => state.list;
 export const selectCart = state => state.cart;
 
@@ -87,11 +85,8 @@ class Store {
 
     const cartItemIndex = newCart.findIndex(el => el.code === code);
 
-    if (cartItem.count > 1) {
-      newCart[cartItemIndex] = { ...cartItem, count: cartItem.count - 1 };
-    } else {
-      newCart.splice(cartItemIndex, 1);
-    }
+    newCart.splice(cartItemIndex, 1);
+
     this.setState({
       ...this.state,
       cart: newCart,
