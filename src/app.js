@@ -7,7 +7,8 @@ import PageLayout from './components/page-layout';
 import Modal from './components/modal';
 import ModalHead from './components/modalHead';
 import ModalList from './components/modalList';
-import ModalResult from './components/modalResult'
+import ModalResult from './components/modalResult';
+import { plural } from './utils';
 
 /**
  * Приложение
@@ -58,16 +59,22 @@ function App({ store }) {
         <ModalList
           newlist={newlist}
           onDeleteItem={callbacks.onDeleteItem}
-        // onSelectItem={callbacks.onSelectItem}
         />
         <ModalResult title="223 p." />
       </Modal>
       <Head title="Магазин" />
-      <Controls onOpen={callbacks.onHandleOpen} text="Пусто" />
+      <Controls onOpen={callbacks.onHandleOpen} text={
+        newlist.length > 0
+          ? `${newlist.length} ${plural(newlist.length, {
+            one: 'товар',
+            few: 'товара',
+            many: 'товаров',
+          })}`
+          : 'Пусто'
+      } />
       <List
         list={list}
         onAdd={callbacks.onAddItem}
-      // onSelectItem={callbacks.onSelectItem}
       />
     </PageLayout>
   );

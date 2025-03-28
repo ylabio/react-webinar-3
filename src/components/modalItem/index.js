@@ -4,8 +4,6 @@ import { plural } from '../../utils';
 import './style.css';
 
 function ModalItem(props) {
-  // Счётчик выделений
-  // const [count, setCount] = useState(0);
 
   const callbacks = {
     onDelete: e => {
@@ -16,7 +14,7 @@ function ModalItem(props) {
 
   return (
     <div className={'Modal__Item'} >
-      <div className="Modal__Item-code">{props.item.code}</div>
+      {/* <div className="Modal__Item-code">{props.item.code}</div> */}
       <div className="Modal__Item-title">
         <b>{props.item.title}</b>
       </div>

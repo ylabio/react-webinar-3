@@ -43,18 +43,9 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem(item) {
-    this.setState({
-      ...this.state,
-      newlist: [...this.state.newlist, { code: item.code, title: item.title, price: item.price, count: 0 }],
-    });
-  }
 
-  incrementCount(code) {
-    const index = this.state.newlist.findIndex(item => item.code === code);
+  addItem(item) {
+    const index = this.state.newlist.findIndex(newItem => newItem.code === item.code);
     if (index !== -1) {
       this.setState({
         ...this.state,
@@ -64,8 +55,14 @@ class Store {
           ...this.state.newlist.slice(index + 1),
         ],
       });
+    } else {
+      this.setState({
+        ...this.state,
+        newlist: [...this.state.newlist, { code: item.code, title: item.title, price: item.price, count: 1 }],
+      });
     }
   }
+
   /**
    * Удаление записи по коду
    * @param code
