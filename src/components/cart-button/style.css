@@ -1,0 +1,30 @@
+.CardButton {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 24px
+}
+
+.CardButton button {
+  display: flex;
+  align-items: center;
+  padding: 9px 16px;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  cursor: pointer
+}
+
+.CardButton-count {
+  margin-right: 8px;
+  font-weight: bold
+}
+
+.CardButton-icon {
+  margin-right: 8px;
+}
+
+.CardButton-empty {
+  line-height: 22px;
+  font-weight: bold
+}
