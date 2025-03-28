@@ -18,6 +18,7 @@
   max-width: 1080px;
   background-color: var(--second-text);
   z-index: 2;
+  border-radius: 8px;
 }
 
 .Modal-header {

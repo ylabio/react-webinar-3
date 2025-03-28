@@ -1,6 +1,7 @@
 import closeForButton from '../../assets/icons/close-button.svg';
 import React from 'react';
 import './style.css';
+import PropTypes from 'prop-types';
 
 function Modal({
   modalOpen,
@@ -46,12 +47,12 @@ function Modal({
 }
 
 Modal.propTypes = {
-  modalOpen: PropTypes.boolean,
+  modalOpen: PropTypes.bool,
   cartItems: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.number,
       title: PropTypes.string,
-      price: PropTypes.string,
+      price: PropTypes.number,
       quantity: PropTypes.number,
     }),
   ).isRequired,
