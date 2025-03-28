@@ -7,10 +7,6 @@
   padding: 16px;
 }
 
-/* .Modal__item_selected {
-  background-color: var(--primary-select);
-} */
-
 .ModalItem-title {
   flex: auto;
 }
