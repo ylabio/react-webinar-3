@@ -7,6 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    
   }
 
   /**
@@ -82,6 +83,35 @@ class Store {
         return item.selected ? { ...item, selected: false } : item;
       }),
     });
+  }
+
+  addProductToBasket(newProduct) {
+    // Проверка на наличие добавляемого товара в корзине
+    if (this.state.basketList.find(product => product.code === newProduct.code)) {
+      this.setState({
+        ...this.state,
+        basketList: this.state.basketList.map(product => {
+          if(product.code === newProduct.code) {
+            // Увеличиваем у соответствующего товара количество
+            return {
+              ...product,
+              quantity: product.quantity + 1
+            }
+          }
+          return product
+        })
+      })
+    } else {
+      // если товара в корзине не оказалось, то добавляем его
+      // и устанавливаем количество равным 1
+      this.setState({
+        ...this.state,
+        basketList: [
+          ...this.state.basketList, 
+          {...newProduct, quantity: 1} 
+        ]   
+      })
+    } 
   }
 }
 

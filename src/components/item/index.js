@@ -9,7 +9,7 @@ function Item(props) {
   const callbacks = {
     onAction: e => {
       e.stopPropagation();
-      props.onAction(props.item.code);
+      props.onAction(props.item);
     },
   };
 
