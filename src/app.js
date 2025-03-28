@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Basket from './components/basket'
+import Modal from './components/modal'
 
 /**
  * Приложение
@@ -15,11 +16,13 @@ function App({ store }) {
   const list = store.getState().list;
   const basketList = store.getState().basketList
 
+  const [isModalActive, setModalActive] = useState(false);
+
   // подсчет стоимости товаров в корзине
   const basketPrice = basketList.reduce((acc, product) => {
     return acc + product.price * product.quantity
   }, 0)
-
+  
   const callbacks = {
     onDeleteItem: useCallback(
       code => {
@@ -48,7 +51,11 @@ function App({ store }) {
     }, [store]),
 
     onOpenBasket: useCallback(() => {
-     
+     setModalActive(true)
+    }, []),
+
+    onCloseBasket: useCallback(() => {
+      setModalActive(false)
     }, [])
   };
 
@@ -61,7 +68,12 @@ function App({ store }) {
         onAction={callbacks.onAddProductToBasket}
       />
 
-      <Basket productsList={basketList} basketPrice={basketPrice} onDeleteProduct={callbacks.onDeleteProductFromBasket}/>
+      {isModalActive && (
+        <Modal>
+          <Basket productsList={basketList} basketPrice={basketPrice} onDeleteProduct={callbacks.onDeleteProductFromBasket} onCloseBasket={callbacks.onCloseBasket}/>
+        </Modal>
+        )
+      }        
     </PageLayout>
   );
 }

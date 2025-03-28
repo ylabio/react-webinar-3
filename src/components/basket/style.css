@@ -1,12 +1,13 @@
 .Basket {
   position: relative;
-  margin-inline: auto;
   padding: 24px;
   display: flex;
   flex-direction: column;
   row-gap: 24px;
   max-width: 1080px;
+  width: 100%;
   border-radius: 8px;  
+  background-color: var(--background);
 }
 
 .Basket h2 {
