@@ -113,6 +113,14 @@ class Store {
       })
     } 
   }
+
+  deleteProductFromBasket(product) {
+    this.setState({
+      ...this.state,
+      // Новый список, в котором не будет удаляемого товара
+      basketList: this.state.basketList.filter(item => item.code !== product.code),
+    });
+  }
 }
 
 export default Store;

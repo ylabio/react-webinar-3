@@ -4,36 +4,42 @@ import { plural } from '../../utils';
 import './style.css';
 import Button from '../button'
 
-function Item(props) {
+function Item({item, isAccentButton = false, onAction = () => {}}) {
 
   const callbacks = {
     onAction: e => {
       e.stopPropagation();
-      props.onAction(props.item);
+      onAction(item);
     },
   };
 
   return (
     <div
-      className="Item" 
-      onClick={callbacks.onClick}
+      className="Item"
     >
       <div className="Item-title">
-        <b>{props.item.title}</b>
+        <b>{item.title}</b>
       </div>
 
       <div className="Item-info">
-      {props.item.quantity 
+      {item.quantity 
         ? <div className="Item-quantity">
-            {props.item.quantity} шт
+            {item.quantity} шт
           </div> 
         : null}
         
-        <div className="Item-price">{props.item.price} ₽</div>
+        <div className="Item-price">
+          {item.price * item.quantity || item.price} ₽
+        </div>
       </div>
 
       <div className="Item-actions">
-        <Button isAccent={props.isAccentButton} onClick={callbacks.onAction}>Добавить</Button>
+        <Button 
+          isAccent={isAccentButton} 
+          onClick={callbacks.onAction}
+        >{
+          isAccentButton ? 'Удалить' : 'Добавить'
+        }</Button>
       </div>
     </div>
   );
@@ -48,10 +54,6 @@ Item.propTypes = {
   }).isRequired,
   isAccentButton: PropTypes.bool.isRequired,
   onAction: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onAction: () => {}
 };
 
 export default React.memo(Item);
