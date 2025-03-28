@@ -1,26 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Item from '../item';
-import CartItem from '../cart-item';
 import './style.css';
-import { cn as bem } from '@bem-react/classname';
+import { formatPrice, getTotalPrice } from '../../utils';
 
 
 function List({ list, isModalOpen = false, onDeleteItem = () => {}, onAddItemInCart = () => {} }) {
-  const cn = bem('List');
   return (
-    <ul className={cn()}>
+    <>
+    <ul className='List'>
       {list?.map(item => (
-        <li key={item.code} className={cn('item')}>
-          {isModalOpen ?
-          <CartItem item={item} onDelete={onDeleteItem} />
-          :
-          <Item item={item} onAddItem={onAddItemInCart} />
-          }
-
+        <li key={item.code} className='List-item'>
+          <Item item={item} onAddItem={onAddItemInCart} onDelete={onDeleteItem} />
         </li>
       ))}
     </ul>
+    {isModalOpen && (
+      <div className='List-total'>
+        <div className='List-total-info'>
+          <p>Итого:</p>
+          <p>{formatPrice(getTotalPrice(list))}</p>
+        </div>
+      </div>
+    )}
+    </>
   );
 }
 

@@ -4,6 +4,8 @@ import Cart from './components/cart';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import ModalLayout from './components/modal-layout';
+import ModalHead from './components/modal-head';
+import ModalBody from './components/modal-body';
 
 /**
  * Приложение
@@ -50,7 +52,10 @@ function App({ store }) {
       />
       {isModalOpen &&
         <ModalLayout closeModal={closeModal} cartList={cartList}>
-          <List list={cartList} isModalOpen={isModalOpen} onDeleteItem={callbacks.onDeleteItem} />
+          <ModalHead title="Корзина" closeModal={closeModal} />
+          <ModalBody>
+            <List list={cartList} isModalOpen={isModalOpen} onDeleteItem={callbacks.onDeleteItem} />
+          </ModalBody>
         </ModalLayout>
       }
     </PageLayout>

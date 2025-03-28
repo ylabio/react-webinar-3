@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { formatPrice } from '../../utils';
 
-function Item({ item, onAddItem = () => {} }) {
+function Item({ item, onAddItem = () => {}, onDelete = () => {} }) {
 
   const callbacks = {
     onAddItem: e => {
       e.stopPropagation();
       onAddItem(item);
+    },
+    onDelete: e => {
+      e.stopPropagation();
+      onDelete(item.code);
     },
   };
 
@@ -17,12 +21,25 @@ function Item({ item, onAddItem = () => {} }) {
       <div className="Item-title">
         <b>{item.title}</b>
       </div>
-      <div className="Item-actions">
-        <div className="Item-price">
-          {formatPrice(item.price)}
+      { item.count ? 
+        (
+        <div className="Item-actions-cart">
+          <div className="Item-info">
+            <p>{item.count} шт</p>
+            <p>{formatPrice(item.price)}</p>
+          </div>
+          <button onClick={callbacks.onDelete} className="Item-delete">Удалить</button>
         </div>
-        <button onClick={callbacks.onAddItem} className="Item-Add">Добавить</button>
-      </div>
+        ) : (
+        <div className="Item-actions">
+          <p className="Item-price">
+            {formatPrice(item.price)}
+          </p>
+          <button onClick={callbacks.onAddItem} className="Item-Add">Добавить</button>
+        </div>
+        )
+      }
+
     </div>
   );
 }
@@ -35,6 +52,7 @@ Item.propTypes = {
     count: PropTypes.number,
   }).isRequired,
   onAddItem: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 export default React.memo(Item);

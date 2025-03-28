@@ -7,6 +7,10 @@
   padding: 16px;
 }
 
+.Item p {
+  margin: 0;
+}
+
 .Item-title {
   flex: auto;
 }
@@ -29,6 +33,31 @@
     background-color: var(--background);
     border-color: var(--primary);
     color: var(--primary);
+  }
+}
+
+.Item-actions-cart {
+  display: flex;
+  justify-content: flex-end;
+  width: 363px;
+}
+
+.Item-info {
+  display: flex;
+  padding: 9px 24px 9px 0;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.Item-delete {
+  background-color: var(--delete);
+  color: var(--second-text);
+  padding: 8px 16px;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
   }
 }
 
