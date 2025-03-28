@@ -4,7 +4,6 @@ import { plural } from '../../utils';
 import './style.css';
 
 function Item(props) {
-  // Счётчик выделений
   const [count, setCount] = useState(0);
 
   const callbacks = {
@@ -18,28 +17,36 @@ function Item(props) {
       e.stopPropagation();
       props.onDelete(props.item.code);
     },
+    onAddToCart: e => {
+      e.stopPropagation();
+      console.log('Adding to cart:', props.item);
+      props.onAddToCart(props.item);
+    },
   };
 
   return (
-    <div
-      className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-      onClick={callbacks.onClick}
-    >
-      <div className="Item-code">{props.item.code}</div>
-      <div className="Item-title">
-        <b>{props.item.title}</b>
-        {count
-          ? ` | Выделяли ${count} ${plural(count, {
-              one: 'раз',
-              few: 'раза',
-              many: 'раз',
-            })}`
-          : ''}
+    console.log('Item props:', props),
+    (
+      <div className={'Item'}>
+        <div className="Item-title">
+          <b>{props.item.title}</b>
+          {count
+            ? ` | Выделяли ${count} ${plural(count, {
+                one: 'раз',
+                few: 'раза',
+                many: 'раз',
+              })}`
+            : ''}
+        </div>
+        <div className="Item-actions">
+          <b>
+            {props.item.price}
+            {'₽'}
+          </b>
+          <button onClick={callbacks.onAddToCart}>Добавить</button>
+        </div>
       </div>
-      <div className="Item-actions">
-        <button onClick={callbacks.onDelete}>Удалить</button>
-      </div>
-    </div>
+    )
   );
 }
 
@@ -49,14 +56,17 @@ Item.propTypes = {
     title: PropTypes.string,
     selected: PropTypes.bool,
     count: PropTypes.number,
+    price: PropTypes.number, // Добавляем цену для корзины
   }).isRequired,
   onDelete: PropTypes.func,
   onSelect: PropTypes.func,
+  onAddToCart: PropTypes.func, // Новый prop для корзины
 };
 
 Item.defaultProps = {
   onDelete: () => {},
   onSelect: () => {},
+  onAddToCart: () => {},
 };
 
 export default React.memo(Item);
