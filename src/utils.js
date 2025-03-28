@@ -50,3 +50,16 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
+
+const defaultOptions = { style: 'currency', currency: 'RUB' };
+/**
+ * Форматирует цену в соответствии с заданной локалью и опциями форматирования.
+ * @param {Object} params
+ * @param {number} params.number - Цена.
+ * @param {Intl.LocalesArgument} [params.locales] - Локаль
+ * @param {Intl.NumberFormatOptions} [params.options] - Опции
+ * @returns {string} Форматированная строка цены.
+ */
+export const formatNumber = ({ number, locales = 'ru-RU', options = defaultOptions }) => {
+  return new Intl.NumberFormat(locales, options).format(number);
+};
