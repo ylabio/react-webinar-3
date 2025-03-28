@@ -51,37 +51,55 @@ class Store {
   }
 
   /**
-   * Удаление записи по коду
+   * добавление в корзину
    * @param code
    */
-  deleteItem(code) {
+  addToCart(code) {
+    const currentCart = this.state.cartItems || [];
+    const existingItemIndex = currentCart.findIndex(item => item.code === code);
+    
+    let updatedCart;
+    if (existingItemIndex >= 0) {
+      updatedCart = currentCart.map((item, index) =>
+        index === existingItemIndex
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+    } else {
+      const matchingProduct = this.state.list.find(item => item.code === code);
+      updatedCart = [
+        ...currentCart,
+        { code: matchingProduct.code, title: matchingProduct.title, price: matchingProduct.price, quantity: 1 },
+      ];
+    }
+
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      cartItems: updatedCart,
     });
   }
 
   /**
-   * Выделение записи по коду
+   * удаление из корзины
    * @param code
    */
-  selectItem(code) {
+  removeFromCart(code) {
+    const currentCart = this.state.cartItems || [];
+    const updatedCart = currentCart.filter(item => item.code !== code);
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      cartItems: updatedCart,
     });
+  }
+
+  calculateTotalPrice() {
+    const cartItems = this.state.cartItems || [];
+    return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  }
+
+  calculateTotalItems() {
+    const cartItems = this.state.cartItems || [];
+    return cartItems.reduce((acc, item) => acc + item.quantity, 0);
   }
 }
 
