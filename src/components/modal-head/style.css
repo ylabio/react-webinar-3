@@ -1,0 +1,52 @@
+.ModalHead {
+  width: 100%;
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+
+.ModalHead-title {
+  color: var(--main-text);
+  margin: 0;
+  padding: 0;
+}
+
+.ModalHead-closeBtn {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  &:hover {
+    background: none;
+  }
+
+  &:hover svg path {
+    fill: #878787;
+    transition: fill 0.2s ease;
+  }
+
+  &:hover svg path {
+    fill: #1A2028;
+    transition: fill 0.2s ease;
+  }
+}
+
+/*.ModalHead-closeBtn:hover {*/
+/*  background: none;*/
+/*}*/
+
+/*.ModalHead-closeBtn:hover svg path {*/
+/*  fill: #878787;*/
+/*  transition: fill 0.2s ease;*/
+/*}*/
+
+/*.ModalHead-closeBtn:hover svg path {*/
+/*  fill: #1A2028;*/
+/*  transition: fill 0.2s ease;*/
+/*}*/

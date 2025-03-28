@@ -7,6 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state.listCart = [];
   }
 
   /**
@@ -43,12 +44,30 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
-  }
+  addItem(id) {
+    const existingItem = this.state.listCart?.find(item => item.code === id);
+
+    if (existingItem) {
+      const updatedListCart = this.state.listCart.map(item =>
+        item.code === id ? {...item, count: item.count + 1} : item,
+      );
+
+      this.setState({
+        ...this.state,
+        listCart: updatedListCart,
+      });
+    } else {
+      const newItem = this.state.list.find(item => item.code === id);
+
+      if (newItem) {
+        this.setState({
+          ...this.state,
+          listCart: [...this.state.listCart, {...newItem, count: 1}],
+        });
+      }
+    }
+    console.log(this.state.listCart);
+  };
 
   /**
    * Удаление записи по коду
@@ -57,9 +76,25 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      listCart: this.state.listCart.filter(item => item.code !== code),
     });
+  }
+
+  getCartCount() {
+    let count = 0;
+    for (const item of this.state.listCart) {
+      count += item.count;
+    }
+
+    return count;
+  }
+  getCartPrice() {
+    let sum = 0;
+    for (const item of this.state.listCart) {
+      sum += item.count * item.price;
+    }
+
+    return sum;
   }
 
   /**

@@ -1,21 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import CartIcon from '../icons/cart-icon';
+import { localeNumber } from '../../utils';
 
-function Controls({ onAdd }) {
+function Controls({ onModalOpen = () => {}, store }) {
   return (
     <div className="Controls">
-      <button onClick={() => onAdd()}>Добавить</button>
+      <button className="Controls-button" onClick={() => onModalOpen()}><CartIcon />{`${localeNumber(store.getCartPrice())} ₽`}</button>
     </div>
   );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func,
-};
-
-Controls.defaultProps = {
-  onAdd: () => {},
+  onModalOpen: PropTypes.func,
+  getCartPrice: PropTypes.func,
 };
 
 export default React.memo(Controls);
