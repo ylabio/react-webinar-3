@@ -6,12 +6,12 @@
 
 .Controls button {
   border: 1px solid var(--primary);
-  padding: 8px 16px;
-  background-color: var(--primary);
-  color: var(--second-text);
+  padding: 8px 12px;
+  background-color: var(--background);
+  color: var(--primary);
 
   &:hover {
-    background-color: var(--background);
-    color: var(--primary);
+    background-color: var(--primary);
+    color: var(--second-text);
   }
 }
