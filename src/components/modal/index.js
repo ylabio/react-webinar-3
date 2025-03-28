@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Modal({ children, onClose, icon: Icon }) {
+function Modal({ children = [], onClose = () => {}, icon: Icon = null }) {
   return (
     <div className="Modal-overlay" onClick={onClose}>
       <div className="Modal-content" onClick={e => e.stopPropagation()}>
