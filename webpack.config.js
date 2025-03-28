@@ -32,6 +32,19 @@ let config = {
           { loader: 'css-loader', options: { url: true, import: true } },
         ],
       },
+      // Правила обработки svg - файлов
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'images/',
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
