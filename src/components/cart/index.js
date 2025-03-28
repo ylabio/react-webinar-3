@@ -1,37 +1,42 @@
 import React from "react";
+import PropTypes from "prop-types";
+import CartItem from '../cart-item';
+import CartTotal from '../cart-total'
+
 import "./style.css";
 
-function Cart() {
+function Cart({ list, totalPrice, removeFromCart}) {
 
   return (
     <div className="cart">
-      <h1 className="cart__title">Корзина </h1>
+      <h1 className="cart__title">Корзина</h1>
       <ul className="cart__list">
-        <li className="cart__item">
-          <span className="cart__item-name">Название товара</span>
-          <div className="cart__item-info">
-            <span className="cart__item-count">2 шт</span>
-            <span className="cart__item-price">100 ₽</span>
-            <button className="cart__item-delete">Удалить</button>
-          </div>
-        </li>
-        <li className="cart__item">
-          <b className="cart__item-name">Название товара</b>
-          <div className="cart__item-info">
-            <span className="cart__item-count">1 шт</span>
-            <span className="cart__item-price">23 ₽</span>
-            <button className="cart__item-delete">Удалить</button>
-          </div>
-        </li>
+        {
+          list.map((item) => {
+            return (
+              <li key={item.code} className="cart__item">
+                <CartItem item={item} removeFromCart={removeFromCart}/>
+              </li>
+            )
+          })
+        }
       </ul>
-      <div className="cart__total">
-        <div className="cart__total-info">
-          <span className="cart__total-label">Итого:</span>
-          <span className="cart__total-value">223 ₽</span>
-        </div>
-      </div>
+      <CartTotal totalPrice={totalPrice}/>
     </div>
   )
 }
+
+Cart.propTypes = {
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      quantity: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+  totalPrice: PropTypes.number.isRequired,
+  removeFromCart: PropTypes.func.isRequired,
+};
 
 export default React.memo(Cart)
