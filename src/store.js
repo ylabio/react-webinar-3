@@ -8,6 +8,16 @@ class Store {
   }
 
   /**
+   * Клонирование объектов в массиве
+   * @param list {Array}
+   * @returns {Array}
+   */
+  cloneList(list) {
+    return list.map(item => ({ ...item }));
+  }
+
+
+  /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
    * @returns {Function} Функция отписки
@@ -22,10 +32,10 @@ class Store {
 
   /**
    * Выбор состояния, только список
-   * @returns {Object}
+   * @returns {Array}
    */
   getStateList() {
-    return [...this.state.list];
+    return this.cloneList(this.state.list);
   }
 
   /**
@@ -43,14 +53,14 @@ class Store {
    * @returns {Object}
    */
   getCartState() {
-    const cartList = this.state.list.filter(item => item.count);
+    const cartList = this.cloneList(this.state.list.filter(item => item.count));
     const sizeCart = cartList.length;
     const total = cartList.reduce((acc, item) => acc + (item.total || 0), 0);
     return { total, sizeCart, cartList };
   }
 
   /**
-   * Удаление записи из карзины по коду
+   * Удаление записи из корзины по коду
    * @param code
    */
   clearCartItem(code) {
