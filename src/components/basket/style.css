@@ -1,0 +1,40 @@
+.Basket {
+  position: relative;
+  margin-inline: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  max-width: 1080px;
+  border-radius: 8px;  
+}
+
+.Basket h2 {
+  font-size: 32px;
+}
+
+.Basket-closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url('../../icons/cancel.svg');
+
+  &:hover {
+    transform: rotate(90deg);
+  }
+}
+
+.Basket-price {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  column-gap: 10px;
+
+  padding: 16px 145px;
+  font-weight: 700;
+}
