@@ -2,17 +2,24 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
   transition: background-color 1s;
   padding: 16px;
 }
 
-.Item_selected {
-  background-color: var(--primary-select);
-}
-
 .Item-title {
   flex: auto;
+}
+
+.Item-info {
+  display: flex;
+  justify-content: flex-end;
+  width: 234px;
+}
+
+.Item-price {
+  flex: auto;
+  text-align: end;
 }
 
 .Item-actions {
@@ -20,10 +27,9 @@
   justify-content: flex-end;
 }
 
-.Item-actions button {
+.Item-button-delete{
   background-color: var(--delete);
   color: var(--second-text);
-  padding: 8px 16px;
 
   &:hover {
     background-color: var(--background);
@@ -32,3 +38,13 @@
   }
 }
 
+.Item-button-add {
+  background-color: var(--primary);
+  color: var(--second-text);
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}
