@@ -50,3 +50,20 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
+
+export function formatNumber(num) {
+  let numStr = num.toString();
+  let result = '';
+  let count = 0;
+
+  for (let i = numStr.length - 1; i >= 0; i--) {
+    result = numStr[i] + result;
+    count++;
+
+    if (count % 3 === 0 && i !== 0) {
+      result = ' ' + result;
+    }
+  }
+
+  return result;
+}

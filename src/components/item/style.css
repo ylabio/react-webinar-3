@@ -20,15 +20,15 @@
   justify-content: flex-end;
 }
 
-.Item-actions button {
-  background-color: var(--delete);
-  color: var(--second-text);
-  padding: 8px 16px;
-
-  &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
-  }
+.Item-data {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  align-items: center;
 }
 
+.Item-data div {
+  width: 105px;
+  display: flex;
+  justify-content: flex-end;
+}

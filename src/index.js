@@ -5,6 +5,7 @@ import App from './app.js';
 import Store from './store.js';
 import 'theme.css';
 
+
 const store = new Store({
   list: [
     { code: generateCode(), title: 'Название товара', price: 100.0 },
