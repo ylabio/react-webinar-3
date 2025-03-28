@@ -13,7 +13,7 @@ let config = {
   },
   mode: process.env.NODE_ENV,
   resolve: {
-    extensions: ['.js', 'jsx'], // расширения по умолчанию если не указаны в import
+    extensions: ['.js', '.jsx'], // расширения по умолчанию если не указаны в import
     modules: ['./', 'node_modules'], // Где искать файлы подключаемых модулей (пакетов)
   },
   module: {
@@ -30,6 +30,32 @@ let config = {
         use: [
           { loader: MiniCssExtractPlugin.loader, options: {} },
           { loader: 'css-loader', options: { url: true, import: true } },
+        ],
+      },
+      // Обработка SVG файлов
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]', // Сохранить оригинальное имя и расширение файла
+              outputPath: 'assets/', // Путь, куда сохранять файлы в dist
+            },
+          },
+        ],
+      },
+      // Обработка других типов изображений
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]', // Сохранить оригинальное имя и расширение файла
+              outputPath: 'assets/', // Путь, куда сохранять файлы в dist
+            },
+          },
         ],
       },
     ],
