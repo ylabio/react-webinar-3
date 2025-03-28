@@ -2,16 +2,21 @@
   display: flex;
   justify-content: flex-end;
   padding: 24px 16px 24px 0;
+  max-width: 1200px;
+  width: 100%;
 }
 
 .Controls button {
   border: 1px solid var(--primary);
   padding: 8px 16px;
-  background-color: var(--primary);
-  color: var(--second-text);
+  background-color: var(--background);
+  color: var(--main-text);
+
+  display: flex;
+  gap: 8px;
+  align-items: center;
 
   &:hover {
-    background-color: var(--background);
-    color: var(--primary);
+    background-color: #ececec8f;
   }
 }

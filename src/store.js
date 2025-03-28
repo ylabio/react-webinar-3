@@ -7,6 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.cart = [];
   }
 
   /**
@@ -31,35 +32,53 @@ class Store {
   }
 
   /**
+   * Выбор корзины
+   * @returns {Object}
+   */
+  getCart() {
+    return this.cart;
+  }
+
+  /**
    * Установка состояния
    * @param newState {Object}
    */
-  setState(newState) {
-    this.state = newState;
+  setCart(newCart) {
+    this.cart = newCart;
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
 
   /**
-   * Добавление новой записи
+   * Добавление в корзину
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+  addToCart(newItem) {
+    let itemIndexInCart = -1;
+    this.cart.forEach((item, ind) => {
+      if (newItem.code === item.code) {
+        itemIndexInCart = ind;
+      }
     });
+
+    if (itemIndexInCart >= 0) {
+      this.cart[itemIndexInCart].amount += 1;
+      //this.setCart(this.cart)
+      return this.cart;
+    } else {
+      this.cart.push({ ...newItem, amount: 1 });
+      return this.cart;
+      //this.setCart([...this.cart, { ...newItem, amount: 1 }]);
+    }
   }
 
   /**
-   * Удаление записи по коду
+   * Удаление товара из корзины
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
+  deleteItem(item) {
+    this.cart = this.cart.filter(cur => cur.code !== item.code);
+    
+    return this.cart;
   }
 
   /**

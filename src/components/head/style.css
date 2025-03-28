@@ -2,8 +2,7 @@
   color: var(--primary);
   border-bottom: 1px solid var(--divider);
   padding: 16px 20px;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
 }
 
 .Head-container {
@@ -12,5 +11,7 @@
 }
 
 .Head h1 {
+  max-width: 1024px;
+  width: 100%;
   margin: 0;
 }

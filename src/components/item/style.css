@@ -2,32 +2,40 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 16px;
-  transition: background-color 1s;
+  gap: 24px;
   padding: 16px;
-}
-
-.Item_selected {
-  background-color: var(--primary-select);
 }
 
 .Item-title {
   flex: auto;
 }
 
-.Item-actions {
-  display: flex;
-  justify-content: flex-end;
+.Item-amount, .Item-price {
+  max-width: 105px;
+  width: 100%;
 }
 
-.Item-actions button {
-  background-color: var(--delete);
-  color: var(--second-text);
-  padding: 8px 16px;
+.Item-price {
+  text-align: right;
+}
 
+
+.Item-actions .add {
+  background-color: var(--primary);
+  color: var(--background);
+  border: 1px solid var(--primary);
   &:hover {
     background-color: var(--background);
-    border-color: var(--delete);
+    color: var(--primary);
+  }
+}
+
+.Item-actions .delete {
+  background-color: var(--delete);
+  color: var(--background);
+  border: 1px solid var(--delete);
+  &:hover {
+    background-color: var(--background);
     color: var(--delete);
   }
 }
