@@ -45,20 +45,17 @@ class Store {
    * @param item {Object} - товар
    */
   addToBasket(item) {
-    if(!item.count) {
-      item.count = 1;
-    } else {
-      item.count +=1;
-    }
+    let basketItem = this.state.basket.get(item.code) ?? { count: 0, item }
+    basketItem.count++
 
     this.setState({
       ...this.state,
-      basket: new Map( [...this.state.basket,  [item.code, item]]),
+      basket: new Map([...this.state.basket,  [item.code, basketItem]]),
     });
   }
 
   removeFromBasket(code) {
-    this.state.basket.get(code).count = 0;
+    // this.state.basket.get(code).count = 0;
     this.state.basket.delete(code);
 
     if ( this.state.basket.size === 0 ) {

@@ -21,7 +21,7 @@ function Controls({ basketList, showBasket=() => {} }) {
     } else {
       let sum = 0;
       basketList.forEach((value, key, map) => {
-        sum += value.price * value.count;
+        sum += value.item.price * value.count;
         productsCount += value.count;
       });
       return `${productsCount} ${plural(productsCount)} / ${sum} ₽`

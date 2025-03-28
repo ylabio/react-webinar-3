@@ -10,9 +10,9 @@ function Modal ({ basketItems, onDeleteItem=() => {}, hideModal=() => {} }) {
     let sum = 0;
     const cn = bem('Modal');
 
-    basketItems.forEach((item) => {
-        sum += item.price * item.count;
-        itemsList.push(<BasketItem item={item} onDell={onDeleteItem} />);
+    basketItems.forEach((basketItem) => {
+        sum += basketItem.item.price * basketItem.count;
+        itemsList.push(<BasketItem basketItem={basketItem} onDell={onDeleteItem} />);
     })
 
     return(
@@ -25,7 +25,7 @@ function Modal ({ basketItems, onDeleteItem=() => {}, hideModal=() => {} }) {
                 <ul className={cn('list')}>
                     {itemsList.map((item) => {
                         return (
-                            <li key={item.props.item.code} className={cn('list-item')}>
+                            <li key={item.props.basketItem.item.code} className={cn('list-item')}>
                                 {item}
                             </li>
                         )
