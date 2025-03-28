@@ -46,10 +46,10 @@ class Store {
    */
   addItemToCart(code) {
     this.state.cart[code] ? this.state.cart[code]++ : this.state.cart[code] = 1;
-    
+
     this.setState({
       ...this.state,
-      cart: {...this.state.cart}
+      cart: { ...this.state.cart }
     });
   }
 
@@ -57,15 +57,13 @@ class Store {
    * Удаление товара из корзины по коду
    * @param code
    */
-  deleteItem(code) {
-    
-  }
-
-  /**
-   * Переход в корзину
-   */
-  showCartItems() {
-    console.log("Товары в корзине:", this.state.cart);
+  deleteItemFromCart(code) {
+    const newCart = { ...this.state.cart };
+    delete newCart[code];
+    this.setState({
+      ...this.state,
+      cart: newCart,
+    });
   }
 }
 

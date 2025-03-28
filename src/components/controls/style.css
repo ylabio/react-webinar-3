@@ -4,7 +4,7 @@
   padding: 24px 0px;
 }
 
-.Controls button {
+.Controls-button {
   display: flex;
   align-items: center;
   gap: 8px;

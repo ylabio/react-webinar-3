@@ -11,15 +11,24 @@
   flex: auto;
 }
 
+.Item-info {
+  min-width: 105px;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;
 }
 
 .Item-actions button {
+  padding: 8px 16px;
+}
+
+.Item-actions-add {
   background-color: var(--primary);
   color: var(--second-text);
-  padding: 8px 16px;
 
   &:hover {
     background-color: var(--background);
@@ -28,3 +37,13 @@
   }
 }
 
+.Item-actions-delete {
+  background-color: var(--delete);
+  color: var(--second-text);
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
+  }
+}
