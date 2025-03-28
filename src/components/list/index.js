@@ -8,7 +8,7 @@ function List({list, isCart = false}) {
     <ul className="List">
       {list.map(item => (
         <li key={item.code} className="List-item">
-          <Item item={item} isCart={true}/>
+          <Item item={item} isCart={isCart}/>
         </li>
       ))}
     </ul>

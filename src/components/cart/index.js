@@ -2,12 +2,13 @@ import React from 'react';
 import { useCart } from '../../cart-context';
 import { IconCart } from '../icon';
 import { plural, calculateCartTotal, formatPrice } from '../../utils';
+import { STRINGS } from '../../const';
 import './style.css';
 
 function Cart() {
   const { cart, toggleCartModal } = useCart();
 
-  const title = getCartTitle(cart);
+  const title = React.useMemo(() => getCartTitle(cart), [cart]);
 
   return (
     <div className="Cart">
@@ -22,13 +23,9 @@ function Cart() {
 function getCartTitle(cart) {
   const count = cart.length;
 
-  if (count === 0) return "Пусто";
+  if (count === 0) return STRINGS.EMPTY;
 
-  return `${count} ${plural(count, {
-    one: 'товар',
-    few: 'товара',
-    many: 'товаров',
-  })} / ${formatPrice(calculateCartTotal(cart))}`;
+  return `${count} ${plural(count, STRINGS.PRODUCT_COUNT_FORMS)} / ${formatPrice(calculateCartTotal(cart))}`;
 }
 
 export default React.memo(Cart);

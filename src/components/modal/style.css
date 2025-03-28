@@ -39,6 +39,10 @@
   animation: fadeIn 0.3s ease-in-out forwards;
 }
 
+.Modal-container ul {
+  padding: 0 25px 0 25px;
+}
+
 @keyframes fadeIn {
   0% {
     transform: translateY(100px);
@@ -86,4 +90,23 @@
   .Modal-cross:hover {
     transform: rotate(90deg);
   }
+}
+
+.Modal-hint {
+  padding: 25px 25px 50px 25px;
+  text-align: center;
+}
+
+.Modal-container-final-cost {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 15px 15px 40px 15px;
+  font-weight: 700;
+}
+
+.Modal-cost {
+  margin-right: 160px;
+  text-align: end;
+  width: 185px;
 }
