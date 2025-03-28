@@ -1,0 +1,78 @@
+.modal-overlay {
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 1080px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+  padding: 16px 24px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 84px;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative !important;
+  inset: -29px 0 0 14px;
+}
+
+.modal-footer {
+  text-align: right;
+  margin-top: 16px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+h2{
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.Item-price-cart{
+  width: 105px;
+  height: 22px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Cart-total{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 24px;
+  transition: background-color 1s;
+  position: relative;
+  right: 130px;
+  padding: 16px;
+}
+
+.Cart-total-item{
+  width: 105px;
+  height: 22px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+b{
+  color: var(--main-text);
+}

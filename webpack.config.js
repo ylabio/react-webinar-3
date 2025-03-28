@@ -13,7 +13,7 @@ let config = {
   },
   mode: process.env.NODE_ENV,
   resolve: {
-    extensions: ['.js', 'jsx'], // расширения по умолчанию если не указаны в import
+    extensions: ['.js', '.jsx', '.png'], // расширения по умолчанию если не указаны в import
     modules: ['./', 'node_modules'], // Где искать файлы подключаемых модулей (пакетов)
   },
   module: {
@@ -32,6 +32,11 @@ let config = {
           { loader: 'css-loader', options: { url: true, import: true } },
         ],
       },
+
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        use: [{ loader: 'file-loader' }],
+      }
     ],
   },
   plugins: [
@@ -49,7 +54,7 @@ if (process.env.NODE_ENV === 'development') {
   config.devtool = 'inline-source-map';
   config.devServer = {
     static: path.join(__dirname, 'dist'),
-    port: 8010,
+    port: 8015,
     historyApiFallback: true,
   };
 }

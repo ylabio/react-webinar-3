@@ -40,49 +40,71 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
+  openCart() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      isModalOpen: true,
     });
   }
 
+  // Закрыть модалку
+  closeCart() {
+    this.setState({
+      ...this.state,
+      isModalOpen: false,
+    });
+  }
+  
   /**
    * Удаление записи по коду
    * @param code
    */
   deleteItem(code) {
+    // Фильтруем корзину, оставляя только товары с другим code
+    const updatedCart = this.state.cart.filter(item => item.code !== code);
+
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      cart: updatedCart, // Обновляем корзину только отфильтрованными данными
     });
   }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
+
+  addItemToCart(code) {
+    
+    const item = this.state.list.find((i) => i.code === code);
+    if (!item) return;
+  
+    const quantity = item.count || 1;
+  
+    const existingCartItem = this.state.cart.find((c) => c.code === code);
+  
+    if (existingCartItem) {
+      
+      const updatedCart = this.state.cart.map((c) =>
+        c.code === code
+          ? { ...c, quantity: c.quantity + quantity }
+          : c
+      );
+  
+      this.setState({
+        ...this.state,
+        cart: updatedCart,
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cart: [
+          ...this.state.cart,
+          {
             ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
-    });
+            quantity,
+          },
+        ],
+      });
+    }
   }
+  
 }
 
 export default Store;
