@@ -7,11 +7,19 @@
 .Controls button {
   border: 1px solid var(--primary);
   padding: 8px 16px;
-  background-color: var(--primary);
-  color: var(--second-text);
 
+  background-color: var(--background);
+  color: var(--primary);
+  color: #1a2028;
   &:hover {
-    background-color: var(--background);
-    color: var(--primary);
+    background-color: var(--primary);
+    color: var(--second-text);
   }
+}
+
+.Controls-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
 }

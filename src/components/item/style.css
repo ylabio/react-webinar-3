@@ -6,10 +6,21 @@
   transition: background-color 1s;
   padding: 16px;
 }
-
-.Item_selected {
-  background-color: var(--primary-select);
+.Item-wrap{
+  display: flex;
+  gap: 24px;
 }
+.Item-wrap-amount{
+  display: flex;
+  justify-content: flex-start;
+  width: 105px;
+}
+.Item-wrap-price{
+  display: flex;
+  justify-content: flex-end;
+  width: 105px;
+}
+
 
 .Item-title {
   flex: auto;
@@ -20,7 +31,19 @@
   justify-content: flex-end;
 }
 
-.Item-actions button {
+.add{
+  border: 1px solid var(--primary);
+  padding: 8px 16px;
+  
+  background-color: var(--primary);
+  color: var(--second-text);
+
+  &:hover {
+    background-color: var(--background);
+  color: var(--primary);
+  }
+}
+.delete{
   background-color: var(--delete);
   color: var(--second-text);
   padding: 8px 16px;
@@ -32,3 +55,15 @@
   }
 }
 
+.Item-actions button {
+  width: 100%;
+  background-color: var(--delete);
+  color: var(--second-text);
+  padding: 8px 16px;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
+  }
+}

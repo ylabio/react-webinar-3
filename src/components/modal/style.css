@@ -1,0 +1,52 @@
+.Modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.Modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 75vw;
+  max-width: 1080px;
+  max-height: 80%;
+  overflow: auto;
+}
+.Modal-content-head {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.Modal-content-wrap {
+  /* position: absolute;
+  right: calc(75vw - 105px); */
+  padding: 16px 145px 16px 0px;
+  padding-left: calc(100% - 370px);
+  display: flex;
+  gap: 24px;
+  font-family: 'Golos Text', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0;
+  color: #1a2028;
+}
+
+.Modal-content-wrap-total{
+  display: flex;
+  justify-content: flex-start;
+  width: 105px;
+}
+.Modal-content-wrap-cash{
+  display: flex;
+  justify-content: flex-end;
+  width: 105px;
+}
