@@ -10,6 +10,8 @@ function ModalWindow({ cart, sum, onDeleteItem = () => {}, onModalStateChange = 
     }
   };
 
+  //из-за того, что у списка в модальном окне есть свой "подвал" с итогами,
+  //я склоняюсь использовать здесь таблицу, пусть она будет во многом похожа на List
   return (
     <div className="ModalWindow">
       <div className="ModalWindow-head">

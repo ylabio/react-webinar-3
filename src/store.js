@@ -55,6 +55,8 @@ class Store {
     const isInCart = this.state.cart.find(product => product.code === item.code);
     this.setState({
       ...this.state,
+      // проверка: если предмет уже есть в корзине, увеличивается его count
+      // если нет - в корзину добавляется новый предмет
       cart: isInCart ? 
         this.state.cart.map(product => {
           return {
