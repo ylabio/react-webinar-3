@@ -1,0 +1,14 @@
+.Table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.Table td {
+  border: 0;
+  padding-block: 16px;
+  padding-inline: 12px;
+}
+
+.Table-overview {
+  font-weight: bold;
+}

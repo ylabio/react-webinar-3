@@ -3,49 +3,34 @@ import PropTypes from 'prop-types';
 import { plural } from '../../utils';
 import './style.css';
 
-function Controls({ cart }) {
-  const getFullSum = (arr) => {
-    return arr.reduce((sum, item) => {
-      return sum + (item.count * item.price);
-    }, 0);
-  }
-
-  const getFullCount = (arr) => {
-    return arr.reduce((sum, item) => {
-      return sum + item.count;
-    }, 0);
-  }
-
+function Controls({ sum, count, onModalStateChange }) {
   const getMessage = () => {
-    if (!cart.length) {
+    if (!count) {
       return 'Пусто';
     }
-    const count = getFullCount(cart);
     const message = `${count} ${plural(count, {
       one: 'товар',
       few: 'товара',
       many: 'товаров',
-    })} / ${getFullSum(cart).toLocaleString()} ₽`;
+    })} / ${sum.toLocaleString()} ₽`;
     return message;
   }
 
   return (
     <div className="Controls">
-      <button>{getMessage()}</button>
+      <button onClick={() => onModalStateChange()}>{getMessage()}</button>
     </div>
   );
 }
 
 Controls.propTypes = {
-  cart: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number,
-    }),
-  ).isRequired,
+  onModalStateChange: PropTypes.func,
+  sum: PropTypes.number,
+  count: PropTypes.number,
 };
 
 Controls.defaultProps = {
-  cart: [],
+  onModalStateChange: () => {},
 };
 
 export default React.memo(Controls);
