@@ -54,14 +54,14 @@ body:has(.ModalLayout) {
 
 .ModalLayout-content {
   min-height: 100px;
-  padding: 0 0;
+  padding: 0 24px;
 }
 
 .ModalLayout-total {
   display: flex;
   justify-content: flex-end;
   gap: 115px;
-  margin-right: 135px;
+  margin-right: 160px;
   padding: 20px 0 50px;
 }
 
