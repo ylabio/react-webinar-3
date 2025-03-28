@@ -25,9 +25,4 @@ List.propTypes = {
   onSelectItem: PropTypes.func,
 };
 
-List.defaultProps = {
-  onAddItem: () => {},
-  onSelectItem: () => {},
-};
-
 export default React.memo(List);

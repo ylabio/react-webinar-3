@@ -20,11 +20,4 @@
   background-color: var(--add);
   color: var(--second-text);
   padding: 8px 16px;
-
-  /* &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
-  } */
 }
-

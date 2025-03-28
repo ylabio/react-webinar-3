@@ -11,26 +11,22 @@ import Modal from './components/modal';
  */
 function App({ store }) {
   const list = store.getState().list;
-  // const order = store.getOrder();
-  // const total = store.getTotal(order.items);
+
   const [isOpened, setIsOpened] = React.useState(false);
   const [storeState, setStoreState] = React.useState(() => ({
     order: store.getOrder(),
-    total: store.getTotal(store.getOrder().items)
+    total: store.getTotal(store.getOrder().items),
   }));
+
   useEffect(() => {
     const updateFromStore = () => {
       const newOrder = store.getOrder();
       setStoreState({
         order: newOrder,
-        total: store.getTotal(newOrder.items)
+        total: store.getTotal(newOrder.items),
       });
     };
-
-    // Первоначальное обновление
     updateFromStore();
-    
-    // Подписка на изменения
     const unsubscribe = store.subscribe(updateFromStore);
     return unsubscribe;
   }, [store]);
@@ -49,18 +45,24 @@ function App({ store }) {
       [store],
     ),
   };
+
   const onOpenBasket = () => {
     setIsOpened(!isOpened);
   };
+
   return (
     <PageLayout>
       <Head title="Магазин" />
       <Controls order={storeState.order} onOpenBasket={onOpenBasket} />
-      <List
-        list={list}
-        onAddItem={callbacks.onAddItem}
-      />
-      {isOpened && <Modal total={storeState.total} order={storeState.order} onDeleteItem={callbacks.onDeleteItem} onClose={() => setIsOpened(false)} />}
+      <List list={list} onAddItem={callbacks.onAddItem} />
+      {isOpened && (
+        <Modal
+          total={storeState.total}
+          order={storeState.order}
+          onDeleteItem={callbacks.onDeleteItem}
+          onClose={() => setIsOpened(false)}
+        />
+      )}
     </PageLayout>
   );
 }
