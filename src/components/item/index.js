@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Item(props) {
+function Item({item, addToBasket=() => {}}) {
 
   const callbacks = {
     onAdd: e => {
       e.stopPropagation();
-      props.addToBasket(props.item);
+      addToBasket(item);
     },
   };
 
   return (
     <div className="Item">
       <div className="Item-title">
-        <b>{props.item.title}</b>
-        <span>{props.item.price} ₽</span>
+        <b>{item.title}</b>
+        <span>{item.price} ₽</span>
       </div>
       <div className="Item-actions">
         <button onClick={callbacks.onAdd}>Добавить</button>
@@ -33,11 +34,6 @@ Item.propTypes = {
   }).isRequired,
   onDelete: PropTypes.func,
   onSelect: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
 };
 
 export default React.memo(Item);

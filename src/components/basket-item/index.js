@@ -1,22 +1,34 @@
 import React from 'react';
 import './style.css';
-import item from '../item';
+import { cn as bem } from '@bem-react/classname';
+import PropTypes from 'prop-types';
 
-function BasketItem (props) {
-    return (
-        <div className="Basket-item">
-          <div className="Basket-item-title">
-            <b>{props.item.title}</b>
-            <div className='info'>
-              <span className="count">{props.item.count} шт</span>
-              <span className="price">{props.item.price} ₽</span>
-            </div>
-          </div>
-          <div className="Basket-item-actions">
-            <button onClick={() => { props.onDell(props.item.code) }}>Удалить</button>
+function BasketItem ({ item, onDell=() => {} }) {
+  const cn = bem('Basket-item');
+  
+  return (
+      <div className={cn()}>
+        <div className={cn('title')}>
+          <b>{item.title}</b>
+          <div className='info'>
+            <span className="count">{item.count} шт</span>
+            <span className="price">{item.price} ₽</span>
           </div>
         </div>
-      );
+        <div className={cn('actions')}>
+          <button onClick={() => { onDell(item.code) }}>Удалить</button>
+        </div>
+      </div>
+    );
 }
 
-export default BasketItem;
+BasketItem.propTypes = {
+  item: PropTypes.shape({
+    code: PropTypes.number, 
+    title: PropTypes.string, 
+    price: PropTypes.number
+  }),
+  onDell: PropTypes.func
+}
+
+export default React.memo(BasketItem);

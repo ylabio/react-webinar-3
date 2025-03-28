@@ -1,11 +1,14 @@
 import React from 'react';
-import BasketItem from '../basket-item/index.js'
-import './style.css'
-import Cross from '../../assets/icons/cross.svg'
+import BasketItem from '../basket-item/index.js';
+import './style.css';
+import Cross from '../../assets/icons/cross.svg';
+import { cn as bem } from '@bem-react/classname';
+import PropTypes from 'prop-types';
 
-function Modal ({ basketItems, onDeleteItem, hideModal }) {
+function Modal ({ basketItems, onDeleteItem=() => {}, hideModal=() => {} }) {
     const itemsList = [];
     let sum = 0;
+    const cn = bem('Modal');
 
     basketItems.forEach((item) => {
         sum += item.price * item.count;
@@ -13,18 +16,20 @@ function Modal ({ basketItems, onDeleteItem, hideModal }) {
     })
 
     return(
-        <div className='modal-container' >
-            <div className='modal'>
+        <div className={cn('container')} >
+            <div className={cn()}>
                 <div className='cross' onClick={() => { hideModal() }}>
                     <Cross />
                 </div>
-                <div className='modal-title'>Корзина</div>
-                <ul className="Modal-list">
-                    {itemsList.map(item => (
-                        <li key={item.code} className="Modal-list-item">
-                            {item}
-                        </li>
-                    ))}
+                <div className={cn('title')}>Корзина</div>
+                <ul className={cn('list')}>
+                    {itemsList.map((item) => {
+                        return (
+                            <li key={item.props.item.code} className={cn('list-item')}>
+                                {item}
+                            </li>
+                        )
+                    })}
                 </ul>
                 <div className='total'>
                     <span>Итого:</span>
@@ -35,4 +40,10 @@ function Modal ({ basketItems, onDeleteItem, hideModal }) {
     );
 }
 
-export default Modal;
+Modal.propTypes = {
+    basketItems: PropTypes.instanceOf(Map),
+    onDeleteItem: PropTypes.func,
+    hideModal: PropTypes.func
+  };
+
+export default React.memo(Modal);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Item from '../item';
 import './style.css';
 
-function List({ list, onAddToBasket }) {
+function List({ list, onAddToBasket=() => {} }) {
   return (
     <ul className="List">
       {list.map(item => (
@@ -22,10 +22,6 @@ List.propTypes = {
     }),
   ).isRequired,
   addToBasket: PropTypes.func,
-};
-
-List.defaultProps = {
-  addToBasket: () => {},
 };
 
 export default React.memo(List);

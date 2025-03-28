@@ -4,7 +4,7 @@ import './style.css';
 import Basket from '../../assets/icons/basket.svg';
 import { plural } from '../../utils';
 
-function Controls({ showBasket, basketList }) {
+function Controls({ basketList, showBasket=() => {} }) {
   let productsCount = 0;
 
   const onClick = () => {
@@ -37,10 +37,6 @@ function Controls({ showBasket, basketList }) {
 
 Controls.propTypes = {
   showBasket: PropTypes.func,
-};
-
-Controls.defaultProps = {
-  showBasket: () => {},
 };
 
 export default React.memo(Controls);

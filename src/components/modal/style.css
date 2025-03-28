@@ -1,4 +1,4 @@
-.modal-container {
+.Modal-container {
     display: flex;
     position: absolute;
     top: 0;
@@ -10,7 +10,7 @@
     align-items: center;
 }
 
-.modal {
+.Modal {
     background-color: white;
     width: 1080px;
     height: auto;
@@ -34,7 +34,7 @@
     padding: 24px 0;
   }
 
-.modal-title {
+.Modal-title {
     font-size: 32px;
     font-weight: 700;
 }
