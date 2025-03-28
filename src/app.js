@@ -42,8 +42,6 @@ function App({ store }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
 
-
-
   const orderList = store.getOrder();
   console.log('app');
   const totalAmount = orderList.reduce((sum, item) => sum + item.price * item.inOrder, 0);
@@ -57,17 +55,26 @@ function App({ store }) {
         onClick={callbacks.openModal}
         order={orderList.length}
         buttonText={'Пусто'}
-        style={'order'} totalAmount={formattedTotalAmount} Icon={OrderIcon}/>
+        style={'order'}
+        totalAmount={formattedTotalAmount}
+        Icon={OrderIcon}
+      />
       <List
         list={list}
         onAdd={callbacks.onAdd}
-        isModal={false}
+        isModal={isModalOpen}
         onRemove={callbacks.onRemove}
       />
+      {isModalOpen &&
       <Modal isOpen={isModalOpen} onClose={callbacks.closeModal} Icon={ModalIcon}>
-        <Order orderList={orderList} isModalOpen={isModalOpen} totalAmount={formattedTotalAmount} store={store} onRemove={callbacks.onRemove} />
-
+        <Order orderList={orderList}
+               isModalOpen={isModalOpen}
+               totalAmount={formattedTotalAmount}
+               store={store}
+               onRemove={callbacks.onRemove}
+        />
       </Modal>
+      }
     </PageLayout>
   );
 }

@@ -23,7 +23,6 @@ const Controls = ({
                     Icon
 }) => {
   const className = `Controls-button-${style}`;
-  console.log('controls')
 
   const pluralShipment = plural(order, {
     one: 'товар',
