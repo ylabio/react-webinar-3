@@ -3,10 +3,11 @@
   overflow: hidden;
   list-style: none;
   padding-left: 0;
-  margin: 0;
+  margin: 0 auto;
+  width: 1152px;
 }
 
-.List-item:nth-child(odd) {
+.List-item:nth-child(even) {
   background-color: var(--odd-item);
 }
 

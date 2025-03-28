@@ -7,12 +7,12 @@
   padding: 16px;
 }
 
-.Item_selected {
-  background-color: var(--primary-select);
-}
-
 .Item-title {
   flex: auto;
+}
+
+.Item-price b {
+  font-weight: 400;
 }
 
 .Item-actions {

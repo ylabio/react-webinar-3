@@ -14,59 +14,110 @@
   .CartModal {
     background-color: var(--background);
     border-radius: 8px;
-    width: 600px;
-    max-width: 90%;
+    width: 1080px;
     max-height: 80vh;
     display: flex;
     flex-direction: column;
+    position: relative;
   }
   
   .CartModal-header {
-    padding: 16px;
-    border-bottom: 1px solid var(--divider);
+    padding: 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 32px;
   }
   
   .CartModal-close {
-    font-size: 24px;
     padding: 0;
     width: 32px;
     height: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
   }
   
   .CartModal-content {
-    padding: 16px;
+    padding: 0;
     overflow-y: auto;
     flex-grow: 1;
+    width: 1032px;
+    margin: auto;
   }
   
   .CartModal-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 0;
+    padding: 16px 0;
     border-bottom: 1px solid var(--divider);
+  }
+
+  .CartModal-item:nth-child(odd) {
+    background-color: var(--odd-item);
+  }
+
+  .CartModal-name {
+    flex: 1;
+    padding: 16px;
+    font-weight: bold;
+  }
+  
+  .CartModal-right {
+    display: flex;
+    align-items: center;
+    width: 363px;
+    margin-right: 16px;
+  }
+
+  .CartModal-quantity {    
+    width: 105px;
+    text-align: left;
+    padding: 9px 0;
+  }
+
+  .CartModal-price {
+    text-align: right;
+    margin-left: 24px;
+    width: 105px;
   }
   
   .CartModal-remove {
     background-color: var(--delete);
     color: var(--second-text);
+    margin-left: 24px;
+    width: 105px;
   }
   
   .CartModal-footer {
-    padding: 16px;
+    padding: 0;
     border-top: 1px solid var(--divider);
     font-weight: bold;
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    width: 1032px;
+    margin: 0 auto 24px auto;
   }
-  
-  .CartModal-empty {
-    text-align: center;
-    padding: 16px;
-    color: #666;
+
+  .CartModal-footer-container {
+    width: 234px;
+    padding: 16px 0;
+    margin-right: 145px;
+    display: flex;
+  }
+
+  .CartModal-footer-total {
+    width: 105px;
+    text-align: left;
+  }
+
+  .CartModal-footer-sum {
+    text-align: right;
+    margin-left: 24px;
+    width: 105px;
   }

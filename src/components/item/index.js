@@ -6,7 +6,10 @@ function Item({item, onAddToCart}) {
     return (
     <div className= "Item">
       <div className="Item-title">
-        <b>{item.title}</b> -  {item.price} руб.        
+        <b>{item.title}</b>        
+      </div>
+      <div className="Item-price">
+        <b>{item.price} ₽ </b>        
       </div>
       <div className="Item-actions">
         <button onClick={() => onAddToCart(item.code)}>Добавить</button>

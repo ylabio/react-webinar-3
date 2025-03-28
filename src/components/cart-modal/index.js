@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.css';
+import CloseIcon from '../cart-close-icon';
 
 function CartModal({ cart, items, onRemoveFromCart, onClose }) {
   const cartEntries = Object.entries(cart);
@@ -10,24 +11,31 @@ function CartModal({ cart, items, onRemoveFromCart, onClose }) {
 
   return (
     <div className="CartModal-overlay">
-      <div className="CartModal">
+      <div className="CartModal">        
+        <button className="CartModal-close" onClick={onClose}><CloseIcon/></button>
         <div className="CartModal-header">
           <h4>Корзина</h4>
-          <button onClick={onClose}>×</button>
         </div>
         <div className="CartModal-content">
           {cartEntries.map(([code, quantity]) => {
             const item = items.find(i => i.code === Number(code));
             return (
               <div key={code} className="CartModal-item">
-                <span>{item.title} - {quantity} шт. × {item.price} руб.</span>
-                <button className="CartModal-remove" onClick={() => onRemoveFromCart(code)}>Удалить</button>
+                <div className="CartModal-name">{item.title}</div>
+                <div className="CartModal-right">
+                  <span className="CartModal-quantity">{quantity} шт</span>
+                  <span className="CartModal-price">{item.price} ₽</span>
+                  <button className="CartModal-remove" onClick={() => onRemoveFromCart(code)}>Удалить</button>
+                </div>
               </div>
             );
           })}
         </div>
         <div className="CartModal-footer">
-          Итого: {totalSum} руб.
+          <div className="CartModal-footer-container">
+            <div className="CartModal-footer-total">Итого:</div> 
+            <div className="CartModal-footer-sum">{totalSum} ₽</div>
+          </div>
         </div>
       </div>
     </div>
