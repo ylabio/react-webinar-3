@@ -9,13 +9,13 @@ function List(props) {
 
   return (
     <ul className="List">
-      <div className="Scroll" data-list-type={props.listType}>
+      <li className="Scroll" data-list-type={props.listType}>
         {props.list?.map(item => (
           <li key={item.code} className="List-item">
             <Item item={item} listType={props.listType} onClick={props.onHandleButton} />
           </li>
         ))}
-      </div>
+      </li>
       {props.listType === 'cart' && (
         <li className="List-total">
           <div className="List-total-item">
