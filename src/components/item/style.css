@@ -2,17 +2,22 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
   transition: background-color 1s;
-  padding: 16px;
-}
-
-.Item_selected {
-  background-color: var(--primary-select);
+  padding: 16px 16px 15px 16px;
 }
 
 .Item-title {
   flex: auto;
+}
+
+.Item-count {
+  min-width: 105px;
+}
+
+.Item-price {
+  min-width: 105px;
+  text-align: right;
 }
 
 .Item-actions {
@@ -21,9 +26,13 @@
 }
 
 .Item-actions button {
-  background-color: var(--delete);
   color: var(--second-text);
   padding: 8px 16px;
+}
+
+.Btn-delete {
+  background-color: var(--delete);
+  width: 105px;
 
   &:hover {
     background-color: var(--background);
@@ -32,3 +41,13 @@
   }
 }
 
+.Btn-add {
+  background-color: var(--primary);
+  width: 114px;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}
