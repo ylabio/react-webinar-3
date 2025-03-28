@@ -1,43 +1,41 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
+import {formatCurrency} from '../../utils';
 import './style.css';
+import Controls from "../controls";
 
-function Item(props) {
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
 
-  const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
-    onDelete: e => {
-      e.stopPropagation();
-      props.onDelete(props.item.code);
-    },
-  };
+function Item({
+                onAdd,
+                onRemove,
+                item,
+                isModal = false
+}) {
+  const handleAdd = () => onAdd(item.code);
+  const handleDel = () => onRemove(item.code);
+  console.log('item')
 
   return (
-    <div
-      className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-      onClick={callbacks.onClick}
-    >
-      <div className="Item-code">{props.item.code}</div>
+    <div className="Item">
       <div className="Item-title">
-        <b>{props.item.title}</b>
-        {count
-          ? ` | Выделяли ${count} ${plural(count, {
-              one: 'раз',
-              few: 'раза',
-              many: 'раз',
-            })}`
-          : ''}
+        <b>{item.title}</b>
       </div>
+      {isModal
+        && item.inOrder > 0
+        && (
+        <p className="Item-count">
+          {item.inOrder} шт
+        </p>
+      )}
+      <p className="Item-price">
+        {formatCurrency(item.price)}
+      </p>
       <div className="Item-actions">
-        <button onClick={callbacks.onDelete}>Удалить</button>
+        <Controls
+          onClick={isModal ? handleDel : handleAdd}
+          style={isModal ? 'remove' : 'add'}
+          buttonText={isModal ? 'Удалить' : 'Добавить'}
+        />
       </div>
     </div>
   );
@@ -47,16 +45,10 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
-    count: PropTypes.number,
+    inOrder: PropTypes.number,
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func,
+  isModal: PropTypes.bool,
+  onAdd: PropTypes.func,
+  onRemove: PropTypes.func
 };
-
-Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
-};
-
 export default React.memo(Item);

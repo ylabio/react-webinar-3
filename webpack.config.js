@@ -32,6 +32,19 @@ let config = {
           { loader: 'css-loader', options: { url: true, import: true } },
         ],
       },
+      {
+        test: /\.svg$/,
+        loader: 'svg-url-loader',
+        options: {
+          limit: 8192,
+          noquotes: true,
+        },
+      },
+      {
+        test: /\.svg$/,
+        exclude: /node_modules/,
+        use: ['file-loader'],
+      },
     ],
   },
   plugins: [

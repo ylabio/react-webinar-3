@@ -7,7 +7,7 @@ import 'theme.css';
 
 const store = new Store({
   list: [
-    { code: generateCode(), title: 'Название товара', price: 100.0 },
+    { code: generateCode(), title: 'Название товара', price: 100.0},
     { code: generateCode(), title: 'Книга про React', price: 770 },
     { code: generateCode(), title: 'Конфета', price: 33 },
     { code: generateCode(), title: 'Трактор', price: 7955320 },
