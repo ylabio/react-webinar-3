@@ -6,18 +6,22 @@ import './style.css';
 function Table(props) {
   return (
     <table className="Table">
-      {props.cart.map(item => (
-        <Row 
-          key={item.code} 
-          item={item} 
-          onDeleteItem={props.onDeleteItem}
-        />
-      ))}
+      <tbody>
+        {props.cart.map(item => (
+          <Row 
+            key={item.code} 
+            item={item} 
+            onDeleteItem={props.onDeleteItem}
+          />
+        ))}
+      </tbody>
       <tfoot className="Table-overview">
-        <td className="Row-title"></td>
-        <td className="Row-count">Итого: </td>
-        <td className="Row-price">{props.sum.toLocaleString()} ₽</td>
-        <td></td>
+        <tr>
+          <td className="Row-title"></td>
+          <td className="Row-count">Итого: </td>
+          <td className="Row-price">{props.sum.toLocaleString()} ₽</td>
+          <td></td>
+        </tr>
       </tfoot>
     </table>
   );
