@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ModalItem from '../modalItem';
+import ModalItem from '../modal-item';
 import './style.css';
 
-function ModalList({ newlist, onDeleteItem }) {
+function ModalList({ newlist, onDeleteItem = () => { } }) {
   if (!newlist) {
     return null;
   }
@@ -18,7 +18,6 @@ function ModalList({ newlist, onDeleteItem }) {
   );
 }
 
-
 ModalList.propTypes = {
   newlist: PropTypes.arrayOf(
     PropTypes.shape({
@@ -26,10 +25,6 @@ ModalList.propTypes = {
     }),
   ).isRequired,
   onDeleteItem: PropTypes.func,
-};
-
-ModalList.defaultProps = {
-  onDeleteItem: () => { },
 };
 
 export default React.memo(ModalList);

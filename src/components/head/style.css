@@ -12,5 +12,7 @@
 }
 
 .Head h1 {
-  margin: 0;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
 }

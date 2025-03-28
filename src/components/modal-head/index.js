@@ -6,7 +6,7 @@ function ModalHead({ title }) {
   return (
     <div className="Modal__head">
       <div className="Modal__head-container">
-        <h1>{title}</h1>
+        <h2>{title}</h2>
       </div>
     </div>
   );

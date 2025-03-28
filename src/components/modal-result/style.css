@@ -3,9 +3,9 @@
 }
 
 .Modal__result-container {
-  max-width: 244px;
+  max-width: 235px;
   margin: 16px auto;
-  margin-right: 130px;
+  margin-right: 139px;
   display: flex;
   justify-content: space-between;
 }

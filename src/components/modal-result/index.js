@@ -7,7 +7,7 @@ function ModalResult({ allPrise }) {
     <div className="Modal__result">
       <div className="Modal__result-container">
         <h2>Итого:</h2>
-        <h2>{allPrise} p.</h2>
+        <h2>{allPrise} &#8381;</h2>
       </div>
     </div>
   );

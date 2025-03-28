@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Item from '../item';
 import './style.css';
 
-function List({ list, onAdd }) {
+function List({ list, onAdd = () => { } }) {
   return (
     <ul className="List">
       {list.map(item => (
@@ -25,9 +25,9 @@ List.propTypes = {
   onSelectItem: PropTypes.func,
 };
 
-List.defaultProps = {
-  onAdd: () => { },
-};
+// List.defaultProps = {
+//   onAdd: () => { },
+// };
 
 
 

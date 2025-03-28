@@ -10,9 +10,8 @@
 
 .Modal-center {
     position: relative;
-    margin: 0 auto;
+    margin: 27vh auto;
     padding: 24px;
-    margin-top: 256px;
     max-width: 1080px;
     width: calc(100% - 72px);
     min-height: 142px;

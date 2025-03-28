@@ -5,11 +5,11 @@ import Head from './components/head';
 import Close from './components/close';
 import PageLayout from './components/page-layout';
 import Modal from './components/modal';
-import ModalHead from './components/modalHead';
-import ModalList from './components/modalList';
-import ModalResult from './components/modalResult';
+import ModalHead from './components/modal-head';
+import ModalList from './components/modal-list';
+import ModalResult from './components/modal-result';
 import { plural } from './utils';
-// import { summ } from './utils';
+
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -37,7 +37,6 @@ function App({ store }) {
     onAddItem: useCallback(
       item => {
         store.addItem(item);
-        console.log(newlist)
       },
       [store],
     ),
@@ -69,7 +68,7 @@ function App({ store }) {
             one: 'товар',
             few: 'товара',
             many: 'товаров',
-          })} / ${store.getTotalPrice()}`
+          })} / ${store.getTotalPrice()} ₽`
           : 'Пусто'
       } />
       <List

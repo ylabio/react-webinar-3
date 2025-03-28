@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-// import { plural } from '../../utils';
-// import { generateCode } from '../../utils.js';
 import './style.css';
 
-function Item({ item, onAdd }) {
+function Item({ item, onAdd = () => { } }) {
   const callbacks = {
     onClick: () => {
       const newItem = {
@@ -40,8 +38,8 @@ Item.propTypes = {
   onClick: PropTypes.func,
 };
 
-Item.defaultProps = {
-  onClick: () => { },
-};
+// Item.defaultProps = {
+//   onClick: () => { },
+// };
 
 export default React.memo(Item);
