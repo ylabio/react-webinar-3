@@ -1,0 +1,9 @@
+.CartList {
+  flex: 1;
+}
+
+.CartList-Total .Item-Actions {
+  max-width: 106px;
+  flex: 1;
+  height: 100%;
+}

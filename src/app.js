@@ -1,13 +1,20 @@
 import React, { useCallback, useState } from 'react';
 import List from './components/list';
+import CartList from './components/cart-list';
 import Controls from './components/controls';
 import Head from './components/head';
 import Modal from './components/modal';
 import CartButton from './components/cart-button';
 import PageLayout from './components/page-layout';
-import { selectList, selectCartItemsTotalCost, selectCartItemsUniqueCount } from './store';
+import {
+  selectList,
+  selectCartItemsTotalCost,
+  selectCartItemsUniqueCount,
+  selectCart,
+} from './store';
 import Item from './components/item';
 import Button from './components/button';
+import { formatCurrency } from './utils';
 
 /**
  * Приложение
@@ -16,11 +23,18 @@ import Button from './components/button';
  */
 function App({ store }) {
   const list = selectList(store.getState());
+  const cart = selectCart(store.getState());
 
   const callbacks = {
     addToCart: useCallback(
       code => {
         store.addToCart(code);
+      },
+      [store],
+    ),
+    removeFromCart: useCallback(
+      code => {
+        store.removeFromCart(code);
       },
       [store],
     ),
@@ -47,7 +61,6 @@ function App({ store }) {
           renderItem={item => (
             <Item
               title={item.title}
-              price={item.price}
               action={
                 <Button
                   onClick={() => {
@@ -57,11 +70,15 @@ function App({ store }) {
                   Добавить
                 </Button>
               }
-            />
+            >
+              <span style={{ textAlign: 'end' }}>{formatCurrency(item.price)}</span>
+            </Item>
           )}
         />
       </PageLayout>
-      <Modal title="Корзина" open={cartModalOpen} onClose={handleClose}></Modal>
+      <Modal title="Корзина" open={cartModalOpen} onClose={handleClose}>
+        <CartList list={cart} onDelete={code => callbacks.removeFromCart(code)} />
+      </Modal>
     </>
   );
 }

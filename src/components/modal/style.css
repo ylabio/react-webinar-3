@@ -4,6 +4,10 @@
   background: var(--background);
   border-radius: var(--border-radius);
   position: relative;
+  width: 100%;
+  min-width: 300px;
+  max-width: 1080px;
+  overflow: hidden;
 }
 .Modal-Container {
   position: relative;
@@ -12,27 +16,28 @@
   gap: 24px;
   padding-top: 24px;
   padding-bottom: 24px;
-
   width: 100%;
-  max-width: 700px;
-  min-width: 300px;
 }
 .Modal-Header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
-  font-size: 32px;
-  line-height: 40px;
+
   color: var(--main-text);
 }
 .Modal-Header h2 {
   margin: 0;
+  font-size: 32px;
+  line-height: 40px;
 }
 .Modal-Actions {
 }
 .Modal-Content {
   padding: 0 24px;
+  display: flex;
+  width: 100%;
+  flex: 1;
 }
 .Modal::backdrop {
   background-color: var(--overlay);

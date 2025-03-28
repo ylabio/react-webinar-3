@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Item({ title, numeric, action, ...props }) {
+function Item({ title, numeric, action, className = '', children, ...props }) {
   const cn = bem('Item');
 
   return (
-    <div className={cn()} {...props}>
+    <div className={[cn(), className].join(' ')} {...props}>
       <div className={cn('Title')}>
         <strong>{title}</strong>
-        <span>{numeric}</span>
       </div>
+      <div className={cn('Content')}>{children}</div>
       <div className={cn('Actions')}>{action}</div>
     </div>
   );

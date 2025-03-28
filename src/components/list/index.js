@@ -4,10 +4,10 @@ import { cn as bem } from '@bem-react/classname';
 
 import './style.css';
 
-function List({ list, renderItem, ...props }) {
+function List({ list, renderItem, className = '', ...props }) {
   const cn = bem('List');
   return (
-    <ul className={cn()}>
+    <ul className={[cn(), className].join(' ')} {...props}>
       {list?.map(item => (
         <li key={item.code} className={cn('Item')}>
           {renderItem && renderItem(item)}
