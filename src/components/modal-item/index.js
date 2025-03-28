@@ -4,22 +4,21 @@ import './style.css';
 
 function ModalItem({ item, onDelete = () => { } }) {
   const callbacks = {
-    onDelete: e => {
-      e.stopPropagation();
+    onDelete: () => {
       onDelete(item.code);
     },
   };
 
   return (
-    <div className={'Modal__Item'} >
-      <div className="Modal__Item-title">
+    <div className={'ModalItem'} >
+      <div className="ModalItem-title">
         <b>{item.title}</b>
       </div>
-      <div className="Modal__Item-prise">
+      <div className="ModalItem-prise">
         <div>{item.count} шт</div>
         <div>{item.price} &#8381;</div>
       </div>
-      <div className="Modal__Item-actions">
+      <div className="ModalItem-actions">
         <button onClick={callbacks.onDelete}>Удалить</button>
       </div>
     </div>

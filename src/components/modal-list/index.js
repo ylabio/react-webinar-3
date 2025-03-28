@@ -8,9 +8,9 @@ function ModalList({ newlist, onDeleteItem = () => { } }) {
     return null;
   }
   return (
-    <ul className="Modal__List">
+    <ul className="Modal__list">
       {newlist.map(item => (
-        <li key={item.code} className="Modal__List-item">
+        <li key={item.code} className="Modal__list-item">
           <ModalItem item={item} onDelete={onDeleteItem} />
         </li>
       ))}

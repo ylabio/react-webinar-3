@@ -1,8 +1,8 @@
-.Modal__result {
+.ModalResult {
   color: var(--main-text);
 }
 
-.Modal__result-container {
+.ModalResult-container {
   max-width: 235px;
   margin: 16px auto;
   margin-right: 139px;
@@ -10,7 +10,7 @@
   justify-content: space-between;
 }
 
-.Modal__result h2 {
+.ModalResult h2 {
   font-size: 16px;
   font-weight: 700;
   line-height: 22px;

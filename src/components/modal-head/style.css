@@ -1,13 +1,13 @@
-.Modal__head {
+.ModalHead {
   color: var(--main-text);
 }
 
-.Modal__head-container {  
+.ModalHead-container {  
   max-width: 1152px;
   margin: 0 auto;
 }
 
-.Modal__head h2 {
+.ModalHead h2 {
   margin-bottom: 24px;
   font-weight: 700;
   font-size: 32px;

@@ -4,8 +4,8 @@ import './style.css';
 
 function ModalHead({ title }) {
   return (
-    <div className="Modal__head">
-      <div className="Modal__head-container">
+    <div className="ModalHead">
+      <div className="ModalHead-container">
         <h2>{title}</h2>
       </div>
     </div>

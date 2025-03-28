@@ -1,4 +1,4 @@
-.Modal__Item {
+.ModalItem {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -7,20 +7,20 @@
   padding: 16px;
 }
 
-.Modal__Item_selected {
+/* .Modal__item_selected {
   background-color: var(--primary-select);
-}
+} */
 
-.Modal__Item-title {
+.ModalItem-title {
   flex: auto;
 }
 
-.Modal__Item-actions {
+.ModalItem-actions {
   display: flex;
   justify-content: flex-end;
 }
 
-.Modal__Item-actions button {
+.ModalItem-actions button {
   background-color: var(--delete);
   color: var(--second-text);
   padding: 8px 16px;
@@ -34,7 +34,7 @@
   }
 }
 
-.Modal__Item-prise{
+.ModalItem-prise{
   display: flex;
   justify-content: space-between;
   width: 234px;

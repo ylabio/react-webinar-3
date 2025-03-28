@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-
 function Item({ item, onAdd = () => { } }) {
   const callbacks = {
     onClick: () => {
@@ -37,9 +36,5 @@ Item.propTypes = {
   }).isRequired,
   onClick: PropTypes.func,
 };
-
-// Item.defaultProps = {
-//   onClick: () => { },
-// };
 
 export default React.memo(Item);

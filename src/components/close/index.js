@@ -14,8 +14,4 @@ Close.propTypes = {
   onClose: PropTypes.func
 };
 
-// Close.defaultProps = {
-//   onClose: () => { },
-// };
-
 export default React.memo(Close);

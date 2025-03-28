@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Item from '../item';
 import './style.css';
-
 function List({ list, onAdd = () => { } }) {
   return (
     <ul className="List">
@@ -24,11 +23,5 @@ List.propTypes = {
   onAdd: PropTypes.func,
   onSelectItem: PropTypes.func,
 };
-
-// List.defaultProps = {
-//   onAdd: () => { },
-// };
-
-
 
 export default React.memo(List);
