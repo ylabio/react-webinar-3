@@ -2,17 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import { formatNumber } from '../../utils';
+import { cn as bem } from '@bem-react/classname';
 
 function Item({item, onAddToCart}) {
+  const cn = bem('Item');
     return (
-    <div className= "Item">
-      <div className="Item-title">
+    <div className= {cn()}>
+      <div className={cn('title')}>
         <b>{item.title}</b>        
       </div>
-      <div className="Item-price">
+      <div className={cn('price')}>
         <b>{formatNumber(item.price)} ₽ </b>        
       </div>
-      <div className="Item-actions">
+      <div className={cn('actions')}>
         <button onClick={() => onAddToCart(item.code)}>Добавить</button>
       </div>
     </div>

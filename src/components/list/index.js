@@ -4,11 +4,13 @@ import Item from '../item';
 import './style.css';
 import CartIcon from '../cart-icon';
 import { plural, formatNumber } from '../../utils';
+import { cn as bem } from '@bem-react/classname';
 
 function List({ list, onAddToCart, cartTotal, cartSum, onOpenCart   }) {
+  const cn = bem('List');
   return (
-    <ul className="List">
-      <div className="List-cart">
+    <ul className={cn()}>
+      <div className={cn('cart')}>
           <button onClick={onOpenCart}
           ><CartIcon/>
           {cartTotal > 0 
@@ -16,7 +18,7 @@ function List({ list, onAddToCart, cartTotal, cartSum, onOpenCart   }) {
             : 'Пусто'}</button>
         </div>
       {list.map(item => (
-        <li key={item.code} className="List-item">
+        <li key={item.code} className={cn('item')}>
           <Item item={item} onAddToCart={onAddToCart} />
         </li>
       ))}
