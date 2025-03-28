@@ -11,36 +11,30 @@ import PageLayout from './components/page-layout';
  */
 function App({ store }) {
   const list = store.getState().list;
+  const totalPrice = store.getState().totalPrice;
+  const totalCartCount = store.getState().totalCartCount;
 
   const callbacks = {
+    onAddItem: useCallback(
+      code => {
+        store.addItem(code);
+      },
+      [store],
+    ),
+
     onDeleteItem: useCallback(
       code => {
         store.deleteItem(code);
       },
       [store],
     ),
-
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
-      />
+      <Head title="Магазин" />
+      <Controls totalPrice={totalPrice} totalCartCount={totalCartCount} />
+      <List list={list} onAddItem={callbacks.onAddItem} />
     </PageLayout>
   );
 }
