@@ -1,9 +1,5 @@
 .List {
-  border-radius: 10px;
-  overflow: hidden;
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
+  border-collapse: collapse;
 }
 
 .List-item:nth-child(odd) {
@@ -12,5 +8,16 @@
 
 .List-item {
   border-bottom: 1px solid var(--divider);
-  cursor: pointer;
+}
+
+.List-item button {
+  background-color: var(--primary);
+  color: var(--background);
+  padding: 8px 16px;
+
+  &:hover {
+    background-color: transparent;
+    border-color: var(--primary);
+    color: var(--primary);
+  }
 }

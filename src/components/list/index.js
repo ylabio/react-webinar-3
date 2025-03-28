@@ -3,15 +3,22 @@ import PropTypes from 'prop-types';
 import Item from '../item';
 import './style.css';
 
-function List({ list, onDeleteItem, onSelectItem }) {
+function List({ list, onSelectItem }) {
   return (
-    <ul className="List">
-      {list.map(item => (
-        <li key={item.code} className="List-item">
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem} />
-        </li>
-      ))}
-    </ul>
+    <table className="List">
+      <tbody>
+        {list.map(item => (
+          <Item
+            item={{ ...item, count: null }}
+            controls={(
+              <button onClick={() => onSelectItem(item.code)}>Добавить</button>
+            )}
+            key={item.code}
+            className="List-item"
+          />
+        ))}
+      </tbody>
+    </table>
   );
 }
 
@@ -21,12 +28,10 @@ List.propTypes = {
       code: PropTypes.number,
     }),
   ).isRequired,
-  onDeleteItem: PropTypes.func,
   onSelectItem: PropTypes.func,
 };
 
 List.defaultProps = {
-  onDeleteItem: () => {},
   onSelectItem: () => {},
 };
 

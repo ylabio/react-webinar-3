@@ -1,21 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { plural } from '../../utils';
+import Icon from '../icon';
 import './style.css';
 
-function Controls({ onAdd }) {
+function Controls({
+  onTotalClick = () => {},
+  total: { price = 0, count = 0 },
+}) {
   return (
     <div className="Controls">
-      <button onClick={() => onAdd()}>Добавить</button>
+      <button onClick={onTotalClick} disabled={!count}>
+        <Icon name="cart" width={24} height={24} />
+
+        <span>
+          {!count ? 'Пусто' : <>
+            {`${count} ${plural(count, {
+              one: 'товар',
+              few: 'товара',
+              many: 'товаров',
+            })} / ${price} `}
+            &#8381;
+          </>}
+        </span>
+      </button>
     </div>
   );
 }
-
-Controls.propTypes = {
-  onAdd: PropTypes.func,
-};
-
-Controls.defaultProps = {
-  onAdd: () => {},
-};
 
 export default React.memo(Controls);

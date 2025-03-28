@@ -5,7 +5,7 @@ import { generateCode } from './utils';
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = { ...initState, selected: {} };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -27,7 +27,32 @@ class Store {
    * @returns {Object}
    */
   getState() {
-    return this.state;
+    return {
+      ...this.state,
+      total: this.total,
+      cart: this.cart,
+    };
+  }
+
+  get cart() {
+    return this.state.list
+      .filter((item) => {
+        return item.code.toString() in this.state.selected;
+      })
+      .map((item) => ({
+        ...item,
+        count: this.state.selected[item.code],
+      }));
+  }
+
+  get total() {
+    return this.cart.reduce((result, item) => ({
+      count: result.count += item.count,
+      price: result.price += item.price * item.count,
+    }), {
+      price: 0,
+      count: 0,
+    });
   }
 
   /**
@@ -41,24 +66,17 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
-  }
-
-  /**
    * Удаление записи по коду
    * @param code
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      selected: Object.fromEntries(
+        Object
+          .entries(this.state.selected)
+          .filter(([key]) => key !== code.toString()),
+      ),
     });
   }
 
@@ -69,18 +87,10 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      selected: {
+        ...this.state.selected,
+        [code]: this.state.selected[code] + 1 || 1,
+      },
     });
   }
 }

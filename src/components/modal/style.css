@@ -1,0 +1,24 @@
+.Modal {
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  width: 75%;
+  max-width: 1192px;
+  max-height: 66%;
+  padding: 0;
+
+  &::backdrop {
+    background-color: var(--overlay);
+  }
+}
+
+.Modal-button {
+  border: none;
+  fill: var(--grey-hard);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  padding: 8px;
+}
