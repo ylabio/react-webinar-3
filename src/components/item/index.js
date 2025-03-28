@@ -1,39 +1,28 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 // import { plural } from '../../utils';
-import { generateCode } from '../../utils.js';
+// import { generateCode } from '../../utils.js';
 import './style.css';
 
-function Item(props) {
-  // Счётчик выделений сделаем счетчиком товара
-  const [count, setCount] = useState(0);
-
+function Item({ item, onAdd }) {
   const callbacks = {
     onClick: () => {
-      setCount(count + 1);
       const newItem = {
-        code: generateCode(),
-        title: props.item.title,
-        price: props.item.price,
-        countAdd: count,
+        code: item.code,
+        title: item.title,
+        price: item.price,
+        countAdd: 1,
       };
-      props.onAdd(newItem)
-    },
-    onDelete: e => {
-      e.stopPropagation();
-      props.onAdd();
+      onAdd(newItem);
     },
   };
 
   return (
     <div className='Item'>
-      {/* <div className="Item-code">{props.item.code}</div> */}
       <div className="Item-title">
-        <b>{props.item.title}</b>
+        <b>{item.title}</b>
       </div>
-
-      <div className="Item-prise">{props.item.price} &#8381;</div>
-
+      <div className="Item-prise">{item.price} &#8381;</div>
       <div className="Item-actions">
         <button onClick={callbacks.onClick}>Добавить</button>
       </div>
@@ -48,13 +37,11 @@ Item.propTypes = {
     selected: PropTypes.bool,
     count: PropTypes.number,
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
 Item.defaultProps = {
-  onAdd: () => { },
-  onSelect: () => { },
+  onClick: () => { },
 };
 
 export default React.memo(Item);

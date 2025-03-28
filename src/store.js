@@ -49,9 +49,8 @@ class Store {
   addItem(item) {
     this.setState({
       ...this.state,
-      newlist: [...this.state.newlist, { code: item.code, title: item.title, price: item.price, count }],
+      newlist: [...this.state.newlist, { code: item.code, title: item.title, price: item.price, count: 0 }],
     });
-
   }
 
   incrementCount(code) {
@@ -75,7 +74,7 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      newlist: this.state.newlist.filter(item => item.code !== code),
     });
   }
 
@@ -111,10 +110,6 @@ class Store {
     this.notify();
   }
 
-  /**
-   * Функция notify
-   * @function
-   */
   notify() {
     this.listeners.forEach(listener => listener(this.state));
   }

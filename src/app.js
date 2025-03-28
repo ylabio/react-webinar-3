@@ -34,10 +34,11 @@ function App({ store }) {
     ),
 
     onAddItem: useCallback(
-      code => {
-        store.addItem(code);
-
-      }, [store]
+      item => {
+        store.addItem(item);
+        console.log(newlist)
+      },
+      [store],
     ),
 
     onHandleClose: useCallback(() => {
@@ -55,7 +56,7 @@ function App({ store }) {
         <Close onClose={callbacks.onHandleClose} />
         <ModalHead title="Корзина" />
         <ModalList
-          list={newlist}
+          newlist={newlist}
           onDeleteItem={callbacks.onDeleteItem}
         // onSelectItem={callbacks.onSelectItem}
         />
@@ -66,7 +67,7 @@ function App({ store }) {
       <List
         list={list}
         onAdd={callbacks.onAddItem}
-        onSelectItem={callbacks.onSelectItem}
+      // onSelectItem={callbacks.onSelectItem}
       />
     </PageLayout>
   );

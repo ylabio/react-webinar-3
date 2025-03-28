@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ModalItem from '../modalItem';
 import './style.css';
 
-function List({ newlist, onDeleteItem }) {
+function ModalList({ newlist, onDeleteItem }) {
   if (!newlist) {
     return null;
   }
@@ -18,8 +18,9 @@ function List({ newlist, onDeleteItem }) {
   );
 }
 
-List.propTypes = {
-  list: PropTypes.arrayOf(
+
+ModalList.propTypes = {
+  newlist: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.number,
     }),
@@ -27,8 +28,8 @@ List.propTypes = {
   onDeleteItem: PropTypes.func,
 };
 
-List.defaultProps = {
+ModalList.defaultProps = {
   onDeleteItem: () => { },
 };
 
-export default React.memo(List);
+export default React.memo(ModalList);
