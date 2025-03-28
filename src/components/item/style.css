@@ -2,33 +2,27 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
   transition: background-color 1s;
   padding: 16px;
 }
 
-.Item_selected {
-  background-color: var(--primary-select);
+.Item-Title {
+  /* flex: auto; */
+}
+.Item-Content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 24px;
+}
+.Item-Content > * {
+  flex: 1;
+  max-width: 106px;
 }
 
-.Item-title {
-  flex: auto;
-}
-
-.Item-actions {
+.Item-Actions {
   display: flex;
   justify-content: flex-end;
 }
-
-.Item-actions button {
-  background-color: var(--delete);
-  color: var(--second-text);
-  padding: 8px 16px;
-
-  &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
-  }
-}
-
