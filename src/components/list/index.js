@@ -6,7 +6,13 @@ import CartIcon from '../cart-icon';
 import { plural, formatNumber } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
 
-function List({ list, onAddToCart, cartTotal, cartSum, onOpenCart   }) {
+function List({ 
+  list, 
+  onAddToCart = () => {}, 
+  cartTotal = 0, 
+  cartSum = 0, 
+  onOpenCart = () => {} }) {
+
   const cn = bem('List');
   return (
     <ul className={cn()}>
@@ -36,13 +42,6 @@ List.propTypes = {
   cartTotal: PropTypes.number,
   cartSum: PropTypes.number,
   onOpenCart: PropTypes.func,
-};
-
-List.defaultProps = {
-  onAddToCart: () => {},
-  cartTotal: 0,
-  cartSum: 0,
-  onOpenCart: () => {}
 };
 
 export default React.memo(List);
