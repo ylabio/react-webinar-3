@@ -1,6 +1,6 @@
 import React from 'react';
 import { plural } from '../../utils';
-import ShoppingIcon from '../ShoppingIcon';
+import ShoppingIcon from '../shoppingIcon';
 import './style.css';
 
 function Controls({ productsBasket, productsPrice, onOpenModal = () => {} }) {
