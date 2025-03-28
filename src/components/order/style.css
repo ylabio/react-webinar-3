@@ -1,0 +1,31 @@
+.Order-priceBox {
+  display: grid;
+  grid-template-columns: 67% 8%;
+  align-items: center;
+  gap: 100px;
+  color: var(--main-text);
+  padding: 16px 0;
+}
+
+.Order-priceBox-title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  justify-self: end
+}
+
+.Order-priceBox-value {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  justify-self: end;
+  white-space: nowrap;
+}
+
+.Order {
+  gap: 24px
+}
+
+.Order-title {
+  margin: 0 0 24px 0;
+}

@@ -1,8 +1,13 @@
-import React, { useCallback } from 'react';
+import React, {useCallback, useState} from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Modal from "./components/modal";
+import Order from "./components/order";
+import {formatCurrency} from "./utils";
+import OrderIcon from "../src/components/order-icon/index";
+import ModalIcon from "../src/components/modal-icon/index";
 
 /**
  * Приложение
@@ -13,34 +18,56 @@ function App({ store }) {
   const list = store.getState().list;
 
   const callbacks = {
-    onDeleteItem: useCallback(
+    onRemove: useCallback(
       code => {
-        store.deleteItem(code);
+        store.delItem(code);
       },
       [store],
     ),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
+    onAdd: useCallback((code) => {
+      store.addItem(code);
     }, [store]),
+
+    openModal: useCallback(() => {
+      setIsModalOpen(true);
+    }, []),
+
+    closeModal: useCallback(() => {
+      setIsModalOpen(false);
+    }, [])
+
   };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+
+
+  const orderList = store.getOrder();
+  console.log('app');
+  const totalAmount = orderList.reduce((sum, item) => sum + item.price * item.inOrder, 0);
+
+  const formattedTotalAmount = formatCurrency(totalAmount);
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Head title="Магазин" />
+      <Controls
+        onClick={callbacks.openModal}
+        order={orderList.length}
+        buttonText={'Пусто'}
+        style={'order'} totalAmount={formattedTotalAmount} Icon={OrderIcon}/>
       <List
         list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        onAdd={callbacks.onAdd}
+        isModal={false}
+        onRemove={callbacks.onRemove}
       />
+      <Modal isOpen={isModalOpen} onClose={callbacks.closeModal} Icon={ModalIcon}>
+        <Order orderList={orderList} isModalOpen={isModalOpen} totalAmount={formattedTotalAmount} store={store} onRemove={callbacks.onRemove} />
+
+      </Modal>
     </PageLayout>
   );
 }

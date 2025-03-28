@@ -26,27 +26,19 @@ export const generateCode = (function (start = 0) {
 })();
 
 /**
- * Генератор чисел с шагом 1
- * Вариант с генератором.
- * Сразу создаётся генератор и возвращается функция для получения следующего значения генератора
- * @returns {Number}
+ * Форматирование валюты
+ * @param value {Number} Сумма для форматирования
+ * @param [locale] {String} Локаль (код языка)
+ * @param variants {Object<String>} Дополнительные опции
+ * @returns {String}
  */
-export const generateCode1 = (function (start = 0) {
-  function* realGenerator(start) {
-    while (true) {
-      yield ++start;
-    }
-  }
-
-  const gen = realGenerator(start);
-  return () => gen.next().value;
-})();
-
-/**
- * Генератор чисел с шагом 1
- * Вариант с использованием функции как объекта для хранения значения value
- * @returns {Number}
- */
-export function generateCode2() {
-  return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
+export function formatCurrency(value, locale = 'ru-RU', variants = {}) {
+  const options = {
+    style: 'currency',
+    currency: 'RUB',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  };
+  const formatter = new Intl.NumberFormat(locale, { ...options, ...variants });
+  return formatter.format(value);
 }

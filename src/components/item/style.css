@@ -2,9 +2,9 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 16px;
-  transition: background-color 1s;
+  gap: 24px;
   padding: 16px;
+  max-height: 72px;
 }
 
 .Item_selected {
@@ -15,20 +15,17 @@
   flex: auto;
 }
 
-.Item-actions {
-  display: flex;
-  justify-content: flex-end;
+.Item-price {
+  min-width: 105px;
+  margin: 0;
+  text-align: right;
 }
 
-.Item-actions button {
-  background-color: var(--delete);
-  color: var(--second-text);
-  padding: 8px 16px;
-
-  &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
-  }
+.Item-count {
+  min-width: 105px;
+  margin: 0;
+  text-align: left;
 }
+
+
 
