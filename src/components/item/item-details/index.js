@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 function ItemDetails({ price, count }) {
+  const cn = bem('ItemDetails');
   return (
-    <div className="ItemDetails">
+    <>
       {count !== undefined && (
-        <span className="ItemDetails-count">
+        <td className={cn('count')}>
           {count}&nbsp;шт
-        </span>
+        </td>
       )}
-      <span className="ItemDetails-price">
+      <td className={cn('price')}>
         {price}
-      </span>
-    </div>
+      </td>
+    </>
   );
 }
 

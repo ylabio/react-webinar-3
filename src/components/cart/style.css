@@ -1,13 +1,19 @@
+.Cart {
+ height: 40vh;
+ overflow-y: auto;
+}
+
 .Cart .List {
-  overflow-y: auto;
-  max-height: 128px;
+  height: 10vh;
+ overflow-y: auto;
+ 
 }
 
 .Cart-total {
   display: flex;
   justify-content: flex-end;
-  gap: 54px;
-  padding: 21px 120px 88px 20px;
+  gap: 70px;
+  padding: 21px 164px 40px 20px;
   font-weight: bold;
 }
 

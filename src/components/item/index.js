@@ -20,14 +20,14 @@ function Item({ item, onAddToCart = () => {}, onRemoveFromCart = null }) {
   };
 
   return (
-    <div className={cn()}>
-      <div className={cn('title')}>{item.title}</div>
+    <>
+      <td className={cn('title')}>{item.title}</td>
       <ItemDetails price={formatNumber(item.price)} count={item.count} />
       <ItemActions
         onAddToCart={onRemoveFromCart ? null : callbacks.onAddToCart}
         onRemoveFromCart={onRemoveFromCart ? callbacks.onRemoveFromCart : null}
       />
-    </div>
+    </>
   );
 }
 

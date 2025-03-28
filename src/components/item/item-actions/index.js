@@ -4,13 +4,13 @@ import './style.css';
 
 function ItemActions({ onAddToCart, onRemoveFromCart }) {
   return (
-    <div className="ItemActions">
+    <td className="ItemActions">
       {onRemoveFromCart ? (
         <button onClick={onRemoveFromCart}>Удалить</button>
       ) : (
         <button onClick={onAddToCart}>Добавить</button>
       )}
-    </div>
+    </td>
   );
 }
 

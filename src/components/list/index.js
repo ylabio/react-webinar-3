@@ -7,13 +7,15 @@ import './style.css';
 function List({ list, onAddToCart, onRemoveFromCart }) {
   const cn = bem('List');
   return (
-    <ul className={cn()}>
-      {list.map((item) => (
-        <li key={item.code} className={cn('item')}>
-          <Item item={item} onAddToCart={onAddToCart} onRemoveFromCart={onRemoveFromCart} />
-        </li>
-      ))}
-    </ul>
+    <table className={cn()}>
+      <tbody>
+        {list.map((item) => (
+          <tr key={item.code} className={cn('item')}>
+            <Item item={item} onAddToCart={onAddToCart} onRemoveFromCart={onRemoveFromCart} />
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
 

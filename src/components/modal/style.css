@@ -2,10 +2,12 @@
   position: fixed;
   top: 0;
   left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.7);
-  padding-top: 308px;
   z-index: 1000;
 }
 
@@ -21,6 +23,7 @@
 
 .Modal h2 {
  color: var(--main-text);
+ font-size: 32px;
 }
 
 .Modal-actions button {
@@ -34,10 +37,10 @@
   background-color: #fff;
   border-radius: 10px;
   width: 90%;
-  max-width: 960px;
-  max-height: calc(100vh - 331px);
+  max-width: 1080px;
   margin-left: auto;
   margin-right: auto;
+  padding: 24px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.50);
 }
 
