@@ -1,9 +1,13 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
+import Modal from './components/modal';
 import CartButton from './components/cart-button';
 import PageLayout from './components/page-layout';
+import { selectList, selectCartItemsTotalCost, selectCartItemsUniqueCount } from './store';
+import Item from './components/item';
+import Button from './components/button';
 
 /**
  * Приложение
@@ -11,42 +15,54 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const list = selectList(store.getState());
 
   const callbacks = {
-    onDeleteItem: useCallback(
+    addToCart: useCallback(
       code => {
-        store.deleteItem(code);
+        store.addToCart(code);
       },
       [store],
     ),
-
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
   };
-  const itemCount = 0;
-  const totalCost = 0;
+  const [cartModalOpen, setCartModalOpen] = useState(false);
+  const itemsCount = selectCartItemsUniqueCount(store.getState());
+  const totalCost = selectCartItemsTotalCost(store.getState());
 
+  const handelCartClick = () => {
+    setCartModalOpen(true);
+  };
+  const handleClose = () => {
+    setCartModalOpen(false);
+  };
   return (
-    <PageLayout>
-      <Head title="Магазин" />
-      <Controls>
-        <CartButton itemCount={itemCount} totalCost={totalCost} onClick={callbacks.onAddItem} />
-      </Controls>
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
-      />
-    </PageLayout>
+    <>
+      <PageLayout>
+        <Head title="Магазин" />
+        <Controls>
+          <CartButton itemCount={itemsCount} totalCost={totalCost} onClick={handelCartClick} />
+        </Controls>
+        <List
+          list={list}
+          renderItem={item => (
+            <Item
+              title={item.title}
+              price={item.price}
+              action={
+                <Button
+                  onClick={() => {
+                    callbacks.addToCart(item.code);
+                  }}
+                >
+                  Добавить
+                </Button>
+              }
+            />
+          )}
+        />
+      </PageLayout>
+      <Modal title="Корзина" open={cartModalOpen} onClose={handleClose}></Modal>
+    </>
   );
 }
 
