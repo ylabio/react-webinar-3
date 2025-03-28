@@ -1,0 +1,65 @@
+.Modal {
+  display: flex;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.Modal-dialog {
+  position: relative;
+  max-width: 100%;
+  margin:auto;
+  width: 1080px;
+}
+
+.Modal-content {
+  background: var(--background);
+  padding: 24px;
+}
+
+.Modal-head {
+  display: flex;
+  justify-content: space-between;
+  color: var(--main-text);
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.Modal-head h1 {
+  margin: 0;
+}
+
+.Modal-close {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  right: 10px;
+  top: 10px;
+  background-image: url('../../assets/Cancel.svg');
+}
+
+.Modal-total {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: 700;
+  padding: 16px 145px 16px 653px;
+}
+
+.Modal-total-info {
+  display: flex;
+  justify-content: space-between;
+  width: 234px;
+}
+
+.Modal-total p {
+  margin: 0;
+}
