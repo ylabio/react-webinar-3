@@ -22,10 +22,10 @@ function Item({
   return (
     <div className={`Item Item--${mode}`}>
       <div className="Item__info">
-        <div className="Item-title">
-        <span>{item.title}</span>
+        <div className="Item-box">
+        <span className="Item-title">{item.title}</span>
         {showQuantity && (
-          <div className="Item__quantity">{item.quantity}</div>
+          <div className="Item__quantity">{item.quantity} шт</div>
         )}
         <span className="Item-price">{Number(item.price).toLocaleString('ru-RU')} &#8381;</span>
         </div>

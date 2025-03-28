@@ -4,7 +4,7 @@
   padding: 24px 0;
 }
 
-.Controls__button {
+button.Controls__button {
   position: relative;
   border: 1px solid var(--primary);
   padding: 8px 19px 8px 43px;
@@ -24,7 +24,7 @@
     transform: translateY(-50%);
     width: 18px;
     height: 18px;
-    background: url('../../../dist/Vector.png') no-repeat;
+    background: url('../../assets/cart.png') no-repeat;
     background-size: cover;
   }
 }

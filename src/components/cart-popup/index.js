@@ -20,7 +20,10 @@ function CartPopup({ cart, onClose, onRemoveItem }) {
           ))}
         </div>
         <div className="CartPopup__total">
-          Итого: {cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toLocaleString('ru-RU')} &#8381;
+          <span>Итого: </span>
+          <span>
+            {cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toLocaleString('ru-RU')} &#8381;
+          </span>
         </div>
         <button className="CartPopup__close" onClick={onClose}></button>
       </div>
