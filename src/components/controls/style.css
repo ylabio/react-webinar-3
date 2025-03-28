@@ -1,17 +1,27 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 24px 16px 24px 0;
+  padding: 24px 0px 24px 0;
 }
 
 .Controls button {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
   border: 1px solid var(--primary);
-  padding: 8px 16px;
-  background-color: var(--primary);
-  color: var(--second-text);
+  padding: 0px 16px;
+  color: var(--main-text);
 
   &:hover {
-    background-color: var(--background);
     color: var(--primary);
+    transform: rotate(1deg);
   }
+}
+
+.Controls p{
+  margin: 8px 0px;
+}
+
+.Controls img {
+  margin-right: 12px;
 }
