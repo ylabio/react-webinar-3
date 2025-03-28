@@ -1,0 +1,42 @@
+
+.Item {
+  display: flex;
+  justify-content: flex-start;
+  transition: background-color 1s;
+}
+
+.Item_selected {
+  background: #EFEFEF;
+  color: black;
+}
+.Item-title {
+  display: flex;
+  width: 100%;
+  padding: 20px 10px;
+}
+
+.Item-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+}
+
+.Item-actions button {
+  min-width: 105px;
+  min-height: 40px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  color: var(--btn-text-color);
+  background-color: var(--btn-bg-color);
+}
+
+.Item-code {
+  padding: 20px 10px 20px 20px;
+}
+
+.Item-info {
+  display: flex;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+}

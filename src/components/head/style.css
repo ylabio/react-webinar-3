@@ -1,0 +1,11 @@
+.PageLayout-head {
+  height: 80px;
+  color: var(--title-color);
+  border-bottom: 1px solid #EFEFEF
+}
+
+.PageLayout-head h1 {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 20px 20px 10px;
+}
