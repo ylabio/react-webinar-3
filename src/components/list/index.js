@@ -6,29 +6,39 @@ import { formatNumber } from '../../utils';
 
 function List(props) {
   const total = props.list.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
   return (
     <ul className="List">
-      {props.list.map(item => (
-        <li key={item.code} className="List-item">
-          <Item item={item} listType={props.listType} />
-        </li>
-      ))}
+      <div className="Scroll" data-list-type={props.listType}>
+        {props.list?.map(item => (
+          <li key={item.code} className="List-item">
+            <Item item={item} listType={props.listType} onClick={props.onHandleButton} />
+          </li>
+        ))}
+      </div>
       {props.listType === 'cart' && (
         <li className="List-total">
-          <b>Итого: {formatNumber({ number: total })}</b>
+          <div className="List-total-item">
+            <b className="List-total-title">Итого:</b>
+            <b className="List-total-amount">{formatNumber({ number: total })}</b>
+          </div>
         </li>
       )}
     </ul>
   );
 }
-// TODO
+
 List.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({
-      code: PropTypes.number,
+      code: PropTypes.number.isRequired,
+      price: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      quantity: PropTypes.number,
     }),
   ).isRequired,
   listType: PropTypes.oneOf(['list', 'cart']),
+  onHandleButton: PropTypes.func,
 };
 
 export default React.memo(List);
