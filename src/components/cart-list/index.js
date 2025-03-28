@@ -23,9 +23,4 @@ CartList.propTypes = {
   onDeleteItem: PropTypes.func,
 };
 
-CartList.defaultProps = {
-  onDeleteItem: () => {},
-  onAddToCart: () => {}
-};
-
 export default React.memo(CartList);

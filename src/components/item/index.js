@@ -46,9 +46,4 @@ Item.propTypes = {
   onDelete: PropTypes.func,
 };
 
-Item.defaultProps = {
-  onAdd: () => {},
-  onDeleteItem: () => {},
-};
-
 export default React.memo(Item);
