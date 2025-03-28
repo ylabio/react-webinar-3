@@ -3,14 +3,15 @@
 }
 
 .Modal__result-container {
-  max-width: 1152px;
-  margin: 0 auto;
+  max-width: 244px;
+  margin: 16px auto;
+  margin-right: 130px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .Modal__result h2 {
-  margin: 0;
-  margin-bottom: 24px;
   font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
 }

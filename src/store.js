@@ -63,6 +63,10 @@ class Store {
     }
   }
 
+  getTotalPrice() {
+    return this.state.newlist.reduce((total, item) => total + item.price * item.count, 0);
+  }
+
   /**
    * Удаление записи по коду
    * @param code

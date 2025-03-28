@@ -9,7 +9,7 @@ import ModalHead from './components/modalHead';
 import ModalList from './components/modalList';
 import ModalResult from './components/modalResult';
 import { plural } from './utils';
-
+// import { summ } from './utils';
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -60,7 +60,7 @@ function App({ store }) {
           newlist={newlist}
           onDeleteItem={callbacks.onDeleteItem}
         />
-        <ModalResult title="223 p." />
+        <ModalResult allPrise={store.getTotalPrice()} />
       </Modal>
       <Head title="Магазин" />
       <Controls onOpen={callbacks.onHandleOpen} text={
@@ -69,7 +69,7 @@ function App({ store }) {
             one: 'товар',
             few: 'товара',
             many: 'товаров',
-          })}`
+          })} / ${store.getTotalPrice()}`
           : 'Пусто'
       } />
       <List

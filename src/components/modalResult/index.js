@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function ModalResult({ title }) {
+function ModalResult({ allPrise }) {
   return (
     <div className="Modal__result">
       <div className="Modal__result-container">
-        <h2>Итого: {title}</h2>
+        <h2>Итого:</h2>
+        <h2>{allPrise} p.</h2>
       </div>
     </div>
   );

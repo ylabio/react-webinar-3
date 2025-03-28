@@ -7,9 +7,11 @@
   margin: 0 auto;
 }
 
-.Modal__head h1 {
-  margin: 0;
+.Modal__head h2 {
   margin-bottom: 24px;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
 }
 
 
