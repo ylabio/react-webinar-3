@@ -4,8 +4,8 @@ import './style.css';
 
 const ModalOverlay = props => {
   return (
-    <div className="Modal-Overlay" onClick={props.close}>
-      {props.children}
+    <div className="Modal-Overlay" onClick={props.close ?? (() => {})}>
+      {props.children ?? null}
     </div>
   );
 };
@@ -13,11 +13,6 @@ const ModalOverlay = props => {
 ModalOverlay.propTypes = {
   close: PropTypes.func,
   children: PropTypes.node,
-};
-
-ModalOverlay.defaultProps = {
-  close: () => {},
-  children: null,
 };
 
 export default ModalOverlay;

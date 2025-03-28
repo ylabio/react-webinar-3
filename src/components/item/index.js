@@ -24,7 +24,7 @@ function Item(props) {
           <span>{formatNumber({ number: props.item.price })}</span>
         </div>
         <div className="Item-actions">
-          <button onClick={() => props.onClick(props.item.code)}>
+          <button onClick={() => props?.onClick(props.item.code)}>
             {buttonTypes[props.listType]}
           </button>
         </div>
@@ -42,10 +42,6 @@ Item.propTypes = {
   }).isRequired,
   onClick: PropTypes.func,
   listType: PropTypes.oneOf(['list', 'cart']),
-};
-
-Item.defaultProps = {
-  onClick: () => {},
 };
 
 export default React.memo(Item);

@@ -5,7 +5,7 @@ import './style.css';
 import { formatNumber } from '../../utils';
 
 function List(props) {
-  const total = props.list.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const calcTotal = () => props.list.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
     <ul className="List">
@@ -20,7 +20,7 @@ function List(props) {
         <li className="List-total">
           <div className="List-total-item">
             <b className="List-total-title">Итого:</b>
-            <b className="List-total-amount">{formatNumber({ number: total })}</b>
+            <b className="List-total-amount">{formatNumber({ number: calcTotal() })}</b>
           </div>
         </li>
       )}

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
@@ -20,19 +20,28 @@ function App({ store }) {
       setModalOpen(true);
     }, []),
 
-    addToCart: useCallback(code => {
-      store.addToCart(code);
-    }, []),
+    addToCart: useCallback(
+      code => {
+        store.addToCart(code);
+      },
+      [store],
+    ),
 
-    removeFromCart: useCallback(code => {
-      store.removeFromCart(code);
-    }, []),
+    removeFromCart: useCallback(
+      code => {
+        store.removeFromCart(code);
+      },
+      [store],
+    ),
   };
 
-  const totalCartValue = {
-    items: cart.length,
-    price: cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
-  };
+  const totalCartValue = useMemo(
+    () => ({
+      uniqItems: cart.length,
+      price: cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
+    }),
+    [cart],
+  );
 
   return (
     <>

@@ -41,7 +41,7 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
    * @param {number} code
    */
   addToCart(code) {
@@ -69,8 +69,8 @@ class Store {
   }
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Удаление товара из корзины
+   * @param {number} code
    */
   removeFromCart(code) {
     this.setState({

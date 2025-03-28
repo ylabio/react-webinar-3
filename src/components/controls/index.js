@@ -10,12 +10,12 @@ function Controls(props) {
 
   return (
     <div className="Controls">
-      <button onClick={props.openModal}>
+      <button onClick={props.openModal ?? (() => {})}>
         <CartIcon />
         <div>
           <b>
-            {!!props.totalCartValue.items
-              ? `${formatTotal(props.totalCartValue.items)} / ${formatNumber({ number: props.totalCartValue.price })}`
+            {!!props.totalCartValue.uniqItems
+              ? `${formatTotal(props.totalCartValue.uniqItems)} / ${formatNumber({ number: props.totalCartValue.price })}`
               : 'Пусто'}
           </b>
         </div>
@@ -28,10 +28,6 @@ Controls.propTypes = {
   totalCartValue: PropTypes.shape({ uniqItems: PropTypes.number, price: PropTypes.number })
     .isRequired,
   openModal: PropTypes.func,
-};
-
-Controls.defaultProps = {
-  openModal: () => {},
 };
 
 export default React.memo(Controls);

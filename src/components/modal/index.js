@@ -6,6 +6,8 @@ import './style.css';
 
 const Modal = props => {
   useEffect(() => {
+    if (!props.open) return;
+
     const handleEscClose = e => {
       if (e.key === 'Escape') {
         props.close();
@@ -16,7 +18,7 @@ const Modal = props => {
     return () => {
       document.removeEventListener('keydown', handleEscClose);
     };
-  }, [close]);
+  }, [props.close, props.open]);
 
   if (!props.open) {
     return null;
@@ -29,12 +31,12 @@ const Modal = props => {
           className="Close"
           type="button"
           aria-label="закрыть модальное окно"
-          onClick={props.close}
+          onClick={props.close ?? (() => {})}
         >
           <CloseIcon type="primary" />
         </button>
         {props.title && <p className="Title">{props.title}</p>}
-        {props.children}
+        {props.children ?? null}
       </div>
     </ModalOverlay>
   );
@@ -45,12 +47,6 @@ Modal.propTypes = {
   open: PropTypes.bool,
   title: PropTypes.string,
   children: PropTypes.node,
-};
-
-Modal.defaultProps = {
-  close: () => {},
-  title: '',
-  children: null,
 };
 
 export default Modal;
