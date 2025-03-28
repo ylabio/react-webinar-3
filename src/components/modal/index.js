@@ -28,17 +28,23 @@ function Modal({
                     <b>{item.title}</b>
                   </div>
                   <div className="Modal-actions">
-                    <span>{item.quantity} шт</span>
-                    <span>{(item.price * item.quantity).toLocaleString('ru-RU')} ₽</span>
-                    <button onClick={() => onRemoveFromCart(item.code)}>Удалить</button>
+                    <div>
+                      <span>{item.quantity} шт</span>
+                      <div>
+                        <span>{(item.price * item.quantity).toLocaleString('ru-RU')} ₽</span>
+                        <button onClick={() => onRemoveFromCart(item.code)}>Удалить</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </li>
             ))}
           </ul>
           <div className="Modal-footer">
-            <span>Итого:</span>
-            <span>{onGetCartTotal()} ₽</span>
+            <div>
+              <span>Итого:</span>
+              <span>{onGetCartTotal()} ₽</span>
+            </div>
           </div>
         </div>
       </div>
