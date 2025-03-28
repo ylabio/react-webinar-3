@@ -1,0 +1,24 @@
+.ModalOverlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  background-color: #1A202866;
+  z-index: 3;
+}
+
+.Modal {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  width: 1080px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFFFFF;
+  z-index: 10;
+}

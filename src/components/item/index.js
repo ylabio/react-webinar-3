@@ -3,41 +3,27 @@ import PropTypes from 'prop-types';
 import { plural } from '../../utils';
 import './style.css';
 
-function Item(props) {
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
+function Item({onAction = () => {}, ...props}) {
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
-    onDelete: e => {
+    onAction: e => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
+      onAction(props.item.code);
     },
   };
 
   return (
     <div
-      className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-      onClick={callbacks.onClick}
+      className='Item'
     >
-      <div className="Item-code">{props.item.code}</div>
       <div className="Item-title">
         <b>{props.item.title}</b>
-        {count
-          ? ` | Выделяли ${count} ${plural(count, {
-              one: 'раз',
-              few: 'раза',
-              many: 'раз',
-            })}`
+        {props.withCounter && props.item.addedToCartCount > 0
+          ? `${props.item.addedToCartCount} шт.`
           : ''}
+        <p>{props.item.price} ₽</p>
       </div>
-      <div className="Item-actions">
-        <button onClick={callbacks.onDelete}>Удалить</button>
+      <div className={"Item-actions" + (props.actionType === 'add' ? ' Add' : ' Delete')}>
+        <button onClick={callbacks.onAction}>{props.actionType === 'add' ? 'Добавить' : 'Удалить'}</button>
       </div>
     </div>
   );
@@ -47,16 +33,12 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
-    count: PropTypes.number,
+    price: PropTypes.number,
+    addedToCartCount: PropTypes.number,
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
+  onAction: PropTypes.func,
+  actionType:  PropTypes.string,
+  withCounter:  PropTypes.bool,
 };
 
 export default React.memo(Item);
