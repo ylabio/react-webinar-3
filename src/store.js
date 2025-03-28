@@ -1,11 +1,12 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      list: initState.list,
+      cart: {} // Корзина товаров
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -41,47 +42,30 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину по коду
    */
-  addItem() {
+  addItemToCart(code) {
+    this.state.cart[code] ? this.state.cart[code]++ : this.state.cart[code] = 1;
+    
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      cart: {...this.state.cart}
     });
   }
 
   /**
-   * Удаление записи по коду
+   * Удаление товара из корзины по коду
    * @param code
    */
   deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
+    
   }
 
   /**
-   * Выделение записи по коду
-   * @param code
+   * Переход в корзину
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
-    });
+  showCartItems() {
+    console.log("Товары в корзине:", this.state.cart);
   }
 }
 
