@@ -36,6 +36,11 @@ let config = {
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
         type: 'asset/resource',
+        generator: {
+          filename: (name) => {
+            const path = name.filename.split("/").slice(1, -1).join("/");
+            return `${path}/[name][ext]`;
+        }},
       },
     ],
   },
