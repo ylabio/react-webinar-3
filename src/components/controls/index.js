@@ -5,7 +5,10 @@ import './style.css';
 function Controls({ onAdd }) {
   return (
     <div className="Controls">
-      <button onClick={() => onAdd()}>Добавить</button>
+      <button onClick={() => onAdd()}>
+        <img src='/icons/cart.svg' alt="Корзина" width={24} height={24} />
+        <span>Пусто</span>
+      </button>
     </div>
   );
 }

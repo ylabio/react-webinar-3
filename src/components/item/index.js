@@ -6,6 +6,7 @@ import './style.css';
 function Item(props) {
   // Счётчик выделений
   const [count, setCount] = useState(0);
+  const price = (props.item.price).toLocaleString('ru-RU')
 
   const callbacks = {
     onClick: () => {
@@ -25,19 +26,16 @@ function Item(props) {
       className={'Item' + (props.item.selected ? ' Item_selected' : '')}
       onClick={callbacks.onClick}
     >
-      <div className="Item-code">{props.item.code}</div>
       <div className="Item-title">
         <b>{props.item.title}</b>
-        {count
-          ? ` | Выделяли ${count} ${plural(count, {
-              one: 'раз',
-              few: 'раза',
-              many: 'раз',
-            })}`
-          : ''}
       </div>
-      <div className="Item-actions">
-        <button onClick={callbacks.onDelete}>Удалить</button>
+      
+
+      <div className="Item-container">
+        <span className="Item-price">
+          {` ${price} ₽`}
+        </span>
+        <button onClick={callbacks.onDelete}>Добавить</button>
       </div>
     </div>
   );

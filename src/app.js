@@ -3,6 +3,8 @@ import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Modal from './components/modal';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -33,15 +35,19 @@ function App({ store }) {
   };
 
   return (
-    <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
-      />
-    </PageLayout>
+    <>
+      <PageLayout>
+        <Head title="Магазин" />
+        <Controls onAdd={callbacks.onAddItem} />
+        <List
+          list={list}
+          onAction={callbacks.onDeleteItem}
+        />
+      </PageLayout>
+      <Modal>
+        <Cart/>
+      </Modal>
+    </>
   );
 }
 
