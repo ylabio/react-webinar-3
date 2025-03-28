@@ -1,0 +1,132 @@
+.Modal {
+  border: none;
+  border-radius: 8px;
+  max-width: 1080px;
+  width: 90%;
+}
+
+.Modal::backdrop {
+  background: rgba(26, 32, 40, 0.4);
+}
+
+.Modal-content {
+  padding: 24px;
+}
+
+.Modal-title {
+  margin: 0;
+  margin-bottom: 24px;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 125%;
+}
+
+.Modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 42px;
+  box-sizing: border-box;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.Modal-close path {
+  transition: fill 0.1s ease-in-out;
+}
+
+.Modal-close:hover path {
+  fill: var(--delete);
+}
+
+.Modal-close:focus-visible {
+  outline: 2px solid var(--primary);
+}
+
+.Modal-close:active path {
+  fill: #a83131;
+}
+
+.Modal-list {
+  margin: 0;
+  padding: 0;
+}
+
+.Modal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  list-style: none;
+  border-bottom: 1px solid var(--divider);
+}
+
+.Modal-item:nth-child(2n - 1) {
+  background-color: rgba(107, 74, 203, 0.03);
+}
+
+.Modal-item b {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 137%;
+}
+
+.Modal-right {
+  display: flex;
+  gap: 24px;
+}
+
+.Modal-info {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.Modal-info p {
+  width: 105px;
+  margin: 0;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+  color: var(--main-text);
+}
+
+.Modal-info-price {
+  text-align: end;
+  word-break: break-all;
+}
+
+.Modal-remove-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 157%;
+  color: #fff;
+  background-color: var(--delete);
+  transition: background-color 0.1s ease-in-out;
+}
+
+.Modal-remove-button:hover {
+  background-color: #f05b5b;
+}
+
+.Modal-remove-button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.Modal-remove-button:active {
+  background-color: #a83131;
+}
+
+.Modal-total {
+  display: flex;
+  justify-content: space-between;
+  max-width: 234px;
+  margin-left: auto;
+  margin-right: 145px;
+  padding: 16px 0;
+}
