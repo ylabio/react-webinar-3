@@ -4,6 +4,11 @@ import { generateCode } from './utils';
  * Хранилище состояния приложения
  */
 class Store {
+  order = {
+    items: [],
+    total: 0,
+  };
+
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
@@ -30,6 +35,9 @@ class Store {
     return this.state;
   }
 
+  getOrder() {
+    return this.order;
+  }
   /**
    * Установка состояния
    * @param newState {Object}
@@ -43,46 +51,29 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
+  addItem(item) {
+    if (this.order.items.some(i => i.code === item.code)) {
+      item.count++;
+    } else {
+      item.count = 1;
+      this.order.items.push(item);
+    }
+    this.setState({ ...this.state });
   }
 
+  getTotal(data) {
+    return (this.order.total = data.reduce((acc, item) => acc + item.price * item.count, 0));
+  }
   /**
    * Удаление записи по коду
    * @param code
    */
   deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
+    this.order.items = this.order.items.filter(item => item.code !== code);
+    this.getTotal(this.order.items);
+    this.setState({ ...this.state });
   }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
-    });
-  }
 }
 
 export default Store;

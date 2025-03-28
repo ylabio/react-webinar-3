@@ -1,17 +1,16 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 24px 16px 24px 0;
+  align-items: center;
+  padding: 24px 0 24px 0;
 }
 
 .Controls button {
   border: 1px solid var(--primary);
   padding: 8px 16px;
-  background-color: var(--primary);
-  color: var(--second-text);
-
-  &:hover {
-    background-color: var(--background);
-    color: var(--primary);
-  }
+  background-color: transparent;
+  color: var(--main-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
