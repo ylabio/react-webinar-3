@@ -24,24 +24,6 @@ function App({ store }) {
   }, 0)
   
   const callbacks = {
-    onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
-      },
-      [store],
-    ),
-
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
-
     onAddProductToBasket: useCallback(product => {
       store.addProductToBasket(product)
     }, [store]),
