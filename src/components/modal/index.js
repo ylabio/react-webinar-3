@@ -45,4 +45,19 @@ function Modal({
   );
 }
 
+Modal.propTypes = {
+  modalOpen: PropTypes.boolean,
+  cartItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.number,
+      title: PropTypes.string,
+      price: PropTypes.string,
+      quantity: PropTypes.number,
+    }),
+  ).isRequired,
+  setModalOpen: PropTypes.func,
+  onGetCartTotal: PropTypes.func,
+  onRemoveFromCart: PropTypes.func,
+};
+
 export default React.memo(Modal);
