@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes, { object } from 'prop-types';
 import './style.css';
 import List from '../list'
+import { localeNumbers } from '../../utils'
 
 function Basket({productsList, basketPrice = 0, onDeleteProduct = () => {}, onCloseBasket = () => {}}) {
   return (
@@ -12,7 +13,7 @@ function Basket({productsList, basketPrice = 0, onDeleteProduct = () => {}, onCl
         <List list={productsList} onAction={onDeleteProduct} isAccentButton={true}/>
         <div className="Basket-price">
           <div>Итого:</div>
-          <div>{basketPrice} ₽</div>
+          <div>{localeNumbers(basketPrice)} ₽</div>
         </div>
       </div>
     </div>

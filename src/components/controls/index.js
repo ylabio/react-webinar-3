@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import { plural } from '../../utils'
+import { localeNumbers, plural } from '../../utils'
 
 function Controls({productsInBasket = 0, price = 0, onOpenBasket = () => {} }) {
   return (
@@ -12,7 +12,7 @@ function Controls({productsInBasket = 0, price = 0, onOpenBasket = () => {} }) {
             one: 'товар',
             few: 'товара',
             many: 'товаров'
-          })} / ${price} ₽` 
+          })} / ${localeNumbers(price)} ₽` 
           : `Пусто`}
       </button>
     </div>

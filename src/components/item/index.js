@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
+import { localeNumbers, } from '../../utils';
 import './style.css';
 import Button from '../button'
 
@@ -29,7 +29,7 @@ function Item({item, isAccentButton = false, onAction = () => {}}) {
         : null}
         
         <div className="Item-price">
-          {item.price * item.quantity || item.price} ₽
+          {localeNumbers(item.price * item.quantity || item.price)} ₽
         </div>
       </div>
 
