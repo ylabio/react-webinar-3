@@ -16,7 +16,7 @@ import ModalIcon from "../src/components/modal-icon/index";
  */
 function App({ store }) {
   const list = store.getState().list;
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const callbacks = {
     onRemove: useCallback(
       code => {
@@ -39,7 +39,7 @@ function App({ store }) {
 
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
 
   const orderList = store.getOrder();
@@ -62,7 +62,6 @@ function App({ store }) {
       <List
         list={list}
         onAdd={callbacks.onAdd}
-        isModal={isModalOpen}
         onRemove={callbacks.onRemove}
       />
       {isModalOpen &&

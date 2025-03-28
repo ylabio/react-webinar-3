@@ -6,12 +6,13 @@ import PropTypes from "prop-types";
 const Order = ({
                  orderList = [],
                  totalAmount = '0',
-                 onRemove
+                 onRemove,
+                 isModalOpen
 }) => {
   return (
     <div className="Order">
       <h2 className={'Order-title'}>Корзина</h2>
-      <List list={orderList} isModal={true} onRemove={onRemove}/>
+      <List list={orderList} isModal={isModalOpen} onRemove={onRemove}/>
       <div className={'Order-priceBox'}>
         <p className={'Order-priceBox-title'}>Итого:</p>
         <p className={'Order-priceBox-value'}>{totalAmount}</p>
