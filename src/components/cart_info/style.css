@@ -1,0 +1,25 @@
+.Items-info {
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  color: var(--main-text);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-top: 1px solid var(--divider);
+}
+
+.Items-info_text {
+  text-align: right;
+  margin: 0;
+  margin-right: 100px;
+}
+
+.Items-info_price {
+  text-align: right;
+  margin: 0;
+  margin-right: 160px;
+  min-width: 85px;
+}
