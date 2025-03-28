@@ -21,7 +21,7 @@ function CartModal({ cart, items, onRemoveFromCart, onClose }) {
             return (
               <div key={code} className="CartModal-item">
                 <span>{item.title} - {quantity} шт. × {item.price} руб.</span>
-                <button onClick={() => onRemoveFromCart(code)}>Удалить</button>
+                <button className="CartModal-remove" onClick={() => onRemoveFromCart(code)}>Удалить</button>
               </div>
             );
           })}

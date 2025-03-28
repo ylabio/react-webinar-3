@@ -9,7 +9,7 @@ function Item({item, onAddToCart}) {
         <b>{item.title}</b> -  {item.price} руб.        
       </div>
       <div className="Item-actions">
-        <button onClick={() => onAddToCart(item.code)}>В корзину</button>
+        <button onClick={() => onAddToCart(item.code)}>Добавить</button>
       </div>
     </div>
   );

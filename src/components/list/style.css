@@ -14,3 +14,17 @@
   border-bottom: 1px solid var(--divider);
   cursor: pointer;
 }
+
+.List-cart {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: flex-end;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.List-cart button {
+  border-color: var(--primary);
+  color: var(--main-text);
+}

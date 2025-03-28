@@ -13,15 +13,5 @@
 
 .Head h1 {
   margin: 0;
-}
-
-.Head-cart {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.Head-cart button {
-  background-color: var(--primary);
-  color: white;
+  padding-left: 160px;
 }

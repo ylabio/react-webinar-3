@@ -54,8 +54,8 @@
   }
   
   .CartModal-remove {
-    color: var(--delete);
-    border: 1px solid var(--delete);
+    background-color: var(--delete);
+    color: var(--second-text);
   }
   
   .CartModal-footer {

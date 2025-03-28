@@ -53,14 +53,14 @@ function App({ store }) {
     <PageLayout>
       <Head 
       title="Магазин" 
-      cartTotal={cartTotal} 
-      cartSum={cartSum} 
-      onOpenCart={callbacks.onOpenCart} 
       />
       
       <List
         list={list}
         onAddToCart={callbacks.onAddToCart} 
+        cartTotal={cartTotal} 
+        cartSum={cartSum} 
+        onOpenCart={callbacks.onOpenCart} 
       />
       
       {isCartOpen && (
