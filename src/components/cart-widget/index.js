@@ -4,24 +4,27 @@ import { cn as bem } from '@bem-react/classname';
 import { plural } from '../../utils/plural';
 import './style.css';
 import CartIcon from '../cart-icon';
+import Controls from '../controls';
 
 const CartWidget = ({ quantity, amount, onClick }) => {
   const cn = bem('CartWidget');
+
+  const content =
+    quantity > 0 ? (
+      <div className={cn('box')}>
+        <CartIcon />
+        {quantity} {plural(quantity)} / {amount} ₽
+      </div>
+    ) : (
+      <div className={cn('box')}>
+        <CartIcon />
+        Пусто
+      </div>
+    );
+
   return (
     <div className={cn()}>
-      <button type="button" className={cn('button')} onClick={onClick}>
-        {quantity > 0 ? (
-          <div className={cn('box')}>
-            <CartIcon />
-            {quantity} {plural(quantity)} / {amount} ₽
-          </div>
-        ) : (
-          <div className={cn('box')}>
-            <CartIcon />
-            Пусто
-          </div>
-        )}
-      </button>
+      <Controls onClick={onClick} buttonText={content} reversed />
     </div>
   );
 };

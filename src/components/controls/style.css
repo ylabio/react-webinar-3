@@ -27,3 +27,22 @@
     color: var(--primary);
   }
 }
+
+.Controls-button_reversed {
+  background-color: var(--background);
+  border: 1px solid var(--primary);
+  color: var(--main-text);
+
+  &:hover {
+    background-color: var(--primary);
+    color: var(--second-text);
+  }
+}
+
+.Controls-button_reversed svg path {
+  fill: var(--primary);
+}
+
+.Controls-button_reversed:hover svg path {
+  fill: var(--second-text);
+}
