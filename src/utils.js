@@ -50,3 +50,19 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
+
+/**
+ * Форматирование числа
+ * @param {number}
+ * @returns {string}
+ */
+export function formatNumber(price) {
+  const formatted = new Intl.NumberFormat('ru-RU', { 
+    style: 'currency', 
+    currency: 'RUB',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }).format(price);
+
+  return formatted.replace(/\s/g, '\u00A0');
+}

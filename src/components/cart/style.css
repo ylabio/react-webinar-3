@@ -1,0 +1,16 @@
+.Cart .List {
+  overflow-y: auto;
+  max-height: 128px;
+}
+
+.Cart-total {
+  display: flex;
+  justify-content: flex-end;
+  gap: 54px;
+  padding: 21px 120px 88px 20px;
+  font-weight: bold;
+}
+
+.Cart-empty {
+  padding: 40px 20px;
+}

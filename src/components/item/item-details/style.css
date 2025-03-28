@@ -1,0 +1,5 @@
+.ItemDetails {
+  display: flex;
+  gap: 61px;
+  padding: 20px 14px 19px;
+}

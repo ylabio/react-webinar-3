@@ -1,0 +1,27 @@
+.ItemActions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 21px 21px 18px 10px;
+}
+
+.ItemActions button {
+  height: fit-content;
+  background-color: var(--delete);
+  color: var(--second-text);
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
+  }
+}
+
+.PageLayout-center .ItemActions button {
+  background-color: var(--primary);
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--primary);
+    color: var(--main-text);
+  }
+}

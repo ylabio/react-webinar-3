@@ -1,21 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import { plural } from '../../utils';
 
-function Controls({ onAdd }) {
+function Controls({ totalUnicItems, totalPrice, onCartOpen }) {
+  const cn = bem('Controls');
+  const itemWord = plural(totalUnicItems, { one: 'товар', few: 'товара', many: 'товаров' });
+
+  const cartText = totalUnicItems > 0
+    ? `${totalUnicItems} ${itemWord} / ${totalPrice}`
+    : 'Пусто';
+
   return (
-    <div className="Controls">
-      <button onClick={() => onAdd()}>Добавить</button>
+    <div className={cn()}>
+      <button className={cn('button')} onClick={onCartOpen}>
+        <div className={cn('text')}><b>{cartText}</b></div>
+      </button>
     </div>
   );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func,
-};
-
-Controls.defaultProps = {
-  onAdd: () => {},
+  totalUnicItems: PropTypes.number.isRequired,
+  totalPrice: PropTypes.string.isRequired,
+  onCartOpen: PropTypes.func.isRequired,
 };
 
 export default React.memo(Controls);

@@ -1,0 +1,62 @@
+.Modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding-top: 308px;
+  z-index: 1000;
+}
+
+.Modal .Head {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-bottom: 71px;
+}
+
+.Modal:has(.Cart-empty) .Head {
+  margin-bottom: 0;
+}
+
+.Modal h2 {
+ color: var(--main-text);
+}
+
+.Modal-actions button {
+  width: 26px;
+  height: 26px;
+  background: url('../../images/close.svg') no-repeat center;
+  padding: 0;
+}
+
+.Modal-content {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 960px;
+  max-height: calc(100vh - 331px);
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.50);
+}
+
+.Modal .Item-code {
+  padding-top: 20px;
+  padding-left: 18px;
+  padding-right: 11px;
+}
+
+.Modal .ItemDetails {
+  padding-bottom: 20px;
+  padding-top: 21px;
+}
+
+.Modal .ItemActions {
+  padding-top: 20px;
+}
+
+.Modal .Head {
+  margin: 0 auto;
+  width: 100%;
+}
