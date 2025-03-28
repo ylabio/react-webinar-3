@@ -1,4 +1,3 @@
-import { generateCode } from './utils';
 
 /**
  * Хранилище состояния приложения
@@ -43,45 +42,41 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
+  addItemToCart(title) {
+    const finditem = this.state.list.find(item => item.title === title);
+    const existingItem = this.state.cartList.find(item => item.title === title);
+    if (existingItem) {
+      this.setState({
+        ...this.state,
+        cartList: this.state.cartList.map(item =>
+          item.title === title ? { ...item, count: item.count + 1 } : item
+        ),
+      });
+    } else {
+      this.setState({
+           ...this.state,
+           cartList: [...this.state.cartList, { title: finditem.title, count: 1, price: finditem.price }],
+      });
+    }
+  }
+
+  /**
+   * Удаление записи по названию
+   * @param title
+   */
+  deleteItem(title) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      cartList: this.state.cartList.filter(item => item.title !== title),
     });
   }
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Получение итоговой стоимости товаров
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
-    });
+  getTotalPrice() {
+    return  this.state.cartList
+      .reduce((sum, item) => sum + item.price * item.count, 0);
   }
 }
 
