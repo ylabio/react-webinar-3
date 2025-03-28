@@ -4,6 +4,8 @@
   list-style: none;
   padding-left: 0;
   margin: 0;
+  max-width: 1200px;
+  width: 100%;
 }
 
 .List-item:nth-child(odd) {
@@ -12,5 +14,21 @@
 
 .List-item {
   border-bottom: 1px solid var(--divider);
-  cursor: pointer;
+}
+
+.List-total {
+  display: flex;
+  gap: 24px;
+  margin-right: 145px;
+  justify-content: flex-end;
+  padding: 16px 0;
+}
+
+.List-total > span {
+  max-width: 105px;
+  width: 100%;
+  font-weight: bold;
+}
+.List-total-price {
+  text-align: right;
 }
