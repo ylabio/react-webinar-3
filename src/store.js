@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,27 +39,28 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
-  }
-
-  /**
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  addItem(item) {
+    if (this.getState().shoppingCart.find(arr => arr.code === item.code)) {
+      this.setState({
+        ...this.state,
+        shoppingCart: this.getState().shoppingCart.map(obj => {
+          item.code === obj.code ? ++obj.count : false;
+          return obj;
+        }),
+      });
+    } else {
+      this.getState().shoppingCart.push({ ...item, count: 1 });
+    }
+
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      sum: (this.state.sum += item.price),
+      quantity: ++this.state.quantity,
     });
   }
-
   /**
    * Выделение записи по коду
    * @param code
@@ -71,16 +70,26 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+          item.selected = !item.selected;
         }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
+        return item;
       }),
+    });
+  }
+  modalWindow() {
+    this.setState({
+      ...this.state,
+      isOpen: !this.state.isOpen,
+    });
+  }
+  deleteItem(item) {
+    this.setState({
+      ...this.state,
+      shoppingCart: this.state.shoppingCart.filter(el => {
+        return el !== item;
+      }),
+      sum: this.state.sum - item.price * item.count,
+      quantity: this.state.quantity - item.count,
     });
   }
 }
