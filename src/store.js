@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -23,11 +21,11 @@ class Store {
   }
 
   /**
-   * Выбор состояния
+   * Выбор состояния, только список
    * @returns {Object}
    */
-  getState() {
-    return this.state;
+  getStateList() {
+    return [...this.state.list];
   }
 
   /**
@@ -41,32 +39,21 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Выбор состояния корзины
+   * @returns {Object}
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
+  getCartState() {
+    const cartList = this.state.list.filter(item => item.count);
+    const sizeCart = cartList.length;
+    const total = cartList.reduce((acc, item) => acc + (item.total || 0), 0);
+    return { total, sizeCart, cartList };
   }
 
   /**
-   * Удаление записи по коду
+   * Удаление записи из карзины по коду
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  clearCartItem(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
@@ -74,12 +61,32 @@ class Store {
           // Смена выделения и подсчёт
           return {
             ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
+            count: 0,
+            total: 0,
           };
         }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
+        return item
+      }),
+    });
+  }
+
+  /**
+   * Выделение записи по коду
+   * @param code
+   */
+  addCartItem(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          // Смена выделения и подсчёт
+          return {
+            ...item,
+            count: item.count ? item.count + 1 : 1,
+            total: item.total ? item.total + item.price : item.price,
+          };
+        }
+        return item
       }),
     });
   }

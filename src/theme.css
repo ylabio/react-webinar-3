@@ -3,13 +3,15 @@
 :root {
   --background: #FFFFFF;
   --primary: #6B4ACB;
-  --primary-select: #6B4ACB1A;
+  --primary-select: rgba(107, 74, 203, 0.5);
   --main-text: #1A2028;
   --second-text: #FFFFFF;
   --overlay: #1A202866;
   --divider: #EFEFEF;
   --delete: #D43B3B;
+  --delete-select: rgba(212, 59, 59, 0.5);
   --odd-item: #6B4ACB08;
+  --grey-hard: #878787;
 
   --font-family: 'Golos Text';
   --second-font-family: 'Montserrat Alternates';
@@ -24,6 +26,11 @@ body {
   padding: 0;
   font-family: var(--font-family);
   min-height: 100vh;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0;
+
 }
 
 button {
@@ -41,4 +48,10 @@ button {
 
 h1, h4 {
   margin: 0;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
 }

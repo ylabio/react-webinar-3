@@ -1,0 +1,69 @@
+.Modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 60px;
+  width: 100%;
+  height: 100%;
+  background-color: var(--overlay);
+}
+
+.Modal-dialog {
+  border-radius: 8px;
+  background-color: var(--background);
+  width: 75%;
+  max-width: 1080px;
+  display: grid;
+  gap: 24px;
+  grid-template-areas:
+    "title close-button"
+    "body body";
+  justify-items: stretch;
+  grid-template-columns:  1fr auto;
+}
+
+.Modal-button {
+  grid-area: close-button;
+  padding: 10px 10px 0 0;
+  justify-self: end;
+  align-self: start;
+}
+
+.Modal-button button {
+  width: 32px;
+  height: 32px;
+  padding: 8px;
+  line-height: 0;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  svg path {
+    fill: var(--grey-hard);
+    transition: 0.3s;
+  }
+
+  &:hover {
+    svg path {
+      fill: var(--main-text);
+    }
+  }
+
+}
+
+.Modal-title {
+  width: 100%;
+  padding: 24px 0 0 24px;
+  grid-area: title;
+}
+
+.Modal-body {
+  grid-area: body;
+  width: 100%;
+  padding: 0 24px 24px;
+}
