@@ -22,7 +22,7 @@ function App({ store }) {
 
   const { list = [], cart = {} } = state;
 
-  const cartTotal = Object.keys(cart).length;
+  const cartTotal = Object.values(cart).reduce((sum, quantity) => sum+quantity, 0);
   const cartSum = Object.entries(cart).reduce((sum, [code, quantity]) => {
     const item = list.find(i => i.code === Number(code));
     return sum + (item.price * quantity);
