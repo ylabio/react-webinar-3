@@ -4,6 +4,7 @@
   overflow: hidden;
   position: relative;
   width: 75%;
+  max-width: 1192px;
   max-height: 66%;
   padding: 0;
 
