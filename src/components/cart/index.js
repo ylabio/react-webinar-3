@@ -10,12 +10,14 @@ const Cart = ({ goodsList, onClick, amount }) => {
   return (
     <section className={cn()}>
       <Title title="Корзина" />
-      <List
-        list={goodsList}
-        onClick={onClick}
-        buttonText={'Удалить'}
-        getQuantity={item => item.count || 0}
-      />
+      <div className={cn('list')}>
+        <List
+          list={goodsList}
+          onClick={onClick}
+          buttonText={'Удалить'}
+          getQuantity={item => item.count || 0}
+        />
+      </div>
       <div className={cn('box')}>
         <h4 className={cn('total')}>Итого:</h4>
         <h4 className={cn('total')}>{amount} ₽</h4>

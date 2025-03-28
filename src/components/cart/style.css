@@ -7,6 +7,12 @@
   width: 100%;
 }
 
+.Cart-list {
+  width: 100%;
+  padding: 0;
+  overflow-y: auto;
+}
+
 .Cart-box {
   width: 100%;
   padding: 16px 110px;
