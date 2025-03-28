@@ -72,19 +72,19 @@ class Store {
   selectItem(code,e) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {       
-        if (item.code === code){          
+      list: this.state.list.map(item => {   
+        if (item.code === code ){          
           item.selected = !item.selected;
           if (item.selected) {
             item.selectCount++
           };
-        } else if (!e.ctrlKey){    
+        } else if (!e.ctrlKey && !e.metaKey){           
           item.selected = false;
         }
         return item;
       }),
     });
-  }  
+  } 
 }
 
 export default Store;
