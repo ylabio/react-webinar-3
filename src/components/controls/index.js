@@ -1,16 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { plural } from '../../utils'
 
-function Controls({ onOpenBasket = () => {} }) {
+function Controls({productsInBasket = 0, price = 0, onOpenBasket = () => {} }) {
   return (
     <div className="Controls">
-      <button onClick={() => onOpenBasket()}>Пусто</button>
+      <button onClick={onOpenBasket}>
+        {productsInBasket 
+          ? `${productsInBasket} ${plural(productsInBasket,{
+            one: 'товар',
+            few: 'товара',
+            many: 'товаров'
+          })} / ${price} ₽` 
+          : `Пусто`}
+      </button>
     </div>
   );
 }
 
 Controls.propTypes = {
+  productsInBasket: PropTypes.number,
+  price: PropTypes.number,
   onOpenBasket: PropTypes.func,
 };
 

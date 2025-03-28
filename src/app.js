@@ -14,7 +14,11 @@ function App({ store }) {
 
   const list = store.getState().list;
   const basketList = store.getState().basketList
-  console.log(list)
+
+  // подсчет стоимости товаров в корзине
+  const price = basketList.reduce((acc, product) => {
+    return acc + product.price * product.quantity
+  }, 0)
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -37,18 +41,20 @@ function App({ store }) {
 
     onAddProductToBasket: useCallback((code) => {
       store.addProductToBasket(code)
-    }, [store])
+    }, [store]),
+
+    onOpenBasket: useCallback(() => {
+     
+    }, [])
   };
 
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Controls onAdd={callbacks.onAddItem} productsInBasket={basketList.length}/>
+      <Controls onOpenBasket={callbacks.onOpenBasket} productsInBasket={basketList.length} price={price}/>
       <List
         list={list}
         onAction={callbacks.onAddProductToBasket}
-        // onDeleteItem={callbacks.onDeleteItem}
-        // onSelectItem={callbacks.onSelectItem}
       />
 
       {/* <Basket productsList={basketList}/> */}
