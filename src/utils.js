@@ -51,7 +51,7 @@ export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
 
-const defaultOptions = { style: 'currency', currency: 'RUB' };
+const defaultOptions = { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 };
 /**
  * Форматирует цену в соответствии с заданной локалью и опциями форматирования.
  * @param {Object} params

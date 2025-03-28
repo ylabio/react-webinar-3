@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -10,38 +11,41 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const { list, cart } = store.getState();
 
   const callbacks = {
-    onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
-      },
-      [store],
-    ),
+    openModal: useCallback(() => {
+      setModalOpen(true);
+    }, []),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
+    addToCart: useCallback(code => {
+      store.addToCart(code);
+    }, []),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    removeFromCart: useCallback(code => {
+      store.removeFromCart(code);
+    }, []),
+  };
+
+  const totalCartValue = {
+    items: cart.length,
+    price: cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
   };
 
   return (
-    <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
-      />
-    </PageLayout>
+    <>
+      <PageLayout>
+        <Head title="Магазин" />
+        <Controls openModal={callbacks.openModal} totalCartValue={totalCartValue} />
+        <List list={list} listType="list" onHandleButton={callbacks.addToCart} />
+      </PageLayout>
+
+      <Modal open={isModalOpen} close={() => setModalOpen(false)} title="Корзина">
+        <List list={cart} listType="cart" onHandleButton={callbacks.removeFromCart} />
+      </Modal>
+    </>
   );
 }
 

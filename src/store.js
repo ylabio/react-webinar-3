@@ -42,45 +42,40 @@ class Store {
 
   /**
    * Добавление новой записи
+   * @param {number} code
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+  addToCart(code) {
+    const product = this.state.cart.find(item => item.code === code);
+
+    if (!product) {
+      const product = this.state.list.find(item => item.code === code);
+      return this.setState({
+        ...this.state,
+        cart: [...this.state.cart, { ...product, quantity: 1 }],
+      });
+    }
+
+    const cart = this.state.cart.map(item => {
+      if (item.code === code) {
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
+      }
+      return item;
     });
+
+    return this.setState({ ...this.state, cart });
   }
 
   /**
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  removeFromCart(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      cart: this.state.cart.filter(item => item.code !== code),
     });
   }
 }
