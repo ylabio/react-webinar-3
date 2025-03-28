@@ -11,6 +11,7 @@ function Modal({ title }) {
   const { cart, isOpened, toggleCartModal } = useCart();
   const [shouldAnimateClose, setShouldAnimateClose] = React.useState(false);
   const cartIsEmpty = cart.length === 0
+  const cost = formatPrice(calculateCartTotal(cart));
 
   const handleClose = () => {
     setShouldAnimateClose(true);
@@ -45,7 +46,7 @@ function Modal({ title }) {
         {!cartIsEmpty && (
           <div className="Modal-container-final-cost">
             <div>{STRINGS.FINAL}</div>
-            <div className="Modal-cost">{formatPrice(calculateCartTotal(cart))}</div>
+            <div className="Modal-cost">{cost}</div>
           </div>
         )}
 

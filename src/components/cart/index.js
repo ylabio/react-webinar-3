@@ -22,10 +22,11 @@ function Cart() {
 
 function getCartTitle(cart) {
   const count = cart.length;
+  const cost = formatPrice(calculateCartTotal(cart));
 
   if (count === 0) return STRINGS.EMPTY;
 
-  return `${count} ${plural(count, STRINGS.PRODUCT_COUNT_FORMS)} / ${formatPrice(calculateCartTotal(cart))}`;
+  return `${count} ${plural(count, STRINGS.PRODUCT_COUNT_FORMS)} / ${cost}`;
 }
 
 export default React.memo(Cart);
