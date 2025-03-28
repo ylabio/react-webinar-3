@@ -1,0 +1,35 @@
+.Cart-item {
+  display: flex;
+  border-bottom: 1px solid var(--divider);
+  padding: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Cart-item:nth-child(odd) {
+  background-color: var(--odd-item);
+}
+
+.Cart-item-bold {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+}
+
+.Cart-item-normal {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  gap: 24px;
+}
+
+.Cart-item-normal > * {
+  width: 105px;
+}
+
+.Cart-item-price {
+  text-align: right;
+}
