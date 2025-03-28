@@ -5,8 +5,15 @@ import { generateCode } from './utils';
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.state = {
+      list: [],
+      cart: {
+        items: [],
+        isOpen: false
+      },
+      ...initState
+    };
+    this.listeners = [];
   }
 
   /**
@@ -40,47 +47,41 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
+  addToCart(item) {
+    const existingItem = this.state.cart.items.find(cartItem => cartItem.code === item.code);
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      cart: {
+        ...this.state.cart,
+        items: existingItem
+          ? this.state.cart.items.map(cartItem =>
+              cartItem.code === item.code
+                ? { ...cartItem, quantity: cartItem.quantity + 1 }
+                : cartItem
+            )
+          : [...this.state.cart.items, { ...item, quantity: 1 }]
+      }
     });
   }
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
+  removeFromCart(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      cart: {
+        ...this.state.cart,
+        items: this.state.cart.items.filter(item => item.code !== code)
+      }
     });
   }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  toggleCart() {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      cart: {
+        ...this.state.cart,
+        isOpen: !this.state.cart.isOpen
+      }
     });
   }
 }
