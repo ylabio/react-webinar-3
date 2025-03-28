@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { plural } from '../../utils';
 import './style.css';
 
-function Item(props) {
+function Item(props,  onDelete = () => {}, onSelect = () => {}) {
   // Счётчик выделений
   const [count, setCount] = useState(0);
 
@@ -52,11 +52,6 @@ Item.propTypes = {
   }).isRequired,
   onDelete: PropTypes.func,
   onSelect: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
 };
 
 export default React.memo(Item);
