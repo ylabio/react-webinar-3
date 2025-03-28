@@ -8,9 +8,9 @@
   --second-text: #FFFFFF;
   --overlay: #1A202866;
   --divider: #EFEFEF;
-  --delete: #D43B3B;
+  --add: #6B4ACB;
   --odd-item: #6B4ACB08;
-
+  --delete: #D43B3B;
   --font-family: 'Golos Text';
   --second-font-family: 'Montserrat Alternates';
 }
