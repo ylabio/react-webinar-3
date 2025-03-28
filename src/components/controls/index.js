@@ -14,8 +14,9 @@ function Controls(props) {
         <CartIcon />
         <div>
           <b>
-            {!!props.totalItems ? 'Пусто' : formatTotal(props.totalItems)} /
-            {formatNumber({ number: props.totalPrice })}
+            {!!props.totalCartValue.items
+              ? `${formatTotal(props.totalCartValue.items)} / ${formatNumber({ number: props.totalCartValue.price })}`
+              : 'Пусто'}
           </b>
         </div>
       </button>
@@ -24,8 +25,8 @@ function Controls(props) {
 }
 
 Controls.propTypes = {
-  totalItems: number,
-  totalPrice: number,
+  totalCartValue: PropTypes.shape({ uniqItems: PropTypes.number, price: PropTypes.number })
+    .isRequired,
   openModal: PropTypes.func,
 };
 
