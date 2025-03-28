@@ -28,4 +28,8 @@
 .List-cart button {
   border-color: var(--primary);
   color: var(--main-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
 }

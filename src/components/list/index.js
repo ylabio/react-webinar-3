@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import Item from '../item';
 import './style.css';
 import CartIcon from '../cart-icon';
+import { plural } from '../../utils';
 
 function List({ list, onAddToCart, cartTotal, cartSum, onOpenCart   }) {
   return (
     <ul className="List">
       <div className="List-cart">
-          <button onClick={onOpenCart}>{cartTotal} товара / {cartSum} ₽</button>
+          <button onClick={onOpenCart}
+          ><CartIcon/>
+          {cartTotal > 0 
+            ? `${cartTotal} ${plural(cartTotal, {one: 'товар', few: 'товара', many: 'товаров'})} / ${cartSum} ₽`
+            : 'Пусто'}</button>
         </div>
       {list.map(item => (
         <li key={item.code} className="List-item">
