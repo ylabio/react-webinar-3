@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { plural } from '../../utils';
 import './style.css';
 
-function Item(props,  onDelete = () => {}, onSelect = () => {}) {
+function Item(props,  onDelete = () => {}, onSelect = () => {}, onBasket = () => {}) {
   // Счётчик выделений
   const [count, setCount] = useState(0);
 
@@ -17,6 +17,10 @@ function Item(props,  onDelete = () => {}, onSelect = () => {}) {
     onDelete: e => {
       e.stopPropagation();
       props.onDelete(props.item.code);
+    },
+    onBasket: e => {
+      e.stopPropagation();
+      props.onBasket(props.item.code);
     },
   };
 
@@ -38,6 +42,7 @@ function Item(props,  onDelete = () => {}, onSelect = () => {}) {
       </div>
       <div className="Item-actions">
         <button onClick={callbacks.onDelete}>Удалить</button>
+        <button onClick={callbacks.onBasket}>Добавить</button>
       </div>
     </div>
   );
@@ -52,6 +57,7 @@ Item.propTypes = {
   }).isRequired,
   onDelete: PropTypes.func,
   onSelect: PropTypes.func,
+  onBasket: PropTypes.func,
 };
 
 export default React.memo(Item);

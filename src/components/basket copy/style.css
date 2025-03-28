@@ -1,0 +1,27 @@
+.Basket {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 24px 16px 24px 0;
+}
+
+.Basket button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+
+  border: 1px solid var(--primary);
+  background-color: var(--background);
+  color: var(--main-text);
+
+  &:hover {
+    background-color: var(--primary);
+    color: var(--background);
+  }
+}
+
+.Basket button:hover  svg path {
+  fill: var(--background);
+}

@@ -4,9 +4,11 @@ import { generateCode } from './utils';
  * Хранилище состояния приложения
  */
 class Store {
-  constructor(initState = {}) {
+  constructor(initState = {}, initBasketState = { list: [] }) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.basketState = initBasketState;
+    this.openPopupFlag = false;
   }
 
   /**
@@ -31,6 +33,22 @@ class Store {
   }
 
   /**
+   * Выбор состояния корзины
+   * @returns {Object}
+   */
+  getOpenPopupFlag() {
+    return this.openPopupFlag;
+  }
+
+  /**
+   * Выбор состояния корзины
+   * @returns {Object}
+   */
+  getBasketState() {
+    return this.basketState;
+  }
+
+  /**
    * Установка состояния
    * @param newState {Object}
    */
@@ -41,6 +59,23 @@ class Store {
   }
 
   /**
+   * Установка состояния корзины
+   * @param newBasketState {Object}
+   */
+  setBasketState(newBasketState) {
+    this.basketState = newBasketState;
+    // Вызываем всех слушателей
+    for (const listener of this.listeners) listener();
+  }
+
+  /**
+   * Переключение модалки
+   */
+  togglePopupFlag() {
+    this.openPopupFlag = !this.openPopupFlag;
+  }
+
+  /**
    * Добавление новой записи
    */
   addItem() {
@@ -48,6 +83,22 @@ class Store {
       ...this.state,
       list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
     });
+  }
+
+  /**
+   * Добавление товара в корзину
+   */
+  addBasketItem(code) {
+    const itemToAdd = this.state.list.find(item => item.code === code);
+    if (itemToAdd) {
+      this.setBasketState({
+        ...this.basketState,
+        list: [
+          ...(this.basketState.list || []),
+          { ...itemToAdd }
+        ],
+      });
+    }
   }
 
   /**
