@@ -1,0 +1,20 @@
+.Cart {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 144px;
+}
+
+/* Border не учытывется в размерах, но про hover не сказано, поэтому-   box-shadow: inset 0px 0px 0px 1px var(--primary);
+
+ */
+
+.Cart-container button {
+  /* border: 1px solid var(--primary); */
+  border: none;
+  box-shadow: inset 0px 0px 0px 1px var(--primary);
+  background-color: var(--background);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
