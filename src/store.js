@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,16 +39,6 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
-  }
-
-  /**
    * Удаление записи по коду
    * @param code
    */
@@ -62,25 +50,19 @@ class Store {
     });
   }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  addToCart(item) {
+    const { code, title, price } = item;
+    const isInCart = this.state.cart.find(product => product.code === item.code);
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
+      cart: isInCart ? 
+        this.state.cart.map(product => {
           return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
+            ...product,
+            count: product.code === item.code ? product.count + 1 : product.count,
           };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+        }) : 
+        [...this.state.cart, { code, title, price, count: 1 }]
     });
   }
 }

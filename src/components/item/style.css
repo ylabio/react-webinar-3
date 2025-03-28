@@ -27,8 +27,8 @@
 
   &:hover {
     background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
+    border-color: var(--primary);
+    color: var(--primary);
   }
 }
 
