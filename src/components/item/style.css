@@ -12,7 +12,22 @@
 }
 
 .Item-title {
+  display: flex;
   flex: auto;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Item-name {
+  font-weight: bold;
+  flex: 1;
+}
+
+.Item-details {
+  display: flex;
+  gap: 150px;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .Item-actions {
@@ -30,5 +45,14 @@
     border-color: var(--delete);
     color: var(--delete);
   }
-}
 
+  &.add {
+    background-color: var(--primary);
+
+    &:hover {
+      background-color: var(--background);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+  }
+}
