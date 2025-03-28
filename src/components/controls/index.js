@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes, { number, string } from 'prop-types';
+import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import { markingPrice, plural, totalPrice } from '../../utils';
@@ -38,9 +38,9 @@ function Controls({ basket, setIsActive }) {
 Controls.propTypes = {
   basket: PropTypes.arrayOf(
     PropTypes.shape({
-      code: number,
-      title: string,
-      price: number,
+      code: PropTypes.number,
+      title: PropTypes.string,
+      price: PropTypes.number,
     }),
   ).isRequired,
   setIsActive: PropTypes.func.isRequired,
