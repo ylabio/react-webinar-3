@@ -4,11 +4,11 @@ import { generateCode } from './utils';
  * Хранилище состояния приложения
  */
 class Store {
-  constructor(initState = {}, initBasketState = { list: [] }) {
+  constructor(initState = {}, initBasketState = { list: [] }, startOpenPopupFlag = false) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.basketState = initBasketState;
-    this.openPopupFlag = false;
+    this.openPopupFlag = startOpenPopupFlag;
   }
 
   /**
@@ -33,7 +33,7 @@ class Store {
   }
 
   /**
-   * Выбор состояния корзины
+   * Выбор состояния попапа
    * @returns {Object}
    */
   getOpenPopupFlag() {
@@ -73,6 +73,7 @@ class Store {
    */
   togglePopupFlag() {
     this.openPopupFlag = !this.openPopupFlag;
+    for (const listener of this.listeners) listener();
   }
 
   /**

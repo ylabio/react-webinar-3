@@ -1,0 +1,44 @@
+.Popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+
+  background-color: var(--popup);
+}
+
+.Popup-wrapper {
+  position: relative;
+  padding: 24px;
+
+  width: 1080px;
+  max-width: 100%;
+
+  background-color: var(--background);
+  border-radius: 8px;
+}
+
+.Popup h2 {
+  margin: 0 0 24px;
+
+  line-height: 1.2;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.Popup-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+
+  padding: 0;
+  background: none;
+  border: none;
+}
+
