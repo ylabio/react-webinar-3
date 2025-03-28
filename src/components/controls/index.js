@@ -2,20 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({ onAdd }) {
+function Controls({ icon: Icon = null, totalItems = 0, totalPrice = 0, onToggleCart = () => {} }) {
   return (
     <div className="Controls">
-      <button onClick={() => onAdd()}>Добавить</button>
+      <button onClick={onToggleCart} className="Controls-button" aria-label="Корзина">
+        {Icon && <Icon className="Icon" />}
+        {totalItems > 0
+          ? `${totalItems} товара / ${new Intl.NumberFormat('ru-RU').format(totalPrice)} ₽`
+          : 'Пусто'}
+      </button>
     </div>
   );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func,
-};
-
-Controls.defaultProps = {
-  onAdd: () => {},
-};
+  icon: PropTypes.elementType, // Принимаем компонент иконки
+  totalItems: PropTypes.number.isRequired,
+  totalPrice: PropTypes.number.isRequired,
+  onToggleCart: PropTypes.func.isRequired,
+}; 
 
 export default React.memo(Controls);

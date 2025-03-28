@@ -32,6 +32,16 @@ let config = {
           { loader: 'css-loader', options: { url: true, import: true } },
         ],
       },
+      // Правила обработки объектов SVG
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: { icon: true },
+          },
+        ],
+      },
     ],
   },
   plugins: [

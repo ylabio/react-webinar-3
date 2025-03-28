@@ -1,8 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import { CartIcon, CloseIcon } from './components/icons';
+import Modal from './components/modal';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -10,37 +13,48 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const { list, cart } = store.getState();
+  const [isCartOpen, setIsCartOpen] = useState(false); // Признак открытия корзины
 
   const callbacks = {
-    onDeleteItem: useCallback(
+    onAddItemToCart: useCallback(
       code => {
-        store.deleteItem(code);
+        store.addItemToCart(code);
       },
       [store],
     ),
 
-    onSelectItem: useCallback(
+    onToggleCart: () => {
+      setIsCartOpen(prev => !prev);
+    },
+
+    onRemoveItemFromCart: useCallback(
       code => {
-        store.selectItem(code);
+        store.removeItemFromCart(code);
       },
       [store],
     ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
   };
+
+  const uniqueItemsCount = cart.length;
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const totalPrice = cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
 
   return (
     <PageLayout>
-      <Head title="Приложение на React!" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+      <Head title="Магазин" />
+      <Controls
+        icon={CartIcon}
+        totalItems={uniqueItemsCount}
+        totalPrice={totalPrice}
+        onToggleCart={callbacks.onToggleCart}
       />
+      <List list={list} onAddItemToCart={callbacks.onAddItemToCart} />
+      {isCartOpen && (
+        <Modal onClose={callbacks.onToggleCart} icon={CloseIcon}>
+          <Cart cart={cart} onRemoveItem={callbacks.onRemoveItemFromCart} totalPrice={totalPrice} />
+        </Modal>
+      )}
     </PageLayout>
   );
 }
