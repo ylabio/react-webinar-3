@@ -1,4 +1,6 @@
-import { generateCode } from './utils';
+// import { generateCode } from './utils';
+
+import { sumProduct } from './utils';
 
 /**
  * Хранилище состояния приложения
@@ -40,49 +42,54 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
-  }
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+    addBasket(code){
+      let check = true;
+      for(const product of this.state.basket){
+        if(product.code == code){
+          check = false;
+          product.quantity = product.quantity + 1;
+         
         }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
-    });
-  }
+      }
+      if(check){
+        this.setState({
+          ...this.state,
+         
+        basket: [...this.state.basket, { code: code, title: this.state.list[code - 1].title, price: this.state.list[code - 1].price, quantity: 1 }],
+  
+        });
+      }else{
+        this.setState({
+          ...this.state,
+         
+        basket: [...this.state.basket],
+   
+        });
+      }  
+      this.setState({
+        ...this.state,
+      result: [sumProduct(this.state.basket), this.state.basket.length],  
+      });
+  
+    }
+
+
+      deleteBasket(code){
+          this.setState({
+            ...this.state,
+           
+            basket: this.state.basket.filter(item => item.code !== code),
+          });
+    
+          this.setState({
+            ...this.state,
+          result: [sumProduct(this.state.basket), this.state.basket.length],  
+          });
+
+        }
+
 }
 
 export default Store;

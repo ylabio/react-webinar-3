@@ -7,10 +7,6 @@
   padding: 16px;
 }
 
-.Item_selected {
-  background-color: var(--primary-select);
-}
-
 .Item-title {
   flex: auto;
 }
@@ -18,12 +14,31 @@
 .Item-actions {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .Item-actions button {
+ 
+  padding: 8px 16px;
+  margin-left: 24px;
+
+ 
+}
+
+button.button_add{
+  background-color: var(--primary);
+  color: var(--second-text);
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}
+
+
+button.button_delete{
   background-color: var(--delete);
   color: var(--second-text);
-  padding: 8px 16px;
 
   &:hover {
     background-color: var(--background);
@@ -31,4 +46,19 @@
     color: var(--delete);
   }
 }
+.Item-price{
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #1A2028;
+  width: 105px;
+  text-align: right;
+}
 
+.Item-quantity{
+  /* width: 105px; */
+  margin-right: 100px;
+  text-align: right;
+}
