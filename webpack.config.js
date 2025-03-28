@@ -32,6 +32,13 @@ let config = {
           { loader: 'css-loader', options: { url: true, import: true } },
         ],
       },
+      {
+        test: /\.(svg|png|jpg|jpeg)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/[name].[contenthash].[ext]'
+        },
+      },
     ],
   },
   plugins: [
