@@ -34,11 +34,11 @@ function App({ store }) {
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
+      <Head title="Магазин" />
       <Controls onAdd={callbacks.onAddItem} />
       <List
         list={list}
-        onDeleteItem={callbacks.onDeleteItem}
+        onAdd={callbacks.onAddItem}
         onSelectItem={callbacks.onSelectItem}
       />
     </PageLayout>

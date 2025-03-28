@@ -21,7 +21,7 @@
 }
 
 .Item-actions button {
-  background-color: var(--delete);
+  background-color: var(--primary);
   color: var(--second-text);
   padding: 8px 16px;
 
