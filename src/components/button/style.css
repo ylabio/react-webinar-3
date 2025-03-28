@@ -23,23 +23,44 @@
   margin-right: 8px;
 }
 
-.Button_variant_solid {
+.Button_variant_solid.Button_color_primary {
   background-color: var(--primary);
   color: var(--second-text);
   border: 1px solid var(--primary);
 }
 
-.Button_variant_outline {
+.Button_variant_solid.Button_color_primary:hover {
+  background-color: var(--background);
+  color: var(--primary);
+}
+
+.Button_variant_outline.Button_color_primary {
   background-color: var(--background);
   color: var(--main-text);
   border: 1px solid var(--primary);
 }
 
-.Button_variant_solid:hover {
-  background-color: var(--background);
-  color: var(--primary);
+.Button_variant_outline.Button_color_primary:hover {
+  background-color: var(--primary-select);
 }
 
-.Button_variant_outline:hover {
-  background-color: var(--primary-select);
+.Button_variant_solid.Button_color_delete {
+  background-color: var(--delete);
+  color: var(--second-text);
+  border: 1px solid var(--delete);
+}
+
+.Button_variant_solid.Button_color_delete:hover {
+  background-color: var(--background);
+  color: var(--delete);
+}
+
+.Button_variant_outline.Button_color_delete {
+  background-color: var(--background);
+  color: var(--main-text);
+  border: 1px solid var(--delete);
+}
+
+.Button_variant_outline.Button_color_delete:hover {
+  background-color: #d43b3b89;
 }
