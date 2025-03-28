@@ -75,11 +75,53 @@ class Store {
           return {
             ...item,
             selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
+            // count: item.selected ? item.count : item.count + 1 || 1,
           };
         }
         // Сброс выделения если выделена
         return item.selected ? { ...item, selected: false } : item;
+      }),
+    });
+  }
+
+  /**
+   * Простое увеличение кол-ва товара в корзине
+   * @param code
+   */
+  addItemToCart(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          // увеличение кол-ва товара
+          return {
+            ...item,
+            amount: item.amount ? item.amount + 1 : 1,
+          };
+        }
+        // количество не изменилось
+        return item;
+      }),
+    });
+  }
+
+  /**
+   * Удаление товара из корзины
+   * @param code
+   */
+  removeItemFromCart(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          // обнуление кол-ва товара
+          return {
+            ...item,
+            amount: 0,
+          };
+        }
+        // количество не изменилось
+        return item;
       }),
     });
   }
