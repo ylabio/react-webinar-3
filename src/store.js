@@ -1,11 +1,15 @@
-import { generateCode } from './utils';
 
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      // cart: {},
+      cart: [],
+      isModalOpen: false,
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -37,50 +41,56 @@ class Store {
   setState(newState) {
     this.state = newState;
     // Вызываем всех слушателей
-    for (const listener of this.listeners) listener();
+    this.listeners.forEach(listener => listener());
   }
 
   /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
+  * Добавление товара в корзину (обновленная версия для массива)
+* @param code {Number} Код товара
+* @param quantity {Number} Количество (по умолчанию 1)
+*/
+addToCart(code, quantity = 1) {
+  const item = this.state.list.find(item => item.code === code);
+  if (!item) return;
+
+  const existingItemIndex = this.state.cart.findIndex(cartItem => cartItem.code === code);
+
+  let newCart;
+  if (existingItemIndex >= 0) {
+    newCart = [...this.state.cart];
+    newCart[existingItemIndex] = {
+      ...newCart[existingItemIndex],
+      quantity: newCart[existingItemIndex].quantity + quantity,
+    };
+  } else {
+    newCart = [...this.state.cart, { ...item, quantity }];
   }
 
-  /**
-   * Удаление записи по коду
-   * @param code
+  this.setState({
+    ...this.state,
+    cart: newCart,
+  });
+}
+
+/**
+   * Удаление товара из корзины
+   * @param code {Number} Код товара
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
+removeFromCart(code) {
+  const newCart = this.state.cart.filter(item => item.code !== code);
+  this.setState({
+    ...this.state,
+    cart: newCart,
+  });
+}
 
   /**
-   * Выделение записи по коду
-   * @param code
+   * Переключение видимости модалки корзины
    */
-  selectItem(code) {
+  toggleModal() {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      isModalOpen: !this.state.isModalOpen
     });
   }
 }

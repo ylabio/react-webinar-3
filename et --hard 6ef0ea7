@@ -1,0 +1,14 @@
+[33m998c2e0[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/new-logic[m[33m, [m[1;31morigin/feature/new-logic[m[33m)[m refactoring
+[33m7c600dc[m refactoring
+[33md402337[m refactoring
+[33ma3a98b9[m add new logic
+[33m6ef0ea7[m[33m ([m[1;31morigin/lecture-1[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mlecture-1[m[33m)[m fix deploy
+[33m1a3af94[m packages updated
+[33m1f3b265[m added prettier
+[33m2081cab[m fix ci
+[33m563786e[m babel, JSX
+[33mcff1e6b[m webpack, npm
+[33m03b975f[m react
+[33mba5b54c[m store, действия создания, удаления, выделения записи
+[33m03e200b[m вывод списка
+[33m2a440e7[m вёрстка на createElement

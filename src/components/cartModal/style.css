@@ -1,0 +1,41 @@
+.CartModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.CartModal-content {
+  background-color: var(--background);
+  border-radius: 8px;
+  padding: 24px;
+  width: 100%;
+  max-width: 1080px;
+  min-height: 310px;
+}
+
+.CartModal-header {
+  display: flex;
+  justify-content: space-between;
+  color: rgb(26, 32, 40);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+}
+
+.CartModal-totalPrice {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: right;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
