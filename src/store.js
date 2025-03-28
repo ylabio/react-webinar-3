@@ -31,7 +31,7 @@ class Store {
   /**
    * Установка состояния
    * @param newState {Object}
-   */
+   */ 
   setState(newState) {
     this.state = newState;
     // Вызываем всех слушателей
@@ -44,7 +44,12 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { 
+        code: this.state.count + 1, 
+        title: 'Новая запись', 
+        selectCount: 0, 
+      }],
+      count: this.state.count + 1,
     });
   }
 
@@ -63,17 +68,23 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+
+  selectItem(code,e) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
+      list: this.state.list.map(item => {   
+        if (item.code === code ){          
           item.selected = !item.selected;
+          if (item.selected) {
+            item.selectCount++
+          };
+        } else if (!e.ctrlKey && !e.metaKey){           
+          item.selected = false;
         }
         return item;
       }),
     });
-  }
+  } 
 }
 
 export default Store;
