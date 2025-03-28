@@ -17,8 +17,18 @@
   position: absolute;
   right: 18px;
   top: 18px;
-  width: 16px;
-  height: 16px;
+  padding: 10px;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &:hover {
+    svg path {
+      fill: var(--main-text);
+    }
+  }
 }
 
 .Title {
