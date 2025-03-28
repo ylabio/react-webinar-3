@@ -97,6 +97,10 @@ class Store {
     return sum;
   }
 
+  getCartItem() {
+    return this.state.listCart.length;
+  }
+
   /**
    * Выделение записи по коду
    * @param code
