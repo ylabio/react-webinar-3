@@ -1,0 +1,27 @@
+.cart__total {
+  display: flex;
+  padding: 16px 145px 16px 16px
+}
+
+.cart__total-info {
+  margin-left: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.cart__total-label,
+.cart__total-value {
+  display: inline-block;
+  width: 105px;
+  font-weight: 700;
+}
+
+.cart__total-label {
+  text-align: left;
+}
+
+.cart__total-value {
+  text-align: right;
+}

@@ -50,3 +50,11 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
+
+/**
+ * Возвращает число разделенное на блоки по 3 цифры и добавляет знак валюты рубля ₽. Пример 1000000 -> 1 000 000 ₽
+ * @param {*} price 
+ * @returns 
+ */
+export const formatPrice = price => `${price.toLocaleString('ru-RU')} ₽`;
+

@@ -1,0 +1,21 @@
+.cart {
+  padding: 24px;
+}
+
+.cart__title {
+  width: 1032px;
+  height: 40px;
+}
+
+.cart__list {
+  margin-top: 24px;
+  margin-bottom: 0;
+  padding: 0;
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  width: 1032px;
+}

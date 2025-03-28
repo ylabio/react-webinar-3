@@ -2,6 +2,8 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
+
 
 let config = {
   context: path.join(__dirname, '/src'), // Директория с исходным кодом приложения
@@ -41,6 +43,14 @@ let config = {
       filename: './index.html',
       title: 'Simple SPA',
       base: '/',
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'public'), // абсолютный путь
+          to: '.', // копирует в dist/
+        },
+      ],
     }),
   ],
 };

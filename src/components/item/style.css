@@ -15,20 +15,37 @@
   flex: auto;
 }
 
-.Item-actions {
-  display: flex;
-  justify-content: flex-end;
+.Item-price {
+  flex: auto;
 }
 
-.Item-actions button {
-  background-color: var(--delete);
-  color: var(--second-text);
+
+.Item-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  
+  padding: 24px 16px 24px 0;
+  gap: 24px;
+}
+
+.Item-container span {
+  width: 105px;
+  height: 100%;
+  font-family: var(--font-family);
+  text-align: right;
+  color: var(--main-text);
+}
+
+
+.Item-container button {
+  border: 1px solid var(--primary);
   padding: 8px 16px;
+  background-color: var(--primary);
+  color: var(--second-text);
 
   &:hover {
     background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
+    color: var(--primary);
   }
 }
-
