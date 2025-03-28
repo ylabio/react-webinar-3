@@ -5,7 +5,11 @@ import { generateCode } from './utils';
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      cartList: [],
+      sum: 0,
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -40,47 +44,54 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
-  }
+  addItemToCartList(item) {
+    const itemIndex = this.state.cartList.findIndex(itemList => itemList.code === item.code);
+    let price = 0;
+    if (itemIndex < 0) {
+      const newItem = {
+        ...item,
+        quantity: 1,
+      };
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
+      price = item.price;
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
+      this.setState({
+        ...this.state,
+        cartList: [...this.state.cartList, newItem],
+        sum: this.state.sum + price,
+      });
+    } else {
+      const newCartList = this.state.cartList.map((cartItem, index) => {
+        if (itemIndex === index) {
+          price = cartItem.price;
           return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
+            ...cartItem,
+            quantity: cartItem.quantity + 1,
           };
+        } else {
+          return cartItem;
         }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      });
+
+      this.setState({
+        ...this.state,
+        cartList: newCartList,
+        sum: this.state.sum + price,
+      });
+    }
+  }
+  deleteItemFromCartList(code) {
+    let sum = 0;
+    const cartList = this.state.cartList.filter(item => {
+      if (item.code === code) return false;
+      sum += item.price * item.quantity;
+      return true;
+    });
+
+    this.setState({
+      ...this.state,
+      cartList,
+      sum,
     });
   }
 }

@@ -1,4 +1,4 @@
-.Item {
+.ItemCart {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -7,26 +7,32 @@
   padding: 16px;
 }
 
-.Item-title {
+.ItemCart-title {
   display: flex;
   flex: auto;
   justify-content: space-between;
   align-items: center;
 }
 
-.Item-actions {
+.ItemCart-info {
+  display: flex;
+  width: 250px;
+  justify-content: space-between;
+}
+
+.ItemCart-actions {
   display: flex;
   justify-content: flex-end;
 }
 
-.Item-actions button {
-  background-color: var(--primary);
+.ItemCart-actions button {
+  background-color: var(--delete);
   color: var(--second-text);
   padding: 8px 16px;
 
   &:hover {
     background-color: var(--background);
-    border-color: var(--primary);
-    color: var(--primary);
+    border-color: var(--delete);
+    color: var(--delete);
   }
 }
