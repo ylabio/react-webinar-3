@@ -43,43 +43,44 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
+  addItemInCart(code) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          return {
+            ...item,
+            cartCount: item.cartCount + 1,
+          };
+        }
+
+        return item;
+      }),
     });
+  }
+
+  cartClick() {
+    this.setState({
+      ...this.state,
+      isModalVisible: !this.state.isModalVisible
+    })
   }
 
   /**
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  deleteItemFromCart(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          // Смена выделения и подсчёт
           return {
             ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
+            cartCount: 0,
           };
         }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
+        return item
       }),
     });
   }
