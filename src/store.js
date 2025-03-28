@@ -7,6 +7,48 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.cart = {};
+  }
+
+  getCart() {
+    return this.cart;
+  }
+
+  addItemToCart(code) {
+    const listElement = this.state.list.find(e => e.code === code);
+    if (!listElement) {
+      return;
+    }
+
+    const cartElement = {
+      count: 1,
+      ...listElement,
+    };
+
+    if (this.cart[code]) {
+      cartElement.count = this.cart[code].count + 1;
+    }
+
+    this.cart[code] = cartElement;
+
+    this.notifyListeners();
+  }
+
+  deleteItemFromCart(code) {
+    const newCart = { ...this.cart };
+
+    delete newCart[code];
+    this.cart = newCart;
+
+    this.notifyListeners();
+  }
+
+  getCartSize() {
+    return Object.values(this.cart).length;
+  }
+
+  getCartSum() {
+    return Object.values(this.cart).reduce((acc, curr) => acc + curr.price * curr.count, 0);
   }
 
   /**
@@ -20,6 +62,10 @@ class Store {
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);
     };
+  }
+
+  notifyListeners() {
+    this.listeners.forEach(listener => listener());
   }
 
   /**

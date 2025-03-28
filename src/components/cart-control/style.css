@@ -1,0 +1,9 @@
+.Btn_cart {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid var(--primary);
+  color: var(--main-text);
+  background-color: var(--background);
+}

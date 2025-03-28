@@ -2,13 +2,9 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 16px;
-  transition: background-color 1s;
+  gap: 23px;
   padding: 16px;
-}
-
-.Item_selected {
-  background-color: var(--primary-select);
+  transition: background-color 1s;
 }
 
 .Item-title {
@@ -20,15 +16,14 @@
   justify-content: flex-end;
 }
 
-.Item-actions button {
-  background-color: var(--delete);
-  color: var(--second-text);
+.Button_Add {
   padding: 8px 16px;
+  color: var(--second-text);
+  background-color: var(--primary);
 
   &:hover {
+    border-color: var(--primary);
+    color: var(--primary);
     background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
   }
 }
-
