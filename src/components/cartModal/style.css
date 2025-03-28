@@ -1,0 +1,70 @@
+.Modal {
+  position: absolute;
+  z-index: 1001;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--background);
+  padding: 24px;
+  border-radius: 8px;
+  width: 75%;
+}
+
+.Modal ul {
+  list-style: none;
+  padding: 0;
+}
+
+.Modal-header {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.Modal-header h2 {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0%;
+  margin: 0;
+}
+
+.Modal-close {
+  color: #878787;
+  font-size: 40px;
+  font-weight: 400;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(24px, -17px);
+}
+
+.Cart-item-bold {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+}
+
+.Modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 140px;
+  gap: 24px;
+}
+
+.Modal-footer > * {
+  width: 105px;
+}
+
+.Modal-total {
+  text-align: end;
+}
+
+.Empty-basket {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  font-size: 30px;
+}

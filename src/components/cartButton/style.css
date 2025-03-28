@@ -1,0 +1,23 @@
+.Cart {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 0;
+}
+
+.Cart button {
+  border: 1px solid var(--primary);
+  padding: 8px 16px;
+  background-color: var(--background);
+  color: var(--main-text);
+  display: flex;
+  gap: 14px;
+
+  &:hover {
+    background-color: var(--primary);
+    color: var(--background);
+  }
+
+  &:hover .Basket-icon {
+    color: var(--background);
+  }
+}

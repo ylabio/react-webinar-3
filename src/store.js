@@ -1,11 +1,13 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      cart: {},
+      isCartOpen: false
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -40,48 +42,46 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
+ /**
+  * Добавление товара в корзину
+  * @param code
+  */
+  addToCart(code) {
+    const item = this.state.list.find(item => item.code === code);
+    if (!item) return;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
-  }
-
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
+      cart: {
+        ...this.state.cart,
+        [code]: {
+          ...item,
+          quantity: (this.state.cart[code]?.quantity || 0) + 1
         }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      }
     });
+  }
+
+  /**
+  * Изменение состояния модального окна
+  */
+  toggleCart() {
+    this.setState({
+      ...this.state,
+      isCartOpen: !this.state.isCartOpen
+    })
+  }
+
+  /**
+   * Удаление товара из корзины
+   * @param code
+   */
+  removeFromCart(code) {
+    const newCart = {...this.state.cart}
+    delete newCart[code]
+    this.setState({
+      ...this.state,
+      cart: newCart
+    })
   }
 }
 

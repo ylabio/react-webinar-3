@@ -13,22 +13,6 @@
 
 .Item-title {
   flex: auto;
-}
-
-.Item-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
-
-.Item-actions button {
-  background-color: var(--delete);
-  color: var(--second-text);
-  padding: 8px 16px;
-
-  &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
-  }
-}
-
