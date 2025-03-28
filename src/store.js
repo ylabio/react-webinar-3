@@ -69,11 +69,31 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    let itemPrice = 0;
+    let itemCount = 0;
+
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          itemPrice = item.price;
+          itemCount = item.cartCount;
+
+          return {
+            ...item,
+            cartCount: 0,
+          };
+        }
+
+        return item;
+      }),
+      totalPrice: this.state.totalPrice - itemPrice * itemCount,
+      totalCartCount: this.state.totalCartCount - itemCount,
     });
+  }
+
+  getCartItems() {
+    return this.state.list.filter(item => item.cartCount > 0);
   }
 }
 

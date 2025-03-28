@@ -13,9 +13,9 @@ function Item({ item, onAdd = () => {} }) {
     <div className={'Item'}>
       <div className="Item-title">
         <b>{item.title}</b>
-        <span>{item.price} ₽</span>
       </div>
       <div className="Item-actions">
+        <span>{item.price} ₽</span>
         <button onClick={callbacks.onClick}>Добавить</button>
       </div>
     </div>

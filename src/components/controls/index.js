@@ -4,10 +4,10 @@ import './style.css';
 import CartIcon from '../shared/icons/cart-icon';
 import { plural } from '../../utils';
 
-function Controls({ totalPrice, totalCartCount }) {
+function Controls({ totalPrice, totalCartCount, onOpenModal = () => {} }) {
   return (
     <div className="Controls">
-      <button>
+      <button onClick={() => onOpenModal()}>
         <CartIcon />
 
         {totalCartCount
@@ -21,6 +21,7 @@ function Controls({ totalPrice, totalCartCount }) {
 Controls.propTypes = {
   totalPrice: PropTypes.number,
   totalCartCount: PropTypes.number,
+  onOpenModal: PropTypes.func,
 };
 
 export default React.memo(Controls);
