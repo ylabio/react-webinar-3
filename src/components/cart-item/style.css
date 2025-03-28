@@ -1,0 +1,54 @@
+/* Стилизация контейнера для одного элемента корзины */
+.CartItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  /* Детали товара (название, количество, цена) */
+  .CartItem-details {
+    width: 95%; /* Ширина для блока с информацией о товаре */
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Название товара */
+  .CartItem-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+    width: 60%;
+  }
+  
+  /* Количество товара */
+  .CartItem-quantity {
+    font-size: 14px;
+    color: #666;
+    margin-right: 10px;
+    width: 15%;
+  }
+  
+  /* Цена товара */
+  .CartItem-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    width: 20%;
+    text-align: right;
+  }
+  
+  /* Кнопка удаления товара */
+  .CartItem-remove {
+    background-color: var(--delete);
+    color: var(--second-text);
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .CartItem-remove:hover {
+    background-color: #c0392b; /* Темнее красная кнопка при наведении */
+  }
