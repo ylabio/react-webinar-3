@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
-import List from './components/list';
-import Controls from './components/controls';
-import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Head from './components/head';
+import Controls from './components/controls';
+import List from './components/list';
+import CartModal from './components/cart-modal';
 
 /**
  * Приложение
@@ -10,37 +11,52 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const state = store.getState();
+  const { list, cart, isCartOpen } = state;
 
   const callbacks = {
-    onDeleteItem: useCallback(
+    onAddToCart: useCallback(
       code => {
-        store.deleteItem(code);
+        store.addToCart(code);
       },
       [store],
     ),
 
-    onSelectItem: useCallback(
+    onRemoveFromCart: useCallback(
       code => {
-        store.selectItem(code);
+        store.removeFromCart(code);
       },
       [store],
     ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onToggleCart: useCallback(
+      isOpen => {
+        store.toggleCart(isOpen);
+      },
+      [store],
+    ),
   };
+
+  const cartTotal = store.getCartTotal();
+  const cartUniqueCount = store.getCartUniqueCount();
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+      <Head title="Магазин" />
+      <Controls
+        count={cartUniqueCount}
+        total={cartTotal}
+        onClick={() => callbacks.onToggleCart(true)}
       />
+      <List list={list} onAddToCart={callbacks.onAddToCart} />
+      {isCartOpen && (
+        <CartModal
+          cart={cart}
+          total={cartTotal}
+          onClose={() => callbacks.onToggleCart(false)}
+          onRemoveItem={callbacks.onRemoveFromCart}
+        />
+      )}
     </PageLayout>
   );
 }
