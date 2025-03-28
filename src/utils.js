@@ -12,6 +12,8 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
   // В английском 2 формы: 'one', 'other'
   const key = new Intl.PluralRules(locale).select(value);
+  console.log(key);
+
   // Возвращаем вариант по ключу, если он есть
   return variants[key] || '';
 }
