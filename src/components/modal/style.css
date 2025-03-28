@@ -1,0 +1,50 @@
+.Modal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  gap: 24px;
+  isolation: isolate;
+  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1080px;
+  height: fit-content;
+  
+  background: #FFFFFF;
+  border-radius: 8px;
+}
+
+.Modal h1 {
+  margin-bottom: 24px;
+  height: 40px;
+}
+
+.Modal-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.Modal-total {
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  padding-right: 122px;
+}
+
+.Close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.Close:hover,
+.Close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}

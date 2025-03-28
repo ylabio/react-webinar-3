@@ -3,6 +3,7 @@ import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -10,36 +11,50 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
+  const cart = store.getState().cart;
   const list = store.getState().list;
+  const price = store.getState().price;
+  const show = store.getState().showModal;
+  const text = store.getState().text;
 
   const callbacks = {
+    onAddItem: useCallback(
+      item => {
+        store.addItem(item);
+      },
+      [store],
+    ),
     onDeleteItem: useCallback(
       code => {
         store.deleteItem(code);
       },
       [store],
     ),
-
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
+    onShowModal: useCallback(
+      () => {
+        store.showModalToggle();
       },
       [store],
     ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Head title="Магазин" />
+      <Controls 
+        text={text}
+        showModal={callbacks.onShowModal}
+      />
+      <Modal
+        cart={cart}
+        price={price}
+        showModal={show}
+        onShowModal={callbacks.onShowModal}
+        onDeleteItem={callbacks.onDeleteItem}
+      />
       <List
         list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        onAddItem={callbacks.onAddItem}
       />
     </PageLayout>
   );
