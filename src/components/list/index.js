@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Item from '../item';
 import './style.css';
 
-function List({list}) {
+function List({list, isCart = false}) {
   return (
     <ul className="List">
       {list.map(item => (
         <li key={item.code} className="List-item">
-          <Item item={item}/>
+          <Item item={item} isCart={true}/>
         </li>
       ))}
     </ul>
@@ -20,7 +20,8 @@ List.propTypes = {
     PropTypes.shape({
       code: PropTypes.number,
     }),
-  ).isRequired
+  ).isRequired,
+  isCart: PropTypes.bool,
 };
 
 export default React.memo(List);

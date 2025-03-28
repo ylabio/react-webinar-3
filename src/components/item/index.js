@@ -4,16 +4,18 @@ import { formatPrice } from '../../utils';
 import { useCart } from '../../cart-context';
 import './style.css';
 
-function Item(props) {
+function Item({item, isCart = false}) {
   const { addToCart } = useCart();
+
+  const buttonClass = isCart ? "Item-btn-remove" : "Item-btn-add";
+  const buttonText = isCart ? "Удалить" : "Добавить";
 
   return (
     <div className={'Item'}>
-      <div className="Item-code">{props.item.code}</div>
-      <div className="Item-title"><b>{props.item.title}</b></div>
-      <div className="Item-price">{formatPrice(props.item.price)}</div>
+      <div className="Item-title"><b>{item.title}</b></div>
+      <div className="Item-price">{formatPrice(item.price)}</div>
       <div className="Item-actions">
-        <button onClick={ () => addToCart(props.item) }>Добавить</button>
+        <button className={buttonClass} onClick={ () => addToCart(item) }>{buttonText}</button>
       </div>
     </div>
   );
@@ -24,7 +26,8 @@ Item.propTypes = {
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number,
-  }).isRequired
+  }).isRequired,
+  isCart: PropTypes.bool,
 };
 
 export default React.memo(Item);

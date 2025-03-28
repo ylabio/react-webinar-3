@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
 import List from './components/list';
-import Controls from './components/controls';
+import Cart from './components/cart';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import { Modal } from './components/modal';
 import { CartProvider } from './cart-context';
 
 /**
@@ -17,8 +18,9 @@ function App({ store }) {
     <CartProvider>
       <PageLayout>
         <Head title="Магазин" />
-        <Controls />
+        <Cart />
         <List list={list} />
+        <Modal title="Корзина" />
       </PageLayout>
     </CartProvider>
   );

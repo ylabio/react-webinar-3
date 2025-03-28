@@ -1,0 +1,89 @@
+.Modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  width: 100dvw;
+  animation: backgroundChange 0.3s ease-in-out forwards;
+}
+
+@keyframes backgroundChange {
+  0% {
+    background-color: rgba(255, 255, 255, 0);
+  }
+  100% {
+    background-color: var(--overlay);
+  }
+}
+
+.Modal.closing {
+  animation: backgroundReverse 0.3s ease-in-out forwards;
+}
+
+@keyframes backgroundReverse {
+  0% {
+    background-color: var(--overlay);
+  }
+  100% {
+    background-color: rgba(255, 255, 255, 0);
+  }
+}
+
+.Modal-container {
+  width: 1080px;
+  background-color: var(--background);
+  border-radius: 8px;
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.Modal-container.closing {
+  animation: fadeOut 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+}
+
+.Modal-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+}
+
+.Modal-cross {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin: -10px -10px 0 0;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+@media (hover: hover) {
+  .Modal-cross:hover {
+    transform: rotate(90deg);
+  }
+}

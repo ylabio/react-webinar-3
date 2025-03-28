@@ -5,6 +5,7 @@ const CartContext = React.createContext();
 
 export function CartProvider({ children }) {
   const [cart, setCart] = React.useState([]);
+  const [isOpened, setIsOpened]  = React.useState(false);
 
   const addToCart = (item) => {
     setCart((prevCart) => {
@@ -23,9 +24,15 @@ export function CartProvider({ children }) {
     });
   };
 
+  const toggleCartModal = () => {
+    setIsOpened(!isOpened);
+  }
+
   const value = {
     cart,
+    isOpened,
     addToCart,
+    toggleCartModal,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
