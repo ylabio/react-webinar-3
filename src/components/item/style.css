@@ -2,33 +2,56 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
   transition: background-color 1s;
-  padding: 16px;
-}
-
-.Item_selected {
-  background-color: var(--primary-select);
+  padding: 25px 16px;
 }
 
 .Item-title {
   flex: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Item-details {
+  max-width: 225px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Item-price {
+  justify-self: flex-end;
+}
+.Item-bold {
+  font-weight: bold;
 }
 
 .Item-actions {
+  min-width: 105px;
   display: flex;
   justify-content: flex-end;
 }
 
 .Item-actions button {
-  background-color: var(--delete);
   color: var(--second-text);
   padding: 8px 16px;
 
   &:hover {
     background-color: var(--background);
+  }
+}
+.primary {
+  background-color: var(--primary);
+  &:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}
+.delete {
+  background-color: var(--delete);
+  &:hover {
     border-color: var(--delete);
     color: var(--delete);
   }
 }
-
