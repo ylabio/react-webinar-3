@@ -6,6 +6,7 @@ import { generateCode } from './utils';
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.lastCode = initState.list[initState.list.length - 1].code;
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -40,13 +41,54 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+  getStateCart() {
+    return this.cart;
+  }
+
+  setStateCart(newState) {
+    this.cart = newState;
+    // Вызываем всех слушателей
+    for (const listener of this.listeners) listener();
+  }
+
+  addItemCart(newItem) {
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.some(item => item.code === newItem.code)
+        ? this.state.cart.map(item =>
+            item.code === newItem.code
+              ? {
+                  ...item,
+                  quantity: item.quantity + 1,
+                }
+              : item,
+          )
+        : [...this.state.cart, { ...newItem, quantity: 1 }],
+    });
+  }
+
+  removeItemCart(code) {
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter(item => item.code !== code),
+    });
+  }
+
+  openModal() {
+    this.setState({ ...this.state, isCartOpen: true });
+  }
+
+  closeModal() {
+    this.setState({ ...this.state, isCartOpen: false });
+  }
+
   /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      list: [...this.state.list, { code: generateCode(), title: 'Новая запись', price: 0 }],
     });
   }
 
@@ -58,7 +100,7 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      cart: this.state.cart.filter(item => item.code !== code),
     });
   }
 
@@ -66,7 +108,7 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, e) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {

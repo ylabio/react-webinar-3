@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { plural } from '../../utils';
 import './style.css';
 
-function Item(props) {
+function Item({ className = '', ...props }) {
   // Счётчик выделений
   const [count, setCount] = useState(0);
 
@@ -18,11 +18,15 @@ function Item(props) {
       e.stopPropagation();
       props.onDelete(props.item.code);
     },
+    addItemCart: e => {
+      e.stopPropagation();
+      props.onAddCart(props.item);
+    },
   };
 
   return (
     <div
-      className={'Item' + (props.item.selected ? ' Item_selected' : '')}
+      className={'Item' + (props.item.selected ? ' Item_selected' : ` ${className}`)}
       onClick={callbacks.onClick}
     >
       <div className="Item-code">{props.item.code}</div>
@@ -35,9 +39,17 @@ function Item(props) {
               many: 'раз',
             })}`
           : ''}
+        {props.isCartItem && <p>{props.item.quantity} шт</p>}
+        <p>{props.item.price} ₽</p>
       </div>
       <div className="Item-actions">
-        <button onClick={callbacks.onDelete}>Удалить</button>
+        {props.isCartItem ? (
+          <button onClick={callbacks.onDelete}>Удалить</button>
+        ) : (
+          <button className="add" onClick={callbacks.addItemCart}>
+            Добавить
+          </button>
+        )}
       </div>
     </div>
   );
