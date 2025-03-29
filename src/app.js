@@ -11,7 +11,9 @@ import CartModal from './components/cart-modal';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  // const list = store.getState().list;
+  // const cart = store.getCart();
+  const { list, totalCount, totalPrice } = store.getState();
   const cart = store.getCart();
 
   const [isCartOpen, setCartOpen] = useState(false);
@@ -50,7 +52,9 @@ function App({ store }) {
     <PageLayout>
       <Head title="Магазин" />
       <Controls
-        cart={cart}
+        // cart={cart}
+        totalCount={totalCount}
+        totalPrice={totalPrice}
         onOpenCart={callbacks.onOpenCart}
         // onAdd={callbacks.onAddItem}
       />

@@ -10,7 +10,9 @@ class Store {
      */
     this.state = {
       ...initState,
-      cart: {},
+      cart: [], // Заменил объект корзины на массив
+      totalCount: 0,
+      totalPrice: 0,
     };
     this.listeners = []; // Слушатели изменений состояния
   }
@@ -58,13 +60,25 @@ class Store {
    * @param item {Object}
    */
   addToCart(item) {
-    const cart = { ...this.state.cart };
-    const existing = cart[item.code] || { ...item, count: 0 };
-    cart[item.code] = { ...existing, count: existing.count + 1 };
+    const cart = [...this.state.cart];
+    const index = cart.findIndex(i => i.code === item.code); // есть ли товар уже в корзине
+
+    index === -1 // Если нет
+      ? cart.push({ ...item, count: 1 })
+      : (cart[index] = {
+          //Если да
+          ...cart[index],
+          count: cart[index].count + 1,
+        });
+
+    const totalCount = cart.reduce((acc, i) => acc + i.count, 0);
+    const totalPrice = cart.reduce((acc, i) => acc + i.count * i.price, 0);
 
     this.setState({
       ...this.state,
       cart,
+      totalCount,
+      totalPrice,
     });
   }
 
@@ -73,14 +87,19 @@ class Store {
    * @param code {number}
    */
   removeFromCart(code) {
-    const cart = { ...this.state.cart };
-    delete cart[code];
+    const cart = this.state.cart.filter(i => i.code !== code); // фильтруемс по коду т.е удаление его
+
+    const totalCount = cart.reduce((acc, i) => acc + i.count, 0);
+    const totalPrice = cart.reduce((acc, i) => acc + i.count * i.price, 0);
 
     this.setState({
       ...this.state,
       cart,
+      totalCount,
+      totalPrice,
     });
   }
+
   //
   // /**
   //  * Добавление новой записи
