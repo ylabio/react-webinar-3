@@ -70,11 +70,12 @@ class Store {
 
   /**
    * Переключение состояния модального окна
+   * @param type {string|null} Тип модалки (например, 'cart') или null для закрытия
    */
-  toggleModal() {
+  toggleModal(type = null) {
     this.setState({
       ...this.state,
-      isModalOpen: !this.state.isModalOpen,
+      modalType: type,
     });
   }
 }

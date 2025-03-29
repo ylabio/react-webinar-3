@@ -14,7 +14,7 @@ import { formatNumber } from './utils';
 function App({ store }) {
   const list = store.getState().list;
   const cart = store.getState().cart;
-  const isModalOpen = store.getState().isModalOpen;
+  const modalType = store.getState().modalType;
 
   const callbacks = {
     onAddToCart: useCallback(
@@ -32,8 +32,9 @@ function App({ store }) {
     ),
 
     onToggleModal: useCallback(
-      () => store.toggleModal(),
-
+      (type = null) => {
+        store.toggleModal(type);
+      },
       [store],
     ),
   };
@@ -47,13 +48,13 @@ function App({ store }) {
     <PageLayout>
       <Head title="Магазин" />
       <Controls
-        onToggleCartModal={callbacks.onToggleModal}
+        onToggleCartModal={() => callbacks.onToggleModal('cart')}
         totalUniqueItems={totalUniqueItems}
         totalPrice={formattedTotalPrice}
       />
       <List list={list} buttonAction={callbacks.onAddToCart} buttonText={'Добавить'} />
-      {isModalOpen && (
-        <Modal onCloseModal={callbacks.onToggleModal} modalTitle={'Корзина'}>
+      {modalType === 'cart' && (
+        <Modal onCloseModal={() => callbacks.onToggleModal(null)} modalTitle={'Корзина'}>
           <Cart
             cart={cart}
             onRemoveFromCart={callbacks.onRemoveFromCart}
