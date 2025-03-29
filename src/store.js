@@ -66,17 +66,15 @@ class Store {
   clearCartItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
+      list: this.cloneList(this.state.list).map(item =>
+        item.code === code
+          ? {
             ...item,
             count: 0,
             total: 0,
-          };
-        }
-        return item
-      }),
+          }
+          : item
+      ),
     });
   }
 
@@ -87,17 +85,15 @@ class Store {
   addCartItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
+      list: this.cloneList(this.state.list).map(item =>
+        item.code === code
+          ? {
             ...item,
             count: item.count ? item.count + 1 : 1,
             total: item.total ? item.total + item.price : item.price,
-          };
-        }
-        return item
-      }),
+          }
+          : item
+      ),
     });
   }
 }
