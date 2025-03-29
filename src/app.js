@@ -3,7 +3,7 @@ import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
-import { Modal } from './components/modal';
+import Modal from './components/modal';
 import CartList from './components/cart';
 import Item from './components/item';
 

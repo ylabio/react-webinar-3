@@ -2,8 +2,9 @@ import { createPortal } from 'react-dom';
 import React, { useEffect } from 'react';
 import './style.css';
 import ModalCloseIcon from './modal-close-icon';
+import PropTypes from 'prop-types';
 
-export function Modal({ active = false, onClose = () => {}, children }) {
+function Modal({ active = false, onClose = () => {}, children }) {
   if (!active) return null;
 
   useEffect(() => {
@@ -39,3 +40,11 @@ export function Modal({ active = false, onClose = () => {}, children }) {
     </>
   );
 }
+
+Modal.propTypes = {
+  children: PropTypes.node,
+  active: PropTypes.bool,
+  onClose: PropTypes.func,
+};
+
+export default Modal;
