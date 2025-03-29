@@ -7,7 +7,11 @@ import { pageLayoutClass } from "../page-layout";
 function Controls( { sumBasket, toggleModal } ) {
   return (
     <div className={ pageLayoutClass( "controls" ) }>
-      <button onClick={ toggleModal }><img src={ icon } alt="icon"/> { sumBasket() }</button>
+      <button onClick={ ()=>{
+        if ( sumBasket() !== "Пусто") {
+          return toggleModal()
+        }
+      } }><img src={ icon } alt="icon"/> { sumBasket() }</button>
     </div>
   )
 }

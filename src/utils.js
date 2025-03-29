@@ -49,3 +49,21 @@ export const getDeclension = (count) => {
   if (lastDigit >= 2 && lastDigit <= 4) return 'а';
   return 'ов';
 };
+
+export function generateUniqueKey(length = 16) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-={}:<>?';
+  const uniqueChars = [...new Set(chars)];
+
+  if (length > uniqueChars.length) {
+    throw new Error(`Длина ключа (${length}) превышает количество уникальных символов (${uniqueChars.length})`);
+  }
+
+  const shuffled = [...uniqueChars];
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled.slice(0, length).join('');
+}

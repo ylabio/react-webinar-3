@@ -30,7 +30,7 @@ function App( { store } ) {
 
     return count === 0
       ? "Пусто"
-      : `${count} товар${declension} / ${calculateTotal()} $`;
+      : `${count} товар${declension} / ${calculateTotal()} ₽`;
   };
 
   const onDeleteItem = useCallback( ( itemCode ) => {store.onDeleteItem( itemCode )}, [store] );
@@ -48,7 +48,7 @@ function App( { store } ) {
         <Controls sumBasket={sumBasket} toggleModal={toggleModal} />
         <List list={list}  addItem={addItem} calculateTotal={calculateTotal}/>
         <Modal isOpen={isModalOpen} onClose={toggleModal}>
-          <ModalContent toggleModal={toggleModal} basket={basket} onDeleteItem={onDeleteItem}/>
+          <ModalContent toggleModal={toggleModal} basket={basket} onDeleteItem={onDeleteItem} calculateTotal={calculateTotal}/>
         </Modal>
       </PageLayout>
     </div>
