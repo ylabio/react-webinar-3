@@ -1,10 +1,14 @@
 import React from "react";
-import PropTypes from "prop-types"
 import "./style.css"
 import icon from './icon.svg';
 import { pageLayoutClass } from "../page-layout";
 
-function Controls( { sumBasket, toggleModal } ) {
+const defaultControlsProps = {
+  sumBasket: ()=>{},
+  toggleModal: ()=>{}
+};
+
+function Controls( { sumBasket = defaultControlsProps.sumBasket, toggleModal = defaultControlsProps.toggleModal}  ) {
   return (
     <div className={ pageLayoutClass( "controls" ) }>
       <button onClick={ ()=>{
@@ -15,13 +19,5 @@ function Controls( { sumBasket, toggleModal } ) {
     </div>
   )
 }
-
-Controls.propTypes = {
-  onAdd: PropTypes.func.isRequired,
-};
-
-Controls.defaultProps = {
-  onAdd: () => {},
-};
 
 export default React.memo( Controls );

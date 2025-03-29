@@ -46,9 +46,9 @@ function App( { store } ) {
       <PageLayout>
         <Head title={ "Магазин" }/>
         <Controls sumBasket={sumBasket} toggleModal={toggleModal} />
-        <List list={list}  addItem={addItem} calculateTotal={calculateTotal}/>
+        <List list={list}  handleItemAction={addItem} calculateTotal={calculateTotal}/>
         <Modal isOpen={isModalOpen} onClose={toggleModal}>
-          <ModalContent toggleModal={toggleModal} basket={basket} onDeleteItem={onDeleteItem} calculateTotal={calculateTotal}/>
+          <ModalContent toggleModal={toggleModal} basket={basket} handleItemAction={onDeleteItem} calculateTotal={calculateTotal}/>
         </Modal>
       </PageLayout>
     </div>

@@ -42,3 +42,9 @@
   font-family: "Roboto", sans-serif;
   font-weight: 400;
 }
+.Item-quantity {
+  font-family: "Segoe UI", Arial, sans-serif;
+  width: 25%;
+  display: flex;
+  justify-content: flex-end;
+}

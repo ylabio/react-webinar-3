@@ -6,7 +6,8 @@ import { formatPrice, isEven } from "../../utils";
 
 const itemClass = bem( "Item" );
 
-function Item( { item, index, addItem, modeDelete } ) {
+function Item( { item, index, handleItemAction, modeDelete, countItemDuplicates } ) {
+
   return (
     <div
       className={ "Item" + ( isEven( index ) ? ' Item_selected' : '' ) }
@@ -14,11 +15,12 @@ function Item( { item, index, addItem, modeDelete } ) {
       <div className={ itemClass( "code" ) }/>
       <div className={ itemClass( "title" ) }>
         { item.title }
+        { modeDelete ? <div className={itemClass("quantity")}>{countItemDuplicates}</div> : undefined }
         <div>{ formatPrice( item.price ) + " ₽" }</div>
       </div>
       <div className={ modeDelete ? "Modal-actions" :  itemClass( "actions" ) }>
         <button onClick={ ( event ) => {
-          addItem( item.code );
+          handleItemAction( item.code );
           event.stopPropagation();
         } }>{modeDelete ? "Удалить" : "Добавить" }
         </button>

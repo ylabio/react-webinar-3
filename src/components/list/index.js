@@ -1,20 +1,21 @@
 import React from "react";
 import { cn as bem } from '@bem-react/classname'
 import "./style.css";
-import Item from "../item";
 import * as PropTypes from "prop-types";
-import { generateUniqueKey } from "../../utils";
-
+import Items from "../items";
 const listClass = bem( "List" );
 
-function List( { list, addItem } ) {
+function List( { list, handleItemAction } ) {
+
+
+
   return (
     <div className={ listClass() }>
-      { list.map( ( item, index ) => (
-        <div key={ generateUniqueKey(9) } className={ listClass( "item" ) }>
-          <Item item={ item } index={ index } addItem={ addItem } modeDelete={false}/>
-        </div>
-      ) ) }
+      return (
+      <div className={ listClass() }>
+        <Items list={ list } handleItemAction={handleItemAction} modeDelete={false} />
+      </div>
+      )
     </div>
   )
 }

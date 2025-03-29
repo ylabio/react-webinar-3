@@ -67,3 +67,16 @@ export function generateUniqueKey(length = 16) {
 
   return shuffled.slice(0, length).join('');
 }
+
+export function countItemDuplicates(array, item) {
+  return array.filter(arrayItem => arrayItem.code === item.code).length;
+}
+
+export function removeDuplicatesByCode(arr) {
+  const seen = new Set();
+  return arr.filter(item => {
+    if (seen.has(item.code)) return false;
+    seen.add(item.code);
+    return true;
+  });
+}

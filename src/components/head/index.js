@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css"
 import { pageLayoutClass } from "../page-layout";
 
-function Head( { title } ) {
+function Head( { title = "Магазин" } ) {
   return (
     <div className={ pageLayoutClass( "head" ) }>
       <h1>{ title }</h1>

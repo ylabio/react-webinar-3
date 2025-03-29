@@ -1,9 +1,19 @@
 import React from 'react';
 import "./style.css"
-import Item from "../item";
-import { generateUniqueKey } from "../../utils";
+import Items from "../items";
 
-export default function ModalContent( { toggleModal, basket, onDeleteItem, calculateTotal } ) {
+const defaultModalProps = {
+  toggleModal: ()=>{},
+  basket:[],
+  onDeleteItem: ()=>{},
+  calculateTotal: ()=>{}
+};
+
+export default function ModalContent( { toggleModal = defaultModalProps.toggleModal,
+                                        basket = defaultModalProps.basket,
+                                        handleItemAction = defaultModalProps.onDeleteItem,
+                                        calculateTotal = defaultModalProps.calculateTotal } ) {
+
   return (
     <>
       <div className={"modal-header"}>
@@ -11,11 +21,7 @@ export default function ModalContent( { toggleModal, basket, onDeleteItem, calcu
       </div>
       <div className="modal-content">
         <h2>Корзина</h2>
-        { basket.map( ( item, index ) => (
-          <div key={ generateUniqueKey(10) }>
-            <Item item={ item } index={ index } addItem={ onDeleteItem } modeDelete={ true }/>
-          </div>
-        ) ) }
+        <Items list={ basket } handleItemAction={handleItemAction} modeDelete={true} />
         <div className={ "modal-footer" }>
           <div>Итого:</div>
           <div>{ calculateTotal() + " ₽" }</div>
