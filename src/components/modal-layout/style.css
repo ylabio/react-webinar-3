@@ -1,0 +1,41 @@
+
+.ModalLayout {
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 1080px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ModalLayout-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 24px 0 24px;
+  align-items: center;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.ModalLayout-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.ModalLayout-close img {
+  width: 32px;
+  height: 32px;
+}
+.ModalLayout-content {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+}
