@@ -1,5 +1,8 @@
 .Modal-overlay {
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: 0;
   left: 0;
   width: 100%;
@@ -9,15 +12,15 @@
 }
 
 .Modal-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   background-color: white;
   padding: 24px;
   border-radius: 8px;
   z-index: 1001;
   min-width: 1080px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .Modal-header {
