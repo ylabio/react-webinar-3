@@ -11,11 +11,9 @@ function List( { list, handleItemAction } ) {
 
   return (
     <div className={ listClass() }>
-      return (
       <div className={ listClass() }>
         <Items list={ list } handleItemAction={handleItemAction} modeDelete={false} />
       </div>
-      )
     </div>
   )
 }
