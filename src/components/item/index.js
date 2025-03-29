@@ -34,7 +34,7 @@ function Item({ item, onAdd }) {
         {/*  : ''}*/}
       </div>
       <div className="Item-actions">
-        <span>{item.price + ' ' + '₽'} </span>
+        <span>{item.price.toLocaleString() + ' ' + '₽'} </span>
         <button
           // onClick={callbacks.onDelete}
           onClick={() => onAdd(item)}

@@ -28,7 +28,9 @@ function CartModal({ cart, onClose, onRemove }) {
                 <div className="CartModal-item-right">
                   <div className="CartModal-amount">
                     <span>{item.count} шт</span>
-                    <span className="CartModal-price">{item.price * item.count} ₽</span>
+                    <span className="CartModal-price">
+                      {(item.price * item.count).toLocaleString()} ₽
+                    </span>
                   </div>
                   <button className="remove-button" onClick={() => onRemove(item.code)}>
                     Удалить
