@@ -1,47 +1,61 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Popup from './components/popup';
+import TotalItems from './components/totalItems';
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
+
 function App({ store }) {
-  const list = store.getState().list;
+  const [isOpen, setIsOpen] = React.useState(false);
+  const { list, cart, uniqCount, totalPrice } = store.getState();
 
   const callbacks = {
-    onDeleteItem: useCallback(
+    onAdd: useCallback(
       code => {
-        store.deleteItem(code);
+        store.addItem(code);
       },
       [store],
     ),
-
-    onSelectItem: useCallback(
+    delete: useCallback(
       code => {
-        store.selectItem(code);
+        store.deleteItems(code);
       },
       [store],
     ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    open: useCallback(() => {
+      setIsOpen(true);
+    }, [isOpen]),
+    close: useCallback(() => {
+      setIsOpen(false);
+    }, [isOpen]),
   };
 
+  useEffect(() => {
+    if (cart.length === 0) {
+      callbacks.close();
+    }
+  }, [cart]);
+
   return (
-    <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
-      />
-    </PageLayout>
+    <>
+      <Head title="Магазин" />
+      <PageLayout>
+        <Controls price={totalPrice} count={uniqCount} open={callbacks.open} />
+        <List list={list} callback={callbacks.onAdd} modal={false} />
+      </PageLayout>
+
+      <Popup isOpen={isOpen} onClose={callbacks.close}>
+        <List list={cart} callback={callbacks.delete} modal={true} />
+        <TotalItems totalPrice={totalPrice} />
+      </Popup>
+    </>
   );
 }
 

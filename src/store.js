@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,46 +39,37 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
+   * @param code
    */
-  addItem() {
+  addItem(code) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      uniqCount: this.state.uniqCount + 1,
+      totalPrice: this.state.totalPrice + this.state.list.find(item => item.code === code).price,
+      cart: this.state.cart.find(item => item.code === code)
+        ? this.state.cart.map(item =>
+            item.code === code ? { ...item, count: item.count + 1 } : item,
+          )
+        : [
+            ...this.state.cart,
+            { ...this.state.list.filter(item => item.code === code)[0], count: 1 },
+          ],
     });
   }
 
   /**
-   * Удаление записи по коду
+   * Удаление корзины
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
+  deleteItems(code) {
+    const findItems = this.state.cart.find(item => item.code === code);
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      uniqCount: this.state.uniqCount - findItems.count,
+      totalPrice: this.state.totalPrice - findItems.price * findItems.count,
+      cart: this.state.cart.filter(item => item.code !== code),
     });
   }
 }
