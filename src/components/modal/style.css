@@ -1,0 +1,40 @@
+.Modal {
+  display: flex;
+  flex-direction: column;
+  width: 1080px;
+  border-radius: 8px;
+  display: flex;
+  gap: 24px;
+  position: fixed;
+  place-self: center;
+  top: 265px;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.Modal-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;  
+}
+
+.Modal-cross {
+  position: absolute;
+  place-self: flex-end;
+  cursor: pointer;
+}
+
+.Modal-title {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+}
+
+.backdrop {
+  position: fixed;
+  background-color: rgba(26, 32, 40, 0.4);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

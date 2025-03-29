@@ -1,43 +1,47 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
 import './style.css';
 
 function Item(props) {
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
+    onAddToCart: e => {
+      props.onAddToCart(props.item.code);
     },
-    onDelete: e => {
-      e.stopPropagation();
-      props.onDelete(props.item.code);
+    onDeleteFromCart: e => {
+      props.onDeleteFromCart(props.item.code);
     },
   };
 
+  const Info = props.isSumItem ? (
+    <>
+      <div className='sum'>
+        <span className='text'>Итого:</span>
+        <span className='value'>{`${props.cartSum} ₽`}</span>
+      </div>
+    </>
+  ) : (
+    <>
+      <b>{props.item.title}</b>
+      <div className={`Item-info ${props.isCart ? 'isCart' : ''}`}>
+        {props.isCart ? <span>{`${props.item.cartCount} шт.`}</span> : null}
+        <span className='value'>{`${props.item.price} ₽`}</span>
+      </div>
+    </>)
+
   return (
     <div
-      className={'Item' + (props.item.selected ? ' Item_selected' : '')}
+      className="Item"
       onClick={callbacks.onClick}
     >
-      <div className="Item-code">{props.item.code}</div>
-      <div className="Item-title">
-        <b>{props.item.title}</b>
-        {count
-          ? ` | Выделяли ${count} ${plural(count, {
-              one: 'раз',
-              few: 'раза',
-              many: 'раз',
-            })}`
-          : ''}
+      <div className={`Item-code ${props.isSumItem ? 'Item-sum' : ''}`}>{props?.item?.code || 0}</div>
+      <div className={`Item-title ${props.isSumItem ? 'Item-sum' : ''}`}>
+        {Info}
       </div>
-      <div className="Item-actions">
-        <button onClick={callbacks.onDelete}>Удалить</button>
+      <div className={`Item-actions ${props.isSumItem ? 'Item-sum' : ''}`}>
+        {props.isCart ?
+          <button className='removeBtn' onClick={callbacks.onDeleteFromCart}>Удалить</button> :
+          <button className='addBtn' onClick={callbacks.onAddToCart}>Добавить</button>
+        }
       </div>
     </div>
   );
@@ -47,16 +51,13 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
-    count: PropTypes.number,
-  }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
+    cartCount: PropTypes.number,
+  }),
+  isCart: PropTypes.bool,
+  isSumItem: PropTypes.bool,
+  onAddToCart: PropTypes.func,
+  onDeleteFromCart: PropTypes.func,
+  cartSum: PropTypes.number,
 };
 
 export default React.memo(Item);

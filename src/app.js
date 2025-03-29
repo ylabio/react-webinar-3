@@ -3,6 +3,8 @@ import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Modal from "./components/modal";
+import Item from "./components/item";
 
 /**
  * Приложение
@@ -11,36 +13,45 @@ import PageLayout from './components/page-layout';
  */
 function App({ store }) {
   const list = store.getState().list;
+  const isModalVisible = store.getState().isModalVisible;
 
   const callbacks = {
-    onDeleteItem: useCallback(
+    onDeleteFromCart: useCallback(
       code => {
-        store.deleteItem(code);
+        store.deleteItemFromCart(code);
       },
       [store],
     ),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
+    onAddToCart: useCallback((code) => {
+      store.addItemInCart(code);
     }, [store]),
+
+    onCartClick: useCallback(() => {
+      store.cartClick();
+    }, [store])
   };
+
+  const cartList = list.filter(item => item.cartCount > 0);
+  const cartCount = cartList.length;
+  const cartSum = cartList.reduce((curSum, item) => curSum + item.cartCount * item.price, 0)
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Head title="Магазин" />
+      <Controls onCartClick={callbacks.onCartClick} cartCount={cartCount} cartSum={cartSum} />
       <List
         list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        onAddItem={callbacks.onAddToCart}
       />
+      <Modal onCartClick={callbacks.onCartClick} isVisible={isModalVisible}>
+        <List
+          list={cartList}
+          onDeleteItem={callbacks.onDeleteFromCart}
+          isCart={true}
+        />
+        <Item isCart={true} isSumItem={true} cartSum={cartSum}/>
+      </Modal>
     </PageLayout>
   );
 }
