@@ -40,9 +40,11 @@ class Store {
 
   /**
    * Добавление товара в корзину
-   * @param item
+   * @param code
    */
-  addToCart(item) {
+  addToCart(code) {
+    const item = this.state.list.find(listItem => listItem.code === code);
+
     const itemIndex = this.state.cart.findIndex(cartItem => cartItem.code === item.code);
 
     if (itemIndex === -1) {
@@ -61,12 +63,12 @@ class Store {
 
   /**
    * Удаление товара из корзины
-   * @param item
+   * @param code
    */
-  removeFromCart(item) {
+  removeFromCart(code) {
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter(cartItem => cartItem.code !== item.code),
+      cart: this.state.cart.filter(cartItem => cartItem.code !== code),
     });
 
     this.updateCartSummary();

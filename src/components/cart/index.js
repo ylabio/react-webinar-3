@@ -5,8 +5,8 @@ import './style.css';
 
 function Cart({ cart, onRemoveFromCart = () => {}, totalPrice = 0 }) {
   const callbacks = {
-    onRemoveFromCart: item => {
-      onRemoveFromCart(item);
+    onRemoveFromCart: code => {
+      onRemoveFromCart(code);
     },
   };
 

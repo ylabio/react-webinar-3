@@ -7,7 +7,7 @@ function Item({ item, buttonAction = () => {}, buttonText = 'Добавить' }
   const callbacks = {
     onClick: e => {
       e.stopPropagation();
-      buttonAction(item);
+      buttonAction(item.code);
     },
   };
 

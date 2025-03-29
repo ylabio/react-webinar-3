@@ -16,15 +16,15 @@ function App({ store }) {
 
   const callbacks = {
     onAddToCart: useCallback(
-      item => {
-        store.addToCart(item);
+      code => {
+        store.addToCart(code);
       },
       [store],
     ),
 
     onRemoveFromCart: useCallback(
-      item => {
-        store.removeFromCart(item);
+      code => {
+        store.removeFromCart(code);
       },
       [store],
     ),
