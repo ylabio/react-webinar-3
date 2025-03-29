@@ -1,0 +1,12 @@
+.ItemDetails {
+  display: flex;
+  gap: 61px;
+  padding: 20px 14px 19px;
+
+}
+
+.ItemDetails-price {
+  padding-right: 24px;
+  padding-left: 10vw;
+  text-align: right;
+}

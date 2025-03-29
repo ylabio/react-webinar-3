@@ -1,5 +1,8 @@
+table {
+  border-collapse: collapse;
+}
+
 .List {
-  border-radius: 10px;
   overflow: hidden;
   list-style: none;
   padding-left: 0;

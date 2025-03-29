@@ -1,0 +1,16 @@
+.Cart {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.Cart-total {
+  display: flex;
+  justify-content: flex-end;
+  gap: 70px;
+  padding: 21px 164px 20px 20px;
+  font-weight: bold;
+}
+
+.Cart-empty {
+  padding: 40px 20px;
+}
