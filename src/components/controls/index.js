@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import { plural } from '../../utils';
+import { formatCost, plural } from '../../utils';
 
 function Controls({ price = 0, count = 0, open }) {
   const callbacks = {
@@ -21,7 +21,7 @@ function Controls({ price = 0, count = 0, open }) {
               one: 'товар',
               few: 'товара',
               many: 'товаров',
-            })} / ${price} ₽ `}
+            })} / ${formatCost(price)} ₽ `}
       </button>
     </div>
   );

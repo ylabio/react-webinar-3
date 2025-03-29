@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { formatCost } from '../../utils';
 
 function Item({ item = {}, callback, modal = false }) {
   const callbacks = {
@@ -15,7 +16,7 @@ function Item({ item = {}, callback, modal = false }) {
         <b>{item.title}</b>
       </div>
       {modal && <div className="Item-count">{item.count} шт</div>}
-      <div className="Item-price">{item.price} ₽</div>
+      <div className="Item-price">{formatCost(item.price)} ₽</div>
       <div className={`Item-actions ${modal ? 'Item-actions--remove' : 'Item-actions--add'}`}>
         <button onClick={callbacks.onClick}>{modal ? 'Удалить' : 'Добавить'}</button>
       </div>
