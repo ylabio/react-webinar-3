@@ -10,8 +10,7 @@ function Modal({ onCloseModal = () => {}, children, modalTitle = '' }) {
   };
 
   return (
-    <div className="Modal">
-      <div className="Modal-overlay" onClick={handleOverlayClick}></div>
+    <div className="Modal-overlay" onClick={handleOverlayClick}>
       <div className="Modal-content">
         <div className="Modal-header">
           <h1>{modalTitle}</h1>
