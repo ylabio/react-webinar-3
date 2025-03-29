@@ -6,22 +6,27 @@ function Cart({ data, onClose, onDeleteItem }) {
   const total = data.reduce((acc, el) => el.price * el.quantity, 0);
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <div className="modal-header">
+    <div className="cart-overlay">
+      <div className="cart-content">
+        <div className="cart-header">
           <p>Корзина</p>
-          <div className="modal-close" onClick={onClose}>
-            &times;
-          </div>
+          <div className="cart-close" onClick={onClose}></div>
         </div>
-        <ul className="List">
+        <ul className="List cart-list">
           {data.map(item => (
             <li key={item.code} className="List-item">
-              <Item item={item} onDelete={onDeleteItem} isCartItem={true} />
+              <Item item={item} onDelete={onDeleteItem} isCartItem={true} className="cart-item" />
             </li>
           ))}
         </ul>
-        <p className="cart-total">Итого: {total} ₽</p>
+        <div className="cart-total">
+          <p>
+            <strong>Итого:</strong>
+          </p>
+          <p>
+            <strong>{total} ₽</strong>
+          </p>
+        </div>
       </div>
     </div>
   );

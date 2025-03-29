@@ -1,5 +1,4 @@
-/* Modal.css */
-.modal-overlay {
+.cart-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -12,32 +11,67 @@
   z-index: 1000;
 }
 
-.modal-content {
+.cart-content {
   background-color: white;
   padding: 24px;
   border-radius: 5px;
   position: relative;
-  max-width: 500px;
-  width: 90%;
+  max-width: 1080px;
+  width: 100%;
 }
 
-.modal-header {
+.cart-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   p {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: 0%;
+
     margin: 0;
   }
+  margin-bottom: 24px;
 }
-.modal-close {
+.cart-close {
   color: #878787;
-  background: none;
+  background: url('./assets/close.svg');
   border: none;
-  font-size: 32px;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
 }
 
 .cart-total {
-  margin-left: auto;
-  width: max-content;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 121px;
+  padding: 16px;
+  p:first-child {
+    grid-column: 2;
+  }
+  p:last-child {
+    grid-column: 3;
+  }
+
+  p {
+    margin-left: auto;
+  }
+}
+
+.cart-overlay {
+  .cart-content {
+    .cart-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+
+      .Item-code {
+        display: none;
+      }
+      .Item-title {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+      }
+    }
+  }
 }

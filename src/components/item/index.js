@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { plural } from '../../utils';
 import './style.css';
 
-function Item(props) {
+function Item({ className = '', ...props }) {
   // Счётчик выделений
   const [count, setCount] = useState(0);
 
@@ -26,7 +26,7 @@ function Item(props) {
 
   return (
     <div
-      className={'Item' + (props.item.selected ? ' Item_selected' : '')}
+      className={'Item' + (props.item.selected ? ' Item_selected' : ` ${className}`)}
       onClick={callbacks.onClick}
     >
       <div className="Item-code">{props.item.code}</div>
@@ -40,7 +40,7 @@ function Item(props) {
             })}`
           : ''}
         {props.isCartItem && <p>{props.item.quantity} шт</p>}
-        <p>{props.item.price}</p>
+        <p>{props.item.price} ₽</p>
       </div>
       <div className="Item-actions">
         {props.isCartItem ? (
