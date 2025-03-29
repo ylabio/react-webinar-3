@@ -26,7 +26,7 @@ function Item({ item = { code: 0, title: '', price: 0, count: 0}, onAdd = () => 
         {isCart ? `${item.count} шт` : ''}
       </div>
       <div className={cn('price')}>
-        {item.price ? price_format(item.price) : ''}
+        {item.price ? price_format(item.price) : `0 ₽`}
       </div>
       <div className={cn('actions')}>
         {isCart
