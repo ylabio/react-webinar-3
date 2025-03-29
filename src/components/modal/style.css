@@ -4,8 +4,6 @@
   background-color: var(--background);
   border-radius: 8px;
   position: relative;
-  top: -3%;
-  left: -1%;
 }
 
 .Modal-button {
