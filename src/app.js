@@ -53,11 +53,12 @@ function App({ store }) {
 
   return (
     <>
+      <Head title="Магазин" />
       <PageLayout>
-        <Head title="Магазин" />
         <Controls price={price} count={uniqCount} open={callbacks.open} />
         <List list={list} callback={callbacks.onAdd} modal={false} />
       </PageLayout>
+
       <Popup isOpen={isOpen} onClose={callbacks.close}>
         <List list={cart} callback={callbacks.delete} modal={true} />
         <TotalItems totalPrice={price} />

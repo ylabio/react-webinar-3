@@ -14,7 +14,7 @@ function Item({ item = {}, callback, modal = false }) {
       <div className="Item-title">
         <b>{item.title}</b>
       </div>
-      {modal && <div className="Item-count">{item.count}шт</div>}
+      {modal && <div className="Item-count">{item.count} шт</div>}
       <div className="Item-price">{item.price} ₽</div>
       <div className={`Item-actions ${modal ? 'Item-actions--remove' : 'Item-actions--add'}`}>
         <button onClick={callbacks.onClick}>{modal ? 'Удалить' : 'Добавить'}</button>
