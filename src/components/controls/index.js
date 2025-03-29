@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
+import CartIcon from './icon';
 import './style.css';
 import { plural } from '../../utils';
 
@@ -15,7 +16,7 @@ function Controls({ totalUnicItems, totalPrice, onCartOpen }) {
   return (
     <div className={cn()}>
       <button className={cn('button')} onClick={onCartOpen}>
-        <div className={cn('text')}><b>{cartText}</b></div>
+        <div className={cn('text')}><CartIcon/><b>{cartText}</b></div>
       </button>
     </div>
   );

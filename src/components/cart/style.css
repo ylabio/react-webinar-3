@@ -1,12 +1,6 @@
 .Cart {
- height: 40vh;
- overflow-y: auto;
-}
-
-.Cart .List {
-  height: 10vh;
- overflow-y: auto;
- 
+  max-height: 50vh;
+  overflow-y: auto;
 }
 
 .Cart-total {
