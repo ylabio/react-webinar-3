@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { plural } from '../../utils';
 import './style.css';
 
-function Item(props,  onDelete = () => {}, onSelect = () => {}, onBasket = () => {}) {
+function Item(props, onSelect = () => {}, onBasket = () => {}) {
   // Счётчик выделений
   const [count, setCount] = useState(0);
 
@@ -13,10 +13,6 @@ function Item(props,  onDelete = () => {}, onSelect = () => {}, onBasket = () =>
       if (!props.item.selected) {
         setCount(count + 1);
       }
-    },
-    onDelete: e => {
-      e.stopPropagation();
-      props.onDelete(props.item.code);
     },
     onBasket: e => {
       e.stopPropagation();
@@ -29,7 +25,6 @@ function Item(props,  onDelete = () => {}, onSelect = () => {}, onBasket = () =>
       className={'Item' + (props.item.selected ? ' Item_selected' : '')}
       onClick={callbacks.onClick}
     >
-      <div className="Item-code">{props.item.code}</div>
       <div className="Item-title">
         <b>{props.item.title}</b>
         {count
@@ -40,8 +35,8 @@ function Item(props,  onDelete = () => {}, onSelect = () => {}, onBasket = () =>
             })}`
           : ''}
       </div>
+      <div className="Item-price">{props.item.price} ₽</div>
       <div className="Item-actions">
-        <button onClick={callbacks.onDelete}>Удалить</button>
         <button onClick={callbacks.onBasket}>Добавить</button>
       </div>
     </div>
@@ -55,7 +50,6 @@ Item.propTypes = {
     selected: PropTypes.bool,
     count: PropTypes.number,
   }).isRequired,
-  onDelete: PropTypes.func,
   onSelect: PropTypes.func,
   onBasket: PropTypes.func,
 };

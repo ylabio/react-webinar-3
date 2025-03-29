@@ -42,3 +42,66 @@
   border: none;
 }
 
+.Popup-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Popup-final,
+.Popup-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px;
+  font-size: 16px;
+  line-height: 1.2;
+  border-bottom: 1px solid var(--divider);
+}
+
+.Popup-final {
+  justify-content: flex-end;
+  padding-right: 147px;
+
+  font-weight: 700;
+
+  border: none;
+}
+
+.Popup-final .Popup-sum {
+  margin: 0;
+}
+
+.Popup-item:nth-child(odd) {
+  background-color: var(--odd-item);
+}
+
+.Popup-name {
+  flex: 0 0 60%;
+  font-weight: 700;
+}
+
+.Popup-sum {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+.Popup-price {
+  flex: 0 0 auto;
+}
+
+.Popup-delete {
+  flex: 0 0 110px;
+}
+
+button.Popup-delete {
+  background-color: var(--delete);
+  color: var(--second-text);
+  padding: 8px 16px;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
+  }
+}

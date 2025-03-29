@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import List from './components/list';
 import Basket from './components/basket';
 import Popup from './components/popup';
-import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 
@@ -59,7 +58,7 @@ function App({ store }) {
         onBasketItem={callbacks.onBasketItem}
         onSelectItem={callbacks.onSelectItem}
       />
-      <Popup onTogglePopupFlag={callbacks.onTogglePopupFlag} openPopupFlag={openPopupFlag} basketList={basketList}/>
+      <Popup onTogglePopupFlag={callbacks.onTogglePopupFlag} onDeleteItem={callbacks.onDeleteItem} openPopupFlag={openPopupFlag} basketList={basketList}/>
     </PageLayout>
   );
 }

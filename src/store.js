@@ -107,10 +107,10 @@ class Store {
    * @param code
    */
   deleteItem(code) {
-    this.setState({
-      ...this.state,
+    this.setBasketState({
+      ...this.basketState,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      list: this.basketState.list.filter(item => item.code !== code),
     });
   }
 
