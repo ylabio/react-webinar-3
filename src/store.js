@@ -55,6 +55,8 @@ class Store {
       newCart[itemIndex] = { ...newCart[itemIndex], quantity: newCart[itemIndex].quantity + 1 };
       this.setState({ ...this.state, cart: newCart });
     }
+
+    this.updateCartSummary();
   }
 
   /**
@@ -65,6 +67,25 @@ class Store {
     this.setState({
       ...this.state,
       cart: this.state.cart.filter(cartItem => cartItem.code !== item.code),
+    });
+
+    this.updateCartSummary();
+  }
+
+  /**
+   * Обновление суммарной информации о корзине
+   */
+  updateCartSummary() {
+    const totalUniqueItems = this.state.cart.length;
+    const totalPrice = this.state.cart.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0,
+    );
+
+    this.setState({
+      ...this.state,
+      totalUniqueItems,
+      totalPrice,
     });
   }
 

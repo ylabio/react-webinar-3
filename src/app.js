@@ -12,9 +12,7 @@ import { formatNumber } from './utils';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
-  const cart = store.getState().cart;
-  const modalType = store.getState().modalType;
+  const { list, cart, modalType, totalUniqueItems, totalPrice } = store.getState();
 
   const callbacks = {
     onAddToCart: useCallback(
@@ -38,9 +36,6 @@ function App({ store }) {
       [store],
     ),
   };
-
-  const totalUniqueItems = cart.length;
-  const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   const formattedTotalPrice = formatNumber(totalPrice);
 
