@@ -1,39 +1,33 @@
-.modal {
+.Modal {
   display: flex;
   flex-direction: column;
-
   width: 1080px;
-
   border-radius: 8px;
-
   display: flex;
   gap: 24px;
-
   position: fixed;
   place-self: center;
   top: 265px;
   background-color: rgba(255, 255, 255, 1);
+}
 
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+.Modal-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;  
+}
 
-    padding: 16px;
+.Modal-cross {
+  position: absolute;
+  place-self: flex-end;
+  cursor: pointer;
+}
 
-    .cross {
-      position: absolute;
-      place-self: flex-end;
-
-      cursor: pointer;
-    }
-
-    .title {
-      font-size: 32px;
-      line-height: 40px;
-      font-weight: 700;
-    }
-  }
+.Modal-title {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
 }
 
 .backdrop {
