@@ -16,18 +16,6 @@
   justify-content: flex-end;
 }
 
-/* .Item-actions button {
-  background-color: var(--delete);
-  color: var(--second-text);
-  padding: 8px 16px;
-
-  &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
-  }
-} */
-
 .Item-actions button {
   border: 1px solid var(--primary);
   padding: 8px 16px;

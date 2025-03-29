@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Item(props) {
+function Item({ item = { code: 0, title: '', price: 0 }, onAddItem = () => {} }) {
   return (
     <div className={'Item'}>
       <div className="Item-title">
-        <b>{props.item.title}</b>
+        <b>{item.title}</b>
       </div>
-      <div className="Item-price">{`${props.item.price} ₽`}</div>
+      <div className="Item-price">{`${item.price.toLocaleString('ru-RU')} ₽`}</div>
       <div className="Item-actions">
-        <button onClick={() => props.onAddItem(props.item)}>Добавить</button>
+        <button onClick={() => onAddItem(item)}>Добавить</button>
       </div>
     </div>
   );
@@ -23,10 +23,6 @@ Item.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAddItem: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onAddItem: () => {},
 };
 
 export default React.memo(Item);

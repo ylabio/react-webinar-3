@@ -1,24 +1,39 @@
 .Cart {
+  width: 100%;
+}
+
+.Cart-content {
   display: flex;
-  justify-content: flex-end;
-  padding: 24px 0;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 8px;
+
+  padding: 24px;
 }
 
-.Cart-container {
+.Cart-content h1 {
+  margin: 0 0 24px 0;
+}
+
+.Cart-total {
   display: flex;
-  border: 1px solid #6b4acb;
-  border-radius: 4px;
-  padding: 8px 16px;
-  cursor: pointer;
+  justify-content: end;
+  padding: 16px 16px;
 }
 
-.Cart-container svg {
-  width: 24px;
-  height: 24px;
+.Cart-total b {
+  width: 105px;
 }
 
-.Cart-container b {
-  margin: auto 0;
-  padding-left: 16px;
-  font-family: var(--second-font-family);
+.Cart-total b:first-child {
+  margin-right: 24px;
+}
+
+.Cart-total b:last-child {
+  margin-right: 129px;
+  text-align: right;
+}
+
+.List {
+  border-radius: unset;
 }

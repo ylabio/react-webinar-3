@@ -43,10 +43,15 @@ class Store {
    * @param {Object}
    */
   addItem(product) {
+    this.state.totalPrice += product.price;
+
     // Проверяем есть ли товар в корзине
     if (this.state.cart.length === 0 || !this.state.cart.find(item => item.code === product.code)) {
       // Добавляем новый, если его нет
-      this.setState({ ...this.state, cart: [...this.state.cart, { ...product, count: 1 }] });
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, { code: product.code, count: 1 }],
+      });
     } else {
       // Увеличиваем количество, если товар есть
       this.setState({
@@ -63,6 +68,11 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const itemCount = this.state.cart.find(item => item.code === code).count;
+    const itemPrice = this.state.list.find(item => item.code === code).price;
+
+    this.state.totalPrice -= itemCount * itemPrice;
+
     this.setState({ ...this.state, cart: this.state.cart.filter(item => item.code !== code) });
   }
 }
