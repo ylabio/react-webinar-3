@@ -2,7 +2,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
   transition: background-color 1s;
   padding: 16px;
 }
@@ -27,8 +27,8 @@
 
   &:hover {
     background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
+    border-color: var(--primary);
+    color: var(--primary);
   }
 }
 
