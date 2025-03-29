@@ -4,7 +4,9 @@ import { createPortal } from "react-dom";
 import './style.css'
 
 const Modal = forwardRef( function Modal ({children},ref){
- const dialogRef = useRef();
+ 
+    const dialogRef = useRef();
+
     useImperativeHandle(ref,()=>{
         return {
             open(){
@@ -13,14 +15,15 @@ const Modal = forwardRef( function Modal ({children},ref){
             close(){
                 dialogRef.current.close()
             }
-        }
-    })
+        };
+    });
+
     return createPortal(
         <dialog ref={dialogRef} className='modal'>
             {children}
         </dialog>,
         document.getElementById("modal-root")  
     )
-})
+});
 
-export default Modal
+export default Modal;

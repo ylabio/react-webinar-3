@@ -18,8 +18,5 @@ Controls.propTypes = {
   children: PropTypes.node,
 };
 
-// Controls.defaultProps = {
-//   onAdd: () => {},
-// };
 
 export default React.memo(Controls);

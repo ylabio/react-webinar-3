@@ -24,8 +24,8 @@
   .ModalFooterItem-price {
     width: 120px; 
     text-align: right;
-    padding-right: 10px ;
-    }
+    margin-right: 24px;
+  }
 
   .ModalFooterItem-actions button {
     background-color: var(--background);

@@ -3,29 +3,22 @@ import PropTypes from 'prop-types';
 import './style.css';
 import Controls from '../controls';
 import { cn as bem } from '@bem-react/classname';
+import { formatPrice } from '../../utils';
 
 function Item( {item,
   onAddItemtoCart = () => {},
 }) {
-  // Счётчик выделений
-  // const [count, setCount] = useState(0);
-  // const price = (new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB" }).format(
-  //   props.item.price));
+
+  const price = formatPrice(item.price);
+
   const callbacks = {
-    // onClick: () => {
-    //   onSelect(item.code);
-    //   if (!item.selected) {
-    //     setCount(count + 1);
-    //   }
-    // },
     onAddItemtoCart: e => {
       e.stopPropagation();
       onAddItemtoCart(item.code);
-
     },
   };
 
-  const cn = bem("Item")
+  const cn = bem("Item");
 
   return (
     <div
@@ -36,7 +29,7 @@ function Item( {item,
         <b>{item.title}</b>
       </div>
       <div>
-        <p>{item.price} ₽</p>
+        <p>{price}</p>
       </div>
       <div className={cn("actions")}>
         <Controls  handleClick={callbacks.onAddItemtoCart} styles={cn("controls" )}title="Добавить"/>
@@ -54,10 +47,5 @@ Item.propTypes = {
   }).isRequired,
   onAddItemtoCart: PropTypes.func,
 };
-
-// Item.defaultProps = {
-//   onDelete: () => {},
-//   onSelect: () => {},
-// };
 
 export default React.memo(Item);

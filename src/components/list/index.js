@@ -11,7 +11,7 @@ function List({
   onDeleteItemfromCart = ()=>{}, 
   cartitem = false}) {
 
-  const cn = bem("List")
+  const cn = bem("List");
 
   if (cartitem){
     return(
@@ -23,7 +23,7 @@ function List({
       ))}
     </ul>
     )
-  }
+  };
 
   return (
     <ul className={cn()}>
@@ -47,9 +47,5 @@ List.propTypes = {
   onDeleteItemfromCart: PropTypes.func
 };
 
-// List.defaultProps = {
-//   onDeleteItem: () => {},
-//   onSelectItem: () => {},
-// };
 
 export default React.memo(List);

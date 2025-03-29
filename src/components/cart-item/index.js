@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { cn as bem } from '@bem-react/classname';
 import Controls from '../controls';
+import { formatPrice } from '../../utils';
 
 function CartItem( {item,
     onDeleteItemfromCart = () => {},
@@ -11,9 +12,12 @@ function CartItem( {item,
     onDeleteItemfromCart: e => {
       e.stopPropagation();
       onDeleteItemfromCart(item.code);
-},
-  };
-  const cn = bem('CartItem')
+}};
+  
+  const price = formatPrice(item.price, item.quantity);
+
+  const cn = bem('CartItem');
+
   return (
     <div
       className={cn()}
@@ -25,7 +29,7 @@ function CartItem( {item,
         <p>{item.quantity} шт</p>
       </div>
       <div className={cn('price')}>
-        <p>{item.price * item.quantity} ₽</p>
+        <p>{price}</p>
       </div>
       <div className={cn("actions")}>
         <Controls  handleClick={callbacks.onDeleteItemfromCart} styles={cn("-controls")} title="Удалить"/>
@@ -45,9 +49,6 @@ CartItem.propTypes = {
   onDeleteItemfromCart: PropTypes.func,
 };
 
-// Item.defaultProps = {
-//   onDelete: () => {},
-//   onSelect: () => {},
-// };
+
 
 export default React.memo(CartItem);

@@ -63,6 +63,7 @@ class Store {
   }
   // Добавление товара в корзину
   addItemtoCart(code) {
+    const currentItem = this.state.list.find((item) => item.code === code);
     this.setState({
       ...this.state,
       list: this.state.list.map((item)=> { if (item.code === code) {
@@ -71,13 +72,15 @@ class Store {
           quantity: (item.quantity || 0) + 1
         };
       } 
-        return item
-      
-    })
+        return item;
+    }),
+    uniqItems: (currentItem.quantity === 0 ? this.state.uniqItems + 1 : this.state.uniqItems ),
+    finalPrice: (this.state.finalPrice + currentItem.price )
   });
   }
   //Удаление товара из корзины
   deleteItemfromCart(code) {
+    const currentItem = this.state.list.find((item) => item.code === code);
     this.setState({
       ...this.state,
       list: this.state.list.map((item)=> { if (item.code === code) {
@@ -88,7 +91,9 @@ class Store {
       } 
         return item
       
-    })
+    }),
+    uniqItems: this.state.uniqItems - 1,
+    finalPrice: (this.state.finalPrice - (currentItem.price * currentItem.quantity))
   });
   }
 

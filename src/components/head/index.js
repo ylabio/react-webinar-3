@@ -4,7 +4,9 @@ import './style.css';
 import { cn as bem } from '@bem-react/classname';
 
 function Head({ title }) {
-  const cn = bem("Head")
+  
+  const cn = bem("Head");
+  
   return (
     <div className={cn()}>
       <div className={cn("container")}>
