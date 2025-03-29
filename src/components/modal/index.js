@@ -28,8 +28,7 @@ function Modal({ onCloseModal = () => {}, children, modalTitle = '' }) {
             </svg>
           </button>
         </div>
-
-        {children}
+        <div className="Modal-scrollable-content">{children}</div>
       </div>
     </div>
   );

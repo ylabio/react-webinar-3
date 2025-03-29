@@ -23,6 +23,11 @@
   flex-direction: column;
 }
 
+.Modal-scrollable-content {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
 .Modal-header {
   display: flex;
   justify-content: space-between;
