@@ -12,9 +12,10 @@
 }
 
 .Modal .Head {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
   margin-bottom: 71px;
+  padding: 0;
 }
 
 .Modal:has(.Cart-empty) .Head {
@@ -24,9 +25,13 @@
 .Modal h2 {
  color: var(--main-text);
  font-size: 32px;
+ margin-top: 10px;
+ margin-bottom: 20px;
 }
 
 .Modal-actions button {
+  position: relative;
+  right: -10px;
   width: 26px;
   height: 26px;
   background: url('../../images/close.svg') no-repeat center;
@@ -35,12 +40,12 @@
 
 .Modal-content {
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 8px;
   width: 90%;
   max-width: 1080px;
   margin-left: auto;
   margin-right: auto;
-  padding: 24px;
+  padding: 14px 24px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.50);
 }
 
