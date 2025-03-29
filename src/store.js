@@ -45,6 +45,8 @@ class Store {
   addItem(code) {
     this.setState({
       ...this.state,
+      uniqCount: this.state.uniqCount + 1,
+      totalPrice: this.state.totalPrice + this.state.list.find(item => item.code === code).price,
       cart: this.state.cart.find(item => item.code === code)
         ? this.state.cart.map(item =>
             item.code === code ? { ...item, count: item.count + 1 } : item,
@@ -61,8 +63,12 @@ class Store {
    * @param code
    */
   deleteItems(code) {
+    const findItems = this.state.cart.find(item => item.code === code);
+
     this.setState({
       ...this.state,
+      uniqCount: this.state.uniqCount - findItems.count,
+      totalPrice: this.state.totalPrice - findItems.price * findItems.count,
       cart: this.state.cart.filter(item => item.code !== code),
     });
   }

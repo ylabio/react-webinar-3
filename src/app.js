@@ -14,16 +14,8 @@ import TotalItems from './components/totalItems';
 
 function App({ store }) {
   const [isOpen, setIsOpen] = React.useState(false);
-  const { list, cart } = store.getState();
+  const { list, cart, uniqCount, totalPrice } = store.getState();
 
-  let price = 0;
-  const uniqCount = cart.length;
-
-  if (cart.length !== 0) {
-    cart.forEach(item => {
-      price += item.price * item.count;
-    });
-  }
   const callbacks = {
     onAdd: useCallback(
       code => {
@@ -55,13 +47,13 @@ function App({ store }) {
     <>
       <Head title="Магазин" />
       <PageLayout>
-        <Controls price={price} count={uniqCount} open={callbacks.open} />
+        <Controls price={totalPrice} count={uniqCount} open={callbacks.open} />
         <List list={list} callback={callbacks.onAdd} modal={false} />
       </PageLayout>
 
       <Popup isOpen={isOpen} onClose={callbacks.close}>
         <List list={cart} callback={callbacks.delete} modal={true} />
-        <TotalItems totalPrice={price} />
+        <TotalItems totalPrice={totalPrice} />
       </Popup>
     </>
   );
