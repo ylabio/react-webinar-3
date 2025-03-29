@@ -30,13 +30,6 @@ function App({ store }) {
       [store],
     ),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
-
     onAddItem: useCallback(() => {
       store.addItem();
     }, [store]),
@@ -56,7 +49,6 @@ function App({ store }) {
         list={list}
         onDeleteItem={callbacks.onDeleteItem}
         onBasketItem={callbacks.onBasketItem}
-        onSelectItem={callbacks.onSelectItem}
       />
       <Popup onTogglePopupFlag={callbacks.onTogglePopupFlag} onDeleteItem={callbacks.onDeleteItem} openPopupFlag={openPopupFlag} basketList={basketList}/>
     </PageLayout>

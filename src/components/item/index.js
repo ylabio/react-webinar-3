@@ -3,17 +3,11 @@ import PropTypes from 'prop-types';
 import { plural } from '../../utils';
 import './style.css';
 
-function Item(props, onSelect = () => {}, onBasket = () => {}) {
+function Item(props, onBasket = () => {}) {
   // Счётчик выделений
   const [count, setCount] = useState(0);
 
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
     onBasket: e => {
       e.stopPropagation();
       props.onBasket(props.item.code);
@@ -22,18 +16,10 @@ function Item(props, onSelect = () => {}, onBasket = () => {}) {
 
   return (
     <div
-      className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-      onClick={callbacks.onClick}
+      className={'Item'}
     >
       <div className="Item-title">
         <b>{props.item.title}</b>
-        {count
-          ? ` | Выделяли ${count} ${plural(count, {
-              one: 'раз',
-              few: 'раза',
-              many: 'раз',
-            })}`
-          : ''}
       </div>
       <div className="Item-price">{props.item.price} ₽</div>
       <div className="Item-actions">
@@ -50,7 +36,6 @@ Item.propTypes = {
     selected: PropTypes.bool,
     count: PropTypes.number,
   }).isRequired,
-  onSelect: PropTypes.func,
   onBasket: PropTypes.func,
 };
 
