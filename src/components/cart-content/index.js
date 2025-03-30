@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
+import { numberFormat, plural } from '../../utils';
 import './style.css';
 
 function CartContent({ totalCost, uniqueItems, onOpenModal = () => {} }) {
@@ -20,7 +20,7 @@ function CartContent({ totalCost, uniqueItems, onOpenModal = () => {} }) {
           fill="#6B4ACB"
         />
       </svg>
-      {uniqueItems ? <h4>{uniqueItemsText} / {totalCost} ₽</h4> : <h4>Пусто</h4>}
+      {uniqueItems ? <h4>{uniqueItemsText} / {numberFormat(totalCost)} ₽</h4> : <h4>Пусто</h4>}
     </button>
   );
 }

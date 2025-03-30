@@ -71,3 +71,15 @@ export const getCartStats = (cart) => {
   );
 };
 
+/**
+ * Форматирование числа в соответствии с языковыми правилами
+ * @param {Number} value - Число для форматирования
+ * @param {String} locale - Локаль для форматирования
+ * @param {Object} options - Дополнительные параметры форматирования
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options Подробнее о параметрах форматирования}
+ * @returns {String} Отформатированная строка числа
+ */
+export const numberFormat = (value, locale = 'ru-RU', options = {}) => {
+  return new Intl.NumberFormat(locale, options).format(value);
+};
+

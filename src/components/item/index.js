@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import Controls from '../controls';
+import { numberFormat } from "../../utils";
 
 function Item(props) {
   const callbacks = {
@@ -15,7 +16,7 @@ function Item(props) {
       <div className="Item-title">
         <b>{props.item.title}</b>
       </div>
-      <div className="Item-code">{props.item.price} ₽</div>
+      <div className="Item-code">{numberFormat(props.item.price)} ₽</div>
       <Controls onAdd={() => callbacks.onAdd(props.item.code)} />
     </div>
   );

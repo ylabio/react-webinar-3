@@ -4,6 +4,7 @@ import './style.css';
 import CartList from '../cart-list';
 import CartContent from '../cart-content';
 import Modal from '../modal';
+import { numberFormat } from '../../utils';
 
 function Cart({ onDelete = code => {}, cartList, totalCost, uniqueItems }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -30,7 +31,7 @@ function Cart({ onDelete = code => {}, cartList, totalCost, uniqueItems }) {
           <CartList cartList={cartList} onDelete={onDelete} />
           <div className="Cart-totalCost">
             <h4>Итого:</h4>
-            <h4> {totalCost}</h4>
+            <h4> {numberFormat(totalCost)} ₽</h4>
           </div>
         </>
       </Modal>

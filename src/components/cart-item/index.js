@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import {cn as bem} from "@bem-react/classname";
+import { cn as bem } from "@bem-react/classname";
+import { numberFormat } from "../../utils";
 
 function CartItem({ cartItem, onDeleteItem = code => {} }) {
   const cn = bem('CartItem');
@@ -12,7 +13,7 @@ function CartItem({ cartItem, onDeleteItem = code => {} }) {
       <div className={cn("actions")}>
         <div className={cn("actions__text")}>
           <div>{cartItem.cartQuantity} шт</div>
-          <div>{cartItem.price} ₽</div>
+          <div>{numberFormat(cartItem.price)} ₽</div>
         </div>
         <button className={cn("button")} onClick={() => onDeleteItem(cartItem.code)}>
           Удалить
