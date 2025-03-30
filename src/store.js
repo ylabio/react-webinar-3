@@ -1,12 +1,22 @@
-import { generateCode } from './utils';
+import {addOverflowToBody} from "./utils";
 
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      cart: {
+        list: [],
+        totalPrice: 0,
+        totalProductCount: 0,
+      },
+      isViewModal: false,
+      ...initState,
+
+    };
     this.listeners = []; // Слушатели изменений состояния
+
   }
 
   /**
@@ -30,58 +40,81 @@ class Store {
     return this.state;
   }
 
-  /**
-   * Установка состояния
-   * @param newState {Object}
-   */
-  setState(newState) {
-    this.state = newState;
+  listenersCall() {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
 
   /**
-   * Добавление новой записи
+   * Установка состояния корзины товаров
+   * @param newCartList {Object}
    */
-  addItem() {
-    this.setState({
+  setCart(newCartList) {
+    const productsCount = newCartList.length;
+    const totalAmount = newCartList.reduce((acc, cur) => acc + cur.totalPrice, 0)
+
+    this.state = {
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
+      cart: {
+        ...this.state.cart,
+        list: [...newCartList],
+        totalPrice: totalAmount,
+        totalProductCount: productsCount,
+      },
+    };
+
+    this.listenersCall();
+  }
+
+  setViewModal(isModalOpen) {
+    this.state = {
+      ...this.state,
+      isViewModal: isModalOpen
+    };
+
+    addOverflowToBody(isModalOpen);
+    this.listenersCall();
+  }
+
+
+  /**
+   * Добавление товара в корзину
+   * @param itemCode {Number}
+   */
+  addItemToCart(itemCode) {
+    let cartList = [];
+    const isHasItemInCart = this.state.cart.list.some(item => item.code === itemCode);
+
+    if (isHasItemInCart) {
+      cartList = this.state.cart.list.map(item => {
+        if (item.code === itemCode) {
+          return {...item, count: item.count + 1, totalPrice: item.price * (item.count + 1)};
+        }
+        return {...item};
+      });
+    } else {
+      const defaultItem = {...this.state.list.filter(item => item.code === itemCode)[0]};
+
+      cartList = [...this.state.cart.list, {...defaultItem, count: 1, totalPrice: defaultItem.price}];
+    }
+
+    this.setCart(cartList);
   }
 
   /**
    * Удаление записи по коду
-   * @param code
+   * @param itemCode {Number}
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
+  deleteItemFromCart(itemCode) {
+    const cartList = [...this.state.cart.list.filter(item => item.code !== itemCode)];
+
+    this.setCart(cartList);
   }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
-    });
+  changeViewModal() {
+    const isShowModal = !this.state.isViewModal;
+
+    this.setViewModal(isShowModal);
   }
 }
 

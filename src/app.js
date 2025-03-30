@@ -1,47 +1,59 @@
-import React, { useCallback } from 'react';
-import List from './components/list';
-import Controls from './components/controls';
-import Head from './components/head';
-import PageLayout from './components/page-layout';
+import React, {useCallback} from "react";
+
+import List from "./components/list";
+import Controls from "./components/controls";
+import Head from "./components/head";
+import PageLayout from "./components/page-layout";
+import Modal from "./components/modal";
+import Cart from "./components/cart";
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({ store }) {
-  const list = store.getState().list;
+function App({store}) {
+  const {list, cart, isViewModal} = store.getState();
+
 
   const callbacks = {
-    onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
+    onDeleteItemFromCart: useCallback(
+      itemCode => {
+        store.deleteItemFromCart(itemCode);
       },
-      [store],
+      [store.state.cart],
     ),
-
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
+    onAddItemToCart: useCallback(
+      itemCode => {
+        store.addItemToCart(itemCode);
       },
-      [store],
+      [store.state.cart],
+    ), onChangeViewModal: useCallback(
+      () => {
+        store.changeViewModal();
+      },
+      [store.state.isViewModal],
     ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
   };
 
   return (
-    <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
-      />
-    </PageLayout>
+    <>
+      <PageLayout>
+        <Head title="магазин"/>
+        <Controls
+          onChangeViewModal={callbacks.onChangeViewModal}
+          productCount={cart.totalProductCount}
+          totalPrice={cart.totalPrice}
+        />
+        <List list={list} isCartList={false} onClickItem={callbacks.onAddItemToCart}/>
+      </PageLayout>
+      {isViewModal ? <Modal onChangeViewModal={callbacks.onChangeViewModal}>
+        <Cart totalProductCount={cart.totalProductCount} totalPrice={cart.totalPrice}>
+          <Head title="корзина" styleClass="cart"/>
+          <List list={cart.list} isCartList={true} onClickItem={callbacks.onDeleteItemFromCart}/>
+        </Cart>
+      </Modal> : null}
+    </>
   );
 }
 

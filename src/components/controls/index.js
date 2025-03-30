@@ -1,21 +1,50 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
+import { cn as bem } from '@bem-react/classname';
+
+import Button from '../button';
+import CartIcon from "../icons/cart-icon";
+
+import {formatPrice, plural} from '../../utils';
+
 import './style.css';
 
-function Controls({ onAdd }) {
+function Controls({onChangeViewModal = () => {}, ...props}) {
+  const totalProductCount = props.productCount;
+  const isProductCount = !!totalProductCount;
+
+  const cn = bem("Controls");
+
+  function getBtnTitle(isCountOfProducts) {
+    if (isCountOfProducts) {
+      return (
+        <span className={cn("full--text")}>
+          {totalProductCount}{' '}
+          {plural(totalProductCount, {one: 'товар', few: 'товара', many: 'товаров'})} /{' '}
+          {formatPrice(props.totalPrice, 'ru', )}
+        </span>
+      );
+    }
+    return <span className={cn("empty--text")}>пусто</span>;
+  }
+
   return (
     <div className="Controls">
-      <button onClick={() => onAdd()}>Добавить</button>
+      <Button
+        onClickButton={onChangeViewModal}
+      >
+        <CartIcon className={cn("icon")} />
+        {getBtnTitle(isProductCount)}
+      </Button>
     </div>
   );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func,
-};
-
-Controls.defaultProps = {
-  onAdd: () => {},
+  productCount: PropTypes.number,
+  totalPrice: PropTypes.number,
+  onChangeViewModal: PropTypes.func,
 };
 
 export default React.memo(Controls);

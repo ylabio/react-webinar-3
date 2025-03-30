@@ -1,0 +1,61 @@
+.Modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background: var(--overlay);
+  overflow-y: auto;
+  z-index: 10;
+
+  @media (max-height: 680px) {
+    justify-content: flex-start;
+    padding: 10px;
+  }
+}
+
+.Modal-content {
+  width: 1080px;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 72px;
+
+  @media (max-height: 780px) {
+    margin-bottom: 0;
+  }
+}
+
+.Modal-actions {
+  position: relative;
+  width: 100%;
+}
+
+.Modal-close {
+  position: absolute;
+  right: -14px;
+  top: -14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 8px;
+
+  &:hover {
+    background: rgba(211, 45, 45, 0.09);
+    transform: rotate(90deg);
+
+    > .Modal-close--icon {
+      fill: var(--delete);
+    }
+  }
+}
+
+.Modal-close--icon {
+  fill: var(--overlay);
+}

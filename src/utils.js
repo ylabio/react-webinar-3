@@ -26,27 +26,25 @@ export const generateCode = (function (start = 0) {
 })();
 
 /**
- * Генератор чисел с шагом 1
- * Вариант с генератором.
- * Сразу создаётся генератор и возвращается функция для получения следующего значения генератора
- * @returns {Number}
+ * Форматирование числового значения, представляющего цену, в соответствии с заданными локалями
+ * @param price {Number} Не отформатированная цена товара.
+ * @param locales {String} Локаль для цены
+ * @param mark {String} обозначение валюты цены
+ * @returns {String}
  */
-export const generateCode1 = (function (start = 0) {
-  function* realGenerator(start) {
-    while (true) {
-      yield ++start;
-    }
-  }
-
-  const gen = realGenerator(start);
-  return () => gen.next().value;
-})();
+export const formatPrice = (price, locales, mark = '₽') => {
+  return new Intl.NumberFormat(locales, {style: "decimal"}).format(price) + ` ${mark}`;
+}
 
 /**
- * Генератор чисел с шагом 1
- * Вариант с использованием функции как объекта для хранения значения value
- * @returns {Number}
+ * Блок прокрутки страницы при открытии модального окна
+ * @param isBlock {Boolean}
  */
-export function generateCode2() {
-  return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
+export const addOverflowToBody = (isBlock) => {
+  const body = document.body;
+  if (isBlock) {
+    body.style.overflow = 'hidden';
+  } else {
+    body.style.overflow = '';
+  }
 }

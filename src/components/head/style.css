@@ -1,16 +1,27 @@
 .Head {
   color: var(--primary);
   border-bottom: 1px solid var(--divider);
-  padding: 16px 20px;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  padding: 16px;
+  margin-bottom: 24px;
+
+  &.cart {
+    color: var(--main-text);
+    border-bottom: none;
+    padding: 0;
+    margin-bottom: 27px;
+  }
 }
 
+
 .Head-container {
+  display: flex;
+  align-items: start;
+  width: 100%;
   max-width: 1152px;
-  margin: 0 auto;
 }
 
 .Head h1 {
   margin: 0;
+  text-transform: capitalize;
+  padding-top: 1px;
 }

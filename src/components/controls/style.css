@@ -1,17 +1,45 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 24px 16px 24px 0;
+  margin-bottom: 24px;
 }
 
 .Controls button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   border: 1px solid var(--primary);
   padding: 8px 16px;
-  background-color: var(--primary);
-  color: var(--second-text);
+  min-width: 118px;
+  background-color: var(--background);
+  color: var(--primary);
 
   &:hover {
-    background-color: var(--background);
-    color: var(--primary);
+    background-color: var(--primary);
+    color: var(--second-text);
+
+    > span {
+      color: var(--second-text);
+    }
+
+    > .Controls-icon {
+      fill: var(--second-text);
+    }
   }
 }
+
+.Controls button span {
+  color: var(--main-text);
+}
+
+.Controls-icon {
+  fill: var(--primary);
+}
+
+.Controls-full--text {
+  text-transform: lowercase;
+}
+.Controls-empty--text {
+  text-transform: capitalize;
+}
+
