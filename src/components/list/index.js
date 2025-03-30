@@ -6,6 +6,7 @@ import './style.css';
 function List({
   list,
   onAddToCart,
+  mode,
   // onDeleteItem,
   // onSelectItem
 }) {
@@ -17,7 +18,8 @@ function List({
             item={item}
             // onDelete={onDeleteItem}
             // onSelect={onSelectItem}
-            onAdd={onAddToCart}
+            onAction={onAddToCart}
+            mode={mode}
           />
         </li>
       ))}

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 // import { plural } from '../../utils';
 import './style.css';
 
-function Item({ item, onAdd }) {
+function Item({ item, onAction, mode }) {
+  const isCart = mode === 'cart';
   // Счётчик выделений
   // const [count, setCount] = useState(0);
   //
@@ -34,13 +35,26 @@ function Item({ item, onAdd }) {
         {/*  : ''}*/}
       </div>
       <div className="Item-actions">
-        <span>{item.price.toLocaleString() + ' ' + '₽'} </span>
-        <button
-          // onClick={callbacks.onDelete}
-          onClick={() => onAdd(item)}
-        >
-          Добавить
-        </button>
+        {isCart ? (
+          <>
+            <div className="CartItem-details">
+              <span className="Item-count">{item.count} шт</span>
+              <span className="Item-count-price">
+                {(item.price * item.count).toLocaleString()} ₽
+              </span>
+            </div>
+            <button className="cart" onClick={() => onAction(item)}>
+              Удалить
+            </button>
+          </>
+        ) : (
+          <>
+            <span className="Item-price">{item.price.toLocaleString()} ₽</span>
+            <button className="catalog" onClick={() => onAction(item)}>
+              Добавить
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
@@ -53,7 +67,8 @@ Item.propTypes = {
     selected: PropTypes.bool,
     count: PropTypes.number,
   }).isRequired,
-  onAdd: PropTypes.func,
+  onAction: PropTypes.func.isRequired,
+  mode: PropTypes.oneOf(['catalog', 'cart']).isRequired,
   // onDelete: PropTypes.func,
   // onSelect: PropTypes.func,
 };

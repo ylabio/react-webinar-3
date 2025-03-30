@@ -61,6 +61,7 @@ function App({ store }) {
       <List
         list={list}
         onAddToCart={callbacks.onAddToCart}
+        mode="catalog"
         // onDeleteItem={callbacks.onDeleteItem}
         // onSelectItem={callbacks.onSelectItem}
       />

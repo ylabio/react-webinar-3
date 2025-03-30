@@ -20,13 +20,22 @@
   justify-content: space-between;
   align-items: center;
 }
-.Item-actions span {
+.Item-count  {
   width: 105px;
-  text-align: right;
+  text-align: start;
+  /*margin-right: 24px;*/
+}
+.Item-count-price {
+  width: 105px;
+  text-align: end;
   margin-right: 24px;
 }
-
-.Item-actions button {
+.Item-price {
+  width: 105px;
+  text-align: end;
+  margin-right: 24px;
+}
+.Item-actions .catalog {
   background-color: var(--primary);
   color: var(--second-text);
   padding: 8px 16px;
@@ -38,3 +47,13 @@
   }
 }
 
+.Item-actions .cart {
+  background-color: var(--delete);
+  color: white;
+}
+.CartItem-details {
+  display: flex;
+  gap: 12px;
+  white-space: nowrap;
+  align-items: center;
+}
