@@ -50,3 +50,34 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
+
+
+export function format(value) {
+  let res;
+  
+  (value.indexOf(',') != -1) ? res = new Intl.NumberFormat('ru-RU').format(value.replace(',', '.')).replace('.', ',') : res = new Intl.NumberFormat('ru-RU').format(value).replace(',', '.');
+  
+  return res;
+}
+
+export function productText(number){
+  if (number % 100 == 11 || number % 100 == 12 || number % 100 == 13 || number % 100 == 14){
+    return 'товаров';
+  } else if (number % 10 == 1){
+    return 'товар';
+  } else if (number % 10 == 2 || number % 10 == 3 || number % 10 == 4){
+    return 'товарa';
+  } else {
+    return 'товаров';
+  }
+}
+
+export function sumProduct(array){
+    let sum = 0;
+    for(const product of array){
+      sum = sum + product.price * product.quantity;
+    }
+    sum = format(sum + '');
+    return sum;
+
+}
