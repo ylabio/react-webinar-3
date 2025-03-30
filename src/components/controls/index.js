@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import { PiShoppingCartSimpleFill } from 'react-icons/pi';
-import Modal from '../modal/modal';
+import ModalCart from '../modal-cart/modal-cart.js';
 import { plural } from '../../utils.js';
+import { formatPrice } from '../../utils.js';
 
-function Controls({ 
-  onDeleteItem = () => {}, 
-  itemsCount = 0, 
-  totalPrice = 0, 
-  cart = [] 
+function Controls({
+  onDeleteItem = () => {},
+  itemsCount = 0,
+  totalPrice = 0,
+  cart = [],
+  isCartOpen,
+  onToggleCart,
 }) {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
     <div className="Controls">
-      <button onClick={() => setIsOpen(true)}>
+      <button onClick={() => onToggleCart(true)}>
         <PiShoppingCartSimpleFill className="Controls__icon" />
         {itemsCount === 0 ? (
           <span>Пусто</span>
@@ -24,12 +25,12 @@ function Controls({
             one: 'товар',
             few: 'товара',
             many: 'товаров',
-          })} / ${totalPrice} ₽`}</div>
+          })} / ${formatPrice(totalPrice)}`}</div>
         )}
       </button>
-      {isOpen && (
-        <Modal
-          onClose={() => setIsOpen(false)}
+      {isCartOpen && (
+        <ModalCart
+          onClose={() => onToggleCart(false)}
           itemsCount={itemsCount}
           totalPrice={totalPrice}
           cart={cart}
@@ -41,9 +42,11 @@ function Controls({
 }
 
 Controls.propTypes = {
+  isCartOpen: PropTypes.bool,
   onDeleteItem: PropTypes.func,
   itemsCount: PropTypes.number,
   totalPrice: PropTypes.number,
+  onToggleCar: PropTypes.func,
   cart: PropTypes.shape({
     items: PropTypes.arrayOf(
       PropTypes.shape({
@@ -51,7 +54,7 @@ Controls.propTypes = {
         title: PropTypes.string,
         count: PropTypes.number,
         price: PropTypes.number,
-      })
+      }),
     ),
     total: PropTypes.number,
   }),

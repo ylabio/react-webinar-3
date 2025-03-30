@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import './style.css';
 import PropTypes from 'prop-types';
 import { FiX } from 'react-icons/fi';
-import CartItem from '../cart-item/cart-item.js';
+import './style.css';
 
-function Modal({ onClose = () => {}, totalPrice = 0, cart = {}, onDeleteItem = () => {} }) {
+function Modal({ children, title, onClose }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       const overlay = document.querySelector('.Modal__overlay');
@@ -20,36 +19,19 @@ function Modal({ onClose = () => {}, totalPrice = 0, cart = {}, onDeleteItem = (
     <div className="Modal__overlay">
       <div className="Modal__container">
         <div className="Modal__header">
-          <h3>Корзина</h3>
+          <h3>{title}</h3>
           <FiX onClick={onClose} className="Modal__close__icon" />
         </div>
-        <div className="Modal__body">
-          {Object.keys(cart).length > 0 &&
-            Object.values(cart).map(item => (
-              <CartItem key={item.id} item={item} onDeleteItem={onDeleteItem} />
-            ))}
-        </div>
-        <div className="Modal__footer">
-          <b>Итого:</b>
-          <b>{totalPrice}₽</b>
-        </div>
+        <div className="Modal__body">{children}</div>
       </div>
     </div>
   );
 }
 
 Modal.propTypes = {
-  cart: PropTypes.objectOf(
-    PropTypes.shape({
-      id: PropTypes.PropTypes.number.isRequired,
-      title: PropTypes.string,
-      price: PropTypes.number,
-      count: PropTypes.number,
-    }),
-  ),
-  totalPrice: PropTypes.number,
   onClose: PropTypes.func.isRequired,
-  onDeleteItem: PropTypes.func,
+  children: PropTypes.node,
+  title: PropTypes.node,
 };
 
 export default Modal;

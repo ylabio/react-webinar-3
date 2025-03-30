@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { formatPrice } from '../../utils.js';
 
-function Item({ 
-  item, 
-  onDeleteItem = () => {} 
-}) {
+function Item({ item, onDeleteItem = () => {} }) {
   const callbacks = {
     onDeleteItem: e => {
       e.stopPropagation();
@@ -21,7 +19,7 @@ function Item({
       <div className="CartItem-actions">
         <b className="CartItem-name">{item.name}</b>
         <span>{item.count} шт</span>
-        <span>{item.price} ₽</span>
+        <span>{formatPrice(item.price)} ₽</span>
         <button onClick={callbacks.onDeleteItem}>Удалить</button>
       </div>
     </div>

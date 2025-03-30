@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
-import List from './components/list';
+import React, { useCallback, useState } from 'react';
 import Controls from './components/controls';
 import Head from './components/head';
+import List from './components/list/index.js';
+import Item from './components/item/index.js';
 import PageLayout from './components/page-layout';
 
 /**
@@ -9,7 +10,10 @@ import PageLayout from './components/page-layout';
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
+
 function App({ store }) {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
   const list = store.getState().list;
 
   const callbacks = {
@@ -38,6 +42,13 @@ function App({ store }) {
     getCart: () => {
       return store.getCart();
     },
+
+    onToggleCart: useCallback(
+      (open) => {
+        setIsCartOpen(open);
+      },
+      [],
+    ),
   };
 
   return (
@@ -48,8 +59,16 @@ function App({ store }) {
         totalPrice={callbacks.getTotalPrice()}
         cart={callbacks.getCart()}
         onDeleteItem={callbacks.onDeleteItem}
+        isCartOpen={isCartOpen}
+        onToggleCart={callbacks.onToggleCart}
       />
-      <List list={list} onAddItem={callbacks.onAddItem} />
+      <List
+        items={list}
+        renderItem={item => {
+          if (!item) return null;
+          return <Item item={item} onAddItem={callbacks.onAddItem} />;
+        }}
+      />
     </PageLayout>
   );
 }

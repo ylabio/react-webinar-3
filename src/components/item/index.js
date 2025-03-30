@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { formatPrice } from '../../utils.js';
 
 function Item({ item, onAddItem = () => {} }) {
   const handleAdd = e => {
@@ -14,7 +15,7 @@ function Item({ item, onAddItem = () => {} }) {
         <b>{item.title}</b>
       </div>
       <div className="Item-actions">
-        <span>{item.price} ₽</span>
+        <span>{formatPrice(item.price)}</span>
         <button onClick={handleAdd}>Добавить</button>
       </div>
     </div>
