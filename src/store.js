@@ -7,6 +7,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state.price = 0;
+    this.state.cartCount = 0;
   }
 
   /**
@@ -44,16 +46,19 @@ class Store {
    * Добавление товара в корзину по коду
    */
   addToCart(code) {
+    const listItem = this.state.list.filter(item => item.code === code);
+    console.log(listItem[0]);
     this.setState({
       ...this.state,
       cart: this.state.cart.find(item => item.code === code)
         ? this.state.cart.map(item =>
             item.code === code ? { ...item, count: item.count + 1 } : item,
           )
-        : [
-            ...this.state.cart,
-            { ...this.state.list.filter(item => item.code === code)[0], count: 1 },
-          ],
+        : [...this.state.cart, { ...listItem[0], count: 1 }],
+      price: this.state.price + listItem[0].price,
+      cartCount: this.state.cart.find(item => item.code === code)
+        ? this.state.cartCount
+        : this.state.cartCount++,
     });
   }
 
