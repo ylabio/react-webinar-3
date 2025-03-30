@@ -59,7 +59,6 @@ class Store {
         ? this.state.cartCount
         : ++this.state.cartCount,
     });
-    console.log(this.state.price, this.state.cartCount);
   }
 
   /**
