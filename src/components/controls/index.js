@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({ totalCount, totalPrice, onOpenCart }) {
-  const label = totalCount
-    ? `${totalCount} ${pluralForm(totalCount)} / ${totalPrice.toLocaleString()} ₽`
+function Controls({ uniqueCount, totalPrice, onOpenCart }) {
+  const label = uniqueCount
+    ? `${uniqueCount} ${pluralForm(uniqueCount)} / ${totalPrice.toLocaleString()} ₽`
     : 'Пусто';
 
   return (
@@ -31,7 +31,8 @@ function pluralForm(n) {
 
 Controls.propTypes = {
   // cart: PropTypes.array.isRequired,
-  totalCount: PropTypes.number.isRequired,
+  // totalCount: PropTypes.number.isRequired,
+  uniqueCount: PropTypes.number.isRequired,
   totalPrice: PropTypes.number.isRequired,
   onOpenCart: PropTypes.func.isRequired,
 };

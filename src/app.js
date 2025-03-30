@@ -13,7 +13,7 @@ import CartModal from './components/cart-modal';
 function App({ store }) {
   // const list = store.getState().list;
   // const cart = store.getCart();
-  const { list, totalCount, totalPrice } = store.getState();
+  const { list, totalPrice } = store.getState();
   const cart = store.getCart();
 
   const [isCartOpen, setCartOpen] = useState(false);
@@ -53,7 +53,7 @@ function App({ store }) {
       <Head title="Магазин" />
       <Controls
         // cart={cart}
-        totalCount={totalCount}
+        uniqueCount={cart.length}
         totalPrice={totalPrice}
         onOpenCart={callbacks.onOpenCart}
         // onAdd={callbacks.onAddItem}
