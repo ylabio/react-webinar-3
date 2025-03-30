@@ -2,20 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({ onAdd }) {
+function Controls({ inCart, onAddToCart, onDeleteFromCart, itemCode }) {
   return (
-    <div className="Controls">
-      <button onClick={() => onAdd()}>Добавить</button>
-    </div>
+    <>
+      {!inCart && (
+        <button className="button-add" onClick={() => onAddToCart(itemCode)}>
+          Добавить
+        </button>
+      )}
+      {inCart && (
+        <button className="button-delete" onClick={() => onDeleteFromCart(itemCode)}>
+          Удалить
+        </button>
+      )}
+    </>
   );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func,
-};
-
-Controls.defaultProps = {
-  onAdd: () => {},
+  inCart: PropTypes.bool.isRequired,
+  onAddToCart: PropTypes.func,
+  onDeleteFromCart: PropTypes.func,
+  itemCode: PropTypes.number.isRequired,
 };
 
 export default React.memo(Controls);

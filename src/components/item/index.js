@@ -1,17 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { numberFormat } from '../../utils';
+import Controls from '../controls';
 import './style.css';
 
-function Item({ item, onAddToCart }) {
+function Item({ item, onAddToCart, onDeleteFromCart, inCart }) {
   return (
     <div className="Item">
       <div className="Item-title">
         <b>{item.title}</b>
-        <span>{`${numberFormat(item.price)}`} ₽</span>
       </div>
-      <div className="Item-actions">
-        <button onClick={() => onAddToCart(item.code)}>Добавить</button>
+      <div className="Item-container">
+        {inCart && <span className="item-span-left">{item.quantity} шт</span>}
+        <span>{`${numberFormat(item.price)}`} ₽</span>
+        <Controls
+          inCart={inCart}
+          onAddToCart={onAddToCart}
+          onDeleteFromCart={onDeleteFromCart}
+          itemCode={item.code}
+        />
       </div>
     </div>
   );
@@ -23,7 +30,9 @@ Item.propTypes = {
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   }).isRequired,
-  onAddToCart: PropTypes.func.isRequired,
+  onAddToCart: PropTypes.func,
+  onDeleteFromCart: PropTypes.func,
+  inCart: PropTypes.bool.isRequired,
 };
 
 export default React.memo(Item);

@@ -2,8 +2,9 @@ import React, { useState, useCallback } from 'react';
 import List from './components/list';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
-import CartModal from './components/modal';
+import Modal from './components/modal';
 import Cart from './components/cart';
+import CartButton from './components/cart-button';
 
 /**
  * Приложение
@@ -11,9 +12,9 @@ import Cart from './components/cart';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const [CartOpen, setCartOpen] = useState(false);
+  const [ModalOpen, setModalOpen] = useState(false);
 
-  const { list, cart } = store.getState();
+  const { list, cart, totalItems, totalPrice } = store.getState();
 
   const callbacks = {
     onAddToCart: useCallback(
@@ -29,26 +30,34 @@ function App({ store }) {
       [store],
     ),
 
-    toggleCart: useCallback(() => {
-      setCartOpen(prev => !prev);
-    }, [CartOpen]),
+    toggleModal: useCallback(() => {
+      setModalOpen(prev => !prev);
+    }, [ModalOpen]),
   };
-
-  const totalItems = store.getTotalItems();
-  const totalPrice = store.getTotalPrice();
 
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Cart onCartClick={callbacks.toggleCart} totalPrice={totalPrice} totalItems={totalItems} />
-      <List list={list} onAddToCart={callbacks.onAddToCart} />
-      {CartOpen && (
-        <CartModal
-          cart={cart}
-          onDeleteFromCart={callbacks.onDeleteFromCart}
-          onClose={callbacks.toggleCart}
-          totalPrice={totalPrice}
-        />
+      <CartButton
+        onCartClick={callbacks.toggleModal}
+        totalPrice={totalPrice}
+        totalItems={totalItems}
+      />
+      <List
+        list={list}
+        onAddToCart={callbacks.onAddToCart}
+        onDeleteFromCart={callbacks.onDeleteFromCart}
+        inCart={false}
+      />
+      {ModalOpen && (
+        <Modal>
+          <Cart
+            cart={cart}
+            onDeleteFromCart={callbacks.onDeleteFromCart}
+            onClose={callbacks.toggleModal}
+            totalPrice={totalPrice}
+          />
+        </Modal>
       )}
     </PageLayout>
   );

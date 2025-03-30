@@ -17,14 +17,13 @@
 
 * {
   box-sizing: border-box;
-  color: var(--main-text);
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: var(--font-family);
-  min-height: 120vh;
+  min-height: 100vh;
 }
 
 button {

@@ -5,7 +5,7 @@ import { generateCode } from './utils';
  */
 class Store {
   constructor(initState = {}) {
-    this.state = { ...initState, cart: {} }; //Добавляем корзину
+    this.state = { ...initState, cart: [], totalItems: 0, totalPrice: 0 }; //Добавляем корзину
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -45,18 +45,24 @@ class Store {
    */
   addToCart(code) {
     const { cart, list } = this.state;
-    if (!cart[code]) {
-      const product = list.find(item => item.code === code);
-      if (product) {
-        cart[code] = { ...product, quantity: 1 };
+    const product = list.find(item => item.code === code);
+
+    if (product) {
+      const productInCart = cart.find(item => item.code === code);
+      if (productInCart) {
+        productInCart.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
       }
-    } else {
-      cart[code].quantity += 1;
+      const totalItems = cart.length;
+      const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      this.setState({
+        ...this.state,
+        cart: [...cart],
+        totalItems,
+        totalPrice,
+      });
     }
-    this.setState({
-      ...this.state,
-      cart: { ...cart },
-    });
   }
 
   /**
@@ -65,19 +71,11 @@ class Store {
    */
   deleteFromCart(code) {
     const { cart } = this.state;
-    delete cart[code];
-    this.setState({ ...this.state, cart: { ...cart } });
-  }
+    const updatedCart = cart.filter(item => item.code !== code);
+    const totalItems = updatedCart.length;
+    const totalPrice = updatedCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  getTotalItems() {
-    return Object.values(this.state.cart).reduce((sum, item) => sum + item.quantity, 0);
-  }
-
-  getTotalPrice() {
-    return Object.values(this.state.cart).reduce(
-      (sum, item) => sum + item.price * item.quantity,
-      0,
-    );
+    this.setState({ ...this.state, cart: updatedCart, totalItems, totalPrice });
   }
 }
 

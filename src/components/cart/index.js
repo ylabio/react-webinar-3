@@ -1,29 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CartIcon from '../cart-icon/index';
-import { plural, productsPlural } from '../../utils';
 import { numberFormat } from '../../utils';
+import Modal from '../modal';
+import List from '../list';
+import CloseIcon from '../close-icon';
 import './style.css';
 
-function Cart({ totalPrice, totalItems, onCartClick }) {
+function Cart({ cart, onDeleteFromCart, onClose, totalPrice }) {
   return (
-    <div className="Cart">
-      <div className="Cart-container">
-        <button onClick={onCartClick}>
-          <CartIcon />
-          {totalItems
-            ? `${totalItems} ${plural(totalItems, productsPlural)} / ${numberFormat(totalPrice)} ₽`
-            : 'Пусто'}
-        </button>
+    <Modal>
+      <div className="Cart">
+        <div className="Cart-header">
+          <h2>Корзина</h2>
+          <button onClick={onClose} className="Close-button">
+            <CloseIcon />
+          </button>
+        </div>
+        <List list={cart} onDeleteFromCart={onDeleteFromCart} inCart={true} />
+        <div className="Cart-footer">
+          <span className="span-left">Итого:</span>
+          <span>{numberFormat(totalPrice)} ₽</span>
+        </div>
       </div>
-    </div>
+    </Modal>
   );
 }
 
 Cart.propTypes = {
-  totalItems: PropTypes.number.isRequired,
+  cart: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
+  onDeleteFromCart: PropTypes.func.isRequired,
   totalPrice: PropTypes.number.isRequired,
-  onCartClick: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default React.memo(Cart);

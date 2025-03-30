@@ -2,7 +2,6 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 24px;
   padding: 16px;
 }
 
@@ -12,18 +11,17 @@
   width: 100%;
 }
 
-.Item-actions {
+.Item-container {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  gap: 24px;
 }
 
-.Item-actions button {
-  background-color: var(--primary);
-  color: var(--second-text);
+.Item span {
+  width: 105px;
+  text-align: right;
+}
 
-  &:hover {
-    background-color: var(--background);
-    border-color: var(--primary);
-    color: var(--primary);
-  }
+span.item-span-left {
+  text-align: left;
 }
