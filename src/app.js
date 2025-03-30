@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
-import List from './components/list';
+import React, { useCallback, useState } from 'react';
 import Controls from './components/controls';
 import Head from './components/head';
+import List from './components/list/index.js';
+import Item from './components/item/index.js';
 import PageLayout from './components/page-layout';
 
 /**
@@ -9,37 +10,64 @@ import PageLayout from './components/page-layout';
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
+
 function App({ store }) {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
   const list = store.getState().list;
 
   const callbacks = {
     onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
+      id => {
+        store.deleteItem(id);
       },
       [store],
     ),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
+    onAddItem: useCallback(
+      (id, name, price) => {
+        store.addItem(id, name, price);
       },
       [store],
     ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    getItemsCount: () => {
+      return store.getItemsCount();
+    },
+
+    getTotalPrice: () => {
+      return store.getTotalPrice();
+    },
+
+    getCart: () => {
+      return store.getCart();
+    },
+
+    onToggleCart: useCallback(
+      (open) => {
+        setIsCartOpen(open);
+      },
+      [],
+    ),
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
+      <Head title="Магазин" />
+      <Controls
+        itemsCount={callbacks.getItemsCount()}
+        totalPrice={callbacks.getTotalPrice()}
+        cart={callbacks.getCart()}
         onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        isCartOpen={isCartOpen}
+        onToggleCart={callbacks.onToggleCart}
+      />
+      <List
+        items={list}
+        renderItem={item => {
+          if (!item) return null;
+          return <Item item={item} onAddItem={callbacks.onAddItem} />;
+        }}
       />
     </PageLayout>
   );
