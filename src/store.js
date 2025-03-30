@@ -117,13 +117,14 @@ class Store {
       cartList: this.state.cartList.filter(item => item.code !== code)
     });
     
-    const total = cartList.reduce((acc, item) => acc + (item.amount * item.price), 0);
+    const total = this.state.cartList.reduce((acc, item) => acc + (item.amount * item.price), 0);
 
     this.setState({
       ...this.state,
       total: total
     });
   }
+  
 }
 
 export default Store;
