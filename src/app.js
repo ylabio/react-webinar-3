@@ -1,8 +1,12 @@
-import React, { useCallback } from 'react';
+import React, {useCallback, useState} from 'react';
 import List from './components/list';
-import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Cart from './components/cart';
+import Item from "./components/item";
+import Modal from "./components/modal";
+import { numberFormat } from "./utils";
+import CartItem from "./components/cart-item";
 
 /**
  * Приложение
@@ -11,36 +15,56 @@ import PageLayout from './components/page-layout';
  */
 function App({ store }) {
   const list = store.getState().list;
+  const cartList = list.filter(item => item.cartQuantity);
+  const uniqueItems = store.getState().uniqueItems
+  const totalCost = store.getState().totalCost
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const callbacks = {
-    onDeleteItem: useCallback(
+    onDeleteItemCart: useCallback(
       code => {
-        store.deleteItem(code);
+        store.deleteItemCart(code);
       },
       [store],
     ),
 
-    onSelectItem: useCallback(
+    onAddItem: useCallback(
       code => {
-        store.selectItem(code);
+        store.addItemCart(code);
       },
       [store],
     ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onOpenModal: useCallback(() => {
+      setIsOpenModal(true);
+    }, [isOpenModal]),
+
+    onCloseModal: useCallback(() => {
+      setIsOpenModal(false);
+    }, [isOpenModal]),
   };
+
+  const renderItem = item => <Item item={item} onAddItem={callbacks.onAddItem}/>
+  const renderCartItem = cartItem => <CartItem cartItem={cartItem} onDeleteItem={callbacks.onDeleteItemCart} />
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+      <Head title="Магазин" />
+      <Cart
+        onOpenModal={callbacks.onOpenModal}
+        totalCost={totalCost}
+        uniqueItems={uniqueItems}
       />
+      <List list={list} renderItem={renderItem} />
+      <Modal isOpen={isOpenModal} onClose={callbacks.onCloseModal}>
+        <>
+          <List list={cartList} renderItem={renderCartItem}/>
+          <div className="Cart-totalCost">
+            <h4>Итого:</h4>
+            <h4> {numberFormat(totalCost)} ₽</h4>
+          </div>
+        </>
+      </Modal>
     </PageLayout>
   );
 }

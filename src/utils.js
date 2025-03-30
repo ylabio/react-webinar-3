@@ -50,3 +50,36 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
+
+/**
+ * @deprecated теперь эти данные хранятся и обрабатываются в Store
+ * Вычисляет статистику корзины: общую стоимость и количество уникальных товаров.
+ * @param cart {Array<Object>} - Список товаров в корзине.
+ * @example getCartStats([{ code: 1, title: 'Название товара', price: 100, cartQuantity: 2 },])
+ * @returns {{ totalCost: number, uniqueItems: number }} - Объект с общей стоимостью и количеством уникальных товаров.
+ */
+export const getCartStats = (cart) => {
+  return cart.reduce(
+    (acc, item) => {
+      if (item.cartQuantity) {
+        acc.totalCost += item.price * item.cartQuantity;
+        acc.uniqueItems++;
+      }
+      return acc;
+    },
+    { totalCost: 0, uniqueItems: 0 },
+  );
+};
+
+/**
+ * Форматирование числа в соответствии с языковыми правилами
+ * @param {Number} value - Число для форматирования
+ * @param {String} locale - Локаль для форматирования
+ * @param {Object} options - Дополнительные параметры форматирования
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options Подробнее о параметрах форматирования}
+ * @returns {String} Отформатированная строка числа
+ */
+export const numberFormat = (value, locale = 'ru-RU', options = {}) => {
+  return new Intl.NumberFormat(locale, options).format(value);
+};
+

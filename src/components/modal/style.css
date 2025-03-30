@@ -1,0 +1,36 @@
+.Modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--overlay);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.Modal {
+  border-radius: 8px;
+  padding: 24px;
+  margin: auto;
+  width: 1080px;
+  background: var(--background);
+}
+
+.Modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 24px;
+}
+
+.Modal-title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 125%;
+  color: var(--main-text);
+}

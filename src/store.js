@@ -41,6 +41,53 @@ class Store {
   }
 
   /**
+   * Добавление товара в корзину
+   * @param code
+   */
+  addItemCart(code) {
+    const product = this.state.list.find((item) => item.code === code);
+    const isUniqueItem = product && !product.cartQuantity;
+
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          return {
+            ...item,
+            cartQuantity: item.cartQuantity + 1 || 1,
+          };
+        }
+        return item;
+      }),
+      totalCost: product && this.state.totalCost + product.price,
+      uniqueItems: isUniqueItem ? this.state.uniqueItems + 1 : this.state.uniqueItems,
+    });
+  }
+
+  /**
+   * Удаление продукта из корзины
+   * @param code
+   */
+  deleteItemCart(code) {
+    const product = this.state.list.find((item) => item.code === code);
+
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          return {
+            ...item,
+            cartQuantity: 0,
+          };
+        }
+        return item;
+      }),
+      totalCost: product && this.state.totalCost - product.price * product.cartQuantity,
+      uniqueItems: this.state.uniqueItems - 1,
+    });
+  }
+
+  /**
    * Добавление новой записи
    */
   addItem() {
