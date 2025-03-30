@@ -1,0 +1,38 @@
+.Item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  transition: background-color 1s;
+  padding: 16px;
+}
+
+.Item-title {
+  flex: auto;
+}
+
+.Item-price {
+  width: 105px;
+  text-align: right;
+}
+
+.Item-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Item-actions button {
+  color: var(--second-text);
+  padding: 8px 16px;
+}
+
+.Item-actions.Item-actions_add button {
+  border: 1px solid var(--primary);
+  background-color: var(--primary);
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}

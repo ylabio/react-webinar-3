@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import List from '../list';
 import './style.css';
+import CartItem from '../cartItem';
 
 function Modal({ cart, price = 0, onDeleteFromCart, isOpen = false, onClose }) {
   const callbacks = {
@@ -20,7 +21,7 @@ function Modal({ cart, price = 0, onDeleteFromCart, isOpen = false, onClose }) {
               <button className="Modal-close-btn" onClick={callbacks.onClose} />
             </header>
             <div className="Modal-body">
-              <List list={cart} callback={onDeleteFromCart} isModal={true} />
+              <List list={cart} callback={onDeleteFromCart} component={CartItem} />
               <div className="Price">
                 <div>
                   <b>Итого:</b>

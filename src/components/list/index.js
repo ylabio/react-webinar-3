@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Item from '../item';
 import './style.css';
 
-function List({ list, callback, isModal = false }) {
+function List({ list, callback, component: ItemComponent }) {
   return (
     <ul className="List">
       {list.map(item => (
         <li key={item.code} className="List-item">
-          <Item item={item} callback={callback} isModal={isModal} />
+          <ItemComponent item={item} callback={callback} />
         </li>
       ))}
     </ul>
@@ -22,7 +21,7 @@ List.propTypes = {
     }),
   ).isRequired,
   callback: PropTypes.func,
-  isModal: PropTypes.bool,
+  component: PropTypes.node,
 };
 
 export default React.memo(List);

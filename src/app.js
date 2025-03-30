@@ -4,6 +4,7 @@ import Controls from './components/controls';
 import Head from './components/head';
 import Modal from './components/modal';
 import PageLayout from './components/page-layout';
+import StoreItem from './components/storeItem';
 
 /**
  * Приложение
@@ -39,7 +40,7 @@ function App({ store }) {
     <PageLayout>
       <Head title="Магазин" />
       <Controls count={cartCount} price={price} onOpen={callbacks.onOpenModal} />
-      <List list={list} callback={callbacks.onAddToCart} isModal={false} />
+      <List list={list} callback={callbacks.onAddToCart} component={StoreItem} />
       <Modal
         cart={cart}
         price={price}
