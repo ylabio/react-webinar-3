@@ -1,0 +1,39 @@
+.Cart {
+  width: 100%;
+}
+
+.Cart-content {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 8px;
+
+  padding: 24px;
+}
+
+.Cart-content h1 {
+  margin: 0 0 24px 0;
+}
+
+.Cart-total {
+  display: flex;
+  justify-content: end;
+  padding: 16px 16px;
+}
+
+.Cart-total b {
+  width: 105px;
+}
+
+.Cart-total b:first-child {
+  margin-right: 24px;
+}
+
+.Cart-total b:last-child {
+  margin-right: 129px;
+  text-align: right;
+}
+
+.List {
+  border-radius: unset;
+}

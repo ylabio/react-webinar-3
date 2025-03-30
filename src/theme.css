@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Montserrat+Alternates:wght@400;500;600;700&display=swap');
 
 :root {
-  --background: #FFFFFF;
-  --primary: #6B4ACB;
-  --primary-select: #6B4ACB1A;
-  --main-text: #1A2028;
-  --second-text: #FFFFFF;
-  --overlay: #1A202866;
-  --divider: #EFEFEF;
-  --delete: #D43B3B;
-  --odd-item: #6B4ACB08;
+  --background: #ffffff;
+  --primary: #6b4acb;
+  --primary-select: #6b4acb1a;
+  --main-text: #1a2028;
+  --second-text: #ffffff;
+  --overlay: #1a202866;
+  --divider: #efefef;
+  --delete: #d43b3b;
+  --odd-item: #6b4acb08;
 
   --font-family: 'Golos Text';
   --second-font-family: 'Montserrat Alternates';
@@ -39,6 +39,12 @@ button {
   background-color: transparent;
 }
 
-h1, h4 {
+h1,
+h2,
+h4 {
+  margin: 0;
+}
+
+p {
   margin: 0;
 }

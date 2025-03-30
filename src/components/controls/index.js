@@ -1,21 +1,39 @@
-import React from 'react';
+import React, { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { plural } from '../../utils';
+import CartIcon from './cart-icon';
 
-function Controls({ onAdd }) {
+function Controls({ totalPrice = 0, onOpenModal = () => {}, countCart = 0 }) {
   return (
     <div className="Controls">
-      <button onClick={() => onAdd()}>Добавить</button>
+      <div
+        className="Controls-container"
+        onClick={() => {
+          if (countCart > 0) {
+            onOpenModal(true);
+          }
+        }}
+      >
+        <CartIcon />
+
+        {countCart === 0 && <b>Пусто</b>}
+        {countCart > 0 && (
+          <b>{`${countCart} ${plural(countCart, {
+            one: 'товар',
+            few: 'товара',
+            many: 'товаров',
+          })} / ${totalPrice.toLocaleString('ru-RU')} ₽`}</b>
+        )}
+      </div>
     </div>
   );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func,
+  onOpenModal: PropTypes.func.isRequired,
+  totalPrice: PropTypes.number.isRequired,
+  countCart: PropTypes.number.isRequired,
 };
 
-Controls.defaultProps = {
-  onAdd: () => {},
-};
-
-export default React.memo(Controls);
+export default memo(Controls);

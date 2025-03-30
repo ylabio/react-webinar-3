@@ -1,8 +1,12 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Modal from './components/modal';
+import Cart from './components/cart';
+import Item from './components/item';
+import CartItem from './components/cart-item';
 
 /**
  * Приложение
@@ -10,7 +14,9 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const { list, cart, totalPrice, countCart } = store.getState();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -20,27 +26,43 @@ function App({ store }) {
       [store],
     ),
 
-    onSelectItem: useCallback(
+    onAddItem: useCallback(
       code => {
-        store.selectItem(code);
+        store.addItem(code);
       },
       [store],
     ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onRenderProducts: useCallback(item => <Item item={item} onAddItem={callbacks.onAddItem} />, []),
+
+    onRenderCartItems: useCallback(
+      cartItem => (
+        <CartItem
+          item={list.find(item => item.code === cartItem.code)}
+          count={cartItem.count}
+          onDeleteItem={callbacks.onDeleteItem}
+        />
+      ),
+      [],
+    ),
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
-      />
+      <Head title="Магазин" />
+
+      <Controls totalPrice={totalPrice} onOpenModal={setIsModalOpen} countCart={countCart} />
+
+      <Modal active={isModalOpen} onClose={setIsModalOpen}>
+        <Cart
+          onClose={setIsModalOpen}
+          cart={cart}
+          sumPrice={totalPrice}
+          onRenderCartItems={callbacks.onRenderCartItems}
+        />
+      </Modal>
+
+      <List list={list} renderItem={callbacks.onRenderProducts} />
     </PageLayout>
   );
 }
