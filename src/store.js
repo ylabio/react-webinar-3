@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,47 +39,57 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
+   * @param code
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
+  addItem(code) {
+    const findItemCart = this.state.cart.find(item => item.code === code);
+    const findItemList = this.state.list.find(item => item.code === code);
+    if (findItemCart) {
+      findItemCart.quantity++;
+      this.setState({
+        ...this.state,
+        totalItem: [
+          this.state.cart.reduce((sum, obj) => {
+            return obj.quantity + sum;
+          }, 0),
+        ],
+        totalPrice: [
+          this.state.cart.reduce((sum, obj) => {
+            return obj.price * obj.quantity + sum;
+          }, 0),
+        ],
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, { ...findItemList, quantity: 1 }],
+      });
+    }
+    this.state.totalPrice = this.state.cart.reduce((sum, obj) => {
+      return obj.price * obj.quantity + sum;
+    }, 0);
+    this.state.totalItem = this.state.cart.reduce((sum, obj) => {
+      return obj.quantity + sum;
+    }, 0);
+    console.log(this.state.totalItem);
   }
 
   /**
-   * Удаление записи по коду
+   * Удаление товара из корзины
    * @param code
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      cart: this.state.cart.filter(item => item.code !== code),
     });
-  }
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
-    });
+    this.state.totalItem = this.state.cart.reduce((sum, obj) => {
+      return obj.quantity + sum;
+    }, 0);
+    this.state.totalPrice = this.state.cart.reduce((sum, obj) => {
+      return obj.price * obj.quantity + sum;
+    }, 0);
   }
 }
 

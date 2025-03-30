@@ -1,0 +1,11 @@
+.Modal {
+  background-color: var(--modal-background);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
