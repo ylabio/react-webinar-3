@@ -8,3 +8,8 @@
 .PageLayout-center {
   padding-block: 0;
 }
+
+.PageLayout_nonScroll {
+  height: 100vh;
+  overflow: hidden;
+}

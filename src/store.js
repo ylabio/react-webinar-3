@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -8,6 +6,16 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
   }
+
+  /**
+   * Клонирование объектов в массиве
+   * @param list {Array}
+   * @returns {Array}
+   */
+  cloneList(list) {
+    return list.map(item => ({ ...item }));
+  }
+
 
   /**
    * Подписка слушателя на изменения состояния
@@ -23,11 +31,11 @@ class Store {
   }
 
   /**
-   * Выбор состояния
-   * @returns {Object}
+   * Выбор состояния, только список
+   * @returns {Array}
    */
-  getState() {
-    return this.state;
+  getStateList() {
+    return this.cloneList(this.state.list);
   }
 
   /**
@@ -41,24 +49,32 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Выбор состояния корзины
+   * @returns {Object}
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
+  getCartState() {
+    const cartList = this.cloneList(this.state.list.filter(item => item.count));
+    const sizeCart = cartList.length;
+    const total = cartList.reduce((acc, item) => acc + (item.total || 0), 0);
+    return { total, sizeCart, cartList };
   }
 
   /**
-   * Удаление записи по коду
+   * Удаление записи из корзины по коду
    * @param code
    */
-  deleteItem(code) {
+  clearCartItem(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      list: this.cloneList(this.state.list).map(item =>
+        item.code === code
+          ? {
+            ...item,
+            count: 0,
+            total: 0,
+          }
+          : item
+      ),
     });
   }
 
@@ -66,21 +82,18 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
-  selectItem(code) {
+  addCartItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
+      list: this.cloneList(this.state.list).map(item =>
+        item.code === code
+          ? {
             ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+            count: item.count ? item.count + 1 : 1,
+            total: item.total ? item.total + item.price : item.price,
+          }
+          : item
+      ),
     });
   }
 }

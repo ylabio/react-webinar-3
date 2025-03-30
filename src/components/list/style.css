@@ -11,6 +11,6 @@
 }
 
 .List-item {
+  padding: 16px 16px 15px;
   border-bottom: 1px solid var(--divider);
-  cursor: pointer;
 }
