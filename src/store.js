@@ -1,10 +1,10 @@
-/**
- * Хранилище состояния приложения
- */
 class Store {
   constructor(initState = {}) {
     this.state = {
       list: [],
+      cartItems: [],
+      itemCount: 0,
+      totalPrice: 0,
       ...initState,
     };
     this.listeners = []; // Слушатели изменений состояния
@@ -45,35 +45,34 @@ class Store {
    * @param action {'add' | 'remove'} - Действие: добавить или удалить
    */
   changeItem(code, action) {
+    const updatedList = this.state.list.map(item => {
+      if (item.code === code) {
+        if (action === 'add') {
+          return {
+            ...item,
+            quantity: (item.quantity || 0) + 1,
+          };
+        } else if (action === 'remove') {
+          return {
+            ...item,
+            quantity: 0,
+          };
+        }
+      }
+      return item;
+    });
+
+    const cartItems = updatedList.filter(item => item.quantity > 0);
+    const itemCount = cartItems.length;
+    const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          if (action === 'add') {
-            return {
-              ...item,
-              quantity: (item.quantity || 0) + 1,
-            };
-          } else if (action === 'remove') {
-            return {
-              ...item,
-              quantity: 0,
-            };
-          }
-        }
-        return item;
-      }),
+      list: updatedList,
+      cartItems,
+      itemCount,
+      totalPrice,
     });
-  }
-
-  getUniqueItemCount() {
-    return this.state.list.filter(item => item.quantity > 0).length;
-  }
-
-  getTotalPrice() {
-    return this.state.list
-      .filter(item => item.quantity > 0)
-      .reduce((sum, item) => sum + item.price * item.quantity, 0);
   }
 }
 

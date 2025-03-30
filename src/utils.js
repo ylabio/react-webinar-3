@@ -51,16 +51,6 @@ export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
 
-export function useCart(store) {
-  const list = store.getState().list;
-
-  const cartItems = list.filter(item => item.quantity > 0);
-  const itemCount = store.getUniqueItemCount();
-  const totalPrice = store.getTotalPrice();
-
-  return { cartItems, itemCount, totalPrice };
-}
-
 export function formatPrice(price) {
   return price.toLocaleString('ru-RU', { useGrouping: true });
 }

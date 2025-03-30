@@ -8,7 +8,7 @@ function Controls({ onOpenModal = () => {}, itemCount = 0, totalPrice = 0 }) {
   const displayText =
     itemCount > 0 ? (
       <span>
-        {itemCount}
+        {itemCount}{' '}
         {plural(itemCount, {
           one: 'товар',
           few: 'товара',

@@ -1,0 +1,36 @@
+.CartItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  transition: background-color 1s;
+  padding: 16px;
+}
+
+.CartItem_selected {
+  background-color: var(--primary-select);
+}
+
+.CartItem-title {
+  flex: auto;
+}
+
+.CartItem-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.CartItem-price {
+  display: flex;
+  justify-content: flex-end;
+  color: var(--main-text);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  width: 105px;
+}
+
+.CartItem-quantity {
+  width: 105px;
+  margin-right: 5px;
+}

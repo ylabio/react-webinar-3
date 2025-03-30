@@ -1,25 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './style.css';
 import ActionButton from '../actionButton/actionButton';
 import { formatPrice } from '../../utils';
+import './style.css';
 
-function Item(props) {
-  const formattedPrice = formatPrice(props.item.price);
+function Item({ item, onChangeItem }) {
+  const formattedPrice = formatPrice(item.price);
 
   return (
     <div className="Item">
       <div className="Item-title">
-        <b>{props.item.title}</b>
+        <b>{item.title}</b>
       </div>
-      {props.isInCart && <div className="Item-quantity">{props.item.quantity} шт</div>}
       <div className="Item-price">{formattedPrice} ₽</div>
       <div className="Item-actions">
-        <ActionButton
-          onClick={() => props.onChangeItem(props.item.code)}
-          text={props.isInCart ? 'Удалить' : 'Добавить'}
-          color={props.isInCart ? 'del' : 'add'}
-        />
+        <ActionButton onClick={() => onChangeItem(item.code)} text="Добавить" color="add" />
       </div>
     </div>
   );
@@ -27,13 +22,11 @@ function Item(props) {
 
 Item.propTypes = {
   item: PropTypes.shape({
-    code: PropTypes.number,
-    title: PropTypes.string,
-    price: PropTypes.number,
-    quantity: PropTypes.number,
+    code: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
   }).isRequired,
-  onChangeItem: PropTypes.func.isRequired,
-  isInCart: PropTypes.bool.isRequired,
+  onChangeItem: PropTypes.func,
 };
 
 export default React.memo(Item);

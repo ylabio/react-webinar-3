@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Item from '../item';
 import './style.css';
 
-function List({ list = [], onChangeItem = () => {}, isInCart = false }) {
+function List({ list = [], renderItem = <></> }) {
   return (
     <ul className="List">
       {list.map(item => (
         <li key={item.code} className="List-item">
-          <Item item={item} onChangeItem={onChangeItem} isInCart={isInCart} />
+          {renderItem(item)}
         </li>
       ))}
     </ul>
@@ -18,11 +17,10 @@ function List({ list = [], onChangeItem = () => {}, isInCart = false }) {
 List.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({
-      code: PropTypes.number,
+      code: PropTypes.number.isRequired,
     }),
   ).isRequired,
-  onChangeItem: PropTypes.func.isRequired,
-  isInCart: PropTypes.bool.isRequired,
+  renderItem: PropTypes.func.isRequired,
 };
 
 export default React.memo(List);

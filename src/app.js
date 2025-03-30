@@ -4,12 +4,12 @@ import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Modal from './components/modal';
-import { useCart } from './utils';
+import Item from './components/item';
+import CartItem from './components/cartItem/cartItem';
 
 function App({ store }) {
-  const list = store.getState().list;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { cartItems, itemCount, totalPrice } = useCart(store);
+  const { list, cartItems, itemCount, totalPrice } = store.getState();
 
   const callbacks = {
     onChangeItem: useCallback(
@@ -34,14 +34,16 @@ function App({ store }) {
       <Controls onOpenModal={callbacks.openModal} itemCount={itemCount} totalPrice={totalPrice} />
       <List
         list={list}
-        onChangeItem={code => callbacks.onChangeItem(code, 'add')}
-        isInCart={false}
+        renderItem={item => (
+          <Item item={item} onChangeItem={code => callbacks.onChangeItem(code, 'add')} />
+        )}
       />
       <Modal isOpen={isModalOpen} onClose={callbacks.closeModal} totalPrice={totalPrice}>
         <List
           list={cartItems}
-          onChangeItem={code => callbacks.onChangeItem(code, 'remove')}
-          isInCart={true}
+          renderItem={item => (
+            <CartItem item={item} onChangeItem={code => callbacks.onChangeItem(code, 'remove')} />
+          )}
         />
       </Modal>
     </PageLayout>
