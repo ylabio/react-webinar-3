@@ -3,18 +3,14 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function PageLayout({ children }) {
+const PageLayout = ({ children }) => {
   const cn = bem('PageLayout');
 
-  return (
-    <div className={cn()}>
-      <div className={cn('center')}>{children}</div>
-    </div>
-  );
-}
-
-PageLayout.propTypes = {
-  children: PropTypes.node,
+  return <section className={cn()}>{children}</section>;
 };
 
-export default React.memo(PageLayout);
+PageLayout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default PageLayout;

@@ -1,19 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import Title from '../title';
 
-function Head({ title }) {
+function Head() {
+  const cn = bem('Head');
+
   return (
-    <div className="Head">
-      <div className="Head-container">
-        <h1>{title}</h1>
-      </div>
-    </div>
+    <header className={cn()}>
+      <Title title="Магазин" />
+    </header>
   );
 }
-
-Head.propTypes = {
-  title: PropTypes.node,
-};
 
 export default React.memo(Head);

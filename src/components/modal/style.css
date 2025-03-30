@@ -1,0 +1,34 @@
+.Modal {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  width: 1080px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--background);
+  z-index: 10;
+}
+
+.Modal-content {
+  padding: 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.Modal-icon {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}

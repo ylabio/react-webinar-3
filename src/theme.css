@@ -39,6 +39,9 @@ button {
   background-color: transparent;
 }
 
-h1, h4 {
+h1,
+h2,
+h4 {
   margin: 0;
+  padding: 0;
 }

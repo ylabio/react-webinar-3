@@ -1,0 +1,13 @@
+.CartWidget {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.CartWidget-box {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}

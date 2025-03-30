@@ -1,34 +1,52 @@
 .Item {
+  width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   gap: 16px;
   transition: background-color 1s;
   padding: 16px;
 }
 
-.Item_selected {
-  background-color: var(--primary-select);
-}
-
-.Item-title {
-  flex: auto;
-}
-
-.Item-actions {
+.Item-textBlock {
+  padding: 0;
+  width: 30%;
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Item-textBlock_spacing {
   justify-content: flex-end;
 }
 
-.Item-actions button {
-  background-color: var(--delete);
-  color: var(--second-text);
-  padding: 8px 16px;
-
-  &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
-  }
+.Item-title {
+  width: 80%;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
 }
 
+.Item-price {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.Item-text {
+  padding: 0;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.Item-actions {
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+}
