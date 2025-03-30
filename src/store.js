@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,47 +39,57 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
-  }
-
-  /**
-   * Удаление записи по коду
+   * Удаление записи из корзины по коду
    * @param code
    */
   deleteItem(code) {
+    const newProductList = this.state.cart.products.filter(item => item.code !== code);
+    const fullPrice = this.getFullPrice(newProductList);
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      cart: {
+        products: newProductList,
+        fullPrice,
+      }
     });
   }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+  addToCart(code) {
+    let newProductList;
+    const isInCart = this.state.cart.products.find(product => product.code === code);
+    // проверка: если предмет уже есть в корзине, увеличивается его count
+    // если нет - в корзину добавляется новый предмет
+    if (isInCart) {
+      newProductList = this.state.cart.products.map(product => {
+        return {
+          ...product,
+          count: product.code === code ? product.count + 1 : product.count,
+        };
+      });
+    } else {
+      const newItem = this.state.list.find(product => product.code === code);
+      newProductList = [...this.state.cart.products, { 
+        code: newItem.code,
+        price: newItem.price,
+        title: newItem.title,
+        count: 1 
+      }];
+    }
+    const fullPrice = this.getFullPrice(newProductList);
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      cart: {
+        products: newProductList,
+        fullPrice,
+      }
     });
+  }
+
+  getFullPrice(cart) {
+    return cart.reduce((sum, item) => {
+      return sum + (item.count * item.price);
+    }, 0);
   }
 }
 

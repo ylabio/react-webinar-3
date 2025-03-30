@@ -1,21 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { plural } from '../../utils';
 import './style.css';
 
-function Controls({ onAdd }) {
+function Controls({ sum, count, onModalStateChange = () => {} }) {
+  const getMessage = () => {
+    if (!count) {
+      return 'Пусто';
+    }
+    const message = `${count} ${plural(count, {
+      one: 'товар',
+      few: 'товара',
+      many: 'товаров',
+    })} / ${sum.toLocaleString()} ₽`;
+    return message;
+  }
+
   return (
     <div className="Controls">
-      <button onClick={() => onAdd()}>Добавить</button>
+      <button onClick={() => onModalStateChange()}>{getMessage()}</button>
     </div>
   );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func,
-};
-
-Controls.defaultProps = {
-  onAdd: () => {},
+  onModalStateChange: PropTypes.func,
+  sum: PropTypes.number,
+  count: PropTypes.number,
 };
 
 export default React.memo(Controls);

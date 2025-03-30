@@ -1,7 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
+import ModalWindow from './components/modal-window';
+import Cart from './components/cart';
 import PageLayout from './components/page-layout';
 
 /**
@@ -10,7 +12,9 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
+  const [ modalOpen, setModalOpen ] = useState(false);
   const list = store.getState().list;
+  const cart = store.getState().cart;
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -20,27 +24,37 @@ function App({ store }) {
       [store],
     ),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
+    onModalStateChange: () => setModalOpen(!modalOpen),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onAddToCart: useCallback(
+      code => {
+        store.addToCart(code);
+      }, 
+      [store]),
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Head title="Магазин" />
+      <Controls 
+        sum={cart.fullPrice}
+        count={cart.products.length} 
+        onModalStateChange={callbacks.onModalStateChange}
+      />
       <List
         list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        onAddToCart={callbacks.onAddToCart}
+        isCart={false}
       />
+      {modalOpen ? 
+        <ModalWindow onModalStateChange={callbacks.onModalStateChange}>
+          <Cart 
+            cart={cart} 
+            onDeleteItem={callbacks.onDeleteItem}
+          />
+        </ModalWindow> : 
+        <></>
+      }
     </PageLayout>
   );
 }

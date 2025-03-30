@@ -6,6 +6,10 @@ import Store from './store.js';
 import 'theme.css';
 
 const store = new Store({
+  cart: {
+    products: [],
+    fullSum: 0,
+  },
   list: [
     { code: generateCode(), title: 'Название товара', price: 100.0 },
     { code: generateCode(), title: 'Книга про React', price: 770 },
