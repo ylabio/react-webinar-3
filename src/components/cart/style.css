@@ -1,0 +1,10 @@
+.Cart-footer {
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  justify-self: flex-end;
+  width: 234px;
+  padding: 16px 0;
+  margin-right: 145px;
+  text-align: right;
+}

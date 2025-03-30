@@ -26,6 +26,13 @@ export const generateCode = (function (start = 0) {
 })();
 
 /**
+ * Форматирует число в строку, используя локаль ru-RU
+ * @param {Number} number
+ * @returns {String}
+ */
+export const formatNumber = number => new Intl.NumberFormat('ru-RU').format(number);
+
+/**
  * Генератор чисел с шагом 1
  * Вариант с генератором.
  * Сразу создаётся генератор и возвращается функция для получения следующего значения генератора
