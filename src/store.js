@@ -47,7 +47,6 @@ class Store {
    */
   addToCart(code) {
     const listItem = this.state.list.filter(item => item.code === code);
-    console.log(listItem[0]);
     this.setState({
       ...this.state,
       cart: this.state.cart.find(item => item.code === code)
@@ -58,8 +57,9 @@ class Store {
       price: this.state.price + listItem[0].price,
       cartCount: this.state.cart.find(item => item.code === code)
         ? this.state.cartCount
-        : this.state.cartCount++,
+        : ++this.state.cartCount,
     });
+    console.log(this.state.price, this.state.cartCount);
   }
 
   /**
@@ -70,6 +70,11 @@ class Store {
     this.setState({
       ...this.state,
       cart: this.state.cart.filter(item => item.code !== code),
+    });
+    this.setState({
+      ...this.state,
+      price: this.state.cart.reduce((sum, item) => sum + item.price * (item.count || 1), 0),
+      cartCount: this.state.cart.length,
     });
   }
 }

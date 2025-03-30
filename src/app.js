@@ -12,15 +12,7 @@ import PageLayout from './components/page-layout';
  */
 function App({ store }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { list, cart } = store.getState();
-
-  let price = 0;
-  if (cart.length !== 0) {
-    for (const ex of cart) {
-      price += ex.price * ex.count;
-    }
-  }
-  const cartCount = cart.length;
+  const { list, cart, price, cartCount } = store.getState();
 
   const callbacks = {
     onAddToCart: useCallback(code => {
