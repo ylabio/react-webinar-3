@@ -33,6 +33,19 @@
   border-radius: 8px;
 }
 
+.CartModal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.CartModal-header h2 {
+  font-size: 32px;
+  color: var(--main-text);
+  font-weight: bold;
+  margin: 0;
+}
+
 .CartModal-close {
   position: absolute;
   top: 10px;
@@ -44,13 +57,6 @@
   color: var(--main-text);
   padding: 5px;
   z-index: 2;
-}
-
-.CartModal-header h2 {
-  font-size: 32px;
-  color: var(--main-text);
-  font-weight: bold;
-  margin: 0;
 }
 
 .CartModal-list {

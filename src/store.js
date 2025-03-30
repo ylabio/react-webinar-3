@@ -55,7 +55,6 @@ class Store {
     const cartItemIndex = this.state.cart.findIndex(item => item.code === code);
 
     let updatedCart = [...this.state.cart];
-    console.log(updatedCart);
 
     if (cartItemIndex >= 0) {
       // Товар уже есть в корзине, увеличиваем количество
