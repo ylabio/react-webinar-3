@@ -27,30 +27,18 @@ function App({ store }) {
     onModalStateChange: () => setModalOpen(!modalOpen),
 
     onAddToCart: useCallback(
-      item => {
-        store.addToCart(item);
+      code => {
+        store.addToCart(code);
       }, 
       [store]),
   };
-
-  const getFullSum = (arr) => {
-    return arr.reduce((sum, item) => {
-      return sum + (item.count * item.price);
-    }, 0);
-  }
-
-  const getFullCount = (arr) => {
-    return arr.reduce((sum, item) => {
-      return sum + item.count;
-    }, 0);
-  }
 
   return (
     <PageLayout>
       <Head title="Магазин" />
       <Controls 
-        sum={getFullSum(cart)}
-        count={getFullCount(cart)} 
+        sum={cart.fullPrice}
+        count={cart.products.length} 
         onModalStateChange={callbacks.onModalStateChange}
       />
       <List
@@ -62,7 +50,6 @@ function App({ store }) {
         <Backdrop>
           <ModalWindow 
             cart={cart} 
-            sum={getFullSum(cart)}
             onModalStateChange={callbacks.onModalStateChange}
             onDeleteItem={callbacks.onDeleteItem}
           />

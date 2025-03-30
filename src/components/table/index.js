@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Row from '../row'
 import './style.css';
 
-function Table({ cart, sum, onDeleteItem = () => {}}) {
+function Table({ cart, onDeleteItem = () => {}}) {
   return (
     <table className="Table">
       <tbody>
-        {cart.map(item => (
+        {cart.products.map(item => (
           <Row 
             key={item.code} 
             item={item} 
@@ -19,7 +19,7 @@ function Table({ cart, sum, onDeleteItem = () => {}}) {
         <tr>
           <td className="Row-title"></td>
           <td className="Row-count">Итого: </td>
-          <td className="Row-price">{sum.toLocaleString()} ₽</td>
+          <td className="Row-price">{cart.fullPrice.toLocaleString()} ₽</td>
           <td></td>
         </tr>
       </tfoot>
@@ -28,15 +28,17 @@ function Table({ cart, sum, onDeleteItem = () => {}}) {
 }
 
 Table.propTypes = {
-  cart: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number,
-      title: PropTypes.string,
-      price: PropTypes.number,
-      count: PropTypes.number,
-    }),
-  ).isRequired,
-  sum: PropTypes.number,
+  cart: PropTypes.shape({
+    products: PropTypes.arrayOf(
+      PropTypes.shape({
+        code: PropTypes.number,
+        title: PropTypes.string,
+        price: PropTypes.number,
+        count: PropTypes.number,
+      })
+    ),
+    fullPrice: PropTypes.number,
+  }).isRequired,
   onDeleteItem: PropTypes.func,
 };
 

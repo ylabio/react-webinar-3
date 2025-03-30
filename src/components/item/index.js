@@ -6,7 +6,7 @@ function Item({ item, onAddToCart = () => {}}) {
   const callbacks = {
     onAddToCart: e => {
       e.stopPropagation();
-      onAddToCart(item);
+      onAddToCart(item.code);
     },
   };
 

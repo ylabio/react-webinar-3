@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Table from '../table';
 import './style.css';
 
-function ModalWindow({ cart, sum, onDeleteItem = () => {}, onModalStateChange = () => {} }) {
+function ModalWindow({ cart, onDeleteItem = () => {}, onModalStateChange = () => {} }) {
   const callbacks = {
     onDeleteItem: code => {
       onDeleteItem(code);
@@ -23,7 +23,6 @@ function ModalWindow({ cart, sum, onDeleteItem = () => {}, onModalStateChange = 
       </div>
       <Table 
         cart={cart} 
-        sum={sum}
         onDeleteItem={callbacks.onDeleteItem}
       />
     </div>
@@ -31,15 +30,17 @@ function ModalWindow({ cart, sum, onDeleteItem = () => {}, onModalStateChange = 
 }
 
 ModalWindow.propTypes = {
-  cart: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number,
-      title: PropTypes.string,
-      price: PropTypes.number,
-      count: PropTypes.number,
-    }),
-  ).isRequired,
-  sum: PropTypes.number,
+  cart: PropTypes.shape({
+    products: PropTypes.arrayOf(
+      PropTypes.shape({
+        code: PropTypes.number,
+        title: PropTypes.string,
+        price: PropTypes.number,
+        count: PropTypes.number,
+      })
+    ),
+    fullPrice: PropTypes.number,
+  }).isRequired,
   onModalStateChange: PropTypes.func,
   onDeleteItem: PropTypes.func,
 };

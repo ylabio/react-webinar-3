@@ -6,7 +6,8 @@
   margin: auto;
   background-color: var(--background);
   width: 75%;
-  height: fit-content;
+  height: 80%;
+  overflow-y: scroll;
   padding: 24px;
   gap: 24px;
   border-radius: 8px;

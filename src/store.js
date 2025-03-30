@@ -43,29 +43,53 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const newProductList = this.state.cart.products.filter(item => item.code !== code);
+    const fullPrice = this.getFullPrice(newProductList);
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      cart: this.state.cart.filter(item => item.code !== code),
+      cart: {
+        products: newProductList,
+        fullPrice,
+      }
     });
   }
 
-  addToCart(item) {
-    const { code, title, price } = item;
-    const isInCart = this.state.cart.find(product => product.code === item.code);
+  addToCart(code) {
+    let newProductList;
+    const isInCart = this.state.cart.products.find(product => product.code === code);
+    // проверка: если предмет уже есть в корзине, увеличивается его count
+    // если нет - в корзину добавляется новый предмет
+    if (isInCart) {
+      newProductList = this.state.cart.products.map(product => {
+        return {
+          ...product,
+          count: product.code === code ? product.count + 1 : product.count,
+        };
+      });
+    } else {
+      const newItem = this.state.list.find(product => product.code === code);
+      newProductList = [...this.state.cart.products, { 
+        code: newItem.code,
+        price: newItem.price,
+        title: newItem.title,
+        count: 1 
+      }];
+    }
+    const fullPrice = this.getFullPrice(newProductList);
     this.setState({
       ...this.state,
-      // проверка: если предмет уже есть в корзине, увеличивается его count
-      // если нет - в корзину добавляется новый предмет
-      cart: isInCart ? 
-        this.state.cart.map(product => {
-          return {
-            ...product,
-            count: product.code === item.code ? product.count + 1 : product.count,
-          };
-        }) : 
-        [...this.state.cart, { code, title, price, count: 1 }]
+      cart: {
+        products: newProductList,
+        fullPrice,
+      }
     });
+  }
+
+  getFullPrice(cart) {
+    return cart.reduce((sum, item) => {
+      return sum + (item.count * item.price);
+    }, 0);
   }
 }
 
