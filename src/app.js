@@ -7,7 +7,7 @@ import { Modal } from './components/modal';
 import { ModalHeader } from './components/modal-header';
 import { CartInfo } from './components/cart-info';
 import Item from './components/item';
-import { ModalItem } from './modal-item';
+import { ModalItem } from './components/modal-item';
 
 /**
  * Приложение
