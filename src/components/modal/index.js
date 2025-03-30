@@ -1,8 +1,36 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './style.css';
 
 function Modal({ onCloseModal = () => {}, children, modalTitle = '' }) {
+  const modalRef = useRef(null);
+  const modalOverlayRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      document.body.classList.add('modal-open');
+
+      if (modalRef.current) {
+        const modalHeight = modalRef.current.offsetHeight;
+        const viewportHeight = window.innerHeight;
+
+        if (modalHeight > viewportHeight - 144) {
+          modalOverlayRef.current.style.alignItems = 'flex-start';
+        } else {
+          modalOverlayRef.current.style.alignItems = 'center';
+        }
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      document.body.classList.remove('modal-open');
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const handleOverlayClick = e => {
     if (e.target === e.currentTarget) {
       onCloseModal();
@@ -10,8 +38,8 @@ function Modal({ onCloseModal = () => {}, children, modalTitle = '' }) {
   };
 
   return (
-    <div className="Modal-overlay" onClick={handleOverlayClick}>
-      <div className="Modal-content">
+    <div className="Modal-overlay" ref={modalOverlayRef} onClick={handleOverlayClick}>
+      <div className="Modal-content" ref={modalRef}>
         <div className="Modal-header">
           <h1>{modalTitle}</h1>
           <button className="Modal-close-button" onClick={onCloseModal} aria-label="Close modal">
@@ -28,7 +56,7 @@ function Modal({ onCloseModal = () => {}, children, modalTitle = '' }) {
             </svg>
           </button>
         </div>
-        <div className="Modal-scrollable-content">{children}</div>
+        <div>{children}</div>
       </div>
     </div>
   );
