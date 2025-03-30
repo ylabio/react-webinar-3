@@ -24,6 +24,7 @@ CartItem.propTypes = {
     price: PropTypes.number,
     count: PropTypes.number,
   }).isRequired,
+  count: PropTypes.number,
   onDeleteItem: PropTypes.func,
 };
 

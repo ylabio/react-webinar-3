@@ -4,22 +4,22 @@ import './style.css';
 import { plural } from '../../utils';
 import CartIcon from './cart-icon';
 
-function Controls({ totalUniqueItems = 0, totalPrice = 0, onOpenModal = () => {} }) {
+function Controls({ totalPrice = 0, onOpenModal = () => {}, countCart = 0 }) {
   return (
     <div className="Controls">
       <div
         className="Controls-container"
         onClick={() => {
-          if (totalUniqueItems > 0) {
+          if (countCart > 0) {
             onOpenModal(true);
           }
         }}
       >
         <CartIcon />
 
-        {totalUniqueItems === 0 && <b>Пусто</b>}
-        {totalUniqueItems > 0 && (
-          <b>{`${totalUniqueItems} ${plural(totalUniqueItems, {
+        {countCart === 0 && <b>Пусто</b>}
+        {countCart > 0 && (
+          <b>{`${countCart} ${plural(countCart, {
             one: 'товар',
             few: 'товара',
             many: 'товаров',
@@ -32,8 +32,8 @@ function Controls({ totalUniqueItems = 0, totalPrice = 0, onOpenModal = () => {}
 
 Controls.propTypes = {
   onOpenModal: PropTypes.func.isRequired,
-  totalUniqueItems: PropTypes.number.isRequired,
   totalPrice: PropTypes.number.isRequired,
+  countCart: PropTypes.number.isRequired,
 };
 
 export default memo(Controls);

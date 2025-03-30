@@ -1,16 +1,9 @@
 import './style.css';
 import React, { useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
-import CartItem from '../cart-item';
 import List from '../list';
 
-function CartList({
-  onDeleteItem = () => {},
-  cart = [],
-  sumPrice = 0,
-  list = [],
-  onClose = () => {},
-}) {
+function Cart({ cart = [], sumPrice = 0, onClose = () => {}, onRenderCartItems = () => {} }) {
   //закрываем корзину, если все товары удалены
   useLayoutEffect(() => {
     if (cart.length === 0) onClose(false);
@@ -21,18 +14,7 @@ function CartList({
       <div className="Cart-content">
         <h1>Корзина</h1>
 
-        <List
-          list={cart}
-          renderItem={cartItem => (
-            <li key={cartItem.code}>
-              <CartItem
-                item={list.find(item => item.code === cartItem.code)}
-                count={cartItem.count}
-                onDeleteItem={onDeleteItem}
-              />
-            </li>
-          )}
-        />
+        <List list={cart} renderItem={onRenderCartItems} />
 
         <div className="Cart-total">
           <b>Итого:</b>
@@ -43,9 +25,10 @@ function CartList({
   );
 }
 
-CartList.propTypes = {
-  onDeleteItem: PropTypes.func,
+Cart.propTypes = {
+  onRenderCartItems: PropTypes.func,
   sumPrice: PropTypes.number,
+  onClose: PropTypes.func,
   cart: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.number,
@@ -56,4 +39,4 @@ CartList.propTypes = {
   ).isRequired,
 };
 
-export default CartList;
+export default Cart;

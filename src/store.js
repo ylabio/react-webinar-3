@@ -43,22 +43,23 @@ class Store {
    * @param {Object}
    */
   addItem(product) {
-    this.state.totalPrice += product.price;
-
     // Проверяем есть ли товар в корзине
     if (this.state.cart.length === 0 || !this.state.cart.find(item => item.code === product.code)) {
       // Добавляем новый, если его нет
       this.setState({
         ...this.state,
         cart: [...this.state.cart, { code: product.code, count: 1 }],
+        totalPrice: this.state.totalPrice + product.price,
+        countCart: this.state.countCart + 1,
       });
     } else {
-      // Увеличиваем количество, если товар есть
+      // Увеличиваем количество и общую цену, если товар есть
       this.setState({
         ...this.state,
         cart: this.state.cart.map(item =>
           item.code === product.code ? { ...item, count: item.count + 1 } : item,
         ),
+        totalPrice: this.state.totalPrice + product.price,
       });
     }
   }
@@ -71,9 +72,12 @@ class Store {
     const itemCount = this.state.cart.find(item => item.code === code).count;
     const itemPrice = this.state.list.find(item => item.code === code).price;
 
-    this.state.totalPrice -= itemCount * itemPrice;
-
-    this.setState({ ...this.state, cart: this.state.cart.filter(item => item.code !== code) });
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter(item => item.code !== code),
+      totalPrice: this.state.totalPrice - itemCount * itemPrice,
+      countCart: this.state.countCart - 1,
+    });
   }
 }
 

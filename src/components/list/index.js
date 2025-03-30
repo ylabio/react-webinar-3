@@ -5,7 +5,13 @@ import './style.css';
 function List({ list = [], renderItem = () => {} }) {
   if (list.length === 0) return null;
 
-  return <ul className="List">{list.map(renderItem)}</ul>;
+  return (
+    <ul className="List">
+      {list.map(renderItem).map((item, i) => (
+        <li key={list[i].code}>{item}</li>
+      ))}
+    </ul>
+  );
 }
 
 List.propTypes = {

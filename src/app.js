@@ -4,8 +4,9 @@ import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Modal from './components/modal';
-import CartList from './components/cart';
+import Cart from './components/cart';
 import Item from './components/item';
+import CartItem from './components/cart-item';
 
 /**
  * Приложение
@@ -13,7 +14,7 @@ import Item from './components/item';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const { list, cart, totalPrice } = store.getState();
+  const { list, cart, totalPrice, countCart } = store.getState();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -32,11 +33,15 @@ function App({ store }) {
       [store],
     ),
 
-    onRenderProducts: useCallback(
-      item => (
-        <li key={item.code}>
-          <Item item={item} onAddItem={callbacks.onAddItem} />
-        </li>
+    onRenderProducts: useCallback(item => <Item item={item} onAddItem={callbacks.onAddItem} />, []),
+
+    onRenderCartItems: useCallback(
+      cartItem => (
+        <CartItem
+          item={list.find(item => item.code === cartItem.code)}
+          count={cartItem.count}
+          onDeleteItem={callbacks.onDeleteItem}
+        />
       ),
       [],
     ),
@@ -46,19 +51,14 @@ function App({ store }) {
     <PageLayout>
       <Head title="Магазин" />
 
-      <Controls
-        totalUniqueItems={cart.length}
-        totalPrice={totalPrice}
-        onOpenModal={setIsModalOpen}
-      />
+      <Controls totalPrice={totalPrice} onOpenModal={setIsModalOpen} countCart={countCart} />
 
       <Modal active={isModalOpen} onClose={setIsModalOpen}>
-        <CartList
+        <Cart
           onClose={setIsModalOpen}
-          onDeleteItem={callbacks.onDeleteItem}
           cart={cart}
           sumPrice={totalPrice}
-          list={list}
+          onRenderCartItems={callbacks.onRenderCartItems}
         />
       </Modal>
 

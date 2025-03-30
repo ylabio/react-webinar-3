@@ -5,8 +5,6 @@ import ModalCloseIcon from './modal-close-icon';
 import PropTypes from 'prop-types';
 
 function Modal({ active = false, onClose = () => {}, children }) {
-  if (!active) return null;
-
   useEffect(() => {
     // заблокировать прокрутку страницы при открытии модалки
     if (active) {
@@ -17,6 +15,8 @@ function Modal({ active = false, onClose = () => {}, children }) {
       document.body.style.overflow = 'unset';
     };
   }, [active]);
+
+  if (!active) return null;
 
   return (
     <>
@@ -31,6 +31,7 @@ function Modal({ active = false, onClose = () => {}, children }) {
             <div className="Modal-close" onClick={() => onClose(false)}>
               <ModalCloseIcon />
             </div>
+
             <div className="Modal-content">{children}</div>
           </div>
         </div>,
