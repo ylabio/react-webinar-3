@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import List from '../list';
 import './style.css';
 import CartItem from '../cartItem';
+import { formattedPrice } from '../../utils';
 
 function Modal({ cart, price = 0, onDeleteFromCart, isOpen = false, onClose }) {
   const callbacks = {
@@ -29,7 +30,7 @@ function Modal({ cart, price = 0, onDeleteFromCart, isOpen = false, onClose }) {
                   <b>Итого:</b>
                 </div>
                 <div>
-                  <b>{price} ₽</b>
+                  <b>{formattedPrice(price)}</b>
                 </div>
               </div>
             </div>
