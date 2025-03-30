@@ -9,6 +9,7 @@
 .Head-container {
   max-width: 1152px;
   margin: 0 auto;
+  padding-inline: 36px;
 }
 
 .Head h1 {

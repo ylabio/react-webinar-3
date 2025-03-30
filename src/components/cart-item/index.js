@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Item({ item = {}, handlerItem = () => { } }) {
+function CartItem({ item = {}, handlerItem = () => { } }) {
   const callbacks = {
-    onAddItem: () => {
+    onDeleteItem: () => {
       handlerItem(item.code);
     },
   };
@@ -18,8 +18,8 @@ function Item({ item = {}, handlerItem = () => { } }) {
         {item.count && <div className='Item-count'>{item.count} шт</div>}
         <div className='Item-price'>{item.price.toLocaleString()} ₽</div>
         <div className="Item-actions">
-          <button className="Item-actions__add-btn" onClick={callbacks.onAddItem}>
-            Добавить
+          <button className="Item-actions__delete-btn" onClick={callbacks.onDeleteItem}>
+            Удалить
           </button>
         </div>
       </div>
@@ -28,7 +28,7 @@ function Item({ item = {}, handlerItem = () => { } }) {
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
@@ -38,4 +38,4 @@ Item.propTypes = {
   handler: PropTypes.func,
 };
 
-export default React.memo(Item);
+export default React.memo(CartItem);
