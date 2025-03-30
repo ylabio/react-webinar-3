@@ -5,8 +5,19 @@ import { generateCode } from './utils';
  */
 class Store {
   constructor(initState = {}) {
+    const initialList = initState.list || [];
+
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+
+    this.state = {
+      list: initialList,
+      cartList: [],
+      cartInfo: {
+        total: 0,
+        quantity: 0,
+      },
+    };
   }
 
   /**
@@ -49,6 +60,40 @@ class Store {
       list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
     });
   }
+  addItemCart(code) {
+    const itemIndex = this.state.cartList.findIndex(el => el.code === code);
+
+    const itemFromList = this.state.list.filter(el => el.code === code);
+
+    console.log(this.state);
+
+    const updatedCartInfo = {
+      ...this.state.cartInfo,
+      quantity: this.state.cartInfo.quantity,
+      total: this.state.cartInfo.total + itemFromList[0].price,
+    };
+
+    if (itemIndex !== -1) {
+      const updatedCart = [...this.state.cartList];
+
+      updatedCart[itemIndex] = {
+        ...updatedCart[itemIndex],
+        quantity: updatedCart[itemIndex].quantity + 1,
+      };
+
+      this.setState({
+        list: [...this.state.list],
+        cartList: updatedCart,
+        cartInfo: updatedCartInfo,
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cartList: [...this.state.cartList, { ...itemFromList[0], quantity: 1 }],
+        cartInfo: { ...updatedCartInfo, quantity: updatedCartInfo.quantity + 1 },
+      });
+    }
+  }
 
   /**
    * Удаление записи по коду
@@ -59,6 +104,19 @@ class Store {
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
       list: this.state.list.filter(item => item.code !== code),
+    });
+  }
+  deleteItemCart(code) {
+    const deletedItem = this.state.cartList.find(item => item.code === code);
+
+    this.setState({
+      ...this.state,
+      cartList: this.state.cartList.filter(item => item.code !== code),
+      cartInfo: {
+        ...this.state.cartInfo,
+        quantity: this.state.cartInfo.quantity - 1,
+        total: this.state.cartInfo.total - (deletedItem.quantity * deletedItem.price),
+      },
     });
   }
 

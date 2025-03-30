@@ -1,8 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Modal from './components/modal';
+import Cart from './components/cart';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -12,6 +15,10 @@ import PageLayout from './components/page-layout';
 function App({ store }) {
   const list = store.getState().list;
 
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const toggleCart = useCallback(() => setCartOpen(prev => !prev), []);
+
   const callbacks = {
     onDeleteItem: useCallback(
       code => {
@@ -19,10 +26,15 @@ function App({ store }) {
       },
       [store],
     ),
-
-    onSelectItem: useCallback(
+    deleteItemCart: useCallback(
       code => {
-        store.selectItem(code);
+        store.deleteItemCart(code);
+      },
+      [store],
+    ),
+    onAddItemCart: useCallback(
+      (code, title, price) => {
+        store.addItemCart(code, title, price);
       },
       [store],
     ),
@@ -34,13 +46,28 @@ function App({ store }) {
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Head title="Магазин" />
+      <Controls
+        deleteItemCart={callbacks.deleteItemCart}
+        cartList={store.state.cartList}
+        cartInfo={store.state.cartInfo}
+        toggleCart={toggleCart}
+      />
       <List
         list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
-      />
+        ItemComponent={Item}
+        action={callbacks.onAddItemCart}
+      ></List>
+      {cartOpen && (
+        <Modal onClose={toggleCart}>
+          <Cart
+            onClose={toggleCart}
+            total={store.state.cartInfo.total}
+            cartList={store.state.cartList}
+            deleteItemCart={callbacks.deleteItemCart}
+          />
+        </Modal>
+      )}
     </PageLayout>
   );
 }

@@ -13,22 +13,53 @@
 
 .Item-title {
   flex: auto;
+  font-family: 'Golos Text';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
 }
+.Item-main {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.Item-main-quantitiy {
+  width: 105px;
+  height: 22px;
 
+  font-family: 'Golos Text';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+}
+.Item-main-price {
+  display: flex;
+  justify-content: end;
+  width: 105px;
+  height: 22px;
+
+  font-family: 'Golos Text';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+  text-align: right;
+}
 .Item-actions {
   display: flex;
   justify-content: flex-end;
 }
 
 .Item-actions button {
-  background-color: var(--delete);
-  color: var(--second-text);
+  border: 1px solid var(--primary);
   padding: 8px 16px;
+  background-color: var(--primary);
+  color: var(--second-text);
 
   &:hover {
     background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
+    color: var(--primary);
   }
 }
-

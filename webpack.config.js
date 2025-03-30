@@ -24,6 +24,10 @@ let config = {
         exclude: /node_modules/,
         use: [{ loader: 'babel-loader' }],
       },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      },
       // Правила обработки подключаемых файлов
       {
         test: /\.css$/,

@@ -1,0 +1,66 @@
+.CartItem {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    transition: background-color 1s;
+    padding: 16px;
+  }
+  
+  .CartItem_selected {
+    background-color: var(--primary-select);
+  }
+
+  .CartItem-title {
+    flex: auto;
+    font-family: 'Golos Text';
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0%;
+  }
+  .CartItem-main {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .CartItem-main-quantitiy {
+    width: 105px;
+    height: 22px;
+  
+    font-family: 'Golos Text';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0%;
+  }
+  .CartItem-main-price {
+    display: flex;
+    justify-content: end;
+    width: 105px;
+    height: 22px;
+  
+    font-family: 'Golos Text';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0%;
+    text-align: right;
+  }
+  .CartItem-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .CartItem-actions button {
+    border: 1px solid var(--primary);
+    padding: 8px 16px;
+    background-color: var(--primary);
+    color: var(--second-text);
+  
+    &:hover {
+      background-color: var(--background);
+      color: var(--primary);
+    }
+  }
+  
