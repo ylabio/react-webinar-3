@@ -1,0 +1,20 @@
+.Modal-info {
+  font-family: 'Golos Text', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  color: var(--main-text);
+  padding: 16px 145px 16px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 24px;
+}
+
+.Modal_info-text, .Modal_info-price {
+  min-width: 105px;
+}
+
+.Modal_info-price {
+  text-align: end;
+}
