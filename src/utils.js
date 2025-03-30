@@ -51,7 +51,4 @@ export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
 
-export const summary = (list) => {
-   const sum = list.reduce((total, item) => total + item.price * item.score, 0);
-   return sum;
-}
+

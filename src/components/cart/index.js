@@ -3,12 +3,14 @@ import './style.css';
 import PropTypes from 'prop-types';
 import List from '../list';
 import { NumericFormat } from 'react-number-format';
-import { summary } from '../../utils';
 
 
 
-function Cart({cart, onDelete}) {
 
+function Cart({store, onDelete}) {
+
+  const cartSummary = store.getCartSummary();
+  const { cart } = store.getState();
 
   return (
     <div className="Cart">
@@ -25,7 +27,7 @@ function Cart({cart, onDelete}) {
       <div className="Cart-summary">
       <div>Итого:</div>
       <div>
-                      <NumericFormat value={summary(cart)}
+                      <NumericFormat value={cartSummary}
               displayType={'text'}
               thousandSeparator=" "
               suffix={' ₽'} />
@@ -38,11 +40,9 @@ function Cart({cart, onDelete}) {
 }
 
 Cart.propTypes = {
-  cart: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number.isRequired,
-    })
-  ),
+
   onDelete: PropTypes.func,
+  cartSummary: PropTypes.func,
+
 };
 export default Cart;

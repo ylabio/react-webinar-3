@@ -37,6 +37,6 @@ const Modal = ({children, onCLick}) => {
 }
 
 Modal.propTypes = {
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
 };
 export default Modal;

@@ -13,7 +13,7 @@ import Modal from './components/modal';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const { list, cart } = store.getState();
+  const { list } = store.getState();
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
@@ -41,14 +41,14 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Controls openCart={toggleModal} cart={cart} />
+      <Controls store={store} openCart={toggleModal} />
       <List
         list={list}
         onAdd={callbacks.onAddItem}
       />
       {modal && (
         <Modal onCLick={toggleModal}>
-        <Cart cart={cart} onDelete={callbacks.onDeleteItem}/>
+        <Cart store={store} onDelete={callbacks.onDeleteItem}/>
         </Modal>
       )}
 

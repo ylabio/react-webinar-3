@@ -42,15 +42,16 @@ class Store {
    * Добавление товара в корзину
    */
   addItem(code) {
-     this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
+    const newList = this.state.list.map(item => {
         if (item.code === code) {
-          item.score = item.score + 1
+          return { ...item, score: item.score + 1 };
         }
         return item;
-      }),
-      cart: this.state.list.filter(item => item.score > 0)
+      })
+     this.setState({
+      ...this.state,
+      list: newList,
+      cart: newList.filter(item => item.score > 0)
     })
   }
 
@@ -73,6 +74,15 @@ class Store {
     });
   }
 
+getCartLength() {
+  const length = this.state.cart.length;
+  return length;
+}
+
+getCartSummary() {
+  const sum = this.state.cart.reduce((total, item) => total + item.price * item.score, 0);
+  return sum;
+}
 
 
 }
