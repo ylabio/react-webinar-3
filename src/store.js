@@ -49,24 +49,18 @@ class Store {
    * Установка состояния корзины товаров
    * @param newCartList {Object}
    */
-  setCartList(newCartList) {
+  setCart(newCartList) {
+    const productsCount = newCartList.length;
+    const totalAmount = newCartList.reduce((acc, cur) => acc + cur.totalPrice, 0)
+
     this.state = {
       ...this.state,
       cart: {
         ...this.state.cart,
         list: [...newCartList],
+        totalPrice: totalAmount,
+        totalProductCount: productsCount,
       },
-    };
-    this.listenersCall();
-  }
-
-  setTotalCartPrice(totalPrice) {
-    this.state = {
-      ...this.state,
-      cart: {
-        ...this.state.cart,
-        totalPrice
-      }
     };
 
     this.listenersCall();
@@ -82,15 +76,6 @@ class Store {
     this.listenersCall();
   }
 
-  setTotalProductCount(totalProductCount) {
-    this.state = {
-      ...this.state,
-      cart: {
-        ...this.state.cart,
-        totalProductCount
-      }
-    };
-  }
 
   /**
    * Добавление товара в корзину
@@ -99,6 +84,7 @@ class Store {
   addItemToCart(itemCode) {
     let cartList = [];
     const isHasItemInCart = this.state.cart.list.some(item => item.code === itemCode);
+
     if (isHasItemInCart) {
       cartList = this.state.cart.list.map(item => {
         if (item.code === itemCode) {
@@ -108,12 +94,11 @@ class Store {
       });
     } else {
       const defaultItem = {...this.state.list.filter(item => item.code === itemCode)[0]};
+
       cartList = [...this.state.cart.list, {...defaultItem, count: 1, totalPrice: defaultItem.price}];
     }
 
-    this.setCartList(cartList);
-    this.setTotalCartPrice(cartList.reduce((acc, cur) => acc + cur.totalPrice, 0));
-    this.setTotalProductCount(cartList.length);
+    this.setCart(cartList);
   }
 
   /**
@@ -123,13 +108,12 @@ class Store {
   deleteItemFromCart(itemCode) {
     const cartList = [...this.state.cart.list.filter(item => item.code !== itemCode)];
 
-    this.setCartList(cartList);
-    this.setTotalCartPrice(cartList.reduce((acc, cur) => acc + cur.totalPrice, 0));
-    this.setTotalProductCount(cartList.length);
+    this.setCart(cartList);
   }
 
   changeViewModal() {
     const isShowModal = !this.state.isViewModal;
+
     this.setViewModal(isShowModal);
   }
 }
