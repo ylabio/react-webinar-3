@@ -1,43 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import List from '../list';
+import CartItem from '../cart-item';
 import './style.css';
 
 function Cart({
   cart = [],
-  isVisible = false,
+  cartTotalPrice,
   onVisibleCart = () => { },
-  nameButton = '',
-  classActionButton = '',
-  handlerListItem = () => { }
+  handlerItem = () => { }
 }) {
-  const totalPrice = cart.reduce((acc, item) => acc + item.price, 0);
 
   function closeCartPopup() {
     onVisibleCart();
   }
 
   return (
-    isVisible &&
-    <div className='Cart-wrap'>
-      <div className='Cart-popup'>
-        <h2 className='Cart-popup__title'>Корзина</h2>
-        <List
-          list={cart}
-          nameButton={nameButton}
-          handlerListItem={handlerListItem}
-          classActionButton={classActionButton}
-        />
-        <div className='Cart-popup__total-price'>
-          <div className='Cart-popup__total-price-box'>
-            <span className='Cart-popup__total-price-title'>Итого:</span>
-            <span className='Cart-popup__total-price-sum'>{` ${totalPrice.toLocaleString()} ₽`}</span>
-          </div>
-        </div>
-        <button className='Cart-popup__close-btn' onClick={closeCartPopup}>&#10006;</button>
-      </div>
-    </div>
+    <div className='Cart-popup'>
+      <h2 className='Cart-popup__title'>Корзина</h2>
 
+      <List list={cart} ItemComponent={CartItem} handlerItem={handlerItem} />
+
+      <div className='Cart-popup__total-price'>
+        <div className='Cart-popup__total-price-box'>
+          <span className='Cart-popup__total-price-title'>Итого:</span>
+          <span className='Cart-popup__total-price-sum'>{` ${cartTotalPrice.toLocaleString()} ₽`}</span>
+        </div>
+      </div>
+      <button className='Cart-popup__close-btn' onClick={closeCartPopup}>&#10006;</button>
+    </div>
   );
 }
 
@@ -50,11 +41,9 @@ Cart.propTypes = {
       count: PropTypes.number,
     })
   ).isRequired,
-  isVisible: PropTypes.bool,
-  onVisibleCart:PropTypes.func,
-  nameButton: PropTypes.string.isRequired,
-  classActionButton: PropTypes.string,
-  handlerListItem: PropTypes.func,
+  cartTotalPrice: PropTypes.number.isRequired,
+  onVisibleCart: PropTypes.func,
+  handlerItem: PropTypes.func,
 };
 
 export default React.memo(Cart);

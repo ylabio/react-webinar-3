@@ -3,7 +3,9 @@ import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import PageModal from './components/page-modal';
 import Cart from './components/cart';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -11,9 +13,7 @@ import Cart from './components/cart';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
-  const cart = store.getState().cart;
-  const isVisibleCart = store.getState().isVisibleCart;
+  const { list, cart, cartItemsCount, cartTotalPrice, isVisibleCart } = store.getState();
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -36,24 +36,28 @@ function App({ store }) {
   };
 
   return (
-    <PageLayout>
-      <Head title="Магазин" />
-      <Controls cart={cart} onVisible={callbacks.onVisibleCart} />
-      <Cart
-        cart={cart}
-        handlerListItem={callbacks.onDeleteItem}
-        isVisible={isVisibleCart}
-        onVisibleCart={callbacks.onVisibleCart}
-        nameButton='Удалить'
-        classActionButton='Item-actions__delete-btn'
-      />
-      <List
-        list={list}
-        handlerListItem={callbacks.onAddItem}
-        nameButton='Добавить'
-        classActionButton='Item-actions__add-btn'
-      />
-    </PageLayout>
+    <>
+      <PageModal isVisible={isVisibleCart}>
+        <Cart
+          cart={cart}
+          cartTotalPrice={cartTotalPrice}
+          onVisibleCart={callbacks.onVisibleCart}
+          handlerItem={callbacks.onDeleteItem}
+        />
+      </PageModal>
+
+      <PageLayout>
+        <Head title="Магазин" />
+
+        <Controls
+          cartItemsCount={cartItemsCount}
+          cartTotalPrice={cartTotalPrice}
+          toggleVisible={callbacks.onVisibleCart}
+        />
+
+        <List list={list} ItemComponent={Item} handlerItem={callbacks.onAddItem} />
+      </PageLayout>
+    </>
   );
 }
 

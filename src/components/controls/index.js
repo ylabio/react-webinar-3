@@ -4,20 +4,19 @@ import { plural } from '../../utils';
 import CartIcon from './cart-icon';
 import './style.css';
 
-function Controls({ cart = [], onVisible = () => { } }) {
-  const totalPrice = cart.reduce((acc, item) => acc + item.price, 0);
+function Controls({ cartItemsCount, cartTotalPrice, toggleVisible = () => { } }) {
   const cartIcon = CartIcon();
 
   return (
     <div className="Controls">
-      <button className='Controls__cart-visible-btn' onClick={() => onVisible()}>
+      <button className='Controls__cart-visible-btn' onClick={() => toggleVisible()}>
         {cartIcon}
-        {cart.length
-          ? `${cart.length} ${plural(cart.length, {
+        {cartItemsCount
+          ? `${cartItemsCount} ${plural(cartItemsCount, {
             one: 'товар',
             few: 'товара',
             many: 'товаров',
-          })} / ${totalPrice.toLocaleString()} ₽`
+          })} / ${cartTotalPrice.toLocaleString()} ₽`
           : 'Пусто'}
       </button>
     </div>
@@ -25,15 +24,9 @@ function Controls({ cart = [], onVisible = () => { } }) {
 }
 
 Controls.propTypes = {
-  cart: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      count: PropTypes.number.isRequired,
-    })
-  ),
-  onVisible: PropTypes.func,
+  cartItemsCount: PropTypes.number.isRequired,
+  cartTotalPrice: PropTypes.number.isRequired,
+  toggleVisible: PropTypes.func.isRequired,
 };
 
 export default React.memo(Controls);

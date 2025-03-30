@@ -55,15 +55,19 @@ class Store {
           }
         }
         return itemCart;
-      })
+      });
+      
       this.setState({
         ...this.state,
         cart: updateItem,
+        cartTotalPrice: this.state.cartTotalPrice + item.price,
       });
     } else {
       this.setState({
         ...this.state,
         cart: [...this.state.cart, { ...item, count: 1 }],
+        cartItemsCount: this.state.cartItemsCount + 1,
+        cartTotalPrice: this.state.cartTotalPrice + item.price,
       });
     }
   }
@@ -73,10 +77,13 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const item = this.state.cart.find(o => o.code === code);
+
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
       cart: this.state.cart.filter(item => item.code !== code),
+      cartItemsCount: this.state.cartItemsCount - 1,
+      cartTotalPrice: this.state.cartTotalPrice - item.price,
     });
   }
 

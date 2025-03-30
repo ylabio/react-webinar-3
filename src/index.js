@@ -16,6 +16,8 @@ const store = new Store({
     { code: generateCode(), title: 'Товар сюрприз', price: 0 },
   ],
   cart: [],
+  cartItemsCount: 0,
+  cartTotalPrice: 0,
   isVisibleCart: false,
 });
 

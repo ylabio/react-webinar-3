@@ -1,24 +1,14 @@
-.Cart-wrap {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(26, 32, 40, 0.4);
-  z-index: 2;
-}
-
 .Cart-popup {
-  position: fixed;
+  position: absolute;
   z-index: 1;
-  top: 50%;
+  top: clamp(20px, 25%, 265px);
   left: 50%;
-  width: 100%;
+  width: 72%;
   max-width: 1080px;
   padding: 24px;
   border-radius: 8px;
   background-color: var(--background);
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
 }
 
 .Cart-popup__title {

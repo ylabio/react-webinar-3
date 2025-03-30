@@ -1,0 +1,46 @@
+.Item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  transition: background-color 1s;
+  padding: 16px;
+}
+
+.Item-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 363px;
+}
+
+.Item-title {
+  flex: 40%;
+}
+
+.Item-count {
+  flex: 30%;
+}
+
+.Item-price {
+  flex: 70%;
+  padding-right: 24px;
+  text-align: end;
+}
+
+.Item-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Item-actions__delete-btn {
+  background-color: var(--delete);
+  color: var(--second-text);
+  padding: 8px 16px;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
+  }
+}
