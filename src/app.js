@@ -1,8 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import ModalLayout from './components/modal-layout';
+import Item from './components/item';
+import ItemCart from './components/item-cart';
 
 /**
  * Приложение
@@ -11,36 +14,58 @@ import PageLayout from './components/page-layout';
  */
 function App({ store }) {
   const list = store.getState().list;
+  const cartList = store.getState().cartList;
+  const sum = store.getState().sum;
+
+  const [isOpenModal, setOpenModal] = useState(false);
+
+  const cartListLength = cartList.length;
+
+  const openModal = () => {
+    setOpenModal(true);
+  };
+
+  const closeModal = e => {
+    e.stopPropagation();
+    setOpenModal(false);
+  };
 
   const callbacks = {
-    onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
+    onAddItemToCartList: useCallback(
+      item => {
+        store.addItemToCartList(item);
       },
       [store],
     ),
 
-    onSelectItem: useCallback(
+    onDeleteItemFromCartList: useCallback(
       code => {
-        store.selectItem(code);
+        store.deleteItemFromCartList(code);
       },
       [store],
     ),
+  };
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+  const render = {
+    item: useCallback(item => {
+      return <Item item={item} onAddItemToCartList={callbacks.onAddItemToCartList} />;
+    }, []),
+    itemCart: useCallback(item => {
+      return <ItemCart item={item} onDeleteItemFromCartList={callbacks.onDeleteItemFromCartList} />;
+    }, []),
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
-      />
+      <Head title="Магазин" />
+      <Controls cartListLength={cartListLength} sum={sum} openModal={openModal} />
+      <List list={list} renderItem={render.item} />
+
+      {isOpenModal && (
+        <ModalLayout title={'Корзина'} closeModal={closeModal} sum={sum}>
+          <List list={cartList} renderItem={render.itemCart} />
+        </ModalLayout>
+      )}
     </PageLayout>
   );
 }

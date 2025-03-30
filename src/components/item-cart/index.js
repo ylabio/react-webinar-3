@@ -4,14 +4,14 @@ import { formatPrices } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Item({ item, onAddItemToCartList = () => {} }) {
-  const cn = bem('Item');
+function ItemCart({ item, onDeleteItemFromCartList = () => {} }) {
+  const cn = bem('ItemCart');
 
   const formatedPrice = formatPrices(item.price);
 
   const callbacks = {
-    addItemToCartList: () => {
-      onAddItemToCartList(item);
+    deleteItemFromCartList: () => {
+      onDeleteItemFromCartList(item.code);
     },
   };
 
@@ -19,22 +19,26 @@ function Item({ item, onAddItemToCartList = () => {} }) {
     <div className={cn()}>
       <div className={cn('title')}>
         <b>{item.title}</b>
-        <p>{`${formatedPrice} ₽`}</p>
+        <div className={cn('info')}>
+          <p>{`${item.quantity} шт`}</p>
+          <p>{`${formatedPrice} ₽`}</p>
+        </div>
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.addItemToCartList}>Добавить</button>
+        <button onClick={callbacks.deleteItemFromCartList}>Удалить</button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+ItemCart.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
+    quantity: PropTypes.number,
     price: PropTypes.number,
   }).isRequired,
-  onAddItemToCartList: PropTypes.func,
+  onDeleteItemFromCartList: PropTypes.func,
 };
 
-export default React.memo(Item);
+export default React.memo(ItemCart);
