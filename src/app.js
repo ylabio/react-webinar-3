@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import Cart from './components/cart';
 import Controls from './components/controls';
 import Head from './components/head';
+import Item from './components/item';
 import List from './components/list';
 import Modal from './components/modal';
 import PageLayout from './components/page-layout';
@@ -37,6 +38,10 @@ function App({ store }) {
     ),
   };
 
+  const renderItem = item => (
+    <Item item={item} buttonAction={callbacks.onAddToCart} buttonText={'Добавить'} />
+  );
+
   const formattedTotalPrice = formatNumber(totalPrice);
 
   return (
@@ -47,7 +52,7 @@ function App({ store }) {
         totalUniqueItems={totalUniqueItems}
         totalPrice={formattedTotalPrice}
       />
-      <List list={list} buttonAction={callbacks.onAddToCart} buttonText={'Добавить'} />
+      <List list={list} renderItem={renderItem} />
       {modalType === 'cart' && (
         <Modal onCloseModal={() => callbacks.onToggleModal(null)} modalTitle={'Корзина'}>
           <Cart

@@ -1,18 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Item from '../item';
 import List from '../list';
 import './style.css';
 
 function Cart({ cart, onRemoveFromCart = () => {}, totalPrice = 0 }) {
-  const callbacks = {
-    onRemoveFromCart: code => {
-      onRemoveFromCart(code);
-    },
-  };
+  const renderItem = item => (
+    <Item item={item} buttonAction={onRemoveFromCart} buttonText={'Удалить'} />
+  );
 
   return (
     <div className="Cart">
-      <List list={cart} buttonAction={callbacks.onRemoveFromCart} buttonText={'Удалить'} />
+      <List list={cart} renderItem={renderItem} />
       <div className="Cart-footer">
         Итого: <span>{totalPrice} ₽</span>
       </div>
