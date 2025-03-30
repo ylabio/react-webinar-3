@@ -3,9 +3,11 @@ import List from './components/list';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import ModalLayout from './components/modal-layout';
-import ModalHead from './components/modal-head';
-import ModalResult from './components/modal-result';
 import Cart from './components/cart';
+import CartTotal from './components/cart-total';
+import Item from './components/item';
+import ItemCart from "./components/item-cart/index";
+
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -16,6 +18,7 @@ function App({ store }) {
   const cart = store.getState().cart;
   const { fullAmount, amountOfProducts } = store.date;
   const [modal, setModal] = useState(false);
+
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -53,17 +56,29 @@ function App({ store }) {
     <>
     <PageLayout>
     <Head title="Магазин" />
-    <Cart cart={cart} setVisible={setModal} />
+    <Cart cart={cart} setVisible={setModal}  fullAmount={fullAmount} amountOfProducts={amountOfProducts} />
     <List
       list={list}
-      onDeleteItem={callbacks.onDeleteItem}
-      onAddToCart={callbacks.onAddToCart}
+      renderItem={(item)=>{return (
+      <Item
+       item={item}
+       onDeleteItem={callbacks.onDeleteItem} 
+       onAddToCart={callbacks.onAddToCart}
+      />
+    )}}
     /> 
   </PageLayout>
-  <ModalLayout visible={modal}>
-    <ModalHead title={"Корзина"} setVisible={setModal} />
-    <List cart={cart} onDeleteItem={callbacks.onDeleteItemFromCart} />
-    <ModalResult
+  <ModalLayout visible={modal} title={'Корзина'} setVisible={setModal}>
+    <List list={cart}
+    renderItem={(item)=>{return (
+      <ItemCart
+       item={item}
+       onDeleteItem={callbacks.onDeleteItemFromCart} 
+      />
+    )}}
+     />
+    <CartTotal
+      subtitle='Корзина пустая...'
       fullAmount={fullAmount}
       amountOfProducts={amountOfProducts}
     />

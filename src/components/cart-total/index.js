@@ -3,20 +3,21 @@ import PropTypes from "prop-types";
 import "./style.css";
 import { getTypeOfNumber } from "../../utils";
 
-function ModalResult({ fullAmount = 0, amountOfProducts = 0 }) {
+function CartTotal({ fullAmount = 0, amountOfProducts = 0, subtitle='' }) {
   return amountOfProducts ? (
-    <div className="ModalResult-price">
+    <div className="CartTotal-price">
       <span>Итого:</span>
       <span>{getTypeOfNumber(fullAmount)} ₽</span>
     </div>
   ) : (
-    <div className="ModalResult-empty">Корзина пустая...</div>
+    <div className="CartTotal-empty">{subtitle}</div>
   );
 }
 
-ModalResult.propTypes = {
+CartTotal.propTypes = {
+  subtitle: PropTypes.string.isRequired,
   amountOfProducts: PropTypes.number.isRequired,
   fullAmount: PropTypes.number.isRequired,
 };
 
-export default React.memo(ModalResult);
+export default React.memo(CartTotal);

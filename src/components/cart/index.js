@@ -4,7 +4,7 @@ import "./style.css";
 import { getFullAmount, getTypeOfNumber, plural } from "../../utils";
 import CartIcon from '../../accets/cart.svg';
 
-function Cart({ cart, setVisible = () => {} }) {
+function Cart({ cart, setVisible = () => {}, amountOfProducts = 0,fullAmount=0 }) {
  
   return (
     <div className="Card">
@@ -13,13 +13,13 @@ function Cart({ cart, setVisible = () => {} }) {
        <img src={CartIcon} alt="My Cart" />
         {cart.length !== 0 ? (
           <span>
-            {cart.length}{" "}
-            {`${plural(cart.length, {
+            {amountOfProducts}{" "}
+            {`${plural(amountOfProducts, {
               one: "товар",
               few: "товарa",
               many: "товаров",
             })} `}
-           {" "} / {" "}{getTypeOfNumber(getFullAmount(cart))} ₽
+           {" "} / {" "}{getTypeOfNumber(fullAmount)} ₽
           </span>
         ) : (
           <span>Пусто</span>

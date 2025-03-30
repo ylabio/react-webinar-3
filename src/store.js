@@ -68,6 +68,7 @@ class Store {
    * @param code
    */
 addToCart(obj) {
+  let sum = 0;
   const findOfObject = this.state.cart.find((item) => item.code === obj.code);
   if (!findOfObject || this.state.cart.length === 0) {
     this.setState({
@@ -93,6 +94,8 @@ addToCart(obj) {
   }
   //перерасчет
   this.getNewDate();
+
+  
 }
 
 

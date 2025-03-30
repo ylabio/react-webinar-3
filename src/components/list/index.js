@@ -1,25 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Item from '../item';
 import './style.css';
-import ItemCart from "../item-сart";
+import PropTypes from "prop-types";
 
-function List({ list, cart, onDeleteItem= () => {}, onSelectItem=() => {}, onAddToCart= () => {},  }) {
-  const date = list ? list : cart;
+function List({ list, renderItem = () => {}}) {
+ 
   return (
     <div className="List">
-      {date.map((item) => (
+      {list?.map((item) => (
         <div key={item.code} className="List-item">
-          {list ? (
-            <Item
-              item={item}
-              onAddToCart={onAddToCart}
-              onDelete={onDeleteItem}
-              onSelect={onSelectItem}
-            />
-          ) : (
-            <ItemCart item={item} onDelete={onDeleteItem} />
-          )}
+          {renderItem(item)}
         </div>
       ))}
     </div>
@@ -32,14 +21,6 @@ List.propTypes = {
       code: PropTypes.number,
     })
   ),
-  cart: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number,
-    })
-  ),
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func,
-  onAddToCart: PropTypes.func,
 };
 
 

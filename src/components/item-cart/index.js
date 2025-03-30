@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { getTypeOfNumber, plural } from "../../utils";
+import { getTypeOfNumber } from "../../utils";
 import "./style.css";
 
 
@@ -8,7 +8,7 @@ function ItemCart(props) {
   const callbacks = {
     onClick: (e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
+      props.onDeleteItem(props.item.code);
     },
   };
 
