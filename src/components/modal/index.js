@@ -33,7 +33,7 @@ function Modal ({ basketItems, onDeleteItem=() => {}, hideModal=() => {} }) {
                 </ul>
                 <div className='total'>
                     <span>Итого:</span>
-                    <span>{sum} ₽</span>
+                    <span>{sum.toLocaleString()} ₽</span>
                 </div>
             </div>
         </div>

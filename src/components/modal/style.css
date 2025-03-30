@@ -1,6 +1,6 @@
 .Modal-container {
     display: flex;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
@@ -13,7 +13,8 @@
 .Modal {
     background-color: white;
     width: 1080px;
-    height: auto;
+    max-height: 100vh;
+    overflow-y: scroll;
     border-radius: 8px;
     padding: 24px;
     position: relative;
@@ -28,7 +29,6 @@
 }
 
 .Modal-list {
-    overflow: hidden;
     list-style: none;
     margin: 0;
     padding: 24px 0;

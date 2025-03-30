@@ -5,7 +5,6 @@ import Basket from '../../assets/icons/basket.svg';
 import { plural } from '../../utils';
 
 function Controls({ basketList, showBasket=() => {} }) {
-  let productsCount = 0;
 
   const onClick = () => {
     if (basketList.size === 0) {
@@ -22,9 +21,8 @@ function Controls({ basketList, showBasket=() => {} }) {
       let sum = 0;
       basketList.forEach((value, key, map) => {
         sum += value.item.price * value.count;
-        productsCount += value.count;
       });
-      return `${productsCount} ${plural(productsCount)} / ${sum} ₽`
+      return `${basketList.size} ${plural(basketList.size)} / ${sum.toLocaleString()} ₽`
     }
   }
 
