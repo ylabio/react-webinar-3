@@ -1,0 +1,37 @@
+.Modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  overflow-y: auto;
+  padding-top: 60px;
+  padding-bottom: clamp(60px, calc(100vh - 780px), 10%);
+}
+
+.Modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--overlay);
+}
+
+.Modal-content {
+  width: 100%;
+  max-width: 1080px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  z-index: 1001;
+  padding: 24px;
+  background-color: var(--background);
+  border-radius: 8px;
+  min-height: min-content;
+}

@@ -1,34 +1,30 @@
 .Item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   gap: 16px;
-  transition: background-color 1s;
   padding: 16px;
-}
-
-.Item_selected {
-  background-color: var(--primary-select);
 }
 
 .Item-title {
   flex: auto;
 }
 
-.Item-actions {
+.Item-content {
   display: flex;
-  justify-content: flex-end;
+  flex-grow: 1;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .Item-actions button {
-  background-color: var(--delete);
+  background-color: var(--primary);
   color: var(--second-text);
   padding: 8px 16px;
 
   &:hover {
     background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
+    border-color: var(--primary);
+    color: var(--primary);
   }
 }
-
