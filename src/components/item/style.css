@@ -13,6 +13,9 @@
 
 .Item-title {
   flex: auto;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 8px;
 }
 
 .Item-actions {
@@ -20,15 +23,21 @@
   justify-content: flex-end;
 }
 
-.Item-actions button {
-  background-color: var(--delete);
-  color: var(--second-text);
-  padding: 8px 16px;
+.Item-title-description {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  &>div {
+    width: 105px;
+  }
 
-  &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
+  &>:first-child {
+    text-align: left;
+  }
+
+  &>:last-child {
+    text-align: right;
   }
 }
 

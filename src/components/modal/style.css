@@ -1,0 +1,37 @@
+.Modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  background-color: var(--overlay);
+}
+
+.Modal.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Modal-content {
+  padding: 24px;
+  background-color: var(--background);
+  border-radius: 8px;
+  min-width: 1080px;
+  position: relative;
+  max-height: 90vh; 
+  overflow-y: auto;
+
+  &>.Modal-exit-btn {
+    padding: 8px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    fill: #878787;
+
+    &:hover {
+      fill: var(--primary);
+    }
+  }
+}
