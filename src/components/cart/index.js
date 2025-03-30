@@ -8,9 +8,9 @@ function Cart({
   isVisible = false,
   setVisible = () => {},
   cartList = [],
-  onRemoveFromCart = () => {}
+  onRemoveFromCart = () => {},
+  total = 0,
 }) {
-  const total = cartList.reduce((acc, item) => acc + (item.amount * item.price), 0)
   
   return (
     <ModalWindow isVisible={isVisible} setVisible={setVisible}>
@@ -43,7 +43,8 @@ Cart.propTypes = {
         code: PropTypes.number,
       }),
     ),
-  onRemoveFromCart: PropTypes.func
+  onRemoveFromCart: PropTypes.func,
+  total: PropTypes.number,
 }
 
 export default Cart;

@@ -86,7 +86,8 @@ class Store {
   
   addItemToCart(code) {
     const itemToAdd = this.state.list.find(item => item.code === code);
-    if (!itemToAdd) return;
+    if (!itemToAdd)
+      return;
   
     const currentCartList = this.state.cartList || [];
     const existingItem = currentCartList.find(item => item.code === code);
@@ -94,14 +95,19 @@ class Store {
     const newCartList = existingItem
       ? currentCartList.map(item => 
           item.code === code 
-            ? { ...item, amount: (item.amount || 0) + 1 } 
+            ? { ...item, amount: (item.amount || 0) + 1} 
             : item
         )
-      : [...currentCartList, { ...itemToAdd, amount: 1 }];
+      : [...currentCartList, { ...itemToAdd, amount: 1}];
   
     this.setState({
       ...this.state,
       cartList: newCartList
+    });
+
+    this.setState({
+      ...this.state,
+      total: (this.state.total || 0) + itemToAdd.price
     });
   }
 
@@ -109,6 +115,13 @@ class Store {
     this.setState({
       ...this.state,
       cartList: this.state.cartList.filter(item => item.code !== code)
+    });
+    
+    const total = cartList.reduce((acc, item) => acc + (item.amount * item.price), 0);
+
+    this.setState({
+      ...this.state,
+      total: total
     });
   }
 }

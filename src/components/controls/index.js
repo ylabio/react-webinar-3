@@ -6,10 +6,11 @@ import { plural } from '../../utils';
 
 function Controls({
   setVisible = () => {},
-  cartList=[]
+  cartList = [],
+  total = 0,
 }) {
-  const amount = cartList.reduce((acc, item) => acc + (item.amount || 0), 0);
-  const cost = cartList.reduce((acc, item) => acc + item.price, 0);
+  const amount = cartList.length;
+
   return (
     <div className="Controls">
       <Button type='transparent' onClick={() => setVisible(true)}>
@@ -21,7 +22,7 @@ function Controls({
               one: 'р',
               few: 'ра',
               many: 'ров',
-            })} / ${cost} ₽`
+            })} / ${total} ₽`
           : 'Пусто'}
       </Button>
     </div>
@@ -33,7 +34,8 @@ Controls.propTypes = {
   cartList: PropTypes.arrayOf(
       PropTypes.shape({
         code: PropTypes.number,
-      }))    
+      })),
+  total: PropTypes.number,
 };
 
 export default React.memo(Controls);

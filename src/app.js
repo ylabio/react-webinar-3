@@ -12,8 +12,7 @@ import Cart from './components/cart';
  */
 function App({ store }) {
   const [isVisible, setIsVisible] = useState(false);
-  const list = store.getState().list;
-  const cartList = store.getState().cartList;
+  const { list, cartList, total} = store.getState();
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -47,13 +46,14 @@ function App({ store }) {
     <>
       <PageLayout>
         <Head title="Магазин" />
-        <Controls setVisible={setIsVisible} cartList={cartList} />
+        <Controls setVisible={setIsVisible} cartList={cartList} total={total} />
         <List
           list={list}
           callback={callbacks.onAddToCart}
         />
       </PageLayout>
       <Cart
+        total={total}
         isVisible={isVisible}
         setVisible={setIsVisible} 
         cartList={cartList}
