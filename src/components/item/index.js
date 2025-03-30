@@ -3,48 +3,24 @@ import PropTypes from 'prop-types';
 import CustomButton from '../ui/button';
 import './style.css';
 
-function Item({ 
-  item,
-  itemInCart = false,
-  onAddItemCart = () => {},
-  deleteItemCart = () => {},
-  onClick = () => {} 
-}) {
+function Item({ item, action = () => {} }) {
   const callbacks = {
     onAddItemCart: e => {
       e.stopPropagation();
-      onAddItemCart(item.code, item.title, item.price);
+      action(item.code);
     },
-    deleteItemCart: e => {
-      e.stopPropagation();
-      deleteItemCart(item.code);
-    },
-    onClick: e => {
-      e.stopPropagation();
-      onClick(item.code);
-    }
   };
 
   return (
-    <div className="Item" onClick={callbacks.onClick}>
+    <div className="Item">
       <div className="Item-title">
         <b>{item.title}</b>
       </div>
       <div className="Item-main">
-        {item.quantity && (
-          <span className="Item-main-quantitiy">{item.quantity} шт</span>
-        )}
+        {item.quantity && <span className="Item-main-quantitiy">{item.quantity} шт</span>}
         <span className="Item-main-price">{item.price.toLocaleString()} ₽</span>
         <div className="Item-actions">
-          {itemInCart ? (
-            <CustomButton variant='red' onClick={callbacks.deleteItemCart}>
-              Удалить
-            </CustomButton>
-          ) : (
-            <CustomButton onClick={callbacks.onAddItemCart}>
-              Добавить
-            </CustomButton>
-          )}
+          <CustomButton onClick={callbacks.onAddItemCart}>Добавить</CustomButton>
         </div>
       </div>
     </div>
@@ -58,11 +34,10 @@ Item.propTypes = {
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     quantity: PropTypes.number,
-    selected: PropTypes.bool
+    selected: PropTypes.bool,
   }).isRequired,
-  onAddItemCart: PropTypes.func,
-  deleteItemCart: PropTypes.func,
-  onClick: PropTypes.func
+  action: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
 export default React.memo(Item);

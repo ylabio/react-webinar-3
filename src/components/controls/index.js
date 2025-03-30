@@ -6,18 +6,10 @@ import CustomButton from '../ui/button';
 import { plural } from '../../utils';
 import CartIcon from '../../assets/icons/Vector.svg';
 
-function Controls({ cartList, deleteItemCart = () => {} }) {
-  const [cart, setCart] = useState(false);
+function Controls({ cartInfo = {}, toggleCart = () => {} }) {
+  let totalItemsCart = cartInfo?.quantity;
 
-  function toggleCart() {
-    setCart(prev => !prev);
-  }
-
-  let totalItemsCart = cartList.length;
-  const total = useMemo(
-    () => cartList.reduce((sum, el) => sum + el.price * el.quantity, 0),
-    [cartList],
-  );
+  let total = cartInfo?.total;
 
   return (
     <div className="Controls">
@@ -38,23 +30,13 @@ function Controls({ cartList, deleteItemCart = () => {} }) {
           })} / ${total.toLocaleString()} ₽`
         )}
       </CustomButton>
-      {cart && (
-        <div className="Controls-modal">
-          <Cart
-            total={total}
-            deleteItemCart={deleteItemCart}
-            toggleCart={toggleCart}
-            cartList={cartList}
-          />
-        </div>
-      )}
     </div>
   );
 }
 
 Controls.propTypes = {
-  cartList: PropTypes.array.isRequired,
-  deleteItemCart: PropTypes.func,
+  cartInfo: PropTypes.array,
+  toggleCart: PropTypes.func,
 };
 
 export default React.memo(Controls);

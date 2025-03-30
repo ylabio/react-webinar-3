@@ -12,8 +12,12 @@ class Store {
 
     this.state = {
       list: initialList,
-      cartList: []
-    }
+      cartList: [],
+      cartInfo: {
+        total: 0,
+        quantity: 0,
+      },
+    };
   }
 
   /**
@@ -56,29 +60,39 @@ class Store {
       list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
     });
   }
-  addItemCart(code, title, price) {
+  addItemCart(code) {
     const itemIndex = this.state.cartList.findIndex(el => el.code === code);
-    
+
+    const itemFromList = this.state.list.filter(el => el.code === code);
+
+    console.log(this.state);
+
+    const updatedCartInfo = {
+      ...this.state.cartInfo,
+      quantity: this.state.cartInfo.quantity,
+      total: this.state.cartInfo.total + itemFromList[0].price,
+    };
+
     if (itemIndex !== -1) {
-      console.log(this.state.cartList)
-      
       const updatedCart = [...this.state.cartList];
 
-      updatedCart[itemIndex] = { 
-        ...updatedCart[itemIndex], 
-        quantity: updatedCart[itemIndex].quantity + 1 
+      updatedCart[itemIndex] = {
+        ...updatedCart[itemIndex],
+        quantity: updatedCart[itemIndex].quantity + 1,
       };
 
-      this.setState({ list: [...this.state.list], cartList: updatedCart });
-      
+      this.setState({
+        list: [...this.state.list],
+        cartList: updatedCart,
+        cartInfo: updatedCartInfo,
+      });
     } else {
       this.setState({
         ...this.state,
-        cartList: [...this.state.cartList, { code: code, title: title, price: price, quantity: 1}],
+        cartList: [...this.state.cartList, { ...itemFromList[0], quantity: 1 }],
+        cartInfo: { ...updatedCartInfo, quantity: updatedCartInfo.quantity + 1 },
       });
     }
-
-    
   }
 
   /**
@@ -93,9 +107,16 @@ class Store {
     });
   }
   deleteItemCart(code) {
+    const deletedItem = this.state.cartList.find(item => item.code === code);
+
     this.setState({
       ...this.state,
       cartList: this.state.cartList.filter(item => item.code !== code),
+      cartInfo: {
+        ...this.state.cartInfo,
+        quantity: this.state.cartInfo.quantity - 1,
+        total: this.state.cartInfo.total - (deletedItem.quantity * deletedItem.price),
+      },
     });
   }
 

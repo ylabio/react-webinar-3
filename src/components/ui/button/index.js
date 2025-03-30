@@ -12,11 +12,7 @@ const CustomButton = ({
   const buttonClasses = `custom-button ${variant} ${disabled ? 'disabled' : ''} ${className}`;
 
   return (
-    <button
-      className={buttonClasses}
-      onClick={onClick}
-      disabled={disabled}
-    >
+    <button className={buttonClasses} onClick={onClick} disabled={disabled}>
       <span className="button-content">
         {icon && <span className="button-icon">{icon}</span>}
         {children}
