@@ -3,7 +3,6 @@ import List from './components/list';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Cart from './components/cart';
-import { getCartStats } from './utils.js';
 
 /**
  * Приложение
@@ -13,7 +12,8 @@ import { getCartStats } from './utils.js';
 function App({ store }) {
   const list = store.getState().list;
   const cartList = list.filter(item => item.cartQuantity);
-  const { totalCost, uniqueItems } = getCartStats(cartList);
+  const uniqueItems = store.getState().uniqueItems
+  const totalCost = store.getState().totalCost
 
   const callbacks = {
     onDeleteItemCart: useCallback(

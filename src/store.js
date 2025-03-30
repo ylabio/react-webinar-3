@@ -45,6 +45,9 @@ class Store {
    * @param code
    */
   addItemCart(code) {
+    const product = this.state.list.find((item) => item.code === code);
+    const isUniqueItem = product && !product.cartQuantity;
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
@@ -56,6 +59,8 @@ class Store {
         }
         return item;
       }),
+      totalCost: product && this.state.totalCost + product.price,
+      uniqueItems: isUniqueItem ? this.state.uniqueItems + 1 : this.state.uniqueItems,
     });
   }
 
@@ -64,6 +69,8 @@ class Store {
    * @param code
    */
   deleteItemCart(code) {
+    const product = this.state.list.find((item) => item.code === code);
+
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
@@ -75,6 +82,8 @@ class Store {
         }
         return item;
       }),
+      totalCost: product && this.state.totalCost - product.price * product.cartQuantity,
+      uniqueItems: this.state.uniqueItems - 1,
     });
   }
 

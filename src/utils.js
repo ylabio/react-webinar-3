@@ -52,6 +52,7 @@ export function generateCode2() {
 }
 
 /**
+ * @deprecated теперь эти данные хранятся и обрабатываются в Store
  * Вычисляет статистику корзины: общую стоимость и количество уникальных товаров.
  * @param cart {Array<Object>} - Список товаров в корзине.
  * @example getCartStats([{ code: 1, title: 'Название товара', price: 100, cartQuantity: 2 },])
