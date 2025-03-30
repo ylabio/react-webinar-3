@@ -14,7 +14,7 @@
     background-color: white;
     width: 1080px;
     max-height: 100vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     border-radius: 8px;
     padding: 24px;
     position: relative;
@@ -26,33 +26,4 @@
   right: 18px;
   width: 16px;
   height: 16px;
-}
-
-.Modal-list {
-    list-style: none;
-    margin: 0;
-    padding: 24px 0;
-  }
-
-.Modal-title {
-    font-size: 32px;
-    font-weight: 700;
-}
-
-.total {
-  width: 234px;
-  margin-left: auto;
-  margin-right: 145px;
-  display: flex;
-  justify-content: space-between;
-  font-weight: 700;
-}
-
-.Modal-list-item:nth-child(odd) {
-    background-color: var(--odd-item);
-  }
-  
-.Modal-list-item {
-border-bottom: 1px solid var(--divider);
-cursor: pointer;
 }

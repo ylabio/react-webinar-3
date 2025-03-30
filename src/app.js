@@ -4,6 +4,7 @@ import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Modal from './components/modal';
+import Basket from './components/basket';
 
 /**
  * Приложение
@@ -41,7 +42,14 @@ function App({ store }) {
         list={list}
         onAddToBasket={callbacks.onAddToBasket}
       />
-      { isActiv ? <Modal hideModal={callbacks.hideModal} basketItems={basketList} onDeleteItem={callbacks.onDellFromBasket} /> : ''}
+      { 
+      isActiv ? 
+      <Modal hideModal={callbacks.hideModal}>
+        <Basket basketItems={basketList} onDeleteItem={callbacks.onDellFromBasket} />
+      </Modal> 
+      : 
+      ''
+      }
     </PageLayout>
   );
 }
