@@ -1,4 +1,3 @@
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,42 +40,56 @@ class Store {
 
   /**
    * Добавление товара в корзину
-   * @param item
+   * @param code
    */
-  addItem(item) {
-    const itemIndex = this.state.cart.findIndex(cartItem => cartItem.code === item.code);
-
-    if (itemIndex) {
+  addItem(code) {
+    const findItemCart = this.state.cart.find(item => item.code === code);
+    const findItemList = this.state.list.find(item => item.code === code);
+    if (findItemCart) {
+      findItemCart.quantity++;
       this.setState({
         ...this.state,
-        cart: [...this.state.cart, { ...item, quantity: 1 }],
+        totalItem: [
+          this.state.cart.reduce((sum, obj) => {
+            return obj.quantity + sum;
+          }, 0),
+        ],
+        totalPrice: [
+          this.state.cart.reduce((sum, obj) => {
+            return obj.price * obj.quantity + sum;
+          }, 0),
+        ],
       });
     } else {
-      const newCart = [...this.state.cart];
-      newCart[itemIndex] = { ...newCart[itemIndex], quantity: newCart[itemIndex].quantity + 1 };
-      this.setState({ ...this.state, cart: newCart });
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, { ...findItemList, quantity: 1 }],
+      });
     }
+    this.state.totalPrice = this.state.cart.reduce((sum, obj) => {
+      return obj.price * obj.quantity + sum;
+    }, 0);
+    this.state.totalItem = this.state.cart.reduce((sum, obj) => {
+      return obj.quantity + sum;
+    }, 0);
+    console.log(this.state.totalItem);
   }
 
   /**
    * Удаление товара из корзины
-   * @param item
+   * @param code
    */
-  deleteItem(item) {
+  deleteItem(code) {
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter(cartItem => cartItem.code !== item.code),
+      cart: this.state.cart.filter(item => item.code !== code),
     });
-  }
-
-  /**
-   * Переключение состояния модального окна
-   */
-  clickModal() {
-    this.setState({
-      ...this.state,
-      modalOpen: !this.state.modalOpen,
-    });
+    this.state.totalItem = this.state.cart.reduce((sum, obj) => {
+      return obj.quantity + sum;
+    }, 0);
+    this.state.totalPrice = this.state.cart.reduce((sum, obj) => {
+      return obj.price * obj.quantity + sum;
+    }, 0);
   }
 }
 

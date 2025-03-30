@@ -1,34 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import './style.css';
 
-function Item({ item, buttonAction = () => {}, buttonText = 'Добавить' }) {
-  const isCart = item.quantity > 0;
-
+function Item(props) {
   const callbacks = {
-    onClick: e => {
+    onAdd: e => {
       e.stopPropagation();
-      buttonAction(item);
+      props.onAdd(props.item.code);
     },
   };
 
   return (
     <div className={'Item'}>
       <div className="Item-title">
-        <b>{item.title}</b>
+        <b>{props.item.title}</b>
       </div>
       <div className="Item-info">
-        {isCart && `${item.quantity} шт.`}
-        <span className="Item-price">{item.price} ₽</span>
+        <span className="Item-price">{props.item.price} ₽</span>
       </div>
       <div className="Item-actions">
-        <button
-          className={isCart ? 'Item-button-delete' : 'Item-button-add'}
-          onClick={callbacks.onClick}
-        >
-          {buttonText}
-        </button>
+        <button onClick={callbacks.onAdd}>Добавить</button>
       </div>
     </div>
   );
@@ -39,10 +30,7 @@ Item.propTypes = {
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number,
-    quantity: PropTypes.number,
   }).isRequired,
-  buttonAction: PropTypes.func,
-  buttonText: PropTypes.string,
 };
 
 export default React.memo(Item);

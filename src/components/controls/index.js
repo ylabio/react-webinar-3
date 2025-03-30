@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { plural } from '../../utils';
 
-function Controls({ onClickModal = () => {}, totalItem, totalPrice }) {
+function Controls({ openModal = () => {}, totalItem, totalPrice }) {
   return (
     <div className="Controls">
       <button
         onClick={() => {
-          onClickModal();
+          openModal();
         }}
         aria-label="Open Cart"
       >
