@@ -5,10 +5,13 @@
 }
 
 .Controls button {
+  background-image: url('./cardIcon.svg');
+  background-repeat: no-repeat;
+  background-position: 19px center;
   border: 1px solid var(--primary);
-  padding: 8px 16px;
-  background-color: var(--primary);
-  color: var(--second-text);
+  padding: 9px 16px 9px 48px;
+  background-color: var(--second-text);
+  color: var(--main-text);
 
   &:hover {
     background-color: var(--background);

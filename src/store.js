@@ -7,6 +7,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state.price = 0;
+    this.state.cartCount = 0;
   }
 
   /**
@@ -41,46 +43,37 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину по коду
    */
-  addItem() {
+  addToCart(code) {
+    const listItem = this.state.list.filter(item => item.code === code);
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      cart: this.state.cart.find(item => item.code === code)
+        ? this.state.cart.map(item =>
+            item.code === code ? { ...item, count: item.count + 1 } : item,
+          )
+        : [...this.state.cart, { ...listItem[0], count: 1 }],
+      price: this.state.price + listItem[0].price,
+      cartCount: this.state.cart.find(item => item.code === code)
+        ? this.state.cartCount
+        : ++this.state.cartCount,
     });
   }
 
   /**
-   * Удаление записи по коду
+   * Удаление товара из корзины по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteFromCart(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      cart: this.state.cart.filter(item => item.code !== code),
     });
-  }
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      price: this.state.cart.reduce((sum, item) => sum + item.price * (item.count || 1), 0),
+      cartCount: this.state.cart.length,
     });
   }
 }

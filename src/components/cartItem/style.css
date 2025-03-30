@@ -7,12 +7,17 @@
   padding: 16px;
 }
 
-.Item_selected {
-  background-color: var(--primary-select);
-}
-
 .Item-title {
   flex: auto;
+}
+
+.Item-count {
+  width: 105px;
+}
+
+.Item-price {
+  width: 105px;
+  text-align: right;
 }
 
 .Item-actions {
@@ -21,9 +26,12 @@
 }
 
 .Item-actions button {
-  background-color: var(--delete);
   color: var(--second-text);
   padding: 8px 16px;
+}
+
+.Item-actions.Item-actions_remove button {
+  background-color: var(--delete);
 
   &:hover {
     background-color: var(--background);
@@ -31,4 +39,3 @@
     color: var(--delete);
   }
 }
-
