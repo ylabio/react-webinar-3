@@ -4,6 +4,8 @@ import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import ModalLayout from './components/modal-layout';
+import Item from './components/item';
+import ItemCart from './components/item-cart';
 
 /**
  * Приложение
@@ -44,19 +46,24 @@ function App({ store }) {
     ),
   };
 
+  const render = {
+    item: useCallback(item => {
+      return <Item item={item} onAddItemToCartList={callbacks.onAddItemToCartList} />;
+    }, []),
+    itemCart: useCallback(item => {
+      return <ItemCart item={item} onDeleteItemFromCartList={callbacks.onDeleteItemFromCartList} />;
+    }, []),
+  };
+
   return (
     <PageLayout>
       <Head title="Магазин" />
       <Controls cartListLength={cartListLength} sum={sum} openModal={openModal} />
-      <List list={list} onAddItemToCartList={callbacks.onAddItemToCartList} />
+      <List list={list} renderItem={render.item} />
 
       {isOpenModal && (
         <ModalLayout title={'Корзина'} closeModal={closeModal} sum={sum}>
-          <List
-            isOpenModal={isOpenModal}
-            list={cartList}
-            onDeleteItemFromCartList={callbacks.onDeleteItemFromCartList}
-          />
+          <List list={cartList} renderItem={render.itemCart} />
         </ModalLayout>
       )}
     </PageLayout>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './style.css';
 import PropTypes from 'prop-types';
 import { formatPrices } from '../../utils';
@@ -9,9 +9,24 @@ function ModalLayout({ sum, title, closeModal = () => {}, children }) {
 
   const cn = bem('ModalLayout');
 
+  const modalLayout = useRef();
+  const body = useRef();
+  
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(() => {
+      modalLayout.current.style.alignItems =
+        modalLayout.current.clientHeight < body.current.clientHeight ? 'flex-start' : 'center';
+    });
+
+    resizeObserver.observe(modalLayout.current);
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+
   return (
-    <div className={cn()}>
-      <div className={cn('body')}>
+    <div className={cn()} ref={modalLayout}>
+      <div className={cn('body')} ref={body}>
         <div className={cn('head')}>
           <h1 className={cn('title')}>{title}</h1>
           <button className={cn('close')} onClick={closeModal}>
