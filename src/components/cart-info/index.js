@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 function CartInfo({ price }) {
   return (
-    <div className="Items-info">
-      <p className="Items_info-text">Итого:</p>
-      <p className="Items_info-price">{price} &#8381;</p>
+    <div className="Modal-info">
+      <p className="Modal_info-text">Итого:</p>
+      <p className="Modal_info-price">{price.toLocaleString()} &#8381;</p>
     </div>
   );
 }

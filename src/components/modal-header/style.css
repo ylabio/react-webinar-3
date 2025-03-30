@@ -1,0 +1,17 @@
+.Modal-header {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.Modal-header_title {
+  font-size: 32px;
+  font-weight: 700;
+  font-family: 'Golos Text', sans-serif;
+}
+
+.Modal-header_button {
+  padding: 0;
+  position: absolute;
+  right: -6px;
+  top: -6px;
+}

@@ -32,18 +32,6 @@
   }
 }
 
-.Item-actions_remove-btn {
-  margin-left: 8px;
-  background-color: var(--delete);
-  color: var(--second-text);
-  padding: 8px 16px;
-  &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
-  }
-}
-
 .Item-price {
   text-align: end;
 }

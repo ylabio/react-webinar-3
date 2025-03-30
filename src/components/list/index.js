@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Item from '../item';
 import './style.css';
 
-function List({ list = [], isCartMode, onButtonClick = () => {} }) {
+function List({ list = [], onButtonClick = () => {}, Component }) {
   return (
     <ul className="List">
       {list.map(item => (
         <li key={item.code} className="List-item">
-          <Item item={item} onButtonClick={onButtonClick} isCartMode={isCartMode} />
+          <Component item={item} onButtonClick={onButtonClick} />
         </li>
       ))}
     </ul>
@@ -25,7 +24,7 @@ List.propTypes = {
     }),
   ).isRequired,
   onButtonClick: PropTypes.func.isRequired,
-  isCartMode: PropTypes.bool.isRequired,
+  Component: PropTypes.elementType.isRequired,
 };
 
 export default React.memo(List);

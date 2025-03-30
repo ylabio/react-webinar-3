@@ -4,6 +4,10 @@ import Head from './components/head';
 import PageLayout from './components/page-layout';
 import { Cart } from './components/cart';
 import { Modal } from './components/modal';
+import { ModalHeader } from './components/modal-header';
+import { CartInfo } from './components/cart-info';
+import Item from './components/item';
+import { ModalItem } from './modal-item';
 
 /**
  * Приложение
@@ -13,13 +17,7 @@ import { Modal } from './components/modal';
 function App({ store }) {
   const [isModalShown, setIsModalShown] = useState(false);
 
-  const list = store.getState().list;
-  const cart = store.getState().cart;
-  const cartItemsCount = cart.length;
-  const cartTotalPrice = cart.reduce((acc, { price, quantity }) => {
-    acc += price * quantity;
-    return acc;
-  }, 0);
+  const { list, cart, cartItemsCount, cartTotalPrice } = store.getState();
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -49,14 +47,13 @@ function App({ store }) {
         itemsCount={cartItemsCount}
         onShowModal={callbacks.onToggleModal}
       />
-      <List list={list} onButtonClick={callbacks.onAddItem} isCartMode={false} />
+      <List Component={Item} list={list} onButtonClick={callbacks.onAddItem} />
       {isModalShown && (
-        <Modal
-          cart={cart}
-          totalPrice={cartTotalPrice}
-          onShowModal={callbacks.onToggleModal}
-          onDeleteItem={callbacks.onDeleteItem}
-        />
+        <Modal>
+          <ModalHeader onShowModal={callbacks.onToggleModal} />
+          <List Component={ModalItem} list={cart} onButtonClick={callbacks.onDeleteItem} />
+          <CartInfo price={cartTotalPrice} />
+        </Modal>
       )}
     </PageLayout>
   );

@@ -1,4 +1,4 @@
-.Items-info {
+.Modal-info {
   font-family: 'Golos Text', sans-serif;
   font-size: 16px;
   font-weight: 700;
@@ -11,10 +11,10 @@
   gap: 24px;
 }
 
-.Items_info-text, .Items_info-price {
+.Modal_info-text, .Modal_info-price {
   min-width: 105px;
 }
 
-.Items_info-price {
+.Modal_info-price {
   text-align: end;
 }

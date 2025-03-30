@@ -16,7 +16,7 @@ function Cart({ totalPrice = 0, itemsCount = 0, onShowModal }) {
                 one: 'товар',
                 few: 'товара',
                 many: 'товаров',
-              })} / ${totalPrice} \u20BD`}
+              })} / ${totalPrice.toLocaleString()} \u20BD`}
         </div>
       </div>
     </div>

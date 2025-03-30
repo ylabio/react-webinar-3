@@ -1,4 +1,4 @@
-import { generateCode } from './utils';
+import { generateCode, getTotalCartPrice } from './utils';
 
 /**
  * Хранилище состояния приложения
@@ -46,17 +46,35 @@ class Store {
    */
 
   addToCart(code) {
-    const items = this.state.list.map(item => {
-      if (item.code === code) {
-        item.quantity = item.quantity ? (item.quantity += 1) : 1;
-      }
-      return item;
-    });
+    const cartItem = this.state.cart.find(item => item.code === code);
 
-    this.setState({
-      ...this.state,
-      cart: items.filter(item => item.quantity),
-    });
+    if (cartItem) {
+      const cart = this.state.cart.map(item => {
+        if (item.code === code) {
+          return {
+            ...item,
+            quantity: (item.quantity += 1),
+          };
+        }
+        return item;
+      });
+
+      this.setState({
+        ...this.state,
+        cartTotalPrice: getTotalCartPrice(cart),
+        cart,
+      });
+    } else {
+      const listItem = this.state.list.find(item => item.code === code);
+      const cart = [...this.state.cart, { ...listItem, quantity: 1 }];
+
+      this.setState({
+        ...this.state,
+        cartItemsCount: (this.state.cartItemsCount += 1),
+        cartTotalPrice: getTotalCartPrice(cart),
+        cart,
+      });
+    }
   }
 
   /**
@@ -65,17 +83,12 @@ class Store {
    */
   deleteItem(code) {
     const cart = this.state.cart.filter(item => item.code !== code);
-    const list = this.state.list.map(item => {
-      if (item.code === code) {
-        item.quantity = 0;
-      }
-      return item;
-    });
 
     this.setState({
       ...this.state,
+      cartItemsCount: (this.state.cartItemsCount -= 1),
+      cartTotalPrice: getTotalCartPrice(cart),
       cart,
-      list,
     });
   }
 }
