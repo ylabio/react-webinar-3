@@ -6,7 +6,7 @@ import './style.css';
 function CartSummary({ itemsCount = 0, totalSum = 0, onOpenCart = () => {} }) {
   return (
     <div className="CartSummary">
-      <div className="CartSummary-content" onClick={onOpenCart}>
+      <button className="CartSummary-button" onClick={onOpenCart}>
         <svg className="CartSummary-icon" viewBox="0 0 24 24">
           <path
             fill="#6B4ACB"
@@ -18,7 +18,7 @@ function CartSummary({ itemsCount = 0, totalSum = 0, onOpenCart = () => {} }) {
             ? `${itemsCount} ${plural(itemsCount, { one: 'товар', few: 'товара', many: 'товаров' })} / ${totalSum.toLocaleString('ru-RU')} ₽`
             : 'Пусто'}
         </span>
-      </div>
+      </button>
     </div>
   );
 }

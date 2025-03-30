@@ -13,7 +13,9 @@ function App({ store }) {
     (acc, [code, quantity]) => {
       const product = state.list.find(p => p.code === Number(code));
       if (product) {
-        acc.totalItems += quantity;
+        /* acc.totalItems += quantity;
+        acc.totalSum += quantity * product.price; */
+        acc.totalItems = Object.keys(state.cart).length; // Уникальные товары
         acc.totalSum += quantity * product.price;
       }
       return acc;
