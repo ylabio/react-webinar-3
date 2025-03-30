@@ -3,8 +3,9 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import Head from '../head';
 import ModalHead from '../modal-head';
+import PropTypes from 'prop-types';
 
-function Modal({ title, isOpen, onClose, children }) {
+function Modal({ title, isOpen, onClose = () => {}, children }) {
   const dialogRef = useRef(null);
   const cn = bem('Modal');
 
@@ -27,5 +28,12 @@ function Modal({ title, isOpen, onClose, children }) {
     </dialog>
   );
 }
+
+Modal.propTypes = {
+  title: PropTypes.string,
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  children: PropTypes.node,
+};
 
 export default Modal;

@@ -5,6 +5,7 @@ import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Modal from './components/modal/';
 import ModalCart from './components/modal-cart';
+import PropTypes from 'prop-types';
 
 /**
  * Приложение
@@ -58,5 +59,9 @@ function App({ store }) {
     </PageLayout>
   );
 }
+
+App.propTypes = {
+  store: PropTypes.object.isRequired
+};
 
 export default App;

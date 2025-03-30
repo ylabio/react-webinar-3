@@ -21,7 +21,7 @@ function Controls({ onModalOpen = () => {}, store }) {
 
 Controls.propTypes = {
   onModalOpen: PropTypes.func,
-  getCartPrice: PropTypes.func,
+  store: PropTypes.object.isRequired
 };
 
 export default React.memo(Controls);

@@ -25,6 +25,7 @@ function ModalCart({ store, onClick = () => {}, closeModal }) {
 }
 
 ModalCart.propTypes = {
+  store: PropTypes.object,
   children: PropTypes.node
 };
 
