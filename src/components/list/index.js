@@ -3,31 +3,31 @@ import PropTypes from 'prop-types';
 import Item from '../item';
 import './style.css';
 
-function List({ list, onDeleteItem, onSelectItem }) {
+function List({ items, onItemClick, actionName }) { // items вместо list, onItemClick вместо onAddItemToCart
   return (
-    <ul className="List">
-      {list.map(item => (
-        <li key={item.code} className="List-item">
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem} />
-        </li>
+    <div className="List">
+      {items.map(item => (
+        <Item
+          key={item.code}
+          item={item}
+          onItemClick={onItemClick} // Передаем общую функцию
+          actionName={actionName} // Передаем название действия (Добавить/Удалить)
+        />
       ))}
-    </ul>
+    </div>
   );
 }
 
 List.propTypes = {
-  list: PropTypes.arrayOf(
+  items: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.number,
-    }),
+      title: PropTypes.string,
+      price: PropTypes.number,
+    })
   ).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func,
+  onItemClick: PropTypes.func.isRequired,
+  actionName: PropTypes.string.isRequired, // Добавляем propType для actionName
 };
 
-List.defaultProps = {
-  onDeleteItem: () => {},
-  onSelectItem: () => {},
-};
-
-export default React.memo(List);
+export default List;

@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,47 +39,66 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   *  Пересчёт totalPrice и uniqueCartItemsCount на основе содержимого корзины.
    */
-  addItem() {
+  calculateCartSummary() {
+    const { cart, list } = this.state;
+    let totalPrice = 0;
+    // Итерируемся по корзине и суммируем цены товаров
+    cart.forEach((cartItem) => {
+      const item = list.find((listItem) => listItem.code === cartItem.code);
+      if (item) {
+        totalPrice += item.price * cartItem.quantity;
+      }
+    });
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      totalPrice: totalPrice,
+      uniqueCartItemsCount: cart.length,
     });
+  }
+  
+  /**
+   * Добавление товара в корзину по коду
+   * @param code
+   */
+  addItemToCart(code) {
+    const { cart } = this.state;
+    const existingCartItemIndex = cart.findIndex((item) => item.code === code); // Проверяем, есть ли товар в корзине
+    if (existingCartItemIndex !== -1) {
+      // Если товар есть, увеличиваем количество
+      const newCart = [...cart];
+      newCart[existingCartItemIndex].quantity += 1; // Увеличиваем количество
+      this.setState({ ...this.state, cart: newCart }); // Обновляем состояние
+    } else {
+      // Если товара нет, добавляем новый элемент в корзину
+      const newCart = [...cart, { code: code, quantity: 1 }]; // Добавляем товар в корзину
+      this.setState({ ...this.state, cart: newCart }); // Обновляем состояние
+    }
   }
 
   /**
-   * Удаление записи по коду
+   * Удаление товара из корзины по коду
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
+  removeItemFromCart(code) {
+    let { cart } = this.state;
+    cart = cart.filter((item) => item.code !== code);
+    this.setState({ ...this.state, cart: cart });
   }
 
   /**
-   * Выделение записи по коду
-   * @param code
+   * Открытие модального окна
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
-    });
+  openModal() {
+    this.setState({ ...this.state, isModalOpen: true });
+  }
+
+  /**
+   * Закрытие модального окна
+   */
+  closeModal() {
+    this.setState({ ...this.state, isModalOpen: false });
   }
 }
 

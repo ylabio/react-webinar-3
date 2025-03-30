@@ -1,0 +1,50 @@
+.Modal {
+  width: 100%;
+  position: relative;
+  background: var(--background);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.close-cart-btn {
+  position: absolute;
+  padding: 0;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  border: none;
+}
+.close-cart-btn img {
+  transition: 0.8s;
+  cursor: pointer;
+}
+.close-cart-btn img:hover {
+  transform: rotate(90deg);
+  width: 32px;
+  height: 32px;
+}
+
+.totalPrice {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 145px;
+  padding: 16px 0;
+  font-weight: 700;
+  font-size: 16px;
+  gap: 24px;
+}
+
+.totalPrice-label {
+  width: 105px;
+  text-align: left;
+}
+
+.totalPrice-value {
+  width: 105px;
+  text-align: right;
+}
+
+.Modal-header h1 {
+  margin-bottom: 24px;
+}
