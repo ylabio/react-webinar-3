@@ -43,7 +43,7 @@ function Item({ item, onAction, mode }) {
                 {(item.price * item.count).toLocaleString()} ₽
               </span>
             </div>
-            <button className="cart" onClick={() => onAction(item)}>
+            <button className="cart" onClick={() => onAction(item.code)}>
               Удалить
             </button>
           </>
