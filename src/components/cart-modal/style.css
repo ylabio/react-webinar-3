@@ -1,0 +1,40 @@
+.CartModal-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+    margin-bottom: 16px;
+}
+
+.CartModal-item-even {
+    background-color: var(--odd-item);
+}
+
+.CartModal-last-item {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px;
+    border: none;
+}
+
+.CartModal-item-total-price {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+}
+
+.CartModal-total-text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.CartModal-empty {
+    padding: 16px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.empty {
+        width: 105px;
+}

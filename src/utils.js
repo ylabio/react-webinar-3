@@ -50,3 +50,20 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
+
+/**
+ * 
+ * @param {*} number - число
+ * @param {*} separator - разделитель
+ * @returns {String} - форматированное число в виде строки
+ */
+export function formatNumber(number, separator=' ') {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator)
+}
+
+export function formatPrice(price, decimals = 0, separator = " ") {
+  const fixedPrice = price.toFixed(decimals)
+  const [whole, fraction] = fixedPrice.split(".")
+
+  return formatNumber(whole, separator) + (fraction ? "." + fraction : "")
+}

@@ -1,8 +1,10 @@
-import React, { useCallback } from 'react';
-import List from './components/list';
-import Controls from './components/controls';
-import Head from './components/head';
-import PageLayout from './components/page-layout';
+import React from 'react';
+import { useCallback, useState } from "react";
+import List from "./components/list";
+import Controls from "./components/controls";
+import Head from "./components/head";
+import PageLayout from "./components/page-layout";
+import CartModal from "./components/cart-modal";
 
 /**
  * Приложение
@@ -10,39 +12,48 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const state = store.getState();
+  const list = state.list;
+  const cart = state.cart || [];
+  const totalSum = state.totalSum || 0;
+  const itemsCount = state.itemsCount || 0;
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const callbacks = {
-    onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
+    onAddToCart: useCallback(
+      (code) => {
+        store.addToCart(code);
       },
       [store],
     ),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
+    onRemoveFromCart: useCallback(
+      (code) => {
+        store.removeFromCart(code);
       },
       [store],
     ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
-  };
+    onToggleCart: useCallback(() => {
+      setIsCartOpen(!isCartOpen);
+    }, [isCartOpen]),
+  }
 
   return (
     <PageLayout>
       <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
-      />
+      <Controls itemsCount={itemsCount} totalSum={totalSum} onToggleCart={callbacks.onToggleCart} />
+      <List list={list} onAddToCart={callbacks.onAddToCart} />
+      {isCartOpen && (
+        <CartModal
+          cart={cart}
+          onClose={callbacks.onToggleCart}
+          onRemoveFromCart={callbacks.onRemoveFromCart}
+          totalSum={totalSum}
+        />
+      )}
     </PageLayout>
-  );
+  )
 }
 
 export default App;
