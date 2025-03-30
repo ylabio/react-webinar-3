@@ -5,13 +5,18 @@ import {addOverflowToBody} from "./utils";
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
-    this.cart = {
-      list: [],
-      totalPrice: 0,
+    this.state = {
+      cart: {
+        list: [],
+        totalPrice: 0,
+        totalProductCount: 0,
+      },
+      isViewModal: false,
+      ...initState,
+
     };
-    this.isViewModal = false;
+    this.listeners = []; // Слушатели изменений состояния
+
   }
 
   /**
@@ -35,46 +40,56 @@ class Store {
     return this.state;
   }
 
-  /**
-   * Выбор состояния корзины товаров
-   * @returns {Object}
-   */
-  getCartState() {
-    return this.cart;
-  }
-
-  /**
-   * Выбор состояния модального окна
-   * @returns {Boolean}
-   */
-  getIsViewModal() {
-    return this.isViewModal;
+  listenersCall() {
+    // Вызываем всех слушателей
+    for (const listener of this.listeners) listener();
   }
 
   /**
    * Установка состояния корзины товаров
-   * @param newCartState {Object}
+   * @param newCartList {Object}
    */
-  setCartState(newCartState) {
-    this.cart = newCartState;
-    // Вызываем всех слушателей
-    for (const listener of this.listeners) listener();
+  setCartList(newCartList) {
+    this.state = {
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        list: [...newCartList],
+      },
+    };
+    this.listenersCall();
   }
 
   setTotalCartPrice(totalPrice) {
-    this.cart = {
-      ...this.cart,
-      totalPrice,
+    this.state = {
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        totalPrice
+      }
     };
-    // Вызываем всех слушателей
-    for (const listener of this.listeners) listener();
+
+    this.listenersCall();
   }
 
   setViewModal(isModalOpen) {
-    this.isViewModal = isModalOpen;
-    addOverflowToBody(this.isViewModal);
-    // Вызываем всех слушателей
-    for (const listener of this.listeners) listener();
+    this.state = {
+      ...this.state,
+      isViewModal: isModalOpen
+    };
+
+    addOverflowToBody(isModalOpen);
+    this.listenersCall();
+  }
+
+  setTotalProductCount(totalProductCount) {
+    this.state = {
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        totalProductCount
+      }
+    };
   }
 
   /**
@@ -83,9 +98,9 @@ class Store {
    */
   addItemToCart(itemCode) {
     let cartList = [];
-    const isHasItemInCart = this.cart.list.some(item => item.code === itemCode);
+    const isHasItemInCart = this.state.cart.list.some(item => item.code === itemCode);
     if (isHasItemInCart) {
-      cartList = this.cart.list.map(item => {
+      cartList = this.state.cart.list.map(item => {
         if (item.code === itemCode) {
           return {...item, count: item.count + 1, totalPrice: item.price * (item.count + 1)};
         }
@@ -93,14 +108,12 @@ class Store {
       });
     } else {
       const defaultItem = {...this.state.list.filter(item => item.code === itemCode)[0]};
-      cartList = [...this.cart.list, {...defaultItem, count: 1, totalPrice: defaultItem.price}];
+      cartList = [...this.state.cart.list, {...defaultItem, count: 1, totalPrice: defaultItem.price}];
     }
 
-    this.setCartState({
-      ...this.cart,
-      list: cartList,
-    });
-    this.setTotalCartPrice(this.cart.list.reduce((acc, cur) => acc + cur.totalPrice, 0));
+    this.setCartList(cartList);
+    this.setTotalCartPrice(cartList.reduce((acc, cur) => acc + cur.totalPrice, 0));
+    this.setTotalProductCount(cartList.length);
   }
 
   /**
@@ -108,15 +121,15 @@ class Store {
    * @param itemCode {Number}
    */
   deleteItemFromCart(itemCode) {
-    this.setCartState({
-      ...this.cart,
-      list: [...this.cart.list.filter(item => item.code !== itemCode)],
-    });
-    this.setTotalCartPrice(this.cart.list.reduce((acc, cur) => acc + cur.totalPrice, 0));
+    const cartList = [...this.state.cart.list.filter(item => item.code !== itemCode)];
+
+    this.setCartList(cartList);
+    this.setTotalCartPrice(cartList.reduce((acc, cur) => acc + cur.totalPrice, 0));
+    this.setTotalProductCount(cartList.length);
   }
 
   changeViewModal() {
-    const isShowModal = !this.isViewModal;
+    const isShowModal = !this.state.isViewModal;
     this.setViewModal(isShowModal);
   }
 }

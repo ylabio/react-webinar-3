@@ -13,9 +13,7 @@ import Cart from "./components/cart";
  * @returns {React.ReactElement}
  */
 function App({store}) {
-  const list = store.getState().list;
-  const cartData = store.getCartState();
-  const isViewModal = store.getIsViewModal();
+  const {list, cart, isViewModal} = store.getState();
 
 
   const callbacks = {
@@ -23,18 +21,18 @@ function App({store}) {
       itemCode => {
         store.deleteItemFromCart(itemCode);
       },
-      [store.cart],
+      [store.state.cart],
     ),
     onAddItemToCart: useCallback(
       itemCode => {
         store.addItemToCart(itemCode);
       },
-      [store.cart],
+      [store.state.cart],
     ), onChangeViewModal: useCallback(
       () => {
         store.changeViewModal();
       },
-      [store.isViewModal],
+      [store.state.isViewModal],
     ),
   };
 
@@ -44,15 +42,15 @@ function App({store}) {
         <Head title="магазин"/>
         <Controls
           onChangeViewModal={callbacks.onChangeViewModal}
-          productCount={cartData.list.length}
-          totalPrice={cartData.totalPrice}
+          productCount={cart.totalProductCount}
+          totalPrice={cart.totalPrice}
         />
         <List list={list} isCartList={false} onClickItem={callbacks.onAddItemToCart}/>
       </PageLayout>
       {isViewModal ? <Modal onChangeViewModal={callbacks.onChangeViewModal}>
-        <Cart totalProductCount={cartData.list.length} totalPrice={cartData.totalPrice}>
+        <Cart totalProductCount={cart.totalProductCount} totalPrice={cart.totalPrice}>
           <Head title="корзина" styleClass="cart"/>
-          <List list={cartData.list} isCartList={true} onClickItem={callbacks.onDeleteItemFromCart}/>
+          <List list={cart.list} isCartList={true} onClickItem={callbacks.onDeleteItemFromCart}/>
         </Cart>
       </Modal> : null}
     </>
