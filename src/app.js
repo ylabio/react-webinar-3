@@ -2,8 +2,8 @@ import React, { useState, useCallback } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
-import Backdrop from './components/backdrop';
 import ModalWindow from './components/modal-window';
+import Cart from './components/cart';
 import PageLayout from './components/page-layout';
 
 /**
@@ -47,13 +47,12 @@ function App({ store }) {
         isCart={false}
       />
       {modalOpen ? 
-        <Backdrop>
-          <ModalWindow 
+        <ModalWindow onModalStateChange={callbacks.onModalStateChange}>
+          <Cart 
             cart={cart} 
-            onModalStateChange={callbacks.onModalStateChange}
             onDeleteItem={callbacks.onDeleteItem}
           />
-        </Backdrop> : 
+        </ModalWindow> : 
         <></>
       }
     </PageLayout>
