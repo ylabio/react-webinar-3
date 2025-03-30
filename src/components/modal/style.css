@@ -9,12 +9,14 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  overflow-y: auto;
 }
 
 .Modal {
   border-radius: 8px;
   padding: 24px;
-  min-width: 1080px;
+  margin: auto;
+  width: 1080px;
   background: var(--background);
 }
 
@@ -31,8 +33,4 @@
   font-size: 32px;
   line-height: 125%;
   color: var(--main-text);
-}
-
-.Modal-content {
-  padding: 16px;
 }

@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import './style.css';
-import CloseButton from "../close-button";
-import {cn as bem} from "@bem-react/classname";
+import CloseButton from '../close-button';
+import { cn as bem } from '@bem-react/classname';
 
 const Modal = ({ children, isOpen, onClose = () => {} }) => {
   const cn = bem('Modal');
@@ -27,17 +26,16 @@ const Modal = ({ children, isOpen, onClose = () => {} }) => {
 
   if (!isOpen) return null;
 
-  return ReactDOM.createPortal(
+  return (
     <div className={cn('overlay')} onClick={onClose}>
-      <div className={cn()} onClick={(e)=> e.stopPropagation()} >
+      <div className={cn()} onClick={e => e.stopPropagation()}>
         <div className={cn('header')}>
           <h2 className={cn('title')}>Корзина</h2>
           <CloseButton onClick={onClose} />
         </div>
         <div className={cn('content')}>{children}</div>
       </div>
-    </div>,
-    document.body,
+    </div>
   );
 };
 
