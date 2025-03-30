@@ -20,6 +20,8 @@
   border-radius: 8px;
   min-width: 1080px;
   position: relative;
+  max-height: 90vh; 
+  overflow-y: auto;
 
   &>.Modal-exit-btn {
     padding: 8px;

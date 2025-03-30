@@ -46,13 +46,12 @@ function Item(props) {
     <div
       className={'Item' + (props.item.selected ? ' Item_selected' : '')}
     >
-      <div className="Item-code">{props.item.code}</div>
       <div className="Item-title">
         <div><b>{props.item.title}</b></div>
         <div>
           {props.item.price
           ? `${props.item.price.toLocaleString('ru-RU')} ₽`
-          : ''}
+          : '0 ₽'}
         </div>
       </div>
       <div className="Item-actions">
