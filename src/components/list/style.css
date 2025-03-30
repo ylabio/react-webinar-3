@@ -11,12 +11,12 @@
   }
 }
 
-.List-item:nth-child(odd) {
-  background-color: var(--odd-item);
-}
-
 .List-item {
   border-bottom: 1px solid var(--divider);
+}
+
+.List-item:nth-child(odd) {
+  background-color: var(--odd-item);
 }
 
 .Item-actions {

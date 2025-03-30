@@ -8,7 +8,7 @@
     color: var(--main-text);
     border-bottom: none;
     padding: 0;
-    margin-bottom: 26px;
+    margin-bottom: 27px;
   }
 }
 
@@ -23,4 +23,5 @@
 .Head h1 {
   margin: 0;
   text-transform: capitalize;
+  padding-top: 1px;
 }

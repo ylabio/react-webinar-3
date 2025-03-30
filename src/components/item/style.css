@@ -10,6 +10,10 @@
 
 .Item-title {
   flex: auto;
+
+  &.cart {
+    padding-bottom: 2px;
+  }
 }
 
 .Item-actions {
@@ -18,11 +22,15 @@
 }
 
 .Item-count {
-  min-width: 50px;
+  min-width: 48px;
   text-align: left;
+  padding-bottom: 2px;
+  padding-left: 2px;
 }
 
+
 .Item-price--cart {
- min-width: 170px;
+  min-width: 172px;
+  padding-bottom: 2px;
   text-align: right;
 }

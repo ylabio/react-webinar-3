@@ -14,7 +14,7 @@ function Item({onClickItem = () => {}, ...props}) {
 
   return (
     <div className={cn()}>
-      <div className={cn("title")}>
+      <div className={`${cn("title")}${props.isCartItem ? " cart" : ""}` }>
         <b>{props.item.title}</b>
 
       </div>
