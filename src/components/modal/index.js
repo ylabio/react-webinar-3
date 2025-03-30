@@ -33,4 +33,4 @@ ModalWindow.propTypes = {
   setVisible: PropTypes.func,
 };
 
-export default ModalWindow;
+export default React.memo(ModalWindow);
