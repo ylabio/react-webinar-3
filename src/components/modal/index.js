@@ -21,7 +21,9 @@ function Modal({ cart, price = 0, onDeleteFromCart, isOpen = false, onClose }) {
               <button className="Modal-close-btn" onClick={callbacks.onClose} />
             </header>
             <div className="Modal-body">
-              <List list={cart} callback={onDeleteFromCart} component={CartItem} />
+              <div className="Modal-list">
+                <List list={cart} callback={onDeleteFromCart} component={CartItem} />
+              </div>
               <div className="Price">
                 <div>
                   <b>Итого:</b>

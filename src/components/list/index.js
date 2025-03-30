@@ -21,7 +21,7 @@ List.propTypes = {
     }),
   ).isRequired,
   callback: PropTypes.func,
-  component: PropTypes.node,
+  component: PropTypes.object,
 };
 
 export default React.memo(List);

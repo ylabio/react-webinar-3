@@ -18,22 +18,32 @@
   width: 75%;
 }
 
+.Modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+
+  background-image: url('./close.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+}
+
 .Modal-header {
   margin-bottom: 24px;
 }
 
 .Modal-body {
   max-height: 65lvh;
-  overflow-y: auto;
 }
 
-.Modal-close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-image: url('./close.svg');
-  background-repeat: no-repeat;
-  background-position: center;
+.Modal-list {
+  max-height: 220px;
+  overflow-y: auto;
 }
 
 .Price {
