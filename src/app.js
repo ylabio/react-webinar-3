@@ -54,7 +54,7 @@ function App({store}) {
 
   return (
     <>
-      <PageLayout>
+      <PageLayout nonScroll={show}>
         <Head title="Магазин"/>
         <Controls label={cartButtonLabel} onShowCart={callbacks.onShowCart} addedItem={addedItem}/>
         <List
