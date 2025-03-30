@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Item from '../item';
 import './style.css';
 
-function List({ list, onAddItem = code => {} }) {
+function List({ list, renderItem = item => {} }) {
   return (
     <ul className="List">
       {list.map(item => (
         <li key={item.code} className="List-item">
-          <Item item={item} onAddItem={onAddItem} />
+          {renderItem(item)}
         </li>
       ))}
     </ul>
@@ -21,7 +20,7 @@ List.propTypes = {
       code: PropTypes.number,
     }),
   ).isRequired,
-  onAddItem: PropTypes.func,
+  renderItem: PropTypes.func,
 };
 
 export default React.memo(List);

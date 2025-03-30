@@ -3,6 +3,7 @@ import List from './components/list';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Cart from './components/cart';
+import Item from "./components/item";
 
 /**
  * Приложение
@@ -31,6 +32,8 @@ function App({ store }) {
     ),
   };
 
+  const renderItem = item => <Item item={item} onAddItem={callbacks.onAddItem}/>
+
   return (
     <PageLayout>
       <Head title="Магазин" />
@@ -40,7 +43,7 @@ function App({ store }) {
         totalCost={totalCost}
         uniqueItems={uniqueItems}
       />
-      <List list={list} onAddItem={callbacks.onAddItem} />
+      <List list={list} renderItem={renderItem} />
     </PageLayout>
   );
 }
