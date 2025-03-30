@@ -32,23 +32,13 @@ function App({ store }) {
     ),
   };
 
-  const cartInfo = useMemo(() => {
-    const newTotalPrice = cart.reduce((acc, item) => acc + item.count * item.price, 0);
-    const newCartLength = cart.length;
-
-    return {
-      totalPrice: newTotalPrice,
-      cartLength: newCartLength,
-    };
-  }, [cart]);
-
   return (
     <PageLayout>
       <Head title="Магазин" />
       <Cart
-        cart={cart}
-        cartLength={cartInfo.cartLength}
-        totalPrice={cartInfo.totalPrice}
+        cart={cart.items}
+        cartLength={cart.totalCount}
+        totalPrice={cart.totalPrice}
         setIsOpen={setIsOpen}
       />
       <List
@@ -61,8 +51,8 @@ function App({ store }) {
           <CartModal
             isOpen={isOpen}
             setIsOpen={setIsOpen}
-            cart={cart}
-            totalPrice={cartInfo.totalPrice}
+            cart={cart.items}
+            totalPrice={cart.totalPrice}
             deleteFromCart={callbacks.deleteFromCart}
           />)
       }
