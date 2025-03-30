@@ -7,6 +7,8 @@ import './style.css';
 const Item = ({ item, onClick, buttonText, quantity }) => {
   const cn = bem('Item');
 
+  const formattedPrice = item.price.toLocaleString('ru-RU');
+
   const handleClick = () => onClick(item.code);
 
   return (
@@ -14,7 +16,7 @@ const Item = ({ item, onClick, buttonText, quantity }) => {
       <h2 className={cn('title')}>{item.title}</h2>
       <div className={cn('textBlock', { spacing: quantity === 0 })}>
         {quantity > 0 && <p className={cn('text')}>{quantity} шт.</p>}
-        <p className={cn('price')}>{item.price} ₽</p>
+        <p className={cn('price')}>{formattedPrice} ₽</p>
       </div>
       <div className={cn('actions')}>
         <Controls onClick={handleClick} buttonText={buttonText} />

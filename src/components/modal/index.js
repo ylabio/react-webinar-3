@@ -31,12 +31,10 @@ const Modal = ({ children, onClose }) => {
   return (
     <ModalOverlay onClick={closeModal}>
       <div className={cn()} onClick={handleModalClick}>
-        <div className={cn('content')}>
-          <button className={cn('icon')} onClick={closeModal}>
-            <CloseIcon />
-          </button>
-          {children}
-        </div>
+        <button className={cn('icon')} onClick={closeModal}>
+          <CloseIcon />
+        </button>
+        <div className={cn('content')}>{children}</div>
       </div>
     </ModalOverlay>
   );

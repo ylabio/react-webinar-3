@@ -39,6 +39,18 @@ class Store {
       ),
     });
   }
+
+  getCartItems() {
+    return this.state.list.filter(item => item.inCart);
+  }
+
+  getCartTotalAmount() {
+    return this.getCartItems().reduce((sum, item) => sum + item.price * item.count, 0);
+  }
+
+  getCartTotalQuantity() {
+    return this.getCartItems().length;
+  }
 }
 
 export default Store;

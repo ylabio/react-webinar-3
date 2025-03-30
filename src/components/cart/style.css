@@ -1,5 +1,6 @@
 .Cart {
   padding: 0;
+  box-sizing: border-box;
   color: var(--main-text);
   display: flex;
   flex-direction: column;
@@ -9,8 +10,8 @@
 
 .Cart-list {
   width: 100%;
-  padding: 0;
-  overflow-y: auto;
+  padding: 24px 0 0;
+  display: flex;
 }
 
 .Cart-box {
@@ -18,7 +19,7 @@
   padding: 16px 110px;
   display: flex;
   justify-content: flex-end;
-  gap: 140px;
+  gap: 120px;
 }
 
 .Cart-total {

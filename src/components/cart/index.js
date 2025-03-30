@@ -7,6 +7,9 @@ import './style.css';
 
 const Cart = ({ goodsList, onClick, amount }) => {
   const cn = bem('Cart');
+
+  const formattedAmount = amount.toLocaleString('ru-RU');
+
   return (
     <section className={cn()}>
       <Title title="Корзина" />
@@ -20,7 +23,7 @@ const Cart = ({ goodsList, onClick, amount }) => {
       </div>
       <div className={cn('box')}>
         <h4 className={cn('total')}>Итого:</h4>
-        <h4 className={cn('total')}>{amount} ₽</h4>
+        <h4 className={cn('total')}>{formattedAmount} ₽</h4>
       </div>
     </section>
   );

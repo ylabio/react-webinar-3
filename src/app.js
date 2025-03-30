@@ -11,9 +11,9 @@ const App = ({ store }) => {
   const list = store.getState().list;
   const [isCartOpen, setCartOpen] = useState(false);
 
-  const cartItems = list.filter(item => item.inCart);
-  const totalQuantity = cartItems.length;
-  const totalAmount = cartItems.reduce((sum, item) => sum + item.price * item.count, 0);
+  const cartItems = store.getCartItems();
+  const totalQuantity = store.getCartTotalQuantity();
+  const totalAmount = store.getCartTotalAmount();
 
   const callbacks = {
     onAddToCart: useCallback(

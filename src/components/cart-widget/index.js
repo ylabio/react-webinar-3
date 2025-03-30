@@ -9,11 +9,14 @@ import Controls from '../controls';
 const CartWidget = ({ quantity, amount, onClick }) => {
   const cn = bem('CartWidget');
 
+  const formattedQuantity = quantity.toLocaleString('ru-RU');
+  const formattedAmount = amount.toLocaleString('ru-RU');
+
   const content =
     quantity > 0 ? (
       <div className={cn('box')}>
         <CartIcon />
-        {quantity} {plural(quantity)} / {amount} ₽
+        {formattedQuantity} {plural(quantity)} / {formattedAmount} ₽
       </div>
     ) : (
       <div className={cn('box')}>
