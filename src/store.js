@@ -3,16 +3,14 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      cart: [],
+      isCartOpen: false,
+      cartTotal: 0,
+      cartUniqueCount: 0,
+    };
     this.listeners = []; // Слушатели изменений состояния
-
-    if (!this.state.cart) {
-      this.state.cart = [];
-    }
-
-    if (this.state.isCartOpen === undefined) {
-      this.state.isCartOpen = false;
-    }
   }
 
   /**
@@ -56,25 +54,27 @@ class Store {
 
     const cartItemIndex = this.state.cart.findIndex(item => item.code === code);
 
+    let updatedCart = [...this.state.cart];
+    console.log(updatedCart);
+
     if (cartItemIndex >= 0) {
       // Товар уже есть в корзине, увеличиваем количество
-      const updatedCart = [...this.state.cart];
       updatedCart[cartItemIndex] = {
         ...updatedCart[cartItemIndex],
         quantity: updatedCart[cartItemIndex].quantity + 1,
       };
-
-      this.setState({
-        ...this.state,
-        cart: updatedCart,
-      });
     } else {
-      // Добавляем новый товар в корзину
-      this.setState({
-        ...this.state,
-        cart: [...this.state.cart, { ...product, quantity: 1 }],
-      });
+      updatedCart = [...this.state.cart, { ...product, quantity: 1 }];
     }
+
+    const cartTotal = updatedCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    this.setState({
+      ...this.state,
+      cart: updatedCart,
+      cartTotal,
+      cartUniqueCount: updatedCart.length,
+    });
   }
 
   /**
@@ -82,9 +82,14 @@ class Store {
    * @param code Код товара
    */
   removeFromCart(code) {
+    const updatedCart = this.state.cart.filter(item => item.code !== code);
+    const cartTotal = updatedCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter(item => item.code !== code),
+      cart: updatedCart,
+      cartTotal,
+      cartUniqueCount: updatedCart.length,
     });
   }
 
@@ -97,23 +102,6 @@ class Store {
       ...this.state,
       isCartOpen: isOpen !== undefined ? isOpen : !this.state.isCartOpen,
     });
-  }
-
-  /**
-   * Получение общей суммы товаров в корзине
-   * @returns {number}
-   */
-
-  getCartTotal() {
-    return this.state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  }
-
-  /**
-   * Получение общего количества товаров в корзине
-   * @returns {number}
-   */
-  getCartUniqueCount() {
-    return this.state.cart.length;
   }
 }
 

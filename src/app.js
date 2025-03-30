@@ -12,7 +12,7 @@ import CartModal from './components/cart-modal';
  */
 function App({ store }) {
   const state = store.getState();
-  const { list, cart, isCartOpen } = state;
+  const { list, cart, isCartOpen, cartTotal, cartUniqueCount } = state;
 
   const callbacks = {
     onAddToCart: useCallback(
@@ -36,9 +36,6 @@ function App({ store }) {
       [store],
     ),
   };
-
-  const cartTotal = store.getCartTotal();
-  const cartUniqueCount = store.getCartUniqueCount();
 
   return (
     <PageLayout>
