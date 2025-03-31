@@ -1,5 +1,8 @@
 .Modal {
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: 0;
   left: 0;
   width: 100%;
@@ -10,7 +13,6 @@
 
 .Modal-center {
     position: relative;
-    margin: 27vh auto;
     padding: 24px;
     max-width: 1080px;
     width: calc(100% - 72px);
