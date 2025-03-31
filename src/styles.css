@@ -102,19 +102,6 @@ span{
 }
 
 
-.button-add{
-  font-family: "Montserrat Alternates", sans-serif;
-  font-weight: bold;
-  font-size: 14px;
-  background-color: rgba(107, 74, 203, 1);
-  color: white;
-  width: 114px;
-  height: 40px;
-  border: solid transparent;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 .button-add:hover{
   background-color: rgba(107, 74, 203,  0.581);
 }

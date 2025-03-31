@@ -2,7 +2,12 @@ class Store {
   constructor(initState = {}) {
     this.state = {
       list: initState.list || [],
-      cart: {} // Initialize empty cart
+      cart: {},
+      cartSummary: {
+        uniqueItemsCount: 0,  // Количество уникальных товаров
+        totalQuantity: 0,     // Общее количество товаров (всех штук)
+        totalAmount: 0         // Общая сумма
+      }
     };
     this.listeners = [];
   }
@@ -20,25 +25,44 @@ class Store {
 
   setState(newState) {
     this.state = newState;
-    for (const listener of this.listeners) listener();
+    this.listeners.forEach(listener => listener());
+  }
+
+  // Приватный метод для расчета итогов
+  #calculateCartSummary(cart) {
+    const cartItems = Object.entries(cart).map(([code, quantity]) => {
+      const item = this.state.list.find(item => item.code === Number(code));
+      return { ...item, quantity };
+    });
+
+    return {
+      uniqueItemsCount: cartItems.length, // Количество уникальных товаров
+      totalQuantity: cartItems.reduce((sum, item) => sum + item.quantity, 0),
+      totalAmount: cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+    };
   }
 
   addToCart(code) {
+    const newCart = {
+      ...this.state.cart,
+      [code]: (this.state.cart[code] || 0) + 1
+    };
+
     this.setState({
       ...this.state,
-      cart: {
-        ...this.state.cart,
-        [code]: (this.state.cart[code] || 0) + 1
-      }
+      cart: newCart,
+      cartSummary: this.#calculateCartSummary(newCart)
     });
   }
 
   removeFromCart(code) {
     const newCart = { ...this.state.cart };
     delete newCart[code];
+
     this.setState({
       ...this.state,
-      cart: newCart
+      cart: newCart,
+      cartSummary: this.#calculateCartSummary(newCart)
     });
   }
 }

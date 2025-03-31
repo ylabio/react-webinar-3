@@ -1,5 +1,6 @@
 h2 {
-  color: var(--primary);
+  color: var(--main-text);
+  font-size: 32px;
   padding: 0;
   margin: 0;
 }
@@ -10,13 +11,13 @@ h2 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 40%);
   z-index: 100;
 }
 
 .Cart-content {
   position: fixed;
-  top: 50%;
+  top: 46%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 1080px;
@@ -55,7 +56,6 @@ h2 {
   padding: 1rem 0;
 }
 
-/* Стили для выравнивания колонок */
 .Cart-item {
   display: flex;
   align-items: center;
@@ -68,7 +68,8 @@ h2 {
 }
 
 .Cart-item-title {
-  flex: 3;
+  flex:2;
+  font-weight: bold;
   min-width: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -79,16 +80,15 @@ h2 {
 .Cart-item-quantity {
   flex: 1;
   text-align: right;
-  font-family: monospace;
-  font-weight: 500;
+  font-weight: normal;
 }
 
 .Cart-item-price {
   flex: 1;
+  padding: 0 1.2rem 0;
   text-align: right;
-  font-family: monospace;
-  font-weight: 500;
-  color: var(--primary);
+  font-weight: normal;
+  color: var(--main-text);
 }
 
 .Cart-item-remove {
@@ -96,30 +96,63 @@ h2 {
   background-color: rgba(212, 59, 59, 1);
   color: white;
   padding: 8px 16px;
-  border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .Cart-item-remove:hover {
-  background-color: rgb(145, 75, 75);
+  background-color: var(--background);
+  color: var(--delete);
+  border: 1px solid var(--delete);
+  transition: 0.1s;
 }
 
 .Cart-empty {
   text-align: center;
   padding: 2rem;
   color: #666;
-  font-style: italic;
 }
 
 .Cart-total {
-  padding: 1rem;
+  display: flex;
+  padding: 0.75rem 1rem;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+  gap: 1rem;
+}
+
+.Cart-total-1 {
+  flex: 2;
   text-align: right;
+  padding-right: 1rem;
+  font-weight: 500;
+  color: transparent;
+}
+
+.Cart-total-2 {
   font-weight: bold;
-  font-size: 1.1rem;
-  /*border-top: 2px solid var(--primary);*/
-  margin-top: 1rem;
+  flex: 1;
+  text-align: right;
+  padding-right: 2.2rem;
+  color: var(--main-text);
+
+}
+
+.Cart-total-3{
+  text-align: right;
+  flex: 1;
+  max-width: 190px;
+  padding: 0 1.5rem 0 0;
+  font-weight: bold;
+}
+
+.Cart-total-4{
+  text-align: right;
+  flex: 1;
+  max-width: 100px;
+  width: calc(25% - 1rem);
+  color: transparent;
 }
 
 .Cart-column-headers {

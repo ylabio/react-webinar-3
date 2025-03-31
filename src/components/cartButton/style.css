@@ -1,0 +1,14 @@
+.cart-button{
+  min-width: 118px;
+  margin: 24px 0 24px 0;
+  height: 40px;
+  display: flex;
+  border: 1px solid var(--primary);
+  justify-content: space-evenly;
+  cursor: pointer;
+}
+
+.cart-button:hover{
+  background-color: rgba(0, 0, 0, 0.04);
+
+}
