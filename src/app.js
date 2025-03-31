@@ -2,8 +2,13 @@ import React, { useCallback } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
+import Close from './components/close';
 import PageLayout from './components/page-layout';
-
+import Modal from './components/modal';
+import ModalHead from './components/modal-head';
+import ModalResult from './components/modal-result';
+import { plural } from './utils';
+import { formatNumber } from './utils'
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -11,6 +16,8 @@ import PageLayout from './components/page-layout';
  */
 function App({ store }) {
   const list = store.getState().list;
+  const newlist = store.getState().newlist;
+  const formatTotalPrice = store.getTotalPrice()
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -27,19 +34,46 @@ function App({ store }) {
       [store],
     ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onAddItem: useCallback(
+      item => {
+        store.addItem(item);
+      },
+      [store],
+    ),
+
+    onHandleClose: useCallback(() => {
+      store.handleClose();
+    }, []),
+
+    onHandleOpen: useCallback(() => {
+      store.handleOpen();
+    }, []),
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Modal className={store.state.isVisible ? 'Modal Modal-visibile' : 'Modal'}>
+        <Close onClose={callbacks.onHandleClose} />
+        <ModalHead title="Корзина" />
+        <List
+          list={newlist}
+          onDelete={callbacks.onDeleteItem}
+        />
+        <ModalResult allPrise={store.getTotalPrice()} />
+      </Modal>
+      <Head title="Магазин" />
+      <Controls onOpen={callbacks.onHandleOpen} text={
+        newlist.length > 0
+          ? `${newlist.length} ${plural(newlist.length, {
+            one: 'товар',
+            few: 'товара',
+            many: 'товаров',
+          })} / ${formatNumber(formatTotalPrice)} ₽`
+          : 'Пусто'
+      } />
       <List
         list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        onAdd={callbacks.onAddItem}
       />
     </PageLayout>
   );

@@ -1,0 +1,16 @@
+.Modal__list {
+  border-radius: 10px;
+  overflow: hidden;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.Modal__list-item:nth-child(odd) {
+  background-color: var(--odd-item);
+}
+
+.Modal__list-item {
+  border-bottom: 1px solid var(--divider);
+  cursor: pointer;
+}

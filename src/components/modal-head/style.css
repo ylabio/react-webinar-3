@@ -1,0 +1,17 @@
+.ModalHead {
+  color: var(--main-text);
+}
+
+.ModalHead-container {  
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
+.ModalHead h2 {
+  margin-bottom: 24px;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+}
+
+

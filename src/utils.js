@@ -42,6 +42,7 @@ export const generateCode1 = (function (start = 0) {
   return () => gen.next().value;
 })();
 
+
 /**
  * Генератор чисел с шагом 1
  * Вариант с использованием функции как объекта для хранения значения value
@@ -50,3 +51,8 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
+
+export function formatNumber(number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+}
+
