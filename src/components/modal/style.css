@@ -7,17 +7,17 @@
     height: 100vh;
     background-color: rgba(26, 32, 40, 0.4);
     justify-content: center;
-    align-items: center;
+    overflow-y: auto;
 }
 
 .Modal {
     background-color: white;
     width: 1080px;
-    max-height: 100vh;
-    overflow-y: auto;
+    max-width: 100%;
+    position: relative;
     border-radius: 8px;
     padding: 24px;
-    position: relative;
+    margin: auto;
 }
 
 .cross {
