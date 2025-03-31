@@ -30,6 +30,14 @@ class Store {
     return this.state;
   }
 
+  getTotalPrice() {
+    let totalPrice = 0
+    this.state.list.forEach(item => {
+        item.total ? totalPrice += item.total : ''
+    })
+    return totalPrice || 0
+  }
+
   /**
    * Установка состояния
    * @param newState {Object}
@@ -80,6 +88,38 @@ class Store {
         }
         // Сброс выделения если выделена
         return item.selected ? { ...item, selected: false } : item;
+      }),
+    });
+  }
+
+  onAddToCart(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          return {
+            ...item,
+            count: item.count + 1 || 1,
+            total: (item.count + 1 || 1) * item.price || 0,
+          };
+        }
+        return item
+      }),
+    });
+  }
+
+  deleteFromCart(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          return {
+            ...item,
+            count: 0,
+            total: 0
+          };
+        }
+        return item
       }),
     });
   }

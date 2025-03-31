@@ -1,0 +1,66 @@
+.Cart-item:nth-child(odd) {
+    background-color: var(--odd-item);
+  }
+  
+  .Cart-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px;
+      border-bottom: 1px solid #efefef;
+  }
+  
+  .Cart-item-title {
+      display: flex;
+      align-items: center;
+  
+      font-family: var(--font-family);
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 137%;
+      color: #1a2028;
+  }
+  
+  .Cart-item-info {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      padding-right: 24px;
+      margin-left: auto;
+  }
+  
+  .Cart-item-delete {
+      border-radius: 4px;
+      padding: 8px 16px;
+      width: 105px;
+      height: 40px;
+      background: #d43b3b;
+  
+      font-family: var(--second-font-family);
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 157%;
+      text-align: center;
+      color: #fff;
+  }
+  
+  .Cart-item-count {
+      font-family: var(--font-family);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 137%;
+      text-align: left;
+      color: #1a2028;
+  
+      width: 105px;
+  }
+  
+  .Cart-item-price {
+      font-family: var(--font-family);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 137%;
+      text-align: right;
+      color: #1a2028;
+  
+      width: 105px;
+  }

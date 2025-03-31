@@ -1,0 +1,23 @@
+.Cart-modal {
+  background-color: rgba(26, 32, 40, 0.4);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.Cart-container {
+    border-radius: 8px;
+    padding: 24px;
+    width: 1080px;
+    background: #fff;
+
+    padding: 24px;
+    position: relative;
+    margin: auto;
+}
