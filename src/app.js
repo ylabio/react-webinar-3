@@ -30,7 +30,7 @@ function App({ store }) {
 
     hideModal: useCallback(() => {
       store.hideModal();
-    }, [store]),
+    }, [store])
   };
 
   return (
