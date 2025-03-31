@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { numberFormat } from '../../utils';
 import DeleteButton from '../delete-button';
 import ItemTitle from '../item-title';
 import ItemInfo from '../item-info';
