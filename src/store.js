@@ -84,6 +84,12 @@ getCartSummary() {
   return sum;
 }
 
+isModalOpen() {
+  this.setState({
+    ...this.state,
+    modal: !this.state.modal,
+  })
+}
 
 }
 

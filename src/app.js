@@ -13,12 +13,8 @@ import Modal from './components/modal';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const { list } = store.getState();
-  const [modal, setModal] = useState(false);
+  const { list, modal } = store.getState();
 
-  const toggleModal = () => {
-    setModal(!modal);
-  };
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -35,19 +31,26 @@ function App({ store }) {
       [store],
     ),
 
+      isModalOpen: useCallback(
+        () => {
+          store.isModalOpen();
+        },
+        [store]
+      )
+
   };
 
 
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Controls store={store} openCart={toggleModal} />
+      <Controls store={store} openCart={callbacks.isModalOpen} />
       <List
         list={list}
         onAdd={callbacks.onAddItem}
       />
       {modal && (
-        <Modal onCLick={toggleModal}>
+        <Modal onCLick={callbacks.isModalOpen}>
         <Cart store={store} onDelete={callbacks.onDeleteItem}/>
         </Modal>
       )}

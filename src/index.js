@@ -6,6 +6,7 @@ import Store from './store.js';
 import 'theme.css';
 
 const store = new Store({
+  modal: false,
   cart: [],
   list: [
     { code: generateCode(), title: 'Название товара', price: 100.0, score: 0 },
