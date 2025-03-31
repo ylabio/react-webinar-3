@@ -5,7 +5,7 @@
 }
 
 .Controls button {
-  background-image: url('./images/icon.svg');
+  background-image: url('images/controls-icon/icon.svg');
   background-repeat: no-repeat;
   background-position: 19px center;
   border: 1px solid var(--primary);

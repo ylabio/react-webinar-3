@@ -52,10 +52,11 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Controls onAdd={handleCartToggle}
-                buttonText={buttonText}
-                totalCount={store.getTotalCount()}
-                totalPrice={store.getTotalPrice()} />
+      <Controls
+        onAdd={handleCartToggle}
+        uniqueCount={store.getUniqueCount()}
+        totalPrice={store.getTotalPrice()}
+      />
       <List
         list={list}
         onDeleteItem={callbacks.onDeleteItem}
