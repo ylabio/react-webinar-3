@@ -1,0 +1,26 @@
+.Action-button {
+    button {
+        color: var(--second-text);
+    }
+}
+
+.add-button {
+    border: 1px solid var(--primary);
+    background-color: var(--primary);
+
+
+    &:hover {
+        background-color: var(--background);
+        color: var(--primary);
+    }
+}
+
+.delete-button {
+    border: 1px solid var(--delete);
+    background-color: var(--delete);
+
+    &:hover {
+        background-color: var(--background);
+        color: var(--delete);
+    }
+}

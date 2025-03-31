@@ -2,20 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({ onAdd }) {
+function Controls({ align = 'left', children }) {
+
+  const alignStyle = {
+    left: 'align-left',
+    center: 'align-center',
+    right: 'align-right'
+  }[align]
+
   return (
-    <div className="Controls">
-      <button onClick={() => onAdd()}>Добавить</button>
-    </div>
-  );
+    <div className={`Controls ${alignStyle}`}>
+      {children}
+    </div >
+  )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func,
-};
-
-Controls.defaultProps = {
-  onAdd: () => {},
+  align: PropTypes.oneOf(['left', 'center', 'right']),
+  children: PropTypes.node,
 };
 
 export default React.memo(Controls);

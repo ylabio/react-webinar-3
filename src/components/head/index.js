@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import Controls from '../controls';
+import ActionButton from '../action-button';
 
 function Head({ title }) {
   return (
