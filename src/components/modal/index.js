@@ -3,7 +3,7 @@ import './style.css';
 import closeIcon from '../../assets/images/close.png';
 import PropTypes from 'prop-types';
 
-function Modal({ title, onClose, children, footer }) {
+function Modal({ title, onClose, children, total }) {
   return (
     <div className="Modal">
       <div className="Modal-overlay" onClick={onClose} />
@@ -15,7 +15,14 @@ function Modal({ title, onClose, children, footer }) {
           </button>
         </div>
         <div className="Modal-body">{children}</div>
-        {footer && <div className="Modal-footer">{footer}</div>}
+        {typeof total === 'number' && (
+          <div className="Modal-footer">
+            <div className="Cart-item Cart-item--total">
+              <span>Итого:</span>
+              <span>{total.toLocaleString('ru-RU')} ₽</span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -25,7 +32,7 @@ Modal.propTypes = {
   title: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
-  footer: PropTypes.node,
+  total: PropTypes.number,
 };
 
 export default React.memo(Modal);

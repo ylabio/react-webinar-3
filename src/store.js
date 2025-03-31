@@ -47,29 +47,33 @@ class Store {
 
   /**
    * Добавление товаров в корзину
+   * @param code {Number} - Код товара
    */
   addItemToCart(code) {
     const item = this.state.list.find(item => item.code === code);
     if (!item) return;
+    const cart = [...this.state.cart];
+    const index = cart.findIndex(cartItem => cartItem.code === code);
 
-    const existingItem = this.state.cart.find(cartItem => cartItem.code === code);
-
-    let updatedCart;
-
-    if (existingItem) {
-      updatedCart = this.state.cart.map(cartItem =>
-        cartItem.code === code ? { ...cartItem, count: cartItem.count + 1 } : cartItem,
-      );
+    if (index >= 0) {
+      cart[index] = { ...cart[index], count: cart[index].count + 1 };
     } else {
-      updatedCart = [...this.state.cart, { ...item, count: 1 }];
+      cart.push({ ...item, count: 1 });
     }
+    this.updateCart(cart);
+  }
 
-    const cartTotalCount = updatedCart.length;
-    const cartTotalPrice = updatedCart.reduce((sum, i) => sum + i.price * i.count, 0);
+  /**
+   * Обновление корзины и общей суммы
+   * @param cart {Array} - Массив товаров в корзине
+   */
 
+  updateCart(cart) {
+    const cartTotalCount = cart.length;
+    const cartTotalPrice = cart.reduce((sum, i) => sum + i.price * i.count, 0);
     this.setState({
       ...this.state,
-      cart: updatedCart,
+      cart,
       cartTotalCount,
       cartTotalPrice,
     });
@@ -77,23 +81,11 @@ class Store {
 
   /**
    * Удаление товара по коду
-   * @param code
+   * @param code {Number} - Код товара
    */
   removeItemFromCart(code) {
-    const existingItem = this.state.cart.find(cartItem => cartItem.code === code);
-    if (!existingItem) return;
-
     const updatedCart = this.state.cart.filter(cartItem => cartItem.code !== code);
-
-    const cartTotalCount = updatedCart.length;
-    const cartTotalPrice = updatedCart.reduce((sum, i) => sum + i.price * i.count, 0);
-
-    this.setState({
-      ...this.state,
-      cart: updatedCart,
-      cartTotalCount,
-      cartTotalPrice,
-    });
+    this.updateCart(updatedCart);
   }
 }
 
