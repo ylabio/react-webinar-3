@@ -10,11 +10,6 @@ function Head({ title }) {
       <div className="Head-container">
         <h1>{title}</h1>
       </div>
-      <Controls align='right'>
-        <ActionButton type='add' />
-        <ActionButton type='add' />
-        <ActionButton type='add' />
-      </Controls>
     </div>
   );
 }
