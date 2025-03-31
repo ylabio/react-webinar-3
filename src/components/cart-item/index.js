@@ -2,18 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { numberFormat } from '../../utils';
 import DeleteButton from '../delete-button';
+import ItemTitle from '../item-title';
+import ItemInfo from '../item-info';
 
 function CartItem({ item, onDeleteFromCart }) {
   return (
     <div className="Item">
-      <div className="Item-title">
-        <b>{item.title}</b>
-      </div>
-      <div className="Item-container">
-        <span className="item-span-left">{item.quantity} шт</span>
-        <span>{`${numberFormat(item.price)}`} ₽</span>
+      <ItemTitle title={item.title} />
+      <ItemInfo quantity={item.quantity} price={item.price}>
         <DeleteButton onClick={() => onDeleteFromCart(item.code)} />
-      </div>
+      </ItemInfo>
     </div>
   );
 }

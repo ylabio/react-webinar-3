@@ -1,28 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { numberFormat } from '../../utils';
 import List from '../list';
 import CartItem from '../cart-item';
-import CloseIcon from '../close-icon';
+import CartHeader from '../cart-header';
+import CartFooter from '../cart-footer';
 import './style.css';
 
 function Cart({ cart, onDeleteFromCart, onClose, totalPrice }) {
   return (
     <div className="Cart">
-      <div className="Cart-header">
-        <h2>Корзина</h2>
-        <button onClick={onClose} className="Close-button">
-          <CloseIcon />
-        </button>
-      </div>
+      <CartHeader onClose={onClose} />
       <List
         list={cart}
         renderItem={item => <CartItem item={item} onDeleteFromCart={onDeleteFromCart} />}
       />
-      <div className="Cart-footer">
-        <span className="span-left">Итого:</span>
-        <span>{numberFormat(totalPrice)} ₽</span>
-      </div>
+      <CartFooter totalPrice={totalPrice} />
     </div>
   );
 }

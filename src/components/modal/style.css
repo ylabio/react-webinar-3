@@ -9,18 +9,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 10vh;
+  overflow: auto;
 }
-
-/* В макете указаны -  top: 265px left: 180px. Я бы лучше через display: flex; сделал. Оставил 2 варианта. */
 
 .Modal-content {
   position: relative;
-  /* top: 265px;
-  left: 180px; */
   width: 1080px;
   padding: 24px;
   background-color: var(--background);
   border-radius: 8px;
-  max-height: 80vh;
-  overflow-y: auto;
 }

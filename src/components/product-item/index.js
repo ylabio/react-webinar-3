@@ -3,17 +3,16 @@ import PropTypes from 'prop-types';
 import { numberFormat } from '../../utils';
 import AddButton from '../add-button';
 import './style.css';
+import ItemTitle from '../item-title';
+import ItemInfo from '../item-info';
 
 function ProductItem({ item, onAddToCart }) {
   return (
     <div className="Item">
-      <div className="Item-title">
-        <b>{item.title}</b>
-      </div>
-      <div className="Item-container">
-        <span>{`${numberFormat(item.price)}`} ₽</span>
+      <ItemTitle title={item.title} />
+      <ItemInfo price={item.price}>
         <AddButton onClick={() => onAddToCart(item.code)} />
-      </div>
+      </ItemInfo>
     </div>
   );
 }
