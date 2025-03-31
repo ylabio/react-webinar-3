@@ -1,0 +1,30 @@
+.Cart {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 16px 24px 0;
+}
+
+.Cart-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  height: 40px;
+  padding: 8px 16px 8px 16px;
+  color: var(--main-text);
+  font-family: var(--second-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    box-shadow:
+      3px 3px var(--primary),
+      -1em 0 0.4em var(--primary);
+  }
+}
+
+.Cart-title {
+  margin-left: 10px;
+}

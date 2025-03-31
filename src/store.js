@@ -1,11 +1,15 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      cart: [],
+      isOpened: false,
+      totalQuantity: 0,
+      totalAmount: 0,
+      ...initState,
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -41,46 +45,76 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавляет товар в корзину или увеличивает его количество, если товар уже есть
+   * @param {number|string} code - Уникальный код товара из списка продуктов
    */
-  addItem() {
+  addToCart(code) {
+    const { cart, list } = this.state;
+    const item = list.find((elem) => elem.code === code);
+    const existingItemIndex = cart.findIndex(
+      (elem) => elem.code === code
+    );
+
+    let newCart;
+    if (existingItemIndex >= 0) {
+      newCart = cart.map((elem, index) => 
+        index === existingItemIndex
+          ? { ...elem, quantity: elem.quantity + 1 }
+          : elem
+      );
+    } else {
+      newCart = [...cart, { ...item, quantity: 1 }];
+    }
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      cart: newCart,
+    });
+
+    this.updateCart(newCart);
+  }
+
+  /**
+   * Полностью удаляет товар из корзины по его коду
+   * @param {number|string} code - Код товара для удаления
+   */
+  removeFromCart(code) {
+    const { cart } = this.state;
+    const newCart = cart.filter((item) => item.code !== code);
+
+    this.setState({
+      ...this.state,
+      cart: newCart,
+    });
+
+    this.updateCart(newCart);
+  }
+
+  /**
+   * Переключает состояние видимости модального окна корзины (открыто/закрыто)
+   */
+  toggleCartModal() {
+    const { isOpened } = this.state;
+    const newIsOpened = !isOpened;
+    this.setState({
+      ...this.state,
+      isOpened: newIsOpened,
     });
   }
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Внутренний метод для пересчета количества уникальных товаров
+   * и общей стоимости корзины
+   * @private
+   * @param {Array} newCart - Новое состояние корзины
    */
-  deleteItem(code) {
+  updateCart(newCart) {
+    const totalQuantity = newCart.length;
+    const totalAmount = newCart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      totalQuantity: totalQuantity,
+      totalAmount: totalAmount,
     });
   }
 }

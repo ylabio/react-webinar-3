@@ -1,0 +1,13 @@
+.Container-final-cost {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 15px 15px 40px 15px;
+  font-weight: 700;
+}
+
+.Cost {
+  margin-right: 160px;
+  text-align: end;
+  width: 185px;
+}
