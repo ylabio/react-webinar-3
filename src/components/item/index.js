@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import Controls from '../controls';
+import ActionButton from '../action-button';
 
 function Item({ item, addToCart = () => { } }) {
   const callbacks = {
     onAdd: () => {
-      addToCart(item);
+      addToCart(item.code);
     },
   };
 
@@ -21,7 +21,7 @@ function Item({ item, addToCart = () => { } }) {
       </div>
 
       <div className="Item-actions">
-        <Controls type={'add'} onClick={callbacks.onAdd} />
+        <ActionButton type={'add'} onClick={callbacks.onAdd} />
       </div>
     </div>
   );

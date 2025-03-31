@@ -18,8 +18,8 @@ function App({ store }) {
 
   const callbacks = {
     addToCart: useCallback(
-      item => {
-        store.setCart(item);
+      code => {
+        store.setCart(code);
       },
       [store],
     ),

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import Controls from '../controls';
+import ActionButton from '../action-button';
 
 function CartItem({ item, deleteFromCart }) {
 
@@ -28,7 +28,7 @@ function CartItem({ item, deleteFromCart }) {
             </div>
 
             <div className="Item-actions">
-                <Controls type='delete' onClick={callbacks.onDelete} />
+                <ActionButton type='delete' onClick={callbacks.onDelete} />
             </div>
         </div>
     );

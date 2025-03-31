@@ -41,11 +41,11 @@ class Store {
 
   /**
    * Обновление состояния корзины
-   * @param item {Object}
+   * @param code {Number}
    */
-  setCart(item) {
+  setCart(code) {
     const currentCart = this.state.cart.items;
-    const findItem = currentCart.find(elem => elem.code === item.code);
+    const findItem = currentCart.find(elem => elem.code === code);
 
     let updatedCart;
     let newTotalPrice;
@@ -53,15 +53,15 @@ class Store {
 
     if (findItem) {
       updatedCart = currentCart.map(elem => {
-        if (elem.code === item.code) {
+        if (elem.code === code) {
           return { ...elem, count: elem.count + 1 };
         }
         return elem;
       })
 
     } else {
-      const newElem = { ...item, count: 1 };
-      updatedCart = [...currentCart, newElem];
+      const newElem = this.state.list.find(item => item.code === code);
+      updatedCart = [...currentCart, { ...newElem, count: 1 }];
     }
 
     newTotalPrice = updatedCart.reduce((acc, elem) => acc + elem.count * elem.price, 0);

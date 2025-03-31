@@ -2,31 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({ type = 'add', onClick = () => { } }) {
+function Controls({ align = 'left', children }) {
 
-  const buttonStyle = {
-    add: 'add-button',
-    delete: 'delete-button',
-  }[type]
-
-  if (type === 'add') {
-    return (
-      <div className='Controls ' onClick={onClick}>
-        <button className={buttonStyle}>Добавить</button>
-      </div >
-    )
-  }
+  const alignStyle = {
+    left: 'align-left',
+    center: 'align-center',
+    right: 'align-right'
+  }[align]
 
   return (
-    <div className='Controls ' onClick={onClick}>
-      <button className={buttonStyle}>Удалить</button>
+    <div className={`Controls ${alignStyle}`}>
+      {children}
     </div >
-  );
+  )
 }
 
 Controls.propTypes = {
-  type: PropTypes.oneOf(['add', 'delete']).isRequired,
-  onClick: PropTypes.func,
+  align: PropTypes.oneOf(['left', 'center', 'right']),
+  children: PropTypes.node,
 };
 
 export default React.memo(Controls);
