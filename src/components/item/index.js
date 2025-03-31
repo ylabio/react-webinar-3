@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { formatNumber } from '../../utils'
 function Item({ item, onAdd = () => { } }) {
   const callbacks = {
     onClick: () => {
@@ -19,7 +20,7 @@ function Item({ item, onAdd = () => { } }) {
       <div className="Item-title">
         <b>{item.title}</b>
       </div>
-      <div className="Item-prise">{item.price} &#8381;</div>
+      <div className="Item-prise">{formatNumber(item.price)} ₽</div>
       <div className="Item-actions">
         <button onClick={callbacks.onClick}>Добавить</button>
       </div>

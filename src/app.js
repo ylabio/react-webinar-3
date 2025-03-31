@@ -8,7 +8,7 @@ import Modal from './components/modal';
 import ModalHead from './components/modal-head';
 import ModalResult from './components/modal-result';
 import { plural } from './utils';
-
+import { formatNumber } from './utils'
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -17,7 +17,7 @@ import { plural } from './utils';
 function App({ store }) {
   const list = store.getState().list;
   const newlist = store.getState().newlist;
-  const isVisible = store.getState().isVisible;
+  const formatTotalPrice = store.getTotalPrice()
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -68,7 +68,7 @@ function App({ store }) {
             one: 'товар',
             few: 'товара',
             many: 'товаров',
-          })} / ${store.getTotalPrice()} ₽`
+          })} / ${formatNumber(formatTotalPrice)} ₽`
           : 'Пусто'
       } />
       <List
