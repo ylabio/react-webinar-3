@@ -41,17 +41,38 @@ class Store {
   }
 
   /**
+   * Обновление состояния controls
+   */
+  setControls() {
+    const newAmount = this.state.basket.size;
+    let newTotalPrice = 0;
+    this.state.basket.forEach((basketItem) => {
+      newTotalPrice += basketItem.item.price * basketItem.count;
+    })
+
+    this.setState({
+      ...this.state,
+      controls: {     
+        amount: newAmount,
+        totalPrice: newTotalPrice },
+    });
+  }
+
+  /**
    * Добавление товара в корзину
    * @param item {Object} - товар
    */
-  addToBasket(item) {
-    let basketItem = this.state.basket.get(item.code) ?? { count: 0, item }
+  addToBasket(code) {
+    const item = this.state.list.filter((item) => item.code === code)[0]
+    let basketItem = this.state.basket.get(code) ?? { count: 0, item }
     basketItem.count++
 
     this.setState({
       ...this.state,
       basket: new Map([...this.state.basket,  [item.code, basketItem]]),
     });
+
+    this.setControls();
   }
 
   removeFromBasket(code) {
@@ -67,6 +88,8 @@ class Store {
       basket: new Map( [...this.state.basket]),
       modal: this.state.modal,
     });
+
+    this.setControls();
   }
 
   showModal() {

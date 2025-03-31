@@ -5,13 +5,11 @@ import BasketItem from "../basket-item";
 import "./style.css";
 
 
-function Basket ({ basketItems, onDeleteItem=() => {} }) {
+function Basket ({ totalPrice, basketItems, onDeleteItem=() => {} }) {
     const itemsList = [];
-    let sum = 0;
     const cn = bem('Basket');
 
     basketItems.forEach((basketItem) => {
-        sum += basketItem.item.price * basketItem.count;
         itemsList.push(<BasketItem basketItem={basketItem} onDell={onDeleteItem} />);
     })
 
@@ -29,7 +27,7 @@ function Basket ({ basketItems, onDeleteItem=() => {} }) {
             </ul>
             <div className='total'>
                 <span>Итого:</span>
-                <span>{sum.toLocaleString()} ₽</span>
+                <span>{totalPrice.toLocaleString()} ₽</span>
             </div>
         </div>
     );

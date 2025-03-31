@@ -14,6 +14,7 @@ import Basket from './components/basket';
 function App({ store }) {
   const list = store.getState().list;
   const basketList = store.getState().basket;
+  const controls = store.getState().controls;
   const { isActiv } = store.getState().modal;
 
   const callbacks = {
@@ -37,7 +38,7 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Controls showBasket={callbacks.showModal} basketList={basketList} />
+      <Controls controlsInfo={controls} showBasket={callbacks.showModal}/>
       <List
         list={list}
         onAddToBasket={callbacks.onAddToBasket}
@@ -45,7 +46,7 @@ function App({ store }) {
       { 
       isActiv ? 
       <Modal hideModal={callbacks.hideModal}>
-        <Basket basketItems={basketList} onDeleteItem={callbacks.onDellFromBasket} />
+        <Basket totalPrice={controls.totalPrice} basketItems={basketList} onDeleteItem={callbacks.onDellFromBasket} />
       </Modal> 
       : 
       ''

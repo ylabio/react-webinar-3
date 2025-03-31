@@ -4,31 +4,27 @@ import './style.css';
 import Basket from '../../assets/icons/basket.svg';
 import { plural } from '../../utils';
 
-function Controls({ basketList, showBasket=() => {} }) {
+function Controls({ controlsInfo, showBasket=() => {} }) {
 
   const onClick = () => {
-    if (basketList.size === 0) {
+    if (controlsInfo.amount === 0) {
       return
     } 
 
     showBasket();
   }
 
-  const showBasketInfo = (basketList) => {
-    if (basketList.size === 0) {
+  const showBasketInfo = () => {
+    if (controlsInfo.amount === 0) {
       return 'Пусто';
     } else {
-      let sum = 0;
-      basketList.forEach((value, key, map) => {
-        sum += value.item.price * value.count;
-      });
-      return `${basketList.size} ${plural(basketList.size)} / ${sum.toLocaleString()} ₽`
+      return `${controlsInfo.amount} ${plural(controlsInfo.amount)} / ${controlsInfo.totalPrice.toLocaleString()} ₽`
     }
   }
 
   return (
     <div className="Controls">
-      <button onClick={onClick}><Basket className="icon" /> {showBasketInfo(basketList)}</button>
+      <button onClick={onClick}><Basket className="icon" /> {showBasketInfo()}</button>
     </div>
   );
 }

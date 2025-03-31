@@ -8,7 +8,7 @@ function Item({item, addToBasket=() => {}}) {
   const callbacks = {
     onAdd: e => {
       e.stopPropagation();
-      addToBasket(item);
+      addToBasket(item.code);
     },
   };
 
