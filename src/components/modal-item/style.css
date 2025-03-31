@@ -1,3 +1,44 @@
+.Item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  transition: background-color 1s;
+  padding: 16px;
+}
+
+.Item_selected {
+  background-color: var(--primary-select);
+}
+
+.Item-title {
+  flex: auto;
+}
+
+.Item-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Item-actions button {
+    border: 1px solid var(--primary);
+    padding: 8px 16px;
+    background-color: var(--primary);
+    color: var(--second-text);
+
+  &:hover {
+    background-color: var(--background);
+    color: var(--primary);
+  
+  }
+}
+
+.Item-prise{
+  display: flex;
+  justify-content:flex-end;
+  width: 105px;
+}
+
 .ModalItem {
   display: flex;
   justify-content: flex-start;

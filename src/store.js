@@ -57,7 +57,7 @@ class Store {
     } else {
       this.setState({
         ...this.state,
-        newlist: [...this.state.newlist, { code: item.code, title: item.title, price: item.price, count: 1 }],
+        newlist: [...this.state.newlist, { type: 'modalItem', code: item.code, title: item.title, price: item.price, count: 1 }],
       });
     }
   }

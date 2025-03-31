@@ -6,7 +6,6 @@ import Close from './components/close';
 import PageLayout from './components/page-layout';
 import Modal from './components/modal';
 import ModalHead from './components/modal-head';
-import ModalList from './components/modal-list';
 import ModalResult from './components/modal-result';
 import { plural } from './utils';
 
@@ -18,6 +17,7 @@ import { plural } from './utils';
 function App({ store }) {
   const list = store.getState().list;
   const newlist = store.getState().newlist;
+  const isVisible = store.getState().isVisible;
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -55,9 +55,9 @@ function App({ store }) {
       <Modal className={store.state.isVisible ? 'Modal Modal-visibile' : 'Modal'}>
         <Close onClose={callbacks.onHandleClose} />
         <ModalHead title="Корзина" />
-        <ModalList
-          newlist={newlist}
-          onDeleteItem={callbacks.onDeleteItem}
+        <List
+          list={newlist}
+          onDelete={callbacks.onDeleteItem}
         />
         <ModalResult allPrise={store.getTotalPrice()} />
       </Modal>
