@@ -8,6 +8,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
+    overflow-y: auto;
     z-index: 1000;
   }
   
@@ -15,10 +17,13 @@
     background-color: var(--background);
     border-radius: 8px;
     width: 1080px;
-    max-height: 80vh;
+    max-height: calc(100% - 40px);
+    max-height: calc(100vh - 40px);
     display: flex;
     flex-direction: column;
     position: relative;
+    margin: auto;
+    overflow: hidden;
   }
 
   .CartModal-empty {
@@ -57,6 +62,7 @@
     overflow-y: auto;
     flex-grow: 1;
     width: 1032px;
+    max-width: calc(100% - 48px);
     margin: auto;
   }
   
