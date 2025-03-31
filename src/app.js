@@ -6,7 +6,7 @@ import Head from './components/head';
 import PageLayout from './components/page-layout';
 import ModalWindow from './components/modalWindow/index';
 import CartButton from './components/cartButton/index';
-import  Item from './components/item';
+import  Item from './components/Item/index';
 
 function App({ store }) {
   const { list, cart, cartSummary } = store.getState(); // Изменили cartTotal на cartSummary
