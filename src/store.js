@@ -40,6 +40,12 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+  getBasketPrice() {
+    return this.state.basketList.reduce((acc, product) => {
+      return acc + product.price * product.quantity
+    }, 0)
+  }
+
   addProductToBasket(newProduct) {
     // Проверка на наличие добавляемого товара в корзине
     this.state.basketList.find(product => product.code === newProduct.code) 
@@ -64,6 +70,13 @@ class Store {
           // если товара в корзине не оказалось, то добавляем его и устанавливаем количество равным 1
         ]   
       }) 
+    
+    // Подсчет суммы корзины
+    this.setState({
+      ...this.state,
+      basketPrice: this.getBasketPrice(),
+      basketItems: this.state.basketList.length
+    })
   }
 
   deleteProductFromBasket(product) {
@@ -72,6 +85,13 @@ class Store {
       // Новый список, в котором не будет удаляемого товара
       basketList: this.state.basketList.filter(item => item.code !== product.code),
     });
+
+    // Подсчет суммы корзины
+    this.setState({
+      ...this.state,
+      basketPrice: this.getBasketPrice(),
+      basketItems: this.state.basketList.length
+    })
   }
 }
 

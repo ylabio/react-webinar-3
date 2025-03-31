@@ -15,14 +15,11 @@ function App({ store }) {
 
   const list = store.getState().list;
   const basketList = store.getState().basketList
+  const basketPrice = store.getState().basketPrice
+  const basketItems = store.getState().basketItems
 
   const [isModalActive, setModalActive] = useState(false);
 
-  // подсчет стоимости товаров в корзине
-  const basketPrice = basketList.reduce((acc, product) => {
-    return acc + product.price * product.quantity
-  }, 0)
-  
   const callbacks = {
     onAddProductToBasket: useCallback(product => {
       store.addProductToBasket(product)
@@ -44,7 +41,7 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Controls onOpenBasket={callbacks.onOpenBasket} productsInBasket={basketList.length} price={basketPrice}/>
+      <Controls onOpenBasket={callbacks.onOpenBasket} productsInBasket={basketItems} price={basketPrice}/>
       <List
         list={list}
         onAction={callbacks.onAddProductToBasket}
