@@ -1,0 +1,27 @@
+.Item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 16px;
+}
+
+.Item-title {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.Item-container {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.Item span {
+  width: 105px;
+  text-align: right;
+}
+
+span.item-span-left {
+  text-align: left;
+}
