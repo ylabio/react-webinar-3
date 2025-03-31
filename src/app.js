@@ -3,6 +3,7 @@ import List from './components/list';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import CartModal from './components/cart-modal';
+import Controls from './components/controls';
 
 /**
  * Приложение
@@ -52,17 +53,17 @@ function App({ store }) {
 
   return (
     <PageLayout>
-      <Head 
-      title="Магазин" 
+      <Head title="Магазин"/>
+
+      <Controls
+        onOpenCart={callbacks.onOpenCart}
+        cartTotal={cartTotal}
+        cartSum={cartSum}
       />
       
       <List
         list={list}
-        onAddToCart={callbacks.onAddToCart} 
-        cartTotal={cartTotal} 
-        cartItemsCount={cartItemsCount}
-        cartSum={cartSum} 
-        onOpenCart={callbacks.onOpenCart} 
+        onAddToCart={callbacks.onAddToCart}
       />
       
       {isCartOpen && (
