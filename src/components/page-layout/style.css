@@ -8,3 +8,20 @@
 .PageLayout-center {
   padding-block: 0;
 }
+
+.cart-button-container{
+  justify-content: end;
+}
+
+.cart-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin: 10px 0 10px 0;
+
+  .cart-info{
+    margin: 0 0 0 10px;
+  }
+
+
+}

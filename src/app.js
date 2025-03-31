@@ -1,46 +1,70 @@
-import React, { useCallback } from 'react';
+// app.js
+import React from 'react';
 import List from './components/list';
-import Controls from './components/controls';
+import Cart from './components/cart';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import ModalWindow from './components/modalWindow/index';
+import CartButton from './components/cartButton/index';
+import  Item from './components/Item/index';
 
-/**
- * Приложение
- * @param store {Store} Хранилище состояния приложения
- * @returns {React.ReactElement}
- */
 function App({ store }) {
-  const list = store.getState().list;
+  const { list, cart, cartSummary } = store.getState(); // Изменили cartTotal на cartSummary
+  const [isCartOpen, setIsCartOpen] = React.useState(false);
 
   const callbacks = {
-    onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
-      },
-      [store],
+    onAddToCart: React.useCallback(
+      code => store.addToCart(code),
+      [store]
     ),
-
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
+    onRemoveFromCart: React.useCallback(
+      code => store.removeFromCart(code),
+      [store]
     ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onToggleCart: React.useCallback(
+      () => setIsCartOpen(!isCartOpen),
+      [isCartOpen]
+    )
   };
+
+  const cartItems = Object.entries(cart).map(([code, quantity]) => {
+    const item = list.find(item => item.code === Number(code));
+    return { ...item, quantity };
+  });
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Head title="Магазин" />
+
+      <div className="cart-button-container">
+        <CartButton
+          totalItems={cartSummary.uniqueItemsCount}
+          totalAmount={cartSummary.totalAmount}
+          onClick={callbacks.onToggleCart}
+        />
+      </div>
+
       <List
         list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        renderItem={(item) => (
+          <Item
+            item={item}
+            onAddToCart={callbacks.onAddToCart}
+          />
+        )}
       />
+
+      {isCartOpen && (
+        <ModalWindow onClose={callbacks.onToggleCart}>
+          <Cart
+            items={cartItems}
+            totalAmount={cartSummary.totalAmount}
+            totalQuantity={cartSummary.totalQuantity}
+            onClose={callbacks.onToggleCart}
+            onRemove={callbacks.onRemoveFromCart}
+          />
+        </ModalWindow>
+      )}
     </PageLayout>
   );
 }

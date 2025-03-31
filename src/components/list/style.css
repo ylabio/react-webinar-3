@@ -12,5 +12,54 @@
 
 .List-item {
   border-bottom: 1px solid var(--divider);
+}
+
+
+.Item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 120px;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  transition: background-color 1s;
+}
+
+.Item-code {
+  text-align: left;
+}
+
+.Item-title {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Item-price {
+  text-align: right;
+}
+
+.Item-actions {
+  text-align: right;
+}
+
+.button-add{
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  background-color: rgba(107, 74, 203, 1);
+  color: white;
+  width: 114px;
+  height: 40px;
+  border: solid transparent;
+  border-radius: 5px;
   cursor: pointer;
+}
+
+.button-add:hover{
+  background-color: var(--background);
+  color: var(--primary);
+  border-color: var(--primary);
+  transition: 0.2s;
+
 }
