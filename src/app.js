@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -11,6 +12,11 @@ import PageLayout from './components/page-layout';
  */
 function App({ store }) {
   const list = store.getState().list;
+  const cart = store.getAddedToCartItems();
+  const quantity = store.getAddedToCartQuantity().toLocaleString('ru-RU');
+  const totalPrice = store.getCartTotalPrice().toLocaleString('ru-RU');
+
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -20,27 +26,44 @@ function App({ store }) {
       [store],
     ),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
+    onAddItem: useCallback(
+      item => {
+      store.addItem(item);
     }, [store]),
+
+    onCartOpen: useCallback(() => {
+      setIsCartModalOpen(true);
+    }, [])
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Head title="Магазин" />
+      <Controls onCartOpen={callbacks.onCartOpen} quantity={quantity} totalPrice={totalPrice} />
       <List
         list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        actionType={'add'}
+        onAction={callbacks.onAddItem}
       />
+      {
+        isCartModalOpen && (
+          <Modal onCloseModal={() => setIsCartModalOpen(false)}>
+            <h2 className="ModalTitle">Корзина</h2>
+            <div className='Content'>
+              <List
+                list={cart}
+                actionType={'delete'}
+                onAction={callbacks.onDeleteItem}
+                withCounter
+              />
+            </div>
+            <div className='Total'>
+              <p>Итого:</p>
+              <p>{totalPrice} ₽</p>
+            </div>
+          </Modal>
+        )
+      }
     </PageLayout>
   );
 }
