@@ -7,12 +7,10 @@ const CartBtn = ({ cart = [], onClick = () => {} }) => {
   const [totalCart, setTotalCart] = useState({count: 0, sum: 0});
 
   useEffect(() => {
-    setTotalCart(
-      cart.reduce((acc, item) => ({
-          count: acc.count + item.count,
-          sum: acc.sum + item.count * item.price,
-        })
-      , {count: 0, sum: 0})
+    setTotalCart({
+        count: cart.length,
+        sum: cart.reduce((acc, item) => acc + item.count * item.price, 0)
+      },
     );
   }, [cart]);
 

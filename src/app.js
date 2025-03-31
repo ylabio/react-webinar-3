@@ -4,59 +4,77 @@ import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Store from "./store";
+import ModalLayout from "./components/modal-layout";
+import {numFormat} from "./utils";
+import CartBtn from "./components/cart/cart-button";
+import CartItem from "./components/cart/cart-item";
+import Item from "./components/item";
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
+ * @param cartS {Store}
  * @returns {React.ReactElement}
  */
-function App({ store = new Store() }) {
+function App({ store = new Store(), cartS = new Store()}) {
   const list = store.getState().list;
 
-  const [cart, setCart] = useState([
-    {...list[0], count: 2},
-    {...list[1], count: 1},
-  ]);
+  const cartList = cartS.getState().list;
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const callbacks = {
     onAddToCart: useCallback(
-      (code) => {
-        [...cart].find((item) => item.code === code)
-          ?
-            setCart(
-              cart.map(
-                (item) => item.code === code
-                  ? { ...item, count: item.count + 1 }
-                  : item
-              )
-            )
-          :
-            setCart(
-              [...cart, {...list.find((item) => item.code === code), count: 1}]
-            );
+      (item) => {
+        cartS.addOneItem(item);
       },
-      [cart],
+      [cartS],
     ),
 
     onDeleteFromCart: useCallback(
       (code) => {
-        setCart([...cart].filter((item) => item.code !== code));
+        cartS.deleteItem(code);
       },
-      [cart],
+      [cartS],
     )
   };
 
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Controls
-        cart={cart}
-        onDeleteFromCart={callbacks.onDeleteFromCart}
-      />
-      <List
-        list={list}
-        onAddToCart={callbacks.onAddToCart}
-      />
+      <Controls>
+        <CartBtn
+          cart={cartList}
+          onClick={() => {
+            setIsModalOpen(!isModalOpen);
+          }}
+        />
+      </Controls>
+      {isModalOpen &&
+        <ModalLayout title="Корзина" setIsModalOpen={setIsModalOpen}>
+          <List>
+            {cartList.map(item =>
+              <CartItem key={item.code} item={item} onDeleteFromCart={callbacks.onDeleteFromCart} />
+            )}
+          </List>
+          <div className="cart-modal-totalCost">
+            <div className="cart-modal-totalCost-content">
+              <b>Итого:</b>
+              <b>
+                {numFormat(
+                  cartList.reduce((prevVal, item) => prevVal + item.count * item.price, 0),
+                ) + ' ₽'}
+              </b>
+            </div>
+          </div>
+        </ModalLayout>
+      }
+
+      <List list={list} onAddToCart={callbacks.onAddToCart} >
+        {list.map(item =>
+          <Item key={item.code} item={item} onAddToCart={callbacks.onAddToCart} />
+        )}
+      </List>
     </PageLayout>
   );
 }

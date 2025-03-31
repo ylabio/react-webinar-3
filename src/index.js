@@ -17,11 +17,19 @@ const store = new Store({
   ],
 });
 
+const cartS = new Store({
+  list: [],
+})
+
 const root = createRoot(document.getElementById('root'));
 
+cartS.subscribe(() => {
+  root.render(<App store={store} cartS={cartS} />);
+});
+
 store.subscribe(() => {
-  root.render(<App store={store} />);
+  root.render(<App store={store} cartS={cartS} />);
 });
 
 // Первый рендер приложения
-root.render(<App store={store} />);
+root.render(<App store={store} cartS={cartS} />);

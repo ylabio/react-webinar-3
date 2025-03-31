@@ -2,44 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { numFormat } from '../../utils';
 import './style.css';
-import Buttons from "../buttons";
+import Buttons from '../buttons';
 
-function Item({ variant = 'default', item=[], onAddToCart = () => {}, onDeleteFromCart = () => {} }) {
-
+function Item({ item = {}, onAddToCart = () => {} }) {
   return (
-    <div className={'Item'}>
-      <div className="Item-title">
-        <b>{item.title}</b>
-        <div className='Item-title-right'>
-          <div>
-            {variant === 'cart' &&
-              <div>{item.count} шт</div>
-            }
+    <li className="List-item">
+      <div className={'Item'}>
+        <div className="Item-title">
+          <b>{item.title}</b>
+          <div className="Item-title-right">
+            <span>{numFormat(item.price) + ' ₽'}</span>
           </div>
-
-          <span>{numFormat(item.price) + ' ₽'}</span>
+        </div>
+        <div className="Item-actions">
+          <Buttons onClick={() => onAddToCart(item)} variant="default">
+            Добавить
+          </Buttons>
         </div>
       </div>
-      <div className="Item-actions">
-        {variant === 'default' ?
-            <Buttons onClick={() => onAddToCart(item.code)} variant="default">
-              Добавить
-            </Buttons>
-          :
-            <Buttons onClick={() => onDeleteFromCart(item.code)} variant="delete">
-              Удалить
-            </Buttons>
-        }
-      </div>
-    </div>
+    </li>
   );
 }
 
 Item.propTypes = {
   item: PropTypes.object,
-  variant: PropTypes.string,
   onAddToCart: PropTypes.func,
-  onDeleteFromCart: PropTypes.func,
 };
 
 export default React.memo(Item);

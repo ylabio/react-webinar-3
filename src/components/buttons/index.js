@@ -17,7 +17,7 @@ const Buttons = ({ children = {}, variant = 'default', ...props}) => {
 Buttons.propTypes = {
   children: PropTypes.node,
   variant: PropTypes.string,
-  props: PropTypes.array,
+  props: PropTypes.object,
 }
 
 export default React.memo(Buttons);
