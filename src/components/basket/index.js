@@ -3,28 +3,18 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import BasketItem from "../basket-item";
 import "./style.css";
+import List from "../list";
 
 
 function Basket ({ totalPrice, basketItems, onDeleteItem=() => {} }) {
-    const itemsList = [];
     const cn = bem('Basket');
-
-    basketItems.forEach((basketItem) => {
-        itemsList.push(<BasketItem basketItem={basketItem} onDell={onDeleteItem} />);
-    })
 
     return (
         <div>
             <div className={cn('title')}>Корзина</div>
-            <ul className={cn('list')}>
-                {itemsList.map((item) => {
-                    return (
-                        <li key={item.props.basketItem.item.code} className={cn('list-item')}>
-                            {item}
-                        </li>
-                    )
-                })}
-            </ul>
+            <List className={cn('list')}>
+                {Array.from(basketItems.values()).map((basketItem) => <BasketItem key={basketItem.item.code} basketItem={basketItem} onDell={onDeleteItem} />)}
+            </List>
             <div className='total'>
                 <span>Итого:</span>
                 <span>{totalPrice.toLocaleString()} ₽</span>

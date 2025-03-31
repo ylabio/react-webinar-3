@@ -5,6 +5,7 @@ import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Modal from './components/modal';
 import Basket from './components/basket';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -39,10 +40,9 @@ function App({ store }) {
     <PageLayout>
       <Head title="Магазин" />
       <Controls controlsInfo={controls} showBasket={callbacks.showModal}/>
-      <List
-        list={list}
-        onAddToBasket={callbacks.onAddToBasket}
-      />
+      <List>
+        {list.map((item) => <Item key={item.code} item={item} addToBasket={callbacks.onAddToBasket} /> )}
+      </List>
       { 
       isActiv ? 
       <Modal hideModal={callbacks.hideModal}>

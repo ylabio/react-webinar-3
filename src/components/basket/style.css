@@ -11,6 +11,7 @@
 
 .total {
   width: 234px;
+  margin-top: 16px;
   margin-left: auto;
   margin-right: 145px;
   display: flex;
