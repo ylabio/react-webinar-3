@@ -38,8 +38,8 @@ function App({ store }) {
 
       <div className="cart-button-container">
         <CartButton
-          totalItems={cartSummary.uniqueItemsCount} // Используем uniqueItemsCount для шапки
-          totalAmount={cartSummary.totalAmount}     // Используем totalAmount для суммы
+          totalItems={cartSummary.uniqueItemsCount}
+          totalAmount={cartSummary.totalAmount}
           onClick={callbacks.onToggleCart}
         />
       </div>
@@ -58,8 +58,8 @@ function App({ store }) {
         <ModalWindow onClose={callbacks.onToggleCart}>
           <Cart
             items={cartItems}
-            totalAmount={cartSummary.totalAmount}     // Используем totalAmount для корзины
-            totalQuantity={cartSummary.totalQuantity} // Добавляем totalQuantity для корзины
+            totalAmount={cartSummary.totalAmount}
+            totalQuantity={cartSummary.totalQuantity}
             onClose={callbacks.onToggleCart}
             onRemove={callbacks.onRemoveFromCart}
           />

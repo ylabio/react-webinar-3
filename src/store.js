@@ -4,9 +4,9 @@ class Store {
       list: initState.list || [],
       cart: {},
       cartSummary: {
-        uniqueItemsCount: 0,  // Количество уникальных товаров
-        totalQuantity: 0,     // Общее количество товаров (всех штук)
-        totalAmount: 0         // Общая сумма
+        uniqueItemsCount: 0,
+        totalQuantity: 0,
+        totalAmount: 0
       }
     };
     this.listeners = [];
