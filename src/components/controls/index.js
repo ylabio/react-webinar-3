@@ -6,10 +6,17 @@ import CartPopup from '../cart-popup/index';
 
 function Controls({ count, sum, cart, onRemoveItem }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  
   return (
     <div className="Controls">
-      <button className="Controls__button" onClick={() => setIsPopupOpen(true)}>
-        {count} {plural(count, ['товар', 'товара', 'товаров'])} / {sum.toLocaleString('ru-RU')} ₽
+      <button className="Controls__button" onClick={() => setIsPopupOpen(true)} disabled={cart.length === 0}>
+        {cart.length === 0 ? (
+          "Пусто"
+        ) : (
+          <>
+            {count} {plural(count, ['товар', 'товара', 'товаров'])} / {sum.toLocaleString('ru-RU')} ₽
+          </>
+        )}
       </button>
       {isPopupOpen && (
         <CartPopup

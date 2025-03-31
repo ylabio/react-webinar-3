@@ -8,6 +8,7 @@
   justify-content: center;
   align-items: center;
   background-color: var(--overlay);
+  overflow-y: auto;
   z-index: 10;
 }
 
@@ -15,6 +16,8 @@
   position: relative;
   max-width: 1080px;
   width: 100%;
+  max-height: 90vh;
+  height: auto;
   padding: 24px;
   background-color: var(--background);;
   border-radius: 8px;

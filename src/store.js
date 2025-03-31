@@ -84,7 +84,7 @@ class Store {
    */
   getCartTotals() {
     return {
-      count: this.state.cart.reduce((sum, item) => sum + (item.quantity || 1), 0),
+      count: this.state.cart.length,
       sum: this.state.cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0)
     };
   }
