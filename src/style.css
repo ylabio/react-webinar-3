@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Montserrat+Alternates:wght@400;500;600;700&display=swap');
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+}
+
+/* Заголовок корзины */
+.modal-content h2 {
+  font-size: 32px !important;
+  margin-bottom: 24px;
+  font-size: 1.5rem;
+  color: #1a2028;
+}
+
+/* Стили для списка товаров */
+.cart-items {
+  display: flex;
+  flex-direction: column;
+
+  color: #1a2028;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+.cart-item:nth-child(odd) {
+  background-color: var(--odd-item);
+}
+
+.cart-item-info {
+  padding: 16px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 24px;
+}
+
+.cart-item-title {
+  flex: 1;
+
+  text-align: left;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cart-item-quantity {
+  text-align: left;
+  min-width: 105px;
+}
+
+.cart-item-price {
+  text-align: right;
+  min-width: 105px;
+}
+
+.cart-item-remove {
+  min-width: 105px;
+  padding: 8px 16px;
+  background: #d43b3b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cart-item-remove:hover {
+  background: #cc0000;
+}
+
+/* Итого */
+.cart-total {
+  display: flex;
+  gap: 24px;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-right: 145px;
+  text-align: right;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.cart-total-left {
+  width: 105px;
+  text-align: left;
+}
+.cart-total-right {
+  width: 105px;
+}
