@@ -22,7 +22,8 @@ function App({ store }) {
 
   const { list = [], cart = {} } = state;
 
-  const cartTotal = Object.values(cart).reduce((sum, quantity) => sum+quantity, 0);
+  const cartTotal = Object.keys(cart).length; //кол-во уникальных товаров
+  const cartItemsCount = Object.values(cart).reduce((sum, quantity) => sum + quantity, 0); //кол-во штук общее
   const cartSum = Object.entries(cart).reduce((sum, [code, quantity]) => {
     const item = list.find(i => i.code === Number(code));
     return sum + (item.price * quantity);
@@ -59,6 +60,7 @@ function App({ store }) {
         list={list}
         onAddToCart={callbacks.onAddToCart} 
         cartTotal={cartTotal} 
+        cartItemsCount={cartItemsCount}
         cartSum={cartSum} 
         onOpenCart={callbacks.onOpenCart} 
       />
