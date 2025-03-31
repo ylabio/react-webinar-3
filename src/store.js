@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,14 +39,22 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
    */
-  addItem() {
-    this.setState({
+  addItem(code) {
+    const newList = this.state.list.map(item => {
+        if (item.code === code) {
+          return { ...item, score: item.score + 1 };
+        }
+        return item;
+      })
+     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
+      list: newList,
+      cart: newList.filter(item => item.score > 0)
+    })
   }
+
 
   /**
    * Удаление записи по коду
@@ -58,31 +64,33 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      cart: this.state.cart.filter(item => item.code !== code),
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          item.score = 0;
+        }
+        return item;
+      })
     });
   }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
-    });
-  }
+getCartLength() {
+  const length = this.state.cart.length;
+  return length;
+}
+
+getCartSummary() {
+  const sum = this.state.cart.reduce((total, item) => total + item.price * item.score, 0);
+  return sum;
+}
+
+isModalOpen() {
+  this.setState({
+    ...this.state,
+    modal: !this.state.modal,
+  })
+}
+
 }
 
 export default Store;

@@ -1,0 +1,31 @@
+.Cart-head {
+  color: var(--main-text);
+  padding-bottom: 24px;
+  width: 1032px;
+
+}
+
+.Cart-head h2 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.Cart .List-item {
+  padding-left: 0;
+  width: 1032px;
+}
+
+.Cart-footer {
+  width: 1032px;
+  font-weight: 700;
+  padding: 16px 145px 0;
+  display: flex;
+  justify-content: end;
+}
+
+.Cart-summary {
+  width: 234px;
+  display: flex;
+  justify-content: space-between;
+}
