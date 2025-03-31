@@ -5,7 +5,7 @@ import { cn as bem } from '@bem-react/classname';
 import { markingPrice } from '../../utils';
 
 function BasketItem({ item, amount, handleClick }) {
-  const cn = bem('Item');
+  const cn = bem('BasketItem');
 
   return (
     <div className={cn()}>

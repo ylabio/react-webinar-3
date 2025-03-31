@@ -1,4 +1,4 @@
-.Item {
+.BasketItem {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -7,25 +7,25 @@
   padding: 16px;
 }
 
-.Item_selected {
+.BasketItem_selected {
   background-color: var(--primary-select);
 }
 
-.Item-title {
+.BasketItem-title {
   flex: auto;
 }
 
-.Item-info {
+.BasketItem-info {
   width: 23%;
   display: flex;
   justify-content: space-between;
 }
 
-.Item-info__price {
+.BasketItem-info__price {
   margin-left: auto;
 }
 
-.Item-actions__button {
+.BasketItem-actions__button {
   padding: 8px 16px;
   transition:
     color 0.3s ease-in-out,
@@ -33,7 +33,7 @@
     background-color 0.3s ease-in-out;
 }
 
-.Item-actions__button--delete {
+.BasketItem-actions__button--delete {
   background-color: var(--delete);
   color: var(--second-text);
   &:hover {
