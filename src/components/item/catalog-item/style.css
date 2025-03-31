@@ -1,0 +1,36 @@
+.Item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  transition: background-color 0.3s;
+}
+
+.Item-title {
+  flex-grow: 1;
+}
+
+.Item-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.Item-price {
+  width: 105px;
+  text-align: end;
+  margin-right: 24px;
+}
+
+.catalog {
+  background-color: var(--primary);
+  color: var(--second-text);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+

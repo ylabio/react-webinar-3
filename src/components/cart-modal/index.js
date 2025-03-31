@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import './style.css';
 import ModalLayout from '../modal-layout';
 import List from '../list';
+import CartItem from '../item/cart-item';
 
 function CartModal({ cart, onClose, onRemove }) {
   const items = cart;
@@ -12,25 +13,7 @@ function CartModal({ cart, onClose, onRemove }) {
   return createPortal(
     <div className="CartModal-backdrop">
       <ModalLayout title="Корзина" onClose={onClose}>
-        <List list={items} onAddToCart={onRemove} mode="cart" />
-        {/*<ul className="CartModal-list">*/}
-        {/*  {items.map(item => (*/}
-        {/*    <li key={item.code} className="CartModal-item">*/}
-        {/*      <span className="CartModal-title">{item.title}</span>*/}
-        {/*      <div className="CartModal-item-right">*/}
-        {/*        <div className="CartModal-amount">*/}
-        {/*          <span>{item.count} шт</span>*/}
-        {/*          <span className="CartModal-price">*/}
-        {/*            {(item.price * item.count).toLocaleString()} ₽*/}
-        {/*          </span>*/}
-        {/*        </div>*/}
-        {/*        <button className="remove-button" onClick={() => onRemove(item.code)}>*/}
-        {/*          Удалить*/}
-        {/*        </button>*/}
-        {/*      </div>*/}
-        {/*    </li>*/}
-        {/*  ))}*/}
-        {/*</ul>*/}
+        <List list={items} renderItem={item => <CartItem item={item} onRemove={onRemove} />} />
         <div className="CartModal-footer">
           <div className="CartModal-total-label">Итого:</div>
           <div className="CartModal-total-value">{totalPrice.toLocaleString()} ₽</div>

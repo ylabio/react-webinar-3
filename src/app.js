@@ -4,6 +4,7 @@ import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import CartModal from './components/cart-modal';
+import CatalogItem from './components/item/catalog-item';
 
 /**
  * Приложение
@@ -42,10 +43,7 @@ function App({ store }) {
       />
       <List
         list={list}
-        onAddToCart={callbacks.onAddToCart}
-        mode="catalog"
-        // onDeleteItem={callbacks.onDeleteItem}
-        // onSelectItem={callbacks.onSelectItem}
+        renderItem={item => <CatalogItem item={item} onAdd={callbacks.onAddToCart} />}
       />
       {isCartOpen && (
         <CartModal
