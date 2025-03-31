@@ -4,9 +4,9 @@ import { numFormat } from '../../utils';
 import './style.css';
 import Buttons from '../buttons';
 
-function Item({ item = {}, onAddToCart = () => {} }) {
+function Item({ item = {}, onClickBtn = () => {} }) {
   return (
-    <li className="List-item">
+    <>
       <div className={'Item'}>
         <div className="Item-title">
           <b>{item.title}</b>
@@ -15,12 +15,12 @@ function Item({ item = {}, onAddToCart = () => {} }) {
           </div>
         </div>
         <div className="Item-actions">
-          <Buttons onClick={() => onAddToCart(item)} variant="default">
+          <Buttons onClick={() => onClickBtn(item)} variant="default">
             Добавить
           </Buttons>
         </div>
       </div>
-    </li>
+    </>
   );
 }
 

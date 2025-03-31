@@ -1,14 +1,14 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
-import Store from "./store";
-import ModalLayout from "./components/modal-layout";
-import {numFormat} from "./utils";
-import CartBtn from "./components/cart/cart-button";
-import CartItem from "./components/cart/cart-item";
-import Item from "./components/item";
+import Store from './store';
+import ModalLayout from './components/modal-layout';
+import { numFormat } from './utils';
+import CartBtn from './components/cart/cart-button';
+import CartItem from './components/cart/cart-item';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -16,7 +16,7 @@ import Item from "./components/item";
  * @param cartS {Store}
  * @returns {React.ReactElement}
  */
-function App({ store = new Store(), cartS = new Store()}) {
+function App({ store = new Store(), cartS = new Store() }) {
   const list = store.getState().list;
 
   const cartList = cartS.getState().list;
@@ -25,18 +25,18 @@ function App({ store = new Store(), cartS = new Store()}) {
 
   const callbacks = {
     onAddToCart: useCallback(
-      (item) => {
+      item => {
         cartS.addOneItem(item);
       },
       [cartS],
     ),
 
     onDeleteFromCart: useCallback(
-      (code) => {
+      code => {
         cartS.deleteItem(code);
       },
       [cartS],
-    )
+    ),
   };
 
   return (
@@ -50,13 +50,9 @@ function App({ store = new Store(), cartS = new Store()}) {
           }}
         />
       </Controls>
-      {isModalOpen &&
+      {isModalOpen && (
         <ModalLayout title="Корзина" setIsModalOpen={setIsModalOpen}>
-          <List>
-            {cartList.map(item =>
-              <CartItem key={item.code} item={item} onDeleteFromCart={callbacks.onDeleteFromCart} />
-            )}
-          </List>
+          <List list={cartList} Component={CartItem} onClickBtn={callbacks.onDeleteFromCart} />
           <div className="cart-modal-totalCost">
             <div className="cart-modal-totalCost-content">
               <b>Итого:</b>
@@ -68,13 +64,9 @@ function App({ store = new Store(), cartS = new Store()}) {
             </div>
           </div>
         </ModalLayout>
-      }
+      )}
 
-      <List list={list} onAddToCart={callbacks.onAddToCart} >
-        {list.map(item =>
-          <Item key={item.code} item={item} onAddToCart={callbacks.onAddToCart} />
-        )}
-      </List>
+      <List list={list} onClickBtn={callbacks.onAddToCart} Component={Item} />
     </PageLayout>
   );
 }
