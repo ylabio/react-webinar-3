@@ -1,8 +1,13 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import ListItem from './components/list-item';
+import Product from './components/product';
+import Dialog from './components/dialog';
+import CartButton from './components/cart-button';
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -11,36 +16,55 @@ import PageLayout from './components/page-layout';
  */
 function App({ store }) {
   const list = store.getState().list;
+  const cart = store.getState().cart;
+  const totalCartQuantity = store.getState().totalCartQuantity;
+  const totalCartPrice = store.getState().totalCartPrice;
+  const [isCartDialogOpen, setIsCartDialogOpen] = useState(false);
 
   const callbacks = {
-    onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
+    onAddProductToCart: useCallback(
+      product => {
+        store.addProductToCart(product);
       },
       [store],
     ),
 
-    onSelectItem: useCallback(
+    onDeleteProductFromCart: useCallback(
       code => {
-        store.selectItem(code);
+        store.deleteProductFromCart(code);
       },
       [store],
     ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onCartDialogOpen: () => setIsCartDialogOpen(true),
+
+    onCartDialogClose: () => setIsCartDialogOpen(false),
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
-      />
+      <Head title="Магазин" />
+      <Controls>
+        <CartButton
+          totalPrice={totalCartPrice}
+          totalQuantity={totalCartQuantity}
+          onClick={callbacks.onCartDialogOpen}
+        />
+      </Controls>
+      <List>
+        {list.map(product => (
+          <ListItem key={product.code}>
+            <Product product={product} onAddToCart={callbacks.onAddProductToCart} />
+          </ListItem>
+        ))}
+      </List>
+      <Dialog title="Корзина" open={isCartDialogOpen} onClose={callbacks.onCartDialogClose}>
+        <Cart
+          totalCartPrice={totalCartPrice}
+          cart={cart}
+          onDeleteProductFromCart={callbacks.onDeleteProductFromCart}
+        />
+      </Dialog>
     </PageLayout>
   );
 }

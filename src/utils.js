@@ -50,3 +50,9 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
+
+export function formatPrice(num, currency = 'RUB', maximumFractionDigits = 0) {
+  return new Intl.NumberFormat("ru-RU", { style: "currency", currency, maximumFractionDigits }).format(
+    num,
+  )
+}

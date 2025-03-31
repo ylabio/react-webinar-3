@@ -1,0 +1,7 @@
+.ListItem {
+  border-bottom: 1px solid var(--divider);
+}
+
+.ListItem:nth-child(odd) {
+  background-color: var(--odd-item);
+}
