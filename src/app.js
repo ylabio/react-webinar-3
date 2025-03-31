@@ -5,6 +5,7 @@ import PageLayout from './components/page-layout';
 import Modal from './components/modal';
 import Cart from './components/cart';
 import CartButton from './components/cart-button';
+import ProductItem from './components/product-item';
 
 /**
  * Приложение
@@ -12,7 +13,7 @@ import CartButton from './components/cart-button';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const [ModalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const { list, cart, totalItems, totalPrice } = store.getState();
 
@@ -32,7 +33,7 @@ function App({ store }) {
 
     toggleModal: useCallback(() => {
       setModalOpen(prev => !prev);
-    }, [ModalOpen]),
+    }, []),
   };
 
   return (
@@ -45,11 +46,9 @@ function App({ store }) {
       />
       <List
         list={list}
-        onAddToCart={callbacks.onAddToCart}
-        onDeleteFromCart={callbacks.onDeleteFromCart}
-        inCart={false}
+        renderItem={item => <ProductItem item={item} onAddToCart={callbacks.onAddToCart} />}
       />
-      {ModalOpen && (
+      {modalOpen && (
         <Modal>
           <Cart
             cart={cart}

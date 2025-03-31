@@ -22,4 +22,6 @@
   padding: 24px;
   background-color: var(--background);
   border-radius: 8px;
+  max-height: 80vh;
+  overflow-y: auto;
 }

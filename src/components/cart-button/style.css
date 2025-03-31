@@ -6,8 +6,6 @@
 
 .CartButton-container button {
   border: 1px solid var(--primary);
-  /* border: none; */
-  /* box-shadow: inset 0px 0px 0px 1px var(--primary); */
   background-color: var(--background);
   display: flex;
   justify-content: flex-end;

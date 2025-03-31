@@ -1,0 +1,12 @@
+.Delete-button {
+  background-color: var(--delete);
+  color: var(--second-text);
+  border: none;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
+    box-shadow: inset 0px 0px 0px 1px var(--delete);
+  }
+}

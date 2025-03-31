@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({ inCart, onAddToCart, onDeleteFromCart, itemCode }) {
+function Controls({ onAddToCart, onDeleteFromCart, itemCode }) {
   return (
     <>
-      {!inCart && (
+      {onAddToCart && (
         <button className="button-add" onClick={() => onAddToCart(itemCode)}>
           Добавить
         </button>
       )}
-      {inCart && (
+      {onDeleteFromCart && (
         <button className="button-delete" onClick={() => onDeleteFromCart(itemCode)}>
           Удалить
         </button>
@@ -20,7 +20,6 @@ function Controls({ inCart, onAddToCart, onDeleteFromCart, itemCode }) {
 }
 
 Controls.propTypes = {
-  inCart: PropTypes.bool.isRequired,
   onAddToCart: PropTypes.func,
   onDeleteFromCart: PropTypes.func,
   itemCode: PropTypes.number.isRequired,
