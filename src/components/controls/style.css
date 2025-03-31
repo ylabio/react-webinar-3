@@ -5,20 +5,22 @@
 }
 
 .Controls button {
+  display: flex;
+  align-items: center;
   border: 1px solid var(--primary);
   padding: 8px 16px;
   background-color: var(--background);
   color: var(--main-text);
 
+  & svg {
+    color: var(--primary);
+  }
+
   &:hover {
     background-color: var(--primary);
     color: var(--second-text);
+    & svg {
+      color: #FFFFFF;
+    }
   }
-
-  /* &:disabled {
-    border: 1px solid var(--primary-select);
-    background-color: var(--primary-select);
-    color: var(--primary-select);
-    cursor: auto;
-  } */
 }

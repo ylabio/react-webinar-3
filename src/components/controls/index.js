@@ -2,18 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import { plural } from '../../utils';
-import IconCart from '../icon-cart';
+import IconCart from '../icons/icon-cart';
 
-function Controls({ cart, onCartOpen = () => {} }) {
-  const cartItemsCount = cart.length;
-  const isCartEmpty = cartItemsCount === 0;
-  const totalPrice = cart.reduce((acc, i) => acc += (i.price * i.addedToCartCount), 0);
+function Controls({ quantity, totalPrice, onCartOpen = () => {} }) {
+  const isCartEmpty = quantity === 0;
+
   return (
     <div className="Controls">
       <button onClick={() => onCartOpen()} disabled={isCartEmpty} >
         <IconCart />
-        { !isCartEmpty ? `${cartItemsCount} ${plural(cartItemsCount, { one: 'товар',  few: 'товара', many: 'товаров', other: 'товаров' })} /
-        ${totalPrice} ₽` : 'Пусто'}
+        { !isCartEmpty ? `${quantity} ${plural(quantity, { one: 'товар',  few: 'товара', many: 'товаров', other: 'товаров' })} /
+        ${totalPrice} ₽` : 'Пусто' }
       </button>
     </div>
   );
@@ -21,7 +20,8 @@ function Controls({ cart, onCartOpen = () => {} }) {
 
 Controls.propTypes = {
   onAdd: PropTypes.func,
-  cart: PropTypes.object,
+  quantity: PropTypes.string,
+  totalPrice: PropTypes.string,
 };
 
 export default React.memo(Controls);

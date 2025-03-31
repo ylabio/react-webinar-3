@@ -17,10 +17,16 @@ function Item({onAction = () => {}, ...props}) {
     >
       <div className="Item-title">
         <b>{props.item.title}</b>
-        {props.withCounter && props.item.addedToCartCount > 0
-          ? `${props.item.addedToCartCount} шт.`
-          : ''}
-        <p>{props.item.price} ₽</p>
+        <div className="Item-info">
+          <p>
+            {
+              props.withCounter && props.item.addedToCartCount > 0
+                ? `${props.item.addedToCartCount.toLocaleString('ru-RU')} шт.`
+                : ''
+            }
+          </p>
+          <p>{props.item.price.toLocaleString('ru-RU')} ₽</p>
+        </div>
       </div>
       <div className={"Item-actions" + (props.actionType === 'add' ? ' Add' : ' Delete')}>
         <button onClick={callbacks.onAction}>{props.actionType === 'add' ? 'Добавить' : 'Удалить'}</button>

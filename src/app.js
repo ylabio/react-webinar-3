@@ -12,7 +12,9 @@ import Modal from './components/modal';
  */
 function App({ store }) {
   const list = store.getState().list;
-  const cart = store.getState().list.filter(item => item.addedToCartCount > 0);
+  const cart = store.getAddedToCartItems();
+  const quantity = store.getAddedToCartQuantity().toLocaleString('ru-RU');
+  const totalPrice = store.getCartTotalPrice().toLocaleString('ru-RU');
 
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
@@ -37,7 +39,7 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Controls onCartOpen={callbacks.onCartOpen} cart={cart} />
+      <Controls onCartOpen={callbacks.onCartOpen} quantity={quantity} totalPrice={totalPrice} />
       <List
         list={list}
         actionType={'add'}
@@ -46,12 +48,19 @@ function App({ store }) {
       {
         isCartModalOpen && (
           <Modal onCloseModal={() => setIsCartModalOpen(false)}>
-            <List
-              list={cart}
-              actionType={'delete'}
-              onAction={callbacks.onDeleteItem}
-              withCounter
-            />
+            <h2 className="ModalTitle">Корзина</h2>
+            <div className='Content'>
+              <List
+                list={cart}
+                actionType={'delete'}
+                onAction={callbacks.onDeleteItem}
+                withCounter
+              />
+            </div>
+            <div className='Total'>
+              <p>Итого:</p>
+              <p>{totalPrice} ₽</p>
+            </div>
           </Modal>
         )
       }

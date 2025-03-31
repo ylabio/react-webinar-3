@@ -60,6 +60,19 @@ class Store {
       list: [...this.state.list].map(item => item.code === code ? { ...item, addedToCartCount: 0 } : item),
     });
   }
+
+
+  getAddedToCartItems() {
+    return this.state.list.filter(item => item.addedToCartCount > 0);
+  }
+
+  getAddedToCartQuantity(){
+    return this.getAddedToCartItems().length;
+  }
+
+  getCartTotalPrice() {
+    return this.getAddedToCartItems().reduce((acc, i) => acc += (i.price * i.addedToCartCount), 0);
+  }
 }
 
 export default Store;

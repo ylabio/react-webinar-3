@@ -13,6 +13,23 @@
 
 .Item-title {
   flex: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Item-info {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  & p {
+    width: 150px;
+
+    &:nth-child(2) {
+      text-align: right;
+    }
+  }
 }
 
 .Item-actions {

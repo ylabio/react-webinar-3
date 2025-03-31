@@ -1,9 +1,17 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import IconClose from '../icon-close';
+import IconClose from '../icons/icon-close';
 import './style.css';
 
 function Modal({ children, onCloseModal = () => {} }) {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
   useEffect(() => {
     const onEscKeydown = evt => {
       if (evt.key === 'Escape') {
@@ -18,13 +26,11 @@ function Modal({ children, onCloseModal = () => {} }) {
 
   return (
     <div className="ModalOverlay" onClick={onCloseModal}>
-      <div className="Modal">
-        <div className='content'>
-          <button className='closeIcon' onClick={onCloseModal}>
-            <IconClose />
-          </button>
-          {children}
-        </div>
+      <div className="Modal" onClick={e => e.stopPropagation()}>
+        <button className='CloseIcon' onClick={onCloseModal}>
+          <IconClose />
+        </button>
+        {children}
       </div>
     </div>
   );
