@@ -1,0 +1,29 @@
+.Modal-container {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(26, 32, 40, 0.4);
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.Modal {
+    background-color: white;
+    width: 1080px;
+    max-width: 100%;
+    position: relative;
+    border-radius: 8px;
+    padding: 24px;
+    margin: auto;
+}
+
+.cross {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 16px;
+  height: 16px;
+}

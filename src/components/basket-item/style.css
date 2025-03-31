@@ -1,0 +1,39 @@
+.Basket-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 24px;
+    transition: background-color 1s;
+    padding: 16px;
+  }
+  
+.Basket-item-title {
+display: flex;
+flex: auto;
+align-items: space-between;
+justify-content: space-between;
+}
+
+.info {
+    margin-left: auto;
+    width: 234px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Basket-item-actions {
+display: flex;
+justify-content: flex-end;
+}
+
+.Basket-item-actions button {
+background-color: var(--delete);
+color: var(--second-text);
+padding: 8px 16px;
+
+&:hover {
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
+}
+}
