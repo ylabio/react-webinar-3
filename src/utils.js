@@ -67,7 +67,7 @@ export function totalPrice(items) {
     totalItems: 0,
   };
   for (let item of items) {
-    totalAmount.totalPrice += item.price * item.count;
+    totalAmount.totalPrice += item.totalPrice;
     totalAmount.totalItems += 1;
   }
   return totalAmount;

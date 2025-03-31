@@ -33,12 +33,12 @@
     background-color 0.3s ease-in-out;
 }
 
-.Item-actions__button--add {
-  background-color: var(--primary);
+.Item-actions__button--delete {
+  background-color: var(--delete);
   color: var(--second-text);
   &:hover {
     background-color: var(--background);
-    border-color: var(--primary);
-    color: var(--primary);
+    border-color: var(--delete);
+    color: var(--delete);
   }
 }

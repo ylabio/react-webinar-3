@@ -4,13 +4,9 @@ import PropTypes from 'prop-types';
 import List from '../list';
 import { cn as bem } from '@bem-react/classname';
 import { markingPrice, totalPrice } from '../../utils';
+import basketItem from '../basketItem';
 
-function Modal({
-  basket,
-  callbacks = { onRemFromBasket: () => {}, onAddToBasket: () => {} },
-  modalIsActive,
-  setModalIsActive,
-}) {
+function Modal({ basket = [], list, handleClick = () => {}, modalIsActive, setModalIsActive }) {
   const cn = bem('Modal');
   const modalRef = useRef(null);
   const handleClose = event => {
@@ -46,14 +42,16 @@ function Modal({
             />
           </svg>
         </button>
-        <List list={basket} callbacks={callbacks} theme={'delete'} />
-        {basket?.length >= 1 && (
+        <List list={list} basket={basket} handleClick={handleClick} itemComponent={basketItem} />
+        {basket?.length >= 1 ? (
           <div className={cn('total')}>
             <span className={cn('total__word')}>Итого:</span>
             <span
               className={cn('total__price')}
             >{`${markingPrice(totalPrice(basket).totalPrice)} ₽`}</span>
           </div>
+        ) : (
+          <div className={cn('empty')}>Корзина пуста, выберите товар</div>
         )}
       </div>
     </div>
@@ -68,13 +66,10 @@ Modal.propTypes = {
       price: PropTypes.number,
       count: PropTypes.number,
     }),
-  ).isRequired,
+  ),
   modalIsActive: PropTypes.bool.isRequired,
   setModalIsActive: PropTypes.func.isRequired,
-  callbacks: PropTypes.shape({
-    onRemFromBasket: PropTypes.func,
-    onAddToBasket: PropTypes.func,
-  }),
+  handleClick: PropTypes.func,
 };
 
 export default React.memo(Modal);

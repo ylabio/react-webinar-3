@@ -39,7 +39,6 @@ Controls.propTypes = {
   basket: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.number,
-      title: PropTypes.string,
       price: PropTypes.number,
     }),
   ).isRequired,

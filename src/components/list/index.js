@@ -4,23 +4,32 @@ import Item from '../item';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function List({
-  list,
-  callbacks = { onRemFromBasket: () => {}, onAddToBasket: () => {} },
-  theme = 'default',
-}) {
+function List({ list, basket, handleClick = () => {}, itemComponent: ItemComponent }) {
   const cn = bem('List');
+
+  const renderItemsBasket = item => {
+    for (let i = 0; i < basket.length; i++) {
+      if (item.code === basket[i].code) {
+        return (
+          <li key={item.code} className={cn('item')}>
+            <ItemComponent item={item} handleClick={handleClick} amount={basket[i]} />
+          </li>
+        );
+      }
+    }
+  };
+  const renderItems = item => (
+    <li key={item.code} className={cn('item')}>
+      <ItemComponent item={item} handleClick={handleClick} />
+    </li>
+  );
 
   return (
     <ul className={cn()}>
       {list?.length >= 1 ? (
-        list.map(item => (
-          <li key={item.code} className={cn('item')}>
-            <Item item={item} callbacks={callbacks} theme={theme} />
-          </li>
-        ))
+        list.map(basket ? renderItemsBasket : renderItems)
       ) : (
-        <div className={cn('empty')}>Корзина пуста, выберите товар</div>
+        <div className={cn('empty')}>Товара нету</div>
       )}
     </ul>
   );
@@ -32,11 +41,8 @@ List.propTypes = {
       code: PropTypes.number,
     }),
   ).isRequired,
-  theme: PropTypes.oneOf(['delete', 'default']),
-  callbacks: PropTypes.shape({
-    onRemFromBasket: PropTypes.func,
-    onAddToBasket: PropTypes.func,
-  }),
+  handleClick: PropTypes.func,
+  itemComponent: PropTypes.elementType.isRequired,
 };
 
 export default React.memo(List);

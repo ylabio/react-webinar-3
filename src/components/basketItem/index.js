@@ -4,7 +4,7 @@ import './style.css';
 import { cn as bem } from '@bem-react/classname';
 import { markingPrice } from '../../utils';
 
-function Item({ item, handleClick }) {
+function BasketItem({ item, amount, handleClick }) {
   const cn = bem('Item');
 
   return (
@@ -13,26 +13,33 @@ function Item({ item, handleClick }) {
         <b>{item.title}</b>
       </div>
       <div className={cn('info')}>
-        <span className={cn('info__price')}>{`${markingPrice(item.price)} ₽`}</span>
+        <span className={cn('info__count')}>{`${amount.count} шт`}</span>
+        <span className={cn('info__price')}>{`${markingPrice(amount.totalPrice)} ₽`}</span>
       </div>
       <div className={cn('actions')}>
         <button
-          className={`${cn('actions__button')} ${cn('actions__button--add')}`}
+          className={`${cn('actions__button')} ${cn('actions__button--delete')}`}
           onClick={() => handleClick(item.code)}
         >
-          Добавить
+          Удалить
         </button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+BasketItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
+  amount: PropTypes.shape({
+    code: PropTypes.number.isRequired,
+    count: PropTypes.number.isRequired,
+    totalPrice: PropTypes.number.isRequired,
   }).isRequired,
   handleClick: PropTypes.func.isRequired,
 };
 
-export default React.memo(Item);
+export default React.memo(BasketItem);

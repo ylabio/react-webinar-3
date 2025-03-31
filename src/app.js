@@ -4,6 +4,7 @@ import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Modal from './components/modal';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -33,10 +34,11 @@ function App({ store }) {
     <PageLayout>
       <Head title="Магазин" />
       <Controls basket={basket} setIsActive={setModalIsActive} />
-      <List list={list} callbacks={callbacks} />
+      <List list={list} handleClick={callbacks.onAddToBasket} itemComponent={Item} />
       <Modal
         basket={basket}
-        callbacks={callbacks}
+        list={list}
+        handleClick={callbacks.onRemFromBasket}
         modalIsActive={modalIsActive}
         setModalIsActive={setModalIsActive}
       />
