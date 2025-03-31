@@ -1,4 +1,4 @@
-.Item {
+.Cart-Item {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -7,17 +7,19 @@
   padding: 16px;
 }
 
-.Item-title {
+.Cart-Item-title {
   flex: auto;
   display: flex;
   justify-content: space-between;
 }
 
-.Item-title-right {
-
+.Cart-Item-title-right {
+  width: 230px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.Item-actions {
+.Cart-Item-actions {
   display: flex;
   justify-content: flex-end;
 }

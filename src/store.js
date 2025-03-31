@@ -43,10 +43,26 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
+  addNewItem() {
     this.setState({
       ...this.state,
       list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+    });
+  }
+
+  addOneItem(item) {
+    this.setState({
+      ...this.state,
+      list:
+        this.state.list.find(el => el.code === item.code)
+          ?
+            this.state.list.map(el => el.code === item.code ?
+              { ...el, count: el.count ? el.count + 1 : 1} :
+              el
+            )
+          :
+            [...this.state.list, {...item, count: 1}]
+        ,
     });
   }
 
@@ -59,28 +75,6 @@ class Store {
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
       list: this.state.list.filter(item => item.code !== code),
-    });
-  }
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
     });
   }
 }
