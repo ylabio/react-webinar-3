@@ -1,4 +1,4 @@
-import { generateCode } from './utils';
+import { generateCode, totalPrice } from './utils';
 
 /**
  * Хранилище состояния приложения
@@ -48,6 +48,30 @@ class Store {
       ...this.state,
       list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
     });
+  }
+
+  addToBasket(code) {
+    const prevState = this.state;
+    const { basket = [], list } = prevState;
+    const product = list.find(e => e.code === code);
+    const checkItem = basket.find(e => e.code === code);
+    let newBasket;
+
+    if (checkItem) {
+      newBasket = basket.map(e =>
+        e.code === code ? { ...e, count: e.count + 1, totalPrice: (e.count + 1) * product.price } : e,
+      );
+    } else {
+      newBasket = [...basket, { code, count: 1, totalPrice: product.price }];
+    }
+    console.log(newBasket);
+    this.setState({ ...this.state, basket: newBasket });
+  }
+
+  remFormBasket(item) {
+    let newBasket = this.state.basket.filter(el => el.code !== item);
+    this.setState({ ...this.state, basket: newBasket });
+    console.log(newBasket)
   }
 
   /**
