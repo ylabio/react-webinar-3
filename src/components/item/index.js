@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { plural } from '../../utils';
+import { formatPriceWithoutCents } from '../../utils/format';
 import './style.css';
 
 function Item(props) {
@@ -38,11 +39,8 @@ function Item(props) {
               })}`
             : ''}
         </div>
+        <b className="Item-price">{formatPriceWithoutCents(props.item.price)}</b>
         <div className="Item-actions">
-          <b>
-            {props.item.price}
-            {'₽'}
-          </b>
           <button onClick={callbacks.onAddToCart}>Добавить</button>
         </div>
       </div>

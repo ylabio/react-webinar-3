@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Cart from './assets/icons/Cart.jsx';
+import Cart from './assets/icons/cart.jsx';
 import './style.css';
+import { formatPriceWithoutCents } from '../../utils/format';
 
 const pluralize = count => {
   const lastDigit = count % 10;
@@ -23,7 +24,7 @@ function Controls({ onAdd, cartCount = 0, cartPrice = 0, onCartClick }) {
           <span>Пусто</span>
         ) : (
           <span>
-            {cartCount} {pluralize(cartCount)} / {cartPrice} ₽
+            {cartCount} {pluralize(cartCount)} / {formatPriceWithoutCents(cartPrice)}
           </span>
         )}
       </button>

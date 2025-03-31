@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function CancelIcon({ size = 32, color = '#878787', className = '' }) {
+export default function cancelIcon({ size = 32, color = '#878787', className = '' }) {
   return (
     <svg
       width={size}

@@ -3,6 +3,7 @@ import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import ModalCart from './components/modalCart';
 import Modal from './components/modal';
 import './style.css';
 
@@ -82,7 +83,7 @@ function App({ store }) {
     <PageLayout>
       <Head title="Магазин" />
       <Controls
-        cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
+        cartCount={cart.length}
         cartPrice={cart.reduce((sum, item) => sum + item.price * item.quantity, 0)}
         onCartClick={callbacks.onToggleModal}
       />
@@ -93,36 +94,11 @@ function App({ store }) {
         onAddToCart={callbacks.onAddToCart}
       />
       {isModalOpen && (
-        <Modal onClose={callbacks.onToggleModal}>
-          <h2>Корзина</h2>
-          {cart.length === 0 ? (
-            <p>Корзина пуста</p>
-          ) : (
-            <div className="cart-items">
-              {cart.map(item => (
-                <div key={item.code} className="cart-item">
-                  <div className="cart-item-info">
-                    <span className="cart-item-title">{item.title}</span>
-                    <span className="cart-item-quantity">{item.quantity} шт</span>
-                    <span className="cart-item-price">{item.price * item.quantity} ₽</span>
-                    <button
-                      className="cart-item-remove"
-                      onClick={() => callbacks.onRemoveFromCart(item.code)}
-                    >
-                      Удалить
-                    </button>
-                  </div>
-                </div>
-              ))}
-              <div className="cart-total">
-                <span className="cart-total-left">Итого:</span>{' '}
-                <span className="cart-total-right">
-                  {cart.reduce((sum, item) => sum + item.price * item.quantity, 0)} ₽
-                </span>
-              </div>
-            </div>
-          )}
-        </Modal>
+        <ModalCart
+          cart={cart}
+          onClose={callbacks.onToggleModal}
+          onRemoveFromCart={callbacks.onRemoveFromCart}
+        />
       )}
     </PageLayout>
   );
