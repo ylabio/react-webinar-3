@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import { plural } from '../../utils';
+import {formatPrice, plural} from '../../utils';
 
 function CartButton({ cart, onClick = () => {} }) {
   const quantity = cart.length;
@@ -20,7 +20,7 @@ function CartButton({ cart, onClick = () => {} }) {
             few: 'товара',
             many: 'товаров',
           })}{' '}
-          / {totalPrice} &#8381;
+          / {formatPrice(totalPrice)};
         </div>
       ) : (
         'Пусто'

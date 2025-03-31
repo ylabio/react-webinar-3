@@ -4,6 +4,7 @@ import './style.css';
 import List from '../list';
 import ListItem from '../list-item';
 import CartProduct from '../cart-product';
+import {formatPrice} from "../../utils";
 
 function Cart({ cart, onDeleteProductFromCart = _ => {} }) {
   return (
@@ -20,7 +21,7 @@ function Cart({ cart, onDeleteProductFromCart = _ => {} }) {
           <div className="Cart-footer">
             <div className="Cart-footer-label">Итого:</div>
             <div className="Cart-footer-price">
-              {cart.reduce((acc, val) => acc + val.quantity * val.price, 0)} &#8381;
+              {formatPrice(cart.reduce((acc, val) => acc + val.quantity * val.price, 0))}
             </div>
           </div>
         </>

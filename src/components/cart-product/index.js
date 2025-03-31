@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import {formatPrice} from "../../utils";
 
 function CartProduct({ cartProduct, onDeleteFromCart = _ => {} }) {
   const callbacks = {
@@ -14,7 +15,7 @@ function CartProduct({ cartProduct, onDeleteFromCart = _ => {} }) {
     <div className="CartProduct">
       <div className="CartProduct-title">{cartProduct.title}</div>
       <div className="CartProduct-quantity">{cartProduct.quantity} шт</div>
-      <div className="CartProduct-price">{cartProduct.price * cartProduct.quantity} &#8381;</div>
+      <div className="CartProduct-price">{formatPrice(cartProduct.price * cartProduct.quantity)}</div>
       <div className="CartProduct-actions">
         <button onClick={callbacks.onDeleteFromCart}>Удалить</button>
       </div>
