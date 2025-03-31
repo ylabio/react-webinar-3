@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { formatNumber } from '../../utils'
 function ModalItem({ item, onDelete = () => { } }) {
   const callbacks = {
     onDelete: () => {
@@ -15,6 +16,7 @@ function ModalItem({ item, onDelete = () => { } }) {
       </div>
       <div className="ModalItem-prise">
         <div>{item.count} шт</div>
+        <div>{formatNumber(item.price)} ₽</div>
       </div>
       <div className="ModalItem-actions">
         <button onClick={callbacks.onDelete}>Удалить</button>
@@ -27,6 +29,7 @@ ModalItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
+    selected: PropTypes.bool,
     count: PropTypes.number,
   }).isRequired,
   onDelete: PropTypes.func,
