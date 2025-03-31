@@ -1,0 +1,20 @@
+p {
+  margin: 0;
+  color: var(--main-text);
+  font-size: 16px;
+}
+
+.Item-count {
+  margin-left: auto;
+  min-width: 105px;
+}
+
+.Item-price {
+  min-width: 105px;
+}
+
+.Item-delete {
+  cursor: pointer;
+  background-color: var(--delete);
+  color: var(--second-text);
+}
