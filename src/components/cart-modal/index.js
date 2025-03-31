@@ -3,16 +3,16 @@ import './style.css';
 import CloseIcon from '../cart-close-icon';
 import { formatNumber } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
+import item from '../item';
 
 function CartModal({ cart, items, onRemoveFromCart, onClose }) {
   const cn = bem('CartModal');
-  const cartEntries = Object.entries(cart);
-  const totalSum = cartEntries.reduce((sum, [code, quantity]) => {
-    const item = items.find(i => i.code === Number(code));
-    return sum + (item.price * quantity);
+  const totalSum = cart.reduce((sum, item) => {
+    const product = items.find(p => p.code === item.code);
+    return sum + (product.price * item.quantity);
   }, 0);
 
-  const isCartEmpty = cartEntries.length === 0;
+  const isCartEmpty = cart.length === 0;
 
   return (
     <div className={cn('overlay')}>
@@ -23,19 +23,17 @@ function CartModal({ cart, items, onRemoveFromCart, onClose }) {
         </div>
         <div className={cn('content')}>
           {isCartEmpty ? (
-            <div className={cn('empty')}>
-              Корзина пуста
-            </div>
+            <div className={cn('empty')}>Корзина пуста</div>
           ) : (
-            cartEntries.map(([code, quantity]) => {
-              const item = items.find(i => i.code === Number(code));
+            cart.map(item => {
+              const product = items.find(p => p.code === item.code);
               return (
-                <div key={code} className={cn('item')}>
-                  <div className={cn('name')}>{item.title}</div>
+                <div key={item.code} className={cn('item')}>
+                  <div className={cn('name')}>{product.title}</div>
                   <div className={cn('right')}>
-                    <span className={cn('quantity')}>{quantity} шт</span>
-                    <span className={cn('price')}>{formatNumber(item.price)} ₽</span>
-                    <button className={cn('remove')} onClick={() => onRemoveFromCart(code)}>Удалить</button>
+                    <span className={cn('quantity')}>{item.quantity} шт</span>
+                    <span className={cn('price')}>{formatNumber(product.price)} ₽</span>
+                    <button className={cn('remove')} onClick={() => onRemoveFromCart(item.code)}>Удалить</button>
                   </div>
                 </div>
               );

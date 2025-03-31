@@ -20,14 +20,14 @@ function App({ store }) {
     return () => unsubscribe();
   }, [store]);
 
-  const { list = [], cart = {} } = state;
+  const { list = [], cart = [] } = state;
 
-  const cartTotal = Object.keys(cart).length; //кол-во уникальных товаров
-  const cartItemsCount = Object.values(cart).reduce((sum, quantity) => sum + quantity, 0); //кол-во штук общее
-  const cartSum = Object.entries(cart).reduce((sum, [code, quantity]) => {
-    const item = list.find(i => i.code === Number(code));
-    return sum + (item.price * quantity);
-  }, 0);
+  const cartTotal = cart.length; //кол-во уникальных товаров
+  const cartItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0); //кол-во штук общее
+  const cartSum = cart.reduce((sum, item) => {
+    const product = list.find(p => p.code === item.code);
+    return sum + (product.price * item.quantity);
+  }, 0); //сумма общая
 
   const callbacks = {
     onAddToCart: useCallback(

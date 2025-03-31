@@ -8,10 +8,11 @@ import { cn as bem } from '@bem-react/classname';
 
 function List({ 
   list, 
-  onAddToCart = () => {}, 
+  onAddToCart, 
   cartTotal = 0, 
   cartSum = 0, 
-  onOpenCart = () => {} }) {
+  onOpenCart 
+}) {
 
   const cn = bem('List');
   return (

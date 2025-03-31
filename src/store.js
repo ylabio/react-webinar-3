@@ -7,7 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = {
       ...initState,
-      cart: {}
+      cart: []
     };
     this.listeners = []; // Слушатели изменений состояния
   }
@@ -48,25 +48,31 @@ class Store {
    * @param code {Object}
    */
   addToCart(code) {    
-    this.setState({
-      ...this.state,
-      cart: {
-        ...this.state.cart,
-        [code]: (this.state.cart?.[code] || 0) + 1
-      }
-    });
+    const existingItem = this.state.cart.find(item => item.code === code);
+    if (existingItem) {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map(item =>
+          item.code === code
+            ? {...item, quantity: item.quantity + 1}
+            : item
+        )
+      });
+    }
+    else {
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, {code, quantity: 1}]
+      });
+    }
   }
 
   removeFromCart(code) {
-    const newCart = { ...this.state.cart };
-    delete newCart[code];
-    
     this.setState({
       ...this.state,
-      cart: newCart
+      cart: this.state.cart.filter(item => item.code !== code)
     });
-  }
-  
+  }  
 }
 
 export default Store;
