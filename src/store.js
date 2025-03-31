@@ -47,6 +47,7 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
+
   /**
    * Возвращает содержимое корзины
    * @returns {Object} Объект корзины
@@ -56,20 +57,23 @@ class Store {
   }
 
   /**
-   * Добавляет товар в корзину
-   * @param item {Object}
+   * Добавляет товар в корзину по коду
+   * @param code {number}
    */
-  addToCart(item) {
+  addToCart(code) {
     const cart = [...this.state.cart];
-    const index = cart.findIndex(i => i.code === item.code); // есть ли товар уже в корзине
+    const index = cart.findIndex(i => i.code === code);
+    const product = this.state.list.find(p => p.code === code);
+    if (!product) return;
 
-    index === -1 // Если нет
-      ? cart.push({ ...item, count: 1 })
-      : (cart[index] = {
-          //Если да
-          ...cart[index],
-          count: cart[index].count + 1,
-        });
+    if (index === -1) {
+      cart.push({ ...product, count: 1 });
+    } else {
+      cart[index] = {
+        ...cart[index],
+        count: cart[index].count + 1,
+      };
+    }
 
     const totalCount = cart.reduce((acc, i) => acc + i.count, 0);
     const totalPrice = cart.reduce((acc, i) => acc + i.count * i.price, 0);

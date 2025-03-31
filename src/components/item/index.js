@@ -50,7 +50,7 @@ function Item({ item, onAction, mode }) {
         ) : (
           <>
             <span className="Item-price">{item.price.toLocaleString()} ₽</span>
-            <button className="catalog" onClick={() => onAction(item)}>
+            <button className="catalog" onClick={() => onAction(item.code)}>
               Добавить
             </button>
           </>

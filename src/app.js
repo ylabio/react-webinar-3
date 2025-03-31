@@ -12,7 +12,6 @@ import CartModal from './components/cart-modal';
  */
 function App({ store }) {
   // const list = store.getState().list;
-  // const cart = store.getCart();
   const { list, totalPrice } = store.getState();
   const cart = store.getCart();
 
@@ -20,32 +19,15 @@ function App({ store }) {
 
   const callbacks = {
     onAddToCart: useCallback(
-      item => {
-        console.log('Добавлено в корзину:', item);
-        store.addToCart(item);
+      code => {
+        console.log('Добавлен товар по коду:', code);
+        store.addToCart(code);
       },
       [store],
     ),
     onOpenCart: () => setCartOpen(true),
     onCloseCart: () => setCartOpen(false),
     onRemoveFromCart: code => store.removeFromCart(code),
-    //   onDeleteItem: useCallback(
-    //     code => {
-    //       store.deleteItem(code);
-    //     },
-    //     [store],
-    //   ),
-    //
-    // onSelectItem: useCallback(
-    //   code => {
-    //     store.selectItem(code);
-    //   },
-    //   [store],
-    // ),
-    //
-    //   onAddItem: useCallback(() => {
-    //     store.addItem();
-    //   }, [store]),
   };
 
   return (
