@@ -1,14 +1,10 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import {formatPrice, plural} from '../../utils';
 
-function CartButton({ cart, onClick = () => {} }) {
+function CartButton({ cart, totalCartPrice, onClick = () => {} }) {
   const quantity = cart.length;
-  const totalPrice = useMemo(
-    () => cart.reduce((acc, val) => acc + val.quantity * val.price, 0),
-    [cart],
-  );
   return (
     <button className="CartButton" onClick={onClick}>
       <div className="CartButton-icon"></div>
@@ -20,7 +16,7 @@ function CartButton({ cart, onClick = () => {} }) {
             few: 'товара',
             many: 'товаров',
           })}{' '}
-          / {formatPrice(totalPrice)};
+          / {formatPrice(totalCartPrice)};
         </div>
       ) : (
         'Пусто'

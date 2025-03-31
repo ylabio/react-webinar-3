@@ -52,15 +52,18 @@ class Store {
             return {
               ...item,
               quantity: item.quantity + 1,
+              totalPrice: item.totalPrice + item.price,
             };
           }
           return item;
         }),
+        totalCartPrice: (this.state.totalCartPrice || 0) +  product.price,
       });
     } else {
       this.setState({
         ...this.state,
-        cart: [...this.state.cart, { ...product, quantity: 1 }],
+        cart: [...this.state.cart, { ...product, quantity: 1, totalPrice: product.price }],
+        totalCartPrice: (this.state.totalCartPrice || 0) + product.price,
       });
     }
   }
@@ -70,9 +73,11 @@ class Store {
    * @param code
    */
   deleteProductFromCart(code) {
+    const product = this.state.cart.find(i => i.code === code);
     this.setState({
       ...this.state,
       cart: this.state.cart.filter(item => item.code !== code),
+      totalCartPrice: this.state.totalCartPrice - product.price * product.quantity,
     });
   }
 }

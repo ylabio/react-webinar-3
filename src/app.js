@@ -17,6 +17,7 @@ import Cart from "./components/cart";
 function App({ store }) {
   const list = store.getState().list;
   const cart = store.getState().cart;
+  const totalCartPrice = store.getState().totalCartPrice;
   const [isCartDialogOpen, setIsCartDialogOpen] = useState(false);
 
   const callbacks = {
@@ -43,7 +44,7 @@ function App({ store }) {
     <PageLayout>
       <Head title="Магазин" />
       <Controls>
-        <CartButton cart={cart} onClick={callbacks.onCartDialogOpen} />
+        <CartButton totalCartPrice={totalCartPrice} cart={cart} onClick={callbacks.onCartDialogOpen} />
       </Controls>
       <List>
         {list.map(product => (
@@ -53,7 +54,7 @@ function App({ store }) {
         ))}
       </List>
       <Dialog title="Корзина" open={isCartDialogOpen} onClose={callbacks.onCartDialogClose}>
-        <Cart cart={cart} onDeleteProductFromCart={callbacks.onDeleteProductFromCart} />
+        <Cart totalCartPrice={totalCartPrice} cart={cart} onDeleteProductFromCart={callbacks.onDeleteProductFromCart} />
       </Dialog>
     </PageLayout>
   );
