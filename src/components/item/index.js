@@ -1,44 +1,50 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
 import './style.css';
 
-function Item(props) {
+function Item({
+  item,
+  onAddToCart = () => {},
+  onRemove = null,
+  showQuantity = false,
+  mode = 'catalog',
+}) {
   // Счётчик выделений
   const [count, setCount] = useState(0);
 
   const callbacks = {
-    onClick: () => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    },
-    onDelete: e => {
+    onAddProduct: e => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
+      onAddToCart(item);
     },
   };
 
   return (
-    <div
-      className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-      onClick={callbacks.onClick}
-    >
-      <div className="Item-code">{props.item.code}</div>
-      <div className="Item-title">
-        <b>{props.item.title}</b>
-        {count
-          ? ` | Выделяли ${count} ${plural(count, {
-              one: 'раз',
-              few: 'раза',
-              many: 'раз',
-            })}`
-          : ''}
+    <div className={`Item Item--${mode}`}>
+      <div className="Item__info">
+        <div className="Item-box">
+        <span className="Item-title">{item.title}</span>
+        {showQuantity && (
+          <div className="Item__quantity">{item.quantity} шт</div>
+        )}
+        <span className="Item-price">{Number(item.price).toLocaleString('ru-RU')} &#8381;</span>
+        </div>
       </div>
-      <div className="Item-actions">
-        <button onClick={callbacks.onDelete}>Удалить</button>
-      </div>
+      {mode === 'catalog' ? (
+        <button
+          className="Item__action"
+          onClick={() => onAddToCart?.(item)}
+        >
+          Добавить
+        </button>
+      ) : (
+        <button
+          className="Item__action Item__action--remove"
+          onClick={() => onRemove?.(item.code)}
+        >
+          Удалить
+        </button>
+      )}
     </div>
   );
 }
@@ -47,16 +53,9 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
     count: PropTypes.number,
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
+  onAddToCart: PropTypes.func,
 };
 
 export default React.memo(Item);

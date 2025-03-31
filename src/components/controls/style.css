@@ -1,17 +1,30 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 24px 16px 24px 0;
+  padding: 24px 0;
 }
 
-.Controls button {
+button.Controls__button {
+  position: relative;
   border: 1px solid var(--primary);
-  padding: 8px 16px;
-  background-color: var(--primary);
-  color: var(--second-text);
+  padding: 8px 19px 8px 43px;
+  background-color: var(--background);
+  color: var(--main-text);
 
   &:hover {
     background-color: var(--background);
     color: var(--primary);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 19px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    background: url('../../assets/cart.png') no-repeat;
+    background-size: cover;
   }
 }

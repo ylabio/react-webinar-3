@@ -10,36 +10,34 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const { list, cart } = store.getState();
+  const { count, sum } = store.getCartTotals();
 
   const callbacks = {
-    onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
+    onRemoveItem: useCallback(
+      (code) => store.removeFromCart(code),
+      [store]
+    ),
+    onAddToCart: useCallback(
+      (item) => {
+        store.addToCart(item)
       },
       [store],
     ),
-
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Head title="Магазин" />
+      <Controls
+        count={count}
+        sum={sum}
+        cart={cart}
+        onRemoveItem={callbacks.onRemoveItem}
+      />
       <List
         list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        onAddToCart={callbacks.onAddToCart}
       />
     </PageLayout>
   );
