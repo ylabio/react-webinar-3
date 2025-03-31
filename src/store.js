@@ -8,6 +8,8 @@ class Store {
     this.state = {
       list: initState.list || [],
       cart: initState.cart || [],
+      cartTotalCount: 0, // общее количество всех штук
+      cartTotalPrice: 0, // общая сумма всех товаров
     };
     this.listeners = []; // Слушатели изменений состояния
   }
@@ -48,6 +50,7 @@ class Store {
    */
   addItemToCart(code) {
     const item = this.state.list.find(item => item.code === code);
+    if (!item) return;
 
     const existingItem = this.state.cart.find(cartItem => cartItem.code === code);
 
@@ -61,9 +64,14 @@ class Store {
       updatedCart = [...this.state.cart, { ...item, count: 1 }];
     }
 
+    const cartTotalCount = updatedCart.length;
+    const cartTotalPrice = updatedCart.reduce((sum, i) => sum + i.price * i.count, 0);
+
     this.setState({
       ...this.state,
       cart: updatedCart,
+      cartTotalCount,
+      cartTotalPrice,
     });
   }
 
@@ -72,9 +80,19 @@ class Store {
    * @param code
    */
   removeItemFromCart(code) {
+    const existingItem = this.state.cart.find(cartItem => cartItem.code === code);
+    if (!existingItem) return;
+
+    const updatedCart = this.state.cart.filter(cartItem => cartItem.code !== code);
+
+    const cartTotalCount = updatedCart.length;
+    const cartTotalPrice = updatedCart.reduce((sum, i) => sum + i.price * i.count, 0);
+
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter(item => item.code !== code),
+      cart: updatedCart,
+      cartTotalCount,
+      cartTotalPrice,
     });
   }
 }

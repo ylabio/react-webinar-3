@@ -19,9 +19,11 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 24px;
+  padding: 24px 24px 24px 24px;
   width: 1080px;
   max-width: 90%;
+  min-height: 200px;
+  max-height: 600px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -52,9 +54,30 @@
   border: none;
   cursor: pointer;
 }
+.Modal-body {
+  overflow-y: auto;
+}
 
 .Modal-footer {
-  background: #f5f5f5;
-  border-top: 1px solid #ddd;
   text-align: right;
+}
+.Cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.Cart-item--total {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--main-text);
+  font-weight: 700;
+  margin-left: auto;
+  padding-left: 0;
+  padding-right: 138px;
+}
+
+.Cart-item--total span {
+  min-width: 105px;
+  text-align: left;
 }

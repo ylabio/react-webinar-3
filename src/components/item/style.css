@@ -1,3 +1,8 @@
+p {
+  margin: 0;
+  color: var(--main-text);
+  font-size: 16px;
+}
 .Item {
   display: flex;
   justify-content: flex-start;
@@ -13,6 +18,8 @@
 
 .Item-title {
   flex: auto;
+  color: var(--main-text);
+  font-size: 16px;
 }
 
 .Item-actions {
@@ -30,4 +37,19 @@
     border-color: var(--primary);
     color: var(--primary);
   }
+}
+
+.Item-count {
+  margin-left: auto;
+  min-width: 105px;
+}
+
+.Item-price {
+  min-width: 105px;
+}
+
+.Item-delete {
+  cursor: pointer;
+  background-color: var(--delete);
+  color: var(--second-text);
 }
