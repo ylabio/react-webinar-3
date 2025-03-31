@@ -6,6 +6,7 @@ import Head from './components/head';
 import PageLayout from './components/page-layout';
 import ModalWindow from './components/modalWindow/index';
 import CartButton from './components/cartButton/index';
+import  Item from './components/item';
 
 function App({ store }) {
   const { list, cart, cartSummary } = store.getState(); // Изменили cartTotal на cartSummary
@@ -46,16 +47,10 @@ function App({ store }) {
       <List
         list={list}
         renderItem={(item) => (
-          <div className="Item">
-            {/*<div className="Item-code">{item.code}</div>*/}
-            <div className="Item-title">
-              <b>{item.title}</b>
-            </div>
-            <div className="Item-price">{item.price.toLocaleString()} ₽</div>
-            <div className="Item-actions">
-              <button className="button-add" onClick={() => callbacks.onAddToCart(item.code)}>Добавить</button>
-            </div>
-          </div>
+          <Item
+            item={item}
+            onAddToCart={callbacks.onAddToCart}
+          />
         )}
       />
 
