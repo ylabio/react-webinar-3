@@ -39,23 +39,3 @@ export const formatPrice = (price) => {
     minimumFractionDigits: 0,
   }).format(price);
 };
-
-/**
- * Вычисляет общую стоимость всех товаров в корзине
- * Суммирует произведения цены каждого товара на его количество
- * @param {Array<Object>} cart - Массив товаров в корзине
- * @param {Number} cart[].price - Цена товара
- * @param {Number} cart[].quantity - Количество товара
- * @returns {Number} Общая стоимость всех товаров в корзине
- * @example
- * const cart = [
- *   { price: 100, quantity: 2 },
- *   { price: 200, quantity: 1 }
- * ];
- * calculateCartTotal(cart); // 400
- */
-export const calculateCartTotal = (cart) => {
-  return cart.reduce((total, item) => {
-    return total + item.price * item.quantity
-  }, 0);
-};

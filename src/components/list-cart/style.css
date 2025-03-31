@@ -1,0 +1,5 @@
+.Modal-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 25px 25px 25px;
+}

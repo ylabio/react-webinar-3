@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { formatPrice } from '../../utils';
-import { useCart } from '../../cart-context';
 import { STRINGS } from '../../const';
 import './style.css';
 
-function Item({ item, isCart = false }) {
-  const { addToCart, removeFromCart } = useCart();
+function Item({
+    item,
+    isCart = false,
+    onAddToCart = () => {},
+    onRemoveFromCart = () => {},
+  }) {
 
   const quantityText = isCart ? `${item.quantity} ${STRINGS.PIECE}` : "";
   const buttonProps = isCart 
@@ -14,8 +17,8 @@ function Item({ item, isCart = false }) {
     : { className: "Item-btn-add", text: STRINGS.BUTTONS.ADD };
 
   const handleClick = React.useCallback(() => {
-    isCart ? removeFromCart(item.code) : addToCart(item);
-  }, [isCart, item, addToCart, removeFromCart]);
+    isCart ? onRemoveFromCart(item.code) : onAddToCart(item.code);
+  }, [isCart, item]);
 
   return (
     <div className="Item">
@@ -42,6 +45,8 @@ Item.propTypes = {
     quantity: PropTypes.number,
   }).isRequired,
   isCart: PropTypes.bool,
+  onAddToCart: PropTypes.func,
+  onRemoveFromCart: PropTypes.func,
 };
 
 export default React.memo(Item);

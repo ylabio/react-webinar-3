@@ -1,14 +1,13 @@
 import React from 'react';
-import { useCart } from '../../cart-context';
+import PropTypes from 'prop-types';
 import { IconCart } from '../icon';
-import { plural, calculateCartTotal, formatPrice } from '../../utils';
+import { plural, formatPrice } from '../../utils';
 import { STRINGS } from '../../const';
 import './style.css';
 
-function Cart() {
-  const { cart, toggleCartModal } = useCart();
+function Cart({ totalQuantity, totalAmount, toggleCartModal = () => {} }) {
 
-  const title = React.useMemo(() => getCartTitle(cart), [cart]);
+  const title = React.useMemo(() => getCartTitle(totalQuantity, totalAmount), [totalQuantity, totalAmount]);
 
   return (
     <div className="Cart">
@@ -20,13 +19,18 @@ function Cart() {
   );
 }
 
-function getCartTitle(cart) {
-  const count = cart.length;
-  const cost = formatPrice(calculateCartTotal(cart));
+function getCartTitle(totalQuantity, totalAmount) {
+  const cost = formatPrice(totalAmount);
 
-  if (count === 0) return STRINGS.EMPTY;
+  if (totalQuantity === 0) return STRINGS.EMPTY;
 
-  return `${count} ${plural(count, STRINGS.PRODUCT_COUNT_FORMS)} / ${cost}`;
+  return `${totalQuantity} ${plural(totalQuantity, STRINGS.PRODUCT_COUNT_FORMS)} / ${cost}`;
 }
+
+Cart.propTypes = {
+  totalQuantity: PropTypes.number.isRequired,
+  totalAmount: PropTypes.number.isRequired,
+  toggleCartModal: PropTypes.func,
+};
 
 export default React.memo(Cart);

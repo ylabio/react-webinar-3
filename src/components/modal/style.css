@@ -1,5 +1,5 @@
 .Modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   display: flex;
@@ -33,6 +33,9 @@
 }
 
 .Modal-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
   width: 1080px;
   background-color: var(--background);
   border-radius: 8px;
@@ -40,6 +43,7 @@
 }
 
 .Modal-container ul {
+  max-height: 80%;
   padding: 0 25px 0 25px;
 }
 
@@ -90,23 +94,4 @@
   .Modal-cross:hover {
     transform: rotate(90deg);
   }
-}
-
-.Modal-hint {
-  padding: 25px 25px 50px 25px;
-  text-align: center;
-}
-
-.Modal-container-final-cost {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  padding: 15px 15px 40px 15px;
-  font-weight: 700;
-}
-
-.Modal-cost {
-  margin-right: 160px;
-  text-align: end;
-  width: 185px;
 }

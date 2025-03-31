@@ -1,17 +1,15 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import List from "../list";
-import { useCart } from "../../cart-context";
 import { IconCross } from "../icon";
-import { calculateCartTotal, formatPrice } from "../../utils";
-import { STRINGS } from "../../const";
 import './style.css';
 
-function Modal({ title }) {
-  const { cart, isOpened, toggleCartModal } = useCart();
+function Modal({
+    title,
+    isOpened,
+    toggleCartModal = () => {},
+    children = null,
+  }) {
   const [shouldAnimateClose, setShouldAnimateClose] = React.useState(false);
-  const cartIsEmpty = cart.length === 0
-  const cost = formatPrice(calculateCartTotal(cart));
 
   const handleClose = () => {
     setShouldAnimateClose(true);
@@ -27,36 +25,25 @@ function Modal({ title }) {
   if (!isOpened) return null
 
   return (
-    <div className={`Modal ${shouldAnimateClose ? 'closing' : ''}`}>
+    <div className={`Modal${shouldAnimateClose ? ' closing' : ''}`}>
       <div className={`Modal-container ${shouldAnimateClose ? 'closing' : ''}`}>
-        
         <div className="Modal-header">
           <h1>{title}</h1>
           <div className="Modal-cross" onClick={handleClose}>
             <IconCross />
           </div>
         </div>
-
-        {cartIsEmpty && (
-          <div className="Modal-hint">{STRINGS.EMPTY_CART_HINT}</div>
-        )}
-
-        <List list={cart} isCart={true}/>
-
-        {!cartIsEmpty && (
-          <div className="Modal-container-final-cost">
-            <div>{STRINGS.FINAL}</div>
-            <div className="Modal-cost">{cost}</div>
-          </div>
-        )}
-
+        {children}
       </div>
     </div>
   );
 }
 
 Modal.propTypes = {
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  isOpened: PropTypes.bool.isRequired,
+  toggleCartModal: PropTypes.func,
+  children: PropTypes.node,
 };
 
 export default React.memo(Modal);
