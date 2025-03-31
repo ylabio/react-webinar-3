@@ -64,6 +64,7 @@ class Store {
         ...this.state,
         cart: [...this.state.cart, { ...product, quantity: 1, totalPrice: product.price }],
         totalCartPrice: (this.state.totalCartPrice || 0) + product.price,
+        totalCartQuantity: (this.state.totalCartQuantity || 0) + 1,
       });
     }
   }
@@ -78,6 +79,7 @@ class Store {
       ...this.state,
       cart: this.state.cart.filter(item => item.code !== code),
       totalCartPrice: this.state.totalCartPrice - product.price * product.quantity,
+      totalCartQuantity: this.state.totalCartQuantity - 1,
     });
   }
 }

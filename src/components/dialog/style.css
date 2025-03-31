@@ -8,10 +8,11 @@
   padding: 19px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: safe center;
   visibility: hidden;
   opacity: 0;
   transition: visibility .2s linear, opacity .2s linear;
+  overflow-y: auto;
 }
 
 .Dialog_open {
@@ -21,7 +22,6 @@
 
 .Dialog-body {
   width: 100%;
-  height: calc(100% - 20px);
   min-width: 150px;
   max-width: 1080px;
   min-height: 150px;

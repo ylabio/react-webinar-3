@@ -3,20 +3,19 @@ import PropTypes from 'prop-types';
 import './style.css';
 import {formatPrice, plural} from '../../utils';
 
-function CartButton({ cart, totalCartPrice, onClick = () => {} }) {
-  const quantity = cart.length;
+function CartButton({ totalPrice, totalQuantity, onClick = () => {} }) {
   return (
     <button className="CartButton" onClick={onClick}>
       <div className="CartButton-icon"></div>
-      {!!quantity ? (
+      {!!totalQuantity ? (
         <div>
-          {quantity}{' '}
-          {plural(quantity, {
+          {totalQuantity}{' '}
+          {plural(totalQuantity, {
             one: 'товар',
             few: 'товара',
             many: 'товаров',
           })}{' '}
-          / {formatPrice(totalCartPrice)};
+          / {formatPrice(totalPrice)}
         </div>
       ) : (
         'Пусто'
