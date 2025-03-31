@@ -30,6 +30,14 @@ class Store {
     return this.state;
   }
 
+  getTotalPrice() {
+    let totalPrice = 0
+    this.state.list.forEach(item => {
+        item.total ? totalPrice += item.total : ''
+    })
+    return totalPrice || 0
+  }
+
   /**
    * Установка состояния
    * @param newState {Object}
@@ -89,10 +97,10 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          // Смена выделения и подсчёт
           return {
             ...item,
-            count: item.selected ? item.count : item.count + 1 || 1,
+            count: item.count + 1 || 1,
+            total: (item.count + 1 || 1) * item.price || 0,
           };
         }
         return item
@@ -105,10 +113,10 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          // Смена выделения и подсчёт
           return {
             ...item,
             count: 0,
+            total: 0
           };
         }
         return item

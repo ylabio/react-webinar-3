@@ -4,6 +4,10 @@ import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Cart from './components/cart';
+import Cartclose from './components/cartclose';
+import Carthead from './components/carthead';
+import Cartlist from './components/cartlist';
+import Carttotal from './components/carttotal';
 
 /**
  * Приложение
@@ -12,6 +16,8 @@ import Cart from './components/cart';
  */
 function App({ store }) {
   const list = store.getState().list;
+  const totalPrice = store.getTotalPrice();
+  const filteredList = list.filter(({count}) => count ? true : false)
 
   const [showCart, setShowCart] = useState(false)
 
@@ -33,12 +39,19 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Controls setShowCart={setShowCart} list={list.filter(item => item.count ? true : false)} />
+      <Controls setShowCart={setShowCart} count={filteredList.length} totalPrice={totalPrice} />
       <List
         list={list}
         onAddToCart={callbacks.onAddToCart}
       />
-      {showCart ? <Cart list={list.filter(item => item.count ? true : false)} setShowCart={setShowCart} onDeleteFromCart={callbacks.onDeleteFromCart} /> : ''}
+      {showCart ?
+        <Cart>
+            <Cartclose setShowCart={setShowCart} />
+            <Carthead title={'Корзина'} />
+            <Cartlist list={filteredList} onDeleteFromCart={callbacks.onDeleteFromCart} />
+            <Carttotal totalPrice={totalPrice} />
+        </Cart>
+        : ''}
     </PageLayout>
   );
 }

@@ -1,0 +1,27 @@
+.Cart-total {
+    display: flex;
+    justify-content: end;
+    padding: 16px;
+    padding-right: 145px;
+}
+
+.Cart-total-text {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 137%;
+    color: #1a2028;
+
+    width: 105px;
+}
+
+.Cart-total-total {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 137%;
+    text-align: right;
+    color: #1a2028;
+
+    width: 129px;
+}
