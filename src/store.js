@@ -6,6 +6,8 @@ class Store {
     this.state = {
       list: [],
       cartItems: [],
+      cartTotal: 0,
+      uniqueItemsCount: 0,
       ...initState,
     };
     this.listeners = []; // Слушатели изменений состояния
@@ -61,6 +63,7 @@ class Store {
     }
 
     this.setState({ ...this.state, cartItems: [...this.state.cartItems] });
+    this.getCartTotal();
   }
 
   removeFromCart(code) {
@@ -68,15 +71,24 @@ class Store {
       ...this.state,
       cartItems: [...this.state.cartItems.filter(item => item.code !== code)],
     });
+
+    this.getCartTotal();
   }
 
   /**
    * Рассчет общей суммы
    */
   getCartTotal() {
-    return this.state.cartItems
+    const cartTotal = this.state.cartItems
       .reduce((total, item) => total + item.price * item.quantity, 0)
       .toLocaleString('ru-RU');
+    const uniqueItemsCount = this.state.cartItems.length;
+
+    this.setState({
+      ...this.state,
+      cartTotal,
+      uniqueItemsCount,
+    });
   }
 }
 
