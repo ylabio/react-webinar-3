@@ -8,12 +8,49 @@ class Store {
     this.state = {
       list: [],
       cart: [], // Добавляем корзину в начальное состояние
+      cartCount: 0,
+      cartTotal: 0,
       ...initState,
     };
 
     this.listeners = []; // Слушатели изменений состояния
   }
+  /**
+   * Добавление товара в корзину
+   * @param {Object} item - Товар для добавления
+   */
+  addToCart(item) {
+    const currentState = this.getState();
+    const existingItem = currentState.cart.find(cartItem => cartItem.code === item.code);
 
+    const newCart = existingItem
+      ? currentState.cart.map(cartItem =>
+          cartItem.code === item.code ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem,
+        )
+      : [...currentState.cart, { ...item, quantity: 1 }];
+
+    this.setState({
+      ...currentState,
+      cart: newCart,
+      cartCount: newCart.length,
+      cartTotal: newCart.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    });
+  }
+  /**
+   * Удаление товара из корзины
+   * @param {number} code - Код товара
+   */
+  removeFromCart(code) {
+    const currentState = this.getState();
+    const newCart = currentState.cart.filter(item => item.code !== code);
+
+    this.setState({
+      ...currentState,
+      cart: newCart,
+      cartCount: newCart.length,
+      cartTotal: newCart.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    });
+  }
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}

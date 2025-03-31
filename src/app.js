@@ -13,7 +13,7 @@ import './style.css';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const { list, cart = [] } = store.getState(); // Добавляем корзину в состояние
+  const { list, cart = [], cartCount = 0, cartTotal = 0 } = store.getState(); // Добавляем корзину в состояние
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const cartPrice = cart.reduce((sum, item) => sum + (item.price || 0), 0);
@@ -45,34 +45,9 @@ function App({ store }) {
       store.addItem();
     }, [store]),
 
-    onAddToCart: useCallback(
-      item => {
-        const currentState = store.getState();
-        const existingItem = currentState.cart.find(cartItem => cartItem.code === item.code);
+    onAddToCart: useCallback(item => store.addToCart(item), [store]),
 
-        store.setState({
-          ...currentState,
-          cart: existingItem
-            ? currentState.cart.map(cartItem =>
-                cartItem.code === item.code
-                  ? { ...cartItem, quantity: cartItem.quantity + 1 }
-                  : cartItem,
-              )
-            : [...currentState.cart, { ...item, quantity: 1 }],
-        });
-      },
-      [store],
-    ),
-
-    onRemoveFromCart: useCallback(
-      code => {
-        store.setState({
-          ...store.getState(),
-          cart: (store.getState().cart || []).filter(item => item.code !== code),
-        });
-      },
-      [store],
-    ),
+    onRemoveFromCart: useCallback(code => store.removeFromCart(code), [store]),
 
     onToggleModal: useCallback(() => {
       setIsModalOpen(!isModalOpen);
@@ -82,11 +57,7 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Controls
-        cartCount={cart.length}
-        cartPrice={cart.reduce((sum, item) => sum + item.price * item.quantity, 0)}
-        onCartClick={callbacks.onToggleModal}
-      />
+      <Controls cartCount={cartCount} cartPrice={cartTotal} onCartClick={callbacks.onToggleModal} />
       <List
         list={list}
         onDeleteItem={callbacks.onDeleteItem}
