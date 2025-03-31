@@ -1,6 +1,6 @@
-.Item {
+.CartItem {
   display: grid;
-  grid-template-columns: minmax(auto, 1fr) 105px auto;
+  grid-template-columns: minmax(auto, 1fr) 105px 105px auto;
   align-items: center;
   gap: 24px;
   transition: background-color 1s;
@@ -8,15 +8,15 @@
   padding-bottom: 15px;
 }
 
-.Item-title {
+.CartItem-title {
   font-weight: 700;
 }
 
-.Item-price {
+.CartItem-price {
   text-align: right;
 }
 
-.Item-actions {
+.CartItem-actions {
   display: flex;
   justify-content: flex-end;
 }
