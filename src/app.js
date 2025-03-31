@@ -13,6 +13,8 @@ import Modal from './components/modal';
 function App({ store }) {
   const list = store.getState().list;
   const cartItems = store.getState().cartItems;
+  const cartTotal = store.getState().cartTotal;
+  const uniqueItemsCount = store.getState().uniqueItemsCount;
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -23,10 +25,6 @@ function App({ store }) {
       },
       [store],
     ),
-
-    onGetCartTotal: useCallback(() => {
-      return store.getCartTotal();
-    }, [store]),
 
     onRemoveFromCart: useCallback(
       code => {
@@ -41,16 +39,17 @@ function App({ store }) {
       <Head title="Магазин" />
       <Controls
         cartItems={cartItems}
-        onGetCartTotal={callbacks.onGetCartTotal}
+        uniqueItemsCount={uniqueItemsCount}
         setModalOpen={setModalOpen}
+        cartTotal={cartTotal}
       />
       <List list={list} onAddToCart={callbacks.onAddToCart} />
       <Modal
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
         cartItems={cartItems}
-        onGetCartTotal={callbacks.onGetCartTotal}
         onRemoveFromCart={callbacks.onRemoveFromCart}
+        cartTotal={cartTotal}
       />
     </PageLayout>
   );

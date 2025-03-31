@@ -4,9 +4,7 @@ import './style.css';
 import basketIcon from '../../assets/icons/basket.svg';
 import { plural } from '../../utils';
 
-function Controls({ cartItems, onGetCartTotal = () => {}, setModalOpen = () => {} }) {
-  const totalItem = cartItems.reduce((total, item) => total + item.quantity, 0);
-
+function Controls({ cartItems, uniqueItemsCount, cartTotal, setModalOpen = () => {} }) {
   const handleModalIsItems = () => {
     if (cartItems.length > 0) setModalOpen(true);
   };
@@ -19,13 +17,13 @@ function Controls({ cartItems, onGetCartTotal = () => {}, setModalOpen = () => {
           <span>Пусто</span>
         ) : (
           <span>
-            {totalItem}{' '}
-            {plural(totalItem, {
+            {uniqueItemsCount}{' '}
+            {plural(uniqueItemsCount, {
               one: 'товар',
               few: 'товара',
               many: 'товаров',
             })}{' '}
-            / {onGetCartTotal()} ₽
+            / {cartTotal} ₽
           </span>
         )}
       </button>
@@ -34,13 +32,14 @@ function Controls({ cartItems, onGetCartTotal = () => {}, setModalOpen = () => {
 }
 
 Controls.propTypes = {
+  uniqueItemsCount: PropTypes.number,
+  cartTotal:PropTypes.number,
   cartItems: PropTypes.arrayOf(
     PropTypes.shape({
       price: PropTypes.number,
       quantity: PropTypes.number,
     }),
   ).isRequired,
-  onGetCartTotal: PropTypes.func,
   setModalOpen: PropTypes.func,
 };
 
