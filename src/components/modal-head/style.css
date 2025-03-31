@@ -1,0 +1,7 @@
+.ModalHead {
+  color: var(--main-text);
+}
+  
+.ModalHead-container {
+    max-width: 1080px;
+}

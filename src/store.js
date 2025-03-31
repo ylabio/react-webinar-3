@@ -43,19 +43,39 @@ class Store {
    * @param code 
    */
   addCartItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
+    const itemInCart = this.state.cart.find(item => item.code === code);
+
+    if (itemInCart) {
+      const updatedCart = this.state.cart.map(item => {
         if (item.code === code) {
+          this.state.totalPrice = this.state.totalPrice + item.price;
+          
           return {
             ...item,
-            isCart: true,
             count: item.count + 1 || 1
-          }
+          };
         }
         return item;
+      });
+
+      this.setState({
+        ...this.state,
+        cart: updatedCart,
+        uniqueCount: this.state.cart.length
       })
-    })
+    } else {
+      const newItem = this.state.list.find(item => item.code === code);
+
+      this.setState({
+        ...this.state,
+        cart: [
+          ...this.state.cart,
+          { ...newItem, count: 1 }
+        ],
+        totalPrice: (this.state.totalPrice || 0) + newItem.price,
+        uniqueCount: (this.state.cart.length || 0) + 1
+      })
+    }
   };
 
   /**
@@ -63,20 +83,15 @@ class Store {
    * @param code 
    */
   deleteCartItem(code) {
+    const deletedItem = this.state.cart.find(item => item.code === code);
+
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          return {
-            ...item,
-            isCart: false,
-            count: 0
-          }
-        }
-        return item;
-      })
-    })
-  }
-}
+      cart: this.state.cart.filter(item => item.code !== code),
+      totalPrice: this.state.totalPrice - deletedItem.price * deletedItem.count,
+      uniqueCount: this.state.cart.length - 1,
+    });
+  };
+};
 
 export default Store;

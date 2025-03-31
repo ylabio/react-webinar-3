@@ -3,7 +3,10 @@ import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
-import Cart from './components/cart';
+import ModalLayout from './components/modal-layout';
+import ModalHead from './components/modal-head';
+import ModalControls from './components/modal-controls';
+import ModalFooter from './components/modal-footer';
 
 /**
  * Приложение
@@ -14,6 +17,7 @@ function App({ store }) {
   const [isCartOpen, setCartOpen] = useState(false);
 
   const list = store.getState().list;
+  const { cart, totalPrice, uniqueCount } = store.getState();
 
   const callbacks = {
     onOpenCart: () => setCartOpen(true),
@@ -37,24 +41,34 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Controls list={list} onOpenCart={callbacks.onOpenCart} />
+      <Controls 
+        totalPrice={totalPrice}
+        uniqueCount={uniqueCount}
+        onOpenCart={callbacks.onOpenCart} 
+      />
       <List
         list={list}
         onAddCartItem={callbacks.onAddCartItem}
       />
       {isCartOpen
         ?
-          <Cart 
-            list={list}
-            onDeleteCartItem={callbacks.onDeleteCartItem}
-            isCartOpen={isCartOpen} 
-            onCloseCart={callbacks.onCloseCart}
-          />
+          <ModalLayout>
+            <ModalHead title="Корзина" />
+            <ModalControls
+              onCloseCart={callbacks.onCloseCart}
+            />
+            <List
+              cart={cart}
+              isCartOpen={isCartOpen}
+              onDeleteCartItem={callbacks.onDeleteCartItem}
+            />
+            <ModalFooter label="Итого:" totalPrice={totalPrice} />
+          </ModalLayout>
         :
           <></>
       }
     </PageLayout>
   );
-}
+};
 
 export default App;

@@ -1,0 +1,21 @@
+import React from 'react';
+import './style.css';
+import { cn as bem } from '@bem-react/classname';
+import PropTypes from 'prop-types';
+
+
+function ModalLayout({ children }) {
+    const cn = bem('ModalLayout');
+
+    return (
+        <div className={cn()}>
+            <div className={cn('center')}>{children}</div>
+        </div>
+    );
+};
+
+ModalLayout.propTypes = {
+    children: PropTypes.node
+};
+
+export default React.memo(ModalLayout);

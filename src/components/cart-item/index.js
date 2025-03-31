@@ -4,13 +4,13 @@ import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import { price_format } from '../../utils';
 
-function Item({ item = { code: 0, title: '', price: 0, count: 0}, onAdd = () => {} }) {
-  const cn = bem('Item');
+function CartItem({ item = { code: 0, title: '', price: 0, count: 0}, onDelete = () => {} }) {
+  const cn = bem('CartItem');
 
   const callbacks = {
-    onAdd: () => {
-      onAdd(item.code);
-    },
+    onDelete: () => {
+      onDelete(item.code);
+    }
   };
 
   return (
@@ -18,24 +18,28 @@ function Item({ item = { code: 0, title: '', price: 0, count: 0}, onAdd = () => 
       <div className={cn('title')}>
         <b>{item.title}</b>
       </div>
+      <div className={cn('count')}>
+        {item.count} шт
+      </div>
       <div className={cn('price')}>
-        {item.price ? price_format(item.price) : '0 ₽'}
+        {item.price ? price_format(item.price) : `0 ₽`}
       </div>
       <div className={cn('actions')}>
-          <button className="Btn-add" onClick={callbacks.onAdd}>Добавить</button>
+          <button className="Btn-delete" onClick={callbacks.onDelete}>Удалить</button>
       </div>
     </div>
+    
   );
 };
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     count: PropTypes.number,
     price: PropTypes.number,
   }).isRequired,
-  onAdd: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
-export default React.memo(Item);
+export default React.memo(CartItem);

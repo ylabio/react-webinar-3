@@ -4,23 +4,16 @@ import './style.css';
 import { plural, price_format } from '../../utils';
 import cartIcon from './cart-icon.svg';
 
-function Controls({ list = [], onOpenCart = () => {} }) {
-  let totalCount = 0;
-  let totalPrice = 0;
+function Controls({ totalPrice = 0, uniqueCount = 0, onOpenCart = () => {} }) {
 
   return (
     <div className="Controls">
       <button className="Cart-open" onClick={() => onOpenCart()}>
         <img src={cartIcon} alt="cart" />
-        {list.map(item => {
-          if (item.isCart) {
-            totalCount = totalCount + 1;
-            totalPrice = totalPrice + item.price * item.count;
-          }
-        })}
-        {totalCount
+
+        {uniqueCount
             ?
-              `${totalCount} ${plural(totalCount, {
+              `${uniqueCount} ${plural(uniqueCount, {
                 one: 'товар', 
                 few: 'товара',
                 many: 'товаров'
@@ -34,15 +27,9 @@ function Controls({ list = [], onOpenCart = () => {} }) {
 };
 
 Controls.propTypes = {
-  list: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      isCart: PropTypes.bool,
-      count: PropTypes.number,
-    })
-  ),
+  totalPrice: PropTypes.number,
+  totalCount: PropTypes.number,
+  uniqueCount: PropTypes.number,
   onOpenCart: PropTypes.func,
 };
 

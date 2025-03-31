@@ -1,0 +1,17 @@
+.ModalFooter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 24px;
+    height: 54px;
+    padding-right: 145px;
+}
+  
+.ModalFooter-label {
+    min-width: 105px;
+}
+
+.ModalFooter-totalPrice {
+    min-width: 105px;
+    text-align: right;
+}
