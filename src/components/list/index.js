@@ -1,33 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Item from '../item';
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function List({ list, onDeleteItem, onSelectItem }) {
+function List({ items, empty = 'Список пуст', renderItem }) {
+  const cn = bem('List');
+
   return (
-    <ul className="List">
-      {list.map(item => (
-        <li key={item.code} className="List-item">
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem} />
-        </li>
-      ))}
-    </ul>
+    <>
+      {!items || items.length === 0 ? (
+        <span>{empty}</span>
+      ) : (
+        <ul className={cn()}>
+          {items.map(item => (
+            <li key={item.code} className={cn('item')}>
+              {renderItem(item)}
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
   );
 }
 
 List.propTypes = {
-  list: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number,
-    }),
-  ).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func,
-};
-
-List.defaultProps = {
-  onDeleteItem: () => {},
-  onSelectItem: () => {},
+  items: PropTypes.array,
+  renderItem: PropTypes.func,
+  empty: PropTypes.string,
 };
 
 export default React.memo(List);

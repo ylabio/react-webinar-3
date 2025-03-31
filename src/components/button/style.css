@@ -1,0 +1,55 @@
+.Button-solid {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--primary);
+  color: var(--second-text);
+  padding: 8px 15px;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}
+
+.Button-outline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--background);
+  border-color: var(--primary);
+  color: var(--main-text);
+  padding: 8px 15px;
+
+  &:hover {
+    background-color: var(--primary-select);
+  }
+}
+
+.Button-delete {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--delete);
+  color: var(--background);
+  padding: 8px 15px;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
+  }
+}
+
+.Button-icon {
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -6,37 +6,38 @@ import Button from '../button/index';
 
 import './style.css';
 
-function Item({ item, onAddItem }) {
-  const cn = bem('Item');
+function CartItem({ item, onDeleteItem }) {
+  const cn = bem('CartItem');
 
-  const handleAdd = useCallback(
+  const handleDelete = useCallback(
     e => {
       e.stopPropagation();
-      onAddItem(item.code);
+      onDeleteItem(item.code);
     },
-    [onAddItem, item.code],
+    [onDeleteItem, item.code],
   );
 
   return (
     <div className={cn()}>
       <div className={cn('title')}>{item.title}</div>
+      <span className={cn('quantity')}>{item.quantity} шт</span>
       <span className={cn('price')}>{item.price.toLocaleString('ru-RU')} ₽</span>
       <div className={cn('actions')}>
-        <Button onClick={handleAdd} variant="solid" label="Добавить">
-          Добавить
+        <Button onClick={handleDelete} variant="delete" label="Удалить">
+          Удалить
         </Button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
-  onAddItem: PropTypes.func,
+  onDeleteItem: PropTypes.func,
 };
 
-export default React.memo(Item);
+export default React.memo(CartItem);

@@ -1,8 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
+import Item from './components/item';
+import CartItem from './components/cartItem';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -10,37 +13,50 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const { list, cart, totalQuantity, totalPrice } = store.getState();
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const callbacks = {
     onDeleteItem: useCallback(
       code => {
-        store.deleteItem(code);
+        store.deleteItemFromCart(code);
       },
       [store],
     ),
 
-    onSelectItem: useCallback(
+    onAddItem: useCallback(
       code => {
-        store.selectItem(code);
+        store.addItemToCart(code);
       },
       [store],
     ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onOpen: useCallback(() => {
+      setIsOpen(true);
+    }, [isOpen]),
+
+    onClose: useCallback(() => {
+      setIsOpen(false);
+    }, [isOpen]),
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Head title="Магазин" />
+      <Controls onOpen={callbacks.onOpen} quantity={totalQuantity} totalPrice={totalPrice} />
       <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        items={list}
+        empty="Список товаров пуст"
+        renderItem={item => <Item item={item} onAddItem={callbacks.onAddItem} />}
       />
+      <Modal isOpen={isOpen} onClose={callbacks.onClose} title="Корзина" totalPrice={totalPrice}>
+        <List
+          items={cart}
+          empty="Корзина пуста"
+          renderItem={item => <CartItem item={item} onDeleteItem={callbacks.onDeleteItem} />}
+        />
+      </Modal>
     </PageLayout>
   );
 }
