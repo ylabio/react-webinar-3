@@ -4,7 +4,7 @@ import ActionButton from '../actionButton/actionButton';
 import { formatPrice } from '../../utils';
 import './style.css';
 
-function CartItem({ item, onChangeItem }) {
+function CartItem({ item, onRemoveItem }) {
   const formattedPrice = formatPrice(item.price);
 
   return (
@@ -15,7 +15,7 @@ function CartItem({ item, onChangeItem }) {
       <div className="CartItem-quantity">{item.quantity} шт</div>
       <div className="CartItem-price">{formattedPrice} ₽</div>
       <div className="CartItem-actions">
-        <ActionButton onClick={() => onChangeItem(item.code)} text="Удалить" color="del" />
+        <ActionButton onClick={() => onRemoveItem(item.code)} text="Удалить" color="del" />
       </div>
     </div>
   );
@@ -28,7 +28,7 @@ CartItem.propTypes = {
     price: PropTypes.number.isRequired,
     quantity: PropTypes.number.isRequired,
   }).isRequired,
-  onChangeItem: PropTypes.func.isRequired,
+  onRemoveItem: PropTypes.func.isRequired,
 };
 
 export default React.memo(CartItem);

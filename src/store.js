@@ -39,29 +39,35 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление или удаление записи в корзине
-   * @param code {number} - Код товара
-   * @param action {'add' | 'remove'} - Действие: добавить или удалить
-   */
-  changeItem(code, action) {
+  addItem(code) {
     const updatedList = this.state.list.map(item => {
       if (item.code === code) {
-        if (action === 'add') {
-          return {
-            ...item,
-            quantity: (item.quantity || 0) + 1,
-          };
-        } else if (action === 'remove') {
-          return {
-            ...item,
-            quantity: 0,
-          };
-        }
+        return {
+          ...item,
+          quantity: (item.quantity || 0) + 1,
+        };
       }
       return item;
     });
 
+    this.updateCartState(updatedList);
+  }
+
+  removeItem(code) {
+    const updatedList = this.state.list.map(item => {
+      if (item.code === code) {
+        return {
+          ...item,
+          quantity: 0,
+        };
+      }
+      return item;
+    });
+
+    this.updateCartState(updatedList);
+  }
+
+  updateCartState(updatedList) {
     const cartItems = updatedList.filter(item => item.quantity > 0);
     const itemCount = cartItems.length;
     const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);

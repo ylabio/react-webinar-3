@@ -7,15 +7,15 @@ import './style.css';
 
 const modalRoot = document.getElementById('root');
 
-const Modal = ({ isOpen = false, onClose = () => {}, totalPrice = 0, children = <></> }) => {
+const Modal = ({ isOpen = false, onCloseModal = () => {}, totalPrice = 0, children = <></> }) => {
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div className="Modal" onClick={onClose}>
+    <div className="Modal" onClick={onCloseModal}>
       <div className="Modal-content" onClick={e => e.stopPropagation()}>
         <div className="Modal-content-head">
           <h2 className="Modal-content-head-title">Корзина</h2>
-          <button className="Modal-content-head-close-button" onClick={onClose}>
+          <button className="Modal-content-head-close-button" onClick={onCloseModal}>
             <img src={closeBtn} alt="close-button" />
           </button>
         </div>
@@ -32,7 +32,7 @@ const Modal = ({ isOpen = false, onClose = () => {}, totalPrice = 0, children = 
 
 Modal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
+  onCloseModal: PropTypes.func.isRequired,
   totalPrice: PropTypes.number,
   children: PropTypes.node,
 };

@@ -12,18 +12,23 @@ function App({ store }) {
   const { list, cartItems, itemCount, totalPrice } = store.getState();
 
   const callbacks = {
-    onChangeItem: useCallback(
-      (code, action) => {
-        store.changeItem(code, action);
+    onAddItem: useCallback(
+      code => {
+        store.addItem(code);
+      },
+      [store],
+    ),
+    onRemoveItem: useCallback(
+      code => {
+        store.removeItem(code);
       },
       [store],
     ),
 
-    openModal: useCallback(() => {
+    onOpenModal: useCallback(() => {
       setIsModalOpen(true);
     }, []),
-
-    closeModal: useCallback(() => {
+    onCloseModal: useCallback(() => {
       setIsModalOpen(false);
     }, []),
   };
@@ -31,19 +36,12 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Controls onOpenModal={callbacks.openModal} itemCount={itemCount} totalPrice={totalPrice} />
-      <List
-        list={list}
-        renderItem={item => (
-          <Item item={item} onChangeItem={code => callbacks.onChangeItem(code, 'add')} />
-        )}
-      />
-      <Modal isOpen={isModalOpen} onClose={callbacks.closeModal} totalPrice={totalPrice}>
+      <Controls onOpenModal={callbacks.onOpenModal} itemCount={itemCount} totalPrice={totalPrice} />
+      <List list={list} renderItem={item => <Item item={item} onAddItem={callbacks.onAddItem} />} />
+      <Modal isOpen={isModalOpen} onCloseModal={callbacks.onCloseModal} totalPrice={totalPrice}>
         <List
           list={cartItems}
-          renderItem={item => (
-            <CartItem item={item} onChangeItem={code => callbacks.onChangeItem(code, 'remove')} />
-          )}
+          renderItem={item => <CartItem item={item} onRemoveItem={callbacks.onRemoveItem} />}
         />
       </Modal>
     </PageLayout>

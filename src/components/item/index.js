@@ -4,7 +4,7 @@ import ActionButton from '../actionButton/actionButton';
 import { formatPrice } from '../../utils';
 import './style.css';
 
-function Item({ item, onChangeItem }) {
+function Item({ item, onAddItem }) {
   const formattedPrice = formatPrice(item.price);
 
   return (
@@ -14,7 +14,7 @@ function Item({ item, onChangeItem }) {
       </div>
       <div className="Item-price">{formattedPrice} ₽</div>
       <div className="Item-actions">
-        <ActionButton onClick={() => onChangeItem(item.code)} text="Добавить" color="add" />
+        <ActionButton onClick={() => onAddItem(item.code)} text="Добавить" color="add" />
       </div>
     </div>
   );
@@ -26,7 +26,7 @@ Item.propTypes = {
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   }).isRequired,
-  onChangeItem: PropTypes.func,
+  onAddItem: PropTypes.func.isRequired,
 };
 
 export default React.memo(Item);
