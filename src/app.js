@@ -1,57 +1,50 @@
-import React, { useCallback, useState } from 'react';
-import './styles.css';
-import List from "./components/list";
-import Controls from "./components/controls";
-import Head from "./components/head";
-import { PageLayout } from "./components/page-layout";
-import { getDeclension, sumReducer } from "./utils";
+import React, { useState, useCallback } from 'react';
+import List from './components/list';
+import Controls from './components/controls';
+import Head from './components/head';
+import PageLayout from './components/page-layout';
 import Modal from "./components/modal";
-import ModalContent from "./components/modal-content";
+import CartBottomPanel from "./components/cart-bottom-panel";
+import { cartButtonLabel, formattedNumber, plural } from "./utils";
+import { createHooks } from "./hooks";
 
 /**
  * Приложение
- * @param store {Store} Состояние приложения
+ * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
+
+
 function App( { store } ) {
-  const list = store.getState().list;
-  const basket = store.getState().basket;
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Функция для управления модальным окном
-  const toggleModal = useCallback(() => {
-    setIsModalOpen(!isModalOpen);
-  }, [isModalOpen]);
+  const list = store.getStateList();
+  const { cartList, sizeCart, total } = store.getCartState();
+  const [ show, setShow ] = useState( false );
+  const [ addedItem, setAddedItem ] = useState( false );
 
+  const hooks = createHooks(store, setShow, setAddedItem);
 
-  const sumBasket = () => {
-    const count = basket.length;
-    const declension = getDeclension(count);
-
-    return count === 0
-      ? "Пусто"
-      : `${count} товар${declension} / ${calculateTotal()} ₽`;
-  };
-
-  const onDeleteItem = useCallback( ( itemCode ) => {store.onDeleteItem( itemCode )}, [store] );
-
-  const calculateTotal = ()=> store.calculateTotal(sumReducer);
-
-  const addItem = useCallback( (code) => {
-    store.addItem(code)
-  }, [store] );
+  const cartBtnLabel = cartButtonLabel(sizeCart, total);
 
   return (
-    <div className={"full-width-container"}>
-      <PageLayout>
-        <Head title={ "Магазин" }/>
-        <Controls sumBasket={sumBasket} toggleModal={toggleModal} />
-        <List list={list}  handleItemAction={addItem} calculateTotal={calculateTotal}/>
-        <Modal isOpen={isModalOpen} onClose={toggleModal}>
-          <ModalContent toggleModal={toggleModal} basket={basket} handleItemAction={onDeleteItem} calculateTotal={calculateTotal}/>
-        </Modal>
+    <>
+      <PageLayout nonScroll={ show }>
+        <Head title="Магазин"/>
+        <Controls label={ cartBtnLabel } onShowCart={ hooks.onShowCart } addedItem={ addedItem }/>
+        <List
+          list={ list }
+          onClickAction={ hooks.onAddCart }
+        />
       </PageLayout>
-    </div>
+      { show && ( <Modal handleClose={ hooks.onHideCart }>
+        <List
+          isCart={ true }
+          list={ cartList }
+          onClickAction={ hooks.onDeleteItem }
+        />
+        <CartBottomPanel total={ total }/>
+      </Modal> ) }
+    </>
   );
 }
 

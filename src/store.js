@@ -1,78 +1,101 @@
-
 /**
  * Хранилище состояния приложения
  */
 class Store {
-  constructor( initState = {} ) {
-    this.state = {...initState, basket:[]};
-    this.listeners = [];
-    this.nextCode = Math.max( ...initState.list.map( item => item.code ), 0 ) + 1;
+  constructor(initState = {}) {
+    this.state = initState;
+    this.listeners = []; // Слушатели изменений состояния
   }
+
+  /**
+   * Клонирование объектов в массиве
+   * @param list {Array}
+   * @returns {Array}
+   */
+  cloneList(list) {
+    return list.map(item => ({ ...item }));
+  }
+
 
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
    * @returns {Function} Функция отписки
    */
-  subscribe( listener ) {
-    this.listeners.push( listener );
+  subscribe(listener) {
+    this.listeners.push(listener);
+    // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter( item => item !== listener );
+      this.listeners = this.listeners.filter(item => item !== listener);
     };
   }
 
   /**
-   * Выбор состояния
-   * @returns {Object}
+   * Выбор состояния, только список
+   * @returns {Array}
    */
-  getState() {
-    return this.state;
+  getStateList() {
+    return this.cloneList(this.state.list);
   }
 
   /**
    * Установка состояния
    * @param newState {Object}
    */
-  setState( newState ) {
+  setState(newState) {
     this.state = newState;
-    for ( const listener of this.listeners ) listener();
+    // Вызываем всех слушателей
+    for (const listener of this.listeners) listener();
   }
 
   /**
-   * Добавление новой записи
+   * Выбор состояния корзины
+   * @returns {Object}
    */
-
-  addItem(code) {
-    const product = this.state.list.find(item => item.code === code);
-    if (product) {
-      this.setState( {
-        ...this.state,
-        basket: [...this.state.basket, product],
-      } );
-    }
+  getCartState() {
+    const cartList = this.cloneList(this.state.list.filter(item => item.count));
+    const sizeCart = cartList.length;
+    const total = cartList.reduce((acc, item) => acc + (item.total || 0), 0);
+    return { total, sizeCart, cartList };
   }
 
   /**
-   * Удаление записи по коду
+   * Удаление записи из корзины по коду
    * @param code
    */
-  onDeleteItem( code ) {
-    const currentIndex = this.state.basket.findIndex( item => item.code === code );
-    if ( currentIndex !== -1 ){
-      this.setState( {
-        ...this.state,
-        basket: this.state.basket.filter( (item, index) => currentIndex !== index ),
-      } );
-    }
+  clearCartProductCard(code) {
+    this.setState({
+      ...this.state,
+      list: this.cloneList(this.state.list).map(item =>
+        item.code === code
+          ? {
+            ...item,
+            count: 0,
+            total: 0,
+          }
+          : item
+      ),
+    });
   }
 
-
-  calculateTotal(sumReducer = sumReducer) {
-    return this.state.basket.reduce((sum, item) => {
-      return sumReducer(sum, item.price);
-    }, 0);
+  /**
+   * Выделение записи по коду
+   * @param code
+   */
+  addCartProductCard(code) {
+    this.setState({
+      ...this.state,
+      list: this.cloneList(this.state.list).map(item =>
+        item.code === code
+          ? {
+            ...item,
+            count: item.count ? item.count + 1 : 1,
+            total: item.total ? item.total + item.price : item.price,
+          }
+          : item
+      ),
+    });
   }
 }
 
 export default Store;
-

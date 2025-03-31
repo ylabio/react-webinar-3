@@ -1,11 +1,16 @@
-.PageLayout-head {
-  height: 80px;
-  color: var(--title-color);
-  border-bottom: 1px solid #EFEFEF;
+.Head {
+  color: var(--primary);
+  border-bottom: 1px solid var(--divider);
+  padding: 16px 20px;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
 }
 
-.PageLayout-head h1 {
-  font-family: "Roboto", sans-serif;
+.Head-container {
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
+.Head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
 }

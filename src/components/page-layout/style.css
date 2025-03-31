@@ -1,7 +1,15 @@
 .PageLayout {
-  max-width: 1152px;
-  min-height: 100vh;
+  max-width: 1192px;
   margin: 0 auto;
-  background: #fff;
-  box-sizing: border-box;
+  background-color: var(--background);
+  padding-inline: 20px;
+}
+
+.PageLayout-center {
+  padding-block: 0;
+}
+
+.PageLayout_nonScroll {
+  height: 100vh;
+  overflow: hidden;
 }

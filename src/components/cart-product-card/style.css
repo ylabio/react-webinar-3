@@ -1,38 +1,42 @@
-.Item {
+.CartProductCard {
   width: 100%;
   align-items: center;
   gap: 24px;
   display: grid;
   grid-template-columns: auto repeat(3, minmax(105px, max-content));
   grid-template-areas:
-    "title title price actions";
+    "title count price actions";
 }
 
-.Item-title {
+.CartProductCard-title {
   grid-area: title;
 }
 
-.Item-price {
+.CartProductCard-price {
   grid-area: price;
   text-align: right;
 }
 
-.Item-actions {
+.CartProductCard-count {
+  grid-area: count;
+}
+
+.CartProductCard-actions {
   grid-area: actions;
 
   button {
-    background-color: var(--primary);
+    background-color: var(--delete);
     color: var(--second-text);
     padding: 8px 16px;
 
     &:hover {
       background-color: var(--background);
-      border-color: var(--primary);
-      color: var(--primary);
+      border-color: var(--delete);
+      color: var(--delete);
     }
 
     &:active {
-      background-color: var(--primary-select);
+      background-color: var(--delete-select);
     }
   }
 }

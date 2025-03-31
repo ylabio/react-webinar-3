@@ -1,27 +1,49 @@
-import React from "react";
-import { useEffect } from 'react';
-import "./style.css"
+import React from 'react';
+import './style.css';
 
-function Modal({ isOpen, onClose, children }) {
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
+import { cn as bem } from '@bem-react/classname';
+import PropTypes from "prop-types";
+import { XOutButton } from "../icons";
 
-  if (!isOpen) return null;
+const ModalDefaultProps = {
+  handleClose: () => {}, title: "Корзина",
+};
+
+function Modal( { handleClose = ModalDefaultProps.handleClose, title = ModalDefaultProps.title, children } ) {
+  const cn = bem( "Modal" );
+
+  const handleOverlayClick = ( e ) => {
+    if ( e.target === e.currentTarget ) {
+      handleClose();
+    }
+  };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        {children}
+    <div className={ cn() }>
+      <div className={ cn( "overlay" ) } onClick={ handleOverlayClick }>
+        <div className={ cn( "dialog" ) }>
+          <div className={ cn( "button" ) }>
+            <button onClick={ handleClose }>
+              <XOutButton/>
+            </button>
+          </div>
+          <div className={ cn( "title" ) }>
+            <h1>{ title }</h1>
+          </div>
+          <div className={ cn( "body" ) }>
+            { children }
+          </div>
+        </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Modal;
+Modal.propTypes = {
+  isOpen: PropTypes.bool,
+  handleClose: PropTypes.func,
+  title: PropTypes.string,
+  children: PropTypes.node,
+};
+
+export default React.memo( Modal );

@@ -1,13 +1,27 @@
-import React from "react";
-import "./style.css"
-import { pageLayoutClass } from "../page-layout";
+import React from 'react';
+import PropTypes from 'prop-types';
+import './style.css';
+import { cn as bem } from "@bem-react/classname";
 
-function Head( { title = "Магазин" } ) {
+const HeadDefaultProps = {
+  title: "Магазин",
+};
+
+function Head( { title = HeadDefaultProps.title } ) {
+
+  const cn = bem( "Head" );
+
   return (
-    <div className={ pageLayoutClass( "head" ) }>
-      <h1>{ title }</h1>
+    <div className={ cn() }>
+      <div className={ cn( "container" ) }>
+        <h1>{ title }</h1>
+      </div>
     </div>
-  )
+  );
 }
 
-export default React.memo( Head )
+Head.propTypes = {
+  title: PropTypes.node,
+};
+
+export default React.memo( Head );

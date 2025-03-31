@@ -1,29 +1,30 @@
-import React from "react";
-import { cn as bem } from '@bem-react/classname'
-import "./style.css";
-import * as PropTypes from "prop-types";
-import { formatPrice, isEven } from "../../utils";
+import React from 'react';
+import PropTypes from 'prop-types';
+import './style.css';
+import { cn as bem } from "@bem-react/classname";
+import { formattedNumber } from "../../utils";
 
-const itemClass = bem( "Item" );
+const ItemDefaultProps = {
+  onClickAction: () => {},
+  item: {},
+};
 
-function Item( { item, index, handleItemAction, modeDelete, countItemDuplicates } ) {
+function Item( { onClickAction = ItemDefaultProps.onClickAction, item = ItemDefaultProps.item } ) {
+
+  const cn = bem( "Item" );
+
+  const callbacks = {
+    onClick: () => {
+      onClickAction( item.code );
+    },
+  };
 
   return (
-    <div
-      className={ "Item" + ( isEven( index ) ? ' Item_selected' : '' ) }
-    >
-      <div className={ itemClass( "code" ) }/>
-      <div className={ itemClass( "title" ) }>
-        { item.title }
-        { modeDelete ? <div className={itemClass("quantity")}>{countItemDuplicates}</div> : undefined }
-        <div>{ formatPrice( item.price ) + " ₽" }</div>
-      </div>
-      <div className={ modeDelete ? "Modal-actions" :  itemClass( "actions" ) }>
-        <button onClick={ ( event ) => {
-          handleItemAction( item.code );
-          event.stopPropagation();
-        } }>{modeDelete ? "Удалить" : "Добавить" }
-        </button>
+    <div className={ cn() }>
+      <b className={ cn( "title" ) }>{ item.title }</b>
+      <span className={ cn( "price" ) }>{ formattedNumber( item.price ) } ₽</span>
+      <div className={ cn( "actions" ) }>
+        <button onClick={ callbacks.onClick }>Добавить</button>
       </div>
     </div>
   );
@@ -34,9 +35,9 @@ Item.propTypes = {
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number,
-    selected: PropTypes.bool,
   } ).isRequired,
+  onClickAction: PropTypes.func,
 };
 
 
-export default React.memo( Item )
+export default React.memo( Item );

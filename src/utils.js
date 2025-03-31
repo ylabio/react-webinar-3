@@ -1,82 +1,45 @@
-const propNames = new Set( [ 'id', 'className', 'textContent', 'onclick' ] );
+/**
+ * Плюрализация.
+ * Возвращает вариант с учётом правил множественного числа под указанную локаль
+ * @param value {Number} Число, под которое выбирается вариант формы.
+ * @param variants {Object<String>} Варианты форм множественного числа.
+ * @example plural(5, {one: 'товар', few: 'товара', many: 'товаров'})
+ * @param [locale] {String} Локаль (код языка)
+ * @returns {*|string}
+ */
+export function plural(value, variants = {}, locale = 'ru-RU') {
+  const key = new Intl.PluralRules(locale).select(value);
+  return variants[key] || '';
+}
 
 /**
- * Создание элемента со свойствами и вложенными элементами
- * @param name {String} Название HTML тега
- * @param props {Object} Свойства и атрибуты элемента
- * @param children {...Node} Вложенные элементы
- * @returns {HTMLElement}
+ * Перевод числа в строку с разбиением на разряды.
+ * Возвращает вариант числа с разделителями по разрядам под указанную локаль
+ * @param value {Number} Число, под которое выбирается вариант формы.
+ * @returns {string}
  */
-export function createElement( name, props = {}, ...children ) {
-  const element = document.createElement( name );
+export const formattedNumber = (value) => new Intl.NumberFormat('ru-RU').format(value);
 
-  // Назначение свойств и атрибутов
-  for ( const name of Object.keys( props ) ) {
-    if ( propNames.has( name ) ) {
-      element[name] = props[name];
-    } else {
-      element.setAttribute( name, props[name] );
-    }
+/**
+ * Генератор чисел с шагом 1
+ * Вариант с замыканием на начальное значение в самовызываемой функции.
+ * @returns {Number}
+ */
+export const incrementer = (function (start = 0) {
+  return () => ++start;
+})();
+
+export const cartButtonLabel = (sizeCart, total)=> {
+  let cartBtnLabel = "Пусто";
+
+  if (sizeCart > 0) {
+    const pluralForm = plural(sizeCart, {
+      one: 'товар',
+      few: 'товара',
+      many: 'товаров',
+    });
+    cartBtnLabel = `${sizeCart} ${pluralForm} / ${formattedNumber(total)} ₽`;
   }
-
-  // Вставка вложенных элементов
-  for ( const child of children ) {
-    element.append( child );
-  }
-
-  return element;
-}
-
-
-export function isEven(index) {
-  return index % 2 === 0
-}
-
-export function formatPrice(price) {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-}
-
-export function sumReducer(sum, item){
-  return sum + item;
-}
-
-export const getDeclension = (count) => {
-  const lastDigit = count % 10;
-  const lastTwoDigits = count % 100;
-
-  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return 'ов';
-  if (lastDigit === 1) return '';
-  if (lastDigit >= 2 && lastDigit <= 4) return 'а';
-  return 'ов';
+  return cartBtnLabel;
 };
 
-export function generateUniqueKey(length = 16) {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-={}:<>?';
-  const uniqueChars = [...new Set(chars)];
-
-  if (length > uniqueChars.length) {
-    throw new Error(`Длина ключа (${length}) превышает количество уникальных символов (${uniqueChars.length})`);
-  }
-
-  const shuffled = [...uniqueChars];
-
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-
-  return shuffled.slice(0, length).join('');
-}
-
-export function countItemDuplicates(array, item) {
-  return array.filter(arrayItem => arrayItem.code === item.code).length;
-}
-
-export function removeDuplicatesByCode(arr) {
-  const seen = new Set();
-  return arr.filter(item => {
-    if (seen.has(item.code)) return false;
-    seen.add(item.code);
-    return true;
-  });
-}

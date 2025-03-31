@@ -1,22 +1,25 @@
-import React, { useCallback } from 'react';
-import { cn as bem } from '@bem-react/classname'
-import './style.css'
-import * as PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { cn as bem } from '@bem-react/classname';
+import './style.css';
 
-const pageLayoutClass = bem( "PageLayout" );
+const ModalDefaultProps = {
+  nonScroll: false,
+};
 
-const PageLayout = React.memo( ( { children } ) => {
+function PageLayout( { children, nonScroll = ModalDefaultProps.nonScroll } ) {
+  const cn = bem( 'PageLayout' );
 
   return (
-    <div className={ pageLayoutClass() }>
-      { children }
+    <div className={ cn( { nonScroll: nonScroll } ) }>
+      <div className={ cn( 'center' ) }>{ children }</div>
     </div>
   );
+}
 
-} );
 PageLayout.propTypes = {
+  nonScroll: PropTypes.bool,
   children: PropTypes.node,
 };
 
-export { PageLayout, pageLayoutClass };
-
+export default React.memo( PageLayout );
