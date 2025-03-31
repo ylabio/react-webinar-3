@@ -5,6 +5,9 @@
   padding-left: 0;
   margin: 0 auto;
   width: 1152px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0 16px;
 }
 
 .List-item:nth-child(even) {

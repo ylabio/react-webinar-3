@@ -2,9 +2,12 @@
   max-width: 1440px;
   margin: 0 auto;
   background-color: var(--background);
-  padding-inline: 20px;
+  padding-inline: 0px;
 }
 
 .PageLayout-center {
   padding-block: 0;
+  width: 100%;
+  max-width: 1152px;
+  margin: 0 auto;
 }
