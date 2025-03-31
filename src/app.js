@@ -21,14 +21,7 @@ function App({ store }) {
     return () => unsubscribe();
   }, [store]);
 
-  const { list = [], cart = [] } = state;
-
-  const cartTotal = cart.length; //кол-во уникальных товаров
-  const cartItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0); //кол-во штук общее
-  const cartSum = cart.reduce((sum, item) => {
-    const product = list.find(p => p.code === item.code);
-    return sum + (product.price * item.quantity);
-  }, 0); //сумма общая
+  const { list = [], cart = [], cartTotal = 0, cartSum = 0 } = state;
 
   const callbacks = {
     onAddToCart: useCallback(
