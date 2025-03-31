@@ -5,7 +5,7 @@
   border-radius: 8px;
   width: 100%;
   max-width: 1080px;
-  max-height: 90vh;
+  max-height: none;
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -36,6 +36,6 @@
 }
 .ModalLayout-content {
   padding: 24px;
-  overflow-y: auto;
+  overflow-y: unset;
   flex: 1 1 auto;
 }

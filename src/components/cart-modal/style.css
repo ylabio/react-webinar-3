@@ -7,8 +7,9 @@
   background: rgba(26, 32, 40, 0.4);
   display: flex;
   justify-content: center;
-  align-items: center;
-  z-index: 1000;
+  align-items: flex-start;
+  overflow: auto;
+  padding: 40px 0;
 }
 
 .CartModal-list {
