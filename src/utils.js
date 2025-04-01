@@ -1,19 +1,16 @@
 /**
- * Плюрализация
- * Возвращает вариант с учётом правил множественного числа под указанную локаль
- * @param value {Number} Число, под которое выбирается вариант формы.
- * @param variants {Object<String>} Варианты форм множественного числа.
- * @example plural(5, {one: 'товар', few: 'товара', many: 'товаров'})
- * @param [locale] {String} Локаль (код языка)
- * @returns {*|string}
+ * Функция для выбора правильной формы слова "товар"
+ * @param {number} count - Количество товаров
+ * @returns {string} - Правильная форма слова "товар"
  */
-export function plural(value, variants = {}, locale = 'ru-RU') {
-  // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
-  // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
-  // В английском 2 формы: 'one', 'other'
-  const key = new Intl.PluralRules(locale).select(value);
-  // Возвращаем вариант по ключу, если он есть
-  return variants[key] || '';
+export function pluralizeItems(count) {
+  if (count % 10 === 1 && count % 100 !== 11) {
+    return 'товар';
+  } else if (count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 10 || count % 100 >= 20)) {
+    return 'товара';
+  } else {
+    return 'товаров';
+  }
 }
 
 /**

@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -40,48 +38,47 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+  notify() {
+    this.listeners.forEach(listener => listener());
+  }
   /**
-   * Добавление новой записи
+   * Удаление товара из корзины
+   * @param code
    */
-  addItem() {
+  removeItemFromCart(code) {
     this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      ...this.state, // Сохраняем текущее состояние
+      cart: this.state.cart.filter(item => item.code !== code),
     });
+    this.notify();
   }
 
   /**
-   * Удаление записи по коду
+   * Добавление товара в корзину
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
+  addItemToCart(code) {
+    const item = this.state.list.find(item => item.code === code);
+    if (!item) return;
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+    const updatedCart = this.state.cart.some(cartItem => cartItem.code === code)
+      ? this.state.cart.map(cartItem =>
+          cartItem.code === code ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem,
+        )
+      : [
+          ...this.state.cart,
+          {
+            code,
+            title: item.title,
+            quantity: 1,
+            price: this.state.list.find(item => item.code === code).price,
+          },
+        ];
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      cart: updatedCart,
     });
+    this.notify();
   }
 }
 
