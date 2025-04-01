@@ -12,5 +12,22 @@
 
 .List-item {
   border-bottom: 1px solid var(--divider);
-  cursor: pointer;
+}
+
+.List-total {
+  height: 54px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 24px;
+  padding: 16px;
+}
+
+.List-total span {
+  width: 105px;
+
+  &:nth-child(2) {
+    text-align: end;
+    margin-right: 129px;
+  }
 }

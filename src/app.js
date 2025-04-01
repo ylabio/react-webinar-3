@@ -1,8 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import ModalLayout from './components/modal-layout';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -11,8 +13,19 @@ import PageLayout from './components/page-layout';
  */
 function App({ store }) {
   const list = store.getState().list;
+  const totalPrice = store.getState().totalPrice;
+  const cartItems = store.getCartItems();
+
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const callbacks = {
+    onAddItem: useCallback(
+      code => {
+        store.addItem(code);
+      },
+      [store],
+    ),
+
     onDeleteItem: useCallback(
       code => {
         store.deleteItem(code);
@@ -20,27 +33,33 @@ function App({ store }) {
       [store],
     ),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
+    onOpenModal: () => {
+      setIsOpenModal(true);
+    },
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onCloseModal: () => {
+      setIsOpenModal(false);
+    },
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+      <Head title="Магазин" />
+      <Controls
+        onOpenModal={callbacks.onOpenModal}
+        totalPrice={totalPrice}
+        cartItemsCount={cartItems.length}
       />
+      <List list={list} onAddItem={callbacks.onAddItem} />
+
+      <ModalLayout isOpen={isOpenModal} onClose={callbacks.onCloseModal}>
+        <Cart
+          cartItems={cartItems}
+          totalPrice={totalPrice}
+          onClose={callbacks.onCloseModal}
+          onDeleteItem={callbacks.onDeleteItem}
+        />
+      </ModalLayout>
     </PageLayout>
   );
 }
