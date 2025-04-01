@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import List from '../list';
 import './style.css';
+import { formatPriceWithCurrency } from '../../utils';
 
 function Cart({ cart, totalPrice, onRemoveFromCart }) {
   return (
@@ -15,7 +16,7 @@ function Cart({ cart, totalPrice, onRemoveFromCart }) {
       </div>
       <div className='modal-footer'>
         <span className='total-label'>Итого:</span>
-        <span className='total-value'>{totalPrice} ₽</span>
+        <span className='total-value'>{formatPriceWithCurrency(totalPrice)}</span>
       </div>
     </>
   );

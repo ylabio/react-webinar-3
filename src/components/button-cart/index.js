@@ -1,6 +1,6 @@
 import React from 'react';
-import { CartIcon } from '../icons';
-import { plural } from '../../utils';
+import { CartIcon } from '../../icons';
+import { formatPriceWithCurrency, plural } from '../../utils';
 import './style.css';
 
 function ButtonCart({ setIsOpen, totalCount, totalPrice }) {
@@ -14,7 +14,7 @@ function ButtonCart({ setIsOpen, totalCount, totalPrice }) {
             many: 'товаров',
           })}`
           : ''} /
-     ${totalPrice} ₽`}
+     ${formatPriceWithCurrency(totalPrice)}`}
       </button>
     </div>
   )

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { formatPriceWithCurrency } from '../../utils';
 
 function CartItem({ title, count, price, onDelete }) {
   return (
@@ -10,7 +11,7 @@ function CartItem({ title, count, price, onDelete }) {
       </div>
       <div className='product-details'>
         <span className='quantity'>{count} шт</span>
-        <span className='price'>{price} ₽</span>
+        <span className='price'>{formatPriceWithCurrency(price)}</span>
         <button
           className='delete-button'
           onClick={onDelete}

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import { CloseIcon } from '../icons';
+import { CloseIcon } from '../../icons';
+import Head from '../head';
 
 function Modal({ isOpen, onClose, children }) {
   if (!isOpen) return null;
@@ -10,6 +11,7 @@ function Modal({ isOpen, onClose, children }) {
     <div className='modal-overlay'>
       <div className='modal-container'>
         <div className='modal-content'>
+          <Head title='Корзина' variant='modal'/>
           <button className='modal-close-button' onClick={onClose}>
             <CloseIcon/>
           </button>

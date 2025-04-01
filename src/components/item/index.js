@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { formatPriceWithCurrency } from '../../utils';
 
 function Item({item, onAddToCart}) {
 
@@ -18,7 +19,7 @@ function Item({item, onAddToCart}) {
         <b>{item.title}</b>
       </div>
       <div>
-        <a>{item.price} ₽</a>
+        <a>{formatPriceWithCurrency(item.price)}</a>
       </div>
       <div className='Item-actions'>
         <button className='add-button' onClick={callbacks.onClick}>Добавить</button>

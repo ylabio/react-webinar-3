@@ -56,7 +56,6 @@ function App({ store }) {
         onAddToCart={callbacks.onAddToCart}
       />
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <Head title='Корзина' variant='modal'/>
         <Cart
           cart={cart.items}
           totalPrice={cart.totalPrice}
