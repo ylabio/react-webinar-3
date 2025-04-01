@@ -28,8 +28,6 @@ function Cart({ cart, items, onRemoveFromCart }) {
     );
   };
 
-  const isCartEmpty = cart.length === 0;
-
   return (
     <>
       <div className={cn('header')}>
