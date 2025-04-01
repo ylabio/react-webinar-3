@@ -5,7 +5,7 @@ import './style.css'
 
 const MODAL_CONTAINER_ID = "modal-container-id";
 
-const Modal = ({children}) => {
+const Modal = ({children, onCloseModal = () => {}}) => {
   const rootRef = useRef(null);
   const [isMounted, setMounted] = useState(false);
 
@@ -18,8 +18,11 @@ const Modal = ({children}) => {
   return isMounted ? (
     <Portal id={MODAL_CONTAINER_ID}>
       <div className="Modal" ref={rootRef} >
-        <div className="Modal-content">
-          {children}
+        <div className="Modal-wrapper">
+            <button className="Modal-closeButton" onClick={() => onCloseModal()}></button>
+          <div className="Modal-content">
+            {children}
+          </div>
         </div>     
       </div>
     </Portal>
@@ -27,7 +30,8 @@ const Modal = ({children}) => {
 };
 
 Modal.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  onCloseModal: PropTypes.func
 }
 
 export default Modal;

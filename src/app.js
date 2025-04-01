@@ -33,7 +33,7 @@ function App({ store }) {
      setModalActive(true)
     }, []),
 
-    onCloseBasket: useCallback(() => {
+    onCloseModal: useCallback(() => {
       setModalActive(false)
     }, [])
   };
@@ -48,8 +48,8 @@ function App({ store }) {
       />
 
       {isModalActive && (
-        <Modal>
-          <Basket productsList={basketList} basketPrice={basketPrice} onDeleteProduct={callbacks.onDeleteProductFromBasket} onCloseBasket={callbacks.onCloseBasket}/>
+        <Modal title="Корзина" onCloseModal={callbacks.onCloseModal}>
+          <Basket productsList={basketList} basketPrice={basketPrice} onDeleteProduct={callbacks.onDeleteProductFromBasket} />
         </Modal>
         )
       }        

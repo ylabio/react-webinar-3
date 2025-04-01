@@ -4,11 +4,10 @@ import './style.css';
 import List from '../list'
 import { localeNumbers } from '../../utils'
 
-function Basket({productsList, basketPrice = 0, onDeleteProduct = () => {}, onCloseBasket = () => {}}) {
+function Basket({productsList, basketPrice = 0, onDeleteProduct = () => {}}) {
   return (
     <div className="Basket">
       <h2>Корзина</h2>
-      <button className="Basket-closeButton" onClick={() => onCloseBasket()}></button>
       <div>
         <List list={productsList} onAction={onDeleteProduct} isAccentButton={true}/>
         <div className="Basket-price">
@@ -23,8 +22,7 @@ function Basket({productsList, basketPrice = 0, onDeleteProduct = () => {}, onCl
 Basket.propTypes = {
   productsList: PropTypes.arrayOf(object).isRequired,
   basketPrice: PropTypes.number,
-  onDeleteItem: PropTypes.func,
-  onCloseBasket: PropTypes.func,
+  onDeleteItem: PropTypes.func
 };
 
 export default React.memo(Basket);
