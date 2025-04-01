@@ -15,7 +15,13 @@ function Item({ item, onAdd = () => {} }) {
         <b>{item.title}</b>
       </div>
       <div className="Item-actions">
-        <span>{item.price} ₽</span>
+        <span>
+          {Intl.NumberFormat('ru-RU', {
+            style: 'currency',
+            currency: 'RUB',
+            maximumFractionDigits: 0,
+          }).format(item.price)}
+        </span>
         <button onClick={callbacks.onClick}>Добавить</button>
       </div>
     </div>

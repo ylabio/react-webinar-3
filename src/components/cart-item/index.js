@@ -16,7 +16,13 @@ function CartItem({ item, onDelete = () => {} }) {
       </div>
       <div className="CartItem-actions">
         <span>{item.cartCount} шт</span>
-        <span>{item.price} ₽</span>
+        <span>
+          {Intl.NumberFormat('ru-RU', {
+            style: 'currency',
+            currency: 'RUB',
+            maximumFractionDigits: 0,
+          }).format(item.price)}
+        </span>
         <button onClick={callbacks.onClick}>Удалить</button>
       </div>
     </div>

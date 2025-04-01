@@ -17,7 +17,13 @@ function CartList({ items, totalPrice = 0, onDeleteItem = () => {} }) {
           <b>Итого:</b>
         </span>
         <span>
-          <b>{totalPrice} ₽</b>
+          <b>
+            {Intl.NumberFormat('ru-RU', {
+              style: 'currency',
+              currency: 'RUB',
+              maximumFractionDigits: 0,
+            }).format(totalPrice)}
+          </b>
         </span>
       </li>
     </ul>

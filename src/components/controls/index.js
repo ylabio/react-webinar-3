@@ -11,7 +11,7 @@ function Controls({ totalPrice, totalCartCount, onOpenModal = () => {} }) {
         <CartIcon />
 
         {totalCartCount
-          ? `${totalPrice} ₽ / ${totalCartCount} ${plural(totalCartCount, { one: 'товар', few: 'товара', many: 'товаров' })}`
+          ? `${Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(totalPrice)} / ${totalCartCount} ${plural(totalCartCount, { one: 'товар', few: 'товара', many: 'товаров' })}`
           : 'Пусто'}
       </button>
     </div>
