@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function CartItem({ item, onRemove }) {
+function CartItem({ item = {}, onRemove = () => { } }) {
   if (item.count === 0) return null;
   return (
     <div className="Item">

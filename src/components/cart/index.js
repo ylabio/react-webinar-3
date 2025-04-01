@@ -9,7 +9,7 @@ function Cart({ cart = [], cartSummary, onRemove = () => { } }) {
   }, [cart]);
 
   return (
-    <div>
+    <div className="Cart">
       <h1>Корзина</h1>
       <List
         items={cart}
