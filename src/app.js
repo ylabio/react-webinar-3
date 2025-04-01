@@ -3,7 +3,8 @@ import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
-import CartModal from './components/cart-modal';
+import ModalLayout from './components/modal-layout';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -51,13 +52,14 @@ function App({ store }) {
       />
       <List list={list} onAddItem={callbacks.onAddItem} />
 
-      <CartModal
-        cartItems={cartItems}
-        totalPrice={totalPrice}
-        isOpen={isOpenModal}
-        onClose={callbacks.onCloseModal}
-        onDeleteItem={callbacks.onDeleteItem}
-      />
+      <ModalLayout isOpen={isOpenModal} onClose={callbacks.onCloseModal}>
+        <Cart
+          cartItems={cartItems}
+          totalPrice={totalPrice}
+          onClose={callbacks.onCloseModal}
+          onDeleteItem={callbacks.onDeleteItem}
+        />
+      </ModalLayout>
     </PageLayout>
   );
 }
