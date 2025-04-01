@@ -5,6 +5,7 @@ import PageLayout from './components/page-layout';
 import Modal from './components/modal';
 import Controls from './components/controls';
 import Cart from './components/cart';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -56,8 +57,14 @@ function App({ store }) {
       />
       
       <List
-        list={list}
-        onAddToCart={callbacks.onAddToCart}
+        items={list}
+        renderItem={(item) => (
+          <Item
+            item = {item}
+            onAddToCart={callbacks.onAddToCart}
+          />
+        )}
+        className="List_theme_cart"
       />
       
       {isCartOpen && (

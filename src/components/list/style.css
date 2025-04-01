@@ -10,11 +10,11 @@
   padding: 0 16px;
 }
 
-.List-item:nth-child(even) {
+.List_theme_cart .List-item:nth-child(odd) {
   background-color: var(--odd-item);
 }
 
-.List-item {
+.List_theme_cart .List-item {
   border-bottom: 1px solid var(--divider);
   cursor: pointer;
 }
