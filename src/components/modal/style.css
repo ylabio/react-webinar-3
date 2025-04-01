@@ -8,8 +8,8 @@
   z-index: 999;
   display: flex;
   justify-content: center;
-  align-items: center;
   padding: 20px;
+  overflow-y: auto;
 }
 
 .modal-container {
@@ -28,10 +28,18 @@
   padding: 80px 20px 20px 20px;
   position: relative;
   white-space: nowrap;
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  min-height: 180px;
+  min-height: 310px;
+  max-height: calc(100vh - 40px);
+  overflow: hidden;
+}
+
+.modal-scroll-wrapper {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-right: -20px;
+  padding-right: 20px;
 }
 
 .modal-close-button {

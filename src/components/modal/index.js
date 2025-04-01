@@ -11,11 +11,13 @@ function Modal({ isOpen, onClose, children }) {
     <div className='modal-overlay'>
       <div className='modal-container'>
         <div className='modal-content'>
-          <Head title='Корзина' variant='modal'/>
-          <button className='modal-close-button' onClick={onClose}>
-            <CloseIcon/>
-          </button>
-          {children}
+          <div className="modal-scroll-wrapper">
+            <Head title='Корзина' variant='modal'/>
+            <button className='modal-close-button' onClick={onClose}>
+              <CloseIcon/>
+            </button>
+            {children}
+          </div>
         </div>
       </div>
     </div>
