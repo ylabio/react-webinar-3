@@ -1,12 +1,17 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.state = {
+      list: initState.list || [],
+      cart: [],
+      cartSummary: {
+        totalCount: 0,
+        totalPrice: 0,
+      },
+    },
+      this.listeners = []; // Слушатели изменений состояния
   }
 
   /**
@@ -41,48 +46,57 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
+   * @param code {Number} Код товара
    */
-  addItem() {
+  addItemToCart(code) {
+    const item = this.state.list.find(item => item.code === code);
+    if (!item) return;
+
+    let itemAdded = false;
+
+    const newCart = this.state.cart.map(cartItem => {
+      if (cartItem.code === code) {
+        itemAdded = true;
+        return { ...cartItem, count: cartItem.count + 1 };
+      }
+      return cartItem;
+    });
+
+    if (!itemAdded) {
+      newCart.push({ code: item.code, title: item.title, price: item.price, count: 1 });
+    }
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      cart: newCart,
+      cartSummary: {
+        totalCount: this.state.cartSummary.totalCount + (itemAdded ? 0 : 1),
+        totalPrice: this.state.cartSummary.totalPrice + item.price,
+      },
     });
   }
 
   /**
-   * Удаление записи по коду
+   * Удаление записи по коду из корзины
    * @param code
    */
-  deleteItem(code) {
+  deleteItemFromCart(code) {
+    const deletedItem = this.state.cart.find(item => item.code === code);
+    if (!deletedItem) return;
+
+    const newCart = this.state.cart.filter(item => item.code !== code);
+
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      cart: newCart,
+      cartSummary: {
+        totalCount: this.state.cartSummary.totalCount - 1,
+        totalPrice: this.state.cartSummary.totalPrice - deletedItem.price * deletedItem.count,
+      },
     });
   }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
-    });
-  }
 }
 
 export default Store;

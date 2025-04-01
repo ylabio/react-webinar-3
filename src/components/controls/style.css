@@ -7,11 +7,18 @@
 .Controls button {
   border: 1px solid var(--primary);
   padding: 8px 16px;
-  background-color: var(--primary);
-  color: var(--second-text);
+  background-color: var(--background);
+  color: var(--main-text);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
 
   &:hover {
-    background-color: var(--background);
     color: var(--primary);
   }
 }
