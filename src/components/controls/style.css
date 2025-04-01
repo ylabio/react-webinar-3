@@ -1,4 +1,4 @@
-.Controls {
+/* .Controls {
   display: flex;
   justify-content: flex-end;
   padding: 24px 16px 24px 0;
@@ -14,4 +14,44 @@
     background-color: var(--background);
     color: var(--primary);
   }
+}
+ */
+
+.Controls {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Controls button {
+  font-family: var(--second-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 8px 16px;
+  transition: 0.3s;
+  border: 1px solid transparent;
+}
+
+.Controls--add button {
+  background-color: var(--primary);
+  color: var(--second-text);
+}
+
+.Controls--add button:hover {
+  background-color: var(--background);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.Controls--remove button {
+  background-color: var(--delete);
+  color: var(--second-text);
+}
+
+.Controls--remove button:hover {
+  background-color: var(--background);
+  color: var(--delete);
+  border-color: var(--delete);
 }

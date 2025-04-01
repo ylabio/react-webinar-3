@@ -1,0 +1,32 @@
+.CartSummary {
+  display: flex;
+  justify-content: flex-end;
+  background: white;
+  padding: 13px 0;
+}
+
+.CartSummary-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--primary);
+  padding: 8px 16px;
+  border-radius: 4px;
+  /* изменение */
+  cursor: pointer;
+  min-width: 118px;
+  height: 40px;
+  box-sizing: border-box;
+}
+
+.CartSummary-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.CartSummary-text {
+  font-weight: 650;
+  line-height: 24px;
+  color: var(--main-text);
+}

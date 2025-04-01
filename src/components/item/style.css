@@ -1,34 +1,22 @@
 .Item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  transition: background-color 1s;
-  padding: 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--divider);
 }
 
-.Item_selected {
-  background-color: var(--primary-select);
+.Item:nth-child(odd) {
+  background-color: var(--odd-item);
 }
 
 .Item-title {
-  flex: auto;
+  flex-grow: 1;
+  color: var(--main-text);
+  font-weight: 700;
 }
 
-.Item-actions {
-  display: flex;
-  justify-content: flex-end;
+.Item-price {
+  margin: 0 25px;
+  color: var(--main-text);
 }
-
-.Item-actions button {
-  background-color: var(--delete);
-  color: var(--second-text);
-  padding: 8px 16px;
-
-  &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
-  }
-}
-

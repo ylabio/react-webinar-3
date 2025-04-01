@@ -3,31 +3,26 @@ import PropTypes from 'prop-types';
 import Item from '../item';
 import './style.css';
 
-function List({ list, onDeleteItem, onSelectItem }) {
+function List({ list, onAddToCart, onRemove, isCart = false }) {
   return (
-    <ul className="List">
+    <div className="List">
       {list.map(item => (
-        <li key={item.code} className="List-item">
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem} />
-        </li>
+        <Item
+          key={item.code}
+          item={item}
+          onAction={isCart ? () => onRemove(item.code) : () => onAddToCart(item.code)}
+          isCart={isCart}
+        />
       ))}
-    </ul>
+    </div>
   );
 }
 
 List.propTypes = {
-  list: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number,
-    }),
-  ).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func,
-};
-
-List.defaultProps = {
-  onDeleteItem: () => {},
-  onSelectItem: () => {},
+  list: PropTypes.array.isRequired,
+  onAddToCart: PropTypes.func,
+  onRemove: PropTypes.func,
+  isCart: PropTypes.bool,
 };
 
 export default React.memo(List);
