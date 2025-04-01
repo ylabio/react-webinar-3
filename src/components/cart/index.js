@@ -50,8 +50,19 @@ function Cart({ cart, items, onRemoveFromCart }) {
 }
 
 Cart.propTypes = {
-  cart: PropTypes.array.isRequired,
-  items: PropTypes.array.isRequired,
+  cart: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.number.isRequired,
+      quantity: PropTypes.number.isRequired
+    })
+  ).isRequired,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired
+    })
+  ).isRequired,
   onRemoveFromCart: PropTypes.func.isRequired,
 };
 

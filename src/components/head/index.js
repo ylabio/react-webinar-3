@@ -16,7 +16,7 @@ function Head({ title}) {
 }
 
 Head.propTypes = {
-  title: PropTypes.node,
+  title: PropTypes.string.isRequired,
 };
 
 export default React.memo(Head);

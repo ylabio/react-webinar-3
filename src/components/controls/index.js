@@ -18,8 +18,8 @@ function Controls({ cartTotal = 0, cartSum = 0, onOpenCart }) {
 }
 
 Controls.propTypes = {  
-    cartTotal: PropTypes.number,
-    cartSum: PropTypes.number,
+    cartTotal: PropTypes.number.isRequired,
+    cartSum: PropTypes.number.isRequired,
     onOpenCart: PropTypes.func.isRequired,
 };
 
