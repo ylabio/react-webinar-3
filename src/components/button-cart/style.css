@@ -1,0 +1,43 @@
+.Controls {
+    display: flex;
+    justify-content: flex-end;
+    padding: 24px 0px 24px 0;
+  }
+
+.Controls button {
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid #6B4ACB;
+    padding: 8px 16px;
+    gap: 8px;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: #1A2028;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  .Controls button[data-empty="true"] {
+    width: 118px;
+    min-width: 118px;
+  }
+
+  .Controls button[data-empty="false"] {
+    width: 191px;
+    min-width: 191px;
+  }
+
+  .Controls button span {
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+  }
