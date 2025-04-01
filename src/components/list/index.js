@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Item from '../item';
 import './style.css';
 
-function List({ list = {}, onClick = () => { }, buttonText = 'Добавить', buttonStyle = "primary", isCart = false }) {
+function List({ items = {}, renderItem = () => { } }) {
   return (
     <ul className="List">
-      {list.map(item => (
+      {items.map(item => (
         <li key={item.code} className="List-item">
-          <Item item={item} onClick={onClick} buttonText={buttonText} buttonStyle={buttonStyle} isCart={isCart} />
+          {renderItem(item)}
         </li>
       ))}
     </ul>
@@ -16,17 +15,8 @@ function List({ list = {}, onClick = () => { }, buttonText = 'Добавить',
 }
 
 List.propTypes = {
-  list: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number,
-    }),
-  ).isRequired,
-  onClick: PropTypes.func,
-  buttonText: PropTypes.string,
-  buttonStyle: PropTypes.string,
-  isCart: PropTypes.bool,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  renderItem: PropTypes.func.isRequired,
 };
-
-
 
 export default React.memo(List);

@@ -30,14 +30,14 @@
   justify-content: flex-end;
 }
 
-.Item-addButton {
-  background-color: var(--primary);
+.Item-deleteButton {
+  background-color: var(--delete);
   color: var(--second-text);
   padding: 8px 16px;
 
   &:hover {
     background-color: var(--background);
-    border-color: var(--primary);
-    color: var(--primary);
+    border-color: var(--delete);
+    color: var(--delete);
   }
 }

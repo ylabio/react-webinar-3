@@ -1,0 +1,17 @@
+.Total {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 24px;
+  transition: background-color 1s;
+  padding: 25px 16px;
+  font-weight: 700;
+}
+
+.Total-price {
+  max-width: 225px;
+  margin-right: 129px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}

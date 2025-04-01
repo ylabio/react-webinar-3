@@ -2,31 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Item({ item = {}, onAdd = () => { } }) {
-
+function CartItem({ item, onRemove }) {
+  if (item.count === 0) return null;
   return (
     <div className="Item">
       <div className="Item-title">
         <b>{item.title}</b>
         <div className="Item-details">
-          <span></span>
-          <span className="Item-price">{item.price.toLocaleString('ru')} &#8381;</span>
+          <span>{item.count} шт</span>
+          <span className="Item-price">{(item.price).toLocaleString('ru')} &#8381;</span>
         </div>
       </div>
       <div className="Item-actions">
-        <button onClick={() => onAdd(item.code)} className="Item-addButton">Добавить</button>
+        <button onClick={() => onRemove(item.code)} className="Item-deleteButton">Удалить</button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    count: PropTypes.number.isRequired,
   }).isRequired,
-  onAdd: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
-export default React.memo(Item);
+export default React.memo(CartItem);

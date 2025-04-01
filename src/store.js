@@ -6,6 +6,10 @@ class Store {
     this.state = {
       list: initState.list || [],
       cart: [],
+      cartSummary: {
+        totalCount: 0,
+        totalPrice: 0,
+      },
     },
       this.listeners = []; // Слушатели изменений состояния
   }
@@ -49,21 +53,27 @@ class Store {
     const item = this.state.list.find(item => item.code === code);
     if (!item) return;
 
-    const cartItem = this.state.cart.find(item => item.code === code);
+    let itemAdded = false;
 
-    let newCart;
+    const newCart = this.state.cart.map(cartItem => {
+      if (cartItem.code === code) {
+        itemAdded = true;
+        return { ...cartItem, count: cartItem.count + 1 };
+      }
+      return cartItem;
+    });
 
-    if (cartItem) {
-      newCart = this.state.cart.map(cartItem =>
-        cartItem.code === code ? { ...cartItem, count: cartItem.count + 1 } : cartItem
-      );
-    } else {
-      newCart = [...this.state.cart, { code: item.code, title: item.title, price: item.price, count: 1 }];
+    if (!itemAdded) {
+      newCart.push({ code: item.code, title: item.title, price: item.price, count: 1 });
     }
 
     this.setState({
       ...this.state,
       cart: newCart,
+      cartSummary: {
+        totalCount: this.state.cartSummary.totalCount + (itemAdded ? 0 : 1),
+        totalPrice: this.state.cartSummary.totalPrice + item.price,
+      },
     });
   }
 
@@ -72,11 +82,18 @@ class Store {
    * @param code
    */
   deleteItemFromCart(code) {
+    const deletedItem = this.state.cart.find(item => item.code === code);
+    if (!deletedItem) return;
+
     const newCart = this.state.cart.filter(item => item.code !== code);
 
     this.setState({
       ...this.state,
       cart: newCart,
+      cartSummary: {
+        totalCount: this.state.cartSummary.totalCount - 1,
+        totalPrice: this.state.cartSummary.totalPrice - deletedItem.price * deletedItem.count,
+      },
     });
   }
 

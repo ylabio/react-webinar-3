@@ -13,7 +13,7 @@ function Controls({ cartSummary = { totalCount: 0, totalPrice: 0 }, onClick = ()
           one: 'товар',
           few: 'товара',
           many: 'товаров',
-        })} / ${cartSummary.totalPrice} ₽`}
+        })} / ${cartSummary.totalPrice.toLocaleString('ru')} ₽`}
       </button>
     </div>
   );
