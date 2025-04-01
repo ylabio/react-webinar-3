@@ -64,17 +64,16 @@ class Store {
    * @param code
    */
   clearCartProductCard(code) {
+    const clonedList = this.cloneList(this.state.list);
+    const updatedList = clonedList.map(item =>
+      item.code === code
+        ? { ...item, count: 0, total: 0 }
+        : item
+    );
+
     this.setState({
       ...this.state,
-      list: this.cloneList(this.state.list).map(item =>
-        item.code === code
-          ? {
-            ...item,
-            count: 0,
-            total: 0,
-          }
-          : item
-      ),
+      list: updatedList,
     });
   }
 
@@ -83,18 +82,26 @@ class Store {
    * @param code
    */
   addCartProductCard(code) {
+    const list = this.cloneList(this.state.list);
+    const updatedList = list.map(item => {
+      if (item.code === code) {
+        return this.updateItem(item);
+      }
+      return item;
+    });
+
     this.setState({
       ...this.state,
-      list: this.cloneList(this.state.list).map(item =>
-        item.code === code
-          ? {
-            ...item,
-            count: item.count ? item.count + 1 : 1,
-            total: item.total ? item.total + item.price : item.price,
-          }
-          : item
-      ),
+      list: updatedList,
     });
+  }
+
+  updateItem(item) {
+    return {
+      ...item,
+      count: item.count ? item.count + 1 : 1,
+      total: item.total ? item.total + item.price : item.price,
+    };
   }
 }
 

@@ -13,10 +13,8 @@ function CartProductCard( { onClickAction = CartProductCardDefaultProps.onClickA
 
   const cn = bem( "CartProductCard" );
 
-  const callbacks = {
-    onClick: () => {
-      onClickAction( item.code );
-    },
+  const onClick =  () => {
+    onClickAction( item.code );
   };
 
   return (
@@ -25,7 +23,7 @@ function CartProductCard( { onClickAction = CartProductCardDefaultProps.onClickA
       <span className={ cn( "count" ) }>{ item.count } шт</span>
       <span className={ cn( "price" ) }>{ formattedNumber( item.total ) } ₽</span>
       <div className={ cn( "actions" ) }>
-        <button onClick={ callbacks.onClick }>Удалить</button>
+        <button onClick={ onClick }>Удалить</button>
       </div>
     </div>
   );

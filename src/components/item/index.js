@@ -13,18 +13,16 @@ function Item( { onClickAction = ItemDefaultProps.onClickAction, item = ItemDefa
 
   const cn = bem( "Item" );
 
-  const callbacks = {
-    onClick: () => {
+  const onClick = () => {
       onClickAction( item.code );
-    },
-  };
+    };
 
   return (
     <div className={ cn() }>
       <b className={ cn( "title" ) }>{ item.title }</b>
       <span className={ cn( "price" ) }>{ formattedNumber( item.price ) } ₽</span>
       <div className={ cn( "actions" ) }>
-        <button onClick={ callbacks.onClick }>Добавить</button>
+        <button onClick={ onClick }>Добавить</button>
       </div>
     </div>
   );

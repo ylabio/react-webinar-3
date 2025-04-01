@@ -18,9 +18,11 @@ function Controls( {
 
   const cn = bem( "Controls" );
 
+  const onClick = () => onShowCart();
+
   return (
     <div className={ cn() }>
-      <button className={ cn( "button", { selected: addedItem } ) } onClick={ () => onShowCart() }>
+      <button className={ cn( "button", { selected: addedItem } ) } onClick={ onClick }>
         <CarlSVG/>
         { label }
       </button>
