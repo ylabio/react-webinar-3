@@ -17,8 +17,10 @@ const Modal = ({children}) => {
 
   return isMounted ? (
     <Portal id={MODAL_CONTAINER_ID}>
-      <div className="Modal-wrap" ref={rootRef}>  
-          {children}        
+      <div className="Modal" ref={rootRef} >
+        <div className="Modal-content">
+          {children}
+        </div>     
       </div>
     </Portal>
   ) : null;
