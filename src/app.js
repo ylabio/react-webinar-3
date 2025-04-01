@@ -58,8 +58,7 @@ function App({ store }) {
               onCloseCart={callbacks.onCloseCart}
             />
             <List
-              cart={cart}
-              isCartOpen={isCartOpen}
+              list={cart}
               onDeleteCartItem={callbacks.onDeleteCartItem}
             />
             <ModalFooter label="Итого:" totalPrice={totalPrice} />
