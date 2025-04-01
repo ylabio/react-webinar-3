@@ -4,14 +4,14 @@ import './style.css';
 import CartIcon from '../shared/icons/cart-icon';
 import { plural } from '../../utils';
 
-function Controls({ totalPrice, totalCartCount, onOpenModal = () => {} }) {
+function Controls({ totalPrice, cartItemsCount, onOpenModal = () => {} }) {
   return (
     <div className="Controls">
       <button onClick={() => onOpenModal()}>
         <CartIcon />
 
-        {totalCartCount
-          ? `${Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(totalPrice)} / ${totalCartCount} ${plural(totalCartCount, { one: 'товар', few: 'товара', many: 'товаров' })}`
+        {cartItemsCount
+          ? `${Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(totalPrice)} / ${cartItemsCount} ${plural(cartItemsCount, { one: 'товар', few: 'товара', many: 'товаров' })}`
           : 'Пусто'}
       </button>
     </div>
@@ -20,7 +20,7 @@ function Controls({ totalPrice, totalCartCount, onOpenModal = () => {} }) {
 
 Controls.propTypes = {
   totalPrice: PropTypes.number,
-  totalCartCount: PropTypes.number,
+  cartItemsCount: PropTypes.number,
   onOpenModal: PropTypes.func,
 };
 

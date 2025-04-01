@@ -60,7 +60,6 @@ class Store {
         return item;
       }),
       totalPrice: (this.state.totalPrice || 0) + priceToAdd,
-      totalCartCount: (this.state.totalCartCount || 0) + 1,
     });
   }
 
@@ -88,7 +87,6 @@ class Store {
         return item;
       }),
       totalPrice: this.state.totalPrice - itemPrice * itemCount,
-      totalCartCount: this.state.totalCartCount - itemCount,
     });
   }
 
