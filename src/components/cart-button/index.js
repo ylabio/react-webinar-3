@@ -4,9 +4,7 @@ import cart from '../../assets/cart.png';
 import { plural } from '../../utils';
 import PropTypes from 'prop-types';
 
-function Cart({ items = [], onToggle = () => {} }) {
-  const totalCount = items.reduce((sum, item) => sum + item.quantity, 0);
-  const totalAmount = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+function CartButton({ totalCount = 0, totalAmount = 0, onToggle = () => {} }) {
 
   return (
     <div className='Cart-button'>
@@ -36,16 +34,10 @@ function Cart({ items = [], onToggle = () => {} }) {
   );
 }
 
-Cart.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      quantity: PropTypes.number.isRequired,
-    })
-  ).isRequired,
+CartButton.propTypes = {
+  totalCount: PropTypes.number,
+  totalAmount: PropTypes.number,
   onToggle: PropTypes.func,
 };
 
-export default React.memo(Cart);
+export default React.memo(CartButton);

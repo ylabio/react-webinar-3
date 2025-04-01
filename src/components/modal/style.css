@@ -1,4 +1,4 @@
-.Cart-modal-overlay {
+.Modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -9,24 +9,25 @@
   justify-content: center;
   align-items: center;
   z-index: 10;
+  overflow-y: auto;
 }
 
-.Cart-modal {
+.Modal {
   background: white;
   border-radius: 8px;
   padding: 24px;
   width: 1080px;
-  min-height: 320px;
+  max-height: 80vh;
   overflow-y: auto;
   position: relative;
 }
 
-.Cart-modal h3 {
+.Modal h3 {
   margin-top: 0;
   font-size: 32px;
 }
 
-.Cart-item {
+.Modal-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -34,66 +35,8 @@
   border-bottom: 1px solid #eee;
 }
 
-.Cart-item:nth-child(odd) {
-  background-color: var(--odd-item);
-}
-
-.Cart-item-name {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.Cart-item-details {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 350px;
-}
-
-.Cart-item-price {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-}
-
-.Cart-item-remove {
-  background-color: var(--delete);
-  color: var(--second-text);
-  padding: 8px 16px;
-
-  &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
-  }
-}
-
-.Cart-total {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 87%;
-  font-weight: bold;
-  font-size: 16px;
-  padding: 16px 0;
-}
-
-.Cart-total div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 234px;
-}
-
-.Cart-close {
+.Modal-close {
   position: absolute;
   top: 8px;
   right: 0;
-}
-
-.Cart-empty {
-  display: flex;
-  justify-content: center;
-  font-size: 20px;
 }

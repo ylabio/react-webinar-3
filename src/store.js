@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -9,7 +7,9 @@ class Store {
       list: [],
       cart: {
         items: [],
-        isOpen: false
+        isOpen: false,
+        totalCount: 0,
+        totalAmount: 0
       },
       ...initState
     };
@@ -47,32 +47,46 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  addToCart(item) {
-    const existingItem = this.state.cart.items.find(cartItem => cartItem.code === item.code);
+  calculateCartTotals(items) {
+    return {
+      totalCount: items.length,
+      totalAmount: items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+    };
+  }
 
+  updateCart(items) {
+    const { totalCount, totalAmount } = this.calculateCartTotals(items);
     this.setState({
       ...this.state,
       cart: {
         ...this.state.cart,
-        items: existingItem
-          ? this.state.cart.items.map(cartItem =>
-              cartItem.code === item.code
-                ? { ...cartItem, quantity: cartItem.quantity + 1 }
-                : cartItem
-            )
-          : [...this.state.cart.items, { ...item, quantity: 1 }]
+        items,
+        totalCount,
+        totalAmount
       }
     });
   }
 
+  addToCart(item) {
+    const existingItem = this.state.cart.items.find(i => i.code === item.code);
+    let newItems;
+
+    if (existingItem) {
+      newItems = this.state.cart.items.map(i =>
+        i.code === item.code
+          ? { ...i, quantity: i.quantity + 1 }
+          : i
+      );
+    } else {
+      newItems = [...this.state.cart.items, { ...item, quantity: 1 }];
+    }
+
+    this.updateCart(newItems);
+  }
+
   removeFromCart(code) {
-    this.setState({
-      ...this.state,
-      cart: {
-        ...this.state.cart,
-        items: this.state.cart.items.filter(item => item.code !== code)
-      }
-    });
+    const newItems = this.state.cart.items.filter(item => item.code !== code);
+    this.updateCart(newItems);
   }
 
   toggleCart() {

@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 import List from './components/list';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
-import Cart from './components/cart';
-import CartModal from './components/modal';
+import CartButton from './components/cart-button';
+import CartModal from './components/cart-modal';
 
 /**
  * Приложение
@@ -12,7 +12,7 @@ import CartModal from './components/modal';
  */
 function App({ store }) {
   const state = store.getState();
-  const cart = state.cart || { items: [], isOpen: false };
+  const { cart } = store.getState();
 
   const callbacks = {
     onAddToCart: useCallback((item) => {
@@ -31,15 +31,17 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Cart
-        items={cart.items}
+      <CartButton
         onToggle={callbacks.onToggleCart}
+        totalCount={cart.totalCount}
+        totalAmount={cart.totalAmount}
       />
       <CartModal
         items={cart.items}
+        totalAmount={cart.totalAmount}
         isOpen={cart.isOpen}
-        onClose={callbacks.onToggleCart}
-        onRemove={callbacks.onRemoveFromCart}
+        onClose={() => store.toggleCart()}
+        onRemove={(code) => store.removeFromCart(code)}
       />
       <List
         list={state.list}
