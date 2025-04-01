@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import CancelIcon from '../shared/icons/cancel-icon';
-import CartList from '../cart-list';
+import List from '../list';
 
 function Cart({ cartItems, totalPrice, onClose = () => {}, onDeleteItem = () => {} }) {
   return (
@@ -13,7 +13,7 @@ function Cart({ cartItems, totalPrice, onClose = () => {}, onDeleteItem = () => 
 
       <h1 className="Cart-title">Корзина</h1>
 
-      <CartList items={cartItems} totalPrice={totalPrice} onDeleteItem={onDeleteItem} />
+      <List variant="cart" list={cartItems} totalPrice={totalPrice} onDeleteItem={onDeleteItem} />
     </div>
   );
 }
