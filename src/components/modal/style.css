@@ -1,0 +1,42 @@
+.Modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #1A202866;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  overflow-y: auto;
+}
+
+.Modal {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  width: 1080px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.Modal h3 {
+  margin-top: 0;
+  font-size: 32px;
+}
+
+.Modal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;;
+  border-bottom: 1px solid #eee;
+}
+
+.Modal-close {
+  position: absolute;
+  top: 8px;
+  right: 0;
+}

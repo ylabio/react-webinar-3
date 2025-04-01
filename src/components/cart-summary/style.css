@@ -1,0 +1,16 @@
+.Cart-total {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 87%;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 16px 0;
+}
+
+.Cart-total div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 234px;
+}

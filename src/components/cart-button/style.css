@@ -1,0 +1,25 @@
+.Cart-button {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 0;
+}
+
+.Cart-button button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  gap: 8px;
+  width: auto;
+  height: 40px;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.Cart-button button div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

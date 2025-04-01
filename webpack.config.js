@@ -32,6 +32,18 @@ let config = {
           { loader: 'css-loader', options: { url: true, import: true } },
         ],
       },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'images/'
+            }
+          }
+        ]
+      }
     ],
   },
   plugins: [
