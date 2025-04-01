@@ -7,12 +7,12 @@
   padding: 16px;
 }
 
-.Item_selected {
-  background-color: var(--primary-select);
-}
-
 .Item-title {
   flex: auto;
+}
+
+.Item-price b {
+  font-weight: 400;
 }
 
 .Item-actions {
@@ -21,14 +21,14 @@
 }
 
 .Item-actions button {
-  background-color: var(--delete);
+  background-color: var(--primary);
   color: var(--second-text);
   padding: 8px 16px;
 
   &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
+    background-color: var(--primary-select);
+    border-color: var(--primary);
+    color: var(--main-text);
   }
 }
 

@@ -1,8 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import List from './components/list';
-import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Modal from './components/modal';
+import Controls from './components/controls';
+import Cart from './components/cart';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -10,37 +13,69 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [state, setState] = useState(store.getState());
+
+  useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+      setState(store.getState());
+    });
+    return () => unsubscribe();
+  }, [store]);
+
+  const { list = [], cart = [], cartTotal = 0, cartSum = 0 } = state;
 
   const callbacks = {
-    onDeleteItem: useCallback(
+    onAddToCart: useCallback(
       code => {
-        store.deleteItem(code);
+        store.addToCart(code);
       },
-      [store],
-    ),
+      [store],),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
+    onRemoveFromCart: useCallback(
+      (code) => 
+        store.removeFromCart(code), 
+      [store]),
+      
+    onOpenCart: useCallback(
+      () => setIsCartOpen(true), 
+      []),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onCloseCart: useCallback(
+      () => setIsCartOpen(false), 
+      []),
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+      <Head title="Магазин"/>
+
+      <Controls
+        onOpenCart={callbacks.onOpenCart}
+        cartTotal={cartTotal}
+        cartSum={cartSum}
       />
+      
+      <List
+        items={list}
+        renderItem={(item) => (
+          <Item
+            item = {item}
+            onAddToCart={callbacks.onAddToCart}
+          />
+        )}
+        className="List_theme_cart"
+      />
+      
+      {isCartOpen && (
+        <Modal onClose={callbacks.onCloseCart}>
+          <Cart
+            cart={cart} 
+            items={list} 
+            onRemoveFromCart={callbacks.onRemoveFromCart} 
+          />
+        </Modal>
+      )}
     </PageLayout>
   );
 }

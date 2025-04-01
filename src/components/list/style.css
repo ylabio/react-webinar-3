@@ -3,14 +3,18 @@
   overflow: hidden;
   list-style: none;
   padding-left: 0;
-  margin: 0;
+  margin: 0 auto;
+  width: 1152px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0 16px;
 }
 
-.List-item:nth-child(odd) {
+.List_theme_cart .List-item:nth-child(odd) {
   background-color: var(--odd-item);
 }
 
-.List-item {
+.List_theme_cart .List-item {
   border-bottom: 1px solid var(--divider);
   cursor: pointer;
 }
