@@ -1,14 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Item from '../item';
+import CartItem from '../cart-item';
 import './style.css';
 
-function List({ list, onAddToCart }) {
+function List({ items, mode = 'catalog', onAddToCart, onRemoveFromCart }) {
   return (
-    <ul className="List">
-      {list.map(item => (
-        <li key={item.code} className="List-item">
-          <Item item={item} onAddToCart={onAddToCart} />
+    <ul className='List'>
+      {items.map(item => (
+        <li key={item.code} className='List-item'>
+          {mode === 'catalog' ? (
+            <Item item={item} onAddToCart={onAddToCart} />
+          ) : (
+            <CartItem
+              title={item.title}
+              count={item.count}
+              price={item.price}
+              onDelete={() => onRemoveFromCart(item.code)}
+            />
+          )}
         </li>
       ))}
     </ul>
@@ -16,14 +26,17 @@ function List({ list, onAddToCart }) {
 }
 
 List.propTypes = {
-  list: PropTypes.arrayOf(
+  items: PropTypes.arrayOf(
     PropTypes.shape({
-      code: PropTypes.number,
-      title: PropTypes.string,
-      price: PropTypes.number
-    }),
+      code: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      title: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      count: PropTypes.number
+    })
   ).isRequired,
-  onAddToCart: PropTypes.func.isRequired,
+  mode: PropTypes.oneOf(['catalog', 'cart']),
+  onAddToCart: PropTypes.func,
+  onRemoveFromCart: PropTypes.func
 };
 
 export default React.memo(List);

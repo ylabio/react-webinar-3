@@ -13,15 +13,15 @@ function Item({item, onAddToCart}) {
 
   return (
     <div className='Item'>
-      <div className="Item-code"></div>
-      <div className="Item-title">
+      <div className='Item-code'></div>
+      <div className='Item-title'>
         <b>{item.title}</b>
       </div>
       <div>
         <a>{item.price} ₽</a>
       </div>
-      <div className="Item-actions">
-        <button className="add-button" onClick={callbacks.onClick}>Добавить</button>
+      <div className='Item-actions'>
+        <button className='add-button' onClick={callbacks.onClick}>Добавить</button>
       </div>
     </div>
   );

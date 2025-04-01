@@ -14,3 +14,22 @@
 .Head h1 {
   margin: 0;
 }
+
+.modal-heading {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.modal-heading-container h1 {
+  width: 138px;
+  height: 40px;
+  font-family: 'Golos Text', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}

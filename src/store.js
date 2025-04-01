@@ -7,7 +7,11 @@ class Store {
   constructor(initState = {}) {
     this.state = {
       list: [],
-      cart: [],
+      cart: {
+        items: [],
+        totalPrice: 0,
+        count: 0
+      },
       ...initState
     };
     this.listeners = [];
@@ -69,31 +73,42 @@ class Store {
     const item = this.state.list.find(item => item.code === code);
     if (!item) return;
 
-    const existingItem = this.state.cart.find(item => item.code === code);
+    const cartItems = [...this.state.cart.items];
+    const existingItem = cartItems.find(item => item.code === code);
+
+    const updatedItems = existingItem
+      ? cartItems.map(item =>
+          item.code === code
+            ? { ...item, count: item.count + 1 }
+            : item
+        )
+      : [...cartItems, { ...item, count: 1 }];
+
+    const totalPrice = updatedItems.reduce((sum, item) => sum + (item.price * item.count), 0);
+    const count = updatedItems.reduce((sum, item) => sum + item.count, 0);
 
     this.setState({
       ...this.state,
-      cart: existingItem
-        ? this.state.cart.map(item =>
-            item.code === code
-              ? { ...item, count: item.count + 1 }
-              : item
-          )
-        : [...this.state.cart, { ...item, count: 1 }]
+      cart: {
+        items: updatedItems,
+        totalPrice,
+        count
+      }
     });
   }
 
   removeFromCart(code) {
-    this.setState({
-      ...this.state,
-      cart: this.state.cart.filter(item => item.code !== code)
-    });
-  }
+    const updatedItems = this.state.cart.items.filter(item => item.code !== code);
+    const totalPrice = updatedItems.reduce((sum, item) => sum + (item.price * item.count), 0);
+    const count = updatedItems.reduce((sum, item) => sum + item.count, 0);
 
-  clearCart() {
     this.setState({
       ...this.state,
-      cart: []
+      cart: {
+        items: updatedItems,
+        totalPrice,
+        count
+      }
     });
   }
 

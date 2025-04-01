@@ -1,13 +1,12 @@
-import React from "react";
-import LogoCart from '../logo-сart';
+import React from 'react';
+import { CartIcon } from '../icons';
 import { plural } from '../../utils';
 import './style.css';
 
 function ButtonCart({ setIsOpen, totalCount, totalPrice }) {
-
   return (
-    <div className="Controls">
-      <button onClick={() => setIsOpen(true)}><LogoCart/>
+    <div className='Controls'>
+      <button onClick={() => setIsOpen(true)}><CartIcon/>
         {totalCount === 0 ? 'Пусто' : `${totalCount
           ? ` ${totalCount} ${plural(totalCount, {
             one: 'товар',
