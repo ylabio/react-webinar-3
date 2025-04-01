@@ -3,6 +3,11 @@
     flex-direction: column;   
 }
 
+.Cart-container {
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
 .Cart h2 { 
     font-size: 32px; 
     margin: 0px 0 24px 0;
