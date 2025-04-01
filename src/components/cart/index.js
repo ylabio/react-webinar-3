@@ -1,12 +1,11 @@
 import React from 'react';
 import './style.css';
-import CloseIcon from '../cart-close-icon';
+import PropTypes from 'prop-types';
 import { formatNumber } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
-import item from '../item';
 
-function CartModal({ cart, items, onRemoveFromCart, onClose }) {
-  const cn = bem('CartModal');
+function Cart({ cart, items, onRemoveFromCart }) {
+  const cn = bem('Cart');
   const totalSum = cart.reduce((sum, item) => {
     const product = items.find(p => p.code === item.code);
     return sum + (product.price * item.quantity);
@@ -15,9 +14,7 @@ function CartModal({ cart, items, onRemoveFromCart, onClose }) {
   const isCartEmpty = cart.length === 0;
 
   return (
-    <div className={cn('overlay')}>
-      <div className={cn()}>        
-        <button className={cn('close')} onClick={onClose}><CloseIcon/></button>
+    <>
         <div className={cn('header')}>
           <h4>Корзина</h4>
         </div>
@@ -48,8 +45,14 @@ function CartModal({ cart, items, onRemoveFromCart, onClose }) {
             </div>
           </div>
         )}
-      </div>
-    </div>
+      </>
   );
 }
-export default React.memo(CartModal);
+
+Cart.propTypes = {
+  cart: PropTypes.array.isRequired,
+  items: PropTypes.array.isRequired,
+  onRemoveFromCart: PropTypes.func.isRequired,
+};
+
+export default React.memo(Cart);

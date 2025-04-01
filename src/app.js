@@ -2,8 +2,9 @@ import React, { useCallback, useState, useEffect } from 'react';
 import List from './components/list';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
-import CartModal from './components/cart-modal';
+import Modal from './components/modal';
 import Controls from './components/controls';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -60,12 +61,13 @@ function App({ store }) {
       />
       
       {isCartOpen && (
-        <CartModal 
-          cart={cart} 
-          items={list} 
-          onRemoveFromCart={callbacks.onRemoveFromCart} 
-          onClose={callbacks.onCloseCart} 
-        />
+        <Modal onClose={callbacks.onCloseCart}>
+          <Cart
+            cart={cart} 
+            items={list} 
+            onRemoveFromCart={callbacks.onRemoveFromCart} 
+          />
+        </Modal>
       )}
     </PageLayout>
   );

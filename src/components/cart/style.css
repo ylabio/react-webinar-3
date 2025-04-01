@@ -1,32 +1,4 @@
-.CartModal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--overlay);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    overflow-y: auto;
-    z-index: 1000;
-  }
-  
-  .CartModal {
-    background-color: var(--background);
-    border-radius: 8px;
-    width: 1080px;
-    max-height: calc(100% - 40px);
-    max-height: calc(100vh - 40px);
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    margin: auto;
-    overflow: hidden;
-  }
-
-  .CartModal-empty {
+  .Cart-empty {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,28 +8,16 @@
     width: 100%;
   }
   
-  .CartModal-header {
+  .Cart-header {
     padding: 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 32px;
   }
+
   
-  .CartModal-close {
-    padding: 0;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 1;
-  }
-  
-  .CartModal-content {
+  .Cart-content {
     padding: 0;
     overflow-y: auto;
     flex-grow: 1;
@@ -66,7 +26,7 @@
     margin: auto;
   }
   
-  .CartModal-item {
+  .Cart-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -74,43 +34,43 @@
     border-bottom: 1px solid var(--divider);
   }
 
-  .CartModal-item:nth-child(odd) {
+  .Cart-item:nth-child(odd) {
     background-color: var(--odd-item);
   }
 
-  .CartModal-name {
+  .Cart-name {
     flex: 1;
     padding: 16px;
     font-weight: bold;
   }
   
-  .CartModal-right {
+  .Cart-right {
     display: flex;
     align-items: center;
     width: 363px;
     margin-right: 16px;
   }
 
-  .CartModal-quantity {    
+  .Cart-quantity {    
     width: 105px;
     text-align: left;
     padding: 9px 0;
   }
 
-  .CartModal-price {
+  .Cart-price {
     text-align: right;
     margin-left: 24px;
     width: 105px;
   }
   
-  .CartModal-remove {
+  .Cart-remove {
     background-color: var(--delete);
     color: var(--second-text);
     margin-left: 24px;
     width: 105px;
   }
   
-  .CartModal-footer {
+  .Cart-footer {
     padding: 0;
     border-top: 1px solid var(--divider);
     font-weight: bold;
@@ -120,19 +80,19 @@
     margin: 0 auto 24px auto;
   }
 
-  .CartModal-footer-container {
+  .Cart-footer-container {
     width: 234px;
     padding: 16px 0;
     margin-right: 145px;
     display: flex;
   }
 
-  .CartModal-footer-total {
+  .Cart-footer-total {
     width: 105px;
     text-align: left;
   }
 
-  .CartModal-footer-sum {
+  .Cart-footer-sum {
     text-align: right;
     margin-left: 24px;
     width: 105px;
