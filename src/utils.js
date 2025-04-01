@@ -1,6 +1,7 @@
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
+ * @param {number} price - Цена для форматирования
  * @param value {Number} Число, под которое выбирается вариант формы.
  * @param variants {Object<String>} Варианты форм множественного числа.
  * @example plural(5, {one: 'товар', few: 'товара', many: 'товаров'})
@@ -49,4 +50,12 @@ export const generateCode1 = (function (start = 0) {
  */
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
+}
+
+/**
+ * Форматирование цены
+ * @returns {string} Отформатированная цена с разделителями тысяч и символом рубля
+ */
+export function formatPrice(price) {
+  return new Intl.NumberFormat('ru-RU').format(price) + ' ₽';
 }

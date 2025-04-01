@@ -1,0 +1,21 @@
+.Cart {
+  display: flex;
+  justify-content: end;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  padding: 24px 0;
+}
+
+.Cart-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+

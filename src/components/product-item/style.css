@@ -1,0 +1,36 @@
+.ProductItem {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    transition: background-color 1s;
+    padding: 16px;
+  }
+  
+  .ProductItem-title {
+    flex: auto;
+  }
+  
+  .ProductItem-actions {
+    padding: 8px 16px;
+    transition:
+      color 0.3s ease-in-out,
+      border-color 0.3s ease-in-out,
+      background-color 0.3s ease-in-out;
+  }
+  
+  .ProductItem-actions_add-btn {
+    background-color: var(--primary);
+    color: var(--second-text);
+    &:hover {
+      background-color: var(--background);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+  }
+  
+  .ProductItem-price {
+    text-align: end;
+    min-width: 105px;
+    margin-left: 8px;
+  } 

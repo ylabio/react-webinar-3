@@ -1,8 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
-import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import { Cart } from './components/cart';
+import ModalLayout from './components/modal-layout';
+import { CartContent } from './components/cart-content';
+import ProductItem from './components/product-item';
 
 /**
  * Приложение
@@ -10,7 +13,9 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const [isModalShown, setIsModalShown] = useState(false);
+
+  const { list, cart, cartTotalPrice, cartItemsCount } = store.getState();
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -20,27 +25,49 @@ function App({ store }) {
       [store],
     ),
 
-    onSelectItem: useCallback(
+    onAddItem: useCallback(
       code => {
-        store.selectItem(code);
+        store.addToCart(code);
       },
       [store],
     ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onToggleModal: useCallback(() => {
+      setIsModalShown(prev => !prev);
+    }, []),
   };
+
+  const renderProductItem = useCallback(
+    item => (
+      <ProductItem
+        code={item.code}
+        title={item.title}
+        price={item.price}
+        onAdd={callbacks.onAddItem}
+      />
+    ),
+    [callbacks.onAddItem]
+  );
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+      <Head title="Магазин" />
+      <Cart
+        totalPrice={cartTotalPrice}
+        itemsCount={cartItemsCount}
+        onShowModal={callbacks.onToggleModal}
       />
+      <List items={list} renderItem={renderProductItem} />
+      {isModalShown && (
+        <ModalLayout>
+          <CartContent
+            cart={cart}
+            totalPrice={cartTotalPrice}
+            onShowModal={callbacks.onToggleModal}
+            onDeleteItem={callbacks.onDeleteItem}
+          />
+        </ModalLayout>
+      )}
     </PageLayout>
   );
 }

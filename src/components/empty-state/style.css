@@ -1,0 +1,10 @@
+.EmptyState {
+  text-align: center;
+  padding: 20px;
+}
+
+.EmptyState-text {
+  color: var(--main-text);
+  font-size: 16px;
+  margin: 0;
+} 
