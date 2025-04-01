@@ -1,0 +1,22 @@
+.Basket {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  max-width: 1080px;
+  width: 100%;
+  background-color: var(--background);
+}
+
+.Basket h2 {
+  font-size: 32px;
+}
+
+.Basket-price {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  column-gap: 10px;
+
+  padding: 16px 145px;
+  font-weight: 700;
+}

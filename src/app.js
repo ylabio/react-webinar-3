@@ -1,8 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Basket from './components/basket'
+import Modal from './components/modal'
 
 /**
  * Приложение
@@ -10,37 +12,47 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
+
   const list = store.getState().list;
+  const basketList = store.getState().basketList
+  const basketPrice = store.getState().basketPrice
+  const basketItems = store.getState().basketItems
+
+  const [isModalActive, setModalActive] = useState(false);
 
   const callbacks = {
-    onDeleteItem: useCallback(
-      code => {
-        store.deleteItem(code);
-      },
-      [store],
-    ),
-
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
+    onAddProductToBasket: useCallback(product => {
+      store.addProductToBasket(product)
     }, [store]),
+
+    onDeleteProductFromBasket: useCallback(product => {
+      store.deleteProductFromBasket(product)
+    }, [store]),
+
+    onOpenBasket: useCallback(() => {
+     setModalActive(true)
+    }, []),
+
+    onCloseModal: useCallback(() => {
+      setModalActive(false)
+    }, [])
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Head title="Магазин" />
+      <Controls onOpenBasket={callbacks.onOpenBasket} productsInBasket={basketItems} price={basketPrice}/>
       <List
         list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        onAction={callbacks.onAddProductToBasket}
       />
+
+      {isModalActive && (
+        <Modal title="Корзина" onCloseModal={callbacks.onCloseModal}>
+          <Basket productsList={basketList} basketPrice={basketPrice} onDeleteProduct={callbacks.onDeleteProductFromBasket} />
+        </Modal>
+        )
+      }        
     </PageLayout>
   );
 }
