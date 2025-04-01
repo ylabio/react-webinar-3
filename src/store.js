@@ -5,7 +5,11 @@ import { generateCode } from './utils';
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      cartTotalPrice: 0,
+      cartItemsCount: 0,
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -41,10 +45,25 @@ class Store {
   }
 
   /**
-   * Удаление товара в корзину
+   * Расчет общей суммы и количества товаров в корзине
+   * @private
+   */
+  calculateCartTotals() {
+    const cart = this.state.cart;
+    const cartItemsCount = cart.length;
+    const cartTotalPrice = cart.reduce((acc, { price, quantity }) => {
+      acc += price * quantity;
+      return acc;
+    }, 0);
+
+    this.state.cartItemsCount = cartItemsCount;
+    this.state.cartTotalPrice = cartTotalPrice;
+  }
+
+  /**
+   * Добавление товара в корзину
    * @param code
    */
-
   addToCart(code) {
     const items = this.state.list.map(item => {
       if (item.code === code) {
@@ -53,10 +72,13 @@ class Store {
       return item;
     });
 
+    const cart = items.filter(item => item.quantity);
     this.setState({
       ...this.state,
-      cart: items.filter(item => item.quantity),
+      cart,
+      list: items,
     });
+    this.calculateCartTotals();
   }
 
   /**
@@ -77,6 +99,7 @@ class Store {
       cart,
       list,
     });
+    this.calculateCartTotals();
   }
 }
 

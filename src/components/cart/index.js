@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cart from '../../assets/images/cart.svg'
-import { plural } from '../../utils';
+import { plural, formatPrice } from '../../utils';
 import './style.css';
 
 function Cart({ totalPrice = 0, itemsCount = 0, onShowModal }) {
@@ -16,7 +16,7 @@ function Cart({ totalPrice = 0, itemsCount = 0, onShowModal }) {
                 one: 'товар',
                 few: 'товара',
                 many: 'товаров',
-              })} / ${totalPrice} \u20BD`}
+              })} / ${formatPrice(totalPrice)}`}
         </div>
       </div>
     </div>

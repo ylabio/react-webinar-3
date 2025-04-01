@@ -1,0 +1,14 @@
+.ModalHeader {
+  font-size: 32px;
+  margin: 0;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.ModalHeader-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 24px;
+  font-family: var(--font-family);
+} 

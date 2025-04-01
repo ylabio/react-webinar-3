@@ -3,7 +3,9 @@ import List from './components/list';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import { Cart } from './components/cart';
-import { Modal } from './components/modal';
+import ModalLayout from './components/modal-layout';
+import { CartContent } from './components/cart-content';
+import ProductItem from './components/product-item';
 
 /**
  * Приложение
@@ -13,13 +15,7 @@ import { Modal } from './components/modal';
 function App({ store }) {
   const [isModalShown, setIsModalShown] = useState(false);
 
-  const list = store.getState().list;
-  const cart = store.getState().cart;
-  const cartItemsCount = cart.length;
-  const cartTotalPrice = cart.reduce((acc, { price, quantity }) => {
-    acc += price * quantity;
-    return acc;
-  }, 0);
+  const { list, cart, cartTotalPrice, cartItemsCount } = store.getState();
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -41,6 +37,18 @@ function App({ store }) {
     }, []),
   };
 
+  const renderProductItem = useCallback(
+    item => (
+      <ProductItem
+        code={item.code}
+        title={item.title}
+        price={item.price}
+        onAdd={callbacks.onAddItem}
+      />
+    ),
+    [callbacks.onAddItem]
+  );
+
   return (
     <PageLayout>
       <Head title="Магазин" />
@@ -49,14 +57,16 @@ function App({ store }) {
         itemsCount={cartItemsCount}
         onShowModal={callbacks.onToggleModal}
       />
-      <List list={list} onButtonClick={callbacks.onAddItem} isCartMode={false} />
+      <List items={list} renderItem={renderProductItem} />
       {isModalShown && (
-        <Modal
-          cart={cart}
-          totalPrice={cartTotalPrice}
-          onShowModal={callbacks.onToggleModal}
-          onDeleteItem={callbacks.onDeleteItem}
-        />
+        <ModalLayout>
+          <CartContent
+            cart={cart}
+            totalPrice={cartTotalPrice}
+            onShowModal={callbacks.onToggleModal}
+            onDeleteItem={callbacks.onDeleteItem}
+          />
+        </ModalLayout>
       )}
     </PageLayout>
   );
