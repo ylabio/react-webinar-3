@@ -27,7 +27,7 @@ function CartModal({ cart = {}, products = [], onRemove, onClose, totalSum = 0 }
 
         <div className="CartModal-items">
           {Object.keys(cart).length === 0 ? (
-            <div className="CartModal-empty">Добавить сначала продукты в корзину</div>
+            <div className="CartModal-empty">Пожалуйста Добавьте сначала продукты в корзину</div>
           ) : (
             Object.entries(cart).map(([code, quantity]) => {
               const product = products.find(p => p.code === Number(code));
