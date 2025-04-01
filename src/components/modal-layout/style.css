@@ -1,0 +1,27 @@
+.ModalLayout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--overlay);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.ModalLayout-center {
+    position: relative;
+    padding: 24px;
+    border-radius: 8px;
+    background-color: var(--background);
+    width: 100%;
+    max-width: 1080px;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.ModalLayout-center::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}

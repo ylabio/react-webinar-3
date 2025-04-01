@@ -17,6 +17,22 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
 }
 
 /**
+ * Форматирование цены
+ * Возвращает цену в формате с учетом правил в указанной локали, в руб.
+ * @param {*} price {Number}
+ * @returns {number|*}
+ */
+export function price_format(price) {
+  let formattedPrice = new Intl.NumberFormat('ru', { 
+    style: 'currency', 
+    currency: 'RUB',
+    minimumFractionDigits: 0
+  });
+
+  return formattedPrice.format(price);
+}
+
+/**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.
  * @returns {Number}

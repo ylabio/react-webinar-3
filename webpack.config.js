@@ -32,6 +32,11 @@ let config = {
           { loader: 'css-loader', options: { url: true, import: true } },
         ],
       },
+      // Правила подключения картинок
+      {
+        test: /\.(png|jpeg|svg)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   plugins: [

@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -41,48 +39,59 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
+   * @param code 
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
-  }
+  addCartItem(code) {
+    const itemInCart = this.state.cart.find(item => item.code === code);
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
+    if (itemInCart) {
+      const updatedCart = this.state.cart.map(item => {
         if (item.code === code) {
-          // Смена выделения и подсчёт
+          this.state.totalPrice = this.state.totalPrice + item.price;
+          
           return {
             ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
+            count: item.count + 1 || 1
           };
         }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+        return item;
+      });
+
+      this.setState({
+        ...this.state,
+        cart: updatedCart,
+        uniqueCount: this.state.cart.length
+      })
+    } else {
+      const newItem = this.state.list.find(item => item.code === code);
+
+      this.setState({
+        ...this.state,
+        cart: [
+          ...this.state.cart,
+          { ...newItem, count: 1 }
+        ],
+        totalPrice: (this.state.totalPrice || 0) + newItem.price,
+        uniqueCount: (this.state.cart.length || 0) + 1
+      })
+    }
+  };
+
+  /**
+   * Удаление товара из корзины
+   * @param code 
+   */
+  deleteCartItem(code) {
+    const deletedItem = this.state.cart.find(item => item.code === code);
+
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter(item => item.code !== code),
+      totalPrice: this.state.totalPrice - deletedItem.price * deletedItem.count,
+      uniqueCount: this.state.cart.length - 1,
     });
-  }
-}
+  };
+};
 
 export default Store;
