@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes, { any } from 'prop-types';
-import Item from '../item';
+import PropTypes from 'prop-types';
 import './style.css';
-import CartProductCard from "../cart-product-card";
 import { cn as bem } from "@bem-react/classname";
+import RenderItem from "../item-render";
 
 const ListDefaultProps = {
   list: [],
@@ -23,8 +22,7 @@ function List( {
     <ul className={ cn() }>
       { list.map( item => (
         <li key={ item.code } className={ cn( "item" ) }>
-          { isCart ? <CartProductCard item={ item } onClickAction={ onClickAction }/> :
-            <Item item={ item } onClickAction={ onClickAction }/> }
+          <RenderItem item={item} isCart={isCart} onClickAction={onClickAction}/>
         </li>
       ) ) }
     </ul>
