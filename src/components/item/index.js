@@ -9,7 +9,7 @@ const ItemDefaultProps = {
   item: {},
 };
 
-function Item( { onClickAction = ItemDefaultProps.onClickAction, item = ItemDefaultProps.item } ) {
+function Item( { item = ItemDefaultProps.item, onClickAction = ItemDefaultProps.onClickAction } ) {
 
   const cn = bem( "Item" );
 

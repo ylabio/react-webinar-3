@@ -14,3 +14,16 @@
   padding: 16px 16px 15px;
   border-bottom: 1px solid var(--divider);
 }
+.List-wrapper {
+  width: 100%;
+  align-items: center;
+  gap: 24px;
+  display: grid;
+  padding: 16px;
+  grid-template-columns: auto repeat(3, minmax(105px, max-content));
+  grid-template-areas:
+    ". title price .";
+}
+
+.List-title { grid-area: title; }
+.List-price { grid-area: price; text-align: right; }

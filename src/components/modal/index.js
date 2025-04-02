@@ -3,7 +3,7 @@ import './style.css';
 
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from "prop-types";
-import { XOutButton } from "../icons";
+import { XOutButton } from "../../icons";
 
 const ModalDefaultProps = {
   handleClose: () => {}, title: "Корзина",

@@ -1,4 +1,4 @@
-.CartProductCard {
+.ItemCart {
   width: 100%;
   align-items: center;
   gap: 24px;
@@ -8,20 +8,20 @@
     "title count price actions";
 }
 
-.CartProductCard-title {
+.ItemCart-title {
   grid-area: title;
 }
 
-.CartProductCard-price {
+.ItemCart-price {
   grid-area: price;
   text-align: right;
 }
 
-.CartProductCard-count {
+.ItemCart-count {
   grid-area: count;
 }
 
-.CartProductCard-actions {
+.ItemCart-actions {
   grid-area: actions;
 
   button {

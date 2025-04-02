@@ -25,9 +25,6 @@ export const formattedNumber = (value) => new Intl.NumberFormat('ru-RU').format(
  * Вариант с замыканием на начальное значение в самовызываемой функции.
  * @returns {Number}
  */
-export const incrementer = (function (start = 0) {
-  return () => ++start;
-})();
 
 export const cartButtonLabel = (sizeCart, total)=> {
   let cartBtnLabel = "Пусто";

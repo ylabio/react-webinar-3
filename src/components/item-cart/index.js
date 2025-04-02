@@ -4,14 +4,14 @@ import './style.css';
 import { formattedNumber } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 
-const CartProductCardDefaultProps = {
+const ItemCartDefaultProps = {
   onClickAction: () => {},
   item: {},
 };
 
-function CartProductCard( { onClickAction = CartProductCardDefaultProps.onClickAction, item = CartProductCardDefaultProps.item } ) {
+function ItemCart( { item = ItemCartDefaultProps.item, onClickAction = ItemCartDefaultProps.onClickAction } ) {
 
-  const cn = bem( "CartProductCard" );
+  const cn = bem( "ItemCart" );
 
   const onClick =  () => {
     onClickAction( item.code );
@@ -29,7 +29,7 @@ function CartProductCard( { onClickAction = CartProductCardDefaultProps.onClickA
   );
 }
 
-CartProductCard.propTypes = {
+ItemCart.propTypes = {
   item: PropTypes.shape( {
     code: PropTypes.number,
     title: PropTypes.string,
@@ -39,4 +39,4 @@ CartProductCard.propTypes = {
   onClickAction: PropTypes.func,
 };
 
-export default React.memo( CartProductCard );
+export default React.memo( ItemCart );

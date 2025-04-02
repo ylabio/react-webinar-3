@@ -1,5 +1,5 @@
 import React from "react";
-import CartProductCard from "../cart-product-card";
+import ItemCart from "../item-cart";
 import Item from "../item";
 
 const RenderItemDefaultProps = {
@@ -9,8 +9,9 @@ const RenderItemDefaultProps = {
 };
 
 const RenderItem = ({ item = RenderItemDefaultProps.item, onClickAction = RenderItemDefaultProps.onClickAction, isCart = RenderItemDefaultProps.isCart }) => {
+
   if (isCart) {
-    return (<CartProductCard item={ item } onClickAction={ onClickAction } />)
+    return (<ItemCart item={ item } onClickAction={ onClickAction } />)
   } else {
     return (<Item item={ item } onClickAction={ onClickAction } />)
   }
