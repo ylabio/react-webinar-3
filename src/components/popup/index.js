@@ -8,6 +8,8 @@ import './style.css';
 function Popup({ openPopupFlag, basketList, onTogglePopupFlag = () => {}, onDeleteItem = () => {}  }) {
   const cn = bem('Popup');
 
+  // if (!openPopupFlag) return null;
+
   const itemCounts = basketList.reduce((acc, item) => {
     acc[item.code] = (acc[item.code] || 0) + 1;
     return acc;

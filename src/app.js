@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Basket from './components/basket';
 import Popup from './components/popup';
@@ -11,9 +11,10 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   const list = store.getState().list;
   const basketList= store.getBasketState().list;
-  const openPopupFlag = store.getOpenPopupFlag();
 
   const callbacks = {
     onBasketItem: useCallback(
@@ -30,14 +31,9 @@ function App({ store }) {
       [store],
     ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
-
     onTogglePopupFlag: useCallback(() => {
-      store.togglePopupFlag();
-      console.log(openPopupFlag);
-    }, [store]),
+      setIsPopupOpen(prev => !prev);
+    }, []),
   };
 
   return (
@@ -50,7 +46,7 @@ function App({ store }) {
         onDeleteItem={callbacks.onDeleteItem}
         onBasketItem={callbacks.onBasketItem}
       />
-      <Popup onTogglePopupFlag={callbacks.onTogglePopupFlag} onDeleteItem={callbacks.onDeleteItem} openPopupFlag={openPopupFlag} basketList={basketList}/>
+      <Popup onTogglePopupFlag={callbacks.onTogglePopupFlag} onDeleteItem={callbacks.onDeleteItem} openPopupFlag={isPopupOpen} basketList={basketList}/>
     </PageLayout>
   );
 }

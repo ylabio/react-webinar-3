@@ -4,11 +4,10 @@ import { generateCode } from './utils';
  * Хранилище состояния приложения
  */
 class Store {
-  constructor(initState = {}, initBasketState = { list: [] }, startOpenPopupFlag = false) {
+  constructor(initState = {}, initBasketState = { list: [] }) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.basketState = initBasketState;
-    this.openPopupFlag = startOpenPopupFlag;
   }
 
   /**
@@ -30,14 +29,6 @@ class Store {
    */
   getState() {
     return this.state;
-  }
-
-  /**
-   * Выбор состояния попапа
-   * @returns {Object}
-   */
-  getOpenPopupFlag() {
-    return this.openPopupFlag;
   }
 
   /**
@@ -66,24 +57,6 @@ class Store {
     this.basketState = newBasketState;
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
-  }
-
-  /**
-   * Переключение модалки
-   */
-  togglePopupFlag() {
-    this.openPopupFlag = !this.openPopupFlag;
-    for (const listener of this.listeners) listener();
-  }
-
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
   }
 
   /**
