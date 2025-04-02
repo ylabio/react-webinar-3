@@ -3,7 +3,9 @@ import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Basket from './components/basket';
 import Modal from './components/modal';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -13,7 +15,8 @@ import Modal from './components/modal';
 function App({ store }) {
   const list = store.getState().list;
   const basketList = store.getState().basket;
-  const { isActiv } = store.getState().modal;
+  const controls = store.getState().controls;
+  const { isActive } = store.getState().modal;
 
   const callbacks = {
     onAddToBasket: useCallback((item) => {
@@ -36,12 +39,28 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Controls showBasket={callbacks.showModal} basketList={basketList} />
-      <List
-        list={list}
-        onAddToBasket={callbacks.onAddToBasket}
-      />
-      { isActiv ? <Modal hideModal={callbacks.hideModal} basketItems={basketList} onDeleteItem={callbacks.onDellFromBasket} /> : ''}
+      <Controls
+        controlsInfo={controls}
+        showBasket={callbacks.showModal}/>
+
+      <List>
+        {list.map((item) => (
+          <Item
+            key={item.code}
+            item={item}
+            addToBasket={callbacks.onAddToBasket} />
+        ))}
+      </List>
+
+      {isActive ? 
+        <Modal hideModal={callbacks.hideModal}>
+          <Basket
+            totalPrice={controls.totalPrice}
+            basketItems={basketList}
+            onDeleteItem={callbacks.onDellFromBasket} />
+        </Modal> 
+        : 
+        ''}
     </PageLayout>
   );
 }

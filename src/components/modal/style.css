@@ -1,56 +1,29 @@
 .Modal-container {
   display: flex;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgba(26, 32, 40, 0.4);
   justify-content: center;
-  align-items: center;
+  overflow-y: auto;
 }
 
 .Modal {
   background-color: white;
   width: 1080px;
-  height: auto;
+  max-width: 100%;
+  position: relative;
   border-radius: 8px;
   padding: 24px;
-  position: relative;
+  margin: auto;
 }
 
-.cross {
+.cross>svg {
   position: absolute;
-  top: 0;
-  right: 0px;
-}
-
-.Modal-list {
-  overflow: hidden;
-  list-style: none;
-  margin: 0;
-  padding: 24px 0;
-}
-
-.Modal-title {
-  font-size: 32px;
-  font-weight: 700;
-}
-
-.total {
-  width: 234px;
-  margin-left: auto;
-  margin-right: 145px;
-  display: flex;
-  justify-content: space-between;
-  font-weight: 700;
-}
-
-.Modal-list-item:nth-child(odd) {
-  background-color: var(--odd-item);
-}
-
-.Modal-list-item {
-  border-bottom: 1px solid var(--divider);
-  cursor: pointer;
+  top: 18px;
+  right: 18px;
+  width: 16px;
+  height: 16px;
 }

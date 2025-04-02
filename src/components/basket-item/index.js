@@ -8,14 +8,14 @@ function BasketItem ({ basketItem, onDell=() => {} }) {
   
   return (
       <div className={cn()}>
-        <div className={cn('title')}>
+        <div className={cn("title")}>
           <b>{basketItem.item.title}</b>
-          <div className='info'>
+          <div className="info">
             <span className="count">{basketItem.count} шт</span>
-            <span className="price">{basketItem.item.price} ₽</span>
+            <span className="price">{basketItem.item.price.toLocaleString()} ₽</span>
           </div>
         </div>
-        <div className={cn('actions')}>
+        <div className={cn("actions")}>
           <button onClick={() => { onDell(basketItem.item.code) }}>Удалить</button>
         </div>
       </div>

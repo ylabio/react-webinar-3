@@ -1,0 +1,29 @@
+.Basket-list {
+  list-style: none;
+  margin: 0;
+  padding: 24px 0;
+}
+
+.Basket-title {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.total {
+width: 234px;
+margin-top: 16px;
+margin-left: auto;
+margin-right: 145px;
+display: flex;
+justify-content: space-between;
+font-weight: 700;
+}
+
+.Basket-list-item:nth-child(odd) {
+  background-color: var(--odd-item);
+}
+
+.Basket-list-item {
+border-bottom: 1px solid var(--divider);
+cursor: pointer;
+}
