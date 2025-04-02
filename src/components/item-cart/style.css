@@ -1,0 +1,42 @@
+.ItemCart {
+  width: 100%;
+  align-items: center;
+  gap: 24px;
+  display: grid;
+  grid-template-columns: auto repeat(3, minmax(105px, max-content));
+  grid-template-areas:
+    "title count price actions";
+}
+
+.ItemCart-title {
+  grid-area: title;
+}
+
+.ItemCart-price {
+  grid-area: price;
+  text-align: right;
+}
+
+.ItemCart-count {
+  grid-area: count;
+}
+
+.ItemCart-actions {
+  grid-area: actions;
+
+  button {
+    background-color: var(--delete);
+    color: var(--second-text);
+    padding: 8px 16px;
+
+    &:hover {
+      background-color: var(--background);
+      border-color: var(--delete);
+      color: var(--delete);
+    }
+
+    &:active {
+      background-color: var(--delete-select);
+    }
+  }
+}

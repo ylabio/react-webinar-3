@@ -1,43 +1,43 @@
-import React from 'react';
-import { createElement } from './utils.js';
-import './styles.css';
+import React, { useState } from 'react';
+import Controls from './components/controls';
+import Head from './components/head';
+import PageLayout from './components/page-layout';
+import Modal from './components/modal';
+import List from './components/list';
+import { cartButtonLabel } from './utils';
+import { createHooks } from './hooks';
+import RenderItem from "./components/item-render";
 
 /**
  * Приложение
- * @param store {Store} Состояние приложения
+ * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const list = store.getState().list;
+  const list = store.getStateList();
+  const { cartList, sizeCart, total } = store.getCartState();
+  const [show, setShow] = useState(false);
+  const [addedItem, setAddedItem] = useState(false);
+
+  const hooks = createHooks(store, setShow, setAddedItem);
+
+  const cartBtnLabel = cartButtonLabel(sizeCart, total);
 
   return (
-    <div className="App">
-      <div className="App-head">
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className="App-controls">
-        <button onClick={() => store.addItem()}>Добавить</button>
-      </div>
-      <div className="App-center">
-        <div className="List">
-          {list.map(item => (
-            <div key={item.code} className="List-item">
-              <div
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
-              >
-                <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    <>
+      <PageLayout nonScroll={show}>
+        <Head title="Магазин" />
+        <Controls label={cartBtnLabel} onShowCart={hooks.onShowCart} addedItem={addedItem} />
+        <List list={list} renderItem={RenderItem} onClickAction={hooks.onAddCart} isCart={false} total={0} />
+      </PageLayout>
+      {show && (
+        <Modal handleClose={hooks.onHideCart}>
+          <List list={cartList} renderItem={RenderItem} onClickAction={hooks.onDeleteItem} isCart={true} total={total} />
+        </Modal>
+      )}
+    </>
   );
 }
 
 export default App;
+

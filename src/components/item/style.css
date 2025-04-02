@@ -1,0 +1,38 @@
+.Item {
+  width: 100%;
+  align-items: center;
+  gap: 24px;
+  display: grid;
+  grid-template-columns: auto repeat(3, minmax(105px, max-content));
+  grid-template-areas:
+    "title title price actions";
+}
+
+.Item-title {
+  grid-area: title;
+}
+
+.Item-price {
+  grid-area: price;
+  text-align: right;
+}
+
+.Item-actions {
+  grid-area: actions;
+
+  button {
+    background-color: var(--primary);
+    color: var(--second-text);
+    padding: 8px 16px;
+
+    &:hover {
+      background-color: var(--background);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    &:active {
+      background-color: var(--primary-select);
+    }
+  }
+}

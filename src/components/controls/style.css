@@ -1,0 +1,40 @@
+.Controls {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 0;
+}
+
+.Controls-button {
+  border: 1px solid var(--primary);
+  padding: 8px 16px;
+  background-color: var(--background);
+  color: var(--main-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  svg path {
+    fill: var(--primary);
+    transition: 0.3s;
+  }
+
+  &:hover {
+    background-color: var(--primary);
+    color: var(--second-text);
+
+    svg path {
+      fill: var(--second-text);
+    }
+  }
+
+}
+
+.Controls-button_selected {
+  background-color: var(--primary-select);
+}
