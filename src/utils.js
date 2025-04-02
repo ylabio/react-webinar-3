@@ -27,9 +27,55 @@ export function codeGenerator(start = 0) {
 /**
  * Форматирование разрядов числа
  * @param value {Number}
+ * @param locale {String}
  * @param options {Object}
  * @returns {String}
  */
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Создание массива объектов количества страниц
+ * @param itemCount {Number}
+ * @param itemOnPage {Number}
+ * @returns {Array}
+ */
+export const generatePagesArray = (itemCount, itemOnPage = 10) => {
+  const pages = Math.ceil(itemCount / itemOnPage);
+  return Array.from({ length: pages }, (_, i) => ({
+    key: i,
+    page: i + 1,
+  }));
+};
+
+/**
+ * Создание массива актуальных страниц для пагинации
+ * @param pageArr {Array}
+ * @param viewPageNumber {Number}
+ * @returns {Array}
+ *
+ */
+export const getActualPaginationArray = (pageArr, viewPageNumber) => {
+  const leftDot = { key: 'l-dot', page: '...' };
+  const rightDot = { key: 'r-dot', page: '...' };
+  const firstPage = pageArr.slice(0, 1);
+  const lastPage = pageArr.slice(-1);
+
+  if (viewPageNumber < 3) {
+    let numSlice = 3;
+    if (viewPageNumber === 2) numSlice = 4;
+
+    return [...pageArr.slice(0, numSlice), rightDot, ...lastPage];
+  }
+  if (viewPageNumber > pageArr.length - 4) {
+    let numSlice = -3;
+    if (viewPageNumber === pageArr.length - 3) numSlice = -4;
+
+    return [...firstPage, leftDot, ...pageArr.slice(numSlice)];
+  }
+
+  const middlePage = pageArr.slice(viewPageNumber - 1, viewPageNumber + 2);
+
+  return [...firstPage, leftDot, ...middlePage, rightDot, ...lastPage];
+};

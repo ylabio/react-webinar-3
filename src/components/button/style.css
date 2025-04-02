@@ -39,3 +39,34 @@
     color: var(--primary);
   }
 }
+
+.Button_style_pagination {
+  min-width: 22px;
+  height: 22px;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 2px;
+  border: none;
+  padding: 0;
+  overflow: hidden;
+  transition: background .2s linear;
+
+  &:hover {
+    background: rgba(107, 74, 203, 0.1);
+  }
+
+  &.active {
+    background: var(--primary);
+    color: white;
+    cursor: default;
+  }
+
+  &.dots {
+    color: var(--close);
+    pointer-events: none;
+  }
+}

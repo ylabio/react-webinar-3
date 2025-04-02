@@ -1,4 +1,6 @@
-import { codeGenerator } from '../../utils';
+import { codeGenerator, generatePagesArray } from '../../utils';
+import { DEFAULT_QUERY } from '../../query/constants';
+
 import StoreModule from '../module';
 
 class Catalog extends StoreModule {
@@ -10,18 +12,43 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
+      pagesCountList: [],
+      defaultViewProductCount: 10,
     };
   }
 
-  async load() {
-    const response = await fetch('/api/v1/articles');
+  async load(lang = 'ru') {
+    const response = await fetch(
+      `${DEFAULT_QUERY}?limit=10&lang=${lang}&skip=0&fields=items(*),count`,
+    );
     const json = await response.json();
     this.setState(
       {
         ...this.getState(),
         list: json.result.items,
+        pagesCountList: generatePagesArray(json.result.count),
+        itemsCount: json.result.count,
       },
       'Загружены товары из АПИ',
+    );
+  }
+
+  async updateProductData(limit = 10, page = 0, lang = 'ru') {
+    let skipCount = 0;
+    if (page > skipCount) {
+      skipCount = limit * page;
+    }
+
+    const response = await fetch(`${DEFAULT_QUERY}?limit=${limit}&skip=${skipCount}&lang=${lang}`);
+    const json = await response.json();
+
+    this.setState(
+      {
+        ...this.getState(),
+        list: json.result.items,
+        pagesCountList: generatePagesArray(this.getState().itemsCount, limit),
+      },
+      'Обновлены товары из АПИ',
     );
   }
 }
