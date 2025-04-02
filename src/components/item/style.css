@@ -2,9 +2,11 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 16px;
+  gap: 23px;
   transition: background-color 1s;
   padding: 16px;
+
+  font-size: 16px;
 }
 
 .Item_selected {
@@ -21,16 +23,6 @@
 }
 
 .Item-actions button {
-  /* background-color: var(--delete);
-  color: var(--second-text);
-  padding: 8px 16px;
-
-  &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
-  } */
-
   border: 1px solid var(--primary);
   padding: 8px 16px;
   background-color: var(--primary);
@@ -39,6 +31,16 @@
   &:hover {
     background-color: var(--background);
     color: var(--primary);
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .Item {
+    padding-left: 0;
+    padding-right: 0;
+    gap: 10px;
+
+    font-size: 12px;
   }
 }
 

@@ -19,6 +19,8 @@
 
   width: 1080px;
   max-width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
 
   background-color: var(--background);
   border-radius: 8px;
@@ -52,7 +54,6 @@
 .Popup-item {
   display: flex;
   align-items: center;
-  gap: 24px;
   padding: 16px;
   font-size: 16px;
   line-height: 1.2;
@@ -60,16 +61,9 @@
 }
 
 .Popup-final {
-  justify-content: flex-end;
-  padding-right: 147px;
-
   font-weight: 700;
 
   border: none;
-}
-
-.Popup-final .Popup-sum {
-  margin: 0;
 }
 
 .Popup-item:nth-child(odd) {
@@ -83,25 +77,57 @@
 
 .Popup-sum {
   flex: 0 0 auto;
-  margin-left: auto;
+  margin-left: 38px;
+  margin-right: auto;
 }
 
 .Popup-price {
   flex: 0 0 auto;
+  margin-right: 21px;
 }
 
 .Popup-delete {
-  flex: 0 0 110px;
+  flex: 0 0 106px;
 }
 
 button.Popup-delete {
   background-color: var(--delete);
   color: var(--second-text);
-  padding: 8px 16px;
+  padding: 8px 15px;
 
   &:hover {
     background-color: var(--background);
     border-color: var(--delete);
     color: var(--delete);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .Popup-name {
+    flex-basis: 50%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .Popup-wrapper {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .Popup-name {
+    flex-basis: 110px;
+  }
+
+  .Popup-final,
+  .Popup-item {
+    padding-left: 0;
+    padding-right: 0;
+
+    font-size: 12px;
+  }
+
+  .Popup-sum {
+    margin-left: auto;
+    margin-right: 10px;
   }
 }

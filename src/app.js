@@ -42,7 +42,7 @@ function App({ store }) {
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
+      <Head title="Магазин" />
       <Basket onTogglePopupFlag={callbacks.onTogglePopupFlag} basketList={basketList}/>
 
       <List

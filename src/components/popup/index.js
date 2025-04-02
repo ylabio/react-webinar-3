@@ -50,6 +50,7 @@ function Popup({ openPopupFlag, basketList, onTogglePopupFlag = () => {}, onDele
           <div className={cn('name')}></div>
           <div className={cn('sum')}>Итого:</div>
           <div className={cn('price')}>{totalSum} ₽</div>
+          <div className={cn('delete')}></div>
         </div>
       </div>
     </div>
