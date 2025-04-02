@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { priceFormat } from '../../utils';
 import './style.css';
 
-function Item(props, onBasket = () => {}) {
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
+function Item(props) {
   const callbacks = {
     onBasket: e => {
       e.stopPropagation();
