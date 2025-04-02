@@ -53,7 +53,7 @@ class Store {
 
     if (isItemInCart) {
       this.state.cartItems = this.state.cartItems.map(cartItem =>
-        cartItem.code === code ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem,
+        cartItem.code === code ? { ...cartItem, quantity: ++cartItem.quantity } : cartItem,
       );
     } else {
       const isItemInShop = this.state.list.find(item => item.code === code);
