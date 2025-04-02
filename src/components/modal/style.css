@@ -1,0 +1,22 @@
+.Modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(26, 32, 40, 0.4);
+  z-index: 1;
+}
+
+.Modal-container {
+  padding: 24px 24px 40px 24px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 1080px;
+  background-color: var(--second-text);
+  z-index: 2;
+  border-radius: 8px;
+}
