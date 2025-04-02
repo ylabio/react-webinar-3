@@ -4,9 +4,9 @@ import { generateCode } from './utils';
  * Хранилище состояния приложения
  */
 class Store {
-  constructor(initState = {}, initBasketState = { list: [] }) {
+  constructor(initState = {}, initBasketState = { list: [], totalCount: 0, totalSum: 0 }) {
     this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.listeners = [];
     this.basketState = initBasketState;
   }
 
@@ -65,13 +65,8 @@ class Store {
   addBasketItem(code) {
     const itemToAdd = this.state.list.find(item => item.code === code);
     if (itemToAdd) {
-      this.setBasketState({
-        ...this.basketState,
-        list: [
-          ...(this.basketState.list || []),
-          { ...itemToAdd }
-        ],
-      });
+      const newList = [...(this.basketState.list || []), { ...itemToAdd }];
+      this.setBasketState(this.calculateBasketStats(newList));
     }
   }
 
@@ -80,11 +75,36 @@ class Store {
    * @param code
    */
   deleteItem(code) {
-    this.setBasketState({
-      ...this.basketState,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.basketState.list.filter(item => item.code !== code),
-    });
+    const newList = this.basketState.list.filter(item => item.code !== code);
+    this.setBasketState(this.calculateBasketStats(newList));
+  }
+
+  /**
+   * Расчет статистики корзины
+   * @param list {Array} Список товаров
+   * @returns {Object} Новое состояние корзины
+   */
+  calculateBasketStats(list) {
+    const itemCounts = list.reduce((acc, item) => {
+      acc[item.code] = (acc[item.code] || 0) + 1;
+      return acc;
+    }, {});
+
+    const uniqueItems = list.filter((item, index, self) =>
+      index === self.findIndex((i) => i.code === item.code)
+    );
+
+    const totalSum = uniqueItems.reduce((sum, item) => {
+      return sum + (item.price * itemCounts[item.code]);
+    }, 0);
+
+    return {
+      list,
+      totalCount: list.length,
+      totalSum,
+      itemCounts, // если нужно сохранить количество каждого товара
+      uniqueItems // если нужно сохранить уникальные товары
+    };
   }
 }
 

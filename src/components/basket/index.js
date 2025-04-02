@@ -4,29 +4,21 @@ import { plural, priceFormat } from '../../utils';
 import BasketIcon from '../icons/basket-icon';
 import './style.css';
 
-function Basket({ basketList, onTogglePopupFlag = () => {} }) {
-  const isEmpty = !basketList || basketList.length === 0;
-
-  const totalSum = !isEmpty
-    ? basketList.reduce((sum, item) => sum + (item.price || 0), 0)
-    : 0;
-
-  const uniqueItems = basketList.filter((item, index, self) => (
-    index === self.findIndex((i) => i.code === item.code)
-  ));
+function Basket({ basketState, onTogglePopupFlag = () => {} }) {
+  const isEmpty = !basketState?.list || basketState.list.length === 0;
 
   return (
     <div className="Basket">
       <button onClick={() => onTogglePopupFlag()}>
         <BasketIcon/>
         {isEmpty ? "Пусто" : `
-          ${uniqueItems.length}
-          ${plural(basketList.length, {
+          ${basketState.uniqueItems?.length || 0}
+          ${plural(basketState.totalCount, {
             one: 'товар',
             few: 'товара',
             many: 'товаров',
           })}
-          / ${priceFormat(totalSum)} ₽`
+          / ${priceFormat(basketState.totalSum || 0)} ₽`
         }
       </button>
     </div>
@@ -34,12 +26,17 @@ function Basket({ basketList, onTogglePopupFlag = () => {} }) {
 }
 
 Basket.propTypes = {
-  basketList: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number,
-      price: PropTypes.number,
-    }),
-  ).isRequired,
+  basketState: PropTypes.shape({
+    list: PropTypes.arrayOf(
+      PropTypes.shape({
+        code: PropTypes.number,
+        price: PropTypes.number,
+      }),
+    ).isRequired,
+    totalCount: PropTypes.number,
+    totalSum: PropTypes.number,
+    uniqueItems: PropTypes.array,
+  }).isRequired,
   onTogglePopupFlag: PropTypes.func,
 };
 

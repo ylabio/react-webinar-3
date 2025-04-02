@@ -14,7 +14,7 @@ function App({ store }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const list = store.getState().list;
-  const basketList= store.getBasketState().list;
+  const basketState = store.getBasketState();
 
   const callbacks = {
     onBasketItem: useCallback(
@@ -39,14 +39,14 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Basket onTogglePopupFlag={callbacks.onTogglePopupFlag} basketList={basketList}/>
+      <Basket onTogglePopupFlag={callbacks.onTogglePopupFlag} basketState={basketState}/>
 
       <List
         list={list}
         onDeleteItem={callbacks.onDeleteItem}
         onBasketItem={callbacks.onBasketItem}
       />
-      <Popup onTogglePopupFlag={callbacks.onTogglePopupFlag} onDeleteItem={callbacks.onDeleteItem} openPopupFlag={isPopupOpen} basketList={basketList}/>
+      <Popup onTogglePopupFlag={callbacks.onTogglePopupFlag} onDeleteItem={callbacks.onDeleteItem} openPopupFlag={isPopupOpen} basketState={basketState} />
     </PageLayout>
   );
 }
