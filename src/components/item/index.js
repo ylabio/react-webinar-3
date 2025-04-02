@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { priceFormat } from '../../utils';
 import './style.css';
 
 function Item(props, onBasket = () => {}) {
@@ -20,7 +21,7 @@ function Item(props, onBasket = () => {}) {
       <div className="Item-title">
         <b>{props.item.title}</b>
       </div>
-      <div className="Item-price">{props.item.price} ₽</div>
+      <div className="Item-price">{priceFormat(props.item.price)} ₽</div>
       <div className="Item-actions">
         <button onClick={callbacks.onBasket}>Добавить</button>
       </div>

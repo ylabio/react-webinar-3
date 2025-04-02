@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
+import { priceFormat } from '../../utils';
 import './style.css';
 
 function Popup({ openPopupFlag, basketList, onTogglePopupFlag = () => {}, onDeleteItem = () => {}  }) {
@@ -34,7 +35,7 @@ function Popup({ openPopupFlag, basketList, onTogglePopupFlag = () => {}, onDele
               <li key={item.code} className={cn('item')}>
                 <div className={cn('name')}>{item.title}</div>
                 <div className={cn('sum')}>{itemCounts[item.code]} шт.</div>
-                <div className={cn('price')}>{item.price * itemCounts[item.code]} ₽</div>
+                <div className={cn('price')}>{priceFormat(item.price * itemCounts[item.code])} ₽</div>
                 <button className={cn('delete')}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -49,7 +50,7 @@ function Popup({ openPopupFlag, basketList, onTogglePopupFlag = () => {}, onDele
         <div className={cn('final')}>
           <div className={cn('name')}></div>
           <div className={cn('sum')}>Итого:</div>
-          <div className={cn('price')}>{totalSum} ₽</div>
+          <div className={cn('price')}>{priceFormat(totalSum)} ₽</div>
           <div className={cn('delete')}></div>
         </div>
       </div>

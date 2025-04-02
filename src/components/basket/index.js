@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
+import { plural, priceFormat } from '../../utils';
 import './style.css';
 
 function Basket({ basketList, onTogglePopupFlag = () => {} }) {
@@ -27,7 +27,7 @@ function Basket({ basketList, onTogglePopupFlag = () => {} }) {
             few: 'товара',
             many: 'товаров',
           })}
-          / ${totalSum} ₽`
+          / ${priceFormat(totalSum)} ₽`
         }
       </button>
     </div>
