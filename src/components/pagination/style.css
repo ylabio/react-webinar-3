@@ -1,0 +1,44 @@
+.Pagination-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-top: 24px;
+}
+
+.Pagination-limit {
+  padding-right: 50px;
+}
+
+.Pagination-pages-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.Pagination-page,
+.Pagination-skip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-right: 2px;
+  border-radius: 2px;
+  color: var(--main-text);
+  text-decoration: none;
+}
+
+.Pagination-page {
+  &:hover {
+    cursor: pointer;
+    background-color: var(--primary-select);
+  }
+}
+
+.Pagination-page.active {
+  color: var(--second-text);
+  background-color: var(--primary);
+
+  &:hover {
+    cursor: auto;
+  }
+}

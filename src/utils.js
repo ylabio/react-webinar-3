@@ -33,3 +33,42 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+
+export function generatePaginatedApiUrl(baseUrl, currentPage) {
+  return `${baseUrl}?limit=10&skip=${(currentPage - 1) * 10}&fields=items(_id, title, price),count`;
+}
+
+export function generatePaginationArray(currentPage, count, limit) {
+  const maxPade = Math.ceil(count / limit);
+  const id = +currentPage;
+
+  let arrStrart = [];
+  let arrMiddle = [];
+  let arrEnd = [];
+
+  switch (true) {
+    case id <= 2:
+      arrStrart = [1, 2, 3];
+      arrEnd = [0, maxPade];
+      break;
+    case id === 3:
+      arrStrart = [1, 2, 3, 4];
+      arrEnd = [0, maxPade];
+      break;
+    case id >= maxPade - 1:
+      arrStrart = [1, 0];
+      arrEnd = [maxPade - 2, maxPade - 1, maxPade];
+      break;
+    case id === maxPade - 2:
+      arrStrart = [1, 0];
+      arrEnd = [maxPade - 4, maxPade - 2, maxPade - 1, maxPade];
+      break;
+    default:
+      arrStrart = [1, 0];
+      arrMiddle = [id - 1, id, id + 1];
+      arrEnd = [0, maxPade];
+  }
+
+  return [...arrStrart, ...arrMiddle, ...arrEnd];
+}
