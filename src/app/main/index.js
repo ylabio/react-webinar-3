@@ -20,7 +20,9 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     currentPage: state.catalog.currentPage,
-    count: state.catalog.count,
+    count: state.catalog.count,    
+    pageSize: state.catalog.pageSize, 
+    availableSizes: state.catalog.availableSizes
   }));
 
   const callbacks = {
@@ -30,6 +32,7 @@ function Main() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Изменение текущей странички
     setPage: useCallback(page => store.actions.catalog.setPage(page), [store]),
+    setPageSize: useCallback(size => store.actions.catalog.setPageSize(size), [store]),
   };
 
   const renders = {
@@ -46,11 +49,14 @@ function Main() {
       <Head title="Магазин" />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
-      {select.count > 0 && ( //поках только при наличии товаров
+      {select.count > 0 && ( //показ только при наличии товаров
         <Pagination
           currentPage={select.currentPage}
-          totalPages={Math.ceil(select.count / 10)} //обзее число страничек
+          totalPages={Math.ceil(select.count / select.pageSize)} //общее число страничек
           onPageChange={callbacks.setPage}
+          pageSize={select.pageSize}
+          onPageSizeChange={callbacks.setPageSize}
+          availableSizes={select.availableSizes}
         />
       )}
     </PageLayout>

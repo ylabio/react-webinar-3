@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Pagination({ currentPage, totalPages, onPageChange }) {
+function Pagination({ currentPage, totalPages, onPageChange, pageSize, onPageSizeChange, availableSizes }) {
   const cn = bem('Pagination');
 
   const handlePageClick = useCallback((page) => {
@@ -11,6 +11,11 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
       onPageChange(page);
     }
   }, [currentPage, onPageChange]);
+
+  const handlePageSizeChange = useCallback((e) => {
+    const newSize = parseInt(e.target.value);
+    onPageSizeChange(newSize);
+  }, [onPageSizeChange]);
 
   const renderPageNumbers = () => {
     const pages = [];
@@ -92,6 +97,18 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
 
   return (
     <div className={cn()}>
+      <div className={cn('page-size-selector')}>
+        <span className={cn('page-size-label')}>Показывать по:</span>
+        <select 
+          className={cn('page-size-select')} 
+          value={pageSize} 
+          onChange={handlePageSizeChange}
+        >
+          {availableSizes.map(size => (
+            <option key={size} value={size}>{size}</option>
+          ))}
+        </select>
+      </div>
       {renderPageNumbers()}
     </div>
   );
@@ -101,6 +118,9 @@ Pagination.propTypes = {
   currentPage: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  onPageSizeChange: PropTypes.func.isRequired,
+  availableSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default memo(Pagination);
