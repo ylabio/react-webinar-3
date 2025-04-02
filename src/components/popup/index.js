@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { priceFormat } from '../../utils';
-import CloseIcon from '../icons/close-icon';
 import './style.css';
 
-function Popup({ openPopupFlag, basketState, onTogglePopupFlag = () => {}, onDeleteItem = () => {} }) {
+function Popup({ children, title, openPopupFlag, basketState, onTogglePopupFlag = () => {}, onDeleteItem = () => {} }) {
   const cn = bem('Popup');
 
   if (!openPopupFlag) return null;
@@ -13,10 +12,8 @@ function Popup({ openPopupFlag, basketState, onTogglePopupFlag = () => {}, onDel
   return (
     <div className={cn()}>
       <div className={cn('wrapper')}>
-        <h2>Корзина</h2>
-        <button className={cn('close')} onClick={onTogglePopupFlag}>
-          <CloseIcon/>
-        </button>
+        <h2>{title}</h2>
+        {children}
         <ul className={cn('list')}>
           {basketState.uniqueItems?.map((item) => (
             <li key={item.code} className={cn('item')}>
@@ -46,6 +43,7 @@ function Popup({ openPopupFlag, basketState, onTogglePopupFlag = () => {}, onDel
 }
 
 Popup.propTypes = {
+  title: PropTypes.node,
   children: PropTypes.node,
   basketState: PropTypes.shape({
     list: PropTypes.arrayOf(

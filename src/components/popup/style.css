@@ -34,16 +34,6 @@
   font-weight: 700;
 }
 
-.Popup-close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-
-  padding: 0;
-  background: none;
-  border: none;
-}
-
 .Popup-list {
   list-style: none;
   margin: 0;

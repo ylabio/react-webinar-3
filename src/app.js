@@ -4,6 +4,7 @@ import Basket from './components/basket';
 import Popup from './components/popup';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import CloseButton from './components/close-button';
 
 /**
  * Приложение
@@ -46,7 +47,14 @@ function App({ store }) {
         onDeleteItem={callbacks.onDeleteItem}
         onBasketItem={callbacks.onBasketItem}
       />
-      <Popup onTogglePopupFlag={callbacks.onTogglePopupFlag} onDeleteItem={callbacks.onDeleteItem} openPopupFlag={isPopupOpen} basketState={basketState} />
+      <Popup
+        title="Корзина"
+        onTogglePopupFlag={callbacks.onTogglePopupFlag}
+        onDeleteItem={callbacks.onDeleteItem}
+        openPopupFlag={isPopupOpen}
+        basketState={basketState} >
+        <CloseButton onTogglePopupFlag={callbacks.onTogglePopupFlag}/>
+      </Popup>
     </PageLayout>
   );
 }
