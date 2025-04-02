@@ -34,11 +34,26 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
-
-export function generatePaginatedApiUrl(baseUrl, currentPage) {
-  return `${baseUrl}?limit=10&skip=${(currentPage - 1) * 10}&fields=items(_id, title, price),count`;
+/**
+ * Генерация URL для пагинированного API запроса
+ * @param baseUrl {String} - Базовый URL API
+ * @param currentPage {Number} - Текущая страница (начинается с 1)
+ * @param limit {Number} - Количество элементов на странице
+ * @returns {String} - Сформированный URL с параметрами limit, skip и fields
+ */
+export function generatePaginatedApiUrl(baseUrl, currentPage, limit) {
+  return `${baseUrl}?limit=${limit}&skip=${(currentPage - 1) * limit}&fields=items(_id, title, price),count`;
 }
 
+/**
+ * Генерация массива номеров страниц для пагинации с учетом текущей позиции
+ * @param currentPage {Number} - Текущая страница
+ * @param count {Number} - Общее количество элементов
+ * @param limit {Number} - Количество элементов на странице
+ * @returns {Array} - Массив номеров страниц и нулей (для разделителей ...)
+ *                    Пример: [1, 2, 3, 0, 10] → 1 2 3 ... 10
+ */
+// ?TODO: HACK: Временная/неоптимальная реализация
 export function generatePaginationArray(currentPage, count, limit) {
   const maxPade = Math.ceil(count / limit);
   const id = +currentPage;
@@ -71,4 +86,19 @@ export function generatePaginationArray(currentPage, count, limit) {
   }
 
   return [...arrStrart, ...arrMiddle, ...arrEnd];
+}
+
+/**
+ * Расчет новой страницы при изменении количества элементов на странице
+ * @param oldPageNumber {Number} - Номер текущей страницы
+ * @param oldLimit {Number} - Текущее количество элементов на странице
+ * @param newLimit {Number} - Новое количество элементов на странице
+ * @returns {Number} - Номер новой страницы, содержащей первый элемент текущей страницы
+ *                     Пример: Было: страница 3 по 5 элементов (элементы 11-15)
+ *                             Стало: страница 2 по 10 элементов (элементы 11-20)
+ */
+export function findNewPageNumber(oldPageNumber, oldLimit, newLimit) {
+  const firstNumberInOldPage = (+oldPageNumber - 1) * +oldLimit + 1;
+  const newPageNumber = Math.ceil(+firstNumberInOldPage / +newLimit);
+  return newPageNumber;
 }

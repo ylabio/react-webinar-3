@@ -5,10 +5,6 @@
   padding-top: 24px;
 }
 
-.Pagination-limit {
-  padding-right: 50px;
-}
-
 .Pagination-pages-container {
   display: flex;
   flex-direction: row;
@@ -19,8 +15,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
   margin-right: 2px;
   border-radius: 2px;
   color: var(--main-text);

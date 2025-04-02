@@ -1,0 +1,9 @@
+.Limit {
+  display: flex;
+  flex-direction: row;
+  padding-right: 30px;
+}
+
+.Limit-title {
+  padding-right: 15px;
+}

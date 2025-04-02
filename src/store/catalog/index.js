@@ -11,20 +11,26 @@ class Catalog extends StoreModule {
     return {
       list: [],
       count: 0,
+      isLoading: false,
     };
   }
 
   async load(url) {
-    const response = await fetch(url);
-    const json = await response.json();
-    this.setState(
-      {
+    this.setState({ ...this.getState(), isLoading: true }, 'Начало загрузки');
+    try {
+      const response = await fetch(url);
+      const json = await response.json();
+      
+      this.setState({
         ...this.getState(),
         list: json.result.items,
         count: json.result.count,
-      },
-      'Загружены товары из АПИ',
-    );
+        isLoading: false,
+      }, 'Загружены товары из АПИ');
+    } catch (error) {
+      this.setState({ ...this.getState(), isLoading: false, error }, 'Ошибка загрузки');
+      throw error;
+    }
   }
 }
 
