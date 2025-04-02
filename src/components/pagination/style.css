@@ -1,0 +1,47 @@
+.Pagination {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2px;
+    padding: 24px 16px 24px 0;
+  }
+  
+  .Pagination-page {
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border-radius: 2px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: var(--main-text);
+    transition: background-color 0.3s;
+  }
+  
+  .Pagination-page:hover:not(.Pagination-page_active) {
+    background-color: var(--primary-select);
+  }
+  
+  .Pagination-page_active {
+    background-color: var(--primary);
+    color: var(--second-text);
+    cursor: default;
+  }
+  
+  .Pagination-ellipsis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    font-family: var(--font-family);
+    font-size: 16px;
+    line-height: 22px;
+    color: var(--main-text);
+  }
