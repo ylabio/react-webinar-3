@@ -1,10 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import List from './components/list';
-import Basket from './components/basket';
+import BasketButton from './components/basket-button';
 import Popup from './components/popup';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import CloseButton from './components/close-button';
+import Basket from './components/basket';
 
 /**
  * Приложение
@@ -40,7 +41,7 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Basket onTogglePopupFlag={callbacks.onTogglePopupFlag} basketState={basketState}/>
+      <BasketButton onTogglePopupFlag={callbacks.onTogglePopupFlag} basketState={basketState}/>
 
       <List
         list={list}
@@ -49,11 +50,12 @@ function App({ store }) {
       />
       <Popup
         title="Корзина"
-        onTogglePopupFlag={callbacks.onTogglePopupFlag}
-        onDeleteItem={callbacks.onDeleteItem}
-        openPopupFlag={isPopupOpen}
-        basketState={basketState} >
+        openPopupFlag={isPopupOpen} >
         <CloseButton onTogglePopupFlag={callbacks.onTogglePopupFlag}/>
+        <Basket
+          onDeleteItem={callbacks.onDeleteItem}
+          basketState={basketState}
+        />
       </Popup>
     </PageLayout>
   );

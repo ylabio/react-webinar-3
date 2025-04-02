@@ -1,27 +1,82 @@
-.Basket {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 24px 0 25px 0;
+.Basket-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.Basket button {
+.Basket-final,
+.Basket-item {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 10px;
-  padding: 8px 16px;
+  padding: 16px;
+  font-size: 16px;
+  line-height: 1.2;
+  border-bottom: 1px solid var(--divider);
+}
 
-  border: 1px solid var(--primary);
-  background-color: var(--background);
-  color: var(--main-text);
+.Basket-final {
+  font-weight: 700;
+
+  border: none;
+}
+
+.Basket-item:nth-child(odd) {
+  background-color: var(--odd-item);
+}
+
+.Basket-name {
+  flex: 0 0 60%;
+  font-weight: 700;
+}
+
+.Basket-sum {
+  flex: 0 0 auto;
+  margin-left: 38px;
+  margin-right: auto;
+}
+
+.Basket-price {
+  flex: 0 0 auto;
+  margin-right: 21px;
+}
+
+.Basket-delete {
+  flex: 0 0 106px;
+}
+
+button.Basket-delete {
+  background-color: var(--delete);
+  color: var(--second-text);
+  padding: 8px 15px;
 
   &:hover {
-    background-color: var(--primary);
-    color: var(--background);
+    background-color: var(--background);
+    border-color: var(--delete);
+    color: var(--delete);
   }
 }
 
-.Basket button:hover  svg path {
-  fill: var(--background);
+@media screen and (max-width: 768px) {
+  .Basket-name {
+    flex-basis: 50%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .Basket-name {
+    flex-basis: 110px;
+  }
+
+  .Basket-final,
+  .Basket-item {
+    padding-left: 0;
+    padding-right: 0;
+
+    font-size: 12px;
+  }
+
+  .Basket-sum {
+    margin-left: auto;
+    margin-right: 10px;
+  }
 }
