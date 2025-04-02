@@ -12,13 +12,8 @@ import Pagination from '../../components/pagination';
 function Main(callback, deps) {
   const store = useStore();
 
-  console.log(store.state.catalog);
-
   useEffect(() => {
     store.actions.catalog.load();
-    setTimeout(() => {
-      store.actions.catalog.updateProductData();
-    }, 1000);
   }, []);
 
   const select = useSelector(state => ({
@@ -32,10 +27,6 @@ function Main(callback, deps) {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-
-    viewPage: useCallback((limit, page, lang) =>
-      store.actions.catalog.updateProductData(limit, page, lang), [store],
-    ),
   };
 
   const renders = {
@@ -52,9 +43,7 @@ function Main(callback, deps) {
       <Head title="Магазин" />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
-      <Footer>
-        <Pagination onOpenPage={callbacks.viewPage} />
-      </Footer>
+      <Footer />
     </PageLayout>
   );
 }

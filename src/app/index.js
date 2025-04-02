@@ -7,8 +7,7 @@ import useSelector from '../store/use-selector';
  * @returns {React.ReactElement}
  */
 function App() {
-  console.log('app')
-  const activeModal = useSelector(state => state.modals.name);
+  const activeModal = useSelector(state => state.modals.name, 'App');
 
   return (
     <>
