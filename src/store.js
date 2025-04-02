@@ -4,9 +4,10 @@ import { generateCode } from './utils';
  * Хранилище состояния приложения
  */
 class Store {
-  constructor(initState = {}) {
+  constructor(initState = {}, initBasketState = { list: [], totalCount: 0, totalSum: 0 }) {
     this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.listeners = [];
+    this.basketState = initBasketState;
   }
 
   /**
@@ -31,6 +32,14 @@ class Store {
   }
 
   /**
+   * Выбор состояния корзины
+   * @returns {Object}
+   */
+  getBasketState() {
+    return this.basketState;
+  }
+
+  /**
    * Установка состояния
    * @param newState {Object}
    */
@@ -41,13 +50,24 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Установка состояния корзины
+   * @param newBasketState {Object}
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
+  setBasketState(newBasketState) {
+    this.basketState = newBasketState;
+    // Вызываем всех слушателей
+    for (const listener of this.listeners) listener();
+  }
+
+  /**
+   * Добавление товара в корзину
+   */
+  addBasketItem(code) {
+    const itemToAdd = this.state.list.find(item => item.code === code);
+    if (itemToAdd) {
+      const newList = [...(this.basketState.list || []), { ...itemToAdd }];
+      this.setBasketState(this.calculateBasketStats(newList));
+    }
   }
 
   /**
@@ -55,33 +75,36 @@ class Store {
    * @param code
    */
   deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
+    const newList = this.basketState.list.filter(item => item.code !== code);
+    this.setBasketState(this.calculateBasketStats(newList));
   }
 
   /**
-   * Выделение записи по коду
-   * @param code
+   * Расчет статистики корзины
+   * @param list {Array} Список товаров
+   * @returns {Object} Новое состояние корзины
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
-    });
+  calculateBasketStats(list) {
+    const itemCounts = list.reduce((acc, item) => {
+      acc[item.code] = (acc[item.code] || 0) + 1;
+      return acc;
+    }, {});
+
+    const uniqueItems = list.filter((item, index, self) =>
+      index === self.findIndex((i) => i.code === item.code)
+    );
+
+    const totalSum = uniqueItems.reduce((sum, item) => {
+      return sum + (item.price * itemCounts[item.code]);
+    }, 0);
+
+    return {
+      list,
+      totalCount: list.length,
+      totalSum,
+      itemCounts, // если нужно сохранить количество каждого товара
+      uniqueItems // если нужно сохранить уникальные товары
+    };
   }
 }
 

@@ -1,8 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
-import Controls from './components/controls';
+import BasketButton from './components/basket-button';
+import Popup from './components/popup';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import CloseButton from './components/close-button';
+import Basket from './components/basket';
 
 /**
  * Приложение
@@ -10,9 +13,19 @@ import PageLayout from './components/page-layout';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   const list = store.getState().list;
+  const basketState = store.getBasketState();
 
   const callbacks = {
+    onBasketItem: useCallback(
+      code => {
+        store.addBasketItem(code);
+      },
+      [store],
+    ),
+
     onDeleteItem: useCallback(
       code => {
         store.deleteItem(code);
@@ -20,27 +33,30 @@ function App({ store }) {
       [store],
     ),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onTogglePopupFlag: useCallback(() => {
+      setIsPopupOpen(prev => !prev);
+    }, []),
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
+      <Head title="Магазин" />
+      <BasketButton onTogglePopupFlag={callbacks.onTogglePopupFlag} basketState={basketState}/>
+
       <List
         list={list}
         onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
+        onBasketItem={callbacks.onBasketItem}
       />
+      <Popup
+        title="Корзина"
+        openPopupFlag={isPopupOpen} >
+        <CloseButton onTogglePopupFlag={callbacks.onTogglePopupFlag}/>
+        <Basket
+          onDeleteItem={callbacks.onDeleteItem}
+          basketState={basketState}
+        />
+      </Popup>
     </PageLayout>
   );
 }
