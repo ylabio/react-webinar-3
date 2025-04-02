@@ -1,20 +1,30 @@
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import propTypes from 'prop-types';
 import { numberFormat } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import Button from '../button';
 import './style.css';
+import { Paths } from "../../routes/paths";
+import { useNavigate } from "react-router";
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
+  const navigate = useNavigate()
 
   const callbacks = {
-    onRemove: e => props.onRemove(props.item._id),
+    onRemove: e => {
+      e.stopPropagation();
+      props.onRemove(props.item._id)
+    },
+    onOpenProduct: () => {
+      console.log(props.item._id, 'onOpenProduct')
+      navigate(`${Paths.ARTICLE}/${props.item._id}`);
+    },
   };
 
   return (
-    <div className={cn()}>
+    <div role='button' tabIndex="0" onClick={callbacks.onOpenProduct} className={cn()}>
       {/* <div className={cn('code')}>{props.item._id}</div> */}
       <h4 className={cn('title')}>{props.item.title}</h4>
       <div className={cn('right')}>

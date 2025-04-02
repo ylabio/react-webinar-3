@@ -1,19 +1,28 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
+import { useNavigate } from 'react-router';
+import { Paths } from '../../routes/paths';
 
 function Item(props) {
   const cn = bem('Item');
+  const navigate = useNavigate();
 
   const callbacks = {
-    onAdd: e => props.onAdd(props.item._id),
+    onAdd: e => {
+      e.stopPropagation();
+      props.onAdd(props.item._id);
+    },
+    onOpenProduct: () => {
+      navigate(`${Paths.ARTICLE}/${props.item._id}`);
+    },
   };
 
   return (
-    <div className={cn()}>
+    <div role="button" tabIndex="0" onClick={callbacks.onOpenProduct} className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <h4 className={cn('title')}>{props.item.title}</h4>
       <div className={cn('actions')}>

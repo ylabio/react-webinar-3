@@ -1,0 +1,21 @@
+.Article {
+  margin: 0 16px;
+}
+
+.Article-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Article-link {
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+  color: var(--main-text);
+}
+
+.Article-link:hover {
+  text-decoration: underline;
+}

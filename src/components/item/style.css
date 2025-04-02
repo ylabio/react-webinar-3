@@ -4,7 +4,12 @@
   align-items: center;
   gap: 16px;
   transition: background-color 1s;
-  padding: 16px 16px 15px 16px
+  padding: 16px 16px 15px 16px;
+  cursor: url("../../assets/icon/pointer.svg"), auto;
+}
+
+.Item:hover {
+  color: var(--primary);
 }
 
 .Item-actions {
