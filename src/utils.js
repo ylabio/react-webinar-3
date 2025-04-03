@@ -33,3 +33,51 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+
+export const createPagination = (page, totalPages) => {
+  const pages = [];
+
+  // Всегда отображаться первую страницу 
+  pages.push(1);
+
+  // Если страниц менее 5, то будут показаны все  
+  if (totalPages <= 5) {
+    for (let i = 2; i <= totalPages; i++) pages.push(i);
+    return pages;
+  }
+
+  // Левый блок
+  if (page === 1) {
+    pages.push(2, 3, '...', totalPages);
+  }
+  else if (page === 2) {
+    pages.push(2, 3, '...', totalPages);
+  }
+
+  // Правый блок 
+  else if (page === totalPages) {
+    pages.push('...', totalPages - 2, totalPages - 1, totalPages);
+  }
+  else if (page === totalPages - 1) {
+    pages.push('...', totalPages - 2, totalPages - 1, totalPages);
+  }
+
+  // Центральный блок 
+  else {
+    if (page - 1 > 2) {
+      pages.push('...');
+    }
+
+    pages.push(page - 1, page, page + 1);
+
+    if (page + 2 < totalPages) {
+      pages.push('...');
+    }
+
+    pages.push(totalPages);
+  }
+
+  return pages;
+};
+

@@ -49,10 +49,12 @@ function Main() {
       <List list={select.list} renderItem={renders.item} />
       <Pagination
         page={page}
+        limit={limit}
+        setLimit={setLimit}
+        setPage={setPage}
         totalPages={Math.ceil(select.count / limit)}
         onChange={(newPage) => setPage(newPage)}
       />
-
     </PageLayout>
   );
 }
