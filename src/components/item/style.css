@@ -16,19 +16,58 @@
 }
 
 .Item-actions {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
   display: flex;
   justify-content: flex-end;
+  column-gap: 24px;
+}
+
+.Item-info {
+  margin: 0;
+  padding: 0;
+  /*margin-right: 24px;*/
+  width: 200px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.Item-subtitle {
+  margin: 0;
+  /*margin-left: 124px;*/
+  /*margin-right: 24px;*/
+  /*padding-left: 150px;*/
+  /*width: 150px;*/
+  align-content: center;
+  /*justify-items: end;*/
 }
 
 .Item-actions button {
   background-color: var(--delete);
   color: var(--second-text);
   padding: 8px 16px;
+  border: 1px solid transparent;
 
   &:hover {
     background-color: var(--background);
     border-color: var(--delete);
     color: var(--delete);
+    border: 1px solid var(--delete);
   }
 }
 
+.Item-actions_add button {
+  background-color: var(--primary);
+  color: var(--second-text);
+  padding: 8px 16px;
+  border: 1px solid transparent;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}

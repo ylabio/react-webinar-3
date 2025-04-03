@@ -1,8 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import Modal from './components/modal/';
+import ModalCart from './components/modal-cart';
+import PropTypes from 'prop-types';
 
 /**
  * Приложение
@@ -11,6 +14,9 @@ import PageLayout from './components/page-layout';
  */
 function App({ store }) {
   const list = store.getState().list;
+  const listCart = store.getState().listCart;
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -27,22 +33,34 @@ function App({ store }) {
       [store],
     ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
+    onAddItem: useCallback(
+      code => {
+        store.addItem(code);
+      },
+      [store],
+    ),
+
+    getCartPrice: useCallback(() => {
+      store.getCartPrice();
     }, [store]),
   };
 
   return (
     <PageLayout>
       <Head title="Приложение на React" />
-      <Controls onAdd={callbacks.onAddItem} />
-      <List
-        list={list}
-        onDeleteItem={callbacks.onDeleteItem}
-        onSelectItem={callbacks.onSelectItem}
-      />
+      <Controls store={store} onModalOpen={() => setIsModalOpen(true)} />
+      <List list={list} onClickItem={callbacks.onAddItem} btnName="Добавить" />
+      {isModalOpen && (
+        <Modal title="Корзина" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <ModalCart store={store} onClick={callbacks.onDeleteItem} />
+        </Modal>
+      )}
     </PageLayout>
   );
 }
+
+App.propTypes = {
+  store: PropTypes.object.isRequired,
+};
 
 export default App;
