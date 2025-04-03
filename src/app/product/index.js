@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-
-import Head from '../../components/head';
-import ProductCard from "../../components/product-card";
-
-import BasketTool from '../../components/basket-tool';
-import PageLayout from '../../components/page-layout';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 
+import Head from '../../components/head';
+import ProductCard from '../../components/product-card';
+import Actions from '../../components/actions';
+import Navigation from '../../components/navigation';
+import Loader from '../../components/loader';
+import BasketTool from '../../components/basket-tool';
+import PageLayout from '../../components/page-layout';
 
 import { DEFAULT_QUERY } from '../../query/constants';
 
@@ -32,9 +33,10 @@ function Product() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   };
 
-  async function getProductFullInfo(id) {
+  async function getProductFullInfo() {
+    const { itemId } = productStore.state;
     const res = await fetch(
-      `${DEFAULT_QUERY}/${id}?fields=*,madeIn(title,code),category(title)&lang=ru`,
+      `${DEFAULT_QUERY}/${itemId}?fields=*,madeIn(title,code),category(title)&lang=ru`,
     );
     const json = await res.json();
     if (!json.error) {
@@ -44,18 +46,24 @@ function Product() {
   }
 
   useEffect(() => {
-    const { itemId } = productStore.state;
-    getProductFullInfo(itemId);
+    getProductFullInfo();
   }, [isLoading]);
 
   return (
     <PageLayout>
       {isLoading ? (
-        <h1>Loader</h1>
+        <Loader />
       ) : (
         <>
           <Head title={product.title} />
-          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+          <Actions>
+            <Navigation />
+            <BasketTool
+              onOpen={callbacks.openModalBasket}
+              amount={select.amount}
+              sum={select.sum}
+            />
+          </Actions>
           <ProductCard item={product} onAddToBasket={callbacks.addProductToBasket} />
         </>
       )}

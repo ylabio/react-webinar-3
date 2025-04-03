@@ -64,6 +64,7 @@ export const getCurrentPaginationArray = (pageArr, viewPageNumber) => {
   const arrayLength = pageArr.length;
 
   if (arrayLength < 6) return pageArr;
+  if (arrayLength === 1) return [];
 
   if (viewPageNumber < 3) {
     let numSlice = 3;

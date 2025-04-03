@@ -15,14 +15,18 @@ class Catalog extends StoreModule {
       pagesCountList: [],
       defaultViewItems: 10,
       itemsCount: 0,
+      currentPage: 0
     };
   }
 
   async load(lang = 'ru') {
+    const {defaultViewItems, currentPage} = this.getState();
+    const skip = defaultViewItems * currentPage
     const response = await fetch(
-      `${DEFAULT_QUERY}?limit=10&lang=${lang}&skip=0&fields=items(*),count`,
+      `${DEFAULT_QUERY}?limit=${defaultViewItems}&lang=${lang}&skip=${skip}&fields=items(_id, title,price),count`,
     );
     const json = await response.json();
+
     this.setState(
       {
         ...this.getState(),
@@ -49,6 +53,7 @@ class Catalog extends StoreModule {
         list: json.result.items,
         pagesCountList: generatePagesArray(this.getState().itemsCount, limit),
         defaultViewItems: limit,
+        currentPage: page,
       },
       'Обновлены товары из АПИ',
     );

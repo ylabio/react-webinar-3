@@ -1,13 +1,16 @@
 import { memo, useCallback, useEffect } from 'react';
+
+import useStore from '../../store/use-store';
+import useSelector from '../../store/use-selector';
+
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
 import List from '../../components/list';
 import Footer from '../../components/footer';
-import useStore from '../../store/use-store';
-import useSelector from '../../store/use-selector';
-import Pagination from '../../components/pagination';
+import Actions from '../../components/actions';
+import Navigation from '../../components/navigation';
 
 function Main(callback, deps) {
   const store = useStore();
@@ -41,7 +44,10 @@ function Main(callback, deps) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <Actions>
+        <Navigation />
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      </Actions>
       <List list={select.list} renderItem={renders.item} />
       <Footer />
     </PageLayout>
