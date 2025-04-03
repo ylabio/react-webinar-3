@@ -1,0 +1,58 @@
+.CustomSelect {
+  position: relative;
+  font-family: 'Golos Text', sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 400;
+}
+
+.CustomSelect-selected {
+  padding: 0 5px;
+  min-width: 28px;
+  height: 22px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+}
+
+.CustomSelect-arrow {
+  font-size: 10px;
+  margin-left: 4px;
+  transition: transform 0.2s ease;
+}
+
+.CustomSelect.open .CustomSelect-arrow {
+  transform: rotate(180deg);
+}
+
+.CustomSelect-options {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 4px;
+  list-style: none;
+  padding: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  z-index: 100;
+  min-width: 28px;
+}
+
+.CustomSelect-option {
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.CustomSelect-option:hover {
+  background: rgba(107, 74, 203, 0.1);
+}
+
+.CustomSelect-option.active {
+  background: var(--primary);
+  color: white;
+}
