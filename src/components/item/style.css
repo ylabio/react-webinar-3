@@ -23,3 +23,14 @@
     background-color: var(--background);
   }
 }
+
+.Item-title a {
+  color: var(--main-text);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  cursor: url('./../../assets/icon/pointer.svg'), pointer;
+}
+
+.Item-title a:hover {
+  color: var(--primary);
+}
