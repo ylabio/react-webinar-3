@@ -11,11 +11,11 @@ class Catalog extends StoreModule {
     return {
       list: [],
       skip: 0,
+      limit: 10,
     };
   }
 
-  async load(skip = this.getState().skip) {
-    const limit = 10;
+  async load(limit = this.getState().limit, skip = this.getState().skip) {
     const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}`);
     const json = await response.json();
 
@@ -24,8 +24,9 @@ class Catalog extends StoreModule {
         ...this.getState(),
         list: json.result.items,
         skip,
+        limit,
       },
-      'Загружены товары с учетом пагинации',
+      'Загружены товары с учетом пагинации и лимита',
     );
   }
 
@@ -34,9 +35,9 @@ class Catalog extends StoreModule {
   }
 
   setPage(page) {
-    const limit = 10;
+    const limit = this.getState().limit;
     const skip = (page - 1) * limit;
-    void this.load(skip);
+    void this.load(limit, skip);
   }
 }
 

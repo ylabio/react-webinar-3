@@ -6,7 +6,7 @@ import BasketTool from '../../components/basket-tool';
 import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
-import Pagination from '../../pagination';
+import Pagination from '../../components/pagination';
 
 // import catalog from '../../store/catalog';
 
@@ -22,6 +22,7 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     skip: state.catalog.skip,
+    limit: state.catalog.limit,
   }));
 
   const callbacks = {
@@ -47,7 +48,12 @@ function Main() {
       <Head title="Магазин" />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list || []} renderItem={renders.item} />
-      <Pagination page={select.skip / 10 + 1} onChange={callbacks.setPage} />
+      <Pagination
+        page={select.skip / select.limit + 1}
+        limit={select.limit}
+        onChange={callbacks.setPage}
+        onChangeLimit={callbacks.setLimit}
+      />
     </PageLayout>
   );
 }
