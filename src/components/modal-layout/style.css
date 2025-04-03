@@ -17,7 +17,7 @@ body:has(.ModalLayout) {
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: url('./../../assets/icon/pointer.svg'), pointer;
+  /*cursor: url('./../../assets/icon/pointer.svg'), pointer;*/
 }
 
 .ModalLayout-frame {
