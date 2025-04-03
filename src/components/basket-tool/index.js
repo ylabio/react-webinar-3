@@ -11,18 +11,20 @@ function BasketTool(props) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <button className={cn('action')} onClick={onOpen}>
-        <Cart className={cn('icon')} />
-        <span className={cn('total')}>
-          {amount
-            ? `${amount} ${plural(amount, {
-                one: 'товар',
-                few: 'товара',
-                many: 'товаров',
-              })} / ${numberFormat(sum)} ₽`
-            : `пусто`}
-        </span>
-      </button>
+      <div className={cn('container')}>
+        <button className={cn('action')} onClick={onOpen}>
+          <Cart className={cn('icon')} />
+          <span className={cn('total')}>
+            {amount
+              ? `${amount} ${plural(amount, {
+                  one: 'товар',
+                  few: 'товара',
+                  many: 'товаров',
+                })} / ${numberFormat(sum)} ₽`
+              : `пусто`}
+          </span>
+        </button>
+      </div>
     </div>
   );
 }

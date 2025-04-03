@@ -2,8 +2,10 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import Main from './main';
 import Basket from './basket';
+import AppLayout from '../components/app-layout';
 import useStore from '../store/use-store';
 import useSelector from '../store/use-selector';
+import Product from '../product';
 
 /**
  * Приложение
@@ -16,12 +18,26 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Navigate to="/page/1" replace />} />
-        <Route path="/page/:currentPage" element={
-          <>
-            <Main />
-            {activeModal === 'basket' && <Basket />}
-          </>
-        } />
+        <Route element={<AppLayout />}>
+          <Route 
+            path="/page/:currentPage" 
+            element={
+              <>
+                <Main />
+                {activeModal === 'basket' && <Basket />}
+              </>
+            } 
+          />
+          <Route
+            path="/product/:_id" 
+            element={
+              <>
+                <Product />
+                {activeModal === 'basket' && <Basket />}
+              </>
+            } 
+          />
+        </Route>
       </Routes>
     </>
   );

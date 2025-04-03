@@ -45,6 +45,10 @@ export function generatePaginatedApiUrl(baseUrl, currentPage, limit) {
   return `${baseUrl}?limit=${limit}&skip=${(currentPage - 1) * limit}&fields=items(_id, title, price),count`;
 }
 
+export function generateProductApiUrl(baseUrl, _id) {
+  return `${baseUrl}/${_id}?fields=*,madeIn(title,code),category(title)`;
+}
+
 /**
  * Генерация массива номеров страниц для пагинации с учетом текущей позиции
  * @param currentPage {Number} - Текущая страница
@@ -101,4 +105,23 @@ export function findNewPageNumber(oldPageNumber, oldLimit, newLimit) {
   const firstNumberInOldPage = (+oldPageNumber - 1) * +oldLimit + 1;
   const newPageNumber = Math.ceil(+firstNumberInOldPage / +newLimit);
   return newPageNumber;
+}
+
+async function fetchData(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Fetch error:", error);
+  }
+  return null;
+}
+
+export async function getApiData(url) {
+  const result = await fetchData(url);
+  return result;
 }

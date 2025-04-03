@@ -8,6 +8,7 @@ import List from '../../components/list';
 import Pagination from '../../components/pagination';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
+import { useAppContext } from '../../app-context';
 import { generatePaginatedApiUrl, findNewPageNumber } from '../../utils';
 import { BASE_URL } from '../../const';
 
@@ -16,17 +17,17 @@ function Main() {
   const store = useStore();
   const { currentPage } = useParams();
   const [limit, setLimit] = useState(10);
+  const { setHeaderTitle } = useAppContext();
   const navigate = useNavigate();
 
   useEffect(() => {
     store.actions.catalog.load(generatePaginatedApiUrl(BASE_URL, currentPage, limit));
+    setHeaderTitle('Магазин');
   }, [currentPage]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
     count: state.catalog.count,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
     isLoading: state.catalog.isLoading,
   }));
 
@@ -39,8 +40,6 @@ function Main() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    // Открытие модалки корзины
-    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Выбор количества отображаемых элементов на странице
     setLimit: useCallback((newLimit) => {
       const newPage = findNewPageNumber(currentPage, limit, newLimit);
@@ -60,8 +59,6 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       {select.isLoading ? 
         <div>Загрузка...</div>
         :
