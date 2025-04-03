@@ -10,12 +10,11 @@ function Pagination({ page, limit, onChange, onChangeLimit }) {
     const pages = [];
 
     if (totalPages <= 5) {
-      // Если страниц мало, просто отобразим все
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
     } else {
-      pages.push(1); // первая всегда
+      pages.push(1);
 
       if (page > 3) pages.push('...');
 
@@ -29,7 +28,7 @@ function Pagination({ page, limit, onChange, onChangeLimit }) {
 
       if (page < totalPages - 2) pages.push('...');
 
-      pages.push(totalPages); // последняя всегда
+      pages.push(totalPages);
     }
 
     return pages;

@@ -6,11 +6,12 @@ import Button from '../button';
 import './style.css';
 import { Link } from 'react-router-dom';
 import useStore from '../../store/use-store';
+import useTranslate from '../../hooks/use-translate';
 
 function ItemBasket({ item, onRemove = () => {} }) {
   const cn = bem('ItemBasket');
   const store = useStore();
-
+  const { t } = useTranslate();
   const callbacks = {
     onRemove: () => onRemove(item._id),
     onLinkClick: () => store.actions.modals.close(),
@@ -24,10 +25,12 @@ function ItemBasket({ item, onRemove = () => {} }) {
         </Link>
       </h4>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(item.amount || 0)} шт</div>
+        <div className={cn('cell')}>
+          {numberFormat(item.amount || 0)} {t('pcs')}
+        </div>
         <div className={cn('cell')}>{numberFormat(item.price)} ₽</div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title="Удалить" />
+          <Button style="delete" onClick={callbacks.onRemove} title={t('remove')} />
         </div>
       </div>
     </div>

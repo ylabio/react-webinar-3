@@ -6,6 +6,7 @@ import BasketTool from '../../components/basket-tool';
 import { numberFormat } from '../../utils';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
+import useTranslate from '../../hooks/use-translate';
 import './style.css';
 import Button from '../../components/button';
 
@@ -20,6 +21,8 @@ function Product() {
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
+
+  const { t } = useTranslate();
 
   useEffect(() => {
     const load = async () => {
@@ -41,7 +44,7 @@ function Product() {
   if (!product) {
     return (
       <PageLayout>
-        <div>Загрузка...</div>
+        <div>{t('loading')}</div>
       </PageLayout>
     );
   }
@@ -52,18 +55,18 @@ function Product() {
 
       <div className="Product-top">
         <Link to="/" className="Product-back">
-          ← Главная
+          ← {t('home')}
         </Link>
         <BasketTool inline onOpen={callbacks.openBasket} amount={select.amount} sum={select.sum} />
       </div>
 
       <div className="Product">
-        <p className="Product-description">{product.description || 'Нет описания'}</p>
+        <p className="Product-description">{product.description || t('noDescription')}</p>
 
         <div className="Product-info">
           {product.madeIn?.title && (
             <div className="Product-row">
-              <div className="Product-label">Страна производитель:</div>
+              <div className="Product-label">{t('manufacturer')}:</div>
               <div className="Product-value">
                 {product.madeIn.title} ({product.madeIn.code})
               </div>
@@ -72,25 +75,24 @@ function Product() {
 
           {product.category?.title && (
             <div className="Product-row">
-              <div className="Product-label">Категория:</div>
+              <div className="Product-label">{t('category')}:</div>
               <div className="Product-value">{product.category.title}</div>
             </div>
           )}
 
           {product.edition && (
             <div className="Product-row">
-              <div className="Product-label">Год выпуска:</div>
+              <div className="Product-label">{t('year')}:</div>
               <div className="Product-value">{product.edition}</div>
             </div>
           )}
         </div>
 
         <div className="Product-price">
-          Цена:
-          {' ' + numberFormat(product.price)} ₽
+          {t('price')}: {' ' + numberFormat(product.price)} ₽
         </div>
 
-        <Button style="primary" onClick={callbacks.addToBasket} title="Добавить" />
+        <Button style="primary" onClick={callbacks.addToBasket} title={t('add')} />
       </div>
     </PageLayout>
   );

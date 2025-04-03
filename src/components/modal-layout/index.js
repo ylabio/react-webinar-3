@@ -2,10 +2,11 @@ import { memo, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import useTranslate from '../../hooks/use-translate';
 
 function ModalLayout({ title = 'Модалка', onClose = () => {}, children }) {
   const cn = bem('ModalLayout');
-
+  const { t } = useTranslate();
   const layout = useRef();
   const frame = useRef();
   useEffect(() => {
