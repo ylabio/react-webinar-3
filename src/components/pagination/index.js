@@ -6,7 +6,7 @@ import useStore from '../../store/use-store';
 
 import Button from '../button';
 
-import { getActualPaginationArray } from '../../utils';
+import { getCurrentPaginationArray } from '../../utils';
 
 import './style.css';
 
@@ -36,7 +36,7 @@ function Pagination() {
   return select.pageCount.length ? (
     <nav className={cn()}>
       <ul className={cn('list')}>
-        {getActualPaginationArray(select.pageCount, numViewPage).map(item => {
+        {getCurrentPaginationArray(select.pageCount, numViewPage).map(item => {
           return (
             <li key={`l-item-${item.key}`}>
               {typeof item.key === 'number' ? (

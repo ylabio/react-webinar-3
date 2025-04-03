@@ -7,6 +7,15 @@
   padding: 16px 16px 15px 16px
 }
 
+.Item-link {
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    color: var(--primary);
+  }
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;

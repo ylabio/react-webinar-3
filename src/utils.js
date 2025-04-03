@@ -56,11 +56,14 @@ export const generatePagesArray = (itemCount, itemOnPage = 10) => {
  * @returns {Array}
  *
  */
-export const getActualPaginationArray = (pageArr, viewPageNumber) => {
+export const getCurrentPaginationArray = (pageArr, viewPageNumber) => {
   const leftDot = { key: 'l-dot', page: '...' };
   const rightDot = { key: 'r-dot', page: '...' };
   const firstPage = pageArr.slice(0, 1);
   const lastPage = pageArr.slice(-1);
+  const arrayLength = pageArr.length;
+
+  if (arrayLength < 6) return pageArr;
 
   if (viewPageNumber < 3) {
     let numSlice = 3;
@@ -68,9 +71,9 @@ export const getActualPaginationArray = (pageArr, viewPageNumber) => {
 
     return [...pageArr.slice(0, numSlice), rightDot, ...lastPage];
   }
-  if (viewPageNumber > pageArr.length - 4) {
+  if (viewPageNumber > arrayLength - 4) {
     let numSlice = -3;
-    if (viewPageNumber === pageArr.length - 3) numSlice = -4;
+    if (viewPageNumber === arrayLength - 3) numSlice = -4;
 
     return [...firstPage, leftDot, ...pageArr.slice(numSlice)];
   }

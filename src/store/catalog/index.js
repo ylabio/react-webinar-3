@@ -13,7 +13,8 @@ class Catalog extends StoreModule {
     return {
       list: [],
       pagesCountList: [],
-      defaultViewProductCount: 10,
+      defaultViewItems: 10,
+      itemsCount: 0,
     };
   }
 
@@ -47,6 +48,7 @@ class Catalog extends StoreModule {
         ...this.getState(),
         list: json.result.items,
         pagesCountList: generatePagesArray(this.getState().itemsCount, limit),
+        defaultViewItems: limit,
       },
       'Обновлены товары из АПИ',
     );
