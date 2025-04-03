@@ -27,7 +27,7 @@ function BasketTool(props) {
             ? `${amount} ${plural(amount, {
                 one: `${t.oneItem}`,
                 few: `${t.fewItems}`,
-                many: `${t.ManyItems}`,
+                many: `${t.manyItems}`,
               })} / ${numberFormat(sum)} ₽`
             : `${t.cartEmpty}`}
         </span>
