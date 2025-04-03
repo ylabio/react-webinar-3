@@ -1,71 +1,6 @@
-/* .pagination-figma {
-  width: 100%;
-  min-width: 1152px;
-  height: 22px;
-  display: flex;
-  gap: 10px;
-  margin: 20px 0px;
-  justify-content: space-between;
-  align-items: center;
-  box-sizing: border-box;
-}
-
-.figma-page-size {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  font-size: 14px;
-  color: #333;
-  border-radius: 2px;
-}
-
-.figma-page-size select {
-  height: 22px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-.figma-pages {
-  display: flex;
-  gap: 5px;
-}
-
-.figma-page {
-  width: 22px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background: transparent;
-  border-radius: 2px;
-  cursor: pointer;
-  font-size: 14px;
-  padding: 0;
-}
-
-.figma-page.active {
-  background-color: #6b4acb;
-  color: white;
-}
-
-.figma-page:not(.active):hover {
-  background-color: var(--divider);
-  color: #000;
-}
-
-.figma-dots {
-  display: flex;
-  align-items: center;
-  height: 22px;
-}
- */
-
-/* Основной контейнер - теперь адаптивный */
 .pagination-figma {
   width: 100%;
-  min-width: 1152px; /* Минимальная ширина как в дизайне */
+  min-width: 1152px;
   height: 22px;
   display: flex;
   justify-content: space-between;
@@ -75,7 +10,6 @@
   box-sizing: border-box;
 }
 
-/* Селектор количества элементов */
 .figma-page-size {
   display: flex;
   align-items: center;
@@ -83,8 +17,8 @@
   font-size: 16px;
   line-height: 22px;
   letter-spacing: 0;
-  white-space: nowrap; /* Запрещаем перенос текста */
-  margin-right: auto; /* Прижимаем к левому краю */
+  white-space: nowrap;
+  margin-right: auto;
 }
 
 .figma-page-size select {
@@ -96,19 +30,17 @@
   font-size: 16px;
   font-weight: 400;
   color: inherit;
-  min-width: 50px; /* Минимальная ширина селектора */
+  min-width: 50px;
 }
 
-/* Контейнер номеров страниц */
 .figma-pages {
   display: flex;
   gap: 10px;
-  margin-left: 20px; /* Фиксированный отступ от селектора */
-  flex-wrap: nowrap; /* Запрещаем перенос номеров */
+  margin-left: 20px;
+  flex-wrap: nowrap;
   overflow: visible;
 }
 
-/* Кнопки страниц */
 .figma-page {
   min-width: 22px;
   height: 22px;
@@ -125,10 +57,9 @@
   padding: 0 2px;
   color: #000;
   transition: all 0.2s ease;
-  flex-shrink: 0; /* Запрещаем сжатие */
+  flex-shrink: 0;
 }
 
-/* Неактивная страница при наведении */
 .figma-page:not(.active):hover {
   background-color: #f0f0f0;
   color: #000;
