@@ -9,7 +9,6 @@ const RenderItemDefaultProps = {
 };
 
 const RenderItem = ({ item = RenderItemDefaultProps.item, onClickAction = RenderItemDefaultProps.onClickAction, isCart = RenderItemDefaultProps.isCart }) => {
-
   if (isCart) {
     return (<ItemCart item={ item } onClickAction={ onClickAction } />)
   } else {

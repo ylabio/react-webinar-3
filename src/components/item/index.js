@@ -14,8 +14,8 @@ function Item( { item = ItemDefaultProps.item, onClickAction = ItemDefaultProps.
   const cn = bem( "Item" );
 
   const onClick = () => {
-      onClickAction( item.code );
-    };
+    onClickAction(item._id);
+  };
 
   return (
     <div className={ cn() }>
@@ -30,7 +30,7 @@ function Item( { item = ItemDefaultProps.item, onClickAction = ItemDefaultProps.
 
 Item.propTypes = {
   item: PropTypes.shape( {
-    code: PropTypes.number,
+    _id: PropTypes.string,
     title: PropTypes.string,
     price: PropTypes.number,
   } ).isRequired,

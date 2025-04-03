@@ -1,19 +1,21 @@
 import { useCallback } from "react";
 
-export function createHooks(store, setShow, setAddedItem) {
+export function createHooks(store, setShow, setAddedAnimation) {
   const baseCallbacks = {
     onDeleteItem: useCallback((code) => {
       store.clearCartProductCard(code);
     }, [store]),
 
     onAddCart: useCallback((code) => {
-      setAddedItem(true);
+      setAddedAnimation(true);
 
       store.addCartProductCard(code);
 
       setTimeout(() => {
-        setAddedItem(false);
+        setAddedAnimation(false);
       }, 300);
+
+
     }, [store]),
 
     onShowCart: useCallback(() => {

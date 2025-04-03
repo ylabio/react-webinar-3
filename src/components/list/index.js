@@ -11,6 +11,7 @@ const CartDefaultProps = {
   total: 0,
 };
 
+
 function List( {
                  list = CartDefaultProps.list,
                  renderItem,
@@ -24,7 +25,7 @@ function List( {
     <div>
       <ul className={ cn() }>
         { list.map( ( item ) => (
-          <li key={ item.code } className={ cn( "item" ) }>
+          <li key={ item._key } className={ cn( "item" ) }>
             { renderItem( { item, onClickAction, isCart } ) }
           </li>
         ) ) }

@@ -14,8 +14,9 @@ function ItemCart( { item = ItemCartDefaultProps.item, onClickAction = ItemCartD
   const cn = bem( "ItemCart" );
 
   const onClick =  () => {
-    onClickAction( item.code );
+    onClickAction( item._id );
   };
+
 
   return (
     <div className={ cn() }>
@@ -31,7 +32,7 @@ function ItemCart( { item = ItemCartDefaultProps.item, onClickAction = ItemCartD
 
 ItemCart.propTypes = {
   item: PropTypes.shape( {
-    code: PropTypes.number,
+    _id: PropTypes.string,
     title: PropTypes.string,
     count: PropTypes.number,
     total: PropTypes.number,

@@ -7,13 +7,13 @@ import { CarlSVG } from "../../icons";
 const ControlsDefaultProps = {
   label: "Пусто",
   onShowCart: () => {},
-  addedItem: false,
+  AddedAnimation: false,
 };
 
 function Controls( {
                      label = ControlsDefaultProps.label,
                      onShowCart = ControlsDefaultProps.onShowCart,
-                     addedItem = ControlsDefaultProps.addedItem,
+                     AddedAnimation = ControlsDefaultProps.AddedAnimation,
                    } ) {
 
   const cn = bem( "Controls" );
@@ -22,7 +22,7 @@ function Controls( {
 
   return (
     <div className={ cn() }>
-      <button className={ cn( "button", { selected: addedItem } ) } onClick={ onClick }>
+      <button className={ cn( "button", { selected: AddedAnimation } ) } onClick={ onClick }>
         <CarlSVG/>
         { label }
       </button>
@@ -33,7 +33,7 @@ function Controls( {
 Controls.propTypes = {
   onShowCart: PropTypes.func,
   label: PropTypes.string,
-  addedItem: PropTypes.bool,
+  AddedAnimation: PropTypes.bool,
 };
 
 export default React.memo( Controls );

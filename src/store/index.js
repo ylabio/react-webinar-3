@@ -29,6 +29,9 @@ class Store {
     this.cartManager.addCartProductCard(code);
   }
 
+  getState() {
+    return this.stateManager.getState();
+  }
   setState(newState) {
     this.stateManager.setState(newState);
   }

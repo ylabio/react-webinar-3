@@ -14,7 +14,7 @@ class CartManager {
   clearCartProductCard(code) {
     const list = this.stateManager.getState().list;
     const clonedList = list.map(item =>
-      item.code === code
+      item._id === code
         ? { ...item, count: 0, total: 0 }
         : item
     );
@@ -28,7 +28,7 @@ class CartManager {
   addCartProductCard(code) {
     const list = this.stateManager.getState().list;
     const updatedList = list.map(item => {
-      if (item.code === code) {
+      if (item._id === code) {
         return this.updateItem(item);
       }
       return item;
@@ -49,4 +49,4 @@ class CartManager {
   }
 }
 
-export { CartManager };
+export {CartManager}
