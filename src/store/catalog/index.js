@@ -29,7 +29,19 @@ class Catalog extends StoreModule {
       'Загружены товары с учетом пагинации и лимита',
     );
   }
-
+  addItem(item) {
+    const list = this.getState().list;
+    // Проверим, нет ли уже такого товара
+    if (!list.some(i => i._id === item._id)) {
+      this.setState(
+        {
+          ...this.getState(),
+          list: [...list, item],
+        },
+        'Добавлен единичный товар в каталог',
+      );
+    }
+  }
   setLimit(limit) {
     void this.load(limit, 0);
   }

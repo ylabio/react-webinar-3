@@ -7,6 +7,7 @@ import { numberFormat } from '../../utils';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import './style.css';
+import Button from '../../components/button';
 
 function Product() {
   const { id } = useParams();
@@ -25,6 +26,7 @@ function Product() {
       const response = await fetch(`/api/v1/articles/${id}`);
       const json = await response.json();
       setProduct(json.result);
+      actions.catalog.addItem(json.result);
     };
     load();
   }, [id]);
@@ -79,9 +81,7 @@ function Product() {
           {numberFormat(product.price)} ₽
         </div>
 
-        <button className="Product-button" onClick={callbacks.addToBasket}>
-          Добавить
-        </button>
+        <Button style="primary" onClick={callbacks.addToBasket} title="Добавить" />
       </div>
     </PageLayout>
   );
