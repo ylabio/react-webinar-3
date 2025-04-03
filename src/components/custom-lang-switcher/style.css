@@ -10,7 +10,7 @@
   color: var(--main-text);
   border: 1px solid var(--primary);
   border-radius: 4px;
-  cursor: pointer;
+  cursor: url('./../../assets/icon/pointer.svg'), pointer;
   transition: background 0.2s;
   user-select: none;
 }
@@ -39,6 +39,7 @@
 
 .CustomLangSwitcher-option:hover {
   background-color: var(--primary-select);
+  cursor: url('./../../assets/icon/pointer.svg'), pointer;
 }
 
 .CustomLangSwitcher-option.active {

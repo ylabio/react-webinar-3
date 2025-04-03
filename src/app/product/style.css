@@ -4,7 +4,7 @@
   align-items: flex-start;
   max-width: 1115px;
   gap: 24px;
-  padding: 0 20px;
+  /*padding: 0 20px;*/
 }
 
 .Product-top {
@@ -14,10 +14,11 @@
 }
 
 .Product-back {
-  padding-left: 20px;
+  /*padding-left: 20px;*/
   text-decoration: none;
   font-size: 16px;
   color: var(--main-text);
+  cursor: url('./../../assets/icon/pointer.svg'), pointer;
 }
 
 .Product-description,
