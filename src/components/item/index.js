@@ -4,21 +4,23 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
+import { useNavigate } from 'react-router-dom';
 
-function Item(props) {
+function Item({ item, onAdd = () => { } }) {
   const cn = bem('Item');
+  const navigate = useNavigate();
 
   const callbacks = {
-    onAdd: e => props.onAdd(props.item._id),
+    onAdd: e => onAdd(item._id),
+    itemClick: id => navigate(`/product-page/${id}`)
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <h4 className={cn('title')}>{props.item.title}</h4>
+      <h4 className={cn('title')} onClick={() => callbacks.itemClick(item._id)}>{item.title}</h4>
       <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+        <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
+        <Button style="primary" onClick={callbacks.onAdd} titleKey="addButton" />
       </div>
     </div>
   );
@@ -27,14 +29,10 @@ function Item(props) {
 Item.propTypes = {
   item: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    title: PropTypes.string,
+    titleKey: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onAdd: () => {},
 };
 
 export default memo(Item);

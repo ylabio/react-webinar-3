@@ -1,0 +1,23 @@
+.Language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.Language-switcher-item {
+    cursor: pointer;
+    transition: .3s;
+    color: var(--main-text);
+    font-size: 14px;
+}
+
+.Language-switcher-item.active {
+    font-size: 18px;
+    color: var(--primary);
+    font-weight: 900;
+}
+
+.Language-switcher-divider {
+    height: 20px;
+    border-right: 1px solid var(--main-text);
+}

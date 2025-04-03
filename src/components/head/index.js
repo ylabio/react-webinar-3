@@ -1,19 +1,25 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import LanguageSwitcher from '../language-switcher';
+import { useTranslation } from '../../store/language/use-translation';
 
-function Head({ title }) {
+function Head({ titleKey }) {
+
+  const t = useTranslation();
+
   return (
     <div className="Head">
       <div className="Head-container">
-        <h1>{title}</h1>
+        <h1>{t(titleKey)}</h1>
+        <LanguageSwitcher />
       </div>
     </div>
   );
 }
 
 Head.propTypes = {
-  title: PropTypes.node,
+  title: PropTypes.string,
 };
 
 export default memo(Head);

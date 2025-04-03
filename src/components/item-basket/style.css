@@ -7,6 +7,12 @@
   padding: 16px 16px 15px 16px
 }
 
+.ItemBasket-title:hover {
+  cursor: pointer;
+  transition: .3s;
+  color: var(--primary);
+}
+
 .ItemBasket-right {
   display: flex;
   justify-content: flex-end;

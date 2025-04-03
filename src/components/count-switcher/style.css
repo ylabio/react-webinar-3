@@ -1,0 +1,23 @@
+.Count-switcher {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    font-weight: 600;
+    font-family: var(--second-font-family);
+}
+
+.Count-switcher-select {
+    width: 70px;
+    outline: none;
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+    padding-block: 5px;
+
+    font-weight: 600;
+    font-family: var(--second-font-family);
+}
+
+.Count-switcher-select-item {
+    text-align: center;
+}
