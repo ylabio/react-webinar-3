@@ -15,7 +15,18 @@ class Catalog extends StoreModule {
       currentPage: 1, // текущая стараница
       pageSize: 10, // кол-во элементов по умолчанию
       availableSizes: this.PAGE_SIZES,
+      currentProduct: null,
     };
+  }
+
+  async loadProduct(id) {
+    const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title),description,edition`);
+    const json = await response.json();
+    
+    this.setState({
+      ...this.getState(),
+      currentProduct: json.result,
+    }, `Загружен товар ${id}`);
   }
 
   async load(page = this.getState().currentPage) {
