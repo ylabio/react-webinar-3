@@ -1,0 +1,11 @@
+.active {
+  background-color: var(--primary); /* Цвет фона активной страницы */
+  color: white; /* Цвет текста активной страницы */
+}
+
+.Pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  list-style-type: none;
+}

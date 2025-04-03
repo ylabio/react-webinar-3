@@ -18,6 +18,13 @@ class ArticleService {
     }
     return this.apiClient.get('/api/v1/articles', params);
   }
+
+  //запрос к API для получения общего количества элементов.
+  async getTotalItems() {
+    const response = await this.apiClient.get('/api/v1/articles');
+    return response.result.items.length * 25;
+  }
+
   // Метод getArticleById получает товар по ID с возможностью указания полей.
   async getArticleById(articleId, fields = null) {
     const params = {};
@@ -29,3 +36,8 @@ class ArticleService {
 }
 
 export {ArticleService}
+
+// async getTotalItems() {
+//   const response = await this.apiClient.get('/api/v1/articles/count');
+//   return response.data.count;
+// }
