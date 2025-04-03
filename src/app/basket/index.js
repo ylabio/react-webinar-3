@@ -1,13 +1,16 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router';
+import BasketTotal from '../../components/basket-total';
 import ItemBasket from '../../components/item-basket';
 import List from '../../components/list';
 import ModalLayout from '../../components/modal-layout';
-import BasketTotal from '../../components/basket-total';
-import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
+import useStore from '../../store/use-store';
 
 function Basket() {
   const store = useStore();
+  const location = useLocation();
+  const prevPathname = useRef(location.pathname);
 
   const select = useSelector(state => ({
     list: state.basket.list,
@@ -21,6 +24,14 @@ function Basket() {
     // Закрытие любой модалки
     closeModal: useCallback(() => store.actions.modals.close(), [store]),
   };
+
+  useEffect(() => {
+    const currentPathname = location.pathname;
+    if (currentPathname !== prevPathname.current) {
+      callbacks.closeModal();
+      prevPathname.current = currentPathname;
+    }
+  }, [location.pathname, callbacks.closeModal]);
 
   const renders = {
     itemBasket: useCallback(

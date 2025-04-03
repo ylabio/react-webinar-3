@@ -1,16 +1,21 @@
-import { memo } from 'react';
-import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import { numberFormat, plural } from '../../utils';
+import PropTypes from 'prop-types';
+import { memo } from 'react';
+import { NavLink } from 'react-router';
 import Cart from '../../assets/icon/cart.svg';
+import { numberFormat, plural } from '../../utils';
 import './style.css';
 
 function BasketTool(props) {
   const { onOpen = () => {}, sum = 0, amount = 0 } = props;
 
   const cn = bem('BasketTool');
+
   return (
     <div className={cn()}>
+      <NavLink className={cn('nav')} to="/" end>
+        Главная
+      </NavLink>
       <button className={cn('action')} onClick={onOpen}>
         <Cart className={cn('icon')} />
         <span className={cn('total')}>

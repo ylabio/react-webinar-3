@@ -1,6 +1,7 @@
 import { cn as bem } from '@bem-react/classname';
 import { default as propTypes, default as PropTypes } from 'prop-types';
 import { memo } from 'react';
+import { Link } from 'react-router';
 import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
@@ -14,7 +15,9 @@ function ItemBasket({ item, onRemove = () => {} }) {
 
   return (
     <div className={cn()}>
-      <h4 className={cn('title')}>{item.title}</h4>
+      <Link to={`${item._id}`} className={cn('link')}>
+        <h4 className={cn('title')}>{item.title}</h4>
+      </Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(item.amount || 0)} шт</div>
         <div className={cn('cell')}>{numberFormat(item.price)} ₽</div>
