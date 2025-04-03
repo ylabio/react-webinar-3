@@ -15,7 +15,7 @@ function Item({ item, onAdd = () => {} }) {
 
   return (
     <div className={cn()}>
-      <Link to={`${item._id}`} className={cn('link')}>
+      <Link to={`items/${item._id}`} className={cn('link')}>
         <h4 className={cn('title')}>{item.title}</h4>
       </Link>
 

@@ -15,7 +15,7 @@ function App() {
     <>
       <Routes>
         <Route index element={<Main />} />
-        <Route path="/:itemId" element={<ItemPage />} />
+        <Route path="items/:itemId" element={<ItemPage />} />
         <Route path="*" element={<div>404</div>} />
       </Routes>
 
