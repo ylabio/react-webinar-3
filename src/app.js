@@ -14,7 +14,7 @@ import ModalBody from './components/modal-body';
  */
 function App({ store }) {
   const list = store.getState().list;
-  const cartList = store.getState().cartList;
+  const { cartList, sum, count } = store.getState().cart;
 
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -45,7 +45,7 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Cart cartList={cartList} openModal={openModal} />
+      <Cart count={count} sum={sum} openModal={openModal} />
       <List
         list={list}
         onAddItemInCart={callbacks.onAddItemInCart}
@@ -54,7 +54,7 @@ function App({ store }) {
         <ModalLayout closeModal={closeModal} cartList={cartList}>
           <ModalHead title="Корзина" closeModal={closeModal} />
           <ModalBody>
-            <List list={cartList} isModalOpen={isModalOpen} onDeleteItem={callbacks.onDeleteItem} />
+            <List list={cartList} sum={sum} isModalOpen={isModalOpen} onDeleteItem={callbacks.onDeleteItem} />
           </ModalBody>
         </ModalLayout>
       }

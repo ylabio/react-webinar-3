@@ -5,9 +5,8 @@ import { generateCode } from './utils';
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {...initState, cart: { cartList: [], count: 0, sum: 0 }};
     this.listeners = []; // Слушатели изменений состояния
-    this.state.cartList = initState.cartList || [];
   }
 
   /**
@@ -44,18 +43,28 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItemInCart(item) {
-    const itemInCart = this.state.cartList.find(currItem => currItem.code === item.code);
+  addItemInCart(code) {
+    const itemInCart = this.state.cart.cartList.find(currItem => currItem.code === code);
+    const itemInList = this.state.list.find(currItem => currItem.code === code);
     if (itemInCart) {
       this.setState({
         ...this.state,
-        cartList: this.state.cartList.map((currItem) => 
-          currItem.code === item.code ? { ...currItem, count: currItem.count + 1 } : currItem)
+        cart: {
+          ...this.state.cart,
+          cartList: this.state.cart.cartList.map((currItem) => 
+            currItem.code === code ? { ...currItem, count: currItem.count + 1 } : currItem),
+          sum: this.state.cart.sum + itemInList.price,
+        }
       })
     } else {
       this.setState({
         ...this.state,
-        cartList: [...this.state.cartList, { ...item, count: 1 }]
+        cart: {
+          ...this.state.cart,
+          cartList: [...this.state.cart.cartList, { ...itemInList, count: 1 }],
+          sum: this.state.cart.sum + itemInList.price,
+          count: this.state.cart.count + 1,
+        }
       });
     }
   }
@@ -65,10 +74,16 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const itemInCart = this.state.cart.cartList.find(currItem => currItem.code === code);
     this.setState({
       ...this.state,
+      cart: {
+        ...this.state.cart,
+        cartList: this.state.cart.cartList.filter(item => item.code !== code),
+        count: this.state.cart.count - 1,
+        sum: this.state.cart.sum - itemInCart.count * itemInCart.price,
+      }
       // Новый список, в котором не будет удаляемой записи
-      cartList: this.state.cartList.filter(item => item.code !== code),
     });
   }
 }

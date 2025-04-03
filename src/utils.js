@@ -20,9 +20,6 @@ export function formatPrice(value, style = "currency", currency = "RUB", trailin
   return Intl.NumberFormat(locale, { style, currency, trailingZeroDisplay }).format(value);
 }
 
-export function getTotalPrice(list = []) {
-  return list.reduce((totalPrice, item) => totalPrice + item.count * item.price, 0);
-}
 
 
 /**

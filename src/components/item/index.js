@@ -8,7 +8,7 @@ function Item({ item, onAddItem = () => {}, onDelete = () => {} }) {
   const callbacks = {
     onAddItem: e => {
       e.stopPropagation();
-      onAddItem(item);
+      onAddItem(item.code);
     },
     onDelete: e => {
       e.stopPropagation();

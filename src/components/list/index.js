@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Item from '../item';
 import './style.css';
-import { formatPrice, getTotalPrice } from '../../utils';
+import { formatPrice } from '../../utils';
 
 
-function List({ list, isModalOpen = false, onDeleteItem = () => {}, onAddItemInCart = () => {} }) {
+function List({ list, sum, isModalOpen = false, onDeleteItem = () => {}, onAddItemInCart = () => {} }) {
   return (
     <>
     <ul className='List'>
@@ -19,7 +19,7 @@ function List({ list, isModalOpen = false, onDeleteItem = () => {}, onAddItemInC
       <div className='List-total'>
         <div className='List-total-info'>
           <p>Итого:</p>
-          <p>{formatPrice(getTotalPrice(list))}</p>
+          <p>{formatPrice(sum)}</p>
         </div>
       </div>
     )}

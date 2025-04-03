@@ -1,32 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import { plural, formatPrice, getTotalPrice } from '../../utils';
+import { plural, formatPrice } from '../../utils';
 
-function Cart({ cartList, openModal = () => {} }) {
+function Cart({ count, sum, openModal = () => {} }) {
   return (
     <div className="Cart">
       <button onClick={openModal}>{
-      cartList.length === 0 ?
+      count === 0 ?
       'Пусто' : 
-      `${cartList.length} ${plural(cartList.length, {
+      `${count} ${plural(count, {
         one: 'товар',
         few: 'товара',
         many: 'товаров',
-      })} / ${formatPrice(getTotalPrice(cartList))}`
+      })} / ${formatPrice(sum)}`
     }</button>
     </div>
   );
 }
 
 Cart.propTypes = {
-  cartList: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number,
-      title: PropTypes.string,
-      price: PropTypes.number,
-      count: PropTypes.number,
-    })).isRequired,
+  count: PropTypes.number,
+  sum: PropTypes.number,
   openModal: PropTypes.func,
 };
 
