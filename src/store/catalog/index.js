@@ -32,10 +32,10 @@ class Catalog extends StoreModule {
 
   async getItems(params = {}) {
     const {
-      lang = 'ru',
       currentPage = this.store.getState().catalog.currentPage,
       pageSize = this.store.getState().catalog.pageSize,
     } = params;
+    const lang = this.store.getState().language.currentLanguage;
     const skip = (currentPage - 1) * pageSize;
     const response = await fetch(`/api/v1/articles?limit=${pageSize}&skip=${skip}&lang=${lang}`);
     const json = await response.json();
@@ -50,7 +50,8 @@ class Catalog extends StoreModule {
     );
   }
 
-  async getItemInfoById(itemId, lang = 'en') {
+  async getItemInfoById(itemId) {
+    const lang = this.store.getState().language.currentLanguage;
     const response = await fetch(
       `/api/v1/articles/${itemId}?fields=title,description,price,edition,madeIn(title,code),category(title)&lang=${lang}`,
     );

@@ -7,14 +7,10 @@ import PageLayout from '../../components/page-layout';
 import Pagination from '../../components/pagination';
 import useSelector from '../../store/use-selector';
 import useStore from '../../store/use-store';
+import { translations } from '../../utils/translations';
 
 function Main() {
   const store = useStore();
-
-  useEffect(() => {
-    store.actions.catalog.getItemsCount();
-    store.actions.catalog.getItems();
-  }, []);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -23,7 +19,16 @@ function Main() {
     pageSize: state.catalog.pageSize,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    lang: state.language.currentLanguage,
   }));
+
+  useEffect(() => {
+    store.actions.catalog.getItemsCount();
+  }, []);
+
+  useEffect(() => {
+    store.actions.catalog.getItems();
+  }, [select.lang]);
 
   const callbacks = {
     // Добавление в корзину
@@ -38,7 +43,7 @@ function Main() {
           pageSize: select.pageSize,
         });
       },
-      [store, select.pageSize],
+      [store, select.pageSize, select.lang],
     ),
     // Изменение количества товаров на странице
     onPageSizeChange: useCallback(
@@ -49,7 +54,7 @@ function Main() {
           pageSize: newPageSize,
         });
       },
-      [store, select.pageSize],
+      [store, select.pageSize, select.lang],
     ),
   };
 
@@ -62,9 +67,11 @@ function Main() {
     ),
   };
 
+  const t = translations[select.lang] || translations.ru;
+
   return (
     <PageLayout>
-      <Head title="Магазин" />
+      <Head title={t.headTitle} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
       <Pagination

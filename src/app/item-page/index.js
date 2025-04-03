@@ -18,15 +18,16 @@ function ItemPage() {
     };
   }, []);
 
-  useEffect(() => {
-    store.actions.catalog.getItemInfoById(itemId);
-  }, [itemId]);
-
   const select = useSelector(state => ({
     item: state.catalog.selectedItem,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    lang: state.language.currentLanguage,
   }));
+
+  useEffect(() => {
+    store.actions.catalog.getItemInfoById(itemId);
+  }, [itemId, select.lang]);
 
   const callbacks = {
     // Добавление в корзину
