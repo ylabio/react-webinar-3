@@ -10,11 +10,46 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
+      page: 1,
+      count: 0,
+      limit: 10,
     };
   }
 
-  async load() {
-    const response = await fetch('/api/v1/articles');
+  setPage(page) {
+    this.setState(
+      {
+        ...this.getState(),
+        page: page,
+      },
+      'Выбрана страница пагинации'
+    );
+  }
+
+  setLimit(limit) {
+    this.setState(
+      {
+        ...this.getState(),
+        limit: limit,
+      },
+      'Выбрано число отображаемых на 1 странице товаров'
+    );
+  }
+
+  async getCount() {
+    const response = await fetch(`/api/v1/articles?fields=items(),count`);
+    const json = await response.json();
+    this.setState(
+      {
+        ...this.getState(),
+        count: json.result.count,
+      },
+      'Загружено количество товаров из АПИ',
+    );
+  }
+
+  async load(page, limit) {
+    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${page*limit}`);
     const json = await response.json();
     this.setState(
       {

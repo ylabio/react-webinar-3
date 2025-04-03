@@ -33,3 +33,19 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function getPages(page, count, limit) {
+  count = Math.ceil(count/limit) - 1;
+if ( page === 1 || page === 2) {
+  return [1, 2, 3, "...", count];
+} else if ( page === 3 ) {
+  return [1, 2, 3, 4, "...", count];
+} else if ( page > 3 && page < count - 2 ) {
+  return [1, "...", page - 1, page, page + 1, "...", count]
+} else if ( page === count - 2 ) {
+  return [1, "...", count - 3, count - 2, count - 1, count]
+} else if ( page === count - 1 || page === count )
+{
+  return [1, "...", count - 2, count - 1, count]
+}
+}

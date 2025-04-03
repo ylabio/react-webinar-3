@@ -1,8 +1,9 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
 import Main from './main';
 import Basket from './basket';
-import useStore from '../store/use-store';
+import Article from './article';
 import useSelector from '../store/use-selector';
+import { Routes, Route } from 'react-router-dom';
+import NotFound from '../components/not-found';
 
 /**
  * Приложение
@@ -12,10 +13,17 @@ function App() {
   const activeModal = useSelector(state => state.modals.name);
 
   return (
+
     <>
-      <Main />
+    <Routes>
+     <Route path="" element={<Main />} />
+     <Route path="a" element={<Article />} />
+     <Route path="*" element={<NotFound />} />
+     </Routes>
       {activeModal === 'basket' && <Basket />}
+
     </>
+
   );
 }
 
