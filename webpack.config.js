@@ -51,6 +51,14 @@ if (process.env.NODE_ENV === 'development') {
     static: path.join(__dirname, 'dist'),
     port: 8010,
     historyApiFallback: true,
+    proxy: [
+      {
+        context: ['/api/**'], // Указываем, что проксируем только запросы на /api
+        target: 'http://query.rest', // Целевой сервер
+        changeOrigin: true, // Это изменит заголовок Origin на target, который является http://query.rest
+        secure: false, // Если у вас самоподписанный сертификат, нужно указать false
+      },
+    ],
   };
 }
 
