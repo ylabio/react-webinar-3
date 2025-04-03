@@ -1,9 +1,11 @@
-import React from "react";
+import React, {memo} from "react";
 import PropTypes from 'prop-types';
 import './style.css';
+import { cn as bem } from '@bem-react/classname'
 
 
 function PaginationButtons ({totalPages, aroundPages = 1 , currentPage , onChangePage = ()=>{},}){
+    const cn = bem("Pagination")
     const generateButtons = () =>{
         const pages = [];
         pages.push(1);
@@ -26,10 +28,10 @@ function PaginationButtons ({totalPages, aroundPages = 1 , currentPage , onChang
 
     return(
         <div>
-            <ul className="Pagination">
+            <ul className={cn()}>
             {pages.map((page, index) => (
                 <li key={index}>
-                    {(page === '...' ) ? (<span className="Pagination-dots">...</span>) : 
+                    {(page === '...' ) ? (<span className={cn("dots")}>...</span>) : 
                     (<button value={page} onClick={onChangePage} disabled={page === currentPage} className={`Pagination-item ${page === currentPage ? 'active' : ''}`}>{page}</button>) }
                 </li>
             ))}
@@ -39,12 +41,10 @@ function PaginationButtons ({totalPages, aroundPages = 1 , currentPage , onChang
 }
 
 PaginationButtons.propTypes = {
-  item: PropTypes.shape({
     totalPages: PropTypes.number,
     aroundPages: PropTypes.number,
     currentPage: PropTypes.number,
-}).isRequired,
   onChangePage: PropTypes.func,
 };
 
-export default PaginationButtons
+export default memo(PaginationButtons)

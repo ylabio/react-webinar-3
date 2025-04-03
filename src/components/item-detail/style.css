@@ -1,0 +1,37 @@
+.ItemDetail{
+    font-family: var(--font-family);
+    font-size: 16px;
+
+}
+
+.ItemDetail span {
+    font-weight: 700;
+}
+
+.ItemDetail-details{
+    margin-bottom: 24px;
+}
+
+.ItemDetail-item {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.ItemDetail-label {
+    font-weight: 500;
+    color: #444;
+    min-width: 190px;
+    margin-bottom: 0;
+}
+
+.ItemDetail-value {
+    font-size: 15px;
+    color: #222;
+}
+
+.ItemDetail-price{
+    font-family: var(--second-font-family);
+    line-height: 32px;
+}

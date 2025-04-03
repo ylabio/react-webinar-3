@@ -1,0 +1,28 @@
+.Changer{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    font-size:16px;
+}
+
+.Changer-show{
+    font-family: var(--second-font-family);
+    font-weight: 600;
+   
+}
+
+.Changer-select{
+    font-family: var(--second-font-family);
+    background-color: transparent;
+    width: 40px;
+    height: 22px;
+    text-align: center;
+    border: 1px solid;
+    border-radius: 2px;
+    cursor: inherit;
+    background: var(--primary);
+    border-color: var(--background);
+    color: var(--background);
+    
+}
+

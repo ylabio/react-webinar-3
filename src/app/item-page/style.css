@@ -1,0 +1,25 @@
+.ItemPage-main{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.ItemPage-main a {
+    text-decoration: none;
+    color: var(--main-text);
+    &:hover{
+        text-decoration: underline;
+
+    }
+}
+
+.ItemPage-main a:visited {
+    text-decoration: none;
+    color: var(--main-text);
+    &:hover{
+        color: var(--primary);
+        text-decoration: underline;
+    }
+}
+

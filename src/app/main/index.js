@@ -7,15 +7,18 @@ import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
+import { messages } from '../../messages';
 
-function Main() {
+function Main({children}) {
   const store = useStore();
-
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    lang: state.inter.lang,
   }));
+
+  const headerMessage= messages[select.lang].header;
 
   const callbacks = {
     // Добавление в корзину
@@ -34,12 +37,13 @@ function Main() {
   };
 
   return (
-    <PageLayout>
-      <Head title="Магазин" />
+    <>
+      <Head title={headerMessage} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
       <Pagination/>
-    </PageLayout>
+      {children}
+    </>
   );
 }
 
