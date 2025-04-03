@@ -7,9 +7,11 @@ import BasketTool from '../../components/basket-tool';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Button from '../../components/button';
+import useTranslate from '../../hooks/useTranslate';
 import './style.css';
 
 function ProductPage() {
+  const t = useTranslate();
   const { id } = useParams();
   const store = useStore();
 
@@ -42,25 +44,25 @@ function ProductPage() {
         
         <div className="ProductPage-details">
           <div className="ProductPage-detail">
-            <span>Страна производитель: </span>
+            <span>{t('country')}: </span>
             <strong>{select.product.madeIn?.title} ({select.product.madeIn?.code})</strong>
           </div>
           <div className="ProductPage-detail">
-            <span>Категория: </span>
+            <span>{t('category')}: </span>
             <strong>{select.product.category?.title}</strong>
           </div>
           <div className="ProductPage-detail">
-            <span>Год выпуска: </span>
-            <strong>{select.product.edition ||'Не указан'}</strong>
+            <span>{t('year')}: </span>
+            <strong>{select.product.edition ||t('not_specified')}</strong>
           </div>
         </div>
         
         <div className="ProductPage-price">
-          <span>Цена: </span>
+          <span>{t('price')}: </span>
           <strong>{numberFormat(select.product.price)} ₽</strong>
         </div>
         
-        <Button style="primary" onClick={callbacks.addToBasket} title="Добавить" />
+        <Button style="primary" onClick={callbacks.addToBasket} title={t('add')} />
       </div>
     </PageLayout>
   );

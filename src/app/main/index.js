@@ -7,9 +7,11 @@ import List from '../../components/list';
 import Pagination from '../../components/pagination';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
+import useTranslate from '../../hooks/useTranslate';
 
 function Main() {
   const store = useStore();
+  const t = useTranslate();
 
   useEffect(() => {
     store.actions.catalog.load();
@@ -46,7 +48,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
+      <Head title={t('shop')} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
       {select.count > 0 && ( //показ только при наличии товаров

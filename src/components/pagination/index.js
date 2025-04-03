@@ -1,10 +1,12 @@
 import { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
+import useTranslate from '../../hooks/useTranslate';
 import './style.css';
 
 function Pagination({ currentPage, totalPages, onPageChange, pageSize, onPageSizeChange, availableSizes }) {
   const cn = bem('Pagination');
+  const t = useTranslate();
 
   const handlePageClick = useCallback((page) => {
     if (page !== currentPage) {
@@ -98,7 +100,7 @@ function Pagination({ currentPage, totalPages, onPageChange, pageSize, onPageSiz
   return (
     <div className={cn()}>
       <div className={cn('page-size-selector')}>
-        <span className={cn('page-size-label')}>Показывать по:</span>
+        <span className={cn('page-size-label')}>{t('show')}</span>
         <select 
           className={cn('page-size-select')} 
           value={pageSize} 
