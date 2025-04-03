@@ -23,7 +23,9 @@ function Product() {
 
   useEffect(() => {
     const load = async () => {
-      const response = await fetch(`/api/v1/articles/${id}`);
+      const response = await fetch(
+        `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`,
+      );
       const json = await response.json();
       setProduct(json.result);
       actions.catalog.addItem(json.result);
@@ -58,27 +60,34 @@ function Product() {
       <div className="Product">
         <p className="Product-description">{product.description || 'Нет описания'}</p>
 
-        {product.manufacturer?.title && (
-          <div className="Product-field">
-            Страна производитель: <strong>{product.manufacturer.title}</strong>
-          </div>
-        )}
+        <div className="Product-info">
+          {product.madeIn?.title && (
+            <div className="Product-row">
+              <div className="Product-label">Страна производитель:</div>
+              <div className="Product-value">
+                {product.madeIn.title} ({product.madeIn.code})
+              </div>
+            </div>
+          )}
 
-        {product.category?.title && (
-          <div className="Product-field">
-            Категория: <strong>{product.category.title}</strong>
-          </div>
-        )}
+          {product.category?.title && (
+            <div className="Product-row">
+              <div className="Product-label">Категория:</div>
+              <div className="Product-value">{product.category.title}</div>
+            </div>
+          )}
 
-        {product.year && (
-          <div className="Product-field">
-            Год выпуска: <strong>{product.year}</strong>
-          </div>
-        )}
+          {product.edition && (
+            <div className="Product-row">
+              <div className="Product-label">Год выпуска:</div>
+              <div className="Product-value">{product.edition}</div>
+            </div>
+          )}
+        </div>
 
         <div className="Product-price">
-          <strong>Цена: </strong>
-          {numberFormat(product.price)} ₽
+          Цена:
+          {' ' + numberFormat(product.price)} ₽
         </div>
 
         <Button style="primary" onClick={callbacks.addToBasket} title="Добавить" />

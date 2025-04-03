@@ -4,8 +4,7 @@
   align-items: flex-start;
   max-width: 1115px;
   margin: 0 auto;
-  gap: 16px;
-  padding: 20px;
+  gap: 24px;
 }
 
 .Product-top {
@@ -26,6 +25,12 @@
 .Product-price {
   width: 100%;
   font-size: 16px;
+  margin: 0;
+}
+
+.Product-price {
+  font-weight: 700;
+  font-size: 24px;
 }
 
 .Product-button {
@@ -34,3 +39,27 @@
   cursor: pointer;
   color: var(--primary);
 }
+.Product-info {
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+  gap: 8px;
+}
+
+.Product-row {
+  display: flex;
+  align-items: baseline;
+}
+
+.Product-label {
+  width: 185px;
+  font-size: 16px;
+  font-weight: 400
+}
+
+.Product-value {
+  font-weight: 700;
+  font-size: 16px;
+  padding-left: 8px;
+}
+
