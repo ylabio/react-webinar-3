@@ -1,0 +1,30 @@
+.Cart {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 0;
+}
+
+.Cart button {
+  border: 1px solid var(--primary);
+  padding: 8px 16px 8px 48px;
+  height: 40px;
+  background-color: var(--background);
+  color: var(--main-text);
+  position: relative;
+
+  &:hover {
+    background-color: var(--background);
+    color: var(--primary);
+  }
+}
+
+.Cart button::before {
+  content: "";
+  background-image: url('../../assets/fluent_cart-16-filled.svg');
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+}

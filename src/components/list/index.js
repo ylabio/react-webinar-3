@@ -2,16 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Item from '../item';
 import './style.css';
+import { formatPrice } from '../../utils';
 
-function List({ list, onDeleteItem, onSelectItem }) {
+
+function List({ list, sum, isModalOpen = false, onDeleteItem = () => {}, onAddItemInCart = () => {} }) {
   return (
-    <ul className="List">
-      {list.map(item => (
-        <li key={item.code} className="List-item">
-          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem} />
+    <>
+    <ul className='List'>
+      {list?.map(item => (
+        <li key={item.code} className='List-item'>
+          <Item item={item} onAddItem={onAddItemInCart} onDelete={onDeleteItem} />
         </li>
       ))}
     </ul>
+    {isModalOpen && (
+      <div className='List-total'>
+        <div className='List-total-info'>
+          <p>Итого:</p>
+          <p>{formatPrice(sum)}</p>
+        </div>
+      </div>
+    )}
+    </>
   );
 }
 
@@ -22,12 +34,9 @@ List.propTypes = {
     }),
   ).isRequired,
   onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func,
+  onAddItemInCart: PropTypes.func,
+  isModalOpen: PropTypes.bool,
 };
 
-List.defaultProps = {
-  onDeleteItem: () => {},
-  onSelectItem: () => {},
-};
 
 export default React.memo(List);

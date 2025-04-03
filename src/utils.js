@@ -16,6 +16,12 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   return variants[key] || '';
 }
 
+export function formatPrice(value, style = "currency", currency = "RUB", trailingZeroDisplay = "stripIfInteger", locale = "ru-RU" ) {
+  return Intl.NumberFormat(locale, { style, currency, trailingZeroDisplay }).format(value);
+}
+
+
+
 /**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.

@@ -1,0 +1,20 @@
+.Modal-head {
+  display: flex;
+  justify-content: space-between;
+  color: var(--main-text);
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.Modal-head h1 {
+  margin: 0;
+}
+
+.Modal-close {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  right: 10px;
+  top: 10px;
+  background-image: url('../../assets/Cancel.svg');
+}

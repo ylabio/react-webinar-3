@@ -7,8 +7,8 @@
   padding: 16px;
 }
 
-.Item_selected {
-  background-color: var(--primary-select);
+.Item p {
+  margin: 0;
 }
 
 .Item-title {
@@ -20,7 +20,36 @@
   justify-content: flex-end;
 }
 
-.Item-actions button {
+.Item-price {
+  padding: 9px 24px;
+}
+
+.Item-Add{
+  background-color: var(--primary);
+  color: var(--second-text);
+  padding: 8px 16px;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}
+
+.Item-actions-cart {
+  display: flex;
+  justify-content: flex-end;
+  width: 363px;
+}
+
+.Item-info {
+  display: flex;
+  padding: 9px 24px 9px 0;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.Item-delete {
   background-color: var(--delete);
   color: var(--second-text);
   padding: 8px 16px;

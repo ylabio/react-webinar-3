@@ -14,3 +14,20 @@
   border-bottom: 1px solid var(--divider);
   cursor: pointer;
 }
+
+.List-total {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: 700;
+  padding: 16px 145px 16px 653px;
+}
+
+.List-total-info {
+  display: flex;
+  justify-content: space-between;
+  width: 234px;
+}
+
+.List-total p {
+  margin: 0;
+}

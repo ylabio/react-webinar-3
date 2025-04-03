@@ -5,7 +5,7 @@ import { generateCode } from './utils';
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {...initState, cart: { cartList: [], count: 0, sum: 0 }};
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -43,11 +43,30 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
+  addItemInCart(code) {
+    const itemInCart = this.state.cart.cartList.find(currItem => currItem.code === code);
+    const itemInList = this.state.list.find(currItem => currItem.code === code);
+    if (itemInCart) {
+      this.setState({
+        ...this.state,
+        cart: {
+          ...this.state.cart,
+          cartList: this.state.cart.cartList.map((currItem) => 
+            currItem.code === code ? { ...currItem, count: currItem.count + 1 } : currItem),
+          sum: this.state.cart.sum + itemInList.price,
+        }
+      })
+    } else {
+      this.setState({
+        ...this.state,
+        cart: {
+          ...this.state.cart,
+          cartList: [...this.state.cart.cartList, { ...itemInList, count: 1 }],
+          sum: this.state.cart.sum + itemInList.price,
+          count: this.state.cart.count + 1,
+        }
+      });
+    }
   }
 
   /**
@@ -55,32 +74,16 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const itemInCart = this.state.cart.cartList.find(currItem => currItem.code === code);
     this.setState({
       ...this.state,
+      cart: {
+        ...this.state.cart,
+        cartList: this.state.cart.cartList.filter(item => item.code !== code),
+        count: this.state.cart.count - 1,
+        sum: this.state.cart.sum - itemInCart.count * itemInCart.price,
+      }
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
     });
   }
 }
