@@ -24,12 +24,14 @@ export function codeGenerator(start = 0) {
   return () => ++start;
 }
 
+const defaultOptions = { style: 'currency', currency: 'RUB' };
+
 /**
  * Форматирование разрядов числа
  * @param value {Number}
  * @param options {Object}
  * @returns {String}
  */
-export function numberFormat(value, locale = 'ru-RU', options = {}) {
+export function numberFormat(value, locale = 'ru-RU', options = defaultOptions) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
