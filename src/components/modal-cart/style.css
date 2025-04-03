@@ -1,7 +1,5 @@
 .ModalCart {
-  max-height: 375px;
   overflow: hidden;
-  overflow-y: auto;
 }
 
 .ModalCart-space {
@@ -11,9 +9,8 @@
 
 .ModalCart-footer {
   box-sizing: border-box;
-  margin-right: 145px;
-  padding: 16px 0;
-  /*width: 250px;*/
+  /* margin-right: 145px; */
+  /* padding: 16px 0; */
   display: flex;
   align-content: center;
   justify-content: end;
@@ -22,6 +19,7 @@
 .ModalCart-bold_span {
   margin: 0;
   padding: 0;
+  width: 120px;
   color: #000;
   font-size: 18px;
   font-style: normal;
@@ -30,5 +28,9 @@
 }
 
 .ModalCart-bold_span.price {
-  margin-left: 25px;
+  /* margin-left: 25px; */
+}
+
+.ModalCart-footer_empty {
+  width: 127px;
 }

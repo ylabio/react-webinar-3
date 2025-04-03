@@ -40,28 +40,27 @@ function App({ store }) {
       [store],
     ),
 
-    getCartPrice: useCallback(
-      () => {
-        store.getCartPrice();
-      },
-      [store],
-    ),
+    getCartPrice: useCallback(() => {
+      store.getCartPrice();
+    }, [store]),
   };
 
   return (
     <PageLayout>
       <Head title="Приложение на React" />
       <Controls store={store} onModalOpen={() => setIsModalOpen(true)} />
-      <List list={list} onClickItem={callbacks.onAddItem} btnName='Добавить'/>
-      <Modal title="Корзина" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <ModalCart store={store} onClick={callbacks.onDeleteItem} />
-      </Modal>
+      <List list={list} onClickItem={callbacks.onAddItem} btnName="Добавить" />
+      {isModalOpen && (
+        <Modal title="Корзина" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <ModalCart store={store} onClick={callbacks.onDeleteItem} />
+        </Modal>
+      )}
     </PageLayout>
   );
 }
 
 App.propTypes = {
-  store: PropTypes.object.isRequired
+  store: PropTypes.object.isRequired,
 };
 
 export default App;
