@@ -8,22 +8,22 @@ import Button from '../button';
 import useTranslate from '../../hooks/useTranslate';
 import './style.css';
 
-function ItemBasket(props) {
+function ItemBasket({ item, onRemove = () => {} }) {
   const cn = bem('ItemBasket');
   const t = useTranslate();
 
   const callbacks = {
-    onRemove: e => props.onRemove(props.item._id),
+    onRemove: e => onRemove(item._id),
   };
 
   return (
     <div className={cn()}>
-      <Link to={`/product/${props.item._id}`} className={cn('title')}>
-        <h4>{props.item.title}</h4>
+      <Link to={`/product/${item._id}`} className={cn('title')}>
+        <h4>{item.title}</h4>
       </Link>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {t('pieces')}</div>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
+        <div className={cn('cell')}>{numberFormat(item.amount || 0)} {t('pieces')}</div>
+        <div className={cn('cell')}>{numberFormat(item.price)} ₽</div>
         <div className={cn('cell')}>
           <Button style="delete" onClick={callbacks.onRemove} title={t('remove')} />
         </div>
@@ -40,10 +40,6 @@ ItemBasket.propTypes = {
     amount: PropTypes.number,
   }).isRequired,
   onRemove: propTypes.func,
-};
-
-ItemBasket.defaultProps = {
-  onRemove: () => {},
 };
 
 export default memo(ItemBasket);
