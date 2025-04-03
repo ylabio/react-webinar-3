@@ -4,7 +4,7 @@
   align-items: center;
   gap: 16px;
   transition: background-color 1s;
-  padding: 16px 16px 15px 16px
+  padding: 16px 16px 15px 16px;
 }
 
 .Item-actions {
@@ -13,6 +13,15 @@
   align-items: center;
   gap: 24px;
   flex: auto;
+}
+
+.Item-link {
+  text-decoration: none;
+  color: black;
+}
+
+.Item-link:hover {
+  color: #6b4acb;
 }
 
 .Item-actions button {

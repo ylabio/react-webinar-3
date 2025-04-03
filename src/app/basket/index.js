@@ -13,28 +13,35 @@ function Basket() {
     list: state.basket.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    localText: state.languages.text[state.languages.currentLanguage],
   }));
 
   const callbacks = {
-    // Удаление из корзины
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
-    // Закрытие любой модалки
     closeModal: useCallback(() => store.actions.modals.close(), [store]),
   };
 
   const renders = {
     itemBasket: useCallback(
       item => {
-        return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} />;
+        return (
+          <ItemBasket
+            localText={select.localText}
+            item={item}
+            link={`/product/${item._id}`}
+            onRemove={callbacks.removeFromBasket}
+            closeModal={callbacks.closeModal}
+          />
+        );
       },
       [callbacks.removeFromBasket],
     ),
   };
 
   return (
-    <ModalLayout title="Корзина" onClose={callbacks.closeModal}>
+    <ModalLayout title={select.localText.titleBasket} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <BasketTotal localText={select.localText} sum={select.sum} />
     </ModalLayout>
   );
 }

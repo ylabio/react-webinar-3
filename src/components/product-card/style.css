@@ -1,0 +1,29 @@
+.ProductCard {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.ProductCard-description {
+  margin-bottom: 15px;
+}
+
+.ProductCard-item {
+  display: flex;
+}
+
+.ProductCard-prop {
+  width: 195px;
+}
+
+.ProductCard-value {
+  font-weight: bold;
+}
+
+.ProductCard-price {
+  margin: 20px 0;
+  font-size: 24px;
+  font-weight: bold;
+}

@@ -1,26 +1,27 @@
 import { memo, useCallback, useEffect } from 'react';
-import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
+import ProductCard from '../../components/product-card';
 import BasketTool from '../../components/basket-tool';
-import List from '../../components/list';
-import useStore from '../../store/use-store';
-import useSelector from '../../store/use-selector';
 import Select from '../../components/select';
+import useStore from '../../store/use-store';
+import { useParams } from 'react-router-dom';
+import useSelector from '../../store/use-selector';
 
-function Main() {
+function ProductInfo() {
   const store = useStore();
+  const { id } = useParams();
 
   useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
+    store.actions.product.productLoad(id);
+  }, [id]);
 
   const select = useSelector(state => ({
-    list: state.catalog.list,
+    productItem: state.product.productItem,
     amount: state.basket.amount,
+    localText: state.languages.text[state.languages.currentLanguage],
     sum: state.basket.sum,
     lang: state.languages.currentLanguage,
-    localText: state.languages.text[state.languages.currentLanguage],
   }));
 
   const callbacks = {
@@ -29,36 +30,24 @@ function Main() {
     changeLanguage: useCallback(lang => store.actions.languages.setLanguages(lang), [store]),
   };
 
-  const renders = {
-    item: useCallback(
-      item => {
-        return (
-          <Item
-            localText={select.localText}
-            item={item}
-            link={`/product/${item._id}`}
-            onAdd={callbacks.addToBasket}
-          />
-        );
-      },
-      [callbacks.addToBasket, select.lang],
-    ),
-  };
-
   return (
     <PageLayout>
-      <Head title={select.localText.titleShop}>
+      <Head title={select.productItem?.title}>
         <Select value={select.lang} changeLanguage={callbacks.changeLanguage} />
       </Head>
       <BasketTool
-        localText={select.localText}
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
+        localText={select.localText}
       />
-      <List list={select.list} renderItem={renders.item} />
+      <ProductCard
+        productInfo={select.productItem}
+        addToBasket={callbacks.addToBasket}
+        localText={select.localText}
+      />
     </PageLayout>
   );
 }
 
-export default memo(Main);
+export default memo(ProductInfo);
