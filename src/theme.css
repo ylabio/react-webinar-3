@@ -29,12 +29,12 @@ button {
   font-size: 14px;
   font-weight: 700;
   line-height: 22px;
-  cursor: pointer;
   border-radius: 4px;
   padding: 8px 16px;
   transition: 0.3s;
   border: 1px solid transparent;
   background-color: transparent;
+  cursor: url('./../src/assets/icon/pointer.svg'), pointer;
 }
 
 h1, h4 {

@@ -2,7 +2,7 @@
   position: relative;
   font-family: 'Golos Text', sans-serif;
   font-size: 16px;
-  cursor: pointer;
+  cursor: url('./../../assets/icon/pointer.svg'), pointer;
   user-select: none;
   font-weight: 400;
 }
@@ -44,7 +44,7 @@
 
 .CustomSelect-option {
   padding: 6px 10px;
-  cursor: pointer;
+  cursor: url('./../../assets/icon/pointer.svg'), pointer;
   transition: background 0.2s;
 }
 

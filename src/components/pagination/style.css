@@ -18,11 +18,11 @@
   height: 22px;
   padding: 0;
   border: none;
-  cursor: pointer;
   font-size: 16px;
   font-weight: 400;
   border-radius: 2px;
   transition: background 0.2s;
+  cursor: url('./../../assets/icon/pointer.svg'), pointer;
 }
 
 .Pagination button.active {
@@ -39,7 +39,7 @@
 }
 
 .Pagination-limit {
-  cursor: pointer;
+  cursor: url('./../../assets/icon/pointer.svg'), pointer;
   font-size: 14px;
 }
 
