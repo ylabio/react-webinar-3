@@ -38,7 +38,7 @@ function Pagination({
           if (pageNumber === DOTS) {
             return (
               <li className={cn('item', 'dots')} key={index}>
-                &#8230;
+                {DOTS}
               </li>
             );
           }

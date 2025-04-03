@@ -56,7 +56,7 @@ ItemDetails.propTypes = {
     edition: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }).isRequired,
-  onAdd: PropTypes.func,
+  onAdd: PropTypes.func.isRequired,
 };
 
 export default memo(ItemDetails);

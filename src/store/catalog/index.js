@@ -50,11 +50,12 @@ class Catalog extends StoreModule {
     );
   }
 
-  async getItemInfoById(itemId) {
+  async getItemInfoById(
+    itemId,
+    fields = 'title,description,price,edition,madeIn(title,code),category(title)',
+  ) {
     const lang = this.store.getState().language.currentLanguage;
-    const response = await fetch(
-      `/api/v1/articles/${itemId}?fields=title,description,price,edition,madeIn(title,code),category(title)&lang=${lang}`,
-    );
+    const response = await fetch(`/api/v1/articles/${itemId}?fields=${fields}&lang=${lang}`);
     const json = await response.json();
     this.setState(
       {
