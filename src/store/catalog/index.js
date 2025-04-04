@@ -12,48 +12,41 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
-      pagesCountList: [],
-      defaultViewItems: 10,
+      itemsPerPage: 10,
+      currentPage: 1,
       itemsCount: 0,
-      currentPage: 0
     };
   }
 
   async load(lang = 'ru') {
-    const {defaultViewItems, currentPage} = this.getState();
-    const skip = defaultViewItems * currentPage
-    const response = await fetch(
-      `${DEFAULT_QUERY}?limit=${defaultViewItems}&lang=${lang}&skip=${skip}&fields=items(_id, title,price),count`,
-    );
-    const json = await response.json();
+    const { itemsPerPage, currentPage } = this.getState();
 
-    this.setState(
-      {
-        ...this.getState(),
-        list: json.result.items,
-        pagesCountList: generatePagesArray(json.result.count),
-        itemsCount: json.result.count,
-      },
-      'Загружены товары из АПИ',
-    );
+    await this.fetchData(itemsPerPage, currentPage, lang);
   }
 
-  async updateProductData(limit = 10, page = 0, lang = 'ru') {
-    let skipCount = 0;
-    if (page > skipCount) {
-      skipCount = limit * page;
-    }
+  async updateProductData(limit = 10, page = 1, lang = 'ru') {
+    this.setState({
+      ...this.getState(),
+      currentPage: page,
+      itemsPerPage: limit,
+    });
 
-    const response = await fetch(`${DEFAULT_QUERY}?limit=${limit}&skip=${skipCount}&lang=${lang}`);
+    await this.fetchData(limit, page, lang);
+  }
+
+  async fetchData(limit = 10, page = 1, lang = 'ru') {
+    const skip = limit * (page - 1);
+
+    const response = await fetch(
+      `${DEFAULT_QUERY}?limit=${limit}&lang=${lang}&skip=${skip}&fields=items(_id, title,price),count`,
+    );
     const json = await response.json();
 
     this.setState(
       {
         ...this.getState(),
         list: json.result.items,
-        pagesCountList: generatePagesArray(this.getState().itemsCount, limit),
-        defaultViewItems: limit,
-        currentPage: page,
+        allItemsCount: json.result.count,
       },
       'Обновлены товары из АПИ',
     );
