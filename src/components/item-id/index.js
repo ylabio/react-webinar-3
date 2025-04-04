@@ -5,18 +5,19 @@ import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
 
-function Item(props) {
-  const cn = bem('Item');
+function ItemId(props) {
+  const cn = bem('ItemId');
 
   const callbacks = {
     onAdd: e => props.onAdd(props.item._id),
-    setLink: e => props.setLink(props.item._id),
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <h4 className={cn('title')} onClick={callbacks.setLink}>{props.item.title}</h4>
+      <div className={cn('discription')}>{props.item.description}</div>
+      <div className={cn('country')}>{props.item.madeTitle}</div>
+      <div className={cn('category')}>{props.item.categoryTitle}</div>
+      <div className={cn('year')}>{props.item.edition}</div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
         <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
@@ -25,17 +26,17 @@ function Item(props) {
   );
 }
 
-Item.propTypes = {
+ItemId.propTypes = {
   item: PropTypes.shape({
-    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    title: PropTypes.string,
+    // _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    discription: PropTypes.string,
+    country: PropTypes.string,
+    category: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
 };
 
-Item.defaultProps = {
-  onAdd: () => {},
-};
 
-export default memo(Item);
+
+export default memo(ItemId);

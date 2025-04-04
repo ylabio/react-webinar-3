@@ -29,7 +29,8 @@
   font-weight: 200;
   font-size: 16px;
   &:hover {
-    border: 1px solid var(--primary);
-    border-radius: 2px;
+    cursor: pointer;
+    color: var(--primary);
+    transform: scale(1.1);
   }
 }

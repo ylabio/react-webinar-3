@@ -1,4 +1,5 @@
 import { memo, useCallback, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -11,7 +12,7 @@ import Pagination from '../../components/pagination';
 
 function Main() {
   const store = useStore();
-
+  const navigate = useNavigate();
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
@@ -45,12 +46,24 @@ function Main() {
       (value) => store.actions.catalog.setLimit(value),
       [store]
     ),
+    setLink: useCallback(
+      (id) => {
+        console.log(123)
+        store.actions.modals.close();
+        navigate(id, { replace: true });
+      },
+      [store]
+    ),
+    // closeModal: useCallback(() => store.actions.modals.close(), [store]),
   };
 
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return <Item
+        item={item}
+        onAdd={callbacks.addToBasket}
+        setLink={callbacks.setLink} />;
       },
       [callbacks.addToBasket],
     ),
