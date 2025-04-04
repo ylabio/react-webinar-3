@@ -1,0 +1,25 @@
+.ItemInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.ItemInfo-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ItemInfo-description {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  text-align: start;
+}
+
+.ItemInfo-price {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 32px;
+}

@@ -1,0 +1,22 @@
+import StoreModule from '../module';
+
+class Language extends StoreModule {
+  constructor(store, name) {
+    super(store, name);
+  }
+
+  initState() {
+    return {
+      language: 'ru',
+    };
+  }
+
+  switchLanguage(lang) {
+    this.setState({
+      ...this.getState(),
+      language: lang,
+    });
+  }
+}
+
+export default Language;

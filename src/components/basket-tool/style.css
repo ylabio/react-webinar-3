@@ -1,8 +1,9 @@
 /* Контрол с общими действиями */
 .BasketTool {
   display: flex;
-  justify-content: flex-end;
-  padding: 24px 16px 24px 0;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
 }
 
 .BasketTool-action {
@@ -22,4 +23,40 @@
 
 .BasketTool-total {
   transition: 0.3s;
+}
+.BasketTool-nav {
+  position: relative;
+  color: var(--main-text);
+  text-decoration: none;
+  transition: 0.3s;
+  &:hover {
+    color: var(--primary);
+  }
+}
+.BasketTool-nav:hover:before {
+  transform: scaleX(1);
+  transform-origin: left;
+  transition:
+    transform 0.3s,
+    -webkit-transform 0.3s;
+}
+
+.BasketTool-nav:before {
+  content: '';
+  width: 100%;
+  height: 1px;
+  background-color: var(--primary);
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  -webkit-transform: scaleX(0);
+  -ms-transform: scaleX(0);
+  transform: scaleX(0);
+  transform-origin: right;
+  -webkit-transition:
+    transform 0.3s,
+    -webkit-transform 0.3s;
+  transition:
+    transform 0.3s,
+    -webkit-transform 0.3s;
 }

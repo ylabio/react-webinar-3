@@ -3,7 +3,7 @@ import Main from './main';
 import Basket from './basket';
 import useStore from '../store/use-store';
 import useSelector from '../store/use-selector';
-
+import { Outlet } from 'react-router';
 /**
  * Приложение
  * @returns {React.ReactElement}
@@ -13,7 +13,7 @@ function App() {
 
   return (
     <>
-      <Main />
+      <Outlet></Outlet>
       {activeModal === 'basket' && <Basket />}
     </>
   );
