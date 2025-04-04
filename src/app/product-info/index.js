@@ -30,10 +30,21 @@ function ProductInfo() {
     changeLanguage: useCallback(lang => store.actions.languages.setLanguages(lang), [store]),
   };
 
+  const propSelect = {
+    lang: [
+      { value: 'ru', title: 'RU' },
+      { value: 'en', title: 'EN' },
+    ],
+  };
+
   return (
     <PageLayout>
       <Head title={select.productItem?.title}>
-        <Select value={select.lang} changeLanguage={callbacks.changeLanguage} />
+        <Select
+          value={select.lang}
+          propSelect={propSelect.lang}
+          changeSelect={callbacks.changeLanguage}
+        />
       </Head>
       <BasketTool
         onOpen={callbacks.openModalBasket}

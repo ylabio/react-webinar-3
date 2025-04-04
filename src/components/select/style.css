@@ -4,5 +4,7 @@
   background-color: #fff;
   color: var(--primary);
   outline: none;
-  border: none;
+  border: 1px solid var(--primary);
+  border-radius: 5px;
+  appearance: none;
 }

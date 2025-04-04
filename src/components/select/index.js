@@ -2,26 +2,25 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Select({ changeLanguage = () => {}, value }) {
+function Select({ changeSelect = () => {}, value, propSelect = [] }) {
   const onSelect = e => {
-    changeLanguage(e.target.value);
+    changeSelect(e.target.value);
   };
 
   return (
     <select className="Select" value={value} onChange={onSelect}>
-      <option key="ru" value="ru">
-        RU
-      </option>
-      <option key="en" value="en">
-        EN
-      </option>
+      {propSelect.map(item => (
+        <option key={item.value} value={item.value}>
+          {item.title}
+        </option>
+      ))}
     </select>
   );
 }
 
 Select.propTypes = {
-  changeLanguage: PropTypes.func,
-  value: PropTypes.string,
+  changeSelect: PropTypes.func,
+  value: PropTypes.number,
 };
 
 export default memo(Select);
