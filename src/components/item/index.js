@@ -6,11 +6,12 @@ import { cn as bem } from '@bem-react/classname';
 
 import Button from '../button';
 
+import { LANGUAGES } from '../../lang/languages';
 import { numberFormat } from '../../utils';
 
 import './style.css';
 
-function Item({ onAdd = () => {}, ...props }) {
+function Item({ onAdd = () => {}, lang = 'ru', ...props }) {
   const cn = bem('Item');
 
   const callbacks = {
@@ -28,7 +29,7 @@ function Item({ onAdd = () => {}, ...props }) {
       </Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+        <Button style="primary" onClick={callbacks.onAdd} title={LANGUAGES[lang].add} />
       </div>
     </div>
   );
@@ -40,6 +41,7 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
+  lang: PropTypes.string.isRequired,
   onAdd: PropTypes.func,
 };
 

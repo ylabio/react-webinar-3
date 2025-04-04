@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router';
+import PropTypes from 'prop-types';
 
 import './style.css';
 
-function Navigation() {
+function Navigation(props) {
   const [isDisabled, setIsDisabled] = useState(true);
   const location = useLocation();
 
@@ -21,10 +22,13 @@ function Navigation() {
   return (
     <nav className="Navigation">
       <Link to={'/'} className={isDisabled ? `Navigation-link disabled` : 'Navigation-link'}>
-        Главная
+        {props.title}
       </Link>
     </nav>
   );
 }
 
+Navigation.propTypes = {
+  title: PropTypes.string,
+};
 export default Navigation;

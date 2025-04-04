@@ -1,4 +1,4 @@
-import {useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { cn as bem } from '@bem-react/classname';
 
 import useSelector from '../../store/use-selector';
@@ -31,7 +31,11 @@ function Pagination() {
     ),
   };
 
-  const paginationList = getCurrentPaginationArray(select.itemsPerPage, select.currentPage, select.allItemsCount);
+  const paginationList = getCurrentPaginationArray(
+    select.itemsPerPage,
+    select.currentPage,
+    select.allItemsCount,
+  );
 
   const cn = bem('Pagination');
 

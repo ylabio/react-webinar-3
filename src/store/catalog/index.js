@@ -16,41 +16,58 @@ class Catalog extends StoreModule {
       currentPage: 1,
       itemsCount: 0,
       pageItemsCountArray: [5, 10, 20],
+      isBadRequest: false,
+      isLoading: true,
     };
   }
 
-  async load(lang = 'ru') {
+  async load() {
     const { itemsPerPage, currentPage } = this.getState();
-
-    await this.fetchData(itemsPerPage, currentPage, lang);
+    this.setState({
+      ...this.getState(),
+      isLoading: true,
+    });
+    await this.fetchData(itemsPerPage, currentPage);
   }
 
-  async updateProductData(limit = 10, page = 1, lang = 'ru') {
+  async updateProductData(limit = 10, page = 1) {
     this.setState({
       ...this.getState(),
       currentPage: page,
       itemsPerPage: limit,
+      isLoading: true,
     });
 
-    await this.fetchData(limit, page, lang);
+
+    await this.fetchData(limit, page);
   }
 
-  async fetchData(limit = 10, page = 1, lang = 'ru') {
+  async fetchData(limit = 10, page = 1) {
     const skip = limit * (page - 1);
 
     const response = await fetch(
-      `${DEFAULT_QUERY}?limit=${limit}&lang=${lang}&skip=${skip}&fields=items(_id, title,price),count`,
+      `${DEFAULT_QUERY}?limit=${limit}&lang=ru&skip=${skip}&fields=items(_id, title,price),count`,
     );
-    const json = await response.json();
-
-    this.setState(
-      {
+    if(response.ok) {
+      const json = await response.json();
+      this.setState(
+        {
+          ...this.getState(),
+          list: json.result.items,
+          allItemsCount: json.result.count,
+          isBadRequest: false,
+          isLoading: false,
+        },
+        'Обновлены товары из АПИ',
+      );
+    } else {
+      this.setState({
         ...this.getState(),
-        list: json.result.items,
-        allItemsCount: json.result.count,
-      },
-      'Обновлены товары из АПИ',
-    );
+        isLoading: true,
+      });
+    }
+
+
   }
 }
 

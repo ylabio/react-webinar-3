@@ -12,17 +12,22 @@ import Footer from '../../components/footer';
 import Actions from '../../components/actions';
 import Navigation from '../../components/navigation';
 
+import {LANGUAGES} from '../../lang/languages.js';
+import Loader from "../../components/loader";
+
 function Main(callback, deps) {
   const store = useStore();
 
   useEffect(() => {
-    store.actions.catalog.load();
+    store.actions.catalog.load(select.lang);
   }, []);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    lang: state.language.currentLang,
+    isLoad: state.catalog.isLoading,
   }));
 
   const callbacks = {
@@ -30,26 +35,35 @@ function Main(callback, deps) {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Смена языка интерфейса
+    switchLang: useCallback(() => store.actions.language.switchLanguage(), [store]),
   };
 
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return <Item item={item} onAdd={callbacks.addToBasket} lang={select.lang}/>;
       },
-      [callbacks.addToBasket],
+      [callbacks.addToBasket, select.lang],
     ),
   };
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
+      <Head title={LANGUAGES[select.lang].store} onChangeLang={callbacks.switchLang} currentLang={select.lang}/>
       <Actions>
-        <Navigation />
-        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+        <Navigation title={LANGUAGES[select.lang].main} />
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} />
       </Actions>
-      <List list={select.list} renderItem={renders.item} />
-      <Footer />
+      {select.isLoad ? (
+        <Loader />
+      ) : (
+        <>
+          {select.isBadRequest}
+          <List list={select.list} renderItem={renders.item} />
+          <Footer />
+        </>
+      )}
     </PageLayout>
   );
 }

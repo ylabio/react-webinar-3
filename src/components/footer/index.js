@@ -1,9 +1,7 @@
-import { memo } from 'react';
-
 import Pagination from '../pagination';
+import ItemsSelector from '../items-selector';
 
 import './style.css';
-import ItemsSelector from '../items-selector';
 
 function Footer() {
   return (

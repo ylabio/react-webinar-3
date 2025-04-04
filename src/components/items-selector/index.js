@@ -3,6 +3,8 @@ import useSelector from '../../store/use-selector';
 import useStore from '../../store/use-store';
 import { cn as bem } from '@bem-react/classname';
 
+import { LANGUAGES } from '../../lang/languages';
+
 import './style.css';
 
 function ItemsSelector() {
@@ -14,6 +16,7 @@ function ItemsSelector() {
   const select = useSelector(state => ({
     itemsPerPage: state.catalog.itemsPerPage,
     pageItemsCountArray: state.catalog.pageItemsCountArray,
+    lang: state.language.currentLang,
   }));
 
   const callbacks = {
@@ -33,7 +36,7 @@ function ItemsSelector() {
 
   return (
     <div className={cn()}>
-      <div>Показывать элементов</div>
+      <div>{LANGUAGES[select.lang].select}</div>
       <div className={cn('container')}>
         <div className={cn('default')}>
           <div className={cn('current-item')} onClick={() => setIsOpen(prev => !prev)}>
@@ -47,7 +50,7 @@ function ItemsSelector() {
               <div
                 key={`selectItemKey-${index}`}
                 onClick={() => callbacks.updateItemsCount(item)}
-                className={`${cn("item")}${getActiveStyleClass(item, select.itemsPerPage)}`}
+                className={`${cn('item')}${getActiveStyleClass(item, select.itemsPerPage)}`}
               >
                 {item}
               </div>

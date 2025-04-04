@@ -12,6 +12,7 @@ import BasketTool from '../../components/basket-tool';
 import PageLayout from '../../components/page-layout';
 
 import { DEFAULT_QUERY } from '../../query/constants';
+import {LANGUAGES} from "../../lang/languages";
 
 
 function Product() {
@@ -24,6 +25,7 @@ function Product() {
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
+    lang: state.language.currentLang,
   }));
 
   const callbacks = {
@@ -31,15 +33,19 @@ function Product() {
     addProductToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Смена языка интерфейса
+    switchLang: useCallback(() => store.actions.language.switchLanguage(), [store]),
   };
 
   async function getProductFullInfo() {
     setIsLoading(true);
+
     const { itemId } = productStore.state;
     const res = await fetch(
       `${DEFAULT_QUERY}/${itemId}?fields=*,madeIn(title,code),category(title)&lang=ru`,
     );
     const json = await res.json();
+
     if (!json.error) {
       setProduct({ ...json.result });
       setIsLoading(false);
@@ -56,16 +62,17 @@ function Product() {
         <Loader />
       ) : (
         <>
-          <Head title={product.title} />
+          <Head title={product.title} onChangeLang={callbacks.switchLang} currentLang={select.lang}/>
           <Actions>
-            <Navigation />
+            <Navigation title={LANGUAGES[select.lang].main} />
             <BasketTool
               onOpen={callbacks.openModalBasket}
               amount={select.amount}
               sum={select.sum}
+              lang={select.lang}
             />
           </Actions>
-          <ProductCard item={product} onAddToBasket={callbacks.addProductToBasket} />
+          <ProductCard item={product} onAddToBasket={callbacks.addProductToBasket} lang={select.lang} />
         </>
       )}
     </PageLayout>

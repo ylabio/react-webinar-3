@@ -1,0 +1,30 @@
+export const LANGUAGES = {
+  "ru":{
+    "add": "Добавить",
+    "remove": "Удалить",
+    "select": "Показывать элементов",
+    "main":"Главная",
+    "store":"Магазин",
+    "basket":"Корзина",
+    "total":"Итого",
+    "country": "Страна производитель",
+    "category": "Категория",
+    "edition": "Год выпуска",
+    "price": "Цена",
+    "empty": "Пусто",
+  },
+  "en":{
+    "add": "Add to cart",
+    "remove": "Remove",
+    "select": "Show elements",
+    "main":"Home",
+    "store":"Shop",
+    "basket":"Basket",
+    "total":"Total",
+    "country": "Manufacturer's country",
+    "category": "Category",
+    "edition": "Year of release",
+    "price": "Price",
+    "empty": "Empty",
+  }
+}
