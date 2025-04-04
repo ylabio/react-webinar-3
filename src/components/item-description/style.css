@@ -1,0 +1,17 @@
+.ItemDescription-price {
+  display: block;
+  font-size: 24px;
+  margin: 24px 0;
+}
+
+.ItemDescription-info-container {
+  margin-top: 24px;
+  display: flex;
+  gap: 8px;
+}
+
+.ItemDescription-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
