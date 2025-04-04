@@ -58,7 +58,7 @@ if (process.env.NODE_ENV === 'development') {
     historyApiFallback: true,
     proxy: [
       {
-        context: '/api/**',
+        context: '/api/v1/**',
         target: 'http://query.rest',
         secure: false,
         changeOrigin: true,
