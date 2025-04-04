@@ -1,0 +1,7 @@
+.PaginationTool {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 24px;
+  margin-top: 24px;
+}

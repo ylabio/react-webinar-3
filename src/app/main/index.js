@@ -1,24 +1,26 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
-import Pagination from '../../components/pagination';
 import Navbar from '../../components/navbar';
-import { useParams } from 'react-router';
+import PaginationTool from '../../components/pagination-tool';
 
 function Main() {
   const store = useStore();
-  const { page } = useParams();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(5);
 
   useEffect(() => {
-    store.actions.catalog.load(10, page || 1);
-  }, []);
+    store.actions.catalog.load(limit, currentPage);
+  }, [currentPage, limit]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
+    totalPages: state.catalog.totalPages,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
@@ -28,6 +30,10 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+
+    // Пагинация
+    onPageChange: useCallback(page => setCurrentPage(page), []),
+    onLimitChange: useCallback(limit => setLimit(limit), []),
   };
 
   const renders = {
@@ -46,7 +52,12 @@ function Main() {
       <Navbar onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
 
-      <Pagination />
+      <PaginationTool
+        currentPage={currentPage}
+        totalPages={select.totalPages}
+        onPageChange={callbacks.onPageChange}
+        onLimitChange={callbacks.onLimitChange}
+      />
     </PageLayout>
   );
 }
