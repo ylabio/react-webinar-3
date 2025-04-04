@@ -22,6 +22,7 @@ function Controls( {
 
   return (
     <div className={ cn() }>
+      <div>Главная</div>
       <button className={ cn( "button", { selected: AddedAnimation } ) } onClick={ onClick }>
         <CarlSVG/>
         { label }

@@ -3,43 +3,63 @@ class CartManager {
     this.stateManager = stateManager;
   }
 
+  // Получение состояния корзины
   getCartState() {
-    const list = this.stateManager.getState().list;
-    const cartList = list.filter(item => item.count);
+    const cartList = this.stateManager.getState().cartList || [];
     const sizeCart = cartList.length;
     const total = cartList.reduce((acc, item) => acc + (item.total || 0), 0);
     return { total, sizeCart, cartList };
   }
 
-  clearCartProductCard(code) {
-    const list = this.stateManager.getState().list;
-    const clonedList = list.map(item =>
-      item._id === code
-        ? { ...item, count: 0, total: 0 }
-        : item
-    );
-
-    this.stateManager.setState({
-      ...this.stateManager.getState(),
-      list: clonedList,
-    });
-  }
-
+  // Добавление товара в корзину (с проверкой на уникальность)
   addCartProductCard(code) {
     const list = this.stateManager.getState().list;
-    const updatedList = list.map(item => {
-      if (item._id === code) {
-        return this.updateItem(item);
+    const cartList = this.stateManager.getState().cartList || [];
+
+    // Ищем товар в списке товаров
+    const item = list.find(item => item._id === code);
+
+    if (item) {
+      // Проверяем, есть ли уже этот товар в корзине
+      const existingItemIndex = cartList.findIndex(cartItem => cartItem._id === code);
+
+      if (existingItemIndex >= 0) {
+        // Если товар уже есть в корзине, обновляем его количество и общую стоимость
+        const updatedCartList = cartList.map((cartItem, index) => {
+          if (index === existingItemIndex) {
+            return this.updateItem(cartItem);  // Обновляем количество и цену
+          }
+          return cartItem;
+        });
+
+        // Обновляем корзину с новым состоянием
+        this.stateManager.setState({
+          ...this.stateManager.getState(),
+          cartList: updatedCartList,
+        });
+      } else {
+        // Если товара нет в корзине, добавляем его как новый
+        const updatedItem = this.updateItem(item);
+        this.stateManager.setState({
+          ...this.stateManager.getState(),
+          cartList: [...cartList, updatedItem],
+        });
       }
-      return item;
-    });
+    }
+  }
+
+  // Удаление товара из корзины
+  clearCartProductCard(code) {
+    const cartList = this.stateManager.getState().cartList || [];
+    const updatedCartList = cartList.filter(item => item._id !== code);
 
     this.stateManager.setState({
       ...this.stateManager.getState(),
-      list: updatedList,
+      cartList: updatedCartList,
     });
   }
 
+  // Обновление товара (количество и стоимость)
   updateItem(item) {
     return {
       ...item,
@@ -48,5 +68,7 @@ class CartManager {
     };
   }
 }
+
+
 
 export {CartManager}

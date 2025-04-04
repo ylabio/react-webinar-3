@@ -7,5 +7,11 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+
+.Pagination-ui {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   list-style-type: none;
 }

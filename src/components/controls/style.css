@@ -1,7 +1,12 @@
 .Controls {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 24px 0;
+}
+
+.Controls div {
+  display: flex;
+  align-items: center;
 }
 
 .Controls-button {

@@ -10,22 +10,24 @@ import RenderItem from "./components/item-render";
 import { QueryApiClient } from "./api/api-query";
 import { ArticleService } from "./api/api-articles";
 import { ApiError } from "./api/api-error";
-import { Store } from "./store";
 import Pagination from "./components/pagination";
+import { ItemsPerPageSelect } from "./components/item-select";
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
+
+
 function App({ store }) {
   const list = store.getStateList();
   const { cartList, sizeCart, total } = store.getCartState();
   const [show, setShow] = useState(false);
   const [AddedAnimation, setAddedAnimation] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-
   const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(5); // по умолчанию 5 карточек на страницу
 
   const apiClient = new QueryApiClient('http://localhost:8010/api');
   const articleService = new ArticleService(apiClient);
@@ -33,14 +35,15 @@ function App({ store }) {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const limit = 10;
         const skip = (currentPage - 1) * limit;
         const articles = await articleService.getArticleList(limit, skip);
         const totalItemsFromApi = await articleService.getTotalItems();
         setTotalItems(totalItemsFromApi);
-        // Обновите состояние в store
+
+        // Обновляем только список товаров, корзина не изменяется
+        const currentState = store.getState();
         store.setState({
-          ...store.getState(),
+          ...currentState,
           list: articles.result.items,
         });
       } catch (error) {
@@ -50,10 +53,9 @@ function App({ store }) {
       }
     };
     fetchArticles();
-  }, [currentPage]);
+  }, [currentPage, limit]);
 
   const hooks = createHooks(store, setShow, setAddedAnimation);
-
   const cartBtnLabel = cartButtonLabel(sizeCart, total);
 
   return (
@@ -64,11 +66,14 @@ function App({ store }) {
         <List list={list} renderItem={RenderItem} onClickAction={hooks.onAddCart} isCart={false} total={0} />
         <Pagination
           totalItems={totalItems}
-          itemsPerPage={10}
+          itemsPerPage={limit}
           siblingCount={1}
           setCurrentPage={setCurrentPage}
-        />
+        >
+          <ItemsPerPageSelect onChange={setLimit} />
+        </Pagination>
       </PageLayout>
+
       {show && (
         <Modal handleClose={hooks.onHideCart}>
           <List list={cartList} renderItem={RenderItem} onClickAction={hooks.onDeleteItem} isCart={true} total={total} />
@@ -77,5 +82,7 @@ function App({ store }) {
     </>
   );
 }
+
+
 
 export default App;
