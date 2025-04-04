@@ -1,0 +1,33 @@
+.Article-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.Article-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.Article-infoItem {
+  display: flex;
+  gap: 8px;
+}
+
+.Article-infoItem-label {
+  font-weight: normal;
+  min-width: 185px;
+}
+.Article-infoItem-value {
+  font-weight: bold;
+}
+
+.Article-price {
+  font-family: var(--second-font-family);
+  font-weight: bold;
+  font-size: 24px;
+  height: 32px;
+}

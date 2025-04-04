@@ -4,7 +4,23 @@
   justify-content: flex-start;
   align-items: center;
   transition: background-color 1s;
-  padding: 16px 16px 15px 16px
+  padding: 16px 16px 15px 16px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.ItemBasket:active,
+.ItemBasket:visited {
+  text-decoration: none;
+}
+
+.ItemBasket:hover {
+  background-color: var(--primary-select);
+}
+
+.ItemBasket-title:hover {
+  color: var(--primary);
 }
 
 .ItemBasket-right {

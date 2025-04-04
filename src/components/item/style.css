@@ -1,12 +1,19 @@
 .Item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit;
   transition: background-color 1s;
-  padding: 16px 16px 15px 16px
 }
 
+.Item:hover {
+  background-color: var(--primary-select);
+}
+.Item-title:hover {
+  color: var(--primary);
+}
 .Item-actions {
   display: flex;
   justify-content: flex-end;
