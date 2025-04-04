@@ -37,49 +37,53 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
 
 /**
  * Создание массива объектов количества страниц
- * @param itemCount {Number}
- * @param itemOnPage {Number}
+ * @param firstItem {Number}
+ * @param pages {Number}
  * @returns {Array}
  */
-export const generatePagesArray = (itemCount, itemOnPage = 10) => {
-  const pages = Math.ceil(itemCount / itemOnPage);
-  return Array.from({ length: pages }, (_, i) => ({
-    key: i,
-    page: i + 1,
-  }));
+const generatePagesArray = (firstItem, pages) => {
+  const arr = [];
+  for (let i = firstItem; i < pages + 1; i++) {
+    arr.push({ key: i - 1, page: i });
+  }
+
+  console.log(arr);
+
+  return arr;
 };
 
 /**
  * Создание массива актуальных страниц для пагинации
- * @param pageArr {Array}
- * @param viewPageNumber {Number}
+ * @param itemsPerPage {Number}
+ * @param currentPage {Number}
+ * @param itemsCount {Number}
  * @returns {Array}
  *
  */
-export const getCurrentPaginationArray = (pageArr, viewPageNumber) => {
+export const getCurrentPaginationArray = (itemsPerPage, currentPage, itemsCount) => {
+  const paginationArray = [];
+  const totalPages = Math.ceil(itemsCount / itemsPerPage);
   const leftDot = { key: 'l-dot', page: '...' };
   const rightDot = { key: 'r-dot', page: '...' };
-  const firstPage = pageArr.slice(0, 1);
-  const lastPage = pageArr.slice(-1);
-  const arrayLength = pageArr.length;
+  const firstPage = { key: 0, page: 1 };
+  const lastPage = { key: totalPages - 1, page: totalPages };
 
-  if (arrayLength < 6) return pageArr;
-  if (arrayLength === 1) return [];
-
-  if (viewPageNumber < 3) {
-    let numSlice = 3;
-    if (viewPageNumber === 2) numSlice = 4;
-
-    return [...pageArr.slice(0, numSlice), rightDot, ...lastPage];
+  if (currentPage < 3) {
+    return [firstPage, ...generatePagesArray(2, 3), rightDot, lastPage];
   }
-  if (viewPageNumber > arrayLength - 4) {
-    let numSlice = -3;
-    if (viewPageNumber === arrayLength - 3) numSlice = -4;
-
-    return [...firstPage, leftDot, ...pageArr.slice(numSlice)];
+  if (currentPage === 3) {
+    return [firstPage, ...generatePagesArray(2, currentPage + 1), rightDot, lastPage];
   }
 
-  const middlePage = pageArr.slice(viewPageNumber - 1, viewPageNumber + 2);
+  if (currentPage === totalPages) {
+    return [firstPage, leftDot, ...generatePagesArray(currentPage - 2, totalPages)];
+  }
 
-  return [...firstPage, leftDot, ...middlePage, rightDot, ...lastPage];
+  if (currentPage > totalPages - 3) {
+    return [firstPage, leftDot, ...generatePagesArray(currentPage - 1, totalPages)];
+  }
+
+  const middlePages = generatePagesArray(currentPage - 1, currentPage + 1);
+
+  return [firstPage, leftDot, ...middlePages, rightDot, lastPage];
 };

@@ -1,4 +1,4 @@
-import {memo, useState, useCallback, useEffect} from "react";
+import {useState, useCallback, useEffect } from 'react';
 import { cn as bem } from '@bem-react/classname';
 
 import useSelector from '../../store/use-selector';
@@ -11,48 +11,48 @@ import { getCurrentPaginationArray } from '../../utils';
 import './style.css';
 
 function Pagination() {
-  const [numViewPage, setNumViewPage] = useState(0);
-
+  const [currentPage, setCurrentPage] = useState(1);
   const store = useStore();
 
   const select = useSelector(state => ({
-    pageList: state.catalog.pagesCountList,
+    allItemsCount: state.catalog.allItemsCount,
     currentPage: state.catalog.currentPage,
+    itemsPerPage: state.catalog.itemsPerPage,
   }));
 
   const callbacks = {
     // Обновление страницы
-    openAnotherPage: useCallback(
-      pageKey => {
-        store.actions.catalog.updateProductData(10, pageKey);
-        setNumViewPage(pageKey);
+    openNextPage: useCallback(
+      (pageItems, page) => {
+        store.actions.catalog.updateProductData(pageItems, page);
+        setCurrentPage(page);
       },
-      [store],
+      [store.state.catalog],
     ),
   };
 
-  const cn = bem('Navigation');
+  const paginationList = getCurrentPaginationArray(select.itemsPerPage, select.currentPage, select.allItemsCount);
 
-  const checkActivePage = key => key === numViewPage;
+  const cn = bem('Pagination');
+
+  const checkActivePage = page => page === currentPage;
 
   useEffect(() => {
-    if (select.currentPage > 0 && select.currentPage !== numViewPage) {
-      setNumViewPage(select.currentPage);
-    }
-  },[])
+    setCurrentPage(prev => select.currentPage);
+  }, [store.state.catalog]);
 
-  return select.pageList.length ? (
+  return paginationList.length ? (
     <nav className={cn()}>
       <ul className={cn('list')}>
-        {getCurrentPaginationArray(select.pageList, numViewPage).map(item => {
+        {paginationList.map(item => {
           return (
             <li key={`l-item-${item.key}`}>
               {typeof item.key === 'number' ? (
                 <Button
-                  onClick={() => callbacks.openAnotherPage(item.key)}
-                  style={`pagination${checkActivePage(item.key) ? ' active' : ''}`}
+                  onClick={() => callbacks.openNextPage(select.itemsPerPage, item.page)}
+                  style={`pagination${checkActivePage(item.page) ? ' active' : ''}`}
                   title={`${item.page}`}
-                  disabled={checkActivePage(item.key)}
+                  disabled={checkActivePage(item.page)}
                 />
               ) : (
                 <Button style="pagination dots" title={`${item.page}`} disabled={true} />
@@ -65,4 +65,4 @@ function Pagination() {
   ) : null;
 }
 
-export default memo(Pagination);
+export default Pagination;
