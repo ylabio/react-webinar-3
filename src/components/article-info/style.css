@@ -1,0 +1,31 @@
+.ArticleInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: var(--main-text);
+}
+.ArticleInfo p {
+  margin: 0;
+}
+.ArticleInfo-description {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+}
+.ArticleInfo-details {
+  table-layout: auto;
+  width: 50%;
+}
+.ArticleInfo-details td {
+  padding: 0px 4px 6px 0px;
+}
+.ArticleInfo-details td:first-of-type {
+  width: 185px;
+}
+
+.ArticleInfo-price {
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+}
