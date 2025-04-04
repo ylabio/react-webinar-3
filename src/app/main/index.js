@@ -77,6 +77,7 @@ function Main() {
       limit => {
         return <li 
           id={limit}
+          key={limit}
           className={limit === select.limit ? "Skip-active" : "Skip"}
           onClick={callbacks.setLimit}>
             {limit}
