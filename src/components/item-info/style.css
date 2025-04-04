@@ -1,0 +1,26 @@
+.ItemInfo {
+  padding-bottom: 24px;
+}
+
+.ItemInfo-list {
+  padding: 0;
+  list-style: none;
+}
+
+.ItemInfo-item {
+  display: flex;
+}
+
+.ItemInfo-item:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.ItemInfo-item span {
+  flex: 0 1 17%;
+}
+
+.ItemInfo-price {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+}

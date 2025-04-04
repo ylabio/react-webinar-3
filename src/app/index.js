@@ -1,8 +1,6 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
-import Main from './main';
 import Basket from './basket';
-import useStore from '../store/use-store';
 import useSelector from '../store/use-selector';
+import AppRoutes from '../routes/index';
 
 /**
  * Приложение
@@ -13,7 +11,7 @@ function App() {
 
   return (
     <>
-      <Main />
+      <AppRoutes />
       {activeModal === 'basket' && <Basket />}
     </>
   );
