@@ -1,0 +1,48 @@
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 5px;
+  margin-top: 25px;
+  user-select: none;
+
+  .pagination-select {
+    margin-right: 25px;
+    font-family: var(--font-family);
+    font-size: 14px;
+    height: 22px;
+    border-radius: 4px;
+    padding: 0 10px 0 0;
+    border: 1px solid var(--primary);
+    cursor: pointer;
+  }
+
+  .pagination-select:focus {
+    border-color: var(--primary);
+    outline: none;
+  }
+
+  li {
+    margin-left: 2px;
+    border-radius: 2px;
+    cursor: pointer;
+    height: 22px;
+    min-width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  li:hover {
+    background-color: var(--primary-select);
+  }
+
+  .selected {
+    background-color: var(--primary) !important;
+    color: var(--second-text);
+  }
+
+  .dots {
+    background-color: var(--background) !important;
+  }
+
+}

@@ -15,6 +15,11 @@
   flex: auto;
 }
 
+.Item-title:hover {
+  color: var(--primary);
+  cursor: pointer;
+}
+
 .Item-actions button {
   background-color: var(--primary);
   color: var(--second-text);
