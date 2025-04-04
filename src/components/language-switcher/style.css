@@ -1,0 +1,6 @@
+.LanguageSwitcher button {
+  color: var(--close);
+}
+.LanguageSwitcher button:disabled {
+  color: var(--primary);
+}

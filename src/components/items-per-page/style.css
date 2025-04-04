@@ -1,0 +1,20 @@
+.ItemsPerPage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ItemsPerPage label {
+  font-size: 14px;
+  color: var(--main-text);
+  font-family: var(--font-family);
+}
+
+.ItemsPerPage select {
+  padding: 4px;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: var(--font-family);
+  outline: none;
+}
