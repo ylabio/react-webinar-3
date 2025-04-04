@@ -35,3 +35,16 @@ const defaultOptions = { style: 'currency', currency: 'RUB' };
 export function numberFormat(value, locale = 'ru-RU', options = defaultOptions) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Создание массива чисел
+ * @param {number} start - начальное число
+ * @param {number} end - конечное число
+ * @returns {number[]} - массив чисел
+ */
+
+export const range = (start, end) => {
+  let length = end - start + 1;
+
+  return Array.from({ length }, (_, i) => i + start);
+};
