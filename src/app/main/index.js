@@ -10,16 +10,20 @@ import PaginationTool from '../../components/pagination-tool';
 
 function Main() {
   const store = useStore();
-
-  useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
-
+  
   const select = useSelector(state => ({
     list: state.catalog.list,
+    count: state.catalog.count,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    limit: state.pagination.limit,
+    skip: state.pagination.skip,
   }));
+
+  useEffect(() => {
+    store.actions.catalog.load(select.limit, select.skip);
+  }, [select.limit, select.skip]);
+
 
   const callbacks = {
     // Добавление в корзину
@@ -42,7 +46,7 @@ function Main() {
       <Head title="Магазин" />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
-      <PaginationTool count={25} />
+      <PaginationTool />
     </PageLayout>
   );
 }

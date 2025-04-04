@@ -3,9 +3,14 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 
-function Pagination({ currentPage = 1, totalPages = 25, onPageChange = ()=>{} }) {
+function Pagination({ currentPage = 1, count = 100, limit = 10, onPageChange = ()=>{} }) {
   const cn = bem('Pagination');
   let pages = [];
+  const totalPages = Math.ceil(count / limit);
+  console.log(count, limit)
+  if (totalPages <= 0 || currentPage > totalPages) {
+    return null;
+  }
 
   if (currentPage <= 2) {
     pages = [1, 2, 3, '...', totalPages];
@@ -42,7 +47,8 @@ function Pagination({ currentPage = 1, totalPages = 25, onPageChange = ()=>{} })
 
 Pagination.propTypes = {
   currentPage: PropTypes.number,
-  totalPages: PropTypes.number,
+  count: PropTypes.number,
+  limit: PropTypes.number,
   onPageChange: PropTypes.func,
 };
 
