@@ -26,7 +26,7 @@ List.propTypes = {
     }),
   ).isRequired,
   renderItem: PropTypes.func,
-  renderPagination: PropTypes.func,
+  renderPagination: PropTypes.object,
 };
 
 export default memo(List);

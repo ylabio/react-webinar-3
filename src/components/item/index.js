@@ -5,8 +5,18 @@ import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
 import {useNavigate} from "react-router-dom";
+import useSelector from "../../store/use-selector";
 
 function Item(props) {
+  const lang = useSelector(state => state.language.language);
+  const translations = {
+    ru: {
+      add: 'Добавить',
+    },
+    en: {
+      add: 'Add',
+    },
+  }
   const cn = bem('Item');
   const navigate = useNavigate();
 
@@ -21,7 +31,7 @@ function Item(props) {
       <h4 onClick={callbacks.onOpen} className={cn('title')}>{props.item.title}</h4>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+        <Button style="primary" onClick={callbacks.onAdd} title={translations[lang].add} />
       </div>
     </div>
   );

@@ -7,6 +7,15 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 
 function Basket() {
+  const lang = useSelector(state => state.language.language);
+  const translations = {
+    ru: {
+      cart: 'Корзина',
+    },
+    en: {
+      cart: 'Cart',
+    },
+  }
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -32,7 +41,7 @@ function Basket() {
   };
 
   return (
-    <ModalLayout title="Корзина" onClose={callbacks.closeModal}>
+    <ModalLayout title={translations[lang].cart} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket} />
       <BasketTotal sum={select.sum} />
     </ModalLayout>

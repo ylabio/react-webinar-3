@@ -15,6 +15,7 @@ function Main() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const select = useSelector(state => ({
+    lang: state.language.language,
     list: state.catalog.list,
     count: state.catalog.count,
     amount: state.basket.amount,
@@ -48,8 +49,13 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} onChangePage={setCurrentPage}/>
+      <Head title={select.lang === 'ru' ? 'Магазин' : 'Store'} />
+      <BasketTool
+        onOpen={callbacks.openModalBasket}
+        amount={select.amount}
+        sum={select.sum}
+        onChangePage={setCurrentPage}
+      />
       <List
         list={select.list}
         renderItem={renders.item}
@@ -61,9 +67,9 @@ function Main() {
             onLimitChange={setLimit}
             limit={limit}
             options={[
-              {value: 5, name: '5'},
-              {value: 10, name: '10'},
-              {value: 20, name: '20'},
+              { value: 5, name: '5' },
+              { value: 10, name: '10' },
+              { value: 20, name: '20' },
             ]}
           />
         }

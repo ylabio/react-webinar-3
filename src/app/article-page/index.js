@@ -10,6 +10,24 @@ import { numberFormat } from '../../utils';
 import Button from '../../components/button';
 
 const ArticlePage = () => {
+  const lang = useSelector(state => state.language.language);
+  const translations = {
+    ru: {
+      madeIn: 'Страна производитель',
+      category: 'Категория',
+      edition: 'Год выпуска',
+      price: 'Цена',
+      add: 'Добавить',
+    },
+    en: {
+      madeIn: 'Made in',
+      category: 'Category',
+      edition: 'Year of release',
+      price: 'Price',
+      add: 'Add',
+    },
+  }
+
   const { id } = useParams();
   const store = useStore();
 
@@ -40,21 +58,21 @@ const ArticlePage = () => {
         <table>
           <tbody>
             <tr className={'ArticlePage-row'}>
-              <td>Страна производитель:</td>
+              <td>{translations[lang].madeIn}:</td>
               <th>{`${select.item.madeIn.title} (${select.item.madeIn.code})`}</th>
             </tr>
             <tr className={'ArticlePage-row'}>
-              <td>Категория:</td>
+              <td>{translations[lang].category}:</td>
               <th>{select.item.category.title}</th>
             </tr>
             <tr className={'ArticlePage-row'}>
-              <td>Год выпуска:</td>
+              <td>{translations[lang].edition}:</td>
               <th>{select.item.edition}</th>
             </tr>
           </tbody>
         </table>
-        <h2 className={'ArticlePage-price'}>Цена: {numberFormat(select.item.price)} ₽</h2>
-        <Button style="primary" onClick={() => callbacks.addToBasket(id)} title="Добавить" />
+        <h2 className={'ArticlePage-price'}>{translations[lang].price}: {numberFormat(select.item.price)} ₽</h2>
+        <Button style="primary" onClick={() => callbacks.addToBasket(id)} title={translations[lang].add} />
       </div>
     </PageLayout>
   );
