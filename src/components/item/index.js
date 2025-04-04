@@ -36,6 +36,7 @@ Item.propTypes = {
 
 Item.defaultProps = {
   onAdd: () => {},
+  setLink: () => {},
 };
 
 export default memo(Item);

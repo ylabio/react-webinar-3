@@ -31,7 +31,6 @@ function ItemId(props) {
         </div>
         </div>
       <div className={cn('actions')}>
-        {/* <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div> */}
         <div className={cn('price')}>
           <p>Цена : {numberFormat(props.item.price)} ₽</p>
           </div>

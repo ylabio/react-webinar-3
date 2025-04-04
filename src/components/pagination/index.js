@@ -2,6 +2,7 @@ import React from "react";
 import './style.css';
 import { useEffect, useState } from "react";
 import { getPages } from "../../utils";
+import PropTypes from "prop-types";
 
 function Pagination({count, page, limit, setPage, setLimit}) {
 
@@ -45,6 +46,14 @@ const onChange = (e) => {
   </div>
 );
 }
+
+Pagination.propTypes = {
+    count: PropTypes.number.isRequired,
+    page: PropTypes.number.isRequired,
+    limit: PropTypes.number.isRequired,
+    setPage: PropTypes.func.isRequired,
+    setLimit: PropTypes.func.isRequired,
+};
 
 
 

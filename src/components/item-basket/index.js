@@ -41,6 +41,7 @@ ItemBasket.propTypes = {
 
 ItemBasket.defaultProps = {
   onRemove: () => {},
+  setLink: () => {},
 };
 
 export default memo(ItemBasket);
