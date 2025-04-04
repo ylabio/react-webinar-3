@@ -7,6 +7,19 @@
   padding: 16px 16px 15px 16px
 }
 
+.ItemBasket-title {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--main-text);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.ItemBasket-title:hover {
+  color: var(--primary);
+}
+
 .ItemBasket-right {
   display: flex;
   justify-content: flex-end;

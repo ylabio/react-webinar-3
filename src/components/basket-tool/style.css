@@ -1,13 +1,30 @@
 /* Контрол с общими действиями */
 .BasketTool {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
   padding: 24px 16px 24px 0;
+}
+
+.BasketTool-nav {
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  font-weight: 400;
+  font-family: var(--font-family);
+  font-size: 16px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.BasketTool-nav:hover {
+  border-color: var(--primary);
 }
 
 .BasketTool-action {
   display: flex;
   align-items: center;
+  margin-left: auto;
   gap: 8px;
   border: 1.5px solid var(--primary);
   background-color: var(--background);
