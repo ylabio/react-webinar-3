@@ -4,7 +4,7 @@
   justify-content: flex-start;
   align-items: center;
   transition: background-color 1s;
-  padding: 16px 16px 15px 16px
+  padding: 16px 16px 15px 16px;
 }
 
 .ItemBasket-right {
@@ -29,5 +29,15 @@
     background-color: var(--background);
     border-color: var(--delete);
     color: var(--delete);
+  }
+}
+
+.ItemBasket a {
+  text-decoration: none;
+  color: var(--main-text);
+  font-weight: bold;
+
+  &:hover {
+    color: var(--primary);
   }
 }

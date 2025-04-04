@@ -4,20 +4,27 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
+import { Link } from 'react-router';
 
-function Item(props) {
+function Item({ item = { _id: '', title: '', price: 0 }, onAdd = () => {} }) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: e => props.onAdd(props.item._id),
+    onAdd: e => onAdd(item._id),
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <h4 className={cn('title')}>{props.item.title}</h4>
+      <Link
+        to={{
+          pathname: `/article/${item._id}`,
+        }}
+        className={cn('title')}
+      >
+        {item.title}
+      </Link>
       <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
+        <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
         <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
       </div>
     </div>
@@ -31,10 +38,6 @@ Item.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onAdd: () => {},
 };
 
 export default memo(Item);

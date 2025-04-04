@@ -3,7 +3,7 @@
   padding: 16px 0;
   border-bottom: 1px solid var(--divider);
   width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  margin-left: calc(-50vw + 48%);
   position: relative;
   left: 0;
 }
