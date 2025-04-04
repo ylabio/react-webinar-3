@@ -4,22 +4,37 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from '../../utils';
 import Cart from '../../assets/icon/cart.svg';
 import './style.css';
+import { useNavigate } from 'react-router-dom';
+import routes from '../../routes';
+import useStore from '../../store/use-store';
+import useSelector from '../../store/use-selector';
+import { useCallback } from 'react';
 
-function BasketTool(props) {
-  const { onOpen = () => {}, sum = 0, amount = 0 } = props;
+function BasketTool() {
+  const store = useStore();
+  const navigate = useNavigate();
+
+  const select = useSelector(state => ({
+    amount: state.basket.amount,
+    sum: state.basket.sum,
+  }));
+
+  console.log(select.amount)
+  console.log(select.sum)
 
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <button className={cn('action')} onClick={onOpen}>
+      <a className='main-page-link' onClick={() => { navigate(routes.mainPagePath) }}>Главная</a>
+      <button className={cn('action')} onClick={ useCallback(() => store.actions.modals.open('basket'), [store]) }>
         <Cart className={cn('icon')} />
         <span className={cn('total')}>
-          {amount
-            ? `${amount} ${plural(amount, {
+          {select.amount
+            ? `${select.amount} ${plural(select.amount, {
                 one: 'товар',
                 few: 'товара',
                 many: 'товаров',
-              })} / ${numberFormat(sum)} ₽`
+              })} / ${numberFormat(select.sum)} ₽`
             : `пусто`}
         </span>
       </button>

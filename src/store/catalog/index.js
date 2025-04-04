@@ -10,7 +10,21 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
+      productsPerPage: 10,
+      currentPage: 1,
+      currentProduct: null,
     };
+  }
+
+  async loadProduct(id) {
+    const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title),description,edition`);
+    const json = await response.json();
+    console.log(json);
+    
+    this.setState({
+      ...this.getState(),
+      currentProduct: json.result,
+    }, `Загружен товар ${id}`);
   }
 
   async load() {
