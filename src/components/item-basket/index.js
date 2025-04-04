@@ -5,6 +5,7 @@ import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import Button from '../button';
 import './style.css';
+import { Link } from 'react-router';
 
 function ItemBasket(props = {onRemove: () => {},}) {
   const cn = bem('ItemBasket');
@@ -14,8 +15,7 @@ function ItemBasket(props = {onRemove: () => {},}) {
   };
 
   return (
-    <div className={cn()}>
-      {/* <div className={cn('code')}>{props.item._id}</div> */}
+    <Link className={cn()} to={props.item._id}>
       <h4 className={cn('title')}>{props.item.title}</h4>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
@@ -24,7 +24,7 @@ function ItemBasket(props = {onRemove: () => {},}) {
           <Button style="delete" onClick={callbacks.onRemove} title="Удалить" />
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
