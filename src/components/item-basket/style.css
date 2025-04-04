@@ -1,4 +1,3 @@
-/* Пункт списка */
 .ItemBasket {
   display: flex;
   justify-content: flex-start;
@@ -29,5 +28,15 @@
     background-color: var(--background);
     border-color: var(--delete);
     color: var(--delete);
+  }
+}
+
+.ItemBasket-title{
+  color: var(--main-text);
+  transition: color .3s ease-out;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--primary);
   }
 }

@@ -1,0 +1,45 @@
+.active{
+  background-color: var(--primary);
+  color: var(--background);
+}
+
+.dots{
+  color: var(--close);
+}
+
+.active, .inactive{
+  width: 34px;
+  height: 34px;
+  border-radius: 5px;
+  padding: 0;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.pagination{
+  display: flex;
+  flex-direction: row;
+  
+  margin: 10px 10px 0 16px;
+  justify-content: space-between;
+}
+
+.pagination-buttons{
+  grid-auto-flow: column;
+  display: grid;
+  align-items: center;
+  gap: 2px;
+}
+
+.pagination *{
+  font-family: var(--font-family);
+}
+
+.select-qty{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: var(--main-text);
+  gap: 10px;
+}

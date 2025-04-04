@@ -12,3 +12,15 @@
   font-weight: bold;
   white-space: nowrap;
 }
+
+.Cart-empty{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.Cart-empty img{
+  width: 100px;
+}

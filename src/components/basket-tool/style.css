@@ -1,7 +1,7 @@
 /* Контрол с общими действиями */
 .BasketTool {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 24px 16px 24px 0;
 }
 
@@ -12,6 +12,8 @@
   border: 1.5px solid var(--primary);
   background-color: var(--background);
   padding-block: 7px;
+  color: var(--main-text);
+  height: 40px;
 
   &:hover {
     .BasketTool-total {
@@ -22,4 +24,18 @@
 
 .BasketTool-total {
   transition: 0.3s;
+}
+
+.home-btn{  
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+  text-decoration: none;
+  color: var(--main-text);
+
+
+  &:hover{
+    text-decoration: underline;
+  }
 }

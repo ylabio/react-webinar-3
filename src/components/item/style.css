@@ -23,3 +23,17 @@
     background-color: var(--background);
   }
 }
+
+.Item-title{
+  color: var(--main-text);
+  transition: color .3s ease-out;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--primary);
+  }
+}
+
+a{
+  text-decoration: none;
+}

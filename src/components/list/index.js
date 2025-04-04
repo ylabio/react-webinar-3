@@ -1,9 +1,12 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
-import Item from '../item';
+import useSelector from '../../store/use-selector';
 import './style.css';
 
-function List({ list, renderItem }) {
+function List({ list: propList, renderItem = item => {} }) {
+  const listFromStore = useSelector(state => state.catalog.list);
+  const list = propList || listFromStore;
+
   return (
     <ul className="List">
       {list.map(item => (
@@ -20,12 +23,8 @@ List.propTypes = {
     PropTypes.shape({
       _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     }),
-  ).isRequired,
+  ),
   renderItem: PropTypes.func,
-};
-
-List.defaultProps = {
-  renderItem: item => {},
 };
 
 export default memo(List);
