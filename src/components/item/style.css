@@ -1,4 +1,4 @@
-.Item {
+.Item-content {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -7,28 +7,47 @@
   padding: 16px;
 }
 
-.Item_selected {
-  background-color: var(--primary-select);
-}
-
 .Item-title {
   flex: auto;
+}
+
+.Modal .Item-info {
+  display: flex;
+  align-items: center;
+  width: 363px;
+  justify-content: space-between;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 24px;
+}
+
+.Item-actions span {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+  color: var(--main-text);
 }
 
 .Item-actions button {
-  background-color: var(--delete);
+  background-color: var(--primary);
   color: var(--second-text);
   padding: 8px 16px;
+  transition: background-color 0.1s ease-in-out;
 
   &:hover {
-    background-color: var(--background);
-    border-color: var(--delete);
-    color: var(--delete);
+    background-color: #8460f0;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--delete);
+    outline-offset: 2px;
+  }
+
+  &:active {
+    background-color: #5238a0;
   }
 }
-

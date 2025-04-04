@@ -41,46 +41,47 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление продукта в корзину
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
+  addProductToBasket(code, title, price, count = 1) {
+    const existingItem = this.state.productsBasket?.find(item => item.code === code);
+
+    if (existingItem) {
+      this.setState({
+        ...this.state,
+        productsBasket: this.state.productsBasket.map(item =>
+          item.code === code ? { ...item, count: item.count + count } : item,
+        ),
+        productsPrice: this.state.productsPrice + price * count,
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        productsBasket: [...(this.state.productsBasket || []), { code, title, price, count }],
+        productsPrice: (this.state.productsPrice || 0) + price * count,
+      });
+    }
   }
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Удаление продукта из корзины по коду
+   * @param code {string} Код товара
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
+  deleteProductFromBasket(code) {
+    if (!this.state.productsBasket) return;
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
+    const productIndex = this.state.productsBasket.findIndex(item => item.code === code);
+
+    if (productIndex === -1) return;
+
+    const productToRemove = this.state.productsBasket[productIndex];
+    const newBasket = this.state.productsBasket.filter((_, index) => index !== productIndex);
+
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      productsBasket: newBasket,
+      productsPrice:
+        (this.state.productsPrice || 0) - productToRemove.price * productToRemove.count,
     });
   }
 }
