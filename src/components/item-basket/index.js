@@ -5,26 +5,33 @@ import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import Button from '../button';
 import './style.css';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../../constants';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: e => props.onRemove(props.item._id),
+    onRemove: e => {
+      e.preventDefault();
+      props.onRemove(props.item._id);
+    },
   };
 
   return (
-    <div className={cn()}>
-      {/* <div className={cn('code')}>{props.item._id}</div> */}
-      <h4 className={cn('title')}>{props.item.title}</h4>
-      <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title="Удалить" />
+    <Link to={ROUTES.PRODUCT(props.item._id)}>
+      <div className={cn()}>
+        {/* <div className={cn('code')}>{props.item._id}</div> */}
+        <h4 className={cn('title')}>{props.item.title}</h4>
+        <div className={cn('right')}>
+          <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+          <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
+          <div className={cn('cell')}>
+            <Button style="delete" onClick={callbacks.onRemove} title="Удалить" />
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

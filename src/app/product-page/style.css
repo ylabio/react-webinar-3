@@ -7,8 +7,24 @@
   line-height: 22px;
 }
 
-.Page-section-name {
+.Product-back {
   padding: 9px 0px;
+
+  & span {
+    display: inline-block;
+  }
+  & span::after {
+    content: '';
+    width: 0px;
+    height: 1px;
+    display: block;
+    background: black;
+    transition: 300ms;
+  }
+
+  &:hover span::after {
+    width: 100%;
+  }
 }
 
 .Product-details {

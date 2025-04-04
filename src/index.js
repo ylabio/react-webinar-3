@@ -6,6 +6,7 @@ import 'theme.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ProductPage from './app/product-page';
 import { getProductDetails } from './app/api/api';
+import { ROUTES } from './constants';
 
 const store = new Store();
 
@@ -13,11 +14,11 @@ const root = createRoot(document.getElementById('root'));
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: ROUTES.MAIN,
     element: <App />,
   },
   {
-    path: 'products/:itemId',
+    path: ROUTES.PRODUCT(':id'),
     element: <ProductPage />,
     loader: getProductDetails,
   },
