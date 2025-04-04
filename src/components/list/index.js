@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 import Item from '../item';
 import './style.css';
 
-function List({ list, renderItem }) {
+function List({ list = [], renderItem = item => {}, renderPagination }) {
+
   return (
-    <ul className="List">
-      {list.map(item => (
-        <li key={item._id} className="List-item">
-          {renderItem(item)}
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className="List">
+        {list.map(item => (
+          <li key={item._id} className="List-item">
+            {renderItem(item)}
+          </li>
+        ))}
+      </ul>
+      {renderPagination}
+    </>
   );
 }
 
@@ -22,10 +26,7 @@ List.propTypes = {
     }),
   ).isRequired,
   renderItem: PropTypes.func,
-};
-
-List.defaultProps = {
-  renderItem: item => {},
+  renderPagination: PropTypes.func,
 };
 
 export default memo(List);
