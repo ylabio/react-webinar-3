@@ -4,8 +4,9 @@ import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
 import useSelector from '../../store/use-selector';
 import useStore from '../../store/use-store';
-import { useParams } from 'react-router';
+import { NavLink, useParams } from 'react-router';
 import Button from '../../components/button';
+import './style.css';
 
 const ItemPage = () => {
   const store = useStore();
@@ -43,21 +44,21 @@ const ItemPage = () => {
   return (
     <PageLayout>
       <Head title={item?.title}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={amount} sum={sum} />
-      <div>{item?.description}</div>
-      <div>
+      <BasketTool onOpen={callbacks.openModalBasket} amount={amount} sum={sum} >
+        <NavLink className={"nav-link"} to={'/'}>Главная</NavLink>
+      </BasketTool>
+      <div className='mb-24'>{item?.description}</div>
+      <div className="info-grid">
         <label>Страна производитель:</label>
         <span>{item?.madeIn?.title}</span>
-      </div>
-      <div>
+
         <label>Категория:</label>
         <span>{item?.category?.title}</span>
-      </div>
-      <div>
+
         <label>Год выпуска:</label>
         <span>{item?.edition}</span>
       </div>
-      <h3>Цена: {item?.price}</h3>
+      <h3 className='mb-24'>Цена: {item?.price}</h3>
       <Button style={'primary'} onClick={callbacks.addToBasket} title={'Добавить'} type={'button'} />
     </PageLayout>
   );
