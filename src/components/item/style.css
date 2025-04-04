@@ -11,6 +11,13 @@
   flex: auto;
 }
 
+.Modal .Item-info {
+  display: flex;
+  align-items: center;
+  width: 363px;
+  justify-content: space-between;
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;

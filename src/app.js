@@ -16,6 +16,14 @@ function App({ store }) {
   const productsBasket = store.getState().productsBasket;
   const productsPrice = store.getState().productsPrice;
 
+  const formatPrice = price => {
+    return new Intl.NumberFormat('ru-RU', {
+      style: 'decimal',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(price);
+  };
+
   const callbacks = {
     onAddProductToBasket: useCallback(
       (code, title, price, count) => {
@@ -51,14 +59,24 @@ function App({ store }) {
         onOpenModal={callbacks.onOpenModal}
         onCloseModal={callbacks.onCloseModal}
       />
-      <List list={list} onAddProductToBasket={callbacks.onAddProductToBasket} />
+      <List
+        list={list}
+        formatPrice={formatPrice}
+        onAddProductToBasket={callbacks.onAddProductToBasket}
+      />
       <Modal
         isOpen={isModalActive}
         onClose={callbacks.onCloseModal}
-        products={productsBasket}
+        formatPrice={formatPrice}
         totalPrice={productsPrice}
-        onDeleteProduct={callbacks.onDeleteFromBasket}
-      />
+      >
+        <List
+          list={productsBasket}
+          onDeleteProduct={callbacks.onDeleteFromBasket}
+          formatPrice={formatPrice}
+          modal={true}
+        />
+      </Modal>
     </PageLayout>
   );
 }

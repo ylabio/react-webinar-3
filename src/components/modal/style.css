@@ -1,8 +1,14 @@
+body.modal-open {
+  position: fixed;
+  width: 100%;
+}
+
 .Modal {
+  max-width: 1080px;
+  width: 80%;
+  overflow-y: hidden;
   border: none;
   border-radius: 8px;
-  max-width: 1080px;
-  width: 90%;
 }
 
 .Modal::backdrop {
@@ -11,6 +17,9 @@
 
 .Modal-content {
   padding: 24px;
+}
+
+.Modal-box {
 }
 
 .Modal-title {
@@ -52,6 +61,8 @@
 .Modal-list {
   margin: 0;
   padding: 0;
+  max-height: calc(90vh - 160px);
+  overflow-y: auto;
 }
 
 .Modal-item {

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
 import './style.css';
 
 function Item({
@@ -10,12 +9,20 @@ function Item({
     price: 0,
     count: 1,
   },
+  modal = false,
+  formatPrice,
+  onDeleteProduct = () => {},
   onAddProductToBasket = () => {},
 }) {
   const callbacks = {
     onAddProduct: e => {
       e.stopPropagation();
       onAddProductToBasket(item.code, item.title, item.price, item.count);
+    },
+
+    onDeleteProduct: e => {
+      e.stopPropagation();
+      onDeleteProduct(item.code);
     },
   };
 
@@ -24,9 +31,18 @@ function Item({
       <div className="Item-title">
         <b>{item.title}</b>
       </div>
-      <div className="Item-actions">
-        <span>{item.price} ₽</span>
-        <button onClick={callbacks.onAddProduct}>Добавить</button>
+      <div className="Item-info">
+        {modal && <p className="Modal-info-count">{item.count} шт</p>}
+        <div className="Item-actions">
+          <span>{formatPrice(item.price)} ₽</span>
+          {!modal ? (
+            <button onClick={callbacks.onAddProduct}>Добавить</button>
+          ) : (
+            <button onClick={callbacks.onDeleteProduct} className="Modal-remove-button">
+              Удалить
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
