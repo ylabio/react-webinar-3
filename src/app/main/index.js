@@ -7,9 +7,11 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import Controls from '../../components/controls';
+import { useTranslation } from '../../i18n/language-context';
 
 function Main() {
   const store = useStore();
+  const { t } = useTranslation();
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -44,7 +46,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
+      <Head title={t('Shop')} />
       <Controls
         onClick={() => setCurrentPage(1)}
         openModalBasket={callbacks.openModalBasket}

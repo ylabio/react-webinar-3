@@ -4,14 +4,16 @@ import './style.css';
 import { Link } from 'react-router';
 import { Paths } from '../../routes/paths';
 import BasketTool from '../basket-tool';
+import { useTranslation } from '../../i18n/language-context';
 
 function Controls(props) {
   const { onClick = () => {}, openModalBasket = () => {}, amount, sum } = props;
+  const { t } = useTranslation();
 
   return (
     <div className={'Controls'}>
       <Link onClick={onClick} className={'Controls-link'} to={Paths.MAIN}>
-        Главная
+        {t('Main')}
       </Link>
       <BasketTool onOpen={openModalBasket} amount={amount} sum={sum} />
     </div>

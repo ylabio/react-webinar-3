@@ -1,0 +1,8 @@
+.LangSwitcher {
+  display: flex;
+  gap: 16px;
+}
+
+.LangSwitcher-text {
+  color: var(--main-text);
+}

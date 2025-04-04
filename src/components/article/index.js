@@ -7,10 +7,12 @@ import useSelector from '../../store/use-selector';
 import Basket from '../../app/basket';
 import ArticleContent from '../article-content';
 import Controls from '../controls';
+import { useTranslation } from '../../i18n/language-context';
 
 function Article() {
   const store = useStore();
   const { id } = useParams();
+  const { t } = useTranslation();
 
   useEffect(() => {
     store.actions.article.getArticleById(id);
@@ -32,7 +34,7 @@ function Article() {
   return (
     <>
       <PageLayout>
-        <Head title="Название товара" />
+        <Head title={t('ProductName')} />
         <Controls
           openModalBasket={callbacks.openModalBasket}
           amount={select.amount}

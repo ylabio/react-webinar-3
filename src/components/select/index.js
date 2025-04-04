@@ -9,7 +9,7 @@ function Select({ value = 10, onChange = e => {}, options }) {
   return (
     <select value={value} onChange={onChangeHandler}>
       {options.map(item => (
-        <option className="Select-option" key={item.value} value={item.value}>
+        <option key={item.value} value={item.value}>
           {item.text}
         </option>
       ))}
@@ -20,11 +20,17 @@ function Select({ value = 10, onChange = e => {}, options }) {
 Select.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.number,
+      value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+      ]),
       text: PropTypes.string,
     }),
   ).isRequired,
-  value: PropTypes.number,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   onChange: PropTypes.func,
 };
 
