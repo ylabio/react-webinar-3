@@ -1,0 +1,25 @@
+.LanguageSwitcher {
+  position: absolute;
+  right: 1%;
+  top: 5%;
+}
+
+.LanguageSwitcher-button {
+  padding: 4px 8px;
+  margin: 0 4px;
+  border: 1px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.LanguageSwitcher-button_active {
+  background: var(--primary);
+  color: white;
+}
+
+.LanguageSwitcher-button:hover {
+  background: var(--primary-select);
+}

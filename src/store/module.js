@@ -25,6 +25,16 @@ class StoreModule {
       description,
     );
   }
+
+  resetState() {
+    this.store.setState({
+      ...this.store.getState(),
+      catalog: {
+        ...this.store.getState().catalog,
+        item: null,
+      },
+    });
+  }
 }
 
 export default StoreModule;

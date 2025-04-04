@@ -1,0 +1,32 @@
+ .ArticleItem {
+  padding-bottom: 24px;
+}
+
+.ArticleItem-list {
+  padding: 0;
+  list-style: none;
+  width: fit-content;
+  margin: 24px 0;
+}
+
+.ArticleItem-item {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.ArticleItem-item:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.ArticleItem-item span {
+  flex: 0 1 17%;
+}
+
+.ArticleItem-price {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 70;
+  margin-bottom: 24px;
+}

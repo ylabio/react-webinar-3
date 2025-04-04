@@ -31,3 +31,13 @@
     color: var(--delete);
   }
 }
+
+.Item-title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  color: var(--main-text);
+  &:hover {
+    color: var(--primary);
+  }
+}

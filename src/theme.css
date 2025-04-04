@@ -40,3 +40,14 @@ button {
 h1, h4 {
   margin: 0;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
