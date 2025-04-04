@@ -1,19 +1,15 @@
 import { memo, useCallback, useEffect } from 'react';
-import './style.css';
-import { Link, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import PageLayout from '../page-layout';
 import Head from '../head';
-import BasketTool from '../basket-tool';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Basket from '../../app/basket';
 import ArticleContent from '../article-content';
-import { Paths } from '../../routes/paths';
-import { cn as bem } from '@bem-react/classname';
+import Controls from '../controls';
 
 function Article() {
   const store = useStore();
-  const cn = bem('Article');
   const { id } = useParams();
 
   useEffect(() => {
@@ -22,7 +18,6 @@ function Article() {
   }, [id]);
 
   const select = useSelector(state => ({
-    list: state.basket.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
     article: state.article.article,
@@ -38,19 +33,12 @@ function Article() {
     <>
       <PageLayout>
         <Head title="Название товара" />
-        <div className={cn()}>
-          <div className={cn('title')}>
-            <Link className={cn('link')} to={Paths.MAIN}>
-              Главная
-            </Link>
-            <BasketTool
-              onOpen={callbacks.openModalBasket}
-              amount={select.amount}
-              sum={select.sum}
-            />
-          </div>
-          <ArticleContent article={select.article} addToBasket={callbacks.addToBasket} />
-        </div>
+        <Controls
+          openModalBasket={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+        />
+        <ArticleContent article={select.article} addToBasket={callbacks.addToBasket} />
       </PageLayout>
       {select.activeModal === 'basket' && <Basket />}
     </>

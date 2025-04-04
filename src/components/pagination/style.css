@@ -1,0 +1,12 @@
+.Pagination {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2px;
+  padding: 24px 0;
+}
+
+.Pagination select {
+  margin-right: 16px;
+  font-size: 16px;
+  padding: 2px 4px;
+}

@@ -1,10 +1,18 @@
 .Controls {
   display: flex;
-  justify-content: flex-end;
-  padding: 24px 16px 24px 0;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 16px;
 }
 
-.Controls button {
-  background-color: var(--primary);
-  color: var(--second-text);
+.Controls-link {
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+  color: var(--main-text);
+}
+
+.Controls-link:hover {
+  text-decoration: underline;
 }

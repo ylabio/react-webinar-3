@@ -5,7 +5,7 @@
   align-items: center;
   transition: background-color 1s;
   padding: 16px 16px 15px 16px;
-  cursor: url("../../assets/icon/pointer.svg"), auto;
+  cursor: var(--cursor);
 }
 
 .ItemBasket:hover {
