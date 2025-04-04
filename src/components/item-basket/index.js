@@ -5,8 +5,9 @@ import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import Button from '../button';
 import './style.css';
+import {Link} from "react-router";
 
-function ItemBasket({onRemove = () => {}, ...props }) {
+function ItemBasket({ onRemove = () => {}, onClose = () => {}, ...props }) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
@@ -15,7 +16,14 @@ function ItemBasket({onRemove = () => {}, ...props }) {
 
   return (
     <div className={cn()}>
-      <h4 className={cn('title')}>{props.item.title}</h4>
+      <Link
+        to={`/product/${props.item._id}`}
+        state={{ itemId: props.item._id }}
+        className={cn('link')}
+        onClick={onClose}
+      >
+        <h4 className={cn('title')}>{props.item.title}</h4>
+      </Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
@@ -35,6 +43,7 @@ ItemBasket.propTypes = {
     amount: PropTypes.number,
   }).isRequired,
   onRemove: propTypes.func,
+  onClose: propTypes.func,
 };
 
 export default memo(ItemBasket);
