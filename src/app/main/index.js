@@ -12,7 +12,6 @@ import locales from '../../locales';
 
 function Main() {
   const store = useStore();
-console.log(store)
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
 

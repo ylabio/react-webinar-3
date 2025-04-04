@@ -1,13 +1,14 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
-import { useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 import BasketTool from '../../components/basket-tool';
 import { cn as bem } from '@bem-react/classname';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Button from '../../components/button';
 import './style.css';
+import locales from '../../locales';
 
 const ItemPage = () => {
   const store = useStore();
@@ -22,6 +23,7 @@ const ItemPage = () => {
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
+    language: state.lang.language
   }));
 
   const callbacks = {
@@ -39,15 +41,15 @@ const ItemPage = () => {
       <Head title={item.title} />
       <div className={cn()}>
         <div className={cn('header')}>
-          <a href="/">Главная</a>
+          <Link to="/">{locales[select.language].main}</Link>
           <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
         </div>
         <div className={cn('description')}>{item.description}</div>
         <div className={cn('main')}>
           <div className={cn('main-info')}>
-            <span>Страна производитель:</span>
-            <span>Категория:</span>
-            <span>Год выпуска:</span>
+            <span>{locales[select.language].country}:</span>
+            <span>{locales[select.language].category}:</span>
+            <span>{locales[select.language].year}:</span>
           </div>
           <div className={cn('main-info', 'info-data')}>
             <div>{item.madeIn?.title}</div>
@@ -55,11 +57,11 @@ const ItemPage = () => {
             <div>{item.edition}</div>
           </div>
         </div>
-        <div className={cn('price')}>Цена: {item.price} ₽</div>
+        <div className={cn('price')}>{locales[select.language].price}: {item.price} ₽</div>
         <Button
           onClick={() => callbacks.addToBasketFromItemPage(item._id)}
           style={'primary'}
-          title={'Добавить'}
+          title={locales[select.language].add}
         ></Button>
       </div>
     </PageLayout>
