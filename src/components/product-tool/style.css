@@ -1,0 +1,35 @@
+/* Контрол с общими действиями */
+.ProductTool {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 16px 24px 0;
+}
+
+.ProductTool-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px solid var(--primary);
+  background-color: var(--background);
+  padding-block: 7px;
+
+  &:hover {
+    .ProductTool-total {
+      color: var(--primary);
+    }
+  }
+}
+
+.ProductTool-total {
+  transition: 0.3s;
+}
+
+.ProductTool-homelink {
+  text-decoration: none;
+  color: var(--main-text);
+}
+
+.ProductTool-homelink:hover {
+  text-decoration: underline;
+}

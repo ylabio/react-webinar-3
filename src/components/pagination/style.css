@@ -1,0 +1,57 @@
+.Pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2px;
+    list-style: none;
+    margin-top: 24px;
+}
+
+.Pagination-list {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2px;
+    list-style: none;
+}
+
+.Pagination-item {
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    border-radius: 2px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #6B4ACB1A;
+    }
+}
+
+.Pagination-item_selected {
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    border-radius: 2px;
+    background-color: var(--primary);
+    color: var(--second-text);
+}
+
+.Pagination-item_dots {
+    cursor: default; /* Указатель по умолчанию для многоточий */
+    color: #888; /* Можно задать цвет для многоточий */
+}
+
+.Pagination-item_dots:hover {
+    background-color: transparent; /* Нет подсветки при наведении для многоточий */
+}
+
+.Pagination-selector {
+    font-family: var(--second-font-family);
+    width: 40px;
+    height: 22px;
+    text-align: center;
+    border: 1px solid;
+    border-radius: 2px;
+    cursor: pointer;
+    /* background: var(--primary); */
+    color: var(--main-text);
+}

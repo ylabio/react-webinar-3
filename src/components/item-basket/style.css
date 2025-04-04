@@ -7,6 +7,10 @@
   padding: 16px 16px 15px 16px
 }
 
+.ItemBasket-title {
+  cursor: pointer;
+}
+
 .ItemBasket-right {
   display: flex;
   justify-content: flex-end;

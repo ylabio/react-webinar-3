@@ -1,8 +1,8 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
 import Main from './main';
 import Basket from './basket';
-import useStore from '../store/use-store';
 import useSelector from '../store/use-selector';
+import { createBrowserRouter, RouterProvider, BrowserRouter, Routes, Route } from 'react-router-dom';
+import Product from './product';
 
 /**
  * Приложение
@@ -10,11 +10,30 @@ import useSelector from '../store/use-selector';
  */
 function App() {
   const activeModal = useSelector(state => state.modals.name);
+  // const router = createBrowserRouter([
+  //   {
+  //     path: '/',
+  //     element: <Main />
+  //   },
+  //   {
+  //     path: 'product/:id',
+  //     element: <Product />
+  //   }
+  // ]);
 
   return (
     <>
-      <Main />
-      {activeModal === 'basket' && <Basket />}
+      {/* <Main /> */}
+      <BrowserRouter>
+        <Routes>
+          
+          {/* <RouterProvider router={router} /> */}
+          <Route path='/' element={<Main />} />
+          <Route path='/product/:id' element={<Product />} />
+          
+        </Routes>
+        {activeModal === 'basket' && <Basket />}
+      </BrowserRouter>
     </>
   );
 }

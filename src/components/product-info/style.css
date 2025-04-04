@@ -1,23 +1,22 @@
-.Item {
-  display: flex;
+.ProductInfo {
+  /* display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 16px;
   transition: background-color 1s;
-  padding: 16px 16px 15px 16px
+  padding: 16px 16px 15px 16px */
 }
 
-.Item-title {
-  cursor: pointer;
-}
-
-.Item-actions {
-  display: flex;
-  justify-content: flex-end;
+.ProductInfo-details {
+  display: grid;
+  grid-template-columns: 200px 200px;
   align-items: center;
-  gap: 24px;
-  flex: auto;
 }
+
+.ProductInfo-price {
+  display: flex;
+}
+
 
 .Item-actions button {
   background-color: var(--primary);
