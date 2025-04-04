@@ -30,6 +30,16 @@ class Catalog extends StoreModule {
       'Загружены товары с параметрами пагинации',
     );
   }
+
+  async loadItem(id) {
+    const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title),category(title)`);
+    const json = await response.json();
+  
+    this.setState({
+      ...this.getState(),
+      current: json.result,
+    }, 'Загружен товар по id');
+  }
 }
 
 export default Catalog;
