@@ -1,0 +1,14 @@
+.home-link {
+    display: inline-block;
+    margin-right: auto;
+    padding: 8px 16px 8px 6px;
+    text-decoration: none;
+    color: #1A2028;
+    font-weight: 500;
+    position: relative;
+    left: -5px;
+  }
+
+  .home-link:hover {
+    text-decoration: underline;
+  }

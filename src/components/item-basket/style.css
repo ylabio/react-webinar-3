@@ -31,3 +31,13 @@
     color: var(--delete);
   }
 }
+
+.ItemBasket-title a {
+  text-decoration: none;
+  color: #1A2028;
+}
+
+.ItemBasket-title a:hover {
+  text-decoration: none;
+  color: #6B4ACB;
+}

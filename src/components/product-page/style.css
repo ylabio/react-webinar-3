@@ -1,0 +1,103 @@
+.product-page {
+  width: 1440px;
+  margin: 0 auto;
+  padding: 0 144px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header-container {
+  width: 100%;
+}
+
+.header-content {
+  width: 1152px;
+  height: 40px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.Head {
+  position: relative;
+  left: -20px;
+}
+
+.home-link {
+  width: auto;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 16px;
+  color: #1A2028;
+  text-decoration: none;
+}
+
+.basket-tool-wrapper {
+  margin-left: auto;
+  transform: translateX(16px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.product-details {
+  width: 1152px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.product-description {
+  padding-bottom: 15px;
+}
+
+.product-country,
+.product-category,
+.product-year {
+  display: flex;
+  align-items: baseline;
+}
+
+.product-country span,
+.product-category span,
+.product-year span {
+  min-width: 160px;
+  display: inline-block;
+}
+
+.product-country b {
+  margin-left: 10px;
+}
+
+.product-category b {
+  margin-left: 36px;
+}
+
+.product-year b {
+  margin-left: 36px;
+}
+
+.product-price {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.product-price b {
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: #1A2028;
+  display: inline;
+  margin-left: 0;
+}

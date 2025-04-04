@@ -4,7 +4,7 @@
   align-items: center;
   gap: 16px;
   transition: background-color 1s;
-  padding: 16px 16px 15px 16px
+  padding: 16px 16px 15px 16px;
 }
 
 .Item-actions {
@@ -18,8 +18,17 @@
 .Item-actions button {
   background-color: var(--primary);
   color: var(--second-text);
+}
 
-  &:hover {
-    background-color: var(--background);
-  }
+.Item-actions button:hover {
+  background-color: var(--background);
+}
+
+.Item-title a {
+  text-decoration: none;
+  color: #1A2028;
+}
+
+.Item-title a:hover {
+  color: #6B4ACB;
 }
