@@ -22,12 +22,18 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       {/* <div className={cn('code')}>{props.item._id}</div> */}
-      <h4 className={cn('title')}>{props.item.title}</h4>
+      <a href={`/item/${props.item._id}`}>
+        <h4 className={cn('title')}>{props.item.title}</h4>
+      </a>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title={locales[select.language].remove} />
+          <Button
+            style="delete"
+            onClick={callbacks.onRemove}
+            title={locales[select.language].remove}
+          />
         </div>
       </div>
     </div>
