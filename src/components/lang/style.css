@@ -1,0 +1,13 @@
+.Lang {
+  display: flex;
+  gap: 8px;
+}
+
+.Lang-Button:hover {
+  background: #f0f0f0;
+}
+
+.Lang-Button_active {
+  background: #6b4acb;
+  color: #fff;
+}
