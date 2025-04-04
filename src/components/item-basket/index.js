@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Button from '../button';
 import './style.css';
 
-function ItemBasket(props) {
+function ItemBasket(props = {onRemove: () => {},}) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
@@ -38,8 +38,5 @@ ItemBasket.propTypes = {
   onRemove: propTypes.func,
 };
 
-ItemBasket.defaultProps = {
-  onRemove: () => {},
-};
 
 export default memo(ItemBasket);

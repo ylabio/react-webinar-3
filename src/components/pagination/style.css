@@ -1,0 +1,22 @@
+.Pagination {
+  display: flex;
+  gap: 2px;
+}
+
+.Pagination-page {
+  height: 22px;
+  width: 22px;
+  flex: none;
+  border-radius: 2px;
+  padding: 0;
+  font-weight: 400;
+  font-family: var(--font-family);
+  font-size: 16px;
+  box-sizing: content-box;
+  
+  &.active {
+    background-color: var(--primary);
+    color: var(--background);
+  }
+
+}

@@ -5,7 +5,7 @@ import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
 
-function Item(props) {
+function Item(props = {onAdd: () => {},}) {
   const cn = bem('Item');
 
   const callbacks = {
@@ -31,10 +31,6 @@ Item.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onAdd: () => {},
 };
 
 export default memo(Item);
