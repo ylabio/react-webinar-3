@@ -14,7 +14,10 @@ function PaginationItem({ onClick, isActive, item }) {
 
 PaginationItem.propTypes = {
   id: PropTypes.number,
-  item: PropTypes.number,
+  item: PropTypes.oneOfType([
+    PropTypes.string, // может быть строка '...'
+    PropTypes.number,
+  ]),
   isActive: PropTypes.bool,
   onClick: PropTypes.func,
 };
