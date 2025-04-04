@@ -1,0 +1,23 @@
+.pagination {
+    display: block;
+}
+
+.pagination-button {
+    padding: 0 0.2rem;
+    min-width: 22px;
+    height: 22px;
+    font-weight: 400;
+}
+
+.pagination-button:hover {
+    background-color: rgba(107, 74, 203, .1);
+}
+
+.active, .active:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+.ellipsis {
+    color: var(--close);
+}

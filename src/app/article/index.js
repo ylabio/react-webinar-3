@@ -31,7 +31,7 @@ function Article() {
             <Head title={select.product?.title ?? 'Загрузка...'} />
             <BasketTool />
             <div>
-                <p>{select.product?.edition ?? 'Загрузка...'}</p>
+                <p>{select.product?.description ?? 'Загрузка...'}</p>
                 <div className="product-info">
                     <div className="product-info-item">
                         <span>Страна производитель:</span>
