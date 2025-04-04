@@ -23,3 +23,10 @@
     background-color: var(--background);
   }
 }
+.Item-link {
+  color: var(--main-text);
+  text-decoration: none;
+  &:hover {
+    color: var(--primary);
+  }
+}
