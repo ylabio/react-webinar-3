@@ -1,46 +1,40 @@
-import { memo, useCallback, useEffect } from 'react';
-import Item from '../../components/item';
+import { memo, useCallback, useEffect, useState } from 'react';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
-import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
+import HomePage from '../home-page';
+import { Link, Route, Routes } from 'react-router-dom';
+import './style.css';
+import ProductPage from '../product-page';
 
 function Main() {
   const store = useStore();
 
-  useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
-
   const select = useSelector(state => ({
-    list: state.catalog.list,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
+    amount: state.basket.amount || 0,
+    sum: state.basket.sum || 0,
   }));
 
   const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-  };
-
-  const renders = {
-    item: useCallback(
-      item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
-      },
-      [callbacks.addToBasket],
-    ),
   };
 
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      <List list={select.list} renderItem={renders.item} />
+      <div className="navigation">
+        <Link className="link" to={'/'}>
+          Главная
+        </Link>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      </div>
+
+      <Routes>
+        <Route path="/" element={<HomePage store={store} />} />
+        <Route path="/product/:id" element={<ProductPage />} />
+      </Routes>
     </PageLayout>
   );
 }
