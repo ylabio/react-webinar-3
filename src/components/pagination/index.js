@@ -14,6 +14,10 @@ function Pagination({count, limit}) {
   const cn = bem('Pagination');
 
   useEffect(() => {
+    if(currentPage > lastPage){
+      setCurrentPage(1)
+    }
+
     store.actions.catalog.load(limit, skip);
   }, [currentPage, limit]);
 
