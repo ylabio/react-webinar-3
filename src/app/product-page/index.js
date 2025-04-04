@@ -6,35 +6,29 @@ import PageLayout from '../../components/page-layout';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import ProductDetails from '../../components/product-details';
-import ProductDetailsTools from '../../components/product-details-tools';
+import HeaderTools from '../../components/header-tools';
 
-function ProductPage({ isOpen }) {
+function ProductPage() {
     const { id } = useParams();
-
     const store = useStore();
     const selectedProduct = useSelector(state => state.catalog.selectedProduct);
-    const { catalog } = store.actions;
-
-    useEffect(() => {
-        catalog.load();
-    }, []);
+    const { catalog, basket, modals } = store.actions;
 
     const select = useSelector(state => ({
-        list: state.catalog.list,
         amount: state.basket.amount,
         sum: state.basket.sum,
     }));
 
     const callbacks = {
         // Добавление в корзину
-        addToBasket: useCallback(id => store.actions.basket.addToBasket(id), [store]),
+        addToBasket: useCallback(id => basket.addToBasket(id), [store]),
         // Открытие модалки корзины
-        openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+        openModalBasket: useCallback(() => modals.open('basket'), [store]),
     };
 
     useEffect(() => {
         catalog.getProduct(id);
-    }, [])
+    }, [id])
 
     if (!selectedProduct) {
         return (<h1>Загрузка...</h1>)
@@ -43,7 +37,7 @@ function ProductPage({ isOpen }) {
     return (
         <PageLayout>
             <Head titleKey={selectedProduct.title} />
-            <ProductDetailsTools
+            <HeaderTools
                 handleOpen={callbacks.openModalBasket}
                 amount={select.amount}
                 sum={select.sum}

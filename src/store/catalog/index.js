@@ -40,10 +40,13 @@ class Catalog extends StoreModule {
   async getProduct(id) {
     const response = await fetch(`/api/v1/articles/${id}?fields=description,edition,price,title,madeIn(title),category(title)`);
     const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      selectedProduct: json.result
-    })
+    this.setState(
+      {
+        ...this.getState(),
+        selectedProduct: json.result,
+      },
+      'Загружены товары из АПИ',
+    )
   }
 
   /**
