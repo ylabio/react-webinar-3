@@ -2,12 +2,15 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import { getPageNumbers } from '../../utils';
+import { useTranslation } from '../../translation/TranslationContext';
 
 function Pagination({ page, limit, setPage = () => {}, setLimit = () => {} }) {
+  const { t } = useTranslation();
+
   return (
     <div className="Pagination">
       <div className="Pagination-control">
-        <span>Товаров на странице: </span>
+        <span>{t('itemsPerPage')}: </span>
         <button
           onClick={() => setLimit(5)}
           className={limit === 5 ? 'Pagination-item Pagination-item--active' : 'Pagination-item'}

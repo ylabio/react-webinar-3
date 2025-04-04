@@ -5,9 +5,11 @@ import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import Button from '../button';
 import './style.css';
+import { useTranslation } from '../../translation/TranslationContext';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
+  const { t } = useTranslation();
 
   const callbacks = {
     onRemove: e => props.onRemove(props.item._id),
@@ -18,10 +20,12 @@ function ItemBasket(props) {
       {/* <div className={cn('code')}>{props.item._id}</div> */}
       <h4 className={cn('title')}>{props.item.title}</h4>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>
+          {numberFormat(props.item.amount || 0)} {t('quantity')}
+        </div>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title="Удалить" />
+          <Button style="delete" onClick={callbacks.onRemove} title={t('removeFromCart')} />
         </div>
       </div>
     </div>

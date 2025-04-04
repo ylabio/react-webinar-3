@@ -8,6 +8,7 @@
 
 .Pagination-control {
   display: flex;
+  align-items: baseline;
   gap: 2px;
 
   & span {

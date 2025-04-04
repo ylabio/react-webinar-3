@@ -7,6 +7,7 @@ import useSelector from '../../store/use-selector';
 import { useLoaderData } from 'react-router';
 import Nav from '../../components/nav';
 import ArticleCard from '../../components/article-card';
+import { useTranslation } from '../../translation/TranslationContext';
 
 function Article() {
   const [country, setCountry] = useState(null);
@@ -14,6 +15,7 @@ function Article() {
   const [loading, setLoading] = useState(true);
 
   const store = useStore();
+  const { t } = useTranslation();
 
   let { result: article } = useLoaderData();
 
@@ -57,7 +59,7 @@ function Article() {
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       </Nav>
       {loading ? (
-        <div>Загрузка данных...</div>
+        <div>{t('dataLoading')}</div>
       ) : (
         <ArticleCard
           article={article}

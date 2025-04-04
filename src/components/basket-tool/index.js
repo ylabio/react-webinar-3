@@ -4,9 +4,11 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from '../../utils';
 import Cart from '../../assets/icon/cart.svg';
 import './style.css';
+import { useTranslation } from '../../translation/TranslationContext';
 
 function BasketTool(props) {
   const { onOpen = () => {}, sum = 0, amount = 0 } = props;
+  const { t } = useTranslation();
 
   const cn = bem('BasketTool');
   return (
@@ -16,11 +18,11 @@ function BasketTool(props) {
         <span className={cn('total')}>
           {amount
             ? `${amount} ${plural(amount, {
-                one: 'товар',
-                few: 'товара',
-                many: 'товаров',
+                one: `${t('productOne')}`,
+                few: `${t('productSome')}`,
+                many: `${t('productMany')}`,
               })} / ${numberFormat(sum)} ₽`
-            : `пусто`}
+            : `${t('emptyCart')}`}
         </span>
       </button>
     </div>

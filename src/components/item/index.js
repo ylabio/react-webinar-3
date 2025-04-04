@@ -5,10 +5,12 @@ import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
 import { useNavigate } from 'react-router';
+import { useTranslation } from '../../translation/TranslationContext';
 
 function Item(props) {
   const cn = bem('Item');
   let navigate = useNavigate();
+  const { t } = useTranslation();
 
   const callbacks = {
     onAdd: e => props.onAdd(props.item._id),
@@ -21,7 +23,7 @@ function Item(props) {
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
         <div onClick={e => e.stopPropagation()}>
-          <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+          <Button style="primary" onClick={callbacks.onAdd} title={t('addToCart')} />
         </div>
       </div>
     </div>

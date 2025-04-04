@@ -5,6 +5,7 @@ import useStore from '../store/use-store';
 import useSelector from '../store/use-selector';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import Article from './article';
+import { TranslationProvider } from '../translation/TranslationContext';
 
 const router = createBrowserRouter([
   {
@@ -31,8 +32,10 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router} fallbackElement={<div>Загрузка...</div>} />
-      {activeModal === 'basket' && <Basket />}
+      <TranslationProvider>
+        <RouterProvider router={router} fallbackElement={<div>Загрузка...</div>} />
+        {activeModal === 'basket' && <Basket />}
+      </TranslationProvider>
     </>
   );
 }

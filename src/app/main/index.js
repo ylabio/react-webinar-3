@@ -8,9 +8,11 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import Nav from '../../components/nav';
+import { useTranslation } from '../../translation/TranslationContext';
 
 function Main() {
   const store = useStore();
+  const { t } = useTranslation();
 
   useEffect(() => {
     store.actions.catalog.load();
@@ -46,7 +48,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
+      <Head title={t('mainTitle')} />
       <Nav>
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       </Nav>
