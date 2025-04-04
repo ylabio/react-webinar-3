@@ -24,7 +24,8 @@ function Pagination({ currentPage, count, limit, changeLimit }) {
               className={ `${cn('page')}${+item === +currentPage ? ' active' : ''}` }
             >
               { item }
-            </Link> :
+            </Link>
+            :
             <div
               key={`skip-${index}`}
               className={cn('skip')}

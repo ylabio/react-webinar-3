@@ -9,7 +9,7 @@ function Head({ title }) {
   const { language, onSetLanguage } = useAppContext();
   
   return (
-    <div className="Head">
+    <header className="Head">
       <div className="Head-container">
         <h1>{title}</h1>
         <Button
@@ -18,7 +18,7 @@ function Head({ title }) {
           title={STRINGS.SWITCH_LANGUAGE[language]}
         />
       </div>
-    </div>
+    </header>
   );
 }
 

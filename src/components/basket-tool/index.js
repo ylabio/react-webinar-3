@@ -14,7 +14,7 @@ function BasketTool(props) {
   const cn = bem('BasketTool');
 
   return (
-    <div className={cn()}>
+    <nav className={cn()}>
       <div className={cn('container')}>
         <Link to={`/page/1`} className={cn('link')}>{STRINGS.HOME[language]}</Link>
         <button className={cn('action')} onClick={onOpen}>
@@ -26,7 +26,7 @@ function BasketTool(props) {
           </span>
         </button>
       </div>
-    </div>
+    </nav>
   );
 }
 
