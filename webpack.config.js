@@ -59,7 +59,7 @@ if (process.env.NODE_ENV === 'development') {
     proxy: [
       {
         context: '/api/**',
-        target: 'http://query.rest',
+        target: 'http://query.rest/',
         secure: false,
         changeOrigin: true,
       },

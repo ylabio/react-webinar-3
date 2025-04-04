@@ -1,31 +1,30 @@
 import { memo } from 'react';
-import PropTypes from 'prop-types';
-import Item from '../item';
+import PropTypes, { oneOfType } from 'prop-types';
 import './style.css';
 
-function List({ list, renderItem }) {
+function List({ list, renderItem, pagination }) {
   return (
-    <ul className="List">
-      {list.map(item => (
+    <ul className={pagination? "Pagination-list" : "List"}>
+      {list.map(item => !pagination ? (
         <li key={item._id} className="List-item">
           {renderItem(item)}
         </li>
+      ) : ( 
+        renderItem(item)
       ))}
     </ul>
   );
 }
 
 List.propTypes = {
-  list: PropTypes.arrayOf(
+  list: PropTypes.arrayOf(oneOfType([
     PropTypes.shape({
       _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     }),
-  ).isRequired,
+    PropTypes.number
+  ])).isRequired,
   renderItem: PropTypes.func,
-};
-
-List.defaultProps = {
-  renderItem: item => {},
+  pagination: PropTypes.bool,
 };
 
 export default memo(List);

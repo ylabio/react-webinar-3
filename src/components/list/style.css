@@ -1,9 +1,12 @@
-.List {
-  border-radius: 10px;
-  overflow: hidden;
+ul {
   list-style: none;
   padding-left: 0;
   margin: 0;
+}
+
+.List {
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .List-item:nth-child(odd) {
@@ -12,4 +15,38 @@
 
 .List-item {
   border-bottom: 1px solid var(--divider);
+}
+
+.Pagination {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Pagination-list {
+  margin-top: 24px;
+  display: flex;
+  justify-content: end;
+  gap: 2px;
+}
+
+.Page, .Page-active, .Skip, .Skip-active {
+  height: 22px;
+  min-width: 22px;
+  width: fit-content;
+  padding: 0;
+  border-radius: 2px;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+}
+
+.Page, .Skip {
+  color: var(--text);
+  background-color: transparent;
+}
+
+.Page-active, .Skip-active {
+  color: var(--second-text);
+  background-color: var(--primary);
 }
