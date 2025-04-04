@@ -1,30 +1,16 @@
-import React, { useEffect, useCallback } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Head from '../../components/head';
 
 import PageLayout from '../../components/page-layout';
-import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import ProductDetails from '../../components/product-details';
 import HeaderTools from '../../components/header-tools';
 
-function ProductPage() {
+function ProductPage({ catalog, openModalBasket, addToBasket, amount, sum }) {
     const { id } = useParams();
-    const store = useStore();
     const selectedProduct = useSelector(state => state.catalog.selectedProduct);
-    const { catalog, basket, modals } = store.actions;
-
-    const select = useSelector(state => ({
-        amount: state.basket.amount,
-        sum: state.basket.sum,
-    }));
-
-    const callbacks = {
-        // Добавление в корзину
-        addToBasket: useCallback(id => basket.addToBasket(id), [store]),
-        // Открытие модалки корзины
-        openModalBasket: useCallback(() => modals.open('basket'), [store]),
-    };
 
     useEffect(() => {
         catalog.getProduct(id);
@@ -38,9 +24,9 @@ function ProductPage() {
         <PageLayout>
             <Head titleKey={selectedProduct.title} />
             <HeaderTools
-                handleOpen={callbacks.openModalBasket}
-                amount={select.amount}
-                sum={select.sum}
+                handleOpen={openModalBasket}
+                amount={amount}
+                sum={sum}
             />
             <ProductDetails
                 desc={selectedProduct.description}
@@ -48,10 +34,18 @@ function ProductPage() {
                 category={selectedProduct.category.title}
                 edition={selectedProduct.edition}
                 price={selectedProduct.price}
-                handleAddProduct={() => callbacks.addToBasket(id)}
+                handleAddProduct={() => addToBasket(id)}
             />
         </PageLayout>
     )
+}
+
+ProductPage.propTypes = {
+    catalog: PropTypes.object,
+    openModalBasket: PropTypes.func,
+    addToBasket: PropTypes.func,
+    amount: PropTypes.number,
+    sum: PropTypes.number,
 }
 
 export default React.memo(ProductPage);

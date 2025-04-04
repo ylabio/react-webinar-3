@@ -1,40 +1,20 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback } from 'react';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import HeaderTools from '../../components/header-tools';
 import List from '../../components/list';
-import useStore from '../../store/use-store';
-import useSelector from '../../store/use-selector';
 import PageTools from '../../components/page-tools';
+import PropTypes from 'prop-types';
 
-function Main() {
-  const store = useStore();
-  const { catalog } = store.actions;
-
-  useEffect(() => {
-    catalog.load();
-  }, []);
-
-  const select = useSelector(state => ({
-    list: state.catalog.list,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
-  }));
-
-  const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    // Открытие модалки корзины
-    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-  };
+function Main({ openModalBasket, addToBasket, amount, sum, list }) {
 
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return <Item item={item} onAdd={addToBasket} />;
       },
-      [callbacks.addToBasket],
+      [addToBasket],
     ),
   };
 
@@ -42,14 +22,22 @@ function Main() {
     <PageLayout>
       <Head titleKey="title" />
       <HeaderTools
-        handleOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
+        handleOpen={openModalBasket}
+        amount={amount}
+        sum={sum}
       />
-      <List list={select.list} renderItem={renders.item} />
+      <List list={list} renderItem={renders.item} />
       <PageTools />
     </PageLayout>
   );
+}
+
+Main.propTypes = {
+  openModalBasket: PropTypes.func,
+  addToBasket: PropTypes.func,
+  amount: PropTypes.number,
+  sum: PropTypes.number,
+  list: PropTypes.array,
 }
 
 export default memo(Main);
