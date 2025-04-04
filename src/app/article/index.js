@@ -7,6 +7,7 @@ import { useParams } from 'react-router';
 import NavHead from '../../components/nav-head';
 import ArticleCard from '../../components/article-card';
 import Basket from '../basket';
+import { article } from '../../store/exports';
 
 function Article() {
   const store = useStore();

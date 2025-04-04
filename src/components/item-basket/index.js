@@ -6,9 +6,11 @@ import PropTypes from 'prop-types';
 import Button from '../button';
 import './style.css';
 import { Link } from 'react-router';
+import { useLanguage } from '../../i18n';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
+  const { translate } = useLanguage();
 
   const callbacks = {
     onRemove: e => props.onRemove(props.item._id),
@@ -26,10 +28,12 @@ function ItemBasket(props) {
         {props.item.title}
       </Link>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>
+          {numberFormat(props.item.amount || 0)} {translate('amountShort')}
+        </div>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title="Удалить" />
+          <Button style="delete" onClick={callbacks.onRemove} title={translate('del')} />
         </div>
       </div>
     </div>

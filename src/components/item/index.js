@@ -5,9 +5,11 @@ import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
 import { Link } from 'react-router';
+import { useLanguage } from '../../i18n';
 
 function Item({ item = { _id: '', title: '', price: 0 }, onAdd = () => {} }) {
   const cn = bem('Item');
+  const { translate } = useLanguage();
 
   const callbacks = {
     onAdd: e => onAdd(item._id),
@@ -25,7 +27,7 @@ function Item({ item = { _id: '', title: '', price: 0 }, onAdd = () => {} }) {
       </Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
-        <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+        <Button style="primary" onClick={callbacks.onAdd} title={translate('add')} />
       </div>
     </div>
   );

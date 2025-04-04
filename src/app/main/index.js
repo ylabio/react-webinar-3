@@ -7,9 +7,11 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import NavHead from '../../components/nav-head';
+import { useLanguage } from '../../i18n';
 
 function Main() {
   const store = useStore();
+  const { translate } = useLanguage();
 
   useEffect(() => {
     store.actions.catalog.load();
@@ -48,7 +50,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
+      <Head title={translate('head')} />
       <NavHead onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
       <Pagination

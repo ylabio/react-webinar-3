@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import './style.css';
 import NavBar from '../nav-bar';
 import BasketTool from '../basket-tool';
+import LanguageControl from '../language-control';
 
 function NavHead({ onOpen = () => {}, sum = 0, amount = 0 }) {
   return (
     <div className={'NavHead'}>
       <NavBar />
+      <LanguageControl />
       <BasketTool onOpen={onOpen} amount={amount} sum={sum} />
     </div>
   );

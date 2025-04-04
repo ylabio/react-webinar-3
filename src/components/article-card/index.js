@@ -4,9 +4,11 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import { numberFormat } from '../../utils';
 import Button from '../button';
+import { useLanguage } from '../../i18n';
 
 function ArticleCard({ article = { _id: '', title: '', price: 0 }, onAdd = () => {} }) {
   const cn = bem('ArticleCard');
+  const { translate } = useLanguage();
 
   const callbacks = {
     onAdd: e => onAdd(article._id),
@@ -18,9 +20,9 @@ function ArticleCard({ article = { _id: '', title: '', price: 0 }, onAdd = () =>
 
       <div className={cn('info')}>
         <div className={cn('categories')}>
-          <p>Страна производитель:</p>
-          <p>Категория:</p>
-          <p>Год выпуска:</p>
+          <p>{translate('madeIn')}:</p>
+          <p>{translate('category')}:</p>
+          <p>{translate('edition')}:</p>
         </div>
         <div className={cn('values')}>
           <p>{article.madeIn.title}</p>
@@ -29,15 +31,15 @@ function ArticleCard({ article = { _id: '', title: '', price: 0 }, onAdd = () =>
         </div>
       </div>
 
-      <h2>{`Цена: ${numberFormat(article.price)} ₽`}</h2>
+      <h2>{`${translate('price')}: ${numberFormat(article.price)} ₽`}</h2>
 
-      <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+      <Button style="primary" onClick={callbacks.onAdd} title={translate('add')} />
     </div>
   );
 }
 
 ArticleCard.propTypes = {
-  item: PropTypes.shape({
+  article: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
     price: PropTypes.number,

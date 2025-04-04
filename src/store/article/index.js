@@ -7,11 +7,14 @@ class Article extends StoreModule {
 
   initState() {
     return {
-      article: {},
+      article: { _id: '' },
     };
   }
 
-  async getArticle(id = '670260bb7dd498df5525e5da') {
+  async getArticle(id) {
+    //Если выбранный товар уже загружен или не передан id, то не делаем ничего
+    if (this.getState().article._id === id || !id) return;
+
     const response = await fetch(
       `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`,
     );
