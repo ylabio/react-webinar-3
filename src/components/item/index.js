@@ -1,26 +1,32 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
+import { Link } from 'react-router';
+import { useTranslation } from '../../translation/use-translation';
 
 function Item(props) {
   const cn = bem('Item');
+  const { t } = useTranslation();
 
   const callbacks = {
-    onAdd: e => props.onAdd(props.item._id),
+    onAdd: () => {
+      props.onAdd(props.item._id);
+    },
   };
 
   return (
-    <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
+    <Link to={`/article/${props.item._id}`} className={cn()}>
       <h4 className={cn('title')}>{props.item.title}</h4>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+        <div onClick={e => e.preventDefault()}>
+          <Button style="primary" onClick={callbacks.onAdd} title={t('add')} />
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
