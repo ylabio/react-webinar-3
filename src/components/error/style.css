@@ -1,0 +1,21 @@
+.Error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 1px #fcbebe;
+  background-color: #eeeeee;
+}
+.Error-title {
+  font-size: 20px;
+}
+.Error-message {
+  font-size: 20px;
+}
+.Error-what-to-do {
+  font-size: 20px;
+}

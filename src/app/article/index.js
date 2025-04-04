@@ -1,30 +1,24 @@
 import { memo, useCallback, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
-import List from '../../components/list';
-import Pagination from '../../components/pagination';
-import PageLimitItems from '../../components/page-limit-items';
+import ProductItem from '../../components/product-item';
 import Loader from '../../components/loader';
-import Error from '../../components/error';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
-import './style.css';
 
-function Main() {
+function Article() {
   const store = useStore();
+  const params = useParams();
 
   useEffect(() => {
-    store.actions.catalog.load(select.limit, 0);
+    store.actions.product.load(params.id);
   }, []);
 
   const select = useSelector(state => ({
-    list: state.catalog.list,
-    loading: state.catalog.loading,
-    error: state.catalog.error,
-    count: state.catalog.count,
-    limit: state.catalog.limit,
+    product: state.product,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
@@ -46,21 +40,18 @@ function Main() {
   };
 
   return (
+    <>
+      {select.product.loading && <Loader />}
       <PageLayout>
-        <Head title="Магазин" />
+        <Head title={select.product.item.title} />
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-        {select.loading && <Loader />}
-        {select.error && <Error error={select.error}/>}
-        {select.list.length && !select.loading
-          ? <List list={select.list} renderItem={renders.item} />
-          : null
+        {select.product.item && !select.product.loading &&
+          <ProductItem product={select.product} onAdd={callbacks.addToBasket} />
         }
-        <div className='Main-page-toolbar'>
-          <PageLimitItems />
-          <Pagination count={select.count} limit={select.limit} />
-        </div>
       </PageLayout>
+    </>
+
   );
 }
 
-export default memo(Main);
+export default memo(Article);

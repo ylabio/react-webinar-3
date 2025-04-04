@@ -1,0 +1,17 @@
+.Nav-item {
+  color: #1A2028;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.Nav-item_active {
+  color: #1A2028;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

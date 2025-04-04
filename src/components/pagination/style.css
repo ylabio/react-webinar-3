@@ -1,0 +1,46 @@
+.Pagination-template {
+  display: flex;
+  justify-content: end;
+  gap: 2px;
+}
+
+.Pagination-template-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 22px;
+  height: 22px;
+  margin-right: 2px;
+  padding: 0;
+  font-family: 'Golos Text';
+  font-size: 16px;
+  font-weight: 400;
+  color: #1A2028;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(107, 74, 203, 0.1);
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.Pagination-template-button_active {
+  border-radius: 2px;
+  color: #ffffff;
+  background-color: #6B4ACB;
+
+  &:hover {
+    background-color: #6B4ACB;
+  }
+}
+
+.Pagination-template-separator {
+  width: 22px;
+  height: 22px;
+  font-size: 16px;
+  text-align: center;
+  color: #1A2028;
+}
