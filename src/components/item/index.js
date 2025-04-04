@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import Button from '../button';
+import { useLanguage } from '../../store/language-context';
 import './style.css';
 
 function Item(props) {
@@ -13,6 +14,8 @@ function Item(props) {
     onAdd: () => props.onAdd(props.item._id),
   };
 
+  const { translate } = useLanguage();
+
   return (
     <div className={cn()}>
       <h4 className={cn('title')}>
@@ -21,7 +24,7 @@ function Item(props) {
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
 
-        <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+        <Button style="primary" onClick={callbacks.onAdd} title={translate('add')} />
       </div>
     </div>
   );

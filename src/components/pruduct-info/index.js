@@ -2,10 +2,12 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import Button from '../button';
+import { useLanguage } from '../../store/language-context';
 import './style.css';
 
 function ProductInfo({ product, onAdd }) {
   const cn = bem('ProductInfo');
+  const { translate } = useLanguage();
 
   return (
     <article className={cn()}>
@@ -26,7 +28,7 @@ function ProductInfo({ product, onAdd }) {
       </div>
       <h2 className={cn('price')}>Цена: {product.price} ₽</h2>
       <div className={cn('actions')}>
-        <Button style="primary" onClick={() => onAdd(product._id)} title="Добавить" />
+        <Button style="primary" onClick={() => onAdd(product._id)} title={translate('add')} />
       </div>
     </article>
   );
