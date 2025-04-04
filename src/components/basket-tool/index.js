@@ -2,6 +2,7 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from '../../utils';
+import Nav from '../../components/nav';
 import Cart from '../../assets/icon/cart.svg';
 import './style.css';
 
@@ -11,6 +12,7 @@ function BasketTool(props) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
+      <Nav />
       <button className={cn('action')} onClick={onOpen}>
         <Cart className={cn('icon')} />
         <span className={cn('total')}>

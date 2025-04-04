@@ -1,0 +1,46 @@
+.PageLimitItems {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.PageLimitItems-title {
+  height: 22px;
+  margin-right: 3px;
+}
+
+.PageLimitItems-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 22px;
+  height: 22px;
+  margin-right: 2px;
+  padding: 0;
+  font-family: 'Golos Text';
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--main-text);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--primary-select);
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.PageLimitItems-button_active {
+  border-radius: 2px;
+  color: #ffffff;
+  background-color: var(--primary);
+
+  &:hover {
+    background-color: var(--primary);
+  }
+}

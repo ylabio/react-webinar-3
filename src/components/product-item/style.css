@@ -1,0 +1,27 @@
+.ProductItem-description {
+  margin: 0 0 24px 0;
+}
+
+.ProductItem-parameter {
+  display: flex;
+  margin-bottom: 12px;
+
+}
+
+.ProductItem-parameter-title {
+  width: 195px;
+
+}
+
+.ProductItem-parameter-text {
+  font-weight: 700;
+}
+
+.ProductItem-price {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  font-family: var(--second-font-family);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--main-text);
+}
