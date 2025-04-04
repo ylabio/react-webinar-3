@@ -6,8 +6,8 @@ import './style.css';
 function Pagination({ currentPage = 1, count = 100, limit = 10, onPageChange = ()=>{} }) {
   const cn = bem('Pagination');
   let pages = [];
-  const totalPages = Math.ceil(count / limit);
-  console.log(count, limit)
+  const totalPages = Math.floor(count / limit);
+  
   if (totalPages <= 0 || currentPage > totalPages) {
     return null;
   }
