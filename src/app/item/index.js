@@ -16,7 +16,7 @@ const ItemPage = () => {
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    addToBasket: useCallback(_id => store.actions.basket.addToBasket(id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   };
@@ -58,7 +58,7 @@ const ItemPage = () => {
         <span>{item?.edition}</span>
       </div>
       <h3>Цена: {item?.price}</h3>
-      <Button style={'primary'} onClick={()=>{}} title={'Добавить'} type={'button'} />
+      <Button style={'primary'} onClick={callbacks.addToBasket} title={'Добавить'} type={'button'} />
     </PageLayout>
   );
 };
