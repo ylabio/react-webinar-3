@@ -4,7 +4,18 @@
   justify-content: flex-start;
   align-items: center;
   transition: background-color 1s;
-  padding: 16px 16px 15px 16px
+  padding: 16px 16px 15px 16px;
+}
+
+.ItemBasket-title a {
+  text-decoration: none;
+  color: var(--main-text);
+  transition: 0.3s;
+}
+
+.ItemBasket-title a:hover {
+  text-decoration: none;
+  color: var(--primary);
 }
 
 .ItemBasket-right {
@@ -19,6 +30,10 @@
   min-width: 105px;
   text-align: right;
   white-space: nowrap;
+}
+
+.ItemBasket-cell:nth-child(1) {
+  text-align: left;
 }
 
 .ItemBasket-cell button {

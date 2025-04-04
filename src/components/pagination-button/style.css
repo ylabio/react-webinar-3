@@ -1,0 +1,26 @@
+.pagination-button {
+  padding: 0;
+  font-weight: 400;
+  width: 22px;
+  height: 22px;
+  border-radius: 2px;
+  font-family: var(--font-family);
+  background: white;
+  cursor: pointer;
+}
+
+.pagination-button:hover {
+  background: var(--primary-select);
+  border: solid 1px var(--primary);
+}
+
+.pagination-button.active {
+  color: var(--second-text);
+  background: var(--primary);
+}
+
+.pagination-button:disabled {
+  cursor: auto;
+  border: none;
+  background: none;
+}

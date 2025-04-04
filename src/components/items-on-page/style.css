@@ -1,0 +1,10 @@
+.items-on-page {
+  display: flex;
+}
+.items-on-page select,
+option {
+  border: 1px solid var(--primary);
+  color: var(--main-text);
+  border-radius: 2px;
+  font-family: var(--font-family);
+}

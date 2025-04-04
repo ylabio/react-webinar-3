@@ -1,0 +1,25 @@
+.ProductInfo-description {
+  line-height: 22px;
+}
+
+.ProductInfo-info {
+  display: flex;
+  gap: 12px;
+  line-height: 22px;
+}
+
+.ProductInfo-info p {
+  width: 185px;
+}
+
+.ProductInfo-info-right {
+  font-weight: 700;
+}
+
+.ProductInfo-price {
+  font-family: var(--second-font-family);
+}
+
+.ProductInfo-actions {
+  padding: 16px 0;
+}
