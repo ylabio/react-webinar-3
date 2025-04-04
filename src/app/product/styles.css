@@ -1,0 +1,19 @@
+.product-modified-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-description,
+.product-info,
+.product-price {
+    margin-bottom: 24px;
+}
+
+.product-price {
+    font-family: var(--second-family);
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 133%;
+    color: #1a2028;
+}
