@@ -1,0 +1,33 @@
+.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.not-found h1 {
+  font-size: 72px;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+.not-found p {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.home-link {
+  font-size: 18px;
+  color: var(--primary);
+  text-decoration: none;
+  border: 1px solid var(--primary);
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.home-link:hover {
+  background-color: var(--primary);
+  color: white;
+}

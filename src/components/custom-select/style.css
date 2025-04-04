@@ -1,0 +1,63 @@
+.custom-select {
+  position: relative;
+  width: 77px;
+  font-family: var(--font-family);
+  cursor: pointer;
+}
+
+.custom-select__selected {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 4px 4px 0 0;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-select__arrow {
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+.custom-select__arrow.open {
+  transform: rotate(180deg);
+}
+
+.custom-select__options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ccc;
+  border-top: none;
+  position: absolute;
+  width: 100%;
+  background: #fff;
+  border-radius: 0 0 4px 4px;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 1000;
+  width: 75.6px;
+}
+
+.custom-select__option {
+  padding: 8px 12px;
+
+  &:hover{
+    background: var(--primary-select);
+  }
+}
+
+.custom-select__option.selected {
+  background: var(--primary);
+  color: #fff;
+}
+
+.UiKitUiKitIcon_m {
+  width: 24px;
+  height: 24px;
+}
+
+.UiKitUiKitIcon_root {
+  vertical-align: middle;
+}

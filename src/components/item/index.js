@@ -1,24 +1,26 @@
-import { memo, useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { cn as bem } from '@bem-react/classname';
-import { numberFormat } from '../../utils';
 import Button from '../button';
+import LanguageContext from '../language-provider';
+import { Link } from 'react-router-dom';
+import { numberFormat } from '../../utils';
 import './style.css';
 
-function Item(props) {
-  const cn = bem('Item');
-
-  const callbacks = {
-    onAdd: e => props.onAdd(props.item._id),
-  };
+function Item({ item, onAdd = () => {} }) {
+  const { language, translations } = useContext(LanguageContext);
 
   return (
-    <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <h4 className={cn('title')}>{props.item.title}</h4>
-      <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+    <div className="Item">
+      <Link to={`/articles/${item._id}`}>
+        <h4 className="Item-title">{item.title}</h4>
+      </Link>
+      <div className="Item-actions">
+        <div className="Item-price">{numberFormat(item.price)} ₽</div>
+        <Button
+          style="primary"
+          onClick={() => onAdd(item._id)}
+          title={translations[language].addButton}
+        />
       </div>
     </div>
   );
@@ -33,8 +35,4 @@ Item.propTypes = {
   onAdd: PropTypes.func,
 };
 
-Item.defaultProps = {
-  onAdd: () => {},
-};
-
-export default memo(Item);
+export default Item;

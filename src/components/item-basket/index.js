@@ -1,27 +1,34 @@
-import { memo, useCallback } from 'react';
-import propTypes from 'prop-types';
+import { memo, useCallback, useContext } from 'react';
 import { numberFormat } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '../button';
+import { LanguageContext } from '../language-provider';
 import './style.css';
 
-function ItemBasket(props) {
+function ItemBasket({ item, onRemove = () => {}, onClose = () => {}} ) {
   const cn = bem('ItemBasket');
 
+  const { language, translations } = useContext(LanguageContext);
+
   const callbacks = {
-    onRemove: e => props.onRemove(props.item._id),
+    onRemove: e => onRemove(item._id),
   };
 
   return (
     <div className={cn()}>
-      {/* <div className={cn('code')}>{props.item._id}</div> */}
-      <h4 className={cn('title')}>{props.item.title}</h4>
+      <Link to={`/articles/${item._id}`} onClick={onClose}>        
+        <h4 className={cn('title')}>{item.title}</h4>
+      </Link>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
+        <div className={cn('cell')}>{numberFormat(item.amount || 0)} {translations[language].quantity}</div>
+        <div className={cn('cell')}>{numberFormat(item.price)} ₽</div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title="Удалить" />
+          <Button
+           style="delete"
+           onClick={callbacks.onRemove} title={translations[language].deleteButton} 
+          />
         </div>
       </div>
     </div>
@@ -35,11 +42,9 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number,
   }).isRequired,
-  onRemove: propTypes.func,
-};
-
-ItemBasket.defaultProps = {
-  onRemove: () => {},
+  onRemove: PropTypes.func,
+  onClose: PropTypes.func
 };
 
 export default memo(ItemBasket);
+
