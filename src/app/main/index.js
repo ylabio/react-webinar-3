@@ -18,7 +18,7 @@ function Main(callback, deps) {
   const store = useStore();
 
   useEffect(() => {
-    store.actions.catalog.load(select.lang);
+    store.actions.catalog.load();
   }, []);
 
   const select = useSelector(state => ({
