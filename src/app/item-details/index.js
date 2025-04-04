@@ -1,24 +1,22 @@
 import { memo, useCallback, useEffect } from 'react';
-import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
-import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
-import Pagination from '../../components/pagination';
-import Navbar from '../../components/navbar';
 import { useParams } from 'react-router';
+import ItemDescription from '../../components/item-description';
+import Navbar from '../../components/navbar';
 
-function Main() {
+function ItemDetails() {
   const store = useStore();
-  const { page } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
-    store.actions.catalog.load(10, page || 1);
+    store.actions.itemDetails.loadItem(id);
   }, []);
 
   const select = useSelector(state => ({
-    list: state.catalog.list,
+    item: state.itemDetails.item,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
@@ -30,25 +28,15 @@ function Main() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   };
 
-  const renders = {
-    item: useCallback(
-      item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
-      },
-      [callbacks.addToBasket],
-    ),
-  };
+  if (!select.item) return null;
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
-
+      <Head title={select.item.title} />
       <Navbar onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      <List list={select.list} renderItem={renders.item} />
-
-      <Pagination />
+      <ItemDescription item={select.item} onAdd={callbacks.addToBasket} />
     </PageLayout>
   );
 }
 
-export default memo(Main);
+export default memo(ItemDetails);

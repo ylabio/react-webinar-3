@@ -3,6 +3,8 @@ import Main from './main';
 import Basket from './basket';
 import useStore from '../store/use-store';
 import useSelector from '../store/use-selector';
+import { Route, Routes } from 'react-router';
+import ItemDetails from './item-details';
 
 /**
  * Приложение
@@ -13,7 +15,10 @@ function App() {
 
   return (
     <>
-      <Main />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/item/:id" element={<ItemDetails />} />
+      </Routes>
       {activeModal === 'basket' && <Basket />}
     </>
   );
