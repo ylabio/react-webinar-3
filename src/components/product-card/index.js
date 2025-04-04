@@ -19,16 +19,16 @@ function ProductCard(props) {
       <div className={cn('description')}>{props.item.description}</div>
       <ul className={cn('list')}>
         <li className={cn('country')}>
-          Страна производитель:
-          <span>
+          <span className={cn('category--title')}>Страна производитель:</span>
+          <span className={cn('category--description')}>
             {props.item.madeIn.title} ({props.item.madeIn.code})
           </span>
         </li>
         <li className={cn('category')}>
-          Категория: <span>{props.item.category.title}</span>
+         <span className={cn('category--title')}>Категория:</span>  <span className={cn('category--description')}>{props.item.category.title}</span>
         </li>
         <li className={cn('edition')}>
-          Год выпуска: <span>{props.item.edition}</span>
+         <span className={cn('category--title')}>Год выпуска:</span>  <span className={cn('category--description')}>{props.item.edition}</span>
         </li>
       </ul>
       <div className={cn('price')}>Цена: <span>{numberFormat(props.item.price)}  ₽</span></div>
