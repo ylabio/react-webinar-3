@@ -5,7 +5,7 @@ import { useLanguage } from '../../store/language-context';
 import './style.css';
 
 function Head({ title }) {
-  const { changeLanguage } = useLanguage;
+  const { changeLanguage } = useLanguage();
   return (
     <div className="Head">
       <div className="Head-container">

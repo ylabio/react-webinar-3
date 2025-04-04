@@ -43,11 +43,7 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number,
   }).isRequired,
-  onRemove: propTypes.func,
-};
-
-ItemBasket.defaultProps = {
-  onRemove: () => {},
+  onRemove: PropTypes.func,
 };
 
 export default memo(ItemBasket);

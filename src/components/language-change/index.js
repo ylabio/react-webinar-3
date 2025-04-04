@@ -17,9 +17,4 @@ function LanguageChange() {
   );
 }
 
-LanguageChange.propTypes = {
-  onChange: PropTypes.func,
-  option: PropTypes.string,
-};
-
 export default LanguageChange;

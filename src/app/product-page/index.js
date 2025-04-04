@@ -26,7 +26,7 @@ function ProductPage() {
 
   useEffect(() => {
     callbacks.loadProduct(id);
-  }, [id]);
+  }, [id, callbacks.loadProduct]);
 
   return (
     <PageLayout>

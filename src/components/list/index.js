@@ -20,7 +20,7 @@ List.propTypes = {
       _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     }),
   ).isRequired,
-  renderItem: PropTypes.func,
+  renderItem: PropTypes.func.isRequired,
 };
 
 export default memo(List);
