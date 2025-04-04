@@ -1,0 +1,26 @@
+.ArticleCard p {
+  margin: 0;
+}
+
+.ArticleCard-info {
+  display: flex;
+  padding-top: 12px;
+}
+
+.ArticleCard-info p {
+  padding: 12px 0px;
+}
+
+.ArticleCard-values {
+  padding-left: 8px;
+}
+
+.ArticleCard-values p {
+  font-weight: bold;
+}
+
+.ArticleCard h2 {
+  font-family: var(--second-font-family);
+  margin: 0;
+  padding: 12px 0px 24px;
+}

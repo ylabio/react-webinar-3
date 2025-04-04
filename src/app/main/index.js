@@ -2,13 +2,16 @@ import { memo, useCallback, useEffect } from 'react';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
-import BasketTool from '../../components/basket-tool';
 import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
+import Pagination from '../../components/pagination';
+import NavHead from '../../components/nav-head';
+import { useLanguage } from '../../i18n';
 
 function Main() {
   const store = useStore();
+  const { translate } = useLanguage();
 
   useEffect(() => {
     store.actions.catalog.load();
@@ -16,6 +19,8 @@ function Main() {
 
   const select = useSelector(state => ({
     list: state.catalog.list,
+    count: state.catalog.count,
+    limit: state.catalog.limit,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
@@ -25,6 +30,13 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+
+    pagination: useCallback(
+      (limit, skip) => store.actions.catalog.pagination(limit, skip),
+      [store],
+    ),
+
+    setLimit: useCallback(limit => store.actions.catalog.setLimit(limit), [store]),
   };
 
   const renders = {
@@ -38,9 +50,15 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <Head title={translate('head')} />
+      <NavHead onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
+      <Pagination
+        pagination={callbacks.pagination}
+        count={select.count}
+        setLimit={callbacks.setLimit}
+        limit={select.limit}
+      />
     </PageLayout>
   );
 }
