@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { STRINGS } from '../const';
@@ -16,12 +16,12 @@ function Description({ country, category, year, price}) {
       <div className={cn()}>
         <div className={cn('title')}>
           {Object.values(STRINGS.DESCRIPTION_TITLE).map((item) => (
-            <div className={cn('title-item')}>{item[language]}</div>
+            <div key={item[language]} className={cn('title-item')}>{item[language]}</div>
           ))}
         </div>
         <div className={cn('text')}>
           {Object.values(propsData).map((item) => (
-            <div className={cn('text-item')}>{item}</div>
+            <div key={item} className={cn('text-item')}>{item}</div>
           ))}
         </div>
       </div>
@@ -29,5 +29,15 @@ function Description({ country, category, year, price}) {
     </>
   )
 }
+
+Description.propTypes = {
+  country: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  year: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired,
+  price: PropTypes.number.isRequired,
+};
 
 export default memo(Description);

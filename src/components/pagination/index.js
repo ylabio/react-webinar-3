@@ -4,9 +4,9 @@ import { Link } from 'react-router';
 import { generatePaginationArray } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
 import SelectLimit from '../select-limit';
+import { LIMIT_VALUE } from '../../const';
 import './style.css';
 
-// ?TODO: [REFACTOR] Разделить Pagination на меньшие компоненты
 function Pagination({ currentPage, count, limit, changeLimit }) {
   const cn = bem('Pagination');
   const arrPagination = generatePaginationArray(currentPage, count, limit);
@@ -14,7 +14,7 @@ function Pagination({ currentPage, count, limit, changeLimit }) {
   return (
     <div className={cn()}>
       <div className={cn('container')}>
-        <SelectLimit changeLimit={changeLimit}/>
+        <SelectLimit changeLimit={changeLimit} options={LIMIT_VALUE}/>
         <div className={cn('pages-container')}>
         {arrPagination.map((item, index) => (
           item > 0 ?

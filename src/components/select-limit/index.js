@@ -5,9 +5,7 @@ import { STRINGS } from '../../const';
 import { useAppContext } from '../../app-context';
 import './style.css';
 
-
-// ?TODO: [REFACTOR] Создать Универсальный <select>
-function SelectLimit({ changeLimit }) {
+function SelectLimit({ changeLimit, options, defaultValue = 10 }) {
   const cn = bem('Limit');
   const { language } = useAppContext();
 
@@ -19,10 +17,16 @@ function SelectLimit({ changeLimit }) {
   return (
     <div className={cn()}>
       <div className={cn('title')}>{STRINGS.SELECT[language]}</div>
-      <select className={cn('select')} onChange={handleChange} defaultValue="10">
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="20">20</option>
+      <select 
+        className={cn('select')} 
+        onChange={handleChange} 
+        defaultValue={defaultValue}
+      >
+        {options.map((value) => (
+          <option key={value} value={value}>
+            {value}
+          </option>
+        ))}
       </select>
     </div>
   );
@@ -30,6 +34,8 @@ function SelectLimit({ changeLimit }) {
 
 SelectLimit.propTypes = {
   changeLimit: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.number).isRequired,
+  defaultValue: PropTypes.number,
 };
 
 export default memo(SelectLimit);

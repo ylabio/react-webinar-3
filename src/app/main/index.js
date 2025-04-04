@@ -2,8 +2,6 @@ import { memo, useCallback, useEffect, useState } from 'react';
 import { useParams, useNavigate } from "react-router";
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
-import Head from '../../components/head';
-import BasketTool from '../../components/basket-tool';
 import List from '../../components/list';
 import Pagination from '../../components/pagination';
 import useStore from '../../store/use-store';
@@ -12,7 +10,6 @@ import { useAppContext } from '../../app-context';
 import { generatePaginatedApiUrl, findNewPageNumber } from '../../utils';
 import { BASE_URL, STRINGS } from '../../const';
 
-// TODO: Проверить оптимизацию
 function Main() {
   const store = useStore();
   const { currentPage } = useParams();
@@ -24,6 +21,12 @@ function Main() {
     store.actions.catalog.load(generatePaginatedApiUrl(BASE_URL, currentPage, limit));
     setHeaderTitle(STRINGS.SHOP[language]);
   }, [currentPage]);
+
+  useEffect(() => {
+    if (+currentPage === 1) {
+      store.actions.catalog.load(generatePaginatedApiUrl(BASE_URL, currentPage, limit));
+    }
+  }, [limit]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -57,14 +60,9 @@ function Main() {
     ),
   };
 
-  // TODO: семантика
   return (
     <PageLayout>
-      {select.isLoading ? 
-        <div>Загрузка...</div>
-        :
-        <List list={select.list} renderItem={renders.item} />
-       }
+      <List list={select.list} renderItem={renders.item} />
       <Pagination currentPage={currentPage} count={select.count} limit={limit} changeLimit={callbacks.setLimit} />
     </PageLayout>
   );

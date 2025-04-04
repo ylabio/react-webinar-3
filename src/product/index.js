@@ -1,9 +1,6 @@
 import { memo, useEffect, useState } from 'react';
 import { cn as bem } from '@bem-react/classname';
-import useStore from '../store/use-store';
 import PageLayout from '../components/page-layout';
-import Head from '../components/head';
-import BasketTool from '../components/basket-tool';
 import Description from '../description';
 import Button from '../components/button';
 import { generateProductApiUrl, getApiData } from '../utils';
@@ -14,27 +11,24 @@ import { useAppContext } from '../app-context';
 function Product() {
   const { _id } = useParams();
   const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { setHeaderTitle, basket, language } = useAppContext();
   const cn = bem('Product');
 
-  // TODO: убрать дву функции, дублирует utils
   useEffect(() => {
-    const fetchProductData = async () => {
+    const fetchData = async () => {
       try {
-        setLoading(true);
-        const data = await getApiData(generateProductApiUrl(BASE_URL, _id));
+        const response = await fetch(generateProductApiUrl(BASE_URL, _id));
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
         setResult(data.result);
       } catch (err) {
         setError(err.message);
-        console.error("Error fetching product data:", err);
-      } finally {
-        setLoading(false);
+        console.error("Fetch error:", err);
       }
     };
 
-    fetchProductData();
+    fetchData();
   }, [_id]);
 
   useEffect(() => {
@@ -47,9 +41,8 @@ function Product() {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-  if (!result) return <div>No data found</div>;
+  if (!result) return null;
 
   return (
     <PageLayout>

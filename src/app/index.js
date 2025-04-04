@@ -1,9 +1,7 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from "react-router";
+import { Routes, Route, Navigate } from "react-router";
 import Main from './main';
 import Basket from './basket';
 import AppLayout from '../components/app-layout';
-import useStore from '../store/use-store';
 import useSelector from '../store/use-selector';
 import Product from '../product';
 
