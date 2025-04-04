@@ -1,20 +1,26 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
-import Main from './main';
 import Basket from './basket';
-import useStore from '../store/use-store';
 import useSelector from '../store/use-selector';
+import {Route, Routes} from "react-router";
+import Main from "./main";
+import Article from "./arcicle";
 
 /**
  * Приложение
  * @returns {React.ReactElement}
  */
 function App() {
+
+
+
   const activeModal = useSelector(state => state.modals.name);
 
   return (
     <>
-      <Main />
-      {activeModal === 'basket' && <Basket />}
+      <Routes>
+        <Route path="/" element={<Main/>}/>
+        <Route path="article/:id" element={<Article/>}/>
+      </Routes>
+      {activeModal === 'basket' && <Basket/>}
     </>
   );
 }

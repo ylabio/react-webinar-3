@@ -1,0 +1,6 @@
+/* Контрол с общими  для корзины*/
+.ControlsPanel {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 0;
+}

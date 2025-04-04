@@ -1,0 +1,75 @@
+.PageSize {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0;
+  text-align: center;
+  padding-inline: 16px;
+  height: 22px;
+ ;
+
+  input {
+    box-sizing: border-box;
+    width: 42px;
+    border: var(--primary) 1.5px solid;
+    border-radius: 4px;
+    outline: none;
+
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0;
+  }
+
+}
+
+
+.PageSize_radio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 2px;
+}
+
+.PageSize-label {
+  box-sizing: border-box;
+  padding: 0 2px;
+  margin: 0;
+  cursor: pointer;
+  min-width: 22px;
+  width: fit-content;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0;
+  text-align: center;
+  color: var(--close);
+box-sizing: border-box;
+
+  &:hover {
+    background: var(--primary-select);
+    color: var(--main-text);
+  }
+
+  .PageSize-input {
+    display: none;
+  }
+
+
+
+}
+
+
+.PageSize-label:has(input:checked) {
+  border-radius: 2px;
+  background: var(--primary);
+  color: var(--second-text);
+}
