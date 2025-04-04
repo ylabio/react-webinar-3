@@ -5,7 +5,7 @@ import PageLayout from '../../components/page-layout';
 import { getProductDetails } from '../api/api';
 import './style.css';
 import useStore from '../../store/use-store';
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import { numberFormat } from '../../utils';
 import { ROUTES } from '../../constants';
 
@@ -25,7 +25,6 @@ function ProductPage() {
   const store = useStore();
   const { result: product } = useLoaderData();
 
-  // TODO добавить в корзину
   const callbacks = {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(product._id), [store]),
   };
@@ -50,10 +49,14 @@ function ProductPage() {
           <b>Цена</b>
           <b>{numberFormat(product.price)}</b>
         </div>
-        <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+        <Button
+          style="primary"
+          onClick={() => callbacks.addToBasket(product._id)}
+          title="Добавить"
+        />
       </div>
     </PageLayout>
   );
 }
 
-export default ProductPage;
+export default memo(ProductPage);
