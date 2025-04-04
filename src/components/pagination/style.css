@@ -35,7 +35,7 @@
 
 .figma-pages {
   display: flex;
-  gap: 10px;
+  gap: 2px;
   margin-left: 20px;
   flex-wrap: nowrap;
   overflow: visible;
@@ -65,13 +65,11 @@
   color: #000;
 }
 
-/* Активная страница */
 .figma-page.active {
   background-color: #6b4acb;
   color: white;
 }
 
-/* Многоточие */
 .figma-dots {
   display: flex;
   align-items: center;

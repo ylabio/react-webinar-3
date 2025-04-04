@@ -1,0 +1,47 @@
+.ProductDetails {
+  font-family: 'Golos Text', sans-serif;
+  color: #333;
+}
+
+.ProductDetails-description {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.ProductDetails-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.ProductDetails-spec-row {
+  margin-bottom: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.ProductDetails-spec-row span {
+  display: inline-block;
+  width: 185px;
+  font-weight: 400;
+}
+
+.ProductDetails-spec-row strong {
+  font-weight: 700;
+}
+
+.ProductDetails-price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0%;
+  margin-bottom: 24px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&family=Montserrat+Alternates:wght@700&display=swap');
