@@ -1,18 +1,18 @@
 .items-per-page-select {
-  background-color: var(--primary); /* фиолетовый цвет */
-  color: white; /* текст белого цвета */
-  border: 2px solid #4e2ccf; /* бордер чуть темнее фона */
-  border-radius: 8px; /* скругленные углы */
-  padding: 8px 16px; /* немного отступов для комфорта */
-  font-size: 16px; /* размер шрифта */
-  font-family: 'Arial', sans-serif; /* шрифт */
-  cursor: pointer; /* курсор при наведении */
-  outline: none; /* убираем стандартную обводку */
-  transition: all 0.3s ease; /* плавные анимации */
+  background-color: var(--primary);
+  color: white;
+  border: 2px solid #4e2ccf;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
 }
 
 .items-per-page-select:hover {
-  background-color: #5e3cfa; /* немного темнее на ховер */
+  background-color: #5e3cfa;
   border-color: #4e2ccf;
 }
 

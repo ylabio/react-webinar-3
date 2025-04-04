@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { cn as bem } from "@bem-react/classname";
 import { CarlSVG } from "../../icons";
+import { Link } from "react-router-dom";
 
 const ControlsDefaultProps = {
   label: "Пусто",
@@ -20,13 +21,19 @@ function Controls( {
 
   const onClick = () => onShowCart();
 
+
   return (
     <div className={ cn() }>
-      <div>Главная</div>
+
+
+      <Link className={ cn( "link" ) } to={ "/" }>
+        <div >Главная</div>
+      </Link>
       <button className={ cn( "button", { selected: AddedAnimation } ) } onClick={ onClick }>
         <CarlSVG/>
         { label }
       </button>
+
     </div>
   );
 }

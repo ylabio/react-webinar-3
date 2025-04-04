@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import { cn as bem } from "@bem-react/classname";
-import { formattedNumber } from "../../utils"; // Assuming you have this utility
+import { formattedNumber } from "../../utils";
 
 const CartDefaultProps = {
   list: [],
@@ -18,6 +18,7 @@ function List( {
                  onClickAction = CartDefaultProps.onClickAction,
                  isCart = CartDefaultProps.isCart,
                  total = CartDefaultProps.total,
+                 articleService
                } ) {
   const cn = bem( 'List' );
 
@@ -26,7 +27,7 @@ function List( {
       <ul className={ cn() }>
         { list.map( ( item ) => (
           <li key={ item._key } className={ cn( "item" ) }>
-            { renderItem( { item, onClickAction, isCart } ) }
+            { renderItem( { item, onClickAction, isCart, articleService } ) }
           </li>
         ) ) }
       </ul>

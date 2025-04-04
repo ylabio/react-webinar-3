@@ -1,14 +1,22 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './app.js';
+import { BrowserRouter as Router } from 'react-router-dom';
 import 'src/style.css';
-import { store } from "./store/instance";
+import { store } from './store/instance';
+import AppRoutes from "./app-routs";
 
 const root = createRoot(document.getElementById('root'));
 
 store.subscribe(() => {
-  root.render(<App store={store} />);
+  root.render(
+    <Router>
+      <AppRoutes store={store} />
+    </Router>
+  );
 });
 
-// Первый рендер приложения
-root.render(<App store={store} />);
+root.render(
+  <Router>
+    <AppRoutes store={store} />
+  </Router>
+);

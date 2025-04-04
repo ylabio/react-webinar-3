@@ -21,7 +21,7 @@ function Pagination({ totalItems, itemsPerPage = 10, siblingCount = 1, setCurren
               <button
                 className={currentPage === pageNumber ? 'active' : ''}
                 onClick={() => {
-                  setCurrentPage(pageNumber); // Здесь обновляем состояние родительского компонента
+                  setCurrentPage(pageNumber);
                 }}
               >
                 {pageNumber}
@@ -38,12 +38,10 @@ function usePaginationRange(totalPages, currentPage, siblingCount) {
   const DOTS = 'DOTS';
 
   if (totalPages <= 2 * siblingCount + 3) {
-    // Если общее количество страниц меньше или равно максимальному количеству видимых страниц
     return Array.from({ length: totalPages }, (_, i) => i + 1);
   }
 
   if (currentPage <= siblingCount + 1) {
-    // Если текущая страница близка к началу
     return [
       ...Array.from({ length: 2 * siblingCount + 1 }, (_, i) => i + 1),
       DOTS,
@@ -52,7 +50,6 @@ function usePaginationRange(totalPages, currentPage, siblingCount) {
   }
 
   if (currentPage + siblingCount >= totalPages) {
-    // Если текущая страница близка к концу
     return [
       1,
       DOTS,
@@ -73,7 +70,6 @@ function usePaginationRange(totalPages, currentPage, siblingCount) {
     return [totalPages];
   };
 
-  // В других случаях
   return [
     ...prevDots(),
     currentPage - 1,

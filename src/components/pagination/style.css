@@ -1,6 +1,6 @@
 .active {
-  background-color: var(--primary); /* Цвет фона активной страницы */
-  color: white; /* Цвет текста активной страницы */
+  background-color: var(--primary);
+  color: white;
 }
 
 .Pagination {

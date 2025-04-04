@@ -7,14 +7,8 @@ export function createHooks(store, setShow, setAddedAnimation) {
     }, [store]),
 
     onAddCart: useCallback((code) => {
-      setAddedAnimation(true);
 
       store.addCartProductCard(code);
-
-      setTimeout(() => {
-        setAddedAnimation(false);
-      }, 300);
-
 
     }, [store]),
 
@@ -27,10 +21,6 @@ export function createHooks(store, setShow, setAddedAnimation) {
     }, [setShow]),
   };
 
-  // Функция для добавления новых колбэков
-  function addCallback(name, callback) {
-    baseCallbacks[name] = callback;
-  }
 
-  return { ...baseCallbacks, addCallback };
+  return { ...baseCallbacks };
 }

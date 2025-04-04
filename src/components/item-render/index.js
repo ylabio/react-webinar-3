@@ -8,11 +8,11 @@ const RenderItemDefaultProps = {
   isCart: false
 };
 
-const RenderItem = ({ item = RenderItemDefaultProps.item, onClickAction = RenderItemDefaultProps.onClickAction, isCart = RenderItemDefaultProps.isCart }) => {
+const RenderItem = ({ item = RenderItemDefaultProps.item, onClickAction = RenderItemDefaultProps.onClickAction, isCart = RenderItemDefaultProps.isCart, articleService }) => {
   if (isCart) {
-    return (<ItemCart item={ item } onClickAction={ onClickAction } />)
+    return (<ItemCart item={ item } onClickAction={ onClickAction } articleService={articleService} />)
   } else {
-    return (<Item item={ item } onClickAction={ onClickAction } />)
+    return (<Item item={ item } onClickAction={ onClickAction } articleService={articleService} />)
   }
 };
 

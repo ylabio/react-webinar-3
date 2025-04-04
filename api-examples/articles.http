@@ -6,7 +6,7 @@ GET http://query.rest/api/v1/articles
 ###
 # Список со смещением и ограничением количества
 
-GET http://query.rest/api/v1/articles?limit=10&skip=20
+GET http://query.rest/api/v1/articles?limit=10&skip=0
 
 ###
 # Список с возвратом общего количества (и только нужных свойств через fields)

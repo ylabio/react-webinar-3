@@ -11,7 +11,6 @@ import { QueryApiClient } from "./api/api-query";
 import { ArticleService } from "./api/api-articles";
 import { ApiError } from "./api/api-error";
 import Pagination from "./components/pagination";
-import { ItemsPerPageSelect } from "./components/item-select";
 
 /**
  * Приложение
@@ -25,7 +24,7 @@ function App({ store }) {
   const { cartList, sizeCart, total } = store.getCartState();
   const [show, setShow] = useState(false);
   const [AddedAnimation, setAddedAnimation] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1); // Текущее состояние страницы
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(5);
 
@@ -58,8 +57,8 @@ function App({ store }) {
   const cartBtnLabel = cartButtonLabel(sizeCart, total);
 
   const handleItemsPerPageChange = (newLimit) => {
-    setLimit(newLimit); // обновляем лимит
-    setCurrentPage(1);   // сбрасываем на первую страницу
+    setLimit(newLimit);
+    setCurrentPage(1);
   };
 
   return (
@@ -67,21 +66,19 @@ function App({ store }) {
       <PageLayout nonScroll={show}>
         <Head title="Магазин" />
         <Controls label={cartBtnLabel} onShowCart={hooks.onShowCart} AddedAnimation={AddedAnimation} />
-        <List list={list} renderItem={RenderItem} onClickAction={hooks.onAddCart} isCart={false} total={0} />
+        <List list={list} renderItem={RenderItem} onClickAction={hooks.onAddCart} isCart={false} total={0} articleService={articleService} />
         <Pagination
           totalItems={totalItems}
           itemsPerPage={limit}
           siblingCount={1}
           setCurrentPage={setCurrentPage}
-          currentPage={currentPage}  // Передаем текущую страницу
-        >
-          <ItemsPerPageSelect onChange={handleItemsPerPageChange} />
-        </Pagination>
+          currentPage={currentPage}
+        />
       </PageLayout>
 
       {show && (
         <Modal handleClose={hooks.onHideCart}>
-          <List list={cartList} renderItem={RenderItem} onClickAction={hooks.onDeleteItem} isCart={true} total={total} />
+          <List list={cartList} renderItem={RenderItem} onClickAction={hooks.onDeleteItem} isCart={true} total={total} articleService={articleService} />
         </Modal>
       )}
     </>

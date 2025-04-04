@@ -9,9 +9,13 @@
 }
 
 .ItemCart-title {
+  all: unset;
   grid-area: title;
 }
-
+.ItemCart-title:hover {
+  color: var(--primary);
+  cursor: pointer;
+}
 .ItemCart-price {
   grid-area: price;
   text-align: right;

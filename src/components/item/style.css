@@ -9,7 +9,12 @@
 }
 
 .Item-title {
+  all: unset;
   grid-area: title;
+}
+.Item-title:hover {
+  color: var(--primary);
+  cursor: pointer;
 }
 
 .Item-price {
