@@ -1,11 +1,11 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import { STRINGS } from '../../const';
+import { STRINGS, DEFAULT_LIMIT } from '../../const';
 import { useAppContext } from '../../app-context';
 import './style.css';
 
-function SelectLimit({ changeLimit, options, defaultValue = 10 }) {
+function SelectLimit({ changeLimit, options, defaultValue = DEFAULT_LIMIT }) {
   const cn = bem('Limit');
   const { language } = useAppContext();
 

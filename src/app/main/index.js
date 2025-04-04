@@ -8,12 +8,12 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import { useAppContext } from '../../app-context';
 import { generatePaginatedApiUrl, findNewPageNumber } from '../../utils';
-import { BASE_URL, STRINGS } from '../../const';
+import { BASE_URL, STRINGS, DEFAULT_LIMIT } from '../../const';
 
 function Main() {
   const store = useStore();
   const { currentPage } = useParams();
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(DEFAULT_LIMIT);
   const { setHeaderTitle, language } = useAppContext();
   const navigate = useNavigate();
 

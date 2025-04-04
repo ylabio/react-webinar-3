@@ -2,6 +2,8 @@ export const BASE_URL = "/api/v1/articles";
 
 export const LIMIT_VALUE = [5, 10, 20];
 
+export const DEFAULT_LIMIT = 10;
+
 export const STRINGS = {
   DESCRIPTION_TITLE: {
     COUNTRY: {
