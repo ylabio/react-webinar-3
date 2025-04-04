@@ -13,7 +13,6 @@ import Actions from '../../components/actions';
 import Navigation from '../../components/navigation';
 
 import { LANGUAGES } from '../../lang/languages.js';
-import Loader from '../../components/loader';
 
 function Main(callback, deps) {
   const store = useStore();
