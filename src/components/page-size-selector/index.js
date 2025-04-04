@@ -1,20 +1,19 @@
 import { memo, useRef } from 'react';
+import PropTypes from 'prop-types';
 import './style.css';
 
-const options = [5, 10, 20];
-
-function PageSizeSelector(props) {
+function Selector(props) {
   return (
     <div className="Wrap">
       <label>
-        <b>Товаров на странице:</b>
+        <b>{props.label}</b>
       </label>
       <select
         className="Select"
-        onChange={e => props.onPageChange(e.target.value)}
+        onChange={e => props.onChange(e.target.value)}
         defaultValue={props.defaultValue}
       >
-        {options.map(option => (
+        {props.options.map(option => (
           <option key={option} value={option}>
             {option}
           </option>
@@ -24,4 +23,11 @@ function PageSizeSelector(props) {
   );
 }
 
-export default memo(PageSizeSelector);
+export default memo(Selector);
+
+Selector.protoTypes = {
+  options: PropTypes.array,
+  onChange: PropTypes.func,
+  defaultValue: PropTypes.string,
+  label: PropTypes.string,
+};
