@@ -1,5 +1,6 @@
 import { memo, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from '../../translation/use-translation';
 import { cn as bem } from '@bem-react/classname';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -12,6 +13,8 @@ import './style.css';
 
 function Article() {
   const cn = bem('Article');
+  const { t } = useTranslation();
+
   const { id } = useParams();
   const store = useStore();
 
@@ -33,11 +36,11 @@ function Article() {
   if (!select.article) {
     return (
       <PageLayout>
-        <Head title="Загрузка..." />
+        <Head title={t('loading')} />
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
         <div className={cn()}>
           <div className={cn('content')}>
-            <div>Загрузка...</div>
+            <div>{t('loading')}</div>
           </div>
         </div>
       </PageLayout>
@@ -69,7 +72,7 @@ function Article() {
           </div>
           <div className={cn('price')}>Цена: {numberFormat(article.price)} ₽</div>
           <Button
-            title="Добавить"
+            title={t('add')}
             onClick={() => callbacks.addToBasket(article._id)}
             style="primary"
           />
