@@ -1,5 +1,6 @@
 import { codeGenerator } from '../../utils';
 import StoreModule from '../module';
+import { getCatalog } from '../../app/api/api';
 
 class Catalog extends StoreModule {
   constructor(store, name) {
@@ -13,13 +14,13 @@ class Catalog extends StoreModule {
     };
   }
 
-  async load() {
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  async load({ limit = 10, skip = 0 }) {
+    const response = await getCatalog({ limit, skip });
     this.setState(
       {
         ...this.getState(),
-        list: json.result.items,
+        list: response.result.items,
+        totalItems: response.result.count,
       },
       'Загружены товары из АПИ',
     );
