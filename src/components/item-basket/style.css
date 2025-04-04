@@ -31,3 +31,12 @@
     color: var(--delete);
   }
 }
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--primary)
+}
