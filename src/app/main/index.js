@@ -10,19 +10,19 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import { useAppContext } from '../../app-context';
 import { generatePaginatedApiUrl, findNewPageNumber } from '../../utils';
-import { BASE_URL } from '../../const';
+import { BASE_URL, STRINGS } from '../../const';
 
 // TODO: Проверить оптимизацию
 function Main() {
   const store = useStore();
   const { currentPage } = useParams();
   const [limit, setLimit] = useState(10);
-  const { setHeaderTitle } = useAppContext();
+  const { setHeaderTitle, language } = useAppContext();
   const navigate = useNavigate();
 
   useEffect(() => {
     store.actions.catalog.load(generatePaginatedApiUrl(BASE_URL, currentPage, limit));
-    setHeaderTitle('Магазин');
+    setHeaderTitle(STRINGS.SHOP[language]);
   }, [currentPage]);
 
   const select = useSelector(state => ({
@@ -57,13 +57,14 @@ function Main() {
     ),
   };
 
+  // TODO: семантика
   return (
     <PageLayout>
       {select.isLoading ? 
         <div>Загрузка...</div>
         :
         <List list={select.list} renderItem={renders.item} />
-      }
+       }
       <Pagination currentPage={currentPage} count={select.count} limit={limit} changeLimit={callbacks.setLimit} />
     </PageLayout>
   );

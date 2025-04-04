@@ -4,10 +4,13 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import { Link } from 'react-router';
 import Button from '../button';
+import { useAppContext } from '../../app-context';
+import { STRINGS } from '../../const';
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
+  const { language } = useAppContext();
 
   const callbacks = {
     onAdd: e => props.onAdd(props.item._id),
@@ -19,7 +22,7 @@ function Item(props) {
       <Link to={`/product/${props.item._id}`} className={cn('title')}>{props.item.title}</Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+        <Button style="primary" onClick={callbacks.onAdd} title={STRINGS.ADD[language]} />
       </div>
     </div>
   );
@@ -34,8 +37,8 @@ Item.propTypes = {
   onAdd: PropTypes.func,
 };
 
-// Item.defaultProps = {
-//   onAdd: () => {},
-// };
+Item.defaultProps = {
+  onAdd: () => {},
+};
 
 export default memo(Item);

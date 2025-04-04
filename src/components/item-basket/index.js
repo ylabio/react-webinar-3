@@ -5,10 +5,13 @@ import { cn as bem } from '@bem-react/classname';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import Button from '../button';
+import { useAppContext } from '../../app-context';
+import { STRINGS } from '../../const';
 import './style.css';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
+  const { language } = useAppContext();
 
   const callbacks = {
     onRemove: e => props.onRemove(props.item._id),
@@ -22,7 +25,7 @@ function ItemBasket(props) {
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title="Удалить" />
+          <Button style="delete" onClick={callbacks.onRemove} title={STRINGS.DELETE[language]} />
         </div>
       </div>
     </div>

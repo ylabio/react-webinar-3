@@ -5,7 +5,7 @@ import BasketTool from '../basket-tool';
 import { useAppContext } from '../../app-context';
 
 const AppLayout = () => {
-  const { headerTitle, store, basket } = useAppContext();
+  const { headerTitle, basket } = useAppContext();
 
   return (
     <>

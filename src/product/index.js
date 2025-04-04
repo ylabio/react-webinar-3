@@ -4,19 +4,22 @@ import useStore from '../store/use-store';
 import PageLayout from '../components/page-layout';
 import Head from '../components/head';
 import BasketTool from '../components/basket-tool';
+import Description from '../description';
+import Button from '../components/button';
 import { generateProductApiUrl, getApiData } from '../utils';
 import { useParams } from "react-router";
-import { BASE_URL } from '../const';
+import { BASE_URL, STRINGS } from '../const';
 import { useAppContext } from '../app-context';
-import './style.css';
 
 function Product() {
   const { _id } = useParams();
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { setHeaderTitle } = useAppContext();
+  const { setHeaderTitle, basket, language } = useAppContext();
+  const cn = bem('Product');
 
+  // TODO: убрать дву функции, дублирует utils
   useEffect(() => {
     const fetchProductData = async () => {
       try {
@@ -38,13 +41,30 @@ function Product() {
     setHeaderTitle(result?.title);
   }, [result]);
 
+  const callbacks = {
+    onAdd: () => {
+      basket.addToBasket(_id);
+    }
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!result) return <div>No data found</div>;
 
   return (
     <PageLayout>
-      {result._id ? `Product ID: ${result._id}` : 'No product ID'}
+      <div className={cn()}>
+        <div className={cn('description')}>
+          {result.description ? `${result.description}` : 'No description'}
+        </div>
+        <Description
+          country={result.madeIn.title} 
+          category={result.category.title}
+          year={result.edition}
+          price={result.price}
+        />
+        <Button style="primary" onClick={callbacks.onAdd} title={STRINGS.ADD[language]} />
+      </div>
     </PageLayout>
   );
 }

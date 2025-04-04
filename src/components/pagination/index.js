@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { generatePaginationArray } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
@@ -36,5 +37,15 @@ function Pagination({ currentPage, count, limit, changeLimit }) {
     </div>
   );
 }
+
+Pagination.propTypes = {
+  currentPage: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired,
+  count: PropTypes.number.isRequired,
+  limit: PropTypes.number.isRequired,
+  changeLimit: PropTypes.func.isRequired,
+};
 
 export default memo(Pagination);
