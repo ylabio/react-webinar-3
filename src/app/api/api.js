@@ -19,5 +19,16 @@ export const getProductDetails = async ({ params }) => {
     fields: '*,madeIn(title,code),category(title)',
   });
 
-  return await request(`articles/${params.itemId}?${searchParams.toString()}`);
+  return await request(`articles/${params.id}?${searchParams.toString()}`);
+};
+
+const defaultFields = `items(_id,title,price),count`;
+
+export const getCatalog = async ({ limit = 10, skip = 0, fields = defaultFields }) => {
+  const searchParams = new URLSearchParams({
+    fields,
+    limit,
+    skip,
+  });
+  return await request(`articles?${searchParams.toString()}`);
 };
