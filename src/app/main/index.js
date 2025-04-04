@@ -7,11 +7,14 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Navbar from '../../components/navbar';
 import PaginationTool from '../../components/pagination-tool';
+import { useSearchParams } from 'react-router';
 
 function Main() {
   const store = useStore();
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = Number(searchParams.get('page')) || 1;
+
   const [limit, setLimit] = useState(5);
 
   useEffect(() => {
@@ -32,7 +35,13 @@ function Main() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
 
     // Пагинация
-    onPageChange: useCallback(page => setCurrentPage(page), []),
+    onPageChange: useCallback(page => {
+      setSearchParams(params => {
+        params.set('page', page);
+        return params;
+      });
+      // setCurrentPage(page);
+    }, []),
     onLimitChange: useCallback(limit => setLimit(limit), []),
   };
 
