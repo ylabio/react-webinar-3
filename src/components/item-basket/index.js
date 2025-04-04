@@ -24,6 +24,7 @@ function ItemBasket(props) {
           pathname: `/article/${props.item._id}`,
         }}
         className={cn('title')}
+        onClick={props.onClose}
       >
         {props.item.title}
       </Link>
@@ -48,6 +49,7 @@ ItemBasket.propTypes = {
     amount: PropTypes.number,
   }).isRequired,
   onRemove: propTypes.func,
+  onClose: propTypes.func,
 };
 
 export default memo(ItemBasket);
