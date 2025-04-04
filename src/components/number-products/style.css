@@ -1,0 +1,19 @@
+.Number-products {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.Number-products-select {
+  padding-block: 4px;
+  outline: none;
+  width: 50px;
+  font-family: var(--font-family);
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid var(--primary);
+}
+
+.Number-products-select-item {
+  text-align: center;
+}
