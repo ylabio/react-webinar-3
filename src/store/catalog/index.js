@@ -16,17 +16,12 @@ class Catalog extends StoreModule {
       currentPage: 1,
       itemsCount: 0,
       pageItemsCountArray: [5, 10, 20],
-      isBadRequest: false,
-      isLoading: true,
     };
   }
 
   async load() {
     const { itemsPerPage, currentPage } = this.getState();
-    this.setState({
-      ...this.getState(),
-      isLoading: true,
-    });
+
     await this.fetchData(itemsPerPage, currentPage);
   }
 
@@ -35,9 +30,7 @@ class Catalog extends StoreModule {
       ...this.getState(),
       currentPage: page,
       itemsPerPage: limit,
-      isLoading: true,
     });
-
 
     await this.fetchData(limit, page);
   }
@@ -48,26 +41,15 @@ class Catalog extends StoreModule {
     const response = await fetch(
       `${DEFAULT_QUERY}?limit=${limit}&lang=ru&skip=${skip}&fields=items(_id, title,price),count`,
     );
-    if(response.ok) {
-      const json = await response.json();
-      this.setState(
-        {
-          ...this.getState(),
-          list: json.result.items,
-          allItemsCount: json.result.count,
-          isBadRequest: false,
-          isLoading: false,
-        },
-        'Обновлены товары из АПИ',
-      );
-    } else {
-      this.setState({
+    const json = await response.json();
+    this.setState(
+      {
         ...this.getState(),
-        isLoading: true,
-      });
-    }
-
-
+        list: json.result.items,
+        allItemsCount: json.result.count,
+      },
+      'Обновлены товары из АПИ',
+    );
   }
 }
 

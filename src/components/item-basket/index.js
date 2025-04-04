@@ -46,8 +46,8 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number,
   }).isRequired,
-  onRemove: propTypes.func,
-  onClose: propTypes.func,
+  onRemove: PropTypes.func,
+  onClose: PropTypes.func,
   title: PropTypes.string,
 };
 

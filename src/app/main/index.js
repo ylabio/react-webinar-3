@@ -12,8 +12,8 @@ import Footer from '../../components/footer';
 import Actions from '../../components/actions';
 import Navigation from '../../components/navigation';
 
-import {LANGUAGES} from '../../lang/languages.js';
-import Loader from "../../components/loader";
+import { LANGUAGES } from '../../lang/languages.js';
+import Loader from '../../components/loader';
 
 function Main(callback, deps) {
   const store = useStore();
@@ -27,7 +27,6 @@ function Main(callback, deps) {
     amount: state.basket.amount,
     sum: state.basket.sum,
     lang: state.language.currentLang,
-    isLoad: state.catalog.isLoading,
   }));
 
   const callbacks = {
@@ -42,7 +41,7 @@ function Main(callback, deps) {
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} lang={select.lang}/>;
+        return <Item item={item} onAdd={callbacks.addToBasket} lang={select.lang} />;
       },
       [callbacks.addToBasket, select.lang],
     ),
@@ -50,20 +49,22 @@ function Main(callback, deps) {
 
   return (
     <PageLayout>
-      <Head title={LANGUAGES[select.lang].store} onChangeLang={callbacks.switchLang} currentLang={select.lang}/>
+      <Head
+        title={LANGUAGES[select.lang].store}
+        onChangeLang={callbacks.switchLang}
+        currentLang={select.lang}
+      />
       <Actions>
         <Navigation title={LANGUAGES[select.lang].main} />
-        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} />
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+          lang={select.lang}
+        />
       </Actions>
-      {select.isLoad ? (
-        <Loader />
-      ) : (
-        <>
-          {select.isBadRequest}
-          <List list={select.list} renderItem={renders.item} />
-          <Footer />
-        </>
-      )}
+      <List list={select.list} renderItem={renders.item} />
+      <Footer />
     </PageLayout>
   );
 }
