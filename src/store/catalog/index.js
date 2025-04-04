@@ -15,6 +15,7 @@ class Catalog extends StoreModule {
       itemsPerPage: 10,
       currentPage: 1,
       itemsCount: 0,
+      pageItemsCountArray: [5, 10, 20],
     };
   }
 
