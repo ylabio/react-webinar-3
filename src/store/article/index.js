@@ -5,8 +5,7 @@ class Article extends StoreModule {
 
   initState() {
     return {
-      data: {},
-      waiting: false
+      data: {}
     }
   }
 
@@ -23,9 +22,9 @@ class Article extends StoreModule {
       madeIn: { title: madeTitle, code },
       edition,
       category: { title: categoryTitle },
-      price: formatPrice,
+      price,
     } = json.result;
-    const price = formatPrice.toString().replace(".", ",");
+
     this.setState(
       {
         ...this.getState(),
