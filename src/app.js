@@ -25,9 +25,9 @@ function App({ store }) {
   const { cartList, sizeCart, total } = store.getCartState();
   const [show, setShow] = useState(false);
   const [AddedAnimation, setAddedAnimation] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1); // Текущее состояние страницы
   const [totalItems, setTotalItems] = useState(0);
-  const [limit, setLimit] = useState(5); // по умолчанию 5 карточек на страницу
+  const [limit, setLimit] = useState(5);
 
   const apiClient = new QueryApiClient('http://localhost:8010/api');
   const articleService = new ArticleService(apiClient);
@@ -40,7 +40,6 @@ function App({ store }) {
         const totalItemsFromApi = await articleService.getTotalItems();
         setTotalItems(totalItemsFromApi);
 
-        // Обновляем только список товаров, корзина не изменяется
         const currentState = store.getState();
         store.setState({
           ...currentState,
@@ -58,6 +57,11 @@ function App({ store }) {
   const hooks = createHooks(store, setShow, setAddedAnimation);
   const cartBtnLabel = cartButtonLabel(sizeCart, total);
 
+  const handleItemsPerPageChange = (newLimit) => {
+    setLimit(newLimit); // обновляем лимит
+    setCurrentPage(1);   // сбрасываем на первую страницу
+  };
+
   return (
     <>
       <PageLayout nonScroll={show}>
@@ -69,8 +73,9 @@ function App({ store }) {
           itemsPerPage={limit}
           siblingCount={1}
           setCurrentPage={setCurrentPage}
+          currentPage={currentPage}  // Передаем текущую страницу
         >
-          <ItemsPerPageSelect onChange={setLimit} />
+          <ItemsPerPageSelect onChange={handleItemsPerPageChange} />
         </Pagination>
       </PageLayout>
 
@@ -82,6 +87,8 @@ function App({ store }) {
     </>
   );
 }
+
+
 
 
 

@@ -48,3 +48,4 @@ export function generateRandomKey(length = 10) {
   }
   return key;
 }
+
