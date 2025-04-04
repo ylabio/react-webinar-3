@@ -4,8 +4,9 @@ import { memo } from 'react';
 import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
-
+import useTranslate from '../../hooks/useTranslate';
 function ProductDetails({ item, onAdd }) {
+  const t = useTranslate();
   const cn = bem('ProductDetails');
 
   const callbacks = {
@@ -19,25 +20,27 @@ function ProductDetails({ item, onAdd }) {
 
         <div className={cn('specs')}>
           <div className={cn('spec-row')}>
-            <span>Страна производитель:</span>
+            <span>{t.country}:</span>
             <strong>
               {item.madeIn.title} ({item.madeIn.code})
             </strong>
           </div>
 
           <div className={cn('spec-row')}>
-            <span>Категория:</span>
+            <span>{t.category}:</span>
             <strong>{item.category.title}</strong>
           </div>
 
           <div className={cn('spec-row')}>
-            <span>Год выпуска:</span>
+            <span>{t.year}:</span>
             <strong>{item.edition}</strong>
           </div>
         </div>
 
         <div className={cn('price')}>
-          <span>Цена: {numberFormat(item.price)} ₽</span>
+          <span>
+            {t.Price}: {numberFormat(item.price)} ₽
+          </span>
         </div>
       </div>
       <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />

@@ -7,15 +7,26 @@ class Store {
   constructor(initState = {}) {
     this.listeners = []; // Слушатели изменений состояния
     this.state = initState;
+    this.modules = {};
     /** @type {{
      * basket: Basket,
      * catalog: Catalog,
      * modals: Modals
      * }} */
-    this.actions = {};
+
+    /*  */
+    /* this.actions = {};
     for (const name of Object.keys(modules)) {
       this.actions[name] = new modules[name](this, name);
       this.state[name] = this.actions[name].initState();
+    } */
+    for (const name of Object.keys(modules)) {
+      this.modules[name] = new modules[name](this, name);
+      this.state[name] = this.modules[name].initState();
+    }
+    this.actions = {};
+    for (const name of Object.keys(this.modules)) {
+      this.actions[name] = this.modules[name];
     }
   }
 

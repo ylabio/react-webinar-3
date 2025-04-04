@@ -6,8 +6,10 @@ import PropTypes from 'prop-types';
 import Button from '../button';
 import './style.css';
 import { Link } from 'react-router-dom';
+import useTranslate from '../../hooks/useTranslate';
 
 function ItemBasket(props) {
+  const t = useTranslate();
   const cn = bem('ItemBasket');
 
   const callbacks = {
@@ -26,7 +28,7 @@ function ItemBasket(props) {
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title="Удалить" />
+          <Button style="delete" onClick={callbacks.onRemove} title={t.delete} />
         </div>
       </div>
     </div>

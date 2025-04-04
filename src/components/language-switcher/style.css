@@ -1,0 +1,19 @@
+.language-switcher {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+.language-switcher button {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.language-switcher button.active {
+  background: #eee;
+  font-weight: bold;
+}

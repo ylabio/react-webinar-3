@@ -7,8 +7,10 @@ import List from '../../components/list';
 import Pagination from '../../components/pagination';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
+import useTranslate from '../../hooks/useTranslate';
 
 function Main() {
+  const t = useTranslate();
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -24,6 +26,10 @@ function Main() {
 
   useEffect(() => {
     store.actions.catalog.load();
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang && store.actions.language) {
+      store.actions.language.setLanguage(savedLang);
+    }
   }, []);
 
   const callbacks = {
@@ -61,7 +67,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
+      <Head title={t.shop} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
 
       {select.isLoading ? (

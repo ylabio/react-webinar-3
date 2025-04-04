@@ -1,8 +1,10 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import useTranslate from '../../hooks/useTranslate';
 
 function Pagination({ currentPage, totalItems, pageSize, onPageChange, onPageSizeChange }) {
+  const t = useTranslate();
   const totalPages = Math.ceil(totalItems / pageSize);
 
   const getPageNumbers = () => {
@@ -44,7 +46,7 @@ function Pagination({ currentPage, totalItems, pageSize, onPageChange, onPageSiz
     <div className="pagination-figma">
       {/* Селектор количества элементов */}
       <div className="figma-page-size">
-        <span>Показывать по:</span>
+        <span>{t.Filter}</span>
         <select value={pageSize} onChange={e => onPageSizeChange(Number(e.target.value))}>
           <option value={5}>5</option>
           <option value={10}>10</option>
