@@ -47,8 +47,6 @@ const generatePagesArray = (firstItem, pages) => {
     arr.push({ key: i - 1, page: i });
   }
 
-  console.log(arr);
-
   return arr;
 };
 
@@ -61,7 +59,6 @@ const generatePagesArray = (firstItem, pages) => {
  *
  */
 export const getCurrentPaginationArray = (itemsPerPage, currentPage, itemsCount) => {
-  const paginationArray = [];
   const totalPages = Math.ceil(itemsCount / itemsPerPage);
   const leftDot = { key: 'l-dot', page: '...' };
   const rightDot = { key: 'r-dot', page: '...' };
