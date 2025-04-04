@@ -31,3 +31,9 @@
     color: var(--delete);
   }
 }
+
+.ItemBasket-title:hover {
+  cursor: pointer;
+  color: var(--primary);
+  transform: scale(1.1);
+}

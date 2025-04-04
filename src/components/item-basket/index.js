@@ -11,12 +11,13 @@ function ItemBasket(props) {
 
   const callbacks = {
     onRemove: e => props.onRemove(props.item._id),
+    setLink: e => props.setLink(props.item._id),
   };
 
   return (
     <div className={cn()}>
       {/* <div className={cn('code')}>{props.item._id}</div> */}
-      <h4 className={cn('title')}>{props.item.title}</h4>
+      <h4 className={cn('title')} onClick={callbacks.setLink}>{props.item.title}</h4>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
@@ -40,6 +41,7 @@ ItemBasket.propTypes = {
 
 ItemBasket.defaultProps = {
   onRemove: () => {},
+  setLink: () => {},
 };
 
 export default memo(ItemBasket);

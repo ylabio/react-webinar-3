@@ -1,0 +1,34 @@
+.Pagination {
+  padding-top: 24px;
+  display: flex;
+  justify-content: end;
+  height: 22px;
+  gap: 2px;
+  font-family: var(--font-family);
+  font-size: 16px;
+  text-align: center;
+
+}
+
+.Pagination-page {
+  min-width: 22px;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    border: 1px solid var(--primary);
+    border-radius: 2px;
+    color: var(--primary);
+  }
+}
+
+.Pagination-dots {
+  min-width: 22px;
+}
+
+.Pagination-active {
+  min-width: 22px;
+  border-radius: 2px;
+  color: var(--second-text);
+  background-color: var(--primary);
+}
+

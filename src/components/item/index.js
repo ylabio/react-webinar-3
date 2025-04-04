@@ -10,12 +10,13 @@ function Item(props) {
 
   const callbacks = {
     onAdd: e => props.onAdd(props.item._id),
+    setLink: e => props.setLink(props.item._id),
   };
 
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <h4 className={cn('title')}>{props.item.title}</h4>
+      <h4 className={cn('title')} onClick={callbacks.setLink}>{props.item.title}</h4>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
         <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
@@ -35,6 +36,7 @@ Item.propTypes = {
 
 Item.defaultProps = {
   onAdd: () => {},
+  setLink: () => {},
 };
 
 export default memo(Item);
