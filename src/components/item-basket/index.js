@@ -1,5 +1,6 @@
 import { memo, useCallback } from 'react';
 import propTypes from 'prop-types';
+import { useTranslation } from '../../translation/use-translation';
 import { numberFormat } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
@@ -9,6 +10,7 @@ import './style.css';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
+  const { t } = useTranslation();
 
   const callbacks = {
     onRemove: () => {
@@ -24,7 +26,7 @@ function ItemBasket(props) {
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>
           <div onClick={e => e.preventDefault()}>
-            <Button style="delete" onClick={callbacks.onRemove} title="Удалить" />
+            <Button style="delete" onClick={callbacks.onRemove} title={t('delete')} />
           </div>
         </div>
       </div>

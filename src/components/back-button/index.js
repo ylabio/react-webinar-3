@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../button';
 import useStore from '../../store/use-store';
 import './style.css';
+import { useTranslation } from '../../translation/use-translation';
 
 function BackButton() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const store = useStore();
 
   const onMain = useCallback(() => {
@@ -15,7 +17,7 @@ function BackButton() {
 
   return (
     <div className="BackButton">
-      <Button title="Главная" onClick={onMain} style="text" />
+      <Button title={t('main')} onClick={onMain} style="text" />
     </div>
   );
 }

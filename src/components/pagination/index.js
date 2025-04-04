@@ -2,6 +2,7 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import { useTranslation } from '../../translation/use-translation';
 
 function Pagination({
   total,
@@ -12,6 +13,7 @@ function Pagination({
   onItemsPerPageChange,
 }) {
   const cn = bem('Pagination');
+  const { t } = useTranslation();
   const totalPages = Math.ceil(total / itemsPerPage);
 
   const renderPageNumbers = () => {
@@ -139,7 +141,7 @@ function Pagination({
         >
           {itemsPerPageOptions.map(value => (
             <option key={value} value={value}>
-              {value} на странице
+              {value} {t('itemsPerPage')}
             </option>
           ))}
         </select>

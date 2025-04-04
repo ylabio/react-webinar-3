@@ -2,14 +2,16 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import { useTranslation } from '../../translation/use-translation';
 
 function Button({ onClick = () => {}, title, style, type = 'button' }) {
   const cn = bem('Button');
+  const { t } = useTranslation();
 
   return (
     <div className={cn()}>
       <button type={type} className={cn({ style })} onClick={() => onClick()}>
-        {title}
+        {t(title)}
       </button>
     </div>
   );

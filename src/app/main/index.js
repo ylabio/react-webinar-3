@@ -7,6 +7,7 @@ import List from '../../components/list';
 import Pagination from '../../components/pagination';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
+import { useTranslation } from '../../translation/use-translation';
 
 function Main() {
   const store = useStore();
@@ -48,9 +49,11 @@ function Main() {
     ),
   };
 
+  const { t } = useTranslation();
+
   return (
     <PageLayout
-      head={<Head title="Магазин" />}
+      head={<Head title={t('shop')} />}
       footer={
         <Pagination
           total={select.total}

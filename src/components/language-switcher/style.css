@@ -1,0 +1,19 @@
+.LanguageSwitcher {
+  display: flex;
+  gap: 8px;
+}
+
+.LanguageSwitcher-button {
+  font-family: var(--font-family);
+  padding: 4px 8px;
+  border: 1px solid var(--primary);
+  background: var(--background);
+  color: var(--primary);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.LanguageSwitcher-button.active {
+  background: var(--primary);
+  color: var(--background);
+}
