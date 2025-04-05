@@ -8,9 +8,10 @@ import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
+  const { onAdd = () => {} } = props;
 
   const callbacks = {
-    onAdd: e => props.onAdd(props.item._id),
+    onAdd: e => onAdd(props.item._id),
   };
 
   return (

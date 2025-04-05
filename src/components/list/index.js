@@ -2,7 +2,7 @@ import { memo } from 'react';
 import PropTypes, { oneOfType } from 'prop-types';
 import './style.css';
 
-function List({ list, renderItem, pagination }) {
+function List({ list, renderItem = () => {}, pagination }) {
   return (
     <ul className={pagination? "Pagination-list" : "List"}>
       {list.map(item => !pagination ? (
