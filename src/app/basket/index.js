@@ -1,13 +1,15 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useContext } from 'react';
 import ItemBasket from '../../components/item-basket';
 import List from '../../components/list';
 import ModalLayout from '../../components/modal-layout';
 import BasketTotal from '../../components/basket-total';
-import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
+import useStore from '../../hooks/use-store';
+import { LanguageContext } from '../../store/context';
 
 function Basket() {
   const store = useStore();
+  const { translate } = useContext(LanguageContext);
 
   const select = useSelector(state => ({
     list: state.basket.list,
@@ -32,7 +34,7 @@ function Basket() {
   };
 
   return (
-    <ModalLayout title="Корзина" onClose={callbacks.closeModal}>
+    <ModalLayout title={translate('cart')} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket} />
       <BasketTotal sum={select.sum} />
     </ModalLayout>

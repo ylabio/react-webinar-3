@@ -1,0 +1,21 @@
+export const ru = {
+  title: 'Магазин',
+  home: 'Главная',
+  add: 'Добавить',
+  remove: 'Удалить',
+  item: {
+    one: 'товар',
+    few: 'товара',
+    many: 'товаров',
+  },
+  cart: 'Корзина',
+  total: 'Итого',
+  country: 'Страна производства',
+  productionYear: 'Год выпуска',
+  category: 'Категория',
+  language: 'Язык',
+  productsPerPage: 'Количество товаров на странице',
+  emptyCart: 'Пусто',
+  price: 'Цена',
+  pcs: 'шт',
+};

@@ -1,3 +1,5 @@
+import { translation } from './locales';
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -48,3 +50,5 @@ export const range = (start, end) => {
 
   return Array.from({ length }, (_, i) => i + start);
 };
+
+export const i18n = (locale, key) => translation[locale][key];

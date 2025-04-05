@@ -1,0 +1,21 @@
+export const en = {
+  title: 'Shop',
+  home: 'Home',
+  add: 'Add',
+  remove: 'Remove',
+  item: {
+    one: 'item',
+    few: 'items',
+    many: 'items',
+  },
+  cart: 'Cart',
+  total: 'Total',
+  country: 'Country',
+  productionYear: 'Production Year',
+  category: 'Category',
+  language: 'Language',
+  productsPerPage: 'Products per page',
+  emptyCart: 'Empty',
+  price: 'Price',
+  pcs: 'pcs',
+};

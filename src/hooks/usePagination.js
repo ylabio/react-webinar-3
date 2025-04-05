@@ -3,7 +3,6 @@ import { range } from '../utils';
 
 export const usePagination = ({ totalItems, limit, siblingPages, currentPage }) => {
   const paginationRange = useMemo(() => {
-    console.log('paginationRange');
     const maxVisiblePages = 7;
     const totalPages = Math.ceil(totalItems / limit);
 
@@ -16,7 +15,6 @@ export const usePagination = ({ totalItems, limit, siblingPages, currentPage }) 
 
     const shouldShowLeftDots = leftSiblingIndex > 2;
     const shouldShowRightDots = rightSiblingIndex < totalPages - 2;
-    console.log({ currentPage, shouldShowLeftDots, shouldShowRightDots });
     const firstPageIndex = 1;
     const lastPageIndex = totalPages;
 

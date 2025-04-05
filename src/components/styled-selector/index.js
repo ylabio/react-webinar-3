@@ -1,8 +1,8 @@
-import { memo, useRef } from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Selector(props) {
+function StyledSelector(props) {
   return (
     <div className="Wrap">
       <label>
@@ -23,9 +23,9 @@ function Selector(props) {
   );
 }
 
-export default memo(Selector);
+export default memo(StyledSelector);
 
-Selector.protoTypes = {
+StyledSelector.protoTypes = {
   options: PropTypes.array,
   onChange: PropTypes.func,
   defaultValue: PropTypes.string,

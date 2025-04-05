@@ -1,18 +1,20 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useContext, useEffect, useState } from 'react';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
 import List from '../../components/list';
-import useStore from '../../store/use-store';
+import useStore from '../../hooks/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
-import Selector from '../../components/page-size-selector';
+import { LanguageContext } from '../../store/context';
+import StyledSelector from '../../components/styled-selector';
 
 function Main() {
   const store = useStore();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const { setLanguage, translate, language } = useContext(LanguageContext);
 
   useEffect(() => {
     store.actions.catalog.load({ limit: pageSize, skip: pageSize * (currentPage - 1) });
@@ -30,7 +32,7 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    changePageSize: useCallback(size => setPageSize(size), [pageSize]),
+    changeProductsPerPage: useCallback(size => setPageSize(size), [pageSize]),
     changePage: useCallback(page => setCurrentPage(page), [currentPage]),
   };
 
@@ -44,11 +46,20 @@ function Main() {
   };
 
   return (
-    <PageLayout>
-      <Head title="Магазин" />
+    <PageLayout
+      head={
+        <StyledSelector onChange={setLanguage} defaultValue={language} options={['en', 'ru']} />
+      }
+    >
+      <Head title={translate('title')} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
-      <Selector onChange={callbacks.changePageSize} defaultValue={pageSize} options={[5, 10, 20]} />
+      <StyledSelector
+        onChange={callbacks.changeProductsPerPage}
+        defaultValue={pageSize}
+        options={[5, 10, 20]}
+        label={translate('productsPerPage')}
+      />
       <Pagination
         totalItems={select.totalItems}
         currentPage={currentPage}
