@@ -17,9 +17,9 @@ const ItemPage = () => {
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(id), [store]),
+    addToBasket: useCallback(() => store.actions.basket.addToBasket(id), [store, id]),
     // Открытие модалки корзины
-    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store, id]),
   };
 
   useEffect(() => {

@@ -6,7 +6,7 @@ import Cart from '../../assets/icon/cart.svg';
 import './style.css';
 
 function BasketTool(props) {
-  const { onOpen = () => {}, sum = 0, amount = 0, children = '' } = props;
+  const { onOpen = () => {}, sum = 0, amount = 0, } = props;
 
   const cn = bem('BasketTool');
   return (
