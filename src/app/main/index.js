@@ -7,6 +7,7 @@ import PageTools from '../../components/page-tools';
 import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
+import text from "../../text";
 
 function Main() {
   const store = useStore();
@@ -19,6 +20,7 @@ function Main() {
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    lang: state.language.language || 'ru',
   }));
 
   const callbacks = {
@@ -39,7 +41,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
+      <Head title={text[select.lang].storeName} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
       <PageTools />

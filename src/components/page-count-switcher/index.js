@@ -1,9 +1,15 @@
 import "style.css";
+import text from '../../text';
+import useSelector from '../../store/use-selector';
+
 function PageCountSwitcher ({productsPerPage, onCountPageChange, changeCurrentPage}) {
+    const select = useSelector(state => ({
+        lang: state.language.language || 'ru',
+      }))
 
     return (
         <div>
-            <label>Кол-во отображаемых товаров:
+            <label>{text[select.lang].productsQuantity}
                 <select onblur='this.size=0;' onchange='this.size=1; this.blur();'
                     className="Pages-select"
                     name="count" 

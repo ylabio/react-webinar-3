@@ -9,6 +9,7 @@ import routes from '../../routes';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import { useCallback } from 'react';
+import text from '../../text';
 
 function BasketTool() {
   const store = useStore();
@@ -17,25 +18,23 @@ function BasketTool() {
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
+    lang: state.language.language || 'ru',
   }));
-
-  console.log(select.amount)
-  console.log(select.sum)
 
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <a className='main-page-link' onClick={() => { navigate(routes.mainPagePath) }}>Главная</a>
+      <a className='main-page-link' onClick={() => { navigate(routes.mainPagePath) }}>{text[select.lang].mainPage}</a>
       <button className={cn('action')} onClick={ useCallback(() => store.actions.modals.open('basket'), [store]) }>
         <Cart className={cn('icon')} />
         <span className={cn('total')}>
           {select.amount
             ? `${select.amount} ${plural(select.amount, {
-                one: 'товар',
-                few: 'товара',
-                many: 'товаров',
+                one: text[select.lang].oneProduct,
+                few: text[select.lang].fewProducts,
+                many: text[select.lang].manyProducts,
               })} / ${numberFormat(select.sum)} ₽`
-            : `пусто`}
+            : text[select.lang].emptyBasket}
         </span>
       </button>
     </div>

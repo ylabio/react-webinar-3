@@ -21,8 +21,8 @@ function App() {
           <Route path={routes.mainPagePath} element={<Main />} />
           <Route path={'/product/:id'} element={<Article  />}/>
         </Routes>
+        {activeModal === 'basket' && <Basket />}
       </BrowserRouter>
-      {activeModal === 'basket' && <Basket />}
     </>
   );
 }
