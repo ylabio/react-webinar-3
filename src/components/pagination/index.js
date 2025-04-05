@@ -1,9 +1,11 @@
-import { memo } from 'react';
+import { memo, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { usePagination } from '../../hooks/usePagination';
 import './style.css';
+import { LanguageContext } from '../../store/context';
 
 function Pagination(props) {
+  const { translate } = useContext(LanguageContext);
   const paginationRange = usePagination({
     totalItems: props.totalItems,
     limit: props.limit ?? 10,
@@ -28,7 +30,7 @@ function Pagination(props) {
               }}
             >
               <a href="" aria-current={props.currentPage === page ? 'page' : undefined}>
-                <span className="Visually-hidden">page </span>
+                <span className="Visually-hidden">{translate('page')} </span>
                 {page}
               </a>
             </li>

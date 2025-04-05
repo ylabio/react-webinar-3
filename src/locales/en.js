@@ -6,7 +6,6 @@ export const en = {
   item: {
     one: 'item',
     few: 'items',
-    many: 'items',
   },
   cart: 'Cart',
   total: 'Total',
@@ -18,4 +17,5 @@ export const en = {
   emptyCart: 'Empty',
   price: 'Price',
   pcs: 'pcs',
+  page: 'Page',
 };

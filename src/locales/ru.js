@@ -18,4 +18,5 @@ export const ru = {
   emptyCart: 'Пусто',
   price: 'Цена',
   pcs: 'шт',
+  page: 'Страница',
 };

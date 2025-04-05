@@ -8,11 +8,7 @@ function StyledSelector(props) {
       <label>
         <b>{props.label}</b>
       </label>
-      <select
-        className="Select"
-        onChange={e => props.onChange(e.target.value)}
-        defaultValue={props.defaultValue}
-      >
+      <select className="Select" onChange={e => props.onChange(e.target.value)} value={props.value}>
         {props.options.map(option => (
           <option key={option} value={option}>
             {option}

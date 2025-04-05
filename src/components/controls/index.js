@@ -1,11 +1,13 @@
-import { memo } from 'react';
+import { memo, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { LanguageContext } from '../../store/context';
 
 function Controls({ onAdd = () => {} }) {
+  const { translate } = useContext(LanguageContext);
   return (
     <div className="Controls">
-      <button onClick={() => onAdd()}>Добавить</button>
+      <button onClick={() => onAdd()}>{translate('add')}</button>
     </div>
   );
 }
