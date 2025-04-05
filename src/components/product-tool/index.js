@@ -4,7 +4,7 @@ import { cn as bem } from '@bem-react/classname';
 // import { numberFormat, plural } from '../../utils';
 // import Cart from '../../assets/icon/cart.svg';
 import './style.css';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import BasketTool from '../basket-tool';
 
 function ProductTool({ onOpen, sum, amount }) {

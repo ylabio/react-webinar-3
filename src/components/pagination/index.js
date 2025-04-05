@@ -58,7 +58,6 @@ function Pagination({ postsPerPage, totalPosts, totalPages }) {
                 if (currentPage === totalPages - 2) {
                     pageNumbers.push(1);
                     pageNumbers.push('...');
-                    // pageNumbers.push(currentPage);
                     pageNumbers.push(totalPages-3, totalPages-2, totalPages-1, totalPages);
                     return pageNumbers;
                 }
@@ -73,7 +72,6 @@ function Pagination({ postsPerPage, totalPosts, totalPages }) {
                 }
                 pageNumbers.push(1);
                 pageNumbers.push('...');
-                // pageNumbers.push(currentPage);
                 pageNumbers.push(totalPages-2, totalPages-1, totalPages);
                 return pageNumbers;
             } else if (currentPage < totalPages - 3) {
@@ -88,33 +86,6 @@ function Pagination({ postsPerPage, totalPosts, totalPages }) {
                     return pageNumbers;
                 }
             }
-            // if (currentPage <= totalPages - 3) {
-            //     if (currentPage >= 8) {
-            //         pageNumbers.push(1);
-            //         pageNumbers.push('...');
-            //         pageNumbers.push(currentPage);
-            //         pageNumbers.push(totalPages-1, totalPages);
-            //         return pageNumbers;
-            //     }
-            //     // pageNumbers.push(1);
-            //     // pageNumbers.push('...');
-            //     // pageNumbers.push(currentPage);
-            //     // pageNumbers.push(totalPages-2, totalPages-1, totalPages);
-            //     return pageNumbers;
-            // }
-        
-            // if (currentPage >= 4) {
-            //     pageNumbers.push(1);
-            //     pageNumbers.push('...');
-            //     pageNumbers.push(currentPage - 1);
-            //     pageNumbers.push(currentPage);
-            //     pageNumbers.push(currentPage + 1);
-            //     pageNumbers.push('...');
-            //     pageNumbers.push(totalPages);
-            //     return pageNumbers;
-            // }
-            
-            
         }
         
         // Если общее число страниц меньше или равно 3, отображаем все

@@ -7,9 +7,11 @@ import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
+import { useNavigate } from 'react-router';
 
 function Main() {
   const store = useStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     store.actions.catalog.load();
@@ -27,14 +29,16 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Переход на страницу продукта
+    navToProductPage: useCallback(_id => navigate(`/product/${_id}`), [navigate, store]),
   };
 
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return <Item item={item} onAdd={callbacks.addToBasket} onNavigate={callbacks.navToProductPage} />;
       },
-      [callbacks.addToBasket],
+      [callbacks.addToBasket, callbacks.navToProductPage],
     ),
   };
 

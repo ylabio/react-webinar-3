@@ -9,6 +9,10 @@
 
 .ItemBasket-title {
   cursor: pointer;
+
+  &:hover {
+    color: var(--primary);
+  }
 }
 
 .ItemBasket-right {

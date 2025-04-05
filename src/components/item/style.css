@@ -9,6 +9,10 @@
 
 .Item-title {
   cursor: pointer;
+
+  &:hover {
+    color: var(--primary);
+  }
 }
 
 .Item-actions {

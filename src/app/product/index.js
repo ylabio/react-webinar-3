@@ -1,30 +1,23 @@
 import { memo, useCallback, useEffect } from 'react';
-// import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import ProductTool from '../../components/product-tool';
-// import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import ProductInfo from '../../components/product-info';
-
 
 function Product() {
   const { id } = useParams();
-  // console.log('id', id);
   const store = useStore();
 
   useEffect(() => {
     store.actions.catalog.load();
     // store.actions.catalog.getProduct(id);
-    // console.log('useEffect');
   }, []);
 
   useEffect(() => {
-    // store.actions.catalog.load();
     store.actions.catalog.getProduct(id);
-    // console.log('useEffect');
   }, [id]);
 
   const select = useSelector(state => ({
