@@ -44,11 +44,19 @@ function Pagination({ total, limit, skip, onPageChange, onLimitChange }) {
     return pages;
   };
 
+  const handleEllipsisClick = (direction) => {
+    if (direction === 'prev' && currentPage > 3) {
+      handlePageChange(currentPage - 3);
+    } else if (direction === 'next' && currentPage < totalPages - 2) {
+      handlePageChange(currentPage + 3);
+    }
+  };
+
   return (
     <div className={cn()}>
       <div className={cn('limits')}>
         <div className={cn('limits')}>
-          <select value={limit} onChange={handleLimitChange}>
+          <select className={cn('select')} value={limit} onChange={handleLimitChange}>
             <option value={5}>5</option>
             <option value={10}>10</option>
             <option value={20}>20</option>
@@ -56,12 +64,20 @@ function Pagination({ total, limit, skip, onPageChange, onLimitChange }) {
         </div>
       </div>
       <div className={cn('pages')}>
-        {getPages().map((page, index) =>
-          page === '...' ? (
-            <span key={`ellipsis-${index}`} className={cn('ellipsis')}>
-              ...
-            </span>
-          ) : (
+        {getPages().map((page, index) => {
+          if (page === '...') {
+            const isFirstEllipsis = index < getPages().indexOf(currentPage);
+            return (
+              <span
+                key={`ellipsis-${index}`}
+                className={cn('ellipsis')}
+                onClick={() => handleEllipsisClick(isFirstEllipsis ? 'prev' : 'next')}
+              >
+                ...
+              </span>
+            );
+          }
+          return (
             <button
               key={page}
               className={cn('page', { active: page === currentPage })}
@@ -69,8 +85,8 @@ function Pagination({ total, limit, skip, onPageChange, onLimitChange }) {
             >
               {page}
             </button>
-          )
-        )}
+          );
+        })}
       </div>
     </div>
   );

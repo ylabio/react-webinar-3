@@ -56,4 +56,17 @@
 
 .Pagination-ellipsis {
   width: 22px;
+  cursor: pointer;
+}
+
+.Pagination-select {
+  height: 22px;
+  border: 1.5px solid var(--primary);
+  border-radius: 4px;
+  border-color: var(--primary);
+  cursor: pointer;
+  font-family: Golos Text;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
 }
