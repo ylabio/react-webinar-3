@@ -10,7 +10,6 @@ import { numberFormat } from '../../utils';
 
 import './style.css';
 
-
 function ItemBasket({ onRemove = () => {}, onClose = () => {}, ...props }) {
   const cn = bem('ItemBasket');
 

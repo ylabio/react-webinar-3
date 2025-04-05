@@ -19,7 +19,15 @@ function Button({ onClick = () => {}, title, style, type = 'button', disabled = 
 Button.propTypes = {
   onClick: PropTypes.func,
   title: PropTypes.string,
-  style: PropTypes.oneOf(['text', 'primary', 'delete', 'outline', 'pagination', 'pagination active', 'pagination dots']),
+  style: PropTypes.oneOf([
+    'text',
+    'primary',
+    'delete',
+    'outline',
+    'pagination',
+    'pagination active',
+    'pagination dots',
+  ]),
   type: PropTypes.oneOf(['button', 'submit']),
   disabled: PropTypes.bool,
 };

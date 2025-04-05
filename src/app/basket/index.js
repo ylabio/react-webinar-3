@@ -6,7 +6,7 @@ import BasketTotal from '../../components/basket-total';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 
-import {LANGUAGES} from "../../lang/languages";
+import { LANGUAGES } from '../../lang/languages';
 
 function Basket() {
   const store = useStore();
@@ -28,7 +28,14 @@ function Basket() {
   const renders = {
     itemBasket: useCallback(
       item => {
-        return <ItemBasket item={item} onClose={callbacks.closeModal} onRemove={callbacks.removeFromBasket} title={LANGUAGES[select.lang].remove} />;
+        return (
+          <ItemBasket
+            item={item}
+            onClose={callbacks.closeModal}
+            onRemove={callbacks.removeFromBasket}
+            title={LANGUAGES[select.lang].remove}
+          />
+        );
       },
       [callbacks.removeFromBasket],
     ),

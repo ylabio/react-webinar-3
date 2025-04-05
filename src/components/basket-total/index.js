@@ -6,7 +6,7 @@ import { numberFormat } from '../../utils';
 
 import './style.css';
 
-function BasketTotal({total="Итого", sum = 0 }) {
+function BasketTotal({ total = 'Итого', sum = 0 }) {
   const cn = bem('BasketTotal');
   return (
     <div className={cn()}>

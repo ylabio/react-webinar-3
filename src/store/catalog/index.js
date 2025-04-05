@@ -39,7 +39,7 @@ class Catalog extends StoreModule {
     const skip = limit * (page - 1);
 
     const response = await fetch(
-      `${DEFAULT_QUERY}?limit=${limit}&lang=ru&skip=${skip}&fields=items(_id, title,price),count`,
+      `${DEFAULT_QUERY}?limit=${limit}&lang=ru&skip=${skip}&fields=items(_id,title,price),count`,
     );
     const json = await response.json();
     this.setState(
