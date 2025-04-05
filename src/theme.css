@@ -40,3 +40,12 @@ button {
 h1, h4 {
   margin: 0;
 }
+
+a {
+  text-decoration: none;
+  color: var(--main-text);
+
+  &:hover {
+    color: var(--primary);
+  }
+}
