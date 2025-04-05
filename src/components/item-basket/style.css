@@ -4,7 +4,7 @@
   justify-content: flex-start;
   align-items: center;
   transition: background-color 1s;
-  padding: 16px 16px 15px 16px
+  padding: 16px;
 }
 
 .ItemBasket-title:hover {
@@ -25,6 +25,10 @@
   min-width: 105px;
   text-align: right;
   white-space: nowrap;
+}
+
+.ItemBasket-cell:first-child {
+  text-align: left;
 }
 
 .ItemBasket-cell button {

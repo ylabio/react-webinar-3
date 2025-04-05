@@ -2,7 +2,7 @@
 .BasketTotal {
   display: flex;
   justify-content: flex-end;
-  padding: 16px;
+  padding: 18px;
   gap: 24px;
 }
 
@@ -11,4 +11,8 @@
   text-align: right;
   font-weight: bold;
   white-space: nowrap;
+}
+
+.BasketTotal-cell:first-child {
+  text-align: left;
 }
