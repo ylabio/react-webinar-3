@@ -1,28 +1,23 @@
 .ProductInfo {
-  /* display: flex;
+  display: flex;
+  flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
-  gap: 16px;
-  transition: background-color 1s;
-  padding: 16px 16px 15px 16px */
+  gap: 24px;
 }
 
 .ProductInfo-details {
   display: grid;
   grid-template-columns: 200px 200px;
   align-items: center;
+  row-gap: 12px;
+}
+
+.ProductInfo-details p {
+  margin: 0;
 }
 
 .ProductInfo-price {
-  display: flex;
-}
-
-
-.Item-actions button {
-  background-color: var(--primary);
-  color: var(--second-text);
-
-  &:hover {
-    background-color: var(--background);
-  }
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  line-height: 32px;
 }

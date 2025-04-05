@@ -58,14 +58,14 @@ function Product() {
 
       {select.selectedProduct ? (
         <ProductInfo
-          _id={select.selectedProduct._id}
+          // _id={select.selectedProduct._id}
           desc={select.selectedProduct.description}
           country={select.selectedProduct.madeIn.title}
           cat={select.selectedProduct.category.title}
           year={select.selectedProduct.edition}
           price={select.selectedProduct.price}
           onAdd={() => callbacks.addToBasket(id)}
-          list={select.list}
+          // list={select.list}
         />
       ) : (
         <div>Loading...</div>
