@@ -14,7 +14,7 @@ class Pagination extends StoreModule {
     this.setState({
       ...this.getState(),
       currentPage: Number(value),
-      skip: value * this.getState().limit,
+      skip: (value - 1) * this.getState().limit,
     });
   };
 
