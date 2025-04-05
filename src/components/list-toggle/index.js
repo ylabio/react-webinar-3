@@ -9,7 +9,7 @@ function ListToggle({ totalPages, currentPage, onPageChange }) {
   // Генерация кнопок пагинации (1, 2, ..., 5, 6, 7, ..., 24, 25)
   const renderPages = () => {
     const buttons = [];
-    const maxVisibleButtons = 1; // Сколько кнопок показывать вокруг текущей страницы
+    const maxVisibleButtons = 5; // Сколько кнопок показывать вокруг текущей страницы
 
     // Добавляем первую страницу
     buttons.push(

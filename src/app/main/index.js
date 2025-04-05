@@ -11,7 +11,6 @@ import useSelector from '../../store/use-selector';
 function Main() {
   const store = useStore();
 
-  const setCurrentPage = [1];
   const totalPages = 30;
   const currentPage = 10;
 
@@ -20,12 +19,17 @@ function Main() {
   }, []);
 
   const select = useSelector(state => ({
+    count: state.catalog.count,
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
 
+  console.log(select.count);
+
   const callbacks = {
+    // Пагинация
+    setCurrentPage: useCallback(_id => store.actions.catalog.setCurrentPage(_id), [store]),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
@@ -49,7 +53,7 @@ function Main() {
       <ListToggle
         totalPages={totalPages}
         currentPage={currentPage}
-        onPageChange={(page) => setCurrentPage(page)}
+        onPageChange={callbacks.setCurrentPage}
       />
     </PageLayout>
   );

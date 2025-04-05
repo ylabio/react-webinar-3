@@ -17,7 +17,6 @@ class Catalog extends StoreModule {
   async load() {
     const response = await fetch('/api/v1/articles?limit=10&skip=0&fields=items(_id, title, price),count');
     const json = await response.json();
-    console.log(json);
     this.setState(
       {
         ...this.getState(),
@@ -26,6 +25,10 @@ class Catalog extends StoreModule {
       },
       'Загружены товары из АПИ',
     );
+  }
+
+  setCurrentPage(_id) {
+    console.log(_id);
   }
 }
 
