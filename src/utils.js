@@ -64,6 +64,8 @@ export const getCurrentPaginationArray = (itemsPerPage, currentPage, itemsCount)
   const rightDot = { key: 'r-dot', page: '...' };
   const firstPage = { key: 0, page: 1 };
   const lastPage = { key: totalPages - 1, page: totalPages };
+  
+  if (!totalPages || totalPages === 1) return [];
 
   if (currentPage < 3) {
     return [firstPage, ...generatePagesArray(2, 3), rightDot, lastPage];
