@@ -20,7 +20,6 @@ class Catalog extends StoreModule {
   async load() {
     const response = await fetch(`/api/v1/articles?limit=${this.getState().onePagesItemSum}&skip=${(this.getState().currentPage - 1)*this.getState().onePagesItemSum}&fields=items(_id, title, price),count`);
     const json = await response.json();
-    console.log(json.result.count);
     this.setState(
       {
         ...this.getState(),
@@ -39,6 +38,18 @@ class Catalog extends StoreModule {
         currentPage: _id,
       },
       'Произошла пагинация',
+    );
+    this.load();
+  }
+
+  onItemSumChange(onePagesItemSum) {
+    console.log(onePagesItemSum);
+    this.setState(
+      {
+        ...this.getState(),
+        onePagesItemSum: onePagesItemSum,
+      },
+      'Произошел выбор количества показанных элементов списка',
     );
     this.load();
   }

@@ -1,0 +1,6 @@
+/* Переключатель количества записей на одной странице пагинации */
+.ItemSumToggle {
+  display: inline;
+
+  vertical-align: text-bottom;
+}

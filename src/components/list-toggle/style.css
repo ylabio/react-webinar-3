@@ -1,6 +1,6 @@
-/* Переключатель страниц */
+/* Переключатель пагинации */
 .ListToggle {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: flex-end;
   flex-wrap: wrap;
