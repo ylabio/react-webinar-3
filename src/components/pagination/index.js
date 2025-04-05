@@ -4,13 +4,13 @@ import useSelector from '../../store/use-selector';
 import List from '../list';
 import './style.css';
 
-function Pagination({ renderPage, renderLimit }) {
+function Pagination(props) {
   const { renderPage = () => {}, renderLimit = () => {} } = props;
 
   const select = useSelector(state => ({
-      allPages: state.catalog.allPages,
-      allLimits: state.catalog.allLimits,
-    }));
+    allPages: state.catalog.allPages,
+    allLimits: state.catalog.allLimits,
+  }));
   
   return (
     <div className="Pagination">

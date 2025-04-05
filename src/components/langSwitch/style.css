@@ -1,0 +1,13 @@
+.LangSwitch {
+  display: flex;
+  gap: 4px;
+
+  &:hover {
+    color: var(--primary);
+  }
+}
+
+.LangSwitch-flag {
+  width: 30px;
+  height: 20px;
+}

@@ -19,6 +19,7 @@ function Product() {
     title: state.product.title,
     description: state.product.description,
     price: state.product.price,
+    language: state.language.lang,
   }));
 
   useEffect(() => {
@@ -42,8 +43,13 @@ function Product() {
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <p className="Description">{select.description}</p>
       <Table />
-      <p className='Price'>Цена: {select.price}₽</p>
-      <Button style="primary" onClick={callbacks.addToBasket} title="Добавить" />
+      <p className='Price'>
+        {select.language === "ru" ? "Цена" : "Price"}: {select.price}₽
+      </p>
+      <Button 
+        style="primary" 
+        onClick={callbacks.addToBasket} 
+        title={select.language === "ru" ? "Добавить" : "Add"} />
     </PageLayout>
   );
 }

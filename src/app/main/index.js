@@ -18,6 +18,7 @@ function Main() {
     sum: state.basket.sum,
     allPages: state.catalog.allPages,
     limit: state.catalog.limit,
+    language: state.language.lang,
   }));
 
   useEffect(() => {
@@ -89,7 +90,7 @@ function Main() {
 
   return (
     <PageLayout title="Shop">
-      <Head title="Магазин" />
+      <Head title={select.language === "ru" ? "Магазин" : "Shop"} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
       <Pagination renderPage={renders.page} renderLimit={renders.limit}/>

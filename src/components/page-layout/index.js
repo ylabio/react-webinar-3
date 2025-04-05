@@ -17,7 +17,7 @@ function PageLayout({ title, head, footer, children }) {
 
 PageLayout.propTypes = {
   children: PropTypes.node,
-  title: string,
+  title: PropTypes.string,
   head: PropTypes.node,
   footer: PropTypes.node,
 };

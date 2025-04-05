@@ -13,7 +13,7 @@ class Basket extends StoreModule {
    * Добавление товара в корзину
    * @param _id Код товара
    */
-  addToBasket(_id, price) {
+  addToBasket(_id) {
     let sum = 0;
     // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
