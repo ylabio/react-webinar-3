@@ -11,10 +11,12 @@ class Language extends StoreModule {
         this.setState(
           {
             ...this.getState(),
-            currentLanguage: lang,
+            language: lang,
           },
           `Язык изменен на: ${lang}`,
         );
+        
+
       }
     }
 
