@@ -1,0 +1,48 @@
+.Pagination {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.Pagination-limit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.Pagination-limit select {
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid var(--divider);
+  font-family: var(--font-family);
+}
+
+.Pagination-pages {
+  display: flex;
+  gap: 8px;
+}
+
+.Pagination-page {
+  padding: 8px 12px;
+  border: 1px solid var(--divider);
+  border-radius: 4px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.Pagination-page:hover {
+  background-color: var(--primary-select);
+}
+
+.Pagination-page_active {
+  background-color: var(--primary);
+  color: var(--second-text);
+  border-color: var(--primary);
+}
+
+.Pagination-page_disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

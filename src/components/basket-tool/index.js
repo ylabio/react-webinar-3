@@ -11,6 +11,7 @@ function BasketTool(props) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
+      <h2 className={cn('subtitle')}>Главная</h2>
       <button className={cn('action')} onClick={onOpen}>
         <Cart className={cn('icon')} />
         <span className={cn('total')}>
@@ -20,7 +21,7 @@ function BasketTool(props) {
                 few: 'товара',
                 many: 'товаров',
               })} / ${numberFormat(sum)} ₽`
-            : `пусто`}
+            : `Пусто`}
         </span>
       </button>
     </div>

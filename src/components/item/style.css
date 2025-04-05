@@ -7,6 +7,12 @@
   padding: 16px 16px 15px 16px
 }
 
+.Item-title:hover {
+  color: var(--primary);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;
