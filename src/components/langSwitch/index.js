@@ -22,6 +22,7 @@ function LangSwitch() {
     }
   }
 
+  //но т.к. языков пока два, везде для определения используется тернарный оператор
   function changeLang() {
     const newLang = select.language === 'ru' ? 'eng' : 'ru';
     store.actions.language.changeLanguage(newLang);

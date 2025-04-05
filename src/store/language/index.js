@@ -13,6 +13,7 @@ class Language extends StoreModule {
     };
   }
 
+  // Смена языка
   changeLanguage(language) {
     this.setState(
       {

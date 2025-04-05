@@ -11,6 +11,7 @@ import './style.css';
 
 function Product() {
   const store = useStore();
+  // Здесь id продукта, взятый из url
   const params = useParams();
 
   const select = useSelector(state => ({
@@ -49,7 +50,8 @@ function Product() {
       <Button 
         style="primary" 
         onClick={callbacks.addToBasket} 
-        title={select.language === "ru" ? "Добавить" : "Add"} />
+        title={select.language === "ru" ? "Добавить" : "Add"}
+      />
     </PageLayout>
   );
 }

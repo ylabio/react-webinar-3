@@ -19,6 +19,7 @@ class Product extends StoreModule {
     };
   }
 
+  // Загрузка продукта по id (берется из useEffect на странице продукта)
   async load(id) {
     const response = await fetch(`/api/v1/articles/${id}?fields=_id,title,price,description,edition,madeIn(title,code),category(title)`);
     const json = await response.json();

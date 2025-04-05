@@ -30,11 +30,13 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Переход на другую страницу
     turnPage: useCallback((e) => {
       const pageNum = parseInt(e.target.id);
       store.actions.catalog.turnPage(pageNum);
     }, 
     []),
+    // Проставление шага страницы
     setLimit: useCallback((e) => {
       const limitNum = parseInt(e.target.id);
       store.actions.catalog.setLimit(limitNum);
@@ -51,6 +53,7 @@ function Main() {
       },
       [callbacks.addToBasket],
     ),
+    // Расчет того, какие номера страниц показывать, а какие скрывать за "..."
     page: useCallback(
       page => {
         if (page === select.allPages[0] ||
