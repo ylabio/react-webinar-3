@@ -31,5 +31,8 @@ export function codeGenerator(start = 0) {
  * @returns {String}
  */
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
-  return new Intl.NumberFormat(locale, options).format(value);
+  const integerValue = Math.floor(value);
+  const formatted = new Intl.NumberFormat(locale, options).format(integerValue);
+  // console.log(formatted);
+  return formatted;
 }

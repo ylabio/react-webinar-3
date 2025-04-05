@@ -1,15 +1,16 @@
 /* Контрол с общими действиями */
 .BasketTool {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 24px 16px 24px 0;
+  padding: 24px 0;
 }
 
 .BasketTool-subtitle {
+  margin: 0;
   font-family: "Golos Text";
   font-weight: 400;
   font-size: 16px;
-  line-height: 22px;
 }
 
 

@@ -7,55 +7,70 @@ function Pagination({ total, limit, skip, onPageChange, onLimitChange }) {
   const cn = bem('Pagination');
   const totalPages = Math.ceil(total / limit);
   const currentPage = Math.floor(skip / limit) + 1;
-  const options = [5, 10, 20];
+
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
       onPageChange(page);
     }
   };
 
+  const handleLimitChange = (event) => {
+    const newLimit = parseInt(event.target.value, 10);
+    onLimitChange(newLimit);
+  };
+
+  const getPages = () => {
+    const pages = [];
+    if (totalPages <= 5) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    if (currentPage <= 3) {
+      pages.push(1, 2, 3);
+      pages.push('...');
+      pages.push(totalPages);
+    } else if (currentPage >= totalPages - 2) {
+      pages.push(1);
+      pages.push('...');
+      pages.push(totalPages - 2, totalPages - 1, totalPages);
+    } else {
+      pages.push(1);
+      pages.push('...');
+      pages.push(currentPage - 1, currentPage, currentPage + 1);
+      pages.push('...');
+      pages.push(totalPages);
+    }
+
+    return pages;
+  };
+
   return (
     <div className={cn()}>
-      {/* Выбор количества записей */}
-      <div className={cn('limit')}>
-        <label>На странице: </label>
-        <select
-          value={limit}
-          onChange={(e) => onLimitChange(Number(e.target.value))}
-        >
-          {options.map((opt) => (
-            <option key={opt} value={opt}>
-              {opt}
-            </option>
-          ))}
-        </select>
+      <div className={cn('limits')}>
+        <div className={cn('limits')}>
+          <select value={limit} onChange={handleLimitChange}>
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+          </select>
+        </div>
       </div>
-
-      {/* Навигация по страницам */}
       <div className={cn('pages')}>
-        <button
-          className={cn('page', { disabled: currentPage === 1 })}
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          &lt;
-        </button>
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-          <button
-            key={page}
-            className={cn('page', { active: page === currentPage })}
-            onClick={() => handlePageChange(page)}
-          >
-            {page}
-          </button>
-        ))}
-        <button
-          className={cn('page', { disabled: currentPage === totalPages })}
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          &gt;
-        </button>
+        {getPages().map((page, index) =>
+          page === '...' ? (
+            <span key={`ellipsis-${index}`} className={cn('ellipsis')}>
+              ...
+            </span>
+          ) : (
+            <button
+              key={page}
+              className={cn('page', { active: page === currentPage })}
+              onClick={() => handlePageChange(page)}
+            >
+              {page}
+            </button>
+          )
+        )}
       </div>
     </div>
   );
