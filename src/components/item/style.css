@@ -4,7 +4,16 @@
   align-items: center;
   gap: 16px;
   transition: background-color 1s;
-  padding: 16px 16px 15px 16px
+  padding: 16px 16px 15px 16px;
+}
+
+.Item-title {
+  text-decoration: none;
+  color: var(--main-text);
+}
+.Item-title:hover {
+  color: var(--primary);
+  cursor: pointer;
 }
 
 .Item-actions {

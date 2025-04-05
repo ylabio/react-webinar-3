@@ -4,7 +4,16 @@
   justify-content: flex-start;
   align-items: center;
   transition: background-color 1s;
-  padding: 16px 16px 15px 16px
+  padding: 16px 16px 15px 16px;
+}
+
+.ItemBasket-title {
+  text-decoration: none;
+  color: var(--main-text);
+}
+.ItemBasket-title:hover {
+  color: var(--primary);
+  cursor: pointer;
 }
 
 .ItemBasket-right {

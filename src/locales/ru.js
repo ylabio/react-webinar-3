@@ -1,0 +1,16 @@
+export default {
+    title: 'Магазин',
+    add: 'Добавить',
+    delete: 'Удалить',
+    basket: 'Корзина',
+    main: 'Главная',
+    total: 'Итого',
+    pieces: 'шт.',
+    empty: "Пусто",
+    show: 'Показать',
+    itemsPerPage: 'товаров',
+    country: 'Страна производитель',
+    category: 'Категория',
+    year: 'Год выпуска',
+    price: 'Цена',
+};
