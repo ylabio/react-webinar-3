@@ -34,12 +34,12 @@ function ProductInfo({ id, desc, country, cat, year, price, onAdd = () => {} }) 
 }
 
 ProductInfo.propTypes = {
-  // desc: PropTypes.string.isRequired,
-  // country: PropTypes.string.isRequired,
-  // cat: PropTypes.string.isRequired,
-  // year: PropTypes.number.isRequired,
-  // price: PropTypes.number.isRequired,
-  // onAdd: PropTypes.func.isRequired,
+  desc: PropTypes.string.isRequired,
+  country: PropTypes.string.isRequired,
+  cat: PropTypes.string.isRequired,
+  year: PropTypes.number.isRequired,
+  price: PropTypes.number.isRequired,
+  onAdd: PropTypes.func.isRequired,
 };
 
 export default memo(ProductInfo);

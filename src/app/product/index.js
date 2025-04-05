@@ -1,11 +1,12 @@
 import { memo, useCallback, useEffect } from 'react';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
-import ProductTool from '../../components/product-tool';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import { useParams } from 'react-router';
+import Navbar from '../../components/navbar';
 import ProductInfo from '../../components/product-info';
+import BasketTool from '../../components/basket-tool';
 
 function Product() {
   const { id } = useParams();
@@ -13,7 +14,6 @@ function Product() {
 
   useEffect(() => {
     store.actions.catalog.load();
-    // store.actions.catalog.getProduct(id);
   }, []);
 
   useEffect(() => {
@@ -26,30 +26,22 @@ function Product() {
     sum: state.basket.sum,
     selectedProduct: state.catalog.selectedProduct
   }));
-  // console.log('list', select);
-
-  // const selectedProduct = useSelector(state => 
-  //   state.catalog.selectedProduct
-  // );
-  // console.log('selectedProduct', select.selectedProduct, select.selectedProduct.price); // undefined
-  // console.log('Price:', select.selectedProduct?.price);
-  // console.log(selectedProduct.description);
 
   const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(id => store.actions.basket.addToBasket(id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Добавление в корзину
+    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   };
 
-  // const renders = {
-  //   item: useCallback(
-  //     item => {
-  //       return <Item item={item} onAdd={callbacks.addToBasket} />;
-  //     },
-  //     [callbacks.addToBasket],
-  //   ),
-  // };
+  const renders = {
+    tool: useCallback(
+      () => {
+        return <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />;
+      },
+      [select.sum],
+    ),
+  };
 
   // const postsPerPage = 10;
   // const currentPage = 1;
@@ -62,7 +54,7 @@ function Product() {
   return (
     <PageLayout>
       <Head title={select.selectedProduct?.title} />
-      <ProductTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <Navbar path='/' renderBasket={renders.tool} />
 
       {select.selectedProduct ? (
         <ProductInfo

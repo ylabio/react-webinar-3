@@ -1,0 +1,16 @@
+/* Контрол с общими действиями */
+.Navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 16px 24px 0;
+}
+
+.Navigation-home {
+  text-decoration: none;
+  color: var(--main-text);
+}
+
+.Navigation-home:hover {
+  text-decoration: underline;
+}
