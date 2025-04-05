@@ -40,8 +40,7 @@ class Basket extends StoreModule {
           const json = await response.json();
           item = json.result;
           
-          list.push({ ...item, amount: 1 }); // list уже новый, в него можно пушить.
-          // Добавляем к сумме.
+          list.push({ ...item, amount: 1 }); 
           sum += item.price;
         } catch (error) {
           console.error('Fetch error:', error);
