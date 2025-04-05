@@ -94,6 +94,8 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination/index';
 
+import './style.css';
+
 function Main() {
   const store = useStore();
   const navigate = useNavigate(); // Добавляем хук useNavigate
@@ -124,7 +126,7 @@ function Main() {
       setCurrentPage(1); // Сброс на первую страницу при изменении количества элементов
     }, []),
     navigateToItem: useCallback((id) => {
-      navigate(`/items/${id}`); // Переход на страницу товара
+      navigate(`/items/${id}`);
     }, [navigate]),
   };
 
@@ -135,12 +137,13 @@ function Main() {
     ),
   };
 
-  const totalPages = Math.ceil(select.total / itemsPerPage); // Вычисление общего количества страниц
+  const totalPages = Math.ceil(select.total / itemsPerPage);
 
   return (
     <PageLayout>
       <Head title="Магазин" />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <List list={select.list} renderItem={renders.item} />
 
       <div className="pagination-controls">
         <div className="items-per-page">
@@ -155,15 +158,14 @@ function Main() {
             <option value="20">20</option>
           </select>
         </div>
-      </div>
-
-      <List list={select.list} renderItem={renders.item} />
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={callbacks.handlePageChange}
       />
+      </div>
     </PageLayout>
+
   );
 }
 

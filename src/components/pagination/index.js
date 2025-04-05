@@ -1,4 +1,5 @@
 import Main from "../../app/main";
+import './style.css';
 
 function Pagination({ currentPage, totalPages, onPageChange }) {
   const maxVisibleButtons = 5; // Максимальное количество видимых кнопок страниц
