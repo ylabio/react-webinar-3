@@ -10,19 +10,21 @@ function Item(props) {
 
   const callbacks = {
     onAdd: e => {
-      e.stopPropagation(); // Останавливаем всплытие события
+      e?.stopPropagation(); // Safe check with optional chaining
       props.onAdd(props.item._id);
     },
     onClick: () => {
       if (props.onClick) {
-        props.onClick(props.item._id); // Вызываем обработчик клика по товару
+        props.onClick(props.item._id);
       }
     }
   };
 
   return (
-    <div className={cn()} onClick={callbacks.onClick}>
-      <h4 className={cn('title')}>{props.item.title}</h4>
+    <div className={cn()}>
+      <div className={cn()} onClick={callbacks.onClick}>
+        <h4 className={cn('title')}>{props.item.title}</h4>
+      </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
         <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />

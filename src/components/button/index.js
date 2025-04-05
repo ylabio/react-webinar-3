@@ -8,12 +8,16 @@ function Button({ onClick = () => {}, title, style, type = 'button' }) {
 
   return (
     <div className={cn()}>
-      <button type={type} className={cn({ style })} onClick={() => onClick()}>
+      <button
+        type={type}
+        className={cn({ style })}
+        onClick={(e) => onClick(e)}  // Pass the event object here
+      >
         {title}
       </button>
     </div>
   );
-}
+  }
 
 Button.propTypes = {
   onClick: PropTypes.func,
