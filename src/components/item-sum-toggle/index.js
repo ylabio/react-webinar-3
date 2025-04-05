@@ -12,6 +12,7 @@ function ItemSumToggle({ onItemSumChange }) {
 
   return (
     <div className={cn()}>
+      Выберите количество товаров на одной странице списка
       <select onChange={handleChange} defaultValue="5">
         <option value="5">5</option>
         <option value="10">10</option>

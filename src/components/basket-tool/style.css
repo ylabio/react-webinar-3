@@ -1,5 +1,6 @@
 /* Контрол с общими действиями */
 .BasketTool {
+  flex: 0 0 100%;
   display: flex;
   justify-content: flex-end;
   padding: 24px 16px 24px 0;

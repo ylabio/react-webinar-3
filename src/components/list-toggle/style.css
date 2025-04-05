@@ -1,10 +1,10 @@
 /* Переключатель пагинации */
 .ListToggle {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: flex-end;
   flex-wrap: wrap;
-  gap: 2px;
+  gap: 4px;
   margin-top: 24px;
 }
 
