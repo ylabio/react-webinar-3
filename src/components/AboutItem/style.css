@@ -1,0 +1,31 @@
+.AboutItem {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: var(--font-family);
+  color: var(--main-text);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+}
+.AboutItem-madeIn {
+  display: flex;
+  gap: 8px;
+}
+.AboutItem-madeIn-left {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+.AboutItem-madeIn-right {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+  font-weight: 700;
+}
+.AboutItem-price {
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+}

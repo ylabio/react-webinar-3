@@ -24,3 +24,10 @@ GET http://query.rest/api/v1/articles/65817bed5c295a2ff2fcd182
 # Про формат fields смотри http://query.rest
 
 GET http://query.rest/api/v1/articles/65817bed5c295a2ff2fcd182?fields=*,madeIn(title,code),category(title)
+
+# Товар по id с подробностями о стране и категории
+http://query.rest/api/v1/articles/67f12381b7b8c03f3bc67bfc?fields=madeIn(title,code),category(title)
+# Товар по id с подробностями о стране
+http://query.rest/api/v1/countries/67f12378b7b8c03f3bc67102?fields=title,code
+# Товар по id с подробностями о категории
+http://query.rest/api/v1/categories/67f12381b7b8c03f3bc67bfb?fields=title
