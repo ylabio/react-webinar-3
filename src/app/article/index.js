@@ -7,6 +7,7 @@ import { useParams } from "react-router";
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import ArticleInfo from '../../components/article-info';
+import LanguageSwitcher from '../../components/language-switcher';
 
 
 function Article() {
@@ -22,6 +23,7 @@ function Article() {
         article: state.article.article,
         amount: state.basket.amount,
         sum: state.basket.sum,
+        lang: state.locale.lang,
     }));
 
     const callbacks = {
@@ -29,10 +31,12 @@ function Article() {
         addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
         // Открытие модалки корзины
         openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+        // Выбор языка
+        handleLanguageChange: useCallback((lang) => store.actions.locale.setLang(lang), [store])
     };
 
     return (
-        <PageLayout>
+        <PageLayout head={<LanguageSwitcher language={select.lang} onChange={callbacks.handleLanguageChange} />}>
             <Head title={select.article.title} />
             <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
             <ArticleInfo article={select.article} onAdd={callbacks.addToBasket} />

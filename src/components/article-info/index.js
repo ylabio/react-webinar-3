@@ -4,9 +4,11 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import Button from '../button';
 import { numberFormat } from '../../utils';
+import { useTranslate } from '../../locales/use-translate';
 
 function ArticleInfo(props) {
   const { onAdd = () => { }, article = {} } = props;
+  const t = useTranslate();
 
   const callbacks = {
     onAdd: e => onAdd(article._id),
@@ -19,20 +21,20 @@ function ArticleInfo(props) {
       <table className={cn('details')}>
         <tbody>
           <tr>
-            <td>Страна производитель: </td>
+            <td>{t.country}: </td>
             <td><b>{article.madeIn?.title}</b></td></tr>
           <tr>
-            <td>Категория:</td>
+            <td>{t.category}:</td>
             <td><b>{article.category?.title}</b></td>
           </tr>
           <tr>
-            <td>Год выпуска:</td>
+            <td>{t.year}:</td>
             <td><b>{article.edition}</b></td>
           </tr>
         </tbody>
       </table>
-      <p className={cn('price')}>Цена: {numberFormat(article.price)} ₽</p>
-      <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+      <p className={cn('price')}>{t.price}: {numberFormat(article.price)} ₽</p>
+      <Button style="primary" onClick={callbacks.onAdd} title={t.add} />
     </div>
   );
 }

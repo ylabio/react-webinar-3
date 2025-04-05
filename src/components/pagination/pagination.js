@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import "./style.css";
+import { useTranslate } from "../../locales/use-translate";
 
 function Pagination({ totalPages, page, limit, onChange }) {
     const [currentPage, setCurrentPage] = useState(page);
     const [itemsPerPage, setItemsPerPage] = useState(limit);
+    const t = useTranslate();
 
     useEffect(() => {
         onChange({ page: currentPage, limit: itemsPerPage });
@@ -51,10 +53,10 @@ function Pagination({ totalPages, page, limit, onChange }) {
     return (
         <div className="Pagination">
             <div className="Pagination-selector">
-                <span>Показать: </span>
+                <span>{t.show}: </span>
                 <select className="Pagination-select" value={itemsPerPage} onChange={handleLimitChange}>
                     {[5, 10, 20].map(size => (
-                        <option key={size} value={size}>{size} товаров</option>
+                        <option key={size} value={size}>{size} {t.itemsPerPage}</option>
                     ))}
                 </select>
             </div>

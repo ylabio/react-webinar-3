@@ -6,9 +6,11 @@ import PropTypes from 'prop-types';
 import Button from '../button';
 import './style.css';
 import { NavLink } from 'react-router';
+import { useTranslate } from '../../locales/use-translate';
 
 function ItemBasket(props = { item: {}, onRemove: () => { }, onClose: () => { } }) {
   const cn = bem('ItemBasket');
+  const t = useTranslate();
 
   const callbacks = {
     onRemove: e => props.onRemove(props.item._id),
@@ -23,7 +25,7 @@ function ItemBasket(props = { item: {}, onRemove: () => { }, onClose: () => { } 
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title="Удалить" />
+          <Button style="delete" onClick={callbacks.onRemove} title={t.delete} />
         </div>
       </div>
     </div>

@@ -1,0 +1,16 @@
+export default {
+    title: 'Shop',
+    add: 'Add',
+    delete: 'Delete',
+    basket: 'Cart',
+    main: 'Main',
+    total: 'Total',
+    pieces: 'pcs.',
+    empty: "Empty",
+    show: 'Show',
+    itemsPerPage: 'items',
+    country: 'Country of origin',
+    category: 'Category',
+    year: 'Year of production',
+    price: 'Price',
+};

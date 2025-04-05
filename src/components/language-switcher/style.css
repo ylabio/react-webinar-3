@@ -1,0 +1,15 @@
+.LanguageSwitcher {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 16px 0;
+}
+.LanguageSwitcher-select {
+  background-color: var(--background);
+  border: 1px solid var(--close);
+  border-radius: 4px;
+  padding: 8px;
+  color: var(--main-text);
+  font-size: 16px;
+  cursor: pointer;
+}

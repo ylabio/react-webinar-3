@@ -1,11 +1,13 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslate } from '../../locales/use-translate';
 import './style.css';
 
-function Controls({ onAdd = () => {} }) {
+function Controls({ onAdd = () => { } }) {
+  const t = useTranslate();
   return (
     <div className="Controls">
-      <button onClick={() => onAdd()}>Добавить</button>
+      <button onClick={() => onAdd()}>{t.add}</button>
     </div>
   );
 }
