@@ -1,0 +1,25 @@
+.Pagination {
+  margin: 24px 0 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Pagination-list {
+  display: flex;
+  justify-content: end;
+  gap: 2px;
+  overflow: hidden;
+  list-style: none;
+  padding-left: 0;
+}
+
+.Pagination-radio {
+  display: flex;
+  justify-content: space-around;
+}
+
+input[type="radio"] {
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
