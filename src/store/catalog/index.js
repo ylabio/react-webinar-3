@@ -11,24 +11,36 @@ class Catalog extends StoreModule {
     return {
       list: [],
       count: 0,
+      currentPage: 1,
+      totalPages: 0,
+      onePagesItemSum: 5,
     };
   }
 
   async load() {
     const response = await fetch('/api/v1/articles?limit=10&skip=0&fields=items(_id, title, price),count');
     const json = await response.json();
+    // console.log(this.getState().totalPages);
     this.setState(
       {
         ...this.getState(),
         list: json.result.items,
         count: json.result.count,
+        totalPages: Math.round(json.result.count/this.getState().onePagesItemSum),
       },
       'Загружены товары из АПИ',
     );
+    // console.log(this.getState().totalPages);
   }
 
   setCurrentPage(_id) {
-    console.log(_id);
+    this.setState(
+      {
+        ...this.getState(),
+        currentPage: _id,
+      },
+      'Произошла пагинация',
+    );
   }
 }
 

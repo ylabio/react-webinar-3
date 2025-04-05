@@ -11,21 +11,18 @@ import useSelector from '../../store/use-selector';
 function Main() {
   const store = useStore();
 
-  const totalPages = 30;
-  const currentPage = 10;
-
   useEffect(() => {
     store.actions.catalog.load();
   }, []);
 
   const select = useSelector(state => ({
+    totalPages: state.catalog.totalPages,
+    currentPage: state.catalog.currentPage,
     count: state.catalog.count,
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
-
-  console.log(select.count);
 
   const callbacks = {
     // Пагинация
@@ -51,8 +48,8 @@ function Main() {
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
       <ListToggle
-        totalPages={totalPages}
-        currentPage={currentPage}
+        totalPages={select.totalPages}
+        currentPage={select.currentPage}
         onPageChange={callbacks.setCurrentPage}
       />
     </PageLayout>
