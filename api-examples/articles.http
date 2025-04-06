@@ -9,34 +9,18 @@ GET http://query.rest/api/v1/articles
 GET http://query.rest/api/v1/articles?limit=10&skip=20
 
 ###
-# Сортированный список со смещением и ограничением количества
-
-GET http://query.rest/api/v1/articles?sort=order&limit=10&skip=0
-
-###
 # Список с возвратом общего количества (и только нужных свойств через fields)
 # Про формат fields смотри http://query.rest
 
 GET http://query.rest/api/v1/articles?limit=10&skip=10&fields=items(_id, title, price),count
 
 ###
-# Сортированный список с возвратом общего количества (и только нужных свойств через fields)
-# Про формат fields смотри http://query.rest
-
-GET http://query.rest/api/v1/articles?sort=order&limit=10&skip=10&fields=items(_id, title, price),count
-
-###
 # Товар по id
 
-GET http://query.rest/api/v1/articles/670260bb7dd498df5525e5d9
+GET http://query.rest/api/v1/articles/65817bed5c295a2ff2fcd182
 
 ###
 # Товар по id с подробностями о стране и категории
 # Про формат fields смотри http://query.rest
 
-GET http://query.rest/api/v1/articles/670260bb7dd498df5525e5d9?fields=*,madeIn(title,code),category(title)
-
-###
-# Товар по id с подробностями о стране и категории (и только нужных свойств через fields)
-
-GET http://query.rest/api/v1/articles/670260bb7dd498df5525e5d9?fields=name,title,description,price,edition,madeIn(title,code),category(title)
+GET http://query.rest/api/v1/articles/65817bed5c295a2ff2fcd182?fields=*,madeIn(title,code),category(title)
