@@ -1,0 +1,16 @@
+.HomeLink {
+  flex: 0 0 auto;
+  align-self: center;
+
+  font-size: 16px;
+  line-height: 1;
+  color: var(--main-text);
+  text-decoration: none;
+}
+
+.HomeLink:hover {
+  cursor: pointer;
+
+  color: var(--primary);
+  text-decoration: underline;
+}

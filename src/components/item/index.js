@@ -6,6 +6,7 @@ import Button from '../button';
 import './style.css';
 
 function Item(props) {
+  console.log(props);
   const cn = bem('Item');
 
   const callbacks = {
@@ -14,7 +15,6 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <h4 className={cn('title')}>{props.item.title}</h4>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
