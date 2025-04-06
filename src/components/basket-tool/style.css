@@ -1,8 +1,7 @@
 /* Контрол с общими действиями */
 .BasketTool {
-  display: flex;
-  justify-content: flex-end;
   padding: 24px 16px 24px 0;
+  max-width: 1152px;
 }
 
 .BasketTool-action {

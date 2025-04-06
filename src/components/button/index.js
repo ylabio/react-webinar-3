@@ -1,6 +1,6 @@
-import { memo } from 'react';
-import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
+import PropTypes from 'prop-types';
+import { memo } from 'react';
 import './style.css';
 
 function Button({ onClick = () => {}, title, style, type = 'button' }) {

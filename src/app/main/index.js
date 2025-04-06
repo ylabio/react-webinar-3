@@ -1,46 +1,108 @@
 import { memo, useCallback, useEffect } from 'react';
-import Item from '../../components/item';
-import PageLayout from '../../components/page-layout';
-import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
+import Head from '../../components/head';
+import Item from '../../components/item';
 import List from '../../components/list';
-import useStore from '../../store/use-store';
+import MainMenuLayout from '../../components/main-menu-layout';
+import Navigation from '../../components/navigation';
+import PageLayout from '../../components/page-layout';
+import Pagination from '../../components/pagination';
 import useSelector from '../../store/use-selector';
+import useStore from '../../store/use-store';
+import { translations } from '../../utils/translations';
 
 function Main() {
   const store = useStore();
 
-  useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
-
   const select = useSelector(state => ({
     list: state.catalog.list,
+    currentPage: state.catalog.currentPage,
+    totalItemsCount: state.catalog.totalItemsCount,
+    pageSize: state.catalog.pageSize,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    lang: state.language.currentLanguage,
   }));
+
+  useEffect(() => {
+    store.actions.catalog.getItemsCount();
+  }, []);
+
+  useEffect(() => {
+    store.actions.catalog.getItems();
+  }, [select.lang]);
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Пагинация
+    onPageChange: useCallback(
+      newPage => {
+        store.actions.catalog.getItems({
+          currentPage: newPage,
+          pageSize: select.pageSize,
+        });
+      },
+      [store, select.pageSize, select.lang],
+    ),
+    // Изменение количества товаров на странице
+    onPageSizeChange: useCallback(
+      newPageSize => {
+        store.actions.catalog.changePageSize(newPageSize);
+        store.actions.catalog.getItems({
+          currentPage: 1,
+          pageSize: newPageSize,
+        });
+      },
+      [store, select.pageSize, select.lang],
+    ),
+    onChangeLanguage: useCallback(lang => store.actions.language.changeLanguage(lang), [store]),
   };
 
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return (
+          <Item
+            item={item}
+            onAdd={callbacks.addToBasket}
+            buttonTitle={t.buttonAdd}
+            itemLink={`items/${item._id}`}
+          />
+        );
       },
-      [callbacks.addToBasket],
+      [callbacks.addToBasket, select.lang],
     ),
   };
 
+  const t = translations[select.lang] || translations.ru;
+
   return (
     <PageLayout>
-      <Head title="Магазин" />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <Head title={t.headTitle} lang={select.lang} onLanguageChange={callbacks.onChangeLanguage} />
+      <MainMenuLayout>
+        <Navigation mainNavText={t.mainNav} />
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+          oneItemText={t.oneItem}
+          fewItemsText={t.fewItems}
+          manyItemsText={t.manyItems}
+          cartEmptyText={t.cartEmpty}
+        />
+      </MainMenuLayout>
       <List list={select.list} renderItem={renders.item} />
+      <Pagination
+        currentPage={select.currentPage}
+        totalItemsCount={select.totalItemsCount}
+        onPageChange={callbacks.onPageChange}
+        onPageSizeChange={callbacks.onPageSizeChange}
+        pageSize={select.pageSize}
+        itemsPerPageText={t.itemsPerPage}
+      />
     </PageLayout>
   );
 }

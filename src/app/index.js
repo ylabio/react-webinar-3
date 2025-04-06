@@ -1,8 +1,8 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
-import Main from './main';
-import Basket from './basket';
-import useStore from '../store/use-store';
+import { Route, Routes } from 'react-router';
 import useSelector from '../store/use-selector';
+import Basket from './basket';
+import ItemPage from './item-page';
+import Main from './main';
 
 /**
  * Приложение
@@ -13,7 +13,12 @@ function App() {
 
   return (
     <>
-      <Main />
+      <Routes>
+        <Route index element={<Main />} />
+        <Route path="items/:itemId" element={<ItemPage />} />
+        <Route path="*" element={<div>404</div>} />
+      </Routes>
+
       {activeModal === 'basket' && <Basket />}
     </>
   );
