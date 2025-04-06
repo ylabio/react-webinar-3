@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 1440px;
+    margin: 0 20px;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: -20px;
+  }
+  
+  .homeLink {
+    text-decoration: none;
+    color: var(--main-text);
+    font-size: 16px;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+  }

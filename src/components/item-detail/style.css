@@ -1,0 +1,29 @@
+.Article-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.Article-info_item {
+  display: grid;
+  grid-template-columns: 200px 1fr; 
+  column-gap: 16px;
+  align-items: center;
+}
+
+.Article-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.Article-price {
+  font-family: var(--second-font-family);
+  font-weight: bold;
+  font-size: 24px;
+  height: 32px;
+  margin-top: 30px;
+  margin-bottom: -10px;
+}

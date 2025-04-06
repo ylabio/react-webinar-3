@@ -1,0 +1,62 @@
+.Page-Size-Select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.Page-Size-Select-custom-select {
+  position: relative;
+  background: var(--main-text);
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 6px 12px;
+  user-select: none;
+  min-width: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.Custom-Select-selected {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Page-Size-Select-arrow {
+  margin-left: 8px;
+  font-size: 10px;
+}
+
+.Page-Size-Select-options {
+  position: absolute;
+  list-style: none;
+  top: 100%;
+  left: 0;
+  padding: 0;
+  background: var(--main-text);
+  width: 100%;
+  margin-top: 4px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  z-index: 10;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.Page-Size-Select-option {
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 13px;
+}
+
+.Page-Size-Select-option:hover {
+  background: #7e7e7e;
+}
+
+.Page-Size-Select-option.selected {
+  background: #414141;
+}
