@@ -4,6 +4,7 @@ import { cn as bem } from '@bem-react/classname';
 import useStore from '../../store/use-store';
 import { numberFormat } from '../../utils';
 import './style.css';
+import Button from '../button';
 
 function ItemFull({ item, addToCartText, countryText, categoryText, yearText, priceText }) {
   const cn = bem('ItemFull');
@@ -38,9 +39,7 @@ function ItemFull({ item, addToCartText, countryText, categoryText, yearText, pr
       <p className={cn('price')}>
         {priceText}: {numberFormat(item.price)} ₽
       </p>
-      <button className={cn('add-button')} onClick={callbacks.addToBasket}>
-        {addToCartText}
-      </button>
+      <Button style="primary" title={addToCartText} onClick={callbacks.addToBasket} />
     </div>
   );
 }
