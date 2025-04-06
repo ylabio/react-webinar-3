@@ -1,13 +1,24 @@
 import { memo, useCallback } from 'react';
+import { useParams, useLoaderData} from 'react-router-dom'; // Добавляем useParams
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
-import HomeLink from '../../components/home-link';
 import Product from '../../components/product';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 
+export async function loader({ params }) {
+  const response = await fetch(
+    `/api/v1/articles/${params.id}?fields=*,madeIn(title,code),category(title)`
+  );
+  if (!response.ok) throw new Error("Товар не найден");
+  return await response.json();
+}
+
 function ProductPage() {
+
+  const { id } = useParams(); // Получаем id из URL
+  const product = useLoaderData();
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -16,18 +27,21 @@ function ProductPage() {
   }));
 
   const callbacks = {
-    // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   };
 
   return (
     <PageLayout>
-      <Head title="Название товара" />
-      <HomeLink />
+      <Head title={product?.title || 'Товар'} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      {/* <Product title="Название товара"/> */}
+      {/* {product && (
+        <Product
+          title={product.title}
+          price={product.price}
+          onAdd={() => callbacks.addToBasket(product._id)}
+        />
+      )} */}
     </PageLayout>
   );
 }

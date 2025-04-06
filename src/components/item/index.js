@@ -1,4 +1,5 @@
 import { memo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
@@ -15,8 +16,10 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      <h4 className={cn('title')}>{props.item.title}</h4>
-      <div className={cn('actions')}>
+        <Link to={`/products/${props.item._id}`} className={cn('title')}> {/* Обернули в Link */}
+          <h4>{props.item.title}</h4>
+        </Link>
+        <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
         <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
       </div>
