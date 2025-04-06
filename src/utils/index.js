@@ -31,5 +31,9 @@ export function codeGenerator(start = 0) {
  * @returns {String}
  */
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
+  if (locale === 'en') {
+    const countryCode = 'EN';
+    locale = locale + '-' + countryCode;
+  }
   return new Intl.NumberFormat(locale, options).format(value);
 }

@@ -6,6 +6,7 @@ import BasketTotal from '../../components/basket-total';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import { useNavigate } from 'react-router';
+import { langKeyWords } from '../../utils/lang';
 
 function Basket() {
   const store = useStore();
@@ -15,6 +16,7 @@ function Basket() {
     list: state.basket.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    lang: state.language.lang,
   }));
 
   const callbacks = {
@@ -38,10 +40,12 @@ function Basket() {
     ),
   };
 
+  const multi = langKeyWords[select.lang] || langKeyWords.ru;
+
   return (
-    <ModalLayout title="Корзина" onClose={callbacks.closeModal}>
+    <ModalLayout title={multi.basket} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <BasketTotal sum={select.sum} lang={select.lang} />
     </ModalLayout>
   );
 }

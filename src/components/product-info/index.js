@@ -4,26 +4,28 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
+import { langKeyWords } from '../../utils/lang';
 
-function ProductInfo({ desc = "", country = "", cat = "", year = "", price = "", onAdd = () => {} }) {
+function ProductInfo({ desc = '', country = '', cat = '', year = '', price = '', lang = 'ru', onAdd = () => {} }) {
   const cn = bem('ProductInfo');
+  const multi = langKeyWords[lang] || lang.ru;
 
   return (
     <div className={cn()}>
       <p>{desc}</p>
       <div className={cn('details')}>
-        <p>Страна производитель:</p>
+        <p>{multi.madeIn}:</p>
         <b>{country}</b>
 
-        <p>Категория:</p>
+        <p>{multi.category}:</p>
         <b>{cat}</b>
 
-        <p>Год выпуска:</p>
+        <p>{multi.edition}:</p>
         <b>{year}</b>
       </div>
-      <h2 className={cn('price')}>Цена: {numberFormat(price)} ₽</h2>
+      <h2 className={cn('price')}>{multi.price}: {numberFormat(price, lang)} ₽</h2>
       <div className={cn('actions')}>
-        <Button style="primary" onClick={onAdd} title="Добавить" />
+        <Button style="primary" onClick={onAdd} title={multi.btnAdd} />
       </div>
     </div>
   );
@@ -35,6 +37,7 @@ ProductInfo.propTypes = {
   cat: PropTypes.string,
   year: PropTypes.number,
   price: PropTypes.number,
+  lang: PropTypes.string,
   onAdd: PropTypes.func.isRequired,
 };
 

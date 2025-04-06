@@ -8,15 +8,11 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import { useNavigate } from 'react-router';
+import { langKeyWords } from '../../utils/lang';
 
 function Main() {
   const store = useStore();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    store.actions.catalog.load();
-    store.actions.catalog.getProductCount();
-  }, []);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -25,7 +21,16 @@ function Main() {
     productsPerPage: state.catalog.productsPerPage,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    lang: state.language.lang,
   }));
+
+  useEffect(() => {
+    store.actions.catalog.load();
+  }, [select.lang]);
+
+  useEffect(() => {
+    store.actions.catalog.getProductCount();
+  })
 
   const callbacks = {
     // Добавление в корзину
@@ -59,10 +64,12 @@ function Main() {
     ),
   };
 
+  const multi = langKeyWords[select.lang] || lang.ru;
+
   return (
     <PageLayout>
-      <Head title="Магазин" />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <Head title={multi.headTitle} />
+      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} />
       <List list={select.list} renderItem={renders.item} />
       <Pagination
         productCount={select.count}

@@ -12,20 +12,21 @@ function Product() {
   const { id } = useParams();
   const store = useStore();
 
+  const select = useSelector(state => ({
+    list: state.catalog.list,
+    amount: state.basket.amount,
+    sum: state.basket.sum,
+    selectedProduct: state.catalog.selectedProduct,
+    lang: state.language.lang,
+  }));
+
   useEffect(() => {
     store.actions.catalog.load();
   }, []);
 
   useEffect(() => {
     store.actions.catalog.getProduct(id);
-  }, [id]);
-
-  const select = useSelector(state => ({
-    list: state.catalog.list,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
-    selectedProduct: state.catalog.selectedProduct
-  }));
+  }, [id, select.lang]);
 
   const callbacks = {
     // Открытие модалки корзины
@@ -37,17 +38,16 @@ function Product() {
   const renders = {
     tool: useCallback(
       () => {
-        return <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />;
+        return <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} />;
       },
-      [select.sum],
+      [select.sum, select.lang],
     ),
   };
 
   return (
     <PageLayout>
       <Head title={select.selectedProduct?.title} />
-      <Navbar path='/' renderBasket={renders.tool} />
-
+      <Navbar path='/' renderBasket={renders.tool} lang={select.lang} />
       {select.selectedProduct ? (
         <ProductInfo
           // _id={select.selectedProduct._id}
@@ -56,12 +56,12 @@ function Product() {
           cat={select.selectedProduct.category.title}
           year={select.selectedProduct.edition}
           price={select.selectedProduct.price}
+          lang={select.lang}
           onAdd={() => callbacks.addToBasket(id)}
         />
       ) : (
         <div>Loading...</div>
       )}
-      
     </PageLayout>
   );
 };

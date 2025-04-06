@@ -21,9 +21,7 @@ function Pagination({
             }
         } else {
             if (currentPage < 3) {
-                pageNumbers.push(1, 2, 3);
-                pageNumbers.push('...');
-                pageNumbers.push(totalPages);
+                pageNumbers.push(1, 2, 3, '...', totalPages);
                 return pageNumbers;
             }
             if (currentPage === 3) {
@@ -32,77 +30,29 @@ function Pagination({
                     pageNumbers.push(totalPages);
                     return pageNumbers;
                 } else {
-                    pageNumbers.push('...');
-                    pageNumbers.push(totalPages);
+                    pageNumbers.push('...', totalPages);
                     return pageNumbers;
                 }  
             }
 
             if (currentPage >= totalPages - 3) {
                 if (currentPage === totalPages - 2) {
-                    pageNumbers.push(1);
-                    pageNumbers.push('...');
-                    pageNumbers.push(totalPages-3, totalPages-2, totalPages-1, totalPages);
+                    pageNumbers.push(1, '...', totalPages-3, totalPages-2, totalPages-1, totalPages);
                     return pageNumbers;
                 }
                 if (currentPage === totalPages - 3) {
-                    pageNumbers.push(1);
-                    pageNumbers.push('...');
-                    pageNumbers.push(currentPage - 1);
-                    pageNumbers.push(currentPage);
-                    pageNumbers.push(currentPage + 1);
-                    pageNumbers.push('...', totalPages);
+                    pageNumbers.push(1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages);
                     return pageNumbers;
                 }
-                pageNumbers.push(1);
-                pageNumbers.push('...');
-                pageNumbers.push(totalPages-2, totalPages-1, totalPages);
+                pageNumbers.push(1, '...', totalPages-2, totalPages-1, totalPages);
                 return pageNumbers;
             } else if (currentPage < totalPages - 3) {
                 if (currentPage >= 4) {
-                    pageNumbers.push(1);
-                    pageNumbers.push('...');
-                    pageNumbers.push(currentPage - 1);
-                    pageNumbers.push(currentPage);
-                    pageNumbers.push(currentPage + 1);
-                    pageNumbers.push('...');
-                    pageNumbers.push(totalPages);
+                    pageNumbers.push(1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages);
                     return pageNumbers;
                 }
             }
         }
-        
-        // Если общее число страниц меньше или равно 3, отображаем все
-        // if (totalPages <= 4) {
-        //     for (let i = 1; i <= totalPages; i++) {
-        //         pageNumbers.push(i);
-        //     }
-        // } else {
-        //     if (currentPage > 3) {
-        //         pageNumbers.push(1);
-        //         pageNumbers.push('...');
-
-        //         const start = Math.max(2, currentPage - 1);
-        //         const end = Math.min(totalPages - 1, currentPage + 1);
-
-        //         for (let i = start; i <= end; i++) {
-        //             pageNumbers.push(i);
-        //         }
-        //         if (end < totalPages - 1) {
-        //             pageNumbers.push('...');
-        //         }
-        //         pageNumbers.push(totalPages);
-        //     } else {
-        //         for (let i = 1; i <= 3; i++) {
-        //             pageNumbers.push(i);
-        //         }
-        //         if (totalPages > 3) {
-        //             pageNumbers.push('...');
-        //             pageNumbers.push(totalPages);
-        //         }
-        //     }
-        // }
-
         return pageNumbers;
     };
 

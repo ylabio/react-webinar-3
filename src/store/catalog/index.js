@@ -23,7 +23,8 @@ class Catalog extends StoreModule {
       productsPerPage = this.store.getState().catalog.productsPerPage,
     } = params;
     const skip = productsPerPage * (currentPage - 1);
-    const response = await fetch(`/api/v1/articles?limit=${productsPerPage}&skip=${skip}&`);
+    const lang = this.store.getState().language.lang;
+    const response = await fetch(`/api/v1/articles?limit=${productsPerPage}&skip=${skip}&lang=${lang}`);
     const json = await response.json();
 
     this.setState(
@@ -47,7 +48,8 @@ class Catalog extends StoreModule {
   };
 
   async getProduct(id) {
-    const response = await fetch(`/api/v1/articles/${id}?fields=description,edition,price,title,madeIn(title),category(title)`);
+    const lang = this.store.getState().language.lang;
+    const response = await fetch(`/api/v1/articles/${id}?fields=description,edition,price,title,madeIn(title),category(title)&lang=${lang}`);
     const json = await response.json();
     this.setState({
         ...this.getState(),
