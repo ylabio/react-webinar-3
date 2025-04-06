@@ -1,0 +1,34 @@
+.ArticleDetails {
+  color: var();
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ArticleDetails-description {
+  margin: 0;
+}
+
+.ArticleDetails-table {
+    max-width: fit-content;
+}
+
+.ArticleDetails-table td {
+  padding: 0;
+  padding-right: 8px;
+  padding-bottom: 12px;
+}
+
+.ArticleDetails-table tr:last-child td {
+  padding-bottom: 0;
+}
+
+.ArticleDetails-price {
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+}
