@@ -40,54 +40,9 @@ function Product() {
       </div>
       <ProductView
         product={select.product}
-        onBack={() => navigate('/')}
         onAdd={() => store.actions.basket.addToBasket(select.product._id)}
-        onOpenBasket={() => store.actions.modals.open('basket')}
-        amount={select.amount}
-        sum={select.sum}
         t={t}
       />
-      {/*<div className="Product">*/}
-      {/*  /!*<h1 className="Product-title">{product.title}</h1>*!/*/}
-
-      {/*  <p className="Product-description">{product.description || t('noDescription')}</p>*/}
-
-      {/*  <div className="Product-info">*/}
-      {/*    {product.madeIn?.title && (*/}
-      {/*      <div className="Product-row">*/}
-      {/*        <div className="Product-label">{t('manufacturer')}:</div>*/}
-      {/*        <div className="Product-value">*/}
-      {/*          {product.madeIn.title} ({product.madeIn.code})*/}
-      {/*        </div>*/}
-      {/*      </div>*/}
-      {/*    )}*/}
-
-      {/*    {product.category?.title && (*/}
-      {/*      <div className="Product-row">*/}
-      {/*        <div className="Product-label">{t('category')}:</div>*/}
-      {/*        <div className="Product-value">{product.category.title}</div>*/}
-      {/*      </div>*/}
-      {/*    )}*/}
-
-      {/*    {product.edition && (*/}
-      {/*      <div className="Product-row">*/}
-      {/*        <div className="Product-label">{t('year')}:</div>*/}
-      {/*        <div className="Product-value">{product.edition}</div>*/}
-      {/*      </div>*/}
-      {/*    )}*/}
-      {/*  </div>*/}
-
-      {/*  <div className="Product-price">*/}
-      {/*    {t('price')}: {' ' + product.price} ₽*/}
-      {/*  </div>*/}
-
-      {/*  <button*/}
-      {/*    className="Product-button"*/}
-      {/*    onClick={() => store.actions.basket.addToBasket(product._id)}*/}
-      {/*  >*/}
-      {/*    {t('add')}*/}
-      {/*  </button>*/}
-      {/*</div>*/}
     </PageLayout>
   );
 }

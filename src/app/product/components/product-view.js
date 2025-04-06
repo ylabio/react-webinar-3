@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import '../style.css';
 import Button from '../../../components/button';
-import { numberFormat } from '../../../utils';
 
-function ProductView({ product, onBack, onAdd, onOpenBasket, amount, sum, t }) {
+function ProductView({ product, onAdd, t }) {
   return (
     <div className="Product">
       <p className="Product-description">{product.description || t('noDescription')}</p>
@@ -34,7 +33,7 @@ function ProductView({ product, onBack, onAdd, onOpenBasket, amount, sum, t }) {
       </div>
 
       <div className="Product-price">
-        {t('price')}: {numberFormat(product.price)} ₽
+        {t('price')}: {' ' + product.price} ₽
       </div>
 
       <Button style="primary" onClick={onAdd} title={t('add')} />
@@ -44,11 +43,7 @@ function ProductView({ product, onBack, onAdd, onOpenBasket, amount, sum, t }) {
 
 ProductView.propTypes = {
   product: PropTypes.object.isRequired,
-  onBack: PropTypes.func,
   onAdd: PropTypes.func,
-  onOpenBasket: PropTypes.func,
-  amount: PropTypes.number,
-  sum: PropTypes.number,
   t: PropTypes.func.isRequired,
 };
 
