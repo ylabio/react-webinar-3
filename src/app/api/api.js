@@ -24,11 +24,17 @@ export const getProductDetails = async ({ params }) => {
 
 const defaultFields = `items(_id,title,price),count`;
 
-export const getCatalog = async ({ limit = 10, skip = 0, fields = defaultFields }) => {
+export const getCatalog = async ({
+  limit = 10,
+  skip = 0,
+  fields = defaultFields,
+  language = 'ru',
+}) => {
   const searchParams = new URLSearchParams({
     fields,
     limit,
     skip,
+    lang: language,
   });
   return await request(`articles?${searchParams.toString()}`);
 };

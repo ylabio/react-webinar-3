@@ -14,8 +14,8 @@ class Catalog extends StoreModule {
     };
   }
 
-  async load({ limit = 10, skip = 0 }) {
-    const response = await getCatalog({ limit, skip });
+  async load({ limit = 10, skip = 0, language }) {
+    const response = await getCatalog({ limit, skip, language });
     this.setState(
       {
         ...this.getState(),

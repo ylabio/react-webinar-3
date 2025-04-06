@@ -9,6 +9,7 @@ import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import { LanguageContext } from '../../store/context';
 import StyledSelector from '../../components/styled-selector';
+import './style.css';
 
 function Main() {
   const store = useStore();
@@ -20,8 +21,9 @@ function Main() {
     store.actions.catalog.load({
       limit: productsPerPage,
       skip: productsPerPage * (currentPage - 1),
+      language,
     });
-  }, [currentPage, productsPerPage]);
+  }, [currentPage, productsPerPage, language]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -55,18 +57,20 @@ function Main() {
       <Head title={translate('title')} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
-      <StyledSelector
-        onChange={callbacks.changeProductsPerPage}
-        value={productsPerPage}
-        options={[5, 10, 20]}
-        label={translate('productsPerPage')}
-      />
-      <Pagination
-        totalItems={select.totalItems}
-        currentPage={currentPage}
-        limit={productsPerPage}
-        onPageChange={callbacks.changePage}
-      />
+      <div className="Wrap">
+        <StyledSelector
+          onChange={callbacks.changeProductsPerPage}
+          value={productsPerPage}
+          options={[5, 10, 20]}
+          label={translate('productsPerPage')}
+        />
+        <Pagination
+          totalItems={select.totalItems}
+          currentPage={currentPage}
+          limit={productsPerPage}
+          onPageChange={callbacks.changePage}
+        />
+      </div>
     </PageLayout>
   );
 }
