@@ -52,3 +52,15 @@ export const range = (start, end) => {
 };
 
 export const i18n = (locale, key) => translation[locale][key];
+
+export const getLanguage = () => {
+  const lang = navigator.language;
+
+  const dictionary = Object.keys(translation);
+
+  if (!dictionary.includes(lang)) {
+    return 'ru';
+  }
+
+  return lang;
+};
