@@ -33,3 +33,44 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Генерация списка страниц с "..." если между ними есть разрывы
+ * @param currentPage Текущая страница (1-based)
+ * @param totalPages Общее количество страниц
+ * @returns Массив с номерами страниц и многоточиями
+ */
+
+export  function getPageList(currentPage, totalPages) {
+  const delta = 1;
+  const range = [];
+  const rangeWithDots = [];
+  let l;
+
+  // Всегда добавляем первую, текущую ±delta и последнюю страницы
+  for (let i = 1; i <= totalPages; i++) {
+    if (
+      i === 1 ||
+      i === totalPages ||
+      (i >= currentPage - delta && i <= currentPage + delta)
+    ) {
+      range.push(i);
+    }
+  }
+
+  for (let i of range) {
+    if (l !== undefined) {
+      if (i - l === 2) {
+        rangeWithDots.push(l + 1);
+      } else if (i - l > 2) {
+        rangeWithDots.push("...");
+      }
+    }
+    rangeWithDots.push(i);
+    l = i;
+  }
+
+  return rangeWithDots;
+}
+
+

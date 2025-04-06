@@ -1,0 +1,40 @@
+.Pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 25px 0;
+  cursor: pointer;
+}
+
+.products-limit {
+  margin-right: 20px;
+}
+
+.products-limit label {
+  margin-right: 10px;
+}
+
+.page-number {
+  display: flex;
+  flex-direction: row;
+}
+
+.page-number div:hover {
+  background-color: var(--primary-select);
+  color: var(--main-text);
+}
+
+.page-number--selected {
+  background-color: var(--primary);
+  border-radius: 2px;
+  color: var(--second-text);
+}
+.page-number div {
+  text-align: center;
+  width: 22px;
+  height: 22px;
+  margin-right: 2px;
+}
+.page-number--dots {
+  color: gray;
+}

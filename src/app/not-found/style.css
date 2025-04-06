@@ -1,0 +1,11 @@
+.not-found-button {
+  align-items: center;
+  margin-top: 20px;
+  border: 1.5px solid var(--primary);
+  background-color: var(--background);
+
+  &:hover {
+    background-color: var(--primary);
+    color: var(--second-text);
+  }
+}

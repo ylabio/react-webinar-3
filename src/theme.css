@@ -40,3 +40,8 @@ button {
 h1, h4 {
   margin: 0;
 }
+
+a, a:hover, a:focus, a:active {
+  text-decoration: none;
+  color: var(--main-text);
+}

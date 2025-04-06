@@ -1,0 +1,38 @@
+.Product {
+
+}
+
+.Product-description {
+  margin-bottom: 30px;
+}
+
+.Product-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.Product-info-keys {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.Product-info-values {
+  display: flex;
+  flex-direction: column;
+}
+
+.Product-info-keys span,
+.Product-info-values span {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.Product-price {
+  margin: 20px 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+.Product-price span {
+  margin-left: 10px;
+}
