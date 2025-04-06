@@ -4,6 +4,7 @@ import './style.css';
 import {Link} from "react-router";
 import useSelector from "../../store/use-selector";
 import {useDictionary} from "../../app/translations/useDictionary";
+import {DEFAULT_PAGINATION} from "../../constants";
 import {useLang} from "../../app/translations/useLang";
 
 function HomeLink() {
@@ -16,8 +17,8 @@ function HomeLink() {
     pageSize: state.catalog.pageSize,
   }));
 
-  const isDefaultPage = select.currentPage === 1 || !select.currentPage;
-  const isDefaultSize = select.pageSize === 10 || !select.pageSize;
+  const isDefaultPage = select.currentPage === DEFAULT_PAGINATION.currentPage|| !select.currentPage;
+  const isDefaultSize = select.pageSize === DEFAULT_PAGINATION.pageSize || !select.pageSize;
 
   const lang = useLang();
 
