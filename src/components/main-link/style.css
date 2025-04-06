@@ -1,0 +1,8 @@
+.MainLink {
+  text-decoration: none;
+  color: var(--main-text);
+  &:hover {
+    text-decoration: underline;
+    color: var(--primary);
+  }
+}

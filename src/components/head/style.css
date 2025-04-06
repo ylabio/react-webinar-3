@@ -12,7 +12,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1115px;
+  max-width: calc(1152px + 20px + 20px);
+  padding: 0 20px;
   margin: 0 auto;
 }
 

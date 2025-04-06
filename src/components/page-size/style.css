@@ -7,7 +7,11 @@
   text-align: center;
   padding-inline: 16px;
   height: 22px;
- ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 2px;
 
   input {
     box-sizing: border-box;
@@ -25,14 +29,10 @@
 
 }
 
-
-.PageSize_radio {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  gap: 2px;
+.PageSize-title {
+  padding-right: 10px;
 }
+
 
 .PageSize-label {
   box-sizing: border-box;
@@ -53,6 +53,7 @@
   text-align: center;
   color: var(--close);
 box-sizing: border-box;
+  border-radius: 2px;
 
   &:hover {
     background: var(--primary-select);
@@ -69,7 +70,7 @@ box-sizing: border-box;
 
 
 .PageSize-label:has(input:checked) {
-  border-radius: 2px;
+
   background: var(--primary);
   color: var(--second-text);
 }

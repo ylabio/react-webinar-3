@@ -1,7 +1,6 @@
 .PaginationControls {
   padding-top: 24px;
   gap: 24px;
-  margin: 2px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;

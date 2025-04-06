@@ -56,7 +56,6 @@
   grid-area: endGroup;
 }
 .PaginationView-pageGroup_type_separator {
-  grid-area: separator;
   justify-content: center;
   color: var(--overlay);
   width: 22px;

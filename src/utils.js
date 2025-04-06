@@ -33,3 +33,49 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+
+/**
+ * Получение массива для пагинации
+ * @param currentPage {Number}
+ * @param totalPages {Number}
+ * @returns {Array}
+ */
+export function getPaginationRange(currentPage, totalPages) {
+  const range = (start, end) => {
+    const res = [];
+    for (let i = start; i <= end; i++) res.push(i);
+    return res;
+  };
+
+  if (totalPages <= 7) {
+    return range(1, totalPages);
+  }
+
+  if (currentPage < 3) {
+    return [1, 2, 3, 'dots', totalPages];
+  }
+
+  if (currentPage === 3) {
+    return [1, 2, 3, 4, 'dots', totalPages];
+  }
+
+  if (currentPage > totalPages - 2) {
+    return [1, 'dots', totalPages - 2, totalPages - 1, totalPages];
+  }
+
+  if (currentPage === totalPages - 2) {
+    return [1, 'dots', totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+  }
+
+  return [
+    1,
+    'dots',
+    currentPage - 1,
+    currentPage,
+    currentPage + 1,
+    'dots',
+    totalPages,
+  ];
+}
+

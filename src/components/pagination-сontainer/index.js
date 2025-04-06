@@ -2,13 +2,33 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import PaginationView from "../pagination-view";
 
-const PaginationContainer = ({totalCount, currentPage, limit, onPageChange}) => {
-
-  const totalPages = Math.ceil(totalCount / limit);
+const PaginationContainer = ({totalPages, currentPage, onPageChange}) => {
 
 
+  const pages = getPaginationRange(currentPage, totalPages);
 
-  const range = (start, end) => {
+
+  return (
+    <div className="Pagination">
+      {pages.map((item, index) =>
+        item === 'dots' ? (
+          <span key={`dots-${index}`}>...</span>
+        ) : (
+          <button
+            key={item}
+            className={item === currentPage ? 'active' : ''}
+            onClick={() => onPageChange(item)}
+          >
+            {item}
+          </button>
+        )
+      )}
+    </div>
+  );
+
+
+
+  /*const range = (start, end) => {
     const result = [];
     for (let i = start; i <= end; i++) {
       result.push(i);
@@ -76,7 +96,7 @@ const PaginationContainer = ({totalCount, currentPage, limit, onPageChange}) => 
     ...generatePaginationGroups(),
   };
 
-  return <PaginationView {...paginationProps} />;
+  return <PaginationView {...paginationProps} />;*/
 };
 
 PaginationContainer.propTypes = {

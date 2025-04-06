@@ -1,6 +1,7 @@
-/* Контрол с общими  для корзины*/
+/* Панель с общими  кнопками и ссылками */
 .ControlsPanel {
   display: flex;
   justify-content: space-between;
   padding: 24px 0;
+  align-items: center;
 }

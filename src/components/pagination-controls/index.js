@@ -1,38 +1,24 @@
-import { memo, useEffect, useState } from 'react';
+import {memo} from 'react';
 import './style.css';
 import PropTypes from 'prop-types';
 import PageSize from "../page-size";
-import PaginationContainer from "../pagination-сontainer";
+import PaginationView from "../pagination-view";
 
-function PaginationControls({totalCount, onChange = () => {}}) {
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [limit, setLimit] = useState(10);
-
-  const getSkipByPage = (page, limit) => (page - 1) * limit;
-  const getPageBySkip = (skip, limit) => Math.floor(skip / limit) + 1;
-
-  useEffect(() => {
-    const skip = getSkipByPage(currentPage, limit);
-    onChange(skip, limit);
-  }, [currentPage, limit]);
-
-  const handleLimitChange = (newLimit) => {
-    const skip = getSkipByPage(currentPage, limit);
-    const newPage = getPageBySkip(skip, newLimit);
-    setLimit(newLimit);
-    setCurrentPage(newPage);
-  };
+function PaginationControls({
+                              pageSize = 10,
+                              totalPages = 1,
+                              currentPage = 1,
+                              onLimitChange}) {
 
   return (
     <div className="PaginationControls">
-      <PageSize size={limit} setSize={handleLimitChange} />
+      <PageSize size={pageSize}
+                currentPage={currentPage} setSize={onLimitChange}/>
 
-      <PaginationContainer
-        totalCount={totalCount}
+      <PaginationView
+        totalPages={totalPages}
         currentPage={currentPage}
-        limit={limit}
-        onPageChange={setCurrentPage}
+        limit={pageSize}
       />
     </div>
   );
@@ -40,8 +26,10 @@ function PaginationControls({totalCount, onChange = () => {}}) {
 
 
 PaginationControls.propTypes = {
-  totalCount: PropTypes.number.isRequired,
-  onChange: PropTypes.func.isRequired,
+  totalPages: PropTypes.number,
+  currentPage: PropTypes.number,
+  limit: PropTypes.number,
+  onLimitChange: PropTypes.func.isRequired,
 };
 
 export default memo(PaginationControls);

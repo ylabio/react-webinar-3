@@ -2,14 +2,16 @@ import PropTypes from 'prop-types';
 import {memo} from 'react';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
+import {useDictionary} from "../../app/translations/useDictionary";
 
-const PageSize = ({ size, setSize }) => {
+const PageSize = ({ size, setSize, currentPage }) => {
   const cn = bem('PageSize');
   const options = [5, 10, 20];
+  const { t } = useDictionary();
 
   return (
-    <div className={cn({ radio: true })}>
-      <p>Количество записей на странице:</p>
+    <div className={cn()}>
+      <p className={cn('title')}>{t('showPer')}:</p>
 
       {options.map((option) => (
         <label key={option} className={cn('label')}>
@@ -19,7 +21,7 @@ const PageSize = ({ size, setSize }) => {
             name="perPage"
             value={option}
             checked={size === option}
-            onChange={() => {setSize(option)}}
+            onChange={() => setSize({newLimit: option, oldLimit: size, oldPage:currentPage})}
           />
           {option}
         </label>

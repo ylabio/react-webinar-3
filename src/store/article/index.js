@@ -11,17 +11,29 @@ class Article extends StoreModule {
     };
   }
 
-  async load(articleId) {
-    const response = await fetch(`/api/v1/articles/${articleId}?fields=name,title,description,price,edition,madeIn(title,code),category(title)`);
+  async load({id, lang}) {
+    const response = await fetch(`/api/v1/articles/${id}?fields=title,description,price,edition,madeIn(title,code),category(title)&lang=${lang}`);
     const json = await response.json();
     this.setState(
       {
         ...this.getState(),
         article: json.result,
       },
-      `Загружен товар по id:${articleId} из АПИ`,
+      `Загружена карточка товара по id:${id} из АПИ`,
     );
   }
+
+  async clear() {
+    await this.setState(
+      {
+        ...this.getState(),
+        ...this.initState(),
+      },
+      `Очищена карточка товара`,
+    );
+  }
+
+
 }
 
 export default Article;

@@ -4,26 +4,25 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
+import {Link} from "react-router";
+import {useDictionary} from "../../app/translations/useDictionary";
 
-function Item({ item, onAdd = () => {}, onOpen = () => {} }) {
+function Item({ item, onAdd = () => {}, link }) {
   const cn = bem('Item');
-
+  const { t } = useDictionary();
   const callbacks = {
     onAdd: (e) => {
       e.stopPropagation();
       onAdd(item._id);
     },
-    onOpen: () => {
-      onOpen(item._id);
-    },
   };
 
   return (
     <div className={cn()} onClick={callbacks.onOpen}>
-      <h4 className={cn('title')}>{item.title}</h4>
+      <Link to={link} className={cn('title')}>{item.title}</Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
-        <Button style="primary" onClick={(e) => callbacks.onAdd(e)} title="Добавить" />
+        <Button style="primary" onClick={(e) => callbacks.onAdd(e)} title={t('add')} />
       </div>
     </div>
   );

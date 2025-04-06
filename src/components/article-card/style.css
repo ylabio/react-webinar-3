@@ -1,0 +1,30 @@
+.ArticleCard {
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+
+  p, b {
+    line-height: 22px;
+    margin: 0;
+    padding: 0;
+  }
+
+}
+
+.ArticleCard-info {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 8px;
+  row-gap: 12px;
+  align-items: start;
+}
+
+
+.ArticleCard-price {
+  font-family: Montserrat Alternates;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0;
+
+}
