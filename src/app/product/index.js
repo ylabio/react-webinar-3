@@ -1,66 +1,50 @@
 import { memo, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import PageLayout from '../../components/page-layout';
-import Head from '../../components/head';
-import BasketTool from '../../components/basket-tool';
-import { numberFormat } from '../../utils';
 import useStore from '../../store/use-store';
-import useSelector from '../../store/use-selector';
 import useTranslate from '../../hooks/use-translate';
+import BasketTool from '../../components/basket-tool';
 import './style.css';
-import Button from '../../components/button';
+import useSelector from '../../store/use-selector';
 
 function Product() {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
-
   const store = useStore();
-  const actions = store.actions;
-
+  const { t } = useTranslate();
+  const [product, setProduct] = useState(null);
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
-
-  const { t } = useTranslate();
-
   useEffect(() => {
-    const load = async () => {
-      const response = await fetch(
-        `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`,
-      );
-      const json = await response.json();
-      setProduct(json.result);
-      actions.catalog.addItem(json.result);
-    };
-    load();
-  }, [id]);
+    void fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`) // подробные поля
+      .then(res => res.json())
+      .then(json => {
+        setProduct(json.result);
+        store.actions.catalog.addItem(json.result);
+        store.actions.ui.setTitle(json.result.title);
+      });
+  }, [id, store.actions.catalog, store.actions.ui]);
 
-  const callbacks = {
-    addToBasket: () => actions.basket.addToBasket(product._id),
-    openBasket: () => actions.modals.open('basket'),
-  };
-
-  if (!product) {
-    return (
-      <PageLayout>
-        <div>{t('loading')}</div>
-      </PageLayout>
-    );
-  }
+  if (!product) return null;
 
   return (
     <PageLayout>
-      <Head title={product.title} />
-
       <div className="Product-top">
         <Link to="/" className="Product-back">
           ← {t('home')}
         </Link>
-        <BasketTool inline onOpen={callbacks.openBasket} amount={select.amount} sum={select.sum} />
+        <BasketTool
+          inline
+          onOpen={() => store.actions.modals.open('basket')}
+          amount={select.amount}
+          sum={select.sum}
+        />
       </div>
 
       <div className="Product">
+        {/*<h1 className="Product-title">{product.title}</h1>*/}
+
         <p className="Product-description">{product.description || t('noDescription')}</p>
 
         <div className="Product-info">
@@ -89,10 +73,15 @@ function Product() {
         </div>
 
         <div className="Product-price">
-          {t('price')}: {' ' + numberFormat(product.price)} ₽
+          {t('price')}: {' ' + product.price} ₽
         </div>
 
-        <Button style="primary" onClick={callbacks.addToBasket} title={t('add')} />
+        <button
+          className="Product-button"
+          onClick={() => store.actions.basket.addToBasket(product._id)}
+        >
+          {t('add')}
+        </button>
       </div>
     </PageLayout>
   );

@@ -1,7 +1,6 @@
 import { memo, useCallback, useEffect } from 'react';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
-import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
 import List from '../../components/list';
 import useStore from '../../store/use-store';
@@ -13,10 +12,13 @@ import { Link } from 'react-router-dom';
 function Main() {
   const store = useStore();
   const actions = store.actions;
-  useEffect(() => {
-    void store.actions.catalog.load();
-  }, []);
   const { t } = useTranslate();
+
+  useEffect(() => {
+    actions.ui.setTitle(t('shop'));
+    void actions.catalog.load();
+  }, [actions.ui, actions.catalog, t]);
+
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
@@ -44,7 +46,6 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title={t('catalog')} />
       <div className="Product-top">
         <Link to="/" className="Product-back">
           {t('home')}

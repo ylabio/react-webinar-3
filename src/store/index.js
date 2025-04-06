@@ -1,5 +1,4 @@
 import * as modules from './exports.js';
-import LangStore from './lang';
 
 /**
  * Хранилище состояния приложения

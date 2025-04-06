@@ -1,23 +1,23 @@
-.Head {
-  color: var(--primary);
-  padding: 16px 0;
-  border-bottom: 1px solid var(--divider);
+.Header {
+  display: flex;
   width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  position: relative;
-  left: 0;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--divider);
 }
 
 .Head-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1115px;
+  /*: 1115px;*/
+  width: 1170px;
   min-height: 72px;
   /*margin: 0 auto;*/
 }
 
-.Head h1 {
+.Head-container h1 {
   margin: 0;
+  color: var(--primary);
 }
 

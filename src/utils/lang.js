@@ -1,6 +1,7 @@
 const translations = {
   ru: {
     home: 'Главная',
+    shop: 'Магазин',
     catalog: 'Каталог',
     add: 'Добавить',
     manufacturer: 'Страна производитель',
@@ -19,6 +20,7 @@ const translations = {
   },
   en: {
     home: 'Home',
+    shop: 'Shop',
     catalog: 'Catalog',
     add: 'Add',
     manufacturer: 'Manufacturer',

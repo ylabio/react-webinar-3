@@ -37,9 +37,11 @@
 .Product-button {
   padding: 10px 20px;
   font-size: 16px;
-  cursor: pointer;
-  color: var(--primary);
+  background-color: var(--primary);
+  color: white;
+  cursor: url('./../../assets/icon/pointer.svg'), pointer;
 }
+
 .Product-info {
   display: flex;
   flex-direction: column;
