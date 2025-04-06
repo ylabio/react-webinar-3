@@ -39,7 +39,7 @@ function ItemFull({ item, addToCartText, countryText, categoryText, yearText, pr
         )}
       </div>
       <div className={cn('price')}>
-        {priceText}: {numberFormat(item.price)} ₽
+        <span>{priceText}:</span><span>{numberFormat(item.price)} ₽</span>
       </div>
       <Button style="primary" title={addToCartText} onClick={callbacks.addToBasket} />
     </div>
