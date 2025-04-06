@@ -20,6 +20,7 @@ class ProductStore extends StoreModule {
       },
       `Загружен товар с id: ${id}`,
     );
+    this.store.actions.ui.setTitle(json.result.title);
   }
 
   clear() {
