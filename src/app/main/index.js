@@ -44,9 +44,9 @@ function Main() {
     if (page === 0 || pageSize === 0) {
       store.actions.catalog.load({page: DEFAULT_PAGINATION.currentPage, pageSize: DEFAULT_PAGINATION.pageSize, lang});
     } else if (!page || page < DEFAULT_PAGINATION.currentPage) {
-      setSearchParams({page: DEFAULT_PAGINATION.currentPage, pageSize: pageSize, lang})
+      setSearchParams({page: DEFAULT_PAGINATION.currentPage, pageSize: pageSize})
     } else if (!OPTIONS_LIMIT.includes(pageSize)) {
-      setSearchParams({page: page, pageSize: DEFAULT_PAGINATION.pageSize, lang})
+      setSearchParams({page: page, pageSize: DEFAULT_PAGINATION.pageSize})
     } else {
       store.actions.catalog.load({page, pageSize, lang});
     }
