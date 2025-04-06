@@ -43,14 +43,6 @@ function Product() {
     ),
   };
 
-  // const postsPerPage = 10;
-  // const currentPage = 1;
-  // const indexOfLastPost = currentPage * postsPerPage;
-  // const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  // const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  // const totalPosts = select.count;
-  // console.log(totalPosts);
-  
   return (
     <PageLayout>
       <Head title={select.selectedProduct?.title} />
@@ -65,7 +57,6 @@ function Product() {
           year={select.selectedProduct.edition}
           price={select.selectedProduct.price}
           onAdd={() => callbacks.addToBasket(id)}
-          // list={select.list}
         />
       ) : (
         <div>Loading...</div>

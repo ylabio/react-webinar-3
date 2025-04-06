@@ -15,11 +15,14 @@ function Main() {
 
   useEffect(() => {
     store.actions.catalog.load();
+    store.actions.catalog.getProductCount();
   }, []);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
     count: state.catalog.count,
+    currentPage: state.catalog.currentPage,
+    productsPerPage: state.catalog.productsPerPage,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
@@ -31,6 +34,20 @@ function Main() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Переход на страницу продукта
     navToProductPage: useCallback(_id => navigate(`/product/${_id}`), [navigate, store]),
+    // Количество товаров на одной странице
+    setProductsPerPage: useCallback(newProductsPerPage => {
+      store.actions.catalog.setProductsPerPage(newProductsPerPage);
+      store.actions.catalog.load({
+        productsPerPage: newProductsPerPage,
+        currentPage: 1,
+      })
+    }, [store, select.productsPerPage]),
+    pageChange: useCallback(newPage => {
+      store.actions.catalog.load({
+        currentPage: newPage,
+        productsPerPage: select.productsPerPage,
+      });
+    }, [store, select.productsPerPage])
   };
 
   const renders = {
@@ -42,23 +59,18 @@ function Main() {
     ),
   };
 
-  const postsPerPage = 10;
-  console.log('Current List', select.list);
-  // const currentPage = 1;
-  // const indexOfLastPost = currentPage * postsPerPage;
-  // const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  // const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  // const totalPosts = select.count;
-  const totalPosts = 511;
-  console.log(totalPosts);
-  const totalPages = 10;
-
   return (
     <PageLayout>
       <Head title="Магазин" />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
-      <Pagination postsPerPage={postsPerPage} totalPosts={totalPosts} totalPages={totalPages} />
+      <Pagination
+        productCount={select.count}
+        currentPage={select.currentPage}
+        productsPerPage={select.productsPerPage}
+        onPageChange={callbacks.pageChange}
+        onDisplayProducts={callbacks.setProductsPerPage}
+      />
     </PageLayout>
   );
 }

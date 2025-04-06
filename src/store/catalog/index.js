@@ -12,31 +12,54 @@ class Catalog extends StoreModule {
       list: [],
       count: 0,
       selectedProduct: null,
+      currentPage: 1,
+      productsPerPage: 10,
     };
   }
 
-  async load(limit, skip) {
-    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}`);
+  async load(params = {}) {
+    const {
+      currentPage = this.store.getState().catalog.currentPage,
+      productsPerPage = this.store.getState().catalog.productsPerPage,
+    } = params;
+    const skip = productsPerPage * (currentPage - 1);
+    const response = await fetch(`/api/v1/articles?limit=${productsPerPage}&skip=${skip}&`);
     const json = await response.json();
+
     this.setState(
       {
         ...this.getState(),
         list: json.result?.items,
-        count: json.result?.count,
+        currentPage,
       },
       'Загружены товары из АПИ',
     );
   }
 
+  async getProductCount() {
+    const response = await fetch('/api/v1/articles?fields=items(),count');
+    const json = await response.json();
+    
+    this.setState({
+      ...this.getState(),
+      count: json.result.count,
+    }, 'Загружены товары из АПИ с общим количеством товаров');
+  };
+
   async getProduct(id) {
     const response = await fetch(`/api/v1/articles/${id}?fields=description,edition,price,title,madeIn(title),category(title)`);
     const json = await response.json();
-    this.setState(
-      {
+    this.setState({
         ...this.getState(),
         selectedProduct: json.result,
-      }
-    );
+    });
+  };
+
+  setProductsPerPage(productsPerPage) {
+    this.setState({
+      ...this.getState(),
+      productsPerPage: productsPerPage,
+    }, 'Установка количества продуктов на одной странице');
   };
 }
 

@@ -1,32 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './style.css';
-import useStore from '../../store/use-store';
-import { useEffect } from 'react';
 import { cn as bem } from '@bem-react/classname';
 
-function Pagination({ postsPerPage, totalPosts, totalPages }) {
+function Pagination({ 
+    productCount,
+    currentPage,
+    productsPerPage,
+    onDisplayProducts = () => {},
+    onPageChange = () => {},
+}) {
     const cn = bem('Pagination');
-    const store = useStore();
-    const [currentPage, setCurrentPage] = useState(1);
-    const [limit, setLimit] = useState(10);
-
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-    };
-
-    const skip = currentPage !== 1 ? currentPage * postsPerPage : 0;
-    postsPerPage = limit;
-
-    useEffect(() => {
-        store.actions.catalog.load(postsPerPage, skip);
-    }, [currentPage, postsPerPage]);
-
-    const handleChangeLimit = (e) => {
-        const limit = e.target.value;
-        // setCurrentPage(1);
-        setLimit(limit);
-        // store.actions.catalog.load(selectedPostsPerPage, skip);
-    }
+    const totalPages = Math.ceil(productCount / productsPerPage);
 
     const getPageNumbers = () => {
         const pageNumbers = [];
@@ -124,7 +108,7 @@ function Pagination({ postsPerPage, totalPosts, totalPages }) {
 
     return (
         <div className={cn()}>
-            <select className={cn('selector')} onChange={handleChangeLimit}>
+            <select className={cn('selector')} onChange={e => onDisplayProducts(Number(e.target.value))}>
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="30">30</option>
@@ -134,14 +118,10 @@ function Pagination({ postsPerPage, totalPosts, totalPages }) {
                 {getPageNumbers().map((number, index) => (
                     <li
                         key={index}
-                        onClick={() => typeof number === 'number' && handlePageChange(number)}
-                        // style={{
-                        //     fontWeight: number === currentPage ? 'bold' : 'normal',
-                        //     margin: '0 5px',
-                        //     cursor: 'pointer'
-                        // }}
-                        className={cn('item') + (number === currentPage ? '_selected' : '') + (number === '...' ? '_dots' : '')}
-                        disabled={number === '...'}
+                        onClick={() => typeof number === 'number' 
+                            && onPageChange(number)}
+                        className={cn('item') + 
+                            (number === currentPage ? '_selected' : '') + (number === '...' ? '_dots' : '')}
                     >
                         {number}
                     </li>
