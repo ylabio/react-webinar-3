@@ -1,0 +1,12 @@
+.Navigation-link {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.Navigation-link.active {
+  text-decoration: underline;
+}

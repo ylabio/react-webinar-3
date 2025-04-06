@@ -1,7 +1,7 @@
 export const translations = {
   ru: {
     headTitle: 'Магазин',
-    MainNav: 'Главная',
+    mainNav: 'Главная',
     cartEmpty: 'Пусто',
     oneItem: 'товар',
     fewItems: 'товара',
@@ -19,7 +19,7 @@ export const translations = {
   },
   en: {
     headTitle: 'Store',
-    MainNav: 'Home',
+    mainNav: 'Home',
     cartEmpty: 'Empty',
     oneItem: 'item',
     fewItems: 'items',

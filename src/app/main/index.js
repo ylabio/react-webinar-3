@@ -3,6 +3,8 @@ import BasketTool from '../../components/basket-tool';
 import Head from '../../components/head';
 import Item from '../../components/item';
 import List from '../../components/list';
+import MainMenuLayout from '../../components/main-menu-layout';
+import Navigation from '../../components/navigation';
 import PageLayout from '../../components/page-layout';
 import Pagination from '../../components/pagination';
 import useSelector from '../../store/use-selector';
@@ -56,14 +58,22 @@ function Main() {
       },
       [store, select.pageSize, select.lang],
     ),
+    onChangeLanguage: useCallback(lang => store.actions.language.changeLanguage(lang), [store]),
   };
 
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return (
+          <Item
+            item={item}
+            onAdd={callbacks.addToBasket}
+            buttonTitle={t.buttonAdd}
+            itemLink={`items/${item._id}`}
+          />
+        );
       },
-      [callbacks.addToBasket],
+      [callbacks.addToBasket, select.lang],
     ),
   };
 
@@ -71,8 +81,19 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title={t.headTitle} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <Head title={t.headTitle} lang={select.lang} onLanguageChange={callbacks.onChangeLanguage} />
+      <MainMenuLayout>
+        <Navigation mainNavText={t.mainNav} />
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+          oneItemText={t.oneItem}
+          fewItemsText={t.fewItems}
+          manyItemsText={t.manyItems}
+          cartEmptyText={t.cartEmpty}
+        />
+      </MainMenuLayout>
       <List list={select.list} renderItem={renders.item} />
       <Pagination
         currentPage={select.currentPage}
@@ -80,6 +101,7 @@ function Main() {
         onPageChange={callbacks.onPageChange}
         onPageSizeChange={callbacks.onPageSizeChange}
         pageSize={select.pageSize}
+        itemsPerPageText={t.itemsPerPage}
       />
     </PageLayout>
   );

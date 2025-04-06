@@ -1,34 +1,36 @@
 import { cn as bem } from '@bem-react/classname';
-import { memo, useCallback } from 'react';
-import useSelector from '../../store/use-selector';
-import useStore from '../../store/use-store';
+import PropTypes from 'prop-types';
+import { memo } from 'react';
 import './style.css';
 
-function LanguageSwitcher() {
+function LanguageSwitcher({ lang = 'ru', onLanguageChange = () => {} }) {
   const cn = bem('LanguageSwitcher');
-  const lang = useSelector(state => state.language.currentLanguage);
-  const store = useStore();
 
   const callbacks = {
-    switchLang: useCallback(lang => store.actions.language.switchLanguage(lang), [store]),
+    onLanguageChange: lang => onLanguageChange(lang),
   };
 
   return (
     <div className={cn()}>
       <button
         className={lang === 'ru' ? cn('active') : ''}
-        onClick={() => callbacks.switchLang('ru')}
+        onClick={() => callbacks.onLanguageChange('ru')}
       >
         RU
       </button>
       <button
         className={lang === 'en' ? cn('active') : ''}
-        onClick={() => callbacks.switchLang('en')}
+        onClick={() => callbacks.onLanguageChange('en')}
       >
         EN
       </button>
     </div>
   );
 }
+
+LanguageSwitcher.propTypes = {
+  lang: PropTypes.string,
+  onLanguageChange: PropTypes.func,
+};
 
 export default memo(LanguageSwitcher);

@@ -1,8 +1,5 @@
 /* Контрол с общими действиями */
 .BasketTool {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 24px 16px 24px 0;
   max-width: 1152px;
 }
@@ -20,19 +17,6 @@
       color: var(--primary);
     }
   }
-}
-
-.BasketTool-nav {
-  color: inherit;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-.BasketTool-nav.active {
-  text-decoration: underline;
 }
 
 .BasketTool-total {

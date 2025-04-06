@@ -26,7 +26,7 @@ class Catalog extends StoreModule {
         ...this.getState(),
         totalItemsCount: json.result.count,
       },
-      'Загружены товары из АПИ',
+      'Загружено кол-во товаров из АПИ',
     );
   }
 

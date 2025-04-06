@@ -11,7 +11,7 @@ class Language extends StoreModule {
     };
   }
 
-  switchLanguage(lang) {
+  changeLanguage(lang) {
     this.setState(
       {
         ...this.getState(),

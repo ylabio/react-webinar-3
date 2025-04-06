@@ -38,9 +38,16 @@ function Basket() {
   const renders = {
     itemBasket: useCallback(
       item => {
-        return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} />;
+        return (
+          <ItemBasket
+            item={item}
+            onRemove={callbacks.removeFromBasket}
+            buttonTitle={t.buttonRemove}
+            itemLink={`items/${item._id}`}
+          />
+        );
       },
-      [callbacks.removeFromBasket],
+      [callbacks.removeFromBasket, select.lang],
     ),
   };
 
@@ -49,7 +56,7 @@ function Basket() {
   return (
     <ModalLayout title={t.basket} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <BasketTotal sum={select.sum} totalText={t.total} />
     </ModalLayout>
   );
 }

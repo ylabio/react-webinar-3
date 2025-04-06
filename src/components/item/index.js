@@ -1,12 +1,17 @@
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
+import { Link } from 'react-router';
 import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
-import { Link } from 'react-router';
 
-function Item({ item, onAdd = () => {} }) {
+function Item({
+  item,
+  buttonTitle = 'Добавить',
+  itemLink = `items/${item._id}`,
+  onAdd = () => {},
+}) {
   const cn = bem('Item');
 
   const callbacks = {
@@ -15,13 +20,13 @@ function Item({ item, onAdd = () => {} }) {
 
   return (
     <div className={cn()}>
-      <Link to={`items/${item._id}`} className={cn('link')}>
+      <Link to={itemLink} className={cn('link')}>
         <h4 className={cn('title')}>{item.title}</h4>
       </Link>
 
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
-        <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+        <Button style="primary" onClick={callbacks.onAdd} title={buttonTitle} />
       </div>
     </div>
   );
@@ -33,6 +38,8 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
+  buttonTitle: PropTypes.string,
+  itemLink: PropTypes.string,
   onAdd: PropTypes.func,
 };
 

@@ -2,8 +2,6 @@ import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
 import { DOTS, usePagination } from '../../hooks/usePagination';
-import useSelector from '../../store/use-selector';
-import { translations } from '../../utils/translations';
 import './style.css';
 
 function Pagination({
@@ -12,6 +10,7 @@ function Pagination({
   totalItemsCount,
   currentPage,
   pageSize,
+  itemsPerPageText = 'Товаров на страницу',
 }) {
   const cn = bem('Pagination');
 
@@ -20,13 +19,11 @@ function Pagination({
     totalItemsCount,
     pageSize,
   });
-  const lang = useSelector(state => state.language.currentLanguage);
-  const t = translations[lang] || translations.ru;
 
   return (
     <div className={cn()}>
       <label>
-        {t.itemsPerPage}:
+        {itemsPerPageText}:
         <select value={pageSize} onChange={e => onPageSizeChange(Number(e.target.value))}>
           <option value={5}>5</option>
           <option value={10}>10</option>
@@ -64,6 +61,7 @@ Pagination.propTypes = {
   pageSize: PropTypes.number,
   onPageChange: PropTypes.func,
   onPageSizeChange: PropTypes.func,
+  itemsPerPageText: PropTypes.string,
 };
 
 export default memo(Pagination);
