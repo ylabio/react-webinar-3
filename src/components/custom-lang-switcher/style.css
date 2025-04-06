@@ -1,0 +1,49 @@
+.CustomLangSwitcher {
+  position: relative;
+  height: 100%;
+  font-family: var(--font-family);
+  padding-right: 20px;
+}
+
+.CustomLangSwitcher-selected {
+  padding: 6px 12px;
+  background-color: var(--background);
+  color: var(--main-text);
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  cursor: url('./../../assets/icon/pointer.svg'), pointer;
+  transition: background 0.2s;
+  user-select: none;
+}
+
+.CustomLangSwitcher-options {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  background-color: var(--background);
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.CustomLangSwitcher-option {
+  padding: 8px 12px;
+  color: var(--main-text);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.CustomLangSwitcher-option:hover {
+  background-color: var(--primary-select);
+  cursor: url('./../../assets/icon/pointer.svg'), pointer;
+}
+
+.CustomLangSwitcher-option.active {
+  background-color: var(--primary);
+  color: var(--second-text);
+}

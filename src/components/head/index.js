@@ -1,14 +1,16 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import LangSwitcher from '../custom-lang-switcher';
 
 function Head({ title }) {
   return (
-    <div className="Head">
+    <header className="Header">
       <div className="Head-container">
         <h1>{title}</h1>
+        <LangSwitcher />
       </div>
-    </div>
+    </header>
   );
 }
 
