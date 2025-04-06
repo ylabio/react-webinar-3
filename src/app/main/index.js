@@ -14,6 +14,8 @@ import {useDictionary} from "../translations/useDictionary";
 import {DEFAULT_PAGINATION, LIMITS, OPTIONS_LANG} from "../../constants";
 import {useLang} from "../translations/useLang";
 import ButtonsLang from "../../components/buttons-lang";
+import PageSize from "../../components/page-size";
+import PaginationView from "../../components/pagination-view";
 
 function Main() {
 
@@ -118,10 +120,11 @@ function Main() {
 
       <List list={select.list} renderItem={renders.item}/>
 
-      <PaginationControls totalPages={select.totalPages}
-                          currentPage={select.currentPage}
-                          pageSize={select.pageSize}
-                          onLimitChange={callbacks.handlePageChange}/>
+      <PaginationControls>
+        <PageSize size={select.pageSize} currentPage={select.currentPage} setSize={callbacks.handlePageChange}/>
+        <PaginationView totalPages={select.totalPages} currentPage={select.currentPage} limit={select.pageSize} />
+      </PaginationControls>
+
     </PageLayout>
   );
 }
