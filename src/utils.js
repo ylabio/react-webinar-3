@@ -83,3 +83,16 @@ export function getPaginationRange(currentPage, totalPages) {
 export function getLangFromPath(pathname) {
   return pathname?.split('/')[1] || 'ru';
 }
+
+export function buildQueryString(params = {}) {
+  const searchParams = new URLSearchParams();
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      searchParams.set(key, value);
+    }
+  });
+
+  const queryString = searchParams.toString();
+  return queryString ? `?${queryString}` : '';
+}
