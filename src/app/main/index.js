@@ -8,8 +8,7 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import useTranslate from '../../hooks/use-translate';
-
-// import catalog from '../../store/catalog';
+import { Link } from 'react-router-dom';
 
 function Main() {
   const store = useStore();
@@ -24,12 +23,11 @@ function Main() {
     sum: state.basket.sum,
     skip: state.catalog.skip,
     limit: state.catalog.limit,
+    total: state.catalog.total,
   }));
 
   const callbacks = {
-    // Добавление в корзину
     addToBasket: useCallback(_id => actions.basket.addToBasket(_id), [actions.basket]),
-    // Открытие модального окна корзины
     openModalBasket: useCallback(() => actions.modals.open('basket'), [actions.modals]),
     setPage: useCallback(page => actions.catalog.setPage(page), [actions.catalog]),
     setLimit: useCallback(limit => actions.catalog.setLimit(limit), [actions.catalog]),
@@ -47,11 +45,22 @@ function Main() {
   return (
     <PageLayout>
       <Head title={t('catalog')} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <div className="Product-top">
+        <Link to="/" className="Product-back">
+          {t('home')}
+        </Link>
+        <BasketTool
+          inline
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+        />
+      </div>
       <List list={select.list || []} renderItem={renders.item} />
       <Pagination
         page={select.skip / select.limit + 1}
         limit={select.limit}
+        total={select.total}
         onChange={callbacks.setPage}
         onChangeLimit={callbacks.setLimit}
       />

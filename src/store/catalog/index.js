@@ -12,11 +12,14 @@ class Catalog extends StoreModule {
       list: [],
       skip: 0,
       limit: 10,
+      total: 0,
     };
   }
 
   async load(limit = this.getState().limit, skip = this.getState().skip) {
-    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}`);
+    const response = await fetch(
+      `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id,title,price),count`,
+    );
     const json = await response.json();
 
     this.setState(
@@ -25,13 +28,14 @@ class Catalog extends StoreModule {
         list: json.result.items,
         skip,
         limit,
+        total: json.result.count,
       },
       'Загружены товары с учетом пагинации и лимита',
     );
   }
+
   addItem(item) {
     const list = this.getState().list;
-    // Проверим, нет ли уже такого товара
     if (!list.some(i => i._id === item._id)) {
       this.setState(
         {
@@ -42,6 +46,7 @@ class Catalog extends StoreModule {
       );
     }
   }
+
   setLimit(limit) {
     void this.load(limit, 0);
   }
