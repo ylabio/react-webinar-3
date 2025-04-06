@@ -4,10 +4,12 @@ import { cn as bem } from '@bem-react/classname';
 import { Link } from 'react-router-dom';
 import { numberFormat } from '../../utils';
 import Button from '../button';
+import { translations } from '../../utils';
 import './style.css';
 
-function Item({ item, onAdd = () => {}}) {
+function Item({ item, onAdd = () => {}, language }) {
   const cn = bem('Item');
+  const listTransfers = translations[language];
 
   const callbacks = {
     onAdd: (e) => {
@@ -22,7 +24,7 @@ function Item({ item, onAdd = () => {}}) {
       </Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
-        <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+        <Button style="primary" onClick={callbacks.onAdd} title={listTransfers.add} />
       </div>
     </div>
   );
@@ -35,6 +37,7 @@ Item.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
+  language: PropTypes.string.isRequired,
 };
 
 export default memo(Item);

@@ -8,13 +8,15 @@ import useSelector from '../../store/use-selector';
 import { numberFormat } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
 import PageLayout from '../../components/page-layout';
+import { translations } from '../../utils';
 import './style.css';
 
-function ItemDetails() {
+function ItemDetails({ language, handleLanguageChange, translations }) {
   const cn = bem('ItemDetails');
   const { id } = useParams();
   const store = useStore();
   const [item, setItem] = useState(null);
+  const listTransfers = translations[language];
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
@@ -48,22 +50,25 @@ function ItemDetails() {
       </p>
       <div className={cn('details')}>
         <p>
-          <span className={cn('label')}>Страна производитель:</span>{' '}
+          <span className={cn('label')}>{listTransfers.country || 'Страна производитель'}:</span>{' '}
           <span className={cn('highlight')}>
             {item.madeIn.title} ({item.madeIn.code})
           </span>
         </p>
         <p>
-          <span className={cn('label')}>Категория:</span>{' '}
+          <span className={cn('label')}>{listTransfers.category || 'Категория'}:</span>{' '}
           <span className={cn('highlight')}>{item.category.title}</span>
         </p>
         <p>
-          <span className={cn('label')}>Год выпуска:</span>{' '}
+          <span className={cn('label')}>{listTransfers.year || 'Год выпуска'}:</span>{' '}
           <span className={cn('highlight')}>{item.edition}</span>
         </p>
-        <p className={cn('highlight')}>Цена: {numberFormat(item.price)} ₽</p>
+        <p className={cn('highlight')}>
+          <span>{listTransfers.price || 'Цена'}:</span>{' '}
+          <span>{numberFormat(item.price)} ₽</span>
+        </p>
       </div>
-      <Button style="primary" onClick={callbacks.addToBasket} title="Добавить" />
+      <Button style="primary" onClick={callbacks.addToBasket} title={listTransfers.add} />
     </div>
   );
 
@@ -71,8 +76,17 @@ function ItemDetails() {
     <PageLayout
       head={
         <>
-          <Head title={item.title} />
-          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+          <Head
+            title={item.title}
+            language={language}
+            handleLanguageChange={handleLanguageChange}
+            translations={translations}
+          />
+          <BasketTool
+            onOpen={callbacks.openModalBasket}
+            amount={select.amount}
+            sum={select.sum}
+            language={language} />
         </>
       }
       children={content}

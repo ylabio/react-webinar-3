@@ -7,10 +7,11 @@ import { Link } from 'react-router-dom';
 import Button from '../button';
 import useStore from '../../store/use-store';
 import './style.css';
-
-function ItemBasket({ item, onRemove}) {
+import { translations } from '../../utils';
+function ItemBasket({ item, onRemove, language }) {
   const cn = bem('ItemBasket');
   const store = useStore();
+  const listTransfers = translations[language];
 
   const callbacks = {
     onRemove: () => {
@@ -30,7 +31,7 @@ function ItemBasket({ item, onRemove}) {
         <div className={cn('cell')}>{numberFormat(item.amount || 0)} шт</div>
         <div className={cn('cell')}>{numberFormat(item.price)} ₽</div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title="Удалить" />
+          <Button style="delete" onClick={callbacks.onRemove} title={listTransfers.remove} />
         </div>
       </div>
     </div>
@@ -45,6 +46,7 @@ ItemBasket.propTypes = {
     amount: PropTypes.number,
   }).isRequired,
   onRemove: propTypes.func,
+  language: PropTypes.string.isRequired,
 };
 
 export default memo(ItemBasket);

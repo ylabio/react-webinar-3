@@ -1,5 +1,4 @@
 import { memo, useCallback, useEffect } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -8,8 +7,10 @@ import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
+import { translations } from '../../utils';
 
-function Main() {
+function Main({ language, handleLanguageChange, translations }) {
+  const listTransfers = translations[language];
   const store = useStore();
   useEffect(() => {
     store.actions.catalog.load();
@@ -25,9 +26,7 @@ function Main() {
   }));
 
   const callbacks = {
-    // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    // Открытие модалки корзины
     openModalBasket: useCallback(() => {
       console.log('функция openModalBasket вызывается');
       store.actions.modals.open('basket');
@@ -38,20 +37,24 @@ function Main() {
 
   const renders = {
     item: useCallback(
-      item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
-      },
-      [callbacks.addToBasket],
+      item => <Item item={item} onAdd={callbacks.addToBasket} language={language} />,
+      [callbacks.addToBasket, language],
     ),
   };
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
+      <Head
+        title={listTransfers.shop}
+        language={language}
+        handleLanguageChange={handleLanguageChange}
+        translations={translations}
+      />
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
+        language={language}
       />
       <List list={select.list} renderItem={renders.item} />
       <Pagination
