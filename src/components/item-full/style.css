@@ -1,0 +1,21 @@
+.ItemFull {
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 18px;
+}
+
+.ItemFull p {
+  margin: 0;
+}
+
+.ItemFull-price {
+  font-size: 24px;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+.ItemFull-add-button {
+  width: fit-content;
+}

@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import Button from '../button';
+import { Link } from 'react-router-dom';
+import useTranslation from '../../hooks/use-translation';
 import './style.css';
 
 function Item({ item, onAdd = () => {} }) {
   const cn = bem('Item');
+  const { t } = useTranslation();
 
   const callbacks = {
     onAdd: e => onAdd(item._id),
@@ -15,10 +18,12 @@ function Item({ item, onAdd = () => {} }) {
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{item._id}</div>*/}
-      <h4 className={cn('title')}>{item.title}</h4>
+      <Link to={`/product/${item._id}`} className={cn('title')}>
+        {item.title}
+      </Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
-        <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+        <Button style="primary" onClick={callbacks.onAdd} title={t('addToCart')} />
       </div>
     </div>
   );
