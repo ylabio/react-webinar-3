@@ -34,6 +34,7 @@ const PageSize = ({ size, setSize, currentPage }) => {
 PageSize.propTypes = {
   size: PropTypes.number.isRequired,
   setSize: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
 };
 
 export default memo(PageSize);

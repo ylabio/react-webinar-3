@@ -18,7 +18,7 @@ function Item({ item, onAdd = () => {}, link }) {
   };
 
   return (
-    <div className={cn()} onClick={callbacks.onOpen}>
+    <div className={cn()}>
       <Link to={link} className={cn('title')}>{item.title}</Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>

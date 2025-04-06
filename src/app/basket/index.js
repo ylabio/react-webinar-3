@@ -7,6 +7,7 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import {useNavigate} from "react-router";
 import {useDictionary} from "../translations/useDictionary";
+import {useLang} from "../translations/useLang";
 
 function Basket() {
   const store = useStore();
@@ -22,6 +23,8 @@ function Basket() {
     cart: t('cart'),
   }
 
+  const lang = useLang()
+
   const callbacks = {
     // Удаление из корзины
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
@@ -36,7 +39,9 @@ function Basket() {
   const renders = {
     itemBasket: useCallback(
       item => {
-        return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} onOpen={callbacks.openItem} />;
+        return <ItemBasket item={item}
+                           onRemove={callbacks.removeFromBasket}
+                           link={`/${lang}/article/${item._id}`} />;
       },
       [callbacks.removeFromBasket],
     ),

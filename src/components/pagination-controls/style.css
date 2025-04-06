@@ -8,7 +8,7 @@
 }
 
 .PaginationControls > :last-child {
-  width: 166px;
+  width: 250px;
   flex-shrink: 0;
   display: flex;
   flex-direction: row;

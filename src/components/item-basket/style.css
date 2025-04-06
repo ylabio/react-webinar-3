@@ -5,7 +5,19 @@
   align-items: center;
   transition: background-color 1s;
   padding: 16px
+
 }
+
+.ItemBasket-title {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0;
+  text-decoration: none;
+  color: var(--main-text);
+  &:hover {
+    color: var(--primary);
+  }}
 
 .ItemBasket-right {
   display: flex;

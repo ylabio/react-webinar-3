@@ -18,7 +18,7 @@ function Article() {
 
   useEffect(() => {
     store.actions.article.load({id, lang});
-
+    store.actions.modals.close();
     return () => store.actions.article.clear();
   }, [id]);
 
