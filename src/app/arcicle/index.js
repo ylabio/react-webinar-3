@@ -7,17 +7,15 @@ import {Link, useLocation, useParams} from "react-router";
 import ControlsPanel from "../../components/controls-panel";
 import ArticleCard from "../../components/article-card";
 import useSelector from "../../store/use-selector";
-import MainLink from "../../components/main-link";
+import MainLink from "../../components/home-link";
 import {useDictionary} from "../translations/useDictionary";
+import {useLang} from "../translations/useLang";
 
 function Article() {
   const store = useStore();
   const params = useParams();
   const id = params.id;
-
-  const location = useLocation();
-  const lang = location.pathname.split('/')[1] || 'ru';
-
+  const lang = useLang();
 
   useEffect(() => {
     store.actions.article.load({id, lang});

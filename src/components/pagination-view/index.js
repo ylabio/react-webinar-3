@@ -3,36 +3,39 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import PaginationButton from "../pagination-button";
 import {getPaginationRange} from "../../utils";
-import useSelector from "../../store/use-selector";
+import PropTypes from "prop-types";
+import {DEFAULT_PAGINATION} from "../../constants";
 
-const PaginationView = () => {
-
-  const select = useSelector(state => ({
-    totalPages: state.catalog.totalPages,
-    currentPage: state.catalog.currentPage,
-    pageSize: state.catalog.pageSize,
-  }));
+const PaginationView = ({ pageSize = DEFAULT_PAGINATION.pageSize,
+                          totalPages = DEFAULT_PAGINATION.totalPages,
+                          currentPage = DEFAULT_PAGINATION.currentPage}) => {
 
   const cn = bem('PaginationView');
 
-  const pages = getPaginationRange(select.currentPage, select.totalPages);
+  const pages = getPaginationRange(currentPage, totalPages);
 
   return (
     <div className={cn()}>
       {pages.map((item, index) =>
         item === 'dots' ? (
-          <div key={`dots${index}`} className={cn('pageGroup', {type: 'separator'})}>...</div>
+          <div key={`dots${index}`} className={cn('separator')}>...</div>
         ) : (
           <PaginationButton
             key={item}
-            isCurrentPage={item === select.currentPage}
+            isCurrentPage={item === currentPage}
             page={item}
-            pageSize={select.pageSize}
+            pageSize={pageSize}
           />
         )
       )}
     </div>
   );
+};
+
+PaginationView.propTypes = {
+  totalPages: PropTypes.number,
+  currentPage: PropTypes.number,
+  limit: PropTypes.number,
 };
 
 export default memo(PaginationView);

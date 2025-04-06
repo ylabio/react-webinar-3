@@ -9,69 +9,7 @@
   width: fit-content;
 }
 
-.PaginationView_composition_start {
-  grid-template-columns: repeat(3, auto);
-  grid-template-areas:
-  "startGroup separatorStart endGroup";
-}
-
-.PaginationView_composition_postStart {
-  grid-template-columns: repeat(3, auto);
-  grid-template-areas:
-  "startGroup separatorStart endGroup";
-}
-
-.PaginationView_composition_end {
-  grid-template-columns: repeat(3, auto);
-  grid-template-areas:
-  "startGroup separatorEnd endGroup"
-}
-
-.PaginationView_composition_preЕnd {
-  grid-template-columns: repeat(3, auto);
-  grid-template-areas:
-  "startGroup separatorEnd endGroup";
-}
-
-.PaginationView_composition_center {
-  grid-template-columns: repeat(5, auto);
-  grid-template-areas: "startGroup separatorStart centerGroup separatorEnd endGroup";
-}
-
-.PaginationView-pageGroup {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 2px;
-}
-
-
-.PaginationView-pageGroup_type_startGroup {
-  grid-area: startGroup;
-}
-.PaginationView-pageGroup_type_centerGroup {
-  grid-area: centerGroup;
-}
-.PaginationView-pageGroup_type_endGroup {
-  grid-area: endGroup;
-}
-.PaginationView-pageGroup_type_separator {
-  justify-content: center;
-  color: var(--overlay);
-  width: 22px;
-  height: 100%;
-}
-
-.PaginationView-pageGroup_type_separatorStart {
-  grid-area: separatorStart;
-  justify-content: center;
-  color: var(--overlay);
-  width: 22px;
-  height: 100%;
-}
-
-.PaginationView-pageGroup_type_separatorEnd {
-  grid-area: separatorEnd;
+.PaginationView-separator {
   justify-content: center;
   color: var(--overlay);
   width: 22px;

@@ -1,4 +1,4 @@
-.MainLink {
+.HomeLink {
   text-decoration: none;
   color: var(--main-text);
   &:hover {

@@ -9,20 +9,22 @@ import useSelector from '../../store/use-selector';
 import PaginationControls from "../../components/pagination-controls";
 import ControlsPanel from "../../components/controls-panel";
 import {useLocation, useNavigate, useSearchParams} from "react-router";
-import MainLink from "../../components/main-link";
+import MainLink from "../../components/home-link";
 import {useDictionary} from "../translations/useDictionary";
+import {DEFAULT_LANG, DEFAULT_PAGINATION, LIMITS, OPTIONS_LANG} from "../../constants";
+import {useLang} from "../translations/useLang";
+import ButtonsLang from "../../components/buttons-lang";
 
 function Main() {
-  console.log('перерендер')
-  const { t } = useDictionary();
+
+  const {t} = useDictionary();
   const store = useStore();
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
-  const lang = location.pathname.split('/')[1] || 'ru';
+  const lang = useLang();
   const page = Number(searchParams.get('page'));
   const pageSize = Number(searchParams.get('pageSize'));
   const navigate = useNavigate();
-  console.log('page', page, 'pageSize', pageSize);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -37,23 +39,21 @@ function Main() {
 
   useEffect(() => {
     if (page === 0 || pageSize === 0) {
-      store.actions.catalog.load({page:1, pageSize:10, lang});
+      store.actions.catalog.load({page: DEFAULT_PAGINATION.currentPage, pageSize: DEFAULT_PAGINATION.pageSize, lang});
     } else if (!page || page < 1) {
-      setSearchParams({ page: '1', pageSize: pageSize})
-    } else if (![5, 10, 20].includes(pageSize)) {
-      setSearchParams({ page: page, pageSize: '10' })
+      setSearchParams({page: DEFAULT_PAGINATION.currentPage, pageSize: pageSize, lang})
+    } else if (!LIMITS.includes(pageSize)) {
+      setSearchParams({page: page, pageSize: DEFAULT_PAGINATION.pageSize, lang})
     } else {
       store.actions.catalog.load({page, pageSize, lang});
     }
   }, [page, pageSize, lang]);
 
-
-
-/*  useEffect(() => {
-    if (page > select.totalPages) {
-      setSearchParams({ page: select.totalPages, pageSize: select.pageSize })
-    }
-  }, [page]);*/
+  /*  useEffect(() => {
+      if (page > select.totalPages) {
+        setSearchParams({ page: select.totalPages, pageSize: select.pageSize })
+      }
+    }, [page]);*/
 
   const callbacks = {
     // Добавление в корзину
@@ -62,7 +62,7 @@ function Main() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
 
     handlePageChange: useCallback(
-      ({ newLimit, oldLimit, oldPage }) => {
+      ({newLimit, oldLimit, oldPage}) => {
         const oldSkip = (oldPage - 1) * oldLimit;
         const newPage = Math.floor(oldSkip / newLimit) + 1;
 
@@ -73,6 +73,18 @@ function Main() {
           pathname: `/${lang}`,
           search: `?page=${newPage}&pageSize=${newLimit}`,
         });
+      },
+      [navigate, location]
+    ),
+    handleLangChange: useCallback(
+      (newLang) => {
+        const currentLang = location.pathname.split('/')[1] || 'ru';
+        if (newLang === currentLang) return;
+
+        const parts = location.pathname.split('/');
+        parts[1] = newLang;
+
+        navigate(parts.join('/') + location.search);
       },
       [navigate, location]
     ),
@@ -96,7 +108,9 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title={t('store')}/>
+      <Head title={t('store')}>
+        <ButtonsLang currentLang={lang} options={OPTIONS_LANG} onLangChange={callbacks.handleLangChange}/>
+      </Head>
       <ControlsPanel>
         <MainLink/>
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
@@ -107,7 +121,7 @@ function Main() {
       <PaginationControls totalPages={select.totalPages}
                           currentPage={select.currentPage}
                           pageSize={select.pageSize}
-      onLimitChange={callbacks.handlePageChange}/>
+                          onLimitChange={callbacks.handlePageChange}/>
     </PageLayout>
   );
 }
