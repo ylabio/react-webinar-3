@@ -1,0 +1,30 @@
+.Back-link {
+    position: relative;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: var(--main-text);
+    transition: .3s;
+}
+
+.Back-link::before {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: var(--primary);
+    transform: scaleX(0);
+    transform-origin: 0;
+    transition: .3s;
+}
+
+.Back-link:hover {
+    color: var(--primary);
+}
+
+.Back-link:hover::before {
+    transform: scaleX(1);
+}

@@ -1,5 +1,6 @@
 export const ru = {
     title: 'Магазин',
+    backLink: 'Главная',
     emptyBasket: 'пусто',
     oneProduct: 'товар',
     fewProducts: 'товара',
@@ -13,6 +14,7 @@ export const ru = {
 
 export const en = {
     title: 'Shop',
+    backLink: 'Main page',
     emptyBasket: 'empty',
     oneProduct: 'product',
     fewProducts: 'products',

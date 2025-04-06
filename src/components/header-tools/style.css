@@ -3,32 +3,3 @@
     align-items: center;
     justify-content: space-between;
 }
-
-.Product-page-link {
-    position: relative;
-    text-decoration: none;
-    font-weight: 900;
-    color: var(--main-text);
-    transition: .3s;
-}
-
-.Product-page-link::before {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    height: 2px;
-    width: 100%;
-    background-color: var(--primary);
-    transform: scaleX(0);
-    transform-origin: 0;
-    transition: .3s;
-}
-
-.Product-page-link:hover {
-    color: var(--primary);
-}
-
-.Product-page-link:hover::before {
-    transform: scaleX(1);
-}

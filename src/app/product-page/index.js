@@ -8,7 +8,7 @@ import useSelector from '../../store/use-selector';
 import ProductDetails from '../../components/product-details';
 import HeaderTools from '../../components/header-tools';
 
-function ProductPage({ catalog, openModalBasket, addToBasket, amount, sum }) {
+function ProductPage({ catalog, openModalBasket, addToBasket, onLickClick, amount, sum, }) {
     const { id } = useParams();
     const selectedProduct = useSelector(state => state.catalog.selectedProduct);
 
@@ -25,6 +25,7 @@ function ProductPage({ catalog, openModalBasket, addToBasket, amount, sum }) {
             <Head titleKey={selectedProduct.title} />
             <HeaderTools
                 handleOpen={openModalBasket}
+                handleLinkClick={onLickClick}
                 amount={amount}
                 sum={sum}
             />
@@ -46,6 +47,7 @@ ProductPage.propTypes = {
     addToBasket: PropTypes.func,
     amount: PropTypes.number,
     sum: PropTypes.number,
+    onLinkClick: PropTypes.func,
 }
 
 export default React.memo(ProductPage);

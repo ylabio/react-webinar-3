@@ -1,4 +1,5 @@
 import { memo, useCallback } from 'react';
+
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -7,12 +8,14 @@ import List from '../../components/list';
 import PageTools from '../../components/page-tools';
 import PropTypes from 'prop-types';
 
-function Main({ openModalBasket, addToBasket, amount, sum, list }) {
+import { endpoints } from '../../config/endpoints';
+
+function Main({ openModalBasket, addToBasket, onLinkClick, amount, sum, list }) {
 
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={addToBasket} />;
+        return <Item item={item} onAdd={addToBasket} url={endpoints.productPage} />;
       },
       [addToBasket],
     ),
@@ -23,6 +26,7 @@ function Main({ openModalBasket, addToBasket, amount, sum, list }) {
       <Head titleKey="title" />
       <HeaderTools
         handleOpen={openModalBasket}
+        handleLinkClick={onLinkClick}
         amount={amount}
         sum={sum}
       />
@@ -38,6 +42,7 @@ Main.propTypes = {
   amount: PropTypes.number,
   sum: PropTypes.number,
   list: PropTypes.array,
+  onLinkClick: PropTypes.func,
 }
 
 export default memo(Main);

@@ -3,7 +3,7 @@ import Basket from './basket';
 
 import useStore from '../store/use-store';
 import useSelector from '../store/use-selector';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProductPage from './product-page';
@@ -25,14 +25,16 @@ function App() {
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(id => basket.addToBasket(id), [store]),
+    addToBasket: useCallback(id => basket.addToBasket(id), [basket]),
     // Открытие модалки корзины
-    openModalBasket: useCallback(() => modals.open('basket'), [store]),
+    openModalBasket: useCallback(() => modals.open('basket'), [modals]),
+    // Переход на главную страницу
+    backLinkClick: useCallback(() => catalog.setPage(1), [catalog]),
   };
 
   useEffect(() => {
     catalog.load();
-  }, []);
+  }, [catalog]);
 
   return (
     <BrowserRouter>
@@ -41,6 +43,7 @@ function App() {
           {
             <Main
               openModalBasket={callbacks.openModalBasket}
+              onLinkClick={callbacks.backLinkClick}
               addToBasket={callbacks.addToBasket}
               amount={select.amount}
               sum={select.sum}
@@ -52,6 +55,7 @@ function App() {
           {
             <ProductPage
               catalog={catalog}
+              onLickClick={callbacks.backLinkClick}
               openModalBasket={callbacks.openModalBasket}
               addToBasket={callbacks.addToBasket}
               amount={select.amount}

@@ -6,13 +6,13 @@ import Button from '../button';
 import './style.css';
 import { useNavigate } from 'react-router-dom';
 
-function Item({ item, onAdd = () => { } }) {
+function Item({ item, onAdd = () => { }, url = '/product-page' }) {
   const cn = bem('Item');
   const navigate = useNavigate();
 
   const callbacks = {
     onAdd: e => onAdd(item._id),
-    itemClick: id => navigate(`/product-page/${id}`)
+    itemClick: id => navigate(`${url}/${id}`)
   };
 
   return (
@@ -33,6 +33,7 @@ Item.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
+  url: PropTypes.string,
 };
 
 export default memo(Item);
