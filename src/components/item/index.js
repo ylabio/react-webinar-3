@@ -7,7 +7,7 @@ import './style.css';
 import { Link } from 'react-router-dom';
 import useTranslate from '../../hooks/use-translate';
 
-function Item({ item, onAdd }) {
+function Item({ item, onAdd, linkTo = `/articles/${item._id}` }) {
   const cn = bem('Item');
   const { t } = useTranslate();
 
@@ -18,7 +18,7 @@ function Item({ item, onAdd }) {
   return (
     <div className={cn()}>
       <h4 className={cn('title')}>
-        <Link to={`/product/${item._id}`}>{item.title}</Link>
+        <Link to={linkTo}>{item.title}</Link>
       </h4>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>

@@ -1,26 +1,29 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
-import { numberFormat } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
+import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
 import { Link } from 'react-router-dom';
-import useStore from '../../store/use-store';
 import useTranslate from '../../hooks/use-translate';
 
-function ItemBasket({ item, onRemove = () => {} }) {
+function ItemBasket({
+  item,
+  onRemove = () => {},
+  linkTo = `/articles/${item._id}`,
+  onLinkClick = () => {},
+}) {
   const cn = bem('ItemBasket');
-  const store = useStore();
   const { t } = useTranslate();
+
   const callbacks = {
     onRemove: () => onRemove(item._id),
-    onLinkClick: () => store.actions.modals.close(),
   };
 
   return (
     <div className={cn()}>
       <h4 className={cn('title')}>
-        <Link to={`/product/${item._id}`} onClick={callbacks.onLinkClick}>
+        <Link to={linkTo} onClick={onLinkClick}>
           {item.title}
         </Link>
       </h4>
@@ -45,6 +48,8 @@ ItemBasket.propTypes = {
     amount: PropTypes.number,
   }).isRequired,
   onRemove: PropTypes.func,
+  linkTo: PropTypes.string,
+  onLinkClick: PropTypes.func,
 };
 
 export default memo(ItemBasket);

@@ -3,3 +3,4 @@ export { default as catalog } from './catalog';
 export { default as modals } from './modals';
 export { default as lang } from './lang';
 export { default as ui } from './ui';
+export { default as product } from './product';
