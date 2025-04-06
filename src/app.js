@@ -11,6 +11,7 @@ import { QueryApiClient } from "./api/api-query";
 import { ArticleService } from "./api/api-articles";
 import { ApiError } from "./api/api-error";
 import Pagination from "./components/pagination";
+import { ItemsPerPageSelect } from "./components/item-select";
 
 /**
  * Приложение
@@ -73,9 +74,10 @@ function App({ store }) {
           siblingCount={1}
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
-        />
+        >
+          <ItemsPerPageSelect onChange={handleItemsPerPageChange} />
+        </Pagination>
       </PageLayout>
-
       {show && (
         <Modal handleClose={hooks.onHideCart}>
           <List list={cartList} renderItem={RenderItem} onClickAction={hooks.onDeleteItem} isCart={true} total={total} articleService={articleService} />
