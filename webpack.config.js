@@ -55,6 +55,7 @@ if (process.env.NODE_ENV === 'development') {
   config.devServer = {
     static: path.join(__dirname, 'dist'),
     port: 8010,
+    open: true,
     historyApiFallback: true,
     proxy: [
       {
