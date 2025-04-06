@@ -43,7 +43,7 @@ function Main() {
   useEffect(() => {
     if (page === 0 || pageSize === 0) {
       store.actions.catalog.load({page: DEFAULT_PAGINATION.currentPage, pageSize: DEFAULT_PAGINATION.pageSize, lang});
-    } else if (!page || page < 1) {
+    } else if (!page || page < DEFAULT_PAGINATION.currentPage) {
       setSearchParams({page: DEFAULT_PAGINATION.currentPage, pageSize: pageSize, lang})
     } else if (!OPTIONS_LIMIT.includes(pageSize)) {
       setSearchParams({page: page, pageSize: DEFAULT_PAGINATION.pageSize, lang})
@@ -51,12 +51,6 @@ function Main() {
       store.actions.catalog.load({page, pageSize, lang});
     }
   }, [page, pageSize, lang]);
-
-  /*  useEffect(() => {
-      if (page > select.totalPages) {
-        setSearchParams({ page: select.totalPages, pageSize: select.pageSize })
-      }
-    }, [page]);*/
 
   const callbacks = {
     // Добавление в корзину
@@ -68,28 +62,26 @@ function Main() {
       ({newLimit, oldLimit, oldPage}) => {
         const oldSkip = (oldPage - 1) * oldLimit;
         const newPage = Math.floor(oldSkip / newLimit) + 1;
-
-        const lang = location.pathname.split('/')[1] || 'ru';
-
-        // Обновляем весь URL, включая язык и query
         navigate({
           pathname: `/${lang}`,
-          search: `?page=${newPage}&pageSize=${newLimit}`,
+          search: buildQueryString({ page: newPage, pageSize: newLimit }),
         });
       },
-      [navigate, location]
+      [navigate, lang]
     ),
     handleLangChange: useCallback(
       (newLang) => {
-        const currentLang = location.pathname.split('/')[1] || 'ru';
-        if (newLang === currentLang) return;
+        if (newLang === lang) return;
 
         const parts = location.pathname.split('/');
-        parts[1] = newLang;
+        parts[1] = newLang; // заменяем язык в URL
 
-        navigate(parts.join('/') + location.search);
+        navigate({
+          pathname: parts.join('/'),
+          search: location.search,
+        });
       },
-      [navigate, location]
+      [navigate, location, lang]
     ),
     getPageLink: useCallback(
       (page, pageSize) => {
@@ -131,7 +123,7 @@ function Main() {
         <PaginationView totalPages={select.totalPages}
                         currentPage={select.currentPage}
                         pageSize={select.pageSize}
-                        getPageLink={callbacks.getPageLink} />
+                        getPageLink={callbacks.getPageLink}/>
       </PaginationControls>
 
     </PageLayout>

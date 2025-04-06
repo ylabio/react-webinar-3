@@ -1,4 +1,5 @@
 import StoreModule from '../module';
+import {DEFAULT_PAGINATION} from "../../constants";
 
 class Catalog extends StoreModule {
   constructor(store, name) {
@@ -9,13 +10,13 @@ class Catalog extends StoreModule {
     return {
       list: [],
       count: 0,
-      totalPages: 1,
-      currentPage: 1,
-      pageSize: 10
+      totalPages: DEFAULT_PAGINATION.totalPages,
+      currentPage: DEFAULT_PAGINATION.currentPage,
+      pageSize: DEFAULT_PAGINATION.pageSize,
     };
   }
 
-  async load({page = 1, pageSize = 10, lang = 'ru'}) {
+  async load({page = DEFAULT_PAGINATION.currentPage, pageSize = DEFAULT_PAGINATION.pageSize, lang = 'ru'}) {
 
     const skip = (page - 1) * pageSize;
 

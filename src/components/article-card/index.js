@@ -18,7 +18,7 @@ function ArticleCard({item, onAdd = () => {} }) {
 
   const renderInfoField = (label, value) => (
     <>
-      <p className={cn('label')}>{label}</p>
+      <p className={cn('label')}>{label}:</p>
       <b className={cn('value')}>{value}</b>
     </>
 
@@ -30,9 +30,9 @@ function ArticleCard({item, onAdd = () => {} }) {
       <p>{item.description}</p>
 
       <div className={cn('info')}>
-        {renderInfoField(`${t('country')}:`, `${item.madeIn.title} (${item.madeIn.code})`)}
-        {renderInfoField(`${t('category')}:`, item.category.title)}
-        {renderInfoField(`${t('releaseYear')}:`, item.edition)}
+        {renderInfoField(t('country'), `${item.madeIn.title} (${item.madeIn.code})`)}
+        {renderInfoField(t('category'), item.category.title)}
+        {renderInfoField(t('releaseYear'), item.edition)}
       </div>
 
       <span className={cn('price')}>{t('price')}:&nbsp;&nbsp;{numberFormat(item.price)} ₽</span>
