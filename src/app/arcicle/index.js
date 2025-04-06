@@ -31,7 +31,6 @@ function Article() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(id => {
-      console.log('id',id);
       store.actions.basket.addToBasket(id)}, [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),

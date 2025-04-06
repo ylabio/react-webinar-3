@@ -4,15 +4,11 @@ import './style.css';
 import {Link} from "react-router";
 import PropTypes from "prop-types";
 
-function PaginationButton({isCurrentPage = false, page, pageSize}) {
+function PaginationButton({isCurrentPage = false, page, pageSize, getPageLink}) {
 
   const cn = bem('PaginationButton');
 
-  const newParams = new URLSearchParams();
-  newParams.set('page', page);
-  newParams.set('pageSize', pageSize);
-
-  const link = `?${newParams.toString()}`
+  const link = getPageLink(page, pageSize);
 
   return (
     <Link to={link} className={cn({currentPage: isCurrentPage})}>

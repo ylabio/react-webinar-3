@@ -11,11 +11,12 @@ import ControlsPanel from "../../components/controls-panel";
 import {useLocation, useNavigate, useSearchParams} from "react-router";
 import MainLink from "../../components/home-link";
 import {useDictionary} from "../translations/useDictionary";
-import {DEFAULT_PAGINATION, LIMITS, OPTIONS_LANG} from "../../constants";
+import {DEFAULT_PAGINATION, OPTIONS_LIMIT, OPTIONS_LANG} from "../../constants";
 import {useLang} from "../translations/useLang";
 import ButtonsLang from "../../components/buttons-lang";
 import PageSize from "../../components/page-size";
 import PaginationView from "../../components/pagination-view";
+import {buildQueryString} from "../../utils";
 
 function Main() {
 
@@ -44,7 +45,7 @@ function Main() {
       store.actions.catalog.load({page: DEFAULT_PAGINATION.currentPage, pageSize: DEFAULT_PAGINATION.pageSize, lang});
     } else if (!page || page < 1) {
       setSearchParams({page: DEFAULT_PAGINATION.currentPage, pageSize: pageSize, lang})
-    } else if (!LIMITS.includes(pageSize)) {
+    } else if (!OPTIONS_LIMIT.includes(pageSize)) {
       setSearchParams({page: page, pageSize: DEFAULT_PAGINATION.pageSize, lang})
     } else {
       store.actions.catalog.load({page, pageSize, lang});
@@ -90,6 +91,11 @@ function Main() {
       },
       [navigate, location]
     ),
+    getPageLink: useCallback(
+      (page, pageSize) => {
+        return `/${lang}/${buildQueryString({ page, pageSize })}`;
+      },
+      [lang]),
   };
 
   const renders = {
@@ -122,7 +128,10 @@ function Main() {
 
       <PaginationControls>
         <PageSize size={select.pageSize} currentPage={select.currentPage} setSize={callbacks.handlePageChange}/>
-        <PaginationView totalPages={select.totalPages} currentPage={select.currentPage} limit={select.pageSize} />
+        <PaginationView totalPages={select.totalPages}
+                        currentPage={select.currentPage}
+                        pageSize={select.pageSize}
+                        getPageLink={callbacks.getPageLink} />
       </PaginationControls>
 
     </PageLayout>

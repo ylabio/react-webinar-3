@@ -3,10 +3,11 @@ import {memo} from 'react';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import {useDictionary} from "../../app/translations/useDictionary";
+import {OPTIONS_LIMIT} from "../../constants";
 
 const PageSize = ({ size, setSize, currentPage }) => {
   const cn = bem('PageSize');
-  const options = [5, 10, 20];
+  const options = OPTIONS_LIMIT;
   const { t } = useDictionary();
 
   return (

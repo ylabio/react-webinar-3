@@ -1,3 +1,4 @@
+
 .PageSize {
   font-family: var(--font-family);
   font-weight: 400;
@@ -13,7 +14,7 @@
   flex-direction: row;
   gap: 2px;
 
-  input {
+/*  input {
     box-sizing: border-box;
     width: 42px;
     border: var(--primary) 1.5px solid;
@@ -25,9 +26,19 @@
     font-size: 16px;
     line-height: 22px;
     letter-spacing: 0;
-  }
+  }*/
 
 }
+
+/*.PageSize-input {
+  box-sizing: border-box;
+  width: 42px;
+  border: var(--primary) 1.5px solid;
+  border-radius: 4px;
+  outline: none;
+}*/
+
+
 
 .PageSize-title {
   padding-right: 10px;
@@ -45,14 +56,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-family);
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 22px;
-  letter-spacing: 0;
+
   text-align: center;
   color: var(--close);
-box-sizing: border-box;
+
   border-radius: 2px;
 
   &:hover {
@@ -64,8 +71,6 @@ box-sizing: border-box;
     display: none;
   }
 
-
-
 }
 
 
@@ -74,3 +79,4 @@ box-sizing: border-box;
   background: var(--primary);
   color: var(--second-text);
 }
+

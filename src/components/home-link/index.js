@@ -6,6 +6,7 @@ import useSelector from "../../store/use-selector";
 import {useDictionary} from "../../app/translations/useDictionary";
 import {DEFAULT_PAGINATION} from "../../constants";
 import {useLang} from "../../app/translations/useLang";
+import {buildQueryString} from "../../utils";
 
 function HomeLink() {
   const cn = bem('HomeLink');
@@ -22,18 +23,18 @@ function HomeLink() {
 
   const lang = useLang();
 
-  const params = new URLSearchParams();
-  params.set('page', select.currentPage);
-  params.set('pageSize', select.pageSize);
+  const query = buildQueryString({
+    page: select.currentPage,
+    pageSize: select.pageSize,
+  });
 
   const link = isDefaultPage && isDefaultSize
     ? `/${lang}`
-    : `/${lang}/?${params.toString()}`;
+    : `/${lang}/${query}`;
 
   return (
     <Link to={link} className={cn()}>{t('home')}</Link>
   );
 }
-
 
 export default memo(HomeLink);

@@ -6,5 +6,5 @@ export const DEFAULT_PAGINATION = {
   pageSize: 10,
 };
 
-export const LIMITS = [5, 10, 20];
+export const OPTIONS_LIMIT = [5, 10, 20];
 export const OPTIONS_LANG = ['ru', 'en'];

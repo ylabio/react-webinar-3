@@ -8,7 +8,8 @@ import {DEFAULT_PAGINATION} from "../../constants";
 
 const PaginationView = ({ pageSize = DEFAULT_PAGINATION.pageSize,
                           totalPages = DEFAULT_PAGINATION.totalPages,
-                          currentPage = DEFAULT_PAGINATION.currentPage}) => {
+                          currentPage = DEFAULT_PAGINATION.currentPage,
+                          getPageLink = () => {}}) => {
 
   const cn = bem('PaginationView');
 
@@ -25,6 +26,7 @@ const PaginationView = ({ pageSize = DEFAULT_PAGINATION.pageSize,
             isCurrentPage={item === currentPage}
             page={item}
             pageSize={pageSize}
+            getPageLink={getPageLink}
           />
         )
       )}
@@ -36,6 +38,7 @@ PaginationView.propTypes = {
   totalPages: PropTypes.number,
   currentPage: PropTypes.number,
   limit: PropTypes.number,
+  getPageLink: PropTypes.func,
 };
 
 export default memo(PaginationView);
