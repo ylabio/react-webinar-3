@@ -22,6 +22,11 @@ class Article extends StoreModule {
       const response = await fetch(
         `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`,
       );
+      console.log(
+        await fetch(
+          `/api/v1/aritcles?lang=en`,
+        ),
+      );
       if (!response.ok) {
         throw new Error(`Ошибка: ${response.status}`);
       }

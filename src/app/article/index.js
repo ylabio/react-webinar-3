@@ -8,6 +8,7 @@ import Button from '../../components/button';
 import ItemInfo from '../../components/item-info';
 import { useNavigate, useParams } from 'react-router';
 import NotFound from '../../components/not-found';
+import useTranslation from '../../store/lang/use-translat';
 
 function Article() {
   const store = useStore();
@@ -16,6 +17,7 @@ function Article() {
   const onMain = () => {
     navigate('/');
     callbacks.onChangePage(1);
+    callbacks.onChangeLimitItem(10);
   };
 
   useEffect(() => {
@@ -36,9 +38,20 @@ function Article() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     getFetchItemInfo: useCallback(id => store.actions.article.getFetchItemInfo(id), [store]),
     onChangePage: useCallback(number => store.actions.pagination.changePage(number), [store]),
+    onChangeLimitItem: useCallback(
+      number => store.actions.pagination.changeLimitItem(number),
+      [store],
+    ),
   };
   const currentId = select.itemInfo._id;
   const handleAddToBusket = () => callbacks.addToBasket(currentId);
+
+  const { t } = useTranslation();
+  const langContent = {
+    nav: t('nav').main,
+    button: t('button').add,
+    load: t('loading'),
+  };
 
   if (select.error) return <NotFound />;
 
@@ -47,18 +60,18 @@ function Article() {
       <Head title={select.itemInfo.title} />
 
       {select.isLoading ? (
-        <h2>Загрузка ...</h2>
+        <h2>{langContent.load}</h2>
       ) : (
         <>
           <BasketTool
             onOpen={callbacks.openModalBasket}
             amount={select.amount}
             sum={select.sum}
-            main={'Главная'}
+            main={langContent.nav}
             onMain={onMain}
           />
           <ItemInfo item={select.itemInfo} />
-          <Button title="Добавить" style="primary" onClick={handleAddToBusket} />
+          <Button title={langContent.button} style="primary" onClick={handleAddToBusket} />
         </>
       )}
     </PageLayout>

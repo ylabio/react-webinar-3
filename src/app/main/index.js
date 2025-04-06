@@ -9,9 +9,17 @@ import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import NotFound from '../../components/not-found';
 import { useNavigate } from 'react-router';
+import useTranslation from '../../store/lang/use-translat';
 
 function Main() {
   const store = useStore();
+  const { t } = useTranslation();
+  const langConntent = {
+    header: t('header').mainTitle,
+    nav: t('nav').main,
+    load: t('loading'),
+  };
+
   const [initLoad, setInitLoad] = useState(true);
   const navigate = useNavigate();
   const onMain = () => {
@@ -66,16 +74,16 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
+      <Head title={langConntent.header} />
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-        main={'Главная'}
+        main={langConntent.nav}
         onMain={onMain}
       />
       {select.isLoading ? (
-        <h2>Загрузка...</h2>
+        <h2>{langConntent.load}</h2>
       ) : (
         <List list={select.list} renderItem={renders.item} />
       )}

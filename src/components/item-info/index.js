@@ -3,25 +3,38 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import { numberFormat } from '../../utils';
 import PropTypes from 'prop-types';
+import useTranslation from '../../store/lang/use-translat';
 
 function ItemInfo({ item }) {
   const cn = bem('ItemInfo');
+
+  const { t } = useTranslation();
+  const langContent = {
+    madeIn: t('itemInfo').madeIn,
+    category: t('itemInfo').category,
+    year: t('itemInfo').year,
+    price: t('itemInfo').price,
+  };
+
   if (!item) return null;
+
   return (
     <div className={cn()}>
       <div className={cn('description')}>{item.description}</div>
       <ul className={cn('list')}>
         <li className={cn('item')}>
-          <span>Страна производитель:</span> <b>{`${item.madeIn?.title} (${item.madeIn?.code})`}</b>
+          <span>{langContent.madeIn}</span> <b>{`${item.madeIn?.title} (${item.madeIn?.code})`}</b>
         </li>
         <li className={cn('item')}>
-          <span>Категория:</span> <b>{item.category?.title}</b>
+          <span>{langContent.category}</span> <b>{item.category?.title}</b>
         </li>
         <li className={cn('item')}>
-          <span>Год выпуска:</span> <b>{item.edition}</b>
+          <span>{langContent.year}</span> <b>{item.edition}</b>
         </li>
       </ul>
-      <div className={cn('price')}>Цена: {numberFormat(item.price)} ₽ </div>
+      <div className={cn('price')}>
+        {langContent.price} {numberFormat(item.price)} ₽{' '}
+      </div>
     </div>
   );
 }
