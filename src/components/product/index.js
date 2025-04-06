@@ -58,7 +58,7 @@ function Product() {
         <Head title={select.article.title} />
         <div className={cn('menu')}>
           <Link className={cn('link')} to={`/`}>
-            Главная
+            {translation['product.main.link']}
           </Link>
           <BasketTool
             onOpen={callbacks.openModalBasket}
@@ -82,7 +82,7 @@ function Product() {
             </div>
           </div>
           <p className={cn('price')}>Цена: {numberFormat(select.article.price)} ₽</p>
-          <Button style="primary" onClick={() => callbacks.addToBasket(params.id)} title="Добавить" />
+          <Button style="primary" onClick={() => callbacks.addToBasket(params.id)} title={translation['product.button.add']} />
         </section>
       </PageLayout>
       {activeModal === 'basket' && <Basket />}

@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom';
 import {useLanguage} from '../../translation/language-context';
 
 
-function ItemBasket({ onRemove= () => {}, ...props }) {
+function ItemBasket(props) {
   const cn = bem('ItemBasket');
   const {translation} = useLanguage();
 
@@ -27,7 +27,7 @@ function ItemBasket({ onRemove= () => {}, ...props }) {
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={onRemove} title={translation['itembasket.button.remove']} />
+          <Button style="delete" onClick={callbacks.onRemove} title={translation['itembasket.button.remove']} />
         </div>
       </div>
     </div>
