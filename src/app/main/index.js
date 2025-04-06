@@ -1,48 +1,48 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback } from 'react';
+
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
-import BasketTool from '../../components/basket-tool';
+import HeaderTools from '../../components/header-tools';
 import List from '../../components/list';
-import useStore from '../../store/use-store';
-import useSelector from '../../store/use-selector';
+import PageTools from '../../components/page-tools';
+import PropTypes from 'prop-types';
 
-function Main() {
-  const store = useStore();
+import { endpoints } from '../../config/endpoints';
 
-  useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
-
-  const select = useSelector(state => ({
-    list: state.catalog.list,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
-  }));
-
-  const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    // Открытие модалки корзины
-    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-  };
+function Main({ openModalBasket, addToBasket, onLinkClick, amount, sum, list }) {
 
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return <Item item={item} onAdd={addToBasket} url={endpoints.productPage} />;
       },
-      [callbacks.addToBasket],
+      [addToBasket],
     ),
   };
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      <List list={select.list} renderItem={renders.item} />
+      <Head titleKey="title" />
+      <HeaderTools
+        handleOpen={openModalBasket}
+        handleLinkClick={onLinkClick}
+        amount={amount}
+        sum={sum}
+      />
+      <List list={list} renderItem={renders.item} />
+      <PageTools />
     </PageLayout>
   );
+}
+
+Main.propTypes = {
+  openModalBasket: PropTypes.func,
+  addToBasket: PropTypes.func,
+  amount: PropTypes.number,
+  sum: PropTypes.number,
+  list: PropTypes.array,
+  onLinkClick: PropTypes.func,
 }
 
 export default memo(Main);

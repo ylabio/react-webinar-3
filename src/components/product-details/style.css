@@ -1,0 +1,22 @@
+.Product-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font-family: var(--font-family);
+}
+
+.Product-page-info {
+    display: grid;
+    grid-template-columns: 200px 200px;
+    align-items: center;
+    row-gap: 12px;
+}
+
+.Product-page-info p {
+    margin: 0;
+    padding: 0;
+}
+
+.Product-page-price {
+    font-family: var(--second-font-family);
+}

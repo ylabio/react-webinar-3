@@ -1,0 +1,8 @@
+.Page-tools {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 70px;
+
+    padding-top: 24px;
+}
