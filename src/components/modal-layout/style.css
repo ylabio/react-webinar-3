@@ -23,17 +23,18 @@ body:has(.ModalLayout) {
   position: relative;
   background-color: var(--background);
   margin: 0 auto;
+  padding: 24px;
   border-radius: 10px;
   overflow: hidden;
   min-width: 600px;
-  width: min(100%, 960px);
+  width: min(100%, 1030px);
 }
 
 .ModalLayout-head {
-  height: 80px;
+  height: 40px;
   display: flex;
   justify-content: space-between;
-  padding: 0 30px 0 20px;
+  margin: 0;
   position: relative;
 }
 
@@ -42,8 +43,8 @@ body:has(.ModalLayout) {
   width: 32px;
   height: 32px;
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: -13px;
+  top: -14px;
   background: none;
   border: none;
 }
@@ -70,10 +71,15 @@ body:has(.ModalLayout) {
 
 .ModalLayout-title {
   margin: 0;
-  padding: 20px 0 10px;
+  padding: 0;
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
 }
 
 .ModalLayout-content {
   min-height: 100px;
-  padding: 24px;
+  margin: 24px 0 0 0;
+  padding: 39px 0;
 }

@@ -1,22 +1,22 @@
-import * as modules from './exports.js';
+import Basket from './basket';
+import Catalog from './catalog';
+import Modals from './modals';
 
 /**
  * Хранилище состояния приложения
  */
 class Store {
-  constructor(initState = {}) {
+  constructor() {
+    this.state = {};
     this.listeners = []; // Слушатели изменений состояния
-    this.state = initState;
-    /** @type {{
-     * basket: Basket,
-     * catalog: Catalog,
-     * modals: Modals
-     * }} */
-    this.actions = {};
-    for (const name of Object.keys(modules)) {
-      this.actions[name] = new modules[name](this, name);
-      this.state[name] = this.actions[name].initState();
-    }
+    this.actions = {
+      basket: new Basket(this, 'basket'),
+      catalog: new Catalog(this, 'catalog'),
+      modals: new Modals(this, 'modals'),
+    };
+    Object.keys(this.actions).forEach((key) => {
+      this.state[key] = this.actions[key].initState();
+    });
   }
 
   /**
@@ -44,19 +44,9 @@ class Store {
    * Установка состояния
    * @param newState {Object}
    */
-  setState(newState, description = 'setState') {
-    console.group(
-      `%c${'store.setState'} %c${description}`,
-      `color: ${'#777'}; font-weight: normal`,
-      `color: ${'#333'}; font-weight: bold`,
-    );
-    console.log(`%c${'prev:'}`, `color: ${'#d77332'}`, this.state);
-    console.log(`%c${'next:'}`, `color: ${'#2fa827'}`, newState);
-    console.groupEnd();
-
+  setState(newState, description) {
     this.state = newState;
-    // Вызываем всех слушателей
-    for (const listener of this.listeners) listener(this.state);
+    this.listeners.forEach((listener) => listener());
   }
 }
 

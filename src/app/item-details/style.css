@@ -1,0 +1,33 @@
+.ItemDetails-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  line-height: 22px;
+}
+
+.ItemDetails-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ItemDetails-details p:last-child {
+  margin-top: 10px;
+  font-family: "Montserrat Alternates";
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.ItemDetails-content p {
+  margin: 0;
+}
+
+.ItemDetails-highlight {
+  font-weight: 700;
+}
+
+.ItemDetails-label {
+  display: inline-block;
+  width: 185px;
+}

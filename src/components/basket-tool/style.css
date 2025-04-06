@@ -1,9 +1,24 @@
 /* Контрол с общими действиями */
 .BasketTool {
   display: flex;
-  justify-content: flex-end;
-  padding: 24px 16px 24px 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
 }
+
+.BasketTool-subtitle {
+  margin: 0;
+  font-family: "Golos Text";
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--main-text);
+  text-decoration: none;
+}
+
+.BasketTool-subtitle:hover {
+  text-decoration: underline;
+}
+
 
 .BasketTool-action {
   display: flex;

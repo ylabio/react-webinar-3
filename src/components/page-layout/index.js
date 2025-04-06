@@ -10,7 +10,7 @@ function PageLayout({ head, footer, children }) {
     <div className={cn()}>
       <div className={cn('head')}>{head}</div>
       <div className={cn('center')}>{children}</div>
-      <div className={cn('footer')}>{footer}</div>
+      {footer && <div className={cn('footer')}>{footer}</div>}
     </div>
   );
 }

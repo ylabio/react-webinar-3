@@ -64,6 +64,7 @@ if (process.env.NODE_ENV === 'development') {
         changeOrigin: true,
       },
     ],
+    open: true,
   };
 }
 

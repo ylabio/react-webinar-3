@@ -31,5 +31,53 @@ export function codeGenerator(start = 0) {
  * @returns {String}
  */
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
-  return new Intl.NumberFormat(locale, options).format(value);
+  const integerValue = Math.floor(value);
+  const formatted = new Intl.NumberFormat(locale, options).format(integerValue);
+  // console.log(formatted);
+  return formatted;
 }
+
+export const translations = {
+  ru: {
+    home: 'Главная',
+    basket: 'Корзина',
+    add: 'Добавить',
+    remove: 'Удалить',
+    close: 'Закрыть',
+    shop: 'Магазин',
+    total: 'Итого',
+    language: 'Язык',
+    ru: 'Русский',
+    en: 'English',
+    country: 'Страна производитель',
+    category: 'Категория',
+    year: 'Год выпуска',
+    price: 'Цена',
+    itemOne: 'товар',
+    itemFew: 'товара',
+    itemMany: 'товаров',
+    empty: 'Пусто',
+    loading: 'Загрузка...',
+  },
+  en: {
+    home: 'Home',
+    basket: 'Cart',
+    add: 'Add',
+    remove: 'Remove',
+    close: 'Close',
+    shop: 'Shop',
+    total: 'Total',
+    language: 'Language',
+    ru: 'Russian',
+    en: 'English',
+    country: 'Country of origin',
+    category: 'Category',
+    year: 'Release year',
+    price: 'Price',
+    itemOne: 'item',
+    itemFew: 'items',
+    itemMany: 'items',
+    empty: 'Empty',
+    loading: 'Loading...',
+  },
+};

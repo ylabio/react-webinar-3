@@ -12,10 +12,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1115px;
+  max-width: 1150px;
   margin: 0 auto;
 }
 
-.Head h1 {
+.Head-container h1 {
   margin: 0;
 }

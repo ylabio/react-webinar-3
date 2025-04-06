@@ -12,3 +12,7 @@
   font-weight: bold;
   white-space: nowrap;
 }
+
+.BasketTotal-cell:first-child {
+  text-align: left;
+}
