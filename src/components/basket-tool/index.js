@@ -20,7 +20,7 @@ function BasketTool(props) {
                 few: 'товара',
                 many: 'товаров',
               })} / ${numberFormat(sum)} ₽`
-            : `пусто`}
+            : `Пусто`}
         </span>
       </button>
     </div>
