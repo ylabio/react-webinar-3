@@ -1,4 +1,7 @@
 export const ru = {
-  'component.button1.text': 'Готово',
-  'component.button2.text': 'Дальше'
+  'item.button.add': 'Добавить',
+  'itembasket.button.remove': 'Удалить',
+  'main.head.title': 'Магазин',
+  'basket.item': 'Корзина',
+  'basket.subtotal': 'Итого',
 };

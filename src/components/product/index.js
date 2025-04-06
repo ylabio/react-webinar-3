@@ -11,11 +11,13 @@ import './style.css';
 import { cn as bem } from '@bem-react/classname';
 import Button from '../button';
 import {numberFormat} from '../../utils';
+import {useLanguage} from '../../translation/language-context';
 
 function Product() {
   const store = useStore();
   const activeModal = useSelector(state => state.modals.name);
   const cn = bem('Product');
+  const {translation} = useLanguage();
 
   const params = useParams();
 

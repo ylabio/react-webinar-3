@@ -9,9 +9,11 @@ import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import PageSelect from '../../components/page-select';
 import './style.css';
+import {useLanguage} from '../../translation/language-context';
 
 function Main() {
   const store = useStore();
+  const {translation} = useLanguage();
   const [currentPage, setCurrenPage] = useState(1);
   const [sizePage, setSizePage] = useState(10);
 
@@ -45,7 +47,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
+      <Head title={translation['main.head.title']} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
       <div className={'Footer'}>
