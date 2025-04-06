@@ -21,9 +21,7 @@ function Main() {
   }));
 
   useEffect(() => {
-    //если есть параметры то брать из них!!!!!
     store.actions.catalog.load(select.showItem, (select.curPage-1) * select.showItem);
-    //store.actions.catalog.load(select.showItem);
     store.actions.pagination.setMaxPages(select.showItem);
   }, [select.showItem]);
 

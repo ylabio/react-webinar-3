@@ -25,8 +25,6 @@ function App() {
             </>
           }
         />
-
-        {/* Дополнительные маршруты можно добавить здесь */}
         <Route
           path="/product"
           element={
@@ -36,9 +34,6 @@ function App() {
             </>
           }
         />
-
-        {/* Редирект для несуществующих страниц */}
-        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

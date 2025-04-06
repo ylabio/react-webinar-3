@@ -23,7 +23,7 @@ function AboutProduct() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   };
   useEffect(() => {
-    //закрыть модалку если была открыта при переходе из корзины
+    //закрыть модалку если была открыта при переходе из корзины 
     store.actions.modals.close()
   }, [select.aboutProduct]);
 

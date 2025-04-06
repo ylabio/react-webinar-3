@@ -1,35 +1,38 @@
 .Pagination {
+  padding: 24px 0px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   color: var(--main-text);
-  
-  
+  gap: 50px;
 }
-.Pagination-set{
-    font-family: var(--font-family);
+.Pagination button {
+  text-align: center;
+  font-family: var(--font-family);
+  border-radius: 2px;
+  min-width: 22px;
+  height: 22px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  padding: 1px 6px;
 }
-.Pagination-get{
-    font-family: var(--font-family);
+.Pagination-set-inactive {
+  &:hover {
+    background-color: var(--primary-select);
+  }
 }
-.Pagination-set-inactive{
-    font-family: var(--font-family);
-    &:hover {
-      background-color: var(--primary-select);
-    }
+.Pagination-get-inactive {
+  &:hover {
+    background-color: var(--primary-select);
+  }
 }
-.Pagination-get-inactive{
-    font-family: var(--font-family);
-    &:hover {
-      background-color: var(--primary-select);
-    }
-}
-.Pagination-get-none{
-    opacity: 0.4;
+.Pagination-get-none {
+  width: 22px;
+  opacity: 0.4;
 }
 .Pagination-set-active {
   background-color: var(--primary);
   color: var(--second-text);
-  font-family: var(--font-family);
   &:hover {
     border-color: var(--primary);
   }
@@ -37,7 +40,6 @@
 .Pagination-get-active {
   background-color: var(--primary);
   color: var(--second-text);
-  font-family: var(--font-family);
   &:hover {
     border-color: var(--primary);
   }

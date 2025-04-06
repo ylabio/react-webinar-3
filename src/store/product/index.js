@@ -12,7 +12,6 @@ class Product extends StoreModule {
       aboutProduct: {},
     };
   }
-//http://query.rest/api/v1/articles/${_id}?fields=description,madeIn(title,code),category(title),edition,price
   async loadAbout(_id = 404) {
     const response = await fetch(`/api/v1/articles/${_id}?fields=title,description,madeIn(title,code),category(title),edition,price`);
     const json = await response.json();

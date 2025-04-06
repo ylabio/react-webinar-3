@@ -17,7 +17,6 @@ function ItemBasket(props) {
 
   return (
     <div className={cn()}>
-      {/* <div className={cn('code')}>{props.item._id}</div> */}
       <Link to="/product" className={cn('wrap')} onClick={()=>callbacks.onClickLoad()}>
         <h4 className={cn('wrap-title')}>{props.item.title}</h4>
         <div className={cn('wrap-right')}>

@@ -13,13 +13,6 @@ function AboutItem(props) {
   return (
     <div className={cn()}>
       <div className={cn('description')}>{props.item?.description}</div>
-      {/* <div className={cn('madeIn')}>
-        <div className={cn('madeIn-titlecode')}>
-         Страна производитель: {props.item.madeIn?.title} {`(${props.item.madeIn?.code})`}
-        </div>
-        <div className={cn('madeIn-category')}>Категория: {props.item.category?.title} </div>
-        <div className={cn('madeIn-edition')}>Год выпуска: {props.item?.edition} </div>
-      </div> */}
       <div className={cn('madeIn')}>
         <div className={cn('madeIn-left')}>
           <div className={cn('madeIn-left-titlecode')}>
