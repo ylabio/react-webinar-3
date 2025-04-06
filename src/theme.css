@@ -40,3 +40,9 @@ button {
 h1, h4 {
   margin: 0;
 }
+
+ul {
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}

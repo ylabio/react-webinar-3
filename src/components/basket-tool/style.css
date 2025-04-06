@@ -1,8 +1,20 @@
 /* Контрол с общими действиями */
 .BasketTool {
   display: flex;
-  justify-content: flex-end;
+  justify-content:space-between;
+  align-items: center;
+  column-gap: 20px;
   padding: 24px 16px 24px 0;
+}
+
+.BasketTool-navigate-link {
+  color: var(--main-text);
+  text-decoration: none;
+  transition: 0.3s;
+
+  &:hover {
+    border-bottom: 1px solid var(--main-text);
+  }
 }
 
 .BasketTool-action {

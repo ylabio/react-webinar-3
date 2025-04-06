@@ -23,3 +23,13 @@
     background-color: var(--background);
   }
 }
+
+.Item-link {
+  color: inherit;
+  text-decoration: none;
+  transition: 0.3s;
+
+  &:hover {
+    color: var(--primary);
+  }
+}

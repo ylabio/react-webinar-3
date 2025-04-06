@@ -13,7 +13,7 @@ class Catalog extends StoreModule {
       totalPages: 25,
       productsOnPage: 10,
       currentPage: 1,
-
+      selectedProduct: null
     };
   }
 
@@ -62,6 +62,23 @@ class Catalog extends StoreModule {
       'Изменена текущая страница'
     );
     this.load();
+  }
+
+  /**
+   * Загрузка подробной информации о товаре
+   * @param productId {String} 
+   */
+  async loadProduct(productId) {
+    const response = await fetch(`/api/v1/articles/${productId}?fields=*,madeIn(title,code),category(title)`)
+    const json = await response.json()
+
+    console.log(json)
+
+    this.setState({
+      ...this.getState(),
+      selectedProduct: json.result
+    }, 
+    `Загружен товар с id: ${productId} из АПИ`)
   }
 }
 
