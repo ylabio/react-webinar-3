@@ -17,28 +17,30 @@ function ItemFull({ item, addToCartText, countryText, categoryText, yearText, pr
   return (
     <div className={cn()}>
       {item.description && (
-        <p className={cn('description')}>
+        <div className={cn('description')}>
           {item.description}
-        </p>
+        </div>
       )}
-      {item.madeIn && (
-        <p className={cn('made-in')}>
-          {countryText}: <b>{item.madeIn.title} ({item.madeIn.code})</b>
-        </p>
-      )}
-      {item.category && (
-        <p className={cn('category')}>
-          {categoryText}: <b>{item.category.title}</b>
-        </p>
-      )}
-      {item.edition && (
-        <p className={cn('year')}>
-          {yearText}: <b>{item.edition}</b>
-        </p>
-      )}
-      <p className={cn('price')}>
+      <div className={cn('details')}>
+        {item.madeIn && (
+          <div className={cn('detail')}>
+            <div className={cn('cell')}>{countryText}:</div> <div className={cn('cell')}><b>{item.madeIn.title} ({item.madeIn.code})</b></div>
+          </div>
+        )}
+        {item.category && (
+          <div className={cn('detail')}>
+            <div className={cn('cell')}>{categoryText}:</div> <div className={cn('cell')}><b>{item.category.title}</b></div>
+          </div>
+        )}
+        {item.edition && (
+          <div className={cn('detail')}>
+            <div className={cn('cell')}>{yearText}:</div> <div className={cn('cell')}><b>{item.edition}</b></div>
+          </div>
+        )}
+      </div>
+      <div className={cn('price')}>
         {priceText}: {numberFormat(item.price)} ₽
-      </p>
+      </div>
       <Button style="primary" title={addToCartText} onClick={callbacks.addToBasket} />
     </div>
   );
