@@ -1,0 +1,46 @@
+.Pagination {
+  padding: 24px 0px;
+  display: flex;
+  justify-content: flex-end;
+  color: var(--main-text);
+  gap: 50px;
+}
+.Pagination button {
+  text-align: center;
+  font-family: var(--font-family);
+  border-radius: 2px;
+  min-width: 22px;
+  height: 22px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  padding: 1px 6px;
+}
+.Pagination-set-inactive {
+  &:hover {
+    background-color: var(--primary-select);
+  }
+}
+.Pagination-get-inactive {
+  &:hover {
+    background-color: var(--primary-select);
+  }
+}
+.Pagination-get-none {
+  width: 22px;
+  opacity: 0.4;
+}
+.Pagination-set-active {
+  background-color: var(--primary);
+  color: var(--second-text);
+  &:hover {
+    border-color: var(--primary);
+  }
+}
+.Pagination-get-active {
+  background-color: var(--primary);
+  color: var(--second-text);
+  &:hover {
+    border-color: var(--primary);
+  }
+}
