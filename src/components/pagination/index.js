@@ -4,14 +4,17 @@ import Button from '../button';
 import './style.css';
 import { getFormatPages } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
+import { useLanguage } from '../../store/use-language';
+import translations from '../../locales/index'
 
 function Pagination({ pageInfo, onChangePage = () => {}, onChangeLimit = () => {}}) {
   const cn = bem('Pagination');
+  const { language } = useLanguage();
   const { currentPage, limit, totalPages, availableLimits } = pageInfo;
   return (
     <div className={cn()}>
       <div className={cn('limit')}>
-        <h4>Количество записей на странице:</h4>
+        <h4>{translations[language].dataOnPage}:</h4>
         <div className={cn('radio')}>
           {availableLimits.map((currentLimit, index) => (
             <label className={cn('radio-label')} key={index}>

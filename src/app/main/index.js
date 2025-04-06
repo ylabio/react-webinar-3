@@ -9,9 +9,13 @@ import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import Controls from '../../components/controls';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../../store/use-language';
+import translations from '../../locales/index';
+
 
 function Main() {
   const store = useStore();
+  const { language } = useLanguage();
 
   useEffect(() => {
     store.actions.catalog.loadPage();
@@ -54,9 +58,9 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title="Магазин" />
+      <Head title={translations[language].shopTitle} />
       <Controls>
-        <Link to="/">Главная</Link>
+        <Link to="/">{translations[language].main}</Link>
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       </Controls>
       <List list={select.list} renderItem={renders.item} />

@@ -9,13 +9,15 @@ import { useParams } from 'react-router-dom';
 import ProductInfo from '../../components/product-info';
 import Controls from '../../components/controls';
 import { Link } from 'react-router-dom';
-
+import { useLanguage } from '../../store/use-language';
+import translations from '../../locales/index';
 
 
 
 function Product() {
   const store = useStore();
   const { id } = useParams();
+  const { language } = useLanguage();
 
   const callbacks = {
     // Добавление в корзину
@@ -38,7 +40,7 @@ function Product() {
     <PageLayout>
       <Head title={select.currentProduct.title} />
       <Controls>
-        <Link to="/">Главная</Link>
+        <Link to="/">{translations[language].main}</Link>
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       </Controls>
       <ProductInfo onAdd={callbacks.addToBasket} info={select.currentProduct} />
