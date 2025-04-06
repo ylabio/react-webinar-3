@@ -2,6 +2,14 @@ import "./style.css";
 import useSelector from '../../store/use-selector';
 
 function getPaginatorButtons(currentPage, totalPages) {
+    if (currentPage < 3 && totalPages > 4) {
+        return [1, 2, 3, '...', totalPages];
+    }
+
+    if (currentPage === totalPages && totalPages > 4) {
+        return [1, '...', totalPages-2, totalPages-1, totalPages]
+    }
+
     const paginatorButtons = [1]
     const middleButtons = [currentPage - 1, currentPage, currentPage + 1]
 
