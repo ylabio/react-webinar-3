@@ -7,6 +7,8 @@ import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
+import Controls from '../../components/controls';
+import { Link } from 'react-router-dom';
 
 function Main() {
   const store = useStore();
@@ -20,16 +22,14 @@ function Main() {
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    currentPage: state.pagination.currentPage,
-    totalPages: state.pagination.totalPages,
-    limit: state.pagination.limit,
+    pageInfo: state.pagination,
   }));
 
   useEffect(() => {
-    const skip = select.limit * (select.currentPage - 1);
-    const limit = select.limit;
+    const { limit, currentPage } = select.pageInfo;
+    const skip = limit * (currentPage - 1);
     store.actions.catalog.loadPage(limit, skip);
-  }, [select.currentPage, select.limit]);
+  }, [select.pageInfo.currentPage, select.pageInfo.limit]);
 
 
   const callbacks = {
@@ -55,9 +55,16 @@ function Main() {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <Controls>
+        <Link to="/">Главная</Link>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      </Controls>
       <List list={select.list} renderItem={renders.item} />
-      <Pagination currentPage={select.currentPage} totalPages={select.totalPages} onChangePage={callbacks.onChangePage} onChangeLimit={callbacks.onChangeLimit} limit={select.limit} />
+      <Pagination 
+        pageInfo={select.pageInfo}
+        onChangePage={callbacks.onChangePage}
+        onChangeLimit={callbacks.onChangeLimit}
+      />
     </PageLayout>
   );
 }

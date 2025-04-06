@@ -42,7 +42,7 @@
 
 .Button_style_page {
   padding: 0;
-  width: 22px;
+  min-width: 22px;
   height: 22px;
   font-weight: 500;
   &:hover {
@@ -52,10 +52,15 @@
 
 .Button_style_page-current {
   padding: 0;
-  width: 22px;
+  min-width: 22px;
   height: 22px;
   font-weight: 500;
   background-color: var(--primary);
   color: var(--second-text);
+}
+
+.Button_style_page[disabled]:hover {
+  cursor: default;
+  background: none;
 }
 

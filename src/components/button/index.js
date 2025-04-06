@@ -8,7 +8,7 @@ function Button({ onClick = () => {}, title, style, type = 'button', disabled=fa
 
   return (
     <div className={cn()}>
-      <button type={type} className={cn({ style })} onClick={() => onClick()} disabled={disabled}>
+      <button type={type} className={cn({ style })} onClick={(e) => onClick(e)} disabled={disabled}>
         {title}
       </button>
     </div>
@@ -20,6 +20,7 @@ Button.propTypes = {
   title: PropTypes.string,
   style: PropTypes.oneOf(['text', 'primary', 'delete', 'outline', 'page', 'page-current']),
   type: PropTypes.oneOf(['button', 'submit']),
+  disabled: PropTypes.bool,
 };
 
 export default memo(Button);

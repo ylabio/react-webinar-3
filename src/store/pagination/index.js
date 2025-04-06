@@ -6,6 +6,7 @@ class Pagination extends StoreModule {
       currentPage: 1,
       limit: 10,
       totalPages: 1,
+      availableLimits: [5, 10, 20],
     };
   }
 
@@ -14,7 +15,7 @@ class Pagination extends StoreModule {
   }
 
   onChangeLimit(newLimit) {
-    this.setState({...this.getState(), limit: newLimit}, `Установлено новое количество записей на странице`);
+    this.setState({...this.getState(), limit: newLimit, currentPage: 1}, `Установлено новое количество записей на странице`);
     this.setTotalPages();
   }
 
