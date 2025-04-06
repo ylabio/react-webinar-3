@@ -1,0 +1,30 @@
+.Product {
+  display: grid;
+  row-gap: 24px;
+}
+
+.Product-description p{
+ margin: 0;
+}
+
+.Product-info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 8px;
+}
+
+.Product-features,
+.Product-values {
+  display: grid;
+  row-gap: 12px;
+}
+
+.Product-values {
+  font-weight: 700;
+}
+
+.Product-price {
+  font-family: var(--second-font-family);
+  font-size: 24px;
+  font-weight: 700;
+}
