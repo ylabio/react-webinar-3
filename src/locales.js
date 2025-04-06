@@ -2,6 +2,8 @@ const locales = {
     en: {
       market: "Market",
       main: "Home",
+      basket: "Cart",
+      total: "Total",
       showBy: "Show by",
       add: "Add",
       remove: "Remove",
@@ -20,6 +22,8 @@ const locales = {
     },
     ru: {
       market: "Магазин",
+      basket: "Корзина",
+      total: "Итого",
       main: "Главная",
       showBy: "Показать по",
       add: "Добавить",
