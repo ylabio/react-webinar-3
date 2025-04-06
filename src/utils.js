@@ -27,6 +27,7 @@ export function codeGenerator(start = 0) {
 /**
  * Форматирование разрядов числа
  * @param value {Number}
+ * @param locale {String}
  * @param options {Object}
  * @returns {String}
  */
@@ -79,3 +80,6 @@ export function getPaginationRange(currentPage, totalPages) {
   ];
 }
 
+export function getLangFromPath(pathname) {
+  return pathname?.split('/')[1] || 'ru';
+}

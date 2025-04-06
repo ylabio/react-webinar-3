@@ -1,38 +1,30 @@
 import {memo} from 'react';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
-import {useLocation, useNavigate} from "react-router";
+import {OPTIONS_LANG} from "../../constants";
+import PropTypes from "prop-types";
 
-const ButtonsLang = () => {
+const ButtonsLang = ({options, currentLang, onLangChange}) => {
   const cn = bem('LangSwitcher');
-  const options = ['ru', 'en'];
-
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const currentLang = location.pathname.split('/')[1] || 'ru';
-
-  const handleClick = (lang) => {
-    if (lang === currentLang) return;
-
-    const parts = location.pathname.split('/');
-    parts[1] = lang; // заменяем язык
-    navigate(parts.join('/') + location.search);
-  };
-
   return (
     <div className={cn()}>
       {options.map((option) => (
         <span
           key={option}
-          className={cn('option', { active: option === currentLang })}
-          onClick={() => handleClick(option)}
+          className={cn('option', {active: option === currentLang})}
+          onClick={() => onLangChange(option)}
         >
           {option.toUpperCase()}
         </span>
       ))}
     </div>
   );
+};
+
+ButtonsLang.propTypes = {
+  options: PropTypes.array,
+  currentLang: PropTypes.oneOf([...OPTIONS_LANG]),
+  onLangChange: PropTypes.func.isRequired,
 };
 
 export default memo(ButtonsLang);
