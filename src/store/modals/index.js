@@ -7,8 +7,10 @@ class Modals extends StoreModule {
     };
   }
 
-  open(name) {
-    this.setState({ name }, `Открытие модалки ${name}`);
+  open(name, props = {}) {
+    console.log('что открываем:', name);
+    this.setState({ name, props }, `Открытие модалки ${name}`);
+    console.log('новое состояние:', this.getState());
   }
 
   close() {

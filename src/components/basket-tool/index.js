@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from '../../utils';
@@ -8,11 +9,19 @@ import './style.css';
 function BasketTool(props) {
   const { onOpen = () => {}, sum = 0, amount = 0 } = props;
 
+  const handleOpen = () => {
+  console.log('клик работает');
+  onOpen();
+};
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <h2 className={cn('subtitle')}>Главная</h2>
-      <button className={cn('action')} onClick={onOpen}>
+      <nav className={cn('nav')}>
+        <Link to="/" className={cn('subtitle')}>
+          Главная
+        </Link>
+      </nav>
+      <button className={cn('action')} onClick={handleOpen}>
         <Cart className={cn('icon')} />
         <span className={cn('total')}>
           {amount

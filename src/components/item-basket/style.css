@@ -7,6 +7,11 @@
   padding: 16px;
 }
 
+.ItemBasket-link {
+  color: var(--main-text);
+  text-decoration: none;
+}
+
 .ItemBasket-title:hover {
   color: var(--primary);
   cursor: pointer;

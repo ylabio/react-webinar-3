@@ -8,11 +8,16 @@ import useSelector from '../../store/use-selector';
 
 function Basket() {
   const store = useStore();
-  const select = useSelector(state => ({
-    list: state.basket.list,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
-  }));
+  const select = useSelector(state => {
+    const basketState = {
+      list: state.basket.list,
+      amount: state.basket.amount,
+      sum: state.basket.sum,
+      open: state.modals.name === 'basket',
+    };
+    console.log(basketState);
+    return basketState;
+  });
 
   const callbacks = {
     // Удаление из корзины
@@ -31,7 +36,7 @@ function Basket() {
   };
 
   return (
-    <ModalLayout title="Корзина" onClose={callbacks.closeModal}>
+    <ModalLayout title="Корзина" onClose={callbacks.closeModal} open={select.open}>
       <List list={select.list} renderItem={renders.itemBasket} />
       <BasketTotal sum={select.sum} />
     </ModalLayout>
