@@ -3,12 +3,11 @@ import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
 import useStore from '../../store/use-store';
-import {Link, useLocation, useParams} from "react-router";
+import {Link, useParams} from "react-router";
 import ControlsPanel from "../../components/controls-panel";
 import ArticleCard from "../../components/article-card";
 import useSelector from "../../store/use-selector";
 import MainLink from "../../components/home-link";
-import {useDictionary} from "../translations/useDictionary";
 import {useLang} from "../translations/useLang";
 
 function Article() {

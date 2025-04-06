@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect, useState} from 'react';
+import {memo, useCallback, useEffect} from 'react';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -11,7 +11,7 @@ import ControlsPanel from "../../components/controls-panel";
 import {useLocation, useNavigate, useSearchParams} from "react-router";
 import MainLink from "../../components/home-link";
 import {useDictionary} from "../translations/useDictionary";
-import {DEFAULT_LANG, DEFAULT_PAGINATION, LIMITS, OPTIONS_LANG} from "../../constants";
+import {DEFAULT_PAGINATION, LIMITS, OPTIONS_LANG} from "../../constants";
 import {useLang} from "../translations/useLang";
 import ButtonsLang from "../../components/buttons-lang";
 
