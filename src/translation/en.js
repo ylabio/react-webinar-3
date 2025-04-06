@@ -10,4 +10,5 @@ export const en = {
   'basket-tool.product': 'product',
   'basket-tool.products': 'products',
   'basket-tool.productss': 'products',
+  'page-select.items': 'items',
 };

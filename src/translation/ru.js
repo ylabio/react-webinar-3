@@ -10,4 +10,5 @@ export const ru = {
   'basket-tool.product': 'товар',
   'basket-tool.products': 'товара',
   'basket-tool.productss': 'товаров',
+  'page-select.items': 'записей',
 };
