@@ -2,7 +2,7 @@
 .BasketTotal {
   display: flex;
   justify-content: flex-end;
-  padding: 18px;
+  padding: 16px;
   gap: 24px;
 }
 

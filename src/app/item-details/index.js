@@ -7,6 +7,8 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import { numberFormat } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
+import PageLayout from '../../components/page-layout';
+import './style.css';
 
 function ItemDetails() {
   const cn = bem('ItemDetails');
@@ -39,23 +41,42 @@ function ItemDetails() {
 
   if (!item) return <div>Загрузка...</div>;
 
-  return (
-    <div className={cn()}>
-      <Head title={item.title} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      <div className={cn('content')}>
-        <p className={cn('description')}>
-          Описание товара из множества букв. {item.description} Описание товара из множества букв.
+  const content = (
+    <div className={cn('content')}>
+      <p className={cn('description')}>
+        {item.description}
+      </p>
+      <div className={cn('details')}>
+        <p>
+          <span className={cn('label')}>Страна производитель:</span>{' '}
+          <span className={cn('highlight')}>
+            {item.madeIn.title} ({item.madeIn.code})
+          </span>
         </p>
-        <div className={cn('details')}>
-          <p>Страна производитель: {item.madeIn.title} ({item.madeIn.code})</p>
-          <p>Категория: {item.category.title}</p>
-          <p>Год выпуска: {item.edition}</p>
-          <p>Цена: {numberFormat(item.price)} ₽</p>
-        </div>
-        <Button style="primary" onClick={callbacks.addToBasket} title="Добавить" />
+        <p>
+          <span className={cn('label')}>Категория:</span>{' '}
+          <span className={cn('highlight')}>{item.category.title}</span>
+        </p>
+        <p>
+          <span className={cn('label')}>Год выпуска:</span>{' '}
+          <span className={cn('highlight')}>{item.edition}</span>
+        </p>
+        <p className={cn('highlight')}>Цена: {numberFormat(item.price)} ₽</p>
       </div>
+      <Button style="primary" onClick={callbacks.addToBasket} title="Добавить" />
     </div>
+  );
+
+  return (
+    <PageLayout
+      head={
+        <>
+          <Head title={item.title} />
+          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+        </>
+      }
+      children={content}
+    />
   );
 }
 
