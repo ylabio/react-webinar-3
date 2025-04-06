@@ -15,16 +15,17 @@ function Main() {
   const [currentPage, setCurrenPage] = useState(1);
   const [sizePage, setSizePage] = useState(10);
 
-  useEffect(() => {
-    store.actions.catalog.load({ current: currentPage, perPage: sizePage });
-  }, [currentPage, sizePage]);
-
   const select = useSelector(state => ({
     list: state.catalog.list,
     count: state.catalog.count,
+    lang: state.catalog.lang,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
+
+  useEffect(() => {
+    store.actions.catalog.load({ current: currentPage, perPage: sizePage });
+  }, [currentPage, sizePage, select.lang]);
 
   const callbacks = {
     // Добавление в корзину

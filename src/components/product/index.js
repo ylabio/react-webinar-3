@@ -19,16 +19,18 @@ function Product() {
 
   const params = useParams();
 
-  useEffect(() => {
-    store.actions.catalog.loadId(params.id);
-  }, [params]);
-
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
     article: state.catalog.article,
+    lang: state.catalog.lang,
   }));
+
+  useEffect(() => {
+    store.actions.catalog.loadId(params.id);
+  }, [params, select.lang]);
+
 
   console.log(select);
 
