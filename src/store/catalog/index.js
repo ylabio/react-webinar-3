@@ -12,12 +12,14 @@ class Catalog extends StoreModule {
       list: [],
       article: {},
       count: 0,
+      lang: 'ru',
     };
   }
 
   async load({ current = 1, perPage = 10 }) {
+    console.log('Store lang-' + this.getState().lang)
     const response = await fetch(
-      `/api/v1/articles?limit=${perPage}&skip=${(current - 1) * perPage}&fields=items(_key, _id, title, price),count`,
+      `/api/v1/articles?limit=${perPage}&skip=${(current - 1) * perPage}&lang=${this.getState().lang}&fields=items(_key, _id, title, price),count`,
     );
     const json = await response.json();
     // console.log(json);
@@ -34,7 +36,7 @@ class Catalog extends StoreModule {
   }
 
   async loadId(id) {
-    const response = await fetch(`/api/v1/articles/${id}?fields=%2A&lang=ru`);
+    const response = await fetch(`/api/v1/articles/${id}?fields=%2A&lang=${this.getState().lang}`);
     const json = await response.json();
     console.log(json);
 
@@ -45,6 +47,13 @@ class Catalog extends StoreModule {
       },
       'Загружен товар по id',
     );
+  }
+
+  setLang(lang) {
+    this.setState({
+      ...this.getState(),
+      lang: lang,
+    });
   }
 }
 

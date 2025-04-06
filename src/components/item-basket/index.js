@@ -8,7 +8,7 @@ import './style.css';
 import {Link} from 'react-router-dom';
 
 
-function ItemBasket(props) {
+function ItemBasket({ onRemove= () => {}, ...props }) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
@@ -18,12 +18,14 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       {/* <div className={cn('code')}>{props.item._id}</div> */}
-      <Link className={cn('link')} to={`/product/${props.item._id}`} onClick={props.closeModal}>{props.item.title}</Link>
+      <Link className={cn('link')} to={`/product/${props.item._id}`} onClick={props.closeModal}>
+        {props.item.title}
+      </Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title="Удалить" />
+          <Button style="delete" onClick={onRemove} title="Удалить" />
         </div>
       </div>
     </div>
@@ -40,8 +42,8 @@ ItemBasket.propTypes = {
   onRemove: propTypes.func,
 };
 
-ItemBasket.defaultProps = {
-  onRemove: () => {},
-};
+// ItemBasket.defaultProps = {
+//   onRemove: () => {},
+// };
 
 export default memo(ItemBasket);
