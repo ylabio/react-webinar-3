@@ -2,9 +2,10 @@ import { memo, useCallback, useEffect } from 'react';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
-import Pagination from '../../components/pagination';
 import BasketTool from '../../components/basket-tool';
 import List from '../../components/list';
+import PaginationControls from '../../components/pagination-controls';
+import Pagination from '../../components/pagination';
 import ItemsPerPage from '../../components/items-per-page';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
@@ -33,8 +34,8 @@ function Main() {
       page => {
         const limit = select.params.limit;
         const skip = (page - 1) * limit;
-        setSearchParams({ page });
-        store.actions.catalog.load({ skip });
+        setSearchParams({ page, limit });
+        store.actions.catalog.load({ skip, limit });
       },
       [store, select.params.limit, setSearchParams],
     ),
@@ -80,14 +81,14 @@ function Main() {
         menuItems={menuItems}
       />
       <List list={select.items} renderItem={renders.item} />
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px' }}>
+      <PaginationControls>
         <ItemsPerPage value={select.params.limit} onChange={callbacks.onItemsPerPageChange} />
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={callbacks.onPageChange}
         />
-      </div>
+      </PaginationControls>
     </PageLayout>
   );
 }
