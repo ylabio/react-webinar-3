@@ -9,19 +9,23 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../../store/use-language';
 import translations from '../../locales/index'
 
-function ItemBasket({ item, onRemove= () => {} }) {
+function ItemBasket({ item, onRemove= () => {}, onClose = () => {} }) {
   const cn = bem('ItemBasket');
   const { language } = useLanguage();
 
   const callbacks = {
     onRemove: e => {
+      e.stopPropagation();
       e.preventDefault();
       onRemove(item._id);
     },
+    onClose: () => {
+      onClose();
+    }
   };
 
   return (
-    <Link to={`/product/${item._id}`} className={cn()}>
+    <Link to={`/product/${item._id}`} className={cn()} onClick={callbacks.onClose}>
       {/* <div className={cn('code')}>{props.item._id}</div> */}
       <h4 className={cn('title')}>{item.title}</h4>
       <div className={cn('right')}>
@@ -43,6 +47,7 @@ ItemBasket.propTypes = {
     amount: PropTypes.number,
   }).isRequired,
   onRemove: propTypes.func,
+  onClose: propTypes.func,
 };
 
 export default memo(ItemBasket);
