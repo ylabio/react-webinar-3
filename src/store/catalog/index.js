@@ -19,14 +19,14 @@ class Catalog extends StoreModule {
 
   async load(page = this.getState().page, quantity = this.getState().quantity) {
     const skip = page > 0 ? (page - 1) * quantity : 0;
+
     const response = await fetch(`/api/v1/articles?limit=${quantity}&skip=${skip}`);
     const json = await response.json();
+
     this.setState(
       {
         ...this.getState(),
         list: json.result.items,
-        page,
-        quantity,
       },
       'Загружены товары из АПИ',
     );

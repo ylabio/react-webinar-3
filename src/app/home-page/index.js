@@ -5,6 +5,7 @@ import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import { useNavigate } from 'react-router-dom';
 import useStore from '../../store/use-store';
+import PageLayout from '../../components/page-layout';
 
 function HomePage() {
   const store = useStore();

@@ -19,11 +19,9 @@ const Pagination = ({
 
   const renderPage = () => {
     const pages = [];
-    const maxPagesToShow = 5; // Максимальное количество страниц для отображения
+    const maxPagesToShow = 5;
 
-    // Логика для отображения страниц
     if (totalPages <= maxPagesToShow) {
-      // Если страниц мало, показываем все
       for (let i = 1; i <= totalPages; i++) {
         pages.push(
           <button
@@ -47,50 +45,72 @@ const Pagination = ({
         </button>,
       );
 
-      // Добавляем многоточие, если текущая страница далеко от начала
-      if (currentPage > 3) {
+      // Специальная обработка для currentPage = 1
+      if (currentPage === 1) {
         pages.push(
-          <span key="ellipsis-start" className="page-ellipsis">
-            ...
-          </span>,
-        );
-      }
-
-      // Показываем страницы вокруг текущей
-      const startPage = Math.max(2, currentPage - 1);
-      const endPage = Math.min(totalPages - 1, currentPage + 1);
-
-      for (let i = startPage; i <= endPage; i++) {
-        pages.push(
-          <button
-            key={i}
-            className={`page-item ${currentPage === i ? 'active' : ''}`}
-            onClick={() => handlePageChange(i)}
-          >
-            {i}
+          <button key={2} className="page-item" onClick={() => handlePageChange(2)}>
+            2
           </button>,
-        );
-      }
-
-      // Добавляем многоточие, если текущая страница далеко от конца
-      if (currentPage < totalPages - 2) {
-        pages.push(
+          <button key={3} className="page-item" onClick={() => handlePageChange(3)}>
+            3
+          </button>,
           <span key="ellipsis-end" className="page-ellipsis">
             ...
           </span>,
+          <button
+            key={totalPages}
+            className={`page-item ${currentPage === totalPages ? 'active' : ''}`}
+            onClick={() => handlePageChange(totalPages)}
+          >
+            {totalPages}
+          </button>,
+        );
+      } else {
+        // Добавляем многоточие, если текущая страница далеко от начала
+        if (currentPage > 3) {
+          pages.push(
+            <span key="ellipsis-start" className="page-ellipsis">
+              ...
+            </span>,
+          );
+        }
+
+        // Показываем страницы вокруг текущей
+        const startPage = Math.max(2, currentPage - 1);
+        const endPage = Math.min(totalPages - 1, currentPage + 1);
+
+        for (let i = startPage; i <= endPage; i++) {
+          pages.push(
+            <button
+              key={i}
+              className={`page-item ${currentPage === i ? 'active' : ''}`}
+              onClick={() => handlePageChange(i)}
+            >
+              {i}
+            </button>,
+          );
+        }
+
+        // Добавляем многоточие, если текущая страница далеко от конца
+        if (currentPage < totalPages - 2) {
+          pages.push(
+            <span key="ellipsis-end" className="page-ellipsis">
+              ...
+            </span>,
+          );
+        }
+
+        // Показываем последнюю страницу
+        pages.push(
+          <button
+            key={totalPages}
+            className={`page-item ${currentPage === totalPages ? 'active' : ''}`}
+            onClick={() => handlePageChange(totalPages)}
+          >
+            {totalPages}
+          </button>,
         );
       }
-
-      // Показываем последнюю страницу
-      pages.push(
-        <button
-          key={totalPages}
-          className={`page-item ${currentPage === totalPages ? 'active' : ''}`}
-          onClick={() => handlePageChange(totalPages)}
-        >
-          {totalPages}
-        </button>,
-      );
     }
 
     return pages;

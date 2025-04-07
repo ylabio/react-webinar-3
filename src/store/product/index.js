@@ -36,6 +36,7 @@ class Product extends StoreModule {
         },
         'Продукт загружен',
       );
+      this.store.actions.ui.setTitle(json.result.title);
     } catch (error) {
       this.setState(
         {
