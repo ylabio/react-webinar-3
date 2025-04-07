@@ -10,36 +10,63 @@ function Pagination({ currentPage, totalItems, pageSize, onPageChange, onPageSiz
   const getPageNumbers = () => {
     const pages = [];
 
-    // Всегда первая страница
+    // Всегда добавляем первую страницу
     pages.push(1);
 
-    // Определяем диапазон вокруг текущей страницы
-    let startPage = Math.max(2, currentPage - 1);
-    let endPage = Math.min(totalPages - 1, currentPage + 1);
-
-    // Добавляем многоточие если нужно
-    if (currentPage > 3) {
-      pages.push('...');
-    }
-
-    // Страницы вокруг текущей
-    for (let i = startPage; i <= endPage; i++) {
-      if (i > 1 && i < totalPages) {
+    if (totalPages <= 4) {
+      // Если страниц 4 или меньше - показываем все
+      for (let i = 2; i <= totalPages; i++) {
         pages.push(i);
+      }
+    } else {
+      if (currentPage <= 2) {
+        // Страницы 1 и 2: 1 2 3 ... last
+        pages.push(2);
+        pages.push(3);
+        pages.push('...');
+      } else if (currentPage === 3) {
+        // Страница 3: 1 2 3 4 ... last
+        pages.push(2);
+        pages.push(3);
+        pages.push(4);
+        pages.push('...');
+      } else if (currentPage >= totalPages - 2) {
+        // Последние 3 страницы
+        pages.push('...');
+
+        if (currentPage === totalPages - 2) {
+          // Для предпоследней-2 (53 при total=55)
+          pages.push(totalPages - 3);
+        }
+
+        // Всегда показываем последние 3 страницы
+        pages.push(totalPages - 2);
+        pages.push(totalPages - 1);
+        pages.push(totalPages);
+      } else {
+        // Средние страницы: 1 ... (current-1) current (current+1) ... last
+        pages.push('...');
+        pages.push(currentPage - 1);
+        pages.push(currentPage);
+        pages.push(currentPage + 1);
+        pages.push('...');
+      }
+
+      // Удаляем дубликаты последней страницы
+      if (pages[pages.length - 1] === totalPages) {
+        pages.pop();
+      }
+
+      // Всегда добавляем последнюю страницу
+      if (!pages.includes(totalPages)) {
+        pages.push(totalPages);
       }
     }
 
-    // Добавляем многоточие если нужно
-    if (currentPage < totalPages - 2) {
-      pages.push('...');
-    }
-
-    // Последняя страница (если не первая)
-    if (totalPages > 1) {
-      pages.push(totalPages);
-    }
-
-    return pages;
+    // Удаляем возможные дубликаты многоточий
+    return pages.filter((item, index, arr) => {
+      return index === 0 || item !== arr[index - 1] || typeof item !== 'string';
+    });
   };
 
   return (
