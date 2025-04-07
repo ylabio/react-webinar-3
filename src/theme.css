@@ -29,7 +29,6 @@ button {
   font-size: 14px;
   font-weight: 700;
   line-height: 22px;
-  cursor: pointer;
   border-radius: 4px;
   padding: 8px 16px;
   transition: 0.3s;
@@ -39,4 +38,8 @@ button {
 
 h1, h4 {
   margin: 0;
+}
+
+a, button {
+  cursor: url('./assets/cursor.png'), pointer;
 }

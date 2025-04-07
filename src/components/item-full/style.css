@@ -1,0 +1,32 @@
+.ItemFull {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.ItemFull-detail {
+  display: flex;
+  gap: 10px;
+}
+
+.ItemFull-cell {
+  min-width: 185px;
+}
+
+.ItemFull-details {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.ItemFull-price {
+  display: flex;
+  gap: 14px;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: var(--second-font-family);
+}
+
+.ItemFull-add-button {
+  width: fit-content;
+}

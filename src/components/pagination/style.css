@@ -1,0 +1,33 @@
+.Pagination {
+  display: flex;
+  margin-top: auto;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 22px 21px 11px;
+  padding-right: 21px;
+  padding-top: 22px;
+}
+
+.Pagination-page,
+.Pagination-ellipsis {
+  padding: 1px 6px;
+  border: none;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.Pagination-page:hover,
+.Pagination-ellipsis:hover {
+  background-color: var(--divider);
+}
+
+.Pagination-page_active {
+  background-color: var(--primary);
+  color: var(--second-text);
+}
+
+.Pagination-ellipsis {
+  color: var(--overlay);
+  padding-left: 2px;
+  padding-right: 2px;
+}
