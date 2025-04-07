@@ -39,11 +39,13 @@ function Basket() {
   const renders = {
     itemBasket: useCallback(
       item => {
-        return <ItemBasket item={item}
+        const { title, ...rest } = item;
+        const itemWithCurrentLangTitle  = { ...rest, title: title[lang] };
+        return <ItemBasket item={itemWithCurrentLangTitle}
                            onRemove={callbacks.removeFromBasket}
                            link={`/${lang}/article/${item._id}`} />;
       },
-      [callbacks.removeFromBasket],
+      [callbacks.removeFromBasket, lang],
     ),
   };
 
