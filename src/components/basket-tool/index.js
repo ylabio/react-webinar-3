@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from '../../utils';
@@ -6,10 +6,16 @@ import Cart from '../../assets/icon/cart.svg';
 import './style.css';
 import { Link } from 'react-router-dom';
 import useTranslate from '../../hooks/useTranslate';
+import useStore from '../../store/use-store';
 
 function BasketTool(props) {
+  const store = useStore();
   const t = useTranslate();
   const { onOpen = () => {}, sum = 0, amount = 0 } = props;
+
+  useEffect(() => {
+    store.actions.catalog.load(); // Загружаем весь каталог
+  }, []);
 
   const cn = bem('BasketTool');
   return (
