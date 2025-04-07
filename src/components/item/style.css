@@ -4,7 +4,11 @@
   align-items: center;
   gap: 16px;
   transition: background-color 1s;
-  padding: 16px 16px 15px 16px
+  padding: 16px 16px 15px 16px;
+}
+
+.Item-title {
+  cursor: pointer;
 }
 
 .Item-actions {

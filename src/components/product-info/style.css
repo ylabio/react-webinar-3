@@ -1,0 +1,44 @@
+.Product {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.Product-description {
+  color: var(--main-text);
+}
+
+.Product-info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 12px;
+  max-width: 500px;
+}
+
+.Product-info-label {
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+.Product-info-value {
+  font-weight: bold;
+}
+
+.Product-price {
+  font-family: var(--second-font-family);
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.Product-add-button {
+  background-color: var(--primary);
+  color: var(--second-text);
+  width: 114;
+  height: 40;
+
+  &:hover {
+    background-color: var(--background);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}
