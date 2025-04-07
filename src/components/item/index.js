@@ -7,7 +7,6 @@ import Button from '../button';
 import './style.css';
 
 function Item(props, onAdd = () => {}) {
-  console.log(props);
   const cn = bem('Item');
 
   const callbacks = {
