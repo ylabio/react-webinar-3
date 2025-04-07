@@ -5,7 +5,7 @@ class Catalog extends StoreModule {
   constructor(store, name) {
     super(store, name);
     this.generateCode = codeGenerator(0);
-    this.PAGE_SIZES = [10, 20, 50]; //кол-во товаров на странице
+    this.PAGE_SIZES = [5, 10, 20]; //кол-во товаров на странице
   }
 
   initState() {
