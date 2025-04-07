@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { useParams, useLoaderData} from 'react-router-dom'; // Добавляем useParams
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -22,6 +22,10 @@ function ProductPage() {
   const product = useLoaderData().result;
   const store = useStore();
 
+  useEffect(() => {
+    callbacks.closeModal();
+  }, []);
+
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
@@ -30,6 +34,8 @@ function ProductPage() {
   const callbacks = {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Закрытие любой модалки
+    closeModal: useCallback(() => store.actions.modals.close(), [store]),
   };
 
   console.log(product);
