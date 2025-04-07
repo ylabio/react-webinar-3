@@ -1,6 +1,6 @@
 .Head {
   color: var(--primary);
-  padding: 16px 0;
+  padding: 16px 0 ;
   border-bottom: 1px solid var(--divider);
   width: 100vw;
   margin-left: calc(-50vw + 50%);

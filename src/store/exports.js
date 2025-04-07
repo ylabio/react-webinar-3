@@ -1,3 +1,5 @@
 export { default as basket } from './basket';
 export { default as catalog } from './catalog';
 export { default as modals } from './modals';
+export { default as inter} from './inter';
+export { default as itemState} from './item-state';

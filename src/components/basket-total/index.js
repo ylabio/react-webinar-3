@@ -4,11 +4,14 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import './style.css';
 
-function BasketTotal({ sum = 0 }) {
+function BasketTotal({ sum = 0 ,totalMessage}) {
+
   const cn = bem('BasketTotal');
+
+
   return (
     <div className={cn()}>
-      <span className={cn('cell')}>Итого</span>
+      <span className={cn('cell')}>{totalMessage}</span>
       <span className={cn('cell')}> {numberFormat(sum)} ₽</span>
       <span className={cn('cell')}></span>
     </div>
@@ -17,6 +20,7 @@ function BasketTotal({ sum = 0 }) {
 
 BasketTotal.propTypes = {
   sum: PropTypes.number,
+  totalMessage: PropTypes.string
 };
 
 export default memo(BasketTotal);

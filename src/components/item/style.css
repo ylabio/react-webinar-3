@@ -23,3 +23,19 @@
     background-color: var(--background);
   }
 }
+.Item h4:hover {
+  color: var(--primary);
+
+}
+.Item a{
+  text-decoration: none;
+  color: black;
+ 
+
+}
+
+.Item a:visited{
+  text-decoration: none;
+  color: black;
+}
+

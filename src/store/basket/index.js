@@ -1,3 +1,4 @@
+import { loadItem } from '../../components/util/http';
 import StoreModule from '../module';
 
 class Basket extends StoreModule {
@@ -13,7 +14,7 @@ class Basket extends StoreModule {
    * Добавление товара в корзину
    * @param _id Код товара
    */
-  addToBasket(_id) {
+  async addToBasket(_id) {
     let sum = 0;
     // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
@@ -29,8 +30,8 @@ class Basket extends StoreModule {
 
     if (!exist) {
       // Поиск товара в каталоге, чтобы его добавить в корзину.
-      // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      const item = this.store.getState().catalog.list.find(item => item._id === _id);
+      // const item = this.store.getState().catalog.list.find(item => item._id === _id);
+      const item = await loadItem(_id);
       list.push({ ...item, amount: 1 }); // list уже новый, в него можно пушить.
       // Добавляем к сумме.
       sum += item.price;
