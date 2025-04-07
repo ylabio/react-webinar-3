@@ -27,7 +27,7 @@ function ProductInfo({ product = null, translations, addToBasket }) {
         </div>
       </div>
       <div className="ProductInfo-price">
-        {translations.pric} {numberFormat(product.price)} ₽
+        {translations.price} {numberFormat(product.price)} ₽
       </div>
       <Button style="primary" onClick={addToBasket} title={translations.buttonText} />
     </div>
