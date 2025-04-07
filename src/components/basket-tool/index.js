@@ -4,12 +4,10 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from '../../utils';
 import Cart from '../../assets/icon/cart.svg';
 import './style.css';
-import useTranslation from '../../hooks/translation-hook';
 import useSelector from '../../store/use-selector';
 
 function BasketTool(props) {
   const { onOpen = () => {} } = props;
-  const translate = useTranslation();
   const cn = bem('BasketTool');
 
   const select = useSelector(state => ({
@@ -23,11 +21,11 @@ function BasketTool(props) {
         <span className={cn('total')}>
           {select.amount
             ? `${select.amount} ${plural(select.amount, {
-                one: `${translate('product.one')}`,
-                few: `${translate('product.few')}`,
-                many: `${translate('product.many')}`,
+                one: props.translations.basketTool.one,
+                few: props.translations.basketTool.few,
+                many: props.translations.basketTool.many,
               })} / ${numberFormat(select.sum)} ₽`
-            : `${translate('basket.emptyBasket')}`}
+            : props.translations.basketTool.empty}
         </span>
       </button>
     </div>
