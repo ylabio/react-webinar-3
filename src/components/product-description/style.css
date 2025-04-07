@@ -1,0 +1,52 @@
+.product_info{
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    row-gap: 12px;
+}
+
+.product_info p{
+    margin: 0px;
+}
+
+p, a {
+    font-family: 'Golos Text';
+    font-size: 16px;
+    line-height: 22px;
+    color: #1A2028;
+    text-decoration: none;
+}
+
+span{
+    font-weight: 700;
+}
+
+p.price_text{
+    font-family: 'Montserrat Alternates';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    color: #1A2028;
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+.ProductDescription{
+    position: relative;
+    padding: 20px;
+    padding-top: 0px;
+}
+
+.link{
+    position: absolute;
+    top: -55px;
+}
+
+a.link:hover{
+    text-decoration: underline;
+}
+
+p.product_description{
+    margin-top: 0px;
+    margin-bottom: 24px;
+}
