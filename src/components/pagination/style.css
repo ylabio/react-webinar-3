@@ -1,0 +1,57 @@
+.Pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin: 24px 0;
+  gap: 2px;
+}
+.Pagination-Limit {
+  display: flex;
+  
+  border-radius: 2px ;
+  padding: 0 5px;
+  margin: 0 24px ;
+  gap: 2px;
+}
+.Pagination-button {
+  width: 22px;
+  height: 22px;
+  gap: 10px;
+  border-radius: 2px;
+  padding: 0;
+  align-items: center;
+  display: flex;
+}
+.Pagination-Text {
+  font-family: 'Golos Text';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+  height: fit-content;
+  margin: 0 auto;
+}
+
+.Pagination-dots {
+  font-family: 'Golos Text';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+  width: 22px;
+  height: 22px;
+  border-radius: 2px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a2028;
+  opacity: 0.4;
+}
+
+.Pagination-button:hover {
+  background: #6b4acb1a;
+}
+.Pagination-button_active {
+  background: #6b4acb !important;
+  color: #ffff;
+}

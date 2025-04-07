@@ -1,0 +1,47 @@
+.ItemPage-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+a {
+  height: fit-content;
+}
+
+.Basket-itemPage {
+  padding: 0;
+}
+.ItemPage {
+  gap: 24px;
+  display: flex;
+  flex-direction: column;
+}
+.ItemPage-main {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+.ItemPage-price {
+  font-family: 'Montserrat Alternates';
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0%;
+}
+.ItemPage-description {
+    line-height: 22px;
+}
+.ItemPage-main-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  font-family: 'Golos Text';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+}
+.info-data {
+  font-weight: 700;
+}
