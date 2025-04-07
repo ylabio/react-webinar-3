@@ -6,13 +6,13 @@ import { STRINGS } from '../../const';
 import { useAppContext } from '../../app-context';
 import './style.css';
 
-function BasketTotal({ sum = 0 }) {
+function BasketTotal({ sum = 0, total }) {
   const cn = bem('BasketTotal');
   const { language } = useAppContext();
 
   return (
     <div className={cn()}>
-      <span className={cn('cell')}>{STRINGS.TOTAL[language]}</span>
+      <span className={cn('cell')}>{total}</span>
       <span className={cn('cell')}> {numberFormat(sum)} ₽</span>
       <span className={cn('cell')}></span>
     </div>

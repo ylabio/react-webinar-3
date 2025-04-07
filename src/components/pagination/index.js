@@ -7,14 +7,20 @@ import SelectLimit from '../select-limit';
 import { LIMIT_VALUE } from '../../const';
 import './style.css';
 
-function Pagination({ currentPage, count, limit, changeLimit }) {
+function Pagination({
+  currentPage,
+  count,
+  limit,
+  changeLimit,
+  texts,
+}) {
   const cn = bem('Pagination');
   const arrPagination = generatePaginationArray(currentPage, count, limit);
 
   return (
     <div className={cn()}>
       <div className={cn('container')}>
-        <SelectLimit changeLimit={changeLimit} options={LIMIT_VALUE}/>
+        <SelectLimit changeLimit={changeLimit} options={LIMIT_VALUE} texts={texts}/>
         <div className={cn('pages-container')}>
         {arrPagination.map((item, index) => (
           item > 0 ?

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Button from '../button';
 import './style.css';
 
-function Head({ title }) {
+function Head({ title, changeLanguage, switchLanguage }) {
   const { language, onSetLanguage } = useAppContext();
   
   return (
@@ -14,8 +14,8 @@ function Head({ title }) {
         <h1>{title}</h1>
         <Button
           style="primary"
-          onClick={onSetLanguage}
-          title={STRINGS.SWITCH_LANGUAGE[language]}
+          onClick={changeLanguage}
+          title={switchLanguage}
         />
       </div>
     </header>

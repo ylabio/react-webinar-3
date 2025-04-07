@@ -69,5 +69,9 @@ export const STRINGS = {
       few: 'товара',
       many: 'товаров',
     },
+  },
+  PIECE: {
+    EN: 'pcs',
+    RU: 'Шт',
   }
 }

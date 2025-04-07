@@ -5,7 +5,7 @@ import { STRINGS, DEFAULT_LIMIT } from '../../const';
 import { useAppContext } from '../../app-context';
 import './style.css';
 
-function SelectLimit({ changeLimit, options, defaultValue = DEFAULT_LIMIT }) {
+function SelectLimit({ changeLimit, options, texts, defaultValue = DEFAULT_LIMIT }) {
   const cn = bem('Limit');
   const { language } = useAppContext();
 
@@ -16,7 +16,7 @@ function SelectLimit({ changeLimit, options, defaultValue = DEFAULT_LIMIT }) {
 
   return (
     <div className={cn()}>
-      <div className={cn('title')}>{STRINGS.SELECT[language]}</div>
+      <div className={cn('title')}>{texts}</div>
       <select 
         className={cn('select')} 
         onChange={handleChange} 

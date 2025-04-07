@@ -8,7 +8,7 @@ import useSelector from '../../store/use-selector';
 import { useAppContext } from '../../app-context';
 import { STRINGS } from '../../const';
 
-function Basket() {
+function Basket({ title, total, textButton, piece }) {
   const store = useStore();
   const { language } = useAppContext();
 
@@ -28,16 +28,22 @@ function Basket() {
   const renders = {
     itemBasket: useCallback(
       item => {
-        return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} onClose={callbacks.closeModal} />;
+        return <ItemBasket
+          item={item}
+          onRemove={callbacks.removeFromBasket}
+          onClose={callbacks.closeModal}
+          textButton={textButton}
+          piece={piece}
+        />;
       },
-      [callbacks.removeFromBasket],
+      [callbacks.removeFromBasket, textButton],
     ),
   };
 
   return (
-    <ModalLayout title={STRINGS.BASKET[language]} onClose={callbacks.closeModal}>
+    <ModalLayout title={title} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} total={total}/>
     </ModalLayout>
   );
 }

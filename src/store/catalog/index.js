@@ -12,7 +12,13 @@ class Catalog extends StoreModule {
       list: [],
       count: 0,
       isLoading: false,
+      language: 'RU',
     };
+  }
+
+  changeLanguage() {
+    const newLanguage = this.getState().language === 'RU' ? 'EN' : 'RU';
+    this.setState({ ...this.getState(), language: newLanguage }, 'Смена языка');
   }
 
   async load(url) {

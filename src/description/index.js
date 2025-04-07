@@ -6,16 +6,16 @@ import { numberFormat } from '../utils';
 import { useAppContext } from '../app-context';
 import './style.css';
 
-function Description({ country, category, year, price}) {
+function Description({ country, category, year, price, texts, language}) {
   const cn = bem('Description-container');
   const propsData = { country, category, year };
-  const { language } = useAppContext();
+  // const { language } = useAppContext();
 
   return (
     <>
       <div className={cn()}>
         <div className={cn('title')}>
-          {Object.values(STRINGS.DESCRIPTION_TITLE).map((item) => (
+          {Object.values(texts.descriptionTitle).map((item) => (
             <div key={item[language]} className={cn('title-item')}>{item[language]}</div>
           ))}
         </div>
@@ -25,7 +25,7 @@ function Description({ country, category, year, price}) {
           ))}
         </div>
       </div>
-      <div className={cn('price')}>{`${STRINGS.PRICE[language]} ${numberFormat(price)} ₽`}</div>
+      <div className={cn('price')}>{`${texts.price} ${numberFormat(price)} ₽`}</div>
     </>
   )
 }

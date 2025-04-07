@@ -16,13 +16,13 @@ function BasketTool(props) {
   return (
     <nav className={cn()}>
       <div className={cn('container')}>
-        <Link to={`/page/1`} className={cn('link')}>{STRINGS.HOME[language]}</Link>
+        <Link to={`/page/1`} className={cn('link')}>{props.home}</Link>
         <button className={cn('action')} onClick={onOpen}>
           <Cart className={cn('icon')} />
           <span className={cn('total')}>
             {amount
-              ? `${amount} ${plural(amount, STRINGS.PRODUCTS[language], language)} / ${numberFormat(sum)} ₽`
-              : `${STRINGS.EMPTY[language]}`}
+              ? `${amount} ${plural(amount, props.products, props.language)} / ${numberFormat(sum)} ₽`
+              : `${props.empty}`}
           </span>
         </button>
       </div>

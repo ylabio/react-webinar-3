@@ -8,21 +8,21 @@ import { useAppContext } from '../../app-context';
 import { STRINGS } from '../../const';
 import './style.css';
 
-function Item(props) {
+function Item({ item, onAdd, texts }) {
   const cn = bem('Item');
   const { language } = useAppContext();
 
   const callbacks = {
-    onAdd: e => props.onAdd(props.item._id),
+    onAdd: e => onAdd(item._id),
   };
 
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <Link to={`/product/${props.item._id}`} className={cn('title')}>{props.item.title}</Link>
+      <Link to={`/product/${item._id}`} className={cn('title')}>{item.title}</Link>
       <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <Button style="primary" onClick={callbacks.onAdd} title={STRINGS.ADD[language]} />
+        <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
+        <Button style="primary" onClick={callbacks.onAdd} title={texts.addButtonText} />
       </div>
     </div>
   );

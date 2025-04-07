@@ -4,6 +4,7 @@ import Head from '../head';
 import BasketTool from '../basket-tool';
 import { useAppContext } from '../../app-context';
 
+// @todo delete
 const AppLayout = () => {
   const { headerTitle, basket } = useAppContext();
 
