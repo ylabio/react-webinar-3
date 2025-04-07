@@ -1,5 +1,6 @@
 import StoreModule from '../module';
 
+import { DEFAULT_QUERY } from '../../query/constants';
 class Basket extends StoreModule {
   initState() {
     return {
@@ -19,9 +20,11 @@ class Basket extends StoreModule {
     let exist = false;
     const list = this.getState().list.map(item => {
       let result = item;
+      console.log('sss', item._id === _id, result)
       if (item._id === _id) {
         exist = true; // Запомним, что был найден в корзине
         result = { ...item, amount: item.amount + 1 };
+        console.log('sss', item._id === _id, result)
       }
       sum += result.price * result.amount;
       return result;
@@ -30,12 +33,19 @@ class Basket extends StoreModule {
     if (!exist) {
       // Поиск товара в каталоге, чтобы его добавить в корзину.
       // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      const item = this.store.getState().catalog.list.find(item => item._id === _id);
+      let item = this.store.getState().catalog.list.find(item => item._id === _id);
+      if (!item) {
+        console.log('item', item, _id);
+
+        this.loadProductData(_id);
+        return;
+      } 
+
       list.push({ ...item, amount: 1 }); // list уже новый, в него можно пушить.
       // Добавляем к сумме.
       sum += item.price;
     }
-
+    
     this.setState(
       {
         ...this.getState(),
@@ -64,10 +74,27 @@ class Basket extends StoreModule {
         ...this.getState(),
         list,
         sum,
-        amount: list.length,
+        amount: 1,
       },
       'Удаление из корзины',
     );
+  }
+
+  async loadProductData(_id) {
+    const list = [...this.getState().list];
+    const res = await fetch(`${DEFAULT_QUERY}/${_id}?fields=_id,title,price&lang=ru`);
+    const json = await res.json();
+    const item = json.result;
+
+    list.push({ ...item, amount: 1 });
+    const sum = item.price;
+
+    this.setState({
+      ...this.getState(),
+      list,
+      sum,
+      amount: list.length,
+    });
   }
 }
 
