@@ -8,7 +8,7 @@ function Button({ onClick = () => {}, title, style, type = 'button' }) {
 
   return (
     <div className={cn()}>
-      <button type={type} className={cn({ style })} onClick={() => onClick()}>
+      <button type={type} className={cn({ style })} onClick={event => onClick(event)}>
         {title}
       </button>
     </div>
