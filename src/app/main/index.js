@@ -13,6 +13,7 @@ import Actions from '../../components/actions';
 import Navigation from '../../components/navigation';
 
 import { LANGUAGES } from '../../lang/languages.js';
+import { PAGE_PATH } from '../../constants/index.js';
 
 function Main(callback, deps) {
   const store = useStore();
@@ -40,7 +41,7 @@ function Main(callback, deps) {
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} itemLink={`/product/${item._id}`} onAdd={callbacks.addToBasket} lang={select.lang} />;
+        return <Item item={item} itemPageLink={`${PAGE_PATH.PRODUCT_PAGE}${item._id}`} onAdd={callbacks.addToBasket} lang={select.lang} />;
       },
       [callbacks.addToBasket, select.lang],
     ),

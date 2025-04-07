@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 
+import { PAGE_PATH } from '../../constants';
+
 import './style.css';
 
 function Navigation(props) {
@@ -10,7 +12,7 @@ function Navigation(props) {
 
   const checkLocation = () => {
     const { pathname } = location;
-    if (pathname !== '/') {
+    if (pathname !== PAGE_PATH.MAIN_PAGE) {
       setIsDisabled(false);
     }
   };
@@ -21,7 +23,7 @@ function Navigation(props) {
 
   return (
     <nav className="Navigation">
-      <Link to={'/'} className={isDisabled ? `Navigation-link disabled` : 'Navigation-link'}>
+      <Link to={PAGE_PATH.MAIN_PAGE} className={isDisabled ? `Navigation-link disabled` : 'Navigation-link'}>
         {props.title}
       </Link>
     </nav>

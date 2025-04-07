@@ -20,7 +20,7 @@ function ItemBasket({ onRemove = () => {}, onClose = () => {}, ...props }) {
   return (
     <div className={cn()}>
       <Link
-        to={`/product/${props.item._id}`}
+        to={props.itemPageLink}
         state={{ itemId: props.item._id }}
         className={cn('link')}
         onClick={onClose}
@@ -45,6 +45,7 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number,
   }).isRequired,
+  itemPageLink:PropTypes.string,
   onRemove: PropTypes.func,
   onClose: PropTypes.func,
   title: PropTypes.string,

@@ -21,7 +21,7 @@ function Item({ onAdd = () => {}, lang = 'ru', ...props }) {
   return (
     <div className={cn()}>
       <Link
-        to={props.itemLink}
+        to={props.itemPageLink}
         state={{ itemId: props.item._id }}
         className={cn('link')}
       >
@@ -40,8 +40,8 @@ Item.propTypes = {
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
     price: PropTypes.number,
-    itemLink: PropTypes.string
   }).isRequired,
+  itemPageLink: PropTypes.string,
   lang: PropTypes.string.isRequired,
   onAdd: PropTypes.func,
 };

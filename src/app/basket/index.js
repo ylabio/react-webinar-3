@@ -7,6 +7,7 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 
 import { LANGUAGES } from '../../lang/languages';
+import { PAGE_PATH } from '../../constants';
 
 function Basket() {
   const store = useStore();
@@ -31,6 +32,7 @@ function Basket() {
         return (
           <ItemBasket
             item={item}
+            itemPageLink={`${PAGE_PATH.PRODUCT_PAGE}${item._id}`}
             onClose={callbacks.closeModal}
             onRemove={callbacks.removeFromBasket}
             title={LANGUAGES[select.lang].remove}

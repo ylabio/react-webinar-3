@@ -3,6 +3,7 @@ import Basket from './basket';
 import useSelector from '../store/use-selector';
 import { Route, Routes } from 'react-router';
 import Product from './product';
+import { PAGE_PATH } from '../constants';
 
 /**
  * Приложение
@@ -15,7 +16,7 @@ function App() {
     <>
       <Routes>
         <Route index element={<Main />} />
-        <Route path="/product/:productId" element={<Product />} />
+        <Route path={`${PAGE_PATH.PRODUCT_PAGE}:productId`} element={<Product />} />
       </Routes>
       {activeModal === 'basket' && <Basket />}
     </>

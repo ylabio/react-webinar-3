@@ -38,7 +38,7 @@ function Product() {
 
   async function getProductFullInfo() {
     setIsLoading(true);
-    console.log(productStore.state)
+    
     const { itemId } = productStore.state;
     const res = await fetch(
       `${DEFAULT_QUERY}/${itemId}?fields=*,madeIn(title,code),category(title)&lang=ru`,
