@@ -43,7 +43,6 @@ class Catalog extends StoreModule {
   }
 
   onItemSumChange(onePagesItemSum) {
-    console.log(onePagesItemSum);
     this.setState(
       {
         ...this.getState(),

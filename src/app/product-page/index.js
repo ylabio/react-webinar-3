@@ -34,11 +34,8 @@ function ProductPage() {
   const callbacks = {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    // Закрытие любой модалки
     closeModal: useCallback(() => store.actions.modals.close(), [store]),
   };
-
-  console.log(product);
 
   return (
     <PageLayout>
@@ -47,6 +44,7 @@ function ProductPage() {
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       {product && (
         <Product
+          _id={product._id}
           price={product.price}
           description={product.description}
           madeIn={product.madeIn.title}

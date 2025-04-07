@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function PageLayout({ head, footer, children }) {
+function PageLayout({ head = null, footer = null, children = null }) {
   const cn = bem('PageLayout');
 
   return (
@@ -19,12 +19,6 @@ PageLayout.propTypes = {
   children: PropTypes.node,
   head: PropTypes.node,
   footer: PropTypes.node,
-};
-
-PageLayout.defaultProps = {
-  head: null,
-  footer: null,
-  children: null,
 };
 
 export default memo(PageLayout);
