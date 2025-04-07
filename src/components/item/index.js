@@ -5,9 +5,14 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
+import { useContext } from 'react';
+import { LanguageContext } from '../../contexts/language-context';
+import { translations } from '../../locales';
 
 function Item(props) {
   const cn = bem('Item');
+  const { language } = useContext(LanguageContext);
+  const t = translations[language];
 
   const callbacks = {
     onAdd: e => {
@@ -26,8 +31,7 @@ function Item(props) {
         <Button
           style="primary"
           onClick={callbacks.onAdd}
-          title="Добавить"
-          // Добавляем класс для кнопки, чтобы можно было стилизовать
+          title={t.addToCart}
           className={cn('add-button')}
         />
       </div>

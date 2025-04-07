@@ -5,10 +5,14 @@ import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { LanguageContext } from '../../contexts/language-context';
+import { translations } from '../../locales';
 
 function ItemBasket({ item, onRemove, closeModal }) {
-  // Добавляем closeModal в пропсы
   const cn = bem('ItemBasket');
+  const { language } = useContext(LanguageContext);
+  const t = translations[language];
 
   const handleRemove = e => {
     e.stopPropagation();
@@ -23,10 +27,12 @@ function ItemBasket({ item, onRemove, closeModal }) {
         {item.title}
       </Link>
       <div className={cn('right')} onClick={e => e.stopPropagation()}>
-        <div className={cn('cell')}>{numberFormat(item.amount)} шт</div>
+        <div className={cn('cell')}>
+          {numberFormat(item.amount)} {t.pieces}
+        </div>
         <div className={cn('cell')}>{numberFormat(item.price)} ₽</div>
         <div className={cn('cell')}>
-          <Button onClick={handleRemove} style="delete" title="Удалить" />
+          <Button onClick={handleRemove} style="delete" title={t.deleteToCart} />
         </div>
       </div>
     </div>

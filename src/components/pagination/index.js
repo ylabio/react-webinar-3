@@ -1,10 +1,15 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { useContext } from 'react';
+import { LanguageContext } from '../../contexts/language-context';
+import { translations } from '../../locales';
 
 function Pagination({ totalItems, itemsPerPage, currentPage, onPageChange, onItemsPerPageChange }) {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const itemsPerPageOptions = [5, 10, 20];
+  const { language } = useContext(LanguageContext);
+  const t = translations[language];
 
   const getPageNumbers = () => {
     const pages = [];
@@ -58,7 +63,7 @@ function Pagination({ totalItems, itemsPerPage, currentPage, onPageChange, onIte
   return (
     <div className="pagination">
       <div className="items-per-page">
-        <span>Показывать по:</span>
+        <span>{t.showPerPage}</span>
         <select value={itemsPerPage} onChange={e => onItemsPerPageChange(Number(e.target.value))}>
           {itemsPerPageOptions.map(option => (
             <option key={option} value={option}>

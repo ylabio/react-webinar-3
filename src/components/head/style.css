@@ -16,6 +16,15 @@
   margin: 0 auto;
 }
 
-.Head h1 {
-  margin: 0;
+.Head-languageSwitch {
+  background: none;
+  border: 1px solid #ddd;
+
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.Head-languageSwitch:hover {
+  background-color: #f0f0f0;
 }
