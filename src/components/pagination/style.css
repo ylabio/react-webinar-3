@@ -1,0 +1,82 @@
+.Pagination {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2px;
+    padding: 24px 16px 24px 0;
+  }
+  
+  .Pagination-page {
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border-radius: 2px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: var(--main-text);
+    transition: background-color 0.3s;
+  }
+  
+  .Pagination-page:hover:not(.Pagination-page_active) {
+    background-color: var(--primary-select);
+  }
+  
+  .Pagination-page_active {
+    background-color: var(--primary);
+    color: var(--second-text);
+    cursor: default;
+  }
+  
+  .Pagination-ellipsis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    font-family: var(--font-family);
+    font-size: 16px;
+    line-height: 22px;
+    color: var(--main-text);
+  }
+
+  .Pagination-page-size-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 16px;
+  }
+  
+  .Pagination-page-size-label {
+    font-family: var(--font-family);
+    font-size: 16px;
+    color: var(--main-text);
+  }
+  
+  .Pagination-page-size-select {
+    border: 1px solid var(--divider);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-family: var(--font-family);
+    font-size: 14px;
+    color: var(--main-text);
+    background-color: var(--background);
+    cursor: pointer;
+    transition: border-color 0.3s;
+  }
+  
+  .Pagination-page-size-select:hover {
+    border-color: var(--primary);
+  }
+  
+  .Pagination-page-size-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary-select);
+  }

@@ -2,11 +2,22 @@ import StoreModule from '../module';
 
 class Basket extends StoreModule {
   initState() {
-    return {
-      list: [],
-      sum: 0,
-      amount: 0,
-    };
+    // Пытаемся загрузить состояние из localStorage
+    const savedState = localStorage.getItem('basket');
+    return savedState 
+      ? JSON.parse(savedState)
+      : {
+          list: [],
+          sum: 0,
+          amount: 0,
+        };
+  }
+
+  /**
+   * Сохраняет текущее состояние корзины в localStorage
+  */
+  saveState() {
+    localStorage.setItem('basket', JSON.stringify(this.getState()));
   }
 
   /**
@@ -36,15 +47,15 @@ class Basket extends StoreModule {
       sum += item.price;
     }
 
-    this.setState(
-      {
-        ...this.getState(),
-        list,
-        sum,
-        amount: list.length,
-      },
-      'Добавление в корзину',
-    );
+    const newState = {
+      ...this.getState(),
+      list,
+      sum,
+      amount: list.length,
+    };
+    
+    this.setState(newState, 'Добавление в корзину');
+    this.saveState(); // Сохраняем новое состояние
   }
 
   /**
@@ -59,15 +70,15 @@ class Basket extends StoreModule {
       return true;
     });
 
-    this.setState(
-      {
-        ...this.getState(),
-        list,
-        sum,
-        amount: list.length,
-      },
-      'Удаление из корзины',
-    );
+    const newState = {
+      ...this.getState(),
+      list,
+      sum,
+      amount: list.length,
+    };
+    
+    this.setState(newState, 'Удаление из корзины');
+    this.saveState(); // Сохраняем новое состояние
   }
 }
 

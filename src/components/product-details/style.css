@@ -1,0 +1,28 @@
+.ProductDetails {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  
+  .ProductDetails-detail {
+    display: contents;
+  }
+  
+  .ProductDetails-detail span {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: var(--main-text);
+    white-space: nowrap;
+  }
+  
+  .ProductDetails-detail strong {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    color: var(--main-text);
+    padding-left: 8px;
+  }

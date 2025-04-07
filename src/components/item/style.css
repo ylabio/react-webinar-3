@@ -23,3 +23,13 @@
     background-color: var(--background);
   }
 }
+
+.Item-title {
+  text-decoration: none;
+  color: var(--main-text);
+  transition: color 0.3s;
+}
+
+.Item-title:hover{
+  color: var(--primary);
+}

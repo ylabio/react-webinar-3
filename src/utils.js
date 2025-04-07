@@ -10,7 +10,21 @@
 export function plural(value, variants = {}, locale = 'ru-RU') {
   // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
   // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
+
+  if (variants && typeof variants === 'object') {
+    if (locale.startsWith('en')) {
+      return value === 1 ? (variants.one || '') : (variants.many || '');
+    }
+    
+    const key = new Intl.PluralRules(locale).select(value);
+    return variants[key] || '';
+  }
+
   // В английском 2 формы: 'one', 'other'
+  if (locale.startsWith('en')) {
+    const key = value === 1 ? 'one' : 'many';
+    return variants[key] || variants['other'] || '';
+  }
   const key = new Intl.PluralRules(locale).select(value);
   // Возвращаем вариант по ключу, если он есть
   return variants[key] || '';
