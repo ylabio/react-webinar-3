@@ -1,0 +1,55 @@
+.ProductInfo-description {
+  margin: 0;
+  margin-bottom: 24px;
+  color: var(--main-text);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+}
+.ProductInfo-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.ProductInfo-info {
+  margin-bottom: 20px;
+}
+
+.ProductInfo-price {
+  color: var(--main-text);
+  font-family: var(--second-font-family);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  margin-bottom: 24px;
+}
+
+.ProductInfo-details {
+  margin-bottom: 24px;
+}
+
+.ProductInfo-details > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.ProductInfo-details > div:last-child {
+  margin-bottom: 0;
+}
+
+.ProductInfo-label {
+  display: block;
+  width: 185px;
+  color: var(--main-text);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  margin-right: 8px;
+}
+
+.ProductInfo-value {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+}

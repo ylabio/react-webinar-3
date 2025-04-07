@@ -4,7 +4,17 @@
   justify-content: flex-start;
   align-items: center;
   transition: background-color 1s;
-  padding: 16px 16px 15px 16px
+  padding: 16px 16px 15px 16px;
+}
+.ItemBasket-title {
+  color: var(--main-text);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  text-decoration: none;
+}
+.ItemBasket-title:hover {
+  color: var(--primary);
 }
 
 .ItemBasket-right {

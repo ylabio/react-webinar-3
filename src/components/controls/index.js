@@ -1,11 +1,14 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import BasketTool from '../basket-tool';
+import Navbar from '../navbar';
 
-function Controls({ onAdd = () => {} }) {
+function Controls({ openModalBasket, translations }) {
   return (
     <div className="Controls">
-      <button onClick={() => onAdd()}>Добавить</button>
+      <Navbar translations={translations} />
+      <BasketTool onOpen={openModalBasket} translations={translations} />
     </div>
   );
 }
