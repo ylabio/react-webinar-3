@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 function Head({ title }) {
+
   return (
     <div className="Head">
       <div className="Head-container">
@@ -14,6 +15,7 @@ function Head({ title }) {
 
 Head.propTypes = {
   title: PropTypes.node,
+  language: PropTypes.string,
 };
 
 export default memo(Head);
