@@ -43,10 +43,6 @@ export function getFormatPages(totalPages, currentPage) {
   if (totalPages <= minNumberOfPages) {
     return getArray(1, totalPages);
   }
-  const leftStep = currentPage - 1;
-  const rightStep = currentPage + 1;
-  const leftEdge = Math.max(leftStep, 1);
-  const rightEdge = Math.min(rightStep, totalPages);
   if (currentPage <= 3) {
     const left = 1;
     const right = currentPage === 1 ? currentPage + 2 : currentPage + 1;
@@ -57,5 +53,7 @@ export function getFormatPages(totalPages, currentPage) {
     const left = currentPage === totalPages ? currentPage - 2 : currentPage - 1;
     return [1, "...", ...getArray(left, right)];
   }
-  return [1, "...", ...getArray(leftEdge, rightEdge), "...", totalPages];
+  const left = currentPage - 1;
+  const right = currentPage + 1;
+  return [1, "...", ...getArray(left, right), "...", totalPages];
 };
