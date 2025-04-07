@@ -13,7 +13,13 @@ function Basket() {
     list: state.basket.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    language: state.language.language,
+    listEn: state.basket.listEn,
   }));
+
+  let list = select.language == 'ru' ? select.list : select.listEn;
+
+
 
   const callbacks = {
     // Удаление из корзины
@@ -25,16 +31,17 @@ function Basket() {
   const renders = {
     itemBasket: useCallback(
       item => {
-        return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} />;
+        return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} onClose={callbacks.closeModal} language={select.language}/>;
       },
       [callbacks.removeFromBasket],
     ),
   };
 
+
   return (
-    <ModalLayout title="Корзина" onClose={callbacks.closeModal}>
-      <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+    <ModalLayout title={select.language === 'ru' ? 'Корзина' : 'Basket'} onClose={callbacks.closeModal}>
+      <List list={list} renderItem={renders.itemBasket}/>
+      <BasketTotal sum={select.sum} language={select.language}/>
     </ModalLayout>
   );
 }
