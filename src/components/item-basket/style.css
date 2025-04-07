@@ -21,6 +21,16 @@
   white-space: nowrap;
 }
 
+.ItemBasket-title {
+  color: var(--main-text);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.ItemBasket-title:hover {
+  color: var(--primary);
+}
+
 .ItemBasket-cell button {
   background-color: var(--delete);
   color: var(--second-text);
