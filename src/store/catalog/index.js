@@ -10,17 +10,14 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
-      count: 0, // Общее количество товаров
-      page: 1, // Текущая страница
-      limit: 10, // Товаров на странице
-      waiting: false, // Флаг загрузки
+      currentProduct: null, // Добавляем хранение текущего товара
+      count: 0,
+      page: 1,
+      limit: 10,
+      waiting: false,
     };
   }
 
-  /**
-   * Загрузка товаров с пагинацией
-   * @param params {object} - параметры запроса (page, limit)
-   */
   async load(params = {}) {
     const newParams = {
       page: this.getState().page,
@@ -28,14 +25,11 @@ class Catalog extends StoreModule {
       ...params,
     };
 
-    this.setState(
-      {
-        ...this.getState(),
-        ...newParams,
-        waiting: true,
-      },
-      'Обновление параметров пагинации',
-    );
+    this.setState({
+      ...this.getState(),
+      ...newParams,
+      waiting: true,
+    });
 
     try {
       const skip = (newParams.page - 1) * newParams.limit;
@@ -44,41 +38,57 @@ class Catalog extends StoreModule {
       );
       const json = await response.json();
 
-      this.setState(
-        {
-          ...this.getState(),
-          list: json.result.items,
-          count: json.result.count || json.result.items.length,
-          waiting: false,
-        },
-        'Загружены товары из АПИ',
-      );
+      this.setState({
+        ...this.getState(),
+        list: json.result.items,
+        count: json.result.count,
+        waiting: false,
+      });
     } catch (e) {
-      this.setState(
-        {
-          ...this.getState(),
-          waiting: false,
-        },
-        'Ошибка загрузки товаров',
-      );
+      this.setState({
+        ...this.getState(),
+        waiting: false,
+      });
       console.error(e);
     }
   }
 
   /**
-   * Изменение страницы
-   * @param page {number} - номер страницы
+   * Загрузка конкретного товара по ID
+   * @param id {string} - ID товара
    */
+  async loadProduct(id) {
+    this.setState({
+      ...this.getState(),
+      waiting: true,
+    });
+
+    try {
+      const response = await fetch(
+        `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`,
+      );
+      const json = await response.json();
+
+      this.setState({
+        ...this.getState(),
+        currentProduct: json.result,
+        waiting: false,
+      });
+    } catch (e) {
+      this.setState({
+        ...this.getState(),
+        waiting: false,
+      });
+      console.error(e);
+    }
+  }
+
   setPage(page) {
     this.load({ page });
   }
 
-  /**
-   * Изменение количества товаров на странице
-   * @param limit {number} - товаров на странице
-   */
   setLimit(limit) {
-    this.load({ limit, page: 1 }); // При изменении лимита сбрасываем на первую страницу
+    this.load({ limit, page: 1 });
   }
 }
 

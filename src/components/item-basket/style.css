@@ -4,7 +4,7 @@
   justify-content: flex-start;
   align-items: center;
   transition: background-color 1s;
-  padding: 16px 16px 15px 16px
+  padding: 16px 16px 15px 16px;
 }
 
 .ItemBasket-right {
@@ -30,4 +30,10 @@
     border-color: var(--delete);
     color: var(--delete);
   }
+}
+.Item .link {
+  text-decoration: none !important;
+}
+.Item .link:hover {
+  text-decoration: none;
 }

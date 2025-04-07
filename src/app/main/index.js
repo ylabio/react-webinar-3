@@ -7,6 +7,7 @@ import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
+import { Link } from 'react-router-dom';
 
 function Main() {
   const store = useStore();
@@ -39,7 +40,7 @@ function Main() {
 
   const renders = {
     item: useCallback(
-      item => <Item item={item} onAdd={callbacks.addToBasket} />,
+      item => <Item item={item} onAdd={callbacks.addToBasket} link="/product" />,
       [callbacks.addToBasket],
     ),
   };
