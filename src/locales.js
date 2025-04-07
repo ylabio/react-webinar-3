@@ -27,6 +27,11 @@ export const translations = {
     showPerPage: 'Show:',
     total: 'Total',
     cart: 'Cart',
+    startPageLink: 'Main',
+    descriptionProduct: 'Description',
+    madeIn: 'Made in:',
+    categoryProduct: 'Category:',
+    YearOfManufacture: 'Year of manufacture:',
   },
   ru: {
     shopTitle: 'Магазин',
@@ -66,5 +71,10 @@ export const translations = {
     showPerPage: 'Показывать по:',
     total: 'Итого',
     cart: 'Корзина',
+    startPageLink: 'Главная',
+    descriptionProduct: 'Описание',
+    madeIn: 'Страна:',
+    categoryProduct: 'Категория:',
+    YearOfManufacture: 'Год Выпуска:',
   },
 };

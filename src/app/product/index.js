@@ -10,11 +10,16 @@ import './style.css';
 import { numberFormat } from '../../utils';
 import Button from '../../components/button';
 import BasketTool from '../../components/basket-tool';
+import { useContext } from 'react';
+import { LanguageContext } from '../../contexts/language-context';
+import { translations } from '../../locales';
 
 function ProductPage() {
   const cn = bem('ProductPage');
   const { id } = useParams();
   const store = useStore();
+  const { language } = useContext(LanguageContext);
+  const t = translations[language];
 
   // Загружаем данные товара
   useEffect(() => {
@@ -59,7 +64,7 @@ function ProductPage() {
       <div className={cn()}>
         <div className={cn('breadcrumbs')}>
           <Link to="/" className={cn('breadcrumb-link')}>
-            Главная
+            {t.startPageLink}
           </Link>
           <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
         </div>
@@ -68,7 +73,7 @@ function ProductPage() {
           {/* Блок описания товара */}
           {product.description && (
             <div className={cn('description')}>
-              <h3>Описание</h3>
+              <h3>{t.descriptionProduct}</h3>
               <p>{product.description}</p>
             </div>
           )}
@@ -76,15 +81,15 @@ function ProductPage() {
           {/* Блок с деталями товара (страна, категория, год) */}
           <div className={cn('details')}>
             <div className={cn('detail-row')}>
-              <span>Страна:</span>
+              <span>{t.madeIn}</span>
               <span>{product.madeIn?.title || 'Не указана'}</span>
             </div>
             <div className={cn('detail-row')}>
-              <span>Категория:</span>
+              <span>{t.categoryProduct}</span>
               <span>{product.category?.title || 'Не указана'}</span>
             </div>
             <div className={cn('detail-row')}>
-              <span>Год Выпуска:</span>
+              <span>{t.YearOfManufacture}</span>
               <span>{product.edition?.title || 'Не указан'}</span>
             </div>
           </div>
@@ -97,7 +102,7 @@ function ProductPage() {
           <Button
             className={cn('actions')}
             onClick={callbacks.addToBasket}
-            title="Добавить"
+            title={t.addToCart}
             style="primary"
           />
         </div>
