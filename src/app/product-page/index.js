@@ -27,7 +27,12 @@ function ProductPage() {
   }));
 
   const callbacks = {
-    addToBasket: useCallback(() => store.actions.basket.addToBasket(id), [store, id]),
+    addToBasket: useCallback(() => {
+      if (select.product) { // Проверяем, что товар загружен
+        store.actions.basket.addToBasket(id);
+      }
+    }, [store, id, select.product]),
+    
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   };
 
