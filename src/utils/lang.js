@@ -2,7 +2,11 @@ export const langKeyWords = {
     ru: {
         headTitle: 'Магазин',
         basket: 'Корзина',
+        oneItem: 'товар',
+        fewItems: 'товара',
+        manyItems: 'товаров',
         cartEmpty: 'Пусто',
+        amount: 'шт',
         total: 'Итого',
         homepage: 'Главная',
         madeIn: 'Страна производитель',
@@ -10,11 +14,16 @@ export const langKeyWords = {
         edition: 'Год выпуска',
         price: 'Цена',
         btnAdd: 'Добавить',
+        btnDelete: 'Удалить',
     },
     en: {
         headTitle: 'Store',
         basket: 'Basket',
+        oneItem: 'item',
+        fewItems: 'items',
+        manyItems: 'items',
         cartEmpty: 'Empty',
+        amount: 'pcs',
         total: 'Total',
         homepage: 'Home',
         madeIn: 'Made in',
@@ -22,6 +31,6 @@ export const langKeyWords = {
         edition: 'Edition',
         price: 'Price',
         btnAdd: 'Add',
-
+        btnDelete: 'Delete',
     },
 }

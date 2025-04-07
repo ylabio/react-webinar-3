@@ -19,10 +19,10 @@ function BasketTool(props) {
         <span className={cn('total')}>
           {amount
             ? `${amount} ${plural(amount, {
-                one: 'товар',
-                few: 'товара',
-                many: 'товаров',
-              })} / ${numberFormat(sum)} ₽`
+                one: multi.oneItem,
+                few: multi.fewItems,
+                many: multi.manyItems,
+              })} / ${numberFormat(sum, lang)} ₽`
             : `${multi.cartEmpty}`}
         </span>
       </button>
@@ -34,6 +34,7 @@ BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
+  lang: PropTypes.string,
 };
 
 export default memo(BasketTool);

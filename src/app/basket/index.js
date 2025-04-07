@@ -34,9 +34,9 @@ function Basket() {
   const renders = {
     itemBasket: useCallback(
       item => {
-        return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} onClose={callbacks.closeModal} onNavigate={callbacks.navToProductPage} />;
+        return <ItemBasket item={item} lang={select.lang} onRemove={callbacks.removeFromBasket} onNavigate={callbacks.navToProductPage} />;
       },
-      [callbacks.removeFromBasket, callbacks.closeModal, callbacks.navToProductPage],
+      [callbacks.removeFromBasket, callbacks.navToProductPage, select.lang],
     ),
   };
 

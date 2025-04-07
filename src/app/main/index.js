@@ -58,9 +58,9 @@ function Main() {
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} onNavigate={callbacks.navToProductPage} />;
+        return <Item item={item} lang={select.lang} onAdd={callbacks.addToBasket} onNavigate={callbacks.navToProductPage} />;
       },
-      [callbacks.addToBasket, callbacks.navToProductPage],
+      [callbacks.addToBasket, callbacks.navToProductPage, select.lang],
     ),
   };
 

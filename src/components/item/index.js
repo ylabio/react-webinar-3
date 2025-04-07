@@ -4,22 +4,25 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
+import { langKeyWords } from '../../utils/lang';
 
-function Item(props) {
+function Item({ item, lang = 'ru', onAdd = () => {}, onNavigate = () => {}}) {
   const cn = bem('Item');
   
   const callbacks = {
-    onAdd: e => props.onAdd(props.item._id),
-    onNavigate: e => props.onNavigate(props.item._id),
+    onAdd: e => onAdd(item._id),
+    onNavigate: e => onNavigate(item._id),
   };
+
+  const multi = langKeyWords[lang] || langKeyWords.ru;
 
   return (
     <div className={cn()}>
       {/* <div className={cn('code')}>{props.item._id}</div> */}
-      <h4 className={cn('title')} onClick={callbacks.onNavigate}>{props.item.title}</h4>
+      <h4 className={cn('title')} onClick={callbacks.onNavigate}>{item.title}</h4>
       <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+        <div className={cn('price')}>{numberFormat(item.price, lang)} ₽</div>
+        <Button style="primary" onClick={callbacks.onAdd} title={multi.btnAdd} />
       </div>
     </div>
   );
@@ -31,13 +34,9 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
+  lang: PropTypes.string,
   onAdd: PropTypes.func,
   onNavigate: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onAdd: () => {},
-  onNavigate: () => {},
 };
 
 export default memo(Item);
