@@ -21,7 +21,11 @@ function ItemBasket(props) {
 
   return (
     <div className={cn()}>
-      <Link to={`${props.item._id}`} className={cn('link')} onClick={callbacks.onLinkClick}>
+      <Link
+        to={`/articles/${props.item._id}`}
+        className={cn('link')}
+        onClick={callbacks.onLinkClick}
+      >
         <h4 className={cn('title')}>{props.item.title}</h4>
       </Link>
       <div className={cn('right')}>
