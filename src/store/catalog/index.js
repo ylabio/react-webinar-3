@@ -16,6 +16,11 @@ class Catalog extends StoreModule {
 
   async load() {
     const response = await fetch(`/api/v1/articles`);
+    if (!response.ok) {
+      console.error('Ошибка загрузки товаров:', response.status);
+      return;
+    }
+
     const json = await response.json();
 
     this.setState(
@@ -27,12 +32,17 @@ class Catalog extends StoreModule {
       'Загружены товары из АПИ',
     );
   }
+
   async loadFields({ fields = '' } = {}) {
     const safeFields = fields || 'items()';
-
     const response = await fetch(`/api/v1/articles?fields=${safeFields},count`);
+    if (!response.ok) {
+      console.error('Ошибка загрузки с fields:', response.status);
+      return;
+    }
+
     const json = await response.json();
-    
+
     this.setState(
       {
         ...this.getState(),
@@ -41,8 +51,14 @@ class Catalog extends StoreModule {
       'Загружены товары из АПИ с полями fields',
     );
   }
+
   async loadParams({ skip = 0, limit = 0 }) {
     const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}`);
+    if (!response.ok) {
+      console.error('Ошибка загрузки с параметрами:', response.status);
+      return;
+    }
+
     const json = await response.json();
 
     this.setState(
