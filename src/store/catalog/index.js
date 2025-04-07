@@ -15,18 +15,49 @@ class Catalog extends StoreModule {
       currentPage: 1, // текущая стараница
       pageSize: 10, // кол-во элементов по умолчанию
       availableSizes: this.PAGE_SIZES,
-      currentProduct: null,
+      productPage: { // отдельный стейт для страницы товара
+        product: null,
+        isLoading: false,
+        error: null
+      }
     };
   }
 
   async loadProduct(id) {
-    const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title),description,edition`);
-    const json = await response.json();
-    
+
     this.setState({
       ...this.getState(),
-      currentProduct: json.result,
-    }, `Загружен товар ${id}`);
+      productPage: {
+        ...this.getState().productPage,
+        isLoading: true,
+        error: null
+      }
+    }, `Загрузка товара ${id}`);
+
+    try {
+      const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title),description,edition`);
+      const json = await response.json();
+      
+      this.setState({
+        ...this.getState(),
+        productPage: {
+          product: json.result,
+          isLoading: false,
+          error: null
+        }
+      }, `Товар ${id} успешно загружен`);
+    }
+    
+    catch (error) {
+      this.setState({
+        ...this.getState(),
+        productPage: {
+          product: null,
+          isLoading: false,
+          error: error.message
+        }
+      }, `Ошибка загрузки товара ${id}`);
+    }
   }
 
   async load(page = this.getState().currentPage) {

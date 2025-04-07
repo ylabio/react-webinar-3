@@ -7,7 +7,7 @@ import Button from '../button';
 import useTranslate from '../../hooks/useTranslate';
 import './style.css';
 
-function Item({ item, onAdd = () => {} }) {
+function Item({ item, onAdd = () => {}, linkBase = '/articles' }) {
   const cn = bem('Item');
   const t = useTranslate();
 
@@ -17,7 +17,7 @@ function Item({ item, onAdd = () => {} }) {
 
   return (
     <div className={cn()}>
-      <Link to={`/articles/${item._id}`} className={cn('title')}>
+      <Link to={`${linkBase}/${item._id}`} className={cn('title')}>
         <h4>{item.title}</h4>
       </Link>
       <div className={cn('actions')}>
@@ -35,6 +35,7 @@ Item.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
+  linkBase: PropTypes.string, // для базового пути
 };
 
 export default memo(Item);

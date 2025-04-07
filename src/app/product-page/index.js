@@ -24,7 +24,9 @@ function ProductPage() {
   }, [id]);
 
   const select = useSelector(state => ({
-    product: state.catalog.currentProduct,
+    product: state.catalog.productPage.product,
+    isLoading: state.catalog.productPage.isLoading,
+    error: state.catalog.productPage.error,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
@@ -39,21 +41,14 @@ function ProductPage() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   };
 
+  if (select.isLoading) return <div>Loading...</div>;
+  if (select.error) return <div>Error: {select.error}</div>;
   if (!select.product) return null;
 
   const details = [
-    { 
-      label: t('country'), 
-      value: `${select.product.madeIn?.title} (${select.product.madeIn?.code})` 
-    },
-    { 
-      label: t('category'), 
-      value: select.product.category?.title 
-    },
-    { 
-      label: t('year'), 
-      value: select.product.edition || t('not_specified') 
-    }
+    { label: t('country'), value: `${select.product.madeIn?.title} (${select.product.madeIn?.code})` },
+    { label: t('category'), value: select.product.category?.title },
+    { label: t('year'), value: select.product.edition || t('not_specified') },
   ];
 
   return (
@@ -63,10 +58,7 @@ function ProductPage() {
       <div className="ProductPage">
       <ProductDescription description={select.product.description} />
         <ProductDetails details={details} />
-        <ProductPrice 
-          price={`${numberFormat(select.product.price)} ₽`} 
-          label={t('price')} 
-        />
+        <ProductPrice price={`${numberFormat(select.product.price)} ₽`} label={t('price')} />
         <Button style="primary" onClick={callbacks.addToBasket} title={t('add')} />
       </div>
     </PageLayout>
