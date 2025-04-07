@@ -70,7 +70,7 @@ class Basket extends StoreModule {
         ...this.getState(),
         list,
         sum,
-        amount: 1,
+        amount: list.length,
       },
       'Удаление из корзины',
     );
