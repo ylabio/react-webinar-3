@@ -8,6 +8,9 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Button from '../../components/button';
 import useTranslate from '../../hooks/useTranslate';
+import ProductDescription from '../../components/product-description';
+import ProductDetails from '../../components/product-details';
+import ProductPrice from '../../components/product-price';
 import './style.css';
 
 function ProductPage() {
@@ -38,35 +41,32 @@ function ProductPage() {
 
   if (!select.product) return null;
 
+  const details = [
+    { 
+      label: t('country'), 
+      value: `${select.product.madeIn?.title} (${select.product.madeIn?.code})` 
+    },
+    { 
+      label: t('category'), 
+      value: select.product.category?.title 
+    },
+    { 
+      label: t('year'), 
+      value: select.product.edition || t('not_specified') 
+    }
+  ];
+
   return (
     <PageLayout>
       <Head title={select.product.title} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <div className="ProductPage">
-        <div className="ProductPage-description">
-          <p>{select.product.description}</p>
-        </div>
-        
-        <div className="ProductPage-details">
-          <div className="ProductPage-detail">
-            <span>{t('country')}: </span>
-            <strong>{select.product.madeIn?.title} ({select.product.madeIn?.code})</strong>
-          </div>
-          <div className="ProductPage-detail">
-            <span>{t('category')}: </span>
-            <strong>{select.product.category?.title}</strong>
-          </div>
-          <div className="ProductPage-detail">
-            <span>{t('year')}: </span>
-            <strong>{select.product.edition ||t('not_specified')}</strong>
-          </div>
-        </div>
-        
-        <div className="ProductPage-price">
-          <span>{t('price')}: </span>
-          <strong>{numberFormat(select.product.price)} ₽</strong>
-        </div>
-        
+      <ProductDescription description={select.product.description} />
+        <ProductDetails details={details} />
+        <ProductPrice 
+          price={`${numberFormat(select.product.price)} ₽`} 
+          label={t('price')} 
+        />
         <Button style="primary" onClick={callbacks.addToBasket} title={t('add')} />
       </div>
     </PageLayout>
