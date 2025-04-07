@@ -1,7 +1,8 @@
-import { codeGenerator, generatePagesArray } from '../../utils';
+import { codeGenerator } from '../../utils';
 import { DEFAULT_QUERY } from '../../query/constants';
 
 import StoreModule from '../module';
+import { LOCAL_STORAGE_KEY } from '../../constants';
 
 class Catalog extends StoreModule {
   constructor(store, name) {
@@ -22,15 +23,24 @@ class Catalog extends StoreModule {
   async load() {
     const { itemsPerPage, currentPage } = this.getState();
 
-    await this.fetchData(itemsPerPage, currentPage);
+    const localeStoreData = localStorage.getItem(LOCAL_STORAGE_KEY);
+
+    const data = JSON.parse(localeStoreData);
+
+    if (!data) {
+      await this.fetchData(itemsPerPage, currentPage);
+    } else {
+      const { userItemsPerPage, userCurrentPage } = data;
+      await this.fetchData(userItemsPerPage, userCurrentPage);
+    }
   }
 
   async updateProductData(limit = 10, page = 1) {
-    this.setState({
-      ...this.getState(),
-      currentPage: page,
-      itemsPerPage: limit,
-    });
+
+    localStorage.setItem(
+      LOCAL_STORAGE_KEY,
+      JSON.stringify({ userItemsPerPage: limit, userCurrentPage: page }),
+    );
 
     await this.fetchData(limit, page);
   }
@@ -47,6 +57,8 @@ class Catalog extends StoreModule {
         ...this.getState(),
         list: json.result.items,
         allItemsCount: json.result.count,
+        currentPage: page,
+        itemsPerPage: limit,
       },
       'Обновлены товары из АПИ',
     );

@@ -17,6 +17,7 @@ function ItemsSelector() {
     itemsPerPage: state.catalog.itemsPerPage,
     pageItemsCountArray: state.catalog.pageItemsCountArray,
     lang: state.language.currentLang,
+    currentPage: state.catalog.currentPage
   }));
 
   const callbacks = {

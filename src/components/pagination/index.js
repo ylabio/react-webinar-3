@@ -11,7 +11,6 @@ import { getCurrentPaginationArray } from '../../utils';
 import './style.css';
 
 function Pagination() {
-  const [currentPage, setCurrentPage] = useState(1);
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -19,6 +18,8 @@ function Pagination() {
     currentPage: state.catalog.currentPage,
     itemsPerPage: state.catalog.itemsPerPage,
   }));
+
+  const [currentPage, setCurrentPage] = useState(select.currentPage);
 
   const callbacks = {
     // Обновление страницы
@@ -43,7 +44,7 @@ function Pagination() {
 
   useEffect(() => {
     setCurrentPage(prev => select.currentPage);
-  }, [store.state.catalog]);
+  }, [store.state.catalog.currentPage]);
 
   return paginationList.length ? (
     <nav className={cn()}>
