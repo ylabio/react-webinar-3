@@ -1,25 +1,20 @@
-import {useEffect , useRef, useState, memo} from 'react';
+import {useEffect , memo} from 'react';
 import './style.css';
 import PaginationButtons from '../pagination-buttons';
 import { cn as bem } from '@bem-react/classname'
-import useSelector from '../../store/use-selector';
-import { messages } from '../../messages';
+import PropTypes from 'prop-types';
 
 function Pagination({
     page, 
     limit,
-    totalPages, 
+    totalPages,
+    paginationMessage, 
     changeLimit = ()=>{}, 
     changePage = ()=>{},
     load =()=>{},
     loadCount = ()=>{},}){
 
     const cn = bem("Pagination")
-
-    const select = useSelector(state => ({
-        lang: state.inter.lang,
-        
-      }));
 
     function handleChangeLimit(event){
         console.log(event.target.value)
@@ -37,12 +32,10 @@ function Pagination({
         load();
       }, [page, limit]);
     
-    const showItemsMessage = messages[select.lang].showItems  
-
     return (
         <div className={cn()}>
             <p className={cn("show")}>
-            {showItemsMessage} :  
+            {paginationMessage} :  
             </p>
             <div >
             <select className={cn("select")} onChange={handleChangeLimit} value={limit}>
@@ -54,6 +47,12 @@ function Pagination({
             <PaginationButtons onChangePage={handleChangeCurrentPage} currentPage={page} totalPages={totalPages}/>
         </div>
     )
-}
+};
 
+Pagination.propTypes = {
+    page : PropTypes.number, 
+    limit: PropTypes.number,
+    totalPages: PropTypes.number,
+    paginationMessage : PropTypes.string,
+};
 export default memo(Pagination)

@@ -19,7 +19,6 @@ class Catalog extends StoreModule {
   }
   async loadCount() {
     const items = await loadAll();
-    console.log(items);
     this.setState({
       ...this.getState(),
       count: items.length,

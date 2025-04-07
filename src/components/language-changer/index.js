@@ -1,25 +1,16 @@
-import React, {useRef, useCallback} from "react";
-import useSelector from '../../store/use-selector';
+import React, {memo, useRef} from "react";
 import "./style.css";
 import { cn as bem } from '@bem-react/classname'
-import useStore from "../../store/use-store";
-import { messages } from "../../messages";
+import PropTypes from 'prop-types';
 
-function LanguageChanger(){
-    const store = useStore();
-    const select = useSelector(state => ({
-        lang: state.inter.lang,
-      }));
-    
-      const callbacks ={
-            changeLang: useCallback(_id => store.actions.inter.changeLang(changerRef.current.value), [store]),
-        
-      }
+
+function LanguageChanger({lang , changeLanguageMessage, changeLang = ()=>{},}){
+
     const changerRef = useRef();
     const cn = bem ("Changer");
-
-    const changeLanguageMessage = messages[select.lang].changeLanguage
-    
+    function handleChangeFunction(){
+        changeLang(changerRef.current.value)
+    }
     return (
 
             <div className={cn()}>
@@ -27,7 +18,7 @@ function LanguageChanger(){
                {changeLanguageMessage} :  
                </p>
                <div >
-               <select value={select.lang} onChange={callbacks.changeLang} className={cn("select")} ref={changerRef}>
+               <select value={lang} onChange={handleChangeFunction} className={cn("select")} ref={changerRef}>
                    <option value="ru">ru</option>
                    <option value="en">en</option>
                </select>
@@ -36,4 +27,9 @@ function LanguageChanger(){
     )
 };
 
-export default LanguageChanger;
+export default memo(LanguageChanger);
+
+LanguageChanger.propTypes = {
+  lang: PropTypes.string,
+  changeLanguageMessage: PropTypes.string,
+};

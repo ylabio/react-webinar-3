@@ -3,17 +3,11 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import './style.css';
-import useSelector from '../../store/use-selector';
-import { messages } from '../../messages';
 
-function BasketTotal({ sum = 0 }) {
-  const select = useSelector(state => ({
-            lang: state.inter.lang,
-        }));
+function BasketTotal({ sum = 0 ,totalMessage}) {
 
   const cn = bem('BasketTotal');
 
-  const totalMessage = messages[select.lang].total;
 
   return (
     <div className={cn()}>
@@ -26,6 +20,7 @@ function BasketTotal({ sum = 0 }) {
 
 BasketTotal.propTypes = {
   sum: PropTypes.number,
+  totalMessage: PropTypes.string
 };
 
 export default memo(BasketTotal);

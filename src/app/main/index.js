@@ -1,27 +1,27 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback } from 'react';
 import Item from '../../components/item';
-import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
 import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
-import { messages } from '../../messages';
+import LanguageChanger from '../../components/language-changer';
+import { useTranslation } from '../../store/language-provider';
 
 function Main({children}) {
   const store = useStore();
+  
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    lang: state.inter.lang,
     page: state.catalog.page,
     limit: state.catalog.limit,
     totalPages: state.catalog.totalPages
   }));
 
-  const headerMessage= messages[select.lang].header;
+  const {localeMessage , changeLang,lang} = useTranslation();
 
   const callbacks = {
     // Добавление в корзину
@@ -41,18 +41,20 @@ function Main({children}) {
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return <Item item={item} onAdd={callbacks.addToBasket} buttonMessage={localeMessage.addButton} />;
       },
-      [callbacks.addToBasket],
+      [callbacks.addToBasket, localeMessage],
     ),
   };
 
   return (
     <>
-      <Head title={headerMessage} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <Head title={localeMessage.header}>
+        <LanguageChanger lang={lang} changeLanguageMessage={localeMessage.changeLanguage} changeLang={changeLang} />
+      </Head>
+      <BasketTool itemsMessage={localeMessage.items} emptyMessage={localeMessage.empty} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
-      <Pagination loadCount={callbacks.loadCount} load={callbacks.load} changeLimit={callbacks.changeLimit} changePage={callbacks.changePage} page={select.page} limit={select.limit}  totalPages={select.totalPages}/>
+      <Pagination paginationMessage={localeMessage.showItems} loadCount={callbacks.loadCount} load={callbacks.load} changeLimit={callbacks.changeLimit} changePage={callbacks.changePage} page={select.page} limit={select.limit}  totalPages={select.totalPages}/>
       {children}
     </>
   );

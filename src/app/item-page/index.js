@@ -1,4 +1,4 @@
-import React, {memo, useCallback} from "react"
+import React from "react"
 import useSelector from '../../store/use-selector';
 import Basket from '../basket/index';
 import ItemDetailPage from '../item-detail/index'

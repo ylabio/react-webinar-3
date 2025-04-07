@@ -5,8 +5,9 @@ import useSelector from '../../store/use-selector';
 import BasketTool from '../../components/basket-tool';
 import useStore from '../../store/use-store';
 import { Link, useLoaderData } from "react-router";
-import { messages } from "../../messages";
 import ItemDetailHeader from "../../components/item-detail-header";
+import { useTranslation } from "../../store/language-provider";
+import LanguageChanger from "../../components/language-changer";
 
 function ItemDetailPage({children}){
     const store = useStore();
@@ -16,11 +17,12 @@ function ItemDetailPage({children}){
         list: state.catalog.list,
         amount: state.basket.amount,
         sum: state.basket.sum,
-        lang: state.inter.lang,
         item: state.itemState.item
       }));
 
-      const callbacks = {
+    const {localeMessage , changeLang,lang} = useTranslation();
+      
+    const callbacks = {
         // Добавление в корзину
         addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
         // Открытие модалки корзины
@@ -29,19 +31,20 @@ function ItemDetailPage({children}){
         addItemToStore: useCallback((result)=> store.actions.itemState.setItem(result),[store]),
       };
       
-     useEffect(()=>{
+    useEffect(()=>{
       callbacks.addItemToStore(result);
      },[result])
 
-    const toHomeMessage = messages[select.lang].toHome
     return(
         <>
-        <Head title={result.title}/>
+        <Head title={result.title}>
+          <LanguageChanger lang={lang} changeLanguageMessage={localeMessage.changeLanguage} changeLang={changeLang} />  
+        </Head>
         <ItemDetailHeader>
-          <Link className="link" to={"/"}>{toHomeMessage}</Link>
-          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+          <Link className="link" to={"/"}>{localeMessage.toHome}</Link>
+          <BasketTool itemsMessage={localeMessage.items} emptyMessage={localeMessage.empty} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
         </ItemDetailHeader>
-        <ItemDetail onAdd={callbacks.addToBasket} item={result}/>
+        <ItemDetail madeInMessage={localeMessage.madeIn} categoryMessage={localeMessage.category} createdAtMessage={localeMessage.createdAt} priceMessage={localeMessage.price} buttonMessage={localeMessage.addButton} onAdd={callbacks.addToBasket} item={result}/>
         {children}
         </>
     )

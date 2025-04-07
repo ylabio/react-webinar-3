@@ -4,13 +4,9 @@ import Button from '../button/index';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from "../../utils";
 import PropTypes from 'prop-types';
-import useSelector from "../../store/use-selector";
-import { messages } from "../../messages";
 
-function ItemDetail({item, onAdd = ()=>{}}){
-    const select = useSelector(state => ({
-          lang: state.inter.lang,
-      }));
+function ItemDetail({item, onAdd = ()=>{}, madeInMessage , categoryMessage, createdAtMessage , priceMessage , buttonMessage}){
+   
     const cn = bem('ItemDetail');
     const price = numberFormat(item.price);
     const date = new Date(item.dateCreate).getFullYear();
@@ -19,11 +15,6 @@ function ItemDetail({item, onAdd = ()=>{}}){
         onAdd: e => onAdd(item._id),
       };
     
-    const madeInMessage = messages[select.lang].madeIn;
-    const categoryMessage = messages[select.lang].category;
-    const createdAtMessage = messages[select.lang].createdAt;
-    const priceMessage = messages[select.lang].price;
-    const buttonMessage = messages[select.lang].addButton;
 
 
     return(
@@ -62,5 +53,10 @@ ItemDetail.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
+  madeInMessage: PropTypes.string,
+  categoryMessage: PropTypes.string,
+  createdAtMessage: PropTypes.string,
+  priceMessage: PropTypes.string,
+  buttonMessage: PropTypes.string,
 };
 export default memo(ItemDetail)

@@ -1,23 +1,17 @@
 import { memo } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from '../../utils';
 import Cart from '../../assets/icon/cart.svg';
-import useSelector from '../../store/use-selector';
-import { messages } from '../../messages';
 import './style.css';
 
-function BasketTool(props) {
-  const { onOpen = () => {}, sum = 0, amount = 0 } = props;
-  const select = useSelector(state => ({
-          lang: state.inter.lang,
-        }));
+function BasketTool(props,) {
+  const { onOpen = () => {}, sum = 0, amount = 0 ,itemsMessage, emptyMessage} = props;
 
   const cn = bem('BasketTool');
-  const one = messages[select.lang].items.one;
-  const few = messages[select.lang].items.few;
-  const many = messages[select.lang].items.many;
-  const empty = messages[select.lang].empty; 
+  const one = itemsMessage.one;
+  const few = itemsMessage.few;
+  const many = itemsMessage.many;
 
   return (
     <div className={cn()}>
@@ -30,7 +24,7 @@ function BasketTool(props) {
                 few: few,
                 many: many,
               })} / ${numberFormat(sum)} ₽`
-            : empty}
+            : emptyMessage}
         </span>
       </button>
     </div>
@@ -41,6 +35,8 @@ BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
+  itemsMessage: PropTypes.objectOf(string),
+  emptyMessage: PropTypes.string
 };
 
 export default memo(BasketTool);

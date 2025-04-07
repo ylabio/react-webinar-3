@@ -7,18 +7,12 @@ import Button from '../button';
 import './style.css';
 import { Link } from 'react-router';
 import useStore from '../../store/use-store';
-import useSelector from '../../store/use-selector';
-import { messages } from '../../messages';
 
-function ItemBasket(props) {
+function ItemBasket(props, buttonMessage, pcsMessage) {
   const store = useStore();
-  const select = useSelector(state => ({
-        lang: state.inter.lang,
-      }));
+
   
   const cn = bem('ItemBasket');
-  const buttonMessage = messages[select.lang].deleteButton; 
-  const pcsMessage = messages[select.lang].pieces; 
     
 
   const callbacks = {
@@ -31,10 +25,10 @@ function ItemBasket(props) {
       {/* <div className={cn('code')}>{props.item._id}</div> */}
       <Link onClick={callbacks.closeModal} to={`/articles/${props.item._id}`}><h4 className={cn('title')}>{props.item.title}</h4></Link>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {pcsMessage}</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {props.pcsMessage}</div>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title={buttonMessage} />
+          <Button style="delete" onClick={callbacks.onRemove} title={props.buttonMessage} />
         </div>
       </div>
     </div>
@@ -49,6 +43,8 @@ ItemBasket.propTypes = {
     amount: PropTypes.number,
   }).isRequired,
   onRemove: propTypes.func,
+  buttonMessage: propTypes.string,
+  pcsMessage: propTypes.string
 };
 
 ItemBasket.defaultProps = {

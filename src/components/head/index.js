@@ -1,14 +1,13 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import LanguageChanger from '../language-changer';
 
-function Head({ title }) {
+function Head({ title , children}) {
   return (
     <div className="Head">
       <div className="Head-container">
         <h1>{title}</h1>
-        <LanguageChanger/>
+        {children}
       </div>
     </div>
   );
