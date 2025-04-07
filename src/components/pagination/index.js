@@ -1,44 +1,41 @@
 import {useEffect , useRef, useState, memo} from 'react';
-import useStore from '../../store/use-store';
-import { loadAll } from '../util/http';
 import './style.css';
 import PaginationButtons from '../pagination-buttons';
 import { cn as bem } from '@bem-react/classname'
 import useSelector from '../../store/use-selector';
 import { messages } from '../../messages';
 
-function Pagination(){
+function Pagination({
+    page, 
+    limit,
+    totalPages, 
+    changeLimit = ()=>{}, 
+    changePage = ()=>{},
+    load =()=>{},
+    loadCount = ()=>{},}){
+
     const cn = bem("Pagination")
 
-    const store = useStore();
     const select = useSelector(state => ({
-            lang: state.inter.lang,
-          }));
-    const limit = useRef();
+        lang: state.inter.lang,
+        
+      }));
 
-    const [enteredLimit, setEnteredLimit] = useState(10);
-    const [listLength, setlistLength] = useState(10);
-    const [currentPage, setCurrentPage] = useState(1);
-
-    function handleChangeLimit(){
-        setEnteredLimit(limit.current.value)
-        setCurrentPage(1);
+    function handleChangeLimit(event){
+        console.log(event.target.value)
+        changeLimit( Number(event.target.value))
     }
     function handleChangeCurrentPage(event){
-        setCurrentPage(Number(event.target.value))
+        changePage(Number(event.target.value))
     }
 
     useEffect(() => {
-        async function loadAllItems(){
-            const allList = await loadAll();
-            setlistLength(allList.length)
-        };
+        loadCount();
+      }, []);
 
-        loadAllItems();
-        const limitValue = enteredLimit; 
-        const skipValue =  (currentPage > 1) ? ((currentPage - 1) * limitValue ): 0;
-        store.actions.catalog.load(limitValue, skipValue);
-      }, [enteredLimit, currentPage]);
+    useEffect(() => {
+        load();
+      }, [page, limit]);
     
     const showItemsMessage = messages[select.lang].showItems  
 
@@ -48,13 +45,13 @@ function Pagination(){
             {showItemsMessage} :  
             </p>
             <div >
-            <select className={cn("select")} onChange={handleChangeLimit} ref={limit}>
+            <select className={cn("select")} onChange={handleChangeLimit} value={limit}>
                 <option>10</option>
                 <option>20</option>
                 <option>30</option>
             </select>
             </div>
-            <PaginationButtons onChangePage={handleChangeCurrentPage} currentPage={currentPage} totalPages={Math.round(listLength / enteredLimit)}/>
+            <PaginationButtons onChangePage={handleChangeCurrentPage} currentPage={page} totalPages={totalPages}/>
         </div>
     )
 }

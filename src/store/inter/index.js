@@ -8,7 +8,6 @@ class Inter extends StoreModule{
         }
     }
 
-
     changeLang(lang){
         this.setState({lang})
     }

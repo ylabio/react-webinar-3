@@ -9,11 +9,27 @@ import ErrorPage from './error-page';
  */
 
 const router = createBrowserRouter([
-  {path: "/", Component: RootLayout, errorElement: <ErrorPage/>, children:[
-    {index:true, Component: HomePage},
-    {path: ":itemId", id:"item-detail", loader:itemDetailLoader,  Component: ItemPage}
-  ]},
-])
+  {
+    path: "/",
+    element: (
+      <RootLayout>
+        <HomePage />
+      </RootLayout>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/articles/:itemId",
+    element: (
+      <RootLayout>
+        <ItemPage />
+      </RootLayout>
+    ),
+    loader: itemDetailLoader,
+    errorElement: <ErrorPage />,
+    id: "item-detail",
+  },
+]);
 
 function App() {
 

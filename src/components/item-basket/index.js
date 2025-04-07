@@ -29,7 +29,7 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       {/* <div className={cn('code')}>{props.item._id}</div> */}
-      <Link onClick={callbacks.closeModal} to={`/${props.item._id}`}><h4 className={cn('title')}>{props.item.title}</h4></Link>
+      <Link onClick={callbacks.closeModal} to={`/articles/${props.item._id}`}><h4 className={cn('title')}>{props.item.title}</h4></Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {pcsMessage}</div>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>

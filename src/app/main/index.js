@@ -16,6 +16,9 @@ function Main({children}) {
     amount: state.basket.amount,
     sum: state.basket.sum,
     lang: state.inter.lang,
+    page: state.catalog.page,
+    limit: state.catalog.limit,
+    totalPages: state.catalog.totalPages
   }));
 
   const headerMessage= messages[select.lang].header;
@@ -25,6 +28,14 @@ function Main({children}) {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+
+    changeLimit: useCallback((limit)=>store.actions.catalog.setParams(undefined,limit),[store]),
+
+    changePage:  useCallback((page)=>  store.actions.catalog.setParams(page),[store]),
+    
+    load: useCallback(()=> store.actions.catalog.load(), [store]),
+
+    loadCount : useCallback(()=> store.actions.catalog.loadCount(),[store])
   };
 
   const renders = {
@@ -41,7 +52,7 @@ function Main({children}) {
       <Head title={headerMessage} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
-      <Pagination/>
+      <Pagination loadCount={callbacks.loadCount} load={callbacks.load} changeLimit={callbacks.changeLimit} changePage={callbacks.changePage} page={select.page} limit={select.limit}  totalPages={select.totalPages}/>
       {children}
     </>
   );

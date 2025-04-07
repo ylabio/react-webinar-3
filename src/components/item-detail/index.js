@@ -37,7 +37,7 @@ function ItemDetail({item, onAdd = ()=>{}}){
             <p className={cn("label")}>{madeInMessage}:</p>  <span className={cn("value")}>{item.madeIn._type}</span>
             </div>
             <div className={cn("item")}>
-            <p className={cn("label")}>{categoryMessage}:</p><span className={cn("value category")}>{item.title}</span>
+            <p className={cn("label")}>{categoryMessage}:</p><span className={cn("value category")}>{item.category._type}</span>
             </div>
             <div className={cn("item")}>
             <p className={cn("label")}> {createdAtMessage}:</p><span className={cn("value")}>{date}</span>

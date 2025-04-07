@@ -1,12 +1,11 @@
 import React from 'react';
-import { Outlet } from 'react-router';
 import PageLayout from '../../components/page-layout';
-export default function RootLayout (){
+export default function RootLayout ({children}){
     return (
         <>
         <PageLayout>
             <main>
-            <Outlet/>
+            {children}
             </main>
         </PageLayout>
         </>
