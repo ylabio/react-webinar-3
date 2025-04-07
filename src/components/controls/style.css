@@ -1,10 +1,9 @@
 .Controls {
   display: flex;
-  justify-content: flex-end;
-  padding: 24px 16px 24px 0;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.Controls button {
-  background-color: var(--primary);
-  color: var(--second-text);
+.Controls a:hover {
+  color: var(--primary);
 }

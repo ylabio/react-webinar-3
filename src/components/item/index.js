@@ -4,23 +4,30 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
+import { Link } from 'react-router-dom';
+import { useLanguage } from '../../store/use-language';
+import translations from '../../locales/index'
 
-function Item(props) {
+function Item({ item, onAdd = () => {}}) {
   const cn = bem('Item');
+  const { language } = useLanguage();
 
   const callbacks = {
-    onAdd: e => props.onAdd(props.item._id),
+    onAdd: e => {
+      e.preventDefault();
+      onAdd(item._id);
+    }
   };
 
   return (
-    <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <h4 className={cn('title')}>{props.item.title}</h4>
+    <Link to={`/product/${item._id}`} className={cn()}>
+      {/*<div className={cn('code')}>{item._id}</div>*/}
+      <h4 className={cn('title')}>{item.title}</h4>
       <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
+        <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
+        <Button style="primary" onClick={(e) => callbacks.onAdd(e)} title={translations[language].add} />
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -33,8 +40,5 @@ Item.propTypes = {
   onAdd: PropTypes.func,
 };
 
-Item.defaultProps = {
-  onAdd: () => {},
-};
 
 export default memo(Item);
