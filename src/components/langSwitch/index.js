@@ -17,8 +17,8 @@ function LangSwitch() {
   //если в будущем станет больше языков, можно будет добавить больше вариантов
   function setFlag() {
     switch(select.language) {
-      case 'ru': return <RuFlag className={cn('flag')}/>
-      case 'eng': return <EngFlag className={cn('flag')}/>
+      case 'ru': return <img src={RuFlag} className={cn('flag')}/>
+      case 'eng': return <img src={EngFlag} className={cn('flag')}/>
     }
   }
 

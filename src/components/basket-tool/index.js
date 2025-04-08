@@ -43,7 +43,7 @@ function BasketTool(props) {
         {select.language === 'ru' ? 'Главная' : 'Main'}
       </Link>
       <button className={cn('action')} onClick={onOpen}>
-        <Cart className={cn('icon')} />
+        <img src={Cart} className={cn('icon')}/>
         <span className={cn('total')}>
           {amount
             ? `${amount} ${setGoods()} / ${numberFormat(sum)} ₽`
