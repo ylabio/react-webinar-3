@@ -24,7 +24,7 @@ function ProductPage() {
 
   useEffect(() => {
     callbacks.closeModal();
-  }, []);
+  });
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
