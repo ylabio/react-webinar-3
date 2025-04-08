@@ -8,7 +8,9 @@ function ProductInfo({
                 category,
                 edition,
                 price,
-                text }) {
+                addToBasket,
+                id,
+                text}) {
 return(
     <div>
         <p>{description}</p>
@@ -27,7 +29,7 @@ return(
             </div>
         </div>
         <p className="price">{text.price} {`${price} ₽`}</p>
-        <Button style="primary" onClick={() => callbacks.addToBasket(id)} title={text.addButton} />
+        <Button style="primary" onClick={() => addToBasket(id)} title={text.addButton} />
     </div>
 );
 }

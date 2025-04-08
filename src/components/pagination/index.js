@@ -43,7 +43,7 @@ function Pagination({ onPageChange }) {
                 pageNumbers.map((item, index) => {
                     if (typeof item === 'string') {
                         return (
-                            <span className="ellipsis">{item}</span>
+                            <span key={index} className="ellipsis">{item}</span>
                         );
                     }
                     return (

@@ -42,6 +42,8 @@ function Article() {
                 category={select.product.category.title}
                 edition={select.product.edition}
                 price={select.product.price}
+                addToBasket={callbacks.addToBasket}
+                id={id}
                 text={text[select.lang]}
             /> 
             :
