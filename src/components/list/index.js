@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 function List({ list, renderItem }) {
-  console.log("List: props.list =", list);
   return (
     <ul className="List">
       {list.map(item => (
@@ -18,10 +17,10 @@ function List({ list, renderItem }) {
 List.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({
-      _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    }),
+      _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    })
   ).isRequired,
-  renderItem: PropTypes.func,
+  renderItem: PropTypes.func.isRequired,
 };
 
 export default memo(List);

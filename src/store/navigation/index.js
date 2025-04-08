@@ -13,19 +13,31 @@ export const getPageNumbers = (currentPage, totalPages, visiblePageCount) => {
       pageNumbers.push(i);
     }
   } else {
-    let startPage = Math.max(1, currentPage - 1);
-    let endPage = Math.min(totalPages, currentPage + 1);
+    pageNumbers.push(1);
 
-    if (currentPage <= 2) {
-      endPage = Math.min(visiblePageCount, totalPages);
+    if (currentPage > 3) {
+      pageNumbers.push('...');
     }
-    if (currentPage >= totalPages - 2) {
-      startPage = Math.max(1, totalPages - visiblePageCount + 1);
+
+    let startPage = Math.max(2, currentPage - 1);
+    let endPage = Math.min(totalPages - 1, currentPage + 1);
+
+    if (currentPage === 1) {
+      endPage = Math.min(3, totalPages - 1);
     }
 
     for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(i);
     }
+
+    if (currentPage < totalPages - 2) {
+      pageNumbers.push('...');
+    }
+
+    if (totalPages > 1) {
+      pageNumbers.push(totalPages);
+    }
   }
+
   return pageNumbers;
 };

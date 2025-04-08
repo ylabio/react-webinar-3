@@ -3,7 +3,14 @@ import React, { createContext, useState, useContext, useCallback, useEffect } fr
 const LangContext = createContext();
 
 export const LangProvider = ({ children }) => {
-  const [lang, setLang] = useState('ru');
+  const [lang, setLang] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const savedLang = localStorage.getItem('lang');
+      return savedLang || 'ru';
+    }
+    return 'ru';
+  });
+  
   const [translations, setTranslations] = useState({});
 
   useEffect(() => {
@@ -23,13 +30,13 @@ export const LangProvider = ({ children }) => {
     loadTranslations();
   }, []);
 
-
   const changeLang = (newLang) => {
+    localStorage.setItem('lang', newLang);
     setLang(newLang);
   };
 
   const translate = useCallback((key) => {
-    return translations[lang]?.[key] || key; // Return the key if translation is missing
+    return translations[lang]?.[key] || key;
   }, [lang, translations]);
 
   const value = {

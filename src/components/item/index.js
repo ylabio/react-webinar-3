@@ -3,27 +3,36 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
-import { useLang } from '../../lang/LangContext';
 import Button from '../button';
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
-  const { translate } = useLang();
+  const { 
+    item, 
+    onAdd, 
+    addToBasketText,
+    linkTemplate = `/item/${item._id}`
+  } = props;
 
   const callbacks = {
-    onAdd: e => props.onAdd(props.item._id),
+    onAdd: e => onAdd(props.item._id),
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <h4 className={cn('title')} >
-        <Link to={`/item/${props.item._id}`}>{props.item.title}</Link>
+        <Link to={linkTemplate}>{props.item.title}</Link>
       </h4>
       <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <Button style="primary" onClick={callbacks.onAdd} title={translate('addToBasket')} />
+      <div className={cn('price')}>
+        {numberFormat(
+          props.item.price, 
+          undefined,
+          { maximumFractionDigits: 0 }
+        )} ₽
+      </div>
+        <Button style="primary" onClick={callbacks.onAdd} title={addToBasketText} />
       </div>
     </div>
   );
@@ -31,11 +40,14 @@ function Item(props) {
 
 Item.propTypes = {
   item: PropTypes.shape({
-    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    title: PropTypes.string,
-    price: PropTypes.number,
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired
   }).isRequired,
-  onAdd: PropTypes.func,
+  onAdd: PropTypes.func.isRequired,
+  addToBasketText: PropTypes.string.isRequired,
+  linkTemplate: PropTypes.string
 };
+
 
 export default memo(Item);

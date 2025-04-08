@@ -15,8 +15,8 @@ function App() {
     <BrowserRouter>
     <>
       <Routes>
-        <Route path="/" element={<Main />} /> {/* Главная страница */}
-        <Route path="/item/:id" element={<Info />} /> {/* Страница товара с динамическим id */}
+        <Route path="/" element={<Main />} />
+        <Route path="/item/:id" element={<Info />} />
       </Routes>
       {activeModal === 'basket' && <Basket />}
     </>

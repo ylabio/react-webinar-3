@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import './style.css';
 
 function Select({ value, onChange, options, className }) {
@@ -16,4 +16,4 @@ function Select({ value, onChange, options, className }) {
   );
 }
 
-export default Select;
+export default memo(Select);

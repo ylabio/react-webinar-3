@@ -5,13 +5,8 @@ import * as modules from './exports.js';
  */
 class Store {
   constructor(initState = {}) {
-    this.listeners = []; // Слушатели изменений состояния
+    this.listeners = [];
     this.state = initState;
-    /** @type {{
-     * basket: Basket,
-     * catalog: Catalog,
-     * modals: Modals
-     * }} */
     this.actions = {};
     for (const name of Object.keys(modules)) {
       this.actions[name] = new modules[name](this, name);
@@ -26,7 +21,6 @@ class Store {
    */
   subscribe(listener) {
     this.listeners.push(listener);
-    // Возвращается функция для удаления добавленного слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== listener);
     };
@@ -55,7 +49,7 @@ class Store {
     console.groupEnd();
 
     this.state = newState;
-    // Вызываем всех слушателей
+
     for (const listener of this.listeners) listener(this.state);
   }
 }

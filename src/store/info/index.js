@@ -15,7 +15,6 @@ class Info extends StoreModule {
     try {
       const response = await fetch(`/api/v1/articles/${_id}?fields=_id,title,description,madeIn(_type),category(_type),edition,price`);
       const json = await response.json();
-      console.log("Info.getInfo: данные из API", json);
       this.setState(
         {
           ...this.getState(),

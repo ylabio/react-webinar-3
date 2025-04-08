@@ -9,7 +9,6 @@ import 'theme.css';
 const store = new Store();
 const root = createRoot(document.getElementById('root'));
 
-// Первый рендер приложения
 root.render(
   <LangProvider>
     <StoreContext.Provider value={store}>

@@ -1,11 +1,10 @@
-import React from 'react';
-import { useLang } from '../../lang/LangContext';
+import React, {memo} from 'react';
+import PropTypes from 'prop-types';
 import { getPageNumbers } from '../../store/navigation';
 import Select from '../select';
 import './style.css';
 
-function Footer({ currentPage, totalPages, onPageChange, itemsPerPage, onItemsPerPageChange }) {
-  const { translate } = useLang();
+function Footer(props) {
 
   const itemsPerPageOptions = [
     { value: '5', label: '5' },
@@ -13,48 +12,46 @@ function Footer({ currentPage, totalPages, onPageChange, itemsPerPage, onItemsPe
     { value: '20', label: '20' },
   ];
 
-  const visiblePageCount = 4; // Максимальное количество отображаемых номеров страниц
-  const pageNumbers = getPageNumbers(currentPage, totalPages, visiblePageCount);
+  const visiblePageCount = 4;
+  const pageNumbers = getPageNumbers(props.currentPage, props.totalPages, visiblePageCount);
 
   return (
     <div className="footer">
-      {/* Изменение количества товаров на странице */}
       <div>
-        <label htmlFor="itemsPerPage">{translate('itemsOnPage')}</label>
+        <label htmlFor="itemsPerPage">{props.itemsOnPageText}</label>
         <Select
-          value={itemsPerPage}
-          onChange={onItemsPerPageChange}
+          value={props.itemsPerPage}
+          onChange={props.onItemsPerPageChange}
           options={itemsPerPageOptions}
           className="select-footer"
         />
       </div>
 
-      {/* Навигация страниц */}
       <div>
         {/* Первая страница */}
         {pageNumbers[0] !== 1 && (
           <>
-            <button onClick={() => onPageChange(1)}>1</button>
+            <button onClick={() => props.onPageChange(1)}>1</button>
             {pageNumbers[0] !== 2 && <span>...</span>}
           </>
         )}
 
         {/* Другие страницы */}
-        {pageNumbers.map(number => (
+        {pageNumbers.map((number, index) => (
           <button
-            key={number}
-            onClick={() => onPageChange(number)}
-            className={number === currentPage ? 'active' : ''}
+            key={index}
+            onClick={() => typeof number === 'number' && props.onPageChange(number)}
+            className={number === props.currentPage ? 'active' : ''}
           >
             {number}
           </button>
         ))}
 
         {/* Последняя страница */}
-        {pageNumbers[pageNumbers.length - 1] !== totalPages && (
+        {pageNumbers[pageNumbers.length - 1] !== props.totalPages && (
           <>
-            {pageNumbers[pageNumbers.length - 1] !== totalPages - 1 && <span>...</span>}
-            <button onClick={() => onPageChange(totalPages)}>{totalPages}</button>
+            {pageNumbers[pageNumbers.length - 1] !== props.totalPages - 1 && <span>...</span>}
+            <button onClick={() => props.onPageChange(totalPages)}>{props.totalPages}</button>
           </>
         )}
       </div>
@@ -62,4 +59,13 @@ function Footer({ currentPage, totalPages, onPageChange, itemsPerPage, onItemsPe
   );
 }
 
-export default Footer;
+Footer.propTypes = {
+  itemsOnPageText: PropTypes.string.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  itemsPerPage: PropTypes.number.isRequired,
+  onItemsPerPageChange: PropTypes.func.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+};
+
+export default memo(Footer);

@@ -6,6 +6,7 @@ import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
 import ItemInfo from '../../components/item-info';
 import useSelector from '../../store/use-selector';
+import { useLang } from '../../lang/LangContext';
 
 function Info() {
   const { id } = useParams();
@@ -13,9 +14,9 @@ function Info() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { translate } = useLang();
 
   const select = useSelector(state => {
-    console.log(state.info.data)
     return {
       data: state.info.data,
       amount: state.basket.amount,
@@ -24,9 +25,7 @@ function Info() {
   });
 
   const callbacks = {
-    // Добавление товара в корзину
     AddToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   };
 
@@ -36,7 +35,6 @@ function Info() {
         setLoading(true);
         setError(null);
         const response = await store.actions.info.getInfo(id);
-        console.log(response);
         setData(response);
         setLoading(false);
       } catch (error) {
@@ -48,19 +46,34 @@ function Info() {
     fetchInfo();
   }, [id, store.actions.info]);
 
-  if (loading) {
-    return <PageLayout>Loading...</PageLayout>; // Или какой-то другой индикатор загрузки
-  }
   if (error) {
     return <PageLayout>Error: {error}</PageLayout>;
   }
-  console.log("data", data)
 
   return (
     <PageLayout>
       <Head title={data?.result?.title} />
-      <BasketTool amount={select.amount} sum={select.sum} onOpen={callbacks.openModalBasket} />
-      {data && <ItemInfo data={data} onAdd={callbacks.AddToBasket} />}
+      <BasketTool 
+        amount={select.amount} 
+        sum={select.sum} 
+        onOpen={callbacks.openModalBasket} 
+        pageLinkText={translate('page')}
+        emptyBasketText={translate('emptyBasket')}
+        pluralForms={{
+          one: translate('товар'),
+          few: translate('товара'),
+          many: translate('товаров')
+        }}
+      />
+      {data && <ItemInfo 
+        data={data} 
+        onAdd={callbacks.AddToBasket} 
+        countryText={translate('country')}
+        categoryText={translate('category')}
+        editionText={translate('edition')}
+        priceText={translate('price')}
+        addToBasketText={translate('addToBasket')}
+      />}
     </PageLayout>
   );
 };
