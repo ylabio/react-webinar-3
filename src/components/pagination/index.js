@@ -8,7 +8,7 @@ function Pagination({
     setSkip = () => {}
  }) {
     const getpages = () => {
-        const totalpages = 55
+        const totalpages = 25
         const pagesarray = []
         if (currentPage <= 3) {
             for (let i = 1; i <= 5; i++) {

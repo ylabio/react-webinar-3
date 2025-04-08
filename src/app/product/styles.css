@@ -17,3 +17,17 @@
     line-height: 133%;
     color: #1a2028;
 }
+
+.product-backhome {
+    text-decoration: none;
+    color: black;
+}
+
+.product-backhome:hover {
+    color: #6b4acb;
+}
+
+.product-info-span {
+    display: inline-block;
+    width: 180px;
+}

@@ -42,7 +42,17 @@ class Catalog extends StoreModule {
     this.setState(
       {
         ...this.getState(),
+        skip: 1,
         limit: limit,
+      },
+    );
+  }
+
+  addItem(item) {
+    this.setState(
+      {
+        ...this.getState(),
+        list: [item],
       },
     );
   }

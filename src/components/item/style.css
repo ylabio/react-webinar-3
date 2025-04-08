@@ -23,3 +23,12 @@
     background-color: var(--background);
   }
 }
+
+.Item-itemlink {
+    text-decoration: none;
+    color: black;
+}
+
+.Item-itemlink:hover {
+    color: #6b4acb;
+}

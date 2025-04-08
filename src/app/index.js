@@ -18,7 +18,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Main />} />
-                <Route path='/:id' element={<Product />} />
+                <Route path='/articles/:id' element={<Product />} />
             </Routes>
             {activeModal === 'basket' && <Basket />}
         </BrowserRouter>

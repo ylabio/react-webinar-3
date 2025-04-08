@@ -5,7 +5,6 @@ import './style.css';
 
 function CurrentItem({ item = {} }) {
   const cn = bem('currentItem');
-  console.log(item)
 
   return (
     <div className={cn()}>
@@ -13,14 +12,14 @@ function CurrentItem({ item = {} }) {
         {item.description}
         </div>
         <div className='product-info'>
-            Страна-изготовитель: <b>{item.madeIn?.title}</b>
+            <span className='product-info-span'>Страна-изготовитель: </span><b>{item.madeIn?.title}</b>
             <p />
-            Категория: <b>{item.category?.title}</b>
+            <span className='product-info-span'>Категория: </span><b>{item.category?.title}</b>
             <p />
-            Год выпуска: <b>{item.edition}</b>
+            <span className='product-info-span'>Год выпуска: </span><b>{item.edition}</b>
         </div>
         <div className='product-price'>
-            <b>Цена: {item.price}</b>
+            <b>Цена: {item.price} ₽</b>
         </div>
     </div>
   );

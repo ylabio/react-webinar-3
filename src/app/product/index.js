@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { Link } from 'react-router';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -13,16 +13,20 @@ import Button from '../../components/button'
 function Product() {
     const store = useStore()
     const { id } = useParams()
-    const [item, setItem] = useState({})
+
+    const select = useSelector(state => ({
+      list: state.catalog.list,
+      item: state.item.item,
+      amount: state.basket.amount,
+      sum: state.basket.sum,
+    }));
+
+    // при обновлении (F5) на странице товара добавить товар в корзину невозможно, так как list пустой
+    select.list.length == 0 && Object.keys(select.item).length != 0 && store.actions.catalog.addItem(select.item)
 
   useEffect(() => {
-    fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`).then(response => response.json()).then(response => setItem(response.result))
-  }, []);
-
-  const select = useSelector(state => ({
-    amount: state.basket.amount,
-    sum: state.basket.sum,
-  }));
+    store.actions.item.loaditem(id);
+  }, [id]);
 
   const callbacks = {
     // Добавление в корзину
@@ -33,13 +37,13 @@ function Product() {
 
   return (
     <PageLayout>
-      <Head title={item.title ? item.title : "Магазин"} />
+      <Head title={select.item.title ? select.item.title : "Магазин"} />
       <div className='product-modified-top'>
-        <Link to={'/'}>Главная</Link>
+        <Link className='product-backhome' to={'/'}>Главная</Link>
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       </div>
-      <CurrentItem item={item} addToBasket={callbacks.addToBasket} />
-      <Button style={'primary'} onClick={callbacks.addToBasket} title={'Добавить'} />
+      <CurrentItem item={select.item} addToBasket={callbacks.addToBasket} />
+      <Button className={'product-button'} style={'primary'} onClick={callbacks.addToBasket} title={'Добавить'} />
     </PageLayout>
   );
 }
