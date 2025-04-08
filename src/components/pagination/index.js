@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
-import { usePagination, DOTS } from '../../store/use-pagination';
+import React, { memo, useMemo } from 'react';
+import { pagination, DOTS } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import Select from '../select';
@@ -16,12 +16,10 @@ const Pagination = ({
 }) => {
   const cn = bem('Panigation');
 
-  const paginationRange = usePagination({
-    currentPage,
-    totalCount,
-    siblingCount,
-    pageSize,
-  });
+  const paginationRange = useMemo(
+    () => pagination({ currentPage, totalCount, siblingCount, pageSize }),
+    [currentPage, totalCount, siblingCount, pageSize],
+  );
 
   if (currentPage === 0 || paginationRange.length < 2) {
     return null;
