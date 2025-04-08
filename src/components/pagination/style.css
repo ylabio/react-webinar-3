@@ -1,0 +1,14 @@
+.pagination-container {
+  display: flex;
+  justify-content: end;
+  padding: 24px 0;
+  gap: 24px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: end;
+  gap: 2px;
+  align-items: center;
+  min-width: 166px;
+}

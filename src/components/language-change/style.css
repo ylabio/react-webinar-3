@@ -1,0 +1,15 @@
+.language-change {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  padding: 8px;
+  gap: 4px;
+}
+
+.language-change select {
+  border: none;
+  color: var(--main-text);
+  font-family: var(--font-family);
+}

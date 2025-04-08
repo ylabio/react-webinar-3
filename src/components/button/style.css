@@ -1,3 +1,7 @@
+.Button {
+  min-width: 116px;
+}
+
 .Button_style_primary {
   background-color: var(--primary);
   color: var(--second-text);

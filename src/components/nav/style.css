@@ -1,0 +1,22 @@
+.Nav {
+  padding: 24px 0;
+  position: absolute;
+}
+
+.Nav-list {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+.Nav-link {
+  color: var(--main-text);
+  text-decoration: none;
+}
+
+.Nav-link:hover {
+  text-decoration: underline var(--primary);
+}
