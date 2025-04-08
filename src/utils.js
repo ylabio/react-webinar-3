@@ -33,3 +33,18 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+// это скорее service или api, но пока оставлю здесь)
+/**
+ * Получить значение из localStorage
+ * @param {string} key - Ключ
+ * @returns {string} - Значение из localStorage или defaultValue
+ */
+export const getFromLS = key => JSON.parse(localStorage.getItem(key))
+
+/**
+ * Сохранить значение в localStorage
+ * @param {string} key - Ключ
+ * @param {string} value - Значение для сохранения
+ */
+export const saveToLS = (key, value) => localStorage.setItem(key, JSON.stringify(value));
