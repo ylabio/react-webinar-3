@@ -19,3 +19,15 @@
 .Head h1 {
   margin: 0;
 }
+
+.Header-lang button {
+  padding: 5px;
+  transition: color 0.3 ease-in-out;
+  &:hover {
+    color: var(--primary-select);
+  }
+}
+
+.Header-lang button[disabled] {
+  color: var(--primary);
+}

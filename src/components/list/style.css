@@ -6,6 +6,17 @@
   margin: 0;
 }
 
+.List-item {
+  cursor: pointer;
+  &:hover h4 {
+    color: var(--primary);
+  }
+}
+
+.List-item h4 {
+  transition: color 0.3s ease-in-out;
+}
+
 .List-item:nth-child(odd) {
   background-color: var(--odd-item);
 }

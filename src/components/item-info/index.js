@@ -1,0 +1,51 @@
+import { memo } from 'react';
+import { cn as bem } from '@bem-react/classname';
+import './style.css';
+import { numberFormat } from '../../utils';
+import PropTypes from 'prop-types';
+
+function ItemInfo({ item, langContent }) {
+  const cn = bem('ItemInfo');
+
+  if (!item) return null;
+
+  return (
+    <div className={cn()}>
+      <div className={cn('description')}>{item.description}</div>
+      <ul className={cn('list')}>
+        <li className={cn('item')}>
+          <span>{langContent.madeIn}</span> <b>{`${item.madeIn?.title} (${item.madeIn?.code})`}</b>
+        </li>
+        <li className={cn('item')}>
+          <span>{langContent.category}</span> <b>{item.category?.title}</b>
+        </li>
+        <li className={cn('item')}>
+          <span>{langContent.year}</span> <b>{item.edition}</b>
+        </li>
+      </ul>
+      <div className={cn('price')}>
+        {langContent.price} {numberFormat(item.price)} ₽{' '}
+      </div>
+    </div>
+  );
+}
+
+ItemInfo.propTypes = {
+  item: PropTypes.shape({
+    description: PropTypes.string,
+    edition: PropTypes.number,
+    price: PropTypes.number,
+    category: PropTypes.shape({
+      title: PropTypes.string,
+      _id: PropTypes.string,
+    }),
+    langContent: PropTypes.shape({
+      madeIn: PropTypes.string,
+      category: PropTypes.string,
+      price: PropTypes.string,
+      year: PropTypes.string,
+    }),
+  }),
+};
+
+export default memo(ItemInfo);

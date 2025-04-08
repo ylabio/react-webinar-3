@@ -30,7 +30,10 @@ class Basket extends StoreModule {
     if (!exist) {
       // Поиск товара в каталоге, чтобы его добавить в корзину.
       // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      const item = this.store.getState().catalog.list.find(item => item._id === _id);
+      let item = this.store.getState().catalog.list.find(item => item._id === _id);
+      if (!item) {
+        item = this.store.getState().article.itemInfo;
+      }
       list.push({ ...item, amount: 1 }); // list уже новый, в него можно пушить.
       // Добавляем к сумме.
       sum += item.price;
@@ -45,6 +48,34 @@ class Basket extends StoreModule {
       },
       'Добавление в корзину',
     );
+  }
+
+  async getFetchItem(id, lang) {
+    try {
+      const response = await fetch(`/api/v1/articles/${id}?fields=title,price&lang=${lang}`);
+
+      if (!response.ok) {
+        throw new Error(`Ошибка: ${response.status}`);
+      }
+      const json = await response.json();
+      return json.result;
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  async updateLangItem(lang) {
+    const newState = await Promise.all(
+      this.getState().list.map(async el => {
+        const newItem = await this.getFetchItem(el._id, lang);
+        return { ...el, title: newItem.title, price: newItem.price };
+      }),
+    );
+
+    this.setState({
+      ...this.getState(),
+      list: newState,
+    });
   }
 
   /**
