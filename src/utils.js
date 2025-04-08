@@ -1,3 +1,6 @@
+import { dictionary } from './translations/dictionary';
+import { DEFAULT_LANG, LABEL } from './constants';
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -80,10 +83,12 @@ export function getPaginationRange(currentPage, totalPages) {
   ];
 }
 
-export function getLangFromPath(pathname) {
-  return pathname?.split('/')[1] || 'ru';
-}
-
+/**
+ * Преобразует объект параметров в query-строку.
+ *
+ * @param {Record<string, string | number | boolean | undefined | null>} params - Объект параметров.
+ * @returns {string} Готовая query-строка, начинающаяся с `?`, либо пустая строка.
+ */
 export function buildQueryString(params = {}) {
   const searchParams = new URLSearchParams();
 
@@ -95,4 +100,40 @@ export function buildQueryString(params = {}) {
 
   const queryString = searchParams.toString();
   return queryString ? `?${queryString}` : '';
+}
+
+/**
+ * Строит location-объект с языком, путём и query-параметрами.
+ *
+ * @param {Object} options
+ * @param {string} options.lang - Язык (например, 'en' или 'ru').
+ * @param {string} [options.path=''] - Относительный путь (например, '/article/123').
+ * @param {Record<string, string | number | boolean | undefined | null>} [options.params={}] - Query-параметры.
+ * @returns {{ pathname: string, search: string }} Объект для использования в Link, NavLink или navigate().
+ */
+export function buildLocationObject({ lang, path = '', params = {} }) {
+  return {
+    pathname: `/${lang}${path}`,
+    search: buildQueryString(params),
+  };
+}
+
+/**
+ * Строит новый location-объект на основе текущего, заменяя язык.
+ *
+ * @param {string} newLang - Новый язык (например, 'en').
+ * @param {Location} location - Текущий объект `location` из `react-router`.
+ * @returns {{ pathname: string, search: string }} Новый location-объект.
+ */
+export function buildLocationWithNewLang(newLang, location) {
+  const [, , ...restPath] = location.pathname.split('/');
+  const path = restPath.length ? `/${restPath.join('/')}` : '';
+
+  const params = Object.fromEntries(new URLSearchParams(location.search));
+
+  return buildLocationObject({
+    lang: newLang,
+    path,
+    params, // и тут внутри всё уйдёт в buildQueryString
+  });
 }

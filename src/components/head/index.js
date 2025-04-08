@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 function Head({ title, children }) {
+
   return (
     <div className="Head">
       <div className="Head-container">
@@ -14,7 +15,7 @@ function Head({ title, children }) {
 }
 
 Head.propTypes = {
-  title: PropTypes.node,
+  title: PropTypes.string.isRequired,
   children: PropTypes.node,
 };
 

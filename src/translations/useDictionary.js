@@ -3,7 +3,7 @@ import {dictionary} from "./dictionary";
 
 export const useDictionary = () => {
   const location = useLocation();
-  const lang = location.pathname.split('/')[1] || 'ru'; // ru или en
+  const lang = location.pathname.split('/')[1] || 'ru';
 
   const t = (key) => {
     return dictionary[lang]?.[key] || key;

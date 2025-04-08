@@ -5,11 +5,11 @@ import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
 import {Link} from "react-router";
-import {useDictionary} from "../../app/translations/useDictionary";
 
-function Item({ item, onAdd = () => {}, link }) {
+
+function Item({ item, onAdd = () => {}, link , labels}) {
   const cn = bem('Item');
-  const { t } = useDictionary();
+
   const callbacks = {
     onAdd: (e) => {
       e.stopPropagation();
@@ -22,7 +22,7 @@ function Item({ item, onAdd = () => {}, link }) {
       <Link to={link} className={cn('title')}>{item.title}</Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
-        <Button style="primary" onClick={(e) => callbacks.onAdd(e)} title={t('add')} />
+        <Button style="primary" onClick={(e) => callbacks.onAdd(e)} title={labels.buttonAdd} />
       </div>
     </div>
   );
@@ -35,6 +35,9 @@ Item.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
+  labels: PropTypes.shape({
+    buttonAdd: PropTypes.string.isRequired,
+  })
 };
 
 export default memo(Item);

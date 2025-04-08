@@ -2,17 +2,15 @@ import PropTypes from 'prop-types';
 import {memo} from 'react';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
-import {useDictionary} from "../../app/translations/useDictionary";
 import {OPTIONS_LIMIT} from "../../constants";
 
-const PageSize = ({ size, setSize, currentPage }) => {
+const PageSize = ({ size, setSize, currentPage, label }) => {
   const cn = bem('PageSize');
   const options = OPTIONS_LIMIT;
-  const { t } = useDictionary();
 
   return (
     <div className={cn()}>
-      <p className={cn('title')}>{t('showPer')}:</p>
+      <p className={cn('title')}>{label}:</p>
 
       {options.map((option) => (
         <label key={option} className={cn('label')}>

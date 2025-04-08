@@ -4,10 +4,9 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from '../../utils';
 import Button from '../button';
 import './style.css';
-import {useDictionary} from "../../app/translations/useDictionary";
+import { KEYS } from '../../constants';
 
-function ArticleCard({item, onAdd = () => {} }) {
-  const { t } = useDictionary();
+function ArticleCard({item, onAdd = () => {} , labels}) {
   const cn = bem('ArticleCard');
   const callbacks = {
     onAdd: () => {
@@ -30,14 +29,14 @@ function ArticleCard({item, onAdd = () => {} }) {
       <p>{item.description}</p>
 
       <div className={cn('info')}>
-        {renderInfoField(t('country'), `${item.madeIn.title} (${item.madeIn.code})`)}
-        {renderInfoField(t('category'), item.category.title)}
-        {renderInfoField(t('releaseYear'), item.edition)}
+        {renderInfoField(labels.country, `${item.madeIn.title} (${item.madeIn.code})`)}
+        {renderInfoField(labels.category, item.category.title)}
+        {renderInfoField(labels.releaseYear, item.edition)}
       </div>
 
-      <span className={cn('price')}>{t('price')}:&nbsp;&nbsp;{numberFormat(item.price)} ₽</span>
+      <span className={cn('price')}>{labels.price}:&nbsp;&nbsp;{numberFormat(item.price)} ₽</span>
 
-      <Button style="primary" onClick={callbacks.onAdd} title={t('add')}/>
+      <Button style="primary" onClick={callbacks.onAdd} title={labels.buttonAdd}/>
     </div>
   );
 }
@@ -60,6 +59,13 @@ ArticleCard.propTypes = {
       _id: PropTypes.string.isRequired,
     }).isRequired,
   onAdd: PropTypes.func,
+  labels: PropTypes.shape({
+    country: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    releaseYear: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    buttonAdd: PropTypes.string.isRequired,
+       }).isRequired,
 };
 
 export default memo(ArticleCard);

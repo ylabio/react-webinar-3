@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -9,25 +9,27 @@ import useSelector from '../../store/use-selector';
 import PaginationControls from "../../components/pagination-controls";
 import ControlsPanel from "../../components/controls-panel";
 import {useLocation, useNavigate, useSearchParams} from "react-router";
-import MainLink from "../../components/home-link";
-import {useDictionary} from "../translations/useDictionary";
-import {DEFAULT_PAGINATION, OPTIONS_LIMIT, OPTIONS_LANG} from "../../constants";
-import {useLang} from "../translations/useLang";
+import HomeLink from "../../components/home-link";
+import {useDictionary} from "../../translations/useDictionary";
+import { DEFAULT_PAGINATION, OPTIONS_LIMIT, OPTIONS_LANG, KEYS } from "../../constants";
 import ButtonsLang from "../../components/buttons-lang";
 import PageSize from "../../components/page-size";
 import PaginationView from "../../components/pagination-view";
-import {buildQueryString} from "../../utils";
+import { buildLocationObject, buildLocationWithNewLang, buildQueryString } from "../../utils";
+import { useHomeLink } from '../../hooks/useHomeLink';
+import { useLabels } from '../../translations/useLabels';
 
 function Main() {
 
-  const {t} = useDictionary();
+  const {lang} = useDictionary();
   const store = useStore();
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
-  const lang = useLang();
   const page = Number(searchParams.get('page'));
   const pageSize = Number(searchParams.get('pageSize'));
   const navigate = useNavigate();
+
+  const {labelsBasketTools, labelsItems, labelsHeaderStore, labelsNavigation, labelsPagination} = useLabels();
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -39,6 +41,9 @@ function Main() {
     skip: state.catalog.skip,
     pageSize: state.catalog.pageSize,
   }));
+
+  const linkHome = useHomeLink(lang)
+
 
   useEffect(() => {
     if (page === 0 || pageSize === 0) {
@@ -62,10 +67,8 @@ function Main() {
       ({newLimit, oldLimit, oldPage}) => {
         const oldSkip = (oldPage - 1) * oldLimit;
         const newPage = Math.floor(oldSkip / newLimit) + 1;
-        navigate({
-          pathname: `/${lang}`,
-          search: buildQueryString({ page: newPage, pageSize: newLimit }),
-        });
+
+        navigate(buildLocationObject({lang, params: { page: newPage, pageSize: newLimit } }));
       },
       [navigate, lang]
     ),
@@ -73,21 +76,20 @@ function Main() {
       (newLang) => {
         if (newLang === lang) return;
 
-        const parts = location.pathname.split('/');
-        parts[1] = newLang; // заменяем язык в URL
-
-        navigate({
-          pathname: parts.join('/'),
-          search: location.search,
-        });
+        navigate(buildLocationWithNewLang(newLang, location));
       },
       [navigate, location, lang]
     ),
     getPageLink: useCallback(
       (page, pageSize) => {
-        return `/${lang}/${buildQueryString({ page, pageSize })}`;
+        return buildLocationObject({
+          lang,
+          params: { page, pageSize },
+        });
       },
-      [lang]),
+      [lang]
+    ),
+
   };
 
   const renders = {
@@ -99,6 +101,7 @@ function Main() {
             item={item}
             onAdd={callbacks.addToBasket}
             link={`/${lang}/article/${item._id}`}
+            labels={labelsItems}
           />
         );
       },
@@ -108,22 +111,27 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title={t('store')}>
+      <Head title={labelsHeaderStore.title}>
         <ButtonsLang currentLang={lang} options={OPTIONS_LANG} onLangChange={callbacks.handleLangChange}/>
       </Head>
       <ControlsPanel>
-        <MainLink/>
-        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+        <nav>
+          <HomeLink link={linkHome} label={labelsNavigation.linkHome}/>
+        </nav>
+
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} labels={labelsBasketTools}/>
       </ControlsPanel>
 
       <List list={select.list} renderItem={renders.item}/>
 
       <PaginationControls>
-        <PageSize size={select.pageSize} currentPage={select.currentPage} setSize={callbacks.handlePageChange}/>
+        <PageSize size={select.pageSize} currentPage={select.currentPage} setSize={callbacks.handlePageChange}
+        label={labelsPagination.titlePageSize}/>
         <PaginationView totalPages={select.totalPages}
                         currentPage={select.currentPage}
                         pageSize={select.pageSize}
-                        getPageLink={callbacks.getPageLink}/>
+                        getPageLink={callbacks.getPageLink}
+        />
       </PaginationControls>
 
     </PageLayout>

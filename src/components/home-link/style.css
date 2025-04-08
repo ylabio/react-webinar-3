@@ -3,6 +3,9 @@
   color: var(--main-text);
   &:hover {
     text-decoration: underline;
-    color: var(--primary);
   }
+}
+
+.active {
+  color: var(--primary);
 }

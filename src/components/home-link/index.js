@@ -1,40 +1,23 @@
-import {memo} from 'react';
-import {cn as bem} from '@bem-react/classname';
+import { memo } from 'react';
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
-import {Link} from "react-router";
-import useSelector from "../../store/use-selector";
-import {useDictionary} from "../../app/translations/useDictionary";
-import {DEFAULT_PAGINATION} from "../../constants";
-import {useLang} from "../../app/translations/useLang";
-import {buildQueryString} from "../../utils";
+import { NavLink } from "react-router";
+import PropTypes from 'prop-types';
 
-function HomeLink() {
+function HomeLink({label, link}) {
   const cn = bem('HomeLink');
 
-  const { t } = useDictionary();
-
-  const select = useSelector(state => ({
-    currentPage: state.catalog.currentPage,
-    pageSize: state.catalog.pageSize,
-  }));
-
-  const isDefaultPage = select.currentPage === DEFAULT_PAGINATION.currentPage|| !select.currentPage;
-  const isDefaultSize = select.pageSize === DEFAULT_PAGINATION.pageSize || !select.pageSize;
-
-  const lang = useLang();
-
-  const query = buildQueryString({
-    page: select.currentPage,
-    pageSize: select.pageSize,
-  });
-
-  const link = isDefaultPage && isDefaultSize
-    ? `/${lang}`
-    : `/${lang}/${query}`;
-
   return (
-    <Link to={link} className={cn()}>{t('home')}</Link>
+      <NavLink to={link} end={true} className={cn()}>{label}</NavLink>
   );
 }
+
+HomeLink.propTypes = {
+  link: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+    search: PropTypes.string,
+  }).isRequired,
+  label: PropTypes.string.isRequired,
+};
 
 export default memo(HomeLink);
