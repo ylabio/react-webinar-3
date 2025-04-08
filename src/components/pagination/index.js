@@ -25,11 +25,11 @@ function Pagination({ page, totalPages, onPageChange, limit, onLimitChange }) {
       }
     } else {
       pages.push(1);
-      if (page > 4) pages.push('...');
+      if (page > 3) pages.push('...');
       for (let i = Math.max(2, page - 1); i <= Math.min(totalPages - 1, page + 1); i++) {
         pages.push(i);
       }
-      if (page < totalPages - 3) pages.push('...');
+      if (page < totalPages - 2) pages.push('...');
       pages.push(totalPages);
     }
 
