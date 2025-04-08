@@ -29,7 +29,7 @@ function Product({
         <dt>Год выпуска:</dt>
         <dd>{edition}</dd>
       </dl>
-      <p className={cn('price')}>Цена: {numberFormat(price)} ₽</p>
+      <p className={cn('price')}>Цена:&ensp;{numberFormat(price)} ₽</p>
       <Button style="primary" onClick={handleAdd} title="Добавить" />
     </div>
   );
