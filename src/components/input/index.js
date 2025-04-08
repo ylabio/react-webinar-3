@@ -1,36 +1,36 @@
-import { memo, useCallback, useLayoutEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import debounce from 'lodash.debounce';
+import PropTypes from 'prop-types';
+import { memo, useCallback, useLayoutEffect, useState } from 'react';
 
 import './style.css';
 
-function Input(props) {
+function Input({ placeholder, value, name, onChange = () => {}, type = 'text', theme = '' }) {
   // Внутренний стейт для быстрого отображения ввода
-  const [value, setValue] = useState(props.value);
+  const [inputValue, setInputValue] = useState(value);
 
   const onChangeDebounce = useCallback(
-    debounce(value => props.onChange(value, props.name), 600),
-    [props.onChange, props.name],
+    debounce(inputValue => onChange(inputValue, name), 600),
+    [onChange, name],
   );
 
   // Обработчик изменений в поле
-  const onChange = event => {
-    setValue(event.target.value);
+  const onInputChange = event => {
+    setInputValue(event.target.value);
     onChangeDebounce(event.target.value);
   };
 
   // Обновление стейта, если передан новый value
-  useLayoutEffect(() => setValue(props.value), [props.value]);
+  useLayoutEffect(() => setInputValue(value), [value]);
 
   const cn = bem('Input');
   return (
     <input
-      className={cn({ theme: props.theme })}
-      value={value}
-      type={props.type}
-      placeholder={props.placeholder}
-      onChange={onChange}
+      className={cn({ theme: theme })}
+      value={inputValue}
+      type={type}
+      placeholder={placeholder}
+      onChange={onInputChange}
     />
   );
 }
@@ -42,12 +42,6 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   theme: PropTypes.string,
-};
-
-Input.defaultProps = {
-  onChange: () => {},
-  type: 'text',
-  theme: '',
 };
 
 export default memo(Input);

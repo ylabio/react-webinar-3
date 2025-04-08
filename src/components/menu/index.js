@@ -1,10 +1,10 @@
-import { memo } from 'react';
-import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
+import PropTypes from 'prop-types';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import './style.css';
 
-function Menu({ items, onNavigate }) {
+function Menu({ items = [], onNavigate = () => {} }) {
   const cn = bem('Menu');
   return (
     <ul className={cn()}>
@@ -28,11 +28,6 @@ Menu.propTypes = {
     }),
   ),
   onNavigate: PropTypes.func,
-};
-
-Menu.defaultProps = {
-  items: [],
-  onNavigate: () => {},
 };
 
 export default memo(Menu);

@@ -1,5 +1,5 @@
-import { memo } from 'react';
 import PropTypes from 'prop-types';
+import { memo } from 'react';
 import './style.css';
 
 function Spinner({ active, children }) {
@@ -14,7 +14,5 @@ Spinner.propTypes = {
   active: PropTypes.bool.isRequired,
   children: PropTypes.node,
 };
-
-Spinner.defaultProps = {};
 
 export default memo(Spinner);
