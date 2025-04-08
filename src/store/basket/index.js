@@ -13,7 +13,7 @@ class Basket extends StoreModule {
    * Добавление товара в корзину
    * @param _id Код товара
    */
-  addToBasket(_id) {
+  async addToBasket(_id) {
     let sum = 0;
     // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
@@ -29,11 +29,30 @@ class Basket extends StoreModule {
 
     if (!exist) {
       // Поиск товара в каталоге, чтобы его добавить в корзину.
-      // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      const item = this.store.getState().catalog.list.find(item => item._id === _id);
-      list.push({ ...item, amount: 1 }); // list уже новый, в него можно пушить.
-      // Добавляем к сумме.
-      sum += item.price;
+      try {
+        // Это на случай если store.catalog пустой (например после перезагрузки страницы article)
+        if (this.store.getState().catalog.list.length === 0) {
+          await this.store.actions.catalog.load();
+        }
+
+        const item = this.store.getState().catalog.list.find(item => item._id === _id);
+        
+        // Если товар не найден в каталоге, используем данные из article
+        if (!item && this.store.getState().article.itemInfo._id === _id) {
+          const articleItem = this.store.getState().article.itemInfo;
+          list.push({ ...articleItem, amount: 1 });
+          sum += articleItem.price;
+        } else if (item) {
+          list.push({ ...item, amount: 1 }); // list уже новый, в него можно пушить
+          sum += item.price;
+        } else {
+          console.error('Товар не найден ни в каталоге, ни в текущем просматриваемом товаре');
+          return; // Прерываем выполнение, если товар не найден
+        }
+      } catch (error) {
+        console.error('Ошибка при добавлении товара в корзину:', error);
+        return; // Прерываем выполнение в случае ошибки
+      }
     }
 
     this.setState(

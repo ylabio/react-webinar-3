@@ -1,0 +1,11 @@
+.ArticleContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ArticleContent-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+} 

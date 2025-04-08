@@ -58,6 +58,13 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener(this.state);
   }
+
+  setLang(lang) {
+    this.setState({
+      ...this.getState(),
+      lang: lang,
+    }, 'Смена языка')
+  }
 }
 
 export default Store;

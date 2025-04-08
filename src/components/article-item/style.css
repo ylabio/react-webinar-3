@@ -1,0 +1,32 @@
+ .ArticleItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 24px;
+}
+
+.ArticleItem-list {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.ArticleItem-item {
+  display: grid;
+  grid-template-columns: 200px 200px;
+  align-items: center;
+  row-gap: 12px;
+}
+
+.ArticleItem-item:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.ArticleItem-price {
+  margin-bottom: 24px;
+  font-family: var(--second-font-family);
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+}
