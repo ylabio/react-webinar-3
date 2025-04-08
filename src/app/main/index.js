@@ -30,7 +30,7 @@ function Main() {
 
   useEffect(() => {
     store.actions.catalog.getProductCount();
-  })
+  });
 
   const callbacks = {
     // Добавление в корзину

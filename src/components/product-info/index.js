@@ -25,7 +25,7 @@ function ProductInfo({ desc = '', country = '', cat = '', year = '', price = '',
       </div>
       <h2 className={cn('price')}>{multi.price}: {numberFormat(price, lang)} ₽</h2>
       <div className={cn('actions')}>
-        <Button style="primary" onClick={onAdd} title={multi.btnAdd} />
+        <Button style="primary" title={multi.btnAdd} onClick={onAdd} />
       </div>
     </div>
   );

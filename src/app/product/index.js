@@ -21,10 +21,6 @@ function Product() {
   }));
 
   useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
-
-  useEffect(() => {
     store.actions.catalog.getProduct(id);
   }, [id, select.lang]);
 

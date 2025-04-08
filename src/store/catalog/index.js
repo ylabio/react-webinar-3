@@ -8,11 +8,13 @@ class Catalog extends StoreModule {
   }
 
   initState() {
+    const savedPage = localStorage.getItem('currentPage');
+
     return {
       list: [],
       count: 0,
       selectedProduct: null,
-      currentPage: 1,
+      currentPage: savedPage ? parseInt(savedPage) : 1,
       productsPerPage: 10,
     };
   }
@@ -22,6 +24,7 @@ class Catalog extends StoreModule {
       currentPage = this.store.getState().catalog.currentPage,
       productsPerPage = this.store.getState().catalog.productsPerPage,
     } = params;
+    localStorage.setItem('currentPage', currentPage);
     const skip = productsPerPage * (currentPage - 1);
     const lang = this.store.getState().language.lang;
     const response = await fetch(`/api/v1/articles?limit=${productsPerPage}&skip=${skip}&lang=${lang}`);
@@ -51,8 +54,10 @@ class Catalog extends StoreModule {
     const lang = this.store.getState().language.lang;
     const response = await fetch(`/api/v1/articles/${id}?fields=description,edition,price,title,madeIn(title),category(title)&lang=${lang}`);
     const json = await response.json();
+
     this.setState({
         ...this.getState(),
+        list: [json.result],
         selectedProduct: json.result,
     });
   };
