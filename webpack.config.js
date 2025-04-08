@@ -33,9 +33,13 @@ let config = {
         ],
       },
       {
-        test: /\.svg$/i,
-        issuer: /\.[jt]sx?$/,
-        use: ['@svgr/webpack'],
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: (name) => {
+            const path = name.filename.split("/").slice(1, -1).join("/");
+            return `${path}/[name][ext]`;
+        }},
       },
     ],
   },
@@ -59,7 +63,7 @@ if (process.env.NODE_ENV === 'development') {
     proxy: [
       {
         context: '/api/**',
-        target: 'http://query.rest',
+        target: 'http://query.rest/',
         secure: false,
         changeOrigin: true,
       },

@@ -8,12 +8,12 @@ import useSelector from '../store/use-selector';
  * Приложение
  * @returns {React.ReactElement}
  */
-function App() {
+function App({ children }) {
   const activeModal = useSelector(state => state.modals.name);
 
   return (
     <>
-      <Main />
+      { children }
       {activeModal === 'basket' && <Basket />}
     </>
   );
