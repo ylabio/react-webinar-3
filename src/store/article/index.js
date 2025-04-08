@@ -10,7 +10,6 @@ class Article extends StoreModule {
   async getArticleById(id) {
     const response = await fetch(`/api/v1/articles/${id}?fields=madeIn(title,code), category(title), edition, description, price`,);
     const json = await response.json();
-    console.log(json.result, 'result');
     this.setState(
       {
         ...this.getState(),

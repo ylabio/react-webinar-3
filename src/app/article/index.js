@@ -1,12 +1,11 @@
 import { memo, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router';
-import PageLayout from '../page-layout';
-import Head from '../head';
+import PageLayout from '../../components/page-layout';
+import Head from '../../components/head';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
-import Basket from '../../app/basket';
-import ArticleContent from '../article-content';
-import Controls from '../controls';
+import ArticleContent from '../../components/article-content';
+import Controls from '../../components/controls';
 import { useTranslation } from '../../i18n/language-context';
 
 function Article() {
@@ -32,18 +31,15 @@ function Article() {
   };
 
   return (
-    <>
-      <PageLayout>
-        <Head title={t('ProductName')} />
-        <Controls
-          openModalBasket={callbacks.openModalBasket}
-          amount={select.amount}
-          sum={select.sum}
-        />
-        <ArticleContent article={select.article} addToBasket={callbacks.addToBasket} />
-      </PageLayout>
-      {select.activeModal === 'basket' && <Basket />}
-    </>
+    <PageLayout>
+      <Head title={t('ProductName')} />
+      <Controls
+        openModalBasket={callbacks.openModalBasket}
+        amount={select.amount}
+        sum={select.sum}
+      />
+      <ArticleContent article={select.article} addToBasket={callbacks.addToBasket} />
+    </PageLayout>
   );
 }
 

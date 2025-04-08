@@ -3,8 +3,8 @@ import Store from './store';
 import { StoreContext } from './store/context';
 import 'theme.css';
 import { BrowserRouter } from 'react-router';
-import { routes } from './routes';
 import { LanguageProvider } from './i18n/language-context';
+import App from './app';
 
 const store = new Store();
 
@@ -15,7 +15,7 @@ root.render(
   <StoreContext.Provider value={store}>
     <BrowserRouter>
       <LanguageProvider>
-        {routes}
+        <App />
       </LanguageProvider>
     </BrowserRouter>
   </StoreContext.Provider>,
