@@ -12,7 +12,7 @@ import { useLanguage } from '../../language-context';
 import translations from '../../locales';
 import LanguageToggle from '../../components/language-toggle';
 import HomeLink from '../../components/home-link';
-import './style.css';
+import Flex from '../../components/flex';
 
 function Main() {
   const store = useStore();
@@ -62,13 +62,13 @@ function Main() {
   return (
     <PageLayout>
       <Head title={t.shop}><LanguageToggle/></Head>
-      <div className='flex-align-center'>
+      <Flex>
       <HomeLink resetPagination={true}/>
-      <BasketTool 
+      <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}/>
-      </div>
+      </Flex>
       <List list={select.list} renderItem={renders.item} />
       <ItemsPerPageSelector
         perPage={select.perPage}

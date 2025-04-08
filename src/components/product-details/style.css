@@ -92,6 +92,8 @@
 
 .product-price {
   display: inline-block;
+  padding-top: 9px;
+  padding-bottom: 9px;
   white-space: nowrap;
 }
 
