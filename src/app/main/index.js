@@ -5,6 +5,7 @@ import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
 import PageTools from '../../components/page-tools';
 import List from '../../components/list';
+import Loader from '../../components/loader';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import text from "../../text";
@@ -33,7 +34,7 @@ function Main() {
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return <Item item={item} onAdd={callbacks.addToBasket} text={text[select.lang]} />;
       },
       [callbacks.addToBasket],
     ),
@@ -43,7 +44,12 @@ function Main() {
     <PageLayout>
       <Head title={text[select.lang].storeName} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      <List list={select.list} renderItem={renders.item} />
+      {
+        select.list ?
+        <List list={select.list} renderItem={renders.item} />
+        :
+        <Loader />
+      }
       <PageTools />
     </PageLayout>
   );

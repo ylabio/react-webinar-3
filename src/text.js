@@ -16,6 +16,7 @@ const text = {
         releaseYear: 'Год выпуска:',
         price: 'Цена:',
         loading: 'Loading...',
+        item: 'шт'
     },
     en: {
         storeName: 'Store',
@@ -34,6 +35,7 @@ const text = {
         releaseYear: 'Year of release:',
         price: 'Price:',
         loading: 'Loading...',
+        item: 'pc'
     }
 }
 
