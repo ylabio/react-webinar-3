@@ -7,8 +7,10 @@ class Article extends StoreModule {
     };
   }
 
-  async getArticleById(id) {
-    const response = await fetch(`/api/v1/articles/${id}?fields=madeIn(title,code), category(title), edition, description, price`,);
+  async getArticleById(id, lang = 'ru') {
+    const response = await fetch(
+      `/api/v1/articles/${id}?fields=madeIn(title,code),category(title),edition,description,price&lang=${lang}`,
+    );
     const json = await response.json();
     this.setState(
       {
@@ -18,7 +20,6 @@ class Article extends StoreModule {
       'Загружен товар из АПИ',
     );
   }
-
 }
 
 export default Article;

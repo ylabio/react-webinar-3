@@ -11,12 +11,12 @@ import { useTranslation } from '../../i18n/language-context';
 function Article() {
   const store = useStore();
   const { id } = useParams();
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   useEffect(() => {
-    store.actions.article.getArticleById(id);
+    store.actions.article.getArticleById(id, language);
     store.actions.modals.open(null);
-  }, [id]);
+  }, [id, language]);
 
   const select = useSelector(state => ({
     amount: state.basket.amount,

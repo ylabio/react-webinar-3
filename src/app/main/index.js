@@ -11,7 +11,7 @@ import { useTranslation } from '../../i18n/language-context';
 
 function Main() {
   const store = useStore();
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -25,8 +25,8 @@ function Main() {
 
   useEffect(() => {
     const skip = select.currentPage * itemsPerPage - itemsPerPage;
-    store.actions.catalog.load(itemsPerPage, skip);
-  }, [itemsPerPage, select.currentPage]);
+    store.actions.catalog.load(itemsPerPage, skip, language);
+  }, [itemsPerPage, select.currentPage, language]);
 
   const callbacks = {
     // Добавление в корзину
