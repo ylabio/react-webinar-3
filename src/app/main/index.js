@@ -8,6 +8,7 @@ import Pagination from '../../components/pagination';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import useTranslate from '../../hooks/useTranslate';
+import MainMenu from '../../components/main-menu';
 
 function Main() {
   const t = useTranslate();
@@ -68,16 +69,25 @@ function Main() {
   return (
     <PageLayout>
       <Head title={t.shop} />
-      <BasketTool
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-        textone={t.one}
-        textfew={t.few}
-        textmany={t.many}
-        textEmpty={t.Empty}
-        textmain={t.main}
-      />
+      <div
+        className="header-tools"
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
+        <MainMenu textmain={t.main} />
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+          textone={t.one}
+          textfew={t.few}
+          textmany={t.many}
+          textEmpty={t.Empty}
+          textmain={t.main}
+        />
+      </div>
 
       {select.isLoading ? (
         <div className="loading">Загрузка...</div>

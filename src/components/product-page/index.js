@@ -4,21 +4,31 @@ import Head from '../head';
 import BasketTool from '../basket-tool';
 import PageLayout from '../page-layout';
 import ProductDetails from '../product-details';
-
+import MainMenu from '../main-menu';
 function ProductPage({ product, isLoading, error, amount, sum, onAdd, onOpenBasket, texts = {} }) {
   return (
     <PageLayout>
       <Head title={product?.title || 'Товар'} />
-      <BasketTool
-        onOpen={onOpenBasket}
-        amount={amount}
-        sum={sum}
-        textone={texts.one}
-        textfew={texts.few}
-        textmany={texts.many}
-        textEmpty={texts.Empty}
-        textmain={texts.main}
-      />
+
+      <div
+        className="header-tools"
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
+        <MainMenu textmain={texts.main} />
+        <BasketTool
+          onOpen={onOpenBasket}
+          amount={amount}
+          sum={sum}
+          textone={texts.one}
+          textfew={texts.few}
+          textmany={texts.many}
+          textEmpty={texts.Empty}
+          textmain={texts.main}
+        />
+      </div>
 
       {isLoading ? (
         <div>Загружаем информацию о товаре...</div>

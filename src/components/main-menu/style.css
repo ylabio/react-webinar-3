@@ -1,0 +1,17 @@
+.MainMenu {
+  display: flex;
+  align-items: center;
+}
+
+.MainMenu-nav {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.MainMenu-nav.active {
+  text-decoration: underline;
+}

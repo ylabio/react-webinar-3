@@ -1,7 +1,4 @@
 .BasketTool {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   max-width: 1152px;
   padding: 24px 16px 24px 0;
 }
@@ -19,21 +16,4 @@
       color: var(--primary);
     }
   }
-}
-
-.BasketTool-nav {
-  color: inherit;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: none;
-  }
-}
-
-.BasketTool-nav.active {
-  text-decoration: underline;
-}
-
-.BasketTool-total {
-  transition: 0.3s;
 }
