@@ -1,0 +1,6 @@
+.control-options {
+    display: flex;
+    gap: 50px;
+    justify-content: end;
+    margin-top: 24px;
+}
