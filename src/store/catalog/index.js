@@ -11,10 +11,14 @@ class Catalog extends StoreModule {
     return {
       list: [],
       count: 0,
+      currentPage: 1,
+      limit: 10,
     };
   }
 
-  async load(limit, skip) {
+  async load() {
+    const { currentPage, limit } = this.getState();
+    const skip = (currentPage - 1) * limit;
     try {
       const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id, title, price),count`);
       const json = await response.json();
@@ -30,6 +34,27 @@ class Catalog extends StoreModule {
       console.error(error.message);
     }
   }
+
+  onPageChange = (page) => {
+    this.setState(
+      {
+        ...this.getState(),
+        currentPage: page
+      }
+    )
+    this.load();
+  };
+
+  onChangeLimit = (limit) => {
+    this.setState(
+      {
+        ...this.getState(),
+        limit,
+        currentPage: 1
+      }
+    )
+    this.load();
+  };
 }
 
 export default Catalog;

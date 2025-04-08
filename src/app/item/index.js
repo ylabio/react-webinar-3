@@ -7,6 +7,7 @@ import useStore from '../../store/use-store';
 import { NavLink, useParams } from 'react-router';
 import Button from '../../components/button';
 import './style.css';
+import ItemLayout from '../../components/item-layout';
 
 const ItemPage = () => {
   const store = useStore();
@@ -39,27 +40,15 @@ const ItemPage = () => {
     };
   
     fetchData();
-  }, []);
+  }, [id]);
 
   return (
     <PageLayout>
       <Head title={item?.title}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={amount} sum={sum} >
-        <NavLink className={"nav-link"} to={'/'}>Главная</NavLink>
+        <NavLink className={"nav-link"} to={'/articles'}>Главная</NavLink>
       </BasketTool>
-      <div className='mb-24'>{item?.description}</div>
-      <div className="info-grid">
-        <label>Страна производитель:</label>
-        <span>{item?.madeIn?.title}</span>
-
-        <label>Категория:</label>
-        <span>{item?.category?.title}</span>
-
-        <label>Год выпуска:</label>
-        <span>{item?.edition}</span>
-      </div>
-      <h3 className='mb-24'>Цена: {item?.price}</h3>
-      <Button style={'primary'} onClick={callbacks.addToBasket} title={'Добавить'} type={'button'} />
+      <ItemLayout description={item?.description} title={item?.title} category={item?.category?.title} price={item?.price} onAddToBasket={callbacks.addToBasket} />
     </PageLayout>
   );
 };

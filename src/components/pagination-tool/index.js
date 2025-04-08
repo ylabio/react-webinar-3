@@ -7,29 +7,28 @@ import PaginationSwitcher from '../pagination-switcher';
 import useSelector from '../../store/use-selector';
 import useStore from '../../store/use-store';
 
-function PaginationTool () {
-  const store = useStore();
-  const { currentPage, limit } = useSelector(state => state.pagination);
-  const { count } = useSelector(state => state.catalog);
-
-  const callbacks = {
-    onPageChange: useCallback(page => store.actions.pagination.onPageChange(page), [store]),
-    onChangeLimit: useCallback(limit => store.actions.pagination.onChangeLimit(limit), [store]),
-  };
+function PaginationTool ({currentPage = 1, limit = 10, count = 0, onPageChange = ()=>{}, onChangeLimit = ()=>{} }) {
   const cn = bem('PaginationTool');
 
-  const last = 25;
   return (
     <div className={cn()}>
-      <PaginationSwitcher changeCount={callbacks.onChangeLimit}/>
+      <PaginationSwitcher changeCount={onChangeLimit}/>
       <Pagination
         currentPage={currentPage}
         count={count}
         limit={limit}
-        onPageChange={callbacks.onPageChange}    
+        onPageChange={onPageChange}    
       />
     </div>
   );
+};
+
+PaginationTool.propTypes = {
+  currentPage: PropTypes.number,
+  limit: PropTypes.number,
+  count: PropTypes.number,
+  onChangeLimit: PropTypes.func,
+  onPageChange: PropTypes.func,
 };
 
 export default PaginationTool;

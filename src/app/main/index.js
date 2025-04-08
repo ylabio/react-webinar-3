@@ -16,8 +16,8 @@ function Main() {
     count: state.catalog.count,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    limit: state.pagination.limit,
-    skip: state.pagination.skip,
+    limit: state.catalog.limit,
+    currentPage: state.catalog.currentPage,
   }));
 
   useEffect(() => {
@@ -30,6 +30,9 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+
+    onPageChange: useCallback(page => store.actions.catalog.onPageChange(page), [store]),
+    onChangeLimit: useCallback(limit => store.actions.catalog.onChangeLimit(limit), [store]),
   };
 
   const renders = {
@@ -47,7 +50,7 @@ function Main() {
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} >
       </BasketTool>
       <List list={select.list} renderItem={renders.item} />
-      <PaginationTool />
+      <PaginationTool count={select.count} currentPage={select.currentPage} limit={select.limit} onChangeLimit={callbacks.onChangeLimit} onPageChange={callbacks.onPageChange} />
     </PageLayout>
   );
 }
