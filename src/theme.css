@@ -12,6 +12,11 @@
   --odd-item: #6B4ACB08;
   --close: #878787;
 
+
+  /* ...твои цвета */
+  --skeleton-base: #F2F0FA;        /* светлый фон (похоже на divider) */
+  --skeleton-highlight: #E4DEFA;   /* чуть светлее primary-select */
+
   --font-family: 'Golos Text';
   --second-font-family: 'Montserrat Alternates';
 }

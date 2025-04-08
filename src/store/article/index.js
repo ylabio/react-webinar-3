@@ -7,24 +7,34 @@ class Article extends StoreModule {
 
   initState() {
     return {
-      article: {},
+      data: {},
+      isLoading: true,
     };
   }
 
   async load({id, lang}) {
+    this.setState(
+      {
+        ...this.getState(),
+        isLoading: true,
+      },
+      `Начинается загрузка карточки товара по id:${id} из АПИ`,
+    );
+
     const response = await fetch(`/api/v1/articles/${id}?fields=title,description,price,edition,madeIn(title,code),category(title)&lang=${lang}`);
     const json = await response.json();
     this.setState(
       {
         ...this.getState(),
-        article: json.result,
+        data: json.result,
+        isLoading: false,
       },
       `Загружена карточка товара по id:${id} из АПИ`,
     );
   }
 
-  async clear() {
-    await this.setState(
+  clear() {
+    this.setState(
       {
         ...this.getState(),
         ...this.initState(),
@@ -32,7 +42,6 @@ class Article extends StoreModule {
       `Очищена карточка товара`,
     );
   }
-
 
 }
 

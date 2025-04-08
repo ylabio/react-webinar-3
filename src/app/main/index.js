@@ -102,6 +102,7 @@ function Main() {
             onAdd={callbacks.addToBasket}
             link={`/${lang}/article/${item._id}`}
             labels={labelsItems}
+            linkState={{title: item.title}}
           />
         );
       },

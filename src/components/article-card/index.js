@@ -4,7 +4,6 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from '../../utils';
 import Button from '../button';
 import './style.css';
-import { KEYS } from '../../constants';
 
 function ArticleCard({item, onAdd = () => {} , labels}) {
   const cn = bem('ArticleCard');

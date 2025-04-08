@@ -7,7 +7,7 @@ import './style.css';
 import {Link} from "react-router";
 
 
-function Item({ item, onAdd = () => {}, link , labels}) {
+function Item({ item, onAdd = () => {}, link , labels, linkState}) {
   const cn = bem('Item');
 
   const callbacks = {
@@ -19,7 +19,7 @@ function Item({ item, onAdd = () => {}, link , labels}) {
 
   return (
     <div className={cn()}>
-      <Link to={link} className={cn('title')}>{item.title}</Link>
+      <Link to={link} state={linkState} className={cn('title')}>{item.title}</Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
         <Button style="primary" onClick={(e) => callbacks.onAdd(e)} title={labels.buttonAdd} />

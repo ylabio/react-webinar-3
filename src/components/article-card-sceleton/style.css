@@ -1,0 +1,65 @@
+.ArticleCardSkeleton {
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+}
+
+.ArticleCardSkeleton-info {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 8px;
+  row-gap: 12px;
+  align-items: start;
+}
+
+.ArticleCardSkeleton-box {
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base, #F2F0FA) 0%,
+    var(--skeleton-highlight, #E4DEFA) 50%,
+    var(--skeleton-base, #F2F0FA) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 4px;
+}
+
+.ArticleCardSkeleton-box_type_label {
+  width: 185px;
+  height: 22px;
+}
+
+.ArticleCardSkeleton-box_type_value {
+  width: 50%;
+  height: 22px;
+}
+
+.ArticleCardSkeleton-box_type_price {
+  width: 300px;
+  height: 32px;
+  border-radius: 4px;
+}
+
+.ArticleCardSkeleton-box_type_button {
+  width: 115px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.ArticleCardSkeleton-box_type_description {
+  width: 100%;
+  height: 64px;
+  border-radius: 8px;
+}
+
+
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+

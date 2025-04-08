@@ -20,3 +20,33 @@
 .Head h1 {
   margin: 0;
 }
+
+
+/* Эффект сияния по тексту */
+.Head_loading h1 {
+  position: relative;
+  color: transparent;
+  background: linear-gradient(
+    45deg,
+    var(--primary-select) 0%,
+    var(--primary) 50%,
+    var(--primary-select) 100%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: shimmer 1.6s infinite linear;
+  user-select: none;
+  pointer-events: none;
+}
+
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
