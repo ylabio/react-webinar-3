@@ -10,6 +10,10 @@ class Basket extends StoreModule {
   }
 
   addToBasket(_id) {
+    const item = this.store.getState().pagination.items.find(item => item._id === _id) ||
+                 this.store.getState().catalog.list.find(item => item._id === _id) ||
+                 this.store.getState().product.current;
+
     let sum = 0;
     let exist = false;
     const list = this.getState().list.map(item => {
@@ -23,9 +27,6 @@ class Basket extends StoreModule {
     });
 
     if (!exist) {
-      const item = this.store.getState().pagination.items.find(item => item._id === _id) ||
-                   this.store.getState().catalog.list.find(item => item._id === _id);
-
       list.push({ ...item, amount: 1 });
       sum += item.price;
     }

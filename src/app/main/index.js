@@ -12,6 +12,7 @@ import { useLanguage } from '../../language-context';
 import translations from '../../locales';
 import LanguageToggle from '../../components/language-toggle';
 import HomeLink from '../../components/home-link';
+import './style.css';
 
 function Main() {
   const store = useStore();
@@ -51,7 +52,7 @@ function Main() {
 
   const renders = {
     item: useCallback(
-      item => <Item item={item} onAdd={callbacks.addToBasket} />,
+      item => <Item item={item} onAdd={callbacks.addToBasket} path={`/product/${item._id}`}/>,
       [callbacks.addToBasket]
     ),
   };
@@ -61,12 +62,13 @@ function Main() {
   return (
     <PageLayout>
       <Head title={t.shop}><LanguageToggle/></Head>
+      <div className='flex-align-center'>
+      <HomeLink resetPagination={true}/>
       <BasketTool 
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
-        sum={select.sum}>
-          <HomeLink resetPagination={true}/>
-      </BasketTool>
+        sum={select.sum}/>
+      </div>
       <List list={select.list} renderItem={renders.item} />
       <ItemsPerPageSelector
         perPage={select.perPage}

@@ -2,8 +2,8 @@ import Main from './main';
 import Basket from './basket';
 import useSelector from '../store/use-selector';
 import { Route, Routes } from 'react-router-dom';
-import ProductPage from '../components/product-page';
 import { LanguageProvider } from '../language-context';
+import ProductPage from './product-page';
 
 function App() {
   const activeModal = useSelector(state => state.modals.name);

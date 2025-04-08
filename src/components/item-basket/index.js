@@ -7,7 +7,7 @@ import Button from '../button';
 import './style.css';
 import { Link } from 'react-router-dom';
 
-function ItemBasket({onRemove, item}) {
+function ItemBasket({onRemove, item, closeModal}) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
@@ -17,7 +17,7 @@ function ItemBasket({onRemove, item}) {
   return (
     <div className={cn()}>
       <h4 className={cn('title')}>
-       <Link to={`/product/${item._id}`}>{item.title}</Link>
+       <Link to={`/product/${item._id}`} onClick={closeModal}>{item.title}</Link>
         </h4>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(item.amount || 0)} шт</div>
@@ -38,6 +38,7 @@ ItemBasket.propTypes = {
     amount: PropTypes.number,
   }).isRequired,
   onRemove: propTypes.func,
+  onLinkClick: propTypes.func,
 };
 
 export default memo(ItemBasket);

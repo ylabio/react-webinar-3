@@ -6,17 +6,19 @@ import Button from '../button';
 import './style.css';
 import { Link } from 'react-router-dom';
 
-function Item({onAdd, item}) {
+function Item({onAdd, item, path}) {
   const cn = bem('Item');
 
   const callbacks = {
     onAdd: e => onAdd(item._id),
   };
 
+  const itemLink = path ?? `/product/${item._id}`;
+
   return (
     <div className={cn()}>
       <h4 className={cn('title')}>
-        <Link to={`/product/${item._id}`}>{item.title}</Link>
+        <Link to={itemLink}>{item.title}</Link>
         </h4>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
@@ -33,6 +35,15 @@ Item.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
+  path: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      pathname: PropTypes.string,
+      search: PropTypes.string,
+      hash: PropTypes.string,
+      state: PropTypes.object
+    })
+  ]),
 };
 
 export default memo(Item);

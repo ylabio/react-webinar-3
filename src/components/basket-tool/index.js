@@ -6,13 +6,12 @@ import Cart from '../../assets/icon/cart.svg';
 import './style.css';
 import { useLanguage } from '../../language-context';
 
-function BasketTool({onOpen, sum, amount, children}) {
+function BasketTool({ onOpen, sum, amount }) {
   const { language } = useLanguage();
   const cn = bem('BasketTool');
 
   return (
     <div className={cn()}>
-      {children}
       <button className={cn('action')} onClick={onOpen}>
         <Cart className={cn('icon')} />
         <span className={cn('total')}>
@@ -33,7 +32,6 @@ BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
-  children: PropTypes.node
 };
 
 export default memo(BasketTool);
