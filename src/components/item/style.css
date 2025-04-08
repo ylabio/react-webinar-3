@@ -4,7 +4,22 @@
   align-items: center;
   gap: 16px;
   transition: background-color 1s;
-  padding: 16px 16px 15px 16px
+  padding: 16px
+}
+
+
+.Item-title {
+  font-family: Golos Text;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0;
+  text-decoration: none;
+  color: var(--main-text);
+  &:hover {
+    color: var(--primary);
+  }
+
 }
 
 .Item-actions {

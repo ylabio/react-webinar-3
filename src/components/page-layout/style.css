@@ -1,5 +1,5 @@
 .PageLayout {
-  max-width: 1152px;
+  max-width: calc(1152px + 20px + 20px);
   margin: 0 auto;
   background-color: var(--background);
   padding-inline: 20px;

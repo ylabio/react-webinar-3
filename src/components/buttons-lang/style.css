@@ -1,0 +1,39 @@
+.LangSwitcher {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0;
+  text-align: center;
+  height: 22px;
+
+}
+
+.LangSwitcher-option {
+  cursor: pointer;
+  color: var(--close);
+  box-sizing: border-box;
+  border-radius: 2px;
+  padding: 4px;
+}
+
+.LangSwitcher-option:hover {
+  background: var(--primary-select);
+  color: var(--main-text);
+  text-decoration: underline;
+}
+
+.LangSwitcher-option_active {
+  font-weight: bold;
+  background: var(--primary);
+  color: var(--second-text);
+  text-decoration: underline;
+
+  &:hover {
+    background: var(--primary);
+    color: var(--second-text);
+  }
+}

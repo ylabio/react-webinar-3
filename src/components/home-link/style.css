@@ -1,0 +1,11 @@
+.HomeLink {
+  text-decoration: none;
+  color: var(--main-text);
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.active {
+  color: var(--primary);
+}

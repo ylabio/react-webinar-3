@@ -1,0 +1,36 @@
+.PaginationButton {
+  box-sizing: border-box;
+  padding: 0 2px;
+  margin: 0;
+  cursor: pointer;
+  min-width: 22px;
+  width: fit-content;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0;
+  text-align: center;
+  color: var(--main-text);
+  text-decoration: none;
+
+
+  &:hover {
+    background: var(--primary-select);
+    color: var(--main-text);
+  }
+}
+
+.PaginationButton_currentPage {
+  border-radius: 2px;
+  background: var(--primary);
+  color: var(--second-text);
+
+  &:hover {
+    background: var(--primary);
+    color: var(--second-text);
+  }
+}

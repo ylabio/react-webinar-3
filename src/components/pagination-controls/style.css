@@ -1,0 +1,16 @@
+.PaginationControls {
+  padding-top: 24px;
+  gap: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.PaginationControls > :last-child {
+  width: 250px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}

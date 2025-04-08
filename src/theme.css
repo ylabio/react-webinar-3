@@ -12,13 +12,23 @@
   --odd-item: #6B4ACB08;
   --close: #878787;
 
+
+  /* ...твои цвета */
+  --skeleton-base: #F2F0FA;        /* светлый фон (похоже на divider) */
+  --skeleton-highlight: #E4DEFA;   /* чуть светлее primary-select */
+
   --font-family: 'Golos Text';
   --second-font-family: 'Montserrat Alternates';
 }
 
-body {
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
   font-family: var(--font-family);
   min-height: 100vh;
   overflow-x: hidden;
@@ -37,6 +47,3 @@ button {
   background-color: transparent;
 }
 
-h1, h4 {
-  margin: 0;
-}

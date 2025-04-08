@@ -1,8 +1,8 @@
-/* Контрол с общими действиями */
+/* Контрол с действиями для корзины*/
 .BasketTool {
   display: flex;
   justify-content: flex-end;
-  padding: 24px 16px 24px 0;
+  padding: 0;
 }
 
 .BasketTool-action {

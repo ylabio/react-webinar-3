@@ -1,0 +1,17 @@
+.PaginationView {
+  gap: 2px;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-areas:
+  "startGroup";
+  font-weight: 700;
+  margin: 2px;
+  width: fit-content;
+}
+
+.PaginationView-separator {
+  justify-content: center;
+  color: var(--overlay);
+  width: 22px;
+  height: 100%;
+}
