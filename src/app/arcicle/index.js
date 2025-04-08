@@ -34,10 +34,9 @@ function Article() {
   useEffect(() => {
     if (selectOldData.articleId !== id) {
       store.actions.article.clear();
-      store.actions.modals.open('loading');
     }
     store.actions.article.load({id, lang});
-    store.actions.modals.close()
+
   }, [id, lang]);
 
   const select = useSelector(state => ({

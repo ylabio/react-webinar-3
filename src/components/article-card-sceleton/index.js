@@ -1,5 +1,6 @@
 import { cn as bem } from '@bem-react/classname';
-import './style.css'; // будем использовать те же стили
+import './style.css';
+import { Fragment } from 'react'; // будем использовать те же стили
 
 function ArticleCardSkeleton() {
 
@@ -7,23 +8,21 @@ function ArticleCardSkeleton() {
 
   return (
     <div className={cn()}>
-      {/* Описание */}
+
       <div className={cn('box', {type: 'description'})}/>
 
-      {/* Информация (3 строки по 2 столбца) */}
       <div className={cn('info')}>
-        {Array.from({ length: 3 }).map((_, i) => (
-          <>
-            <div className={cn('box', {type: 'label'})} key={`label-${i}`}/>
-            <div className={cn('box', {type: 'value'})} key={`value-${i}`}/>
-          </>
+        {[1,2,3].map((item) => (
+          <Fragment key={item}>
+            <div className={cn('box', {type: 'label'})}/>
+            <div className={cn('box', {type: 'value'})}/>
+          </Fragment>
         ))}
+
       </div>
 
-      {/* Цена */}
       <div className={cn('box', {type: 'price'})}/>
 
-      {/* Кнопка */}
       <div className={cn('box', {type: 'button'})}/>
     </div>
   );

@@ -9,7 +9,6 @@ function ArticleCard({item, onAdd = () => {} , labels}) {
   const cn = bem('ArticleCard');
   const callbacks = {
     onAdd: () => {
-      console.log('item._id',item._id);
       onAdd(item._id);
     },
   };
