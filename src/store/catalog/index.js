@@ -16,14 +16,13 @@ class Catalog extends StoreModule {
     };
   }
 
-  async load() {
+  async load(lang) {
     try {
       this.setState({
         ...this.getState(),
         isLoading: true,
       });
-      const response = await fetch('/api/v1/articles?fields=items(*), count');
-
+      const response = await fetch(`/api/v1/articles?fields=items(*), count&lang=${lang}`);
       if (!response.ok) {
         throw new Error(`Ошибка: ${response.status}`);
       }
@@ -48,14 +47,14 @@ class Catalog extends StoreModule {
       });
     }
   }
-  async getFetch(limit, page) {
+  async getFetch(limit, page, lang) {
     try {
       this.setState({
         ...this.getState(),
         isLoading: true,
       });
       const skip = (page - 1) * limit;
-      const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}`);
+      const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip};&lang=${lang}`);
 
       if (!response.ok) {
         throw new Error(`Ошибка: ${response.status}`);

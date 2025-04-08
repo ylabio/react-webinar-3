@@ -3,18 +3,9 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import { numberFormat } from '../../utils';
 import PropTypes from 'prop-types';
-import useTranslation from '../../store/lang/use-translat';
 
-function ItemInfo({ item }) {
+function ItemInfo({ item, langContent }) {
   const cn = bem('ItemInfo');
-
-  const { t } = useTranslation();
-  const langContent = {
-    madeIn: t('itemInfo').madeIn,
-    category: t('itemInfo').category,
-    year: t('itemInfo').year,
-    price: t('itemInfo').price,
-  };
 
   if (!item) return null;
 
@@ -48,9 +39,11 @@ ItemInfo.propTypes = {
       title: PropTypes.string,
       _id: PropTypes.string,
     }),
-    madeIn: PropTypes.shape({
-      title: PropTypes.string,
-      code: PropTypes.string,
+    langContent: PropTypes.shape({
+      madeIn: PropTypes.string,
+      category: PropTypes.string,
+      price: PropTypes.string,
+      year: PropTypes.string,
     }),
   }),
 };

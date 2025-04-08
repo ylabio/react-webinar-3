@@ -3,16 +3,13 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import './style.css';
-import useTranslation from '../../store/lang/use-translat';
 
-function BasketTotal({ sum = 0 }) {
+function BasketTotal({ sum = 0, langContent }) {
   const cn = bem('BasketTotal');
-  const { t } = useTranslation();
-  const langAmount = t('basketTool').amount;
 
   return (
     <div className={cn()}>
-      <span className={cn('cell')}>{langAmount}</span>
+      <span className={cn('cell')}>{langContent.Amount}</span>
       <span className={cn('cell')}> {numberFormat(sum)} ₽</span>
       <span className={cn('cell')}></span>
     </div>
@@ -21,6 +18,9 @@ function BasketTotal({ sum = 0 }) {
 
 BasketTotal.propTypes = {
   sum: PropTypes.number,
+  langContent: PropTypes.shape({
+    Amount: PropTypes.string,
+  }),
 };
 
 export default memo(BasketTotal);

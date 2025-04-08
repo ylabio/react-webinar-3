@@ -1,6 +1,6 @@
 import Basket from './basket';
 import useSelector from '../store/use-selector';
-import AppRoutes from '../routes/index';
+import AppRoutes from './routes';
 
 /**
  * Приложение

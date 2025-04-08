@@ -10,14 +10,24 @@ import Pagination from '../../components/pagination';
 import NotFound from '../../components/not-found';
 import { useNavigate } from 'react-router';
 import useTranslation from '../../store/lang/use-translat';
+import { useLang } from '../../store/lang/language-context';
 
 function Main() {
   const store = useStore();
   const { t } = useTranslation();
-  const langConntent = {
+  const { lang, setLang } = useLang();
+  const langContent = {
     header: t('header').mainTitle,
     nav: t('nav').main,
     load: t('loading'),
+  };
+  const langBasketTool = {
+    baskeNav: t('nav').main,
+    basketButton: t('button').basket,
+    basketPlural: t('plural'),
+  };
+  const langItem = {
+    button: t('button').add,
   };
 
   const [initLoad, setInitLoad] = useState(true);
@@ -29,12 +39,12 @@ function Main() {
 
   useEffect(() => {
     if (initLoad) {
-      store.actions.catalog.load();
+      store.actions.catalog.load(lang);
       setInitLoad(false);
     } else {
-      store.actions.catalog.getFetch(select.limitItem, select.currentPage);
+      store.actions.catalog.getFetch(select.limitItem, select.currentPage, lang);
     }
-  }, [store.state.pagination.currentPage, store.state.pagination.limitItem]);
+  }, [store.state.pagination.currentPage, store.state.pagination.limitItem, lang]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -59,14 +69,30 @@ function Main() {
       number => store.actions.pagination.changeLimitItem(number),
       [store],
     ),
+    onNavigate: useCallback(
+      event => {
+        if (event.target.closest('li') && event.target.localName !== 'button') {
+          navigate(`/article/${event.target.closest('li').dataset.id}`);
+        }
+      },
+      [navigate],
+    ),
   };
+  const estimatedHeight = select.limitItem * 72.292;
 
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return (
+          <Item
+            item={item}
+            onAdd={callbacks.addToBasket}
+            onNavigate={callbacks.onNavigate}
+            langContent={langItem}
+          />
+        );
       },
-      [callbacks.addToBasket],
+      [callbacks.addToBasket, callbacks.onNavigate, langItem],
     ),
   };
 
@@ -74,16 +100,18 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title={langConntent.header} />
+      <Head title={langContent.header} setLang={setLang} lang={lang}/>
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-        main={langConntent.nav}
+        langContent={{ ...langBasketTool, lang }}
         onMain={onMain}
       />
       {select.isLoading ? (
-        <h2>{langConntent.load}</h2>
+        <div style={{ minHeight: `${estimatedHeight}px` }}>
+          <h2 style={{ margin: '0' }}>{langContent.load}</h2>
+        </div>
       ) : (
         <List list={select.list} renderItem={renders.item} />
       )}

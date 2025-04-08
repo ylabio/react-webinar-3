@@ -13,20 +13,16 @@ class Article extends StoreModule {
     this.setState({ ...this.getState(), itemInfo: item });
   }
 
-  async getFetchItemInfo(id) {
+  async getFetchItemInfo(id, lang) {
     try {
       this.setState({
         ...this.getState(),
         isLoading: true,
       });
       const response = await fetch(
-        `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`,
+        `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)&lang=${lang}`,
       );
-      console.log(
-        await fetch(
-          `/api/v1/aritcles?lang=en`,
-        ),
-      );
+
       if (!response.ok) {
         throw new Error(`Ошибка: ${response.status}`);
       }

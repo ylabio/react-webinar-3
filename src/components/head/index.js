@@ -1,14 +1,10 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import { useLang } from '../../store/lang/language-context';
 
-function Head({ title }) {
-  const { setLang } = useLang();
-  const [isActive, setIsActive] = useState(true);
+function Head({ title, setLang, lang }) {
   const handleClick = lang => {
     setLang(lang);
-    setIsActive(prev => !prev);
   };
 
   return (
@@ -17,7 +13,7 @@ function Head({ title }) {
         <h1>{title}</h1>
         <div className="Header-lang">
           <button
-            disabled={isActive}
+            disabled={lang === 'ru'}
             onClick={() => {
               handleClick('ru');
             }}
@@ -26,7 +22,7 @@ function Head({ title }) {
           </button>
           <span>/</span>
           <button
-            disabled={!isActive}
+            disabled={lang === 'en'}
             onClick={() => {
               handleClick('en');
             }}

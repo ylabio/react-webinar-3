@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Route, Routes } from 'react-router';
-import Main from '../app/main';
-import Article from '../app/article';
+import Main from './main';
+import Article from './article';
 import NotFound from '../components/not-found';
 
 function AppRoutes() {
