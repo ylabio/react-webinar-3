@@ -1,0 +1,20 @@
+.PaginationItem {
+  cursor: var(--cursor);
+  padding: 1px 8px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+}
+
+.PaginationItem:hover {
+  border-radius: 2px;
+  background: rgba(107, 74, 203, 0.1);;
+  color: var(--main-text);
+}
+
+.PaginationItem__active {
+  border-radius: 2px;
+  background-color: var(--primary);
+  color: var(--second-text);
+}

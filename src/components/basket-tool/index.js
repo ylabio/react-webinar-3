@@ -6,7 +6,7 @@ import Cart from '../../assets/icon/cart.svg';
 import './style.css';
 
 function BasketTool(props) {
-  const { onOpen = () => {}, sum = 0, amount = 0 } = props;
+  const { onOpen = () => {}, sum = 0, amount = 0, t = text => {} } = props;
 
   const cn = bem('BasketTool');
   return (
@@ -20,7 +20,7 @@ function BasketTool(props) {
                 few: 'товара',
                 many: 'товаров',
               })} / ${numberFormat(sum)} ₽`
-            : `пусто`}
+            : t('Empty')}
         </span>
       </button>
     </div>
@@ -31,6 +31,7 @@ BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
+  t: PropTypes.func,
 };
 
 export default memo(BasketTool);
