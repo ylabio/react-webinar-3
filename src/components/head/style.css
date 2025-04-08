@@ -6,6 +6,7 @@
   margin-left: calc(-50vw + 50%);
   position: relative;
   left: 0;
+
 }
 
 .Head-container {
@@ -18,4 +19,11 @@
 
 .Head h1 {
   margin: 0;
+}
+
+.Head_Language{
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  right: 100px;
 }

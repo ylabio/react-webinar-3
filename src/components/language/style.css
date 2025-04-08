@@ -1,0 +1,20 @@
+.Language{
+    display: grid;
+    grid-template-columns: 120px 120px;
+    position: absolute;
+    right: 150px;
+    z-index: 10;
+}
+
+.Language div{
+    display: flex;
+    justify-content: center;
+    border: 2px solid #6B4ACB;
+    padding: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.Language div.active{
+    background-color: #6B4ACB;
+}
