@@ -4,7 +4,20 @@
   align-items: center;
   gap: 16px;
   transition: background-color 1s;
-  padding: 16px 16px 15px 16px
+  padding: 16px 16px 15px 16px;
+}
+
+.Item-title {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--main-text);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.Item-title:hover {
+  color: var(--primary);
 }
 
 .Item-actions {

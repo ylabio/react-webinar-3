@@ -12,6 +12,9 @@
   --odd-item: #6B4ACB08;
   --close: #878787;
 
+  --primary-10: rgba(107, 74, 203, 0.1);
+  --main-10: rgba(26, 32, 40, 0.4);
+
   --font-family: 'Golos Text';
   --second-font-family: 'Montserrat Alternates';
 }

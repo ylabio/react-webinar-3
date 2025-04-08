@@ -4,6 +4,7 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
+import { Link } from 'react-router';
 
 function Item(props) {
   const cn = bem('Item');
@@ -15,7 +16,9 @@ function Item(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <h4 className={cn('title')}>{props.item.title}</h4>
+      <Link to={`/articles/${props.item._id}`} className={cn('title')}>
+        {props.item.title}
+      </Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
         <Button style="primary" onClick={callbacks.onAdd} title="Добавить" />
@@ -31,10 +34,6 @@ Item.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onAdd: () => {},
 };
 
 export default memo(Item);
