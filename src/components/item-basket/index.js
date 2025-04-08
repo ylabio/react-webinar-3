@@ -1,5 +1,5 @@
-import { memo, useCallback } from 'react';
-import propTypes from 'prop-types';
+import { memo } from 'react';
+import { Link } from 'react-router-dom';
 import { numberFormat } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
@@ -11,17 +11,25 @@ function ItemBasket(props) {
 
   const callbacks = {
     onRemove: e => props.onRemove(props.item._id),
+    closeModal: e => props.onClose(),
   };
 
   return (
     <div className={cn()}>
-      {/* <div className={cn('code')}>{props.item._id}</div> */}
-      <h4 className={cn('title')}>{props.item.title}</h4>
+      <h4 className={cn('title')} onClick={callbacks.closeModal}>
+        <Link to={`/item/${props.item._id}`}>{props.item.title}</Link>
+      </h4>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {props.quantityText}</div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title="Удалить" />
+          {numberFormat(
+            props.item.price,
+            undefined,
+            { maximumFractionDigits: 0 }
+          )} ₽
+        </div>
+        <div className={cn('cell')}>
+          <Button style="delete" onClick={callbacks.onRemove} title={props.removeFromBasketText} />
         </div>
       </div>
     </div>
@@ -30,16 +38,15 @@ function ItemBasket(props) {
 
 ItemBasket.propTypes = {
   item: PropTypes.shape({
-    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    title: PropTypes.string,
-    price: PropTypes.number,
+    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
     amount: PropTypes.number,
   }).isRequired,
-  onRemove: propTypes.func,
-};
-
-ItemBasket.defaultProps = {
-  onRemove: () => {},
+  onRemove: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  quantityText: PropTypes.string.isRequired,
+  removeFromBasketText: PropTypes.string.isRequired,
 };
 
 export default memo(ItemBasket);
