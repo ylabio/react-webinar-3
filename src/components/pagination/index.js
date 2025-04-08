@@ -21,43 +21,31 @@ const Pagination = ({ totalPages, currentPage, onPageChange, onLimitItem = () =>
 
   const getPages = () => {
     const pages = [];
-    const delta = 1;
+    const maxVisiblePages = 5;
+    const halfVisible = Math.floor(maxVisiblePages / 2);
+    
+    let startPage = Math.max(1, currentPage - halfVisible);
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    
+    if (endPage - startPage + 1 < maxVisiblePages) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
 
-    if (totalPages <= 5) {
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
-      return pages;
-    } else if (currentPage < 3) {
-      for (let i = 1; i <= 3; i++) {
-        pages.push(i);
-      }
-      pages.push('...');
-      pages.push(totalPages);
-    } else if (currentPage > totalPages - 2) {
+    if (startPage > 1) {
       pages.push(1);
-      pages.push('...');
-      for (let i = totalPages - 2; i <= totalPages; i++) {
-        pages.push(i);
-      }
-    } else {
-      pages.push(1);
-      if (currentPage == 3) {
-        pages.push(2);
-      } else {
+      if (startPage > 2) {
         pages.push('...');
       }
+    }
 
-      const startPage = Math.max(3, currentPage - delta);
-      const endPage = Math.min(totalPages - 1, currentPage + delta);
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
 
-      for (let i = startPage; i <= endPage; i++) {
-        pages.push(i);
-      }
-      if (currentPage < totalPages - delta - 1) {
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
         pages.push('...');
       }
-
       pages.push(totalPages);
     }
 

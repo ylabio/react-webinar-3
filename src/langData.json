@@ -17,7 +17,8 @@
       "made-in": "Страна производитель",
       "category": "Категория",
       "edition-year": "Год выпуска",
-      "price": "Цена"
+      "price": "Цена",
+      "pcs": "шт"
     },
     "en": {
       "btn-add": "Add",
@@ -37,6 +38,7 @@
       "made-in": "Country of origin",
       "category": "Category",
       "edition-year": "Year of edition",
-      "price": "Price"
+      "price": "Price",
+      "pcs": "pcs"
     }
   }

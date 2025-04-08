@@ -3,17 +3,25 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import Button from '../button';
+import { useNavigate } from 'react-router';
 import './style.css';
 
 function Item({ onAdd = () => {}, item }) {
   const cn = bem('Item');
+  const navigate = useNavigate();
 
   const callbacks = {
-    onAdd: e => onAdd(item._id),
+    onAdd: e => {
+      e.stopPropagation();
+      onAdd(item._id);
+    },
+    onItemClick: () => {
+      navigate(`/article/${item._id}`);
+    }
   };
 
   return (
-    <div className={cn()}>
+    <div className={cn()} onClick={callbacks.onItemClick}>
       <h4 className={cn('title')}>{item.title}</h4>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>

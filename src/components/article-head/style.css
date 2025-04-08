@@ -1,0 +1,28 @@
+.ArticleHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.ArticleHead-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.ArticleHead h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.ArticleHead-tools {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}

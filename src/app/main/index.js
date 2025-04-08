@@ -25,18 +25,16 @@ function Main() {
     if (initLoad) {
       store.actions.catalog.load();
       setInitLoad(false);
-    } else {
-      store.actions.catalog.getFetch(select.limitItem, select.currentPage);
     }
-  }, [store.state.pagination.currentPage, store.state.pagination.limitItem]);
+  }, []);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
     error: state.catalog.error,
     isLoading: state.catalog.isLoading,
     totalItems: state.catalog.totalItems,
-    currentPage: state.pagination.currentPage,
-    limitItem: state.pagination.limitItem,
+    currentPage: state.catalog.currentPage,
+    limitItem: state.catalog.limitItem,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
@@ -48,9 +46,9 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    changePage: useCallback(number => store.actions.pagination.changePage(number), [store]),
+    changePage: useCallback(number => store.actions.catalog.changePage(number), [store]),
     changeLimitItem: useCallback(
-      number => store.actions.pagination.changeLimitItem(number),
+      number => store.actions.catalog.changeLimitItem(number),
       [store],
     ),
   };

@@ -12,19 +12,19 @@ import { useTranslation } from '../../hooks/useTranslation';
 function Article() {
   const store = useStore();
   const navigate = useNavigate();
-  const { userId } = useParams();
+  const { itemId } = useParams();
   const { t } = useTranslation();
   
   const onMain = () => {
     navigate('/');
-    callbacks.onChangePage(1);
+    store.actions.catalog.changePage(1);
   };
 
   useEffect(() => {
-    if (userId) {
-      callbacks.getFetchItemInfo(userId);
+    if (itemId) {
+      callbacks.getFetchItemInfo(itemId);
     }
-  }, [userId]);
+  }, [itemId]);
 
   const select = useSelector(state => ({
     itemInfo: state.article.itemInfo,
@@ -37,7 +37,6 @@ function Article() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     getFetchItemInfo: useCallback(id => store.actions.article.getFetchItemInfo(id), [store]),
-    onChangePage: useCallback(number => store.actions.pagination.changePage(number), [store]),
   };
   const currentId = select.itemInfo._id;
   const handleAddToBusket = () => callbacks.addToBasket(currentId);

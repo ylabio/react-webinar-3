@@ -8,18 +8,35 @@ class Catalog extends StoreModule {
   }
 
   initState() {
+    // Получаем номер страницы из URL при инициализации
+    const pageMatch = window.location.pathname.match(/\/page\/(\d+)/);
+    const initialPage = pageMatch ? parseInt(pageMatch[1]) : 1;
+
     return {
       list: [],
       totalItems: 0,
       error: false,
       isLoading: false,
+      currentPage: initialPage,
+      limitItem: 10
     };
   }
 
+  changePage(number) {
+    this.setState({ ...this.getState(), currentPage: number });
+    this.getFetch(this.getState().limitItem, number);
+  }
+
+  changeLimitItem(number) {
+    this.setState({ ...this.getState(), limitItem: number, currentPage: 1 });
+    this.getFetch(number, 1);
+  }
+
   async load() {
+    const state = this.getState();
     try {
       this.setState({
-        ...this.getState(),
+        ...state,
         isLoading: true,
       });
       const response = await fetch('/api/v1/articles?fields=items(*), count');
@@ -31,7 +48,7 @@ class Catalog extends StoreModule {
       const json = await response.json();
       this.setState(
         {
-          ...this.getState(),
+          ...state,
           list: json.result.items,
           totalItems: json.result.count,
           error: false,
@@ -39,15 +56,21 @@ class Catalog extends StoreModule {
         },
         'Загружены товары из АПИ',
       );
+      
+      // Загружаем правильную страницу после получения общего количества товаров
+      if (state.currentPage > 1) {
+        this.getFetch(state.limitItem, state.currentPage);
+      }
     } catch (error) {
       console.error(error.message);
       this.setState({
-        ...this.getState(),
+        ...state,
         error: true,
         isLoading: false,
       });
     }
   }
+
   async getFetch(limit, page) {
     try {
       this.setState({

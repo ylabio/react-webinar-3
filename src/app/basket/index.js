@@ -27,9 +27,13 @@ function Basket() {
   const renders = {
     itemBasket: useCallback(
       item => {
-        return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} />;
+        return <ItemBasket 
+          item={item} 
+          onRemove={callbacks.removeFromBasket} 
+          closeModal={callbacks.closeModal}
+        />;
       },
-      [callbacks.removeFromBasket],
+      [callbacks.removeFromBasket, callbacks.closeModal],
     ),
   };
 
