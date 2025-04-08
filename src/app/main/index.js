@@ -40,9 +40,9 @@ function Main() {
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return <Item item={item} onAdd={callbacks.addToBasket} t={t}/>;
       },
-      [callbacks.addToBasket],
+      [callbacks.addToBasket, t],
     ),
   };
 
@@ -54,6 +54,7 @@ function Main() {
         openModalBasket={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
+        t={t}
       />
       <List list={select.list} renderItem={renders.item} />
       <Pagination

@@ -27,16 +27,16 @@ function Basket() {
   const renders = {
     itemBasket: useCallback(
       item => {
-        return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} />;
+        return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} t={t} />;
       },
-      [callbacks.removeFromBasket],
+      [callbacks.removeFromBasket, t],
     ),
   };
 
   return (
     <ModalLayout title={t('Basket')} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <BasketTotal sum={select.sum} text={t('Total')}/>
     </ModalLayout>
   );
 }

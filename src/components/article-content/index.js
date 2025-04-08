@@ -4,11 +4,9 @@ import './style.css';
 import PropTypes from 'prop-types';
 import { numberFormat } from '../../utils';
 import Button from '../button';
-import { useTranslation } from '../../i18n/language-context';
 
-function ArticleContent({ article, addToBasket = id => {} }) {
+function ArticleContent({ article, addToBasket = id => {}, t = text => {} }) {
   const cn = bem('ArticleContent');
-  const { t } = useTranslation();
 
   return (
     <div className={cn()}>
@@ -49,6 +47,7 @@ ArticleContent.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
+  t: PropTypes.func,
 };
 
 export default memo(ArticleContent);

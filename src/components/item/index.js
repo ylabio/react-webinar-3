@@ -6,12 +6,10 @@ import Button from '../button';
 import './style.css';
 import { useNavigate } from 'react-router';
 import { Paths } from '../../routes/paths';
-import { useTranslation } from '../../i18n/language-context';
 
 function Item(props) {
   const cn = bem('Item');
   const navigate = useNavigate();
-  const { t } = useTranslation();
 
   const callbacks = {
     onAdd: e => {
@@ -29,7 +27,7 @@ function Item(props) {
       <h4 className={cn('title')}>{props.item.title}</h4>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <Button style="primary" onClick={callbacks.onAdd} title={t('Add')} />
+        <Button style="primary" onClick={callbacks.onAdd} title={props.t('Add')} />
       </div>
     </div>
   );
@@ -42,6 +40,7 @@ Item.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
+  t: PropTypes.func,
 };
 
 Item.defaultProps = {

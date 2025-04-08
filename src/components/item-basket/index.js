@@ -7,12 +7,10 @@ import Button from '../button';
 import './style.css';
 import { Paths } from '../../routes/paths';
 import { useNavigate } from 'react-router';
-import { useTranslation } from '../../i18n/language-context';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
   const navigate = useNavigate();
-  const { t } = useTranslation();
 
   const callbacks = {
     onRemove: e => {
@@ -33,7 +31,7 @@ function ItemBasket(props) {
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title={t('Delete')} />
+          <Button style="delete" onClick={callbacks.onRemove} title={props.t('Delete')} />
         </div>
       </div>
     </div>
@@ -48,6 +46,7 @@ ItemBasket.propTypes = {
     amount: PropTypes.number,
   }).isRequired,
   onRemove: propTypes.func,
+  t: PropTypes.func,
 };
 
 ItemBasket.defaultProps = {

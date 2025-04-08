@@ -37,8 +37,9 @@ function Article() {
         openModalBasket={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
+        t={t}
       />
-      <ArticleContent article={select.article} addToBasket={callbacks.addToBasket} />
+      <ArticleContent article={select.article} addToBasket={callbacks.addToBasket} t={t} />
     </PageLayout>
   );
 }
