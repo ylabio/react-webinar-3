@@ -1,0 +1,23 @@
+.ProductInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 24px;
+}
+
+.ProductInfo-details {
+  display: grid;
+  grid-template-columns: 200px 200px;
+  align-items: center;
+  row-gap: 12px;
+}
+
+.ProductInfo-details p {
+  margin: 0;
+}
+
+.ProductInfo-price {
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  line-height: 32px;
+}

@@ -7,6 +7,14 @@
   padding: 16px 16px 15px 16px
 }
 
+.ItemBasket-title {
+  cursor: pointer;
+
+  &:hover {
+    color: var(--primary);
+  }
+}
+
 .ItemBasket-right {
   display: flex;
   justify-content: flex-end;
