@@ -24,8 +24,8 @@ function Article() {
   const linkHome = useHomeLink(lang);
   const navigate = useNavigate();
   const location = useLocation();
-  const linkStateTitle = location.state?.title || "Ожидайте ..."
   const {labelsNavigation, labelsArticle, labelsBasketTools} = useLabels();
+  const linkStateTitle = location.state?.title || labelsArticle.loading
 
   const selectOldData= useSelector(state => ({
     articleId: state.article.data._id,

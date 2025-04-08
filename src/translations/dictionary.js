@@ -19,6 +19,7 @@ export const dictionary = {
     [KEYS.toolCartEmpty]: 'Пусто',
     [KEYS.linkHome]: 'Главная',
     [KEYS.paginationTitle]: 'Показывать по',
+    [KEYS.loading]: 'Ожидайте ...',
   },
   en: {
     [KEYS.storeTitle]: 'Store',
@@ -37,6 +38,7 @@ export const dictionary = {
     [KEYS.toolCartEmpty]: 'Empty',
     [KEYS.linkHome]: 'Home',
     [KEYS.paginationTitle]: 'Show per page',
+    [KEYS.loading]: 'Please wait ...',
   },
 };
 

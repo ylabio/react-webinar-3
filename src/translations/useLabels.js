@@ -11,6 +11,7 @@ export function useLabels() {
       releaseYear: t(KEYS.articleReleaseYear),
       price: t(KEYS.articlePrice),
       buttonAdd: t(KEYS.buttonAdd),
+      loading: t(KEYS.loading),
     },
     labelsBasketTools: {
       one: t(KEYS.toolCartItem),

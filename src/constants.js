@@ -28,4 +28,5 @@ export const KEYS = {
     cartTotal: 'total',
     linkHome: 'home',
     paginationTitle: 'showPer',
+    loading: 'loading',
 };
