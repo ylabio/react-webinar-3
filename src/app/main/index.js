@@ -60,15 +60,24 @@ function Main() {
 
   const renders = {
     item: useCallback(
-      item => <Item item={item} onAdd={callbacks.addToBasket} />,
-      [callbacks.addToBasket],
+      item => <Item item={item} onAdd={callbacks.addToBasket} textbutton={t.add} />,
+      [callbacks.addToBasket, t.add],
     ),
   };
 
   return (
     <PageLayout>
       <Head title={t.shop} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <BasketTool
+        onOpen={callbacks.openModalBasket}
+        amount={select.amount}
+        sum={select.sum}
+        textone={t.one}
+        textfew={t.few}
+        textmany={t.many}
+        textEmpty={t.Empty}
+        textmain={t.main}
+      />
 
       {select.isLoading ? (
         <div className="loading">Загрузка...</div>
@@ -84,6 +93,7 @@ function Main() {
               pageSize={select.pageSize}
               onPageChange={callbacks.handlePageChange}
               onPageSizeChange={callbacks.handlePageSizeChange}
+              textFilter={t.Filter}
             />
           )}
         </>

@@ -5,7 +5,7 @@ import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
 import useTranslate from '../../hooks/useTranslate';
-function ProductDetails({ item, onAdd }) {
+function ProductDetails({ item, onAdd, texts = {} }) {
   const t = useTranslate();
   const cn = bem('ProductDetails');
 
@@ -20,26 +20,26 @@ function ProductDetails({ item, onAdd }) {
 
         <div className={cn('specs')}>
           <div className={cn('spec-row')}>
-            <span>{t.country}:</span>
+            <span>{texts.country}:</span>
             <strong>
               {item.madeIn.title} ({item.madeIn.code})
             </strong>
           </div>
 
           <div className={cn('spec-row')}>
-            <span>{t.category}:</span>
+            <span>{texts.category}:</span>
             <strong>{item.category.title}</strong>
           </div>
 
           <div className={cn('spec-row')}>
-            <span>{t.year}:</span>
+            <span>{texts.year}:</span>
             <strong>{item.edition}</strong>
           </div>
         </div>
 
         <div className={cn('price')}>
           <span>
-            {t.Price}: {numberFormat(item.price)} ₽
+            {texts.Price}: {numberFormat(item.price)} ₽
           </span>
         </div>
       </div>

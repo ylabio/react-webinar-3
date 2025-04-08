@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 
@@ -5,20 +6,19 @@ function LanguageSwitcher() {
   const store = useStore();
   const currentLanguage = useSelector(state => state.language?.currentLanguage || 'ru');
 
-  /* const handleLanguageChange = lang => {
-    store.actions.language.setLanguage(lang);
-  }; */
-
-  const handleLanguageChange = lang => {
-    try {
-      store.actions.language.setLanguage(lang);
-    } catch (e) {
-      console.error('Language switch error:', e);
-      // Fallback: сохраняем язык в localStorage
-      localStorage.setItem('lang', lang);
-      window.location.reload(); // Перезагружаем страницу
-    }
-  };
+  const handleLanguageChange = useCallback(
+    lang => {
+      try {
+        store.actions.language.setLanguage(lang);
+      } catch (e) {
+        console.error('Language switch error:', e);
+        // Fallback
+        localStorage.setItem('lang', lang);
+        window.location.reload();
+      }
+    },
+    [store],
+  );
 
   return (
     <div className="language-switcher">
