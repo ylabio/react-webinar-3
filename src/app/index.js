@@ -5,34 +5,40 @@ import ProductPage from './product-page';
 import ErrorPage from './error';
 import useSelector from '../store/use-selector';
 
-function Layout() {
-  const activeModal = useSelector(state => state.modals.name);
+const routes = [
+  {
+    path: '/',
+    element: <MainWrapper />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/articles/:itemId',
+    element: <ProductPageWrapper />,
+    errorElement: <ErrorPage />,
+  },
+];
 
+function MainWrapper() {
+  const activeModal = useSelector(state => state.modals.name);
   return (
     <>
-      <Outlet />
+      <Main />
       {activeModal === 'basket' && <Basket />}
     </>
   );
 }
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Layout />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        index: true,
-        element: <Main />,
-      },
-      {
-        path: '/articles/:itemId',
-        element: <ProductPage />,
-      },
-    ],
-  },
-]);
+function ProductPageWrapper() {
+  const activeModal = useSelector(state => state.modals.name);
+  return (
+    <>
+      <ProductPage />
+      {activeModal === 'basket' && <Basket />}
+    </>
+  );
+}
+
+const router = createBrowserRouter(routes);
 
 function App() {
   return <RouterProvider router={router} />;
