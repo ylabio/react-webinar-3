@@ -1,9 +1,7 @@
 import { Routes, Route, Navigate } from "react-router";
 import Main from './main';
 import Basket from './basket';
-import AppLayout from '../components/app-layout';
 import useSelector from '../store/use-selector';
-import Product from '../product';
 import ProducPage from "../components/produc-page";
 import { STRINGS } from "../const";
 
@@ -25,13 +23,21 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Navigate to="/page/1" replace />} />
-        {/* <Route element={<AppLayout />}> */}
           <Route 
             path="/page/:currentPage" 
             element={
               <>
                 <Main />
-                {activeModal === 'basket' && <Basket title={text.title} total={text.total} textButton={text.textButton} piece={text.piece} />}
+                  {
+                    activeModal === 'basket' 
+                    && 
+                    <Basket
+                      title={text.title}
+                      total={text.total}
+                      textButton={text.textButton}
+                      piece={text.piece}
+                    />
+                  }
               </>
             } 
           />
@@ -40,11 +46,19 @@ function App() {
             element={
               <>
                 <ProducPage />
-                {activeModal === 'basket' && <Basket title={text.title} total={text.total} textButton={text.textButton} piece={text.piece} />}
+                {
+                  activeModal === 'basket'
+                  &&
+                  <Basket
+                    title={text.title}
+                    total={text.total}
+                    textButton={text.textButton}
+                    piece={text.piece}
+                  />
+                }
               </>
             } 
           />
-        {/* </Route> */}
       </Routes>
     </>
   );

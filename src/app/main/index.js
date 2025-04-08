@@ -8,27 +8,18 @@ import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
-import { useAppContext } from '../../app-context';
 import { generatePaginatedApiUrl, findNewPageNumber } from '../../utils';
-import { BASE_URL, STRINGS, DEFAULT_LIMIT } from '../../const';
+import { BASE_URL, STRINGS } from '../../const';
 
 function Main() {
   const store = useStore();
   const { currentPage } = useParams();
-  const [limit, setLimit] = useState(DEFAULT_LIMIT);
   const language = useSelector(state => state.catalog.language);
   const navigate = useNavigate();
 
   useEffect(() => {
-    store.actions.catalog.load(generatePaginatedApiUrl(BASE_URL, currentPage, limit));
-    // setHeaderTitle(STRINGS.SHOP[language]);
-  }, [currentPage]);
-
-  useEffect(() => {
-    if (+currentPage === 1) {
-      store.actions.catalog.load(generatePaginatedApiUrl(BASE_URL, currentPage, limit));
-    }
-  }, [limit]);
+    store.actions.catalog.setPage(currentPage);
+  }, []);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -36,27 +27,45 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     isLoading: state.catalog.isLoading,
+    currentPage: state.catalog.currentPage,
+    limit: state.catalog.limit,
+    maxPage: Math.ceil(state.catalog.count / state.catalog.limit),
   }));
 
   useEffect(() => {
+    if (select.currentPage > 0) {
+      store.actions.catalog.load(generatePaginatedApiUrl(BASE_URL, select.currentPage, select.limit));
+    }
+  }, [select.currentPage]);
+
+  useEffect(() => {
+    if (select.currentPage > 0 && +select.currentPage === 1) {
+      store.actions.catalog.load(generatePaginatedApiUrl(BASE_URL, select.currentPage, select.limit));
+    }
+  }, [select.limit]);
+
+  useEffect(() => {
     if (select.list.length === 0 && select.count > 0) {
-      navigate(`/page/${Math.ceil(select.count / limit)}`);
+      navigate(`/page/${select.maxPage}`);
     }
   }, [select]);
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    // Изменение языка
     onChangeLanguage: useCallback(() => store.actions.catalog.changeLanguage(), [store]),
+    // Открытие модалки
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Выбор количества отображаемых элементов на странице
     setLimit: useCallback((newLimit) => {
-      const newPage = findNewPageNumber(currentPage, limit, newLimit);
-      setLimit(newLimit);
+      const newPage = findNewPageNumber(select.currentPage, select.limit, newLimit);
+      store.actions.catalog.setLimit(newLimit);
+      store.actions.catalog.setPage(newPage);
       navigate(`/page/${newPage}`);
-    }, [limit, setLimit, currentPage, navigate]),
-    // смена языка
-    onChangeLanguage: useCallback(() => store.actions.catalog.changeLanguage(), [store]),
+    }, [select.limit, select.currentPage, navigate]),
+    // Изменение номера страници
+    setPage: useCallback(page => store.actions.catalog.setPage(page), [store]),
   };
 
   const texts = {
@@ -78,7 +87,6 @@ function Main() {
     ),
   };
 
-  // @todo 
   return (
     <PageLayout>
       <Head
@@ -97,11 +105,12 @@ function Main() {
       />
       <List list={select.list} renderItem={renders.item} />
       <Pagination
-        currentPage={currentPage}
-        count={select.count}
-        limit={limit}
+        currentPage={select.currentPage}
+        maxPage={select.maxPage}
+        limit={select.limit}
         changeLimit={callbacks.setLimit}
         texts={texts.select}
+        setPage={callbacks.setPage}
       />
     </PageLayout>
   );

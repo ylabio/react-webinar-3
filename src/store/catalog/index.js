@@ -12,13 +12,24 @@ class Catalog extends StoreModule {
       list: [],
       count: 0,
       isLoading: false,
+      currentPage: 0,
+      maxPage: 0,
+      limit: 10,
       language: 'RU',
     };
   }
-
+  
   changeLanguage() {
     const newLanguage = this.getState().language === 'RU' ? 'EN' : 'RU';
     this.setState({ ...this.getState(), language: newLanguage }, 'Смена языка');
+  }
+
+  setPage(page) {
+    this.setState({ ...this.getState(), currentPage: page }, 'Смена страницы');
+  }
+
+  setLimit(limit) {
+    this.setState({ ...this.getState(), limit: limit }, 'Смена лимита');
   }
 
   async load(url) {

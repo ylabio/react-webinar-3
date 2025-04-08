@@ -5,12 +5,9 @@ import ModalLayout from '../../components/modal-layout';
 import BasketTotal from '../../components/basket-total';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
-import { useAppContext } from '../../app-context';
-import { STRINGS } from '../../const';
 
 function Basket({ title, total, textButton, piece }) {
   const store = useStore();
-  const { language } = useAppContext();
 
   const select = useSelector(state => ({
     list: state.basket.list,

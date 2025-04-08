@@ -1,4 +1,5 @@
 import { memo, useEffect, useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import PageLayout from '../components/page-layout';
 import Description from '../description';
@@ -8,9 +9,7 @@ import BasketTool from '../components/basket-tool';
 import useStore from '../store/use-store';
 import useSelector from '../store/use-selector';
 import { generateProductApiUrl, getApiData } from '../utils';
-import { useParams } from "react-router";
 import { BASE_URL, STRINGS } from '../const';
-import { useAppContext } from '../app-context';
 
 function Product({
   _id,
@@ -18,10 +17,8 @@ function Product({
   texts,
 }) {
   const store = useStore();
-  // const { _id } = useParams();
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
-  const { setHeaderTitle, basket } = useAppContext();
   const cn = bem('Product');
 
   const select = useSelector(state => ({
@@ -45,17 +42,10 @@ function Product({
     fetchData();
   }, [_id]);
 
-  // useEffect(() => {
-  //   setHeaderTitle(result?.title);
-  // }, [result]);
-
   const callbacks = {
-    // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     onChangeLanguage: useCallback(() => store.actions.catalog.changeLanguage(), [store]),
-    onAdd: () => {
-      basket.addToBasket(_id);
-    }
+    addToBasket: useCallback(() => store.actions.basket.addToBasket(_id), [store]),
   };
 
   console.log(texts);
@@ -91,10 +81,27 @@ function Product({
           texts={texts}
           language={language}
         />
-        <Button style="primary" onClick={callbacks.onAdd} title={texts.addButtonText} />
+        <Button style="primary" onClick={callbacks.addToBasket} title={texts.addButtonText} />
       </div>
     </PageLayout>
   );
 }
+
+Product.propTypes = {
+  _id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired,
+  language: PropTypes.string.isRequired,
+  texts: PropTypes.shape({
+    addButtonText: PropTypes.string.isRequired,
+    switchLanguage: PropTypes.string.isRequired,
+    home: PropTypes.string.isRequired,
+    empty: PropTypes.string.isRequired,
+    products: PropTypes.object.isRequired,
+    descriptionTitle: PropTypes.object.isRequired,
+    price: PropTypes.string
+  }).isRequired
+};
 
 export default memo(Product);

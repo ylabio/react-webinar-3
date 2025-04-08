@@ -58,13 +58,11 @@ export function generateProductApiUrl(baseUrl, _id) {
 /**
  * Генерация массива номеров страниц для пагинации с учетом текущей позиции
  * @param currentPage {Number} - Текущая страница
- * @param count {Number} - Общее количество элементов
- * @param limit {Number} - Количество элементов на странице
+ * @param maxPade {Number} - Максимальное количество страниц
  * @returns {Array} - Массив номеров страниц и нулей (для разделителей ...)
  *                    Пример: [1, 2, 3, 0, 10] → 1 2 3 ... 10
  */
-export function generatePaginationArray(currentPage, count, limit) {
-  const maxPade = Math.ceil(count / limit);
+export function generatePaginationArray(currentPage, maxPade) {
   const id = +currentPage;
 
   let arrStrart = [];

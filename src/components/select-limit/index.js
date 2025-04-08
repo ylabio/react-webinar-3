@@ -1,13 +1,10 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import { STRINGS, DEFAULT_LIMIT } from '../../const';
-import { useAppContext } from '../../app-context';
 import './style.css';
 
-function SelectLimit({ changeLimit, options, texts, defaultValue = DEFAULT_LIMIT }) {
+function SelectLimit({ changeLimit, options, texts, defaultValue }) {
   const cn = bem('Limit');
-  const { language } = useAppContext();
 
   const handleChange = (event) => {
     const selectedValue = event.target.value;
@@ -35,6 +32,7 @@ function SelectLimit({ changeLimit, options, texts, defaultValue = DEFAULT_LIMIT
 SelectLimit.propTypes = {
   changeLimit: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(PropTypes.number).isRequired,
+  texts: PropTypes.string.isRequired,
   defaultValue: PropTypes.number,
 };
 

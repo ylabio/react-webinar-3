@@ -1,15 +1,19 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import { STRINGS } from '../const';
 import { numberFormat } from '../utils';
-import { useAppContext } from '../app-context';
 import './style.css';
 
-function Description({ country, category, year, price, texts, language}) {
+function Description({
+  country,
+  category,
+  year,
+  price,
+  texts,
+  language
+}) {
   const cn = bem('Description-container');
   const propsData = { country, category, year };
-  // const { language } = useAppContext();
 
   return (
     <>
@@ -38,6 +42,15 @@ Description.propTypes = {
     PropTypes.number
   ]).isRequired,
   price: PropTypes.number.isRequired,
+  texts: PropTypes.shape({
+    descriptionTitle: PropTypes.objectOf(
+      PropTypes.shape({
+        [PropTypes.string]: PropTypes.string
+      })
+    ).isRequired,
+    price: PropTypes.string.isRequired
+  }).isRequired,
+  language: PropTypes.string.isRequired
 };
 
 export default memo(Description);

@@ -1,12 +1,9 @@
 import { memo } from 'react';
-import { useAppContext } from '../../app-context';
-import { STRINGS } from '../../const';
 import PropTypes from 'prop-types';
 import Button from '../button';
 import './style.css';
 
 function Head({ title, changeLanguage, switchLanguage }) {
-  const { language, onSetLanguage } = useAppContext();
   
   return (
     <header className="Head">
@@ -23,7 +20,9 @@ function Head({ title, changeLanguage, switchLanguage }) {
 }
 
 Head.propTypes = {
-  title: PropTypes.node,
+  title: PropTypes.node.isRequired,
+  changeLanguage: PropTypes.func.isRequired,
+  switchLanguage: PropTypes.string.isRequired
 };
 
 export default memo(Head);

@@ -3,7 +3,6 @@ import Product from '../../product';
 import useSelector from '../../store/use-selector';
 import { STRINGS } from '../../const';
 import { useParams } from "react-router";
-import product from '../../product';
 
 function ProductPage({ id }) {
   const { _id } = useParams();
