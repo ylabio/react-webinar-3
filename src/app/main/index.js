@@ -17,22 +17,24 @@ function Main() {
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    totalItems: state.catalog.totalItems,
+    currentPage: state.catalog.currentPage,
+    totalPages: state.catalog.totalPages,
   }));
 
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const skip = currentPage * itemsPerPage - itemsPerPage;
+    const skip = select.currentPage * itemsPerPage - itemsPerPage;
     store.actions.catalog.load(itemsPerPage, skip);
-  }, [itemsPerPage, currentPage]);
+  }, [itemsPerPage, select.currentPage]);
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Установка текущей страницы пагинации
+    setCurrentPage: useCallback((page) => store.actions.catalog.setCurrentPage(page), [store]),
   };
 
   const renders = {
@@ -48,18 +50,18 @@ function Main() {
     <PageLayout>
       <Head title={t('Shop')} />
       <Controls
-        onClick={() => setCurrentPage(1)}
+        onClick={callbacks.setCurrentPage}
         openModalBasket={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
       />
       <List list={select.list} renderItem={renders.item} />
       <Pagination
+        onClick={callbacks.setCurrentPage}
         itemsPerPage={itemsPerPage}
         setItemsPerPage={setItemsPerPage}
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-        totalItems={select.totalItems}
+        currentPage={select.currentPage}
+        totalPages={select.totalPages}
       />
     </PageLayout>
   );

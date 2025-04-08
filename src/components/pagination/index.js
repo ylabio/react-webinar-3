@@ -11,8 +11,13 @@ const options = [
 ];
 
 function Pagination(props) {
-  const { totalItems = 0, itemsPerPage, setItemsPerPage, setCurrentPage, currentPage } = props;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const {
+    onClick = page => {},
+    itemsPerPage,
+    setItemsPerPage = items => {},
+    currentPage,
+    totalPages,
+  } = props;
 
   const generatePageNumbers = useCallback(() => {
     const pages = [];
@@ -40,21 +45,16 @@ function Pagination(props) {
     return pages;
   }, [totalPages, currentPage]);
 
-  const onPageHandler = useCallback(
-    page => {
-      if (page === '...') return;
-      setCurrentPage(page);
-    },
-    [setCurrentPage],
-  );
+  const onPageHandler = useCallback(page => {
+    if (page === '...') return;
+    onClick(page);
+  }, []);
 
-  const itemsPerPageChangeHandler = useCallback(
-    e => {
-      setItemsPerPage(+e.target.value);
-      setCurrentPage(1);
-    },
-    [setCurrentPage],
-  );
+  const itemsPerPageChangeHandler = useCallback(e => {
+    const page = 1;
+    setItemsPerPage(+e.target.value);
+    onClick(page);
+  }, []);
 
   return (
     <div className="Pagination">
@@ -72,9 +72,11 @@ function Pagination(props) {
 }
 
 Pagination.propTypes = {
-  count: PropTypes.number,
-  onClose: PropTypes.func,
-  children: PropTypes.node,
+  onClick: PropTypes.func,
+  setItemsPerPage: PropTypes.func,
+  itemsPerPage: PropTypes.number,
+  currentPage: PropTypes.number,
+  totalPages: PropTypes.number,
 };
 
 export default memo(Pagination);
