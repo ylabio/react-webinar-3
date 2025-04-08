@@ -43,8 +43,4 @@ ProductInfo.propTypes = {
   onAdd: PropTypes.func,
 };
 
-ProductInfo.defaultProps = {
-  onAdd: () => {},
-};
-
 export default memo(ProductInfo);
