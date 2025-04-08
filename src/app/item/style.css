@@ -1,0 +1,31 @@
+.nav-link {
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    text-decoration: underline solid;
+  }
+}
+
+.mb-24 {
+  margin-bottom: 24px;
+}
+
+
+
+.info-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 16px; 
+  align-items: center;
+  max-width: 100%;
+}
+
+.info-grid label {
+  font-weight: normal;
+  white-space: nowrap; 
+}
+
+.info-grid span {
+  font-weight: bold;
+}

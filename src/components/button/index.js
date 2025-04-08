@@ -6,9 +6,15 @@ import './style.css';
 function Button({ onClick = () => {}, title, style, type = 'button' }) {
   const cn = bem('Button');
 
+  const handleClick = (e) => {
+    e.stopPropagation(); 
+    e.preventDefault(); 
+    onClick(e); 
+  };
+
   return (
     <div className={cn()}>
-      <button type={type} className={cn({ style })} onClick={() => onClick()}>
+      <button type={type} className={cn({ style })} onClick={handleClick}>
         {title}
       </button>
     </div>

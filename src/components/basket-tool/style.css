@@ -1,8 +1,9 @@
 /* Контрол с общими действиями */
 .BasketTool {
   display: flex;
-  justify-content: flex-end;
-  padding: 24px 16px 24px 0;
+  justify-content: space-between;
+  padding: 24px 0;
+  align-items: center;
 }
 
 .BasketTool-action {
