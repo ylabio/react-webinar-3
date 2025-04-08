@@ -13,6 +13,8 @@ class Catalog extends StoreModule {
       totalItems: 0,
       error: false,
       isLoading: false,
+      currentPage: 1,
+      limitItem: 10,
     };
   }
 
@@ -78,6 +80,14 @@ class Catalog extends StoreModule {
         isLoading: false,
       });
     }
+  }
+
+  changePage(number) {
+    this.setState({ ...this.getState(), currentPage: number });
+  }
+
+  changeLimitItem(number) {
+    this.setState({ ...this.getState(), limitItem: number });
   }
 }
 

@@ -1,22 +1,21 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
-import { useNavigate } from 'react-router';
 
-const Pagination = ({ totalPages, currentPage, onPageChange, onLimitItem = () => {} }) => {
+const Pagination = ({
+  totalPages,
+  currentPage,
+  onPageChange,
+  onLimitItem = () => {},
+  onNavigate = () => {},
+}) => {
   const cn = bem('Pagination');
-  const navigate = useNavigate();
 
-  const handleChange = e => {
-    onLimitItem(e.target.value);
-    onPageChange(1);
-  };
-
-  const handleClick = page => {
-    const path = page === 1 ? '/' : `/page/${page}`;
-    navigate(path);
-    onPageChange(page);
+  const callbacks = {
+    onLimitItem: e => onLimitItem(e.target.value),
+    onPageChange: number => onPageChange(number),
+    onNavigate: page => onNavigate(page),
   };
 
   const getPages = () => {
@@ -66,7 +65,15 @@ const Pagination = ({ totalPages, currentPage, onPageChange, onLimitItem = () =>
 
   return (
     <div className={cn()}>
-      <select className={cn('selectList')} defaultValue={10} onChange={handleChange}>
+      <select
+        className={cn('selectList')}
+        defaultValue={10}
+        onChange={e => {
+          callbacks.onLimitItem(e);
+          callbacks.onPageChange(1);
+          callbacks.onNavigate(1);
+        }}
+      >
         <option value={5}>5</option>
         <option value={10}>10</option>
         <option value={20}>20</option>
@@ -81,7 +88,10 @@ const Pagination = ({ totalPages, currentPage, onPageChange, onLimitItem = () =>
             <button
               key={page}
               className={`${cn('page')} ${page === currentPage ? cn('selected') : ''}`}
-              onClick={() => handleClick(page)}
+              onClick={() => {
+                callbacks.onPageChange(page);
+                callbacks.onNavigate(page);
+              }}
             >
               {page}
             </button>
@@ -97,6 +107,7 @@ Pagination.propTypes = {
   currentPage: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   onLimitItem: PropTypes.func,
+  onNavigate: PropTypes.func,
 };
 
-export default Pagination;
+export default memo(Pagination);

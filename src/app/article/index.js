@@ -48,9 +48,9 @@ function Article() {
       (id, lang) => store.actions.article.getFetchItemInfo(id, lang),
       [store],
     ),
-    onChangePage: useCallback(number => store.actions.pagination.changePage(number), [store]),
+    onChangePage: useCallback(number => store.actions.catalog.changePage(number), [store]),
     onChangeLimitItem: useCallback(
-      number => store.actions.pagination.changeLimitItem(number),
+      number => store.actions.catalog.changeLimitItem(number),
       [store],
     ),
   };

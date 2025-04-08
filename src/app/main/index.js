@@ -8,7 +8,7 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import NotFound from '../../components/not-found';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import useTranslation from '../../store/lang/use-translat';
 import { useLang } from '../../store/lang/language-context';
 
@@ -16,6 +16,7 @@ function Main() {
   const store = useStore();
   const { t } = useTranslation();
   const { lang, setLang } = useLang();
+
   const langContent = {
     header: t('header').mainTitle,
     nav: t('nav').main,
@@ -30,32 +31,41 @@ function Main() {
     button: t('button').add,
   };
 
-  const [initLoad, setInitLoad] = useState(true);
   const navigate = useNavigate();
+  const { pageNumber } = useParams();
+  const pathCurrentPage = pageNumber ? Number(pageNumber) : 1;
   const onMain = () => {
     navigate('/');
     callbacks.changePage(1);
   };
+  const onPageNav = page => {
+    const path = page === 1 ? '/' : `/page/${page}`;
+    navigate(path);
+  };
 
-  useEffect(() => {
-    if (initLoad) {
-      store.actions.catalog.load(lang);
-      setInitLoad(false);
-    } else {
-      store.actions.catalog.getFetch(select.limitItem, select.currentPage, lang);
-    }
-  }, [store.state.pagination.currentPage, store.state.pagination.limitItem, lang]);
+  const [initLoad, setInitLoad] = useState(true);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
     error: state.catalog.error,
     isLoading: state.catalog.isLoading,
     totalItems: state.catalog.totalItems,
-    currentPage: state.pagination.currentPage,
-    limitItem: state.pagination.limitItem,
+    currentPage: state.catalog.currentPage,
+    limitItem: state.catalog.limitItem,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
+
+  useEffect(() => {
+    if (initLoad) {
+      store.actions.catalog.changePage(pathCurrentPage);
+
+      store.actions.catalog.load(lang);
+      setInitLoad(false);
+    } else {
+      store.actions.catalog.getFetch(select.limitItem, select.currentPage, lang);
+    }
+  }, [select.currentPage, select.limitItem, lang]);
 
   const totalPages = Math.ceil(select.totalItems / select.limitItem);
 
@@ -64,11 +74,8 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    changePage: useCallback(number => store.actions.pagination.changePage(number), [store]),
-    changeLimitItem: useCallback(
-      number => store.actions.pagination.changeLimitItem(number),
-      [store],
-    ),
+    changePage: useCallback(number => store.actions.catalog.changePage(number), [store]),
+    changeLimitItem: useCallback(number => store.actions.catalog.changeLimitItem(number), [store]),
     onNavigate: useCallback(
       event => {
         if (event.target.closest('li') && event.target.localName !== 'button') {
@@ -100,7 +107,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title={langContent.header} setLang={setLang} lang={lang}/>
+      <Head title={langContent.header} setLang={setLang} lang={lang} />
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
@@ -120,6 +127,7 @@ function Main() {
         currentPage={select.currentPage}
         onPageChange={callbacks.changePage}
         onLimitItem={callbacks.changeLimitItem}
+        onNavigate={onPageNav}
       />
     </PageLayout>
   );
