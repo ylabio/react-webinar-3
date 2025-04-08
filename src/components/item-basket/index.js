@@ -9,6 +9,7 @@ import './style.css';
 
 function ItemBasket(props, onRemove = () => {}) {
   const cn = bem('ItemBasket');
+  const href = props.item.href ? props.item.href : `/products/${props.item._id}`;
 
   const callbacks = {
     onRemove: e => props.onRemove(props.item._id),
@@ -16,7 +17,7 @@ function ItemBasket(props, onRemove = () => {}) {
 
   return (
     <div className={cn()}>
-      <Link to={`/products/${props.item._id}`} className={cn('title')}>{props.item.title}</Link>
+      <Link to={href} className={cn('title')}>{props.item.title}</Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
