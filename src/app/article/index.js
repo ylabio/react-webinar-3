@@ -11,6 +11,7 @@ import BasketTool from '../../components/basket-tool';
 import DetailItem from '../../components/detailItem';
 import Button from '../../components/button';
 
+
 function Article() {
   let { id } = useParams();
   const store = useStore();
@@ -49,11 +50,7 @@ function Article() {
 
         <DetailItem item={select.item} />
 
-        <Button
-          style="primary"
-          onClick={() => callbacks.addToBasket(select.item._id)}
-          title="Добавить"
-        />
+        <Button style="primary" onClick={() => callbacks.addToBasket(id)} title="Добавить" />
       </>
     </PageLayout>
   );

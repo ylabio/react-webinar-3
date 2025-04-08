@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Pagination({ currentPage, onPageChange, currentShow, onShowChange = () => {} }) {
+function Pagination({
+  currentPage,
+  onPageChange,
+  currentShow,
+  onShowChange = () => {},
+  pageCount,
+}) {
   const cn = bem('Pagination');
-
-  const pageCount = 25;
 
   const getPages = () => {
     const pages = [];
