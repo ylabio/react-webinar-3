@@ -1,8 +1,9 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { Routes, Route, Navigate } from "react-router";
 import Main from './main';
 import Basket from './basket';
-import useStore from '../store/use-store';
 import useSelector from '../store/use-selector';
+import ProducPage from "../components/produc-page";
+import { STRINGS } from "../const";
 
 /**
  * Приложение
@@ -10,11 +11,55 @@ import useSelector from '../store/use-selector';
  */
 function App() {
   const activeModal = useSelector(state => state.modals.name);
+  const language = useSelector(state => state.catalog.language);
+  const text = {
+    title: STRINGS.BASKET[language],
+    total: STRINGS.TOTAL[language],
+    textButton: STRINGS.DELETE[language],
+    piece: STRINGS.PIECE[language],
+  }
 
   return (
     <>
-      <Main />
-      {activeModal === 'basket' && <Basket />}
+      <Routes>
+        <Route path="/" element={<Navigate to="/page/1" replace />} />
+          <Route 
+            path="/page/:currentPage" 
+            element={
+              <>
+                <Main />
+                  {
+                    activeModal === 'basket' 
+                    && 
+                    <Basket
+                      title={text.title}
+                      total={text.total}
+                      textButton={text.textButton}
+                      piece={text.piece}
+                    />
+                  }
+              </>
+            } 
+          />
+          <Route
+            path="/product/:_id" 
+            element={
+              <>
+                <ProducPage />
+                {
+                  activeModal === 'basket'
+                  &&
+                  <Basket
+                    title={text.title}
+                    total={text.total}
+                    textButton={text.textButton}
+                    piece={text.piece}
+                  />
+                }
+              </>
+            } 
+          />
+      </Routes>
     </>
   );
 }

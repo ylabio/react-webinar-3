@@ -33,3 +33,119 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Генерация URL для пагинированного API запроса
+ * @param baseUrl {String} - Базовый URL API
+ * @param currentPage {Number} - Текущая страница (начинается с 1)
+ * @param limit {Number} - Количество элементов на странице
+ * @returns {String} - Сформированный URL с параметрами limit, skip и fields
+ */
+export function generatePaginatedApiUrl(baseUrl, currentPage, limit) {
+  return `${baseUrl}?limit=${limit}&skip=${(currentPage - 1) * limit}&fields=items(_id, title, price),count`;
+}
+
+/**
+ * Генерирует URL для запроса данных продукта с указанными полями
+ * @param baseUrl {String} - Базовый URL API (например, 'https://api.example.com/products')
+ * @param _id {String|Number} - Идентификатор продукта
+ * @returns {String} - Сформированный URL с параметрами полей
+ */
+export function generateProductApiUrl(baseUrl, _id) {
+  return `${baseUrl}/${_id}?fields=*,madeIn(title,code),category(title)`;
+}
+
+/**
+ * Генерация массива номеров страниц для пагинации с учетом текущей позиции
+ * @param currentPage {Number} - Текущая страница
+ * @param maxPade {Number} - Максимальное количество страниц
+ * @returns {Array} - Массив номеров страниц и нулей (для разделителей ...)
+ *                    Пример: [1, 2, 3, 0, 10] → 1 2 3 ... 10
+ */
+export function generatePaginationArray(currentPage, maxPade) {
+  const id = +currentPage;
+
+  let arrStrart = [];
+  let arrMiddle = [];
+  let arrEnd = [];
+
+  switch (true) {
+    case id <= 2:
+      arrStrart = [1, 2, 3];
+      arrEnd = [0, maxPade];
+      break;
+    case id === 3:
+      arrStrart = [1, 2, 3, 4];
+      arrEnd = [0, maxPade];
+      break;
+    case id >= maxPade - 1:
+      arrStrart = [1, 0];
+      arrEnd = [maxPade - 2, maxPade - 1, maxPade];
+      break;
+    case id === maxPade - 2:
+      arrStrart = [1, 0];
+      arrEnd = [maxPade - 4, maxPade - 2, maxPade - 1, maxPade];
+      break;
+    default:
+      arrStrart = [1, 0];
+      arrMiddle = [id - 1, id, id + 1];
+      arrEnd = [0, maxPade];
+  }
+
+  return [...arrStrart, ...arrMiddle, ...arrEnd];
+}
+
+/**
+ * Расчет новой страницы при изменении количества элементов на странице
+ * @param oldPageNumber {Number} - Номер текущей страницы
+ * @param oldLimit {Number} - Текущее количество элементов на странице
+ * @param newLimit {Number} - Новое количество элементов на странице
+ * @returns {Number} - Номер новой страницы, содержащей первый элемент текущей страницы
+ *                     Пример: Было: страница 3 по 5 элементов (элементы 11-15)
+ *                             Стало: страница 2 по 10 элементов (элементы 11-20)
+ */
+export function findNewPageNumber(oldPageNumber, oldLimit, newLimit) {
+  const firstNumberInOldPage = (+oldPageNumber - 1) * +oldLimit + 1;
+  const newPageNumber = Math.ceil(+firstNumberInOldPage / +newLimit);
+  return newPageNumber;
+}
+
+/**
+ * Базовый оберточный метод для выполнения HTTP-запросов
+ * @param url {String} - URL-адрес для запроса
+ * @returns {Promise<Object|null>} - Распарсенные JSON-данные ответа или null при ошибке
+ * @throws {Error} - Ошибка сети или HTTP-статус вне диапазона 200-299
+ * 
+ * Особенности:
+ * - Автоматически проверяет статус ответа (выбрасывает ошибку при !response.ok)
+ * - Логирует ошибки в консоль с префиксом "Fetch error:"
+ * - Возвращает null при любых ошибках (сетевых или HTTP)
+ */
+async function fetchData(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Fetch error:", error);
+  }
+  return null;
+}
+
+/**
+ * Публичный интерфейс для получения данных API
+ * @param url {String} - URL-адрес конечной точки API
+ * @returns {Promise<Object|null>} - Результат выполнения запроса или null при ошибке
+ * 
+ * Особенности:
+ * - Является оберткой над fetchData с возможностью расширения в будущем
+ * - Сохраняет единообразную обработку ошибок во всем приложении
+ * - Возвращает сырые данные API без дополнительной обработки
+ */
+export async function getApiData(url) {
+  const result = await fetchData(url);
+  return result;
+}

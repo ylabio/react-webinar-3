@@ -1,4 +1,6 @@
 import StoreModule from '../module';
+import { BASE_URL } from '../../const';
+import { getApiData, generateProductApiUrl } from '../../utils';
 
 class Basket extends StoreModule {
   initState() {
@@ -15,36 +17,54 @@ class Basket extends StoreModule {
    */
   addToBasket(_id) {
     let sum = 0;
-    // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
     const list = this.getState().list.map(item => {
       let result = item;
       if (item._id === _id) {
-        exist = true; // Запомним, что был найден в корзине
+        exist = true;
         result = { ...item, amount: item.amount + 1 };
       }
       sum += result.price * result.amount;
       return result;
     });
-
+  
     if (!exist) {
-      // Поиск товара в каталоге, чтобы его добавить в корзину.
-      // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      const item = this.store.getState().catalog.list.find(item => item._id === _id);
-      list.push({ ...item, amount: 1 }); // list уже новый, в него можно пушить.
-      // Добавляем к сумме.
-      sum += item.price;
-    }
-
-    this.setState(
-      {
+      const fetchProductData = async () => {
+        try {
+          const data = await getApiData(generateProductApiUrl(BASE_URL, _id));
+          const result = data.result;
+          
+          // Создаём НОВУЮ копию списка с добавленным товаром
+          const updatedList = [...list, { 
+            _id: result._id, 
+            price: result.price, 
+            title: result.title, 
+            amount: 1 
+          }];
+          
+          // Пересчитываем сумму с новым товаром
+          const updatedSum = sum + result.price;
+          
+          this.setState({
+            ...this.getState(),
+            list: updatedList,
+            sum: updatedSum,
+            amount: updatedList.length,
+          }, 'Добавление в корзину (асинхронное)');
+        } catch (err) {
+          console.error("Error fetching product data:", err);
+        }
+      };
+      fetchProductData();
+    } else {
+      // Синхронный случай (товар уже в корзине)
+      this.setState({
         ...this.getState(),
         list,
         sum,
         amount: list.length,
-      },
-      'Добавление в корзину',
-    );
+      }, 'Добавление в корзину (синхронное)');
+    }
   }
 
   /**
