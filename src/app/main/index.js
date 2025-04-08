@@ -58,7 +58,7 @@ function Main() {
   return (
     <PageLayout>
       <Head title={translate('shop')} />
-      <Nav />
+      <Nav title={translate('main')} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
       <Pagination
