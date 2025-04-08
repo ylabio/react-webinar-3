@@ -9,18 +9,17 @@ class Basket extends StoreModule {
     };
   }
 
-  /**
-   * Добавление товара в корзину
-   * @param _id Код товара
-   */
   addToBasket(_id) {
+    const item = this.store.getState().pagination.items.find(item => item._id === _id) ||
+                 this.store.getState().catalog.list.find(item => item._id === _id) ||
+                 this.store.getState().product.current;
+
     let sum = 0;
-    // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
     const list = this.getState().list.map(item => {
       let result = item;
       if (item._id === _id) {
-        exist = true; // Запомним, что был найден в корзине
+        exist = true;
         result = { ...item, amount: item.amount + 1 };
       }
       sum += result.price * result.amount;
@@ -28,11 +27,7 @@ class Basket extends StoreModule {
     });
 
     if (!exist) {
-      // Поиск товара в каталоге, чтобы его добавить в корзину.
-      // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      const item = this.store.getState().catalog.list.find(item => item._id === _id);
-      list.push({ ...item, amount: 1 }); // list уже новый, в него можно пушить.
-      // Добавляем к сумме.
+      list.push({ ...item, amount: 1 });
       sum += item.price;
     }
 
@@ -47,10 +42,6 @@ class Basket extends StoreModule {
     );
   }
 
-  /**
-   * Удаление товара из корзины
-   * @param _id Код товара
-   */
   removeFromBasket(_id) {
     let sum = 0;
     const list = this.getState().list.filter(item => {

@@ -1,3 +1,14 @@
+.Button {
+  display: inline-block;
+}
+
+.Button button {
+  min-width: 115px;
+  box-sizing: border-box;
+  text-align: center;
+  white-space: nowrap;
+}
+
 .Button_style_primary {
   background-color: var(--primary);
   color: var(--second-text);

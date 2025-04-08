@@ -1,0 +1,20 @@
+.LanguageToggle {
+    padding: 2px 4px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: auto;
+  }
+  
+  .LanguageToggle:hover {
+    background: #f5f5f5;
+    border-color: #ccc;
+  }
+  
+  .LanguageToggle:active {
+    background: #e9e9e9;
+  }

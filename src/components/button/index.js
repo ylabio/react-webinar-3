@@ -2,14 +2,23 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import { useLanguage } from '../../language-context';
+import translations from '../../locales';
 
-function Button({ onClick = () => {}, title, style, type = 'button' }) {
+function Button({ onClick, title, style, type = 'button' }) {
+  const { language } = useLanguage();
+  const t = translations[language];
   const cn = bem('Button');
+
+  const translatedTitle = {
+    'Добавить': t.addToCart,
+    'Удалить': t.remove,
+  }[title] || title;
 
   return (
     <div className={cn()}>
       <button type={type} className={cn({ style })} onClick={() => onClick()}>
-        {title}
+        {translatedTitle}
       </button>
     </div>
   );
