@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import text from '../../text';
 import useSelector from '../../store/use-selector';
 
-function Item(props) {
+function Item({ item, onAdd, navigateTo=`/product/${item._id}` }) {
   const cn = bem('Item');
   const navigate = useNavigate();
 
@@ -17,23 +17,22 @@ function Item(props) {
   }))
 
   const callbacks = {
-    onAdd: e => props.onAdd(props.item._id),
+    onAdd: e => onAdd(item._id),
   };
 
   const clickHandler = (event) => {
     if (event.target.tagName === 'BUTTON') {
       return;
     }
-    navigate(`/product/${props.item._id}`);
+    navigate(navigateTo);
   }
 
 
   return (
     <div onClick={clickHandler} className={cn()} >
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <h4 className={cn('title')} onClick={() => { navigate(`/product/${props.item._id}`) }}>{props.item.title}</h4>
+      <h4 className={cn('title')} onClick={() => { navigate(navigateTo) }}>{item.title}</h4>
       <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
+        <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
         <Button style="primary" onClick={callbacks.onAdd} title={text[select.lang].addButton} />
       </div>
     </div>
