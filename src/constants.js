@@ -4,6 +4,8 @@ export const DEFAULT_PAGINATION = {
   totalPages: 1,
   currentPage: 1,
   pageSize: 10,
+  skip: 0,
+  count: 0,
 };
 
 export const OPTIONS_LIMIT = [5, 10, 20];

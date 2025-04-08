@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -11,11 +11,11 @@ import ControlsPanel from "../../components/controls-panel";
 import {useLocation, useNavigate, useSearchParams} from "react-router";
 import HomeLink from "../../components/home-link";
 import {useDictionary} from "../../translations/useDictionary";
-import { DEFAULT_PAGINATION, OPTIONS_LIMIT, OPTIONS_LANG, KEYS } from "../../constants";
+import { DEFAULT_PAGINATION, OPTIONS_LIMIT, OPTIONS_LANG } from "../../constants";
 import ButtonsLang from "../../components/buttons-lang";
 import PageSize from "../../components/page-size";
 import PaginationView from "../../components/pagination-view";
-import { buildLocationObject, buildLocationWithNewLang, buildQueryString } from "../../utils";
+import { buildLocationObject, buildLocationWithNewLang } from "../../utils";
 import { useHomeLink } from '../../hooks/useHomeLink';
 import { useLabels } from '../../translations/useLabels';
 
@@ -31,31 +31,31 @@ function Main() {
 
   const {labelsBasketTools, labelsItems, labelsHeaderStore, labelsNavigation, labelsPagination} = useLabels();
 
-  const select = useSelector(state => ({
-    list: state.catalog.list,
-    count: state.catalog.count,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
-    totalPages: state.catalog.totalPages,
-    currentPage: state.catalog.currentPage,
-    skip: state.catalog.skip,
-    pageSize: state.catalog.pageSize,
-  }));
-
   const linkHome = useHomeLink(lang)
 
 
   useEffect(() => {
+    const skip = (page - 1) * pageSize;
+
     if (page === 0 || pageSize === 0) {
-      store.actions.catalog.load({page: DEFAULT_PAGINATION.currentPage, pageSize: DEFAULT_PAGINATION.pageSize, lang});
+      store.actions.catalog.load({skip: DEFAULT_PAGINATION.skip, limit:DEFAULT_PAGINATION.pageSize, lang});
     } else if (!page || page < DEFAULT_PAGINATION.currentPage) {
       setSearchParams({page: DEFAULT_PAGINATION.currentPage, pageSize: pageSize})
     } else if (!OPTIONS_LIMIT.includes(pageSize)) {
       setSearchParams({page: page, pageSize: DEFAULT_PAGINATION.pageSize})
     } else {
-      store.actions.catalog.load({page, pageSize, lang});
+      store.actions.catalog.load({skip, limit: pageSize, lang});
     }
   }, [page, pageSize, lang]);
+
+  const select = useSelector(state => ({
+    list: state.catalog.list,
+    count: state.catalog.count,
+    amount: state.basket.amount,
+    sum: state.basket.sum,
+    skip: state.catalog.skip,
+    limit: state.catalog.limit,
+  }));
 
   const callbacks = {
     // Добавление в корзину
@@ -81,10 +81,10 @@ function Main() {
       [navigate, location, lang]
     ),
     getPageLink: useCallback(
-      (page, pageSize) => {
+      (linkPage, linkPageSize) => {
         return buildLocationObject({
           lang,
-          params: { page, pageSize },
+          params: { page:linkPage, pageSize: linkPageSize },
         });
       },
       [lang]
@@ -110,6 +110,9 @@ function Main() {
     ),
   };
 
+  const currentPage = Math.floor(select.skip / select.limit) + 1;
+  const totalPages = Math.ceil(select.count / select.limit);
+
   return (
     <PageLayout>
       <Head title={labelsHeaderStore.title}>
@@ -126,11 +129,11 @@ function Main() {
       <List list={select.list} renderItem={renders.item}/>
 
       <PaginationControls>
-        <PageSize size={select.pageSize} currentPage={select.currentPage} setSize={callbacks.handlePageChange}
+        <PageSize size={select.limit} currentPage={currentPage} setSize={callbacks.handlePageChange}
         label={labelsPagination.titlePageSize}/>
-        <PaginationView totalPages={select.totalPages}
-                        currentPage={select.currentPage}
-                        pageSize={select.pageSize}
+        <PaginationView totalPages={totalPages}
+                        currentPage={currentPage}
+                        pageSize={select.limit}
                         getPageLink={callbacks.getPageLink}
         />
       </PaginationControls>
