@@ -21,6 +21,15 @@
   white-space: nowrap;
 }
 
+.ItemBasket-link {
+  text-decoration: none;
+  color: black;
+}
+
+.ItemBasket-link:hover {
+  color: #6b4acb;
+}
+
 .ItemBasket-cell button {
   background-color: var(--delete);
   color: var(--second-text);

@@ -1,0 +1,36 @@
+.Panigation {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    justify-content: end;
+    margin-right: 20px;
+  }
+  
+  .Panigation-item {
+    cursor: pointer;
+    padding: 3px 7px;
+  }
+  
+  .Panigation-item:hover {
+    background-color: rgb(223, 219, 219);
+  }
+  
+  .Panigation-item-dots {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .Panigation-item_selected {
+    color: white;
+    background-color: var(--primary);
+    border-radius: 3px;
+  }
+  
+  .Panigation-item_selected:hover {
+    background-color: var(--primary);
+  }
+
+  .Panigation .Select{
+    margin-right: 100px;
+  }

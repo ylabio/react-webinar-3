@@ -4,23 +4,29 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from '../../utils';
 import Cart from '../../assets/icon/cart.svg';
 import './style.css';
+import Menu from '../menu';
 
-function BasketTool(props) {
-  const { onOpen = () => {}, sum = 0, amount = 0 } = props;
-
+function BasketTool({
+  onOpen = () => {},
+  sum = 0,
+  amount = 0,
+  localText,
+  resetToFirstPage = () => {},
+}) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
+      <Menu onClick={resetToFirstPage} link={'/'} title={localText.mainPage} />
       <button className={cn('action')} onClick={onOpen}>
         <Cart className={cn('icon')} />
         <span className={cn('total')}>
           {amount
             ? `${amount} ${plural(amount, {
-                one: 'товар',
-                few: 'товара',
-                many: 'товаров',
+                one: localText.plural.one,
+                few: localText.plural.few,
+                many: localText.plural.many,
               })} / ${numberFormat(sum)} ₽`
-            : `пусто`}
+            : localText.empty}
         </span>
       </button>
     </div>
@@ -31,6 +37,7 @@ BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
+  resetToFirstPage: PropTypes.func,
 };
 
 export default memo(BasketTool);
