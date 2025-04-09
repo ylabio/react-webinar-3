@@ -33,3 +33,35 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Преобразует массив элементов с родительскими связями в массив,
+ * где вложенность отображается через дефисы (`-`) перед названием.
+ * @param {Array<Object>} items - Исходный массив элементов.
+ * @param {number|null} parentId - ID родителя, для которого ищутся дети.
+ * @param {number} level - Текущий уровень вложенности (0 для корня, 1 для `-`, 2 для `- -` и т.д.).
+ * @returns {Array<Object>} - Массив объектов с полями `value` и `title`.
+ */
+export const getSelectOptions = (items, parentId = null, level = 0) => {
+  const options = [];
+
+  for (const item of items) {
+    const isRootNode = item.parent === null && parentId === null; // является ли элемент корневым
+    const isDirectChild = item.parent && item.parent._id === parentId; //является ли элемент непосредственным потомком
+
+    if (isRootNode || isDirectChild) {
+      // Добавляем элемент с отступом
+      const prefix = level > 0 ? '- '.repeat(level) : '';
+      options.push({
+        value: item._id,
+        title: prefix + item.title,
+      });
+
+      // Рекурсивно добавляем детей (увеличивая уровень вложенности)
+      const childOptions = getSelectOptions(items, item._id, level + 1);
+      options.push(...childOptions);
+    }
+  }
+
+  return options;
+};
