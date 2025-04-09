@@ -34,15 +34,13 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  // Получаем язык из localStorage или используем 'ru' по умолчанию
   const [language, setLanguage] = useState(() => {
-    return localStorage.getItem('appLanguage') || 'ru';
+    return sessionStorage.getItem('appLanguage') || 'ru';
   });
 
-  // Функция для изменения языка с сохранением в localStorage
   const handleLanguageChange = (lang) => {
     setLanguage(lang);
-    localStorage.setItem('appLanguage', lang);
+    sessionStorage.setItem('appLanguage', lang);
   };
 
   return (
