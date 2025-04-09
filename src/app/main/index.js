@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -8,12 +8,22 @@ import Head from '../../components/head';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
+import AuthSlot from '../../components/auth-slot';
+import useSelector from '../../hooks/use-selector';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Главная страница - первичная загрузка каталога
  */
 function Main() {
   const store = useStore();
+  const user = useSelector(state => state.user);
+
+  useEffect(() => {
+    if (user.token && !user.data) {
+      store.actions.user.loadProfile();
+    }
+  }, []);
 
   useInit(
     () => {
@@ -27,7 +37,7 @@ function Main() {
 
   return (
     <>
-      <Head title={t('title')}>
+      <Head title={t('title')} authSlot={<AuthSlot />}>
         <LocaleSelect />
       </Head>
       <PageLayout>

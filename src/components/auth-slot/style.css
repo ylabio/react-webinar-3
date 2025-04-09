@@ -1,0 +1,21 @@
+.AuthSlot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 14px;
+  gap: 4px;
+}
+
+.AuthSlot a {
+  color: var(--primary);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.AuthSlot button {
+  background: none;
+  border: none;
+  color: var(--main-text);
+  cursor: pointer;
+  padding: 0;
+}
