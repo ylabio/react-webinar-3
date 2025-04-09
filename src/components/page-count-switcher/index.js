@@ -10,7 +10,7 @@ function PageCountSwitcher ({productsPerPage, onCountPageChange, changeCurrentPa
     return (
         <div>
             <label>{text[select.lang].productsQuantity}
-                <select onblur='this.size=0;' onchange='this.size=1; this.blur();'
+                <select
                     className="Pages-select"
                     name="count" 
                     id="count-pages-select"

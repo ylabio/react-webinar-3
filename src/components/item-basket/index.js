@@ -6,36 +6,26 @@ import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import Button from '../button';
 import './style.css';
-import text from '../../text';
-import useSelector from '../../store/use-selector';
 
-function ItemBasket(props) {
+function ItemBasket({ item, text, onRemove=() => {}, navigateTo=`/product/${item._id}` }) {
   const cn = bem('ItemBasket');
   const navigate = useNavigate();
-
-  const select = useSelector(state => ({
-    lang: state.language.language || 'ru',
-  }))
-
-  const callbacks = {
-    onRemove: e => props.onRemove(props.item._id),
-  };
 
   const clickHandler = (event) => {
     if (event.target.tagName === 'BUTTON') {
       return;
     }
-    navigate(`/product/${props.item._id}`);
+    navigate(navigateTo);
   }
 
   return (
     <div onClick={clickHandler} className={cn()}>
-      <h4 className={cn('title')}>{props.item.title}</h4>
+      <h4 className={cn('title')}>{item.title}</h4>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {text[select.lang].item}</div>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
+        <div className={cn('cell')}>{numberFormat(item.amount || 0)} {text.item}</div>
+        <div className={cn('cell')}>{numberFormat(item.price)} ₽</div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title={text[select.lang].delButton} />
+          <Button style="delete" onClick={() => { onRemove(item._id) }} title={text} />
         </div>
       </div>
     </div>
@@ -50,10 +40,6 @@ ItemBasket.propTypes = {
     amount: PropTypes.number,
   }).isRequired,
   onRemove: propTypes.func,
-};
-
-ItemBasket.defaultProps = {
-  onRemove: () => {},
 };
 
 export default memo(ItemBasket);

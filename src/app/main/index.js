@@ -31,22 +31,20 @@ function Main() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   };
 
-  const renders = {
-    item: useCallback(
-      item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} text={text[select.lang]} />;
-      },
-      [callbacks.addToBasket],
-    ),
-  };
-
   return (
     <PageLayout>
       <Head title={text[select.lang].storeName} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <BasketTool 
+        openBasket={callbacks.openModalBasket} 
+        amount={select.amount} 
+        sum={select.sum} 
+        text={text[select.lang]}
+      />
       {
         select.list ?
-        <List list={select.list} renderItem={renders.item} />
+        <List>
+          {select.list.map((item) => <Item key={item._id} item={item} onAdd={callbacks.addToBasket} text={text[select.lang].addButton} />)}
+        </List>
         :
         <Loader />
       }

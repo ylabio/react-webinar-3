@@ -8,17 +8,17 @@ import { useNavigate } from 'react-router-dom';
 import text from '../../text';
 import useSelector from '../../store/use-selector';
 
-function Item({ item, onAdd, navigateTo=`/product/${item._id}` }) {
+function Item({ item, text, onAdd=() => {}, navigateTo=`/product/${item._id}` }) {
   const cn = bem('Item');
   const navigate = useNavigate();
 
-  const select = useSelector(state => ({
-    lang: state.language.language || 'ru',
-  }))
+  // const select = useSelector(state => ({
+  //   lang: state.language.language || 'ru',
+  // }))
 
-  const callbacks = {
-    onAdd: e => onAdd(item._id),
-  };
+  // const callbacks = {
+  //   onAdd: e => onAdd(item._id),
+  // };
 
   const clickHandler = (event) => {
     if (event.target.tagName === 'BUTTON') {
@@ -33,7 +33,7 @@ function Item({ item, onAdd, navigateTo=`/product/${item._id}` }) {
       <h4 className={cn('title')} onClick={() => { navigate(navigateTo) }}>{item.title}</h4>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
-        <Button style="primary" onClick={callbacks.onAdd} title={text[select.lang].addButton} />
+        <Button style="primary" onClick={() => {onAdd(item._id)}} title={text} />
       </div>
     </div>
   );
@@ -48,8 +48,8 @@ Item.propTypes = {
   onAdd: PropTypes.func,
 };
 
-Item.defaultProps = {
-  onAdd: () => {},
-};
+// Item.defaultProps = {
+//   onAdd: () => {},
+// };
 
 export default memo(Item);

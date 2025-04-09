@@ -23,16 +23,24 @@ function Article() {
     const select = useSelector(state => ({
         product: state.catalog.currentProduct,
         lang: state.language.language || 'ru',
+        amount: state.basket.amount,
+        sum: state.basket.sum,
       }));
     
     const callbacks = {
         addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+        openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     };
 
     return (
         <PageLayout>
             <Head title={select.product?.title ?? text[select.lang].loading} />
-            <BasketTool />
+            <BasketTool 
+                openBasket={callbacks.openModalBasket} 
+                amount={select.amount} 
+                sum={select.sum} 
+                text={text[select.lang]}
+            />
             {
                 select.product ? 
                 <ProductInfo 

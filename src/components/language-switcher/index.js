@@ -16,8 +16,8 @@ function LanguageSwitcher() {
 
     return (
         <div className='lang-btns'>
-            <button onClick={() => { callbacks.setLanguage('ru'); console.log(selector.lang) }} className={`lang-btn left ${selector.lang === 'ru' ? 'active': ''}`}>RU</button>
-            <button onClick={() => { callbacks.setLanguage('en'); console.log(selector.lang) }} className={`lang-btn right ${selector.lang === 'en' ? 'active': ''}`}>EN</button>
+            <button onClick={() => { callbacks.setLanguage('ru') }} className={`lang-btn left ${selector.lang === 'ru' ? 'active': ''}`}>RU</button>
+            <button onClick={() => { callbacks.setLanguage('en') }} className={`lang-btn right ${selector.lang === 'en' ? 'active': ''}`}>EN</button>
         </div>
     );
 }

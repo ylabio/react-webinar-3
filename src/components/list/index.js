@@ -2,12 +2,12 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function List({ list, renderItem }) {
+function List({ children }) {
   return (
     <ul className="List">
-      {list.map(item => (
-        <li key={item._id} className="List-item">
-          {renderItem(item)}
+      {children?.map(child => (
+        <li key={child.key} className="List-item">
+          {child}
         </li>
       ))}
     </ul>
@@ -15,16 +15,9 @@ function List({ list, renderItem }) {
 }
 
 List.propTypes = {
-  list: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    }),
-  ).isRequired,
-  renderItem: PropTypes.func,
-};
-
-List.defaultProps = {
-  renderItem: item => {},
+  children: PropTypes.arrayOf(
+    PropTypes.element
+  ),
 };
 
 export default memo(List);

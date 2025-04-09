@@ -27,7 +27,7 @@ function Basket() {
   const renders = {
     itemBasket: useCallback(
       item => {
-        return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} />;
+        return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} text={text[select.lang]} />;
       },
       [callbacks.removeFromBasket],
     ),
@@ -35,8 +35,8 @@ function Basket() {
 
   return (
     <ModalLayout title={text[select.lang].basket} onClose={callbacks.closeModal}>
-      <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <List>{select.list?.map((item) => <ItemBasket key={item._id} item={item} onRemove={callbacks.removeFromBasket} text={text[select.lang].delButton} />)}</List>
+      <BasketTotal sum={select.sum} text={text[select.lang]} />
     </ModalLayout>
   );
 }
