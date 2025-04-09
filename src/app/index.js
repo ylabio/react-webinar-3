@@ -1,7 +1,7 @@
 import Main from './main';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import Article from './article';
-import { TranslationProvider } from '../translation/TranslationContext';
+import { TranslationProvider } from '../translation/translation-context';
 
 const router = createBrowserRouter([
   {

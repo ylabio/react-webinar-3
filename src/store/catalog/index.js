@@ -41,7 +41,6 @@ class Catalog extends StoreModule {
       `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`,
     );
     const json = await response.json();
-    console.log('loadArticle', json);
 
     this.setState(
       {

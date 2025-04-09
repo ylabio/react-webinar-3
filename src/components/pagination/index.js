@@ -2,16 +2,21 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import { getPageNumbers } from '../../utils';
-import { useTranslation } from '../../translation/TranslationContext';
 
-function Pagination({ page, limit, maxCount, setPage = () => {}, setLimit = () => {} }) {
-  const { t } = useTranslation();
+function Pagination({
+  page,
+  limit,
+  maxCount,
+  itemsPerPageText,
+  setPage = () => {},
+  setLimit = () => {},
+}) {
   const totalPages = Math.ceil(maxCount / limit);
 
   return (
     <div className="Pagination">
       <div className="Pagination-control">
-        <span>{t('itemsPerPage')}: </span>
+        <span>{itemsPerPageText}: </span>
         <button
           onClick={() => setLimit(5)}
           className={limit === 5 ? 'Pagination-item Pagination-item--active' : 'Pagination-item'}
@@ -58,6 +63,7 @@ Pagination.propTypes = {
   maxCount: PropTypes.number,
   setPage: PropTypes.func,
   setLimit: PropTypes.func,
+  itemsPerPageText: PropTypes.string,
 };
 
 export default memo(Pagination);

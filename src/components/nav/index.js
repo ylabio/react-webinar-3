@@ -3,24 +3,22 @@ import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import './style.css';
 import { Link } from 'react-router';
-import { useTranslation } from '../../translation/TranslationContext';
-
-function Nav({ children }) {
+function Nav(props) {
   const cn = bem('Nav');
-  const { t } = useTranslation();
 
   return (
     <div className={cn()}>
       <nav>
-        <Link to="/">{t('navItemMain')}</Link>
+        <Link to="/">{props.homeText}</Link>
       </nav>
-      {children}
+      {props.children}
     </div>
   );
 }
 
 Nav.propTypes = {
   children: PropTypes.node,
+  homeText: PropTypes.string,
 };
 
 export default memo(Nav);

@@ -8,11 +8,12 @@ import { useParams } from 'react-router';
 import Nav from '../../components/nav';
 import ArticleCard from '../../components/article-card';
 import Basket from '../basket';
+import { useTranslation } from '../../translation/translation-context';
 
 function Article() {
   const store = useStore();
+  const { t } = useTranslation();
   const { articleId } = useParams();
-  console.log('articleId', articleId);
 
   const activeModal = useSelector(state => state.modals.name);
 
@@ -39,14 +40,31 @@ function Article() {
   return (
     <PageLayout>
       <Head title={article.title} />
-      <Nav>
-        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <Nav homeText={t('navItemMain')}>
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          amountText={{
+            one: `${t('productOne')}`,
+            few: `${t('productSome')}`,
+            many: `${t('productMany')}`,
+            empty: `${t('emptyCart')}`,
+          }}
+          sum={select.sum}
+        />
       </Nav>
       <ArticleCard
         article={article}
         country={article.madeIn.title}
         category={article.category.title}
         onAdd={callbacks.addToBasket}
+        text={{
+          price: t('price'),
+          country: t('country'),
+          category: t('category'),
+          edition: t('edition'),
+          button: t('addToCart'),
+        }}
       />
       {activeModal === 'basket' && <Basket />}
     </PageLayout>

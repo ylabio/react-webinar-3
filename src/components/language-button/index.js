@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { useTranslation } from '../../translation/TranslationContext';
+import { useTranslation } from '../../translation/translation-context';
 
 function LanguageButton() {
   const { language, setLanguage } = useTranslation();

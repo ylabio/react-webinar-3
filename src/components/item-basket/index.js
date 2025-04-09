@@ -5,12 +5,10 @@ import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import Button from '../button';
 import './style.css';
-import { useTranslation } from '../../translation/TranslationContext';
 import { useNavigate } from 'react-router';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
-  const { t } = useTranslation();
   let navigate = useNavigate();
 
   const callbacks = {
@@ -27,11 +25,11 @@ function ItemBasket(props) {
       <h4 className={cn('title')}>{props.item.title}</h4>
       <div className={cn('right')}>
         <div className={cn('cell')}>
-          {numberFormat(props.item.amount || 0)} {t('quantity')}
+          {numberFormat(props.item.amount || 0)} {props.text.quantity}
         </div>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title={t('removeFromCart')} />
+        <div className={cn('cell')} onClick={e => e.stopPropagation()}>
+          <Button style="delete" onClick={callbacks.onRemove} title={props.text.button} />
         </div>
       </div>
     </div>
@@ -45,6 +43,10 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number,
   }).isRequired,
+  text: PropTypes.shape({
+    button: PropTypes.string,
+    quantity: PropTypes.string,
+  }),
   onRemove: propTypes.func,
   onCloseModal: propTypes.func,
 };
