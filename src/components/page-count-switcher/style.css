@@ -1,0 +1,12 @@
+.Pages-select {
+    border-color: var(--primary);
+    margin-left: 5px;
+    border-radius: 2px;
+    outline: none;
+}
+
+.select-item:checked {
+    outline: none;
+    background-color: var(--primary);
+    color: white;
+}

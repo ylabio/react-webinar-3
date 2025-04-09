@@ -1,0 +1,42 @@
+const text = {
+    ru: {
+        storeName: 'Магазин',
+        mainPage: 'Главная',
+        basket: 'Корзина',
+        addButton: 'Добавить',
+        delButton: 'Удалить',
+        emptyBasket: 'Пусто',
+        oneProduct: 'товар',
+        fewProducts: 'товара',
+        manyProducts: 'товаров',
+        total: 'Итого',
+        productsQuantity: 'Кол-во отображаемых товаров:',
+        originCountry: 'Страна производитель:',
+        category: 'Категория:',
+        releaseYear: 'Год выпуска:',
+        price: 'Цена:',
+        loading: 'Loading...',
+        item: 'шт'
+    },
+    en: {
+        storeName: 'Store',
+        mainPage: 'Main',
+        basket: 'Basket',
+        addButton: 'Add',
+        delButton: 'Delete',
+        emptyBasket: 'Empty',
+        oneProduct: 'product',
+        fewProducts: 'products',
+        manyProducts: 'products',
+        total: 'Total',
+        productsQuantity: 'Number of products displayed:',
+        originCountry: 'Country of origin:',
+        category: 'Category:',
+        releaseYear: 'Year of release:',
+        price: 'Price:',
+        loading: 'Loading...',
+        item: 'pc'
+    }
+}
+
+export default text;

@@ -1,0 +1,17 @@
+.product-info {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 12px;
+    margin: 24px 0;
+}
+
+.product-info-item {
+    display: contents;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 24px 0;
+    font-family: var(--second-font-family);
+}

@@ -4,23 +4,32 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from '../../utils';
 import Cart from '../../assets/icon/cart.svg';
 import './style.css';
+import { useNavigate } from 'react-router-dom';
+import routes from '../../routes';
+import useStore from '../../store/use-store';
+import useSelector from '../../store/use-selector';
+import { useCallback } from 'react';
+import text from '../../text';
 
-function BasketTool(props) {
-  const { onOpen = () => {}, sum = 0, amount = 0 } = props;
+function BasketTool({ amount, sum, text, openBasket, toNavigate=routes.mainPagePath }) {
+  const navigate = useNavigate();
+
+  console.log(text)
 
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <button className={cn('action')} onClick={onOpen}>
+      <a className='main-page-link' onClick={() => { navigate(toNavigate) }}>{text.mainPage}</a>
+      <button className={cn('action')} onClick={ openBasket }>
         <Cart className={cn('icon')} />
         <span className={cn('total')}>
           {amount
             ? `${amount} ${plural(amount, {
-                one: 'товар',
-                few: 'товара',
-                many: 'товаров',
+                one: text.oneProduct,
+                few: text.fewProducts,
+                many: text.manyProducts,
               })} / ${numberFormat(sum)} ₽`
-            : `пусто`}
+            : text.emptyBasket}
         </span>
       </button>
     </div>
@@ -28,7 +37,7 @@ function BasketTool(props) {
 }
 
 BasketTool.propTypes = {
-  onOpen: PropTypes.func.isRequired,
+  openBasket: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
 };
