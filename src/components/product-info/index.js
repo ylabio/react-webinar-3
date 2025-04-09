@@ -21,8 +21,8 @@ function ProductInfo({ product }) {
           <span>Год выпуска:</span>
         </div>
         <div className={cn('info-values')}>
-          <span><b>{madeIn}</b></span>
-          <span><b>{category}</b></span>
+          <span><b>{madeIn?.title}</b></span>
+          <span><b>{category?.title}</b></span>
           <span><b>{edition}</b></span>
         </div>
       </div>

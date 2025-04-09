@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { useParams } from "react-router";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
@@ -14,63 +14,40 @@ function Product() {
   const store = useStore();
 
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
   const activeModal = useSelector(state => state.modals.name);
 
+  const select = useSelector( state => ({
+    product: state.product.data,
+    amount: state.basket.amount,
+    sum: state.basket.sum,
+    isLoading: state.product.isLoading,
+  }));
+
+
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title),category(title)`);
-
-        const data = await response.json();
-
-        setProduct({
-          _id: data.result._id,
-          title: data.result.title,
-          description: data.result.description,
-          madeIn: data.result.madeIn?.title,
-          category: data.result.category?.title,
-          edition: data.result.edition,
-          price: data.result.price,
-        });
-      } catch (e) {
-
-      }
-    }
-
-    fetchProduct();
-
-    store.actions.page.setCurrentPage('product')
+      store.actions.product.load(id);
   }, [id]);
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(() => store.actions.basket.addToBasket(product._id), [product]),
+    addToBasket: useCallback(id => store.actions.basket.addToBasket(id), [store]),
+    openModal: useCallback(() => store.actions.modals.open('basket'), [store]),
   }
-
-
 
 
   return (
     <PageLayout>
-      { product ? (
-        <>
-          <Head title={product.title}/>
-          <BasketTool />
+      {select.isLoading
+        ? <Loader />
+        : <>
+          <Head title={select.product.title}/>
+          <BasketTool sum={select.sum} amount={select.amount} onOpen={callbacks.openModal}/>
 
-          <ProductInfo product={product}/>
-          <Button style="primary" title="Добавить" onClick={callbacks.addToBasket}/>
+          <ProductInfo product={select.product} />
+          <Button style="primary" title="Добавить" onClick={() => callbacks.addToBasket(id)}/>
           {activeModal === 'basket' && <Basket/>}
         </>
-      ) : (
-        <>
-          <Head title="Загрузка..." />
-          <BasketTool />
-          <Loader />
-        </>
-      )
       }
-
     </PageLayout>
   )
 }
