@@ -7,16 +7,30 @@
   font-family: var(--font-family);
   font-size: 16px;
   height: 40px;
+  color: var(--main-text);
 }
 
 .Select:focus-visible {
   outline: none;
+  border-color: var(--filter-border);
 }
 
-.Select option:checked,
+/* для выпадающего списка */
+.Select option {
+  color: var(--main-text);
+  background-color: var(--background);
+  padding: 8px 12px;
+}
+
+/* Выбранный пункт */
+.Select option:checked {
+  color: #6b4acb; 
+  background-color: var(--background);
+}
+
 .Select option:hover {
-  background-color: var(--primary);
-  color: var(--second-text);
+  background: #1e90ff !important;
+  color: #fff !important; 
 }
 
 .Select_size_small {
