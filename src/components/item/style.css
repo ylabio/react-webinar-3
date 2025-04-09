@@ -7,6 +7,16 @@
   padding: 16px 16px 15px 16px
 }
 
+.Item-title {
+  color: var(--main-text);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.Item-title:hover {
+  color: var(--primary);
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;

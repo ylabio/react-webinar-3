@@ -1,0 +1,38 @@
+/* Переключатель пагинации */
+.ListToggle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 24px;
+}
+
+.ListToggle button {
+  padding: 0 2px;
+  min-width: 22px;
+  height: 22px;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+
+  background: none;
+  border: none;
+  border-radius: 2px;
+}
+
+.ListToggle button:hover {
+  cursor: pointer;
+
+  background-color: var(--primary-hover);
+}
+
+.ListToggle button.active {
+  color: var(--second-text);
+  background-color: var(--primary);
+}
+
+.ListToggle span {
+  opacity: 0.4;
+}
