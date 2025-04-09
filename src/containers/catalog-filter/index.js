@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -16,13 +16,27 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    categories: state.catalog.categories || [],
   }));
-
+  useEffect(() => {
+    store.actions.catalog.loadCategories().then(() => {
+      console.log('📦 Категории загружены:', store.getState().catalog.categories);
+    });
+  }, []);
   const callbacks = {
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({ sort }), [store]),
     // Поиск
     onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
+    // Категория
+    onCategory: useCallback(
+      category => {
+        const value = category === 'all' ? undefined : category;
+        store.actions.catalog.setParams({ category: value, page: 1 });
+      },
+      [store],
+    ),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
@@ -37,12 +51,26 @@ function CatalogFilter() {
       ],
       [],
     ),
+    category: useMemo(() => {
+      const base = [{ value: 'all', title: 'Все категории' }];
+      const formatted = select.categories.map(cat => ({
+        value: cat._id,
+        title: `${'-'.repeat(cat.level)} ${cat.title}`,
+      }));
+      return base.concat(formatted);
+    }, [select.categories]),
   };
 
   const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
+      <Select
+        options={options.category}
+        value={select.category || 'all'}
+        onChange={callbacks.onCategory}
+        size="medium"
+      />
       <Select
         options={options.sort}
         value={select.sort}
