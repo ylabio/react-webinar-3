@@ -36,6 +36,7 @@ function Basket() {
             onClose={callbacks.closeModal}
             onRemove={callbacks.removeFromBasket}
             title={LANGUAGES[select.lang].remove}
+            lang={select.lang}
           />
         );
       },

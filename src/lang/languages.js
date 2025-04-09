@@ -12,6 +12,7 @@ export const LANGUAGES = {
     edition: 'Год выпуска',
     price: 'Цена',
     empty: 'Пусто',
+    count: "шт"
   },
   en: {
     add: 'Add to cart',
@@ -26,5 +27,6 @@ export const LANGUAGES = {
     edition: 'Year of release',
     price: 'Price',
     empty: 'Empty',
+    count: "pcs."
   },
 };
