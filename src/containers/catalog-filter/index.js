@@ -6,6 +6,7 @@ import Select from '../../components/select';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
 import Button from '../../components/button';
+import { categoriesToSelectOptions } from '../../utils';
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -14,6 +15,7 @@ function CatalogFilter() {
   const store = useStore();
 
   const select = useSelector(state => ({
+    categories: state.catalog.categories,
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
   }));
@@ -37,9 +39,16 @@ function CatalogFilter() {
       ],
       [],
     ),
+    categories: useMemo(
+      () => categoriesToSelectOptions(select.categories),
+      [select.categories],
+    ),
   };
 
   const { t } = useTranslate();
+
+  console.log(select.categories);
+  console.log(options.categories);
 
   return (
     <SideLayout padding="medium">

@@ -33,3 +33,50 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Преобразует массив категорий в массив для использования в select-компоненте
+ * @param {Array} categories - Массив категорий с полями _id, title и parent
+ * @param {Number} [level=0] - Уровень вложенности (используется для рекурсивных вызовов)
+ * @returns {Array} Массив объектов {value: String, title: String} с отображением вложенности через дефисы
+ * @example
+ * // Возвращает:
+ * // [
+ * //   {value: '1', title: 'Электроника'},
+ * //   {value: '2', title: '- Телефоны'},
+ * //   {value: '3', title: '-- Смартфоны'}
+ * // ]
+ * categoriesToSelectOptions([
+ *   {_id: '1', title: 'Электроника', parent: null},
+ *   {_id: '2', title: 'Телефоны', parent: {_id: '1'}},
+ *   {_id: '3', title: 'Смартфоны', parent: {_id: '2'}}
+ * ]);
+ */
+export function categoriesToSelectOptions(categories) {
+  const result = [{ value: '', title: 'Все' }];
+  const categoryMap = {};
+
+  categories.forEach(cat => {
+    categoryMap[cat._id] = cat;
+  });
+
+  function addCategory(categoryId, level = 0) {
+    const category = categoryMap[categoryId];
+    if (!category) return;
+
+    result.push({
+      value: category._id,
+      title: `${'–'.repeat(level)}${category.title}`.trim(),
+    });
+
+    categories
+      .filter(cat => cat.parent && cat.parent._id === categoryId)
+      .forEach(child => addCategory(child._id, level + 1));
+  }
+
+  categories
+    .filter(cat => cat.parent === null)
+    .forEach(rootCat => addCategory(rootCat._id));
+
+  return result;
+}
