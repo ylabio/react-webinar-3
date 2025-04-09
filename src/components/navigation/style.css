@@ -1,0 +1,24 @@
+.Product {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}
+
+.Product-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Product-link {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.Product-link:hover {
+  text-decoration: underline;
+}

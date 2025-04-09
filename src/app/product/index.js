@@ -3,32 +3,39 @@ import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
-import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
-import Pagination from '../../components/pagination';
-import PageSelect from '../../components/page-select';
+import Basket from '../basket';
+import { Link, useParams } from 'react-router-dom';
 import './style.css';
-import {useLanguage} from '../../translation/language-context';
+import { cn as bem } from '@bem-react/classname';
+import Button from '../../components/button';
+import { numberFormat } from '../../utils';
+import { useLanguage } from '../../translation/language-context';
+import ProductCard from '../../components/product-card';
 import Navigation from '../../components/navigation';
 
-function Main() {
+function Product() {
   const store = useStore();
-  const {translation} = useLanguage();
-  const [currentPage, setCurrenPage] = useState(1);
-  const [sizePage, setSizePage] = useState(10);
+  const activeModal = useSelector(state => state.modals.name);
+  const cn = bem('Product');
+  const { translation } = useLanguage();
+
+  const params = useParams();
 
   const select = useSelector(state => ({
     list: state.catalog.list,
-    count: state.catalog.count,
-    lang: state.catalog.lang,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    article: state.catalog.article,
+    lang: state.catalog.lang,
   }));
 
   useEffect(() => {
-    store.actions.catalog.load({ current: currentPage, perPage: sizePage });
-  }, [currentPage, sizePage, select.lang]);
+    store.actions.catalog.loadId(params.id);
+  }, [params, select.lang]);
+
+  console.log(select);
 
   const callbacks = {
     // Добавление в корзину
@@ -47,21 +54,15 @@ function Main() {
   };
 
   return (
-    <PageLayout>
-      <Head title={translation['main.head.title']} />
-      <Navigation onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      <List list={select.list} renderItem={renders.item} />
-      <div className={'Footer'}>
-        <PageSelect current={sizePage} onSizeChange={setSizePage} />
-        <Pagination
-          current={currentPage}
-          perPage={sizePage}
-          total={select.count}
-          setPage={setCurrenPage}
-        />
-      </div>
-    </PageLayout>
+    <>
+      <PageLayout>
+        <Head title={select.article.title} />
+        <Navigation onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+        <ProductCard article={select.article} onClick={() => callbacks.addToBasket(params.id)} />
+      </PageLayout>
+      {activeModal === 'basket' && <Basket />}
+    </>
   );
 }
 
-export default memo(Main);
+export default memo(Product);

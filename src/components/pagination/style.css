@@ -1,0 +1,28 @@
+.Pagination {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 2px;
+  margin-right: 8px;
+  justify-content: end;
+}
+
+.Pagination button {
+  padding: 0 6px;
+  cursor: pointer;
+  font-family: "Golos Text";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.Pagination button:disabled {
+  cursor: auto;
+  opacity: 0.5;
+}
+
+.Pagination button.active {
+  background-color: var(--primary);
+  color: var(--second-text);
+}

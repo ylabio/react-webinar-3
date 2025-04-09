@@ -1,0 +1,34 @@
+.Custom-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.Custom-select {
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #6B4ACB;
+  border-radius: 4px;
+  padding: 8px 24px 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.Custom-wrapper::after {
+  content: '⭣';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #666;
+}
+
+.Custom-select:hover {
+  border-color: #999;
+}
+
+.Custom-select option {
+  padding: 8px;
+}

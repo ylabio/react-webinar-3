@@ -16,6 +16,20 @@
   margin: 0 auto;
 }
 
+.Head-lang {
+  margin: 0;
+  padding: 0;
+  padding: 0 2px;
+  color: var(--primary);
+}
+
+.Head-lang_active {
+  background: var(--primary); /* Например, синий фон */
+  color: #fff; /* Белый текст */
+  border-radius: 4px;
+  padding: 0 2px;
+}
+
 .Head h1 {
   margin: 0;
 }

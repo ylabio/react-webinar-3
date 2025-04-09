@@ -1,0 +1,55 @@
+.Product {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}
+
+.Product-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Product-link {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.Product-description {
+  margin: 0;
+  padding: 0;
+}
+
+.Product-madeIn {
+  display: flex;
+  flex-direction: row;
+  column-gap: 8px;
+}
+
+.Product-category-info {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 12px;
+}
+
+.Product-category-bold {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.Product-price {
+  margin: 0;
+  padding: 0;
+  color: var(--main-text);
+  font-family: "Montserrat Alternates";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px;
+}
