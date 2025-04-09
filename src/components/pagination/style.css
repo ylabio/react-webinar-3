@@ -1,0 +1,56 @@
+.Pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 30px;
+  margin-top: 25px;
+}
+
+.Pagination-control {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+
+  & span {
+    white-space: nowrap;
+  }
+}
+
+.Pagination-list {
+  display: flex;
+  gap: 5px;
+
+  & span {
+    font-size: 16px;
+    font-weight: 400;
+    padding: 2px 5px;
+    color: var(--overlay);
+  }
+}
+
+.Pagination-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  border: none;
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 2px;
+  width: 22px;
+  height: 22px;
+
+  &:hover {
+    background-color: var(--primary-select);
+  }
+}
+
+.Pagination-item--active {
+  background-color: var(--primary);
+  color: white;
+
+  &:hover {
+    background-color: var(--primary);
+    cursor: auto;
+  }
+}

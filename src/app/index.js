@@ -1,20 +1,29 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
 import Main from './main';
-import Basket from './basket';
-import useStore from '../store/use-store';
-import useSelector from '../store/use-selector';
+import { createBrowserRouter, RouterProvider } from 'react-router';
+import Article from './article';
+import { TranslationProvider } from '../translation/translation-context';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Main />,
+  },
+  {
+    path: '/articles/:articleId',
+    element: <Article />,
+  },
+]);
 
 /**
  * Приложение
  * @returns {React.ReactElement}
  */
 function App() {
-  const activeModal = useSelector(state => state.modals.name);
-
   return (
     <>
-      <Main />
-      {activeModal === 'basket' && <Basket />}
+      <TranslationProvider>
+        <RouterProvider router={router} fallbackElement={<div>Загрузка...</div>} />
+      </TranslationProvider>
     </>
   );
 }

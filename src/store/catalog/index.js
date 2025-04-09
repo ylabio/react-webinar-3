@@ -10,19 +10,70 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
+      limit: 10,
+      page: 1,
+      maxCount: 0,
+      activeArticle: null,
     };
   }
 
   async load() {
-    const response = await fetch('/api/v1/articles');
+    const { limit, page } = this.getState();
+    const skip = (page - 1) * limit;
+
+    const response = await fetch(
+      `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id,title,price),count`,
+    );
     const json = await response.json();
+
     this.setState(
       {
         ...this.getState(),
         list: json.result.items,
+        maxCount: json.result.count,
       },
       'Загружены товары из АПИ',
     );
+  }
+
+  async loadArticle(id) {
+    const response = await fetch(
+      `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`,
+    );
+    const json = await response.json();
+
+    this.setState(
+      {
+        ...this.getState(),
+        activeArticle: json.result,
+      },
+      'Загружен один товар',
+    );
+  }
+
+  setLimit(limit) {
+    this.setState(
+      {
+        ...this.getState(),
+        limit,
+        page: 1,
+      },
+      'Лимит товаров на странице изменён',
+    );
+
+    this.load();
+  }
+
+  setPage(page) {
+    this.setState(
+      {
+        ...this.getState(),
+        page,
+      },
+      'Страница изменена',
+    );
+
+    this.load();
   }
 }
 
