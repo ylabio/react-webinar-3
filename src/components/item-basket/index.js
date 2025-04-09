@@ -1,27 +1,38 @@
-import { memo, useCallback } from 'react';
-import propTypes from 'prop-types';
-import { numberFormat } from '../../utils';
-import { cn as bem } from '@bem-react/classname';
+import { memo } from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
+
+import { cn as bem } from '@bem-react/classname';
+
 import Button from '../button';
+
+import { numberFormat } from '../../utils';
+import { LANGUAGES } from '../../lang/languages';
+
 import './style.css';
 
-function ItemBasket(props) {
+function ItemBasket({ onRemove = () => {}, onClose = () => {}, ...props }) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: e => props.onRemove(props.item._id),
+    onRemove: e => onRemove(props.item._id),
   };
 
   return (
     <div className={cn()}>
-      {/* <div className={cn('code')}>{props.item._id}</div> */}
-      <h4 className={cn('title')}>{props.item.title}</h4>
+      <Link
+        to={props.itemPageLink}
+        state={{ itemId: props.item._id }}
+        className={cn('link')}
+        onClick={onClose}
+      >
+        <h4 className={cn('title')}>{props.item.title}</h4>
+      </Link>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)}{LANGUAGES[props.lang].count} </div>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title="Удалить" />
+          <Button style="delete" onClick={callbacks.onRemove} title={props.title} />
         </div>
       </div>
     </div>
@@ -35,11 +46,11 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number,
   }).isRequired,
-  onRemove: propTypes.func,
-};
-
-ItemBasket.defaultProps = {
-  onRemove: () => {},
+  itemPageLink:PropTypes.string,
+  lang:PropTypes.string,
+  onRemove: PropTypes.func,
+  onClose: PropTypes.func,
+  title: PropTypes.string,
 };
 
 export default memo(ItemBasket);

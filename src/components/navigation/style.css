@@ -1,0 +1,20 @@
+.Navigation {
+  display: flex;
+}
+
+.Navigation-link {
+  text-decoration: none;
+  color: var(--main-text);
+  transition: color .2s linear;
+
+  &:hover {
+    color: var(--primary);
+    text-decoration: underline;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    color: var(--main-text);
+  }
+}
+

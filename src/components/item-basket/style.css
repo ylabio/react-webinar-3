@@ -31,3 +31,13 @@
     color: var(--delete);
   }
 }
+
+.ItemBasket-link {
+  text-decoration: none;
+  color: inherit;
+  transition: color .2s linear;
+
+  &:hover {
+    color: var(--primary);
+  }
+}

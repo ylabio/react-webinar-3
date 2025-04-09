@@ -1,0 +1,17 @@
+.Footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 1152px;
+  height: 32px;
+  margin: 0;
+  padding-top: 24px;
+}
+
+.Footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+}
