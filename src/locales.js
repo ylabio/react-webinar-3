@@ -9,6 +9,13 @@ export const translations = {
     empty: "пусто",
     delete: "Удалить",
     total: "Итого",
+    price: "Цена",
+    madeIn: "Страна производитель",
+    category: "Категория",
+    edition: "Год выпуска",
+    oneProduct: "товар",
+    fewProducts: "товара",
+    manyProducts: "товаров",
   },
   en: {
     title: "Shop",
@@ -20,5 +27,12 @@ export const translations = {
     empty: "empty",
     delete: "Delete",
     total: "Total",
+    price: "Price",
+    madeIn: "Country of origin",
+    category: "Category",
+    edition: "Edition",
+    oneProduct: "product",
+    fewProducts: "products",
+    manyProducts: "products",
   }
 }

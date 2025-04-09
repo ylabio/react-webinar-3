@@ -1,8 +1,10 @@
-import { memo } from 'react';
+import { memo, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import Button from '../button';
+import { LanguageContext } from '../../contexts/LanguageContext';
+import { translations } from '../../locales';
 import './style.css';
 
 function Product({
@@ -17,20 +19,21 @@ function Product({
   const cn = bem('Product');
 
   const handleAdd = () => onAdd(_id);
+  const { language } = useContext(LanguageContext);
 
   return (
     <div className={cn()}>
       <p className={cn('description')}>{description}</p>
       <dl className={cn('list')}>
-        <dt>Страна производитель:</dt>
+        <dt>{translations[language].madeIn}:</dt>
         <dd>{madeIn}</dd>
-        <dt>Категория:</dt>
+        <dt>{translations[language].category}:</dt>
         <dd>{category}</dd>
-        <dt>Год выпуска:</dt>
+        <dt>{translations[language].edition}:</dt>
         <dd>{edition}</dd>
       </dl>
-      <p className={cn('price')}>Цена:&ensp;{numberFormat(price)} ₽</p>
-      <Button style="primary" onClick={handleAdd} title="Добавить" />
+      <p className={cn('price')}>{translations[language].price}:&ensp;{numberFormat(price)} ₽</p>
+      <Button style="primary" onClick={handleAdd} title={translations[language].addToCart} />
     </div>
   );
 }
