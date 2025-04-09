@@ -11,10 +11,11 @@ function Item(props) {
 
   const callbacks = {
     onAdd: e => props.onAdd(props.item._id),
+    onNavigate: () => navigate(props.link || `/articles/${props.item._id}`),
   };
 
   return (
-    <div className={cn()} onClick={() => navigate(`/articles/${props.item._id}`)}>
+    <div className={cn()} onClick={callbacks.onNavigate}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <h4 className={cn('title')}>{props.item.title}</h4>
       <div className={cn('actions')}>
@@ -35,6 +36,7 @@ Item.propTypes = {
   }).isRequired,
   onAdd: PropTypes.func,
   buttonText: PropTypes.string,
+  link: PropTypes.string,
 };
 
 Item.defaultProps = {

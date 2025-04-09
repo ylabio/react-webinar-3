@@ -13,14 +13,14 @@ function ItemBasket(props) {
 
   const callbacks = {
     onRemove: e => props.onRemove(props.item._id),
-    handleNavigate: () => {
+    onNavigate: () => {
       props.onCloseModal();
-      navigate(`/articles/${props.item._id}`);
+      navigate(props.link || `/articles/${props.item._id}`);
     },
   };
 
   return (
-    <div className={cn()} onClick={callbacks.handleNavigate}>
+    <div className={cn()} onClick={callbacks.onNavigate}>
       {/* <div className={cn('code')}>{props.item._id}</div> */}
       <h4 className={cn('title')}>{props.item.title}</h4>
       <div className={cn('right')}>
@@ -49,6 +49,7 @@ ItemBasket.propTypes = {
   }),
   onRemove: propTypes.func,
   onCloseModal: propTypes.func,
+  link: PropTypes.string,
 };
 
 ItemBasket.defaultProps = {
