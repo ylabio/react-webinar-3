@@ -87,7 +87,7 @@ class CatalogState extends StoreModule {
       'search[query]': params.query,
     };
 
-    const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
+    const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}&lang=ru`);
     const json = await response.json();
     this.setState(
       {
