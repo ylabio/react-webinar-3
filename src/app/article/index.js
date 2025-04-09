@@ -8,6 +8,7 @@ import { useLoaderData } from 'react-router';
 import Nav from '../../components/nav';
 import ArticleCard from '../../components/article-card';
 import { useTranslation } from '../../translation/TranslationContext';
+import Basket from '../basket';
 
 function Article() {
   const [country, setCountry] = useState(null);
@@ -18,6 +19,8 @@ function Article() {
   const { t } = useTranslation();
 
   let { result: article } = useLoaderData();
+
+  const activeModal = useSelector(state => state.modals.name);
 
   useEffect(() => {
     async function fetchData() {
@@ -68,6 +71,7 @@ function Article() {
           onAdd={callbacks.addToBasket}
         />
       )}
+      {activeModal === 'basket' && <Basket />}
     </PageLayout>
   );
 }

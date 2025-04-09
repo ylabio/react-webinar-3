@@ -9,6 +9,7 @@ import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import Nav from '../../components/nav';
 import { useTranslation } from '../../translation/TranslationContext';
+import Basket from '../basket';
 
 function Main() {
   const store = useStore();
@@ -25,6 +26,7 @@ function Main() {
     maxCount: state.catalog.maxCount,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    activeModal: state.modals.name,
   }));
 
   const callbacks = {
@@ -61,6 +63,7 @@ function Main() {
         setPage={callbacks.setPage}
         setLimit={callbacks.setLimit}
       />
+      {select.activeModal === 'basket' && <Basket />}
     </PageLayout>
   );
 }

@@ -28,13 +28,13 @@ const router = createBrowserRouter([
  * @returns {React.ReactElement}
  */
 function App() {
-  const activeModal = useSelector(state => state.modals.name);
+  // const activeModal = useSelector(state => state.modals.name);
 
   return (
     <>
       <TranslationProvider>
         <RouterProvider router={router} fallbackElement={<div>Загрузка...</div>} />
-        {activeModal === 'basket' && <Basket />}
+        {/* {activeModal === 'basket' && <Basket />} */}
       </TranslationProvider>
     </>
   );
