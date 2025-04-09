@@ -23,4 +23,4 @@ GET http://query.rest/api/v1/articles/67f1871a692e2282cbacd302
 # Товар по id с подробностями о стране и категории
 # Про формат fields смотри http://query.rest
 
-GET http://query.rest/api/v1/articles/65817bed5c295a2ff2fcd182?fields=*,madeIn(title,code),category(title)
+GET http://query.rest/api/v1/articles/67f1871a692e2282cbacd302?fields=*,madeIn(title,code),category(title)

@@ -10,6 +10,7 @@ import Pagination from '../../components/pagination';
 import PageSelect from '../../components/page-select';
 import './style.css';
 import {useLanguage} from '../../translation/language-context';
+import Navigation from '../../components/navigation';
 
 function Main() {
   const store = useStore();
@@ -48,7 +49,7 @@ function Main() {
   return (
     <PageLayout>
       <Head title={translation['main.head.title']} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <Navigation onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />
       <div className={'Footer'}>
         <PageSelect current={sizePage} onSizeChange={setSizePage} />

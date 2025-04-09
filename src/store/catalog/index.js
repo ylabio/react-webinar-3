@@ -34,7 +34,7 @@ class Catalog extends StoreModule {
   }
 
   async loadId(id) {
-    const response = await fetch(`/api/v1/articles/${id}?fields=%2A&lang=${this.getState().lang}`);
+    const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)&lang=${this.getState().lang}`);
     const json = await response.json();
     console.log('Catalog store--');
     console.log(this.getState());

@@ -4,7 +4,7 @@ import Store from './store';
 import { StoreContext } from './store/context';
 import 'theme.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Product from './components/product';
+import Product from './app/product';
 import NotFound from './components/notfound';
 import { LanguageProvider } from './translation/language-context';
 
