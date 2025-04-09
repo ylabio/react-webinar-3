@@ -16,6 +16,8 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    categories: state.catalog.categories,
   }));
 
   const callbacks = {
@@ -25,6 +27,11 @@ function CatalogFilter() {
     onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
+    // Фильтр по категории
+    onCategoryChange: useCallback(
+      category => store.actions.catalog.setParams({ category, page: 1 }),
+      [store],
+    ),
   };
 
   const options = {
@@ -37,12 +44,28 @@ function CatalogFilter() {
       ],
       [],
     ),
+    categories: useMemo(() => {
+      const options = [{ value: '', title: 'Все' }];
+      select.categories.forEach(category => {
+        options.push({
+          value: category._id,
+          title: `${'—'.repeat(category.level)} ${category.title}`,
+        });
+      });
+      return options;
+    }, [select.categories]),
   };
 
   const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
+      <Select
+        options={options.categories}
+        value={select.category || ''}
+        onChange={callbacks.onCategoryChange}
+        size="medium"
+      />
       <Select
         options={options.sort}
         value={select.sort}
