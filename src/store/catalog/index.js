@@ -12,6 +12,7 @@ class Catalog extends StoreModule {
       list: [],
       limit: 10,
       page: 1,
+      maxCount: 0,
     };
   }
 
@@ -19,12 +20,16 @@ class Catalog extends StoreModule {
     const { limit, page } = this.getState();
     const skip = (page - 1) * limit;
 
-    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}`);
+    const response = await fetch(
+      `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id,title,price),count`,
+    );
     const json = await response.json();
+    console.log(json);
     this.setState(
       {
         ...this.getState(),
         list: json.result.items,
+        maxCount: json.result.count,
       },
       'Загружены товары из АПИ',
     );
@@ -35,6 +40,7 @@ class Catalog extends StoreModule {
       {
         ...this.getState(),
         limit,
+        page: 1,
       },
       'Лимит товаров на странице изменён',
     );

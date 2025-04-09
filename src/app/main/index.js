@@ -22,6 +22,7 @@ function Main() {
     list: state.catalog.list,
     limit: state.catalog.limit,
     page: state.catalog.page,
+    maxCount: state.catalog.maxCount,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
@@ -56,6 +57,7 @@ function Main() {
       <Pagination
         limit={select.limit}
         page={select.page}
+        maxCount={select.maxCount}
         setPage={callbacks.setPage}
         setLimit={callbacks.setLimit}
       />

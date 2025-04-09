@@ -4,8 +4,9 @@ import './style.css';
 import { getPageNumbers } from '../../utils';
 import { useTranslation } from '../../translation/TranslationContext';
 
-function Pagination({ page, limit, setPage = () => {}, setLimit = () => {} }) {
+function Pagination({ page, limit, maxCount, setPage = () => {}, setLimit = () => {} }) {
   const { t } = useTranslation();
+  const totalPages = Math.ceil(maxCount / limit);
 
   return (
     <div className="Pagination">
@@ -31,7 +32,7 @@ function Pagination({ page, limit, setPage = () => {}, setLimit = () => {} }) {
         </button>
       </div>
       <div className="Pagination-list">
-        {getPageNumbers(page).map((item, index) =>
+        {getPageNumbers(page, totalPages).map((item, index) =>
           item === '...' ? (
             <span key={index}>...</span>
           ) : (
@@ -54,6 +55,7 @@ function Pagination({ page, limit, setPage = () => {}, setLimit = () => {} }) {
 Pagination.propTypes = {
   page: PropTypes.number,
   limit: PropTypes.number,
+  maxCount: PropTypes.number,
   setPage: PropTypes.func,
   setLimit: PropTypes.func,
 };
