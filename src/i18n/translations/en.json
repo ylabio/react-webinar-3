@@ -14,5 +14,21 @@
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "category.all": "All",
+  "category.Electronics": "Electronics",
+  "category.Phones": "Phones",
+  "category.Smartphones": "Smartphones",
+  "category.Accessories": "Accessories",
+  "category.Laptops": "Laptops",
+  "category.TVs": "TVs",
+  "category.Books": "Books",
+  "category.Tutorials": "Tutorials",
+  "category.Fiction": "Fiction",
+  "category.Comics": "Comics",
+  "search.placeholder": "Search",
+  "sort.order": "By order",
+  "sort.byTitle": "By name",
+  "sort.price": "From expensive",
+  "sort.edition": "Ancient"
 }

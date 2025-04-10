@@ -16,5 +16,21 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "category.all": "Все",
+  "category.Electronics": "Электроника",
+  "category.Phones": "Телефоны",
+  "category.Smartphones": "Смартфоны",
+  "category.Accessories": "Аксессуары",
+  "category.Laptops": "Ноутбуки",
+  "category.TVs": "Телевизоры",
+  "category.Books": "Книги",
+  "category.Tutorials": "Обучающее",
+  "category.Fiction": "Художественное",
+  "category.Comics": "Комиксы",
+  "search.placeholder": "Поиск",
+  "sort.order": "По порядку",
+  "sort.byTitle": "По именованию",
+  "sort.price": "Сначала дорогие",
+  "sort.edition": "Древние"
 }

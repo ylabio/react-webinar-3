@@ -8,13 +8,9 @@ import SideLayout from '../../components/side-layout';
 import Button from '../../components/button';
 import calcLevels from '../../utils/calc-level';
 
-/**
- * Контейнер со всеми фильтрами каталога
- */
-
 function CatalogFilter() {
   const store = useStore();
-
+  const { t } = useTranslate();
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
@@ -42,26 +38,24 @@ function CatalogFilter() {
   const options = {
     sort: useMemo(
       () => [
-        { value: 'order', title: 'По порядку' },
-        { value: 'title.ru', title: 'По именованию' },
-        { value: '-price', title: 'Сначала дорогие' },
-        { value: 'edition', title: 'Древние' },
+        { value: 'order', title: t('sort.order') },
+        { value: 'title.ru', title: t('sort.byTitle') },
+        { value: '-price', title: t('sort.price') },
+        { value: 'edition', title: t('sort.edition') },
       ],
-      [],
+      [t],
     ),
 
     category: useMemo(() => {
-      const base = [{ value: 'all', title: 'Все', level: 0 }];
+      const base = [{ value: 'all', title: t('category.all'), level: 0 }];
       const formatted = calcLevels(select.categories).map(cat => ({
         value: cat._id,
-        title: cat.title,
+        title: t(`category.${cat.title}`),
         level: cat.level,
       }));
       return base.concat(formatted);
-    }, [select.categories]),
+    }, [select.categories, t]),
   };
-
-  const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
@@ -74,9 +68,9 @@ function CatalogFilter() {
       <Input
         value={select.query}
         onChange={callbacks.onSearch}
-        placeholder={'Поиск'}
+        placeholder={t('search.placeholder')}
         delay={1000}
-        theme={'big'}
+        theme="big"
       />
       <Button
         className="CustomReset"
