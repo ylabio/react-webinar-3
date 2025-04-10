@@ -5,16 +5,14 @@
   "basket.open": "Open",
   "basket.close": "Close",
   "basket.inBasket": "In cart",
-  "basket.empty": "empty",
+  "basket.empty": "Empty",
   "basket.total": "Total",
   "basket.unit": "pcs",
   "basket.delete": "Delete",
   "article.add": "Add",
   "filter.reset": "Reset",
-  "basket.articles": {
-    "one": "article",
-    "other": "articles"
-  },
+  "basket.articles.one": "article",
+  "basket.articles.other": "articles",
   "category.all": "All",
   "category.Electronics": "Electronics",
   "category.Phones": "Phones",
@@ -57,5 +55,4 @@
   "login.submit": "Sign in",
   "login.placeholder.login": "Enter username",
   "login.placeholder.password": "Enter password"
-
 }

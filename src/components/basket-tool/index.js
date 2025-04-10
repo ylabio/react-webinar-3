@@ -14,11 +14,12 @@ function BasketTool({ sum, amount, onOpen, t }) {
         <span className={cn('total')}>
           {amount
             ? `${amount} ${plural(amount, {
-                one: 'товар',
-                few: 'товара',
-                many: 'товаров',
+                one: t('basket.articles.one'),
+                few: t('basket.articles.few'),
+                many: t('basket.articles.many'),
+                other: t('basket.articles.other'),
               })} / ${numberFormat(sum)} ₽`
-            : `Пусто`}
+            : t('basket.empty')}
         </span>
       </button>
     </div>

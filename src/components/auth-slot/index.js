@@ -14,25 +14,32 @@ function AuthSlot() {
     navigate('/login');
   };
 
-  if (!user.token || !user.data) {
-    return (
-      <div className="Container">
-        <div className="AuthSlot">
-          <Link to="/login">Вход</Link>
-        </div>
-      </div>
-    );
-  }
+  const isLoadingProfile = user.token && !user.data;
+  const isAuthorized = Boolean(user.token && user.data);
+  const isUnauthorized = !user.token && !user.data;
 
   return (
     <div className="Container">
       <div className="AuthSlot">
-        <div className="Sign-in">
-          <Link to="/profile">
-            {(user.data.profile?.name || 'Профиль').replace(/№\s?/, '').trim()}
-          </Link>
-        </div>
-        <button onClick={handleLogout}>Выход</button>
+        {isLoadingProfile && (
+          <div className="AuthSlot-skeleton">
+            <div className="skeleton-name" />
+            <div className="skeleton-button" />
+          </div>
+        )}
+
+        {isAuthorized && (
+          <>
+            <div className="Sign-in">
+              <Link to="/profile">
+                {(user.data.profile?.name || 'Профиль').replace(/№\s?/, '').trim()}
+              </Link>
+            </div>
+            <button onClick={handleLogout}>Выход</button>
+          </>
+        )}
+
+        {isUnauthorized && <Link to="/login">Вход</Link>}
       </div>
     </div>
   );

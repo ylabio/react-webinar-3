@@ -2,7 +2,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  max-width: 1152px;
+  max-width: 1192px;
   padding: 16px 0;
   margin: 0 auto;
 }
@@ -35,4 +35,37 @@
   color: var(--primary);
   cursor: pointer;
   padding: 0;
+}
+.AuthSlot-skeleton {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.skeleton-name,
+.skeleton-button {
+  height: 16px;
+  border-radius: 4px;
+  background-color: #e0e0e0;
+  animation: skeleton-loading 1.2s infinite ease-in-out;
+}
+
+.skeleton-name {
+  width: 100px;
+}
+
+.skeleton-button {
+  width: 50px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #e0e0e0;
+  }
+  50% {
+    background-color: #f0f0f0;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
 }

@@ -10,7 +10,7 @@ class UserState extends StoreModule {
   initState() {
     return {
       data: null, // Данные авторизованного пользователя
-      token: localStorage.getItem('token') || '',
+      token: localStorage.getItem('token') ?? null,
       error: '',
       waiting: false,
     };
