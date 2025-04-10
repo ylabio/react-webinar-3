@@ -13,23 +13,8 @@ import ProfileInfo from '../../components/profile-info';
 import { number } from 'prop-types';
 
 function ProfilePage() {
-  const store = useStore();
-  const navigate = useNavigate();
   const user = useSelector(state => state.user);
   const { t } = useTranslate();
-
-  useEffect(() => {
-    if (!user.token) {
-      navigate('/login');
-      return;
-    }
-
-    if (!user.data) {
-      store.actions.user.loadProfile().then(success => {
-        if (!success) navigate('/login');
-      });
-    }
-  }, []);
 
   if (!user.data) {
     return (

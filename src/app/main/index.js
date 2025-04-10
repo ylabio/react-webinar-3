@@ -16,14 +16,6 @@ import useSelector from '../../hooks/use-selector';
  */
 function Main() {
   const store = useStore();
-  const user = useSelector(state => state.user);
-
-  useEffect(() => {
-    if (user.token && !user.data) {
-      store.actions.user.loadProfile();
-    }
-  }, []);
-
   useInit(
     () => {
       store.actions.catalog.initParams();

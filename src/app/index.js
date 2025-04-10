@@ -1,5 +1,6 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import useStore from '../hooks/use-store';
 import useSelector from '../hooks/use-selector';
 import Main from './main';
 import Basket from './basket';
@@ -12,7 +13,16 @@ import ProfilePage from './profile';
  * Маршрутизация по страницам и модалкам
  */
 function App() {
+  const store = useStore();
+  const user = useSelector(state => state.user);
   const activeModal = useSelector(state => state.modals.name);
+
+  // Загрузка профиля при наличии токена
+  useEffect(() => {
+    if (user.token && !user.data) {
+      store.actions.user.loadProfile();
+    }
+  }, [user.token]);
 
   return (
     <>
