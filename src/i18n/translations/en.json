@@ -11,10 +11,18 @@
   "basket.delete": "Delete",
   "article.add": "Add",
   "filter.reset": "Reset",
-  "basket.articles": {
-    "one": "article",
-    "other": "articles"
-  },
+  "filter.search": "Search",
+  "filter.order": "By order",
+  "filter.price": "Expensive first",
+  "filter.title": "By title",
+  "filter.edition": "Old first",
+  "filter.category.all": "All",
+
+  "basket.articles.one": "article",
+  "basket.articles.few": "articles",
+  "basket.articles.many": "articles",
+  "basket.articles.other": "articles",
+
   "profile.title": "Profile",
   "profile.loading": "Loading...",
   "profile.name": "Name:",

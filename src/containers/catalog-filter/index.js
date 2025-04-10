@@ -34,23 +34,23 @@ function CatalogFilter() {
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
 
+  const { t } = useTranslate();
+
   const options = {
     sort: useMemo(
       () => [
-        { value: 'order', title: 'По порядку' },
-        { value: 'title.ru', title: 'По именованию' },
-        { value: '-price', title: 'Сначала дорогие' },
-        { value: 'edition', title: 'Древние' },
+        { value: 'order', title: t('filter.order') },
+        { value: 'title.ru', title: t('filter.title') },
+        { value: '-price', title: t('filter.price') },
+        { value: 'edition', title: t('filter.edition') },
       ],
-      [],
+      [t],
     ),
     categories: useMemo(
-      () => [{ value: '', title: 'Все' }, ...select.categories],
-      [select.categories],
+      () => [{ value: '', title: t('filter.category.all') }, ...select.categories],
+      [select.categories, t],
     ),
   };
-
-  const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
@@ -69,7 +69,7 @@ function CatalogFilter() {
       <Input
         value={select.query}
         onChange={callbacks.onSearch}
-        placeholder={'Поиск'}
+        placeholder={t('filter.search')}
         delay={1000}
         theme={'big'}
       />

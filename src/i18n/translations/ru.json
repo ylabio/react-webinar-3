@@ -11,12 +11,17 @@
   "basket.delete": "Удалить",
   "article.add": "Добавить",
   "filter.reset": "Сбросить",
-  "basket.articles": {
-    "one": "товар",
-    "few": "товара",
-    "many": "товаров",
-    "other": "товара"
-  },
+  "filter.search": "Поиск",
+  "filter.order": "По порядку",
+  "filter.price": "Сначала дорогие",
+  "filter.title": "По именованию",
+  "filter.edition": "Древние",
+  "filter.category.all": "Все",
+
+  "basket.articles.one": "товар",
+  "basket.articles.few": "товара",
+  "basket.articles.many": "товаров",
+  "basket.articles.other": "товара",
 
   "profile.title": "Профиль",
   "profile.loading": "Загрузка...",

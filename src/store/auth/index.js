@@ -93,17 +93,16 @@ class AuthState extends StoreModule {
         {
           user: null,
           error: null,
-          isAuthChecked: false,
+          isAuthChecked: true,
         },
         'Успешный выход',
       );
     } catch (error) {
       this.setState(
         {
-          ...this.getState(),
           user: null,
           error: error.message,
-          isAuthChecked: false,
+          isAuthChecked: true,
         },
         'Ошибка выхода',
       );
