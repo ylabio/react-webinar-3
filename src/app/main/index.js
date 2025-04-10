@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 import Head from '../../components/head';
 import PageLayout from '../../components/page-layout';
 import AuthNavigation from '../../containers/auth-navigation';
@@ -7,6 +7,7 @@ import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import Navigation from '../../containers/navigation';
 import useInit from '../../hooks/use-init';
+import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 
@@ -15,6 +16,11 @@ import useTranslate from '../../hooks/use-translate';
  */
 function Main() {
   const store = useStore();
+
+  const select = useSelector(state => ({
+    category: state.catalog.params.category,
+    categories: state.catalog.categories,
+  }));
 
   useInit(
     () => {
@@ -27,10 +33,27 @@ function Main() {
 
   const { t } = useTranslate();
 
+  // Убираем дефисы из названий категорий
+  const cleanCategoryTitle = title => {
+    return title.replace(/^-+/, '');
+  };
+
+  const selectedCategoryTitle = useMemo(() => {
+    if (!select.category) {
+      return t('title');
+    }
+    const category = select.categories.find(category => category.value === select.category);
+    return category ? `${t('title')} / ${cleanCategoryTitle(category.title)}` : t('title');
+  }, [select.category, select.categories, t]);
+
+  useEffect(() => {
+    document.title = selectedCategoryTitle;
+  }, [selectedCategoryTitle]);
+
   return (
     <>
       <AuthNavigation />
-      <Head title={t('title')}>
+      <Head title={selectedCategoryTitle}>
         <LocaleSelect />
       </Head>
       <PageLayout>
