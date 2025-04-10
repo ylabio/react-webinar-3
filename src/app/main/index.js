@@ -8,6 +8,7 @@ import Head from '../../components/head';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
+import useSelector from '../../hooks/use-selector';
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -25,9 +26,22 @@ function Main() {
 
   const { t } = useTranslate();
 
+  const select = useSelector(state => ({
+    categoryId: state.catalog.params.category,
+    categories: state.catalog.categories,
+  }));
+
+  // Находим текущую выбранную категорию
+  const currentCategory = select.categories.find(c => c._id === select.categoryId);
+
+  // Формируем заголовок
+  const headTitle = currentCategory
+    ? `${t('title')} / ${t(`categories.${currentCategory.title}`)}`
+    : t('title');
+
   return (
     <>
-      <Head title={t('title')}>
+      <Head title={headTitle}>
         <LocaleSelect />
       </Head>
       <PageLayout>
