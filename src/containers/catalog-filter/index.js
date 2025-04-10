@@ -84,7 +84,12 @@ function CatalogFilter() {
         delay={1000}
         theme={'big'}
       />
-      <Button style="text" onClick={callbacks.onReset} title={t('filter.reset')} />
+      <Button
+        className="CustomReset"
+        style="text"
+        onClick={callbacks.onReset}
+        title={t('filter.reset')}
+      />
     </SideLayout>
   );
 }
