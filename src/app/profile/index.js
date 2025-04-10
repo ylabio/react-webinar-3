@@ -1,13 +1,22 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PageLayout from '../../components/page-layout';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
+import useTranslate from '../../hooks/use-translate';
+
+import PageLayout from '../../components/page-layout';
+import Head from '../../components/head';
+import AuthSlot from '../../components/auth-slot';
+import LocaleSelect from '../../containers/locale-select';
+import Navigation from '../../containers/navigation';
+import ProfileInfo from '../../components/profile-info';
+import { number } from 'prop-types';
 
 function ProfilePage() {
   const store = useStore();
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
+  const { t } = useTranslate();
 
   useEffect(() => {
     if (!user.token) {
@@ -24,32 +33,29 @@ function ProfilePage() {
 
   if (!user.data) {
     return (
-      <PageLayout>
-        <div className="profile-page">Загрузка профиля...</div>
-      </PageLayout>
+      <>
+        <Head title={t('title')} authSlot={<AuthSlot />}>
+          <LocaleSelect />
+        </Head>
+        <PageLayout>
+          <div className="profile-page">Загрузка профиля...</div>
+        </PageLayout>
+      </>
     );
   }
 
   const { email, username, profile } = user.data;
 
   return (
-    <PageLayout>
-      <div className="profile-page">
-        <h1>Профиль</h1>
-        <p>
-          <strong>Имя:</strong> {profile?.name || '—'}
-        </p>
-        <p>
-          <strong>Фамилия:</strong> {profile?.surname || '—'}
-        </p>
-        <p>
-          <strong>Email:</strong> {email || '—'}
-        </p>
-        <p>
-          <strong>Логин:</strong> {username || '—'}
-        </p>
-      </div>
-    </PageLayout>
+    <>
+      <Head title={t('title')} authSlot={<AuthSlot />}>
+        <LocaleSelect />
+      </Head>
+      <PageLayout>
+        <Navigation />
+        <ProfileInfo profile={profile} username={username} email={email} number={number} />
+      </PageLayout>
+    </>
   );
 }
 

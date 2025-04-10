@@ -1,9 +1,14 @@
-import { memo, useState } from 'react';
-import Input from '../../components/input';
-import Button from '../../components/button';
+import { memo, useEffect, useState } from 'react';
 import PageLayout from '../../components/page-layout';
 import { useNavigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
+import useSelector from '../../hooks/use-selector';
+import useTranslate from '../../hooks/use-translate';
+import Head from '../../components/head';
+import LocaleSelect from '../../containers/locale-select';
+import AuthSlot from '../../components/auth-slot';
+import Navigation from '../../containers/navigation';
+import LoginForm from '../../components/login-form';
 
 function LoginPage() {
   const [login, setLogin] = useState('');
@@ -11,6 +16,15 @@ function LoginPage() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const store = useStore();
+  const user = useSelector(state => state.user);
+  const { t } = useTranslate();
+
+  useEffect(() => {
+    if (user.token && user.data) {
+      navigate('/profile');
+    }
+  }, []);
+
   const handleSubmit = async e => {
     e.preventDefault();
 
@@ -32,20 +46,22 @@ function LoginPage() {
   };
 
   return (
-    <PageLayout>
-      <form onSubmit={handleSubmit} className="login-form">
-        <h1>Вход</h1>
-        <Input value={login} onChange={val => setLogin(val)} placeholder="Логин" />
-        <Input
-          value={password}
-          onChange={val => setPassword(val)}
-          placeholder="Пароль"
-          type="password"
+    <>
+      <Head title={t('title')} authSlot={<AuthSlot />}>
+        <LocaleSelect />
+      </Head>
+      <PageLayout>
+        <Navigation />
+        <LoginForm
+          login={login}
+          password={password}
+          error={error}
+          onChangeLogin={val => setLogin(val)}
+          onChangePassword={val => setPassword(val)}
+          onSubmit={handleSubmit}
         />
-        <Button type="submit" title="Войти" />
-        {error && <div className="error-text">{error}</div>}
-      </form>
-    </PageLayout>
+      </PageLayout>
+    </>
   );
 }
 

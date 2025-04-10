@@ -10,7 +10,6 @@ import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import AuthSlot from '../../components/auth-slot';
 import useSelector from '../../hooks/use-selector';
-import { useNavigate } from 'react-router-dom';
 
 /**
  * Главная страница - первичная загрузка каталога
