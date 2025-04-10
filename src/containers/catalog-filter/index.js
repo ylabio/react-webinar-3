@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useMemo, useEffect, useState } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -16,7 +16,14 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category || '',
+    categories: state.catalog.categories,
+    categoriesLoading: state.catalog.categoriesLoading,
   }));
+  // Загрузка категорий
+  useEffect(() => {
+    store.actions.catalog.loadCategories();
+  }, [store]);
 
   const callbacks = {
     // Сортировка
@@ -25,24 +32,34 @@ function CatalogFilter() {
     onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
+    // категории
+    onCategoryChange: useCallback(
+      category => store.actions.catalog.setParams({ category, page: 1 }),
+      [store],
+    ),
   };
 
   const options = {
-    sort: useMemo(
-      () => [
-        { value: 'order', title: 'По порядку' },
-        { value: 'title.ru', title: 'По именованию' },
-        { value: '-price', title: 'Сначала дорогие' },
-        { value: 'edition', title: 'Древние' },
-      ],
-      [],
-    ),
+    sort: [
+      { value: 'order', title: 'По порядку' },
+      { value: 'title.ru', title: 'По именованию' },
+      { value: '-price', title: 'Сначала дорогие' },
+      { value: 'edition', title: 'Древние' },
+    ],
+    categories: select.categories,
   };
 
   const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
+      <Select
+        options={select.categories}
+        value={select.category}
+        onChange={callbacks.onCategoryChange}
+        disabled={select.categoriesLoading}
+        size="medium"
+      />
       <Select
         options={options.sort}
         value={select.sort}
@@ -56,7 +73,12 @@ function CatalogFilter() {
         delay={1000}
         theme={'big'}
       />
-      <Button style="text" onClick={callbacks.onReset} title={t('filter.reset')} />
+      <Button
+        style="text"
+        onClick={callbacks.onReset}
+        title={t('filter.reset')}
+        textColor="var(--primary)"
+      />
     </SideLayout>
   );
 }

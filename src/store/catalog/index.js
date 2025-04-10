@@ -11,11 +11,14 @@ class CatalogState extends StoreModule {
   initState() {
     return {
       list: [],
+      categories: [], // Добавляем список категорий
+      categoriesLoading: false, // Флаг загрузки
       params: {
         page: 1,
         limit: 10,
         sort: 'order',
         query: '',
+        category: '',
       },
       count: 0,
       waiting: false,
@@ -36,6 +39,7 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
@@ -86,6 +90,10 @@ class CatalogState extends StoreModule {
       sort: params.sort,
       'search[query]': params.query,
     };
+    // Добавляем параметр категории в запрос, если он есть
+    if (params.category) {
+      apiParams['search[category]'] = params.category;
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
@@ -98,6 +106,62 @@ class CatalogState extends StoreModule {
       },
       'Загружен список товаров из АПИ',
     );
+  }
+  /**
+   * Загрузка категорий
+   * @return {Promise<void>}
+   */
+  async loadCategories() {
+    this.setState({ ...this.getState(), categoriesLoading: true });
+
+    try {
+      const response = await fetch('/api/v1/categories?fields=items(_id,title,parent)');
+      const data = await response.json();
+
+      const normalized = data.result.items.map(cat => ({
+        ...cat,
+        parent: cat.parent?._id || cat.parent || null,
+      }));
+
+      // Исправлено: сохраняем formatted вместо двойного вызова formatCategories
+      const formatted = [
+        { value: '', title: 'Все', level: 0 },
+        ...this.formatCategories(normalized),
+      ];
+
+      this.setState({
+        ...this.getState(),
+        categories: formatted, // Используем formatted с "Все категории"
+        categoriesLoading: false,
+      });
+    } catch (e) {
+      console.error('Ошибка загрузки категорий:', e);
+      this.setState({
+        ...this.getState(),
+        categories: [{ value: '', title: 'Все', level: 0 }],
+        categoriesLoading: false,
+      });
+    }
+  }
+  /**
+   * Форматирование категорий в плоский список с иерархией
+   */
+  formatCategories(categories, parentId = null, level = 0) {
+    return categories
+      .filter(cat => cat.parent === parentId)
+      .flatMap(cat => {
+        const title = cat.title?.ru || cat.title || 'Без названия';
+        const prefix = level > 0 ? '-'.repeat(level) + ' ' : '';
+
+        return [
+          {
+            value: cat._id,
+            title: prefix + title,
+            level: level,
+          },
+          ...this.formatCategories(categories, cat._id, level + 1),
+        ];
+      });
   }
 }
 
