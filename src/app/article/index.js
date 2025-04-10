@@ -36,10 +36,12 @@ function Article() {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   };
-
+  const titleKey = `product.${select.article.title}`;
+  const translatedTitle = t(titleKey);
+  const finalTitle = translatedTitle !== titleKey ? translatedTitle : select.article.title;
   return (
     <>
-      <Head title={select.article.title} authSlot={<AuthSlot />}>
+      <Head title={finalTitle} authSlot={<AuthSlot />}>
         <LocaleSelect />
       </Head>
       <PageLayout>
