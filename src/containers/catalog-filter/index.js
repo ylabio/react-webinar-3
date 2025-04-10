@@ -2,14 +2,16 @@ import { memo, useCallback, useEffect, useMemo } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
-import Select from '../../components/select';
+import CustomSelect from '../../components/custom-select';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
 import Button from '../../components/button';
+import calcLevels from '../../utils/calc-level';
 
 /**
  * Контейнер со всеми фильтрами каталога
  */
+
 function CatalogFilter() {
   const store = useStore();
 
@@ -19,17 +21,14 @@ function CatalogFilter() {
     category: state.catalog.params.category,
     categories: state.catalog.categories || [],
   }));
+
   useEffect(() => {
-    store.actions.catalog.loadCategories().then(() => {
-      console.log('📦 Категории загружены:', store.getState().catalog.categories);
-    });
+    store.actions.catalog.loadCategories();
   }, []);
+
   const callbacks = {
-    // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({ sort }), [store]),
-    // Поиск
     onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
-    // Категория
     onCategory: useCallback(
       category => {
         const value = category === 'all' ? undefined : category;
@@ -37,7 +36,6 @@ function CatalogFilter() {
       },
       [store],
     ),
-    // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
 
@@ -51,11 +49,13 @@ function CatalogFilter() {
       ],
       [],
     ),
+
     category: useMemo(() => {
-      const base = [{ value: 'all', title: 'Все категории' }];
-      const formatted = select.categories.map(cat => ({
+      const base = [{ value: 'all', title: 'Все', level: 0 }];
+      const formatted = calcLevels(select.categories).map(cat => ({
         value: cat._id,
-        title: `${'-'.repeat(cat.level)} ${cat.title}`,
+        title: cat.title,
+        level: cat.level,
       }));
       return base.concat(formatted);
     }, [select.categories]),
@@ -65,18 +65,12 @@ function CatalogFilter() {
 
   return (
     <SideLayout padding="medium">
-      <Select
+      <CustomSelect
         options={options.category}
         value={select.category || 'all'}
         onChange={callbacks.onCategory}
-        size="medium"
       />
-      <Select
-        options={options.sort}
-        value={select.sort}
-        onChange={callbacks.onSort}
-        size="medium"
-      />
+      <CustomSelect options={options.sort} value={select.sort} onChange={callbacks.onSort} />
       <Input
         value={select.query}
         onChange={callbacks.onSearch}
