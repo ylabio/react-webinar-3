@@ -44,5 +44,18 @@
   "product.Sleeve": "Sleeve",
   "product.Red Curtains": "Red Curtains",
   "product.Buckwheat": "Buckwheat",
-  "product.Article": "Article"
+  "product.Article": "Article",
+  "article.madeIn": "Manufacturer country:",
+  "article.category": "Category:",
+  "article.edition": "Year:",
+  "article.price": "Price:",
+  "login.error.empty": "Enter login and password",
+  "login.error.fail": "Authorization failed",
+  "login.title": "Login",
+  "login.login": "Username",
+  "login.password": "Password",
+  "login.submit": "Sign in",
+  "login.placeholder.login": "Enter username",
+  "login.placeholder.password": "Enter password"
+
 }

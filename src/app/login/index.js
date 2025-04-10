@@ -1,9 +1,10 @@
-import { memo, useEffect, useState } from 'react';
-import PageLayout from '../../components/page-layout';
+import { memo, useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PageLayout from '../../components/page-layout';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
+
 import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
 import AuthSlot from '../../components/auth-slot';
@@ -23,13 +24,13 @@ function LoginPage() {
     if (user.token && user.data) {
       navigate('/profile');
     }
-  }, []);
+  }, [user.token, user.data]);
 
   const handleSubmit = async e => {
     e.preventDefault();
 
     if (!login || !password) {
-      setError('Введите логин и пароль');
+      setError(t('login.error.empty')); // Пример: "Введите логин и пароль"
       return;
     }
 
@@ -41,9 +42,12 @@ function LoginPage() {
       navigate('/profile');
     } else {
       const err = store.getState().user.error;
-      setError(err || 'Ошибка авторизации');
+      setError(err || t('login.error.fail')); // Пример: "Ошибка авторизации"
     }
   };
+
+  const handleChangeLogin = useCallback(val => setLogin(val), []);
+  const handleChangePassword = useCallback(val => setPassword(val), []);
 
   return (
     <>
@@ -56,8 +60,8 @@ function LoginPage() {
           login={login}
           password={password}
           error={error}
-          onChangeLogin={val => setLogin(val)}
-          onChangePassword={val => setPassword(val)}
+          onChangeLogin={handleChangeLogin}
+          onChangePassword={handleChangePassword}
           onSubmit={handleSubmit}
         />
       </PageLayout>

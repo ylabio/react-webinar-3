@@ -46,5 +46,17 @@
   "product.Sleeve": "Рукав",
   "product.Red Curtains": "Красные шторы",
   "product.Buckwheat": "Гречка",
-  "product.Article": "Товар"
+  "product.Article": "Товар",
+  "article.madeIn": "Страна производитель:",
+  "article.category": "Категория:",
+  "article.edition": "Год выпуска:",
+  "article.price": "Цена:",
+  "login.error.empty": "Введите логин и пароль",
+  "login.error.fail": "Ошибка авторизации",
+  "login.title": "Вход",
+  "login.login": "Логин",
+  "login.password": "Пароль",
+  "login.submit": "Войти",
+  "login.placeholder.login": "Введите логин",
+  "login.placeholder.password": "Введите пароль"
 }
