@@ -33,6 +33,7 @@ function CatalogFilter() {
       [store],
     ),
   };
+  const { t } = useTranslate();
 
   const options = {
     sort: useMemo(
@@ -45,18 +46,16 @@ function CatalogFilter() {
       [],
     ),
     categories: useMemo(() => {
-      const options = [{ value: '', title: 'Все' }];
+      const options = [{ value: '', title: t('categories.All') }];
       select.categories.forEach(category => {
         options.push({
           value: category._id,
-          title: `${'—'.repeat(category.level)} ${category.title}`,
+          title: `${'- '.repeat(category.level)} ${t(`categories.${category.title}`)}`,
         });
       });
       return options;
-    }, [select.categories]),
+    }, [select.categories, t]),
   };
-
-  const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
