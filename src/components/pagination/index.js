@@ -1,17 +1,21 @@
-import { memo, useContext } from 'react';
+import { memo, useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { usePagination } from '../../hooks/usePagination';
+import { pagination } from '../../utils/pagination';
 import './style.css';
 import { LanguageContext } from '../../store/context';
 
 function Pagination(props) {
   const { translate } = useContext(LanguageContext);
-  const paginationRange = usePagination({
-    totalItems: props.totalItems,
-    limit: props.limit ?? 10,
-    siblingPages: props.siblingPages ?? 1,
-    currentPage: props.currentPage,
-  });
+  const paginationRange = useMemo(
+    () =>
+      pagination({
+        totalItems: props.totalItems,
+        limit: props.limit ?? 10,
+        siblingPages: props.siblingPages ?? 1,
+        currentPage: props.currentPage,
+      }),
+    [props.totalItems, props.limit, props.siblingPages, props.currentPage],
+  );
 
   return (
     <nav className="Navigation" aria-label="pagination">

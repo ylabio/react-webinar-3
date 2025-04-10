@@ -11,6 +11,8 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
+      totalItems: 0,
+      currentPage: 1,
     };
   }
 
@@ -23,6 +25,16 @@ class Catalog extends StoreModule {
         totalItems: response.result.count,
       },
       'Загружены товары из АПИ',
+    );
+  }
+
+  changePage(page) {
+    this.setState(
+      {
+        ...this.getState(),
+        currentPage: page,
+      },
+      `Переход на страницу ${page}`,
     );
   }
 }

@@ -13,24 +13,24 @@ import './style.css';
 
 function Main() {
   const store = useStore();
-  const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(10);
   const { setLanguage, translate, language } = useContext(LanguageContext);
-
-  useEffect(() => {
-    store.actions.catalog.load({
-      limit: productsPerPage,
-      skip: productsPerPage * (currentPage - 1),
-      language,
-    });
-  }, [currentPage, productsPerPage, language]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
     totalItems: state.catalog.totalItems,
+    currentPage: state.catalog.currentPage,
   }));
+
+  useEffect(() => {
+    store.actions.catalog.load({
+      limit: productsPerPage,
+      skip: productsPerPage * (select.currentPage - 1),
+      language,
+    });
+  }, [select.currentPage, productsPerPage, language]);
 
   const callbacks = {
     // Добавление в корзину
@@ -38,7 +38,7 @@ function Main() {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     changeProductsPerPage: setProductsPerPage,
-    changePage: setCurrentPage,
+    changePage: useCallback(page => store.actions.catalog.changePage(page), [store]),
   };
 
   const renders = {
@@ -66,7 +66,7 @@ function Main() {
         />
         <Pagination
           totalItems={select.totalItems}
-          currentPage={currentPage}
+          currentPage={select.currentPage}
           limit={productsPerPage}
           onPageChange={callbacks.changePage}
         />
