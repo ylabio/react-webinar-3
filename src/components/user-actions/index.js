@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom';
 import './style.css';
 
 function UserActions({ 
-  user, 
+  username, 
   isAuth = false, 
   onClick = () => {}, 
   }) {
   const cn = bem('UserActions');
   return (
     <div className={cn()}>
-      {isAuth && <Link  to={'/profile'}>{user.name}</Link>}
+      {isAuth && <Link  to={'/profile'}>{username}</Link>}
       <button className={cn('button')} onClick={onClick}>
         {isAuth ? 'Выход' : 'Войти'}
       </button>
@@ -21,12 +21,7 @@ function UserActions({
 }
 
 UserActions.propTypes = {
-  user: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      title: PropTypes.string,
-    }),
-  ),
+  username: PropTypes.string,
   isAuth: PropTypes.bool,
   onClick: PropTypes.func,
 };

@@ -1,16 +1,20 @@
 import { memo, useCallback, useState } from 'react';
-import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import Input from '../input'
 import Button from '../button'
-import { useNavigate } from 'react-router-dom'
+import useStore from '../../hooks/use-store'
+import useSelector from '../../hooks/use-selector'
 
 function LoginForm() {
   const cn = bem('LoginForm');
-  const navigate = useNavigate()
-
   const [signOptions, setSignOptions] = useState({login: '', password: ''})
+
+  const store = useStore()
+  const select = useSelector(state => ({
+    user: state.user.data,
+    error: state.user.error,
+  }))
 
   const callbacks = {
     // Установка логина
@@ -26,8 +30,7 @@ function LoginForm() {
     // Отправка формы 
     onSubmit: useCallback((e) => {
       e.preventDefault()
-      console.log('Авторизация успешна')
-      navigate('/')
+      store.actions.user.auth(signOptions)
     })
   }
 
@@ -57,7 +60,8 @@ function LoginForm() {
     <div className={cn()}>
       <h2 className={cn('title')}>Профиль</h2>
       <form className={cn('body')} method='POST' onSubmit={callbacks.onSubmit}>
-        <div className={cn('prop-wrapper', {error: 'active'})}>
+        <div 
+          className={cn('prop-wrapper', select.error && {error: 'active'})}>
           <div className={cn('prop')}>
             <label className={cn('label')}>Логин</label>
             <Input {...options.login} onChange={callbacks.setLogin}/>  
@@ -66,7 +70,8 @@ function LoginForm() {
             <label className={cn('label')}>Пароль</label>
             <Input {...options.password} onChange={callbacks.setPassword}/> 
           </div>
-          <div className={cn('error', {message: 'active'})}>Текст ошибки</div>
+          <div 
+            className={cn('error', select.error && { message: 'active'} )}>{select.error}</div>
         </div>
         <Button {...options.button}/>
       </form>
