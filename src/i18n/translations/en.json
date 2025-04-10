@@ -1,6 +1,7 @@
 {
   "title": "Shop",
   "menu.main": "Main",
+  "menu.profile": "Profile",
   "basket.title": "Cart",
   "basket.open": "Open",
   "basket.close": "Close",
@@ -11,6 +12,10 @@
   "basket.delete": "Delete",
   "article.add": "Add",
   "filter.reset": "Reset",
+  "login.enter": "Sign in",
+  "login.login": "Login",
+  "login.password": "Password",
+  "login.button": "Sign in",
   "basket.articles": {
     "one": "article",
     "other": "articles"

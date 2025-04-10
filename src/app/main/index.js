@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -8,14 +8,13 @@ import Head from '../../components/head';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
-
+import LoginHeaderContainer from '../../containers/login-header' 
 /**
  * Главная страница - первичная загрузка каталога
  */
 function Main() {
-  const store = useStore();
-
-  useInit(
+    const store = useStore();
+    useInit(
     () => {
       store.actions.catalog.initParams();
     },
@@ -23,10 +22,22 @@ function Main() {
     true,
   );
 
+  useInit(
+    () => {
+      store.actions.user.initUser();
+    },
+    [],
+    true,
+  );
+  
+
+ 
+
   const { t } = useTranslate();
 
   return (
     <>
+      <LoginHeaderContainer/>
       <Head title={t('title')}>
         <LocaleSelect />
       </Head>
