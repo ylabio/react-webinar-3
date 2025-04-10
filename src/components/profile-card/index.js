@@ -8,7 +8,7 @@ function ProfileCard(props) {
   const cn = bem('ProfileCard');
   return (
     <div className={cn()}>
-      <h1 className={cn('title')}>Профиль</h1>
+      <h2 className={cn('title')}>Профиль</h2>
       <div className={cn('prop-wrapper')}>
         <div className={cn('prop')}>
           <div className={cn('label')}>Имя:</div>
