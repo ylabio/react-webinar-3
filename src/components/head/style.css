@@ -1,7 +1,15 @@
 .Head {
   color: var(--primary);
-  padding: 16px 20px;
   border-bottom: 1px solid var(--divider);
+}
+
+.Head-action {
+  padding: 8px 20px;
+  background-color: var(--divider);
+}
+
+.Head-body {
+  padding: 16px 20px;
 }
 
 .Head-container {
@@ -10,6 +18,10 @@
   align-items: center;
   max-width: 1152px;
   margin: 0 auto;
+}
+
+.Head-action .Head-container {
+  justify-content: flex-end;
 }
 
 .Head h1 {
