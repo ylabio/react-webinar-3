@@ -27,7 +27,7 @@ class UserState extends StoreModule {
             }, isLogin: true})
           }
         }catch(error){
-          console.log(error.message)
+          console.error('Не удалось инициализировать пользователя',error)
         }
         }
       
@@ -37,7 +37,7 @@ class UserState extends StoreModule {
          const userParams = {...this.initState()}
          await this.setParams(userParams)
         }catch(error){
-          console.log(error)
+          console.error('Не удалось разлогиниться', error)
         }
     }
     

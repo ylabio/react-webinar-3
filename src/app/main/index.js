@@ -9,11 +9,13 @@ import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import LoginHeaderContainer from '../../containers/login-header' 
+import useSelector from '../../hooks/use-selector';
 /**
  * Главная страница - первичная загрузка каталога
  */
 function Main() {
     const store = useStore();
+    const select = useSelector(state => ({categoryName : state.catalog.categoryName}));
     useInit(
     () => {
       store.actions.catalog.initParams();
@@ -21,7 +23,6 @@ function Main() {
     [],
     true,
   );
-
   useInit(
     () => {
       store.actions.user.initUser();
@@ -38,7 +39,7 @@ function Main() {
   return (
     <>
       <LoginHeaderContainer/>
-      <Head title={t('title')}>
+      <Head category={select.categoryName} title={t('title')}>
         <LocaleSelect />
       </Head>
       <PageLayout>

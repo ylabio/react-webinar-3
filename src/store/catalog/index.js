@@ -1,3 +1,4 @@
+import { getCategoryName } from '../../api/http';
 import StoreModule from '../module';
 
 /**
@@ -20,6 +21,7 @@ class CatalogState extends StoreModule {
       },
       count: 0,
       waiting: false,
+      categoryName: '',
     };
   }
 
@@ -39,6 +41,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
     if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
+
   }
 
   /**
@@ -61,8 +64,8 @@ class CatalogState extends StoreModule {
    */
   async setParams(newParams = {}, replaceHistory = false) {
     const params = { ...this.getState().params, ...newParams };
-
     // Установка новых параметров и признака загрузки
+  
     this.setState(
       {
         ...this.getState(),
@@ -103,16 +106,26 @@ class CatalogState extends StoreModule {
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`).catch(e=>console.log(e));
     const json = await response.json();
+    let categoryName = '';
+    if(params.category){
+      try{
+        categoryName = await getCategoryName(params.category)
+      }catch(error){
+        console.error('Ошибка загрузки категории',error)
+      }
+    }
     this.setState(
       {
         ...this.getState(),
         list: json.result.items,
         count: json.result.count,
         waiting: false,
+        categoryName: categoryName
       },
       'Загружен список товаров из АПИ',
     );
   }
+  
 }
 
 export default CatalogState;

@@ -100,3 +100,13 @@ export async function deleteUser () {
         redirect('/')
     }
 }
+
+export async function getCategoryName(id) {
+    const response  = await fetch(`/api/v1/categories/${id}?lang=ru&fields=title`);
+    if(!response.ok){
+        console.log(error);
+        return
+    }
+    const json = await response.json();
+    return json.result.title;
+}
