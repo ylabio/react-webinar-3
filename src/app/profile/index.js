@@ -1,6 +1,4 @@
-import { memo, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import useStore from '../../hooks/use-store';
+import { memo } from 'react';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
 
