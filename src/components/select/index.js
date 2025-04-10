@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Select(props) {
+function Select({ onChange = () => {}, options, value, size, text }) {
   const cn = bem('Select');
-  const { onChange = () => {}, options, value, size, text } = props;
   const onSelect = e => {
     onChange(e.target.value);
   };

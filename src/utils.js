@@ -33,3 +33,20 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export const formattingOptions = items => {
+  const newListOptions = [{ value: '', title: 'Все' }];
+
+  const newOption = (items, parentId = null, count = 0) => {
+    items
+      .filter(item => (item.parent && item.parent._id) === parentId)
+      .forEach(item => {
+        newListOptions.push({ value: item._id, title: `${'- '.repeat(count)} ${item.title}` });
+        newOption(items, item._id, count + 1); // инкремент не использовать
+      });
+  };
+
+  newOption(items);
+
+  return newListOptions;
+};
