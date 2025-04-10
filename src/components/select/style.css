@@ -2,33 +2,22 @@
   border: 1px solid var(--filter-border);
   cursor: pointer;
   padding: 8px 12px;
+  background-color: var(--background);
   border-radius: 4px;
+  font-family: var(--font-family);
   font-size: 16px;
   height: 40px;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-size: 12px;
-  min-width: 227px;
 }
 
 .Select:focus-visible {
   outline: none;
 }
 
-.Select option {
-  padding: 8px 8px 8px 9px;
-  font-size: 16px;
-}
-
+.Select option:checked,
 .Select option:hover {
-  background-color: #1E90FF;
-  color: white;
-}
-
-.Select option:checked {
-  color: var(--primary);
-  background-color: inherit;
+  background-color: var(--primary);
+  color: var(--second-text);
+  cursor: pointer;
 }
 
 .Select_size_small {
@@ -36,7 +25,7 @@
 }
 
 .Select_size_medium {
-  min-width: 227px;
+  min-width: 233px;
 }
 
 .Select_text {
