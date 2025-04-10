@@ -32,5 +32,19 @@
   "sort.order": "По порядку",
   "sort.byTitle": "По именованию",
   "sort.price": "Сначала дорогие",
-  "sort.edition": "Древние"
+  "sort.edition": "Древние",
+  "product.Book about React": "Книга про React",
+  "product.Tractor": "Трактор",
+  "product.Surprise": "Сюрприз",
+  "product.Bread": "Хлеб",
+  "product.Car": "Машина",
+  "product.Phone": "Телефон",
+  "product.Pencils": "Карандаши",
+  "product.Something incomprehensible": "Что-то непонятное",
+  "product.Mouse": "Мышь",
+  "product.Printer": "Принтер",
+  "product.Sleeve": "Рукав",
+  "product.Red Curtains": "Красные шторы",
+  "product.Buckwheat": "Гречка",
+  "product.Article": "Товар"
 }

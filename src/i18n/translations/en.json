@@ -30,5 +30,19 @@
   "sort.order": "By order",
   "sort.byTitle": "By name",
   "sort.price": "From expensive",
-  "sort.edition": "Ancient"
+  "sort.edition": "Ancient",
+  "product.Book about React": "Book about React",
+  "product.Tractor": "Tractor",
+  "product.Surprise": "Surprise",
+  "product.Bread": "Bread",
+  "product.Car": "Car",
+  "product.Phone": "Phone",
+  "product.Pencils": "Pencils",
+  "product.Something incomprehensible": "Something incomprehensible",
+  "product.Mouse": "Mouse",
+  "product.Printer": "Printer",
+  "product.Sleeve": "Sleeve",
+  "product.Red Curtains": "Red Curtains",
+  "product.Buckwheat": "Buckwheat",
+  "product.Article": "Article"
 }
