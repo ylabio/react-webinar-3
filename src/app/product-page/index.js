@@ -7,6 +7,10 @@ import useStore from '../../hooks/use-store';
 import { LanguageContext } from '../../store/context';
 import ProductDetails from '../../components/product-details/product-details';
 import Product from '../../components/product/product';
+import MainMenu from '../../components/main-menu';
+import { ROUTES } from '../../constants';
+import BasketTool from '../../components/basket-tool';
+import useSelector from '../../store/use-selector';
 
 export async function loader({ params }) {
   const result = await getProductDetails(params.id);
@@ -27,8 +31,14 @@ function ProductPage() {
     [language, translate],
   );
 
+  const select = useSelector(state => ({
+    amount: state.basket.amount,
+    sum: state.basket.sum,
+  }));
+
   const callbacks = {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(product._id), [store]),
+    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   };
 
   const renders = {
@@ -49,6 +59,9 @@ function ProductPage() {
 
   return (
     <PageLayout head={<Head title={product.title} />}>
+      <MainMenu to={ROUTES.MAIN} title={translate('home')}>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      </MainMenu>
       <Product
         key={product._id}
         product={product}

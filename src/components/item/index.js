@@ -4,23 +4,30 @@ import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import { LanguageContext } from '../../store/context';
 
 function Item(props) {
   const cn = bem('Item');
   const { translate, language } = useContext(LanguageContext);
+  const navigate = useNavigate();
 
   const callbacks = {
     onAdd: e => {
       e.preventDefault();
+      e.stopPropagation();
       props.onAdd(props.item._id);
+    },
+    onNavigationToProduct: e => {
+      e.preventDefault();
+      props.onCloseModal();
+      navigate(ROUTES.PRODUCT(props.item._id));
     },
   };
 
   return (
-    <Link to={ROUTES.PRODUCT(props.item._id)}>
+    <Link onClick={callbacks.onNavigationToProduct}>
       <div className={cn()}>
         {/*<div className={cn('code')}>{props.item._id}</div>*/}
         <h4 className={cn('title')}>{props.item.title}</h4>

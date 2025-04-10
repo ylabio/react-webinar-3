@@ -10,6 +10,8 @@ import Pagination from '../../components/pagination';
 import { LanguageContext } from '../../store/context';
 import StyledSelector from '../../components/styled-selector';
 import './style.css';
+import MainMenu from '../../components/main-menu';
+import { ROUTES } from '../../constants';
 
 function Main() {
   const store = useStore();
@@ -37,6 +39,7 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    onCloseModal: useCallback(() => store.actions.modals.close(), [store]),
     changeProductsPerPage: setProductsPerPage,
     changePage: useCallback(page => store.actions.catalog.changePage(page), [store]),
   };
@@ -44,7 +47,9 @@ function Main() {
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return (
+          <Item item={item} onAdd={callbacks.addToBasket} onCloseModal={callbacks.onCloseModal} />
+        );
       },
       [callbacks.addToBasket],
     ),
@@ -55,7 +60,9 @@ function Main() {
       head={<StyledSelector onChange={setLanguage} value={language} options={['en', 'ru']} />}
     >
       <Head title={translate('title')} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <MainMenu to={ROUTES.MAIN} title={translate('home')}>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      </MainMenu>
       <List list={select.list} renderItem={renders.item} />
       <div className="Wrap">
         <StyledSelector
