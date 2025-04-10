@@ -1,26 +1,22 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import { numberFormat, plural } from '../../utils';
+import { numberFormat } from '../../utils';
 import Cart from '../../assets/icon/cart.svg';
 import './style.css';
 
 function BasketTool({ sum, amount, onOpen, t }) {
   const cn = bem('BasketTool');
+
+  const label = amount
+    ? `${amount} ${t('basket.articles', amount)} / ${numberFormat(sum)} ₽`
+    : t('basket.empty');
+
   return (
     <div className={cn()}>
       <button className={cn('action')} onClick={onOpen}>
         <Cart className={cn('icon')} />
-        <span className={cn('total')}>
-          {amount
-            ? `${amount} ${plural(amount, {
-                one: t('basket.articles.one'),
-                few: t('basket.articles.few'),
-                many: t('basket.articles.many'),
-                other: t('basket.articles.other'),
-              })} / ${numberFormat(sum)} ₽`
-            : t('basket.empty')}
-        </span>
+        <span className={cn('total')}>{label}</span>
       </button>
     </div>
   );

@@ -11,8 +11,10 @@
   "basket.delete": "Delete",
   "article.add": "Add",
   "filter.reset": "Reset",
-  "basket.articles.one": "article",
-  "basket.articles.other": "articles",
+  "basket.articles": {
+    "one": "article",
+    "other": "articles"
+  },
   "category.all": "All",
   "category.Electronics": "Electronics",
   "category.Phones": "Phones",

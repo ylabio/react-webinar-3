@@ -4,18 +4,20 @@ import * as translations from './translations';
  * Перевод фразу по словарю
  * @param lang {String} Код языка
  * @param text {String} Текст для перевода
- * @param [plural] {Number} Число для плюрализации
+ * @param pluralCount
  * @returns {String} Переведенный текст
  */
-export default function translate(lang, text, plural) {
-  let result = translations[lang] && text in translations[lang] ? translations[lang][text] : text;
+export default function translate(lang, text, pluralCount) {
+  const translation = translations[lang]?.[text];
 
-  if (typeof plural !== 'undefined') {
-    const key = new Intl.PluralRules(lang).select(plural);
-    if (key in result) {
-      result = result[key];
-    }
+  if (typeof translation === 'object' && pluralCount !== undefined) {
+    const key = new Intl.PluralRules(lang).select(pluralCount);
+    return translation[key] || Object.values(translation)[0] || text;
   }
 
-  return result;
+  if (typeof translation === 'string') {
+    return translation;
+  }
+
+  return text;
 }
