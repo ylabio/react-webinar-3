@@ -16,8 +16,10 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
+        category: '',
       },
       count: 0,
+      categories: [],
       waiting: false,
     };
   }
@@ -29,6 +31,7 @@ class CatalogState extends StoreModule {
    * @return {Promise<void>}
    */
   async initParams(newParams = {}) {
+    // ?page=1&limit=10&sort=order&query=
     const urlParams = new URLSearchParams(window.location.search);
     let validParams = {};
     if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
@@ -36,6 +39,7 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
@@ -82,18 +86,33 @@ class CatalogState extends StoreModule {
     const apiParams = {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
-      fields: 'items(*),count',
+      fields: `items(*),count`,
       sort: params.sort,
       'search[query]': params.query,
     };
 
+    if (params.category) {
+      apiParams['search[category]'] = params.category;
+    }
+
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
+    // const response = await fetch(`/api/v1/articles?search[category]=67f1871a692e2282cbacd2f5`);
+
+    // if (!response.ok) {
+    //   console.error('Ошибка при выполнении запроса:', response.statusText);
+    //   this.setState({ waiting: false });
+    //   return;
+    // }
+
     const json = await response.json();
+    const categoriesResponse = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
+    const categoriesJson = await categoriesResponse.json();
     this.setState(
       {
         ...this.getState(),
         list: json.result.items,
         count: json.result.count,
+        categories: categoriesJson.result.items,
         waiting: false,
       },
       'Загружен список товаров из АПИ',
