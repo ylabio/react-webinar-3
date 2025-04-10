@@ -10,9 +10,13 @@ function Menu({ items = [], onNavigate = () => {} }) {
     <ul className={cn()}>
       {items.map(item => (
         <li key={item.key} className={cn('item')}>
-          <Link to={item.link} onClick={() => onNavigate(item)}>
-            {item.title}
-          </Link>
+          {item.renderItem ? (
+            item.renderItem(item)
+          ) : (
+            <Link to={item.link} onClick={() => onNavigate(item)}>
+              {item.title}
+            </Link>
+          )}
         </li>
       ))}
     </ul>
@@ -25,6 +29,7 @@ Menu.propTypes = {
       key: PropTypes.number,
       link: PropTypes.string,
       title: PropTypes.string,
+      renderItem: PropTypes.func,
     }),
   ),
   onNavigate: PropTypes.func,

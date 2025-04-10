@@ -5,12 +5,20 @@ import { memo, useCallback, useLayoutEffect, useState } from 'react';
 
 import './style.css';
 
-function Input({ placeholder, value, name, onChange = () => {}, type = 'text', theme = '' }) {
+function Input({
+  placeholder,
+  value,
+  name,
+  onChange = () => {},
+  type = 'text',
+  theme = '',
+  debounceTime = 600,
+}) {
   // Внутренний стейт для быстрого отображения ввода
   const [inputValue, setInputValue] = useState(value);
 
   const onChangeDebounce = useCallback(
-    debounce(inputValue => onChange(inputValue, name), 600),
+    debounce(inputValue => onChange(inputValue, name), debounceTime),
     [onChange, name],
   );
 
@@ -42,6 +50,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   theme: PropTypes.string,
+  debounceTime: PropTypes.number,
 };
 
 export default memo(Input);

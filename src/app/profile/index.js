@@ -1,29 +1,22 @@
 import { memo } from 'react';
 import Head from '../../components/head';
 import PageLayout from '../../components/page-layout';
+import ProfileCard from '../../components/profile-card';
 import AuthNavigation from '../../containers/auth-navigation';
-import CatalogFilter from '../../containers/catalog-filter';
-import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import Navigation from '../../containers/navigation';
-import useInit from '../../hooks/use-init';
-import useStore from '../../hooks/use-store';
+import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
 
 /**
- * Главная страница - первичная загрузка каталога
+ * Страница профиля
  */
-function Main() {
-  const store = useStore();
-
-  useInit(
-    () => {
-      store.actions.catalog.initParams();
-      store.actions.catalog.loadCategories();
-    },
-    [],
-    true,
-  );
+function Profile() {
+  const select = useSelector(state => ({
+    user: state.auth.user,
+    auth: state.auth.auth,
+    loading: state.auth.loading,
+  }));
 
   const { t } = useTranslate();
 
@@ -35,11 +28,10 @@ function Main() {
       </Head>
       <PageLayout>
         <Navigation />
-        <CatalogFilter />
-        <CatalogList />
+        <ProfileCard user={select.user} t={t} />
       </PageLayout>
     </>
   );
 }
 
-export default memo(Main);
+export default memo(Profile);

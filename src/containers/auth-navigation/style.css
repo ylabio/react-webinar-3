@@ -1,0 +1,25 @@
+.AuthNavigation {
+  background-color: var(--second-background);
+  padding: 8px 20px;
+}
+
+.AuthNavigation button {
+  font-family: var(--second-font-family);
+  color: var(--primary);
+  font-weight: bold;
+  padding: 0;
+  border: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.AuthNavigation-container {
+  display: flex;
+  gap: 24px;
+  justify-content: flex-end;
+  align-items: center;
+  max-width: 1152px;
+  margin: 0 auto;
+}
