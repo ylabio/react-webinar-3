@@ -23,7 +23,10 @@ function UserTools() {
     // Переход на страницу авторизации
     onLogin: useCallback(() => navigate('/login')),
     // @todo Сброс авторизации
-    onLogout: useCallback(() => setUserAuth(false)) 
+    onLogout: useCallback(() => {
+      store.actions.user.resetAuth()
+      navigate('/')
+    }) 
   };
 
   // Функция для локализации текстов

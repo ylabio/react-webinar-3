@@ -58,7 +58,7 @@ function LoginForm() {
 
   return (
     <div className={cn()}>
-      <h2 className={cn('title')}>Профиль</h2>
+      <h2 className={cn('title')}>Вход</h2>
       <form className={cn('body')} method='POST' onSubmit={callbacks.onSubmit}>
         <div 
           className={cn('prop-wrapper', select.error && {error: 'active'})}>

@@ -18,7 +18,6 @@ class UserState extends StoreModule {
    * @param loginOptions {Object}
    * @return {Promise<void>}
    */
-
   async auth(loginOptions) {
     this.setState({
       data: {},
@@ -37,9 +36,11 @@ class UserState extends StoreModule {
       }) 
       const json = await response.json()
 
-      if (json.hasOwnProperty("error")) {
+      if(!response.ok) {
         throw new Error(json.error.data.issues[0].message)
       }
+
+      localStorage.setItem('userToken', json.result.token)
 
       this.setState({
         ...this.getState(),
@@ -51,6 +52,92 @@ class UserState extends StoreModule {
         waiting: false
       })
 
+    } catch (error) {
+      this.setState({
+        ...this.getState(),
+        waiting: false,
+        error: error.message
+      })
+    }
+  }
+
+  /**
+   * Отмена авторизации и удаление токена
+   * @return {Promise<void>}
+   */
+  async resetAuth() {
+    this.setState({
+      ...this.getState(),
+      error: null,
+      waiting: true,
+    })
+
+    try {
+      const token = localStorage.getItem('userToken')
+      const response = await fetch('/api/v1/users/sign', {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json',
+          'X-Token': token
+        }
+      })
+      const json = await response.json()
+      
+      if(!response.ok) {
+        throw new Error(json.error.data.issues[0].message)
+      }
+
+      localStorage.removeItem('userToken')
+      
+      this.setState({
+        ...this.getState(),
+        data: {},
+        waiting: false,
+        isAuth: false,
+      })
+
+    } catch(error) {
+      this.setState({
+        ...this.getState(),
+        waiting: false,
+        error: error.message
+      })
+    }  
+  }
+
+  /**
+   * Загрузка информации о профиле
+   * @return {Promise<void>}
+   */
+  async loadUserInfo() {
+    this.setState({
+      ...this.getState(),
+      error: null,
+      waiting: true,
+    })  
+    try {
+      const token = localStorage.getItem('userToken')
+      const response = await fetch('/api/v1/users/self?fields=email,username,profile(name, phone)', {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          'X-Token': token
+        }
+      })
+      const json = await response.json()
+
+      if(!response.ok) {
+        throw new Error(json.error.data.issues[0].message)
+      }
+
+      console.log(json)
+
+      this.setState({
+        ...this.getState(),
+        data: json.result,
+        waiting: false,
+        isAuth: true,
+      })
     } catch (error) {
       this.setState({
         ...this.getState(),

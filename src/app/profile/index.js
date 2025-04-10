@@ -1,5 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { memo } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -17,30 +16,16 @@ import ProfileCard from '../../components/profile-card'
 function Profile() {
   const store = useStore();
 
-  // Параметры из пути /articles/:id
-  const params = useParams();
-
-  useInit(() => {
-    store.actions.article.load(params.id);
-  }, [params.id]);
-
   const select = useSelector(state => ({
-    article: state.article.data,
-    waiting: state.article.waiting,
+    user: state.user.data,
+    waiting: state.user.waiting,
   }));
 
+  useInit(() => {
+    store.actions.user.loadUserInfo();  
+  }, []);
+
   const { t } = useTranslate();
-
-  const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-  };
-
-  const testUser = {
-    username: 'Пользователь', 
-    email: 'test_50@example.com', 
-    profile: {phone: '+70000000001'}
-  }
 
   return (
     <>
@@ -50,7 +35,7 @@ function Profile() {
       <PageLayout>
         <Navigation />
         <Spinner active={select.waiting}>
-          <ProfileCard user={testUser} t={t}/>
+          <ProfileCard user={select.user} t={t}/>
         </Spinner>
       </PageLayout>
     </>
