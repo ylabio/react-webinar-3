@@ -5,11 +5,12 @@ import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import Button from '../button';
 import './style.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import { LanguageContext } from '../../store/context';
 
 function ItemBasket(props) {
+  const navigate = useNavigate();
   const cn = bem('ItemBasket');
   const { translate, language } = useContext(LanguageContext);
 
@@ -21,10 +22,18 @@ function ItemBasket(props) {
       },
       [props],
     ),
+    onNavigationToProduct: useCallback(
+      e => {
+        e.preventDefault();
+        props.onCloseModal();
+        navigate(ROUTES.PRODUCT(props.item._id));
+      },
+      [props],
+    ),
   };
 
   return (
-    <Link to={ROUTES.PRODUCT(props.item._id)}>
+    <Link onClick={callbacks.onNavigationToProduct}>
       <div className={cn()}>
         {/* <div className={cn('code')}>{props.item._id}</div> */}
         <h4 className={cn('title')}>{props.item.title}</h4>
@@ -50,10 +59,12 @@ ItemBasket.propTypes = {
     amount: PropTypes.number,
   }).isRequired,
   onRemove: propTypes.func,
+  onCloseModal: propTypes.func,
 };
 
 ItemBasket.defaultProps = {
   onRemove: () => {},
+  onCloseModal: () => {},
 };
 
 export default memo(ItemBasket);
