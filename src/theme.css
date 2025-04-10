@@ -13,13 +13,15 @@
   --odd-item: #6B4ACB08;
   --close: #878787;
   --filter-border: #D3D3D3;
-
+  --hover-category: #1e90ff;
   --font-family: 'Golos Text';
   --second-font-family: 'Montserrat Alternates';
 }
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -55,4 +57,22 @@ a {
   &:hover {
     color: var(--primary);
   }
+}
+
+ul,ol,li {
+  list-style-type: none;
+}
+
+::-webkit-scrollbar {
+  width: 4px;               /* ширина всей полосы прокрутки */
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);        /* цвет зоны отслеживания */
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  width: 4px;
+  background-color: var(--filter-border);    /* цвет бегунка */
 }

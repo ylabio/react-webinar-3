@@ -1,3 +1,5 @@
+import { DEFAULT_CATEGORY } from './constants';
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -32,4 +34,82 @@ export function codeGenerator(start = 0) {
  */
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
+}
+
+/**
+ * Форматирование разрядов числа
+ * @returns {Array}
+ * @param categories {Array}
+ */
+function createCategoryTree(categories) {
+  const categoryMap = {};
+  const categoriesList = [{ ...DEFAULT_CATEGORY }];
+
+  categories.forEach(category => {
+    categoryMap[category._id] = {
+      ...category,
+      children: [],
+    };
+  });
+
+  categories.forEach(category => {
+    if (category.parent) {
+      const parentId = category.parent._id;
+      if (categoryMap[parentId]) {
+        categoryMap[parentId].children.push(categoryMap[category._id]);
+      }
+    } else {
+      categoriesList.push(categoryMap[category._id]);
+    }
+  });
+
+  return categoriesList;
+}
+
+export function createCategoryList(list) {
+  const categoryTree = createCategoryTree(list);
+
+  const newCategoryList = [];
+
+  function getCategoryArray(arr, markLen) {
+    arr.forEach(el => {
+      newCategoryList.push({ ...el, marker: '- '.repeat(markLen) });
+      if (el.children) {
+        getCategoryArray(el.children, markLen + 1);
+      } else {
+        newCategoryList.push({ ...el, marker: '- '.repeat(markLen) });
+      }
+    });
+  }
+
+  categoryTree.forEach(el => {
+    newCategoryList.push({ ...el, marker: '' });
+    getCategoryArray(el.children, 1);
+  });
+
+  return newCategoryList;
+}
+
+export function createCategoryQuery(categories, id) {
+  const categoriesIdList = [];
+
+  function findCategoryId(categoryChildren) {
+    categoryChildren.forEach(category => {
+      categoriesIdList.push(category._id);
+      if (category.children.length) {
+        findCategoryId(category.children);
+      }
+    });
+  }
+
+  for (let category of categories) {
+    if (category._id === id) {
+      categoriesIdList.push(category._id);
+      if (category.children.length) {
+        findCategoryId(category.children);
+      }
+    }
+  }
+
+  return categoriesIdList.join(',');
 }
