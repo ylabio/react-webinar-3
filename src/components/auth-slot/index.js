@@ -16,16 +16,24 @@ function AuthSlot() {
 
   if (!user.token || !user.data) {
     return (
-      <div className="AuthSlot">
-        <Link to="/login">Вход</Link>
+      <div className="Container">
+        <div className="AuthSlot">
+          <Link to="/login">Вход</Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="AuthSlot">
-      <Link to="/profile">{user.data.profile?.name || 'Профиль'}</Link>
-      <button onClick={handleLogout}>Выход</button>
+    <div className="Container">
+      <div className="AuthSlot">
+        <div className="Sign-in">
+          <Link to="/profile">
+            {(user.data.profile?.name || 'Профиль').replace(/№\s?/, '').trim()}
+          </Link>
+        </div>
+        <button onClick={handleLogout}>Выход</button>
+      </div>
     </div>
   );
 }
