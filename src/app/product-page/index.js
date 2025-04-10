@@ -1,20 +1,12 @@
-import { Link, useLoaderData } from 'react-router-dom';
-import Button from '../../components/button';
+import { useLoaderData } from 'react-router-dom';
 import Head from '../../components/head';
 import PageLayout from '../../components/page-layout';
 import { getProductDetails } from '../api/api';
-import './style.css';
-import { memo, useCallback, useContext } from 'react';
-import { numberFormat } from '../../utils';
-import { ROUTES } from '../../constants';
+import { memo, useCallback, useContext, useMemo } from 'react';
 import useStore from '../../hooks/use-store';
 import { LanguageContext } from '../../store/context';
-
-const productDetails = [
-  { translationCode: 'country', id: 'madeIn' },
-  { translationCode: 'category', id: 'category' },
-  { translationCode: 'productionYear', id: 'edition' },
-];
+import ProductDetails from '../../components/product-details/product-details';
+import Product from '../../components/product/product';
 
 export async function loader({ params }) {
   const result = await getProductDetails(params.id);
@@ -26,37 +18,46 @@ function ProductPage() {
   const store = useStore();
   const { result: product } = useLoaderData();
   const { translate, language } = useContext(LanguageContext);
+  const productDetails = useMemo(
+    () => [
+      { translationCode: translate('country'), id: 'madeIn' },
+      { translationCode: translate('category'), id: 'category' },
+      { translationCode: translate('productionYear'), id: 'edition' },
+    ],
+    [language, translate],
+  );
 
   const callbacks = {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(product._id), [store]),
   };
 
+  const renders = {
+    renderProductDetails: useCallback(
+      product => {
+        return (
+          <ProductDetails
+            product={product}
+            language={language}
+            priceTitle={translate('price')}
+            productDetails={productDetails}
+          />
+        );
+      },
+      [translate],
+    ),
+  };
+
   return (
     <PageLayout head={<Head title={product.title} />}>
-      <div className="Product">
-        <span></span>
-        <Link className="Product-back" to={ROUTES.MAIN}>
-          <span>{translate('home')}</span>
-        </Link>
-        <span>{product.description}</span>
-        <ul className="Product-details">
-          {productDetails.map(({ translationCode, id }) => (
-            <li className="Product-details-item" key={id}>
-              <span>{translate(translationCode)}:</span>
-              <b>{product[id]?.title ?? product[id]}</b>
-            </li>
-          ))}
-        </ul>
-        <div className="Product-price">
-          <b>{translate('price')}</b>
-          <b>{numberFormat(product.price, language)}</b>
-        </div>
-        <Button
-          style="primary"
-          onClick={() => callbacks.addToBasket(product._id)}
-          title={translate('add')}
-        />
-      </div>
+      <Product
+        key={product._id}
+        product={product}
+        translate={translate}
+        onAddToBasket={callbacks.addToBasket}
+        renderProductDetails={renders.renderProductDetails}
+        title={translate('home')}
+        buttonTitle={translate('add')}
+      />
     </PageLayout>
   );
 }
