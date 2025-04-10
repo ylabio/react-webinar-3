@@ -37,7 +37,12 @@ function UserTools() {
       <UserActions 
         username={select.username} 
         isAuth={select.userAuth} 
-        onClick={select.userAuth ? callbacks.onLogout : callbacks.onLogin}/>
+        onClick={select.userAuth ? callbacks.onLogout : callbacks.onLogin}
+        title={select.userAuth 
+          ? t("userActions.logout") 
+          : t("userActions.login")
+        }
+        />
     </SideLayout>
   );
 }

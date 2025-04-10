@@ -6,7 +6,8 @@ import './style.css';
 
 function UserActions({ 
   username, 
-  isAuth = false, 
+  isAuth = false,
+  title, 
   onClick = () => {}, 
   }) {
   const cn = bem('UserActions');
@@ -14,7 +15,7 @@ function UserActions({
     <div className={cn()}>
       {isAuth && <Link  to={'/profile'}>{username}</Link>}
       <button className={cn('button')} onClick={onClick}>
-        {isAuth ? 'Выход' : 'Войти'}
+        {title}
       </button>
     </div>
   );
@@ -24,6 +25,7 @@ UserActions.propTypes = {
   username: PropTypes.string,
   isAuth: PropTypes.bool,
   onClick: PropTypes.func,
+  title: PropTypes.string
 };
 
 export default memo(UserActions);

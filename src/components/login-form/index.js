@@ -5,6 +5,7 @@ import Input from '../input'
 import Button from '../button'
 import useStore from '../../hooks/use-store'
 import useSelector from '../../hooks/use-selector'
+import useTranslate from '../../hooks/use-translate'
 
 function LoginForm() {
   const cn = bem('LoginForm');
@@ -34,23 +35,25 @@ function LoginForm() {
     })
   }
 
+  const { t } = useTranslate()
+
   const options = {
     login: {
       value: signOptions.login,
       name: 'login',
       type: 'text',
-      placeholder: 'Введите логин',
+      placeholder: t("loginForm.loginPlaceholder"),
       theme: 'small'
     },
     password: {
       value: signOptions.password,
       name: 'password',
       type: 'password',
-      placeholder: 'Введите пароль',
+      placeholder: t("loginForm.passwordPlaceholder"),
       theme: 'small'
     },
     button: {
-      title: 'Войти',
+      title: t('loginForm.action'),
       style: 'primary',
       type: 'submit'
     }
@@ -58,16 +61,16 @@ function LoginForm() {
 
   return (
     <div className={cn()}>
-      <h2 className={cn('title')}>Вход</h2>
+      <h2 className={cn('title')}>{t('userActions.login')}</h2>
       <form className={cn('body')} method='POST' onSubmit={callbacks.onSubmit}>
         <div 
           className={cn('prop-wrapper', select.error && {error: 'active'})}>
           <div className={cn('prop')}>
-            <label className={cn('label')}>Логин</label>
+            <label className={cn('label')}>{t('loginForm.login')}</label>
             <Input {...options.login} onChange={callbacks.setLogin}/>  
           </div>
           <div className={cn('prop')}>
-            <label className={cn('label')}>Пароль</label>
+            <label className={cn('label')}>{t('loginForm.password')}</label>
             <Input {...options.password} onChange={callbacks.setPassword}/> 
           </div>
           <div 

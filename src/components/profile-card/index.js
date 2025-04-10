@@ -8,16 +8,16 @@ function ProfileCard(props) {
   const cn = bem('ProfileCard');
   return (
     <div className={cn()}>
-      <h2 className={cn('title')}>Профиль</h2>
+      <h2 className={cn('title')}>{t('profile.title')}</h2>
       <div className={cn('prop-wrapper')}>
         <div className={cn('prop')}>
-          <div className={cn('label')}>Имя:</div>
+          <div className={cn('label')}>{t('profile.name')}:</div>
           <div className={cn('value')}>
             {user.username}
           </div>
         </div>
         <div className={cn('prop')}>
-          <div className={cn('label')}>Телефон:</div>
+          <div className={cn('label')}>{t('profile.phone')}:</div>
           <div className={cn('value')}>{user.profile?.phone}</div>
         </div>
         <div className={cn('prop')}>
