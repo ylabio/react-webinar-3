@@ -13,9 +13,9 @@ function Select(props) {
   return (
     <select className={cn({ size, text: !!text })} value={value} onChange={onSelect}>
       {options.map(item => (
-        <option key={item.value} value={item.value}>
-          {item.title}
-        </option>
+          <option key={item.value} value={item.value}>
+            {item.title}
+          </option>
       ))}
     </select>
   );
