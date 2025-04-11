@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -47,6 +47,10 @@ function Main() {
     : null;
 
   const categoryTitle = currentCategory ? `${t('title')} / ${currentCategory}` : t('title');
+
+  useEffect(() => {
+    document.title = categoryTitle;
+  }, [categoryTitle]);
 
   return (
     <>
