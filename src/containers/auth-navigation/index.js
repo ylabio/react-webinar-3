@@ -25,7 +25,7 @@ function AuthNavigation() {
 
     linkLogin: useCallback(
       () => (
-        <Link to="/login" replace state={{ from: location }}>
+        <Link to="/login" state={{ from: location }}>
           <button>{t('auth.signIn')}</button>
         </Link>
       ),
