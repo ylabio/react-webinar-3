@@ -6,6 +6,7 @@ import Select from '../../components/select';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
 import Button from '../../components/button';
+import { formatCategories } from '../../utils';
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -16,11 +17,16 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    categories: state.catalog.categories,
+    category: state.catalog.params.category,
   }));
+
 
   const callbacks = {
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({ sort }), [store]),
+    //Фильтр по категориям
+    onFilter: useCallback(category => store.actions.catalog.setParams({ category, page: 1 }, [store])),
     // Поиск
     onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
     // Сброс
@@ -37,12 +43,22 @@ function CatalogFilter() {
       ],
       [],
     ),
+    categories: useMemo(
+      () => [{ value: '', title: 'Все'}, ...select.categories],
+      [select.categories],
+    )
   };
 
   const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
+      <Select
+        options={options.categories}
+        value={select.category}
+        onChange={callbacks.onFilter}
+        size="medium"
+      />
       <Select
         options={options.sort}
         value={select.sort}
