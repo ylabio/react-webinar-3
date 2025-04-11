@@ -2,10 +2,11 @@ import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 
+import SelectIcon from '../../assets/icon/select-icon.svg';
+
 import './style.css';
 
 const CategorySelect = props => {
-  const [isShowList, setIsShowList] = useState(false);
   const { onChange = () => {}, categoryList = [], size = 'medium', value = {} } = props;
   const cn = bem('CategorySelect');
 
@@ -16,7 +17,7 @@ const CategorySelect = props => {
     } else {
       onChange(category._id);
     }
-    setIsShowList(prev => false);
+    props.onClose(!props.isOpen);
   };
 
   const getCurrentItemClass = (category_id, category) => {
@@ -25,11 +26,12 @@ const CategorySelect = props => {
 
   return (
     <div className={cn({ size })}>
-      <div className={cn('item-default')} onClick={() => setIsShowList(prevIsOpen => !prevIsOpen)}>
+      <div className={cn('item-default')} onClick={() => props.onClose(!props.isOpen)}>
         {value.title}
+        <SelectIcon className={props.isOpen ? cn('icon-open'): cn('icon')} />
       </div>
-      {isShowList && (
-        <ul className={ cn('list')}>
+      {props.isOpen && (
+        <ul className={cn('list')}>
           {categoryList.map(category => (
             <li
               key={category._id}
@@ -54,7 +56,9 @@ CategorySelect.propTypes = {
       marker: PropTypes.string,
     }),
   ).isRequired,
+  onClose: PropTypes.func,
   value: PropTypes.object,
+  isOpen: PropTypes.bool,
   onChange: PropTypes.func,
   size: PropTypes.oneOf(['small', 'medium']),
 };

@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -12,6 +12,8 @@ import CategorySelect from '../../components/category-select';
  * Контейнер со всеми фильтрами каталога
  */
 function CatalogFilter() {
+  const [isCategoryOpen, setIsCategoryOpen] = useState(null);
+
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -30,26 +32,26 @@ function CatalogFilter() {
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
 
     onChangeIdCategory: useCallback(
-      (category) => store.actions.catalog.setParams({ category, page: 1}),
+      category => store.actions.catalog.setParams({ category, page: 1 }),
       [store],
     ),
   };
 
+  const closeCategorySelect = (isClose = false) => {
+    setIsCategoryOpen(isClose);
+  };
+
   const options = {
-    sort: useMemo(
-      () => [
-        { value: 'order', title: 'По порядку' },
-        { value: 'title.ru', title: 'По именованию' },
-        { value: '-price', title: 'Сначала дорогие' },
-        { value: 'edition', title: 'Древние' },
-      ]
-    )
+    sort: useMemo(() => [
+      { value: 'order', title: 'По порядку' },
+      { value: 'title.ru', title: 'По именованию' },
+      { value: '-price', title: 'Сначала дорогие' },
+      { value: 'edition', title: 'Древние' },
+    ]),
   };
 
   const categoryOptions = {
-    categories: useMemo(
-      () => [...select.categoryList],
-    )
+    categories: useMemo(() => [...select.categoryList]),
   };
 
   const { t } = useTranslate();
@@ -61,12 +63,15 @@ function CatalogFilter() {
         size="medium"
         value={select.category}
         onChange={callbacks.onChangeIdCategory}
+        isOpen={isCategoryOpen}
+        onClose={closeCategorySelect}
       />
       <Select
         options={options.sort}
         value={select.sort}
         onChange={callbacks.onSort}
         size="medium"
+        onClose={closeCategorySelect}
       />
       <Input
         value={select.query}
@@ -74,6 +79,8 @@ function CatalogFilter() {
         placeholder={'Поиск'}
         delay={600}
         theme={'big'}
+        onClose={closeCategorySelect}
+        isCatalog={true}
       />
       <Button style="text" onClick={callbacks.onReset} title={t('filter.reset')} />
     </SideLayout>

@@ -28,6 +28,9 @@
 }
 
 .CategorySelect-item-default {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   cursor: pointer;
   padding: 10px 10px;
   font-size: 14px;
@@ -56,4 +59,8 @@
     pointer-events: none;
     cursor: default;
   }
+}
+
+.CategorySelect-icon-open {
+  rotate: 180deg;
 }

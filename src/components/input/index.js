@@ -20,6 +20,13 @@ function Input(props) {
     onChangeDebounce(event.target.value);
   };
 
+  const closeSelect = (e) => {
+    e.stopPropagation();
+    if (props.isCatalog) {
+      props.onClose(false);
+    }
+  }
+
   // Обновление стейта, если передан новый value
   useLayoutEffect(() => setValue(props.value), [props.value]);
 
@@ -31,11 +38,14 @@ function Input(props) {
       type={props.type}
       placeholder={props.placeholder}
       onChange={onChange}
+      onClick={closeSelect}
     />
   );
 }
 
 Input.propTypes = {
+  onClose: PropTypes.func,
+  isCatalog: PropTypes.bool,
   value: PropTypes.string,
   name: PropTypes.string,
   type: PropTypes.string,
