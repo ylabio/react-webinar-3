@@ -19,13 +19,13 @@ function Main() {
 
   const select = useSelector(state => ({
     category: state.catalog.params.category,
-    categories: state.catalog.categories,
+    categories: state.categories.categoriesList,
   }));
 
   useInit(
     () => {
       store.actions.catalog.initParams();
-      store.actions.catalog.loadCategories();
+      store.actions.categories.loadCategories();
     },
     [],
     true,
@@ -33,17 +33,13 @@ function Main() {
 
   const { t } = useTranslate();
 
-  // Убираем дефисы из названий категорий
-  const cleanCategoryTitle = title => {
-    return title.replace(/^-+/, '');
-  };
-
   const selectedCategoryTitle = useMemo(() => {
     if (!select.category) {
       return t('title');
     }
-    const category = select.categories.find(category => category.value === select.category);
-    return category ? `${t('title')} / ${cleanCategoryTitle(category.title)}` : t('title');
+    const category = select.categories.find(category => category._id === select.category);
+
+    return category ? `${t('title')} / ${category.title}` : t('title');
   }, [select.category, select.categories, t]);
 
   useEffect(() => {

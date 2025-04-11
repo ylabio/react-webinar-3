@@ -6,6 +6,7 @@ import SideLayout from '../../components/side-layout';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
+import { formatCategories } from '../../utils';
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -14,7 +15,7 @@ function CatalogFilter() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    categories: state.catalog.categories,
+    categories: state.categories.categoriesList,
     category: state.catalog.params.category,
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
@@ -47,7 +48,10 @@ function CatalogFilter() {
       [t],
     ),
     categories: useMemo(
-      () => [{ value: '', title: t('filter.category.all') }, ...select.categories],
+      () => [
+        { value: '', title: t('filter.category.all') },
+        ...formatCategories(select.categories),
+      ],
       [select.categories, t],
     ),
   };
