@@ -16,5 +16,12 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "auth.signIn": "Вход",
+  "auth.signInButton": "Войти",
+  "auth.signOut": "Выход",
+  "auth.loginLabel": "Логин",
+  "auth.loginPlaceholder": "Введите логин",
+  "auth.passwordLabel": "Пароль",
+  "auth.passwordPlaceholder": "Введите пароль"
 }
