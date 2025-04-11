@@ -19,11 +19,11 @@ function Main() {
 
   const select = useSelector(state => ({
     categoryId: state.catalog.params.category,
-    categoryList: state.catalog.categoryList,
+    rawCategoryList: state.catalog.rawCategoryList,
   }));
 
-  const category = select.categoryList.find(item => item._id === select.categoryId);
-  const categoryTitle = category?.title.replaceAll('-', '').trim();
+  const category = select.rawCategoryList.find(item => item._id === select.categoryId);
+  const categoryTitle = category?.title
 
   useInit(
     () => {

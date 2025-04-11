@@ -19,6 +19,7 @@ class CatalogState extends StoreModule {
         category: '',
       },
       categoryList: [],
+      rawCategoryList: [],
       count: 0,
       waiting: false,
     };
@@ -40,7 +41,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
     if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
-    await this.loadCategories()
+    await this.loadCategories();
   }
 
   /**
@@ -65,14 +66,14 @@ class CatalogState extends StoreModule {
   async loadCategories() {
     const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
     const json = await response.json();
-  
+
     const categories = json.result.items;
 
     const map = {};
     categories.forEach(item => {
       map[item._id] = { ...item, children: [] };
     });
-  
+
     const parents = [];
     categories.forEach(item => {
       if (item.parent?._id) {
@@ -81,37 +82,36 @@ class CatalogState extends StoreModule {
         parents.push(map[item._id]);
       }
     });
-  
-    const spreadCategories = (nodes, level = 0) => {
 
+    const spreadCategories = (nodes, level = 0) => {
       let result = [];
-    
+
       for (const item of nodes) {
         result.push({
           _id: item._id,
-          title: `${' - '.repeat(level)} ${item.title}`
+          title: `${' - '.repeat(level)} ${item.title}`,
         });
- 
+
         const children = spreadCategories(item.children, level + 1);
-        result = [...result, ...children]
+        result = [...result, ...children];
       }
-    
+
       return result;
     };
-  
+
     const resultList = spreadCategories(parents);
-  
+
     resultList.unshift({ _id: '', title: 'Все' });
-  
+
     this.setState(
       {
         ...this.getState(),
+        rawCategoryList: categories,
         categoryList: resultList,
       },
       'Загружен список категорий с иерархией',
     );
   }
-  
 
   async setParams(newParams = {}, replaceHistory = false) {
     const params = { ...this.getState().params, ...newParams };
