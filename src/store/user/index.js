@@ -10,6 +10,7 @@ class User extends StoreModule {
     return {
       user: null,
       error: null,
+      authStatus: 'idle', // 'idle' | 'loading' | 'success' | 'failed'
     };
   }
 
@@ -35,12 +36,14 @@ class User extends StoreModule {
       this.setState({
         user: data.result.user,
         error: null,
+        authStatus: 'success',
       },
       'Авторизация прошла успешно',);
     } catch(error) {
       this.setState({
         user: null,
         error: error.message,
+        authStatus: 'failed',
       },
       'Ошибка авторизации',);
     }
@@ -68,6 +71,7 @@ class User extends StoreModule {
       this.setState({
         user: null,
         error: null,
+        authStatus: 'idle',
       },
       'Выход прошол успешно',); 
     } catch(error) {
@@ -97,12 +101,14 @@ class User extends StoreModule {
       this.setState({
         user: data.result,
         error: null,
+        authStatus: 'success',
       },
       'Авторизация прошла успешно',);
     } catch(error) {
       this.setState({
         user: null,
         error: null,
+        authStatus: 'failed',
       },
       'Ошибка авторизации',);
       console.error(error);

@@ -24,5 +24,9 @@
   "password": "Пароль",
   "placeholderPassword": "Введите пароль",
   "logInButton": "Войти",
-  "incorrectData": "Неверный логин или пароль"
+  "incorrectData": "Неверный логин или пароль",
+  "name": "Имя",
+  "telephone": "Телефон",
+  "email": "Email",
+  "profile": "Профиль"
 }

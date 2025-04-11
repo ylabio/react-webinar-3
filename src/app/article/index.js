@@ -40,13 +40,17 @@ function Article() {
     // Редирект на страницу login
     redirectToLogin: useCallback(() => navigate('/login'), [navigate]),
     // Выход пользователя
-    onLogOut: useCallback(() => store.actions.user.logOut(), [store]),
+    onLogOut: useCallback(() => {
+      store.actions.user.logOut();
+      navigate('/');
+    }, [store, navigate]),
   };
 
   return (
     <>
       <AuthBar
-        buttonTitle={select.user ? `${t('logOut')}` : `${t('logIn')}`}
+        buttonTitle={select.user ? t('logOut') : t('logIn')}
+        userTitle={select.user?.username}
         onClickButton={select.user ? callbacks.onLogOut : callbacks.redirectToLogin}
       />
       <Head title={select.article.title}>

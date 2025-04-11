@@ -23,6 +23,10 @@ function AuthBar({ buttonTitle, userTitle, onClickButton = () => {} }) {
 }
 
 AuthBar.propTypes = {
+  userTitle: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.oneOf([null]),
+  ]),
   buttonTitle: PropTypes.string,
   onClickButton: PropTypes.func,
 };

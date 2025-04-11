@@ -22,5 +22,9 @@
   "password": "Password",
   "placeholderPassword": "Enter password",
   "logInButton": "Login In",
-  "incorrectData": "Incorrect login or password"
+  "incorrectData": "Incorrect login or password",
+  "name": "Name",
+  "telephone": "Telephone",
+  "email": "Email",
+  "profile": "Profile"
 }

@@ -1,0 +1,24 @@
+.ProfileCard-main-title {
+  padding: 24px 0 24px 0;
+  font-family: var(--second-font-family);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.ProfileCard-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.ProfileCard-container-title {
+  padding-right: 10px;
+}
+
+.ProfileCard-title {
+  padding-bottom: 12px;
+}
+
+.ProfileCard-value {
+  padding-bottom: 12px;
+  font-weight: 700;
+}
