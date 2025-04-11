@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -7,42 +7,42 @@ import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
 import Button from '../../components/button';
 
-/**
- * Контейнер со всеми фильтрами каталога
- */
 function CatalogFilter() {
   const store = useStore();
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    categories: state.catalog.categories,
   }));
 
   const callbacks = {
-    // Сортировка
-    onSort: useCallback(sort => store.actions.catalog.setParams({ sort }), [store]),
-    // Поиск
-    onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
-    // Сброс
-    onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
+    onSort: sort => store.actions.catalog.setParams({ sort }),
+    onSearch: query => store.actions.catalog.setParams({ query, page: 1 }),
+    onReset: () => store.actions.catalog.resetParams(),
+    onCategoryChange: category => store.actions.catalog.setParams({ category }),
   };
 
   const options = {
-    sort: useMemo(
-      () => [
-        { value: 'order', title: 'По порядку' },
-        { value: 'title.ru', title: 'По именованию' },
-        { value: '-price', title: 'Сначала дорогие' },
-        { value: 'edition', title: 'Древние' },
-      ],
-      [],
-    ),
+    sort: [
+      { value: 'order', title: 'По порядку' },
+      { value: 'title.ru', title: 'По именованию' },
+      { value: '-price', title: 'Сначала дорогие' },
+      { value: 'edition', title: 'Древние' },
+    ],
   };
 
   const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
+      <Select
+        options={select.categories}
+        value={select.category}
+        onChange={callbacks.onCategoryChange}
+        size="medium"
+      />
       <Select
         options={options.sort}
         value={select.sort}

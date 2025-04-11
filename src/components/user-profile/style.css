@@ -1,0 +1,22 @@
+.UserProfile {
+  margin-top: 24px;
+}
+.UserProfile-title {
+  color: var(--main-text);
+  font-family: var(--second-font-family);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  margin-bottom: 24px;
+}
+.UserProfile-prop {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.UserProfile-label {
+  width: 73px;
+}
+.UserProfile-value {
+  font-weight: bold;
+}

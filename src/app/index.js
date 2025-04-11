@@ -1,22 +1,38 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import useSelector from '../hooks/use-selector';
 import Main from './main';
 import Basket from './basket';
 import Article from './article';
+import User from './profile';
+import Login from './login';
+import useStore from '../hooks/use-store';
+import useInit from '../hooks/use-init';
 
 /**
  * Приложение
  * Маршрутизация по страницам и модалкам
  */
 function App() {
+  const store = useStore();
+
   const activeModal = useSelector(state => state.modals.name);
+
+  useInit(
+    () => {
+      store.actions.user.checkAuth();
+    },
+    [],
+    true,
+  );
 
   return (
     <>
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
+        <Route path="/login" element={<Login />} />
+        <Route path={'/profile'} element={<User />} />
       </Routes>
 
       {activeModal === 'basket' && <Basket />}

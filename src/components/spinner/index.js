@@ -12,9 +12,7 @@ function Spinner({ active, children }) {
 
 Spinner.propTypes = {
   active: PropTypes.bool.isRequired,
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
-
-Spinner.defaultProps = {};
 
 export default memo(Spinner);
