@@ -4,12 +4,22 @@ import useSelector from '../hooks/use-selector';
 import Main from './main';
 import Basket from './basket';
 import Article from './article';
+import Login from './login';
+import Profile from './profile';
+import useInit from '../hooks/use-init';
+import useStore from '../hooks/use-store';
 
 /**
  * Приложение
  * Маршрутизация по страницам и модалкам
  */
 function App() {
+  const store = useStore();
+
+  useInit(async () => {
+    await store.actions.user.reLogIn();
+  });
+
   const activeModal = useSelector(state => state.modals.name);
 
   return (
@@ -17,6 +27,8 @@ function App() {
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
+        <Route path={'/login'} element={<Login />} />
+        <Route path={'/profile'} element={<Profile />} />
       </Routes>
 
       {activeModal === 'basket' && <Basket />}
