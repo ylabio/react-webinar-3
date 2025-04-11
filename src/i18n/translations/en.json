@@ -13,6 +13,14 @@
   "filter.reset": "Reset",
   "user.authIn":"Enter",
   "user.authOut":"Exit",
+  "user.login":"Login",
+  "user.pswd":"Password",
+  "login.input":"Enter login",
+  "pswd.input":"Enter password",
+  "login.btn":"Sign in",
+  "profile": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
   "basket.articles": {
     "one": "article",
     "other": "articles"

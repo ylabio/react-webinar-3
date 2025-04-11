@@ -1,16 +1,21 @@
-import './style.css';
-import Input from '../input';
-import { useCallback, useEffect, useState } from 'react';
-import Button from '../button';
-import { authUser } from '../../services';
-import { useNavigate } from 'react-router-dom';
+import { useCallback, useState } from 'react';
 import useStore from '../../hooks/use-store';
+
+import { authUser } from '../../services';
+
+import Input from '../input';
+import Button from '../button';
+
+import './style.css';
+import useTranslate from "../../hooks/use-translate";
 
 function AuthForm() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [isError, setIsError] = useState(false);
   const [errorMsq, setErrorMsq] = useState('');
+
+  const { t } = useTranslate();
 
   const store = useStore();
 
@@ -31,30 +36,30 @@ function AuthForm() {
 
   return (
     <div className="AuthForm">
-      <h1 className="AuthForm-title">Вход</h1>
+      <h1 className="AuthForm-title">{t('user.authIn')}</h1>
       <form className={`AuthForm-form${isError ? ' error' : ''}`} action="">
         <label>
-          <h4>Логин</h4>
+          <h4>{t("user.login")}</h4>
           <Input
             value={login}
             onChange={setLogin}
-            placeholder={'Введите логин'}
+            placeholder={t("login.input")}
             delay={0}
             theme={'small'}
           />
         </label>
         <label className={`AuthForm-pass${isError ? ' error' : ''}`}>
-          <h4>Пароль</h4>
+          <h4>{t("user.pswd")}</h4>
           <Input
             value={password}
             onChange={setPassword}
-            placeholder={'Введите пароль'}
+            placeholder={t("pswd.input")}
             delay={0}
             theme={'small'}
           />
         </label>
         {isError && <div className="AuthForm-error">{errorMsq}</div>}
-        <Button style="primary" title={'Войти'} onClick={onSubmit}></Button>
+        <Button style="primary" title={t("login.btn")} onClick={onSubmit}></Button>
       </form>
     </div>
   );
