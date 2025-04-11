@@ -24,6 +24,7 @@
   background: #fff;
   overflow: hidden;
   overflow-y: auto;
+  transition: height .3s ease-out;
 
   &.show {
     height: 408px;
