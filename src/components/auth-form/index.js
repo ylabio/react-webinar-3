@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 
 function AuthForm() {
-  const [login, setLogin] = useState('test');
-  const [password, setPassword] = useState('123456');
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
   const [isError, setIsError] = useState(false);
   const [errorMsq, setErrorMsq] = useState('');
 
@@ -18,25 +18,17 @@ function AuthForm() {
     updateUser: useCallback(() => store.actions.user.initParams(), [store]),
   };
 
-  const navigate = useNavigate();
-
   const onSubmit = async () => {
     const res = await authUser(login, password);
-    console.log('FORM', res);
     if (res.error) {
       setIsError(true);
       setErrorMsq(res.error.data.issues[0].message);
     } else {
-      navigate('/');
       setIsError(false);
     }
-
     callbacs.updateUser();
   };
 
-  useEffect(() => {
-    console.log(login);
-  }, [login]);
   return (
     <div className="AuthForm">
       <h1 className="AuthForm-title">Вход</h1>

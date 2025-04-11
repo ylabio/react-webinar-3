@@ -10,7 +10,6 @@ export async function signOut(token) {
   const res = await response.json();
 
   if (response.ok) {
-    console.log(res);
     localStorage.removeItem('user-auth');
   }
   return res;

@@ -4,13 +4,10 @@ export async function getUserData(token, id) {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      'x-token' : token,
+      'x-token': token,
     },
   });
   const res = await response.json();
 
-  if (response.ok) {
-    console.log(res)
-  }
   return res;
 }
