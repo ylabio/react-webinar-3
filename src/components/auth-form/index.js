@@ -1,15 +1,22 @@
 import './style.css';
 import Input from '../input';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Button from '../button';
 import { authUser } from '../../services';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import useStore from '../../hooks/use-store';
 
 function AuthForm() {
   const [login, setLogin] = useState('test');
   const [password, setPassword] = useState('123456');
   const [isError, setIsError] = useState(false);
   const [errorMsq, setErrorMsq] = useState('');
+
+  const store = useStore();
+
+  const callbacs = {
+    updateUser: useCallback(() => store.actions.user.initParams(), [store]),
+  };
 
   const navigate = useNavigate();
 
@@ -23,6 +30,8 @@ function AuthForm() {
       navigate('/');
       setIsError(false);
     }
+
+    callbacs.updateUser();
   };
 
   useEffect(() => {

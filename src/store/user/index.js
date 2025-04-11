@@ -10,26 +10,18 @@ class UserState extends StoreModule {
         phone: '',
         email: '',
       },
+      token: '',
     };
   }
 
   async initParams() {
     const dataUser = JSON.parse(localStorage.getItem('user-auth'));
-    console.log(dataUser);
 
     if (dataUser !== null && dataUser.token.length) {
       const res = await getUserData(dataUser.token, dataUser.id);
 
       if (res.error) {
-        this.setState({
-          ...this.getState(),
-          isAuth: false,
-          userInfo: {
-            name: '',
-            phone: '',
-            email: '',
-          },
-        });
+        this.resetState();
       } else {
         this.setState({
           ...this.getState(),
@@ -39,9 +31,16 @@ class UserState extends StoreModule {
             phone: res.result.profile.phone,
             email: res.result.email,
           },
+          token: dataUser.token,
         });
       }
     }
+  }
+
+  resetState() {
+    this.setState({
+      ...this.initState(),
+    });
   }
 }
 
