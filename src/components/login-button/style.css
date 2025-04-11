@@ -1,0 +1,31 @@
+.LoginButton {
+  padding: 7px 0;
+
+  background-color: var(--second-background);
+}
+
+.LoginButton-container {
+  margin: 0 auto;
+  max-width: 100%;
+  width: 1150px;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.LoginButton button {
+  padding: 0;
+
+  color: var(--primary);
+}
+
+.LoginButton-user-name {
+  display: block;
+
+  font-size: 16px;
+  line-height: 1.2;
+
+  color: var(--main-text);
+}

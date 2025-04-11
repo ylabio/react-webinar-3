@@ -1,6 +1,6 @@
 .Head {
   color: var(--primary);
-  padding: 16px 20px;
+  padding: 0 0 16px;
   border-bottom: 1px solid var(--divider);
 }
 
@@ -10,6 +10,7 @@
   align-items: center;
   max-width: 1152px;
   margin: 0 auto;
+  padding: 15px 0 0;
 }
 
 .Head h1 {

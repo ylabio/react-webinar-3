@@ -14,5 +14,7 @@
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "head.entry": "Entry",
+  "head.exit": "Exit"
 }

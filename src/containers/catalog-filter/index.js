@@ -62,7 +62,7 @@ function CatalogFilter() {
       };
 
       return [
-        { value: '', title: 'Все категории' }, // Вариант "все"
+        { value: '', title: 'Все' },
         ...buildHierarchy(select.categories),
       ];
     }, [select.categories]),

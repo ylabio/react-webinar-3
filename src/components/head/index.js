@@ -1,10 +1,12 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
+import LoginButton from '../login-button';
 import './style.css';
 
 function Head({ title, children }) {
   return (
     <div className="Head">
+      <LoginButton/>
       <div className="Head-container">
         <h1>{title}</h1>
         <div className="Head-place">{children}</div>
