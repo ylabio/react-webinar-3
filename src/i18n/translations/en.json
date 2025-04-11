@@ -11,6 +11,8 @@
   "basket.delete": "Delete",
   "article.add": "Add",
   "filter.reset": "Reset",
+  "user.authIn":"Enter",
+  "user.authOut":"Exit",
   "basket.articles": {
     "one": "article",
     "other": "articles"

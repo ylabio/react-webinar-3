@@ -11,6 +11,8 @@
   "basket.delete": "Удалить",
   "article.add": "Добавить",
   "filter.reset": "Сбросить",
+  "user.authIn":"Вход",
+  "user.authOut":"Выход",
   "basket.articles": {
     "one": "товар",
     "few": "товара",
