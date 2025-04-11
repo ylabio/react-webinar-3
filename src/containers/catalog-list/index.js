@@ -1,11 +1,11 @@
 import { memo, useCallback } from 'react';
-import useStore from '../../hooks/use-store';
-import useSelector from '../../hooks/use-selector';
-import useTranslate from '../../hooks/use-translate';
 import Item from '../../components/item';
 import List from '../../components/list';
 import Pagination from '../../components/pagination';
 import Spinner from '../../components/spinner';
+import useSelector from '../../hooks/use-selector';
+import useStore from '../../hooks/use-store';
+import useTranslate from '../../hooks/use-translate';
 
 /**
  * Контейнер списка товаров с пагинацией
@@ -19,6 +19,7 @@ function CatalogList() {
     limit: state.catalog.params.limit,
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
     count: state.catalog.count,
     waiting: state.catalog.waiting,
   }));
@@ -36,9 +37,10 @@ function CatalogList() {
           limit: select.limit,
           sort: select.sort,
           query: select.query,
+          category: select.category,
         })}`;
       },
-      [select.limit, select.sort, select.query],
+      [select.limit, select.sort, select.query, select.category],
     ),
   };
 

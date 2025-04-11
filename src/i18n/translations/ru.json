@@ -11,10 +11,31 @@
   "basket.delete": "Удалить",
   "article.add": "Добавить",
   "filter.reset": "Сбросить",
-  "basket.articles": {
-    "one": "товар",
-    "few": "товара",
-    "many": "товаров",
-    "other": "товара"
-  }
+  "filter.search": "Поиск",
+  "filter.order": "По порядку",
+  "filter.price": "Сначала дорогие",
+  "filter.title": "По именованию",
+  "filter.edition": "Древние",
+  "filter.category.all": "Все",
+
+  "basket.articles.one": "товар",
+  "basket.articles.few": "товара",
+  "basket.articles.many": "товаров",
+  "basket.articles.other": "товара",
+
+  "profile.title": "Профиль",
+  "profile.loading": "Загрузка...",
+  "profile.name": "Имя:",
+  "profile.phone": "Телефон:",
+  "profile.email": "Email:",
+
+  "auth.signIn": "Вход",
+  "auth.signOut": "Выход",
+
+  "login.title": "Вход",
+  "login.login": "Логин",
+  "login.login.placeholder": "Введите логин",
+  "login.password": "Пароль",
+  "login.password.placeholder": "Введите пароль",
+  "login.button": "Войти"
 }
