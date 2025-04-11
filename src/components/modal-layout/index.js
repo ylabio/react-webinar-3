@@ -40,14 +40,9 @@ function ModalLayout(props) {
 }
 
 ModalLayout.propTypes = {
-  title: PropTypes.string,
-  onClose: PropTypes.func,
-  children: PropTypes.node,
-};
-
-ModalLayout.defaultProps = {
-  title: 'Модалка',
-  onClose: () => {},
+  title: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default memo(ModalLayout);

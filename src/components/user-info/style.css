@@ -1,0 +1,32 @@
+.User {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-block: 24px;
+}
+
+.User h1 {
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.User-prop-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.User-prop {
+  display: flex;
+  gap: 8px;
+}
+
+.User-label {
+  min-width: 73px;
+}
+
+.User-value {
+  font-weight: bold;
+}

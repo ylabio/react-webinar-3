@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -9,6 +9,7 @@ import Head from '../../components/head';
 import Navigation from '../../containers/navigation';
 import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
+import AuthContainer from '../../containers/auth';
 import LocaleSelect from '../../containers/locale-select';
 
 /**
@@ -32,12 +33,12 @@ function Article() {
   const { t } = useTranslate();
 
   const callbacks = {
-    // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   };
 
   return (
     <>
+      <AuthContainer />
       <Head title={select.article.title}>
         <LocaleSelect />
       </Head>

@@ -5,6 +5,23 @@ import StoreModule from '../module';
  */
 class BasketState extends StoreModule {
   initState() {
+    const savedBasket = localStorage.getItem('basket');
+    if (savedBasket) {
+      try {
+        const parsed = JSON.parse(savedBasket);
+        // Проверяем структуру загруженных данных
+        if (
+          Array.isArray(parsed.list) &&
+          typeof parsed.sum === 'number' &&
+          typeof parsed.amount === 'number'
+        ) {
+          return parsed;
+        }
+      } catch (e) {
+        console.error('Ошибка при загрузке корзины из LocalStorage:', e);
+      }
+    }
+    // Возвращаем начальное состояние, если сохранённых данных нет
     return {
       list: [],
       sum: 0,
@@ -18,12 +35,11 @@ class BasketState extends StoreModule {
    */
   async addToBasket(_id) {
     let sum = 0;
-    // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
     const list = this.getState().list.map(item => {
       let result = item;
       if (item._id === _id) {
-        exist = true; // Запомним, что был найден в корзине
+        exist = true;
         result = { ...item, amount: item.amount + 1 };
       }
       sum += result.price * result.amount;
@@ -31,13 +47,10 @@ class BasketState extends StoreModule {
     });
 
     if (!exist) {
-      // Поиск товара в каталоге, чтобы его добавить в корзину.
       const response = await fetch(`/api/v1/articles/${_id}`);
       const json = await response.json();
       const item = json.result;
-
-      list.push({ ...item, amount: 1 }); // list уже новый, в него можно пушить.
-      // Добавляем к сумме.
+      list.push({ ...item, amount: 1 });
       sum += item.price;
     }
 
@@ -50,6 +63,7 @@ class BasketState extends StoreModule {
       },
       'Добавление в корзину',
     );
+    localStorage.setItem('basket', JSON.stringify(this.getState()));
   }
 
   /**
@@ -73,6 +87,7 @@ class BasketState extends StoreModule {
       },
       'Удаление из корзины',
     );
+    localStorage.setItem('basket', JSON.stringify(this.getState()));
   }
 }
 

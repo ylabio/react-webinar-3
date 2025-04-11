@@ -9,20 +9,15 @@ function BasketTotal({ sum, t }) {
   return (
     <div className={cn()}>
       <span className={cn('cell')}>{t('basket.total')}</span>
-      <span className={cn('cell')}> {numberFormat(sum)} ₽</span>
+      <span className={cn('cell')}> {numberFormat(sum, undefined, { maximumFractionDigits: 0 })} ₽</span>
       <span className={cn('cell')}></span>
     </div>
   );
 }
 
 BasketTotal.propTypes = {
-  sum: PropTypes.number,
-  t: PropTypes.func,
-};
-
-BasketTotal.defaultProps = {
-  sum: 0,
-  t: text => text,
+  sum: PropTypes.number.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 export default memo(BasketTotal);

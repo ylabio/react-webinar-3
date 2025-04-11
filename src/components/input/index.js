@@ -6,7 +6,6 @@ import debounce from 'lodash.debounce';
 import './style.css';
 
 function Input(props) {
-  // Внутренний стейт для быстрого отображения ввода
   const [value, setValue] = useState(props.value);
 
   const onChangeDebounce = useCallback(
@@ -14,13 +13,11 @@ function Input(props) {
     [props.onChange, props.name],
   );
 
-  // Обработчик изменений в поле
   const onChange = event => {
     setValue(event.target.value);
     onChangeDebounce(event.target.value);
   };
 
-  // Обновление стейта, если передан новый value
   useLayoutEffect(() => setValue(props.value), [props.value]);
 
   const cn = bem('Input');
@@ -36,18 +33,12 @@ function Input(props) {
 }
 
 Input.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.string.isRequired,
   name: PropTypes.string,
   type: PropTypes.string,
   placeholder: PropTypes.string,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
   theme: PropTypes.string,
-};
-
-Input.defaultProps = {
-  onChange: () => {},
-  type: 'text',
-  theme: '',
 };
 
 export default memo(Input);

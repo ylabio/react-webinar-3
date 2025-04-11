@@ -16,8 +16,8 @@ function Button({ onClick = () => {}, title, style, type = 'button' }) {
 }
 
 Button.propTypes = {
-  onClick: PropTypes.func,
-  title: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
   style: PropTypes.oneOf(['text', 'primary', 'delete', 'outline']),
   type: PropTypes.oneOf(['button', 'submit']),
 };

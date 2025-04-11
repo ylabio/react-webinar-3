@@ -22,17 +22,12 @@ function Menu({ items, onNavigate }) {
 Menu.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
-      key: PropTypes.number,
-      link: PropTypes.string,
-      title: PropTypes.string,
+      key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      link: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
     }),
-  ),
-  onNavigate: PropTypes.func,
-};
-
-Menu.defaultProps = {
-  items: [],
-  onNavigate: () => {},
+  ).isRequired,
+  onNavigate: PropTypes.func.isRequired,
 };
 
 export default memo(Menu);

@@ -5,14 +5,31 @@
   "basket.open": "Open",
   "basket.close": "Close",
   "basket.inBasket": "In cart",
-  "basket.empty": "empty",
+  "basket.empty": "Empty",
   "basket.total": "Total",
   "basket.unit": "pcs",
   "basket.delete": "Delete",
+  "article.country": "Country:",
+  "article.category": "Category:",
+  "article.edition": "Edition:",
+  "article.price": "Price:",
   "article.add": "Add",
+  "login.title": "Login",
+  "logout.title": "Logout",
+  "login.label": "Login",
+  "psw.label": "Password",
+  "login.btn": "Log in",
+  "profile.title": "Profile",
+  "input.search": "Search",
+  "placeholder.log": "Enter login",
+  "placeholder.psw": "Enter password",
+  "user.name": "Name:",
+  "user.phone": "Telephone:",
+  "user.email": "Email:",
   "filter.reset": "Reset",
   "basket.articles": {
     "one": "article",
-    "other": "articles"
+    "few": "articles",
+    "many": "articles"
   }
 }

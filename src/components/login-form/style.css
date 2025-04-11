@@ -1,0 +1,50 @@
+.Form {
+  margin-top: 24px;
+  color: var(--main-text);
+  font-weight: 400;
+}
+
+.Form h1 {
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.Form form {
+  margin: 24px 0;
+  width: 233px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.field label {
+  font-family: var(--font-family);
+  font-size: 14px;
+  line-height: 130%;
+}
+
+.field input {
+  padding: 8px 12px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  line-height: 130%;
+  border: 1px solid var(--filter-border);
+  border-radius: 4px;
+  outline: none;
+}
+
+.issues {
+  font-family: var(--font-family);
+  font-size: 12px;
+  line-height: 100%;
+  color: var(--delete);
+}

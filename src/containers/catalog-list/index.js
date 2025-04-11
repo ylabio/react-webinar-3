@@ -21,6 +21,7 @@ function CatalogList() {
     query: state.catalog.params.query,
     count: state.catalog.count,
     waiting: state.catalog.waiting,
+    category: state.catalog.params.category,
   }));
 
   const callbacks = {
@@ -31,14 +32,22 @@ function CatalogList() {
     // Генератор ссылки для пагинатора
     makePaginatorLink: useCallback(
       page => {
-        return `?${new URLSearchParams({
+        const urlParams = new URLSearchParams({
           page,
           limit: select.limit,
           sort: select.sort,
           query: select.query,
-        })}`;
+        });
+    
+        if (select.category?.length > 0) {
+          select.category.forEach(cat => {
+            urlParams.append('search[category]', cat);
+          });
+        }
+    
+        return `?${urlParams.toString()}`;
       },
-      [select.limit, select.sort, select.query],
+      [select.limit, select.sort, select.query, select.category],
     ),
   };
 

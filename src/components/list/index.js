@@ -1,6 +1,5 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
-import Item from '../item';
 import './style.css';
 
 function List({ list, renderItem }) {
@@ -18,14 +17,11 @@ function List({ list, renderItem }) {
 List.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({
-      _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      description: PropTypes.string,
     }),
   ).isRequired,
-  renderItem: PropTypes.func,
-};
-
-List.defaultProps = {
-  renderItem: item => {},
+  renderItem: PropTypes.func.isRequired,
 };
 
 export default memo(List);
