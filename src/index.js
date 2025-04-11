@@ -7,7 +7,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ProductPage from './app/product-page';
 import { getProductDetails } from './app/api/api';
 import { ROUTES } from './constants';
-import { LanguageProvider } from './hooks/useLanguage';
 
 const store = new Store();
 
@@ -27,9 +26,7 @@ const router = createBrowserRouter([
 
 // Первый рендер приложения
 root.render(
-  <LanguageProvider>
-    <StoreContext.Provider value={store}>
-      <RouterProvider router={router} />
-    </StoreContext.Provider>
-  </LanguageProvider>,
+  <StoreContext.Provider value={store}>
+    <RouterProvider router={router} />
+  </StoreContext.Provider>,
 );

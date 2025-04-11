@@ -1,4 +1,4 @@
-import { memo, useCallback, useContext, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -7,7 +7,6 @@ import List from '../../components/list';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
-import { LanguageContext } from '../../store/context';
 import StyledSelector from '../../components/styled-selector';
 import './style.css';
 import MainMenu from '../../components/main-menu';
@@ -16,7 +15,6 @@ import { ROUTES } from '../../constants';
 function Main() {
   const store = useStore();
   const [productsPerPage, setProductsPerPage] = useState(10);
-  const { setLanguage, translate, language } = useContext(LanguageContext);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -24,15 +22,17 @@ function Main() {
     sum: state.basket.sum,
     totalItems: state.catalog.totalItems,
     currentPage: state.catalog.currentPage,
+    language: state.settings.language,
+    dictionary: state.settings.dictionary,
   }));
 
   useEffect(() => {
     store.actions.catalog.load({
       limit: productsPerPage,
       skip: productsPerPage * (select.currentPage - 1),
-      language,
+      language: select.language,
     });
-  }, [select.currentPage, productsPerPage, language]);
+  }, [select.currentPage, productsPerPage, select.language]);
 
   const callbacks = {
     // Добавление в корзину
@@ -42,6 +42,11 @@ function Main() {
     onCloseModal: useCallback(() => store.actions.modals.close(), [store]),
     changeProductsPerPage: setProductsPerPage,
     changePage: useCallback(page => store.actions.catalog.changePage(page), [store]),
+    translate: useCallback(key => store.actions.settings.translate(key), [store]),
+    changeLanguage: useCallback(
+      language => store.actions.settings.changeLanguage(language),
+      [store],
+    ),
   };
 
   const renders = {
@@ -52,28 +57,32 @@ function Main() {
             item={item}
             onAdd={callbacks.addToBasket}
             onCloseModal={callbacks.onCloseModal}
-            language={language}
-            title={translate('add')}
+            language={select.language}
+            title={callbacks.translate('add')}
           />
         );
       },
-      [callbacks.addToBasket],
+      [callbacks.addToBasket, callbacks.translate, select.language, callbacks.onCloseModal],
     ),
   };
 
   return (
     <PageLayout>
-      <Head title={translate('title')}>
-        <StyledSelector onChange={setLanguage} value={language} options={['en', 'ru']} />
+      <Head title={callbacks.translate('title')}>
+        <StyledSelector
+          onChange={callbacks.changeLanguage}
+          value={select.language}
+          options={select.dictionary}
+        />
       </Head>
-      <MainMenu to={ROUTES.MAIN} title={translate('home')}>
+      <MainMenu to={ROUTES.MAIN} title={callbacks.translate('home')}>
         <BasketTool
           onOpen={callbacks.openModalBasket}
           amount={select.amount}
           sum={select.sum}
-          cartTitle={translate('emptyCart')}
-          pluralForm={translate('item')}
-          language={language}
+          cartTitle={callbacks.translate('emptyCart')}
+          pluralForm={callbacks.translate('item')}
+          language={select.language}
         />
       </MainMenu>
       <List list={select.list} renderItem={renders.item} />
@@ -82,14 +91,14 @@ function Main() {
           onChange={callbacks.changeProductsPerPage}
           value={productsPerPage}
           options={[5, 10, 20]}
-          label={translate('productsPerPage')}
+          label={callbacks.translate('productsPerPage')}
         />
         <Pagination
           totalItems={select.totalItems}
           currentPage={select.currentPage}
           limit={productsPerPage}
           onPageChange={callbacks.changePage}
-          pageTitle={translate('page')}
+          pageTitle={callbacks.translate('page')}
         />
       </div>
     </PageLayout>

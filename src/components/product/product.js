@@ -3,7 +3,7 @@ import Button from '../button';
 
 import './style.css';
 
-function Product({ product, onAddToBasket, renderProductDetails, title, buttonTitle }) {
+function Product({ product, onAddToBasket, renderProductDetails, buttonTitle }) {
   return (
     <div className="Product">
       <span>{product.description}</span>
