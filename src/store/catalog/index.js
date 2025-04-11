@@ -16,7 +16,7 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
-        category: null,
+        category: '',
       },
       categoryList: [],
       count: 0,
@@ -39,7 +39,7 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
-    if (urlParams.has('category')) validParams.category = urlParams.get('query')
+    if (urlParams.has('category')) validParams.category = urlParams.get('category')
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
@@ -108,6 +108,10 @@ class CatalogState extends StoreModule {
     );
   }
 
+  /**
+   * Загрузка списка категорий товаров
+   * @returns {Promise<void>}
+   */
   async loadCategoryList() {
     this.setState({
       ...this.getState(),
