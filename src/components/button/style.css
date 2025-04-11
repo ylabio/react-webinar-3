@@ -39,3 +39,26 @@
     color: var(--primary);
   }
 }
+
+.Button_style_text-auth {
+  padding: 0;
+  border: none;
+  color: var(--primary);
+
+  &:hover {
+    color: var(--main-text);
+  }
+}
+
+.Button_style_text-user {
+  padding: 0;
+  border: none;
+  color: var(--main-text);
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+
+  &:hover {
+    color: var(--primary);
+  }
+}

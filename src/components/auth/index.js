@@ -42,10 +42,10 @@ function Auth() {
     <div className="Auth">
       <div className="Auth-container">
         {select.isUserLogged && (
-          <Button style="text" onClick={() => navigateTo('/profile')} title={select.userName} />
+          <Button style="text-user" onClick={() => navigateTo('/profile')} title={select.userName} />
         )}
         <Button
-          style="text"
+          style="text-auth"
           onClick={checkUser}
           title={!select.isUserLogged ? t('user.authIn') : t('user.authOut')}
         />
