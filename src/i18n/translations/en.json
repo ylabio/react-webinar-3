@@ -14,5 +14,13 @@
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "logIn": "LogIn",
+  "logOut": "LogOut",
+  "login": "Login",
+  "placeholderLogin": "Enter login",
+  "password": "Password",
+  "placeholderPassword": "Enter password",
+  "logInButton": "Login In",
+  "incorrectData": "Incorrect login or password"
 }

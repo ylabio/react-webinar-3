@@ -68,7 +68,7 @@ function CatalogFilter() {
         value={select.query}
         onChange={callbacks.onSearch}
         placeholder={'Поиск'}
-        delay={1000}
+        delay={600}
         theme={'big'}
       />
       <Button style="text" onClick={callbacks.onReset} title={t('filter.reset')} />

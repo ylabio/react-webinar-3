@@ -39,3 +39,9 @@
     color: var(--primary);
   }
 }
+
+.Button_style_auth {
+  &:hover {
+    color: var(--primary);
+  }
+}

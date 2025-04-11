@@ -16,5 +16,13 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "logIn": "Вход",
+  "logOut": "Выход",
+  "login": "Логин",
+  "placeholderLogin": "Введите логин",
+  "password": "Пароль",
+  "placeholderPassword": "Введите пароль",
+  "logInButton": "Войти",
+  "incorrectData": "Неверный логин или пароль"
 }

@@ -80,3 +80,17 @@ export function categoriesToSelectOptions(categories) {
 
   return result;
 }
+
+/**
+ * Валидация и выбор сообщения об ошибке на основе приоритета
+ * @param str1 {String} - основное сообщение об ошибке (проверяемое условие)
+ * @param str2 {String} - альтернативное сообщение (используется при выполнении условия)
+ * @returns {String} - выбранное сообщение об ошибке
+ */
+export function validErrorMessage(str1, str2) {
+  if (str1 === 'Incorrect data') {
+    return str2;
+  } else {
+    return str1;
+  }
+}
