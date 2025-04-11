@@ -1,3 +1,5 @@
+import { translation } from './locales';
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -24,12 +26,41 @@ export function codeGenerator(start = 0) {
   return () => ++start;
 }
 
+const defaultOptions = { style: 'currency', currency: 'RUB' };
+
 /**
  * Форматирование разрядов числа
  * @param value {Number}
  * @param options {Object}
  * @returns {String}
  */
-export function numberFormat(value, locale = 'ru-RU', options = {}) {
+export function numberFormat(value, locale = 'ru-RU', options = defaultOptions) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Создание массива чисел
+ * @param {number} start - начальное число
+ * @param {number} end - конечное число
+ * @returns {number[]} - массив чисел
+ */
+
+export const range = (start, end) => {
+  let length = end - start + 1;
+
+  return Array.from({ length }, (_, i) => i + start);
+};
+
+export const i18n = (locale, key) => translation[locale][key];
+
+export const getLanguage = () => {
+  const lang = navigator.language;
+
+  const dictionary = Object.keys(translation);
+
+  if (!dictionary.includes(lang)) {
+    return 'ru';
+  }
+
+  return lang;
+};

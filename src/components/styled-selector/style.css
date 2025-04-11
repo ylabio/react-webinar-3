@@ -1,0 +1,40 @@
+.Wrap {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  padding: 16px;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  font-family: 'Golos Text';
+}
+
+.Select {
+  border: 1px solid var(--primary);
+  padding: 5px 30px 5px 10px;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font: inherit;
+  cursor: pointer;
+  background: url('../../assets/icon/arrow.gif') no-repeat right 10px center;
+  background-position: right 10px center;
+  background-size: 12px 12px;
+
+  & option {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    font-family: 'Golos Text';
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.Select::-ms-expand {
+  display: none;
+}

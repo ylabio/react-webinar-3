@@ -1,0 +1,99 @@
+import { useLoaderData } from 'react-router-dom';
+import Head from '../../components/head';
+import PageLayout from '../../components/page-layout';
+import { getProductDetails } from '../api/api';
+import { memo, useCallback, useContext, useMemo } from 'react';
+import useStore from '../../hooks/use-store';
+import ProductDetails from '../../components/product-details/product-details';
+import Product from '../../components/product/product';
+import MainMenu from '../../components/main-menu';
+import { ROUTES } from '../../constants';
+import BasketTool from '../../components/basket-tool';
+import useSelector from '../../store/use-selector';
+import StyledSelector from '../../components/styled-selector';
+import { useTranslate } from '../../hooks/useTranslate';
+
+export async function loader({ params }) {
+  const result = await getProductDetails(params.id);
+
+  return { result };
+}
+
+function ProductPage() {
+  const store = useStore();
+  const { result: product } = useLoaderData();
+  const translate = useTranslate();
+
+  const select = useSelector(state => ({
+    amount: state.basket.amount,
+    sum: state.basket.sum,
+    language: state.settings.language,
+    dictionary: state.settings.dictionary,
+  }));
+
+  const callbacks = {
+    addToBasket: useCallback(_id => store.actions.basket.addToBasket(product._id), [store]),
+    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    changeLanguage: useCallback(
+      language => store.actions.settings.changeLanguage(language),
+      [store],
+    ),
+  };
+
+  const productDetails = useMemo(
+    () => [
+      { translationCode: translate('country'), id: 'madeIn' },
+      { translationCode: translate('category'), id: 'category' },
+      { translationCode: translate('productionYear'), id: 'edition' },
+    ],
+    [select.language, translate],
+  );
+
+  const renders = {
+    renderProductDetails: useCallback(
+      product => {
+        return (
+          <ProductDetails
+            product={product}
+            language={select.language}
+            priceTitle={translate('price')}
+            productDetails={productDetails}
+          />
+        );
+      },
+      [translate, select.language, productDetails],
+    ),
+  };
+
+  return (
+    <PageLayout>
+      <Head title={product.title}>
+        <StyledSelector
+          onChange={callbacks.changeLanguage}
+          value={select.language}
+          options={select.dictionary}
+        />
+      </Head>
+      <MainMenu to={ROUTES.MAIN} title={translate('home')}>
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+          cartTitle={translate('emptyCart')}
+          pluralForm={translate('item')}
+          language={select.language}
+        />
+      </MainMenu>
+      <Product
+        key={product._id}
+        product={product}
+        onAddToBasket={callbacks.addToBasket}
+        renderProductDetails={renders.renderProductDetails}
+        title={translate('home')}
+        buttonTitle={translate('add')}
+      />
+    </PageLayout>
+  );
+}
+
+export default memo(ProductPage);

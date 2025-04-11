@@ -1,0 +1,26 @@
+.Product-Back-Container {
+  padding: 24px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.Product-Back {
+  & span {
+    display: inline-block;
+  }
+  & span::after {
+    content: '';
+    width: 0px;
+    height: 1px;
+    display: block;
+    background: black;
+    transition: 300ms;
+  }
+
+  &:hover span::after {
+    width: 100%;
+  }
+}

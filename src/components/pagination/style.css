@@ -1,0 +1,47 @@
+.Navigation {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 16px;
+}
+
+.Visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+
+nav {
+  font: 400 16px/22px;
+  display: flex;
+  justify-content: center;
+}
+
+.Pagination {
+  display: flex;
+  gap: 2px;
+}
+
+.Pagination a {
+  display: flex;
+  place-content: center;
+  width: 22px;
+  height: 22px;
+
+  &:hover {
+    background-color: #6b4acb1a;
+    border-radius: 2px;
+  }
+}
+
+.Pagination a[aria-current='page'] {
+  background-color: var(--primary);
+  color: var(--second-text);
+  border-radius: 2px;
+}
