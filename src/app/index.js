@@ -1,9 +1,12 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import useStore from '../hooks/use-store';
 import useSelector from '../hooks/use-selector';
 import Main from './main';
 import Basket from './basket';
 import Article from './article';
+import Auth from './auth';
+import Profile from './profile';
 
 /**
  * Приложение
@@ -12,11 +15,22 @@ import Article from './article';
 function App() {
   const activeModal = useSelector(state => state.modals.name);
 
+  const store = useStore();
+
+  useEffect(() => {
+    const authToken = localStorage.getItem('authToken');
+    if (authToken) {
+      store.actions.auth.authorizate(authToken);
+    }
+  }, [])
+
   return (
     <>
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
+        <Route path={'/login'} element={<Auth />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
 
       {activeModal === 'basket' && <Basket />}

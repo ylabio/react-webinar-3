@@ -1,0 +1,24 @@
+.Profile {
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.Profile-info p {
+    margin: 0;
+}
+
+.Profile-info {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    gap: 12px;
+    padding-left: 0;
+    list-style: none;
+}
+
+.Profile-item-title {
+    display: inline-block;
+    width: 30%;
+}
