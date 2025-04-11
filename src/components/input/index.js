@@ -20,13 +20,6 @@ function Input({ onChange = () => {}, type = 'text', theme = '', ...props }) {
     onChangeDebounce(event.target.value);
   };
 
-  const closeSelect = e => {
-    e.stopPropagation();
-    if (props.isCatalog) {
-      props.onClose();
-    }
-  };
-
   // Обновление стейта, если передан новый value
   useLayoutEffect(() => setValue(props.value), [props.value]);
 
@@ -38,14 +31,11 @@ function Input({ onChange = () => {}, type = 'text', theme = '', ...props }) {
       type={type}
       placeholder={props.placeholder}
       onChange={onChangeValue}
-      onClick={closeSelect}
     />
   );
 }
 
 Input.propTypes = {
-  onClose: PropTypes.func,
-  isCatalog: PropTypes.bool,
   value: PropTypes.string,
   name: PropTypes.string,
   type: PropTypes.string,

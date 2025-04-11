@@ -7,6 +7,7 @@ import SelectIcon from '../../assets/icon/select-icon.svg';
 import './style.css';
 
 const CategorySelect = props => {
+  const [isShow, setIsShow] = useState(false);
   const { onChange = () => {}, categoryList = [], size = 'medium', value = {} } = props;
   const cn = bem('CategorySelect');
 
@@ -17,20 +18,36 @@ const CategorySelect = props => {
     } else {
       onChange(category._id);
     }
-    props.onClose(!props.isOpen);
+    setIsShow(prev => false);
   };
 
   const getCurrentItemClass = (category_id, category) => {
     return category_id === category._id ? `${cn('item')} active` : cn('item');
   };
 
+  const checkEvent = e => {
+    let parentSelect = e.target.closest(`div.${cn('item-default')}`);
+
+    if (parentSelect === null) {
+      setIsShow(prev => false);
+    }
+
+    return;
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', e => checkEvent(e), false);
+
+    return document.removeEventListener('click', e => checkEvent(e), false);
+  }, []);
+
   return (
     <div className={cn({ size })}>
-      <div className={cn('item-default')} onClick={() => props.onClose(!props.isOpen)}>
+      <div className={`${cn('item-default')}`} onClick={() => setIsShow(prev => !prev)}>
         {value.title}
-        <SelectIcon className={props.isOpen ? cn('icon-open') : cn('icon')} />
+        <SelectIcon className={isShow ? cn('icon-open') : cn('icon')} />
       </div>
-      {props.isOpen && (
+      {isShow && (
         <ul className={cn('list')}>
           {categoryList.map(category => (
             <li
@@ -56,9 +73,7 @@ CategorySelect.propTypes = {
       marker: PropTypes.string,
     }),
   ).isRequired,
-  onClose: PropTypes.func,
   value: PropTypes.object,
-  isOpen: PropTypes.bool,
   onChange: PropTypes.func,
   size: PropTypes.oneOf(['small', 'medium']),
 };

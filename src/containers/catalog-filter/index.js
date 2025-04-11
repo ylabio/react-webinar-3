@@ -12,7 +12,6 @@ import CategorySelect from '../../components/category-select';
  * Контейнер со всеми фильтрами каталога
  */
 function CatalogFilter() {
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
   const store = useStore();
 
@@ -37,14 +36,6 @@ function CatalogFilter() {
     ),
   };
 
-  const closeCategorySelect = (isClose = false) => {
-    if (isClose) {
-      setIsCategoryOpen(prev => isClose);
-    } else {
-      if (isCategoryOpen) setIsCategoryOpen(prev => false);
-    }
-  };
-
   const options = {
     sort: useMemo(() => [
       { value: 'order', title: 'По порядку' },
@@ -67,13 +58,10 @@ function CatalogFilter() {
         size="medium"
         value={select.category}
         onChange={callbacks.onChangeIdCategory}
-        isOpen={isCategoryOpen}
-        onClose={closeCategorySelect}
       />
       <Select
         options={options.sort}
         value={select.sort}
-        onClose={closeCategorySelect}
         onChange={callbacks.onSort}
         size="medium"
       />
@@ -83,8 +71,6 @@ function CatalogFilter() {
         placeholder={'Поиск'}
         delay={600}
         theme={'big'}
-        onClose={closeCategorySelect}
-        isCatalog={true}
       />
       <Button style="text" onClick={callbacks.onReset} title={t('filter.reset')} />
     </SideLayout>
