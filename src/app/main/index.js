@@ -9,6 +9,7 @@ import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import useSelector from '../../hooks/use-selector';
+import AuthHeaderContainer from '../../containers/auth-header';
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -41,6 +42,7 @@ function Main() {
 
   return (
     <>
+      <AuthHeaderContainer />
       <Head title={headTitle}>
         <LocaleSelect />
       </Head>

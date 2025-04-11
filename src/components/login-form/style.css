@@ -1,0 +1,38 @@
+.LoginForm {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family);
+}
+
+.LoginForm h1 {
+  margin: 24px 0;
+  font-family: var(--second-font-family);
+}
+
+.LoginForm-input {
+  display: flex;
+  flex-direction: column;
+  max-width: 250px;
+  padding: 8px 0;
+}
+
+.LoginForm-input input {
+  padding: 9px;
+  border-radius: 4px;
+  border: 1px solid #d3d3d3;
+}
+
+.LoginForm-input label {
+  margin-bottom: 8px;
+}
+
+.LoginForm-actions {
+  margin-top: 46px;
+}
+
+.LoginForm-errors ul {
+  color: var(--delete);
+  list-style-type: none;
+  padding: 0;
+  font-size: 12px;
+}
