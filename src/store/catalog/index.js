@@ -11,11 +11,13 @@ class CatalogState extends StoreModule {
   initState() {
     return {
       list: [],
+      categories: [],
       params: {
         page: 1,
         limit: 10,
         sort: 'order',
         query: '',
+        category: '',
       },
       count: 0,
       waiting: false,
@@ -36,7 +38,23 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
+    
+    await this.loadCategories();
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
+  }
+
+  async loadCategories() {
+    try {
+      const response = await fetch('/api/v1/categories?fields=items(*,parent(_id))');
+      const json = await response.json();
+      this.setState({
+        ...this.getState(),
+        categories: json.result.items,
+      });
+    } catch (e) {
+      console.error('Error to load categories', e);
+    }
   }
 
   /**
@@ -63,12 +81,12 @@ class CatalogState extends StoreModule {
     // Установка новых параметров и признака загрузки
     this.setState(
       {
-        ...this.getState(),
-        params,
-        waiting: true,
-      },
-      'Установлены параметры каталога',
-    );
+      ...this.getState(),
+      params,
+      waiting: true,
+    },
+    'Установлены параметры каталога',
+  );
 
     // Сохранить параметры в адрес страницы
     let urlSearch = new URLSearchParams(params).toString();
@@ -87,17 +105,21 @@ class CatalogState extends StoreModule {
       'search[query]': params.query,
     };
 
+    if (params.category) {
+      apiParams['search[category]'] = params.category;
+    }
+
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
     this.setState(
       {
-        ...this.getState(),
-        list: json.result.items,
-        count: json.result.count,
-        waiting: false,
-      },
-      'Загружен список товаров из АПИ',
-    );
+      ...this.getState(),
+      list: json.result.items,
+      count: json.result.count,
+      waiting: false,
+    },
+    'Загружен список товаров из АПИ',
+  );
   }
 }
 

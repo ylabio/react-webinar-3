@@ -5,6 +5,7 @@ import useSelector from '../../hooks/use-selector';
 import Select from '../../components/select';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
+import CategorySelect from '../category-select';
 import Button from '../../components/button';
 
 /**
@@ -43,6 +44,7 @@ function CatalogFilter() {
 
   return (
     <SideLayout padding="medium">
+      <CategorySelect />
       <Select
         options={options.sort}
         value={select.sort}

@@ -10,6 +10,7 @@
   "basket.unit": "шт",
   "basket.delete": "Удалить",
   "article.add": "Добавить",
+  "filter.all": "Все",
   "filter.reset": "Сбросить",
   "basket.articles": {
     "one": "товар",
