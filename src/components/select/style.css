@@ -7,10 +7,20 @@
   font-family: var(--font-family);
   font-size: 16px;
   height: 40px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url(../../assets/icon/arrow.svg);
+  background-repeat: no-repeat;
+  background-position: right 18px center;
 }
 
 .Select:focus-visible {
   outline: none;
+}
+
+.Select:open {
+  background-image: url(../../assets/icon/arrow-rot-180-deg.svg);
 }
 
 .Select option:checked,

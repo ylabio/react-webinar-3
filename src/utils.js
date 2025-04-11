@@ -94,3 +94,17 @@ export function validErrorMessage(str1, str2) {
     return str1;
   }
 }
+
+/**
+ * Находит название категории по её ID
+ * @param {string} categoryId - ID искомой категории
+ * @param {Array} categories - Массив категорий вида {_id: string, title: string, parent?: {...}}
+ * @returns {string} Название категории или пустая строка, если не найдено
+ */
+export function getCategoryTitleById(categoryId, categories) {
+  if (!categoryId || !Array.isArray(categories)) return '';
+
+  const category = categories.find(cat => cat._id === categoryId);
+  
+  return category ? ` / ${category.title}` : '';
+}

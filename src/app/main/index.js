@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
@@ -11,6 +11,7 @@ import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import AuthBar from '../../components/auth-bar';
+import { getCategoryTitleById } from '../../utils';
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -29,9 +30,16 @@ function Main() {
 
   const select = useSelector(state => ({
     user: state.user.user,
+    category: state.catalog.params.category,
+    categories: state.catalog.categories,
   }));
 
   const { t } = useTranslate();
+
+  useEffect(() => {
+    const categoryTitle = getCategoryTitleById(select.category, select.categories);
+    document.title = `${t('title')}${categoryTitle}`;
+  }, [select.category, select.categories, t]);
 
   const callbacks = {
     // Редирект на страницу login
@@ -50,7 +58,7 @@ function Main() {
         userTitle={select.user?.username}
         onClickButton={select.user ? callbacks.onLogOut : callbacks.redirectToLogin}
       />
-      <Head title={t('title')}>
+      <Head title={`${t('title')}${getCategoryTitleById(select.category, select.categories)}`}>
         <LocaleSelect />
       </Head>
       <PageLayout>

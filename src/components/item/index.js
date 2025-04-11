@@ -41,10 +41,10 @@ Item.propTypes = {
   labelAdd: PropTypes.string,
 };
 
-// Item.defaultProps = {
-//   onAdd: () => {},
-//   labelCurr: '₽',
-//   labelAdd: 'Добавить',
-// };
+Item.defaultProps = {
+  onAdd: () => {},
+  labelCurr: '₽',
+  labelAdd: 'Добавить',
+};
 
 export default memo(Item);
