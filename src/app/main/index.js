@@ -1,4 +1,5 @@
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -18,11 +19,24 @@ import { getCategoryChain } from '../../utils';
 function Main() {
   const store = useStore();
   const { t } = useTranslate();
+  const [searchParams] = useSearchParams();
 
   const select = useSelector(state => ({
     category: state.catalog.params.category,
     categories: state.catalog.categories,
+    params: state.catalog.params,
   }));
+
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+    if (categoryParam !== select.params.category) {
+      store.actions.catalog.setParams({ 
+        ...select.params,
+        category: categoryParam || '',
+        page: 1
+      }, true);
+    }
+  }, [searchParams.get('category')]);
 
   useInit(
     () => {
@@ -38,7 +52,7 @@ function Main() {
 
   const breadcrumbs = useMemo(() => {
     const items = [{ key: 'shop', title: t('title'), link: '/' }];
-    
+
     categoryChain.forEach((category, index) => {
       items.push({
         key: category._id,
