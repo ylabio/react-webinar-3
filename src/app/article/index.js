@@ -4,13 +4,15 @@ import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
+import useTitle from '../../hooks/use-title';
+
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import Navigation from '../../containers/navigation';
 import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
-import Auth from "../../components/auth";
+import Auth from '../../components/auth';
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
@@ -31,6 +33,8 @@ function Article() {
   }));
 
   const { t } = useTranslate();
+
+  useTitle(`${t('title')} / ${select.article.title}`);
 
   const callbacks = {
     // Добавление в корзину

@@ -1,5 +1,9 @@
+import { memo } from 'react';
+
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
+
+import useTitle from '../../hooks/use-title';
 
 import './style.css';
 
@@ -8,6 +12,8 @@ function UserInfo() {
     userData: state.user.userInfo,
   }));
   const { t } = useTranslate();
+
+  useTitle(`${t('title')} / ${select.userData.name}`);
 
   return (
     <div className="UserInfo">
@@ -18,7 +24,7 @@ function UserInfo() {
           <span className="UserInfo-description">{select.userData.name}</span>
         </div>
         <div className="UserInfo-text">
-          <span className="UserInfo-category">{t("profile.phone")}:</span>
+          <span className="UserInfo-category">{t('profile.phone')}:</span>
           <span className="UserInfo-description">{select.userData.phone}</span>
         </div>
         <div className="UserInfo-text">
@@ -30,4 +36,4 @@ function UserInfo() {
   );
 }
 
-export default UserInfo;
+export default memo(UserInfo);

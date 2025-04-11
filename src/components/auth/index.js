@@ -1,11 +1,14 @@
-import './style.css';
 import { memo, useCallback } from 'react';
-import Button from '../button';
+import { useNavigate } from 'react-router-dom';
+import useStore from '../../hooks/use-store';
+
 import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
-import { Navigate, useNavigate } from 'react-router-dom';
 import { signOut } from '../../services';
-import useStore from '../../hooks/use-store';
+
+import Button from '../button';
+
+import './style.css';
 
 function Auth() {
   const { t } = useTranslate();
@@ -34,7 +37,6 @@ function Auth() {
       }
     }
   };
-
 
   return (
     <div className="Auth">

@@ -28,7 +28,7 @@ const CategorySelect = props => {
     <div className={cn({ size })}>
       <div className={cn('item-default')} onClick={() => props.onClose(!props.isOpen)}>
         {value.title}
-        <SelectIcon className={props.isOpen ? cn('icon-open'): cn('icon')} />
+        <SelectIcon className={props.isOpen ? cn('icon-open') : cn('icon')} />
       </div>
       {props.isOpen && (
         <ul className={cn('list')}>

@@ -1,4 +1,5 @@
 import StoreModule from '../module';
+
 import { getUserData } from '../../services';
 
 class UserState extends StoreModule {

@@ -1,10 +1,14 @@
+import { memo } from 'react';
+
+import useTranslate from '../../hooks/use-translate';
+
+import LocaleSelect from '../../containers/locale-select';
+import Navigation from '../../containers/navigation';
+import UserInfo from '../../components/user-info';
+
 import Auth from '../../components/auth';
 import Head from '../../components/head';
-import LocaleSelect from '../../containers/locale-select';
 import PageLayout from '../../components/page-layout';
-import Navigation from '../../containers/navigation';
-import useTranslate from '../../hooks/use-translate';
-import UserInfo from '../../components/user-info';
 
 function Profile() {
   const { t } = useTranslate();
@@ -22,4 +26,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default memo(Profile);
