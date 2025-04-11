@@ -40,7 +40,7 @@ function Main() {
     }
   });
 
-  const category = searchCategoryTitle ? `${t('title')}/${searchCategoryTitle}` : t('title');
+  const category = searchCategoryTitle ? `${t('title')} / ${searchCategoryTitle}` : t('title');
 
   // Костыль для замены тайтла во вкладке браузера
   useEffect(() => {
