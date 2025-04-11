@@ -1,15 +1,13 @@
-import { memo } from 'react';
 import Auth from '../../components/auth';
 import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
-import useTranslate from '../../hooks/use-translate';
 import PageLayout from '../../components/page-layout';
 import Navigation from '../../containers/navigation';
-import AuthForm from '../../components/auth-form';
+import useTranslate from '../../hooks/use-translate';
+import UserInfo from '../../components/user-info';
 
-function Login() {
+function Profile() {
   const { t } = useTranslate();
-
   return (
     <>
       <Auth />
@@ -18,10 +16,10 @@ function Login() {
       </Head>
       <PageLayout>
         <Navigation />
-        <AuthForm />
+        <UserInfo />
       </PageLayout>
     </>
   );
 }
 
-export default memo(Login);
+export default Profile;

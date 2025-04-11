@@ -10,6 +10,7 @@ function Auth() {
 
   const select = useSelector(state => ({
     isUserLogged: state.user.isAuth,
+    userName: state.user.userInfo.name,
   }));
 
   let navigateTo = useNavigate();
@@ -19,7 +20,14 @@ function Auth() {
   return (
     <div className="Auth">
       <div className="Auth-container">
-        <Button style="text" onClick={() => navigateTo('/login')} title={t('user.authIn')} />
+        {select.isUserLogged && (
+          <Button style="text" onClick={() => navigateTo('/profile')} title={select.userName} />
+        )}
+        <Button
+          style="text"
+          onClick={() => navigateTo('/login')}
+          title={!select.isUserLogged ? t('user.authIn') : t('user.authOut')}
+        />
       </div>
     </div>
   );

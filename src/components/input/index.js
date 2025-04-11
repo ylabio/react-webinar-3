@@ -10,7 +10,7 @@ function Input(props) {
   const [value, setValue] = useState(props.value);
 
   const onChangeDebounce = useCallback(
-    debounce(value => props.onChange(value, props.name), 600),
+    debounce(value => props.onChange(value, props.name), props.delay),
     [props.onChange, props.name],
   );
 
@@ -42,6 +42,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   theme: PropTypes.string,
+  delay: PropTypes.number.isRequired,
 };
 
 Input.defaultProps = {

@@ -1,17 +1,33 @@
 import './style.css';
-import Input from "../input";
-import {useEffect, useState} from "react";
-import Button from "../button";
+import Input from '../input';
+import { useEffect, useState } from 'react';
+import Button from '../button';
+import { authUser } from '../../services';
+import {useNavigate} from "react-router-dom";
 
 function AuthForm() {
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
-  const [isError, setIsError] = useState(true);
-  useState('')
+  const [login, setLogin] = useState('test');
+  const [password, setPassword] = useState('123456');
+  const [isError, setIsError] = useState(false);
+  const [errorMsq, setErrorMsq] = useState('');
+
+  const navigate = useNavigate();
+
+  const onSubmit = async () => {
+    const res = await authUser(login, password);
+    console.log('FORM', res);
+    if (res.error) {
+      setIsError(true);
+      setErrorMsq(res.error.data.issues[0].message);
+    } else {
+      navigate('/');
+      setIsError(false);
+    }
+  };
 
   useEffect(() => {
     console.log(login);
-  },[login])
+  }, [login]);
   return (
     <div className="AuthForm">
       <h1 className="AuthForm-title">Вход</h1>
@@ -22,7 +38,7 @@ function AuthForm() {
             value={login}
             onChange={setLogin}
             placeholder={'Введите логин'}
-            delay={1000}
+            delay={0}
             theme={'small'}
           />
         </label>
@@ -32,12 +48,12 @@ function AuthForm() {
             value={password}
             onChange={setPassword}
             placeholder={'Введите пароль'}
-            delay={1000}
+            delay={0}
             theme={'small'}
           />
         </label>
-        {isError && <div className="AuthForm-error">Текст ошибки от сервера</div>}
-        <Button style="primary" type="submit" title={'Войти'}></Button>
+        {isError && <div className="AuthForm-error">{errorMsq}</div>}
+        <Button style="primary" title={'Войти'} onClick={onSubmit}></Button>
       </form>
     </div>
   );
