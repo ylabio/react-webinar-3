@@ -16,5 +16,6 @@
     "other": "articles"
   },
   "head.entry": "Entry",
-  "head.exit": "Exit"
+  "head.exit": "Exit",
+  "login": "Login"
 }

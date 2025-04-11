@@ -1,0 +1,36 @@
+.LoginForm {
+  width: 233px;
+  max-width: 100%;
+}
+
+.LoginForm-caption {
+  margin: 0 0 31px;
+  line-height: 1;
+  font-size: 32px;
+  font-family: var(--second-font-family);
+}
+
+.LoginForm label {
+  display: block;
+  margin-bottom: 19px;
+}
+
+.LoginForm span {
+  display: block;
+  margin-bottom: 10px;
+
+  font-size: 14px;
+  line-height: 1;
+}
+
+.LoginForm input {
+  font-size: 14px;
+}
+
+.LoginForm-error {
+  margin: 0 0 23px;
+
+  font-size: 12px;
+  line-height: 1;
+  color: var(--delete);
+}
