@@ -24,6 +24,9 @@ function Main() {
     () => {
       store.actions.catalog.initParams();
       store.actions.catalog.loadCategoryList()
+      if(Boolean(localStorage.getItem('userToken'))) {
+        store.actions.user.loadUserInfo();  
+      }
     },
     [],
     true,
