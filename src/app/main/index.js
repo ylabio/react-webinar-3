@@ -8,12 +8,22 @@ import Head from '../../components/head';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
+import AuthBar from '../../components/auth-bar';
+import useSelector from '../../hooks/use-selector';
 
 /**
  * Главная страница - первичная загрузка каталога
  */
 function Main() {
   const store = useStore();
+
+  const select = useSelector(state => ({
+    categoryId: state.catalog.params.category,
+    categoryList: state.catalog.categoryList,
+  }));
+
+  const category = select.categoryList.find(item => item._id === select.categoryId);
+  const categoryTitle = category?.title.replaceAll('-', '').trim();
 
   useInit(
     () => {
@@ -27,7 +37,10 @@ function Main() {
 
   return (
     <>
-      <Head title={t('title')}>
+      <Head
+        title={`${t('title')} ${categoryTitle !== 'Все' ? ` / ${categoryTitle}` : ``}`}
+        TopBar={<AuthBar />}
+      >
         <LocaleSelect />
       </Head>
       <PageLayout>

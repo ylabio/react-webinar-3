@@ -16,7 +16,9 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
+        category: '',
       },
+      categoryList: [],
       count: 0,
       waiting: false,
     };
@@ -36,7 +38,9 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
+    await this.loadCategories()
   }
 
   /**
@@ -57,9 +61,60 @@ class CatalogState extends StoreModule {
    * @param [replaceHistory] {Boolean} Заменить адрес (true) или новая запись в истории браузера (false)
    * @returns {Promise<void>}
    */
+
+  async loadCategories() {
+    const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
+    const json = await response.json();
+  
+    const categories = json.result.items;
+
+    const map = {};
+    categories.forEach(item => {
+      map[item._id] = { ...item, children: [] };
+    });
+  
+    const parents = [];
+    categories.forEach(item => {
+      if (item.parent?._id) {
+        map[item.parent._id].children.push(map[item._id]);
+      } else {
+        parents.push(map[item._id]);
+      }
+    });
+  
+    const spreadCategories = (nodes, level = 0) => {
+
+      let result = [];
+    
+      for (const item of nodes) {
+        result.push({
+          _id: item._id,
+          title: `${' - '.repeat(level)} ${item.title}`
+        });
+ 
+        const children = spreadCategories(item.children, level + 1);
+        result = [...result, ...children]
+      }
+    
+      return result;
+    };
+  
+    const resultList = spreadCategories(parents);
+  
+    resultList.unshift({ _id: '', title: 'Все' });
+  
+    this.setState(
+      {
+        ...this.getState(),
+        categoryList: resultList,
+      },
+      'Загружен список категорий с иерархией',
+    );
+  }
+  
+
   async setParams(newParams = {}, replaceHistory = false) {
     const params = { ...this.getState().params, ...newParams };
-
     // Установка новых параметров и признака загрузки
     this.setState(
       {
@@ -86,6 +141,10 @@ class CatalogState extends StoreModule {
       sort: params.sort,
       'search[query]': params.query,
     };
+
+    if (params.category !== '') {
+      apiParams['search[category]'] = params.category;
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();

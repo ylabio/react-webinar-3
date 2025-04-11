@@ -1,22 +1,4 @@
-.Head {
-  color: var(--primary);
-  border-bottom: 1px solid var(--divider);
-}
-
-.Head-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1152px;
-  margin: 0 auto;
-
-  padding: 16px 0;
-}
-
-.Head h1 {
-  margin: 0;
-}
-.Head-account {
+.AuthBar-account {
   width: 1440;
   height: 38;
   gap: 8px;
@@ -30,7 +12,7 @@
   background: #efefef;
 }
 
-.Head-account-container {
+.AuthBar-account-container {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -38,7 +20,7 @@
   margin: 0 auto;
   gap: 24px;
 }
-.Head-account-container-link {
+.AuthBar-account-container-link {
   font-family: 'Montserrat Alternates';
   font-weight: 700;
   font-size: 14px;
@@ -49,7 +31,7 @@
   color: #6b4acb;
 }
 
-.Head-account-name {
+.AuthBar-account-name {
   font-family: 'Golos Text';
   font-weight: 400;
   font-size: 16px;
