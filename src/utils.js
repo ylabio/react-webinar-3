@@ -31,5 +31,7 @@ export function codeGenerator(start = 0) {
  * @returns {String}
  */
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
-  return new Intl.NumberFormat(locale, options).format(value);
+  return new Intl.NumberFormat(locale, { maximumFractionDigits: 0, ...options }).format(
+    Number(value) || 0,
+  );
 }
