@@ -11,6 +11,7 @@ import { ROUTES } from '../../constants';
 import BasketTool from '../../components/basket-tool';
 import useSelector from '../../store/use-selector';
 import StyledSelector from '../../components/styled-selector';
+import { useTranslate } from '../../hooks/useTranslate';
 
 export async function loader({ params }) {
   const result = await getProductDetails(params.id);
@@ -21,6 +22,7 @@ export async function loader({ params }) {
 function ProductPage() {
   const store = useStore();
   const { result: product } = useLoaderData();
+  const translate = useTranslate();
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
@@ -32,7 +34,6 @@ function ProductPage() {
   const callbacks = {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(product._id), [store]),
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    translate: useCallback(key => store.actions.settings.translate(key), [store]),
     changeLanguage: useCallback(
       language => store.actions.settings.changeLanguage(language),
       [store],
@@ -41,11 +42,11 @@ function ProductPage() {
 
   const productDetails = useMemo(
     () => [
-      { translationCode: callbacks.translate('country'), id: 'madeIn' },
-      { translationCode: callbacks.translate('category'), id: 'category' },
-      { translationCode: callbacks.translate('productionYear'), id: 'edition' },
+      { translationCode: translate('country'), id: 'madeIn' },
+      { translationCode: translate('category'), id: 'category' },
+      { translationCode: translate('productionYear'), id: 'edition' },
     ],
-    [select.language, callbacks.translate],
+    [select.language, translate],
   );
 
   const renders = {
@@ -55,12 +56,12 @@ function ProductPage() {
           <ProductDetails
             product={product}
             language={select.language}
-            priceTitle={callbacks.translate('price')}
+            priceTitle={translate('price')}
             productDetails={productDetails}
           />
         );
       },
-      [callbacks.translate],
+      [translate, select.language, productDetails],
     ),
   };
 
@@ -73,13 +74,13 @@ function ProductPage() {
           options={select.dictionary}
         />
       </Head>
-      <MainMenu to={ROUTES.MAIN} title={callbacks.translate('home')}>
+      <MainMenu to={ROUTES.MAIN} title={translate('home')}>
         <BasketTool
           onOpen={callbacks.openModalBasket}
           amount={select.amount}
           sum={select.sum}
-          cartTitle={callbacks.translate('emptyCart')}
-          pluralForm={callbacks.translate('item')}
+          cartTitle={translate('emptyCart')}
+          pluralForm={translate('item')}
           language={select.language}
         />
       </MainMenu>
@@ -88,8 +89,8 @@ function ProductPage() {
         product={product}
         onAddToBasket={callbacks.addToBasket}
         renderProductDetails={renders.renderProductDetails}
-        title={callbacks.translate('home')}
-        buttonTitle={callbacks.translate('add')}
+        title={translate('home')}
+        buttonTitle={translate('add')}
       />
     </PageLayout>
   );

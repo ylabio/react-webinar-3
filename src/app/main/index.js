@@ -11,10 +11,12 @@ import StyledSelector from '../../components/styled-selector';
 import './style.css';
 import MainMenu from '../../components/main-menu';
 import { ROUTES } from '../../constants';
+import { useTranslate } from '../../hooks/useTranslate';
 
 function Main() {
   const store = useStore();
   const [productsPerPage, setProductsPerPage] = useState(10);
+  const translate = useTranslate();
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -42,7 +44,6 @@ function Main() {
     onCloseModal: useCallback(() => store.actions.modals.close(), [store]),
     changeProductsPerPage: setProductsPerPage,
     changePage: useCallback(page => store.actions.catalog.changePage(page), [store]),
-    translate: useCallback(key => store.actions.settings.translate(key), [store]),
     changeLanguage: useCallback(
       language => store.actions.settings.changeLanguage(language),
       [store],
@@ -58,30 +59,30 @@ function Main() {
             onAdd={callbacks.addToBasket}
             onCloseModal={callbacks.onCloseModal}
             language={select.language}
-            title={callbacks.translate('add')}
+            title={translate('add')}
           />
         );
       },
-      [callbacks.addToBasket, callbacks.translate, select.language, callbacks.onCloseModal],
+      [callbacks.addToBasket, translate, select.language, callbacks.onCloseModal],
     ),
   };
 
   return (
     <PageLayout>
-      <Head title={callbacks.translate('title')}>
+      <Head title={translate('title')}>
         <StyledSelector
           onChange={callbacks.changeLanguage}
           value={select.language}
           options={select.dictionary}
         />
       </Head>
-      <MainMenu to={ROUTES.MAIN} title={callbacks.translate('home')}>
+      <MainMenu to={ROUTES.MAIN} title={translate('home')}>
         <BasketTool
           onOpen={callbacks.openModalBasket}
           amount={select.amount}
           sum={select.sum}
-          cartTitle={callbacks.translate('emptyCart')}
-          pluralForm={callbacks.translate('item')}
+          cartTitle={translate('emptyCart')}
+          pluralForm={translate('item')}
           language={select.language}
         />
       </MainMenu>
@@ -91,14 +92,14 @@ function Main() {
           onChange={callbacks.changeProductsPerPage}
           value={productsPerPage}
           options={[5, 10, 20]}
-          label={callbacks.translate('productsPerPage')}
+          label={translate('productsPerPage')}
         />
         <Pagination
           totalItems={select.totalItems}
           currentPage={select.currentPage}
           limit={productsPerPage}
           onPageChange={callbacks.changePage}
-          pageTitle={callbacks.translate('page')}
+          pageTitle={translate('page')}
         />
       </div>
     </PageLayout>
