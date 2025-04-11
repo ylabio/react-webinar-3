@@ -1,11 +1,11 @@
 import { cn as bem } from '@bem-react/classname';
 import { memo, useCallback, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import AuthNavigationLayout from '../../components/auth-navigation-layout';
 import Menu from '../../components/menu';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
-import './style.css';
 
 function AuthNavigation() {
   const store = useStore();
@@ -60,11 +60,9 @@ function AuthNavigation() {
   const cn = bem('AuthNavigation');
 
   return (
-    <div className={cn()}>
-      <div className={cn('container')}>
-        <Menu items={options} />
-      </div>
-    </div>
+    <AuthNavigationLayout>
+      <Menu items={options} />
+    </AuthNavigationLayout>
   );
 }
 

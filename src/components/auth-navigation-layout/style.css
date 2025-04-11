@@ -1,9 +1,9 @@
-.AuthNavigation {
+.AuthNavigationLayout {
   background-color: var(--second-background);
   padding: 8px 20px;
 }
 
-.AuthNavigation button {
+.AuthNavigationLayout button {
   font-family: var(--second-font-family);
   color: var(--primary);
   font-weight: bold;
@@ -15,7 +15,7 @@
   }
 }
 
-.AuthNavigation-container {
+.AuthNavigationLayout-container {
   display: flex;
   gap: 24px;
   justify-content: flex-end;
