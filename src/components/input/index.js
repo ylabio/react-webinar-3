@@ -11,7 +11,7 @@ function Input(props) {
 
   const onChangeDebounce = useCallback(
     debounce(value => props.onChange(value, props.name), 600),
-    [props.onChange, props.name],
+    [props],
   );
 
   // Обработчик изменений в поле
@@ -44,10 +44,10 @@ Input.propTypes = {
   theme: PropTypes.string,
 };
 
-Input.defaultProps = {
-  onChange: () => {},
-  type: 'text',
-  theme: '',
-};
+// Input.defaultProps = {
+//   onChange: () => {},
+//   type: 'text',
+//   theme: '',
+// };
 
 export default memo(Input);
