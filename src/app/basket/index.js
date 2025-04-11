@@ -9,7 +9,7 @@ import { LanguageContext } from '../../store/context';
 
 function Basket() {
   const store = useStore();
-  const { translate } = useContext(LanguageContext);
+  const { translate, language } = useContext(LanguageContext);
 
   const select = useSelector(state => ({
     list: state.basket.list,
@@ -32,6 +32,9 @@ function Basket() {
             item={item}
             onRemove={callbacks.removeFromBasket}
             onCloseModal={callbacks.closeModal}
+            language={language}
+            title={translate('remove')}
+            units={translate('pcs')}
           />
         );
       },
@@ -42,7 +45,7 @@ function Basket() {
   return (
     <ModalLayout title={translate('cart')} onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <BasketTotal sum={select.sum} language={language} totalTitle={translate('total')} />
     </ModalLayout>
   );
 }

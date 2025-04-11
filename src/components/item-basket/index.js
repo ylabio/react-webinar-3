@@ -7,12 +7,10 @@ import Button from '../button';
 import './style.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants';
-import { LanguageContext } from '../../store/context';
 
 function ItemBasket(props) {
   const navigate = useNavigate();
   const cn = bem('ItemBasket');
-  const { translate, language } = useContext(LanguageContext);
 
   const callbacks = {
     onRemove: useCallback(
@@ -39,11 +37,11 @@ function ItemBasket(props) {
         <h4 className={cn('title')}>{props.item.title}</h4>
         <div className={cn('right')}>
           <div className={cn('cell')}>
-            {numberFormat(props.item.amount || 0, undefined, {})} {translate('pcs')}
+            {numberFormat(props.item.amount || 0, undefined, {})} {props.units}
           </div>
-          <div className={cn('cell')}>{numberFormat(props.item.price, language)}</div>
+          <div className={cn('cell')}>{numberFormat(props.item.price, props.language)}</div>
           <div className={cn('cell')}>
-            <Button style="delete" onClick={callbacks.onRemove} title={translate('remove')} />
+            <Button style="delete" onClick={callbacks.onRemove} title={props.title} />
           </div>
         </div>
       </div>
@@ -60,11 +58,13 @@ ItemBasket.propTypes = {
   }).isRequired,
   onRemove: propTypes.func,
   onCloseModal: propTypes.func,
+  units: propTypes.string,
+  language: propTypes.string,
+  title: propTypes.string,
 };
 
 ItemBasket.defaultProps = {
   onRemove: () => {},
-  onCloseModal: () => {},
 };
 
 export default memo(ItemBasket);

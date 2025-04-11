@@ -48,7 +48,13 @@ function Main() {
     item: useCallback(
       item => {
         return (
-          <Item item={item} onAdd={callbacks.addToBasket} onCloseModal={callbacks.onCloseModal} />
+          <Item
+            item={item}
+            onAdd={callbacks.addToBasket}
+            onCloseModal={callbacks.onCloseModal}
+            language={language}
+            title={translate('add')}
+          />
         );
       },
       [callbacks.addToBasket],
@@ -61,7 +67,14 @@ function Main() {
         <StyledSelector onChange={setLanguage} value={language} options={['en', 'ru']} />
       </Head>
       <MainMenu to={ROUTES.MAIN} title={translate('home')}>
-        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+          cartTitle={translate('emptyCart')}
+          pluralForm={translate('item')}
+          language={language}
+        />
       </MainMenu>
       <List list={select.list} renderItem={renders.item} />
       <div className="Wrap">
@@ -76,6 +89,7 @@ function Main() {
           currentPage={select.currentPage}
           limit={productsPerPage}
           onPageChange={callbacks.changePage}
+          pageTitle={translate('page')}
         />
       </div>
     </PageLayout>

@@ -64,7 +64,14 @@ function ProductPage() {
         <StyledSelector onChange={setLanguage} value={language} options={['en', 'ru']} />
       </Head>
       <MainMenu to={ROUTES.MAIN} title={translate('home')}>
-        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+          cartTitle={translate('emptyCart')}
+          pluralForm={translate('item')}
+          language={language}
+        />
       </MainMenu>
       <Product
         key={product._id}

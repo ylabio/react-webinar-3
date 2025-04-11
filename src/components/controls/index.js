@@ -1,19 +1,18 @@
-import { memo, useContext } from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import { LanguageContext } from '../../store/context';
 
-function Controls({ onAdd = () => {} }) {
-  const { translate } = useContext(LanguageContext);
+function Controls({ onAdd = () => {}, title }) {
   return (
     <div className="Controls">
-      <button onClick={() => onAdd()}>{translate('add')}</button>
+      <button onClick={() => onAdd()}>{title}</button>
     </div>
   );
 }
 
 Controls.propTypes = {
   onAdd: PropTypes.func,
+  title: PropTypes.string,
 };
 
 export default memo(Controls);

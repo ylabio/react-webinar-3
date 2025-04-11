@@ -6,11 +6,9 @@ import Button from '../button';
 import './style.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants';
-import { LanguageContext } from '../../store/context';
 
 function Item(props) {
   const cn = bem('Item');
-  const { translate, language } = useContext(LanguageContext);
   const navigate = useNavigate();
 
   const callbacks = {
@@ -32,8 +30,8 @@ function Item(props) {
         {/*<div className={cn('code')}>{props.item._id}</div>*/}
         <h4 className={cn('title')}>{props.item.title}</h4>
         <div className={cn('actions')}>
-          <div className={cn('price')}>{numberFormat(props.item.price, language)}</div>
-          <Button style="primary" onClick={callbacks.onAdd} title={translate('add')} />
+          <div className={cn('price')}>{numberFormat(props.item.price, props.language)}</div>
+          <Button style="primary" onClick={callbacks.onAdd} title={props.title} />
         </div>
       </div>
     </Link>
@@ -47,10 +45,14 @@ Item.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
+  onCloseModal: PropTypes.func,
+  language: PropTypes.string,
+  title: PropTypes.string,
 };
 
 Item.defaultProps = {
   onAdd: () => {},
+  onCloseModal: () => {},
 };
 
 export default memo(Item);
