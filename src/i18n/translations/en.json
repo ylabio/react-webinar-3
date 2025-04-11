@@ -1,5 +1,13 @@
 {
   "title": "Shop",
+  "auth.title": "Authorization",
+  "auth.login": "Login",
+  "auth.loginButton": "Login",
+  "auth.logout": "Logout",
+  "auth.profile": "Profile",
+  "auth.loginPlaceholder": "Username",
+  "auth.passwordPlaceholder": "Password",
+  "profile.title": "Profile",
   "menu.main": "Main",
   "basket.title": "Cart",
   "basket.open": "Open",

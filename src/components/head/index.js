@@ -1,10 +1,12 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
+import AuthBar from '../auth-bar';
 import './style.css';
 
 function Head({ title, children }) {
   return (
     <div className="Head">
+      <AuthBar />
       <div className="Head-container">
         <h1>{title}</h1>
         <div className="Head-place">{children}</div>

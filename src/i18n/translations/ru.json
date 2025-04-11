@@ -1,5 +1,13 @@
 {
   "title": "Магазин",
+  "auth.title": "Авторизация",
+  "auth.login": "Вход",
+  "auth.loginButton": "Войти",
+  "auth.logout": "Выйти",
+  "auth.profile": "Профиль",
+  "auth.loginPlaceholder": "Логин",
+  "auth.passwordPlaceholder": "Пароль",
+  "profile.title": "Профиль",
   "menu.main": "Главная",
   "basket.title": "Корзина",
   "basket.open": "Перейти",

@@ -1,0 +1,22 @@
+.auth-bar {
+  background: var(--second-background);
+  padding: 8px 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.auth-bar__logged-in {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.auth-bar__profile-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-bar__profile-link:hover {
+  text-decoration: underline;
+}
