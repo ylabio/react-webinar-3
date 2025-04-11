@@ -33,3 +33,42 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Построение дерева категорий
+ */
+
+export function buildCategoriesTree(categories) {
+  const result = [];
+
+  const categoryMap = new Map(
+    categories.map(category => [category._id, { ...category, children: [] }]),
+  );
+
+  categories.forEach(category => {
+    if (category.parent) {
+      const parent = categoryMap.get(category.parent._id);
+      const child = categoryMap.get(category._id);
+      if (parent && child) {
+        parent.children.push(child);
+      }
+    }
+  });
+
+  const formatCategory = (category, level = 0) => {
+    const prefix = '-'.repeat(level);
+    result.push({
+      value: category._id,
+      title: `${prefix}${category.title}`,
+    });
+    category.children.forEach(child => formatCategory(child, level + 1));
+  };
+
+  const rootCategories = Array.from(categoryMap.values()).filter(category => !category.parent);
+
+  for (const rootCategory of rootCategories) {
+    formatCategory(rootCategory);
+  }
+
+  return result;
+}
