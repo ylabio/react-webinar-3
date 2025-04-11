@@ -56,10 +56,10 @@ function Main() {
   };
 
   return (
-    <PageLayout
-      head={<StyledSelector onChange={setLanguage} value={language} options={['en', 'ru']} />}
-    >
-      <Head title={translate('title')} />
+    <PageLayout>
+      <Head title={translate('title')}>
+        <StyledSelector onChange={setLanguage} value={language} options={['en', 'ru']} />
+      </Head>
       <MainMenu to={ROUTES.MAIN} title={translate('home')}>
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       </MainMenu>

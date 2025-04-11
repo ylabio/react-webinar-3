@@ -11,6 +11,7 @@ import MainMenu from '../../components/main-menu';
 import { ROUTES } from '../../constants';
 import BasketTool from '../../components/basket-tool';
 import useSelector from '../../store/use-selector';
+import StyledSelector from '../../components/styled-selector';
 
 export async function loader({ params }) {
   const result = await getProductDetails(params.id);
@@ -21,7 +22,7 @@ export async function loader({ params }) {
 function ProductPage() {
   const store = useStore();
   const { result: product } = useLoaderData();
-  const { translate, language } = useContext(LanguageContext);
+  const { translate, language, setLanguage } = useContext(LanguageContext);
   const productDetails = useMemo(
     () => [
       { translationCode: translate('country'), id: 'madeIn' },
@@ -58,7 +59,10 @@ function ProductPage() {
   };
 
   return (
-    <PageLayout head={<Head title={product.title} />}>
+    <PageLayout>
+      <Head title={product.title}>
+        <StyledSelector onChange={setLanguage} value={language} options={['en', 'ru']} />
+      </Head>
       <MainMenu to={ROUTES.MAIN} title={translate('home')}>
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       </MainMenu>
