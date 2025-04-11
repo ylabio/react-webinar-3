@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -8,12 +8,17 @@ import Head from '../../components/head';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
+import useSelector from '../../hooks/use-selector'
 
 /**
  * Главная страница - первичная загрузка каталога
  */
 function Main() {
   const store = useStore();
+  const select = useSelector(state => ({
+    category: state.catalog.params.category,
+    categoryList: state.catalog.categoryList
+  }))
 
   useInit(
     () => {
@@ -23,12 +28,24 @@ function Main() {
     [],
     true,
   );
-
+  
   const { t } = useTranslate();
+  
+  const  currentCategory  = select.category 
+    ? select.categoryList.find(category => category._id === select.category)?.title 
+    : null
+  
+  const currentTitle = currentCategory 
+    ? `${t('title')} / ${currentCategory }` 
+    : t('title')
+  
+  useEffect(() => {
+    document.title = currentTitle
+  }, [store.state.catalog])
 
   return (
     <>
-      <Head title={t('title')}>
+      <Head title={currentTitle}>
         <LocaleSelect />
       </Head>
       <PageLayout>
