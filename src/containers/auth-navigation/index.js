@@ -1,6 +1,6 @@
 import { cn as bem } from '@bem-react/classname';
 import { memo, useCallback, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Menu from '../../components/menu';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
@@ -9,6 +9,7 @@ import './style.css';
 
 function AuthNavigation() {
   const store = useStore();
+  const location = useLocation();
 
   const user = useSelector(state => state.auth.user);
 
@@ -24,11 +25,11 @@ function AuthNavigation() {
 
     linkLogin: useCallback(
       () => (
-        <Link to="/login">
+        <Link to="/login" replace state={{ from: location }}>
           <button>{t('auth.signIn')}</button>
         </Link>
       ),
-      [t],
+      [t, location],
     ),
 
     buttonSignOut: useCallback(
