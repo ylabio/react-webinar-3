@@ -12,7 +12,7 @@ import CategorySelect from '../../components/category-select';
  * Контейнер со всеми фильтрами каталога
  */
 function CatalogFilter() {
-  const [isCategoryOpen, setIsCategoryOpen] = useState(null);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
   const store = useStore();
 
@@ -38,7 +38,11 @@ function CatalogFilter() {
   };
 
   const closeCategorySelect = (isClose = false) => {
-    setIsCategoryOpen(isClose);
+    if (isClose) {
+      setIsCategoryOpen(prev => isClose);
+    } else {
+      if (isCategoryOpen) setIsCategoryOpen(prev => false);
+    }
   };
 
   const options = {
@@ -69,9 +73,9 @@ function CatalogFilter() {
       <Select
         options={options.sort}
         value={select.sort}
+        onClose={closeCategorySelect}
         onChange={callbacks.onSort}
         size="medium"
-        onClose={closeCategorySelect}
       />
       <Input
         value={select.query}

@@ -5,14 +5,18 @@ import './style.css';
 
 function Select(props) {
   const cn = bem('Select');
-  const { onChange = () => {}, options, value, size, text } = props;
+  const { onClose = () => {}, onChange = () => {}, options, value, size, text } = props;
   const onSelect = e => {
     onChange(e.target.value);
-
   };
 
   return (
-    <select className={cn({ size, text: !!text })} value={value} onChange={onSelect} onClick={() =>props.onClose(false)}>
+    <select
+      className={cn({ size, text: !!text })}
+      value={value}
+      onClick={() => onClose(false)}
+      onChange={onSelect}
+    >
       {options.map(item => (
         <option key={item.value} value={item.value}>
           {item.title}
@@ -29,7 +33,7 @@ Select.propTypes = {
       title: PropTypes.string,
     }),
   ).isRequired,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
   value: PropTypes.any,
   onChange: PropTypes.func,
   size: PropTypes.oneOf(['small', 'medium']),

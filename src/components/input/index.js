@@ -5,27 +5,27 @@ import debounce from 'lodash.debounce';
 
 import './style.css';
 
-function Input(props) {
+function Input({ onChange = () => {}, type = 'text', theme = '', ...props }) {
   // Внутренний стейт для быстрого отображения ввода
   const [value, setValue] = useState(props.value);
 
   const onChangeDebounce = useCallback(
-    debounce(value => props.onChange(value, props.name), props.delay),
+    debounce(value => onChange(value, props.name), props.delay),
     [props.onChange, props.name],
   );
 
   // Обработчик изменений в поле
-  const onChange = event => {
+  const onChangeValue = event => {
     setValue(event.target.value);
     onChangeDebounce(event.target.value);
   };
 
-  const closeSelect = (e) => {
+  const closeSelect = e => {
     e.stopPropagation();
     if (props.isCatalog) {
-      props.onClose(false);
+      props.onClose();
     }
-  }
+  };
 
   // Обновление стейта, если передан новый value
   useLayoutEffect(() => setValue(props.value), [props.value]);
@@ -33,11 +33,11 @@ function Input(props) {
   const cn = bem('Input');
   return (
     <input
-      className={cn({ theme: props.theme })}
+      className={cn({ theme: theme })}
       value={value}
-      type={props.type}
+      type={type}
       placeholder={props.placeholder}
-      onChange={onChange}
+      onChange={onChangeValue}
       onClick={closeSelect}
     />
   );
@@ -55,10 +55,5 @@ Input.propTypes = {
   delay: PropTypes.number.isRequired,
 };
 
-Input.defaultProps = {
-  onChange: () => {},
-  type: 'text',
-  theme: '',
-};
 
 export default memo(Input);

@@ -21,8 +21,8 @@
   "profile": "Profile",
   "profile.name": "Name",
   "profile.phone": "Phone",
-  "basket.articles": {
-    "one": "article",
-    "other": "articles"
-  }
+  "basket.articles.one": "article",
+  "basket.articles.few": "articles",
+  "basket.articles.many": "articles",
+  "basket.articles.other": "articles"
 }
