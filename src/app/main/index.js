@@ -38,7 +38,7 @@ function Main() {
   return (
     <>
       <Head
-        title={`${t('title')} ${categoryTitle !== 'Все' ? ` / ${categoryTitle}` : ``}`}
+        title={`${t('title')}${categoryTitle && categoryTitle !== 'Все' ? ` / ${categoryTitle}` : ''}`}
         TopBar={<AuthBar />}
       >
         <LocaleSelect />

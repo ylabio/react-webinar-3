@@ -1,4 +1,4 @@
-import { memo,  useEffect } from 'react';
+import { memo, useEffect } from 'react';
 
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -9,12 +9,14 @@ import LocaleSelect from '../../containers/locale-select';
 import ProfileInfo from '../../components/profile-info';
 import { useNavigate } from 'react-router-dom';
 import AuthBar from '../../components/auth-bar';
+import useStore from '../../hooks/use-store';
 
 /**
  * Страница авторизации
  */
 function Profile() {
   const navigate = useNavigate();
+  const store = useStore();
 
   const select = useSelector(state => ({
     token: state.user.token,
@@ -25,10 +27,21 @@ function Profile() {
   const { t } = useTranslate();
 
   useEffect(() => {
-    if (!select.token) {
-      navigate('/login');
-    }
-  }, [select.token]);
+    const token = select.token;
+
+    const checkAndRedirect = async () => {
+      try {
+        await store.actions.user.initUser();
+        if (!token) {
+          navigate('/login');
+        }
+      } catch {
+        navigate('/login');
+      }
+    };
+
+    checkAndRedirect();
+  }, [navigate, store, select.token]);
 
   return (
     <>
