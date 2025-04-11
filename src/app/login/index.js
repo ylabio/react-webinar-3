@@ -7,6 +7,8 @@ import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import AuthInput from '../../components/auth-input';
 import Button from '../../components/button';
+import LocaleSelect from '../../containers/locale-select';
+import Navigation from '../../containers/navigation';
 
 function Login() {
   const store = useStore();
@@ -47,39 +49,44 @@ function Login() {
   };
 
   return (
-    <PageLayout>
-      <Head title={t('auth.title')} />
-      <div style={{ maxWidth: '400px' }}>
-        <h2>{t('auth.login')}</h2>
-        <form onSubmit={callbacks.onSubmit}>
-          <div style={{ marginBottom: '1rem' }}>
-            <AuthInput 
-              value={form.login}
-              onChange={(value) => callbacks.onChangeField('login', value)}
-              placeholder={t('auth.loginPlaceholder')}
+    <>
+      <Head title={t('title')}>
+        <LocaleSelect />
+      </Head>
+      <PageLayout>
+        <Navigation />
+        <div style={{ maxWidth: '400px' }}>
+          <h2>{t('auth.login')}</h2>
+          <form onSubmit={callbacks.onSubmit}>
+            <div style={{ marginBottom: '1rem' }}>
+              <AuthInput 
+                value={form.login}
+                onChange={(value) => callbacks.onChangeField('login', value)}
+                placeholder={t('auth.loginPlaceholder')}
+              />
+            </div>
+            <div style={{ marginBottom: '1rem' }}>
+              <AuthInput 
+                value={form.password}
+                onChange={(value) => callbacks.onChangeField('password', value)}
+                type="password"
+                placeholder={t('auth.passwordPlaceholder')}
+              />
+            </div>
+            <Button 
+              type="submit" 
+              title={t('auth.loginButton')} 
+              style="primary"
             />
-          </div>
-          <div style={{ marginBottom: '1rem' }}>
-            <AuthInput 
-              value={form.password}
-              onChange={(value) => callbacks.onChangeField('password', value)}
-              type="password"
-              placeholder={t('auth.passwordPlaceholder')}
-            />
-          </div>
-          <Button 
-            type="submit" 
-            title={t('auth.loginButton')} 
-            style="primary"
-          />
-        </form>
-        {select.loginError && (
-          <div style={{ color: 'red', marginTop: '1rem' }}>
-            {select.loginError}
-          </div>
-        )}
-      </div>
-    </PageLayout>
+          </form>
+          {select.loginError && (
+            <div style={{ color: 'red', marginTop: '1rem' }}>
+              {select.loginError}
+            </div>
+          )}
+        </div>
+      </PageLayout>
+    </>
   );
 }
 

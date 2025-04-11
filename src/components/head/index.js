@@ -9,9 +9,9 @@ function Head({ title, breadcrumbs, browserTitle='Магазин', children }) {
       document.title = browserTitle;
   }, [browserTitle]);
 
-  return (
-    <div className="Head">
-      <AuthBar />
+  return (<>
+  <AuthBar />
+  <div className="Head">
       <div className="Head-container">
         <h1>{title}</h1>
         <div className="Head-place">{children}</div>
@@ -20,6 +20,7 @@ function Head({ title, breadcrumbs, browserTitle='Магазин', children }) {
       {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
       </div>
     </div>
+  </>
   );
 }
 

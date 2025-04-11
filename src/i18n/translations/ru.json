@@ -3,7 +3,7 @@
   "auth.title": "Авторизация",
   "auth.login": "Вход",
   "auth.loginButton": "Войти",
-  "auth.logout": "Выйти",
+  "auth.logout": "Выход",
   "auth.profile": "Профиль",
   "auth.loginPlaceholder": "Логин",
   "auth.passwordPlaceholder": "Пароль",

@@ -1,22 +1,32 @@
-.auth-bar {
+.authbar {
   background: var(--second-background);
-  padding: 8px 16px;
+  padding: 8px 0;
+}
+
+.authbar-container {
+  max-width: 1152px;
+  margin: 0 auto;
   display: flex;
   justify-content: flex-end;
 }
 
-.auth-bar__logged-in {
+.authbar-login {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  justify-content: flex-end;
+  gap: 24px;
+  align-items: baseline;
+
+  & button {
+    color: var(--primary);
+
+    &:hover {
+      color: var(--overlay);
+    }
+  }
 }
 
-.auth-bar__profile-link {
-  color: var(--primary);
+.authbar-link {
   text-decoration: none;
+  font-family: var(--second-font-family);
   font-weight: 500;
-}
-
-.auth-bar__profile-link:hover {
-  text-decoration: underline;
 }

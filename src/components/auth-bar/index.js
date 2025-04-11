@@ -24,23 +24,25 @@ function AuthBar() {
                      t('auth.profile');
 
   return (
-    <div className="auth-bar">
-      {select.token ? (
-        <div className="auth-bar__logged-in">
-          <Link to="/profile" className="auth-bar__profile-link">
-            {displayName}
+    <div className="authbar">
+      <div className="authbar-container">
+        {select.token ? (
+          <div className="authbar-login">
+            <Link to="/profile" className="authbar-link">
+              {displayName}
+            </Link>
+            <Button 
+              title={t('auth.logout')}
+              onClick={callbacks.logout}
+              style="text"
+            />
+          </div>
+        ) : (
+          <Link to="/login" state={{ from: window.location.pathname }} className="authbar-link">
+            {t('auth.login')}
           </Link>
-          <Button 
-            title={t('auth.logout')}
-            onClick={callbacks.logout}
-            style="text"
-          />
-        </div>
-      ) : (
-        <Link to="/login" state={{ from: window.location.pathname }}>
-          <Button title={t('auth.login')} style="text" />
-        </Link>
-      )}
+        )}
+      </div>
     </div>
   );
 }
