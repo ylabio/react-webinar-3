@@ -62,7 +62,18 @@ class UserState extends StoreModule {
   return { success: true };
 }
 
-  logoutUser() {
+async logoutUser() {
+  try {
+    const { token } = this.getState();
+    
+    const response = await fetch('/api/v1/users/sign', {
+      method: 'DELETE',
+      headers: {
+        'X-Token': token,
+        'Content-Type': 'application/json',
+      },
+    });
+
     localStorage.removeItem('token');
     this.setState(
       {
@@ -73,7 +84,15 @@ class UserState extends StoreModule {
       },
       'Выход из аккаунта',
     );
+
+  } catch (error) {
+    console.error('Error:', error);
+    this.setState({
+      ...this.getState(),
+      error: error.message,
+    });
   }
+}
 
   async initUser() {
     const { token } = this.getState();
