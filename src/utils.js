@@ -33,3 +33,45 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Организация категорий по уровням вложенности
+ * @param categories {Array}
+ */
+export function organizeCategories(categories) {
+  // Создаём карту по id для быстрого доступа
+  const map = {};
+  categories.forEach(cat => {
+    map[cat._id] = { ...cat, children: [] };
+  });
+
+  // Строим дерево
+  const roots = [];
+  categories.forEach(cat => {
+    const parentId = cat.parent?._id;
+    if (parentId && map[parentId]) {
+      map[parentId].children.push(map[cat._id]);
+    } else {
+      roots.push(map[cat._id]);
+    }
+  });
+
+  // Рекурсивная функция обхода с учётом вложенности
+  const result = [];
+
+  function traverse(node, level = 0) {
+    result.push({
+      value: node._id,
+      title: `${'-'.repeat(level)} ${node.title}`,
+    });
+    node.children
+      .sort((a, b) => a.title.localeCompare(b.title)) // сортировка по алфавиту
+      .forEach(child => traverse(child, level + 1));
+  }
+
+  roots
+    .sort((a, b) => a.title.localeCompare(b.title))
+    .forEach(root => traverse(root));
+
+  return result;
+}

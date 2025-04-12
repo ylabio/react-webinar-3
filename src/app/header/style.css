@@ -1,0 +1,38 @@
+.Header {
+  background-color: var(--second-background);
+}
+
+.Header-wrapper {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 8px 0;
+  display: flex;
+  justify-content: end;
+}
+
+.Header-log {
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--primary);
+}
+
+.Header-log:hover {
+  color: var(--primary-select);
+}
+.Header-user {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.Header-user-name {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--main-text);
+}
+.Header-user-name:hover {
+  color: var(--primary);
+}
