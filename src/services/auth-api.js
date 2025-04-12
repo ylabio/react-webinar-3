@@ -1,3 +1,5 @@
+import { LOCAL_USER_KEY } from '../constants';
+
 export async function authUser(login, password) {
   const response = await fetch('/api/v1/users/sign?fields=_id,profile(name)&lang=ru', {
     method: 'POST',
@@ -17,8 +19,8 @@ export async function authUser(login, password) {
     const userData = {
       token: res.result.token,
       id: res.result.user._id,
-    }
-    localStorage.setItem('user-auth', JSON.stringify(userData));
+    };
+    localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(userData));
   }
   return res;
 }

@@ -1,6 +1,7 @@
 import StoreModule from '../module';
 
 import { getUserData } from '../../services';
+import { LOCAL_USER_KEY } from '../../constants';
 
 class UserState extends StoreModule {
   initState() {
@@ -12,21 +13,23 @@ class UserState extends StoreModule {
         email: '',
       },
       token: '',
+      isUserLeave: false,
     };
   }
 
   async initParams() {
-    const dataUser = JSON.parse(localStorage.getItem('user-auth'));
+    const dataUser = JSON.parse(localStorage.getItem(LOCAL_USER_KEY));
 
     if (dataUser !== null && dataUser.token.length) {
       const res = await getUserData(dataUser.token, dataUser.id);
 
       if (res.error) {
-        this.resetState();
+        this.resetState(false);
       } else {
         this.setState({
-          ...this.getState(),
+          ...this.getState(false),
           isAuth: true,
+          isUserLeave: false,
           userInfo: {
             name: res.result.profile.name,
             phone: res.result.profile.phone,
@@ -35,12 +38,16 @@ class UserState extends StoreModule {
           token: dataUser.token,
         });
       }
+    } else {
+      this.resetState(false);
     }
   }
 
-  resetState() {
+  resetState(isUserLoggedOut = false) {
     this.setState({
       ...this.initState(),
+      isAuth: false,
+      isUserLeave: isUserLoggedOut,
     });
   }
 }

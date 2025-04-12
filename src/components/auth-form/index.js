@@ -1,27 +1,17 @@
-import { memo, useCallback, useState } from 'react';
-import useStore from '../../hooks/use-store';
+import { memo, useState } from 'react';
 
 import { authUser } from '../../services';
-import useTranslate from '../../hooks/use-translate';
 
 import Input from '../input';
 import Button from '../button';
 
 import './style.css';
 
-function AuthForm() {
+function AuthForm({ t = text => text, onUpdate = () => {} }) {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [isError, setIsError] = useState(false);
   const [errorMsq, setErrorMsq] = useState('');
-
-  const { t } = useTranslate();
-
-  const store = useStore();
-
-  const callbacs = {
-    updateUser: useCallback(() => store.actions.user.initParams(), [store]),
-  };
 
   const onSubmit = async () => {
     const res = await authUser(login, password);
@@ -31,7 +21,7 @@ function AuthForm() {
     } else {
       setIsError(false);
     }
-    callbacs.updateUser();
+    await onUpdate()
   };
 
   return (

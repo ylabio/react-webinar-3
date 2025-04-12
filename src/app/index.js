@@ -1,13 +1,16 @@
 import { Routes, Route } from 'react-router-dom';
+
 import useSelector from '../hooks/use-selector';
+import useStore from '../hooks/use-store';
+import useInit from '../hooks/use-init';
+
+import { PrivateRoute, PublicRoute } from './routes';
+
 import Main from './main';
 import Basket from './basket';
 import Article from './article';
 import Login from './login';
 import Profile from './profile';
-import useStore from '../hooks/use-store';
-import useInit from '../hooks/use-init';
-import { PrivateRoute, PublicRoute } from './routes';
 
 /**
  * Приложение

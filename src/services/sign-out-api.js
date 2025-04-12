@@ -1,3 +1,5 @@
+import { LOCAL_USER_KEY } from '../constants';
+
 export async function signOut(token) {
   const response = await fetch(`/api/v1/users/sign`, {
     method: 'DELETE',
@@ -10,7 +12,7 @@ export async function signOut(token) {
   const res = await response.json();
 
   if (response.ok) {
-    localStorage.removeItem('user-auth');
+    localStorage.removeItem(LOCAL_USER_KEY);
   }
   return res;
 }

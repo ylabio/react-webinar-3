@@ -1,5 +1,6 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
+
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -12,7 +13,7 @@ import Navigation from '../../containers/navigation';
 import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
-import Auth from '../../components/auth';
+import AuthLink from '../../components/auth-link';
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
@@ -43,7 +44,7 @@ function Article() {
 
   return (
     <>
-      <Auth />
+      <AuthLink t={t} />
       <Head title={select.article.title}>
         <LocaleSelect />
       </Head>

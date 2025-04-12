@@ -4,3 +4,5 @@ export const DEFAULT_CATEGORY = {
   parent: null,
   children: [],
 };
+
+export const LOCAL_USER_KEY = 'user-auth'

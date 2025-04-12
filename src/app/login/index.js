@@ -1,27 +1,35 @@
-import { memo } from 'react';
-import LocaleSelect from '../../containers/locale-select';
+import { memo, useCallback } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useTitle from '../../hooks/use-title';
+import useStore from '../../hooks/use-store';
 
-import Auth from '../../components/auth';
+import AuthLink from '../../components/auth-link';
+import AuthForm from '../../components/auth-form';
 import Head from '../../components/head';
 import PageLayout from '../../components/page-layout';
+
+import LocaleSelect from '../../containers/locale-select';
 import Navigation from '../../containers/navigation';
-import AuthForm from '../../components/auth-form';
 
 function Login() {
+  const store = useStore();
   const { t } = useTranslate();
+
   useTitle(t('title'));
+
+  const callbacks = {
+    updateUser: useCallback(() => store.actions.user.initParams(), [store]),
+  };
 
   return (
     <>
-      <Auth />
+      <AuthLink t={t} />
       <Head title={t('title')}>
         <LocaleSelect />
       </Head>
       <PageLayout>
         <Navigation />
-        <AuthForm />
+        <AuthForm t={t} onUpdate={callbacks.updateUser} />
       </PageLayout>
     </>
   );

@@ -1,4 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
+
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 
@@ -8,16 +9,15 @@ import './style.css';
 
 const CategorySelect = props => {
   const [isShow, setIsShow] = useState(false);
-  const { onChange = () => {}, categoryList = [], size = 'medium', value = {} } = props;
+
+  const { onChange = x => {}, categoryList = [], size = 'medium', value = {} } = props;
   const cn = bem('CategorySelect');
 
   const onSelect = (e, category) => {
     e.preventDefault();
-    if (category._id === 'all') {
-      onChange('');
-    } else {
-      onChange(category._id);
-    }
+
+    onChange(category._id === 'all' ? '' : category._id);
+
     setIsShow(prev => false);
   };
 
@@ -55,8 +55,7 @@ const CategorySelect = props => {
               onClick={e => onSelect(e, category)}
               className={getCurrentItemClass(value._id, category)}
             >
-              {category.marker}
-              {category.title}
+              {category.marker}{category.title}
             </li>
           ))}
         </ul>

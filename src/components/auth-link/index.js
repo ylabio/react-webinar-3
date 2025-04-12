@@ -1,18 +1,18 @@
 import { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useStore from '../../hooks/use-store';
 
-import useTranslate from '../../hooks/use-translate';
+import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
+
 import { signOut } from '../../services';
 
 import Button from '../button';
 
 import './style.css';
 
-function Auth() {
-  const { t } = useTranslate();
+function AuthLink({t=t=>t}) {
   const store = useStore();
+  
   const select = useSelector(state => ({
     isUserLogged: state.user.isAuth,
     userName: state.user.userInfo.name,
@@ -20,7 +20,7 @@ function Auth() {
   }));
 
   const callbacks = {
-    resetUser: useCallback(() => store.actions.user.resetState(), [store]),
+    resetUser: useCallback((leave) => store.actions.user.resetState(leave), [store]),
   };
 
   const navigateTo = useNavigate();
@@ -33,7 +33,7 @@ function Auth() {
     if (select.isUserLogged) {
       const res = await signOut(select.token);
       if (res.result) {
-        callbacks.resetUser();
+        callbacks.resetUser(true);
       }
     }
   };
@@ -54,4 +54,4 @@ function Auth() {
   );
 }
 
-export default memo(Auth);
+export default memo(AuthLink);

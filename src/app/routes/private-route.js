@@ -1,11 +1,26 @@
-import { Navigate, Outlet  } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
-import useSelector from "../../hooks/use-selector";
+import useSelector from '../../hooks/use-selector';
+
+import { LOCAL_USER_KEY } from '../../constants';
 
 const PrivateRoute = () => {
-  const isAuthorized = useSelector((state) => state.user.isAuth);
+  const select = useSelector(state => ({
+    isAuthorized: state.user.isAuth,
+    isUserLeaved: state.user.isUserLeave,
+  }));
 
-  return isAuthorized ? <Outlet /> : <Navigate replace to="/login" />;
+  const userLocaleData = JSON.parse(localStorage.getItem(LOCAL_USER_KEY));
+
+  if (userLocaleData && userLocaleData.token.length > 0) {
+    return <Outlet />;
+  }
+
+  if (select.isUserLeaved) {
+    return <Navigate replace to="/" />;
+  }
+
+  return select.isAuthorized ? <Outlet /> : <Navigate replace to="/login" />;
 };
 
 export default PrivateRoute;

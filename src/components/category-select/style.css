@@ -19,7 +19,7 @@
   gap: 2px;
   border-radius: 4px;
   width: 233px;
-  height: 408px;
+  max-height: 408px;
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
   background: #fff;
   overflow: hidden;
