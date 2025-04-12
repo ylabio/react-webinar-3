@@ -99,6 +99,22 @@ class CatalogState extends StoreModule {
       'Загружен список товаров из АПИ',
     );
   }
+
+
+
+
+  async getCategory() {
+
+    const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)`);
+    const json = await response.json();
+    this.setState(
+      {
+        ...this.getState(),
+        categories: json.result.items,
+      },
+      'Загружены категории из АПИ',
+    );
+  }
 }
 
 export default CatalogState;
