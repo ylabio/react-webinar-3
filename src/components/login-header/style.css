@@ -1,0 +1,34 @@
+.LoginHeader {
+    padding: 8px 20px;
+    background-color: #EFEFEF;
+    font-family: var(--font-family);
+    border-bottom: solid #EFEFEF 1px;
+}
+
+.LoginHeader-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    max-width: 1152px;
+    margin: 0 auto;
+  }
+
+.LoginHeader-container a {
+    color: var(--primary);
+    font-family: var(--second-font-family);
+    font-weight: 700;
+    font-size: 14px;
+    margin-left: 24px;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+.LoginHeader-container a span {
+    color: var(--main-text);
+    font-size: 16px;
+    font-family: var(--font-family);
+    font-weight: 400;
+    &:hover{
+        text-decoration: underline;
+    }
+}
