@@ -40,6 +40,7 @@ function Navigation() {
   return (
     <SideLayout side="between">
       <Menu items={options.menu} onNavigate={callbacks.onNavigate} />
+
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}

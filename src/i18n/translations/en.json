@@ -14,5 +14,20 @@
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "login.title": "Authorization",
+  "login.formTitle": "Sign In",
+  "login.loginLabel": "Login",
+  "login.passwordLabel": "Password",
+  "login.submitButton": "Log in",
+  "login.loginPlaceholder": "Username",
+  "login.passwordPlaceholder": "Password",
+  "profile.title": "Profile",
+  "profile.userName": "Name",
+  "profile.emailLabel": "Email",
+  "profile.phoneLabel": "Phone",
+  "profile.notAuthorized": "Вы не авторизованы.",
+  "profile.backToMain": "Back to main",
+  "navigation.login": "Sign In",
+  "navigation.logout": "Logout"
 }

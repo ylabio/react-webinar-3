@@ -16,5 +16,22 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "login.title": "Авторизация",
+  "login.formTitle": "Вход",
+  "login.loginLabel": "Логин",
+  "login.passwordLabel": "Пароль",
+  "login.submitButton": "Войти",
+  "login.backToMain": "Вернуться на главную",
+  "login.loginPlaceholder": "Введите логин",
+  "login.passwordPlaceholder": "Введите пароль",
+  "profile.title": "Профиль",
+  "profile.userName": "Имя",
+  "profile.emailLabel": "Email",
+  "profile.phoneLabel": "Телефон",
+  "profile.notAuthorized": "Вы не авторизованы.",
+  "profile.backToMain": "Вернуться на главную",
+  "navigation.login": "Вход",
+  "navigation.logout": "Выход",
+  "navigation.profile": "Профиль"
 }
