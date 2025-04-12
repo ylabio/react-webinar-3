@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -9,6 +9,7 @@ import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import AuthInfo from "../../components/user/auth-info";
+import useSelector from "../../hooks/use-selector";
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -27,6 +28,18 @@ function Main() {
   );
 
   const { t } = useTranslate();
+
+  const select = useSelector(state => ({
+    category: state.catalog.params.category,
+    categories: state.catalog.categories,
+  }));
+
+  // Обновление заголовка страницы в зависимости от выбранной категории
+
+  useEffect(() => {
+    const categoryTitle = select.category ? select.categories.find(cat => cat._id === select.category)?.title : '';
+    document.title = categoryTitle ? `Магазин / ${categoryTitle}` : 'Магазин';
+  }, [select.category, select.categories]);
 
   return (
     <>
