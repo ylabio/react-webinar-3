@@ -33,3 +33,20 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function getCategoryChain(categoryId, categories = []) {
+  if (!categoryId || !categories.length) return [];
+  
+  const chain = [];
+  let currentId = categoryId;
+  
+  while (currentId) {
+    const category = categories.find(cat => cat._id === currentId);
+    if (!category) break;
+    
+    chain.unshift(category);
+    currentId = category.parent?._id;
+  }
+  
+  return chain;
+}

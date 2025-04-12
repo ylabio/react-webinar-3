@@ -8,6 +8,10 @@ import 'theme.css';
 
 const store = new Store();
 
+if (localStorage.getItem('token')) {
+  store.actions.user.loadProfile();
+}
+
 const root = createRoot(document.getElementById('root'));
 
 // Первый рендер приложения

@@ -1,5 +1,13 @@
 {
   "title": "Магазин",
+  "auth.title": "Авторизация",
+  "auth.login": "Вход",
+  "auth.loginButton": "Войти",
+  "auth.logout": "Выход",
+  "auth.profile": "Профиль",
+  "auth.loginPlaceholder": "Введите логин",
+  "auth.passwordPlaceholder": "Введите пароль",
+  "profile.title": "Профиль",
   "menu.main": "Главная",
   "basket.title": "Корзина",
   "basket.open": "Перейти",
@@ -10,6 +18,7 @@
   "basket.unit": "шт",
   "basket.delete": "Удалить",
   "article.add": "Добавить",
+  "filter.all": "Все",
   "filter.reset": "Сбросить",
   "basket.articles": {
     "one": "товар",
