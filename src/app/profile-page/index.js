@@ -12,9 +12,9 @@ const ProfilePage = () => {
   const { t } = useTranslate();
 
   const select = useSelector(state => ({
-    name: state.user.user.profile.name,
-    email: state.user.user.email,
-    phone: state.user.user.profile.phone,
+    name: state.user.profile.name,
+    email: state.user.email,
+    phone: state.user.profile.phone,
   }));
 
   return (
