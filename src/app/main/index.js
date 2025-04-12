@@ -2,6 +2,7 @@ import { memo } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
+import useSelector from '../../hooks/use-selector';
 import Navigation from '../../containers/navigation';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -15,6 +16,7 @@ import LoginButton from '../../components/login-button';
  */
 function Main() {
   const store = useStore();
+  const { t } = useTranslate();
 
   useInit(
     () => {
@@ -24,12 +26,19 @@ function Main() {
     true,
   );
 
-  const { t } = useTranslate();
+  const select = useSelector(state => ({
+    category: state.catalog.params.category,
+    categories: state.catalog.categories,
+  }));
+
+  const currentCategory = select.categories.find(cat => cat._id === select.category);
+  const title = currentCategory ? `${t('title')} / ${currentCategory.title}` : t('title');
+  document.title = title;
 
   return (
     <>
       <LoginButton />
-      <Head title={t('title')}>
+      <Head title={title}>
         <LocaleSelect />
       </Head>
       <PageLayout>
