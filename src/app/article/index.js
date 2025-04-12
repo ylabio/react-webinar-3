@@ -39,7 +39,6 @@ function Article() {
 
   return (
     <>
-      <LoginHeaderContainer/>
       <Head title={select.article.title}>
         <LocaleSelect />
       </Head>

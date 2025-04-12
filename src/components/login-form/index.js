@@ -5,8 +5,10 @@ import Button from "../button";
 import InputForm from "../form-input";
 import {  useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
+import { login } from "../../store/authentication";
+import Form from "../form";
 
-function LoginForm({logIn = ()=>{}, header , loginLabel, passwordLabel, buttonMessage }){
+function LoginForm({initUser = ()=>{}, initAuth = ()=>{}, header , loginLabel, passwordLabel, buttonMessage }){
     const cn = bem("LoginForm")
     const [errors , setErrors] = useState([]);
     const navigate = useNavigate();
@@ -16,8 +18,17 @@ function LoginForm({logIn = ()=>{}, header , loginLabel, passwordLabel, buttonMe
             setErrors([])
             const fd = new FormData(event.target);
             const data = Object.fromEntries(fd.entries());
-            await logIn(data);
-            navigate('/')
+            const userData = await login(data);
+            initAuth({
+                name: userData.profile.name,
+                isLogin: true
+              })
+            initUser({user:{
+                name: userData.profile.name,
+                phone: userData.profile.phone,
+                email: userData.email
+              }})
+            navigate('/profile')
         }catch(error){
             const errorMessage = error.message;
             const jsonString = errorMessage.replace("Error: ", "");
@@ -31,7 +42,7 @@ function LoginForm({logIn = ()=>{}, header , loginLabel, passwordLabel, buttonMe
     return(
         <div className={cn()}>
             <h1>{header}</h1>
-        <form onSubmit={handleSubmit}>
+        <Form submit={handleSubmit}>
             <InputForm placeholder={'Введите логин'} className={cn('input')} name={'login'} id={'login'} label={loginLabel} required />
             <InputForm type='password'  placeholder={'Введите пароль'}  className={cn('input')} name={'password'} id={'password'} label={passwordLabel} required />
             <div className={cn('errors')}>
@@ -40,7 +51,7 @@ function LoginForm({logIn = ()=>{}, header , loginLabel, passwordLabel, buttonMe
             <div className={cn('actions')}>
             <Button style={'primary'} type="submit" title={buttonMessage}/>
             </div>
-        </form>
+        </Form>
         </div>
     )   
 }

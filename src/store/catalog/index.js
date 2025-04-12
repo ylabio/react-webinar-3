@@ -1,4 +1,3 @@
-import { getCategoryName } from '../../api/http';
 import StoreModule from '../module';
 
 /**
@@ -126,6 +125,15 @@ class CatalogState extends StoreModule {
     );
   }
   
+}
+async function getCategoryName(id) {
+  const response  = await fetch(`/api/v1/categories/${id}?lang=ru&fields=title`);
+  if(!response.ok){
+      console.log(error);
+      return
+  }
+  const json = await response.json();
+  return json.result.title;
 }
 
 export default CatalogState;

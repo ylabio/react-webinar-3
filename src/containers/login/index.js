@@ -6,13 +6,15 @@ import useTranslate from "../../hooks/use-translate";
 function Login (){
     const store = useStore();
     const callbacks ={
-        onLogin : useCallback( data => store.actions.user.logIn(data),[store])
+        initAuth : useCallback( data => store.actions.auth.initAuth(data),[store]),
+
+        initUser : useCallback( data => store.actions.user.getUser(data),[store]),
     }
     const {t} = useTranslate();
     return(
         <>
         <div>
-            <LoginForm buttonMessage={t('login.button')} header={t('login.enter')} loginLabel={t('login.login')} passwordLabel={t('login.password')} logIn={callbacks.onLogin}/>
+            <LoginForm buttonMessage={t('login.button')} header={t('login.enter')} loginLabel={t('login.login')} passwordLabel={t('login.password')} initUser={callbacks.initUser} initAuth={callbacks.initAuth}/>
         </div>
         </>
     )

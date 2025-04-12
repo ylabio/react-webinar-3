@@ -1,6 +1,4 @@
-import { deleteUser, getUser } from '../../api/http';
 import StoreModule from '../module';
-import { login } from '../../api/http';
 
 class UserState extends StoreModule {
     initState() {
@@ -10,35 +8,16 @@ class UserState extends StoreModule {
             phohe: '',
             email: '',
           },
-          isLogin: false,
         };
     }
     
-    async initUser() {
-      try{
-        const response = await getUser()
-        if(response === null) return
-        if(response._id){
-          this.setParams({
-            user:{
-              name: response.profile.name,
-              phone: response.profile.phone,
-              email: response.email,
-            }, isLogin: true})
-          }
-        }catch(error){
-          console.error('Не удалось инициализировать пользователя',error)
-        }
-        }
+    async getUser(authData) {
+      this.setParams(authData)   
+    }
       
     async resetUser(){
-       try{
-         await deleteUser()
-         const userParams = {...this.initState()}
-         await this.setParams(userParams)
-        }catch(error){
-          console.error('Не удалось разлогиниться', error)
-        }
+      const userParams = {...this.initState()}
+      await this.setParams(userParams)
     }
     
     async setParams(newParams = {}) {
@@ -47,21 +26,9 @@ class UserState extends StoreModule {
           {
             ...this.getState(),
             user:{...userParams.user},
-            isLogin: userParams.isLogin
           },
           'Установлены параметры авторизации',
         );
-    }
-
-    async logIn(data){
-        const response = await login(data);
-        if(response._id){
-          this.setParams({user:{
-            name: response.profile.name,
-            phone: response.profile.phone,
-            email: response.email,
-          }, isLogin: true})
-        }
     }
 
   }

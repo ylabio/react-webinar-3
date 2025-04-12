@@ -6,20 +6,17 @@ import Select from '../../components/select';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
 import Button from '../../components/button';
-import { loadCategories } from '../../api/http';
 /**
  * Контейнер со всеми фильтрами каталога
  */
 function CatalogFilter() {
-  const [categoryValue, setCategoryValue] = useState([
-    { value: '', title: 'Все' },
-  ],)
   const store = useStore();
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
+    categories: state.categories.categories,
   }));
   const callbacks = {
     // Сортировка
@@ -31,15 +28,6 @@ function CatalogFilter() {
     // Сортировка по категориям
     onSelectCategory: useCallback(category => store.actions.catalog.setParams({category, page: 1}), [store]),
   };
-   useEffect(()=>{
-      async function fetchCatergoty () {
-        const response  = await loadCategories();
-        setCategoryValue(prevValue =>{
-          return [ { value: '', title: 'Все' }, ...response]
-        })
-      }
-      fetchCatergoty();
-    },[]);
     
   const options = {
     sort: useMemo(
@@ -52,8 +40,8 @@ function CatalogFilter() {
       [],
     ),
      category: useMemo(
-          () => categoryValue,
-          [categoryValue],
+          () => select.categories,
+          [select.categories],
         ),
   };
 

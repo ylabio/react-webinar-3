@@ -1,42 +1,50 @@
-import { redirect } from "react-router-dom";
+import StoreModule from '../module';
+import { redirect } from 'react-router-dom';
 
- export function getCookie(name) {
+class AuthState extends StoreModule {
+  initState() {
+    return {
+      name: null,
+      isLogin: false,
+    };
+  }
+
+    async initAuth(authData) {
+        this.setParams(authData)
+    }
+        
+      async resetUser(){
+         try{
+           await deleteUser()
+           const userParams = {...this.initState()}
+           await this.setParams(userParams)
+          }catch(error){
+            console.error('Не удалось разлогиниться', error)
+          }
+      }
+      
+      async setParams(newParams = {}) {
+          const userParams = { ...this.getState(), ...newParams };
+          console.log(userParams)
+          this.setState(
+            {
+              ...this.getState(),
+              name:userParams.name,
+              isLogin: userParams.isLogin
+            },
+            'Установлены параметры авторизации',
+          );
+      }
+  
+}
+
+export default AuthState;
+
+function getCookie(name) {
     const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))
     return match ? decodeURIComponent(match[2]) : null
   }
   
-  const token = getCookie('token')
-
-export async function loadCategories () {
-    const categories = new Map();
-    const roots = [];
-    const readyNodes = [];
-    const response  = await fetch('/api/v1/categories?lang=ru&fields=_id,title,parent(_id,title)&limit=*');
-    const json = await response.json();
-    json.result.items.forEach(item => categories[item._id]= {...item, children: []});
-    json.result.items.forEach((item)=>{
-        const node = categories[item._id];
-        if (item.parent){
-            const parent = categories[item.parent._id]
-            parent.children.push(node)
-        }else{
-            roots.push(node);
-        }
-    });
-    const categoriesWithPrefix = (roots, level = 0) =>{
-        roots.forEach(node =>{
-            node.title = '-'.repeat(level) + (level > 0 ? " " : '') + node.title;
-            readyNodes.push({value: node._id, title: node.title});
-            if (node.children.length > 0){
-                return categoriesWithPrefix(node.children, level + 1 )
-            }
-        })
-        return readyNodes
-    };
-    const ready = categoriesWithPrefix(roots);
-    return ready;
-  }
-
 export async function login (data) {
     const response = await fetch('api/v1/users/sign', {
         method: "POST",
@@ -52,6 +60,7 @@ export async function login (data) {
         const issues = json.error.data.issues.map(issue=> (issue.message))
         throw new Error(JSON.stringify({issues}))
     }
+    console.log(json)
     return json.result.user;
 }
 
@@ -99,14 +108,4 @@ export async function deleteUser () {
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;";
         redirect('/')
     }
-}
-
-export async function getCategoryName(id) {
-    const response  = await fetch(`/api/v1/categories/${id}?lang=ru&fields=title`);
-    if(!response.ok){
-        console.log(error);
-        return
-    }
-    const json = await response.json();
-    return json.result.title;
 }

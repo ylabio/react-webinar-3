@@ -19,17 +19,12 @@ function Main() {
     useInit(
     () => {
       store.actions.catalog.initParams();
+      store.actions.categories.initCategories();
     },
     [],
     true,
   );
-  useInit(
-    () => {
-      store.actions.user.initUser();
-    },
-    [],
-    true,
-  );
+ 
   
 
  
@@ -38,7 +33,6 @@ function Main() {
 
   return (
     <>
-      <LoginHeaderContainer/>
       <Head category={select.categoryName} title={t('title')}>
         <LocaleSelect />
       </Head>
