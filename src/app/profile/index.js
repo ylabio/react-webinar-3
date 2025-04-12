@@ -11,46 +11,36 @@ import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
 import LoginMenu from '../login-menu';
+import ProfileCard from '../../components/profile-card';
 
-/**
- * Страница товара с первичной загрузкой товара по id из url адреса
- */
-function Article() {
+function Profile() {
   const store = useStore();
 
-  // Параметры из пути /articles/:id
-  const params = useParams();
-
-  useInit(() => {
-    store.actions.article.load(params.id);
-  }, [params.id]);
+  useInit(() => {}, []);
 
   const select = useSelector(state => ({
-    article: state.article.data,
-    waiting: state.article.waiting,
+    userData: state.authorization.userData,
   }));
 
   const { t } = useTranslate();
 
   const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    // // Добавление в корзину
+    // addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   };
 
   return (
     <>
       <LoginMenu />
-      <Head title={select.article.title}>
+      <Head title="Магазин">
         <LocaleSelect />
       </Head>
       <PageLayout>
         <Navigation />
-        <Spinner active={select.waiting}>
-          <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
-        </Spinner>
+        <ProfileCard userData={select.userData} />
       </PageLayout>
     </>
   );
 }
 
-export default memo(Article);
+export default memo(Profile);

@@ -1,0 +1,41 @@
+.ProfileCard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-block: 24px;
+}
+
+.ProfileCard-description {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat Alternates';
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+}
+
+.ProfileCard-prop-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ProfileCard-prop {
+  display: flex;
+  gap: 10px;
+}
+
+.ProfileCard-prop_size_big {
+  font-family: var(--second-font-family);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.ProfileCard-label {
+  width: 76px;
+}
+
+.ProfileCard-value {
+  font-weight: bold;
+}

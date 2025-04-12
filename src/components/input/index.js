@@ -27,6 +27,7 @@ function Input(props) {
   return (
     <input
       className={cn({ theme: props.theme })}
+      name={props.name}
       value={value}
       type={props.type}
       placeholder={props.placeholder}
