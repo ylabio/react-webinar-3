@@ -1,9 +1,6 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import useSelector from '../../hooks/use-selector';
-import Button from '../../components/button';
-import Input from '../../components/input';
 import './style.css';
 
 function ProfileList({ children }) {
