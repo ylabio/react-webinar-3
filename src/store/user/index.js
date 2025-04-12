@@ -35,7 +35,7 @@ class UserState extends StoreModule {
       const data = await response.json();
 
       if (!response.ok) {
-        const error = data?.error?.message || 'Ошибка авторизации';
+        const error = data?.error || { message: 'Ошибка авторизации' };
         this.setState({ ...this.getState(), error, waiting: false }, 'Ошибка при входе');
         return false;
       }

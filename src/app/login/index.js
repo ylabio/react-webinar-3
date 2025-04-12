@@ -20,29 +20,39 @@ function LoginPage() {
   const user = useSelector(state => state.user);
   const { t } = useTranslate();
 
+  // Если пользователь уже авторизован — отправляем в профиль
   useEffect(() => {
     if (user.token && user.data) {
       navigate('/profile');
     }
-  }, [user.token, user.data]);
+  }, [user.token, user.data, navigate]);
 
+  // Обработка формы логина
   const handleSubmit = async e => {
     e.preventDefault();
 
-    if (!login || !password) {
+    // Удаляем пробелы по краям
+    const trimmedLogin = login.trim();
+    const trimmedPassword = password.trim();
+
+    if (!trimmedLogin || !trimmedPassword) {
       setError(t('login.error.empty')); // Пример: "Введите логин и пароль"
       return;
     }
 
     setError('');
 
-    const success = await store.actions.user.login(login, password);
+    // Отправляем очищенные данные
+    const success = await store.actions.user.login(trimmedLogin, trimmedPassword);
 
     if (success) {
       navigate('/profile');
     } else {
-      const err = store.getState().user.error;
-      setError(err || t('login.error.fail')); // Пример: "Ошибка авторизации"
+      const errPayload = store.getState().user.error;
+      const issue = errPayload?.data?.issues?.[0]?.message;
+      const fallback = errPayload?.message;
+
+      setError(issue || fallback || t('login.error.fail'));
     }
   };
 
