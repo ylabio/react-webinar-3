@@ -10,6 +10,7 @@ function LoginForm({ login, password, error, onChangeField, onSubmit, t }) {
       <h2>{t('auth.login')}</h2>
       <form onSubmit={onSubmit}>
         <div className="login-form__field">
+          <div className="login-form__label">Логин</div>
           <AuthInput 
             value={login}
             onChange={(value) => onChangeField('login', value)}
@@ -17,6 +18,7 @@ function LoginForm({ login, password, error, onChangeField, onSubmit, t }) {
           />
         </div>
         <div className="login-form__field">
+          <div className="login-form__label">Пароль</div>
           <AuthInput 
             value={password}
             onChange={(value) => onChangeField('password', value)}
