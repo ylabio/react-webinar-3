@@ -74,6 +74,18 @@ class BasketState extends StoreModule {
       'Удаление из корзины',
     );
   }
+
+/**
+ * Очистка корзины
+ */
+  clearBasket() {
+    this.setState({
+      ...this.getState(),
+      list: [],
+      sum: 0,
+      amount: 0,
+    }, 'Очистка корзины');
+  }
 }
 
 export default BasketState;

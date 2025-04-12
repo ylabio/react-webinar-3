@@ -61,6 +61,8 @@ class UserState extends StoreModule {
    */
   async signOut() {
     try {
+      const basketState = this.store.getState().basket;
+
       await fetch('/api/v1/users/sign', {
         method: 'DELETE',
         headers: {
@@ -69,6 +71,10 @@ class UserState extends StoreModule {
         }
       });
     } finally {
+      // Очищаем корзину
+    this.store.actions.basket.clearBasket();
+    
+    // Очищаем данные пользователя
       localStorage.removeItem('token');
       this.setState({
         token: null,
