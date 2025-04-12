@@ -16,6 +16,9 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    categories: state.categories.tree,
+    loading: state.categories.waiting,
   }));
 
   const callbacks = {
@@ -25,6 +28,11 @@ function CatalogFilter() {
     onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
+    // Категории
+    onCategory: useCallback(
+      category => store.actions.catalog.setParams({ category, page: 1 }),
+      [store],
+    ),
   };
 
   const options = {
@@ -37,12 +45,43 @@ function CatalogFilter() {
       ],
       [],
     ),
+    categories: useMemo(() => {
+      const build = (items, level = 0) => {
+        return items.reduce((acc, item) => {
+          acc.push({
+            value: item._id,
+            title: `${'-'.repeat(level)} ${item.title}`,
+          });
+
+          if (item.children) {
+            acc.push(...build(item.children, level + 1));
+          }
+
+          return acc;
+        }, []);
+      };
+
+      return [
+        {
+          value: '',
+          title: 'Все',
+        },
+        ...build(select.categories),
+      ];
+    }, [select.categories]),
   };
 
   const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
+      <Select
+        options={options.categories}
+        value={select.category}
+        onChange={callbacks.onCategory}
+        size="medium"
+      />
+
       <Select
         options={options.sort}
         value={select.sort}

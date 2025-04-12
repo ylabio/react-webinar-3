@@ -8,6 +8,7 @@ import Head from '../../components/head';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
+import HeadTop from '../../components/head-top';
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -18,6 +19,7 @@ function Main() {
   useInit(
     () => {
       store.actions.catalog.initParams();
+      store.actions.categories.load();
     },
     [],
     true,
@@ -27,6 +29,7 @@ function Main() {
 
   return (
     <>
+      <HeadTop />
       <Head title={t('title')}>
         <LocaleSelect />
       </Head>

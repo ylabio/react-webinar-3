@@ -1,0 +1,34 @@
+.Auth {
+  margin-top: 24px;
+}
+.Auth-title {
+  margin-top: 0;
+  margin-bottom: 24px;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  color: var(--main-text);
+  font-family: var(--second-font-family);
+}
+.Auth-form {
+  max-width: 233px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.Auth-field {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  margin-bottom: 16px;
+}
+.Auth-label {
+  font-size: 14px;
+}
+.Auth-errors {
+  margin-bottom: 20px;
+  min-height: 20px;
+}
+.Auth-error {
+  color: var(--delete);
+  font-size: 12px;
+}
