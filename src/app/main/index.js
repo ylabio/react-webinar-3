@@ -56,6 +56,9 @@ function Main() {
     const current = select.categoryList.find(c => c._id === select.category);
     setCurrenCat(current?.title);
     document.title = `${t('title')}${current?.title ? ` / ${current.title}` : ''}`;
+    return () => {
+      document.title = t('title');
+    };
   }, [select.category]);
 
   return (
