@@ -1,6 +1,7 @@
-import { memo, useCallback, useRef } from 'react'; // Добавили useRef
+import { memo, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
+import { useNavigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import Input from '../input';
@@ -10,8 +11,9 @@ import './style.css';
 function LoginForm({ t }) {
   const cn = bem('LoginForm');
   const store = useStore();
-  const loginRef = useRef(); // Создали ref для логина
-  const passwordRef = useRef(); // Создали ref для пароля
+  const navigate = useNavigate();
+  const loginRef = useRef();
+  const passwordRef = useRef();
   
   const select = useSelector(state => ({
     error: state.user.error,
@@ -21,11 +23,12 @@ function LoginForm({ t }) {
   const callbacks = {
     onSubmit: useCallback(async (e) => {
       e.preventDefault();
-      const login = loginRef.current.value; // Получаем значение через ref
-      const password = passwordRef.current.value; // Получаем значение через ref
+      const login = loginRef.current.value;
+      const password = passwordRef.current.value; 
       const success = await store.actions.user.signIn(login, password);
       if (success) {
         await store.actions.user.load();
+        navigate('/');
       }
     }, [store])
   };
@@ -36,7 +39,7 @@ function LoginForm({ t }) {
       <div className={cn('field')}>
         <label className={cn('label')}>{t('login.username')}</label>
         <Input
-          inputRef={loginRef} // Передаем ref в Input
+          inputRef={loginRef} 
           type="text"
           placeholder={t('login.usernamePlaceholder')}
           theme="small"
@@ -46,7 +49,7 @@ function LoginForm({ t }) {
       <div className={cn('field')}>
         <label className={cn('label')}>{t('login.password')}</label>
         <Input
-          inputRef={passwordRef} // Передаем ref в Input
+          inputRef={passwordRef} 
           type="password"
           placeholder={t('login.passwordPlaceholder')}
           theme="small"

@@ -1,6 +1,6 @@
 import { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -8,6 +8,7 @@ import './style.css';
 
 function Head({ title, children }) {
   const store = useStore();
+  const navigate = useNavigate();
   const { t } = useTranslate();
   
   const select = useSelector(state => ({
@@ -16,7 +17,10 @@ function Head({ title, children }) {
   }));
 
   const callbacks = {
-    signOut: useCallback(() => store.actions.user.signOut(), [store])
+    signOut: useCallback(async () => {
+      await store.actions.user.signOut();
+      navigate('/');
+    }, [store, navigate])
   };
 
   return (
@@ -40,7 +44,7 @@ function Head({ title, children }) {
         </div>
       </div>
       <div className="Head-container">
-        <h1>{title || t('title')}</h1> {/* Используем title если есть, иначе "Магазин" */}
+        <h1>{title || t('title')}</h1>
         <div className="Head-place">{children}</div>
       </div>
     </div>
