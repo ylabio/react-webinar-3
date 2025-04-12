@@ -25,5 +25,7 @@
   "login.passwordPlaceholder": "Enter password",
   "login.password": "Password",
   "login.button": "Log In",
-  "login.title": "Enter"
+  "login.title": "Enter",
+  "store": "Store",
+  "store_all": "All"
 }

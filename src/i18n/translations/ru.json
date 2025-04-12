@@ -27,5 +27,7 @@
   "login.passwordPlaceholder": "Введите пароль",
   "login.password": "Пароль",
   "login.button": "Войти",
-  "login.title": "Вход"
+  "login.title": "Вход",
+  "store": "Магазин",
+  "store_all": "Все"
 }

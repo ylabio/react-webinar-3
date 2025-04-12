@@ -50,6 +50,19 @@ function CatalogFilter() {
   };
 
   const { t } = useTranslate();
+  useEffect(() => {
+    const categoryTitle =
+      select.category === '' || select.category === 'Все'
+        ? 'Магазин'
+        : `Магазин / ${select.category}`;
+    document.title = categoryTitle;
+  }, [select.category]); // Заголовок обновляется при изменении категории
+
+  // Создаем строку для заголовка, чтобы передать в компонент Head
+  const pageTitle =
+    select.category === '' || select.category === 'Все'
+      ? 'Магазин'
+      : `Магазин / ${select.category}`;
 
   return (
     <SideLayout padding="medium">
