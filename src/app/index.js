@@ -19,12 +19,8 @@ import RoutesWithoutAuth from '../containers/routes-without-auth';
 function App() {
   const store = useStore();
   const activeModal = useSelector(state => state.modals.name);
-  useInit(
-      () => {
-      },
-      [],
-    );
-    useInitAuth();
+  
+  useInitAuth();
 
   return (
     <>
