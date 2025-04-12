@@ -32,7 +32,7 @@ class UserState extends StoreModule {
     );
 
     try {
-      const response = await fetch('http://query.rest/api/v1/users/sign', {
+      const response = await fetch('api/v1/users/sign', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ class UserState extends StoreModule {
     );
 
     try {
-      await fetch('http://query.rest/api/v1/users/sign', {
+      await fetch('api/v1/users/sign', {
         method: 'DELETE',
         headers: {
           'X-Token': token,
@@ -169,7 +169,7 @@ class UserState extends StoreModule {
     );
 
     try {
-      const response = await fetch('http://query.rest/api/v1/users/self?fields=*', {
+      const response = await fetch('api/v1/users/self?fields=*', {
         method: 'GET',
         headers: {
           'X-Token': token,
