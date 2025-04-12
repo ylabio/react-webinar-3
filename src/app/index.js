@@ -5,12 +5,14 @@ import Basket from './basket';
 import Article from './article';
 import LoginPage from './login';
 import ProfileContainer from '../containers/profile-container';
+import useSessionGuard from '../hooks/use-session-guard';
 
 /**
  * Приложение
  * Маршрутизация по страницам и модалкам
  */
 function App() {
+  useSessionGuard(); //вызов глобального хука
   const activeModal = useSelector(state => state.modals.name);
 
   return (
