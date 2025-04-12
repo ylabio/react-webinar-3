@@ -9,10 +9,28 @@
   "basket.total": "Total",
   "basket.unit": "pcs",
   "basket.delete": "Delete",
+  "basket.info": "Your cart is currently empty.",
   "article.add": "Add",
   "filter.reset": "Reset",
   "basket.articles": {
     "one": "article",
+    "few": "articles",
+    "many": "articles",
     "other": "articles"
-  }
+  },
+  "not.found.title": "Page not found",
+  "not.found.btn": "Go home",
+  "login.heading": "Login",
+  "login.label": "Login",
+  "login.password.label": "Password",
+  "login.btn": "Login",
+  "login.form.btn": "Login",
+  "logout.btn": "Log out",
+  "profile.heading": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "article.country.dev": "Made in",
+  "article.product.cat": "Category",
+  "article.product.dev.date": "Year of release",
+  "article.price": "Price"
 }

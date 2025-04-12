@@ -4,6 +4,7 @@
   --background: #FFFFFF;
   --second-background: #EFEFEF;
   --primary: #6B4ACB;
+  --primary-hover: #4c3591;
   --primary-select: #6B4ACB1A;
   --main-text: #1A2028;
   --second-text: #FFFFFF;
@@ -13,7 +14,7 @@
   --odd-item: #6B4ACB08;
   --close: #878787;
   --filter-border: #D3D3D3;
-
+  --top-background: #EFEFEF;
   --font-family: 'Golos Text';
   --second-font-family: 'Montserrat Alternates';
 }

@@ -1,10 +1,17 @@
 .PageLayout {
-  max-width: 1192px;
+  max-width: 1440px;
   margin: 0 auto;
   background-color: var(--background);
   padding-inline: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .PageLayout-center {
   padding-block: 24px;
+  width: 1152px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

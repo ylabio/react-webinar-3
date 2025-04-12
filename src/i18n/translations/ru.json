@@ -9,6 +9,7 @@
   "basket.total": "Итого",
   "basket.unit": "шт",
   "basket.delete": "Удалить",
+  "basket.info": "В вашей корзине пока пусто",
   "article.add": "Добавить",
   "filter.reset": "Сбросить",
   "basket.articles": {
@@ -16,5 +17,20 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "not.found.title": "Страница не найдена",
+  "not.found.btn": "На главную",
+  "login.heading": "Вход",
+  "login.label": "Логин",
+  "login.password.label": "Пароль",
+  "login.btn": "Вход",
+  "login.form.btn": "Войти",
+  "logout.btn": "Выход",
+  "profile.heading": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "article.country.dev": "Страна производитель",
+  "article.product.cat": "Категория",
+  "article.product.dev.date": "Год выпуска",
+  "article.price": "Цена"
 }

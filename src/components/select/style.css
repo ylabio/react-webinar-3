@@ -1,32 +1,61 @@
-.Select {
-  border: 1px solid var(--filter-border);
-  cursor: pointer;
-  padding: 8px 12px;
-  background-color: var(--background);
-  border-radius: 4px;
+.custom-select {
+  position: relative;
+  width: 233px;
   font-family: var(--font-family);
-  font-size: 16px;
-  height: 40px;
+  cursor: pointer;
 }
 
-.Select:focus-visible {
-  outline: none;
+.custom-select__selected {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 4px 4px 0 0;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.Select option:checked,
-.Select option:hover {
-  background-color: var(--primary);
-  color: var(--second-text);
+.custom-select__arrow {
+  margin-left: 10px;
+  transition: transform 0.3s ease;
 }
 
-.Select_size_small {
-  min-width: 130px;
+.custom-select__arrow.open {
+  transform: rotate(180deg);
 }
 
-.Select_size_medium {
-  min-width: 233px;
+.custom-select__options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ccc;
+  border-top: none;
+  position: absolute;
+  width: 100%;
+  background: #fff;
+  border-radius: 0 0 4px 4px;
+  overflow-y: auto;
+  z-index: 1000;
 }
 
-.Select_text {
-  border: none;
+.custom-select__option {
+  padding: 8px 12px;
+
+  &:hover{
+    background: var(--primary-select);
+  }
+}
+
+.custom-select__option.selected {
+  background: var(--primary);
+  color: #fff;
+}
+
+.UiKitUiKitIcon_m {
+  width: 24px;
+  height: 24px;
+}
+
+.UiKitUiKitIcon_root {
+  vertical-align: middle;
 }

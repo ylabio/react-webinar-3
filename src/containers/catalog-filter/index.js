@@ -6,6 +6,7 @@ import Select from '../../components/select';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
 import Button from '../../components/button';
+import CategorySelect from '../../components/category-select';
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -16,6 +17,7 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
   }));
 
   const callbacks = {
@@ -25,6 +27,13 @@ function CatalogFilter() {
     onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
+    // Cмена категории
+    onCategoryChange: useCallback(
+      (catObj) => store.actions.catalog.setParams({ 
+        category: catObj.value, 
+        categoryLabel: catObj.rawTitle,
+        page: 1 
+      }), [store]),
   };
 
   const options = {
@@ -43,6 +52,11 @@ function CatalogFilter() {
 
   return (
     <SideLayout padding="medium">
+      <CategorySelect
+        value={select.category}
+        onChange={callbacks.onCategoryChange}
+        placeholder="Выберите категорию"
+      />
       <Select
         options={options.sort}
         value={select.sort}
@@ -51,6 +65,7 @@ function CatalogFilter() {
       />
       <Input
         value={select.query}
+        id="search"
         onChange={callbacks.onSearch}
         placeholder={'Поиск'}
         delay={1000}

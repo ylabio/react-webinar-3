@@ -1,0 +1,33 @@
+.LoginHeader {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 8px 20px;
+  background-color: var(--top-background);
+}
+
+.login-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--primary);
+  color: var(--background);
+  font-size: 16px;
+  font-weight: bold; 
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+
+  &:hover{
+    background-color: var(--top-background);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+  }
+}
+
+.login-username{
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  margin-right: 24px;
+}
