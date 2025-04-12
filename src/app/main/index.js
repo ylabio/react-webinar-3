@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -17,11 +17,27 @@ import ProfileHeader from '../../components/profile-header';
 function Main() {
   const store = useStore();
   const token = localStorage.getItem('token');
+  const [currenCat, setCurrenCat] = useState('');
   const linksNav = {
     in: '/login',
     me: '/profile',
     out: '/',
   };
+
+  useInit(
+    () => {
+      store.actions.catalog.initParams();
+    },
+    [],
+    true,
+  );
+
+  const select = useSelector(state => ({
+    userName: state.auth.userName,
+    isAuth: state.auth.isAuth,
+    category: state.catalog.params.category,
+    categoryList: state.catalog.categories,
+  }));
 
   const callbacks = {
     onLogout: useCallback(
@@ -31,25 +47,16 @@ function Main() {
       [store],
     ),
   };
+  const { t } = useTranslate();
 
   useEffect(() => {
     if (token && !select.isAuth) {
       store.actions.auth.checkAuth(token);
     }
-  }, []);
-  useInit(
-    () => {
-      store.actions.catalog.initParams();
-    },
-    [],
-    true,
-  );
-  const select = useSelector(state => ({
-    userName: state.auth.userName,
-    isAuth: state.auth.isAuth,
-  }));
-
-  const { t } = useTranslate();
+    const current = select.categoryList.find(c => c._id === select.category);
+    setCurrenCat(current?.title);
+    document.title = `${t('title')}${current?.title ? ` / ${current.title}` : ''}`;
+  }, [select.category]);
 
   return (
     <>
@@ -59,7 +66,7 @@ function Main() {
         onClick={() => callbacks.onLogout(token)}
         links={linksNav}
       />
-      <Head title={t('title')}>
+      <Head title={`${t('title')}${currenCat ? ` / ${currenCat}` : ''}`}>
         <LocaleSelect />
       </Head>
       <PageLayout>

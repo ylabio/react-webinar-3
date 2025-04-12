@@ -24,11 +24,11 @@ class AuthState extends StoreModule {
         },
         body: JSON.stringify({ login, password }),
       });
+      const json = await response.json();
 
       if (!response.ok) {
-        throw new Error('Ошибка авторизации');
+        throw new Error(json.error.data.issues[0].message || 'Ошибка авторизации');
       }
-      const json = await response.json();
       localStorage.setItem('token', json.result.token);
 
       this.setState({
