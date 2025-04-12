@@ -1,0 +1,28 @@
+.LoginForm-title {
+  font-family: var(--second-font-family);
+  padding: 24px 0;
+}
+
+.LoginForm-form {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 16px;
+}
+
+.LoginForm-form div {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 8px;
+}
+
+.LoginForm-error {
+  color: var(--delete);
+  padding: 0;
+  margin: 0;
+}
+
+.LoginForm-error-wrap {
+  height: 24px;
+}

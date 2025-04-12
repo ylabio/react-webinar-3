@@ -28,7 +28,7 @@ function ArticleCard(props) {
         </div>
       </div>
       <div className={cn('prop', { size: 'big' })}>
-        <div className={cn('label')}>Цена:</div>
+        <div className={cn('label')}>{t('article.price')}:</div>
         <div className={cn('value')}>{numberFormat(article.price)} ₽</div>
       </div>
       <Button style="primary" onClick={() => onAdd(article._id)} title={t('article.add')} />

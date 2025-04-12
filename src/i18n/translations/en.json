@@ -5,14 +5,23 @@
   "basket.open": "Open",
   "basket.close": "Close",
   "basket.inBasket": "In cart",
-  "basket.empty": "empty",
+  "basket.empty": "Empty",
   "basket.total": "Total",
   "basket.unit": "pcs",
   "basket.delete": "Delete",
   "article.add": "Add",
+  "article.price": "Price",
   "filter.reset": "Reset",
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "user.login": "Login",
+  "user.logout": "Logout",
+  "user.name": "Name",
+  "user.phone": "Phone",
+  "user.toLogin": "Login",
+  "user.username": "Login",
+  "user.password": "Password",
+  "user.profile": "Profile"
 }

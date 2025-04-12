@@ -1,0 +1,24 @@
+.ProfileCard-title {
+  font-family: var(--second-font-family);
+  padding: 24px 0;
+}
+
+.ProfileCard-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ProfileCard-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ProfileCard-item p {
+  margin: 0 0 12px 0;
+  width: 74px;
+}
+.ProfileCard span {
+  font-weight: 700;
+}

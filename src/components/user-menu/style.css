@@ -1,0 +1,19 @@
+.User-menu {
+  background-color: var(--second-background);
+  padding: 8px 0;
+}
+
+.User-menu-container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  max-width: 1152px;
+  margin: 0 auto;
+  gap: 24px;
+}
+
+.User-menu-button {
+  color: var(--primary);
+  margin: 0;
+  padding: 0;
+}
