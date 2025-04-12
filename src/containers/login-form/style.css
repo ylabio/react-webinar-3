@@ -1,0 +1,12 @@
+.LoginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 46px;
+  width: 233px;
+}
+
+.LoginForm-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
