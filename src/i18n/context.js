@@ -15,13 +15,13 @@ export function I18nProvider({ children }) {
   const [lang, setLang] = useState('ru');
 
   const i18n = useMemo(() => {
-    console.log('Current lang:', lang); // Добавьте эту строку
+    console.log('Current lang:', lang);
     return {
       lang,
       setLang,
       t: (text, number) => {
         const result = translate(lang, text, number);
-        console.log(`Translation for "${text}":`, result); // И эту
+        console.log(`Translation for "${text}":`, result);
         return result;
       },
     };

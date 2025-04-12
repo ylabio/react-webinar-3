@@ -8,8 +8,8 @@ import * as translations from './translations';
  * @returns {String} Переведенный текст
  */
 export default function translate(lang, text, plural) {
-  console.log('Translating:', { lang, text, plural }); // Добавьте эту строку
-  console.log('Available translations:', translations[lang]); // И эту
+  console.log('Translating:', { lang, text, plural });
+  console.log('Available translations:', translations[lang]);
   
   let result = translations[lang] && text in translations[lang] ? translations[lang][text] : text;
 

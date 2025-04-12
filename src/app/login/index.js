@@ -4,13 +4,16 @@ import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import Navigation from '../../containers/navigation';
 import LoginForm from '../../components/login-form';
+import LocaleSelect from '../../containers/locale-select';
 
 function Login() {
   const { t } = useTranslate();
 
   return (
     <>
-      <Head title={t('login.title')} />
+      <Head title={t('login.title')} >
+        <LocaleSelect />
+      </Head>
       <PageLayout>
         <Navigation />
         <LoginForm t={t} />
