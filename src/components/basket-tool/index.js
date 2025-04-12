@@ -13,12 +13,8 @@ function BasketTool({ sum, amount, onOpen, t }) {
         <Cart className={cn('icon')} />
         <span className={cn('total')}>
           {amount
-            ? `${amount} ${plural(amount, {
-                one: 'товар',
-                few: 'товара',
-                many: 'товаров',
-              })} / ${numberFormat(sum)} ₽`
-            : `пусто`}
+            ? `${amount} ${plural(amount, t('basket.articles'))} / ${numberFormat(sum)} ₽`
+            : t('basket.empty')}
         </span>
       </button>
     </div>
@@ -30,13 +26,6 @@ BasketTool.propTypes = {
   sum: PropTypes.number,
   amount: PropTypes.number,
   t: PropTypes.func,
-};
-
-BasketTool.defaultProps = {
-  onOpen: () => {},
-  sum: 0,
-  amount: 0,
-  t: text => text,
 };
 
 export default memo(BasketTool);

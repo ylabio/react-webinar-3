@@ -1,6 +1,9 @@
 {
   "title": "Магазин",
   "menu.main": "Главная",
+  "menu.login": "Вход",
+  "menu.profile": "Профиль",
+  "menu.logout": "Выход",
   "basket.title": "Корзина",
   "basket.open": "Перейти",
   "basket.close": "Закрыть",
@@ -11,10 +14,22 @@
   "basket.delete": "Удалить",
   "article.add": "Добавить",
   "filter.reset": "Сбросить",
+  "login.email": "Логин",
+  "login.placeholder": "Введите логин",
+  "login.password": "Пароль",
+  "login.submit": "Войти",
+  "login.password.placeholder": "Введите пароль",
+  "profile.title": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "profile.email": "Email",
+  "madeIn": "Страна производитель",
+  "category": "Категория",
+  "edition": "Год выпуска",
+  "price": "Цена",
   "basket.articles": {
     "one": "товар",
     "few": "товара",
-    "many": "товаров",
-    "other": "товара"
+    "many": "товаров"
   }
 }

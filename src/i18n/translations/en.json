@@ -1,6 +1,9 @@
 {
   "title": "Shop",
   "menu.main": "Main",
+  "menu.login": "Login",
+  "menu.profile": "Profile",
+  "menu.logout": "Logout",
   "basket.title": "Cart",
   "basket.open": "Open",
   "basket.close": "Close",
@@ -11,8 +14,22 @@
   "basket.delete": "Delete",
   "article.add": "Add",
   "filter.reset": "Reset",
+  "login.email": "Login",
+  "login.password": "Password",
+  "login.placeholder": "Enter login",
+  "login.submit": "Sign in",
+  "login.password.placeholder": "Enter password",
+  "profile.title": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "profile.email": "Email",
+  "madeIn": "Country of origin",
+  "category": "Category",
+  "edition": "Year of manufacture",
+  "price": "Price",
   "basket.articles": {
     "one": "article",
-    "other": "articles"
+    "few": "articles",
+    "many": "articles"
   }
 }

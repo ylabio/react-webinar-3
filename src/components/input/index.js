@@ -2,7 +2,6 @@ import { memo, useCallback, useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import debounce from 'lodash.debounce';
-
 import './style.css';
 
 function Input(props) {
@@ -42,12 +41,6 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   theme: PropTypes.string,
-};
-
-Input.defaultProps = {
-  onChange: () => {},
-  type: 'text',
-  theme: '',
 };
 
 export default memo(Input);

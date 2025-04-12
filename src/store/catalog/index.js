@@ -16,9 +16,11 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
+        category: null,
       },
       count: 0,
       waiting: false,
+      categories: [],
     };
   }
 
@@ -36,7 +38,10 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
+
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
+    await this.loadCategories();
   }
 
   /**
@@ -49,6 +54,27 @@ class CatalogState extends StoreModule {
     const params = { ...this.initState().params, ...newParams };
     // Установка параметров и загрузка данных
     await this.setParams(params);
+  }
+
+  async loadCategories() {
+    const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
+    const json = await response.json();
+    const buildHierarchy = (items, parentId = null, level = 0) => {
+      return items
+        .filter(item => (parentId === null && !item.parent) ||
+                       (item.parent && item.parent._id === parentId))
+        .flatMap(item => [
+          { ...item, level },
+          ...buildHierarchy(items, item._id, level + 1)
+        ]);
+    };
+
+    const hierarchyOfCategories = buildHierarchy(json.result.items);
+
+    this.setState({
+      ...this.getState(),
+      categories: hierarchyOfCategories
+    });
   }
 
   /**
@@ -71,8 +97,14 @@ class CatalogState extends StoreModule {
     );
 
     // Сохранить параметры в адрес страницы
-    let urlSearch = new URLSearchParams(params).toString();
-    const url = window.location.pathname + '?' + urlSearch + window.location.hash;
+    let urlSearch = new URLSearchParams();
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== null && value !== '') {
+        urlSearch.set(key, value);
+      }
+    });
+
+    const url = window.location.pathname + '?' + urlSearch.toString() + window.location.hash;
     if (replaceHistory) {
       window.history.replaceState({}, '', url);
     } else {
@@ -84,8 +116,12 @@ class CatalogState extends StoreModule {
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
-      'search[query]': params.query,
+      'search[query]': params.query
     };
+
+    if (params.category) {
+      apiParams['search[category]'] = params.category;
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();

@@ -1,0 +1,32 @@
+.CategorySelect {
+    border: 1px solid var(--filter-border);
+    cursor: pointer;
+    padding: 8px 12px;
+    background-color: var(--background);
+    border-radius: 4px;
+    font-family: var(--font-family);
+    font-size: 16px;
+    height: 40px;
+  }
+  
+  .CategorySelect:focus-visible {
+    outline: none;
+  }
+  
+  .CategorySelect option:checked,
+  .CategorySelect option:hover {
+    background-color: var(--primary);
+    color: var(--second-text);
+  }
+  
+  .CategorySelect_size_small {
+    min-width: 130px;
+  }
+  
+  .CategorySelect_size_medium {
+    min-width: 233px;
+  }
+  
+  .CategorySelect_text {
+    border: none;
+  }

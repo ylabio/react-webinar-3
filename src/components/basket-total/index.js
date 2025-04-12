@@ -20,9 +20,4 @@ BasketTotal.propTypes = {
   t: PropTypes.func,
 };
 
-BasketTotal.defaultProps = {
-  sum: 0,
-  t: text => text,
-};
-
 export default memo(BasketTotal);
