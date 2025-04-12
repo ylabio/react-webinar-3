@@ -7,6 +7,9 @@ import Store from './store';
 import 'theme.css';
 
 const store = new Store();
+if (store.getState().user.token) {
+  store.actions.user.load();
+}
 
 const root = createRoot(document.getElementById('root'));
 

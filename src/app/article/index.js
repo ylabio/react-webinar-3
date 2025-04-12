@@ -11,13 +11,8 @@ import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
 
-/**
- * Страница товара с первичной загрузкой товара по id из url адреса
- */
 function Article() {
   const store = useStore();
-
-  // Параметры из пути /articles/:id
   const params = useParams();
 
   useInit(() => {
@@ -32,13 +27,12 @@ function Article() {
   const { t } = useTranslate();
 
   const callbacks = {
-    // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   };
 
   return (
     <>
-      <Head title={select.article.title}>
+      <Head title={select.article.title}> {/* Передаем название товара */}
         <LocaleSelect />
       </Head>
       <PageLayout>

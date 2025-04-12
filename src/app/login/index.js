@@ -11,7 +11,7 @@ function Login() {
 
   return (
     <>
-      <Head title={t('login.title')} >
+      <Head>
         <LocaleSelect />
       </Head>
       <PageLayout>

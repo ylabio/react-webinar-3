@@ -11,6 +11,7 @@ function Input( {
   placeholder = '',
   onChange = () => {},
   theme = '',
+  inputRef,
 } ) {
   // Внутренний стейт для быстрого отображения ввода
   const [inputValue, setInputValue] = useState(value);
@@ -32,6 +33,7 @@ function Input( {
   const cn = bem('Input');
   return (
     <input
+      ref={inputRef}
       className={cn({ theme })}
       value={inputValue}
       type={type}
