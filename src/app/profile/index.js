@@ -10,7 +10,8 @@ import AppLayout from '../../components/app-layout';
 import useTranslate from '../../hooks/use-translate';
 
 function ProfilePage() {
-  const user = useSelector(state => state.user);
+  const profile = useSelector(state => state.profile);
+
   const { t } = useTranslate();
 
   const { isLoading, isAuthorized, isUnauthorized, username, handleLogout } = useAuthSlotProps();
@@ -29,8 +30,12 @@ function ProfilePage() {
     <AppLayout title={t('title')} authSlot={auth}>
       <PageLayout>
         <Navigation />
-        {user.data ? (
-          <ProfileInfo profile={user.data.profile} username={username} email={user.data.email} />
+        {profile.data ? (
+          <ProfileInfo
+            profile={profile.data.profile}
+            username={username}
+            email={profile.data.email}
+          />
         ) : (
           <div className="profile-page">Загрузка профиля...</div>
         )}

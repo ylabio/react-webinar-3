@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import ProfilePage from '../../app/profile';
+
 /**
  * Контейнер для защищённого доступа к профилю
  */
@@ -11,12 +12,13 @@ function ProfileContainer() {
   const navigate = useNavigate();
 
   const user = useSelector(state => state.user);
+  const profile = useSelector(state => state.profile);
 
   useEffect(() => {
-    if (user.token && !user.data) {
-      store.actions.user.loadProfile();
+    if (user.token) {
+      store.actions.profile.load();
     }
-  }, [user.token, user.data]);
+  }, [user.token]);
 
   useEffect(() => {
     if (!user.token) {
@@ -24,7 +26,7 @@ function ProfileContainer() {
     }
   }, [user.token, navigate]);
 
-  if (user.token && !user.data) {
+  if (user.token && !profile.data) {
     return <div className="profile-page">Загрузка профиля...</div>;
   }
 

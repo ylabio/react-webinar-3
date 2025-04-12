@@ -24,7 +24,7 @@ function Main() {
 
   const { t } = useTranslate();
   const categoryId = useSelector(state => state.catalog.params.category);
-  const categories = useSelector(state => state.catalog.categories || []);
+  const categories = useSelector(state => state.category.list || []);
   const selectedCategory =
     categoryId && categories.length > 0 ? categories.find(c => c._id === categoryId) : null;
 

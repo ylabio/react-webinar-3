@@ -11,8 +11,8 @@ function useSessionGuard() {
   const user = useSelector(state => state.user);
 
   useEffect(() => {
-    if (user.token && !user.data) {
-      store.actions.user.loadProfile();
+    if (user.token) {
+      store.actions.profile.load();
     }
   }, [user.token, user.data]);
 }

@@ -1,7 +1,7 @@
 import StoreModule from '../module';
 
 /**
- * Состояние пользователя (авторизация, профиль)
+ * Состояние пользователя (авторизация)
  */
 class UserState extends StoreModule {
   /**
@@ -9,7 +9,6 @@ class UserState extends StoreModule {
    */
   initState() {
     return {
-      data: null, // Данные авторизованного пользователя
       token: localStorage.getItem('token') ?? null,
       error: '',
       waiting: false,
@@ -40,10 +39,10 @@ class UserState extends StoreModule {
         return false;
       }
 
-      const { token, user } = data.result;
+      const { token } = data.result;
 
       localStorage.setItem('token', token);
-      this.setState({ token, data: user, error: '', waiting: false }, 'Пользователь авторизован');
+      this.setState({ token, error: '', waiting: false }, 'Пользователь авторизован');
       return true;
     } catch (e) {
       this.setState({ ...this.getState(), error: 'Сетевая ошибка', waiting: false }, 'Ошибка сети');
@@ -71,38 +70,8 @@ class UserState extends StoreModule {
     }
 
     localStorage.removeItem('token');
-    this.setState({ token: '', data: null, error: '' }, 'Выход из системы');
-  }
-
-  /**
-   * Загрузка профиля пользователя по сохранённому токену
-   * @returns {Promise<boolean>}
-   */
-  async loadProfile() {
-    const token = this.getState().token;
-    if (!token) return false;
-
-    try {
-      const response = await fetch('/api/v1/users/self?fields=*', {
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Token': token,
-        },
-      });
-
-      const data = await response.json();
-      console.log('Ответ от /users/self:', data);
-      if (!response.ok) {
-        this.logout();
-        return false;
-      }
-
-      this.setState({ ...this.getState(), data: data.result }, 'Загружен профиль пользователя');
-      return true;
-    } catch (e) {
-      this.logout();
-      return false;
-    }
+    this.setState({ token: '', error: '', waiting: false }, 'Выход из системы');
+    this.store.actions.profile.clear(); // очищаем профиль отдельно
   }
 }
 
