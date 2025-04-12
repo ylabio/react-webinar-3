@@ -6,16 +6,26 @@ import debounce from 'lodash.debounce';
 import './style.css';
 
 function Input(props) {
+  const {
+    onChange,
+    name,
+    type = 'text',
+    theme = '',
+    placeholder,
+    delay = 600,
+    id,
+    autoComplete = 'on',
+  } = props;
   // Внутренний стейт для быстрого отображения ввода
   const [value, setValue] = useState(props.value);
 
   const onChangeDebounce = useCallback(
-    debounce(value => props.onChange(value, props.name), 600),
-    [props.onChange, props.name],
+    debounce(value => onChange(value, name), delay),
+    [onChange, name],
   );
 
   // Обработчик изменений в поле
-  const onChange = event => {
+  const onChangeHandler = event => {
     setValue(event.target.value);
     onChangeDebounce(event.target.value);
   };
@@ -26,11 +36,13 @@ function Input(props) {
   const cn = bem('Input');
   return (
     <input
-      className={cn({ theme: props.theme })}
+      className={cn({ theme: theme })}
       value={value}
-      type={props.type}
-      placeholder={props.placeholder}
-      onChange={onChange}
+      type={type}
+      placeholder={placeholder}
+      onChange={onChangeHandler}
+      id={id}
+      autoComplete={autoComplete}
     />
   );
 }
@@ -42,12 +54,9 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   theme: PropTypes.string,
-};
-
-Input.defaultProps = {
-  onChange: () => {},
-  type: 'text',
-  theme: '',
+  delay: PropTypes.number,
+  id: PropTypes.string,
+  autoComplete: PropTypes.string,
 };
 
 export default memo(Input);

@@ -6,5 +6,13 @@
 }
 
 .PageLayout-center {
-  padding-block: 24px;
+  padding-block-end: 24px;
+}
+
+.PageLayout-topBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #D43B3B;
 }

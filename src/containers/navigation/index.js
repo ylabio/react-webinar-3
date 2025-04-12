@@ -38,7 +38,7 @@ function Navigation() {
   };
 
   return (
-    <SideLayout side="between">
+    <SideLayout side="between" padding={'medium'}>
       <Menu items={options.menu} onNavigate={callbacks.onNavigate} />
       <BasketTool
         onOpen={callbacks.openModalBasket}
