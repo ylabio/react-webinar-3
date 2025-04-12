@@ -1,0 +1,22 @@
+.Login {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.Login h1 {
+  font-family: var(--second-font-family);
+}
+
+.Login-input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 233px;
+}
+
+.error {
+  height: 14px;
+  margin-bottom: 24px;
+  color: var(--delete);
+}
