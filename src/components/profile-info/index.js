@@ -8,9 +8,9 @@ function ProfileInfo({ profile, t }) {
       <h2>{t('profile.title')}</h2>
       {profile && (
         <div className="profile-info__content">
-          {profile.profile?.name && <p>Имя: {profile.profile.name}</p>}
-          {profile.profile?.phone && <p>Телефон: {profile.profile.phone}</p>}
-          <p>Email: {profile.email}</p>
+          {profile.profile?.name && (<div className="profile-info__row"><p className="profile-info__cell">Имя:</p> <p className="profile-info__cell">{profile.profile.name}</p></div>)}
+          {profile.profile?.phone && (<div className="profile-info__row"><p className="profile-info__cell">Телефон:</p> <p className="profile-info__cell">{profile.profile.phone}</p></div>)}
+          {profile?.email && (<div className="profile-info__row"><p className="profile-info__cell">Email:</p> <p className="profile-info__cell">{profile.email}</p></div>)}
         </div>
       )}
     </div>

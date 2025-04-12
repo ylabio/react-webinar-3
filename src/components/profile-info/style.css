@@ -1,3 +1,33 @@
+.profile-info {
+  padding-top: 20px;
+}
+
 .profile-info__content {
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 17px;
+}
+
+.profile-info {
+
+  & h2 {
+    font-size: 32px;
+    font-family: var(--second-font-family);
+  }
+}
+
+.profile-info__row {
+  display: flex;
+}
+
+.profile-info__cell {
+  margin: 0;
+}
+
+.profile-info__cell:first-child {
+  min-width: 100px;
+}
+.profile-info__cell:nth-child(2) {
+  font-weight: bold;
 }
