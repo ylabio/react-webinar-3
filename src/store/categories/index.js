@@ -4,7 +4,6 @@ class CategoriesState extends StoreModule {
   initState() {
     return {
       list: [],
-      selectedCategory: '',
     };
   }
 

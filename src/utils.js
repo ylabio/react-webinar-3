@@ -86,3 +86,34 @@ export const deleteFromLS = key => void localStorage.removeItem(key)
  * @param {string} value - Значение для сохранения
  */
 export const saveToLS = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+
+/**
+ * Возвращает полный путь элемента в виде строки, разделенной слешами (`/`),
+ * начиная от корневого элемента до текущего.
+ *
+ * @param {Array<Object>} items - Массив элементов с иерархической структурой.
+ * @param {string|number} itemId - ID элемента, для которого нужно получить путь.
+ * @param {Array<string>} [path=[]] - Внутренний параметр для рекурсии (аккумулирует текущий путь).
+ * @returns {string} Полный путь в формате `"Родитель/Ребенок/ и тд"`
+ *
+ * @example
+ * const items = [
+ *   { _id: 1, title: 'Техника', parent: null },
+ *   { _id: 2, title: 'Телефоны', parent: { _id: 1 } },
+ *   { _id: 3, title: 'Смартфоны', parent: { _id: 2 } }
+ * ];
+ *
+ * getFullPath(items, 3); // => "Техника/Телефоны/Смартфоны"
+ */
+export const getFullPath = (items, itemId, path = []) => {
+  const item = items.find(i => i._id === itemId);
+  if (!item) return '';
+
+  const newPath = [item.title, ...path];
+
+  if (item.parent) {
+    return getFullPath(items, item.parent._id, newPath);
+  }
+
+  return newPath.join('/');
+};
