@@ -27,7 +27,7 @@ function Input({ value, name, type = 'text', placeholder, onChange = () => {}, t
   return (
     <input
       className={cn({ theme: theme })}
-      value={value}
+      value={inputValue}
       type={type}
       placeholder={placeholder}
       onChange={handleChange}
