@@ -83,7 +83,7 @@ function CatalogFilter() {
 
       const treeOptions = buildCategoryTree(select.categories, null, categoryMap);
 
-      return [{ value: '', title: 'Все категории' }, ...treeOptions];
+      return [{ value: '', title: 'Все' }, ...treeOptions];
     }, [select.categories, select.categoriesLoaded, t]),
   };
 

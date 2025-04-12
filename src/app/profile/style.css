@@ -1,0 +1,47 @@
+.Profile {
+  max-width: 400px;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.Profile h2 {
+  font-family: var(--second-font-family);
+  font-size: 32px;
+  color: var(--main-text);
+}
+
+.Profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.Profile-field {
+  display: flex;
+  gap: 8px;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.Profile-label {
+  color: var(--main-text);
+  min-width: 80px;
+}
+
+.Profile-value {
+  color: var(--main-text);
+  font-weight: normal;
+}
+
+.Profile-info p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+  color: var(--main-text);
+}
+
+.Profile-actions {
+  text-align: center;
+  margin-top: 30px;
+}
