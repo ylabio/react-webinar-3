@@ -16,16 +16,10 @@ function useSessionGuard() {
   const profile = useSelector(state => state.profile);
 
   useEffect(() => {
-    if (user.token) {
-      // Если есть токен, но профиля нет — загружаем
-      if (!profile.data) {
-        store.actions.profile.load();
-      }
-    } else {
-      // Если нет токена — редирект на /login
-      navigate('/login', { replace: true });
+    if (user.token && !profile.data) {
+      store.actions.profile.load();
     }
-  }, [user.token, profile.data, store, navigate]);
+  }, [user.token, profile.data]);
 }
 
 export default useSessionGuard;

@@ -7,6 +7,7 @@ import ProfileInfo from '../../components/profile-info';
 import AuthSlot from '../../components/auth-slot';
 import AppLayout from '../../components/app-layout';
 import useTranslate from '../../hooks/use-translate';
+import LocaleSelect from '../../containers/locale-select';
 
 function ProfilePage() {
   const profile = useSelector(state => state.profile);
@@ -24,7 +25,7 @@ function ProfilePage() {
   );
 
   return (
-    <AppLayout title={t('title')} authSlot={auth}>
+    <AppLayout title={t('title')} authSlot={auth} headChildren={<LocaleSelect />}>
       <PageLayout>
         <Navigation />
         {profile.data ? (

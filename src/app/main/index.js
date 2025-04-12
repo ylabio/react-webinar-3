@@ -10,6 +10,7 @@ import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import AuthSlot from '../../components/auth-slot';
 import AppLayout from '../../components/app-layout';
+import LocaleSelect from '../../containers/locale-select';
 
 function Main() {
   const store = useStore();
@@ -51,7 +52,7 @@ function Main() {
   );
 
   return (
-    <AppLayout title={pageTitle} authSlot={auth}>
+    <AppLayout title={pageTitle} authSlot={auth} headChildren={<LocaleSelect />}>
       <PageLayout>
         <Navigation />
         <CatalogFilter />
