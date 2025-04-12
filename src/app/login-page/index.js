@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import useStore from '../../hooks/use-store';
 import Navigation from '../../containers/navigation';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -14,7 +13,7 @@ function LoginPage() {
 
   return (
     <>
-      <Head title={t('login.title')}>
+      <Head title={t('title')}>
         <LocaleSelect />
       </Head>
       <PageLayout>

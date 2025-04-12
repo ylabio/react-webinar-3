@@ -22,5 +22,9 @@
   "login.form.placeholder.password": "Enter password",
   "login.form.button": "Login",
   "login.title": "Login",
-  "logout.button": "Logout"
+  "logout.button": "Logout",
+  "profile.title": "Profile",
+  "profile.name": "Name",
+  "profile.email": "Email",
+  "profile.phone": "Phone"
 }

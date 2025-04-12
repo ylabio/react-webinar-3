@@ -24,5 +24,9 @@
   "login.form.placeholder.password": "Введите пароль",
   "login.form.button": "Войти",
   "login.title": "Вход",
-  "logout.button": "Выход"
+  "logout.button": "Выход",
+  "profile.title": "Профиль",
+  "profile.name": "Имя",
+  "profile.email": "Email",
+  "profile.phone": "Телефон"
 }
