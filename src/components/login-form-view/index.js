@@ -3,6 +3,7 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import Input from '../input';
 import Button from '../button';
+import PropTypes from 'prop-types';
 
 function LoginFormView({ login, pass, error, onLoginChange, onPassChange, onSubmit, t }) {
   const cn = bem('LoginForm');
@@ -28,4 +29,14 @@ function LoginFormView({ login, pass, error, onLoginChange, onPassChange, onSubm
   );
 }
 
+LoginFormView.PropTypes = {
+    login: PropTypes.string.isRequired,
+    pass: PropTypes.string.isRequired,
+    error: PropTypes.string,
+    onLoginChange: PropTypes.func.isRequired,
+    onPassChange: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired,
+  };
+  
 export default LoginFormView;
