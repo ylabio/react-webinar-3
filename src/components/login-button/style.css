@@ -12,7 +12,7 @@
   align-items: baseline;
   justify-content: flex-end;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 23px;
 }
 
 .LoginButton button {
@@ -21,7 +21,7 @@
   color: var(--primary);
 }
 
-.LoginButton-user-name {
+.LoginButton a {
   display: block;
 
   font-size: 16px;
