@@ -29,12 +29,20 @@ height: 40px;
 
 .LoginForm-form button{
   cursor: pointer;
-  background: #EFEFEF;
-  width: 53px;
-  height: 21px;
+  background: var(--primary);
+  color: var(--second-text);
+  width: 86px;
+  height: 40px;
+  transition: 0.3s;
+  &:hover {
+    background-color: var(--background);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+  }
   }
 
   .LoginForm-error {
-    font-size: 16px;
-    color: #FF0000;
+    font-family: var(--font-family);
+    font-size: 14px;
+    color: var(--delete);
     }

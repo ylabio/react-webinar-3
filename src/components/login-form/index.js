@@ -29,11 +29,11 @@ function LoginForm(props) {
       <form className={cn("form")} onSubmit={callbacks.onSubmit}>
         <div>
           <label htmlFor={"login"}>{props.t("login")}</label>
-          <input name="login" type="text" onChange={handleChange} />
+          <input name="login" type="text" placeholder="Введите логин" onChange={handleChange} />
         </div>
         <div>
           <label htmlFor={"password"}>{props.t("password")}</label>
-          <input name="password" type="password" onChange={handleChange} />
+          <input name="password" type="password" placeholder="Введите пароль" onChange={handleChange} />
         </div>
         {props.error &&
           props.error.map((err, i) => {
