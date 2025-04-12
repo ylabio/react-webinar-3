@@ -72,3 +72,13 @@ export function buildCategoriesTree(categories) {
 
   return result;
 }
+
+/**
+ * Проверка наличия токена
+ */
+
+export function isAuth() {
+  const token = localStorage.getItem('authToken');
+
+  return !!token;
+}
