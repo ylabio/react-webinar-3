@@ -1,0 +1,29 @@
+.ProfileHeader {
+  background-color: var(--second-background);
+}
+
+.ProfileHeader-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  max-width: 1152px;
+  width: 100%;
+  height: 38px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 16px;
+}
+
+.ProfileHeader-link {
+  font-size: 14px;
+  color: var(--primary);
+  transition: color 0.3s ease-in-out;
+}
+
+.ProfileHeader-link:hover {
+  color: var(--primary-select);
+}
+
+.ProfileHeader-link:not(:last-child) {
+  margin-right: 24px;
+}

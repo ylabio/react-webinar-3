@@ -1,0 +1,21 @@
+.Authform-header {
+  padding: 24px 0;
+  font-size: 32px;
+}
+
+.Authform-input-block {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.Authform-input-block label {
+  margin-bottom: 8px;
+}
+
+.Authform-error {
+  display: inline-block;
+  margin-bottom: 24px;
+  font-size: 12px;
+  color: var(--delete);
+}
