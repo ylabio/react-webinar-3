@@ -13,7 +13,7 @@ import Spinner from '../../components/spinner';
 import ProfileCard from '../../components/profile-card';
 
 /**
- * Страница товара с первичной загрузкой товара по id из url адреса
+ * Страница профиля пользователя
  */
 
 function Profile() {

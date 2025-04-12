@@ -96,13 +96,12 @@ class CatalogState extends StoreModule {
     }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
-    // const response = await fetch(`/api/v1/articles?search[category]=67f1871a692e2282cbacd2f5`);
 
-    // if (!response.ok) {
-    //   console.error('Ошибка при выполнении запроса:', response.statusText);
-    //   this.setState({ waiting: false });
-    //   return;
-    // }
+    if (!response.ok) {
+      console.error('Ошибка при выполнении запроса:', response.statusText);
+      this.setState({ waiting: false });
+      return;
+    }
 
     const json = await response.json();
     const categoriesResponse = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
