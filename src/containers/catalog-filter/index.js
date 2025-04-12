@@ -15,11 +15,11 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories || [],
+    categories: state.category.list || [],
   }));
 
   useEffect(() => {
-    store.actions.catalog.loadCategories();
+    store.actions.category.load();
   }, []);
 
   const callbacks = {
