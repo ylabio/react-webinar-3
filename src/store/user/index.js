@@ -5,7 +5,7 @@ class UserState extends StoreModule {
     const token = localStorage.getItem('token');
 
     return {
-      token: token || '',
+      token: token || null,
       user: {},
       loading: false,
       error: null,

@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -20,13 +20,16 @@ import { useEffect } from 'react';
 function Profile() {
   const store = useStore();
   const { t } = useTranslate();
+
+  const { token } = useSelector(state => state.user);
+const memoizedToken = useMemo(() => token, [token]);
   
-  const { token, isAuth, loading, profileData } = useSelector(state => ({
-    token: state.user.token,
+  const { isAuth, loading, profileData } = useSelector(state => ({
     isAuth: state.user.isAuth,
     loading: state.profile.loading,
     profileData: state.profile.data || state.user.user
   }));
+  
 
   useAuth();
 
@@ -34,7 +37,7 @@ function Profile() {
     if (isAuth && token) {
       store.actions.profile.loadProfile(token);
     }
-  }, [isAuth, token, store]);
+  }, [ memoizedToken]);
 
   if (!isAuth) return null;
 
