@@ -68,9 +68,14 @@ class CatalogState extends StoreModule {
    * @return {Promise<void>}
    */
   async resetParams(newParams = {}) {
-    // Итоговые параметры из начальных, из URL и из переданных явно
-    const params = { ...this.initState().params, ...newParams };
-    // Установка параметров и загрузка данных
+    const baseParams = this.initState().params;
+
+    const params = {
+      ...baseParams,
+      category: undefined, // Явно сбрасываем фильтр по категории
+      ...newParams,
+    };
+
     await this.setParams(params);
   }
 
