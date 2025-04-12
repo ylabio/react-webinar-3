@@ -29,13 +29,14 @@ class UserState extends StoreModule {
     });
   
     const json = await response.json();
+
   
     if (!response.ok) {
       this.setState({ 
         ...this.getState(), 
-        error: json.error?.message || 'error login '
+        error: json.error?.data.issues[0].message || 'error login '
       });
-      return { error: json.error?.message };
+      return { error: json.error?.data.issues[0].message };
     }
   
     const { token, user } = json.result;
@@ -86,7 +87,7 @@ class UserState extends StoreModule {
       this.setState({
         ...this.getState(),
         loading: false,
-        error: error.message,
+        error: e.message,
       });
     }
   }

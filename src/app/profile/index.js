@@ -10,6 +10,7 @@ import Navigation from '../../containers/navigation';
 import LocaleSelect from '../../containers/locale-select';
 
 const Profile = () => {
+    const navigate = useNavigate();
   const select = useSelector(state => ({
     token: state.user.token,
     user: state.user.user,

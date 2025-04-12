@@ -25,6 +25,7 @@ const LoginForm = () => {
 
   async function handleLogin() {
     const response = await callbacks.login({ login, password });
+    console.log(response.error);
     
     if (response.error) {
       setError(response.error);
