@@ -21,7 +21,7 @@ function Item(props) {
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>
-          {numberFormat(props.item.price)} {props.labelCurr}
+          {numberFormat(props.item.price) + ' ₽'} {props.labelCurr}
         </div>
         <Button style="primary" onClick={callbacks.onAdd} title={props.labelAdd} />
       </div>
@@ -41,10 +41,10 @@ Item.propTypes = {
   labelAdd: PropTypes.string,
 };
 
-Item.defaultProps = {
-  onAdd: () => {},
-  labelCurr: '₽',
-  labelAdd: 'Добавить',
-};
+// Item.defaultProps = {
+//   onAdd: () => {},
+//   labelCurr: '₽',
+//   labelAdd: 'Добавить',
+// };
 
 export default memo(Item);

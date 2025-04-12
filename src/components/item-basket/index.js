@@ -56,11 +56,11 @@ ItemBasket.propTypes = {
   labelUnit: PropTypes.string,
 };
 
-ItemBasket.defaultProps = {
-  onRemove: () => {},
-  labelCurr: '₽',
-  labelUnit: 'шт',
-  labelDelete: 'Удалить',
-};
+// ItemBasket.defaultProps = {
+//   onRemove: () => {},
+//   labelCurr: '₽',
+//   labelUnit: 'шт',
+//   labelDelete: 'Удалить',
+// };
 
 export default memo(ItemBasket);

@@ -2,7 +2,6 @@ import { memo, useCallback, useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import debounce from 'lodash.debounce';
-
 import './style.css';
 
 function Input(props) {
@@ -10,7 +9,7 @@ function Input(props) {
   const [value, setValue] = useState(props.value);
 
   const onChangeDebounce = useCallback(
-    debounce(value => props.onChange(value, props.name), 600),
+    debounce(value => props.onChange(value, props.name), props.delay),
     [props.onChange, props.name],
   );
 
@@ -48,6 +47,7 @@ Input.defaultProps = {
   onChange: () => {},
   type: 'text',
   theme: '',
+  delay: 0,
 };
 
 export default memo(Input);

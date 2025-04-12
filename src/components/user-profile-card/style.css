@@ -1,0 +1,26 @@
+.UserProfCard {
+  margin: 24px 0;
+  h1 {
+    margin-bottom: 24px;
+    font-family: var(--second-font-family);
+  }
+}
+
+.UserProfCard-prop-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.UserProfCard-prop {
+  display: flex;
+  gap: 20px;
+}
+
+.UserProfCard-prop-label {
+  /*width: 200px;*/
+}
+
+.UserProfCard-prop-value {
+  font-weight: bold;
+}

@@ -18,7 +18,7 @@ function BasketTool({ sum, amount, onOpen, t }) {
                 few: 'товара',
                 many: 'товаров',
               })} / ${numberFormat(sum)} ₽`
-            : `пусто`}
+            : `Пусто`}
         </span>
       </button>
     </div>
@@ -32,11 +32,11 @@ BasketTool.propTypes = {
   t: PropTypes.func,
 };
 
-BasketTool.defaultProps = {
-  onOpen: () => {},
-  sum: 0,
-  amount: 0,
-  t: text => text,
-};
+// BasketTool.defaultProps = {
+//   onOpen: () => {},
+//   sum: 0,
+//   amount: 0,
+//   t: text => text,
+// };
 
 export default memo(BasketTool);
