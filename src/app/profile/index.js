@@ -1,7 +1,6 @@
 import { memo } from 'react';
 import useSelector from '../../hooks/use-selector';
 import useAuthSlotProps from '../../hooks/use-auth-slot';
-
 import PageLayout from '../../components/page-layout';
 import Navigation from '../../containers/navigation';
 import ProfileInfo from '../../components/profile-info';
@@ -11,9 +10,7 @@ import useTranslate from '../../hooks/use-translate';
 
 function ProfilePage() {
   const profile = useSelector(state => state.profile);
-
   const { t } = useTranslate();
-
   const { isLoading, isAuthorized, isUnauthorized, username, handleLogout } = useAuthSlotProps();
 
   const auth = (

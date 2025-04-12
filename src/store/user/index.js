@@ -66,12 +66,14 @@ class UserState extends StoreModule {
         },
       });
     } catch (e) {
-      // очищаем токен
+      // игнорируем
     }
 
     localStorage.removeItem('token');
     this.setState({ token: '', error: '', waiting: false }, 'Выход из системы');
-    this.store.actions.profile.clear(); // очищаем профиль отдельно
+
+    // Очищаем профиль при логауте
+    this.store.actions.profile.clear();
   }
 }
 

@@ -1,36 +1,25 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import useStore from '../../hooks/use-store';
-import useSelector from '../../hooks/use-selector';
+import { memo } from 'react';
 import ProfilePage from '../../app/profile';
+import useSelector from '../../hooks/use-selector';
 
 /**
  * Контейнер для защищённого доступа к профилю
+ * Но if (!token) уже обрабатывается в useSessionGuard
  */
 function ProfileContainer() {
-  const store = useStore();
-  const navigate = useNavigate();
-
   const user = useSelector(state => state.user);
   const profile = useSelector(state => state.profile);
 
-  useEffect(() => {
-    if (user.token) {
-      store.actions.profile.load();
-    }
-  }, [user.token]);
+  // Логика проверок уже в useSessionGuard
+  if (!user.token) {
+    return null; // useSessionGuard сделает редирект
+  }
 
-  useEffect(() => {
-    if (!user.token) {
-      navigate('/login', { replace: true });
-    }
-  }, [user.token, navigate]);
-
-  if (user.token && !profile.data) {
+  if (!profile.data) {
     return <div className="profile-page">Загрузка профиля...</div>;
   }
 
   return <ProfilePage />;
 }
 
-export default ProfileContainer;
+export default memo(ProfileContainer);
