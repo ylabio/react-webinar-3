@@ -24,7 +24,7 @@ class UserState extends StoreModule {
       if (data.error) {
         this.setState({
           ...this.getState(),
-          loginError: data.error.message || 'Login failed',
+          loginError: data?.error?.data?.issues[0]?.message || 'Login failed',
           token: null,
           profile: null
         });

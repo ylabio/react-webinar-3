@@ -26,8 +26,12 @@ function Login() {
 
   const callbacks = {
     onChangeField: useCallback((name, value) => {
+      store.actions.user.setState({
+        ...store.actions.user.getState(),
+        loginError: ''
+      });
       setForm(prev => ({...prev, [name]: value}));
-    }, []),
+    }, [store]),
     
     onSubmit: useCallback(async (e) => {
       e.preventDefault();
