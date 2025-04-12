@@ -11,12 +11,9 @@ import calcLevels from '../../utils/calc-level';
 function CatalogFilter() {
   const store = useStore();
   const { t } = useTranslate();
-  const select = useSelector(state => ({
-    sort: state.catalog.params.sort,
-    query: state.catalog.params.query,
-    category: state.catalog.params.category,
-    categories: state.category.list || [],
-  }));
+
+  const { sort, query, category } = useSelector(state => state.catalog.params);
+  const categories = useSelector(state => state.category.list || []);
 
   useEffect(() => {
     store.actions.category.load();
@@ -45,28 +42,27 @@ function CatalogFilter() {
       ],
       [t],
     ),
-
     category: useMemo(() => {
       const base = [{ value: 'all', title: t('category.all'), level: 0 }];
-      const formatted = calcLevels(select.categories).map(cat => ({
+      const formatted = calcLevels(categories).map(cat => ({
         value: cat._id,
         title: t(`category.${cat.title}`),
         level: cat.level,
       }));
       return base.concat(formatted);
-    }, [select.categories, t]),
+    }, [categories, t]),
   };
 
   return (
     <SideLayout padding="medium">
       <CustomSelect
         options={options.category}
-        value={select.category || 'all'}
+        value={category || 'all'}
         onChange={callbacks.onCategory}
       />
-      <CustomSelect options={options.sort} value={select.sort} onChange={callbacks.onSort} />
+      <CustomSelect options={options.sort} value={sort} onChange={callbacks.onSort} />
       <Input
-        value={select.query}
+        value={query}
         onChange={callbacks.onSearch}
         placeholder={t('search.placeholder')}
         delay={1000}
