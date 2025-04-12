@@ -11,20 +11,23 @@
   gap: 24px;
 }
 
-.AuthSlot a {
-  font-size: 14px;
-  font-weight: 700;
+.Sign-out a {
+  font-size: 16px;
+  font-weight: 400;
   background: none;
   border: none;
-  color: var(--primary);
+  color: var(--main-text);
   cursor: pointer;
   padding: 0;
 }
 .Sign-in a {
-  font-weight: 400;
+  font-size: 14px;
+  font-weight: 700;
+  background: none;
+  border: none;
   text-decoration: none;
-  font-size: 16px;
-  color: var(--main-text);
+  color: var(--primary);
+  font-family: var(--second-font-family);
 }
 
 .AuthSlot button {

@@ -16,7 +16,7 @@ function AuthSlot({ isLoading, isAuthorized, isUnauthorized, username, onLogout 
 
         {isAuthorized && (
           <>
-            <div className="Sign-in">
+            <div className="Sign-out">
               <Link to="/profile">{username}</Link>
             </div>
             <button onClick={onLogout}>Выход</button>

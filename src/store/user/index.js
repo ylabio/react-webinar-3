@@ -70,9 +70,7 @@ class UserState extends StoreModule {
     }
 
     localStorage.removeItem('token');
-    this.setState({ token: '', error: '', waiting: false }, 'Выход из системы');
-
-    // Очищаем профиль при логауте
+    this.setState({ token: null, error: '', waiting: false }, 'Выход из системы');
     this.store.actions.profile.clear();
   }
 }
