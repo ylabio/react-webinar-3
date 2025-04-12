@@ -13,6 +13,7 @@ class Auth extends StoreModule {
                 phone: '',
                 email: '',
             },
+            error: '',
             waiting: false, // признак ожидания загрузки
         };
     }
@@ -32,7 +33,7 @@ class Auth extends StoreModule {
     }
 
     async authorizate(token) {
-        this.setState({ ...this.getState(), waiting: true }); // Начинаем ожидание
+        this.setState({ ...this.getState(), error: '', waiting: true }); // Начинаем ожидание
 
         if (token) {
             try {
@@ -52,6 +53,8 @@ class Auth extends StoreModule {
                         name: data.result.profile.name,
                     }
                 }, 'Пользователь авторизован');
+
+                return true;
 
             } catch (error) {
                 console.error('Ошибка авторизации, токен устарел')
@@ -74,23 +77,40 @@ class Auth extends StoreModule {
 
             const data = await response.json();
 
+            if (data.error) {
+                const error = data.error.data.issues[0].message;
+
+                this.setState({
+                    ...this.getState(),
+                    error,
+                    waiting: false,
+                })
+
+                return false;
+            }
+
             this.setState({
                 ...this.getState(),
                 waiting: false,
                 userProfile: {
                     ...this.getState().userProfile,
                     name: data.result.user.profile.name,
-                }
+                },
+                login: '',
+                password: '',
             }, 'Пользователь авторизован');
 
-            localStorage.setItem('authToken', data.result.token);
+            sessionStorage.setItem('authToken', data.result.token);
+
             return true;
 
         } catch (error) {
             console.error('Ошибка при авторизации!', error);
+            console.log(error);
 
             this.setState({
                 ...this.getState(),
+                errors: '',
                 waiting: false,
             })
             return false;
@@ -98,14 +118,13 @@ class Auth extends StoreModule {
     }
 
     //Получение профиля пользователя
-    async fetchProfile() {
+    async fetchProfile(token) {
         this.setState({
             ...this.getState(),
             waiting: true,
         })
 
-        const authToken = localStorage.getItem('authToken');
-        if (!authToken) {
+        if (!token) {
             console.log('Вы не авторизованы!');
             this.setState({
                 ...this.getState(),
@@ -113,10 +132,11 @@ class Auth extends StoreModule {
             })
             return;
         }
+
         try {
             const response = await fetch('/api/v1/users/self?fields=email,profile(name,phone)', {
                 headers: {
-                    'X-Token': authToken,
+                    'X-Token': token,
                     'Content-Type': 'application/json'
                 },
             })
@@ -148,7 +168,7 @@ class Auth extends StoreModule {
             ...this.getState(),
             waiting: true,
         }, 'Выход из аккаунта')
-        const authToken = localStorage.getItem('authToken');
+        const authToken = sessionStorage.getItem('authToken');
 
         try {
             const response = await fetch('/api/v1/users/sign', {
@@ -161,7 +181,8 @@ class Auth extends StoreModule {
 
             const data = await response.json();
             if (data.result) {
-                localStorage.removeItem('authToken');
+                sessionStorage.removeItem('authToken');
+
                 this.setState({
                     ...this.getState(),
                     userProfile: {

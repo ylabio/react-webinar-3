@@ -13,7 +13,7 @@ function FormInput({ title, value, onChange, placeholder, type = 'text' }) {
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
-                delay={300}
+                delay={0}
                 theme={'small'}
                 type={type}
             />

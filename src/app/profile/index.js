@@ -15,22 +15,21 @@ import { useNavigate } from 'react-router-dom';
 function Profile() {
     const store = useStore();
     const navigate = useNavigate();
+    const authToken = sessionStorage.getItem('authToken');
 
     const { userProfile } = useSelector(state => state.auth);
 
     const callbacks = {
-        getProfile: useCallback(() => store.actions.auth.fetchProfile()),
+        getProfile: useCallback(token => store.actions.auth.fetchProfile(token)),
     }
 
     useEffect(() => {
-        const authToken = localStorage.getItem('authToken');
         if (authToken) {
-            callbacks.getProfile();
+            callbacks.getProfile(authToken);
         } else {
             navigate('/login');
         }
-
-    }, [userProfile]);
+    }, [authToken]);
 
     return (
         <>

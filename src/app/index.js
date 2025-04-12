@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import useStore from '../hooks/use-store';
 import useSelector from '../hooks/use-selector';
@@ -14,15 +14,15 @@ import Profile from './profile';
  */
 function App() {
   const activeModal = useSelector(state => state.modals.name);
-
   const store = useStore();
 
   useEffect(() => {
-    const authToken = localStorage.getItem('authToken');
+    const authToken = sessionStorage.getItem('authToken');
     if (authToken) {
       store.actions.auth.authorizate(authToken);
+      console.log('useEffect App authorization...')
     }
-  }, [])
+  }, []);
 
   return (
     <>

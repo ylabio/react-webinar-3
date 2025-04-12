@@ -6,12 +6,15 @@ import useSelector from '../../hooks/use-selector';
 import FormLayout from '../../components/form-layout';
 import FormInput from '../../components/form-input';
 import Button from '../../components/button';
+import ErrorMessage from '../../components/error-message';
 
 import { useNavigate } from 'react-router-dom';
 
 function AuthForm() {
     const store = useStore();
     const navigate = useNavigate();
+
+    const { login, password, error } = useSelector(state => state.auth);
 
     const callbacks = {
         // Ввод логина
@@ -31,17 +34,18 @@ function AuthForm() {
         <FormLayout title={'Вход'}>
             <FormInput
                 title={'Логин'}
-                value={''}
+                value={login}
                 placeholder={'Логин'}
                 onChange={callbacks.onLoginChange}
             />
             <FormInput
                 title={'Пароль'}
                 type='password'
-                value={''}
+                value={password}
                 placeholder={'Введите пароль'}
                 onChange={callbacks.onPasswordChange}
             />
+            <ErrorMessage text={error} />
             <Button style={'primary'} title={'Войти'} onClick={callbacks.onAuth} />
         </FormLayout>
     )
