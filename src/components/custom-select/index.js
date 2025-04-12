@@ -23,7 +23,11 @@ function CustomSelect({ options, value, onChange }) {
 
   return (
     <div className={cn()} ref={ref}>
-      <div className={cn('button')} onClick={() => setOpen(!open)}>
+      <div
+        className={cn('button')}
+        onClick={() => setOpen(!open)}
+        data-open={open ? 'true' : 'false'}
+      >
         {current?.title || 'Выбрать'}
       </div>
       {open && (
