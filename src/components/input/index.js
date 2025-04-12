@@ -5,32 +5,32 @@ import debounce from 'lodash.debounce';
 
 import './style.css';
 
-function Input(props) {
+function Input({ value, name, type = 'text', placeholder, onChange = () => {}, theme = '' }) {
   // Внутренний стейт для быстрого отображения ввода
-  const [value, setValue] = useState(props.value);
+  const [inputValue, setInputValue] = useState(value);
 
   const onChangeDebounce = useCallback(
-    debounce(value => props.onChange(value, props.name), 600),
-    [props],
+    debounce(val => onChange(val, name), 600),
+    [onChange, name],
   );
 
   // Обработчик изменений в поле
-  const onChange = event => {
-    setValue(event.target.value);
+  const handleChange = event => {
+    setInputValue(event.target.value);
     onChangeDebounce(event.target.value);
   };
 
   // Обновление стейта, если передан новый value
-  useLayoutEffect(() => setValue(props.value), [props.value]);
+  useLayoutEffect(() => setInputValue(value), [value]);
 
   const cn = bem('Input');
   return (
     <input
-      className={cn({ theme: props.theme })}
+      className={cn({ theme: theme })}
       value={value}
-      type={props.type}
-      placeholder={props.placeholder}
-      onChange={onChange}
+      type={type}
+      placeholder={placeholder}
+      onChange={handleChange}
     />
   );
 }
