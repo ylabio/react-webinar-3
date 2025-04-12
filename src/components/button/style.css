@@ -39,3 +39,16 @@
     color: var(--primary);
   }
 }
+
+.Button_style_textViolet {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  color: #6B4ACB;
+  min-width: auto;
+  cursor: pointer;
+}
+
+.Button_style_textViolet:hover {
+  color: #1A2028;
+}

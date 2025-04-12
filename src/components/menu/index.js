@@ -30,9 +30,4 @@ Menu.propTypes = {
   onNavigate: PropTypes.func,
 };
 
-Menu.defaultProps = {
-  items: [],
-  onNavigate: () => {},
-};
-
 export default memo(Menu);

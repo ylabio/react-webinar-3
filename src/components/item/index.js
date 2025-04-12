@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { Link } from 'react-router-dom';
@@ -15,7 +15,6 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
         <Link to={props.link}>{props.item.title}</Link>
       </div>
@@ -39,12 +38,6 @@ Item.propTypes = {
   onAdd: PropTypes.func,
   labelCurr: PropTypes.string,
   labelAdd: PropTypes.string,
-};
-
-Item.defaultProps = {
-  onAdd: () => {},
-  labelCurr: '₽',
-  labelAdd: 'Добавить',
 };
 
 export default memo(Item);

@@ -6,6 +6,7 @@ import Select from '../../components/select';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
 import Button from '../../components/button';
+import CategorySelect from '../../components/category-select';
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -16,6 +17,8 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    categories: state.catalog.categories,
   }));
 
   const callbacks = {
@@ -23,6 +26,7 @@ function CatalogFilter() {
     onSort: useCallback(sort => store.actions.catalog.setParams({ sort }), [store]),
     // Поиск
     onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
+    onCategory: useCallback(category => store.actions.catalog.setParams({ category, page: 1 }), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
@@ -43,6 +47,12 @@ function CatalogFilter() {
 
   return (
     <SideLayout padding="medium">
+      <CategorySelect
+        options={select.categories}
+        value={select.category}
+        onChange={callbacks.onCategory}
+        size="medium"
+      />
       <Select
         options={options.sort}
         value={select.sort}
@@ -56,7 +66,7 @@ function CatalogFilter() {
         delay={1000}
         theme={'big'}
       />
-      <Button style="text" onClick={callbacks.onReset} title={t('filter.reset')} />
+      <Button style="textViolet" type='submit' onClick={callbacks.onReset} title={t('filter.reset')} />
     </SideLayout>
   );
 }

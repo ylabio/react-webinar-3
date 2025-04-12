@@ -1,0 +1,64 @@
+.LoginForm {
+  width: 233px;
+  margin: 0;
+  padding: 0;
+}
+
+.LoginForm-title {
+  text-align: left;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  padding: 0;
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0;
+  color: #1A2028;
+}
+
+.LoginForm-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.LoginForm-input-container {
+  margin-bottom: 24px;
+}
+
+.LoginForm-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.LoginForm-input-group:last-child {
+  margin-bottom: 0;
+}
+
+.LoginForm-label {
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.LoginForm-error-container {
+  position: relative;
+  height: 0;
+}
+
+.LoginForm-error {
+  color: #d32f2f;
+  font-size: 14px;
+  text-align: left;
+  position: absolute;
+  top: -12px;
+  left: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.LoginForm-button-container {
+  margin-top: 24px;
+}
