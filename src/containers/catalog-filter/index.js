@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -16,9 +16,13 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    categories: state.catalog.categories || [],
   }));
 
   const callbacks = {
+    //Категория
+    onCategory: useCallback(category => store.actions.catalog.setParams({category}), [store]),
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({ sort }), [store]),
     // Поиск
@@ -37,12 +41,40 @@ function CatalogFilter() {
       ],
       [],
     ),
+    category: useMemo(() => {
+      const map = new Map();
+      select.categories.forEach(cat => map.set(cat._id, { ...cat, children: [] }));
+
+      const roots = [];
+      for (const cat of map.values()) {
+        if (cat.parent && map.has(cat.parent._id)) {
+          map.get(cat.parent._id).children.push(cat);
+        } else {
+          roots.push(cat);
+        }
+      }
+
+      const flatList = [];
+      const traverse = (node, level = 0) => {
+        flatList.push({ value: node._id, title: `${'—'.repeat(level)} ${node.title}` });
+        node.children.forEach(child => traverse(child, level + 1));
+      };
+      roots.forEach(root => traverse(root));
+
+      return [{ value: '', title: 'Все категории' }, ...flatList];
+    }, [select.categories]),
   };
 
   const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
+      <Select
+        options={options.category}
+        value={select.category}
+        onChange={callbacks.onCategory}
+        size="medium"
+      />
       <Select
         options={options.sort}
         value={select.sort}
