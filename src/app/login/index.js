@@ -5,10 +5,9 @@ import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
-import AuthInput from '../../components/auth-input';
-import Button from '../../components/button';
 import LocaleSelect from '../../containers/locale-select';
 import Navigation from '../../containers/navigation';
+import LoginForm from '../../components/login-form';
 
 function Login() {
   const store = useStore();
@@ -55,36 +54,14 @@ function Login() {
       </Head>
       <PageLayout>
         <Navigation />
-        <div style={{ maxWidth: '400px' }}>
-          <h2>{t('auth.login')}</h2>
-          <form onSubmit={callbacks.onSubmit}>
-            <div style={{ marginBottom: '1rem' }}>
-              <AuthInput 
-                value={form.login}
-                onChange={(value) => callbacks.onChangeField('login', value)}
-                placeholder={t('auth.loginPlaceholder')}
-              />
-            </div>
-            <div style={{ marginBottom: '1rem' }}>
-              <AuthInput 
-                value={form.password}
-                onChange={(value) => callbacks.onChangeField('password', value)}
-                type="password"
-                placeholder={t('auth.passwordPlaceholder')}
-              />
-            </div>
-            <Button 
-              type="submit" 
-              title={t('auth.loginButton')} 
-              style="primary"
-            />
-          </form>
-          {select.loginError && (
-            <div style={{ color: 'red', marginTop: '1rem' }}>
-              {select.loginError}
-            </div>
-          )}
-        </div>
+        <LoginForm 
+          login={form.login}
+          password={form.password}
+          error={select.loginError}
+          onChangeField={callbacks.onChangeField}
+          onSubmit={callbacks.onSubmit}
+          t={t}
+        />
       </PageLayout>
     </>
   );

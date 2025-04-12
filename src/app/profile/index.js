@@ -5,6 +5,7 @@ import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import Navigation from '../../containers/navigation';
 import LocaleSelect from '../../containers/locale-select';
+import ProfileInfo from '../../components/profile-info';
 
 function Profile() {
   const { t } = useTranslate();
@@ -20,16 +21,7 @@ function Profile() {
       </Head>
       <PageLayout>
         <Navigation />
-        <div>
-          <h2>{t('profile.title')}</h2>
-          {select.profile && (
-            <div>
-              {select.profile.profile?.name && <p>Имя: {select.profile.profile.name}</p>}
-              {select.profile.profile?.phone && <p>Телефон: {select.profile.profile.phone}</p>}
-              <p>Email: {select.profile.email}</p>
-            </div>
-          )}
-        </div>
+        <ProfileInfo profile={select.profile} t={t} />
       </PageLayout>
     </>
   );
