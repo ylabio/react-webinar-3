@@ -7,7 +7,7 @@ import useTranslate from '../../hooks/use-translate';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import Navigation from '../../containers/navigation';
-import ArticleCard from '../../components/article-card';
+import ProfileCard from '../../components/profile-card';
 import LocaleSelect from '../../containers/locale-select';
 import Spinner from '../../components/spinner';
 
@@ -43,19 +43,12 @@ function Profile() {
       <PageLayout>
         <Navigation />
         <Spinner active={select.waiting}>
-          <ArticleCard 
+          <ProfileCard
             title={t('profile.title')}
-            article={{
-              _id: select.user?._id,
-              title: '',
-              description: '',
-              madeIn: null,
-              category: null,
-              edition: '',
-              price: 0,
-              ...select.user,
-              profile: select.user?.profile,
-              email: select.user?.email
+            profile={{
+            name: select.user?.profile?.name || select.user?.login,
+            phone: select.user?.profile?.phone,
+            email: select.user?.email
             }}
             t={t}
           />

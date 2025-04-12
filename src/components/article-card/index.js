@@ -5,66 +5,38 @@ import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
 
-function ArticleCard(props) {
-  const { article, onAdd = () => {}, t = text => text, title } = props;
+function ArticleCard({ article, onAdd, t }) {
   const cn = bem('ArticleCard');
 
   return (
     <div className={cn()}>
-      {title && <h2 className={cn('title')}>{title}</h2>}
-      {article.profile ? (
-        // Отображение профиля пользователя
-        <div className={cn('prop-wrapper')}>
-          <div className={cn('prop')}>
-            <div className={cn('label')}>{t('profile.name')}:</div>
-            <div className={cn('value')} data-field="name">
-              {article.profile.name}
-            </div>
-          </div>
-          <div className={cn('prop')}>
-            <div className={cn('label')}>{t('profile.phone')}:</div>
-            <div className={cn('value')} data-field="phone">
-              {article.profile.phone}
-            </div>
-          </div>
-          <div className={cn('prop')}>
-            <div className={cn('label')}>{t('profile.email')}:</div>
-            <div className={cn('value')} data-field="email">
-            {article.email || article.profile?.email || 'Не указано'}</div>
+      <div className={cn('description')}>{article.description}</div>
+      <div className={cn('prop-wrapper')}>
+        <div className={cn('prop')}>
+          <div className={cn('label')}>Страна производитель:</div>
+          <div className={cn('value')}>
+            {article.madeIn?.title} ({article.madeIn?.code})
           </div>
         </div>
-      ) : (
-        // Оригинальное отображение карточки товара
-        <>
-          <div className={cn('description')}>{article.description}</div>
-          <div className={cn('prop-wrapper')}>
-            <div className={cn('prop')}>
-              <div className={cn('label')}>Страна производитель:</div>
-              <div className={cn('value')}>
-                {article.madeIn?.title} ({article.madeIn?.code})
-              </div>
-            </div>
-            <div className={cn('prop')}>
-              <div className={cn('label')}>Категория:</div>
-              <div className={cn('value')}>{article.category?.title}</div>
-            </div>
-            <div className={cn('prop')}>
-              <div className={cn('label')}>Год выпуска:</div>
-              <div className={cn('value')}>{article.edition}</div>
-            </div>
-          </div>
-          <div className={cn('prop', { size: 'big' })}>
-            <div className={cn('label')}>Цена:</div>
-            <div className={cn('value')}>{numberFormat(article.price)} ₽</div>
-          </div>
-          {onAdd && (
-            <Button 
-              style="primary" 
-              onClick={() => onAdd(article._id)} 
-              title={t('article.add')} 
-            />
-          )}
-        </>
+        <div className={cn('prop')}>
+          <div className={cn('label')}>Категория:</div>
+          <div className={cn('value')}>{article.category?.title}</div>
+        </div>
+        <div className={cn('prop')}>
+          <div className={cn('label')}>Год выпуска:</div>
+          <div className={cn('value')}>{article.edition}</div>
+        </div>
+      </div>
+      <div className={cn('prop', { size: 'big' })}>
+        <div className={cn('label')}>Цена:</div>
+        <div className={cn('value')}>{numberFormat(article.price)} ₽</div>
+      </div>
+      {onAdd && (
+        <Button 
+          style="primary" 
+          onClick={() => onAdd(article._id)} 
+          title={t('article.add')} 
+        />
       )}
     </div>
   );
@@ -78,14 +50,9 @@ ArticleCard.propTypes = {
     category: PropTypes.object,
     edition: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     price: PropTypes.number,
-    profile: PropTypes.shape({
-      name: PropTypes.string,
-      phone: PropTypes.string,
-      email: PropTypes.string
-    })
   }).isRequired,
   onAdd: PropTypes.func,
-  t: PropTypes.func,
+  t: PropTypes.func.isRequired,
 };
 
 export default memo(ArticleCard);
