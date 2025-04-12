@@ -1,0 +1,38 @@
+.LoginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-top: 24px;
+  }
+  
+  .LoginForm-title {
+    font-family: var(--second-font-family);
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 125%;
+    color: var(--main-text);
+    margin: 0;
+  }
+  
+  .LoginForm-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .LoginForm-label {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 130%;
+    color: var(--main-text);
+  }
+  
+  .LoginForm-error {
+    color: var(--delete);
+    font-size: 14px;
+  }
+
+  .LoginForm-button {
+    margin-top: 30px;
+  }

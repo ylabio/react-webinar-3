@@ -14,17 +14,18 @@ export const I18nContext = createContext({});
 export function I18nProvider({ children }) {
   const [lang, setLang] = useState('ru');
 
-  const i18n = useMemo(
-    () => ({
-      // Код локали
+  const i18n = useMemo(() => {
+    console.log('Current lang:', lang); // Добавьте эту строку
+    return {
       lang,
-      // Функция для смены локали
       setLang,
-      // Функция для локализации текстов с замыканием на код языка
-      t: (text, number) => translate(lang, text, number),
-    }),
-    [lang],
-  );
+      t: (text, number) => {
+        const result = translate(lang, text, number);
+        console.log(`Translation for "${text}":`, result); // И эту
+        return result;
+      },
+    };
+  }, [lang]);
 
   return <I18nContext.Provider value={i18n}>{children}</I18nContext.Provider>;
 }

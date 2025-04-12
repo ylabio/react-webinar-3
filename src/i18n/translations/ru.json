@@ -11,6 +11,12 @@
   "basket.delete": "Удалить",
   "article.add": "Добавить",
   "filter.reset": "Сбросить",
+  "login.title": "Вход",
+  "login.username": "Логин",
+  "login.usernamePlaceholder": "Введите логин",
+  "login.password": "Пароль",
+  "login.passwordPlaceholder": "Введите пароль",
+  "login.submit": "Войти",
   "basket.articles": {
     "one": "товар",
     "few": "товара",

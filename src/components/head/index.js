@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './style.css';
 
 function Head({ title, children }) {
@@ -7,7 +8,7 @@ function Head({ title, children }) {
     <div className="Head">
       <div className="Head-auth">
         <div className="Head-auth-container">
-          <button className="Head-login">Вход</button>
+          <Link to="/login" className="Head-login">Вход</Link>
         </div>
       </div>
       <div className="Head-container">
