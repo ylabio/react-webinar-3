@@ -1,0 +1,9 @@
+.profile-container {
+  padding-top: 24px;
+  margin-top: 12px;
+}
+h2 {
+  font-family: var(--second-font-family);
+  color: #1a2028;
+  font-weight: 700;
+}

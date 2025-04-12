@@ -1,0 +1,20 @@
+.login-head {
+  padding-top: 16px;
+  font-family: var(--second-font-family);
+  color: #1a2028;
+  font-weight: 700;
+}
+
+.login-from {
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.Input_theme_small {
+  width: 233px !important;
+}
+.login-btn {
+  padding-top: 16px !important;
+}

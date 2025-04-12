@@ -1,0 +1,27 @@
+.bar {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  background-color: #efefef;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 8px 144px;
+  height: 38px;
+}
+
+.logout-btn {
+  color: var(--primary);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.login-link {
+  font-family: var(--second-font-family);
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: none;
+}
