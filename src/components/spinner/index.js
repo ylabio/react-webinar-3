@@ -2,7 +2,7 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Spinner({ active, children }) {
+function Spinner({ active = false, children = null }) {
   if (active) {
     return <div className="Spinner">{children}</div>;
   } else {
@@ -14,7 +14,5 @@ Spinner.propTypes = {
   active: PropTypes.bool.isRequired,
   children: PropTypes.node,
 };
-
-// Spinner.defaultProps = {};
 
 export default memo(Spinner);

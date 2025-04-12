@@ -2,13 +2,11 @@ import React, {memo, useCallback, useEffect, useState} from 'react';
 import LocaleSelect from "../../containers/locale-select";
 import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
-import CatalogFilter from "../../containers/catalog-filter";
-import CatalogList from "../../containers/catalog-list";
 import PageLayout from "../../components/page-layout";
 import LoginForm from "../../components/login-form";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState('test_1');
@@ -16,6 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const store = useStore();
+  const location = useLocation();
 
   const select = useSelector(state => ({
     isAuth: !!state.user.isAuth,
@@ -32,16 +31,18 @@ const Login = () => {
       callbacks.onSubmit(email, password);
       setEmail('');
       setPassword('');
-      // select.isAuth && navigate('/');
     }, [store, email, password]),
   };
 
   useEffect(() => {
     if (select.isAuth) {
-      console.log('123')
       navigate('/', { replace: true });
     }
   });
+
+  useEffect(() => {
+    store.actions.user.resetError()
+  }, [location])
 
   return (
     <>

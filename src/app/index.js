@@ -1,5 +1,5 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import {Routes, Route, useLocation} from 'react-router-dom';
 import useSelector from '../hooks/use-selector';
 import Main from './main';
 import Basket from './basket';
@@ -17,10 +17,18 @@ import useStore from "../hooks/use-store";
 function App() {
   const activeModal = useSelector(state => state.modals.name);
   const store = useStore();
+  const location = useLocation();
 
   useEffect(() => {
-    store.actions.user.checkToken()
+    store.actions.user.checkToken();
+    // document.title = 'Магазин';
   }, [])
+
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      document.title = 'Магазин';
+    }
+  }, [location]);
 
   return (
     <>

@@ -15,13 +15,14 @@ const ProfilePad = () => {
   }));
 
   const callbacks = {
-    // login: useCallback(() => store.actions.user.setAuth( true ), [store]),
     goToLogin: useCallback(() => {
       navigate('/login');
-      // callbacks.login();
     }, []),
-    logout: useCallback(() => store.actions.user.logout( ), [store]),
-  }
+    logout: useCallback(() => {
+      store.actions.user.logout();
+      navigate('/');
+    }, [store]),
+  };
 
   return (
     <SideLayout>

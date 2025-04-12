@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, {memo, useCallback, useEffect, useMemo} from 'react';
 import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
 import PageLayout from '../../components/page-layout';
 import Navigation from '../../containers/navigation';
-import LoginForm from '../../components/login-form';
 import UserProfileCard from '../../components/user-profile-card';
 import { useNavigate } from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
@@ -58,4 +57,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default memo(UserProfile);

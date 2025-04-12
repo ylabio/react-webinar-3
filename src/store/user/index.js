@@ -20,7 +20,6 @@ class UserState extends StoreModule {
 
   async checkToken() {
     if (!localStorage.getItem('token')) return null;
-    console.log('123')
     try {
       const response = await fetch(`/api/v1/users/self?fields=_id,profile(name)`, {
         method: 'GET',
@@ -63,7 +62,6 @@ class UserState extends StoreModule {
   }
 
   async login(email, password) {
-    // console.log('email', email, 'password', password);
     this.setState(
       {
         ...this.getState(),
@@ -89,7 +87,6 @@ class UserState extends StoreModule {
       const json = await response.json();
 
       if (!response.ok) {
-        // console.log(json.error.data.issues.map((issue) => issue.message));
         const error = json.error.data.issues.map((issue) => issue.message)
         this.setState(
           {
@@ -109,7 +106,6 @@ class UserState extends StoreModule {
           isAuth: true,
           authWait: false,
           profile: {
-            // ...this.getState().profile,
             name: json.result.user.profile.name,
           }
         },
@@ -191,6 +187,16 @@ class UserState extends StoreModule {
     } catch (e) {
       console.error(e.message);
     }
+  }
+
+  async resetError() {
+    this.setState(
+      {
+        ...this.getState(),
+        error: null,
+      },
+      'Ошибка сброшена',
+    );
   }
 
 }

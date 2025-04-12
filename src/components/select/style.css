@@ -15,8 +15,7 @@
 
 .Select option:checked,
 .Select option:hover {
-  background-color: var(--primary);
-  color: var(--second-text);
+  color: var(--primary);
 }
 
 .Select_size_small {
