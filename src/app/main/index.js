@@ -26,18 +26,20 @@ function Main() {
   const categoryId = useSelector(state => state.catalog.params.category);
   const categories = useSelector(state => state.catalog.categories || []);
 
-  const selectedCategory = categoryId ? categories.find(c => c._id === categoryId) : null;
+  const selectedCategory =
+    categoryId && categories.length > 0 ? categories.find(c => c._id === categoryId) : null;
 
   const categoryTitle = selectedCategory ? t(`category.${selectedCategory.title}`) : t('title');
 
   useEffect(() => {
-    document.title = categoryId ? `${t('title')} / ${categoryTitle}` : t('title');
-  }, [categoryId, categoryTitle, t]);
+    document.title =
+      categoryId && selectedCategory ? `${t('title')} / ${categoryTitle}` : t('title');
+  }, [categoryId, selectedCategory, categoryTitle, t]);
 
   return (
     <>
       <Head
-        title={categoryId ? `${t('title')} / ${categoryTitle}` : t('title')}
+        title={categoryId && selectedCategory ? `${t('title')} / ${categoryTitle}` : t('title')}
         authSlot={<AuthSlot />}
       >
         <LocaleSelect />
