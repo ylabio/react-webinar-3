@@ -27,7 +27,7 @@ function Profile() {
       navigate('/login');
     } else if (!select.user) {
       await store.actions.user.load();
-      console.log('Состояние пользователя после загрузки:', store.getState().user);
+      //console.log('Состояние пользователя после загрузки:', store.getState().user);
     }
   });
 

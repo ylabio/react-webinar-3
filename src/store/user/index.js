@@ -34,7 +34,7 @@ class UserState extends StoreModule {
 
       if (json.error) {
         throw new Error(json.error);
-      }
+      } 
 
       localStorage.setItem('token', json.result.token);
       
@@ -104,7 +104,7 @@ class UserState extends StoreModule {
       });
       const json = await response.json();
 
-      console.log('Данные пользователя из API:', json.result);
+      //console.log('Данные пользователя из API:', json.result);
 
       this.setState({
         ...this.getState(),
