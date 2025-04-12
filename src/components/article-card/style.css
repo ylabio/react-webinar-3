@@ -5,6 +5,15 @@
   padding-block: 24px;
 }
 
+.ArticleCard-title {
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 125%;
+  color: var(--main-text);
+  margin: 0 0 24px 0;
+}
+
 .ArticleCard-prop-wrapper {
   display: flex;
   flex-direction: column;
@@ -13,7 +22,8 @@
 
 .ArticleCard-prop {
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  align-items: baseline;
 }
 
 .ArticleCard-prop_size_big {
@@ -23,11 +33,21 @@
 }
 
 .ArticleCard-label {
-  width: 200px;
+  width: 73px;
+  text-align: left;
+}
+
+.ArticleCard-label:has(+ .ArticleCard-value[data-field="name"]) {
+  min-width: 64px;
+}
+
+.ArticleCard-label:has(+ .ArticleCard-value[data-field="email"]) {
+  min-width: 64px;
 }
 
 .ArticleCard-value {
   font-weight: bold;
+  flex: 1;
 }
 
 .ArticleCard-prop_size_big .ArticleCard-label {

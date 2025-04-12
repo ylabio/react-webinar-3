@@ -27,6 +27,7 @@ function Profile() {
       navigate('/login');
     } else if (!select.user) {
       await store.actions.user.load();
+      console.log('Состояние пользователя после загрузки:', store.getState().user);
     }
   });
 
@@ -43,6 +44,7 @@ function Profile() {
         <Navigation />
         <Spinner active={select.waiting}>
           <ArticleCard 
+            title={t('profile.title')}
             article={{
               _id: select.user?._id,
               title: '',
@@ -51,7 +53,9 @@ function Profile() {
               category: null,
               edition: '',
               price: 0,
-              profile: select.user?.profile
+              ...select.user,
+              profile: select.user?.profile,
+              email: select.user?.email
             }}
             t={t}
           />

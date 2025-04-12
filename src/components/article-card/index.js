@@ -6,25 +6,31 @@ import Button from '../button';
 import './style.css';
 
 function ArticleCard(props) {
-  const { article, onAdd = () => {}, t = text => text } = props;
+  const { article, onAdd = () => {}, t = text => text, title } = props;
   const cn = bem('ArticleCard');
 
   return (
     <div className={cn()}>
+      {title && <h2 className={cn('title')}>{title}</h2>}
       {article.profile ? (
         // Отображение профиля пользователя
         <div className={cn('prop-wrapper')}>
           <div className={cn('prop')}>
             <div className={cn('label')}>{t('profile.name')}:</div>
-            <div className={cn('value')}>{article.profile.name}</div>
+            <div className={cn('value')} data-field="name">
+              {article.profile.name}
+            </div>
           </div>
           <div className={cn('prop')}>
             <div className={cn('label')}>{t('profile.phone')}:</div>
-            <div className={cn('value')}>{article.profile.phone}</div>
+            <div className={cn('value')} data-field="phone">
+              {article.profile.phone}
+            </div>
           </div>
           <div className={cn('prop')}>
             <div className={cn('label')}>{t('profile.email')}:</div>
-            <div className={cn('value')}>{article.profile.email}</div>
+            <div className={cn('value')} data-field="email">
+            {article.email || article.profile?.email || 'Не указано'}</div>
           </div>
         </div>
       ) : (

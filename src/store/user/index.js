@@ -98,6 +98,8 @@ class UserState extends StoreModule {
       });
       const json = await response.json();
 
+      console.log('Данные пользователя из API:', json.result);
+
       this.setState({
         ...this.getState(),
         data: json.result,
