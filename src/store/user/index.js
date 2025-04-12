@@ -21,7 +21,7 @@ class UserState extends StoreModule {
       waiting: true,
       error: null
     });
-
+  
     try {
       const response = await fetch('/api/v1/users/sign', {
         method: 'POST',
@@ -30,22 +30,32 @@ class UserState extends StoreModule {
         },
         body: JSON.stringify({ login, password })
       });
-      const json = await response.json();
-
-      if (json.error) {
-        throw new Error(json.error);
-      } 
-
-      localStorage.setItem('token', json.result.token);
       
-      this.setState({
-        ...this.getState(),
-        token: json.result.token,
-        data: null, // Пока нет данных, нужно загрузить
-        waiting: false
-      });
-
-      return true;
+      const json = await response.json();
+  
+      if (response.ok) {
+        console.error('Server error response:', json);
+        localStorage.setItem('token', json.result.token);
+        
+        this.setState({
+          ...this.getState(),
+          token: json.result.token,
+          data: null,
+          waiting: false
+        });
+  
+        return true;
+      } else {
+        // Обработка ошибки в формате сервера
+        let errorMessage = 'Unknown error';
+        if (json.error?.data?.issues?.[0]?.message) {
+          errorMessage = json.error.data.issues[0].message;
+        } else if (json.error) {
+          errorMessage = json.error;
+        }
+        
+        throw new Error(errorMessage);
+      }
     } catch (e) {
       this.setState({
         ...this.getState(),

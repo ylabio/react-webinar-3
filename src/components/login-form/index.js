@@ -25,10 +25,16 @@ function LoginForm({ t }) {
       e.preventDefault();
       const login = loginRef.current.value;
       const password = passwordRef.current.value; 
+      console.log('Trying to auth with:', { 
+        login: loginRef.current.value,
+        password: passwordRef.current.value 
+      });
       const success = await store.actions.user.signIn(login, password);
       if (success) {
         await store.actions.user.load();
         navigate('/');
+      } else {
+        console.log('Auth failed, current error:', store.getState().user.error);
       }
     }, [store])
   };
@@ -57,7 +63,9 @@ function LoginForm({ t }) {
         />
       </div>
       {select.error && (
-        <div className={cn('error')}>{select.error}</div>
+        <div className={cn('error')}>
+          {select.error}
+        </div>
       )}
       <div className={cn('button')}>
         <Button
