@@ -23,7 +23,11 @@ function AuthSlot({ isLoading, isAuthorized, isUnauthorized, username, onLogout 
           </>
         )}
 
-        {isUnauthorized && <Link to="/login">Вход</Link>}
+        {isUnauthorized && (
+          <div className="Sign-in">
+            <Link to="/login">Вход</Link>
+          </div>
+        )}
       </div>
     </div>
   );

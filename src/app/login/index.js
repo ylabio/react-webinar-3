@@ -4,6 +4,7 @@ import PageLayout from '../../components/page-layout';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
+import useAuthSlotProps from '../../hooks/use-auth-slot';
 
 import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
@@ -18,31 +19,31 @@ function LoginPage() {
   const navigate = useNavigate();
   const store = useStore();
   const user = useSelector(state => state.user);
+  const profile = useSelector(state => state.profile);
+  const waiting = useSelector(state => state.user.waiting);
   const { t } = useTranslate();
 
-  // Если пользователь уже авторизован — отправляем в профиль
-  useEffect(() => {
-    if (user.token && user.data) {
-      navigate('/profile');
-    }
-  }, [user.token, user.data, navigate]);
+  const { isLoading, isAuthorized, isUnauthorized, username, handleLogout } = useAuthSlotProps();
 
-  // Обработка формы логина
+  useEffect(() => {
+    if (user.token && profile.data) {
+      navigate('/profile', { replace: true });
+    }
+  }, [user.token, profile.data, navigate]);
+
   const handleSubmit = async e => {
     e.preventDefault();
 
-    // Удаляем пробелы по краям
     const trimmedLogin = login.trim();
     const trimmedPassword = password.trim();
 
     if (!trimmedLogin || !trimmedPassword) {
-      setError(t('login.error.empty')); // Пример: "Введите логин и пароль"
+      setError(t('login.error.empty'));
       return;
     }
 
     setError('');
 
-    // Отправляем очищенные данные
     const success = await store.actions.user.login(trimmedLogin, trimmedPassword);
 
     if (success) {
@@ -59,9 +60,19 @@ function LoginPage() {
   const handleChangeLogin = useCallback(val => setLogin(val), []);
   const handleChangePassword = useCallback(val => setPassword(val), []);
 
+  const auth = (
+    <AuthSlot
+      isLoading={isLoading}
+      isAuthorized={isAuthorized}
+      isUnauthorized={isUnauthorized}
+      username={username}
+      onLogout={handleLogout}
+    />
+  );
+
   return (
     <>
-      <Head title={t('title')} authSlot={<AuthSlot />}>
+      <Head title={t('title')} authSlot={auth}>
         <LocaleSelect />
       </Head>
       <PageLayout>
@@ -73,6 +84,7 @@ function LoginPage() {
           onChangeLogin={handleChangeLogin}
           onChangePassword={handleChangePassword}
           onSubmit={handleSubmit}
+          waiting={waiting}
         />
       </PageLayout>
     </>

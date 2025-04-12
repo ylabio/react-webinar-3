@@ -12,7 +12,6 @@ function ProfileContainer() {
   const profile = useSelector(state => state.profile);
   const navigate = useNavigate();
 
-  // Редиректим на /login если нет токена
   useEffect(() => {
     if (!user.token) {
       navigate('/login', { replace: true });
