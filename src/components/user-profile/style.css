@@ -1,0 +1,25 @@
+.UserProfile {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-block: 24px;
+}
+
+.UserProfile-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.UserProfile-item {
+  display: flex;
+  gap: 10px;
+}
+
+.UserProfile-label {
+  min-width: 64px;
+}
+
+.UserProfile-value {
+  font-weight: bold;
+}
