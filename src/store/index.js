@@ -8,6 +8,7 @@ class Store {
     this.listeners = []; // Слушатели изменений состояния
     this.state = initState;
     /** @type {{
+     * user: UserState,
      * basket: BasketState,
      * catalog: CatalogState,
      * modals: ModalsState,

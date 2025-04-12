@@ -1,0 +1,36 @@
+.Login-Form {
+  width: 233px;
+  max-width: 100%;
+}
+
+.Login-Form-caption {
+  margin: 0 0 31px;
+  line-height: 1;
+  font-size: 32px;
+  font-family: var(--second-font-family);
+}
+
+.Login-Form label {
+  display: block;
+  margin-bottom: 19px;
+}
+
+.Login-Form span {
+  display: block;
+  margin-bottom: 10px;
+
+  font-size: 14px;
+  line-height: 1;
+}
+
+.Login-Form input {
+  font-size: 14px;
+}
+
+.Login-Form-error {
+  margin: 0 0 23px;
+
+  font-size: 12px;
+  line-height: 1;
+  color: var(--delete);
+}

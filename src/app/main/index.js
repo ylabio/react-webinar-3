@@ -8,6 +8,7 @@ import Head from '../../components/head';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
+import AuthInfo from "../../components/user/auth-info";
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -19,6 +20,7 @@ function Main() {
     () => {
       store.actions.catalog.initParams();
       store.actions.catalog.fetchCategories();
+      store.actions.user.checkAuth();
     },
     [],
     true,
@@ -28,6 +30,7 @@ function Main() {
 
   return (
     <>
+      <AuthInfo />
       <Head title={t('title')}>
         <LocaleSelect />
       </Head>

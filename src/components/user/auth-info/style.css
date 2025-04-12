@@ -1,0 +1,23 @@
+.Auth-Info {
+  background-color: var(--second-background);
+  padding: 8px 20px;
+}
+.Auth-Info-container {
+  display: flex;
+  gap: 24px;
+  justify-content: flex-end;
+  align-items: center;
+  max-width: 1152px;
+  margin: 0 auto;
+}
+.Auth-Info button {
+  font-family: var(--second-font-family);
+  color: var(--primary);
+  font-weight: bold;
+  padding: 0;
+  border: none;
+
+  &:hover {
+    color: var(--main-text);
+  }
+}
