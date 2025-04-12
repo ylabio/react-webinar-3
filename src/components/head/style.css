@@ -1,14 +1,17 @@
 .Head {
   color: var(--primary);
-  padding: 16px 20px;
   border-bottom: 1px solid var(--divider);
 }
-
+.Head-top {
+  background: var(--divider);
+  height: 50px;
+}
 .Head-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1152px;
+  max-width: 1192px;
+  padding: 16px 0;
   margin: 0 auto;
 }
 

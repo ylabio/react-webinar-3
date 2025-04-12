@@ -1,0 +1,78 @@
+.CustomSelect {
+  position: relative;
+  font-size: 16px;
+  min-width: 227px;
+}
+
+.CustomSelect-button {
+  border: 1px solid var(--filter-border);
+  min-width: 227px;
+  padding: 8px 12px;
+  height: 40px;
+  background-color: var(--background);
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.CustomSelect-button::after {
+  content: '';
+  display: block;
+  width: 12px;
+  height: 12px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='30,50 70,90 110,50' fill='none' stroke='%23000' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center;
+  background-size: contain;
+  transition: transform 0.2s ease-in-out;
+}
+
+.CustomSelect-button[data-open="true"]::after {
+  transform: rotate(180deg);
+}
+
+.CustomSelect-list {
+  position: absolute;
+  top: calc(100% + 3px);
+  left: 0;
+  right: 0;
+  max-height: 438px;
+  border: 1px solid var(--filter-border);
+  background-color: var(--background);
+  z-index: 10;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+  overflow-y: auto;
+  scrollbar-gutter: auto;
+}
+
+.CustomSelect-list::-webkit-scrollbar {
+  width: 6px;
+}
+.CustomSelect-list::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}
+.CustomSelect-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.CustomSelect-item {
+  padding: 8px 8px 8px 9px;
+  height: 38px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.CustomSelect-item:hover {
+  background-color: #1E90FF;
+  color: white;
+}
+
+.CustomSelect-item_selected {
+  color: var(--primary);
+  background-color: inherit;
+}

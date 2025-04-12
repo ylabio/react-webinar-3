@@ -17,10 +17,11 @@
 .Select option:hover {
   background-color: var(--primary);
   color: var(--second-text);
+  cursor: pointer;
 }
 
 .Select_size_small {
-  min-width: 130px;
+  min-width: 90px;
 }
 
 .Select_size_medium {

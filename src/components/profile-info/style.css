@@ -1,0 +1,28 @@
+.profile-page {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.profile-page h1 {
+  font-family: var(--second-font-family);
+}
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  font-weight: 400;
+  gap: 20px;
+}
+
+.profile-info span {
+  font-weight: 700;
+  line-height: 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  display: flex;
+  gap: 20px;
+}

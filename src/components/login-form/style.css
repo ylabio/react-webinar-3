@@ -1,0 +1,33 @@
+.Login-form {
+  display: flex;
+  flex-direction: column;
+}
+.Login-form h1 {
+  padding: 24px 0;
+  font-family: var(--second-font-family);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 233px;
+  gap: 16px;
+}
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.error {
+  height: 14px;
+  margin-bottom: 24px;
+}
+.error-text {
+  color: var(--delete);
+}
+.button {
+  transition: margin-top 0.3s;
+}
+
+.button.no-error {
+  margin-top: -15px;
+}

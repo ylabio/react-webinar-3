@@ -1,42 +1,32 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import { numberFormat, plural } from '../../utils';
+import { numberFormat } from '../../utils';
 import Cart from '../../assets/icon/cart.svg';
 import './style.css';
 
-function BasketTool({ sum, amount, onOpen, t }) {
+function BasketTool({ sum = 0, amount = 0, onOpen = () => {}, t = text => text }) {
   const cn = bem('BasketTool');
+
+  const label = amount
+    ? `${amount} ${t('basket.articles', amount)} / ${numberFormat(sum)} ₽`
+    : t('basket.empty');
+
   return (
     <div className={cn()}>
       <button className={cn('action')} onClick={onOpen}>
         <Cart className={cn('icon')} />
-        <span className={cn('total')}>
-          {amount
-            ? `${amount} ${plural(amount, {
-                one: 'товар',
-                few: 'товара',
-                many: 'товаров',
-              })} / ${numberFormat(sum)} ₽`
-            : `пусто`}
-        </span>
+        <span className={cn('total')}>{label}</span>
       </button>
     </div>
   );
 }
 
 BasketTool.propTypes = {
-  onOpen: PropTypes.func.isRequired,
+  onOpen: PropTypes.func,
   sum: PropTypes.number,
   amount: PropTypes.number,
   t: PropTypes.func,
-};
-
-BasketTool.defaultProps = {
-  onOpen: () => {},
-  sum: 0,
-  amount: 0,
-  t: text => text,
 };
 
 export default memo(BasketTool);
