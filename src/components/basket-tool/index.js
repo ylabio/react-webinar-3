@@ -32,11 +32,5 @@ BasketTool.propTypes = {
   t: PropTypes.func,
 };
 
-BasketTool.defaultProps = {
-  onOpen: () => {},
-  sum: 0,
-  amount: 0,
-  t: text => text,
-};
 
 export default memo(BasketTool);
