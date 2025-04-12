@@ -1,0 +1,30 @@
+.ProfileLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-block: 24px;
+}
+
+.ProfileLayout-prop {
+  display: flex;
+  gap: 8px;
+}
+
+.ProfileLayout-prop_size_big {
+  font-family: var(--second-font-family);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.ProfileLayout-label {
+  width: fit-content;
+  min-width: 64px;
+}
+
+.ProfileLayout-value {
+  font-weight: bold;
+}
+
+.ProfileLayout-prop_size_big .ProfileLayout-label {
+  width: fit-content;
+}

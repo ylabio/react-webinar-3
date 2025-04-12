@@ -1,0 +1,28 @@
+.FormLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.FormLayout-fieldset {
+  height: fit-content;
+  min-height: 178px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.FormLayout-fieldset_error {
+  gap: 0;
+  justify-content: space-between;
+}
+
+
+.FormLayout-error {
+  color: var(--delete);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0;
+  vertical-align: middle;
+}

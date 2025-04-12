@@ -1,18 +1,17 @@
-.Head {
+.AuthHeader {
   color: var(--primary);
   border-bottom: 1px solid var(--divider);
+  background-color: var(--divider);
 }
 
-.Head-container {
+.AuthHeader-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   max-width: calc(1152px + 20px + 20px);
   padding-inline: 20px;
   margin: 0 auto;
-  padding-block: 16px;
+  padding-block: 8px;
 }
 
-.Head h1 {
-  margin: 0;
-}
+

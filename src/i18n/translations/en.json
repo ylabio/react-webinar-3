@@ -21,5 +21,9 @@
   "auth.loginLabel": "Login",
   "auth.loginPlaceholder": "Enter login",
   "auth.passwordLabel": "Password",
-  "auth.passwordPlaceholder": "Enter password"
+  "auth.passwordPlaceholder": "Enter password",
+  "profile.title": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "profile.mail": "Email"
 }

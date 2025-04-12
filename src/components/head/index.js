@@ -1,13 +1,19 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { cn as bem } from '@bem-react/classname';
 
-function Head({ title, children }) {
+/**
+ * Главная страница - первичная загрузка каталога
+ */
+function Head({title, children}) {
+  const cn = bem('Head');
+
   return (
-    <div className="Head">
-      <div className="Head-container">
+    <div className={cn()}>
+      <div className={cn('container')}>
         <h1>{title}</h1>
-        <div className="Head-place">{children}</div>
+        <div className={cn('place')}>{children}</div>
       </div>
     </div>
   );

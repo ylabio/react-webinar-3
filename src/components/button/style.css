@@ -7,6 +7,13 @@
     border-color: var(--primary);
     color: var(--primary);
   }
+
+  &:disabled {
+    background-color: var(--filter-border);
+    border-color: var(--filter-border);
+    color: var(--second-text);
+  }
+
 }
 
 .Button_style_delete {
@@ -34,8 +41,10 @@
 .Button_style_text {
   padding: 0;
   border: none;
+  color: var(--primary);
 
   &:hover {
-    color: var(--primary);
+    color: var(--filter-hover);
   }
 }
+

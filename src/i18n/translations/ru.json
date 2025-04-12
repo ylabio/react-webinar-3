@@ -23,5 +23,9 @@
   "auth.loginLabel": "Логин",
   "auth.loginPlaceholder": "Введите логин",
   "auth.passwordLabel": "Пароль",
-  "auth.passwordPlaceholder": "Введите пароль"
+  "auth.passwordPlaceholder": "Введите пароль",
+  "profile.title": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "profile.mail": "Email"
 }
