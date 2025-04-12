@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useMemo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -10,47 +10,47 @@ import Navigation from '../../containers/navigation';
 import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
+import LoginForm from '../../components/login-form';
 import Header from '../../containers/header';
+import { useNavigate } from 'react-router-dom';
 
 /**
- * Страница товара с первичной загрузкой товара по id из url адреса
+ * Страница для авторизации пользователя
  */
-function Article() {
+function Login() {
   const store = useStore();
-
-  // Параметры из пути /articles/:id
-  const params = useParams();
-
-  useInit(() => {
-    store.actions.article.load(params.id);
-  }, [params.id]);
+  const { t } = useTranslate();
+  const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    article: state.article.data,
-    waiting: state.article.waiting,
+    isLoggedIn: state.user.isLoggedIn,
+    error: state.user.error,
   }));
 
-  const { t } = useTranslate();
+  useEffect(() => {
+    if (select.isLoggedIn) {
+      navigate('/');
+    }
+  }, [select.isLoggedIn])
 
+  
   const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    //Вход пользователя
+    logInUser: useCallback((user) => store.actions.user.logInUser(user), [store]),
   };
 
   return (
     <>
       <Header />
-      <Head title={select.article.title}>
+      <Head title={t('title')}>
         <LocaleSelect />
       </Head>
       <PageLayout>
         <Navigation />
-        <Spinner active={select.waiting}>
-          <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
-        </Spinner>
+        <LoginForm  onSubmit={callbacks.logInUser} error={select.error} t={t}/>
       </PageLayout>
     </>
   );
 }
 
-export default memo(Article);
+export default memo(Login);

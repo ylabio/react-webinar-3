@@ -1,0 +1,13 @@
+.Header {
+  background-color: var(--second-background);
+  width: 100%;
+  padding: 8px 144px;
+  color: var(--primary);
+}
+
+.Header-container {
+  padding: 0 16px;
+  display: flex;
+  justify-content: end;
+  gap: 24px;
+}

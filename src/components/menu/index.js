@@ -25,6 +25,7 @@ Menu.propTypes = {
       key: PropTypes.number,
       link: PropTypes.string,
       title: PropTypes.string,
+      style: PropTypes.string,
     }),
   ),
   onNavigate: PropTypes.func,

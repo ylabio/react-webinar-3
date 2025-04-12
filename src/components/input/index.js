@@ -5,7 +5,7 @@ import debounce from 'lodash.debounce';
 
 import './style.css';
 
-function Input({ value, name, type = 'text', placeholder, onChange = () => {}, theme = ''}) {
+function Input({ value, name, type = 'text', placeholder, onChange = () => {}, theme = '' }) {
   // Внутренний стейт для быстрого отображения ввода
   const [inputValue, setInputValue] = useState(value);
 

@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useMemo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -11,46 +11,42 @@ import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
 import Header from '../../containers/header';
+import UserInfo from '../../components/user-info';
+import { useNavigate } from 'react-router-dom';
 
 /**
- * Страница товара с первичной загрузкой товара по id из url адреса
+ * Страница пользователя
  */
-function Article() {
+function Profile() {
   const store = useStore();
-
-  // Параметры из пути /articles/:id
-  const params = useParams();
-
-  useInit(() => {
-    store.actions.article.load(params.id);
-  }, [params.id]);
+  const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    article: state.article.data,
-    waiting: state.article.waiting,
+    isLoggedIn: state.user.isLoggedIn,
+    userData: state.user.userData
   }));
 
   const { t } = useTranslate();
 
-  const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-  };
+
+  useEffect(() => {
+    if (!select.isLoggedIn) {
+      navigate('/login');
+    }
+  }, [select.isLoggedIn]);
 
   return (
     <>
       <Header />
-      <Head title={select.article.title}>
+      <Head title={t('title')}>
         <LocaleSelect />
       </Head>
       <PageLayout>
         <Navigation />
-        <Spinner active={select.waiting}>
-          <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
-        </Spinner>
+          {select.userData && <UserInfo info={select.userData} t={t} />}
       </PageLayout>
     </>
   );
 }
 
-export default memo(Article);
+export default memo(Profile);

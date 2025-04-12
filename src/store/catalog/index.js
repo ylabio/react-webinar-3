@@ -60,7 +60,6 @@ class CatalogState extends StoreModule {
   async resetParams(newParams = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
     const params = { ...this.initState().params, ...newParams };
-    console.log(params);
     // Установка параметров и загрузка данных
     await this.setParams(params);
   }

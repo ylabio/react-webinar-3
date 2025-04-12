@@ -1,0 +1,44 @@
+.LoginForm {
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+  padding: 24px 0;
+}
+
+.LoginForm-title {
+  font-family: var(--second-font-family);
+  font-size: 32px;
+}
+
+.LoginForm-form {
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+}
+
+.LoginForm-input-container {
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+}
+
+.LoginForm-input {
+  padding: 8px;
+  border: 1px solid var(--filter-border);
+  border-radius: 4px;
+  font-family: var(--font-family);
+  height: 40px;
+  
+  &:focus {
+    outline: none;
+  }
+}
+
+.LoginForm-errors {
+  color: var(--delete);
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+}
