@@ -1,6 +1,6 @@
 import { memo, useCallback } from 'react';
 import { cn as classname } from '@bem-react/classname';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 
@@ -10,6 +10,7 @@ const cn = classname('AuthBar');
 
 function AuthBar() {
   const store = useStore();
+  const location = useLocation();
 
   const select = useSelector(state => ({
     user: state.user.user,
@@ -36,7 +37,7 @@ function AuthBar() {
               Выход
             </Link>
           ) : (
-            <Link to="/login" className={cn('account-container-link')}>
+            <Link to="/login" className={cn('account-container-link')} state={{ from: location.pathname }}>
               Вход
             </Link>
           )}

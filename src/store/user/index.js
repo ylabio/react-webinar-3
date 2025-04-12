@@ -9,6 +9,7 @@ class UserState extends StoreModule {
       user: {},
       loading: false,
       error: null,
+      isAuth: false,
     };
   }
 
@@ -25,10 +26,10 @@ class UserState extends StoreModule {
       });
   
       const json = await response.json();
-      this.setState({ ...this.getState(), user: json.result, loading: false });
+      this.setState({ ...this.getState(), user: json.result, loading: false, isAuth: true  });
   
     } catch (error) {
-      this.setState({ ...this.getState(), error: error.message, loading: false });
+      this.setState({ ...this.getState(), error: error.message, loading: false, isAuth: false });
     }
   }
 
@@ -40,13 +41,16 @@ class UserState extends StoreModule {
   });
 
   const json = await response.json();
+
+  const errorMessage = json.error?.data?.issues?.[0]?.message || json.error?.message || 'Ошибка входа';
   
   if (!response.ok) {
     this.setState({ 
       ...this.getState(), 
-      error: json.error?.message || 'error login '
+      error: errorMessage,
+      isAuth: false,
     });
-    return { error: json.error?.message };
+    return { error: errorMessage };
   }
 
   const { token, user } = json.result;
@@ -56,7 +60,8 @@ class UserState extends StoreModule {
     ...this.getState(),
     token,
     user,
-    error: null
+    error: null,
+    isAuth: true,
   }, 'Вход в аккаунт');
 
   return { success: true };
@@ -81,6 +86,7 @@ async logoutUser() {
         token: '',
         user: {},
         error: null,
+        isAuth: false,
       },
       'Выход из аккаунта',
     );

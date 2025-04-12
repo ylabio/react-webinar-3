@@ -19,7 +19,7 @@ function Main() {
 
   const select = useSelector(state => ({
     categoryId: state.catalog.params.category,
-    rawCategoryList: state.catalog.rawCategoryList,
+    rawCategoryList: state.category.rawCategoryList,
   }));
 
   const category = select.rawCategoryList.find(item => item._id === select.categoryId);

@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -7,41 +7,36 @@ import Head from '../../components/head';
 import Navigation from '../../containers/navigation';
 import LocaleSelect from '../../containers/locale-select';
 import ProfileInfo from '../../components/profile-info';
-import { useNavigate } from 'react-router-dom';
+
 import AuthBar from '../../components/auth-bar';
+import useAuth from '../../hooks/use-auth';
 import useStore from '../../hooks/use-store';
 
 /**
- * Страница авторизации
+ * Страница профиля
  */
-function Profile() {
-  const navigate = useNavigate();
-  const store = useStore();
+import { useEffect } from 'react';
 
-  const select = useSelector(state => ({
+function Profile() {
+  const store = useStore();
+  const { t } = useTranslate();
+  
+  const { token, isAuth, loading, profileData } = useSelector(state => ({
     token: state.user.token,
-    user: state.user.user,
-    loading: state.user.loading,
+    isAuth: state.user.isAuth,
+    loading: state.profile.loading,
+    profileData: state.profile.data || state.user.user
   }));
 
-  const { t } = useTranslate();
+  useAuth();
 
   useEffect(() => {
-    const token = select.token;
+    if (isAuth && token) {
+      store.actions.profile.loadProfile(token);
+    }
+  }, [isAuth, token, store]);
 
-    const checkAndRedirect = async () => {
-      try {
-        await store.actions.user.initUser();
-        if (!token) {
-          navigate('/login');
-        }
-      } catch {
-        navigate('/login');
-      }
-    };
-
-    checkAndRedirect();
-  }, [navigate, store, select.token]);
+  if (!isAuth) return null;
 
   return (
     <>
@@ -50,7 +45,11 @@ function Profile() {
       </Head>
       <PageLayout>
         <Navigation />
-        {select.loading ? <>Загрузка данных</> : <ProfileInfo user={select.user} t={t} />}
+        {loading ? (
+          <div>Загрузка...</div>
+        ) : (
+          <ProfileInfo user={profileData} t={t} />
+        )}
       </PageLayout>
     </>
   );
