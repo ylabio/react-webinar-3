@@ -1,5 +1,4 @@
 import StoreModule from '../module';
-import CategoryTree from '../category-tree';
 
 /**
  * Состояние каталога - параметры фильтра и список товара
@@ -19,7 +18,6 @@ class CatalogState extends StoreModule {
         query: '',
         category: '',
       },
-      categories: [],
       count: 0,
       waiting: false,
       error: null,
@@ -107,35 +105,6 @@ class CatalogState extends StoreModule {
       },
       'Загружен список товаров из АПИ',
     );
-  }
-  async loadCategories() {
-    this.setState({
-      ...this.getState(),
-      waiting: true,
-    });
-
-    try {
-      const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
-      const categories = await response.json();
-
-      this.setState(
-        {
-          ...this.getState(),
-          categories: CategoryTree(categories.result.items),
-          waiting: false,
-        },
-        'Загружены категории из АПИ',
-      );
-    } catch (e) {
-      this.setState(
-        {
-          ...this.getState(),
-          waiting: false,
-          error: e,
-        },
-        'Ошибка',
-      );
-    }
   }
 }
 

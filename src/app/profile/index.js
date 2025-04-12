@@ -9,14 +9,14 @@ import LocaleSelect from '../../containers/locale-select';
 import ProfileCard from '../../components/profile-card';
 import { useNavigate } from 'react-router-dom';
 import UserMenu from '../../components/user-menu';
+import useInit from '../../hooks/use-init';
 
 function Profile() {
   const store = useStore();
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
 
   const select = useSelector(state => ({
-    username: state.login.username,
+    username: state.profile.user?.name || '',
     isAuth: state.login.isAuth,
     user: state.profile.user,
   }));
@@ -26,12 +26,9 @@ function Profile() {
   const callbacks = {
     onNavigate: useCallback(() => navigate('/login'), [store]),
     onLogout: useCallback(() => store.actions.login.logout(), [store]),
-    getUser: useCallback(() => store.actions.profile.getUser(), [store]),
   };
 
-  useEffect(() => {
-    !token ? navigate('/login') : callbacks.getUser();
-  }, [select.isAuth]);
+  // useInit(() => store.actions.profile.getUser(), [], true);
 
   return (
     <>

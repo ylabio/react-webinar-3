@@ -24,14 +24,28 @@ function LoginForm({ onLogin, error, title, t }) {
       <form onSubmit={handleSubmit} className={cn('form')}>
         <div>
           <label className={cn('label')}>{t('user.username')}</label>
-          <Input type="text" delay={0} value={login} onChange={setLogin} />
+          <Input
+            type="text"
+            delay={0}
+            value={login}
+            onChange={setLogin}
+            placeholder="Введите логин"
+            theme={'small'}
+          />
         </div>
         <div>
           <label className={cn('label')}>{t('user.password')}</label>
-          <Input type="password" delay={0} value={password} onChange={setPassword} />
+          <Input
+            type="password"
+            delay={0}
+            value={password}
+            onChange={setPassword}
+            placeholder="Введите пароль"
+            theme={'small'}
+          />
         </div>
         <div className={cn('error-wrap')}>{error && <p className={cn('error')}>{error}</p>}</div>
-        <Button style="primary" onClick={onLogin} title={t('user.toLogin')} type="submit" />
+        <Button style="primary" title={t('user.toLogin')} type="submit" />
       </form>
     </div>
   );

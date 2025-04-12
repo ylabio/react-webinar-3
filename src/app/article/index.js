@@ -30,7 +30,7 @@ function Article() {
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    username: state.login.username,
+    username: state.profile.user?.name || '',
     isAuth: state.login.isAuth,
   }));
 

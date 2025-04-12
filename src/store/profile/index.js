@@ -12,10 +12,11 @@ class ProfileState extends StoreModule {
   }
 
   async getUser() {
-    console.log(this.getState());
+    const token = localStorage.getItem('token');
+    if (!token) return;
     const response = await fetch('api/v1/users/self?fields=email,profile', {
       headers: {
-        'X-Token': localStorage.getItem('token'),
+        'X-Token': token,
         'Content-Type': 'application/json',
       },
     });

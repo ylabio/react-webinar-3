@@ -6,8 +6,7 @@ import StoreModule from '../module';
 class LoginState extends StoreModule {
   initState() {
     return {
-      username: localStorage.getItem('username'),
-      isAuth: JSON.parse(localStorage.getItem('isAuth')),
+      isAuth: null,
       error: '',
     };
   }
@@ -25,13 +24,10 @@ class LoginState extends StoreModule {
 
     if (response.status === 200) {
       localStorage.setItem('token', json.result.token);
-      localStorage.setItem('isAuth', true);
-      localStorage.setItem('username', json.result.user.profile.name);
 
       this.setState(
         {
           ...this.getState(),
-          username: json.result.user.profile.name,
           isAuth: true,
           error: '',
         },
@@ -48,6 +44,22 @@ class LoginState extends StoreModule {
     }
   }
 
+  async checkAuth() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.setState({ isAuth: false }, 'Токен отсутствует');
+      return;
+    }
+    const response = await fetch('/api/v1/users/self?fields=email', {
+      headers: {
+        'X-Token': token,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    this.setState({ isAuth: response.status === 200 }, 'Проверка авторизации');
+  }
+
   async logout() {
     const response = await fetch('/api/v1/users/sign', {
       method: 'DELETE',
@@ -59,13 +71,10 @@ class LoginState extends StoreModule {
 
     if (response.status === 200) {
       localStorage.removeItem('token');
-      localStorage.removeItem('isAuth');
-      localStorage.removeItem('username');
 
       this.setState(
         {
           ...this.getState(),
-          username: '',
           isAuth: false,
         },
         'Выход',

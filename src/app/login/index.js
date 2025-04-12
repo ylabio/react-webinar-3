@@ -14,10 +14,9 @@ function Login() {
   const store = useStore();
 
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
 
   const select = useSelector(state => ({
-    username: state.login.username,
+    username: state.profile.user?.name || '',
     isAuth: state.login.isAuth,
     error: state.login.error,
   }));
@@ -33,7 +32,9 @@ function Login() {
 
   useEffect(() => {
     callbacks.resetError();
-    if (select.isAuth && token && location.pathname === '/login') navigate(-1);
+    if (select.isAuth && location.pathname === '/login') {
+      navigate('/');
+    }
   }, [select.isAuth]);
 
   return (

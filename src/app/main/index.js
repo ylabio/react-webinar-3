@@ -22,7 +22,7 @@ function Main() {
   useInit(
     () => {
       store.actions.catalog.initParams();
-      store.actions.catalog.loadCategories();
+      store.actions.categories.loadCategories();
     },
     [],
     true,
@@ -31,10 +31,10 @@ function Main() {
   const { t } = useTranslate();
 
   const select = useSelector(state => ({
-    username: state.login.username,
+    username: state.profile.user?.name || '',
     isAuth: state.login.isAuth,
     category: state.catalog.params.category,
-    categories: state.catalog.categories,
+    categories: state.categories.categories,
   }));
 
   const callbacks = {
