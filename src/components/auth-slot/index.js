@@ -1,27 +1,13 @@
 import { memo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import useSelector from '../../hooks/use-selector';
-import useStore from '../../hooks/use-store';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './style.css';
 
-function AuthSlot() {
-  const store = useStore();
-  const navigate = useNavigate();
-  const user = useSelector(state => state.user);
-
-  const handleLogout = async () => {
-    await store.actions.user.logout();
-    navigate('/login');
-  };
-
-  const isLoadingProfile = user.token && !user.data;
-  const isAuthorized = Boolean(user.token && user.data);
-  const isUnauthorized = !user.token && !user.data;
-
+function AuthSlot({ isLoading, isAuthorized, isUnauthorized, username, onLogout }) {
   return (
     <div className="Container">
       <div className="AuthSlot">
-        {isLoadingProfile && (
+        {isLoading && (
           <div className="AuthSlot-skeleton">
             <div className="skeleton-name" />
             <div className="skeleton-button" />
@@ -31,11 +17,9 @@ function AuthSlot() {
         {isAuthorized && (
           <>
             <div className="Sign-in">
-              <Link to="/profile">
-                {(user.data.profile?.name || 'Профиль').replace(/№\s?/, '').trim()}
-              </Link>
+              <Link to="/profile">{username}</Link>
             </div>
-            <button onClick={handleLogout}>Выход</button>
+            <button onClick={onLogout}>Выход</button>
           </>
         )}
 
@@ -44,5 +28,13 @@ function AuthSlot() {
     </div>
   );
 }
+
+AuthSlot.propTypes = {
+  isLoading: PropTypes.bool,
+  isAuthorized: PropTypes.bool,
+  isUnauthorized: PropTypes.bool,
+  username: PropTypes.string,
+  onLogout: PropTypes.func,
+};
 
 export default memo(AuthSlot);

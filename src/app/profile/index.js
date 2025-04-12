@@ -1,44 +1,41 @@
 import { memo } from 'react';
 import useSelector from '../../hooks/use-selector';
-import useTranslate from '../../hooks/use-translate';
+import useAuthSlotProps from '../../hooks/use-auth-slot';
 
 import PageLayout from '../../components/page-layout';
-import Head from '../../components/head';
-import AuthSlot from '../../components/auth-slot';
-import LocaleSelect from '../../containers/locale-select';
 import Navigation from '../../containers/navigation';
 import ProfileInfo from '../../components/profile-info';
-import { number } from 'prop-types';
+import AuthSlot from '../../components/auth-slot';
+import AppLayout from '../../components/app-layout';
+import useTranslate from '../../hooks/use-translate';
 
 function ProfilePage() {
   const user = useSelector(state => state.user);
   const { t } = useTranslate();
 
-  if (!user.data) {
-    return (
-      <>
-        <Head title={t('title')} authSlot={<AuthSlot />}>
-          <LocaleSelect />
-        </Head>
-        <PageLayout>
-          <div className="profile-page">Загрузка профиля...</div>
-        </PageLayout>
-      </>
-    );
-  }
+  const { isLoading, isAuthorized, isUnauthorized, username, handleLogout } = useAuthSlotProps();
 
-  const { email, username, profile } = user.data;
+  const auth = (
+    <AuthSlot
+      isLoading={isLoading}
+      isAuthorized={isAuthorized}
+      isUnauthorized={isUnauthorized}
+      username={username}
+      onLogout={handleLogout}
+    />
+  );
 
   return (
-    <>
-      <Head title={t('title')} authSlot={<AuthSlot />}>
-        <LocaleSelect />
-      </Head>
+    <AppLayout title={t('title')} authSlot={auth}>
       <PageLayout>
         <Navigation />
-        <ProfileInfo profile={profile} username={username} email={email} number={number} />
+        {user.data ? (
+          <ProfileInfo profile={user.data.profile} username={username} email={user.data.email} />
+        ) : (
+          <div className="profile-page">Загрузка профиля...</div>
+        )}
       </PageLayout>
-    </>
+    </AppLayout>
   );
 }
 
