@@ -46,6 +46,18 @@ class CatalogState extends StoreModule {
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
+    /**
+   * Сброс параметров к начальным
+   * @param [newParams] {Object} Новые параметры
+   * @return {Promise<void>}
+   * Загрузка списка категорий
+   */
+  async resetParams(newParams = {}) {
+    // Итоговые параметры из начальных, из URL и из переданных явно
+    const params = { ...this.initState().params, ...newParams };
+    // Установка параметров и загрузка данных
+    await this.setParams(params);
+  }
   /**
    * Загрузка списка категорий
    */
@@ -110,6 +122,11 @@ class CatalogState extends StoreModule {
       },
       'Загружен список товаров из АПИ',
     );
+  }
+
+  getCategoryTitle(categoryId) {
+    if (!categoryId) return null;
+    return this.getState().categories.find(c => c._id === categoryId)?.title || null;
   }
 }
 
