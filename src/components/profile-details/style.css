@@ -1,0 +1,21 @@
+.ProfileDetails {
+    margin-top: 24px;
+}
+
+.ProfileDetails-title {
+    font-family: var(--second-font-family);
+    color: var(--main-text);
+    font-size: 32px;
+    line-height: 40px;
+}
+
+.ProfileDetails-details {
+    margin-top: 24px;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(2, min-content);
+}
+
+.ProfileDetails-info {
+    font-weight: bold;
+}

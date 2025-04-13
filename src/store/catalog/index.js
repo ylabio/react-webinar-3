@@ -10,12 +10,14 @@ class CatalogState extends StoreModule {
    */
   initState() {
     return {
+      categories: [],
       list: [],
       params: {
         page: 1,
         limit: 10,
         sort: 'order',
         query: '',
+        category:'',
       },
       count: 0,
       waiting: false,
@@ -36,7 +38,9 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.query = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
+    await this.loadCategories();  
   }
 
   /**
@@ -87,6 +91,10 @@ class CatalogState extends StoreModule {
       'search[query]': params.query,
     };
 
+    if (params.category !== '') {
+      apiParams['search[category]'] = params.category
+    }
+
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
     this.setState(
@@ -97,6 +105,56 @@ class CatalogState extends StoreModule {
         waiting: false,
       },
       'Загружен список товаров из АПИ',
+    );
+  }
+
+  async loadCategories() {
+    const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
+    const json = await response.json();
+
+    const categories = json.result.items;
+
+    const map = {};
+    categories.forEach(item => {
+      map[item._id] = { ...item, children: [] };
+    });
+
+    const parents = [];
+    categories.forEach(item => {
+      if (item.parent?._id) {
+        map[item.parent._id].children.push(map[item._id]);
+      } else {
+        parents.push(map[item._id]);
+      }
+    });
+    console.log(parents);
+    
+
+    const splitCategories = (nodes, level = 0) => {
+      let result = [];
+
+      for (const item of nodes) {
+        result.push({
+          _id: item._id,
+          title: `${'- '.repeat(level)} ${item.title}`
+        });
+
+        const children = splitCategories(item.children, level + 1);
+        result = [...result, ...children]
+      }
+
+      return result;
+    };
+
+    const splittedCategories = splitCategories(parents);
+    splittedCategories.unshift({ _id: '', title: 'Все' });
+
+    this.setState(
+      {
+        ...this.getState(),
+        categories: splittedCategories,
+      },
+      'Загружен список категорий',
     );
   }
 }

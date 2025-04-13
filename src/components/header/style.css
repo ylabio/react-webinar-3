@@ -1,0 +1,10 @@
+.Header {
+    background-color: var(--divider);
+}
+
+.Header-container {
+    max-width: 1192px;
+    display: flex;
+    justify-content: end;
+    margin: auto;
+}
