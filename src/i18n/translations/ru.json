@@ -19,5 +19,13 @@
   },
   "head.entry": "Вход",
   "head.exit": "Выход",
-  "login": "Войти"
+  "login": "Войти",
+  "login.load": "Загрузка...",
+  "profile": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "loginForm.loginLabel": "Логин",
+  "loginForm.loginPlaceholder": "Введите логин",
+  "loginForm.passwordLabel": "Пароль",
+  "loginForm.passwordPlaceholder": "ведите пароль"
 }
