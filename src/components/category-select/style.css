@@ -1,0 +1,66 @@
+.CategorySelect {
+  position: relative;
+  border: 1px solid var(--filter-border);
+  width: 233px;
+  background-color: var(--background);
+  border-radius: 4px;
+  font-family: var(--font-family);
+  font-size: 16px;
+  height: 40px;
+}
+
+
+.CategorySelect-list {
+  position: absolute;
+  left: -1px;
+  top: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-radius: 4px;
+  width: 233px;
+  max-height: 408px;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
+  background: #fff;
+  overflow: hidden;
+  overflow-y: auto;
+  transition: height .1s ease-out;
+}
+
+.CategorySelect-item-default {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 10px 10px;
+  font-size: 14px;
+}
+
+.CategorySelect-item {
+  text-align: start;
+  width: 227px;
+  height: 38px;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+  color: var(--main-text);
+  padding: 8px;
+  cursor: pointer;
+  z-index: 1;
+
+  &:hover {
+    background: var(--hover-category);
+    color: var(--second-text);
+  }
+
+  &.active {
+    color: var(--primary);
+    pointer-events: none;
+    cursor: default;
+  }
+}
+
+.CategorySelect-icon-open {
+  rotate: 180deg;
+}

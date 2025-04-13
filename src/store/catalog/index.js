@@ -1,4 +1,7 @@
 import StoreModule from '../module';
+import { createCategoryList, createCategoryQuery, createCategoryTree } from '../../utils';
+import { DEFAULT_CATEGORY } from '../../constants';
+import CategorySelect from '../../components/category-select';
 
 /**
  * Состояние каталога - параметры фильтра и список товара
@@ -15,6 +18,7 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
+        category: '',
         query: '',
       },
       count: 0,
@@ -29,6 +33,7 @@ class CatalogState extends StoreModule {
    * @return {Promise<void>}
    */
   async initParams(newParams = {}) {
+
     const urlParams = new URLSearchParams(window.location.search);
     let validParams = {};
     if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
@@ -36,6 +41,7 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
@@ -51,15 +57,18 @@ class CatalogState extends StoreModule {
     await this.setParams(params);
   }
 
-  /**
+   /**
    * Установка параметров и загрузка списка товаров
-   * @param [newParams] {Object} Новые параметры
-   * @param [replaceHistory] {Boolean} Заменить адрес (true) или новая запись в истории браузера (false)
-   * @returns {Promise<void>}
+   * @param categoryId {String} Докидываем id категорий
    */
+  setCategoryParametr(categoryId = '') {
+    const params = { ...this.initState().params, category: categoryId };
+
+    this.setParams(params);
+  }
+
   async setParams(newParams = {}, replaceHistory = false) {
     const params = { ...this.getState().params, ...newParams };
-
     // Установка новых параметров и признака загрузки
     this.setState(
       {
@@ -79,15 +88,9 @@ class CatalogState extends StoreModule {
       window.history.pushState({}, '', url);
     }
 
-    const apiParams = {
-      limit: params.limit,
-      skip: (params.page - 1) * params.limit,
-      fields: 'items(*),count',
-      sort: params.sort,
-      'search[query]': params.query,
-    };
+    const apiParams = this.setApiParams(params);
 
-    const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
+    const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}&lang=ru`);
     const json = await response.json();
     this.setState(
       {
@@ -98,6 +101,26 @@ class CatalogState extends StoreModule {
       },
       'Загружен список товаров из АПИ',
     );
+  }
+
+  setApiParams(params = {}) {
+    if (!!params.category) {
+      return {
+        limit: params.limit,
+        skip: (params.page - 1) * params.limit,
+        fields: 'items(*),count',
+        sort: params.sort,
+        'search[category]': params.category,
+        'search[query]': params.query,
+      };
+    }
+    return {
+      limit: params.limit,
+      skip: (params.page - 1) * params.limit,
+      fields: 'items(*),count',
+      sort: params.sort,
+      'search[query]': params.query,
+    };
   }
 }
 

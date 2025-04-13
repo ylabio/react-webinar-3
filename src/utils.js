@@ -33,3 +33,51 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function sortCategories(categories = []) {
+  const result = [];
+
+  function findCategoryChildren(parentList, child, markerRepeat) {
+    for (let parent of parentList) {
+      if (parent.parent === null) {
+        if (!result.some(e => e._id === parent._id)) {
+          result.push({ ...parent, marker: '' });
+        }
+      }
+      for (let childCategory of child) {
+        if (childCategory.parent && childCategory.parent._id === parent._id) {
+          if (!result.some(e => e._id === childCategory._id)) {
+            result.push({
+              ...childCategory,
+              marker: '- '.repeat(markerRepeat),
+            });
+            findCategoryChildren([childCategory], child, markerRepeat + 1);
+          }
+        }
+      }
+    }
+  }
+
+  findCategoryChildren(categories, categories, 1);
+
+  return result;
+}
+
+export function createCategoryStringQuery(categories, id) {
+  let result = id;
+
+  function findCategoryChildrenId(catId, categoriesList) {
+    for (const element of categoriesList) {
+      if (element.parent) {
+        if (element.parent._id === catId) {
+          result += `,${element._id}`;
+          findCategoryChildrenId(element._id, categoriesList);
+        }
+      }
+    }
+  }
+
+  findCategoryChildrenId(id, categories);
+
+  return result;
+}

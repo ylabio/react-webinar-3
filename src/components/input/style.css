@@ -16,4 +16,9 @@
 
 .Input_theme_small {
   width: 233px;
+  padding-left: 11px;
+  font-size: 14px;
+  &.pswd {
+    padding-right: 26px;
+  }
 }

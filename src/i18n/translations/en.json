@@ -11,8 +11,22 @@
   "basket.delete": "Delete",
   "article.add": "Add",
   "filter.reset": "Reset",
-  "basket.articles": {
-    "one": "article",
-    "other": "articles"
-  }
+  "user.authIn":"Enter",
+  "user.authOut":"Exit",
+  "user.login":"Login",
+  "user.pswd":"Password",
+  "login.input":"Enter login",
+  "pswd.input":"Enter password",
+  "login.btn":"Sign in",
+  "profile": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "basket.articles.one": "article",
+  "basket.articles.few": "articles",
+  "basket.articles.many": "articles",
+  "basket.articles.other": "articles",
+  "article.manufature":"Manufacturer's country",
+  "article.category":"Category",
+  "article.release":"Release",
+  "article.price": "Price"
 }
