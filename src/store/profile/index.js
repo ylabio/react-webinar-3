@@ -3,7 +3,7 @@ import StoreModule from '../module';
 import { getUserData } from '../../api';
 import { LOCAL_USER_KEY } from '../../constants';
 
-class UserState extends StoreModule {
+class ProfileState extends StoreModule {
   initState() {
     return {
       isAuth: false,
@@ -42,7 +42,7 @@ class UserState extends StoreModule {
     }
   }
 
-  resetState(isUserLoggedOut) {
+  resetState() {
     this.setState({
       ...this.initState(),
       isAuth: false,
@@ -50,4 +50,4 @@ class UserState extends StoreModule {
   }
 }
 
-export default UserState;
+export default ProfileState;

@@ -17,7 +17,7 @@ function Profile() {
   const { t } = useTranslate();
 
   const select = useSelector(state => ({
-    userData: state.user.userInfo,
+    userData: state.profile.userInfo,
   }));
 
   useTitle(`${t('title')} / ${select.userData.name}`);

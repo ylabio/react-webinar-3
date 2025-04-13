@@ -17,13 +17,13 @@ function AuthLink() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    isUserLogged: state.user.isAuth,
-    userName: state.user.userInfo.name,
-    token: state.user.token,
+    isUserLogged: state.profile.isAuth,
+    userName: state.profile.userInfo.name,
+    token: state.profile.token,
   }));
 
   const callbacks = {
-    resetUser: useCallback(() => store.actions.user.resetState(), [store]),
+    resetUser: useCallback(() => store.actions.profile.resetState(), [store]),
   };
 
   const navigateTo = useNavigate();

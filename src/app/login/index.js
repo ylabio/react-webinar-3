@@ -18,7 +18,7 @@ function Login() {
   useTitle(t('title'));
 
   const callbacks = {
-    updateUser: useCallback(() => store.actions.user.initParams(), [store]),
+    updateUser: useCallback(() => store.actions.profile.initParams(), [store]),
   };
 
   return (
