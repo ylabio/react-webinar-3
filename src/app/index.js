@@ -20,17 +20,19 @@ function App() {
   const select = useSelector(state => ({
     activeModal: state.modals.name,
     isAuth: state.user.isAuth,
-    userName: state.user.profile.name,
+    userName: state.user.user.profile.name,
+    request: state.user.request,
   }));
   const { t } = useTranslate();
 
   const callbacks = {
     logout: useCallback(() => store.actions.user.logout(), [store]),
+    checkAuth: useCallback(() => store.actions.user.checkAuth(), [store]),
   };
 
   useEffect(() => {
-    store.actions.user.checkAuth();
-  }, [store]);
+    callbacks.checkAuth();
+  }, [callbacks.checkAuth]);
 
   return (
     <>

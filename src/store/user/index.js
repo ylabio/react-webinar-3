@@ -1,10 +1,11 @@
+import { checkResponse } from '../../utils';
 import StoreModule from '../module';
 
 class UserState extends StoreModule {
   initState() {
     return {
       token: '',
-      profile: { name: '' },
+      user: { profile: { name: '' } },
       isAuth: false,
       request: false,
     };
@@ -13,54 +14,64 @@ class UserState extends StoreModule {
   async login(form) {
     let response;
     let result;
-    try {
-      this.setState({ ...this.getState(), request: true });
-      response = await fetch('/api/v1/users/sign', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-      });
-      result = (await response.json()).result;
-      localStorage.setItem('token', result.token);
 
-      this.setState(
-        {
-          ...this.getState(),
-          ...result,
-          isAuth: true,
-          request: false,
-        },
-        'Логин',
-      );
-    } catch (e) {}
+    this.setState({ ...this.getState(), request: true });
+    response = await fetch('/api/v1/users/sign', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form),
+    });
+    result = (await response.json()).result;
+    localStorage.setItem('token', result.token);
+
+    this.setState(
+      {
+        ...this.getState(),
+        ...result,
+        isAuth: true,
+        request: false,
+      },
+      'Логин',
+    );
   }
 
   async checkAuth() {
     this.setState({ ...this.getState(), request: true });
-    const token = localStorage.getItem('token');
+
     let response;
     let result;
-    try {
-      response = await fetch(`/api/v1/users/self`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Token': token,
-        },
-      });
-      result = (await response.json()).result;
+
+    response = await fetch(`/api/v1/users/self`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Token': localStorage.getItem('token'),
+      },
+    });
+
+    if (response.status !== 401 && response.status !== 403) {
+      result = await checkResponse(response);
+
       this.setState(
         {
           ...this.getState(),
-          ...result,
+          user: { ...result.result },
           isAuth: true,
           request: false,
         },
         'Проверка авторизации',
       );
-    } catch (e) {}
+    } else {
+      this.setState(
+        {
+          ...this.initState(),
+          request: false,
+        },
+        'Проверка авторизации',
+      );
+    }
   }
 
   async logout() {
@@ -68,27 +79,24 @@ class UserState extends StoreModule {
     const token = localStorage.getItem('token');
     let response;
     let result;
-    try {
-      response = await fetch('/api/v1/users/sign', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Token': token,
-        },
-      });
-      result = await response.json();
 
-      localStorage.removeItem('token');
+    response = await fetch('/api/v1/users/sign', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Token': token,
+      },
+    });
+    result = await response.json();
 
-      if (Object.hasOwnProperty(result, 'error')) throw new Error(result);
+    localStorage.removeItem('token');
 
-      this.setState(
-        {
-          ...this.initState(),
-        },
-        'Выход',
-      );
-    } catch (e) {}
+    this.setState(
+      {
+        ...this.initState(),
+      },
+      'Выход',
+    );
   }
 }
 
