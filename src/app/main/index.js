@@ -1,7 +1,6 @@
 import { memo } from 'react';
-import useStore from '../../hooks/use-store';
+
 import useTranslate from '../../hooks/use-translate';
-import useInit from '../../hooks/use-init';
 import Navigation from '../../containers/navigation';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -14,16 +13,6 @@ import LoginEntry from '../../containers/login-entry';
  * Главная страница - первичная загрузка каталога
  */
 function Main() {
-  const store = useStore();
-
-  useInit(
-    () => {
-      store.actions.catalog.initParams();
-    },
-    [],
-    true,
-  );
-
   const { t } = useTranslate();
 
   return (

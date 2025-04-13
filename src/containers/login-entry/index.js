@@ -14,11 +14,15 @@ function LoginEntry() {
   const select = useSelector(state => ({
     user: state.user.data,
     waiting: state.user.waiting,
+    autenticated: state.user.autenticated,
   }));
 
   useInit(() => {
-    store.actions.user.load();
-  }, []); 
+    if (select.autenticated) {
+      store.actions.user.load();
+    }
+  }, [select.autenticated]);
+
 
   const callbacks = {
     // Выход из системы
@@ -32,7 +36,7 @@ function LoginEntry() {
     <Spinner active={select.waiting}>
       <div className={cn()}>
         <div className={cn('container')}>
-          {select.user.profile
+          {select.user?.profile
             ?
               <>
                 <Link to="/profile" className={cn('user')}>{select.user?.profile?.name}</Link>

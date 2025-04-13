@@ -17,19 +17,19 @@ function ProfileCard(props) {
           <div className={cn('prop')}>
             <div className={cn('label')}>Имя:</div>
             <div className={cn('value')}>
-              {user.profile?.name}
+              {user?.profile?.name}
             </div>
           </div>
           <div className={cn('prop')}>
             <div className={cn('label')}>Телефон:</div>
             <div className={cn('value')}>
-              {user.profile?.phone}
+              {user?.profile?.phone}
             </div>
           </div>
           <div className={cn('prop')}>
             <div className={cn('label')}>Email:</div>
             <div className={cn('value')}>
-              {user.email}
+              {user?.email}
             </div>
           </div>
         </div>

@@ -13,6 +13,7 @@ class UserState extends StoreModule {
       data: {},
       waiting: false,
       error: '',
+      autenticated: false,
     };
   }
 
@@ -45,6 +46,7 @@ class UserState extends StoreModule {
         data: json.result,
         waiting: false,
         error: '',
+        autenticated: true,
       }, 'Вход выполнен');
       navigate('/');
     } catch (error) {
@@ -62,7 +64,7 @@ class UserState extends StoreModule {
    */
   async load() {
     const token = localStorage.getItem('token');
-    // console.log('Где мой токен', token);
+    
     try {
       const response = await fetch('/api/v1/users/self?fields=*', {
         method: 'GET',
@@ -81,12 +83,13 @@ class UserState extends StoreModule {
       this.setState({
         data: json.result,
         waiting: false,
+        autenticated: true,
       }, 'Загружены данные пользователя из АПИ')
-
     } catch (error) {
       this.setState({
         data: {},
         waiting: false,
+        autenticated: false,
       });
     }
   };
@@ -120,6 +123,34 @@ class UserState extends StoreModule {
       this.setState({
         data: {},
         waiting: false,
+      });
+    }
+  };
+
+  /**
+   * Проверка авторизации
+   * @returns {Promise<void>}
+   */
+  async checkAuth() {
+    const token = localStorage.getItem('token');
+    try {
+      if (token) {
+        this.setState({
+          autenticated: true,
+        }, 'Пользователь авторизован')
+      } else {
+        this.setState({
+          data: {},
+          // waiting: false,
+          error: '',
+          autenticated: false,
+        }, 'Пользователь не авторизован')
+      }
+    } catch (error) {
+      this.setState({
+        data: {},
+        waiting: false,
+        error: error.message,
       });
     }
   };

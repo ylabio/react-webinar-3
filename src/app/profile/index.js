@@ -20,22 +20,26 @@ function Profile() {
   const store = useStore();
   const navigate = useNavigate();
 
-  useEffect(() => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        navigate('/');
-      }
-  }, [navigate]);
-
-  useInit(() => {
-    store.actions.user.load();
-  }, []);
-
   const select = useSelector(state => ({
     user: state.user.data,
     waiting: state.user.waiting,
+    autenticated: state.user.autenticated,
   }));
+
+  useInit(() => {
+    store.actions.user.checkAuth();
+  }, [store]);
+
+  console.log('Проверка autenticated в Profile', select.autenticated);
   
+  useEffect(() => {
+    if (select.autenticated === true) {
+      store.actions.user.load();
+    } else if (select.autenticated === false) {
+      navigate('/');
+    }
+  }, [select.authenticated, navigate, store]);
+
   const { t } = useTranslate();
 
   return (

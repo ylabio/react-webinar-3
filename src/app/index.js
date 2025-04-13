@@ -5,13 +5,25 @@ import Basket from './basket';
 import Article from './article';
 import Login from './login';
 import Profile from './profile';
+import useInit from '../hooks/use-init';
+import useStore from '../hooks/use-store';
 
 /**
  * Приложение
  * Маршрутизация по страницам и модалкам
  */
 function App() {
+  const store = useStore();
   const activeModal = useSelector(state => state.modals.name);
+
+  useInit(
+      () => {
+        store.actions.catalog.initParams();
+        store.actions.user.checkAuth();
+      },
+      [],
+      true,
+  );
 
   return (
     <>
