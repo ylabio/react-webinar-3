@@ -1,0 +1,47 @@
+.ProfileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-block: 24px;
+}
+
+.ProfileInfo-prop-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: fit-content;
+}
+
+.ProfileInfo-prop {
+  display: flex;
+  gap: 10px;
+}
+
+.ProfileInfo-prop_size_big {
+  font-family: 'Montserrat Alternates';
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0%;
+}
+
+.ProfileInfo-label {
+  min-width: 64px;
+  font-family: 'Golos Text';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+}
+
+.ProfileInfo-value {
+  font-family: 'Golos Text';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+}
+
+.ProfileInfo-prop_size_big .ArticleCard-label {
+  width: fit-content;
+}

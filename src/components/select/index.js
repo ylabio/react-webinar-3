@@ -13,7 +13,7 @@ function Select(props) {
   return (
     <select className={cn({ size, text: !!text })} value={value} onChange={onSelect}>
       {options.map(item => (
-        <option key={item.value} value={item.value}>
+        <option key={item.value ?? item._id} value={item.value ?? item._id}>
           {item.title}
         </option>
       ))}
