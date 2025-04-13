@@ -127,8 +127,6 @@ class UserState extends StoreModule {
         throw new Error(json.error.data.issues[0].message)
       }
 
-      console.log(json)
-
       this.setState({
         ...this.getState(),
         data: json.result,
@@ -136,10 +134,11 @@ class UserState extends StoreModule {
         isAuth: true,
       })
     } catch (error) {
+      // Удаление испорченного токена
+      localStorage.removeItem('userToken')
       this.setState({
         ...this.getState(),
         waiting: false,
-        error: error.message
       })
     }
   }
