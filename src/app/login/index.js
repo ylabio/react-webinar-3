@@ -1,4 +1,4 @@
-import { memo, useLayoutEffect } from 'react';
+import { memo, useCallback, useLayoutEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -21,6 +21,7 @@ function Login() {
   const select = useSelector(state => ({
     waiting: state.user.waiting,
     userAuth: state.user.isAuth,
+    error: state.user.error
   }));
 
   useInit(() => {
@@ -37,6 +38,10 @@ function Login() {
     if(select.userAuth) navigate(-1)
   },[store.state.user])
 
+  const callbacks = {
+    onSubmit: useCallback(signOptions => store.actions.user.auth(signOptions))
+  }
+
   return (
     <>
       <Head title={t('title')}>
@@ -45,7 +50,7 @@ function Login() {
       <PageLayout>
         <Navigation />
         <Spinner active={select.waiting}>
-          <LoginForm />
+          <LoginForm error={select.error} onSubmit={callbacks.onSubmit}/>
         </Spinner>
       </PageLayout>
     </>
