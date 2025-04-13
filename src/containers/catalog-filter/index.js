@@ -21,10 +21,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    optionsCategories: state.catalog.filtersCategories || [{
-      "title": "Все",
-      "value": "",
-    }],
+    optionsCategories: state.catalog.filtersCategories,
   }));
 
   const callbacks = {

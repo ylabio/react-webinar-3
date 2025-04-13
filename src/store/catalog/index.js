@@ -18,7 +18,7 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
-        category: [],
+        category: '',
       },
       count: 0,
       waiting: false,
@@ -101,8 +101,17 @@ class CatalogState extends StoreModule {
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
 
-    if (json.result.count <=  (params.page - 1) * params.limit){
-      console.log(' dsikb pf uhfybws')
+    if (json.result.count <= (params.page - 1) * params.limit) {
+      const lastPage = Math.ceil(json.result.count / params.limit);
+      console.log('При превышении смещения перейти на последнюю страницу', lastPage);
+      /*     this.setState(
+              {
+                ...this.getState(),
+                params:    {...this.getState().params,
+                page: lastPage},
+              },
+              'При превышении смещения перешли на последнюю страницу',
+            );*/
     }
 
 

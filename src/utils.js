@@ -34,8 +34,6 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
-
-
 export function createCategories(items) {
 
   console.log('items', items);
