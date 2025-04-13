@@ -16,11 +16,7 @@ export async function authUser(login, password) {
   const res = await response.json();
 
   if (response.ok) {
-    const userData = {
-      token: res.result.token,
-      id: res.result.user._id,
-    };
-    localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(userData));
+    localStorage.setItem(LOCAL_USER_KEY, res.result.token);
   }
   return res;
 }
