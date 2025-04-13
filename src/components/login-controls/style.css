@@ -1,0 +1,11 @@
+.LoginControls {
+     display: flex;
+     gap: 24px;
+     align-items: center;
+}
+
+.LoginControls-button {
+    padding: 8px 16px 8px 0;
+    font-weight: bold;
+    color: var(--primary);
+}
