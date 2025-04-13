@@ -19,7 +19,7 @@ function LoginPage() {
   return (
     <>
       <AuthHeaderContainer />
-      <Head title={t('login.title')}>
+      <Head title={t('title')}>
         <LocaleSelect />
       </Head>
       <PageLayout>

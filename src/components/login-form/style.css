@@ -12,7 +12,8 @@
 .LoginForm-input {
   display: flex;
   flex-direction: column;
-  max-width: 250px;
+  max-width: 233px;
+  height: 66px;
   padding: 8px 0;
 }
 
@@ -24,6 +25,7 @@
 
 .LoginForm-input label {
   margin-bottom: 8px;
+  line-height: 130%;
 }
 
 .LoginForm-actions {
