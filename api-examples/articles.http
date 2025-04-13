@@ -9,11 +9,6 @@ GET http://query.rest/api/v1/articles
 GET http://query.rest/api/v1/articles?limit=10&skip=20
 
 ###
-# Список с пагинацией
-
-GET http://query.rest/api/v1/articles?search%5Bcategory%5D= &lang=ru&limit=10&skip=0&fields=%2A%2Ccategory%28_id%2C%20name%29
-
-###
 # Список с пагинацией и возвратом общего количества (и только нужных свойств через fields)
 # Про формат fields смотри http://query.rest
 
