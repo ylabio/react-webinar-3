@@ -1,6 +1,5 @@
 export async function getUserData(token) {
 
-  console.log('getUserData', token)
   const response = await fetch('/api/v1/users/self?fields=_id,email,profile(name,phone)', {
     method: 'GET',
     headers: {

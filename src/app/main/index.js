@@ -24,25 +24,29 @@ function Main() {
   useInit(
     () => {
       store.actions.catalog.initParams();
+      store.actions.category.initParams();
     },
     [],
     true,
   );
 
   const select = useSelector(state => ({
-    category: state.catalog.defaultCategory,
+    category: state.category.defaultCategory,
   }));
 
   const { t } = useTranslate();
 
-  useTitle(select.category._id === 'all' ? t('title') : `${t('title')} / ${select.category.title}`);
+  const categoryTitle = select.category.title || '';
+
+  const pageName = select.category._id === 'all' ? t('title') : `${t('title')} / ${select.category.title.toLowerCase()}`
+
+  useTitle(pageName);
 
   return (
     <>
       <AuthLink />
       <Head
-        title={t('title')}
-        categoryName={select.category._id === 'all' ? null : ` / ${select.category.title}`}
+        title={pageName}
       >
         <LocaleSelect />
       </Head>

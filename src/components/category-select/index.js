@@ -5,18 +5,30 @@ import { cn as bem } from '@bem-react/classname';
 
 import SelectIcon from '../../assets/icon/select-icon.svg';
 
+import { createCategoryStringQuery } from '../../utils';
+
 import './style.css';
 
 const CategorySelect = props => {
   const [isShow, setIsShow] = useState(false);
 
-  const { onChange = x => {}, categoryList = [], size = 'medium', value = {} } = props;
+  const {
+    onUpdate = x => {},
+    onChange = x => {},
+    categoryList = [],
+    size = 'medium',
+    value = {},
+  } = props;
+
   const cn = bem('CategorySelect');
 
   const onSelect = (e, category) => {
     e.preventDefault();
+    const categoryIdString = createCategoryStringQuery(props.categoryList, category._id);
 
-    onChange(category._id === 'all' ? '' : category._id);
+    onChange(category._id === 'all' ? '' : categoryIdString);
+
+    onUpdate(category);
 
     setIsShow(prev => false);
   };
@@ -55,7 +67,8 @@ const CategorySelect = props => {
               onClick={e => onSelect(e, category)}
               className={getCurrentItemClass(value._id, category)}
             >
-              {category.marker}{category.title}
+              {category.marker}
+              {category.title}
             </li>
           ))}
         </ul>
@@ -74,6 +87,7 @@ CategorySelect.propTypes = {
   ).isRequired,
   value: PropTypes.object,
   onChange: PropTypes.func,
+  onUpdate: PropTypes.func,
   size: PropTypes.oneOf(['small', 'medium']),
 };
 

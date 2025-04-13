@@ -1,5 +1,5 @@
 import StoreModule from '../module';
-import {createCategoryList, createCategoryQuery, createCategoryTree} from "../../utils";
+import { createCategoryList, createCategoryQuery, createCategoryTree } from '../../utils';
 import { DEFAULT_CATEGORY } from '../../constants';
 import CategorySelect from '../../components/category-select';
 
@@ -14,8 +14,6 @@ class CatalogState extends StoreModule {
   initState() {
     return {
       list: [],
-      categoriesList: [],
-      defaultCategory: { ...DEFAULT_CATEGORY },
       params: {
         page: 1,
         limit: 10,
@@ -35,7 +33,6 @@ class CatalogState extends StoreModule {
    * @return {Promise<void>}
    */
   async initParams(newParams = {}) {
-    await this.initCategory();
 
     const urlParams = new URLSearchParams(window.location.search);
     let validParams = {};
@@ -60,12 +57,16 @@ class CatalogState extends StoreModule {
     await this.setParams(params);
   }
 
-  /**
+   /**
    * Установка параметров и загрузка списка товаров
-   * @param [newParams] {Object} Новые параметры
-   * @param [replaceHistory] {Boolean} Заменить адрес (true) или новая запись в истории браузера (false)
-   * @returns {Promise<void>}
+   * @param categoryId {String} Докидываем id категорий
    */
+  setCategoryParametr(categoryId = '') {
+    const params = { ...this.initState().params, category: categoryId };
+
+    this.setParams(params);
+  }
+
   async setParams(newParams = {}, replaceHistory = false) {
     const params = { ...this.getState().params, ...newParams };
     // Установка новых параметров и признака загрузки
@@ -102,41 +103,14 @@ class CatalogState extends StoreModule {
     );
   }
 
-  setCurrentCategory(currentCategory) {
-    this.setState({
-      ...this.getState(),
-      defaultCategory: { ...currentCategory },
-    });
-  }
-
-  async initCategory() {
-    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*&lang=ru');
-
-    if (response && response.ok) {
-      const json = await response.json();
-      this.setState({
-        ...this.getState(),
-        categoriesList: createCategoryList(json.result.items),
-      });
-    }
-  }
-
   setApiParams(params = {}) {
-    const currentCategory = !!params.category
-      ? this.getState().categoriesList.find(elem => elem._id === params.category)
-      : { ...DEFAULT_CATEGORY };
-    this.setCurrentCategory(currentCategory);
     if (!!params.category) {
-      const categoryRequestQuery = createCategoryQuery(
-        this.getState().categoriesList,
-        params.category,
-      );
       return {
         limit: params.limit,
         skip: (params.page - 1) * params.limit,
         fields: 'items(*),count',
         sort: params.sort,
-        'search[category]': categoryRequestQuery,
+        'search[category]': params.category,
         'search[query]': params.query,
       };
     }
