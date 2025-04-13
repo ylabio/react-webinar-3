@@ -1,7 +1,6 @@
 import { memo, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
-import useInit from '../../hooks/use-init';
 import Navigation from '../../containers/navigation';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -19,18 +18,6 @@ function Main() {
     category: state.catalog.params.category,
     categoryList: state.catalog.categoryList
   }))
-
-  useInit(
-    () => {
-      store.actions.catalog.initParams();
-      store.actions.catalog.loadCategoryList()
-      if(Boolean(localStorage.getItem('userToken'))) {
-        store.actions.user.loadUserInfo();  
-      }
-    },
-    [],
-    true,
-  );
   
   const { t } = useTranslate();
   

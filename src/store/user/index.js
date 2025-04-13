@@ -47,7 +47,7 @@ class UserState extends StoreModule {
         data: json.result,
         isAuth: true,
         waiting: false
-      })
+      }, 'Данные о пользователе при авторизации загружены из АПИ')
 
     } catch (error) {
       this.setState({
@@ -91,7 +91,7 @@ class UserState extends StoreModule {
         data: {},
         waiting: false,
         isAuth: false,
-      })
+      }, 'Данные о пользователе удалены')
 
     } catch(error) {
       this.setState({
@@ -114,6 +114,9 @@ class UserState extends StoreModule {
     })  
     try {
       const token = localStorage.getItem('userToken')
+      if (!token) {
+        throw new Error('Токен не найден')
+      }
       const response = await fetch('/api/v1/users/self?fields=email,username,profile(name, phone)', {
         method: 'GET',
         headers: {
@@ -122,7 +125,7 @@ class UserState extends StoreModule {
         }
       })
       const json = await response.json()
-
+      
       if(!response.ok) {
         throw new Error(json.error.data.issues[0].message)
       }
@@ -132,7 +135,7 @@ class UserState extends StoreModule {
         data: json.result,
         waiting: false,
         isAuth: true,
-      })
+      }, 'Информация о пользователе загружена из АПИ')
     } catch (error) {
       // Удаление испорченного токена
       localStorage.removeItem('userToken')

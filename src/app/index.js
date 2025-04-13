@@ -7,6 +7,8 @@ import Article from './article';
 import Login from './login'
 import Profile from './profile'
 import PrivateComponent from '../components/private-component'
+import useStore from '../hooks/use-store';
+import useInit from '../hooks/use-init';
 
 /**
  * Приложение
@@ -14,6 +16,17 @@ import PrivateComponent from '../components/private-component'
  */
 function App() {
   const activeModal = useSelector(state => state.modals.name);
+  const store = useStore();
+
+  useInit(
+    () => {
+      store.actions.catalog.initParams();
+      store.actions.catalog.loadCategoryList()
+      store.actions.user.loadUserInfo();  
+    },
+    [],
+    true,
+  );
 
   return (
     <>
