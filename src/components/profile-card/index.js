@@ -30,7 +30,6 @@ function ProfileCard({ name, email, phone }) {
 }
 
 ProfileCard.propTypes = {
-  header: PropTypes.string.isRequired,
   name: PropTypes.string,
   email: PropTypes.string,
   phone: PropTypes.string,

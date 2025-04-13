@@ -35,11 +35,14 @@ function LoginForm({
     } catch (error) {
       try {
         const errorMessage = error.message;
-        const jsonString = errorMessage.replace('Error: ', '');
+        const jsonString = errorMessage.startsWith('Error: ')
+          ? errorMessage.replace('Error: ', '')
+          : errorMessage;
         const errorData = JSON.parse(jsonString);
+
         setErrors(errorData.issues || ['Ошибка авторизации']);
       } catch (parseError) {
-        setErrors(error.issues || [error.message || 'Ошибка авторизации']);
+        setErrors(['Ошибка авторизации']);
       }
     } finally {
       setIsSubmitting(false);
@@ -72,7 +75,7 @@ function LoginForm({
             <ul>
               {errors.map((error, index) => (
                 <li key={index}>
-                  <p>{error}</p>
+                  <p>{typeof error === 'object' ? error.message : error}</p>
                 </li>
               ))}
             </ul>

@@ -61,8 +61,76 @@ class AuthStore extends StoreModule {
   }
 
   // Авторизация пользователя
-
   async login(credentials) {
+    this.setLoading(true);
+    try {
+      // 1. Отправляем запрос на сервер
+
+      const response = await fetch('api/v1/users/sign', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          login: credentials.login,
+          password: credentials.password,
+        }),
+      });
+      console.log('Отправляемые credentials:', credentials);
+
+      const json = await response.json().catch(() => null);
+      console.log('JSON ответа:', json);
+
+      // 2. Обрабатываем ответ сервера
+      if (!response.ok) {
+        // Если есть ошибка от сервера
+        const issues = json?.error?.data?.issues
+          ? json.error.data.issues.map(issue => issue.message || issue)
+          : [json.error?.message || 'Ошибка авторизации'];
+
+        throw new Error(JSON.stringify({ issues }));
+      }
+
+      // 3. Если ответ успешный
+      const { token, user } = json.result || {};
+
+      if (!token) {
+        const error = new Error('Authorization failed');
+        error.errorData = {
+          message: 'Токен не получен',
+          issues: ['Неверные учетные данные'],
+        };
+        throw error;
+      }
+
+      // 4. Сохраняем данные авторизации
+      localStorage.setItem('authToken', token);
+      this.setState({
+        ...this.getState(),
+        token,
+        user,
+        error: null,
+        initialized: true,
+      });
+
+      return true;
+    } catch (error) {
+      // 5. Обрабатываем ошибки
+      const errorData = error.errorData || {
+        message: error.message,
+        issues: ['Ошибка авторизации'],
+      };
+
+      this.setError(errorData.issues);
+
+      const newError = new Error(errorData.message);
+      newError.errorData = errorData;
+      throw newError;
+    } finally {
+      this.setLoading(false);
+    }
+  }
+  /*  async login(credentials) {
     this.setLoading(true);
     try {
       const { token, user } = await api.signIn(credentials);
@@ -102,7 +170,7 @@ class AuthStore extends StoreModule {
       this.setLoading(false);
     }
   }
-
+ */
   // Выход из системы
   async logout() {
     this.setLoading(true);
