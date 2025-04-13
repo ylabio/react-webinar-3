@@ -14,6 +14,9 @@ function AuthPanel() {
   const navigate = useNavigate();
   const {t} = useTranslate();
 
+
+
+
   useInit(() => {
     store.actions.user.getProfile();
   }, []);

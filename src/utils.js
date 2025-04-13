@@ -38,6 +38,8 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
 
 export function createCategories(items) {
 
+  console.log('items', items);
+
   const parent = []
   const otherCategories = [];
 
@@ -66,7 +68,7 @@ export function createCategories(items) {
 
 export function buildCategoryMapTree(items = []) {
   const map = new Map();
-
+  console.log('items', items);
   for (const item of items) {
     const parentId = item.parent?._id || 'parent';
 
@@ -110,8 +112,12 @@ export function flattenCategoryTree(tree) {
   for (const node of tree) {
     result.push({
       title: node.title,
-      value: node._id, // для select
+      id: node._id,
+      value: node.valueIds, // для select
       valueIds: node.valueIds
+
+/*    value: node._id, // для select
+      valueIds: node.valueIds */
     });
 
     if (node.children?.length) {

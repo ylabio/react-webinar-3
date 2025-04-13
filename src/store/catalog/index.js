@@ -1,4 +1,6 @@
 import StoreModule from '../module';
+import { buildCategoryMapTree, flattenCategoryTree } from '../../utils';
+
 
 /**
  * Состояние каталога - параметры фильтра и список товара
@@ -16,9 +18,11 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
+        category: [],
       },
       count: 0,
       waiting: false,
+      filtersCategories: [],
     };
   }
 
@@ -36,6 +40,7 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
@@ -79,16 +84,28 @@ class CatalogState extends StoreModule {
       window.history.pushState({}, '', url);
     }
 
-    const apiParams = {
+    let apiParams = {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
-      fields: 'items(*),count',
+      fields: 'items(*,category(_id, title)),count',
       sort: params.sort,
       'search[query]': params.query,
     };
 
+    if (params.category && params.category !== '') {
+      apiParams['search[category]']= params.category;
+    }
+
+    console.log('new URLSearchParams(apiParams)', `${new URLSearchParams(apiParams)}`);
+
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
+
+    if (json.result.count <=  (params.page - 1) * params.limit){
+      console.log(' dsikb pf uhfybws')
+    }
+
+
     this.setState(
       {
         ...this.getState(),
@@ -100,17 +117,31 @@ class CatalogState extends StoreModule {
     );
   }
 
-
-
-
   async getCategory() {
 
-    const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)`);
+    const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
     const json = await response.json();
+
+    const treeCategories = buildCategoryMapTree(json.result.items || [])
+
+    console.log("treeCategories", treeCategories);
+
+    const defaultCategory = {
+      "title": "Все",
+      "value": ""
+    }
+
+    const optionsCategory = [defaultCategory, ...flattenCategoryTree(treeCategories)]
+
+    console.log("optionsCategory", optionsCategory);
+
+
+
+
     this.setState(
       {
         ...this.getState(),
-        categories: json.result.items,
+        filtersCategories: optionsCategory,
       },
       'Загружены категории из АПИ',
     );

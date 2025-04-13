@@ -115,6 +115,8 @@ class UserState extends StoreModule {
 
     } catch (e) {
       // Ошибка при загрузке
+      localStorage.removeItem('token');
+
       this.setState({
         ...this.getState(),
         waitingAuth: false,
