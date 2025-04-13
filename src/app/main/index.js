@@ -39,6 +39,7 @@ function Main() {
       <Head title={headerTitle}>
         <LocaleSelect />
       </Head>
+
       <PageLayout>
         <Navigation />
         <CatalogFilter setHeaderTitle={setHeaderTitle} />

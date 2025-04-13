@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import SideLayout from '../../components/side-layout';
 import AuthButton from '../../components/auth-button';
+import UserProfileLink from '../../components/user-profile-link';
+
 import { Link, useNavigate } from 'react-router-dom';
 
 import useSelector from '../../hooks/use-selector';
@@ -27,10 +29,7 @@ function UserInfo() {
 
     return (
         <SideLayout side='end'>
-            <div className='user-link'>
-                {userProfile.name && <Link to={pages.profile}>{userProfile.name}</Link>}
-            </div>
-
+            {userProfile.name && <UserProfileLink url={pages.profile} username={userProfile.name} />}
             {userButton}
         </SideLayout>
     )

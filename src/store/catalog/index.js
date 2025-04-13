@@ -18,62 +18,9 @@ class CatalogState extends StoreModule {
         query: '',
         category: '',
       },
-      categories: [], // Хранит все категории, полученные с Api
       count: 0,
       waiting: false,
     };
-  }
-
-  // РАБОТА С КАТЕГОРИЯМИ
-  formatCategories(categories) {
-    const categoriesMap = new Map();
-    const tree = [];
-
-    //Создание map коллекции всех категорий
-    categories.forEach(category => {
-      categoriesMap.set(category._id, { ...category, children: [] });
-    })
-
-    //Построение дерева на основе map
-    categories.forEach(category => {
-      const node = categoriesMap.get(category._id);
-      if (node.parent) {
-        const parentNode = categoriesMap.get(node.parent._id);
-        parentNode.children.push(node);
-      } else {
-        tree.push(node);
-      }
-    })
-
-    //Форматирование дерева для того, чтобы категории были вида, который можно передать в select
-    const formatTree = (nodes, level = 0) => {
-      let formated = [];
-      nodes.forEach(node => {
-        formated.push({
-          value: node._id,
-          title: `${'-'.repeat(level)} ${node.title}`
-        })
-        formated = formated.concat(formatTree(node.children, level + 1));
-      })
-      return formated;
-    }
-
-    return formatTree(tree);
-  }
-
-  async getCategories() {
-    try {
-      const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
-      const data = await response.json();
-      const formatedCategories = this.formatCategories(data.result.items);
-
-      this.setState({
-        ...this.getState(),
-        categories: [{ value: '', title: 'Все' }, ...formatedCategories],
-      }, 'Загружен список категорий')
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   /**
@@ -92,7 +39,6 @@ class CatalogState extends StoreModule {
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
     if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
-    await this.getCategories();
   }
 
   /**

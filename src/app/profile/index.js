@@ -10,26 +10,28 @@ import UserCard from '../../components/user-card';
 
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
+import useCheckAuth from '../../hooks/use-check-auth';
 import { useNavigate } from 'react-router-dom';
 
 function Profile() {
-    const store = useStore();
     const navigate = useNavigate();
-    const authToken = sessionStorage.getItem('authToken');
 
-    const { userProfile } = useSelector(state => state.auth);
+    const { status, token } = useCheckAuth();
+
+    const store = useStore();
+    const { userProfile } = useSelector(state => state.profile);
 
     const callbacks = {
-        getProfile: useCallback(token => store.actions.auth.fetchProfile(token)),
+        getProfile: useCallback(token => store.actions.profile.fetchProfile(token)),
     }
 
     useEffect(() => {
-        if (authToken) {
-            callbacks.getProfile(authToken);
+        if (status && token) {
+            callbacks.getProfile(token);
         } else {
             navigate('/login');
         }
-    }, [authToken]);
+    }, [status, token])
 
     return (
         <>

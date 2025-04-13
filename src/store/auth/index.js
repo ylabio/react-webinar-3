@@ -10,11 +10,11 @@ class Auth extends StoreModule {
             password: '',
             userProfile: {
                 name: '',
-                phone: '',
-                email: '',
             },
             error: '',
-            waiting: false, // признак ожидания загрузки
+            waiting: false,
+            isLoggedIn: false,
+            authToken: null,
         };
     }
 
@@ -32,34 +32,9 @@ class Auth extends StoreModule {
         })
     }
 
-    async authorizate(token) {
+    //Авторизация по логину и паролю
+    async authorizate() {
         this.setState({ ...this.getState(), error: '', waiting: true }); // Начинаем ожидание
-
-        if (token) {
-            try {
-                const response = await fetch('/api/v1/users/self?fields=profile(name)', {
-                    headers: {
-                        'X-Token': token,
-                        'Content-Type': 'application/json',
-                    }
-                });
-                const data = await response.json();
-
-                this.setState({
-                    ...this.getState(),
-                    waiting: false,
-                    userProfile: {
-                        ...this.getState().userProfile,
-                        name: data.result.profile.name,
-                    }
-                }, 'Пользователь авторизован');
-
-                return true;
-
-            } catch (error) {
-                console.error('Ошибка авторизации, токен устарел')
-            }
-        }
 
         const authData = JSON.stringify({
             login: this.getState().login,
@@ -96,11 +71,13 @@ class Auth extends StoreModule {
                     ...this.getState().userProfile,
                     name: data.result.user.profile.name,
                 },
+                isLoggedIn: true,
+                authToken: data.result.token,
                 login: '',
                 password: '',
             }, 'Пользователь авторизован');
 
-            sessionStorage.setItem('authToken', data.result.token);
+            localStorage.setItem('authToken', data.result.token);
 
             return true;
 
@@ -117,49 +94,57 @@ class Auth extends StoreModule {
         }
     }
 
-    //Получение профиля пользователя
-    async fetchProfile(token) {
-        this.setState({
-            ...this.getState(),
-            waiting: true,
-        })
+    //Автоматическая авторизация по токену
+    async checkAuth() {
+        const authToken = localStorage.getItem('authToken');
 
-        if (!token) {
-            console.log('Вы не авторизованы!');
-            this.setState({
-                ...this.getState(),
-                waiting: false,
-            })
-            return;
+        if (!authToken) {
+            console.log('Пользователь не авторизован: отсутствует токен.');
+            return false;
         }
 
         try {
-            const response = await fetch('/api/v1/users/self?fields=email,profile(name,phone)', {
+            const response = await fetch('/api/v1/users/self?fields=profile(name)', {
                 headers: {
-                    'X-Token': token,
-                    'Content-Type': 'application/json'
-                },
-            })
-
+                    'X-Token': authToken,
+                    'Content-Type': 'application/json',
+                }
+            });
             const data = await response.json();
 
             this.setState({
                 ...this.getState(),
-                userProfile: {
-                    email: data.result.email,
-                    name: data.result.profile.name,
-                    phone: data.result.profile.phone,
-                },
                 waiting: false,
-            }, 'Получены данные о пользователе')
+                userProfile: {
+                    ...this.getState().userProfile,
+                    name: data.result.profile.name,
+                },
+                isLoggedIn: true,
+                authToken: authToken,
+            }, 'Пользователь авторизован по токену');
+
+            return true;
 
         } catch (error) {
-            console.log(error, 'Ошибка получения данных!')
+            console.error('Ошибка авторизации, токен устарел');
             this.setState({
                 ...this.getState(),
                 waiting: false,
+                isLoggedIn: false,
+                authToken: null,
             })
+            return false;
         }
+    }
+
+    // Метод для получения статуса авторизации
+    getIsLoggedIn() {
+        return this.getState().isLoggedIn;
+    }
+
+    // Метод для получения токена
+    getAuthToken() {
+        return this.getState().authToken;
     }
 
     // Выход - отмена авториазции для удаления токена
@@ -168,7 +153,8 @@ class Auth extends StoreModule {
             ...this.getState(),
             waiting: true,
         }, 'Выход из аккаунта')
-        const authToken = sessionStorage.getItem('authToken');
+
+        const authToken = this.getState().authToken;
 
         try {
             const response = await fetch('/api/v1/users/sign', {
@@ -181,7 +167,7 @@ class Auth extends StoreModule {
 
             const data = await response.json();
             if (data.result) {
-                sessionStorage.removeItem('authToken');
+                localStorage.removeItem('authToken');
 
                 this.setState({
                     ...this.getState(),
@@ -190,6 +176,8 @@ class Auth extends StoreModule {
                         phone: '',
                         email: '',
                     },
+                    isLoggedIn: false,
+                    authToken: null,
                     waiting: false,
                 }, 'Пользователь вышел из аккаунта')
             } else {
@@ -197,12 +185,24 @@ class Auth extends StoreModule {
                 this.setState({
                     ...this.getState(),
                     waiting: false,
+                    isLoggedIn: false,
+                    authToken: null,
                 })
             }
 
         } catch (error) {
             console.log('Ошибка сервера!')
         }
+    }
+
+    // Очистка формы
+    clearForm() {
+        this.setState({
+            ...this.getState(),
+            login: '',
+            password: '',
+            error: '',
+        })
     }
 }
 

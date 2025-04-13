@@ -19,10 +19,12 @@ function CatalogFilter({ setHeaderTitle }) {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories,
+    categories: state.categories.categories,
   }));
 
   const callbacks = {
+    //Установка категорий
+    onSetCategory: useCallback(() => store.actions.categories.getCategories(), [store]),
     // Категории
     onCategory: useCallback(category => store.actions.catalog.setParams({ category, page: 1 }), [store]),
     // Сортировка
@@ -46,6 +48,10 @@ function CatalogFilter({ setHeaderTitle }) {
   };
 
   const { t } = useTranslate();
+
+  useEffect(() => {
+    callbacks.onSetCategory();
+  }, [])
 
   useEffect(() => {
     const selectedCategory = select.categories.find(cat => cat.value === select.category);

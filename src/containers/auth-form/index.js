@@ -25,7 +25,7 @@ function AuthForm() {
         onAuth: useCallback(async () => {
             const authStatus = await store.actions.auth.authorizate();
             if (authStatus) {
-                navigate('/');
+                navigate('/profile');
             }
         }, [store]),
     };
