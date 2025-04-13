@@ -15,25 +15,28 @@ function AuthForm({ t = text => text, onUpdate = () => {} }) {
   const [password, setPassword] = useState('');
   const [errorMsq, setErrorMsq] = useState('');
   const [inputType, setInputType] = useState('password');
+  const [isSubmit, setIsSubmit] = useState(false);
 
-  const onSubmit = async () => {
+  const onSubmit = async ()=> {
+    setIsSubmit(true);
     const res = await authUser(login, password);
     if (res.error) {
       setErrorMsq(res.error.data.issues[0].message);
     } else {
       setErrorMsq(prev => '');
     }
+    setIsSubmit(false);
     await onUpdate();
   };
 
-  const disa = !(password.trim().length && login.trim().length);
+  const disabledBtn = isSubmit || !(password.trim().length && login.trim().length);
+
   const onShowPassword = e => {
     e.stopPropagation();
     const typeBtn = inputType === 'password' ? 'text' : 'password';
 
     setInputType(prev => typeBtn);
   };
-  console.log(disa);
   return (
     <div className="AuthForm">
       <h1 className="AuthForm-title">{t('user.authIn')}</h1>
@@ -59,11 +62,16 @@ function AuthForm({ t = text => text, onUpdate = () => {} }) {
             type={inputType}
           />
           <button className="AuthForm-btn" onClick={onShowPassword} type="button">
-            {inputType === 'password' ?  <HidePassword /> : <ShowPassword />}
+            {inputType === 'password' ? <HidePassword /> : <ShowPassword />}
           </button>
         </label>
         {!!errorMsq && <div className="AuthForm-error">{errorMsq}</div>}
-        <Button style="primary" title={t('login.btn')} onClick={onSubmit} disabled={disa}></Button>
+        <Button
+          style="primary"
+          title={t('login.btn')}
+          onClick={onSubmit}
+          disabled={disabledBtn}
+        ></Button>
       </form>
     </div>
   );
