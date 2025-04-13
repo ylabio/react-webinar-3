@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -31,8 +31,15 @@ function Main() {
     categories: state.categories.list,
   }));
 
-  const pathCategory = getFullPath(select.categories, select.categoryId)
-  const headTitle = pathCategory === 'Все' ? 'title' : pathCategory;
+  const pathCategory = useMemo(
+    () => getFullPath(select.categories, select.categoryId),
+    [select.categories, select.categoryId],
+  );
+
+  const headTitle = useMemo(
+    () => (pathCategory === 'Все' ? 'title' : pathCategory),
+    [pathCategory],
+  );
 
   useEffect(() => {
     document.title = t(headTitle);
