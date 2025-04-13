@@ -41,6 +41,19 @@ class AuthState extends StoreModule {
       console.error(this.getState());
     }
   }
+
+  async logoutUser() {
+    localStorage.removeItem('token');
+    this.setState(
+      {
+        ...this.getState(),
+        userData: {},
+        isLogin: false,
+        error: '',
+      },
+      'Выход из аккаунта logoutUser',
+    );
+  }
 }
 
 export default AuthState;

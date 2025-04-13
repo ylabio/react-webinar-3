@@ -1,5 +1,6 @@
-import { memo, useCallback, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { memo, useCallback, useMemo, useEffect } from 'react';
+import {useLocation, useParams} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -17,6 +18,8 @@ import LoginMenu from '../login-menu';
 function Login() {
   const store = useStore();
   const cn = bem('Login');
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useInit(() => {}, []);
 
@@ -25,6 +28,13 @@ function Login() {
   }));
 
   const { t } = useTranslate();
+
+  useEffect(() => {
+    if (select.auth.isLogin) {
+      const redirectTo = location.state?.back || '/';
+      navigate(redirectTo, { replace: true });
+    }
+  }, [select.auth.isLogin, navigate, location.state]);
 
   const callbacks = {
     onLogin: useCallback(
