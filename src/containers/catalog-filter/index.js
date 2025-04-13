@@ -14,14 +14,14 @@ function CatalogFilter() {
   const store = useStore();
 
   useEffect(() => {
-    store.actions.catalog.getCategory()
+    store.actions.categories.getCategories()
   }, [store]);
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    optionsCategories: state.catalog.filtersCategories,
+    optionsCategories: state.categories.flat,
   }));
 
   const callbacks = {

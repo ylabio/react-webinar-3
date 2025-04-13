@@ -34,39 +34,14 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
-export function createCategories(items) {
-
-  console.log('items', items);
-
-  const parent = []
-  const otherCategories = [];
-
-  if (items.length) {
-    return {parent, otherCategories};
-  }
-
-  items.forEach((item)=> {
-    if (item.parent) {
-      otherCategories.push(item);
-    } else {
-      parent.push(item);
-    }
-  })
-
-  if (otherCategories.length) {
-
-
-  }
-
-
-
-
-  return {parent, otherCategories};
-}
-
+/**
+ * Построение дерева категорий с вложенностью и списком ID потомков
+ * @param {Array<Object>} items - Список категорий (объекты с _id, title и parent)
+ * @returns {Array<Object>} Иерархическое дерево категорий
+ */
 export function buildCategoryMapTree(items = []) {
   const map = new Map();
-  console.log('items', items);
+
   for (const item of items) {
     const parentId = item.parent?._id || 'parent';
 
@@ -103,7 +78,11 @@ export function buildCategoryMapTree(items = []) {
 }
 
 
-
+/**
+ * Преобразование иерархического дерева категорий в плоский список
+ * @param {Array<Object>} tree - Дерево категорий
+ * @returns {Array<Object>} Плоский список категорий для select-компонентов
+ */
 export function flattenCategoryTree(tree) {
   const result = [];
 
@@ -111,11 +90,7 @@ export function flattenCategoryTree(tree) {
     result.push({
       title: node.title,
       id: node._id,
-      value: node.valueIds, // для select
-      valueIds: node.valueIds
-
-/*    value: node._id, // для select
-      valueIds: node.valueIds */
+      value: node.valueIds,
     });
 
     if (node.children?.length) {

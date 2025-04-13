@@ -56,7 +56,7 @@ function FormContainer() {
       fields={fields}
       error={select.error}
       control={labelSubmitButton}
-      disable={select.waiting}/>
+      disable={select.waiting || !login || !password }/>
   );
 }
 

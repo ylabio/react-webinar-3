@@ -1,5 +1,4 @@
 import StoreModule from '../module';
-import { buildCategoryMapTree, flattenCategoryTree } from '../../utils';
 
 
 /**
@@ -22,7 +21,6 @@ class CatalogState extends StoreModule {
       },
       count: 0,
       waiting: false,
-      filtersCategories: [],
     };
   }
 
@@ -146,29 +144,6 @@ class CatalogState extends StoreModule {
         waiting: false,
       },
       'Загружен список товаров из АПИ',
-    );
-  }
-
-  async getCategory() {
-
-    const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
-    const json = await response.json();
-
-    const treeCategories = buildCategoryMapTree(json.result.items || [])
-
-    const defaultCategory = {
-      "title": "Все",
-      "value": ""
-    }
-
-    const optionsCategory = [defaultCategory, ...flattenCategoryTree(treeCategories)]
-
-    this.setState(
-      {
-        ...this.getState(),
-        filtersCategories: optionsCategory,
-      },
-      'Загружены категории из АПИ',
     );
   }
 }
