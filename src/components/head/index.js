@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { cn as bem } from '@bem-react/classname';
 
-/**
- * Главная страница - первичная загрузка каталога
- */
 function Head({title, children}) {
   const cn = bem('Head');
 

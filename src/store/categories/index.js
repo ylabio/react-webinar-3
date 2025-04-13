@@ -1,13 +1,10 @@
 import StoreModule from '../module';
 
 /**
- * Состояние категорий: дерево, плоский список и доступ по ID
+ * Состояние категорий: дерево, плоский список и поиск по value
  */
 class CategoriesState extends StoreModule {
-  /**
-   * Начальное состояние
-   * @returns {Object}
-   */
+
   initState() {
     return {
       tree: [],
@@ -16,10 +13,6 @@ class CategoriesState extends StoreModule {
     };
   }
 
-  /**
-   * Загрузка категорий из API
-   * @returns {Promise<void>}
-   */
   async getCategories() {
     const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
     const json = await response.json();
@@ -46,20 +39,6 @@ class CategoriesState extends StoreModule {
     }, 'Загружены категории из АПИ');
   }
 
-  /**
-   * Получить категорию по ID
-   * @param {string} id
-   * @returns {Object|null}
-   */
-  getCategoryById(id) {
-    return this.getState().categoriesMap[id] || null;
-  }
-
-  /**
-   * Построение дерева категорий с вложенностью и valueIds
-   * @param {Array<Object>} items
-   * @returns {Array<Object>}
-   */
   _buildCategoryMapTree(items = []) {
     const map = new Map();
 
@@ -97,11 +76,6 @@ class CategoriesState extends StoreModule {
     return buildTreeFrom('parent');
   }
 
-  /**
-   * Преобразование дерева категорий в плоский список
-   * @param {Array<Object>} tree
-   * @returns {Array<Object>}
-   */
   _flattenCategoryTree(tree) {
     const result = [];
 
@@ -122,11 +96,6 @@ class CategoriesState extends StoreModule {
   }
 
 
-  /**
-   * Получить категорию по строковому value
-   * @param {string} value - строка, содержащая ID через запятую (например, '1,2,3')
-   * @returns {Object|null} - категория по первому ID из value
-   */
   getCategoryByValue(value) {
     if (!value) return null;
 

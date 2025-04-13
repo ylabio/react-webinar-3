@@ -6,9 +6,6 @@ import SideLayout from '../side-layout';
 import { Link } from 'react-router-dom';
 import Button from '../button';
 
-/**
- * Главная страница - первичная загрузка каталога
- */
 function AuthHeader({auth, userName, t, handleLogout}) {
   const cn = bem('AuthHeader');
 
@@ -27,10 +24,7 @@ function AuthHeader({auth, userName, t, handleLogout}) {
              <Button title={t('auth.signIn')} style="text"/>
            </Link>
          )}
-
       </div>
-
-
     </div>
   );
 }
