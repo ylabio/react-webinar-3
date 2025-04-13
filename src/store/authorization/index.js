@@ -1,4 +1,5 @@
 import StoreModule from '../module';
+import useStore from '../../hooks/use-store';
 
 class AuthState extends StoreModule {
   initState() {
@@ -71,6 +72,7 @@ class AuthState extends StoreModule {
   }
 
   async checkUser() {
+    if (localStorage.getItem('token')) {
     try {
       const res = await fetch('/api/v1/users/self?fields=*', {
         method: 'GET',
@@ -102,6 +104,13 @@ class AuthState extends StoreModule {
       }
     } catch (error) {
       console.error(this.getState());
+    }} else {
+      this.setState({
+        ...this.getState(),
+        userData: {},
+        isLogin: false,
+        error: '',
+      }, 'Токен отсутсвует checkUser');
     }
   }
 }

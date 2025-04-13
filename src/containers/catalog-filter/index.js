@@ -16,9 +16,12 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    categoryParams: state.catalog.params.category,
+    categoryList: state.catalog.categoryList,
   }));
 
   const callbacks = {
+    onCategory: useCallback(category => store.actions.catalog.setParams({ category, page: 1 }), [store]),
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({ sort }), [store]),
     // Поиск
@@ -37,12 +40,24 @@ function CatalogFilter() {
       ],
       [],
     ),
+    categories: useMemo(
+      () => [
+        { value: '', title: 'Все' },
+        ...select.categoryList.map(item => ({ value: item._id, title: item.title })),
+      ],
+      [select.categoryList],
+    ),
   };
 
   const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
+      <Select
+        options={options.categories}
+        value={select.categoryParams}
+        onChange={callbacks.onCategory}
+      />
       <Select
         options={options.sort}
         value={select.sort}
