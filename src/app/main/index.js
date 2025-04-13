@@ -39,7 +39,7 @@ function Main() {
 
   return (
     <>
-      <AuthLink t={t} />
+      <AuthLink />
       <Head
         title={t('title')}
         categoryName={select.category._id === 'all' ? null : ` / ${select.category.title}`}

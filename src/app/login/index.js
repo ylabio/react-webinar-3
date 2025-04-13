@@ -23,7 +23,7 @@ function Login() {
 
   return (
     <>
-      <AuthLink t={t} />
+      <AuthLink />
       <Head title={t('title')}>
         <LocaleSelect />
       </Head>

@@ -44,7 +44,7 @@ function Article() {
 
   return (
     <>
-      <AuthLink t={t} />
+      <AuthLink />
       <Head title={select.article.title}>
         <LocaleSelect />
       </Head>

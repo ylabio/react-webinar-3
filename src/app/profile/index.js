@@ -15,7 +15,6 @@ import PageLayout from '../../components/page-layout';
 
 function Profile() {
   const { t } = useTranslate();
-  const store = useStore();
 
   const select = useSelector(state => ({
     userData: state.user.userInfo,
@@ -24,7 +23,7 @@ function Profile() {
   useTitle(`${t('title')} / ${select.userData.name}`);
   return (
     <>
-      <AuthLink t={t} />
+      <AuthLink />
       <Head title={t('title')}>
         <LocaleSelect />
       </Head>

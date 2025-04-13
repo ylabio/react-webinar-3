@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
+import useTranslate from "../../hooks/use-translate";
 
 import { signOut } from '../../api';
 
@@ -10,7 +11,9 @@ import Button from '../button';
 
 import './style.css';
 
-function AuthLink({t=t=>t}) {
+function AuthLink() {
+  const { t } = useTranslate();
+
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -20,7 +23,7 @@ function AuthLink({t=t=>t}) {
   }));
 
   const callbacks = {
-    resetUser: useCallback((leave) => store.actions.user.resetState(leave), [store]),
+    resetUser: useCallback(() => store.actions.user.resetState(), [store]),
   };
 
   const navigateTo = useNavigate();
@@ -33,7 +36,7 @@ function AuthLink({t=t=>t}) {
     if (select.isUserLogged) {
       const res = await signOut(select.token);
       if (res.result) {
-        callbacks.resetUser(true);
+        callbacks.resetUser();
       }
     }
   };
