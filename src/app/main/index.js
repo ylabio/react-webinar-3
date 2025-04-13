@@ -8,6 +8,7 @@ import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import useSelector from '../../hooks/use-selector'
+import useInit from '../../hooks/use-init';
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -18,6 +19,15 @@ function Main() {
     category: state.catalog.params.category,
     categoryList: state.catalog.categoryList
   }))
+
+  useInit(
+      () => {
+        store.actions.catalog.initParams();
+        store.actions.catalog.loadCategoryList()
+      },
+      [],
+      true,
+    );
   
   const { t } = useTranslate();
   

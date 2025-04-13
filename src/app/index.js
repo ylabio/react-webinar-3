@@ -20,8 +20,6 @@ function App() {
 
   useInit(
     () => {
-      store.actions.catalog.initParams();
-      store.actions.catalog.loadCategoryList()
       store.actions.user.loadUserInfo();  
     },
     [],
