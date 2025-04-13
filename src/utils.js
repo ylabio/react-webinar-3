@@ -1,5 +1,3 @@
-import { DEFAULT_CATEGORY } from './constants';
-
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -36,80 +34,50 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
-/**
- * Форматирование разрядов числа
- * @returns {Array}
- * @param categories {Array}
- */
-function createCategoryTree(categories) {
-  const categoryMap = {};
-  const categoriesList = [{ ...DEFAULT_CATEGORY }];
+export function sortCategories(categories = []) {
+  const result = [];
 
-  categories.forEach(category => {
-    categoryMap[category._id] = {
-      ...category,
-      children: [],
-    };
-  });
-
-  categories.forEach(category => {
-    if (category.parent) {
-      const parentId = category.parent._id;
-      if (categoryMap[parentId]) {
-        categoryMap[parentId].children.push(categoryMap[category._id]);
+  function findCategoryChildren(parentList, child, markerRepeat) {
+    for (let parent of parentList) {
+      if (parent.parent === null) {
+        if (!result.some(e => e._id === parent._id)) {
+          result.push({ ...parent, marker: '' });
+        }
       }
-    } else {
-      categoriesList.push(categoryMap[category._id]);
-    }
-  });
-
-  return categoriesList;
-}
-
-export function createCategoryList(list) {
-  const categoryTree = createCategoryTree(list);
-
-  const newCategoryList = [];
-
-  function getCategoryArray(arr, markLen) {
-    arr.forEach(el => {
-      newCategoryList.push({ ...el, marker: '- '.repeat(markLen) });
-      if (el.children) {
-        getCategoryArray(el.children, markLen + 1);
-      } else {
-        newCategoryList.push({ ...el, marker: '- '.repeat(markLen) });
-      }
-    });
-  }
-
-  categoryTree.forEach(el => {
-    newCategoryList.push({ ...el, marker: '' });
-    getCategoryArray(el.children, 1);
-  });
-
-  return newCategoryList;
-}
-
-export function createCategoryQuery(categories, id) {
-  const categoriesIdList = [];
-
-  function findCategoryId(categoryChildren) {
-    categoryChildren.forEach(category => {
-      categoriesIdList.push(category._id);
-      if (category.children.length) {
-        findCategoryId(category.children);
-      }
-    });
-  }
-
-  for (let category of categories) {
-    if (category._id === id) {
-      categoriesIdList.push(category._id);
-      if (category.children.length) {
-        findCategoryId(category.children);
+      for (let childCategory of child) {
+        if (childCategory.parent && childCategory.parent._id === parent._id) {
+          if (!result.some(e => e._id === childCategory._id)) {
+            result.push({
+              ...childCategory,
+              marker: '- '.repeat(markerRepeat),
+            });
+            findCategoryChildren([childCategory], child, markerRepeat + 1);
+          }
+        }
       }
     }
   }
 
-  return categoriesIdList.join(',');
+  findCategoryChildren(categories, categories, 1);
+
+  return result;
+}
+
+export function createCategoryStringQuery(categories, id) {
+  const result = [id];
+
+  function findCategoryChildrenId(catId, categoriesList) {
+    for (const element of categoriesList) {
+      if (element.parent) {
+        if (element.parent._id === catId) {
+          result.push(element._id);
+          findCategoryChildrenId(element._id, categoriesList);
+        }
+      }
+    }
+  }
+
+  findCategoryChildrenId(id, categories);
+
+  return result.join(',');
 }
