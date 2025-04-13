@@ -44,10 +44,7 @@ class UserState extends StoreModule {
 
       this.setState({
         ...this.getState(),
-        data: {
-          username: json.result?.user.username,
-          token: json.result.token
-        },
+        data: json.result,
         isAuth: true,
         waiting: false
       })

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './style.css';
 
 function UserActions({ 
-  username, 
+  name, 
   isAuth = false,
   title, 
   onClick = () => {}, 
@@ -13,7 +13,7 @@ function UserActions({
   const cn = bem('UserActions');
   return (
     <div className={cn()}>
-      {isAuth && <Link  to={'/profile'}>{username}</Link>}
+      {isAuth && <Link  to={'/profile'}>{name}</Link>}
       <button className={cn('button')} onClick={onClick}>
         {title}
       </button>
@@ -22,7 +22,7 @@ function UserActions({
 }
 
 UserActions.propTypes = {
-  username: PropTypes.string,
+  name: PropTypes.string,
   isAuth: PropTypes.bool,
   onClick: PropTypes.func,
   title: PropTypes.string

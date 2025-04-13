@@ -16,7 +16,7 @@ function UserTools() {
 
   const select = useSelector(state => ({
     userAuth: state.user.isAuth,
-    username: state.user.data?.username
+    name: state.user.data?.profile?.name
   }));
 
   const callbacks = {
@@ -35,7 +35,7 @@ function UserTools() {
   return (
     <SideLayout side="end">
       <UserActions 
-        username={select.username} 
+        name={select.name} 
         isAuth={select.userAuth} 
         onClick={select.userAuth ? callbacks.onLogout : callbacks.onLogin}
         title={select.userAuth 
